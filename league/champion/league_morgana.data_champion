@@ -111,15 +111,12 @@
           "name": "league_morgana_q_bound"
         },
         {
-          "type": "RandomTarget",
-          "range": 75000,
-          "casting_target": "EnemyChampion",
-          "from_projectile": false,
+          "type": "Combine",
           "effects": [
             {
               "type": "AddCasterBuff",
               "buff_state": {
-                "name": "league_morgana_q_aim",
+                "name": "league_morgana_ai_hide",
                 "duration": {
                   "Time": {
                     "tick": 1
@@ -129,213 +126,250 @@
               "only_to_enemy": false
             },
             {
-              "type": "LinearProjectile",
-              "name": "league_morgana_q_path",
-              "penetrate": true,
-              "applied_target": "EnemyWithoutTower",
-              "applied_effects": [
-                {
-                  "casting_type": "Targeting",
-                  "effect": {
-                    "type": "SwitchByBuff",
-                    "buff_name": "league_morgana_q_bound",
-                    "effect_buff": {
-                      "type": "Combine",
-                      "effects": []
-                    },
-                    "effect_none": {
-                      "type": "Combine",
-                      "effects": [
-                        {
-                          "type": "ApAttack",
-                          "damage": 80,
-                          "attack_ratio": 60
-                        },
-                        {
-                          "type": "ViewEffect",
-                          "name": "league_morgana_q_hit"
-                        }
-                      ]
-                    }
-                  }
-                }
-              ],
-              "end_effects": [],
-              "speed": 10000,
-              "range": 80000,
-              "shape": {
-                "Circle": {
-                  "radius": 7000
-                }
-              },
-              "y_offset": 2000
-            },
-            {
-              "type": "LinearProjectile",
-              "name": "league_morgana_q_orb",
-              "penetrate": false,
-              "applied_target": "EnemyChampion",
-              "applied_effects": [
-                {
-                  "casting_type": "Targeting",
-                  "effect": {
-                    "type": "Bind",
-                    "duration": 120
-                  }
-                },
-                {
-                  "casting_type": "Targeting",
-                  "effect": {
-                    "type": "ViewEffect",
-                    "name": "league_morgana_q_bind"
-                  }
-                },
-                {
-                  "casting_type": "Targeting",
-                  "effect": {
-                    "type": "TargetSfx",
-                    "name": "league_morgana_q_hit"
-                  }
-                },
-                {
-                  "casting_type": "Targeting",
-                  "effect": {
-                    "type": "Heal",
-                    "amount": 12,
-                    "attack_ratio": 0,
-                    "ap_ratio": 9,
-                    "heal_type": "Caster"
-                  }
-                },
-                {
-                  "casting_type": "Targeting",
-                  "effect": {
-                    "type": "Delayed",
-                    "tick": 1,
+              "type": "SwitchByBuff",
+              "buff_name": "league_morgana_ai_hide",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "RandomTarget",
+                    "range": 75000,
+                    "casting_target": "EnemyChampion",
+                    "from_projectile": false,
                     "effects": [
                       {
                         "type": "AddCasterBuff",
                         "buff_state": {
-                          "name": "league_morgana_q_bound",
+                          "name": "league_morgana_q_aim",
                           "duration": {
                             "Time": {
-                              "tick": 60
+                              "tick": 1
                             }
                           }
                         },
                         "only_to_enemy": false
+                      },
+                      {
+                        "type": "LinearProjectile",
+                        "name": "league_morgana_q_path",
+                        "penetrate": true,
+                        "applied_target": "EnemyWithoutTower",
+                        "applied_effects": [
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "SwitchByBuff",
+                              "buff_name": "league_morgana_q_bound",
+                              "effect_buff": {
+                                "type": "Combine",
+                                "effects": []
+                              },
+                              "effect_none": {
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "ApAttack",
+                                    "damage": 80,
+                                    "attack_ratio": 60
+                                  },
+                                  {
+                                    "type": "ViewEffect",
+                                    "name": "league_morgana_q_hit"
+                                  }
+                                ]
+                              }
+                            }
+                          }
+                        ],
+                        "end_effects": [],
+                        "speed": 10000,
+                        "range": 80000,
+                        "shape": {
+                          "Circle": {
+                            "radius": 7000
+                          }
+                        },
+                        "y_offset": 2000
+                      },
+                      {
+                        "type": "LinearProjectile",
+                        "name": "league_morgana_q_orb",
+                        "penetrate": false,
+                        "applied_target": "EnemyChampion",
+                        "applied_effects": [
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "Bind",
+                              "duration": 120
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "ViewEffect",
+                              "name": "league_morgana_q_bind"
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "TargetSfx",
+                              "name": "league_morgana_q_hit"
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "Heal",
+                              "amount": 12,
+                              "attack_ratio": 0,
+                              "ap_ratio": 9,
+                              "heal_type": "Caster"
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "Delayed",
+                              "tick": 1,
+                              "effects": [
+                                {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_morgana_q_bound",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 60
+                                      }
+                                    }
+                                  },
+                                  "only_to_enemy": false
+                                }
+                              ]
+                            }
+                          }
+                        ],
+                        "end_effects": [
+                          {
+                            "type": "Delayed",
+                            "tick": 2,
+                            "effects": [
+                              {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_morgana_q_bound",
+                                "effect_buff": {
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "league_morgana_w_cd",
+                                  "effect_buff": {
+                                    "type": "Combine",
+                                    "effects": []
+                                  },
+                                  "effect_none": {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "AddCasterBuff",
+                                        "buff_state": {
+                                          "name": "league_morgana_w_cd",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 720
+                                            }
+                                          }
+                                        },
+                                        "only_to_enemy": false
+                                      },
+                                      {
+                                        "type": "ViewEffect",
+                                        "name": "league_morgana_w_pool"
+                                      },
+                                      {
+                                        "type": "Sfx",
+                                        "name": "league_morgana_w_cast"
+                                      },
+                                      {
+                                        "type": "RangePeriodProjectile",
+                                        "name": "league_morgana_w_zone",
+                                        "shape": {
+                                          "Circle": {
+                                            "radius": 22000
+                                          }
+                                        },
+                                        "tick": 240,
+                                        "period": 30,
+                                        "first_delay": 0,
+                                        "applied_target": "EnemyWithoutTower",
+                                        "applied_effects": [
+                                          {
+                                            "casting_type": "Targeting",
+                                            "effect": {
+                                              "type": "ApAttack",
+                                              "damage": 10,
+                                              "attack_ratio": 5
+                                            }
+                                          }
+                                        ],
+                                        "end_effects": []
+                                      },
+                                      {
+                                        "type": "RangePeriodProjectile",
+                                        "name": "league_morgana_w_siphon",
+                                        "shape": {
+                                          "Circle": {
+                                            "radius": 22000
+                                          }
+                                        },
+                                        "tick": 240,
+                                        "period": 30,
+                                        "first_delay": 0,
+                                        "applied_target": "EnemyChampion",
+                                        "applied_effects": [
+                                          {
+                                            "casting_type": "Targeting",
+                                            "effect": {
+                                              "type": "Heal",
+                                              "amount": 2,
+                                              "attack_ratio": 0,
+                                              "ap_ratio": 1,
+                                              "heal_type": "Caster"
+                                            }
+                                          }
+                                        ],
+                                        "end_effects": []
+                                      }
+                                    ]
+                                  }
+                                },
+                                "effect_none": {
+                                  "type": "Combine",
+                                  "effects": []
+                                }
+                              }
+                            ]
+                          }
+                        ],
+                        "speed": 10000,
+                        "range": 80000,
+                        "shape": {
+                          "Circle": {
+                            "radius": 7000
+                          }
+                        },
+                        "y_offset": 2000
                       }
                     ]
                   }
-                }
-              ],
-              "end_effects": [
-                {
-                  "type": "Delayed",
-                  "tick": 2,
-                  "effects": [
-                    {
-                      "type": "SwitchByBuff",
-                      "buff_name": "league_morgana_q_bound",
-                      "effect_buff": {
-                        "type": "SwitchByBuff",
-                        "buff_name": "league_morgana_w_cd",
-                        "effect_buff": {
-                          "type": "Combine",
-                          "effects": []
-                        },
-                        "effect_none": {
-                          "type": "Combine",
-                          "effects": [
-                            {
-                              "type": "AddCasterBuff",
-                              "buff_state": {
-                                "name": "league_morgana_w_cd",
-                                "duration": {
-                                  "Time": {
-                                    "tick": 720
-                                  }
-                                }
-                              },
-                              "only_to_enemy": false
-                            },
-                            {
-                              "type": "ViewEffect",
-                              "name": "league_morgana_w_pool"
-                            },
-                            {
-                              "type": "Sfx",
-                              "name": "league_morgana_w_cast"
-                            },
-                            {
-                              "type": "RangePeriodProjectile",
-                              "name": "league_morgana_w_zone",
-                              "shape": {
-                                "Circle": {
-                                  "radius": 22000
-                                }
-                              },
-                              "tick": 240,
-                              "period": 30,
-                              "first_delay": 0,
-                              "applied_target": "EnemyWithoutTower",
-                              "applied_effects": [
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "ApAttack",
-                                    "damage": 10,
-                                    "attack_ratio": 5
-                                  }
-                                }
-                              ],
-                              "end_effects": []
-                            },
-                            {
-                              "type": "RangePeriodProjectile",
-                              "name": "league_morgana_w_siphon",
-                              "shape": {
-                                "Circle": {
-                                  "radius": 22000
-                                }
-                              },
-                              "tick": 240,
-                              "period": 30,
-                              "first_delay": 0,
-                              "applied_target": "EnemyChampion",
-                              "applied_effects": [
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "Heal",
-                                    "amount": 2,
-                                    "attack_ratio": 0,
-                                    "ap_ratio": 1,
-                                    "heal_type": "Caster"
-                                  }
-                                }
-                              ],
-                              "end_effects": []
-                            }
-                          ]
-                        }
-                      },
-                      "effect_none": {
-                        "type": "Combine",
-                        "effects": []
-                      }
-                    }
-                  ]
-                }
-              ],
-              "speed": 10000,
-              "range": 80000,
-              "shape": {
-                "Circle": {
-                  "radius": 7000
-                }
+                ]
               },
-              "y_offset": 2000
+              "effect_none": {
+                "type": "Combine",
+                "effects": []
+              }
+            },
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_morgana_ai_hide"
             }
           ]
         },

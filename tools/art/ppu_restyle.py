@@ -256,7 +256,7 @@ RESTYLE = {
     # Nami after League's own clips (tools/lol/league_joints.py): only the outer outline grown a square, the face point
     # at the new head
     "morgana": dict(ppu=1.5, edge=1, face_to=(1, -34)),     # #310: framed on her face (was chin to chest)
-    "nami": dict(ppu=1.5, edge=1, face_to=(1, -43)),        # #310
+    "nami": dict(ppu=1.5, edge=1, lift_sq=-2, face_to=(1, -38)),   # #310; 90 % in game (hd.rs SIZES): 2 squares lower, the face x 0.9 about the soles
     "janna": dict(ppu=1.5, edge=1, face_to=(1, -27)),       # #309: her eyes no longer on the frame's top edge
     # Jax: the forehead of his mask, right in the hood (he looks front-right; his eyes 26 px over the soles, the hood's
     # top 32)

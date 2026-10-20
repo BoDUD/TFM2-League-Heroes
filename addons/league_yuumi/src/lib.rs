@@ -33,7 +33,7 @@ pub mod view;
 
 const ID: &str = "league_yuumi";
 /// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是 league_addons 的。
-const VERSION: &str = "0.1.0";
+const VERSION: &str = "0.1.1";
 const HERO: &str = "league_yuumi";
 /// 她身上的附身 buff（view.rs 照它把她的动作换成空白的 a_*）。
 pub const RIDING: &str = "league_yuumi_w_on";
@@ -43,6 +43,14 @@ const CAST_JUMP: usize = 30;
 const OVERLAP: usize = 1;
 /// 每多少 tick 记一行 WATCH。
 const REPORT: usize = 1800;
+/// How far behind her ally she is kept while riding (world units: two champions' radii and a little more). She used
+/// to be put on his very spot every tick and walk onto it: the engine pushed the two apart each tick, so he shook and
+/// went 1.6-1.9 times his move speed (2026-10-20 in game: 「英雄模型各种抽搐」「无限飞快的移速」 - league_yuumi.log
+/// WATCH host steps avg 1615-1993 at move speed 1040). Out of reach of each other they never collide; banished she is
+/// unseen, and the cat on his head is his own buff's picture.
+const BESIDE: f64 = 22000.0;
+/// The two nexuses (blue, red): "behind" him is toward his own.
+const NEXUS: [(f64, f64); 2] = [(96000.0, 864000.0), (864000.0, 96000.0)];
 
 /// 主包悠米的名字（buff、声音、画面都以它开头）。
 fn yu(x: &str) -> String {
@@ -229,6 +237,22 @@ fn dist(a: (u64, u64), b: (u64, u64)) -> f64 {
     (dx * dx + dy * dy).sqrt()
 }
 
+/// Her spot while riding `at` (her ally's): BESIDE toward her team's nexus, inside the map.
+pub fn beside(at: (u64, u64), team: usize) -> (u64, u64) {
+    let (nx, ny) = NEXUS[team.min(1)];
+    let (x, y) = (at.0 as f64, at.1 as f64);
+    let (dx, dy) = (nx - x, ny - y);
+    let d = (dx * dx + dy * dy).sqrt();
+    let (ux, uy) = if d < 1.0 {
+        let k = if team == 0 { -1.0 } else { 1.0 };
+        (k * std::f64::consts::FRAC_1_SQRT_2, -k * std::f64::consts::FRAC_1_SQRT_2)
+    } else {
+        (dx / d, dy / d)
+    };
+    let clamp = |v: f64| v.clamp(0.0, 960000.0).round() as u64;
+    (clamp(x + ux * BESIDE), clamp(y + uy * BESIDE))
+}
+
 fn has_buff(sim: &StableSim<'_>, id: usize, name: &str) -> bool {
     sim.get_entity(id).is_some_and(|e| (0..e.buff_count()).filter_map(|i| e.buff_at(i)).any(|b| b.name() == name))
 }
@@ -363,7 +387,9 @@ impl Bond {
         sim.entity_remove_buff(host, &yu("w_ride"));
         sim.add_buff(host, &BuffV1::named(&yu("w_ride")));
         if let Some(at) = sim.get_entity(host).map(|e| e.pos()) {
-            sim.entity_set_pos(me, at.0, at.1);
+            let team = sim.get_entity(me).map_or(0, |e| e.team());
+            let spot = beside(at, team);
+            sim.entity_set_pos(me, spot.0, spot.1);
         }
         self.banish(sim, me, tick);
         self.record(me, None);
@@ -406,7 +432,8 @@ impl Bond {
             self.detach(sim, me, "the ally died", tick);
             return;
         }
-        sim.entity_set_pos(me, at.0, at.1);
+        let spot = beside(at, team);
+        sim.entity_set_pos(me, spot.0, spot.1);
         self.ridden += 1;
         if let Some(last) = self.host_at {
             let d = dist(last, at);
@@ -604,7 +631,9 @@ impl StablePlayerAi for Ai {
             let id = me.id();
             let ride = RIDES.lock().unwrap_or_else(|e| e.into_inner()).get(&(sim_of(&sim, id), id)).copied()?;
             let at = sim.get_entity(ride.host)?.pos();
-            let stay = InputV1::move_to(at.0, at.1);
+            // stay on her spot behind him (walking onto his own spot pushed him: BESIDE)
+            let spot = beside(at, me.team());
+            let stay = InputV1::move_to(spot.0, spot.1);
             let input = match ride.cast {
                 Some(kind) => {
                     let p = params();
@@ -679,6 +708,17 @@ declare_stable_mod!(init, requires = 9);
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn beside_keeps_her_off_his_spot() {
+        for (at, team) in [((480000, 480000), 0), ((480000, 480000), 1), ((96000, 864000), 0), ((5000, 955000), 1)] {
+            let b = beside(at, team);
+            assert!(dist(at, b) > 20000.0, "{at:?} team {team}: {b:?}");
+            assert!(b.0 <= 960000 && b.1 <= 960000);
+        }
+        // toward her own nexus
+        assert!(beside((480000, 480000), 0).0 < 480000 && beside((480000, 480000), 1).0 > 480000);
+    }
 
     #[test]
     fn params_come_from_the_champion_data() {

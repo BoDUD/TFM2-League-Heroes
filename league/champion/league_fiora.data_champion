@@ -15,9 +15,9 @@
     "asset/league/icons/league_fiora_ult"
   ],
   "stat": {
-    "attack": 88,
+    "attack": 91,
     "magic_power": 0,
-    "hp": 980,
+    "hp": 1009,
     "defence": 30,
     "magic_resistance": 28,
     "move_speed": 1050,
@@ -26,9 +26,9 @@
     "crit_chance": 0
   },
   "growth": {
-    "attack": 18,
+    "attack": 19,
     "magic_power": 0,
-    "hp": 100,
+    "hp": 103,
     "defence": 8,
     "magic_resistance": 4,
     "move_speed": 10,
@@ -3009,15 +3009,12 @@
       "type": "Combine",
       "effects": [
         {
-          "type": "RandomTarget",
-          "range": 42000,
-          "casting_target": "EnemyChampion",
-          "from_projectile": false,
+          "type": "Combine",
           "effects": [
             {
               "type": "AddCasterBuff",
               "buff_state": {
-                "name": "league_fiora_q_aim",
+                "name": "league_fiora_ai_hide",
                 "duration": {
                   "Time": {
                     "tick": 1
@@ -3027,364 +3024,818 @@
               "only_to_enemy": false
             },
             {
-              "type": "Combine",
-              "effects": [
-                {
-                  "type": "Sfx",
-                  "name": "league_fiora_q_cast"
-                },
-                {
-                  "type": "CasterAnimation",
-                  "name": "skill_fx1",
-                  "tick": 24
-                },
-                {
-                  "type": "MoveToTarget",
-                  "speed": 4000,
-                  "range": 42000,
-                  "end_effects": [
-                    {
-                      "type": "TargetProjectile",
-                      "name": "league_fiora_carrier",
-                      "speed": 20000,
-                      "y_offset": 0,
-                      "applied_target": "Enemy",
-                      "applied_effects": [
-                        {
-                          "casting_type": "Targeting",
-                          "effect": {
-                            "type": "Attack",
-                            "damage": 40,
-                            "attack_ratio": 100,
-                            "hp_ratio": 0,
-                            "target_hp_ratio": 0,
-                            "attack_effect_type": "Target"
+              "type": "SwitchByBuff",
+              "buff_name": "league_fiora_ai_hide",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "RandomTarget",
+                    "range": 42000,
+                    "casting_target": "EnemyChampion",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_fiora_q_aim",
+                          "duration": {
+                            "Time": {
+                              "tick": 1
+                            }
                           }
                         },
-                        {
-                          "casting_type": "Targeting",
-                          "effect": {
-                            "type": "ViewEffect",
-                            "name": "league_fiora_q_hit"
-                          }
-                        },
-                        {
-                          "casting_type": "Targeting",
-                          "effect": {
-                            "type": "TargetSfx",
-                            "name": "league_fiora_q_hit"
-                          }
-                        }
-                      ]
-                    },
-                    {
-                      "type": "TargetProjectile",
-                      "name": "league_fiora_twin",
-                      "speed": 20000,
-                      "y_offset": 0,
-                      "applied_target": "EnemyChampion",
-                      "applied_effects": [
-                        {
-                          "casting_type": "Targeting",
-                          "effect": {
-                            "type": "SwitchByBuff",
-                            "buff_name": "league_fiora_r_on",
-                            "effect_buff": {
-                              "type": "SwitchByBuff",
-                              "buff_name": "league_fiora_r_v1",
-                              "effect_buff": {
-                                "type": "Combine",
-                                "effects": [
+                        "only_to_enemy": false
+                      },
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "Sfx",
+                            "name": "league_fiora_q_cast"
+                          },
+                          {
+                            "type": "CasterAnimation",
+                            "name": "skill_fx1",
+                            "tick": 24
+                          },
+                          {
+                            "type": "MoveToTarget",
+                            "speed": 4000,
+                            "range": 42000,
+                            "end_effects": [
+                              {
+                                "type": "TargetProjectile",
+                                "name": "league_fiora_carrier",
+                                "speed": 20000,
+                                "y_offset": 0,
+                                "applied_target": "Enemy",
+                                "applied_effects": [
                                   {
-                                    "type": "FixedAttack",
-                                    "damage": 20,
-                                    "attack_ratio": 10,
-                                    "hp_ratio": 0,
-                                    "target_hp_ratio": 4,
-                                    "attack_effect_type": "Target"
-                                  },
-                                  {
-                                    "type": "Heal",
-                                    "amount": 30,
-                                    "attack_ratio": 15,
-                                    "ap_ratio": 0,
-                                    "heal_type": "Caster"
-                                  },
-                                  {
-                                    "type": "RemoveCasterBuff",
-                                    "name": "league_fiora_v_ms1"
-                                  },
-                                  {
-                                    "type": "RemoveCasterBuff",
-                                    "name": "league_fiora_v_ms2"
-                                  },
-                                  {
-                                    "type": "AddCasterBuff",
-                                    "buff_state": {
-                                      "name": "league_fiora_v_ms1",
-                                      "duration": {
-                                        "Time": {
-                                          "tick": 90
-                                        }
-                                      },
-                                      "move_speed_mult": 30
-                                    },
-                                    "only_to_enemy": false
-                                  },
-                                  {
-                                    "type": "AddCasterBuff",
-                                    "buff_state": {
-                                      "name": "league_fiora_v_ms2",
-                                      "duration": {
-                                        "Time": {
-                                          "tick": 45
-                                        }
-                                      },
-                                      "move_speed_mult": 30
-                                    },
-                                    "only_to_enemy": false
-                                  },
-                                  {
-                                    "type": "CasterViewEffect",
-                                    "name": "league_fiora_v_ms_fx"
-                                  },
-                                  {
-                                    "type": "ViewEffect",
-                                    "name": "league_fiora_r_hit"
-                                  },
-                                  {
-                                    "type": "TargetSfx",
-                                    "name": "league_fiora_r_hit"
-                                  },
-                                  {
-                                    "type": "SwitchByBuff",
-                                    "buff_name": "league_fiora_r_v4",
-                                    "effect_buff": {
-                                      "type": "RemoveCasterBuff",
-                                      "name": "league_fiora_r_v4"
-                                    },
-                                    "effect_none": {
-                                      "type": "SwitchByBuff",
-                                      "buff_name": "league_fiora_r_v3",
-                                      "effect_buff": {
-                                        "type": "RemoveCasterBuff",
-                                        "name": "league_fiora_r_v3"
-                                      },
-                                      "effect_none": {
-                                        "type": "SwitchByBuff",
-                                        "buff_name": "league_fiora_r_v2",
-                                        "effect_buff": {
-                                          "type": "RemoveCasterBuff",
-                                          "name": "league_fiora_r_v2"
-                                        },
-                                        "effect_none": {
-                                          "type": "RemoveCasterBuff",
-                                          "name": "league_fiora_r_v1"
-                                        }
-                                      }
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "Attack",
+                                      "damage": 40,
+                                      "attack_ratio": 100,
+                                      "hp_ratio": 0,
+                                      "target_hp_ratio": 0,
+                                      "attack_effect_type": "Target"
                                     }
                                   },
                                   {
-                                    "type": "RemoveCasterBuff",
-                                    "name": "league_fiora_r_cdr"
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "ViewEffect",
+                                      "name": "league_fiora_q_hit"
+                                    }
                                   },
                                   {
-                                    "type": "AddCasterBuff",
-                                    "buff_state": {
-                                      "name": "league_fiora_r_cdr",
-                                      "duration": {
-                                        "Time": {
-                                          "tick": 3
-                                        }
-                                      },
-                                      "skill_cooldown_mult": 100,
-                                      "ult_cooldown_mult": -100
-                                    },
-                                    "only_to_enemy": false
-                                  },
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "TargetSfx",
+                                      "name": "league_fiora_q_hit"
+                                    }
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "TargetProjectile",
+                                "name": "league_fiora_twin",
+                                "speed": 20000,
+                                "y_offset": 0,
+                                "applied_target": "EnemyChampion",
+                                "applied_effects": [
                                   {
-                                    "type": "SwitchByBuff",
-                                    "buff_name": "league_fiora_r_v1",
-                                    "effect_buff": {
-                                      "type": "Combine",
-                                      "effects": [
-                                        {
-                                          "type": "AddCasterBuff",
-                                          "buff_state": {
-                                            "name": "league_fiora_r_struck",
-                                            "duration": {
-                                              "Time": {
-                                                "tick": 480
-                                              }
-                                            }
-                                          },
-                                          "only_to_enemy": false
-                                        },
-                                        {
-                                          "type": "RemoveCasterBuff",
-                                          "name": "league_fiora_r_owed"
-                                        },
-                                        {
-                                          "type": "AddCasterBuff",
-                                          "buff_state": {
-                                            "name": "league_fiora_r_owed",
-                                            "duration": {
-                                              "Time": {
-                                                "tick": 10
-                                              }
-                                            }
-                                          },
-                                          "only_to_enemy": false
-                                        }
-                                      ]
-                                    },
-                                    "effect_none": {
-                                      "type": "Combine",
-                                      "effects": [
-                                        {
-                                          "type": "RemoveCasterBuff",
-                                          "name": "league_fiora_r_on"
-                                        },
-                                        {
-                                          "type": "RemoveCasterBuff",
-                                          "name": "league_fiora_r_struck"
-                                        },
-                                        {
-                                          "type": "RemoveCasterBuff",
-                                          "name": "league_fiora_v_cd"
-                                        },
-                                        {
-                                          "type": "AddCasterBuff",
-                                          "buff_state": {
-                                            "name": "league_fiora_v_cd",
-                                            "duration": {
-                                              "Time": {
-                                                "tick": 180
-                                              }
-                                            }
-                                          },
-                                          "only_to_enemy": false
-                                        },
-                                        {
-                                          "type": "Sfx",
-                                          "name": "league_fiora_r_heal"
-                                        },
-                                        {
-                                          "type": "Delayed",
-                                          "tick": 1,
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "SwitchByBuff",
+                                      "buff_name": "league_fiora_r_on",
+                                      "effect_buff": {
+                                        "type": "SwitchByBuff",
+                                        "buff_name": "league_fiora_r_v1",
+                                        "effect_buff": {
+                                          "type": "Combine",
                                           "effects": [
+                                            {
+                                              "type": "FixedAttack",
+                                              "damage": 20,
+                                              "attack_ratio": 10,
+                                              "hp_ratio": 0,
+                                              "target_hp_ratio": 4,
+                                              "attack_effect_type": "Target"
+                                            },
+                                            {
+                                              "type": "Heal",
+                                              "amount": 30,
+                                              "attack_ratio": 15,
+                                              "ap_ratio": 0,
+                                              "heal_type": "Caster"
+                                            },
+                                            {
+                                              "type": "RemoveCasterBuff",
+                                              "name": "league_fiora_v_ms1"
+                                            },
+                                            {
+                                              "type": "RemoveCasterBuff",
+                                              "name": "league_fiora_v_ms2"
+                                            },
                                             {
                                               "type": "AddCasterBuff",
                                               "buff_state": {
-                                                "name": "league_fiora_r_won",
+                                                "name": "league_fiora_v_ms1",
                                                 "duration": {
                                                   "Time": {
-                                                    "tick": 4
+                                                    "tick": 90
+                                                  }
+                                                },
+                                                "move_speed_mult": 30
+                                              },
+                                              "only_to_enemy": false
+                                            },
+                                            {
+                                              "type": "AddCasterBuff",
+                                              "buff_state": {
+                                                "name": "league_fiora_v_ms2",
+                                                "duration": {
+                                                  "Time": {
+                                                    "tick": 45
+                                                  }
+                                                },
+                                                "move_speed_mult": 30
+                                              },
+                                              "only_to_enemy": false
+                                            },
+                                            {
+                                              "type": "CasterViewEffect",
+                                              "name": "league_fiora_v_ms_fx"
+                                            },
+                                            {
+                                              "type": "ViewEffect",
+                                              "name": "league_fiora_r_hit"
+                                            },
+                                            {
+                                              "type": "TargetSfx",
+                                              "name": "league_fiora_r_hit"
+                                            },
+                                            {
+                                              "type": "SwitchByBuff",
+                                              "buff_name": "league_fiora_r_v4",
+                                              "effect_buff": {
+                                                "type": "RemoveCasterBuff",
+                                                "name": "league_fiora_r_v4"
+                                              },
+                                              "effect_none": {
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_fiora_r_v3",
+                                                "effect_buff": {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_fiora_r_v3"
+                                                },
+                                                "effect_none": {
+                                                  "type": "SwitchByBuff",
+                                                  "buff_name": "league_fiora_r_v2",
+                                                  "effect_buff": {
+                                                    "type": "RemoveCasterBuff",
+                                                    "name": "league_fiora_r_v2"
+                                                  },
+                                                  "effect_none": {
+                                                    "type": "RemoveCasterBuff",
+                                                    "name": "league_fiora_r_v1"
+                                                  }
+                                                }
+                                              }
+                                            },
+                                            {
+                                              "type": "RemoveCasterBuff",
+                                              "name": "league_fiora_r_cdr"
+                                            },
+                                            {
+                                              "type": "AddCasterBuff",
+                                              "buff_state": {
+                                                "name": "league_fiora_r_cdr",
+                                                "duration": {
+                                                  "Time": {
+                                                    "tick": 3
+                                                  }
+                                                },
+                                                "skill_cooldown_mult": 100,
+                                                "ult_cooldown_mult": -100
+                                              },
+                                              "only_to_enemy": false
+                                            },
+                                            {
+                                              "type": "SwitchByBuff",
+                                              "buff_name": "league_fiora_r_v1",
+                                              "effect_buff": {
+                                                "type": "Combine",
+                                                "effects": [
+                                                  {
+                                                    "type": "AddCasterBuff",
+                                                    "buff_state": {
+                                                      "name": "league_fiora_r_struck",
+                                                      "duration": {
+                                                        "Time": {
+                                                          "tick": 480
+                                                        }
+                                                      }
+                                                    },
+                                                    "only_to_enemy": false
+                                                  },
+                                                  {
+                                                    "type": "RemoveCasterBuff",
+                                                    "name": "league_fiora_r_owed"
+                                                  },
+                                                  {
+                                                    "type": "AddCasterBuff",
+                                                    "buff_state": {
+                                                      "name": "league_fiora_r_owed",
+                                                      "duration": {
+                                                        "Time": {
+                                                          "tick": 10
+                                                        }
+                                                      }
+                                                    },
+                                                    "only_to_enemy": false
+                                                  }
+                                                ]
+                                              },
+                                              "effect_none": {
+                                                "type": "Combine",
+                                                "effects": [
+                                                  {
+                                                    "type": "RemoveCasterBuff",
+                                                    "name": "league_fiora_r_on"
+                                                  },
+                                                  {
+                                                    "type": "RemoveCasterBuff",
+                                                    "name": "league_fiora_r_struck"
+                                                  },
+                                                  {
+                                                    "type": "RemoveCasterBuff",
+                                                    "name": "league_fiora_v_cd"
+                                                  },
+                                                  {
+                                                    "type": "AddCasterBuff",
+                                                    "buff_state": {
+                                                      "name": "league_fiora_v_cd",
+                                                      "duration": {
+                                                        "Time": {
+                                                          "tick": 180
+                                                        }
+                                                      }
+                                                    },
+                                                    "only_to_enemy": false
+                                                  },
+                                                  {
+                                                    "type": "Sfx",
+                                                    "name": "league_fiora_r_heal"
+                                                  },
+                                                  {
+                                                    "type": "Delayed",
+                                                    "tick": 1,
+                                                    "effects": [
+                                                      {
+                                                        "type": "AddCasterBuff",
+                                                        "buff_state": {
+                                                          "name": "league_fiora_r_won",
+                                                          "duration": {
+                                                            "Time": {
+                                                              "tick": 4
+                                                            }
+                                                          }
+                                                        },
+                                                        "only_to_enemy": false
+                                                      }
+                                                    ]
+                                                  }
+                                                ]
+                                              }
+                                            }
+                                          ]
+                                        },
+                                        "effect_none": {
+                                          "type": "Combine",
+                                          "effects": []
+                                        }
+                                      },
+                                      "effect_none": {
+                                        "type": "SwitchByBuff",
+                                        "buff_name": "league_fiora_v_on",
+                                        "effect_buff": {
+                                          "type": "Combine",
+                                          "effects": [
+                                            {
+                                              "type": "FixedAttack",
+                                              "damage": 20,
+                                              "attack_ratio": 10,
+                                              "hp_ratio": 0,
+                                              "target_hp_ratio": 4,
+                                              "attack_effect_type": "Target"
+                                            },
+                                            {
+                                              "type": "Heal",
+                                              "amount": 30,
+                                              "attack_ratio": 15,
+                                              "ap_ratio": 0,
+                                              "heal_type": "Caster"
+                                            },
+                                            {
+                                              "type": "RemoveCasterBuff",
+                                              "name": "league_fiora_v_ms1"
+                                            },
+                                            {
+                                              "type": "RemoveCasterBuff",
+                                              "name": "league_fiora_v_ms2"
+                                            },
+                                            {
+                                              "type": "AddCasterBuff",
+                                              "buff_state": {
+                                                "name": "league_fiora_v_ms1",
+                                                "duration": {
+                                                  "Time": {
+                                                    "tick": 90
+                                                  }
+                                                },
+                                                "move_speed_mult": 30
+                                              },
+                                              "only_to_enemy": false
+                                            },
+                                            {
+                                              "type": "AddCasterBuff",
+                                              "buff_state": {
+                                                "name": "league_fiora_v_ms2",
+                                                "duration": {
+                                                  "Time": {
+                                                    "tick": 45
+                                                  }
+                                                },
+                                                "move_speed_mult": 30
+                                              },
+                                              "only_to_enemy": false
+                                            },
+                                            {
+                                              "type": "CasterViewEffect",
+                                              "name": "league_fiora_v_ms_fx"
+                                            },
+                                            {
+                                              "type": "ViewEffect",
+                                              "name": "league_fiora_vital_hit"
+                                            },
+                                            {
+                                              "type": "TargetSfx",
+                                              "name": "league_fiora_vital_hit"
+                                            },
+                                            {
+                                              "type": "RemoveCasterBuff",
+                                              "name": "league_fiora_v_on"
+                                            },
+                                            {
+                                              "type": "AddCasterBuff",
+                                              "buff_state": {
+                                                "name": "league_fiora_v_cd",
+                                                "duration": {
+                                                  "Time": {
+                                                    "tick": 180
                                                   }
                                                 }
                                               },
                                               "only_to_enemy": false
                                             }
                                           ]
+                                        },
+                                        "effect_none": {
+                                          "type": "SwitchByBuff",
+                                          "buff_name": "league_fiora_v_cd",
+                                          "effect_buff": {
+                                            "type": "Combine",
+                                            "effects": []
+                                          },
+                                          "effect_none": {
+                                            "type": "Combine",
+                                            "effects": [
+                                              {
+                                                "type": "AddCasterBuff",
+                                                "buff_state": {
+                                                  "name": "league_fiora_v_on",
+                                                  "duration": {
+                                                    "Time": {
+                                                      "tick": 180
+                                                    }
+                                                  }
+                                                },
+                                                "only_to_enemy": false
+                                              },
+                                              {
+                                                "type": "TargetSfx",
+                                                "name": "league_fiora_vital_ready"
+                                              },
+                                              {
+                                                "type": "Delayed",
+                                                "tick": 1,
+                                                "effects": [
+                                                  {
+                                                    "type": "AddCasterBuff",
+                                                    "buff_state": {
+                                                      "name": "league_fiora_v_alive",
+                                                      "duration": {
+                                                        "Time": {
+                                                          "tick": 2
+                                                        }
+                                                      }
+                                                    },
+                                                    "only_to_enemy": false
+                                                  }
+                                                ]
+                                              },
+                                              {
+                                                "type": "Delayed",
+                                                "tick": 2,
+                                                "effects": [
+                                                  {
+                                                    "type": "SwitchByBuff",
+                                                    "buff_name": "league_fiora_v_alive",
+                                                    "effect_buff": {
+                                                      "type": "SwitchByBuff",
+                                                      "buff_name": "league_fiora_v_on",
+                                                      "effect_buff": {
+                                                        "type": "ViewEffect",
+                                                        "name": "league_fiora_vital_mark"
+                                                      },
+                                                      "effect_none": {
+                                                        "type": "Combine",
+                                                        "effects": []
+                                                      }
+                                                    },
+                                                    "effect_none": {
+                                                      "type": "Combine",
+                                                      "effects": []
+                                                    }
+                                                  }
+                                                ]
+                                              },
+                                              {
+                                                "type": "Delayed",
+                                                "tick": 21,
+                                                "effects": [
+                                                  {
+                                                    "type": "AddCasterBuff",
+                                                    "buff_state": {
+                                                      "name": "league_fiora_v_alive",
+                                                      "duration": {
+                                                        "Time": {
+                                                          "tick": 2
+                                                        }
+                                                      }
+                                                    },
+                                                    "only_to_enemy": false
+                                                  }
+                                                ]
+                                              },
+                                              {
+                                                "type": "Delayed",
+                                                "tick": 22,
+                                                "effects": [
+                                                  {
+                                                    "type": "SwitchByBuff",
+                                                    "buff_name": "league_fiora_v_alive",
+                                                    "effect_buff": {
+                                                      "type": "SwitchByBuff",
+                                                      "buff_name": "league_fiora_v_on",
+                                                      "effect_buff": {
+                                                        "type": "ViewEffect",
+                                                        "name": "league_fiora_vital_mark"
+                                                      },
+                                                      "effect_none": {
+                                                        "type": "Combine",
+                                                        "effects": []
+                                                      }
+                                                    },
+                                                    "effect_none": {
+                                                      "type": "Combine",
+                                                      "effects": []
+                                                    }
+                                                  }
+                                                ]
+                                              },
+                                              {
+                                                "type": "Delayed",
+                                                "tick": 41,
+                                                "effects": [
+                                                  {
+                                                    "type": "AddCasterBuff",
+                                                    "buff_state": {
+                                                      "name": "league_fiora_v_alive",
+                                                      "duration": {
+                                                        "Time": {
+                                                          "tick": 2
+                                                        }
+                                                      }
+                                                    },
+                                                    "only_to_enemy": false
+                                                  }
+                                                ]
+                                              },
+                                              {
+                                                "type": "Delayed",
+                                                "tick": 42,
+                                                "effects": [
+                                                  {
+                                                    "type": "SwitchByBuff",
+                                                    "buff_name": "league_fiora_v_alive",
+                                                    "effect_buff": {
+                                                      "type": "SwitchByBuff",
+                                                      "buff_name": "league_fiora_v_on",
+                                                      "effect_buff": {
+                                                        "type": "ViewEffect",
+                                                        "name": "league_fiora_vital_mark"
+                                                      },
+                                                      "effect_none": {
+                                                        "type": "Combine",
+                                                        "effects": []
+                                                      }
+                                                    },
+                                                    "effect_none": {
+                                                      "type": "Combine",
+                                                      "effects": []
+                                                    }
+                                                  }
+                                                ]
+                                              },
+                                              {
+                                                "type": "Delayed",
+                                                "tick": 61,
+                                                "effects": [
+                                                  {
+                                                    "type": "AddCasterBuff",
+                                                    "buff_state": {
+                                                      "name": "league_fiora_v_alive",
+                                                      "duration": {
+                                                        "Time": {
+                                                          "tick": 2
+                                                        }
+                                                      }
+                                                    },
+                                                    "only_to_enemy": false
+                                                  }
+                                                ]
+                                              },
+                                              {
+                                                "type": "Delayed",
+                                                "tick": 62,
+                                                "effects": [
+                                                  {
+                                                    "type": "SwitchByBuff",
+                                                    "buff_name": "league_fiora_v_alive",
+                                                    "effect_buff": {
+                                                      "type": "SwitchByBuff",
+                                                      "buff_name": "league_fiora_v_on",
+                                                      "effect_buff": {
+                                                        "type": "ViewEffect",
+                                                        "name": "league_fiora_vital_mark"
+                                                      },
+                                                      "effect_none": {
+                                                        "type": "Combine",
+                                                        "effects": []
+                                                      }
+                                                    },
+                                                    "effect_none": {
+                                                      "type": "Combine",
+                                                      "effects": []
+                                                    }
+                                                  }
+                                                ]
+                                              },
+                                              {
+                                                "type": "Delayed",
+                                                "tick": 81,
+                                                "effects": [
+                                                  {
+                                                    "type": "AddCasterBuff",
+                                                    "buff_state": {
+                                                      "name": "league_fiora_v_alive",
+                                                      "duration": {
+                                                        "Time": {
+                                                          "tick": 2
+                                                        }
+                                                      }
+                                                    },
+                                                    "only_to_enemy": false
+                                                  }
+                                                ]
+                                              },
+                                              {
+                                                "type": "Delayed",
+                                                "tick": 82,
+                                                "effects": [
+                                                  {
+                                                    "type": "SwitchByBuff",
+                                                    "buff_name": "league_fiora_v_alive",
+                                                    "effect_buff": {
+                                                      "type": "SwitchByBuff",
+                                                      "buff_name": "league_fiora_v_on",
+                                                      "effect_buff": {
+                                                        "type": "ViewEffect",
+                                                        "name": "league_fiora_vital_mark"
+                                                      },
+                                                      "effect_none": {
+                                                        "type": "Combine",
+                                                        "effects": []
+                                                      }
+                                                    },
+                                                    "effect_none": {
+                                                      "type": "Combine",
+                                                      "effects": []
+                                                    }
+                                                  }
+                                                ]
+                                              },
+                                              {
+                                                "type": "Delayed",
+                                                "tick": 101,
+                                                "effects": [
+                                                  {
+                                                    "type": "AddCasterBuff",
+                                                    "buff_state": {
+                                                      "name": "league_fiora_v_alive",
+                                                      "duration": {
+                                                        "Time": {
+                                                          "tick": 2
+                                                        }
+                                                      }
+                                                    },
+                                                    "only_to_enemy": false
+                                                  }
+                                                ]
+                                              },
+                                              {
+                                                "type": "Delayed",
+                                                "tick": 102,
+                                                "effects": [
+                                                  {
+                                                    "type": "SwitchByBuff",
+                                                    "buff_name": "league_fiora_v_alive",
+                                                    "effect_buff": {
+                                                      "type": "SwitchByBuff",
+                                                      "buff_name": "league_fiora_v_on",
+                                                      "effect_buff": {
+                                                        "type": "ViewEffect",
+                                                        "name": "league_fiora_vital_mark"
+                                                      },
+                                                      "effect_none": {
+                                                        "type": "Combine",
+                                                        "effects": []
+                                                      }
+                                                    },
+                                                    "effect_none": {
+                                                      "type": "Combine",
+                                                      "effects": []
+                                                    }
+                                                  }
+                                                ]
+                                              },
+                                              {
+                                                "type": "Delayed",
+                                                "tick": 121,
+                                                "effects": [
+                                                  {
+                                                    "type": "AddCasterBuff",
+                                                    "buff_state": {
+                                                      "name": "league_fiora_v_alive",
+                                                      "duration": {
+                                                        "Time": {
+                                                          "tick": 2
+                                                        }
+                                                      }
+                                                    },
+                                                    "only_to_enemy": false
+                                                  }
+                                                ]
+                                              },
+                                              {
+                                                "type": "Delayed",
+                                                "tick": 122,
+                                                "effects": [
+                                                  {
+                                                    "type": "SwitchByBuff",
+                                                    "buff_name": "league_fiora_v_alive",
+                                                    "effect_buff": {
+                                                      "type": "SwitchByBuff",
+                                                      "buff_name": "league_fiora_v_on",
+                                                      "effect_buff": {
+                                                        "type": "ViewEffect",
+                                                        "name": "league_fiora_vital_mark"
+                                                      },
+                                                      "effect_none": {
+                                                        "type": "Combine",
+                                                        "effects": []
+                                                      }
+                                                    },
+                                                    "effect_none": {
+                                                      "type": "Combine",
+                                                      "effects": []
+                                                    }
+                                                  }
+                                                ]
+                                              },
+                                              {
+                                                "type": "Delayed",
+                                                "tick": 141,
+                                                "effects": [
+                                                  {
+                                                    "type": "AddCasterBuff",
+                                                    "buff_state": {
+                                                      "name": "league_fiora_v_alive",
+                                                      "duration": {
+                                                        "Time": {
+                                                          "tick": 2
+                                                        }
+                                                      }
+                                                    },
+                                                    "only_to_enemy": false
+                                                  }
+                                                ]
+                                              },
+                                              {
+                                                "type": "Delayed",
+                                                "tick": 142,
+                                                "effects": [
+                                                  {
+                                                    "type": "SwitchByBuff",
+                                                    "buff_name": "league_fiora_v_alive",
+                                                    "effect_buff": {
+                                                      "type": "SwitchByBuff",
+                                                      "buff_name": "league_fiora_v_on",
+                                                      "effect_buff": {
+                                                        "type": "ViewEffect",
+                                                        "name": "league_fiora_vital_mark"
+                                                      },
+                                                      "effect_none": {
+                                                        "type": "Combine",
+                                                        "effects": []
+                                                      }
+                                                    },
+                                                    "effect_none": {
+                                                      "type": "Combine",
+                                                      "effects": []
+                                                    }
+                                                  }
+                                                ]
+                                              },
+                                              {
+                                                "type": "Delayed",
+                                                "tick": 161,
+                                                "effects": [
+                                                  {
+                                                    "type": "AddCasterBuff",
+                                                    "buff_state": {
+                                                      "name": "league_fiora_v_alive",
+                                                      "duration": {
+                                                        "Time": {
+                                                          "tick": 2
+                                                        }
+                                                      }
+                                                    },
+                                                    "only_to_enemy": false
+                                                  }
+                                                ]
+                                              },
+                                              {
+                                                "type": "Delayed",
+                                                "tick": 162,
+                                                "effects": [
+                                                  {
+                                                    "type": "SwitchByBuff",
+                                                    "buff_name": "league_fiora_v_alive",
+                                                    "effect_buff": {
+                                                      "type": "SwitchByBuff",
+                                                      "buff_name": "league_fiora_v_on",
+                                                      "effect_buff": {
+                                                        "type": "ViewEffect",
+                                                        "name": "league_fiora_vital_mark"
+                                                      },
+                                                      "effect_none": {
+                                                        "type": "Combine",
+                                                        "effects": []
+                                                      }
+                                                    },
+                                                    "effect_none": {
+                                                      "type": "Combine",
+                                                      "effects": []
+                                                    }
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          }
                                         }
-                                      ]
+                                      }
                                     }
                                   }
                                 ]
                               },
-                              "effect_none": {
-                                "type": "Combine",
-                                "effects": []
-                              }
-                            },
-                            "effect_none": {
-                              "type": "SwitchByBuff",
-                              "buff_name": "league_fiora_v_on",
-                              "effect_buff": {
-                                "type": "Combine",
-                                "effects": [
-                                  {
-                                    "type": "FixedAttack",
-                                    "damage": 20,
-                                    "attack_ratio": 10,
-                                    "hp_ratio": 0,
-                                    "target_hp_ratio": 4,
-                                    "attack_effect_type": "Target"
-                                  },
-                                  {
-                                    "type": "Heal",
-                                    "amount": 30,
-                                    "attack_ratio": 15,
-                                    "ap_ratio": 0,
-                                    "heal_type": "Caster"
-                                  },
-                                  {
-                                    "type": "RemoveCasterBuff",
-                                    "name": "league_fiora_v_ms1"
-                                  },
-                                  {
-                                    "type": "RemoveCasterBuff",
-                                    "name": "league_fiora_v_ms2"
-                                  },
-                                  {
-                                    "type": "AddCasterBuff",
-                                    "buff_state": {
-                                      "name": "league_fiora_v_ms1",
-                                      "duration": {
-                                        "Time": {
-                                          "tick": 90
-                                        }
-                                      },
-                                      "move_speed_mult": 30
-                                    },
-                                    "only_to_enemy": false
-                                  },
-                                  {
-                                    "type": "AddCasterBuff",
-                                    "buff_state": {
-                                      "name": "league_fiora_v_ms2",
-                                      "duration": {
-                                        "Time": {
-                                          "tick": 45
-                                        }
-                                      },
-                                      "move_speed_mult": 30
-                                    },
-                                    "only_to_enemy": false
-                                  },
-                                  {
-                                    "type": "CasterViewEffect",
-                                    "name": "league_fiora_v_ms_fx"
-                                  },
-                                  {
-                                    "type": "ViewEffect",
-                                    "name": "league_fiora_vital_hit"
-                                  },
-                                  {
-                                    "type": "TargetSfx",
-                                    "name": "league_fiora_vital_hit"
-                                  },
-                                  {
-                                    "type": "RemoveCasterBuff",
-                                    "name": "league_fiora_v_on"
-                                  },
-                                  {
-                                    "type": "AddCasterBuff",
-                                    "buff_state": {
-                                      "name": "league_fiora_v_cd",
-                                      "duration": {
-                                        "Time": {
-                                          "tick": 180
-                                        }
-                                      }
-                                    },
-                                    "only_to_enemy": false
-                                  }
-                                ]
-                              },
-                              "effect_none": {
+                              {
                                 "type": "SwitchByBuff",
-                                "buff_name": "league_fiora_v_cd",
+                                "buff_name": "league_fiora_e_cd",
                                 "effect_buff": {
                                   "type": "Combine",
                                   "effects": []
@@ -3395,492 +3846,75 @@
                                     {
                                       "type": "AddCasterBuff",
                                       "buff_state": {
-                                        "name": "league_fiora_v_on",
+                                        "name": "league_fiora_e_cd",
                                         "duration": {
                                           "Time": {
-                                            "tick": 180
+                                            "tick": 480
                                           }
                                         }
                                       },
                                       "only_to_enemy": false
                                     },
                                     {
-                                      "type": "TargetSfx",
-                                      "name": "league_fiora_vital_ready"
+                                      "type": "RemoveCasterBuff",
+                                      "name": "league_fiora_e_1"
                                     },
                                     {
-                                      "type": "Delayed",
-                                      "tick": 1,
-                                      "effects": [
-                                        {
-                                          "type": "AddCasterBuff",
-                                          "buff_state": {
-                                            "name": "league_fiora_v_alive",
-                                            "duration": {
-                                              "Time": {
-                                                "tick": 2
-                                              }
-                                            }
-                                          },
-                                          "only_to_enemy": false
-                                        }
-                                      ]
+                                      "type": "RemoveCasterBuff",
+                                      "name": "league_fiora_e_2"
                                     },
                                     {
-                                      "type": "Delayed",
-                                      "tick": 2,
-                                      "effects": [
-                                        {
-                                          "type": "SwitchByBuff",
-                                          "buff_name": "league_fiora_v_alive",
-                                          "effect_buff": {
-                                            "type": "SwitchByBuff",
-                                            "buff_name": "league_fiora_v_on",
-                                            "effect_buff": {
-                                              "type": "ViewEffect",
-                                              "name": "league_fiora_vital_mark"
-                                            },
-                                            "effect_none": {
-                                              "type": "Combine",
-                                              "effects": []
-                                            }
-                                          },
-                                          "effect_none": {
-                                            "type": "Combine",
-                                            "effects": []
+                                      "type": "RemoveCasterBuff",
+                                      "name": "league_fiora_e_as"
+                                    },
+                                    {
+                                      "type": "AddCasterBuff",
+                                      "buff_state": {
+                                        "name": "league_fiora_e_1",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 240
                                           }
                                         }
-                                      ]
+                                      },
+                                      "only_to_enemy": false
                                     },
                                     {
-                                      "type": "Delayed",
-                                      "tick": 21,
-                                      "effects": [
-                                        {
-                                          "type": "AddCasterBuff",
-                                          "buff_state": {
-                                            "name": "league_fiora_v_alive",
-                                            "duration": {
-                                              "Time": {
-                                                "tick": 2
-                                              }
-                                            }
-                                          },
-                                          "only_to_enemy": false
-                                        }
-                                      ]
-                                    },
-                                    {
-                                      "type": "Delayed",
-                                      "tick": 22,
-                                      "effects": [
-                                        {
-                                          "type": "SwitchByBuff",
-                                          "buff_name": "league_fiora_v_alive",
-                                          "effect_buff": {
-                                            "type": "SwitchByBuff",
-                                            "buff_name": "league_fiora_v_on",
-                                            "effect_buff": {
-                                              "type": "ViewEffect",
-                                              "name": "league_fiora_vital_mark"
-                                            },
-                                            "effect_none": {
-                                              "type": "Combine",
-                                              "effects": []
-                                            }
-                                          },
-                                          "effect_none": {
-                                            "type": "Combine",
-                                            "effects": []
+                                      "type": "AddCasterBuff",
+                                      "buff_state": {
+                                        "name": "league_fiora_e_as",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 240
                                           }
-                                        }
-                                      ]
+                                        },
+                                        "attack_speed_mult": 50
+                                      },
+                                      "only_to_enemy": false
                                     },
                                     {
-                                      "type": "Delayed",
-                                      "tick": 41,
-                                      "effects": [
-                                        {
-                                          "type": "AddCasterBuff",
-                                          "buff_state": {
-                                            "name": "league_fiora_v_alive",
-                                            "duration": {
-                                              "Time": {
-                                                "tick": 2
-                                              }
-                                            }
-                                          },
-                                          "only_to_enemy": false
-                                        }
-                                      ]
-                                    },
-                                    {
-                                      "type": "Delayed",
-                                      "tick": 42,
-                                      "effects": [
-                                        {
-                                          "type": "SwitchByBuff",
-                                          "buff_name": "league_fiora_v_alive",
-                                          "effect_buff": {
-                                            "type": "SwitchByBuff",
-                                            "buff_name": "league_fiora_v_on",
-                                            "effect_buff": {
-                                              "type": "ViewEffect",
-                                              "name": "league_fiora_vital_mark"
-                                            },
-                                            "effect_none": {
-                                              "type": "Combine",
-                                              "effects": []
-                                            }
-                                          },
-                                          "effect_none": {
-                                            "type": "Combine",
-                                            "effects": []
-                                          }
-                                        }
-                                      ]
-                                    },
-                                    {
-                                      "type": "Delayed",
-                                      "tick": 61,
-                                      "effects": [
-                                        {
-                                          "type": "AddCasterBuff",
-                                          "buff_state": {
-                                            "name": "league_fiora_v_alive",
-                                            "duration": {
-                                              "Time": {
-                                                "tick": 2
-                                              }
-                                            }
-                                          },
-                                          "only_to_enemy": false
-                                        }
-                                      ]
-                                    },
-                                    {
-                                      "type": "Delayed",
-                                      "tick": 62,
-                                      "effects": [
-                                        {
-                                          "type": "SwitchByBuff",
-                                          "buff_name": "league_fiora_v_alive",
-                                          "effect_buff": {
-                                            "type": "SwitchByBuff",
-                                            "buff_name": "league_fiora_v_on",
-                                            "effect_buff": {
-                                              "type": "ViewEffect",
-                                              "name": "league_fiora_vital_mark"
-                                            },
-                                            "effect_none": {
-                                              "type": "Combine",
-                                              "effects": []
-                                            }
-                                          },
-                                          "effect_none": {
-                                            "type": "Combine",
-                                            "effects": []
-                                          }
-                                        }
-                                      ]
-                                    },
-                                    {
-                                      "type": "Delayed",
-                                      "tick": 81,
-                                      "effects": [
-                                        {
-                                          "type": "AddCasterBuff",
-                                          "buff_state": {
-                                            "name": "league_fiora_v_alive",
-                                            "duration": {
-                                              "Time": {
-                                                "tick": 2
-                                              }
-                                            }
-                                          },
-                                          "only_to_enemy": false
-                                        }
-                                      ]
-                                    },
-                                    {
-                                      "type": "Delayed",
-                                      "tick": 82,
-                                      "effects": [
-                                        {
-                                          "type": "SwitchByBuff",
-                                          "buff_name": "league_fiora_v_alive",
-                                          "effect_buff": {
-                                            "type": "SwitchByBuff",
-                                            "buff_name": "league_fiora_v_on",
-                                            "effect_buff": {
-                                              "type": "ViewEffect",
-                                              "name": "league_fiora_vital_mark"
-                                            },
-                                            "effect_none": {
-                                              "type": "Combine",
-                                              "effects": []
-                                            }
-                                          },
-                                          "effect_none": {
-                                            "type": "Combine",
-                                            "effects": []
-                                          }
-                                        }
-                                      ]
-                                    },
-                                    {
-                                      "type": "Delayed",
-                                      "tick": 101,
-                                      "effects": [
-                                        {
-                                          "type": "AddCasterBuff",
-                                          "buff_state": {
-                                            "name": "league_fiora_v_alive",
-                                            "duration": {
-                                              "Time": {
-                                                "tick": 2
-                                              }
-                                            }
-                                          },
-                                          "only_to_enemy": false
-                                        }
-                                      ]
-                                    },
-                                    {
-                                      "type": "Delayed",
-                                      "tick": 102,
-                                      "effects": [
-                                        {
-                                          "type": "SwitchByBuff",
-                                          "buff_name": "league_fiora_v_alive",
-                                          "effect_buff": {
-                                            "type": "SwitchByBuff",
-                                            "buff_name": "league_fiora_v_on",
-                                            "effect_buff": {
-                                              "type": "ViewEffect",
-                                              "name": "league_fiora_vital_mark"
-                                            },
-                                            "effect_none": {
-                                              "type": "Combine",
-                                              "effects": []
-                                            }
-                                          },
-                                          "effect_none": {
-                                            "type": "Combine",
-                                            "effects": []
-                                          }
-                                        }
-                                      ]
-                                    },
-                                    {
-                                      "type": "Delayed",
-                                      "tick": 121,
-                                      "effects": [
-                                        {
-                                          "type": "AddCasterBuff",
-                                          "buff_state": {
-                                            "name": "league_fiora_v_alive",
-                                            "duration": {
-                                              "Time": {
-                                                "tick": 2
-                                              }
-                                            }
-                                          },
-                                          "only_to_enemy": false
-                                        }
-                                      ]
-                                    },
-                                    {
-                                      "type": "Delayed",
-                                      "tick": 122,
-                                      "effects": [
-                                        {
-                                          "type": "SwitchByBuff",
-                                          "buff_name": "league_fiora_v_alive",
-                                          "effect_buff": {
-                                            "type": "SwitchByBuff",
-                                            "buff_name": "league_fiora_v_on",
-                                            "effect_buff": {
-                                              "type": "ViewEffect",
-                                              "name": "league_fiora_vital_mark"
-                                            },
-                                            "effect_none": {
-                                              "type": "Combine",
-                                              "effects": []
-                                            }
-                                          },
-                                          "effect_none": {
-                                            "type": "Combine",
-                                            "effects": []
-                                          }
-                                        }
-                                      ]
-                                    },
-                                    {
-                                      "type": "Delayed",
-                                      "tick": 141,
-                                      "effects": [
-                                        {
-                                          "type": "AddCasterBuff",
-                                          "buff_state": {
-                                            "name": "league_fiora_v_alive",
-                                            "duration": {
-                                              "Time": {
-                                                "tick": 2
-                                              }
-                                            }
-                                          },
-                                          "only_to_enemy": false
-                                        }
-                                      ]
-                                    },
-                                    {
-                                      "type": "Delayed",
-                                      "tick": 142,
-                                      "effects": [
-                                        {
-                                          "type": "SwitchByBuff",
-                                          "buff_name": "league_fiora_v_alive",
-                                          "effect_buff": {
-                                            "type": "SwitchByBuff",
-                                            "buff_name": "league_fiora_v_on",
-                                            "effect_buff": {
-                                              "type": "ViewEffect",
-                                              "name": "league_fiora_vital_mark"
-                                            },
-                                            "effect_none": {
-                                              "type": "Combine",
-                                              "effects": []
-                                            }
-                                          },
-                                          "effect_none": {
-                                            "type": "Combine",
-                                            "effects": []
-                                          }
-                                        }
-                                      ]
-                                    },
-                                    {
-                                      "type": "Delayed",
-                                      "tick": 161,
-                                      "effects": [
-                                        {
-                                          "type": "AddCasterBuff",
-                                          "buff_state": {
-                                            "name": "league_fiora_v_alive",
-                                            "duration": {
-                                              "Time": {
-                                                "tick": 2
-                                              }
-                                            }
-                                          },
-                                          "only_to_enemy": false
-                                        }
-                                      ]
-                                    },
-                                    {
-                                      "type": "Delayed",
-                                      "tick": 162,
-                                      "effects": [
-                                        {
-                                          "type": "SwitchByBuff",
-                                          "buff_name": "league_fiora_v_alive",
-                                          "effect_buff": {
-                                            "type": "SwitchByBuff",
-                                            "buff_name": "league_fiora_v_on",
-                                            "effect_buff": {
-                                              "type": "ViewEffect",
-                                              "name": "league_fiora_vital_mark"
-                                            },
-                                            "effect_none": {
-                                              "type": "Combine",
-                                              "effects": []
-                                            }
-                                          },
-                                          "effect_none": {
-                                            "type": "Combine",
-                                            "effects": []
-                                          }
-                                        }
-                                      ]
+                                      "type": "Sfx",
+                                      "name": "league_fiora_e_cast"
                                     }
                                   ]
                                 }
                               }
-                            }
-                          }
-                        }
-                      ]
-                    },
-                    {
-                      "type": "SwitchByBuff",
-                      "buff_name": "league_fiora_e_cd",
-                      "effect_buff": {
-                        "type": "Combine",
-                        "effects": []
-                      },
-                      "effect_none": {
-                        "type": "Combine",
-                        "effects": [
-                          {
-                            "type": "AddCasterBuff",
-                            "buff_state": {
-                              "name": "league_fiora_e_cd",
-                              "duration": {
-                                "Time": {
-                                  "tick": 480
-                                }
-                              }
-                            },
-                            "only_to_enemy": false
-                          },
-                          {
-                            "type": "RemoveCasterBuff",
-                            "name": "league_fiora_e_1"
-                          },
-                          {
-                            "type": "RemoveCasterBuff",
-                            "name": "league_fiora_e_2"
-                          },
-                          {
-                            "type": "RemoveCasterBuff",
-                            "name": "league_fiora_e_as"
-                          },
-                          {
-                            "type": "AddCasterBuff",
-                            "buff_state": {
-                              "name": "league_fiora_e_1",
-                              "duration": {
-                                "Time": {
-                                  "tick": 240
-                                }
-                              }
-                            },
-                            "only_to_enemy": false
-                          },
-                          {
-                            "type": "AddCasterBuff",
-                            "buff_state": {
-                              "name": "league_fiora_e_as",
-                              "duration": {
-                                "Time": {
-                                  "tick": 240
-                                }
-                              },
-                              "attack_speed_mult": 50
-                            },
-                            "only_to_enemy": false
-                          },
-                          {
-                            "type": "Sfx",
-                            "name": "league_fiora_e_cast"
+                            ]
                           }
                         ]
                       }
-                    }
-                  ]
-                }
-              ]
+                    ]
+                  }
+                ]
+              },
+              "effect_none": {
+                "type": "Combine",
+                "effects": []
+              }
+            },
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_fiora_ai_hide"
             }
           ]
         },

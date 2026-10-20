@@ -302,7 +302,7 @@
                                                         "name": "league_ziggs_r_blast",
                                                         "shape": {
                                                           "Circle": {
-                                                            "radius": 40000
+                                                            "radius": 55000
                                                           }
                                                         },
                                                         "delay": 1,
@@ -340,7 +340,7 @@
                                                         "name": "league_ziggs_r_core",
                                                         "shape": {
                                                           "Circle": {
-                                                            "radius": 18000
+                                                            "radius": 25000
                                                           }
                                                         },
                                                         "delay": 1,
@@ -598,7 +598,7 @@
                                                                 "name": "league_ziggs_r_blast",
                                                                 "shape": {
                                                                   "Circle": {
-                                                                    "radius": 40000
+                                                                    "radius": 55000
                                                                   }
                                                                 },
                                                                 "delay": 1,
@@ -636,7 +636,7 @@
                                                                 "name": "league_ziggs_r_core",
                                                                 "shape": {
                                                                   "Circle": {
-                                                                    "radius": 18000
+                                                                    "radius": 25000
                                                                   }
                                                                 },
                                                                 "delay": 1,
@@ -3528,7 +3528,7 @@
                                                         "name": "league_ziggs_r_blast",
                                                         "shape": {
                                                           "Circle": {
-                                                            "radius": 40000
+                                                            "radius": 55000
                                                           }
                                                         },
                                                         "delay": 1,
@@ -3566,7 +3566,7 @@
                                                         "name": "league_ziggs_r_core",
                                                         "shape": {
                                                           "Circle": {
-                                                            "radius": 18000
+                                                            "radius": 25000
                                                           }
                                                         },
                                                         "delay": 1,
@@ -3824,7 +3824,7 @@
                                                                 "name": "league_ziggs_r_blast",
                                                                 "shape": {
                                                                   "Circle": {
-                                                                    "radius": 40000
+                                                                    "radius": 55000
                                                                   }
                                                                 },
                                                                 "delay": 1,
@@ -3862,7 +3862,7 @@
                                                                 "name": "league_ziggs_r_core",
                                                                 "shape": {
                                                                   "Circle": {
-                                                                    "radius": 18000
+                                                                    "radius": 25000
                                                                   }
                                                                 },
                                                                 "delay": 1,

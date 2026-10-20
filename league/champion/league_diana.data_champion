@@ -244,15 +244,12 @@
           ]
         },
         {
-          "type": "RandomTarget",
-          "range": 55000,
-          "casting_target": "EnemyChampion",
-          "from_projectile": false,
+          "type": "Combine",
           "effects": [
             {
               "type": "AddCasterBuff",
               "buff_state": {
-                "name": "league_diana_q_aim",
+                "name": "league_diana_ai_hide",
                 "duration": {
                   "Time": {
                     "tick": 1
@@ -262,95 +259,132 @@
               "only_to_enemy": false
             },
             {
-              "type": "LinearProjectile",
-              "name": "league_diana_q_bolt",
-              "speed": 6000,
-              "range": 65000,
-              "penetrate": true,
-              "shape": {
-                "Circle": {
-                  "radius": 12000
-                }
-              },
-              "y_offset": 0,
-              "applied_target": "EnemyWithoutTower",
-              "applied_effects": [
-                {
-                  "casting_type": "Targeting",
-                  "effect": {
-                    "type": "Combine",
+              "type": "SwitchByBuff",
+              "buff_name": "league_diana_ai_hide",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "RandomTarget",
+                    "range": 55000,
+                    "casting_target": "EnemyChampion",
+                    "from_projectile": false,
                     "effects": [
-                      {
-                        "type": "ApAttack",
-                        "damage": 100,
-                        "attack_ratio": 90,
-                        "attack_effect_type": "Target"
-                      },
-                      {
-                        "type": "AddBuff",
-                        "buff_state": {
-                          "name": "league_diana_moon_mark",
-                          "duration": {
-                            "Time": {
-                              "tick": 180
-                            }
-                          }
-                        }
-                      },
-                      {
-                        "type": "RemoveCasterBuff",
-                        "name": "league_diana_moonlight"
-                      },
                       {
                         "type": "AddCasterBuff",
                         "buff_state": {
-                          "name": "league_diana_moonlight",
+                          "name": "league_diana_q_aim",
                           "duration": {
                             "Time": {
-                              "tick": 180
+                              "tick": 1
                             }
                           }
                         },
                         "only_to_enemy": false
                       },
                       {
-                        "type": "ViewEffect",
-                        "name": "league_diana_q_hit"
-                      },
-                      {
-                        "type": "SwitchByBuff",
-                        "buff_name": "league_diana_q_snd",
-                        "effect_buff": {
-                          "type": "Combine",
-                          "effects": []
+                        "type": "LinearProjectile",
+                        "name": "league_diana_q_bolt",
+                        "speed": 6000,
+                        "range": 65000,
+                        "penetrate": true,
+                        "shape": {
+                          "Circle": {
+                            "radius": 12000
+                          }
                         },
-                        "effect_none": {
-                          "type": "Combine",
-                          "effects": [
-                            {
-                              "type": "AddCasterBuff",
-                              "buff_state": {
-                                "name": "league_diana_q_snd",
-                                "duration": {
-                                  "Time": {
-                                    "tick": 20
+                        "y_offset": 0,
+                        "applied_target": "EnemyWithoutTower",
+                        "applied_effects": [
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "ApAttack",
+                                  "damage": 100,
+                                  "attack_ratio": 90,
+                                  "attack_effect_type": "Target"
+                                },
+                                {
+                                  "type": "AddBuff",
+                                  "buff_state": {
+                                    "name": "league_diana_moon_mark",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 180
+                                      }
+                                    }
+                                  }
+                                },
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_diana_moonlight"
+                                },
+                                {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_diana_moonlight",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 180
+                                      }
+                                    }
+                                  },
+                                  "only_to_enemy": false
+                                },
+                                {
+                                  "type": "ViewEffect",
+                                  "name": "league_diana_q_hit"
+                                },
+                                {
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "league_diana_q_snd",
+                                  "effect_buff": {
+                                    "type": "Combine",
+                                    "effects": []
+                                  },
+                                  "effect_none": {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "AddCasterBuff",
+                                        "buff_state": {
+                                          "name": "league_diana_q_snd",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 20
+                                            }
+                                          }
+                                        },
+                                        "only_to_enemy": false
+                                      },
+                                      {
+                                        "type": "TargetSfx",
+                                        "name": "league_diana_q_hit"
+                                      }
+                                    ]
                                   }
                                 }
-                              },
-                              "only_to_enemy": false
-                            },
-                            {
-                              "type": "TargetSfx",
-                              "name": "league_diana_q_hit"
+                              ]
                             }
-                          ]
-                        }
+                          }
+                        ],
+                        "end_effects": []
                       }
                     ]
                   }
-                }
-              ],
-              "end_effects": []
+                ]
+              },
+              "effect_none": {
+                "type": "Combine",
+                "effects": []
+              }
+            },
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_diana_ai_hide"
             }
           ]
         },
@@ -3538,15 +3572,12 @@
                             "name": "league_diana_e_reset"
                           },
                           {
-                            "type": "RandomTarget",
-                            "range": 45000,
-                            "casting_target": "EnemyChampion",
-                            "from_projectile": false,
+                            "type": "Combine",
                             "effects": [
                               {
                                 "type": "AddCasterBuff",
                                 "buff_state": {
-                                  "name": "league_diana_e2_aim",
+                                  "name": "league_diana_ai_hide",
                                   "duration": {
                                     "Time": {
                                       "tick": 1
@@ -3556,58 +3587,95 @@
                                 "only_to_enemy": false
                               },
                               {
-                                "type": "CasterAnimation",
-                                "name": "skill2",
-                                "tick": 23
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_diana_ai_hide",
+                                "effect_buff": {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "RandomTarget",
+                                      "range": 45000,
+                                      "casting_target": "EnemyChampion",
+                                      "from_projectile": false,
+                                      "effects": [
+                                        {
+                                          "type": "AddCasterBuff",
+                                          "buff_state": {
+                                            "name": "league_diana_e2_aim",
+                                            "duration": {
+                                              "Time": {
+                                                "tick": 1
+                                              }
+                                            }
+                                          },
+                                          "only_to_enemy": false
+                                        },
+                                        {
+                                          "type": "CasterAnimation",
+                                          "name": "skill2",
+                                          "tick": 23
+                                        },
+                                        {
+                                          "type": "MoveToTarget",
+                                          "speed": 4000,
+                                          "range": 90000,
+                                          "end_effects": [
+                                            {
+                                              "type": "ApAttack",
+                                              "damage": 80,
+                                              "attack_ratio": 70,
+                                              "attack_effect_type": "Target"
+                                            },
+                                            {
+                                              "type": "ViewEffect",
+                                              "name": "league_diana_e_hit"
+                                            },
+                                            {
+                                              "type": "TargetSfx",
+                                              "name": "league_diana_e_hit"
+                                            },
+                                            {
+                                              "type": "RangeEffect",
+                                              "shape": {
+                                                "Circle": {
+                                                  "radius": 25000
+                                                }
+                                              },
+                                              "target": "EnemyChampion",
+                                              "apply_type": "AroundCaster",
+                                              "effects": [
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_diana_e_combo"
+                                                },
+                                                {
+                                                  "type": "AddCasterBuff",
+                                                  "buff_state": {
+                                                    "name": "league_diana_e_combo",
+                                                    "duration": {
+                                                      "Time": {
+                                                        "tick": 90
+                                                      }
+                                                    }
+                                                  },
+                                                  "only_to_enemy": false
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                "effect_none": {
+                                  "type": "Combine",
+                                  "effects": []
+                                }
                               },
                               {
-                                "type": "MoveToTarget",
-                                "speed": 4000,
-                                "range": 90000,
-                                "end_effects": [
-                                  {
-                                    "type": "ApAttack",
-                                    "damage": 80,
-                                    "attack_ratio": 70,
-                                    "attack_effect_type": "Target"
-                                  },
-                                  {
-                                    "type": "ViewEffect",
-                                    "name": "league_diana_e_hit"
-                                  },
-                                  {
-                                    "type": "TargetSfx",
-                                    "name": "league_diana_e_hit"
-                                  },
-                                  {
-                                    "type": "RangeEffect",
-                                    "shape": {
-                                      "Circle": {
-                                        "radius": 25000
-                                      }
-                                    },
-                                    "target": "EnemyChampion",
-                                    "apply_type": "AroundCaster",
-                                    "effects": [
-                                      {
-                                        "type": "RemoveCasterBuff",
-                                        "name": "league_diana_e_combo"
-                                      },
-                                      {
-                                        "type": "AddCasterBuff",
-                                        "buff_state": {
-                                          "name": "league_diana_e_combo",
-                                          "duration": {
-                                            "Time": {
-                                              "tick": 90
-                                            }
-                                          }
-                                        },
-                                        "only_to_enemy": false
-                                      }
-                                    ]
-                                  }
-                                ]
+                                "type": "RemoveCasterBuff",
+                                "name": "league_diana_ai_hide"
                               }
                             ]
                           },

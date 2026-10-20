@@ -62,19 +62,21 @@ BIG = "asset/league/effects/league_zed_big"
 
 # Timings (provisional until the strips exist): the swing's hit on tick 9, Shadow Slash's ring on 8 (skill_e), the
 # shuriken leaves on 10 (skill2), the shadow thrown on 4 (skill), the R dash from 6 (ult).
+# 2026-10-20 the user: 「劫在游戏里太弱」 (mid against pyromancer .. white_mage, 8 seeds: +1.13 as he was): attack
+# 125 -> 135, Q 60 -> 75, E 50 -> 65, R 80 -> 110, health 920 -> 980: +1.54 (attack 140 and all of it more: +2.60).
 P = {
     # stats (Assassin base: attack 120 +30, hp 900 +80, defence 25, mr 15, move 1100, range 23000); League's Zed:
     # 654 +99 hp, 63 AD +3.4, 32 armour, 345 move, 125 range
-    "hp": 920, "hp_g": 86, "atk": 125, "atk_g": 26, "def": 26, "def_g": 8, "mr": 18, "mr_g": 4, "ms": 1100, "ms_g": 13,
+    "hp": 980, "hp_g": 86, "atk": 135, "atk_g": 26, "def": 26, "def_g": 8, "mr": 18, "mr_g": 4, "ms": 1100, "ms_g": 13,
     # attack: the wrist blades
     "atk_range": 23000, "atk_dur": 25, "atk_cd": 55, "a_st": 9,
     # passive: Contempt for the Weak (League: 6-10% max health magic, 10 s per target)
     "cw_t": 240, "cw_pct": 6, "cw_cd": 600,
     # E Shadow Slash (League: 290 radius, 70-190 + 65% bonus AD, 20-40% slow 1.5 s, cd 5-4 s)
-    "e_cd": 240, "e_dur": 24, "e_at": 8, "e_r": 24000, "e_dmg": 50, "e_ratio": 75, "e_slow": 25, "e_slow_t": 90,
+    "e_cd": 240, "e_dur": 24, "e_at": 8, "e_r": 24000, "e_dmg": 65, "e_ratio": 75, "e_slow": 25, "e_slow_t": 90,
     # Q Razor Shuriken (League: 900 range, 1700 speed, 80-280 + 110% bonus AD, 60% to the next, cd 6 s)
     "q_cd": 240, "q_dur": 26, "q_at": 10, "q_lock": 6, "q_range": 55000, "q_len": 70000, "q_speed": 10000, "q_rad": 5500,
-    "q_y": 3000, "q_dmg": 60, "q_ratio": 100, "q_pen": 60,
+    "q_y": 3000, "q_dmg": 75, "q_ratio": 100, "q_pen": 60,
     # W Living Shadow (League: 650 range, 5.25 s, cd 20-16 s)
     "w_cd": 720, "w_dur": 6, "w_at": 3, "w_fly": 4, "c_e": 8, "w_range": 55000, "w_life": 300, "swap_step": 45, "chase_t": 90,
     # every later Q / E he casts while a shadow stands is copied at its next checkpoint: the W shadow's every echo_step
@@ -83,7 +85,7 @@ P = {
     "echo_step": 12, "r_echo_step": 6,
     "sh_near_r": 25000, "near_r": 30000,
     # R Death Mark (League: 625 range, 3 s mark, 25-55% of the damage dealt, cd 120-80 s; shadow 6 s)
-    "r_cd": 3000, "r_dur": 24, "r_go": 6, "r_speed": 6000, "r_range": 60000, "r_pop": 180, "r_dmg": 80, "r_ratio": 100,
+    "r_cd": 3000, "r_dur": 24, "r_go": 6, "r_speed": 6000, "r_range": 60000, "r_pop": 180, "r_dmg": 110, "r_ratio": 100,
     "r_per": 35, "r_inv": 24, "r_life": 360, "r_safe_r": 40000,
     # his spoken lines, at most one every vo_gap ticks
     "vo_gap": 600,

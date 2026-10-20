@@ -2,35 +2,35 @@
   "zh-hans": {
     "description": {
       "league_mel_addon": {
-        "attack": "【附加包】射出金色光弹。<#ff9028ff>灼灼之光<>：放技能后下次普攻多射3枚光弹（最多9枚）；打中英雄叠<#ff9028ff>夺命残影<>，残影的伤害够了直接处决。<#ff9028ff>灵魂折镜<>：敌方弹体飞来时张开屏障<#ffb900ff>1.25秒<>（冷却<#ffb900ff>25秒<>），免伤100%，把弹体反弹回去造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>魔法伤害。"
+        "attack": "【附加包】射出金色光弹。<#ff9028ff>灼灼之光<>：放技能后下次普攻多射3枚光弹（最多9枚）；打中英雄叠<#ff9028ff>夺命残影<>，残影的伤害够了直接处决。<#ff9028ff>灵魂折镜<>：敌方弹体飞来时张开屏障<#ffb900ff>1.25秒<>（冷却<#ffb900ff>25秒<>），免伤50%，把弹体反弹回去造成<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<>魔法伤害。"
       }
     }
   },
   "zh-hant": {
     "description": {
       "league_mel_addon": {
-        "attack": "【附加包】射出金色光彈。<#ff9028ff>炙灼耀輝<>：施放技能後下次普攻多射3發射彈（最多9發）；打中英雄疊<#ff9028ff>奪目<>，傷害足夠便直接處決。<#ff9028ff>叱返金身<>：敵方射彈飛來時張開屏障<#ffb900ff>1.25秒<>（冷卻<#ffb900ff>25秒<>），免傷100%，把射彈反彈回去造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>魔法傷害。"
+        "attack": "【附加包】射出金色光彈。<#ff9028ff>炙灼耀輝<>：施放技能後下次普攻多射3發射彈（最多9發）；打中英雄疊<#ff9028ff>奪目<>，傷害足夠便直接處決。<#ff9028ff>叱返金身<>：敵方射彈飛來時張開屏障<#ffb900ff>1.25秒<>（冷卻<#ffb900ff>25秒<>），免傷50%，把射彈反彈回去造成<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<>魔法傷害。"
       }
     }
   },
   "en": {
     "description": {
       "league_mel_addon": {
-        "attack": "[Add-on] A golden bolt. <#ff9028ff>Searing Brilliance<>: each ability adds 3 bolts to her next attack (up to 9); champion hits apply <#ff9028ff>Overwhelm<>, executing once it is worth their health. <#ff9028ff>Rebuttal<>: an enemy projectile flying at her raises a barrier for <#ffb900ff>1.25s<> (every <#ffb900ff>25s<>): 100% less damage, projectiles returned for <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<> magic damage."
+        "attack": "[Add-on] A golden bolt. <#ff9028ff>Searing Brilliance<>: each ability adds 3 bolts to her next attack (up to 9); champion hits apply <#ff9028ff>Overwhelm<>, executing once it is worth their health. <#ff9028ff>Rebuttal<>: an enemy projectile flying at her raises a barrier for <#ffb900ff>1.25s<> (every <#ffb900ff>25s<>): 50% less damage, projectiles returned for <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<> magic damage."
       }
     }
   },
   "ko": {
     "description": {
       "league_mel_addon": {
-        "attack": "[애드온] 황금 투사체 발사. <#ff9028ff>이글거리는 광휘<>: 스킬 후 다음 기본 공격에 투사체 3개 추가(최대 9개); 챔피언 적중 시 <#ff9028ff>압도<>, 피해가 충분하면 처형. <#ff9028ff>반박<>: 적 투사체가 날아오면 <#ffb900ff>1.25초<> 보호막(<#ffb900ff>25초<>마다), 피해 100% 감소, 투사체를 되돌려 <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<> 마법 피해."
+        "attack": "[애드온] 황금 투사체 발사. <#ff9028ff>이글거리는 광휘<>: 스킬 후 다음 기본 공격에 투사체 3개 추가(최대 9개); 챔피언 적중 시 <#ff9028ff>압도<>, 피해가 충분하면 처형. <#ff9028ff>반박<>: 적 투사체가 날아오면 <#ffb900ff>1.25초<> 보호막(<#ffb900ff>25초<>마다), 피해 50% 감소, 투사체를 되돌려 <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<> 마법 피해."
       }
     }
   },
   "ja": {
     "description": {
       "league_mel_addon": {
-        "attack": "【アドオン】黄金の弾を放つ。<#ff9028ff>灼熱の輝き<>：スキル後の通常攻撃で弾が3発増える（最大9発）。チャンピオンに当たると<#ff9028ff>圧倒<>、ダメージが足りればとどめ。<#ff9028ff>反駁<>：敵の飛翔物が来ると<#ffb900ff>1.25秒<>障壁（<#ffb900ff>25秒<>ごと）、被ダメージ100%減、跳ね返して<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>の魔法ダメージ。"
+        "attack": "【アドオン】黄金の弾を放つ。<#ff9028ff>灼熱の輝き<>：スキル後の通常攻撃で弾が3発増える（最大9発）。チャンピオンに当たると<#ff9028ff>圧倒<>、ダメージが足りればとどめ。<#ff9028ff>反駁<>：敵の飛翔物が来ると<#ffb900ff>1.25秒<>障壁（<#ffb900ff>25秒<>ごと）、被ダメージ50%減、跳ね返して<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<>の魔法ダメージ。"
       }
     }
   }

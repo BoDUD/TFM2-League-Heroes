@@ -544,15 +544,12 @@
                         ]
                       },
                       {
-                        "type": "RandomTarget",
-                        "range": 130000,
-                        "casting_target": "EnemyChampion",
-                        "from_projectile": false,
+                        "type": "Combine",
                         "effects": [
                           {
                             "type": "AddCasterBuff",
                             "buff_state": {
-                              "name": "league_varus_q_go_f",
+                              "name": "league_varus_ai_hide",
                               "duration": {
                                 "Time": {
                                   "tick": 1
@@ -562,434 +559,471 @@
                             "only_to_enemy": false
                           },
                           {
-                            "type": "Combine",
-                            "effects": [
-                              {
-                                "type": "RemoveCasterBuff",
-                                "name": "league_varus_qh1"
-                              },
-                              {
-                                "type": "RemoveCasterBuff",
-                                "name": "league_varus_qh2"
-                              },
-                              {
-                                "type": "LinearProjectile",
-                                "name": "league_varus_q_arrow",
-                                "penetrate": true,
-                                "applied_target": "EnemyWithoutTower",
-                                "applied_effects": [
-                                  {
-                                    "casting_type": "Targeting",
-                                    "effect": {
-                                      "type": "SwitchByBuff",
-                                      "buff_name": "league_varus_qh2",
-                                      "effect_buff": {
-                                        "type": "Attack",
-                                        "damage": 66,
-                                        "attack_ratio": 78,
-                                        "hp_ratio": 0,
-                                        "target_hp_ratio": 0,
-                                        "attack_effect_type": "Target"
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_varus_ai_hide",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "RandomTarget",
+                                  "range": 130000,
+                                  "casting_target": "EnemyChampion",
+                                  "from_projectile": false,
+                                  "effects": [
+                                    {
+                                      "type": "AddCasterBuff",
+                                      "buff_state": {
+                                        "name": "league_varus_q_go_f",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 1
+                                          }
+                                        }
                                       },
-                                      "effect_none": {
-                                        "type": "SwitchByBuff",
-                                        "buff_name": "league_varus_qh1",
-                                        "effect_buff": {
-                                          "type": "Combine",
-                                          "effects": [
-                                            {
-                                              "type": "Attack",
-                                              "damage": 88,
-                                              "attack_ratio": 104,
-                                              "hp_ratio": 0,
-                                              "target_hp_ratio": 0,
-                                              "attack_effect_type": "Target"
-                                            },
-                                            {
-                                              "type": "RemoveCasterBuff",
-                                              "name": "league_varus_qh1"
-                                            },
-                                            {
-                                              "type": "AddCasterBuff",
-                                              "buff_state": {
-                                                "name": "league_varus_qh2",
-                                                "duration": {
-                                                  "Time": {
-                                                    "tick": 40
-                                                  }
-                                                }
-                                              },
-                                              "only_to_enemy": false
-                                            }
-                                          ]
-                                        },
-                                        "effect_none": {
-                                          "type": "Combine",
-                                          "effects": [
-                                            {
-                                              "type": "Attack",
-                                              "damage": 110,
-                                              "attack_ratio": 130,
-                                              "hp_ratio": 0,
-                                              "target_hp_ratio": 0,
-                                              "attack_effect_type": "Target"
-                                            },
-                                            {
-                                              "type": "AddCasterBuff",
-                                              "buff_state": {
-                                                "name": "league_varus_qh1",
-                                                "duration": {
-                                                  "Time": {
-                                                    "tick": 40
-                                                  }
-                                                }
-                                              },
-                                              "only_to_enemy": false
-                                            }
-                                          ]
-                                        }
-                                      }
-                                    }
-                                  },
-                                  {
-                                    "casting_type": "Targeting",
-                                    "effect": {
-                                      "type": "ViewEffect",
-                                      "name": "league_varus_q_hit"
-                                    }
-                                  },
-                                  {
-                                    "casting_type": "Targeting",
-                                    "effect": {
-                                      "type": "TargetSfx",
-                                      "name": "league_varus_q_hit"
-                                    }
-                                  }
-                                ],
-                                "end_effects": [],
-                                "speed": 6500,
-                                "range": 140000,
-                                "shape": {
-                                  "Circle": {
-                                    "radius": 6000
-                                  }
-                                },
-                                "y_offset": -3000
-                              },
-                              {
-                                "type": "LinearProjectile",
-                                "name": "league_varus_q_arrow_twin",
-                                "penetrate": true,
-                                "applied_target": "EnemyChampion",
-                                "applied_effects": [
-                                  {
-                                    "casting_type": "Targeting",
-                                    "effect": {
+                                      "only_to_enemy": false
+                                    },
+                                    {
                                       "type": "Combine",
                                       "effects": [
                                         {
                                           "type": "RemoveCasterBuff",
-                                          "name": "league_varus_k_q"
+                                          "name": "league_varus_qh1"
                                         },
                                         {
-                                          "type": "AddCasterBuff",
-                                          "buff_state": {
-                                            "name": "league_varus_k_q",
-                                            "duration": {
-                                              "Time": {
-                                                "tick": 40
-                                              }
-                                            }
-                                          },
-                                          "only_to_enemy": false
-                                        }
-                                      ]
-                                    }
-                                  },
-                                  {
-                                    "casting_type": "Targeting",
-                                    "effect": {
-                                      "type": "Combine",
-                                      "effects": [
+                                          "type": "RemoveCasterBuff",
+                                          "name": "league_varus_qh2"
+                                        },
                                         {
-                                          "type": "SwitchByBuff",
-                                          "buff_name": "league_varus_b_3",
-                                          "effect_buff": {
-                                            "type": "Combine",
-                                            "effects": [
-                                              {
-                                                "type": "FixedAttack",
-                                                "damage": 0,
-                                                "attack_ratio": 0,
-                                                "hp_ratio": 0,
-                                                "target_hp_ratio": 9
-                                              },
-                                              {
-                                                "type": "ViewEffect",
-                                                "name": "league_varus_b_pop3"
-                                              },
-                                              {
-                                                "type": "TargetSfx",
-                                                "name": "league_varus_b_pop"
-                                              },
-                                              {
-                                                "type": "AddCasterBuff",
-                                                "buff_state": {
-                                                  "name": "league_varus_refund",
-                                                  "duration": {
-                                                    "Time": {
-                                                      "tick": 2
-                                                    }
-                                                  },
-                                                  "skill_cooldown_mult": 64,
-                                                  "ult_cooldown_mult": -64
-                                                },
-                                                "only_to_enemy": false
-                                              }
-                                            ]
-                                          },
-                                          "effect_none": {
-                                            "type": "SwitchByBuff",
-                                            "buff_name": "league_varus_b_2",
-                                            "effect_buff": {
-                                              "type": "Combine",
-                                              "effects": [
-                                                {
-                                                  "type": "FixedAttack",
-                                                  "damage": 0,
-                                                  "attack_ratio": 0,
+                                          "type": "LinearProjectile",
+                                          "name": "league_varus_q_arrow",
+                                          "penetrate": true,
+                                          "applied_target": "EnemyWithoutTower",
+                                          "applied_effects": [
+                                            {
+                                              "casting_type": "Targeting",
+                                              "effect": {
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_varus_qh2",
+                                                "effect_buff": {
+                                                  "type": "Attack",
+                                                  "damage": 66,
+                                                  "attack_ratio": 78,
                                                   "hp_ratio": 0,
-                                                  "target_hp_ratio": 6
+                                                  "target_hp_ratio": 0,
+                                                  "attack_effect_type": "Target"
                                                 },
-                                                {
-                                                  "type": "ViewEffect",
-                                                  "name": "league_varus_b_pop2"
-                                                },
-                                                {
-                                                  "type": "TargetSfx",
-                                                  "name": "league_varus_b_pop"
-                                                },
-                                                {
-                                                  "type": "AddCasterBuff",
-                                                  "buff_state": {
-                                                    "name": "league_varus_refund",
-                                                    "duration": {
-                                                      "Time": {
-                                                        "tick": 2
-                                                      }
-                                                    },
-                                                    "skill_cooldown_mult": 35,
-                                                    "ult_cooldown_mult": -35
-                                                  },
-                                                  "only_to_enemy": false
-                                                }
-                                              ]
-                                            },
-                                            "effect_none": {
-                                              "type": "SwitchByBuff",
-                                              "buff_name": "league_varus_b_1",
-                                              "effect_buff": {
-                                                "type": "Combine",
-                                                "effects": [
-                                                  {
-                                                    "type": "FixedAttack",
-                                                    "damage": 0,
-                                                    "attack_ratio": 0,
-                                                    "hp_ratio": 0,
-                                                    "target_hp_ratio": 3
-                                                  },
-                                                  {
-                                                    "type": "ViewEffect",
-                                                    "name": "league_varus_b_pop1"
-                                                  },
-                                                  {
-                                                    "type": "TargetSfx",
-                                                    "name": "league_varus_b_pop"
-                                                  },
-                                                  {
-                                                    "type": "AddCasterBuff",
-                                                    "buff_state": {
-                                                      "name": "league_varus_refund",
-                                                      "duration": {
-                                                        "Time": {
-                                                          "tick": 2
-                                                        }
-                                                      },
-                                                      "skill_cooldown_mult": 15,
-                                                      "ult_cooldown_mult": -15
-                                                    },
-                                                    "only_to_enemy": false
-                                                  }
-                                                ]
-                                              },
-                                              "effect_none": {
-                                                "type": "Combine",
-                                                "effects": []
-                                              }
-                                            }
-                                          }
-                                        },
-                                        {
-                                          "type": "SwitchByBuff",
-                                          "buff_name": "league_varus_w_cd",
-                                          "effect_buff": {
-                                            "type": "Combine",
-                                            "effects": []
-                                          },
-                                          "effect_none": {
-                                            "type": "Combine",
-                                            "effects": [
-                                              {
-                                                "type": "FixedAttack",
-                                                "damage": 0,
-                                                "attack_ratio": 0,
-                                                "hp_ratio": 0,
-                                                "target_hp_ratio": 6
-                                              },
-                                              {
-                                                "type": "AddCasterBuff",
-                                                "buff_state": {
-                                                  "name": "league_varus_w_cd",
-                                                  "duration": {
-                                                    "Time": {
-                                                      "tick": 2400
-                                                    }
-                                                  }
-                                                },
-                                                "only_to_enemy": false
-                                              },
-                                              {
-                                                "type": "ViewEffect",
-                                                "name": "league_varus_w_pop"
-                                              },
-                                              {
-                                                "type": "TargetSfx",
-                                                "name": "league_varus_w_pop"
-                                              }
-                                            ]
-                                          }
-                                        },
-                                        {
-                                          "type": "RemoveCasterBuff",
-                                          "name": "league_varus_b_1"
-                                        },
-                                        {
-                                          "type": "RemoveCasterBuff",
-                                          "name": "league_varus_b_2"
-                                        },
-                                        {
-                                          "type": "RemoveCasterBuff",
-                                          "name": "league_varus_b_3"
-                                        }
-                                      ]
-                                    }
-                                  },
-                                  {
-                                    "casting_type": "Targeting",
-                                    "effect": {
-                                      "type": "Combine",
-                                      "effects": [
-                                        {
-                                          "type": "AddCasted",
-                                          "casted_type": "Heal",
-                                          "duration": 3,
-                                          "period": 1,
-                                          "effects": [
-                                            {
-                                              "type": "RemoveCasterBuff",
-                                              "name": "league_varus_k_q"
-                                            }
-                                          ]
-                                        },
-                                        {
-                                          "type": "RangeEffect",
-                                          "shape": {
-                                            "Circle": {
-                                              "radius": 1000
-                                            }
-                                          },
-                                          "target": "AllyOnlySelf",
-                                          "apply_type": "AroundCaster",
-                                          "effects": [
-                                            {
-                                              "type": "Delayed",
-                                              "tick": 4,
-                                              "effects": [
-                                                {
+                                                "effect_none": {
                                                   "type": "SwitchByBuff",
-                                                  "buff_name": "league_varus_k_q",
+                                                  "buff_name": "league_varus_qh1",
                                                   "effect_buff": {
                                                     "type": "Combine",
                                                     "effects": [
                                                       {
-                                                        "type": "RemoveCasterBuff",
-                                                        "name": "league_varus_k_q"
+                                                        "type": "Attack",
+                                                        "damage": 88,
+                                                        "attack_ratio": 104,
+                                                        "hp_ratio": 0,
+                                                        "target_hp_ratio": 0,
+                                                        "attack_effect_type": "Target"
                                                       },
                                                       {
-                                                        "type": "Combine",
-                                                        "effects": [
-                                                          {
-                                                            "type": "RemoveCasterBuff",
-                                                            "name": "league_varus_p_rage_m"
-                                                          },
-                                                          {
-                                                            "type": "Combine",
-                                                            "effects": [
-                                                              {
-                                                                "type": "RemoveCasterBuff",
-                                                                "name": "league_varus_p_rage"
-                                                              },
-                                                              {
-                                                                "type": "AddCasterBuff",
-                                                                "buff_state": {
-                                                                  "name": "league_varus_p_rage",
-                                                                  "duration": {
-                                                                    "Time": {
-                                                                      "tick": 300
-                                                                    }
-                                                                  },
-                                                                  "attack_speed_mult": 60
-                                                                },
-                                                                "only_to_enemy": false
-                                                              }
-                                                            ]
-                                                          },
-                                                          {
-                                                            "type": "CasterViewEffect",
-                                                            "name": "league_varus_p_rage_on"
-                                                          },
-                                                          {
-                                                            "type": "Sfx",
-                                                            "name": "league_varus_p_rage"
+                                                        "type": "RemoveCasterBuff",
+                                                        "name": "league_varus_qh1"
+                                                      },
+                                                      {
+                                                        "type": "AddCasterBuff",
+                                                        "buff_state": {
+                                                          "name": "league_varus_qh2",
+                                                          "duration": {
+                                                            "Time": {
+                                                              "tick": 40
+                                                            }
                                                           }
-                                                        ]
+                                                        },
+                                                        "only_to_enemy": false
                                                       }
                                                     ]
                                                   },
                                                   "effect_none": {
                                                     "type": "Combine",
-                                                    "effects": []
+                                                    "effects": [
+                                                      {
+                                                        "type": "Attack",
+                                                        "damage": 110,
+                                                        "attack_ratio": 130,
+                                                        "hp_ratio": 0,
+                                                        "target_hp_ratio": 0,
+                                                        "attack_effect_type": "Target"
+                                                      },
+                                                      {
+                                                        "type": "AddCasterBuff",
+                                                        "buff_state": {
+                                                          "name": "league_varus_qh1",
+                                                          "duration": {
+                                                            "Time": {
+                                                              "tick": 40
+                                                            }
+                                                          }
+                                                        },
+                                                        "only_to_enemy": false
+                                                      }
+                                                    ]
                                                   }
                                                 }
-                                              ]
+                                              }
+                                            },
+                                            {
+                                              "casting_type": "Targeting",
+                                              "effect": {
+                                                "type": "ViewEffect",
+                                                "name": "league_varus_q_hit"
+                                              }
+                                            },
+                                            {
+                                              "casting_type": "Targeting",
+                                              "effect": {
+                                                "type": "TargetSfx",
+                                                "name": "league_varus_q_hit"
+                                              }
                                             }
-                                          ]
+                                          ],
+                                          "end_effects": [],
+                                          "speed": 6500,
+                                          "range": 140000,
+                                          "shape": {
+                                            "Circle": {
+                                              "radius": 6000
+                                            }
+                                          },
+                                          "y_offset": -3000
+                                        },
+                                        {
+                                          "type": "LinearProjectile",
+                                          "name": "league_varus_q_arrow_twin",
+                                          "penetrate": true,
+                                          "applied_target": "EnemyChampion",
+                                          "applied_effects": [
+                                            {
+                                              "casting_type": "Targeting",
+                                              "effect": {
+                                                "type": "Combine",
+                                                "effects": [
+                                                  {
+                                                    "type": "RemoveCasterBuff",
+                                                    "name": "league_varus_k_q"
+                                                  },
+                                                  {
+                                                    "type": "AddCasterBuff",
+                                                    "buff_state": {
+                                                      "name": "league_varus_k_q",
+                                                      "duration": {
+                                                        "Time": {
+                                                          "tick": 40
+                                                        }
+                                                      }
+                                                    },
+                                                    "only_to_enemy": false
+                                                  }
+                                                ]
+                                              }
+                                            },
+                                            {
+                                              "casting_type": "Targeting",
+                                              "effect": {
+                                                "type": "Combine",
+                                                "effects": [
+                                                  {
+                                                    "type": "SwitchByBuff",
+                                                    "buff_name": "league_varus_b_3",
+                                                    "effect_buff": {
+                                                      "type": "Combine",
+                                                      "effects": [
+                                                        {
+                                                          "type": "FixedAttack",
+                                                          "damage": 0,
+                                                          "attack_ratio": 0,
+                                                          "hp_ratio": 0,
+                                                          "target_hp_ratio": 9
+                                                        },
+                                                        {
+                                                          "type": "ViewEffect",
+                                                          "name": "league_varus_b_pop3"
+                                                        },
+                                                        {
+                                                          "type": "TargetSfx",
+                                                          "name": "league_varus_b_pop"
+                                                        },
+                                                        {
+                                                          "type": "AddCasterBuff",
+                                                          "buff_state": {
+                                                            "name": "league_varus_refund",
+                                                            "duration": {
+                                                              "Time": {
+                                                                "tick": 2
+                                                              }
+                                                            },
+                                                            "skill_cooldown_mult": 64,
+                                                            "ult_cooldown_mult": -64
+                                                          },
+                                                          "only_to_enemy": false
+                                                        }
+                                                      ]
+                                                    },
+                                                    "effect_none": {
+                                                      "type": "SwitchByBuff",
+                                                      "buff_name": "league_varus_b_2",
+                                                      "effect_buff": {
+                                                        "type": "Combine",
+                                                        "effects": [
+                                                          {
+                                                            "type": "FixedAttack",
+                                                            "damage": 0,
+                                                            "attack_ratio": 0,
+                                                            "hp_ratio": 0,
+                                                            "target_hp_ratio": 6
+                                                          },
+                                                          {
+                                                            "type": "ViewEffect",
+                                                            "name": "league_varus_b_pop2"
+                                                          },
+                                                          {
+                                                            "type": "TargetSfx",
+                                                            "name": "league_varus_b_pop"
+                                                          },
+                                                          {
+                                                            "type": "AddCasterBuff",
+                                                            "buff_state": {
+                                                              "name": "league_varus_refund",
+                                                              "duration": {
+                                                                "Time": {
+                                                                  "tick": 2
+                                                                }
+                                                              },
+                                                              "skill_cooldown_mult": 35,
+                                                              "ult_cooldown_mult": -35
+                                                            },
+                                                            "only_to_enemy": false
+                                                          }
+                                                        ]
+                                                      },
+                                                      "effect_none": {
+                                                        "type": "SwitchByBuff",
+                                                        "buff_name": "league_varus_b_1",
+                                                        "effect_buff": {
+                                                          "type": "Combine",
+                                                          "effects": [
+                                                            {
+                                                              "type": "FixedAttack",
+                                                              "damage": 0,
+                                                              "attack_ratio": 0,
+                                                              "hp_ratio": 0,
+                                                              "target_hp_ratio": 3
+                                                            },
+                                                            {
+                                                              "type": "ViewEffect",
+                                                              "name": "league_varus_b_pop1"
+                                                            },
+                                                            {
+                                                              "type": "TargetSfx",
+                                                              "name": "league_varus_b_pop"
+                                                            },
+                                                            {
+                                                              "type": "AddCasterBuff",
+                                                              "buff_state": {
+                                                                "name": "league_varus_refund",
+                                                                "duration": {
+                                                                  "Time": {
+                                                                    "tick": 2
+                                                                  }
+                                                                },
+                                                                "skill_cooldown_mult": 15,
+                                                                "ult_cooldown_mult": -15
+                                                              },
+                                                              "only_to_enemy": false
+                                                            }
+                                                          ]
+                                                        },
+                                                        "effect_none": {
+                                                          "type": "Combine",
+                                                          "effects": []
+                                                        }
+                                                      }
+                                                    }
+                                                  },
+                                                  {
+                                                    "type": "SwitchByBuff",
+                                                    "buff_name": "league_varus_w_cd",
+                                                    "effect_buff": {
+                                                      "type": "Combine",
+                                                      "effects": []
+                                                    },
+                                                    "effect_none": {
+                                                      "type": "Combine",
+                                                      "effects": [
+                                                        {
+                                                          "type": "FixedAttack",
+                                                          "damage": 0,
+                                                          "attack_ratio": 0,
+                                                          "hp_ratio": 0,
+                                                          "target_hp_ratio": 6
+                                                        },
+                                                        {
+                                                          "type": "AddCasterBuff",
+                                                          "buff_state": {
+                                                            "name": "league_varus_w_cd",
+                                                            "duration": {
+                                                              "Time": {
+                                                                "tick": 2400
+                                                              }
+                                                            }
+                                                          },
+                                                          "only_to_enemy": false
+                                                        },
+                                                        {
+                                                          "type": "ViewEffect",
+                                                          "name": "league_varus_w_pop"
+                                                        },
+                                                        {
+                                                          "type": "TargetSfx",
+                                                          "name": "league_varus_w_pop"
+                                                        }
+                                                      ]
+                                                    }
+                                                  },
+                                                  {
+                                                    "type": "RemoveCasterBuff",
+                                                    "name": "league_varus_b_1"
+                                                  },
+                                                  {
+                                                    "type": "RemoveCasterBuff",
+                                                    "name": "league_varus_b_2"
+                                                  },
+                                                  {
+                                                    "type": "RemoveCasterBuff",
+                                                    "name": "league_varus_b_3"
+                                                  }
+                                                ]
+                                              }
+                                            },
+                                            {
+                                              "casting_type": "Targeting",
+                                              "effect": {
+                                                "type": "Combine",
+                                                "effects": [
+                                                  {
+                                                    "type": "AddCasted",
+                                                    "casted_type": "Heal",
+                                                    "duration": 3,
+                                                    "period": 1,
+                                                    "effects": [
+                                                      {
+                                                        "type": "RemoveCasterBuff",
+                                                        "name": "league_varus_k_q"
+                                                      }
+                                                    ]
+                                                  },
+                                                  {
+                                                    "type": "RangeEffect",
+                                                    "shape": {
+                                                      "Circle": {
+                                                        "radius": 1000
+                                                      }
+                                                    },
+                                                    "target": "AllyOnlySelf",
+                                                    "apply_type": "AroundCaster",
+                                                    "effects": [
+                                                      {
+                                                        "type": "Delayed",
+                                                        "tick": 4,
+                                                        "effects": [
+                                                          {
+                                                            "type": "SwitchByBuff",
+                                                            "buff_name": "league_varus_k_q",
+                                                            "effect_buff": {
+                                                              "type": "Combine",
+                                                              "effects": [
+                                                                {
+                                                                  "type": "RemoveCasterBuff",
+                                                                  "name": "league_varus_k_q"
+                                                                },
+                                                                {
+                                                                  "type": "Combine",
+                                                                  "effects": [
+                                                                    {
+                                                                      "type": "RemoveCasterBuff",
+                                                                      "name": "league_varus_p_rage_m"
+                                                                    },
+                                                                    {
+                                                                      "type": "Combine",
+                                                                      "effects": [
+                                                                        {
+                                                                          "type": "RemoveCasterBuff",
+                                                                          "name": "league_varus_p_rage"
+                                                                        },
+                                                                        {
+                                                                          "type": "AddCasterBuff",
+                                                                          "buff_state": {
+                                                                            "name": "league_varus_p_rage",
+                                                                            "duration": {
+                                                                              "Time": {
+                                                                                "tick": 300
+                                                                              }
+                                                                            },
+                                                                            "attack_speed_mult": 60
+                                                                          },
+                                                                          "only_to_enemy": false
+                                                                        }
+                                                                      ]
+                                                                    },
+                                                                    {
+                                                                      "type": "CasterViewEffect",
+                                                                      "name": "league_varus_p_rage_on"
+                                                                    },
+                                                                    {
+                                                                      "type": "Sfx",
+                                                                      "name": "league_varus_p_rage"
+                                                                    }
+                                                                  ]
+                                                                }
+                                                              ]
+                                                            },
+                                                            "effect_none": {
+                                                              "type": "Combine",
+                                                              "effects": []
+                                                            }
+                                                          }
+                                                        ]
+                                                      }
+                                                    ]
+                                                  }
+                                                ]
+                                              }
+                                            }
+                                          ],
+                                          "end_effects": [],
+                                          "speed": 6500,
+                                          "range": 140000,
+                                          "shape": {
+                                            "Circle": {
+                                              "radius": 6000
+                                            }
+                                          },
+                                          "y_offset": -3000
                                         }
                                       ]
                                     }
-                                  }
-                                ],
-                                "end_effects": [],
-                                "speed": 6500,
-                                "range": 140000,
-                                "shape": {
-                                  "Circle": {
-                                    "radius": 6000
-                                  }
-                                },
-                                "y_offset": -3000
-                              }
-                            ]
+                                  ]
+                                }
+                              ]
+                            },
+                            "effect_none": {
+                              "type": "Combine",
+                              "effects": []
+                            }
+                          },
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_varus_ai_hide"
                           }
                         ]
                       },
@@ -1470,15 +1504,12 @@
                         ]
                       },
                       {
-                        "type": "RandomTarget",
-                        "range": 90000,
-                        "casting_target": "EnemyChampion",
-                        "from_projectile": false,
+                        "type": "Combine",
                         "effects": [
                           {
                             "type": "AddCasterBuff",
                             "buff_state": {
-                              "name": "league_varus_q_go_q",
+                              "name": "league_varus_ai_hide",
                               "duration": {
                                 "Time": {
                                   "tick": 1
@@ -1488,394 +1519,431 @@
                             "only_to_enemy": false
                           },
                           {
-                            "type": "Combine",
-                            "effects": [
-                              {
-                                "type": "RemoveCasterBuff",
-                                "name": "league_varus_qh1"
-                              },
-                              {
-                                "type": "RemoveCasterBuff",
-                                "name": "league_varus_qh2"
-                              },
-                              {
-                                "type": "LinearProjectile",
-                                "name": "league_varus_q_arrow_s",
-                                "penetrate": true,
-                                "applied_target": "EnemyWithoutTower",
-                                "applied_effects": [
-                                  {
-                                    "casting_type": "Targeting",
-                                    "effect": {
-                                      "type": "SwitchByBuff",
-                                      "buff_name": "league_varus_qh2",
-                                      "effect_buff": {
-                                        "type": "Attack",
-                                        "damage": 39,
-                                        "attack_ratio": 46,
-                                        "hp_ratio": 0,
-                                        "target_hp_ratio": 0,
-                                        "attack_effect_type": "Target"
-                                      },
-                                      "effect_none": {
-                                        "type": "SwitchByBuff",
-                                        "buff_name": "league_varus_qh1",
-                                        "effect_buff": {
-                                          "type": "Combine",
-                                          "effects": [
-                                            {
-                                              "type": "Attack",
-                                              "damage": 52,
-                                              "attack_ratio": 62,
-                                              "hp_ratio": 0,
-                                              "target_hp_ratio": 0,
-                                              "attack_effect_type": "Target"
-                                            },
-                                            {
-                                              "type": "RemoveCasterBuff",
-                                              "name": "league_varus_qh1"
-                                            },
-                                            {
-                                              "type": "AddCasterBuff",
-                                              "buff_state": {
-                                                "name": "league_varus_qh2",
-                                                "duration": {
-                                                  "Time": {
-                                                    "tick": 40
-                                                  }
-                                                }
-                                              },
-                                              "only_to_enemy": false
-                                            }
-                                          ]
-                                        },
-                                        "effect_none": {
-                                          "type": "Combine",
-                                          "effects": [
-                                            {
-                                              "type": "Attack",
-                                              "damage": 66,
-                                              "attack_ratio": 78,
-                                              "hp_ratio": 0,
-                                              "target_hp_ratio": 0,
-                                              "attack_effect_type": "Target"
-                                            },
-                                            {
-                                              "type": "AddCasterBuff",
-                                              "buff_state": {
-                                                "name": "league_varus_qh1",
-                                                "duration": {
-                                                  "Time": {
-                                                    "tick": 40
-                                                  }
-                                                }
-                                              },
-                                              "only_to_enemy": false
-                                            }
-                                          ]
-                                        }
-                                      }
-                                    }
-                                  },
-                                  {
-                                    "casting_type": "Targeting",
-                                    "effect": {
-                                      "type": "ViewEffect",
-                                      "name": "league_varus_q_hit"
-                                    }
-                                  },
-                                  {
-                                    "casting_type": "Targeting",
-                                    "effect": {
-                                      "type": "TargetSfx",
-                                      "name": "league_varus_q_hit"
-                                    }
-                                  }
-                                ],
-                                "end_effects": [],
-                                "speed": 6500,
-                                "range": 100000,
-                                "shape": {
-                                  "Circle": {
-                                    "radius": 6000
-                                  }
-                                },
-                                "y_offset": -3000
-                              },
-                              {
-                                "type": "LinearProjectile",
-                                "name": "league_varus_q_arrow_s_twin",
-                                "penetrate": true,
-                                "applied_target": "EnemyChampion",
-                                "applied_effects": [
-                                  {
-                                    "casting_type": "Targeting",
-                                    "effect": {
-                                      "type": "Combine",
-                                      "effects": [
-                                        {
-                                          "type": "RemoveCasterBuff",
-                                          "name": "league_varus_k_q"
-                                        },
-                                        {
-                                          "type": "AddCasterBuff",
-                                          "buff_state": {
-                                            "name": "league_varus_k_q",
-                                            "duration": {
-                                              "Time": {
-                                                "tick": 40
-                                              }
-                                            }
-                                          },
-                                          "only_to_enemy": false
-                                        }
-                                      ]
-                                    }
-                                  },
-                                  {
-                                    "casting_type": "Targeting",
-                                    "effect": {
-                                      "type": "Combine",
-                                      "effects": [
-                                        {
-                                          "type": "SwitchByBuff",
-                                          "buff_name": "league_varus_b_3",
-                                          "effect_buff": {
-                                            "type": "Combine",
-                                            "effects": [
-                                              {
-                                                "type": "FixedAttack",
-                                                "damage": 0,
-                                                "attack_ratio": 0,
-                                                "hp_ratio": 0,
-                                                "target_hp_ratio": 9
-                                              },
-                                              {
-                                                "type": "ViewEffect",
-                                                "name": "league_varus_b_pop3"
-                                              },
-                                              {
-                                                "type": "TargetSfx",
-                                                "name": "league_varus_b_pop"
-                                              },
-                                              {
-                                                "type": "AddCasterBuff",
-                                                "buff_state": {
-                                                  "name": "league_varus_refund",
-                                                  "duration": {
-                                                    "Time": {
-                                                      "tick": 2
-                                                    }
-                                                  },
-                                                  "skill_cooldown_mult": 64,
-                                                  "ult_cooldown_mult": -64
-                                                },
-                                                "only_to_enemy": false
-                                              }
-                                            ]
-                                          },
-                                          "effect_none": {
-                                            "type": "SwitchByBuff",
-                                            "buff_name": "league_varus_b_2",
-                                            "effect_buff": {
-                                              "type": "Combine",
-                                              "effects": [
-                                                {
-                                                  "type": "FixedAttack",
-                                                  "damage": 0,
-                                                  "attack_ratio": 0,
-                                                  "hp_ratio": 0,
-                                                  "target_hp_ratio": 6
-                                                },
-                                                {
-                                                  "type": "ViewEffect",
-                                                  "name": "league_varus_b_pop2"
-                                                },
-                                                {
-                                                  "type": "TargetSfx",
-                                                  "name": "league_varus_b_pop"
-                                                },
-                                                {
-                                                  "type": "AddCasterBuff",
-                                                  "buff_state": {
-                                                    "name": "league_varus_refund",
-                                                    "duration": {
-                                                      "Time": {
-                                                        "tick": 2
-                                                      }
-                                                    },
-                                                    "skill_cooldown_mult": 35,
-                                                    "ult_cooldown_mult": -35
-                                                  },
-                                                  "only_to_enemy": false
-                                                }
-                                              ]
-                                            },
-                                            "effect_none": {
-                                              "type": "SwitchByBuff",
-                                              "buff_name": "league_varus_b_1",
-                                              "effect_buff": {
-                                                "type": "Combine",
-                                                "effects": [
-                                                  {
-                                                    "type": "FixedAttack",
-                                                    "damage": 0,
-                                                    "attack_ratio": 0,
-                                                    "hp_ratio": 0,
-                                                    "target_hp_ratio": 3
-                                                  },
-                                                  {
-                                                    "type": "ViewEffect",
-                                                    "name": "league_varus_b_pop1"
-                                                  },
-                                                  {
-                                                    "type": "TargetSfx",
-                                                    "name": "league_varus_b_pop"
-                                                  },
-                                                  {
-                                                    "type": "AddCasterBuff",
-                                                    "buff_state": {
-                                                      "name": "league_varus_refund",
-                                                      "duration": {
-                                                        "Time": {
-                                                          "tick": 2
-                                                        }
-                                                      },
-                                                      "skill_cooldown_mult": 15,
-                                                      "ult_cooldown_mult": -15
-                                                    },
-                                                    "only_to_enemy": false
-                                                  }
-                                                ]
-                                              },
-                                              "effect_none": {
-                                                "type": "Combine",
-                                                "effects": []
-                                              }
-                                            }
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_varus_ai_hide",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "RandomTarget",
+                                  "range": 90000,
+                                  "casting_target": "EnemyChampion",
+                                  "from_projectile": false,
+                                  "effects": [
+                                    {
+                                      "type": "AddCasterBuff",
+                                      "buff_state": {
+                                        "name": "league_varus_q_go_q",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 1
                                           }
-                                        },
-                                        {
-                                          "type": "RemoveCasterBuff",
-                                          "name": "league_varus_b_1"
-                                        },
-                                        {
-                                          "type": "RemoveCasterBuff",
-                                          "name": "league_varus_b_2"
-                                        },
-                                        {
-                                          "type": "RemoveCasterBuff",
-                                          "name": "league_varus_b_3"
                                         }
-                                      ]
-                                    }
-                                  },
-                                  {
-                                    "casting_type": "Targeting",
-                                    "effect": {
+                                      },
+                                      "only_to_enemy": false
+                                    },
+                                    {
                                       "type": "Combine",
                                       "effects": [
                                         {
-                                          "type": "AddCasted",
-                                          "casted_type": "Heal",
-                                          "duration": 3,
-                                          "period": 1,
-                                          "effects": [
-                                            {
-                                              "type": "RemoveCasterBuff",
-                                              "name": "league_varus_k_q"
-                                            }
-                                          ]
+                                          "type": "RemoveCasterBuff",
+                                          "name": "league_varus_qh1"
                                         },
                                         {
-                                          "type": "RangeEffect",
-                                          "shape": {
-                                            "Circle": {
-                                              "radius": 1000
-                                            }
-                                          },
-                                          "target": "AllyOnlySelf",
-                                          "apply_type": "AroundCaster",
-                                          "effects": [
+                                          "type": "RemoveCasterBuff",
+                                          "name": "league_varus_qh2"
+                                        },
+                                        {
+                                          "type": "LinearProjectile",
+                                          "name": "league_varus_q_arrow_s",
+                                          "penetrate": true,
+                                          "applied_target": "EnemyWithoutTower",
+                                          "applied_effects": [
                                             {
-                                              "type": "Delayed",
-                                              "tick": 4,
-                                              "effects": [
-                                                {
+                                              "casting_type": "Targeting",
+                                              "effect": {
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_varus_qh2",
+                                                "effect_buff": {
+                                                  "type": "Attack",
+                                                  "damage": 39,
+                                                  "attack_ratio": 46,
+                                                  "hp_ratio": 0,
+                                                  "target_hp_ratio": 0,
+                                                  "attack_effect_type": "Target"
+                                                },
+                                                "effect_none": {
                                                   "type": "SwitchByBuff",
-                                                  "buff_name": "league_varus_k_q",
+                                                  "buff_name": "league_varus_qh1",
                                                   "effect_buff": {
                                                     "type": "Combine",
                                                     "effects": [
                                                       {
-                                                        "type": "RemoveCasterBuff",
-                                                        "name": "league_varus_k_q"
+                                                        "type": "Attack",
+                                                        "damage": 52,
+                                                        "attack_ratio": 62,
+                                                        "hp_ratio": 0,
+                                                        "target_hp_ratio": 0,
+                                                        "attack_effect_type": "Target"
                                                       },
                                                       {
-                                                        "type": "Combine",
-                                                        "effects": [
-                                                          {
-                                                            "type": "RemoveCasterBuff",
-                                                            "name": "league_varus_p_rage_m"
-                                                          },
-                                                          {
-                                                            "type": "Combine",
-                                                            "effects": [
-                                                              {
-                                                                "type": "RemoveCasterBuff",
-                                                                "name": "league_varus_p_rage"
-                                                              },
-                                                              {
-                                                                "type": "AddCasterBuff",
-                                                                "buff_state": {
-                                                                  "name": "league_varus_p_rage",
-                                                                  "duration": {
-                                                                    "Time": {
-                                                                      "tick": 300
-                                                                    }
-                                                                  },
-                                                                  "attack_speed_mult": 60
-                                                                },
-                                                                "only_to_enemy": false
-                                                              }
-                                                            ]
-                                                          },
-                                                          {
-                                                            "type": "CasterViewEffect",
-                                                            "name": "league_varus_p_rage_on"
-                                                          },
-                                                          {
-                                                            "type": "Sfx",
-                                                            "name": "league_varus_p_rage"
+                                                        "type": "RemoveCasterBuff",
+                                                        "name": "league_varus_qh1"
+                                                      },
+                                                      {
+                                                        "type": "AddCasterBuff",
+                                                        "buff_state": {
+                                                          "name": "league_varus_qh2",
+                                                          "duration": {
+                                                            "Time": {
+                                                              "tick": 40
+                                                            }
                                                           }
-                                                        ]
+                                                        },
+                                                        "only_to_enemy": false
                                                       }
                                                     ]
                                                   },
                                                   "effect_none": {
                                                     "type": "Combine",
-                                                    "effects": []
+                                                    "effects": [
+                                                      {
+                                                        "type": "Attack",
+                                                        "damage": 66,
+                                                        "attack_ratio": 78,
+                                                        "hp_ratio": 0,
+                                                        "target_hp_ratio": 0,
+                                                        "attack_effect_type": "Target"
+                                                      },
+                                                      {
+                                                        "type": "AddCasterBuff",
+                                                        "buff_state": {
+                                                          "name": "league_varus_qh1",
+                                                          "duration": {
+                                                            "Time": {
+                                                              "tick": 40
+                                                            }
+                                                          }
+                                                        },
+                                                        "only_to_enemy": false
+                                                      }
+                                                    ]
                                                   }
                                                 }
-                                              ]
+                                              }
+                                            },
+                                            {
+                                              "casting_type": "Targeting",
+                                              "effect": {
+                                                "type": "ViewEffect",
+                                                "name": "league_varus_q_hit"
+                                              }
+                                            },
+                                            {
+                                              "casting_type": "Targeting",
+                                              "effect": {
+                                                "type": "TargetSfx",
+                                                "name": "league_varus_q_hit"
+                                              }
                                             }
-                                          ]
+                                          ],
+                                          "end_effects": [],
+                                          "speed": 6500,
+                                          "range": 100000,
+                                          "shape": {
+                                            "Circle": {
+                                              "radius": 6000
+                                            }
+                                          },
+                                          "y_offset": -3000
+                                        },
+                                        {
+                                          "type": "LinearProjectile",
+                                          "name": "league_varus_q_arrow_s_twin",
+                                          "penetrate": true,
+                                          "applied_target": "EnemyChampion",
+                                          "applied_effects": [
+                                            {
+                                              "casting_type": "Targeting",
+                                              "effect": {
+                                                "type": "Combine",
+                                                "effects": [
+                                                  {
+                                                    "type": "RemoveCasterBuff",
+                                                    "name": "league_varus_k_q"
+                                                  },
+                                                  {
+                                                    "type": "AddCasterBuff",
+                                                    "buff_state": {
+                                                      "name": "league_varus_k_q",
+                                                      "duration": {
+                                                        "Time": {
+                                                          "tick": 40
+                                                        }
+                                                      }
+                                                    },
+                                                    "only_to_enemy": false
+                                                  }
+                                                ]
+                                              }
+                                            },
+                                            {
+                                              "casting_type": "Targeting",
+                                              "effect": {
+                                                "type": "Combine",
+                                                "effects": [
+                                                  {
+                                                    "type": "SwitchByBuff",
+                                                    "buff_name": "league_varus_b_3",
+                                                    "effect_buff": {
+                                                      "type": "Combine",
+                                                      "effects": [
+                                                        {
+                                                          "type": "FixedAttack",
+                                                          "damage": 0,
+                                                          "attack_ratio": 0,
+                                                          "hp_ratio": 0,
+                                                          "target_hp_ratio": 9
+                                                        },
+                                                        {
+                                                          "type": "ViewEffect",
+                                                          "name": "league_varus_b_pop3"
+                                                        },
+                                                        {
+                                                          "type": "TargetSfx",
+                                                          "name": "league_varus_b_pop"
+                                                        },
+                                                        {
+                                                          "type": "AddCasterBuff",
+                                                          "buff_state": {
+                                                            "name": "league_varus_refund",
+                                                            "duration": {
+                                                              "Time": {
+                                                                "tick": 2
+                                                              }
+                                                            },
+                                                            "skill_cooldown_mult": 64,
+                                                            "ult_cooldown_mult": -64
+                                                          },
+                                                          "only_to_enemy": false
+                                                        }
+                                                      ]
+                                                    },
+                                                    "effect_none": {
+                                                      "type": "SwitchByBuff",
+                                                      "buff_name": "league_varus_b_2",
+                                                      "effect_buff": {
+                                                        "type": "Combine",
+                                                        "effects": [
+                                                          {
+                                                            "type": "FixedAttack",
+                                                            "damage": 0,
+                                                            "attack_ratio": 0,
+                                                            "hp_ratio": 0,
+                                                            "target_hp_ratio": 6
+                                                          },
+                                                          {
+                                                            "type": "ViewEffect",
+                                                            "name": "league_varus_b_pop2"
+                                                          },
+                                                          {
+                                                            "type": "TargetSfx",
+                                                            "name": "league_varus_b_pop"
+                                                          },
+                                                          {
+                                                            "type": "AddCasterBuff",
+                                                            "buff_state": {
+                                                              "name": "league_varus_refund",
+                                                              "duration": {
+                                                                "Time": {
+                                                                  "tick": 2
+                                                                }
+                                                              },
+                                                              "skill_cooldown_mult": 35,
+                                                              "ult_cooldown_mult": -35
+                                                            },
+                                                            "only_to_enemy": false
+                                                          }
+                                                        ]
+                                                      },
+                                                      "effect_none": {
+                                                        "type": "SwitchByBuff",
+                                                        "buff_name": "league_varus_b_1",
+                                                        "effect_buff": {
+                                                          "type": "Combine",
+                                                          "effects": [
+                                                            {
+                                                              "type": "FixedAttack",
+                                                              "damage": 0,
+                                                              "attack_ratio": 0,
+                                                              "hp_ratio": 0,
+                                                              "target_hp_ratio": 3
+                                                            },
+                                                            {
+                                                              "type": "ViewEffect",
+                                                              "name": "league_varus_b_pop1"
+                                                            },
+                                                            {
+                                                              "type": "TargetSfx",
+                                                              "name": "league_varus_b_pop"
+                                                            },
+                                                            {
+                                                              "type": "AddCasterBuff",
+                                                              "buff_state": {
+                                                                "name": "league_varus_refund",
+                                                                "duration": {
+                                                                  "Time": {
+                                                                    "tick": 2
+                                                                  }
+                                                                },
+                                                                "skill_cooldown_mult": 15,
+                                                                "ult_cooldown_mult": -15
+                                                              },
+                                                              "only_to_enemy": false
+                                                            }
+                                                          ]
+                                                        },
+                                                        "effect_none": {
+                                                          "type": "Combine",
+                                                          "effects": []
+                                                        }
+                                                      }
+                                                    }
+                                                  },
+                                                  {
+                                                    "type": "RemoveCasterBuff",
+                                                    "name": "league_varus_b_1"
+                                                  },
+                                                  {
+                                                    "type": "RemoveCasterBuff",
+                                                    "name": "league_varus_b_2"
+                                                  },
+                                                  {
+                                                    "type": "RemoveCasterBuff",
+                                                    "name": "league_varus_b_3"
+                                                  }
+                                                ]
+                                              }
+                                            },
+                                            {
+                                              "casting_type": "Targeting",
+                                              "effect": {
+                                                "type": "Combine",
+                                                "effects": [
+                                                  {
+                                                    "type": "AddCasted",
+                                                    "casted_type": "Heal",
+                                                    "duration": 3,
+                                                    "period": 1,
+                                                    "effects": [
+                                                      {
+                                                        "type": "RemoveCasterBuff",
+                                                        "name": "league_varus_k_q"
+                                                      }
+                                                    ]
+                                                  },
+                                                  {
+                                                    "type": "RangeEffect",
+                                                    "shape": {
+                                                      "Circle": {
+                                                        "radius": 1000
+                                                      }
+                                                    },
+                                                    "target": "AllyOnlySelf",
+                                                    "apply_type": "AroundCaster",
+                                                    "effects": [
+                                                      {
+                                                        "type": "Delayed",
+                                                        "tick": 4,
+                                                        "effects": [
+                                                          {
+                                                            "type": "SwitchByBuff",
+                                                            "buff_name": "league_varus_k_q",
+                                                            "effect_buff": {
+                                                              "type": "Combine",
+                                                              "effects": [
+                                                                {
+                                                                  "type": "RemoveCasterBuff",
+                                                                  "name": "league_varus_k_q"
+                                                                },
+                                                                {
+                                                                  "type": "Combine",
+                                                                  "effects": [
+                                                                    {
+                                                                      "type": "RemoveCasterBuff",
+                                                                      "name": "league_varus_p_rage_m"
+                                                                    },
+                                                                    {
+                                                                      "type": "Combine",
+                                                                      "effects": [
+                                                                        {
+                                                                          "type": "RemoveCasterBuff",
+                                                                          "name": "league_varus_p_rage"
+                                                                        },
+                                                                        {
+                                                                          "type": "AddCasterBuff",
+                                                                          "buff_state": {
+                                                                            "name": "league_varus_p_rage",
+                                                                            "duration": {
+                                                                              "Time": {
+                                                                                "tick": 300
+                                                                              }
+                                                                            },
+                                                                            "attack_speed_mult": 60
+                                                                          },
+                                                                          "only_to_enemy": false
+                                                                        }
+                                                                      ]
+                                                                    },
+                                                                    {
+                                                                      "type": "CasterViewEffect",
+                                                                      "name": "league_varus_p_rage_on"
+                                                                    },
+                                                                    {
+                                                                      "type": "Sfx",
+                                                                      "name": "league_varus_p_rage"
+                                                                    }
+                                                                  ]
+                                                                }
+                                                              ]
+                                                            },
+                                                            "effect_none": {
+                                                              "type": "Combine",
+                                                              "effects": []
+                                                            }
+                                                          }
+                                                        ]
+                                                      }
+                                                    ]
+                                                  }
+                                                ]
+                                              }
+                                            }
+                                          ],
+                                          "end_effects": [],
+                                          "speed": 6500,
+                                          "range": 100000,
+                                          "shape": {
+                                            "Circle": {
+                                              "radius": 6000
+                                            }
+                                          },
+                                          "y_offset": -3000
                                         }
                                       ]
                                     }
-                                  }
-                                ],
-                                "end_effects": [],
-                                "speed": 6500,
-                                "range": 100000,
-                                "shape": {
-                                  "Circle": {
-                                    "radius": 6000
-                                  }
-                                },
-                                "y_offset": -3000
-                              }
-                            ]
+                                  ]
+                                }
+                              ]
+                            },
+                            "effect_none": {
+                              "type": "Combine",
+                              "effects": []
+                            }
+                          },
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_varus_ai_hide"
                           }
                         ]
                       },

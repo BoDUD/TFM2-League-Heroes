@@ -51,7 +51,7 @@ BIG = "asset/league/effects/league_xerath_big"
 P = {
     # stats (Magician base: attack 80 +6, magic power 40 +20, hp 900 +100, defence 20, mr 20, move 900, range 60000,
     # attack cooldown 90); League's Xerath is the artillery mage: a long range, little health, slow on his feet
-    "hp": 860, "hp_g": 95, "atk": 78, "atk_g": 6, "mp": 42, "mp_g": 21, "def": 18, "def_g": 7, "mr": 20, "mr_g": 4,
+    "hp": 912, "hp_g": 101, "atk": 83, "atk_g": 6, "mp": 45, "mp_g": 22, "def": 18, "def_g": 7, "mr": 20, "mr_g": 4,
     "ms": 900, "ms_g": 9,
     # attack (League 525 range); the shots' heights (5000 - y_offset above the pivot): the straight Q beam and E orb leave
     # the front claw (15 px over the pivot in the release frames), the homing orb 8 px (a homing shot from higher flies
@@ -420,6 +420,8 @@ def main():
     if a.nodes:
         for s in ("attack", "skill", "skill2", "ult"):
             print(f"{s:7s} {nodes(kit[s]['effect']):4d} nodes")
+    import hide_aim_twins                   # the champion-first halves of the aim pairs out of the AI's damage table
+    hide_aim_twins.hide(kit)
     text = json.dumps(kit, ensure_ascii=False, indent=2).replace("\n", "\r\n") + "\r\n"
     os.makedirs(os.path.dirname(lp(a.out)), exist_ok=True)
     with open(lp(a.out), "w", encoding="utf-8", newline="") as f:

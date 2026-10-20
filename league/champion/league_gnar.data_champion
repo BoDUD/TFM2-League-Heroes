@@ -231,6 +231,30 @@
                       },
                       {
                         "type": "RemoveCasterBuff",
+                        "name": "league_gnar_rg4"
+                      },
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_gnar_rg5"
+                      },
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_gnar_rg6"
+                      },
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_gnar_rg7"
+                      },
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_gnar_rg8"
+                      },
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_gnar_rg9"
+                      },
+                      {
+                        "type": "RemoveCasterBuff",
                         "name": "league_gnar_hy1"
                       },
                       {
@@ -439,13 +463,13 @@
                                         },
                                         "effect_none": {
                                           "type": "SwitchByBuff",
-                                          "buff_name": "league_gnar_rg3",
+                                          "buff_name": "league_gnar_rg9",
                                           "effect_buff": {
                                             "type": "Combine",
                                             "effects": [
                                               {
                                                 "type": "RemoveCasterBuff",
-                                                "name": "league_gnar_rg3"
+                                                "name": "league_gnar_rg9"
                                               },
                                               {
                                                 "type": "AddCasterBuff",
@@ -467,18 +491,18 @@
                                           },
                                           "effect_none": {
                                             "type": "SwitchByBuff",
-                                            "buff_name": "league_gnar_rg2",
+                                            "buff_name": "league_gnar_rg8",
                                             "effect_buff": {
                                               "type": "Combine",
                                               "effects": [
                                                 {
                                                   "type": "RemoveCasterBuff",
-                                                  "name": "league_gnar_rg2"
+                                                  "name": "league_gnar_rg8"
                                                 },
                                                 {
                                                   "type": "AddCasterBuff",
                                                   "buff_state": {
-                                                    "name": "league_gnar_rg3",
+                                                    "name": "league_gnar_rg9",
                                                     "duration": {
                                                       "Time": {
                                                         "tick": 420
@@ -491,18 +515,18 @@
                                             },
                                             "effect_none": {
                                               "type": "SwitchByBuff",
-                                              "buff_name": "league_gnar_rg1",
+                                              "buff_name": "league_gnar_rg7",
                                               "effect_buff": {
                                                 "type": "Combine",
                                                 "effects": [
                                                   {
                                                     "type": "RemoveCasterBuff",
-                                                    "name": "league_gnar_rg1"
+                                                    "name": "league_gnar_rg7"
                                                   },
                                                   {
                                                     "type": "AddCasterBuff",
                                                     "buff_state": {
-                                                      "name": "league_gnar_rg2",
+                                                      "name": "league_gnar_rg8",
                                                       "duration": {
                                                         "Time": {
                                                           "tick": 420
@@ -514,16 +538,166 @@
                                                 ]
                                               },
                                               "effect_none": {
-                                                "type": "AddCasterBuff",
-                                                "buff_state": {
-                                                  "name": "league_gnar_rg1",
-                                                  "duration": {
-                                                    "Time": {
-                                                      "tick": 420
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_gnar_rg6",
+                                                "effect_buff": {
+                                                  "type": "Combine",
+                                                  "effects": [
+                                                    {
+                                                      "type": "RemoveCasterBuff",
+                                                      "name": "league_gnar_rg6"
+                                                    },
+                                                    {
+                                                      "type": "AddCasterBuff",
+                                                      "buff_state": {
+                                                        "name": "league_gnar_rg7",
+                                                        "duration": {
+                                                          "Time": {
+                                                            "tick": 420
+                                                          }
+                                                        }
+                                                      },
+                                                      "only_to_enemy": false
+                                                    }
+                                                  ]
+                                                },
+                                                "effect_none": {
+                                                  "type": "SwitchByBuff",
+                                                  "buff_name": "league_gnar_rg5",
+                                                  "effect_buff": {
+                                                    "type": "Combine",
+                                                    "effects": [
+                                                      {
+                                                        "type": "RemoveCasterBuff",
+                                                        "name": "league_gnar_rg5"
+                                                      },
+                                                      {
+                                                        "type": "AddCasterBuff",
+                                                        "buff_state": {
+                                                          "name": "league_gnar_rg6",
+                                                          "duration": {
+                                                            "Time": {
+                                                              "tick": 420
+                                                            }
+                                                          }
+                                                        },
+                                                        "only_to_enemy": false
+                                                      }
+                                                    ]
+                                                  },
+                                                  "effect_none": {
+                                                    "type": "SwitchByBuff",
+                                                    "buff_name": "league_gnar_rg4",
+                                                    "effect_buff": {
+                                                      "type": "Combine",
+                                                      "effects": [
+                                                        {
+                                                          "type": "RemoveCasterBuff",
+                                                          "name": "league_gnar_rg4"
+                                                        },
+                                                        {
+                                                          "type": "AddCasterBuff",
+                                                          "buff_state": {
+                                                            "name": "league_gnar_rg5",
+                                                            "duration": {
+                                                              "Time": {
+                                                                "tick": 420
+                                                              }
+                                                            }
+                                                          },
+                                                          "only_to_enemy": false
+                                                        }
+                                                      ]
+                                                    },
+                                                    "effect_none": {
+                                                      "type": "SwitchByBuff",
+                                                      "buff_name": "league_gnar_rg3",
+                                                      "effect_buff": {
+                                                        "type": "Combine",
+                                                        "effects": [
+                                                          {
+                                                            "type": "RemoveCasterBuff",
+                                                            "name": "league_gnar_rg3"
+                                                          },
+                                                          {
+                                                            "type": "AddCasterBuff",
+                                                            "buff_state": {
+                                                              "name": "league_gnar_rg4",
+                                                              "duration": {
+                                                                "Time": {
+                                                                  "tick": 420
+                                                                }
+                                                              }
+                                                            },
+                                                            "only_to_enemy": false
+                                                          }
+                                                        ]
+                                                      },
+                                                      "effect_none": {
+                                                        "type": "SwitchByBuff",
+                                                        "buff_name": "league_gnar_rg2",
+                                                        "effect_buff": {
+                                                          "type": "Combine",
+                                                          "effects": [
+                                                            {
+                                                              "type": "RemoveCasterBuff",
+                                                              "name": "league_gnar_rg2"
+                                                            },
+                                                            {
+                                                              "type": "AddCasterBuff",
+                                                              "buff_state": {
+                                                                "name": "league_gnar_rg3",
+                                                                "duration": {
+                                                                  "Time": {
+                                                                    "tick": 420
+                                                                  }
+                                                                }
+                                                              },
+                                                              "only_to_enemy": false
+                                                            }
+                                                          ]
+                                                        },
+                                                        "effect_none": {
+                                                          "type": "SwitchByBuff",
+                                                          "buff_name": "league_gnar_rg1",
+                                                          "effect_buff": {
+                                                            "type": "Combine",
+                                                            "effects": [
+                                                              {
+                                                                "type": "RemoveCasterBuff",
+                                                                "name": "league_gnar_rg1"
+                                                              },
+                                                              {
+                                                                "type": "AddCasterBuff",
+                                                                "buff_state": {
+                                                                  "name": "league_gnar_rg2",
+                                                                  "duration": {
+                                                                    "Time": {
+                                                                      "tick": 420
+                                                                    }
+                                                                  }
+                                                                },
+                                                                "only_to_enemy": false
+                                                              }
+                                                            ]
+                                                          },
+                                                          "effect_none": {
+                                                            "type": "AddCasterBuff",
+                                                            "buff_state": {
+                                                              "name": "league_gnar_rg1",
+                                                              "duration": {
+                                                                "Time": {
+                                                                  "tick": 420
+                                                                }
+                                                              }
+                                                            },
+                                                            "only_to_enemy": false
+                                                          }
+                                                        }
+                                                      }
                                                     }
                                                   }
-                                                },
-                                                "only_to_enemy": false
+                                                }
                                               }
                                             }
                                           }
@@ -659,13 +833,13 @@
                                         },
                                         "effect_none": {
                                           "type": "SwitchByBuff",
-                                          "buff_name": "league_gnar_rg3",
+                                          "buff_name": "league_gnar_rg9",
                                           "effect_buff": {
                                             "type": "Combine",
                                             "effects": [
                                               {
                                                 "type": "RemoveCasterBuff",
-                                                "name": "league_gnar_rg3"
+                                                "name": "league_gnar_rg9"
                                               },
                                               {
                                                 "type": "AddCasterBuff",
@@ -687,18 +861,18 @@
                                           },
                                           "effect_none": {
                                             "type": "SwitchByBuff",
-                                            "buff_name": "league_gnar_rg2",
+                                            "buff_name": "league_gnar_rg8",
                                             "effect_buff": {
                                               "type": "Combine",
                                               "effects": [
                                                 {
                                                   "type": "RemoveCasterBuff",
-                                                  "name": "league_gnar_rg2"
+                                                  "name": "league_gnar_rg8"
                                                 },
                                                 {
                                                   "type": "AddCasterBuff",
                                                   "buff_state": {
-                                                    "name": "league_gnar_rg3",
+                                                    "name": "league_gnar_rg9",
                                                     "duration": {
                                                       "Time": {
                                                         "tick": 420
@@ -711,18 +885,18 @@
                                             },
                                             "effect_none": {
                                               "type": "SwitchByBuff",
-                                              "buff_name": "league_gnar_rg1",
+                                              "buff_name": "league_gnar_rg7",
                                               "effect_buff": {
                                                 "type": "Combine",
                                                 "effects": [
                                                   {
                                                     "type": "RemoveCasterBuff",
-                                                    "name": "league_gnar_rg1"
+                                                    "name": "league_gnar_rg7"
                                                   },
                                                   {
                                                     "type": "AddCasterBuff",
                                                     "buff_state": {
-                                                      "name": "league_gnar_rg2",
+                                                      "name": "league_gnar_rg8",
                                                       "duration": {
                                                         "Time": {
                                                           "tick": 420
@@ -734,16 +908,166 @@
                                                 ]
                                               },
                                               "effect_none": {
-                                                "type": "AddCasterBuff",
-                                                "buff_state": {
-                                                  "name": "league_gnar_rg1",
-                                                  "duration": {
-                                                    "Time": {
-                                                      "tick": 420
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_gnar_rg6",
+                                                "effect_buff": {
+                                                  "type": "Combine",
+                                                  "effects": [
+                                                    {
+                                                      "type": "RemoveCasterBuff",
+                                                      "name": "league_gnar_rg6"
+                                                    },
+                                                    {
+                                                      "type": "AddCasterBuff",
+                                                      "buff_state": {
+                                                        "name": "league_gnar_rg7",
+                                                        "duration": {
+                                                          "Time": {
+                                                            "tick": 420
+                                                          }
+                                                        }
+                                                      },
+                                                      "only_to_enemy": false
+                                                    }
+                                                  ]
+                                                },
+                                                "effect_none": {
+                                                  "type": "SwitchByBuff",
+                                                  "buff_name": "league_gnar_rg5",
+                                                  "effect_buff": {
+                                                    "type": "Combine",
+                                                    "effects": [
+                                                      {
+                                                        "type": "RemoveCasterBuff",
+                                                        "name": "league_gnar_rg5"
+                                                      },
+                                                      {
+                                                        "type": "AddCasterBuff",
+                                                        "buff_state": {
+                                                          "name": "league_gnar_rg6",
+                                                          "duration": {
+                                                            "Time": {
+                                                              "tick": 420
+                                                            }
+                                                          }
+                                                        },
+                                                        "only_to_enemy": false
+                                                      }
+                                                    ]
+                                                  },
+                                                  "effect_none": {
+                                                    "type": "SwitchByBuff",
+                                                    "buff_name": "league_gnar_rg4",
+                                                    "effect_buff": {
+                                                      "type": "Combine",
+                                                      "effects": [
+                                                        {
+                                                          "type": "RemoveCasterBuff",
+                                                          "name": "league_gnar_rg4"
+                                                        },
+                                                        {
+                                                          "type": "AddCasterBuff",
+                                                          "buff_state": {
+                                                            "name": "league_gnar_rg5",
+                                                            "duration": {
+                                                              "Time": {
+                                                                "tick": 420
+                                                              }
+                                                            }
+                                                          },
+                                                          "only_to_enemy": false
+                                                        }
+                                                      ]
+                                                    },
+                                                    "effect_none": {
+                                                      "type": "SwitchByBuff",
+                                                      "buff_name": "league_gnar_rg3",
+                                                      "effect_buff": {
+                                                        "type": "Combine",
+                                                        "effects": [
+                                                          {
+                                                            "type": "RemoveCasterBuff",
+                                                            "name": "league_gnar_rg3"
+                                                          },
+                                                          {
+                                                            "type": "AddCasterBuff",
+                                                            "buff_state": {
+                                                              "name": "league_gnar_rg4",
+                                                              "duration": {
+                                                                "Time": {
+                                                                  "tick": 420
+                                                                }
+                                                              }
+                                                            },
+                                                            "only_to_enemy": false
+                                                          }
+                                                        ]
+                                                      },
+                                                      "effect_none": {
+                                                        "type": "SwitchByBuff",
+                                                        "buff_name": "league_gnar_rg2",
+                                                        "effect_buff": {
+                                                          "type": "Combine",
+                                                          "effects": [
+                                                            {
+                                                              "type": "RemoveCasterBuff",
+                                                              "name": "league_gnar_rg2"
+                                                            },
+                                                            {
+                                                              "type": "AddCasterBuff",
+                                                              "buff_state": {
+                                                                "name": "league_gnar_rg3",
+                                                                "duration": {
+                                                                  "Time": {
+                                                                    "tick": 420
+                                                                  }
+                                                                }
+                                                              },
+                                                              "only_to_enemy": false
+                                                            }
+                                                          ]
+                                                        },
+                                                        "effect_none": {
+                                                          "type": "SwitchByBuff",
+                                                          "buff_name": "league_gnar_rg1",
+                                                          "effect_buff": {
+                                                            "type": "Combine",
+                                                            "effects": [
+                                                              {
+                                                                "type": "RemoveCasterBuff",
+                                                                "name": "league_gnar_rg1"
+                                                              },
+                                                              {
+                                                                "type": "AddCasterBuff",
+                                                                "buff_state": {
+                                                                  "name": "league_gnar_rg2",
+                                                                  "duration": {
+                                                                    "Time": {
+                                                                      "tick": 420
+                                                                    }
+                                                                  }
+                                                                },
+                                                                "only_to_enemy": false
+                                                              }
+                                                            ]
+                                                          },
+                                                          "effect_none": {
+                                                            "type": "AddCasterBuff",
+                                                            "buff_state": {
+                                                              "name": "league_gnar_rg1",
+                                                              "duration": {
+                                                                "Time": {
+                                                                  "tick": 420
+                                                                }
+                                                              }
+                                                            },
+                                                            "only_to_enemy": false
+                                                          }
+                                                        }
+                                                      }
                                                     }
                                                   }
-                                                },
-                                                "only_to_enemy": false
+                                                }
                                               }
                                             }
                                           }
@@ -912,6 +1236,30 @@
                       {
                         "type": "RemoveCasterBuff",
                         "name": "league_gnar_rg3"
+                      },
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_gnar_rg4"
+                      },
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_gnar_rg5"
+                      },
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_gnar_rg6"
+                      },
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_gnar_rg7"
+                      },
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_gnar_rg8"
+                      },
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_gnar_rg9"
                       },
                       {
                         "type": "RemoveCasterBuff",
@@ -1384,13 +1732,13 @@
                                     },
                                     "effect_none": {
                                       "type": "SwitchByBuff",
-                                      "buff_name": "league_gnar_rg3",
+                                      "buff_name": "league_gnar_rg9",
                                       "effect_buff": {
                                         "type": "Combine",
                                         "effects": [
                                           {
                                             "type": "RemoveCasterBuff",
-                                            "name": "league_gnar_rg3"
+                                            "name": "league_gnar_rg9"
                                           },
                                           {
                                             "type": "AddCasterBuff",
@@ -1412,18 +1760,18 @@
                                       },
                                       "effect_none": {
                                         "type": "SwitchByBuff",
-                                        "buff_name": "league_gnar_rg2",
+                                        "buff_name": "league_gnar_rg8",
                                         "effect_buff": {
                                           "type": "Combine",
                                           "effects": [
                                             {
                                               "type": "RemoveCasterBuff",
-                                              "name": "league_gnar_rg2"
+                                              "name": "league_gnar_rg8"
                                             },
                                             {
                                               "type": "AddCasterBuff",
                                               "buff_state": {
-                                                "name": "league_gnar_rg3",
+                                                "name": "league_gnar_rg9",
                                                 "duration": {
                                                   "Time": {
                                                     "tick": 420
@@ -1436,18 +1784,18 @@
                                         },
                                         "effect_none": {
                                           "type": "SwitchByBuff",
-                                          "buff_name": "league_gnar_rg1",
+                                          "buff_name": "league_gnar_rg7",
                                           "effect_buff": {
                                             "type": "Combine",
                                             "effects": [
                                               {
                                                 "type": "RemoveCasterBuff",
-                                                "name": "league_gnar_rg1"
+                                                "name": "league_gnar_rg7"
                                               },
                                               {
                                                 "type": "AddCasterBuff",
                                                 "buff_state": {
-                                                  "name": "league_gnar_rg2",
+                                                  "name": "league_gnar_rg8",
                                                   "duration": {
                                                     "Time": {
                                                       "tick": 420
@@ -1459,16 +1807,166 @@
                                             ]
                                           },
                                           "effect_none": {
-                                            "type": "AddCasterBuff",
-                                            "buff_state": {
-                                              "name": "league_gnar_rg1",
-                                              "duration": {
-                                                "Time": {
-                                                  "tick": 420
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_gnar_rg6",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_gnar_rg6"
+                                                },
+                                                {
+                                                  "type": "AddCasterBuff",
+                                                  "buff_state": {
+                                                    "name": "league_gnar_rg7",
+                                                    "duration": {
+                                                      "Time": {
+                                                        "tick": 420
+                                                      }
+                                                    }
+                                                  },
+                                                  "only_to_enemy": false
+                                                }
+                                              ]
+                                            },
+                                            "effect_none": {
+                                              "type": "SwitchByBuff",
+                                              "buff_name": "league_gnar_rg5",
+                                              "effect_buff": {
+                                                "type": "Combine",
+                                                "effects": [
+                                                  {
+                                                    "type": "RemoveCasterBuff",
+                                                    "name": "league_gnar_rg5"
+                                                  },
+                                                  {
+                                                    "type": "AddCasterBuff",
+                                                    "buff_state": {
+                                                      "name": "league_gnar_rg6",
+                                                      "duration": {
+                                                        "Time": {
+                                                          "tick": 420
+                                                        }
+                                                      }
+                                                    },
+                                                    "only_to_enemy": false
+                                                  }
+                                                ]
+                                              },
+                                              "effect_none": {
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_gnar_rg4",
+                                                "effect_buff": {
+                                                  "type": "Combine",
+                                                  "effects": [
+                                                    {
+                                                      "type": "RemoveCasterBuff",
+                                                      "name": "league_gnar_rg4"
+                                                    },
+                                                    {
+                                                      "type": "AddCasterBuff",
+                                                      "buff_state": {
+                                                        "name": "league_gnar_rg5",
+                                                        "duration": {
+                                                          "Time": {
+                                                            "tick": 420
+                                                          }
+                                                        }
+                                                      },
+                                                      "only_to_enemy": false
+                                                    }
+                                                  ]
+                                                },
+                                                "effect_none": {
+                                                  "type": "SwitchByBuff",
+                                                  "buff_name": "league_gnar_rg3",
+                                                  "effect_buff": {
+                                                    "type": "Combine",
+                                                    "effects": [
+                                                      {
+                                                        "type": "RemoveCasterBuff",
+                                                        "name": "league_gnar_rg3"
+                                                      },
+                                                      {
+                                                        "type": "AddCasterBuff",
+                                                        "buff_state": {
+                                                          "name": "league_gnar_rg4",
+                                                          "duration": {
+                                                            "Time": {
+                                                              "tick": 420
+                                                            }
+                                                          }
+                                                        },
+                                                        "only_to_enemy": false
+                                                      }
+                                                    ]
+                                                  },
+                                                  "effect_none": {
+                                                    "type": "SwitchByBuff",
+                                                    "buff_name": "league_gnar_rg2",
+                                                    "effect_buff": {
+                                                      "type": "Combine",
+                                                      "effects": [
+                                                        {
+                                                          "type": "RemoveCasterBuff",
+                                                          "name": "league_gnar_rg2"
+                                                        },
+                                                        {
+                                                          "type": "AddCasterBuff",
+                                                          "buff_state": {
+                                                            "name": "league_gnar_rg3",
+                                                            "duration": {
+                                                              "Time": {
+                                                                "tick": 420
+                                                              }
+                                                            }
+                                                          },
+                                                          "only_to_enemy": false
+                                                        }
+                                                      ]
+                                                    },
+                                                    "effect_none": {
+                                                      "type": "SwitchByBuff",
+                                                      "buff_name": "league_gnar_rg1",
+                                                      "effect_buff": {
+                                                        "type": "Combine",
+                                                        "effects": [
+                                                          {
+                                                            "type": "RemoveCasterBuff",
+                                                            "name": "league_gnar_rg1"
+                                                          },
+                                                          {
+                                                            "type": "AddCasterBuff",
+                                                            "buff_state": {
+                                                              "name": "league_gnar_rg2",
+                                                              "duration": {
+                                                                "Time": {
+                                                                  "tick": 420
+                                                                }
+                                                              }
+                                                            },
+                                                            "only_to_enemy": false
+                                                          }
+                                                        ]
+                                                      },
+                                                      "effect_none": {
+                                                        "type": "AddCasterBuff",
+                                                        "buff_state": {
+                                                          "name": "league_gnar_rg1",
+                                                          "duration": {
+                                                            "Time": {
+                                                              "tick": 420
+                                                            }
+                                                          }
+                                                        },
+                                                        "only_to_enemy": false
+                                                      }
+                                                    }
+                                                  }
                                                 }
                                               }
-                                            },
-                                            "only_to_enemy": false
+                                            }
                                           }
                                         }
                                       }
@@ -1550,13 +2048,13 @@
                                         },
                                         "effect_none": {
                                           "type": "SwitchByBuff",
-                                          "buff_name": "league_gnar_rg3",
+                                          "buff_name": "league_gnar_rg9",
                                           "effect_buff": {
                                             "type": "Combine",
                                             "effects": [
                                               {
                                                 "type": "RemoveCasterBuff",
-                                                "name": "league_gnar_rg3"
+                                                "name": "league_gnar_rg9"
                                               },
                                               {
                                                 "type": "AddCasterBuff",
@@ -1578,18 +2076,18 @@
                                           },
                                           "effect_none": {
                                             "type": "SwitchByBuff",
-                                            "buff_name": "league_gnar_rg2",
+                                            "buff_name": "league_gnar_rg8",
                                             "effect_buff": {
                                               "type": "Combine",
                                               "effects": [
                                                 {
                                                   "type": "RemoveCasterBuff",
-                                                  "name": "league_gnar_rg2"
+                                                  "name": "league_gnar_rg8"
                                                 },
                                                 {
                                                   "type": "AddCasterBuff",
                                                   "buff_state": {
-                                                    "name": "league_gnar_rg3",
+                                                    "name": "league_gnar_rg9",
                                                     "duration": {
                                                       "Time": {
                                                         "tick": 420
@@ -1602,18 +2100,18 @@
                                             },
                                             "effect_none": {
                                               "type": "SwitchByBuff",
-                                              "buff_name": "league_gnar_rg1",
+                                              "buff_name": "league_gnar_rg7",
                                               "effect_buff": {
                                                 "type": "Combine",
                                                 "effects": [
                                                   {
                                                     "type": "RemoveCasterBuff",
-                                                    "name": "league_gnar_rg1"
+                                                    "name": "league_gnar_rg7"
                                                   },
                                                   {
                                                     "type": "AddCasterBuff",
                                                     "buff_state": {
-                                                      "name": "league_gnar_rg2",
+                                                      "name": "league_gnar_rg8",
                                                       "duration": {
                                                         "Time": {
                                                           "tick": 420
@@ -1625,16 +2123,166 @@
                                                 ]
                                               },
                                               "effect_none": {
-                                                "type": "AddCasterBuff",
-                                                "buff_state": {
-                                                  "name": "league_gnar_rg1",
-                                                  "duration": {
-                                                    "Time": {
-                                                      "tick": 420
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_gnar_rg6",
+                                                "effect_buff": {
+                                                  "type": "Combine",
+                                                  "effects": [
+                                                    {
+                                                      "type": "RemoveCasterBuff",
+                                                      "name": "league_gnar_rg6"
+                                                    },
+                                                    {
+                                                      "type": "AddCasterBuff",
+                                                      "buff_state": {
+                                                        "name": "league_gnar_rg7",
+                                                        "duration": {
+                                                          "Time": {
+                                                            "tick": 420
+                                                          }
+                                                        }
+                                                      },
+                                                      "only_to_enemy": false
+                                                    }
+                                                  ]
+                                                },
+                                                "effect_none": {
+                                                  "type": "SwitchByBuff",
+                                                  "buff_name": "league_gnar_rg5",
+                                                  "effect_buff": {
+                                                    "type": "Combine",
+                                                    "effects": [
+                                                      {
+                                                        "type": "RemoveCasterBuff",
+                                                        "name": "league_gnar_rg5"
+                                                      },
+                                                      {
+                                                        "type": "AddCasterBuff",
+                                                        "buff_state": {
+                                                          "name": "league_gnar_rg6",
+                                                          "duration": {
+                                                            "Time": {
+                                                              "tick": 420
+                                                            }
+                                                          }
+                                                        },
+                                                        "only_to_enemy": false
+                                                      }
+                                                    ]
+                                                  },
+                                                  "effect_none": {
+                                                    "type": "SwitchByBuff",
+                                                    "buff_name": "league_gnar_rg4",
+                                                    "effect_buff": {
+                                                      "type": "Combine",
+                                                      "effects": [
+                                                        {
+                                                          "type": "RemoveCasterBuff",
+                                                          "name": "league_gnar_rg4"
+                                                        },
+                                                        {
+                                                          "type": "AddCasterBuff",
+                                                          "buff_state": {
+                                                            "name": "league_gnar_rg5",
+                                                            "duration": {
+                                                              "Time": {
+                                                                "tick": 420
+                                                              }
+                                                            }
+                                                          },
+                                                          "only_to_enemy": false
+                                                        }
+                                                      ]
+                                                    },
+                                                    "effect_none": {
+                                                      "type": "SwitchByBuff",
+                                                      "buff_name": "league_gnar_rg3",
+                                                      "effect_buff": {
+                                                        "type": "Combine",
+                                                        "effects": [
+                                                          {
+                                                            "type": "RemoveCasterBuff",
+                                                            "name": "league_gnar_rg3"
+                                                          },
+                                                          {
+                                                            "type": "AddCasterBuff",
+                                                            "buff_state": {
+                                                              "name": "league_gnar_rg4",
+                                                              "duration": {
+                                                                "Time": {
+                                                                  "tick": 420
+                                                                }
+                                                              }
+                                                            },
+                                                            "only_to_enemy": false
+                                                          }
+                                                        ]
+                                                      },
+                                                      "effect_none": {
+                                                        "type": "SwitchByBuff",
+                                                        "buff_name": "league_gnar_rg2",
+                                                        "effect_buff": {
+                                                          "type": "Combine",
+                                                          "effects": [
+                                                            {
+                                                              "type": "RemoveCasterBuff",
+                                                              "name": "league_gnar_rg2"
+                                                            },
+                                                            {
+                                                              "type": "AddCasterBuff",
+                                                              "buff_state": {
+                                                                "name": "league_gnar_rg3",
+                                                                "duration": {
+                                                                  "Time": {
+                                                                    "tick": 420
+                                                                  }
+                                                                }
+                                                              },
+                                                              "only_to_enemy": false
+                                                            }
+                                                          ]
+                                                        },
+                                                        "effect_none": {
+                                                          "type": "SwitchByBuff",
+                                                          "buff_name": "league_gnar_rg1",
+                                                          "effect_buff": {
+                                                            "type": "Combine",
+                                                            "effects": [
+                                                              {
+                                                                "type": "RemoveCasterBuff",
+                                                                "name": "league_gnar_rg1"
+                                                              },
+                                                              {
+                                                                "type": "AddCasterBuff",
+                                                                "buff_state": {
+                                                                  "name": "league_gnar_rg2",
+                                                                  "duration": {
+                                                                    "Time": {
+                                                                      "tick": 420
+                                                                    }
+                                                                  }
+                                                                },
+                                                                "only_to_enemy": false
+                                                              }
+                                                            ]
+                                                          },
+                                                          "effect_none": {
+                                                            "type": "AddCasterBuff",
+                                                            "buff_state": {
+                                                              "name": "league_gnar_rg1",
+                                                              "duration": {
+                                                                "Time": {
+                                                                  "tick": 420
+                                                                }
+                                                              }
+                                                            },
+                                                            "only_to_enemy": false
+                                                          }
+                                                        }
+                                                      }
                                                     }
                                                   }
-                                                },
-                                                "only_to_enemy": false
+                                                }
                                               }
                                             }
                                           }
@@ -1839,6 +2487,30 @@
                 {
                   "type": "RemoveCasterBuff",
                   "name": "league_gnar_rg3"
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_gnar_rg4"
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_gnar_rg5"
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_gnar_rg6"
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_gnar_rg7"
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_gnar_rg8"
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_gnar_rg9"
                 },
                 {
                   "type": "RemoveCasterBuff",
@@ -2480,13 +3152,13 @@
                               },
                               "effect_none": {
                                 "type": "SwitchByBuff",
-                                "buff_name": "league_gnar_rg3",
+                                "buff_name": "league_gnar_rg9",
                                 "effect_buff": {
                                   "type": "Combine",
                                   "effects": [
                                     {
                                       "type": "RemoveCasterBuff",
-                                      "name": "league_gnar_rg3"
+                                      "name": "league_gnar_rg9"
                                     },
                                     {
                                       "type": "AddCasterBuff",
@@ -2508,18 +3180,18 @@
                                 },
                                 "effect_none": {
                                   "type": "SwitchByBuff",
-                                  "buff_name": "league_gnar_rg2",
+                                  "buff_name": "league_gnar_rg8",
                                   "effect_buff": {
                                     "type": "Combine",
                                     "effects": [
                                       {
                                         "type": "RemoveCasterBuff",
-                                        "name": "league_gnar_rg2"
+                                        "name": "league_gnar_rg8"
                                       },
                                       {
                                         "type": "AddCasterBuff",
                                         "buff_state": {
-                                          "name": "league_gnar_rg3",
+                                          "name": "league_gnar_rg9",
                                           "duration": {
                                             "Time": {
                                               "tick": 420
@@ -2532,18 +3204,18 @@
                                   },
                                   "effect_none": {
                                     "type": "SwitchByBuff",
-                                    "buff_name": "league_gnar_rg1",
+                                    "buff_name": "league_gnar_rg7",
                                     "effect_buff": {
                                       "type": "Combine",
                                       "effects": [
                                         {
                                           "type": "RemoveCasterBuff",
-                                          "name": "league_gnar_rg1"
+                                          "name": "league_gnar_rg7"
                                         },
                                         {
                                           "type": "AddCasterBuff",
                                           "buff_state": {
-                                            "name": "league_gnar_rg2",
+                                            "name": "league_gnar_rg8",
                                             "duration": {
                                               "Time": {
                                                 "tick": 420
@@ -2555,16 +3227,166 @@
                                       ]
                                     },
                                     "effect_none": {
-                                      "type": "AddCasterBuff",
-                                      "buff_state": {
-                                        "name": "league_gnar_rg1",
-                                        "duration": {
-                                          "Time": {
-                                            "tick": 420
+                                      "type": "SwitchByBuff",
+                                      "buff_name": "league_gnar_rg6",
+                                      "effect_buff": {
+                                        "type": "Combine",
+                                        "effects": [
+                                          {
+                                            "type": "RemoveCasterBuff",
+                                            "name": "league_gnar_rg6"
+                                          },
+                                          {
+                                            "type": "AddCasterBuff",
+                                            "buff_state": {
+                                              "name": "league_gnar_rg7",
+                                              "duration": {
+                                                "Time": {
+                                                  "tick": 420
+                                                }
+                                              }
+                                            },
+                                            "only_to_enemy": false
+                                          }
+                                        ]
+                                      },
+                                      "effect_none": {
+                                        "type": "SwitchByBuff",
+                                        "buff_name": "league_gnar_rg5",
+                                        "effect_buff": {
+                                          "type": "Combine",
+                                          "effects": [
+                                            {
+                                              "type": "RemoveCasterBuff",
+                                              "name": "league_gnar_rg5"
+                                            },
+                                            {
+                                              "type": "AddCasterBuff",
+                                              "buff_state": {
+                                                "name": "league_gnar_rg6",
+                                                "duration": {
+                                                  "Time": {
+                                                    "tick": 420
+                                                  }
+                                                }
+                                              },
+                                              "only_to_enemy": false
+                                            }
+                                          ]
+                                        },
+                                        "effect_none": {
+                                          "type": "SwitchByBuff",
+                                          "buff_name": "league_gnar_rg4",
+                                          "effect_buff": {
+                                            "type": "Combine",
+                                            "effects": [
+                                              {
+                                                "type": "RemoveCasterBuff",
+                                                "name": "league_gnar_rg4"
+                                              },
+                                              {
+                                                "type": "AddCasterBuff",
+                                                "buff_state": {
+                                                  "name": "league_gnar_rg5",
+                                                  "duration": {
+                                                    "Time": {
+                                                      "tick": 420
+                                                    }
+                                                  }
+                                                },
+                                                "only_to_enemy": false
+                                              }
+                                            ]
+                                          },
+                                          "effect_none": {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_gnar_rg3",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_gnar_rg3"
+                                                },
+                                                {
+                                                  "type": "AddCasterBuff",
+                                                  "buff_state": {
+                                                    "name": "league_gnar_rg4",
+                                                    "duration": {
+                                                      "Time": {
+                                                        "tick": 420
+                                                      }
+                                                    }
+                                                  },
+                                                  "only_to_enemy": false
+                                                }
+                                              ]
+                                            },
+                                            "effect_none": {
+                                              "type": "SwitchByBuff",
+                                              "buff_name": "league_gnar_rg2",
+                                              "effect_buff": {
+                                                "type": "Combine",
+                                                "effects": [
+                                                  {
+                                                    "type": "RemoveCasterBuff",
+                                                    "name": "league_gnar_rg2"
+                                                  },
+                                                  {
+                                                    "type": "AddCasterBuff",
+                                                    "buff_state": {
+                                                      "name": "league_gnar_rg3",
+                                                      "duration": {
+                                                        "Time": {
+                                                          "tick": 420
+                                                        }
+                                                      }
+                                                    },
+                                                    "only_to_enemy": false
+                                                  }
+                                                ]
+                                              },
+                                              "effect_none": {
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_gnar_rg1",
+                                                "effect_buff": {
+                                                  "type": "Combine",
+                                                  "effects": [
+                                                    {
+                                                      "type": "RemoveCasterBuff",
+                                                      "name": "league_gnar_rg1"
+                                                    },
+                                                    {
+                                                      "type": "AddCasterBuff",
+                                                      "buff_state": {
+                                                        "name": "league_gnar_rg2",
+                                                        "duration": {
+                                                          "Time": {
+                                                            "tick": 420
+                                                          }
+                                                        }
+                                                      },
+                                                      "only_to_enemy": false
+                                                    }
+                                                  ]
+                                                },
+                                                "effect_none": {
+                                                  "type": "AddCasterBuff",
+                                                  "buff_state": {
+                                                    "name": "league_gnar_rg1",
+                                                    "duration": {
+                                                      "Time": {
+                                                        "tick": 420
+                                                      }
+                                                    }
+                                                  },
+                                                  "only_to_enemy": false
+                                                }
+                                              }
+                                            }
                                           }
                                         }
-                                      },
-                                      "only_to_enemy": false
+                                      }
                                     }
                                   }
                                 }
@@ -2716,6 +3538,30 @@
                 {
                   "type": "RemoveCasterBuff",
                   "name": "league_gnar_rg3"
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_gnar_rg4"
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_gnar_rg5"
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_gnar_rg6"
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_gnar_rg7"
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_gnar_rg8"
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_gnar_rg9"
                 },
                 {
                   "type": "RemoveCasterBuff",

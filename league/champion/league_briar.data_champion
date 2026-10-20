@@ -16,9 +16,9 @@
     "asset/league/icons/league_briar_ult"
   ],
   "stat": {
-    "attack": 90,
+    "attack": 94,
     "magic_power": 0,
-    "hp": 880,
+    "hp": 924,
     "defence": 28,
     "magic_resistance": 18,
     "move_speed": 1100,
@@ -27,9 +27,9 @@
     "crit_chance": 0
   },
   "growth": {
-    "attack": 18,
+    "attack": 19,
     "magic_power": 0,
-    "hp": 95,
+    "hp": 100,
     "defence": 8,
     "magic_resistance": 4,
     "move_speed": 12,
@@ -685,15 +685,12 @@
           "name": "league_briar_q_cast"
         },
         {
-          "type": "RandomTarget",
-          "range": 47500,
-          "casting_target": "EnemyChampion",
-          "from_projectile": false,
+          "type": "Combine",
           "effects": [
             {
               "type": "AddCasterBuff",
               "buff_state": {
-                "name": "league_briar_q_aim",
+                "name": "league_briar_ai_hide",
                 "duration": {
                   "Time": {
                     "tick": 1
@@ -703,115 +700,152 @@
               "only_to_enemy": false
             },
             {
-              "type": "CasterAnimation",
-              "name": "skill",
-              "tick": 24
-            },
-            {
-              "type": "MoveToTarget",
-              "speed": 3500,
-              "range": 95000,
-              "end_effects": [
-                {
-                  "type": "Attack",
-                  "damage": 40,
-                  "attack_ratio": 60,
-                  "attack_effect_type": "Target"
-                },
-                {
-                  "type": "Stun",
-                  "duration": 30
-                },
-                {
-                  "type": "AddBuff",
-                  "buff_state": {
-                    "name": "league_briar_q_shred",
-                    "duration": {
-                      "Time": {
-                        "tick": 300
-                      }
-                    },
-                    "defence_mult": -10,
-                    "magic_resistance_mult": -10
-                  }
-                },
-                {
-                  "type": "AddCasted",
-                  "casted_type": "Bleed",
-                  "duration": 301,
-                  "period": 60,
-                  "effects": [
-                    {
-                      "type": "Attack",
-                      "damage": 2,
-                      "attack_ratio": 3,
-                      "attack_effect_type": "Target"
-                    },
-                    {
-                      "type": "Heal",
-                      "amount": 1,
-                      "attack_ratio": 1,
-                      "ap_ratio": 0,
-                      "heal_type": "Caster"
-                    }
-                  ]
-                },
-                {
-                  "type": "ViewEffect",
-                  "name": "league_briar_q_hit"
-                },
-                {
-                  "type": "TargetSfx",
-                  "name": "league_briar_q_hit"
-                },
-                {
-                  "type": "Combine",
-                  "effects": [
-                    {
-                      "type": "RemoveCasterBuff",
-                      "name": "league_briar_frenzy"
-                    },
-                    {
-                      "type": "AddCasterBuff",
-                      "buff_state": {
-                        "name": "league_briar_frenzy",
-                        "duration": {
-                          "Time": {
-                            "tick": 300
+              "type": "SwitchByBuff",
+              "buff_name": "league_briar_ai_hide",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "RandomTarget",
+                    "range": 47500,
+                    "casting_target": "EnemyChampion",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_briar_q_aim",
+                          "duration": {
+                            "Time": {
+                              "tick": 1
+                            }
                           }
                         },
-                        "attack_speed_mult": 40,
-                        "move_speed_mult": 20
+                        "only_to_enemy": false
                       },
-                      "only_to_enemy": false
-                    },
-                    {
-                      "type": "RemoveCasterBuff",
-                      "name": "league_briar_snack_done"
-                    },
-                    {
-                      "type": "RemoveCasterBuff",
-                      "name": "league_briar_snack_wait"
-                    },
-                    {
-                      "type": "AddCasterBuff",
-                      "buff_state": {
-                        "name": "league_briar_snack_wait",
-                        "duration": {
-                          "Time": {
-                            "tick": 6
+                      {
+                        "type": "CasterAnimation",
+                        "name": "skill",
+                        "tick": 24
+                      },
+                      {
+                        "type": "MoveToTarget",
+                        "speed": 3500,
+                        "range": 95000,
+                        "end_effects": [
+                          {
+                            "type": "Attack",
+                            "damage": 40,
+                            "attack_ratio": 60,
+                            "attack_effect_type": "Target"
+                          },
+                          {
+                            "type": "Stun",
+                            "duration": 30
+                          },
+                          {
+                            "type": "AddBuff",
+                            "buff_state": {
+                              "name": "league_briar_q_shred",
+                              "duration": {
+                                "Time": {
+                                  "tick": 300
+                                }
+                              },
+                              "defence_mult": -10,
+                              "magic_resistance_mult": -10
+                            }
+                          },
+                          {
+                            "type": "AddCasted",
+                            "casted_type": "Bleed",
+                            "duration": 301,
+                            "period": 60,
+                            "effects": [
+                              {
+                                "type": "Attack",
+                                "damage": 2,
+                                "attack_ratio": 3,
+                                "attack_effect_type": "Target"
+                              },
+                              {
+                                "type": "Heal",
+                                "amount": 1,
+                                "attack_ratio": 1,
+                                "ap_ratio": 0,
+                                "heal_type": "Caster"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "ViewEffect",
+                            "name": "league_briar_q_hit"
+                          },
+                          {
+                            "type": "TargetSfx",
+                            "name": "league_briar_q_hit"
+                          },
+                          {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "league_briar_frenzy"
+                              },
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_briar_frenzy",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 300
+                                    }
+                                  },
+                                  "attack_speed_mult": 40,
+                                  "move_speed_mult": 20
+                                },
+                                "only_to_enemy": false
+                              },
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "league_briar_snack_done"
+                              },
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "league_briar_snack_wait"
+                              },
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_briar_snack_wait",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 6
+                                    }
+                                  }
+                                },
+                                "only_to_enemy": false
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Sfx",
+                            "name": "league_briar_w_frenzy"
                           }
-                        }
-                      },
-                      "only_to_enemy": false
-                    }
-                  ]
-                },
-                {
-                  "type": "Sfx",
-                  "name": "league_briar_w_frenzy"
-                }
-              ]
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              "effect_none": {
+                "type": "Combine",
+                "effects": []
+              }
+            },
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_briar_ai_hide"
             }
           ]
         },

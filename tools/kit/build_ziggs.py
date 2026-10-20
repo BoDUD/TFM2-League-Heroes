@@ -82,7 +82,7 @@ P = {
     # R Mega Inferno Bomb (League: 5000 range, r 525 (centre 250), 300-700 +100% AP at the centre, 65% outside,
     # cd 120-70)
     "r_cd": 3600, "r_range": 220000, "r_arm": 600, "r_wait": 300, "r_dur": 36, "r_rel": 16, "r_travel": 70,
-    "r_r": 40000, "r_cr": 18000, "r_dmg": 250, "r_ratio": 85, "r_cdmg": 135, "r_cratio": 45,
+    "r_r": 55000, "r_cr": 25000, "r_dmg": 250, "r_ratio": 85, "r_cdmg": 135, "r_cratio": 45,
     "watch_p": 12,
     "vo_gap": 600,
     "native": 0,

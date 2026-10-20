@@ -14,9 +14,9 @@
     "asset/league/icons/league_xerath_ult"
   ],
   "stat": {
-    "attack": 78,
-    "magic_power": 42,
-    "hp": 860,
+    "attack": 83,
+    "magic_power": 45,
+    "hp": 912,
     "defence": 18,
     "magic_resistance": 20,
     "move_speed": 900,
@@ -26,8 +26,8 @@
   },
   "growth": {
     "attack": 6,
-    "magic_power": 21,
-    "hp": 95,
+    "magic_power": 22,
+    "hp": 101,
     "defence": 7,
     "magic_resistance": 4,
     "move_speed": 9,
@@ -1123,15 +1123,12 @@
                         ]
                       },
                       {
-                        "type": "RandomTarget",
-                        "range": 140000,
-                        "casting_target": "EnemyChampion",
-                        "from_projectile": false,
+                        "type": "Combine",
                         "effects": [
                           {
                             "type": "AddCasterBuff",
                             "buff_state": {
-                              "name": "league_xerath_q_go_f",
+                              "name": "league_xerath_ai_hide",
                               "duration": {
                                 "Time": {
                                   "tick": 1
@@ -1141,45 +1138,82 @@
                             "only_to_enemy": false
                           },
                           {
-                            "type": "LinearProjectile",
-                            "name": "league_xerath_q_beam",
-                            "penetrate": true,
-                            "applied_target": "EnemyWithoutTower",
-                            "applied_effects": [
-                              {
-                                "casting_type": "Targeting",
-                                "effect": {
-                                  "type": "ApAttack",
-                                  "damage": 110,
-                                  "attack_ratio": 85,
-                                  "hp_ratio": 0,
-                                  "attack_effect_type": "Target"
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_xerath_ai_hide",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "RandomTarget",
+                                  "range": 140000,
+                                  "casting_target": "EnemyChampion",
+                                  "from_projectile": false,
+                                  "effects": [
+                                    {
+                                      "type": "AddCasterBuff",
+                                      "buff_state": {
+                                        "name": "league_xerath_q_go_f",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 1
+                                          }
+                                        }
+                                      },
+                                      "only_to_enemy": false
+                                    },
+                                    {
+                                      "type": "LinearProjectile",
+                                      "name": "league_xerath_q_beam",
+                                      "penetrate": true,
+                                      "applied_target": "EnemyWithoutTower",
+                                      "applied_effects": [
+                                        {
+                                          "casting_type": "Targeting",
+                                          "effect": {
+                                            "type": "ApAttack",
+                                            "damage": 110,
+                                            "attack_ratio": 85,
+                                            "hp_ratio": 0,
+                                            "attack_effect_type": "Target"
+                                          }
+                                        },
+                                        {
+                                          "casting_type": "Targeting",
+                                          "effect": {
+                                            "type": "ViewEffect",
+                                            "name": "league_xerath_q_hit"
+                                          }
+                                        },
+                                        {
+                                          "casting_type": "Targeting",
+                                          "effect": {
+                                            "type": "TargetSfx",
+                                            "name": "league_xerath_q_hit"
+                                          }
+                                        }
+                                      ],
+                                      "end_effects": [],
+                                      "speed": 15000,
+                                      "range": 150000,
+                                      "shape": {
+                                        "Circle": {
+                                          "radius": 7000
+                                        }
+                                      },
+                                      "y_offset": -10000
+                                    }
+                                  ]
                                 }
-                              },
-                              {
-                                "casting_type": "Targeting",
-                                "effect": {
-                                  "type": "ViewEffect",
-                                  "name": "league_xerath_q_hit"
-                                }
-                              },
-                              {
-                                "casting_type": "Targeting",
-                                "effect": {
-                                  "type": "TargetSfx",
-                                  "name": "league_xerath_q_hit"
-                                }
-                              }
-                            ],
-                            "end_effects": [],
-                            "speed": 15000,
-                            "range": 150000,
-                            "shape": {
-                              "Circle": {
-                                "radius": 7000
-                              }
+                              ]
                             },
-                            "y_offset": -10000
+                            "effect_none": {
+                              "type": "Combine",
+                              "effects": []
+                            }
+                          },
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_xerath_ai_hide"
                           }
                         ]
                       },
@@ -1271,15 +1305,12 @@
                         ]
                       },
                       {
-                        "type": "RandomTarget",
-                        "range": 85000,
-                        "casting_target": "EnemyChampion",
-                        "from_projectile": false,
+                        "type": "Combine",
                         "effects": [
                           {
                             "type": "AddCasterBuff",
                             "buff_state": {
-                              "name": "league_xerath_q_go_q",
+                              "name": "league_xerath_ai_hide",
                               "duration": {
                                 "Time": {
                                   "tick": 1
@@ -1289,45 +1320,82 @@
                             "only_to_enemy": false
                           },
                           {
-                            "type": "LinearProjectile",
-                            "name": "league_xerath_q_beam_s",
-                            "penetrate": true,
-                            "applied_target": "EnemyWithoutTower",
-                            "applied_effects": [
-                              {
-                                "casting_type": "Targeting",
-                                "effect": {
-                                  "type": "ApAttack",
-                                  "damage": 71,
-                                  "attack_ratio": 55,
-                                  "hp_ratio": 0,
-                                  "attack_effect_type": "Target"
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_xerath_ai_hide",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "RandomTarget",
+                                  "range": 85000,
+                                  "casting_target": "EnemyChampion",
+                                  "from_projectile": false,
+                                  "effects": [
+                                    {
+                                      "type": "AddCasterBuff",
+                                      "buff_state": {
+                                        "name": "league_xerath_q_go_q",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 1
+                                          }
+                                        }
+                                      },
+                                      "only_to_enemy": false
+                                    },
+                                    {
+                                      "type": "LinearProjectile",
+                                      "name": "league_xerath_q_beam_s",
+                                      "penetrate": true,
+                                      "applied_target": "EnemyWithoutTower",
+                                      "applied_effects": [
+                                        {
+                                          "casting_type": "Targeting",
+                                          "effect": {
+                                            "type": "ApAttack",
+                                            "damage": 71,
+                                            "attack_ratio": 55,
+                                            "hp_ratio": 0,
+                                            "attack_effect_type": "Target"
+                                          }
+                                        },
+                                        {
+                                          "casting_type": "Targeting",
+                                          "effect": {
+                                            "type": "ViewEffect",
+                                            "name": "league_xerath_q_hit"
+                                          }
+                                        },
+                                        {
+                                          "casting_type": "Targeting",
+                                          "effect": {
+                                            "type": "TargetSfx",
+                                            "name": "league_xerath_q_hit"
+                                          }
+                                        }
+                                      ],
+                                      "end_effects": [],
+                                      "speed": 15000,
+                                      "range": 95000,
+                                      "shape": {
+                                        "Circle": {
+                                          "radius": 7000
+                                        }
+                                      },
+                                      "y_offset": -10000
+                                    }
+                                  ]
                                 }
-                              },
-                              {
-                                "casting_type": "Targeting",
-                                "effect": {
-                                  "type": "ViewEffect",
-                                  "name": "league_xerath_q_hit"
-                                }
-                              },
-                              {
-                                "casting_type": "Targeting",
-                                "effect": {
-                                  "type": "TargetSfx",
-                                  "name": "league_xerath_q_hit"
-                                }
-                              }
-                            ],
-                            "end_effects": [],
-                            "speed": 15000,
-                            "range": 95000,
-                            "shape": {
-                              "Circle": {
-                                "radius": 7000
-                              }
+                              ]
                             },
-                            "y_offset": -10000
+                            "effect_none": {
+                              "type": "Combine",
+                              "effects": []
+                            }
+                          },
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_xerath_ai_hide"
                           }
                         ]
                       },
@@ -2257,15 +2325,12 @@
                                     "name": "league_xerath_r_go"
                                   },
                                   {
-                                    "type": "RandomTarget",
-                                    "range": 220000,
-                                    "casting_target": "EnemyChampionRecentlyAttacked",
-                                    "from_projectile": false,
+                                    "type": "Combine",
                                     "effects": [
                                       {
                                         "type": "AddCasterBuff",
                                         "buff_state": {
-                                          "name": "league_xerath_r_go",
+                                          "name": "league_xerath_ai_hide",
                                           "duration": {
                                             "Time": {
                                               "tick": 1
@@ -2275,239 +2340,276 @@
                                         "only_to_enemy": false
                                       },
                                       {
-                                        "type": "ParabolicProjectile",
-                                        "name": "league_xerath_r_lob",
-                                        "travel_time": 1,
-                                        "range": 400000,
-                                        "shape": {
-                                          "Circle": {
-                                            "radius": 1000
-                                          }
-                                        },
-                                        "range_effect_name": "",
-                                        "applied_target": "EnemyWithoutTower",
-                                        "applied_effects": [],
-                                        "end_effects": [
-                                          {
-                                            "type": "ViewEffect",
-                                            "name": "league_xerath_r_mark"
-                                          },
-                                          {
-                                            "type": "Sfx",
-                                            "name": "league_xerath_r_shot"
-                                          },
-                                          {
-                                            "type": "RangeProjectile",
-                                            "name": "league_xerath_r_blast",
-                                            "shape": {
-                                              "Circle": {
-                                                "radius": 18000
-                                              }
-                                            },
-                                            "delay": 37,
-                                            "apply": 37,
-                                            "applied_target": "EnemyWithoutTower",
-                                            "applied_effects": [
-                                              {
-                                                "casting_type": "Targeting",
-                                                "effect": {
-                                                  "type": "SwitchByBuff",
-                                                  "buff_name": "league_xerath_r_h3",
-                                                  "effect_buff": {
-                                                    "type": "ApAttack",
-                                                    "damage": 192,
-                                                    "attack_ratio": 72,
-                                                    "hp_ratio": 0,
-                                                    "attack_effect_type": "Target"
-                                                  },
-                                                  "effect_none": {
-                                                    "type": "SwitchByBuff",
-                                                    "buff_name": "league_xerath_r_h2",
-                                                    "effect_buff": {
-                                                      "type": "ApAttack",
-                                                      "damage": 168,
-                                                      "attack_ratio": 63,
-                                                      "hp_ratio": 0,
-                                                      "attack_effect_type": "Target"
-                                                    },
-                                                    "effect_none": {
-                                                      "type": "SwitchByBuff",
-                                                      "buff_name": "league_xerath_r_h1",
-                                                      "effect_buff": {
-                                                        "type": "ApAttack",
-                                                        "damage": 144,
-                                                        "attack_ratio": 54,
-                                                        "hp_ratio": 0,
-                                                        "attack_effect_type": "Target"
-                                                      },
-                                                      "effect_none": {
-                                                        "type": "ApAttack",
-                                                        "damage": 120,
-                                                        "attack_ratio": 45,
-                                                        "hp_ratio": 0,
-                                                        "attack_effect_type": "Target"
+                                        "type": "SwitchByBuff",
+                                        "buff_name": "league_xerath_ai_hide",
+                                        "effect_buff": {
+                                          "type": "Combine",
+                                          "effects": [
+                                            {
+                                              "type": "RandomTarget",
+                                              "range": 220000,
+                                              "casting_target": "EnemyChampionRecentlyAttacked",
+                                              "from_projectile": false,
+                                              "effects": [
+                                                {
+                                                  "type": "AddCasterBuff",
+                                                  "buff_state": {
+                                                    "name": "league_xerath_r_go",
+                                                    "duration": {
+                                                      "Time": {
+                                                        "tick": 1
                                                       }
                                                     }
-                                                  }
-                                                }
-                                              },
-                                              {
-                                                "casting_type": "Targeting",
-                                                "effect": {
-                                                  "type": "ViewEffect",
-                                                  "name": "league_xerath_r_hit"
-                                                }
-                                              },
-                                              {
-                                                "casting_type": "Targeting",
-                                                "effect": {
-                                                  "type": "TargetSfx",
-                                                  "name": "league_xerath_r_hit"
-                                                }
-                                              }
-                                            ]
-                                          },
-                                          {
-                                            "type": "RangeProjectile",
-                                            "name": "league_xerath_r_blast_c",
-                                            "shape": {
-                                              "Circle": {
-                                                "radius": 18000
-                                              }
-                                            },
-                                            "delay": 37,
-                                            "apply": 37,
-                                            "applied_target": "EnemyChampion",
-                                            "applied_effects": [
-                                              {
-                                                "casting_type": "Targeting",
-                                                "effect": {
-                                                  "type": "Combine",
-                                                  "effects": [
+                                                  },
+                                                  "only_to_enemy": false
+                                                },
+                                                {
+                                                  "type": "ParabolicProjectile",
+                                                  "name": "league_xerath_r_lob",
+                                                  "travel_time": 1,
+                                                  "range": 400000,
+                                                  "shape": {
+                                                    "Circle": {
+                                                      "radius": 1000
+                                                    }
+                                                  },
+                                                  "range_effect_name": "",
+                                                  "applied_target": "EnemyWithoutTower",
+                                                  "applied_effects": [],
+                                                  "end_effects": [
                                                     {
-                                                      "type": "RemoveCasterBuff",
-                                                      "name": "league_xerath_r_hc"
+                                                      "type": "ViewEffect",
+                                                      "name": "league_xerath_r_mark"
                                                     },
                                                     {
-                                                      "type": "AddCasterBuff",
-                                                      "buff_state": {
-                                                        "name": "league_xerath_r_hc",
-                                                        "duration": {
-                                                          "Time": {
-                                                            "tick": 2
-                                                          }
+                                                      "type": "Sfx",
+                                                      "name": "league_xerath_r_shot"
+                                                    },
+                                                    {
+                                                      "type": "RangeProjectile",
+                                                      "name": "league_xerath_r_blast",
+                                                      "shape": {
+                                                        "Circle": {
+                                                          "radius": 18000
                                                         }
                                                       },
-                                                      "only_to_enemy": false
-                                                    }
-                                                  ]
-                                                }
-                                              }
-                                            ]
-                                          },
-                                          {
-                                            "type": "Delayed",
-                                            "tick": 37,
-                                            "effects": [
-                                              {
-                                                "type": "RangeEffect",
-                                                "shape": {
-                                                  "Circle": {
-                                                    "radius": 1000
-                                                  }
-                                                },
-                                                "target": "AllyOnlySelf",
-                                                "apply_type": "AroundCaster",
-                                                "effects": [
-                                                  {
-                                                    "type": "SwitchByBuff",
-                                                    "buff_name": "league_xerath_r_hc",
-                                                    "effect_buff": {
-                                                      "type": "SwitchByBuff",
-                                                      "buff_name": "league_xerath_r_h3",
-                                                      "effect_buff": {
-                                                        "type": "Combine",
-                                                        "effects": []
-                                                      },
-                                                      "effect_none": {
-                                                        "type": "SwitchByBuff",
-                                                        "buff_name": "league_xerath_r_h2",
-                                                        "effect_buff": {
-                                                          "type": "Combine",
-                                                          "effects": [
-                                                            {
-                                                              "type": "AddCasterBuff",
-                                                              "buff_state": {
-                                                                "name": "league_xerath_r_h3",
-                                                                "duration": {
-                                                                  "Time": {
-                                                                    "tick": 360
-                                                                  }
-                                                                }
+                                                      "delay": 37,
+                                                      "apply": 37,
+                                                      "applied_target": "EnemyWithoutTower",
+                                                      "applied_effects": [
+                                                        {
+                                                          "casting_type": "Targeting",
+                                                          "effect": {
+                                                            "type": "SwitchByBuff",
+                                                            "buff_name": "league_xerath_r_h3",
+                                                            "effect_buff": {
+                                                              "type": "ApAttack",
+                                                              "damage": 192,
+                                                              "attack_ratio": 72,
+                                                              "hp_ratio": 0,
+                                                              "attack_effect_type": "Target"
+                                                            },
+                                                            "effect_none": {
+                                                              "type": "SwitchByBuff",
+                                                              "buff_name": "league_xerath_r_h2",
+                                                              "effect_buff": {
+                                                                "type": "ApAttack",
+                                                                "damage": 168,
+                                                                "attack_ratio": 63,
+                                                                "hp_ratio": 0,
+                                                                "attack_effect_type": "Target"
                                                               },
-                                                              "only_to_enemy": false
+                                                              "effect_none": {
+                                                                "type": "SwitchByBuff",
+                                                                "buff_name": "league_xerath_r_h1",
+                                                                "effect_buff": {
+                                                                  "type": "ApAttack",
+                                                                  "damage": 144,
+                                                                  "attack_ratio": 54,
+                                                                  "hp_ratio": 0,
+                                                                  "attack_effect_type": "Target"
+                                                                },
+                                                                "effect_none": {
+                                                                  "type": "ApAttack",
+                                                                  "damage": 120,
+                                                                  "attack_ratio": 45,
+                                                                  "hp_ratio": 0,
+                                                                  "attack_effect_type": "Target"
+                                                                }
+                                                              }
                                                             }
-                                                          ]
+                                                          }
                                                         },
-                                                        "effect_none": {
-                                                          "type": "SwitchByBuff",
-                                                          "buff_name": "league_xerath_r_h1",
-                                                          "effect_buff": {
+                                                        {
+                                                          "casting_type": "Targeting",
+                                                          "effect": {
+                                                            "type": "ViewEffect",
+                                                            "name": "league_xerath_r_hit"
+                                                          }
+                                                        },
+                                                        {
+                                                          "casting_type": "Targeting",
+                                                          "effect": {
+                                                            "type": "TargetSfx",
+                                                            "name": "league_xerath_r_hit"
+                                                          }
+                                                        }
+                                                      ]
+                                                    },
+                                                    {
+                                                      "type": "RangeProjectile",
+                                                      "name": "league_xerath_r_blast_c",
+                                                      "shape": {
+                                                        "Circle": {
+                                                          "radius": 18000
+                                                        }
+                                                      },
+                                                      "delay": 37,
+                                                      "apply": 37,
+                                                      "applied_target": "EnemyChampion",
+                                                      "applied_effects": [
+                                                        {
+                                                          "casting_type": "Targeting",
+                                                          "effect": {
                                                             "type": "Combine",
                                                             "effects": [
                                                               {
+                                                                "type": "RemoveCasterBuff",
+                                                                "name": "league_xerath_r_hc"
+                                                              },
+                                                              {
                                                                 "type": "AddCasterBuff",
                                                                 "buff_state": {
-                                                                  "name": "league_xerath_r_h2",
+                                                                  "name": "league_xerath_r_hc",
                                                                   "duration": {
                                                                     "Time": {
-                                                                      "tick": 360
+                                                                      "tick": 2
                                                                     }
                                                                   }
                                                                 },
                                                                 "only_to_enemy": false
                                                               }
                                                             ]
-                                                          },
-                                                          "effect_none": {
-                                                            "type": "AddCasterBuff",
-                                                            "buff_state": {
-                                                              "name": "league_xerath_r_h1",
-                                                              "duration": {
-                                                                "Time": {
-                                                                  "tick": 360
-                                                                }
-                                                              }
-                                                            },
-                                                            "only_to_enemy": false
                                                           }
                                                         }
-                                                      }
+                                                      ]
                                                     },
-                                                    "effect_none": {
-                                                      "type": "Combine",
-                                                      "effects": []
+                                                    {
+                                                      "type": "Delayed",
+                                                      "tick": 37,
+                                                      "effects": [
+                                                        {
+                                                          "type": "RangeEffect",
+                                                          "shape": {
+                                                            "Circle": {
+                                                              "radius": 1000
+                                                            }
+                                                          },
+                                                          "target": "AllyOnlySelf",
+                                                          "apply_type": "AroundCaster",
+                                                          "effects": [
+                                                            {
+                                                              "type": "SwitchByBuff",
+                                                              "buff_name": "league_xerath_r_hc",
+                                                              "effect_buff": {
+                                                                "type": "SwitchByBuff",
+                                                                "buff_name": "league_xerath_r_h3",
+                                                                "effect_buff": {
+                                                                  "type": "Combine",
+                                                                  "effects": []
+                                                                },
+                                                                "effect_none": {
+                                                                  "type": "SwitchByBuff",
+                                                                  "buff_name": "league_xerath_r_h2",
+                                                                  "effect_buff": {
+                                                                    "type": "Combine",
+                                                                    "effects": [
+                                                                      {
+                                                                        "type": "AddCasterBuff",
+                                                                        "buff_state": {
+                                                                          "name": "league_xerath_r_h3",
+                                                                          "duration": {
+                                                                            "Time": {
+                                                                              "tick": 360
+                                                                            }
+                                                                          }
+                                                                        },
+                                                                        "only_to_enemy": false
+                                                                      }
+                                                                    ]
+                                                                  },
+                                                                  "effect_none": {
+                                                                    "type": "SwitchByBuff",
+                                                                    "buff_name": "league_xerath_r_h1",
+                                                                    "effect_buff": {
+                                                                      "type": "Combine",
+                                                                      "effects": [
+                                                                        {
+                                                                          "type": "AddCasterBuff",
+                                                                          "buff_state": {
+                                                                            "name": "league_xerath_r_h2",
+                                                                            "duration": {
+                                                                              "Time": {
+                                                                                "tick": 360
+                                                                              }
+                                                                            }
+                                                                          },
+                                                                          "only_to_enemy": false
+                                                                        }
+                                                                      ]
+                                                                    },
+                                                                    "effect_none": {
+                                                                      "type": "AddCasterBuff",
+                                                                      "buff_state": {
+                                                                        "name": "league_xerath_r_h1",
+                                                                        "duration": {
+                                                                          "Time": {
+                                                                            "tick": 360
+                                                                          }
+                                                                        }
+                                                                      },
+                                                                      "only_to_enemy": false
+                                                                    }
+                                                                  }
+                                                                }
+                                                              },
+                                                              "effect_none": {
+                                                                "type": "Combine",
+                                                                "effects": []
+                                                              }
+                                                            }
+                                                          ]
+                                                        }
+                                                      ]
+                                                    },
+                                                    {
+                                                      "type": "Delayed",
+                                                      "tick": 28,
+                                                      "effects": [
+                                                        {
+                                                          "type": "ViewEffect",
+                                                          "name": "league_xerath_r_bolt"
+                                                        },
+                                                        {
+                                                          "type": "Sfx",
+                                                          "name": "league_xerath_r_blast"
+                                                        }
+                                                      ]
                                                     }
-                                                  }
-                                                ]
-                                              }
-                                            ]
-                                          },
-                                          {
-                                            "type": "Delayed",
-                                            "tick": 28,
-                                            "effects": [
-                                              {
-                                                "type": "ViewEffect",
-                                                "name": "league_xerath_r_bolt"
-                                              },
-                                              {
-                                                "type": "Sfx",
-                                                "name": "league_xerath_r_blast"
-                                              }
-                                            ]
-                                          }
-                                        ]
+                                                  ]
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        },
+                                        "effect_none": {
+                                          "type": "Combine",
+                                          "effects": []
+                                        }
+                                      },
+                                      {
+                                        "type": "RemoveCasterBuff",
+                                        "name": "league_xerath_ai_hide"
                                       }
                                     ]
                                   },

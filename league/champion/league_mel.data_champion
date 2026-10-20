@@ -183,7 +183,7 @@
                                         "effects": [
                                           {
                                             "type": "ApAttack",
-                                            "damage": 20,
+                                            "damage": 15,
                                             "attack_ratio": 8,
                                             "hp_ratio": 0,
                                             "can_crit": false
@@ -243,7 +243,7 @@
                                               "tick": 75
                                             }
                                           },
-                                          "damaged_reduce": 100,
+                                          "damaged_reduce": 50,
                                           "damage_reflect": 40,
                                           "move_speed_mult": 25
                                         },
@@ -379,7 +379,7 @@
                                                             "effects": [
                                                               {
                                                                 "type": "ApAttack",
-                                                                "damage": 20,
+                                                                "damage": 15,
                                                                 "attack_ratio": 8,
                                                                 "hp_ratio": 0,
                                                                 "can_crit": false
@@ -496,7 +496,7 @@
                                                             "effects": [
                                                               {
                                                                 "type": "ApAttack",
-                                                                "damage": 20,
+                                                                "damage": 15,
                                                                 "attack_ratio": 8,
                                                                 "hp_ratio": 0,
                                                                 "can_crit": false
@@ -613,7 +613,7 @@
                                                             "effects": [
                                                               {
                                                                 "type": "ApAttack",
-                                                                "damage": 20,
+                                                                "damage": 15,
                                                                 "attack_ratio": 8,
                                                                 "hp_ratio": 0,
                                                                 "can_crit": false
@@ -730,7 +730,7 @@
                                                             "effects": [
                                                               {
                                                                 "type": "ApAttack",
-                                                                "damage": 20,
+                                                                "damage": 15,
                                                                 "attack_ratio": 8,
                                                                 "hp_ratio": 0,
                                                                 "can_crit": false
@@ -847,7 +847,7 @@
                                                             "effects": [
                                                               {
                                                                 "type": "ApAttack",
-                                                                "damage": 20,
+                                                                "damage": 15,
                                                                 "attack_ratio": 8,
                                                                 "hp_ratio": 0,
                                                                 "can_crit": false
@@ -964,7 +964,7 @@
                                                             "effects": [
                                                               {
                                                                 "type": "ApAttack",
-                                                                "damage": 20,
+                                                                "damage": 15,
                                                                 "attack_ratio": 8,
                                                                 "hp_ratio": 0,
                                                                 "can_crit": false
@@ -1081,7 +1081,7 @@
                                                             "effects": [
                                                               {
                                                                 "type": "ApAttack",
-                                                                "damage": 20,
+                                                                "damage": 15,
                                                                 "attack_ratio": 8,
                                                                 "hp_ratio": 0,
                                                                 "can_crit": false
@@ -1198,7 +1198,7 @@
                                                             "effects": [
                                                               {
                                                                 "type": "ApAttack",
-                                                                "damage": 20,
+                                                                "damage": 15,
                                                                 "attack_ratio": 8,
                                                                 "hp_ratio": 0,
                                                                 "can_crit": false
@@ -1315,7 +1315,7 @@
                                                             "effects": [
                                                               {
                                                                 "type": "ApAttack",
-                                                                "damage": 20,
+                                                                "damage": 15,
                                                                 "attack_ratio": 8,
                                                                 "hp_ratio": 0,
                                                                 "can_crit": false
@@ -1444,7 +1444,7 @@
                                                               "effects": [
                                                                 {
                                                                   "type": "ApAttack",
-                                                                  "damage": 20,
+                                                                  "damage": 15,
                                                                   "attack_ratio": 8,
                                                                   "hp_ratio": 0,
                                                                   "can_crit": false
@@ -1561,7 +1561,7 @@
                                                               "effects": [
                                                                 {
                                                                   "type": "ApAttack",
-                                                                  "damage": 20,
+                                                                  "damage": 15,
                                                                   "attack_ratio": 8,
                                                                   "hp_ratio": 0,
                                                                   "can_crit": false
@@ -1678,7 +1678,7 @@
                                                               "effects": [
                                                                 {
                                                                   "type": "ApAttack",
-                                                                  "damage": 20,
+                                                                  "damage": 15,
                                                                   "attack_ratio": 8,
                                                                   "hp_ratio": 0,
                                                                   "can_crit": false
@@ -1795,7 +1795,7 @@
                                                               "effects": [
                                                                 {
                                                                   "type": "ApAttack",
-                                                                  "damage": 20,
+                                                                  "damage": 15,
                                                                   "attack_ratio": 8,
                                                                   "hp_ratio": 0,
                                                                   "can_crit": false
@@ -1912,7 +1912,7 @@
                                                               "effects": [
                                                                 {
                                                                   "type": "ApAttack",
-                                                                  "damage": 20,
+                                                                  "damage": 15,
                                                                   "attack_ratio": 8,
                                                                   "hp_ratio": 0,
                                                                   "can_crit": false
@@ -2029,7 +2029,7 @@
                                                               "effects": [
                                                                 {
                                                                   "type": "ApAttack",
-                                                                  "damage": 20,
+                                                                  "damage": 15,
                                                                   "attack_ratio": 8,
                                                                   "hp_ratio": 0,
                                                                   "can_crit": false
@@ -2158,7 +2158,7 @@
                                                                 "effects": [
                                                                   {
                                                                     "type": "ApAttack",
-                                                                    "damage": 20,
+                                                                    "damage": 15,
                                                                     "attack_ratio": 8,
                                                                     "hp_ratio": 0,
                                                                     "can_crit": false
@@ -2275,7 +2275,7 @@
                                                                 "effects": [
                                                                   {
                                                                     "type": "ApAttack",
-                                                                    "damage": 20,
+                                                                    "damage": 15,
                                                                     "attack_ratio": 8,
                                                                     "hp_ratio": 0,
                                                                     "can_crit": false
@@ -2392,7 +2392,7 @@
                                                                 "effects": [
                                                                   {
                                                                     "type": "ApAttack",
-                                                                    "damage": 20,
+                                                                    "damage": 15,
                                                                     "attack_ratio": 8,
                                                                     "hp_ratio": 0,
                                                                     "can_crit": false
@@ -2500,7 +2500,7 @@
               },
               "effect_none": {
                 "type": "ApAttack",
-                "damage": 120,
+                "damage": 88,
                 "attack_ratio": 60,
                 "hp_ratio": 0,
                 "can_crit": false
@@ -2707,7 +2707,7 @@
                                           "casting_type": "Targeting",
                                           "effect": {
                                             "type": "ApAttack",
-                                            "damage": 30,
+                                            "damage": 22,
                                             "attack_ratio": 15,
                                             "hp_ratio": 0,
                                             "can_crit": false
@@ -2752,7 +2752,7 @@
                                                   "effects": [
                                                     {
                                                       "type": "ApAttack",
-                                                      "damage": 20,
+                                                      "damage": 15,
                                                       "attack_ratio": 8,
                                                       "hp_ratio": 0,
                                                       "can_crit": false
@@ -2832,7 +2832,7 @@
                                           "casting_type": "Targeting",
                                           "effect": {
                                             "type": "ApAttack",
-                                            "damage": 30,
+                                            "damage": 22,
                                             "attack_ratio": 15,
                                             "hp_ratio": 0,
                                             "can_crit": false
@@ -2877,7 +2877,7 @@
                                                   "effects": [
                                                     {
                                                       "type": "ApAttack",
-                                                      "damage": 20,
+                                                      "damage": 15,
                                                       "attack_ratio": 8,
                                                       "hp_ratio": 0,
                                                       "can_crit": false
@@ -2967,7 +2967,7 @@
               },
               "effect_none": {
                 "type": "ApAttack",
-                "damage": 80,
+                "damage": 60,
                 "attack_ratio": 50,
                 "hp_ratio": 0,
                 "can_crit": false
@@ -3121,7 +3121,7 @@
                             "casting_type": "Targeting",
                             "effect": {
                               "type": "ApAttack",
-                              "damage": 80,
+                              "damage": 60,
                               "attack_ratio": 50,
                               "hp_ratio": 0,
                               "can_crit": false
@@ -3266,7 +3266,7 @@
                                     "effects": [
                                       {
                                         "type": "ApAttack",
-                                        "damage": 20,
+                                        "damage": 15,
                                         "attack_ratio": 8,
                                         "hp_ratio": 0,
                                         "can_crit": false
@@ -3349,7 +3349,7 @@
               },
               "effect_none": {
                 "type": "ApAttack",
-                "damage": 120,
+                "damage": 90,
                 "attack_ratio": 48,
                 "hp_ratio": 0,
                 "can_crit": false

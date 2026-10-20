@@ -2297,15 +2297,12 @@
                 "name": "league_jhin_e_go"
               },
               {
-                "type": "RandomTarget",
-                "range": 75000,
-                "casting_target": "EnemyChampionRecentlyAttacked",
-                "from_projectile": false,
+                "type": "Combine",
                 "effects": [
                   {
                     "type": "AddCasterBuff",
                     "buff_state": {
-                      "name": "league_jhin_e_go",
+                      "name": "league_jhin_ai_hide",
                       "duration": {
                         "Time": {
                           "tick": 1
@@ -2315,244 +2312,281 @@
                     "only_to_enemy": false
                   },
                   {
-                    "type": "AddCasterBuff",
-                    "buff_state": {
-                      "name": "league_jhin_e_cd",
-                      "duration": {
-                        "Time": {
-                          "tick": 900
-                        }
-                      }
-                    },
-                    "only_to_enemy": false
-                  },
-                  {
-                    "type": "Sfx",
-                    "name": "league_jhin_e_throw"
-                  },
-                  {
-                    "type": "ParabolicProjectile",
-                    "name": "league_jhin_e_seed",
-                    "travel_time": 18,
-                    "range": 400000,
-                    "range_effect_name": "",
-                    "shape": {
-                      "Circle": {
-                        "radius": 1
-                      }
-                    },
-                    "applied_target": "EnemyChampion",
-                    "applied_effects": [],
-                    "end_effects": [
-                      {
-                        "type": "Combine",
-                        "effects": [
-                          {
-                            "type": "RemoveCasterBuff",
-                            "name": "league_jhin_e_alive"
-                          },
-                          {
-                            "type": "AddCasterBuff",
-                            "buff_state": {
-                              "name": "league_jhin_e_alive",
-                              "duration": {
-                                "Time": {
-                                  "tick": 324
-                                }
-                              }
-                            },
-                            "only_to_enemy": false
-                          }
-                        ]
-                      },
-                      {
-                        "type": "ViewEffect",
-                        "name": "league_jhin_e_land"
-                      },
-                      {
-                        "type": "Sfx",
-                        "name": "league_jhin_e_land"
-                      },
-                      {
-                        "type": "Delayed",
-                        "tick": 24,
-                        "effects": [
-                          {
-                            "type": "RangePeriodProjectile",
-                            "name": "league_jhin_e_trigger",
-                            "shape": {
-                              "Circle": {
-                                "radius": 9000
-                              }
-                            },
-                            "tick": 300,
-                            "period": 1,
-                            "first_delay": 0,
-                            "applied_target": "EnemyChampion",
-                            "applied_effects": [
-                              {
-                                "casting_type": "Targeting",
-                                "effect": {
-                                  "type": "SwitchByBuff",
-                                  "buff_name": "league_jhin_e_alive",
-                                  "effect_buff": {
-                                    "type": "Combine",
-                                    "effects": [
-                                      {
-                                        "type": "RemoveCasterBuff",
-                                        "name": "league_jhin_e_alive"
-                                      },
-                                      {
-                                        "type": "RandomTarget",
-                                        "range": 1,
-                                        "casting_target": "AllyOnlySelf",
-                                        "from_projectile": false,
-                                        "effects": [
-                                          {
-                                            "type": "AddCasterBuff",
-                                            "buff_state": {
-                                              "name": "league_jhin_e_live",
-                                              "duration": {
-                                                "Time": {
-                                                  "tick": 1
-                                                }
-                                              }
-                                            },
-                                            "only_to_enemy": false
-                                          }
-                                        ]
-                                      },
-                                      {
-                                        "type": "SwitchByBuff",
-                                        "buff_name": "league_jhin_e_live",
-                                        "effect_buff": {
-                                          "type": "Delayed",
-                                          "tick": 1,
-                                          "effects": [
-                                            {
-                                              "type": "ParabolicProjectile",
-                                              "name": "league_jhin_e_pop",
-                                              "travel_time": 1,
-                                              "range": 400000,
-                                              "range_effect_name": "",
-                                              "shape": {
-                                                "Circle": {
-                                                  "radius": 1
-                                                }
-                                              },
-                                              "applied_target": "EnemyChampion",
-                                              "applied_effects": [],
-                                              "end_effects": [
-                                                {
-                                                  "type": "ViewEffect",
-                                                  "name": "league_jhin_e_bloom"
-                                                },
-                                                {
-                                                  "type": "Sfx",
-                                                  "name": "league_jhin_e_bloom"
-                                                },
-                                                {
-                                                  "type": "RangeProjectile",
-                                                  "name": "league_jhin_e_slow",
-                                                  "shape": {
-                                                    "Circle": {
-                                                      "radius": 18000
-                                                    }
-                                                  },
-                                                  "delay": 2,
-                                                  "apply": 1,
-                                                  "applied_target": "EnemyWithoutTower",
-                                                  "applied_effects": [
-                                                    {
-                                                      "casting_type": "Targeting",
-                                                      "effect": {
-                                                        "type": "AddBuff",
-                                                        "buff_state": {
-                                                          "name": "league_jhin_e_slowed",
-                                                          "duration": {
-                                                            "Time": {
-                                                              "tick": 120
-                                                            }
-                                                          },
-                                                          "move_speed_mult": -35
-                                                        }
-                                                      }
-                                                    }
-                                                  ]
-                                                },
-                                                {
-                                                  "type": "Delayed",
-                                                  "tick": 120,
-                                                  "effects": [
-                                                    {
-                                                      "type": "ViewEffect",
-                                                      "name": "league_jhin_e_boom"
-                                                    },
-                                                    {
-                                                      "type": "Sfx",
-                                                      "name": "league_jhin_e_boom"
-                                                    },
-                                                    {
-                                                      "type": "RangeProjectile",
-                                                      "name": "league_jhin_e_burst",
-                                                      "shape": {
-                                                        "Circle": {
-                                                          "radius": 18000
-                                                        }
-                                                      },
-                                                      "delay": 2,
-                                                      "apply": 1,
-                                                      "applied_target": "EnemyWithoutTower",
-                                                      "applied_effects": [
-                                                        {
-                                                          "casting_type": "Targeting",
-                                                          "effect": {
-                                                            "type": "Attack",
-                                                            "damage": 60,
-                                                            "attack_ratio": 120,
-                                                            "hp_ratio": 0,
-                                                            "target_hp_ratio": 0,
-                                                            "attack_effect_type": "Target"
-                                                          }
-                                                        },
-                                                        {
-                                                          "casting_type": "Targeting",
-                                                          "effect": {
-                                                            "type": "ViewEffect",
-                                                            "name": "league_jhin_e_hit"
-                                                          }
-                                                        }
-                                                      ]
-                                                    }
-                                                  ]
-                                                }
-                                              ]
-                                            }
-                                          ]
-                                        },
-                                        "effect_none": {
-                                          "type": "Combine",
-                                          "effects": []
-                                        }
-                                      },
-                                      {
-                                        "type": "RemoveCasterBuff",
-                                        "name": "league_jhin_e_live"
-                                      }
-                                    ]
-                                  },
-                                  "effect_none": {
-                                    "type": "Combine",
-                                    "effects": []
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_jhin_ai_hide",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "RandomTarget",
+                          "range": 75000,
+                          "casting_target": "EnemyChampionRecentlyAttacked",
+                          "from_projectile": false,
+                          "effects": [
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_jhin_e_go",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 1
                                   }
                                 }
-                              }
-                            ],
-                            "end_effects": []
-                          }
-                        ]
-                      }
-                    ]
+                              },
+                              "only_to_enemy": false
+                            },
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_jhin_e_cd",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 900
+                                  }
+                                }
+                              },
+                              "only_to_enemy": false
+                            },
+                            {
+                              "type": "Sfx",
+                              "name": "league_jhin_e_throw"
+                            },
+                            {
+                              "type": "ParabolicProjectile",
+                              "name": "league_jhin_e_seed",
+                              "travel_time": 18,
+                              "range": 400000,
+                              "range_effect_name": "",
+                              "shape": {
+                                "Circle": {
+                                  "radius": 1
+                                }
+                              },
+                              "applied_target": "EnemyChampion",
+                              "applied_effects": [],
+                              "end_effects": [
+                                {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "RemoveCasterBuff",
+                                      "name": "league_jhin_e_alive"
+                                    },
+                                    {
+                                      "type": "AddCasterBuff",
+                                      "buff_state": {
+                                        "name": "league_jhin_e_alive",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 324
+                                          }
+                                        }
+                                      },
+                                      "only_to_enemy": false
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "ViewEffect",
+                                  "name": "league_jhin_e_land"
+                                },
+                                {
+                                  "type": "Sfx",
+                                  "name": "league_jhin_e_land"
+                                },
+                                {
+                                  "type": "Delayed",
+                                  "tick": 24,
+                                  "effects": [
+                                    {
+                                      "type": "RangePeriodProjectile",
+                                      "name": "league_jhin_e_trigger",
+                                      "shape": {
+                                        "Circle": {
+                                          "radius": 9000
+                                        }
+                                      },
+                                      "tick": 300,
+                                      "period": 1,
+                                      "first_delay": 0,
+                                      "applied_target": "EnemyChampion",
+                                      "applied_effects": [
+                                        {
+                                          "casting_type": "Targeting",
+                                          "effect": {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_jhin_e_alive",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_jhin_e_alive"
+                                                },
+                                                {
+                                                  "type": "RandomTarget",
+                                                  "range": 1,
+                                                  "casting_target": "AllyOnlySelf",
+                                                  "from_projectile": false,
+                                                  "effects": [
+                                                    {
+                                                      "type": "AddCasterBuff",
+                                                      "buff_state": {
+                                                        "name": "league_jhin_e_live",
+                                                        "duration": {
+                                                          "Time": {
+                                                            "tick": 1
+                                                          }
+                                                        }
+                                                      },
+                                                      "only_to_enemy": false
+                                                    }
+                                                  ]
+                                                },
+                                                {
+                                                  "type": "SwitchByBuff",
+                                                  "buff_name": "league_jhin_e_live",
+                                                  "effect_buff": {
+                                                    "type": "Delayed",
+                                                    "tick": 1,
+                                                    "effects": [
+                                                      {
+                                                        "type": "ParabolicProjectile",
+                                                        "name": "league_jhin_e_pop",
+                                                        "travel_time": 1,
+                                                        "range": 400000,
+                                                        "range_effect_name": "",
+                                                        "shape": {
+                                                          "Circle": {
+                                                            "radius": 1
+                                                          }
+                                                        },
+                                                        "applied_target": "EnemyChampion",
+                                                        "applied_effects": [],
+                                                        "end_effects": [
+                                                          {
+                                                            "type": "ViewEffect",
+                                                            "name": "league_jhin_e_bloom"
+                                                          },
+                                                          {
+                                                            "type": "Sfx",
+                                                            "name": "league_jhin_e_bloom"
+                                                          },
+                                                          {
+                                                            "type": "RangeProjectile",
+                                                            "name": "league_jhin_e_slow",
+                                                            "shape": {
+                                                              "Circle": {
+                                                                "radius": 18000
+                                                              }
+                                                            },
+                                                            "delay": 2,
+                                                            "apply": 1,
+                                                            "applied_target": "EnemyWithoutTower",
+                                                            "applied_effects": [
+                                                              {
+                                                                "casting_type": "Targeting",
+                                                                "effect": {
+                                                                  "type": "AddBuff",
+                                                                  "buff_state": {
+                                                                    "name": "league_jhin_e_slowed",
+                                                                    "duration": {
+                                                                      "Time": {
+                                                                        "tick": 120
+                                                                      }
+                                                                    },
+                                                                    "move_speed_mult": -35
+                                                                  }
+                                                                }
+                                                              }
+                                                            ]
+                                                          },
+                                                          {
+                                                            "type": "Delayed",
+                                                            "tick": 120,
+                                                            "effects": [
+                                                              {
+                                                                "type": "ViewEffect",
+                                                                "name": "league_jhin_e_boom"
+                                                              },
+                                                              {
+                                                                "type": "Sfx",
+                                                                "name": "league_jhin_e_boom"
+                                                              },
+                                                              {
+                                                                "type": "RangeProjectile",
+                                                                "name": "league_jhin_e_burst",
+                                                                "shape": {
+                                                                  "Circle": {
+                                                                    "radius": 18000
+                                                                  }
+                                                                },
+                                                                "delay": 2,
+                                                                "apply": 1,
+                                                                "applied_target": "EnemyWithoutTower",
+                                                                "applied_effects": [
+                                                                  {
+                                                                    "casting_type": "Targeting",
+                                                                    "effect": {
+                                                                      "type": "Attack",
+                                                                      "damage": 60,
+                                                                      "attack_ratio": 120,
+                                                                      "hp_ratio": 0,
+                                                                      "target_hp_ratio": 0,
+                                                                      "attack_effect_type": "Target"
+                                                                    }
+                                                                  },
+                                                                  {
+                                                                    "casting_type": "Targeting",
+                                                                    "effect": {
+                                                                      "type": "ViewEffect",
+                                                                      "name": "league_jhin_e_hit"
+                                                                    }
+                                                                  }
+                                                                ]
+                                                              }
+                                                            ]
+                                                          }
+                                                        ]
+                                                      }
+                                                    ]
+                                                  },
+                                                  "effect_none": {
+                                                    "type": "Combine",
+                                                    "effects": []
+                                                  }
+                                                },
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_jhin_e_live"
+                                                }
+                                              ]
+                                            },
+                                            "effect_none": {
+                                              "type": "Combine",
+                                              "effects": []
+                                            }
+                                          }
+                                        }
+                                      ],
+                                      "end_effects": []
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
+                  },
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_jhin_ai_hide"
                   }
                 ]
               },
@@ -2839,15 +2873,12 @@
                   "name": "league_jhin_w_go"
                 },
                 {
-                  "type": "RandomTarget",
-                  "range": 180000,
-                  "casting_target": "EnemyChampionRecentlyAttacked",
-                  "from_projectile": false,
+                  "type": "Combine",
                   "effects": [
                     {
                       "type": "AddCasterBuff",
                       "buff_state": {
-                        "name": "league_jhin_w_go",
+                        "name": "league_jhin_ai_hide",
                         "duration": {
                           "Time": {
                             "tick": 1
@@ -2857,349 +2888,386 @@
                       "only_to_enemy": false
                     },
                     {
-                      "type": "ParabolicProjectile",
-                      "name": "league_jhin_w_aim",
-                      "travel_time": 6,
-                      "range": 400000,
-                      "range_effect_name": "",
-                      "shape": {
-                        "Circle": {
-                          "radius": 1
-                        }
-                      },
-                      "applied_target": "EnemyChampion",
-                      "applied_effects": [],
-                      "end_effects": [
-                        {
-                          "type": "LinearProjectile",
-                          "name": "league_jhin_w_twin",
-                          "penetrate": false,
-                          "applied_target": "EnemyChampionRecentlyAttacked",
-                          "applied_effects": [
-                            {
-                              "casting_type": "Targeting",
-                              "effect": {
-                                "type": "Combine",
-                                "effects": [
-                                  {
-                                    "type": "RemoveCasterBuff",
-                                    "name": "league_jhin_w_rec"
-                                  },
-                                  {
-                                    "type": "AddCasterBuff",
-                                    "buff_state": {
-                                      "name": "league_jhin_w_rec",
-                                      "duration": {
-                                        "Time": {
-                                          "tick": 2
-                                        }
-                                      }
-                                    },
-                                    "only_to_enemy": false
-                                  }
-                                ]
-                              }
-                            }
-                          ],
-                          "end_effects": [],
-                          "speed": 16000,
-                          "range": 220000,
-                          "shape": {
-                            "Circle": {
-                              "radius": 7000
-                            }
-                          },
-                          "y_offset": -4500
-                        },
-                        {
-                          "type": "LinearProjectile",
-                          "name": "league_jhin_w_shot",
-                          "penetrate": false,
-                          "applied_target": "EnemyChampion",
-                          "applied_effects": [
-                            {
-                              "casting_type": "Targeting",
-                              "effect": {
-                                "type": "Attack",
-                                "damage": 90,
-                                "attack_ratio": 90,
-                                "hp_ratio": 0,
-                                "target_hp_ratio": 0,
-                                "attack_effect_type": "Target"
-                              }
-                            },
-                            {
-                              "casting_type": "Targeting",
-                              "effect": {
-                                "type": "ViewEffect",
-                                "name": "league_jhin_w_hit"
-                              }
-                            },
-                            {
-                              "casting_type": "Targeting",
-                              "effect": {
-                                "type": "TargetSfx",
-                                "name": "league_jhin_w_hit"
-                              }
-                            },
-                            {
-                              "casting_type": "Targeting",
-                              "effect": {
-                                "type": "RangeEffect",
-                                "shape": {
-                                  "Circle": {
-                                    "radius": 1000
-                                  }
-                                },
-                                "target": "AllyOnlySelf",
-                                "apply_type": "AroundCaster",
-                                "effects": [
-                                  {
-                                    "type": "Combine",
-                                    "effects": [
-                                      {
-                                        "type": "RemoveCasterBuff",
-                                        "name": "league_jhin_w_mark"
-                                      },
-                                      {
-                                        "type": "AddCasterBuff",
-                                        "buff_state": {
-                                          "name": "league_jhin_w_mark",
-                                          "duration": {
-                                            "Time": {
-                                              "tick": 240
-                                            }
-                                          }
-                                        },
-                                        "only_to_enemy": false
-                                      }
-                                    ]
-                                  }
-                                ]
-                              }
-                            },
-                            {
-                              "casting_type": "Targeting",
-                              "effect": {
-                                "type": "Combine",
-                                "effects": [
-                                  {
-                                    "type": "Combine",
-                                    "effects": [
-                                      {
-                                        "type": "RemoveCasterBuff",
-                                        "name": "league_jhin_k_w"
-                                      },
-                                      {
-                                        "type": "AddCasterBuff",
-                                        "buff_state": {
-                                          "name": "league_jhin_k_w",
-                                          "duration": {
-                                            "Time": {
-                                              "tick": 26
-                                            }
-                                          }
-                                        },
-                                        "only_to_enemy": false
-                                      }
-                                    ]
-                                  },
-                                  {
-                                    "type": "AddCasted",
-                                    "casted_type": "Heal",
-                                    "duration": 3,
-                                    "period": 1,
-                                    "effects": [
-                                      {
-                                        "type": "RemoveCasterBuff",
-                                        "name": "league_jhin_k_w"
-                                      }
-                                    ]
-                                  }
-                                ]
-                              }
-                            },
-                            {
-                              "casting_type": "Targeting",
-                              "effect": {
-                                "type": "Delayed",
-                                "tick": 1,
-                                "effects": [
-                                  {
-                                    "type": "SwitchByBuff",
-                                    "buff_name": "league_jhin_w_rec",
-                                    "effect_buff": {
-                                      "type": "Combine",
-                                      "effects": [
-                                        {
-                                          "type": "Bind",
-                                          "duration": 100
-                                        },
-                                        {
-                                          "type": "ViewEffect",
-                                          "name": "league_jhin_w_root"
-                                        }
-                                      ]
-                                    },
-                                    "effect_none": {
-                                      "type": "SwitchByBuff",
-                                      "buff_name": "league_jhin_w_mark",
-                                      "effect_buff": {
-                                        "type": "Combine",
-                                        "effects": [
-                                          {
-                                            "type": "Bind",
-                                            "duration": 100
-                                          },
-                                          {
-                                            "type": "ViewEffect",
-                                            "name": "league_jhin_w_root"
-                                          }
-                                        ]
-                                      },
-                                      "effect_none": {
-                                        "type": "Combine",
-                                        "effects": []
-                                      }
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_jhin_ai_hide",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RandomTarget",
+                            "range": 180000,
+                            "casting_target": "EnemyChampionRecentlyAttacked",
+                            "from_projectile": false,
+                            "effects": [
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_jhin_w_go",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 1
                                     }
                                   }
-                                ]
-                              }
-                            }
-                          ],
-                          "end_effects": [],
-                          "speed": 16000,
-                          "range": 220000,
-                          "shape": {
-                            "Circle": {
-                              "radius": 7000
-                            }
-                          },
-                          "y_offset": -4500
-                        },
-                        {
-                          "type": "ParabolicProjectile",
-                          "name": "league_jhin_k_lob_w",
-                          "travel_time": 10,
-                          "range": 400000,
-                          "range_effect_name": "",
-                          "shape": {
-                            "Circle": {
-                              "radius": 1
-                            }
-                          },
-                          "applied_target": "EnemyChampion",
-                          "applied_effects": [],
-                          "end_effects": [
-                            {
-                              "type": "Delayed",
-                              "tick": 8,
-                              "effects": [
-                                {
-                                  "type": "SwitchByBuff",
-                                  "buff_name": "league_jhin_k_w",
-                                  "effect_buff": {
-                                    "type": "Combine",
-                                    "effects": [
+                                },
+                                "only_to_enemy": false
+                              },
+                              {
+                                "type": "ParabolicProjectile",
+                                "name": "league_jhin_w_aim",
+                                "travel_time": 6,
+                                "range": 400000,
+                                "range_effect_name": "",
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 1
+                                  }
+                                },
+                                "applied_target": "EnemyChampion",
+                                "applied_effects": [],
+                                "end_effects": [
+                                  {
+                                    "type": "LinearProjectile",
+                                    "name": "league_jhin_w_twin",
+                                    "penetrate": false,
+                                    "applied_target": "EnemyChampionRecentlyAttacked",
+                                    "applied_effects": [
                                       {
-                                        "type": "RemoveCasterBuff",
-                                        "name": "league_jhin_k_w"
-                                      },
-                                      {
-                                        "type": "ViewEffect",
-                                        "name": "league_jhin_e_bloom"
-                                      },
-                                      {
-                                        "type": "Sfx",
-                                        "name": "league_jhin_e_bloom"
-                                      },
-                                      {
-                                        "type": "RangeProjectile",
-                                        "name": "league_jhin_e_slow",
-                                        "shape": {
-                                          "Circle": {
-                                            "radius": 18000
-                                          }
-                                        },
-                                        "delay": 2,
-                                        "apply": 1,
-                                        "applied_target": "EnemyWithoutTower",
-                                        "applied_effects": [
-                                          {
-                                            "casting_type": "Targeting",
-                                            "effect": {
-                                              "type": "AddBuff",
+                                        "casting_type": "Targeting",
+                                        "effect": {
+                                          "type": "Combine",
+                                          "effects": [
+                                            {
+                                              "type": "RemoveCasterBuff",
+                                              "name": "league_jhin_w_rec"
+                                            },
+                                            {
+                                              "type": "AddCasterBuff",
                                               "buff_state": {
-                                                "name": "league_jhin_e_slowed",
+                                                "name": "league_jhin_w_rec",
                                                 "duration": {
                                                   "Time": {
-                                                    "tick": 120
+                                                    "tick": 2
                                                   }
-                                                },
-                                                "move_speed_mult": -35
-                                              }
-                                            }
-                                          }
-                                        ]
-                                      },
-                                      {
-                                        "type": "Delayed",
-                                        "tick": 120,
-                                        "effects": [
-                                          {
-                                            "type": "ViewEffect",
-                                            "name": "league_jhin_e_boom"
-                                          },
-                                          {
-                                            "type": "Sfx",
-                                            "name": "league_jhin_e_boom"
-                                          },
-                                          {
-                                            "type": "RangeProjectile",
-                                            "name": "league_jhin_e_burst",
-                                            "shape": {
-                                              "Circle": {
-                                                "radius": 18000
-                                              }
-                                            },
-                                            "delay": 2,
-                                            "apply": 1,
-                                            "applied_target": "EnemyWithoutTower",
-                                            "applied_effects": [
-                                              {
-                                                "casting_type": "Targeting",
-                                                "effect": {
-                                                  "type": "Attack",
-                                                  "damage": 60,
-                                                  "attack_ratio": 120,
-                                                  "hp_ratio": 0,
-                                                  "target_hp_ratio": 0,
-                                                  "attack_effect_type": "Target"
                                                 }
                                               },
-                                              {
-                                                "casting_type": "Targeting",
-                                                "effect": {
-                                                  "type": "ViewEffect",
-                                                  "name": "league_jhin_e_hit"
+                                              "only_to_enemy": false
+                                            }
+                                          ]
+                                        }
+                                      }
+                                    ],
+                                    "end_effects": [],
+                                    "speed": 16000,
+                                    "range": 220000,
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 7000
+                                      }
+                                    },
+                                    "y_offset": -4500
+                                  },
+                                  {
+                                    "type": "LinearProjectile",
+                                    "name": "league_jhin_w_shot",
+                                    "penetrate": false,
+                                    "applied_target": "EnemyChampion",
+                                    "applied_effects": [
+                                      {
+                                        "casting_type": "Targeting",
+                                        "effect": {
+                                          "type": "Attack",
+                                          "damage": 90,
+                                          "attack_ratio": 90,
+                                          "hp_ratio": 0,
+                                          "target_hp_ratio": 0,
+                                          "attack_effect_type": "Target"
+                                        }
+                                      },
+                                      {
+                                        "casting_type": "Targeting",
+                                        "effect": {
+                                          "type": "ViewEffect",
+                                          "name": "league_jhin_w_hit"
+                                        }
+                                      },
+                                      {
+                                        "casting_type": "Targeting",
+                                        "effect": {
+                                          "type": "TargetSfx",
+                                          "name": "league_jhin_w_hit"
+                                        }
+                                      },
+                                      {
+                                        "casting_type": "Targeting",
+                                        "effect": {
+                                          "type": "RangeEffect",
+                                          "shape": {
+                                            "Circle": {
+                                              "radius": 1000
+                                            }
+                                          },
+                                          "target": "AllyOnlySelf",
+                                          "apply_type": "AroundCaster",
+                                          "effects": [
+                                            {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_jhin_w_mark"
+                                                },
+                                                {
+                                                  "type": "AddCasterBuff",
+                                                  "buff_state": {
+                                                    "name": "league_jhin_w_mark",
+                                                    "duration": {
+                                                      "Time": {
+                                                        "tick": 240
+                                                      }
+                                                    }
+                                                  },
+                                                  "only_to_enemy": false
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      {
+                                        "casting_type": "Targeting",
+                                        "effect": {
+                                          "type": "Combine",
+                                          "effects": [
+                                            {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_jhin_k_w"
+                                                },
+                                                {
+                                                  "type": "AddCasterBuff",
+                                                  "buff_state": {
+                                                    "name": "league_jhin_k_w",
+                                                    "duration": {
+                                                      "Time": {
+                                                        "tick": 26
+                                                      }
+                                                    }
+                                                  },
+                                                  "only_to_enemy": false
+                                                }
+                                              ]
+                                            },
+                                            {
+                                              "type": "AddCasted",
+                                              "casted_type": "Heal",
+                                              "duration": 3,
+                                              "period": 1,
+                                              "effects": [
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_jhin_k_w"
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      {
+                                        "casting_type": "Targeting",
+                                        "effect": {
+                                          "type": "Delayed",
+                                          "tick": 1,
+                                          "effects": [
+                                            {
+                                              "type": "SwitchByBuff",
+                                              "buff_name": "league_jhin_w_rec",
+                                              "effect_buff": {
+                                                "type": "Combine",
+                                                "effects": [
+                                                  {
+                                                    "type": "Bind",
+                                                    "duration": 100
+                                                  },
+                                                  {
+                                                    "type": "ViewEffect",
+                                                    "name": "league_jhin_w_root"
+                                                  }
+                                                ]
+                                              },
+                                              "effect_none": {
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_jhin_w_mark",
+                                                "effect_buff": {
+                                                  "type": "Combine",
+                                                  "effects": [
+                                                    {
+                                                      "type": "Bind",
+                                                      "duration": 100
+                                                    },
+                                                    {
+                                                      "type": "ViewEffect",
+                                                      "name": "league_jhin_w_root"
+                                                    }
+                                                  ]
+                                                },
+                                                "effect_none": {
+                                                  "type": "Combine",
+                                                  "effects": []
                                                 }
                                               }
-                                            ]
+                                            }
+                                          ]
+                                        }
+                                      }
+                                    ],
+                                    "end_effects": [],
+                                    "speed": 16000,
+                                    "range": 220000,
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 7000
+                                      }
+                                    },
+                                    "y_offset": -4500
+                                  },
+                                  {
+                                    "type": "ParabolicProjectile",
+                                    "name": "league_jhin_k_lob_w",
+                                    "travel_time": 10,
+                                    "range": 400000,
+                                    "range_effect_name": "",
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 1
+                                      }
+                                    },
+                                    "applied_target": "EnemyChampion",
+                                    "applied_effects": [],
+                                    "end_effects": [
+                                      {
+                                        "type": "Delayed",
+                                        "tick": 8,
+                                        "effects": [
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_jhin_k_w",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_jhin_k_w"
+                                                },
+                                                {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_jhin_e_bloom"
+                                                },
+                                                {
+                                                  "type": "Sfx",
+                                                  "name": "league_jhin_e_bloom"
+                                                },
+                                                {
+                                                  "type": "RangeProjectile",
+                                                  "name": "league_jhin_e_slow",
+                                                  "shape": {
+                                                    "Circle": {
+                                                      "radius": 18000
+                                                    }
+                                                  },
+                                                  "delay": 2,
+                                                  "apply": 1,
+                                                  "applied_target": "EnemyWithoutTower",
+                                                  "applied_effects": [
+                                                    {
+                                                      "casting_type": "Targeting",
+                                                      "effect": {
+                                                        "type": "AddBuff",
+                                                        "buff_state": {
+                                                          "name": "league_jhin_e_slowed",
+                                                          "duration": {
+                                                            "Time": {
+                                                              "tick": 120
+                                                            }
+                                                          },
+                                                          "move_speed_mult": -35
+                                                        }
+                                                      }
+                                                    }
+                                                  ]
+                                                },
+                                                {
+                                                  "type": "Delayed",
+                                                  "tick": 120,
+                                                  "effects": [
+                                                    {
+                                                      "type": "ViewEffect",
+                                                      "name": "league_jhin_e_boom"
+                                                    },
+                                                    {
+                                                      "type": "Sfx",
+                                                      "name": "league_jhin_e_boom"
+                                                    },
+                                                    {
+                                                      "type": "RangeProjectile",
+                                                      "name": "league_jhin_e_burst",
+                                                      "shape": {
+                                                        "Circle": {
+                                                          "radius": 18000
+                                                        }
+                                                      },
+                                                      "delay": 2,
+                                                      "apply": 1,
+                                                      "applied_target": "EnemyWithoutTower",
+                                                      "applied_effects": [
+                                                        {
+                                                          "casting_type": "Targeting",
+                                                          "effect": {
+                                                            "type": "Attack",
+                                                            "damage": 60,
+                                                            "attack_ratio": 120,
+                                                            "hp_ratio": 0,
+                                                            "target_hp_ratio": 0,
+                                                            "attack_effect_type": "Target"
+                                                          }
+                                                        },
+                                                        {
+                                                          "casting_type": "Targeting",
+                                                          "effect": {
+                                                            "type": "ViewEffect",
+                                                            "name": "league_jhin_e_hit"
+                                                          }
+                                                        }
+                                                      ]
+                                                    }
+                                                  ]
+                                                }
+                                              ]
+                                            },
+                                            "effect_none": {
+                                              "type": "Combine",
+                                              "effects": []
+                                            }
                                           }
                                         ]
                                       }
                                     ]
-                                  },
-                                  "effect_none": {
-                                    "type": "Combine",
-                                    "effects": []
                                   }
-                                }
-                              ]
-                            }
-                          ]
-                        }
-                      ]
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    },
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "league_jhin_ai_hide"
                     }
                   ]
                 },
@@ -3775,15 +3843,12 @@
                                   "type": "Combine",
                                   "effects": [
                                     {
-                                      "type": "RandomTarget",
-                                      "range": 120000,
-                                      "casting_target": "EnemyChampionRecentlyAttacked",
-                                      "from_projectile": false,
+                                      "type": "Combine",
                                       "effects": [
                                         {
                                           "type": "AddCasterBuff",
                                           "buff_state": {
-                                            "name": "league_jhin_r_go",
+                                            "name": "league_jhin_ai_hide",
                                             "duration": {
                                               "Time": {
                                                 "tick": 1
@@ -3793,438 +3858,475 @@
                                           "only_to_enemy": false
                                         },
                                         {
-                                          "type": "ParabolicProjectile",
-                                          "name": "league_jhin_r_aim",
-                                          "travel_time": 8,
-                                          "range": 400000,
-                                          "range_effect_name": "",
-                                          "shape": {
-                                            "Circle": {
-                                              "radius": 1
-                                            }
-                                          },
-                                          "applied_target": "EnemyChampion",
-                                          "applied_effects": [],
-                                          "end_effects": [
-                                            {
-                                              "type": "LinearProjectile",
-                                              "name": "league_jhin_r_bullet",
-                                              "penetrate": false,
-                                              "applied_target": "EnemyChampion",
-                                              "applied_effects": [
-                                                {
-                                                  "casting_type": "Targeting",
-                                                  "effect": {
-                                                    "type": "SwitchByBuff",
-                                                    "buff_name": "league_jhin_r_s4",
-                                                    "effect_buff": {
-                                                      "type": "Combine",
-                                                      "effects": [
-                                                        {
-                                                          "type": "SwitchByBuff",
-                                                          "buff_name": "league_jhin_r_h3",
-                                                          "effect_buff": {
-                                                            "type": "Attack",
-                                                            "damage": 342,
-                                                            "attack_ratio": 209,
-                                                            "hp_ratio": 0,
-                                                            "target_hp_ratio": 0,
-                                                            "attack_effect_type": "Target"
-                                                          },
-                                                          "effect_none": {
-                                                            "type": "SwitchByBuff",
-                                                            "buff_name": "league_jhin_r_h2",
-                                                            "effect_buff": {
-                                                              "type": "Attack",
-                                                              "damage": 288,
-                                                              "attack_ratio": 176,
-                                                              "hp_ratio": 0,
-                                                              "target_hp_ratio": 0,
-                                                              "attack_effect_type": "Target"
-                                                            },
-                                                            "effect_none": {
-                                                              "type": "SwitchByBuff",
-                                                              "buff_name": "league_jhin_r_h1",
-                                                              "effect_buff": {
-                                                                "type": "Attack",
-                                                                "damage": 234,
-                                                                "attack_ratio": 143,
-                                                                "hp_ratio": 0,
-                                                                "target_hp_ratio": 0,
-                                                                "attack_effect_type": "Target"
-                                                              },
-                                                              "effect_none": {
-                                                                "type": "Attack",
-                                                                "damage": 180,
-                                                                "attack_ratio": 110,
-                                                                "hp_ratio": 0,
-                                                                "target_hp_ratio": 0,
-                                                                "attack_effect_type": "Target"
-                                                              }
-                                                            }
-                                                          }
-                                                        },
-                                                        {
-                                                          "type": "ViewEffect",
-                                                          "name": "league_jhin_r_crit"
-                                                        }
-                                                      ]
-                                                    },
-                                                    "effect_none": {
-                                                      "type": "SwitchByBuff",
-                                                      "buff_name": "league_jhin_r_h2",
-                                                      "effect_buff": {
-                                                        "type": "Attack",
-                                                        "damage": 144,
-                                                        "attack_ratio": 88,
-                                                        "hp_ratio": 0,
-                                                        "target_hp_ratio": 0,
-                                                        "attack_effect_type": "Target"
-                                                      },
-                                                      "effect_none": {
-                                                        "type": "SwitchByBuff",
-                                                        "buff_name": "league_jhin_r_h1",
-                                                        "effect_buff": {
-                                                          "type": "Attack",
-                                                          "damage": 117,
-                                                          "attack_ratio": 72,
-                                                          "hp_ratio": 0,
-                                                          "target_hp_ratio": 0,
-                                                          "attack_effect_type": "Target"
-                                                        },
-                                                        "effect_none": {
-                                                          "type": "Attack",
-                                                          "damage": 90,
-                                                          "attack_ratio": 55,
-                                                          "hp_ratio": 0,
-                                                          "target_hp_ratio": 0,
-                                                          "attack_effect_type": "Target"
-                                                        }
-                                                      }
-                                                    }
-                                                  }
-                                                },
-                                                {
-                                                  "casting_type": "Targeting",
-                                                  "effect": {
-                                                    "type": "AddBuff",
+                                          "type": "SwitchByBuff",
+                                          "buff_name": "league_jhin_ai_hide",
+                                          "effect_buff": {
+                                            "type": "Combine",
+                                            "effects": [
+                                              {
+                                                "type": "RandomTarget",
+                                                "range": 120000,
+                                                "casting_target": "EnemyChampionRecentlyAttacked",
+                                                "from_projectile": false,
+                                                "effects": [
+                                                  {
+                                                    "type": "AddCasterBuff",
                                                     "buff_state": {
-                                                      "name": "league_jhin_r_slowed",
+                                                      "name": "league_jhin_r_go",
                                                       "duration": {
                                                         "Time": {
-                                                          "tick": 30
+                                                          "tick": 1
                                                         }
-                                                      },
-                                                      "move_speed_mult": -80
-                                                    }
-                                                  }
-                                                },
-                                                {
-                                                  "casting_type": "Targeting",
-                                                  "effect": {
-                                                    "type": "ViewEffect",
-                                                    "name": "league_jhin_r_hit"
-                                                  }
-                                                },
-                                                {
-                                                  "casting_type": "Targeting",
-                                                  "effect": {
-                                                    "type": "SwitchByBuff",
-                                                    "buff_name": "league_jhin_r_s4",
-                                                    "effect_buff": {
-                                                      "type": "TargetSfx",
-                                                      "name": "league_jhin_r_hit4"
-                                                    },
-                                                    "effect_none": {
-                                                      "type": "TargetSfx",
-                                                      "name": "league_jhin_r_hit"
-                                                    }
-                                                  }
-                                                },
-                                                {
-                                                  "casting_type": "Targeting",
-                                                  "effect": {
-                                                    "type": "Combine",
-                                                    "effects": [
-                                                      {
-                                                        "type": "Combine",
-                                                        "effects": [
-                                                          {
-                                                            "type": "RemoveCasterBuff",
-                                                            "name": "league_jhin_k_r"
-                                                          },
-                                                          {
-                                                            "type": "AddCasterBuff",
-                                                            "buff_state": {
-                                                              "name": "league_jhin_k_r",
-                                                              "duration": {
-                                                                "Time": {
-                                                                  "tick": 26
-                                                                }
-                                                              }
-                                                            },
-                                                            "only_to_enemy": false
-                                                          }
-                                                        ]
-                                                      },
-                                                      {
-                                                        "type": "AddCasted",
-                                                        "casted_type": "Heal",
-                                                        "duration": 3,
-                                                        "period": 1,
-                                                        "effects": [
-                                                          {
-                                                            "type": "RemoveCasterBuff",
-                                                            "name": "league_jhin_k_r"
-                                                          }
-                                                        ]
                                                       }
-                                                    ]
-                                                  }
-                                                },
-                                                {
-                                                  "casting_type": "Targeting",
-                                                  "effect": {
-                                                    "type": "RangeEffect",
+                                                    },
+                                                    "only_to_enemy": false
+                                                  },
+                                                  {
+                                                    "type": "ParabolicProjectile",
+                                                    "name": "league_jhin_r_aim",
+                                                    "travel_time": 8,
+                                                    "range": 400000,
+                                                    "range_effect_name": "",
                                                     "shape": {
                                                       "Circle": {
-                                                        "radius": 1000
+                                                        "radius": 1
                                                       }
                                                     },
-                                                    "target": "AllyOnlySelf",
-                                                    "apply_type": "AroundCaster",
-                                                    "effects": [
+                                                    "applied_target": "EnemyChampion",
+                                                    "applied_effects": [],
+                                                    "end_effects": [
                                                       {
-                                                        "type": "SwitchByBuff",
-                                                        "buff_name": "league_jhin_r_h2",
-                                                        "effect_buff": {
-                                                          "type": "AddCasterBuff",
-                                                          "buff_state": {
-                                                            "name": "league_jhin_r_h3",
-                                                            "duration": {
-                                                              "Time": {
-                                                                "tick": 390
-                                                              }
-                                                            }
-                                                          },
-                                                          "only_to_enemy": false
-                                                        },
-                                                        "effect_none": {
-                                                          "type": "SwitchByBuff",
-                                                          "buff_name": "league_jhin_r_h1",
-                                                          "effect_buff": {
-                                                            "type": "AddCasterBuff",
-                                                            "buff_state": {
-                                                              "name": "league_jhin_r_h2",
-                                                              "duration": {
-                                                                "Time": {
-                                                                  "tick": 390
-                                                                }
-                                                              }
-                                                            },
-                                                            "only_to_enemy": false
-                                                          },
-                                                          "effect_none": {
-                                                            "type": "AddCasterBuff",
-                                                            "buff_state": {
-                                                              "name": "league_jhin_r_h1",
-                                                              "duration": {
-                                                                "Time": {
-                                                                  "tick": 390
-                                                                }
-                                                              }
-                                                            },
-                                                            "only_to_enemy": false
-                                                          }
-                                                        }
-                                                      },
-                                                      {
-                                                        "type": "Combine",
-                                                        "effects": [
+                                                        "type": "LinearProjectile",
+                                                        "name": "league_jhin_r_bullet",
+                                                        "penetrate": false,
+                                                        "applied_target": "EnemyChampion",
+                                                        "applied_effects": [
                                                           {
-                                                            "type": "RemoveCasterBuff",
-                                                            "name": "league_jhin_w_mark"
-                                                          },
-                                                          {
-                                                            "type": "AddCasterBuff",
-                                                            "buff_state": {
-                                                              "name": "league_jhin_w_mark",
-                                                              "duration": {
-                                                                "Time": {
-                                                                  "tick": 240
-                                                                }
-                                                              }
-                                                            },
-                                                            "only_to_enemy": false
-                                                          }
-                                                        ]
-                                                      },
-                                                      {
-                                                        "type": "SwitchByBuff",
-                                                        "buff_name": "league_jhin_r_wait",
-                                                        "effect_buff": {
-                                                          "type": "Combine",
-                                                          "effects": [
-                                                            {
-                                                              "type": "RemoveCasterBuff",
-                                                              "name": "league_jhin_r_wait"
-                                                            },
-                                                            {
-                                                              "type": "AddCasterBuff",
-                                                              "buff_state": {
-                                                                "name": "league_jhin_r_wait",
-                                                                "duration": {
-                                                                  "Time": {
-                                                                    "tick": 34
-                                                                  }
-                                                                }
-                                                              },
-                                                              "only_to_enemy": false
-                                                            }
-                                                          ]
-                                                        },
-                                                        "effect_none": {
-                                                          "type": "Combine",
-                                                          "effects": []
-                                                        }
-                                                      }
-                                                    ]
-                                                  }
-                                                }
-                                              ],
-                                              "end_effects": [],
-                                              "speed": 20000,
-                                              "range": 240000,
-                                              "shape": {
-                                                "Circle": {
-                                                  "radius": 7000
-                                                }
-                                              },
-                                              "y_offset": -3000
-                                            },
-                                            {
-                                              "type": "ParabolicProjectile",
-                                              "name": "league_jhin_k_lob_r",
-                                              "travel_time": 10,
-                                              "range": 400000,
-                                              "range_effect_name": "",
-                                              "shape": {
-                                                "Circle": {
-                                                  "radius": 1
-                                                }
-                                              },
-                                              "applied_target": "EnemyChampion",
-                                              "applied_effects": [],
-                                              "end_effects": [
-                                                {
-                                                  "type": "Delayed",
-                                                  "tick": 8,
-                                                  "effects": [
-                                                    {
-                                                      "type": "SwitchByBuff",
-                                                      "buff_name": "league_jhin_k_r",
-                                                      "effect_buff": {
-                                                        "type": "Combine",
-                                                        "effects": [
-                                                          {
-                                                            "type": "RemoveCasterBuff",
-                                                            "name": "league_jhin_k_r"
-                                                          },
-                                                          {
-                                                            "type": "ViewEffect",
-                                                            "name": "league_jhin_e_bloom"
-                                                          },
-                                                          {
-                                                            "type": "Sfx",
-                                                            "name": "league_jhin_e_bloom"
-                                                          },
-                                                          {
-                                                            "type": "RangeProjectile",
-                                                            "name": "league_jhin_e_slow",
-                                                            "shape": {
-                                                              "Circle": {
-                                                                "radius": 18000
-                                                              }
-                                                            },
-                                                            "delay": 2,
-                                                            "apply": 1,
-                                                            "applied_target": "EnemyWithoutTower",
-                                                            "applied_effects": [
-                                                              {
-                                                                "casting_type": "Targeting",
-                                                                "effect": {
-                                                                  "type": "AddBuff",
-                                                                  "buff_state": {
-                                                                    "name": "league_jhin_e_slowed",
-                                                                    "duration": {
-                                                                      "Time": {
-                                                                        "tick": 120
-                                                                      }
-                                                                    },
-                                                                    "move_speed_mult": -35
-                                                                  }
-                                                                }
-                                                              }
-                                                            ]
-                                                          },
-                                                          {
-                                                            "type": "Delayed",
-                                                            "tick": 120,
-                                                            "effects": [
-                                                              {
-                                                                "type": "ViewEffect",
-                                                                "name": "league_jhin_e_boom"
-                                                              },
-                                                              {
-                                                                "type": "Sfx",
-                                                                "name": "league_jhin_e_boom"
-                                                              },
-                                                              {
-                                                                "type": "RangeProjectile",
-                                                                "name": "league_jhin_e_burst",
-                                                                "shape": {
-                                                                  "Circle": {
-                                                                    "radius": 18000
-                                                                  }
-                                                                },
-                                                                "delay": 2,
-                                                                "apply": 1,
-                                                                "applied_target": "EnemyWithoutTower",
-                                                                "applied_effects": [
+                                                            "casting_type": "Targeting",
+                                                            "effect": {
+                                                              "type": "SwitchByBuff",
+                                                              "buff_name": "league_jhin_r_s4",
+                                                              "effect_buff": {
+                                                                "type": "Combine",
+                                                                "effects": [
                                                                   {
-                                                                    "casting_type": "Targeting",
-                                                                    "effect": {
+                                                                    "type": "SwitchByBuff",
+                                                                    "buff_name": "league_jhin_r_h3",
+                                                                    "effect_buff": {
                                                                       "type": "Attack",
-                                                                      "damage": 60,
-                                                                      "attack_ratio": 120,
+                                                                      "damage": 342,
+                                                                      "attack_ratio": 209,
                                                                       "hp_ratio": 0,
                                                                       "target_hp_ratio": 0,
                                                                       "attack_effect_type": "Target"
+                                                                    },
+                                                                    "effect_none": {
+                                                                      "type": "SwitchByBuff",
+                                                                      "buff_name": "league_jhin_r_h2",
+                                                                      "effect_buff": {
+                                                                        "type": "Attack",
+                                                                        "damage": 288,
+                                                                        "attack_ratio": 176,
+                                                                        "hp_ratio": 0,
+                                                                        "target_hp_ratio": 0,
+                                                                        "attack_effect_type": "Target"
+                                                                      },
+                                                                      "effect_none": {
+                                                                        "type": "SwitchByBuff",
+                                                                        "buff_name": "league_jhin_r_h1",
+                                                                        "effect_buff": {
+                                                                          "type": "Attack",
+                                                                          "damage": 234,
+                                                                          "attack_ratio": 143,
+                                                                          "hp_ratio": 0,
+                                                                          "target_hp_ratio": 0,
+                                                                          "attack_effect_type": "Target"
+                                                                        },
+                                                                        "effect_none": {
+                                                                          "type": "Attack",
+                                                                          "damage": 180,
+                                                                          "attack_ratio": 110,
+                                                                          "hp_ratio": 0,
+                                                                          "target_hp_ratio": 0,
+                                                                          "attack_effect_type": "Target"
+                                                                        }
+                                                                      }
                                                                     }
                                                                   },
                                                                   {
-                                                                    "casting_type": "Targeting",
-                                                                    "effect": {
-                                                                      "type": "ViewEffect",
-                                                                      "name": "league_jhin_e_hit"
-                                                                    }
+                                                                    "type": "ViewEffect",
+                                                                    "name": "league_jhin_r_crit"
                                                                   }
                                                                 ]
+                                                              },
+                                                              "effect_none": {
+                                                                "type": "SwitchByBuff",
+                                                                "buff_name": "league_jhin_r_h2",
+                                                                "effect_buff": {
+                                                                  "type": "Attack",
+                                                                  "damage": 144,
+                                                                  "attack_ratio": 88,
+                                                                  "hp_ratio": 0,
+                                                                  "target_hp_ratio": 0,
+                                                                  "attack_effect_type": "Target"
+                                                                },
+                                                                "effect_none": {
+                                                                  "type": "SwitchByBuff",
+                                                                  "buff_name": "league_jhin_r_h1",
+                                                                  "effect_buff": {
+                                                                    "type": "Attack",
+                                                                    "damage": 117,
+                                                                    "attack_ratio": 72,
+                                                                    "hp_ratio": 0,
+                                                                    "target_hp_ratio": 0,
+                                                                    "attack_effect_type": "Target"
+                                                                  },
+                                                                  "effect_none": {
+                                                                    "type": "Attack",
+                                                                    "damage": 90,
+                                                                    "attack_ratio": 55,
+                                                                    "hp_ratio": 0,
+                                                                    "target_hp_ratio": 0,
+                                                                    "attack_effect_type": "Target"
+                                                                  }
+                                                                }
+                                                              }
+                                                            }
+                                                          },
+                                                          {
+                                                            "casting_type": "Targeting",
+                                                            "effect": {
+                                                              "type": "AddBuff",
+                                                              "buff_state": {
+                                                                "name": "league_jhin_r_slowed",
+                                                                "duration": {
+                                                                  "Time": {
+                                                                    "tick": 30
+                                                                  }
+                                                                },
+                                                                "move_speed_mult": -80
+                                                              }
+                                                            }
+                                                          },
+                                                          {
+                                                            "casting_type": "Targeting",
+                                                            "effect": {
+                                                              "type": "ViewEffect",
+                                                              "name": "league_jhin_r_hit"
+                                                            }
+                                                          },
+                                                          {
+                                                            "casting_type": "Targeting",
+                                                            "effect": {
+                                                              "type": "SwitchByBuff",
+                                                              "buff_name": "league_jhin_r_s4",
+                                                              "effect_buff": {
+                                                                "type": "TargetSfx",
+                                                                "name": "league_jhin_r_hit4"
+                                                              },
+                                                              "effect_none": {
+                                                                "type": "TargetSfx",
+                                                                "name": "league_jhin_r_hit"
+                                                              }
+                                                            }
+                                                          },
+                                                          {
+                                                            "casting_type": "Targeting",
+                                                            "effect": {
+                                                              "type": "Combine",
+                                                              "effects": [
+                                                                {
+                                                                  "type": "Combine",
+                                                                  "effects": [
+                                                                    {
+                                                                      "type": "RemoveCasterBuff",
+                                                                      "name": "league_jhin_k_r"
+                                                                    },
+                                                                    {
+                                                                      "type": "AddCasterBuff",
+                                                                      "buff_state": {
+                                                                        "name": "league_jhin_k_r",
+                                                                        "duration": {
+                                                                          "Time": {
+                                                                            "tick": 26
+                                                                          }
+                                                                        }
+                                                                      },
+                                                                      "only_to_enemy": false
+                                                                    }
+                                                                  ]
+                                                                },
+                                                                {
+                                                                  "type": "AddCasted",
+                                                                  "casted_type": "Heal",
+                                                                  "duration": 3,
+                                                                  "period": 1,
+                                                                  "effects": [
+                                                                    {
+                                                                      "type": "RemoveCasterBuff",
+                                                                      "name": "league_jhin_k_r"
+                                                                    }
+                                                                  ]
+                                                                }
+                                                              ]
+                                                            }
+                                                          },
+                                                          {
+                                                            "casting_type": "Targeting",
+                                                            "effect": {
+                                                              "type": "RangeEffect",
+                                                              "shape": {
+                                                                "Circle": {
+                                                                  "radius": 1000
+                                                                }
+                                                              },
+                                                              "target": "AllyOnlySelf",
+                                                              "apply_type": "AroundCaster",
+                                                              "effects": [
+                                                                {
+                                                                  "type": "SwitchByBuff",
+                                                                  "buff_name": "league_jhin_r_h2",
+                                                                  "effect_buff": {
+                                                                    "type": "AddCasterBuff",
+                                                                    "buff_state": {
+                                                                      "name": "league_jhin_r_h3",
+                                                                      "duration": {
+                                                                        "Time": {
+                                                                          "tick": 390
+                                                                        }
+                                                                      }
+                                                                    },
+                                                                    "only_to_enemy": false
+                                                                  },
+                                                                  "effect_none": {
+                                                                    "type": "SwitchByBuff",
+                                                                    "buff_name": "league_jhin_r_h1",
+                                                                    "effect_buff": {
+                                                                      "type": "AddCasterBuff",
+                                                                      "buff_state": {
+                                                                        "name": "league_jhin_r_h2",
+                                                                        "duration": {
+                                                                          "Time": {
+                                                                            "tick": 390
+                                                                          }
+                                                                        }
+                                                                      },
+                                                                      "only_to_enemy": false
+                                                                    },
+                                                                    "effect_none": {
+                                                                      "type": "AddCasterBuff",
+                                                                      "buff_state": {
+                                                                        "name": "league_jhin_r_h1",
+                                                                        "duration": {
+                                                                          "Time": {
+                                                                            "tick": 390
+                                                                          }
+                                                                        }
+                                                                      },
+                                                                      "only_to_enemy": false
+                                                                    }
+                                                                  }
+                                                                },
+                                                                {
+                                                                  "type": "Combine",
+                                                                  "effects": [
+                                                                    {
+                                                                      "type": "RemoveCasterBuff",
+                                                                      "name": "league_jhin_w_mark"
+                                                                    },
+                                                                    {
+                                                                      "type": "AddCasterBuff",
+                                                                      "buff_state": {
+                                                                        "name": "league_jhin_w_mark",
+                                                                        "duration": {
+                                                                          "Time": {
+                                                                            "tick": 240
+                                                                          }
+                                                                        }
+                                                                      },
+                                                                      "only_to_enemy": false
+                                                                    }
+                                                                  ]
+                                                                },
+                                                                {
+                                                                  "type": "SwitchByBuff",
+                                                                  "buff_name": "league_jhin_r_wait",
+                                                                  "effect_buff": {
+                                                                    "type": "Combine",
+                                                                    "effects": [
+                                                                      {
+                                                                        "type": "RemoveCasterBuff",
+                                                                        "name": "league_jhin_r_wait"
+                                                                      },
+                                                                      {
+                                                                        "type": "AddCasterBuff",
+                                                                        "buff_state": {
+                                                                          "name": "league_jhin_r_wait",
+                                                                          "duration": {
+                                                                            "Time": {
+                                                                              "tick": 34
+                                                                            }
+                                                                          }
+                                                                        },
+                                                                        "only_to_enemy": false
+                                                                      }
+                                                                    ]
+                                                                  },
+                                                                  "effect_none": {
+                                                                    "type": "Combine",
+                                                                    "effects": []
+                                                                  }
+                                                                }
+                                                              ]
+                                                            }
+                                                          }
+                                                        ],
+                                                        "end_effects": [],
+                                                        "speed": 20000,
+                                                        "range": 240000,
+                                                        "shape": {
+                                                          "Circle": {
+                                                            "radius": 7000
+                                                          }
+                                                        },
+                                                        "y_offset": -3000
+                                                      },
+                                                      {
+                                                        "type": "ParabolicProjectile",
+                                                        "name": "league_jhin_k_lob_r",
+                                                        "travel_time": 10,
+                                                        "range": 400000,
+                                                        "range_effect_name": "",
+                                                        "shape": {
+                                                          "Circle": {
+                                                            "radius": 1
+                                                          }
+                                                        },
+                                                        "applied_target": "EnemyChampion",
+                                                        "applied_effects": [],
+                                                        "end_effects": [
+                                                          {
+                                                            "type": "Delayed",
+                                                            "tick": 8,
+                                                            "effects": [
+                                                              {
+                                                                "type": "SwitchByBuff",
+                                                                "buff_name": "league_jhin_k_r",
+                                                                "effect_buff": {
+                                                                  "type": "Combine",
+                                                                  "effects": [
+                                                                    {
+                                                                      "type": "RemoveCasterBuff",
+                                                                      "name": "league_jhin_k_r"
+                                                                    },
+                                                                    {
+                                                                      "type": "ViewEffect",
+                                                                      "name": "league_jhin_e_bloom"
+                                                                    },
+                                                                    {
+                                                                      "type": "Sfx",
+                                                                      "name": "league_jhin_e_bloom"
+                                                                    },
+                                                                    {
+                                                                      "type": "RangeProjectile",
+                                                                      "name": "league_jhin_e_slow",
+                                                                      "shape": {
+                                                                        "Circle": {
+                                                                          "radius": 18000
+                                                                        }
+                                                                      },
+                                                                      "delay": 2,
+                                                                      "apply": 1,
+                                                                      "applied_target": "EnemyWithoutTower",
+                                                                      "applied_effects": [
+                                                                        {
+                                                                          "casting_type": "Targeting",
+                                                                          "effect": {
+                                                                            "type": "AddBuff",
+                                                                            "buff_state": {
+                                                                              "name": "league_jhin_e_slowed",
+                                                                              "duration": {
+                                                                                "Time": {
+                                                                                  "tick": 120
+                                                                                }
+                                                                              },
+                                                                              "move_speed_mult": -35
+                                                                            }
+                                                                          }
+                                                                        }
+                                                                      ]
+                                                                    },
+                                                                    {
+                                                                      "type": "Delayed",
+                                                                      "tick": 120,
+                                                                      "effects": [
+                                                                        {
+                                                                          "type": "ViewEffect",
+                                                                          "name": "league_jhin_e_boom"
+                                                                        },
+                                                                        {
+                                                                          "type": "Sfx",
+                                                                          "name": "league_jhin_e_boom"
+                                                                        },
+                                                                        {
+                                                                          "type": "RangeProjectile",
+                                                                          "name": "league_jhin_e_burst",
+                                                                          "shape": {
+                                                                            "Circle": {
+                                                                              "radius": 18000
+                                                                            }
+                                                                          },
+                                                                          "delay": 2,
+                                                                          "apply": 1,
+                                                                          "applied_target": "EnemyWithoutTower",
+                                                                          "applied_effects": [
+                                                                            {
+                                                                              "casting_type": "Targeting",
+                                                                              "effect": {
+                                                                                "type": "Attack",
+                                                                                "damage": 60,
+                                                                                "attack_ratio": 120,
+                                                                                "hp_ratio": 0,
+                                                                                "target_hp_ratio": 0,
+                                                                                "attack_effect_type": "Target"
+                                                                              }
+                                                                            },
+                                                                            {
+                                                                              "casting_type": "Targeting",
+                                                                              "effect": {
+                                                                                "type": "ViewEffect",
+                                                                                "name": "league_jhin_e_hit"
+                                                                              }
+                                                                            }
+                                                                          ]
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  ]
+                                                                },
+                                                                "effect_none": {
+                                                                  "type": "Combine",
+                                                                  "effects": []
+                                                                }
                                                               }
                                                             ]
                                                           }
                                                         ]
-                                                      },
-                                                      "effect_none": {
-                                                        "type": "Combine",
-                                                        "effects": []
                                                       }
-                                                    }
-                                                  ]
-                                                }
-                                              ]
-                                            }
-                                          ]
+                                                    ]
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          },
+                                          "effect_none": {
+                                            "type": "Combine",
+                                            "effects": []
+                                          }
+                                        },
+                                        {
+                                          "type": "RemoveCasterBuff",
+                                          "name": "league_jhin_ai_hide"
                                         }
                                       ]
                                     },

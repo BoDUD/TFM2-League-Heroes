@@ -1733,15 +1733,12 @@
                           "name": "league_akshan_e_found"
                         },
                         {
-                          "type": "RandomTarget",
-                          "range": 60000,
-                          "casting_target": "EnemyChampion",
-                          "from_projectile": false,
+                          "type": "Combine",
                           "effects": [
                             {
                               "type": "AddCasterBuff",
                               "buff_state": {
-                                "name": "league_akshan_e_found",
+                                "name": "league_akshan_ai_hide",
                                 "duration": {
                                   "Time": {
                                     "tick": 1
@@ -1751,197 +1748,234 @@
                               "only_to_enemy": false
                             },
                             {
-                              "type": "TargetProjectile",
-                              "name": "league_akshan_e_shot",
-                              "speed": 9000,
-                              "y_offset": -8000,
-                              "applied_target": "EnemyWithoutTower",
-                              "applied_effects": [
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "Attack",
-                                    "damage": 25,
-                                    "attack_ratio": 60,
-                                    "hp_ratio": 0,
-                                    "target_hp_ratio": 0,
-                                    "attack_effect_type": "Target"
-                                  }
-                                },
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "ViewEffect",
-                                    "name": "league_akshan_e_hit"
-                                  }
-                                },
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "TargetSfx",
-                                    "name": "league_akshan_e_hit"
-                                  }
-                                },
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "SwitchByBuff",
-                                    "buff_name": "league_akshan_p_2",
-                                    "effect_buff": {
-                                      "type": "Combine",
-                                      "effects": [
-                                        {
-                                          "type": "RemoveCasterBuff",
-                                          "name": "league_akshan_p_1"
+                              "type": "SwitchByBuff",
+                              "buff_name": "league_akshan_ai_hide",
+                              "effect_buff": {
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "RandomTarget",
+                                    "range": 60000,
+                                    "casting_target": "EnemyChampion",
+                                    "from_projectile": false,
+                                    "effects": [
+                                      {
+                                        "type": "AddCasterBuff",
+                                        "buff_state": {
+                                          "name": "league_akshan_e_found",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 1
+                                            }
+                                          }
                                         },
-                                        {
-                                          "type": "RemoveCasterBuff",
-                                          "name": "league_akshan_p_2"
-                                        },
-                                        {
-                                          "type": "Combine",
-                                          "effects": [
-                                            {
+                                        "only_to_enemy": false
+                                      },
+                                      {
+                                        "type": "TargetProjectile",
+                                        "name": "league_akshan_e_shot",
+                                        "speed": 9000,
+                                        "y_offset": -8000,
+                                        "applied_target": "EnemyWithoutTower",
+                                        "applied_effects": [
+                                          {
+                                            "casting_type": "Targeting",
+                                            "effect": {
                                               "type": "Attack",
-                                              "damage": 20,
-                                              "attack_ratio": 30,
+                                              "damage": 25,
+                                              "attack_ratio": 60,
                                               "hp_ratio": 0,
                                               "target_hp_ratio": 0,
                                               "attack_effect_type": "Target"
-                                            },
-                                            {
+                                            }
+                                          },
+                                          {
+                                            "casting_type": "Targeting",
+                                            "effect": {
                                               "type": "ViewEffect",
-                                              "name": "league_akshan_p_hit"
-                                            },
-                                            {
+                                              "name": "league_akshan_e_hit"
+                                            }
+                                          },
+                                          {
+                                            "casting_type": "Targeting",
+                                            "effect": {
                                               "type": "TargetSfx",
-                                              "name": "league_akshan_p_hit"
-                                            },
-                                            {
-                                              "type": "RandomTarget",
-                                              "range": 1,
-                                              "casting_target": "EnemyChampion",
-                                              "from_projectile": true,
-                                              "effects": [
-                                                {
-                                                  "type": "SwitchByBuff",
-                                                  "buff_name": "league_akshan_p_scd",
-                                                  "effect_buff": {
-                                                    "type": "Combine",
-                                                    "effects": []
+                                              "name": "league_akshan_e_hit"
+                                            }
+                                          },
+                                          {
+                                            "casting_type": "Targeting",
+                                            "effect": {
+                                              "type": "SwitchByBuff",
+                                              "buff_name": "league_akshan_p_2",
+                                              "effect_buff": {
+                                                "type": "Combine",
+                                                "effects": [
+                                                  {
+                                                    "type": "RemoveCasterBuff",
+                                                    "name": "league_akshan_p_1"
                                                   },
-                                                  "effect_none": {
+                                                  {
+                                                    "type": "RemoveCasterBuff",
+                                                    "name": "league_akshan_p_2"
+                                                  },
+                                                  {
                                                     "type": "Combine",
                                                     "effects": [
                                                       {
-                                                        "type": "AddCasterBuff",
-                                                        "buff_state": {
-                                                          "name": "league_akshan_p_scd",
-                                                          "duration": {
-                                                            "Time": {
-                                                              "tick": 600
-                                                            }
-                                                          }
-                                                        },
-                                                        "only_to_enemy": false
+                                                        "type": "Attack",
+                                                        "damage": 20,
+                                                        "attack_ratio": 30,
+                                                        "hp_ratio": 0,
+                                                        "target_hp_ratio": 0,
+                                                        "attack_effect_type": "Target"
                                                       },
                                                       {
-                                                        "type": "RangeEffect",
-                                                        "shape": {
-                                                          "Circle": {
-                                                            "radius": 1000
-                                                          }
-                                                        },
-                                                        "target": "AllyOnlySelf",
-                                                        "apply_type": "AroundCaster",
+                                                        "type": "ViewEffect",
+                                                        "name": "league_akshan_p_hit"
+                                                      },
+                                                      {
+                                                        "type": "TargetSfx",
+                                                        "name": "league_akshan_p_hit"
+                                                      },
+                                                      {
+                                                        "type": "RandomTarget",
+                                                        "range": 1,
+                                                        "casting_target": "EnemyChampion",
+                                                        "from_projectile": true,
                                                         "effects": [
                                                           {
-                                                            "type": "Shield",
-                                                            "amount": 40,
-                                                            "attack_ratio": 35,
-                                                            "ap_ratio": 0,
-                                                            "tick": 120
-                                                          },
-                                                          {
-                                                            "type": "RemoveCasterBuff",
-                                                            "name": "league_akshan_p_sh"
-                                                          },
-                                                          {
-                                                            "type": "AddCasterBuff",
-                                                            "buff_state": {
-                                                              "name": "league_akshan_p_sh",
-                                                              "duration": {
-                                                                "Time": {
-                                                                  "tick": 120
-                                                                }
-                                                              }
+                                                            "type": "SwitchByBuff",
+                                                            "buff_name": "league_akshan_p_scd",
+                                                            "effect_buff": {
+                                                              "type": "Combine",
+                                                              "effects": []
                                                             },
-                                                            "only_to_enemy": false
+                                                            "effect_none": {
+                                                              "type": "Combine",
+                                                              "effects": [
+                                                                {
+                                                                  "type": "AddCasterBuff",
+                                                                  "buff_state": {
+                                                                    "name": "league_akshan_p_scd",
+                                                                    "duration": {
+                                                                      "Time": {
+                                                                        "tick": 600
+                                                                      }
+                                                                    }
+                                                                  },
+                                                                  "only_to_enemy": false
+                                                                },
+                                                                {
+                                                                  "type": "RangeEffect",
+                                                                  "shape": {
+                                                                    "Circle": {
+                                                                      "radius": 1000
+                                                                    }
+                                                                  },
+                                                                  "target": "AllyOnlySelf",
+                                                                  "apply_type": "AroundCaster",
+                                                                  "effects": [
+                                                                    {
+                                                                      "type": "Shield",
+                                                                      "amount": 40,
+                                                                      "attack_ratio": 35,
+                                                                      "ap_ratio": 0,
+                                                                      "tick": 120
+                                                                    },
+                                                                    {
+                                                                      "type": "RemoveCasterBuff",
+                                                                      "name": "league_akshan_p_sh"
+                                                                    },
+                                                                    {
+                                                                      "type": "AddCasterBuff",
+                                                                      "buff_state": {
+                                                                        "name": "league_akshan_p_sh",
+                                                                        "duration": {
+                                                                          "Time": {
+                                                                            "tick": 120
+                                                                          }
+                                                                        }
+                                                                      },
+                                                                      "only_to_enemy": false
+                                                                    }
+                                                                  ]
+                                                                }
+                                                              ]
+                                                            }
                                                           }
                                                         ]
                                                       }
                                                     ]
                                                   }
-                                                }
-                                              ]
-                                            }
-                                          ]
-                                        }
-                                      ]
-                                    },
-                                    "effect_none": {
-                                      "type": "SwitchByBuff",
-                                      "buff_name": "league_akshan_p_1",
-                                      "effect_buff": {
-                                        "type": "Combine",
-                                        "effects": [
-                                          {
-                                            "type": "RemoveCasterBuff",
-                                            "name": "league_akshan_p_2"
-                                          },
-                                          {
-                                            "type": "AddCasterBuff",
-                                            "buff_state": {
-                                              "name": "league_akshan_p_2",
-                                              "duration": {
-                                                "Time": {
-                                                  "tick": 300
+                                                ]
+                                              },
+                                              "effect_none": {
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_akshan_p_1",
+                                                "effect_buff": {
+                                                  "type": "Combine",
+                                                  "effects": [
+                                                    {
+                                                      "type": "RemoveCasterBuff",
+                                                      "name": "league_akshan_p_2"
+                                                    },
+                                                    {
+                                                      "type": "AddCasterBuff",
+                                                      "buff_state": {
+                                                        "name": "league_akshan_p_2",
+                                                        "duration": {
+                                                          "Time": {
+                                                            "tick": 300
+                                                          }
+                                                        }
+                                                      },
+                                                      "only_to_enemy": false
+                                                    }
+                                                  ]
+                                                },
+                                                "effect_none": {
+                                                  "type": "Combine",
+                                                  "effects": [
+                                                    {
+                                                      "type": "RemoveCasterBuff",
+                                                      "name": "league_akshan_p_1"
+                                                    },
+                                                    {
+                                                      "type": "AddCasterBuff",
+                                                      "buff_state": {
+                                                        "name": "league_akshan_p_1",
+                                                        "duration": {
+                                                          "Time": {
+                                                            "tick": 300
+                                                          }
+                                                        }
+                                                      },
+                                                      "only_to_enemy": false
+                                                    }
+                                                  ]
                                                 }
                                               }
-                                            },
-                                            "only_to_enemy": false
+                                            }
                                           }
                                         ]
                                       },
-                                      "effect_none": {
-                                        "type": "Combine",
-                                        "effects": [
-                                          {
-                                            "type": "RemoveCasterBuff",
-                                            "name": "league_akshan_p_1"
-                                          },
-                                          {
-                                            "type": "AddCasterBuff",
-                                            "buff_state": {
-                                              "name": "league_akshan_p_1",
-                                              "duration": {
-                                                "Time": {
-                                                  "tick": 300
-                                                }
-                                              }
-                                            },
-                                            "only_to_enemy": false
-                                          }
-                                        ]
+                                      {
+                                        "type": "Sfx",
+                                        "name": "league_akshan_e_shot"
                                       }
-                                    }
+                                    ]
                                   }
-                                }
-                              ]
+                                ]
+                              },
+                              "effect_none": {
+                                "type": "Combine",
+                                "effects": []
+                              }
                             },
                             {
-                              "type": "Sfx",
-                              "name": "league_akshan_e_shot"
+                              "type": "RemoveCasterBuff",
+                              "name": "league_akshan_ai_hide"
                             }
                           ]
                         },
@@ -2199,15 +2233,12 @@
                   "name": "league_akshan_e_found"
                 },
                 {
-                  "type": "RandomTarget",
-                  "range": 60000,
-                  "casting_target": "EnemyChampion",
-                  "from_projectile": false,
+                  "type": "Combine",
                   "effects": [
                     {
                       "type": "AddCasterBuff",
                       "buff_state": {
-                        "name": "league_akshan_e_found",
+                        "name": "league_akshan_ai_hide",
                         "duration": {
                           "Time": {
                             "tick": 1
@@ -2217,197 +2248,234 @@
                       "only_to_enemy": false
                     },
                     {
-                      "type": "TargetProjectile",
-                      "name": "league_akshan_e_shot",
-                      "speed": 9000,
-                      "y_offset": -8000,
-                      "applied_target": "EnemyWithoutTower",
-                      "applied_effects": [
-                        {
-                          "casting_type": "Targeting",
-                          "effect": {
-                            "type": "Attack",
-                            "damage": 25,
-                            "attack_ratio": 60,
-                            "hp_ratio": 0,
-                            "target_hp_ratio": 0,
-                            "attack_effect_type": "Target"
-                          }
-                        },
-                        {
-                          "casting_type": "Targeting",
-                          "effect": {
-                            "type": "ViewEffect",
-                            "name": "league_akshan_e_hit"
-                          }
-                        },
-                        {
-                          "casting_type": "Targeting",
-                          "effect": {
-                            "type": "TargetSfx",
-                            "name": "league_akshan_e_hit"
-                          }
-                        },
-                        {
-                          "casting_type": "Targeting",
-                          "effect": {
-                            "type": "SwitchByBuff",
-                            "buff_name": "league_akshan_p_2",
-                            "effect_buff": {
-                              "type": "Combine",
-                              "effects": [
-                                {
-                                  "type": "RemoveCasterBuff",
-                                  "name": "league_akshan_p_1"
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_akshan_ai_hide",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RandomTarget",
+                            "range": 60000,
+                            "casting_target": "EnemyChampion",
+                            "from_projectile": false,
+                            "effects": [
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_akshan_e_found",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 1
+                                    }
+                                  }
                                 },
-                                {
-                                  "type": "RemoveCasterBuff",
-                                  "name": "league_akshan_p_2"
-                                },
-                                {
-                                  "type": "Combine",
-                                  "effects": [
-                                    {
+                                "only_to_enemy": false
+                              },
+                              {
+                                "type": "TargetProjectile",
+                                "name": "league_akshan_e_shot",
+                                "speed": 9000,
+                                "y_offset": -8000,
+                                "applied_target": "EnemyWithoutTower",
+                                "applied_effects": [
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
                                       "type": "Attack",
-                                      "damage": 20,
-                                      "attack_ratio": 30,
+                                      "damage": 25,
+                                      "attack_ratio": 60,
                                       "hp_ratio": 0,
                                       "target_hp_ratio": 0,
                                       "attack_effect_type": "Target"
-                                    },
-                                    {
+                                    }
+                                  },
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
                                       "type": "ViewEffect",
-                                      "name": "league_akshan_p_hit"
-                                    },
-                                    {
+                                      "name": "league_akshan_e_hit"
+                                    }
+                                  },
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
                                       "type": "TargetSfx",
-                                      "name": "league_akshan_p_hit"
-                                    },
-                                    {
-                                      "type": "RandomTarget",
-                                      "range": 1,
-                                      "casting_target": "EnemyChampion",
-                                      "from_projectile": true,
-                                      "effects": [
-                                        {
-                                          "type": "SwitchByBuff",
-                                          "buff_name": "league_akshan_p_scd",
-                                          "effect_buff": {
-                                            "type": "Combine",
-                                            "effects": []
+                                      "name": "league_akshan_e_hit"
+                                    }
+                                  },
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "SwitchByBuff",
+                                      "buff_name": "league_akshan_p_2",
+                                      "effect_buff": {
+                                        "type": "Combine",
+                                        "effects": [
+                                          {
+                                            "type": "RemoveCasterBuff",
+                                            "name": "league_akshan_p_1"
                                           },
-                                          "effect_none": {
+                                          {
+                                            "type": "RemoveCasterBuff",
+                                            "name": "league_akshan_p_2"
+                                          },
+                                          {
                                             "type": "Combine",
                                             "effects": [
                                               {
-                                                "type": "AddCasterBuff",
-                                                "buff_state": {
-                                                  "name": "league_akshan_p_scd",
-                                                  "duration": {
-                                                    "Time": {
-                                                      "tick": 600
-                                                    }
-                                                  }
-                                                },
-                                                "only_to_enemy": false
+                                                "type": "Attack",
+                                                "damage": 20,
+                                                "attack_ratio": 30,
+                                                "hp_ratio": 0,
+                                                "target_hp_ratio": 0,
+                                                "attack_effect_type": "Target"
                                               },
                                               {
-                                                "type": "RangeEffect",
-                                                "shape": {
-                                                  "Circle": {
-                                                    "radius": 1000
-                                                  }
-                                                },
-                                                "target": "AllyOnlySelf",
-                                                "apply_type": "AroundCaster",
+                                                "type": "ViewEffect",
+                                                "name": "league_akshan_p_hit"
+                                              },
+                                              {
+                                                "type": "TargetSfx",
+                                                "name": "league_akshan_p_hit"
+                                              },
+                                              {
+                                                "type": "RandomTarget",
+                                                "range": 1,
+                                                "casting_target": "EnemyChampion",
+                                                "from_projectile": true,
                                                 "effects": [
                                                   {
-                                                    "type": "Shield",
-                                                    "amount": 40,
-                                                    "attack_ratio": 35,
-                                                    "ap_ratio": 0,
-                                                    "tick": 120
-                                                  },
-                                                  {
-                                                    "type": "RemoveCasterBuff",
-                                                    "name": "league_akshan_p_sh"
-                                                  },
-                                                  {
-                                                    "type": "AddCasterBuff",
-                                                    "buff_state": {
-                                                      "name": "league_akshan_p_sh",
-                                                      "duration": {
-                                                        "Time": {
-                                                          "tick": 120
-                                                        }
-                                                      }
+                                                    "type": "SwitchByBuff",
+                                                    "buff_name": "league_akshan_p_scd",
+                                                    "effect_buff": {
+                                                      "type": "Combine",
+                                                      "effects": []
                                                     },
-                                                    "only_to_enemy": false
+                                                    "effect_none": {
+                                                      "type": "Combine",
+                                                      "effects": [
+                                                        {
+                                                          "type": "AddCasterBuff",
+                                                          "buff_state": {
+                                                            "name": "league_akshan_p_scd",
+                                                            "duration": {
+                                                              "Time": {
+                                                                "tick": 600
+                                                              }
+                                                            }
+                                                          },
+                                                          "only_to_enemy": false
+                                                        },
+                                                        {
+                                                          "type": "RangeEffect",
+                                                          "shape": {
+                                                            "Circle": {
+                                                              "radius": 1000
+                                                            }
+                                                          },
+                                                          "target": "AllyOnlySelf",
+                                                          "apply_type": "AroundCaster",
+                                                          "effects": [
+                                                            {
+                                                              "type": "Shield",
+                                                              "amount": 40,
+                                                              "attack_ratio": 35,
+                                                              "ap_ratio": 0,
+                                                              "tick": 120
+                                                            },
+                                                            {
+                                                              "type": "RemoveCasterBuff",
+                                                              "name": "league_akshan_p_sh"
+                                                            },
+                                                            {
+                                                              "type": "AddCasterBuff",
+                                                              "buff_state": {
+                                                                "name": "league_akshan_p_sh",
+                                                                "duration": {
+                                                                  "Time": {
+                                                                    "tick": 120
+                                                                  }
+                                                                }
+                                                              },
+                                                              "only_to_enemy": false
+                                                            }
+                                                          ]
+                                                        }
+                                                      ]
+                                                    }
                                                   }
                                                 ]
                                               }
                                             ]
                                           }
-                                        }
-                                      ]
-                                    }
-                                  ]
-                                }
-                              ]
-                            },
-                            "effect_none": {
-                              "type": "SwitchByBuff",
-                              "buff_name": "league_akshan_p_1",
-                              "effect_buff": {
-                                "type": "Combine",
-                                "effects": [
-                                  {
-                                    "type": "RemoveCasterBuff",
-                                    "name": "league_akshan_p_2"
-                                  },
-                                  {
-                                    "type": "AddCasterBuff",
-                                    "buff_state": {
-                                      "name": "league_akshan_p_2",
-                                      "duration": {
-                                        "Time": {
-                                          "tick": 300
+                                        ]
+                                      },
+                                      "effect_none": {
+                                        "type": "SwitchByBuff",
+                                        "buff_name": "league_akshan_p_1",
+                                        "effect_buff": {
+                                          "type": "Combine",
+                                          "effects": [
+                                            {
+                                              "type": "RemoveCasterBuff",
+                                              "name": "league_akshan_p_2"
+                                            },
+                                            {
+                                              "type": "AddCasterBuff",
+                                              "buff_state": {
+                                                "name": "league_akshan_p_2",
+                                                "duration": {
+                                                  "Time": {
+                                                    "tick": 300
+                                                  }
+                                                }
+                                              },
+                                              "only_to_enemy": false
+                                            }
+                                          ]
+                                        },
+                                        "effect_none": {
+                                          "type": "Combine",
+                                          "effects": [
+                                            {
+                                              "type": "RemoveCasterBuff",
+                                              "name": "league_akshan_p_1"
+                                            },
+                                            {
+                                              "type": "AddCasterBuff",
+                                              "buff_state": {
+                                                "name": "league_akshan_p_1",
+                                                "duration": {
+                                                  "Time": {
+                                                    "tick": 300
+                                                  }
+                                                }
+                                              },
+                                              "only_to_enemy": false
+                                            }
+                                          ]
                                         }
                                       }
-                                    },
-                                    "only_to_enemy": false
+                                    }
                                   }
                                 ]
                               },
-                              "effect_none": {
-                                "type": "Combine",
-                                "effects": [
-                                  {
-                                    "type": "RemoveCasterBuff",
-                                    "name": "league_akshan_p_1"
-                                  },
-                                  {
-                                    "type": "AddCasterBuff",
-                                    "buff_state": {
-                                      "name": "league_akshan_p_1",
-                                      "duration": {
-                                        "Time": {
-                                          "tick": 300
-                                        }
-                                      }
-                                    },
-                                    "only_to_enemy": false
-                                  }
-                                ]
+                              {
+                                "type": "Sfx",
+                                "name": "league_akshan_e_shot"
                               }
-                            }
+                            ]
                           }
-                        }
-                      ]
+                        ]
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
                     },
                     {
-                      "type": "Sfx",
-                      "name": "league_akshan_e_shot"
+                      "type": "RemoveCasterBuff",
+                      "name": "league_akshan_ai_hide"
                     }
                   ]
                 },
@@ -3019,15 +3087,12 @@
                                     "name": "league_akshan_r_aimed"
                                   },
                                   {
-                                    "type": "RandomTarget",
-                                    "range": 220000,
-                                    "casting_target": "EnemyChampionRecentlyAttacked",
-                                    "from_projectile": false,
+                                    "type": "Combine",
                                     "effects": [
                                       {
                                         "type": "AddCasterBuff",
                                         "buff_state": {
-                                          "name": "league_akshan_r_aimed",
+                                          "name": "league_akshan_ai_hide",
                                           "duration": {
                                             "Time": {
                                               "tick": 1
@@ -3037,333 +3102,370 @@
                                         "only_to_enemy": false
                                       },
                                       {
-                                        "type": "ParabolicProjectile",
-                                        "name": "league_akshan_r_aim",
-                                        "travel_time": 6,
-                                        "range": 400000,
-                                        "range_effect_name": "",
-                                        "shape": {
-                                          "Circle": {
-                                            "radius": 1
-                                          }
-                                        },
-                                        "applied_target": "EnemyChampion",
-                                        "applied_effects": [],
-                                        "end_effects": [
-                                          {
-                                            "type": "LinearProjectile",
-                                            "name": "league_akshan_r_bullet",
-                                            "penetrate": false,
-                                            "applied_target": "Enemy",
-                                            "applied_effects": [
-                                              {
-                                                "casting_type": "Targeting",
-                                                "effect": {
-                                                  "type": "SwitchByBuff",
-                                                  "buff_name": "league_akshan_r_h4",
-                                                  "effect_buff": {
-                                                    "type": "Attack",
-                                                    "damage": 132,
-                                                    "attack_ratio": 88,
-                                                    "hp_ratio": 0,
-                                                    "target_hp_ratio": 0,
-                                                    "attack_effect_type": "Target"
+                                        "type": "SwitchByBuff",
+                                        "buff_name": "league_akshan_ai_hide",
+                                        "effect_buff": {
+                                          "type": "Combine",
+                                          "effects": [
+                                            {
+                                              "type": "RandomTarget",
+                                              "range": 220000,
+                                              "casting_target": "EnemyChampionRecentlyAttacked",
+                                              "from_projectile": false,
+                                              "effects": [
+                                                {
+                                                  "type": "AddCasterBuff",
+                                                  "buff_state": {
+                                                    "name": "league_akshan_r_aimed",
+                                                    "duration": {
+                                                      "Time": {
+                                                        "tick": 1
+                                                      }
+                                                    }
                                                   },
-                                                  "effect_none": {
-                                                    "type": "SwitchByBuff",
-                                                    "buff_name": "league_akshan_r_h3",
-                                                    "effect_buff": {
-                                                      "type": "Attack",
-                                                      "damage": 114,
-                                                      "attack_ratio": 76,
-                                                      "hp_ratio": 0,
-                                                      "target_hp_ratio": 0,
-                                                      "attack_effect_type": "Target"
-                                                    },
-                                                    "effect_none": {
-                                                      "type": "SwitchByBuff",
-                                                      "buff_name": "league_akshan_r_h2",
-                                                      "effect_buff": {
-                                                        "type": "Attack",
-                                                        "damage": 96,
-                                                        "attack_ratio": 64,
-                                                        "hp_ratio": 0,
-                                                        "target_hp_ratio": 0,
-                                                        "attack_effect_type": "Target"
-                                                      },
-                                                      "effect_none": {
-                                                        "type": "SwitchByBuff",
-                                                        "buff_name": "league_akshan_r_h1",
-                                                        "effect_buff": {
-                                                          "type": "Attack",
-                                                          "damage": 78,
-                                                          "attack_ratio": 52,
-                                                          "hp_ratio": 0,
-                                                          "target_hp_ratio": 0,
-                                                          "attack_effect_type": "Target"
-                                                        },
-                                                        "effect_none": {
-                                                          "type": "Attack",
-                                                          "damage": 60,
-                                                          "attack_ratio": 40,
-                                                          "hp_ratio": 0,
-                                                          "target_hp_ratio": 0,
-                                                          "attack_effect_type": "Target"
-                                                        }
-                                                      }
+                                                  "only_to_enemy": false
+                                                },
+                                                {
+                                                  "type": "ParabolicProjectile",
+                                                  "name": "league_akshan_r_aim",
+                                                  "travel_time": 6,
+                                                  "range": 400000,
+                                                  "range_effect_name": "",
+                                                  "shape": {
+                                                    "Circle": {
+                                                      "radius": 1
                                                     }
-                                                  }
-                                                }
-                                              },
-                                              {
-                                                "casting_type": "Targeting",
-                                                "effect": {
-                                                  "type": "Delayed",
-                                                  "tick": 1,
-                                                  "effects": [
+                                                  },
+                                                  "applied_target": "EnemyChampion",
+                                                  "applied_effects": [],
+                                                  "end_effects": [
                                                     {
-                                                      "type": "SwitchByBuff",
-                                                      "buff_name": "league_akshan_r_h3",
-                                                      "effect_buff": {
-                                                        "type": "AddCasterBuff",
-                                                        "buff_state": {
-                                                          "name": "league_akshan_r_h4",
-                                                          "duration": {
-                                                            "Time": {
-                                                              "tick": 270
+                                                      "type": "LinearProjectile",
+                                                      "name": "league_akshan_r_bullet",
+                                                      "penetrate": false,
+                                                      "applied_target": "Enemy",
+                                                      "applied_effects": [
+                                                        {
+                                                          "casting_type": "Targeting",
+                                                          "effect": {
+                                                            "type": "SwitchByBuff",
+                                                            "buff_name": "league_akshan_r_h4",
+                                                            "effect_buff": {
+                                                              "type": "Attack",
+                                                              "damage": 132,
+                                                              "attack_ratio": 88,
+                                                              "hp_ratio": 0,
+                                                              "target_hp_ratio": 0,
+                                                              "attack_effect_type": "Target"
+                                                            },
+                                                            "effect_none": {
+                                                              "type": "SwitchByBuff",
+                                                              "buff_name": "league_akshan_r_h3",
+                                                              "effect_buff": {
+                                                                "type": "Attack",
+                                                                "damage": 114,
+                                                                "attack_ratio": 76,
+                                                                "hp_ratio": 0,
+                                                                "target_hp_ratio": 0,
+                                                                "attack_effect_type": "Target"
+                                                              },
+                                                              "effect_none": {
+                                                                "type": "SwitchByBuff",
+                                                                "buff_name": "league_akshan_r_h2",
+                                                                "effect_buff": {
+                                                                  "type": "Attack",
+                                                                  "damage": 96,
+                                                                  "attack_ratio": 64,
+                                                                  "hp_ratio": 0,
+                                                                  "target_hp_ratio": 0,
+                                                                  "attack_effect_type": "Target"
+                                                                },
+                                                                "effect_none": {
+                                                                  "type": "SwitchByBuff",
+                                                                  "buff_name": "league_akshan_r_h1",
+                                                                  "effect_buff": {
+                                                                    "type": "Attack",
+                                                                    "damage": 78,
+                                                                    "attack_ratio": 52,
+                                                                    "hp_ratio": 0,
+                                                                    "target_hp_ratio": 0,
+                                                                    "attack_effect_type": "Target"
+                                                                  },
+                                                                  "effect_none": {
+                                                                    "type": "Attack",
+                                                                    "damage": 60,
+                                                                    "attack_ratio": 40,
+                                                                    "hp_ratio": 0,
+                                                                    "target_hp_ratio": 0,
+                                                                    "attack_effect_type": "Target"
+                                                                  }
+                                                                }
+                                                              }
                                                             }
                                                           }
                                                         },
-                                                        "only_to_enemy": false
-                                                      },
-                                                      "effect_none": {
-                                                        "type": "SwitchByBuff",
-                                                        "buff_name": "league_akshan_r_h2",
-                                                        "effect_buff": {
-                                                          "type": "AddCasterBuff",
-                                                          "buff_state": {
-                                                            "name": "league_akshan_r_h3",
-                                                            "duration": {
-                                                              "Time": {
-                                                                "tick": 270
-                                                              }
-                                                            }
-                                                          },
-                                                          "only_to_enemy": false
-                                                        },
-                                                        "effect_none": {
-                                                          "type": "SwitchByBuff",
-                                                          "buff_name": "league_akshan_r_h1",
-                                                          "effect_buff": {
-                                                            "type": "AddCasterBuff",
-                                                            "buff_state": {
-                                                              "name": "league_akshan_r_h2",
-                                                              "duration": {
-                                                                "Time": {
-                                                                  "tick": 270
-                                                                }
-                                                              }
-                                                            },
-                                                            "only_to_enemy": false
-                                                          },
-                                                          "effect_none": {
-                                                            "type": "AddCasterBuff",
-                                                            "buff_state": {
-                                                              "name": "league_akshan_r_h1",
-                                                              "duration": {
-                                                                "Time": {
-                                                                  "tick": 270
-                                                                }
-                                                              }
-                                                            },
-                                                            "only_to_enemy": false
-                                                          }
-                                                        }
-                                                      }
-                                                    }
-                                                  ]
-                                                }
-                                              },
-                                              {
-                                                "casting_type": "Targeting",
-                                                "effect": {
-                                                  "type": "ViewEffect",
-                                                  "name": "league_akshan_r_hit"
-                                                }
-                                              },
-                                              {
-                                                "casting_type": "Targeting",
-                                                "effect": {
-                                                  "type": "TargetSfx",
-                                                  "name": "league_akshan_r_hit"
-                                                }
-                                              },
-                                              {
-                                                "casting_type": "Targeting",
-                                                "effect": {
-                                                  "type": "SwitchByBuff",
-                                                  "buff_name": "league_akshan_p_2",
-                                                  "effect_buff": {
-                                                    "type": "Combine",
-                                                    "effects": [
-                                                      {
-                                                        "type": "RemoveCasterBuff",
-                                                        "name": "league_akshan_p_1"
-                                                      },
-                                                      {
-                                                        "type": "RemoveCasterBuff",
-                                                        "name": "league_akshan_p_2"
-                                                      },
-                                                      {
-                                                        "type": "Combine",
-                                                        "effects": [
-                                                          {
-                                                            "type": "Attack",
-                                                            "damage": 20,
-                                                            "attack_ratio": 30,
-                                                            "hp_ratio": 0,
-                                                            "target_hp_ratio": 0,
-                                                            "attack_effect_type": "Target"
-                                                          },
-                                                          {
-                                                            "type": "ViewEffect",
-                                                            "name": "league_akshan_p_hit"
-                                                          },
-                                                          {
-                                                            "type": "TargetSfx",
-                                                            "name": "league_akshan_p_hit"
-                                                          },
-                                                          {
-                                                            "type": "RandomTarget",
-                                                            "range": 1,
-                                                            "casting_target": "EnemyChampion",
-                                                            "from_projectile": true,
+                                                        {
+                                                          "casting_type": "Targeting",
+                                                          "effect": {
+                                                            "type": "Delayed",
+                                                            "tick": 1,
                                                             "effects": [
                                                               {
                                                                 "type": "SwitchByBuff",
-                                                                "buff_name": "league_akshan_p_scd",
+                                                                "buff_name": "league_akshan_r_h3",
                                                                 "effect_buff": {
-                                                                  "type": "Combine",
-                                                                  "effects": []
+                                                                  "type": "AddCasterBuff",
+                                                                  "buff_state": {
+                                                                    "name": "league_akshan_r_h4",
+                                                                    "duration": {
+                                                                      "Time": {
+                                                                        "tick": 270
+                                                                      }
+                                                                    }
+                                                                  },
+                                                                  "only_to_enemy": false
                                                                 },
                                                                 "effect_none": {
-                                                                  "type": "Combine",
-                                                                  "effects": [
-                                                                    {
+                                                                  "type": "SwitchByBuff",
+                                                                  "buff_name": "league_akshan_r_h2",
+                                                                  "effect_buff": {
+                                                                    "type": "AddCasterBuff",
+                                                                    "buff_state": {
+                                                                      "name": "league_akshan_r_h3",
+                                                                      "duration": {
+                                                                        "Time": {
+                                                                          "tick": 270
+                                                                        }
+                                                                      }
+                                                                    },
+                                                                    "only_to_enemy": false
+                                                                  },
+                                                                  "effect_none": {
+                                                                    "type": "SwitchByBuff",
+                                                                    "buff_name": "league_akshan_r_h1",
+                                                                    "effect_buff": {
                                                                       "type": "AddCasterBuff",
                                                                       "buff_state": {
-                                                                        "name": "league_akshan_p_scd",
+                                                                        "name": "league_akshan_r_h2",
                                                                         "duration": {
                                                                           "Time": {
-                                                                            "tick": 600
+                                                                            "tick": 270
                                                                           }
                                                                         }
                                                                       },
                                                                       "only_to_enemy": false
                                                                     },
-                                                                    {
-                                                                      "type": "RangeEffect",
-                                                                      "shape": {
-                                                                        "Circle": {
-                                                                          "radius": 1000
+                                                                    "effect_none": {
+                                                                      "type": "AddCasterBuff",
+                                                                      "buff_state": {
+                                                                        "name": "league_akshan_r_h1",
+                                                                        "duration": {
+                                                                          "Time": {
+                                                                            "tick": 270
+                                                                          }
                                                                         }
                                                                       },
-                                                                      "target": "AllyOnlySelf",
-                                                                      "apply_type": "AroundCaster",
+                                                                      "only_to_enemy": false
+                                                                    }
+                                                                  }
+                                                                }
+                                                              }
+                                                            ]
+                                                          }
+                                                        },
+                                                        {
+                                                          "casting_type": "Targeting",
+                                                          "effect": {
+                                                            "type": "ViewEffect",
+                                                            "name": "league_akshan_r_hit"
+                                                          }
+                                                        },
+                                                        {
+                                                          "casting_type": "Targeting",
+                                                          "effect": {
+                                                            "type": "TargetSfx",
+                                                            "name": "league_akshan_r_hit"
+                                                          }
+                                                        },
+                                                        {
+                                                          "casting_type": "Targeting",
+                                                          "effect": {
+                                                            "type": "SwitchByBuff",
+                                                            "buff_name": "league_akshan_p_2",
+                                                            "effect_buff": {
+                                                              "type": "Combine",
+                                                              "effects": [
+                                                                {
+                                                                  "type": "RemoveCasterBuff",
+                                                                  "name": "league_akshan_p_1"
+                                                                },
+                                                                {
+                                                                  "type": "RemoveCasterBuff",
+                                                                  "name": "league_akshan_p_2"
+                                                                },
+                                                                {
+                                                                  "type": "Combine",
+                                                                  "effects": [
+                                                                    {
+                                                                      "type": "Attack",
+                                                                      "damage": 20,
+                                                                      "attack_ratio": 30,
+                                                                      "hp_ratio": 0,
+                                                                      "target_hp_ratio": 0,
+                                                                      "attack_effect_type": "Target"
+                                                                    },
+                                                                    {
+                                                                      "type": "ViewEffect",
+                                                                      "name": "league_akshan_p_hit"
+                                                                    },
+                                                                    {
+                                                                      "type": "TargetSfx",
+                                                                      "name": "league_akshan_p_hit"
+                                                                    },
+                                                                    {
+                                                                      "type": "RandomTarget",
+                                                                      "range": 1,
+                                                                      "casting_target": "EnemyChampion",
+                                                                      "from_projectile": true,
                                                                       "effects": [
                                                                         {
-                                                                          "type": "Shield",
-                                                                          "amount": 40,
-                                                                          "attack_ratio": 35,
-                                                                          "ap_ratio": 0,
-                                                                          "tick": 120
-                                                                        },
-                                                                        {
-                                                                          "type": "RemoveCasterBuff",
-                                                                          "name": "league_akshan_p_sh"
-                                                                        },
-                                                                        {
-                                                                          "type": "AddCasterBuff",
-                                                                          "buff_state": {
-                                                                            "name": "league_akshan_p_sh",
-                                                                            "duration": {
-                                                                              "Time": {
-                                                                                "tick": 120
-                                                                              }
-                                                                            }
+                                                                          "type": "SwitchByBuff",
+                                                                          "buff_name": "league_akshan_p_scd",
+                                                                          "effect_buff": {
+                                                                            "type": "Combine",
+                                                                            "effects": []
                                                                           },
-                                                                          "only_to_enemy": false
+                                                                          "effect_none": {
+                                                                            "type": "Combine",
+                                                                            "effects": [
+                                                                              {
+                                                                                "type": "AddCasterBuff",
+                                                                                "buff_state": {
+                                                                                  "name": "league_akshan_p_scd",
+                                                                                  "duration": {
+                                                                                    "Time": {
+                                                                                      "tick": 600
+                                                                                    }
+                                                                                  }
+                                                                                },
+                                                                                "only_to_enemy": false
+                                                                              },
+                                                                              {
+                                                                                "type": "RangeEffect",
+                                                                                "shape": {
+                                                                                  "Circle": {
+                                                                                    "radius": 1000
+                                                                                  }
+                                                                                },
+                                                                                "target": "AllyOnlySelf",
+                                                                                "apply_type": "AroundCaster",
+                                                                                "effects": [
+                                                                                  {
+                                                                                    "type": "Shield",
+                                                                                    "amount": 40,
+                                                                                    "attack_ratio": 35,
+                                                                                    "ap_ratio": 0,
+                                                                                    "tick": 120
+                                                                                  },
+                                                                                  {
+                                                                                    "type": "RemoveCasterBuff",
+                                                                                    "name": "league_akshan_p_sh"
+                                                                                  },
+                                                                                  {
+                                                                                    "type": "AddCasterBuff",
+                                                                                    "buff_state": {
+                                                                                      "name": "league_akshan_p_sh",
+                                                                                      "duration": {
+                                                                                        "Time": {
+                                                                                          "tick": 120
+                                                                                        }
+                                                                                      }
+                                                                                    },
+                                                                                    "only_to_enemy": false
+                                                                                  }
+                                                                                ]
+                                                                              }
+                                                                            ]
+                                                                          }
                                                                         }
                                                                       ]
                                                                     }
                                                                   ]
                                                                 }
+                                                              ]
+                                                            },
+                                                            "effect_none": {
+                                                              "type": "SwitchByBuff",
+                                                              "buff_name": "league_akshan_p_1",
+                                                              "effect_buff": {
+                                                                "type": "Combine",
+                                                                "effects": [
+                                                                  {
+                                                                    "type": "RemoveCasterBuff",
+                                                                    "name": "league_akshan_p_2"
+                                                                  },
+                                                                  {
+                                                                    "type": "AddCasterBuff",
+                                                                    "buff_state": {
+                                                                      "name": "league_akshan_p_2",
+                                                                      "duration": {
+                                                                        "Time": {
+                                                                          "tick": 300
+                                                                        }
+                                                                      }
+                                                                    },
+                                                                    "only_to_enemy": false
+                                                                  }
+                                                                ]
+                                                              },
+                                                              "effect_none": {
+                                                                "type": "Combine",
+                                                                "effects": [
+                                                                  {
+                                                                    "type": "RemoveCasterBuff",
+                                                                    "name": "league_akshan_p_1"
+                                                                  },
+                                                                  {
+                                                                    "type": "AddCasterBuff",
+                                                                    "buff_state": {
+                                                                      "name": "league_akshan_p_1",
+                                                                      "duration": {
+                                                                        "Time": {
+                                                                          "tick": 300
+                                                                        }
+                                                                      }
+                                                                    },
+                                                                    "only_to_enemy": false
+                                                                  }
+                                                                ]
                                                               }
-                                                            ]
+                                                            }
                                                           }
-                                                        ]
+                                                        }
+                                                      ],
+                                                      "end_effects": [],
+                                                      "speed": 20000,
+                                                      "range": 220000,
+                                                      "shape": {
+                                                        "Circle": {
+                                                          "radius": 6000
+                                                        }
                                                       }
-                                                    ]
-                                                  },
-                                                  "effect_none": {
-                                                    "type": "SwitchByBuff",
-                                                    "buff_name": "league_akshan_p_1",
-                                                    "effect_buff": {
-                                                      "type": "Combine",
-                                                      "effects": [
-                                                        {
-                                                          "type": "RemoveCasterBuff",
-                                                          "name": "league_akshan_p_2"
-                                                        },
-                                                        {
-                                                          "type": "AddCasterBuff",
-                                                          "buff_state": {
-                                                            "name": "league_akshan_p_2",
-                                                            "duration": {
-                                                              "Time": {
-                                                                "tick": 300
-                                                              }
-                                                            }
-                                                          },
-                                                          "only_to_enemy": false
-                                                        }
-                                                      ]
-                                                    },
-                                                    "effect_none": {
-                                                      "type": "Combine",
-                                                      "effects": [
-                                                        {
-                                                          "type": "RemoveCasterBuff",
-                                                          "name": "league_akshan_p_1"
-                                                        },
-                                                        {
-                                                          "type": "AddCasterBuff",
-                                                          "buff_state": {
-                                                            "name": "league_akshan_p_1",
-                                                            "duration": {
-                                                              "Time": {
-                                                                "tick": 300
-                                                              }
-                                                            }
-                                                          },
-                                                          "only_to_enemy": false
-                                                        }
-                                                      ]
                                                     }
-                                                  }
+                                                  ]
                                                 }
-                                              }
-                                            ],
-                                            "end_effects": [],
-                                            "speed": 20000,
-                                            "range": 220000,
-                                            "shape": {
-                                              "Circle": {
-                                                "radius": 6000
-                                              }
+                                              ]
                                             }
-                                          }
-                                        ]
+                                          ]
+                                        },
+                                        "effect_none": {
+                                          "type": "Combine",
+                                          "effects": []
+                                        }
+                                      },
+                                      {
+                                        "type": "RemoveCasterBuff",
+                                        "name": "league_akshan_ai_hide"
                                       }
                                     ]
                                   },
@@ -4200,6 +4302,14 @@
       "tag": "r_lock",
       "z": 2,
       "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_akshan_w_revive",
+      "anim": "asset/league/effects/league_akshan_rv",
+      "tag": "w_revive",
+      "z": 3,
+      "is_follow": true
     }
   ],
   "view_buffs": [
