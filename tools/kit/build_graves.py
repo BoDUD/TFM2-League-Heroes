@@ -310,7 +310,9 @@ def build(p, native=False):
     if native:
         kit["passive"] = {"passive_ref": "league_graves:grit",
                           "params": {k: int(p[k]) for k in ("e_cut", "e_cuts", "kb_speed", "kb_t", "r2_dmg", "r2_ratio",
-                                                            "r_len", "r_dot", "a_hit")}}
+                                                            "r_len", "r_dot", "a_hit", "a_keep", "atk_range",
+                                                            "e_range", "e_near", "r_cast", "r_range", "r_w", "r_dmg",
+                                                            "r_ratio")}}
     return kit
 
 

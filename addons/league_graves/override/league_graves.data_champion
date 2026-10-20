@@ -1267,7 +1267,16 @@
       "r2_ratio": 60,
       "r_len": 55000,
       "r_dot": 866,
-      "a_hit": 8
+      "a_hit": 8,
+      "a_keep": 300,
+      "atk_range": 46000,
+      "e_range": 60000,
+      "e_near": 22000,
+      "r_cast": 100000,
+      "r_range": 110000,
+      "r_w": 12000,
+      "r_dmg": 120,
+      "r_ratio": 90
     }
   }
 }

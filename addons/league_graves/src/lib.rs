@@ -12,10 +12,16 @@
 //!   格雷福斯到那名英雄的方向，在那名英雄身后 `r_len` 内、偏离不到 acos(`r_dot`/1000) 的敌方单位（塔除外，不含那名英雄）
 //!   受到 `r2_dmg` + `r2_ratio`% 攻击力的物理伤害。
 //!
+//! - **连招**（0.2.0，用户：「有连招的话一起做了」；`combo.rs`）：AI 钩子 `league_graves:combo` 替游戏的 AI 决定 E、R
+//!   什么时候按——E 留到第一发打出去之后再按（装回一发，一轮换弹打三枪：普攻 → E → 普攻 → 普攻），弹匣满着或已经在换弹时
+//!   AI 按的 E 改成普攻（逃命、追残血、够不着敌人时照放）；R 只在打得死路上第一个英雄、或他身后锥形里还有英雄、或自己残血
+//!   时放，有打得死的英雄就替 AI 按。
+//!
 //! 一次普攻：同一个格雷福斯（按这局的种子和他的编号分开）第一次 `hit` 起 `VOLLEY_T` tick 内的都算这一枪（扇形在开枪那
 //! tick 打中，正面那颗弹丸飞到目标最多几 tick）。
 //!
-//! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_graves.log`，每次启动游戏重写。
+//! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_graves.log`，每次启动游戏重写：`CUT` / `KNOCK` / `CONE`
+//! （上面三件事），`E PRESS` / `E VETO` / `R PRESS` / `R VETO`（连招），都限了条数。
 
 use std::collections::HashMap;
 use std::fs::OpenOptions;
@@ -25,9 +31,11 @@ use std::sync::{LazyLock, Mutex};
 
 use mod_api_stable::*;
 
+pub mod combo;
+
 const ID: &str = "league_graves";
 /// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是 league_addons 的。
-const VERSION: &str = "0.1.0";
+const VERSION: &str = "0.2.0";
 
 /// 一枪的时间窗：第一次打中起这么多 tick 内的打中都算同一枪（他的普攻间隔 54 tick）。
 pub const VOLLEY_T: usize = 14;
@@ -114,11 +122,24 @@ pub struct Params {
     pub r2_ratio: usize,
     pub r_len: usize,
     pub r_dot: usize,
+    // the combos (combo.rs): the shotgun's shell flag and shot tick, the reaches, R's line and damage
+    pub a_hit: usize,
+    pub a_keep: usize,
+    pub atk_range: usize,
+    pub e_range: usize,
+    pub e_near: usize,
+    pub r_cast: usize,
+    pub r_range: usize,
+    pub r_w: usize,
+    pub r_dmg: usize,
+    pub r_ratio: usize,
 }
 
 impl Default for Params {
     fn default() -> Self {
-        Params { e_cut: 30, e_cuts: 4, kb_speed: 1500, kb_t: 4, r2_dmg: 80, r2_ratio: 60, r_len: 55000, r_dot: 866 }
+        Params { e_cut: 30, e_cuts: 4, kb_speed: 1500, kb_t: 4, r2_dmg: 80, r2_ratio: 60, r_len: 55000, r_dot: 866,
+                 a_hit: 8, a_keep: 300, atk_range: 46000, e_range: 60000, e_near: 22000, r_cast: 100000,
+                 r_range: 110000, r_w: 12000, r_dmg: 120, r_ratio: 90 }
     }
 }
 
@@ -138,6 +159,16 @@ pub fn parse_params(json: &str) -> Params {
             "r2_ratio" => p.r2_ratio = v,
             "r_len" => p.r_len = v,
             "r_dot" => p.r_dot = v,
+            "a_hit" => p.a_hit = v,
+            "a_keep" => p.a_keep = v,
+            "atk_range" => p.atk_range = v,
+            "e_range" => p.e_range = v,
+            "e_near" => p.e_near = v,
+            "r_cast" => p.r_cast = v,
+            "r_range" => p.r_range = v,
+            "r_w" => p.r_w = v,
+            "r_dmg" => p.r_dmg = v,
+            "r_ratio" => p.r_ratio = v,
             _ => {}
         }
     }
@@ -327,7 +358,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v{VERSION} (Graves: Quickdraw's cooldown per pellet, knockback, Collateral Damage's cone) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v{VERSION} (Graves: Quickdraw's cooldown per pellet, knockback, Collateral Damage's cone, the combos) loaded: game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
         v.patch,
@@ -337,7 +368,8 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     module.add_native_effect(format!("{ID}:hit"), HitFx);
     module.add_native_effect(format!("{ID}:cone"), ConeFx);
     module.add_native_passive(format!("{ID}:grit"), Grit::default());
-    host.log(LogLevel::Info, "league_graves loaded (Quickdraw's cooldown, knockback, Collateral Damage's cone).");
+    module.add_player_input_ai(combo::Combo);
+    host.log(LogLevel::Info, "league_graves loaded (Quickdraw's cooldown, knockback, Collateral Damage's cone, the combos).");
 }
 
 #[cfg_attr(league_bundle, allow(dead_code))]
@@ -379,7 +411,7 @@ mod tests {
 
     #[test]
     fn params_parse() {
-        assert_eq!(parse_params(r#"{"a_hit":8,"e_cut":30,"e_cuts":4,"kb_speed":1500,"kb_t":4,"r2_dmg":80,"r2_ratio":60,"r_dot":866,"r_len":55000}"#), Params::default());
+        assert_eq!(parse_params(r#"{"a_hit":8,"e_cut":30,"e_cuts":4,"kb_speed":1500,"kb_t":4,"r2_dmg":80,"r2_ratio":60,"r_dot":866,"r_len":55000,"a_keep":300,"atk_range":46000,"e_range":60000,"e_near":22000,"r_cast":100000,"r_range":110000,"r_w":12000,"r_dmg":120,"r_ratio":90}"#), Params::default());
         assert_eq!(parse_params(r#"{"e_cut":20}"#).e_cut, 20);
     }
 
@@ -389,14 +421,17 @@ mod tests {
         let src = std::fs::read_to_string(path).expect("build_graves.py");
         let d = Params::default();
         for (k, v) in [("e_cut", d.e_cut), ("e_cuts", d.e_cuts), ("kb_speed", d.kb_speed), ("kb_t", d.kb_t),
-                       ("r2_dmg", d.r2_dmg), ("r2_ratio", d.r2_ratio), ("r_len", d.r_len), ("r_dot", d.r_dot)] {
+                       ("r2_dmg", d.r2_dmg), ("r2_ratio", d.r2_ratio), ("r_len", d.r_len), ("r_dot", d.r_dot),
+                       ("a_hit", d.a_hit), ("a_keep", d.a_keep), ("atk_range", d.atk_range), ("e_range", d.e_range),
+                       ("e_near", d.e_near), ("r_cast", d.r_cast), ("r_range", d.r_range), ("r_w", d.r_w),
+                       ("r_dmg", d.r_dmg), ("r_ratio", d.r_ratio)] {
             assert!(src.contains(&format!("\"{k}\": {v}")), "{k} is not {v} in build_graves.P");
         }
     }
 
     #[test]
     fn the_names_fit() {
-        for x in ["r_hit2"] {
+        for x in ["r_hit2", "a_1"] {
             assert!(sn(x).len() <= BUFF_NAME_CAP);
         }
     }
