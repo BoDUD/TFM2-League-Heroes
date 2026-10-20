@@ -244,6 +244,9 @@ mod karthus;
 mod vex;
 #[path = "../../league_zyra/src/lib.rs"]
 mod zyra;
+#[allow(dead_code)] // items public in the add-on's own crate
+#[path = "../../league_gnar/src/lib.rs"]
+mod gnar;
 
 pub const ID: &str = "league_addons";
 
@@ -345,6 +348,7 @@ fn init(host: &StableHost) -> StableMod {
     karthus::register(host, &mut module);
     vex::register(host, &mut module);
     zyra::register(host, &mut module);
+    gnar::register(host, &mut module);
     module.set_map_customizer(MapReaders);
     host.log(
         LogLevel::Info,

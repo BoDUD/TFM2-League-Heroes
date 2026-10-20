@@ -1,0 +1,37 @@
+{
+  "zh-hans": {
+    "description": {
+      "league_gnar": {
+        "ult": "【附加包】只有巨型纳尔能放（迷你纳尔怒气满时先变身）：把身边的敌人往同一个方向掀飞，造成<#ff9028ff>170<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<><#ff9028ff>物理伤害<>并<#ef5350ff>减速50%<>；撞到墙上的再受一半伤害并<#ef5350ff>眩晕<><#ffb900ff>1.17秒<>。"
+      }
+    }
+  },
+  "zh-hant": {
+    "description": {
+      "league_gnar": {
+        "ult": "【附加包】只有巨型吶兒能施放（迷你吶兒怒氣滿時先變身）：把身邊的敵人往同一個方向掀飛，造成<#ff9028ff>170<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<><#ff9028ff>物理傷害<>並<#ef5350ff>緩速50%<>；撞到牆上的再受一半傷害並<#ef5350ff>暈眩<><#ffb900ff>1.17秒<>。"
+      }
+    }
+  },
+  "en": {
+    "description": {
+      "league_gnar": {
+        "ult": "[Add-on] Mega Gnar only (Mini Gnar at full Rage transforms first): throws every enemy around him the same way, dealing <#ff9028ff>170<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> <#ff9028ff>physical damage<> and <#ef5350ff>slowing 50%<>; those slammed into a wall take half again and are <#ef5350ff>stunned<> <#ffb900ff>1.17s<>."
+      }
+    }
+  },
+  "ko": {
+    "description": {
+      "league_gnar": {
+        "ult": "[애드온] 메가 나르만 사용(꼬마 나르는 분노가 가득 차면 먼저 변신): 주변 적을 모두 한 방향으로 내던져 <#ff9028ff>170<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> <#ff9028ff>물리 피해<>와 <#ef5350ff>50% 둔화<>; 벽에 부딪힌 적은 피해를 절반 더 받고 <#ffb900ff>1.17초<> <#ef5350ff>기절<>."
+      }
+    }
+  },
+  "ja": {
+    "description": {
+      "league_gnar": {
+        "ult": "【アドオン】メガ・ナー専用（ミニ・ナーは怒り最大で先に変身）：周囲の敵をすべて同じ方向へ投げ飛ばし、<#ff9028ff>170<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>の<#ff9028ff>物理ダメージ<>と<#ef5350ff>50%スロウ<>；壁に叩きつけられた敵はさらに半分のダメージを受け<#ffb900ff>1.17秒<><#ef5350ff>スタン<>。"
+      }
+    }
+  }
+}
