@@ -78,7 +78,8 @@ def main():
                     with open(os.path.join(d, fn), encoding="utf-8-sig") as f:
                         s = f.read().replace(old, new)
                     if fn.endswith(".data_champion"):        # the exact effect-tree rewrites, as tools/package_mod.py
-                        s = json.dumps(slim.slim_champion(json.loads(s)), ensure_ascii=False, indent=2) + "\n"
+                        # compact (league_sylas's copy carries every League champion's ult: 12 MB pretty-printed)
+                        s = json.dumps(slim.slim_champion(json.loads(s)), ensure_ascii=False, separators=(",", ":")) + "\n"
                     with open(dst, "w", encoding="utf-8", newline="\n") as f:
                         f.write(s)
         for k, v in load(os.path.join(src, "mod.override_info")).items():

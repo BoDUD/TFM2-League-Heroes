@@ -5,7 +5,10 @@
 //! 第二次 R 按身上的 `league_sylas_cls_<类别>` 换成五套夺来的大招之一，被动挂本包的 `league_sylas:hijack`（参数在英雄数据的
 //! `passive.params` 里）。
 //!
-//! - **其人之道**：英雄联盟里塞拉斯偷走对方的大招。数据复制不了别的英雄的招式，所以照佛耶戈附加包的做法分五类：被动每 tick 找
+//! - **其人之道**：英雄联盟里塞拉斯偷走对方的大招。0.2.0 起偷到本包的英雄联盟英雄时，副本的第二段 R 放的就是那名英雄自己的大招
+//!   （`make_override.py` 把主包每个英雄的大招效果树整棵抄进来，动作标签换成塞拉斯的 ult_cast / ult_dash，用到的画面条目一并抄来；
+//!   被动给塞拉斯挂 `steal_<英雄>` 和 `r_real`），放的时候数据挂 `r_power_go`，被动给他加法强 `r2_ad`% 的攻击（`r2_ad_t` tick），
+//!   照英雄联盟把攻击力系数换成法强。偷到原版英雄和别的 mod 的英雄时照佛耶戈附加包的做法分五类：被动每 tick 找
 //!   身上有 `r_mark` 的敌方英雄，按它的 id 查 `classes.rs`（原版英雄和本包英雄的类别，`make_override.py` 生成；查不到的别的
 //!   mod 英雄算近战），给塞拉斯挂 `cls_<类别>`（`r_keep` tick），第二次 R 放出对应的那一套：近战 = 跃起重砸眩晕、
 //!   射手 = 贯穿长箭减速、法师 = 原地爆发击飞（主包那一套）、辅助 = 治疗和护盾周围友方英雄并减速敌人、刺客 = 闪到目标身边重击并隐身。
@@ -26,10 +29,11 @@ use mod_api_stable::*;
 
 pub mod classes;
 pub mod combo;
+pub mod stealable;
 
 const ID: &str = "league_sylas";
 /// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是 league_addons 的。
-const VERSION: &str = "0.1.0";
+const VERSION: &str = "0.2.0";
 /// 五个类别（和佛耶戈附加包一样）。
 pub const CLASSES: [&str; 5] = ["melee", "range", "mage", "util", "assassin"];
 
@@ -121,12 +125,15 @@ pub struct Params {
     pub r2_r: usize,
     pub r_cd: usize,
     pub r_dur: usize,
+    pub r2_ad: usize,
+    pub r2_ad_t: usize,
 }
 
 impl Default for Params {
     fn default() -> Self {
         Params { w_heal: 40, w_heal_r: 35, w_miss: 150, w_r: 34000, w_cd: 540, atk_range: 26000, q_range: 60000,
-                 e_range: 70000, e_dur: 34, r_range: 70000, r_keep: 600, r2_r: 32000, r_cd: 2700, r_dur: 30 }
+                 e_range: 70000, e_dur: 34, r_range: 70000, r_keep: 600, r2_r: 32000, r_cd: 2700, r_dur: 30,
+                 r2_ad: 60, r2_ad_t: 300 }
     }
 }
 
@@ -152,6 +159,8 @@ pub fn parse_params(json: &str) -> Params {
             "r2_r" => p.r2_r = v,
             "r_cd" => p.r_cd = v,
             "r_dur" => p.r_dur = v,
+            "r2_ad" => p.r2_ad = v,
+            "r2_ad_t" => p.r2_ad_t = v,
             _ => {}
         }
     }
@@ -172,6 +181,16 @@ pub fn kingslayer_heal(ap: usize, share: f64, p: &Params) -> usize {
     let base = p.w_heal as f64 + p.w_heal_r as f64 * ap as f64 / 100.0;
     let missing = (1.0 - share).clamp(0.0, 1.0);
     (base * (1.0 + p.w_miss as f64 / 100.0 * missing)).round() as usize
+}
+
+/// 偷到这名英雄时放他自己的大招吗（本包的英雄联盟英雄，`stealable.rs`），放的话是 `steal_<英雄>` 里的英雄名。
+pub fn own_ult(name: &str) -> Option<&str> {
+    stealable::STEALABLE.binary_search(&name).ok().and_then(|_| name.strip_prefix("league_"))
+}
+
+/// 夺来的大招放的时候加多少攻击：法强的 `r2_ad`%（英雄联盟把偷来的大招的攻击力系数换成塞拉斯的法强）。
+pub fn power_of(ap: usize, p: &Params) -> i32 {
+    (ap * p.r2_ad / 100) as i32
 }
 
 /// 英雄 id → 五类之一：查表（本包英雄和原版英雄），查不到的（别的 mod）按攻击距离：35000 以上算射手。
@@ -230,6 +249,19 @@ impl Hijack {
         if !e.is_alive() {
             return;
         }
+        if has_buff(&e, &sn("r_power_go")) {
+            let ap = e.stat().magic_power;
+            let mut b = BuffV1::timed(&sn("r_power"), self.p.r2_ad_t);
+            b.attack = power_of(ap, &self.p);
+            sim.entity_remove_buff(me, &sn("r_power_go"));
+            sim.entity_remove_buff(me, &sn("r_power"));
+            sim.entity_stack_buff(me, &b, 1, true);
+            if let Some(k) = counted("power") {
+                wlog(format!("{} POWER #{k}: a stolen ult cast - attack +{} for {} ticks (ap {ap})", head(sim, me),
+                             b.attack, self.p.r2_ad_t));
+            }
+        }
+        let Some(e) = sim.get_entity(me) else { return };
         let team = e.team();
         let mark = sn("r_mark");
         let mut robbed = None;
@@ -247,9 +279,27 @@ impl Hijack {
         for c in CLASSES {
             sim.entity_remove_buff(me, &sn(&format!("cls_{c}")));
         }
-        sim.entity_stack_buff(me, &BuffV1::timed(&sn(&format!("cls_{cls}")), self.p.r_keep), 1, true);
+        let old: Vec<String> = sim.get_entity(me).map_or_else(Vec::new, |e| {
+            (0..e.buff_count()).filter_map(|i| e.buff_at(i)).map(|b| b.name().to_string())
+                .filter(|n| n.starts_with(&sn("steal_"))).collect()
+        });
+        for n in old {
+            sim.entity_remove_buff(me, &n);
+        }
+        sim.entity_remove_buff(me, &sn("r_real"));
+        let kind = match own_ult(&name) {
+            Some(hero) => {
+                sim.entity_stack_buff(me, &BuffV1::timed(&sn(&format!("steal_{hero}")), self.p.r_keep), 1, true);
+                sim.entity_stack_buff(me, &BuffV1::timed(&sn("r_real"), self.p.r_keep), 1, true);
+                "his own ult".to_string()
+            }
+            None => {
+                sim.entity_stack_buff(me, &BuffV1::timed(&sn(&format!("cls_{cls}")), self.p.r_keep), 1, true);
+                format!("by class: {cls}")
+            }
+        };
         if let Some(k) = counted("steal") {
-            wlog(format!("{} STEAL #{k}: the ult of {} ({cls})", head(sim, me), who(sim, victim)));
+            wlog(format!("{} STEAL #{k}: the ult of {} ({kind})", head(sim, me), who(sim, victim)));
         }
     }
 }
@@ -331,6 +381,25 @@ mod tests {
     }
 
     #[test]
+    fn league_champions_give_their_own_ult() {
+        assert_eq!(own_ult("league_jinx"), Some("jinx"));
+        assert_eq!(own_ult("league_soraka"), Some("soraka"));
+        assert_eq!(own_ult("league_sylas"), None);
+        assert_eq!(own_ult("league_mel"), None);        // BY_CLASS: her R strikes only her own stacks
+        assert_eq!(own_ult("fighter"), None);
+        assert_eq!(own_ult("tft_powder"), None);
+        assert!(stealable::STEALABLE.windows(2).all(|w| w[0] < w[1]));
+        assert!(stealable::STEALABLE.iter().all(|n| sn(&format!("steal_{}", &n[7..])).len() <= BUFF_NAME_CAP));
+    }
+
+    #[test]
+    fn the_stolen_ult_pays_attack_from_ability_power() {
+        let p = Params::default();
+        assert_eq!(power_of(210, &p), 126);
+        assert_eq!(power_of(0, &p), 0);
+    }
+
+    #[test]
     fn the_table_is_sorted() {
         assert!(classes::CLASSES_OF.windows(2).all(|w| w[0].0 < w[1].0));
         assert!(classes::CLASSES_OF.iter().all(|c| CLASSES.contains(&c.1)));
@@ -338,7 +407,7 @@ mod tests {
 
     #[test]
     fn params_parse() {
-        assert_eq!(parse_params(r#"{"w_heal":40,"w_heal_r":35,"w_miss":150,"w_r":34000,"w_cd":540,"atk_range":26000,"q_range":60000,"e_range":70000,"e_dur":34,"r_range":70000,"r_keep":600,"r2_r":32000,"r_cd":2700,"r_dur":30}"#), Params::default());
+        assert_eq!(parse_params(r#"{"w_heal":40,"w_heal_r":35,"w_miss":150,"w_r":34000,"w_cd":540,"atk_range":26000,"q_range":60000,"e_range":70000,"e_dur":34,"r_range":70000,"r_keep":600,"r2_r":32000,"r_cd":2700,"r_dur":30,"r2_ad":60,"r2_ad_t":300}"#), Params::default());
         assert_eq!(parse_params(r#"{"w_heal":30}"#).w_heal, 30);
     }
 
@@ -350,7 +419,7 @@ mod tests {
         for (k, v) in [("w_heal", d.w_heal), ("w_heal_r", d.w_heal_r), ("w_miss", d.w_miss), ("w_r", d.w_r),
                        ("w_cd", d.w_cd), ("atk_range", d.atk_range), ("q_range", d.q_range), ("e_range", d.e_range),
                        ("e_dur", d.e_dur), ("r_range", d.r_range), ("r_keep", d.r_keep), ("r2_r", d.r2_r),
-                       ("r_cd", d.r_cd), ("r_dur", d.r_dur)] {
+                       ("r_cd", d.r_cd), ("r_dur", d.r_dur), ("r2_ad", d.r2_ad), ("r2_ad_t", d.r2_ad_t)] {
             assert!(src.contains(&format!("\"{k}\": {v}")), "{k} is not {v} in build_sylas.P");
         }
     }
