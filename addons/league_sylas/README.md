@@ -1,8 +1,10 @@
-# 塞拉斯附加包（测试版 v0.1.0）
+# 塞拉斯附加包（测试版 v0.2.0）
 
 主包 `league` 保持纯数据。用户选了「做，含按类别偷大招+连招」，又要求「有连招要做连招」。主包的数据复制不了别的英雄的大招，也读不到当前生命，所以这两件事放在这个附加包里用原生代码做，外加连招：
 
-- **其人之道（按类别偷大招）**：英雄联盟里塞拉斯偷走对方的大招再放出来。主包是两段近似：第一次 R 甩链眩晕一名敌方英雄、拿到「夺来的大招」，10 秒内再放就在目标处爆发（对谁都一样）。副本里 R 的锁链打中英雄时在对方身上挂 `league_sylas_r_mark`（3 tick）；本包的被动 `league_sylas:hijack` 每 tick 找身上有这个标记的敌方英雄，按它的 id 查 `src/classes.rs`（原版英雄的表格类别和本包英雄的 `category`，`make_override.py` 用佛耶戈附加包的同一张表生成；查不到的别的 mod 英雄算近战），给塞拉斯挂 `league_sylas_cls_<类别>`（`r_keep` 600 tick），第二次 R 放出对应的那一套（伤害都是 `r2_dmg` 200 + `r2_ratio` 80% 法强）：
+- **其人之道：偷到谁就放谁的大招**（0.2.0，用户：「塞拉斯偷到谁就放谁的真大招」「只用管LOL的」）：偷到本包的英雄联盟英雄（`src/stealable.rs`，142 个）时，第二次 R 放出的就是**那名英雄自己的大招**——`make_override.py` 把主包每个英雄的大招效果树整棵抄进副本，放在 `SwitchByBuff league_sylas_steal_<英雄>` 后面（并排的一层，不是一层套一层），他大招用到的画面条目（特效、弹道、buff 的图）从他自己的列表抄过来，所以特效、音效都是对方的；对方的动作标签（ult、r_slash……）塞拉斯的图里没有，换成塞拉斯自己的 `ult_cast`（名字里有 dash / leap / jump / fly / air / hop 的换成 `ult_dash`）。被动偷到时给塞拉斯挂 `steal_<英雄>` 和 `r_real`（`r_keep` tick）；放的时候数据挂 `r_power_go`，被动给他加**法强的 `r2_ad`%（60%）当攻击**，持续 `r2_ad_t`（300）tick——照英雄联盟把偷来的大招的攻击力系数换成塞拉斯的法强（对方大招按攻击力算的伤害、治疗、护盾都跟着变强）。偷到原版英雄和别的 mod 的英雄时还是下面的五类。
+  已知的偏差：对方大招里读他自己身上状态的分支（被动叠的层数、形态之类）塞拉斯身上没有，走默认的那一支；塞拉斯的 R 是指定敌方英雄放的，对方原本朝一个方向放的线会朝目标飞，原本指定地点的落在目标脚下，原本对自己放的（31 个）就放在塞拉斯身上和身边；对方动作里画进帧的特效（烘进他自己图里的刀光之类）看不到。每次放 R，引擎会把整棵大招树（142 个英雄的大招，约 2.2 MB、2.8 万个节点）复制一遍：经典引擎里每次 R 多花约 1.7 亿个 CPU 周期（约 50 毫秒），普通的 tick 不变（中位数一样），一局有塞拉斯的比赛模拟多约半秒。
+- **其人之道（按类别偷大招，原版英雄和别的 mod 的英雄）**：英雄联盟里塞拉斯偷走对方的大招再放出来。主包是两段近似：第一次 R 甩链眩晕一名敌方英雄、拿到「夺来的大招」，10 秒内再放就在目标处爆发（对谁都一样）。副本里 R 的锁链打中英雄时在对方身上挂 `league_sylas_r_mark`（3 tick）；本包的被动 `league_sylas:hijack` 每 tick 找身上有这个标记的敌方英雄，按它的 id 查 `src/classes.rs`（原版英雄的表格类别和本包英雄的 `category`，`make_override.py` 用佛耶戈附加包的同一张表生成；查不到的别的 mod 英雄算近战），给塞拉斯挂 `league_sylas_cls_<类别>`（`r_keep` 600 tick），第二次 R 放出对应的那一套（伤害都是 `r2_dmg` 200 + `r2_ratio` 80% 法强）：
   - **近战**：跃到目标身上重砸，`r2_slam_r` 内的敌人受伤并眩晕 1 秒；
   - **射手**：朝目标射出贯穿长箭（`r2_alen` 120000），路上的敌人受伤并减速 40%；
   - **法师**：主包那一套，在目标处爆发、击飞周围敌人；
@@ -26,13 +28,14 @@
 4. 看塞拉斯普攻和大招的说明：开头是「【附加包】」就说明换上了。
 5. 日志在 `%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_sylas.log`，每次启动游戏重写（上一次的留在 `.prev.log`）：
    - `SPAWN #1: the add-on's Sylas (player 2, team 0), ...`：出生；
-   - `STEAL #1: the ult of league_jinx#23 (range)`：偷到谁的、哪一类；
+   - `STEAL #1: the ult of league_jinx#23 (his own ult)` / `STEAL #2: the ult of fighter#5 (by class: melee)`：偷到谁的、放他自己的大招还是按类别；
+   - `POWER #1: a stolen ult cast - attack +126 for 300 ticks (ap 210)`：放偷来的大招时法强换成的攻击；
    - `HEAL #1: Kingslayer at 42% health (ap 120) - healed 152`：突刺按损失生命回血；
    - `E THEN Q ...`、`STOLEN R ...`、`HOLD R ...`、`W ON PREY ...`：替 AI 按的连招。
 
 ## 开发
 
-- `python addons/league_sylas/make_override.py`：从参数表重新生成 `override/`、`text/` 和 `src/classes.rs`（先核对主包的塞拉斯和参数表一致）。主包的塞拉斯改了、或者加了新英雄以后要重跑。
+- `python addons/league_sylas/make_override.py`：从参数表重新生成 `override/`（紧凑 JSON：142 个大招排版后有 12 MB）、`text/`、`src/classes.rs` 和 `src/stealable.rs`（先核对主包的塞拉斯和参数表一致）。主包的塞拉斯改了、任何英雄的大招改了、或者加了新英雄以后都要重跑。
 - 在 `addons/` 下 `cargo test --release -p league_sylas`：单元测试（突刺回血、类别表、参数、和参数表一致，连招的 E → Q、夺来的大招挑时机、残血优先）。
 - 在 `addons/` 下 `cargo build --release -p league_sylas`（Windows）得到 `target/release/league_sylas.dll`；`league_addons` 合集也会编进本包。
 - 经典 SDK 的模拟器跑不了原生代码，本包只做了单元测试，要在游戏里看日志确认。

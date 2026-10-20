@@ -7,15 +7,20 @@ Rebuilds Sylas with tools/kit/build_sylas.py (its parameter table P), checks tha
 league/champion/league_sylas.data_champion byte for byte (so the copy never drifts from the shipped kit), and writes
   * addons/league_sylas/override/league_sylas.data_champion: the build with native - the main pack's kit, but
     Kingslayer's heal calls league_sylas:kingslayer, R's chain marks the champion it hits (league_sylas_r_mark), the
-    second R picks one of five stolen ults by league_sylas_cls_<class>, passive league_sylas:hijack (params from P);
+    second R plays the robbed League champion's own ult (league_sylas_steal_<hero>: every main-pack champion's ult
+    effect tree as written, its animation tags turned into Sylas's ult_cast / ult_dash, the views it uses copied from
+    that champion's lists) or, for anyone else, one of five stolen ults by league_sylas_cls_<class>; passive
+    league_sylas:hijack (params from P);
     the attack's and the ult's tooltips point to description.league_sylas_addon.* (so the tooltip in game shows
     whether the override took);
   * addons/league_sylas/text/champion.i18n: those two texts in five languages;
   * addons/league_sylas/src/classes.rs: champion id -> class for every base champion and every hero of this pack
-    (league_viego_soul's table: the game's champion sheet's category, Melee / Range / Magician / Util / Assassin).
+    (league_viego_soul's table: the game's champion sheet's category, Melee / Range / Magician / Util / Assassin);
+  * addons/league_sylas/src/stealable.rs: the League champions whose own ult the copy carries.
 Every other champion stays untouched. Run it again whenever the main pack's Sylas changes or heroes are added.
 """
 import argparse
+import glob
 import json
 import os
 import sys
@@ -35,20 +40,19 @@ O, M, A, R, G, E = setup.O, setup.M, setup.A, setup.R, setup.G, setup.E
 mag, hl = setup.mag, setup.hl
 # the ult's whole text in the add-on (the stolen ult by class)
 ULT = {
-    "zh-hans": "锁链命中敌方英雄，" + R + "眩晕" + E + A + "{r_stun}秒" + E + "并夺走大招；" + A + "{r_keep}秒" + E + "内再放，按对方类别放出" +
-               mag("r2_dmg", "r2_ratio") + "魔法伤害的大招：近战跃起砸晕，射手贯穿长箭，法师爆发击飞，辅助治疗护盾友军，刺客闪身重击。",
-    "zh-hant": "鎖鍊命中敵方英雄，" + R + "暈眩" + E + A + "{r_stun}秒" + E + "並奪走大招；" + A + "{r_keep}秒" + E + "內再放，按對方類別放出" +
-               mag("r2_dmg", "r2_ratio") + "魔法傷害的大招：近戰躍起砸暈，射手貫穿長箭，法師爆發擊飛，輔助治療護盾友軍，刺客閃身重擊。",
+    "zh-hans": "锁链命中敌方英雄，" + R + "眩晕" + E + A + "{r_stun}秒" + E + "并夺走大招；" + A + "{r_keep}秒" + E + "内再放：英雄联盟英雄放出他自己的大招（攻击加成按法强换算），"
+               "其他英雄按类别放出" + mag("r2_dmg", "r2_ratio") + "魔法伤害的大招。",
+    "zh-hant": "鎖鍊命中敵方英雄，" + R + "暈眩" + E + A + "{r_stun}秒" + E + "並奪走大招；" + A + "{r_keep}秒" + E + "內再放：英雄聯盟英雄放出他自己的大招（攻擊加成按法強換算），"
+               "其他英雄按類別放出" + mag("r2_dmg", "r2_ratio") + "魔法傷害的大招。",
     "en": "His chain hits an enemy champion, " + R + "stuns" + E + " it for " + A + "{r_stun}s" + E + " and steals its ultimate; cast again "
-          "within " + A + "{r_keep}s" + E + " for one by its class, " + mag("r2_dmg", "r2_ratio") + " magic damage: a stunning leap "
-          "(melee), a piercing arrow (marksman), a blast that knocks up (mage), heals and shields for allies (support), a blink and a "
-          "heavy strike (assassin).",
+          "within " + A + "{r_keep}s" + E + ": a League champion's own ultimate (its attack ratios paid from his ability power), "
+          "any other champion's one by its class for " + mag("r2_dmg", "r2_ratio") + " magic damage.",
     "ko": "사슬이 적 챔피언을 맞혀 " + A + "{r_stun}초" + E + " " + R + "기절" + E + "시키고 궁극기를 빼앗음. " + A + "{r_keep}초" + E +
-          " 안에 다시 쓰면 상대 계열에 따라 " + mag("r2_dmg", "r2_ratio") + " 마법 피해: 근접 도약 기절, 원거리 관통 화살, 마법사 폭발 띄움, "
-          "서포터 아군 회복·보호막, 암살자 순간이동 일격.",
+          " 안에 다시 쓰면 리그 오브 레전드 챔피언은 그 챔피언의 궁극기(공격력 계수는 주문력으로), 다른 챔피언은 계열별로 " +
+          mag("r2_dmg", "r2_ratio") + " 마법 피해 궁극기.",
     "ja": "鎖が敵チャンピオンに当たると" + A + "{r_stun}秒" + E + R + "スタン" + E + "させアルティメットを奪う。" + A + "{r_keep}秒" + E +
-          "以内に再使用で相手のクラス別に" + mag("r2_dmg", "r2_ratio") + "の魔法ダメージ：近接は跳躍スタン、射手は貫通矢、魔術師は爆発、"
-          "サポートは味方回復とシールド、暗殺者は瞬間移動の一撃。",
+          "以内に再使用：LoLのチャンピオンはその本人のアルティメット（攻撃力の係数は魔力で）、他はクラス別に" + mag("r2_dmg", "r2_ratio") +
+          "の魔法ダメージ。",
 }
 # Kingslayer's heal grows with missing health: the attack's text with that ending
 W_TAIL = {
@@ -79,6 +83,70 @@ def dumps_main(o):
     return json.dumps(o, ensure_ascii=False, indent=2).replace("\n", "\r\n") + "\r\n"
 
 
+# a robbed champion's own animation tags -> Sylas's (his sheet has none of theirs): a dash, a leap or a flight his leap,
+# anything else his stolen ult's cast
+DASH_WORDS = ("dash", "leap", "jump", "fly", "air", "hop")
+
+
+def sylas_tag(tag):
+    return "ult_dash" if any(w in tag.lower() for w in DASH_WORDS) else "ult_cast"
+
+
+def names_in(o, out):
+    """Every name a tree uses for a picture, a projectile, a buff or a sound."""
+    if isinstance(o, dict):
+        for k, v in o.items():
+            if k in ("name", "buff_name", "end_effect_name", "lock_effect_name", "range_effect_name") and isinstance(v, str):
+                out.add(v)
+            else:
+                names_in(v, out)
+    elif isinstance(o, list):
+        for v in o:
+            names_in(v, out)
+    return out
+
+
+def retag(o):
+    """The tree with its CasterAnimation / RemoveCasterAnimation tags turned into Sylas's (sylas_tag)."""
+    if isinstance(o, dict):
+        o = {k: retag(v) for k, v in o.items()}
+        if o.get("type") in ("CasterAnimation", "RemoveCasterAnimation"):
+            o["name"] = sylas_tag(o["name"])
+        return o
+    if isinstance(o, list):
+        return [retag(v) for v in o]
+    return o
+
+
+def own_ults():
+    """[(hero without league_, ult effect retagged)] for every League champion of the main pack but Sylas, and the
+    views those trees use, copied from each champion's own lists (their names carry the champion's id)."""
+    stolen, views = [], {"view_projectiles": [], "view_effects": [], "view_buffs": []}
+    seen = set()
+    for path in sorted(glob.glob(os.path.join(ROOT, "league", "champion", "league_*.data_champion"))):
+        c = json.loads(open(lp(path), "rb").read().decode("utf-8-sig"))
+        if c["id"] == HERO:
+            continue
+        tree = retag(c["ult"]["effect"])
+        used = names_in(tree, set())
+        for kind in views:
+            for v in c.get(kind, []):
+                if v["name"] in used and v["name"] not in seen:
+                    seen.add(v["name"])
+                    views[kind].append(v)
+        stolen.append((c["id"][len("league_"):], tree))
+    return stolen, views
+
+
+def stealable_rs(stolen):
+    lines = ["//! The League champions whose own ult the add-on's copy of Sylas carries (`league_sylas_steal_<hero>`), sorted.",
+             "//! Generated by make_override.py from league/champion/*.data_champion - do not edit by hand.", "",
+             "pub const STEALABLE: &[&str] = &["]
+    lines += [f'    "league_{sid}",' for sid, _ in sorted(stolen)]
+    lines.append("];")
+    return chr(10).join(lines) + chr(10)
+
+
 def classes_rs(table):
     lines = ["//! Every champion's class for the stolen ult: id -> melee / range / mage / util / assassin.",
              "//! Generated by make_override.py from the base game's champion sheet and this pack's heroes (league_viego_soul's",
@@ -99,12 +167,20 @@ def main():
         shipped = f.read()
     if dumps_main(kit.build(p)) != shipped:
         sys.exit("the main pack's league_sylas differs from build_sylas.P: rebuild it first")
-    champion = kit.build(p, native=True)
+    stolen, own_views = own_ults()
+    champion = kit.build(p, native=True, own=stolen)
+    for kind, vs in own_views.items():
+        mine = {v["name"] for v in champion[kind]}
+        clash = mine & {v["name"] for v in vs}
+        if clash:
+            sys.exit(f"view names in both Sylas and a robbed champion: {sorted(clash)}")
+        champion[kind] += vs
     if champion.get("passive", {}).get("passive_ref") != "league_sylas:hijack":
         sys.exit("the copy does not call the add-on: update this script")
     text = json.dumps(champion)
     for name in ("league_sylas_r_mark", "league_sylas_cls_melee", "league_sylas_cls_assassin", "league_sylas:kingslayer",
-                 "league_sylas_r_have", "league_sylas_w_cd"):
+                 "league_sylas_r_have", "league_sylas_w_cd", "league_sylas_r_real", "league_sylas_r_power_go",
+                 "league_sylas_steal_jinx"):
         if name not in text:
             sys.exit(f"{name} is gone from the copy: update src/")
     champion["attack"]["description"] = f"#asset/base/text/champion?description.{TEXT_ID}.attack"
@@ -135,7 +211,8 @@ def main():
     out = os.path.join(ADDON, "override", HERO + ".data_champion")
     os.makedirs(lp(os.path.dirname(out)), exist_ok=True)
     with open(lp(out), "w", encoding="utf-8", newline="") as f:
-        f.write(dumps_main(champion))
+        # compact: the copy carries every League champion's ult (12 MB pretty-printed, 2.2 MB like this)
+        f.write(json.dumps(champion, ensure_ascii=False, separators=(",", ":")) + "\n")
     i18n = {lang: {"description": {TEXT_ID: d}} for lang, d in texts.items()}
     tpath = os.path.join(ADDON, "text", "champion.i18n")
     os.makedirs(lp(os.path.dirname(tpath)), exist_ok=True)
@@ -143,9 +220,12 @@ def main():
         f.write(dumps_main(i18n))
     with open(lp(os.path.join(ADDON, "src", "classes.rs")), "w", encoding="utf-8", newline="\n") as f:
         f.write(classes_rs(table))
+    with open(lp(os.path.join(ADDON, "src", "stealable.rs")), "w", encoding="utf-8", newline="\n") as f:
+        f.write(stealable_rs(stolen))
     print(out)
     print(tpath)
-    print("src/classes.rs -", len(table), "champions")
+    print("src/classes.rs -", len(table), "champions; src/stealable.rs -", len(stolen), "own ults;",
+          sum(len(v) for v in own_views.values()), "views copied;", os.path.getsize(lp(out)) // 1024, "KB")
 
 
 if __name__ == "__main__":

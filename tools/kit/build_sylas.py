@@ -86,6 +86,9 @@ P = {
     "r2_kill": 125, "r2_hide": 60,
     # the add-on: Kingslayer's heal grows up to w_miss% more with his missing health (League: up to 150% more)
     "w_miss": 150,
+    # the add-on's real Hijack: while a robbed League champion's own ult plays, r2_ad% of his ability power is added to
+    # his attack for r2_ad_t ticks (League converts a stolen ult's AD ratios to Sylas's AP)
+    "r2_ad": 60, "r2_ad_t": 300,
     # his spoken lines, at most one every vo_gap ticks
     "vo_gap": 600,
 }
@@ -235,9 +238,9 @@ def action(name, dur, cd, st, rng, ctype, ctarget, effect, atype="Skill", cancel
             "casting_type": ctype, "casting_target": ctarget, "attack_type": atype, "effect": effect}
 
 
-def build(p, native=False):
+def build(p, native=False, own=()):
     """native: the add-on's copy (addons/league_sylas) - Kingslayer's heal by missing health and the stolen ult by the
-    victim's class."""
+    victim's class; own: [(hero, ult effect)] the copy's real Hijack picks from (the League champions' own ults)."""
     # ------------------------------------------------------------------ the passive's charges
     charge = combine(sw("p_1", refresh("p_2", p["p_t"])), refresh("p_1", p["p_t"], attack_speed_mult=p["p_as"]))
     spend = sw("p_2", combine(*rm("p_2")), combine(*rm("p_1")))
@@ -335,8 +338,15 @@ def build(p, native=False):
             out = sw("cls_" + cls, eff, out)
         return combine(out, *rm(*("cls_" + c for c in CLASSES)))
 
-    cast = combine(*rm("r_have"), anim("ult_cast", p["r2_dur"]), voice("vo_r2", p),
-                   delayed(p["r2_rel"] - 1, alive(by_class() if native else blast())))
+    if native and own:
+        # the add-on's real Hijack: the robbed League champion's own ult (`steal_<hero>`, laid with `r_real` by the
+        # add-on's passive), its effect tree as he wrote it (addons/league_sylas/make_override.py), else by class;
+        # `r_power_go` asks the passive for the ratio conversion (his AP as AD for the cast, League's way)
+        theirs = combine(flag("r_power_go", 2), *[sw("steal_" + sid, eff) for sid, eff in own])
+        after = sw("r_real", theirs, delayed(p["r2_rel"] - 1, alive(by_class())))
+    else:
+        after = delayed(p["r2_rel"] - 1, alive(by_class() if native else blast()))
+    cast = combine(*rm("r_have"), anim("ult_cast", p["r2_dur"]), voice("vo_r2", p), after)
     ult = action("ult", p["r_dur"], p["r_cd"], 1, p["r_range"], "Targeting", "EnemyChampion",
                  combine(decoy(p["r2_dmg"], p["r2_ratio"]), charge, sw("r_have", cast, steal)))
 
@@ -371,7 +381,7 @@ def build(p, native=False):
         kit["passive"] = {"passive_ref": "league_sylas:hijack",
                           "params": {k: int(p[k]) for k in ("w_heal", "w_heal_r", "w_miss", "w_r", "w_cd", "atk_range",
                                                             "q_range", "e_range", "e_dur", "r_range", "r_keep",
-                                                            "r2_r", "r_cd", "r_dur")}}
+                                                            "r2_r", "r_cd", "r_dur", "r2_ad", "r2_ad_t")}}
     return kit
 
 
