@@ -283,12 +283,14 @@ def build(p):
 
     # ------------------------------------------------------------------ skill: Q Radiant Volley
     q_life = p["q_gap"] * (p["q_n"] - 1) + 1
-    land = [view("q_volley"), sfx("q_hit"),
+    land = [sfx("q_hit"),
             field("q_burst", p["q_r"], q_life, p["q_gap"], 1, [ap(p["q_dmg"], p["q_ratio"]), view("q_hit")]),
             field("q_mark", p["q_r"], q_life, p["q_gap"], 1, stack_, "EnemyChampion")]
-    quick = pick(p["q_range"] + 10000, "EnemyChampionInCC", flag("q_go", 1), *rm("e_combo"),
+    # the volley's picture from the release on the spot (its falling bolts land as the lob does)
+    quick = pick(p["q_range"] + 10000, "EnemyChampionInCC", flag("q_go", 1), *rm("e_combo"), view("q_volley"),
                  lob("q_aim", p["q_fast"], land))
-    volley_q = combine(*rm("q_go"), sw("e_combo", quick), sw("q_go", NONE, lob("q_aim", p["q_fly"], land)))
+    volley_q = combine(*rm("q_go"), sw("e_combo", quick),
+                       sw("q_go", NONE, combine(view("q_volley"), lob("q_aim", p["q_fly"], land))))
     skill = action("skill", p["q_dur"], p["q_cd"], 1, p["q_range"], "Targeting", "EnemyWithoutTower",
                    combine(decoy(p["q_dmg"] * 4, p["q_ratio"] * 4, ap), sfx("q"), voice("vo_q", p),
                            delayed(p["q_rel"] - 1, alive(charge(), volley_q))))
@@ -321,13 +323,14 @@ def build(p):
                                                    "z": z, "is_follow": follow}
     B_ = lambda name, anim_=FX, z=2: {"type": "Animated", "name": n(name), "anim": anim_, "tag": name, "repeat": True,
                                       "z": z}
-    Pj = lambda name, anim_=FX: {"type": "Animated", "name": n(name), "anim": anim_, "tag": name, "repeat": True, "z": 2}
+    Pj = lambda name, anim_=FX, tag=None: {"type": "Animated", "name": n(name), "anim": anim_, "tag": tag or name,
+                                           "repeat": True, "z": 2}
     views_p = [Pj("a_bolt"), Pj("p_bolt"), Pj("e_orb", BIG)]
     views_e = [E("a_hit"), E("p_hit"), E("q_volley", BIG, 3, False), E("q_hit"), E("e_burn"), E("r_cast", BIG),
                E("r_hit", BIG)]
     if native:      # the add-on's execute and its reflected bolt
         views_e.append(E("x_hit", BIG))
-        views_p.append(Pj("w_back"))
+        views_p.append(Pj("w_back", tag="a_bolt"))   # the reflected bolt: the attack's own picture
     views_b = [B_("w_on", BIG, 3), B_("e_bound", FX, 3), B_("e_slow", FX, -1), B_("p_3"), B_("p_6"), B_("p_9")]
     extra_k = {}
     if native:

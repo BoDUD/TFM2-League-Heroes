@@ -2894,6 +2894,10 @@
                                   "name": "league_mel_e_combo"
                                 },
                                 {
+                                  "type": "ViewEffect",
+                                  "name": "league_mel_q_volley"
+                                },
+                                {
                                   "type": "ParabolicProjectile",
                                   "name": "league_mel_q_aim",
                                   "travel_time": 4,
@@ -2907,10 +2911,6 @@
                                   "applied_target": "EnemyWithoutTower",
                                   "applied_effects": [],
                                   "end_effects": [
-                                    {
-                                      "type": "ViewEffect",
-                                      "name": "league_mel_q_volley"
-                                    },
                                     {
                                       "type": "Sfx",
                                       "name": "league_mel_q_hit"
@@ -3037,131 +3037,136 @@
                               "effects": []
                             },
                             "effect_none": {
-                              "type": "ParabolicProjectile",
-                              "name": "league_mel_q_aim",
-                              "travel_time": 14,
-                              "range": 400000,
-                              "range_effect_name": "",
-                              "shape": {
-                                "Circle": {
-                                  "radius": 1
-                                }
-                              },
-                              "applied_target": "EnemyWithoutTower",
-                              "applied_effects": [],
-                              "end_effects": [
+                              "type": "Combine",
+                              "effects": [
                                 {
                                   "type": "ViewEffect",
                                   "name": "league_mel_q_volley"
                                 },
                                 {
-                                  "type": "Sfx",
-                                  "name": "league_mel_q_hit"
-                                },
-                                {
-                                  "type": "RangePeriodProjectile",
-                                  "name": "league_mel_q_burst",
+                                  "type": "ParabolicProjectile",
+                                  "name": "league_mel_q_aim",
+                                  "travel_time": 14,
+                                  "range": 400000,
+                                  "range_effect_name": "",
                                   "shape": {
                                     "Circle": {
-                                      "radius": 20000
+                                      "radius": 1
                                     }
                                   },
-                                  "tick": 31,
-                                  "period": 6,
-                                  "first_delay": 1,
                                   "applied_target": "EnemyWithoutTower",
-                                  "applied_effects": [
+                                  "applied_effects": [],
+                                  "end_effects": [
                                     {
-                                      "casting_type": "Targeting",
-                                      "effect": {
-                                        "type": "ApAttack",
-                                        "damage": 30,
-                                        "attack_ratio": 15,
-                                        "hp_ratio": 0,
-                                        "can_crit": false
-                                      }
+                                      "type": "Sfx",
+                                      "name": "league_mel_q_hit"
                                     },
                                     {
-                                      "casting_type": "Targeting",
-                                      "effect": {
-                                        "type": "ViewEffect",
-                                        "name": "league_mel_q_hit"
-                                      }
-                                    }
-                                  ],
-                                  "end_effects": []
-                                },
-                                {
-                                  "type": "RangePeriodProjectile",
-                                  "name": "league_mel_q_mark",
-                                  "shape": {
-                                    "Circle": {
-                                      "radius": 20000
-                                    }
-                                  },
-                                  "tick": 31,
-                                  "period": 6,
-                                  "first_delay": 1,
-                                  "applied_target": "EnemyChampion",
-                                  "applied_effects": [
-                                    {
-                                      "casting_type": "Targeting",
-                                      "effect": {
-                                        "type": "AddCasted",
-                                        "casted_type": "Fire",
-                                        "duration": 360,
-                                        "period": 6,
-                                        "effects": [
-                                          {
-                                            "type": "SwitchByBuff",
-                                            "buff_name": "league_mel_r_go",
-                                            "effect_buff": {
-                                              "type": "Combine",
-                                              "effects": [
-                                                {
-                                                  "type": "ApAttack",
-                                                  "damage": 20,
-                                                  "attack_ratio": 8,
-                                                  "hp_ratio": 0,
-                                                  "can_crit": false
-                                                },
-                                                {
-                                                  "type": "ViewEffect",
-                                                  "name": "league_mel_r_hit"
-                                                }
-                                              ]
-                                            },
-                                            "effect_none": {
-                                              "type": "Combine",
-                                              "effects": []
-                                            }
+                                      "type": "RangePeriodProjectile",
+                                      "name": "league_mel_q_burst",
+                                      "shape": {
+                                        "Circle": {
+                                          "radius": 20000
+                                        }
+                                      },
+                                      "tick": 31,
+                                      "period": 6,
+                                      "first_delay": 1,
+                                      "applied_target": "EnemyWithoutTower",
+                                      "applied_effects": [
+                                        {
+                                          "casting_type": "Targeting",
+                                          "effect": {
+                                            "type": "ApAttack",
+                                            "damage": 30,
+                                            "attack_ratio": 15,
+                                            "hp_ratio": 0,
+                                            "can_crit": false
                                           }
-                                        ]
-                                      }
-                                    },
-                                    {
-                                      "casting_type": "Targeting",
-                                      "effect": {
-                                        "type": "AddBuff",
-                                        "buff_state": {
-                                          "name": "league_mel_m_mark",
-                                          "duration": {
-                                            "Time": {
-                                              "tick": 360
-                                            }
+                                        },
+                                        {
+                                          "casting_type": "Targeting",
+                                          "effect": {
+                                            "type": "ViewEffect",
+                                            "name": "league_mel_q_hit"
                                           }
                                         }
-                                      }
+                                      ],
+                                      "end_effects": []
                                     },
                                     {
-                                      "casting_type": "Targeting",
-                                      "effect": {
-                                        "type": "Native",
-                                        "effect_ref": "league_mel:overwhelm"
-                                      }
+                                      "type": "RangePeriodProjectile",
+                                      "name": "league_mel_q_mark",
+                                      "shape": {
+                                        "Circle": {
+                                          "radius": 20000
+                                        }
+                                      },
+                                      "tick": 31,
+                                      "period": 6,
+                                      "first_delay": 1,
+                                      "applied_target": "EnemyChampion",
+                                      "applied_effects": [
+                                        {
+                                          "casting_type": "Targeting",
+                                          "effect": {
+                                            "type": "AddCasted",
+                                            "casted_type": "Fire",
+                                            "duration": 360,
+                                            "period": 6,
+                                            "effects": [
+                                              {
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_mel_r_go",
+                                                "effect_buff": {
+                                                  "type": "Combine",
+                                                  "effects": [
+                                                    {
+                                                      "type": "ApAttack",
+                                                      "damage": 20,
+                                                      "attack_ratio": 8,
+                                                      "hp_ratio": 0,
+                                                      "can_crit": false
+                                                    },
+                                                    {
+                                                      "type": "ViewEffect",
+                                                      "name": "league_mel_r_hit"
+                                                    }
+                                                  ]
+                                                },
+                                                "effect_none": {
+                                                  "type": "Combine",
+                                                  "effects": []
+                                                }
+                                              }
+                                            ]
+                                          }
+                                        },
+                                        {
+                                          "casting_type": "Targeting",
+                                          "effect": {
+                                            "type": "AddBuff",
+                                            "buff_state": {
+                                              "name": "league_mel_m_mark",
+                                              "duration": {
+                                                "Time": {
+                                                  "tick": 360
+                                                }
+                                              }
+                                            }
+                                          }
+                                        },
+                                        {
+                                          "casting_type": "Targeting",
+                                          "effect": {
+                                            "type": "Native",
+                                            "effect_ref": "league_mel:overwhelm"
+                                          }
+                                        }
+                                      ],
+                                      "end_effects": []
                                     }
-                                  ],
-                                  "end_effects": []
+                                  ]
                                 }
                               ]
                             }
@@ -3844,7 +3849,7 @@
       "type": "Animated",
       "name": "league_mel_w_back",
       "anim": "asset/league/effects/league_mel_fx",
-      "tag": "w_back",
+      "tag": "a_bolt",
       "repeat": true,
       "z": 2
     }
