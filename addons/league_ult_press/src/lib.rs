@@ -251,7 +251,7 @@ pub const VLAD_R_LOW: f64 = 0.5;
 /// 照样由它控制。引擎接口读不到普攻距离，表照数据写在这里，单元测试 `attack_ranges_match_the_data` 逐个对照
 /// league/champion，加了新英雄没补进来就报错。
 pub const MELEE_RANGE: u64 = 30_000;
-pub const ATTACK_RANGE: [(&str, u64); 141] = [
+pub const ATTACK_RANGE: [(&str, u64); 143] = [
     ("league_aatrox", 26000),
     ("league_ahri", 55000),
     ("league_akali", 24000),
@@ -285,6 +285,7 @@ pub const ATTACK_RANGE: [(&str, u64); 141] = [
     ("league_galio", 25000),
     ("league_gangplank", 26000),
     ("league_garen", 25000),
+    ("league_gnar", 25000),
     ("league_gragas", 25000),
     ("league_graves", 46000),
     ("league_gwen", 24000),
@@ -357,6 +358,7 @@ pub const ATTACK_RANGE: [(&str, u64); 141] = [
     ("league_smolder", 55000),
     ("league_sona", 55000),
     ("league_soraka", 60000),
+    ("league_sylas", 26000),
     ("league_swain", 52000),
     ("league_syndra", 55000),
     ("league_tahmkench", 28000),

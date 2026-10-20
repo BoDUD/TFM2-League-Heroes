@@ -139,6 +139,10 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // rows skull cap to soles, Mega 66: 「迷你 32」「巨型 44」; Mega's m_* tags the kit's CasterAnimations and the add-on's
     // whole-body swap), so no SIZES row
     ("league_gnar", 1.5, include_str!("../../../league/champions/league_gnar#anim.fanim")),
+    // Sylas: posed by tools/art/rig_sylas.py at the user's 1.2 squares a game pixel (46 game rows hair to soles: 「38」
+    // 「PPU 1.2」; 3/4 only, Codex's sixteen skeleton poses with the design's head; attack_p / skill_w / skill2_pull /
+    // ult_cast / ult_dash the kit's CasterAnimations), so no SIZES row
+    ("league_sylas", 1.2, include_str!("../../../league/champions/league_sylas#anim.fanim")),
     // Powder (tft_powder, the tft pack in tft/: Teamfight Tactics' own units, its own mod; this DLL draws her dense
     // frames when both packs are enabled): the idle design and Codex's skeleton poses with one clean head, posed by
     // tools/art/rig_powder.py at 1.75 squares a game pixel (61 rows: 「35」, then 「PPU像素好低啊 能调一下吗」), shown at 90 % (SIZES)

@@ -1,0 +1,159 @@
+{
+  "version": 1,
+  "source": "image_gen",
+  "canvas": [
+    1254,
+    1254
+  ],
+  "alpha": "binary",
+  "grid_target": 16,
+  "grid_verified": false,
+  "head_pixel_identity_verified": false,
+  "rig_alignment_verified": false,
+  "poses": [
+    {
+      "file": "sylas-pose-wind.png",
+      "reference_skeleton": "3_wind_skeleton.png",
+      "reference_pose": "3_wind_league.png",
+      "art_source": "image_gen",
+      "foot_anchor_target_y": 1168,
+      "raw_source": "raw/sylas-pose-wind.png",
+      "status": "pose-art / rig-calibration-required"
+    },
+    {
+      "file": "sylas-pose-lash.png",
+      "reference_skeleton": "4_lash_skeleton.png",
+      "reference_pose": "4_lash_league.png",
+      "art_source": "image_gen",
+      "foot_anchor_target_y": 1168,
+      "raw_source": "raw/sylas-pose-lash.png",
+      "status": "pose-art / rig-calibration-required"
+    },
+    {
+      "file": "sylas-pose-spin.png",
+      "reference_skeleton": "5_spin_skeleton.png",
+      "reference_pose": "5_spin_league.png",
+      "art_source": "image_gen",
+      "foot_anchor_target_y": 1168,
+      "raw_source": "raw/sylas-pose-spin.png",
+      "status": "pose-art / rig-calibration-required"
+    },
+    {
+      "file": "sylas-pose-leap.png",
+      "reference_skeleton": "6_leap_skeleton.png",
+      "reference_pose": "6_leap_league.png",
+      "art_source": "image_gen",
+      "foot_anchor_target_y": 1168,
+      "raw_source": "raw/sylas-pose-leap.png",
+      "status": "pose-art / rig-calibration-required"
+    },
+    {
+      "file": "sylas-pose-stab.png",
+      "reference_skeleton": "7_stab_skeleton.png",
+      "reference_pose": "7_stab_league.png",
+      "art_source": "image_gen",
+      "foot_anchor_target_y": 1168,
+      "raw_source": "raw/sylas-pose-stab.png",
+      "status": "pose-art / rig-calibration-required"
+    },
+    {
+      "file": "sylas-pose-slam.png",
+      "reference_skeleton": "8_slam_skeleton.png",
+      "reference_pose": "8_slam_league.png",
+      "art_source": "image_gen",
+      "foot_anchor_target_y": 1168,
+      "raw_source": "raw/sylas-pose-slam.png",
+      "status": "pose-art / rig-calibration-required"
+    },
+    {
+      "file": "sylas-pose-dash.png",
+      "reference_skeleton": "9_dash_skeleton.png",
+      "reference_pose": "9_dash_league.png",
+      "art_source": "image_gen",
+      "foot_anchor_target_y": 1168,
+      "raw_source": "raw/sylas-pose-dash.png",
+      "status": "pose-art / rig-calibration-required"
+    },
+    {
+      "file": "sylas-pose-throw.png",
+      "reference_skeleton": "10_throw_skeleton.png",
+      "reference_pose": "10_throw_league.png",
+      "art_source": "image_gen",
+      "foot_anchor_target_y": 1168,
+      "raw_source": "raw/sylas-pose-throw.png",
+      "status": "pose-art / rig-calibration-required"
+    },
+    {
+      "file": "sylas-pose-pull.png",
+      "reference_skeleton": "11_pull_skeleton.png",
+      "reference_pose": "11_pull_league.png",
+      "art_source": "image_gen",
+      "foot_anchor_target_y": 1168,
+      "raw_source": "raw/sylas-pose-pull.png",
+      "status": "pose-art / rig-calibration-required"
+    },
+    {
+      "file": "sylas-pose-stagger.png",
+      "reference_skeleton": "12_stagger_skeleton.png",
+      "reference_pose": "12_stagger_league.png",
+      "art_source": "image_gen",
+      "foot_anchor_target_y": 1168,
+      "raw_source": "raw/sylas-pose-stagger.png",
+      "status": "pose-art / rig-calibration-required"
+    },
+    {
+      "file": "sylas-pose-kneel.png",
+      "reference_skeleton": "13_kneel_skeleton.png",
+      "reference_pose": "13_kneel_league.png",
+      "art_source": "image_gen",
+      "foot_anchor_target_y": 1168,
+      "raw_source": "raw/sylas-pose-kneel.png",
+      "status": "pose-art / rig-calibration-required"
+    },
+    {
+      "file": "sylas-pose-lie.png",
+      "reference_skeleton": "14_lie_skeleton.png",
+      "reference_pose": "14_lie_league.png",
+      "art_source": "image_gen",
+      "foot_anchor_target_y": 1168,
+      "raw_source": "raw/sylas-pose-lie.png",
+      "status": "pose-art / rig-calibration-required"
+    },
+    {
+      "file": "sylas-pose-run1.png",
+      "reference_skeleton": "15_run1_skeleton.png",
+      "reference_pose": "15_run1_league.png",
+      "art_source": "image_gen",
+      "foot_anchor_target_y": 1168,
+      "raw_source": "raw/sylas-pose-run1.png",
+      "status": "pose-art / rig-calibration-required"
+    },
+    {
+      "file": "sylas-pose-run2.png",
+      "reference_skeleton": "16_run2_skeleton.png",
+      "reference_pose": "16_run2_league.png",
+      "art_source": "image_gen",
+      "foot_anchor_target_y": 1168,
+      "raw_source": "raw/sylas-pose-run2.png",
+      "status": "pose-art / rig-calibration-required"
+    },
+    {
+      "file": "sylas-pose-run3.png",
+      "reference_skeleton": "17_run3_skeleton.png",
+      "reference_pose": "17_run3_league.png",
+      "art_source": "image_gen",
+      "foot_anchor_target_y": 1168,
+      "raw_source": "raw/sylas-pose-run3.png",
+      "status": "pose-art / rig-calibration-required"
+    },
+    {
+      "file": "sylas-pose-run4.png",
+      "reference_skeleton": "18_run4_skeleton.png",
+      "reference_pose": "18_run4_league.png",
+      "art_source": "image_gen",
+      "foot_anchor_target_y": 1168,
+      "raw_source": "raw/sylas-pose-run4.png",
+      "status": "pose-art / rig-calibration-required"
+    }
+  ]
+}

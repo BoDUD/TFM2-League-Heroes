@@ -1,0 +1,16 @@
+﻿sylas-pose-wind.png | PASS 1254x1254 / hard alpha / nonempty / transparent background
+sylas-pose-lash.png | PASS 1254x1254 / hard alpha / nonempty / transparent background
+sylas-pose-spin.png | PASS 1254x1254 / hard alpha / nonempty / transparent background
+sylas-pose-leap.png | PASS 1254x1254 / hard alpha / nonempty / transparent background
+sylas-pose-stab.png | PASS 1254x1254 / hard alpha / nonempty / transparent background
+sylas-pose-slam.png | PASS 1254x1254 / hard alpha / nonempty / transparent background
+sylas-pose-dash.png | PASS 1254x1254 / hard alpha / nonempty / transparent background
+sylas-pose-throw.png | PASS 1254x1254 / hard alpha / nonempty / transparent background
+sylas-pose-pull.png | PASS 1254x1254 / hard alpha / nonempty / transparent background
+sylas-pose-stagger.png | PASS 1254x1254 / hard alpha / nonempty / transparent background
+sylas-pose-kneel.png | PASS 1254x1254 / hard alpha / nonempty / transparent background
+sylas-pose-lie.png | PASS 1254x1254 / hard alpha / nonempty / transparent background
+sylas-pose-run1.png | PASS 1254x1254 / hard alpha / nonempty / transparent background
+sylas-pose-run2.png | PASS 1254x1254 / hard alpha / nonempty / transparent background
+sylas-pose-run3.png | PASS 1254x1254 / hard alpha / nonempty / transparent background
+sylas-pose-run4.png | PASS 1254x1254 / hard alpha / nonempty / transparent background
