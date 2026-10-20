@@ -156,6 +156,9 @@ NECK = (77.0, 30.0)             # where the head sits on the torso
 RUMP = (26.0, 36.0)             # where the tail grows
 BELLY = 45                      # rows above this, behind the near arm, are chest (filled when the arm leaves)
 FORE_ROW = {"near_fore": 48, "far_fore": 50}   # the run steps each front limb from this row down (forearm and fist)
+HIND_CUT = {"near_hind": 49, "far_hind": 51}   # and each hind leg from its knee down (shin and paw)
+SHIN_COLS = {"near_hind": 26, "far_hind": 99}  # the near shin is the violet leg left of this column (the haunch's red
+KNEE_BAND = 4                                  # lower edge and its back edge stay put); its top rows fill the knee
 FUR_STEP = 19                   # the chest fill copies the torso's fur this many columns to its left
 NECK_BAND = 84                  # head fur and crest squares up to this column (behind the eye) go with the body too
 
@@ -343,8 +346,8 @@ def mini(C, arm="rest", lift=0, dx=0, lean=0, legs=None, sink=0, tail_dy=0, boom
     lx, ly = legs.get("near_leg", (0, 0))
     C.stamp(can, f, f.layer("near_leg"), dx + lx, up + ly)
     if arm == "rest":
-        if boomerang:                                     # its tip rests on the ground while he breathes
-            C.stamp(can, f, f.layer("boomerang"), ux, up)
+        if boomerang:                                     # always with the hand that holds it
+            C.stamp(can, f, f.layer("boomerang"), ux, uy)
         C.stamp(can, f, f.layer("near_arm"), ux, uy)
     elif arm == "swing":
         # the boomerang swung round to the front, low across his legs: mirrored about the hand's middle
@@ -437,8 +440,7 @@ def mega(C, theta=0.0, arm=None, dx=0, lift=0, tail_dy=0, legs=None, flash=False
            "far_fore": m["far_arm"] & rows_mask(f, FORE_ROW["far_fore"], f.H - 1)}
     for k in fore:
         upper = upper & ~cut[k]
-    lx, ly = legs.get("far_hind", (0, 0))
-    C.stamp(can, f, f.layer("far_hind"), dx + lx, up + ly)
+    hind(C, can, f, "far_hind", legs, dx, up)
     if "far_fore" in fore:
         C.stamp(can, f, f.layer(mask=cut["far_fore"]), dx + fore["far_fore"][0], up + fore["far_fore"][1])
     C.stamp(can, f, f.layer("tail"), dx + int(round(rump[0] - RUMP[0])), up + int(round(rump[1] - RUMP[1])) + tail_dy)
@@ -451,9 +453,16 @@ def mega(C, theta=0.0, arm=None, dx=0, lift=0, tail_dy=0, legs=None, flash=False
     else:
         g, n0 = T.turned(upper, theta, HIP, filled=arm is not None)
         C.paste_grid(can, f, g, n0, HIP, dx, up)
-    lx, ly = legs.get("near_hind", (0, 0))
-    C.stamp(can, f, f.layer("near_hind"), dx + lx, up + ly)
-    C.stamp(can, f, f.layer("head"), dx + int(round(neck[0] - NECK[0])), up + int(round(neck[1] - NECK[1])))
+    hind(C, can, f, "near_hind", legs, dx, up)
+    head = m["head"]
+    nx, ny = dx + int(round(neck[0] - NECK[0])), up + int(round(neck[1] - NECK[1]))
+    if theta:                                          # the head's back edge (the red fur in its first three squares of
+        edge = np.zeros_like(head)                     # each row, where it met the body's) is left to the turned body:
+        for r in np.nonzero(head.any(1))[0]:           # laid over it, a red strip stood in the turned crests; seal
+            c0 = int(np.argmax(head[r]))               # fills a gap it leaves from its neighbours
+            edge[r, c0:c0 + 3] = head[r, c0:c0 + 3]
+        head = head & ~(edge & is_fur(f.d))
+    C.stamp(can, f, f.layer(mask=head), nx, ny)
     if arm is not None:
         a1, a2 = (arm, 0) if not isinstance(arm, tuple) else arm
         p1 = theta + a1                                  # the upper arm's direction (0 down, > 0 forward)
@@ -469,9 +478,42 @@ def mega(C, theta=0.0, arm=None, dx=0, lift=0, tail_dy=0, legs=None, flash=False
     if "near_fore" in fore:
         C.stamp(can, f, f.layer(mask=cut["near_fore"]), dx + fore["near_fore"][0], up + fore["near_fore"][1])
     can = seal(C.finish(can), C.outline)
-    if not lift:
+    if not lift and not legs:                          # the run keeps the design's own ground (its paws' perspective)
         can = grounded(C, can)
     return R.flash(can) if flash else can
+
+
+def shin(f, name):
+    """The part of a hind leg the run steps: from HIND_CUT down, the near leg's violet shin, ivory claws and the outline
+    round them (left of SHIN_COLS) - cut by rows alone, the red haunch's lower edge went with it and left a strip of
+    haunch hanging and a seam across it (the user's crop, 「看到这里了没」); the far leg is violet all through."""
+    m = f.masks[name] & rows_mask(f, HIND_CUT[name], f.H - 1) & cols_mask(f, 0, SHIN_COLS[name])
+    if name == "far_hind":
+        return m
+    r, g, b = (f.d[..., i].astype(int) for i in range(3))
+    core = m & (((b > r) & (b > g)) | ((r > 150) & (g > 120)))
+    dark = (r + g + b) < 90
+    return core | (m & dark & ndimage.binary_dilation(core, iterations=1))
+
+
+def hind(C, can, f, name, legs, dx, up):
+    """A hind leg: as drawn, or in the run its shin and paw stepped under the thigh, which stays on the hip and is
+    drawn over the shin's top (lifted, the shin tucks in under it: league_braum's walk); the shin's top KNEE_BAND rows
+    are laid on every square between where it was drawn and where it steps, so the knee shows the shin, never a hole -
+    the whole leg stepping slid the thigh against the hip (「大纳尔走路的时候后腿有点变形」)."""
+    m = f.masks[name]
+    if name not in legs:
+        C.stamp(can, f, f.layer(name), dx, up)
+        return
+    lx, ly = legs[name]
+    low = shin(f, name)
+    top = int(np.nonzero(low.any(1))[0].min())
+    knee = low & rows_mask(f, top, top + KNEE_BAND - 1)
+    steps = max(abs(lx), abs(ly))
+    for t in range(steps):
+        C.stamp(can, f, f.layer(mask=knee), dx + int(round(lx * t / steps)), up + int(round(ly * t / steps)))
+    C.stamp(can, f, f.layer(mask=low), dx + lx, up + ly)
+    C.stamp(can, f, f.layer(mask=m & ~low), dx, up)
 
 
 def grounded(C, can):
@@ -566,20 +608,25 @@ MS = {
     "m_skill2": [70, 70, 80, 80, 70, 80, 70, 60], "m_wallop": [80, 90, 100, 90, 90, 100], "ult": [80, 80, 90, 90, 90, 80],
 }
 SINK = [0, 0, 1, 1, 1, 1, 0, 0]
+# Mini breathes up: everything above the legs rises a row (set down, the boomerang's tip went into the ground and the
+# hand slid along it - 「小纳尔的上下摆动导致武器变形了」)
+MINI_SINK = [0, 0, -1, -1, -1, -1, 0, 0]
 # Mini's step (league_braum's walk, small): each leg's column offset and lift round the cycle, the body's bob
 M_STRIDE = [2, 1, 0, -1, -2, -1, 0, 1]
 M_LIFT = [0, 0, 0, 0, 1, 3, 3, 1]
 M_HOP = [0, 1, 2, 1, 0, 1, 2, 1]
 M_TAIL = [0, 0, -1, -1, 0, 0, -1, -1]
-# Mega's gallop (league_chogath's walk)
+# Mega's gallop (league_chogath's walk): the fists' steps; the hind shins' smaller ones under the thighs
 G_STRIDE = [2, 1, -1, -3, -2, 0, 2, 3]
 G_LIFT = [0, 0, 0, 0, 2, 3, 2, 1]
 G_SURGE = [0, 0, 1, 1, 0, 0, 1, 1]
+H_STRIDE = [1, 1, 0, -1, -2, -1, 0, 1]
+H_LIFT = [0, 0, 0, 0, 1, 2, 2, 1]
 
 
 def frames_all(C):
     out = {}
-    out["idle"] = [mini(C, sink=s) for s in SINK]
+    out["idle"] = [mini(C, sink=s) for s in MINI_SINK]
     # the run (League's Gnar_Run1: a bouncing scamper - two hops a cycle, a leg stepping with each, the tail bobbing)
     run = []
     for i in range(8):
@@ -593,7 +640,7 @@ def frames_all(C):
                      mini(C, arm="front", lean=1, lift=6, tail_dy=-1, boomerang=False),
                      mini(C, arm="front", lean=1, lift=3, boomerang=False), mini(C)]
     # Q Boomerang Throw (League's Gnar_Spell1: across him, drawn back deep, the throw on frame 4 and a hop after it)
-    out["skill"] = [mini(C, arm="swing"), mini(C, lean=-1), mini(C, lean=-1, sink=1),
+    out["skill"] = [mini(C, arm="swing"), mini(C, lean=-1), mini(C, lean=-1),
                     mini(C, arm="front", lean=1, lift=3, tail_dy=-1, boomerang=False),
                     mini(C, arm="front", lift=7, tail_dy=-1, boomerang=False), mini(C, lift=3, boomerang=False), mini(C)]
     out["skill2"] = [mini(C), mini(C, lift=4), mini(C, lift=9), mini(C, lift=11), mini(C, lift=9), mini(C, lift=4),
@@ -611,9 +658,9 @@ def frames_all(C):
     mrun = []
     for i in range(8):
         j = (i + 4) % 8
-        a = (G_STRIDE[i], -G_LIFT[i])
-        b = (G_STRIDE[j], -G_LIFT[j])
-        mrun.append(mega(C, dx=G_SURGE[i], legs={"near_hind": a, "far_fore": a, "far_hind": b, "near_fore": b}))
+        a, b = (G_STRIDE[i], -G_LIFT[i]), (G_STRIDE[j], -G_LIFT[j])
+        ha, hb = (H_STRIDE[i], -H_LIFT[i]), (H_STRIDE[j], -H_LIFT[j])
+        mrun.append(mega(C, dx=G_SURGE[i], legs={"near_hind": ha, "far_fore": a, "far_hind": hb, "near_fore": b}))
     out["m_run"] = mrun
     out["m_hit"] = [m34(C, dx=-2, flash=True), m34(C, dx=-1)]
     out["m_dead"] = [mega(C, theta=-6), mega(C, theta=-8, flash=True), mini(C, flash=True)] + out["dead"][2:]
