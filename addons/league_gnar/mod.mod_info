@@ -1,0 +1,20 @@
+{
+  "author": "BoDUD",
+  "contains_code": true,
+  "dependencies": [
+    {
+      "mod_id": "base",
+      "version": ">=0.4.11"
+    },
+    {
+      "mod_id": "league",
+      "version": ">=0.181.0"
+    }
+  ],
+  "description": "Test build of Gnar as in League (needs League of Legends Heroes): replaces the main pack's Gnar so Mega Gnar stands, runs, gets hit and dies as Mega Gnar (the main pack: only his casts), and GNAR! throws everyone the same way - the way that slams most of them into a wall - stunning and hurting only those that hit a wall (the main pack: knocked away from him, everyone stunned). Other champions are untouched. Writes a log for testing.",
+  "last_updated": "2026-10-20",
+  "mod_id": "league_gnar",
+  "mod_type": "native",
+  "name": "League Heroes: Gnar's whole-body Mega and GNAR! wall stun (test)",
+  "version": "0.1.0"
+}

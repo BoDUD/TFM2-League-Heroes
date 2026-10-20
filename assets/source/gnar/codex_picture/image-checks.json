@@ -1,0 +1,78 @@
+[
+  {
+    "file": "gnar-A.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_levels": 256,
+    "visible_bbox_alpha128": [
+      273,
+      453,
+      1068,
+      1206
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ]
+  },
+  {
+    "file": "gnar-M.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_levels": 256,
+    "visible_bbox_alpha128": [
+      30,
+      363,
+      1244,
+      1225
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ]
+  },
+  {
+    "file": "gnar-SA.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_levels": 256,
+    "visible_bbox_alpha128": [
+      131,
+      449,
+      1124,
+      1214
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ]
+  },
+  {
+    "file": "gnar-SM.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_levels": 256,
+    "visible_bbox_alpha128": [
+      20,
+      442,
+      1243,
+      1170
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ]
+  }
+]

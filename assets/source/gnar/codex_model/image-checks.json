@@ -1,0 +1,146 @@
+[
+  {
+    "file": "gnar-model-A-1.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "size_matches_1254": true,
+    "alpha_levels": 256,
+    "hard_alpha_only": false,
+    "partial_alpha_pixel_count": 788748,
+    "visible_bbox_alpha128": [
+      126,
+      173,
+      1222,
+      1220
+    ],
+    "expected_grid_step": 20,
+    "expected_top": 220,
+    "expected_bottom": 1180,
+    "expected_logical_height": 48,
+    "visible_height_in_requested_cells": 52.35,
+    "strong_colour_edges_near_requested_grid_fraction": 0.1036,
+    "grid_measure_note": "Fraction of strong opaque colour transitions within 1 output px of grid lines anchored at origin. Diagnostic only; not proof of a uniform pixel grid."
+  },
+  {
+    "file": "gnar-model-A-2.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "size_matches_1254": true,
+    "alpha_levels": 256,
+    "hard_alpha_only": false,
+    "partial_alpha_pixel_count": 825283,
+    "visible_bbox_alpha128": [
+      115,
+      164,
+      1238,
+      1247
+    ],
+    "expected_grid_step": 20,
+    "expected_top": 220,
+    "expected_bottom": 1180,
+    "expected_logical_height": 48,
+    "visible_height_in_requested_cells": 54.15,
+    "strong_colour_edges_near_requested_grid_fraction": 0.1162,
+    "grid_measure_note": "Fraction of strong opaque colour transitions within 1 output px of grid lines anchored at origin. Diagnostic only; not proof of a uniform pixel grid."
+  },
+  {
+    "file": "gnar-model-M-1.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "size_matches_1254": true,
+    "alpha_levels": 256,
+    "hard_alpha_only": false,
+    "partial_alpha_pixel_count": 744420,
+    "visible_bbox_alpha128": [
+      25,
+      361,
+      1244,
+      1225
+    ],
+    "expected_grid_step": 12,
+    "expected_top": 396,
+    "expected_bottom": 1188,
+    "expected_logical_height": 66,
+    "visible_height_in_requested_cells": 72.0,
+    "strong_colour_edges_near_requested_grid_fraction": 0.2168,
+    "grid_measure_note": "Fraction of strong opaque colour transitions within 1 output px of grid lines anchored at origin. Diagnostic only; not proof of a uniform pixel grid."
+  },
+  {
+    "file": "gnar-model-M-2.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "size_matches_1254": true,
+    "alpha_levels": 256,
+    "hard_alpha_only": false,
+    "partial_alpha_pixel_count": 371147,
+    "visible_bbox_alpha128": [
+      203,
+      503,
+      1069,
+      1121
+    ],
+    "expected_grid_step": 12,
+    "expected_top": 396,
+    "expected_bottom": 1188,
+    "expected_logical_height": 66,
+    "visible_height_in_requested_cells": 51.5,
+    "strong_colour_edges_near_requested_grid_fraction": 0.2324,
+    "grid_measure_note": "Fraction of strong opaque colour transitions within 1 output px of grid lines anchored at origin. Diagnostic only; not proof of a uniform pixel grid."
+  },
+  {
+    "file": "gnar-model-SM-1.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "size_matches_1254": true,
+    "alpha_levels": 256,
+    "hard_alpha_only": false,
+    "partial_alpha_pixel_count": 560683,
+    "visible_bbox_alpha128": [
+      32,
+      537,
+      1244,
+      1250
+    ],
+    "expected_grid_step": 10,
+    "expected_top": 520,
+    "expected_bottom": 1180,
+    "expected_logical_height": 66,
+    "visible_height_in_requested_cells": 71.3,
+    "strong_colour_edges_near_requested_grid_fraction": 0.3078,
+    "grid_measure_note": "Fraction of strong opaque colour transitions within 1 output px of grid lines anchored at origin. Diagnostic only; not proof of a uniform pixel grid."
+  },
+  {
+    "file": "gnar-model-SM-2.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "size_matches_1254": true,
+    "alpha_levels": 256,
+    "hard_alpha_only": false,
+    "partial_alpha_pixel_count": 554978,
+    "visible_bbox_alpha128": [
+      19,
+      439,
+      1245,
+      1170
+    ],
+    "expected_grid_step": 10,
+    "expected_top": 520,
+    "expected_bottom": 1180,
+    "expected_logical_height": 66,
+    "visible_height_in_requested_cells": 73.1,
+    "strong_colour_edges_near_requested_grid_fraction": 0.2792,
+    "grid_measure_note": "Fraction of strong opaque colour transitions within 1 output px of grid lines anchored at origin. Diagnostic only; not proof of a uniform pixel grid."
+  }
+]
