@@ -157,6 +157,46 @@ def tinted(D, z=12):
     return bg.convert("RGB")
 
 
+# the idle's head (the user, 2026-10-20: 「待机时头有点大」): the 3/4 design's hood is 32 squares wide against the side's 28
+# for the same height, so it is cut down by whole rows and columns, least loss first (design_vex_model.keep_axis): the
+# band from her ear tips (row 16) to her chin (row HEAD_BAND[1]), HEAD_DROP rows from the hood and its ears (the face's
+# rows kept) and HEAD_DROP_COLS columns either side of the face (its columns kept); the band sits back on her shoulders
+# with the face's first column where it was, and the outline is closed round the joint
+HEAD_BAND = (16, 41)
+HEAD_FACE = (range(35, 42), range(29, 43))     # rows / columns of her face in idle.png (eyes 36-38, mouth 40)
+HEAD_DROP, HEAD_DROP_COLS = 5, 7          # 6 rows / 9 columns cut into the ears
+
+
+def small_head(d):
+    """idle.png's own squares with the head band cut down (her squares only; the Shadow's left out)."""
+    import design_vex_model as DM
+    import strips
+    import pixel_down as PD
+    her, _ = split(d)
+    src = d.copy()
+    src[~her] = 0
+    r0, r1 = HEAD_BAND
+    fr, fc = HEAD_FACE
+    band = src[r0:r1 + 1]
+    rows = DM.keep_axis([band[y] for y in range(band.shape[0])], band.shape[0] - HEAD_DROP,
+                        range(fr.start - r0, min(fr.stop, r1 + 1) - r0))
+    sub = band[rows]
+    cols = DM.keep_axis([sub[:, x] for x in range(sub.shape[1])], sub.shape[1] - HEAD_DROP_COLS, fc)
+    head = sub[:, cols]
+    out = src.copy()
+    out[:r1 + 1] = 0
+    left = fc.start - cols.index(fc.start)
+    top = r1 + 1 - head.shape[0]
+    m = head[..., 3] > 0
+    view = out[top:r1 + 1, left:left + head.shape[1]]
+    view[m] = head[m]
+    keep = np.zeros(out.shape[:2], bool)
+    keep[fr.start:fr.stop, fc.start:fc.stop] = True
+    pad_ = np.pad(out, ((1, 1), (1, 1), (0, 0)))
+    pad_, _, _ = strips.complete_outline(pad_, color=PD.edge_colour(d), feet=out.shape[0], keep=np.pad(keep, 1))
+    return pad_[1:-1, 1:-1]
+
+
 class Form:
     """The designs' layers; pose() / front() -> canvas."""
 
@@ -167,7 +207,7 @@ class Form:
         self.L["shadow"] = pad(D.shadow_full)
         idle = load("idle.png")
         her, sh = split(idle)
-        self.idle_her = self.placed(idle, her)
+        self.idle_her = self.placed(small_head(idle), None, idle)
         self.idle_shadow = self.placed(shadow_layer(idle, sh, her), None, idle)
 
     def placed(self, d, mask=None, ref=None):
