@@ -26,7 +26,7 @@ from build_warwick import P, lp  # noqa: E402
 REPO = os.path.normpath(os.path.join(HERE, "..", ".."))
 MOD = os.path.join(REPO, "league")
 ID = "league_warwick"
-VERSION = "0.179.0"     # the next free number above main 0.178.0 (Graves #409, 2026-10-20); retaken at merge time
+VERSION = "0.180.0"     # the next free number above main 0.179.0 (the combos #411, 2026-10-20); retaken at merge time
 ADi = "<i#asset/base/ui/banpick/champion_stat_icon:ad_0>"
 TOOLTIP_MAX = {"zh-hans": 130, "zh-hant": 130, "en": 334, "ja": 147, "ko": 185}
 O = "<#ff9028ff>"      # names, physical damage
