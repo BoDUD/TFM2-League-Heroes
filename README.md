@@ -253,7 +253,7 @@
 ![科加斯演示：对德莱厄斯：破裂：德莱厄斯脚下的地面裂开、透出紫光，0.6 秒后冲出一丛紫色地刺把他顶飞，碎石四溅，脚下留下发光的裂缝；野性尖叫：他直立朝前一吼，蓝紫色声波一层层推过去，德莱厄斯头上出现沉默标记；两下带刺普攻：一排紫色尖刺拖着光尾飞过德莱厄斯，他背上那排刺亮起来；盛宴：一圈红牙合拢咬住德莱厄斯，中间卷起虚空漩涡，他被吃掉，科加斯脚下冒起一圈虚空火焰](docs/preview/league_chogath_showcase.gif?v=1019a)
 
 ![卡尔萨斯演示：对德莱厄斯：法杖射出一团幽绿的灵魂弹打中他；荒芜：他脚下先出现蓝色的预警圈、地面裂开，0.53 秒后一团青绿色的灵魂火炸起，只炸到他一个人，伤害翻倍的白蓝光环一胀；普攻带出痛苦之墙：一道鬼脸灵魂墙立在他的位置，他脚下伸出鬼手、头上出现裂开的盾；亵渎：卡尔萨斯脚下转起灵魂漩涡，德莱厄斯身上一下下冒起灵魂火；安魂曲：卡尔萨斯拿出书、浮空吟唱 3 秒，身边灵魂盘旋往上，然后一道光柱落在德莱厄斯身上，他倒下](docs/preview/league_karthus_showcase.gif?v=1020a)
-![薇古丝演示：对德莱厄斯：甩出一团暗影弹；寒心波云：一道青绿色前缘的月牙风波飞过去；溟濛渐染：影子从她头上升起飞走，扑到德莱厄斯脚下化成一片暗影地面，他被减速、头上浮起青绿色的暮气眼睛；再一发暗影弹把暮气引爆；她头上睁开一对影子的眼睛（终焉好了）；愁煞：甩出影子头的飞弹打中他，他头上一对影子的眼睛，她冲过去一击，落地时影子护住她、脚下炸开一圈冲击环](docs/preview/league_vex_showcase.gif?v=1020a)
+![薇古丝演示：对德莱厄斯：甩出一团暗影弹；寒心波云：一道青绿色前缘的月牙风波飞过去；溟濛渐染：影子从她头上升起飞走，扑到德莱厄斯脚下化成一片暗影地面，他被减速、头上浮起青绿色的暮气眼睛；再一发暗影弹把暮气引爆；她头上睁开一对影子的眼睛（终焉好了）；愁煞：甩出影子头的飞弹打中他，他头上一对影子的眼睛，她冲过去一击，落地时影子护住她、脚下炸开一圈冲击环](docs/preview/league_vex_showcase.gif?v=1020b)
 
 ## 英雄：盖伦
 
@@ -5963,7 +5963,7 @@ python addons/league_vex/make_override.py           # 附加包的副本（主�
 
 美术提示词见 [`assets/source/vex/`](assets/source/vex/) 里的 `PICTURE_PROMPT.md`、`MODEL_PROMPTS.md`、`PROMPTS_FX.md`；Codex 的交付在 `codex_picture/`、`codex_model/`、`codex_fx/`。
 
-逐帧预览：[`docs/preview/league_vex_frames.png`](docs/preview/league_vex_frames.png?v=1020a)，特效：[`docs/preview/league_vex_effects.png`](docs/preview/league_vex_effects.png?v=1020a)。
+逐帧预览：[`docs/preview/league_vex_frames.png`](docs/preview/league_vex_frames.png?v=1020b)，特效：[`docs/preview/league_vex_effects.png`](docs/preview/league_vex_effects.png?v=1020a)。
 
 ## 英雄：爆爆（金铲铲之战 · tft 包）
 
