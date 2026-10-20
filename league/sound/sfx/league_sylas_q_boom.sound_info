@@ -1,0 +1,9 @@
+{
+  "plays": [
+    {
+      "delay": 0.55,
+      "clip": "league_sylas_sfx_q_boom",
+      "volume": 0.5
+    }
+  ]
+}

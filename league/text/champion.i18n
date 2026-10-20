@@ -987,6 +987,13 @@
         "skill": "扑向目标撕咬，造成<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<>+5%目标最大生命值物理伤害，回复<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>生命。",
         "skill2": "<#ffb900ff>2.5秒<>内受到的伤害减少40%，结束时仰天嚎叫，让周围的敌人<#ef5350ff>恐惧<><#ffb900ff>1秒<>。",
         "ult": "朝前扑出，<#ef5350ff>压制<>撞到的第一个敌方英雄<#ffb900ff>1.5秒<>，期间连抓三下，每下<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>55%<>物理伤害并回复40生命。"
+      },
+      "league_sylas": {
+        "name": "塞拉斯",
+        "attack": "甩链。<#ff9028ff>破敌禁法<>：每放一个技能存一层（最多2层），有层时攻速+40%，下次普攻挥链横扫周围，<#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<>魔法伤害。<#ff9028ff>弑君突刺<>：每<#ffb900ff>9秒<>对英雄的普攻变成突刺，<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>魔法伤害，回复<#66bb6aff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>35%<>生命。",
+        "skill": "甩出两条锁链交叉于目标处，沿途敌人受到<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<>魔法伤害并减速25%；<#ffb900ff>0.6秒<>后交叉点爆炸，造成<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<>魔法伤害。",
+        "skill2": "朝敌方英雄突进，再甩出锁链：命中的第一个敌方英雄受到<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>魔法伤害、被<#ef5350ff>击飞<><#ffb900ff>0.5秒<>，塞拉斯把自己拉过去。",
+        "ult": "锁链命中敌方英雄，<#ef5350ff>眩晕<><#ffb900ff>0.5秒<>并夺走大招；<#ffb900ff>10秒<>内再放，在目标处爆发，<#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>魔法伤害并<#ef5350ff>击飞<>周围敌人。"
       }
     },
     "skill_name": {
@@ -1694,6 +1701,11 @@
         "skill1": "野兽之口",
         "skill2": "远祖嗥叫",
         "ult": "无尽束缚"
+      },
+      "league_sylas": {
+        "skill1": "锁链鞭击",
+        "skill2": "潜掠/强掳",
+        "ult": "其人之道"
       }
     }
   },
@@ -2685,6 +2697,13 @@
         "skill": "撲向目標撕咬，造成<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<>+5%目標最大生命值物理傷害，回復<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>生命。",
         "skill2": "<#ffb900ff>2.5秒<>內受到的傷害減少40%，結束時仰天怒嚎，讓周圍的敵人<#ef5350ff>恐懼<><#ffb900ff>1秒<>。",
         "ult": "朝前撲出，<#ef5350ff>壓制<>撞到的第一個敵方英雄<#ffb900ff>1.5秒<>，期間連抓三下，每下<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>55%<>物理傷害並回復40生命。"
+      },
+      "league_sylas": {
+        "name": "賽勒斯",
+        "attack": "甩鍊。<#ff9028ff>反魔法英石衝擊<>：每放一個技能存一層（最多2層），有層時攻速+40%，下次普攻揮鍊橫掃周圍，<#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<>魔法傷害。<#ff9028ff>弒君之道<>：每<#ffb900ff>9秒<>對英雄的普攻變成突刺，<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>魔法傷害，回復<#66bb6aff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>35%<>生命。",
+        "skill": "甩出兩條鎖鍊交叉於目標處，沿途敵人受到<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<>魔法傷害並緩速25%；<#ffb900ff>0.6秒<>後交叉點爆炸，造成<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<>魔法傷害。",
+        "skill2": "朝敵方英雄突進，再甩出鎖鍊：命中的第一個敵方英雄受到<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>魔法傷害、被<#ef5350ff>擊飛<><#ffb900ff>0.5秒<>，賽勒斯把自己拉過去。",
+        "ult": "鎖鍊命中敵方英雄，<#ef5350ff>暈眩<><#ffb900ff>0.5秒<>並奪走大招；<#ffb900ff>10秒<>內再放，在目標處爆發，<#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>魔法傷害並<#ef5350ff>擊飛<>周圍敵人。"
       }
     },
     "skill_name": {
@@ -3392,6 +3411,11 @@
         "skill1": "猛獸狂顎",
         "skill2": "本能怒嚎",
         "ult": "無盡束縛"
+      },
+      "league_sylas": {
+        "skill1": "鍊斬",
+        "skill2": "逆罪突進/罪獄鍊罰",
+        "ult": "盜技禁鍊"
       }
     }
   },
@@ -4383,6 +4407,13 @@
         "skill": "Lunges at the target and bites for <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<> + 5% of its max health as physical damage, healing <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>.",
         "skill2": "Takes 40% less damage for <#ffb900ff>2.5s<>, then howls, making nearby enemies <#ef5350ff>flee<> for <#ffb900ff>1s<>.",
         "ult": "Leaps forward and <#ef5350ff>suppresses<> the first enemy champion hit for <#ffb900ff>1.5s<>, clawing it three times for <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>55%<> physical damage each and healing 40 each."
+      },
+      "league_sylas": {
+        "name": "Sylas",
+        "attack": "A chain swing. <#ff9028ff>Petricite Burst<>: each spell he casts stores a charge (2 at most); with one he attacks 40% faster and his next attack whirls his chains round him for <#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<> magic damage. <#ff9028ff>Kingslayer<>: every <#ffb900ff>9s<> his attack on a champion becomes a stab for <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> magic damage, healing <#66bb6aff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>35%<>.",
+        "skill": "Lashes two chains that cross at the target: enemies along them take <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<> magic damage and are slowed 25%; after <#ffb900ff>0.6s<> the crossing explodes for <#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<> magic damage.",
+        "skill2": "Dashes toward an enemy champion, then throws a chain: the first enemy champion hit takes <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> magic damage, is <#ef5350ff>knocked up<> for <#ffb900ff>0.5s<> and Sylas pulls himself to it.",
+        "ult": "His chain hits an enemy champion, <#ef5350ff>stuns<> it for <#ffb900ff>0.5s<> and steals its ultimate; cast again within <#ffb900ff>10s<> to unleash it at the target: <#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> magic damage and nearby enemies <#ef5350ff>knocked up<>."
       }
     },
     "skill_name": {
@@ -5090,6 +5121,11 @@
         "skill1": "Jaws of the Beast",
         "skill2": "Primal Howl",
         "ult": "Infinite Duress"
+      },
+      "league_sylas": {
+        "skill1": "Chain Lash",
+        "skill2": "Abscond / Abduct",
+        "ult": "Hijack"
       }
     }
   },
@@ -6081,6 +6117,13 @@
         "skill": "대상에게 달려들어 물어뜯어 <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<> + 대상 최대 체력 5% 물리 피해, 체력 <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<> 회복.",
         "skill2": "<#ffb900ff>2.5초<> 동안 받는 피해 40% 감소, 끝나면 울부짖어 주변 적 <#ffb900ff>1초<> <#ef5350ff>공포<>.",
         "ult": "앞으로 도약해 처음 부딪힌 적 챔피언을 <#ffb900ff>1.5초<> <#ef5350ff>제압<>하고 세 번 할퀴어 매번 <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>55%<> 물리 피해, 체력 40 회복."
+      },
+      "league_sylas": {
+        "name": "사일러스",
+        "attack": "사슬 휘두르기. <#ff9028ff>페트리사이트 폭발<>: 스킬을 쓸 때마다 1회 충전(최대 2), 충전 시 공격 속도 +40%, 다음 기본 공격이 주변에 <#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<> 마법 피해. <#ff9028ff>국왕시해자<>: <#ffb900ff>9초<>마다 챔피언 공격이 찌르기로 바뀌어 <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> 마법 피해, 체력 <#66bb6aff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>35%<> 회복.",
+        "skill": "사슬 두 개를 대상 위치에서 교차시켜 경로의 적에게 <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<> 마법 피해와 25% 둔화, <#ffb900ff>0.6초<> 후 교차점이 폭발해 <#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<> 마법 피해.",
+        "skill2": "적 챔피언 쪽으로 돌진한 뒤 사슬을 던져 처음 맞은 적 챔피언에게 <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> 마법 피해, <#ffb900ff>0.5초<> <#ef5350ff>공중에 띄움<>, 그쪽으로 자신을 끌어당김.",
+        "ult": "사슬이 적 챔피언을 맞혀 <#ffb900ff>0.5초<> <#ef5350ff>기절<>시키고 궁극기를 빼앗음. <#ffb900ff>10초<> 안에 다시 쓰면 대상 위치에서 폭발해 <#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> 마법 피해, 주변 적 <#ef5350ff>공중에 띄움<>."
       }
     },
     "skill_name": {
@@ -6788,6 +6831,11 @@
         "skill1": "야수의 송곳니",
         "skill2": "원시의 포효",
         "ult": "무한의 구속"
+      },
+      "league_sylas": {
+        "skill1": "사슬 후려치기",
+        "skill2": "도주 / 억압",
+        "ult": "강탈"
       }
     }
   },
@@ -7779,6 +7827,13 @@
         "skill": "対象に飛びかかって噛みつき、<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<>+対象の最大体力の5%の物理ダメージ、体力を<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>回復。",
         "skill2": "<#ffb900ff>2.5秒<>間受けるダメージを40%軽減し、終わると咆哮して周囲の敵を<#ffb900ff>1秒<><#ef5350ff>恐怖<>させる。",
         "ult": "前方へ跳びかかり、最初に当たった敵チャンピオンを<#ffb900ff>1.5秒<><#ef5350ff>サプレッション<>、その間3回引き裂き、毎回<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>55%<>の物理ダメージと体力40回復。"
+      },
+      "league_sylas": {
+        "name": "サイラス",
+        "attack": "鎖を振るう。<#ff9028ff>ペトリサイトバースト<>：スキルごとに1チャージ（最大2）、チャージ中は攻撃速度+40%、次の通常攻撃で周囲に<#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<>の魔法ダメージ。<#ff9028ff>王殺し<>：<#ffb900ff>9秒<>ごとにチャンピオンへの攻撃が突きになり<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>の魔法ダメージ、体力<#66bb6aff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>35%<>回復。",
+        "skill": "2本の鎖を対象の位置で交差させ、経路の敵に<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<>の魔法ダメージと25%スロウ。<#ffb900ff>0.6秒<>後に交差点が爆発し<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<>の魔法ダメージ。",
+        "skill2": "敵チャンピオンへ突進し、鎖を投げる：最初に当たった敵チャンピオンに<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>の魔法ダメージ、<#ffb900ff>0.5秒<><#ef5350ff>ノックアップ<>、自身を引き寄せる。",
+        "ult": "鎖が敵チャンピオンに当たると<#ffb900ff>0.5秒<><#ef5350ff>スタン<>させアルティメットを奪う。<#ffb900ff>10秒<>以内に再使用で対象の位置で炸裂、<#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>の魔法ダメージと周囲の敵を<#ef5350ff>ノックアップ<>。"
       }
     },
     "skill_name": {
@@ -8486,6 +8541,11 @@
         "skill1": "野獣の牙",
         "skill2": "怒りの咆哮",
         "ult": "絶狼牙連撃"
+      },
+      "league_sylas": {
+        "skill1": "鎖の鞭",
+        "skill2": "逃亡 / 拉致",
+        "ult": "乗っ取り"
       }
     }
   }
