@@ -128,6 +128,49 @@ ISLAND = 80                           # loose pieces up to this many squares are
                                       # off when it swings
 
 
+# one face in every frame (the user, 2026-10-20: 「脸还会一大一小 为什么？」 - the idle's face was drawn bigger than the
+# side's; then 「这个脸不是最好的吗 为什么不用啊」 pointing at the side's own face): the side's head - her squares from its
+# ear tips down to its chin, rows to SIDE_CHIN - goes on the idle's body (the idle's own head, its rows to IDLE_CHIN,
+# taken off) moved IDLE_HEAD_SHIFT so the chin sits on the idle's neck; the side frames keep the side's head as it is
+SIDE_CHIN, IDLE_CHIN = 40, 42
+IDLE_HEAD_SHIFT = (-5, 2)             # (dx, dy): the side's eyes (columns 37 / 44, row 34) over the idle's (32 / 38, 37)
+
+
+def side_head_on(d):
+    """idle.png's own squares (her, the Shadow left out) with its head swapped for the side's."""
+    import strips
+    import pixel_down as PD
+    her, _ = split(d)
+    out = d.copy()
+    out[~her] = 0
+    out[:IDLE_CHIN + 1] = 0
+    side = load("side.png")
+    sher, _ = split(side)
+    dx, dy = IDLE_HEAD_SHIFT
+    ys, xs = np.nonzero(sher[:SIDE_CHIN + 1])
+    for y, x in zip(ys, xs):
+        Y, X = y + dy, x + dx
+        if 0 <= Y < out.shape[0] and 0 <= X < out.shape[1]:
+            out[Y, X] = side[y, x]
+    # the idle hood's lower edge beside her neck was outline only: with the hood gone it hung on as a thin line -
+    # outline squares in the neck rows with no colour beside them go
+    ink = PD.edge_colour(d)
+    for _ in range(1):
+        op = out[..., 3] > 0
+        col = op & (np.abs(out[..., :3].astype(int) - ink).sum(-1) > 30)
+        near = ndimage.binary_dilation(col, structure=R.CROSS)
+        orphan = op & ~col & ~near
+        orphan[:IDLE_CHIN + 1] = False
+        orphan[IDLE_CHIN + 4:] = False
+        out[orphan] = 0
+    out = drop_islands(out, 10)
+    keep = np.zeros(out.shape[:2], bool)
+    keep[33 + dy:40 + dy, 33 + dx:46 + dx] = True              # the side's face (rows 33-39, columns 33-45)
+    pad_ = np.pad(out, ((1, 1), (1, 1), (0, 0)))
+    pad_, _, _ = strips.complete_outline(pad_, color=PD.edge_colour(d), feet=out.shape[0], keep=np.pad(keep, 1))
+    return pad_[1:-1, 1:-1]
+
+
 def design():
     d = load("side.png")
     her, sh = split(d)
@@ -207,7 +250,7 @@ class Form:
         self.L["shadow"] = pad(D.shadow_full)
         idle = load("idle.png")
         her, sh = split(idle)
-        self.idle_her = self.placed(small_head(idle), None, idle)
+        self.idle_her = self.placed(side_head_on(idle), None, idle)
         self.idle_shadow = self.placed(shadow_layer(idle, sh, her), None, idle)
 
     def placed(self, d, mask=None, ref=None):
@@ -309,6 +352,82 @@ IDLE_SHOES = (27, 40)                 # the idle design's shoes' columns (the sl
 IDLE_LEG_ROW = 58                     # the idle design's shoes: rows from here down stay while the body breathes
 
 
+IDLE_CROUCH = (0, 0, 0, 1, 1, 1, 1, 0)   # the idle's body set down a row (its breath)
+FEET_1X = 3                           # the 1x idle's shoes: its lowest rows that stay while the body breathes
+
+
+def still_breath(ones):
+    """The 1x idle (the cards, the encyclopedia and the face icons draw it): a body set down one fine row is set down
+    2/3 of a 1x pixel, and brought down to 1x that way its face smeared (the user, 2026-10-20: 「薇古丝发现个问题 脸变形？」).
+    So every 1x idle frame is the standing frame's own pixels, its body above the shoes set down one whole pixel on the
+    frames the fine one breathes, each centred on the pivot in its own frame size."""
+    base = ones[0][0]
+    out = []
+    for (one, ms), c in zip(ones, IDLE_CROUCH):
+        a = base.copy()
+        if c:
+            ys = np.nonzero(a[..., 3].any(1))[0]
+            cut = ys.max() + 1 - FEET_1X                 # the shoes' first row
+            body = a[:cut].copy()
+            a[:cut] = 0
+            m = body[..., 3] > 0
+            low = a[1:cut + 1]
+            low[m] = body[m]                             # the body one pixel lower, over the shoes' top row
+        H, W = one.shape[:2]
+        h, w = a.shape[:2]
+        dy, dx = (h - H) // 2, (w - W) // 2
+        if dy >= 0 and dx >= 0:
+            if a[:dy].any() or a[h - dy:].any() or a[:, :dx].any() or a[:, w - dx:].any():
+                sys.exit("still_breath: the standing 1x idle does not fit a breathing frame")
+            fit = a[dy:dy + H, dx:dx + W]
+        else:
+            fit = np.zeros_like(one)
+            fit[-dy:-dy + h, -dx:-dx + w] = a
+        out.append((fit, ms))
+    return out
+
+
+EYE = (248, 3, 175)                   # her eyes' magenta (the side's face: one fine square each)
+SKIN = (221, 230, 228)
+
+
+def one_with_eyes(can, px, py, hw, hh, ppu, need=0.5):
+    """ppu_rig.one_of, her eyes kept: brought down to 1x by the commonest colour, the one-square magenta eyes were
+    outvoted by her skin and lids and the 1x frames lost them (the user, 2026-10-20: 「下面的眼睛怎么变色了」). Every 1x
+    square over an eye square (EYE beside her skin) takes the eye's colour."""
+    one = _ONE_OF(can, px, py, hw, hh, ppu, need)
+    rgb = can[..., :3].astype(int)
+    op = can[..., 3] > 0
+    skin = op & (rgb == SKIN).all(-1)
+    eye = op & (rgb == EYE).all(-1) & ndimage.binary_dilation(skin, structure=R.CROSS)
+    for y, x in zip(*np.nonzero(eye)):
+        j = int(np.floor((y + 0.5 - py) / ppu + 0.5)) + hh
+        i = int(np.floor((x + 0.5 - px) / ppu + 0.5)) + hw
+        if 0 <= j < one.shape[0] and 0 <= i < one.shape[1]:
+            one[j, i] = (*EYE, 255)
+    return one
+
+
+_ONE_OF = R.one_of
+
+
+def export(F, acts):
+    """Rig.export with the 1x idle's breath set down whole pixels (still_breath) and her eyes kept (one_with_eyes)."""
+    R.one_of = one_with_eyes
+    write = R.G.write_sheet
+
+    def write_sheet(stem, sheet, *a, **kw):
+        if "idle" in sheet:
+            sheet = dict(sheet, idle=still_breath(sheet["idle"]))
+        return write(stem, sheet, *a, **kw)
+    R.G.write_sheet = write_sheet
+    try:
+        F.rig.export(acts)
+    finally:
+        R.G.write_sheet = write
+        R.one_of = _ONE_OF
+
+
 def leant(can, oy, per):
     """Her body bent over her shoes on an even line, no square resampled (league_zoe's): every row above FOOT_TOP one
     square further forward every `per` rows (negative: back), the head - rows to HEAD_LOW - one block by its lowest
@@ -381,8 +500,7 @@ def frames_all(F):
         return shift(R.lie(rig, p(no_shadow=True, **kw), k, dx=dx, sink=0), 0, -up)
     # idle (League's Vex Idle: she slouches on the spot, the Shadow drifting behind her): the 3/4 design's body sets
     # down a row onto its shoes, the Shadow rises and sinks a row half a cycle later
-    out["idle"] = [F.front(crouch=c, shadow=(0, s)) for c, s in
-                   zip((0, 0, 0, 1, 1, 1, 1, 0), (0, -1, -1, -1, 0, 0, 0, 0))]
+    out["idle"] = [F.front(crouch=c, shadow=(0, s)) for c, s in zip(IDLE_CROUCH, (0, -1, -1, -1, 0, 0, 0, 0))]
     # auto attack (League's Attack_1: the near sleeve drawn back and flung forward, the bolt leaving the cuff, then it
     # drops back): the sleeve back, flung forward (frame 2: the bolt), held as she settles, hanging again
     out["attack"] = [p(sleeve=(-2, 0), shadow=(-1, 0)), p(whole=(1, 0), rot=1, shadow=(1, 0)),
@@ -465,7 +583,7 @@ def main():
     a = ap.parse_args()
     if not (a.audit or a.review or a.parts):
         F = form()
-        F.rig.export(frames(F))
+        export(F, frames(F))
         return
     if a.audit or a.review:
         F = form()
