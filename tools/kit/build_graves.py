@@ -28,7 +28,10 @@ Kit (the user's picks, 2026-10-20: layout A - Q / E / R, W in the attack -, jung
           champion aimed at, league_ezreal E) as the shell leaves; it flies r_range and stops on the FIRST enemy champion
           (r_dmg + r_ratio% AD), which blows up round it (r_r: r2_dmg + r2_ratio% AD on every enemy - League's cone
           behind the champion as a circle round it; a miss blows nothing up, league_jinx R).
-Timings are placeholders until the strips exist.
+Timings from the sheet (tools/art/rig_graves.py MS; a frame's start in ticks = ms x 0.06): attack 500 ms (30 ticks), the
+shot as frame 3 starts (130 ms: a_hit 8); attack2 (the second shell) 620 ms (37); Q 450 ms (27), the shell on frame 3
+(130 ms: q_at 8); E 350 ms (21), the dash from frame 2 (50 ms: e_at 3); R 550 ms (33), the shot on frame 3 (160 ms:
+r_at 10).
 """
 import argparse
 import json
@@ -52,22 +55,22 @@ P = {
     # (League 500 = 55000 here), attack speed 0.475
     "hp": 980, "hp_g": 98, "atk": 92, "atk_g": 19, "def": 26, "def_g": 7, "mr": 18, "mr_g": 3, "ms": 1000, "ms_g": 11,
     # attack: the spread (League: 4 pellets, the first full damage, the others a third; two shells, then a reload)
-    "atk_range": 46000, "atk_dur": 26, "atk_cd": 54, "a_hit": 8, "a_speed": 9000, "a_y": -3000,
+    "atk_range": 46000, "atk_dur": 30, "a2_dur": 37, "atk_cd": 54, "a_hit": 8, "a_speed": 9000, "a_y": -3000,
     "a_ratio": 75, "a_cone": 35, "a_cone_r": 56000, "a_cone_dot": 900, "a_keep": 300, "a_reload": 80,
     # W Smoke Screen (League: 950 range, 60-180 +60% AP magic, 50% slow 0.5 s, nearsight 4 s; cd 26-18 s)
     "w_cd": 720, "w_fly": 14, "w_r": 24000, "w_dmg": 60, "w_slow": 50, "w_slow_t": 30, "w_blind": 30,
     "w_cloud": 240, "w_in": 15,
     # skill: Q End of the Line (League: 925 range, 45-165 +80% bonus AD, the blast 85-285 +40-120% bonus AD after 1 s;
     # cd 13-6 s)
-    "q_cd": 540, "q_cast": 75000, "q_dur": 22, "q_at": 8, "q_range": 70000, "q_speed": 5000, "q_w": 8000,
+    "q_cd": 540, "q_cast": 75000, "q_dur": 27, "q_at": 8, "q_range": 70000, "q_speed": 5000, "q_w": 8000,
     "q_dmg": 45, "q_ratio": 60, "q_fuse": 60, "q_r": 24000, "q2_dmg": 60, "q2_ratio": 80,
     # skill2: E Quickdraw (League: 425 dash, True Grit 4-? armour / mr per stack, 8 stacks, 4 s; cd 16-12 s, -0.5 s per
     # pellet hit)
-    "e_cd": 600, "e_range": 60000, "e_dur": 16, "e_at": 3, "e_near": 22000, "e_dash": 26000, "e_t_move": 8,
+    "e_cd": 600, "e_range": 60000, "e_dur": 21, "e_at": 3, "e_near": 22000, "e_dash": 26000, "e_t_move": 8,
     "e_def": 7, "e_mr": 5, "e_t": 240,
     # ult: R Collateral Damage (League: 1100 range, 275-575 +150% bonus AD to the first champion, the cone 200-400
     # +120% bonus AD; recoil 400; cd 100-60 s)
-    "r_cd": 3000, "r_cast": 100000, "r_dur": 30, "r_at": 10, "r_range": 110000, "r_speed": 9000, "r_w": 12000,
+    "r_cd": 3000, "r_cast": 100000, "r_dur": 33, "r_at": 10, "r_range": 110000, "r_speed": 9000, "r_w": 12000,
     "r_dmg": 120, "r_ratio": 90, "r_r": 32000, "r2_dmg": 80, "r2_ratio": 60, "r_back": 3000, "r_back_t": 5,
     # the add-on (addons/league_graves): E's cooldown cut per shotgun hit (League 0.5 s a pellet, at most e_cuts an
     # attack), the knockback of a monster or minion the pellet and the spread both hit (League: struck by several
@@ -226,7 +229,7 @@ def build(p, native=False):
                                    [view("w_smoke"), sfx("w_boom"), impact, blind, cloud])))
 
     # ------------------------------------------------------------------ attack: the spread
-    shell = sw("a_1", combine(*rm("a_1"), anim("attack2", p["atk_dur"]),
+    shell = sw("a_1", combine(*rm("a_1"), anim("attack2", p["a2_dur"]),
                               delayed(p["a_hit"] + 1, on_me({"type": "BlockAttack", "tick": p["a_reload"]}),
                                       sfx("a_reload"))),
                flag("a_1", p["a_keep"]))

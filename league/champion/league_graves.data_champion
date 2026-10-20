@@ -37,7 +37,7 @@
   "attack": {
     "action_name": "attack",
     "description": "#asset/base/text/champion?description.league_graves.attack",
-    "duration": 26,
+    "duration": 30,
     "cooltime": 54,
     "start_timing": 1,
     "cancelable": true,
@@ -61,7 +61,7 @@
               {
                 "type": "CasterAnimation",
                 "name": "attack2",
-                "tick": 26
+                "tick": 37
               },
               {
                 "type": "Delayed",
@@ -483,7 +483,7 @@
   "skill": {
     "action_name": "skill",
     "description": "#asset/base/text/champion?description.league_graves.skill",
-    "duration": 22,
+    "duration": 27,
     "cooltime": 540,
     "start_timing": 1,
     "cancelable": false,
@@ -497,7 +497,7 @@
         {
           "type": "CasterAnimation",
           "name": "skill",
-          "tick": 22
+          "tick": 27
         },
         {
           "type": "Sfx",
@@ -620,7 +620,7 @@
   "skill2": {
     "action_name": "skill2",
     "description": "#asset/base/text/champion?description.league_graves.skill2",
-    "duration": 16,
+    "duration": 21,
     "cooltime": 600,
     "start_timing": 1,
     "cancelable": false,
@@ -634,7 +634,7 @@
         {
           "type": "CasterAnimation",
           "name": "skill2",
-          "tick": 16
+          "tick": 21
         },
         {
           "type": "Sfx",
@@ -980,7 +980,7 @@
   "ult": {
     "action_name": "ult",
     "description": "#asset/base/text/champion?description.league_graves.ult",
-    "duration": 30,
+    "duration": 33,
     "cooltime": 3000,
     "start_timing": 1,
     "cancelable": false,
@@ -994,7 +994,7 @@
         {
           "type": "CasterAnimation",
           "name": "ult",
-          "tick": 30
+          "tick": 33
         },
         {
           "type": "Sfx",
