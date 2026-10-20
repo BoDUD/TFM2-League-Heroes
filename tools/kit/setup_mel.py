@@ -35,8 +35,11 @@ M = "<#a974ffff>"      # magic damage / AP
 A = "<#ffb900ff>"      # durations, counts
 R = "<#ef5350ff>"      # crowd control
 E = "<>"
-# champion_view: placeholders until her sprite (tfm2_ase.py face / tools/art/bp_card_audit.py)
-VIEW = {"face": {"x": 1, "y": -30}, "center": {"x": 0, "y": -14}, "banpick_center": {"x": 0, "y": -8}}
+# champion_view: the face point between her eyes (ppu_restyle RESTYLE face_to: the design's eyes 45.5 rows over her soles at
+# PPU 1.5, at her standing point's column); the ban/pick card: her idle drawn at 0.90 (league.dll UI_SIZES: 43.3 game
+# rows bun top to soles) with its top 28.8 px over the frame centre at that size -> banpick_center -10
+# (tools/art/bp_card_audit.py, Zyra's value)
+VIEW = {"face": {"x": 0, "y": -30}, "center": {"x": 0, "y": -14}, "banpick_center": {"x": 0, "y": -10}}
 
 
 def mag(d, r):

@@ -36,7 +36,9 @@ Kit (the user's picks, 2026-10-20: layout A - Q / E / R, the passive and W in th
           add-on's AI hook presses R when the stacks would kill a champion, or hold them for a second champion.
 The combos the AI cannot press from data (E before Q, R at a killing count, W on an incoming projectile) are the
 add-on's AI hook league_mel:combo (addons/league_mel).
-Timings: placeholders until tools/art/rig_mel.py's strips (a frame's start in ticks = ms x 0.06).
+Timings from the frames (tools/art/rig_mel.py, assets/source/mel/poses.json; a frame's start in ticks = ms x 0.06): the
+attack's bolt, Q's volley and E's orb leave on frame 3 (160-170 ms: a_rel / q_rel / e_rel 10), R strikes on the slam
+(frame 4, 270 ms: r_rel 16); each action as long as its frames (27 / 33 / 33 / 35 ticks).
 """
 import argparse
 import json
@@ -74,7 +76,7 @@ P = {
     "e_rw": 17000, "e_dmg": 80, "e_ratio": 50, "e_root": 60, "e_slow": 30, "e_slow_t": 90,
     "e_dot": 10, "e_dot_r": 6, "e_dper": 30, "e_dn": 4,
     # R Golden Eclipse (League: every marked enemy anywhere, +x per stack; cd 120-80)
-    "r_cd": 2100, "r_range": 70000, "r_dur": 33, "r_rel": 12, "r_win": 6, "r_st": 20, "r_ratio": 8,
+    "r_cd": 2100, "r_range": 70000, "r_dur": 35, "r_rel": 16, "r_win": 6, "r_st": 20, "r_ratio": 8,
     "vo_gap": 600,
     # the add-on (addons/league_mel): the execute (League: the stacks' worth >= the champion's health), the
     # barrier on an incoming projectile and the reflected copy

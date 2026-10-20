@@ -3592,7 +3592,7 @@
   "ult": {
     "action_name": "ult",
     "description": "#asset/base/text/champion?description.league_mel.ult",
-    "duration": 33,
+    "duration": 35,
     "cooltime": 2100,
     "start_timing": 1,
     "cancelable": false,
@@ -3679,7 +3679,7 @@
         },
         {
           "type": "Delayed",
-          "tick": 11,
+          "tick": 15,
           "effects": [
             {
               "type": "Combine",
