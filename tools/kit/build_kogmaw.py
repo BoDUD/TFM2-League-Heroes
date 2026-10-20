@@ -178,6 +178,12 @@ def on_me(*effects):
     return around(1000, "AllyOnlySelf", effects)
 
 
+def unseen(*effects):
+    """Effects run at once but kept out of the 0.6.x AI's damage table (league_viktor's unseen(): `pr_go` lives only
+    inside this Combine - added, read, removed in one go - and the AI reads the kit between ticks)."""
+    return combine(flag("pr_go", 1), sw("pr_go", combine(*effects)), *rm("pr_go"))
+
+
 def casted(duration, period, *effects, kind="Heal"):
     return {"type": "AddCasted", "casted_type": kind, "duration": duration, "period": period, "effects": list(effects)}
 
@@ -250,8 +256,11 @@ def build(p):
                     sw("p_live", combine(*rm("p_live"), *rm("p_done")), sw("p_done", NONE, combine(flag("p_done", None), wake))))
     watch = casted(p["p_life"], p["p_watch"], lob("p_watch", p["p_watch"] + 1, "AllyOnlySelf", [check]))
     # each life's first action: the watch and Caustic Spittle's passive attack speed (death clears both)
-    life = sw("init", NONE, combine(flag("init", None), flag("q_pas", None, attack_speed_mult=p["q_as"]),
-                                    on_me(watch)))
+    # kept out of the 0.6.x AI's damage table (unseen): the watch's burst (p_dmg + p_ratio% AD true damage) read as part
+    # of every slot - his attack 406 against the other marksmen's 70-210 (classic expected_damage, 2026-10-20) - so the
+    # lane AIs near him recalled at full health and his attacks broke off (the user: 「平A不连贯 就像卡断了一样」)
+    life = unseen(sw("init", NONE, combine(flag("init", None), flag("q_pas", None, attack_speed_mult=p["q_as"]),
+                                           on_me(watch))))
 
     # ------------------------------------------------------------------ Q Caustic Spittle
     spit_hit = [attack(p["q_dmg"], p["q_ratio"]),
