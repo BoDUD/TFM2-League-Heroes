@@ -108,7 +108,9 @@ def main():
     man = json.load(open(lp(os.path.join(SRC, "manifest.json")), encoding="utf-8-sig"))
     meta = {}
     for e in man.get("effects") or man["entries"]:
-        meta[e.get("name") or e["id"]] = dict(e, pixel_1x=os.path.join(SRC, "pixel_1x", e["file"]))
+        # Codex's manifest (2026-10-20): "effects", each with file (vex_fx_<name>.png), frames and cell_1x
+        name = e.get("name") or e.get("id") or e["file"][len("vex_fx_"):-len(".png")]
+        meta[name] = dict(e, pixel_1x=os.path.join(SRC, "pixel_1x", e["file"]))
     if set(meta) != set(FX):
         sys.exit(f"delivered {sorted(meta)} against the kit's {sorted(FX)}")
     allc = {n: cells(n, meta[n]) for n in FX}
