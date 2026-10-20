@@ -119,6 +119,10 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // rows crown to soles: 「40 像素，PPU 1.5」; attack_w is Wall of Pain's cast in the attack, ult the 3 s Requiem), so no
     // SIZES row
     ("league_karthus", 1.5, include_str!("../../../league/champions/league_karthus#anim.fanim")),
+    // Vex: posed by tools/art/rig_vex.py from Codex's step-1 takes at the user's 1.5 squares a game pixel (63 game rows from
+    // her Shadow's ear tips to her soles, her own 51: 「34 像素」「PPU 1.5」; ult_dash / ult_hit the kit's CasterAnimations),
+    // so no SIZES row
+    ("league_vex", 1.5, include_str!("../../../league/champions/league_vex#anim.fanim")),
     // Powder (tft_powder, the tft pack in tft/: Teamfight Tactics' own units, its own mod; this DLL draws her dense
     // frames when both packs are enabled): the idle design and Codex's skeleton poses with one clean head, posed by
     // tools/art/rig_powder.py at 1.75 squares a game pixel (61 rows: 「35」, then 「PPU像素好低啊 能调一下吗」), shown at 90 % (SIZES)

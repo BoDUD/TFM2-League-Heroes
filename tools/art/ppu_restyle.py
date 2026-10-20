@@ -57,7 +57,7 @@ ORIG_PPU = {"zeri": 3, "karma": 3, "braum": 2.881, "mordekaiser": 5, "corki": 5,
             "vladimir": 2, "yasuo": 3, "garen": 3, "gragas": 2, "irelia": 2, "soraka": 3, "nidalee": 3.8313,
             "nilah": 2.5, "kindred": 154 / 34, "malzahar": 1.38, "milio": 2.2, "jayce": 1.5, "elise": 1.8, "katarina": 1.5,
             "tahmkench": 1.2, "kalista": 1.4, "drmundo": 1.5, "pantheon": 1.5, "orianna": 2.2, "aphelios": 1.5, "rell": 1.5, "urgot": 1.2, "reksai": 1.58, "swain": 1.5, "nasus": 1.2, "renata": 1.5, "anivia": 1.2, "jarvaniv": 1.5, "ziggs": 1.5, "maokai": 1.5, "gangplank": 1.5, "wukong": 1.53, "cassiopeia": 1.3, "akshan": 1.61, "poppy": 1.3, "volibear": 1.2, "rammus": 1.2,
-            **{h: 1.5 for h in ('morgana', 'nami', 'janna', 'jax', 'xinzhao')}, "yunara": 1.5, "kaisa": 1.45, "camille": 1.5, "fiora": 1.5, "leblanc": 2.0, "darius": 1.45, "riven": 1.5, "zoe": 1.5, "quinn": 2.0, "yuumi": 1.5, "powder": 1.75, "chogath": 1.2, "karthus": 1.5}
+            **{h: 1.5 for h in ('morgana', 'nami', 'janna', 'jax', 'xinzhao')}, "yunara": 1.5, "kaisa": 1.45, "camille": 1.5, "fiora": 1.5, "leblanc": 2.0, "darius": 1.45, "riven": 1.5, "zoe": 1.5, "quinn": 2.0, "yuumi": 1.5, "powder": 1.75, "chogath": 1.2, "karthus": 1.5, "vex": 1.5}
 # face: (row0, row1, col0, col1) of the face to match in the idle's first dense frame; neck: (col, row) there
 RESTYLE = {
     "zeri": dict(face=(25, 41, 22, 42), neck=None, neck_row=35, head=1.3, wide=1.45, short=0.88, band=2, edge=1, face_to=(-1, -33)),
@@ -390,6 +390,11 @@ RESTYLE = {
     # density change here; the outer outline grown a square like the others; the face point on his skull (the 9x9 face
     # crop: the eyes, the teeth and the crown's gem)
     "karthus": dict(ppu=1.5, edge=1, face_to=(1, -30)),
+    # league_vex (#138): posed from the designs' own squares at the user's 1.5 squares a game pixel (「34 像素」「PPU 1.5」:
+    # Codex's step-1 takes A-2 / SA-2 read back on their own grids and cut to 63 rows, her Shadow's ear tips to her soles,
+    # the faces redrawn) by tools/art/rig_vex.py, so no proportion or density change here; the outer outline grown a
+    # square like the others; the face point between her eyes
+    "vex": dict(ppu=1.5, edge=1, face_to=(1, -17)),
     # tft_powder (the tft pack): the idle design (A-2) and Codex's skeleton poses with the one clean head, posed by
     # tools/art/rig_powder.py at 1.75 squares a game pixel (61 rows: 「35」, then 「PPU像素好低啊」 -> 1.75); shown at 90 % (the user:
     # 「人物模型太大 缩小一点」, league_main hd.rs SIZES), so the frames sit 2 squares lower (Poppy's way) to keep the
