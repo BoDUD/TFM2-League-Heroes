@@ -254,7 +254,7 @@ def build(p, native=False):
     views_e = [E("a_hit"), E("q_hit"), E("q_heal"), E("e_howl", BIG, -1), E("e_roar", FX, 3), E("e_fear", FX, 3),
                E("r_bind"), E("r_hit")]
     views_p = []
-    views_b = [{"type": "Animated", "name": n("e_on"), "anim": FX, "tag": "e_guard", "repeat": True, "z": 2},
+    views_b = [{"type": "Animated", "name": n("e_on"), "anim": BIG, "tag": "e_guard", "repeat": True, "z": 2},
                {"type": "Animated", "name": n("w_hunt"), "anim": FX, "tag": "w_hunt", "repeat": True, "z": -1}]
     kit = {
         "id": ID, "category": "Melee", "tags": ["AD", "Melee", "Heal", "CC"],

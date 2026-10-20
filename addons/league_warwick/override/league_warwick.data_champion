@@ -828,7 +828,7 @@
     {
       "type": "Animated",
       "name": "league_warwick_e_on",
-      "anim": "asset/league/effects/league_warwick_fx",
+      "anim": "asset/league/effects/league_warwick_big",
       "tag": "e_guard",
       "repeat": true,
       "z": 2

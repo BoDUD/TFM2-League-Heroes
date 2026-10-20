@@ -8,7 +8,7 @@ The source is the step-3 delivery (assets/source/warwick/codex_fx/warwick_fx: Ge
 game's size by tools/art/process_warwick_fx.py - pixel_1x/warwick_fx_<name>.png, one row of equal frames each at game size, frame sizes in manifest.json's entries (cell_1x); alpha 0 / 255; every picture
 symmetric left to right - checked again here). Each frame is cut by the manifest's frame size and placed as the kit
 plays it (import_zoe_fx.py's way): spots are game px from the pivot (x forward, y down); a unit's soles are 11 under it,
-a point's ground too. Warwick's own pictures sit a little ahead of his standing point (his hunched body is: HIM_X).
+a point's ground too. Warwick's own pictures are centred on his standing point (HIM_X: symmetric for the red side).
 Times from the kit (build_warwick.P, 60 ticks a second).
 """
 import argparse
@@ -43,8 +43,11 @@ BIG = {"e_howl", "e_guard"}
 HIT = (0, -14)                  # a hit on the upper body of a 32-46 px unit
 SOLES = (0, 11)                 # on the ground under a unit or a point
 OVERHEAD = (0, -29)             # over a 36-px unit's head
-HIM_X = 4                       # his hunched body's middle, game px ahead of his standing point (design column 58 of 94)
-HIS_HEAD = (6, -28)             # over his own head (his ear tips 39 px over his soles, the face 6 px ahead)
+# his own pictures are centred on his standing point, not on his hunched body 4 px ahead of it nor his head 6 px ahead:
+# the client never mirrors an effect picture, so one set off his pivot would sit on the wrong side of him facing left
+# (the red side; lint_mod.py's "front and a back" check)
+HIM_X = 0
+HIS_HEAD = (0, -28)             # over his own head (his ear tips 39 px over his soles)
 seq = J.seq
 MS = 1000 / 60
 
