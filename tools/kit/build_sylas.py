@@ -353,7 +353,7 @@ def build(p, native=False):
     if native:
         views_p.append(Pj("r2_arrow"))
         views_e += [E("r2_slam", BIG, -1, False), E("r2_song", BIG, -1), E("r2_blink", FX, 3)]
-        views_b.append(B_("r2_slow", FX, -1))
+        views_b.append(dict(B_("r2_slow", FX, -1), tag="q_slow"))   # the slow ring of Chain Lash
     kit = {
         "id": ID, "category": "Assassin", "tags": ["AP", "Magic", "Melee", "CC", "Heal"],
         "sprite": f"asset/league/champions/{ID}", "anim_prefix": "",

@@ -2544,7 +2544,7 @@
       "type": "Animated",
       "name": "league_sylas_r2_slow",
       "anim": "asset/league/effects/league_sylas_fx",
-      "tag": "r2_slow",
+      "tag": "q_slow",
       "repeat": true,
       "z": -1
     }
