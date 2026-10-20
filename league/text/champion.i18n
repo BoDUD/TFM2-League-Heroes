@@ -973,6 +973,13 @@
         "skill": "地面炸出棘刺，范围内的敌人受到<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<>魔法伤害。种子长成<#ff9028ff>荆棘喷射者<>，远距离攻击。",
         "skill2": "放出贯穿地面的藤蔓，路径上的敌人受到<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<>魔法伤害并被<#ef5350ff>禁锢<><#ffb900ff>1.25秒<>。种子长成<#ff9028ff>藤蔓鞭击者<>，近距离攻击并减速30%。",
         "ult": "召唤扭曲的密林，造成<#a974ffff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>魔法伤害，<#ffb900ff>2秒<>后<#ef5350ff>击飞<>仍在其中的敌人<#ffb900ff>1秒<>。植物被激怒<#ffb900ff>5秒<>，伤害提高50%。"
+      },
+      "league_graves": {
+        "name": "格雷福斯",
+        "attack": "霰弹枪每次朝前方一扇开火：目标<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<>，扇形里的其他敌人35%攻击；两发后装弹<#ffb900ff>1.33秒<>。<#ff9028ff>烟幕弹<>：每<#ffb900ff>12秒<>朝英雄扔一颗，<#a974ffff>60<>魔法伤害、<#ef5350ff>减速50%、致盲<><#ffb900ff>0.5秒<>。",
+        "skill": "射出榴弹，穿过的敌人受到<#ff9028ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>物理伤害；榴弹落地<#ffb900ff>1秒<>后爆炸，再造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>物理伤害。",
+        "skill2": "冲刺一段（身边有敌方英雄时往后翻滚），得到一层<#ff9028ff>纯爷们<>（附近有敌方英雄时两层，最多4层）：每层护甲+7、魔抗+5，<#ffb900ff>4秒<>，普攻打中刷新。",
+        "ult": "后坐力把自己往后推，射出爆弹，对第一个敌方英雄造成<#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<>物理伤害并爆炸，周围敌人受到<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>物理伤害。"
       }
     },
     "skill_name": {
@@ -1670,6 +1677,11 @@
         "skill1": "致命棘刺",
         "skill2": "缠绕之根",
         "ult": "绞杀之藤"
+      },
+      "league_graves": {
+        "skill1": "穷途末路",
+        "skill2": "快速拔枪",
+        "ult": "终极爆弹"
       }
     }
   },
@@ -2647,6 +2659,13 @@
         "skill": "地面炸出棘刺，範圍內的敵人受到<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<>魔法傷害。種子長成<#ff9028ff>棘刺噴吐草<>，遠距離攻擊。",
         "skill2": "射出貫穿地面的藤蔓，路徑上的敵人受到<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<>魔法傷害並被<#ef5350ff>定身<><#ffb900ff>1.25秒<>。種子長成<#ff9028ff>棘蔓鞭笞草<>，近距離攻擊並緩速30%。",
         "ult": "召喚扭曲的密林，造成<#a974ffff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>魔法傷害，<#ffb900ff>2秒<>後<#ef5350ff>擊飛<>仍在其中的敵人<#ffb900ff>1秒<>。植物被激怒<#ffb900ff>5秒<>，傷害提高50%。"
+      },
+      "league_graves": {
+        "name": "葛雷夫",
+        "attack": "散彈槍每次朝前方一扇開火：目標<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<>，扇形裡的其他敵人35%攻擊；兩發後裝彈<#ffb900ff>1.33秒<>。<#ff9028ff>隻手遮天<>：每<#ffb900ff>12秒<>朝英雄丟一顆，<#a974ffff>60<>魔法傷害、<#ef5350ff>緩速50%、致盲<><#ffb900ff>0.5秒<>。",
+        "skill": "射出榴彈，穿過的敵人受到<#ff9028ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>物理傷害；榴彈落地<#ffb900ff>1秒<>後爆炸，再造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>物理傷害。",
+        "skill2": "衝刺一段（身邊有敵方英雄時往後翻滾），獲得一層增益（附近有敵方英雄時兩層，最多4層）：每層護甲+7、魔抗+5，<#ffb900ff>4秒<>，普攻打中刷新。",
+        "ult": "後座力把自己往後推，射出爆彈，對第一個敵方英雄造成<#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<>物理傷害並爆炸，周圍敵人受到<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>物理傷害。"
       }
     },
     "skill_name": {
@@ -3344,6 +3363,11 @@
         "skill1": "致死棘刺",
         "skill2": "索命棘蔓",
         "ult": "致命綻放"
+      },
+      "league_graves": {
+        "skill1": "人在江湖",
+        "skill2": "猛龍過江",
+        "ult": "龍爭虎鬥"
       }
     }
   },
@@ -4321,6 +4345,13 @@
         "skill": "Spines burst from the ground, dealing <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<> <#a974ffff>magic damage<> to enemies in the area. The seed grows a <#ff9028ff>Thorn Spitter<> that fires from afar.",
         "skill2": "Vines run through the ground, dealing <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<> <#a974ffff>magic damage<> and <#ef5350ff>rooting<> every enemy on the line for <#ffb900ff>1.25s<>. The seed grows a <#ff9028ff>Vine Lasher<> whose short-range strikes slow by 30%.",
         "ult": "Summons a twisted thicket that deals <#a974ffff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> <#a974ffff>magic damage<> and after <#ffb900ff>2s<> <#ef5350ff>knocks up<> the enemies still in it for <#ffb900ff>1s<>. Her plants are enraged for <#ffb900ff>5s<>: 50% more damage."
+      },
+      "league_graves": {
+        "name": "Graves",
+        "attack": "His shotgun fires a spread: the target takes <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<>, other enemies in the cone 35% AD; after two shells he reloads for <#ffb900ff>1.33s<>. <#ff9028ff>Smoke Screen<>: every <#ffb900ff>12s<> he also throws a canister at a champion: <#a974ffff>60<> magic damage, <#ef5350ff>50% slow and blind<> for <#ffb900ff>0.5s<>.",
+        "skill": "Fires a shell dealing <#ff9028ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> physical damage to enemies it passes; it lies where it stops and blows up after <#ffb900ff>1s<> for <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> physical damage.",
+        "skill2": "Dashes (rolls back when an enemy champion is close) and gains a stack of <#ff9028ff>True Grit<> (two with an enemy champion near, up to 4): +7 armour and +5 magic resist each for <#ffb900ff>4s<>, refreshed by his attack hits.",
+        "ult": "The recoil knocks him back as he fires a shell that deals <#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<> physical damage to the first enemy champion and explodes, dealing <#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> physical damage around it."
       }
     },
     "skill_name": {
@@ -5018,6 +5049,11 @@
         "skill1": "Deadly Spines",
         "skill2": "Grasping Roots",
         "ult": "Stranglethorns"
+      },
+      "league_graves": {
+        "skill1": "End of the Line",
+        "skill2": "Quickdraw",
+        "ult": "Collateral Damage"
       }
     }
   },
@@ -5995,6 +6031,13 @@
         "skill": "지면에서 가시가 폭발해 범위 안의 적에게 <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<> 마법 피해. 씨앗은 원거리에서 공격하는 <#ff9028ff>가시 발사 꽃<>이 된다.",
         "skill2": "지면을 뚫는 덩굴로 직선상의 적에게 <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<> 마법 피해를 입히고 <#ffb900ff>1.25초<> <#ef5350ff>속박<>. 씨앗은 근거리에서 공격하며 30% 둔화시키는 <#ff9028ff>덩굴 채찍손<>이 된다.",
         "ult": "뒤틀린 덤불을 불러 <#a974ffff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> 마법 피해, <#ffb900ff>2초<> 뒤 안에 남은 적을 <#ffb900ff>1초<> <#ef5350ff>에어본<>. 식물이 <#ffb900ff>5초<> 동안 격노해 피해 50% 증가."
+      },
+      "league_graves": {
+        "name": "그레이브즈",
+        "attack": "산탄총이 부채꼴로 발사: 대상 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<>, 부채꼴 안 다른 적 공격력 35%. 두 발 뒤 <#ffb900ff>1.33초<> 재장전. <#ff9028ff>연막탄<>: <#ffb900ff>12초<>마다 챔피언에게 던져 <#a974ffff>60<> 마법 피해, <#ef5350ff>50% 둔화, <><#ffb900ff>0.5초<> 실명.",
+        "skill": "포탄을 쏴 지나간 적에게 <#ff9028ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> 물리 피해. 멈춘 자리에서 <#ffb900ff>1초<> 뒤 폭발해 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> 물리 피해.",
+        "skill2": "돌진(가까이 적 챔피언이 있으면 뒤로 구름)하고 1중첩(근처 적 챔피언이 있으면 2, 최대 4): 중첩당 방어력 +7, 마법 저항력 +5, <#ffb900ff>4초<>. 기본 공격 적중 시 갱신.",
+        "ult": "반동으로 뒤로 밀리며 폭발탄 발사. 첫 적 챔피언에게 <#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<> 물리 피해 후 폭발해 주변 적에게 <#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> 물리 피해."
       }
     },
     "skill_name": {
@@ -6692,6 +6735,11 @@
         "skill1": "치명적인 가시",
         "skill2": "휘감는 뿌리",
         "ult": "올가미 덩굴"
+      },
+      "league_graves": {
+        "skill1": "화약 역류",
+        "skill2": "빨리 뽑기",
+        "ult": "무고한 희생자"
       }
     }
   },
@@ -7669,6 +7717,13 @@
         "skill": "地面からトゲが弾け、範囲内の敵に<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<>の魔法ダメージ。種は遠距離から攻撃する<#ff9028ff>棘吹草<>になる。",
         "skill2": "地中を伸びるツタが直線上の敵に<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<>の魔法ダメージを与え<#ffb900ff>1.25秒<><#ef5350ff>移動不能<>。種は近距離を攻撃し30%スロウを与える<#ff9028ff>棘鞭草<>になる。",
         "ult": "ねじれた茂みを呼び<#a974ffff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>の魔法ダメージ、<#ffb900ff>2秒<>後に中の敵を<#ffb900ff>1秒<><#ef5350ff>打ち上げ<>。植物が<#ffb900ff>5秒<>激昂しダメージ50%増加。"
+      },
+      "league_graves": {
+        "name": "グレイブス",
+        "attack": "ショットガンは扇状に撃つ：対象<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<>、扇内の他の敵は攻撃力35%。2発撃つと<#ffb900ff>1.33秒<>リロード。<#ff9028ff>スモークスクリーン<>：<#ffb900ff>12秒<>ごとにチャンピオンへ投げ、<#a974ffff>60<>の魔法ダメージ、<#ef5350ff>50%スロウ、<><#ffb900ff>0.5秒<>ブラインド。",
+        "skill": "砲弾を撃ち、通過した敵に<#ff9028ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>の物理ダメージ。止まった地点で<#ffb900ff>1秒<>後に爆発し<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>の物理ダメージ。",
+        "skill2": "ダッシュ（近くに敵チャンピオンがいれば後ろへ転がる）し、スタックを1つ（敵チャンピオンが近くにいれば2、最大4）：スタックごとに物理防御+7、魔法防御+5、<#ffb900ff>4秒<>。通常攻撃で更新。",
+        "ult": "反動で後ろへ下がりつつ爆裂弾を撃ち、最初の敵チャンピオンに<#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<>の物理ダメージ、爆発で周囲の敵に<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>の物理ダメージ。"
       }
     },
     "skill_name": {
@@ -8366,6 +8421,11 @@
         "skill1": "死華の棘",
         "skill2": "捕縛の根",
         "ult": "茨のゆりかご"
+      },
+      "league_graves": {
+        "skill1": "エンドライン",
+        "skill2": "クイックドロー",
+        "ult": "コラテラルダメージ"
       }
     }
   }

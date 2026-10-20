@@ -127,6 +127,9 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // soles, her own face: 「提高点ppu像素吧」「脸部完全变形了啊」; every action on the 3/4 design: 「就用四分之三面来做啊」), so no
     // SIZES row
     ("league_zyra", 1.7, include_str!("../../../league/champions/league_zyra#anim.fanim")),
+    // Graves: posed by tools/art/rig_graves.py at the user's 1.5 squares a game pixel (57 game rows hair to soles: 「38 像素」
+    // 「PPU 1.5」; Codex's seven poses on skeletons, attack2 the second shell's reload), so no SIZES row
+    ("league_graves", 1.5, include_str!("../../../league/champions/league_graves#anim.fanim")),
     // Powder (tft_powder, the tft pack in tft/: Teamfight Tactics' own units, its own mod; this DLL draws her dense
     // frames when both packs are enabled): the idle design and Codex's skeleton poses with one clean head, posed by
     // tools/art/rig_powder.py at 1.75 squares a game pixel (61 rows: 「35」, then 「PPU像素好低啊 能调一下吗」), shown at 90 % (SIZES)

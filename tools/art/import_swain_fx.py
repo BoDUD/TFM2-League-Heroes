@@ -84,6 +84,11 @@ FX = {
 }
 
 
+# whole-number enlargements (2026-10-20, the user: 「乌鸦的q是没特效吗」 - Death's Hand's fan was 17 px across and gone in
+# 0.12 s, the Q's reach 62 px: 「光扇整数放大 2 倍、飞行减半速让它留得久一点」, build_swain q_speed 9000 -> 4500)
+SCALE = {"q_bolts": 2}
+
+
 def cells(name, meta):
     a = np.asarray(Image.open(lp(os.path.join(SRC, "pixel_1x", meta["file"]))).convert("RGBA")).copy()
     a[..., 3] = np.where(a[..., 3] >= 128, 255, 0)
@@ -99,7 +104,8 @@ def cells(name, meta):
             sys.exit(f"{name} frame {k + 1} is not symmetric {sym}")
         if not c[..., 3].any():
             sys.exit(f"{name} frame {k + 1} is empty")
-    return out
+    z = SCALE.get(name, 1)
+    return [np.repeat(np.repeat(c, z, 0), z, 1) for c in out] if z > 1 else out
 
 
 def anchor(cell, kind):

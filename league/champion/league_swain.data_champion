@@ -1828,7 +1828,7 @@
                 "applied_target": "Enemy",
                 "applied_effects": [],
                 "end_effects": [],
-                "speed": 9000,
+                "speed": 4500,
                 "range": 62000,
                 "shape": {
                   "Circle": {
@@ -2103,7 +2103,7 @@
                     "applied_target": "Enemy",
                     "applied_effects": [],
                     "end_effects": [],
-                    "speed": 9000,
+                    "speed": 4500,
                     "range": 62000,
                     "shape": {
                       "Circle": {
