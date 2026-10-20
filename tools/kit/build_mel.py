@@ -57,6 +57,10 @@ BIG = "asset/league/effects/league_mel_big"
 # radius (~15000) on top.
 # Numbers = the 10-min classic-SDK simulations (C:/t/ml_sim: kd.py 600 8 --lane 3 against archer, gunner,
 # boomerang_hunter, poison_dart_hunter and bomber, three lineups, both sides).
+# 2026-10-20 in game: 「梅尔在游戏里太变态了 几乎是垄断级别胜率的数值怪」 (the add-on's execute and reflected bolts on top of the
+# data), the user: 「梅尔保留反弹，只削数值」: from +1.00 / (first batch) to c2 +0.45 / -0.21 (seeds 1-8 / 9-16; c3 with
+# 860 health and 20 AP growth -0.50 / -0.78): the barrier halves the damage (w_red 100 -> 50, the 40% reflect kept), Q's
+# bursts 30 -> 22, E 80 -> 60, R and the add-on's execute 20 -> 15 a stack, the reflected bolt 60 + 40% -> 40 + 25%.
 P = {
     # stats (Magician base: attack 76 +6, ap 40 +20, hp 860 +95, def 18 +7, mr 20 +4, move 900 +9); League's Mel:
     # 630 +99 hp, 54 AD, 21 +5.2 armour, 30 +1.3 mr, 330 move, 550 range, attack speed 0.625
@@ -67,22 +71,22 @@ P = {
     "p_n": 3, "p_dmg": 12, "p_ratio": 5, "p_gap": 2, "p_speed": 4000,
     "m_t": 360, "m_per": 6,
     # W Rebuttal (League: 1.5 s, reflects projectiles, no damage taken, 35% move speed; cd 35-23 s)
-    "w_cd": 1500, "w_t": 75, "w_red": 100, "w_ref": 40, "w_ms": 25,
+    "w_cd": 1500, "w_t": 75, "w_red": 50, "w_ref": 40, "w_ms": 25,
     # Q Radiant Volley (League: 950 range, a volley of bolts round the spot, 13-... +8.5% AP each; cd 10-6)
     "q_cd": 360, "q_range": 85000, "q_dur": 33, "q_rel": 10, "q_n": 6, "q_gap": 6, "q_fly": 14, "q_r": 20000,
-    "q_dmg": 30, "q_ratio": 15,
+    "q_dmg": 22, "q_ratio": 15,
     # the E -> Q combo: the window after the orb roots a champion and the volley's quick lobs
     "e_combo": 75, "q_fast": 4,
     # E Solar Snare (League: 1000 range, root at the centre, slow + burn round it; cd 11-9)
     "e_cd": 600, "e_range": 80000, "e_dur": 33, "e_rel": 10, "e_speed": 2200, "e_len": 95000, "e_w": 6000,
-    "e_rw": 17000, "e_y": 5000, "e_dmg": 80, "e_ratio": 50, "e_root": 60, "e_slow": 30, "e_slow_t": 90,
+    "e_rw": 17000, "e_y": 5000, "e_dmg": 60, "e_ratio": 50, "e_root": 60, "e_slow": 30, "e_slow_t": 90,
     "e_dot": 10, "e_dot_r": 6, "e_dper": 30, "e_dn": 4,
     # R Golden Eclipse (League: every marked enemy anywhere, +x per stack; cd 120-80)
-    "r_cd": 2100, "r_range": 70000, "r_dur": 35, "r_rel": 16, "r_win": 6, "r_st": 20, "r_ratio": 8,
+    "r_cd": 2100, "r_range": 70000, "r_dur": 35, "r_rel": 16, "r_win": 6, "r_st": 15, "r_ratio": 8,
     "vo_gap": 600,
     # the add-on (addons/league_mel): the execute (League: the stacks' worth >= the champion's health), the
     # barrier on an incoming projectile and the reflected copy
-    "x_st": 20, "x_ratio": 8, "w_near": 30000, "w_back": 6000, "w_back_dmg": 60, "w_back_r": 40,
+    "x_st": 15, "x_ratio": 8, "w_near": 30000, "w_back": 6000, "w_back_dmg": 40, "w_back_r": 25,
     "native": 0, "probe": 0,
 }
 

@@ -30,7 +30,7 @@ pub mod combo;
 
 const ID: &str = "league_mel";
 /// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是 league_addons 的。
-const VERSION: &str = "0.1.0";
+const VERSION: &str = "0.1.1";
 
 /// 同一个人的弹体隔多久才再反弹一次（一个弹体从进圈到打中只有几 tick；读不到弹体的编号）。
 pub const REFLECT_GAP: usize = 20;
@@ -137,9 +137,9 @@ pub struct Params {
 
 impl Default for Params {
     fn default() -> Self {
-        Params { x_st: 20, x_ratio: 8, w_cd: 1500, w_t: 75, w_red: 100, w_ref: 40, w_ms: 25, w_near: 30000,
-                 w_back: 6000, w_back_dmg: 60, w_back_r: 40, atk_range: 55000, q_range: 85000, e_range: 80000,
-                 r_range: 70000, r_cd: 2100, r_st: 20, r_ratio: 8, m_t: 360 }
+        Params { x_st: 15, x_ratio: 8, w_cd: 1500, w_t: 75, w_red: 50, w_ref: 40, w_ms: 25, w_near: 30000,
+                 w_back: 6000, w_back_dmg: 40, w_back_r: 25, atk_range: 55000, q_range: 85000, e_range: 80000,
+                 r_range: 70000, r_cd: 2100, r_st: 15, r_ratio: 8, m_t: 360 }
     }
 }
 
@@ -433,10 +433,10 @@ mod tests {
     #[test]
     fn the_stacks_execute_when_they_are_worth_the_health() {
         let p = Params::default();
-        // 20 + 8% of 200 = 36 a stack
-        assert_eq!(stacks_worth(10, p.x_st, p.x_ratio, 200), 360);
-        assert!(executes(10, 200, 350, 0, &p));
-        assert!(!executes(10, 200, 350, 20, &p));
+        // 15 + 8% of 200 = 31 a stack
+        assert_eq!(stacks_worth(10, p.x_st, p.x_ratio, 200), 310);
+        assert!(executes(10, 200, 300, 0, &p));
+        assert!(!executes(10, 200, 300, 20, &p));
         assert!(!executes(0, 200, 0, 0, &p));
         assert!(!executes(3, 200, 500, 0, &p));
     }
@@ -444,13 +444,13 @@ mod tests {
     #[test]
     fn the_reflected_bolt_scales_with_ap() {
         let p = Params::default();
-        assert_eq!(back_damage(0, &p), 60);
-        assert_eq!(back_damage(200, &p), 140);
+        assert_eq!(back_damage(0, &p), 40);
+        assert_eq!(back_damage(200, &p), 90);
     }
 
     #[test]
     fn params_parse() {
-        assert_eq!(parse_params(r#"{"x_st":20,"x_ratio":8,"w_cd":1500,"w_t":75,"w_red":100,"w_ref":40,"w_ms":25,"w_near":30000,"w_back":6000,"w_back_dmg":60,"w_back_r":40,"atk_range":55000,"q_range":85000,"e_range":80000,"r_range":70000,"r_cd":2100,"r_st":20,"r_ratio":8,"m_t":360}"#), Params::default());
+        assert_eq!(parse_params(r#"{"x_st":15,"x_ratio":8,"w_cd":1500,"w_t":75,"w_red":50,"w_ref":40,"w_ms":25,"w_near":30000,"w_back":6000,"w_back_dmg":40,"w_back_r":25,"atk_range":55000,"q_range":85000,"e_range":80000,"r_range":70000,"r_cd":2100,"r_st":15,"r_ratio":8,"m_t":360}"#), Params::default());
         assert_eq!(parse_params(r#"{"x_st":30}"#).x_st, 30);
     }
 

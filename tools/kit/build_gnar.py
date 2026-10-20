@@ -85,7 +85,7 @@ P = {
     "mini_add": 17000, "mega_t": 900, "mg_hp": 40, "mg_def": 40, "mg_mr": 40, "mg_atk": 30, "lock_t": 240,
     "tf_dur": 27, "rv_dur": 26, "m_atk_dur": 30, "m_rel": 15,
     # Rage Gene
-    "rage_t": 420,
+    "rage_t": 420, "rage_n": 10,
     # W Hyper (every third throw)
     "w_dmg": 20, "w_hp": 5, "w_ms": 25, "w_ms_t": 90, "hy_t": 210,
     # Q Boomerang Throw / Boulder Toss
@@ -254,11 +254,15 @@ def build(p):
 
     # ------------------------------------------------------------------ the forms and Rage Gene
     # one step of Rage (Mini, not locked); written once and carried by every hit that gains it
-    gain = sw("mg", NONE, sw("rl", NONE, sw("full", NONE, sw(
-        "rg3", combine(*rm("rg3"), flag("full", p["rage_t"]), sfx("full")), sw(
-            "rg2", combine(*rm("rg2"), flag("rg3", p["rage_t"])), sw(
-                "rg1", combine(*rm("rg1"), flag("rg2", p["rage_t"])), flag("rg1", p["rage_t"])))))))
-    to_mega = combine(*rm("full", "rg1", "rg2", "rg3", "hy1", "hy2", "mi"), flag("was_mg", None),
+    # rage_n steps to full Rage (rg1 .. rg<rage_n - 1>, then `full`): the first draft's 3 turned him Mega after 4 hits,
+    # boomerang passes on a wave counting each minion (2026-10-20 in game: 「小纳尔很短时间内就变大纳尔了」)
+    steps = [f"rg{k}" for k in range(1, int(p["rage_n"]))]
+    ladder = flag(steps[0], p["rage_t"])
+    for k, name in enumerate(steps):
+        nxt = combine(*rm(name), flag("full", p["rage_t"]), sfx("full")) if k == len(steps) - 1 else             combine(*rm(name), flag(steps[k + 1], p["rage_t"]))
+        ladder = sw(name, nxt, ladder)
+    gain = sw("mg", NONE, sw("rl", NONE, sw("full", NONE, ladder)))
+    to_mega = combine(*rm("full", *steps, "hy1", "hy2", "mi"), flag("was_mg", None),
                       flag("mg", p["mega_t"], hp_mult=p["mg_hp"], defence_mult=p["mg_def"],
                            magic_resistance_mult=p["mg_mr"], attack_mult=p["mg_atk"]),
                       sw("r_wait", combine(*rm("r_wait"), flag("r_arm", 2, ult_cooldown_mult=p["r_arm_mult"]))),

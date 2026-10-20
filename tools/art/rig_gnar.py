@@ -441,9 +441,19 @@ def mega(C, theta=0.0, arm=None, dx=0, lift=0, tail_dy=0, legs=None, flash=False
            "far_fore": m["far_arm"] & rows_mask(f, FORE_ROW["far_fore"], f.H - 1)}
     for k in fore:
         upper = upper & ~cut[k]
+    def fore_limb(k):
+        # the forearm stepped: its top KNEE_BAND rows laid on every square between the arm and where it steps, so a
+        # forearm planted on the ground while the body bobs up never leaves a gap at the elbow (the knee's way)
+        lx, ly = fore[k]
+        band = cut[k] & rows_mask(f, FORE_ROW[k], FORE_ROW[k] + KNEE_BAND - 1)
+        steps = max(abs(lx), abs(ly))
+        for t in range(steps):
+            C.stamp(can, f, f.layer(mask=band), dx + int(round(lx * t / steps)), up + int(round(ly * t / steps)))
+        C.stamp(can, f, f.layer(mask=cut[k]), dx + lx, up + ly)
+
     hind(C, can, f, "far_hind", legs, dx, up)
     if "far_fore" in fore:
-        C.stamp(can, f, f.layer(mask=cut["far_fore"]), dx + fore["far_fore"][0], up + fore["far_fore"][1])
+        fore_limb("far_fore")
     C.stamp(can, f, f.layer("tail"), dx + int(round(rump[0] - RUMP[0])), up + int(round(rump[1] - RUMP[1])) + tail_dy)
     if theta == 0 and arm is None:
         C.stamp(can, f, f.layer(mask=upper), dx, up)
@@ -477,7 +487,7 @@ def mega(C, theta=0.0, arm=None, dx=0, lift=0, tail_dy=0, legs=None, flash=False
         g, n0 = T.turned(fore_arm, p2, ELBOW)
         C.paste_grid(can, f, g, n0, el, dx, up)
     if "near_fore" in fore:
-        C.stamp(can, f, f.layer(mask=cut["near_fore"]), dx + fore["near_fore"][0], up + fore["near_fore"][1])
+        fore_limb("near_fore")
     can = seal(C.finish(can), C.outline)
     if not lift and not legs:                          # the run keeps the design's own ground (its paws' perspective)
         can = grounded(C, can)
@@ -649,12 +659,16 @@ M_STRIDE = [2, 1, 0, -1, -2, -1, 0, 1]
 M_LIFT = [0, 0, 0, 0, 1, 3, 3, 1]
 M_HOP = [0, 1, 2, 1, 0, 1, 2, 1]
 M_TAIL = [0, 0, -1, -1, 0, 0, -1, -1]
-# Mega's gallop (league_chogath's walk): the fists' steps; the hind shins' smaller ones under the thighs
-G_STRIDE = [2, 1, -1, -3, -2, 0, 2, 3]
-G_LIFT = [0, 0, 0, 0, 2, 3, 2, 1]
+# Mega's gallop (league_chogath's walk): the fists' steps; the hind shins' under the thighs. The first strides (1-3
+# squares, no bob) read stiff in game (the user: 「大纳尔的后腿走路有点问题吧 和僵尸一样」「走路的时候 僵硬无比」): twice
+# as long, the body bobbing G_BOB squares (two bounces a cycle, up as the pairs push off) over legs that stay on the
+# ground while planted (each limb's lift minus the bob)
+G_STRIDE = [4, 2, -2, -6, -4, 0, 4, 6]
+G_LIFT = [0, 0, 0, 0, 3, 5, 4, 2]
 G_SURGE = [0, 0, 1, 1, 0, 0, 1, 1]
-H_STRIDE = [1, 1, 0, -1, -2, -1, 0, 1]
-H_LIFT = [0, 0, 0, 0, 1, 2, 2, 1]
+H_STRIDE = [2, 2, 0, -2, -4, -2, 0, 2]
+H_LIFT = [0, 0, 0, 0, 2, 4, 3, 1]
+G_BOB = [0, 1, 2, 1, 0, 1, 2, 1]
 
 
 def frames_all(C):
@@ -691,9 +705,11 @@ def frames_all(C):
     mrun = []
     for i in range(8):
         j = (i + 4) % 8
-        a, b = (G_STRIDE[i], -G_LIFT[i]), (G_STRIDE[j], -G_LIFT[j])
-        ha, hb = (H_STRIDE[i], -H_LIFT[i]), (H_STRIDE[j], -H_LIFT[j])
-        mrun.append(mega(C, dx=G_SURGE[i], legs={"near_hind": ha, "far_fore": a, "far_hind": hb, "near_fore": b}))
+        bob = G_BOB[i]
+        a, b = (G_STRIDE[i], bob - G_LIFT[i]), (G_STRIDE[j], bob - G_LIFT[j])
+        ha, hb = (H_STRIDE[i], bob - H_LIFT[i]), (H_STRIDE[j], bob - H_LIFT[j])
+        mrun.append(mega(C, dx=G_SURGE[i], lift=bob,
+                         legs={"near_hind": ha, "far_fore": a, "far_hind": hb, "near_fore": b}))
     out["m_run"] = mrun
     out["m_hit"] = [m34(C, dx=-2, flash=True), m34(C, dx=-1)]
     out["m_dead"] = [mega(C, theta=-6), mega(C, theta=-8, flash=True), mini(C, flash=True)] + out["dead"][2:]
