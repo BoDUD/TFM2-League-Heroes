@@ -38,7 +38,9 @@ The combos the AI cannot press from data (E before Q, R at a killing count, W on
 add-on's AI hook league_mel:combo (addons/league_mel).
 Timings from the frames (tools/art/rig_mel.py, assets/source/mel/poses.json; a frame's start in ticks = ms x 0.06): the
 attack's bolt, Q's volley and E's orb leave on frame 3 (160-170 ms: a_rel / q_rel / e_rel 10), R strikes on the slam
-(frame 4, 270 ms: r_rel 16); each action as long as its frames (27 / 33 / 33 / 35 ticks).
+(frame 4, 270 ms: r_rel 16); each action as long as its frames (27 / 33 / 33 / 35 ticks). Heights (a projectile starts
+5000 - y_offset above the pivot, 1000 a game px): the bolts leave her far palm, 11 px over her standing point (a_y);
+the orb flies level on the pivots' line (e_y 5000, league_zyra's roots).
 """
 import argparse
 import json
@@ -60,7 +62,7 @@ P = {
     # 630 +99 hp, 54 AD, 21 +5.2 armour, 30 +1.3 mr, 330 move, 550 range, attack speed 0.625
     "hp": 920, "hp_g": 95, "atk": 72, "atk_g": 5, "apw": 40, "apw_g": 24, "def": 18, "def_g": 7, "mr": 22, "mr_g": 4,
     "ms": 900, "ms_g": 9,
-    "atk_range": 55000, "atk_dur": 27, "atk_cd": 70, "a_rel": 10, "a_speed": 4500, "a_y": 0,
+    "atk_range": 55000, "atk_dur": 27, "atk_cd": 70, "a_rel": 10, "a_speed": 4500, "a_y": -6000,
     # the passive's bolts (League: 3 a cast, up to 9, 2-8 +2.5% AP... each) and Overwhelm (League: unlimited stacks)
     "p_n": 3, "p_dmg": 12, "p_ratio": 5, "p_gap": 2, "p_speed": 4000,
     "m_t": 360, "m_per": 6,
@@ -73,7 +75,7 @@ P = {
     "e_combo": 75, "q_fast": 4,
     # E Solar Snare (League: 1000 range, root at the centre, slow + burn round it; cd 11-9)
     "e_cd": 600, "e_range": 80000, "e_dur": 33, "e_rel": 10, "e_speed": 2200, "e_len": 95000, "e_w": 6000,
-    "e_rw": 17000, "e_dmg": 80, "e_ratio": 50, "e_root": 60, "e_slow": 30, "e_slow_t": 90,
+    "e_rw": 17000, "e_y": 5000, "e_dmg": 80, "e_ratio": 50, "e_root": 60, "e_slow": 30, "e_slow_t": 90,
     "e_dot": 10, "e_dot_r": 6, "e_dper": 30, "e_dn": 4,
     # R Golden Eclipse (League: every marked enemy anywhere, +x per stack; cd 120-80)
     "r_cd": 2100, "r_range": 70000, "r_dur": 35, "r_rel": 16, "r_win": 6, "r_st": 20, "r_ratio": 8,
@@ -306,11 +308,11 @@ def build(p):
                             delayed(p["e_rel"] - 1, alive(
                                 charge(),
                                 line("e_orb", p["e_speed"], p["e_len"], p["e_w"], "EnemyWithoutTower", rooted,
-                                     penetrate=True),
+                                     penetrate=True, y=p["e_y"]),
                                 line("e_glow", p["e_speed"], p["e_len"], p["e_rw"], "EnemyWithoutTower", burned,
-                                     penetrate=True),
+                                     penetrate=True, y=p["e_y"]),
                                 line("e_hold", p["e_speed"], p["e_len"], p["e_w"], "EnemyChampion",
-                                     [refresh("e_combo", p["e_combo"]), *stack_], penetrate=True)))))
+                                     [refresh("e_combo", p["e_combo"]), *stack_], penetrate=True, y=p["e_y"])))))
 
     # ------------------------------------------------------------------ ult: R Golden Eclipse
     ult = action("ult", p["r_dur"], p["r_cd"], 1, p["r_range"], "Targeting", "EnemyChampion",

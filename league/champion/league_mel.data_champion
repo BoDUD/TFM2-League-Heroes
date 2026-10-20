@@ -133,7 +133,7 @@
                         "type": "TargetProjectile",
                         "name": "league_mel_a_bolt",
                         "speed": 4500,
-                        "y_offset": 0,
+                        "y_offset": -6000,
                         "applied_target": "Enemy",
                         "applied_effects": [
                           {
@@ -337,7 +337,7 @@
                                             "type": "TargetProjectile",
                                             "name": "league_mel_p_bolt",
                                             "speed": 4000,
-                                            "y_offset": 0,
+                                            "y_offset": -6000,
                                             "applied_target": "Enemy",
                                             "applied_effects": [
                                               {
@@ -454,7 +454,7 @@
                                             "type": "TargetProjectile",
                                             "name": "league_mel_p_bolt",
                                             "speed": 4000,
-                                            "y_offset": 0,
+                                            "y_offset": -6000,
                                             "applied_target": "Enemy",
                                             "applied_effects": [
                                               {
@@ -571,7 +571,7 @@
                                             "type": "TargetProjectile",
                                             "name": "league_mel_p_bolt",
                                             "speed": 4000,
-                                            "y_offset": 0,
+                                            "y_offset": -6000,
                                             "applied_target": "Enemy",
                                             "applied_effects": [
                                               {
@@ -688,7 +688,7 @@
                                             "type": "TargetProjectile",
                                             "name": "league_mel_p_bolt",
                                             "speed": 4000,
-                                            "y_offset": 0,
+                                            "y_offset": -6000,
                                             "applied_target": "Enemy",
                                             "applied_effects": [
                                               {
@@ -805,7 +805,7 @@
                                             "type": "TargetProjectile",
                                             "name": "league_mel_p_bolt",
                                             "speed": 4000,
-                                            "y_offset": 0,
+                                            "y_offset": -6000,
                                             "applied_target": "Enemy",
                                             "applied_effects": [
                                               {
@@ -922,7 +922,7 @@
                                             "type": "TargetProjectile",
                                             "name": "league_mel_p_bolt",
                                             "speed": 4000,
-                                            "y_offset": 0,
+                                            "y_offset": -6000,
                                             "applied_target": "Enemy",
                                             "applied_effects": [
                                               {
@@ -1039,7 +1039,7 @@
                                             "type": "TargetProjectile",
                                             "name": "league_mel_p_bolt",
                                             "speed": 4000,
-                                            "y_offset": 0,
+                                            "y_offset": -6000,
                                             "applied_target": "Enemy",
                                             "applied_effects": [
                                               {
@@ -1156,7 +1156,7 @@
                                             "type": "TargetProjectile",
                                             "name": "league_mel_p_bolt",
                                             "speed": 4000,
-                                            "y_offset": 0,
+                                            "y_offset": -6000,
                                             "applied_target": "Enemy",
                                             "applied_effects": [
                                               {
@@ -1273,7 +1273,7 @@
                                             "type": "TargetProjectile",
                                             "name": "league_mel_p_bolt",
                                             "speed": 4000,
-                                            "y_offset": 0,
+                                            "y_offset": -6000,
                                             "applied_target": "Enemy",
                                             "applied_effects": [
                                               {
@@ -1402,7 +1402,7 @@
                                               "type": "TargetProjectile",
                                               "name": "league_mel_p_bolt",
                                               "speed": 4000,
-                                              "y_offset": 0,
+                                              "y_offset": -6000,
                                               "applied_target": "Enemy",
                                               "applied_effects": [
                                                 {
@@ -1519,7 +1519,7 @@
                                               "type": "TargetProjectile",
                                               "name": "league_mel_p_bolt",
                                               "speed": 4000,
-                                              "y_offset": 0,
+                                              "y_offset": -6000,
                                               "applied_target": "Enemy",
                                               "applied_effects": [
                                                 {
@@ -1636,7 +1636,7 @@
                                               "type": "TargetProjectile",
                                               "name": "league_mel_p_bolt",
                                               "speed": 4000,
-                                              "y_offset": 0,
+                                              "y_offset": -6000,
                                               "applied_target": "Enemy",
                                               "applied_effects": [
                                                 {
@@ -1753,7 +1753,7 @@
                                               "type": "TargetProjectile",
                                               "name": "league_mel_p_bolt",
                                               "speed": 4000,
-                                              "y_offset": 0,
+                                              "y_offset": -6000,
                                               "applied_target": "Enemy",
                                               "applied_effects": [
                                                 {
@@ -1870,7 +1870,7 @@
                                               "type": "TargetProjectile",
                                               "name": "league_mel_p_bolt",
                                               "speed": 4000,
-                                              "y_offset": 0,
+                                              "y_offset": -6000,
                                               "applied_target": "Enemy",
                                               "applied_effects": [
                                                 {
@@ -1987,7 +1987,7 @@
                                               "type": "TargetProjectile",
                                               "name": "league_mel_p_bolt",
                                               "speed": 4000,
-                                              "y_offset": 0,
+                                              "y_offset": -6000,
                                               "applied_target": "Enemy",
                                               "applied_effects": [
                                                 {
@@ -2116,7 +2116,7 @@
                                                 "type": "TargetProjectile",
                                                 "name": "league_mel_p_bolt",
                                                 "speed": 4000,
-                                                "y_offset": 0,
+                                                "y_offset": -6000,
                                                 "applied_target": "Enemy",
                                                 "applied_effects": [
                                                   {
@@ -2233,7 +2233,7 @@
                                                 "type": "TargetProjectile",
                                                 "name": "league_mel_p_bolt",
                                                 "speed": 4000,
-                                                "y_offset": 0,
+                                                "y_offset": -6000,
                                                 "applied_target": "Enemy",
                                                 "applied_effects": [
                                                   {
@@ -2350,7 +2350,7 @@
                                                 "type": "TargetProjectile",
                                                 "name": "league_mel_p_bolt",
                                                 "speed": 4000,
-                                                "y_offset": 0,
+                                                "y_offset": -6000,
                                                 "applied_target": "Enemy",
                                                 "applied_effects": [
                                                   {
@@ -3108,7 +3108,7 @@
                         "name": "league_mel_e_orb",
                         "speed": 2200,
                         "range": 95000,
-                        "y_offset": 0,
+                        "y_offset": 5000,
                         "penetrate": true,
                         "shape": {
                           "Circle": {
@@ -3163,7 +3163,7 @@
                         "name": "league_mel_e_glow",
                         "speed": 2200,
                         "range": 95000,
-                        "y_offset": 0,
+                        "y_offset": 5000,
                         "penetrate": true,
                         "shape": {
                           "Circle": {
@@ -3217,7 +3217,7 @@
                         "name": "league_mel_e_hold",
                         "speed": 2200,
                         "range": 95000,
-                        "y_offset": 0,
+                        "y_offset": 5000,
                         "penetrate": true,
                         "shape": {
                           "Circle": {
