@@ -234,8 +234,83 @@ def frames_all(F):
     return out
 
 
-def frames(F):
-    """{tag: [(canvas, ms)]} in the sheet's order."""
+# the muzzle blasts drawn into his shot frames (the client never mirrors an effect picture, only his own frames: the
+# skill's rule "Both sides"): tag -> (the picture's tag in league_graves_fx, the shot frame); the shot frame split into
+# one frame per blast frame while it lasts (the gun is level only on it: the next frame tips it up or lifts him)
+SHOTS = {"attack": ("a_flash", 2), "attack2": ("a_flash", 2), "skill": ("q_flash", 2), "ult": ("r_flash", 2)}
+FX_SHEET = os.path.join(R.ROOT, "league", "effects", "league_graves_fx#sheet.png")
+
+
+def muzzle(can):
+    """The muzzle on a canvas: the right edge of its rightmost squares (the shotgun reaches furthest forward in every
+    shot frame) and the middle of their rows."""
+    ys, xs = np.nonzero(can[..., 3] > 0)
+    x1 = xs.max()
+    rows = ys[xs >= x1 - 1]
+    return x1 + 1.0, (rows.min() + rows.max() + 1) / 2.0
+
+
+def blast_frames(tag):
+    """The blast's frames from league_graves_fx brought to PPU (nearest, as Rig.bake), with their ms; None before the
+    effects are imported."""
+    if not os.path.isfile(lp(FX_SHEET)):
+        return None
+    import tfm2_ase
+    sp = tfm2_ase.load_sprite(FX_SHEET)
+    out = []
+    for i in sp.tag_frames(tag):
+        a = np.asarray(sp.frames[i].convert("RGBA"))
+        h, w = a.shape[:2]
+        yy = np.minimum(((np.arange(round(h * PPU)) + 0.5) / PPU).astype(int), h - 1)
+        xx = np.minimum(((np.arange(round(w * PPU)) + 0.5) / PPU).astype(int), w - 1)
+        out.append((a[yy][:, xx].copy(), sp.durations[i]))
+    return out
+
+
+def with_blasts(F, acts):
+    """{tag: [(canvas or {"body", "over"}, ms)]}: each SHOTS frame split under its blast's frames (their centre - the
+    muzzle, import_graves_fx.py - on the frame's muzzle)."""
+    out = dict(acts)
+    for tag, (fx, k) in SHOTS.items():
+        pics = blast_frames(fx)
+        if not pics:
+            continue
+        can, ms = acts[tag][k]
+        mx, my = muzzle(can)
+        parts, left = [], ms
+        for pic, pms in pics:
+            if left <= 0:
+                break
+            t = min(pms, left)
+            over = F.rig.canvas()
+            h, w = pic.shape[:2]
+            y0, x0 = int(round(my - h / 2)), int(round(mx - w / 2))
+            ys, xs = np.nonzero(pic[..., 3] > 0)
+            ok = (ys + y0 >= 0) & (ys + y0 < over.shape[0]) & (xs + x0 >= 0) & (xs + x0 < over.shape[1])
+            over[ys[ok] + y0, xs[ok] + x0] = pic[ys[ok], xs[ok]]
+            parts.append(({"body": can, "over": over}, t))
+            left -= t
+        out[tag] = acts[tag][:k] + parts + acts[tag][k + 1:]
+    return out
+
+
+def flat(c):
+    """A frame as one canvas (a blast laid over its body)."""
+    if not isinstance(c, dict):
+        return c
+    out = c["body"].copy()
+    for key in ("under", "over"):
+        lay = c.get(key)
+        if lay is not None:
+            m = lay[..., 3] > 0
+            if key == "under":
+                m &= out[..., 3] == 0
+            out[m] = lay[m]
+    return out
+
+
+def frames(F, blasts=True):
+    """{tag: [(canvas or {"body", "over"}, ms)]} in the sheet's order (blasts: the muzzle blasts laid on, with_blasts)."""
     a = frames_all(F)
     out = {}
     for tag, cans in a.items():
@@ -243,7 +318,7 @@ def frames(F):
         if len(cans) != len(ms):
             sys.exit(f"{tag}: {len(cans)} frames for {len(ms)}")
         out[tag] = list(zip(cans, ms))
-    return out
+    return with_blasts(F, out) if blasts else out
 
 
 def main():
@@ -258,7 +333,8 @@ def main():
         return
     if a.audit or a.review:
         F = form()
-        acts = frames(F)
+        acts = frames(F, blasts=not a.audit)
+        acts = {t: [(flat(c), ms) for c, ms in fr] for t, fr in acts.items()}
         if a.audit:
             import rig_wukong as RW
             RW.HERO = HERO

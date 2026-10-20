@@ -91,7 +91,7 @@ def main():
     a = ap.parse_args()
     os.makedirs(a.out, exist_ok=True)
     F = Z.form()
-    acts = Z.frames(F)
+    acts = {t: [(Z.flat(c), ms) for c, ms in fr] for t, fr in Z.frames(F).items()}
     if a.sheet:
         acts = sheet_frames(F)
     tags = a.tags.split(",") if a.tags else list(acts)

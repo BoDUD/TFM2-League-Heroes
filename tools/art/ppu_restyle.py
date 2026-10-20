@@ -398,8 +398,9 @@ RESTYLE = {
     # league_graves (#139): posed by tools/art/rig_graves.py at the user's 1.5 squares a game pixel (「38 像素」「PPU 1.5」:
     # Codex's step-1 takes A-1 / side-2 cut to 57 rows with one head, Codex's seven poses on skeletons read back at the
     # side design's scale), so no proportion or density change here; the outer outline grown a square like the others;
-    # the face point between his eyes
-    "graves": dict(ppu=1.5, edge=1, face_to=(1, -31)),
+    # the face point between his eyes; the muzzle blasts baked into his shot frames (orig/graves_<tag>.over.png, rig_graves
+    # with_blasts) laid on after the outline (fx)
+    "graves": dict(ppu=1.5, edge=1, face_to=(1, -31), fx=True),
     # tft_powder (the tft pack): the idle design (A-2) and Codex's skeleton poses with the one clean head, posed by
     # tools/art/rig_powder.py at 1.75 squares a game pixel (61 rows: 「35」, then 「PPU像素好低啊」 -> 1.75); shown at 90 % (the user:
     # 「人物模型太大 缩小一点」, league_main hd.rs SIZES), so the frames sit 2 squares lower (Poppy's way) to keep the
