@@ -1,0 +1,10 @@
+{
+  "asset/league/champion/league_sylas": {
+    "remapping": "asset/league_sylas/override/league_sylas",
+    "type": "override"
+  },
+  "asset/base/text/champion": {
+    "remapping": "asset/league_sylas/text/champion",
+    "type": "merge"
+  }
+}

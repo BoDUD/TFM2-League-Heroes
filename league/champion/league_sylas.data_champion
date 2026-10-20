@@ -1,0 +1,2228 @@
+{
+  "id": "league_sylas",
+  "category": "Assassin",
+  "tags": [
+    "AP",
+    "Magic",
+    "Melee",
+    "CC",
+    "Heal"
+  ],
+  "sprite": "asset/league/champions/league_sylas",
+  "anim_prefix": "",
+  "skill_icons": [
+    "asset/league/icons/league_sylas_skill",
+    "asset/league/icons/league_sylas_skill2",
+    "asset/league/icons/league_sylas_ult"
+  ],
+  "stat": {
+    "attack": 78,
+    "magic_power": 50,
+    "hp": 980,
+    "defence": 28,
+    "magic_resistance": 24,
+    "move_speed": 1100,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "growth": {
+    "attack": 9,
+    "magic_power": 20,
+    "hp": 96,
+    "defence": 8,
+    "magic_resistance": 4,
+    "move_speed": 10,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "attack": {
+    "action_name": "attack",
+    "description": "#asset/base/text/champion?description.league_sylas.attack",
+    "duration": 26,
+    "cooltime": 58,
+    "start_timing": 1,
+    "cancelable": true,
+    "range": 26000,
+    "casting_type": "Targeting",
+    "casting_target": "Enemy",
+    "attack_type": "BaseAttack",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Combine",
+          "effects": [
+            {
+              "type": "AddCasterBuff",
+              "buff_state": {
+                "name": "league_sylas_x",
+                "duration": {
+                  "Time": {
+                    "tick": 1
+                  }
+                }
+              },
+              "only_to_enemy": false
+            },
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_sylas_x",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_sylas_x"
+                  }
+                ]
+              },
+              "effect_none": {
+                "type": "Attack",
+                "damage": 0,
+                "attack_ratio": 100,
+                "hp_ratio": 0,
+                "target_hp_ratio": 0,
+                "attack_effect_type": "Target"
+              }
+            },
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_sylas_x"
+            }
+          ]
+        },
+        {
+          "type": "Combine",
+          "effects": [
+            {
+              "type": "RandomTarget",
+              "range": 34000,
+              "casting_target": "EnemyChampion",
+              "from_projectile": false,
+              "effects": [
+                {
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "league_sylas_w_near",
+                    "duration": {
+                      "Time": {
+                        "tick": 1
+                      }
+                    }
+                  },
+                  "only_to_enemy": false
+                }
+              ]
+            },
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_sylas_w_near",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_sylas_w_near"
+                  },
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_sylas_w_cd",
+                    "effect_buff": {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_sylas_p_1",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "CasterAnimation",
+                            "name": "attack_p",
+                            "tick": 30
+                          },
+                          {
+                            "type": "Sfx",
+                            "name": "league_sylas_p"
+                          },
+                          {
+                            "type": "Delayed",
+                            "tick": 11,
+                            "effects": [
+                              {
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "RandomTarget",
+                                    "range": 1,
+                                    "casting_target": "AllyOnlySelf",
+                                    "from_projectile": false,
+                                    "effects": [
+                                      {
+                                        "type": "AddCasterBuff",
+                                        "buff_state": {
+                                          "name": "league_sylas_lives",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 1
+                                            }
+                                          }
+                                        },
+                                        "only_to_enemy": false
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "SwitchByBuff",
+                                    "buff_name": "league_sylas_lives",
+                                    "effect_buff": {
+                                      "type": "Combine",
+                                      "effects": [
+                                        {
+                                          "type": "SwitchByBuff",
+                                          "buff_name": "league_sylas_p_2",
+                                          "effect_buff": {
+                                            "type": "Combine",
+                                            "effects": [
+                                              {
+                                                "type": "RemoveCasterBuff",
+                                                "name": "league_sylas_p_2"
+                                              }
+                                            ]
+                                          },
+                                          "effect_none": {
+                                            "type": "Combine",
+                                            "effects": [
+                                              {
+                                                "type": "RemoveCasterBuff",
+                                                "name": "league_sylas_p_1"
+                                              }
+                                            ]
+                                          }
+                                        },
+                                        {
+                                          "type": "TargetProjectile",
+                                          "name": "league_sylas_a_chain",
+                                          "speed": 20000,
+                                          "y_offset": 0,
+                                          "applied_target": "Enemy",
+                                          "applied_effects": [
+                                            {
+                                              "casting_type": "Targeting",
+                                              "effect": {
+                                                "type": "Attack",
+                                                "damage": 0,
+                                                "attack_ratio": 100,
+                                                "hp_ratio": 0,
+                                                "target_hp_ratio": 0,
+                                                "attack_effect_type": "Target"
+                                              }
+                                            },
+                                            {
+                                              "casting_type": "Targeting",
+                                              "effect": {
+                                                "type": "ViewEffect",
+                                                "name": "league_sylas_a_hit"
+                                              }
+                                            },
+                                            {
+                                              "casting_type": "Targeting",
+                                              "effect": {
+                                                "type": "TargetSfx",
+                                                "name": "league_sylas_a_hit"
+                                              }
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "type": "CasterViewEffect",
+                                          "name": "league_sylas_p_spin"
+                                        },
+                                        {
+                                          "type": "RangeEffect",
+                                          "shape": {
+                                            "Circle": {
+                                              "radius": 30000
+                                            }
+                                          },
+                                          "target": "EnemyWithoutTower",
+                                          "apply_type": "AroundCaster",
+                                          "effects": [
+                                            {
+                                              "type": "ApAttack",
+                                              "damage": 20,
+                                              "attack_ratio": 35,
+                                              "hp_ratio": 0,
+                                              "can_crit": false
+                                            },
+                                            {
+                                              "type": "ViewEffect",
+                                              "name": "league_sylas_p_hit"
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    "effect_none": {
+                                      "type": "Combine",
+                                      "effects": []
+                                    }
+                                  },
+                                  {
+                                    "type": "RemoveCasterBuff",
+                                    "name": "league_sylas_lives"
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "Sfx",
+                            "name": "league_sylas_a"
+                          },
+                          {
+                            "type": "Delayed",
+                            "tick": 8,
+                            "effects": [
+                              {
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "RandomTarget",
+                                    "range": 1,
+                                    "casting_target": "AllyOnlySelf",
+                                    "from_projectile": false,
+                                    "effects": [
+                                      {
+                                        "type": "AddCasterBuff",
+                                        "buff_state": {
+                                          "name": "league_sylas_lives",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 1
+                                            }
+                                          }
+                                        },
+                                        "only_to_enemy": false
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "SwitchByBuff",
+                                    "buff_name": "league_sylas_lives",
+                                    "effect_buff": {
+                                      "type": "Combine",
+                                      "effects": [
+                                        {
+                                          "type": "TargetProjectile",
+                                          "name": "league_sylas_a_chain",
+                                          "speed": 20000,
+                                          "y_offset": 0,
+                                          "applied_target": "Enemy",
+                                          "applied_effects": [
+                                            {
+                                              "casting_type": "Targeting",
+                                              "effect": {
+                                                "type": "Attack",
+                                                "damage": 0,
+                                                "attack_ratio": 100,
+                                                "hp_ratio": 0,
+                                                "target_hp_ratio": 0,
+                                                "attack_effect_type": "Target"
+                                              }
+                                            },
+                                            {
+                                              "casting_type": "Targeting",
+                                              "effect": {
+                                                "type": "ViewEffect",
+                                                "name": "league_sylas_a_hit"
+                                              }
+                                            },
+                                            {
+                                              "casting_type": "Targeting",
+                                              "effect": {
+                                                "type": "TargetSfx",
+                                                "name": "league_sylas_a_hit"
+                                              }
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    "effect_none": {
+                                      "type": "Combine",
+                                      "effects": []
+                                    }
+                                  },
+                                  {
+                                    "type": "RemoveCasterBuff",
+                                    "name": "league_sylas_lives"
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "CasterAnimation",
+                          "name": "skill_w",
+                          "tick": 30
+                        },
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_sylas_w_cd",
+                            "duration": {
+                              "Time": {
+                                "tick": 540
+                              }
+                            }
+                          },
+                          "only_to_enemy": false
+                        },
+                        {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "SwitchByBuff",
+                              "buff_name": "league_sylas_p_1",
+                              "effect_buff": {
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "RemoveCasterBuff",
+                                    "name": "league_sylas_p_2"
+                                  },
+                                  {
+                                    "type": "AddCasterBuff",
+                                    "buff_state": {
+                                      "name": "league_sylas_p_2",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 240
+                                        }
+                                      }
+                                    },
+                                    "only_to_enemy": false
+                                  }
+                                ]
+                              },
+                              "effect_none": {
+                                "type": "Combine",
+                                "effects": []
+                              }
+                            },
+                            {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_sylas_p_1"
+                                },
+                                {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_sylas_p_1",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 240
+                                      }
+                                    },
+                                    "attack_speed_mult": 40
+                                  },
+                                  "only_to_enemy": false
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Delayed",
+                          "tick": 11,
+                          "effects": [
+                            {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "RandomTarget",
+                                  "range": 1,
+                                  "casting_target": "AllyOnlySelf",
+                                  "from_projectile": false,
+                                  "effects": [
+                                    {
+                                      "type": "AddCasterBuff",
+                                      "buff_state": {
+                                        "name": "league_sylas_lives",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 1
+                                          }
+                                        }
+                                      },
+                                      "only_to_enemy": false
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "league_sylas_lives",
+                                  "effect_buff": {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "Combine",
+                                        "effects": [
+                                          {
+                                            "type": "Sfx",
+                                            "name": "league_sylas_w"
+                                          },
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_sylas_vo_cd",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": []
+                                            },
+                                            "effect_none": {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "AddCasterBuff",
+                                                  "buff_state": {
+                                                    "name": "league_sylas_vo_cd",
+                                                    "duration": {
+                                                      "Time": {
+                                                        "tick": 600
+                                                      }
+                                                    }
+                                                  },
+                                                  "only_to_enemy": false
+                                                },
+                                                {
+                                                  "type": "Sfx",
+                                                  "name": "league_sylas_vo_w"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          {
+                                            "type": "CasterViewEffect",
+                                            "name": "league_sylas_w_heal"
+                                          },
+                                          {
+                                            "type": "RangeEffect",
+                                            "shape": {
+                                              "Circle": {
+                                                "radius": 1000
+                                              }
+                                            },
+                                            "target": "AllyOnlySelf",
+                                            "apply_type": "AroundCaster",
+                                            "effects": [
+                                              {
+                                                "type": "Heal",
+                                                "amount": 40,
+                                                "attack_ratio": 0,
+                                                "ap_ratio": 35,
+                                                "heal_type": "Caster"
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "type": "RandomTarget",
+                                            "range": 34000,
+                                            "casting_target": "EnemyChampion",
+                                            "from_projectile": false,
+                                            "effects": [
+                                              {
+                                                "type": "ApAttack",
+                                                "damage": 80,
+                                                "attack_ratio": 70,
+                                                "hp_ratio": 0,
+                                                "can_crit": false
+                                              },
+                                              {
+                                                "type": "ViewEffect",
+                                                "name": "league_sylas_w_hit"
+                                              },
+                                              {
+                                                "type": "TargetSfx",
+                                                "name": "league_sylas_w_hit"
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  "effect_none": {
+                                    "type": "Combine",
+                                    "effects": []
+                                  }
+                                },
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_sylas_lives"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              "effect_none": {
+                "type": "SwitchByBuff",
+                "buff_name": "league_sylas_p_1",
+                "effect_buff": {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "CasterAnimation",
+                      "name": "attack_p",
+                      "tick": 30
+                    },
+                    {
+                      "type": "Sfx",
+                      "name": "league_sylas_p"
+                    },
+                    {
+                      "type": "Delayed",
+                      "tick": 11,
+                      "effects": [
+                        {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RandomTarget",
+                              "range": 1,
+                              "casting_target": "AllyOnlySelf",
+                              "from_projectile": false,
+                              "effects": [
+                                {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_sylas_lives",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 1
+                                      }
+                                    }
+                                  },
+                                  "only_to_enemy": false
+                                }
+                              ]
+                            },
+                            {
+                              "type": "SwitchByBuff",
+                              "buff_name": "league_sylas_lives",
+                              "effect_buff": {
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "SwitchByBuff",
+                                    "buff_name": "league_sylas_p_2",
+                                    "effect_buff": {
+                                      "type": "Combine",
+                                      "effects": [
+                                        {
+                                          "type": "RemoveCasterBuff",
+                                          "name": "league_sylas_p_2"
+                                        }
+                                      ]
+                                    },
+                                    "effect_none": {
+                                      "type": "Combine",
+                                      "effects": [
+                                        {
+                                          "type": "RemoveCasterBuff",
+                                          "name": "league_sylas_p_1"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  {
+                                    "type": "TargetProjectile",
+                                    "name": "league_sylas_a_chain",
+                                    "speed": 20000,
+                                    "y_offset": 0,
+                                    "applied_target": "Enemy",
+                                    "applied_effects": [
+                                      {
+                                        "casting_type": "Targeting",
+                                        "effect": {
+                                          "type": "Attack",
+                                          "damage": 0,
+                                          "attack_ratio": 100,
+                                          "hp_ratio": 0,
+                                          "target_hp_ratio": 0,
+                                          "attack_effect_type": "Target"
+                                        }
+                                      },
+                                      {
+                                        "casting_type": "Targeting",
+                                        "effect": {
+                                          "type": "ViewEffect",
+                                          "name": "league_sylas_a_hit"
+                                        }
+                                      },
+                                      {
+                                        "casting_type": "Targeting",
+                                        "effect": {
+                                          "type": "TargetSfx",
+                                          "name": "league_sylas_a_hit"
+                                        }
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "CasterViewEffect",
+                                    "name": "league_sylas_p_spin"
+                                  },
+                                  {
+                                    "type": "RangeEffect",
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 30000
+                                      }
+                                    },
+                                    "target": "EnemyWithoutTower",
+                                    "apply_type": "AroundCaster",
+                                    "effects": [
+                                      {
+                                        "type": "ApAttack",
+                                        "damage": 20,
+                                        "attack_ratio": 35,
+                                        "hp_ratio": 0,
+                                        "can_crit": false
+                                      },
+                                      {
+                                        "type": "ViewEffect",
+                                        "name": "league_sylas_p_hit"
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              "effect_none": {
+                                "type": "Combine",
+                                "effects": []
+                              }
+                            },
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_sylas_lives"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                "effect_none": {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "Sfx",
+                      "name": "league_sylas_a"
+                    },
+                    {
+                      "type": "Delayed",
+                      "tick": 8,
+                      "effects": [
+                        {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RandomTarget",
+                              "range": 1,
+                              "casting_target": "AllyOnlySelf",
+                              "from_projectile": false,
+                              "effects": [
+                                {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_sylas_lives",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 1
+                                      }
+                                    }
+                                  },
+                                  "only_to_enemy": false
+                                }
+                              ]
+                            },
+                            {
+                              "type": "SwitchByBuff",
+                              "buff_name": "league_sylas_lives",
+                              "effect_buff": {
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "TargetProjectile",
+                                    "name": "league_sylas_a_chain",
+                                    "speed": 20000,
+                                    "y_offset": 0,
+                                    "applied_target": "Enemy",
+                                    "applied_effects": [
+                                      {
+                                        "casting_type": "Targeting",
+                                        "effect": {
+                                          "type": "Attack",
+                                          "damage": 0,
+                                          "attack_ratio": 100,
+                                          "hp_ratio": 0,
+                                          "target_hp_ratio": 0,
+                                          "attack_effect_type": "Target"
+                                        }
+                                      },
+                                      {
+                                        "casting_type": "Targeting",
+                                        "effect": {
+                                          "type": "ViewEffect",
+                                          "name": "league_sylas_a_hit"
+                                        }
+                                      },
+                                      {
+                                        "casting_type": "Targeting",
+                                        "effect": {
+                                          "type": "TargetSfx",
+                                          "name": "league_sylas_a_hit"
+                                        }
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              "effect_none": {
+                                "type": "Combine",
+                                "effects": []
+                              }
+                            },
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_sylas_lives"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill": {
+    "action_name": "skill",
+    "description": "#asset/base/text/champion?description.league_sylas.skill",
+    "duration": 30,
+    "cooltime": 420,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 60000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Combine",
+          "effects": [
+            {
+              "type": "AddCasterBuff",
+              "buff_state": {
+                "name": "league_sylas_x",
+                "duration": {
+                  "Time": {
+                    "tick": 1
+                  }
+                }
+              },
+              "only_to_enemy": false
+            },
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_sylas_x",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_sylas_x"
+                  }
+                ]
+              },
+              "effect_none": {
+                "type": "ApAttack",
+                "damage": 140,
+                "attack_ratio": 100,
+                "hp_ratio": 0,
+                "can_crit": false
+              }
+            },
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_sylas_x"
+            }
+          ]
+        },
+        {
+          "type": "CasterAnimation",
+          "name": "skill",
+          "tick": 30
+        },
+        {
+          "type": "Sfx",
+          "name": "league_sylas_q"
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_sylas_vo_cd",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": []
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_sylas_vo_cd",
+                  "duration": {
+                    "Time": {
+                      "tick": 600
+                    }
+                  }
+                },
+                "only_to_enemy": false
+              },
+              {
+                "type": "Sfx",
+                "name": "league_sylas_vo_q"
+              }
+            ]
+          }
+        },
+        {
+          "type": "Combine",
+          "effects": [
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_sylas_p_1",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_sylas_p_2"
+                  },
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_sylas_p_2",
+                      "duration": {
+                        "Time": {
+                          "tick": 240
+                        }
+                      }
+                    },
+                    "only_to_enemy": false
+                  }
+                ]
+              },
+              "effect_none": {
+                "type": "Combine",
+                "effects": []
+              }
+            },
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_sylas_p_1"
+                },
+                {
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "league_sylas_p_1",
+                    "duration": {
+                      "Time": {
+                        "tick": 240
+                      }
+                    },
+                    "attack_speed_mult": 40
+                  },
+                  "only_to_enemy": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 9,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_sylas_lives",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_sylas_lives",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "LinearProjectile",
+                        "name": "league_sylas_q_chain",
+                        "speed": 6000,
+                        "range": 64000,
+                        "y_offset": 0,
+                        "penetrate": true,
+                        "shape": {
+                          "Circle": {
+                            "radius": 7000
+                          }
+                        },
+                        "applied_target": "EnemyWithoutTower",
+                        "applied_effects": [
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "ApAttack",
+                              "damage": 50,
+                              "attack_ratio": 35,
+                              "hp_ratio": 0,
+                              "can_crit": false
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "AddBuff",
+                              "buff_state": {
+                                "name": "league_sylas_q_slow",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 90
+                                  }
+                                },
+                                "move_speed_mult": -25
+                              }
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "ViewEffect",
+                              "name": "league_sylas_q_hit"
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "TargetSfx",
+                              "name": "league_sylas_q_hit"
+                            }
+                          }
+                        ],
+                        "end_effects": []
+                      },
+                      {
+                        "type": "ParabolicProjectile",
+                        "name": "league_sylas_q_mark",
+                        "travel_time": 8,
+                        "range": 400000,
+                        "range_effect_name": "",
+                        "shape": {
+                          "Circle": {
+                            "radius": 1
+                          }
+                        },
+                        "applied_target": "EnemyWithoutTower",
+                        "applied_effects": [],
+                        "end_effects": [
+                          {
+                            "type": "ViewEffect",
+                            "name": "league_sylas_q_cross"
+                          },
+                          {
+                            "type": "Sfx",
+                            "name": "league_sylas_q_boom"
+                          },
+                          {
+                            "type": "RangeProjectile",
+                            "name": "league_sylas_q_boom",
+                            "shape": {
+                              "Circle": {
+                                "radius": 18000
+                              }
+                            },
+                            "delay": 37,
+                            "apply": 36,
+                            "applied_target": "EnemyWithoutTower",
+                            "applied_effects": [
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "ApAttack",
+                                  "damage": 90,
+                                  "attack_ratio": 65,
+                                  "hp_ratio": 0,
+                                  "can_crit": false
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "ViewEffect",
+                                  "name": "league_sylas_q_hit2"
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": []
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_sylas_lives"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill2": {
+    "action_name": "skill2",
+    "description": "#asset/base/text/champion?description.league_sylas.skill2",
+    "duration": 34,
+    "cooltime": 660,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 70000,
+    "casting_type": "Direction",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Combine",
+          "effects": [
+            {
+              "type": "AddCasterBuff",
+              "buff_state": {
+                "name": "league_sylas_x",
+                "duration": {
+                  "Time": {
+                    "tick": 1
+                  }
+                }
+              },
+              "only_to_enemy": false
+            },
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_sylas_x",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_sylas_x"
+                  }
+                ]
+              },
+              "effect_none": {
+                "type": "ApAttack",
+                "damage": 80,
+                "attack_ratio": 70,
+                "hp_ratio": 0,
+                "can_crit": false
+              }
+            },
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_sylas_x"
+            }
+          ]
+        },
+        {
+          "type": "CasterAnimation",
+          "name": "skill2",
+          "tick": 34
+        },
+        {
+          "type": "Sfx",
+          "name": "league_sylas_e"
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_sylas_vo_cd",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": []
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_sylas_vo_cd",
+                  "duration": {
+                    "Time": {
+                      "tick": 600
+                    }
+                  }
+                },
+                "only_to_enemy": false
+              },
+              {
+                "type": "Sfx",
+                "name": "league_sylas_vo_e"
+              }
+            ]
+          }
+        },
+        {
+          "type": "Combine",
+          "effects": [
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_sylas_p_1",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_sylas_p_2"
+                  },
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_sylas_p_2",
+                      "duration": {
+                        "Time": {
+                          "tick": 240
+                        }
+                      }
+                    },
+                    "only_to_enemy": false
+                  }
+                ]
+              },
+              "effect_none": {
+                "type": "Combine",
+                "effects": []
+              }
+            },
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_sylas_p_1"
+                },
+                {
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "league_sylas_p_1",
+                    "duration": {
+                      "Time": {
+                        "tick": 240
+                      }
+                    },
+                    "attack_speed_mult": 40
+                  },
+                  "only_to_enemy": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "MoveTo",
+          "speed": 3500,
+          "range": 22000,
+          "end_effects": []
+        },
+        {
+          "type": "Delayed",
+          "tick": 13,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_sylas_lives",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_sylas_lives",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "Sfx",
+                        "name": "league_sylas_e2"
+                      },
+                      {
+                        "type": "LinearProjectile",
+                        "name": "league_sylas_e_chain",
+                        "speed": 6000,
+                        "range": 62000,
+                        "y_offset": 0,
+                        "penetrate": false,
+                        "shape": {
+                          "Circle": {
+                            "radius": 7000
+                          }
+                        },
+                        "applied_target": "EnemyChampion",
+                        "applied_effects": [
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "ApAttack",
+                              "damage": 80,
+                              "attack_ratio": 70,
+                              "hp_ratio": 0,
+                              "can_crit": false
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "Airborne",
+                              "duration": 30
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "ViewEffect",
+                              "name": "league_sylas_e_hit"
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "TargetSfx",
+                              "name": "league_sylas_e_hit"
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "CasterAnimation",
+                              "name": "skill2_pull",
+                              "tick": 18
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "MoveToTarget",
+                              "speed": 4500,
+                              "range": 92000,
+                              "end_effects": [
+                                {
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "league_sylas_w_cd",
+                                  "effect_buff": {
+                                    "type": "Combine",
+                                    "effects": []
+                                  },
+                                  "effect_none": {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "AddCasterBuff",
+                                        "buff_state": {
+                                          "name": "league_sylas_w_cd",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 540
+                                            }
+                                          }
+                                        },
+                                        "only_to_enemy": false
+                                      },
+                                      {
+                                        "type": "Combine",
+                                        "effects": [
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_sylas_p_1",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_sylas_p_2"
+                                                },
+                                                {
+                                                  "type": "AddCasterBuff",
+                                                  "buff_state": {
+                                                    "name": "league_sylas_p_2",
+                                                    "duration": {
+                                                      "Time": {
+                                                        "tick": 240
+                                                      }
+                                                    }
+                                                  },
+                                                  "only_to_enemy": false
+                                                }
+                                              ]
+                                            },
+                                            "effect_none": {
+                                              "type": "Combine",
+                                              "effects": []
+                                            }
+                                          },
+                                          {
+                                            "type": "Combine",
+                                            "effects": [
+                                              {
+                                                "type": "RemoveCasterBuff",
+                                                "name": "league_sylas_p_1"
+                                              },
+                                              {
+                                                "type": "AddCasterBuff",
+                                                "buff_state": {
+                                                  "name": "league_sylas_p_1",
+                                                  "duration": {
+                                                    "Time": {
+                                                      "tick": 240
+                                                    }
+                                                  },
+                                                  "attack_speed_mult": 40
+                                                },
+                                                "only_to_enemy": false
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "Combine",
+                                        "effects": [
+                                          {
+                                            "type": "Sfx",
+                                            "name": "league_sylas_w"
+                                          },
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_sylas_vo_cd",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": []
+                                            },
+                                            "effect_none": {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "AddCasterBuff",
+                                                  "buff_state": {
+                                                    "name": "league_sylas_vo_cd",
+                                                    "duration": {
+                                                      "Time": {
+                                                        "tick": 600
+                                                      }
+                                                    }
+                                                  },
+                                                  "only_to_enemy": false
+                                                },
+                                                {
+                                                  "type": "Sfx",
+                                                  "name": "league_sylas_vo_w"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          {
+                                            "type": "CasterViewEffect",
+                                            "name": "league_sylas_w_heal"
+                                          },
+                                          {
+                                            "type": "RangeEffect",
+                                            "shape": {
+                                              "Circle": {
+                                                "radius": 1000
+                                              }
+                                            },
+                                            "target": "AllyOnlySelf",
+                                            "apply_type": "AroundCaster",
+                                            "effects": [
+                                              {
+                                                "type": "Heal",
+                                                "amount": 40,
+                                                "attack_ratio": 0,
+                                                "ap_ratio": 35,
+                                                "heal_type": "Caster"
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "type": "RandomTarget",
+                                            "range": 34000,
+                                            "casting_target": "EnemyChampion",
+                                            "from_projectile": false,
+                                            "effects": [
+                                              {
+                                                "type": "ApAttack",
+                                                "damage": 80,
+                                                "attack_ratio": 70,
+                                                "hp_ratio": 0,
+                                                "can_crit": false
+                                              },
+                                              {
+                                                "type": "ViewEffect",
+                                                "name": "league_sylas_w_hit"
+                                              },
+                                              {
+                                                "type": "TargetSfx",
+                                                "name": "league_sylas_w_hit"
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        ],
+                        "end_effects": []
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": []
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_sylas_lives"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "ult": {
+    "action_name": "ult",
+    "description": "#asset/base/text/champion?description.league_sylas.ult",
+    "duration": 30,
+    "cooltime": 2700,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 70000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Combine",
+          "effects": [
+            {
+              "type": "AddCasterBuff",
+              "buff_state": {
+                "name": "league_sylas_x",
+                "duration": {
+                  "Time": {
+                    "tick": 1
+                  }
+                }
+              },
+              "only_to_enemy": false
+            },
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_sylas_x",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_sylas_x"
+                  }
+                ]
+              },
+              "effect_none": {
+                "type": "ApAttack",
+                "damage": 200,
+                "attack_ratio": 80,
+                "hp_ratio": 0,
+                "can_crit": false
+              }
+            },
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_sylas_x"
+            }
+          ]
+        },
+        {
+          "type": "Combine",
+          "effects": [
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_sylas_p_1",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_sylas_p_2"
+                  },
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_sylas_p_2",
+                      "duration": {
+                        "Time": {
+                          "tick": 240
+                        }
+                      }
+                    },
+                    "only_to_enemy": false
+                  }
+                ]
+              },
+              "effect_none": {
+                "type": "Combine",
+                "effects": []
+              }
+            },
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_sylas_p_1"
+                },
+                {
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "league_sylas_p_1",
+                    "duration": {
+                      "Time": {
+                        "tick": 240
+                      }
+                    },
+                    "attack_speed_mult": 40
+                  },
+                  "only_to_enemy": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_sylas_r_have",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "RemoveCasterBuff",
+                "name": "league_sylas_r_have"
+              },
+              {
+                "type": "CasterAnimation",
+                "name": "ult_cast",
+                "tick": 36
+              },
+              {
+                "type": "SwitchByBuff",
+                "buff_name": "league_sylas_vo_cd",
+                "effect_buff": {
+                  "type": "Combine",
+                  "effects": []
+                },
+                "effect_none": {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_sylas_vo_cd",
+                        "duration": {
+                          "Time": {
+                            "tick": 600
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    },
+                    {
+                      "type": "Sfx",
+                      "name": "league_sylas_vo_r2"
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "Delayed",
+                "tick": 13,
+                "effects": [
+                  {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RandomTarget",
+                        "range": 1,
+                        "casting_target": "AllyOnlySelf",
+                        "from_projectile": false,
+                        "effects": [
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_sylas_lives",
+                              "duration": {
+                                "Time": {
+                                  "tick": 1
+                                }
+                              }
+                            },
+                            "only_to_enemy": false
+                          }
+                        ]
+                      },
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_sylas_lives",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "Sfx",
+                                  "name": "league_sylas_r2"
+                                },
+                                {
+                                  "type": "ParabolicProjectile",
+                                  "name": "league_sylas_r2_fly",
+                                  "travel_time": 12,
+                                  "range": 400000,
+                                  "range_effect_name": "",
+                                  "shape": {
+                                    "Circle": {
+                                      "radius": 1
+                                    }
+                                  },
+                                  "applied_target": "EnemyWithoutTower",
+                                  "applied_effects": [],
+                                  "end_effects": [
+                                    {
+                                      "type": "ViewEffect",
+                                      "name": "league_sylas_r2_boom"
+                                    },
+                                    {
+                                      "type": "Sfx",
+                                      "name": "league_sylas_r2_boom"
+                                    },
+                                    {
+                                      "type": "RangeProjectile",
+                                      "name": "league_sylas_r2_zone",
+                                      "shape": {
+                                        "Circle": {
+                                          "radius": 32000
+                                        }
+                                      },
+                                      "delay": 2,
+                                      "apply": 1,
+                                      "applied_target": "EnemyWithoutTower",
+                                      "applied_effects": [
+                                        {
+                                          "casting_type": "Targeting",
+                                          "effect": {
+                                            "type": "ApAttack",
+                                            "damage": 200,
+                                            "attack_ratio": 80,
+                                            "hp_ratio": 0,
+                                            "can_crit": false
+                                          }
+                                        },
+                                        {
+                                          "casting_type": "Targeting",
+                                          "effect": {
+                                            "type": "Airborne",
+                                            "duration": 40
+                                          }
+                                        },
+                                        {
+                                          "casting_type": "Targeting",
+                                          "effect": {
+                                            "type": "ViewEffect",
+                                            "name": "league_sylas_r2_hit"
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      },
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_sylas_lives"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "CasterAnimation",
+                "name": "ult",
+                "tick": 30
+              },
+              {
+                "type": "Sfx",
+                "name": "league_sylas_r"
+              },
+              {
+                "type": "SwitchByBuff",
+                "buff_name": "league_sylas_vo_cd",
+                "effect_buff": {
+                  "type": "Combine",
+                  "effects": []
+                },
+                "effect_none": {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_sylas_vo_cd",
+                        "duration": {
+                          "Time": {
+                            "tick": 600
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    },
+                    {
+                      "type": "Sfx",
+                      "name": "league_sylas_vo_r"
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "Delayed",
+                "tick": 9,
+                "effects": [
+                  {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RandomTarget",
+                        "range": 1,
+                        "casting_target": "AllyOnlySelf",
+                        "from_projectile": false,
+                        "effects": [
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_sylas_lives",
+                              "duration": {
+                                "Time": {
+                                  "tick": 1
+                                }
+                              }
+                            },
+                            "only_to_enemy": false
+                          }
+                        ]
+                      },
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_sylas_lives",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "TargetProjectile",
+                              "name": "league_sylas_r_hook",
+                              "speed": 6000,
+                              "y_offset": 0,
+                              "applied_target": "EnemyChampion",
+                              "applied_effects": [
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "ApAttack",
+                                    "damage": 40,
+                                    "attack_ratio": 20,
+                                    "hp_ratio": 0,
+                                    "can_crit": false
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "Stun",
+                                    "duration": 30
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "ViewEffect",
+                                    "name": "league_sylas_r_steal"
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "TargetSfx",
+                                    "name": "league_sylas_r_steal"
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "RangeEffect",
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 1000
+                                      }
+                                    },
+                                    "target": "AllyOnlySelf",
+                                    "apply_type": "AroundCaster",
+                                    "effects": [
+                                      {
+                                        "type": "Combine",
+                                        "effects": [
+                                          {
+                                            "type": "RemoveCasterBuff",
+                                            "name": "league_sylas_r_have"
+                                          },
+                                          {
+                                            "type": "AddCasterBuff",
+                                            "buff_state": {
+                                              "name": "league_sylas_r_have",
+                                              "duration": {
+                                                "Time": {
+                                                  "tick": 600
+                                                }
+                                              }
+                                            },
+                                            "only_to_enemy": false
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "CasterViewEffect",
+                                        "name": "league_sylas_r_got"
+                                      }
+                                    ]
+                                  }
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      },
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_sylas_lives"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "Delayed",
+                "tick": 31,
+                "effects": [
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_sylas_r_have",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_sylas_r_ref"
+                        },
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_sylas_r_ref",
+                            "duration": {
+                              "Time": {
+                                "tick": 3
+                              }
+                            },
+                            "ult_cooldown_mult": 2900
+                          },
+                          "only_to_enemy": false
+                        }
+                      ]
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "view_projectiles": [
+    {
+      "type": "Animated",
+      "name": "league_sylas_q_chain",
+      "anim": "asset/league/effects/league_sylas_fx",
+      "tag": "q_chain",
+      "repeat": true,
+      "z": 2
+    },
+    {
+      "type": "Animated",
+      "name": "league_sylas_e_chain",
+      "anim": "asset/league/effects/league_sylas_fx",
+      "tag": "e_chain",
+      "repeat": true,
+      "z": 2
+    },
+    {
+      "type": "Animated",
+      "name": "league_sylas_r_hook",
+      "anim": "asset/league/effects/league_sylas_fx",
+      "tag": "r_hook",
+      "repeat": true,
+      "z": 2
+    }
+  ],
+  "view_effects": [
+    {
+      "type": "Animation",
+      "name": "league_sylas_a_hit",
+      "anim": "asset/league/effects/league_sylas_fx",
+      "tag": "a_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_sylas_p_spin",
+      "anim": "asset/league/effects/league_sylas_big",
+      "tag": "p_spin",
+      "z": -1,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_sylas_p_hit",
+      "anim": "asset/league/effects/league_sylas_fx",
+      "tag": "p_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_sylas_w_hit",
+      "anim": "asset/league/effects/league_sylas_fx",
+      "tag": "w_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_sylas_w_heal",
+      "anim": "asset/league/effects/league_sylas_fx",
+      "tag": "w_heal",
+      "z": 3,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_sylas_q_hit",
+      "anim": "asset/league/effects/league_sylas_fx",
+      "tag": "q_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_sylas_q_cross",
+      "anim": "asset/league/effects/league_sylas_big",
+      "tag": "q_cross",
+      "z": -1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_sylas_q_hit2",
+      "anim": "asset/league/effects/league_sylas_fx",
+      "tag": "q_hit2",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_sylas_e_hit",
+      "anim": "asset/league/effects/league_sylas_fx",
+      "tag": "e_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_sylas_r_steal",
+      "anim": "asset/league/effects/league_sylas_fx",
+      "tag": "r_steal",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_sylas_r_got",
+      "anim": "asset/league/effects/league_sylas_fx",
+      "tag": "r_got",
+      "z": 3,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_sylas_r2_boom",
+      "anim": "asset/league/effects/league_sylas_big",
+      "tag": "r2_boom",
+      "z": -1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_sylas_r2_hit",
+      "anim": "asset/league/effects/league_sylas_fx",
+      "tag": "r2_hit",
+      "z": 2,
+      "is_follow": true
+    }
+  ],
+  "view_buffs": [
+    {
+      "type": "Animated",
+      "name": "league_sylas_p_1",
+      "anim": "asset/league/effects/league_sylas_fx",
+      "tag": "p_1",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_sylas_q_slow",
+      "anim": "asset/league/effects/league_sylas_fx",
+      "tag": "q_slow",
+      "repeat": true,
+      "z": -1
+    },
+    {
+      "type": "Animated",
+      "name": "league_sylas_r_have",
+      "anim": "asset/league/effects/league_sylas_fx",
+      "tag": "r_have",
+      "repeat": true,
+      "z": 3
+    }
+  ]
+}
