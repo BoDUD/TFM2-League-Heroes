@@ -1,0 +1,10 @@
+{
+  "asset/league/champion/league_vex": {
+    "remapping": "asset/league_vex/override/league_vex",
+    "type": "override"
+  },
+  "asset/base/text/champion": {
+    "remapping": "asset/league_vex/text/champion",
+    "type": "merge"
+  }
+}
