@@ -79,6 +79,7 @@ LEG_PROFILE = {
     "far": {"thigh": [(0.0, 1.0, [TEAL3, TEAL2, TEAL2])],
             "shin": [(0.0, 0.45, [SILVER3, TEAL3]), (0.45, 1.0, [TEAL2])]},
 }
+BREATH_ROW = 38                              # the idle's breathing: the rows above the waist settle onto it
 HIP_ROW = 45                                 # the lean's foot: rows above it lean (the head the most)
 LEAN_TOP = 27
 # a sleeve thrown up with its hand: (columns, rows) it moves - up and out to its own side; "top" the peak of a throw
@@ -253,12 +254,13 @@ class Pose:
     the hips come down; None: from the drawn legs' feet on the ground); dx, dy (the whole figure), lift (rows off the
     ground), lean (columns at the head), up (the upper body over the hips), stream (columns the robe's hem flies back),
     train (rows the train's tip lifts), train_up (rows the whole train lifts off the ground: flying back in the run),
-    flash, lie."""
+    breath (rows the body above the waist - head, bust, shoulders, sleeves, hands - settles onto its own waist: the
+    idle's breathing; the waist, the legs and the robe stay), flash, lie."""
 
     def __init__(self, far="rest", near="hip", legs=None, ankles=None, dx=0, dy=0, lift=0, lean=0, up=(0, 0), stream=0,
-                 train=0, flash=False, far_leg_shade=False, lie=False, drop=None, train_up=0):
+                 train=0, flash=False, far_leg_shade=False, lie=False, drop=None, train_up=0, breath=0):
         self.far, self.near, self.legs, self.ankles = far, near, legs, ankles
-        self.train_up = train_up
+        self.train_up, self.breath = train_up, breath
         self.dx, self.dy, self.lift, self.lean, self.up = dx, dy, lift, lean, up
         self.stream, self.train, self.flash, self.far_leg_shade, self.lie = stream, train, flash, far_leg_shade, lie
         self.drop = drop
@@ -296,6 +298,7 @@ def compose(rig, D, p, robe=True):
     drop = p.drop if p.drop is not None else (hips_drop(D, p, geo) if drawn else 0)
     ox, oy = rig.ox + int(round(p.dx)), rig.oy + p.dy - p.lift
     body = (ox + p.up[0], oy + drop + p.up[1])               # the upper body, the hands and the sleeves
+    limbs = (body[0], body[1] + p.breath)                    # the sleeves and the hands (they hang from the shoulders)
     can = rig.canvas()
     L = D.layers
 
@@ -322,11 +325,11 @@ def compose(rig, D, p, robe=True):
 
     # the far sleeve and hand (behind the body): a hand thrown up takes its sleeve up and out
     sx, sy = SLEEVE_HIGH[p.far]["far"] if p.far in SLEEVE_HIGH else (0, 0)
-    Z.stamp(can, sheared(L["far_sleeve"], p.lean), (body[0] + sx, body[1] + sy))
+    Z.stamp(can, sheared(L["far_sleeve"], p.lean), (limbs[0] + sx, limbs[1] + sy))
     op = {"rest": (False, 0), "up": (False, 1), "high": (False, 1), "top": (False, 1), "down": (False, 3)}[p.far]
     hand = sheared(L["far_hand"], p.lean)
     elbow = (ELBOW[0] + lean_at(int(ELBOW[1]), p.lean), ELBOW[1])
-    Z.stamp(can, hand, (body[0] + sx, body[1] + sy), op, elbow)
+    Z.stamp(can, hand, (limbs[0] + sx, limbs[1] + sy), op, elbow)
 
     # the legs
     if drawn:
@@ -344,18 +347,29 @@ def compose(rig, D, p, robe=True):
         Z.stamp(can, L["legs"], (ox, oy))
 
     # the upper body, then the near sleeve and hand (in front)
-    Z.stamp(can, sheared(L["upper"], p.lean), body)
+    up_l = sheared(L["upper"], p.lean)
+    if p.breath:
+        # the waist and below where they are, the rows above it settled onto it (whole rows, the legs untouched: the
+        # whole upper body sinking onto the legs read as squashed legs - the user: 「上下摆动导致腿部变形」)
+        low = up_l.copy()
+        low[:BREATH_ROW] = 0
+        Z.stamp(can, low, body)
+        high = up_l.copy()
+        high[BREATH_ROW:] = 0
+        Z.stamp(can, high, (body[0], body[1] + p.breath))
+    else:
+        Z.stamp(can, up_l, body)
     nx, ny = SLEEVE_HIGH[p.near]["near"] if p.near in SLEEVE_HIGH else (0, 0)
-    Z.stamp(can, sheared(L["near_sleeve"], p.lean), (body[0] + nx, body[1] + ny))
+    Z.stamp(can, sheared(L["near_sleeve"], p.lean), (limbs[0] + nx, limbs[1] + ny))
     if p.near == "hip":
-        Z.stamp(can, sheared(L["near_hand"], p.lean), body)
+        Z.stamp(can, sheared(L["near_hand"], p.lean), limbs)
     else:
         # the far hand mirrored onto the near side: pointing up from the raised sleeve's top (high), or reaching back
         # at shoulder height out of the sleeve's top corner, the sleeve hanging under it as the far one does (back)
         lean = lean_at(int(NEAR_SHOULDER[1]), p.lean)
         up = ((NEAR_UP_X + nx, NEAR_SHOULDER[1] + ny), (True, 3))
         cuff, op = ({"high": up, "top": up, "back": (NEAR_BACK, (True, 0))})[p.near]
-        at = (body[0] + cuff[0] + lean - ELBOW[0], body[1] + cuff[1] - ELBOW[1])
+        at = (limbs[0] + cuff[0] + lean - ELBOW[0], limbs[1] + cuff[1] - ELBOW[1])
         Z.stamp(can, L["far_hand"], at, op, ELBOW)
     return R.flash(can) if p.flash else can
 
@@ -454,11 +468,11 @@ DEAD_FALL = 4                                # rows over the ground the falling 
 
 
 def idle_frames(rig, D, n):
-    """The design breathing: the upper body, the hands and the sleeves set down a row onto the legs; the robe's waist
-    with them (its hem stays)."""
+    """The design breathing: the body above the waist (head, bust, shoulders, the sleeves and the hands) settles a row
+    onto the waist; the waist, the legs and the robe stay where they are."""
     sinks = [0, 0, 1, 1, 1, 1, 0, 0]
     sway = [0, 0, 0, 1, 1, 1, 0, 0]                        # the train's tip stirring
-    return [compose(rig, D, Pose(drop=sinks[i % 8], train=sway[i % 8])) for i in range(n)]
+    return [compose(rig, D, Pose(breath=sinks[i % 8], train=sway[i % 8])) for i in range(n)]
 
 
 def make_rig(D):
