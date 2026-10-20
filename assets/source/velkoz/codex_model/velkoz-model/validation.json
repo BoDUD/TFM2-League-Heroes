@@ -1,0 +1,50 @@
+[
+  {
+    "width": 1254,
+    "height": 1254,
+    "bbox_alpha128": [
+      53,
+      363,
+      1181,
+      1166
+    ],
+    "transparent_pixels": 1081170,
+    "opaque_pixels": 3551,
+    "partial_alpha_pixels": 487795,
+    "strong_horizontal_colour_edges": 13663,
+    "edges_off_requested_x15_grid": 10410,
+    "file": "velkoz-model-A-1.png"
+  },
+  {
+    "width": 1254,
+    "height": 1254,
+    "bbox_alpha128": [
+      44,
+      354,
+      1187,
+      1169
+    ],
+    "transparent_pixels": 1070893,
+    "opaque_pixels": 3001,
+    "partial_alpha_pixels": 498622,
+    "strong_horizontal_colour_edges": 14370,
+    "edges_off_requested_x15_grid": 9487,
+    "file": "velkoz-model-A-2.png"
+  },
+  {
+    "width": 1254,
+    "height": 1254,
+    "bbox_alpha128": [
+      44,
+      353,
+      1192,
+      1173
+    ],
+    "transparent_pixels": 1059673,
+    "opaque_pixels": 3842,
+    "partial_alpha_pixels": 509001,
+    "strong_horizontal_colour_edges": 15115,
+    "edges_off_requested_x15_grid": 10392,
+    "file": "velkoz-model-A-3.png"
+  }
+]
