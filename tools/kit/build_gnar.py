@@ -15,7 +15,7 @@ Mini's Hyper (W) rides the attack. The forms work like league_nidalee's: every a
           landing is one step of Rage (rg1 -> rg2 -> rg3 -> `full`, each step lasts rage_t ticks: out of a fight it
           drains). With `full` the next action turns him Mega: an attack plays the transform (`transform`, tf_dur
           ticks); a skill turns him at once and casts its Mega version (League's *_trans clips: the spell and the change
-          in one); R turns him at once whatever his Rage.
+          in one); R at full Rage turns him and throws in the same cast.
   attack  Mini: the small boomerang thrown at the target (released on a_rel). Hyper (亢奋): every third throw adds w_dmg
           and, on a champion, w_hp% of its max health, and gives him w_ms% move speed for w_ms_t ticks. Mega: a punch
           (m_rel). Both 100% AD, on `Enemy` (towers too).
@@ -30,7 +30,10 @@ Mini's Hyper (W) rides the attack. The forms work like league_nidalee's: every a
           (Mega): a leap onto the target, c_dmg + c_hp% of his max health and a c_slow% slow round the landing (c_r) -
           then Wallop at once if it is ready (the pros' E -> W). Crunch cooling down and an enemy within w_reach:
           Wallop alone - he rears up and smashes the ground in front: w2_dmg + w2_ratio% AD and a w2_stun-tick stun.
-  ult     GNAR! (呐啊！, level 5): `Targeting` on `EnemyChampion` within r_range; Mini turns Mega at once. He throws
+  ult     GNAR! (呐啊！, level 5): `Targeting` on `EnemyChampion` within r_range; Mega's alone, as in League (the user:
+          「放大招是攒满怒气吗 要和英雄联盟一样」) - Mini at full Rage turns first and throws them in the same cast, Mini short
+          of it casts nothing: the ult comes back r_wait ticks later (ult_cooldown_mult for 2 ticks caps its cooldown),
+          or at once when he turns Mega before that (r_arm: the empty cast would have spent a whole cooldown). He throws
           everything round him (r_r) away: r_dmg + r_ratio% AD, knocked back (r_kb speed, r_kb_t ticks), stunned r_stun
           ticks and slowed r_slow% for r_slow_t (the data cannot see walls: every target is stunned; the add-on stuns
           only those thrown into a wall, with r_wall% damage). Then Wallop if ready and Boulder Toss if ready at the
@@ -65,14 +68,18 @@ BIG = "asset/league/effects/league_gnar_big"
 # Numbers = the 10-min classic-SDK simulations (top lane 0 against fighter, executioner, lancer, pole_warrior, knight and
 # berserker, three lineups, both sides, 2026-10-20; C:/t/gn_sim): the draft g0 +1.19 / +1.62 (seeds 1-8 / 9-16; base
 # knight +0.39); on the frames' timings +1.22 / +0.11; Mega's attack +22% (was +15) +0.88 / +1.24 = P (Boomerang 38,
-# Boulder 72, Crunch 72 instead: +0.62 / +0.33; attack +20% with Boomerang 36, Boulder 68: +1.29 / +0.40).
+# Boulder 72, Crunch 72 instead: +0.62 / +0.33; attack +20% with Boomerang 36, Boulder 68: +1.29 / +0.40)). GNAR! made Mega's alone
+# as in League (the user: 「放大招是攒满怒气吗 要和英雄联盟一样」): -0.22 / -0.09; Mini's empty cast waiting 10 s, armed
+# on the turn: -0.53 / -0.31; Rage locked 4 s (was 8) +0.02 avg; with Mega's attack +30%: +0.64 / -0.05; Mega's attack
+# +30% and health +40%: +0.88 / -0.17; all three = P: +0.24 / +0.22 (attack +34%: +0.04 / +0.08; R 210: -0.01 / +0.34;
+# base attack 90: -0.33 / +0.34).
 P = {
     # stats (Melee base: attack 95 +19, hp 1000 +100, def 30, mr 25, move 1000, range 25000, attack cd 65)
     "hp": 960, "hp_g": 98, "atk": 86, "atk_g": 17, "mp": 0, "mp_g": 0, "def": 26, "def_g": 8, "mr": 22, "mr_g": 4,
     "ms": 1050, "ms_g": 12,
     "atk_range": 25000, "atk_dur": 24, "atk_cd": 58, "a_rel": 10, "a_speed": 5000,
     # the forms
-    "mini_add": 17000, "mega_t": 900, "mg_hp": 30, "mg_def": 40, "mg_mr": 40, "mg_atk": 22, "lock_t": 480,
+    "mini_add": 17000, "mega_t": 900, "mg_hp": 40, "mg_def": 40, "mg_mr": 40, "mg_atk": 30, "lock_t": 240,
     "tf_dur": 27, "rv_dur": 26, "m_atk_dur": 30, "m_rel": 15,
     # Rage Gene
     "rage_t": 420,
@@ -92,6 +99,9 @@ P = {
     # R GNAR!
     "r_cd": 2700, "r_range": 26000, "r_dur": 31, "r_at": 11, "r_r": 30000, "r_dmg": 170, "r_ratio": 60,
     "r_kb": 1500, "r_kb_t": 8, "r_stun": 70, "r_slow": 50, "r_slow_t": 90, "r_wall": 150,
+    # Mini short of full Rage: the empty cast's cooldown cut to r_wait ticks; turning Mega within them makes the ult
+    # ready at once (r_arm: ult_cooldown_mult r_arm_mult for 2 ticks caps the cooldown left at a tick)
+    "r_wait": 600, "r_arm_mult": 270000,
     # his spoken lines, at most one every vo_gap ticks
     "vo_gap": 600,
     # 1 = the copy for addons/league_gnar: R's stun only on a wall (native effect league_gnar:wall)
@@ -246,6 +256,7 @@ def build(p):
     to_mega = combine(*rm("full", "rg1", "rg2", "rg3", "hy1", "hy2", "mi"), flag("was_mg", None),
                       flag("mg", p["mega_t"], hp_mult=p["mg_hp"], defence_mult=p["mg_def"],
                            magic_resistance_mult=p["mg_mr"], attack_mult=p["mg_atk"]),
+                      sw("r_wait", combine(*rm("r_wait"), flag("r_arm", 2, ult_cooldown_mult=p["r_arm_mult"]))),
                       cview("tf_mega"), sfx("tf_mega"), voice("vo_mega", p))
     # Mega ran out (or a new life): Mini's reach back; after a Mega spell Rage is locked and `rv` asks the attack to
     # play the turn back
@@ -312,7 +323,7 @@ def build(p):
         return pick(p["w_reach"], "EnemyWithoutTower",
                     combine(refresh("w_cd", p["w_cd"]), delayed(at, anim("m_wallop", p["w_dur"]), sfx("w"),
                                                                 voice("vo_big", p)),
-                            delayed(at + p["w_at"] - 1, smash, sfx("w_land"))))
+                            delayed(at + p["w_at"] - 1, smash, cview("w_quake"), sfx("w_land"))))
     hop = combine(refresh("e_cd", p["e_cd"]), anim("skill2", p["e_dur"]), sfx("e"), voice("vo_e", p),
                   delayed(p["e_go"] - 1, {"type": "RushMoveToBack", "speed": p["e_speed"],
                                           "applied_effects": [attack(p["e_dmg"], 0, hp=p["e_hp"]),
@@ -333,16 +344,23 @@ def build(p):
 
     # ------------------------------------------------------------------ ult: GNAR! -> Wallop -> Boulder
     # the add-on's copy throws them itself (the push, then a wall check: stun and r_wall% damage on a wall)
-    thrown = [{"type": "Native", "effect_ref": f"{ID}:wall"}] if p["native"] else         [{"type": "Knockback", "speed": p["r_kb"], "tick": p["r_kb_t"]}, {"type": "Stun", "duration": p["r_stun"]}]
+    thrown = ([{"type": "Native", "effect_ref": f"{ID}:wall"}] if p["native"] else
+              [{"type": "Knockback", "speed": p["r_kb"], "tick": p["r_kb_t"]}, {"type": "Stun", "duration": p["r_stun"]}])
     r_hits = [attack(p["r_dmg"], p["r_ratio"]), *thrown, slow("r_slow", p["r_slow"], p["r_slow_t"]), view("r_hit"),
               tsfx("r_hit")]
     follow = combine(sw("w_cd", NONE, wallop(0)),
                      delayed(p["w_dur"], sw("q_cd", NONE, boulder("m_skill"))))
-    r_go = combine(restore, sw("mg", NONE, to_mega), anim("ult", p["r_dur"]), sfx("r"), voice("vo_r", p),
+    gnar = combine(anim("ult", p["r_dur"]), sfx("r"), voice("vo_r", p),
                    delayed(p["r_at"] - 1, around(p["r_r"], "EnemyWithoutTower", r_hits), cview("r_wave"),
                            sfx("r_land")),
                    delayed(p["r_dur"] - 1, pick(1, "AllyOnlySelf", flag("lives", 1)), sw("lives", follow),
                            *rm("lives")))
+    # League's GNAR! is Mega's alone: Mini at full Rage turns first and throws them in the same cast; Mini short of it
+    # casts nothing and gets the ult back r_wait ticks later, or as he turns Mega (`r_wait` ends 10 ticks before the
+    # cooldown does and every cast takes it off first, so it never cuts a real cooldown)
+    wait_mult = -(-p["r_cd"] * 100 // p["r_wait"]) - 100
+    not_yet = combine(flag("r_back", 2, ult_cooldown_mult=wait_mult), flag("r_wait", p["r_wait"] - 10))
+    r_go = combine(restore, *rm("r_wait"), sw("mg", NONE, sw("full", to_mega, not_yet)), sw("mg", gnar))
     ult = action("idle", 3, p["r_cd"], 1, p["r_range"], "Targeting", "EnemyChampion", r_go, key="ult")
 
     # ------------------------------------------------------------------ views
@@ -355,7 +373,7 @@ def build(p):
     views_p = [P_("a_boom"), P_("q_boom"), P_("q_back", FX, 1), P_("q_rock")]
     views_e = [E("a_hit"), E("a_hyper"), E("m_hit"), E("q_hit"), E("q_catch", FX, 3), E("q2_hit"),
                E("q_rest", FX, -1, False), E("q_pick", FX, 3), E("e_hit"), E("c_slam", BIG, -1, False), E("c_hit"),
-               E("w_hit"), E("r_wave", BIG, -1, False), E("r_hit"), E("tf_mega", BIG, 3), E("tf_mini", BIG, 3)]
+               E("w_quake", BIG, -1), E("w_hit"), E("r_wave", BIG, -1, False), E("r_hit"), E("tf_mega", BIG, 3), E("tf_mini", BIG, 3)]
     views_b = [B_("full", FX, 3), B_("hyper", FX, -1), B_("q_slow", FX, 3), B_("q2_slow", FX, 3)]
     return {
         "id": ID, "category": "Melee", "tags": ["AD", "Melee", "Range", "Tank", "CC"],

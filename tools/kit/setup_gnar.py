@@ -35,7 +35,7 @@ W = "<#ffffffff>"      # move speed
 R = "<#ffdd8eff>"      # health / armour / magic resistance
 E = "<>"
 # champion_view: provisional until the sprite (tfm2_ase.py face)
-VIEW = {"face": {"x": 1, "y": -22}, "center": {"x": 0, "y": -11}}
+VIEW = {"face": {"x": 0, "y": -19}, "center": {"x": 0, "y": -11}}
 
 
 def phys(k, r="ratio"):
@@ -58,8 +58,8 @@ TEXT = {
         "skill2": "迷你：跳到敌人头上再弹远，造成" + O + "{e_dmg}" + E + "+自身最大生命{e_hp}%的伤害并" + C + "减速" + E + "。巨型：" + O + "猛踏" +
                   E + "落地造成" + O + "{c_dmg}" + E + "+最大生命{c_hp}%的伤害；" + O + "痛殴" + E + "重击前方，造成" + phys("w2") + O +
                   "物理伤害" + E + "并" + C + "眩晕" + E + t("{w2_stun}秒") + "。",
-        "ult": "迷你纳尔立刻变身。巨型纳尔把身边的敌人全部掀飞，造成" + phys("r") + O + "物理伤害" + E + "，" + C + "眩晕" + E +
-               t("{r_stun}秒") + "并" + C + "减速{r_slow}%" + E + "。",
+        "ult": "只有巨型纳尔能放（迷你纳尔怒气满时先变身）：把身边的敌人全部掀飞，造成" + phys("r") + O + "物理伤害" + E + "，" + C +
+               "眩晕" + E + t("{r_stun}秒") + "并" + C + "减速{r_slow}%" + E + "。",
         "names": ("投掷回力标/投掷顽石", "轻跳/猛踏", "呐啊！"),
     },
     "zh-hant": {
@@ -73,8 +73,8 @@ TEXT = {
         "skill2": "迷你：跳到敵人頭上再彈遠，造成" + O + "{e_dmg}" + E + "+自身最大生命{e_hp}%的傷害並" + C + "緩速" + E + "。巨型：" + O +
                   "重磅輾壓" + E + "落地造成" + O + "{c_dmg}" + E + "+最大生命{c_hp}%的傷害；" + O + "原始衝撞" + E + "重擊前方，造成" +
                   phys("w2") + O + "物理傷害" + E + "並" + C + "暈眩" + E + t("{w2_stun}秒") + "。",
-        "ult": "迷你吶兒立刻變身。巨型吶兒把身邊的敵人全部掀飛，造成" + phys("r") + O + "物理傷害" + E + "，" + C + "暈眩" + E +
-               t("{r_stun}秒") + "並" + C + "緩速{r_slow}%" + E + "。",
+        "ult": "只有巨型吶兒能施放（迷你吶兒怒氣滿時先變身）：把身邊的敵人全部掀飛，造成" + phys("r") + O + "物理傷害" + E + "，" + C +
+               "暈眩" + E + t("{r_stun}秒") + "並" + C + "緩速{r_slow}%" + E + "。",
         "names": ("骨頭迴力鏢/巨岩拋擲", "吶兒跳跳/重磅輾壓", "狂嘯猛擊！"),
     },
     "en": {
@@ -91,7 +91,8 @@ TEXT = {
                   "and " + C + "slowing" + E + " it. Mega: " + O + "Crunch" + E + " lands for " + O + "{c_dmg}" + E + " + {c_hp}% of "
                   "his max health around him; " + O + "Wallop" + E + " smashes the ground ahead for " + phys("w2") + " " + O +
                   "physical damage" + E + " and a " + t("{w2_stun}s") + " " + C + "stun" + E + ".",
-        "ult": "Mini Gnar turns Mega at once. Mega Gnar throws every enemy around him away, dealing " + phys("r") + " " + O +
+        "ult": "Mega Gnar only (Mini Gnar at full Rage transforms first): throws every enemy around him away, dealing " +
+               phys("r") + " " + O +
                "physical damage" + E + ", " + C + "stunning" + E + " them for " + t("{r_stun}s") + " and " + C +
                "slowing {r_slow}%" + E + ".",
         "names": ("Boomerang Throw / Boulder Toss", "Hop / Crunch", "GNAR!"),
@@ -107,7 +108,7 @@ TEXT = {
         "skill2": "꼬마: 적의 머리를 밟고 더 멀리 튀어 " + O + "{e_dmg}" + E + "+자신 최대 체력의 {e_hp}% 피해와 " + C + "둔화" + E +
                   ". 메가: " + O + "우지끈" + E + " 착지 시 " + O + "{c_dmg}" + E + "+최대 체력의 {c_hp}% 피해; " + O + "쿵쾅" + E +
                   "으로 앞을 내리쳐 " + phys("w2") + " " + O + "물리 피해" + E + "와 " + t("{w2_stun}초") + " " + C + "기절" + E + ".",
-        "ult": "꼬마 나르는 즉시 변신한다. 메가 나르가 주변 적을 모두 내던져 " + phys("r") + " " + O + "물리 피해" + E + ", " +
+        "ult": "메가 나르만 사용(꼬마 나르는 분노가 가득 차면 먼저 변신): 주변 적을 모두 내던져 " + phys("r") + " " + O + "물리 피해" + E + ", " +
                t("{r_stun}초") + " " + C + "기절" + E + ", " + C + "{r_slow}% 둔화" + E + ".",
         "names": ("부메랑 던지기 / 돌덩이 던지기", "폴짝 / 우지끈", "나르!"),
     },
@@ -122,7 +123,7 @@ TEXT = {
         "skill2": "ミニ：敵の頭を踏んでさらに跳び、" + O + "{e_dmg}" + E + "+自身の最大体力{e_hp}%のダメージと" + C + "スロウ" + E +
                   "。メガ：" + O + "ドーン！" + E + "の着地で" + O + "{c_dmg}" + E + "+最大体力{c_hp}%のダメージ、" + O + "こてんぱん" +
                   E + "で前方を叩き" + phys("w2") + "の" + O + "物理ダメージ" + E + "と" + t("{w2_stun}秒") + C + "スタン" + E + "。",
-        "ult": "ミニ・ナーは即座に変身。メガ・ナーが周囲の敵をすべて投げ飛ばし、" + phys("r") + "の" + O + "物理ダメージ" + E + "、" +
+        "ult": "メガ・ナー専用（ミニ・ナーは怒り最大で先に変身）：周囲の敵をすべて投げ飛ばし、" + phys("r") + "の" + O + "物理ダメージ" + E + "、" +
                t("{r_stun}秒") + C + "スタン" + E + "、" + C + "{r_slow}%スロウ" + E + "。",
         "names": ("ブーメラン/ぽいっ", "ぴょんぴょん/ドーン！", "ナー！"),
     },

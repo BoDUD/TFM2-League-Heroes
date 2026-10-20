@@ -93,7 +93,7 @@
                           "name": "league_gnar_rl",
                           "duration": {
                             "Time": {
-                              "tick": 480
+                              "tick": 240
                             }
                           }
                         },
@@ -258,12 +258,42 @@
                               "tick": 900
                             }
                           },
-                          "hp_mult": 30,
+                          "hp_mult": 40,
                           "defence_mult": 40,
                           "magic_resistance_mult": 40,
-                          "attack_mult": 22
+                          "attack_mult": 30
                         },
                         "only_to_enemy": false
+                      },
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_gnar_r_wait",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_gnar_r_wait"
+                            },
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_gnar_r_arm",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 2
+                                  }
+                                },
+                                "ult_cooldown_mult": 270000
+                              },
+                              "only_to_enemy": false
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
                       },
                       {
                         "type": "CasterViewEffect",
@@ -807,7 +837,7 @@
                           "name": "league_gnar_rl",
                           "duration": {
                             "Time": {
-                              "tick": 480
+                              "tick": 240
                             }
                           }
                         },
@@ -912,12 +942,42 @@
                               "tick": 900
                             }
                           },
-                          "hp_mult": 30,
+                          "hp_mult": 40,
                           "defence_mult": 40,
                           "magic_resistance_mult": 40,
-                          "attack_mult": 22
+                          "attack_mult": 30
                         },
                         "only_to_enemy": false
+                      },
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_gnar_r_wait",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_gnar_r_wait"
+                            },
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_gnar_r_arm",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 2
+                                  }
+                                },
+                                "ult_cooldown_mult": 270000
+                              },
+                              "only_to_enemy": false
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
                       },
                       {
                         "type": "CasterViewEffect",
@@ -1714,7 +1774,7 @@
                           "name": "league_gnar_rl",
                           "duration": {
                             "Time": {
-                              "tick": 480
+                              "tick": 240
                             }
                           }
                         },
@@ -1809,12 +1869,42 @@
                         "tick": 900
                       }
                     },
-                    "hp_mult": 30,
+                    "hp_mult": 40,
                     "defence_mult": 40,
                     "magic_resistance_mult": 40,
-                    "attack_mult": 22
+                    "attack_mult": 30
                   },
                   "only_to_enemy": false
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_gnar_r_wait",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_gnar_r_wait"
+                      },
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_gnar_r_arm",
+                          "duration": {
+                            "Time": {
+                              "tick": 2
+                            }
+                          },
+                          "ult_cooldown_mult": 270000
+                        },
+                        "only_to_enemy": false
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": []
+                  }
                 },
                 {
                   "type": "CasterViewEffect",
@@ -1987,6 +2077,10 @@
                                 "name": "league_gnar_w_hit"
                               }
                             ]
+                          },
+                          {
+                            "type": "CasterViewEffect",
+                            "name": "league_gnar_w_quake"
                           },
                           {
                             "type": "Sfx",
@@ -2245,6 +2339,10 @@
                                         "name": "league_gnar_w_hit"
                                       }
                                     ]
+                                  },
+                                  {
+                                    "type": "CasterViewEffect",
+                                    "name": "league_gnar_w_quake"
                                   },
                                   {
                                     "type": "Sfx",
@@ -2549,7 +2647,7 @@
                           "name": "league_gnar_rl",
                           "duration": {
                             "Time": {
-                              "tick": 480
+                              "tick": 240
                             }
                           }
                         },
@@ -2587,6 +2685,10 @@
           }
         },
         {
+          "type": "RemoveCasterBuff",
+          "name": "league_gnar_r_wait"
+        },
+        {
           "type": "SwitchByBuff",
           "buff_name": "league_gnar_mg",
           "effect_buff": {
@@ -2594,67 +2696,178 @@
             "effects": []
           },
           "effect_none": {
+            "type": "SwitchByBuff",
+            "buff_name": "league_gnar_full",
+            "effect_buff": {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_gnar_full"
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_gnar_rg1"
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_gnar_rg2"
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_gnar_rg3"
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_gnar_hy1"
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_gnar_hy2"
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_gnar_mi"
+                },
+                {
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "league_gnar_was_mg",
+                    "duration": "Permanent"
+                  },
+                  "only_to_enemy": false
+                },
+                {
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "league_gnar_mg",
+                    "duration": {
+                      "Time": {
+                        "tick": 900
+                      }
+                    },
+                    "hp_mult": 40,
+                    "defence_mult": 40,
+                    "magic_resistance_mult": 40,
+                    "attack_mult": 30
+                  },
+                  "only_to_enemy": false
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_gnar_r_wait",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_gnar_r_wait"
+                      },
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_gnar_r_arm",
+                          "duration": {
+                            "Time": {
+                              "tick": 2
+                            }
+                          },
+                          "ult_cooldown_mult": 270000
+                        },
+                        "only_to_enemy": false
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": []
+                  }
+                },
+                {
+                  "type": "CasterViewEffect",
+                  "name": "league_gnar_tf_mega"
+                },
+                {
+                  "type": "Sfx",
+                  "name": "league_gnar_tf_mega"
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_gnar_vo_cd",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": []
+                  },
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_gnar_vo_cd",
+                          "duration": {
+                            "Time": {
+                              "tick": 600
+                            }
+                          }
+                        },
+                        "only_to_enemy": false
+                      },
+                      {
+                        "type": "Sfx",
+                        "name": "league_gnar_vo_mega"
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            "effect_none": {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "league_gnar_r_back",
+                    "duration": {
+                      "Time": {
+                        "tick": 2
+                      }
+                    },
+                    "ult_cooldown_mult": 350
+                  },
+                  "only_to_enemy": false
+                },
+                {
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "league_gnar_r_wait",
+                    "duration": {
+                      "Time": {
+                        "tick": 590
+                      }
+                    }
+                  },
+                  "only_to_enemy": false
+                }
+              ]
+            }
+          }
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_gnar_mg",
+          "effect_buff": {
             "type": "Combine",
             "effects": [
               {
-                "type": "RemoveCasterBuff",
-                "name": "league_gnar_full"
-              },
-              {
-                "type": "RemoveCasterBuff",
-                "name": "league_gnar_rg1"
-              },
-              {
-                "type": "RemoveCasterBuff",
-                "name": "league_gnar_rg2"
-              },
-              {
-                "type": "RemoveCasterBuff",
-                "name": "league_gnar_rg3"
-              },
-              {
-                "type": "RemoveCasterBuff",
-                "name": "league_gnar_hy1"
-              },
-              {
-                "type": "RemoveCasterBuff",
-                "name": "league_gnar_hy2"
-              },
-              {
-                "type": "RemoveCasterBuff",
-                "name": "league_gnar_mi"
-              },
-              {
-                "type": "AddCasterBuff",
-                "buff_state": {
-                  "name": "league_gnar_was_mg",
-                  "duration": "Permanent"
-                },
-                "only_to_enemy": false
-              },
-              {
-                "type": "AddCasterBuff",
-                "buff_state": {
-                  "name": "league_gnar_mg",
-                  "duration": {
-                    "Time": {
-                      "tick": 900
-                    }
-                  },
-                  "hp_mult": 30,
-                  "defence_mult": 40,
-                  "magic_resistance_mult": 40,
-                  "attack_mult": 22
-                },
-                "only_to_enemy": false
-              },
-              {
-                "type": "CasterViewEffect",
-                "name": "league_gnar_tf_mega"
+                "type": "CasterAnimation",
+                "name": "ult",
+                "tick": 31
               },
               {
                 "type": "Sfx",
-                "name": "league_gnar_tf_mega"
+                "name": "league_gnar_r"
               },
               {
                 "type": "SwitchByBuff",
@@ -2680,328 +2893,247 @@
                     },
                     {
                       "type": "Sfx",
-                      "name": "league_gnar_vo_mega"
+                      "name": "league_gnar_vo_r"
                     }
                   ]
                 }
-              }
-            ]
-          }
-        },
-        {
-          "type": "CasterAnimation",
-          "name": "ult",
-          "tick": 31
-        },
-        {
-          "type": "Sfx",
-          "name": "league_gnar_r"
-        },
-        {
-          "type": "SwitchByBuff",
-          "buff_name": "league_gnar_vo_cd",
-          "effect_buff": {
-            "type": "Combine",
-            "effects": []
-          },
-          "effect_none": {
-            "type": "Combine",
-            "effects": [
-              {
-                "type": "AddCasterBuff",
-                "buff_state": {
-                  "name": "league_gnar_vo_cd",
-                  "duration": {
-                    "Time": {
-                      "tick": 600
-                    }
-                  }
-                },
-                "only_to_enemy": false
               },
               {
-                "type": "Sfx",
-                "name": "league_gnar_vo_r"
-              }
-            ]
-          }
-        },
-        {
-          "type": "Delayed",
-          "tick": 10,
-          "effects": [
-            {
-              "type": "RangeEffect",
-              "shape": {
-                "Circle": {
-                  "radius": 30000
-                }
-              },
-              "target": "EnemyWithoutTower",
-              "apply_type": "AroundCaster",
-              "effects": [
-                {
-                  "type": "Attack",
-                  "damage": 170,
-                  "attack_ratio": 60,
-                  "hp_ratio": 0,
-                  "target_hp_ratio": 0,
-                  "attack_effect_type": "Target"
-                },
-                {
-                  "type": "Knockback",
-                  "speed": 1500,
-                  "tick": 8
-                },
-                {
-                  "type": "Stun",
-                  "duration": 70
-                },
-                {
-                  "type": "AddBuff",
-                  "buff_state": {
-                    "name": "league_gnar_r_slow",
-                    "duration": {
-                      "Time": {
-                        "tick": 90
-                      }
-                    },
-                    "move_speed_mult": -50
-                  }
-                },
-                {
-                  "type": "ViewEffect",
-                  "name": "league_gnar_r_hit"
-                },
-                {
-                  "type": "TargetSfx",
-                  "name": "league_gnar_r_hit"
-                }
-              ]
-            },
-            {
-              "type": "CasterViewEffect",
-              "name": "league_gnar_r_wave"
-            },
-            {
-              "type": "Sfx",
-              "name": "league_gnar_r_land"
-            }
-          ]
-        },
-        {
-          "type": "Delayed",
-          "tick": 30,
-          "effects": [
-            {
-              "type": "RandomTarget",
-              "range": 1,
-              "casting_target": "AllyOnlySelf",
-              "from_projectile": false,
-              "effects": [
-                {
-                  "type": "AddCasterBuff",
-                  "buff_state": {
-                    "name": "league_gnar_lives",
-                    "duration": {
-                      "Time": {
-                        "tick": 1
-                      }
-                    }
-                  },
-                  "only_to_enemy": false
-                }
-              ]
-            },
-            {
-              "type": "SwitchByBuff",
-              "buff_name": "league_gnar_lives",
-              "effect_buff": {
-                "type": "Combine",
+                "type": "Delayed",
+                "tick": 10,
                 "effects": [
                   {
+                    "type": "RangeEffect",
+                    "shape": {
+                      "Circle": {
+                        "radius": 30000
+                      }
+                    },
+                    "target": "EnemyWithoutTower",
+                    "apply_type": "AroundCaster",
+                    "effects": [
+                      {
+                        "type": "Attack",
+                        "damage": 170,
+                        "attack_ratio": 60,
+                        "hp_ratio": 0,
+                        "target_hp_ratio": 0,
+                        "attack_effect_type": "Target"
+                      },
+                      {
+                        "type": "Knockback",
+                        "speed": 1500,
+                        "tick": 8
+                      },
+                      {
+                        "type": "Stun",
+                        "duration": 70
+                      },
+                      {
+                        "type": "AddBuff",
+                        "buff_state": {
+                          "name": "league_gnar_r_slow",
+                          "duration": {
+                            "Time": {
+                              "tick": 90
+                            }
+                          },
+                          "move_speed_mult": -50
+                        }
+                      },
+                      {
+                        "type": "ViewEffect",
+                        "name": "league_gnar_r_hit"
+                      },
+                      {
+                        "type": "TargetSfx",
+                        "name": "league_gnar_r_hit"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "CasterViewEffect",
+                    "name": "league_gnar_r_wave"
+                  },
+                  {
+                    "type": "Sfx",
+                    "name": "league_gnar_r_land"
+                  }
+                ]
+              },
+              {
+                "type": "Delayed",
+                "tick": 30,
+                "effects": [
+                  {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_gnar_lives",
+                          "duration": {
+                            "Time": {
+                              "tick": 1
+                            }
+                          }
+                        },
+                        "only_to_enemy": false
+                      }
+                    ]
+                  },
+                  {
                     "type": "SwitchByBuff",
-                    "buff_name": "league_gnar_w_cd",
+                    "buff_name": "league_gnar_lives",
                     "effect_buff": {
                       "type": "Combine",
-                      "effects": []
-                    },
-                    "effect_none": {
-                      "type": "RandomTarget",
-                      "range": 26000,
-                      "casting_target": "EnemyWithoutTower",
-                      "from_projectile": false,
                       "effects": [
                         {
-                          "type": "Combine",
-                          "effects": [
-                            {
-                              "type": "Combine",
-                              "effects": [
-                                {
-                                  "type": "RemoveCasterBuff",
-                                  "name": "league_gnar_w_cd"
-                                },
-                                {
-                                  "type": "AddCasterBuff",
-                                  "buff_state": {
-                                    "name": "league_gnar_w_cd",
-                                    "duration": {
-                                      "Time": {
-                                        "tick": 420
-                                      }
-                                    }
-                                  },
-                                  "only_to_enemy": false
-                                }
-                              ]
-                            },
-                            {
-                              "type": "Delayed",
-                              "tick": 0,
-                              "effects": [
-                                {
-                                  "type": "CasterAnimation",
-                                  "name": "m_wallop",
-                                  "tick": 33
-                                },
-                                {
-                                  "type": "Sfx",
-                                  "name": "league_gnar_w"
-                                },
-                                {
-                                  "type": "SwitchByBuff",
-                                  "buff_name": "league_gnar_vo_cd",
-                                  "effect_buff": {
-                                    "type": "Combine",
-                                    "effects": []
-                                  },
-                                  "effect_none": {
+                          "type": "SwitchByBuff",
+                          "buff_name": "league_gnar_w_cd",
+                          "effect_buff": {
+                            "type": "Combine",
+                            "effects": []
+                          },
+                          "effect_none": {
+                            "type": "RandomTarget",
+                            "range": 26000,
+                            "casting_target": "EnemyWithoutTower",
+                            "from_projectile": false,
+                            "effects": [
+                              {
+                                "type": "Combine",
+                                "effects": [
+                                  {
                                     "type": "Combine",
                                     "effects": [
                                       {
+                                        "type": "RemoveCasterBuff",
+                                        "name": "league_gnar_w_cd"
+                                      },
+                                      {
                                         "type": "AddCasterBuff",
                                         "buff_state": {
-                                          "name": "league_gnar_vo_cd",
+                                          "name": "league_gnar_w_cd",
                                           "duration": {
                                             "Time": {
-                                              "tick": 600
+                                              "tick": 420
                                             }
                                           }
                                         },
                                         "only_to_enemy": false
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "Delayed",
+                                    "tick": 0,
+                                    "effects": [
+                                      {
+                                        "type": "CasterAnimation",
+                                        "name": "m_wallop",
+                                        "tick": 33
                                       },
                                       {
                                         "type": "Sfx",
-                                        "name": "league_gnar_vo_big"
+                                        "name": "league_gnar_w"
+                                      },
+                                      {
+                                        "type": "SwitchByBuff",
+                                        "buff_name": "league_gnar_vo_cd",
+                                        "effect_buff": {
+                                          "type": "Combine",
+                                          "effects": []
+                                        },
+                                        "effect_none": {
+                                          "type": "Combine",
+                                          "effects": [
+                                            {
+                                              "type": "AddCasterBuff",
+                                              "buff_state": {
+                                                "name": "league_gnar_vo_cd",
+                                                "duration": {
+                                                  "Time": {
+                                                    "tick": 600
+                                                  }
+                                                }
+                                              },
+                                              "only_to_enemy": false
+                                            },
+                                            {
+                                              "type": "Sfx",
+                                              "name": "league_gnar_vo_big"
+                                            }
+                                          ]
+                                        }
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "Delayed",
+                                    "tick": 16,
+                                    "effects": [
+                                      {
+                                        "type": "RangeEffect",
+                                        "shape": {
+                                          "Circle": {
+                                            "radius": 14000
+                                          }
+                                        },
+                                        "target": "EnemyWithoutTower",
+                                        "apply_type": {
+                                          "Forward": {
+                                            "offset": 12000
+                                          }
+                                        },
+                                        "effects": [
+                                          {
+                                            "type": "Attack",
+                                            "damage": 40,
+                                            "attack_ratio": 100,
+                                            "hp_ratio": 0,
+                                            "target_hp_ratio": 0,
+                                            "attack_effect_type": "Target"
+                                          },
+                                          {
+                                            "type": "Stun",
+                                            "duration": 72
+                                          },
+                                          {
+                                            "type": "ViewEffect",
+                                            "name": "league_gnar_w_hit"
+                                          },
+                                          {
+                                            "type": "TargetSfx",
+                                            "name": "league_gnar_w_hit"
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "CasterViewEffect",
+                                        "name": "league_gnar_w_quake"
+                                      },
+                                      {
+                                        "type": "Sfx",
+                                        "name": "league_gnar_w_land"
                                       }
                                     ]
                                   }
-                                }
-                              ]
-                            },
-                            {
-                              "type": "Delayed",
-                              "tick": 16,
-                              "effects": [
-                                {
-                                  "type": "RangeEffect",
-                                  "shape": {
-                                    "Circle": {
-                                      "radius": 14000
-                                    }
-                                  },
-                                  "target": "EnemyWithoutTower",
-                                  "apply_type": {
-                                    "Forward": {
-                                      "offset": 12000
-                                    }
-                                  },
-                                  "effects": [
-                                    {
-                                      "type": "Attack",
-                                      "damage": 40,
-                                      "attack_ratio": 100,
-                                      "hp_ratio": 0,
-                                      "target_hp_ratio": 0,
-                                      "attack_effect_type": "Target"
-                                    },
-                                    {
-                                      "type": "Stun",
-                                      "duration": 72
-                                    },
-                                    {
-                                      "type": "ViewEffect",
-                                      "name": "league_gnar_w_hit"
-                                    },
-                                    {
-                                      "type": "TargetSfx",
-                                      "name": "league_gnar_w_hit"
-                                    }
-                                  ]
-                                },
-                                {
-                                  "type": "Sfx",
-                                  "name": "league_gnar_w_land"
-                                }
-                              ]
-                            }
-                          ]
-                        }
-                      ]
-                    }
-                  },
-                  {
-                    "type": "Delayed",
-                    "tick": 33,
-                    "effects": [
-                      {
-                        "type": "SwitchByBuff",
-                        "buff_name": "league_gnar_q_cd",
-                        "effect_buff": {
-                          "type": "Combine",
-                          "effects": []
+                                ]
+                              }
+                            ]
+                          }
                         },
-                        "effect_none": {
-                          "type": "Combine",
+                        {
+                          "type": "Delayed",
+                          "tick": 33,
                           "effects": [
                             {
-                              "type": "RemoveCasterBuff",
-                              "name": "league_gnar_q_got"
-                            },
-                            {
-                              "type": "Combine",
-                              "effects": [
-                                {
-                                  "type": "RemoveCasterBuff",
-                                  "name": "league_gnar_q_cd"
-                                },
-                                {
-                                  "type": "AddCasterBuff",
-                                  "buff_state": {
-                                    "name": "league_gnar_q_cd",
-                                    "duration": {
-                                      "Time": {
-                                        "tick": 540
-                                      }
-                                    }
-                                  },
-                                  "only_to_enemy": false
-                                }
-                              ]
-                            },
-                            {
-                              "type": "CasterAnimation",
-                              "name": "m_skill",
-                              "tick": 33
-                            },
-                            {
-                              "type": "Sfx",
-                              "name": "league_gnar_q2"
-                            },
-                            {
                               "type": "SwitchByBuff",
-                              "buff_name": "league_gnar_vo_cd",
+                              "buff_name": "league_gnar_q_cd",
                               "effect_buff": {
                                 "type": "Combine",
                                 "effects": []
@@ -3010,207 +3142,258 @@
                                 "type": "Combine",
                                 "effects": [
                                   {
-                                    "type": "AddCasterBuff",
-                                    "buff_state": {
-                                      "name": "league_gnar_vo_cd",
-                                      "duration": {
-                                        "Time": {
-                                          "tick": 600
-                                        }
-                                      }
-                                    },
-                                    "only_to_enemy": false
+                                    "type": "RemoveCasterBuff",
+                                    "name": "league_gnar_q_got"
                                   },
                                   {
-                                    "type": "Sfx",
-                                    "name": "league_gnar_vo_big"
-                                  }
-                                ]
-                              }
-                            },
-                            {
-                              "type": "Delayed",
-                              "tick": 17,
-                              "effects": [
-                                {
-                                  "type": "LinearProjectile",
-                                  "name": "league_gnar_q_rock",
-                                  "penetrate": false,
-                                  "applied_target": "EnemyWithoutTower",
-                                  "applied_effects": [],
-                                  "end_effects": [
-                                    {
-                                      "type": "RangeProjectile",
-                                      "name": "league_gnar_q_smash",
-                                      "shape": {
-                                        "Circle": {
-                                          "radius": 16000
-                                        }
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "RemoveCasterBuff",
+                                        "name": "league_gnar_q_cd"
                                       },
-                                      "delay": 2,
-                                      "apply": 1,
-                                      "applied_target": "EnemyWithoutTower",
-                                      "applied_effects": [
-                                        {
-                                          "casting_type": "Targeting",
-                                          "effect": {
-                                            "type": "Attack",
-                                            "damage": 60,
-                                            "attack_ratio": 120,
-                                            "hp_ratio": 0,
-                                            "target_hp_ratio": 0,
-                                            "attack_effect_type": "Target"
-                                          }
-                                        },
-                                        {
-                                          "casting_type": "Targeting",
-                                          "effect": {
-                                            "type": "AddBuff",
-                                            "buff_state": {
-                                              "name": "league_gnar_q2_slow",
-                                              "duration": {
-                                                "Time": {
-                                                  "tick": 120
-                                                }
-                                              },
-                                              "move_speed_mult": -40
+                                      {
+                                        "type": "AddCasterBuff",
+                                        "buff_state": {
+                                          "name": "league_gnar_q_cd",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 540
                                             }
                                           }
                                         },
+                                        "only_to_enemy": false
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "CasterAnimation",
+                                    "name": "m_skill",
+                                    "tick": 33
+                                  },
+                                  {
+                                    "type": "Sfx",
+                                    "name": "league_gnar_q2"
+                                  },
+                                  {
+                                    "type": "SwitchByBuff",
+                                    "buff_name": "league_gnar_vo_cd",
+                                    "effect_buff": {
+                                      "type": "Combine",
+                                      "effects": []
+                                    },
+                                    "effect_none": {
+                                      "type": "Combine",
+                                      "effects": [
                                         {
-                                          "casting_type": "Targeting",
-                                          "effect": {
-                                            "type": "ViewEffect",
-                                            "name": "league_gnar_q2_hit"
-                                          }
+                                          "type": "AddCasterBuff",
+                                          "buff_state": {
+                                            "name": "league_gnar_vo_cd",
+                                            "duration": {
+                                              "Time": {
+                                                "tick": 600
+                                              }
+                                            }
+                                          },
+                                          "only_to_enemy": false
                                         },
                                         {
-                                          "casting_type": "Targeting",
-                                          "effect": {
-                                            "type": "TargetSfx",
-                                            "name": "league_gnar_q2_hit"
-                                          }
+                                          "type": "Sfx",
+                                          "name": "league_gnar_vo_big"
                                         }
                                       ]
-                                    },
-                                    {
-                                      "type": "ViewEffect",
-                                      "name": "league_gnar_q_rest"
-                                    },
-                                    {
-                                      "type": "Sfx",
-                                      "name": "league_gnar_q_land"
-                                    },
-                                    {
-                                      "type": "RangePeriodProjectile",
-                                      "name": "league_gnar_q_spot",
-                                      "shape": {
-                                        "Circle": {
-                                          "radius": 1000
-                                        }
-                                      },
-                                      "tick": 180,
-                                      "period": 3,
-                                      "first_delay": 1,
-                                      "applied_target": "AllyChampion",
-                                      "applied_effects": [
-                                        {
-                                          "casting_type": "Targeting",
-                                          "effect": {
-                                            "type": "RandomTarget",
-                                            "range": 9000,
-                                            "casting_target": "AllyOnlySelf",
-                                            "from_projectile": true,
-                                            "effects": [
+                                    }
+                                  },
+                                  {
+                                    "type": "Delayed",
+                                    "tick": 17,
+                                    "effects": [
+                                      {
+                                        "type": "LinearProjectile",
+                                        "name": "league_gnar_q_rock",
+                                        "penetrate": false,
+                                        "applied_target": "EnemyWithoutTower",
+                                        "applied_effects": [],
+                                        "end_effects": [
+                                          {
+                                            "type": "RangeProjectile",
+                                            "name": "league_gnar_q_smash",
+                                            "shape": {
+                                              "Circle": {
+                                                "radius": 16000
+                                              }
+                                            },
+                                            "delay": 2,
+                                            "apply": 1,
+                                            "applied_target": "EnemyWithoutTower",
+                                            "applied_effects": [
                                               {
-                                                "type": "SwitchByBuff",
-                                                "buff_name": "league_gnar_q_got",
-                                                "effect_buff": {
-                                                  "type": "Combine",
-                                                  "effects": []
-                                                },
-                                                "effect_none": {
-                                                  "type": "Combine",
+                                                "casting_type": "Targeting",
+                                                "effect": {
+                                                  "type": "Attack",
+                                                  "damage": 60,
+                                                  "attack_ratio": 120,
+                                                  "hp_ratio": 0,
+                                                  "target_hp_ratio": 0,
+                                                  "attack_effect_type": "Target"
+                                                }
+                                              },
+                                              {
+                                                "casting_type": "Targeting",
+                                                "effect": {
+                                                  "type": "AddBuff",
+                                                  "buff_state": {
+                                                    "name": "league_gnar_q2_slow",
+                                                    "duration": {
+                                                      "Time": {
+                                                        "tick": 120
+                                                      }
+                                                    },
+                                                    "move_speed_mult": -40
+                                                  }
+                                                }
+                                              },
+                                              {
+                                                "casting_type": "Targeting",
+                                                "effect": {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_gnar_q2_hit"
+                                                }
+                                              },
+                                              {
+                                                "casting_type": "Targeting",
+                                                "effect": {
+                                                  "type": "TargetSfx",
+                                                  "name": "league_gnar_q2_hit"
+                                                }
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "type": "ViewEffect",
+                                            "name": "league_gnar_q_rest"
+                                          },
+                                          {
+                                            "type": "Sfx",
+                                            "name": "league_gnar_q_land"
+                                          },
+                                          {
+                                            "type": "RangePeriodProjectile",
+                                            "name": "league_gnar_q_spot",
+                                            "shape": {
+                                              "Circle": {
+                                                "radius": 1000
+                                              }
+                                            },
+                                            "tick": 180,
+                                            "period": 3,
+                                            "first_delay": 1,
+                                            "applied_target": "AllyChampion",
+                                            "applied_effects": [
+                                              {
+                                                "casting_type": "Targeting",
+                                                "effect": {
+                                                  "type": "RandomTarget",
+                                                  "range": 9000,
+                                                  "casting_target": "AllyOnlySelf",
+                                                  "from_projectile": true,
                                                   "effects": [
                                                     {
-                                                      "type": "AddCasterBuff",
-                                                      "buff_state": {
-                                                        "name": "league_gnar_q_got",
-                                                        "duration": {
-                                                          "Time": {
-                                                            "tick": 180
-                                                          }
-                                                        }
+                                                      "type": "SwitchByBuff",
+                                                      "buff_name": "league_gnar_q_got",
+                                                      "effect_buff": {
+                                                        "type": "Combine",
+                                                        "effects": []
                                                       },
-                                                      "only_to_enemy": false
-                                                    },
-                                                    {
-                                                      "type": "Combine",
-                                                      "effects": [
-                                                        {
-                                                          "type": "RemoveCasterBuff",
-                                                          "name": "league_gnar_q_cd"
-                                                        },
-                                                        {
-                                                          "type": "AddCasterBuff",
-                                                          "buff_state": {
-                                                            "name": "league_gnar_q_cd",
-                                                            "duration": {
-                                                              "Time": {
-                                                                "tick": 120
+                                                      "effect_none": {
+                                                        "type": "Combine",
+                                                        "effects": [
+                                                          {
+                                                            "type": "AddCasterBuff",
+                                                            "buff_state": {
+                                                              "name": "league_gnar_q_got",
+                                                              "duration": {
+                                                                "Time": {
+                                                                  "tick": 180
+                                                                }
                                                               }
-                                                            }
+                                                            },
+                                                            "only_to_enemy": false
                                                           },
-                                                          "only_to_enemy": false
-                                                        }
-                                                      ]
-                                                    },
-                                                    {
-                                                      "type": "CasterViewEffect",
-                                                      "name": "league_gnar_q_pick"
-                                                    },
-                                                    {
-                                                      "type": "Sfx",
-                                                      "name": "league_gnar_q_pick"
+                                                          {
+                                                            "type": "Combine",
+                                                            "effects": [
+                                                              {
+                                                                "type": "RemoveCasterBuff",
+                                                                "name": "league_gnar_q_cd"
+                                                              },
+                                                              {
+                                                                "type": "AddCasterBuff",
+                                                                "buff_state": {
+                                                                  "name": "league_gnar_q_cd",
+                                                                  "duration": {
+                                                                    "Time": {
+                                                                      "tick": 120
+                                                                    }
+                                                                  }
+                                                                },
+                                                                "only_to_enemy": false
+                                                              }
+                                                            ]
+                                                          },
+                                                          {
+                                                            "type": "CasterViewEffect",
+                                                            "name": "league_gnar_q_pick"
+                                                          },
+                                                          {
+                                                            "type": "Sfx",
+                                                            "name": "league_gnar_q_pick"
+                                                          }
+                                                        ]
+                                                      }
                                                     }
                                                   ]
                                                 }
                                               }
-                                            ]
+                                            ],
+                                            "end_effects": []
                                           }
-                                        }
-                                      ],
-                                      "end_effects": []
-                                    }
-                                  ],
-                                  "speed": 4000,
-                                  "range": 65000,
-                                  "shape": {
-                                    "Circle": {
-                                      "radius": 7000
-                                    }
-                                  },
-                                  "y_offset": 0
-                                }
-                              ]
+                                        ],
+                                        "speed": 4000,
+                                        "range": 65000,
+                                        "shape": {
+                                          "Circle": {
+                                            "radius": 7000
+                                          }
+                                        },
+                                        "y_offset": 0
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
                             }
                           ]
                         }
-                      }
-                    ]
+                      ]
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
+                  },
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_gnar_lives"
                   }
                 ]
-              },
-              "effect_none": {
-                "type": "Combine",
-                "effects": []
               }
-            },
-            {
-              "type": "RemoveCasterBuff",
-              "name": "league_gnar_lives"
-            }
-          ]
+            ]
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": []
+          }
         }
       ]
     }
@@ -3336,6 +3519,14 @@
       "anim": "asset/league/effects/league_gnar_fx",
       "tag": "c_hit",
       "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_gnar_w_quake",
+      "anim": "asset/league/effects/league_gnar_big",
+      "tag": "w_quake",
+      "z": -1,
       "is_follow": true
     },
     {
