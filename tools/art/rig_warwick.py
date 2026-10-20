@@ -238,11 +238,12 @@ def frames_all(F):
                                                      **SWIPE)]
     out["skill_bite"] = [p(whole=(2, 0), crouch=2, upper=3, far=1, far_at=(-7, 8)),
                          p(whole=(1, 0), crouch=2, upper=2, far=1, far_at=(-7, 8)), p(crouch=1)]
-    # E Primal Howl (League's Warwick_Spell3: rearing up with the fists raised, then the guard): skill2 = crouched, the
-    # far fist raised beside his head, crouched again; skill2_howl (League's Spell3_Howl: the fists thrown up, then
-    # standing tall, chest out, the jaws to the sky): crouched, the fist up, the chest thrown back, back
-    out["skill2"] = [p(crouch=1), p(upper=-1, **RAISE), p(upper=-1, **RAISE), p(crouch=1)]
-    out["skill2_howl"] = [p(crouch=1), p(upper=-1, **RAISE), p(upper=-2), p(upper=-2), p(upper=-1)]
+    # E Primal Howl (League's Warwick_Spell3: rearing up with the fists raised, then the guard): skill2 = crouched low,
+    # rearing up with the far fist raised beside his head, crouched again; skill2_howl (League's Spell3_Howl: gathered
+    # low, the fists thrown up, then standing tall, chest out, the jaws to the sky): gathered three rows down, rising
+    # with the fist up, the chest thrown back and held, back
+    out["skill2"] = [p(crouch=2), p(upper=-1, **RAISE), p(upper=-1, **RAISE), p(crouch=1)]
+    out["skill2_howl"] = [p(crouch=3, upper=1), p(crouch=1, upper=-1, **RAISE), p(upper=-2), p(upper=-2), p(upper=-1)]
     # R Infinite Duress (League's Warwick_Spell4 + Spell4Dash: crouched low with the claws forward, the leap): ult = the
     # coil and the spring (the leap leaves at tick 8), ult_dash = in the air until he lands on the champion
     out["ult"] = [p(crouch=1, upper=1), p(crouch=2, upper=2, far=1, far_at=(-7, 7)),
