@@ -268,10 +268,10 @@ def build(p, native=False):
     }
     if native:
         kit["passive"] = {"passive_ref": "league_warwick:hunt",
-                          "params": {k: int(p[k]) for k in ("p_dmg", "p_heal", "p_half", "p_quarter", "p_triple",
-                                                            "w_as", "w_ms", "w_t", "w_half", "w_quarter", "w_reach",
-                                                            "atk_range", "q_range", "q_cd", "e_range", "e_r", "e_t",
-                                                            "r_cast", "r_range", "r_w", "r_sup", "r_dmg", "r_ratio")}}
+                          "params": {k: int(p[k]) for k in ("p_dmg", "p_half", "p_quarter", "p_triple", "w_as", "w_ms",
+                                                            "w_half", "w_quarter", "w_reach", "atk_range", "q_range",
+                                                            "e_range", "e_r", "e_t", "r_cast", "r_range", "r_w",
+                                                            "r_sup", "r_cd", "r_dur")}}
     return kit
 
 
