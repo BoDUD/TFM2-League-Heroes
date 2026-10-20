@@ -222,7 +222,8 @@ def diffuse_textures(paths, skin_bin=None, skn=None):
     the texture after the mesh is the one the name rules picked. Camille's bin spells the folder `skins/base/`, so
     the folder is matched in any case. Urgot's only `_TX_CM` maps are particle textures (`Particles/Urgot_Base_Q_Projectile_TX_CM`)
     and turned him lime green; particles never count."""
-    base = [p for p in paths if "/base/" in p.lower()]
+    # Zyra's map sits beside the skins folder, not in it: ASSETS/Characters/Zyra/Zyra_base_TX_CM.tex
+    base = [p for p in paths if "/base/" in p.lower() or re.search(r"_base_(tx_cm|cm_tx)", p, re.I)]
     named = [p for p in base if re.search(r"_tx_cm|_cm_tx", p, re.I) and not re.search(r"trail|/particles/", p, re.I)]
     found = named or [p for p in base if not re.search(r"loadscreen|square|circle|icon|/particles/", p, re.I)]
     if skin_bin is not None and skn is not None:

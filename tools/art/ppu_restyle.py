@@ -57,7 +57,7 @@ ORIG_PPU = {"zeri": 3, "karma": 3, "braum": 2.881, "mordekaiser": 5, "corki": 5,
             "vladimir": 2, "yasuo": 3, "garen": 3, "gragas": 2, "irelia": 2, "soraka": 3, "nidalee": 3.8313,
             "nilah": 2.5, "kindred": 154 / 34, "malzahar": 1.38, "milio": 2.2, "jayce": 1.5, "elise": 1.8, "katarina": 1.5,
             "tahmkench": 1.2, "kalista": 1.4, "drmundo": 1.5, "pantheon": 1.5, "orianna": 2.2, "aphelios": 1.5, "rell": 1.5, "urgot": 1.2, "reksai": 1.58, "swain": 1.5, "nasus": 1.2, "renata": 1.5, "anivia": 1.2, "jarvaniv": 1.5, "ziggs": 1.5, "maokai": 1.5, "gangplank": 1.5, "wukong": 1.53, "cassiopeia": 1.3, "akshan": 1.61, "poppy": 1.3, "volibear": 1.2, "rammus": 1.2,
-            **{h: 1.5 for h in ('morgana', 'nami', 'janna', 'jax', 'xinzhao')}, "yunara": 1.5, "kaisa": 1.45, "camille": 1.5, "fiora": 1.5, "leblanc": 2.0, "darius": 1.45, "riven": 1.5, "zoe": 1.5, "quinn": 2.0, "yuumi": 1.5, "powder": 1.75, "chogath": 1.2, "karthus": 1.5, "vex": 1.5, "graves": 1.5}
+            **{h: 1.5 for h in ('morgana', 'nami', 'janna', 'jax', 'xinzhao')}, "yunara": 1.5, "kaisa": 1.45, "camille": 1.5, "fiora": 1.5, "leblanc": 2.0, "darius": 1.45, "riven": 1.5, "zoe": 1.5, "quinn": 2.0, "yuumi": 1.5, "powder": 1.75, "chogath": 1.2, "karthus": 1.5, "vex": 1.5, "zyra": 1.7, "graves": 1.5}
 # face: (row0, row1, col0, col1) of the face to match in the idle's first dense frame; neck: (col, row) there
 RESTYLE = {
     "zeri": dict(face=(25, 41, 22, 42), neck=None, neck_row=35, head=1.3, wide=1.45, short=0.88, band=2, edge=1, face_to=(-1, -33)),
@@ -395,6 +395,11 @@ RESTYLE = {
     # the faces redrawn) by tools/art/rig_vex.py, so no proportion or density change here; the outer outline grown a
     # square like the others; the face point between her eyes
     "vex": dict(ppu=1.5, edge=1, face_to=(1, -17)),
+    # league_zyra (#140): posed by tools/art/rig_zyra.py on Codex's step-1 take A-1 at 1.7 squares a game pixel (the
+    # user: 「44」, then 「提高点ppu像素吧」「脸部完全变形了啊」: A-1's own 74 rows hair to soles, Codex's own face; 「就用四分之三面
+    # 来做啊」: every action on the 3/4 design), so no proportion or density change here; the outer outline grown a square
+    # like the others; the face point between her eyes
+    "zyra": dict(ppu=1.7, edge=1, face_to=(1, -32)),
     # league_graves (#139): posed by tools/art/rig_graves.py at the user's 1.5 squares a game pixel (「38 像素」「PPU 1.5」:
     # Codex's step-1 takes A-1 / side-2 cut to 57 rows with one head, Codex's seven poses on skeletons read back at the
     # side design's scale), so no proportion or density change here; the outer outline grown a square like the others;

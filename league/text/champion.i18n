@@ -967,6 +967,13 @@
         "skill2": "影子飞到目标处扩散，造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>魔法伤害、减速35%<#ffb900ff>2秒<>，并施加<#ff9028ff>暮气<>：她下一次技能打中带暮气的英雄额外造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>魔法伤害。",
         "ult": "射出飞弹标记一名敌方英雄，造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>魔法伤害，随后冲到他身边再造成<#a974ffff>225<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>魔法伤害。"
       },
+      "league_zyra": {
+        "name": "婕拉",
+        "attack": "甩出一颗荆棘种子。<#ff9028ff>荆棘花园<>：她每次放Q、E都先种下一颗种子，长成植物作战<#ffb900ff>5秒<>，每<#ffb900ff>1秒<>攻击一个敌人，造成<#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>12%<>魔法伤害。",
+        "skill": "地面炸出棘刺，范围内的敌人受到<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<>魔法伤害。种子长成<#ff9028ff>荆棘喷射者<>，远距离攻击。",
+        "skill2": "放出贯穿地面的藤蔓，路径上的敌人受到<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<>魔法伤害并被<#ef5350ff>禁锢<><#ffb900ff>1.25秒<>。种子长成<#ff9028ff>藤蔓鞭击者<>，近距离攻击并减速30%。",
+        "ult": "召唤扭曲的密林，造成<#a974ffff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>魔法伤害，<#ffb900ff>2秒<>后<#ef5350ff>击飞<>仍在其中的敌人<#ffb900ff>1秒<>。植物被激怒<#ffb900ff>5秒<>，伤害提高50%。"
+      },
       "league_graves": {
         "name": "格雷福斯",
         "attack": "霰弹枪每次朝前方一扇开火：目标<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<>，扇形里的其他敌人35%攻击；两发后装弹<#ffb900ff>1.33秒<>。<#ff9028ff>烟幕弹<>：每<#ffb900ff>12秒<>朝英雄扔一颗，<#a974ffff>60<>魔法伤害、<#ef5350ff>减速50%、致盲<><#ffb900ff>0.5秒<>。",
@@ -1665,6 +1672,11 @@
         "skill1": "寒心波云",
         "skill2": "溟濛渐染",
         "ult": "愁煞"
+      },
+      "league_zyra": {
+        "skill1": "致命棘刺",
+        "skill2": "缠绕之根",
+        "ult": "绞杀之藤"
       },
       "league_graves": {
         "skill1": "穷途末路",
@@ -2641,6 +2653,13 @@
         "skill2": "影子飛到目標處擴散，造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>魔法傷害、緩速35%<#ffb900ff>2秒<>，並施加<#ff9028ff>陰霾<>：她下一次技能打中帶陰霾的英雄額外造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>魔法傷害。",
         "ult": "射出飛彈標記一名敵方英雄，造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>魔法傷害，隨後衝到他身邊再造成<#a974ffff>225<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>魔法傷害。"
       },
+      "league_zyra": {
+        "name": "枷蘿",
+        "attack": "甩出一顆荊棘種子。<#ff9028ff>荊棘花園<>：她每次施放Q、E都先種下一顆種子，長成植物作戰<#ffb900ff>5秒<>，每<#ffb900ff>1秒<>攻擊一個敵人，造成<#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>12%<>魔法傷害。",
+        "skill": "地面炸出棘刺，範圍內的敵人受到<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<>魔法傷害。種子長成<#ff9028ff>棘刺噴吐草<>，遠距離攻擊。",
+        "skill2": "射出貫穿地面的藤蔓，路徑上的敵人受到<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<>魔法傷害並被<#ef5350ff>定身<><#ffb900ff>1.25秒<>。種子長成<#ff9028ff>棘蔓鞭笞草<>，近距離攻擊並緩速30%。",
+        "ult": "召喚扭曲的密林，造成<#a974ffff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>魔法傷害，<#ffb900ff>2秒<>後<#ef5350ff>擊飛<>仍在其中的敵人<#ffb900ff>1秒<>。植物被激怒<#ffb900ff>5秒<>，傷害提高50%。"
+      },
       "league_graves": {
         "name": "葛雷夫",
         "attack": "散彈槍每次朝前方一扇開火：目標<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<>，扇形裡的其他敵人35%攻擊；兩發後裝彈<#ffb900ff>1.33秒<>。<#ff9028ff>隻手遮天<>：每<#ffb900ff>12秒<>朝英雄丟一顆，<#a974ffff>60<>魔法傷害、<#ef5350ff>緩速50%、致盲<><#ffb900ff>0.5秒<>。",
@@ -3339,6 +3358,11 @@
         "skill1": "冷酷暗箭",
         "skill2": "闇黑迫近",
         "ult": "飛影急襲"
+      },
+      "league_zyra": {
+        "skill1": "致死棘刺",
+        "skill2": "索命棘蔓",
+        "ult": "致命綻放"
       },
       "league_graves": {
         "skill1": "人在江湖",
@@ -4315,6 +4339,13 @@
         "skill2": "Her Shadow flies to the target and spreads: <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> <#a974ffff>magic damage<>, slowed 35% for <#ffb900ff>2s<>, and <#ff9028ff>Gloom<>: her next spell hit on a Gloomed champion deals <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> more.",
         "ult": "Fires a missile that marks an enemy champion for <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<> <#a974ffff>magic damage<>, then surges to it for <#a974ffff>225<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> more."
       },
+      "league_zyra": {
+        "name": "Zyra",
+        "attack": "Flings a thorn seed. <#ff9028ff>Garden of Thorns<>: each Q and E first plants a seed that grows into a plant fighting for <#ffb900ff>5s<>, striking one enemy every <#ffb900ff>1s<> for <#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>12%<> <#a974ffff>magic damage<>.",
+        "skill": "Spines burst from the ground, dealing <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<> <#a974ffff>magic damage<> to enemies in the area. The seed grows a <#ff9028ff>Thorn Spitter<> that fires from afar.",
+        "skill2": "Vines run through the ground, dealing <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<> <#a974ffff>magic damage<> and <#ef5350ff>rooting<> every enemy on the line for <#ffb900ff>1.25s<>. The seed grows a <#ff9028ff>Vine Lasher<> whose short-range strikes slow by 30%.",
+        "ult": "Summons a twisted thicket that deals <#a974ffff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> <#a974ffff>magic damage<> and after <#ffb900ff>2s<> <#ef5350ff>knocks up<> the enemies still in it for <#ffb900ff>1s<>. Her plants are enraged for <#ffb900ff>5s<>: 50% more damage."
+      },
       "league_graves": {
         "name": "Graves",
         "attack": "His shotgun fires a spread: the target takes <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<>, other enemies in the cone 35% AD; after two shells he reloads for <#ffb900ff>1.33s<>. <#ff9028ff>Smoke Screen<>: every <#ffb900ff>12s<> he also throws a canister at a champion: <#a974ffff>60<> magic damage, <#ef5350ff>50% slow and blind<> for <#ffb900ff>0.5s<>.",
@@ -5013,6 +5044,11 @@
         "skill1": "Mistral Bolt",
         "skill2": "Looming Darkness",
         "ult": "Shadow Surge"
+      },
+      "league_zyra": {
+        "skill1": "Deadly Spines",
+        "skill2": "Grasping Roots",
+        "ult": "Stranglethorns"
       },
       "league_graves": {
         "skill1": "End of the Line",
@@ -5989,6 +6025,13 @@
         "skill2": "그림자가 대상 위치로 날아가 퍼지며 <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> 마법 피해, <#ffb900ff>2초<> 35% 둔화, <#ff9028ff>우울<> 부여: 우울한 챔피언에게 다음 스킬이 적중하면 <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> 추가 피해.",
         "ult": "투사체로 적 챔피언을 표식해 <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<> 마법 피해, 이어서 돌진해 <#a974ffff>225<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> 마법 피해."
       },
+      "league_zyra": {
+        "name": "자이라",
+        "attack": "가시 씨앗을 던진다. <#ff9028ff>가시 정원<>: Q와 E를 쓸 때마다 먼저 씨앗을 심어 <#ffb900ff>5초<> 동안 싸우는 식물로 키운다. 식물은 <#ffb900ff>1초<>마다 적 하나에게 <#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>12%<> 마법 피해.",
+        "skill": "지면에서 가시가 폭발해 범위 안의 적에게 <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<> 마법 피해. 씨앗은 원거리에서 공격하는 <#ff9028ff>가시 발사 꽃<>이 된다.",
+        "skill2": "지면을 뚫는 덩굴로 직선상의 적에게 <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<> 마법 피해를 입히고 <#ffb900ff>1.25초<> <#ef5350ff>속박<>. 씨앗은 근거리에서 공격하며 30% 둔화시키는 <#ff9028ff>덩굴 채찍손<>이 된다.",
+        "ult": "뒤틀린 덤불을 불러 <#a974ffff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> 마법 피해, <#ffb900ff>2초<> 뒤 안에 남은 적을 <#ffb900ff>1초<> <#ef5350ff>에어본<>. 식물이 <#ffb900ff>5초<> 동안 격노해 피해 50% 증가."
+      },
       "league_graves": {
         "name": "그레이브즈",
         "attack": "산탄총이 부채꼴로 발사: 대상 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<>, 부채꼴 안 다른 적 공격력 35%. 두 발 뒤 <#ffb900ff>1.33초<> 재장전. <#ff9028ff>연막탄<>: <#ffb900ff>12초<>마다 챔피언에게 던져 <#a974ffff>60<> 마법 피해, <#ef5350ff>50% 둔화, <><#ffb900ff>0.5초<> 실명.",
@@ -6687,6 +6730,11 @@
         "skill1": "안개 화살",
         "skill2": "커지는 어둠",
         "ult": "그림자 파동"
+      },
+      "league_zyra": {
+        "skill1": "치명적인 가시",
+        "skill2": "휘감는 뿌리",
+        "ult": "올가미 덩굴"
       },
       "league_graves": {
         "skill1": "화약 역류",
@@ -7663,6 +7711,13 @@
         "skill2": "影が目標地点へ飛んで広がり、<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>の魔法ダメージ、<#ffb900ff>2秒<>35%スロウ、<#ff9028ff>ユーウツ<>付与：ユーウツのチャンピオンに次のスキルが当たると<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>追加。",
         "ult": "弾で敵チャンピオンにマークをつけ<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>の魔法ダメージ、続いて突進して<#a974ffff>225<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>の魔法ダメージ。"
       },
+      "league_zyra": {
+        "name": "ザイラ",
+        "attack": "トゲの種を投げる。<#ff9028ff>茨の楽園<>：QとEを使うたび先に種を植え、<#ffb900ff>5秒<>戦う植物に育てる。植物は<#ffb900ff>1秒<>ごとに敵1体に<#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>12%<>の魔法ダメージ。",
+        "skill": "地面からトゲが弾け、範囲内の敵に<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<>の魔法ダメージ。種は遠距離から攻撃する<#ff9028ff>棘吹草<>になる。",
+        "skill2": "地中を伸びるツタが直線上の敵に<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<>の魔法ダメージを与え<#ffb900ff>1.25秒<><#ef5350ff>移動不能<>。種は近距離を攻撃し30%スロウを与える<#ff9028ff>棘鞭草<>になる。",
+        "ult": "ねじれた茂みを呼び<#a974ffff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>の魔法ダメージ、<#ffb900ff>2秒<>後に中の敵を<#ffb900ff>1秒<><#ef5350ff>打ち上げ<>。植物が<#ffb900ff>5秒<>激昂しダメージ50%増加。"
+      },
       "league_graves": {
         "name": "グレイブス",
         "attack": "ショットガンは扇状に撃つ：対象<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<>、扇内の他の敵は攻撃力35%。2発撃つと<#ffb900ff>1.33秒<>リロード。<#ff9028ff>スモークスクリーン<>：<#ffb900ff>12秒<>ごとにチャンピオンへ投げ、<#a974ffff>60<>の魔法ダメージ、<#ef5350ff>50%スロウ、<><#ffb900ff>0.5秒<>ブラインド。",
@@ -8361,6 +8416,11 @@
         "skill1": "無気力ショット",
         "skill2": "ヤミとばし",
         "ult": "影法師"
+      },
+      "league_zyra": {
+        "skill1": "死華の棘",
+        "skill2": "捕縛の根",
+        "ult": "茨のゆりかご"
       },
       "league_graves": {
         "skill1": "エンドライン",

@@ -54,6 +54,35 @@ FACE = {  # part -> (rows, cols of the skin box, far eye column, near eye column
 }
 
 
+# the idle's face drawn as a face, not a box (the user, 2026-10-20: 「这个方形脸也太丑了吧」 - the skin rectangle above left
+# straight edges and a square chin): cheeks narrowing into a small chin, the shadow tone along the jaw, heavy dark lids
+# over half-closed magenta eyes (the near one, image right, a square wider: 3/4 to the right), a small mouth. Rows from
+# FACE_TOP, columns from FACE_LEFT; "." keeps the design's own square (hair, hood, outline).
+FACE_TOP, FACE_LEFT = 35, 29
+FACE_TPL = [
+    "SSSSSSSSSSSSS",
+    "SKKKSSSSKKKKS",
+    "SmGSSSSSmMGSS",
+    "SMMSSSSSMMMSS",
+    "sSSSSSSSSSSSs",
+    ".sSSSSKKSSSs.",
+    "..sSSSSSSSs..",
+    "...ssSSSss...",
+]
+# her eyes' glint pure white: the Shadow's eye colour (GLINT) is split off as the Shadow by rig_vex
+HER_GLINT = (255, 255, 255)
+FACE_COL = {"S": SKIN, "s": (159, 172, 181), "K": INK, "M": MAG, "m": MAG2, "G": HER_GLINT}
+
+
+def draw_face(fig):
+    out = fig.copy()
+    for dy, line in enumerate(FACE_TPL):
+        for dx, ch in enumerate(line):
+            if ch != ".":
+                out[FACE_TOP + dy, FACE_LEFT + dx] = (*FACE_COL[ch], 255)
+    return out
+
+
 def redraw_face(fig, part, rows, cols):
     """FACE[part] (rows / columns of the written design) painted over the figure."""
     rr, cc, far, near, lid, (my, mx) = FACE[part]
@@ -64,7 +93,7 @@ def redraw_face(fig, part, rows, cols):
     for ex in (far, near):
         for x in range(ex - 1, ex + 2):
             out[lid, x] = (*INK, 255)
-        out[lid + 1, ex], out[lid + 1, ex + 1] = (*MAG2, 255), (*GLINT, 255)
+        out[lid + 1, ex], out[lid + 1, ex + 1] = (*MAG2, 255), (*HER_GLINT, 255)
         out[lid + 2, ex], out[lid + 2, ex + 1] = (*MAG, 255), (*MAG, 255)
     out[my, mx], out[my, mx + 1] = (*INK, 255), (*INK, 255)
     return out
@@ -241,7 +270,10 @@ def main():
     col = joint(list(PICKS.values()))
     for part, name in PICKS.items():
         fig, rows, cols = cut(name, col[name])
-        fig = redraw_shadow_eyes(redraw_face(fig, part, rows, cols), part)
+        # the side keeps the face its cut gave it (the user, 2026-10-20, pointing at it: 「这个脸不是最好的吗 为什么不用啊」);
+        # it is the one face of every frame (rig_vex pastes the side's head on the idle)
+        fig = draw_face(fig) if part == "idle" else fig
+        fig = redraw_shadow_eyes(fig, part)
         Image.fromarray(fig).save(lp(os.path.join(OUT, f"{part}.png")))
         Image.fromarray(np.repeat(np.repeat(fig, 4, 0), 4, 1)).save(lp(os.path.join(OUT, f"{part}_4x.png")))
         print(part, name, fig.shape[1], "x", fig.shape[0], "rows kept", len(rows), "of", max(rows) + 1)
