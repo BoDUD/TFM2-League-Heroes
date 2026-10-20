@@ -8,7 +8,7 @@
     },
     {
       "mod_id": "league",
-      "version": ">=0.181.0"
+      "version": ">=0.182.0"
     }
   ],
   "description": "Test build of Sylas as in League (needs League of Legends Heroes): replaces the main pack's Sylas so Hijack steals by the robbed champion's class (five stolen ultimates: melee, marksman, mage, support, assassin) and Kingslayer heals more the more health he is missing; the AI plays his combos (Chain Lash after Abduct, the stolen ultimate kept for two champions or a wounded one, Kingslayer on a wounded champion). Other champions are untouched. Writes a log for testing.",

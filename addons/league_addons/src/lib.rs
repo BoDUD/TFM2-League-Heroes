@@ -251,6 +251,9 @@ mod graves;
 #[path = "../../league_warwick/src/lib.rs"]
 mod warwick;
 #[allow(dead_code)] // items public in the add-on's own crate
+#[path = "../../league_gnar/src/lib.rs"]
+mod gnar;
+#[allow(dead_code)] // items public in the add-on's own crate
 #[path = "../../league_sylas/src/lib.rs"]
 mod sylas;
 
@@ -356,6 +359,7 @@ fn init(host: &StableHost) -> StableMod {
     zyra::register(host, &mut module);
     graves::register(host, &mut module);
     warwick::register(host, &mut module);
+    gnar::register(host, &mut module);
     sylas::register(host, &mut module);
     module.set_map_customizer(MapReaders);
     host.log(

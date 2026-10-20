@@ -135,6 +135,10 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // skill_bite / skill2_howl / ult_dash / ult_hold the kit's CasterAnimations), brought down to 1.2 by ppu_restyle
     // (「太高清了 降点像素」), so no SIZES row
     ("league_warwick", 1.2, include_str!("../../../league/champions/league_warwick#anim.fanim")),
+    // Gnar: posed by tools/art/rig_gnar.py from Codex's step-1 takes at the user's 1.5 squares a game pixel (Mini 48 game
+    // rows skull cap to soles, Mega 66: 「迷你 32」「巨型 44」; Mega's m_* tags the kit's CasterAnimations and the add-on's
+    // whole-body swap), so no SIZES row
+    ("league_gnar", 1.5, include_str!("../../../league/champions/league_gnar#anim.fanim")),
     // Sylas: posed by tools/art/rig_sylas.py at the user's 1.2 squares a game pixel (46 game rows hair to soles: 「38」
     // 「PPU 1.2」; 3/4 only, Codex's sixteen skeleton poses with the design's head; attack_p / skill_w / skill2_pull /
     // ult_cast / ult_dash the kit's CasterAnimations), so no SIZES row

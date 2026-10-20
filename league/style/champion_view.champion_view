@@ -1822,6 +1822,16 @@
         "y": -8
       }
     },
+    "league_gnar": {
+      "face": {
+        "x": 0,
+        "y": -19
+      },
+      "center": {
+        "x": 0,
+        "y": -11
+      }
+    },
     "league_sylas": {
       "face": {
         "x": 2,
