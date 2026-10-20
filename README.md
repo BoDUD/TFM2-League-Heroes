@@ -250,6 +250,8 @@
 ![悠米演示：悠米和金克丝对德莱厄斯：书页光弹带着猫的博爱，他身上炸开金色星星和爱心，她身上冒起爱心；摸鱼飞弹飞过半条路、强化命中，他脚下一圈减速光环；悠米出动！她扑到金克丝头上趴在书上，金克丝身上闪起金色护盾、脚下转着加速光圈、每秒冒出爱心；骑在金克丝头上放魔典终章：脚下展开魔法阵，五道粉紫色带金边的波纹从金克丝身上飞过去，第三道把他定住，每道都给金克丝回血；再从金克丝头上甩出强化的摸鱼飞弹；四秒后她跳下来，德莱厄斯倒下](docs/preview/league_yuumi_showcase.gif?v=1019a)
 ![科加斯演示：对德莱厄斯：破裂：德莱厄斯脚下的地面裂开、透出紫光，0.6 秒后冲出一丛紫色地刺把他顶飞，碎石四溅，脚下留下发光的裂缝；野性尖叫：他直立朝前一吼，蓝紫色声波一层层推过去，德莱厄斯头上出现沉默标记；两下带刺普攻：一排紫色尖刺拖着光尾飞过德莱厄斯，他背上那排刺亮起来；盛宴：一圈红牙合拢咬住德莱厄斯，中间卷起虚空漩涡，他被吃掉，科加斯脚下冒起一圈虚空火焰](docs/preview/league_chogath_showcase.gif?v=1019a)
 
+![卡尔萨斯演示：对德莱厄斯：法杖射出一团幽绿的灵魂弹打中他；荒芜：他脚下先出现蓝色的预警圈、地面裂开，0.53 秒后一团青绿色的灵魂火炸起，只炸到他一个人，伤害翻倍的白蓝光环一胀；普攻带出痛苦之墙：一道鬼脸灵魂墙立在他的位置，他脚下伸出鬼手、头上出现裂开的盾；亵渎：卡尔萨斯脚下转起灵魂漩涡，德莱厄斯身上一下下冒起灵魂火；安魂曲：卡尔萨斯拿出书、浮空吟唱 3 秒，身边灵魂盘旋往上，然后一道光柱落在德莱厄斯身上，他倒下](docs/preview/league_karthus_showcase.gif?v=1020a)
+
 ## 英雄：盖伦
 
 技能按创意工坊 *League of Legends Reborn* 的做法处理。团战经理2 只有「技能1、技能2、大招」三个技能位，所以大招放 R，两个技能位放最有代表性的两个小技能，剩下的小技能和被动合并进去。
@@ -5901,7 +5903,7 @@ python addons/league_chogath/make_override.py       # 附加包的副本（主�
 | 数值 | 攻击 76（+6）、法强 40（+20）、生命 880（+95）、护甲 18（+7）、魔抗 22（+4）、移速 900（+9）、射程 50000，攻击间隔 92 tick |
 | 平衡 | 10 分钟经典引擎模拟，中单位对原版五个中单（火法师、冰法师、雷法师、风法师、白魔法师），三套阵容两边各打：初稿 -4.72（Q 的爆炸和 W 的墙直接从动作里放，打不中任何人）；改成隐形抛物线弹后 +2.89（太强）；Q 45 + 30%、R 200 + 75% 冷却 70 秒 +1.46；按动作帧的时间点（普攻第 3 帧射出、W 第 4 帧立墙、Q 第 3 帧甩手）两批种子（1–8、9–16）**+1.27 / +2.05**（平均 +1.66；同期科加斯 +1.92、沃利贝尔 +1.39、佐伊 +1.30），不再调 |
 | 精灵图（高清帧 PPU 1.5） | Codex 第 0 步画了四张原画（[`tools/art/pack_karthus_picture.py`](tools/art/pack_karthus_picture.py)：A 长杖 / B 短杖的 3/4 正面，SA / SB 正侧面；读回 [`design_karthus_hd.py`](tools/art/design_karthus_hd.py)，大小对比 [`review_karthus_size.py`](tools/art/review_karthus_size.py)），用户：「A 长杖」「40 像素，PPU 1.5」（冠尖到脚底 60 行，杖尖再高 6 行）。第 1 步 Codex 在游戏格子上画 3/4 正面和侧面各两稿（[`pack_karthus_model.py`](tools/art/pack_karthus_model.py) / [`design_karthus_model.py`](tools/art/design_karthus_model.py)），用户选 A-1 和 side-1；读回后脸在格子上重画（骷髅脸、两只一样高的青色眼睛、上下两排牙），侧面换上正面的头（一张脸用在所有帧）、正面换上侧面的杖（一根杖），侧面的杖缩到和正面一样长。动作帧（[`rig_karthus.py`](tools/art/rig_karthus.py)，用户：「动作帧你参考其他英雄怎么做的 不太需要依赖codex」「对照英雄联盟的动作帧来做」）全部从造型自己的格子无损摆出来（整格平移、四分之一转、镜像），逐帧对照英雄联盟的动画：普攻法杖平指前方、往前下方一戳再竖回来（attack1）；W 法杖横向后扫、再张开双臂（Spell2）；Q 爪子往后下方甩、再往前一甩（Spell1a）；E 张开双臂（英雄联盟的亵渎没有施法动作）；R 拿出书、浮空 14 行唱 3 秒、书举到头后 / 放到胸前（Spell4_In + spell4_loop，书是照英雄联盟画的一本小红书）；跑步是身体前倾的飘行、袍尾往后飘（run，前倾时头和握杖的手整块移、法杖不歪）；死亡时法杖落地、他举起双臂（英雄联盟里他之后化成灵体消失），然后塌进袍子里。近侧手臂抬起后露出的地方补成袍子的暗紫色。对比 GIF：[`review_karthus_actions.py`](tools/art/review_karthus_actions.py)。头像点 `face` (1, -30) 在骷髅脸上（9×9 的头像框里是眼睛、牙和冠上的宝石），`banpick_center` -10（按冠尖，杖尖被卡片上沿裁掉，[`bp_card_audit.py`](tools/art/bp_card_audit.py) 标 CLIPPED 是这个） |
-| 特效 | 第 3 步 14 张特效（[`tools/art/pack_karthus_fx.py`](tools/art/pack_karthus_fx.py)，颜色照英雄联盟：幽绿 / 青绿色的灵魂光，光环和星芒带蓝边，暗处是深色的灵魂烟，安魂曲的光柱边缘带一点深红）：普攻的灵魂弹和打中、Q 的预警圈 / 爆炸 / 打中 / 单体翻倍、E 脚下的灵魂漩涡和烧到、W 的痛苦之墙 / 减速的鬼手 / 削魔抗的裂盾、R 引导时身边的灵魂和每个敌方英雄身上落下的光柱、附加包的灵体光 |
+| 特效 | 第 3 步 14 张特效（[`tools/art/pack_karthus_fx.py`](tools/art/pack_karthus_fx.py)，颜色照英雄联盟：幽绿 / 青绿色的灵魂光，光环和星芒带蓝边，暗处是深色的灵魂烟，安魂曲的光柱边缘带一点深红）：普攻的灵魂弹和打中、Q 的预警圈 / 爆炸 / 打中 / 单体翻倍、E 脚下的灵魂漩涡和烧到、W 的痛苦之墙 / 减速的鬼手 / 削魔抗的裂盾、R 引导时身边的灵魂和每个敌方英雄身上落下的光柱、附加包的灵体光。Codex 一轮画完（按格子取色、逐格对称），[`tools/art/import_karthus_fx.py`](tools/art/import_karthus_fx.py) 按清单切格、再查对称、照技能播放的位置和时长摆好：Q 的预警圈放满抛物线弹的 32 tick，痛苦之墙放满 5 秒（第 3–6 帧循环），安魂曲的灵魂放满引导的 3 秒；得到 `league_karthus_fx` 和 `league_karthus_big` |
 | 音效 | 英雄联盟的音效和配音（[`tools/lol/extract_karthus.py`](tools/lol/extract_karthus.py)，20 段）：普攻出手 / 打中、W 施放 / 立墙、Q 施放 / 预警 / 爆炸 / 单体爆炸、E 开启 / 持续、R 施放 / 引导 / 落下 / 打中、死亡契约，配音是 W、E、R 的技能台词和普通攻击台词（Q）、死亡台词（死亡契约） |
 | 图标 | 官方技能图标（荒芜、亵渎、安魂曲，另有痛苦之墙和死亡契约），从本地客户端取 |
 
@@ -5915,10 +5917,14 @@ python tools/art/design_karthus_model.py            # Codex 第 1 步的造型�
 python tools/art/rig_karthus.py                     # 1.5 的原帧和 1 倍帧
 python tools/art/ppu_restyle.py --hero karthus      # 外描边（不要加 --preview）
 python tools/art/ppu_hd.py --hero karthus           # hd_ / lo_ 帧
+python tools/art/import_karthus_fx.py               # Codex 的特效（assets/source/karthus/codex_fx）
+python tools/art/preview_karthus.py                 # 预览和演示 GIF
 python addons/league_karthus/make_override.py       # 附加包的副本（主包的卡尔萨斯改了就重跑）
 ```
 
-美术提示词见 [`assets/source/karthus/`](assets/source/karthus/) 里的 `PICTURE_PROMPT.md`、`MODEL_PROMPTS.md`、`PROMPTS_FX.md`；Codex 的交付在 `codex_picture/`、`codex_model/`。
+美术提示词见 [`assets/source/karthus/`](assets/source/karthus/) 里的 `PICTURE_PROMPT.md`、`MODEL_PROMPTS.md`、`PROMPTS_FX.md`；Codex 的交付在 `codex_picture/`、`codex_model/`、`codex_fx/`。
+
+逐帧预览：[`docs/preview/league_karthus_frames.png`](docs/preview/league_karthus_frames.png?v=1020a)，特效：[`docs/preview/league_karthus_effects.png`](docs/preview/league_karthus_effects.png?v=1020a)。
 
 ## 英雄：爆爆（金铲铲之战 · tft 包）
 
