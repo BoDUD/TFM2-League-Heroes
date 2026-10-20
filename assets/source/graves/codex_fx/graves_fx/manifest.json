@@ -1,0 +1,181 @@
+{
+ "effects": [
+  {
+   "name": "a_flash",
+   "file": "graves_fx_a_flash.png",
+   "frames": 3,
+   "cell_1x": [
+    16,
+    8
+   ],
+   "symmetry": "none (points right)",
+   "source": "gemini 00.jpg"
+  },
+  {
+   "name": "a_shot",
+   "file": "graves_fx_a_shot.png",
+   "frames": 2,
+   "cell_1x": [
+    8,
+    3
+   ],
+   "symmetry": "top-bottom",
+   "source": "gemini 01.jpg"
+  },
+  {
+   "name": "a_hit",
+   "file": "graves_fx_a_hit.png",
+   "frames": 3,
+   "cell_1x": [
+    11,
+    12
+   ],
+   "symmetry": "left-right",
+   "source": "gemini 02.jpg"
+  },
+  {
+   "name": "q_flash",
+   "file": "graves_fx_q_flash.png",
+   "frames": 4,
+   "cell_1x": [
+    20,
+    13
+   ],
+   "symmetry": "none (points right)",
+   "source": "gemini 03.jpg"
+  },
+  {
+   "name": "q_shell",
+   "file": "graves_fx_q_shell.png",
+   "frames": 2,
+   "cell_1x": [
+    12,
+    3
+   ],
+   "symmetry": "top-bottom",
+   "source": "gemini 04.jpg"
+  },
+  {
+   "name": "q_hit",
+   "file": "graves_fx_q_hit.png",
+   "frames": 3,
+   "cell_1x": [
+    14,
+    12
+   ],
+   "symmetry": "left-right",
+   "source": "gemini 05.jpg"
+  },
+  {
+   "name": "q_blast",
+   "file": "graves_fx_q_blast.png",
+   "frames": 9,
+   "cell_1x": [
+    38,
+    40
+   ],
+   "symmetry": "left-right",
+   "source": "gemini 06.jpg"
+  },
+  {
+   "name": "w_can",
+   "file": "graves_fx_w_can.png",
+   "frames": 2,
+   "cell_1x": [
+    6,
+    6
+   ],
+   "symmetry": "both",
+   "source": "gemini 07.jpg"
+  },
+  {
+   "name": "w_smoke",
+   "file": "graves_fx_w_smoke.png",
+   "frames": 8,
+   "cell_1x": [
+    41,
+    34
+   ],
+   "symmetry": "left-right",
+   "source": "gemini 08.jpg"
+  },
+  {
+   "name": "w_slow",
+   "file": "graves_fx_w_slow.png",
+   "frames": 2,
+   "cell_1x": [
+    16,
+    6
+   ],
+   "symmetry": "left-right",
+   "source": "gemini 09.jpg"
+  },
+  {
+   "name": "e_dust",
+   "file": "graves_fx_e_dust.png",
+   "frames": 4,
+   "cell_1x": [
+    26,
+    10
+   ],
+   "symmetry": "left-right",
+   "source": "gemini 10.jpg"
+  },
+  {
+   "name": "e_grit",
+   "file": "graves_fx_e_grit.png",
+   "frames": 2,
+   "cell_1x": [
+    32,
+    10
+   ],
+   "symmetry": "left-right",
+   "source": "gemini 11.jpg"
+  },
+  {
+   "name": "r_flash",
+   "file": "graves_fx_r_flash.png",
+   "frames": 4,
+   "cell_1x": [
+    28,
+    16
+   ],
+   "symmetry": "none (points right)",
+   "source": "gemini 12.jpg"
+  },
+  {
+   "name": "r_shell",
+   "file": "graves_fx_r_shell.png",
+   "frames": 2,
+   "cell_1x": [
+    18,
+    5
+   ],
+   "symmetry": "top-bottom",
+   "source": "gemini 13.jpg"
+  },
+  {
+   "name": "r_hit",
+   "file": "graves_fx_r_hit.png",
+   "frames": 4,
+   "cell_1x": [
+    20,
+    20
+   ],
+   "symmetry": "left-right",
+   "source": "gemini 14.jpg"
+  },
+  {
+   "name": "r_blast",
+   "file": "graves_fx_r_blast.png",
+   "frames": 5,
+   "cell_1x": [
+    50,
+    38
+   ],
+   "symmetry": "left-right",
+   "source": "gemini 15.jpg"
+  }
+ ],
+ "made_by": "Gemini (the user's images), processed by tools/art/process_graves_fx.py"
+}
