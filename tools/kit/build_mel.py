@@ -56,29 +56,29 @@ BIG = "asset/league/effects/league_mel_big"
 P = {
     # stats (Magician base: attack 76 +6, ap 40 +20, hp 860 +95, def 18 +7, mr 20 +4, move 900 +9); League's Mel:
     # 630 +99 hp, 54 AD, 21 +5.2 armour, 30 +1.3 mr, 330 move, 550 range, attack speed 0.625
-    "hp": 880, "hp_g": 95, "atk": 72, "atk_g": 5, "apw": 40, "apw_g": 20, "def": 18, "def_g": 7, "mr": 22, "mr_g": 4,
+    "hp": 920, "hp_g": 95, "atk": 72, "atk_g": 5, "apw": 40, "apw_g": 24, "def": 18, "def_g": 7, "mr": 22, "mr_g": 4,
     "ms": 900, "ms_g": 9,
-    "atk_range": 55000, "atk_dur": 27, "atk_cd": 90, "a_rel": 10, "a_speed": 4500, "a_y": 0,
+    "atk_range": 55000, "atk_dur": 27, "atk_cd": 70, "a_rel": 10, "a_speed": 4500, "a_y": 0,
     # the passive's bolts (League: 3 a cast, up to 9, 2-8 +2.5% AP... each) and Overwhelm (League: unlimited stacks)
-    "p_n": 3, "p_dmg": 8, "p_ratio": 4, "p_gap": 2, "p_speed": 4000,
+    "p_n": 3, "p_dmg": 12, "p_ratio": 5, "p_gap": 2, "p_speed": 4000,
     "m_t": 360, "m_per": 6,
     # W Rebuttal (League: 1.5 s, reflects projectiles, no damage taken, 35% move speed; cd 35-23 s)
     "w_cd": 1500, "w_t": 75, "w_red": 100, "w_ref": 40, "w_ms": 25,
     # Q Radiant Volley (League: 950 range, a volley of bolts round the spot, 13-... +8.5% AP each; cd 10-6)
-    "q_cd": 420, "q_range": 85000, "q_dur": 33, "q_rel": 10, "q_n": 6, "q_gap": 6, "q_fly": 14, "q_r": 20000,
-    "q_dmg": 20, "q_ratio": 11,
+    "q_cd": 360, "q_range": 85000, "q_dur": 33, "q_rel": 10, "q_n": 6, "q_gap": 6, "q_fly": 14, "q_r": 20000,
+    "q_dmg": 30, "q_ratio": 15,
     # the E -> Q combo: the window after the orb roots a champion and the volley's quick lobs
     "e_combo": 75, "q_fast": 4,
     # E Solar Snare (League: 1000 range, root at the centre, slow + burn round it; cd 11-9)
     "e_cd": 600, "e_range": 80000, "e_dur": 33, "e_rel": 10, "e_speed": 2200, "e_len": 95000, "e_w": 6000,
-    "e_rw": 17000, "e_dmg": 60, "e_ratio": 40, "e_root": 60, "e_slow": 30, "e_slow_t": 90,
+    "e_rw": 17000, "e_dmg": 80, "e_ratio": 50, "e_root": 60, "e_slow": 30, "e_slow_t": 90,
     "e_dot": 10, "e_dot_r": 6, "e_dper": 30, "e_dn": 4,
     # R Golden Eclipse (League: every marked enemy anywhere, +x per stack; cd 120-80)
-    "r_cd": 2700, "r_range": 70000, "r_dur": 33, "r_rel": 12, "r_win": 6, "r_st": 14, "r_ratio": 6,
+    "r_cd": 2100, "r_range": 70000, "r_dur": 33, "r_rel": 12, "r_win": 6, "r_st": 20, "r_ratio": 8,
     "vo_gap": 600,
     # the add-on (addons/league_mel): the execute (League: the stacks' worth >= the champion's health), the
     # barrier on an incoming projectile and the reflected copy
-    "x_st": 14, "x_ratio": 6, "w_near": 30000, "w_back": 6000, "w_back_dmg": 60, "w_back_r": 40,
+    "x_st": 20, "x_ratio": 8, "w_near": 30000, "w_back": 6000, "w_back_dmg": 60, "w_back_r": 40,
     "native": 0, "probe": 0,
 }
 
@@ -323,6 +323,9 @@ def build(p):
     views_p = [Pj("a_bolt"), Pj("p_bolt"), Pj("e_orb", BIG)]
     views_e = [E("a_hit"), E("p_hit"), E("q_volley", BIG, 3, False), E("q_hit"), E("e_burn"), E("r_cast", BIG),
                E("r_hit", BIG)]
+    if native:      # the add-on's execute and its reflected bolt
+        views_e.append(E("x_hit", BIG))
+        views_p.append(Pj("w_back"))
     views_b = [B_("w_on", BIG, 3), B_("e_bound", FX, 3), B_("e_slow", FX, -1), B_("p_3"), B_("p_6"), B_("p_9")]
     extra_k = {}
     if native:
