@@ -1,0 +1,14 @@
+{
+  "plays": [
+    {
+      "delay": 0.0,
+      "clip": "league_sylas_sfx_p",
+      "volume": 0.4
+    },
+    {
+      "delay": 0.15,
+      "clip": "league_sylas_sfx_p_hit",
+      "volume": 0.3
+    }
+  ]
+}
