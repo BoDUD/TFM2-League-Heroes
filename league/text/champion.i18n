@@ -1008,6 +1008,13 @@
         "skill": "耀光飞弹落在目标处，连续爆炸<#ffb900ff>6次<>，每次对范围内的敌人造成<#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<>魔法伤害。",
         "skill2": "射出阳炎法球，中心的敌人受到<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>魔法伤害并被<#ef5350ff>禁锢<><#ffb900ff>1秒<>；周围的敌人减速30%，<#ffb900ff>1.5秒<>内受到<#a974ffff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>6%<>×4魔法伤害。",
         "ult": "无视距离打击所有带<#ff9028ff>夺命残影<>的敌方英雄，每层残影造成<#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>8%<>魔法伤害。"
+      },
+      "league_velkoz": {
+        "name": "维克兹",
+        "attack": "发射虚空能量。每第3次普攻打开<#ff9028ff>虚空裂隙<>，造成<#a974ffff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>魔法伤害，随后爆炸再造成<#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<>。<#ff9028ff>有机体解构<>：技能命中英雄叠层，3层时造成<#f5f5f5ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#f5f5f5ff>45%<><#f5f5f5ff>真实伤害<>。",
+        "skill": "发射一束等离子，造成<#a974ffff>85<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<>魔法伤害并减速50%，持续<#ffb900ff>1.25秒<>。命中后一分为二，对周围敌人造成<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<>魔法伤害和减速。",
+        "skill2": "让目标区域爆炸，造成<#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>魔法伤害并<#ef5350ff>击飞<>敌人<#ffb900ff>0.75秒<>。",
+        "ult": "引导一束射线<#ffb900ff>2.5秒<>，共造成<#a974ffff>320<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>105%<>魔法伤害。对被<#ff9028ff>有机体解构<>研究过的英雄改为<#f5f5f5ff>真实伤害<>。"
       }
     },
     "skill_name": {
@@ -1730,6 +1737,11 @@
         "skill1": "耀光齐射",
         "skill2": "阳炎涡旋",
         "ult": "鎏金蚀日"
+      },
+      "league_velkoz": {
+        "skill1": "等离子裂变",
+        "skill2": "构造分解",
+        "ult": "生命形态瓦解射线"
       }
     }
   },
@@ -2742,6 +2754,13 @@
         "skill": "絢輝飛彈落在目標處，連續爆炸<#ffb900ff>6次<>，每次對範圍內的敵人造成<#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<>魔法傷害。",
         "skill2": "射出烈陽法球，中心的敵人受到<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>魔法傷害並被<#ef5350ff>禁錮<><#ffb900ff>1秒<>；周圍的敵人緩速30%，<#ffb900ff>1.5秒<>內受到<#a974ffff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>6%<>×4魔法傷害。",
         "ult": "無視距離打擊所有帶<#ff9028ff>奪目<>堆層的敵方英雄，每層造成<#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>8%<>魔法傷害。"
+      },
+      "league_velkoz": {
+        "name": "威寇茲",
+        "attack": "發射虛空能量。每第3次普攻打開<#ff9028ff>虛空裂痕<>，造成<#a974ffff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>魔法傷害，隨後爆炸再造成<#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<>。<#ff9028ff>結構毀滅<>：技能命中英雄疊層，3層時造成<#f5f5f5ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#f5f5f5ff>45%<><#f5f5f5ff>真實傷害<>。",
+        "skill": "發射一束電漿，造成<#a974ffff>85<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<>魔法傷害並緩速50%，持續<#ffb900ff>1.25秒<>。命中後一分為二，對周圍敵人造成<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<>魔法傷害和緩速。",
+        "skill2": "讓目標區域爆炸，造成<#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>魔法傷害並<#ef5350ff>擊飛<>敵人<#ffb900ff>0.75秒<>。",
+        "ult": "引導一道射線<#ffb900ff>2.5秒<>，共造成<#a974ffff>320<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>105%<>魔法傷害。對被<#ff9028ff>結構毀滅<>研究過的英雄改為<#f5f5f5ff>真實傷害<>。"
       }
     },
     "skill_name": {
@@ -3464,6 +3483,11 @@
         "skill1": "絢輝彈幕",
         "skill2": "烈陽羅網",
         "ult": "無垠天照"
+      },
+      "league_velkoz": {
+        "skill1": "分裂電漿",
+        "skill2": "反物質瓦解",
+        "ult": "生化射線"
       }
     }
   },
@@ -4476,6 +4500,13 @@
         "skill": "Bolts rain on the target's spot and burst <#ffb900ff>6 times<>, each dealing <#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<> magic damage to enemies there.",
         "skill2": "Fires a radiant orb: enemies at its centre take <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> magic damage and are <#ef5350ff>rooted<> for <#ffb900ff>1s<>; those around it are slowed 30% and burn for <#a974ffff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>6%<> x4 over <#ffb900ff>1.5s<>.",
         "ult": "Strikes every enemy champion marked with <#ff9028ff>Overwhelm<>, however far: <#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>8%<> magic damage per stack."
+      },
+      "league_velkoz": {
+        "name": "Vel'Koz",
+        "attack": "Fires void energy. Every third attack opens a <#ff9028ff>Void Rift<>: <#a974ffff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<> <#a974ffff>magic damage<>, then it detonates for <#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<>. <#ff9028ff>Organic Deconstruction<>: spell hits on champions stack; the third deals <#f5f5f5ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#f5f5f5ff>45%<> <#f5f5f5ff>true damage<>.",
+        "skill": "Shoots a bolt of plasma that deals <#a974ffff>85<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<> <#a974ffff>magic damage<> and slows by 50% for <#ffb900ff>1.25s<>. On hit it splits in two, dealing <#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<> <#a974ffff>magic damage<> and the slow to nearby enemies.",
+        "skill2": "Causes an area to explode, dealing <#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<> <#a974ffff>magic damage<> and <#ef5350ff>knocking up<> enemies for <#ffb900ff>0.75s<>.",
+        "ult": "Channels a beam for <#ffb900ff>2.5s<> that deals <#a974ffff>320<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>105%<> <#a974ffff>magic damage<> in total. Champions researched by <#ff9028ff>Organic Deconstruction<> take <#f5f5f5ff>true damage<> instead."
       }
     },
     "skill_name": {
@@ -5198,6 +5229,11 @@
         "skill1": "Radiant Volley",
         "skill2": "Solar Snare",
         "ult": "Golden Eclipse"
+      },
+      "league_velkoz": {
+        "skill1": "Plasma Fission",
+        "skill2": "Tectonic Disruption",
+        "ult": "Life Form Disintegration Ray"
       }
     }
   },
@@ -6210,6 +6246,13 @@
         "skill": "대상 위치에 투사체가 쏟아져 <#ffb900ff>6번<> 폭발, 매번 범위 내 적에게 <#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<> 마법 피해.",
         "skill2": "태양 구체 발사: 중심의 적은 <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> 마법 피해를 입고 <#ffb900ff>1초<> <#ef5350ff>속박<>; 주변 적은 30% 둔화, <#ffb900ff>1.5초<> 동안 <#a974ffff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>6%<> x4 마법 피해.",
         "ult": "거리와 관계없이 <#ff9028ff>압도<> 중첩이 있는 모든 적 챔피언을 공격, 중첩당 <#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>8%<> 마법 피해."
+      },
+      "league_velkoz": {
+        "name": "벨코즈",
+        "attack": "공허 에너지를 발사한다. 3번째 공격마다 <#ff9028ff>공허 균열<>을 열어 <#a974ffff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<> 마법 피해, 이어서 폭발해 <#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<>. <#ff9028ff>유기물 분해<>: 스킬이 챔피언에게 적중하면 중첩, 3회 중첩 시 <#f5f5f5ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#f5f5f5ff>45%<> <#f5f5f5ff>고정 피해<>.",
+        "skill": "플라즈마를 발사해 <#a974ffff>85<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<> 마법 피해를 입히고 <#ffb900ff>1.25초<> 동안 50% 둔화. 적중하면 둘로 분열해 주변 적에게 <#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<> 마법 피해와 둔화.",
+        "skill2": "지역을 폭발시켜 <#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<> 마법 피해를 입히고 적을 <#ffb900ff>0.75초<> <#ef5350ff>에어본<>.",
+        "ult": "<#ffb900ff>2.5초<> 동안 광선을 정신 집중해 총 <#a974ffff>320<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>105%<> 마법 피해. <#ff9028ff>유기물 분해<>로 연구된 챔피언은 <#f5f5f5ff>고정 피해<>를 입는다."
       }
     },
     "skill_name": {
@@ -6932,6 +6975,11 @@
         "skill1": "빛의 세례",
         "skill2": "태양 올가미",
         "ult": "황금 일식"
+      },
+      "league_velkoz": {
+        "skill1": "플라즈마 분열",
+        "skill2": "지각 붕괴",
+        "ult": "생물 분해 광선"
       }
     }
   },
@@ -7944,6 +7992,13 @@
         "skill": "対象の地点に弾が降り注ぎ<#ffb900ff>6回<>爆発、毎回範囲内の敵に<#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<>の魔法ダメージ。",
         "skill2": "陽光の球を放つ。中心の敵に<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>の魔法ダメージと<#ffb900ff>1秒<><#ef5350ff>スネア<>、周囲の敵は30%スロウと<#ffb900ff>1.5秒<>で<#a974ffff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>6%<>×4の魔法ダメージ。",
         "ult": "距離に関係なく<#ff9028ff>圧倒<>スタックを持つ全敵チャンピオンを打ち、1スタックごとに<#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>8%<>の魔法ダメージ。"
+      },
+      "league_velkoz": {
+        "name": "ヴェル＝コズ",
+        "attack": "ヴォイドのエネルギーを放つ。3回目の通常攻撃ごとに<#ff9028ff>ヴォイドの裂谷<>を開き<#a974ffff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>の魔法ダメージ、続いて爆発し<#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<>。<#ff9028ff>有機分解<>：スキルがチャンピオンに命中するとスタック、3スタックで<#f5f5f5ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#f5f5f5ff>45%<>の<#f5f5f5ff>確定ダメージ<>。",
+        "skill": "電離弾を放ち<#a974ffff>85<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<>の魔法ダメージと<#ffb900ff>1.25秒<>の50%スロウ。命中すると二つに分裂し、周囲の敵に<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<>の魔法ダメージとスロウ。",
+        "skill2": "範囲を爆発させ<#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>の魔法ダメージを与え、敵を<#ffb900ff>0.75秒<><#ef5350ff>打ち上げ<>。",
+        "ult": "<#ffb900ff>2.5秒<>光線を照射し合計<#a974ffff>320<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>105%<>の魔法ダメージ。<#ff9028ff>有機分解<>で研究済みのチャンピオンには<#f5f5f5ff>確定ダメージ<>。"
       }
     },
     "skill_name": {
@@ -8666,6 +8721,11 @@
         "skill1": "輝きの連撃",
         "skill2": "陽光の枷",
         "ult": "黄金蝕"
+      },
+      "league_velkoz": {
+        "skill1": "電離炸裂弾",
+        "skill2": "地殻砕裂",
+        "ult": "生体破壊光線"
       }
     }
   }

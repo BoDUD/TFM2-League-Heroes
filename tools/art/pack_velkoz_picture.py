@@ -1,0 +1,154 @@
+"""Build the step-0 pack for Codex (assets/source/velkoz/PICTURE_PROMPT.md): League references, layout guides and
+style pictures.
+
+    python tools/art/pack_velkoz_picture.py --out C:/t/vk_work/velkoz_pack0 [--lol D:/WeGameApps/lol]
+
+Writes <out>/PICTURE_PROMPT.md, <out>/refs/1..8 (League renders, the loading-screen art and the layout guide: Riot's,
+kept local, never committed) and <out>/style/11..13 (this pack's Cho'Gath, Malzahar and Kog'Maw, 8x, cut from their
+sheets), then <out>.zip. Render into a short folder (C:/t).
+Vel'Koz (#145, 2026-10-20) is the Eye of the Void: a floating head with no legs - one huge glowing magenta eye in a
+khaki-gold armoured carapace (overlapping plates, a crest of spikes on top, red-violet fleshy rims round the eye and
+three small magenta eyes above it), long dark teal-black tentacles curling below and beside him with magenta-lit
+tips and undersides. He hovers: the lowest tentacle curl stays a little above the ground.
+Two pictures for the user to pick from, both 3/4 front facing right (the user, 2026-10-20: 3/4 only, no side view - the
+actions are posed on the 3/4 design): A = League's idle (the tentacles curled out to both sides); B = a more compact
+chibi Vel'Koz (a bigger eye-head, the tentacles hanging down under him in curls, narrower). Crest top to the lowest
+tentacle about 62 squares of 11 px. His model: yaw 0 is the front, 35 the 3/4 view, 75 the side.
+"""
+import argparse
+import json
+import os
+import shutil
+import subprocess
+import sys
+
+import numpy as np
+from PIL import Image, ImageDraw
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+REPO = os.path.normpath(os.path.join(HERE, "..", ".."))
+sys.path.insert(0, os.path.join(REPO, "tools", "lol"))
+import pose_ref  # noqa: E402
+from riot import Wad  # noqa: E402
+
+SRC = os.path.join(REPO, "assets", "source")
+CHAMPS = os.path.join(REPO, "league", "champions")
+GREY = (225, 225, 225)
+IDLE = "velkoz_idle1v2@0"
+# name -> (frame, yaw, size, width, crop: "box" / "head" / "none")
+RENDERS = {
+    "1_velkoz_idle": (IDLE, 35, 1600, 1.4, "box"),
+    "2_velkoz_frontal": (IDLE, 0, 1600, 1.4, "box"),
+    "3_velkoz_eye": (IDLE, 20, 3200, 1.4, "head"),
+    "4_velkoz_back": (IDLE, 200, 1600, 1.4, "box"),
+    "6_velkoz_attack": ("velkoz_attack1@400", 35, 1600, 1.6, "box"),
+    "7_velkoz_side": (IDLE, 75, 1600, 1.4, "box"),
+    "full_idle": (IDLE, 35, 1600, 1.6, "none"),
+}
+# crest top to the lowest tentacle BODY_H px (62 squares of 11) on the 1536 square, the lowest tentacle on row SOLE -
+# 2 squares above the ground line GROUND_Y (he hovers), the box centred on CX
+BODY_H = 682
+GROUND_Y = 1390
+SOLE = GROUND_Y - 22
+CX = 768
+GUIDES = {  # name -> (render, label)
+    "8a_layout_front.png": ("full_idle", "A / B: League's idle, 3/4 front; crest top to the lowest tentacle 682 px (62 "
+                                         "squares of 11); he floats: the lowest tentacle 2 squares above the ground line"),
+}
+CUT = {  # style pictures cut from a sheet: name -> (hero, tag)
+    "11_style_chogath.png": ("chogath", "hd_idle"),
+    "12_style_malzahar.png": ("malzahar", "hd_idle"),
+    "13_style_kogmaw.png": ("kogmaw", "idle"),
+}
+FIT, GROUND = 0.5, 0.84
+
+
+def render(lol, name, spec, out):
+    frame, yaw, size, width, crop = spec
+    cmd = [sys.executable, os.path.join(REPO, "tools", "lol", "pose_ref.py"), "--lol", lol, "--champ", "Velkoz",
+           "--hq", "--mirror", "--bg", ",".join(map(str, GREY)), "--no-labels", "--size", str(size), "--fit", str(FIT),
+           "--ground", str(GROUND), "--width", str(width), "--yaw", str(yaw), "--name", name, "--out", out,
+           "--frame", frame]
+    subprocess.run(cmd, check=True, capture_output=True)
+    path = os.path.join(out, name + ".png")
+    im = Image.open(path).convert("RGB")
+    x0, y0, x1, y1 = _keyed(path).getbbox()
+    if crop == "head":   # the crest, the eyes and the carapace: from the top down 55% of the body
+        top = y0
+        h = y1 - top
+        hx0, _, hx1, _ = _keyed(path).crop((0, top, im.width, top + round(h * 0.55))).getbbox()
+        m = (hx1 - hx0) // 10
+        im = im.crop((hx0 - m, max(0, top - m), hx1 + m, top + round(h * 0.55)))
+    elif crop == "box":
+        m = max(x1 - x0, y1 - y0) // 12
+        im = im.crop((max(0, x0 - m), max(0, y0 - m), min(im.width, x1 + m), min(im.height, y1 + m)))
+    im.save(path)
+    print(name, im.size)
+    return path
+
+
+def _keyed(path):
+    im = Image.open(path).convert("RGBA")
+    a = np.asarray(im).copy()
+    a[np.abs(a[..., :3].astype(int) - GREY).sum(axis=2) < 12] = 0
+    return Image.fromarray(a)
+
+
+def guide(src, name, label):
+    """The whole figure scaled so crest top to the lowest tentacle is BODY_H, that tentacle on SOLE, its box centred on CX."""
+    full = _keyed(src)
+    box = full.getbbox()
+    fig = full.crop(box)
+    k = BODY_H / (box[3] - box[1])
+    fig = fig.resize((round(fig.width * k), round(fig.height * k)), Image.LANCZOS)
+    x0, y0 = round(CX - fig.width / 2), SOLE - fig.height
+    can = Image.new("RGBA", (1536, 1536), GREY + (255,))
+    can.alpha_composite(fig, (x0, y0))
+    d = ImageDraw.Draw(can)
+    d.line([(0, GROUND_Y), (1536, GROUND_Y)], fill=(150, 150, 150, 255), width=2)
+    d.line([(0, SOLE - BODY_H), (1536, SOLE - BODY_H)], fill=(190, 190, 190, 255), width=1)
+    d.text((24, 24), label, fill=(60, 60, 60, 255))
+    can.convert("RGB").save(name)
+    print(os.path.basename(name), "figure box", (x0, y0, x0 + fig.width, y0 + fig.height))
+
+
+def cut(hero, tag, out):
+    """Frame 0 of a sheet tag at 8x (one square = one pixel of that tag's density)."""
+    anims = json.load(open(os.path.join(CHAMPS, f"league_{hero}#anim.fanim"), encoding="utf-8-sig"))["anims"]
+    f = anims[tag]["frames"][0]["data"]
+    sheet = Image.open(os.path.join(CHAMPS, f"league_{hero}#sheet.png")).convert("RGBA")
+    im = sheet.crop((int(f["x"]), int(f["y"]), int(f["x"] + f["w"]), int(f["y"] + f["h"])))
+    im = im.crop(im.getbbox())
+    pad = Image.new("RGBA", (im.width + 4, im.height + 4), GREY + (255,))   # on grey like the other style pictures
+    pad.alpha_composite(im, (2, 2))
+    pad.convert("RGB").resize((pad.width * 8, pad.height * 8), Image.NEAREST).save(out)
+    print(os.path.basename(out), pad.size)
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--out", required=True)
+    ap.add_argument("--lol", default=r"D:\WeGameApps\lol")
+    ap.add_argument("--no-render", action="store_true", help="reuse the renders already in <out>/refs")
+    a = ap.parse_args()
+    refs, style, work = os.path.join(a.out, "refs"), os.path.join(a.out, "style"), a.out + "_measure"
+    for d in (refs, style, work):
+        os.makedirs(d, exist_ok=True)
+    if not a.no_render:
+        for name, spec in RENDERS.items():
+            render(a.lol, name, spec, work if name.startswith("full_") else refs)
+        wad = Wad(os.path.join(a.lol, "Game", "DATA", "FINAL", "Champions", "Velkoz.wad.client"))
+        splash = pose_ref.read_tex(wad.read_path("assets/characters/velkoz/skins/base/velkozloadscreen.tex"))
+        splash = splash.convert("RGB")
+        splash.resize((splash.width * 3, splash.height * 3), Image.LANCZOS).save(os.path.join(refs, "5_velkoz_splash.png"))
+    for name, (src, label) in GUIDES.items():
+        guide(os.path.join(work, src + ".png"), os.path.join(refs, name), label)
+    for name, (hero, tag) in CUT.items():
+        cut(hero, tag, os.path.join(style, name))
+    shutil.copyfile(os.path.join(SRC, "velkoz", "PICTURE_PROMPT.md"), os.path.join(a.out, "PICTURE_PROMPT.md"))
+    zp = shutil.make_archive(a.out, "zip", a.out)
+    print("written", zp)
+
+
+if __name__ == "__main__":
+    main()

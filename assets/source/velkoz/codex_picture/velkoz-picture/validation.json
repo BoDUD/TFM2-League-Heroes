@@ -1,0 +1,48 @@
+[
+  {
+    "variant": "A",
+    "raw_size": "1254x1254",
+    "raw_bbox": [
+      26,
+      398,
+      1227,
+      1223
+    ],
+    "raw_partial_alpha_pixels": 573356,
+    "final_size": "1536x1536",
+    "grid": 11,
+    "logical_size": [
+      90,
+      62
+    ],
+    "grid_origin": [
+      264,
+      682
+    ],
+    "alpha": "0 or 255",
+    "normalization": "Nearest-neighbour grid sampling from generated art; no body parts drawn"
+  },
+  {
+    "variant": "B",
+    "raw_size": "1254x1254",
+    "raw_bbox": [
+      349,
+      293,
+      974,
+      1165
+    ],
+    "raw_partial_alpha_pixels": 399134,
+    "final_size": "1536x1536",
+    "grid": 11,
+    "logical_size": [
+      44,
+      62
+    ],
+    "grid_origin": [
+      517,
+      682
+    ],
+    "alpha": "0 or 255",
+    "normalization": "Nearest-neighbour grid sampling from generated art; no body parts drawn"
+  }
+]

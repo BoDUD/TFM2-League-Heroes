@@ -1,0 +1,765 @@
+{
+  "sheets": 17,
+  "frames": 81,
+  "all_pass": true,
+  "checks": [
+    {
+      "file": "velkoz_fx_a_bolt.png",
+      "frames": 4,
+      "cell_1x": [
+        10,
+        6
+      ],
+      "unique_frames": 4,
+      "frame_bboxes": [
+        [
+          1,
+          0,
+          10,
+          6
+        ],
+        [
+          1,
+          0,
+          10,
+          6
+        ],
+        [
+          1,
+          1,
+          10,
+          5
+        ],
+        [
+          1,
+          1,
+          10,
+          5
+        ]
+      ],
+      "alpha_binary": true,
+      "symmetry_pass": true,
+      "palette_pass": true,
+      "preview_exact_8x": true,
+      "raw_hash_pass": true
+    },
+    {
+      "file": "velkoz_fx_a_hit.png",
+      "frames": 3,
+      "cell_1x": [
+        12,
+        12
+      ],
+      "unique_frames": 3,
+      "frame_bboxes": [
+        [
+          4,
+          4,
+          8,
+          8
+        ],
+        [
+          2,
+          2,
+          10,
+          10
+        ],
+        [
+          2,
+          3,
+          10,
+          9
+        ]
+      ],
+      "alpha_binary": true,
+      "symmetry_pass": true,
+      "palette_pass": true,
+      "preview_exact_8x": true,
+      "raw_hash_pass": true
+    },
+    {
+      "file": "velkoz_fx_q_bolt.png",
+      "frames": 4,
+      "cell_1x": [
+        14,
+        10
+      ],
+      "unique_frames": 4,
+      "frame_bboxes": [
+        [
+          1,
+          1,
+          13,
+          9
+        ],
+        [
+          2,
+          1,
+          13,
+          9
+        ],
+        [
+          2,
+          2,
+          13,
+          8
+        ],
+        [
+          1,
+          2,
+          13,
+          8
+        ]
+      ],
+      "alpha_binary": true,
+      "symmetry_pass": true,
+      "palette_pass": true,
+      "preview_exact_8x": true,
+      "raw_hash_pass": true
+    },
+    {
+      "file": "velkoz_fx_q_hit.png",
+      "frames": 5,
+      "cell_1x": [
+        20,
+        20
+      ],
+      "unique_frames": 5,
+      "frame_bboxes": [
+        [
+          6,
+          6,
+          14,
+          14
+        ],
+        [
+          3,
+          3,
+          17,
+          17
+        ],
+        [
+          1,
+          1,
+          19,
+          19
+        ],
+        [
+          1,
+          1,
+          19,
+          18
+        ],
+        [
+          4,
+          7,
+          16,
+          16
+        ]
+      ],
+      "alpha_binary": true,
+      "symmetry_pass": true,
+      "palette_pass": true,
+      "preview_exact_8x": true,
+      "raw_hash_pass": true
+    },
+    {
+      "file": "velkoz_fx_q_split.png",
+      "frames": 6,
+      "cell_1x": [
+        16,
+        46
+      ],
+      "unique_frames": 6,
+      "frame_bboxes": [
+        [
+          4,
+          18,
+          12,
+          28
+        ],
+        [
+          5,
+          11,
+          11,
+          35
+        ],
+        [
+          6,
+          8,
+          10,
+          38
+        ],
+        [
+          6,
+          6,
+          10,
+          40
+        ],
+        [
+          7,
+          5,
+          9,
+          41
+        ],
+        [
+          6,
+          9,
+          10,
+          37
+        ]
+      ],
+      "alpha_binary": true,
+      "symmetry_pass": true,
+      "palette_pass": true,
+      "preview_exact_8x": true,
+      "raw_hash_pass": true
+    },
+    {
+      "file": "velkoz_fx_q_split_hit.png",
+      "frames": 4,
+      "cell_1x": [
+        14,
+        14
+      ],
+      "unique_frames": 4,
+      "frame_bboxes": [
+        [
+          4,
+          5,
+          10,
+          10
+        ],
+        [
+          3,
+          3,
+          11,
+          12
+        ],
+        [
+          1,
+          1,
+          13,
+          12
+        ],
+        [
+          4,
+          4,
+          10,
+          9
+        ]
+      ],
+      "alpha_binary": true,
+      "symmetry_pass": true,
+      "palette_pass": true,
+      "preview_exact_8x": true,
+      "raw_hash_pass": true
+    },
+    {
+      "file": "velkoz_fx_q_slow.png",
+      "frames": 4,
+      "cell_1x": [
+        22,
+        8
+      ],
+      "unique_frames": 4,
+      "frame_bboxes": [
+        [
+          1,
+          3,
+          21,
+          8
+        ],
+        [
+          1,
+          1,
+          21,
+          8
+        ],
+        [
+          1,
+          3,
+          21,
+          8
+        ],
+        [
+          1,
+          2,
+          21,
+          8
+        ]
+      ],
+      "alpha_binary": true,
+      "symmetry_pass": true,
+      "palette_pass": true,
+      "preview_exact_8x": true,
+      "raw_hash_pass": true
+    },
+    {
+      "file": "velkoz_fx_w_rift.png",
+      "frames": 10,
+      "cell_1x": [
+        78,
+        14
+      ],
+      "unique_frames": 10,
+      "frame_bboxes": [
+        [
+          6,
+          2,
+          23,
+          12
+        ],
+        [
+          5,
+          2,
+          50,
+          12
+        ],
+        [
+          5,
+          3,
+          74,
+          11
+        ],
+        [
+          4,
+          3,
+          74,
+          11
+        ],
+        [
+          5,
+          1,
+          73,
+          13
+        ],
+        [
+          4,
+          0,
+          74,
+          14
+        ],
+        [
+          4,
+          0,
+          74,
+          14
+        ],
+        [
+          6,
+          0,
+          71,
+          14
+        ],
+        [
+          4,
+          0,
+          71,
+          14
+        ],
+        [
+          10,
+          0,
+          69,
+          14
+        ]
+      ],
+      "alpha_binary": true,
+      "symmetry_pass": true,
+      "palette_pass": true,
+      "preview_exact_8x": true,
+      "raw_hash_pass": true
+    },
+    {
+      "file": "velkoz_fx_w_hit.png",
+      "frames": 3,
+      "cell_1x": [
+        14,
+        14
+      ],
+      "unique_frames": 3,
+      "frame_bboxes": [
+        [
+          2,
+          9,
+          12,
+          13
+        ],
+        [
+          1,
+          3,
+          13,
+          13
+        ],
+        [
+          3,
+          6,
+          11,
+          13
+        ]
+      ],
+      "alpha_binary": true,
+      "symmetry_pass": true,
+      "palette_pass": true,
+      "preview_exact_8x": true,
+      "raw_hash_pass": true
+    },
+    {
+      "file": "velkoz_fx_e_mark.png",
+      "frames": 6,
+      "cell_1x": [
+        48,
+        18
+      ],
+      "unique_frames": 6,
+      "frame_bboxes": [
+        [
+          2,
+          7,
+          46,
+          18
+        ],
+        [
+          2,
+          7,
+          46,
+          18
+        ],
+        [
+          2,
+          5,
+          46,
+          17
+        ],
+        [
+          2,
+          5,
+          46,
+          17
+        ],
+        [
+          2,
+          1,
+          46,
+          16
+        ],
+        [
+          1,
+          1,
+          47,
+          17
+        ]
+      ],
+      "alpha_binary": true,
+      "symmetry_pass": true,
+      "palette_pass": true,
+      "preview_exact_8x": true,
+      "raw_hash_pass": true
+    },
+    {
+      "file": "velkoz_fx_e_boom.png",
+      "frames": 7,
+      "cell_1x": [
+        48,
+        52
+      ],
+      "unique_frames": 7,
+      "frame_bboxes": [
+        [
+          9,
+          42,
+          39,
+          50
+        ],
+        [
+          2,
+          18,
+          46,
+          50
+        ],
+        [
+          2,
+          4,
+          46,
+          50
+        ],
+        [
+          2,
+          4,
+          46,
+          50
+        ],
+        [
+          2,
+          14,
+          46,
+          50
+        ],
+        [
+          2,
+          34,
+          46,
+          50
+        ],
+        [
+          2,
+          43,
+          46,
+          50
+        ]
+      ],
+      "alpha_binary": true,
+      "symmetry_pass": true,
+      "palette_pass": true,
+      "preview_exact_8x": true,
+      "raw_hash_pass": true
+    },
+    {
+      "file": "velkoz_fx_e_hit.png",
+      "frames": 3,
+      "cell_1x": [
+        14,
+        14
+      ],
+      "unique_frames": 3,
+      "frame_bboxes": [
+        [
+          0,
+          2,
+          14,
+          12
+        ],
+        [
+          1,
+          2,
+          13,
+          12
+        ],
+        [
+          2,
+          2,
+          12,
+          12
+        ]
+      ],
+      "alpha_binary": true,
+      "symmetry_pass": true,
+      "palette_pass": true,
+      "preview_exact_8x": true,
+      "raw_hash_pass": true
+    },
+    {
+      "file": "velkoz_fx_r_beam.png",
+      "frames": 4,
+      "cell_1x": [
+        130,
+        13
+      ],
+      "unique_frames": 4,
+      "frame_bboxes": [
+        [
+          2,
+          0,
+          128,
+          13
+        ],
+        [
+          2,
+          0,
+          128,
+          13
+        ],
+        [
+          2,
+          0,
+          128,
+          13
+        ],
+        [
+          2,
+          0,
+          127,
+          13
+        ]
+      ],
+      "alpha_binary": true,
+      "symmetry_pass": true,
+      "palette_pass": true,
+      "preview_exact_8x": true,
+      "raw_hash_pass": true
+    },
+    {
+      "file": "velkoz_fx_r_hit.png",
+      "frames": 4,
+      "cell_1x": [
+        14,
+        16
+      ],
+      "unique_frames": 4,
+      "frame_bboxes": [
+        [
+          1,
+          8,
+          13,
+          15
+        ],
+        [
+          1,
+          5,
+          13,
+          15
+        ],
+        [
+          1,
+          3,
+          13,
+          14
+        ],
+        [
+          2,
+          2,
+          12,
+          14
+        ]
+      ],
+      "alpha_binary": true,
+      "symmetry_pass": true,
+      "palette_pass": true,
+      "preview_exact_8x": true,
+      "raw_hash_pass": true
+    },
+    {
+      "file": "velkoz_fx_p_s1.png",
+      "frames": 4,
+      "cell_1x": [
+        13,
+        11
+      ],
+      "unique_frames": 4,
+      "frame_bboxes": [
+        [
+          4,
+          4,
+          9,
+          8
+        ],
+        [
+          2,
+          2,
+          11,
+          10
+        ],
+        [
+          1,
+          1,
+          12,
+          11
+        ],
+        [
+          2,
+          2,
+          11,
+          9
+        ]
+      ],
+      "alpha_binary": true,
+      "symmetry_pass": true,
+      "palette_pass": true,
+      "preview_exact_8x": true,
+      "raw_hash_pass": true
+    },
+    {
+      "file": "velkoz_fx_p_s2.png",
+      "frames": 4,
+      "cell_1x": [
+        13,
+        11
+      ],
+      "unique_frames": 4,
+      "frame_bboxes": [
+        [
+          3,
+          4,
+          10,
+          9
+        ],
+        [
+          2,
+          3,
+          11,
+          10
+        ],
+        [
+          0,
+          1,
+          13,
+          10
+        ],
+        [
+          1,
+          2,
+          12,
+          9
+        ]
+      ],
+      "alpha_binary": true,
+      "symmetry_pass": true,
+      "palette_pass": true,
+      "preview_exact_8x": true,
+      "raw_hash_pass": true
+    },
+    {
+      "file": "velkoz_fx_p_full.png",
+      "frames": 6,
+      "cell_1x": [
+        28,
+        28
+      ],
+      "unique_frames": 6,
+      "frame_bboxes": [
+        [
+          5,
+          8,
+          23,
+          24
+        ],
+        [
+          3,
+          3,
+          25,
+          25
+        ],
+        [
+          1,
+          2,
+          27,
+          27
+        ],
+        [
+          1,
+          1,
+          27,
+          27
+        ],
+        [
+          1,
+          2,
+          27,
+          26
+        ],
+        [
+          3,
+          5,
+          25,
+          25
+        ]
+      ],
+      "alpha_binary": true,
+      "symmetry_pass": true,
+      "palette_pass": true,
+      "preview_exact_8x": true,
+      "raw_hash_pass": true
+    }
+  ]
+}
