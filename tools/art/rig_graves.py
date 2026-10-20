@@ -126,6 +126,30 @@ class Form:
         can = R.compose(self.rig, layers)
         return close_cracks(can, self.D.outline)
 
+    def posed(self, name, whole=(0, 0), lift=0):
+        """A Codex pose (hd/pose_<name>.png, design_graves_poses.py) standing where the side design stands: the middle
+        of its feet (feet_mid) on the side design's, its lowest row on the ground - `lift` rows above it (the hop)."""
+        d = load(f"pose_{name}.png")
+        ys = np.nonzero((d[..., 3] > 0).any(1))[0]
+        lay = np.zeros((self.D.H + 2 * P, self.D.W + 2 * P, 4), np.uint8)
+        top = P + self.D.ground - (ys.max() + 1) - lift
+        left = P + int(round(feet_mid(self.D.d) - feet_mid(d)))
+        x0, x1 = max(0, left), min(lay.shape[1], left + d.shape[1])
+        y0, y1 = max(0, top), min(lay.shape[0], top + d.shape[0])
+        lay[y0:y1, x0:x1] = d[y0 - top:y1 - top, x0 - left:x1 - left]
+        return R.compose(self.rig, [(lay, dict(dx=whole[0], dy=whole[1]))])
+
+    def lying(self, name, dx=0):
+        """A pose lying on the ground (lie): its lowest row on the ground, centred dx squares from the standing point."""
+        d = load(f"pose_{name}.png")
+        ys, xs = np.nonzero(d[..., 3] > 0)
+        lay = np.zeros((self.D.H + 2 * P, self.D.W + 2 * P, 4), np.uint8)
+        top = P + self.D.ground - (ys.max() + 1)
+        left = P + self.D.px - int(round((xs.min() + xs.max() + 1) / 2)) + dx
+        x0, x1 = max(0, left), min(lay.shape[1], left + d.shape[1])
+        lay[top:top + d.shape[0], x0:x1] = d[:, x0 - left:x1 - left]
+        return R.compose(self.rig, [(lay, {})])
+
     def front(self, crouch=0, whole=(0, 0), flash=False):
         """The 3/4 idle design, its body (above IDLE_LEG_ROW) set down `crouch` rows onto its own legs."""
         lay = self.idle
@@ -136,6 +160,13 @@ class Form:
         wx, wy = whole
         can = R.compose(self.rig, [(legs, dict(dx=wx, dy=wy)), (top, dict(dx=wx, dy=wy + crouch))])
         return R.flash(can) if flash else can
+
+
+def feet_mid(d, rows=3):
+    """The middle of a figure's feet: halfway between the leftmost and the rightmost square of its lowest `rows` rows."""
+    ys = np.nonzero((d[..., 3] > 0).any(1))[0]
+    xs = np.nonzero((d[ys.max() - rows + 1:ys.max() + 1, :, 3] > 0).any(0))[0]
+    return (xs.min() + xs.max() + 1) / 2
 
 
 def close_cracks(can, outline, most=12):
@@ -157,25 +188,49 @@ def form():
 
 
 # ------------------------------------------------------------------------------------------------- the actions
-# ms per frame; the kit's ticks (tools/kit/build_graves.py) come from these
-MS = {"idle": [160] * 8, "run": [115] * 8, "attack": [70, 60, 80, 80, 90, 70], "hit": [100, 100]}
+# ms per frame; the kit's ticks (tools/kit/build_graves.py) come from these (a frame's start in ticks = ms x 0.06)
+MS = {"idle": [160] * 8, "run": [115] * 8,
+      "attack": [60, 70, 80, 90, 80, 60, 60], "attack2": [60, 70, 80, 80, 100, 100, 70, 60],
+      "skill": [70, 60, 90, 90, 80, 60], "skill2": [50, 90, 90, 60, 60],
+      "ult": [80, 80, 70, 90, 90, 80, 60], "hit": [100, 100],
+      "dead": [120, 120, 160, 200, 160, 600]}
 # the walk: per frame the back leg's (dx, dy, lift), the front leg's, the body's rise (league_nautilus's 1x steps, at
 # PPU 1.5 a step of 2 squares, a lift of 3)
 WALK = [((0, 0, 2), (0, 0, 0), 1), ((2, 0, 3), (0, 0, 0), 1), ((2, 0, 1), (0, 0, 0), 0), ((2, 0, 0), (0, 0, 0), 0),
         ((0, 0, 0), (0, 0, 2), 1), ((0, 0, 0), (2, 0, 3), 1), ((0, 0, 0), (2, 0, 1), 0), ((0, 0, 0), (2, 0, 0), 0)]
+HOP = 6                        # R's hop: rows off the ground at its top
 
 
 def frames_all(F):
-    p = F.pose
+    p, q = F.pose, F.posed
     out = {}
     # idle (League's graves_idle1: a slow breath, the gun still at the hip): the 3/4 design's body sets down a row
     out["idle"] = [F.front(crouch=c) for c in (0, 0, 0, 1, 1, 1, 1, 0)]
     out["run"] = [p(whole=(0, -r), back=b, front=f) for b, f, r in WALK]
-    # auto attack (League's graves_attack1: the shot at ~0 ms, the gun kicked up by ~190 ms and pumped, level again by
-    # ~1100 ms): aimed, the shot (the gun and his body kicked back a square), the pump (Codex's tilt pose when it
-    # arrives; until then the gun pulled back), back to aim
-    out["attack"] = [p(), p(whole=(-2, 0)), p(whole=(-2, 0)), p(whole=(-1, 0)), p(whole=(-1, 0)), p()]
+    # auto attack (League's graves_attack1, frame by frame 2026-10-20: the shot from the level gun at ~0 ms, the gun
+    # kicked up about 30 degrees by ~190 ms and pumped, level again by ~1100 ms): aimed, the shot as frame 3 starts
+    # (130 ms = tick 8: the flash at the muzzle; his whole figure kicked back two squares), the pump (Codex's tilt on the
+    # design's legs), back to aim a square behind, aimed
+    out["attack"] = [p(), p(), p(whole=(-2, 0)), q("tilt", whole=(-1, 0)), q("tilt", whole=(-1, 0)), p(whole=(-1, 0)),
+                     p()]
+    # the second shell (League's graves_reload_slow: the same shot, the gun held up longer while he reloads)
+    out["attack2"] = [p(), p(), p(whole=(-2, 0)), q("tilt", whole=(-1, 0)), q("tilt", whole=(-1, 0)),
+                      q("tilt", whole=(-1, 0)), p(whole=(-1, 0)), p()]
+    # Q End of the Line (League's graves_spell1: a low step forward, the shell fired level at ~180 ms, the gun swung up
+    # by the kick): the lunge, the shell as frame 3 starts (130 ms = tick 8), the kick up (tilt), aimed
+    out["skill"] = [q("lunge"), q("lunge"), q("lunge", whole=(-1, 0)), q("tilt", whole=(-1, 0)), q("tilt"), p()]
+    # E Quickdraw (League's graves_spell3: a low dash, the gun held level): the lunge through the dash (tick 3 on)
+    out["skill2"] = [q("lunge"), q("lunge"), q("lunge"), q("lunge", whole=(0, 0)), p()]
+    # R Collateral Damage (League's graves_spell4 + spell4_BACK: the gun hefted to the shoulder, the shell fired at
+    # ~230 ms, the recoil throwing him back off his feet, the gun pointing up): the heft, the shot as frame 3 starts
+    # (160 ms = tick 10), the hop (HOP rows up, then half), landed, aimed
+    out["ult"] = [q("shoulder"), q("shoulder"), q("shoulder", whole=(-1, 0)), q("hop", lift=HOP), q("hop", lift=HOP // 2),
+                  p(), p()]
     out["hit"] = [R.flash(p(whole=(-2, 0))), p(whole=(-1, 0))]
+    # the death (League's graves_death: the gun knocked out of his hands at the shot, he staggers back, drops to his
+    # knees and falls on his face): staggering (two frames, a square back), on his knees, falling, lying face down
+    out["dead"] = [q("stagger"), q("stagger", whole=(-1, 0)), q("kneel"), q("kneel", whole=(1, 1)), F.lying("lie", 6),
+                   F.lying("lie", 6)]
     return out
 
 

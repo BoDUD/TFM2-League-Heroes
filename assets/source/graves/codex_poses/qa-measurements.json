@@ -1,0 +1,198 @@
+[
+  {
+    "file": "graves-pose-hop.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_levels": 256,
+    "fully_transparent_pixels": 1134642,
+    "opaque_pixels": 2365,
+    "semi_transparent_pixels": 435509,
+    "visible_bbox_alpha128": [
+      58,
+      66,
+      1225,
+      1116
+    ],
+    "margin_left_top_right_bottom": [
+      58,
+      66,
+      29,
+      138
+    ],
+    "requires_no_gun": false,
+    "expected_contact_y": null,
+    "raw_identical": true,
+    "sha256": "1cb3ef195000c80f3b9c0efe2f67f8e45489a5307701fc29723b26a2a0c2b248"
+  },
+  {
+    "file": "graves-pose-kneel.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_levels": 256,
+    "fully_transparent_pixels": 1123660,
+    "opaque_pixels": 3064,
+    "semi_transparent_pixels": 445792,
+    "visible_bbox_alpha128": [
+      254,
+      276,
+      1004,
+      1194
+    ],
+    "margin_left_top_right_bottom": [
+      254,
+      276,
+      250,
+      60
+    ],
+    "requires_no_gun": true,
+    "expected_contact_y": 1168,
+    "raw_identical": true,
+    "sha256": "34782f0bd42e4af7e0e6eedff180578713c2e68d8f63e486160e759606a9d193"
+  },
+  {
+    "file": "graves-pose-lie.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_levels": 256,
+    "fully_transparent_pixels": 1379500,
+    "opaque_pixels": 1741,
+    "semi_transparent_pixels": 191275,
+    "visible_bbox_alpha128": [
+      40,
+      892,
+      1218,
+      1161
+    ],
+    "margin_left_top_right_bottom": [
+      40,
+      892,
+      36,
+      93
+    ],
+    "requires_no_gun": true,
+    "expected_contact_y": 1168,
+    "raw_identical": true,
+    "sha256": "c5f90bc1807f0b1a05cb54f035fbb7c31592325dc8d534c41fdf7d2ffb4d40ae"
+  },
+  {
+    "file": "graves-pose-lunge.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_levels": 256,
+    "fully_transparent_pixels": 1185512,
+    "opaque_pixels": 2363,
+    "semi_transparent_pixels": 384641,
+    "visible_bbox_alpha128": [
+      45,
+      450,
+      1233,
+      1149
+    ],
+    "margin_left_top_right_bottom": [
+      45,
+      450,
+      21,
+      105
+    ],
+    "requires_no_gun": false,
+    "expected_contact_y": 1168,
+    "raw_identical": true,
+    "sha256": "068d4ec38de80e06ee312278933c70fb3006a1873a7c44370909a5f41f3f1417"
+  },
+  {
+    "file": "graves-pose-shoulder.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_levels": 256,
+    "fully_transparent_pixels": 1154174,
+    "opaque_pixels": 2595,
+    "semi_transparent_pixels": 415747,
+    "visible_bbox_alpha128": [
+      27,
+      294,
+      1234,
+      1137
+    ],
+    "margin_left_top_right_bottom": [
+      27,
+      294,
+      20,
+      117
+    ],
+    "requires_no_gun": false,
+    "expected_contact_y": 1168,
+    "raw_identical": true,
+    "sha256": "b50a253a54278405421c2c625aaa9136ee21ff5398dd398cd4f784a545245268"
+  },
+  {
+    "file": "graves-pose-stagger.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_levels": 256,
+    "fully_transparent_pixels": 1148647,
+    "opaque_pixels": 2938,
+    "semi_transparent_pixels": 420931,
+    "visible_bbox_alpha128": [
+      109,
+      273,
+      1162,
+      1133
+    ],
+    "margin_left_top_right_bottom": [
+      109,
+      273,
+      92,
+      121
+    ],
+    "requires_no_gun": true,
+    "expected_contact_y": 1168,
+    "raw_identical": true,
+    "sha256": "ad3234637b5d38b604e0760f83a9eafa68673dba91020cc7883261e46de057be"
+  },
+  {
+    "file": "graves-pose-tilt.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_levels": 256,
+    "fully_transparent_pixels": 1043547,
+    "opaque_pixels": 2690,
+    "semi_transparent_pixels": 526279,
+    "visible_bbox_alpha128": [
+      29,
+      237,
+      1242,
+      1187
+    ],
+    "margin_left_top_right_bottom": [
+      29,
+      237,
+      12,
+      67
+    ],
+    "requires_no_gun": false,
+    "expected_contact_y": 1168,
+    "raw_identical": true,
+    "sha256": "72742d43860363a755a367b59187a7354869de33e1122acda49543ab76449ead"
+  }
+]

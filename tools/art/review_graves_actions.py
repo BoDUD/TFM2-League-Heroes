@@ -27,15 +27,23 @@ import rig_graves as Z  # noqa: E402
 # tag -> (League's clip, from s, to s) - the part of the clip the tag shows
 CLIPS = {"idle": ("graves_idle1", 0, 2.6), "run": ("graves_run", 0, 1.0), "attack": ("graves_attack1", 0, 1.3),
          "attack2": ("graves_reload_slow", 0, 1.5), "skill": ("graves_spell1", 0, 1.4),
-         "skill2": ("graves_spell3", 0, 1.0), "ult": ("graves_spell4_BACK", 0, 0.55),
+         "skill2": ("graves_spell3", 0, 1.0), "ult": [("graves_spell4", 0, 0.24, 3), ("graves_spell4_BACK", 0.07, 0.55, 4)],
          "hit": ("graves_idle1", 0, 0.1), "dead": ("graves_death", 0, 2.8)}
 YAW = {"idle": 35}
 BG = (96, 112, 96)
 
 
 def lol_frames(lol, tag, n, out):
+    if isinstance(CLIPS[tag], list):                 # several clips in turn (R: the shot, then the hop back)
+        fr = []
+        for clip, t0, t1, k in CLIPS[tag]:
+            fr += clip_frames(lol, tag, f"{tag}_{clip}", clip, t0, t1, k, out)
+        return fr
     clip, t0, t1 = CLIPS[tag]
-    name = f"lol_{tag}"
+    return clip_frames(lol, tag, f"lol_{tag}", clip, t0, t1, n, out)
+
+
+def clip_frames(lol, tag, name, clip, t0, t1, n, out):
     cmd = [sys.executable, os.path.join(R.ROOT, "tools", "lol", "pose_ref.py"), "--lol", lol, "--champ", "Graves",
            "--anim", clip, "--frames", str(n), "--t0", str(t0), "--t1", str(t1), "--mirror",
            "--yaw", str(YAW.get(tag, 75)), "--size", "300", "--width", "1.4", "--fit", "0.62", "--no-labels",
@@ -111,7 +119,8 @@ def main():
             cell.paste(ref, (0, 18))
             cell.paste(ours, (ref.width + 8, 18))
             d = ImageDraw.Draw(cell)
-            d.text((4, 3), f"League {CLIPS[tag][0]}", fill=(230, 230, 230))
+            d.text((4, 3), "League " + ("graves_spell4 + spell4_BACK" if isinstance(CLIPS[tag], list) else CLIPS[tag][0]),
+                   fill=(230, 230, 230))
             d.text((ref.width + 12, 3), f"ours: {tag}", fill=(230, 230, 230))
             cells.append((cell, ms))
         gif = os.path.join(a.out, f"graves_{tag}_vs_lol.gif")
