@@ -96,6 +96,7 @@ BY_CLASS = {
     "tryndamere": "R arms undying his watcher fires", "urgot": "R arms an execute his attacks fire",
     "wukong": "R arms a spin his attacks fire", "zilean": "R arms a rewind his watcher fires",
     "gnar": "R only in Mega form", "orianna": "R needs her ball", "mel": "R strikes only her own Overwhelm stacks",
+    "velkoz": "R casts only while his passive researches a champion",
 }
 
 
