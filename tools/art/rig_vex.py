@@ -34,6 +34,9 @@ import ppu_rig as R  # noqa: E402
 from rig_wukong import CutDesign as _Cut, Form as _Form, P, pad, sheet, spans  # noqa: E402
 
 HERO = "vex"
+# the user, 2026-10-20, on the first review: 「感觉背后的宠物不需要啊」 - no Shadow behind her in any frame; it shows only in
+# her spells' effects (step 3). The Shadow layer and the frames' Shadow moves stay in the code, switched off here.
+WITH_SHADOW = False
 PPU = 1.5
 SRC = os.path.join(R.ROOT, "assets", "source", "vex", "hd")
 # the Shadow's colours (design_vex_model's palette): indigo darks, the violet rim, the spiral eyes
@@ -212,7 +215,7 @@ class Form:
             can = drop_islands(can)
         if fill:
             can = self.close_holes(can)
-        if not no_shadow:
+        if WITH_SHADOW and not no_shadow:
             sx, sy = shadow
             back = R.compose(self.rig, [(L["shadow"], dict(dx=wx + sx, dy=wy + sy))])
             m = can[..., 3] > 0
@@ -229,8 +232,8 @@ class Form:
         top[cut_row:] = 0
         wx, wy = whole
         sx, sy = shadow
-        can = R.compose(self.rig, [(self.idle_shadow, dict(dx=wx + sx, dy=wy + sy)), (legs, dict(dx=wx, dy=wy)),
-                                   (top, dict(dx=wx, dy=wy + crouch))])
+        back = [(self.idle_shadow, dict(dx=wx + sx, dy=wy + sy))] if WITH_SHADOW else []
+        can = R.compose(self.rig, back + [(legs, dict(dx=wx, dy=wy)), (top, dict(dx=wx, dy=wy + crouch))])
         return R.flash(can) if flash else can
 
     ref_holes = None
