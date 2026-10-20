@@ -43,7 +43,9 @@ FX = "asset/league/effects/league_vex_fx"
 BIG = "asset/league/effects/league_vex_big"
 
 # League units x 100 = ours (attack range 550 -> 55000 like every mid); radii count the unit's collision radius
-# (~15000) on top. Timings are provisional until the strips (rig_vex.py). Numbers = the 10-min classic-SDK simulations
+# (~15000) on top. Timings from the strips (tools/art/rig_vex.py MS): the attack's fling frame 2 from 80 ms (a_rel 6), Q's
+# lunge frame 3 from 150 ms (q_rel 10), Personal Space's slam frame 3 from 130 ms (w_rel 9), E's kick frame 2 from 80 ms
+# (e_rel 6), R's throw frame 3 from 150 ms (r_rel 10); each action as long as its strip. Numbers = the 10-min classic-SDK simulations
 # (mid lane 2 against pyromancer, ice_mage, lightning_mage, wind_mage and white_mage, three lineups, both sides,
 # 2026-10-20): the draft (hp 900, Q 70 + 60%, E 60 + 50% every 12 s, R 80 + 20% then a surge onto him 160 + 60% every
 # 40 s) -4.69 (league_zoe +1.17 the same batch): the surge put her in the middle of the enemies (3.7 deaths a game; no
@@ -56,17 +58,17 @@ P = {
     # 590 +104 hp, 23 armour, 28 mr, 335 move, 550 range, attack speed 0.669
     "hp": 960, "hp_g": 95, "atk": 72, "atk_g": 6, "apw": 40, "apw_g": 20, "def": 18, "def_g": 7, "mr": 22, "mr_g": 4,
     "ms": 910, "ms_g": 9,
-    "atk_range": 55000, "atk_dur": 27, "atk_cd": 86, "a_rel": 10, "a_speed": 4500,
+    "atk_range": 55000, "atk_dur": 27, "atk_cd": 86, "a_rel": 6, "a_speed": 4500,
     # passive Doom 'n Gloom (League: Doom every 25-18 s, fear 0.75 s; Gloom 6 s, 30-140 +20% AP, Doom -25%)
     "p_cd": 900, "p_fear": 45, "g_t": 360, "g_dmg": 60, "g_ratio": 30,
     # W Personal Space (League: 475 radius, 80-200 +30% AP, shield 50-130 +75% AP for 2.5 s, cd 16-12)
     "w_r": 40000, "w_cd": 720, "w_dur": 27, "w_rel": 9, "w_dmg": 70, "w_ratio": 40, "w_sh": 60, "w_sh_ratio": 60,
     "w_sh_t": 150,
     # Q Mistral Bolt (League: 1200 range, 60-240 +60% AP, cd 8-4)
-    "q_cd": 360, "q_range": 80000, "q_dur": 30, "q_rel": 12, "q_speed": 4000, "q_len": 95000, "q_w": 8000,
+    "q_cd": 360, "q_range": 80000, "q_dur": 30, "q_rel": 10, "q_speed": 4000, "q_len": 95000, "q_w": 8000,
     "q_dmg": 95, "q_ratio": 70,
     # E Looming Darkness (League: 800 range, 50-170 +40-60% AP, slow 30-50% for 2 s, cd 13)
-    "e_cd": 600, "e_range": 70000, "e_dur": 30, "e_rel": 12, "e_fly": 18, "e_r": 22000, "e_dmg": 80, "e_ratio": 60,
+    "e_cd": 600, "e_range": 70000, "e_dur": 30, "e_rel": 6, "e_fly": 18, "e_r": 22000, "e_dmg": 80, "e_ratio": 60,
     "e_slow": 35, "e_slow_t": 120,
     # R Shadow Surge (League: 2000-3000 range, 75-175 +20% AP mark, 150-350 +50% AP surge, cd 140-100)
     "r_cd": 2100, "r_range": 110000, "r_dur": 27, "r_rel": 10, "r_speed": 5000, "r_dmg": 80, "r_ratio": 20,
@@ -243,15 +245,17 @@ def build(p):
         hit = [ap(p["w_dmg"], p["w_ratio"]), view("w_hit"), tsfx("w_hit")] + vh + ([fear(p["p_fear"])] if scared else [])
         return combine(around(p["w_r"], "EnemyWithoutTower", hit), around(p["w_r"], "EnemyChampion", [pop]))
 
-    def space(*pose):
-        return combine(*pose, flag("w_cd", p["w_cd"]), sfx("w"), voice("vo_w", p),
-                       # on her: a Shield goes to the action's target (an enemy here, league_annie W's lesson)
-                       pick(1, "AllyOnlySelf", {"type": "Shield", "amount": p["w_sh"], "attack_ratio": 0,
-                                                "ap_ratio": p["w_sh_ratio"], "tick": p["w_sh_t"]}),
-                       cview("w_shield"), cview("w_ring"),
-                       doomed(wave(False), wave(True)))
+    def space(*pose, at=0):
+        """Personal Space: the shield and the wave `at` ticks after its pose starts (skill_w's slam, frame 3)."""
+        burst = combine(sfx("w"), voice("vo_w", p),
+                        # on her: a Shield goes to the action's target (an enemy here, league_annie W's lesson)
+                        pick(1, "AllyOnlySelf", {"type": "Shield", "amount": p["w_sh"], "attack_ratio": 0,
+                                                 "ap_ratio": p["w_sh_ratio"], "tick": p["w_sh_t"]}),
+                        cview("w_shield"), cview("w_ring"),
+                        doomed(wave(False), wave(True)))
+        return combine(*pose, flag("w_cd", p["w_cd"]), delayed(at, alive(burst)) if at else burst)
 
-    personal = space(anim("skill_w", p["w_dur"]))
+    personal = space(anim("skill_w", p["w_dur"]), at=p["w_rel"] - 1)
     near = combine(pick(p["w_r"], "EnemyChampion", flag("w_near", 1)),
                    sw("w_near", combine(*rm("w_near"), sw("w_cd", plain, personal)), plain))
     attack_a = action("attack", p["atk_dur"], p["atk_cd"], 1, p["atk_range"], "Targeting", "Enemy",
@@ -294,7 +298,7 @@ def build(p):
         # end teleports her) and strikes from there
         surge = line("r_surge", p["r_jspeed"], p["r_range"] + 30000, p["r_stop"], "EnemyChampion", [],
                      end=[{"type": "Teleport"}, anim("ult_hit", p["r_hit_dur"])], y=5000)
-    marked = [ap(p["r_dmg"], p["r_ratio"]), buff("r_mark", p["r_wait"] + 30), view("r_mark"), tsfx("r_mark"), *vh,
+    marked = [ap(p["r_dmg"], p["r_ratio"]), buff("r_mark", p["r_wait"] + 30), tsfx("r_mark"), *vh,
               delayed(p["r_wait"], anim("ult_dash", p["r_dash_anim"]), sfx("r_dash"), surge,
                       delayed(p["r_dash_anim"] // 2, *strike)) if p["r_surge"] else delayed(p["r_wait"], *strike)]
     ult = action("ult", p["r_dur"], p["r_cd"], 1, p["r_range"], "Targeting",
@@ -312,7 +316,7 @@ def build(p):
                                            "repeat": True, "z": 2}
     views_p = [Pj("a_bolt"), Pj("q_bolt"), Pj("r_missile")]
     views_e = [E("a_hit"), E("q_hit"), E("w_hit"), E("w_ring", BIG, -1), E("w_shield", FX, 3), E("e_cast", FX, 3),
-               E("e_land", BIG, -1, False), E("r_mark"), E("r_hit"), E("p_ready", FX, 3)]
+               E("e_land", BIG, -1, False), E("r_hit"), E("p_ready", FX, 3)]
     if not native:
         views_e.append(E("g_pop"))
     views_b = [B_("e_slow", FX, -1), B_("g_mark", FX, 3), B_("r_mark", FX, 3)]
