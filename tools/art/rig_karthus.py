@@ -76,6 +76,14 @@ IDLE_HAND = (35, 39)
 IDLE_LEG_ROW = 46                     # the idle design's robe from this row stays while the body breathes
 ISLAND = 8
 SHADE_PURPLE = (50, 22, 80)           # the design's darkest purple
+# the run's two streamers: (root (x, y) in design squares behind his shoulder, length in squares, wave lag, the rows it
+# drops a column - one high and nearly level, one lower and falling away, so they never cross), a wave
+# RIBBON_WAVE squares long travelling to their tips over the run's RUN_FRAMES frames; the robe's violets light / middle /
+# dark
+RIBBONS = [((13, 29), 24, 0.0, 0.08), ((11, 37), 20, 2.4, 0.30)]
+RIBBON_WAVE = 12
+RUN_FRAMES = 8
+RIBBON_INK = [(97, 38, 162), (68, 29, 109), (50, 22, 80)]
 # Requiem's book, open (League's: a crimson leather tome, its pages lit by a teal rune), in the design's own colours:
 # K outline, A / B the pages light / shade, E the rune's cyan, R / D the cover's crimson light / dark
 BOOK = [".KKK.KKK.",
@@ -168,7 +176,7 @@ class Form:
         return lay
 
     def pose(self, crouch=0, whole=(0, 0), staff=(0, 0), staff_rot=0, reach=0, near=(0, 0), near_rot=0, hem=0,
-             fill=True, staff_back=False, drop=None, book=None, no_staff=False, lean=0):
+             fill=True, staff_back=False, drop=None, book=None, no_staff=False, lean=0, ribbons=None):
         """crouch: rows the body (with the arms and the staff) sets down onto the hem; whole: the whole figure; staff:
         the staff, its hand and the far sleeve moved (dx, dy), staff_rot quarter turns counter-clockwise about GRIP
         (3: its crystal points forward, level through the fist; 1: back); reach: columns the hand (and the staff) goes
@@ -180,7 +188,8 @@ class Form:
         squares (moved with the body), drawn over everything (held in the near claw); no_staff: the staff left out
         (the death lays it down on its own); lean: the upper body bent forward over the hem one square every `lean`
         rows (league_zoe's leant: the head - the crown to the chin, rows to HEAD_LOW - one block, the hand's rows one
-        block with the staff, which moves whole: nothing on it sheared)."""
+        block with the staff, which moves whole: nothing on it sheared); ribbons: the run's two streamers behind him
+        at this wave phase (ribbon_layer), under the body."""
         if crouch < 0:
             raise ValueError("the body never lifts off the hem")
         wx, wy = whole
@@ -201,6 +210,8 @@ class Form:
             behind, staff_l = True, None
         if behind and staff_l:
             layers.append((*staff_l, "staff"))
+        if ribbons is not None:
+            layers.append((self.ribbon_layer(ribbons), dict(dx=ux, dy=uy), "upper"))
         layers += [(L["body"], dict(dx=ux, dy=uy), "upper"),
                    (L["near_arm"], dict(dx=ux + near[0], dy=uy + near[1], rot=near_rot, about=ELBOW), "upper")]
         if not behind and staff_l:
@@ -228,6 +239,38 @@ class Form:
                 can = self.behind_arm(can, ux, uy)
             can = drop_islands(can)
         return self.close_holes(can) if fill else can
+
+    def ribbon_layer(self, k):
+        """The run's two streamers (League's Karthus trails two long cloth ribbons from his back as he floats on - the
+        user, 2026-10-20: 「加两根飘带吧应该」): from RIBBONS' roots behind his shoulder (the pauldron hides them) back
+        and a little down, a wave travelling to their free ends (phase k of RUN_FRAMES), its swing growing toward the
+        tips; two squares thick (the robe's light violet over its dark one), the last squares one (its middle violet),
+        in a near-black outline ring. A design-sized layer, padded."""
+        lay = np.zeros_like(self.L["body"])
+        cells = {}
+        for (rx, ry), length, lag, drop in RIBBONS:
+            prev = None
+            for t in range(length):
+                x = rx - t
+                swing = 0.4 + 1.8 * t / length
+                y = ry + drop * t + swing * np.sin(2 * np.pi * (t / RIBBON_WAVE - k / RUN_FRAMES) - lag)
+                y0 = int(round(y))
+                thick = 2 if t < length - 4 else 1
+                top = y0 if prev is None else min(y0, prev)        # no gap where the band steps a row or more
+                bot = y0 + thick - 1 if prev is None else max(y0 + thick - 1, prev)
+                for yy in range(top, bot + 1):
+                    if thick == 1:
+                        c = RIBBON_INK[1]
+                    else:
+                        c = RIBBON_INK[0] if yy == top else RIBBON_INK[2]
+                    cells[(x, yy)] = c
+                prev = y0
+        ring = {(x + dx, y + dy) for x, y in cells for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1))} - set(cells)
+        for (x, y) in ring:
+            lay[P + y, P + x] = (*self.D.outline, 255)
+        for (x, y), c in cells.items():
+            lay[P + y, P + x] = (*c, 255)
+        return lay
 
     def book_layer(self, at):
         """Requiem's book (League's Karthus sings from it: Spell4_In takes it out, spell4_loop holds it up), open, its
@@ -418,18 +461,19 @@ def frames_all(F):
 
 
 # ------------------------------------------------------------------------------------------------- the glide
-# League's karthus_run: he floats on bent forward, off the ground with his toes hanging, bobbing, the rags streaming
-# back, the near claw held out in front, the staff carried upright ahead of him; no steps. The upper body leant forward
-# (one square every LEAN rows), the near arm forward, the whole figure LIFT rows off the ground (his shadow stays on
-# it: the user, 2026-10-20, 「死歌是飘着走路的吧 我们现在不是」 - the first glide only bobbed a row, his feet on the
-# ground) and bobbing a row, the hem trailing back two or three columns and fluttering.
+# League's karthus_run: he floats on bent forward, off the ground with his toes hanging, bobbing, two long ribbons
+# streaming back from his back, the near claw held out in front, the staff carried upright ahead of him; no steps. The
+# upper body leant forward (one square every LEAN rows), the near arm forward, the whole figure LIFT rows off the ground
+# (his shadow stays on it: the user, 2026-10-20, 「死歌是飘着走路的吧 我们现在不是」) and bobbing a row, the two
+# ribbons waving behind him (「有点奇怪啊 腿不用动吧 加两根飘带吧应该」: the hem and his feet no longer swing back and
+# forth - the first float trailed the hem, his feet sliding with it).
 LEAN = 6
 LIFT = 6
-GLIDE = dict(bob=[0, 0, -1, -1, -1, -1, 0, 0], hem=[-2, -3, -3, -2, -2, -3, -3, -2])
+GLIDE = dict(bob=[0, 0, -1, -1, -1, -1, 0, 0])
 
 
 def run(F):
-    return [F.pose(whole=(0, b - LIFT), hem=h, lean=LEAN, near_rot=1) for b, h in zip(GLIDE["bob"], GLIDE["hem"])]
+    return [F.pose(whole=(0, b - LIFT), lean=LEAN, near_rot=1, ribbons=k) for k, b in enumerate(GLIDE["bob"])]
 
 
 def frames(F):
