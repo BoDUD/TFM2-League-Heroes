@@ -8,7 +8,7 @@
     },
     {
       "mod_id": "league",
-      "version": ">=0.174.0"
+      "version": ">=0.175.0"
     }
   ],
   "description": "Test build of Karthus as in League (needs League of Legends Heroes): replaces the main pack's Karthus so Death Defied turns him into a spirit at a lethal blow - untargetable, taking no damage, still casting - for 7 seconds before he falls. Other champions are untouched. Writes a log for testing.",
