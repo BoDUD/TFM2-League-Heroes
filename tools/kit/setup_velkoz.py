@@ -26,7 +26,7 @@ from build_velkoz import P, lp  # noqa: E402
 REPO = os.path.normpath(os.path.join(HERE, "..", ".."))
 MOD = os.path.join(REPO, "league")
 ID = "league_velkoz"
-VERSION = "0.182.0"
+VERSION = "0.184.0"     # the next free number above main 0.183.0 (Sylas #416, Mel #418, 2026-10-20)
 APi = "<i#asset/base/ui/banpick/champion_stat_icon:ap_0>"
 TOOLTIP_MAX = {"zh-hans": 130, "zh-hant": 130, "en": 334, "ja": 147, "ko": 185}
 M = "<#a974ffff>"      # magic damage / AP

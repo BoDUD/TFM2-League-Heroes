@@ -1,0 +1,32 @@
+[
+  {
+    "file": "mel-A.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_levels": 256,
+    "bbox_alpha_128": [
+      131,
+      132,
+      1135,
+      1240
+    ]
+  },
+  {
+    "file": "mel-B.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_levels": 256,
+    "bbox_alpha_128": [
+      524,
+      133,
+      1133,
+      1219
+    ]
+  }
+]

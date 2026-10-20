@@ -1,0 +1,42 @@
+{
+  "zh-hans": {
+    "description": {
+      "league_sylas_addon": {
+        "attack": "【附加包】<#ff9028ff>破敌禁法<>：每放一个技能存一层，有层时攻速+40%，下次普攻挥链横扫周围，<#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<>魔法伤害。<#ff9028ff>弑君突刺<>：每<#ffb900ff>9秒<>对英雄的普攻变成突刺，<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>魔法伤害，按损失生命多回<#66bb6aff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>35%<>起。",
+        "ult": "【附加包】锁链命中敌方英雄，<#ef5350ff>眩晕<><#ffb900ff>0.5秒<>并夺走大招；<#ffb900ff>10秒<>内再放，按对方类别放出<#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>魔法伤害的大招：近战跃起砸晕，射手贯穿长箭，法师爆发击飞，辅助治疗护盾友军，刺客闪身重击。"
+      }
+    }
+  },
+  "zh-hant": {
+    "description": {
+      "league_sylas_addon": {
+        "attack": "【附加包】<#ff9028ff>反魔法英石衝擊<>：每放一個技能存一層，有層時攻速+40%，下次普攻揮鍊橫掃周圍，<#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<>魔法傷害。<#ff9028ff>弒君之道<>：每<#ffb900ff>9秒<>對英雄的普攻變成突刺，<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>魔法傷害，按損失生命多回<#66bb6aff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>35%<>起。",
+        "ult": "【附加包】鎖鍊命中敵方英雄，<#ef5350ff>暈眩<><#ffb900ff>0.5秒<>並奪走大招；<#ffb900ff>10秒<>內再放，按對方類別放出<#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>魔法傷害的大招：近戰躍起砸暈，射手貫穿長箭，法師爆發擊飛，輔助治療護盾友軍，刺客閃身重擊。"
+      }
+    }
+  },
+  "en": {
+    "description": {
+      "league_sylas_addon": {
+        "attack": "[Add-on] <#ff9028ff>Petricite Burst<>: each spell he casts stores a charge; with one he attacks 40% faster and his next attack whirls his chains round him for <#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<> magic damage. <#ff9028ff>Kingslayer<>: every <#ffb900ff>9s<> his attack on a champion becomes a stab for <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> magic damage, healing <#66bb6aff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>35%<>, more when hurt.",
+        "ult": "[Add-on] His chain hits an enemy champion, <#ef5350ff>stuns<> it for <#ffb900ff>0.5s<> and steals its ultimate; cast again within <#ffb900ff>10s<> for one by its class, <#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> magic damage: a stunning leap (melee), a piercing arrow (marksman), a blast that knocks up (mage), heals and shields for allies (support), a blink and a heavy strike (assassin)."
+      }
+    }
+  },
+  "ko": {
+    "description": {
+      "league_sylas_addon": {
+        "attack": "[애드온] <#ff9028ff>페트리사이트 폭발<>: 스킬을 쓸 때마다 1회 충전, 충전 시 공격 속도 +40%, 다음 기본 공격이 주변에 <#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<> 마법 피해. <#ff9028ff>국왕시해자<>: <#ffb900ff>9초<>마다 챔피언 공격이 찌르기로 바뀌어 <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> 마법 피해, 체력 <#66bb6aff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>35%<>+ 회복(잃은 체력 비례).",
+        "ult": "[애드온] 사슬이 적 챔피언을 맞혀 <#ffb900ff>0.5초<> <#ef5350ff>기절<>시키고 궁극기를 빼앗음. <#ffb900ff>10초<> 안에 다시 쓰면 상대 계열에 따라 <#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> 마법 피해: 근접 도약 기절, 원거리 관통 화살, 마법사 폭발 띄움, 서포터 아군 회복·보호막, 암살자 순간이동 일격."
+      }
+    }
+  },
+  "ja": {
+    "description": {
+      "league_sylas_addon": {
+        "attack": "【アドオン】<#ff9028ff>ペトリサイトバースト<>：スキルごとに1チャージ、チャージ中は攻撃速度+40%、次の通常攻撃で周囲に<#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<>の魔法ダメージ。<#ff9028ff>王殺し<>：<#ffb900ff>9秒<>ごとにチャンピオンへの攻撃が突きになり<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>の魔法ダメージ、体力<#66bb6aff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>35%<>～回復。",
+        "ult": "【アドオン】鎖が敵チャンピオンに当たると<#ffb900ff>0.5秒<><#ef5350ff>スタン<>させアルティメットを奪う。<#ffb900ff>10秒<>以内に再使用で相手のクラス別に<#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>の魔法ダメージ：近接は跳躍スタン、射手は貫通矢、魔術師は爆発、サポートは味方回復とシールド、暗殺者は瞬間移動の一撃。"
+      }
+    }
+  }
+}

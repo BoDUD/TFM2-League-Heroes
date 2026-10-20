@@ -1,0 +1,16 @@
+﻿sylas-pose-wind.png | 1254x1254 bbox={X=145,Y=168,Width=1099,Height=1008} edge_pixels=0
+sylas-pose-lash.png | 1254x1254 bbox={X=14,Y=431,Width=1234,Height=693} edge_pixels=0
+sylas-pose-spin.png | 1254x1254 bbox={X=36,Y=452,Width=1192,Height=746} edge_pixels=0
+sylas-pose-leap.png | 1254x1254 bbox={X=25,Y=75,Width=1214,Height=1039} edge_pixels=0
+sylas-pose-stab.png | 1254x1254 bbox={X=48,Y=450,Width=1202,Height=700} edge_pixels=0
+sylas-pose-slam.png | 1254x1254 bbox={X=61,Y=442,Width=1151,Height=792} edge_pixels=0
+sylas-pose-dash.png | 1254x1254 bbox={X=32,Y=223,Width=1116,Height=907} edge_pixels=0
+sylas-pose-throw.png | 1254x1254 bbox={X=8,Y=315,Width=1238,Height=831} edge_pixels=0
+sylas-pose-pull.png | 1254x1254 bbox={X=40,Y=357,Width=1196,Height=721} edge_pixels=0
+sylas-pose-stagger.png | 1254x1254 bbox={X=70,Y=173,Width=1139,Height=1017} edge_pixels=0
+sylas-pose-kneel.png | 1254x1254 bbox={X=53,Y=478,Width=1163,Height=711} edge_pixels=0
+sylas-pose-lie.png | 1774x887 bbox={X=41,Y=411,Width=1722,Height=463} edge_pixels=0
+sylas-pose-run1.png | 1254x1254 bbox={X=44,Y=326,Width=1172,Height=848} edge_pixels=0
+sylas-pose-run2.png | 1254x1254 bbox={X=84,Y=235,Width=1144,Height=933} edge_pixels=0
+sylas-pose-run3.png | 1254x1254 bbox={X=46,Y=270,Width=1186,Height=914} edge_pixels=0
+sylas-pose-run4.png | 1254x1254 bbox={X=57,Y=317,Width=1153,Height=850} edge_pixels=0

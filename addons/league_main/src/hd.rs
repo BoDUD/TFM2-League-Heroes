@@ -139,6 +139,13 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // rows skull cap to soles, Mega 66: 「迷你 32」「巨型 44」; Mega's m_* tags the kit's CasterAnimations and the add-on's
     // whole-body swap), so no SIZES row
     ("league_gnar", 1.5, include_str!("../../../league/champions/league_gnar#anim.fanim")),
+    // Sylas: posed by tools/art/rig_sylas.py at the user's 1.2 squares a game pixel (46 game rows hair to soles: 「38」
+    // 「PPU 1.2」; 3/4 only, Codex's sixteen skeleton poses with the design's head; attack_p / skill_w / skill2_pull /
+    // ult_cast / ult_dash the kit's CasterAnimations), so no SIZES row
+    ("league_sylas", 1.2, include_str!("../../../league/champions/league_sylas#anim.fanim")),
+    // Mel: posed by tools/art/rig_mel.py on Codex's step-1 take A-3 at the user's 1.5 squares a game pixel (65 game rows bun
+    // top to soles: 「44」「PPU 1.5」; every action on the 3/4 design after League's clips), so no SIZES row
+    ("league_mel", 1.5, include_str!("../../../league/champions/league_mel#anim.fanim")),
     // Vel'Koz: posed by tools/art/rig_velkoz.py on Codex's step-1 take A-2 at the user's 1.5 squares a game pixel (54 game
     // rows crest top to the lowest tentacle: 「36」「PPU 1.5」; 3/4 only, every action after League's clips; ult_loop the
     // kit's channel CasterAnimation), so no SIZES row
@@ -296,6 +303,8 @@ pub const UI_SIZES: &[(&str, f32)] = &[
     // Warwick (#142): 63 game px wide with his raised tail (94 squares at PPU 1.5) - the tail's tip and the far claws ran
     // past the card's 59.5 px canvas
     ("league_warwick", 0.88),
+    // Mel (#144): 43.3 game rows bun top to soles at PPU 1.5 - 12.7 px of her heels and train hid under the card's canvas
+    ("league_mel", 0.90),
 ];
 
 /// The `"lo_..."` animation names of a .fanim.

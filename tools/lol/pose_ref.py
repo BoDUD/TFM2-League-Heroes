@@ -560,7 +560,7 @@ def render_hq(verts, tris, uv, tex, yaw, pitch, size, scale, ground, shift=0.0, 
 
 def parse_frame(spec):
     """'clip@ms' or 'clipA@ms>clipB@ms:w' -> (clipA, seconds, clipB, seconds, w)."""
-    m = re.fullmatch(r"([\w.]+)@([\d.]+)(?:>([\w.]+)@([\d.]+):([\d.]+))?", spec.strip())
+    m = re.fullmatch(r"([\w.-]+)@([\d.]+)(?:>([\w.-]+)@([\d.]+):([\d.]+))?", spec.strip())   # Mel's attack2-new
     if not m:
         raise SystemExit(f"bad --frame {spec!r}: use clip@ms or clipA@ms>clipB@ms:weight")
     a, ta, b, tb, w = m.groups()
