@@ -158,7 +158,7 @@
                         "type": "TargetProjectile",
                         "name": "league_zyra_a_seed",
                         "speed": 4500,
-                        "y_offset": 0,
+                        "y_offset": -4000,
                         "applied_target": "Enemy",
                         "applied_effects": [
                           {
@@ -651,7 +651,7 @@
                         "name": "league_zyra_e_roots",
                         "speed": 2000,
                         "range": 105000,
-                        "y_offset": 0,
+                        "y_offset": 5000,
                         "penetrate": true,
                         "shape": {
                           "Circle": {
@@ -1179,7 +1179,7 @@
       "name": "league_zyra_t_plant",
       "anim": "asset/league/effects/league_zyra_big",
       "tag": "t_plant",
-      "z": 0,
+      "z": -1,
       "is_follow": false
     },
     {
@@ -1195,7 +1195,7 @@
       "name": "league_zyra_v_plant",
       "anim": "asset/league/effects/league_zyra_big",
       "tag": "v_plant",
-      "z": 0,
+      "z": -1,
       "is_follow": false
     },
     {
@@ -1235,7 +1235,7 @@
       "name": "league_zyra_s_seed",
       "anim": "asset/league/effects/league_zyra_fx",
       "tag": "s_seed",
-      "z": 0,
+      "z": -1,
       "is_follow": false
     }
   ],
