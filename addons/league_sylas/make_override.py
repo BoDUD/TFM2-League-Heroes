@@ -9,7 +9,8 @@ league/champion/league_sylas.data_champion byte for byte (so the copy never drif
     Kingslayer's heal calls league_sylas:kingslayer, R's chain marks the champion it hits (league_sylas_r_mark), the
     second R plays the robbed League champion's own ult (league_sylas_steal_<hero>: every main-pack champion's ult
     effect tree as written, its animation tags turned into Sylas's ult_cast / ult_dash, the views it uses copied from
-    that champion's lists) or, for anyone else, one of five stolen ults by league_sylas_cls_<class>; passive
+    that champion's lists; BY_CLASS lists the ones whose ult does nothing in his hands) or, for anyone else, one of
+    five stolen ults by league_sylas_cls_<class>; passive
     league_sylas:hijack (params from P);
     the attack's and the ult's tooltips point to description.league_sylas_addon.* (so the tooltip in game shows
     whether the override took);
@@ -83,6 +84,21 @@ def dumps_main(o):
     return json.dumps(o, ensure_ascii=False, indent=2).replace("\n", "\r\n") + "\r\n"
 
 
+# League champions whose own ult does nothing in Sylas's hands, stolen by class instead (tools/kit/sylas_steal_check.py:
+# a traced classic-engine game per champion with its ult stolen, 2026-10-20 - these showed none of their own pictures,
+# projectiles or hits): their R slot only arms a flag that their own attacks / watchers fire, or it needs a state only
+# they have
+BY_CLASS = {
+    "cassiopeia": "R arms a gaze her attacks fire", "evelynn": "R arms her next attacks", "gangplank": "R arms a barrage",
+    "kayle": "R arms a save her watcher fires", "kindred": "R arms a save her watcher fires",
+    "lillia": "R arms a sleep her attacks fire", "lissandra": "R arms a self-freeze her watcher fires",
+    "samira": "R arms at S rank (her style grade)", "tahmkench": "R arms a devour his watcher fires",
+    "tryndamere": "R arms undying his watcher fires", "urgot": "R arms an execute his attacks fire",
+    "wukong": "R arms a spin his attacks fire", "zilean": "R arms a rewind his watcher fires",
+    "gnar": "R only in Mega form", "orianna": "R needs her ball", "mel": "R strikes only her own Overwhelm stacks",
+}
+
+
 # a robbed champion's own animation tags -> Sylas's (his sheet has none of theirs): a dash, a leap or a flight his leap,
 # anything else his stolen ult's cast
 DASH_WORDS = ("dash", "leap", "jump", "fly", "air", "hop")
@@ -125,7 +141,7 @@ def own_ults():
     seen = set()
     for path in sorted(glob.glob(os.path.join(ROOT, "league", "champion", "league_*.data_champion"))):
         c = json.loads(open(lp(path), "rb").read().decode("utf-8-sig"))
-        if c["id"] == HERO:
+        if c["id"] == HERO or c["id"][len("league_"):] in BY_CLASS:
             continue
         tree = retag(c["ult"]["effect"])
         used = names_in(tree, set())

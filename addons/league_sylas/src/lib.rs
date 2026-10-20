@@ -385,6 +385,7 @@ mod tests {
         assert_eq!(own_ult("league_jinx"), Some("jinx"));
         assert_eq!(own_ult("league_soraka"), Some("soraka"));
         assert_eq!(own_ult("league_sylas"), None);
+        assert_eq!(own_ult("league_mel"), None);        // BY_CLASS: her R strikes only her own stacks
         assert_eq!(own_ult("fighter"), None);
         assert_eq!(own_ult("tft_powder"), None);
         assert!(stealable::STEALABLE.windows(2).all(|w| w[0] < w[1]));
