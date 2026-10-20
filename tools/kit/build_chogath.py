@@ -24,6 +24,13 @@ Spikes (League: three empowered attacks on a 8-4 s cooldown) and the passive rid
           stack (a Permanent caster buff `r_stack` with r_stack_hp health, healed at once; no cap, the user's pick),
           and league.dll draws his body r_grow% bigger per stack (src/view.rs, the display counts `r_stack` on him).
           Permanent buffs end with his death (section 5), so the main pack loses the stacks when he dies.
+  combos  Q -> W (-> R), League's Rupture into Feral Scream (the user: 「有连招要做连招」「都要帮我补」): Q's spikes
+          throwing up an enemy champion open q_combo (a caster flag, q_combo ticks: the knock-up and a little more);
+          W cast inside it screams at once (on tick w_fast, not w_rel - no rear-up wait), so the silence lands while
+          the champion is still in the air, and the window is spent. Nothing else changes: W keeps its own slot and
+          cooldown (the AI casts it when it is ready, as before), the damage is the same. R needs no window: Q's and
+          W's hits make the champion `EnemyChampionRecentlyAttacked`, Feast's target (with the add-on only when the
+          bite kills).
 The add-on copy (addons/league_chogath/make_override.py): this same kit with the add-on's passive league_chogath:keep
 (every Feast stack given back after his death, League's way); its AI hook league_chogath:feast presses R only when the
 bite kills (real health and shields). The data needs no native effect: target_hp_ratio already reads the real maximum
@@ -79,6 +86,9 @@ P = {
     # W Feral Scream
     "w_cd": 660, "w_range": 45000, "w_dur": 39, "w_rel": 8, "w_cone": 55000, "w_cos": 866, "w_dmg": 60, "w_ap": 50,
     "w_sil": 108,
+    # combo Q -> W: Q's burst on an enemy champion opens q_combo for q_combo ticks (the q_up knock-up + 15); W cast
+    # inside it screams on tick w_fast (League: W while the Rupture's knock-up holds them)
+    "q_combo": 60, "w_fast": 2,
     # R Feast
     "r_cd": 3600, "r_range": 30000, "r_dur": 41, "r_rel": 6, "r_dmg": 300, "r_hp": 5, "r_ap": 50,
     "r_stack_hp": 70, "r_grow": 5,
@@ -260,19 +270,24 @@ def build(p):
     # ------------------------------------------------------------------ skill: Q Rupture
     burst = [magic(p["q_dmg"], p["q_ap"]), {"type": "Airborne", "duration": p["q_up"]},
              buff("q_slow", p["q_slow_t"], move_speed_mult=-p["q_slow"]), view("q_hit"), tsfx("q_hit")]
+    # its champion-only twin (the same spot and tick) opens the Q -> W window on him
+    combo = [on_me(refresh("q_combo", p["q_combo"]))]
     skill = action("skill", p["q_dur"], p["q_cd"], 1, p["q_range"], "Position", "EnemyWithoutTower",
                    combine(sfx("q"), voice("vo_q", p),
                            delayed(p["q_rel"] - 1, view("q_crack"), sfx("q_crack")),
                            delayed(p["q_rel"] - 1 + p["q_delay"], view("q_spikes"), sfx("q_burst"),
-                                   zone("q_z", p["q_r"], burst))))
+                                   zone("q_z", p["q_r"], burst), zone("q_zc", p["q_r"], combo, "EnemyChampion"))))
 
     # ------------------------------------------------------------------ skill2: W Feral Scream
     scream = [magic(p["w_dmg"], p["w_ap"]), {"type": "BlockSkill", "tick": p["w_sil"]}, buff("w_sil", p["w_sil"]),
               view("w_hit"), tsfx("w_hit")]
+    def shout(at):
+        return delayed(at - 1, sfx("w"), line("w_wave", p["w_cone"], 30000, "Ally", [], delay=p["w_pic_t"]),
+                       cone(p["w_cone"], p["w_cos"], "EnemyWithoutTower", scream))
+    # inside the Q -> W window the scream comes at once (the window spent), else on the rear-up's tick
     skill2 = action("skill2", p["w_dur"], p["w_cd"], 1, p["w_range"], "Targeting", "EnemyChampion",
                     combine(voice("vo_w", p),
-                            delayed(p["w_rel"] - 1, sfx("w"), line("w_wave", p["w_cone"], 30000, "Ally", [], delay=p["w_pic_t"]),
-                                    cone(p["w_cone"], p["w_cos"], "EnemyWithoutTower", scream))))
+                            sw("q_combo", combine(*rm("q_combo"), shout(p["w_fast"])), shout(p["w_rel"]))))
 
     # ------------------------------------------------------------------ ult: R Feast
     grow = combine(flag("r_stack", None, hp=p["r_stack_hp"]),

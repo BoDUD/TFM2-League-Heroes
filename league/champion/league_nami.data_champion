@@ -1438,6 +1438,44 @@
                       }
                     }
                   ]
+                },
+                {
+                  "type": "RangeProjectile",
+                  "name": "league_nami_q_champ",
+                  "shape": {
+                    "Circle": {
+                      "radius": 22000
+                    }
+                  },
+                  "delay": 1,
+                  "apply": 1,
+                  "applied_target": "EnemyChampion",
+                  "applied_effects": [
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_nami_q_combo"
+                          },
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_nami_q_combo",
+                              "duration": {
+                                "Time": {
+                                  "tick": 75
+                                }
+                              }
+                            },
+                            "only_to_enemy": false
+                          }
+                        ]
+                      }
+                    }
+                  ]
                 }
               ]
             }
@@ -1507,6 +1545,44 @@
                     }
                   }
                 ]
+              },
+              {
+                "type": "RangeProjectile",
+                "name": "league_nami_q_champ",
+                "shape": {
+                  "Circle": {
+                    "radius": 22000
+                  }
+                },
+                "delay": 1,
+                "apply": 1,
+                "applied_target": "EnemyChampion",
+                "applied_effects": [
+                  {
+                    "casting_type": "Targeting",
+                    "effect": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_nami_q_combo"
+                        },
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_nami_q_combo",
+                            "duration": {
+                              "Time": {
+                                "tick": 75
+                              }
+                            }
+                          },
+                          "only_to_enemy": false
+                        }
+                      ]
+                    }
+                  }
+                ]
               }
             ]
           }
@@ -1519,7 +1595,7 @@
     "description": "#asset/base/text/champion?description.league_nami.ult",
     "duration": 40,
     "cooltime": 3000,
-    "start_timing": 17,
+    "start_timing": 1,
     "cancelable": false,
     "range": 90000,
     "casting_type": "Direction",
@@ -1529,129 +1605,419 @@
       "type": "Combine",
       "effects": [
         {
-          "type": "Sfx",
-          "name": "league_nami_r_cast"
-        },
-        {
-          "type": "AddCasterBuff",
-          "buff_state": {
-            "name": "league_nami_r_near",
-            "duration": {
-              "Time": {
-                "tick": 32
-              }
-            }
-          },
-          "only_to_enemy": false
-        },
-        {
-          "type": "LinearProjectile",
-          "name": "league_nami_r_wave",
-          "penetrate": true,
-          "applied_target": "EnemyWithoutTower",
-          "applied_effects": [
-            {
-              "casting_type": "Targeting",
-              "effect": {
-                "type": "ApAttack",
-                "damage": 150,
-                "attack_ratio": 70
-              }
-            },
-            {
-              "casting_type": "Targeting",
-              "effect": {
-                "type": "Airborne",
-                "duration": 30
-              }
-            },
-            {
-              "casting_type": "Targeting",
-              "effect": {
-                "type": "SwitchByBuff",
-                "buff_name": "league_nami_r_near",
-                "effect_buff": {
-                  "type": "AddBuff",
-                  "buff_state": {
-                    "name": "league_nami_r_slow",
-                    "duration": {
-                      "Time": {
-                        "tick": 120
-                      }
-                    },
-                    "move_speed_mult": -60
-                  }
-                },
-                "effect_none": {
-                  "type": "AddBuff",
-                  "buff_state": {
-                    "name": "league_nami_r_slow",
-                    "duration": {
-                      "Time": {
-                        "tick": 180
-                      }
-                    },
-                    "move_speed_mult": -60
-                  }
-                }
-              }
-            },
-            {
-              "casting_type": "Targeting",
-              "effect": {
-                "type": "ViewEffect",
-                "name": "league_nami_r_hit"
-              }
-            },
-            {
-              "casting_type": "Targeting",
-              "effect": {
-                "type": "TargetSfx",
-                "name": "league_nami_r_hit"
-              }
-            }
-          ],
-          "end_effects": [],
-          "speed": 2500,
-          "range": 160000,
-          "shape": {
-            "Circle": {
-              "radius": 32000
-            }
-          },
-          "y_offset": 5000
-        },
-        {
-          "type": "LinearProjectile",
-          "name": "league_nami_r_tide",
-          "penetrate": true,
-          "applied_target": "AllyChampion",
-          "applied_effects": [
-            {
-              "casting_type": "Targeting",
-              "effect": {
-                "type": "AddBuff",
+          "type": "SwitchByBuff",
+          "buff_name": "league_nami_q_combo",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "Sfx",
+                "name": "league_nami_r_cast"
+              },
+              {
+                "type": "AddCasterBuff",
                 "buff_state": {
-                  "name": "league_nami_p_haste",
+                  "name": "league_nami_r_near",
                   "duration": {
                     "Time": {
-                      "tick": 90
+                      "tick": 32
+                    }
+                  }
+                },
+                "only_to_enemy": false
+              },
+              {
+                "type": "RemoveCasterBuff",
+                "name": "league_nami_r_aim"
+              },
+              {
+                "type": "RandomTarget",
+                "range": 90000,
+                "casting_target": "EnemyChampionInCC",
+                "from_projectile": false,
+                "effects": [
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_nami_r_aim",
+                      "duration": {
+                        "Time": {
+                          "tick": 1
+                        }
+                      }
+                    },
+                    "only_to_enemy": false
+                  },
+                  {
+                    "type": "LinearProjectile",
+                    "name": "league_nami_r_wave",
+                    "penetrate": true,
+                    "applied_target": "EnemyWithoutTower",
+                    "applied_effects": [
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "ApAttack",
+                          "damage": 150,
+                          "attack_ratio": 70
+                        }
+                      },
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "Airborne",
+                          "duration": 30
+                        }
+                      },
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "SwitchByBuff",
+                          "buff_name": "league_nami_r_near",
+                          "effect_buff": {
+                            "type": "AddBuff",
+                            "buff_state": {
+                              "name": "league_nami_r_slow",
+                              "duration": {
+                                "Time": {
+                                  "tick": 120
+                                }
+                              },
+                              "move_speed_mult": -60
+                            }
+                          },
+                          "effect_none": {
+                            "type": "AddBuff",
+                            "buff_state": {
+                              "name": "league_nami_r_slow",
+                              "duration": {
+                                "Time": {
+                                  "tick": 180
+                                }
+                              },
+                              "move_speed_mult": -60
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "ViewEffect",
+                          "name": "league_nami_r_hit"
+                        }
+                      },
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "TargetSfx",
+                          "name": "league_nami_r_hit"
+                        }
+                      }
+                    ],
+                    "end_effects": [],
+                    "speed": 2500,
+                    "range": 160000,
+                    "shape": {
+                      "Circle": {
+                        "radius": 32000
+                      }
+                    },
+                    "y_offset": 5000
+                  },
+                  {
+                    "type": "LinearProjectile",
+                    "name": "league_nami_r_tide",
+                    "penetrate": true,
+                    "applied_target": "AllyChampion",
+                    "applied_effects": [
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "AddBuff",
+                          "buff_state": {
+                            "name": "league_nami_p_haste",
+                            "duration": {
+                              "Time": {
+                                "tick": 90
+                              }
+                            },
+                            "move_speed_mult": 40
+                          }
+                        }
+                      }
+                    ],
+                    "end_effects": [],
+                    "speed": 2500,
+                    "range": 160000,
+                    "shape": {
+                      "Circle": {
+                        "radius": 32000
+                      }
+                    },
+                    "y_offset": 5000
+                  }
+                ]
+              },
+              {
+                "type": "SwitchByBuff",
+                "buff_name": "league_nami_r_aim",
+                "effect_buff": {
+                  "type": "Combine",
+                  "effects": []
+                },
+                "effect_none": {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "LinearProjectile",
+                      "name": "league_nami_r_wave",
+                      "penetrate": true,
+                      "applied_target": "EnemyWithoutTower",
+                      "applied_effects": [
+                        {
+                          "casting_type": "Targeting",
+                          "effect": {
+                            "type": "ApAttack",
+                            "damage": 150,
+                            "attack_ratio": 70
+                          }
+                        },
+                        {
+                          "casting_type": "Targeting",
+                          "effect": {
+                            "type": "Airborne",
+                            "duration": 30
+                          }
+                        },
+                        {
+                          "casting_type": "Targeting",
+                          "effect": {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_nami_r_near",
+                            "effect_buff": {
+                              "type": "AddBuff",
+                              "buff_state": {
+                                "name": "league_nami_r_slow",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 120
+                                  }
+                                },
+                                "move_speed_mult": -60
+                              }
+                            },
+                            "effect_none": {
+                              "type": "AddBuff",
+                              "buff_state": {
+                                "name": "league_nami_r_slow",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 180
+                                  }
+                                },
+                                "move_speed_mult": -60
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "casting_type": "Targeting",
+                          "effect": {
+                            "type": "ViewEffect",
+                            "name": "league_nami_r_hit"
+                          }
+                        },
+                        {
+                          "casting_type": "Targeting",
+                          "effect": {
+                            "type": "TargetSfx",
+                            "name": "league_nami_r_hit"
+                          }
+                        }
+                      ],
+                      "end_effects": [],
+                      "speed": 2500,
+                      "range": 160000,
+                      "shape": {
+                        "Circle": {
+                          "radius": 32000
+                        }
+                      },
+                      "y_offset": 5000
+                    },
+                    {
+                      "type": "LinearProjectile",
+                      "name": "league_nami_r_tide",
+                      "penetrate": true,
+                      "applied_target": "AllyChampion",
+                      "applied_effects": [
+                        {
+                          "casting_type": "Targeting",
+                          "effect": {
+                            "type": "AddBuff",
+                            "buff_state": {
+                              "name": "league_nami_p_haste",
+                              "duration": {
+                                "Time": {
+                                  "tick": 90
+                                }
+                              },
+                              "move_speed_mult": 40
+                            }
+                          }
+                        }
+                      ],
+                      "end_effects": [],
+                      "speed": 2500,
+                      "range": 160000,
+                      "shape": {
+                        "Circle": {
+                          "radius": 32000
+                        }
+                      },
+                      "y_offset": 5000
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "RemoveCasterBuff",
+                "name": "league_nami_r_aim"
+              }
+            ]
+          },
+          "effect_none": {
+            "type": "Delayed",
+            "tick": 16,
+            "effects": [
+              {
+                "type": "Sfx",
+                "name": "league_nami_r_cast"
+              },
+              {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_nami_r_near",
+                  "duration": {
+                    "Time": {
+                      "tick": 32
+                    }
+                  }
+                },
+                "only_to_enemy": false
+              },
+              {
+                "type": "LinearProjectile",
+                "name": "league_nami_r_wave",
+                "penetrate": true,
+                "applied_target": "EnemyWithoutTower",
+                "applied_effects": [
+                  {
+                    "casting_type": "Targeting",
+                    "effect": {
+                      "type": "ApAttack",
+                      "damage": 150,
+                      "attack_ratio": 70
                     }
                   },
-                  "move_speed_mult": 40
-                }
+                  {
+                    "casting_type": "Targeting",
+                    "effect": {
+                      "type": "Airborne",
+                      "duration": 30
+                    }
+                  },
+                  {
+                    "casting_type": "Targeting",
+                    "effect": {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_nami_r_near",
+                      "effect_buff": {
+                        "type": "AddBuff",
+                        "buff_state": {
+                          "name": "league_nami_r_slow",
+                          "duration": {
+                            "Time": {
+                              "tick": 120
+                            }
+                          },
+                          "move_speed_mult": -60
+                        }
+                      },
+                      "effect_none": {
+                        "type": "AddBuff",
+                        "buff_state": {
+                          "name": "league_nami_r_slow",
+                          "duration": {
+                            "Time": {
+                              "tick": 180
+                            }
+                          },
+                          "move_speed_mult": -60
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "casting_type": "Targeting",
+                    "effect": {
+                      "type": "ViewEffect",
+                      "name": "league_nami_r_hit"
+                    }
+                  },
+                  {
+                    "casting_type": "Targeting",
+                    "effect": {
+                      "type": "TargetSfx",
+                      "name": "league_nami_r_hit"
+                    }
+                  }
+                ],
+                "end_effects": [],
+                "speed": 2500,
+                "range": 160000,
+                "shape": {
+                  "Circle": {
+                    "radius": 32000
+                  }
+                },
+                "y_offset": 5000
+              },
+              {
+                "type": "LinearProjectile",
+                "name": "league_nami_r_tide",
+                "penetrate": true,
+                "applied_target": "AllyChampion",
+                "applied_effects": [
+                  {
+                    "casting_type": "Targeting",
+                    "effect": {
+                      "type": "AddBuff",
+                      "buff_state": {
+                        "name": "league_nami_p_haste",
+                        "duration": {
+                          "Time": {
+                            "tick": 90
+                          }
+                        },
+                        "move_speed_mult": 40
+                      }
+                    }
+                  }
+                ],
+                "end_effects": [],
+                "speed": 2500,
+                "range": 160000,
+                "shape": {
+                  "Circle": {
+                    "radius": 32000
+                  }
+                },
+                "y_offset": 5000
               }
-            }
-          ],
-          "end_effects": [],
-          "speed": 2500,
-          "range": 160000,
-          "shape": {
-            "Circle": {
-              "radius": 32000
-            }
-          },
-          "y_offset": 5000
+            ]
+          }
         }
       ]
     }

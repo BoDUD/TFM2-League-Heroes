@@ -25,7 +25,7 @@ from build_gnar import P, lp  # noqa: E402
 REPO = os.path.normpath(os.path.join(HERE, "..", ".."))
 MOD = os.path.join(REPO, "league")
 ID = "league_gnar"
-VERSION = "0.178.0"
+VERSION = "0.181.0"
 ADi = "<i#asset/base/ui/banpick/champion_stat_icon:ad_0>"
 TOOLTIP_MAX = {"zh-hans": 130, "zh-hant": 130, "en": 334, "ja": 147, "ko": 185}
 O = "<#ff9028ff>"      # physical damage, AD, names

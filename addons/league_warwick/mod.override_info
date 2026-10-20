@@ -1,0 +1,10 @@
+{
+  "asset/league/champion/league_warwick": {
+    "remapping": "asset/league_warwick/override/league_warwick",
+    "type": "override"
+  },
+  "asset/base/text/champion": {
+    "remapping": "asset/league_warwick/text/champion",
+    "type": "merge"
+  }
+}

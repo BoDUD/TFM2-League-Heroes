@@ -39,6 +39,11 @@ on foot is a state with its own armour picture; the add-on swaps the whole body 
           r_ally of her - and she is not in crowd control. Then she yanks every enemy within r_r to her (Grab r_yank)
           and for r_n pulses r_period apart drags them in (Grab r_drag x r_drag_t) and deals r_tick + r_tick_ap% AP
           (League: 2 s, 150-350 + 110% AP). Unused, the window ends with the cooldown capped (r_reset).
+  combo   W -> R (League's Crash Down into Magnet Storm; the user: 「有连招要做连招」「都要帮我补」): a Crash Down that
+          knocks up a champion raises w_now (2 ticks); the armed window's poll (now an every-tick AddCasted that still
+          counts every r_poll ticks) counts at once on it, so R goes off the tick after the landing when its own rule
+          holds (the airborne champion with an ally within r_ally, or two enemy champions within r_r) instead of up
+          to r_poll ticks later. No number, rule or slot changes; skill2 grows by one flag per landing copy.
 """
 import argparse
 import json
@@ -302,7 +307,8 @@ def build(p):
     crash = [view("w_crash"), sfx("w_land"),
              around(p["w_r"], "EnemyWithoutTower", [magic(p["w_dmg"], p["w_ap"]),
                                                     {"type": "Airborne", "duration": p["w_up"]}, view("w_hit")]),
-             around(p["w_r"], "EnemyChampion", mold),
+             # a champion knocked up: w_now tells an armed Magnet Storm to count now (W -> R, the ult's poll below)
+             around(p["w_r"], "EnemyChampion", [*mold, refresh("w_now", 2)]),
              on_me(shield(p["w_sh"], p["w_sh_ap"], p["w_sh_t"]), refresh("w_shield", p["w_sh_t"]),
                    refresh("foot", p["w_foot"], **foot_stats))]
     w1 = combine(anim("skill2", p["w_anim"]), cview("w_jump"), sfx("w"), voice("vo_w", p),
@@ -341,10 +347,17 @@ def build(p):
                     sw("r_me", NONE, sw("c2", fire, sw("r_cc", sw("r_al", fire)))),
                     *rm("c1", "c2", "r_cc", "r_al", "r_me"))
     poll = sw("r_arm", count)
+    # W -> R (League's Crash Down into Magnet Storm; the user: 「有连招要做连招」「都要帮我补」): the armed window's
+    # AddCasted runs every tick and counts every r_poll ticks (r_tk) as before - or at once when a Crash Down has just
+    # knocked up a champion (w_now, 2 ticks): R goes off the tick after the landing by the poll's own rule (the champion
+    # in the air with an ally within r_ally, or two enemy champions within r_r) instead of up to r_poll ticks later
+    tick_poll = combine(sw("w_now", combine(*rm("w_now"), flag("r_go", 1))),
+                        sw("r_tk", NONE, combine(flag("r_tk", p["r_poll"]), flag("r_go", 1))),
+                        sw("r_go", combine(*rm("r_go"), poll)))
     reset = sw("r_arm", combine(*rm("r_arm"), flag("r_reset", 3, ult_cooldown_mult=p["r_reset"])))
     ult = action("ult" if p["dbg"] else "idle", 3, p["r_cd"], 1, p["r_r"] + 30000, "None", "EnemyChampion",
-                 combine(refresh("r_arm", p["r_arm"]), poll,
-                         on_me(casted(p["r_arm"], p["r_poll"], poll), delayed(p["r_arm"], reset))), key="ult")
+                 combine(refresh("r_arm", p["r_arm"]), poll, *rm("w_now", "r_go"), refresh("r_tk", p["r_poll"]),
+                         on_me(casted(p["r_arm"], 1, tick_poll), delayed(p["r_arm"], reset))), key="ult")
 
     # ------------------------------------------------------------------ views
     E = lambda name, anim_=FX, z=2, follow=True: {"type": "Animation", "name": n(name), "anim": anim_, "tag": name,

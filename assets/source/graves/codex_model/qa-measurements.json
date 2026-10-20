@@ -1,0 +1,190 @@
+[
+  {
+    "file": "graves-model-A-1.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_levels": 256,
+    "transparent_pixels": 1057107,
+    "opaque_pixels": 2840,
+    "semi_transparent_pixels": 512569,
+    "bbox_alpha128": [
+      89,
+      235,
+      1198,
+      1168
+    ],
+    "visible_height_alpha128": 933,
+    "height_divided_by_requested16": 58.312,
+    "strong_rgb_transition_alignment": [
+      {
+        "period": 8,
+        "best_phase": 3,
+        "best_phase_fraction": 0.1579,
+        "phase0_fraction": 0.1196
+      },
+      {
+        "period": 10,
+        "best_phase": 2,
+        "best_phase_fraction": 0.1445,
+        "phase0_fraction": 0.0912
+      },
+      {
+        "period": 12,
+        "best_phase": 11,
+        "best_phase_fraction": 0.1062,
+        "phase0_fraction": 0.0855
+      },
+      {
+        "period": 16,
+        "best_phase": 3,
+        "best_phase_fraction": 0.1027,
+        "phase0_fraction": 0.0674
+      }
+    ],
+    "sha256": "4f3a2e3db2a68944ea936a9a80c3f41fe9e9cf8234917cc47634664983b39a71"
+  },
+  {
+    "file": "graves-model-A-2.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_levels": 256,
+    "transparent_pixels": 1042005,
+    "opaque_pixels": 2497,
+    "semi_transparent_pixels": 528014,
+    "bbox_alpha128": [
+      79,
+      235,
+      1214,
+      1185
+    ],
+    "visible_height_alpha128": 950,
+    "height_divided_by_requested16": 59.375,
+    "strong_rgb_transition_alignment": [
+      {
+        "period": 8,
+        "best_phase": 2,
+        "best_phase_fraction": 0.1521,
+        "phase0_fraction": 0.1239
+      },
+      {
+        "period": 10,
+        "best_phase": 9,
+        "best_phase_fraction": 0.121,
+        "phase0_fraction": 0.0943
+      },
+      {
+        "period": 12,
+        "best_phase": 6,
+        "best_phase_fraction": 0.1012,
+        "phase0_fraction": 0.0863
+      },
+      {
+        "period": 16,
+        "best_phase": 1,
+        "best_phase_fraction": 0.1031,
+        "phase0_fraction": 0.0951
+      }
+    ],
+    "sha256": "8ed0fa6bf7f5f32748703ab08c2a473d192d6c17e9af0d5702469123d541f666"
+  },
+  {
+    "file": "graves-model-side-1.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_levels": 256,
+    "transparent_pixels": 1035768,
+    "opaque_pixels": 2630,
+    "semi_transparent_pixels": 534118,
+    "bbox_alpha128": [
+      14,
+      223,
+      1240,
+      1207
+    ],
+    "visible_height_alpha128": 984,
+    "height_divided_by_requested16": 61.5,
+    "strong_rgb_transition_alignment": [
+      {
+        "period": 8,
+        "best_phase": 4,
+        "best_phase_fraction": 0.1387,
+        "phase0_fraction": 0.1169
+      },
+      {
+        "period": 10,
+        "best_phase": 1,
+        "best_phase_fraction": 0.1141,
+        "phase0_fraction": 0.1088
+      },
+      {
+        "period": 12,
+        "best_phase": 4,
+        "best_phase_fraction": 0.095,
+        "phase0_fraction": 0.0786
+      },
+      {
+        "period": 16,
+        "best_phase": 4,
+        "best_phase_fraction": 0.0842,
+        "phase0_fraction": 0.0697
+      }
+    ],
+    "sha256": "c2687b8ef84cfde78bec937ed965c24648acefac0fdf3962463094f9e550c5f3"
+  },
+  {
+    "file": "graves-model-side-2.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_levels": 256,
+    "transparent_pixels": 1090870,
+    "opaque_pixels": 2854,
+    "semi_transparent_pixels": 478792,
+    "bbox_alpha128": [
+      17,
+      236,
+      1237,
+      1174
+    ],
+    "visible_height_alpha128": 938,
+    "height_divided_by_requested16": 58.625,
+    "strong_rgb_transition_alignment": [
+      {
+        "period": 8,
+        "best_phase": 7,
+        "best_phase_fraction": 0.1315,
+        "phase0_fraction": 0.1115
+      },
+      {
+        "period": 10,
+        "best_phase": 1,
+        "best_phase_fraction": 0.1172,
+        "phase0_fraction": 0.0976
+      },
+      {
+        "period": 12,
+        "best_phase": 11,
+        "best_phase_fraction": 0.1044,
+        "phase0_fraction": 0.1022
+      },
+      {
+        "period": 16,
+        "best_phase": 2,
+        "best_phase_fraction": 0.0737,
+        "phase0_fraction": 0.0516
+      }
+    ],
+    "sha256": "bad236543362df7909941ab9f27a754424d869b484a76fd00b5f3cef2df42c69"
+  }
+]

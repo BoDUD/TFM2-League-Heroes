@@ -160,6 +160,21 @@
                           },
                           "only_to_enemy": false
                         }
+                      },
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_caitlyn_q_net",
+                            "duration": {
+                              "Time": {
+                                "tick": 108
+                              }
+                            }
+                          },
+                          "only_to_enemy": false
+                        }
                       }
                     ]
                   }
@@ -784,117 +799,375 @@
           "tick": 15,
           "effects": [
             {
-              "type": "RandomTarget",
-              "range": 100000,
-              "casting_target": "EnemyChampion",
-              "from_projectile": false,
-              "effects": [
-                {
-                  "type": "AddCasterBuff",
-                  "buff_state": {
-                    "name": "league_caitlyn_q_aim",
-                    "duration": {
-                      "Time": {
-                        "tick": 10
+              "type": "SwitchByBuff",
+              "buff_name": "league_caitlyn_hs_trap",
+              "effect_buff": {
+                "type": "RandomTarget",
+                "range": 100000,
+                "casting_target": "EnemyChampionInCC",
+                "from_projectile": false,
+                "effects": [
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_caitlyn_q_aim",
+                      "duration": {
+                        "Time": {
+                          "tick": 10
+                        }
                       }
-                    }
+                    },
+                    "only_to_enemy": false
                   },
-                  "only_to_enemy": false
-                },
-                {
-                  "type": "ParabolicProjectile",
-                  "name": "league_caitlyn_q_aim",
-                  "travel_time": 8,
-                  "range": 120000,
-                  "range_effect_name": "",
-                  "shape": {
-                    "Circle": {
-                      "radius": 1
-                    }
-                  },
-                  "applied_target": "EnemyChampion",
-                  "applied_effects": [],
-                  "end_effects": [
-                    {
-                      "type": "LinearProjectile",
-                      "name": "league_caitlyn_q_bolt",
-                      "penetrate": true,
-                      "applied_target": "EnemyWithoutTower",
-                      "applied_effects": [
-                        {
-                          "casting_type": "Targeting",
-                          "effect": {
-                            "type": "SwitchByBuff",
-                            "buff_name": "league_caitlyn_q_first",
-                            "effect_buff": {
-                              "type": "Combine",
-                              "effects": [
-                                {
-                                  "type": "Attack",
-                                  "damage": 36,
-                                  "attack_ratio": 66,
-                                  "hp_ratio": 0,
-                                  "target_hp_ratio": 0,
-                                  "attack_effect_type": "Target"
-                                },
-                                {
-                                  "type": "ViewEffect",
-                                  "name": "league_caitlyn_q_hit"
-                                }
-                              ]
-                            },
-                            "effect_none": {
-                              "type": "Combine",
-                              "effects": [
-                                {
-                                  "type": "Attack",
-                                  "damage": 60,
-                                  "attack_ratio": 110,
-                                  "hp_ratio": 0,
-                                  "target_hp_ratio": 0,
-                                  "attack_effect_type": "Target"
-                                },
-                                {
-                                  "type": "ViewEffect",
-                                  "name": "league_caitlyn_q_hit"
-                                },
-                                {
-                                  "type": "AddCasterBuff",
-                                  "buff_state": {
-                                    "name": "league_caitlyn_q_first",
-                                    "duration": {
-                                      "Time": {
-                                        "tick": 40
-                                      }
-                                    }
+                  {
+                    "type": "ParabolicProjectile",
+                    "name": "league_caitlyn_q_aim",
+                    "travel_time": 8,
+                    "range": 120000,
+                    "range_effect_name": "",
+                    "shape": {
+                      "Circle": {
+                        "radius": 1
+                      }
+                    },
+                    "applied_target": "EnemyChampion",
+                    "applied_effects": [],
+                    "end_effects": [
+                      {
+                        "type": "LinearProjectile",
+                        "name": "league_caitlyn_q_bolt",
+                        "penetrate": true,
+                        "applied_target": "EnemyWithoutTower",
+                        "applied_effects": [
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "SwitchByBuff",
+                              "buff_name": "league_caitlyn_q_first",
+                              "effect_buff": {
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "Attack",
+                                    "damage": 36,
+                                    "attack_ratio": 66,
+                                    "hp_ratio": 0,
+                                    "target_hp_ratio": 0,
+                                    "attack_effect_type": "Target"
                                   },
-                                  "only_to_enemy": false
-                                }
-                              ]
+                                  {
+                                    "type": "ViewEffect",
+                                    "name": "league_caitlyn_q_hit"
+                                  }
+                                ]
+                              },
+                              "effect_none": {
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "Attack",
+                                    "damage": 60,
+                                    "attack_ratio": 110,
+                                    "hp_ratio": 0,
+                                    "target_hp_ratio": 0,
+                                    "attack_effect_type": "Target"
+                                  },
+                                  {
+                                    "type": "ViewEffect",
+                                    "name": "league_caitlyn_q_hit"
+                                  },
+                                  {
+                                    "type": "AddCasterBuff",
+                                    "buff_state": {
+                                      "name": "league_caitlyn_q_first",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 40
+                                        }
+                                      }
+                                    },
+                                    "only_to_enemy": false
+                                  }
+                                ]
+                              }
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "TargetSfx",
+                              "name": "league_caitlyn_q_hit"
                             }
                           }
+                        ],
+                        "end_effects": [],
+                        "speed": 10000,
+                        "range": 120000,
+                        "shape": {
+                          "Circle": {
+                            "radius": 6000
+                          }
                         },
-                        {
-                          "casting_type": "Targeting",
-                          "effect": {
-                            "type": "TargetSfx",
-                            "name": "league_caitlyn_q_hit"
+                        "y_offset": -2500
+                      }
+                    ]
+                  }
+                ]
+              },
+              "effect_none": {
+                "type": "Combine",
+                "effects": []
+              }
+            },
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_caitlyn_q_aim",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": []
+              },
+              "effect_none": {
+                "type": "SwitchByBuff",
+                "buff_name": "league_caitlyn_q_net",
+                "effect_buff": {
+                  "type": "RandomTarget",
+                  "range": 65000,
+                  "casting_target": "EnemyChampionRecentlyAttacked",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_caitlyn_q_aim",
+                        "duration": {
+                          "Time": {
+                            "tick": 10
                           }
                         }
-                      ],
-                      "end_effects": [],
-                      "speed": 10000,
+                      },
+                      "only_to_enemy": false
+                    },
+                    {
+                      "type": "ParabolicProjectile",
+                      "name": "league_caitlyn_q_aim",
+                      "travel_time": 8,
                       "range": 120000,
+                      "range_effect_name": "",
                       "shape": {
                         "Circle": {
-                          "radius": 6000
+                          "radius": 1
                         }
                       },
-                      "y_offset": -2500
+                      "applied_target": "EnemyChampion",
+                      "applied_effects": [],
+                      "end_effects": [
+                        {
+                          "type": "LinearProjectile",
+                          "name": "league_caitlyn_q_bolt",
+                          "penetrate": true,
+                          "applied_target": "EnemyWithoutTower",
+                          "applied_effects": [
+                            {
+                              "casting_type": "Targeting",
+                              "effect": {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_caitlyn_q_first",
+                                "effect_buff": {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "Attack",
+                                      "damage": 36,
+                                      "attack_ratio": 66,
+                                      "hp_ratio": 0,
+                                      "target_hp_ratio": 0,
+                                      "attack_effect_type": "Target"
+                                    },
+                                    {
+                                      "type": "ViewEffect",
+                                      "name": "league_caitlyn_q_hit"
+                                    }
+                                  ]
+                                },
+                                "effect_none": {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "Attack",
+                                      "damage": 60,
+                                      "attack_ratio": 110,
+                                      "hp_ratio": 0,
+                                      "target_hp_ratio": 0,
+                                      "attack_effect_type": "Target"
+                                    },
+                                    {
+                                      "type": "ViewEffect",
+                                      "name": "league_caitlyn_q_hit"
+                                    },
+                                    {
+                                      "type": "AddCasterBuff",
+                                      "buff_state": {
+                                        "name": "league_caitlyn_q_first",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 40
+                                          }
+                                        }
+                                      },
+                                      "only_to_enemy": false
+                                    }
+                                  ]
+                                }
+                              }
+                            },
+                            {
+                              "casting_type": "Targeting",
+                              "effect": {
+                                "type": "TargetSfx",
+                                "name": "league_caitlyn_q_hit"
+                              }
+                            }
+                          ],
+                          "end_effects": [],
+                          "speed": 10000,
+                          "range": 120000,
+                          "shape": {
+                            "Circle": {
+                              "radius": 6000
+                            }
+                          },
+                          "y_offset": -2500
+                        }
+                      ]
                     }
                   ]
+                },
+                "effect_none": {
+                  "type": "Combine",
+                  "effects": []
                 }
-              ]
+              }
+            },
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_caitlyn_q_aim",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": []
+              },
+              "effect_none": {
+                "type": "RandomTarget",
+                "range": 100000,
+                "casting_target": "EnemyChampion",
+                "from_projectile": false,
+                "effects": [
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_caitlyn_q_aim",
+                      "duration": {
+                        "Time": {
+                          "tick": 10
+                        }
+                      }
+                    },
+                    "only_to_enemy": false
+                  },
+                  {
+                    "type": "ParabolicProjectile",
+                    "name": "league_caitlyn_q_aim",
+                    "travel_time": 8,
+                    "range": 120000,
+                    "range_effect_name": "",
+                    "shape": {
+                      "Circle": {
+                        "radius": 1
+                      }
+                    },
+                    "applied_target": "EnemyChampion",
+                    "applied_effects": [],
+                    "end_effects": [
+                      {
+                        "type": "LinearProjectile",
+                        "name": "league_caitlyn_q_bolt",
+                        "penetrate": true,
+                        "applied_target": "EnemyWithoutTower",
+                        "applied_effects": [
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "SwitchByBuff",
+                              "buff_name": "league_caitlyn_q_first",
+                              "effect_buff": {
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "Attack",
+                                    "damage": 36,
+                                    "attack_ratio": 66,
+                                    "hp_ratio": 0,
+                                    "target_hp_ratio": 0,
+                                    "attack_effect_type": "Target"
+                                  },
+                                  {
+                                    "type": "ViewEffect",
+                                    "name": "league_caitlyn_q_hit"
+                                  }
+                                ]
+                              },
+                              "effect_none": {
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "Attack",
+                                    "damage": 60,
+                                    "attack_ratio": 110,
+                                    "hp_ratio": 0,
+                                    "target_hp_ratio": 0,
+                                    "attack_effect_type": "Target"
+                                  },
+                                  {
+                                    "type": "ViewEffect",
+                                    "name": "league_caitlyn_q_hit"
+                                  },
+                                  {
+                                    "type": "AddCasterBuff",
+                                    "buff_state": {
+                                      "name": "league_caitlyn_q_first",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 40
+                                        }
+                                      }
+                                    },
+                                    "only_to_enemy": false
+                                  }
+                                ]
+                              }
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "TargetSfx",
+                              "name": "league_caitlyn_q_hit"
+                            }
+                          }
+                        ],
+                        "end_effects": [],
+                        "speed": 10000,
+                        "range": 120000,
+                        "shape": {
+                          "Circle": {
+                            "radius": 6000
+                          }
+                        },
+                        "y_offset": -2500
+                      }
+                    ]
+                  }
+                ]
+              }
             }
           ]
         },

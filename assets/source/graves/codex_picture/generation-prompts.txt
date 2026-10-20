@@ -1,0 +1,28 @@
+Generated with built-in image_gen. All reference art supplied in graves_pack0.zip.
+
+A first attempt (superseded):
+
+Use case: stylized-concept. Create ONE game pixel-art model of Graves, a burly gunslinger, variant A. Five references: 1 idle identity, 2 face identity, 3 gun construction, 4 layout only, 5 pixel STYLE ONLY. Match coarse clean pixel look of final reference, not detailed 3D shading.
+1536x1536 square PNG, genuine transparent background. Character from hair top y642 to soles y1390 (748px tall), near canvas x768, with large empty top area exactly as layout image 8. Each pixel-art square is exactly 11x11 output pixels on a uniform grid. Approximately 68 pixel-art rows tall. Crisp solid squares, hard alpha, no antialiasing. Exterior near-black outline 2 squares thick; inside each material only 3-4 flat shades, broad clusters, no dithering.
+Full body chibi, head including hair about one third height, broad shoulders, stocky torso, short strong legs, both boots complete. Slicked-back black hair, thick black brows, TWO equally sized eyes same height both visible, white and dark pupils each at least two squares, black full beard in 3 shades, hard stare. Ragged deep crimson shoulder scarf / short cape in 3 shades, brown leather vest and oversized near pauldron with brass trim/rivets, dark navy shirt, brown bracers and gloves, belt with shell pouches, loose charcoal trousers and brown boots. Lighter edges keep all dark materials readable.
+POSE A: idle three-quarter FRONT facing RIGHT, feet apart knees slightly bent, two hands holding shotgun level across hips. Strong three-quarter face but both eyes clear. Near side on image left full tone, far side darker.
+Shotgun matches original: LONG original-length heavy double-barrel shotgun, polished gold/brass two-pronged stock, wooden grip, large round gold drum chamber, TWO black-steel barrels with highlight strips and brass muzzle rings, brass front grip. The two barrels must be perfectly STRAIGHT and HORIZONTAL pointing RIGHT, never diagonal even though the 3D refs tilt upward. Both barrels readable as parallel horizontal bars. Whole gun inside canvas, compact enough for margins.
+No effects, no muzzle flash, no smoke, no bullets, no cast shadow, no ground, no text or guide lines, no other characters. Output only ONE variant A.
+
+
+A selected revision:
+
+Edit reference image 1 into the final Graves-A sprite; references 2 original face, 3 layout, 4 pixel style. Keep character clothing, gun design and pose identity. REQUIRED CORRECTIONS: turn head slightly toward viewer so TWO eyes fully visible, equally large at same height, white + dark pupils; coarse pixel-art at exactly 11x11 px squares rather than fine detailed pixel illustration. Whole character about 68 chunky pixel rows tall, head about 22 rows. Reduce fine detail to 3 flat shades per material, no gradients, no antialiasing, thick near-black exterior outline 2 squares. Output exact 1536x1536 transparent PNG. Layout MUST match ref3: hair top at y642, soles y1390, body height748, centered x768, large empty transparent region above. Full-body stocky chibi 3/4 FRONT facing right, 2 hands holding long brass drum double barrel shotgun horizontal at hips. Two straight parallel black barrels pointing right, gold rings, gold forked stock. No effects, shadows, text, guides or background. Real alpha.
+
+
+B:
+
+Edit the attached Graves A pixel model to produce variant B. Keep EXACTLY the same character, face, hair, two eyes, beard, body proportions, 3/4 front facing right idle stance, both hands, clothing, colors, outline, pixel square size and character position. Change ONLY the length of the shotgun: shorten its forward black barrels dramatically so the brass muzzle rings reach only a few pixel-art squares in front of the forward hand/body. Preserve the round brass drum, gold forked stock, wooden grip, TWO parallel horizontal black steel barrels, muzzle rings and front grip. Gun stays perfectly horizontal pointed right and held in both hands. No other changes. Requested canvas1536x1536, transparent RGBA, hard alpha, no antialiasing, no effects, smoke, background, floor or shadow. The character should be748px high with soles at y1390 and hair at642. Coarse uniform11px pixel grid, 3-4 flat tones per material. Output ONE sprite B.
+
+
+SA:
+
+
+
+SB:
+undefined

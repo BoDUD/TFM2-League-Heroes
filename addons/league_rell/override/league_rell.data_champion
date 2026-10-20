@@ -1376,6 +1376,27 @@
                                                               {
                                                                 "type": "Native",
                                                                 "effect_ref": "league_rell:mold"
+                                                              },
+                                                              {
+                                                                "type": "Combine",
+                                                                "effects": [
+                                                                  {
+                                                                    "type": "RemoveCasterBuff",
+                                                                    "name": "league_rell_w_now"
+                                                                  },
+                                                                  {
+                                                                    "type": "AddCasterBuff",
+                                                                    "buff_state": {
+                                                                      "name": "league_rell_w_now",
+                                                                      "duration": {
+                                                                        "Time": {
+                                                                          "tick": 2
+                                                                        }
+                                                                      }
+                                                                    },
+                                                                    "only_to_enemy": false
+                                                                  }
+                                                                ]
                                                               }
                                                             ]
                                                           },
@@ -1509,6 +1530,27 @@
                                                               {
                                                                 "type": "Native",
                                                                 "effect_ref": "league_rell:mold"
+                                                              },
+                                                              {
+                                                                "type": "Combine",
+                                                                "effects": [
+                                                                  {
+                                                                    "type": "RemoveCasterBuff",
+                                                                    "name": "league_rell_w_now"
+                                                                  },
+                                                                  {
+                                                                    "type": "AddCasterBuff",
+                                                                    "buff_state": {
+                                                                      "name": "league_rell_w_now",
+                                                                      "duration": {
+                                                                        "Time": {
+                                                                          "tick": 2
+                                                                        }
+                                                                      }
+                                                                    },
+                                                                    "only_to_enemy": false
+                                                                  }
+                                                                ]
                                                               }
                                                             ]
                                                           },
@@ -1745,6 +1787,27 @@
                                                             {
                                                               "type": "Native",
                                                               "effect_ref": "league_rell:mold"
+                                                            },
+                                                            {
+                                                              "type": "Combine",
+                                                              "effects": [
+                                                                {
+                                                                  "type": "RemoveCasterBuff",
+                                                                  "name": "league_rell_w_now"
+                                                                },
+                                                                {
+                                                                  "type": "AddCasterBuff",
+                                                                  "buff_state": {
+                                                                    "name": "league_rell_w_now",
+                                                                    "duration": {
+                                                                      "Time": {
+                                                                        "tick": 2
+                                                                      }
+                                                                    }
+                                                                  },
+                                                                  "only_to_enemy": false
+                                                                }
+                                                              ]
                                                             }
                                                           ]
                                                         },
@@ -2573,6 +2636,35 @@
           }
         },
         {
+          "type": "RemoveCasterBuff",
+          "name": "league_rell_w_now"
+        },
+        {
+          "type": "RemoveCasterBuff",
+          "name": "league_rell_r_go"
+        },
+        {
+          "type": "Combine",
+          "effects": [
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_rell_r_tk"
+            },
+            {
+              "type": "AddCasterBuff",
+              "buff_state": {
+                "name": "league_rell_r_tk",
+                "duration": {
+                  "Time": {
+                    "tick": 10
+                  }
+                }
+              },
+              "only_to_enemy": false
+            }
+          ]
+        },
+        {
           "type": "RangeEffect",
           "shape": {
             "Circle": {
@@ -2586,652 +2678,740 @@
               "type": "AddCasted",
               "casted_type": "Heal",
               "duration": 600,
-              "period": 10,
+              "period": 1,
               "effects": [
                 {
-                  "type": "SwitchByBuff",
-                  "buff_name": "league_rell_r_arm",
-                  "effect_buff": {
-                    "type": "Combine",
-                    "effects": [
-                      {
-                        "type": "RemoveCasterBuff",
-                        "name": "league_rell_c1"
-                      },
-                      {
-                        "type": "RemoveCasterBuff",
-                        "name": "league_rell_c2"
-                      },
-                      {
-                        "type": "RemoveCasterBuff",
-                        "name": "league_rell_r_cc"
-                      },
-                      {
-                        "type": "RemoveCasterBuff",
-                        "name": "league_rell_r_al"
-                      },
-                      {
-                        "type": "RemoveCasterBuff",
-                        "name": "league_rell_r_me"
-                      },
-                      {
-                        "type": "RangeEffect",
-                        "shape": {
-                          "Circle": {
-                            "radius": 34000
-                          }
-                        },
-                        "target": "EnemyChampion",
-                        "apply_type": "AroundCaster",
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_rell_w_now",
+                      "effect_buff": {
+                        "type": "Combine",
                         "effects": [
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_rell_w_now"
+                          },
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_rell_r_go",
+                              "duration": {
+                                "Time": {
+                                  "tick": 1
+                                }
+                              }
+                            },
+                            "only_to_enemy": false
+                          }
+                        ]
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    },
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_rell_r_tk",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": []
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_rell_r_tk",
+                              "duration": {
+                                "Time": {
+                                  "tick": 10
+                                }
+                              }
+                            },
+                            "only_to_enemy": false
+                          },
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_rell_r_go",
+                              "duration": {
+                                "Time": {
+                                  "tick": 1
+                                }
+                              }
+                            },
+                            "only_to_enemy": false
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_rell_r_go",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_rell_r_go"
+                          },
                           {
                             "type": "SwitchByBuff",
-                            "buff_name": "league_rell_c1",
+                            "buff_name": "league_rell_r_arm",
                             "effect_buff": {
-                              "type": "AddCasterBuff",
-                              "buff_state": {
-                                "name": "league_rell_c2",
-                                "duration": {
-                                  "Time": {
-                                    "tick": 1
-                                  }
-                                }
-                              },
-                              "only_to_enemy": false
-                            },
-                            "effect_none": {
-                              "type": "AddCasterBuff",
-                              "buff_state": {
-                                "name": "league_rell_c1",
-                                "duration": {
-                                  "Time": {
-                                    "tick": 1
-                                  }
-                                }
-                              },
-                              "only_to_enemy": false
-                            }
-                          }
-                        ]
-                      },
-                      {
-                        "type": "RandomTarget",
-                        "range": 34000,
-                        "casting_target": "EnemyChampionInCC",
-                        "from_projectile": false,
-                        "effects": [
-                          {
-                            "type": "AddCasterBuff",
-                            "buff_state": {
-                              "name": "league_rell_r_cc",
-                              "duration": {
-                                "Time": {
-                                  "tick": 1
-                                }
-                              }
-                            },
-                            "only_to_enemy": false
-                          }
-                        ]
-                      },
-                      {
-                        "type": "RandomTarget",
-                        "range": 50000,
-                        "casting_target": "AllyNotSelf",
-                        "from_projectile": false,
-                        "effects": [
-                          {
-                            "type": "AddCasterBuff",
-                            "buff_state": {
-                              "name": "league_rell_r_al",
-                              "duration": {
-                                "Time": {
-                                  "tick": 1
-                                }
-                              }
-                            },
-                            "only_to_enemy": false
-                          }
-                        ]
-                      },
-                      {
-                        "type": "RandomTarget",
-                        "range": 1,
-                        "casting_target": "AllyChampionInCC",
-                        "from_projectile": false,
-                        "effects": [
-                          {
-                            "type": "AddCasterBuff",
-                            "buff_state": {
-                              "name": "league_rell_r_me",
-                              "duration": {
-                                "Time": {
-                                  "tick": 1
-                                }
-                              }
-                            },
-                            "only_to_enemy": false
-                          }
-                        ]
-                      },
-                      {
-                        "type": "SwitchByBuff",
-                        "buff_name": "league_rell_r_me",
-                        "effect_buff": {
-                          "type": "Combine",
-                          "effects": []
-                        },
-                        "effect_none": {
-                          "type": "SwitchByBuff",
-                          "buff_name": "league_rell_c2",
-                          "effect_buff": {
-                            "type": "Combine",
-                            "effects": [
-                              {
-                                "type": "RemoveCasterBuff",
-                                "name": "league_rell_r_arm"
-                              },
-                              {
-                                "type": "CasterAnimation",
-                                "name": "ult",
-                                "tick": 30
-                              },
-                              {
-                                "type": "CasterViewEffect",
-                                "name": "league_rell_r_cast"
-                              },
-                              {
-                                "type": "Sfx",
-                                "name": "league_rell_r"
-                              },
-                              {
-                                "type": "SwitchByBuff",
-                                "buff_name": "league_rell_vo_cd",
-                                "effect_buff": {
-                                  "type": "Combine",
-                                  "effects": []
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_rell_c1"
                                 },
-                                "effect_none": {
-                                  "type": "Combine",
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_rell_c2"
+                                },
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_rell_r_cc"
+                                },
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_rell_r_al"
+                                },
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_rell_r_me"
+                                },
+                                {
+                                  "type": "RangeEffect",
+                                  "shape": {
+                                    "Circle": {
+                                      "radius": 34000
+                                    }
+                                  },
+                                  "target": "EnemyChampion",
+                                  "apply_type": "AroundCaster",
                                   "effects": [
                                     {
-                                      "type": "AddCasterBuff",
-                                      "buff_state": {
-                                        "name": "league_rell_vo_cd",
-                                        "duration": {
-                                          "Time": {
-                                            "tick": 600
-                                          }
-                                        }
-                                      },
-                                      "only_to_enemy": false
-                                    },
-                                    {
-                                      "type": "Sfx",
-                                      "name": "league_rell_vo_r"
-                                    }
-                                  ]
-                                }
-                              },
-                              {
-                                "type": "RangeEffect",
-                                "shape": {
-                                  "Circle": {
-                                    "radius": 34000
-                                  }
-                                },
-                                "target": "EnemyWithoutTower",
-                                "apply_type": "AroundCaster",
-                                "effects": [
-                                  {
-                                    "type": "Grab",
-                                    "speed": 2000
-                                  },
-                                  {
-                                    "type": "ViewEffect",
-                                    "name": "league_rell_r_yank"
-                                  }
-                                ]
-                              },
-                              {
-                                "type": "RangeEffect",
-                                "shape": {
-                                  "Circle": {
-                                    "radius": 34000
-                                  }
-                                },
-                                "target": "EnemyChampion",
-                                "apply_type": "AroundCaster",
-                                "effects": [
-                                  {
-                                    "type": "Native",
-                                    "effect_ref": "league_rell:mold"
-                                  }
-                                ]
-                              },
-                              {
-                                "type": "Combine",
-                                "effects": [
-                                  {
-                                    "type": "RemoveCasterBuff",
-                                    "name": "league_rell_r_on"
-                                  },
-                                  {
-                                    "type": "AddCasterBuff",
-                                    "buff_state": {
-                                      "name": "league_rell_r_on",
-                                      "duration": {
-                                        "Time": {
-                                          "tick": 120
-                                        }
-                                      }
-                                    },
-                                    "only_to_enemy": false
-                                  }
-                                ]
-                              },
-                              {
-                                "type": "RangeEffect",
-                                "shape": {
-                                  "Circle": {
-                                    "radius": 1000
-                                  }
-                                },
-                                "target": "AllyOnlySelf",
-                                "apply_type": "AroundCaster",
-                                "effects": [
-                                  {
-                                    "type": "AddCasted",
-                                    "casted_type": "Heal",
-                                    "duration": 120,
-                                    "period": 15,
-                                    "effects": [
-                                      {
-                                        "type": "Combine",
-                                        "effects": [
-                                          {
-                                            "type": "RandomTarget",
-                                            "range": 1,
-                                            "casting_target": "AllyOnlySelf",
-                                            "from_projectile": false,
-                                            "effects": [
-                                              {
-                                                "type": "AddCasterBuff",
-                                                "buff_state": {
-                                                  "name": "league_rell_live",
-                                                  "duration": {
-                                                    "Time": {
-                                                      "tick": 1
-                                                    }
-                                                  }
-                                                },
-                                                "only_to_enemy": false
-                                              }
-                                            ]
-                                          },
-                                          {
-                                            "type": "SwitchByBuff",
-                                            "buff_name": "league_rell_live",
-                                            "effect_buff": {
-                                              "type": "Combine",
-                                              "effects": [
-                                                {
-                                                  "type": "RangeEffect",
-                                                  "shape": {
-                                                    "Circle": {
-                                                      "radius": 34000
-                                                    }
-                                                  },
-                                                  "target": "EnemyWithoutTower",
-                                                  "apply_type": "AroundCaster",
-                                                  "effects": [
-                                                    {
-                                                      "type": "ApAttack",
-                                                      "damage": 35,
-                                                      "attack_ratio": 14,
-                                                      "hp_ratio": 0,
-                                                      "can_crit": false,
-                                                      "attack_effect_type": "Target"
-                                                    },
-                                                    {
-                                                      "type": "Grab",
-                                                      "speed": 500,
-                                                      "tick": 10
-                                                    },
-                                                    {
-                                                      "type": "ViewEffect",
-                                                      "name": "league_rell_r_hit"
-                                                    }
-                                                  ]
-                                                }
-                                              ]
-                                            },
-                                            "effect_none": {
-                                              "type": "RandomTarget",
-                                              "range": 1,
-                                              "casting_target": "AllyOnlySelf",
-                                              "from_projectile": false,
-                                              "effects": [
-                                                {
-                                                  "type": "RangeEffect",
-                                                  "shape": {
-                                                    "Circle": {
-                                                      "radius": 34000
-                                                    }
-                                                  },
-                                                  "target": "EnemyWithoutTower",
-                                                  "apply_type": "AroundCaster",
-                                                  "effects": [
-                                                    {
-                                                      "type": "ApAttack",
-                                                      "damage": 35,
-                                                      "attack_ratio": 14,
-                                                      "hp_ratio": 0,
-                                                      "can_crit": false,
-                                                      "attack_effect_type": "Target"
-                                                    },
-                                                    {
-                                                      "type": "Grab",
-                                                      "speed": 500,
-                                                      "tick": 10
-                                                    },
-                                                    {
-                                                      "type": "ViewEffect",
-                                                      "name": "league_rell_r_hit"
-                                                    }
-                                                  ]
-                                                }
-                                              ]
-                                            }
-                                          },
-                                          {
-                                            "type": "RemoveCasterBuff",
-                                            "name": "league_rell_live"
-                                          }
-                                        ]
-                                      }
-                                    ]
-                                  }
-                                ]
-                              }
-                            ]
-                          },
-                          "effect_none": {
-                            "type": "SwitchByBuff",
-                            "buff_name": "league_rell_r_cc",
-                            "effect_buff": {
-                              "type": "SwitchByBuff",
-                              "buff_name": "league_rell_r_al",
-                              "effect_buff": {
-                                "type": "Combine",
-                                "effects": [
-                                  {
-                                    "type": "RemoveCasterBuff",
-                                    "name": "league_rell_r_arm"
-                                  },
-                                  {
-                                    "type": "CasterAnimation",
-                                    "name": "ult",
-                                    "tick": 30
-                                  },
-                                  {
-                                    "type": "CasterViewEffect",
-                                    "name": "league_rell_r_cast"
-                                  },
-                                  {
-                                    "type": "Sfx",
-                                    "name": "league_rell_r"
-                                  },
-                                  {
-                                    "type": "SwitchByBuff",
-                                    "buff_name": "league_rell_vo_cd",
-                                    "effect_buff": {
-                                      "type": "Combine",
-                                      "effects": []
-                                    },
-                                    "effect_none": {
-                                      "type": "Combine",
-                                      "effects": [
-                                        {
-                                          "type": "AddCasterBuff",
-                                          "buff_state": {
-                                            "name": "league_rell_vo_cd",
-                                            "duration": {
-                                              "Time": {
-                                                "tick": 600
-                                              }
-                                            }
-                                          },
-                                          "only_to_enemy": false
-                                        },
-                                        {
-                                          "type": "Sfx",
-                                          "name": "league_rell_vo_r"
-                                        }
-                                      ]
-                                    }
-                                  },
-                                  {
-                                    "type": "RangeEffect",
-                                    "shape": {
-                                      "Circle": {
-                                        "radius": 34000
-                                      }
-                                    },
-                                    "target": "EnemyWithoutTower",
-                                    "apply_type": "AroundCaster",
-                                    "effects": [
-                                      {
-                                        "type": "Grab",
-                                        "speed": 2000
-                                      },
-                                      {
-                                        "type": "ViewEffect",
-                                        "name": "league_rell_r_yank"
-                                      }
-                                    ]
-                                  },
-                                  {
-                                    "type": "RangeEffect",
-                                    "shape": {
-                                      "Circle": {
-                                        "radius": 34000
-                                      }
-                                    },
-                                    "target": "EnemyChampion",
-                                    "apply_type": "AroundCaster",
-                                    "effects": [
-                                      {
-                                        "type": "Native",
-                                        "effect_ref": "league_rell:mold"
-                                      }
-                                    ]
-                                  },
-                                  {
-                                    "type": "Combine",
-                                    "effects": [
-                                      {
-                                        "type": "RemoveCasterBuff",
-                                        "name": "league_rell_r_on"
-                                      },
-                                      {
+                                      "type": "SwitchByBuff",
+                                      "buff_name": "league_rell_c1",
+                                      "effect_buff": {
                                         "type": "AddCasterBuff",
                                         "buff_state": {
-                                          "name": "league_rell_r_on",
+                                          "name": "league_rell_c2",
                                           "duration": {
                                             "Time": {
-                                              "tick": 120
+                                              "tick": 1
+                                            }
+                                          }
+                                        },
+                                        "only_to_enemy": false
+                                      },
+                                      "effect_none": {
+                                        "type": "AddCasterBuff",
+                                        "buff_state": {
+                                          "name": "league_rell_c1",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 1
                                             }
                                           }
                                         },
                                         "only_to_enemy": false
                                       }
-                                    ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "RandomTarget",
+                                  "range": 34000,
+                                  "casting_target": "EnemyChampionInCC",
+                                  "from_projectile": false,
+                                  "effects": [
+                                    {
+                                      "type": "AddCasterBuff",
+                                      "buff_state": {
+                                        "name": "league_rell_r_cc",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 1
+                                          }
+                                        }
+                                      },
+                                      "only_to_enemy": false
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "RandomTarget",
+                                  "range": 50000,
+                                  "casting_target": "AllyNotSelf",
+                                  "from_projectile": false,
+                                  "effects": [
+                                    {
+                                      "type": "AddCasterBuff",
+                                      "buff_state": {
+                                        "name": "league_rell_r_al",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 1
+                                          }
+                                        }
+                                      },
+                                      "only_to_enemy": false
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "RandomTarget",
+                                  "range": 1,
+                                  "casting_target": "AllyChampionInCC",
+                                  "from_projectile": false,
+                                  "effects": [
+                                    {
+                                      "type": "AddCasterBuff",
+                                      "buff_state": {
+                                        "name": "league_rell_r_me",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 1
+                                          }
+                                        }
+                                      },
+                                      "only_to_enemy": false
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "league_rell_r_me",
+                                  "effect_buff": {
+                                    "type": "Combine",
+                                    "effects": []
                                   },
-                                  {
-                                    "type": "RangeEffect",
-                                    "shape": {
-                                      "Circle": {
-                                        "radius": 1000
-                                      }
-                                    },
-                                    "target": "AllyOnlySelf",
-                                    "apply_type": "AroundCaster",
-                                    "effects": [
-                                      {
-                                        "type": "AddCasted",
-                                        "casted_type": "Heal",
-                                        "duration": 120,
-                                        "period": 15,
-                                        "effects": [
-                                          {
+                                  "effect_none": {
+                                    "type": "SwitchByBuff",
+                                    "buff_name": "league_rell_c2",
+                                    "effect_buff": {
+                                      "type": "Combine",
+                                      "effects": [
+                                        {
+                                          "type": "RemoveCasterBuff",
+                                          "name": "league_rell_r_arm"
+                                        },
+                                        {
+                                          "type": "CasterAnimation",
+                                          "name": "ult",
+                                          "tick": 30
+                                        },
+                                        {
+                                          "type": "CasterViewEffect",
+                                          "name": "league_rell_r_cast"
+                                        },
+                                        {
+                                          "type": "Sfx",
+                                          "name": "league_rell_r"
+                                        },
+                                        {
+                                          "type": "SwitchByBuff",
+                                          "buff_name": "league_rell_vo_cd",
+                                          "effect_buff": {
+                                            "type": "Combine",
+                                            "effects": []
+                                          },
+                                          "effect_none": {
                                             "type": "Combine",
                                             "effects": [
                                               {
-                                                "type": "RandomTarget",
-                                                "range": 1,
-                                                "casting_target": "AllyOnlySelf",
-                                                "from_projectile": false,
+                                                "type": "AddCasterBuff",
+                                                "buff_state": {
+                                                  "name": "league_rell_vo_cd",
+                                                  "duration": {
+                                                    "Time": {
+                                                      "tick": 600
+                                                    }
+                                                  }
+                                                },
+                                                "only_to_enemy": false
+                                              },
+                                              {
+                                                "type": "Sfx",
+                                                "name": "league_rell_vo_r"
+                                              }
+                                            ]
+                                          }
+                                        },
+                                        {
+                                          "type": "RangeEffect",
+                                          "shape": {
+                                            "Circle": {
+                                              "radius": 34000
+                                            }
+                                          },
+                                          "target": "EnemyWithoutTower",
+                                          "apply_type": "AroundCaster",
+                                          "effects": [
+                                            {
+                                              "type": "Grab",
+                                              "speed": 2000
+                                            },
+                                            {
+                                              "type": "ViewEffect",
+                                              "name": "league_rell_r_yank"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "type": "RangeEffect",
+                                          "shape": {
+                                            "Circle": {
+                                              "radius": 34000
+                                            }
+                                          },
+                                          "target": "EnemyChampion",
+                                          "apply_type": "AroundCaster",
+                                          "effects": [
+                                            {
+                                              "type": "Native",
+                                              "effect_ref": "league_rell:mold"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "type": "Combine",
+                                          "effects": [
+                                            {
+                                              "type": "RemoveCasterBuff",
+                                              "name": "league_rell_r_on"
+                                            },
+                                            {
+                                              "type": "AddCasterBuff",
+                                              "buff_state": {
+                                                "name": "league_rell_r_on",
+                                                "duration": {
+                                                  "Time": {
+                                                    "tick": 120
+                                                  }
+                                                }
+                                              },
+                                              "only_to_enemy": false
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "type": "RangeEffect",
+                                          "shape": {
+                                            "Circle": {
+                                              "radius": 1000
+                                            }
+                                          },
+                                          "target": "AllyOnlySelf",
+                                          "apply_type": "AroundCaster",
+                                          "effects": [
+                                            {
+                                              "type": "AddCasted",
+                                              "casted_type": "Heal",
+                                              "duration": 120,
+                                              "period": 15,
+                                              "effects": [
+                                                {
+                                                  "type": "Combine",
+                                                  "effects": [
+                                                    {
+                                                      "type": "RandomTarget",
+                                                      "range": 1,
+                                                      "casting_target": "AllyOnlySelf",
+                                                      "from_projectile": false,
+                                                      "effects": [
+                                                        {
+                                                          "type": "AddCasterBuff",
+                                                          "buff_state": {
+                                                            "name": "league_rell_live",
+                                                            "duration": {
+                                                              "Time": {
+                                                                "tick": 1
+                                                              }
+                                                            }
+                                                          },
+                                                          "only_to_enemy": false
+                                                        }
+                                                      ]
+                                                    },
+                                                    {
+                                                      "type": "SwitchByBuff",
+                                                      "buff_name": "league_rell_live",
+                                                      "effect_buff": {
+                                                        "type": "Combine",
+                                                        "effects": [
+                                                          {
+                                                            "type": "RangeEffect",
+                                                            "shape": {
+                                                              "Circle": {
+                                                                "radius": 34000
+                                                              }
+                                                            },
+                                                            "target": "EnemyWithoutTower",
+                                                            "apply_type": "AroundCaster",
+                                                            "effects": [
+                                                              {
+                                                                "type": "ApAttack",
+                                                                "damage": 35,
+                                                                "attack_ratio": 14,
+                                                                "hp_ratio": 0,
+                                                                "can_crit": false,
+                                                                "attack_effect_type": "Target"
+                                                              },
+                                                              {
+                                                                "type": "Grab",
+                                                                "speed": 500,
+                                                                "tick": 10
+                                                              },
+                                                              {
+                                                                "type": "ViewEffect",
+                                                                "name": "league_rell_r_hit"
+                                                              }
+                                                            ]
+                                                          }
+                                                        ]
+                                                      },
+                                                      "effect_none": {
+                                                        "type": "RandomTarget",
+                                                        "range": 1,
+                                                        "casting_target": "AllyOnlySelf",
+                                                        "from_projectile": false,
+                                                        "effects": [
+                                                          {
+                                                            "type": "RangeEffect",
+                                                            "shape": {
+                                                              "Circle": {
+                                                                "radius": 34000
+                                                              }
+                                                            },
+                                                            "target": "EnemyWithoutTower",
+                                                            "apply_type": "AroundCaster",
+                                                            "effects": [
+                                                              {
+                                                                "type": "ApAttack",
+                                                                "damage": 35,
+                                                                "attack_ratio": 14,
+                                                                "hp_ratio": 0,
+                                                                "can_crit": false,
+                                                                "attack_effect_type": "Target"
+                                                              },
+                                                              {
+                                                                "type": "Grab",
+                                                                "speed": 500,
+                                                                "tick": 10
+                                                              },
+                                                              {
+                                                                "type": "ViewEffect",
+                                                                "name": "league_rell_r_hit"
+                                                              }
+                                                            ]
+                                                          }
+                                                        ]
+                                                      }
+                                                    },
+                                                    {
+                                                      "type": "RemoveCasterBuff",
+                                                      "name": "league_rell_live"
+                                                    }
+                                                  ]
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    "effect_none": {
+                                      "type": "SwitchByBuff",
+                                      "buff_name": "league_rell_r_cc",
+                                      "effect_buff": {
+                                        "type": "SwitchByBuff",
+                                        "buff_name": "league_rell_r_al",
+                                        "effect_buff": {
+                                          "type": "Combine",
+                                          "effects": [
+                                            {
+                                              "type": "RemoveCasterBuff",
+                                              "name": "league_rell_r_arm"
+                                            },
+                                            {
+                                              "type": "CasterAnimation",
+                                              "name": "ult",
+                                              "tick": 30
+                                            },
+                                            {
+                                              "type": "CasterViewEffect",
+                                              "name": "league_rell_r_cast"
+                                            },
+                                            {
+                                              "type": "Sfx",
+                                              "name": "league_rell_r"
+                                            },
+                                            {
+                                              "type": "SwitchByBuff",
+                                              "buff_name": "league_rell_vo_cd",
+                                              "effect_buff": {
+                                                "type": "Combine",
+                                                "effects": []
+                                              },
+                                              "effect_none": {
+                                                "type": "Combine",
                                                 "effects": [
                                                   {
                                                     "type": "AddCasterBuff",
                                                     "buff_state": {
-                                                      "name": "league_rell_live",
+                                                      "name": "league_rell_vo_cd",
                                                       "duration": {
                                                         "Time": {
-                                                          "tick": 1
+                                                          "tick": 600
                                                         }
                                                       }
                                                     },
                                                     "only_to_enemy": false
+                                                  },
+                                                  {
+                                                    "type": "Sfx",
+                                                    "name": "league_rell_vo_r"
                                                   }
                                                 ]
+                                              }
+                                            },
+                                            {
+                                              "type": "RangeEffect",
+                                              "shape": {
+                                                "Circle": {
+                                                  "radius": 34000
+                                                }
                                               },
-                                              {
-                                                "type": "SwitchByBuff",
-                                                "buff_name": "league_rell_live",
-                                                "effect_buff": {
-                                                  "type": "Combine",
-                                                  "effects": [
-                                                    {
-                                                      "type": "RangeEffect",
-                                                      "shape": {
-                                                        "Circle": {
-                                                          "radius": 34000
-                                                        }
-                                                      },
-                                                      "target": "EnemyWithoutTower",
-                                                      "apply_type": "AroundCaster",
-                                                      "effects": [
-                                                        {
-                                                          "type": "ApAttack",
-                                                          "damage": 35,
-                                                          "attack_ratio": 14,
-                                                          "hp_ratio": 0,
-                                                          "can_crit": false,
-                                                          "attack_effect_type": "Target"
-                                                        },
-                                                        {
-                                                          "type": "Grab",
-                                                          "speed": 500,
-                                                          "tick": 10
-                                                        },
-                                                        {
-                                                          "type": "ViewEffect",
-                                                          "name": "league_rell_r_hit"
-                                                        }
-                                                      ]
-                                                    }
-                                                  ]
+                                              "target": "EnemyWithoutTower",
+                                              "apply_type": "AroundCaster",
+                                              "effects": [
+                                                {
+                                                  "type": "Grab",
+                                                  "speed": 2000
                                                 },
-                                                "effect_none": {
-                                                  "type": "RandomTarget",
-                                                  "range": 1,
-                                                  "casting_target": "AllyOnlySelf",
-                                                  "from_projectile": false,
+                                                {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_rell_r_yank"
+                                                }
+                                              ]
+                                            },
+                                            {
+                                              "type": "RangeEffect",
+                                              "shape": {
+                                                "Circle": {
+                                                  "radius": 34000
+                                                }
+                                              },
+                                              "target": "EnemyChampion",
+                                              "apply_type": "AroundCaster",
+                                              "effects": [
+                                                {
+                                                  "type": "Native",
+                                                  "effect_ref": "league_rell:mold"
+                                                }
+                                              ]
+                                            },
+                                            {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_rell_r_on"
+                                                },
+                                                {
+                                                  "type": "AddCasterBuff",
+                                                  "buff_state": {
+                                                    "name": "league_rell_r_on",
+                                                    "duration": {
+                                                      "Time": {
+                                                        "tick": 120
+                                                      }
+                                                    }
+                                                  },
+                                                  "only_to_enemy": false
+                                                }
+                                              ]
+                                            },
+                                            {
+                                              "type": "RangeEffect",
+                                              "shape": {
+                                                "Circle": {
+                                                  "radius": 1000
+                                                }
+                                              },
+                                              "target": "AllyOnlySelf",
+                                              "apply_type": "AroundCaster",
+                                              "effects": [
+                                                {
+                                                  "type": "AddCasted",
+                                                  "casted_type": "Heal",
+                                                  "duration": 120,
+                                                  "period": 15,
                                                   "effects": [
                                                     {
-                                                      "type": "RangeEffect",
-                                                      "shape": {
-                                                        "Circle": {
-                                                          "radius": 34000
-                                                        }
-                                                      },
-                                                      "target": "EnemyWithoutTower",
-                                                      "apply_type": "AroundCaster",
+                                                      "type": "Combine",
                                                       "effects": [
                                                         {
-                                                          "type": "ApAttack",
-                                                          "damage": 35,
-                                                          "attack_ratio": 14,
-                                                          "hp_ratio": 0,
-                                                          "can_crit": false,
-                                                          "attack_effect_type": "Target"
+                                                          "type": "RandomTarget",
+                                                          "range": 1,
+                                                          "casting_target": "AllyOnlySelf",
+                                                          "from_projectile": false,
+                                                          "effects": [
+                                                            {
+                                                              "type": "AddCasterBuff",
+                                                              "buff_state": {
+                                                                "name": "league_rell_live",
+                                                                "duration": {
+                                                                  "Time": {
+                                                                    "tick": 1
+                                                                  }
+                                                                }
+                                                              },
+                                                              "only_to_enemy": false
+                                                            }
+                                                          ]
                                                         },
                                                         {
-                                                          "type": "Grab",
-                                                          "speed": 500,
-                                                          "tick": 10
+                                                          "type": "SwitchByBuff",
+                                                          "buff_name": "league_rell_live",
+                                                          "effect_buff": {
+                                                            "type": "Combine",
+                                                            "effects": [
+                                                              {
+                                                                "type": "RangeEffect",
+                                                                "shape": {
+                                                                  "Circle": {
+                                                                    "radius": 34000
+                                                                  }
+                                                                },
+                                                                "target": "EnemyWithoutTower",
+                                                                "apply_type": "AroundCaster",
+                                                                "effects": [
+                                                                  {
+                                                                    "type": "ApAttack",
+                                                                    "damage": 35,
+                                                                    "attack_ratio": 14,
+                                                                    "hp_ratio": 0,
+                                                                    "can_crit": false,
+                                                                    "attack_effect_type": "Target"
+                                                                  },
+                                                                  {
+                                                                    "type": "Grab",
+                                                                    "speed": 500,
+                                                                    "tick": 10
+                                                                  },
+                                                                  {
+                                                                    "type": "ViewEffect",
+                                                                    "name": "league_rell_r_hit"
+                                                                  }
+                                                                ]
+                                                              }
+                                                            ]
+                                                          },
+                                                          "effect_none": {
+                                                            "type": "RandomTarget",
+                                                            "range": 1,
+                                                            "casting_target": "AllyOnlySelf",
+                                                            "from_projectile": false,
+                                                            "effects": [
+                                                              {
+                                                                "type": "RangeEffect",
+                                                                "shape": {
+                                                                  "Circle": {
+                                                                    "radius": 34000
+                                                                  }
+                                                                },
+                                                                "target": "EnemyWithoutTower",
+                                                                "apply_type": "AroundCaster",
+                                                                "effects": [
+                                                                  {
+                                                                    "type": "ApAttack",
+                                                                    "damage": 35,
+                                                                    "attack_ratio": 14,
+                                                                    "hp_ratio": 0,
+                                                                    "can_crit": false,
+                                                                    "attack_effect_type": "Target"
+                                                                  },
+                                                                  {
+                                                                    "type": "Grab",
+                                                                    "speed": 500,
+                                                                    "tick": 10
+                                                                  },
+                                                                  {
+                                                                    "type": "ViewEffect",
+                                                                    "name": "league_rell_r_hit"
+                                                                  }
+                                                                ]
+                                                              }
+                                                            ]
+                                                          }
                                                         },
                                                         {
-                                                          "type": "ViewEffect",
-                                                          "name": "league_rell_r_hit"
+                                                          "type": "RemoveCasterBuff",
+                                                          "name": "league_rell_live"
                                                         }
                                                       ]
                                                     }
                                                   ]
                                                 }
-                                              },
-                                              {
-                                                "type": "RemoveCasterBuff",
-                                                "name": "league_rell_live"
-                                              }
-                                            ]
-                                          }
-                                        ]
+                                              ]
+                                            }
+                                          ]
+                                        },
+                                        "effect_none": {
+                                          "type": "Combine",
+                                          "effects": []
+                                        }
+                                      },
+                                      "effect_none": {
+                                        "type": "Combine",
+                                        "effects": []
                                       }
-                                    ]
+                                    }
                                   }
-                                ]
-                              },
-                              "effect_none": {
-                                "type": "Combine",
-                                "effects": []
-                              }
+                                },
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_rell_c1"
+                                },
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_rell_c2"
+                                },
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_rell_r_cc"
+                                },
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_rell_r_al"
+                                },
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_rell_r_me"
+                                }
+                              ]
                             },
                             "effect_none": {
                               "type": "Combine",
                               "effects": []
                             }
                           }
-                        }
+                        ]
                       },
-                      {
-                        "type": "RemoveCasterBuff",
-                        "name": "league_rell_c1"
-                      },
-                      {
-                        "type": "RemoveCasterBuff",
-                        "name": "league_rell_c2"
-                      },
-                      {
-                        "type": "RemoveCasterBuff",
-                        "name": "league_rell_r_cc"
-                      },
-                      {
-                        "type": "RemoveCasterBuff",
-                        "name": "league_rell_r_al"
-                      },
-                      {
-                        "type": "RemoveCasterBuff",
-                        "name": "league_rell_r_me"
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
                       }
-                    ]
-                  },
-                  "effect_none": {
-                    "type": "Combine",
-                    "effects": []
-                  }
+                    }
+                  ]
                 }
               ]
             },

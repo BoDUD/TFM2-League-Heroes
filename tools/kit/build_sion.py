@@ -31,6 +31,12 @@ native add-on addons/league_sion):
           R's way) and a poll every r_poll ticks fires it to save an ally in crowd control (at an enemy champion beside
           that ally), in a teamfight (r_team allies round him) or to follow up a champion his team is hitting with an ally
           beside him - never alone in his lane; unused, the cooldown is capped (r_armed 0: the old cast on sight).
+  combos  E -> Q, League's Roar of the Slayer into Decimating Smash (the user: 「有连招要做连招」「都要帮我补」): the roar
+          hitting an enemy champion (a champion-only twin of it) opens e_combo (a caster flag, e_combo ticks = the
+          slow); Q cast inside it charges only q_qc ticks (half), so the slam lands while the champion is still slowed,
+          and the window is spent. The slam, its line and its crowd-control breaks are the same; the action keeps its
+          length (he stands in idle for the ticks the charge saved), so nothing but the timing changes. Q keeps its own
+          slot and cooldown (the AI casts it when it is ready, as before).
 """
 import argparse
 import json
@@ -67,6 +73,9 @@ P = {
     # Q Decimating Smash (League: cd 11-6 s, up to 2 s charge, 30-110 + 45-75% AD -> 90-330 + 135-225% AD, cone 720)
     "q_cd": 420, "q_range": 34000, "q_ch": 40, "q_brk": 10, "q_rel": 24, "q_hit": 7, "q_len": 50000, "q_w": 10000,
     "q_dmg": 140, "q_ratio": 180, "q_up": 50,
+    # combo E -> Q: the roar on an enemy champion opens e_combo for e_combo ticks (= e_slow_t); Q cast inside it charges
+    # q_qc ticks instead of q_ch (League: E's slow, then the charged smash lands on the slowed champion)
+    "e_combo": 120, "q_qc": 20,
     # skill2 slot: E Roar of the Slayer + W Soul Furnace
     "s2_cd": 60,
     # E (League: 800 line, 65-205 + 55% AP magic, slow 40-60% 2.5 s, armour -20% 4 s, cd 13-8 s)
@@ -276,23 +285,33 @@ def build(p):
 
     # ------------------------------------------------------------------ skill: Q Decimating Smash
     breaks = [delayed(t, pick(1, "AllyChampionInCC", *rm("q_ch"))) for t in range(p["q_brk"], p["q_ch"], p["q_brk"])]
-    slam = combine(*rm("q_ch"), anim("skill", p["q_rel"]),
-                   delayed(p["q_hit"], sfx("q_hit"),
-                           band("q_slam", p["q_w"], p["q_len"], 31, 1, "EnemyWithoutTower",
-                                [attack(p["q_dmg"], p["q_ratio"]), {"type": "Airborne", "duration": p["q_up"]},
-                                 view("q_hit")])))
+
+    def charge(ch):
+        """A charge of ch ticks and the slam after it (crowd control breaks it); a short one (the E -> Q combo) stands
+        in idle after the slam to the action's end."""
+        rest = p["q_ch"] - ch
+        slam = combine(*rm("q_ch"), anim("skill", p["q_rel"]),
+                       delayed(p["q_hit"], sfx("q_hit"),
+                               band("q_slam", p["q_w"], p["q_len"], 31, 1, "EnemyWithoutTower",
+                                    [attack(p["q_dmg"], p["q_ratio"]), {"type": "Airborne", "duration": p["q_up"]},
+                                     view("q_hit")])),
+                       delayed(p["q_rel"], anim("idle", rest)) if rest > 0 else None)
+        return combine(anim("skill_charge", ch),
+                       band("q_warn", p["q_w"], p["q_len"], ch + p["q_hit"] + 2, ch + p["q_hit"] + 2, "EnemyChampion", []),
+                       delayed(ch, sw("q_ch", slam)))
     skill = action("skill", p["q_ch"] + p["q_rel"], p["q_cd"], 1, p["q_range"], "Position", "EnemyWithoutTower",
-                   combine(anim("skill_charge", p["q_ch"]), sfx("q"), voice("vo_q", p), refresh("q_ch", p["q_ch"] + 2),
-                           band("q_warn", p["q_w"], p["q_len"], p["q_ch"] + p["q_hit"] + 2, p["q_ch"] + p["q_hit"] + 2,
-                                "EnemyChampion", []),
-                           *breaks, delayed(p["q_ch"], sw("q_ch", slam))))
+                   combine(sfx("q"), voice("vo_q", p), refresh("q_ch", p["q_ch"] + 2), *breaks,
+                           sw("e_combo", combine(*rm("e_combo"), charge(p["q_qc"])), charge(p["q_ch"]))))
 
     # ------------------------------------------------------------------ skill2: E Roar of the Slayer / W Soul Furnace
     roar_hits = [magic_hp(p["e_dmg"], p["e_hp"]), buff("e_slow", p["e_slow_t"], move_speed_mult=-p["e_slow"]),
                  buff("e_shred", p["e_shred_t"], defence_mult=-p["e_shred"]), view("e_hit"), tsfx("e_hit")]
+    # the roar's champion-only twin (the same flight) opens the E -> Q window on him
     roar = combine(flag("e_cd", p["e_cd"]), anim("skill2", p["e_dur"]), sfx("e"), voice("vo_e", p),
                    delayed(p["e_at"], line("e_roar", p["e_speed"], p["e_len"], p["e_rad"], "EnemyWithoutTower", True,
-                                           roar_hits)))
+                                           roar_hits),
+                           line("e_champ", p["e_speed"], p["e_len"], p["e_rad"], "EnemyChampion", True,
+                                [on_me(refresh("e_combo", p["e_combo"]))])))
     blast = combine(*rm("w_sh"), cview("w_burst"), sfx("w_hit"),
                     around(p["w_r"], "EnemyWithoutTower", [magic_hp(p["w_dmg"], p["w_hp"]), view("w_hit")]))
     furnace = combine(flag("w_cd", p["w_cd"]), anim("skill2_w", p["w_anim"]), sfx("w"), voice("vo_w", p),

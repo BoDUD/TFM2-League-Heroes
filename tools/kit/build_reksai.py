@@ -23,6 +23,11 @@ Unburrow is `skill2`, Void Rush the `ult`. League's tunnels (E2) live on the map
           The moment (the user's rule 「看好时机」): the life-long watch (below) holds W (`w_hold`, an empty branch the
           AI scores as nothing) while three or more enemy champions stand within w_count of her and no allied champion
           within w_ally - she does not tunnel alone into a crowd. Camps and waves are never held.
+  combo   W -> Q -> R (League's knock-up, Queen's Wrath on the airborne champion, then Void Rush; the user: 「有连招要做连
+          招」「都要帮我补」): an Unburrow that knocks up a champion opens the caster flag w_combo (w_combo ticks); Queen's
+          Wrath cast in it strikes at once instead of on q_hit (league_leona's E -> Q window; Prey Seeker and every
+          number unchanged). The same hit arms Void Rush (r_ok, the watch's crowd-control rule) on that tick instead of
+          at the watch's next count (main pack; the add-on arms it by real health).
   ult     R Void Rush (虚空猛冲), `Targeting` on `EnemyChampionRecentlyAttacked` (League's "Marked as Prey": a champion
           her team damaged lately; nothing reads her own marks) within r_range, armed by the watch (`r_ok`): an enemy
           champion in crowd control within r_range, or an allied champion within w_ally fighting with her. She drops
@@ -75,6 +80,10 @@ P = {
     "w_cd": 480, "w_range": 45000, "w_dur": 48, "w_dig": 28, "w_go": 7, "w_speed": 3500, "w_r": 17000, "w_up_t": 20,
     "w_dmg": 60, "w_ratio": 90,
     "w_up": 60, "w_heal": 50, "w_heal_r": 50,
+    # the W -> Q combo (the user: 「有连招要做连招」「都要帮我补」): an Unburrow that knocks up a champion opens w_combo for
+    # this long (the knock-up w_up, and the 48-tick W action ends ~30 ticks after the burst); Queen's Wrath cast in it
+    # strikes at once (else on q_hit)
+    "w_combo": 90,
     # ult: R Void Rush (League: 1500 range, untargetable 0.9 s, 150-350 + 100% bAD + 15/20/25% max hp, cd 120-80 s)
     "r_cd": 3600, "r_range": 70000, "r_dur": 30, "r_hide": 54, "r_speed": 9000, "r_dmg": 120, "r_ratio": 100,
     "r_hp": 15,
@@ -274,11 +283,14 @@ def build(p):
                       combine(life, choose, delayed(p["a_hit"] - 1, mark)), atype="BaseAttack", cancel=True)
 
     # ------------------------------------------------------------------ skill: Q Queen's Wrath / Prey Seeker
+    # W -> Q: inside w_combo (an Unburrow knocked up a champion) the first swipe lands at once and q_fast skips it on
+    # q_hit (the Fury point still comes on q_hit: one copy of gain(), the node budget); else on q_hit as before
+    first = splash("q_splash", p["q_splash"], wrath_hit(p["q_dmg"], p["q_ratio"]))
     wrath = combine(anim("skill", p["q_dur"]), sfx("q"), voice("vo_q", p),
                     *rm("q_as"), flag("q_as", p["q_t"], attack_speed_mult=p["q_as"]),
                     *rm("q_1", "q_2"), flag("q_1", p["q_t"]),
-                    delayed(p["q_hit"] - 1, splash("q_splash", p["q_splash"], wrath_hit(p["q_dmg"], p["q_ratio"])),
-                            gain()))
+                    *rm("q_fast"), sw("w_combo", combine(first, flag("q_fast", p["q_hit"]))),
+                    delayed(p["q_hit"] - 1, sw("q_fast", combine(*rm("q_fast")), first), gain()))
     seeker = combine(anim("skill_q2", p["q2_dur"]), sfx("q2"), voice("vo_q2", p),
                      delayed(p["q2_at"] - 1, cview("q2_cast"),
                              line("q2_shot", p["q2_speed"], p["q2_len"], p["q2_rad"], 2000, "EnemyWithoutTower", False,
@@ -298,7 +310,10 @@ def build(p):
     unburrow = [around(p["w_r"], "EnemyWithoutTower",
                        [attack(p["w_dmg"], p["w_ratio"]), {"type": "Airborne", "duration": p["w_up"]}, view("w_up"),
                         tsfx("w_hit")]),
-                around(p["w_r"], "EnemyChampion", [buff("r_mark", p["mark_t"])]),
+                # a champion knocked up: the W -> Q window, and (main pack) Void Rush armed on this tick - the watch's
+                # own rule (an enemy champion in CC), not up to watch_p ticks later; the watch keeps it while he flies
+                around(p["w_r"], "EnemyChampion", [buff("r_mark", p["mark_t"]), refresh("w_combo", p["w_combo"]),
+                                                   *([] if p["native"] else [refresh("r_ok", tick + 2)])]),
                 cview("w_burst"), sfx("w_up"), gain(), anim("skill2_up", p["w_up_t"]), flag("w_land", 3)]
     dive = combine(flag("w_go", p["w_dig"]), anim("skill2", p["w_dig"]), sfx("w"), voice("vo_w", p), burrow_heal, spend, cview("w_dig"),
                    delayed(p["w_go"] - 1, {"type": "MoveToTarget", "speed": p["w_speed"], "range": p["w_range"] + 20000,

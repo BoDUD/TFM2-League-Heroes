@@ -744,6 +744,56 @@
                   }
                 }
               ]
+            },
+            {
+              "type": "RangeProjectile",
+              "name": "league_chogath_q_zc",
+              "shape": {
+                "Circle": {
+                  "radius": 25000
+                }
+              },
+              "delay": 1,
+              "apply": 1,
+              "applied_target": "EnemyChampion",
+              "applied_effects": [
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "RangeEffect",
+                    "shape": {
+                      "Circle": {
+                        "radius": 1000
+                      }
+                    },
+                    "target": "AllyOnlySelf",
+                    "apply_type": "AroundCaster",
+                    "effects": [
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_chogath_q_combo"
+                          },
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_chogath_q_combo",
+                              "duration": {
+                                "Time": {
+                                  "tick": 60
+                                }
+                              }
+                            },
+                            "only_to_enemy": false
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                }
+              ]
             }
           ]
         }
@@ -794,71 +844,151 @@
           }
         },
         {
-          "type": "Delayed",
-          "tick": 7,
-          "effects": [
-            {
-              "type": "Sfx",
-              "name": "league_chogath_w"
-            },
-            {
-              "type": "LineRangeProjectile",
-              "name": "league_chogath_w_wave",
-              "width": 30000,
-              "length": 55000,
-              "delay": 24,
-              "apply": 1,
-              "applied_target": "Ally",
-              "applied_effects": []
-            },
-            {
-              "type": "RangeEffect",
-              "shape": {
-                "DirDot": {
-                  "radius": 55000,
-                  "range": 866
-                }
+          "type": "SwitchByBuff",
+          "buff_name": "league_chogath_q_combo",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "RemoveCasterBuff",
+                "name": "league_chogath_q_combo"
               },
-              "target": "EnemyWithoutTower",
-              "apply_type": {
-                "Forward": {
-                  "offset": 1000
-                }
-              },
-              "effects": [
-                {
-                  "type": "ApAttack",
-                  "damage": 60,
-                  "attack_ratio": 50,
-                  "hp_ratio": 0,
-                  "can_crit": false
-                },
-                {
-                  "type": "BlockSkill",
-                  "tick": 108
-                },
-                {
-                  "type": "AddBuff",
-                  "buff_state": {
-                    "name": "league_chogath_w_sil",
-                    "duration": {
-                      "Time": {
-                        "tick": 108
+              {
+                "type": "Delayed",
+                "tick": 1,
+                "effects": [
+                  {
+                    "type": "Sfx",
+                    "name": "league_chogath_w"
+                  },
+                  {
+                    "type": "LineRangeProjectile",
+                    "name": "league_chogath_w_wave",
+                    "width": 30000,
+                    "length": 55000,
+                    "delay": 24,
+                    "apply": 1,
+                    "applied_target": "Ally",
+                    "applied_effects": []
+                  },
+                  {
+                    "type": "RangeEffect",
+                    "shape": {
+                      "DirDot": {
+                        "radius": 55000,
+                        "range": 866
                       }
-                    }
+                    },
+                    "target": "EnemyWithoutTower",
+                    "apply_type": {
+                      "Forward": {
+                        "offset": 1000
+                      }
+                    },
+                    "effects": [
+                      {
+                        "type": "ApAttack",
+                        "damage": 60,
+                        "attack_ratio": 50,
+                        "hp_ratio": 0,
+                        "can_crit": false
+                      },
+                      {
+                        "type": "BlockSkill",
+                        "tick": 108
+                      },
+                      {
+                        "type": "AddBuff",
+                        "buff_state": {
+                          "name": "league_chogath_w_sil",
+                          "duration": {
+                            "Time": {
+                              "tick": 108
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "type": "ViewEffect",
+                        "name": "league_chogath_w_hit"
+                      },
+                      {
+                        "type": "TargetSfx",
+                        "name": "league_chogath_w_hit"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "effect_none": {
+            "type": "Delayed",
+            "tick": 7,
+            "effects": [
+              {
+                "type": "Sfx",
+                "name": "league_chogath_w"
+              },
+              {
+                "type": "LineRangeProjectile",
+                "name": "league_chogath_w_wave",
+                "width": 30000,
+                "length": 55000,
+                "delay": 24,
+                "apply": 1,
+                "applied_target": "Ally",
+                "applied_effects": []
+              },
+              {
+                "type": "RangeEffect",
+                "shape": {
+                  "DirDot": {
+                    "radius": 55000,
+                    "range": 866
                   }
                 },
-                {
-                  "type": "ViewEffect",
-                  "name": "league_chogath_w_hit"
+                "target": "EnemyWithoutTower",
+                "apply_type": {
+                  "Forward": {
+                    "offset": 1000
+                  }
                 },
-                {
-                  "type": "TargetSfx",
-                  "name": "league_chogath_w_hit"
-                }
-              ]
-            }
-          ]
+                "effects": [
+                  {
+                    "type": "ApAttack",
+                    "damage": 60,
+                    "attack_ratio": 50,
+                    "hp_ratio": 0,
+                    "can_crit": false
+                  },
+                  {
+                    "type": "BlockSkill",
+                    "tick": 108
+                  },
+                  {
+                    "type": "AddBuff",
+                    "buff_state": {
+                      "name": "league_chogath_w_sil",
+                      "duration": {
+                        "Time": {
+                          "tick": 108
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "type": "ViewEffect",
+                    "name": "league_chogath_w_hit"
+                  },
+                  {
+                    "type": "TargetSfx",
+                    "name": "league_chogath_w_hit"
+                  }
+                ]
+              }
+            ]
+          }
         }
       ]
     }

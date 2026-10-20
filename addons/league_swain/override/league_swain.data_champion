@@ -1819,281 +1819,556 @@
           }
         },
         {
-          "type": "Delayed",
-          "tick": 8,
-          "effects": [
-            {
-              "type": "Combine",
-              "effects": [
-                {
-                  "type": "Sfx",
-                  "name": "league_swain_q_launch"
+          "type": "SwitchByBuff",
+          "buff_name": "league_swain_e_combo",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "Sfx",
+                "name": "league_swain_q_launch"
+              },
+              {
+                "type": "LinearProjectile",
+                "name": "league_swain_q_bolts",
+                "penetrate": true,
+                "applied_target": "Enemy",
+                "applied_effects": [],
+                "end_effects": [],
+                "speed": 4500,
+                "range": 62000,
+                "shape": {
+                  "Circle": {
+                    "radius": 1
+                  }
                 },
-                {
-                  "type": "LinearProjectile",
-                  "name": "league_swain_q_bolts",
-                  "penetrate": true,
-                  "applied_target": "Enemy",
-                  "applied_effects": [],
-                  "end_effects": [],
-                  "speed": 9000,
-                  "range": 62000,
-                  "shape": {
-                    "Circle": {
-                      "radius": 1
-                    }
-                  },
-                  "y_offset": -2000
+                "y_offset": -2000
+              },
+              {
+                "type": "RangeEffect",
+                "shape": {
+                  "DirDot": {
+                    "radius": 62000,
+                    "range": 940
+                  }
                 },
-                {
-                  "type": "RangeEffect",
-                  "shape": {
-                    "DirDot": {
-                      "radius": 62000,
-                      "range": 940
-                    }
-                  },
-                  "target": "EnemyWithoutTower",
-                  "apply_type": {
-                    "Forward": {
-                      "offset": 1000
-                    }
-                  },
-                  "effects": [
-                    {
-                      "type": "ApAttack",
-                      "damage": 120,
-                      "attack_ratio": 80,
-                      "hp_ratio": 0,
-                      "can_crit": false
-                    },
-                    {
-                      "type": "Delayed",
-                      "tick": 5,
-                      "effects": [
-                        {
-                          "type": "ViewEffect",
-                          "name": "league_swain_q_hit"
-                        },
-                        {
-                          "type": "TargetSfx",
-                          "name": "league_swain_q_hit"
-                        }
-                      ]
-                    }
-                  ]
+                "target": "EnemyWithoutTower",
+                "apply_type": {
+                  "Forward": {
+                    "offset": 1000
+                  }
                 },
-                {
-                  "type": "RangeEffect",
-                  "shape": {
-                    "DirDot": {
-                      "radius": 32000,
-                      "range": 940
-                    }
+                "effects": [
+                  {
+                    "type": "ApAttack",
+                    "damage": 120,
+                    "attack_ratio": 80,
+                    "hp_ratio": 0,
+                    "can_crit": false
                   },
-                  "target": "EnemyWithoutTower",
-                  "apply_type": {
-                    "Forward": {
-                      "offset": 1000
-                    }
-                  },
-                  "effects": [
-                    {
-                      "type": "ApAttack",
-                      "damage": 60,
-                      "attack_ratio": 45,
-                      "hp_ratio": 0,
-                      "can_crit": false
-                    }
-                  ]
+                  {
+                    "type": "Delayed",
+                    "tick": 5,
+                    "effects": [
+                      {
+                        "type": "ViewEffect",
+                        "name": "league_swain_q_hit"
+                      },
+                      {
+                        "type": "TargetSfx",
+                        "name": "league_swain_q_hit"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "RangeEffect",
+                "shape": {
+                  "DirDot": {
+                    "radius": 32000,
+                    "range": 940
+                  }
                 },
-                {
-                  "type": "RangeEffect",
-                  "shape": {
-                    "DirDot": {
-                      "radius": 62000,
-                      "range": 940
-                    }
-                  },
-                  "target": "EnemyChampion",
-                  "apply_type": {
-                    "Forward": {
-                      "offset": 1000
-                    }
-                  },
-                  "effects": [
-                    {
-                      "type": "Combine",
-                      "effects": [
-                        {
-                          "type": "AddCasted",
-                          "casted_type": "Heal",
-                          "duration": 180,
-                          "period": 1,
-                          "effects": [
-                            {
-                              "type": "Combine",
-                              "effects": [
-                                {
-                                  "type": "RemoveCasterBuff",
-                                  "name": "league_swain_p_alive"
-                                },
-                                {
-                                  "type": "AddCasterBuff",
-                                  "buff_state": {
-                                    "name": "league_swain_p_alive",
-                                    "duration": {
-                                      "Time": {
-                                        "tick": 2
-                                      }
+                "target": "EnemyWithoutTower",
+                "apply_type": {
+                  "Forward": {
+                    "offset": 1000
+                  }
+                },
+                "effects": [
+                  {
+                    "type": "ApAttack",
+                    "damage": 60,
+                    "attack_ratio": 45,
+                    "hp_ratio": 0,
+                    "can_crit": false
+                  }
+                ]
+              },
+              {
+                "type": "RangeEffect",
+                "shape": {
+                  "DirDot": {
+                    "radius": 62000,
+                    "range": 940
+                  }
+                },
+                "target": "EnemyChampion",
+                "apply_type": {
+                  "Forward": {
+                    "offset": 1000
+                  }
+                },
+                "effects": [
+                  {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "AddCasted",
+                        "casted_type": "Heal",
+                        "duration": 180,
+                        "period": 1,
+                        "effects": [
+                          {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "league_swain_p_alive"
+                              },
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_swain_p_alive",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 2
                                     }
-                                  },
-                                  "only_to_enemy": false
-                                }
-                              ]
-                            }
-                          ]
+                                  }
+                                },
+                                "only_to_enemy": false
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "RangeEffect",
+                        "shape": {
+                          "Circle": {
+                            "radius": 1000
+                          }
                         },
-                        {
-                          "type": "RangeEffect",
-                          "shape": {
-                            "Circle": {
-                              "radius": 1000
-                            }
+                        "target": "AllyOnlySelf",
+                        "apply_type": "AroundCaster",
+                        "effects": [
+                          {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "league_swain_p_alive"
+                              },
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_swain_p_alive",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 3
+                                    }
+                                  }
+                                },
+                                "only_to_enemy": false
+                              }
+                            ]
                           },
-                          "target": "AllyOnlySelf",
-                          "apply_type": "AroundCaster",
-                          "effects": [
-                            {
-                              "type": "Combine",
-                              "effects": [
-                                {
-                                  "type": "RemoveCasterBuff",
-                                  "name": "league_swain_p_alive"
+                          {
+                            "type": "AddCasted",
+                            "casted_type": "Heal",
+                            "duration": 178,
+                            "period": 1,
+                            "effects": [
+                              {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_swain_p_alive",
+                                "effect_buff": {
+                                  "type": "Combine",
+                                  "effects": []
                                 },
-                                {
-                                  "type": "AddCasterBuff",
-                                  "buff_state": {
-                                    "name": "league_swain_p_alive",
-                                    "duration": {
-                                      "Time": {
-                                        "tick": 3
-                                      }
-                                    }
-                                  },
-                                  "only_to_enemy": false
-                                }
-                              ]
-                            },
-                            {
-                              "type": "AddCasted",
-                              "casted_type": "Heal",
-                              "duration": 178,
-                              "period": 1,
-                              "effects": [
-                                {
+                                "effect_none": {
                                   "type": "SwitchByBuff",
-                                  "buff_name": "league_swain_p_alive",
+                                  "buff_name": "league_swain_p_lock",
                                   "effect_buff": {
                                     "type": "Combine",
                                     "effects": []
                                   },
                                   "effect_none": {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "Combine",
+                                        "effects": [
+                                          {
+                                            "type": "RemoveCasterBuff",
+                                            "name": "league_swain_p_lock"
+                                          },
+                                          {
+                                            "type": "AddCasterBuff",
+                                            "buff_state": {
+                                              "name": "league_swain_p_lock",
+                                              "duration": {
+                                                "Time": {
+                                                  "tick": 180
+                                                }
+                                              }
+                                            },
+                                            "only_to_enemy": false
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "Combine",
+                                        "effects": [
+                                          {
+                                            "type": "RemoveCasterBuff",
+                                            "name": "league_swain_p_alive"
+                                          },
+                                          {
+                                            "type": "AddCasterBuff",
+                                            "buff_state": {
+                                              "name": "league_swain_p_alive",
+                                              "duration": {
+                                                "Time": {
+                                                  "tick": 180
+                                                }
+                                              }
+                                            },
+                                            "only_to_enemy": false
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "Combine",
+                                        "effects": [
+                                          {
+                                            "type": "AddCasterBuff",
+                                            "buff_state": {
+                                              "name": "league_swain_frag",
+                                              "duration": "Permanent",
+                                              "hp": 15
+                                            },
+                                            "only_to_enemy": false
+                                          },
+                                          {
+                                            "type": "Heal",
+                                            "amount": 80,
+                                            "attack_ratio": 0,
+                                            "ap_ratio": 30,
+                                            "heal_type": "Caster"
+                                          },
+                                          {
+                                            "type": "CasterViewEffect",
+                                            "name": "league_swain_p_frag"
+                                          },
+                                          {
+                                            "type": "Sfx",
+                                            "name": "league_swain_p_frag"
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "effect_none": {
+            "type": "Delayed",
+            "tick": 8,
+            "effects": [
+              {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "Sfx",
+                    "name": "league_swain_q_launch"
+                  },
+                  {
+                    "type": "LinearProjectile",
+                    "name": "league_swain_q_bolts",
+                    "penetrate": true,
+                    "applied_target": "Enemy",
+                    "applied_effects": [],
+                    "end_effects": [],
+                    "speed": 4500,
+                    "range": 62000,
+                    "shape": {
+                      "Circle": {
+                        "radius": 1
+                      }
+                    },
+                    "y_offset": -2000
+                  },
+                  {
+                    "type": "RangeEffect",
+                    "shape": {
+                      "DirDot": {
+                        "radius": 62000,
+                        "range": 940
+                      }
+                    },
+                    "target": "EnemyWithoutTower",
+                    "apply_type": {
+                      "Forward": {
+                        "offset": 1000
+                      }
+                    },
+                    "effects": [
+                      {
+                        "type": "ApAttack",
+                        "damage": 120,
+                        "attack_ratio": 80,
+                        "hp_ratio": 0,
+                        "can_crit": false
+                      },
+                      {
+                        "type": "Delayed",
+                        "tick": 5,
+                        "effects": [
+                          {
+                            "type": "ViewEffect",
+                            "name": "league_swain_q_hit"
+                          },
+                          {
+                            "type": "TargetSfx",
+                            "name": "league_swain_q_hit"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "RangeEffect",
+                    "shape": {
+                      "DirDot": {
+                        "radius": 32000,
+                        "range": 940
+                      }
+                    },
+                    "target": "EnemyWithoutTower",
+                    "apply_type": {
+                      "Forward": {
+                        "offset": 1000
+                      }
+                    },
+                    "effects": [
+                      {
+                        "type": "ApAttack",
+                        "damage": 60,
+                        "attack_ratio": 45,
+                        "hp_ratio": 0,
+                        "can_crit": false
+                      }
+                    ]
+                  },
+                  {
+                    "type": "RangeEffect",
+                    "shape": {
+                      "DirDot": {
+                        "radius": 62000,
+                        "range": 940
+                      }
+                    },
+                    "target": "EnemyChampion",
+                    "apply_type": {
+                      "Forward": {
+                        "offset": 1000
+                      }
+                    },
+                    "effects": [
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "AddCasted",
+                            "casted_type": "Heal",
+                            "duration": 180,
+                            "period": 1,
+                            "effects": [
+                              {
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "RemoveCasterBuff",
+                                    "name": "league_swain_p_alive"
+                                  },
+                                  {
+                                    "type": "AddCasterBuff",
+                                    "buff_state": {
+                                      "name": "league_swain_p_alive",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 2
+                                        }
+                                      }
+                                    },
+                                    "only_to_enemy": false
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "type": "RangeEffect",
+                            "shape": {
+                              "Circle": {
+                                "radius": 1000
+                              }
+                            },
+                            "target": "AllyOnlySelf",
+                            "apply_type": "AroundCaster",
+                            "effects": [
+                              {
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "RemoveCasterBuff",
+                                    "name": "league_swain_p_alive"
+                                  },
+                                  {
+                                    "type": "AddCasterBuff",
+                                    "buff_state": {
+                                      "name": "league_swain_p_alive",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 3
+                                        }
+                                      }
+                                    },
+                                    "only_to_enemy": false
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "AddCasted",
+                                "casted_type": "Heal",
+                                "duration": 178,
+                                "period": 1,
+                                "effects": [
+                                  {
                                     "type": "SwitchByBuff",
-                                    "buff_name": "league_swain_p_lock",
+                                    "buff_name": "league_swain_p_alive",
                                     "effect_buff": {
                                       "type": "Combine",
                                       "effects": []
                                     },
                                     "effect_none": {
-                                      "type": "Combine",
-                                      "effects": [
-                                        {
-                                          "type": "Combine",
-                                          "effects": [
-                                            {
-                                              "type": "RemoveCasterBuff",
-                                              "name": "league_swain_p_lock"
-                                            },
-                                            {
-                                              "type": "AddCasterBuff",
-                                              "buff_state": {
-                                                "name": "league_swain_p_lock",
-                                                "duration": {
-                                                  "Time": {
-                                                    "tick": 180
+                                      "type": "SwitchByBuff",
+                                      "buff_name": "league_swain_p_lock",
+                                      "effect_buff": {
+                                        "type": "Combine",
+                                        "effects": []
+                                      },
+                                      "effect_none": {
+                                        "type": "Combine",
+                                        "effects": [
+                                          {
+                                            "type": "Combine",
+                                            "effects": [
+                                              {
+                                                "type": "RemoveCasterBuff",
+                                                "name": "league_swain_p_lock"
+                                              },
+                                              {
+                                                "type": "AddCasterBuff",
+                                                "buff_state": {
+                                                  "name": "league_swain_p_lock",
+                                                  "duration": {
+                                                    "Time": {
+                                                      "tick": 180
+                                                    }
                                                   }
-                                                }
+                                                },
+                                                "only_to_enemy": false
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "type": "Combine",
+                                            "effects": [
+                                              {
+                                                "type": "RemoveCasterBuff",
+                                                "name": "league_swain_p_alive"
                                               },
-                                              "only_to_enemy": false
-                                            }
-                                          ]
-                                        },
-                                        {
-                                          "type": "Combine",
-                                          "effects": [
-                                            {
-                                              "type": "RemoveCasterBuff",
-                                              "name": "league_swain_p_alive"
-                                            },
-                                            {
-                                              "type": "AddCasterBuff",
-                                              "buff_state": {
-                                                "name": "league_swain_p_alive",
-                                                "duration": {
-                                                  "Time": {
-                                                    "tick": 180
+                                              {
+                                                "type": "AddCasterBuff",
+                                                "buff_state": {
+                                                  "name": "league_swain_p_alive",
+                                                  "duration": {
+                                                    "Time": {
+                                                      "tick": 180
+                                                    }
                                                   }
-                                                }
+                                                },
+                                                "only_to_enemy": false
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "type": "Combine",
+                                            "effects": [
+                                              {
+                                                "type": "AddCasterBuff",
+                                                "buff_state": {
+                                                  "name": "league_swain_frag",
+                                                  "duration": "Permanent",
+                                                  "hp": 15
+                                                },
+                                                "only_to_enemy": false
                                               },
-                                              "only_to_enemy": false
-                                            }
-                                          ]
-                                        },
-                                        {
-                                          "type": "Combine",
-                                          "effects": [
-                                            {
-                                              "type": "AddCasterBuff",
-                                              "buff_state": {
-                                                "name": "league_swain_frag",
-                                                "duration": "Permanent",
-                                                "hp": 15
+                                              {
+                                                "type": "Heal",
+                                                "amount": 80,
+                                                "attack_ratio": 0,
+                                                "ap_ratio": 30,
+                                                "heal_type": "Caster"
                                               },
-                                              "only_to_enemy": false
-                                            },
-                                            {
-                                              "type": "Heal",
-                                              "amount": 80,
-                                              "attack_ratio": 0,
-                                              "ap_ratio": 30,
-                                              "heal_type": "Caster"
-                                            },
-                                            {
-                                              "type": "CasterViewEffect",
-                                              "name": "league_swain_p_frag"
-                                            },
-                                            {
-                                              "type": "Sfx",
-                                              "name": "league_swain_p_frag"
-                                            }
-                                          ]
-                                        }
-                                      ]
+                                              {
+                                                "type": "CasterViewEffect",
+                                                "name": "league_swain_p_frag"
+                                              },
+                                              {
+                                                "type": "Sfx",
+                                                "name": "league_swain_p_frag"
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
                                     }
                                   }
-                                }
-                              ]
-                            }
-                          ]
-                        }
-                      ]
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
         }
       ]
     }
@@ -2455,6 +2730,30 @@
                                 "name": "league_swain_p_frag"
                               }
                             ]
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_swain_e_combo"
+                          },
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_swain_e_combo",
+                              "duration": {
+                                "Time": {
+                                  "tick": 90
+                                }
+                              }
+                            },
+                            "only_to_enemy": false
                           }
                         ]
                       }

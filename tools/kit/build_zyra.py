@@ -17,6 +17,11 @@ Thorn Spitter and each E a Vine Lasher where it lands.
   attack  a thorn seed (100% AD), homing on `Enemy` (towers too), released on a_rel.
   skill   Q Deadly Spines (致命棘刺), `Targeting` on `EnemyWithoutTower` (q_range): q_delay ticks after the release the
           spines burst on the target's spot (radius q_r): q_dmg + q_ratio% AP; a Thorn Spitter grows there.
+          Combo E -> Q (the user: 「有连招要做连招」「都要帮我补」; League's Zyra roots with E and bursts Q's spines
+          under the rooted champion): the vines' champion-only twin (e_hold, same line, no picture) opens the caster
+          flag e_combo for e_combo ticks on its hit; a Q released while it holds looks for a champion in crowd control
+          within q_range + 10000 (normally the one just rooted) and lobs the spines onto him in q_fast ticks instead
+          of q_delay (the window closes); with none, or outside the window, Q is unchanged.
   skill2  E Grasping Roots (缠绕之根), `Targeting` on `EnemyWithoutTower` (e_range): vines run along the ground straight
           at the target and on (penetrating, e_len): e_dmg + e_ratio% AP and a root of e_root ticks on every enemy on
           the line; a Vine Lasher grows on the target's spot when the vines reach it (a hidden lob of e_grow ticks).
@@ -68,6 +73,8 @@ P = {
     "rage": 150,
     # Q Deadly Spines (League: 800 range, 60-200 +60% AP, burst after 0.625 s, cd 7-5)
     "q_cd": 420, "q_range": 80000, "q_dur": 33, "q_rel": 10, "q_delay": 30, "q_r": 22000, "q_dmg": 80, "q_ratio": 55,
+    # the E -> Q combo: the window after the vines root a champion (the root's length) and the spines' quick lob
+    "e_combo": 75, "q_fast": 4,
     # E Grasping Roots (League: 1100 range, 60-200 +50% AP, root 1-2 s, speed 1150, cd 12)
     "e_cd": 660, "e_range": 90000, "e_dur": 33, "e_rel": 10, "e_speed": 2000, "e_len": 105000, "e_w": 7000,
     "e_dmg": 70, "e_ratio": 45, "e_root": 75, "e_grow": 25, "e_y": 5000,
@@ -249,9 +256,15 @@ def build(p):
              zone("q_spines", p["q_r"], [ap(p["q_dmg"], p["q_ratio"]), view("q_hit"), tsfx("q_hit")]), *spitter]
     # the add-on's copy: a 2-tick mark on the target as the lob leaves her - where the add-on grows its seeds
     aim = (lambda name: [buff(name, 2)]) if native else (lambda name: [])
+    # E -> Q: inside e_combo the spines go to a champion in crowd control (the one E rooted) and burst in q_fast
+    # ticks; a 1-tick q_go says the search found him, else (or outside the window) Q's own lob on its target
+    quick = pick(p["q_range"] + 10000, "EnemyChampionInCC", flag("q_go", 1), *rm("e_combo"), *aim("q_aim"),
+                 lob("q_seed", p["q_fast"], burst))
+    spines = combine(*rm("q_go"), sw("e_combo", quick),
+                     sw("q_go", NONE, combine(*aim("q_aim"), lob("q_seed", p["q_delay"], burst))))
     skill = action("skill", p["q_dur"], p["q_cd"], 1, p["q_range"], "Targeting", "EnemyWithoutTower",
                    combine(decoy(p["q_dmg"], p["q_ratio"], ap), sfx("q"), voice("vo_q", p),
-                           delayed(p["q_rel"] - 1, alive(*aim("q_aim"), lob("q_seed", p["q_delay"], burst)))))
+                           delayed(p["q_rel"] - 1, alive(spines))))
 
     # ------------------------------------------------------------------ skill2: E Grasping Roots + a Vine Lasher
     rooted = [ap(p["e_dmg"], p["e_ratio"]), {"type": "Bind", "duration": p["e_root"]},
@@ -262,6 +275,8 @@ def build(p):
                                 *aim("e_aim"),
                                 line("e_roots", p["e_speed"], p["e_len"], p["e_w"], "EnemyWithoutTower", rooted,
                                      penetrate=True, y=p["e_y"]),
+                                line("e_hold", p["e_speed"], p["e_len"], p["e_w"], "EnemyChampion",
+                                     [refresh("e_combo", p["e_combo"])], penetrate=True, y=p["e_y"]),
                                 lob("e_seed", p["e_grow"], lasher)))))
 
     # ------------------------------------------------------------------ ult: R Stranglethorns
