@@ -46,7 +46,7 @@ P = {
     # stats (Melee base: attack 95 +19, hp 1000 +100, defence 30, mr 25, move 1000, range 25000, attack cd 65; the base
     # junglers 120 +30, hp 900 +80, move 1100 +14); League's Warwick: 620 +99 hp, 65 AD, 33 +4.4 armour, 32 +2 mr,
     # 335 move, 125 range, attack speed 0.638
-    "hp": 1050, "hp_g": 105, "atk": 92, "atk_g": 18, "def": 32, "def_g": 7, "mr": 25, "mr_g": 4, "ms": 1050, "ms_g": 12,
+    "hp": 1120, "hp_g": 105, "atk": 92, "atk_g": 18, "def": 36, "def_g": 7, "mr": 25, "mr_g": 4, "ms": 1050, "ms_g": 12,
     # attack (the claw swipe) + the passive Eternal Hunger (League: 12-46 magic on-hit, heals that much below 50%
     # health, three times below 25%)
     "atk_range": 25000, "atk_dur": 30, "atk_cd": 60, "a_hit": 9, "a_speed": 20000,

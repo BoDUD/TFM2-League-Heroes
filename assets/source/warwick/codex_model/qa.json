@@ -1,0 +1,68 @@
+[
+  {
+    "take": 1,
+    "source": "exec-ea6f3238-7265-4e01-ae3f-211bde665a8e.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "body_bbox_alpha128": [
+      58,
+      355,
+      1191,
+      1183
+    ],
+    "visible_height": 828,
+    "target_bbox_top": 348,
+    "target_soles": 1176,
+    "alpha_levels": 256,
+    "partial_alpha_pixels": 463304,
+    "strict_uniform_12px_foreground_block_fraction": 0.0,
+    "strict_12px_grid_pass": false,
+    "hard_alpha_pass": false
+  },
+  {
+    "take": 2,
+    "source": "exec-ce940863-8a53-496e-83c2-8f1dde4395dd.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "body_bbox_alpha128": [
+      56,
+      349,
+      1187,
+      1178
+    ],
+    "visible_height": 829,
+    "target_bbox_top": 348,
+    "target_soles": 1176,
+    "alpha_levels": 256,
+    "partial_alpha_pixels": 463106,
+    "strict_uniform_12px_foreground_block_fraction": 0.0,
+    "strict_12px_grid_pass": false,
+    "hard_alpha_pass": false
+  },
+  {
+    "take": 3,
+    "source": "exec-2fd27ec3-24c4-4301-8d4d-2a8ae686abce.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "body_bbox_alpha128": [
+      59,
+      344,
+      1188,
+      1176
+    ],
+    "visible_height": 832,
+    "target_bbox_top": 348,
+    "target_soles": 1176,
+    "alpha_levels": 256,
+    "partial_alpha_pixels": 464848,
+    "strict_uniform_12px_foreground_block_fraction": 0.0,
+    "strict_12px_grid_pass": false,
+    "hard_alpha_pass": false
+  }
+]

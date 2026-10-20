@@ -130,6 +130,10 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // Graves: posed by tools/art/rig_graves.py at the user's 1.5 squares a game pixel (57 game rows hair to soles: 「38 像素」
     // 「PPU 1.5」; Codex's seven poses on skeletons, attack2 the second shell's reload), so no SIZES row
     ("league_graves", 1.5, include_str!("../../../league/champions/league_graves#anim.fanim")),
+    // Warwick: posed by tools/art/rig_warwick.py on Codex's step-1 take A-1 at the user's 1.5 squares a game pixel (69 game
+    // rows spike top to soles: 「选大一号的那个」「PPU 1.5」; every action on the 3/4 design: 「不做侧面 只做四分之三的侧面」;
+    // skill_bite / skill2_howl / ult_dash / ult_hold the kit's CasterAnimations), so no SIZES row
+    ("league_warwick", 1.5, include_str!("../../../league/champions/league_warwick#anim.fanim")),
     // Powder (tft_powder, the tft pack in tft/: Teamfight Tactics' own units, its own mod; this DLL draws her dense
     // frames when both packs are enabled): the idle design and Codex's skeleton poses with one clean head, posed by
     // tools/art/rig_powder.py at 1.75 squares a game pixel (61 rows: 「35」, then 「PPU像素好低啊 能调一下吗」), shown at 90 % (SIZES)
@@ -278,6 +282,9 @@ pub const UI_SIZES: &[(&str, f32)] = &[
     ("league_tahmkench", 0.87),
     // Zyra (#140): 43.5 game rows hair to soles at PPU 1.7 - 12.7 px of her legs hid under the card's canvas
     ("league_zyra", 0.89),
+    // Warwick (#142): 63 game px wide with his raised tail (94 squares at PPU 1.5) - the tail's tip and the far claws ran
+    // past the card's 59.5 px canvas
+    ("league_warwick", 0.88),
 ];
 
 /// The `"lo_..."` animation names of a .fanim.

@@ -34,8 +34,11 @@ M = "<#a974ffff>"      # magic damage
 A = "<#ffb900ff>"      # durations, counts
 R = "<#ef5350ff>"      # crowd control
 E = "<>"
-# champion_view: the face point between his eyes (set from tfm2_ase.py face once the sheet exists: --face)
-VIEW = {"face": {"x": 4, "y": -30}, "center": {"x": 0, "y": -14}}
+# champion_view: the face point between his eyes (the idle's eyes 41.5 design rows over his soles at PPU 1.5: 28 game px;
+# 11 px ahead of his standing point - the hunched head is pushed out over his far foot; ppu_restyle face_to); the
+# ban/pick card: his idle drawn at 0.88 (league.dll UI_SIZES: 63 game px wide with the raised tail) with its top 31.1 px
+# over the frame centre at that size -> banpick_center -8 (tools/art/bp_card_audit.py; the spike under the canvas top)
+VIEW = {"face": {"x": 11, "y": -28}, "center": {"x": 0, "y": -14}, "banpick_center": {"x": 0, "y": -8}}
 
 
 def phys(d, r):
