@@ -1,0 +1,85 @@
+#!/usr/bin/env python3
+"""Mel's step-1 pack for Codex (assets/source/mel/MODEL_PROMPTS.md): design A at game size, 3/4 front only (the user,
+2026-10-20: only the 3/4 view - the idle, the ban-pick card, the one face of every frame and the base of every action),
+squares drawn BIG so the image generator's habit of filling the canvas lands on the right count.
+
+    python tools/art/pack_mel_model.py [--out C:/t/ml_work/mel_model_pack]
+
+The user's pick (2026-10-20): A (League's robe with the train), 44 game px bun top to soles, PPU 1.5 -> ROWS = 66
+squares; the train spreads behind her, so the figure is ~59 squares wide; 16 px squares put it 944 x 1056 px on
+Codex's own 1254 canvas.
+Writes <out>/ (and <out>.zip): MODEL_PROMPTS.md, 1_picture_A.png (step 0's A: the look to keep), 2_target.png (A cut to
+the count at PX on the canvas: size, place, pose - its details are broken), 3_layout.png (with the grid, the bun top,
+eye and ground lines), 4_head.png (A's head read back, 8x), style/7..10.
+"""
+import argparse
+import os
+import shutil
+import sys
+
+import numpy as np
+from PIL import Image
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+ROOT = os.path.dirname(os.path.dirname(HERE))
+sys.path.insert(0, HERE)
+import pixel_down as PD  # noqa: E402
+from design_mel_hd import lp  # noqa: E402
+from pack_gangplank_model import cut, up  # noqa: E402
+from pack_graves_model import lines  # noqa: E402
+import pack_graves_model  # noqa: E402
+from review_mel_size import body_height  # noqa: E402
+
+SRC = os.path.join(ROOT, "assets", "source", "mel")
+PX = 16                 # pixels a square on the canvas
+CANVAS = 1254
+SOLE_Y = 1184           # the soles' bottom edge (74 squares x 16)
+ROWS = 66               # bun top to soles: 44 game px x PPU 1.5
+EYE_ROW = 52            # her eyes' row in hd/A.png (cols 108 and 120)
+HEAD = (0, 74, 64, 132)  # rows / cols of the head (the bun to the chin, both earrings) in hd/A.png
+GREY = (225, 225, 225)
+STYLE = {"7_style_morgana.png": ("morgana", "hd_idle"), "8_style_karthus.png": ("karthus", "hd_idle"),
+         "9_style_janna.png": ("janna", "hd_idle"), "10_style_leblanc.png": ("leblanc", "hd_idle")}
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--out", default="C:/t/ml_work/mel_model_pack")
+    a = ap.parse_args()
+    out = a.out
+    pack_graves_model.PX, pack_graves_model.CANVAS = PX, CANVAS   # lines() reads them
+    if os.path.isdir(out):
+        shutil.rmtree(out)
+    os.makedirs(os.path.join(out, "style"))
+    d = np.asarray(Image.open(lp(os.path.join(SRC, "hd", "A.png"))).convert("RGBA"))
+    k = ROWS / body_height(d)
+    g, _ = PD.pixelate(d, k, (d.shape[1] / 2, d.shape[0]), PD.edge_colour(d))
+    op = g[..., 3] > 0
+    g = g[np.ix_(np.any(op, 1), np.any(op, 0))]
+    gh, gw = g.shape[:2]
+    x0 = (CANVAS // PX - gw) // 2 * PX
+    y0 = SOLE_Y - gh * PX
+    crown = SOLE_Y - ROWS * PX    # the bun top
+    eye = SOLE_Y - round((d.shape[0] - EYE_ROW) * k) * PX
+    can = Image.new("RGBA", (CANVAS, CANVAS), (0, 0, 0, 0))
+    can.paste(Image.fromarray(up(g, PX)), (x0, y0))
+    can.save(os.path.join(out, "2_target.png"))
+    marks = [(crown, (40, 170, 60, 255)), (eye, (60, 110, 230, 255)), (SOLE_Y, (230, 40, 40, 255))]
+    lines(can, marks, f"green bun top y {crown}   blue eyes y {eye}   red ground y {SOLE_Y}"
+                      f"   one square = {PX} px   {gw} x {gh} squares").save(os.path.join(out, "3_layout.png"))
+    raw = os.path.join(SRC, "codex_picture", "raw")
+    shutil.copyfile(lp(os.path.join(raw, "mel-A-original.png")), os.path.join(out, "1_picture_A.png"))
+    r0, r1, c0, c1 = HEAD
+    h = d[r0:r1, c0:c1]
+    hb = Image.new("RGBA", (h.shape[1] * 8, h.shape[0] * 8), GREY + (255,))
+    hb.alpha_composite(Image.fromarray(up(h, 8)))
+    hb.convert("RGB").save(os.path.join(out, "4_head.png"))
+    for fname, (hero, tag) in STYLE.items():
+        cut(hero, tag, os.path.join(out, "style", fname))
+    shutil.copyfile(lp(os.path.join(SRC, "MODEL_PROMPTS.md")), os.path.join(out, "MODEL_PROMPTS.md"))
+    zp = shutil.make_archive(out, "zip", out)
+    print(f"{gw}x{gh} squares at ({x0},{y0}), bun top y {crown}, eyes y {eye}, ground y {SOLE_Y} ->", zp)
+
+
+if __name__ == "__main__":
+    main()

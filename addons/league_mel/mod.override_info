@@ -1,0 +1,10 @@
+{
+  "asset/league/champion/league_mel": {
+    "remapping": "asset/league_mel/override/league_mel",
+    "type": "override"
+  },
+  "asset/base/text/champion": {
+    "remapping": "asset/league_mel/text/champion",
+    "type": "merge"
+  }
+}
