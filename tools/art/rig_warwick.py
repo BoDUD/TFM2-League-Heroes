@@ -185,6 +185,28 @@ class Form:
         can[self.rig.GY:] = 0
         return close_cracks(can, self.D.outline)
 
+    def posed(self, name, whole=(0, 0), lift=0):
+        """A Codex pose (hd/pose_<name>.png, design_warwick_poses.py) standing where the design stands: the middle of its
+        shorts (shorts_mid: the body's own middle, steady while the limbs swing) on the design's, its lowest row on the
+        ground - `lift` rows above it (in the air)."""
+        d = load(f"pose_{name}.png")
+        ys = np.nonzero((d[..., 3] > 0).any(1))[0]
+        lay = np.zeros((self.D.H + 2 * P, self.D.W + 2 * P, 4), np.uint8)
+        top = P + self.D.ground - (ys.max() + 1) - lift
+        left = P + int(round(shorts_mid(self.D.d) - shorts_mid(d)))
+        x0, x1 = max(0, left), min(lay.shape[1], left + d.shape[1])
+        y0, y1 = max(0, top), min(lay.shape[0], top + d.shape[0])
+        lay[y0:y1, x0:x1] = d[y0 - top:y1 - top, x0 - left:x1 - left]
+        can = R.compose(self.rig, [(lay, dict(dx=whole[0], dy=whole[1]))])
+        can[self.rig.GY:] = 0
+        return can
+
+
+def shorts_mid(d):
+    """The middle column of a figure's olive shorts."""
+    xs = np.nonzero(olive(d))[1]
+    return (xs.min() + xs.max() + 1) / 2
+
 
 def form():
     F = Form(design())
@@ -217,7 +239,7 @@ RAISE = dict(far=2, far_at=(-2, 3))          # the far arm raised behind the hea
 
 
 def frames_all(F):
-    p = F.pose
+    p, q = F.pose, F.posed
     out = {}
     # idle (League's Warwick_Idle: a slow heavy breath, the shoulders rising and falling): the upper body sets down a
     # row onto the legs and comes back, the tail a beat behind
@@ -226,45 +248,47 @@ def frames_all(F):
     # run (League's Warwick_Run, a heavy bounding run): league_braum's walk on the design's own legs
     out["run"] = [p(whole=(0, -r), near_leg=n, far_leg=f, near_at=(sw[0], 0), far_at=(sw[1], 0), tail_at=t)
                   for n, f, r, sw, t in WALK]
-    # auto attack (League's Warwick_Attack1: crouched low with the arms drawn back, a low lunge, then the far claw swung
-    # forward and up - it ends high over his head; the hit at ~150 ms = tick 9): crouched, the low lunge, the swipe (the
-    # hit), the claw up high, back
-    out["attack"] = [p(crouch=1, upper=-1), p(whole=(1, 0), crouch=2, upper=2), p(whole=(2, 0), upper=1, **SWIPE),
-                     p(whole=(2, 0), upper=-1, **RAISE), p(whole=(1, 0)), p()]
+    # auto attack (League's Warwick_Attack1: crouched low with the arms spread, then lunging forward and down with the
+    # claws; the hit at ~150 ms = tick 9): crouched (Codex's crouch), the lunge with both claws raking down (strike:
+    # the hit), held, back up
+    out["attack"] = [q("crouch"), q("crouch", whole=(1, 0)), q("strike", whole=(2, 0)), q("strike", whole=(2, 0)),
+                     p(whole=(1, 0)), p()]
     # Q Jaws of the Beast (League's Warwick_Spell1: reared back with the claws up and the jaws open, the leap, landed
-    # low on the bite): skill = the rear and the leap (12 ticks; he flies from tick 4), skill_bite = low on the bite
-    # with the claw pinning the target, up again
-    out["skill"] = [p(upper=-2, crouch=1, **RAISE), p(whole=(2, -4), upper=2, far_leg=(0, 0, 2), near_leg=(0, 0, 2),
-                                                     **SWIPE)]
-    out["skill_bite"] = [p(whole=(2, 0), crouch=2, upper=3, far=1, far_at=(-7, 8)),
-                         p(whole=(1, 0), crouch=2, upper=2, far=1, far_at=(-7, 8)), p(crouch=1)]
-    # E Primal Howl (League's Warwick_Spell3: rearing up with the fists raised, then the guard): skill2 = crouched low,
-    # rearing up with the far fist raised beside his head, crouched again; skill2_howl (League's Spell3_Howl: gathered
-    # low, the fists thrown up, then standing tall, chest out, the jaws to the sky): gathered three rows down, rising
-    # with the fist up, the chest thrown back and held, back
-    out["skill2"] = [p(crouch=2), p(upper=-1, **RAISE), p(upper=-1, **RAISE), p(crouch=1)]
-    out["skill2_howl"] = [p(crouch=3, upper=1), p(crouch=1, upper=-1, **RAISE), p(upper=-2), p(upper=-2), p(upper=-1)]
-    # R Infinite Duress (League's Warwick_Spell4 + Spell4Dash: crouched low with the claws forward, the leap): ult = the
-    # coil and the spring (the leap leaves at tick 8), ult_dash = in the air until he lands on the champion
-    out["ult"] = [p(crouch=1, upper=1), p(crouch=2, upper=2, far=1, far_at=(-7, 7)),
-                  p(whole=(2, -3), upper=2, near_leg=(0, 0, 2), far_leg=(0, 0, 2), **SWIPE),
-                  p(whole=(3, -5), upper=2, near_leg=(0, 0, 3), far_leg=(0, 0, 3), **SWIPE),
-                  p(whole=(3, -5), upper=2, near_leg=(0, 0, 3), far_leg=(0, 0, 3), **SWIPE)]
-    out["ult_dash"] = [p(whole=(0, -d), upper=2, near_leg=(0, 0, 3), far_leg=(0, 0, 3), **SWIPE) for d in (5, 7, 6, 3)]
-    # R's hold (League's Warwick_Spell4Hit: on top of the champion, the claws raised and torn down again and again; the
-    # three claws at ticks 1 / 31 / 61): the strike (low, the claw down and forward), held, rearing up off the champion
-    # with the claw raised again
-    strike = [p(crouch=2, upper=3, far=1, far_at=(-7, 8)), p(crouch=2, upper=2), p(whole=(0, -2), upper=-1, **RAISE)]
-    out["ult_hold"] = strike * 3
+    # low on the bite): skill = the rear and the leap (12 ticks; he flies from tick 4), skill_bite = low on the bite,
+    # crouched, up again
+    out["skill"] = [q("rear"), q("leap", whole=(2, 0), lift=6)]
+    out["skill_bite"] = [q("bite", whole=(2, 0)), q("bite", whole=(1, 0)), q("crouch")]
+    # E Primal Howl (League's Warwick_Spell3: rearing up with the fists raised, then the guard): skill2 = crouched,
+    # reared up with the claws before his chest, back; skill2_howl (League's Spell3_Howl: gathered low, then standing
+    # tall, chest out, the jaws to the sky): crouched, standing tall (Codex's howl) and held, back
+    out["skill2"] = [q("crouch"), q("rear"), q("rear"), p()]
+    out["skill2_howl"] = [q("crouch"), q("howl"), q("howl"), q("howl"), p()]
+    # R Infinite Duress (League's Warwick_Spell4 + Spell4Dash: crouched low with the claws forward, the leap with both
+    # arms raised): ult = the coil and the spring (the leap leaves at tick 8), ult_dash = in the air until he lands on
+    # the champion
+    out["ult"] = [q("crouch"), q("crouch", whole=(1, 0)), q("leap", whole=(2, 0), lift=4), q("leap", whole=(3, 0), lift=7),
+                  q("leap", whole=(3, 0), lift=7)]
+    out["ult_dash"] = [q("leap", lift=k) for k in (7, 8, 7, 4)]
+    # R's hold (League's Warwick_Spell4Hit: on top of the champion, raking down with both claws, then rearing up with
+    # one claw raised high, again and again; the three claws at ticks 1 / 31 / 61): the rake (strike), held, the claw
+    # raised (raise)
+    out["ult_hold"] = [q("strike"), q("strike"), q("raise")] * 3
     out["hit"] = [R.flash(p(whole=(-2, 0))), p(whole=(-1, 0))]
-    # the death (League's Warwick_Death: struck back, the knees giving way, down on his back): staggering back with
-    # the far arm flung up, the knees buckling, then falling onto his back - the figure without the tail and with the
-    # far arm behind the body turned a quarter counter-clockwise (league_volibear's / league_nasus's fall, lossless),
-    # in the air, down, a bounce, lying
-    flat = p(tail=False, far=3, whole=(-2, 0), crouch=2)
-    lie = lambda sink: R.lie(F.rig, flat, k=1, dx=-4, sink=sink)
-    out["dead"] = [p(whole=(-1, 0), upper=-2, **RAISE), p(whole=(-2, 0), crouch=2, upper=-2), lie(-5), lie(DEAD_SINK),
-                   lie(DEAD_SINK - 2), lie(DEAD_SINK)]
+    # the death (League's Warwick_Death: struck back with the arms flung out, then down on his belly): staggering
+    # (Codex's stagger), a step back, falling flat (lie, in the air), down, a bounce, lying
+    out["dead"] = [q("stagger"), q("stagger", whole=(-1, 0)), q("lie", whole=(-2, 0), lift=4), q("lie", whole=(-2, 0)),
+                   q("lie", whole=(-2, 0), lift=1), q("lie", whole=(-2, 0))]
+    return out
+
+
+def frames(F):
+    a = frames_all(F)
+    out = {}
+    for tag, cans in a.items():
+        ms = MS[tag]
+        if len(cans) != len(ms):
+            sys.exit(f"{tag}: {len(cans)} frames for {len(ms)}")
+        out[tag] = [(c, m) for c, m in zip(cans, ms)]
     return out
 
 
@@ -295,17 +319,6 @@ def export(F, acts):
         F.rig.export(acts)
     finally:
         R.one_of = _ONE_OF
-
-
-def frames(F):
-    a = frames_all(F)
-    out = {}
-    for tag, cans in a.items():
-        ms = MS[tag]
-        if len(cans) != len(ms):
-            sys.exit(f"{tag}: {len(cans)} frames for {len(ms)}")
-        out[tag] = [(c, m) for c, m in zip(cans, ms)]
-    return out
 
 
 def main():
