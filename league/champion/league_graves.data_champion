@@ -464,7 +464,7 @@
                 {
                   "type": "Attack",
                   "damage": 0,
-                  "attack_ratio": 30,
+                  "attack_ratio": 35,
                   "hp_ratio": 0,
                   "target_hp_ratio": 0,
                   "attack_effect_type": "Target"

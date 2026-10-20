@@ -41,6 +41,11 @@ ID = "league_graves"
 FX = "asset/league/effects/league_graves_fx"
 BIG = "asset/league/effects/league_graves_big"
 
+# Numbers = the 10-min classic-SDK simulations (C:/t/gv_sim, Rammus's ra_sim copy: kd.py 600 8 --lane 1 against the base
+# demon, circus blade, hunter, inquisitor and ninja, three lineups, both sides, 2026-10-20, placeholder timings): the
+# draft g0 +1.42 (league_kindred +0.73 in the same batch); with E's reload (g1) +1.03 / +0.76 on seeds 1-8 / 9-16; then
+# one change each: attack 96 +0.67 / +0.62, Q 55 / 70 +1.57 / +0.64, the spread 35% (g2b, taken) +1.49 / +1.18 (the
+# jungle peers +1.0-1.6). Re-run after the strips' timings.
 P = {
     # stats (Range base: attack 100 +20, hp 900 +90, defence 20 +7, mr 15 +3, move 900 +9; the base junglers 120 +30,
     # hp 900 +80, move 1100 +14); League's Graves: 625 +106 hp, 66 AD, 33 +4.6 armour, 33 mr, 340 move, 425 range
@@ -48,7 +53,7 @@ P = {
     "hp": 980, "hp_g": 98, "atk": 92, "atk_g": 19, "def": 26, "def_g": 7, "mr": 18, "mr_g": 3, "ms": 1000, "ms_g": 11,
     # attack: the spread (League: 4 pellets, the first full damage, the others a third; two shells, then a reload)
     "atk_range": 46000, "atk_dur": 26, "atk_cd": 54, "a_hit": 8, "a_speed": 9000, "a_y": -3000,
-    "a_ratio": 75, "a_cone": 30, "a_cone_r": 56000, "a_cone_dot": 900, "a_keep": 300, "a_reload": 80,
+    "a_ratio": 75, "a_cone": 35, "a_cone_r": 56000, "a_cone_dot": 900, "a_keep": 300, "a_reload": 80,
     # W Smoke Screen (League: 950 range, 60-180 +60% AP magic, 50% slow 0.5 s, nearsight 4 s; cd 26-18 s)
     "w_cd": 720, "w_fly": 14, "w_r": 24000, "w_dmg": 60, "w_slow": 50, "w_slow_t": 30, "w_blind": 30,
     "w_cloud": 240, "w_in": 15,
