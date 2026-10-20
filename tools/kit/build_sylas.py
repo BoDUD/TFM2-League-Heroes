@@ -34,7 +34,9 @@ then cast), an add-on with the stolen ult by the victim's class and the AI's com
              classes: melee / range / mage / util / assassin).
 The combos the AI cannot press from data (E -> Q on the champion he lands on, R kept for two or more champions, Q
 first on a fleeing champion) are the add-on's AI hook league_sylas:combo (addons/league_sylas).
-Timings: placeholders until the strips (a frame's start in ticks = ms x 0.06).
+Timings: from tools/art/rig_sylas.py MS (a frame's start in ticks = ms x 0.06): the lash from 160 ms (a_rel 10), the
+whirl from 100 ms (p_rel 7), the stab from 100 ms (w_rel 7), the slam from 110 ms (q_rel 7), the throw from 100 ms
+(r_rel 7), the stolen ult's slam from 270 ms (r2_rel 17); each action as long as its strip.
 """
 import argparse
 import json
@@ -56,15 +58,15 @@ P = {
     "hp": 980, "hp_g": 96, "atk": 78, "atk_g": 9, "mp": 50, "mp_g": 20, "def": 28, "def_g": 8, "mr": 24, "mr_g": 4,
     "ms": 1100, "ms_g": 10,
     # attack (the chain swing)
-    "atk_range": 26000, "atk_dur": 26, "atk_cd": 58, "a_rel": 9, "a_speed": 20000,
+    "atk_range": 26000, "atk_dur": 26, "atk_cd": 58, "a_rel": 10, "a_speed": 20000,
     # passive Petricite Burst (League: one charge per cast, 4 s; +125% attack speed with a charge; the whirl 1.3 AD +
     # 25% AP magic around him)
-    "p_t": 240, "p_as": 40, "p_dmg": 20, "p_ratio": 35, "p_r": 30000, "p_dur": 30, "p_rel": 12,
+    "p_t": 240, "p_as": 40, "p_dmg": 20, "p_ratio": 35, "p_r": 30000, "p_dur": 30, "p_rel": 7,
     # W Kingslayer (League: 400 range, 65-205 + 85% AP, heal 25-125 + 40% AP (+ up to 150% by missing health), cd 13-7 s)
-    "w_cd": 540, "w_r": 34000, "w_dur": 30, "w_rel": 12, "w_dmg": 80, "w_ratio": 70, "w_heal": 40, "w_heal_r": 35,
+    "w_cd": 540, "w_r": 34000, "w_dur": 30, "w_rel": 7, "w_dmg": 80, "w_ratio": 70, "w_heal": 40, "w_heal_r": 35,
     # Q Chain Lash (League: 775 range, 40-120 + 40% AP and 15-35% slow 1.5 s on the lash, 60-180? + 80% AP burst after
     # 0.6 s; cd 10-6 s)
-    "q_cd": 420, "q_range": 60000, "q_dur": 30, "q_rel": 10, "q_len": 64000, "q_w": 7000, "q_speed": 6000,
+    "q_cd": 420, "q_range": 60000, "q_dur": 30, "q_rel": 7, "q_len": 64000, "q_w": 7000, "q_speed": 6000,
     "q_dmg": 50, "q_ratio": 35, "q_slow": 25, "q_slow_t": 90, "q_fly": 8, "q_wait": 36, "q_r": 18000,
     "q2_dmg": 90, "q2_ratio": 65,
     # E Abscond / Abduct (League: a 400 dash, then an 800 chain: 65-205 + 100%? AP, knocked up 0.5 s, pulls him in;
@@ -72,9 +74,9 @@ P = {
     "e_cd": 660, "e_range": 70000, "e_dur": 34, "e_dash": 22000, "e_dspeed": 3500, "e_wind": 6, "e_len": 62000,
     "e_speed": 6000, "e_w": 7000, "e_dmg": 80, "e_ratio": 70, "e_up": 30, "e_fly": 4500, "e_pull_dur": 18,
     # R Hijack (League: 950 range; steals the ult, cd 80-30 s, the stolen ult's own cooldown after)
-    "r_cd": 2700, "r_range": 70000, "r_dur": 30, "r_rel": 10, "r_speed": 6000, "r_dmg": 40, "r_ratio": 20,
+    "r_cd": 2700, "r_range": 70000, "r_dur": 30, "r_rel": 7, "r_speed": 6000, "r_dmg": 40, "r_ratio": 20,
     "r_stun": 30, "r_keep": 600, "r_recast": 90,
-    "r2_dur": 36, "r2_rel": 14, "r2_fly": 12, "r2_r": 32000, "r2_dmg": 200, "r2_ratio": 80, "r2_up": 40,
+    "r2_dur": 36, "r2_rel": 17, "r2_fly": 12, "r2_r": 32000, "r2_dmg": 200, "r2_ratio": 80, "r2_up": 40,
     # the add-on's stolen ults by class (melee: a leap and a stunning slam; range: a long piercing arrow that slows;
     # util: a song that heals and shields the allies round him and slows the enemies; assassin: a blink onto the
     # champion, one heavy strike and a moment hidden; mage: the blast above), same damage budget

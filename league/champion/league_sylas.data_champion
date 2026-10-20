@@ -146,7 +146,7 @@
                           },
                           {
                             "type": "Delayed",
-                            "tick": 11,
+                            "tick": 6,
                             "effects": [
                               {
                                 "type": "Combine",
@@ -286,7 +286,7 @@
                           },
                           {
                             "type": "Delayed",
-                            "tick": 8,
+                            "tick": 9,
                             "effects": [
                               {
                                 "type": "Combine",
@@ -447,7 +447,7 @@
                         },
                         {
                           "type": "Delayed",
-                          "tick": 11,
+                          "tick": 6,
                           "effects": [
                             {
                               "type": "Combine",
@@ -599,7 +599,7 @@
                     },
                     {
                       "type": "Delayed",
-                      "tick": 11,
+                      "tick": 6,
                       "effects": [
                         {
                           "type": "Combine",
@@ -739,7 +739,7 @@
                     },
                     {
                       "type": "Delayed",
-                      "tick": 8,
+                      "tick": 9,
                       "effects": [
                         {
                           "type": "Combine",
@@ -979,7 +979,7 @@
         },
         {
           "type": "Delayed",
-          "tick": 9,
+          "tick": 6,
           "effects": [
             {
               "type": "Combine",
@@ -1737,7 +1737,7 @@
               },
               {
                 "type": "Delayed",
-                "tick": 13,
+                "tick": 16,
                 "effects": [
                   {
                     "type": "Combine",
@@ -1899,7 +1899,7 @@
               },
               {
                 "type": "Delayed",
-                "tick": 9,
+                "tick": 6,
                 "effects": [
                   {
                     "type": "Combine",
