@@ -152,8 +152,10 @@ class Design:
         # the robe's reds between the two legs (only with the design's own legs), the train and the flare on the ground
         # (they stay there), and the two front panels hanging from the waist (they follow the hips)
         parts["slit"] = robe & poly_mask(d.shape, LEGS)
-        parts["train"] = robe & ~parts["slit"] & ((yy >= 58) | ((xx <= 28) & (yy >= 52)) | ((xx >= 46) & (yy >= 55)))
-        parts["panels"] = robe & ~parts["slit"] & ~parts["train"]
+        hem = robe & ~parts["slit"] & ((yy >= 58) | ((xx <= 28) & (yy >= 52)) | ((xx >= 46) & (yy >= 55)))
+        parts["flare"] = hem & (xx >= 44)                # the far side's hem flaring out on the ground (only streams back)
+        parts["train"] = hem & ~parts["flare"]
+        parts["panels"] = robe & ~parts["slit"] & ~hem
         taken |= robe
         parts["upper"] = op & ~taken
         self.parts = parts
@@ -307,6 +309,7 @@ def compose(rig, D, p, robe=True):
         if p.train:
             t = R.sway(t, 0, 27, p.train, "right")
         Z.stamp(can, t, (ox, oy))
+        Z.stamp(can, stream(L["flare"], 50, 63, p.stream), (ox, oy))
         # the slit (the robe's dark inside between the legs) goes with the panels, behind whatever legs she stands on
         pn = np.where(L["slit"][..., 3:] > 0, L["slit"], L["panels"]).astype(np.uint8)
         pn = stream(pn, 46, 57, p.stream)
@@ -445,7 +448,7 @@ RUN_LIFT = [0, 0, 0, 1, 0, 0, 0, 1]
 RUN_LEAN = 2
 RUN_STREAM = [3, 4, 5, 4, 3, 4, 5, 4]
 RUN_TRAIN = [3, 4, 5, 4, 3, 4, 5, 4]
-RUN_TRAIN_UP = [3, 3, 2, 2, 3, 3, 2, 2]
+RUN_TRAIN_UP = [6, 6, 5, 5, 6, 6, 5, 5]                # League's robe streams behind at hip height, off the ground
 DEAD_SINK = 4
 DEAD_FALL = 4                                # rows over the ground the falling body still is
 
@@ -506,7 +509,7 @@ def lying(rig, D, sink=None):
     sink = DEAD_SINK if sink is None else sink
     flat = compose(rig, D, Pose(far="down"), robe=False)
     body = R.lie(rig, flat, k=3, dx=3, sink=sink)
-    train = D.layers["train"]                              # the train and the flare as they lie on the ground
+    train = np.where(D.layers["flare"][..., 3:] > 0, D.layers["flare"], D.layers["train"]).astype(np.uint8)
     ys, xs = np.nonzero(body[..., 3] > 0)
     under = rig.canvas()
     feet_x = xs.min()                                      # her soles are now at the left end
@@ -539,7 +542,7 @@ def frames(rig, joints):
 
 
 TINT = {"far_hand": (255, 255, 0), "far_sleeve": (0, 200, 255), "near_sleeve": (0, 255, 128), "near_hand": (255, 0, 255),
-        "legs": (255, 128, 0), "panels": (128, 0, 255), "train": (255, 0, 0), "slit": (0, 0, 0)}
+        "legs": (255, 128, 0), "panels": (128, 0, 255), "train": (255, 0, 0), "flare": (255, 160, 160), "slit": (0, 0, 0)}
 
 
 def parts_png(D, path, z=11):
