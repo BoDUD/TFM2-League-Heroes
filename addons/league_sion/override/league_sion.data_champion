@@ -95,11 +95,6 @@
       "type": "Combine",
       "effects": [
         {
-          "type": "CasterAnimation",
-          "name": "skill_charge",
-          "tick": 40
-        },
-        {
           "type": "Sfx",
           "name": "league_sion_q"
         },
@@ -152,16 +147,6 @@
               "only_to_enemy": false
             }
           ]
-        },
-        {
-          "type": "LineRangeProjectile",
-          "name": "league_sion_q_warn",
-          "width": 10000,
-          "length": 50000,
-          "delay": 49,
-          "apply": 49,
-          "applied_target": "EnemyChampion",
-          "applied_effects": []
         },
         {
           "type": "Delayed",
@@ -218,78 +203,216 @@
           ]
         },
         {
-          "type": "Delayed",
-          "tick": 40,
-          "effects": [
-            {
-              "type": "SwitchByBuff",
-              "buff_name": "league_sion_q_ch",
-              "effect_buff": {
+          "type": "SwitchByBuff",
+          "buff_name": "league_sion_e_combo",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "RemoveCasterBuff",
+                "name": "league_sion_e_combo"
+              },
+              {
                 "type": "Combine",
                 "effects": [
                   {
-                    "type": "RemoveCasterBuff",
-                    "name": "league_sion_q_ch"
+                    "type": "CasterAnimation",
+                    "name": "skill_charge",
+                    "tick": 20
                   },
                   {
-                    "type": "CasterAnimation",
-                    "name": "skill",
-                    "tick": 24
+                    "type": "LineRangeProjectile",
+                    "name": "league_sion_q_warn",
+                    "width": 10000,
+                    "length": 50000,
+                    "delay": 29,
+                    "apply": 29,
+                    "applied_target": "EnemyChampion",
+                    "applied_effects": []
                   },
                   {
                     "type": "Delayed",
-                    "tick": 7,
+                    "tick": 20,
                     "effects": [
                       {
-                        "type": "Sfx",
-                        "name": "league_sion_q_hit"
-                      },
-                      {
-                        "type": "LineRangeProjectile",
-                        "name": "league_sion_q_slam",
-                        "width": 10000,
-                        "length": 50000,
-                        "delay": 31,
-                        "apply": 1,
-                        "applied_target": "EnemyWithoutTower",
-                        "applied_effects": [
-                          {
-                            "casting_type": "Targeting",
-                            "effect": {
-                              "type": "Attack",
-                              "damage": 140,
-                              "attack_ratio": 180,
-                              "hp_ratio": 0,
-                              "target_hp_ratio": 0,
-                              "attack_effect_type": "Target"
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_sion_q_ch",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_sion_q_ch"
+                            },
+                            {
+                              "type": "CasterAnimation",
+                              "name": "skill",
+                              "tick": 24
+                            },
+                            {
+                              "type": "Delayed",
+                              "tick": 7,
+                              "effects": [
+                                {
+                                  "type": "Sfx",
+                                  "name": "league_sion_q_hit"
+                                },
+                                {
+                                  "type": "LineRangeProjectile",
+                                  "name": "league_sion_q_slam",
+                                  "width": 10000,
+                                  "length": 50000,
+                                  "delay": 31,
+                                  "apply": 1,
+                                  "applied_target": "EnemyWithoutTower",
+                                  "applied_effects": [
+                                    {
+                                      "casting_type": "Targeting",
+                                      "effect": {
+                                        "type": "Attack",
+                                        "damage": 140,
+                                        "attack_ratio": 180,
+                                        "hp_ratio": 0,
+                                        "target_hp_ratio": 0,
+                                        "attack_effect_type": "Target"
+                                      }
+                                    },
+                                    {
+                                      "casting_type": "Targeting",
+                                      "effect": {
+                                        "type": "Airborne",
+                                        "duration": 50
+                                      }
+                                    },
+                                    {
+                                      "casting_type": "Targeting",
+                                      "effect": {
+                                        "type": "ViewEffect",
+                                        "name": "league_sion_q_hit"
+                                      }
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "type": "Delayed",
+                              "tick": 24,
+                              "effects": [
+                                {
+                                  "type": "CasterAnimation",
+                                  "name": "idle",
+                                  "tick": 20
+                                }
+                              ]
                             }
-                          },
-                          {
-                            "casting_type": "Targeting",
-                            "effect": {
-                              "type": "Airborne",
-                              "duration": 50
-                            }
-                          },
-                          {
-                            "casting_type": "Targeting",
-                            "effect": {
-                              "type": "ViewEffect",
-                              "name": "league_sion_q_hit"
-                            }
-                          }
-                        ]
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
                       }
                     ]
                   }
                 ]
-              },
-              "effect_none": {
-                "type": "Combine",
-                "effects": []
               }
-            }
-          ]
+            ]
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "CasterAnimation",
+                "name": "skill_charge",
+                "tick": 40
+              },
+              {
+                "type": "LineRangeProjectile",
+                "name": "league_sion_q_warn",
+                "width": 10000,
+                "length": 50000,
+                "delay": 49,
+                "apply": 49,
+                "applied_target": "EnemyChampion",
+                "applied_effects": []
+              },
+              {
+                "type": "Delayed",
+                "tick": 40,
+                "effects": [
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_sion_q_ch",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_sion_q_ch"
+                        },
+                        {
+                          "type": "CasterAnimation",
+                          "name": "skill",
+                          "tick": 24
+                        },
+                        {
+                          "type": "Delayed",
+                          "tick": 7,
+                          "effects": [
+                            {
+                              "type": "Sfx",
+                              "name": "league_sion_q_hit"
+                            },
+                            {
+                              "type": "LineRangeProjectile",
+                              "name": "league_sion_q_slam",
+                              "width": 10000,
+                              "length": 50000,
+                              "delay": 31,
+                              "apply": 1,
+                              "applied_target": "EnemyWithoutTower",
+                              "applied_effects": [
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "Attack",
+                                    "damage": 140,
+                                    "attack_ratio": 180,
+                                    "hp_ratio": 0,
+                                    "target_hp_ratio": 0,
+                                    "attack_effect_type": "Target"
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "Airborne",
+                                    "duration": 50
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "ViewEffect",
+                                    "name": "league_sion_q_hit"
+                                  }
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
+                  }
+                ]
+              }
+            ]
+          }
         }
       ]
     }
@@ -624,6 +747,59 @@
                     "effect": {
                       "type": "TargetSfx",
                       "name": "league_sion_e_hit"
+                    }
+                  }
+                ],
+                "end_effects": [],
+                "speed": 3000,
+                "range": 52000,
+                "shape": {
+                  "Circle": {
+                    "radius": 6000
+                  }
+                },
+                "y_offset": 0
+              },
+              {
+                "type": "LinearProjectile",
+                "name": "league_sion_e_champ",
+                "penetrate": true,
+                "applied_target": "EnemyChampion",
+                "applied_effects": [
+                  {
+                    "casting_type": "Targeting",
+                    "effect": {
+                      "type": "RangeEffect",
+                      "shape": {
+                        "Circle": {
+                          "radius": 1000
+                        }
+                      },
+                      "target": "AllyOnlySelf",
+                      "apply_type": "AroundCaster",
+                      "effects": [
+                        {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_sion_e_combo"
+                            },
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_sion_e_combo",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 120
+                                  }
+                                }
+                              },
+                              "only_to_enemy": false
+                            }
+                          ]
+                        }
+                      ]
                     }
                   }
                 ],

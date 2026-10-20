@@ -31,6 +31,13 @@ so W is fired by the passive controller (league_swain's W, league_zilean's armed
           attack her team or cast (disarm + silence), and every r_per ticks it lashes out at its own side - r_hit +
           r_hit_ap% AP magic on every enemy of hers within r_lash_r of it, itself guarded by a 4-tick 100% damage
           reduction. The add-on makes it walk to its nearest ally and hit with its own attack damage instead.
+  combo   R -> Q and E -> Q (League: Handshake on the berserked or slowed champion; the user: 「有连招要做连招」「都要
+          帮我补」): E's burst on a champion (a champion-only twin zone) opens the caster flag q_combo for e_slow_t
+          ticks, R's wave on a champion for r_t; a Q cast in it throws the hand at once instead of after the aim lock
+          (league_leona's window: no damage, root, throw or cooldown changes, Q always throws). Q marks its own cooldown
+          (q_cd, cooltime + action); R's hit on a champion with Q cooling down takes the mark off and adds a 2-tick
+          q_refund (skill_cooldown_mult q_refund, ult_cooldown_mult -q_refund: league_nocturne's R -> E), so Q (and E,
+          the field cannot pick a slot) is ready a few ticks later - at most one extra Q and E per R.
 """
 import argparse
 import json
@@ -79,6 +86,11 @@ P = {
     # (the strip: the lunge's thrust on frame 3 at 200 ms = q_rel, the hand 10.5 game px up; the fling plays
     # skill2_fling, 400 ms)
     "q_fling_anim": 24,
+    # the R -> Q and E -> Q combos (the user: 「有连招要做连招」「都要帮我补」): a champion slowed by E's burst opens
+    # q_combo for e_slow_t ticks, one sent berserk by R's wave for r_t; a Q cast in it throws the hand at once (no aim
+    # lock); R's hit also refunds Q (q_refund: skill_cooldown_mult for 2 ticks, the ult's own offset by as much) when
+    # Q is cooling down (q_cd, Q's own flag)
+    "q_refund": 10000,
     # ult: R (League: 2000 range, berserk 1.25 / 1.75 / 2.25 s, cd 150-110 s)
     # r_near: two enemy champions this close arm R (fight_r 70000 until 2026-10-19: 2 R a 10-min sim game even pressed
     # every time; the user: 「感觉是不放大招啊 烈娜塔」, one enemy 「没啥意义吧」 -> 「用 100000」: 4 a game, kd +1.07)
@@ -287,8 +299,10 @@ def build(p):
     burst = zone("e_burst", p["e_r"], "EnemyWithoutTower",
                  [magic(p["e_dmg"], p["e_ap"]), buff("e_slow", p["e_slow_t"], move_speed_mult=-p["e_slow"]),
                   view("e_hit"), tsfx("e_hit")])
+    # E -> Q: the burst's champion-only twin opens the Q window for as long as the slow
+    slowed = zone("e_champ", p["e_r"], "EnemyChampion", [*rm("q_combo"), flag("q_combo", p["e_slow_t"])])
     missiles = line("e_missile", p["e_speed"], p["e_len"], p["e_rad"], p["e_y"], "EnemyWithoutTower", False, [],
-                    end=[burst, view("e_boom"), sfx("e_boom")])
+                    end=[burst, slowed, view("e_boom"), sfx("e_boom")])
     friends = line("e_ally", p["e_speed"], p["e_len"], p["e_rad"] * 2, p["e_y"], "AllyNotSelf", True,
                    [{"type": "Shield", "amount": p["e_sh"], "attack_ratio": 0, "ap_ratio": p["e_sh_ap"],
                      "tick": p["e_sh_t"]}, view("e_shield"), tsfx("e_shield")])
@@ -312,16 +326,26 @@ def build(p):
     hand = line("q_hand", p["q_speed"], p["q_len"], p["q_rad"], p["q_y"], "EnemyWithoutTower", False, caught)
     q_cast = combine(sfx("q"), voice("vo_q", p),
                      lob("q_aim", p["q_lock"], 1000, "EnemyWithoutTower", [], end=[hand, sfx("q_fly")]))
+    # R / E -> Q: inside q_combo the hand leaves at once toward the target (no aim lock; she is alive on tick 1, no
+    # guard), else the aimed throw as before; q_cd marks Q cooling down (its cooltime from the action's end) for R's
+    # refund
+    q_now = combine(sfx("q"), voice("vo_q", p), hand, sfx("q_fly"))
     skill2 = action("skill2", p["q_dur"], p["q_cd"], 1, p["q_range"], "Targeting", "EnemyChampion",
-                    delayed(p["q_rel"] - p["q_lock"] - 1, lives(q_cast)))
+                    combine(*rm("q_cd"), flag("q_cd", p["q_cd"] + p["q_dur"]),
+                            sw("q_combo", q_now, delayed(p["q_rel"] - p["q_lock"] - 1, lives(q_cast)))))
 
     # ------------------------------------------------------------------ R: Hostile Takeover
     lash = combine(buff("r_guard", 4, damaged_reduce=100),
                    lob("r_lash", 1, 1000, "Enemy", [],
                        end=[zone("r_lash_hit", p["r_lash_r"], "EnemyWithoutTower",
                                  [magic(p["r_hit"], p["r_hit_ap"]), view("r_lash_hit")]), view("r_lash")]))
+    # R -> Q: a champion sent berserk opens the Q window for as long and, with Q cooling down, brings Q back (the cap
+    # brings E's remaining cooldown down too: the field cannot pick a slot; the ult's own cooldown untouched)
+    refund = sw("q_cd", combine(*rm("q_cd", "q_refund"),
+                                flag("q_refund", 2, skill_cooldown_mult=p["q_refund"], ult_cooldown_mult=-p["q_refund"])))
     berserk = [{"type": "BlockAttack", "tick": p["r_t"]}, {"type": "BlockSkill", "tick": p["r_t"]},
-               buff("r_berserk", p["r_t"]), view("r_hit"), tsfx("r_hit")]
+               buff("r_berserk", p["r_t"]), view("r_hit"), tsfx("r_hit"), *rm("q_combo"), flag("q_combo", p["r_t"]),
+               refund]
     if not p["native"]:
         berserk.append(casted(p["r_t"], p["r_per"], lash))
     wave = line("r_wave", p["r_speed"], p["r_len"], p["r_w"], 0, "EnemyChampion", True, berserk)

@@ -296,6 +296,22 @@
       "type": "Combine",
       "effects": [
         {
+          "type": "RemoveCasterBuff",
+          "name": "league_fiddlesticks_e_cd"
+        },
+        {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "league_fiddlesticks_e_cd",
+            "duration": {
+              "Time": {
+                "tick": 480
+              }
+            }
+          },
+          "only_to_enemy": false
+        },
+        {
           "type": "SwitchByBuff",
           "buff_name": "league_fiddlesticks_fight",
           "effect_buff": {
@@ -1837,6 +1853,41 @@
                           {
                             "type": "TargetSfx",
                             "name": "league_fiddlesticks_fear"
+                          },
+                          {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_fiddlesticks_e_cd",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_fiddlesticks_e_cd"
+                                },
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_fiddlesticks_r_refund"
+                                },
+                                {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_fiddlesticks_r_refund",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 2
+                                      }
+                                    },
+                                    "skill_cooldown_mult": 10000,
+                                    "ult_cooldown_mult": -10000
+                                  },
+                                  "only_to_enemy": false
+                                }
+                              ]
+                            },
+                            "effect_none": {
+                              "type": "Combine",
+                              "effects": []
+                            }
                           }
                         ]
                       }

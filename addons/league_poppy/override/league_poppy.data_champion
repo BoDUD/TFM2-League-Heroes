@@ -992,247 +992,488 @@
           }
         },
         {
-          "type": "Delayed",
-          "tick": 11,
-          "effects": [
-            {
-              "type": "ParabolicProjectile",
-              "name": "league_poppy_q_drop",
-              "travel_time": 1,
-              "range": 400000,
-              "range_effect_name": "",
-              "shape": {
-                "Circle": {
-                  "radius": 1
-                }
+          "type": "SwitchByBuff",
+          "buff_name": "league_poppy_e_combo",
+          "effect_buff": {
+            "type": "ParabolicProjectile",
+            "name": "league_poppy_q_drop",
+            "travel_time": 1,
+            "range": 400000,
+            "range_effect_name": "",
+            "shape": {
+              "Circle": {
+                "radius": 1
+              }
+            },
+            "applied_target": "EnemyWithoutTower",
+            "applied_effects": [],
+            "end_effects": [
+              {
+                "type": "ViewEffect",
+                "name": "league_poppy_q_slam"
               },
-              "applied_target": "EnemyWithoutTower",
-              "applied_effects": [],
-              "end_effects": [
-                {
-                  "type": "ViewEffect",
-                  "name": "league_poppy_q_slam"
+              {
+                "type": "Sfx",
+                "name": "league_poppy_q_slam"
+              },
+              {
+                "type": "RangeProjectile",
+                "name": "league_poppy_q_slam_z",
+                "shape": {
+                  "Circle": {
+                    "radius": 18000
+                  }
                 },
-                {
-                  "type": "Sfx",
-                  "name": "league_poppy_q_slam"
-                },
-                {
-                  "type": "RangeProjectile",
-                  "name": "league_poppy_q_slam_z",
-                  "shape": {
-                    "Circle": {
-                      "radius": 18000
+                "delay": 1,
+                "apply": 1,
+                "applied_target": "EnemyWithoutTower",
+                "applied_effects": [
+                  {
+                    "casting_type": "Targeting",
+                    "effect": {
+                      "type": "Attack",
+                      "damage": 60,
+                      "attack_ratio": 70,
+                      "hp_ratio": 0,
+                      "target_hp_ratio": 0,
+                      "attack_effect_type": "Target"
                     }
                   },
-                  "delay": 1,
-                  "apply": 1,
-                  "applied_target": "EnemyWithoutTower",
-                  "applied_effects": [
-                    {
-                      "casting_type": "Targeting",
-                      "effect": {
-                        "type": "Attack",
-                        "damage": 60,
-                        "attack_ratio": 70,
-                        "hp_ratio": 0,
-                        "target_hp_ratio": 0,
-                        "attack_effect_type": "Target"
+                  {
+                    "casting_type": "Targeting",
+                    "effect": {
+                      "type": "ViewEffect",
+                      "name": "league_poppy_q_hit"
+                    }
+                  },
+                  {
+                    "casting_type": "Targeting",
+                    "effect": {
+                      "type": "TargetSfx",
+                      "name": "league_poppy_q_hit"
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "RangeProjectile",
+                "name": "league_poppy_q_slam_c",
+                "shape": {
+                  "Circle": {
+                    "radius": 18000
+                  }
+                },
+                "delay": 1,
+                "apply": 1,
+                "applied_target": "EnemyChampion",
+                "applied_effects": [
+                  {
+                    "casting_type": "Targeting",
+                    "effect": {
+                      "type": "Attack",
+                      "damage": 0,
+                      "attack_ratio": 0,
+                      "hp_ratio": 0,
+                      "target_hp_ratio": 6,
+                      "attack_effect_type": "Target"
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "RangePeriodProjectile",
+                "name": "league_poppy_q_field",
+                "shape": {
+                  "Circle": {
+                    "radius": 18000
+                  }
+                },
+                "tick": 60,
+                "period": 10,
+                "first_delay": 0,
+                "applied_target": "EnemyWithoutTower",
+                "applied_effects": [
+                  {
+                    "casting_type": "Targeting",
+                    "effect": {
+                      "type": "AddBuff",
+                      "buff_state": {
+                        "name": "league_poppy_q_slow",
+                        "duration": {
+                          "Time": {
+                            "tick": 12
+                          }
+                        },
+                        "move_speed_mult": -25
+                      }
+                    }
+                  }
+                ],
+                "end_effects": []
+              },
+              {
+                "type": "Delayed",
+                "tick": 0,
+                "effects": [
+                  {
+                    "type": "ViewEffect",
+                    "name": "league_poppy_q_crack"
+                  }
+                ]
+              },
+              {
+                "type": "Delayed",
+                "tick": 15,
+                "effects": [
+                  {
+                    "type": "ViewEffect",
+                    "name": "league_poppy_q_crack"
+                  }
+                ]
+              },
+              {
+                "type": "Delayed",
+                "tick": 30,
+                "effects": [
+                  {
+                    "type": "ViewEffect",
+                    "name": "league_poppy_q_crack"
+                  }
+                ]
+              },
+              {
+                "type": "Delayed",
+                "tick": 45,
+                "effects": [
+                  {
+                    "type": "ViewEffect",
+                    "name": "league_poppy_q_crack"
+                  }
+                ]
+              },
+              {
+                "type": "Delayed",
+                "tick": 60,
+                "effects": [
+                  {
+                    "type": "ViewEffect",
+                    "name": "league_poppy_q_burst"
+                  },
+                  {
+                    "type": "Sfx",
+                    "name": "league_poppy_q_burst"
+                  },
+                  {
+                    "type": "RangeProjectile",
+                    "name": "league_poppy_q_burst_z",
+                    "shape": {
+                      "Circle": {
+                        "radius": 18000
                       }
                     },
-                    {
-                      "casting_type": "Targeting",
-                      "effect": {
+                    "delay": 1,
+                    "apply": 1,
+                    "applied_target": "EnemyWithoutTower",
+                    "applied_effects": [
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "Attack",
+                          "damage": 60,
+                          "attack_ratio": 70,
+                          "hp_ratio": 0,
+                          "target_hp_ratio": 0,
+                          "attack_effect_type": "Target"
+                        }
+                      },
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "ViewEffect",
+                          "name": "league_poppy_q_hit"
+                        }
+                      },
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "TargetSfx",
+                          "name": "league_poppy_q_hit"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "RangeProjectile",
+                    "name": "league_poppy_q_burst_c",
+                    "shape": {
+                      "Circle": {
+                        "radius": 18000
+                      }
+                    },
+                    "delay": 1,
+                    "apply": 1,
+                    "applied_target": "EnemyChampion",
+                    "applied_effects": [
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "Attack",
+                          "damage": 0,
+                          "attack_ratio": 0,
+                          "hp_ratio": 0,
+                          "target_hp_ratio": 6,
+                          "attack_effect_type": "Target"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "effect_none": {
+            "type": "Delayed",
+            "tick": 11,
+            "effects": [
+              {
+                "type": "ParabolicProjectile",
+                "name": "league_poppy_q_drop",
+                "travel_time": 1,
+                "range": 400000,
+                "range_effect_name": "",
+                "shape": {
+                  "Circle": {
+                    "radius": 1
+                  }
+                },
+                "applied_target": "EnemyWithoutTower",
+                "applied_effects": [],
+                "end_effects": [
+                  {
+                    "type": "ViewEffect",
+                    "name": "league_poppy_q_slam"
+                  },
+                  {
+                    "type": "Sfx",
+                    "name": "league_poppy_q_slam"
+                  },
+                  {
+                    "type": "RangeProjectile",
+                    "name": "league_poppy_q_slam_z",
+                    "shape": {
+                      "Circle": {
+                        "radius": 18000
+                      }
+                    },
+                    "delay": 1,
+                    "apply": 1,
+                    "applied_target": "EnemyWithoutTower",
+                    "applied_effects": [
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "Attack",
+                          "damage": 60,
+                          "attack_ratio": 70,
+                          "hp_ratio": 0,
+                          "target_hp_ratio": 0,
+                          "attack_effect_type": "Target"
+                        }
+                      },
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "ViewEffect",
+                          "name": "league_poppy_q_hit"
+                        }
+                      },
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "TargetSfx",
+                          "name": "league_poppy_q_hit"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "RangeProjectile",
+                    "name": "league_poppy_q_slam_c",
+                    "shape": {
+                      "Circle": {
+                        "radius": 18000
+                      }
+                    },
+                    "delay": 1,
+                    "apply": 1,
+                    "applied_target": "EnemyChampion",
+                    "applied_effects": [
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "Attack",
+                          "damage": 0,
+                          "attack_ratio": 0,
+                          "hp_ratio": 0,
+                          "target_hp_ratio": 6,
+                          "attack_effect_type": "Target"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "RangePeriodProjectile",
+                    "name": "league_poppy_q_field",
+                    "shape": {
+                      "Circle": {
+                        "radius": 18000
+                      }
+                    },
+                    "tick": 60,
+                    "period": 10,
+                    "first_delay": 0,
+                    "applied_target": "EnemyWithoutTower",
+                    "applied_effects": [
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "AddBuff",
+                          "buff_state": {
+                            "name": "league_poppy_q_slow",
+                            "duration": {
+                              "Time": {
+                                "tick": 12
+                              }
+                            },
+                            "move_speed_mult": -25
+                          }
+                        }
+                      }
+                    ],
+                    "end_effects": []
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 0,
+                    "effects": [
+                      {
                         "type": "ViewEffect",
-                        "name": "league_poppy_q_hit"
+                        "name": "league_poppy_q_crack"
                       }
-                    },
-                    {
-                      "casting_type": "Targeting",
-                      "effect": {
-                        "type": "TargetSfx",
-                        "name": "league_poppy_q_hit"
-                      }
-                    }
-                  ]
-                },
-                {
-                  "type": "RangeProjectile",
-                  "name": "league_poppy_q_slam_c",
-                  "shape": {
-                    "Circle": {
-                      "radius": 18000
-                    }
+                    ]
                   },
-                  "delay": 1,
-                  "apply": 1,
-                  "applied_target": "EnemyChampion",
-                  "applied_effects": [
-                    {
-                      "casting_type": "Targeting",
-                      "effect": {
-                        "type": "Attack",
-                        "damage": 0,
-                        "attack_ratio": 0,
-                        "hp_ratio": 0,
-                        "target_hp_ratio": 6,
-                        "attack_effect_type": "Target"
+                  {
+                    "type": "Delayed",
+                    "tick": 15,
+                    "effects": [
+                      {
+                        "type": "ViewEffect",
+                        "name": "league_poppy_q_crack"
                       }
-                    }
-                  ]
-                },
-                {
-                  "type": "RangePeriodProjectile",
-                  "name": "league_poppy_q_field",
-                  "shape": {
-                    "Circle": {
-                      "radius": 18000
-                    }
+                    ]
                   },
-                  "tick": 60,
-                  "period": 10,
-                  "first_delay": 0,
-                  "applied_target": "EnemyWithoutTower",
-                  "applied_effects": [
-                    {
-                      "casting_type": "Targeting",
-                      "effect": {
-                        "type": "AddBuff",
-                        "buff_state": {
-                          "name": "league_poppy_q_slow",
-                          "duration": {
-                            "Time": {
-                              "tick": 12
+                  {
+                    "type": "Delayed",
+                    "tick": 30,
+                    "effects": [
+                      {
+                        "type": "ViewEffect",
+                        "name": "league_poppy_q_crack"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 45,
+                    "effects": [
+                      {
+                        "type": "ViewEffect",
+                        "name": "league_poppy_q_crack"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 60,
+                    "effects": [
+                      {
+                        "type": "ViewEffect",
+                        "name": "league_poppy_q_burst"
+                      },
+                      {
+                        "type": "Sfx",
+                        "name": "league_poppy_q_burst"
+                      },
+                      {
+                        "type": "RangeProjectile",
+                        "name": "league_poppy_q_burst_z",
+                        "shape": {
+                          "Circle": {
+                            "radius": 18000
+                          }
+                        },
+                        "delay": 1,
+                        "apply": 1,
+                        "applied_target": "EnemyWithoutTower",
+                        "applied_effects": [
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "Attack",
+                              "damage": 60,
+                              "attack_ratio": 70,
+                              "hp_ratio": 0,
+                              "target_hp_ratio": 0,
+                              "attack_effect_type": "Target"
                             }
                           },
-                          "move_speed_mult": -25
-                        }
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "ViewEffect",
+                              "name": "league_poppy_q_hit"
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "TargetSfx",
+                              "name": "league_poppy_q_hit"
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "type": "RangeProjectile",
+                        "name": "league_poppy_q_burst_c",
+                        "shape": {
+                          "Circle": {
+                            "radius": 18000
+                          }
+                        },
+                        "delay": 1,
+                        "apply": 1,
+                        "applied_target": "EnemyChampion",
+                        "applied_effects": [
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "Attack",
+                              "damage": 0,
+                              "attack_ratio": 0,
+                              "hp_ratio": 0,
+                              "target_hp_ratio": 6,
+                              "attack_effect_type": "Target"
+                            }
+                          }
+                        ]
                       }
-                    }
-                  ],
-                  "end_effects": []
-                },
-                {
-                  "type": "Delayed",
-                  "tick": 0,
-                  "effects": [
-                    {
-                      "type": "ViewEffect",
-                      "name": "league_poppy_q_crack"
-                    }
-                  ]
-                },
-                {
-                  "type": "Delayed",
-                  "tick": 15,
-                  "effects": [
-                    {
-                      "type": "ViewEffect",
-                      "name": "league_poppy_q_crack"
-                    }
-                  ]
-                },
-                {
-                  "type": "Delayed",
-                  "tick": 30,
-                  "effects": [
-                    {
-                      "type": "ViewEffect",
-                      "name": "league_poppy_q_crack"
-                    }
-                  ]
-                },
-                {
-                  "type": "Delayed",
-                  "tick": 45,
-                  "effects": [
-                    {
-                      "type": "ViewEffect",
-                      "name": "league_poppy_q_crack"
-                    }
-                  ]
-                },
-                {
-                  "type": "Delayed",
-                  "tick": 60,
-                  "effects": [
-                    {
-                      "type": "ViewEffect",
-                      "name": "league_poppy_q_burst"
-                    },
-                    {
-                      "type": "Sfx",
-                      "name": "league_poppy_q_burst"
-                    },
-                    {
-                      "type": "RangeProjectile",
-                      "name": "league_poppy_q_burst_z",
-                      "shape": {
-                        "Circle": {
-                          "radius": 18000
-                        }
-                      },
-                      "delay": 1,
-                      "apply": 1,
-                      "applied_target": "EnemyWithoutTower",
-                      "applied_effects": [
-                        {
-                          "casting_type": "Targeting",
-                          "effect": {
-                            "type": "Attack",
-                            "damage": 60,
-                            "attack_ratio": 70,
-                            "hp_ratio": 0,
-                            "target_hp_ratio": 0,
-                            "attack_effect_type": "Target"
-                          }
-                        },
-                        {
-                          "casting_type": "Targeting",
-                          "effect": {
-                            "type": "ViewEffect",
-                            "name": "league_poppy_q_hit"
-                          }
-                        },
-                        {
-                          "casting_type": "Targeting",
-                          "effect": {
-                            "type": "TargetSfx",
-                            "name": "league_poppy_q_hit"
-                          }
-                        }
-                      ]
-                    },
-                    {
-                      "type": "RangeProjectile",
-                      "name": "league_poppy_q_burst_c",
-                      "shape": {
-                        "Circle": {
-                          "radius": 18000
-                        }
-                      },
-                      "delay": 1,
-                      "apply": 1,
-                      "applied_target": "EnemyChampion",
-                      "applied_effects": [
-                        {
-                          "casting_type": "Targeting",
-                          "effect": {
-                            "type": "Attack",
-                            "damage": 0,
-                            "attack_ratio": 0,
-                            "hp_ratio": 0,
-                            "target_hp_ratio": 6,
-                            "attack_effect_type": "Target"
-                          }
-                        }
-                      ]
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
         }
       ]
     }
@@ -1461,6 +1702,45 @@
             {
               "type": "Native",
               "effect_ref": "league_poppy:charge"
+            },
+            {
+              "type": "RangeEffect",
+              "shape": {
+                "Circle": {
+                  "radius": 1000
+                }
+              },
+              "target": "AllyOnlySelf",
+              "apply_type": "AroundCaster",
+              "effects": [
+                {
+                  "type": "Delayed",
+                  "tick": 12,
+                  "effects": [
+                    {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_poppy_e_combo"
+                        },
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_poppy_e_combo",
+                            "duration": {
+                              "Time": {
+                                "tick": 60
+                              }
+                            }
+                          },
+                          "only_to_enemy": false
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
             },
             {
               "type": "Delayed",
