@@ -71,6 +71,11 @@ JOINTS = {
                  l_hand="L_Hand", r_shoulder="R_UpArm", r_elbow="R_ForeArm", r_hand="R_Hand", l_vine="L_Vine_4",
                  l_vine_tip="L_Vine_8", r_vine="R_Vine_4", r_vine_tip="R_Vine_8",
                  **{f"{s}_v{i}": f"{s.upper()}_Vine_{i}" for s in "lr" for i in range(1, 9)}),
+    "mel": dict(pelvis="Pelvis", chest="Chest", head="Head", l_hip="L_Hip", l_knee="L_KneeLower", l_foot="L_Foot",
+                r_hip="R_Hip", r_knee="R_KneeLower", r_foot="R_Foot", l_shoulder="L_Shoulder", l_elbow="L_Elbow",
+                l_hand="L_Hand", r_shoulder="R_Shoulder", r_elbow="R_Elbow", r_hand="R_Hand", l_sleeve="L_Sleeve1",
+                r_sleeve="R_Sleeve1", dress="C_Dress3_SKN", dress_end="C_Dress5_SKN", l_back="L_Back1_Dress5_SKN",
+                r_back="R_Back1_Dress5_SKN"),
 }
 BONES = [("pelvis", "chest"), ("chest", "head"), ("l_hip", "l_knee"), ("l_knee", "l_foot"), ("r_hip", "r_knee"),
          ("r_knee", "r_foot"), ("l_shoulder", "l_elbow"), ("l_elbow", "l_hand"), ("r_shoulder", "r_elbow"),

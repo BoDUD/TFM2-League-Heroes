@@ -1001,6 +1001,13 @@
         "skill": "甩出两条锁链交叉于目标处，沿途敌人受到<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<>魔法伤害并减速25%；<#ffb900ff>0.6秒<>后交叉点爆炸，造成<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<>魔法伤害。",
         "skill2": "朝敌方英雄突进，再甩出锁链：命中的第一个敌方英雄受到<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>魔法伤害、被<#ef5350ff>击飞<><#ffb900ff>0.5秒<>，塞拉斯把自己拉过去。",
         "ult": "锁链命中敌方英雄，<#ef5350ff>眩晕<><#ffb900ff>0.5秒<>并夺走大招；<#ffb900ff>10秒<>内再放，在目标处爆发，<#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>魔法伤害并<#ef5350ff>击飞<>周围敌人。"
+      },
+      "league_mel": {
+        "name": "梅尔",
+        "attack": "射出金色光弹。<#ff9028ff>灼灼之光<>：每放一个技能，下次普攻多射3枚光弹（最多9枚），每枚<#a974ffff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>5%<>魔法伤害；打中英雄叠一层<#ff9028ff>夺命残影<>。<#ff9028ff>灵魂折镜<>：每<#ffb900ff>25秒<>第一次打中英雄时张开屏障<#ffb900ff>1.25秒<>，受到的伤害减少100%并反弹40%，移速+25%。",
+        "skill": "耀光飞弹落在目标处，连续爆炸<#ffb900ff>6次<>，每次对范围内的敌人造成<#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<>魔法伤害。",
+        "skill2": "射出阳炎法球，中心的敌人受到<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>魔法伤害并被<#ef5350ff>禁锢<><#ffb900ff>1秒<>；周围的敌人减速30%，<#ffb900ff>1.5秒<>内受到<#a974ffff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>6%<>×4魔法伤害。",
+        "ult": "无视距离打击所有带<#ff9028ff>夺命残影<>的敌方英雄，每层残影造成<#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>8%<>魔法伤害。"
       }
     },
     "skill_name": {
@@ -1718,6 +1725,11 @@
         "skill1": "锁链鞭击",
         "skill2": "潜掠/强掳",
         "ult": "其人之道"
+      },
+      "league_mel": {
+        "skill1": "耀光齐射",
+        "skill2": "阳炎涡旋",
+        "ult": "鎏金蚀日"
       }
     }
   },
@@ -2723,6 +2735,13 @@
         "skill": "甩出兩條鎖鍊交叉於目標處，沿途敵人受到<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<>魔法傷害並緩速25%；<#ffb900ff>0.6秒<>後交叉點爆炸，造成<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<>魔法傷害。",
         "skill2": "朝敵方英雄突進，再甩出鎖鍊：命中的第一個敵方英雄受到<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>魔法傷害、被<#ef5350ff>擊飛<><#ffb900ff>0.5秒<>，賽勒斯把自己拉過去。",
         "ult": "鎖鍊命中敵方英雄，<#ef5350ff>暈眩<><#ffb900ff>0.5秒<>並奪走大招；<#ffb900ff>10秒<>內再放，在目標處爆發，<#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>魔法傷害並<#ef5350ff>擊飛<>周圍敵人。"
+      },
+      "league_mel": {
+        "name": "梅爾",
+        "attack": "射出金色光彈。<#ff9028ff>炙灼耀輝<>：每施放一個技能，下次普攻多射3發射彈（最多9發），每發<#a974ffff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>5%<>魔法傷害；打中英雄疊一層<#ff9028ff>奪目<>。<#ff9028ff>叱返金身<>：每<#ffb900ff>25秒<>第一次打中英雄時張開屏障<#ffb900ff>1.25秒<>，受到的傷害減少100%並反彈40%，移速+25%。",
+        "skill": "絢輝飛彈落在目標處，連續爆炸<#ffb900ff>6次<>，每次對範圍內的敵人造成<#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<>魔法傷害。",
+        "skill2": "射出烈陽法球，中心的敵人受到<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>魔法傷害並被<#ef5350ff>禁錮<><#ffb900ff>1秒<>；周圍的敵人緩速30%，<#ffb900ff>1.5秒<>內受到<#a974ffff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>6%<>×4魔法傷害。",
+        "ult": "無視距離打擊所有帶<#ff9028ff>奪目<>堆層的敵方英雄，每層造成<#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>8%<>魔法傷害。"
       }
     },
     "skill_name": {
@@ -3440,6 +3459,11 @@
         "skill1": "鍊斬",
         "skill2": "逆罪突進/罪獄鍊罰",
         "ult": "盜技禁鍊"
+      },
+      "league_mel": {
+        "skill1": "絢輝彈幕",
+        "skill2": "烈陽羅網",
+        "ult": "無垠天照"
       }
     }
   },
@@ -4445,6 +4469,13 @@
         "skill": "Lashes two chains that cross at the target: enemies along them take <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<> magic damage and are slowed 25%; after <#ffb900ff>0.6s<> the crossing explodes for <#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<> magic damage.",
         "skill2": "Dashes toward an enemy champion, then throws a chain: the first enemy champion hit takes <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> magic damage, is <#ef5350ff>knocked up<> for <#ffb900ff>0.5s<> and Sylas pulls himself to it.",
         "ult": "His chain hits an enemy champion, <#ef5350ff>stuns<> it for <#ffb900ff>0.5s<> and steals its ultimate; cast again within <#ffb900ff>10s<> to unleash it at the target: <#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> magic damage and nearby enemies <#ef5350ff>knocked up<>."
+      },
+      "league_mel": {
+        "name": "Mel",
+        "attack": "A golden bolt. <#ff9028ff>Searing Brilliance<>: each ability adds 3 bolts to her next attack (up to 9), each dealing <#a974ffff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>5%<> magic damage; hitting a champion applies <#ff9028ff>Overwhelm<>. <#ff9028ff>Rebuttal<>: every <#ffb900ff>25s<>, her first champion hit raises a barrier for <#ffb900ff>1.25s<>: 100% less damage taken, 40% reflected, +25% move speed.",
+        "skill": "Bolts rain on the target's spot and burst <#ffb900ff>6 times<>, each dealing <#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<> magic damage to enemies there.",
+        "skill2": "Fires a radiant orb: enemies at its centre take <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> magic damage and are <#ef5350ff>rooted<> for <#ffb900ff>1s<>; those around it are slowed 30% and burn for <#a974ffff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>6%<> x4 over <#ffb900ff>1.5s<>.",
+        "ult": "Strikes every enemy champion marked with <#ff9028ff>Overwhelm<>, however far: <#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>8%<> magic damage per stack."
       }
     },
     "skill_name": {
@@ -5162,6 +5193,11 @@
         "skill1": "Chain Lash",
         "skill2": "Abscond / Abduct",
         "ult": "Hijack"
+      },
+      "league_mel": {
+        "skill1": "Radiant Volley",
+        "skill2": "Solar Snare",
+        "ult": "Golden Eclipse"
       }
     }
   },
@@ -6167,6 +6203,13 @@
         "skill": "사슬 두 개를 대상 위치에서 교차시켜 경로의 적에게 <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<> 마법 피해와 25% 둔화, <#ffb900ff>0.6초<> 후 교차점이 폭발해 <#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<> 마법 피해.",
         "skill2": "적 챔피언 쪽으로 돌진한 뒤 사슬을 던져 처음 맞은 적 챔피언에게 <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> 마법 피해, <#ffb900ff>0.5초<> <#ef5350ff>공중에 띄움<>, 그쪽으로 자신을 끌어당김.",
         "ult": "사슬이 적 챔피언을 맞혀 <#ffb900ff>0.5초<> <#ef5350ff>기절<>시키고 궁극기를 빼앗음. <#ffb900ff>10초<> 안에 다시 쓰면 대상 위치에서 폭발해 <#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> 마법 피해, 주변 적 <#ef5350ff>공중에 띄움<>."
+      },
+      "league_mel": {
+        "name": "멜",
+        "attack": "황금 투사체 발사. <#ff9028ff>이글거리는 광휘<>: 스킬을 쓸 때마다 다음 기본 공격에 투사체 3개 추가(최대 9개), 개당 <#a974ffff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>5%<> 마법 피해; 챔피언 적중 시 <#ff9028ff>압도<> 중첩. <#ff9028ff>반박<>: <#ffb900ff>25초<>마다 처음 챔피언을 맞히면 <#ffb900ff>1.25초<> 동안 받는 피해 100% 감소, 40% 반사, 이동 속도 +25%.",
+        "skill": "대상 위치에 투사체가 쏟아져 <#ffb900ff>6번<> 폭발, 매번 범위 내 적에게 <#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<> 마법 피해.",
+        "skill2": "태양 구체 발사: 중심의 적은 <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> 마법 피해를 입고 <#ffb900ff>1초<> <#ef5350ff>속박<>; 주변 적은 30% 둔화, <#ffb900ff>1.5초<> 동안 <#a974ffff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>6%<> x4 마법 피해.",
+        "ult": "거리와 관계없이 <#ff9028ff>압도<> 중첩이 있는 모든 적 챔피언을 공격, 중첩당 <#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>8%<> 마법 피해."
       }
     },
     "skill_name": {
@@ -6884,6 +6927,11 @@
         "skill1": "사슬 후려치기",
         "skill2": "도주 / 억압",
         "ult": "강탈"
+      },
+      "league_mel": {
+        "skill1": "빛의 세례",
+        "skill2": "태양 올가미",
+        "ult": "황금 일식"
       }
     }
   },
@@ -7889,6 +7937,13 @@
         "skill": "2本の鎖を対象の位置で交差させ、経路の敵に<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<>の魔法ダメージと25%スロウ。<#ffb900ff>0.6秒<>後に交差点が爆発し<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<>の魔法ダメージ。",
         "skill2": "敵チャンピオンへ突進し、鎖を投げる：最初に当たった敵チャンピオンに<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>の魔法ダメージ、<#ffb900ff>0.5秒<><#ef5350ff>ノックアップ<>、自身を引き寄せる。",
         "ult": "鎖が敵チャンピオンに当たると<#ffb900ff>0.5秒<><#ef5350ff>スタン<>させアルティメットを奪う。<#ffb900ff>10秒<>以内に再使用で対象の位置で炸裂、<#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>の魔法ダメージと周囲の敵を<#ef5350ff>ノックアップ<>。"
+      },
+      "league_mel": {
+        "name": "メル",
+        "attack": "黄金の弾を放つ。<#ff9028ff>灼熱の輝き<>：スキルを使うたび次の通常攻撃で弾が3発増える（最大9発）、1発<#a974ffff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>5%<>の魔法ダメージ。チャンピオンに当たると<#ff9028ff>圧倒<>1スタック。<#ff9028ff>反駁<>：<#ffb900ff>25秒<>ごとに最初にチャンピオンに当てると<#ffb900ff>1.25秒<>障壁、被ダメージ100%減、40%反射、移動速度+25%。",
+        "skill": "対象の地点に弾が降り注ぎ<#ffb900ff>6回<>爆発、毎回範囲内の敵に<#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<>の魔法ダメージ。",
+        "skill2": "陽光の球を放つ。中心の敵に<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>の魔法ダメージと<#ffb900ff>1秒<><#ef5350ff>スネア<>、周囲の敵は30%スロウと<#ffb900ff>1.5秒<>で<#a974ffff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>6%<>×4の魔法ダメージ。",
+        "ult": "距離に関係なく<#ff9028ff>圧倒<>スタックを持つ全敵チャンピオンを打ち、1スタックごとに<#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>8%<>の魔法ダメージ。"
       }
     },
     "skill_name": {
@@ -8606,6 +8661,11 @@
         "skill1": "鎖の鞭",
         "skill2": "逃亡 / 拉致",
         "ult": "乗っ取り"
+      },
+      "league_mel": {
+        "skill1": "輝きの連撃",
+        "skill2": "陽光の枷",
+        "ult": "黄金蝕"
       }
     }
   }

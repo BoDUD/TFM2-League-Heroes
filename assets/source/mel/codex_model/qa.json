@@ -1,0 +1,62 @@
+[
+  {
+    "file": "mel-model-A-1.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_levels": 256,
+    "bbox_alpha_128": [
+      103,
+      85,
+      1177,
+      1248
+    ],
+    "visible_height_alpha_128": 1163,
+    "occupied_16px_cells": 2849,
+    "nonuniform_16px_cells": 2849,
+    "exact_16px_grid_pass": false,
+    "hard_alpha_pass": false
+  },
+  {
+    "file": "mel-model-A-2.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_levels": 256,
+    "bbox_alpha_128": [
+      131,
+      90,
+      1149,
+      1236
+    ],
+    "visible_height_alpha_128": 1146,
+    "occupied_16px_cells": 2386,
+    "nonuniform_16px_cells": 2386,
+    "exact_16px_grid_pass": false,
+    "hard_alpha_pass": false
+  },
+  {
+    "file": "mel-model-A-3.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_levels": 256,
+    "bbox_alpha_128": [
+      129,
+      70,
+      1157,
+      1218
+    ],
+    "visible_height_alpha_128": 1148,
+    "occupied_16px_cells": 2762,
+    "nonuniform_16px_cells": 2762,
+    "exact_16px_grid_pass": false,
+    "hard_alpha_pass": false
+  }
+]
