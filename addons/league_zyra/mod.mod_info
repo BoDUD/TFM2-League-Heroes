@@ -1,0 +1,20 @@
+{
+  "author": "BoDUD",
+  "contains_code": true,
+  "dependencies": [
+    {
+      "mod_id": "base",
+      "version": ">=0.4.11"
+    },
+    {
+      "mod_id": "league",
+      "version": ">=0.177.0"
+    }
+  ],
+  "description": "Test build of Zyra as in League (needs League of Legends Heroes): replaces the main pack's Zyra so her Garden of Thorns drops seeds on the ground near her (and one on every takedown), Deadly Spines and Grasping Roots landing near seeds grow them into plants that strike champions first with damage rising with her level (the Thorn Spitter spits visible thorns), and Stranglethorns enrages them (the main pack: every Q and E grows one plant where it lands). Other champions are untouched. Writes a log for testing.",
+  "last_updated": "2026-10-20",
+  "mod_id": "league_zyra",
+  "mod_type": "native",
+  "name": "League Heroes: Zyra's seeds and plants (test)",
+  "version": "0.1.0"
+}

@@ -123,6 +123,10 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // her Shadow's ear tips to her soles, her own 51: 「34 像素」「PPU 1.5」; ult_dash / ult_hit the kit's CasterAnimations),
     // so no SIZES row
     ("league_vex", 1.5, include_str!("../../../league/champions/league_vex#anim.fanim")),
+    // Zyra: posed by tools/art/rig_zyra.py on Codex's step-1 take A-1 at 1.7 squares a game pixel (74 game rows hair to
+    // soles, her own face: 「提高点ppu像素吧」「脸部完全变形了啊」; every action on the 3/4 design: 「就用四分之三面来做啊」), so no
+    // SIZES row
+    ("league_zyra", 1.7, include_str!("../../../league/champions/league_zyra#anim.fanim")),
     // Powder (tft_powder, the tft pack in tft/: Teamfight Tactics' own units, its own mod; this DLL draws her dense
     // frames when both packs are enabled): the idle design and Codex's skeleton poses with one clean head, posed by
     // tools/art/rig_powder.py at 1.75 squares a game pixel (61 rows: 「35」, then 「PPU像素好低啊 能调一下吗」), shown at 90 % (SIZES)
@@ -231,10 +235,13 @@ pub fn grown(per: f32, stacks: usize) -> f32 {
 
 /// Effect sheets drawn dense like a hero's sheet (tags `idle` / `hd_idle` only, PPU squares a game pixel, hd_idle PPU times
 /// as wide): league_yuumi_ride, the cat lying on her book on the head of the ally Yuumi rides (the user: 「1.5 倍（21 格）」
-/// for the 14-px picture; tools/art/import_yuumi_fx.py). Looked up like the heroes (src/lookup.rs); the battlefield's
+/// for the 14-px picture; tools/art/import_yuumi_fx.py), league_zyra_thicket (below). Looked up like the heroes (src/lookup.rs); the battlefield's
 /// entity scale (src/view.rs) never meets them - they are no entity's body.
 pub const EFFECTS: &[(&str, f32, &str)] = &[
     ("league_yuumi_ride", 1.5, include_str!("../../../league/effects/league_yuumi_ride#anim.fanim")),
+    // league_zyra's R thicket: Codex's squares 3 x 3 at PPU 2, 1.5 game px each - the picture 1.5 times as big for R's
+    // radius 44000 (the user: 「R技能范围做大点」「不用重画啊 你调整一下不就行了吗」; tools/art/import_zyra_fx.py)
+    ("league_zyra_thicket", 2.0, include_str!("../../../league/effects/league_zyra_thicket#anim.fanim")),
 ];
 
 pub const PREFIX: &str = "hd_";
@@ -266,6 +273,8 @@ pub const UI_SIZES: &[(&str, f32)] = &[
     ("league_rell", 0.85),
     ("league_renata", 0.78),
     ("league_tahmkench", 0.87),
+    // Zyra (#140): 43.5 game rows hair to soles at PPU 1.7 - 12.7 px of her legs hid under the card's canvas
+    ("league_zyra", 0.89),
 ];
 
 /// The `"lo_..."` animation names of a .fanim.

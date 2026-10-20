@@ -1,0 +1,261 @@
+{
+ "hero": "zyra",
+ "champ": "Zyra",
+ "camera": {
+  "yaw": 35,
+  "pitch": 20,
+  "mirror": true
+ },
+ "chibi": {
+  "head": 2.3,
+  "legs": 0.8,
+  "hair": 0.6
+ },
+ "height": 44,
+ "cell": [
+  120,
+  112,
+  14
+ ],
+ "design": "Zyra_idle1@0",
+ "tags": {
+  "idle": {
+   "frames": [
+    [
+     "zyra_idle1@0",
+     150
+    ],
+    [
+     "zyra_idle1@333",
+     150
+    ],
+    [
+     "zyra_idle1@666",
+     150
+    ],
+    [
+     "zyra_idle1@999",
+     150
+    ],
+    [
+     "zyra_idle1@1332",
+     150
+    ],
+    [
+     "zyra_idle1@1665",
+     150
+    ],
+    [
+     "zyra_idle1@1998",
+     150
+    ],
+    [
+     "zyra_idle1@2331",
+     150
+    ]
+   ]
+  },
+  "run": {
+   "flat": true,
+   "head_like": "Zyra_idle1@0",
+   "frames": [
+    [
+     "zyra_run@0",
+     133
+    ],
+    [
+     "zyra_run@133",
+     133
+    ],
+    [
+     "zyra_run@267",
+     133
+    ],
+    [
+     "zyra_run@400",
+     133
+    ],
+    [
+     "zyra_run@533",
+     133
+    ],
+    [
+     "zyra_run@666",
+     133
+    ],
+    [
+     "zyra_run@800",
+     133
+    ],
+    [
+     "zyra_run@933",
+     133
+    ]
+   ]
+  },
+  "attack": {
+   "lunge": 0.6,
+   "frames": [
+    [
+     "Zyra_idle1@0>zyra_attack1@60:0.5",
+     80
+    ],
+    [
+     "zyra_attack1@150",
+     80
+    ],
+    [
+     "zyra_attack1@260",
+     90
+    ],
+    [
+     "zyra_attack1@380",
+     100
+    ],
+    [
+     "zyra_attack1@550>Zyra_idle1@0:0.5",
+     100
+    ]
+   ]
+  },
+  "skill": {
+   "lunge": 0.6,
+   "frames": [
+    [
+     "Zyra_idle1@0>zyra_spell2@60:0.5",
+     80
+    ],
+    [
+     "zyra_spell2@130",
+     80
+    ],
+    [
+     "zyra_spell2@250",
+     90
+    ],
+    [
+     "zyra_spell2@400",
+     100
+    ],
+    [
+     "zyra_spell2@600",
+     100
+    ],
+    [
+     "zyra_spell2@800>Zyra_idle1@0:0.5",
+     100
+    ]
+   ]
+  },
+  "skill2": {
+   "lunge": 0.6,
+   "frames": [
+    [
+     "Zyra_idle1@0>zyra_spell3@80:0.5",
+     80
+    ],
+    [
+     "zyra_spell3@180",
+     80
+    ],
+    [
+     "zyra_spell3@280",
+     90
+    ],
+    [
+     "zyra_spell3@420",
+     100
+    ],
+    [
+     "zyra_spell3@600",
+     100
+    ],
+    [
+     "zyra_spell3@800>Zyra_idle1@0:0.5",
+     100
+    ]
+   ]
+  },
+  "ult": {
+   "frames": [
+    [
+     "Zyra_idle1@0>zyra_spell4@80:0.5",
+     80
+    ],
+    [
+     "zyra_spell4@170",
+     90
+    ],
+    [
+     "zyra_spell4@320",
+     100
+    ],
+    [
+     "zyra_spell4@500",
+     120
+    ],
+    [
+     "zyra_spell4@750",
+     120
+    ],
+    [
+     "zyra_spell4@1000>Zyra_idle1@0:0.5",
+     100
+    ]
+   ]
+  },
+  "hit": {
+   "flat": true,
+   "frames": [
+    [
+     "Zyra_idle1@0>zyra_death@120:0.3",
+     100
+    ],
+    [
+     "Zyra_idle1@0>zyra_death@120:0.12",
+     100
+    ]
+   ]
+  },
+  "dead": {
+   "anchor": "first",
+   "lunge": 0.5,
+   "flat": true,
+   "travel": 0.3,
+   "frames": [
+    [
+     "zyra_death@0",
+     100
+    ],
+    [
+     "zyra_death@300",
+     100
+    ],
+    [
+     "zyra_death@700",
+     110
+    ],
+    [
+     "zyra_death@1100",
+     120
+    ],
+    [
+     "zyra_death@1500",
+     120
+    ],
+    [
+     "zyra_death@1800",
+     130
+    ],
+    [
+     "zyra_death@2300",
+     150
+    ],
+    [
+     "zyra_death@3000",
+     400
+    ]
+   ]
+  }
+ }
+}
