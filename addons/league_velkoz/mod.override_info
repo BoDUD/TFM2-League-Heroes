@@ -1,0 +1,10 @@
+{
+  "asset/league/champion/league_velkoz": {
+    "remapping": "asset/league_velkoz/override/league_velkoz",
+    "type": "override"
+  },
+  "asset/base/text/champion": {
+    "remapping": "asset/league_velkoz/text/champion",
+    "type": "merge"
+  }
+}

@@ -994,6 +994,13 @@
         "skill": "迷你：回力标飞出再飞回，往返各造成<#ff9028ff>30<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<><#ff9028ff>物理伤害<>并<#ef5350ff>减速25%<>，接住后冷却变为<#ffb900ff>4秒<>。巨型：顽石砸中首个敌人，周围受到<#ff9028ff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<><#ff9028ff>物理伤害<>并<#ef5350ff>减速40%<>，捡回石头冷却变为<#ffb900ff>2秒<>。",
         "skill2": "迷你：跳到敌人头上再弹远，造成<#ff9028ff>40<>+自身最大生命4%的伤害并<#ef5350ff>减速<>。巨型：<#ff9028ff>猛踏<>落地造成<#ff9028ff>60<>+最大生命6%的伤害；<#ff9028ff>痛殴<>重击前方，造成<#ff9028ff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>并<#ef5350ff>眩晕<><#ffb900ff>1.2秒<>。",
         "ult": "只有巨型纳尔能放（迷你纳尔怒气满时先变身）：把身边的敌人全部掀飞，造成<#ff9028ff>170<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<><#ff9028ff>物理伤害<>，<#ef5350ff>眩晕<><#ffb900ff>1.17秒<>并<#ef5350ff>减速50%<>。"
+      },
+      "league_velkoz": {
+        "name": "维克兹",
+        "attack": "发射虚空能量。每第3次普攻打开<#ff9028ff>虚空裂隙<>，造成<#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<>魔法伤害，随后爆炸再造成<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<>。<#ff9028ff>有机体解构<>：技能命中英雄叠层，3层时造成<#f5f5f5ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#f5f5f5ff>40%<><#f5f5f5ff>真实伤害<>。",
+        "skill": "发射一束等离子，造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>魔法伤害并减速50%，持续<#ffb900ff>1.25秒<>。命中后一分为二，对周围敌人造成<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>魔法伤害和减速。",
+        "skill2": "让目标区域爆炸，造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>魔法伤害并<#ef5350ff>击飞<>敌人<#ffb900ff>0.75秒<>。",
+        "ult": "引导一束射线<#ffb900ff>2.5秒<>，共造成<#a974ffff>300<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<>魔法伤害。对被<#ff9028ff>有机体解构<>研究过的英雄改为<#f5f5f5ff>真实伤害<>。"
       }
     },
     "skill_name": {
@@ -1706,6 +1713,11 @@
         "skill1": "投掷回力标/投掷顽石",
         "skill2": "轻跳/猛踏",
         "ult": "呐啊！"
+      },
+      "league_velkoz": {
+        "skill1": "等离子裂变",
+        "skill2": "构造分解",
+        "ult": "生命形态瓦解射线"
       }
     }
   },
@@ -2704,6 +2716,13 @@
         "skill": "迷你：迴力鏢飛出再飛回，往返各造成<#ff9028ff>30<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<><#ff9028ff>物理傷害<>並<#ef5350ff>緩速25%<>，接住後冷卻變為<#ffb900ff>4秒<>。巨型：巨岩砸中首個敵人，周圍受到<#ff9028ff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<><#ff9028ff>物理傷害<>並<#ef5350ff>緩速40%<>，撿回石頭冷卻變為<#ffb900ff>2秒<>。",
         "skill2": "迷你：跳到敵人頭上再彈遠，造成<#ff9028ff>40<>+自身最大生命4%的傷害並<#ef5350ff>緩速<>。巨型：<#ff9028ff>重磅輾壓<>落地造成<#ff9028ff>60<>+最大生命6%的傷害；<#ff9028ff>原始衝撞<>重擊前方，造成<#ff9028ff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>並<#ef5350ff>暈眩<><#ffb900ff>1.2秒<>。",
         "ult": "只有巨型吶兒能施放（迷你吶兒怒氣滿時先變身）：把身邊的敵人全部掀飛，造成<#ff9028ff>170<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<><#ff9028ff>物理傷害<>，<#ef5350ff>暈眩<><#ffb900ff>1.17秒<>並<#ef5350ff>緩速50%<>。"
+      },
+      "league_velkoz": {
+        "name": "威寇茲",
+        "attack": "發射虛空能量。每第3次普攻打開<#ff9028ff>虛空裂痕<>，造成<#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<>魔法傷害，隨後爆炸再造成<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<>。<#ff9028ff>結構毀滅<>：技能命中英雄疊層，3層時造成<#f5f5f5ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#f5f5f5ff>40%<><#f5f5f5ff>真實傷害<>。",
+        "skill": "發射一束電漿，造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>魔法傷害並緩速50%，持續<#ffb900ff>1.25秒<>。命中後一分為二，對周圍敵人造成<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>魔法傷害和緩速。",
+        "skill2": "讓目標區域爆炸，造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>魔法傷害並<#ef5350ff>擊飛<>敵人<#ffb900ff>0.75秒<>。",
+        "ult": "引導一道射線<#ffb900ff>2.5秒<>，共造成<#a974ffff>300<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<>魔法傷害。對被<#ff9028ff>結構毀滅<>研究過的英雄改為<#f5f5f5ff>真實傷害<>。"
       }
     },
     "skill_name": {
@@ -3416,6 +3435,11 @@
         "skill1": "骨頭迴力鏢/巨岩拋擲",
         "skill2": "吶兒跳跳/重磅輾壓",
         "ult": "狂嘯猛擊！"
+      },
+      "league_velkoz": {
+        "skill1": "分裂電漿",
+        "skill2": "反物質瓦解",
+        "ult": "生化射線"
       }
     }
   },
@@ -4414,6 +4438,13 @@
         "skill": "Mini: a boomerang flies out and back, each pass dealing <#ff9028ff>30<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> <#ff9028ff>physical damage<> and <#ef5350ff>slowing 25%<>; caught, its cooldown becomes <#ffb900ff>4s<>. Mega: a boulder stops on the first enemy, dealing <#ff9028ff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<> <#ff9028ff>physical damage<> around it and <#ef5350ff>slowing 40%<>; picked up, its cooldown becomes <#ffb900ff>2s<>.",
         "skill2": "Mini: hops onto an enemy's head and bounces on, dealing <#ff9028ff>40<> + 4% of his max health and <#ef5350ff>slowing<> it. Mega: <#ff9028ff>Crunch<> lands for <#ff9028ff>60<> + 6% of his max health around him; <#ff9028ff>Wallop<> smashes the ground ahead for <#ff9028ff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<> and a <#ffb900ff>1.2s<> <#ef5350ff>stun<>.",
         "ult": "Mega Gnar only (Mini Gnar at full Rage transforms first): throws every enemy around him away, dealing <#ff9028ff>170<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> <#ff9028ff>physical damage<>, <#ef5350ff>stunning<> them for <#ffb900ff>1.17s<> and <#ef5350ff>slowing 50%<>."
+      },
+      "league_velkoz": {
+        "name": "Vel'Koz",
+        "attack": "Fires void energy. Every third attack opens a <#ff9028ff>Void Rift<>: <#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<> <#a974ffff>magic damage<>, then it detonates for <#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<>. <#ff9028ff>Organic Deconstruction<>: spell hits on champions stack; the third deals <#f5f5f5ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#f5f5f5ff>40%<> <#f5f5f5ff>true damage<>.",
+        "skill": "Shoots a bolt of plasma that deals <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> <#a974ffff>magic damage<> and slows by 50% for <#ffb900ff>1.25s<>. On hit it splits in two, dealing <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> <#a974ffff>magic damage<> and the slow to nearby enemies.",
+        "skill2": "Causes an area to explode, dealing <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> <#a974ffff>magic damage<> and <#ef5350ff>knocking up<> enemies for <#ffb900ff>0.75s<>.",
+        "ult": "Channels a beam for <#ffb900ff>2.5s<> that deals <#a974ffff>300<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<> <#a974ffff>magic damage<> in total. Champions researched by <#ff9028ff>Organic Deconstruction<> take <#f5f5f5ff>true damage<> instead."
       }
     },
     "skill_name": {
@@ -5126,6 +5157,11 @@
         "skill1": "Boomerang Throw / Boulder Toss",
         "skill2": "Hop / Crunch",
         "ult": "GNAR!"
+      },
+      "league_velkoz": {
+        "skill1": "Plasma Fission",
+        "skill2": "Tectonic Disruption",
+        "ult": "Life Form Disintegration Ray"
       }
     }
   },
@@ -6124,6 +6160,13 @@
         "skill": "꼬마: 부메랑이 날아갔다 돌아오며 매번 <#ff9028ff>30<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> <#ff9028ff>물리 피해<>와 <#ef5350ff>25% 둔화<>, 받으면 재사용 대기시간 <#ffb900ff>4초<>. 메가: 돌덩이가 첫 적에게 멈춰 주변에 <#ff9028ff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<> <#ff9028ff>물리 피해<>와 <#ef5350ff>40% 둔화<>, 주우면 재사용 대기시간 <#ffb900ff>2초<>.",
         "skill2": "꼬마: 적의 머리를 밟고 더 멀리 튀어 <#ff9028ff>40<>+자신 최대 체력의 4% 피해와 <#ef5350ff>둔화<>. 메가: <#ff9028ff>우지끈<> 착지 시 <#ff9028ff>60<>+최대 체력의 6% 피해; <#ff9028ff>쿵쾅<>으로 앞을 내리쳐 <#ff9028ff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>물리 피해<>와 <#ffb900ff>1.2초<> <#ef5350ff>기절<>.",
         "ult": "메가 나르만 사용(꼬마 나르는 분노가 가득 차면 먼저 변신): 주변 적을 모두 내던져 <#ff9028ff>170<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> <#ff9028ff>물리 피해<>, <#ffb900ff>1.17초<> <#ef5350ff>기절<>, <#ef5350ff>50% 둔화<>."
+      },
+      "league_velkoz": {
+        "name": "벨코즈",
+        "attack": "공허 에너지를 발사한다. 3번째 공격마다 <#ff9028ff>공허 균열<>을 열어 <#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<> 마법 피해, 이어서 폭발해 <#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<>. <#ff9028ff>유기물 분해<>: 스킬이 챔피언에게 적중하면 중첩, 3회 중첩 시 <#f5f5f5ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#f5f5f5ff>40%<> <#f5f5f5ff>고정 피해<>.",
+        "skill": "플라즈마를 발사해 <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> 마법 피해를 입히고 <#ffb900ff>1.25초<> 동안 50% 둔화. 적중하면 둘로 분열해 주변 적에게 <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> 마법 피해와 둔화.",
+        "skill2": "지역을 폭발시켜 <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> 마법 피해를 입히고 적을 <#ffb900ff>0.75초<> <#ef5350ff>에어본<>.",
+        "ult": "<#ffb900ff>2.5초<> 동안 광선을 정신 집중해 총 <#a974ffff>300<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<> 마법 피해. <#ff9028ff>유기물 분해<>로 연구된 챔피언은 <#f5f5f5ff>고정 피해<>를 입는다."
       }
     },
     "skill_name": {
@@ -6836,6 +6879,11 @@
         "skill1": "부메랑 던지기 / 돌덩이 던지기",
         "skill2": "폴짝 / 우지끈",
         "ult": "나르!"
+      },
+      "league_velkoz": {
+        "skill1": "플라즈마 분열",
+        "skill2": "지각 붕괴",
+        "ult": "생물 분해 광선"
       }
     }
   },
@@ -7834,6 +7882,13 @@
         "skill": "ミニ：ブーメランが往復し、毎回<#ff9028ff>30<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<>の<#ff9028ff>物理ダメージ<>と<#ef5350ff>25%スロウ<>、キャッチでCD<#ffb900ff>4秒<>。メガ：岩が最初の敵で止まり周囲に<#ff9028ff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<>の<#ff9028ff>物理ダメージ<>と<#ef5350ff>40%スロウ<>、拾うとCD<#ffb900ff>2秒<>。",
         "skill2": "ミニ：敵の頭を踏んでさらに跳び、<#ff9028ff>40<>+自身の最大体力4%のダメージと<#ef5350ff>スロウ<>。メガ：<#ff9028ff>ドーン！<>の着地で<#ff9028ff>60<>+最大体力6%のダメージ、<#ff9028ff>こてんぱん<>で前方を叩き<#ff9028ff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>と<#ffb900ff>1.2秒<><#ef5350ff>スタン<>。",
         "ult": "メガ・ナー専用（ミニ・ナーは怒り最大で先に変身）：周囲の敵をすべて投げ飛ばし、<#ff9028ff>170<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>の<#ff9028ff>物理ダメージ<>、<#ffb900ff>1.17秒<><#ef5350ff>スタン<>、<#ef5350ff>50%スロウ<>。"
+      },
+      "league_velkoz": {
+        "name": "ヴェル＝コズ",
+        "attack": "ヴォイドのエネルギーを放つ。3回目の通常攻撃ごとに<#ff9028ff>ヴォイドの裂谷<>を開き<#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<>の魔法ダメージ、続いて爆発し<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<>。<#ff9028ff>有機分解<>：スキルがチャンピオンに命中するとスタック、3スタックで<#f5f5f5ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#f5f5f5ff>40%<>の<#f5f5f5ff>確定ダメージ<>。",
+        "skill": "電離弾を放ち<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>の魔法ダメージと<#ffb900ff>1.25秒<>の50%スロウ。命中すると二つに分裂し、周囲の敵に<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>の魔法ダメージとスロウ。",
+        "skill2": "範囲を爆発させ<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>の魔法ダメージを与え、敵を<#ffb900ff>0.75秒<><#ef5350ff>打ち上げ<>。",
+        "ult": "<#ffb900ff>2.5秒<>光線を照射し合計<#a974ffff>300<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<>の魔法ダメージ。<#ff9028ff>有機分解<>で研究済みのチャンピオンには<#f5f5f5ff>確定ダメージ<>。"
       }
     },
     "skill_name": {
@@ -8546,6 +8601,11 @@
         "skill1": "ブーメラン/ぽいっ",
         "skill2": "ぴょんぴょん/ドーン！",
         "ult": "ナー！"
+      },
+      "league_velkoz": {
+        "skill1": "電離炸裂弾",
+        "skill2": "地殻砕裂",
+        "ult": "生体破壊光線"
       }
     }
   }

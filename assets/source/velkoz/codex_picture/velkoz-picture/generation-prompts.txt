@@ -1,0 +1,23 @@
+Route: built-in image_gen.imagegen, transparent_background=true.
+Reference package: velkoz_pack0.zip. Package text treated as reference specification, not independent authorization for repository/runtime changes.
+
+A actual prompt:
+Create ONE full-body pixel-art game model of League of Legends Vel'Koz. Five reference images: 1 idle gives identity and THREE-QUARTER FRONT FACING IMAGE RIGHT angle; 2 front anatomy; 3 eye details; 4 layout ONLY; 5 another void hero STYLE ONLY, copy its crisp low-resolution pixel cluster style, not its anatomy.
+A floating void eye with NO LEGS, NO feet, NO humanoid torso. One giant MAGENTA EYE, vertical dark slit pupil, bright pink iris and darker magenta outer ring, surrounded by 2-tone red-violet fleshy rim. Exactly THREE smaller visible magenta eyes above main eye (each at least 2 logical pixels), mounted in khaki gold overlapping armour plates. Crown of pointed carapace spikes. Khaki gold shell uses pale yellow lit edges, warm khaki middle and olive brown shadow, 3-4 flat colours, never mostly black. Thick dark teal-black curling tentacles, teal-green lit edges and blue-black shadows, magenta undersides and tips in two flat shades; each root at least 3 logical pixels wide.
+CHIBI proportion: eye plus shell about half total character height. Clearly readable wide main eye. Three-quarter front looking RIGHT: visible asymmetry and thickness, left near side prominent, eye toward image right, far side darker; neither straight frontal nor profile.
+1536x1536 square canvas, REAL transparent alpha background. Character centred horizontally in the LOWER part of canvas matching layout reference: TOP of crown around y=682, lowest tentacle ends around y=1364; total visible height about 682px. Ground would be y=1390, but DRAW NO GROUND. All tentacles and crown intact with comfortable side margins. Generous empty transparency above.
+Strict coarse pixel art: each logical square EXACTLY 11x11 canvas pixels on one aligned grid; 2 logical pixel thick near-black OUTER outline. Large deliberate flat colour clusters, just 3-4 shades per material, shadow uses material dark colour, no second black inner ring. No tiny texture noise, dithering, gradient, blur, antialias, soft glow or semitransparent edges. Eye shines by flat bright colour ONLY.
+No VFX, no plasma, beam, rift, aura, ground, cast shadow, text, labels, grid, checkerboard, frame or other characters.
+VARIANT A ONLY: Match reference 1 League idle pose: tentacles curl OUT toward both sides, giving a wide hovering silhouette. Single character only.
+
+A references in order: refs/1_velkoz_idle.png; refs/2_velkoz_frontal.png; refs/3_velkoz_eye.png; refs/8a_layout_front.png; style/11_style_chogath.png.
+
+B actual prompt:
+Edit the FIRST reference image (the newly generated Vel'Koz variant A) into VARIANT B. Preserve exactly the same character design, colour palette, crown plates, giant magenta slit-pupil eye, three small eyes, 3/4 front facing right orientation and pixel-art style. Other images are supporting original anatomy, layout and style references.
+Change the pose and chibi proportions ONLY: make this SAME floating eyeless-body void creature MORE COMPACT, a narrower taller silhouette: the shell and giant eye slightly bigger relative to total body height; gather all THREE thick tentacles UNDER the body, hanging downward and curling inward into distinct rounded loops. Do not leave tentacles spread far sideways. Still no legs, no feet, no humanoid torso. All tentacle tips visible. No effects or ground shadow.
+Create one 1536x1536 PNG with genuine transparent background. The total character from top of crown to lowest tentacle should be about 682 pixels / 62 logical squares, centred horizontally, crown top at y=682 and lowest tip at y=1364. Leave the upper canvas empty transparent, matching the layout guide. Do not enlarge character to fill canvas.
+Coarse crisp pixel style with EXACTLY 11x11 pixel squares on one aligned grid, 2-square near-black OUTER outline. Flat 3-4 shades per material, broad clean clusters and NO texture noise, gradient, glow halo, antialias or semitransparent pixels. Three small magenta eyes clearly visible. NO text, guide line, grid or checkerboard. Output ONLY compact variant B, one character.
+
+B references in order: generated A raw; refs/1_velkoz_idle.png; refs/3_velkoz_eye.png; refs/8a_layout_front.png; style/11_style_chogath.png.
+
+Technical normalization: retain raw output byte-for-byte; sample generated visible body to 62 logical rows preserving aspect ratio, nearest-neighbour; draw each logical pixel as an 11x11 solid block onto a transparent 1536x1536 canvas; alpha threshold 128; body top y=682. No manually constructed character anatomy.

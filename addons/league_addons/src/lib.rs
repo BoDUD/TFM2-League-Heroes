@@ -253,6 +253,9 @@ mod warwick;
 #[allow(dead_code)] // items public in the add-on's own crate
 #[path = "../../league_gnar/src/lib.rs"]
 mod gnar;
+#[allow(dead_code)] // items public in the add-on's own crate
+#[path = "../../league_velkoz/src/lib.rs"]
+mod velkoz;
 
 pub const ID: &str = "league_addons";
 
@@ -357,6 +360,7 @@ fn init(host: &StableHost) -> StableMod {
     graves::register(host, &mut module);
     warwick::register(host, &mut module);
     gnar::register(host, &mut module);
+    velkoz::register(host, &mut module);
     module.set_map_customizer(MapReaders);
     host.log(
         LogLevel::Info,
