@@ -21,6 +21,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(os.path.dirname(HERE))
 sys.path.insert(0, HERE)
 import ppu_rig as R  # noqa: E402
+import wukong_run_staff as WS  # noqa: E402
 
 SRC = os.path.join(ROOT, "assets", "source")
 
@@ -45,7 +46,8 @@ def tabard_x(a):
 
 # tag -> [(source frame, ms[, op])]; op (2026-10-19 frame audit, every one lossless): rot - quarter turns
 # counter-clockwise of the whole frame, centred on the standing column; up - rows above the ground; dx - columns moved;
-# flash - the pack's hit flash (ppu_rig.flash)
+# flash - the pack's hit flash (ppu_rig.flash); staff - league_wukong's run staff made one straight piece (wukong_run_staff,
+# 2026-10-22: 「猴子跑步的时候感觉武器看起来是歪的」)
 # the hit: flashed and knocked back two columns, then one (the pack's hit, ppu_rig.flash - the hit had no flash)
 # the death: 8 frames as the pack's - the last fall lands from 3 rows up, lies, bounces a row, lies
 DEAD = [("dead_0", 100), ("dead_1", 110), ("dead_2", 120), ("dead_3", 120), ("dead_4", 60, dict(up=3)),
@@ -70,7 +72,7 @@ AKSHAN = {
 }
 WUKONG = {
     "idle": [(f"idle_{i}", 171) for i in range(7)],
-    "run": [(f"run_{i}", 89) for i in range(9)],
+    "run": [(f"run_{i}", 89, dict(staff=True)) for i in range(9)],
     "attack": [(f"attack_{i}", ms) for i, ms in enumerate([70, 70, 80, 80, 80, 80])],
     "q_attack": [(f"skill_{i}", ms) for i, ms in enumerate([60, 70, 80, 80, 80, 70])],
     "skill": [("skill2_3", 60), ("skill2_4", 80), ("skill2_6", 80), ("skill2_7", 80)],
@@ -104,6 +106,8 @@ def frames(hero):
     D = FrameDesign(hero, cfg)
     rig = R.Rig(D, pad=(70, 70, 60, 30))
     act = os.path.join(SRC, hero, "hd", "act")
+    staffed = [name for seq in cfg["map"].values() for name, _, *op in seq if op and op[0].get("staff")]
+    pal = WS.staff_palette([np.asarray(Image.open(lp(os.path.join(act, n + ".png"))).convert("RGBA")) for n in staffed])
     out = {}
     for tag, seq in cfg["map"].items():
         fr = []
@@ -113,6 +117,8 @@ def frames(hero):
             if not os.path.isfile(lp(p)):
                 raise SystemExit(f"{tag}: {name}.png missing")
             f = np.asarray(Image.open(lp(p)).convert("RGBA"))
+            if op.get("staff"):
+                f = WS.straighten(f, pal)
             h, w = f.shape[:2]
             if op.get("rot"):
                 f = np.rot90(f, op["rot"]).copy()
