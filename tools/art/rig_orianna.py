@@ -26,13 +26,15 @@ Actions (League's clips, tools/lol/pose_ref.py --hide-joints 'Ball|Spinnig', for
   attack 6  the flick (Orianna_attack1): the near arm back and up, swung forward over the chest (the bolt leaves on
             frame 3), held, back
   skill 5   Command (orianna_spell1): the near arm back, then pointing ahead over the chest, held, back
-  skill_w 4 Dissonance (Orianna_spell2's hop): up with the near arm raised behind her, down
-  skill_e 4 Protect (Orianna_spell3's rise on the toes): up a little, the arm raised, then pointing ahead
-  ult 5     Shockwave (Orianna_spell4's crouch): the arm raised behind, the body sinking over the legs, the arm out
-            behind, then thrust ahead at the blast (frame 5, 480 ms: the kit's r_delay 30)
+  skill_w 6 Dissonance (Orianna_spell2's leap): a dip, up into the air with the near arm raised behind her, the
+            top of the leap, coming down, landing low, up
+  skill_e 6 Protect (Orianna_spell3's rise): up off the ground with the arm raised, rising on with it pointing ahead
+            at the ally, the top, coming down, down
+  ult 6     Shockwave (Orianna_spell4's crouch to the ground): the arm raised behind, the body sinking, the arm out behind
+            as she crouches low, held, then thrust ahead at the blast (frame 6, 480 ms: the kit's r_delay 30)
   hit 2     moved back with a white flash
   dead 8    a flinch back, the near knee going out as the body sinks into the skirt, the head dropping forward over the
-            neck, the eyes shut
+            neck, then over onto her back (Orianna_death ends lying): the slumped figure a quarter turn, eyes shut
 """
 import argparse
 import json
@@ -300,6 +302,19 @@ def shift(a, dx, dy):
     return out
 
 
+def lie(a):
+    """The figure a quarter turn counter-clockwise (its head behind her), lying on the ground row, its middle on the
+    pivot - np.rot90, square for square."""
+    ys, xs = np.nonzero(a[..., 3] > 0)
+    sub_ = np.rot90(a[ys.min():ys.max() + 1, xs.min():xs.max() + 1], 1)
+    h, w = sub_.shape[:2]
+    out = blank()
+    top, left = SOLE + 1 - h, PIV_X - w // 2
+    seat = sub_[..., 3] > 0
+    out[top:top + h, left:left + w][seat] = sub_[seat]
+    return out
+
+
 def flash(a, k=0.55):
     out = a.copy()
     m = out[..., 3] > 0
@@ -377,20 +392,28 @@ def frames():
                      (pose("point", dx=2, bob=1), 70), (pose(dx=1), 60), (pose(), 57)]
     out["skill"] = [(pose("back", dx=-2), 60), (pose("point", dx=3), 80), (pose("point", dx=2, bob=1), 70),
                     (pose("point", dx=1), 60), (pose(dx=1), 63)]
-    out["skill_w"] = [(pose("up", lift=3), 60), (pose("up", lift=6), 80), (pose("up", lift=3), 80), (pose(bob=2), 80)]
-    out["skill_e"] = [(pose("up", lift=2), 70), (pose("point", lift=2, dx=2), 90), (pose("point", dx=2), 80),
-                      (pose(), 60)]
-    out["ult"] = [(pose("up"), 100), (pose("up", sink=4), 120), (pose("up", sink=8), 130), (pose("back", sink=8), 130),
-                  (pose("point", sink=8, dx=2), 120)]
+    # W, E and R as League plays them (the user, 2026-10-21: 「奥利安娜是不是少了很多动作帧 你看看能补就帮我补」 - W, E
+    # and R were the near arm up and down, four or five frames each, with a 6-row hop at most; League's W leaps, E rises
+    # into the air and R crouches to the ground): the same poses (whole-body lifts, the body sinking over the legs, the
+    # arm's quarter turns), more of them, the actions' lengths unchanged (W and E 300 ms, R 600 ms with the thrust still
+    # at 480)
+    out["skill_w"] = [(pose(bob=3), 40), (pose("up", lift=7), 50), (pose("up", lift=13), 60), (pose("up", lift=9), 50),
+                      (pose(bob=4), 50), (pose(bob=1), 50)]
+    out["skill_e"] = [(pose("up", lift=3), 40), (pose("up", lift=7), 50), (pose("point", lift=10, dx=1), 60),
+                      (pose("point", lift=11, dx=2), 60), (pose("point", lift=5, dx=2), 50), (pose(dx=1), 40)]
+    out["ult"] = [(pose("up"), 80), (pose("up", sink=5), 90), (pose("back", sink=10, splay=2), 100),
+                  (pose("back", sink=14, splay=4), 110), (pose("back", sink=14, splay=4, bob=1), 100),
+                  (pose("point", sink=14, splay=4, dx=2), 120)]
     out["hit"] = [(shift(pose(), -4, 0), 90), (shift(pose(), -2, 0), 120)]
     # the collapse: thrown back, the near knee going out as she sinks into her skirt, the head dropping, the eyes shut
     d5 = shut_eyes(pose(sink=21, dx=-2, splay=6, bow=(2, 3)))
     # 8 frames (2026-10-19 audit, the pack's deaths have 8): a step more between each sinking pose, the eyes shutting
     # last
+    # then over onto her back as League's death ends (the slumped figure a quarter turn, lying on the ground)
+    lying = lie(d5)
     out["dead"] = [(shift(pose("back"), -3, 0), 120), (pose("back", sink=4, dx=-3, splay=2), 120),
                    (pose("rest", sink=10, dx=-2, splay=3), 120), (pose(sink=13, dx=-2, splay=3, bow=(0, 1)), 100),
-                   (pose(sink=16, dx=-2, splay=4, bow=(1, 2)), 120), (pose(sink=19, dx=-2, splay=5, bow=(2, 3)), 100),
-                   (d5, 160), (d5.copy(), 400)]
+                   (pose(sink=19, dx=-2, splay=5, bow=(2, 3)), 120), (d5, 100), (lying, 160), (lying.copy(), 400)]
     done = {t: [(tidy(a), ms) for a, ms in out[t]] for t in ORDER}
     # the hit's flash after the finish (flashed, the outline is light and the finish ringed it again, closing gaps)
     done["hit"][0] = (flash(done["hit"][0][0]), done["hit"][0][1])
