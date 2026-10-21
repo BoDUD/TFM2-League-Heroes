@@ -317,6 +317,11 @@ pub const PREFIX: &str = "hd_";
 pub const LO_PREFIX: &str = "lo_";
 pub const UI_PPU: f32 = 1.5;
 
+/// `bp`: the hero's ban/pick reel (tools/art/hero_reels.py) - its idle loop with its actions and idle snippets in
+/// between, cut from the frames its sheet holds. The BP grid plays it where it asks for the idle (src/lookup.rs
+/// ui_table / reel_table; the user, 2026-10-22: 「BP页面的动图可以随便切动画帧里面的动作来做吧 包括待机的时候」).
+pub const REEL: &str = "bp";
+
 /// Tall heroes drawn smaller wherever the UI draws lo_ frames (the ban/pick card above all): the card's canvas holds
 /// about 40 game px at 2.2x and these idles are 45-58 px from the head to the feet, so the knees and feet hid behind
 /// the name bar (the user, 2026-10-19: 「烈娜塔在BP格位置调一下吧 一半的腿 还有其他英雄也有这情况」, picked the

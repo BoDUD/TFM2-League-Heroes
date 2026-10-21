@@ -70,6 +70,8 @@ static FAKES: LazyLock<Mutex<HashMap<usize, usize>>> = LazyLock::new(|| Mutex::n
 static SIZES: LazyLock<Mutex<HashMap<usize, (usize, usize, f32, Option<(f32, f32)>)>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
 /// the UI's copies of anim tables: (table, sized, hd_ frames) -> (its ctrl when copied, the copy)
 static UI: LazyLock<Mutex<HashMap<(usize, bool, bool), (usize, usize)>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
+/// a 1x hero's table -> (its ctrl, the BP grid's copy playing its ban/pick reel; 0: the table has none)
+static REELS: LazyLock<Mutex<HashMap<usize, (usize, usize)>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
 /// changed table -> (its ctrl, its battlefield copy)
 static BATTLE: LazyLock<Mutex<HashMap<usize, (usize, usize)>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
 /// anim tables already changed: (table, ctrl)
@@ -382,11 +384,17 @@ unsafe fn after_anim(ptr: usize, len: usize, sp: usize, got: usize) -> usize {
     if !name.ends_with("#anim") || !plausible(got) {
         return got;
     }
-    let Some(hero) = hero else { return got };
+    let rva = q(sp).wrapping_sub(MODULE.load(Ordering::Relaxed));
+    let Some(hero) = hero else {
+        // a hero drawn at 1x (no dense frames): the BP grid plays its ban/pick reel, when its sheet has one
+        if rva == build().bp_grid().0 {
+            return reel_table(got).unwrap_or(got);
+        }
+        return got;
+    };
     if !densify_table(got, hero) {
         return got;
     }
-    let rva = q(sp).wrapping_sub(MODULE.load(Ordering::Relaxed));
     if build().battle_anim_ret.contains(&rva) {
         return battle_table(got, hero).unwrap_or(got);
     }
@@ -441,6 +449,9 @@ unsafe fn ui_table(t: usize, hero: &Hero, sized: bool, hd: bool) -> Option<usize
         } else {
             [want.as_bytes(), key].concat()
         };
+        // the BP grid: the idle is the hero's ban/pick reel (hd_bp), when its sheet has one
+        let reel = [want.as_bytes(), hd::REEL.as_bytes()].concat();
+        let lo_key = if hd && key == b"idle" && bucket_of(t, &reel).is_some() { reel } else { lo_key };
         let src = bucket_of(t, &lo_key)?;
         let (fp, fl) = (q(src + 0x20), q(src + 0x28));
         if !plausible(fp) || fl == 0 || fl > 4096 {
@@ -482,6 +493,69 @@ unsafe fn ui_table(t: usize, hero: &Hero, sized: bool, hd: bool) -> Option<usize
     };
     let what = if hd { format!("hd_ frames / {}, the BP grid", hero.bp_hd()) } else { format!("lo_ frames / {div}") };
     wlog(format!("{}: UI table {sh:#x} for {t:#x} ({what}{}); {check}", hero.id, if sized { ", whole-body" } else { "" }));
+    Some(sh)
+}
+
+/// For the BP grid and a hero drawn at 1x: a copy of the table whose `idle` holds its [`hd::REEL`] frames (the
+/// ban/pick reel, tools/art/hero_reels.py), every other tag its own - all frames copied, like [`ui_table`]'s. None
+/// when the table has no reel (the base game's heroes, other mods'): the game's own table is drawn. Kept, never freed.
+unsafe fn reel_table(t: usize) -> Option<usize> {
+    let ctrl = q(t);
+    if let Ok(s) = REELS.lock() {
+        if let Some(&(c, sh)) = s.get(&t) {
+            if c == ctrl {
+                return (sh != 0).then_some(sh);
+            }
+        }
+    }
+    let mask = q(t + 8);
+    if !plausible(ctrl) || mask >= 1 << 20 || (mask + 1) & mask != 0 {
+        return None;
+    }
+    let (Some(reel), Some(idle)) = (bucket_of(t, hd::REEL.as_bytes()), bucket_of(t, b"idle")) else {
+        // no reel: remembered, so the grid's lookups each frame do not walk the table again
+        if let Ok(mut s) = REELS.lock() {
+            s.insert(t, (ctrl, 0));
+        }
+        return None;
+    };
+    let buckets = mask + 1;
+    let data = ctrl - buckets * BUCKET;
+    let size = buckets * BUCKET + buckets + 16;
+    let mem: &'static mut [u8] = Box::leak(vec![0u8; size].into_boxed_slice());
+    std::ptr::copy_nonoverlapping(data as *const u8, mem.as_mut_ptr(), size);
+    let base = mem.as_mut_ptr() as usize;
+    for i in 0..buckets {
+        if *(ctrl as *const u8).add(i) & 0x80 != 0 {
+            continue;
+        }
+        let b = ctrl - (i + 1) * BUCKET;
+        let src = if b == idle { reel } else { b };
+        let (fp, fl) = (q(src + 0x20), q(src + 0x28));
+        if !plausible(fp) || fl == 0 || fl > 4096 {
+            return None;
+        }
+        let frames: &'static mut [u8] = Box::leak(vec![0u8; fl * FRAME].into_boxed_slice());
+        std::ptr::copy_nonoverlapping(fp as *const u8, frames.as_mut_ptr(), fl * FRAME);
+        let nb = base + (b - data);
+        std::ptr::write_unaligned((nb + 0x18) as *mut usize, fl);
+        std::ptr::write_unaligned((nb + 0x20) as *mut usize, frames.as_ptr() as usize);
+        std::ptr::write_unaligned((nb + 0x28) as *mut usize, fl);
+    }
+    let head: &'static mut [usize; 6] = Box::leak(Box::new([0usize; 6]));
+    for (k, h) in head.iter_mut().enumerate() {
+        *h = q(t + 8 * k);
+    }
+    head[0] = base + buckets * BUCKET;
+    let sh = head.as_ptr() as usize;
+    if let Ok(mut s) = REELS.lock() {
+        s.insert(t, (ctrl, sh));
+    }
+    let check = match game_find(sh, b"idle") {
+        Some(b) => format!("idle: {}", rect_of(b)),
+        None => "idle NOT found".into(),
+    };
+    wlog(format!("BP grid reel table {sh:#x} for {t:#x} (1x); {check}"));
     Some(sh)
 }
 
@@ -734,6 +808,84 @@ mod tests {
                 let b = super::bucket_of(t2, key).unwrap();
                 assert_eq!(std::ptr::read_unaligned((super::q(b + 32) + 8) as *const f32), 10.0, "{key:?} width");
             }
+        }
+    }
+
+    /// A table at `mem` (4 buckets, ctrl after them) holding `entries` (bucket index, key, frames).
+    unsafe fn table(mem: &mut Vec<u8>, entries: &[(usize, &Vec<u8>, &Vec<u8>)]) -> [usize; 6] {
+        let ctrl = 4 * super::BUCKET;
+        mem[ctrl..ctrl + 4].fill(0x80);
+        mem[ctrl + 4..].fill(0x80);
+        let base = mem.as_mut_ptr() as usize;
+        for &(i, key, fr) in entries {
+            mem[ctrl + i] = 1;
+            let b = base + ctrl - (i + 1) * super::BUCKET;
+            let w = |o: usize, v: usize| std::ptr::write_unaligned((b + o) as *mut usize, v);
+            w(0, key.len());
+            w(8, key.as_ptr() as usize);
+            w(16, key.len());
+            w(24, fr.len() / super::FRAME);
+            w(32, fr.as_ptr() as usize);
+            w(40, fr.len() / super::FRAME);
+        }
+        [base + ctrl, 3usize, 0, entries.len(), 0, 0]
+    }
+
+    unsafe fn first(t: usize, key: &[u8]) -> (usize, Vec<f32>) {
+        let b = super::bucket_of(t, key).unwrap();
+        let fp = super::q(b + 32);
+        (super::q(b + 40), (0..5).map(|k| std::ptr::read_unaligned((fp + 4 * k) as *const f32)).collect())
+    }
+
+    #[test]
+    fn the_bp_grid_plays_the_reel_where_it_asks_for_the_idle() {
+        // a 1x hero: idle 1 frame, bp 3 frames; the grid's copy has the reel as its idle, the table stays as it was
+        let (k_idle, k_bp, k_run) = (b"idle".to_vec(), b"bp".to_vec(), b"run".to_vec());
+        let f_idle = frames(&[[1.0, 2.0, 30.0, 40.0, 0.2]]);
+        let f_bp = frames(&[[1.0, 2.0, 30.0, 40.0, 0.2], [50.0, 2.0, 30.0, 40.0, 0.1], [90.0, 2.0, 30.0, 40.0, 0.1]]);
+        let f_run = frames(&[[5.0, 6.0, 30.0, 40.0, 0.1]]);
+        let mut mem = vec![0u8; 4 * super::BUCKET + 4 + 16];
+        unsafe {
+            let head = table(&mut mem, &[(0, &k_idle, &f_idle), (1, &k_bp, &f_bp), (3, &k_run, &f_run)]);
+            let t = head.as_ptr() as usize;
+            let rt = super::reel_table(t).expect("a reel table");
+            assert_eq!(first(rt, b"idle"), (3, vec![1.0, 2.0, 30.0, 40.0, 0.2]));
+            assert_eq!(first(rt, b"run"), (1, vec![5.0, 6.0, 30.0, 40.0, 0.1]));
+            assert_eq!(first(t, b"idle").0, 1);
+            assert_eq!(super::reel_table(t), Some(rt));
+            // no reel (a base or another mod's hero): its own table
+            let mut mem2 = vec![0u8; 4 * super::BUCKET + 4 + 16];
+            let head2 = table(&mut mem2, &[(0, &k_idle, &f_idle), (3, &k_run, &f_run)]);
+            assert_eq!(super::reel_table(head2.as_ptr() as usize), None);
+            assert_eq!(super::reel_table(head2.as_ptr() as usize), None);
+        }
+        // a dense hero: the grid's copy (hd) has hd_bp as its idle, the other UI copies keep lo_idle
+        let keys: Vec<Vec<u8>> = ["idle", "bp", "hd_idle", "hd_bp", "lo_idle", "lo_bp"].iter().map(|k| k.as_bytes().to_vec()).collect();
+        let fr: Vec<Vec<u8>> = (0..6).map(|k| frames(&vec![[3.0 * k as f32, 0.0, 6.0, 6.0, 0.1]; 1 + k % 2])).collect();
+        let mut mem = vec![0u8; 8 * super::BUCKET + 8 + 16];
+        let hero = super::Hero { id: "league_test", ppu: 2.0, size: 1.0, tags: vec!["idle".into(), "bp".into()], lo: true, ui: 1.5 };
+        unsafe {
+            let ctrl = 8 * super::BUCKET;
+            mem[ctrl..].fill(0x80);
+            let base = mem.as_mut_ptr() as usize;
+            for (i, (key, f)) in keys.iter().zip(&fr).enumerate() {
+                mem[ctrl + i] = 1;
+                let b = base + ctrl - (i + 1) * super::BUCKET;
+                let w = |o: usize, v: usize| std::ptr::write_unaligned((b + o) as *mut usize, v);
+                w(0, key.len());
+                w(8, key.as_ptr() as usize);
+                w(16, key.len());
+                w(24, f.len() / super::FRAME);
+                w(32, f.as_ptr() as usize);
+                w(40, f.len() / super::FRAME);
+            }
+            let head = [base + ctrl, 7usize, 0, 6, 0, 0];
+            let t = head.as_ptr() as usize;
+            let grid = super::ui_table(t, &hero, true, true).expect("the grid's table");
+            assert_eq!(first(grid, b"idle").0, 2, "the grid's idle is hd_bp (2 frames)");
+            assert_eq!(first(grid, b"idle").1[0], 9.0 / hero.bp_hd() * hero.shown());
+            let slot = super::ui_table(t, &hero, true, false).expect("the pick slot's table");
+            assert_eq!(first(slot, b"idle").0, 1, "the pick slot keeps lo_idle");
         }
     }
 }
