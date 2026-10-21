@@ -17,7 +17,11 @@
       "br_kb_speed": 1500,
       "br_kb_t": 8,
       "e_quake_r": 30000,
-      "e_anim": 20
+      "e_anim": 20,
+      "p_item": 20,
+      "p_master": 35,
+      "p_ally": 10,
+      "p_master_lv": 9
     }
   },
   "sprite": "asset/league/champions/league_ornn",
@@ -64,23 +68,8 @@
       "type": "Combine",
       "effects": [
         {
-          "type": "SwitchByBuff",
-          "buff_name": "league_ornn_forge",
-          "effect_buff": {
-            "type": "Combine",
-            "effects": []
-          },
-          "effect_none": {
-            "type": "AddCasterBuff",
-            "buff_state": {
-              "name": "league_ornn_forge",
-              "duration": "Permanent",
-              "defence_mult": 10,
-              "magic_resistance_mult": 10,
-              "hp_mult": 6
-            },
-            "only_to_enemy": false
-          }
+          "type": "Combine",
+          "effects": []
         },
         {
           "type": "Combine",
@@ -1272,23 +1261,8 @@
       "type": "Combine",
       "effects": [
         {
-          "type": "SwitchByBuff",
-          "buff_name": "league_ornn_forge",
-          "effect_buff": {
-            "type": "Combine",
-            "effects": []
-          },
-          "effect_none": {
-            "type": "AddCasterBuff",
-            "buff_state": {
-              "name": "league_ornn_forge",
-              "duration": "Permanent",
-              "defence_mult": 10,
-              "magic_resistance_mult": 10,
-              "hp_mult": 6
-            },
-            "only_to_enemy": false
-          }
+          "type": "Combine",
+          "effects": []
         },
         {
           "type": "Sfx",
@@ -2131,23 +2105,8 @@
       "type": "Combine",
       "effects": [
         {
-          "type": "SwitchByBuff",
-          "buff_name": "league_ornn_forge",
-          "effect_buff": {
-            "type": "Combine",
-            "effects": []
-          },
-          "effect_none": {
-            "type": "AddCasterBuff",
-            "buff_state": {
-              "name": "league_ornn_forge",
-              "duration": "Permanent",
-              "defence_mult": 10,
-              "magic_resistance_mult": 10,
-              "hp_mult": 6
-            },
-            "only_to_enemy": false
-          }
+          "type": "Combine",
+          "effects": []
         },
         {
           "type": "Native",
@@ -2380,23 +2339,8 @@
       "type": "Combine",
       "effects": [
         {
-          "type": "SwitchByBuff",
-          "buff_name": "league_ornn_forge",
-          "effect_buff": {
-            "type": "Combine",
-            "effects": []
-          },
-          "effect_none": {
-            "type": "AddCasterBuff",
-            "buff_state": {
-              "name": "league_ornn_forge",
-              "duration": "Permanent",
-              "defence_mult": 10,
-              "magic_resistance_mult": 10,
-              "hp_mult": 6
-            },
-            "only_to_enemy": false
-          }
+          "type": "Combine",
+          "effects": []
         },
         {
           "type": "Sfx",

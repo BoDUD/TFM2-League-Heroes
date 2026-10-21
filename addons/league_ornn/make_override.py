@@ -7,7 +7,7 @@ league/champion/league_ornn.data_champion byte for byte (so the copy never drift
 addons/league_ornn/override/league_ornn.data_champion and .../text/champion.i18n: the build with native=1 -
   * everything of the main pack's kit (Bellows Breath in the attack, the fissure and the pillar's picture, the charge, the
     two rams);
-  * passive = the add-on's league_ornn:forge (the pillar as terrain) with the numbers of P the add-on uses (checked against
+  * passive = the add-on's league_ornn:forge (the pillar as terrain, his items' stats scaled, the masterwork) with the numbers of P the add-on uses (checked against
     src/lib.rs's constants);
   * the fissure's end calls league_ornn:pillar (the pillar's place), E records its start (league_ornn:from) and on contact
     asks league_ornn:charge for the quake (a pillar near or a wall ahead), the attack breaks Brittle through
@@ -33,19 +33,19 @@ O, A, R, M, T, E = setup.O, setup.A, setup.R, setup.M, setup.T, setup.E
 phys, hpp = setup.phys, setup.hpp
 TEXT = {
     "zh-hans": {
-        "attack": "【扩展包】" + O + "活体锻炉" + E + "：双抗+{p_def}%，生命+{p_hp}%。W/E/R使敌方英雄" + O + "易碎" + E + "，普攻打中易碎的英雄造成" + T + "{br_hp}%最大生命" + E + "真实伤害并" + R + "击飞" + E + "。" +
+        "attack": "【扩展包】" + O + "活体锻炉" + E + "：装备属性+{p_item}%，{p_master_lv}级起+{p_master}%、友方英雄+{p_ally}%。W/E/R使敌方英雄" + O + "易碎" + E + "，普攻打中易碎的英雄造成" + T + "{br_hp}%最大生命" + E + "真实伤害并" + R + "击飞" + E + "。" +
                   O + "风箱炎息" + E + "：每" + A + "{w_cd}秒" + E + "喷火，" + R + "不可阻挡" + E + "并获得护盾，造成" + hpp("w_sum", "w_hpsum", M) + "魔法伤害。",
         "skill": "【扩展包】砸地裂出一道裂隙，造成" + phys("q_dmg", "q_ratio") + "物理伤害并" + R + "减速{q_slow}%" + E + "，尽头升起挡路的熔岩柱，持续" + A + "{q_life}秒" + E + "。",
         "skill2": "【扩展包】冲向目标，造成" + hpp("e_dmg", "e_hp") + "物理伤害。撞上熔岩柱或墙时周围敌人" + R + "击飞" + A + "{e_up}秒" + E + E + "并受到" + hpp("e_q_dmg", "e_q_hp") + "物理伤害，英雄易碎。",
     },
     "zh-hant": {
-        "attack": "【擴充包】" + O + "活火爐" + E + "：雙抗+{p_def}%，生命+{p_hp}%。W/E/R使敵方英雄" + O + "焦化" + E + "，普攻打中焦化的英雄造成" + T + "{br_hp}%最大生命" + E + "真實傷害並" + R + "擊飛" + E + "。" +
+        "attack": "【擴充包】" + O + "活火爐" + E + "：裝備屬性+{p_item}%，{p_master_lv}級起+{p_master}%、友方英雄+{p_ally}%。W/E/R使敵方英雄" + O + "焦化" + E + "，普攻打中焦化的英雄造成" + T + "{br_hp}%最大生命" + E + "真實傷害並" + R + "擊飛" + E + "。" +
                   O + "熾焰吹息" + E + "：每" + A + "{w_cd}秒" + E + "噴火，" + R + "不可阻擋" + E + "並獲得護盾，造成" + hpp("w_sum", "w_hpsum", M) + "魔法傷害。",
         "skill": "【擴充包】砸地裂出一道裂隙，造成" + phys("q_dmg", "q_ratio") + "物理傷害並" + R + "緩速{q_slow}%" + E + "，盡頭升起擋路的熔岩柱，持續" + A + "{q_life}秒" + E + "。",
         "skill2": "【擴充包】衝向目標，造成" + hpp("e_dmg", "e_hp") + "物理傷害。撞上熔岩柱或牆時周圍敵人" + R + "擊飛" + A + "{e_up}秒" + E + E + "並受到" + hpp("e_q_dmg", "e_q_hp") + "物理傷害，英雄焦化。",
     },
     "en": {
-        "attack": "[Add-on] " + O + "Living Forge" + E + ": +{p_def}% armour and magic resist, +{p_hp}% health. W, E and R make enemy champions " + O + "Brittle" + E +
+        "attack": "[Add-on] " + O + "Living Forge" + E + ": item stats +{p_item}% (from level {p_master_lv}: +{p_master}%, allies +{p_ally}%). W, E and R make enemy champions " + O + "Brittle" + E +
                   "; his attack on a Brittle champion deals " + T + "{br_hp}% of its max health" + E + " as true damage and " + R + "knocks it up" + E + ". " +
                   O + "Bellows Breath" + E + ": every " + A + "{w_cd}s" + E + " he breathes fire, " + R + "unstoppable" + E + " and shielded, dealing " +
                   hpp("w_sum", "w_hpsum", M) + " magic damage.",
@@ -56,7 +56,7 @@ TEXT = {
                   "champions made Brittle.",
     },
     "ko": {
-        "attack": "[확장] " + O + "간이 대장간" + E + ": 방어력·마법 저항력 +{p_def}%, 체력 +{p_hp}%. W/E/R이 적 챔피언을 " + O + "불안정" + E + " 상태로 만들고, "
+        "attack": "[확장] " + O + "간이 대장간" + E + ": 아이템 능력치 +{p_item}%({p_master_lv}레벨부터 +{p_master}%, 아군 +{p_ally}%). W/E/R이 적 챔피언을 " + O + "불안정" + E + " 상태로 만들고, "
                   "불안정한 챔피언을 기본 공격하면 " + T + "최대 체력 {br_hp}%" + E + " 고정 피해와 " + R + "에어본" + E + ". " +
                   O + "불꽃 풀무질" + E + ": " + A + "{w_cd}초" + E + "마다 불을 뿜어 " + R + "저지 불가" + E + "·보호막, " + hpp("w_sum", "w_hpsum", M) + " 마법 피해.",
         "skill": "[확장] 땅을 내리쳐 균열이 " + phys("q_dmg", "q_ratio") + " 물리 피해와 " + R + "{q_slow}% 둔화" + E + ". 끝에 길을 막는 용암 기둥이 " + A + "{q_life}초" + E + " 솟음.",
@@ -64,7 +64,7 @@ TEXT = {
                   hpp("e_q_dmg", "e_q_hp") + " 물리 피해, 챔피언은 불안정.",
     },
     "ja": {
-        "attack": "【拡張】" + O + "歩く鍛冶場" + E + "：物理・魔法防御+{p_def}%、体力+{p_hp}%。W/E/Rで敵チャンピオンを" + O + "脆弱" + E + "にし、脆弱な相手への通常攻撃は" +
+        "attack": "【拡張】" + O + "歩く鍛冶場" + E + "：装備の能力値+{p_item}%（{p_master_lv}レベルから+{p_master}%、味方+{p_ally}%）。W/E/Rで敵チャンピオンを" + O + "脆弱" + E + "にし、脆弱な相手への通常攻撃は" +
                   T + "最大体力の{br_hp}%" + E + "の確定ダメージと" + R + "ノックアップ" + E + "。" + O + "ふいごの息" + E + "：" + A + "{w_cd}秒" + E + "ごとに炎を吐き、" +
                   R + "阻害無効" + E + "とシールド、" + hpp("w_sum", "w_hpsum", M) + "の魔法ダメージ。",
         "skill": "【拡張】地面を叩き、亀裂が" + phys("q_dmg", "q_ratio") + "の物理ダメージと" + R + "{q_slow}%スロウ" + E + "。終点に道を塞ぐ溶岩の柱が" + A + "{q_life}秒" + E + "立つ。",
@@ -73,7 +73,8 @@ TEXT = {
     },
 }
 
-CONSTS = {k: k.upper() for k in ("q_life", "br_hp", "br_up", "br_kb_speed", "br_kb_t", "e_quake_r", "e_anim")}
+CONSTS = {k: k.upper() for k in ("q_life", "br_hp", "br_up", "br_kb_speed", "br_kb_t", "e_quake_r", "e_anim", "p_item",
+                                  "p_master", "p_ally", "p_master_lv")}
 RANGES = {"E_RANGE": "e_range", "Q_RANGE": "q_range"}
 
 
@@ -105,6 +106,7 @@ def main():
         champion[slot]["description"] = "#asset/base/text/champion?description." + MOD_ID + "." + slot
 
     values = setup.values(p)
+    values.update({k: p[k] for k in ("p_item", "p_master", "p_ally", "p_master_lv")})
     texts = {lang: {k: t.format(**values) for k, t in d.items()} for lang, d in TEXT.items()}
     long = {f"{lang}.{k}": setup.shown_length(t) for lang, d in TEXT.items() for k, t in d.items()
             if setup.shown_length(t) > setup.TOOLTIP_MAX.get(lang, 10 ** 6)}

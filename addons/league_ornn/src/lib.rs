@@ -12,6 +12,10 @@
 //! - **易碎记在每个英雄身上**（原生效果 `league_ornn:shatter`，普攻打中时）：只有身上带着 `league_ornn_brittle` 的英雄被引爆：
 //!   最大生命 `BR_HP`% 真实伤害、击飞 `BR_UP` tick、从他身边击退 `BR_KB_SPEED` x `BR_KB_T`，易碎随之去掉。主包：W / E / R
 //!   打中英雄后他的下一下普攻打中任何英雄都引爆。
+//! - **活体锻炉加强装备**（被动 `league_ornn:forge`，用户：「有装备系统吧 你可以加强装备属性吧」）：每 `FORGE_EVERY` tick 按他身上的
+//!   装备（`ITEMS`，游戏的装备表）把主属性（攻击、法强、护甲、生命、魔抗、攻速）再加 `P_ITEM`%；`P_MASTER_LV` 级起锻造杰作
+//!   （英雄联盟 13 级）：他自己 +`P_MASTER`%，每个友方英雄的装备 +`P_ALLY`%。只补差额的永久 buff（重挂生命会掉血）。主包：
+//!   护甲、魔抗 +10%、生命 +6%（数据读不到装备）。
 //! - **连招**（AI 钩子 `league_ornn:combo`，`combo.rs`）：AI 想放 E 而 Q 好着时先放 Q 立柱（Q → E）；柱子立着、E 好了、
 //!   柱子旁边有敌方英雄时替 AI 按 E 撞过去；身边有易碎的英雄时普攻改打他。
 //!
@@ -48,6 +52,49 @@ pub const E_QUAKE_R: usize = 30_000;
 pub const E_ANIM: usize = 20;
 pub const E_RANGE: usize = 55_000;
 pub const Q_RANGE: usize = 75_000;
+/// 活体锻炉：他的装备主属性 +`P_ITEM`%，`P_MASTER_LV` 级起锻造杰作：他自己 +`P_MASTER`%，每个友方英雄 +`P_ALLY`%。
+pub const P_ITEM: usize = 20;
+pub const P_MASTER: usize = 35;
+pub const P_ALLY: usize = 10;
+pub const P_MASTER_LV: usize = 9;
+/// 多久按装备重算一次。
+pub const FORGE_EVERY: usize = 30;
+
+/// 装备的主属性（攻击、法强、护甲、生命、魔抗、攻速 %），游戏 0.6.4 的 `asset/base/setting/item_setting`（字典的键和
+/// 装备自己的 `key` 都列上：铁剑的两个不一样）。吸血、暴击、穿透、减伤、韧性、冷却这些副属性不放大。
+pub const ITEMS: [(&str, [i32; 6]); 31] = [
+    ("iron_blade", [15, 0, 0, 0, 0, 0]),
+    ("ironsword", [15, 0, 0, 0, 0, 0]),
+    ("soldiers_longsword", [30, 0, 0, 0, 0, 0]),
+    ("ruinous_blade", [50, 0, 0, 0, 0, 0]),
+    ("conquerors_greatsword", [75, 0, 0, 0, 0, 0]),
+    ("warlords_final_judgement", [100, 0, 0, 0, 0, 0]),
+    ("dagger", [0, 0, 0, 0, 0, 10]),
+    ("wind_dagger", [0, 0, 0, 0, 0, 20]),
+    ("twin_stormblade", [0, 0, 0, 0, 0, 30]),
+    ("thunderclaw", [0, 0, 0, 0, 0, 45]),
+    ("storm_sovereign", [0, 0, 0, 0, 0, 60]),
+    ("steel_armor", [0, 0, 20, 0, 0, 0]),
+    ("gatekeepers_armor", [0, 0, 40, 0, 0, 0]),
+    ("black_knights_heavy_plate", [0, 0, 70, 0, 0, 0]),
+    ("eternal_iron_plate", [0, 0, 100, 0, 0, 0]),
+    ("impregnable_fortress", [0, 0, 130, 0, 0, 0]),
+    ("mystic_cloak", [0, 0, 0, 50, 30, 0]),
+    ("night_hood", [0, 0, 0, 150, 60, 0]),
+    ("dusk_raven", [0, 0, 0, 200, 100, 0]),
+    ("souls_edge", [0, 0, 0, 300, 150, 0]),
+    ("veil_of_annihilation", [0, 0, 0, 400, 200, 0]),
+    ("arcane_crystal", [0, 30, 0, 0, 0, 0]),
+    ("spirit_crystal", [0, 60, 0, 0, 0, 0]),
+    ("staff_of_rapture", [0, 100, 0, 0, 0, 0]),
+    ("angels_fang", [0, 150, 0, 0, 0, 0]),
+    ("prophet_of_the_abyss", [0, 200, 0, 0, 0, 0]),
+    ("vital_orb", [0, 0, 0, 100, 0, 0]),
+    ("hardened_heart", [0, 0, 0, 200, 0, 0]),
+    ("ring_of_reincarnation", [0, 0, 0, 300, 0, 0]),
+    ("hourglass_of_eternity", [0, 0, 0, 500, 0, 0]),
+    ("giants_horn_shard", [0, 0, 0, 800, 0, 0]),
+];
 
 /// 柱子的半径（单位半径另算）：英雄联盟的柱子差不多一个英雄那么粗。
 pub const PILLAR_R: f64 = 7_000.0;
@@ -263,6 +310,63 @@ pub fn shatter_damage(max_hp: usize) -> usize {
     max_hp * BR_HP / 100
 }
 
+/// 一个人身上装备的主属性加起来（不认识的装备不算）。
+pub fn item_stats<S: AsRef<str>>(keys: &[S]) -> [i32; 6] {
+    let mut sum = [0; 6];
+    for k in keys {
+        if let Some((_, s)) = ITEMS.iter().find(|(name, _)| *name == k.as_ref()) {
+            for i in 0..6 {
+                sum[i] += s[i];
+            }
+        }
+    }
+    sum
+}
+
+/// 放大的那部分：每项的 `pct`%（向下取整）。
+pub fn forged(sum: [i32; 6], pct: usize) -> [i32; 6] {
+    sum.map(|v| v * pct as i32 / 100)
+}
+
+/// 他的等级下：他自己、友方英雄各放大多少 %。
+pub fn forge_pct(level: usize) -> (usize, usize) {
+    if level >= P_MASTER_LV {
+        (P_MASTER, P_ALLY)
+    } else {
+        (P_ITEM, 0)
+    }
+}
+
+/// 已经加上的 `have` 要变成 `want`：只多不少就补一个差额 buff（不动已有的，免得重挂生命时掉血），否则整个换掉。
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum Change {
+    Keep,
+    Add([i32; 6]),
+    Replace([i32; 6]),
+}
+
+pub fn change(have: [i32; 6], want: [i32; 6]) -> Change {
+    if have == want {
+        Change::Keep
+    } else if (0..6).all(|i| want[i] >= have[i]) {
+        Change::Add(std::array::from_fn(|i| want[i] - have[i]))
+    } else {
+        Change::Replace(want)
+    }
+}
+
+fn stat_buff(name: &str, s: [i32; 6]) -> BuffV1 {
+    let mut b = BuffV1::named(name);
+    b.duration_kind = BuffDurationV1::Permanent.code();
+    b.attack = s[0];
+    b.magic_power = s[1];
+    b.defence = s[2];
+    b.hp = s[3];
+    b.magic_resistance = s[4];
+    b.attack_speed_mult = s[5];
+    b
+}
+
 // ===================== 游戏里 =====================
 
 fn buffs(sim: &StableSim<'_>, id: usize) -> Vec<BuffV1> {
@@ -417,9 +521,69 @@ struct Forge {
     up: Vec<(Pt, usize)>,
     /// 柱子立着时每个单位上一 tick 的位置。
     last_pos: HashMap<usize, Pt>,
+    /// 锻造已经加在每个单位身上的属性（单位编号 -> 主属性）：他自己的 `forged`、友方英雄的 `masterwork`。
+    forged: HashMap<usize, [i32; 6]>,
+    /// 锻造杰作记过日志没有。
+    master_seen: bool,
 }
 
 impl Forge {
+    /// 活体锻炉：每 `FORGE_EVERY` tick 按身上的装备补上放大的那部分（他自己；杰作后还有每个友方英雄）。
+    fn forge(&mut self, sim: &mut StableSim<'_>, me: usize) {
+        let Some(team) = sim.get_entity(me).map(|e| e.team()) else { return };
+        let mut level = 1;
+        let mut rows = Vec::new();
+        for i in 0..sim.player_count() {
+            let Some(pl) = sim.player_at(i) else { continue };
+            if pl.team() != team {
+                continue;
+            }
+            let Some(c) = pl.champion() else { continue };
+            let id = c.id();
+            let keys = pl.item_keys();
+            if id == me {
+                level = pl.level();
+                if !keys.is_empty() && keys.iter().any(|k| !ITEMS.iter().any(|(name, _)| name == k)) {
+                    if let Some(k) = counted("unknown item") {
+                        wlog(format!("{} ITEMS {keys:?}: some are not in the forge's table (not scaled) #{k}", head(sim, me)));
+                    }
+                }
+            }
+            rows.push((id, c.is_alive(), item_stats(&keys)));
+        }
+        let (mine, ally) = forge_pct(level);
+        if ally > 0 && !self.master_seen {
+            self.master_seen = true;
+            if let Some(k) = counted("masterwork") {
+                wlog(format!("{} MASTERWORK at level {level}: his items +{mine}%, his allies' +{ally}% #{k}", head(sim, me)));
+            }
+        }
+        for (id, alive, sum) in rows {
+            if !alive {
+                continue;
+            }
+            let own = id == me;
+            let want = forged(sum, if own { mine } else { ally });
+            let name = n(if own { "forged" } else { "masterwork" });
+            let have = if has_buff(sim, id, &name) { self.forged.get(&id).copied().unwrap_or([0; 6]) } else { [0; 6] };
+            match change(have, want) {
+                Change::Keep => continue,
+                Change::Add(d) => sim.add_buff(id, &stat_buff(&name, d)),
+                Change::Replace(w) => {
+                    sim.entity_remove_buff(id, &name);
+                    if w != [0; 6] {
+                        sim.add_buff(id, &stat_buff(&name, w));
+                    }
+                }
+            }
+            self.forged.insert(id, want);
+            if let Some(k) = counted(if own { "forge" } else { "forge ally" }) {
+                wlog(format!("{} FORGE {}: +{:?} (attack, AP, armour, health, MR, attack speed %) #{k}", head(sim, me),
+                             who(sim, id), want));
+            }
+        }
+    }
+
     /// 他身上新记的柱子加进来；buff 没了（撞碎、被换掉）且他活着就去掉。
     fn sync(&mut self, sim: &StableSim<'_>, me: usize, now: usize, alive: bool) {
         let marked: Vec<Pt> = pillars_of(sim, me).into_iter().map(|(_, p)| p).collect();
@@ -500,6 +664,9 @@ impl StablePassive for Forge {
         let alive = sim.get_entity(me).is_some_and(|e| e.is_alive());
         self.sync(sim, me, now, alive);
         self.block(sim);
+        if now % FORGE_EVERY == 0 {
+            self.forge(sim, me);
+        }
     }
 }
 
@@ -580,6 +747,25 @@ mod tests {
         // standing on it when it rises: pushed straight out from its centre
         let out = hold(&p, None, (503_000.0, 400_000.0), 6000.0).unwrap();
         assert!((out.0 - (500_000.0 + PILLAR_R + 6001.0)).abs() < 1.0 && (out.1 - 400_000.0).abs() < 1.0);
+    }
+
+    #[test]
+    fn the_forge_scales_the_items_main_stats() {
+        let s = item_stats(&["giants_horn_shard", "impregnable_fortress", "night_hood", "a_mod_item"]);
+        assert_eq!(s, [0, 0, 130, 950, 60, 0]);
+        assert_eq!(forged(s, P_ITEM), [0, 0, 26, 190, 12, 0]);
+        assert_eq!(forge_pct(1), (P_ITEM, 0));
+        assert_eq!(forge_pct(P_MASTER_LV), (P_MASTER, P_ALLY));
+        // both spellings of the iron sword
+        assert_eq!(item_stats(&["ironsword"]), item_stats(&["iron_blade"]));
+        assert_eq!(ITEMS.len(), 31);
+    }
+
+    #[test]
+    fn the_forge_only_adds_the_difference() {
+        assert_eq!(change([0, 0, 26, 190, 12, 0], [0, 0, 26, 190, 12, 0]), Change::Keep);
+        assert_eq!(change([0, 0, 26, 190, 12, 0], [0, 0, 45, 332, 21, 0]), Change::Add([0, 0, 19, 142, 9, 0]));
+        assert_eq!(change([0, 0, 26, 190, 12, 0], [0, 0, 30, 100, 12, 0]), Change::Replace([0, 0, 30, 100, 12, 0]));
     }
 
     #[test]
