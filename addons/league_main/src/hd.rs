@@ -40,9 +40,9 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     ("league_drmundo", 1.5, include_str!("../../../league/champions/league_drmundo#anim.fanim")),
     // Pantheon: PPU 1.5 (the user's pick), his strips drawn at that density on the design's grid, so no SIZES row
     ("league_pantheon", 1.5, include_str!("../../../league/champions/league_pantheon#anim.fanim")),
-    // Orianna: PPU 2.2 (the user's pick after 1.5 read muddy and 2.6 too sharp: 「PPU 2.2（84 行）」), posed by
-    // tools/art/rig_orianna.py on that grid, so no SIZES row
-    ("league_orianna", 2.2, include_str!("../../../league/champions/league_orianna#anim.fanim")),
+    // Orianna: PPU 2.25 - the chibi redesign (2026-10-22, 「我要的是Q版的」) is 86 squares bun to soles where the old
+    // design had 84 at 2.2, so she stands as tall as before; posed by tools/art/rig_orianna.py on that grid, no SIZES row
+    ("league_orianna", 2.25, include_str!("../../../league/champions/league_orianna#anim.fanim")),
     // Aphelios: PPU 1.5 (the user's pick), posed from the design's own squares at that density; 90 % (SIZES, the user:
     // 「厄斐琉斯模型是不是在游戏里太大了？」 then 「缩到 90%」 from a sheet: 47 px against the ADCs' 36-45)
     ("league_aphelios", 1.5, include_str!("../../../league/champions/league_aphelios#anim.fanim")),

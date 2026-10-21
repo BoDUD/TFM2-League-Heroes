@@ -1,0 +1,495 @@
+{
+ "hero": "orianna",
+ "champ": "Orianna",
+ "wad": "Orianna",
+ "camera": {
+  "yaw": 70,
+  "pitch": 15
+ },
+ "chibi": {
+  "head": 2.6,
+  "legs": 0.75,
+  "hair": 1.0
+ },
+ "hide": [
+  "Ball|Spinnig"
+ ],
+ "submesh_textures": {
+  "lambert2": "Particles/orianna_base_TX_CM"
+ },
+ "head_joint": "Head",
+ "height": 39,
+ "cell": [
+  128,
+  128,
+  28
+ ],
+ "design": "Orianna_idle1@0",
+ "tags": {
+  "ref": {
+   "frames": [
+    [
+     "Orianna_idle1@0",
+     100,
+     {
+      "turn": 40
+     }
+    ]
+   ]
+  },
+  "run": {
+   "flat": true,
+   "frames": [
+    [
+     "Orianna_run@0",
+     169
+    ],
+    [
+     "Orianna_run@83",
+     169
+    ],
+    [
+     "Orianna_run@167",
+     169
+    ],
+    [
+     "Orianna_run@250",
+     169
+    ],
+    [
+     "Orianna_run@333",
+     169
+    ],
+    [
+     "Orianna_run@417",
+     169
+    ],
+    [
+     "Orianna_run@500",
+     169
+    ],
+    [
+     "Orianna_run@583",
+     169
+    ]
+   ]
+  },
+  "attack": {
+   "lunge": 0.4,
+   "release": 4,
+   "frames": [
+    [
+     "Orianna_attack1@0",
+     58,
+     {
+      "turn": 40
+     }
+    ],
+    [
+     "Orianna_attack1@120",
+     58,
+     {
+      "turn": 76
+     }
+    ],
+    [
+     "Orianna_attack1@220",
+     58,
+     {
+      "turn": 52
+     }
+    ],
+    [
+     "Orianna_attack1@300",
+     58,
+     {
+      "turn": 16
+     }
+    ],
+    [
+     "Orianna_attack1@380",
+     58
+    ],
+    [
+     "Orianna_attack1@460",
+     58,
+     {
+      "turn": -8
+     }
+    ],
+    [
+     "Orianna_attack1@580",
+     58,
+     {
+      "turn": -9
+     }
+    ],
+    [
+     "Orianna_attack1@720>Orianna_idle1@0:0.5",
+     58,
+     {
+      "turn": 23
+     }
+    ]
+   ]
+  },
+  "skill": {
+   "lunge": 0.4,
+   "rise": 0.4,
+   "release": 4,
+   "frames": [
+    [
+     "orianna_spell1_right@0",
+     42,
+     {
+      "turn": 40
+     }
+    ],
+    [
+     "orianna_spell1_right@100",
+     42,
+     {
+      "turn": -14
+     }
+    ],
+    [
+     "orianna_spell1_right@200",
+     42,
+     {
+      "turn": 23
+     }
+    ],
+    [
+     "orianna_spell1_right@280",
+     42,
+     {
+      "turn": 22
+     }
+    ],
+    [
+     "orianna_spell1_right@360",
+     42,
+     {
+      "turn": 23
+     }
+    ],
+    [
+     "orianna_spell1_right@440",
+     42,
+     {
+      "turn": 24
+     }
+    ],
+    [
+     "orianna_spell1_right@540",
+     42,
+     {
+      "turn": 27
+     }
+    ],
+    [
+     "orianna_spell1_right@680>Orianna_idle1@0:0.5",
+     42,
+     {
+      "turn": 35
+     }
+    ]
+   ]
+  },
+  "skill_w": {
+   "lunge": 0.2,
+   "rise": 0.4,
+   "release": 5,
+   "frames": [
+    [
+     "Orianna_spell2@0",
+     38,
+     {
+      "turn": 40
+     }
+    ],
+    [
+     "Orianna_spell2@100",
+     38,
+     {
+      "turn": 18
+     }
+    ],
+    [
+     "Orianna_spell2@190",
+     38,
+     {
+      "turn": 12
+     }
+    ],
+    [
+     "Orianna_spell2@290",
+     38
+    ],
+    [
+     "Orianna_spell2@390",
+     38,
+     {
+      "turn": 5
+     }
+    ],
+    [
+     "Orianna_spell2@480",
+     38,
+     {
+      "turn": 4
+     }
+    ],
+    [
+     "Orianna_spell2@580",
+     38
+    ],
+    [
+     "Orianna_spell2@700>Orianna_idle1@0:0.5",
+     38,
+     {
+      "turn": 21
+     }
+    ]
+   ]
+  },
+  "skill_e": {
+   "lunge": 0.2,
+   "rise": 0.4,
+   "release": 5,
+   "frames": [
+    [
+     "Orianna_spell3@0",
+     38,
+     {
+      "turn": 40
+     }
+    ],
+    [
+     "Orianna_spell3@90",
+     38,
+     {
+      "turn": 40
+     }
+    ],
+    [
+     "Orianna_spell3@180",
+     38,
+     {
+      "turn": -64
+     }
+    ],
+    [
+     "Orianna_spell3@270",
+     38,
+     {
+      "turn": -146
+     }
+    ],
+    [
+     "Orianna_spell3@360",
+     38,
+     {
+      "turn": 111
+     }
+    ],
+    [
+     "Orianna_spell3@450",
+     38,
+     {
+      "turn": -24
+     }
+    ],
+    [
+     "Orianna_spell3@540",
+     38,
+     {
+      "turn": -161
+     }
+    ],
+    [
+     "Orianna_spell3@680>Orianna_idle1@0:0.5",
+     38,
+     {
+      "turn": 51
+     }
+    ]
+   ]
+  },
+  "ult": {
+   "lunge": 0.2,
+   "release": 9,
+   "frames": [
+    [
+     "Orianna_spell4@0",
+     60,
+     {
+      "turn": 40
+     }
+    ],
+    [
+     "Orianna_spell4@100",
+     60,
+     {
+      "turn": 35
+     }
+    ],
+    [
+     "Orianna_spell4@190",
+     60,
+     {
+      "turn": 18
+     }
+    ],
+    [
+     "Orianna_spell4@260",
+     60,
+     {
+      "turn": 11
+     }
+    ],
+    [
+     "Orianna_spell4@330",
+     60,
+     {
+      "turn": 11
+     }
+    ],
+    [
+     "Orianna_spell4@400",
+     60,
+     {
+      "turn": 11
+     }
+    ],
+    [
+     "Orianna_spell4@480",
+     60,
+     {
+      "turn": 11
+     }
+    ],
+    [
+     "Orianna_spell4@580",
+     60,
+     {
+      "turn": 13
+     }
+    ],
+    [
+     "Orianna_spell4@680",
+     60,
+     {
+      "turn": 18
+     }
+    ],
+    [
+     "Orianna_spell4@800>Orianna_idle1@0:0.5",
+     60,
+     {
+      "turn": 38
+     }
+    ]
+   ]
+  },
+  "dead": {
+   "anchor": "first",
+   "lunge": 0.3,
+   "travel": 0.3,
+   "flat": true,
+   "frames": [
+    [
+     "Orianna_death@0",
+     100,
+     {
+      "turn": 40
+     }
+    ],
+    [
+     "Orianna_death@200",
+     100,
+     {
+      "turn": -26
+     }
+    ],
+    [
+     "Orianna_death@400",
+     100,
+     {
+      "turn": -31
+     }
+    ],
+    [
+     "Orianna_death@600",
+     100,
+     {
+      "turn": -10
+     }
+    ],
+    [
+     "Orianna_death@900",
+     100,
+     {
+      "turn": -4
+     }
+    ],
+    [
+     "Orianna_death@1200",
+     100,
+     {
+      "turn": -8
+     }
+    ],
+    [
+     "Orianna_death@1500",
+     100,
+     {
+      "turn": -7
+     }
+    ],
+    [
+     "Orianna_death@1800",
+     100,
+     {
+      "turn": -4
+     }
+    ],
+    [
+     "Orianna_death@2100",
+     100,
+     {
+      "turn": -7
+     }
+    ],
+    [
+     "Orianna_death@2700",
+     100
+    ]
+   ]
+  }
+ },
+ "side_note": "every action frame turned side-on (40 degrees from the 3/4 idle pose, like the run) by its third item's turn",
+ "dump_joints": [
+  "Hip",
+  "Spine",
+  "Chest",
+  "Head",
+  "Key",
+  "L_Thigh",
+  "L_Knee",
+  "L_Foot",
+  "L_Toe",
+  "R_Thigh",
+  "R_Knee",
+  "R_Foot",
+  "R_Toe",
+  "L_UpArm",
+  "L_ForeArm",
+  "L_hand",
+  "L_Middle",
+  "R_UpArm",
+  "R_ForeArm",
+  "R_hand",
+  "R_Middle"
+ ]
+}

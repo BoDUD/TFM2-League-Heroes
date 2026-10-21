@@ -21,6 +21,8 @@ the body). Hands and props move whole (league_ziggs: a hand turned about its sho
 the face; a hand moved against the body stretches the sleeve), the legs move whole.
 """
 import argparse
+import json
+import math
 import os
 import sys
 
@@ -31,6 +33,7 @@ from scipy import ndimage
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 import ppu_rig as R  # noqa: E402
+import rigkit as K  # noqa: E402
 import pixel_down as PD  # noqa: E402
 
 HERO = "gangplank"
@@ -166,6 +169,7 @@ class Form:
         self.gun_fwd = hflip(L["gun"], GUN_MIRROR)
         self.blade_up = vflip(L["blade"], 44)
         self.ref_holes = None
+        L["body_bare"] = bare_body(D, L["body"])
         # Codex's gun-hand poses (tools/art/design_gangplank_poses.py): the stamp and its edit mask on the design's grid
         # with PT rows above and PL columns left of it
         self.stamps = {}
@@ -176,7 +180,7 @@ class Form:
 
     def pose(self, crouch=0, whole=(0, 0), gun=(0, 0), gun_fwd=False, gun_rot=0, arm=None, hand=(0, 0), blade=None,
              blade_up=False, legs=None, leg_layers=None, fill=True, no_blade=False, sword=0, sword_at=(0, 0), arm_rot=0,
-             stamp=None):
+             stamp=None, legs_under=None):
         """crouch: rows the body (with hands and props) sets down onto the legs; whole: the whole figure; gun: the
         cannon and the near arm moved together (arm: the arm's own move, default = gun's); gun_fwd: the cannon mirrored
         to point forward; gun_rot: quarter turns of the cannon counter-clockwise about GUN_PIVOT; hand: the far fist with the cutlass (blade: the blade's own move, default = hand's);
@@ -191,8 +195,9 @@ class Form:
         blade = hand if blade is None else blade
         legs_l = leg_layers if leg_layers is not None else [(L["far_leg"], dict(dx=wx + flx, dy=wy + fly)),
                                                              (L["near_leg"], dict(dx=wx + nlx, dy=wy + nly))]
-        # the lower legs over the body: a cuff lifted or the body sunk hides the thigh's lowest rows (the knee bends)
-        layers = [(L["body"], dict(dx=U[0], dy=U[1])), *legs_l]
+        # the lower legs over the body: a cuff lifted or the body sunk hides the thigh's lowest rows (the knee bends);
+        # legs_under (the walk's drawn legs): under the body, which is then the design's without its trousers
+        layers = [*(legs_under or []), (L["body_bare" if legs_under else "body"], dict(dx=U[0], dy=U[1])), *legs_l]
         if stamp is None:
             layers += [(L["near_arm"], dict(dx=U[0] + arm[0], dy=U[1] + arm[1], rot=arm_rot, about=ELBOW)),
                        (self.gun_fwd if gun_fwd else L["gun"], dict(dx=U[0] + gun[0], dy=U[1] + gun[1], rot=gun_rot,
@@ -365,10 +370,120 @@ def walk(F, steps=None):
     return out
 
 
-# The walk since 2026-10-18 (the user: 「船长走路也有点僵硬的」): Codex's skin swap over oppi's Swain run (Akshan's accepted
-# way), assets/source/gangplank/hd/run_<k>.png read back by tools/art/design_gangplank_run.py with the design's head, hat
-# and hand cannon stamped on. Each frame stands with its soles on the design's ground row and the middle of its red sash
-# (the hips) over the design's, so the body does not slide from frame to frame. walk() above stays for reference.
+# The walk since 2026-10-22 (the user: 「船长的走路脚好像变形的」 - the sixth time on his feet). Codex's walk below (its
+# eight frames are the design's upper body, square for square, over Codex's legs) crossed his feet in a 3/4 view: in
+# frames 2, 3 and 5 the two stamped boots lay over each other as one misshapen block, the trousers above them in
+# patches. Now the legs are drawn on League's gangplank_run (RUN_JOINTS, from
+#   python tools/lol/pose_joints.py assets/source/gangplank/poses.json --tag run
+#       --joints Pelvis,L_Hip,L_KneeLower,L_Foot,L_Toe,R_Hip,R_KneeLower,R_Foot,R_Toe --json assets/source/gangplank/run_joints.json;
+# League's L leg is the near one), the way league_jarvaniv's and league_jax's runs are: each trouser leg a thigh and a
+# shin from his hip on League's angles (the knee solved where League's foot stands, rigkit.leg_chain), in the design's
+# two teals lit on the left with one outline, the design's own cuff and boot on the ankle; the far leg in the design's
+# colours RUN_FAR_DIM darker and standing RUN_FAR_UP row higher (passing, the near boot reads in front of it, never one
+# block); the hips RUN_HIP 5 columns apart (8 in the stance: crossing, the boots lay over each other); the legs under the
+# body, so the coat, the sash and the belt hang over the trousers' tops as drawn. The design's upper body bobs with
+# League's hips (rigkit.hip_bobs, 0-RUN_BOB rows). His legs are short (11 squares hip to ankle): the bones are
+# RUN_BONE long, the knees a little bent standing, so the feet travel about as far as Codex's did.
+RUN_JOINTS = os.path.join(R.ROOT, "assets", "source", "gangplank", "run_joints.json")
+RUN_HIP = {"near": (26.0, 43.0), "far": (31.0, 43.0)}         # under the belt
+RUN_ANKLE = {"near": (18.5, 53.0), "far": (31.5, 53.0)}       # the design's cuffs' top middles, its boots standing
+RUN_BONE = 7.0                                                # thigh and shin
+RUN_HW = {"near": (3.0, 2.6, 2.2), "far": (2.7, 2.4, 2.0)}   # trouser half widths at the hip, the knee, the ankle
+RUN_TEAL = {"near": ((57, 88, 87), (39, 57, 57)), "far": ((39, 57, 57), (30, 44, 44))}   # lit, shaded
+RUN_TROUSERS = (41, 15, 37)                                   # the design's trousers: from this row, these columns
+RUN_FAR_DIM, RUN_FAR_UP = 0.75, 0
+RUN_PLANT_TOE = 7.9                                           # a League toe this low (game px; the soles on 11) stands
+RUN_BOB = 2
+
+
+def bare_body(D, body):
+    """The body layer without the trousers (the teal under the belt) and the outline squares that border only them
+    or air."""
+    d = D.d.astype(int)
+    tm = (d[..., 3] > 0) & (d[..., 1] > d[..., 0] + 15) & (d[..., 2] > d[..., 0] + 5)
+    y0, x0, x1 = RUN_TROUSERS
+    tm[:y0] = False
+    tm[:, :x0] = False
+    tm[:, x1 + 1:] = False
+    m = np.zeros(body.shape[:2], bool)
+    m[P:P + D.H, P:P + D.W] = tm
+    out = body.copy()
+    op = out[..., 3] > 0
+    line = op & np.all(out[..., :3] == np.array(D.outline), -1)
+    keep = op & ~m & ~line
+    lone = line & ndimage.binary_dilation(m, np.ones((3, 3), bool)) & ~ndimage.binary_dilation(keep, np.ones((3, 3), bool))
+    out[m | lone] = 0
+    return out
+
+
+def run_bone(shape, p0, p1, hw0, hw1):
+    """A tapered segment p0 -> p1 (design coordinates) in a padded layer -> (mask, side: -1..1 across it, + left)."""
+    H, W = shape
+    ys, xs = np.mgrid[0:H, 0:W]
+    px, py = xs + 0.5 - P, ys + 0.5 - P
+    (x0, y0), (x1, y1) = p0, p1
+    dx, dy = x1 - x0, y1 - y0
+    l2 = max(dx * dx + dy * dy, 1e-6)
+    t = ((px - x0) * dx + (py - y0) * dy) / l2
+    tc = np.clip(t, 0, 1)
+    hw = hw0 + (hw1 - hw0) * tc
+    m = (np.hypot(px - (x0 + tc * dx), py - (y0 + tc * dy)) <= hw) & (t >= -0.25) & (t <= 1.15)
+    return m, ((px - x0) * dy - (py - y0) * dx) / math.sqrt(l2) / np.maximum(hw, 1e-6)
+
+
+def run_leg(F, side, hip, knee, ank):
+    """One trouser leg hip -> knee -> ankle with the design's own cuff and boot on the ankle -> padded layer."""
+    D = F.D
+    shape = (D.H + 2 * P, D.W + 2 * P)
+    lay = np.zeros(shape + (4,), np.uint8)
+    w0, w1, w2 = RUN_HW[side]
+    m1, s1 = run_bone(shape, hip, knee, w0, w1)
+    m2, s2 = run_bone(shape, knee, ank, w1, w2)
+    m = m1 | m2
+    lit, shade = RUN_TEAL[side]
+    s = np.where(m2, s2, s1)
+    lay[m & (s > -0.15)] = lit + (255,)
+    lay[m & (s <= -0.15)] = shade + (255,)
+    lay[ndimage.binary_dilation(m, np.ones((3, 3), bool)) & ~m] = tuple(D.outline) + (255,)
+    ax, ay = RUN_ANKLE[side]
+    boot = K.shifted(F.L[side + "_leg"], int(round(ank[0] - ax)), int(round(ank[1] - ay)))
+    bm = boot[..., 3] > 0
+    lay[bm] = boot[bm]
+    if side == "far":
+        pal = np.array(sorted({tuple(c) for c in D.d[D.d[..., 3] > 0][:, :3].tolist()} - {tuple(D.outline)}), float)
+        dim = (lay[..., 3] > 0) & np.any(lay[..., :3] != np.array(D.outline), -1)
+        want = lay[dim, :3].astype(float) * RUN_FAR_DIM
+        lay[dim, :3] = pal[np.argmin(((want[:, None, :] - pal[None]) ** 2).sum(-1), 1)].astype(np.uint8)
+    return lay
+
+
+def league_walk(F):
+    """The walk: a frame per League run frame (RUN_JOINTS). -> canvases."""
+    with open(lp(RUN_JOINTS), encoding="utf-8") as f:
+        joints = json.load(f)
+    bobs = K.hip_bobs([fr["joints"]["Pelvis"][1] for fr in joints], RUN_BOB)
+    out = []
+    for k, fr in enumerate(joints):
+        j = fr["joints"]
+        legs = {}
+        for side, s in (("near", "L"), ("far", "R")):
+            th = K.bone_angle(j[f"{s}_Hip"][:2], j[f"{s}_KneeLower"][:2])
+            sh = K.bone_angle(j[f"{s}_KneeLower"][:2], j[f"{s}_Foot"][:2])
+            hip = (RUN_HIP[side][0], RUN_HIP[side][1] + bobs[k])
+            ground = RUN_ANKLE[side][1] - (RUN_FAR_UP if side == "far" else 0)
+            knee, ank, _, _, _ = K.leg_chain(hip, th, sh, RUN_BONE, RUN_BONE, ground,
+                                             j[f"{s}_Toe"][1] >= RUN_PLANT_TOE)
+            legs[side] = run_leg(F, side, hip, knee, ank)
+        can = F.pose(whole=(0, bobs[k]), leg_layers=[], legs_under=[(legs["far"], {}), (legs["near"], {})], fill=False)
+        out.append(F.close_holes(can))
+    return out
+
+
+# The walk from 2026-10-18 to 2026-10-22 (the user: 「船长走路也有点僵硬的」; kept for the record): Codex's skin swap over
+# oppi's Swain run (Akshan's accepted way), assets/source/gangplank/hd/run_<k>.png read back by
+# tools/art/design_gangplank_run.py with the design's head, hat and hand cannon stamped on. Each frame stands with its
+# soles on the design's ground row and the middle of its red sash (the hips) over the design's, so the body does not
+# slide from frame to frame. walk() above stays for reference too.
 RUN_FRAMES = 8
 
 
@@ -399,7 +514,7 @@ def codex_walk(F):
 def frames(F):
     """{tag: [(canvas, ms)]} in the sheet's order."""
     a = frames_all(F)
-    a = {"idle": a["idle"], "run": codex_walk(F), **{k: v for k, v in a.items() if k != "idle"}}
+    a = {"idle": a["idle"], "run": league_walk(F), **{k: v for k, v in a.items() if k != "idle"}}
     out = {}
     for tag, cans in a.items():
         ms = MS[tag]

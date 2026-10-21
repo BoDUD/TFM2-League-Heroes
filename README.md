@@ -221,7 +221,7 @@
 ![塔姆演示：三记舌头抽打打中德莱厄斯，他头上叠起一条、两条、三条小鱼（培养品味）；Q 巨舌鞭笞：舌头飞过去打中他，三层时眩晕、吃掉层数，塔姆回血，他脚下减速；W 深渊潜航：塔姆潜进水里，他脚下冒出红圈和气泡，塔姆从他脚下冲出来，水柱把他击飞、叠上一层；再抽两下到三层；R 大快朵颐：一口吞下，德莱厄斯被卷进旋涡不见了，塔姆的肚子鼓着，2.5 秒后吐出来；最后身上一层厚实表皮的护盾](docs/preview/league_tahmkench_showcase.gif?v=1018dg)
 ![蒙多演示：两记骨锯劈砍打中德莱厄斯；Q 病毒屠刀：骨锯打着转飞过去打中，绿色药液溅开，他脚下一摊减速黏液，蒙多身边冒回血的「+」；E 大力行医：抡起药箱砸中，一具小兵尸体被打飞出去；W 电击疗法：两肩电火花在胸口汇合，身边一圈噼啪的电流光环，每跳电他一下，结束时一圈电流炸开、电中他，蒙多回灰色生命；被动想去哪就去哪：挣脱控制的碎光，药罐落地、躺着、被他捡起冒出绿光；R 极限剂量：绿色药剂从身边冲起，之后身边冒泡](docs/preview/league_drmundo_showcase.gif?v=1018dg)
 ![潘森演示：满层凡人意志的金色火光；一记长枪突刺打中德莱厄斯；Q 贯星长枪近戳：一道金光沿着长枪刺出去打中他；德莱厄斯退开，潘森举枪蓄力、掷出彗星长枪；W 斗盾跃击：举盾跳到他身上砸晕，强化普攻连刺三下；E 神佑枪阵：举盾时身后金色神光，连刺，最后盾击震出一圈冲击波，身上一圈金色防御光；R 大荒星陨：下蹲时身后聚起星空，跃上天空，落点一圈金环、长矛先从天上砸下减速，随后他落地炸开彗星，德莱厄斯倒下](docs/preview/league_pantheon_showcase.gif?v=1018dg)
-![奥莉安娜演示：发条球漂在她身边；两记发条电弹打中德莱厄斯；Q 指令：攻击：球飞到他脚下炸开电光并停在那里；球旁边有敌人，W 指令：杂音自己放：地上一圈电磁脉冲和金色发条符文，德莱厄斯减速、队友盖伦加速；E 指令：防卫：球飞到盖伦身上，套上一层电光护盾，之后挂在他身边；R 指令：冲击波：球那里的漩涡收拢，光柱冲起、冲击波推开，把德莱厄斯甩向球，他倒下](docs/preview/league_orianna_showcase.gif?v=1018dg)
+![奥莉安娜演示：发条球漂在她身边；两记发条电弹打中德莱厄斯；Q 指令：攻击：球飞到他脚下炸开电光并停在那里；球旁边有敌人，W 指令：杂音自己放：地上一圈电磁脉冲和金色发条符文，德莱厄斯减速、队友盖伦加速；E 指令：防卫：球飞到盖伦身上，套上一层电光护盾，之后挂在他身边；R 指令：冲击波：球那里的漩涡收拢，光柱冲起、冲击波推开，把德莱厄斯甩向球，他倒下](docs/preview/league_orianna_showcase.gif?v=1022)
 ![厄斐琉斯演示：对德莱厄斯，五把武器按主包的顺序轮换：通碧的狙击弹，Q 通碧·狙杀一道长光束打中、留下月痕，随后追射引爆；W 换上断魄，镰刃弹，Q 断魄·恒月强袭脚下血色旋光、两手轮流连射；弹匣打空换坠明，重力弹减速并留印记，Q 坠明·引力枷锁脚下月蚀、把他钉住；荧焰的蓝焰弹，Q 荧焰·余晖波向前喷出扇形蓝焰、副手追击；折镜的回旋刃，Q 折镜·驻灵哨卫在他身边放下哨塔连续射击；R 清辉夜凝射出月光在他身上炸开](docs/preview/league_aphelios_showcase.gif?v=1018dg)
 ![芮尔演示：骑着铁甲战马的芮尔对德莱厄斯：骑枪一刺，他头顶出现裂开的铁甲片（溃敌沉力）；E 全速冲锋脚下金光一圈、头顶出现磁铁印记，Q 裂阵一道金色冲击沿直线刺出，打中炸开、他被晕住；W 轰落：马蹄下尘土炸起，马炸成甲片、她披着铁甲跃起砸下，地上砸出土坑、他被击飞，她身边两片金色铁盾、身上铁甲碎片绕着漂；W 驾临：甲片合回成马，她冲上去把他掀飞；R 极涌：蓝紫色的磁力场把他拖到身边、持续造成伤害，他倒下](docs/preview/league_rell_showcase.gif?v=1018dg)
 ![厄加特演示：对德莱厄斯：两记炮臂霰弹，第一记腿上喷出扇形火焰；Q 腐蚀电荷抛出电荷罐，落点亮起绿色警示圈，引信闪烁后炸成酸液，他脚下一摊减速酸液；净除开启，厄加特脚下一圈热浪，机枪连射，中途腿上再喷一次；E 鄙弃带着护盾冲上去撞晕德莱厄斯，把他从头顶甩到身后，落地扬起尘土；R 超越死亡的恐惧：上身沿钢柱升起，胸口射出化学钻头钉住他，锁链缠住 4 秒后拽回来处决，紫色恐惧冲击波向外推开](docs/preview/league_urgot_showcase.gif?v=1018dg)
@@ -5048,8 +5048,8 @@ python addons/league_pantheon/make_override.py     # 附加包的副本（主包
 | 附加包（替 AI 按） | 可选的附加包 [`addons/league_ult_press`](addons/league_ult_press/README.md)（在附加包合集里，原生代码，主包不装它也完整）：游戏 0.6.4 的 AI 很少按她的 R 和 E（只读观察包：每 10 分钟 0.5 次和 0.7 次，31 局）。附加包按局面替 AI 按（用户：「有问题的英雄全部改成rust」）：R（只是待命 6 秒）——60000 内有敌方英雄就按，放不放由主包看球附近；E——她或 75000 内的队友 40000 内有敌方英雄（在打架）就按，送给谁由主包或 league_orianna 决定 |
 | 数值 | 攻击 76（+6）、法强 40（+20）、生命 860（+95）、护甲 20（+7）、魔抗 22（+4）、移速 900（+9） |
 | 平衡 | 中路对五个基础中单（pyromancer / ice_mage / lightning_mage / wind_mage / white_mage），三套阵容、两边各打，10 分钟经典引擎模拟，每批 16 个种子 480 局（同一套数值单批误差约 ±0.34 杀，所以每个方案都看两批）。0.122.0：+0.76 / −0.05（种子 1–16 / 17–32；同批辛德拉 +1.20 / +1.57），伤害 11.9k（辛德拉 12.4k）——平均比辛德拉弱约 1 杀。**0.124.2 加强**：Q 70 + 55% → **85 + 65%**、W 70 + 70% → **85 + 85%**，R 放宽（见大招）：**+1.30 / +1.36**，伤害 13.7k / 14.0k。比过的方案（两批）：只加基础伤害（Q、W 各 +15）+0.06 / +0.25，只加法强系数（Q 65%、W 80%）+0.41 / +0.36，两样各加一点（80 + 65% / 80 + 80%）+0.98 / +0.85，同样再放宽 R +0.95 / +1.11，只放宽 R +0.36 / −0.12；生命 +60 是 −0.41（种子 1–16），不用。附加包的数据部分（原生调用换成替身）在模拟里正常：每局 E 18.7 次。亚索 R：奥莉安娜在中路同队时每局 0.62 次（0.122.0；闪电法师 3.19、辛德拉 2.06）——她的冲击波只拉扯 0.2 秒，拉长到 0.4 秒（同样距离）也只到 0.78，亚索不改 |
-| 精灵图（高清帧 PPU 2.2） | Codex 第 0 步画了两张原画（A、B，球和人分开画），[`tools/art/design_orianna_hd.py`](tools/art/design_orianna_hd.py) 读回，用户选「A、38 行、头稍大、球稍小」。第 1 步 Codex 照原画在格子上画造型（[`tools/art/pack_orianna_model.py`](tools/art/pack_orianna_model.py)），用户选「第 2 稿 + 第 2 稿的球」。动作不再找 Codex（用户：「动作帧的话你可以参考塔姆那样做」）：[`tools/art/rig_orianna.py`](tools/art/rig_orianna.py) 用造型自己的部件无损摆（平移、整行移动、手臂按肩膀做直角转动和镜像、关节球和靴子整块跟着腿），跑步按英雄联盟 Orianna_run 的脚步、从造型的胯部做直摆，待机整个人上下沉 0–3 格。中途用户：「走路腿是反的？上下摆动模型变形」「手和裙在一起 手变形」「腿变形啊哥 还有为什么这么模糊」——PPU 1.5 删了一半的行列，腿一动就断：改成 PPU 2.6、再按用户「2.0-2.2 左右」定在 2.2（84 行，[`tools/art/design_orianna_cut.py`](tools/art/design_orianna_cut.py) 的 even_cut：删的行列平均分布，眼睛、胸前的齿轮和手与裙子之间的空隙不删）；「腿部看着很奇怪」：大腿跟着腿一起摆，抬腿最多 2 格。用户：「动作通过」。装进游戏后用户：「身体看着感觉有点细 和其他英雄画风不搭」（身体中段 12 px，拉克丝 18、辛德拉 20）——选「直接把现在的造型加宽」+39%：造型的列均匀挑 18 列各画两遍（眼睛和胸前齿轮的列不动），手臂、腿、大腿这些部件按同一套列一起加宽、动作照原规则重新摆，身体中段 18 px、身高不变（用户：「别做太高」）。用户：「加宽的造型可以」。头像点 (−4, −37)；待机发髻顶到 −27.5，卡片装得下，不设 `banpick_center`。2026-10-19 补帧：普攻第 3、4 帧和 Q 第 2、3 帧原来是同一张图停住，改成收势（身体回落、手臂仍指着），普攻 6 帧、Q 5 帧，时长和出手帧不变；死亡 8 帧 |
-| 特效 | Codex 第 3 步（[`tools/art/pack_orianna_fx.py`](tools/art/pack_orianna_fx.py)）画了 15 张（用户贴在对话里，`assets/source/orianna/codex_fx`；球漂在身边那张没交）。[`tools/art/import_orianna_fx.py`](tools/art/import_orianna_fx.py)：按格子读、去黑底、按游戏大小缩、取提示词的色阶、左右对称（电弹上下对称）；R 的漩涡和冲击环画成了俯视的圆，压成地上的椭圆（光柱随之约 48 px 高），最深的蓝只留在边上（第 1 帧和渐隐的环原来是一大片深色）；E 的护盾压成竖的椭圆。Codex 的球约 25 格，缩到游戏大小就糊，所以球的三种画面（身边、地上、飞行）都用用户选的造型球（`hd/ball2.png`）按整行整列取到 11×12，外加一圈淡蓝光；用户：「球太大了吧？」，在 14 / 12 / 11 / 10 里选了 11。W 的脉冲和 R 的冲击波画在人物下面（z −1），地上的球画在人物上面。用户：「特效通过」 |
+| 精灵图（高清帧 PPU 2.25，Q 版） | 2026-10-22 重做成 Q 版（用户：「奥利安娜的建模和动作帧不全 能让codex帮忙重做吗」「我要的是Q版的 现在明显质量不行啊 还有动作少太多了」）。Codex 照英雄联盟的模型（按 Q 版比例放大头、缩短腿的渲染）在游戏格子上画两稿 Q 版造型，每稿正面 + 侧面（[`tools/art/pack_orianna_chibi.py`](tools/art/pack_orianna_chibi.py)，提示词 `CHIBI_PROMPTS.md`，交付在 `assets/source/orianna/codex_chibi/`）；它自己缩到格子上的图是糊的，原稿按各自的格子读回很干净，[`tools/art/design_orianna_chibi.py`](tools/art/design_orianna_chibi.py) 按蛮王的办法整行整列删到游戏大小（脸不动）。用户选 Q1 正面，「把头缩小点 身体放长点就完美了」：头和身体分开删（头 0.66、身体 0.80，眼睛不动），选 A，侧面按同样比例（`chibi/design-front.png` 58 × 86、`design-side.png` 48 × 87）。动作用户：「60帧吧 不交给codex了 你自己慢慢处理」：[`tools/art/rig_orianna.py`](tools/art/rig_orianna.py) 照英雄联盟每个动作的关节（[`tools/lol/native_pose.py`](tools/lol/native_pose.py) 的 `dump_joints`，侧身 40° 的待机做参照）一帧一帧摆——每帧都是正面造型的头（同一张脸），身体、裙子、钥匙是侧面造型自己的格子整块移动，前倾是上半身整行平移；大腿、上臂、前臂画成造型配色的金属圆柱（左上受光、一圈描边），小腿用造型自己的护甲小腿绕膝盖转，膝 / 踝 / 肘的球、靴子和手（8 个无损方向）照抄造型。待机 8 帧（正面造型腰以上沉一行，腿不动）、跑步 8（卡特琳娜的跑法：8 个脚步相位、前倾 1:2）、普攻 8、Q 8、W 8、E 8、R 10、受击 2（正面）、死亡 10（倒地是无损的 90° 翻转，先离地 5 格再落地）；出手帧按技能数据的 tick 对齐（普攻第 4 帧 = a_st 10，Q / E 第 4 帧 = 100 ms，R 第 9 帧 = r_delay 500 ms）。新的头和身体之间偶尔裂开的缝填脖子的深色，手臂和身体之间的细缝填描边色。PPU 2.25：86 行 = 原来的 38.2 游戏像素，身高不变。头像点 (0, −35)。主包 0.189.20、`league.dll` 0.7.107 |
+| 特效 | Codex 第 3 步（[`tools/art/pack_orianna_fx.py`](tools/art/pack_orianna_fx.py)）画了 15 张（用户贴在对话里，`assets/source/orianna/codex_fx`；球漂在身边那张没交）。[`tools/art/import_orianna_fx.py`](tools/art/import_orianna_fx.py)：按格子读、去黑底、按游戏大小缩、取提示词的色阶、左右对称（电弹上下对称）；R 的漩涡和冲击环画成了俯视的圆，压成地上的椭圆（光柱随之约 48 px 高），最深的蓝只留在边上（第 1 帧和渐隐的环原来是一大片深色）；E 的护盾压成竖的椭圆。Codex 的球约 25 格，缩到游戏大小就糊，所以球的三种画面（身边、地上、飞行）用游戏大小的球，外加一圈淡蓝光（用户：「球太大了吧？」，在 14 / 12 / 11 / 10 里选了 11）；2026-10-22 Q 版重做后换成新造型的球：Codex 新画的球按新配色（钢银 + 古铜环 + 弧脊）手画成 12 × 12（`chibi/ball_1x.png`，整行整列删和按块投票都糊成一团黑）。W 的脉冲和 R 的冲击波画在人物下面（z −1），地上的球画在人物上面。用户：「特效通过」 |
 | 音效 | 英雄联盟的音效和配音（[`tools/lol/extract_orianna.py`](tools/lol/extract_orianna.py)，14 段）：电弹出手 / 打中、球飞出 / 落地 / 打中、杂音、送球 / 护盾、冲击波 / 打中，配音 Q / W / E / R |
 | 图标 | 官方技能图标（Q 指令：攻击 / E 指令：防卫 / R 指令：冲击波，另有 W 指令：杂音、被动），从本地客户端取 |
 
@@ -5058,10 +5058,10 @@ python addons/league_pantheon/make_override.py     # 附加包的副本（主包
 ```bash
 python tools/lol/extract_orianna.py --lol "D:\WeGameApps\lol" --vgmstream <vgmstream-cli.exe>
 python tools/kit/build_orianna.py                  # 技能数据，数字都在脚本的参数表 P 里
-python tools/kit/setup_orianna.py --face -4,-37    # 五种语言的文字、音效配置、共享文件里她的键
-python tools/art/design_orianna_hd.py              # Codex 的原画读回
-python tools/art/design_orianna_cut.py             # 第 1 步的造型和球读回、删到选定的大小
-python tools/art/rig_orianna.py                    # 1 倍帧和 2.2 的原帧（动作由造型的部件无损摆出）
+python tools/kit/setup_orianna.py --face 0,-35     # 五种语言的文字、音效配置、共享文件里她的键
+python tools/art/design_orianna_chibi.py --out <目录>   # Q 版造型：Codex 原稿读回、头和身体分开删（结果在 chibi/）
+python tools/lol/native_pose.py assets/source/orianna/poses.json --out %TEMP%/or_q/pose_n --alpha   # 英雄联盟的关节（本地）
+python tools/art/rig_orianna.py                    # 1 倍帧和 2.25 的原帧（--review <目录>：和英雄联盟对照的 GIF）
 python tools/art/ppu_restyle.py --hero orianna     # 描边（不要加 --preview）
 python tools/art/ppu_hd.py --hero orianna          # hd_ / lo_ 帧
 python tools/art/import_orianna_fx.py              # 特效
@@ -5069,9 +5069,9 @@ python tools/art/preview_orianna.py                # 预览和演示 GIF
 python addons/league_orianna/make_override.py      # 附加包的副本（主包的奥莉安娜改了就重跑）
 ```
 
-美术提示词见 [`assets/source/orianna/`](assets/source/orianna/) 里的 `PICTURE_PROMPT.md`、`MODEL_PROMPTS.md`、`PROMPTS_FX.md`；Codex 的交付在 `codex_picture/`、`codex_model/`、`codex_fx/`。
+美术提示词见 [`assets/source/orianna/`](assets/source/orianna/) 里的 `CHIBI_PROMPTS.md`（Q 版造型）、`PROMPTS_FX.md`（特效）和最初的 `PICTURE_PROMPT.md`、`MODEL_PROMPTS.md`；Codex 的交付在 `codex_chibi/`、`codex_fx/`（和最初的 `codex_picture/`、`codex_model/`）。
 
-逐帧预览：[`docs/preview/league_orianna_frames.png`](docs/preview/league_orianna_frames.png?v=1016b)，特效：[`docs/preview/league_orianna_effects.png`](docs/preview/league_orianna_effects.png?v=1016b)。
+逐帧预览：[`docs/preview/league_orianna_frames.png`](docs/preview/league_orianna_frames.png?v=1022)，特效：[`docs/preview/league_orianna_effects.png`](docs/preview/league_orianna_effects.png?v=1022)。
 
 ## 英雄：厄斐琉斯
 
@@ -5554,6 +5554,7 @@ python addons/league_maokai/make_override.py        # 附加包的副本（主�
 | 特效 | 第 3 步 20 张特效（[`tools/art/pack_gangplank_fx.py`](tools/art/pack_gangplank_fx.py)，颜色照英雄联盟：被动和刀上烧红的火，枪火和金币的金色，棕色木桶加黑铁箍、橙黄的火加黑灰火药烟，橘子的柑橘橙，大招焦橙红的预警和黑铁炮弹），Codex 画并读回成游戏大小（`assets/source/gangplank/codex_fx`）。[`tools/art/import_gangplank_fx.py`](tools/art/import_gangplank_fx.py)：飞行的子弹和火药桶上下对称，其余左右对称；桶每 10 tick 重贴一次（2 帧），预警铺满信号弹飞的 1 秒，每波炮弹 0.5 秒；大招放大后预警圈按新半径重画（线不变粗），每波中间三团炮弹、两边各一团晚一帧的；枪口火光、橘子、信号弹按 `assets/source/native/gangplank_bake.json` 画进他自己的帧（会跟着他翻面）。写成 `league_gangplank_fx` 和 `league_gangplank_big` |
 | 音效 | 英雄联盟的音效和配音（[`tools/lol/extract_gangplank.py`](tools/lol/extract_gangplank.py)，18 段）：普攻出手 / 打中、被动点燃、Q 开枪 / 打中、E 出手 / 落地 / 爆炸 / 打中、W 出手 / 咬橘子、R 出手 / 叫船 / 炮弹，配音是他的 Q / E / W / R 台词（中文）；桶自己的爆炸在客户端里解析不到，用大招炮弹的爆炸声代替 |
 | 图标 | 官方技能图标（枪火谈判、火药桶、加农炮幕，另有坏血病疗法和烈火审讯），从本地客户端取 |
+| 修正（走路的脚，2026-10-22） | 用户：「船长的走路脚好像变形的」（脚已经第六次了）。之前的走路是 Codex 的 8 帧（上身和设计图一格不差，只有腿是 Codex 画的），3/4 视角里两只脚交叉：第 2、3、5 帧两只盖上去的靴子叠成一块变形的形状，上面的裤腿也是一块一块的。现在照皇子、贾克斯的跑步做法，腿按英雄联盟的 gangplank_run 画（[`tools/lol/pose_joints.py`](tools/lol/pose_joints.py) 读成 `assets/source/gangplank/run_joints.json`，近侧是英雄联盟的左腿）：每条裤腿从胯开始，大腿、小腿按英雄联盟的角度（站地的脚落在地上、膝盖解出来，`rigkit.leg_chain`），设计图的两种青色、左亮右暗、一圈描边，脚踝上是设计图自己的绑腿和靴子；远侧的腿用设计图里暗一档的颜色（交叉时近侧的靴子在前面，不会叠成一块）；两胯相距 5 列（站姿是 8 列，交叉时两只靴子整只叠在一起）；腿画在身体下面，大衣、腰带和红腰布照原样盖住裤腿上端。上身是设计图，随英雄联盟的胯部上下起伏 0–2 行；他的腿短（胯到脚踝 11 格），骨长 7 格、站着膝盖微弯，脚的行程和 Codex 的差不多（[`rig_gangplank.py`](tools/art/rig_gangplank.py) `league_walk`）。其他动作的帧一个字节都没变。主包 0.189.19、`league.dll` 0.7.106 |
 
 重新生成（素材来自本机的英雄联盟客户端，音频不进仓库）：
 
@@ -5565,7 +5566,8 @@ python tools/art/design_gangplank_hd.py             # Codex 第 1 步的造型�
 python tools/art/fix_gangplank_feet.py              # 修靴子
 python tools/art/design_gangplank_poses.py          # Q / R 拿枪胳膊的姿势（Codex 只重画那条胳膊）
 python tools/art/import_gangplank_fx.py             # 特效（先于下一步：枪口火光、橘子、信号弹要画进帧）
-python tools/art/rig_gangplank.py                   # 1 倍帧和 1.5 的原帧（整格摆）
+python tools/lol/pose_joints.py assets/source/gangplank/poses.json --tag run --joints Pelvis,L_Hip,L_KneeLower,L_Foot,L_Toe,R_Hip,R_KneeLower,R_Foot,R_Toe --json assets/source/gangplank/run_joints.json   # 走路：英雄联盟 gangplank_run 的腿部关节
+python tools/art/rig_gangplank.py                   # 1 倍帧和 1.5 的原帧（整格摆；走路的腿按上面的关节画）
 python tools/art/ppu_restyle.py --hero gangplank    # 描边（不要加 --preview）
 python tools/art/ppu_hd.py --hero gangplank         # hd_ / lo_ 帧
 python tools/art/preview_gangplank.py               # 预览和演示 GIF
@@ -5574,7 +5576,7 @@ python addons/league_gangplank/make_override.py     # 附加包的副本（主�
 
 美术提示词见 [`assets/source/gangplank/`](assets/source/gangplank/) 里的 `PICTURE_PROMPT.md`、`MODEL_PROMPTS.md`、`MODEL_PROMPTS_V2.md`、`POSE_PROMPTS.md`、`PROMPTS_FX.md`；Codex 的交付在 `codex_picture/`、`codex_model/`、`codex_model2/`、`codex_poses/`、`codex_fx/`。
 
-逐帧预览：[`docs/preview/league_gangplank_frames.png`](docs/preview/league_gangplank_frames.png?v=1018a)，特效：[`docs/preview/league_gangplank_effects.png`](docs/preview/league_gangplank_effects.png?v=1018a)。
+逐帧预览：[`docs/preview/league_gangplank_frames.png`](docs/preview/league_gangplank_frames.png?v=1022g)，特效：[`docs/preview/league_gangplank_effects.png`](docs/preview/league_gangplank_effects.png?v=1018a)。
 
 ## 英雄：孙悟空
 
@@ -5592,7 +5594,7 @@ python addons/league_gangplank/make_override.py     # 附加包的副本（主�
 | 特效 | 第 3 步 14 张特效（[`tools/art/pack_wukong_fx.py`](tools/art/pack_wukong_fx.py)，颜色照英雄联盟：金箍棒的打击和大招是橙金色的光，筋斗云是白云，真假猴王是灰白的烟，破甲是裂开的红盾，金刚不坏是灰色石片），全部左右对称（游戏不镜像特效图），三张分身图画成正面朝前（侧身的分身到了红色方会背对敌人）。[`tools/art/import_wukong_fx.py`](tools/art/import_wukong_fx.py)：打中的在身上，筋斗云跟着他，分身站在 W 的落点、每段 20 tick 换一张（站着 / 出手 / 转棒），破甲在头顶，旋风和石片绕着他。写成 `league_wukong_fx` 和 `league_wukong_big` |
 | 音效 | 英雄联盟的音效和配音（[`tools/lol/extract_wukong.py`](tools/lol/extract_wukong.py)，15 段）：普攻出手 / 打中、Q 出手 / 打中、E 出手 / 打中、W 出手 / 分身打中、R 出手 / 转棒 / 击飞，配音是他的 E / W / R 台词（中文） |
 | 图标 | 官方技能图标（腾云突击、真假猴王、大闹天宫，另有粉碎打击和金刚不坏），从本地客户端取 |
-| 修正（跑步的金箍棒，2026-10-22） | 用户：「猴子跑步的时候感觉武器看起来是歪的」「这里金箍棒都断了吧」。现在的动作是 10-18 Codex 重画的（[`tools/art/rig_frames_1018.py`](tools/art/rig_frames_1018.py)），跑步 9 帧里金箍棒画成了对不上的三段：近侧拳头握着的前段（约 1:2）往脸前上方伸，身后远侧手里一段，再往后到腰高的后端（约 2:5），后端比前段的延长线高 5–6 行，看着在他背后折断了。现在每帧前段照原样（拳头握着），后段换成前段本身绕金箍棒中点转半圈、落在前段自己那条直线上（两端的金箍一样；绕整半格的点转半圈，一格都不重采样），只画在他身后空着的地方，后端低到腿后面；原来的后段和握着它的远侧手一起去掉（那只手现在握不到棒子，远侧胳膊留在身体后面），连同剩下的散点；Codex 留在身上的几颗绿色抠图点也去掉（眼睛是同一种绿，只去第 22 行往下的）（[`tools/art/wukong_run_staff.py`](tools/art/wukong_run_staff.py)）。其他动作的帧一个字节都没变。主包 0.189.17、`league.dll` 0.7.104 |
+| 修正（跑步的金箍棒，2026-10-22） | 用户：「猴子跑步的时候感觉武器看起来是歪的」「这里金箍棒都断了吧」。现在的动作是 10-18 Codex 重画的（[`tools/art/rig_frames_1018.py`](tools/art/rig_frames_1018.py)），跑步 9 帧里他两只手都握着金箍棒（近侧拳头在脸前，远侧手在肩后），但棒子画成了对不上的三段：近侧拳头里出来的前段约 1:2，穿过远侧手的后段约 2:5，两手之间（身体后面）约 1:4，看着在他背后折断了。第一版（#446）留前段、用它转半圈当后端，把握不到棒子的远侧手去掉了——用户：「猴子手呢 断了？？」「这质量你能说改好了？」。现在两只手和身上的一切照原样，只去掉原来的前段、后段（远侧手左边的金箍和铁杆，手和身体之间露出的铁杆连同只挨着棒子或空白的描边）和它们留下的散点，画一根穿过两只手握点的直棒：近侧握点是前段铁杆出拳头的地方，远侧握点是远侧手在后段铁杆上留下的空当中间；斜率按前后帧 1-2-1 平滑（握点读回有一格的抖动，棒子离两个握点都不超过一格），画在一切后面（拳头握着它），两端各伸出握点 19 格（Codex 前段的长度），红色棒头、四道金箍、中间铁杆，颜色都是 Codex 的，描边，上亮下暗；帧左右各加宽 10 列（棒子平了，伸出了 Codex 的帧）；身上的绿色抠图点去掉（眼睛同色，只去第 22 行往下的）。帧按 Codex 原帧量的胯部摆放，身体位置不变（[`tools/art/wukong_run_staff.py`](tools/art/wukong_run_staff.py)）。其他动作的帧一个字节都没变。主包 0.189.18、`league.dll` 0.7.105 |
 
 重新生成（素材来自本机的英雄联盟客户端，音频不进仓库）：
 
@@ -5611,7 +5613,7 @@ python addons/league_wukong/make_override.py        # 附加包的副本（主�
 
 美术提示词见 [`assets/source/wukong/`](assets/source/wukong/) 里的 `PICTURE_PROMPT.md`、`MODEL_PROMPTS.md`、`PROMPTS_FX.md`；Codex 的交付在 `codex_picture/`、`codex_model/`、`codex_fx/`。
 
-逐帧预览：[`docs/preview/league_wukong_frames.png`](docs/preview/league_wukong_frames.png?v=1022w)，特效：[`docs/preview/league_wukong_effects.png`](docs/preview/league_wukong_effects.png?v=1018a)。
+逐帧预览：[`docs/preview/league_wukong_frames.png`](docs/preview/league_wukong_frames.png?v=1022x)，特效：[`docs/preview/league_wukong_effects.png`](docs/preview/league_wukong_effects.png?v=1018a)。
 
 ## 英雄：卡西奥佩娅
 
