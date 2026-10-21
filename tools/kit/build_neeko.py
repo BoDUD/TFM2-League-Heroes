@@ -11,7 +11,7 @@ the passive Inherent Glamour as an add-on; 「有连招要做连招」). TFM2 ha
   attack  A magic bolt (homing on `Enemy`, physical 100% AD), released on a_rel. Shapesplitter's passive (两生花影, W):
           every third attack (the caster flags w1, w2 count them) adds w_dmg + w_ratio% AP magic damage and gives her
           +w_ms% move speed for w_ms_t ticks.
-  skill   Q Blooming Burst (盛开花种, its own cooldown flag `q_cd`, the slot's s_cd short): a `Targeting` cast on
+  skill   Q Blooming Burst (盛开花种, one cooldown q_cd, the slot's and the flag `q_cd` R -> Q reads): a `Targeting` cast on
           `EnemyWithoutTower` (q_range). A seed lobbed onto the target's spot (q_travel ticks) bursts there (q_r):
           q_dmg + q_ratio% AP. A champion in the burst makes it bloom again q_rep ticks later on the same spot (a
           champion-only twin of the zone lays the caster flag q_b1 / q_b2), q2_dmg + q2_ratio% AP, at most twice
@@ -57,7 +57,7 @@ P = {
     # W Shapesplitter's passive: every third attack
     "w_dmg": 35, "w_ratio": 40, "w_ms": 30, "w_ms_t": 60,
     # Q Blooming Burst
-    "s_cd": 60, "q_cd": 420, "q_range": 80000, "q_dur": 30, "q_rel": 10, "q_travel": 25, "q_fast": 4, "q_r": 22000,
+    "q_cd": 420, "q_range": 80000, "q_dur": 30, "q_rel": 10, "q_travel": 25, "q_fast": 4, "q_r": 22000,
     "q_dmg": 75, "q_ratio": 50, "q_rep": 45, "q2_dmg": 30, "q2_ratio": 20,
     # the E -> Q window after the barbs reach a champion (the root's length)
     "e_combo": 60,
@@ -254,7 +254,7 @@ def build(p):
         return combine(*rm("q_go"), refresh("q_cd", p["q_cd"]), anim("skill", p["q_dur"]), sfx("q"),
                        voice("vo_q", p), delayed(p["q_rel"] - 1, alive(seed)))
 
-    skill = action("idle", 3, p["s_cd"], 1, p["q_range"], "Targeting", "EnemyWithoutTower",
+    skill = action("idle", 3, p["q_cd"], 1, p["q_range"], "Targeting", "EnemyWithoutTower",
                    combine(decoy(p["q_dmg"], p["q_ratio"], ap), sw("q_cd", NONE, q_cast(False))), key="skill")
 
     # ------------------------------------------------------------------ skill2: E Tangle-Barbs

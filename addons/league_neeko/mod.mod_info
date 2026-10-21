@@ -1,0 +1,20 @@
+{
+  "author": "BoDUD",
+  "contains_code": true,
+  "dependencies": [
+    {
+      "mod_id": "base",
+      "version": ">=0.4.11"
+    },
+    {
+      "mod_id": "league",
+      "version": ">=0.189.0"
+    }
+  ],
+  "description": "Test build of Neeko as in League (needs League of Legends Heroes): replaces the main pack's Neeko so her passive Inherent Glamour works - she is drawn as the nearest allied champion until she casts a spell (then she gains magic penetration for a while), is crowd-controlled or takes a big hit, and disguises again after a pause. Other champions are untouched. Writes a log for testing.",
+  "last_updated": "2026-10-21",
+  "mod_id": "league_neeko",
+  "mod_type": "native",
+  "name": "League Heroes: Neeko's Inherent Glamour (test)",
+  "version": "0.1.0"
+}

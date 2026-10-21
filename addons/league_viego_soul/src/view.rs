@@ -187,6 +187,7 @@ impl StableExtension for ClockReader {
     fn post_update(&self, ctx: &mut StableClient<'_>, _dt: u64) {
         let Ok(mut c) = CLOCK.lock() else { return };
         if !ctx.is_in_game() {
+            game_places::clock::observe(false, None);
             c.secs = None;
             c.ticking = false;
             c.minute = None;
@@ -196,7 +197,10 @@ impl StableExtension for ClockReader {
             let parts: Vec<&str> = CLOCK_PATH.split('.').collect();
             (1..=parts.len()).all(|n| ctx.ui_visible(&parts[..n].join(".")) == Some(true))
         };
-        let Some(secs) = shown.then(|| ctx.ui_text(CLOCK_PATH)).flatten().as_deref().and_then(clock_secs) else { return };
+        let text = shown.then(|| ctx.ui_text(CLOCK_PATH)).flatten();
+        // the shared clock (game_places::clock) for the other display hooks in the same DLL (league_neeko's disguise)
+        game_places::clock::observe(true, text.as_deref());
+        let Some(secs) = text.as_deref().and_then(clock_secs) else { return };
         let now = std::time::Instant::now();
         match c.secs {
             Some((s, _)) if s == secs => {}
