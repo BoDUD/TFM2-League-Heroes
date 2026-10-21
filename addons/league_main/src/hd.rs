@@ -171,11 +171,11 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // game pixel (100 game rows quill tips to soles: 「40」, then 「1.5也挺糊的 还得往上调整吧」; 3/4 only; league_neeko's
     // view hook draws her as an ally while she is disguised), so no SIZES row
     ("league_neeko", 2.5, include_str!("../../../league/champions/league_neeko#anim.fanim")),
-    // Xerath: re-adjusted at 1.75 squares a game pixel (tools/art/design_xerath_hd.py: Codex's draft B on its own grid,
-    // slimmer with a smaller head, 73 rows crown to spike tips = 41.7 game px: 「不是重做 是重新调整」「游戏里别太大就行」),
-    // every action posed after League's clips by tools/art/rig_xerath_hd.py (R: his armour in a ring round the core), so no
-    // SIZES row
-    ("league_xerath", 1.75, include_str!("../../../league/champions/league_xerath#anim.fanim")),
+    // Xerath: re-adjusted at 1.55 squares a game pixel (tools/art/design_xerath_hd.py: Codex's draft B on its own grid,
+    // slimmer with a smaller head, then shortened - 「泽拉斯在游戏里身体太长了吧？」 - 62 rows crown to spike tips = 40 game
+    // px: 「不是重做 是重新调整」「游戏里别太大就行」), every action posed after League's clips by tools/art/rig_xerath_hd.py
+    // (R: his armour in a ring round the core), so no SIZES row
+    ("league_xerath", 1.55, include_str!("../../../league/champions/league_xerath#anim.fanim")),
     // Powder (tft_powder, the tft pack in tft/: Teamfight Tactics' own units, its own mod; this DLL draws her dense
     // frames when both packs are enabled): the idle design and Codex's skeleton poses with one clean head, posed by
     // tools/art/rig_powder.py at 1.75 squares a game pixel (61 rows: 「35」, then 「PPU像素好低啊 能调一下吗」), shown at 90 % (SIZES)

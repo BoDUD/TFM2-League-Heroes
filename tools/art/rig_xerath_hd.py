@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """league_xerath re-adjusted at PPU (the user, 2026-10-21: 「帮我使用PPU优化泽拉斯模型 大招动作帧之类的和英雄联盟都不一样」
-「不是重做 是重新调整」「好好做吧 别身体变形各种奇怪的问题」): the design of tools/art/design_xerath_hd.py (32 x 73 squares,
-the slimmer take) posed after League's own clips, every part only moved losslessly - whole squares and quarter turns
-about its joint, never redrawn, never sheared.
+「不是重做 是重新调整」「好好做吧 别身体变形各种奇怪的问题」): the design of tools/art/design_xerath_hd.py (35 x 62 squares:
+the slimmer take, shortened - 「泽拉斯在游戏里身体太长了吧？」 -> take C) posed after League's own clips, every part only moved
+losslessly - whole squares and quarter turns about its joint, never redrawn, never sheared.
 
     python tools/art/rig_xerath_hd.py --parts DIR        # the parts tinted, to check the cut
     python tools/art/rig_xerath_hd.py --review DIR       # every tag at 3x + GIFs (ppu_rig.Rig.review)
@@ -54,20 +54,21 @@ import ppu_rig as R  # noqa: E402
 
 HERO = "xerath"
 DESIGN = os.path.join(R.ROOT, "assets", "source", HERO, "hd", "design.png")
-PPU = 1.75                                   # squares a game pixel: 73 design rows = 41.7 game px crown to spike tips
-                                             # (the 1x was 44: 「游戏里别太大就行」)
+PPU = 1.55                                   # squares a game pixel: 62 design rows = 40 game px crown to spike tips
+                                             # (the 1x was 44: 「游戏里别太大就行」; 73 rows at 1.75 read as stretched)
 HOVER = 2                                    # squares between the spike tips and the ground line
 DARK = 30.0                                  # luma under which a square is outline
 
 # cuts and joints (design squares; a joint is a square edge point)
-L_SHOULDER, R_SHOULDER = (5.0, 27.0), (28.0, 27.0)
+L_SHOULDER, R_SHOULDER = (6.0, 27.0), (31.0, 27.0)
 CLAW_ROWS = 26                               # the claws hang from this row down
-HOOD_ROWS, HOOD_COLS = 12, (6, 27)           # the hood: every square above row 12, rows 12-14 in columns 6..26
+CLAW_COLS = (11, 26)                         # the near claw in columns up to 11, the far one from 26
+HOOD_ROWS, HOOD_COLS = 12, (7, 28)           # the hood: every square above row 12, rows 12-14 in columns 7..27
 NECK_ROW = 15
-PADS = {"lpad": (12, 31, 0, 10), "rpad": (12, 31, 24, 32)}
-LEG_TOP, LEG_KNEE, LEG_SPLIT = 45, 57, 17    # the legs from row 45; the plate / spike break; left / right columns
-GEM = (22, 29, 15, 21)                       # rows, columns of the gem's setting (stays on the core)
-CHEST_TOP, CHEST_HIP = 22, 36               # the chest plates in these rows (above, the thin bits by the collar stay on
+PADS = {"lpad": (12, 31, 0, 12), "rpad": (12, 31, 26, 35)}
+LEG_TOP, LEG_KNEE, LEG_SPLIT = 41, 51, 19    # the legs from row 41; the plate / spike break; left / right columns
+GEM = (22, 29, 17, 23)                       # rows, columns of the gem's setting (stays on the core)
+CHEST_TOP, CHEST_HIP = 22, 34               # the chest plates in these rows (above, the thin bits by the collar stay on
                                              # the core: flown, they broke into specks), the hip plates below
 
 
@@ -117,7 +118,7 @@ class Design:
             (self.parts if into is None else into)[name] = m
             taken[:] |= m
 
-        for name, side in (("lclaw", xx <= 9), ("rclaw", xx >= 24)):
+        for name, side in (("lclaw", xx <= CLAW_COLS[0]), ("rclaw", xx >= CLAW_COLS[1])):
             area = side & (yy >= CLAW_ROWS) & (yy < LEG_TOP + 3)
             grab(name, blue & area, area)
         area = (yy < HOOD_ROWS) | ((yy < NECK_ROW) & (xx >= HOOD_COLS[0]) & (xx < HOOD_COLS[1]))
@@ -125,6 +126,16 @@ class Design:
         for name, (r0, r1, c0, c1) in PADS.items():
             area = (yy >= r0) & (yy < r1) & (xx >= c0) & (xx < c1)
             grab(name, op & area, area)
+            # a pauldron square that touches no other square of its pauldron side by side hangs off the claw under
+            # it (the shortened design's dark purple at the far pauldron's foot): it goes with that claw - left on
+            # the pauldron it floated alone when the claw was flung
+            pad = self.parts[name]
+            sides = sum(np.roll(pad, s, a) for s in (1, -1) for a in (0, 1))
+            claw = self.parts["lclaw" if name == "lpad" else "rclaw"]
+            near = sum(np.roll(claw, s, a) for s in (1, -1) for a in (0, 1)) > 0
+            hang = pad & (sides == 0) & near
+            self.parts[name] = pad & ~hang
+            self.parts["lclaw" if name == "lpad" else "rclaw"] = claw | hang
         for side, cols in (("l", xx < LEG_SPLIT), ("r", xx >= LEG_SPLIT)):
             area = cols & (yy >= LEG_TOP) & (yy < LEG_KNEE)
             grab(side + "plate", op & area, area)
@@ -280,9 +291,11 @@ def skill2(k):
 
 # The armour's ring round the core (Spell5Loop), squares from where each piece stands; ORBIT: each piece circles a
 # square, one step a frame, on its own beat (PHASE) so the ring never moves as one
-RING = {"core": (0, -3), "head": (0, -8), "lpad": (-14, -12), "rpad": (14, -14), "lchest": (-9, -2),
+RING = {"core": (0, -3), "head": (0, -8), "lpad": (-14, -12), "rpad": (11, -17), "lchest": (-9, -2),
         "rchest": (9, -1), "lhip": (-1, 9), "rhip": (2, 8), "lplate": (-12, 8), "rplate": (14, 7),
-        "lspike": (-19, 8, 3), "rspike": (19, 10, 1), "lclaw": (-11, -5), "rclaw": (12, -6)}
+        "lspike": (-19, 8, 3), "rspike": (19, 9, 1), "lclaw": (-11, -5), "rclaw": (12, -6)}
+# (on the 62-row design the far spike a row higher - turned, the wider spike's tip dipped under the ground line - and
+# the far pauldron three columns in and three up: standing a column further out, it sat in r_cast_shot's bolt)
 ORBIT = [(0, 0), (1, 0), (1, 1), (0, 1), (-1, 1), (-1, 0)]
 PHASE = {"core": 0, "head": 3, "lpad": 1, "rpad": 4, "lchest": 2, "rchest": 5, "lhip": 4, "rhip": 1, "lplate": 5,
          "rplate": 2, "lspike": 0, "rspike": 3, "lclaw": 2, "rclaw": 5}
