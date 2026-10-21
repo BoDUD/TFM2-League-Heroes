@@ -159,8 +159,44 @@ fn read(sim: &StableSim<'_>, me: usize) -> Option<(Me, Vec<Unit>)> {
     Some((m, foes))
 }
 
+/// The AI is still recalling (game 0.6.5 decides when to go home and buy; the combos leave it be): its last order was a
+/// Return - it orders only on its judgement ticks, again a Return while the recall lasts, nothing in between - and any
+/// other order ends it (league_ult_press 0.5.0's rule).
+pub fn still_recalling(was: bool, base: Option<InputV1>) -> bool {
+    match base {
+        Some(b) => b.kind == InputKindV1::Return.code(),
+        None => was,
+    }
+}
+
+/// How much farther from a champion the AI's walk must end to be a retreat (league_ult_press's `HOLD_AWAY`).
+pub const AWAY: f64 = 10_000.0;
+
+/// The AI walks away from `to` this tick (a retreat, a disperse from a lost objective): its Move ends more than `AWAY`
+/// farther from it than he stands now.
+pub fn walking_away(base: Option<InputV1>, me: Pt, to: Pt) -> bool {
+    base.is_some_and(|b| b.kind == InputKindV1::Move.code() && dist((b.x as f64, b.y as f64), to) > dist(me, to) + AWAY)
+}
+
+/// An enemy tower this close to a champion: he stands under it (league_ult_press's `TOWER_REACH`).
+pub const TOWER_REACH: f64 = 75_000.0;
+
+/// `p` is under a living enemy tower of `me`'s.
+fn under_tower(sim: &StableSim<'_>, me: usize, p: Pt) -> bool {
+    let Some(team) = sim.get_entity(me).map(|e| e.team()) else { return false };
+    (0..sim.entity_count()).filter_map(|i| sim.entity_at(i)).any(|u| {
+        u.is_tower() && u.is_alive() && u.team() != team && {
+            let (x, y) = u.pos();
+            dist((x as f64, y as f64), p) <= TOWER_REACH
+        }
+    })
+}
+
 #[derive(Clone, Default)]
-pub struct Combo;
+pub struct Combo {
+    /// the AI is recalling (`still_recalling`)
+    recalling: bool,
+}
 
 impl StablePlayerAi for Combo {
     fn clone_box(&self) -> Box<dyn StablePlayerAi> {
@@ -180,12 +216,23 @@ impl StablePlayerAi for Combo {
     }
 
     fn think(&mut self, ctx: &mut StableAiContext<'_>, base: Option<InputV1>) -> Option<InputV1> {
+        // game 0.6.5's AI decides when to recall (and buy): nothing pressed while it does
+        self.recalling = still_recalling(self.recalling, base);
+        if self.recalling {
+            return None;
+        }
         let player = ctx.player_id();
         let (call, line, on) = {
             let sim = ctx.sim()?;
             let me = sim.get_player(player)?.champion()?.id();
             let (m, foes) = read(&sim, me)?;
             let c = call(&m, &foes, want_of(base))?;
+            // a charge at a champion the AI walks away from, or under an enemy tower: not (0.6.5's retreats and dives)
+            if let Call::PressE(t, _) = &c {
+                if foes.iter().find(|u| u.id == *t).is_some_and(|u| walking_away(base, m.at, u.at) || under_tower(&sim, me, u.at)) {
+                    return None;
+                }
+            }
             let t = match &c {
                 Call::PressQ(_, t, _) | Call::PressE(t, _) | Call::Attack(t, _) => *t,
             };
@@ -210,6 +257,16 @@ impl StablePlayerAi for Combo {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn a_recall_or_a_retreat_is_the_ais() {
+        // game 0.6.5: a recall lasts over the ticks without an order; a walk ending far from the target is a retreat
+        assert!(still_recalling(false, Some(InputV1::return_home())) && still_recalling(true, None));
+        assert!(!still_recalling(true, Some(InputV1::move_to(0, 0))) && !still_recalling(false, None));
+        assert!(walking_away(Some(InputV1::move_to(0, 0)), (20_000.0, 0.0), (60_000.0, 0.0)));
+        assert!(!walking_away(Some(InputV1::move_to(50_000, 0)), (20_000.0, 0.0), (60_000.0, 0.0)));
+        assert!(!walking_away(None, (20_000.0, 0.0), (60_000.0, 0.0)));
+    }
 
     fn me(pillars: Vec<Pt>, q: bool, e: bool) -> Me {
         Me { at: (0.0, 0.0), r: 6000.0, q_ready: q, e_ready: e, pillars }

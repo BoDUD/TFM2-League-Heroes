@@ -33,7 +33,7 @@ pub mod stealable;
 
 const ID: &str = "league_sylas";
 /// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是 league_addons 的。
-const VERSION: &str = "0.2.0";
+const VERSION: &str = "0.2.1";
 /// 五个类别（和佛耶戈附加包一样）。
 pub const CLASSES: [&str; 5] = ["melee", "range", "mage", "util", "assassin"];
 
@@ -342,7 +342,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     ));
     module.add_native_effect(format!("{ID}:kingslayer"), KingslayerFx);
     module.add_native_passive(format!("{ID}:hijack"), Hijack::default());
-    module.add_player_input_ai(combo::Combo);
+    module.add_player_input_ai(combo::Combo::default());
     host.log(LogLevel::Info, "league_sylas loaded (Hijack by class, Kingslayer by missing health, the combos).");
 }
 
@@ -397,6 +397,35 @@ mod tests {
         let p = Params::default();
         assert_eq!(power_of(210, &p), 126);
         assert_eq!(power_of(0, &p), 0);
+    }
+
+    #[test]
+    fn every_pack_hero_is_robbed_one_way() {
+        // classes.rs and stealable.rs are generated (make_override.py); a new hero's ult is checked with
+        // tools/kit/sylas_steal_check.py and lands in stealable.rs or in make_override.py's BY_CLASS (2026-10-21: Ornn's
+        // works in his hands, Shyvana's needs her Fury - both were missing until then)
+        let dir = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../../league/champion");
+        let heroes: Vec<String> = std::fs::read_dir(&dir)
+            .expect("league/champion")
+            .filter_map(|e| e.ok()?.file_name().into_string().ok()?.strip_suffix(".data_champion").map(str::to_string))
+            .collect();
+        assert!(heroes.len() > 100, "read only {} heroes from {}", heroes.len(), dir.display());
+        let src = std::fs::read_to_string(concat!(env!("CARGO_MANIFEST_DIR"), "/../../addons/league_sylas/make_override.py"))
+            .unwrap();
+        let start = src.find("BY_CLASS = {").expect("BY_CLASS in make_override.py");
+        let block = &src[start..start + src[start..].find("\n}").expect("the end of BY_CLASS")];
+        let mut wrong = Vec::new();
+        for h in &heroes {
+            if !classes::CLASSES_OF.iter().any(|c| c.0 == h.as_str()) {
+                wrong.push(format!("{h}: not in classes.rs"));
+            }
+            let own = stealable::STEALABLE.contains(&h.as_str());
+            let by_class = block.contains(&format!("\"{}\":", h.trim_start_matches("league_")));
+            if h != ID && own == by_class {
+                wrong.push(format!("{h}: {}", if own { "both stealable and BY_CLASS" } else { "neither stealable nor BY_CLASS" }));
+            }
+        }
+        assert!(wrong.is_empty(), "run make_override.py (a new hero: sylas_steal_check.py first): {wrong:?}");
     }
 
     #[test]

@@ -11,7 +11,7 @@
 //! - [`display`]：显示更新函数和它的槽，所有挂这个槽的 DLL 共用；第一个找到的写进进程环境变量
 //!   `LEAGUE_DISPLAY_PLACES`（在任何钩子改槽之前），后来的直接读——槽被改过以后就搜不到原指针了。
 //!
-//! 结构体里的偏移（显示世界 +0x138 表、实体值 +0x40 / +0x68 / +0xb8 / +0x1b4 等）没有改成动态：0.6.3 → 0.6.4 一个都没变；
+//! 结构体里的偏移（显示世界 +0x138 表、实体值 +0x40 / +0x68 / +0xb8 / +0x1b4 等）没有改成动态：0.6.3 → 0.6.4 → 0.6.5 一个都没变；
 //! 变了的话钩子在日志里看得出（「Kayn seen 0 times」之类），到时再查。
 //! 文件版 [`Image::from_file`] 给测试和离线检查用：`cargo test -p league_main` 拿游戏目录里的 EXE 跑一遍 [`resolve`]，
 //! 必须和 build.rs 列的地址完全一致。
@@ -282,6 +282,16 @@ fn indirect_call(code: &[u8], i: usize) -> Option<usize> {
     }
 }
 
+/// `movss xmm, [reg+0x1b4]` (mod 10, no SIB) at the start of `w`, with or without a REX prefix (0.6.4 read it through
+/// rdi, 0.6.5 through r13: `f3 41 0f 10 8d b4 01 00 00`).
+fn reads_scale(w: &[u8]) -> bool {
+    let k = if w.get(1).is_some_and(|r| (0x40..=0x4f).contains(r)) { 2 } else { 1 };
+    w.first() == Some(&0xf3)
+        && w.get(k..k + 7).is_some_and(|x| {
+            x[0] == 0x0f && x[1] == 0x10 && (0x80..0xc0).contains(&x[2]) && x[2] & 7 != 4 && x[3..] == [0xb4, 0x01, 0x00, 0x00]
+        })
+}
+
 /// Finds every place of [`Places`] in `img` by the patterns of [`sigs`] (find_build.py's steps without a disassembler).
 pub fn resolve(img: &Image) -> Result<Places, String> {
     resolve_with(img, None)
@@ -359,14 +369,10 @@ pub fn resolve_with(img: &Image, display: Option<(usize, usize)>) -> Result<Plac
         .remove(&body_draw)
         .unwrap_or_default()
         .into_iter()
-        .filter(|c| {
-            img.read(*c, 0x200).is_some_and(|w| {
-                w.windows(8).any(|x| x[0] == 0xf3 && x[1] == 0x0f && x[2] == 0x10 && (0x80..0xc0).contains(&x[3])
-                    && x[3] & 7 != 4 && x[4..] == [0xb4, 0x01, 0x00, 0x00])
-            })
-        })
+        .filter(|c| img.read(*c, 0x200).is_some_and(|w| (0..w.len()).any(|i| reads_scale(&w[i..]))))
         .collect();
-    one("the entity render (movss [reg+0x1b4] after the body draw)", &renders)?;
+    let render_call = one("the entity render (movss [reg+0x1b4] after the body draw)", &renders)?;
+    let render_fn = img.func_of(render_call).ok_or("the entity render has no .pdata entry")?;
     let body_fn = img.func_of(body_draw).ok_or("the body draw has no .pdata entry")?;
     let mut grows: Vec<usize> = img
         .calls_in(body_fn.0, body_fn.1)
@@ -429,6 +435,18 @@ pub fn resolve_with(img: &Image, display: Option<(usize, usize)>) -> Result<Plac
             continue;
         }
         let taken: HashSet<usize> = chosen.values().map(|v| v.0 .1).collect();
+        // a drawer the listed build has inside the entity render: the best candidate in it, when clearly so (0.6.5: the
+        // scoreboard portraits' asks moved by 3, too far for 'clear', and the drawers moved apart from each other)
+        if UI_IN_RENDER.contains(&k) {
+            let inside: Vec<&Scored> =
+                scored.iter().filter(|s| !taken.contains(&s.1) && render_fn.0 <= s.1 && s.1 < render_fn.1).collect();
+            if let Some(first) = inside.first() {
+                if first.0 <= 8 && inside.get(1).is_none_or(|s| s.0 >= first.0 + 5) {
+                    chosen.insert(k, (**first, "in the entity render".into()));
+                    continue;
+                }
+            }
+        }
         let mut best: Option<(usize, Scored, bool)> = None;
         for s in scored {
             if taken.contains(&s.1) {
@@ -557,5 +575,14 @@ mod tests {
         assert_eq!(indirect_call(&[0xff, 0x53, 0x28], 0), Some(3));
         assert_eq!(indirect_call(&[0xff, 0x54, 0x24], 0), None); // a SIB form: not one of the asks
         assert_eq!(indirect_call(&[0xe8, 0x00], 0), None);
+    }
+
+    #[test]
+    fn the_scale_read_is_told_with_or_without_rex() {
+        assert!(reads_scale(&[0xf3, 0x0f, 0x10, 0x8f, 0xb4, 0x01, 0x00, 0x00])); // 0.6.4: movss xmm1, [rdi+0x1b4]
+        assert!(reads_scale(&[0xf3, 0x41, 0x0f, 0x10, 0x8d, 0xb4, 0x01, 0x00, 0x00])); // 0.6.5: [r13+0x1b4]
+        assert!(!reads_scale(&[0xf3, 0x0f, 0x10, 0x8c, 0x24, 0xb4, 0x01, 0x00])); // a SIB form
+        assert!(!reads_scale(&[0xf3, 0x41, 0x0f, 0x10, 0x8d, 0xb8, 0x01, 0x00, 0x00])); // another field
+        assert!(!reads_scale(&[0xf3, 0x41, 0x0f, 0x10]));
     }
 }

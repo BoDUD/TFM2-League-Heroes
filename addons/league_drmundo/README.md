@@ -58,3 +58,7 @@ cd addons && cargo test -p league_drmundo && cargo build --release -p league_drm
 
 单独装：`league_drmundo.dll` + `mod.mod_info` + `mod.override_info` + `override/` + `text/` 放进
 `<游戏>/mods/league_drmundo/`；一般随附加包合集（`league_addons`）一起装。
+
+## 游戏 0.6.5（0.1.4）
+
+AI 下回城命令时不再改成去捡药罐（0.6.5 的官方 AI 自己决定什么时候回城买装备）。

@@ -21,7 +21,7 @@
 //!   英雄进到 `e_trig` 以内、离上次 `e_cd` tick 以上、没在附身：`league_viego_e_on`（e_t tick，移速 +e_ms%、攻速 +e_as%，
 //!   同数据原来的雾）、隐身 e_hide tick（`entity_set_invisible`）、黑雾的画面和声音（`league_viego_e_zone`、`_e`、`_e_mist`）。
 //!
-//! 原生代码只做判断和 buff；画面、伤害在数据里。整身外形只在游戏 0.6.4 上（显示钩子核对函数开头），别的版本只有数据的黑雾。
+//! 原生代码只做判断和 buff；画面、伤害在数据里。整身外形在游戏 0.6.4 起的 Windows 版上（显示钩子的地址由 game_places 运行时找），别的版本只有数据的黑雾。
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_viego_soul.log`，每次启动游戏重写，上一次的留在 .prev.log。
 
 use std::fs::OpenOptions;
@@ -514,7 +514,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v{} (Viego: possess the champions he helps kill, their whole body on game 0.6.4; the mist rises by itself near enemy champions) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v{} (Viego: possess the champions he helps kill, their whole body on game 0.6.4 and later (Windows); the mist rises by itself near enemy champions) loaded: game {}.{}.{} abi {} log={} ===",
         env!("CARGO_PKG_VERSION"),
         v.major,
         v.minor,
@@ -543,6 +543,27 @@ declare_stable_mod!(init, requires = 9);
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    /// The main pack's heroes (league/champion/*.data_champion).
+    fn pack_heroes() -> Vec<String> {
+        let dir = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../../league/champion");
+        let mut v: Vec<String> = std::fs::read_dir(&dir)
+            .expect("league/champion")
+            .filter_map(|e| e.ok()?.file_name().into_string().ok()?.strip_suffix(".data_champion").map(str::to_string))
+            .collect();
+        v.sort();
+        assert!(v.len() > 100, "read only {} heroes from {}", v.len(), dir.display());
+        v
+    }
+
+    #[test]
+    fn every_pack_hero_has_a_soul() {
+        // src/souls.rs is generated: a hero added without make_override.py run again is never drawn as his body (Ornn
+        // and Shyvana, both dense, were missing until 2026-10-21)
+        let missing: Vec<String> =
+            pack_heroes().into_iter().filter(|h| !souls::SOULS.iter().any(|s| s.0 == h)).collect();
+        assert!(missing.is_empty(), "not in src/souls.rs - run make_override.py: {missing:?}");
+    }
 
     #[test]
     fn the_mist_rises_near_an_enemy_champion_once_a_pause() {
