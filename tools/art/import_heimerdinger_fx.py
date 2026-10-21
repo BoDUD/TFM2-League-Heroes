@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Import Heimerdinger's effects (assets/source/heimerdinger/PROMPTS_FX.md, 27 pictures; the user had Gemini draw them,
 brought to game size by tools/art/process_heimerdinger_fx.py) as the game sheets league_heimerdinger_fx,
-league_heimerdinger_big and league_heimerdinger_turret.
+league_heimerdinger_big, league_heimerdinger_turret and league_heimerdinger_apex.
 
     python tools/art/import_heimerdinger_fx.py [--src DIR] [--review out.png]
 
@@ -11,8 +11,9 @@ rockets, the grenades' lobs) loop behind a lead tick (import_jhin.flight); the b
 loop; the rest play once. w_flash and dead_burst are drawn into his frames (rig_heimerdinger.py), the turrets' deploy,
 muzzle and breaking pictures into the turrets' own tags here; t_shot, t_beam_line and x_shot (a native add-on's shots
 from the turrets) go into the fx sheet unbound.
-The turret sheet is dense (league_main hd.rs EFFECTS, PPU 1.5 like him: league_leblanc_clone's way): tag t_turret /
-x_turret at 1x (ppu_rig.one_of, each frame centred on the pivot) and hd_t_turret / hd_x_turret at PPU 1.5 - the
+The turret sheets are dense (league_main hd.rs EFFECTS, PPU 1.5 like him: league_leblanc_clone's way; a dense effect
+sheet holds only idle / hd_idle, so one sheet a turret): tag idle at 1x (ppu_rig.one_of, each frame centred on the
+pivot) and hd_idle at PPU 1.5 - the
 designs hd/turret.png (39 x 30) and hd/apex.png (37 x 45) standing on the ground under the pivot (the zone's point), the
 effects' pixels made 1.5 times bigger (nearest). One life each, timed on the kit's zones (build_heimerdinger.P):
 the Q turret rises out of the ground over its golden hexagon, fires its first shot at t_first (667 ms) and then every
@@ -255,7 +256,9 @@ def turret_tags(allc):
                      rise=[40, 30, 20, 12, 6, 2, 0, 0], deploy_ms=60)
     t1, th = one_and_dense(t, tl)
     x1, xh = one_and_dense(x, xl)
-    return {"t_turret": t1, "x_turret": x1, "hd_t_turret": th, "hd_x_turret": xh}
+    # a dense effect sheet holds only idle / hd_idle (league_main src/lookup.rs densify_table): one sheet a turret
+    return {"league_heimerdinger_turret": {"idle": t1, "hd_idle": th},
+            "league_heimerdinger_apex": {"idle": x1, "hd_idle": xh}}
 
 
 def main():
@@ -286,10 +289,10 @@ def main():
         w, h = G.write_sheet(lp(os.path.join(MOD, "effects", sheet)), tags, share=True)
         print(f"league/effects/{sheet}#sheet.png {w}x{h}: " + ", ".join(
             f"{t} {len(v)}f {sum(m for _, m in v):.0f}ms" for t, v in tags.items()))
-    tt = turret_tags(allc)
-    w, h = G.write_sheet(lp(os.path.join(MOD, "effects", "league_heimerdinger_turret")), tt, share=True)
-    print(f"league/effects/league_heimerdinger_turret#sheet.png {w}x{h}: " + ", ".join(
-        f"{t} {len(v)}f {sum(m for _, m in v):.0f}ms" for t, v in tt.items()))
+    for sheet, tt in turret_tags(allc).items():
+        w, h = G.write_sheet(lp(os.path.join(MOD, "effects", sheet)), tt, share=True)
+        print(f"league/effects/{sheet}#sheet.png {w}x{h}: " + ", ".join(
+            f"{t} {len(v)}f {sum(m for _, m in v):.0f}ms" for t, v in tt.items()))
     if a.review:
         from PIL import ImageDraw
         Z = 6

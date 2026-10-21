@@ -2951,7 +2951,7 @@
       "type": "Animation",
       "name": "league_heimerdinger_t_turret",
       "anim": "asset/league/effects/league_heimerdinger_turret",
-      "tag": "t_turret",
+      "tag": "idle",
       "z": -1,
       "is_follow": false
     },
@@ -3006,8 +3006,8 @@
     {
       "type": "Animation",
       "name": "league_heimerdinger_x_turret",
-      "anim": "asset/league/effects/league_heimerdinger_turret",
-      "tag": "x_turret",
+      "anim": "asset/league/effects/league_heimerdinger_apex",
+      "tag": "idle",
       "z": -1,
       "is_follow": false
     },

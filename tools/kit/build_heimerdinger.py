@@ -45,7 +45,8 @@ OUT = os.path.join(REPO, "league", "champion", "league_heimerdinger.data_champio
 ID = "league_heimerdinger"
 FX = "asset/league/effects/league_heimerdinger_fx"
 BIG = "asset/league/effects/league_heimerdinger_big"
-TURRET = "asset/league/effects/league_heimerdinger_turret"   # the two turrets' lives, dense (PPU 1.5, hd.rs EFFECTS)
+TURRET = "asset/league/effects/league_heimerdinger_turret"   # Q's turret's life, dense (PPU 1.5, hd.rs EFFECTS; tag idle)
+APEX = "asset/league/effects/league_heimerdinger_apex"       # R's apex turret's life, the same way
 
 # League units x 100 = ours (attack range 550 -> 55000 like every mid); radii count the unit's collision radius
 # (~15000) on top. Timings from the frames (tools/art/rig_heimerdinger.py, after League's clips): the attack's jab
@@ -323,9 +324,9 @@ def build(p):
                                            "repeat": True, "z": 2}
     views_p = [Pj("a_bolt"), Pj("w_rocket"), Pj("e_grenade"), Pj("re_grenade")]
     # the turrets under the units (z -1) like the ground; the grenade's blasts there too
-    views_e = [E("a_hit"), E("w_hit"), E("t_turret", TURRET, -1, False), E("t_hit"), E("t_beam"),
+    views_e = [E("a_hit"), E("w_hit"), dict(E("t_turret", TURRET, -1, False), tag="idle"), E("t_hit"), E("t_beam"),
                E("e_blast", BIG, -1, False), E("e_hit"), E("re_blast", BIG, -1, False), E("r_up", BIG),
-               E("x_turret", TURRET, -1, False), E("x_hit"), E("x_beam")]
+               dict(E("x_turret", APEX, -1, False), tag="idle"), E("x_hit"), E("x_beam")]
     views_b = [B_("e_slow", FX, -1), dict(B_("x_slow", FX, -1), tag="e_slow"), B_("haste", FX, -1)]
     extra = {}
     if native:
