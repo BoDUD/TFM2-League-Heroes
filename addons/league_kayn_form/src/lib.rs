@@ -428,6 +428,47 @@ mod tests {
     use super::*;
 
     #[test]
+    fn every_pack_hero_has_its_range() {
+        // src/ranges.rs is generated: a hero added without make_override.py run again is told apart by the distance
+        // only (Shyvana was missing until 2026-10-21)
+        let dir = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../../league/champion");
+        let heroes: Vec<String> = std::fs::read_dir(&dir)
+            .expect("league/champion")
+            .filter_map(|e| e.ok()?.file_name().into_string().ok()?.strip_suffix(".data_champion").map(str::to_string))
+            .collect();
+        assert!(heroes.len() > 100, "read only {} heroes from {}", heroes.len(), dir.display());
+        let missing: Vec<&String> = heroes.iter().filter(|h| !ranges::RANGES.iter().any(|r| r.0 == h.as_str())).collect();
+        assert!(missing.is_empty(), "not in src/ranges.rs - run make_override.py: {missing:?}");
+        // and with the attack range the hero has now (a changed range left in the table counts his hits on the old side);
+        // league_nidalee's / league_elise's data range is the beast's reach and make_override.py adds the human form's
+        // permanent range buff (their builder's P "h_add") - the same here
+        let h_add = |h: &str| -> u32 {
+            let short = h.trim_start_matches("league_");
+            let path = dir.join(format!("../../tools/kit/build_{short}.py"));
+            let src = std::fs::read_to_string(&path).unwrap_or_else(|_| panic!("no {}", path.display()));
+            let at = src.find("\"h_add\": ").unwrap_or_else(|| panic!("no h_add in build_{short}.py"));
+            src[at + 9..].chars().take_while(|c| c.is_ascii_digit()).collect::<String>().parse().unwrap()
+        };
+        let mut stale = Vec::new();
+        for h in &heroes {
+            let raw = std::fs::read_to_string(dir.join(format!("{h}.data_champion"))).unwrap().replace("\r\n", "\n");
+            let range: u32 = raw
+                .lines()
+                .skip_while(|l| *l != "  \"attack\": {")
+                .skip(1)
+                .take_while(|l| !l.starts_with("  }"))
+                .find_map(|l| l.strip_prefix("    \"range\": "))
+                .map(|r| r.trim_end_matches(',').parse().unwrap())
+                .unwrap_or_else(|| panic!("no attack range in {h}"));
+            let range = if matches!(h.as_str(), "league_nidalee" | "league_elise") { range + h_add(h) } else { range };
+            if let Some(r) = ranges::RANGES.iter().find(|r| r.0 == h.as_str()).filter(|r| r.1 != range) {
+                stale.push(format!("{h}: {} in src/ranges.rs, {range} in the data", r.1));
+            }
+        }
+        assert!(stale.is_empty(), "src/ranges.rs is behind the data - run make_override.py: {stale:?}");
+    }
+
+    #[test]
     fn melee_hits_charge_the_darkin_and_ranged_the_shadow() {
         assert_eq!(charges("fighter", 10_000.0), Form::Darkin);
         assert_eq!(charges("archer", 10_000.0), Form::Shadow);

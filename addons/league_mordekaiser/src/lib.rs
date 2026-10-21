@@ -40,7 +40,7 @@ use mod_api_stable::*;
 
 const ID: &str = "league_mordekaiser";
 /// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是 league_addons 的。
-const VERSION: &str = "0.1.1";
+const VERSION: &str = "0.1.2";
 
 /// 主包莫德凯撒的名字（buff、画面都以它开头）。
 fn mk(x: &str) -> String {
@@ -415,9 +415,21 @@ impl Revenant {
                 with_state(sim, me, |s| s.realm = None);
                 wlog(format!("{} R END: both out ({} swings vs {})", head(sim, me), r.swings.0, r.swings.1));
             }
+            (Some(_), Some(_)) if cut_short(t, r.until, targetable(sim, r.target)) => {
+                // the cursed one is targetable again before the realm's end: game 0.6.5 fixed a seal staying on a unit
+                // with Tenacity after its crowd control (Taoist's ult) - a banish cut short by Tenacity the same way
+                // lets him out early, and the duel ends with it: Mordekaiser out too, the stolen stats back
+                with_state(sim, me, |s| s.realm = None);
+                sim.entity_remove_buff(me, &mk("r_steal"));
+                sim.entity_remove_buff(r.target, &mk("r_curse"));
+                let_out(sim, me);
+                self.out = Some((me, t));
+                wlog(format!("{} R CUT: {} targetable again {} ticks into the realm (Tenacity?) - both out ({} swings                     vs {})", head(sim, me), who(sim, r.target), t + R_T - r.until, r.swings.0, r.swings.1));
+            }
             (Some((ms, max, mi)), Some((ts, ti))) => {
                 let mut r = r;
-                if t >= r.renew {
+                // his own step cut short by his Tenacity (0.6.5, as above): renewed at once
+                if t >= r.renew || targetable(sim, me) {
                     // his banish in short steps, so that an early end lets him out (0.6.4 holds a long one)
                     let ok = sim.entity_banish(me, me, realm_step(t, r.until), "", "");
                     if !ok {
@@ -550,6 +562,19 @@ fn realm(sim: &mut StableSim<'_>, caster: usize, input: InputTargetV1) {
                      String::new() }, steal, if into_me && into_it { "" } else { " (entity_banish refused)" }));
 }
 
+/// Alive and targetable: out of a banish (a realm's two are not, until it ends).
+fn targetable(sim: &StableSim<'_>, id: usize) -> bool {
+    sim.get_entity(id).is_some_and(|e| e.is_alive() && e.is_targetable())
+}
+
+/// Ticks into the realm before a targetable cursed one counts as out of it (the banish lands with the cast).
+pub const OUT_GRACE: usize = 2;
+
+/// The realm ending `until` is cut short at tick `t`: past `OUT_GRACE` ticks into it, the cursed one targetable again.
+pub fn cut_short(t: usize, until: usize, out: bool) -> bool {
+    out && t > until.saturating_sub(R_T) + OUT_GRACE && t < until
+}
+
 /// His next banish step at tick `t`: R_STEP ticks, cut at the realm's end.
 pub fn realm_step(t: usize, until: usize) -> usize {
     until.saturating_sub(t).clamp(1, R_STEP)
@@ -624,6 +649,16 @@ declare_stable_mod!(init, requires = 9);
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn a_realm_ends_when_the_cursed_one_is_out_early() {
+        let start = 1000;
+        let until = start + R_T;
+        assert!(!cut_short(start + 1, until, true)); // the banish has just landed
+        assert!(cut_short(start + 60, until, true)); // Tenacity let him out
+        assert!(!cut_short(start + 60, until, false)); // still in the realm
+        assert!(!cut_short(until, until, true)); // the realm's own end (R END)
+    }
 
     fn stat(attack: usize, ap: usize, def: usize, mr: usize) -> StatV1 {
         StatV1 { attack, magic_power: ap, hp: 0, defence: def, magic_resistance: mr, move_speed: 0, hp_regen: 0,

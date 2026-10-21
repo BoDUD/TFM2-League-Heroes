@@ -21,7 +21,7 @@
 //!   英雄进到 `e_trig` 以内、离上次 `e_cd` tick 以上、没在附身：`league_viego_e_on`（e_t tick，移速 +e_ms%、攻速 +e_as%，
 //!   同数据原来的雾）、隐身 e_hide tick（`entity_set_invisible`）、黑雾的画面和声音（`league_viego_e_zone`、`_e`、`_e_mist`）。
 //!
-//! 原生代码只做判断和 buff；画面、伤害在数据里。整身外形只在游戏 0.6.4 上（显示钩子核对函数开头），别的版本只有数据的黑雾。
+//! 原生代码只做判断和 buff；画面、伤害在数据里。整身外形在游戏 0.6.4 起的 Windows 版上（显示钩子的地址由 game_places 运行时找），别的版本只有数据的黑雾。
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_viego_soul.log`，每次启动游戏重写，上一次的留在 .prev.log。
 
 use std::fs::OpenOptions;
@@ -514,7 +514,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v{} (Viego: possess the champions he helps kill, their whole body on game 0.6.4; the mist rises by itself near enemy champions) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v{} (Viego: possess the champions he helps kill, their whole body on game 0.6.4 and later (Windows); the mist rises by itself near enemy champions) loaded: game {}.{}.{} abi {} log={} ===",
         env!("CARGO_PKG_VERSION"),
         v.major,
         v.minor,
@@ -543,6 +543,94 @@ declare_stable_mod!(init, requires = 9);
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    /// The main pack's heroes (league/champion/*.data_champion).
+    fn pack_heroes() -> Vec<String> {
+        let dir = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../../league/champion");
+        let mut v: Vec<String> = std::fs::read_dir(&dir)
+            .expect("league/champion")
+            .filter_map(|e| e.ok()?.file_name().into_string().ok()?.strip_suffix(".data_champion").map(str::to_string))
+            .collect();
+        v.sort();
+        assert!(v.len() > 100, "read only {} heroes from {}", v.len(), dir.display());
+        v
+    }
+
+    #[test]
+    fn every_pack_hero_has_a_soul() {
+        // src/souls.rs is generated: a hero added without make_override.py run again is never drawn as his body (Ornn
+        // and Shyvana, both dense, were missing until 2026-10-21)
+        let missing: Vec<String> =
+            pack_heroes().into_iter().filter(|h| !souls::SOULS.iter().any(|s| s.0 == h)).collect();
+        assert!(missing.is_empty(), "not in src/souls.rs - run make_override.py: {missing:?}");
+    }
+
+    /// The animation tags of an `#anim.fanim` (`{"anims":{"<tag>":{...},...}}`), sorted.
+    fn fanim_tags(json: &str) -> Vec<String> {
+        let Some(k) = json.find("\"anims\"") else { return Vec::new() };
+        let Some(open) = json[k..].find('{').map(|o| k + o) else { return Vec::new() };
+        let b = json.as_bytes();
+        let (mut i, mut depth, mut out) = (open + 1, 1usize, Vec::new());
+        while i < b.len() && depth > 0 {
+            match b[i] {
+                b'{' | b'[' => depth += 1,
+                b'}' | b']' => depth -= 1,
+                b'"' => {
+                    let end = i + 1 + json[i + 1..].find('"').expect("an unclosed string");
+                    let after = json[end + 1..].trim_start();
+                    if depth == 1 && after.starts_with(':') {
+                        out.push(json[i + 1..end].to_string());
+                    }
+                    i = end;
+                }
+                _ => {}
+            }
+            i += 1;
+        }
+        out.sort();
+        out
+    }
+
+    #[test]
+    fn every_soul_has_its_sheets_tags() {
+        // the view hook writes the playing animation's name into Viego's body only when the victim's tags (here) have
+        // it: a tag left here that the hero's sheet lost makes the game panic ("animation info not found") the moment he
+        // possesses that hero, a tag the sheet gained is never used - so a re-exported sheet needs make_override.py again
+        // (the user, 2026-10-21: 「测试佛耶戈 souls.rs 的标签和每个英雄 #anim 的标签一致」)
+        let root = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
+        let mut wrong = Vec::new();
+        for id in pack_heroes() {
+            let data = std::fs::read_to_string(root.join(format!("league/champion/{id}.data_champion"))).unwrap();
+            let sprite = data
+                .lines()
+                .find_map(|l| l.trim().strip_prefix("\"sprite\": \""))
+                .map(|r| r.trim_end_matches(',').trim_end_matches('"'))
+                .unwrap_or_else(|| panic!("no sprite in {id}"));
+            let name = sprite.rsplit('/').next().unwrap();
+            let Ok(anim) = std::fs::read_to_string(root.join(format!("league/champions/{name}#anim.fanim"))) else {
+                continue; // make_override.py leaves a hero without its own sheet out (every_pack_hero_has_a_soul says so)
+            };
+            let sheet = fanim_tags(&anim);
+            assert!(!sheet.is_empty(), "no tags read from {name}#anim.fanim");
+            let Some(soul) = souls::SOULS.iter().find(|s| s.0 == id) else { continue };
+            let mut listed: Vec<String> = soul.2.iter().map(|t| t.to_string()).collect();
+            listed.sort();
+            if listed != sheet {
+                let gone: Vec<&String> = listed.iter().filter(|t| !sheet.contains(t)).collect();
+                let new: Vec<&String> = sheet.iter().filter(|t| !listed.contains(t)).collect();
+                wrong.push(format!("{id}: not in the sheet any more {gone:?}, not in souls.rs {new:?}"));
+            }
+        }
+        assert!(wrong.is_empty(), "src/souls.rs differs from the heroes' #anim.fanim - run make_override.py: {wrong:#?}");
+    }
+
+    #[test]
+    fn the_tag_reader_reads_only_the_anims_keys() {
+        let json = r#"{"anims":{"idle":{"frames":[{"duration":0.1,"data":{"x":0.0}}]},"hd_run":{"frames":[]}},"other":1}"#;
+        assert_eq!(fanim_tags(json), vec!["hd_run".to_string(), "idle".to_string()]);
+        let pretty = "{\n  \"anims\": {\n    \"run\": {\n      \"frames\": []\n    },\n    \"attack\": {}\n  }\n}";
+        assert_eq!(fanim_tags(pretty), vec!["attack".to_string(), "run".to_string()]);
+    }
 
     #[test]
     fn the_mist_rises_near_an_enemy_champion_once_a_pause() {

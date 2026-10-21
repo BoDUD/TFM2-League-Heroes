@@ -32,3 +32,7 @@
 - 在 `addons/` 下 `cargo test --release -p league_mel`：单元测试（残影的价值和处决、反弹光弹的伤害、参数、和参数表一致，连招的 E → Q、禁锢后接 Q、R 等残影）。
 - 在 `addons/` 下 `cargo build --release -p league_mel`（Windows）得到 `target/release/league_mel.dll`；`league_addons` 合集也会编进本包。
 - 经典 SDK 的模拟器跑不了原生代码，本包只做了单元测试，要在游戏里看日志确认。
+
+## 游戏 0.6.5（0.1.2）
+
+连招钩子回城时不出手（`league_ult_press` 0.5.0 的规则，0.6.5 的官方 AI 自己决定什么时候回城买装备）；R、定身时的 Q 都在原地放，撤退时照放。

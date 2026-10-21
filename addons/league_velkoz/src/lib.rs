@@ -37,7 +37,7 @@ pub mod combo;
 
 const ID: &str = "league_velkoz";
 /// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是 league_addons 的。
-const VERSION: &str = "0.1.0";
+const VERSION: &str = "0.1.1";
 /// 诊断：每这么多 tick 报一次（30 秒）。
 const WATCH_EVERY: usize = 1800;
 
@@ -535,7 +535,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     module.add_native_effect(format!("{ID}:split_hit"), Step(split_hit));
     module.add_native_effect(format!("{ID}:ray"), Step(ray));
     module.add_native_passive(format!("{ID}:research"), Research::default());
-    module.add_player_input_ai(combo::Combo);
+    module.add_player_input_ai(combo::Combo::default());
     host.log(LogLevel::Info, "league_velkoz loaded (Organic Deconstruction per champion, Plasma Fission's split, the combos).");
 }
 

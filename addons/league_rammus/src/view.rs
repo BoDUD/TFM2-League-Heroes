@@ -1,6 +1,6 @@
 //! 整身换形态：动力冲刺滚着的时候（副本的 Q 给他挂 `league_rammus_q_ball`）站着、走着、挨打都是滚动的刺球（图里的 `b_idle` /
 //! `b_run` / `b_hit`），尖刺防御开着的时候（`league_rammus_w_on`）是蜷着的防御姿势（`c_idle` / `c_run` / `c_hit`）。主包只能用
-//! `CasterAnimation` 换出招的动作，游戏按名字自动播的 idle / run / hit 数据换不了。只在游戏 0.6.4（Windows）上生效，别的版本什么都
+//! `CasterAnimation` 换出招的动作，游戏按名字自动播的 idle / run / hit 数据换不了。只在游戏 0.6.4 起的 Windows 版上生效（地址由 game_places 运行时找，0.6.5 核对过），别的版本什么都
 //! 不做：滚球照样加速、撞人，画面是主包那样站着的他。
 //!
 //! 照 league_reksai 的 view.rs（雷克塞的遁地整身，源自 league_rell / league_jayce / league_nidalee / league_kayn_form）：游戏的显示世界

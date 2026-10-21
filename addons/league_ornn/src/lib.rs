@@ -726,7 +726,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     module.add_native_effect(format!("{ID}:charge"), Step(charge));
     module.add_native_effect(format!("{ID}:shatter"), Step(shatter));
     module.add_native_passive(format!("{ID}:forge"), Forge::default());
-    module.add_player_input_ai(combo::Combo);
+    module.add_player_input_ai(combo::Combo::default());
     host.log(LogLevel::Info, "league_ornn loaded (a real pillar, quakes on pillars and walls, Brittle per champion, the combos).");
 }
 
