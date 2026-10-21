@@ -33,7 +33,7 @@ from regrid import regrid  # noqa: E402
 SRC = os.path.join(ROOT, "assets", "source", "heimerdinger", "codex_model", "raw")
 OUT = os.path.join(ROOT, "assets", "source", "heimerdinger", "hd")
 K = 40
-PICKS = {}   # part -> draft, the user's picks
+PICKS = {"idle": "A-2", "turret": "T", "apex": "X"}   # the user's picks, 2026-10-21: A-2 cut to 54, both turrets as read
 # label -> (draft, Codex's square px, rows wanted or None = as drawn, protected rows, protected columns) on its read-back
 DRAFTS = {
     "A-1": ("A-1", 16.5, 54, range(29, 39), range(36, 62)),
