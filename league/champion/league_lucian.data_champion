@@ -1252,7 +1252,7 @@
   "ult": {
     "action_name": "ult",
     "description": "#asset/base/text/champion?description.league_lucian.ult",
-    "duration": 186,
+    "duration": 12,
     "cooltime": 3600,
     "start_timing": 1,
     "cancelable": false,
@@ -1280,11 +1280,6 @@
           "only_to_enemy": false
         },
         {
-          "type": "CasterAnimation",
-          "name": "ult",
-          "tick": 182
-        },
-        {
           "type": "Delayed",
           "tick": 9,
           "effects": [
@@ -1303,10 +1298,6 @@
                     {
                       "type": "RemoveCasterBuff",
                       "name": "league_lucian_r_ch"
-                    },
-                    {
-                      "type": "RemoveCasterAnimation",
-                      "name": "ult"
                     }
                   ]
                 },
@@ -1532,10 +1523,6 @@
                     {
                       "type": "RemoveCasterBuff",
                       "name": "league_lucian_r_ch"
-                    },
-                    {
-                      "type": "RemoveCasterAnimation",
-                      "name": "ult"
                     }
                   ]
                 },
@@ -1761,10 +1748,6 @@
                     {
                       "type": "RemoveCasterBuff",
                       "name": "league_lucian_r_ch"
-                    },
-                    {
-                      "type": "RemoveCasterAnimation",
-                      "name": "ult"
                     }
                   ]
                 },
@@ -1990,10 +1973,6 @@
                     {
                       "type": "RemoveCasterBuff",
                       "name": "league_lucian_r_ch"
-                    },
-                    {
-                      "type": "RemoveCasterAnimation",
-                      "name": "ult"
                     }
                   ]
                 },
@@ -2219,10 +2198,6 @@
                     {
                       "type": "RemoveCasterBuff",
                       "name": "league_lucian_r_ch"
-                    },
-                    {
-                      "type": "RemoveCasterAnimation",
-                      "name": "ult"
                     }
                   ]
                 },
@@ -2448,10 +2423,6 @@
                     {
                       "type": "RemoveCasterBuff",
                       "name": "league_lucian_r_ch"
-                    },
-                    {
-                      "type": "RemoveCasterAnimation",
-                      "name": "ult"
                     }
                   ]
                 },
@@ -2677,10 +2648,6 @@
                     {
                       "type": "RemoveCasterBuff",
                       "name": "league_lucian_r_ch"
-                    },
-                    {
-                      "type": "RemoveCasterAnimation",
-                      "name": "ult"
                     }
                   ]
                 },
@@ -2906,10 +2873,6 @@
                     {
                       "type": "RemoveCasterBuff",
                       "name": "league_lucian_r_ch"
-                    },
-                    {
-                      "type": "RemoveCasterAnimation",
-                      "name": "ult"
                     }
                   ]
                 },
@@ -3135,10 +3098,6 @@
                     {
                       "type": "RemoveCasterBuff",
                       "name": "league_lucian_r_ch"
-                    },
-                    {
-                      "type": "RemoveCasterAnimation",
-                      "name": "ult"
                     }
                   ]
                 },
@@ -3364,10 +3323,6 @@
                     {
                       "type": "RemoveCasterBuff",
                       "name": "league_lucian_r_ch"
-                    },
-                    {
-                      "type": "RemoveCasterAnimation",
-                      "name": "ult"
                     }
                   ]
                 },
@@ -3593,10 +3548,6 @@
                     {
                       "type": "RemoveCasterBuff",
                       "name": "league_lucian_r_ch"
-                    },
-                    {
-                      "type": "RemoveCasterAnimation",
-                      "name": "ult"
                     }
                   ]
                 },
@@ -3822,10 +3773,6 @@
                     {
                       "type": "RemoveCasterBuff",
                       "name": "league_lucian_r_ch"
-                    },
-                    {
-                      "type": "RemoveCasterAnimation",
-                      "name": "ult"
                     }
                   ]
                 },
@@ -4051,10 +3998,6 @@
                     {
                       "type": "RemoveCasterBuff",
                       "name": "league_lucian_r_ch"
-                    },
-                    {
-                      "type": "RemoveCasterAnimation",
-                      "name": "ult"
                     }
                   ]
                 },
@@ -4280,10 +4223,6 @@
                     {
                       "type": "RemoveCasterBuff",
                       "name": "league_lucian_r_ch"
-                    },
-                    {
-                      "type": "RemoveCasterAnimation",
-                      "name": "ult"
                     }
                   ]
                 },
@@ -4509,10 +4448,6 @@
                     {
                       "type": "RemoveCasterBuff",
                       "name": "league_lucian_r_ch"
-                    },
-                    {
-                      "type": "RemoveCasterAnimation",
-                      "name": "ult"
                     }
                   ]
                 },
@@ -4738,10 +4673,6 @@
                     {
                       "type": "RemoveCasterBuff",
                       "name": "league_lucian_r_ch"
-                    },
-                    {
-                      "type": "RemoveCasterAnimation",
-                      "name": "ult"
                     }
                   ]
                 },
@@ -4967,10 +4898,6 @@
                     {
                       "type": "RemoveCasterBuff",
                       "name": "league_lucian_r_ch"
-                    },
-                    {
-                      "type": "RemoveCasterAnimation",
-                      "name": "ult"
                     }
                   ]
                 },
@@ -5196,10 +5123,6 @@
                     {
                       "type": "RemoveCasterBuff",
                       "name": "league_lucian_r_ch"
-                    },
-                    {
-                      "type": "RemoveCasterAnimation",
-                      "name": "ult"
                     }
                   ]
                 },
@@ -5425,10 +5348,6 @@
                     {
                       "type": "RemoveCasterBuff",
                       "name": "league_lucian_r_ch"
-                    },
-                    {
-                      "type": "RemoveCasterAnimation",
-                      "name": "ult"
                     }
                   ]
                 },
@@ -5654,10 +5573,6 @@
                     {
                       "type": "RemoveCasterBuff",
                       "name": "league_lucian_r_ch"
-                    },
-                    {
-                      "type": "RemoveCasterAnimation",
-                      "name": "ult"
                     }
                   ]
                 },
