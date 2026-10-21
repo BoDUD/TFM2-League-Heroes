@@ -1268,6 +1268,22 @@
           "name": "league_lucian_r_cast"
         },
         {
+          "type": "RangeEffect",
+          "shape": {
+            "Circle": {
+              "radius": 1000
+            }
+          },
+          "target": "AllyOnlySelf",
+          "apply_type": "AroundCaster",
+          "effects": [
+            {
+              "type": "BlockAttack",
+              "tick": 180
+            }
+          ]
+        },
+        {
           "type": "AddCasterBuff",
           "buff_state": {
             "name": "league_lucian_r_ch",
