@@ -26,7 +26,8 @@ in its own action. Per hero, and per form idle (c_idle, m_idle ... with that for
 Dense heroes get the same lists in hd_ and lo_ (the frames' own rects there; every tag has the same frames in all
 three). tools/art/hero_reels.json holds the picks made by eye where the rules pick badly:
 `{"league_x": {"idle": [["skill", [0, 1]], ...], "c_idle": [...], "bp": ["attack", "ult"], "bp_cut": {"ult": [3, 4]}}}`
-- a list of [action, frames] snippets for an idle ([] keeps the breathing loop alone), the card's actions in order, and
+- a list of [action, frames] snippets for an idle ([action, frames, "fwd"]: played forward only; [] keeps the breathing
+loop alone), the card's actions in order, and
 action frames held on the card besides the spilling ones.
 """
 import argparse
@@ -244,10 +245,13 @@ def loop(h, idle):
     return [(base, i, f["duration"]) for i, f in enumerate(fr)] * n
 
 
-def played(h, tag, run):
-    """A snippet: its frames in (each at least MIN_DUR), the last held HOLD_S more, then back out."""
+def played(h, tag, run, how=""):
+    """A snippet: its frames in (each at least MIN_DUR), the last held HOLD_S more, then back out; "fwd": forward only,
+    nothing held (a cycle such as league_draven's axe juggle, which would spin backwards played back)."""
     fr = h.frames(tag)
     seq = [(tag, i, max(fr[i]["duration"], MIN_DUR)) for i in run]
+    if how == "fwd":
+        return seq
     seq[-1] = (tag, run[-1], seq[-1][2] + HOLD_S)
     seq += [(tag, i, max(fr[i]["duration"], MIN_DUR)) for i in reversed(run[:-1])]
     return seq
@@ -261,12 +265,12 @@ def plan(h, picks, k):
     for idle in idles:
         base = h.base(idle)
         sn = picks.get(idle)
-        sn = [(t, list(r)) for t, r in sn] if sn is not None else snippets(h, idle)
+        sn = [(e[0], list(e[1]), *e[2:]) for e in sn] if sn is not None else snippets(h, idle)
         snips[idle] = sn
         out[idle + "_base"] = [(base, i, f["duration"]) for i, f in enumerate(h.frames(base))]
         seq = loop(h, idle)
-        for t, run in sn:
-            seq += played(h, t, run) + loop(h, idle)
+        for t, run, *how in sn:
+            seq += played(h, t, run, *how) + loop(h, idle)
         out[idle] = seq[:len(seq) - len(loop(h, idle))] if sn else out[idle + "_base"]
     acts = card_actions(h, picks, k)
     bp = []
@@ -274,8 +278,8 @@ def plan(h, picks, k):
     for j, (t, shown) in enumerate(acts):
         bp += loop(h, "idle") + [(t, i, d) for i, d in shown] + loop(h, "idle")
         if sn:
-            tt, run = sn[j % len(sn)]
-            bp += played(h, tt, run)
+            tt, run, *how = sn[j % len(sn)]
+            bp += played(h, tt, run, *how)
     out["bp"] = bp or out["idle"]
     return out, snips, acts
 
