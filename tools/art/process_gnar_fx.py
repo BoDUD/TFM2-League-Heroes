@@ -90,10 +90,10 @@ def border_colours(rgb, k=3):
     return np.asarray(keep)
 
 
-def key_cell(rgb, dist):
-    """-> foreground mask: the background flooded in from the border (colours near the border's own)."""
+def key_cell(rgb, dist, cols=None):
+    """-> foreground mask: the background flooded in from the border (colours near the border's own, or `cols`)."""
     f = rgb.astype(float)
-    cols = border_colours(rgb)
+    cols = border_colours(rgb) if cols is None else cols
     d2 = ((f[:, :, None, :] - cols[None, None]) ** 2).sum(-1)
     near = d2.min(-1) <= dist ** 2
     lbl, n = ndimage.label(near)
