@@ -1,0 +1,152 @@
+[
+  {
+    "file": "shyvana-model-A-1.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "visible_bbox": [
+      216,
+      33,
+      1024,
+      1237
+    ],
+    "visible_height": 1204,
+    "requested_grid_px": 17,
+    "requested_rows": 63,
+    "requested_top": 119,
+    "requested_bottom": 1190,
+    "height_divided_by_requested_grid": 70.82,
+    "transparent_pixels": 1054092,
+    "opaque_pixels": 4121,
+    "soft_alpha_pixels": 514303,
+    "hard_alpha_pass": false,
+    "large_edge_share_within_1px_of_requested_grid": 0.1738,
+    "sha256": "f9812000d9b79de7c9236ae308029db1afeaa58d23cce3c19b69d1f6cc81edb4"
+  },
+  {
+    "file": "shyvana-model-A-2.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "visible_bbox": [
+      235,
+      63,
+      996,
+      1210
+    ],
+    "visible_height": 1147,
+    "requested_grid_px": 17,
+    "requested_rows": 63,
+    "requested_top": 119,
+    "requested_bottom": 1190,
+    "height_divided_by_requested_grid": 67.47,
+    "transparent_pixels": 1100185,
+    "opaque_pixels": 3486,
+    "soft_alpha_pixels": 468845,
+    "hard_alpha_pass": false,
+    "large_edge_share_within_1px_of_requested_grid": 0.2029,
+    "sha256": "9f5cd15c1c6a4f9e278dbf4538e8d019af5dd0cb55500be8de075f358770bc18"
+  },
+  {
+    "file": "shyvana-model-D-1.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "visible_bbox": [
+      22,
+      458,
+      1231,
+      1180
+    ],
+    "visible_height": 722,
+    "requested_grid_px": 10,
+    "requested_rows": 72,
+    "requested_top": 460,
+    "requested_bottom": 1180,
+    "height_divided_by_requested_grid": 72.2,
+    "transparent_pixels": 1147223,
+    "opaque_pixels": 3492,
+    "soft_alpha_pixels": 421801,
+    "hard_alpha_pass": false,
+    "large_edge_share_within_1px_of_requested_grid": 0.3176,
+    "sha256": "c91dfe39cff8994cb84762cf1dac8f6f01fb2fcada5ac89885085e1358bf8d9c"
+  },
+  {
+    "file": "shyvana-model-D-2.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "visible_bbox": [
+      29,
+      422,
+      1236,
+      1222
+    ],
+    "visible_height": 800,
+    "requested_grid_px": 10,
+    "requested_rows": 72,
+    "requested_top": 460,
+    "requested_bottom": 1180,
+    "height_divided_by_requested_grid": 80.0,
+    "transparent_pixels": 1068775,
+    "opaque_pixels": 3510,
+    "soft_alpha_pixels": 500231,
+    "hard_alpha_pass": false,
+    "large_edge_share_within_1px_of_requested_grid": 0.3022,
+    "sha256": "c26c12ed95a977c7274c44ac121cb91c2397af0d8b3c339c91475f1423dd561d"
+  },
+  {
+    "file": "shyvana-model-SA.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "visible_bbox": [
+      296,
+      27,
+      944,
+      1236
+    ],
+    "visible_height": 1209,
+    "requested_grid_px": 17,
+    "requested_rows": 63,
+    "requested_top": 119,
+    "requested_bottom": 1190,
+    "height_divided_by_requested_grid": 71.12,
+    "transparent_pixels": 1101955,
+    "opaque_pixels": 3160,
+    "soft_alpha_pixels": 467401,
+    "hard_alpha_pass": false,
+    "large_edge_share_within_1px_of_requested_grid": 0.1868,
+    "sha256": "344b389da5c0e06fc4b32cd3a0ce44052097f30fe7e95abd87ea445744efb775"
+  },
+  {
+    "file": "shyvana-model-SD.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "visible_bbox": [
+      30,
+      510,
+      1236,
+      1157
+    ],
+    "visible_height": 647,
+    "requested_grid_px": 8,
+    "requested_rows": 72,
+    "requested_top": 608,
+    "requested_bottom": 1184,
+    "height_divided_by_requested_grid": 80.88,
+    "transparent_pixels": 1206731,
+    "opaque_pixels": 3034,
+    "soft_alpha_pixels": 362751,
+    "hard_alpha_pass": false,
+    "large_edge_share_within_1px_of_requested_grid": 0.375,
+    "sha256": "f5cbaa37981a63c6a484ed10a49f821efffbdcfe21f2b556d383acd4ff43520c"
+  }
+]
