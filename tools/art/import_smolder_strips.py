@@ -68,6 +68,9 @@ PIV_C = DX + 38                    # the standing column: the middle of the desi
 K = (7, 0, 16)                     # the outline: the design's commonest near-black
 DARK = 120                         # r + g + b under this: outline
 TAGS = [("run", 8), ("attack", 5), ("skill", 5), ("skill2", 5), ("skill2_e", 8), ("ult", 5), ("dead", 6)]
+# Flap in the game: the 8 drawn frames, the wing beat (3-6) twice - about 1.25 s in the air like League's Flap
+# (P e_anim 80 ticks = 1.33 s; the user: 「小火龙好像不会飞？」 - the drawn 0.62 s read as a hop) - (drawn frame, ms)
+FLAP = [(1, 70), (2, 80), (3, 120), (4, 120), (5, 120), (6, 120), (3, 120), (4, 120), (5, 120), (6, 120), (7, 120), (8, 100)]
 AIR = {"skill2_e_2", "skill2_e_3", "skill2_e_4", "skill2_e_5", "skill2_e_6", "skill2_e_7"}
 # the face's centre (pack canvas px) and the frame's scale against the design, NCC of FACE_BOX over scales 0.78-1.6
 # (half resolution, then 0.01 steps at full resolution; 2026-10-15, the scratchpad headmatch.py), and the NCC; the
@@ -706,6 +709,7 @@ def frames():
     idle = out["idle"][0][0]
     for tag, n in TAGS:
         out[tag] = [(f, float(ms[f"{tag}_{i}"])) for i, f in enumerate(tag_frames(tag, n, pal, idle), 1)]
+    out["skill2_e"] = [(out["skill2_e"][k - 1][0], float(t)) for k, t in FLAP]
     out["hit"] = hit_frames(idle)
     return out
 

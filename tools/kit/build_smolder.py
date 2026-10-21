@@ -68,8 +68,9 @@ BIG = "asset/league/effects/league_smolder_big"
 # attack 440 ms (26 ticks), the fireball leaves as frame 3 starts (140 ms: start_timing 8, the effect on tick 9); Q 480 ms
 # (29), its breath on frame 3 (160 ms: start_timing 9, tick 10). skill2's 3-tick slot starts its CasterAnimation on its
 # effect tick (2), so W's and E's moments count from there: W 460 ms (28), the sneeze on frame 4 (240 ms: w_rel 15 =
-# 250 ms); E 640 ms (38), take-off frames 1-2 (0-140 ms), the flight on frames 3-6 (140-460 ms: the move from e_wind 8 for
-# e_tick 19 ticks, the shots from e_shot0 9 every e_gap 4), landing frames 7-8 (460-640 ms); R 510 ms (31), the shout on
+# 250 ms); E 1330 ms (80; the wing beat 3-6 twice, tools/art/import_smolder_strips.py FLAP), take-off frames 1-2
+# (0-150 ms), the flight on the wing beats and frame 7 (150-1230 ms: the move from e_wind 8 for e_tick 64 ticks, the
+# shots from e_shot0 9 every e_gap 12), landing frame 8 (1230-1330 ms); R 510 ms (31), the shout on
 # frame 3 (170 ms: the effect on tick 2 + r_rel 8 = 10), the fire r_lag ticks later (League: 0.75 s cast + the flight).
 # Projectile heights (5000 - y_offset over the pivot, 1000 units a px; his pivot is 13 px over the soles) are guesses at
 # the mouth until the sheet is final.
@@ -107,8 +108,10 @@ P = {
     # E Flap, Flap, Flap (League: 1.25 s flight over walls, +75% move speed, 5 shots at the lowest-health enemy within
     # 700: 5-35 + 30% AD (+0.08 a stack) each, cd 24-16 s)
     "e_cd_t": 1200, "e_near": 40000, "e_close": 30000, "e_reach": 58000, "e_chase": 90000,
-    "e_steps": [12000, 24000, 36000], "e_anim": 38, "e_wind": 8, "e_tick": 19, "e_speed": 2400, "e_fspeed": 1600,
-    "e_ghost": 1, "e_ms": 40, "e_ms_t": 120, "e_n": 5, "e_gap": 4, "e_shot0": 9, "e_r": 70000, "e_sspeed": 7000,
+    # the flight (the user: 「小火龙好像不会飞？」 - 0.3 s in the air read as a hop): League's 1.25 s, e_tick 64 ticks
+    # in the air after e_wind 8, e_speed x e_tick = 60000 away, the 5 shots spread over it
+    "e_steps": [12000, 24000, 36000], "e_anim": 80, "e_wind": 8, "e_tick": 64, "e_speed": 940, "e_fspeed": 940,
+    "e_ghost": 1, "e_ms": 40, "e_ms_t": 120, "e_n": 5, "e_gap": 12, "e_shot0": 9, "e_r": 70000, "e_sspeed": 7000,
     "e_y": -1000, "e_dmg": 10, "e_ratio": 30, "e_stack": 25,
     # ult: R MMOOOMMMM! (League: 4200, 50/150/250 + 100% bonus AD, the centre x1.5 and a 40% slow 2 s, heals him
     # 65-275 in the centre, mom 600 behind him, 0.75 s cast; cd 120-100 s)
@@ -120,7 +123,7 @@ P = {
     # 1 = the copy for addons/league_smolder (its make_override.py): skill2 is the sneeze only, E is the add-on's passive
     # league_smolder:dragon (it also keeps the stacks through death), the tier-3 Q damage calls league_smolder:execute;
     # the passive's own numbers: the longest flight e_far (over a wall; e_plain without one) at e_fly a tick
-    "native": 0, "e_far": 60000, "e_plain": 36000, "e_fly": 3000, "e_exec": 65,
+    "native": 0, "e_far": 80000, "e_plain": 60000, "e_fly": 3000, "e_exec": 65,
     # test builds for the simulator's logs only: 1 = unbound ViewEffects (dbg_*) mark which branch ran
     "dbg": 0,
 }
