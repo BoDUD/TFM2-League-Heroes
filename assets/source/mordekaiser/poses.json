@@ -1,0 +1,60 @@
+{
+ "hero": "mordekaiser",
+ "champ": "Mordekaiser",
+ "camera": {
+  "yaw": 65,
+  "pitch": 20,
+  "mirror": false
+ },
+ "chibi": {
+  "head": 1.0,
+  "legs": 1.0,
+  "hair": 1.0
+ },
+ "height": 49,
+ "cell": [
+  200,
+  160,
+  30
+ ],
+ "design": "idle@0",
+ "weapon": "^Weapon$",
+ "tags": {
+  "run": {
+   "frames": [
+    [
+     "walk@0",
+     67
+    ],
+    [
+     "walk@133",
+     67
+    ],
+    [
+     "walk@267",
+     67
+    ],
+    [
+     "walk@400",
+     67
+    ],
+    [
+     "walk@534",
+     67
+    ],
+    [
+     "walk@667",
+     67
+    ],
+    [
+     "walk@800",
+     67
+    ],
+    [
+     "walk@934",
+     67
+    ]
+   ]
+  }
+ }
+}

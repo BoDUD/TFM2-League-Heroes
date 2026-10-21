@@ -195,7 +195,7 @@
 
 ![布隆演示：两记盾击打在德莱厄斯身上，他头顶亮起冰拳印记（震荡猛击叠层）；Q 寒冬之咬：盾里甩出一块冰打中德莱厄斯，脚下结冰（减速），又叠一层；第四下盾击：一圈冰壳包住德莱厄斯又碎开，头顶雪花转圈（眩晕）；再打一下，冰星闪一下（追加伤害）；E 坚不可摧：举盾时一阵寒气炸开，身上罩着冰壳，身后的塔里克头顶亮起盾牌徽记（盾后的队友减伤）；W 挺身而出：脚下雪雾飞溅，跳回塔里克身边，落地冰环，两人身上冰环（护甲魔抗）；R 冰川裂隙：盾砸地炸开冰冲击波，一排冰刺沿直线冲向德莱厄斯，身后留下一段段冰裂隙，德莱厄斯被击飞、脚下结冰](docs/preview/league_braum_showcase.gif?v=1018dg)
 
-![莫德凯撒演示：三下锤击打在德莱厄斯身上，叠满「黑暗起兮」后脚下亮起一圈黑暗光环，青绿色的灵魂火烧着身边的德莱厄斯；Q 破灭之锤：双手举锤砸地，脚下冲击、往前裂开一道发青光的地裂，只砸中德莱厄斯一个人（孤立重击）；E 断魂一扼：甩出一道鬼爪抓住后面的盖伦；W 不坏之身：灵魂碎片升起成护盾，护盾化成生命往上飘；R 轮回绝境：开大炸开黑绿漩涡，德莱厄斯身上浮现诅咒印记，两人被拖进死亡领域、原地留下旋转的领域入口，德莱厄斯死在里面，莫德凯撒带着吸走的灵魂回来](docs/preview/league_mordekaiser_showcase.gif?v=1018dg)
+![莫德凯撒演示：三下锤击打在德莱厄斯身上，叠满「黑暗起兮」后脚下亮起一圈黑暗光环，青绿色的灵魂火烧着身边的德莱厄斯；Q 破灭之锤：双手举锤砸地，脚下冲击、往前裂开一道发青光的地裂，只砸中德莱厄斯一个人（孤立重击）；E 断魂一扼：甩出一道鬼爪抓住后面的盖伦；W 不坏之身：灵魂碎片升起成护盾，护盾化成生命往上飘；R 轮回绝境：开大炸开黑绿漩涡，德莱厄斯身上浮现诅咒印记，两人被拖进死亡领域、原地留下旋转的领域入口，德莱厄斯死在里面，莫德凯撒带着吸走的灵魂回来](docs/preview/league_mordekaiser_showcase.gif?v=1022m)
 
 ![奈德丽演示：人形远远投出两根标枪打中德莱厄斯；Q 标枪投掷：一根发光的大标枪飞过去炸开金光，德莱厄斯头顶亮起猎人的箭镞标记，她脚下一圈金色风痕（捕猎加速）；E 野性奔腾：身后的塔里克身上绿光绿叶往上升，脚下绿色旋风（攻速）；W 丛林伏击：夹子抛到德莱厄斯脚下张开，啪地合上溅起绿金火花；变身：一团绿金灵光包住她，出来是美洲狮；猛扑：蹬起尘土扑到被捕猎的德莱厄斯面前，落地冲击，接着双爪横扫；推倒：身上金光一闪，扑咬炸开；再一记爪击；最后灵光一闪变回人形](docs/preview/league_nidalee_showcase.gif?v=1018dg)
 
@@ -4394,6 +4394,7 @@ python addons/league_braum/make_override.py    # 附加包的副本（主包的�
 | 音效 | 英雄联盟的音效和配音（`tools/lol/extract_mordekaiser.py`）：锤击 / 打中、被动叠满、Q 砸地 / 砸中、E 甩出 / 抓中、W 护盾 / 回血、R 开大 / 领域击杀；Q、E、W、R 各用他自己的技能台词（片段名 `league_mordekaiser_sfx_vo_*`，和声音名不同）。版权属于 Riot Games，**不提交到仓库**，按下面的命令在本地生成 |
 | 图标 | 官方技能图标（Q 破灭之锤 / E 断魂一扼 / R 轮回绝境，另有 W 不坏之身、被动），从本地客户端提取，缩到 64×64 |
 | 修正（附加包 0.1.1） | 用户让查游戏日志时发现：领域里对手先死后，莫德凯撒自己还隐身、选不中到 7 秒满（日志每次「R WON」后都是 `STILL BANISHED`，一天 95 次；他先死时对手 0 tick 就出来）——游戏 0.6.4 解不开他身上那份带漩涡的长放逐。现在他的放逐一次 24 tick、单挑还在就每 12 tick 续上，漩涡单独播；提前结束最多再放逐 0.4 秒（[`addons/league_mordekaiser`](addons/league_mordekaiser)） |
+| 修正（走路，2026-10-22） | 用户：「铁男的走路也要改」。原来的走路是 Codex 照 65° 画的 4 帧（每帧 133 毫秒）：第 1、3 帧迈出去的是同一条腿，第 2、4 帧抬的也是同一条，像一直拖着一条腿走；每帧的盔甲各画各的，上身每帧形状都在变。现在是 8 帧，照英雄联盟的 walk（它的 run 把后脚踢到水平，对他太轻巧；关节由 [`tools/lol/pose_joints.py`](tools/lol/pose_joints.py) 读成 `assets/source/mordekaiser/run_joints.json`，近侧是英雄联盟的左腿）。上身每帧都是 65° 站姿原样，随英雄联盟的胯部上下起伏；两条腿用站姿自己的腿甲（大腿甲、膝甲、护胫、铁靴，靴子上的红边跟着脚走），按英雄联盟大腿、小腿的角度绕胯、膝、踝转（站地的脚落在地上，膝盖最多弯 30°），下面垫一条用护胫自己的颜色画的腿，甲片转开的地方不露缝；转过的格子取最近的格子的颜色，画风统一缩到 PPU 2.0 后看不出转的锯齿。远侧的腿暗一档，近侧的大腿在布条下面、膝甲以下在布条上面（[`rig_mordekaiser.py`](tools/art/rig_mordekaiser.py) `run`）。步子照以前的「铁男的走路步伐感觉有点大啊」收着：英雄联盟角度的 45%，游戏里两脚最宽 34.5 像素（待机 31，Codex 那两帧原来是 42 / 47.5，后来收到 31.5 / 30.5）；一圈仍是 533 毫秒。画风统一那一步的 16 色仍按原来那 4 帧取（[`ppu_restyle.py`](tools/art/ppu_restyle.py) `palette_fit`，原来的走路留在 `codex_run/run_palette_orig.png`），其他动作一个像素都没变。主包 0.189.16、`league.dll` 0.7.103 |
 
 重新生成（素材来自本机的英雄联盟客户端，音频不进仓库）：
 
@@ -4402,7 +4403,9 @@ python tools/lol/extract_mordekaiser.py --lol "D:\WeGameApps\lol" --vgmstream "<
 python tools/kit/build_mordekaiser.py            # 技能数据，数字都在脚本的参数表 P 里；--nodes 看每棵技能树的节点数
 python tools/kit/setup_mordekaiser.py            # 五种语言的文字、音效配置、共享文件里他的键
 python tools/art/design_mordekaiser_hd.py        # 原画 A 读回成高清造型
-python tools/art/rig_mordekaiser.py              # 高清帧 + 1 倍帧（league_mordekaiser 和 assets/source/ppu/mordekaiser_*.png）
+python tools/lol/pose_joints.py assets/source/mordekaiser/poses.json --tag run --joints Pelvis,L_Hip,L_KneeLower,L_Foot,L_Toe,R_Hip,R_KneeLower,R_Foot,R_Toe --json assets/source/mordekaiser/run_joints.json   # 走路：英雄联盟 walk 的腿部关节
+python tools/art/rig_mordekaiser.py              # 高清帧 + 1 倍帧（league_mordekaiser 和 assets/source/ppu/orig/mordekaiser_*.png）
+python tools/art/ppu_restyle.py --hero mordekaiser   # 画风统一（PPU 2.0）
 python tools/art/ppu_hd.py --hero mordekaiser
 python tools/art/import_mordekaiser.py           # 特效：总览图切格，拼成特效表
 python tools/art/preview_mordekaiser.py          # 预览和演示 GIF
@@ -4413,10 +4416,10 @@ python addons/league_mordekaiser/make_override.py    # 附加包的副本（主�
 
 - 原图：Codex 画了 A（3/4 正面）和 B（正侧面），用户选 A；B 的原稿格子比 A 粗，没用。
 - 造型：A 的原稿按它自己的格子读回（`hd/front.png`）。
-- 动作：第一轮 Codex 照 A 的角度画了 13 张姿势（`codex_poses`，现在只用其中的死亡两张）；用户要求走路和技能转身后，第二轮照 65° 画了站姿、走路 4 张、技能 6 张（`codex_run`、`codex_turned`）。
+- 动作：第一轮 Codex 照 A 的角度画了 13 张姿势（`codex_poses`，现在只用其中的死亡两张）；用户要求走路和技能转身后，第二轮照 65° 画了站姿、走路 4 张、技能 6 张（`codex_run`、`codex_turned`）；走路 2026-10-22 起改成 65° 站姿自己的腿甲按英雄联盟 walk 的关节转（8 帧，见上面的修正）。
 - 特效：17 张来自 Codex 的总览图（`codex_fx/`）。
 
-逐帧预览：[`docs/preview/league_mordekaiser_frames.png`](docs/preview/league_mordekaiser_frames.png?v=1014g)（游戏里用的 hd_ 高清帧），特效：[`docs/preview/league_mordekaiser_effects.png`](docs/preview/league_mordekaiser_effects.png?v=1014g)。
+逐帧预览：[`docs/preview/league_mordekaiser_frames.png`](docs/preview/league_mordekaiser_frames.png?v=1022m)（游戏里用的 hd_ 高清帧），特效：[`docs/preview/league_mordekaiser_effects.png`](docs/preview/league_mordekaiser_effects.png?v=1014g)。
 
 ## 英雄：奈德丽
 
