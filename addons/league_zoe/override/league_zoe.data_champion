@@ -2278,6 +2278,134 @@
       "tag": "w_shard",
       "z": -1,
       "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_zoe_sg_flash",
+      "anim": "asset/league/effects/league_zoe_spell_icons",
+      "tag": "sg_flash",
+      "z": -1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_zoe_sg_ignite",
+      "anim": "asset/league/effects/league_zoe_spell_icons",
+      "tag": "sg_ignite",
+      "z": -1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_zoe_sg_exhaust",
+      "anim": "asset/league/effects/league_zoe_spell_icons",
+      "tag": "sg_exhaust",
+      "z": -1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_zoe_sg_heal",
+      "anim": "asset/league/effects/league_zoe_spell_icons",
+      "tag": "sg_heal",
+      "z": -1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_zoe_sg_barrier",
+      "anim": "asset/league/effects/league_zoe_spell_icons",
+      "tag": "sg_barrier",
+      "z": -1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_zoe_sg_ghost",
+      "anim": "asset/league/effects/league_zoe_spell_icons",
+      "tag": "sg_ghost",
+      "z": -1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_zoe_sg_cleanse",
+      "anim": "asset/league/effects/league_zoe_spell_icons",
+      "tag": "sg_cleanse",
+      "z": -1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_zoe_ss_flash",
+      "anim": "asset/league/effects/league_zoe_spell_icons",
+      "tag": "ss_flash",
+      "z": -1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_zoe_ss_ignite",
+      "anim": "asset/league/effects/league_zoe_spell_icons",
+      "tag": "ss_ignite",
+      "z": -1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_zoe_ss_exhaust",
+      "anim": "asset/league/effects/league_zoe_spell_icons",
+      "tag": "ss_exhaust",
+      "z": -1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_zoe_ss_heal",
+      "anim": "asset/league/effects/league_zoe_spell_icons",
+      "tag": "ss_heal",
+      "z": -1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_zoe_ss_barrier",
+      "anim": "asset/league/effects/league_zoe_spell_icons",
+      "tag": "ss_barrier",
+      "z": -1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_zoe_ss_ghost",
+      "anim": "asset/league/effects/league_zoe_spell_icons",
+      "tag": "ss_ghost",
+      "z": -1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_zoe_ss_cleanse",
+      "anim": "asset/league/effects/league_zoe_spell_icons",
+      "tag": "ss_cleanse",
+      "z": -1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_zoe_s_flash",
+      "anim": "asset/league/effects/league_zoe_spells",
+      "tag": "s_flash",
+      "z": 2,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_zoe_s_cleanse",
+      "anim": "asset/league/effects/league_zoe_spells",
+      "tag": "s_cleanse",
+      "z": 2,
+      "is_follow": true
     }
   ],
   "view_buffs": [
@@ -2304,6 +2432,46 @@
       "tag": "w_haste",
       "repeat": true,
       "z": -1
+    },
+    {
+      "type": "Animated",
+      "name": "league_zoe_s_heal",
+      "anim": "asset/league/effects/league_zoe_spells",
+      "tag": "s_heal",
+      "repeat": true,
+      "z": 2
+    },
+    {
+      "type": "Animated",
+      "name": "league_zoe_s_ignite",
+      "anim": "asset/league/effects/league_zoe_spells",
+      "tag": "s_ignite",
+      "repeat": true,
+      "z": 2
+    },
+    {
+      "type": "Animated",
+      "name": "league_zoe_s_exhaust",
+      "anim": "asset/league/effects/league_zoe_spells",
+      "tag": "s_exhaust",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_zoe_s_ghost",
+      "anim": "asset/league/effects/league_zoe_spells",
+      "tag": "s_ghost",
+      "repeat": true,
+      "z": -1
+    },
+    {
+      "type": "Animated",
+      "name": "league_zoe_s_barrier",
+      "anim": "asset/league/effects/league_zoe_spells",
+      "tag": "s_barrier",
+      "repeat": true,
+      "z": 2
     }
   ]
 }
