@@ -5554,6 +5554,7 @@ python addons/league_maokai/make_override.py        # 附加包的副本（主�
 | 特效 | 第 3 步 20 张特效（[`tools/art/pack_gangplank_fx.py`](tools/art/pack_gangplank_fx.py)，颜色照英雄联盟：被动和刀上烧红的火，枪火和金币的金色，棕色木桶加黑铁箍、橙黄的火加黑灰火药烟，橘子的柑橘橙，大招焦橙红的预警和黑铁炮弹），Codex 画并读回成游戏大小（`assets/source/gangplank/codex_fx`）。[`tools/art/import_gangplank_fx.py`](tools/art/import_gangplank_fx.py)：飞行的子弹和火药桶上下对称，其余左右对称；桶每 10 tick 重贴一次（2 帧），预警铺满信号弹飞的 1 秒，每波炮弹 0.5 秒；大招放大后预警圈按新半径重画（线不变粗），每波中间三团炮弹、两边各一团晚一帧的；枪口火光、橘子、信号弹按 `assets/source/native/gangplank_bake.json` 画进他自己的帧（会跟着他翻面）。写成 `league_gangplank_fx` 和 `league_gangplank_big` |
 | 音效 | 英雄联盟的音效和配音（[`tools/lol/extract_gangplank.py`](tools/lol/extract_gangplank.py)，18 段）：普攻出手 / 打中、被动点燃、Q 开枪 / 打中、E 出手 / 落地 / 爆炸 / 打中、W 出手 / 咬橘子、R 出手 / 叫船 / 炮弹，配音是他的 Q / E / W / R 台词（中文）；桶自己的爆炸在客户端里解析不到，用大招炮弹的爆炸声代替 |
 | 图标 | 官方技能图标（枪火谈判、火药桶、加农炮幕，另有坏血病疗法和烈火审讯），从本地客户端取 |
+| 修正（走路的脚，2026-10-22） | 用户：「船长的走路脚好像变形的」（脚已经第六次了）。之前的走路是 Codex 的 8 帧（上身和设计图一格不差，只有腿是 Codex 画的），3/4 视角里两只脚交叉：第 2、3、5 帧两只盖上去的靴子叠成一块变形的形状，上面的裤腿也是一块一块的。现在照皇子、贾克斯的跑步做法，腿按英雄联盟的 gangplank_run 画（[`tools/lol/pose_joints.py`](tools/lol/pose_joints.py) 读成 `assets/source/gangplank/run_joints.json`，近侧是英雄联盟的左腿）：每条裤腿从胯开始，大腿、小腿按英雄联盟的角度（站地的脚落在地上、膝盖解出来，`rigkit.leg_chain`），设计图的两种青色、左亮右暗、一圈描边，脚踝上是设计图自己的绑腿和靴子；远侧的腿用设计图里暗一档的颜色（交叉时近侧的靴子在前面，不会叠成一块）；两胯相距 5 列（站姿是 8 列，交叉时两只靴子整只叠在一起）；腿画在身体下面，大衣、腰带和红腰布照原样盖住裤腿上端。上身是设计图，随英雄联盟的胯部上下起伏 0–2 行；他的腿短（胯到脚踝 11 格），骨长 7 格、站着膝盖微弯，脚的行程和 Codex 的差不多（[`rig_gangplank.py`](tools/art/rig_gangplank.py) `league_walk`）。其他动作的帧一个字节都没变。主包 0.189.19、`league.dll` 0.7.106 |
 
 重新生成（素材来自本机的英雄联盟客户端，音频不进仓库）：
 
@@ -5565,7 +5566,8 @@ python tools/art/design_gangplank_hd.py             # Codex 第 1 步的造型�
 python tools/art/fix_gangplank_feet.py              # 修靴子
 python tools/art/design_gangplank_poses.py          # Q / R 拿枪胳膊的姿势（Codex 只重画那条胳膊）
 python tools/art/import_gangplank_fx.py             # 特效（先于下一步：枪口火光、橘子、信号弹要画进帧）
-python tools/art/rig_gangplank.py                   # 1 倍帧和 1.5 的原帧（整格摆）
+python tools/lol/pose_joints.py assets/source/gangplank/poses.json --tag run --joints Pelvis,L_Hip,L_KneeLower,L_Foot,L_Toe,R_Hip,R_KneeLower,R_Foot,R_Toe --json assets/source/gangplank/run_joints.json   # 走路：英雄联盟 gangplank_run 的腿部关节
+python tools/art/rig_gangplank.py                   # 1 倍帧和 1.5 的原帧（整格摆；走路的腿按上面的关节画）
 python tools/art/ppu_restyle.py --hero gangplank    # 描边（不要加 --preview）
 python tools/art/ppu_hd.py --hero gangplank         # hd_ / lo_ 帧
 python tools/art/preview_gangplank.py               # 预览和演示 GIF
@@ -5574,7 +5576,7 @@ python addons/league_gangplank/make_override.py     # 附加包的副本（主�
 
 美术提示词见 [`assets/source/gangplank/`](assets/source/gangplank/) 里的 `PICTURE_PROMPT.md`、`MODEL_PROMPTS.md`、`MODEL_PROMPTS_V2.md`、`POSE_PROMPTS.md`、`PROMPTS_FX.md`；Codex 的交付在 `codex_picture/`、`codex_model/`、`codex_model2/`、`codex_poses/`、`codex_fx/`。
 
-逐帧预览：[`docs/preview/league_gangplank_frames.png`](docs/preview/league_gangplank_frames.png?v=1018a)，特效：[`docs/preview/league_gangplank_effects.png`](docs/preview/league_gangplank_effects.png?v=1018a)。
+逐帧预览：[`docs/preview/league_gangplank_frames.png`](docs/preview/league_gangplank_frames.png?v=1022g)，特效：[`docs/preview/league_gangplank_effects.png`](docs/preview/league_gangplank_effects.png?v=1018a)。
 
 ## 英雄：孙悟空
 

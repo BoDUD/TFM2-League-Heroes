@@ -1,0 +1,60 @@
+{
+ "hero": "gangplank",
+ "champ": "Gangplank",
+ "camera": {
+  "yaw": 45,
+  "pitch": 20,
+  "mirror": false
+ },
+ "chibi": {
+  "head": 1.0,
+  "legs": 1.0,
+  "hair": 1.0
+ },
+ "height": 41,
+ "cell": [
+  200,
+  160,
+  30
+ ],
+ "design": "gangplank_idle1@0",
+ "weapon": "^Weapon$",
+ "tags": {
+  "run": {
+   "frames": [
+    [
+     "gangplank_run@0",
+     110
+    ],
+    [
+     "gangplank_run@138",
+     110
+    ],
+    [
+     "gangplank_run@275",
+     110
+    ],
+    [
+     "gangplank_run@412",
+     110
+    ],
+    [
+     "gangplank_run@550",
+     110
+    ],
+    [
+     "gangplank_run@688",
+     110
+    ],
+    [
+     "gangplank_run@825",
+     110
+    ],
+    [
+     "gangplank_run@962",
+     110
+    ]
+   ]
+  }
+ }
+}
