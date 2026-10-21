@@ -150,16 +150,18 @@ def demon_upper(D):
     return out
 
 
-def b_wings():
-    """B-1's two wings in A's coordinates (design-sized, padded P): the near wing left of B-1's near shoulder line, the far
-    one right of its coat's far edge."""
+def b_far_wing():
+    """B-1's far wing in A's coordinates (design-sized, padded P): right of its coat's far edge, without B-1's armour
+    where it shows between the coat and the wing - its golds (rows 20-29) and, on rows 26-30, the outline round them
+    (right of column 56 there)."""
     b = load("design_B.png")
     H, W = b.shape[:2]
     yy, xx = np.mgrid[0:H, 0:W]
-    near = (((yy < 14) & (xx <= 29)) | ((yy >= 14) & (yy < 21) & (xx <= 23)) | ((yy >= 21) & (yy < 38) & (xx <= 21)) |
-            ((yy >= 38) & (xx <= 10)))
-    far = (((yy < 14) & (xx >= 49)) | ((yy >= 14) & (yy < 31) & (xx >= 52)) | ((yy >= 31) & (xx >= 56)))
-    m = (near | far) & (b[..., 3] > 0)
+    far = (((yy < 14) & (xx >= 49)) | ((yy >= 14) & (yy < 26) & (xx >= 52)) | ((yy >= 26) & (yy < 31) & (xx >= 57)) |
+           ((yy >= 31) & (xx >= 56)))
+    r, g, bl = (b[..., i].astype(int) for i in range(3))
+    gold = (r > bl + 15) & (g > bl + 5)                # the armour's golds and browns: no red or purple of the wing's
+    m = far & ~gold & (b[..., 3] > 0)
     out = np.zeros((61 + 2 * P, 38 + 2 * P, 4), np.uint8)
     ys, xs = np.nonzero(m)
     ty, tx = ys - B_OFF[1] + P, xs - B_OFF[0] + P
@@ -172,17 +174,24 @@ def aura_wings(px):
     """The demon's wings as the main pack shows them: a picture following him while R lasts (view_buffs - a mod hero's
     idle and run can't change, memory form-switch-limits), so it is drawn behind every frame, his own ones and the
     add-on's demon body alike. The client never mirrors an effect's picture (the red side), so its shape is symmetric
-    about his standing line: B-1's two wings and their mirror image together (each square B-1's own colour where B-1
-    has one, the mirror's elsewhere) - the near wing mirrored alone left a gap at his far shoulder, his body reaching
-    22 columns left of the line and 15 right of it. -> design-sized layer padded P."""
-    w = b_wings()
-    out = w.copy()
+    about his standing line: B-1's far wing and its mirror image. (Until 2026-10-21 - the user: 「乌鸦开大翅膀变形？」 -
+    each side was B-1's two wings laid over each other, the near one as drawn and the far one mirrored: two outlines in
+    one wing, two tops to each, and a coat tail, B-1's armour edge and loose squares the masks took from B-1 floating
+    with them.) The far wing's own largest piece only; its inner edge is 9-13 columns out from the line, where his
+    shoulders hide it from his row 16 down on both sides (above, the wing rises clear of his head, as in B-1).
+    -> design-sized layer padded P."""
+    from scipy import ndimage
+    w = b_far_wing()
+    op = w[..., 3] > 0
+    lab, n = ndimage.label(op, np.ones((3, 3), bool))
+    keep = lab == 1 + int(np.argmax(ndimage.sum(op, lab, range(1, n + 1)))) if n else op
+    out = np.zeros_like(w)
+    out[keep] = w[keep]
     axis = P + px                                      # the standing line: the left edge of design column px
-    ys, xs = np.nonzero(w[..., 3])
+    ys, xs = np.nonzero(keep)
     tx = 2 * axis - 1 - xs
     ok = (tx >= 0) & (tx < w.shape[1])
-    free = out[ys[ok], tx[ok], 3] == 0
-    out[ys[ok][free], tx[ok][free]] = w[ys[ok][free], xs[ok][free]]
+    out[ys[ok], tx[ok]] = w[ys[ok], xs[ok]]
     return out
 
 
