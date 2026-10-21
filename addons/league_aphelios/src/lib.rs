@@ -2,7 +2,7 @@
 //! `mod.override_info` 把主包的厄斐琉斯换成 `override/` 里的副本（`make_override.py` 用 tools/kit/build_aphelios.py 的
 //! `native=1` 生成：加上本包的被动 `league_aphelios:queue`，普攻、技能2 的说明开头加【附加包】），本包补数据做不到的三件事：
 //!
-//! - **整身换武器**（`view.rs`，只在游戏 0.6.4 上）：主手是断魄 / 坠明 / 荧焰 / 折镜（主包的永久 buff
+//! - **整身换武器**（`view.rs`，游戏 0.6.4 起的 Windows 版）：主手是断魄 / 坠明 / 荧焰 / 折镜（主包的永久 buff
 //!   `league_aphelios_mw_<武器>`）时，站着、跑着、挨打、出手的第一刻都画成那把武器在手里（图里的 `<武器>_idle` …），
 //!   通碧主手时是原来的样子（通碧背在身后）。
 //! - **真实的武器队列**（被动 `queue`）：主包的数据按固定循环（通碧 → 断魄 → 坠明 → 荧焰 → 折镜）换上副手以外的下一把；
@@ -444,8 +444,21 @@ const ATTACK_REACH: f64 = 70_000.0;
 /// 生命低于这一比例、AI 在走（多半在跑）：只替它按断魄的 Q。
 const LOW_RUN: f64 = 0.3;
 
+/// The AI is still recalling (game 0.6.5 decides when to go home and buy): its last order was a Return - it orders only
+/// on its judgement ticks, a Return again while the recall lasts, nothing in between - and any other order ends it
+/// (league_ult_press 0.5.0's rule).
+pub fn still_recalling(was: bool, base: Option<InputV1>) -> bool {
+    match base {
+        Some(b) => b.kind == InputKindV1::Return.code(),
+        None => was,
+    }
+}
+
 #[derive(Clone, Default)]
-struct Hands;
+struct Hands {
+    /// the AI is recalling (`still_recalling`): nothing pressed
+    recalling: bool,
+}
 
 enum Call {
     /// 替 AI 按 Q：目标、武器、为什么。
@@ -521,6 +534,11 @@ impl StablePlayerAi for Hands {
 
     fn think(&mut self, ctx: &mut StableAiContext<'_>, base: Option<InputV1>) -> Option<InputV1> {
         let player = ctx.player_id();
+        // game 0.6.5's AI decides when to recall (and buy): nothing pressed while it does
+        self.recalling = still_recalling(self.recalling, base);
+        if self.recalling {
+            return None;
+        }
         let (call, line) = {
             let sim = ctx.sim()?;
             let me = sim.get_player(player)?.champion()?.id();
@@ -562,7 +580,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     ));
     view::install_once();
     module.add_native_passive(format!("{ID}:queue"), Moon::default());
-    module.add_player_input_ai(Hands);
+    module.add_player_input_ai(Hands::default());
     host.log(LogLevel::Info, "league_aphelios loaded (weapon forms, the weapon queue, Severum when low).");
 }
 

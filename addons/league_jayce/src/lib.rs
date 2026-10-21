@@ -2,7 +2,7 @@
 //! （`make_override.py` 用 tools/kit/build_jayce.py 的 `native=1` 生成：加上本包的被动 `league_jayce:hextech`，打英雄的雷霆一击
 //! 的 `Knockback` 换成本包的原生效果 `league_jayce:blow`，普攻、技能2、大招的说明开头加【附加包】），本包补数据做不到的三件事：
 //!
-//! - **整身变炮**（`view.rs`，只在游戏 0.6.4 上）：墨丘利之炮形态（主包的永久 buff `league_jayce_cn`）时站着、跑着、挨打也是炮
+//! - **整身变炮**（`view.rs`，游戏 0.6.4 起的 Windows 版）：墨丘利之炮形态（主包的永久 buff `league_jayce_cn`）时站着、跑着、挨打也是炮
 //!   （`c_idle` / `c_run` / `c_hit`），阵亡还是锤子的倒地（奈德丽附加包的做法）。
 //! - **雷霆一击往己方击退**（原生效果 `blow`）：打中的敌方英雄不再笔直地被推离杰斯，而是推向他这边——`ALLY_R` 内有他的友方
 //!   英雄就推向它们的中心，没有就推向离目标最近的己方塔；这个方向 `kb_speed` x `kb_t` 内碰到墙（卡蜜尔附加包的墙格）就左右

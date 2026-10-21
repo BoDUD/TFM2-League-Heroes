@@ -44,3 +44,7 @@
 - 在 `addons/` 下 `cargo test --release -p league_akshan`：单元测试（游戏 0.6.4 真实机器码的解码、换寄存器 / 短位移也认得、对不上
   就拒绝、第 3 下、子弹伤害、副本的参数）。
 - 在 `addons/` 下 `cargo build --release -p league_akshan`（Windows）得到 `league_akshan.dll`；`league_addons` 合集也会编进本包。
+
+## 游戏 0.6.5（0.1.2）
+
+回城时（回城引导中没命令的 tick 也算）不自己开 R，也不朝 AI 正在远离的人开（站着引导，撤退时开会被追上）。复活在 0.6.5 上照常：游戏把剩余复活时间那两个字段挪到了 +0x8b8 / +0x8c0（0.6.4 是 +0x898 / +0x8a0），本包本来就是运行时从两个只读函数的机器码里解出偏移，单元测试 `decodes_the_0_6_5_getters` 用 0.6.5 的机器码核对。

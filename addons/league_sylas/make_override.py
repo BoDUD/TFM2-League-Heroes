@@ -97,6 +97,7 @@ BY_CLASS = {
     "wukong": "R arms a spin his attacks fire", "zilean": "R arms a rewind his watcher fires",
     "gnar": "R only in Mega form", "orianna": "R needs her ball", "mel": "R strikes only her own Overwhelm stacks",
     "velkoz": "R casts only while his passive researches a champion",
+    "shyvana": "R only at full Fury or in dragon form",
 }
 
 

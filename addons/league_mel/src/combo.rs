@@ -184,8 +184,29 @@ fn read(sim: &StableSim<'_>, me: usize) -> Option<(Me, Vec<Unit>)> {
     Some((m, foes))
 }
 
+/// The AI is still recalling (game 0.6.5 decides when to go home and buy; the combos leave it be): its last order was a
+/// Return - it orders only on its judgement ticks, again a Return while the recall lasts, nothing in between - and any
+/// other order ends it (league_ult_press 0.5.0's rule).
+pub fn still_recalling(was: bool, base: Option<InputV1>) -> bool {
+    match base {
+        Some(b) => b.kind == InputKindV1::Return.code(),
+        None => was,
+    }
+}
+
+/// How much farther from a champion the AI's walk must end to be a retreat (league_ult_press's `HOLD_AWAY`).
+pub const AWAY: f64 = 10_000.0;
+
+/// The AI walks away from `to` this tick (a retreat, a disperse from a lost objective): its Move ends more than `AWAY`
+/// farther from it than he stands now.
+pub fn walking_away(base: Option<InputV1>, me: Pt, to: Pt) -> bool {
+    base.is_some_and(|b| b.kind == InputKindV1::Move.code() && dist((b.x as f64, b.y as f64), to) > dist(me, to) + AWAY)
+}
+
 #[derive(Clone, Default)]
 pub struct Combo {
+    /// the AI is recalling (`still_recalling`)
+    recalling: bool,
     last_hold: Option<usize>,
 }
 
@@ -207,6 +228,11 @@ impl StablePlayerAi for Combo {
     }
 
     fn think(&mut self, ctx: &mut StableAiContext<'_>, base: Option<InputV1>) -> Option<InputV1> {
+        // game 0.6.5's AI decides when to recall (and buy): nothing pressed while it does
+        self.recalling = still_recalling(self.recalling, base);
+        if self.recalling {
+            return None;
+        }
         let player = ctx.player_id();
         let (call, line, tick, stacks) = {
             let sim = ctx.sim()?;
@@ -253,6 +279,16 @@ impl StablePlayerAi for Combo {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn a_recall_or_a_retreat_is_the_ais() {
+        // game 0.6.5: a recall lasts over the ticks without an order; a walk ending far from the target is a retreat
+        assert!(still_recalling(false, Some(InputV1::return_home())) && still_recalling(true, None));
+        assert!(!still_recalling(true, Some(InputV1::move_to(0, 0))) && !still_recalling(false, None));
+        assert!(walking_away(Some(InputV1::move_to(0, 0)), (20_000.0, 0.0), (60_000.0, 0.0)));
+        assert!(!walking_away(Some(InputV1::move_to(50_000, 0)), (20_000.0, 0.0), (60_000.0, 0.0)));
+        assert!(!walking_away(None, (20_000.0, 0.0), (60_000.0, 0.0)));
+    }
 
     fn me() -> Me {
         Me { at: (0.0, 0.0), r: 3000.0, hp: 1.0, ap: 200, q_ready: true, e_ready: true, r_ready: true, e_combo: false }

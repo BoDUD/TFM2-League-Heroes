@@ -59,3 +59,7 @@
    - `POSSESS league_jinx (range) for 600 ticks, heal ...` / `END possession of league_jinx (time | Heartbreaker | dead | a new soul)`；
    - `world 0x... Viego #...: possession 1 starts on the screen (1 noted for him ...) -> league_jinx`：屏幕放到附身，取到了模拟里记下的那个英雄；
    - `world 0x... Viego #...: drawn as league_jinx (soul league_jinx)`：画面上的佛耶戈换成了那个英雄的图。
+
+## 游戏 0.6.5（0.2.2）
+
+附身的动作表（`src/souls.rs`）补上奥恩、希瓦娜、纳亚菲利——三位都是高清英雄，以前附身他们不会整身变身；`every_pack_hero_has_a_soul` 测试保证以后的新英雄不漏（用户：「佛耶戈变身问题也请注意啊 特别是变PPU英雄的」）。0.6.5 上显示钩子照常找到（`game_places`），局内时钟 `ingame.header.game_time.value` 还在。
