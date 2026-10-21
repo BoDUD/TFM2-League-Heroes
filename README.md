@@ -5592,7 +5592,7 @@ python addons/league_gangplank/make_override.py     # 附加包的副本（主�
 | 特效 | 第 3 步 14 张特效（[`tools/art/pack_wukong_fx.py`](tools/art/pack_wukong_fx.py)，颜色照英雄联盟：金箍棒的打击和大招是橙金色的光，筋斗云是白云，真假猴王是灰白的烟，破甲是裂开的红盾，金刚不坏是灰色石片），全部左右对称（游戏不镜像特效图），三张分身图画成正面朝前（侧身的分身到了红色方会背对敌人）。[`tools/art/import_wukong_fx.py`](tools/art/import_wukong_fx.py)：打中的在身上，筋斗云跟着他，分身站在 W 的落点、每段 20 tick 换一张（站着 / 出手 / 转棒），破甲在头顶，旋风和石片绕着他。写成 `league_wukong_fx` 和 `league_wukong_big` |
 | 音效 | 英雄联盟的音效和配音（[`tools/lol/extract_wukong.py`](tools/lol/extract_wukong.py)，15 段）：普攻出手 / 打中、Q 出手 / 打中、E 出手 / 打中、W 出手 / 分身打中、R 出手 / 转棒 / 击飞，配音是他的 E / W / R 台词（中文） |
 | 图标 | 官方技能图标（腾云突击、真假猴王、大闹天宫，另有粉碎打击和金刚不坏），从本地客户端取 |
-| 修正（跑步的金箍棒，2026-10-22） | 用户：「猴子跑步的时候感觉武器看起来是歪的」「这里金箍棒都断了吧」。现在的动作是 10-18 Codex 重画的（[`tools/art/rig_frames_1018.py`](tools/art/rig_frames_1018.py)），跑步 9 帧里金箍棒画成了对不上的三段：近侧拳头握着的前段（约 1:2）往脸前上方伸，身后远侧手里一段，再往后到腰高的后端（约 2:5），后端比前段的延长线高 5–6 行，看着在他背后折断了。现在每帧前段照原样（拳头握着），后段换成前段本身绕金箍棒中点转半圈、落在前段自己那条直线上（两端的金箍一样；绕整半格的点转半圈，一格都不重采样），只画在他身后空着的地方，后端低到腿后面；原来的后段和握着它的远侧手一起去掉（那只手现在握不到棒子，远侧胳膊留在身体后面），连同剩下的散点；Codex 留在身上的几颗绿色抠图点也去掉（眼睛是同一种绿，只去第 22 行往下的）（[`tools/art/wukong_run_staff.py`](tools/art/wukong_run_staff.py)）。其他动作的帧一个字节都没变。主包 0.189.17、`league.dll` 0.7.104 |
+| 修正（跑步的金箍棒，2026-10-22） | 用户：「猴子跑步的时候感觉武器看起来是歪的」「这里金箍棒都断了吧」。现在的动作是 10-18 Codex 重画的（[`tools/art/rig_frames_1018.py`](tools/art/rig_frames_1018.py)），跑步 9 帧里他两只手都握着金箍棒（近侧拳头在脸前，远侧手在肩后），但棒子画成了对不上的三段：近侧拳头里出来的前段约 1:2，穿过远侧手的后段约 2:5，两手之间（身体后面）约 1:4，看着在他背后折断了。第一版（#446）留前段、用它转半圈当后端，把握不到棒子的远侧手去掉了——用户：「猴子手呢 断了？？」「这质量你能说改好了？」。现在两只手和身上的一切照原样，只去掉原来的前段、后段（远侧手左边的金箍和铁杆，手和身体之间露出的铁杆连同只挨着棒子或空白的描边）和它们留下的散点，画一根穿过两只手握点的直棒：近侧握点是前段铁杆出拳头的地方，远侧握点是远侧手在后段铁杆上留下的空当中间；斜率按前后帧 1-2-1 平滑（握点读回有一格的抖动，棒子离两个握点都不超过一格），画在一切后面（拳头握着它），两端各伸出握点 19 格（Codex 前段的长度），红色棒头、四道金箍、中间铁杆，颜色都是 Codex 的，描边，上亮下暗；帧左右各加宽 10 列（棒子平了，伸出了 Codex 的帧）；身上的绿色抠图点去掉（眼睛同色，只去第 22 行往下的）。帧按 Codex 原帧量的胯部摆放，身体位置不变（[`tools/art/wukong_run_staff.py`](tools/art/wukong_run_staff.py)）。其他动作的帧一个字节都没变。主包 0.189.18、`league.dll` 0.7.105 |
 
 重新生成（素材来自本机的英雄联盟客户端，音频不进仓库）：
 
@@ -5611,7 +5611,7 @@ python addons/league_wukong/make_override.py        # 附加包的副本（主�
 
 美术提示词见 [`assets/source/wukong/`](assets/source/wukong/) 里的 `PICTURE_PROMPT.md`、`MODEL_PROMPTS.md`、`PROMPTS_FX.md`；Codex 的交付在 `codex_picture/`、`codex_model/`、`codex_fx/`。
 
-逐帧预览：[`docs/preview/league_wukong_frames.png`](docs/preview/league_wukong_frames.png?v=1022w)，特效：[`docs/preview/league_wukong_effects.png`](docs/preview/league_wukong_effects.png?v=1018a)。
+逐帧预览：[`docs/preview/league_wukong_frames.png`](docs/preview/league_wukong_frames.png?v=1022x)，特效：[`docs/preview/league_wukong_effects.png`](docs/preview/league_wukong_effects.png?v=1018a)。
 
 ## 英雄：卡西奥佩娅
 

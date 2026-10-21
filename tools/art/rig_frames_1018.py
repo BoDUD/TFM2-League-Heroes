@@ -107,7 +107,8 @@ def frames(hero):
     rig = R.Rig(D, pad=(70, 70, 60, 30))
     act = os.path.join(SRC, hero, "hd", "act")
     staffed = [name for seq in cfg["map"].values() for name, _, *op in seq if op and op[0].get("staff")]
-    pal = WS.staff_palette([np.asarray(Image.open(lp(os.path.join(act, n + ".png"))).convert("RGBA")) for n in staffed])
+    straight = dict(zip(staffed, WS.straighten_all(
+        [np.asarray(Image.open(lp(os.path.join(act, n + ".png"))).convert("RGBA")) for n in staffed]))) if staffed else {}
     out = {}
     for tag, seq in cfg["map"].items():
         fr = []
@@ -117,13 +118,14 @@ def frames(hero):
             if not os.path.isfile(lp(p)):
                 raise SystemExit(f"{tag}: {name}.png missing")
             f = np.asarray(Image.open(lp(p)).convert("RGBA"))
+            hip = cfg["hip"](f)                 # (on Codex's frame as drawn: the staff moved changes no hip)
             if op.get("staff"):
-                f = WS.straighten(f, pal)
+                f, hip = straight[name], hip + WS.PAD
             h, w = f.shape[:2]
             if op.get("rot"):
                 f = np.rot90(f, op["rot"]).copy()
                 h, w = f.shape[:2]
-            hx = (cfg["hip"](f) if (tag != "dead" or name.endswith(("_0", "_1"))) and not op.get("rot") else w / 2) \
+            hx = (hip if (tag != "dead" or name.endswith(("_0", "_1"))) and not op.get("rot") else w / 2) \
                 - op.get("dx", 0)
             if op.get("flash"):
                 f = R.flash(f)
