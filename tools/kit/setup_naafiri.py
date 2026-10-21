@@ -34,8 +34,10 @@ G = "<#7bd96bff>"      # healing, shields
 A = "<#ffb900ff>"      # durations, counts
 R = "<#ef5350ff>"      # crowd control
 E = "<>"
-# champion_view: drafts until her frames exist (a hound: the face low and ahead of her standing point)
-VIEW = {"face": {"x": 10, "y": -18}, "center": {"x": 0, "y": -10}, "banpick_center": {"x": 0, "y": -4}}
+# champion_view: the face between her eyes (ppu_restyle's face_to: 12 game px ahead of her standing point, 12 over the
+# ground - a hound holds her head low); the ban/pick card raised to -18 (tools/art/bp_card_audit.py: her top is only
+# -19.3, so base's rule asks no value, and with none or -4 she sat on the card's bottom edge, her face cut)
+VIEW = {"face": {"x": 12, "y": -12}, "center": {"x": 0, "y": -10}, "banpick_center": {"x": 0, "y": -18}}
 
 
 def phys(d, r):
