@@ -1,0 +1,20 @@
+{
+  "author": "BoDUD",
+  "contains_code": true,
+  "dependencies": [
+    {
+      "mod_id": "base",
+      "version": ">=0.4.11"
+    },
+    {
+      "mod_id": "league",
+      "version": ">=0.187.0"
+    }
+  ],
+  "description": "Test build of Naafiri as in League (needs League of Legends Heroes): replaces the main pack's Naafiri so her second dagger deals more damage the more health its target has lost (double on an empty one), Hounds' Pursuit can pounce again after every takedown she takes part in, she only opens with the ult when the pounce can kill, a wounded champion has an ally of hers beside him or a teamfight is on, and four hounds run with her while The Call of the Pack lasts. Other champions are untouched. Writes a log for testing.",
+  "last_updated": "2026-10-21",
+  "mod_id": "league_naafiri",
+  "mod_type": "native",
+  "name": "League Heroes: Naafiri's execute, takedown pounces, smart ult and four hounds (test)",
+  "version": "0.1.0"
+}

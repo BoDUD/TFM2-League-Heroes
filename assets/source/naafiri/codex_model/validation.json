@@ -1,0 +1,162 @@
+{
+  "A-1": {
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "bbox_alpha_128": [
+      64,
+      566,
+      1187,
+      1212
+    ],
+    "bbox_height": 646,
+    "best_vertical_grid_edge_concentrations": [
+      [
+        0.791176189219101,
+        13,
+        2
+      ],
+      [
+        0.7876198914757867,
+        13,
+        3
+      ],
+      [
+        0.4769846646759423,
+        13,
+        1
+      ]
+    ],
+    "strict_grid_verified": false,
+    "raw_semi_transparent_pixels": 405408,
+    "raw_alpha_levels": 256,
+    "delivery_alpha_levels": [
+      0,
+      255
+    ],
+    "postprocess": "alpha threshold 128 only; no redraw, resize, regrid or RGB changes",
+    "sha256": "c672116227de4214a6d8922a05fd796c97a306aed18a09ac66193b631a685da5"
+  },
+  "A-2": {
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "bbox_alpha_128": [
+      65,
+      561,
+      1202,
+      1229
+    ],
+    "bbox_height": 668,
+    "best_vertical_grid_edge_concentrations": [
+      [
+        0.4440705629484721,
+        12,
+        1
+      ],
+      [
+        0.3996159859642211,
+        12,
+        2
+      ],
+      [
+        0.397769622449416,
+        8,
+        1
+      ]
+    ],
+    "strict_grid_verified": false,
+    "raw_semi_transparent_pixels": 398953,
+    "raw_alpha_levels": 256,
+    "delivery_alpha_levels": [
+      0,
+      255
+    ],
+    "postprocess": "alpha threshold 128 only; no redraw, resize, regrid or RGB changes",
+    "sha256": "e7db0ea99932f794d436c6718a0b59f308c861c5d49ce7628613c267c6b7ad02"
+  },
+  "P-1": {
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "bbox_alpha_128": [
+      47,
+      479,
+      1237,
+      1204
+    ],
+    "bbox_height": 725,
+    "best_vertical_grid_edge_concentrations": [
+      [
+        0.41688977869102256,
+        8,
+        5
+      ],
+      [
+        0.41473383465628244,
+        8,
+        6
+      ],
+      [
+        0.3909693821844247,
+        10,
+        2
+      ]
+    ],
+    "strict_grid_verified": false,
+    "raw_semi_transparent_pixels": 419096,
+    "raw_alpha_levels": 256,
+    "delivery_alpha_levels": [
+      0,
+      255
+    ],
+    "postprocess": "alpha threshold 128 only; no redraw, resize, regrid or RGB changes",
+    "sha256": "614d9814ecdba5acb6139799545cb4566264ecd7a9f1dd74e68de210013f87d8"
+  },
+  "P-2": {
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "bbox_alpha_128": [
+      56,
+      630,
+      1204,
+      1189
+    ],
+    "bbox_height": 559,
+    "best_vertical_grid_edge_concentrations": [
+      [
+        0.5694875445266051,
+        10,
+        4
+      ],
+      [
+        0.5460825869604622,
+        10,
+        5
+      ],
+      [
+        0.42166992269299564,
+        10,
+        6
+      ]
+    ],
+    "strict_grid_verified": false,
+    "raw_semi_transparent_pixels": 331774,
+    "raw_alpha_levels": 256,
+    "delivery_alpha_levels": [
+      0,
+      255
+    ],
+    "postprocess": "alpha threshold 128 only; no redraw, resize, regrid or RGB changes",
+    "sha256": "af80d49e8d0b9ccc6d759f628d4c28d4dba536ba6c1d5d5ce2c6515a020d7693"
+  }
+}

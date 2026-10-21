@@ -1,0 +1,2123 @@
+{
+  "version": 1,
+  "effects": [
+    {
+      "file": "naafiri_fx_a_hit.png",
+      "pixel_1x": "pixel_1x/naafiri_fx_a_hit.png",
+      "raw": "raw/naafiri_fx_a_hit.png",
+      "frames": 3,
+      "cell_1x": [
+        12,
+        12
+      ],
+      "cell_8x": [
+        96,
+        96
+      ],
+      "sheet_1x": [
+        36,
+        12
+      ],
+      "sheet_8x": [
+        288,
+        96
+      ],
+      "symmetry": "left-right",
+      "binding": "view_effects `league_naafiri_a_hit`（跟随目标，z 2；左右对称）",
+      "loop": false,
+      "layout": "one horizontal row, no gutters",
+      "source_size": [
+        2172,
+        724
+      ],
+      "source_vertical_band": [
+        75,
+        645
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#FFD6D6",
+        "#FF6A6A",
+        "#E8283A",
+        "#A8122A",
+        "#5E0A1C"
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "extraction": "alpha>=128; nearest allowed ramp; >=8% opaque cell coverage then modal opaque color; mirror left/top half",
+      "strict_symmetry_pass": true,
+      "distinct_frames": 3,
+      "frame_checks": [
+        {
+          "frame": 0,
+          "occupied_pixels": 72,
+          "symmetry_pixels_changed": 20,
+          "bbox": [
+            2,
+            0,
+            10,
+            12
+          ],
+          "bright_pixels": 44
+        },
+        {
+          "frame": 1,
+          "occupied_pixels": 68,
+          "symmetry_pixels_changed": 9,
+          "bbox": [
+            1,
+            2,
+            11,
+            10
+          ],
+          "bright_pixels": 40
+        },
+        {
+          "frame": 2,
+          "occupied_pixels": 8,
+          "symmetry_pixels_changed": 0,
+          "bbox": [
+            4,
+            3,
+            8,
+            9
+          ],
+          "bright_pixels": 0
+        }
+      ],
+      "sha256_1x": "b6cd0afe86dad5907e14ba2af53bcef3be489147d067c54714ab736e11c8575d"
+    },
+    {
+      "file": "naafiri_fx_pk_bite.png",
+      "pixel_1x": "pixel_1x/naafiri_fx_pk_bite.png",
+      "raw": "raw/naafiri_fx_pk_bite.png",
+      "frames": 3,
+      "cell_1x": [
+        10,
+        10
+      ],
+      "cell_8x": [
+        80,
+        80
+      ],
+      "sheet_1x": [
+        30,
+        10
+      ],
+      "sheet_8x": [
+        240,
+        80
+      ],
+      "symmetry": "left-right",
+      "binding": "view_effects `league_naafiri_pk_bite`（跟随目标，z 2；左右对称）",
+      "loop": false,
+      "layout": "one horizontal row, no gutters",
+      "source_size": [
+        2172,
+        724
+      ],
+      "source_vertical_band": [
+        140,
+        570
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#FFD6D6",
+        "#FF6A6A",
+        "#E8283A",
+        "#A8122A",
+        "#5E0A1C"
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "extraction": "alpha>=128; nearest allowed ramp; >=8% opaque cell coverage then modal opaque color; mirror left/top half",
+      "strict_symmetry_pass": true,
+      "distinct_frames": 3,
+      "frame_checks": [
+        {
+          "frame": 0,
+          "occupied_pixels": 50,
+          "symmetry_pixels_changed": 2,
+          "bbox": [
+            0,
+            1,
+            10,
+            9
+          ],
+          "bright_pixels": 12
+        },
+        {
+          "frame": 1,
+          "occupied_pixels": 54,
+          "symmetry_pixels_changed": 1,
+          "bbox": [
+            0,
+            0,
+            10,
+            9
+          ],
+          "bright_pixels": 2
+        },
+        {
+          "frame": 2,
+          "occupied_pixels": 34,
+          "symmetry_pixels_changed": 2,
+          "bbox": [
+            1,
+            0,
+            9,
+            10
+          ],
+          "bright_pixels": 0
+        }
+      ],
+      "sha256_1x": "f69320fb30974123e52033d49d165fdcbf2e0cf5b67048006ccd66cd29aefca5"
+    },
+    {
+      "file": "naafiri_fx_pk_bite4.png",
+      "pixel_1x": "pixel_1x/naafiri_fx_pk_bite4.png",
+      "raw": "raw/naafiri_fx_pk_bite4.png",
+      "frames": 3,
+      "cell_1x": [
+        16,
+        14
+      ],
+      "cell_8x": [
+        128,
+        112
+      ],
+      "sheet_1x": [
+        48,
+        14
+      ],
+      "sheet_8x": [
+        384,
+        112
+      ],
+      "symmetry": "left-right",
+      "binding": "view_effects `league_naafiri_pk_bite4`（跟随目标，z 2；左右对称）",
+      "loop": false,
+      "layout": "one horizontal row, no gutters",
+      "source_size": [
+        2172,
+        724
+      ],
+      "source_vertical_band": [
+        -2,
+        720
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#FFD6D6",
+        "#FF6A6A",
+        "#E8283A",
+        "#A8122A",
+        "#5E0A1C",
+        "#F0D8FF",
+        "#C08AF0",
+        "#8A4AC8",
+        "#5A2A8E",
+        "#301650"
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "extraction": "alpha>=128; nearest allowed ramp; >=8% opaque cell coverage then modal opaque color; mirror left/top half",
+      "strict_symmetry_pass": true,
+      "distinct_frames": 3,
+      "frame_checks": [
+        {
+          "frame": 0,
+          "occupied_pixels": 126,
+          "symmetry_pixels_changed": 19,
+          "bbox": [
+            0,
+            1,
+            16,
+            13
+          ],
+          "bright_pixels": 16
+        },
+        {
+          "frame": 1,
+          "occupied_pixels": 138,
+          "symmetry_pixels_changed": 37,
+          "bbox": [
+            1,
+            1,
+            15,
+            13
+          ],
+          "bright_pixels": 4
+        },
+        {
+          "frame": 2,
+          "occupied_pixels": 86,
+          "symmetry_pixels_changed": 28,
+          "bbox": [
+            1,
+            1,
+            15,
+            13
+          ],
+          "bright_pixels": 0
+        }
+      ],
+      "sha256_1x": "8a98ecf7a5873c74b279740c8fd3b8587efab5387923e603a0df43975b30e190"
+    },
+    {
+      "file": "naafiri_fx_pk_leap.png",
+      "pixel_1x": "pixel_1x/naafiri_fx_pk_leap.png",
+      "raw": "raw/naafiri_fx_pk_leap.png",
+      "frames": 4,
+      "cell_1x": [
+        16,
+        12
+      ],
+      "cell_8x": [
+        128,
+        96
+      ],
+      "sheet_1x": [
+        64,
+        12
+      ],
+      "sheet_8x": [
+        512,
+        96
+      ],
+      "symmetry": "left-right",
+      "binding": "view_effects `league_naafiri_pk_leap`（跟随目标，z 2；左右对称）",
+      "loop": false,
+      "layout": "one horizontal row, no gutters",
+      "source_size": [
+        2048,
+        768
+      ],
+      "source_vertical_band": [
+        172,
+        561
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#FFD6D6",
+        "#FF6A6A",
+        "#E8283A",
+        "#A8122A",
+        "#5E0A1C"
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "extraction": "alpha>=128; nearest allowed ramp; >=8% opaque cell coverage then modal opaque color; mirror left/top half",
+      "strict_symmetry_pass": true,
+      "distinct_frames": 4,
+      "frame_checks": [
+        {
+          "frame": 0,
+          "occupied_pixels": 50,
+          "symmetry_pixels_changed": 14,
+          "bbox": [
+            0,
+            6,
+            16,
+            11
+          ],
+          "bright_pixels": 2
+        },
+        {
+          "frame": 1,
+          "occupied_pixels": 58,
+          "symmetry_pixels_changed": 4,
+          "bbox": [
+            0,
+            3,
+            16,
+            11
+          ],
+          "bright_pixels": 4
+        },
+        {
+          "frame": 2,
+          "occupied_pixels": 74,
+          "symmetry_pixels_changed": 22,
+          "bbox": [
+            2,
+            2,
+            14,
+            11
+          ],
+          "bright_pixels": 10
+        },
+        {
+          "frame": 3,
+          "occupied_pixels": 42,
+          "symmetry_pixels_changed": 3,
+          "bbox": [
+            1,
+            4,
+            15,
+            10
+          ],
+          "bright_pixels": 6
+        }
+      ],
+      "sha256_1x": "e87d3670b4478928ce367ad53be5c3bb2c3aee0d186b22889228e7a3f8ae909a"
+    },
+    {
+      "file": "naafiri_fx_pk_ride.png",
+      "pixel_1x": "pixel_1x/naafiri_fx_pk_ride.png",
+      "raw": "raw/naafiri_fx_pk_ride.png",
+      "frames": 4,
+      "cell_1x": [
+        40,
+        20
+      ],
+      "cell_8x": [
+        320,
+        160
+      ],
+      "sheet_1x": [
+        160,
+        20
+      ],
+      "sheet_8x": [
+        1280,
+        160
+      ],
+      "symmetry": "left-right",
+      "binding": "view_effects `league_naafiri_pk_ride`（跟随目标，z -1；左右对称）",
+      "loop": true,
+      "layout": "one horizontal row, no gutters",
+      "source_size": [
+        1983,
+        793
+      ],
+      "source_vertical_band": [
+        -16,
+        486
+      ],
+      "palette": [
+        "#FF5A5A",
+        "#D8243A",
+        "#A01428",
+        "#640C1A",
+        "#A8B4C4",
+        "#6E7C8C",
+        "#3E4652",
+        "#FFE070",
+        "#0E0A12",
+        "#FFFFFF",
+        "#FFD6D6",
+        "#FF6A6A",
+        "#E8283A",
+        "#A8122A",
+        "#5E0A1C"
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "extraction": "alpha>=128; nearest allowed ramp; >=8% opaque cell coverage then modal opaque color; mirror left/top half",
+      "strict_symmetry_pass": true,
+      "distinct_frames": 4,
+      "frame_checks": [
+        {
+          "frame": 0,
+          "occupied_pixels": 98,
+          "symmetry_pixels_changed": 49,
+          "bbox": [
+            2,
+            12,
+            38,
+            20
+          ],
+          "bright_pixels": 2
+        },
+        {
+          "frame": 1,
+          "occupied_pixels": 72,
+          "symmetry_pixels_changed": 36,
+          "bbox": [
+            2,
+            15,
+            38,
+            20
+          ],
+          "bright_pixels": 0
+        },
+        {
+          "frame": 2,
+          "occupied_pixels": 78,
+          "symmetry_pixels_changed": 39,
+          "bbox": [
+            1,
+            15,
+            39,
+            20
+          ],
+          "bright_pixels": 0
+        },
+        {
+          "frame": 3,
+          "occupied_pixels": 104,
+          "symmetry_pixels_changed": 52,
+          "bbox": [
+            0,
+            12,
+            40,
+            20
+          ],
+          "bright_pixels": 2
+        }
+      ],
+      "sha256_1x": "34adc8f6c00ae1dc1af18c9c010e5923cec75c59e6f08f6bd42940fbf44ec380",
+      "body_clearance_1x": [
+        12,
+        0,
+        28,
+        20
+      ],
+      "hounds_side_lane_1x": [
+        12,
+        8
+      ]
+    },
+    {
+      "file": "naafiri_fx_q_dagger.png",
+      "pixel_1x": "pixel_1x/naafiri_fx_q_dagger.png",
+      "raw": "raw/naafiri_fx_q_dagger.png",
+      "frames": 4,
+      "cell_1x": [
+        10,
+        6
+      ],
+      "cell_8x": [
+        80,
+        48
+      ],
+      "sheet_1x": [
+        40,
+        6
+      ],
+      "sheet_8x": [
+        320,
+        48
+      ],
+      "symmetry": "top-bottom",
+      "binding": "view_projectiles `league_naafiri_q_dagger`（随飞行方向转；上下对称）",
+      "loop": false,
+      "layout": "one horizontal row, no gutters",
+      "source_size": [
+        2089,
+        753
+      ],
+      "source_vertical_band": [
+        218,
+        526
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#DDE6EE",
+        "#A8B6C4",
+        "#6E7C8C",
+        "#3E4652",
+        "#FFF8E8",
+        "#EEDCB4",
+        "#C8AC80",
+        "#8E7250",
+        "#5A4632",
+        "#FFD6D6",
+        "#FF6A6A",
+        "#E8283A",
+        "#A8122A",
+        "#5E0A1C",
+        "#0E0A12"
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "extraction": "alpha>=128; nearest allowed ramp; >=8% opaque cell coverage then modal opaque color; mirror left/top half",
+      "strict_symmetry_pass": true,
+      "distinct_frames": 4,
+      "frame_checks": [
+        {
+          "frame": 0,
+          "occupied_pixels": 28,
+          "symmetry_pixels_changed": 8,
+          "bbox": [
+            1,
+            1,
+            10,
+            5
+          ],
+          "bright_pixels": 2
+        },
+        {
+          "frame": 1,
+          "occupied_pixels": 32,
+          "symmetry_pixels_changed": 12,
+          "bbox": [
+            1,
+            0,
+            10,
+            6
+          ],
+          "bright_pixels": 0
+        },
+        {
+          "frame": 2,
+          "occupied_pixels": 32,
+          "symmetry_pixels_changed": 9,
+          "bbox": [
+            0,
+            0,
+            9,
+            6
+          ],
+          "bright_pixels": 0
+        },
+        {
+          "frame": 3,
+          "occupied_pixels": 32,
+          "symmetry_pixels_changed": 8,
+          "bbox": [
+            0,
+            0,
+            9,
+            6
+          ],
+          "bright_pixels": 2
+        }
+      ],
+      "sha256_1x": "6d7d2e71a9d3d7c573060a6a5f17b1b4d265cfa9b8fb63650878acd6f128f375"
+    },
+    {
+      "file": "naafiri_fx_q2_dagger.png",
+      "pixel_1x": "pixel_1x/naafiri_fx_q2_dagger.png",
+      "raw": "raw/naafiri_fx_q2_dagger.png",
+      "frames": 4,
+      "cell_1x": [
+        12,
+        8
+      ],
+      "cell_8x": [
+        96,
+        64
+      ],
+      "sheet_1x": [
+        48,
+        8
+      ],
+      "sheet_8x": [
+        384,
+        64
+      ],
+      "symmetry": "top-bottom",
+      "binding": "view_projectiles `league_naafiri_q2_dagger`（随飞行方向转；上下对称）",
+      "loop": false,
+      "layout": "one horizontal row, no gutters",
+      "source_size": [
+        2172,
+        724
+      ],
+      "source_vertical_band": [
+        173,
+        551
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#DDE6EE",
+        "#A8B6C4",
+        "#6E7C8C",
+        "#3E4652",
+        "#FFF8E8",
+        "#EEDCB4",
+        "#C8AC80",
+        "#8E7250",
+        "#5A4632",
+        "#FFD6D6",
+        "#FF6A6A",
+        "#E8283A",
+        "#A8122A",
+        "#5E0A1C",
+        "#0E0A12"
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "extraction": "alpha>=128; nearest allowed ramp; >=8% opaque cell coverage then modal opaque color; mirror left/top half",
+      "strict_symmetry_pass": true,
+      "distinct_frames": 4,
+      "frame_checks": [
+        {
+          "frame": 0,
+          "occupied_pixels": 34,
+          "symmetry_pixels_changed": 3,
+          "bbox": [
+            1,
+            0,
+            9,
+            8
+          ],
+          "bright_pixels": 4
+        },
+        {
+          "frame": 1,
+          "occupied_pixels": 40,
+          "symmetry_pixels_changed": 17,
+          "bbox": [
+            1,
+            1,
+            12,
+            7
+          ],
+          "bright_pixels": 6
+        },
+        {
+          "frame": 2,
+          "occupied_pixels": 34,
+          "symmetry_pixels_changed": 4,
+          "bbox": [
+            1,
+            0,
+            9,
+            8
+          ],
+          "bright_pixels": 4
+        },
+        {
+          "frame": 3,
+          "occupied_pixels": 40,
+          "symmetry_pixels_changed": 18,
+          "bbox": [
+            1,
+            1,
+            12,
+            7
+          ],
+          "bright_pixels": 6
+        }
+      ],
+      "sha256_1x": "4affd21c3c8694663148119f1388b3684aee78876b4ed6196bad4483cc71a1ab"
+    },
+    {
+      "file": "naafiri_fx_q_leap.png",
+      "pixel_1x": "pixel_1x/naafiri_fx_q_leap.png",
+      "raw": "raw/naafiri_fx_q_leap.png",
+      "frames": 3,
+      "cell_1x": [
+        16,
+        5
+      ],
+      "cell_8x": [
+        128,
+        40
+      ],
+      "sheet_1x": [
+        48,
+        5
+      ],
+      "sheet_8x": [
+        384,
+        40
+      ],
+      "symmetry": "top-bottom",
+      "binding": "view_projectiles `league_naafiri_q_leap`（随飞行方向转；上下对称）",
+      "loop": false,
+      "layout": "one horizontal row, no gutters",
+      "source_size": [
+        2172,
+        724
+      ],
+      "source_vertical_band": [
+        230,
+        494
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#FFD6D6",
+        "#FF6A6A",
+        "#E8283A",
+        "#A8122A",
+        "#5E0A1C"
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "extraction": "alpha>=128; nearest allowed ramp; >=8% opaque cell coverage then modal opaque color; mirror left/top half",
+      "strict_symmetry_pass": true,
+      "distinct_frames": 3,
+      "frame_checks": [
+        {
+          "frame": 0,
+          "occupied_pixels": 50,
+          "symmetry_pixels_changed": 2,
+          "bbox": [
+            1,
+            0,
+            15,
+            5
+          ],
+          "bright_pixels": 4
+        },
+        {
+          "frame": 1,
+          "occupied_pixels": 50,
+          "symmetry_pixels_changed": 1,
+          "bbox": [
+            1,
+            0,
+            15,
+            5
+          ],
+          "bright_pixels": 4
+        },
+        {
+          "frame": 2,
+          "occupied_pixels": 32,
+          "symmetry_pixels_changed": 1,
+          "bbox": [
+            2,
+            0,
+            15,
+            5
+          ],
+          "bright_pixels": 5
+        }
+      ],
+      "sha256_1x": "75d64e769a63acd9e80d8f7e63246f1b6ece6244b9ec860db9c5422e70c76da9"
+    },
+    {
+      "file": "naafiri_fx_q_hit.png",
+      "pixel_1x": "pixel_1x/naafiri_fx_q_hit.png",
+      "raw": "raw/naafiri_fx_q_hit.png",
+      "frames": 3,
+      "cell_1x": [
+        12,
+        12
+      ],
+      "cell_8x": [
+        96,
+        96
+      ],
+      "sheet_1x": [
+        36,
+        12
+      ],
+      "sheet_8x": [
+        288,
+        96
+      ],
+      "symmetry": "left-right",
+      "binding": "view_effects `league_naafiri_q_hit`（跟随目标，z 2；左右对称）",
+      "loop": false,
+      "layout": "one horizontal row, no gutters",
+      "source_size": [
+        2172,
+        724
+      ],
+      "source_vertical_band": [
+        70,
+        654
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#FFD6D6",
+        "#FF6A6A",
+        "#E8283A",
+        "#A8122A",
+        "#5E0A1C"
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "extraction": "alpha>=128; nearest allowed ramp; >=8% opaque cell coverage then modal opaque color; mirror left/top half",
+      "strict_symmetry_pass": true,
+      "distinct_frames": 3,
+      "frame_checks": [
+        {
+          "frame": 0,
+          "occupied_pixels": 36,
+          "symmetry_pixels_changed": 3,
+          "bbox": [
+            2,
+            1,
+            10,
+            11
+          ],
+          "bright_pixels": 4
+        },
+        {
+          "frame": 1,
+          "occupied_pixels": 48,
+          "symmetry_pixels_changed": 1,
+          "bbox": [
+            2,
+            1,
+            10,
+            10
+          ],
+          "bright_pixels": 6
+        },
+        {
+          "frame": 2,
+          "occupied_pixels": 32,
+          "symmetry_pixels_changed": 0,
+          "bbox": [
+            2,
+            1,
+            10,
+            11
+          ],
+          "bright_pixels": 8
+        }
+      ],
+      "sha256_1x": "58e4b5b829b0ebcefb8f0c669b642a11cf3676883e3f21db6b9ed732099bc373"
+    },
+    {
+      "file": "naafiri_fx_q_bleed.png",
+      "pixel_1x": "pixel_1x/naafiri_fx_q_bleed.png",
+      "raw": "raw/naafiri_fx_q_bleed.png",
+      "frames": 3,
+      "cell_1x": [
+        10,
+        14
+      ],
+      "cell_8x": [
+        80,
+        112
+      ],
+      "sheet_1x": [
+        30,
+        14
+      ],
+      "sheet_8x": [
+        240,
+        112
+      ],
+      "symmetry": "left-right",
+      "binding": "view_effects `league_naafiri_q_bleed`（跟随目标，z 2；左右对称）",
+      "loop": false,
+      "layout": "one horizontal row, no gutters",
+      "source_size": [
+        1836,
+        857
+      ],
+      "source_vertical_band": [
+        -14,
+        872
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#FFD6D6",
+        "#FF6A6A",
+        "#E8283A",
+        "#A8122A",
+        "#5E0A1C"
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "extraction": "alpha>=128; nearest allowed ramp; >=8% opaque cell coverage then modal opaque color; mirror left/top half",
+      "strict_symmetry_pass": true,
+      "distinct_frames": 3,
+      "frame_checks": [
+        {
+          "frame": 0,
+          "occupied_pixels": 32,
+          "symmetry_pixels_changed": 7,
+          "bbox": [
+            0,
+            1,
+            10,
+            6
+          ],
+          "bright_pixels": 6
+        },
+        {
+          "frame": 1,
+          "occupied_pixels": 36,
+          "symmetry_pixels_changed": 0,
+          "bbox": [
+            0,
+            4,
+            10,
+            10
+          ],
+          "bright_pixels": 8
+        },
+        {
+          "frame": 2,
+          "occupied_pixels": 8,
+          "symmetry_pixels_changed": 4,
+          "bbox": [
+            2,
+            11,
+            8,
+            13
+          ],
+          "bright_pixels": 0
+        }
+      ],
+      "sha256_1x": "9dbf971118342007a98421e7227167c74552263c578906dd017b5f3910632613"
+    },
+    {
+      "file": "naafiri_fx_q2_hit.png",
+      "pixel_1x": "pixel_1x/naafiri_fx_q2_hit.png",
+      "raw": "raw/naafiri_fx_q2_hit.png",
+      "frames": 4,
+      "cell_1x": [
+        16,
+        16
+      ],
+      "cell_8x": [
+        128,
+        128
+      ],
+      "sheet_1x": [
+        64,
+        16
+      ],
+      "sheet_8x": [
+        512,
+        128
+      ],
+      "symmetry": "left-right",
+      "binding": "view_effects `league_naafiri_q2_hit`（跟随目标，z 2；左右对称）",
+      "loop": false,
+      "layout": "one horizontal row, no gutters",
+      "source_size": [
+        2172,
+        724
+      ],
+      "source_vertical_band": [
+        95,
+        616
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#FFD6D6",
+        "#FF6A6A",
+        "#E8283A",
+        "#A8122A",
+        "#5E0A1C",
+        "#F0D8FF",
+        "#C08AF0",
+        "#8A4AC8",
+        "#5A2A8E",
+        "#301650"
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "extraction": "alpha>=128; nearest allowed ramp; >=8% opaque cell coverage then modal opaque color; mirror left/top half",
+      "strict_symmetry_pass": true,
+      "distinct_frames": 4,
+      "frame_checks": [
+        {
+          "frame": 0,
+          "occupied_pixels": 108,
+          "symmetry_pixels_changed": 6,
+          "bbox": [
+            1,
+            1,
+            15,
+            15
+          ],
+          "bright_pixels": 8
+        },
+        {
+          "frame": 1,
+          "occupied_pixels": 122,
+          "symmetry_pixels_changed": 2,
+          "bbox": [
+            1,
+            1,
+            15,
+            15
+          ],
+          "bright_pixels": 4
+        },
+        {
+          "frame": 2,
+          "occupied_pixels": 90,
+          "symmetry_pixels_changed": 10,
+          "bbox": [
+            2,
+            1,
+            14,
+            15
+          ],
+          "bright_pixels": 0
+        },
+        {
+          "frame": 3,
+          "occupied_pixels": 30,
+          "symmetry_pixels_changed": 3,
+          "bbox": [
+            2,
+            2,
+            14,
+            14
+          ],
+          "bright_pixels": 2
+        }
+      ],
+      "sha256_1x": "7608c7d8f240b0110aaf0e360b24e6dcf845a92b2fd722c50ee6e0cee0a0a2e8"
+    },
+    {
+      "file": "naafiri_fx_q_heal.png",
+      "pixel_1x": "pixel_1x/naafiri_fx_q_heal.png",
+      "raw": "raw/naafiri_fx_q_heal.png",
+      "frames": 4,
+      "cell_1x": [
+        30,
+        22
+      ],
+      "cell_8x": [
+        240,
+        176
+      ],
+      "sheet_1x": [
+        120,
+        22
+      ],
+      "sheet_8x": [
+        960,
+        176
+      ],
+      "symmetry": "left-right",
+      "binding": "view_effects `league_naafiri_q_heal`（她身上，z 3；左右对称）",
+      "loop": false,
+      "layout": "one horizontal row, no gutters",
+      "source_size": [
+        1717,
+        916
+      ],
+      "source_vertical_band": [
+        162,
+        696
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#FFE8C8",
+        "#FFB070",
+        "#F06A4A",
+        "#B8303A"
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "extraction": "alpha>=128; nearest allowed ramp; >=8% opaque cell coverage then modal opaque color; mirror left/top half",
+      "strict_symmetry_pass": true,
+      "distinct_frames": 4,
+      "frame_checks": [
+        {
+          "frame": 0,
+          "occupied_pixels": 128,
+          "symmetry_pixels_changed": 54,
+          "bbox": [
+            2,
+            5,
+            28,
+            21
+          ],
+          "bright_pixels": 16
+        },
+        {
+          "frame": 1,
+          "occupied_pixels": 178,
+          "symmetry_pixels_changed": 22,
+          "bbox": [
+            2,
+            5,
+            28,
+            21
+          ],
+          "bright_pixels": 18
+        },
+        {
+          "frame": 2,
+          "occupied_pixels": 262,
+          "symmetry_pixels_changed": 49,
+          "bbox": [
+            1,
+            1,
+            29,
+            21
+          ],
+          "bright_pixels": 28
+        },
+        {
+          "frame": 3,
+          "occupied_pixels": 150,
+          "symmetry_pixels_changed": 24,
+          "bbox": [
+            1,
+            5,
+            29,
+            21
+          ],
+          "bright_pixels": 22
+        }
+      ],
+      "sha256_1x": "b9ae71d20149014f8433b84d51239727ad646fc243591c80fc20e27688c8ff68"
+    },
+    {
+      "file": "naafiri_fx_e_slash.png",
+      "pixel_1x": "pixel_1x/naafiri_fx_e_slash.png",
+      "raw": "raw/naafiri_fx_e_slash.png",
+      "frames": 4,
+      "cell_1x": [
+        56,
+        26
+      ],
+      "cell_8x": [
+        448,
+        208
+      ],
+      "sheet_1x": [
+        224,
+        26
+      ],
+      "sheet_8x": [
+        1792,
+        208
+      ],
+      "symmetry": "left-right",
+      "binding": "view_effects `league_naafiri_e_slash`（她身上，z -1；左右对称）",
+      "loop": false,
+      "layout": "one horizontal row, no gutters",
+      "source_size": [
+        2079,
+        756
+      ],
+      "source_vertical_band": [
+        181,
+        537
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#FFD6D6",
+        "#FF6A6A",
+        "#E8283A",
+        "#A8122A",
+        "#5E0A1C",
+        "#F0FFF8",
+        "#A8F2D0",
+        "#56CFA0",
+        "#2E8E70"
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "extraction": "alpha>=128; nearest allowed ramp; >=8% opaque cell coverage then modal opaque color; mirror left/top half",
+      "strict_symmetry_pass": true,
+      "distinct_frames": 4,
+      "frame_checks": [
+        {
+          "frame": 0,
+          "occupied_pixels": 356,
+          "symmetry_pixels_changed": 46,
+          "bbox": [
+            2,
+            3,
+            54,
+            24
+          ],
+          "bright_pixels": 42
+        },
+        {
+          "frame": 1,
+          "occupied_pixels": 534,
+          "symmetry_pixels_changed": 103,
+          "bbox": [
+            0,
+            1,
+            56,
+            24
+          ],
+          "bright_pixels": 110
+        },
+        {
+          "frame": 2,
+          "occupied_pixels": 412,
+          "symmetry_pixels_changed": 70,
+          "bbox": [
+            1,
+            2,
+            55,
+            25
+          ],
+          "bright_pixels": 58
+        },
+        {
+          "frame": 3,
+          "occupied_pixels": 244,
+          "symmetry_pixels_changed": 56,
+          "bbox": [
+            1,
+            2,
+            55,
+            24
+          ],
+          "bright_pixels": 28
+        }
+      ],
+      "sha256_1x": "f7ff3b7f6f908eec8212e88614561651ecbb25177f8b39f9177eb0b960e9aaf3"
+    },
+    {
+      "file": "naafiri_fx_e_slash2.png",
+      "pixel_1x": "pixel_1x/naafiri_fx_e_slash2.png",
+      "raw": "raw/naafiri_fx_e_slash2.png",
+      "frames": 4,
+      "cell_1x": [
+        64,
+        30
+      ],
+      "cell_8x": [
+        512,
+        240
+      ],
+      "sheet_1x": [
+        256,
+        30
+      ],
+      "sheet_8x": [
+        2048,
+        240
+      ],
+      "symmetry": "left-right",
+      "binding": "view_effects `league_naafiri_e_slash2`（她身上，z -1；左右对称）",
+      "loop": false,
+      "layout": "one horizontal row, no gutters",
+      "source_size": [
+        2172,
+        724
+      ],
+      "source_vertical_band": [
+        153,
+        541
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#FFD6D6",
+        "#FF6A6A",
+        "#E8283A",
+        "#A8122A",
+        "#5E0A1C",
+        "#F0D8FF",
+        "#C08AF0",
+        "#8A4AC8",
+        "#5A2A8E",
+        "#301650",
+        "#F0FFF8",
+        "#A8F2D0",
+        "#56CFA0",
+        "#2E8E70"
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "extraction": "alpha>=128; nearest allowed ramp; >=8% opaque cell coverage then modal opaque color; mirror left/top half",
+      "strict_symmetry_pass": true,
+      "distinct_frames": 4,
+      "frame_checks": [
+        {
+          "frame": 0,
+          "occupied_pixels": 466,
+          "symmetry_pixels_changed": 56,
+          "bbox": [
+            2,
+            3,
+            62,
+            28
+          ],
+          "bright_pixels": 72
+        },
+        {
+          "frame": 1,
+          "occupied_pixels": 656,
+          "symmetry_pixels_changed": 54,
+          "bbox": [
+            1,
+            1,
+            63,
+            28
+          ],
+          "bright_pixels": 106
+        },
+        {
+          "frame": 2,
+          "occupied_pixels": 640,
+          "symmetry_pixels_changed": 76,
+          "bbox": [
+            1,
+            2,
+            63,
+            28
+          ],
+          "bright_pixels": 54
+        },
+        {
+          "frame": 3,
+          "occupied_pixels": 308,
+          "symmetry_pixels_changed": 35,
+          "bbox": [
+            2,
+            3,
+            62,
+            29
+          ],
+          "bright_pixels": 44
+        }
+      ],
+      "sha256_1x": "fde708680a8e95480a120da2251219eae761d13daedf05f9077dfc8839d9e79e"
+    },
+    {
+      "file": "naafiri_fx_e_hit.png",
+      "pixel_1x": "pixel_1x/naafiri_fx_e_hit.png",
+      "raw": "raw/naafiri_fx_e_hit.png",
+      "frames": 3,
+      "cell_1x": [
+        12,
+        12
+      ],
+      "cell_8x": [
+        96,
+        96
+      ],
+      "sheet_1x": [
+        36,
+        12
+      ],
+      "sheet_8x": [
+        288,
+        96
+      ],
+      "symmetry": "left-right",
+      "binding": "view_effects `league_naafiri_e_hit`（跟随目标，z 2；左右对称）",
+      "loop": false,
+      "layout": "one horizontal row, no gutters",
+      "source_size": [
+        2172,
+        724
+      ],
+      "source_vertical_band": [
+        76,
+        669
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#FFD6D6",
+        "#FF6A6A",
+        "#E8283A",
+        "#A8122A",
+        "#5E0A1C"
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "extraction": "alpha>=128; nearest allowed ramp; >=8% opaque cell coverage then modal opaque color; mirror left/top half",
+      "strict_symmetry_pass": true,
+      "distinct_frames": 3,
+      "frame_checks": [
+        {
+          "frame": 0,
+          "occupied_pixels": 74,
+          "symmetry_pixels_changed": 4,
+          "bbox": [
+            1,
+            0,
+            11,
+            12
+          ],
+          "bright_pixels": 8
+        },
+        {
+          "frame": 1,
+          "occupied_pixels": 38,
+          "symmetry_pixels_changed": 2,
+          "bbox": [
+            2,
+            1,
+            10,
+            10
+          ],
+          "bright_pixels": 2
+        },
+        {
+          "frame": 2,
+          "occupied_pixels": 22,
+          "symmetry_pixels_changed": 0,
+          "bbox": [
+            2,
+            2,
+            10,
+            10
+          ],
+          "bright_pixels": 2
+        }
+      ],
+      "sha256_1x": "46068e42f25451cdcef02ead9fe1f50bbd336669b57b9f2686e11c767a45bac3"
+    },
+    {
+      "file": "naafiri_fx_r_roar.png",
+      "pixel_1x": "pixel_1x/naafiri_fx_r_roar.png",
+      "raw": "raw/naafiri_fx_r_roar.png",
+      "frames": 5,
+      "cell_1x": [
+        64,
+        40
+      ],
+      "cell_8x": [
+        512,
+        320
+      ],
+      "sheet_1x": [
+        320,
+        40
+      ],
+      "sheet_8x": [
+        2560,
+        320
+      ],
+      "symmetry": "left-right",
+      "binding": "view_effects `league_naafiri_r_roar`（她身上，z 3；左右对称）",
+      "loop": false,
+      "layout": "one horizontal row, no gutters",
+      "source_size": [
+        1983,
+        793
+      ],
+      "source_vertical_band": [
+        214,
+        575
+      ],
+      "palette": [
+        "#F0D8FF",
+        "#C08AF0",
+        "#8A4AC8",
+        "#5A2A8E",
+        "#301650",
+        "#FFFFFF",
+        "#FFD6D6",
+        "#FF6A6A",
+        "#E8283A",
+        "#A8122A",
+        "#5E0A1C"
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "extraction": "alpha>=128; nearest allowed ramp; >=8% opaque cell coverage then modal opaque color; mirror left/top half",
+      "strict_symmetry_pass": true,
+      "distinct_frames": 5,
+      "frame_checks": [
+        {
+          "frame": 0,
+          "occupied_pixels": 330,
+          "symmetry_pixels_changed": 240,
+          "bbox": [
+            3,
+            2,
+            61,
+            36
+          ],
+          "bright_pixels": 44
+        },
+        {
+          "frame": 1,
+          "occupied_pixels": 912,
+          "symmetry_pixels_changed": 617,
+          "bbox": [
+            0,
+            3,
+            64,
+            37
+          ],
+          "bright_pixels": 164
+        },
+        {
+          "frame": 2,
+          "occupied_pixels": 1382,
+          "symmetry_pixels_changed": 679,
+          "bbox": [
+            0,
+            2,
+            64,
+            38
+          ],
+          "bright_pixels": 284
+        },
+        {
+          "frame": 3,
+          "occupied_pixels": 1364,
+          "symmetry_pixels_changed": 722,
+          "bbox": [
+            0,
+            2,
+            64,
+            38
+          ],
+          "bright_pixels": 204
+        },
+        {
+          "frame": 4,
+          "occupied_pixels": 658,
+          "symmetry_pixels_changed": 436,
+          "bbox": [
+            0,
+            3,
+            64,
+            37
+          ],
+          "bright_pixels": 70
+        }
+      ],
+      "sha256_1x": "8f620b02df8e9e36e2fef2c2d6131893fdb5218fb29a12ebe46c81152d6d4056"
+    },
+    {
+      "file": "naafiri_fx_r_hit.png",
+      "pixel_1x": "pixel_1x/naafiri_fx_r_hit.png",
+      "raw": "raw/naafiri_fx_r_hit.png",
+      "frames": 4,
+      "cell_1x": [
+        22,
+        20
+      ],
+      "cell_8x": [
+        176,
+        160
+      ],
+      "sheet_1x": [
+        88,
+        20
+      ],
+      "sheet_8x": [
+        704,
+        160
+      ],
+      "symmetry": "left-right",
+      "binding": "view_effects `league_naafiri_r_hit`（跟随目标，z 2；左右对称）",
+      "loop": false,
+      "layout": "one horizontal row, no gutters",
+      "source_size": [
+        2079,
+        756
+      ],
+      "source_vertical_band": [
+        71,
+        687
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#FFD6D6",
+        "#FF6A6A",
+        "#E8283A",
+        "#A8122A",
+        "#5E0A1C",
+        "#F0D8FF",
+        "#C08AF0",
+        "#8A4AC8",
+        "#5A2A8E",
+        "#301650"
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "extraction": "alpha>=128; nearest allowed ramp; >=8% opaque cell coverage then modal opaque color; mirror left/top half",
+      "strict_symmetry_pass": true,
+      "distinct_frames": 4,
+      "frame_checks": [
+        {
+          "frame": 0,
+          "occupied_pixels": 242,
+          "symmetry_pixels_changed": 88,
+          "bbox": [
+            1,
+            2,
+            21,
+            18
+          ],
+          "bright_pixels": 90
+        },
+        {
+          "frame": 1,
+          "occupied_pixels": 226,
+          "symmetry_pixels_changed": 67,
+          "bbox": [
+            0,
+            2,
+            22,
+            18
+          ],
+          "bright_pixels": 30
+        },
+        {
+          "frame": 2,
+          "occupied_pixels": 210,
+          "symmetry_pixels_changed": 90,
+          "bbox": [
+            0,
+            2,
+            22,
+            18
+          ],
+          "bright_pixels": 24
+        },
+        {
+          "frame": 3,
+          "occupied_pixels": 84,
+          "symmetry_pixels_changed": 6,
+          "bbox": [
+            0,
+            3,
+            22,
+            17
+          ],
+          "bright_pixels": 16
+        }
+      ],
+      "sha256_1x": "cf816eda44d9ab49b7d07844980d599fbb124735be30c72f3fe6d41a8d7a0f14"
+    },
+    {
+      "file": "naafiri_fx_r_reset.png",
+      "pixel_1x": "pixel_1x/naafiri_fx_r_reset.png",
+      "raw": "raw/naafiri_fx_r_reset.png",
+      "frames": 4,
+      "cell_1x": [
+        24,
+        20
+      ],
+      "cell_8x": [
+        192,
+        160
+      ],
+      "sheet_1x": [
+        96,
+        20
+      ],
+      "sheet_8x": [
+        768,
+        160
+      ],
+      "symmetry": "left-right",
+      "binding": "view_effects `league_naafiri_r_reset`（她身上，z 3；左右对称）",
+      "loop": false,
+      "layout": "one horizontal row, no gutters",
+      "source_size": [
+        2172,
+        724
+      ],
+      "source_vertical_band": [
+        83,
+        827
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#FFD6D6",
+        "#FF6A6A",
+        "#E8283A",
+        "#A8122A",
+        "#5E0A1C",
+        "#F0D8FF",
+        "#C08AF0",
+        "#8A4AC8",
+        "#5A2A8E",
+        "#301650"
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "extraction": "alpha>=128; nearest allowed ramp; >=8% opaque cell coverage then modal opaque color; mirror left/top half",
+      "strict_symmetry_pass": true,
+      "distinct_frames": 4,
+      "frame_checks": [
+        {
+          "frame": 0,
+          "occupied_pixels": 132,
+          "symmetry_pixels_changed": 13,
+          "bbox": [
+            0,
+            1,
+            24,
+            9
+          ],
+          "bright_pixels": 6
+        },
+        {
+          "frame": 1,
+          "occupied_pixels": 154,
+          "symmetry_pixels_changed": 11,
+          "bbox": [
+            0,
+            0,
+            24,
+            10
+          ],
+          "bright_pixels": 6
+        },
+        {
+          "frame": 2,
+          "occupied_pixels": 100,
+          "symmetry_pixels_changed": 3,
+          "bbox": [
+            1,
+            0,
+            23,
+            9
+          ],
+          "bright_pixels": 2
+        },
+        {
+          "frame": 3,
+          "occupied_pixels": 88,
+          "symmetry_pixels_changed": 6,
+          "bbox": [
+            2,
+            1,
+            22,
+            9
+          ],
+          "bright_pixels": 0
+        }
+      ],
+      "sha256_1x": "184a5386bdf41a16df46c273edbdfcb678adbfa4747ba7639ab83d8d34d1e3da"
+    },
+    {
+      "file": "naafiri_fx_pack_aura.png",
+      "pixel_1x": "pixel_1x/naafiri_fx_pack_aura.png",
+      "raw": "raw/naafiri_fx_pack_aura.png",
+      "frames": 4,
+      "cell_1x": [
+        60,
+        18
+      ],
+      "cell_8x": [
+        480,
+        144
+      ],
+      "sheet_1x": [
+        240,
+        18
+      ],
+      "sheet_8x": [
+        1920,
+        144
+      ],
+      "symmetry": "left-right",
+      "binding": "view_buffs `league_naafiri_pack4`（tag pack_aura；跟着她，循环，z -1；左右对称）",
+      "loop": true,
+      "layout": "one horizontal row, no gutters",
+      "source_size": [
+        1983,
+        793
+      ],
+      "source_vertical_band": [
+        274,
+        509
+      ],
+      "palette": [
+        "#F0D8FF",
+        "#C08AF0",
+        "#8A4AC8",
+        "#5A2A8E",
+        "#301650",
+        "#FFFFFF",
+        "#FFD6D6",
+        "#FF6A6A",
+        "#E8283A",
+        "#A8122A",
+        "#5E0A1C"
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "extraction": "alpha>=128; nearest allowed ramp; >=8% opaque cell coverage then modal opaque color; mirror left/top half",
+      "strict_symmetry_pass": true,
+      "distinct_frames": 4,
+      "frame_checks": [
+        {
+          "frame": 0,
+          "occupied_pixels": 244,
+          "symmetry_pixels_changed": 36,
+          "bbox": [
+            2,
+            3,
+            58,
+            17
+          ],
+          "bright_pixels": 14
+        },
+        {
+          "frame": 1,
+          "occupied_pixels": 288,
+          "symmetry_pixels_changed": 40,
+          "bbox": [
+            2,
+            1,
+            58,
+            17
+          ],
+          "bright_pixels": 32
+        },
+        {
+          "frame": 2,
+          "occupied_pixels": 252,
+          "symmetry_pixels_changed": 27,
+          "bbox": [
+            2,
+            3,
+            58,
+            17
+          ],
+          "bright_pixels": 16
+        },
+        {
+          "frame": 3,
+          "occupied_pixels": 244,
+          "symmetry_pixels_changed": 22,
+          "bbox": [
+            2,
+            3,
+            58,
+            17
+          ],
+          "bright_pixels": 6
+        }
+      ],
+      "sha256_1x": "59516c102b9a62a325e5deb65bf4ebccbccaeab03a1d23ede8c0f426ffdf271e"
+    },
+    {
+      "file": "naafiri_fx_r_shred.png",
+      "pixel_1x": "pixel_1x/naafiri_fx_r_shred.png",
+      "raw": "raw/naafiri_fx_r_shred.png",
+      "frames": 4,
+      "cell_1x": [
+        14,
+        10
+      ],
+      "cell_8x": [
+        112,
+        80
+      ],
+      "sheet_1x": [
+        56,
+        10
+      ],
+      "sheet_8x": [
+        448,
+        80
+      ],
+      "symmetry": "left-right",
+      "binding": "view_buffs `league_naafiri_r_shred`（跟着目标，循环，z 3；左右对称）",
+      "loop": true,
+      "layout": "one horizontal row, no gutters",
+      "source_size": [
+        1875,
+        839
+      ],
+      "source_vertical_band": [
+        135,
+        661
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#FFD6D6",
+        "#FF6A6A",
+        "#E8283A",
+        "#A8122A",
+        "#5E0A1C",
+        "#DDE6EE",
+        "#A8B6C4",
+        "#6E7C8C",
+        "#3E4652",
+        "#0E0A12"
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "extraction": "alpha>=128; nearest allowed ramp; >=8% opaque cell coverage then modal opaque color; mirror left/top half",
+      "strict_symmetry_pass": true,
+      "distinct_frames": 4,
+      "frame_checks": [
+        {
+          "frame": 0,
+          "occupied_pixels": 82,
+          "symmetry_pixels_changed": 13,
+          "bbox": [
+            1,
+            0,
+            13,
+            10
+          ],
+          "bright_pixels": 6
+        },
+        {
+          "frame": 1,
+          "occupied_pixels": 80,
+          "symmetry_pixels_changed": 10,
+          "bbox": [
+            1,
+            0,
+            13,
+            10
+          ],
+          "bright_pixels": 10
+        },
+        {
+          "frame": 2,
+          "occupied_pixels": 82,
+          "symmetry_pixels_changed": 8,
+          "bbox": [
+            1,
+            0,
+            13,
+            10
+          ],
+          "bright_pixels": 8
+        },
+        {
+          "frame": 3,
+          "occupied_pixels": 82,
+          "symmetry_pixels_changed": 11,
+          "bbox": [
+            1,
+            0,
+            13,
+            10
+          ],
+          "bright_pixels": 6
+        }
+      ],
+      "sha256_1x": "6ab8a26ef18c587af1b64fa5003d5bba879d5014d0eaf13d02f5ea1f5f92fab0"
+    },
+    {
+      "file": "naafiri_fx_r_shield.png",
+      "pixel_1x": "pixel_1x/naafiri_fx_r_shield.png",
+      "raw": "raw/naafiri_fx_r_shield.png",
+      "frames": 4,
+      "cell_1x": [
+        58,
+        36
+      ],
+      "cell_8x": [
+        464,
+        288
+      ],
+      "sheet_1x": [
+        232,
+        36
+      ],
+      "sheet_8x": [
+        1856,
+        288
+      ],
+      "symmetry": "left-right",
+      "binding": "view_buffs `league_naafiri_r_shield`（跟着她，循环，z 3；左右对称）",
+      "loop": true,
+      "layout": "one horizontal row, no gutters",
+      "source_size": [
+        2007,
+        783
+      ],
+      "source_vertical_band": [
+        194,
+        557
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#FFD6D6",
+        "#FF6A6A",
+        "#E8283A",
+        "#A8122A",
+        "#5E0A1C",
+        "#F0FFF8",
+        "#A8F2D0",
+        "#56CFA0",
+        "#2E8E70"
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "extraction": "alpha>=128; nearest allowed ramp; >=8% opaque cell coverage then modal opaque color; mirror left/top half",
+      "strict_symmetry_pass": true,
+      "distinct_frames": 4,
+      "frame_checks": [
+        {
+          "frame": 0,
+          "occupied_pixels": 448,
+          "symmetry_pixels_changed": 209,
+          "bbox": [
+            1,
+            4,
+            57,
+            34
+          ],
+          "bright_pixels": 44
+        },
+        {
+          "frame": 1,
+          "occupied_pixels": 466,
+          "symmetry_pixels_changed": 136,
+          "bbox": [
+            1,
+            4,
+            57,
+            34
+          ],
+          "bright_pixels": 44
+        },
+        {
+          "frame": 2,
+          "occupied_pixels": 426,
+          "symmetry_pixels_changed": 192,
+          "bbox": [
+            0,
+            2,
+            58,
+            34
+          ],
+          "bright_pixels": 48
+        },
+        {
+          "frame": 3,
+          "occupied_pixels": 444,
+          "symmetry_pixels_changed": 244,
+          "bbox": [
+            0,
+            3,
+            58,
+            34
+          ],
+          "bright_pixels": 52
+        }
+      ],
+      "sha256_1x": "6b6fce6e0c70ead6ed7057c4273097f6855bba175a086893705382384699bc0d"
+    }
+  ]
+}

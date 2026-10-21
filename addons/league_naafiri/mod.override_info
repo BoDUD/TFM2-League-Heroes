@@ -1,0 +1,10 @@
+{
+  "asset/league/champion/league_naafiri": {
+    "remapping": "asset/league_naafiri/override/league_naafiri",
+    "type": "override"
+  },
+  "asset/base/text/champion": {
+    "remapping": "asset/league_naafiri/text/champion",
+    "type": "merge"
+  }
+}
