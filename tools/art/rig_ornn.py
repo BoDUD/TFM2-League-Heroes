@@ -11,7 +11,8 @@ Codex's own face): League's idle seen 3/4 from the front-right - hunched, legs p
 in the near hand, the smaller one in the molten far hand. The idle breathes on the design itself (the upper body sets
 down a row onto the legs and comes back). Every action is Codex's poses (tools/art/design_ornn_poses.py: eighteen of
 League's frames drawn on skeletons at the design's segment lengths, read back at the design's scale with the design's
-own face), each placed with the middle between its feet on the design's (the folded, lunging and lying ones by the
+own face) - but the run, drawn on the design itself (ornn_legs.py: his boots stepping under the design's own upper body) -
+each placed with the middle between its feet on the design's (the folded, lunging and lying ones by the
 middle of the plum apron) and its lowest row on the ground (or `lift` rows over it in the air), moved by whole squares
 only.
 The combos have their own frames (POSE_PROMPTS.md): Q -> E is `skill` (q_raise, q_slam: the fissure and the pillar)
@@ -28,6 +29,7 @@ from PIL import Image
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
+import ornn_legs as GL  # noqa: E402
 import ppu_rig as R  # noqa: E402
 from rig_warwick import close_cracks  # noqa: E402
 from rig_wukong import CutDesign as _Cut, P, pad  # noqa: E402
@@ -103,6 +105,16 @@ class Form:
         can[self.rig.GY:] = 0
         return close_cracks(can, self.D.outline)
 
+    def drawn(self, arr, pad):
+        """A frame drawn on the design's own grid (`pad` = (columns, rows) of margin round the design in `arr`): placed
+        exactly where the design stands."""
+        lay = np.zeros((self.D.H + 2 * P, self.D.W + 2 * P, 4), np.uint8)
+        y0, x0 = P - pad[1], P - pad[0]
+        lay[y0:y0 + arr.shape[0], x0:x0 + arr.shape[1]] = arr
+        can = R.compose(self.rig, [(lay, dict(dx=0, dy=0))])
+        can[self.rig.GY:] = 0
+        return can
+
     def posed(self, name, whole=(0, 0), lift=0):
         """A Codex pose (hd/pose_<name>.png) standing where the design stands: the middle of its apron on the design's,
         its lowest row on the ground - `lift` rows above it (in the air)."""
@@ -132,7 +144,7 @@ def form():
 
 # ------------------------------------------------------------------------------------------------- the actions
 # ms per frame
-MS = {"idle": [160] * 8, "run": [120] * 4,
+MS = {"idle": [160] * 8, "run": [110] * 8,
       "attack": [110, 123, 100, 90, 80],           # the smash from 233 ms: atk_st 14
       "skill_w": [125] * 6,                        # the breath held 750 ms: w_t 45
       "skill": [100, 100, 120, 100, 80],           # the fissure from 200 ms: q_rel 12
@@ -149,8 +161,10 @@ def frames_all(F):
     out = {}
     # idle (League's Ornn_Idle1: a slow heavy breath): the upper body sets down a row and back
     out["idle"] = [p(crouch=c) for c in (0, 0, 0, 1, 1, 1, 1, 0)]
-    # run (League's Ornn_Run: a heavy hunched trot, the hammers swinging): Codex's four run frames
-    out["run"] = [q("run1"), q("run2"), q("run3"), q("run4")]
+    # run (League's Ornn_Run: a heavy hunched trot, the hammers held): the design's upper body with his boots stepping in
+    # eight phases (tools/art/ornn_legs.py - the user, 2026-10-21, on Codex's four run poses: 「奥恩走路是这样走的？」 then
+    # 「跑步用定稿的上身，你自己画腿的跑步循环（像格雷福斯那样），大锤只轻微摆动」)
+    out["run"] = [F.drawn(GL.frame(F.D.d, k), (4, 4)) for k in range(8)]
     # auto attack (League's Ornn_Attack1: the big hammer raised over his head, then smashed down ahead): raise, the
     # smash (the hit), held, back
     out["attack"] = [q("raise"), q("raise", whole=(-1, 0)), q("smash"), q("smash"), p()]
