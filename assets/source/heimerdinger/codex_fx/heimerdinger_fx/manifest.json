@@ -1,0 +1,302 @@
+{
+ "effects": [
+  {
+   "name": "a_bolt",
+   "file": "heimerdinger_fx_a_bolt.png",
+   "frames": 4,
+   "cell_1x": [
+    10,
+    6
+   ],
+   "symmetry": "top-bottom",
+   "source": "gemini Gemini_Generated_Image_ik2tz7ik2tz7ik2t.jpg"
+  },
+  {
+   "name": "a_hit",
+   "file": "heimerdinger_fx_a_hit.png",
+   "frames": 3,
+   "cell_1x": [
+    12,
+    12
+   ],
+   "symmetry": "left-right",
+   "source": "gemini Gemini_Generated_Image_ik2tz7ik2tz7ik2t (1).jpg"
+  },
+  {
+   "name": "w_rocket",
+   "file": "heimerdinger_fx_w_rocket.png",
+   "frames": 3,
+   "cell_1x": [
+    12,
+    6
+   ],
+   "symmetry": "top-bottom",
+   "source": "gemini Gemini_Generated_Image_ik2tz7ik2tz7ik2t (2).jpg"
+  },
+  {
+   "name": "w_flash",
+   "file": "heimerdinger_fx_w_flash.png",
+   "frames": 3,
+   "cell_1x": [
+    10,
+    10
+   ],
+   "symmetry": "none (points right)",
+   "source": "gemini Gemini_Generated_Image_ik2tz7ik2tz7ik2t (3).jpg"
+  },
+  {
+   "name": "w_hit",
+   "file": "heimerdinger_fx_w_hit.png",
+   "frames": 4,
+   "cell_1x": [
+    14,
+    14
+   ],
+   "symmetry": "left-right",
+   "source": "gemini Gemini_Generated_Image_ik2tz7ik2tz7ik2t (4).jpg"
+  },
+  {
+   "name": "t_dust",
+   "file": "heimerdinger_fx_t_dust.png",
+   "frames": 5,
+   "cell_1x": [
+    30,
+    12
+   ],
+   "symmetry": "left-right",
+   "source": "gemini Gemini_Generated_Image_ik2tz7ik2tz7ik2t (5).jpg"
+  },
+  {
+   "name": "t_muzzle",
+   "file": "heimerdinger_fx_t_muzzle.png",
+   "frames": 3,
+   "cell_1x": [
+    10,
+    10
+   ],
+   "symmetry": "both",
+   "source": "gemini Gemini_Generated_Image_ik2tz7ik2tz7ik2t (6).jpg"
+  },
+  {
+   "name": "t_shot",
+   "file": "heimerdinger_fx_t_shot.png",
+   "frames": 2,
+   "cell_1x": [
+    8,
+    5
+   ],
+   "symmetry": "top-bottom",
+   "source": "gemini Gemini_Generated_Image_ik2tz7ik2tz7ik2t (7).jpg"
+  },
+  {
+   "name": "t_hit",
+   "file": "heimerdinger_fx_t_hit.png",
+   "frames": 3,
+   "cell_1x": [
+    10,
+    10
+   ],
+   "symmetry": "left-right",
+   "source": "gemini Gemini_Generated_Image_ik2tz7ik2tz7ik2t (8).jpg"
+  },
+  {
+   "name": "t_beam",
+   "file": "heimerdinger_fx_t_beam.png",
+   "frames": 4,
+   "cell_1x": [
+    26,
+    14
+   ],
+   "symmetry": "left-right",
+   "source": "gemini Gemini_Generated_Image_ik2tz7ik2tz7ik2t (9).jpg"
+  },
+  {
+   "name": "t_beam_line",
+   "file": "heimerdinger_fx_t_beam_line.png",
+   "frames": 3,
+   "cell_1x": [
+    24,
+    6
+   ],
+   "symmetry": "top-bottom",
+   "source": "gemini Gemini_Generated_Image_e1vq8ee1vq8ee1vq.jpg"
+  },
+  {
+   "name": "t_gone",
+   "file": "heimerdinger_fx_t_gone.png",
+   "frames": 4,
+   "cell_1x": [
+    24,
+    18
+   ],
+   "symmetry": "left-right",
+   "source": "gemini Gemini_Generated_Image_e1vq8ee1vq8ee1vq (1).jpg"
+  },
+  {
+   "name": "e_grenade",
+   "file": "heimerdinger_fx_e_grenade.png",
+   "frames": 4,
+   "cell_1x": [
+    9,
+    9
+   ],
+   "symmetry": "both",
+   "source": "gemini Gemini_Generated_Image_e1vq8ee1vq8ee1vq (2).jpg"
+  },
+  {
+   "name": "e_blast",
+   "file": "heimerdinger_fx_e_blast.png",
+   "frames": 6,
+   "cell_1x": [
+    54,
+    36
+   ],
+   "symmetry": "left-right",
+   "source": "gemini Gemini_Generated_Image_e1vq8ee1vq8ee1vq (3).jpg"
+  },
+  {
+   "name": "e_hit",
+   "file": "heimerdinger_fx_e_hit.png",
+   "frames": 3,
+   "cell_1x": [
+    14,
+    18
+   ],
+   "symmetry": "left-right",
+   "source": "gemini Gemini_Generated_Image_e1vq8ee1vq8ee1vq (4).jpg"
+  },
+  {
+   "name": "e_slow",
+   "file": "heimerdinger_fx_e_slow.png",
+   "frames": 4,
+   "cell_1x": [
+    22,
+    8
+   ],
+   "symmetry": "left-right",
+   "source": "gemini Gemini_Generated_Image_e1vq8ee1vq8ee1vq (5).jpg"
+  },
+  {
+   "name": "r_up",
+   "file": "heimerdinger_fx_r_up.png",
+   "frames": 6,
+   "cell_1x": [
+    40,
+    36
+   ],
+   "symmetry": "left-right",
+   "source": "gemini Gemini_Generated_Image_e1vq8ee1vq8ee1vq (6).jpg"
+  },
+  {
+   "name": "re_grenade",
+   "file": "heimerdinger_fx_re_grenade.png",
+   "frames": 4,
+   "cell_1x": [
+    11,
+    11
+   ],
+   "symmetry": "both",
+   "source": "gemini Gemini_Generated_Image_e1vq8ee1vq8ee1vq (8).jpg"
+  },
+  {
+   "name": "re_blast",
+   "file": "heimerdinger_fx_re_blast.png",
+   "frames": 7,
+   "cell_1x": [
+    58,
+    42
+   ],
+   "symmetry": "left-right",
+   "source": "gemini Gemini_Generated_Image_e1vq8ee1vq8ee1vq (9).jpg"
+  },
+  {
+   "name": "x_dust",
+   "file": "heimerdinger_fx_x_dust.png",
+   "frames": 8,
+   "cell_1x": [
+    40,
+    30
+   ],
+   "symmetry": "left-right",
+   "source": "gemini Gemini_Generated_Image_e1vq8ee1vq8ee1vq (10).jpg"
+  },
+  {
+   "name": "x_muzzle",
+   "file": "heimerdinger_fx_x_muzzle.png",
+   "frames": 3,
+   "cell_1x": [
+    14,
+    14
+   ],
+   "symmetry": "both",
+   "source": "gemini Gemini_Generated_Image_gf2f3zgf2f3zgf2f.jpg"
+  },
+  {
+   "name": "x_shot",
+   "file": "heimerdinger_fx_x_shot.png",
+   "frames": 3,
+   "cell_1x": [
+    12,
+    8
+   ],
+   "symmetry": "top-bottom",
+   "source": "gemini Gemini_Generated_Image_gf2f3zgf2f3zgf2f (1).jpg"
+  },
+  {
+   "name": "x_hit",
+   "file": "heimerdinger_fx_x_hit.png",
+   "frames": 4,
+   "cell_1x": [
+    16,
+    16
+   ],
+   "symmetry": "left-right",
+   "source": "gemini Gemini_Generated_Image_gf2f3zgf2f3zgf2f (2).jpg"
+  },
+  {
+   "name": "x_beam",
+   "file": "heimerdinger_fx_x_beam.png",
+   "frames": 4,
+   "cell_1x": [
+    32,
+    16
+   ],
+   "symmetry": "left-right",
+   "source": "gemini Gemini_Generated_Image_gf2f3zgf2f3zgf2f (3).jpg"
+  },
+  {
+   "name": "x_gone",
+   "file": "heimerdinger_fx_x_gone.png",
+   "frames": 4,
+   "cell_1x": [
+    30,
+    26
+   ],
+   "symmetry": "left-right",
+   "source": "gemini Gemini_Generated_Image_gf2f3zgf2f3zgf2f (4).jpg"
+  },
+  {
+   "name": "haste",
+   "file": "heimerdinger_fx_haste.png",
+   "frames": 3,
+   "cell_1x": [
+    20,
+    8
+   ],
+   "symmetry": "left-right",
+   "source": "gemini Gemini_Generated_Image_gf2f3zgf2f3zgf2f (5).jpg"
+  },
+  {
+   "name": "dead_burst",
+   "file": "heimerdinger_fx_dead_burst.png",
+   "frames": 5,
+   "cell_1x": [
+    34,
+    26
+   ],
+   "symmetry": "left-right",
+   "source": "gemini Gemini_Generated_Image_gf2f3zgf2f3zgf2f (6).jpg"
+  }
+ ],
+ "made_by": "Gemini (the user's images), processed by tools/art/process_heimerdinger_fx.py"
+}

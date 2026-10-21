@@ -1,0 +1,10 @@
+{
+  "asset/league/champion/league_heimerdinger": {
+    "remapping": "asset/league_heimerdinger/override/league_heimerdinger",
+    "type": "override"
+  },
+  "asset/base/text/champion": {
+    "remapping": "asset/league_heimerdinger/text/champion",
+    "type": "merge"
+  }
+}

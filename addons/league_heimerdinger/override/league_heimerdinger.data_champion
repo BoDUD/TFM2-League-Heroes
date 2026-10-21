@@ -1,0 +1,2306 @@
+{
+  "id": "league_heimerdinger",
+  "category": "Magician",
+  "tags": [
+    "AP",
+    "Magic",
+    "Range",
+    "CC"
+  ],
+  "passive": {
+    "passive_ref": "league_heimerdinger:affinity",
+    "params": {
+      "q_place": 20000,
+      "q_speed": 4000,
+      "t_life": 600,
+      "t_per": 50,
+      "t_first": 40,
+      "t_r": 50000,
+      "t_dmg": 6,
+      "t_ratio": 4,
+      "tb_dmg": 18,
+      "tb_ratio": 14,
+      "x_life": 480,
+      "x_per": 30,
+      "x_first": 30,
+      "x_r": 60000,
+      "x_dmg": 18,
+      "x_ratio": 10,
+      "x_slow": 25,
+      "x_slow_t": 45,
+      "xb_dmg": 45,
+      "xb_ratio": 30,
+      "p_r": 40000,
+      "p_tr": 60000,
+      "p_per": 20,
+      "p_ms": 20,
+      "p_t": 30,
+      "t_speed": 2800,
+      "b_speed": 9000,
+      "x_speed": 3500
+    }
+  },
+  "sprite": "asset/league/champions/league_heimerdinger",
+  "anim_prefix": "",
+  "skill_icons": [
+    "asset/league/icons/league_heimerdinger_skill",
+    "asset/league/icons/league_heimerdinger_skill2",
+    "asset/league/icons/league_heimerdinger_ult"
+  ],
+  "stat": {
+    "attack": 58,
+    "magic_power": 40,
+    "hp": 860,
+    "defence": 17,
+    "magic_resistance": 22,
+    "move_speed": 900,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "growth": {
+    "attack": 5,
+    "magic_power": 20,
+    "hp": 92,
+    "defence": 7,
+    "magic_resistance": 4,
+    "move_speed": 9,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "attack": {
+    "action_name": "attack",
+    "description": "#asset/base/text/champion?description.league_heimerdinger.attack",
+    "duration": 27,
+    "cooltime": 88,
+    "start_timing": 1,
+    "cancelable": true,
+    "range": 55000,
+    "casting_type": "Targeting",
+    "casting_target": "Enemy",
+    "attack_type": "BaseAttack",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Combine",
+          "effects": [
+            {
+              "type": "AddCasterBuff",
+              "buff_state": {
+                "name": "league_heimerdinger_x",
+                "duration": {
+                  "Time": {
+                    "tick": 1
+                  }
+                }
+              },
+              "only_to_enemy": false
+            },
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_heimerdinger_x",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_heimerdinger_x"
+                  }
+                ]
+              },
+              "effect_none": {
+                "type": "Attack",
+                "damage": 0,
+                "attack_ratio": 100,
+                "hp_ratio": 0,
+                "target_hp_ratio": 0,
+                "attack_effect_type": "Target"
+              }
+            },
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_heimerdinger_x"
+            }
+          ]
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_heimerdinger_a_two",
+          "effect_buff": {
+            "type": "CasterAnimation",
+            "name": "attack_w",
+            "tick": 27
+          },
+          "effect_none": {
+            "type": "SwitchByBuff",
+            "buff_name": "league_heimerdinger_e_combo",
+            "effect_buff": {
+              "type": "CasterAnimation",
+              "name": "attack_w",
+              "tick": 27
+            },
+            "effect_none": {
+              "type": "Combine",
+              "effects": []
+            }
+          }
+        },
+        {
+          "type": "Delayed",
+          "tick": 9,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_heimerdinger_lives",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_heimerdinger_lives",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_heimerdinger_w_go"
+                          },
+                          {
+                            "type": "Sfx",
+                            "name": "league_heimerdinger_a"
+                          },
+                          {
+                            "type": "TargetProjectile",
+                            "name": "league_heimerdinger_a_bolt",
+                            "speed": 4500,
+                            "y_offset": 5000,
+                            "applied_target": "Enemy",
+                            "applied_effects": [
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "Attack",
+                                  "damage": 0,
+                                  "attack_ratio": 100,
+                                  "hp_ratio": 0,
+                                  "target_hp_ratio": 0,
+                                  "attack_effect_type": "Target"
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "ViewEffect",
+                                  "name": "league_heimerdinger_a_hit"
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "TargetSfx",
+                                  "name": "league_heimerdinger_a_hit"
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_heimerdinger_e_combo",
+                            "effect_buff": {
+                              "type": "RandomTarget",
+                              "range": 70000,
+                              "casting_target": "EnemyChampionInCC",
+                              "from_projectile": false,
+                              "effects": [
+                                {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_heimerdinger_w_go",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 1
+                                      }
+                                    }
+                                  },
+                                  "only_to_enemy": false
+                                },
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_heimerdinger_e_combo"
+                                },
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_heimerdinger_a_one"
+                                },
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_heimerdinger_a_two"
+                                },
+                                {
+                                  "type": "Sfx",
+                                  "name": "league_heimerdinger_w"
+                                },
+                                {
+                                  "type": "Delayed",
+                                  "tick": 0,
+                                  "effects": [
+                                    {
+                                      "type": "TargetProjectile",
+                                      "name": "league_heimerdinger_w_rocket",
+                                      "speed": 3500,
+                                      "y_offset": -36000,
+                                      "applied_target": "EnemyChampion",
+                                      "applied_effects": [
+                                        {
+                                          "casting_type": "Targeting",
+                                          "effect": {
+                                            "type": "ApAttack",
+                                            "damage": 10,
+                                            "attack_ratio": 7,
+                                            "hp_ratio": 0,
+                                            "can_crit": false
+                                          }
+                                        },
+                                        {
+                                          "casting_type": "Targeting",
+                                          "effect": {
+                                            "type": "ViewEffect",
+                                            "name": "league_heimerdinger_w_hit"
+                                          }
+                                        },
+                                        {
+                                          "casting_type": "Targeting",
+                                          "effect": {
+                                            "type": "TargetSfx",
+                                            "name": "league_heimerdinger_w_hit"
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "Delayed",
+                                  "tick": 3,
+                                  "effects": [
+                                    {
+                                      "type": "TargetProjectile",
+                                      "name": "league_heimerdinger_w_rocket",
+                                      "speed": 3500,
+                                      "y_offset": -36000,
+                                      "applied_target": "EnemyChampion",
+                                      "applied_effects": [
+                                        {
+                                          "casting_type": "Targeting",
+                                          "effect": {
+                                            "type": "ApAttack",
+                                            "damage": 10,
+                                            "attack_ratio": 7,
+                                            "hp_ratio": 0,
+                                            "can_crit": false
+                                          }
+                                        },
+                                        {
+                                          "casting_type": "Targeting",
+                                          "effect": {
+                                            "type": "ViewEffect",
+                                            "name": "league_heimerdinger_w_hit"
+                                          }
+                                        },
+                                        {
+                                          "casting_type": "Targeting",
+                                          "effect": {
+                                            "type": "TargetSfx",
+                                            "name": "league_heimerdinger_w_hit"
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "Delayed",
+                                  "tick": 6,
+                                  "effects": [
+                                    {
+                                      "type": "TargetProjectile",
+                                      "name": "league_heimerdinger_w_rocket",
+                                      "speed": 3500,
+                                      "y_offset": -36000,
+                                      "applied_target": "EnemyChampion",
+                                      "applied_effects": [
+                                        {
+                                          "casting_type": "Targeting",
+                                          "effect": {
+                                            "type": "ApAttack",
+                                            "damage": 10,
+                                            "attack_ratio": 7,
+                                            "hp_ratio": 0,
+                                            "can_crit": false
+                                          }
+                                        },
+                                        {
+                                          "casting_type": "Targeting",
+                                          "effect": {
+                                            "type": "ViewEffect",
+                                            "name": "league_heimerdinger_w_hit"
+                                          }
+                                        },
+                                        {
+                                          "casting_type": "Targeting",
+                                          "effect": {
+                                            "type": "TargetSfx",
+                                            "name": "league_heimerdinger_w_hit"
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "Delayed",
+                                  "tick": 9,
+                                  "effects": [
+                                    {
+                                      "type": "TargetProjectile",
+                                      "name": "league_heimerdinger_w_rocket",
+                                      "speed": 3500,
+                                      "y_offset": -36000,
+                                      "applied_target": "EnemyChampion",
+                                      "applied_effects": [
+                                        {
+                                          "casting_type": "Targeting",
+                                          "effect": {
+                                            "type": "ApAttack",
+                                            "damage": 10,
+                                            "attack_ratio": 7,
+                                            "hp_ratio": 0,
+                                            "can_crit": false
+                                          }
+                                        },
+                                        {
+                                          "casting_type": "Targeting",
+                                          "effect": {
+                                            "type": "ViewEffect",
+                                            "name": "league_heimerdinger_w_hit"
+                                          }
+                                        },
+                                        {
+                                          "casting_type": "Targeting",
+                                          "effect": {
+                                            "type": "TargetSfx",
+                                            "name": "league_heimerdinger_w_hit"
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "Delayed",
+                                  "tick": 12,
+                                  "effects": [
+                                    {
+                                      "type": "TargetProjectile",
+                                      "name": "league_heimerdinger_w_rocket",
+                                      "speed": 3500,
+                                      "y_offset": -36000,
+                                      "applied_target": "EnemyChampion",
+                                      "applied_effects": [
+                                        {
+                                          "casting_type": "Targeting",
+                                          "effect": {
+                                            "type": "ApAttack",
+                                            "damage": 10,
+                                            "attack_ratio": 7,
+                                            "hp_ratio": 0,
+                                            "can_crit": false
+                                          }
+                                        },
+                                        {
+                                          "casting_type": "Targeting",
+                                          "effect": {
+                                            "type": "ViewEffect",
+                                            "name": "league_heimerdinger_w_hit"
+                                          }
+                                        },
+                                        {
+                                          "casting_type": "Targeting",
+                                          "effect": {
+                                            "type": "TargetSfx",
+                                            "name": "league_heimerdinger_w_hit"
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            "effect_none": {
+                              "type": "Combine",
+                              "effects": []
+                            }
+                          },
+                          {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_heimerdinger_w_go",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": []
+                            },
+                            "effect_none": {
+                              "type": "SwitchByBuff",
+                              "buff_name": "league_heimerdinger_a_two",
+                              "effect_buff": {
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "RemoveCasterBuff",
+                                    "name": "league_heimerdinger_a_two"
+                                  },
+                                  {
+                                    "type": "Sfx",
+                                    "name": "league_heimerdinger_w"
+                                  },
+                                  {
+                                    "type": "Delayed",
+                                    "tick": 0,
+                                    "effects": [
+                                      {
+                                        "type": "TargetProjectile",
+                                        "name": "league_heimerdinger_w_rocket",
+                                        "speed": 3500,
+                                        "y_offset": -36000,
+                                        "applied_target": "EnemyWithoutTower",
+                                        "applied_effects": [
+                                          {
+                                            "casting_type": "Targeting",
+                                            "effect": {
+                                              "type": "ApAttack",
+                                              "damage": 10,
+                                              "attack_ratio": 7,
+                                              "hp_ratio": 0,
+                                              "can_crit": false
+                                            }
+                                          },
+                                          {
+                                            "casting_type": "Targeting",
+                                            "effect": {
+                                              "type": "ViewEffect",
+                                              "name": "league_heimerdinger_w_hit"
+                                            }
+                                          },
+                                          {
+                                            "casting_type": "Targeting",
+                                            "effect": {
+                                              "type": "TargetSfx",
+                                              "name": "league_heimerdinger_w_hit"
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "Delayed",
+                                    "tick": 3,
+                                    "effects": [
+                                      {
+                                        "type": "TargetProjectile",
+                                        "name": "league_heimerdinger_w_rocket",
+                                        "speed": 3500,
+                                        "y_offset": -36000,
+                                        "applied_target": "EnemyWithoutTower",
+                                        "applied_effects": [
+                                          {
+                                            "casting_type": "Targeting",
+                                            "effect": {
+                                              "type": "ApAttack",
+                                              "damage": 10,
+                                              "attack_ratio": 7,
+                                              "hp_ratio": 0,
+                                              "can_crit": false
+                                            }
+                                          },
+                                          {
+                                            "casting_type": "Targeting",
+                                            "effect": {
+                                              "type": "ViewEffect",
+                                              "name": "league_heimerdinger_w_hit"
+                                            }
+                                          },
+                                          {
+                                            "casting_type": "Targeting",
+                                            "effect": {
+                                              "type": "TargetSfx",
+                                              "name": "league_heimerdinger_w_hit"
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "Delayed",
+                                    "tick": 6,
+                                    "effects": [
+                                      {
+                                        "type": "TargetProjectile",
+                                        "name": "league_heimerdinger_w_rocket",
+                                        "speed": 3500,
+                                        "y_offset": -36000,
+                                        "applied_target": "EnemyWithoutTower",
+                                        "applied_effects": [
+                                          {
+                                            "casting_type": "Targeting",
+                                            "effect": {
+                                              "type": "ApAttack",
+                                              "damage": 10,
+                                              "attack_ratio": 7,
+                                              "hp_ratio": 0,
+                                              "can_crit": false
+                                            }
+                                          },
+                                          {
+                                            "casting_type": "Targeting",
+                                            "effect": {
+                                              "type": "ViewEffect",
+                                              "name": "league_heimerdinger_w_hit"
+                                            }
+                                          },
+                                          {
+                                            "casting_type": "Targeting",
+                                            "effect": {
+                                              "type": "TargetSfx",
+                                              "name": "league_heimerdinger_w_hit"
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "Delayed",
+                                    "tick": 9,
+                                    "effects": [
+                                      {
+                                        "type": "TargetProjectile",
+                                        "name": "league_heimerdinger_w_rocket",
+                                        "speed": 3500,
+                                        "y_offset": -36000,
+                                        "applied_target": "EnemyWithoutTower",
+                                        "applied_effects": [
+                                          {
+                                            "casting_type": "Targeting",
+                                            "effect": {
+                                              "type": "ApAttack",
+                                              "damage": 10,
+                                              "attack_ratio": 7,
+                                              "hp_ratio": 0,
+                                              "can_crit": false
+                                            }
+                                          },
+                                          {
+                                            "casting_type": "Targeting",
+                                            "effect": {
+                                              "type": "ViewEffect",
+                                              "name": "league_heimerdinger_w_hit"
+                                            }
+                                          },
+                                          {
+                                            "casting_type": "Targeting",
+                                            "effect": {
+                                              "type": "TargetSfx",
+                                              "name": "league_heimerdinger_w_hit"
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "Delayed",
+                                    "tick": 12,
+                                    "effects": [
+                                      {
+                                        "type": "TargetProjectile",
+                                        "name": "league_heimerdinger_w_rocket",
+                                        "speed": 3500,
+                                        "y_offset": -36000,
+                                        "applied_target": "EnemyWithoutTower",
+                                        "applied_effects": [
+                                          {
+                                            "casting_type": "Targeting",
+                                            "effect": {
+                                              "type": "ApAttack",
+                                              "damage": 10,
+                                              "attack_ratio": 7,
+                                              "hp_ratio": 0,
+                                              "can_crit": false
+                                            }
+                                          },
+                                          {
+                                            "casting_type": "Targeting",
+                                            "effect": {
+                                              "type": "ViewEffect",
+                                              "name": "league_heimerdinger_w_hit"
+                                            }
+                                          },
+                                          {
+                                            "casting_type": "Targeting",
+                                            "effect": {
+                                              "type": "TargetSfx",
+                                              "name": "league_heimerdinger_w_hit"
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              "effect_none": {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_heimerdinger_a_one",
+                                "effect_buff": {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "RemoveCasterBuff",
+                                      "name": "league_heimerdinger_a_one"
+                                    },
+                                    {
+                                      "type": "AddCasterBuff",
+                                      "buff_state": {
+                                        "name": "league_heimerdinger_a_two",
+                                        "duration": "Permanent"
+                                      },
+                                      "only_to_enemy": false
+                                    }
+                                  ]
+                                },
+                                "effect_none": {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_heimerdinger_a_one",
+                                    "duration": "Permanent"
+                                  },
+                                  "only_to_enemy": false
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": []
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_heimerdinger_lives"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill": {
+    "action_name": "skill",
+    "description": "#asset/base/text/champion?description.league_heimerdinger.skill",
+    "duration": 36,
+    "cooltime": 240,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 60000,
+    "casting_type": "Direction",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Combine",
+          "effects": [
+            {
+              "type": "AddCasterBuff",
+              "buff_state": {
+                "name": "league_heimerdinger_x",
+                "duration": {
+                  "Time": {
+                    "tick": 1
+                  }
+                }
+              },
+              "only_to_enemy": false
+            },
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_heimerdinger_x",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_heimerdinger_x"
+                  }
+                ]
+              },
+              "effect_none": {
+                "type": "ApAttack",
+                "damage": 24,
+                "attack_ratio": 16,
+                "hp_ratio": 0,
+                "can_crit": false
+              }
+            },
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_heimerdinger_x"
+            }
+          ]
+        },
+        {
+          "type": "Sfx",
+          "name": "league_heimerdinger_q"
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_heimerdinger_vo_cd",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": []
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_heimerdinger_vo_cd",
+                  "duration": {
+                    "Time": {
+                      "tick": 600
+                    }
+                  }
+                },
+                "only_to_enemy": false
+              },
+              {
+                "type": "Sfx",
+                "name": "league_heimerdinger_vo_q"
+              }
+            ]
+          }
+        },
+        {
+          "type": "Delayed",
+          "tick": 15,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_heimerdinger_lives",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_heimerdinger_lives",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_heimerdinger_ta_busy",
+                        "effect_buff": {
+                          "type": "SwitchByBuff",
+                          "buff_name": "league_heimerdinger_tb_busy",
+                          "effect_buff": {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_heimerdinger_tc_busy",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": []
+                            },
+                            "effect_none": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_heimerdinger_tc_busy",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 600
+                                      }
+                                    }
+                                  },
+                                  "only_to_enemy": false
+                                },
+                                {
+                                  "type": "LinearProjectile",
+                                  "name": "league_heimerdinger_q_place",
+                                  "speed": 4000,
+                                  "range": 20000,
+                                  "y_offset": 0,
+                                  "penetrate": true,
+                                  "shape": {
+                                    "Circle": {
+                                      "radius": 1
+                                    }
+                                  },
+                                  "applied_target": "EnemyChampion",
+                                  "applied_effects": [],
+                                  "end_effects": [
+                                    {
+                                      "type": "SwitchByBuff",
+                                      "buff_name": "league_heimerdinger_t_face_l",
+                                      "effect_buff": {
+                                        "type": "ViewEffect",
+                                        "name": "league_heimerdinger_t_turret_l"
+                                      },
+                                      "effect_none": {
+                                        "type": "ViewEffect",
+                                        "name": "league_heimerdinger_t_turret_r"
+                                      }
+                                    },
+                                    {
+                                      "type": "Sfx",
+                                      "name": "league_heimerdinger_t_spawn"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "Native",
+                                  "effect_ref": "league_heimerdinger:q"
+                                }
+                              ]
+                            }
+                          },
+                          "effect_none": {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_heimerdinger_tb_busy",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 600
+                                    }
+                                  }
+                                },
+                                "only_to_enemy": false
+                              },
+                              {
+                                "type": "LinearProjectile",
+                                "name": "league_heimerdinger_q_place",
+                                "speed": 4000,
+                                "range": 20000,
+                                "y_offset": 0,
+                                "penetrate": true,
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 1
+                                  }
+                                },
+                                "applied_target": "EnemyChampion",
+                                "applied_effects": [],
+                                "end_effects": [
+                                  {
+                                    "type": "SwitchByBuff",
+                                    "buff_name": "league_heimerdinger_t_face_l",
+                                    "effect_buff": {
+                                      "type": "ViewEffect",
+                                      "name": "league_heimerdinger_t_turret_l"
+                                    },
+                                    "effect_none": {
+                                      "type": "ViewEffect",
+                                      "name": "league_heimerdinger_t_turret_r"
+                                    }
+                                  },
+                                  {
+                                    "type": "Sfx",
+                                    "name": "league_heimerdinger_t_spawn"
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Native",
+                                "effect_ref": "league_heimerdinger:q"
+                              }
+                            ]
+                          }
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_heimerdinger_ta_busy",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 600
+                                  }
+                                }
+                              },
+                              "only_to_enemy": false
+                            },
+                            {
+                              "type": "LinearProjectile",
+                              "name": "league_heimerdinger_q_place",
+                              "speed": 4000,
+                              "range": 20000,
+                              "y_offset": 0,
+                              "penetrate": true,
+                              "shape": {
+                                "Circle": {
+                                  "radius": 1
+                                }
+                              },
+                              "applied_target": "EnemyChampion",
+                              "applied_effects": [],
+                              "end_effects": [
+                                {
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "league_heimerdinger_t_face_l",
+                                  "effect_buff": {
+                                    "type": "ViewEffect",
+                                    "name": "league_heimerdinger_t_turret_l"
+                                  },
+                                  "effect_none": {
+                                    "type": "ViewEffect",
+                                    "name": "league_heimerdinger_t_turret_r"
+                                  }
+                                },
+                                {
+                                  "type": "Sfx",
+                                  "name": "league_heimerdinger_t_spawn"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "Native",
+                              "effect_ref": "league_heimerdinger:q"
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": []
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_heimerdinger_lives"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill2": {
+    "action_name": "skill2",
+    "description": "#asset/base/text/champion?description.league_heimerdinger.skill2",
+    "duration": 36,
+    "cooltime": 660,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 85000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Combine",
+          "effects": [
+            {
+              "type": "AddCasterBuff",
+              "buff_state": {
+                "name": "league_heimerdinger_x",
+                "duration": {
+                  "Time": {
+                    "tick": 1
+                  }
+                }
+              },
+              "only_to_enemy": false
+            },
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_heimerdinger_x",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_heimerdinger_x"
+                  }
+                ]
+              },
+              "effect_none": {
+                "type": "ApAttack",
+                "damage": 60,
+                "attack_ratio": 45,
+                "hp_ratio": 0,
+                "can_crit": false
+              }
+            },
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_heimerdinger_x"
+            }
+          ]
+        },
+        {
+          "type": "Sfx",
+          "name": "league_heimerdinger_e"
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_heimerdinger_vo_cd",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": []
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_heimerdinger_vo_cd",
+                  "duration": {
+                    "Time": {
+                      "tick": 600
+                    }
+                  }
+                },
+                "only_to_enemy": false
+              },
+              {
+                "type": "Sfx",
+                "name": "league_heimerdinger_vo_e"
+              }
+            ]
+          }
+        },
+        {
+          "type": "Delayed",
+          "tick": 15,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_heimerdinger_lives",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_heimerdinger_lives",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "ParabolicProjectile",
+                        "name": "league_heimerdinger_e_grenade",
+                        "travel_time": 30,
+                        "range": 400000,
+                        "range_effect_name": "",
+                        "shape": {
+                          "Circle": {
+                            "radius": 1
+                          }
+                        },
+                        "applied_target": "EnemyWithoutTower",
+                        "applied_effects": [],
+                        "end_effects": [
+                          {
+                            "type": "ViewEffect",
+                            "name": "league_heimerdinger_e_blast"
+                          },
+                          {
+                            "type": "Sfx",
+                            "name": "league_heimerdinger_e_land"
+                          },
+                          {
+                            "type": "RangeProjectile",
+                            "name": "league_heimerdinger_e_storm",
+                            "shape": {
+                              "Circle": {
+                                "radius": 23000
+                              }
+                            },
+                            "delay": 1,
+                            "apply": 1,
+                            "applied_target": "EnemyWithoutTower",
+                            "applied_effects": [
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "ApAttack",
+                                  "damage": 60,
+                                  "attack_ratio": 45,
+                                  "hp_ratio": 0,
+                                  "can_crit": false
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "AddBuff",
+                                  "buff_state": {
+                                    "name": "league_heimerdinger_e_slow",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 120
+                                      }
+                                    },
+                                    "move_speed_mult": -35
+                                  }
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "ViewEffect",
+                                  "name": "league_heimerdinger_e_hit"
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "type": "RangeProjectile",
+                            "name": "league_heimerdinger_e_core",
+                            "shape": {
+                              "Circle": {
+                                "radius": 11000
+                              }
+                            },
+                            "delay": 1,
+                            "apply": 1,
+                            "applied_target": "EnemyWithoutTower",
+                            "applied_effects": [
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "Stun",
+                                  "duration": 60
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "TargetSfx",
+                                  "name": "league_heimerdinger_e_stun"
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "type": "RangeProjectile",
+                            "name": "league_heimerdinger_e_hold",
+                            "shape": {
+                              "Circle": {
+                                "radius": 11000
+                              }
+                            },
+                            "delay": 1,
+                            "apply": 1,
+                            "applied_target": "EnemyChampion",
+                            "applied_effects": [
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "RemoveCasterBuff",
+                                      "name": "league_heimerdinger_e_combo"
+                                    },
+                                    {
+                                      "type": "AddCasterBuff",
+                                      "buff_state": {
+                                        "name": "league_heimerdinger_e_combo",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 90
+                                          }
+                                        }
+                                      },
+                                      "only_to_enemy": false
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": []
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_heimerdinger_lives"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "ult": {
+    "action_name": "ult",
+    "description": "#asset/base/text/champion?description.league_heimerdinger.ult",
+    "duration": 40,
+    "cooltime": 3000,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 75000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Combine",
+          "effects": [
+            {
+              "type": "AddCasterBuff",
+              "buff_state": {
+                "name": "league_heimerdinger_x",
+                "duration": {
+                  "Time": {
+                    "tick": 1
+                  }
+                }
+              },
+              "only_to_enemy": false
+            },
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_heimerdinger_x",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_heimerdinger_x"
+                  }
+                ]
+              },
+              "effect_none": {
+                "type": "ApAttack",
+                "damage": 140,
+                "attack_ratio": 70,
+                "hp_ratio": 0,
+                "can_crit": false
+              }
+            },
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_heimerdinger_x"
+            }
+          ]
+        },
+        {
+          "type": "Sfx",
+          "name": "league_heimerdinger_r"
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_heimerdinger_vo_cd",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": []
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_heimerdinger_vo_cd",
+                  "duration": {
+                    "Time": {
+                      "tick": 600
+                    }
+                  }
+                },
+                "only_to_enemy": false
+              },
+              {
+                "type": "Sfx",
+                "name": "league_heimerdinger_vo_r"
+              }
+            ]
+          }
+        },
+        {
+          "type": "Delayed",
+          "tick": 12,
+          "effects": [
+            {
+              "type": "CasterViewEffect",
+              "name": "league_heimerdinger_r_up"
+            }
+          ]
+        },
+        {
+          "type": "RemoveCasterBuff",
+          "name": "league_heimerdinger_r_one"
+        },
+        {
+          "type": "RemoveCasterBuff",
+          "name": "league_heimerdinger_r_two"
+        },
+        {
+          "type": "Delayed",
+          "tick": 10,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_heimerdinger_lives",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_heimerdinger_lives",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "ParabolicProjectile",
+                        "name": "league_heimerdinger_r_seek",
+                        "travel_time": 1,
+                        "range": 400000,
+                        "range_effect_name": "",
+                        "shape": {
+                          "Circle": {
+                            "radius": 1
+                          }
+                        },
+                        "applied_target": "EnemyChampion",
+                        "applied_effects": [],
+                        "end_effects": [
+                          {
+                            "type": "RangeProjectile",
+                            "name": "league_heimerdinger_r_count",
+                            "shape": {
+                              "Circle": {
+                                "radius": 30000
+                              }
+                            },
+                            "delay": 1,
+                            "apply": 1,
+                            "applied_target": "EnemyChampion",
+                            "applied_effects": [
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "league_heimerdinger_r_one",
+                                  "effect_buff": {
+                                    "type": "AddCasterBuff",
+                                    "buff_state": {
+                                      "name": "league_heimerdinger_r_two",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 6
+                                        }
+                                      }
+                                    },
+                                    "only_to_enemy": false
+                                  },
+                                  "effect_none": {
+                                    "type": "AddCasterBuff",
+                                    "buff_state": {
+                                      "name": "league_heimerdinger_r_one",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 6
+                                        }
+                                      }
+                                    },
+                                    "only_to_enemy": false
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": []
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_heimerdinger_lives"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 14,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_heimerdinger_lives",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_heimerdinger_lives",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_heimerdinger_r_two",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "Sfx",
+                                  "name": "league_heimerdinger_re"
+                                },
+                                {
+                                  "type": "Delayed",
+                                  "tick": 0,
+                                  "effects": [
+                                    {
+                                      "type": "ParabolicProjectile",
+                                      "name": "league_heimerdinger_re_grenade",
+                                      "travel_time": 30,
+                                      "range": 400000,
+                                      "range_effect_name": "",
+                                      "shape": {
+                                        "Circle": {
+                                          "radius": 1
+                                        }
+                                      },
+                                      "applied_target": "EnemyChampion",
+                                      "applied_effects": [],
+                                      "end_effects": [
+                                        {
+                                          "type": "ViewEffect",
+                                          "name": "league_heimerdinger_re_blast"
+                                        },
+                                        {
+                                          "type": "Sfx",
+                                          "name": "league_heimerdinger_re_land"
+                                        },
+                                        {
+                                          "type": "RangeProjectile",
+                                          "name": "league_heimerdinger_re_storm0",
+                                          "shape": {
+                                            "Circle": {
+                                              "radius": 25000
+                                            }
+                                          },
+                                          "delay": 1,
+                                          "apply": 1,
+                                          "applied_target": "EnemyWithoutTower",
+                                          "applied_effects": [
+                                            {
+                                              "casting_type": "Targeting",
+                                              "effect": {
+                                                "type": "ApAttack",
+                                                "damage": 70,
+                                                "attack_ratio": 35,
+                                                "hp_ratio": 0,
+                                                "can_crit": false
+                                              }
+                                            },
+                                            {
+                                              "casting_type": "Targeting",
+                                              "effect": {
+                                                "type": "AddBuff",
+                                                "buff_state": {
+                                                  "name": "league_heimerdinger_e_slow",
+                                                  "duration": {
+                                                    "Time": {
+                                                      "tick": 90
+                                                    }
+                                                  },
+                                                  "move_speed_mult": -40
+                                                }
+                                              }
+                                            },
+                                            {
+                                              "casting_type": "Targeting",
+                                              "effect": {
+                                                "type": "ViewEffect",
+                                                "name": "league_heimerdinger_e_hit"
+                                              }
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "type": "RangeProjectile",
+                                          "name": "league_heimerdinger_re_core0",
+                                          "shape": {
+                                            "Circle": {
+                                              "radius": 13000
+                                            }
+                                          },
+                                          "delay": 1,
+                                          "apply": 1,
+                                          "applied_target": "EnemyWithoutTower",
+                                          "applied_effects": [
+                                            {
+                                              "casting_type": "Targeting",
+                                              "effect": {
+                                                "type": "Stun",
+                                                "duration": 60
+                                              }
+                                            },
+                                            {
+                                              "casting_type": "Targeting",
+                                              "effect": {
+                                                "type": "TargetSfx",
+                                                "name": "league_heimerdinger_e_stun"
+                                              }
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "type": "RangeProjectile",
+                                          "name": "league_heimerdinger_re_hold0",
+                                          "shape": {
+                                            "Circle": {
+                                              "radius": 13000
+                                            }
+                                          },
+                                          "delay": 1,
+                                          "apply": 1,
+                                          "applied_target": "EnemyChampion",
+                                          "applied_effects": [
+                                            {
+                                              "casting_type": "Targeting",
+                                              "effect": {
+                                                "type": "Combine",
+                                                "effects": [
+                                                  {
+                                                    "type": "RemoveCasterBuff",
+                                                    "name": "league_heimerdinger_e_combo"
+                                                  },
+                                                  {
+                                                    "type": "AddCasterBuff",
+                                                    "buff_state": {
+                                                      "name": "league_heimerdinger_e_combo",
+                                                      "duration": {
+                                                        "Time": {
+                                                          "tick": 90
+                                                        }
+                                                      }
+                                                    },
+                                                    "only_to_enemy": false
+                                                  }
+                                                ]
+                                              }
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "Delayed",
+                                  "tick": 24,
+                                  "effects": [
+                                    {
+                                      "type": "ParabolicProjectile",
+                                      "name": "league_heimerdinger_re_grenade",
+                                      "travel_time": 30,
+                                      "range": 400000,
+                                      "range_effect_name": "",
+                                      "shape": {
+                                        "Circle": {
+                                          "radius": 1
+                                        }
+                                      },
+                                      "applied_target": "EnemyChampion",
+                                      "applied_effects": [],
+                                      "end_effects": [
+                                        {
+                                          "type": "ViewEffect",
+                                          "name": "league_heimerdinger_re_blast"
+                                        },
+                                        {
+                                          "type": "Sfx",
+                                          "name": "league_heimerdinger_re_land"
+                                        },
+                                        {
+                                          "type": "RangeProjectile",
+                                          "name": "league_heimerdinger_re_storm1",
+                                          "shape": {
+                                            "Circle": {
+                                              "radius": 25000
+                                            }
+                                          },
+                                          "delay": 1,
+                                          "apply": 1,
+                                          "applied_target": "EnemyWithoutTower",
+                                          "applied_effects": [
+                                            {
+                                              "casting_type": "Targeting",
+                                              "effect": {
+                                                "type": "ApAttack",
+                                                "damage": 70,
+                                                "attack_ratio": 35,
+                                                "hp_ratio": 0,
+                                                "can_crit": false
+                                              }
+                                            },
+                                            {
+                                              "casting_type": "Targeting",
+                                              "effect": {
+                                                "type": "AddBuff",
+                                                "buff_state": {
+                                                  "name": "league_heimerdinger_e_slow",
+                                                  "duration": {
+                                                    "Time": {
+                                                      "tick": 90
+                                                    }
+                                                  },
+                                                  "move_speed_mult": -40
+                                                }
+                                              }
+                                            },
+                                            {
+                                              "casting_type": "Targeting",
+                                              "effect": {
+                                                "type": "ViewEffect",
+                                                "name": "league_heimerdinger_e_hit"
+                                              }
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "type": "RangeProjectile",
+                                          "name": "league_heimerdinger_re_core1",
+                                          "shape": {
+                                            "Circle": {
+                                              "radius": 13000
+                                            }
+                                          },
+                                          "delay": 1,
+                                          "apply": 1,
+                                          "applied_target": "EnemyWithoutTower",
+                                          "applied_effects": [
+                                            {
+                                              "casting_type": "Targeting",
+                                              "effect": {
+                                                "type": "Stun",
+                                                "duration": 60
+                                              }
+                                            },
+                                            {
+                                              "casting_type": "Targeting",
+                                              "effect": {
+                                                "type": "TargetSfx",
+                                                "name": "league_heimerdinger_e_stun"
+                                              }
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "type": "RangeProjectile",
+                                          "name": "league_heimerdinger_re_hold1",
+                                          "shape": {
+                                            "Circle": {
+                                              "radius": 13000
+                                            }
+                                          },
+                                          "delay": 1,
+                                          "apply": 1,
+                                          "applied_target": "EnemyChampion",
+                                          "applied_effects": [
+                                            {
+                                              "casting_type": "Targeting",
+                                              "effect": {
+                                                "type": "Combine",
+                                                "effects": [
+                                                  {
+                                                    "type": "RemoveCasterBuff",
+                                                    "name": "league_heimerdinger_e_combo"
+                                                  },
+                                                  {
+                                                    "type": "AddCasterBuff",
+                                                    "buff_state": {
+                                                      "name": "league_heimerdinger_e_combo",
+                                                      "duration": {
+                                                        "Time": {
+                                                          "tick": 90
+                                                        }
+                                                      }
+                                                    },
+                                                    "only_to_enemy": false
+                                                  }
+                                                ]
+                                              }
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "Delayed",
+                                  "tick": 48,
+                                  "effects": [
+                                    {
+                                      "type": "ParabolicProjectile",
+                                      "name": "league_heimerdinger_re_grenade",
+                                      "travel_time": 30,
+                                      "range": 400000,
+                                      "range_effect_name": "",
+                                      "shape": {
+                                        "Circle": {
+                                          "radius": 1
+                                        }
+                                      },
+                                      "applied_target": "EnemyChampion",
+                                      "applied_effects": [],
+                                      "end_effects": [
+                                        {
+                                          "type": "ViewEffect",
+                                          "name": "league_heimerdinger_re_blast"
+                                        },
+                                        {
+                                          "type": "Sfx",
+                                          "name": "league_heimerdinger_re_land"
+                                        },
+                                        {
+                                          "type": "RangeProjectile",
+                                          "name": "league_heimerdinger_re_storm2",
+                                          "shape": {
+                                            "Circle": {
+                                              "radius": 25000
+                                            }
+                                          },
+                                          "delay": 1,
+                                          "apply": 1,
+                                          "applied_target": "EnemyWithoutTower",
+                                          "applied_effects": [
+                                            {
+                                              "casting_type": "Targeting",
+                                              "effect": {
+                                                "type": "ApAttack",
+                                                "damage": 70,
+                                                "attack_ratio": 35,
+                                                "hp_ratio": 0,
+                                                "can_crit": false
+                                              }
+                                            },
+                                            {
+                                              "casting_type": "Targeting",
+                                              "effect": {
+                                                "type": "AddBuff",
+                                                "buff_state": {
+                                                  "name": "league_heimerdinger_e_slow",
+                                                  "duration": {
+                                                    "Time": {
+                                                      "tick": 90
+                                                    }
+                                                  },
+                                                  "move_speed_mult": -40
+                                                }
+                                              }
+                                            },
+                                            {
+                                              "casting_type": "Targeting",
+                                              "effect": {
+                                                "type": "ViewEffect",
+                                                "name": "league_heimerdinger_e_hit"
+                                              }
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "type": "RangeProjectile",
+                                          "name": "league_heimerdinger_re_core2",
+                                          "shape": {
+                                            "Circle": {
+                                              "radius": 13000
+                                            }
+                                          },
+                                          "delay": 1,
+                                          "apply": 1,
+                                          "applied_target": "EnemyWithoutTower",
+                                          "applied_effects": [
+                                            {
+                                              "casting_type": "Targeting",
+                                              "effect": {
+                                                "type": "Stun",
+                                                "duration": 60
+                                              }
+                                            },
+                                            {
+                                              "casting_type": "Targeting",
+                                              "effect": {
+                                                "type": "TargetSfx",
+                                                "name": "league_heimerdinger_e_stun"
+                                              }
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "type": "RangeProjectile",
+                                          "name": "league_heimerdinger_re_hold2",
+                                          "shape": {
+                                            "Circle": {
+                                              "radius": 13000
+                                            }
+                                          },
+                                          "delay": 1,
+                                          "apply": 1,
+                                          "applied_target": "EnemyChampion",
+                                          "applied_effects": [
+                                            {
+                                              "casting_type": "Targeting",
+                                              "effect": {
+                                                "type": "Combine",
+                                                "effects": [
+                                                  {
+                                                    "type": "RemoveCasterBuff",
+                                                    "name": "league_heimerdinger_e_combo"
+                                                  },
+                                                  {
+                                                    "type": "AddCasterBuff",
+                                                    "buff_state": {
+                                                      "name": "league_heimerdinger_e_combo",
+                                                      "duration": {
+                                                        "Time": {
+                                                          "tick": 90
+                                                        }
+                                                      }
+                                                    },
+                                                    "only_to_enemy": false
+                                                  }
+                                                ]
+                                              }
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            "effect_none": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "Sfx",
+                                  "name": "league_heimerdinger_rq"
+                                },
+                                {
+                                  "type": "LinearProjectile",
+                                  "name": "league_heimerdinger_q_place",
+                                  "speed": 4000,
+                                  "range": 20000,
+                                  "y_offset": 0,
+                                  "penetrate": true,
+                                  "shape": {
+                                    "Circle": {
+                                      "radius": 1
+                                    }
+                                  },
+                                  "applied_target": "EnemyChampion",
+                                  "applied_effects": [],
+                                  "end_effects": [
+                                    {
+                                      "type": "SwitchByBuff",
+                                      "buff_name": "league_heimerdinger_x_face_l",
+                                      "effect_buff": {
+                                        "type": "ViewEffect",
+                                        "name": "league_heimerdinger_x_turret_l"
+                                      },
+                                      "effect_none": {
+                                        "type": "ViewEffect",
+                                        "name": "league_heimerdinger_x_turret_r"
+                                      }
+                                    },
+                                    {
+                                      "type": "Sfx",
+                                      "name": "league_heimerdinger_x_spawn"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "Native",
+                                  "effect_ref": "league_heimerdinger:x"
+                                }
+                              ]
+                            }
+                          },
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_heimerdinger_r_one"
+                          },
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_heimerdinger_r_two"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": []
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_heimerdinger_lives"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "view_projectiles": [
+    {
+      "type": "Animated",
+      "name": "league_heimerdinger_a_bolt",
+      "anim": "asset/league/effects/league_heimerdinger_fx",
+      "tag": "a_bolt",
+      "repeat": true,
+      "z": 2
+    },
+    {
+      "type": "Animated",
+      "name": "league_heimerdinger_w_rocket",
+      "anim": "asset/league/effects/league_heimerdinger_fx",
+      "tag": "w_rocket",
+      "repeat": true,
+      "z": 2
+    },
+    {
+      "type": "Animated",
+      "name": "league_heimerdinger_e_grenade",
+      "anim": "asset/league/effects/league_heimerdinger_fx",
+      "tag": "e_grenade",
+      "repeat": true,
+      "z": 2
+    },
+    {
+      "type": "Animated",
+      "name": "league_heimerdinger_re_grenade",
+      "anim": "asset/league/effects/league_heimerdinger_fx",
+      "tag": "re_grenade",
+      "repeat": true,
+      "z": 2
+    },
+    {
+      "type": "Animated",
+      "name": "league_heimerdinger_t_shot",
+      "anim": "asset/league/effects/league_heimerdinger_fx",
+      "tag": "t_shot",
+      "repeat": true,
+      "z": 2
+    },
+    {
+      "type": "Animated",
+      "name": "league_heimerdinger_t_beam_line",
+      "anim": "asset/league/effects/league_heimerdinger_fx",
+      "tag": "t_beam_line",
+      "repeat": true,
+      "z": 2
+    },
+    {
+      "type": "Animated",
+      "name": "league_heimerdinger_x_shot",
+      "anim": "asset/league/effects/league_heimerdinger_fx",
+      "tag": "x_shot",
+      "repeat": true,
+      "z": 2
+    }
+  ],
+  "view_effects": [
+    {
+      "type": "Animation",
+      "name": "league_heimerdinger_a_hit",
+      "anim": "asset/league/effects/league_heimerdinger_fx",
+      "tag": "a_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_heimerdinger_w_hit",
+      "anim": "asset/league/effects/league_heimerdinger_fx",
+      "tag": "w_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_heimerdinger_t_turret",
+      "anim": "asset/league/effects/league_heimerdinger_turret",
+      "tag": "idle",
+      "z": -1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_heimerdinger_t_hit",
+      "anim": "asset/league/effects/league_heimerdinger_fx",
+      "tag": "t_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_heimerdinger_t_beam",
+      "anim": "asset/league/effects/league_heimerdinger_fx",
+      "tag": "t_beam",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_heimerdinger_e_blast",
+      "anim": "asset/league/effects/league_heimerdinger_big",
+      "tag": "e_blast",
+      "z": -1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_heimerdinger_e_hit",
+      "anim": "asset/league/effects/league_heimerdinger_fx",
+      "tag": "e_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_heimerdinger_re_blast",
+      "anim": "asset/league/effects/league_heimerdinger_big",
+      "tag": "re_blast",
+      "z": -1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_heimerdinger_r_up",
+      "anim": "asset/league/effects/league_heimerdinger_big",
+      "tag": "r_up",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_heimerdinger_x_turret",
+      "anim": "asset/league/effects/league_heimerdinger_apex",
+      "tag": "idle",
+      "z": -1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_heimerdinger_x_hit",
+      "anim": "asset/league/effects/league_heimerdinger_fx",
+      "tag": "x_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_heimerdinger_x_beam",
+      "anim": "asset/league/effects/league_heimerdinger_fx",
+      "tag": "x_beam",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_heimerdinger_t_turret_r",
+      "anim": "asset/league/effects/league_heimerdinger_turret_r",
+      "tag": "idle",
+      "z": -1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_heimerdinger_t_turret_l",
+      "anim": "asset/league/effects/league_heimerdinger_turret_l",
+      "tag": "idle",
+      "z": -1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_heimerdinger_x_turret_r",
+      "anim": "asset/league/effects/league_heimerdinger_apex_r",
+      "tag": "idle",
+      "z": -1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_heimerdinger_x_turret_l",
+      "anim": "asset/league/effects/league_heimerdinger_apex_l",
+      "tag": "idle",
+      "z": -1,
+      "is_follow": false
+    }
+  ],
+  "view_buffs": [
+    {
+      "type": "Animated",
+      "name": "league_heimerdinger_e_slow",
+      "anim": "asset/league/effects/league_heimerdinger_fx",
+      "tag": "e_slow",
+      "repeat": true,
+      "z": -1
+    },
+    {
+      "type": "Animated",
+      "name": "league_heimerdinger_x_slow",
+      "anim": "asset/league/effects/league_heimerdinger_fx",
+      "tag": "e_slow",
+      "repeat": true,
+      "z": -1
+    },
+    {
+      "type": "Animated",
+      "name": "league_heimerdinger_haste",
+      "anim": "asset/league/effects/league_heimerdinger_fx",
+      "tag": "haste",
+      "repeat": true,
+      "z": -1
+    }
+  ]
+}
