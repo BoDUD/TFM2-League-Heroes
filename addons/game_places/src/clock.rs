@@ -2,6 +2,11 @@
 //! (league_viego_soul 0.1.7's way; league_neeko's disguise). The game has one client extension slot per mod and the
 //! bundle's goes to Viego's reader, so the reader that owns the slot feeds this clock (`observe`) and every display
 //! hook reads it (`screen_tick`). One copy per DLL: in league_addons all add-ons share it.
+//! WARNING: `StableMod::set_extension` keeps only the last extension set. In league_addons that is Viego's ClockReader
+//! (league_viego_soul's register) and it feeds this clock; another add-on setting an extension in the bundle would
+//! replace it and stop the clock without an error - Viego's possession and Neeko's disguise would never show. Combine
+//! the extensions instead (league_addons' MapReaders way). A single add-on DLL feeds its own copy (league_neeko's
+//! ClockFeed).
 
 use std::sync::Mutex;
 use std::time::Instant;

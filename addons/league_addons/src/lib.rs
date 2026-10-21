@@ -315,6 +315,8 @@ fn init(host: &StableHost) -> StableMod {
     senna_mist::register(host, &mut module);
     veigar_power::register(host, &mut module);
     syndra::register(host, &mut module);
+    // Viego sets the bundle's one client extension (his ClockReader); it also feeds game_places::clock, which Neeko's
+    // disguise reads: an add-on that sets another extension must combine it with this one (game_places/src/clock.rs)
     viego_soul::register(host, &mut module);
     zeri::register(host, &mut module);
     nautilus::register(host, &mut module);
