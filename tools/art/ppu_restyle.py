@@ -83,10 +83,12 @@ RESTYLE = {
     # = 0.9 -> 1 square down from the 115 % frames, face (1, -27) x 1.10 about the soles
     "braum": dict(body_only=True, head=1.0, wide=1.2, short=0.94, edge=0, ppu=1.98, crisp={},
                   lift=4 * 2.881 / 1.98 - 1e-6, lift_sq=-2, face_to=(2, -40)),  # (a hair under: the pivot's row keeps its square)
-    # 「铁男的走路步伐感觉有点大啊」: the run's two striding frames had the soles 42 and 47.5 game px apart (the idle's 31):
-    # their legs brought together from the hips down (narrow: 25 and 40 orig px nearer on each side at the soles)
+    # 「铁男的走路步伐感觉有点大啊」: Codex's run had the soles 42 and 47.5 game px apart in its two striding frames (the
+    # idle's 31), brought together here (narrow) until 2026-10-22; the run rig_mordekaiser.py draws since (「铁男的走路也要
+    # 改」: League's walk on the stand's own leg armour) keeps them within RUN_SPAN itself. palette_fit: the crisp palette
+    # still fit on Codex's run as it was (its four frames, unnarrowed), so no other frame of his changes colour
     "mordekaiser": dict(body_only=True, head=1.0, wide=1.25, short=0.94, edge=0, ppu=2.0, lift=3 * 5 / 2.0, lift_sq=-1,
-                        stride={"run": (165, {0: 25, 2: 40})},
+                        palette_fit={"run": "mordekaiser/codex_run/run_palette_orig"},
                         crisp=dict(contrast=1.0, keep="teal"),
                         face_to=(-1, -42)),   # helmet and eyes ((1, -30) cropped his chest, 2026-10-20)
     # 「飞机像泽丽那样变大点」
@@ -1009,10 +1011,29 @@ def restyle(hero, spec, write=True, only=None):
         # flat pixel art (pixel_down.crisp): one palette over every frame of the hero
         keys = [(t, i) for t, r in out.items() for i in range(len(r))]
         fit = None
-        if unnarrowed or was:
+        # palette_fit: tag -> a strip under assets/source (+ .json sizes) whose frames, restyled as that tag's, the
+        # palette is fit on instead of the tag's own (a redrawn tag leaves every other frame's colours as they were)
+        ref = {}
+        for t, stem in spec.get("palette_fit", {}).items():
+            base = os.path.join(ROOT, "assets", "source", *stem.split("/"))
+            with open(base + ".json", encoding="utf-8") as f:
+                sizes = json.load(f)["sizes"]
+            strip = np.asarray(Image.open(base + ".png").convert("RGBA"))
+            ref[t], x = [], 0
+            for k, (W, H) in enumerate(sizes):
+                c = restyle_frame(hero, t, k, strip[:H, x:x + W].copy(), spec, ppu, tpl, neck_off, outline, reach,
+                                  ring_tpl)[0:2]
+                x += W + 1
+                if new_ppu != ppu:
+                    c = pixelate(c[0], new_ppu / ppu, c[1], outline, pal=shared)
+                ref[t].append(grow_edge(c[0], spec.get("edge", 0), outline))
+        if unnarrowed or was or ref:
             fit = []
             for t, i in keys:
-                if (t, i) in was:
+                if t in ref:
+                    if i == 0:
+                        fit.extend(ref[t])
+                elif (t, i) in was:
                     fit.append(was[(t, i)][0])
                 elif (t, i) in unnarrowed:
                     c = restyle_frame(hero, t, i, unnarrowed[(t, i)], spec, ppu, tpl, neck_off, outline, reach,
