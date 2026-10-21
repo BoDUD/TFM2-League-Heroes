@@ -10,20 +10,20 @@ the passive keeps Living Forge's stats and Brittle:
           picture on them) and flag him (`brittle`); his next attack on a champion breaks it: br_hp% of the target's
           max health as true damage (`FixedAttack`: magic has no max-health field), a short knock-back and knock-up.
           The main pack reads the flag on him (data reads only the caster's buffs); the add-on keeps Brittle on each
-          champion and adds League's +30% crowd-control duration.
+          champion.
   W       Bellows Breath (风箱烈息), in the attack (league_sylas's Kingslayer way): with w_cd off and an enemy champion
           within w_go, the attack becomes the breath - w_t ticks unstoppable (`cc_immune`) with a w_sh shield, w_n
           pulses of fire in a cone ahead (w_dmg + w_hp% of his max health magic; champions also w_thp% of their max
           health), the last pulse making champions Brittle.
   skill   Q Volcanic Rupture (火山裂隙), `Position` on `EnemyWithoutTower` (q_range): on q_rel he slams the ground and a
-          fissure runs to the target's spot (q_dmg + q_ratio% AD, slowed q_slow% for q_slow_t ticks); at its end a
+          fissure runs q_len toward the target's spot (q_dmg + q_ratio% AD, slowed q_slow% for q_slow_t ticks); at its end a
           magma pillar rises for q_life ticks (a picture stamped every q_stamp ticks while `q_pillar` holds on him).
   skill2  E Searing Charge (灼热冲撞), `Targeting` on `EnemyWithoutTower` (e_range): he charges onto the target,
           e_dmg + e_hp% of his max health to everyone within e_r of the contact. COMBO Q -> E (League's charge into his
           own pillar): with `q_pillar` up the charge breaks the pillar (its stamps stop) and the quake knocks up
           everyone within e_quake_r for e_up ticks with e_q_dmg + e_q_hp% more, champions made Brittle. The main pack
-          cannot see where the pillar stands - the fissure ends on the target's spot, so the charge onto the target is
-          the charge into the pillar; the add-on's pillar is real terrain, and map walls quake too.
+          cannot see where the pillar stands - the fissure runs through the target's spot, so any charge while the
+          pillar stands counts as the charge into it; the add-on's pillar is real terrain, and map walls quake too.
   ult     R Call of the Forge God (熔铸之神的召唤), `Targeting` on `EnemyChampion` (r_range), two stages in one cast
           (COMBO R1 -> R2, League's recast): a hidden line runs r_len past him toward the champion and a fire ram
           charges back from its end to him (`BackToCasterLinearProjectile`): r_dmg + r_hp% of his max health magic, slowed
@@ -32,7 +32,7 @@ the passive keeps Living Forge's stats and Brittle:
           knock-up of r2_up ticks on everyone it passes, champions made Brittle.
 The add-on copy (--native, addons/league_ornn) keeps the same tree; its passive league_ornn:forge makes the pillar real
 terrain, keeps Brittle per champion and holds E for the pillar (the AI hook).
-Timings are placeholders until the strips (rig_ornn.MS) set them.
+The timings match the strips (tools/art/rig_ornn.py MS: a frame's start in ticks = ms x 0.06).
 """
 import argparse
 import json
