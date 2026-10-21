@@ -88,7 +88,7 @@ P = {
     "s_e_at": 10, "s_stun": 50, "s_slow": 30, "s_slow_t": 120, "s_ring_r": 20000, "s_line_len": 50000, "s_heal": 60,
     "s_heal_ratio": 40,
     # the add-on's soul: picked up within soul_r of the body, kept soul_t ticks; ranged souls lengthen his attack
-    "soul_r": 35000, "soul_t": 480, "s_range": 25000,
+    "soul_r": 35000, "soul_t": 480, "s_range": 0,
     # his spoken lines, at most one every vo_gap ticks
     "vo_gap": 600,
     # 1 = the copy for addons/league_viego_soul: its native passive reads deaths and sets p_go on him
