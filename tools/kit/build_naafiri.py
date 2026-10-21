@@ -80,6 +80,10 @@ P = {
     "r_shred": 20, "r_shred_t": 180, "r_win": 420, "r_recast": 720, "r_sh": 70, "r_sh_r": 40, "r_sh_t": 180,
     # her spoken lines, at most one every vo_gap ticks
     "vo_gap": 600,
+    # 1 = the copy for addons/league_naafiri: the second dagger's hit is its Native execute (up to q_exec% more damage
+    # by the target's missing health), the pounce arms `r_armed` for r_win ticks instead of the takedown window and the
+    # add-on's passive league_naafiri:pack gives the recast on any champion takedown (on_kill / on_assist)
+    "native": 0, "q_exec": 100,
 }
 
 
@@ -272,8 +276,8 @@ def build(p):
     a_bite = homing("a_bite", p["a_speed"], "Enemy", [attack(0, 100), view("a_hit"), tsfx("a_hit")])
     attack_plain = combine(sfx("a"), delayed(p["a_hit"] - 1, a_bite, pack_bite()))
     # the second dagger; its champion hit heals her and opens Eviscerate at once when E is ready (the combo)
-    dagger2 = homing("q2_dagger", p["q_speed"], "EnemyWithoutTower",
-                     [attack(p["q2_dmg"], p["q2_ratio"]), view("q2_hit"), tsfx("q2_hit")])
+    q2_hit = {"type": "Native", "effect_ref": "league_naafiri:q2"} if p["native"] else attack(p["q2_dmg"], p["q2_ratio"])
+    dagger2 = homing("q2_dagger", p["q_speed"], "EnemyWithoutTower", [q2_hit, view("q2_hit"), tsfx("q2_hit")])
     heal2 = homing("q2_heal", p["q_speed"], "EnemyChampion",
                    [on_me(heal(p["q_heal"], p["q_heal_r"]), cview("q_heal")), refresh("q2_land", 2)])
     q2_atk = combine(*rm("q2"), decoy(p["q2_dmg"], p["q2_ratio"]), anim("skill", p["q2_dur"]), sfx("q2"),
@@ -297,9 +301,10 @@ def build(p):
 
     def pounce(first):
         """The pounce on the champion; the first cast arms the takedown window, the recast shields her instead."""
-        hit = pounce_hit + ([casted(p["r_win"], 1, flag("r_alive", 2))] if first else [])
+        hit = pounce_hit + ([casted(p["r_win"], 1, flag("r_alive", 2))] if first and not p["native"] else [])
+        armed = refresh("r_armed", p["r_win"]) if p["native"] else watch  # the add-on's passive reads the takedowns
         land = [homing("r_bite", 100000, "EnemyChampion", hit), pack_bite(),
-                watch if first else None,                               # the window opens on the landing
+                armed if first else None,                               # the window opens on the landing
                 sw("q_cd", NONE, q1())]                                 # the combo: the first dagger at once
         return combine(anim("ult_b", p["r_dur"]), sfx("r_dash"),
                        None if first else combine(*rm("r_again"), on_me(shield(p["r_sh"], p["r_sh_r"], p["r_sh_t"])),
@@ -326,8 +331,12 @@ def build(p):
                E("q_bleed"), E("q2_hit"), E("q_heal", FX, 3), E("e_slash", BIG, -1), E("e_slash2", BIG, -1),
                E("e_hit"), E("r_roar", BIG, 3), E("r_hit"), E("r_reset", FX, 3)]
     views_b = [B_("pack4", BIG, -1, "pack_aura"), B_("r_shred", FX, 3), B_("r_shield", FX, 3)]
+    extra = {}
+    if p["native"]:
+        extra["passive"] = {"passive_ref": "league_naafiri:pack",
+                            "params": {k: int(p[k]) for k in ("r_recast", "r_win", "q2_dmg", "q2_ratio", "q_exec")}}
     return {
-        "id": ID, "category": "Assassin", "tags": ["AD", "Melee"],
+        "id": ID, "category": "Assassin", "tags": ["AD", "Melee"], **extra,
         "sprite": f"asset/league/champions/{ID}", "anim_prefix": "",
         "skill_icons": [f"asset/league/icons/{ID}_skill", f"asset/league/icons/{ID}_skill2", f"asset/league/icons/{ID}_ult"],
         "stat": {"attack": p["atk"], "magic_power": 0, "hp": p["hp"], "defence": p["def"],
