@@ -11,8 +11,8 @@ Codex's squares (regrid's, the outline steps at 3x agree; asked A / SA 17 px, D 
 (alpha >= 128); then, the design-tryndamere way (design_gnar_model's): its own K colours (design_varus.kmeans), whole
 rows then columns dropped to the count (keep_axis: least loss, never the eyes' rows / columns), the width in
 proportion, strips.complete_outline with the face kept. The dragons came SHORT of 72 rows (64-66): a design is never
-blown up (the squares would double), so they are kept as drawn - 43-44 game px at PPU 1.5, not 48 - unless the user
-wants a redraw. The written set shares one palette (K colours by k-means over the picks' read-backs together).
+blown up (the squares would double), so they are kept as drawn - 43-44 game px at PPU 1.5, not 48 (the user: keep
+the dragon as drawn; 3/4 views only, no side-on designs). The written set shares one palette (K colours by k-means over the picks' read-backs together).
 """
 import argparse
 import os
@@ -34,7 +34,7 @@ from regrid import regrid  # noqa: E402
 SRC = os.path.join(ROOT, "assets", "source", "shyvana", "codex_model", "raw")
 OUT = os.path.join(ROOT, "assets", "source", "shyvana", "hd")
 K = 40
-PICKS = {}   # the user's picks: {"idle": ..., "d_idle": ..., ("side": ..., "d_side": ...)}
+PICKS = {"idle": "A-2", "d_idle": "D-1"}   # the user's picks, 2026-10-21: 「人形用 A-2，龙形用 D-1，龙就按画的大小，只做四分之三侧面」
 # label -> (draft, Codex's square px, rows wanted or None = as drawn, eye rows, eye columns) on its own read-back
 DRAFTS = {
     "A-1": ("A-1", 16.0, 63, range(15, 23), range(27, 43)),
