@@ -428,6 +428,20 @@ mod tests {
     use super::*;
 
     #[test]
+    fn every_pack_hero_has_its_range() {
+        // src/ranges.rs is generated: a hero added without make_override.py run again is told apart by the distance
+        // only (Shyvana was missing until 2026-10-21)
+        let dir = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../../league/champion");
+        let heroes: Vec<String> = std::fs::read_dir(&dir)
+            .expect("league/champion")
+            .filter_map(|e| e.ok()?.file_name().into_string().ok()?.strip_suffix(".data_champion").map(str::to_string))
+            .collect();
+        assert!(heroes.len() > 100, "read only {} heroes from {}", heroes.len(), dir.display());
+        let missing: Vec<&String> = heroes.iter().filter(|h| !ranges::RANGES.iter().any(|r| r.0 == h.as_str())).collect();
+        assert!(missing.is_empty(), "not in src/ranges.rs - run make_override.py: {missing:?}");
+    }
+
+    #[test]
     fn melee_hits_charge_the_darkin_and_ranged_the_shadow() {
         assert_eq!(charges("fighter", 10_000.0), Form::Darkin);
         assert_eq!(charges("archer", 10_000.0), Form::Shadow);

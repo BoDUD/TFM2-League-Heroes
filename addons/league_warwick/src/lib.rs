@@ -27,7 +27,7 @@ pub mod combo;
 
 const ID: &str = "league_warwick";
 /// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是 league_addons 的。
-const VERSION: &str = "0.1.0";
+const VERSION: &str = "0.1.1";
 
 /// 鲜血追猎每隔几 tick 看一次。
 pub const HUNT_EVERY: usize = 6;
@@ -332,7 +332,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     ));
     module.add_native_effect(format!("{ID}:hunger"), HungerFx);
     module.add_native_passive(format!("{ID}:hunt"), Hunt::default());
-    module.add_player_input_ai(combo::Combo);
+    module.add_player_input_ai(combo::Combo::default());
     host.log(LogLevel::Info, "league_warwick loaded (Eternal Hunger by health, Blood Hunt, the combos).");
 }
 

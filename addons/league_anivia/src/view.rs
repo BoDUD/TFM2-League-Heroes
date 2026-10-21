@@ -1,6 +1,6 @@
 //! 冰蛋整身替换：寒霜涅槃的蛋里，艾尼维亚站着、挨打都画成冰蛋（图里的 `egg_idle` / `egg_hit`）。主包没有蛋（用户：「主包不做蛋，
 //! 寒霜涅槃只放在扩展包里」）；本包的数据副本用 `CasterAnimation` 播缩进蛋里、蛋待机（每 30 tick 续一次）和孵化，这里再把游戏
-//! 按名字自动播的 idle / hit 换掉，两次续播之间、挨打时也不会闪回鸟的样子。只在游戏 0.6.4（Windows）上生效，别的版本什么都不做。
+//! 按名字自动播的 idle / hit 换掉，两次续播之间、挨打时也不会闪回鸟的样子。只在游戏 0.6.4 起的 Windows 版上生效（地址由 game_places 运行时找，0.6.5 核对过），别的版本什么都不做。
 //!
 //! 照 league_nasus 的 view.rs（源自 league_swain / league_rell / league_jayce / league_nidalee / league_kayn_form）：显示世界每帧
 //! 调用显示处理表里的更新函数（rva 0x23312a0），函数指针在槽 rva 0x3c82db8（别的附加包也挂在这里，一个接一个调用）。名字是

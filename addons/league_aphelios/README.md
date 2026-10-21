@@ -53,3 +53,7 @@ R 清辉夜凝都在主包数据里。主包是纯数据：**游戏按名字自�
 cargo test -p league_aphelios          # 队列、残血换枪、形态名的单元测试（在 addons/ 下跑）
 python addons/league_aphelios/make_override.py
 ```
+
+## 游戏 0.6.5（0.2.1）
+
+回城时不替 AI 按 Q（AI 的回城命令开始、别的命令结束，中间没命令的 tick 也算；0.6.5 的官方 AI 自己决定什么时候回城买装备）。

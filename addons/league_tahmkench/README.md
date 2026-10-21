@@ -43,3 +43,7 @@ cargo test -p league_tahmkench
 cargo build --release -p league_tahmkench     # 单独的 DLL；合集 league_addons 也编进了它
 python league_tahmkench/make_override.py      # 主包的塔姆改了就重跑
 ```
+
+## 游戏 0.6.5（0.1.2）
+
+吞下的人提前出了放逐（0.6.5 修了道士大招打带韧性的目标后还选不中，放逐要是同样按韧性缩短）就当场吐在他身边，不再等到原定的时间、从吞下的地方传送过来（日志 `SPIT ... early`）。

@@ -36,7 +36,7 @@ use mod_api_stable::*;
 
 const ID: &str = "league_drmundo";
 /// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是 league_addons 的。
-const VERSION: &str = "0.1.2";
+const VERSION: &str = "0.1.4";
 const HERO: &str = "league_drmundo";
 
 // ===================== 数值 =====================
@@ -747,6 +747,10 @@ impl StablePlayerAi for Ai {
     fn think(&mut self, ctx: &mut StableAiContext<'_>, base: Option<InputV1>) -> Option<InputV1> {
         let b = base?;
         let kind = InputKindV1::from_code(b.kind)?;
+        // a recall is the AI's call (game 0.6.5 decides when to go home and buy): no walk to the canister instead
+        if kind == InputKindV1::Return {
+            return None;
+        }
         let current = (InputTargetKindV1::from_code(b.target.kind) == Some(InputTargetKindV1::Target)).then_some(b.target.target_id);
         let player = ctx.player_id();
         let (plan, line) = {

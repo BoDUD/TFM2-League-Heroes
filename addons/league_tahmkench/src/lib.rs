@@ -32,7 +32,7 @@ use mod_api_stable::*;
 
 const ID: &str = "league_tahmkench";
 /// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是 league_addons 的。
-const VERSION: &str = "0.1.1";
+const VERSION: &str = "0.1.2";
 const HERO: &str = "league_tahmkench";
 
 // ===================== 数值（主包 build_tahmkench.P） =====================
@@ -258,7 +258,12 @@ struct Carry {
     target: usize,
     ally: bool,
     release: usize,
+    /// the devour's tick
+    since: usize,
 }
+
+/// Ticks after the devour before a targetable carried unit counts as out of his belly (the banish lands with the cast).
+pub const OUT_GRACE: usize = 2;
 
 /// 每份模拟的塔姆一个编号，出生时由被动挂在他身上（buff `league_tahmkench_sim:<编号>`，没有数值、没有画面），吞人、吐人、
 /// AI 钩子按他身上的它找到同一份记录。游戏同时跑同一局的几份模拟（两份预模拟 + 画面那份），实体编号一样：按编号记时一份
@@ -396,8 +401,9 @@ impl StableEffectType for Devour {
         if !ally {
             clear_stacks(sim, target);
         }
-        let release = sim.tick() as usize + hold;
-        CARRY.lock().unwrap_or_else(|e| e.into_inner()).insert((sim_of(sim, caster), caster), Carry { target, ally, release });
+        let since = sim.tick() as usize;
+        let release = since + hold;
+        CARRY.lock().unwrap_or_else(|e| e.into_inner()).insert((sim_of(sim, caster), caster), Carry { target, ally, release, since });
         if let Some(n) = counted("devour") {
             wlog(format!("{} DEVOUR #{n} {} {} for {hold} ticks", head(sim, caster), if ally { "ALLY" } else { "ENEMY" },
                          who(sim, target)));
@@ -480,11 +486,14 @@ impl Skin {
 
     fn spit(&self, sim: &mut StableSim<'_>, me: usize, team: usize) {
         let now = sim.tick() as usize;
-        let due = {
-            let carry = CARRY.lock().unwrap_or_else(|e| e.into_inner());
-            carry.get(&(self.sim_no, me)).copied().filter(|c| now >= c.release)
-        };
-        let Some(c) = due else { return };
+        let Some(c) = CARRY.lock().unwrap_or_else(|e| e.into_inner()).get(&(self.sim_no, me)).copied() else { return };
+        // out early: game 0.6.5 fixed a seal staying on a unit with Tenacity after its crowd control (Taoist's ult) - a
+        // banish cut short by Tenacity the same way lets the carried one out before the release; put down now, by him,
+        // not later from where it was swallowed
+        let early = now > c.since + OUT_GRACE && sim.get_entity(c.target).is_some_and(|t| t.is_alive() && t.is_targetable());
+        if now < c.release && !early {
+            return;
+        }
         let Some(t) = sim.get_entity(c.target) else {
             CARRY.lock().unwrap_or_else(|e| e.into_inner()).remove(&(self.sim_no, me));
             return;
@@ -501,8 +510,10 @@ impl Skin {
         let spot = if c.ally { step_away(at, front, SPIT) } else { step_away(at, front, -SPIT) };
         let ok = sim.entity_set_pos(c.target, spot.0.max(0.0) as u64, spot.1.max(0.0) as u64);
         if let Some(n) = counted("spit") {
-            wlog(format!("{} SPIT #{n} {} {} at ({:.0}, {:.0}){}", head(sim, me), if c.ally { "ALLY" } else { "ENEMY" },
-                         who(sim, c.target), spot.0, spot.1, if ok { "" } else { " (the host kept it where it was)" }));
+            wlog(format!("{} SPIT #{n} {} {} at ({:.0}, {:.0}){}{}", head(sim, me), if c.ally { "ALLY" } else { "ENEMY" },
+                         who(sim, c.target), spot.0, spot.1, if ok { "" } else { " (the host kept it where it was)" },
+                         if now < c.release { format!(" early: out of the banish {} ticks in (Tenacity?)", now - c.since) }
+                         else { String::new() }));
         }
     }
 

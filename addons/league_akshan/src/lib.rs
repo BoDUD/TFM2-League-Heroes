@@ -851,9 +851,31 @@ impl StablePassive for Rogue {
 
 // ===================== AI：什么时候放 R =====================
 
+/// The AI is still recalling (game 0.6.5 decides when to go home and buy): its last order was a Return - it orders only
+/// on its judgement ticks, a Return again while the recall lasts, nothing in between - and any other order ends it
+/// (league_ult_press 0.5.0's rule).
+pub fn still_recalling(was: bool, base: Option<InputV1>) -> bool {
+    match base {
+        Some(b) => b.kind == InputKindV1::Return.code(),
+        None => was,
+    }
+}
+
+/// How much farther from a champion the AI's walk must end to be a retreat (league_ult_press's `HOLD_AWAY`).
+pub const AWAY: f64 = 10_000.0;
+
+/// The AI walks away from `to` this tick (a retreat, a disperse from a lost objective): its Move ends more than `AWAY`
+/// farther from it than the champion stands now.
+pub fn walking_away(base: Option<InputV1>, me: (f64, f64), to: (f64, f64)) -> bool {
+    let d = |a: (f64, f64), b: (f64, f64)| ((a.0 - b.0).powi(2) + (a.1 - b.1).powi(2)).sqrt();
+    base.is_some_and(|b| b.kind == InputKindV1::Move.code() && d((b.x as f64, b.y as f64), to) > d(me, to) + AWAY)
+}
+
 #[derive(Clone, Default)]
 struct UltAi {
     last_log: Option<usize>,
+    /// the AI is recalling (`still_recalling`)
+    recalling: bool,
 }
 
 fn ult_input(id: usize) -> InputV1 {
@@ -914,7 +936,9 @@ impl StablePlayerAi for UltAi {
         let player = ctx.player_id();
         let tick = ctx.tick();
         let wants_ult = base.is_some_and(|b| b.kind == InputKindV1::Ult.code());
-        let busy = base.is_some_and(|b| {
+        // game 0.6.5's AI decides when to recall (and buy): the quiet ticks of a recall are busy too
+        self.recalling = still_recalling(self.recalling, base);
+        let busy = self.recalling || base.is_some_and(|b| {
             matches!(InputKindV1::from_code(b.kind), Some(InputKindV1::Skill | InputKindV1::Skill2 | InputKindV1::Return))
         });
         let read = {
@@ -924,14 +948,20 @@ impl StablePlayerAi for UltAi {
             let ready = pl.level() >= ULT_LEVEL && me.cooldown(SkillSlotV1::Ult).is_some_and(|c| c.unlocked && c.remaining == 0);
             let channeling = has_buff(&sim, me.id(), R_CHAN);
             let line = head(&sim, me.id());
-            (pick_target(&sim, &me), ready, channeling, me.pos(), line)
+            let pick = pick_target(&sim, &me);
+            // the target's spot: a channel he starts himself waits while the AI walks away from it (0.6.5's retreats)
+            let away = pick.as_ref().ok().and_then(|&t| sim.get_entity(t)).is_some_and(|t| {
+                let (p, q) = (me.pos(), t.pos());
+                walking_away(base, (p.0 as f64, p.1 as f64), (q.0 as f64, q.1 as f64))
+            });
+            (pick, ready, channeling, me.pos(), line, away)
         };
-        let (pick, ready, channeling, my_pos, line) = read;
+        let (pick, ready, channeling, my_pos, line, away) = read;
         if channeling {
             return None;
         }
         match pick {
-            Ok(id) if ready && (wants_ult || !busy) => {
+            Ok(id) if ready && (wants_ult || (!busy && !away)) => {
                 let input = ult_input(id);
                 if ctx.is_valid_input(&input) {
                     if self.last_log.is_none_or(|t0| tick >= t0 + 60) {
@@ -1021,6 +1051,19 @@ mod tests {
     fn decodes_the_0_6_4_getters() {
         let l = decode(&hex(RESPAWN_TIME), &hex(IS_ALIVE)).expect("layout");
         assert_eq!(l, LifeLayout { getp: 0x158, tag: 0x898, val: 0x8a0 });
+    }
+
+    // TeamfightManager2.exe 0.6.5 (87,009,792 bytes, 2026-10-21): player_respawn_time 0x142d693d0, player_is_alive
+    // 0x142d67640 - the same code, the player's life fields 0x20 further on
+    const RESPAWN_TIME_065: &str = "554883ec30488d6c243048c745f8feffffff4885d2742348ffca488b014c8b41084889c141ff9058010000904885c0740980b8b808000000740831c04883c4305dc3488b80c00800004883c4305dc3";
+    const IS_ALIVE_065: &str = "554883ec30488d6c243048c745f8feffffff4885d2742748ffca488b014c8b41084889c141ff9058010000904885c0740d0fb680b80800004883c4305dc3";
+
+    #[test]
+    fn decodes_the_0_6_5_getters() {
+        let l = decode(&hex(RESPAWN_TIME_065), &hex(IS_ALIVE_065)).expect("layout");
+        assert_eq!(l, LifeLayout { getp: 0x158, tag: 0x8b8, val: 0x8c0 });
+        // one build's getter with the other's: refused, nothing written
+        assert!(decode(&hex(RESPAWN_TIME_065), &hex(IS_ALIVE)).is_none());
     }
 
     #[test]

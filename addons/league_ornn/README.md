@@ -49,3 +49,7 @@ W / E / R 让敌方英雄易碎，下一下普攻引爆。主包是纯数据：*
 python addons/league_ornn/make_override.py
 cd addons && cargo test -p league_ornn && cargo build --release -p league_ornn
 ```
+
+## 游戏 0.6.5（0.1.1）
+
+连招钩子回城时不出手（AI 的回城命令开始、别的命令结束，中间没命令的 tick 也算回城：`still_recalling`）；E 撞柱不朝 AI 正在远离的人撞（走路终点比现在离他远 10000 以上：`walking_away`），也不冲进敌方塔 75000 内的人。和 `league_ult_press` 0.5.0 同一套规则：0.6.5 的官方 AI 自己决定什么时候回城买装备、什么时候散开、越不越塔。

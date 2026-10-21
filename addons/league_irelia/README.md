@@ -33,3 +33,7 @@
 python addons/league_irelia/make_override.py      # 主包的艾瑞莉娅改了就重跑
 cd addons && cargo test --release -p league_irelia && cargo build --release -p league_irelia
 ```
+
+## 游戏 0.6.5（0.1.2）
+
+回城时不跳兵线（AI 的回城命令开始、别的命令结束，中间没命令的 tick 也算），也不朝 AI 正在远离的英雄跳（`league_ult_press` 0.5.0 的规则，0.6.5 的官方 AI 自己决定回城、撤退）。
