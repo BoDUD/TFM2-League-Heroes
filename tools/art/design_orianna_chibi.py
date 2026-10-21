@@ -38,9 +38,11 @@ RAW = os.path.join(ROOT, "assets", "source", "orianna", "codex_chibi", "raw")
 TAKES = ["q1-front", "q1-side", "q2-front", "q2-side"]
 K = 28
 SOLE_ROW, MID_COL, FEET_ROWS = 117, 64, 3
-# Q1 front's read-back (72 x 117): the head is rows above SPLIT except the wind-up key (columns left of KEY_X from row
-# KEY_Y), the neck at (NECK_Y, NECK_X)
-SPLIT, KEY_X, KEY_Y, NECK_Y, NECK_X = 56, 34, 49, 55, 45
+# per read-back (front 72 x 117, side 55 x 107): the head is rows above SPLIT except the wind-up key (columns left of
+# KEY_X from row KEY_Y), the neck at (NECK_Y, NECK_X)
+GEOM = {"q1-front": (56, 34, 49, 55, 45), "q1-side": (50, 22, 43, 50, 28)}
+# the user's pick (2026-10-22): A, head 0.66 and body 0.80 of native, eye columns kept - front and side alike
+PICK = (0.66, 0.80, True)
 # rebalanced Q1 front: (head, body) kept fractions of their native size
 REBALANCE = {"r1": (0.66, 0.80, True), "r2": (0.66, 0.86, True), "r3": (0.62, 0.86, True)}
 
@@ -105,11 +107,12 @@ def cut(idx, rows_to, cols_to, protect_rows, protect_cols, keep_top=True):
     return rows, cols
 
 
-def rebalance(raw, head, body, eye_cols=True):
+def rebalance(raw, head, body, eye_cols=True, geom=GEOM["q1-front"]):
     """The user on Q1 front (2026-10-22): 「把头缩小点 身体放长点就完美了」. The head (bun to the hair tails, the wind-up
     key left with the body) and the body are cut apart, each by its own share of whole rows AND columns so neither is
     squashed - only the eyes kept square for square - and the head set back on the neck: head and body are the kept
     fractions of their native rows."""
+    SPLIT, KEY_X, KEY_Y, NECK_Y, NECK_X = geom
     idx, pal = dv.kmeans(raw, K)
     H, W = idx.shape
     op = idx >= 0
@@ -225,6 +228,26 @@ def main():
         im = Image.fromarray(place(fig))
         im.save(lp(os.path.join(a.out, f"q1-front-{name}.png")))
         print(f"q1-front-{name} head {head} body {body}: {fig.shape[1]}x{fig.shape[0]}, outline +{added}, specks {filled}, "
+              f"gaps {[len(h) for h in rigkit.holes(fig)]}")
+    height = None
+    for t in ("q1-front", "q1-side"):
+        raw = read_back(os.path.join(a.raw, f"orianna-{t}.png"))
+        head, body, ec = PICK
+        fig, added = rebalance(raw, head, body, ec, geom=GEOM[t])
+        if height is None:
+            height = fig.shape[0]
+        else:  # the side draft is drawn smaller (107 rows to the front's 117): both fractions scaled to the front's height
+            k = height / fig.shape[0]
+            for _ in range(6):
+                fig, added = rebalance(raw, head * k, body * k, ec, geom=GEOM[t])
+                if fig.shape[0] == height:
+                    break
+                k *= height / fig.shape[0]
+        fig, filled = fill_specks(fig)
+        im = Image.fromarray(place(fig))
+        im.save(lp(os.path.join(a.out, f"design-{t.split('-')[1]}.png")))
+        im.resize((1024, 1024), Image.NEAREST).save(lp(os.path.join(a.out, f"design-{t.split('-')[1]}_8x.png")))
+        print(f"design {t}: {fig.shape[1]}x{fig.shape[0]}, outline +{added}, specks {filled}, "
               f"gaps {[len(h) for h in rigkit.holes(fig)]}")
 
 
