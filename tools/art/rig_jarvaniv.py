@@ -18,10 +18,12 @@ shaft), the near arm (the elbow, the gauntlet and the hand hanging under the nea
 pauldrons, breastplate, belt), the skirt and the two legs. The lance turns as a whole in the lossless ways about the
 fist (upright as drawn; a quarter turn clockwise: level, the spearhead forward - League's thrusts; counter-clockwise:
 level, the spearhead back - carried; half a turn: point down - Cataclysm's landing); the arms turn in quarter turns about
-their shoulders; a crouch sets the upper body down over the skirt (never lifted off it). The walk moves each leg whole,
-drawn over the skirt, a stride centred on the stance (the walk block below).
+their shoulders; a crouch sets the upper body down over the skirt (never lifted off it). The run draws the legs on
+League's run joints, the way the pack's accepted runs are drawn (the run block below).
 """
 import argparse
+import json
+import math
 import os
 import sys
 
@@ -32,6 +34,7 @@ from scipy import ndimage
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 import ppu_rig as R  # noqa: E402
+import rigkit as K  # noqa: E402
 import pixel_down as PD  # noqa: E402
 
 HERO = "jarvaniv"
@@ -252,12 +255,13 @@ class Form:
 
     def pose(self, crouch=0, whole=(0, 0), near=0, far=0, near_reach=(0, 0), far_reach=(0, 0), lance="UP",
              slide=0, lance_shift=(0, 0), legs=None, behind=False, fill=True, lance_front=False, leg_layers=None,
-             legs_front=False):
+             legs_front=False, run_legs=None):
         """crouch: rows the upper body (with both arms and the lance) sets down over the skirt (never up); whole: the
         whole figure; near / far: quarter turns of an arm counter-clockwise about its shoulder; *_reach: whole squares
         an arm moves after turning; lance: one of LANCE, turned about the grip and set into the far fist, slid `slide`
         squares along its own line (+ toward the spearhead), then moved lance_shift; legs: ((near dx, dy), (far dx,
-        dy)) moves of the legs; lance_front: the lance over the body (else behind it, the fist over it)."""
+        dy)) moves of the legs; lance_front: the lance over the body (else behind it, the fist over it); run_legs:
+        (layers under the skirt, layers over it) instead of the design's legs (the run)."""
         if crouch < 0:
             raise ValueError("the upper body never lifts off the skirt")
         wx, wy = whole
@@ -282,7 +286,10 @@ class Form:
                                                              (self.near_leg, dict(dx=wx + nlx, dy=wy + nly))]
         skirt_l = (self.skirt, dict(dx=wx, dy=wy))
         # legs_front (the walk): the legs over the skirt, so the hem and the middle flap never cut a knee guard
-        layers += [far_l, skirt_l, *legs_l] if legs_front else [far_l, *legs_l, skirt_l]
+        if run_legs is not None:
+            layers += [far_l, *run_legs[0], skirt_l, *run_legs[1]]
+        else:
+            layers += [far_l, skirt_l, *legs_l] if legs_front else [far_l, *legs_l, skirt_l]
         layers.append((self.upper, dict(dx=U[0], dy=U[1])))
         if lance_l and lance_front:
             layers += [lance_l, (self.fist_only(), far_l[1])]
@@ -433,7 +440,148 @@ def frames_all(F):
     return out
 
 
-# ------------------------------------------------------------------------------------------------- the walk
+# ------------------------------------------------------------------------------------------------- the run
+# The run (2026-10-21, the user: 「皇子的走路步伐太小 想办法改进一下」, then on a longer stride of the whole legs:
+# 「怎么腿变形 参考现在已经完美的英雄 你好好改」): League's jarvanIV_run strides about ten squares a foot each way, the
+# whole-leg walk below one, and a whole leg moved further slid under a hip that stayed (the art spec: legs are never
+# slid). So the legs are drawn on League's run joints the way the pack's accepted runs are (fix_shen_strips.draw_leg,
+# Xin Zhao's, Garen's armoured run): each leg's thigh and shin angles from League (assets/source/jarvaniv/run_joints.json,
+#   python tools/lol/pose_joints.py assets/source/jarvaniv/poses.json --tag run
+#       --joints Hip,L_Thigh,L_Knee,L_Foot,L_Toe,R_Thigh,R_Knee,R_Foot,R_Toe --json assets/source/jarvaniv/run_joints.json;
+# League's L leg is the near one) on our own bone lengths, the knee solved (rigkit.leg_chain) where League's toe stands on
+# the ground; the thigh and the greave drawn in the design's own golds (each leg's own shading across it, lit on the
+# side the design lights it), one outline round the leg, the design's knee guard stamped on the knee and its sabaton on
+# the ankle - flat on the soles while planted, a quarter turn toe-down when the shin is kicked up behind (RUN_KICK);
+# the far leg a step darker in the design's own darker golds (league_garen's run: passing, the two read as one thick
+# leg) and wholly behind the skirt, the near thigh under the skirt and its greave, knee guard and sabaton over it. The
+# figure above the legs a column ahead of the hips, bobbing with League's hips (rigkit.hip_bobs, 0-2 rows, lower when a
+# planted foot needs it), the lance carried (CARRY), the near arm a column forward while its foot is back (RUN_ARM).
+RUN_JOINTS = os.path.join(R.ROOT, "assets", "source", "jarvaniv", "run_joints.json")
+RUN_SOLES = 72                                   # the design's soles row
+RUN_HIPS = {"near": (9.5, 49.0), "far": (17.5, 49.0)}   # under the skirt; League's are closer, the design's knees 13 apart
+RUN_LT, RUN_LS = 7.5, 10.0                       # thigh (hip -> knee), shin (knee -> ankle), from the design's legs
+RUN_KNEE = {"near": (9.0, 56.5), "far": (22.0, 56.0)}     # the knee guards' middles in the design
+RUN_KG = {"near": (53, 58, 4, 12), "far": (53, 58, 17, 25)}   # rows, columns (inclusive): each knee guard
+RUN_BOOT = {"near": (66, 72, 2, 9), "far": (66, 72, 14, 25)}  # each sabaton
+RUN_ANKLE = {"near": (6.0, 66.0), "far": (19.0, 66.0)}
+RUN_FH = RUN_SOLES + 1 - 66                      # ankle -> under the sole
+RUN_PLANT_TOE = 8.5                              # a League toe this low (game px; the soles on 11) stands
+RUN_KICK = 60                                    # a shin this far behind hanging: the sabaton a quarter turn, toe down
+RUN_HW = {"near": (2.6, 1.9), "far": (2.9, 2.0)}  # greave half widths at the knee and the ankle
+RUN_THW = 2.6                                    # thigh half width
+RUN_SHADES = {  # across the leg from its back (image left when it hangs) to its front: (up to s, the design's colour)
+    "near": [(-0.55, "CE891E"), (-0.15, "FAC02E"), (0.45, "BA761A"), (9, "7D4B18")],
+    "far": [(-0.30, "5B3717"), (0.25, "9B5E16"), (0.65, "BA761A"), (9, "E8A426")],
+}
+RUN_FAR_DIM = 0.78                               # the far leg's colours: the design colour nearest this much darker
+RUN_AHEAD = 1                                    # the figure above the legs, columns ahead of the hips
+RUN_ARM = [0, 0, 1, 1, 1, 0, 0, 0]
+# League's run carries the lance level on the shoulder, the spearhead back (jarvanIV_run): the far arm a quarter turn up,
+# the lance turned counter-clockwise about the fist and slid toward the spearhead so the fist holds it near its middle
+CARRY = dict(far=1, lance="BACK", slide=4)
+
+
+
+
+def run_piece(layer, box):
+    """A padded leg layer's squares inside rows y0..y1, columns x0..x1 (design coordinates)."""
+    y0, y1, x0, x1 = box
+    out = np.zeros_like(layer)
+    out[P + y0:P + y1 + 1, P + x0:P + x1 + 1] = layer[P + y0:P + y1 + 1, P + x0:P + x1 + 1]
+    return out
+
+
+def run_bone(can, p0, p1, hw0, hw1, shades):
+    """A tapered segment p0 -> p1 (design coordinates) drawn into a padded canvas, coloured across it by `shades`;
+    -> its mask."""
+    H, W = can.shape[:2]
+    ys, xs = np.mgrid[0:H, 0:W]
+    px, py = xs + 0.5 - P, ys + 0.5 - P
+    (x0, y0), (x1, y1) = p0, p1
+    dx, dy = x1 - x0, y1 - y0
+    l2 = max(dx * dx + dy * dy, 1e-6)
+    t = ((px - x0) * dx + (py - y0) * dy) / l2
+    tc = np.clip(t, 0, 1)
+    d = np.hypot(px - (x0 + tc * dx), py - (y0 + tc * dy))
+    hw = hw0 + (hw1 - hw0) * tc
+    m = (d <= hw) & (t >= -0.15) & (t <= 1.1)
+    s = -((px - x0) * dy - (py - y0) * dx) / math.sqrt(l2) / np.maximum(hw, 1e-6)
+    for up, col in reversed(shades):
+        can[m & (s <= up)] = tuple(int(col[i:i + 2], 16) for i in (0, 2, 4)) + (255,)
+    return m
+
+
+def run_dim(a, D, k):
+    """Every colour but the outline -> the design's colour nearest it k times darker (no colour the design lacks)."""
+    pal = np.array(sorted({tuple(c) for c in D.d[D.d[..., 3] > 0][:, :3].tolist()} - {tuple(D.outline)}), float)
+    m = (a[..., 3] > 0) & (np.abs(a[..., :3].astype(int) - np.array(D.outline)).sum(-1) > 20)
+    want = a[m, :3].astype(float) * k
+    a[m, :3] = pal[np.argmin(((want[:, None, :] - pal[None]) ** 2).sum(-1), 1)].astype(np.uint8)
+    return a
+
+
+def run_leg(F, side, hip, knee, ank, boot_q, grounded):
+    """One leg -> (its thigh alone, the whole leg): padded layers; the thigh goes under the skirt."""
+    D = F.D
+    src = F.near_leg if side == "near" else F.far_leg
+    can = np.zeros_like(src)
+    tm = run_bone(can, hip, knee, RUN_THW, RUN_HW[side][0], RUN_SHADES[side])
+    thigh = can.copy()
+    sm = run_bone(can, knee, ank, *RUN_HW[side], RUN_SHADES[side])
+    ring = ndimage.binary_dilation(tm | sm, np.ones((3, 3), bool)) & ~(tm | sm)
+    can[ring] = (*D.outline, 255)
+    thigh[ring & ndimage.binary_dilation(tm, np.ones((3, 3), bool)) & ~sm] = (*D.outline, 255)
+    kg = run_piece(src, RUN_KG[side])
+    can = R.put(can, shifted(kg, knee[0] - RUN_KNEE[side][0], knee[1] - RUN_KNEE[side][1]))
+    bt = run_piece(src, RUN_BOOT[side])
+    ax, ay = RUN_ANKLE[side]
+    if boot_q:
+        turned = np.zeros_like(bt)
+        K.place(turned, K.rot90(K.Part.from_canvas(bt, bt[..., 3] > 0, (ax + P, ay + P)), boot_q), (ank[0] + P, ank[1] + P))
+        bt = turned
+    else:
+        bt = shifted(bt, ank[0] - ax, ((RUN_SOLES + 1 - RUN_FH) if grounded else ank[1]) - ay)
+    can = R.put(can, bt)
+    if side == "far":
+        run_dim(can, D, RUN_FAR_DIM)
+        run_dim(thigh, D, RUN_FAR_DIM)
+    return thigh, can
+
+
+def shifted(a, dx, dy):
+    return K.shifted(a, int(round(dx)), int(round(dy)))
+
+
+def run(F):
+    """The run: a frame per League run frame. -> canvases."""
+    with open(lp(RUN_JOINTS), encoding="utf-8") as f:
+        joints = json.load(f)
+    bobs = K.hip_bobs([fr["joints"]["Hip"][1] for fr in joints], 2)
+    out = []
+    for k, fr in enumerate(joints):
+        j = fr["joints"]
+        want = {}
+        for side, s in (("near", "L"), ("far", "R")):
+            th = K.bone_angle(j[f"{s}_Thigh"][:2], j[f"{s}_Knee"][:2])
+            sh = K.bone_angle(j[f"{s}_Knee"][:2], j[f"{s}_Foot"][:2])
+            ax = RUN_HIPS[side][0] + RUN_LT * math.sin(math.radians(th)) + RUN_LS * math.sin(math.radians(sh))
+            want[side] = (th, sh, j[f"{s}_Toe"][1] >= RUN_PLANT_TOE, ax)
+        bob = bobs[k]
+        for side, (_, _, planted, ax) in want.items():
+            if planted:
+                bob = max(bob, K.reach_bob(RUN_HIPS[side], ax, RUN_SOLES + 1 - RUN_FH, RUN_LT, RUN_LS))
+        legs = {}
+        for side, (th, sh, planted, _) in want.items():
+            hip = (RUN_HIPS[side][0], RUN_HIPS[side][1] + bob)
+            knee, ank, _, sh2, grounded = K.leg_chain(hip, th, sh, RUN_LT, RUN_LS, RUN_SOLES + 1 - RUN_FH, planted)
+            legs[side] = run_leg(F, side, hip, knee, ank, 1 if sh2 < -RUN_KICK else 0, grounded)
+        behind = [(legs["far"][1], {}), (legs["far"][0], {}), (legs["near"][0], {})]
+        front = [(legs["near"][1], {})]
+        out.append(F.pose(whole=(RUN_AHEAD, bob), near_reach=(RUN_ARM[k], 0), run_legs=(behind, front), **CARRY))
+    return out
+
+
+# The walk until 2026-10-21 (kept for the record - what the user turned down on the way):
 # The design's own legs moved whole (every square the design's), drawn over the skirt (legs_front: the hem and the
 # middle flap never cut a knee guard). What the user turned down on the way (2026-10-17), so the next try does not
 # repeat it:
@@ -460,31 +608,12 @@ def frames_all(F):
 # the knees): the near knee a column in covered the left half of the skirt's middle flap while the far knee stayed out,
 # so between the knees only the flap's outline and its filled gap showed - a black hole round a navy cross; the far foot
 # now slides back to -1 a frame earlier (as in frames 8 and 1), its knee covering that gap again.
-WALK_STEP = dict(near=[(1, 0), (0, 0), (0, 0), (-1, 0), (-1, 0), (0, 1), (1, 1), (1, 0)],
-                 far=[(-1, 0), (0, 1), (1, 1), (1, 0), (1, 0), (0, 0), (-1, 0), (-1, 0)],
-                 bob=[1, 1, 0, 0, 1, 1, 0, 0],
-                 arm=[0, 0, 1, 1, 1, 0, 0, 0])
-# League's run carries the lance level on the shoulder, the spearhead back (jarvanIV_run): the far arm a quarter turn up,
-# the lance turned counter-clockwise about the fist and slid toward the spearhead so the fist holds it near its middle
-CARRY = dict(far=1, lance="BACK", slide=4)
-
-
-def walk(F, steps=None, carry=None):
-    """The walk: a frame per WALK_STEP entry. -> canvases."""
-    st = steps or WALK_STEP
-    out = []
-    dip = {"far_leg": dipped(F.far_leg, DIP_ROWS["far_leg"]), "near_leg": dipped(F.near_leg, DIP_ROWS["near_leg"])}
-    for (ndx, nup), (fdx, fup), bob, arm in zip(st["near"], st["far"], st["bob"], st["arm"]):
-        legs = [(dip["far_leg"] if bob else F.far_leg, dict(dx=fdx, dy=-fup)),
-                (dip["near_leg"] if bob else F.near_leg, dict(dx=ndx, dy=-nup))]
-        out.append(F.pose(whole=(0, bob), leg_layers=legs, near_reach=(arm, 0), legs_front=True, **(carry or CARRY)))
-    return out
 
 
 def frames(F):
     """{tag: [(canvas, ms)]} in the sheet's order."""
     a = frames_all(F)
-    a = {"idle": a["idle"], "run": walk(F), **{k: v for k, v in a.items() if k != "idle"}}
+    a = {"idle": a["idle"], "run": run(F), **{k: v for k, v in a.items() if k != "idle"}}
     out = {}
     for tag, cans in a.items():
         ms = MS[tag]
