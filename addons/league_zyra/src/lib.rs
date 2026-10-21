@@ -33,7 +33,7 @@ use mod_api_stable::*;
 
 const ID: &str = "league_zyra";
 /// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是 league_addons 的。
-const VERSION: &str = "0.1.0";
+const VERSION: &str = "0.1.1";
 /// 荆棘喷射者吐的刺从植物身上多高的地方出来（植物图的嘴）。
 const SPIT_UP: u64 = 9_000;
 
@@ -144,7 +144,7 @@ impl Default for Params {
             pl_lo: 20,
             pl_hi: 100,
             pl_ratio: 12,
-            r_r: 44000,
+            r_r: 32000,
             r_rage: 300,
         }
     }
