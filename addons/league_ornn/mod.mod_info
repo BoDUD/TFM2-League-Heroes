@@ -1,0 +1,20 @@
+{
+  "author": "BoDUD",
+  "contains_code": true,
+  "dependencies": [
+    {
+      "mod_id": "base",
+      "version": ">=0.4.11"
+    },
+    {
+      "mod_id": "league",
+      "version": ">=0.185.0"
+    }
+  ],
+  "description": "Test build of Ornn as in League (needs League of Legends Heroes): replaces the main pack's Ornn so Volcanic Rupture's magma pillar is real terrain that blocks everyone, Searing Charge quakes only when it slams into a pillar or a wall (the main pack: any charge within 4 s of a Q), Brittle sits on each champion and only his attack on that champion breaks it, and the AI plays his combos (the pillar before the charge, a champion beside the pillar charged into it, Brittle champions hit first). Other champions are untouched. Writes a log for testing.",
+  "last_updated": "2026-10-21",
+  "mod_id": "league_ornn",
+  "mod_type": "native",
+  "name": "League Heroes: Ornn's real pillar, wall quakes, Brittle and combos (test)",
+  "version": "0.1.0"
+}

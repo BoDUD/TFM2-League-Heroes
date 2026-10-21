@@ -222,7 +222,12 @@ def action(name, dur, cd, st, rng, ctype, ctarget, effect, atype="Skill", cancel
             "casting_type": ctype, "casting_target": ctarget, "attack_type": atype, "effect": effect}
 
 
+def native(name):
+    return {"type": "Native", "effect_ref": f"{ID}:{name}"}
+
+
 def build(p):
+    nat = bool(p["native"])
     # ------------------------------------------------------------------ passive Living Forge + Brittle
     forge = sw("forge", NONE, flag("forge", None, defence_mult=p["p_def"], magic_resistance_mult=p["p_def"],
                                    hp_mult=p["p_hp"]))
@@ -247,7 +252,11 @@ def build(p):
                             "tick": p["w_sh_t"]},
                            refresh("w_shown", p["w_sh_t"]), delayed(p["w_sh_t"], *rm("w_shown"))),
                      *[pulse(k) for k in range(p["w_n"])])
-    blow = combine(sfx("a"), attack(0, 100), view("a_hit"), tsfx("a_hit"), sw("brittle", shatter))
+    # the add-on breaks Brittle on the very champion that carries it (league_ornn:shatter on the attack's target)
+    # (its picture and sound a tick later, on the flag br_now the add-on sets when it breaks)
+    pop = (combine(native("shatter"), delayed(1, sw("br_now", combine(view("br_pop"), tsfx("br_pop"), *rm("br_now")))))
+           if nat else sw("brittle", shatter))
+    blow = combine(sfx("a"), attack(0, 100), view("a_hit"), tsfx("a_hit"), pop)
     # the breath when it is ready and an enemy champion is near (a 1-tick flag from the search, read at once)
     w_go = combine(*rm("w_near"), sw("w_cd", NONE, pick(p["w_go"], "EnemyChampion", flag("w_near", 1))))
     attack_a = action("attack", p["atk_dur"], p["atk_cd"], p["atk_st"], p["atk_range"], "Targeting", "Enemy",
@@ -256,7 +265,8 @@ def build(p):
 
     # ------------------------------------------------------------------ skill: Q Volcanic Rupture (the pillar)
     stamps = [delayed(k, sw("q_pillar", view("q_pillar"))) for k in range(p["q_stamp"], p["q_life"], p["q_stamp"])]
-    rise = [view("q_rise"), sfx("q_pillar"), refresh("q_pillar", p["q_life"]), *stamps]
+    # the add-on's pillar is terrain where the fissure ends (league_ornn:pillar reads that point)
+    rise = [view("q_rise"), sfx("q_pillar"), refresh("q_pillar", p["q_life"]), *stamps, *([native("pillar")] if nat else [])]
     fissure = line("q_fissure", p["q_speed"], p["q_len"], p["q_w"], "EnemyWithoutTower", True,
                    [attack(p["q_dmg"], p["q_ratio"]), buff("q_slow", p["q_slow_t"], move_speed_mult=-p["q_slow"]),
                     view("q_hit"), tsfx("q_hit")], end=rise, y=0)
@@ -272,10 +282,12 @@ def build(p):
                     around(p["e_quake_r"], "EnemyChampion", brittle))
     contact = [anim("skill2_hit", p["e_hit_t"]), sfx("e_hit"),
                around(p["e_r"], "EnemyWithoutTower", [attack(p["e_dmg"], 0, p["e_hp"]), view("e_hit"), tsfx("e_hit")]),
-               sw("q_pillar", quake)]
+               # the add-on quakes on a real pillar near the contact or a wall ahead (league_ornn:charge sets e_quake_go)
+               *([native("charge"), delayed(1, sw("e_quake_go", quake))] if nat else [sw("q_pillar", quake)])]
     charge = {"type": "MoveToTarget", "speed": p["e_speed"], "range": p["e_range"] + 40000, "end_effects": contact}
     skill2 = action("skill2", p["e_anim"], p["e_cd"], 1, p["e_range"], "Targeting", "EnemyWithoutTower",
-                    combine(forge, sfx("e"), voice("vo_e", p), anim("skill2", p["e_anim"]), charge))
+                    combine(forge, *([native("from")] if nat else []), sfx("e"), voice("vo_e", p),
+                            anim("skill2", p["e_anim"]), charge))
 
     # ------------------------------------------------------------------ ult: R Call of the Forge God (R1 -> R2)
     ram_hit = [magic(p["r_dmg"], p["r_hp"]), buff("r_slow", p["r_slow_t"], move_speed_mult=-p["r_slow"]),
@@ -307,8 +319,12 @@ def build(p):
                E("q_hit"), E("q_rise", BIG, 1, False), E("q_pillar", BIG, 1, False), E("e_quake", BIG, -1),
                E("e_hit"), E("r_call", BIG, -1), E("r_rise", BIG, 1, False), E("r_butt", BIG, 3), E("r_hit")]
     views_b = [B_("brittle"), B_("w_shown", FX, 3)]
+    extra = {}
+    if nat:
+        extra["passive"] = {"passive_ref": f"{ID}:forge", "params": {
+            k: p[k] for k in ("q_life", "br_hp", "br_up", "br_kb_speed", "br_kb_t", "e_quake_r", "e_anim")}}
     return {
-        "id": ID, "category": "Melee", "tags": ["AD", "Melee", "Tank", "CC", "Shield"],
+        "id": ID, "category": "Melee", "tags": ["AD", "Melee", "Tank", "CC", "Shield"], **extra,
         "sprite": f"asset/league/champions/{ID}", "anim_prefix": "",
         "skill_icons": [f"asset/league/icons/{ID}_skill", f"asset/league/icons/{ID}_skill2", f"asset/league/icons/{ID}_ult"],
         "stat": {"attack": p["atk"], "magic_power": p["mp"], "hp": p["hp"], "defence": p["def"],
