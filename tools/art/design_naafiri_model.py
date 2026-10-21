@@ -32,7 +32,7 @@ from regrid import regrid  # noqa: E402
 SRC = os.path.join(ROOT, "assets", "source", "naafiri", "codex_model", "raw")
 OUT = os.path.join(ROOT, "assets", "source", "naafiri", "hd")
 K = 40
-PICKS = {}   # the user's picks: {"idle": "A-?", "pack": "P-?"}
+PICKS = {"idle": "A-2", "pack": "P-2"}   # the user's picks, 2026-10-21
 # label -> (draft, Codex's square px, rows wanted or None = as drawn, face rows, face columns) on its own read-back
 DRAFTS = {
     "A-1": ("A-1", 13.0, 45, range(28, 38), range(60, 73)),
