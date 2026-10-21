@@ -3402,8 +3402,8 @@
     {
       "type": "Animation",
       "name": "league_leblanc_p_clone",
-      "anim": "asset/league/effects/league_leblanc_big",
-      "tag": "p_clone",
+      "anim": "asset/league/effects/league_leblanc_clone",
+      "tag": "idle",
       "z": 0,
       "is_follow": false
     },
