@@ -83,4 +83,4 @@ python addons/league_kayn_form/make_override.py      # 主包的凯隐或别的�
 
 ## 游戏 0.6.5（0.3.3）
 
-近战 / 远程表（`src/ranges.rs`）补上希瓦娜、纳亚菲利（用户：「凯隐也要加吧」），`every_pack_hero_has_its_range` 测试保证以后的新英雄不漏；0.6.5 上显示钩子照常找到（`game_places`）。
+近战 / 远程表（`src/ranges.rs`）补上希瓦娜、纳亚菲利（用户：「凯隐也要加吧」），`every_pack_hero_has_its_range` 测试保证以后的新英雄不漏；它也核对表里的距离和主包数据一致（奈德丽、伊莉丝照生成脚本加上人形的射程加成 `h_add`），改了谁的普攻距离就重跑 `make_override.py`；0.6.5 上显示钩子照常找到（`game_places`）。
