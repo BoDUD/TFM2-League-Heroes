@@ -1,0 +1,7 @@
+{
+  "fx": "league_shyvana_fx",
+  "items": [
+    {"tag": "q_slash", "into": "skill", "at_ms": 160, "dx": 8, "dy": 12},
+    {"fx": "league_shyvana_big", "tag": "d_q_slash", "into": "d_skill", "at_ms": 230, "dx": 10, "under": true}
+  ]
+}

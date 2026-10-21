@@ -1,0 +1,304 @@
+Generation route: built-in image_gen; every pose drawn by the image model.
+Only supplied shyvana_pose_pack.zip images used as references.
+Python only reads image statistics, copies files, writes documents and archives; no pixel drawing or image modification.
+
+=== crouch, attempt 1 ===
+References (ordered):
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_pose_pack/2_design.png
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_pose_pack/1_head.png
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_pose_pack/3_crouch_skeleton.png
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_pose_pack/3_crouch_league.png
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_pose_pack/0_design_skeleton.png
+
+Draw ONE whole-body coarse PIXEL-ART animation key pose of the approved Shyvana. Output1254x1254 PNG, genuine transparent background with alpha ONLY0 or255. Exact14px square pixels aligned from(0,0), same pixel density and model size as approved reference. Do not zoom or enlarge the actor to fill frame.
+Five references in order: IMAGE1 approved pixel model (IDENTITY, proportions, colours, pixel style); IMAGE2 approved HEAD (copy its face/crown/hair block for block); IMAGE3 target POSE SKELETON and head placement on1254 canvas; IMAGE4 original game pose (MOTION ONLY, not art style or face); IMAGE5 approved model with reference skeleton (limb anatomy mapping).
+PRIORITY: Move the SAME MODEL of image1 into skeleton3. Preserve limb length/thickness and head/body scale. Body follows green spine, NEAR leg follows RED (foreground full tone), FAR leg BLUE (one shade darker), NEAR arm ORANGE, FAR arm PURPLE, tail YELLOW. Bend limbs at skeleton joints anatomically; connected shoulder/elbow/wrist, hip/knee/ankle, no detached arms, extra limbs, pasted straight legs, stretched or shortened parts.
+Character: pale lavender half-dragon warrior woman, long golden-orange hair down back, sweeping crimson dragon horn crown black tips and central gold stripe; teal-silver scale breastplate gold trim, exposed lavender midriff, crimson forearm wraps ending in golden claws, dark plum leggings with silver/gold scale knee/shin armour, dragon claw feet, LONG THICK crimson scaly tail with top row of spikes and gold tip. Keep tail thickness and length from approved reference, not thin line.
+FACE LOCK: EXACT SAME HEAD as image2,27columns by21rows including crown/hair. Front-RIGHT three-quarter face with BOTH GOLDEN EYES visible, NEVER profile/back view, even when torso turns. No arm/claw/tail obscures eyes. Head only translates with body, modest tilt for stagger permitted. Long hair follows down back.
+Ground baseline y1176 for planted feet/hands/knees. Airborne poses have feet above it as specified. One continuous1pixel-block near-black outer contour, each material2-3 flat shades with own dark shade internally. NO gradients, soft glow, blur, antialiasing, dithering, stray speckles, finer detail than14px grid.
+No spells, fireball, flame, magic, motion streaks, terrain, ground plane, shadow, grid, coloured skeleton, guide box, text, labels, border, or extra characters. Leave comfortable transparent margins and show full crown/claws/tail.
+HEAD placement: EXACT grey box in image3: x638..1016, y433..727, same378x294px head as approved. Do not draw box.
+POSE: CROUCH: both knees deeply bent, body low leaning forward, both clawed hands held up before chest, tail curled up behind.
+
+=== crouch, attempt 2 ===
+References (ordered):
+C:/Users/OWNER/.codex/generated_images/01a15c24-66e6-7df3-84b4-98aa38081d0f/exec-fa1ef2cb-5ecd-430f-a427-2ede53d1f016.png
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_pose_pack/2_design.png
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_pose_pack/1_head.png
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_pose_pack/3_crouch_skeleton.png
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_pose_pack/3_crouch_league.png
+
+EDIT IMAGE1 using native image generator. Image2 approved model size/proportions; image3 exact approved head; image4 target skeleton; image5 pose only. Correct image1 to a MUCH DEEPER CROUCH, matching skeleton4. Keep identical model/face, colours and limb thickness. Move the unchanged head into x638..1016,y433..727 (down from current pose). Lower torso and hips, hips near(672,970). Keep soles near y1176, near foot around(560,1170), far foot around(808,1170), bend BOTH knees DEEPLY at approx near(684,1043) and far(848,1025). Thighs nearly horizontal rather than standing. Both claws drawn in front of chest, do not hide eyes. Tail follows short curled yellow path behind to LEFT, same approved length about400px, not enlarged.
+1254x1254 transparent PNG, alpha only0/255. Coarse14px uniform squares fromcanvas(0,0), same palette and pixel scale as image2. One nearblack single-block outline. No grid, skeleton, background, floor, shadow, text, effects or extra characters. Full figure inside canvas. Preserve original image1 transparency.
+
+=== rise, attempt 1 ===
+References (ordered):
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_pose_pack/2_design.png
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_pose_pack/1_head.png
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_pose_pack/4_rise_skeleton.png
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_pose_pack/4_rise_league.png
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_pose_pack/0_design_skeleton.png
+
+Draw ONE whole-body coarse PIXEL-ART animation key pose of the approved Shyvana. Output1254x1254 PNG, genuine transparent background with alpha ONLY0 or255. Exact14px square pixels aligned from(0,0), same pixel density and model size as approved reference. Do not zoom or enlarge the actor to fill frame.
+Five references in order: IMAGE1 approved pixel model (IDENTITY, proportions, colours, pixel style); IMAGE2 approved HEAD (copy its face/crown/hair block for block); IMAGE3 target POSE SKELETON and head placement on1254 canvas; IMAGE4 original game pose (MOTION ONLY, not art style or face); IMAGE5 approved model with reference skeleton (limb anatomy mapping).
+PRIORITY: Move the SAME MODEL of image1 into skeleton3. Preserve limb length/thickness and head/body scale. Body follows green spine, NEAR leg follows RED (foreground full tone), FAR leg BLUE (one shade darker), NEAR arm ORANGE, FAR arm PURPLE, tail YELLOW. Bend limbs at skeleton joints anatomically; connected shoulder/elbow/wrist, hip/knee/ankle, no detached arms, extra limbs, pasted straight legs, stretched or shortened parts.
+Character: pale lavender half-dragon warrior woman, long golden-orange hair down back, sweeping crimson dragon horn crown black tips and central gold stripe; teal-silver scale breastplate gold trim, exposed lavender midriff, crimson forearm wraps ending in golden claws, dark plum leggings with silver/gold scale knee/shin armour, dragon claw feet, LONG THICK crimson scaly tail with top row of spikes and gold tip. Keep tail thickness and length from approved reference, not thin line.
+FACE LOCK: EXACT SAME HEAD as image2,27columns by21rows including crown/hair. Front-RIGHT three-quarter face with BOTH GOLDEN EYES visible, NEVER profile/back view, even when torso turns. No arm/claw/tail obscures eyes. Head only translates with body, modest tilt for stagger permitted. Long hair follows down back.
+Ground baseline y1176 for planted feet/hands/knees. Airborne poses have feet above it as specified. One continuous1pixel-block near-black outer contour, each material2-3 flat shades with own dark shade internally. NO gradients, soft glow, blur, antialiasing, dithering, stray speckles, finer detail than14px grid.
+No spells, fireball, flame, magic, motion streaks, terrain, ground plane, shadow, grid, coloured skeleton, guide box, text, labels, border, or extra characters. Leave comfortable transparent margins and show full crown/claws/tail.
+HEAD placement: EXACT grey box in image3: x535..913, y288..582, same378x294px head as approved. Do not draw box.
+POSE: RISE: standing tall reaching up, FAR arm raised high above head claws open, near arm down at side, legs apart near bent behind far straight, tail swung level behind.
+
+=== slash, attempt 1 ===
+References (ordered):
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_pose_pack/2_design.png
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_pose_pack/1_head.png
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_pose_pack/5_slash_skeleton.png
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_pose_pack/5_slash_league.png
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_pose_pack/0_design_skeleton.png
+
+Draw ONE whole-body coarse PIXEL-ART animation key pose of the approved Shyvana. Output1254x1254 PNG, genuine transparent background with alpha ONLY0 or255. Exact14px square pixels aligned from(0,0), same pixel density and model size as approved reference. Do not zoom or enlarge the actor to fill frame.
+Five references in order: IMAGE1 approved pixel model (IDENTITY, proportions, colours, pixel style); IMAGE2 approved HEAD (copy its face/crown/hair block for block); IMAGE3 target POSE SKELETON and head placement on1254 canvas; IMAGE4 original game pose (MOTION ONLY, not art style or face); IMAGE5 approved model with reference skeleton (limb anatomy mapping).
+PRIORITY: Move the SAME MODEL of image1 into skeleton3. Preserve limb length/thickness and head/body scale. Body follows green spine, NEAR leg follows RED (foreground full tone), FAR leg BLUE (one shade darker), NEAR arm ORANGE, FAR arm PURPLE, tail YELLOW. Bend limbs at skeleton joints anatomically; connected shoulder/elbow/wrist, hip/knee/ankle, no detached arms, extra limbs, pasted straight legs, stretched or shortened parts.
+Character: pale lavender half-dragon warrior woman, long golden-orange hair down back, sweeping crimson dragon horn crown black tips and central gold stripe; teal-silver scale breastplate gold trim, exposed lavender midriff, crimson forearm wraps ending in golden claws, dark plum leggings with silver/gold scale knee/shin armour, dragon claw feet, LONG THICK crimson scaly tail with top row of spikes and gold tip. Keep tail thickness and length from approved reference, not thin line.
+FACE LOCK: EXACT SAME HEAD as image2,27columns by21rows including crown/hair. Front-RIGHT three-quarter face with BOTH GOLDEN EYES visible, NEVER profile/back view, even when torso turns. No arm/claw/tail obscures eyes. Head only translates with body, modest tilt for stagger permitted. Long hair follows down back.
+Ground baseline y1176 for planted feet/hands/knees. Airborne poses have feet above it as specified. One continuous1pixel-block near-black outer contour, each material2-3 flat shades with own dark shade internally. NO gradients, soft glow, blur, antialiasing, dithering, stray speckles, finer detail than14px grid.
+No spells, fireball, flame, magic, motion streaks, terrain, ground plane, shadow, grid, coloured skeleton, guide box, text, labels, border, or extra characters. Leave comfortable transparent margins and show full crown/claws/tail.
+HEAD placement: EXACT grey box in image3: x676..1054, y435..729, same378x294px head as approved. Do not draw box.
+POSE: SLASH: wide low stance leaning forward, FAR arm slashed forward/down with claws in front at waist height, near arm hangs back, tail raised up/back.
+
+=== slash, attempt 2 ===
+References (ordered):
+C:/Users/OWNER/.codex/generated_images/01a15c24-66e6-7df3-84b4-98aa38081d0f/exec-c49d4741-ae3e-486c-b435-3c5b76a1423d.png
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_pose_pack/2_design.png
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_pose_pack/1_head.png
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_pose_pack/5_slash_skeleton.png
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_pose_pack/5_slash_league.png
+
+EDIT IMAGE1 using native image generator. Image2 approved model size/proportions; image3 exact approved head; image4 target skeleton; image5 pose only. CHANGE ONLY THE TAIL of image1. Keep all head, body, face, armour, arms and legs EXACTLY as image1. The existing tail is nearly twice the approved length and extends too high. Replace it with the SHORTER approved tail length, about400px centreline length total, thick at base narrowing to gold tip. Curve up/back toward LEFT as yellow guide in image4, gold tip approximately x310,y602 (NOT y140). Keep its root connected behind current hips. No other redesign. All original crown/face/limbs unchanged.
+1254x1254 transparent PNG, alpha only0/255. Coarse14px uniform squares fromcanvas(0,0), same palette and pixel scale as image2. One nearblack single-block outline. No grid, skeleton, background, floor, shadow, text, effects or extra characters. Full figure inside canvas. Preserve original image1 transparency.
+
+=== flip, attempt 1 ===
+References (ordered):
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_pose_pack/2_design.png
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_pose_pack/1_head.png
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_pose_pack/6_flip_skeleton.png
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_pose_pack/6_flip_league.png
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_pose_pack/0_design_skeleton.png
+
+Draw ONE whole-body coarse PIXEL-ART animation key pose of the approved Shyvana. Output1254x1254 PNG, genuine transparent background with alpha ONLY0 or255. Exact14px square pixels aligned from(0,0), same pixel density and model size as approved reference. Do not zoom or enlarge the actor to fill frame.
+Five references in order: IMAGE1 approved pixel model (IDENTITY, proportions, colours, pixel style); IMAGE2 approved HEAD (copy its face/crown/hair block for block); IMAGE3 target POSE SKELETON and head placement on1254 canvas; IMAGE4 original game pose (MOTION ONLY, not art style or face); IMAGE5 approved model with reference skeleton (limb anatomy mapping).
+PRIORITY: Move the SAME MODEL of image1 into skeleton3. Preserve limb length/thickness and head/body scale. Body follows green spine, NEAR leg follows RED (foreground full tone), FAR leg BLUE (one shade darker), NEAR arm ORANGE, FAR arm PURPLE, tail YELLOW. Bend limbs at skeleton joints anatomically; connected shoulder/elbow/wrist, hip/knee/ankle, no detached arms, extra limbs, pasted straight legs, stretched or shortened parts.
+Character: pale lavender half-dragon warrior woman, long golden-orange hair down back, sweeping crimson dragon horn crown black tips and central gold stripe; teal-silver scale breastplate gold trim, exposed lavender midriff, crimson forearm wraps ending in golden claws, dark plum leggings with silver/gold scale knee/shin armour, dragon claw feet, LONG THICK crimson scaly tail with top row of spikes and gold tip. Keep tail thickness and length from approved reference, not thin line.
+FACE LOCK: EXACT SAME HEAD as image2,27columns by21rows including crown/hair. Front-RIGHT three-quarter face with BOTH GOLDEN EYES visible, NEVER profile/back view, even when torso turns. No arm/claw/tail obscures eyes. Head only translates with body, modest tilt for stagger permitted. Long hair follows down back.
+Ground baseline y1176 for planted feet/hands/knees. Airborne poses have feet above it as specified. One continuous1pixel-block near-black outer contour, each material2-3 flat shades with own dark shade internally. NO gradients, soft glow, blur, antialiasing, dithering, stray speckles, finer detail than14px grid.
+No spells, fireball, flame, magic, motion streaks, terrain, ground plane, shadow, grid, coloured skeleton, guide box, text, labels, border, or extra characters. Leave comfortable transparent margins and show full crown/claws/tail.
+HEAD placement: EXACT grey box in image3: x638..1016, y377..671, same378x294px head as approved. Do not draw box.
+POSE: FLIP: curled airborne forward somersault, feet nine grid cells above ground, both knees pulled to chest, head tucked forward/down, tail arcs from back OVER head. Keep both eyes/front-right face visible.
+
+=== sweep, attempt 1 ===
+References (ordered):
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_pose_pack/2_design.png
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_pose_pack/1_head.png
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_pose_pack/7_sweep_skeleton.png
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_pose_pack/7_sweep_league.png
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_pose_pack/0_design_skeleton.png
+
+Draw ONE whole-body coarse PIXEL-ART animation key pose of the approved Shyvana. Output1254x1254 PNG, genuine transparent background with alpha ONLY0 or255. Exact14px square pixels aligned from(0,0), same pixel density and model size as approved reference. Do not zoom or enlarge the actor to fill frame.
+Five references in order: IMAGE1 approved pixel model (IDENTITY, proportions, colours, pixel style); IMAGE2 approved HEAD (copy its face/crown/hair block for block); IMAGE3 target POSE SKELETON and head placement on1254 canvas; IMAGE4 original game pose (MOTION ONLY, not art style or face); IMAGE5 approved model with reference skeleton (limb anatomy mapping).
+PRIORITY: Move the SAME MODEL of image1 into skeleton3. Preserve limb length/thickness and head/body scale. Body follows green spine, NEAR leg follows RED (foreground full tone), FAR leg BLUE (one shade darker), NEAR arm ORANGE, FAR arm PURPLE, tail YELLOW. Bend limbs at skeleton joints anatomically; connected shoulder/elbow/wrist, hip/knee/ankle, no detached arms, extra limbs, pasted straight legs, stretched or shortened parts.
+Character: pale lavender half-dragon warrior woman, long golden-orange hair down back, sweeping crimson dragon horn crown black tips and central gold stripe; teal-silver scale breastplate gold trim, exposed lavender midriff, crimson forearm wraps ending in golden claws, dark plum leggings with silver/gold scale knee/shin armour, dragon claw feet, LONG THICK crimson scaly tail with top row of spikes and gold tip. Keep tail thickness and length from approved reference, not thin line.
+FACE LOCK: EXACT SAME HEAD as image2,27columns by21rows including crown/hair. Front-RIGHT three-quarter face with BOTH GOLDEN EYES visible, NEVER profile/back view, even when torso turns. No arm/claw/tail obscures eyes. Head only translates with body, modest tilt for stagger permitted. Long hair follows down back.
+Ground baseline y1176 for planted feet/hands/knees. Airborne poses have feet above it as specified. One continuous1pixel-block near-black outer contour, each material2-3 flat shades with own dark shade internally. NO gradients, soft glow, blur, antialiasing, dithering, stray speckles, finer detail than14px grid.
+No spells, fireball, flame, magic, motion streaks, terrain, ground plane, shadow, grid, coloured skeleton, guide box, text, labels, border, or extra characters. Leave comfortable transparent margins and show full crown/claws/tail.
+HEAD placement: EXACT grey box in image3: x603..981, y432..726, same378x294px head as approved. Do not draw box.
+POSE: SWEEP: very low landed crouch, FAR arm flung up/forward, near arm bent before chest, tail sweeping forward LOW along ground IN FRONT.
+
+=== throw, attempt 1 ===
+References (ordered):
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_pose_pack/2_design.png
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_pose_pack/1_head.png
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_pose_pack/8_throw_skeleton.png
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_pose_pack/8_throw_league.png
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_pose_pack/0_design_skeleton.png
+
+Draw ONE whole-body coarse PIXEL-ART animation key pose of the approved Shyvana. Output1254x1254 PNG, genuine transparent background with alpha ONLY0 or255. Exact14px square pixels aligned from(0,0), same pixel density and model size as approved reference. Do not zoom or enlarge the actor to fill frame.
+Five references in order: IMAGE1 approved pixel model (IDENTITY, proportions, colours, pixel style); IMAGE2 approved HEAD (copy its face/crown/hair block for block); IMAGE3 target POSE SKELETON and head placement on1254 canvas; IMAGE4 original game pose (MOTION ONLY, not art style or face); IMAGE5 approved model with reference skeleton (limb anatomy mapping).
+PRIORITY: Move the SAME MODEL of image1 into skeleton3. Preserve limb length/thickness and head/body scale. Body follows green spine, NEAR leg follows RED (foreground full tone), FAR leg BLUE (one shade darker), NEAR arm ORANGE, FAR arm PURPLE, tail YELLOW. Bend limbs at skeleton joints anatomically; connected shoulder/elbow/wrist, hip/knee/ankle, no detached arms, extra limbs, pasted straight legs, stretched or shortened parts.
+Character: pale lavender half-dragon warrior woman, long golden-orange hair down back, sweeping crimson dragon horn crown black tips and central gold stripe; teal-silver scale breastplate gold trim, exposed lavender midriff, crimson forearm wraps ending in golden claws, dark plum leggings with silver/gold scale knee/shin armour, dragon claw feet, LONG THICK crimson scaly tail with top row of spikes and gold tip. Keep tail thickness and length from approved reference, not thin line.
+FACE LOCK: EXACT SAME HEAD as image2,27columns by21rows including crown/hair. Front-RIGHT three-quarter face with BOTH GOLDEN EYES visible, NEVER profile/back view, even when torso turns. No arm/claw/tail obscures eyes. Head only translates with body, modest tilt for stagger permitted. Long hair follows down back.
+Ground baseline y1176 for planted feet/hands/knees. Airborne poses have feet above it as specified. One continuous1pixel-block near-black outer contour, each material2-3 flat shades with own dark shade internally. NO gradients, soft glow, blur, antialiasing, dithering, stray speckles, finer detail than14px grid.
+No spells, fireball, flame, magic, motion streaks, terrain, ground plane, shadow, grid, coloured skeleton, guide box, text, labels, border, or extra characters. Leave comfortable transparent margins and show full crown/claws/tail.
+HEAD placement: EXACT grey box in image3: x589..967, y345..639, same378x294px head as approved. Do not draw box.
+POSE: THROW: forward lunge leaning forward, FAR arm straight FORWARD at shoulder height claws open, near arm straight BACK, tail level behind. No fireball.
+
+=== leap, attempt 1 ===
+References (ordered):
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_pose_pack/2_design.png
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_pose_pack/1_head.png
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_pose_pack/9_leap_skeleton.png
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_pose_pack/9_leap_league.png
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_pose_pack/0_design_skeleton.png
+
+Draw ONE whole-body coarse PIXEL-ART animation key pose of the approved Shyvana. Output1254x1254 PNG, genuine transparent background with alpha ONLY0 or255. Exact14px square pixels aligned from(0,0), same pixel density and model size as approved reference. Do not zoom or enlarge the actor to fill frame.
+Five references in order: IMAGE1 approved pixel model (IDENTITY, proportions, colours, pixel style); IMAGE2 approved HEAD (copy its face/crown/hair block for block); IMAGE3 target POSE SKELETON and head placement on1254 canvas; IMAGE4 original game pose (MOTION ONLY, not art style or face); IMAGE5 approved model with reference skeleton (limb anatomy mapping).
+PRIORITY: Move the SAME MODEL of image1 into skeleton3. Preserve limb length/thickness and head/body scale. Body follows green spine, NEAR leg follows RED (foreground full tone), FAR leg BLUE (one shade darker), NEAR arm ORANGE, FAR arm PURPLE, tail YELLOW. Bend limbs at skeleton joints anatomically; connected shoulder/elbow/wrist, hip/knee/ankle, no detached arms, extra limbs, pasted straight legs, stretched or shortened parts.
+Character: pale lavender half-dragon warrior woman, long golden-orange hair down back, sweeping crimson dragon horn crown black tips and central gold stripe; teal-silver scale breastplate gold trim, exposed lavender midriff, crimson forearm wraps ending in golden claws, dark plum leggings with silver/gold scale knee/shin armour, dragon claw feet, LONG THICK crimson scaly tail with top row of spikes and gold tip. Keep tail thickness and length from approved reference, not thin line.
+FACE LOCK: EXACT SAME HEAD as image2,27columns by21rows including crown/hair. Front-RIGHT three-quarter face with BOTH GOLDEN EYES visible, NEVER profile/back view, even when torso turns. No arm/claw/tail obscures eyes. Head only translates with body, modest tilt for stagger permitted. Long hair follows down back.
+Ground baseline y1176 for planted feet/hands/knees. Airborne poses have feet above it as specified. One continuous1pixel-block near-black outer contour, each material2-3 flat shades with own dark shade internally. NO gradients, soft glow, blur, antialiasing, dithering, stray speckles, finer detail than14px grid.
+No spells, fireball, flame, magic, motion streaks, terrain, ground plane, shadow, grid, coloured skeleton, guide box, text, labels, border, or extra characters. Leave comfortable transparent margins and show full crown/claws/tail.
+HEAD placement: EXACT grey box in image3: x521..899, y165..459, same378x294px head as approved. Do not draw box.
+POSE: LEAP: launches straight UP airborne feet ten grid cells above ground, body stretched tall, head up, near arm swept down/back, far arm bent before chest, legs trailing below, tail hanging behind.
+
+=== leap, attempt 2 ===
+References (ordered):
+C:/Users/OWNER/.codex/generated_images/01a15c24-66e6-7df3-84b4-98aa38081d0f/exec-e99bb63a-aa8c-4b56-8a0c-ef55bcfa983f.png
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_pose_pack/2_design.png
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_pose_pack/1_head.png
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_pose_pack/9_leap_skeleton.png
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_pose_pack/9_leap_league.png
+
+EDIT the airborne LEAP pose in IMAGE1 to match approved IMAGE2 proportions and skeleton4 exact placement. Current image1 body/legs are too long and the lowest foot nearly touches baseline. Keep character identity, face, colours, costume, same arms and trailing-tail action.
+The HEAD must have approved378x294px size, grey box x521..899,y165..459. Copy image3 SAME front-right face with TWO eyes, do not redesign or side-face it. Neck around(688,472), hips around(679,739). Torso length about267px.
+Both legs TRAIL BELOW hips with knees gently flexed: near leg hip(608,752)->knee(673,845)->ankle(644,948)->foot(629,1031); far leg hip(748,752)->knee(796,858)->ankle(727,936)->foot(757,1017). Keep thigh/shin thickness and length consistent with image2, do not stretch. This is an upright AIRBORNE leap, not running forward.
+Lowest foot ends at y1036, leaving140px AIR GAP above imaginary ground y1176. Bottom217rows (y1037..1254) must be empty transparent. Tail hangs behind LEFT, same400px approximate centreline length as approved, gold tip around(486,1046) allowed just10px below feet; otherwise bottom200rows empty. Near arm sweeps down/back, far arm bends before chest. No effects/shadow/ground.
+1254x1254 real transparent PNG alpha0/255; coarse14px whole square pixels, nearblack1block outline, no tiny details, blur, gradients, grids, skeleton or text.
+
+=== stagger, attempt 1 ===
+References (ordered):
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_pose_pack/2_design.png
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_pose_pack/1_head.png
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_pose_pack/10_stagger_skeleton.png
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_pose_pack/10_stagger_league.png
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_pose_pack/0_design_skeleton.png
+
+Draw ONE whole-body coarse PIXEL-ART animation key pose of the approved Shyvana. Output1254x1254 PNG, genuine transparent background with alpha ONLY0 or255. Exact14px square pixels aligned from(0,0), same pixel density and model size as approved reference. Do not zoom or enlarge the actor to fill frame.
+Five references in order: IMAGE1 approved pixel model (IDENTITY, proportions, colours, pixel style); IMAGE2 approved HEAD (copy its face/crown/hair block for block); IMAGE3 target POSE SKELETON and head placement on1254 canvas; IMAGE4 original game pose (MOTION ONLY, not art style or face); IMAGE5 approved model with reference skeleton (limb anatomy mapping).
+PRIORITY: Move the SAME MODEL of image1 into skeleton3. Preserve limb length/thickness and head/body scale. Body follows green spine, NEAR leg follows RED (foreground full tone), FAR leg BLUE (one shade darker), NEAR arm ORANGE, FAR arm PURPLE, tail YELLOW. Bend limbs at skeleton joints anatomically; connected shoulder/elbow/wrist, hip/knee/ankle, no detached arms, extra limbs, pasted straight legs, stretched or shortened parts.
+Character: pale lavender half-dragon warrior woman, long golden-orange hair down back, sweeping crimson dragon horn crown black tips and central gold stripe; teal-silver scale breastplate gold trim, exposed lavender midriff, crimson forearm wraps ending in golden claws, dark plum leggings with silver/gold scale knee/shin armour, dragon claw feet, LONG THICK crimson scaly tail with top row of spikes and gold tip. Keep tail thickness and length from approved reference, not thin line.
+FACE LOCK: EXACT SAME HEAD as image2,27columns by21rows including crown/hair. Front-RIGHT three-quarter face with BOTH GOLDEN EYES visible, NEVER profile/back view, even when torso turns. No arm/claw/tail obscures eyes. Head only translates with body, modest tilt for stagger permitted. Long hair follows down back.
+Ground baseline y1176 for planted feet/hands/knees. Airborne poses have feet above it as specified. One continuous1pixel-block near-black outer contour, each material2-3 flat shades with own dark shade internally. NO gradients, soft glow, blur, antialiasing, dithering, stray speckles, finer detail than14px grid.
+No spells, fireball, flame, magic, motion streaks, terrain, ground plane, shadow, grid, coloured skeleton, guide box, text, labels, border, or extra characters. Leave comfortable transparent margins and show full crown/claws/tail.
+HEAD placement: EXACT grey box in image3 x450..828, y313..607; same378x294px head as approved, no box drawn.
+POSE: STAGGER: legs wide apart, torso bends BACK, head thrown back slightly but both eyes/front-right face retained, arms flung out to sides, tail whipped up behind ABOVE shoulder.
+
+=== kneel, attempt 1 ===
+References (ordered):
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_pose_pack/2_design.png
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_pose_pack/1_head.png
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_pose_pack/11_kneel_skeleton.png
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_pose_pack/11_kneel_league.png
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_pose_pack/0_design_skeleton.png
+
+Draw ONE whole-body coarse PIXEL-ART animation key pose of the approved Shyvana. Output1254x1254 PNG, genuine transparent background with alpha ONLY0 or255. Exact14px square pixels aligned from(0,0), same pixel density and model size as approved reference. Do not zoom or enlarge the actor to fill frame.
+Five references in order: IMAGE1 approved pixel model (IDENTITY, proportions, colours, pixel style); IMAGE2 approved HEAD (copy its face/crown/hair block for block); IMAGE3 target POSE SKELETON and head placement on1254 canvas; IMAGE4 original game pose (MOTION ONLY, not art style or face); IMAGE5 approved model with reference skeleton (limb anatomy mapping).
+PRIORITY: Move the SAME MODEL of image1 into skeleton3. Preserve limb length/thickness and head/body scale. Body follows green spine, NEAR leg follows RED (foreground full tone), FAR leg BLUE (one shade darker), NEAR arm ORANGE, FAR arm PURPLE, tail YELLOW. Bend limbs at skeleton joints anatomically; connected shoulder/elbow/wrist, hip/knee/ankle, no detached arms, extra limbs, pasted straight legs, stretched or shortened parts.
+Character: pale lavender half-dragon warrior woman, long golden-orange hair down back, sweeping crimson dragon horn crown black tips and central gold stripe; teal-silver scale breastplate gold trim, exposed lavender midriff, crimson forearm wraps ending in golden claws, dark plum leggings with silver/gold scale knee/shin armour, dragon claw feet, LONG THICK crimson scaly tail with top row of spikes and gold tip. Keep tail thickness and length from approved reference, not thin line.
+FACE LOCK: EXACT SAME HEAD as image2,27columns by21rows including crown/hair. Front-RIGHT three-quarter face with BOTH GOLDEN EYES visible, NEVER profile/back view, even when torso turns. No arm/claw/tail obscures eyes. Head only translates with body, modest tilt for stagger permitted. Long hair follows down back.
+Ground baseline y1176 for planted feet/hands/knees. Airborne poses have feet above it as specified. One continuous1pixel-block near-black outer contour, each material2-3 flat shades with own dark shade internally. NO gradients, soft glow, blur, antialiasing, dithering, stray speckles, finer detail than14px grid.
+No spells, fireball, flame, magic, motion streaks, terrain, ground plane, shadow, grid, coloured skeleton, guide box, text, labels, border, or extra characters. Leave comfortable transparent margins and show full crown/claws/tail.
+HEAD placement: EXACT grey box in image3 x495..873, y370..664; same378x294px head as approved, no box drawn.
+POSE: KNEEL: knees buckle inwards, body sinks down, head tips back but front-right face retained, far arm reaches forward near arm hangs, tail trails behind.
+
+=== collapse, attempt 1 ===
+References (ordered):
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_pose_pack/2_design.png
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_pose_pack/1_head.png
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_pose_pack/12_collapse_skeleton.png
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_pose_pack/12_collapse_league.png
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_pose_pack/0_design_skeleton.png
+
+Draw ONE whole-body coarse PIXEL-ART animation key pose of the approved Shyvana. Output1254x1254 PNG, genuine transparent background with alpha ONLY0 or255. Exact14px square pixels aligned from(0,0), same pixel density and model size as approved reference. Do not zoom or enlarge the actor to fill frame.
+Five references in order: IMAGE1 approved pixel model (IDENTITY, proportions, colours, pixel style); IMAGE2 approved HEAD (copy its face/crown/hair block for block); IMAGE3 target POSE SKELETON and head placement on1254 canvas; IMAGE4 original game pose (MOTION ONLY, not art style or face); IMAGE5 approved model with reference skeleton (limb anatomy mapping).
+PRIORITY: Move the SAME MODEL of image1 into skeleton3. Preserve limb length/thickness and head/body scale. Body follows green spine, NEAR leg follows RED (foreground full tone), FAR leg BLUE (one shade darker), NEAR arm ORANGE, FAR arm PURPLE, tail YELLOW. Bend limbs at skeleton joints anatomically; connected shoulder/elbow/wrist, hip/knee/ankle, no detached arms, extra limbs, pasted straight legs, stretched or shortened parts.
+Character: pale lavender half-dragon warrior woman, long golden-orange hair down back, sweeping crimson dragon horn crown black tips and central gold stripe; teal-silver scale breastplate gold trim, exposed lavender midriff, crimson forearm wraps ending in golden claws, dark plum leggings with silver/gold scale knee/shin armour, dragon claw feet, LONG THICK crimson scaly tail with top row of spikes and gold tip. Keep tail thickness and length from approved reference, not thin line.
+FACE LOCK: EXACT SAME HEAD as image2,27columns by21rows including crown/hair. Front-RIGHT three-quarter face with BOTH GOLDEN EYES visible, NEVER profile/back view, even when torso turns. No arm/claw/tail obscures eyes. Head only translates with body, modest tilt for stagger permitted. Long hair follows down back.
+Ground baseline y1176 for planted feet/hands/knees. Airborne poses have feet above it as specified. One continuous1pixel-block near-black outer contour, each material2-3 flat shades with own dark shade internally. NO gradients, soft glow, blur, antialiasing, dithering, stray speckles, finer detail than14px grid.
+No spells, fireball, flame, magic, motion streaks, terrain, ground plane, shadow, grid, coloured skeleton, guide box, text, labels, border, or extra characters. Leave comfortable transparent margins and show full crown/claws/tail.
+HEAD placement: EXACT grey box in image3 x685..1063, y604..898; same378x294px head as approved, no box drawn.
+POSE: COLLAPSE: fallen FORWARD onto BOTH KNEES and BOTH HANDS on ground, head LOW near ground at image RIGHT, tail lies along ground stretched behind.
+
+=== run1, attempt 1 ===
+References (ordered):
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_pose_pack/2_design.png
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_pose_pack/1_head.png
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_pose_pack/13_run1_skeleton.png
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_pose_pack/13_run1_league.png
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_pose_pack/0_design_skeleton.png
+
+Draw ONE whole-body coarse PIXEL-ART animation key pose of the approved Shyvana. Output1254x1254 PNG, genuine transparent background with alpha ONLY0 or255. Exact14px square pixels aligned from(0,0), same pixel density and model size as approved reference. Do not zoom or enlarge the actor to fill frame.
+Five references in order: IMAGE1 approved pixel model (IDENTITY, proportions, colours, pixel style); IMAGE2 approved HEAD (copy its face/crown/hair block for block); IMAGE3 target POSE SKELETON and head placement on1254 canvas; IMAGE4 original game pose (MOTION ONLY, not art style or face); IMAGE5 approved model with reference skeleton (limb anatomy mapping).
+PRIORITY: Move the SAME MODEL of image1 into skeleton3. Preserve limb length/thickness and head/body scale. Body follows green spine, NEAR leg follows RED (foreground full tone), FAR leg BLUE (one shade darker), NEAR arm ORANGE, FAR arm PURPLE, tail YELLOW. Bend limbs at skeleton joints anatomically; connected shoulder/elbow/wrist, hip/knee/ankle, no detached arms, extra limbs, pasted straight legs, stretched or shortened parts.
+Character: pale lavender half-dragon warrior woman, long golden-orange hair down back, sweeping crimson dragon horn crown black tips and central gold stripe; teal-silver scale breastplate gold trim, exposed lavender midriff, crimson forearm wraps ending in golden claws, dark plum leggings with silver/gold scale knee/shin armour, dragon claw feet, LONG THICK crimson scaly tail with top row of spikes and gold tip. Keep tail thickness and length from approved reference, not thin line.
+FACE LOCK: EXACT SAME HEAD as image2,27columns by21rows including crown/hair. Front-RIGHT three-quarter face with BOTH GOLDEN EYES visible, NEVER profile/back view, even when torso turns. No arm/claw/tail obscures eyes. Head only translates with body, modest tilt for stagger permitted. Long hair follows down back.
+Ground baseline y1176 for planted feet/hands/knees. Airborne poses have feet above it as specified. One continuous1pixel-block near-black outer contour, each material2-3 flat shades with own dark shade internally. NO gradients, soft glow, blur, antialiasing, dithering, stray speckles, finer detail than14px grid.
+No spells, fireball, flame, magic, motion streaks, terrain, ground plane, shadow, grid, coloured skeleton, guide box, text, labels, border, or extra characters. Leave comfortable transparent margins and show full crown/claws/tail.
+HEAD placement: EXACT grey box in image3 x603..981, y356..650; same378x294px head as approved, no box drawn.
+POSE: RUN1: leans forward; NEAR leg FORWARD foot landing, far leg pushing off BEHIND, FAR arm swings FORWARD and near arm BACK, tail level behind.
+
+=== run2, attempt 1 ===
+References (ordered):
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_pose_pack/2_design.png
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_pose_pack/1_head.png
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_pose_pack/14_run2_skeleton.png
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_pose_pack/14_run2_league.png
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_pose_pack/0_design_skeleton.png
+
+Draw ONE whole-body coarse PIXEL-ART animation key pose of the approved Shyvana. Output1254x1254 PNG, genuine transparent background with alpha ONLY0 or255. Exact14px square pixels aligned from(0,0), same pixel density and model size as approved reference. Do not zoom or enlarge the actor to fill frame.
+Five references in order: IMAGE1 approved pixel model (IDENTITY, proportions, colours, pixel style); IMAGE2 approved HEAD (copy its face/crown/hair block for block); IMAGE3 target POSE SKELETON and head placement on1254 canvas; IMAGE4 original game pose (MOTION ONLY, not art style or face); IMAGE5 approved model with reference skeleton (limb anatomy mapping).
+PRIORITY: Move the SAME MODEL of image1 into skeleton3. Preserve limb length/thickness and head/body scale. Body follows green spine, NEAR leg follows RED (foreground full tone), FAR leg BLUE (one shade darker), NEAR arm ORANGE, FAR arm PURPLE, tail YELLOW. Bend limbs at skeleton joints anatomically; connected shoulder/elbow/wrist, hip/knee/ankle, no detached arms, extra limbs, pasted straight legs, stretched or shortened parts.
+Character: pale lavender half-dragon warrior woman, long golden-orange hair down back, sweeping crimson dragon horn crown black tips and central gold stripe; teal-silver scale breastplate gold trim, exposed lavender midriff, crimson forearm wraps ending in golden claws, dark plum leggings with silver/gold scale knee/shin armour, dragon claw feet, LONG THICK crimson scaly tail with top row of spikes and gold tip. Keep tail thickness and length from approved reference, not thin line.
+FACE LOCK: EXACT SAME HEAD as image2,27columns by21rows including crown/hair. Front-RIGHT three-quarter face with BOTH GOLDEN EYES visible, NEVER profile/back view, even when torso turns. No arm/claw/tail obscures eyes. Head only translates with body, modest tilt for stagger permitted. Long hair follows down back.
+Ground baseline y1176 for planted feet/hands/knees. Airborne poses have feet above it as specified. One continuous1pixel-block near-black outer contour, each material2-3 flat shades with own dark shade internally. NO gradients, soft glow, blur, antialiasing, dithering, stray speckles, finer detail than14px grid.
+No spells, fireball, flame, magic, motion streaks, terrain, ground plane, shadow, grid, coloured skeleton, guide box, text, labels, border, or extra characters. Leave comfortable transparent margins and show full crown/claws/tail.
+HEAD placement: EXACT grey box in image3 x594..972, y308..602; same378x294px head as approved, no box drawn.
+POSE: RUN2: NEAR leg under body carrying weight, FAR knee lifted FORWARD, body one grid square higher, arms at sides, tail level behind.
+
+=== run3, attempt 1 ===
+References (ordered):
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_pose_pack/2_design.png
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_pose_pack/1_head.png
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_pose_pack/15_run3_skeleton.png
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_pose_pack/15_run3_league.png
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_pose_pack/0_design_skeleton.png
+
+Draw ONE whole-body coarse PIXEL-ART animation key pose of the approved Shyvana. Output1254x1254 PNG, genuine transparent background with alpha ONLY0 or255. Exact14px square pixels aligned from(0,0), same pixel density and model size as approved reference. Do not zoom or enlarge the actor to fill frame.
+Five references in order: IMAGE1 approved pixel model (IDENTITY, proportions, colours, pixel style); IMAGE2 approved HEAD (copy its face/crown/hair block for block); IMAGE3 target POSE SKELETON and head placement on1254 canvas; IMAGE4 original game pose (MOTION ONLY, not art style or face); IMAGE5 approved model with reference skeleton (limb anatomy mapping).
+PRIORITY: Move the SAME MODEL of image1 into skeleton3. Preserve limb length/thickness and head/body scale. Body follows green spine, NEAR leg follows RED (foreground full tone), FAR leg BLUE (one shade darker), NEAR arm ORANGE, FAR arm PURPLE, tail YELLOW. Bend limbs at skeleton joints anatomically; connected shoulder/elbow/wrist, hip/knee/ankle, no detached arms, extra limbs, pasted straight legs, stretched or shortened parts.
+Character: pale lavender half-dragon warrior woman, long golden-orange hair down back, sweeping crimson dragon horn crown black tips and central gold stripe; teal-silver scale breastplate gold trim, exposed lavender midriff, crimson forearm wraps ending in golden claws, dark plum leggings with silver/gold scale knee/shin armour, dragon claw feet, LONG THICK crimson scaly tail with top row of spikes and gold tip. Keep tail thickness and length from approved reference, not thin line.
+FACE LOCK: EXACT SAME HEAD as image2,27columns by21rows including crown/hair. Front-RIGHT three-quarter face with BOTH GOLDEN EYES visible, NEVER profile/back view, even when torso turns. No arm/claw/tail obscures eyes. Head only translates with body, modest tilt for stagger permitted. Long hair follows down back.
+Ground baseline y1176 for planted feet/hands/knees. Airborne poses have feet above it as specified. One continuous1pixel-block near-black outer contour, each material2-3 flat shades with own dark shade internally. NO gradients, soft glow, blur, antialiasing, dithering, stray speckles, finer detail than14px grid.
+No spells, fireball, flame, magic, motion streaks, terrain, ground plane, shadow, grid, coloured skeleton, guide box, text, labels, border, or extra characters. Leave comfortable transparent margins and show full crown/claws/tail.
+HEAD placement: EXACT grey box in image3 x603..981, y316..610; same378x294px head as approved, no box drawn.
+POSE: RUN3: leans forward; FAR leg FORWARD foot landing, near leg pushing off BEHIND, NEAR arm swings FORWARD BELOW CHIN without covering face, far arm BACK, tail level behind. Distinct opposite stride to run1.
+
+=== run3, attempt 2 ===
+References (ordered):
+C:/Users/OWNER/.codex/generated_images/01a15c24-66e6-7df3-84b4-98aa38081d0f/exec-5ff766f4-3d96-4314-ad10-cb51f3bc8fd4.png
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_pose_pack/2_design.png
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_pose_pack/1_head.png
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_pose_pack/15_run3_skeleton.png
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_pose_pack/15_run3_league.png
+
+EDIT IMAGE1 into the OPPOSITE stride and arm swing for RUN3. Current image1 wrongly repeats RUN1. Preserve its SAME HEAD, face/crown/hair, torso, tail, palette, pixel scale, canvas and position. Change ONLY limbs to skeleton4:
+NEAR ARM starts at the shoulder on IMAGE LEFT; bring it FORWARD across the front of the chest, elbow bent, golden claw below chin at approximately(835,775), NEVER covering eyes. This arm is BRIGHT full tone. FAR ARM at IMAGE RIGHT shoulder swings BACK behind torso toward left, its claw approximately(660,830), DARKER tone. DO NOT repeat left arm stretched back/right arm forward.
+FAR LEG (darker) is the long FORWARD LANDING leg on image RIGHT: thigh follows(745,898)->(807,995), shin down to(798,1098), foot at(848,1170). NEAR LEG (bright) pushes off BEHIND on image LEFT, hip(607,875)->knee(562,978)->ankle(504,1070)->foot(433,1110). Clearly separate leg silhouettes. The landing/right leg must be one shade DARKER than the bent/back left leg.
+1254x1254 transparent PNG alpha0/255, uniform coarse14px pixels, one block nearblack external outline, flat shades. Head retains TWO front-right eyes identical to image3. No redesign of head/body/tail. No guide lines, text, effects, ground, shadows or background.
+
+=== run4, attempt 1 ===
+References (ordered):
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_pose_pack/2_design.png
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_pose_pack/1_head.png
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_pose_pack/16_run4_skeleton.png
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_pose_pack/16_run4_league.png
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_pose_pack/0_design_skeleton.png
+
+Draw ONE whole-body coarse PIXEL-ART animation key pose of the approved Shyvana. Output1254x1254 PNG, genuine transparent background with alpha ONLY0 or255. Exact14px square pixels aligned from(0,0), same pixel density and model size as approved reference. Do not zoom or enlarge the actor to fill frame.
+Five references in order: IMAGE1 approved pixel model (IDENTITY, proportions, colours, pixel style); IMAGE2 approved HEAD (copy its face/crown/hair block for block); IMAGE3 target POSE SKELETON and head placement on1254 canvas; IMAGE4 original game pose (MOTION ONLY, not art style or face); IMAGE5 approved model with reference skeleton (limb anatomy mapping).
+PRIORITY: Move the SAME MODEL of image1 into skeleton3. Preserve limb length/thickness and head/body scale. Body follows green spine, NEAR leg follows RED (foreground full tone), FAR leg BLUE (one shade darker), NEAR arm ORANGE, FAR arm PURPLE, tail YELLOW. Bend limbs at skeleton joints anatomically; connected shoulder/elbow/wrist, hip/knee/ankle, no detached arms, extra limbs, pasted straight legs, stretched or shortened parts.
+Character: pale lavender half-dragon warrior woman, long golden-orange hair down back, sweeping crimson dragon horn crown black tips and central gold stripe; teal-silver scale breastplate gold trim, exposed lavender midriff, crimson forearm wraps ending in golden claws, dark plum leggings with silver/gold scale knee/shin armour, dragon claw feet, LONG THICK crimson scaly tail with top row of spikes and gold tip. Keep tail thickness and length from approved reference, not thin line.
+FACE LOCK: EXACT SAME HEAD as image2,27columns by21rows including crown/hair. Front-RIGHT three-quarter face with BOTH GOLDEN EYES visible, NEVER profile/back view, even when torso turns. No arm/claw/tail obscures eyes. Head only translates with body, modest tilt for stagger permitted. Long hair follows down back.
+Ground baseline y1176 for planted feet/hands/knees. Airborne poses have feet above it as specified. One continuous1pixel-block near-black outer contour, each material2-3 flat shades with own dark shade internally. NO gradients, soft glow, blur, antialiasing, dithering, stray speckles, finer detail than14px grid.
+No spells, fireball, flame, magic, motion streaks, terrain, ground plane, shadow, grid, coloured skeleton, guide box, text, labels, border, or extra characters. Leave comfortable transparent margins and show full crown/claws/tail.
+HEAD placement: EXACT grey box in image3 x594..972, y286..580; same378x294px head as approved, no box drawn.
+POSE: RUN4: FAR leg under body carrying weight, NEAR knee lifted FORWARD, body one grid square higher, arms at sides, tail level behind. Distinct opposite support to run2.

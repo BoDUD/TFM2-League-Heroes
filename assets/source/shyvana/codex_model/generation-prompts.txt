@@ -1,0 +1,99 @@
+Route: built-in image_gen. Every delivered sprite was drawn by image_gen.
+No Python pixel drawing, resizing, regridding, alpha modification or other image edits applied.
+References: supplied shyvana_model_pack.zip only.
+
+=== A-1 ===
+References in supplied order:
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_model_pack/2_target_A.png
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_model_pack/1_picture_A.png
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_model_pack/3_layout_A.png
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_model_pack/4_head_human.png
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_model_pack/style/5_style_mel.png
+
+Redraw the supplied character as COARSE FINAL-GAME-SCALE PIXEL ART, not detailed pixel illustration. ONE PNG 1254x1254, transparent alpha strictly0 or255.
+REFERENCE ROLES: image1 is EXACT TARGET SIZE, POSE and POSITION; image2 is approved character identity/colours; image3 layout guide only; image4 head identity; image5 STYLE ONLY. Repaint damaged target details into clear whole coarse blocks while preserving target silhouette/pose. Do not just reproduce image2's tiny distant character.
+EXACT PIXEL GRID: 17px squares aligned from canvas(0,0). Character exactly 63 squares high, about 42 squares wide. EVERY feature made of these same BIG squares, no smaller pixels. Top y119, eye y357, sole/claw bottom y1190. Match image1 dimensions and location; whole subject inside frame with at least one block empty margin. One continuous ONE-BLOCK near-black external outline; internal shadows use own material dark shade, no extra black rings. Flat2-3 colour shades per material, large connected clean clusters, no stray speckles, dithering, gradients, glow, blur, antialiasing.
+VIEW: HUMAN idle THREE-QUARTER FRONT facing right, two eyes visible, arms down, tail curls left near ground.
+HUMAN when requested: same slim chibi half-dragon warrior as approved image2; pale lavender skin; TWO equal golden-yellow eyes same height each2x2 blocks with1white highlight in three-quarter view, one eye in profile; crimson horn crown3 shades black tips central gold stripe; long golden-orange hair separated tresses; teal-silver scale breastplate3 shades gold trim2 shades; exposed lavender midriff; crimson forearm wraps; dark plum leggings; silver-gold scale knee/shin guards; clawed dragon feet with clear gap and outline between legs; crimson scaly long tail3 shades gold tip; small gold shoulder spikes. Near leg full tone, far leg one step darker.
+DRAGON when requested: same heavy long crimson dragon as approved image2, 4legs,2large raised bat wings with gold-ivory bones, crimson membrane, far wing inside dark violet-black; crimson scale/muscle shapes3-4shades separated bright edges; black claws; ivory spine/elbow spikes; teal chest plate gold trim; long tail gold tip; dark curved horns; long snout ONE yellow eye2x2blocks; individually separated ivory fangs and dark purple open mouth; sharp tufts orange-yellow flame-shaped mane3shades pale yellow edges (part of body, no glow).
+Do not change identity or introduce new equipment. No floor, shadows, text, guides, grids, frame, extra characters or spell VFX. First clean candidate; preserve approved identity and pose exactly.
+
+=== A-2 ===
+References in supplied order:
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_model_pack/2_target_A.png
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_model_pack/1_picture_A.png
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_model_pack/3_layout_A.png
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_model_pack/4_head_human.png
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_model_pack/style/5_style_mel.png
+
+Redraw the supplied character as COARSE FINAL-GAME-SCALE PIXEL ART, not detailed pixel illustration. ONE PNG 1254x1254, transparent alpha strictly0 or255.
+REFERENCE ROLES: image1 is EXACT TARGET SIZE, POSE and POSITION; image2 is approved character identity/colours; image3 layout guide only; image4 head identity; image5 STYLE ONLY. Repaint damaged target details into clear whole coarse blocks while preserving target silhouette/pose. Do not just reproduce image2's tiny distant character.
+EXACT PIXEL GRID: 17px squares aligned from canvas(0,0). Character exactly 63 squares high, about 42 squares wide. EVERY feature made of these same BIG squares, no smaller pixels. Top y119, eye y357, sole/claw bottom y1190. Match image1 dimensions and location; whole subject inside frame with at least one block empty margin. One continuous ONE-BLOCK near-black external outline; internal shadows use own material dark shade, no extra black rings. Flat2-3 colour shades per material, large connected clean clusters, no stray speckles, dithering, gradients, glow, blur, antialiasing.
+VIEW: HUMAN idle THREE-QUARTER FRONT facing right, two eyes visible, arms down, tail curls left near ground.
+HUMAN when requested: same slim chibi half-dragon warrior as approved image2; pale lavender skin; TWO equal golden-yellow eyes same height each2x2 blocks with1white highlight in three-quarter view, one eye in profile; crimson horn crown3 shades black tips central gold stripe; long golden-orange hair separated tresses; teal-silver scale breastplate3 shades gold trim2 shades; exposed lavender midriff; crimson forearm wraps; dark plum leggings; silver-gold scale knee/shin guards; clawed dragon feet with clear gap and outline between legs; crimson scaly long tail3 shades gold tip; small gold shoulder spikes. Near leg full tone, far leg one step darker.
+DRAGON when requested: same heavy long crimson dragon as approved image2, 4legs,2large raised bat wings with gold-ivory bones, crimson membrane, far wing inside dark violet-black; crimson scale/muscle shapes3-4shades separated bright edges; black claws; ivory spine/elbow spikes; teal chest plate gold trim; long tail gold tip; dark curved horns; long snout ONE yellow eye2x2blocks; individually separated ivory fangs and dark purple open mouth; sharp tufts orange-yellow flame-shaped mane3shades pale yellow edges (part of body, no glow).
+Do not change identity or introduce new equipment. No floor, shadows, text, guides, grids, frame, extra characters or spell VFX. Second clean candidate of identical model/pose; prefer simpler connected colour clusters and especially readable face, no redesign.
+
+=== D-1 ===
+References in supplied order:
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_model_pack/2_target_D.png
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_model_pack/1_picture_D.png
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_model_pack/3_layout_D.png
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_model_pack/4_head_dragon.png
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_model_pack/style/6_style_smolder.png
+
+Redraw the supplied character as COARSE FINAL-GAME-SCALE PIXEL ART, not detailed pixel illustration. ONE PNG 1254x1254, transparent alpha strictly0 or255.
+REFERENCE ROLES: image1 is EXACT TARGET SIZE, POSE and POSITION; image2 is approved character identity/colours; image3 layout guide only; image4 head identity; image5 STYLE ONLY. Repaint damaged target details into clear whole coarse blocks while preserving target silhouette/pose. Do not just reproduce image2's tiny distant character.
+EXACT PIXEL GRID: 10px squares aligned from canvas(0,0). Character exactly 72 squares high, about 118 squares wide. EVERY feature made of these same BIG squares, no smaller pixels. Top y460, eye y930, sole/claw bottom y1180. Match image1 dimensions and location; whole subject inside frame with at least one block empty margin. One continuous ONE-BLOCK near-black external outline; internal shadows use own material dark shade, no extra black rings. Flat2-3 colour shades per material, large connected clean clusters, no stray speckles, dithering, gradients, glow, blur, antialiasing.
+VIEW: DRAGON idle THREE-QUARTER FRONT facing right, four clawed feet low on ground, two wings raised, head right, tail left.
+HUMAN when requested: same slim chibi half-dragon warrior as approved image2; pale lavender skin; TWO equal golden-yellow eyes same height each2x2 blocks with1white highlight in three-quarter view, one eye in profile; crimson horn crown3 shades black tips central gold stripe; long golden-orange hair separated tresses; teal-silver scale breastplate3 shades gold trim2 shades; exposed lavender midriff; crimson forearm wraps; dark plum leggings; silver-gold scale knee/shin guards; clawed dragon feet with clear gap and outline between legs; crimson scaly long tail3 shades gold tip; small gold shoulder spikes. Near leg full tone, far leg one step darker.
+DRAGON when requested: same heavy long crimson dragon as approved image2, 4legs,2large raised bat wings with gold-ivory bones, crimson membrane, far wing inside dark violet-black; crimson scale/muscle shapes3-4shades separated bright edges; black claws; ivory spine/elbow spikes; teal chest plate gold trim; long tail gold tip; dark curved horns; long snout ONE yellow eye2x2blocks; individually separated ivory fangs and dark purple open mouth; sharp tufts orange-yellow flame-shaped mane3shades pale yellow edges (part of body, no glow).
+Do not change identity or introduce new equipment. No floor, shadows, text, guides, grids, frame, extra characters or spell VFX. First clean candidate; preserve approved identity and pose exactly.
+
+=== D-2 ===
+References in supplied order:
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_model_pack/2_target_D.png
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_model_pack/1_picture_D.png
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_model_pack/3_layout_D.png
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_model_pack/4_head_dragon.png
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_model_pack/style/7_style_gnar_mega.png
+
+Redraw the supplied character as COARSE FINAL-GAME-SCALE PIXEL ART, not detailed pixel illustration. ONE PNG 1254x1254, transparent alpha strictly0 or255.
+REFERENCE ROLES: image1 is EXACT TARGET SIZE, POSE and POSITION; image2 is approved character identity/colours; image3 layout guide only; image4 head identity; image5 STYLE ONLY. Repaint damaged target details into clear whole coarse blocks while preserving target silhouette/pose. Do not just reproduce image2's tiny distant character.
+EXACT PIXEL GRID: 10px squares aligned from canvas(0,0). Character exactly 72 squares high, about 118 squares wide. EVERY feature made of these same BIG squares, no smaller pixels. Top y460, eye y930, sole/claw bottom y1180. Match image1 dimensions and location; whole subject inside frame with at least one block empty margin. One continuous ONE-BLOCK near-black external outline; internal shadows use own material dark shade, no extra black rings. Flat2-3 colour shades per material, large connected clean clusters, no stray speckles, dithering, gradients, glow, blur, antialiasing.
+VIEW: DRAGON idle THREE-QUARTER FRONT facing right, four clawed feet low on ground, two wings raised, head right, tail left.
+HUMAN when requested: same slim chibi half-dragon warrior as approved image2; pale lavender skin; TWO equal golden-yellow eyes same height each2x2 blocks with1white highlight in three-quarter view, one eye in profile; crimson horn crown3 shades black tips central gold stripe; long golden-orange hair separated tresses; teal-silver scale breastplate3 shades gold trim2 shades; exposed lavender midriff; crimson forearm wraps; dark plum leggings; silver-gold scale knee/shin guards; clawed dragon feet with clear gap and outline between legs; crimson scaly long tail3 shades gold tip; small gold shoulder spikes. Near leg full tone, far leg one step darker.
+DRAGON when requested: same heavy long crimson dragon as approved image2, 4legs,2large raised bat wings with gold-ivory bones, crimson membrane, far wing inside dark violet-black; crimson scale/muscle shapes3-4shades separated bright edges; black claws; ivory spine/elbow spikes; teal chest plate gold trim; long tail gold tip; dark curved horns; long snout ONE yellow eye2x2blocks; individually separated ivory fangs and dark purple open mouth; sharp tufts orange-yellow flame-shaped mane3shades pale yellow edges (part of body, no glow).
+Do not change identity or introduce new equipment. No floor, shadows, text, guides, grids, frame, extra characters or spell VFX. Second clean candidate of identical model/pose; prefer simpler connected colour clusters and especially readable face, no redesign.
+
+=== SA ===
+References in supplied order:
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_model_pack/2_target_SA.png
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_model_pack/1_picture_SA.png
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_model_pack/3_layout_SA.png
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_model_pack/4_head_human.png
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_model_pack/style/5_style_mel.png
+
+Redraw the supplied character as COARSE FINAL-GAME-SCALE PIXEL ART, not detailed pixel illustration. ONE PNG 1254x1254, transparent alpha strictly0 or255.
+REFERENCE ROLES: image1 is EXACT TARGET SIZE, POSE and POSITION; image2 is approved character identity/colours; image3 layout guide only; image4 head identity; image5 STYLE ONLY. Repaint damaged target details into clear whole coarse blocks while preserving target silhouette/pose. Do not just reproduce image2's tiny distant character.
+EXACT PIXEL GRID: 17px squares aligned from canvas(0,0). Character exactly 63 squares high, about 34 squares wide. EVERY feature made of these same BIG squares, no smaller pixels. Top y119, eye y391, sole/claw bottom y1190. Match image1 dimensions and location; whole subject inside frame with at least one block empty margin. One continuous ONE-BLOCK near-black external outline; internal shadows use own material dark shade, no extra black rings. Flat2-3 colour shades per material, large connected clean clusters, no stray speckles, dithering, gradients, glow, blur, antialiasing.
+VIEW: HUMAN EXACT SIDE PROFILE facing right, ONE eye visible, near arm in front, far leg dark and slightly behind, long tail behind to left.
+HUMAN when requested: same slim chibi half-dragon warrior as approved image2; pale lavender skin; TWO equal golden-yellow eyes same height each2x2 blocks with1white highlight in three-quarter view, one eye in profile; crimson horn crown3 shades black tips central gold stripe; long golden-orange hair separated tresses; teal-silver scale breastplate3 shades gold trim2 shades; exposed lavender midriff; crimson forearm wraps; dark plum leggings; silver-gold scale knee/shin guards; clawed dragon feet with clear gap and outline between legs; crimson scaly long tail3 shades gold tip; small gold shoulder spikes. Near leg full tone, far leg one step darker.
+DRAGON when requested: same heavy long crimson dragon as approved image2, 4legs,2large raised bat wings with gold-ivory bones, crimson membrane, far wing inside dark violet-black; crimson scale/muscle shapes3-4shades separated bright edges; black claws; ivory spine/elbow spikes; teal chest plate gold trim; long tail gold tip; dark curved horns; long snout ONE yellow eye2x2blocks; individually separated ivory fangs and dark purple open mouth; sharp tufts orange-yellow flame-shaped mane3shades pale yellow edges (part of body, no glow).
+Do not change identity or introduce new equipment. No floor, shadows, text, guides, grids, frame, extra characters or spell VFX. First clean candidate; preserve approved identity and pose exactly.
+
+=== SD ===
+References in supplied order:
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_model_pack/2_target_SD.png
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_model_pack/1_picture_SD.png
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_model_pack/3_layout_SD.png
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_model_pack/4_head_dragon.png
+C:/Users/OWNER/Documents/Codex/2026-10-21/new-chat-2/work/shyvana_model_pack/style/6_style_smolder.png
+
+Redraw the supplied character as COARSE FINAL-GAME-SCALE PIXEL ART, not detailed pixel illustration. ONE PNG 1254x1254, transparent alpha strictly0 or255.
+REFERENCE ROLES: image1 is EXACT TARGET SIZE, POSE and POSITION; image2 is approved character identity/colours; image3 layout guide only; image4 head identity; image5 STYLE ONLY. Repaint damaged target details into clear whole coarse blocks while preserving target silhouette/pose. Do not just reproduce image2's tiny distant character.
+EXACT PIXEL GRID: 8px squares aligned from canvas(0,0). Character exactly 72 squares high, about 137 squares wide. EVERY feature made of these same BIG squares, no smaller pixels. Top y608, eye y968, sole/claw bottom y1184. Match image1 dimensions and location; whole subject inside frame with at least one block empty margin. One continuous ONE-BLOCK near-black external outline; internal shadows use own material dark shade, no extra black rings. Flat2-3 colour shades per material, large connected clean clusters, no stray speckles, dithering, gradients, glow, blur, antialiasing.
+VIEW: DRAGON EXACT SIDE PROFILE facing right, one eye, near wing raised and far wing behind it, four feet with far feet darker and slightly behind, long tail to left.
+HUMAN when requested: same slim chibi half-dragon warrior as approved image2; pale lavender skin; TWO equal golden-yellow eyes same height each2x2 blocks with1white highlight in three-quarter view, one eye in profile; crimson horn crown3 shades black tips central gold stripe; long golden-orange hair separated tresses; teal-silver scale breastplate3 shades gold trim2 shades; exposed lavender midriff; crimson forearm wraps; dark plum leggings; silver-gold scale knee/shin guards; clawed dragon feet with clear gap and outline between legs; crimson scaly long tail3 shades gold tip; small gold shoulder spikes. Near leg full tone, far leg one step darker.
+DRAGON when requested: same heavy long crimson dragon as approved image2, 4legs,2large raised bat wings with gold-ivory bones, crimson membrane, far wing inside dark violet-black; crimson scale/muscle shapes3-4shades separated bright edges; black claws; ivory spine/elbow spikes; teal chest plate gold trim; long tail gold tip; dark curved horns; long snout ONE yellow eye2x2blocks; individually separated ivory fangs and dark purple open mouth; sharp tufts orange-yellow flame-shaped mane3shades pale yellow edges (part of body, no glow).
+Do not change identity or introduce new equipment. No floor, shadows, text, guides, grids, frame, extra characters or spell VFX. First clean candidate; preserve approved identity and pose exactly.

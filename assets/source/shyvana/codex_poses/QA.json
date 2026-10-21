@@ -1,0 +1,324 @@
+[
+  {
+    "key": "crouch",
+    "label": "蓄势下蹲",
+    "file": "shyvana-pose-crouch.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "visible_bbox": [
+      201,
+      391,
+      1070,
+      1176
+    ],
+    "transparent_pixels": 1190423,
+    "opaque_pixels": 2517,
+    "soft_alpha_pixels": 379576,
+    "hard_alpha_pass": false,
+    "grid14_large_edge_share_within_1px": 0.1806,
+    "touches_canvas_edge": false,
+    "sha256": "9400002d5143af8a1efa18e16452e70cbcc2725de57b558174ea32fe33b62725",
+    "visual_qa": "修订后已压低躯干、加深屈膝，双爪前收、尾巴后卷；较首稿更接近骨架，头位和四肢仍未逐格锁定。"
+  },
+  {
+    "key": "rise",
+    "label": "扬爪",
+    "file": "shyvana-pose-rise.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "visible_bbox": [
+      115,
+      77,
+      1099,
+      1209
+    ],
+    "transparent_pixels": 1197789,
+    "opaque_pixels": 2425,
+    "soft_alpha_pixels": 372302,
+    "hard_alpha_pass": false,
+    "grid14_large_edge_share_within_1px": 0.1956,
+    "touches_canvas_edge": false,
+    "sha256": "d5b9dbf38fb711d92220789a9871ff743122f3a2a0419895a10b0e20bdbcd876",
+    "visual_qa": "远臂上举、近臂下垂和后伸尾巴清楚，双眼可见；头位与脚底较骨架有偏移，未逐格锁定。"
+  },
+  {
+    "key": "slash",
+    "label": "挥爪横斩",
+    "file": "shyvana-pose-slash.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "visible_bbox": [
+      263,
+      392,
+      1207,
+      1176
+    ],
+    "transparent_pixels": 1219803,
+    "opaque_pixels": 2432,
+    "soft_alpha_pixels": 350281,
+    "hard_alpha_pass": false,
+    "grid14_large_edge_share_within_1px": 0.1763,
+    "touches_canvas_edge": false,
+    "sha256": "14ab9cd4e7bcdcec4ab0a495ad99623d443cb5bf939c23a32e99cf88709d11c1",
+    "visual_qa": "修订后尾巴明显缩短，近臂在后、远爪前下斩及宽低步可读；尾尖位置、头部与肢体网格仍有偏移。"
+  },
+  {
+    "key": "flip",
+    "label": "空翻",
+    "file": "shyvana-pose-flip.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "visible_bbox": [
+      373,
+      95,
+      1094,
+      1122
+    ],
+    "transparent_pixels": 1183980,
+    "opaque_pixels": 2106,
+    "soft_alpha_pixels": 386430,
+    "hard_alpha_pass": false,
+    "grid14_large_edge_share_within_1px": 0.2026,
+    "touches_canvas_edge": false,
+    "sha256": "239b1b0912904eeb8e115f1114031517161992beda9949cae1fe702205594c94",
+    "visual_qa": "屈膝腾空与绕头尾弧可读，脸未被遮挡；身体仍偏竖直、翻转幅度有限，尾巴比定稿长，头部发生倾斜。"
+  },
+  {
+    "key": "sweep",
+    "label": "落地甩尾",
+    "file": "shyvana-pose-sweep.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "visible_bbox": [
+      134,
+      240,
+      1199,
+      1176
+    ],
+    "transparent_pixels": 1107309,
+    "opaque_pixels": 2995,
+    "soft_alpha_pixels": 462212,
+    "hard_alpha_pass": false,
+    "grid14_large_edge_share_within_1px": 0.2104,
+    "touches_canvas_edge": false,
+    "sha256": "955a6f2726604fb2020b5ed29634ba4082eb26e8a04fcc6d475588ffbe103fb8",
+    "visual_qa": "远臂上扬、近爪胸前及尾巴低扫到身前可读；蹲姿偏高，尾巴偏长，接地需统一。"
+  },
+  {
+    "key": "throw",
+    "label": "掷球姿势",
+    "file": "shyvana-pose-throw.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "visible_bbox": [
+      37,
+      313,
+      1231,
+      1111
+    ],
+    "transparent_pixels": 1209282,
+    "opaque_pixels": 2635,
+    "soft_alpha_pixels": 360599,
+    "hard_alpha_pass": false,
+    "grid14_large_edge_share_within_1px": 0.2286,
+    "touches_canvas_edge": false,
+    "sha256": "e00bb13064043b363334f571fad5a0d0b5a5f4c0a13a311eda071b11c2d6c0b5",
+    "visual_qa": "远臂向前平伸、近臂后拉、弓步可读，没有火球或特效；尾巴偏长，脚底偏离指定基线。"
+  },
+  {
+    "key": "leap",
+    "label": "腾空跃起",
+    "file": "shyvana-pose-leap.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "visible_bbox": [
+      362,
+      111,
+      909,
+      1095
+    ],
+    "transparent_pixels": 1300837,
+    "opaque_pixels": 1776,
+    "soft_alpha_pixels": 269903,
+    "hard_alpha_pass": false,
+    "grid14_large_edge_share_within_1px": 0.2212,
+    "touches_canvas_edge": false,
+    "sha256": "1134b3b784b3835217b6d15688dfcaca1e291587b740f913e274912645d4222f",
+    "visual_qa": "修订后下方留白增加，躯干挺直、近臂后甩、远臂胸前可读；离地距离仍不足目标十格，双腿一屈一伸，与骨架双腿拖下仍有差别。"
+  },
+  {
+    "key": "stagger",
+    "label": "中招后仰",
+    "file": "shyvana-pose-stagger.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "visible_bbox": [
+      177,
+      194,
+      1187,
+      1166
+    ],
+    "transparent_pixels": 1128787,
+    "opaque_pixels": 2293,
+    "soft_alpha_pixels": 441436,
+    "hard_alpha_pass": false,
+    "grid14_large_edge_share_within_1px": 0.211,
+    "touches_canvas_edge": false,
+    "sha256": "33692dbc33219bbaf5152e47afe7e6bd7df0627c4fd6830075c06592ea020c0b",
+    "visual_qa": "后仰、双臂展开、尾巴高扬可读，脸未被遮挡；头部比例与定稿有变化，未逐格相同。"
+  },
+  {
+    "key": "kneel",
+    "label": "跪倒",
+    "file": "shyvana-pose-kneel.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "visible_bbox": [
+      120,
+      330,
+      1132,
+      1153
+    ],
+    "transparent_pixels": 1187555,
+    "opaque_pixels": 2420,
+    "soft_alpha_pixels": 382541,
+    "hard_alpha_pass": false,
+    "grid14_large_edge_share_within_1px": 0.2132,
+    "touches_canvas_edge": false,
+    "sha256": "56227a4c5f9b8bf3b647ba2c24dffa3be3e042870f2f5a86606a836e307bccf4",
+    "visual_qa": "双膝下沉、远臂前伸及尾巴后拖清楚；跪姿比所给骨架更低，肢体与头部比例有变化。"
+  },
+  {
+    "key": "collapse",
+    "label": "伏倒",
+    "file": "shyvana-pose-collapse.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "visible_bbox": [
+      29,
+      617,
+      1225,
+      1205
+    ],
+    "transparent_pixels": 1275670,
+    "opaque_pixels": 2444,
+    "soft_alpha_pixels": 294402,
+    "hard_alpha_pass": false,
+    "grid14_large_edge_share_within_1px": 0.2259,
+    "touches_canvas_edge": false,
+    "sha256": "08f3f93820b05bc7d2f4c29d46461f6599a318329e5521ef7fddc5bbcb8b0e56",
+    "visual_qa": "双手撑地、双膝着地、尾巴后拖可读；躯干前倾不足，头位偏右，未严格沿灰框定位。"
+  },
+  {
+    "key": "run1",
+    "label": "跑步 1",
+    "file": "shyvana-pose-run1.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "visible_bbox": [
+      79,
+      296,
+      1206,
+      1177
+    ],
+    "transparent_pixels": 1211034,
+    "opaque_pixels": 2849,
+    "soft_alpha_pixels": 358633,
+    "hard_alpha_pass": false,
+    "grid14_large_edge_share_within_1px": 0.1362,
+    "touches_canvas_edge": false,
+    "sha256": "3fd8881d53f7040543cba521756aad0f6787323649f694d734fde1c89d187902",
+    "visual_qa": "前腿落地、后腿屈膝、双臂前后摆动可读；尾巴偏长，头位和比例尚未锁定到定稿。"
+  },
+  {
+    "key": "run2",
+    "label": "跑步 2",
+    "file": "shyvana-pose-run2.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "visible_bbox": [
+      112,
+      154,
+      1084,
+      1174
+    ],
+    "transparent_pixels": 1242243,
+    "opaque_pixels": 2099,
+    "soft_alpha_pixels": 328174,
+    "hard_alpha_pass": false,
+    "grid14_large_edge_share_within_1px": 0.1924,
+    "touches_canvas_edge": false,
+    "sha256": "6decb962e3895242c85a3a600527983b8356e4d7235c1d50ab049cfab0f4abbc",
+    "visual_qa": "支撑腿在身下、另一膝前抬、双臂下摆可读；头位较 run1 高出的幅度超过目标一格，需统一相位和尺度。"
+  },
+  {
+    "key": "run3",
+    "label": "跑步 3",
+    "file": "shyvana-pose-run3.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "visible_bbox": [
+      95,
+      295,
+      1098,
+      1193
+    ],
+    "transparent_pixels": 1228083,
+    "opaque_pixels": 2502,
+    "soft_alpha_pixels": 341931,
+    "hard_alpha_pass": false,
+    "grid14_large_edge_share_within_1px": 0.1753,
+    "touches_canvas_edge": false,
+    "sha256": "6d254f47f4afac0f387e0001399edf205f4858c1ff75fcd3620c117fcb4fdc1c",
+    "visual_qa": "修订后前伸支撑腿加暗、后腿更亮，摆臂有所调整；前摆臂部分被躯干遮挡，与 run1 的差异仍需在循环拼接时检查。"
+  },
+  {
+    "key": "run4",
+    "label": "跑步 4",
+    "file": "shyvana-pose-run4.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "visible_bbox": [
+      94,
+      173,
+      1117,
+      1157
+    ],
+    "transparent_pixels": 1218442,
+    "opaque_pixels": 1953,
+    "soft_alpha_pixels": 352121,
+    "hard_alpha_pass": false,
+    "grid14_large_edge_share_within_1px": 0.209,
+    "touches_canvas_edge": false,
+    "sha256": "26580b97c5a1049a91b2b4dce4b93e72fcce63dd8592f6771f616250b87098bd",
+    "visual_qa": "单腿支撑、另一膝前抬可读；与 run2 的远近腿明暗区分不够明确，躯干高度和尾长需统一。"
+  }
+]

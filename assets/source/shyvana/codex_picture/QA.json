@@ -1,0 +1,70 @@
+[
+  {
+    "file": "shyvana-A.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "transparent_pixels": 1464642,
+    "opaque_pixels": 967,
+    "soft_alpha_pixels": 106907,
+    "visible_bbox": [
+      435,
+      692,
+      796,
+      1227
+    ],
+    "visible_height": 535
+  },
+  {
+    "file": "shyvana-SA.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "transparent_pixels": 1487304,
+    "opaque_pixels": 354,
+    "soft_alpha_pixels": 84858,
+    "visible_bbox": [
+      495,
+      723,
+      757,
+      1207
+    ],
+    "visible_height": 484
+  },
+  {
+    "file": "shyvana-D.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "transparent_pixels": 1310346,
+    "opaque_pixels": 2234,
+    "soft_alpha_pixels": 259936,
+    "visible_bbox": [
+      205,
+      666,
+      1137,
+      1234
+    ],
+    "visible_height": 568
+  },
+  {
+    "file": "shyvana-SD.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "transparent_pixels": 1285238,
+    "opaque_pixels": 1085,
+    "soft_alpha_pixels": 286193,
+    "visible_bbox": [
+      116,
+      689,
+      1161,
+      1240
+    ],
+    "visible_height": 551
+  }
+]

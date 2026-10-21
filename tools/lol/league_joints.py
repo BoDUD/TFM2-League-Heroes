@@ -71,6 +71,19 @@ JOINTS = {
                  l_hand="L_Hand", r_shoulder="R_UpArm", r_elbow="R_ForeArm", r_hand="R_Hand", l_vine="L_Vine_4",
                  l_vine_tip="L_Vine_8", r_vine="R_Vine_4", r_vine_tip="R_Vine_8",
                  **{f"{s}_v{i}": f"{s.upper()}_Vine_{i}" for s in "lr" for i in range(1, 9)}),
+    "shyvana": dict(pelvis="Pelvis", chest="Chest", head="Head", l_hip="L_Hip", l_knee="L_KneeLower", l_foot="L_Foot",
+                    r_hip="R_Hip", r_knee="R_KneeLower", r_foot="R_Foot", l_shoulder="L_Shoulder", l_elbow="L_Elbow",
+                    l_hand="L_Hand", r_shoulder="R_Shoulder", r_elbow="R_Elbow", r_hand="R_Hand", tail1="Tail1_skn",
+                    tail2="Tail3_skn", tail3="Tail5_skn", tail4="Tail7_skn", tail5="Tail9_skn"),
+    # her dragon (ShyvanaDragon in Shyvana's WAD): the front legs are the arms (shoulder, elbow, paw), the hind legs
+    # thigh / knee / foot, the wings' main bones to their tips
+    "shyvana_dragon": dict(pelvis="Pelvis", chest="Spine3", neck="Neck2", head="Head", jaw="Jaw", l_shoulder="L_Shoulder",
+                           l_elbow="L_Elbow", l_hand="L_Hand", r_shoulder="R_Shoulder", r_elbow="R_Elbow",
+                           r_hand="R_Hand", l_hip="L_Thigh", l_knee="L_Knee", l_foot="L_Foot", r_hip="R_Thigh",
+                           r_knee="R_Knee", r_foot="R_Foot", l_wing="L_Wing_Main_1", l_wing_mid="L_Wing_Main_2_Upper",
+                           l_wing_low="L_Wing_Main_3_Lower", l_wing_tip="L_Wing_Tip", r_wing="R_Wing_Main_1",
+                           r_wing_mid="R_Wing_Main_2_Upper", r_wing_low="R_Wing_Main_3_Lower", r_wing_tip="R_Wing_Tip",
+                           tail1="Tail1", tail2="Tail2", tail3="Tail3", tail4="Tail4", tail5="Tail5"),
     "mel": dict(pelvis="Pelvis", chest="Chest", head="Head", l_hip="L_Hip", l_knee="L_KneeLower", l_foot="L_Foot",
                 r_hip="R_Hip", r_knee="R_KneeLower", r_foot="R_Foot", l_shoulder="L_Shoulder", l_elbow="L_Elbow",
                 l_hand="L_Hand", r_shoulder="R_Shoulder", r_elbow="R_Elbow", r_hand="R_Hand", l_sleeve="L_Sleeve1",
@@ -81,7 +94,9 @@ BONES = [("pelvis", "chest"), ("chest", "head"), ("l_hip", "l_knee"), ("l_knee",
          ("r_knee", "r_foot"), ("l_shoulder", "l_elbow"), ("l_elbow", "l_hand"), ("r_shoulder", "r_elbow"),
          ("r_elbow", "r_hand"), ("weapon_a", "weapon_b"), ("tail1", "tail2"), ("tail2", "tail3"), ("tail3", "tail4"),
          ("tail4", "tail5"), ("tail5", "tail6"), ("shield", "shield_top"), ("l_hand", "l_vine"), ("l_vine", "l_vine_tip"),
-         ("r_hand", "r_vine"), ("r_vine", "r_vine_tip")]
+         ("r_hand", "r_vine"), ("r_vine", "r_vine_tip"), ("chest", "neck"), ("neck", "head"), ("l_wing", "l_wing_mid"),
+         ("l_wing_mid", "l_wing_low"), ("l_wing_low", "l_wing_tip"), ("r_wing", "r_wing_mid"), ("r_wing_mid", "r_wing_low"),
+         ("r_wing_low", "r_wing_tip")]
 
 
 def load(spec_path, lol):
