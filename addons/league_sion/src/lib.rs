@@ -11,6 +11,8 @@
 //! - **灵魂熔炉（被动）**：每击杀一个单位永久 +`k_u` 最大生命，英雄 +`k_c`（英雄联盟：小兵 4、英雄和大型野怪 15）；
 //!   技能击杀也算，阵亡后不丢（主包数据的版本只算普攻击杀，阵亡就没了）。
 //!
+//! - **亡灵不回城**（`zombie.rs`，0.1.1）：亡灵时 AI 要回城或撤退就改成普攻最近的敌人（用户：「塞恩的僵尸 死了还能跑回城的？」）。
+//!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_sion.log`，每次启动游戏重写。
 
 use std::collections::HashMap;
@@ -21,9 +23,11 @@ use std::sync::{LazyLock, Mutex};
 
 use mod_api_stable::*;
 
+pub mod zombie;
+
 const ID: &str = "league_sion";
 /// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是 league_addons 的。
-const VERSION: &str = "0.1.0";
+const VERSION: &str = "0.1.1";
 
 /// 「不死」挂多久、多久续一次（一直挂着，复活用掉前不断）。
 pub const GUARD_T: usize = 30;
@@ -349,6 +353,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
         LOG_PATH.display()
     ));
     module.add_native_passive(format!("{ID}:glory"), Glory::default());
+    module.add_player_input_ai(zombie::Zombie);
     host.log(LogLevel::Info, "league_sion loaded (Glory in Death's zombie, Soul Furnace from every kill).");
 }
 
