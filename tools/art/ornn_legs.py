@@ -104,10 +104,17 @@ def boot_sprite(d):
     return np.stack([xs - BOOT_AT[0], ys - BOOT_AT[1]], 1), d[ys, xs], ys.max() + 1 - BOOT_AT[1]
 
 
+FAR_SHIFT = -3                     # the far foot's stride set back: its most forward step is the design's own place, so
+                                   # its toe never reaches past the idle's outline (the first stride put it 3 squares out
+                                   # under the molten arm: 「脚部凸出身体了」「右脚」)
+
+
 def phase(key, k):
     dx, up = PHASES[k if key == "near" else (k + 4) % 8]
     if key == "near":
         dx = max(dx, NEAR_BACK)
+    else:
+        dx += FAR_SHIFT
     return dx, up
 
 
