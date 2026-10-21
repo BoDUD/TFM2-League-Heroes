@@ -10,24 +10,24 @@
 No pixel is drawn or moved: a new tag is a list of rects the sheet already holds, so every frame looks exactly as it does
 in its own action. Per hero, and per form idle (c_idle, m_idle ... with that form's actions):
 
-- `idle_base` (c_idle_base ...): the idle as it was drawn - the breathing loop. Written once; every later run starts
-  from it, so the tool can run again after a sheet is rebuilt or repacked.
-- `idle`: the breathing loop about 2 s, a snippet, the loop about 2 s, another snippet. A snippet is a few frames of
+- `idle_base` (c_idle_base ...): the idle as it was drawn - the breathing loop, no longer played (the user, 2026-10-22:
+  「上下摆动全不要了啊」). Written once; every later run starts from it, so the tool can run again after a sheet is
+  rebuilt or repacked.
+- `idle`: the idle's frame 0 held 1.5 s, a snippet, frame 0 again, another snippet. A snippet is a few frames of
   one of the hero's actions that stay where the idle stands - feet on the idle's ground row, the legs over the idle's
   legs, nothing wider than the idle +- 8 px or higher than its top + 12 (a raised weapon) - played in, held, played
   back out (a sword lifted and lowered, a gun checked); the first is near the idle (a cut, not a jump). Frame 0 stays
   the idle's frame 0 (portraits, face crops, the cards' measures read it).
-- `bp`: what the ban/pick grid card plays instead of the idle (league.dll src/lookup.rs): the loop, an action (attack,
-  skill, skill2, ult in turn, each hero starting at a different one so a page of cards does not strike at once), the
-  loop, a snippet, ... Card math as tools/art/bp_card_audit.py (131 x 88 canvas, 2.2x, banpick_center; hd_ frames at
+- `bp`: what the ban/pick grid card plays instead of the idle (league.dll src/lookup.rs): frame 0 held, an action (attack,
+  skill, skill2, ult in turn, each hero starting at a different one so a page of cards does not strike at once), then
+  frame 0, a snippet, ... Card math as tools/art/bp_card_audit.py (131 x 88 canvas, 2.2x, banpick_center; hd_ frames at
   the hero's UI size): an action frame that spills out of the card more than the idle does holds the frame before it;
   an action whose first frame or more than 40 % of frames spill is left out.
 
 Dense heroes get the same lists in hd_ and lo_ (the frames' own rects there; every tag has the same frames in all
 three). tools/art/hero_reels.json holds the picks made by eye where the rules pick badly:
 `{"league_x": {"idle": [["skill", [0, 1]], ...], "c_idle": [...], "bp": ["attack", "ult"], "bp_cut": {"ult": [3, 4]}}}`
-- a list of [action, frames] snippets for an idle ([action, frames, "fwd"]: played forward only; [] keeps the breathing
-loop alone), the card's actions in order, and
+- a list of [action, frames] snippets for an idle ([action, frames, "fwd"]: played forward only; [] keeps frame 0 alone), the card's actions in order, and
 action frames held on the card besides the spilling ones.
 """
 import argparse
@@ -51,7 +51,7 @@ CW, CH, S = 131, 88, 2.2          # the ban/pick card's canvas and scale (bp_car
 # its neighbours and the row above)
 ASIDE = {True: 0.12, False: 0.03}
 ABOVE = {True: 0.25, False: 0.15}
-LOOP_S = 2.0                      # breathing between snippets / actions, seconds
+STILL_S = 1.5                     # the idle's frame 0 held between snippets / actions, seconds
 HOLD_S = 0.45                     # a snippet's last frame held
 MIN_DUR = 0.12                    # a snippet frame at least this long (the idle is calm)
 # tags never cut into an idle: they move the hero away, are effects, or are not the hero standing
@@ -238,11 +238,9 @@ def card_actions(h, picks, k):
     return out
 
 
-def loop(h, idle):
-    base = h.base(idle)
-    fr = h.frames(base)
-    n = max(2, round(LOOP_S / sum(f["duration"] for f in fr)))
-    return [(base, i, f["duration"]) for i, f in enumerate(fr)] * n
+def still(h, idle):
+    """The idle's first frame held STILL_S: no breathing (the user, 2026-10-22: 「上下摆动全不要了啊」)."""
+    return [(h.base(idle), 0, STILL_S)]
 
 
 def played(h, tag, run, how=""):
@@ -268,15 +266,15 @@ def plan(h, picks, k):
         sn = [(e[0], list(e[1]), *e[2:]) for e in sn] if sn is not None else snippets(h, idle)
         snips[idle] = sn
         out[idle + "_base"] = [(base, i, f["duration"]) for i, f in enumerate(h.frames(base))]
-        seq = loop(h, idle)
+        seq = still(h, idle)
         for t, run, *how in sn:
-            seq += played(h, t, run, *how) + loop(h, idle)
-        out[idle] = seq[:len(seq) - len(loop(h, idle))] if sn else out[idle + "_base"]
+            seq += played(h, t, run, *how) + still(h, idle)
+        out[idle] = seq[:-1] if sn else seq
     acts = card_actions(h, picks, k)
     bp = []
     sn = snips["idle"]
     for j, (t, shown) in enumerate(acts):
-        bp += loop(h, "idle") + [(t, i, d) for i, d in shown] + loop(h, "idle")
+        bp += still(h, "idle") + [(t, i, d) for i, d in shown] + still(h, "idle")
         if sn:
             tt, run, *how = sn[j % len(sn)]
             bp += played(h, tt, run, *how)
