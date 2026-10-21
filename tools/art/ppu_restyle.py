@@ -206,7 +206,7 @@ RESTYLE = {
     # league_orianna (#113): the chibi redesign (2026-10-22) posed by tools/art/rig_orianna.py at 2.25 squares a game
     # pixel (86 squares bun to soles = the old 38 game rows), so no proportion or density change here; the outer
     # outline grown a square like the others; the face point at her crown (tfm2_ase.py face)
-    "orianna": dict(ppu=2.25, edge=1, face_to=(-4, -37)),
+    "orianna": dict(ppu=2.25, edge=1, face_to=(0, -35)),
     # league_aphelios (#114): posed from the design's own squares at the user's 1.5 squares a game pixel (「选 A，40 行」,
     # Codex's step-1 take cut to 60 rows) by tools/art/rig_aphelios.py, so no proportion or density change here; the
     # outer outline grown a square like the others; drawn 90 % by league.dll (hd.rs SIZES, 「缩到 90%」) round the

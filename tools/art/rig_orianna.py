@@ -40,6 +40,7 @@ sys.path.insert(0, os.path.join(ROOT, ".claude", "skills", "tfm2-hero-mod", "scr
 sys.path.insert(0, HERE)
 import strips as G  # noqa: E402
 import rigkit as RK  # noqa: E402
+import pixel_down as PD  # noqa: E402
 
 SRC = os.path.join(ROOT, "assets", "source", "orianna")
 SIDE = os.path.join(SRC, "chibi", "design-side.png")
@@ -219,11 +220,11 @@ class Kit:
         self.torso = Piece(S, torso, NECK, ring=False)
         self.skirt = Piece(S, skirt, (61.0, 90.5), ring=False)
         self.n_upper = Piece(S, n_upper, N_SHOULDER)
-        self.n_elbow = Piece(S, n_elbow, N_ELBOW, ring=False)
+        self.n_elbow = Piece(S, n_elbow, N_ELBOW)
         self.n_lower = Piece(S, n_lower, N_ELBOW)
         self.f_lower = Piece(S, f_lower, F_ELBOW)
-        self.n_knee = Piece(S, n_knee, N_KNEE, ring=False)
-        self.n_ankle = Piece(S, n_ankle, N_ANKLE, ring=False)
+        self.n_knee = Piece(S, n_knee, N_KNEE)
+        self.n_ankle = Piece(S, n_ankle, N_ANKLE)
         self.n_boot = Piece(S, n_boot, N_ANKLE)
         self.n_shin = Piece(S, n_shin, N_KNEE)
         # the thigh runs on under the skirt to the hip: its top visible row repeated up to it (hidden when it hangs)
@@ -342,6 +343,7 @@ DARKER = {"B": "A", "A": "x", "x": "v", "v": "s", "s": "m", "m": "j", "j": "e", 
 PROFILES = {"thigh": "xBxvs", "shin": "ABxvsm", "upper": "BAxvm", "fore": "Bxsm"}
 WIDTHS = {"thigh": (5.0, 5.0), "shin": (6.0, 5.0), "upper": (5.0, 4.0), "fore": (4.0, 4.0)}
 LIGHT = (-0.6, -0.8)               # towards the light (upper left)
+SHIN_PIECE = True                  # the shins are the design's own (a band read as another leg: no calf plate)
 
 
 def band(layer, p0, p1, kind, far=False, ext0=0.0, ext1=0.0):
@@ -472,8 +474,13 @@ def compose(kit, p):
         ank = along(knee, sh, l2)
         thigh, shinl = empty(), empty()
         band(thigh, hip, knee, "thigh", not near, ext0=2.0, ext1=1.0)
-        band(shinl, knee, ank, "shin", not near, ext0=1.0, ext1=0.5)
-        pieces = {n: getattr(kit, n) for n in ("n_boot", "n_knee", "n_ankle")} if near else kit.dark
+        pieces = {n: getattr(kit, n) for n in ("n_boot", "n_knee", "n_ankle", "n_shin")} if near else kit.dark
+        if SHIN_PIECE:     # the design's own shin (its calf plate) turned about the knee
+            sp = pieces["n_shin"]
+            s, j = turned(sp, sh - DESIGN_ANG["n_sh"])
+            stamp(shinl, s, j, knee)
+        else:
+            band(shinl, knee, ank, "shin", not near, ext0=1.0, ext1=0.5)
         boot = pieces["n_boot"]
         bt = p.get(side + "_boot", 0)
         s, j = turned(boot, bt) if bt else (boot.s, boot.j)
@@ -840,7 +847,7 @@ def skill_e_poses():
         stand(),
         planted(dy=5, lean=1 / 8, n_up=-140, n_lo=-150, f_up=-70, f_lo=-50),
         stand(lift=4, head=(0, -1), n_leg=("ang", -90, -92), n_boot=-90, f_leg=("ang", -30, -130), n_up=-170,
-              n_lo=-150, f_up=10, f_lo=80),
+              n_lo=-150, f_up=-15, f_lo=35),
         stand(lift=8, n_up=-150, n_lo=-150, f_up=10, f_lo=15, f_hand=0, **pir),
         stand(lift=9, n_up=-150, n_lo=-150, f_up=15, f_lo=25, **pir),
         stand(lift=9, n_up=-148, n_lo=-148, f_up=25, f_lo=35, **pir),
@@ -986,7 +993,19 @@ def down(can):
     ys, xs = np.nonzero(can[..., 3] > 0)
     hw = int(np.ceil(max(px - xs.min(), xs.max() + 1 - px) / PPU - 0.5))
     hh = int(np.ceil(max(py - ys.min(), ys.max() + 1 - py) / PPU - 0.5))
-    one = G.complete_outline(one_of(can, px, py, hw, hh))[0]
+    # the 1x frame the way the UI frames are made (pixel_down.pixelate: each square the mean of its pixels snapped to
+    # the frame's own colours, lines kept) on a grid with the pivot in its middle square - a vote of the commonest
+    # colour per square took the outline's black for most of her
+    lo, (nx0, ny0) = PD.pixelate(can, 1.0 / PPU, (px - PPU / 2, py - PPU / 2), OUTLINE)
+    one = np.zeros((2 * hh + 1, 2 * hw + 1, 4), np.uint8)
+    for j in range(2 * hh + 1):
+        y = ny0 - hh + j
+        if 0 <= y < lo.shape[0]:
+            for i in range(2 * hw + 1):
+                x = nx0 - hw + i
+                if 0 <= x < lo.shape[1]:
+                    one[j, i] = lo[y, x]
+    one = G.complete_outline(one, color=OUTLINE)[0]
     W, H = round((2 * hw + 1) * PPU), round((2 * hh + 1) * PPU)
     return one, crop_hd(can, px, py, W, H)
 
