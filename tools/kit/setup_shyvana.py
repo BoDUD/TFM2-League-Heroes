@@ -35,8 +35,9 @@ W = "<#f5f5f5ff>"      # true damage
 A = "<#ffb900ff>"      # durations, counts
 R = "<#ef5350ff>"      # crowd control
 E = "<>"
-# champion_view: provisional until the sprite (tfm2_ase.py face)
-VIEW = {"face": {"x": 0, "y": -24}, "center": {"x": 0, "y": -12}}
+# champion_view: the face between her eyes (ppu_restyle's face_to: 33 game px over her soles, 2 ahead of her standing
+# point); the ban/pick card at base's rule for a tall hero (tools/art/bp_card_audit.py: -39 - her idle's top -31.3)
+VIEW = {"face": {"x": 2, "y": -33}, "center": {"x": 0, "y": -12}, "banpick_center": {"x": 0, "y": -8}}
 
 
 def phys(d, r):

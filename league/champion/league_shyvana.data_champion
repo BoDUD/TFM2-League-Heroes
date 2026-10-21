@@ -652,105 +652,72 @@
                   }
                 },
                 {
-                  "type": "Delayed",
-                  "tick": 14,
-                  "effects": [
-                    {
-                      "type": "RangeEffect",
-                      "shape": {
-                        "Circle": {
-                          "radius": 26000
-                        }
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_shyvana_dg",
+                  "effect_buff": {
+                    "type": "Delayed",
+                    "tick": 15,
+                    "effects": [
+                      {
+                        "type": "RangeEffect",
+                        "shape": {
+                          "Circle": {
+                            "radius": 26000
+                          }
+                        },
+                        "target": "EnemyWithoutTower",
+                        "apply_type": "AroundCaster",
+                        "effects": [
+                          {
+                            "type": "Attack",
+                            "damage": 25,
+                            "attack_ratio": 90,
+                            "hp_ratio": 0,
+                            "target_hp_ratio": 0,
+                            "attack_effect_type": "Target"
+                          },
+                          {
+                            "type": "ViewEffect",
+                            "name": "league_shyvana_q2_hit"
+                          },
+                          {
+                            "type": "TargetSfx",
+                            "name": "league_shyvana_q2_hit"
+                          }
+                        ]
                       },
-                      "target": "EnemyWithoutTower",
-                      "apply_type": "AroundCaster",
-                      "effects": [
-                        {
-                          "type": "Attack",
-                          "damage": 25,
-                          "attack_ratio": 90,
-                          "hp_ratio": 0,
-                          "target_hp_ratio": 0,
-                          "attack_effect_type": "Target"
-                        },
-                        {
-                          "type": "ViewEffect",
-                          "name": "league_shyvana_q2_hit"
-                        },
-                        {
-                          "type": "TargetSfx",
-                          "name": "league_shyvana_q2_hit"
-                        }
-                      ]
-                    },
-                    {
-                      "type": "SwitchByBuff",
-                      "buff_name": "league_shyvana_dg",
-                      "effect_buff": {
+                      {
                         "type": "CasterViewEffect",
                         "name": "league_shyvana_d_q2_wave"
                       },
-                      "effect_none": {
-                        "type": "CasterViewEffect",
-                        "name": "league_shyvana_q2_wave"
-                      }
-                    },
-                    {
-                      "type": "SwitchByBuff",
-                      "buff_name": "league_shyvana_dg",
-                      "effect_buff": {
-                        "type": "Combine",
-                        "effects": []
-                      },
-                      "effect_none": {
+                      {
                         "type": "SwitchByBuff",
-                        "buff_name": "league_shyvana_full",
+                        "buff_name": "league_shyvana_dg",
                         "effect_buff": {
                           "type": "Combine",
                           "effects": []
                         },
                         "effect_none": {
                           "type": "SwitchByBuff",
-                          "buff_name": "league_shyvana_fy9",
+                          "buff_name": "league_shyvana_full",
                           "effect_buff": {
                             "type": "Combine",
-                            "effects": [
-                              {
-                                "type": "RemoveCasterBuff",
-                                "name": "league_shyvana_fy9"
-                              },
-                              {
-                                "type": "AddCasterBuff",
-                                "buff_state": {
-                                  "name": "league_shyvana_full",
-                                  "duration": {
-                                    "Time": {
-                                      "tick": 360
-                                    }
-                                  }
-                                },
-                                "only_to_enemy": false
-                              },
-                              {
-                                "type": "Sfx",
-                                "name": "league_shyvana_full"
-                              }
-                            ]
+                            "effects": []
                           },
                           "effect_none": {
                             "type": "SwitchByBuff",
-                            "buff_name": "league_shyvana_fy8",
+                            "buff_name": "league_shyvana_fy9",
                             "effect_buff": {
                               "type": "Combine",
                               "effects": [
                                 {
                                   "type": "RemoveCasterBuff",
-                                  "name": "league_shyvana_fy8"
+                                  "name": "league_shyvana_fy9"
                                 },
                                 {
                                   "type": "AddCasterBuff",
                                   "buff_state": {
-                                    "name": "league_shyvana_fy9",
+                                    "name": "league_shyvana_full",
                                     "duration": {
                                       "Time": {
                                         "tick": 360
@@ -758,23 +725,27 @@
                                     }
                                   },
                                   "only_to_enemy": false
+                                },
+                                {
+                                  "type": "Sfx",
+                                  "name": "league_shyvana_full"
                                 }
                               ]
                             },
                             "effect_none": {
                               "type": "SwitchByBuff",
-                              "buff_name": "league_shyvana_fy7",
+                              "buff_name": "league_shyvana_fy8",
                               "effect_buff": {
                                 "type": "Combine",
                                 "effects": [
                                   {
                                     "type": "RemoveCasterBuff",
-                                    "name": "league_shyvana_fy7"
+                                    "name": "league_shyvana_fy8"
                                   },
                                   {
                                     "type": "AddCasterBuff",
                                     "buff_state": {
-                                      "name": "league_shyvana_fy8",
+                                      "name": "league_shyvana_fy9",
                                       "duration": {
                                         "Time": {
                                           "tick": 360
@@ -787,18 +758,18 @@
                               },
                               "effect_none": {
                                 "type": "SwitchByBuff",
-                                "buff_name": "league_shyvana_fy6",
+                                "buff_name": "league_shyvana_fy7",
                                 "effect_buff": {
                                   "type": "Combine",
                                   "effects": [
                                     {
                                       "type": "RemoveCasterBuff",
-                                      "name": "league_shyvana_fy6"
+                                      "name": "league_shyvana_fy7"
                                     },
                                     {
                                       "type": "AddCasterBuff",
                                       "buff_state": {
-                                        "name": "league_shyvana_fy7",
+                                        "name": "league_shyvana_fy8",
                                         "duration": {
                                           "Time": {
                                             "tick": 360
@@ -811,18 +782,18 @@
                                 },
                                 "effect_none": {
                                   "type": "SwitchByBuff",
-                                  "buff_name": "league_shyvana_fy5",
+                                  "buff_name": "league_shyvana_fy6",
                                   "effect_buff": {
                                     "type": "Combine",
                                     "effects": [
                                       {
                                         "type": "RemoveCasterBuff",
-                                        "name": "league_shyvana_fy5"
+                                        "name": "league_shyvana_fy6"
                                       },
                                       {
                                         "type": "AddCasterBuff",
                                         "buff_state": {
-                                          "name": "league_shyvana_fy6",
+                                          "name": "league_shyvana_fy7",
                                           "duration": {
                                             "Time": {
                                               "tick": 360
@@ -835,18 +806,18 @@
                                   },
                                   "effect_none": {
                                     "type": "SwitchByBuff",
-                                    "buff_name": "league_shyvana_fy4",
+                                    "buff_name": "league_shyvana_fy5",
                                     "effect_buff": {
                                       "type": "Combine",
                                       "effects": [
                                         {
                                           "type": "RemoveCasterBuff",
-                                          "name": "league_shyvana_fy4"
+                                          "name": "league_shyvana_fy5"
                                         },
                                         {
                                           "type": "AddCasterBuff",
                                           "buff_state": {
-                                            "name": "league_shyvana_fy5",
+                                            "name": "league_shyvana_fy6",
                                             "duration": {
                                               "Time": {
                                                 "tick": 360
@@ -859,18 +830,18 @@
                                     },
                                     "effect_none": {
                                       "type": "SwitchByBuff",
-                                      "buff_name": "league_shyvana_fy3",
+                                      "buff_name": "league_shyvana_fy4",
                                       "effect_buff": {
                                         "type": "Combine",
                                         "effects": [
                                           {
                                             "type": "RemoveCasterBuff",
-                                            "name": "league_shyvana_fy3"
+                                            "name": "league_shyvana_fy4"
                                           },
                                           {
                                             "type": "AddCasterBuff",
                                             "buff_state": {
-                                              "name": "league_shyvana_fy4",
+                                              "name": "league_shyvana_fy5",
                                               "duration": {
                                                 "Time": {
                                                   "tick": 360
@@ -883,18 +854,18 @@
                                       },
                                       "effect_none": {
                                         "type": "SwitchByBuff",
-                                        "buff_name": "league_shyvana_fy2",
+                                        "buff_name": "league_shyvana_fy3",
                                         "effect_buff": {
                                           "type": "Combine",
                                           "effects": [
                                             {
                                               "type": "RemoveCasterBuff",
-                                              "name": "league_shyvana_fy2"
+                                              "name": "league_shyvana_fy3"
                                             },
                                             {
                                               "type": "AddCasterBuff",
                                               "buff_state": {
-                                                "name": "league_shyvana_fy3",
+                                                "name": "league_shyvana_fy4",
                                                 "duration": {
                                                   "Time": {
                                                     "tick": 360
@@ -907,18 +878,18 @@
                                         },
                                         "effect_none": {
                                           "type": "SwitchByBuff",
-                                          "buff_name": "league_shyvana_fy1",
+                                          "buff_name": "league_shyvana_fy2",
                                           "effect_buff": {
                                             "type": "Combine",
                                             "effects": [
                                               {
                                                 "type": "RemoveCasterBuff",
-                                                "name": "league_shyvana_fy1"
+                                                "name": "league_shyvana_fy2"
                                               },
                                               {
                                                 "type": "AddCasterBuff",
                                                 "buff_state": {
-                                                  "name": "league_shyvana_fy2",
+                                                  "name": "league_shyvana_fy3",
                                                   "duration": {
                                                     "Time": {
                                                       "tick": 360
@@ -930,16 +901,41 @@
                                             ]
                                           },
                                           "effect_none": {
-                                            "type": "AddCasterBuff",
-                                            "buff_state": {
-                                              "name": "league_shyvana_fy1",
-                                              "duration": {
-                                                "Time": {
-                                                  "tick": 360
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_shyvana_fy1",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_shyvana_fy1"
+                                                },
+                                                {
+                                                  "type": "AddCasterBuff",
+                                                  "buff_state": {
+                                                    "name": "league_shyvana_fy2",
+                                                    "duration": {
+                                                      "Time": {
+                                                        "tick": 360
+                                                      }
+                                                    }
+                                                  },
+                                                  "only_to_enemy": false
                                                 }
-                                              }
+                                              ]
                                             },
-                                            "only_to_enemy": false
+                                            "effect_none": {
+                                              "type": "AddCasterBuff",
+                                              "buff_state": {
+                                                "name": "league_shyvana_fy1",
+                                                "duration": {
+                                                  "Time": {
+                                                    "tick": 360
+                                                  }
+                                                }
+                                              },
+                                              "only_to_enemy": false
+                                            }
                                           }
                                         }
                                       }
@@ -951,8 +947,303 @@
                           }
                         }
                       }
-                    }
-                  ]
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "Delayed",
+                    "tick": 11,
+                    "effects": [
+                      {
+                        "type": "RangeEffect",
+                        "shape": {
+                          "Circle": {
+                            "radius": 26000
+                          }
+                        },
+                        "target": "EnemyWithoutTower",
+                        "apply_type": "AroundCaster",
+                        "effects": [
+                          {
+                            "type": "Attack",
+                            "damage": 25,
+                            "attack_ratio": 90,
+                            "hp_ratio": 0,
+                            "target_hp_ratio": 0,
+                            "attack_effect_type": "Target"
+                          },
+                          {
+                            "type": "ViewEffect",
+                            "name": "league_shyvana_q2_hit"
+                          },
+                          {
+                            "type": "TargetSfx",
+                            "name": "league_shyvana_q2_hit"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "CasterViewEffect",
+                        "name": "league_shyvana_q2_wave"
+                      },
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_shyvana_dg",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": []
+                        },
+                        "effect_none": {
+                          "type": "SwitchByBuff",
+                          "buff_name": "league_shyvana_full",
+                          "effect_buff": {
+                            "type": "Combine",
+                            "effects": []
+                          },
+                          "effect_none": {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_shyvana_fy9",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_shyvana_fy9"
+                                },
+                                {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_shyvana_full",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 360
+                                      }
+                                    }
+                                  },
+                                  "only_to_enemy": false
+                                },
+                                {
+                                  "type": "Sfx",
+                                  "name": "league_shyvana_full"
+                                }
+                              ]
+                            },
+                            "effect_none": {
+                              "type": "SwitchByBuff",
+                              "buff_name": "league_shyvana_fy8",
+                              "effect_buff": {
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "RemoveCasterBuff",
+                                    "name": "league_shyvana_fy8"
+                                  },
+                                  {
+                                    "type": "AddCasterBuff",
+                                    "buff_state": {
+                                      "name": "league_shyvana_fy9",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 360
+                                        }
+                                      }
+                                    },
+                                    "only_to_enemy": false
+                                  }
+                                ]
+                              },
+                              "effect_none": {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_shyvana_fy7",
+                                "effect_buff": {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "RemoveCasterBuff",
+                                      "name": "league_shyvana_fy7"
+                                    },
+                                    {
+                                      "type": "AddCasterBuff",
+                                      "buff_state": {
+                                        "name": "league_shyvana_fy8",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 360
+                                          }
+                                        }
+                                      },
+                                      "only_to_enemy": false
+                                    }
+                                  ]
+                                },
+                                "effect_none": {
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "league_shyvana_fy6",
+                                  "effect_buff": {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "RemoveCasterBuff",
+                                        "name": "league_shyvana_fy6"
+                                      },
+                                      {
+                                        "type": "AddCasterBuff",
+                                        "buff_state": {
+                                          "name": "league_shyvana_fy7",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 360
+                                            }
+                                          }
+                                        },
+                                        "only_to_enemy": false
+                                      }
+                                    ]
+                                  },
+                                  "effect_none": {
+                                    "type": "SwitchByBuff",
+                                    "buff_name": "league_shyvana_fy5",
+                                    "effect_buff": {
+                                      "type": "Combine",
+                                      "effects": [
+                                        {
+                                          "type": "RemoveCasterBuff",
+                                          "name": "league_shyvana_fy5"
+                                        },
+                                        {
+                                          "type": "AddCasterBuff",
+                                          "buff_state": {
+                                            "name": "league_shyvana_fy6",
+                                            "duration": {
+                                              "Time": {
+                                                "tick": 360
+                                              }
+                                            }
+                                          },
+                                          "only_to_enemy": false
+                                        }
+                                      ]
+                                    },
+                                    "effect_none": {
+                                      "type": "SwitchByBuff",
+                                      "buff_name": "league_shyvana_fy4",
+                                      "effect_buff": {
+                                        "type": "Combine",
+                                        "effects": [
+                                          {
+                                            "type": "RemoveCasterBuff",
+                                            "name": "league_shyvana_fy4"
+                                          },
+                                          {
+                                            "type": "AddCasterBuff",
+                                            "buff_state": {
+                                              "name": "league_shyvana_fy5",
+                                              "duration": {
+                                                "Time": {
+                                                  "tick": 360
+                                                }
+                                              }
+                                            },
+                                            "only_to_enemy": false
+                                          }
+                                        ]
+                                      },
+                                      "effect_none": {
+                                        "type": "SwitchByBuff",
+                                        "buff_name": "league_shyvana_fy3",
+                                        "effect_buff": {
+                                          "type": "Combine",
+                                          "effects": [
+                                            {
+                                              "type": "RemoveCasterBuff",
+                                              "name": "league_shyvana_fy3"
+                                            },
+                                            {
+                                              "type": "AddCasterBuff",
+                                              "buff_state": {
+                                                "name": "league_shyvana_fy4",
+                                                "duration": {
+                                                  "Time": {
+                                                    "tick": 360
+                                                  }
+                                                }
+                                              },
+                                              "only_to_enemy": false
+                                            }
+                                          ]
+                                        },
+                                        "effect_none": {
+                                          "type": "SwitchByBuff",
+                                          "buff_name": "league_shyvana_fy2",
+                                          "effect_buff": {
+                                            "type": "Combine",
+                                            "effects": [
+                                              {
+                                                "type": "RemoveCasterBuff",
+                                                "name": "league_shyvana_fy2"
+                                              },
+                                              {
+                                                "type": "AddCasterBuff",
+                                                "buff_state": {
+                                                  "name": "league_shyvana_fy3",
+                                                  "duration": {
+                                                    "Time": {
+                                                      "tick": 360
+                                                    }
+                                                  }
+                                                },
+                                                "only_to_enemy": false
+                                              }
+                                            ]
+                                          },
+                                          "effect_none": {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_shyvana_fy1",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_shyvana_fy1"
+                                                },
+                                                {
+                                                  "type": "AddCasterBuff",
+                                                  "buff_state": {
+                                                    "name": "league_shyvana_fy2",
+                                                    "duration": {
+                                                      "Time": {
+                                                        "tick": 360
+                                                      }
+                                                    }
+                                                  },
+                                                  "only_to_enemy": false
+                                                }
+                                              ]
+                                            },
+                                            "effect_none": {
+                                              "type": "AddCasterBuff",
+                                              "buff_state": {
+                                                "name": "league_shyvana_fy1",
+                                                "duration": {
+                                                  "Time": {
+                                                    "tick": 360
+                                                  }
+                                                }
+                                              },
+                                              "only_to_enemy": false
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
                 }
               ]
             },
@@ -1371,7 +1662,7 @@
                     },
                     {
                       "type": "Delayed",
-                      "tick": 11,
+                      "tick": 8,
                       "effects": [
                         {
                           "type": "TargetProjectile",
@@ -1863,109 +2154,72 @@
                 }
               },
               {
-                "type": "Delayed",
-                "tick": 13,
-                "effects": [
-                  {
-                    "type": "RangeEffect",
-                    "shape": {
-                      "Circle": {
-                        "radius": 16000
-                      }
-                    },
-                    "target": "EnemyWithoutTower",
-                    "apply_type": {
-                      "Forward": {
-                        "offset": 12000
-                      }
-                    },
-                    "effects": [
-                      {
-                        "type": "Attack",
-                        "damage": 25,
-                        "attack_ratio": 90,
-                        "hp_ratio": 0,
-                        "target_hp_ratio": 0,
-                        "attack_effect_type": "Target"
+                "type": "SwitchByBuff",
+                "buff_name": "league_shyvana_dg",
+                "effect_buff": {
+                  "type": "Delayed",
+                  "tick": 14,
+                  "effects": [
+                    {
+                      "type": "RangeEffect",
+                      "shape": {
+                        "Circle": {
+                          "radius": 16000
+                        }
                       },
-                      {
-                        "type": "ViewEffect",
-                        "name": "league_shyvana_q_hit"
+                      "target": "EnemyWithoutTower",
+                      "apply_type": {
+                        "Forward": {
+                          "offset": 12000
+                        }
                       },
-                      {
-                        "type": "TargetSfx",
-                        "name": "league_shyvana_q_hit"
-                      }
-                    ]
-                  },
-                  {
-                    "type": "SwitchByBuff",
-                    "buff_name": "league_shyvana_dg",
-                    "effect_buff": {
-                      "type": "CasterViewEffect",
-                      "name": "league_shyvana_d_q_slash"
+                      "effects": [
+                        {
+                          "type": "Attack",
+                          "damage": 25,
+                          "attack_ratio": 90,
+                          "hp_ratio": 0,
+                          "target_hp_ratio": 0,
+                          "attack_effect_type": "Target"
+                        },
+                        {
+                          "type": "ViewEffect",
+                          "name": "league_shyvana_q_hit"
+                        },
+                        {
+                          "type": "TargetSfx",
+                          "name": "league_shyvana_q_hit"
+                        }
+                      ]
                     },
-                    "effect_none": {
-                      "type": "CasterViewEffect",
-                      "name": "league_shyvana_q_slash"
-                    }
-                  },
-                  {
-                    "type": "SwitchByBuff",
-                    "buff_name": "league_shyvana_dg",
-                    "effect_buff": {
-                      "type": "Combine",
-                      "effects": []
-                    },
-                    "effect_none": {
+                    {
                       "type": "SwitchByBuff",
-                      "buff_name": "league_shyvana_full",
+                      "buff_name": "league_shyvana_dg",
                       "effect_buff": {
                         "type": "Combine",
                         "effects": []
                       },
                       "effect_none": {
                         "type": "SwitchByBuff",
-                        "buff_name": "league_shyvana_fy9",
+                        "buff_name": "league_shyvana_full",
                         "effect_buff": {
                           "type": "Combine",
-                          "effects": [
-                            {
-                              "type": "RemoveCasterBuff",
-                              "name": "league_shyvana_fy9"
-                            },
-                            {
-                              "type": "AddCasterBuff",
-                              "buff_state": {
-                                "name": "league_shyvana_full",
-                                "duration": {
-                                  "Time": {
-                                    "tick": 360
-                                  }
-                                }
-                              },
-                              "only_to_enemy": false
-                            },
-                            {
-                              "type": "Sfx",
-                              "name": "league_shyvana_full"
-                            }
-                          ]
+                          "effects": []
                         },
                         "effect_none": {
                           "type": "SwitchByBuff",
-                          "buff_name": "league_shyvana_fy8",
+                          "buff_name": "league_shyvana_fy9",
                           "effect_buff": {
                             "type": "Combine",
                             "effects": [
                               {
                                 "type": "RemoveCasterBuff",
-                                "name": "league_shyvana_fy8"
+                                "name": "league_shyvana_fy9"
                               },
                               {
                                 "type": "AddCasterBuff",
                                 "buff_state": {
-                                  "name": "league_shyvana_fy9",
+                                  "name": "league_shyvana_full",
                                   "duration": {
                                     "Time": {
                                       "tick": 360
@@ -1973,23 +2227,27 @@
                                   }
                                 },
                                 "only_to_enemy": false
+                              },
+                              {
+                                "type": "Sfx",
+                                "name": "league_shyvana_full"
                               }
                             ]
                           },
                           "effect_none": {
                             "type": "SwitchByBuff",
-                            "buff_name": "league_shyvana_fy7",
+                            "buff_name": "league_shyvana_fy8",
                             "effect_buff": {
                               "type": "Combine",
                               "effects": [
                                 {
                                   "type": "RemoveCasterBuff",
-                                  "name": "league_shyvana_fy7"
+                                  "name": "league_shyvana_fy8"
                                 },
                                 {
                                   "type": "AddCasterBuff",
                                   "buff_state": {
-                                    "name": "league_shyvana_fy8",
+                                    "name": "league_shyvana_fy9",
                                     "duration": {
                                       "Time": {
                                         "tick": 360
@@ -2002,18 +2260,18 @@
                             },
                             "effect_none": {
                               "type": "SwitchByBuff",
-                              "buff_name": "league_shyvana_fy6",
+                              "buff_name": "league_shyvana_fy7",
                               "effect_buff": {
                                 "type": "Combine",
                                 "effects": [
                                   {
                                     "type": "RemoveCasterBuff",
-                                    "name": "league_shyvana_fy6"
+                                    "name": "league_shyvana_fy7"
                                   },
                                   {
                                     "type": "AddCasterBuff",
                                     "buff_state": {
-                                      "name": "league_shyvana_fy7",
+                                      "name": "league_shyvana_fy8",
                                       "duration": {
                                         "Time": {
                                           "tick": 360
@@ -2026,18 +2284,18 @@
                               },
                               "effect_none": {
                                 "type": "SwitchByBuff",
-                                "buff_name": "league_shyvana_fy5",
+                                "buff_name": "league_shyvana_fy6",
                                 "effect_buff": {
                                   "type": "Combine",
                                   "effects": [
                                     {
                                       "type": "RemoveCasterBuff",
-                                      "name": "league_shyvana_fy5"
+                                      "name": "league_shyvana_fy6"
                                     },
                                     {
                                       "type": "AddCasterBuff",
                                       "buff_state": {
-                                        "name": "league_shyvana_fy6",
+                                        "name": "league_shyvana_fy7",
                                         "duration": {
                                           "Time": {
                                             "tick": 360
@@ -2050,18 +2308,18 @@
                                 },
                                 "effect_none": {
                                   "type": "SwitchByBuff",
-                                  "buff_name": "league_shyvana_fy4",
+                                  "buff_name": "league_shyvana_fy5",
                                   "effect_buff": {
                                     "type": "Combine",
                                     "effects": [
                                       {
                                         "type": "RemoveCasterBuff",
-                                        "name": "league_shyvana_fy4"
+                                        "name": "league_shyvana_fy5"
                                       },
                                       {
                                         "type": "AddCasterBuff",
                                         "buff_state": {
-                                          "name": "league_shyvana_fy5",
+                                          "name": "league_shyvana_fy6",
                                           "duration": {
                                             "Time": {
                                               "tick": 360
@@ -2074,18 +2332,18 @@
                                   },
                                   "effect_none": {
                                     "type": "SwitchByBuff",
-                                    "buff_name": "league_shyvana_fy3",
+                                    "buff_name": "league_shyvana_fy4",
                                     "effect_buff": {
                                       "type": "Combine",
                                       "effects": [
                                         {
                                           "type": "RemoveCasterBuff",
-                                          "name": "league_shyvana_fy3"
+                                          "name": "league_shyvana_fy4"
                                         },
                                         {
                                           "type": "AddCasterBuff",
                                           "buff_state": {
-                                            "name": "league_shyvana_fy4",
+                                            "name": "league_shyvana_fy5",
                                             "duration": {
                                               "Time": {
                                                 "tick": 360
@@ -2098,18 +2356,18 @@
                                     },
                                     "effect_none": {
                                       "type": "SwitchByBuff",
-                                      "buff_name": "league_shyvana_fy2",
+                                      "buff_name": "league_shyvana_fy3",
                                       "effect_buff": {
                                         "type": "Combine",
                                         "effects": [
                                           {
                                             "type": "RemoveCasterBuff",
-                                            "name": "league_shyvana_fy2"
+                                            "name": "league_shyvana_fy3"
                                           },
                                           {
                                             "type": "AddCasterBuff",
                                             "buff_state": {
-                                              "name": "league_shyvana_fy3",
+                                              "name": "league_shyvana_fy4",
                                               "duration": {
                                                 "Time": {
                                                   "tick": 360
@@ -2122,18 +2380,18 @@
                                       },
                                       "effect_none": {
                                         "type": "SwitchByBuff",
-                                        "buff_name": "league_shyvana_fy1",
+                                        "buff_name": "league_shyvana_fy2",
                                         "effect_buff": {
                                           "type": "Combine",
                                           "effects": [
                                             {
                                               "type": "RemoveCasterBuff",
-                                              "name": "league_shyvana_fy1"
+                                              "name": "league_shyvana_fy2"
                                             },
                                             {
                                               "type": "AddCasterBuff",
                                               "buff_state": {
-                                                "name": "league_shyvana_fy2",
+                                                "name": "league_shyvana_fy3",
                                                 "duration": {
                                                   "Time": {
                                                     "tick": 360
@@ -2145,16 +2403,41 @@
                                           ]
                                         },
                                         "effect_none": {
-                                          "type": "AddCasterBuff",
-                                          "buff_state": {
-                                            "name": "league_shyvana_fy1",
-                                            "duration": {
-                                              "Time": {
-                                                "tick": 360
+                                          "type": "SwitchByBuff",
+                                          "buff_name": "league_shyvana_fy1",
+                                          "effect_buff": {
+                                            "type": "Combine",
+                                            "effects": [
+                                              {
+                                                "type": "RemoveCasterBuff",
+                                                "name": "league_shyvana_fy1"
+                                              },
+                                              {
+                                                "type": "AddCasterBuff",
+                                                "buff_state": {
+                                                  "name": "league_shyvana_fy2",
+                                                  "duration": {
+                                                    "Time": {
+                                                      "tick": 360
+                                                    }
+                                                  }
+                                                },
+                                                "only_to_enemy": false
                                               }
-                                            }
+                                            ]
                                           },
-                                          "only_to_enemy": false
+                                          "effect_none": {
+                                            "type": "AddCasterBuff",
+                                            "buff_state": {
+                                              "name": "league_shyvana_fy1",
+                                              "duration": {
+                                                "Time": {
+                                                  "tick": 360
+                                                }
+                                              }
+                                            },
+                                            "only_to_enemy": false
+                                          }
                                         }
                                       }
                                     }
@@ -2166,8 +2449,303 @@
                         }
                       }
                     }
-                  }
-                ]
+                  ]
+                },
+                "effect_none": {
+                  "type": "Delayed",
+                  "tick": 10,
+                  "effects": [
+                    {
+                      "type": "RangeEffect",
+                      "shape": {
+                        "Circle": {
+                          "radius": 16000
+                        }
+                      },
+                      "target": "EnemyWithoutTower",
+                      "apply_type": {
+                        "Forward": {
+                          "offset": 12000
+                        }
+                      },
+                      "effects": [
+                        {
+                          "type": "Attack",
+                          "damage": 25,
+                          "attack_ratio": 90,
+                          "hp_ratio": 0,
+                          "target_hp_ratio": 0,
+                          "attack_effect_type": "Target"
+                        },
+                        {
+                          "type": "ViewEffect",
+                          "name": "league_shyvana_q_hit"
+                        },
+                        {
+                          "type": "TargetSfx",
+                          "name": "league_shyvana_q_hit"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_shyvana_dg",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": []
+                      },
+                      "effect_none": {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_shyvana_full",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": []
+                        },
+                        "effect_none": {
+                          "type": "SwitchByBuff",
+                          "buff_name": "league_shyvana_fy9",
+                          "effect_buff": {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "league_shyvana_fy9"
+                              },
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_shyvana_full",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 360
+                                    }
+                                  }
+                                },
+                                "only_to_enemy": false
+                              },
+                              {
+                                "type": "Sfx",
+                                "name": "league_shyvana_full"
+                              }
+                            ]
+                          },
+                          "effect_none": {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_shyvana_fy8",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_shyvana_fy8"
+                                },
+                                {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_shyvana_fy9",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 360
+                                      }
+                                    }
+                                  },
+                                  "only_to_enemy": false
+                                }
+                              ]
+                            },
+                            "effect_none": {
+                              "type": "SwitchByBuff",
+                              "buff_name": "league_shyvana_fy7",
+                              "effect_buff": {
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "RemoveCasterBuff",
+                                    "name": "league_shyvana_fy7"
+                                  },
+                                  {
+                                    "type": "AddCasterBuff",
+                                    "buff_state": {
+                                      "name": "league_shyvana_fy8",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 360
+                                        }
+                                      }
+                                    },
+                                    "only_to_enemy": false
+                                  }
+                                ]
+                              },
+                              "effect_none": {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_shyvana_fy6",
+                                "effect_buff": {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "RemoveCasterBuff",
+                                      "name": "league_shyvana_fy6"
+                                    },
+                                    {
+                                      "type": "AddCasterBuff",
+                                      "buff_state": {
+                                        "name": "league_shyvana_fy7",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 360
+                                          }
+                                        }
+                                      },
+                                      "only_to_enemy": false
+                                    }
+                                  ]
+                                },
+                                "effect_none": {
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "league_shyvana_fy5",
+                                  "effect_buff": {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "RemoveCasterBuff",
+                                        "name": "league_shyvana_fy5"
+                                      },
+                                      {
+                                        "type": "AddCasterBuff",
+                                        "buff_state": {
+                                          "name": "league_shyvana_fy6",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 360
+                                            }
+                                          }
+                                        },
+                                        "only_to_enemy": false
+                                      }
+                                    ]
+                                  },
+                                  "effect_none": {
+                                    "type": "SwitchByBuff",
+                                    "buff_name": "league_shyvana_fy4",
+                                    "effect_buff": {
+                                      "type": "Combine",
+                                      "effects": [
+                                        {
+                                          "type": "RemoveCasterBuff",
+                                          "name": "league_shyvana_fy4"
+                                        },
+                                        {
+                                          "type": "AddCasterBuff",
+                                          "buff_state": {
+                                            "name": "league_shyvana_fy5",
+                                            "duration": {
+                                              "Time": {
+                                                "tick": 360
+                                              }
+                                            }
+                                          },
+                                          "only_to_enemy": false
+                                        }
+                                      ]
+                                    },
+                                    "effect_none": {
+                                      "type": "SwitchByBuff",
+                                      "buff_name": "league_shyvana_fy3",
+                                      "effect_buff": {
+                                        "type": "Combine",
+                                        "effects": [
+                                          {
+                                            "type": "RemoveCasterBuff",
+                                            "name": "league_shyvana_fy3"
+                                          },
+                                          {
+                                            "type": "AddCasterBuff",
+                                            "buff_state": {
+                                              "name": "league_shyvana_fy4",
+                                              "duration": {
+                                                "Time": {
+                                                  "tick": 360
+                                                }
+                                              }
+                                            },
+                                            "only_to_enemy": false
+                                          }
+                                        ]
+                                      },
+                                      "effect_none": {
+                                        "type": "SwitchByBuff",
+                                        "buff_name": "league_shyvana_fy2",
+                                        "effect_buff": {
+                                          "type": "Combine",
+                                          "effects": [
+                                            {
+                                              "type": "RemoveCasterBuff",
+                                              "name": "league_shyvana_fy2"
+                                            },
+                                            {
+                                              "type": "AddCasterBuff",
+                                              "buff_state": {
+                                                "name": "league_shyvana_fy3",
+                                                "duration": {
+                                                  "Time": {
+                                                    "tick": 360
+                                                  }
+                                                }
+                                              },
+                                              "only_to_enemy": false
+                                            }
+                                          ]
+                                        },
+                                        "effect_none": {
+                                          "type": "SwitchByBuff",
+                                          "buff_name": "league_shyvana_fy1",
+                                          "effect_buff": {
+                                            "type": "Combine",
+                                            "effects": [
+                                              {
+                                                "type": "RemoveCasterBuff",
+                                                "name": "league_shyvana_fy1"
+                                              },
+                                              {
+                                                "type": "AddCasterBuff",
+                                                "buff_state": {
+                                                  "name": "league_shyvana_fy2",
+                                                  "duration": {
+                                                    "Time": {
+                                                      "tick": 360
+                                                    }
+                                                  }
+                                                },
+                                                "only_to_enemy": false
+                                              }
+                                            ]
+                                          },
+                                          "effect_none": {
+                                            "type": "AddCasterBuff",
+                                            "buff_state": {
+                                              "name": "league_shyvana_fy1",
+                                              "duration": {
+                                                "Time": {
+                                                  "tick": 360
+                                                }
+                                              }
+                                            },
+                                            "only_to_enemy": false
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
               }
             ]
           }
@@ -2316,7 +2894,7 @@
                 },
                 {
                   "type": "Delayed",
-                  "tick": 14,
+                  "tick": 15,
                   "effects": [
                     {
                       "type": "LinearProjectile",
@@ -2522,7 +3100,7 @@
                 },
                 {
                   "type": "Delayed",
-                  "tick": 14,
+                  "tick": 6,
                   "effects": [
                     {
                       "type": "LinearProjectile",
@@ -3684,109 +4262,72 @@
                                             }
                                           },
                                           {
-                                            "type": "Delayed",
-                                            "tick": 13,
-                                            "effects": [
-                                              {
-                                                "type": "RangeEffect",
-                                                "shape": {
-                                                  "Circle": {
-                                                    "radius": 16000
-                                                  }
-                                                },
-                                                "target": "EnemyWithoutTower",
-                                                "apply_type": {
-                                                  "Forward": {
-                                                    "offset": 12000
-                                                  }
-                                                },
-                                                "effects": [
-                                                  {
-                                                    "type": "Attack",
-                                                    "damage": 25,
-                                                    "attack_ratio": 90,
-                                                    "hp_ratio": 0,
-                                                    "target_hp_ratio": 0,
-                                                    "attack_effect_type": "Target"
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_shyvana_dg",
+                                            "effect_buff": {
+                                              "type": "Delayed",
+                                              "tick": 14,
+                                              "effects": [
+                                                {
+                                                  "type": "RangeEffect",
+                                                  "shape": {
+                                                    "Circle": {
+                                                      "radius": 16000
+                                                    }
                                                   },
-                                                  {
-                                                    "type": "ViewEffect",
-                                                    "name": "league_shyvana_q_hit"
+                                                  "target": "EnemyWithoutTower",
+                                                  "apply_type": {
+                                                    "Forward": {
+                                                      "offset": 12000
+                                                    }
                                                   },
-                                                  {
-                                                    "type": "TargetSfx",
-                                                    "name": "league_shyvana_q_hit"
-                                                  }
-                                                ]
-                                              },
-                                              {
-                                                "type": "SwitchByBuff",
-                                                "buff_name": "league_shyvana_dg",
-                                                "effect_buff": {
-                                                  "type": "CasterViewEffect",
-                                                  "name": "league_shyvana_d_q_slash"
+                                                  "effects": [
+                                                    {
+                                                      "type": "Attack",
+                                                      "damage": 25,
+                                                      "attack_ratio": 90,
+                                                      "hp_ratio": 0,
+                                                      "target_hp_ratio": 0,
+                                                      "attack_effect_type": "Target"
+                                                    },
+                                                    {
+                                                      "type": "ViewEffect",
+                                                      "name": "league_shyvana_q_hit"
+                                                    },
+                                                    {
+                                                      "type": "TargetSfx",
+                                                      "name": "league_shyvana_q_hit"
+                                                    }
+                                                  ]
                                                 },
-                                                "effect_none": {
-                                                  "type": "CasterViewEffect",
-                                                  "name": "league_shyvana_q_slash"
-                                                }
-                                              },
-                                              {
-                                                "type": "SwitchByBuff",
-                                                "buff_name": "league_shyvana_dg",
-                                                "effect_buff": {
-                                                  "type": "Combine",
-                                                  "effects": []
-                                                },
-                                                "effect_none": {
+                                                {
                                                   "type": "SwitchByBuff",
-                                                  "buff_name": "league_shyvana_full",
+                                                  "buff_name": "league_shyvana_dg",
                                                   "effect_buff": {
                                                     "type": "Combine",
                                                     "effects": []
                                                   },
                                                   "effect_none": {
                                                     "type": "SwitchByBuff",
-                                                    "buff_name": "league_shyvana_fy9",
+                                                    "buff_name": "league_shyvana_full",
                                                     "effect_buff": {
                                                       "type": "Combine",
-                                                      "effects": [
-                                                        {
-                                                          "type": "RemoveCasterBuff",
-                                                          "name": "league_shyvana_fy9"
-                                                        },
-                                                        {
-                                                          "type": "AddCasterBuff",
-                                                          "buff_state": {
-                                                            "name": "league_shyvana_full",
-                                                            "duration": {
-                                                              "Time": {
-                                                                "tick": 360
-                                                              }
-                                                            }
-                                                          },
-                                                          "only_to_enemy": false
-                                                        },
-                                                        {
-                                                          "type": "Sfx",
-                                                          "name": "league_shyvana_full"
-                                                        }
-                                                      ]
+                                                      "effects": []
                                                     },
                                                     "effect_none": {
                                                       "type": "SwitchByBuff",
-                                                      "buff_name": "league_shyvana_fy8",
+                                                      "buff_name": "league_shyvana_fy9",
                                                       "effect_buff": {
                                                         "type": "Combine",
                                                         "effects": [
                                                           {
                                                             "type": "RemoveCasterBuff",
-                                                            "name": "league_shyvana_fy8"
+                                                            "name": "league_shyvana_fy9"
                                                           },
                                                           {
                                                             "type": "AddCasterBuff",
                                                             "buff_state": {
-                                                              "name": "league_shyvana_fy9",
+                                                              "name": "league_shyvana_full",
                                                               "duration": {
                                                                 "Time": {
                                                                   "tick": 360
@@ -3794,23 +4335,27 @@
                                                               }
                                                             },
                                                             "only_to_enemy": false
+                                                          },
+                                                          {
+                                                            "type": "Sfx",
+                                                            "name": "league_shyvana_full"
                                                           }
                                                         ]
                                                       },
                                                       "effect_none": {
                                                         "type": "SwitchByBuff",
-                                                        "buff_name": "league_shyvana_fy7",
+                                                        "buff_name": "league_shyvana_fy8",
                                                         "effect_buff": {
                                                           "type": "Combine",
                                                           "effects": [
                                                             {
                                                               "type": "RemoveCasterBuff",
-                                                              "name": "league_shyvana_fy7"
+                                                              "name": "league_shyvana_fy8"
                                                             },
                                                             {
                                                               "type": "AddCasterBuff",
                                                               "buff_state": {
-                                                                "name": "league_shyvana_fy8",
+                                                                "name": "league_shyvana_fy9",
                                                                 "duration": {
                                                                   "Time": {
                                                                     "tick": 360
@@ -3823,18 +4368,18 @@
                                                         },
                                                         "effect_none": {
                                                           "type": "SwitchByBuff",
-                                                          "buff_name": "league_shyvana_fy6",
+                                                          "buff_name": "league_shyvana_fy7",
                                                           "effect_buff": {
                                                             "type": "Combine",
                                                             "effects": [
                                                               {
                                                                 "type": "RemoveCasterBuff",
-                                                                "name": "league_shyvana_fy6"
+                                                                "name": "league_shyvana_fy7"
                                                               },
                                                               {
                                                                 "type": "AddCasterBuff",
                                                                 "buff_state": {
-                                                                  "name": "league_shyvana_fy7",
+                                                                  "name": "league_shyvana_fy8",
                                                                   "duration": {
                                                                     "Time": {
                                                                       "tick": 360
@@ -3847,18 +4392,18 @@
                                                           },
                                                           "effect_none": {
                                                             "type": "SwitchByBuff",
-                                                            "buff_name": "league_shyvana_fy5",
+                                                            "buff_name": "league_shyvana_fy6",
                                                             "effect_buff": {
                                                               "type": "Combine",
                                                               "effects": [
                                                                 {
                                                                   "type": "RemoveCasterBuff",
-                                                                  "name": "league_shyvana_fy5"
+                                                                  "name": "league_shyvana_fy6"
                                                                 },
                                                                 {
                                                                   "type": "AddCasterBuff",
                                                                   "buff_state": {
-                                                                    "name": "league_shyvana_fy6",
+                                                                    "name": "league_shyvana_fy7",
                                                                     "duration": {
                                                                       "Time": {
                                                                         "tick": 360
@@ -3871,18 +4416,18 @@
                                                             },
                                                             "effect_none": {
                                                               "type": "SwitchByBuff",
-                                                              "buff_name": "league_shyvana_fy4",
+                                                              "buff_name": "league_shyvana_fy5",
                                                               "effect_buff": {
                                                                 "type": "Combine",
                                                                 "effects": [
                                                                   {
                                                                     "type": "RemoveCasterBuff",
-                                                                    "name": "league_shyvana_fy4"
+                                                                    "name": "league_shyvana_fy5"
                                                                   },
                                                                   {
                                                                     "type": "AddCasterBuff",
                                                                     "buff_state": {
-                                                                      "name": "league_shyvana_fy5",
+                                                                      "name": "league_shyvana_fy6",
                                                                       "duration": {
                                                                         "Time": {
                                                                           "tick": 360
@@ -3895,18 +4440,18 @@
                                                               },
                                                               "effect_none": {
                                                                 "type": "SwitchByBuff",
-                                                                "buff_name": "league_shyvana_fy3",
+                                                                "buff_name": "league_shyvana_fy4",
                                                                 "effect_buff": {
                                                                   "type": "Combine",
                                                                   "effects": [
                                                                     {
                                                                       "type": "RemoveCasterBuff",
-                                                                      "name": "league_shyvana_fy3"
+                                                                      "name": "league_shyvana_fy4"
                                                                     },
                                                                     {
                                                                       "type": "AddCasterBuff",
                                                                       "buff_state": {
-                                                                        "name": "league_shyvana_fy4",
+                                                                        "name": "league_shyvana_fy5",
                                                                         "duration": {
                                                                           "Time": {
                                                                             "tick": 360
@@ -3919,18 +4464,18 @@
                                                                 },
                                                                 "effect_none": {
                                                                   "type": "SwitchByBuff",
-                                                                  "buff_name": "league_shyvana_fy2",
+                                                                  "buff_name": "league_shyvana_fy3",
                                                                   "effect_buff": {
                                                                     "type": "Combine",
                                                                     "effects": [
                                                                       {
                                                                         "type": "RemoveCasterBuff",
-                                                                        "name": "league_shyvana_fy2"
+                                                                        "name": "league_shyvana_fy3"
                                                                       },
                                                                       {
                                                                         "type": "AddCasterBuff",
                                                                         "buff_state": {
-                                                                          "name": "league_shyvana_fy3",
+                                                                          "name": "league_shyvana_fy4",
                                                                           "duration": {
                                                                             "Time": {
                                                                               "tick": 360
@@ -3943,18 +4488,18 @@
                                                                   },
                                                                   "effect_none": {
                                                                     "type": "SwitchByBuff",
-                                                                    "buff_name": "league_shyvana_fy1",
+                                                                    "buff_name": "league_shyvana_fy2",
                                                                     "effect_buff": {
                                                                       "type": "Combine",
                                                                       "effects": [
                                                                         {
                                                                           "type": "RemoveCasterBuff",
-                                                                          "name": "league_shyvana_fy1"
+                                                                          "name": "league_shyvana_fy2"
                                                                         },
                                                                         {
                                                                           "type": "AddCasterBuff",
                                                                           "buff_state": {
-                                                                            "name": "league_shyvana_fy2",
+                                                                            "name": "league_shyvana_fy3",
                                                                             "duration": {
                                                                               "Time": {
                                                                                 "tick": 360
@@ -3966,16 +4511,41 @@
                                                                       ]
                                                                     },
                                                                     "effect_none": {
-                                                                      "type": "AddCasterBuff",
-                                                                      "buff_state": {
-                                                                        "name": "league_shyvana_fy1",
-                                                                        "duration": {
-                                                                          "Time": {
-                                                                            "tick": 360
+                                                                      "type": "SwitchByBuff",
+                                                                      "buff_name": "league_shyvana_fy1",
+                                                                      "effect_buff": {
+                                                                        "type": "Combine",
+                                                                        "effects": [
+                                                                          {
+                                                                            "type": "RemoveCasterBuff",
+                                                                            "name": "league_shyvana_fy1"
+                                                                          },
+                                                                          {
+                                                                            "type": "AddCasterBuff",
+                                                                            "buff_state": {
+                                                                              "name": "league_shyvana_fy2",
+                                                                              "duration": {
+                                                                                "Time": {
+                                                                                  "tick": 360
+                                                                                }
+                                                                              }
+                                                                            },
+                                                                            "only_to_enemy": false
                                                                           }
-                                                                        }
+                                                                        ]
                                                                       },
-                                                                      "only_to_enemy": false
+                                                                      "effect_none": {
+                                                                        "type": "AddCasterBuff",
+                                                                        "buff_state": {
+                                                                          "name": "league_shyvana_fy1",
+                                                                          "duration": {
+                                                                            "Time": {
+                                                                              "tick": 360
+                                                                            }
+                                                                          }
+                                                                        },
+                                                                        "only_to_enemy": false
+                                                                      }
                                                                     }
                                                                   }
                                                                 }
@@ -3987,8 +4557,303 @@
                                                     }
                                                   }
                                                 }
-                                              }
-                                            ]
+                                              ]
+                                            },
+                                            "effect_none": {
+                                              "type": "Delayed",
+                                              "tick": 10,
+                                              "effects": [
+                                                {
+                                                  "type": "RangeEffect",
+                                                  "shape": {
+                                                    "Circle": {
+                                                      "radius": 16000
+                                                    }
+                                                  },
+                                                  "target": "EnemyWithoutTower",
+                                                  "apply_type": {
+                                                    "Forward": {
+                                                      "offset": 12000
+                                                    }
+                                                  },
+                                                  "effects": [
+                                                    {
+                                                      "type": "Attack",
+                                                      "damage": 25,
+                                                      "attack_ratio": 90,
+                                                      "hp_ratio": 0,
+                                                      "target_hp_ratio": 0,
+                                                      "attack_effect_type": "Target"
+                                                    },
+                                                    {
+                                                      "type": "ViewEffect",
+                                                      "name": "league_shyvana_q_hit"
+                                                    },
+                                                    {
+                                                      "type": "TargetSfx",
+                                                      "name": "league_shyvana_q_hit"
+                                                    }
+                                                  ]
+                                                },
+                                                {
+                                                  "type": "SwitchByBuff",
+                                                  "buff_name": "league_shyvana_dg",
+                                                  "effect_buff": {
+                                                    "type": "Combine",
+                                                    "effects": []
+                                                  },
+                                                  "effect_none": {
+                                                    "type": "SwitchByBuff",
+                                                    "buff_name": "league_shyvana_full",
+                                                    "effect_buff": {
+                                                      "type": "Combine",
+                                                      "effects": []
+                                                    },
+                                                    "effect_none": {
+                                                      "type": "SwitchByBuff",
+                                                      "buff_name": "league_shyvana_fy9",
+                                                      "effect_buff": {
+                                                        "type": "Combine",
+                                                        "effects": [
+                                                          {
+                                                            "type": "RemoveCasterBuff",
+                                                            "name": "league_shyvana_fy9"
+                                                          },
+                                                          {
+                                                            "type": "AddCasterBuff",
+                                                            "buff_state": {
+                                                              "name": "league_shyvana_full",
+                                                              "duration": {
+                                                                "Time": {
+                                                                  "tick": 360
+                                                                }
+                                                              }
+                                                            },
+                                                            "only_to_enemy": false
+                                                          },
+                                                          {
+                                                            "type": "Sfx",
+                                                            "name": "league_shyvana_full"
+                                                          }
+                                                        ]
+                                                      },
+                                                      "effect_none": {
+                                                        "type": "SwitchByBuff",
+                                                        "buff_name": "league_shyvana_fy8",
+                                                        "effect_buff": {
+                                                          "type": "Combine",
+                                                          "effects": [
+                                                            {
+                                                              "type": "RemoveCasterBuff",
+                                                              "name": "league_shyvana_fy8"
+                                                            },
+                                                            {
+                                                              "type": "AddCasterBuff",
+                                                              "buff_state": {
+                                                                "name": "league_shyvana_fy9",
+                                                                "duration": {
+                                                                  "Time": {
+                                                                    "tick": 360
+                                                                  }
+                                                                }
+                                                              },
+                                                              "only_to_enemy": false
+                                                            }
+                                                          ]
+                                                        },
+                                                        "effect_none": {
+                                                          "type": "SwitchByBuff",
+                                                          "buff_name": "league_shyvana_fy7",
+                                                          "effect_buff": {
+                                                            "type": "Combine",
+                                                            "effects": [
+                                                              {
+                                                                "type": "RemoveCasterBuff",
+                                                                "name": "league_shyvana_fy7"
+                                                              },
+                                                              {
+                                                                "type": "AddCasterBuff",
+                                                                "buff_state": {
+                                                                  "name": "league_shyvana_fy8",
+                                                                  "duration": {
+                                                                    "Time": {
+                                                                      "tick": 360
+                                                                    }
+                                                                  }
+                                                                },
+                                                                "only_to_enemy": false
+                                                              }
+                                                            ]
+                                                          },
+                                                          "effect_none": {
+                                                            "type": "SwitchByBuff",
+                                                            "buff_name": "league_shyvana_fy6",
+                                                            "effect_buff": {
+                                                              "type": "Combine",
+                                                              "effects": [
+                                                                {
+                                                                  "type": "RemoveCasterBuff",
+                                                                  "name": "league_shyvana_fy6"
+                                                                },
+                                                                {
+                                                                  "type": "AddCasterBuff",
+                                                                  "buff_state": {
+                                                                    "name": "league_shyvana_fy7",
+                                                                    "duration": {
+                                                                      "Time": {
+                                                                        "tick": 360
+                                                                      }
+                                                                    }
+                                                                  },
+                                                                  "only_to_enemy": false
+                                                                }
+                                                              ]
+                                                            },
+                                                            "effect_none": {
+                                                              "type": "SwitchByBuff",
+                                                              "buff_name": "league_shyvana_fy5",
+                                                              "effect_buff": {
+                                                                "type": "Combine",
+                                                                "effects": [
+                                                                  {
+                                                                    "type": "RemoveCasterBuff",
+                                                                    "name": "league_shyvana_fy5"
+                                                                  },
+                                                                  {
+                                                                    "type": "AddCasterBuff",
+                                                                    "buff_state": {
+                                                                      "name": "league_shyvana_fy6",
+                                                                      "duration": {
+                                                                        "Time": {
+                                                                          "tick": 360
+                                                                        }
+                                                                      }
+                                                                    },
+                                                                    "only_to_enemy": false
+                                                                  }
+                                                                ]
+                                                              },
+                                                              "effect_none": {
+                                                                "type": "SwitchByBuff",
+                                                                "buff_name": "league_shyvana_fy4",
+                                                                "effect_buff": {
+                                                                  "type": "Combine",
+                                                                  "effects": [
+                                                                    {
+                                                                      "type": "RemoveCasterBuff",
+                                                                      "name": "league_shyvana_fy4"
+                                                                    },
+                                                                    {
+                                                                      "type": "AddCasterBuff",
+                                                                      "buff_state": {
+                                                                        "name": "league_shyvana_fy5",
+                                                                        "duration": {
+                                                                          "Time": {
+                                                                            "tick": 360
+                                                                          }
+                                                                        }
+                                                                      },
+                                                                      "only_to_enemy": false
+                                                                    }
+                                                                  ]
+                                                                },
+                                                                "effect_none": {
+                                                                  "type": "SwitchByBuff",
+                                                                  "buff_name": "league_shyvana_fy3",
+                                                                  "effect_buff": {
+                                                                    "type": "Combine",
+                                                                    "effects": [
+                                                                      {
+                                                                        "type": "RemoveCasterBuff",
+                                                                        "name": "league_shyvana_fy3"
+                                                                      },
+                                                                      {
+                                                                        "type": "AddCasterBuff",
+                                                                        "buff_state": {
+                                                                          "name": "league_shyvana_fy4",
+                                                                          "duration": {
+                                                                            "Time": {
+                                                                              "tick": 360
+                                                                            }
+                                                                          }
+                                                                        },
+                                                                        "only_to_enemy": false
+                                                                      }
+                                                                    ]
+                                                                  },
+                                                                  "effect_none": {
+                                                                    "type": "SwitchByBuff",
+                                                                    "buff_name": "league_shyvana_fy2",
+                                                                    "effect_buff": {
+                                                                      "type": "Combine",
+                                                                      "effects": [
+                                                                        {
+                                                                          "type": "RemoveCasterBuff",
+                                                                          "name": "league_shyvana_fy2"
+                                                                        },
+                                                                        {
+                                                                          "type": "AddCasterBuff",
+                                                                          "buff_state": {
+                                                                            "name": "league_shyvana_fy3",
+                                                                            "duration": {
+                                                                              "Time": {
+                                                                                "tick": 360
+                                                                              }
+                                                                            }
+                                                                          },
+                                                                          "only_to_enemy": false
+                                                                        }
+                                                                      ]
+                                                                    },
+                                                                    "effect_none": {
+                                                                      "type": "SwitchByBuff",
+                                                                      "buff_name": "league_shyvana_fy1",
+                                                                      "effect_buff": {
+                                                                        "type": "Combine",
+                                                                        "effects": [
+                                                                          {
+                                                                            "type": "RemoveCasterBuff",
+                                                                            "name": "league_shyvana_fy1"
+                                                                          },
+                                                                          {
+                                                                            "type": "AddCasterBuff",
+                                                                            "buff_state": {
+                                                                              "name": "league_shyvana_fy2",
+                                                                              "duration": {
+                                                                                "Time": {
+                                                                                  "tick": 360
+                                                                                }
+                                                                              }
+                                                                            },
+                                                                            "only_to_enemy": false
+                                                                          }
+                                                                        ]
+                                                                      },
+                                                                      "effect_none": {
+                                                                        "type": "AddCasterBuff",
+                                                                        "buff_state": {
+                                                                          "name": "league_shyvana_fy1",
+                                                                          "duration": {
+                                                                            "Time": {
+                                                                              "tick": 360
+                                                                            }
+                                                                          }
+                                                                        },
+                                                                        "only_to_enemy": false
+                                                                      }
+                                                                    }
+                                                                  }
+                                                                }
+                                                              }
+                                                            }
+                                                          }
+                                                        }
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                              ]
+                                            }
                                           }
                                         ]
                                       }
@@ -4843,109 +5708,72 @@
                                                   }
                                                 },
                                                 {
-                                                  "type": "Delayed",
-                                                  "tick": 13,
-                                                  "effects": [
-                                                    {
-                                                      "type": "RangeEffect",
-                                                      "shape": {
-                                                        "Circle": {
-                                                          "radius": 16000
-                                                        }
-                                                      },
-                                                      "target": "EnemyWithoutTower",
-                                                      "apply_type": {
-                                                        "Forward": {
-                                                          "offset": 12000
-                                                        }
-                                                      },
-                                                      "effects": [
-                                                        {
-                                                          "type": "Attack",
-                                                          "damage": 25,
-                                                          "attack_ratio": 90,
-                                                          "hp_ratio": 0,
-                                                          "target_hp_ratio": 0,
-                                                          "attack_effect_type": "Target"
+                                                  "type": "SwitchByBuff",
+                                                  "buff_name": "league_shyvana_dg",
+                                                  "effect_buff": {
+                                                    "type": "Delayed",
+                                                    "tick": 14,
+                                                    "effects": [
+                                                      {
+                                                        "type": "RangeEffect",
+                                                        "shape": {
+                                                          "Circle": {
+                                                            "radius": 16000
+                                                          }
                                                         },
-                                                        {
-                                                          "type": "ViewEffect",
-                                                          "name": "league_shyvana_q_hit"
+                                                        "target": "EnemyWithoutTower",
+                                                        "apply_type": {
+                                                          "Forward": {
+                                                            "offset": 12000
+                                                          }
                                                         },
-                                                        {
-                                                          "type": "TargetSfx",
-                                                          "name": "league_shyvana_q_hit"
-                                                        }
-                                                      ]
-                                                    },
-                                                    {
-                                                      "type": "SwitchByBuff",
-                                                      "buff_name": "league_shyvana_dg",
-                                                      "effect_buff": {
-                                                        "type": "CasterViewEffect",
-                                                        "name": "league_shyvana_d_q_slash"
+                                                        "effects": [
+                                                          {
+                                                            "type": "Attack",
+                                                            "damage": 25,
+                                                            "attack_ratio": 90,
+                                                            "hp_ratio": 0,
+                                                            "target_hp_ratio": 0,
+                                                            "attack_effect_type": "Target"
+                                                          },
+                                                          {
+                                                            "type": "ViewEffect",
+                                                            "name": "league_shyvana_q_hit"
+                                                          },
+                                                          {
+                                                            "type": "TargetSfx",
+                                                            "name": "league_shyvana_q_hit"
+                                                          }
+                                                        ]
                                                       },
-                                                      "effect_none": {
-                                                        "type": "CasterViewEffect",
-                                                        "name": "league_shyvana_q_slash"
-                                                      }
-                                                    },
-                                                    {
-                                                      "type": "SwitchByBuff",
-                                                      "buff_name": "league_shyvana_dg",
-                                                      "effect_buff": {
-                                                        "type": "Combine",
-                                                        "effects": []
-                                                      },
-                                                      "effect_none": {
+                                                      {
                                                         "type": "SwitchByBuff",
-                                                        "buff_name": "league_shyvana_full",
+                                                        "buff_name": "league_shyvana_dg",
                                                         "effect_buff": {
                                                           "type": "Combine",
                                                           "effects": []
                                                         },
                                                         "effect_none": {
                                                           "type": "SwitchByBuff",
-                                                          "buff_name": "league_shyvana_fy9",
+                                                          "buff_name": "league_shyvana_full",
                                                           "effect_buff": {
                                                             "type": "Combine",
-                                                            "effects": [
-                                                              {
-                                                                "type": "RemoveCasterBuff",
-                                                                "name": "league_shyvana_fy9"
-                                                              },
-                                                              {
-                                                                "type": "AddCasterBuff",
-                                                                "buff_state": {
-                                                                  "name": "league_shyvana_full",
-                                                                  "duration": {
-                                                                    "Time": {
-                                                                      "tick": 360
-                                                                    }
-                                                                  }
-                                                                },
-                                                                "only_to_enemy": false
-                                                              },
-                                                              {
-                                                                "type": "Sfx",
-                                                                "name": "league_shyvana_full"
-                                                              }
-                                                            ]
+                                                            "effects": []
                                                           },
                                                           "effect_none": {
                                                             "type": "SwitchByBuff",
-                                                            "buff_name": "league_shyvana_fy8",
+                                                            "buff_name": "league_shyvana_fy9",
                                                             "effect_buff": {
                                                               "type": "Combine",
                                                               "effects": [
                                                                 {
                                                                   "type": "RemoveCasterBuff",
-                                                                  "name": "league_shyvana_fy8"
+                                                                  "name": "league_shyvana_fy9"
                                                                 },
                                                                 {
                                                                   "type": "AddCasterBuff",
                                                                   "buff_state": {
-                                                                    "name": "league_shyvana_fy9",
+                                                                    "name": "league_shyvana_full",
                                                                     "duration": {
                                                                       "Time": {
                                                                         "tick": 360
@@ -4953,23 +5781,27 @@
                                                                     }
                                                                   },
                                                                   "only_to_enemy": false
+                                                                },
+                                                                {
+                                                                  "type": "Sfx",
+                                                                  "name": "league_shyvana_full"
                                                                 }
                                                               ]
                                                             },
                                                             "effect_none": {
                                                               "type": "SwitchByBuff",
-                                                              "buff_name": "league_shyvana_fy7",
+                                                              "buff_name": "league_shyvana_fy8",
                                                               "effect_buff": {
                                                                 "type": "Combine",
                                                                 "effects": [
                                                                   {
                                                                     "type": "RemoveCasterBuff",
-                                                                    "name": "league_shyvana_fy7"
+                                                                    "name": "league_shyvana_fy8"
                                                                   },
                                                                   {
                                                                     "type": "AddCasterBuff",
                                                                     "buff_state": {
-                                                                      "name": "league_shyvana_fy8",
+                                                                      "name": "league_shyvana_fy9",
                                                                       "duration": {
                                                                         "Time": {
                                                                           "tick": 360
@@ -4982,18 +5814,18 @@
                                                               },
                                                               "effect_none": {
                                                                 "type": "SwitchByBuff",
-                                                                "buff_name": "league_shyvana_fy6",
+                                                                "buff_name": "league_shyvana_fy7",
                                                                 "effect_buff": {
                                                                   "type": "Combine",
                                                                   "effects": [
                                                                     {
                                                                       "type": "RemoveCasterBuff",
-                                                                      "name": "league_shyvana_fy6"
+                                                                      "name": "league_shyvana_fy7"
                                                                     },
                                                                     {
                                                                       "type": "AddCasterBuff",
                                                                       "buff_state": {
-                                                                        "name": "league_shyvana_fy7",
+                                                                        "name": "league_shyvana_fy8",
                                                                         "duration": {
                                                                           "Time": {
                                                                             "tick": 360
@@ -5006,18 +5838,18 @@
                                                                 },
                                                                 "effect_none": {
                                                                   "type": "SwitchByBuff",
-                                                                  "buff_name": "league_shyvana_fy5",
+                                                                  "buff_name": "league_shyvana_fy6",
                                                                   "effect_buff": {
                                                                     "type": "Combine",
                                                                     "effects": [
                                                                       {
                                                                         "type": "RemoveCasterBuff",
-                                                                        "name": "league_shyvana_fy5"
+                                                                        "name": "league_shyvana_fy6"
                                                                       },
                                                                       {
                                                                         "type": "AddCasterBuff",
                                                                         "buff_state": {
-                                                                          "name": "league_shyvana_fy6",
+                                                                          "name": "league_shyvana_fy7",
                                                                           "duration": {
                                                                             "Time": {
                                                                               "tick": 360
@@ -5030,18 +5862,18 @@
                                                                   },
                                                                   "effect_none": {
                                                                     "type": "SwitchByBuff",
-                                                                    "buff_name": "league_shyvana_fy4",
+                                                                    "buff_name": "league_shyvana_fy5",
                                                                     "effect_buff": {
                                                                       "type": "Combine",
                                                                       "effects": [
                                                                         {
                                                                           "type": "RemoveCasterBuff",
-                                                                          "name": "league_shyvana_fy4"
+                                                                          "name": "league_shyvana_fy5"
                                                                         },
                                                                         {
                                                                           "type": "AddCasterBuff",
                                                                           "buff_state": {
-                                                                            "name": "league_shyvana_fy5",
+                                                                            "name": "league_shyvana_fy6",
                                                                             "duration": {
                                                                               "Time": {
                                                                                 "tick": 360
@@ -5054,18 +5886,18 @@
                                                                     },
                                                                     "effect_none": {
                                                                       "type": "SwitchByBuff",
-                                                                      "buff_name": "league_shyvana_fy3",
+                                                                      "buff_name": "league_shyvana_fy4",
                                                                       "effect_buff": {
                                                                         "type": "Combine",
                                                                         "effects": [
                                                                           {
                                                                             "type": "RemoveCasterBuff",
-                                                                            "name": "league_shyvana_fy3"
+                                                                            "name": "league_shyvana_fy4"
                                                                           },
                                                                           {
                                                                             "type": "AddCasterBuff",
                                                                             "buff_state": {
-                                                                              "name": "league_shyvana_fy4",
+                                                                              "name": "league_shyvana_fy5",
                                                                               "duration": {
                                                                                 "Time": {
                                                                                   "tick": 360
@@ -5078,18 +5910,18 @@
                                                                       },
                                                                       "effect_none": {
                                                                         "type": "SwitchByBuff",
-                                                                        "buff_name": "league_shyvana_fy2",
+                                                                        "buff_name": "league_shyvana_fy3",
                                                                         "effect_buff": {
                                                                           "type": "Combine",
                                                                           "effects": [
                                                                             {
                                                                               "type": "RemoveCasterBuff",
-                                                                              "name": "league_shyvana_fy2"
+                                                                              "name": "league_shyvana_fy3"
                                                                             },
                                                                             {
                                                                               "type": "AddCasterBuff",
                                                                               "buff_state": {
-                                                                                "name": "league_shyvana_fy3",
+                                                                                "name": "league_shyvana_fy4",
                                                                                 "duration": {
                                                                                   "Time": {
                                                                                     "tick": 360
@@ -5102,18 +5934,18 @@
                                                                         },
                                                                         "effect_none": {
                                                                           "type": "SwitchByBuff",
-                                                                          "buff_name": "league_shyvana_fy1",
+                                                                          "buff_name": "league_shyvana_fy2",
                                                                           "effect_buff": {
                                                                             "type": "Combine",
                                                                             "effects": [
                                                                               {
                                                                                 "type": "RemoveCasterBuff",
-                                                                                "name": "league_shyvana_fy1"
+                                                                                "name": "league_shyvana_fy2"
                                                                               },
                                                                               {
                                                                                 "type": "AddCasterBuff",
                                                                                 "buff_state": {
-                                                                                  "name": "league_shyvana_fy2",
+                                                                                  "name": "league_shyvana_fy3",
                                                                                   "duration": {
                                                                                     "Time": {
                                                                                       "tick": 360
@@ -5125,16 +5957,41 @@
                                                                             ]
                                                                           },
                                                                           "effect_none": {
-                                                                            "type": "AddCasterBuff",
-                                                                            "buff_state": {
-                                                                              "name": "league_shyvana_fy1",
-                                                                              "duration": {
-                                                                                "Time": {
-                                                                                  "tick": 360
+                                                                            "type": "SwitchByBuff",
+                                                                            "buff_name": "league_shyvana_fy1",
+                                                                            "effect_buff": {
+                                                                              "type": "Combine",
+                                                                              "effects": [
+                                                                                {
+                                                                                  "type": "RemoveCasterBuff",
+                                                                                  "name": "league_shyvana_fy1"
+                                                                                },
+                                                                                {
+                                                                                  "type": "AddCasterBuff",
+                                                                                  "buff_state": {
+                                                                                    "name": "league_shyvana_fy2",
+                                                                                    "duration": {
+                                                                                      "Time": {
+                                                                                        "tick": 360
+                                                                                      }
+                                                                                    }
+                                                                                  },
+                                                                                  "only_to_enemy": false
                                                                                 }
-                                                                              }
+                                                                              ]
                                                                             },
-                                                                            "only_to_enemy": false
+                                                                            "effect_none": {
+                                                                              "type": "AddCasterBuff",
+                                                                              "buff_state": {
+                                                                                "name": "league_shyvana_fy1",
+                                                                                "duration": {
+                                                                                  "Time": {
+                                                                                    "tick": 360
+                                                                                  }
+                                                                                }
+                                                                              },
+                                                                              "only_to_enemy": false
+                                                                            }
                                                                           }
                                                                         }
                                                                       }
@@ -5146,8 +6003,303 @@
                                                           }
                                                         }
                                                       }
-                                                    }
-                                                  ]
+                                                    ]
+                                                  },
+                                                  "effect_none": {
+                                                    "type": "Delayed",
+                                                    "tick": 10,
+                                                    "effects": [
+                                                      {
+                                                        "type": "RangeEffect",
+                                                        "shape": {
+                                                          "Circle": {
+                                                            "radius": 16000
+                                                          }
+                                                        },
+                                                        "target": "EnemyWithoutTower",
+                                                        "apply_type": {
+                                                          "Forward": {
+                                                            "offset": 12000
+                                                          }
+                                                        },
+                                                        "effects": [
+                                                          {
+                                                            "type": "Attack",
+                                                            "damage": 25,
+                                                            "attack_ratio": 90,
+                                                            "hp_ratio": 0,
+                                                            "target_hp_ratio": 0,
+                                                            "attack_effect_type": "Target"
+                                                          },
+                                                          {
+                                                            "type": "ViewEffect",
+                                                            "name": "league_shyvana_q_hit"
+                                                          },
+                                                          {
+                                                            "type": "TargetSfx",
+                                                            "name": "league_shyvana_q_hit"
+                                                          }
+                                                        ]
+                                                      },
+                                                      {
+                                                        "type": "SwitchByBuff",
+                                                        "buff_name": "league_shyvana_dg",
+                                                        "effect_buff": {
+                                                          "type": "Combine",
+                                                          "effects": []
+                                                        },
+                                                        "effect_none": {
+                                                          "type": "SwitchByBuff",
+                                                          "buff_name": "league_shyvana_full",
+                                                          "effect_buff": {
+                                                            "type": "Combine",
+                                                            "effects": []
+                                                          },
+                                                          "effect_none": {
+                                                            "type": "SwitchByBuff",
+                                                            "buff_name": "league_shyvana_fy9",
+                                                            "effect_buff": {
+                                                              "type": "Combine",
+                                                              "effects": [
+                                                                {
+                                                                  "type": "RemoveCasterBuff",
+                                                                  "name": "league_shyvana_fy9"
+                                                                },
+                                                                {
+                                                                  "type": "AddCasterBuff",
+                                                                  "buff_state": {
+                                                                    "name": "league_shyvana_full",
+                                                                    "duration": {
+                                                                      "Time": {
+                                                                        "tick": 360
+                                                                      }
+                                                                    }
+                                                                  },
+                                                                  "only_to_enemy": false
+                                                                },
+                                                                {
+                                                                  "type": "Sfx",
+                                                                  "name": "league_shyvana_full"
+                                                                }
+                                                              ]
+                                                            },
+                                                            "effect_none": {
+                                                              "type": "SwitchByBuff",
+                                                              "buff_name": "league_shyvana_fy8",
+                                                              "effect_buff": {
+                                                                "type": "Combine",
+                                                                "effects": [
+                                                                  {
+                                                                    "type": "RemoveCasterBuff",
+                                                                    "name": "league_shyvana_fy8"
+                                                                  },
+                                                                  {
+                                                                    "type": "AddCasterBuff",
+                                                                    "buff_state": {
+                                                                      "name": "league_shyvana_fy9",
+                                                                      "duration": {
+                                                                        "Time": {
+                                                                          "tick": 360
+                                                                        }
+                                                                      }
+                                                                    },
+                                                                    "only_to_enemy": false
+                                                                  }
+                                                                ]
+                                                              },
+                                                              "effect_none": {
+                                                                "type": "SwitchByBuff",
+                                                                "buff_name": "league_shyvana_fy7",
+                                                                "effect_buff": {
+                                                                  "type": "Combine",
+                                                                  "effects": [
+                                                                    {
+                                                                      "type": "RemoveCasterBuff",
+                                                                      "name": "league_shyvana_fy7"
+                                                                    },
+                                                                    {
+                                                                      "type": "AddCasterBuff",
+                                                                      "buff_state": {
+                                                                        "name": "league_shyvana_fy8",
+                                                                        "duration": {
+                                                                          "Time": {
+                                                                            "tick": 360
+                                                                          }
+                                                                        }
+                                                                      },
+                                                                      "only_to_enemy": false
+                                                                    }
+                                                                  ]
+                                                                },
+                                                                "effect_none": {
+                                                                  "type": "SwitchByBuff",
+                                                                  "buff_name": "league_shyvana_fy6",
+                                                                  "effect_buff": {
+                                                                    "type": "Combine",
+                                                                    "effects": [
+                                                                      {
+                                                                        "type": "RemoveCasterBuff",
+                                                                        "name": "league_shyvana_fy6"
+                                                                      },
+                                                                      {
+                                                                        "type": "AddCasterBuff",
+                                                                        "buff_state": {
+                                                                          "name": "league_shyvana_fy7",
+                                                                          "duration": {
+                                                                            "Time": {
+                                                                              "tick": 360
+                                                                            }
+                                                                          }
+                                                                        },
+                                                                        "only_to_enemy": false
+                                                                      }
+                                                                    ]
+                                                                  },
+                                                                  "effect_none": {
+                                                                    "type": "SwitchByBuff",
+                                                                    "buff_name": "league_shyvana_fy5",
+                                                                    "effect_buff": {
+                                                                      "type": "Combine",
+                                                                      "effects": [
+                                                                        {
+                                                                          "type": "RemoveCasterBuff",
+                                                                          "name": "league_shyvana_fy5"
+                                                                        },
+                                                                        {
+                                                                          "type": "AddCasterBuff",
+                                                                          "buff_state": {
+                                                                            "name": "league_shyvana_fy6",
+                                                                            "duration": {
+                                                                              "Time": {
+                                                                                "tick": 360
+                                                                              }
+                                                                            }
+                                                                          },
+                                                                          "only_to_enemy": false
+                                                                        }
+                                                                      ]
+                                                                    },
+                                                                    "effect_none": {
+                                                                      "type": "SwitchByBuff",
+                                                                      "buff_name": "league_shyvana_fy4",
+                                                                      "effect_buff": {
+                                                                        "type": "Combine",
+                                                                        "effects": [
+                                                                          {
+                                                                            "type": "RemoveCasterBuff",
+                                                                            "name": "league_shyvana_fy4"
+                                                                          },
+                                                                          {
+                                                                            "type": "AddCasterBuff",
+                                                                            "buff_state": {
+                                                                              "name": "league_shyvana_fy5",
+                                                                              "duration": {
+                                                                                "Time": {
+                                                                                  "tick": 360
+                                                                                }
+                                                                              }
+                                                                            },
+                                                                            "only_to_enemy": false
+                                                                          }
+                                                                        ]
+                                                                      },
+                                                                      "effect_none": {
+                                                                        "type": "SwitchByBuff",
+                                                                        "buff_name": "league_shyvana_fy3",
+                                                                        "effect_buff": {
+                                                                          "type": "Combine",
+                                                                          "effects": [
+                                                                            {
+                                                                              "type": "RemoveCasterBuff",
+                                                                              "name": "league_shyvana_fy3"
+                                                                            },
+                                                                            {
+                                                                              "type": "AddCasterBuff",
+                                                                              "buff_state": {
+                                                                                "name": "league_shyvana_fy4",
+                                                                                "duration": {
+                                                                                  "Time": {
+                                                                                    "tick": 360
+                                                                                  }
+                                                                                }
+                                                                              },
+                                                                              "only_to_enemy": false
+                                                                            }
+                                                                          ]
+                                                                        },
+                                                                        "effect_none": {
+                                                                          "type": "SwitchByBuff",
+                                                                          "buff_name": "league_shyvana_fy2",
+                                                                          "effect_buff": {
+                                                                            "type": "Combine",
+                                                                            "effects": [
+                                                                              {
+                                                                                "type": "RemoveCasterBuff",
+                                                                                "name": "league_shyvana_fy2"
+                                                                              },
+                                                                              {
+                                                                                "type": "AddCasterBuff",
+                                                                                "buff_state": {
+                                                                                  "name": "league_shyvana_fy3",
+                                                                                  "duration": {
+                                                                                    "Time": {
+                                                                                      "tick": 360
+                                                                                    }
+                                                                                  }
+                                                                                },
+                                                                                "only_to_enemy": false
+                                                                              }
+                                                                            ]
+                                                                          },
+                                                                          "effect_none": {
+                                                                            "type": "SwitchByBuff",
+                                                                            "buff_name": "league_shyvana_fy1",
+                                                                            "effect_buff": {
+                                                                              "type": "Combine",
+                                                                              "effects": [
+                                                                                {
+                                                                                  "type": "RemoveCasterBuff",
+                                                                                  "name": "league_shyvana_fy1"
+                                                                                },
+                                                                                {
+                                                                                  "type": "AddCasterBuff",
+                                                                                  "buff_state": {
+                                                                                    "name": "league_shyvana_fy2",
+                                                                                    "duration": {
+                                                                                      "Time": {
+                                                                                        "tick": 360
+                                                                                      }
+                                                                                    }
+                                                                                  },
+                                                                                  "only_to_enemy": false
+                                                                                }
+                                                                              ]
+                                                                            },
+                                                                            "effect_none": {
+                                                                              "type": "AddCasterBuff",
+                                                                              "buff_state": {
+                                                                                "name": "league_shyvana_fy1",
+                                                                                "duration": {
+                                                                                  "Time": {
+                                                                                    "tick": 360
+                                                                                  }
+                                                                                }
+                                                                              },
+                                                                              "only_to_enemy": false
+                                                                            }
+                                                                          }
+                                                                        }
+                                                                      }
+                                                                    }
+                                                                  }
+                                                                }
+                                                              }
+                                                            }
+                                                          }
+                                                        }
+                                                      }
+                                                    ]
+                                                  }
                                                 }
                                               ]
                                             }
@@ -5226,22 +6378,6 @@
       "anim": "asset/league/effects/league_shyvana_fx",
       "tag": "a_hit",
       "z": 2,
-      "is_follow": true
-    },
-    {
-      "type": "Animation",
-      "name": "league_shyvana_q_slash",
-      "anim": "asset/league/effects/league_shyvana_fx",
-      "tag": "q_slash",
-      "z": 3,
-      "is_follow": true
-    },
-    {
-      "type": "Animation",
-      "name": "league_shyvana_d_q_slash",
-      "anim": "asset/league/effects/league_shyvana_big",
-      "tag": "d_q_slash",
-      "z": 3,
       "is_follow": true
     },
     {

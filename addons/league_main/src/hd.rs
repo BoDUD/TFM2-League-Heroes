@@ -150,6 +150,10 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // rows crest top to the lowest tentacle: 「36」「PPU 1.5」; 3/4 only, every action after League's clips; ult_loop the
     // kit's channel CasterAnimation), so no SIZES row
     ("league_velkoz", 1.5, include_str!("../../../league/champions/league_velkoz#anim.fanim")),
+    // Shyvana: posed by tools/art/rig_shyvana.py on Codex's step-1 takes at the user's 1.5 squares a game pixel (63 game
+    // rows horn tips to soles, the dragon 64 as drawn: 「人42 龙48 PPU1.5」; 3/4 only; her actions on Codex's skeleton poses
+    // with the design's head; the dragon's d_* tags the kit's CasterAnimations), so no SIZES row
+    ("league_shyvana", 1.5, include_str!("../../../league/champions/league_shyvana#anim.fanim")),
     // Powder (tft_powder, the tft pack in tft/: Teamfight Tactics' own units, its own mod; this DLL draws her dense
     // frames when both packs are enabled): the idle design and Codex's skeleton poses with one clean head, posed by
     // tools/art/rig_powder.py at 1.75 squares a game pixel (61 rows: 「35」, then 「PPU像素好低啊 能调一下吗」), shown at 90 % (SIZES)

@@ -41,8 +41,10 @@ death stay human in the main pack - a whole-body dragon needs an add-on's view c
           dragon's Emberstrike r_q ticks later if Q is ready (so Wing -> Tail -> Bite follows on her next attacks).
   combos  Q -> attack -> attack (焚焰打击三段：翼击 / 尾扫 / 撕咬), R -> W -> Q (魔龙降世接烈火圣盾接焚焰打击).
 When `dg` runs out her next action turns her back (the attack plays `revert`) and an unfinished Q chain is dropped.
-Timings: placeholders until the strips (a frame's start in ticks = ms x 0.06); numbers: drafts from Warwick's and Gnar's
-balanced kits (no simulation run yet: the classic-SDK sim folders were all cleaned up).
+Timings: from the frames (tools/art/rig_shyvana.py MS; a frame's start in ticks = ms x 0.06), each form its own - the
+hit, the strike or the release where its frame starts (a_hit / d_rel, q_at / d_q_at, q2_at / d_q2_at, q3_at, e_rel /
+de_rel, r_at); numbers: drafts from Warwick's and Gnar's balanced kits (no simulation run yet: the classic-SDK sim
+folders were all cleaned up).
 """
 import argparse
 import json
@@ -66,7 +68,7 @@ P = {
     # stats (Melee base: attack 95 +19, hp 1000 +100, defence 30, mr 25, move 1000, range 25000, attack cd 65; the base
     # junglers 120 +30, hp 900 +80, move 1100 +14; league_warwick 92 +18, hp 1120 +105, def 36 +7)
     "hp": 1080, "hp_g": 100, "atk": 90, "atk_g": 18, "def": 34, "def_g": 7, "mr": 26, "mr_g": 4, "ms": 1050, "ms_g": 12,
-    "atk_range": 25000, "atk_dur": 26, "atk_cd": 62, "a_hit": 12, "a_speed": 20000,
+    "atk_range": 25000, "atk_dur": 26, "atk_cd": 62, "a_hit": 9, "a_speed": 20000,
     "p_hp": 1,
     # the dragon (Scalemail folded in)
     "dg_t": 900, "dg_hp": 30, "dg_def": 30, "dg_mr": 30, "dg_range": 10000,
@@ -77,12 +79,12 @@ P = {
     "w_cd": 720, "w_t": 150, "w_sh": 70, "w_sh_r": 50, "w_ms": 25, "w_r": 33000, "w_dmg": 50, "w_hp": 4,
     "w_heal": 50, "w_heal_r": 50,
     # Q Emberstrike
-    "s_cd": 60, "q_cd": 480, "q_range": 30000, "q_dur": 28, "q_at": 14, "q_off": 12000, "q_rad": 16000,
-    "q_dmg": 25, "q_ratio": 90, "q_win": 240,
-    "q2_dur": 30, "q2_at": 15, "q2_r": 26000, "q2_dmg": 25, "q2_ratio": 90,
+    "s_cd": 60, "q_cd": 480, "q_range": 30000, "q_dur": 28, "q_at": 11, "d_q_at": 15, "q_off": 12000,
+    "q_rad": 16000, "q_dmg": 25, "q_ratio": 90, "q_win": 240,
+    "q2_dur": 30, "q2_at": 12, "d_q2_at": 16, "q2_r": 26000, "q2_dmg": 25, "q2_ratio": 90,
     "q3_dur": 32, "q3_at": 16, "q3_dmg": 40, "q3_ratio": 110,
     # E Molten Burst
-    "s2_cd": 60, "e_cd": 600, "e_range": 70000, "e_dur": 28, "e_rel": 15, "e_speed": 3000, "e_w": 6000,
+    "s2_cd": 60, "e_cd": 600, "e_range": 70000, "e_dur": 28, "e_rel": 7, "de_rel": 16, "e_speed": 3000, "e_w": 6000,
     "e_r": 15000, "e_dmg": 50, "e_hp": 3, "e_slow": 30, "e_slow_t": 120,
     "de_range": 90000, "de_w": 10000, "de_r": 30000, "de_dmg": 65, "de_hp": 4, "de_burn_t": 120, "de_burn": 15,
     "de_burn_r": 15000,
@@ -292,7 +294,7 @@ def build(p):
         return combine(refresh("q_cd", p["q_cd"]), *rm("q3"), refresh("q2", p["q_win"]),
                        form(combine(anim("d_skill", p["q_dur"]), sfx("d_q")), combine(anim("skill", p["q_dur"]), sfx("q"))),
                        voice("vo_q", p),
-                       delayed(p["q_at"] - 1, cleave, form(cview("d_q_slash"), cview("q_slash")), gain))
+                       form(delayed(p["d_q_at"] - 1, cleave, gain), delayed(p["q_at"] - 1, cleave, gain)))
 
     # ------------------------------------------------------------------ attack (and Q's recasts)
     on_hit = [attack(0, 100, p["p_hp"]), gain, view("a_hit"), tsfx("a_hit")]
@@ -303,7 +305,8 @@ def build(p):
     q2_slam = around(p["q2_r"], "EnemyWithoutTower", [attack(p["q2_dmg"], p["q2_ratio"]), view("q2_hit"), tsfx("q2_hit")])
     q2_atk = combine(*rm("q2"), form(combine(refresh("q3", p["q_win"]), anim("d_skill_b", p["q2_dur"]), sfx("d_q2")),
                                      combine(anim("skill_b", p["q2_dur"]), sfx("q2"))),
-                     delayed(p["q2_at"] - 1, q2_slam, form(cview("d_q2_wave"), cview("q2_wave")), gain))
+                     form(delayed(p["d_q2_at"] - 1, q2_slam, cview("d_q2_wave"), gain),
+                          delayed(p["q2_at"] - 1, q2_slam, cview("q2_wave"), gain)))
     bite = homing("q_bite", 100000, "Enemy", [true(p["q3_dmg"], p["q3_ratio"]), view("q3_hit"), tsfx("q3_hit")])
     q3_atk = combine(*rm("q3"), anim("d_bite", p["q3_dur"]), sfx("q3"), voice("vo_q3", p),
                      delayed(p["q3_at"] - 1, bite))
@@ -326,7 +329,7 @@ def build(p):
                   field("de_burn", p["de_burn_r"], p["de_burn_t"], 30, "EnemyWithoutTower",
                         [magic(p["de_burn"]), view("de_singe")])]
     dragon_e = combine(refresh("e_cd", p["e_cd"]), anim("d_skill2", p["e_dur"]), sfx("de"), voice("vo_e", p),
-                       delayed(p["e_rel"] - 1, line("de_ball", p["e_speed"], p["de_range"], p["de_w"],
+                       delayed(p["de_rel"] - 1, line("de_ball", p["e_speed"], p["de_range"], p["de_w"],
                                                     "EnemyWithoutTower", True,
                                                     [magic(p["de_dmg"] // 2), view("de_hit"), tsfx("e_hit")],
                                                     dragon_end)))
@@ -357,7 +360,8 @@ def build(p):
     B_ = lambda name, anim_=FX, z=2, tag=None: {"type": "Animated", "name": n(name), "anim": anim_, "tag": tag or name,
                                                 "repeat": True, "z": z}
     views_p = [P_("e_ball"), P_("de_ball", BIG), P_("r_breath", BIG)]
-    views_e = [E("a_hit"), E("q_slash", FX, 3), E("d_q_slash", BIG, 3), E("q_hit"), E("q2_wave", BIG, -1),
+    # Q's slashes point forward: drawn into her frames (rig_shyvana's bake, assets/source/native/shyvana_bake.json)
+    views_e = [E("a_hit"), E("q_hit"), E("q2_wave", BIG, -1),
                E("d_q2_wave", BIG, -1), E("q2_hit"), E("q3_hit"), E("w_blast", BIG, -1), E("w_hit"), E("w_heal", FX, 3),
                E("e_hit"), E("e_blast", BIG, -1, False), E("de_hit"), E("de_blast", BIG, -1, False),
                E("de_singe"), E("r_hit"), E("r_land", BIG, -1), E("tf_dragon", BIG, 3), E("tf_human", BIG, 3)]

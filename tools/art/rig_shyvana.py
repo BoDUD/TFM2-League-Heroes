@@ -20,6 +20,7 @@ How the dragon's poses are made (rig_gnar's Mega way):
   * the tail sweep (League's Spell1_Tail spins the dragon round) mirrors the whole figure for its middle frames.
 """
 import argparse
+import json
 import math
 import os
 import sys
@@ -282,8 +283,13 @@ class Canvas:
             hero, ppu, d0 = HERO, PPU, side.d
             H, W, px, ground = side.H, side.W, side.stand, side.H
             outline = PD.edge_colour(side.d)
-        self.rig = R.Rig(D, pad=(40, 40, 60, 12))
+        self.rig = R.Rig(D, pad=(50, 70, 60, 12))      # room for the dragon's wing gust ahead (bake)
         self.outline = D.outline
+        self.poses = {n: load(f"pose_{n}.png") for n in POSE_NAMES}
+        self.pose_head = {}
+        for n in POSE_NAMES:
+            with open(lp(os.path.join(SRC, "hd", f"pose_{n}.json")), encoding="utf-8") as fh:
+                self.pose_head[n] = json.load(fh)["head_at"]
 
     def blank(self):
         return self.rig.canvas()
@@ -429,7 +435,18 @@ def dragon(C, dx=0, dy=0, lift=0, body_dy=0, rear=0.0, near_wing=0.0, far_wing=0
     if mirror:
         can = mirrored(C, can)
     can[C.rig.GY:] = 0
-    return R.flash(can) if flash else can
+    return hit_white(can) if flash else can
+
+
+def hit_white(can, k=0.45):
+    """ppu_rig.flash keeping the outline dark: the squares strips.complete_outline counts as dark (luminance under 70)
+    stay, the rest go k of the way to white. Flashed whole, the frame's edge was all light and the export's finish drew
+    a new outline round it - a square fatter, the gap between her tail and her foot closed into a hole."""
+    import strips
+    out = can.copy()
+    m = (out[..., 3] > 0) & (strips.lum(out[..., :3]) >= 70)
+    out[m, :3] = (out[m, :3].astype(float) * (1 - k) + 255 * k).astype(np.uint8)
+    return out
 
 
 def bridge(can, region, maxgap=2):
@@ -462,12 +479,48 @@ def human(C, dx=0, dy=0, flash=False, breath=0):
     C.stamp(can, f, still, dx, dy)
     C.stamp(can, f, f.layer("body"), dx, dy + breath)
     can[C.rig.GY:] = 0
-    return R.flash(can) if flash else can
+    return hit_white(can) if flash else can
+
+
+# ------------------------------------------------------------------------------------------------- her key poses
+# Codex's whole-body poses (assets/source/shyvana/codex_poses, read back by tools/art/design_shyvana_poses.py at the
+# design's build with the design's head: hd/pose_<name>.png + .json, where the head box went). Each is placed with its
+# head's middle where the pose's skeleton put it from her standing point (tools/art/pack_shyvana_poses.py: every bone
+# the design's length, the stance's middle on the design's H_STAND) and its lowest square on the ground, or `lift` rows
+# over it. Placed by the feet instead, the body jumped back and forth: a run step's back foot is on its toes, the sweep's
+# tail lies on the ground in front, the run's torso swung 16 squares a step.
+POSE_NAMES = ["crouch", "rise", "slash", "flip", "sweep", "throw", "leap", "stagger", "kneel", "collapse",
+              "run1", "run2", "run3", "run4"]
+HEAD_MID = 13.5                # the head box's middle column from its left (27 squares: design_shyvana_poses.HEAD)
+
+
+def plan_head(name):
+    """Where the pose's skeleton put the head box's middle, squares right of her standing point."""
+    import pack_shyvana_poses as PK
+    return PK.build(PK.POSES[name][3])["head"][0] - H_STAND
+
+
+def pose(C, name, dx=0, lift=0, flash=False):
+    """Codex's key pose standing on the pivot (moved dx), its lowest square on the ground or `lift` rows over it."""
+    a = C.poses[name]
+    stand = C.pose_head[name][0] + HEAD_MID - plan_head(name)
+    can = C.blank()
+    ox = int(round(C.rig.CX - stand)) + dx
+    oy = C.rig.GY - a.shape[0] - lift
+    ys, xs = np.nonzero(a[..., 3] > 0)
+    ty, tx = ys + oy, xs + ox
+    ok = (ty >= 0) & (ty < can.shape[0]) & (tx >= 0) & (tx < can.shape[1])
+    can[ty[ok], tx[ok]] = a[ys[ok], xs[ok]]
+    can[C.rig.GY:] = 0
+    return hit_white(can) if flash else can
 
 
 # ------------------------------------------------------------------------------------------------- the dragon's actions
 # ms per frame; the kit's ticks (tools/kit/build_shyvana.py) come from these (a frame's start in ticks = ms x 0.06)
-MS = {"idle": [150] * 8, "hit": [100, 100],
+MS = {"idle": [150] * 8, "hit": [100, 100], "run": [120] * 4,
+      "attack": [70, 70, 100, 80, 113], "skill": [60, 100, 120, 100, 87], "skill_b": [70, 110, 140, 90, 90],
+      "skill2": [100, 130, 100, 137], "ult": [60, 90, 60, 90, 90, 90, 120], "revert": [90, 60, 80, 100, 103],
+      "dead": [120, 160, 220, 600],
       "d_idle": [150] * 8, "d_run": [100] * 8,
       "d_attack": [60, 80, 90, 90, 90, 90],
       "d_skill": [60, 80, 90, 90, 80, 70],
@@ -476,7 +529,18 @@ MS = {"idle": [150] * 8, "hit": [100, 100],
       "d_skill2": [70, 90, 90, 90, 70, 60],
       "d_hit": [100, 100],
       "d_fly": [90, 90, 90, 90],
-      "d_dead": [100, 110, 120, 140, 160, 600]}
+      "d_dead": [100, 80, 100, 160, 220, 600]}
+
+
+def dragon_fly(C):
+    """R's flight and landing (League's Spell4_Intro / Spell4: the dragon in the air, both wings beating wide, the claws
+    reaching forward, then coming down onto the target with the wings spread): two beats in the air, the touch-down,
+    landed (the ult puts them after her leap; the add-on's whole-body dragon can use them alone)."""
+    p = lambda **k: dragon(C, **k)
+    return [p(lift=9, far_wing=-28, near_wing=14, swipe=30, tail=-10, head=(1, -1)),
+            p(lift=11, far_wing=-6, near_wing=-8, swipe=36, tail=-6, head=(1, 0)),
+            p(lift=4, far_wing=-22, near_wing=12, swipe=20, tail=-8, head=(2, 0)),
+            p(dx=1, far_wing=-12, near_wing=8, swipe=-6, tail=-3, head=(1, 1))]
 
 
 def dragon_frames(C):
@@ -558,31 +622,47 @@ def dragon_frames(C):
                        p(dx=1, head=(1, 1), jaw=1),
                        p(head=(1, 0))]
     out["d_hit"] = [p(dx=-2, flash=True, head=(-1, 0)), p(dx=-1)]
-    # R's flight and landing (League's Spell4_Intro / Spell4: the dragon in the air, both wings beating wide, the claws
-    # reaching forward, then coming down onto the target with the wings spread): two beats in the air, the touch-down,
-    # landed (the ult tag puts them after her leap; the add-on's whole-body dragon can use them alone)
-    out["d_fly"] = [p(lift=9, far_wing=-28, near_wing=14, swipe=30, tail=-10, head=(1, -1)),
-                    p(lift=11, far_wing=-6, near_wing=-8, swipe=36, tail=-6, head=(1, 0)),
-                    p(lift=4, far_wing=-22, near_wing=12, swipe=20, tail=-8, head=(2, 0)),
-                    p(dx=1, far_wing=-12, near_wing=8, swipe=-6, tail=-3, head=(1, 1))]
-    # the death (League's Death: struck back, the legs giving way, the body sinking flat, the wings falling open on the
-    # ground, the head down): struck, sinking, down, flat, the wings fallen
-    out["d_dead"] = [p(dx=-1, head=(-1, -1), far_wing=-6, near_wing=6),
-                     p(dx=-1, body_dy=2, head=(0, 1), far_wing=4, near_wing=14, tail=4),
-                     p(dx=-1, body_dy=4, head=(0, 2), far_wing=12, near_wing=24, tail=8),
-                     p(dx=-1, body_dy=5, head=(0, 2), far_wing=18, near_wing=32, tail=10),
-                     p(dx=-1, body_dy=6, head=(0, 2), far_wing=22, near_wing=38, tail=12),
-                     p(dx=-1, body_dy=6, head=(0, 2), far_wing=22, near_wing=38, tail=12)]
+    out["d_fly"] = dragon_fly(C)
+    # the death: struck back with the head thrown up, the fire taking the dragon (a flash), and she falls as herself
+    # (her death's stagger, kneel and collapse) - the dragon's own sinking squashed its legs into the body
+    q = lambda name, **k: pose(C, name, **k)
+    out["d_dead"] = [p(dx=-2, head=(-1, -1), far_wing=-6, near_wing=6, flash=True),
+                     p(dx=-1, far_wing=6, near_wing=10, flash=True),
+                     q("stagger", flash=True), q("kneel"), q("collapse"), q("collapse")]
     return out
 
 
 def human_frames(C):
     h = lambda **k: human(C, **k)
+    q = lambda name, **k: pose(C, name, **k)
+    d = lambda **k: dragon(C, **k)
     out = {}
     # idle (League's Idle1: she stands breathing, the tail swaying a little): the rows above the waist settle a row and
     # rise again (legs and tail untouched: Mel's rule, 「上下摆动导致腿部变形」)
     out["idle"] = [h(breath=b) for b in (0, 0, 1, 1, 1, 1, 0, 0)]
     out["hit"] = [h(dx=-2, flash=True), h(dx=-1)]
+    # run (League's Run: the near foot landing, carried by it with the far knee up, the far foot landing, carried by it)
+    out["run"] = [q("run1"), q("run2"), q("run3"), q("run4")]
+    # auto attack (League's Attack1: sunk low, rising with the far claw raised over her head, the claw slashed down in
+    # front - the hit - and back to standing)
+    out["attack"] = [q("crouch"), q("rise"), q("slash", dx=1), q("slash"), h()]
+    # Q's first strike (League's Spell1 Attack1: the same rise and slash, longer, lunging further; the fire slash is
+    # drawn in at the slash)
+    out["skill"] = [q("crouch"), q("rise"), q("slash", dx=2), q("slash", dx=1), h()]
+    # Q's second strike (League's Spell1 Attack2: a somersault forward with the tail swinging over her head, landing
+    # low with the tail swept round the front - the ring of fire - then up)
+    out["skill_b"] = [q("crouch"), q("flip", lift=8), q("sweep"), q("sweep"), h()]
+    # E Molten Burst (League's Spell3: sunk, then lunging with the far arm thrust out as the fireball leaves)
+    out["skill2"] = [q("crouch"), q("throw"), q("throw", dx=-1), h()]
+    # R Dragon's Descent (League's Spell4 Cast: she crouches and leaps, the fire wraps her - a flash - and the dragon
+    # flies on to the target and lands; the dragon's flight is d_fly's)
+    fly = dragon_fly(C)
+    out["ult"] = [q("crouch"), q("leap", lift=6), q("leap", lift=10, flash=True)] + fly
+    # the dragon running out (League's ShyvanaDragon Spell4 out: the wings folding, the fire, her crouching out of it)
+    out["revert"] = [d(far_wing=10, near_wing=12), d(far_wing=16, near_wing=20, flash=True), q("crouch", flash=True),
+                     q("crouch"), h()]
+    # death (League's Death: struck back, sinking to her knees, fallen forward on her hands)
+    out["dead"] = [q("stagger"), q("kneel"), q("collapse"), q("collapse")]
     return out
 
 
@@ -619,6 +699,9 @@ def tinted(f, z=10):
     return bg.convert("RGB")
 
 
+BAKED = {"skill", "d_skill"}    # the tags shyvana_bake.json draws into
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--parts")
@@ -634,8 +717,11 @@ def main():
     C = Canvas()
     acts = frames(C, a.tags.split(",") if a.tags else None)
     if a.review:
-        C.rig.review(acts, a.review)
+        C.rig.review(C.rig.bake(acts) if BAKED <= set(acts) else acts, a.review)
         return
+    # Q's slashes drawn into her frames and the dragon's (assets/source/native/shyvana_bake.json; import_shyvana_fx.py
+    # first): they turn with her, the red side included
+    C.rig.export(C.rig.bake(acts))
 
 
 if __name__ == "__main__":
