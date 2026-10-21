@@ -10,7 +10,7 @@
 //!   （英雄联盟要去点那个灵魂；离得近就马上附身）；
 //! - **附身** p_t tick：身上挂 `league_viego_soul:<英雄 id>`（给显示钩子看：整个身体画成那个英雄，src/view.rs）、
 //!   `league_viego_soul_<类别>`（数据副本的普攻 / Q / W 按它换成五套招式之一：近战、射手、法师、辅助、刺客，类别按英雄 id 查
-//!   src/souls.rs，查不到按攻击距离猜）、`league_viego_p_on`（借来的攻击 / 攻速 / 移速，远程类别再加攻击距离 s_range）、
+//!   src/souls.rs，查不到按攻击距离猜）、`league_viego_p_on`（借来的攻击 / 攻速 / 移速；s_range 默认 0：原生加的攻击距离让 AI 站在远处不打人，2026-10-21「佛耶戈有bug 会无限期停在原地不动」）、
 //!   `league_viego_p_safe`（p_inv tick 无敌、免控）、一下技能冷却（p_skill：Q、W 刷新；大招按 p_ult）、回血，
 //!   再挂 `league_viego_p_go` 让数据在他下一个动作里播吸魂的画面、动作和声音；
 //! - **结束**：时间到、他阵亡、或数据的大招拿掉了 `league_viego_p_on`（英雄联盟：放 R 回到本体）——拿掉外形和类别 buff，
@@ -208,7 +208,7 @@ pub struct Params {
 impl Default for Params {
     fn default() -> Self {
         Params { p_t: 600, p_inv: 60, p_heal: 60, p_heal_ratio: 50, p_ad: 25, p_as: 30, p_ms: 15, p_skill: 10000,
-                 p_ult: 0, p_win: 180, soul_r: 35000, soul_t: 480, s_range: 25000,
+                 p_ult: 0, p_win: 180, soul_r: 35000, soul_t: 480, s_range: 0,
                  soul_dash: 90000, e_t: 300, e_ms: 30, e_as: 40, e_cd: 600, e_trig: 90000, e_hide: 120 }
     }
 }
@@ -339,7 +339,7 @@ impl Possess {
         on.attack_mult = p.p_ad as i32;
         on.attack_speed_mult = p.p_as as i32;
         on.move_speed_mult = p.p_ms as i32;
-        if ranged(soul.cat) {
+        if ranged(soul.cat) && p.s_range > 0 {
             on.range = p.s_range as usize;
         }
         sim.entity_remove_buff(me, ON);
