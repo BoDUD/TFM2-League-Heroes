@@ -26,15 +26,18 @@ and timing.
 """
 import argparse
 import json
+import math
 import os
 import sys
 
 import numpy as np
 from PIL import Image
+from scipy import ndimage
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 import ppu_rig as R  # noqa: E402
+import rigkit as K  # noqa: E402
 
 HERO = "jax"
 PPU = 1.5
@@ -177,15 +180,35 @@ def driver(rig, joints):
                     leg_max=25)
 
 
-# the run's legs: league_nautilus's / league_braum's approved walk (the user: 「这走路步伐也不对啊」 - his shins swung at the
-# knee by League's run kept the near foot planted in every frame, no stride). Both legs as drawn (the stub of trousers,
-# the greave and the boot, never turned); in each frame one is lifted by losing its top rows under the robe and stepped
-# forward, the legs take turns, the whole figure rises a little. The upper body, his arm and the lamp stay League's run.
-# Per frame: the near leg's (columns forward, rows lifted), the far leg's, the figure's rise (league_nautilus's 1x
-# steps x PPU 1.5)
+# The run (2026-10-21, the user: 「贾克斯的走路也改一改 非常奇怪」). Until then his legs stepped league_nautilus's /
+# league_braum's way (「这走路步伐也不对啊」 had turned down shins swung at the knee): each lifted a few rows under the
+# robe and moved two columns at most, under an upper body that rocked with League's run and a lamp aimed each frame at
+# League's lantern - pointing up-right in six frames, level in two, so it swung as he slid. Now:
+# - the legs stride after League's feet (assets/source/jax/run_joints.json from tools/lol/pose_joints.py; League's R leg
+#   is the near one), straight from the hip under the robe to the ankle, the way the pack's ranged runs stride
+#   (league_zeri's scissor legs): League's knees bend the back foot up behind, and under a robe to the knees a bent leg
+#   hid whole, one leg left showing; straight, both feet stay under the hem. Each foot as far ahead of its hip as
+#   League's (RUN_SCALE squares a game px), lifted RUN_LIFT of League's height over the lower foot (at most RUN_LIFT_MAX
+#   rows); the trousers down to RUN_KNEE_AT, the greave below in the design's own colours, one outline, his own boot on
+#   the ankle; the far leg in the design's darker golds and a row higher (its sole on row 52, as drawn);
+# - the lamp held steady as League's (level before him at the waist): his arm as drawn and the lamp turned RUN_WEAPON
+#   degrees up about the fist in every frame (Driver keep);
+# - the figure bobs with League's hips (rigkit.hip_bobs, 0-2 rows), his upper body RUN_LEAN columns ahead of his hips.
 RUN_LEAN = 3                                 # columns his upper body runs ahead of his hips
-WALK = [((0, 0), (0, 3), 2), ((0, 0), (2, 5), 3), ((0, 0), (2, 2), 2), ((0, 0), (2, 0), 0),
-        ((0, 3), (0, 0), 2), ((2, 5), (0, 0), 3), ((2, 2), (0, 0), 2), ((2, 0), (0, 0), 0)]
+RUN_JOINTS = os.path.join(R.ROOT, "assets", "source", HERO, "run_joints.json")
+RUN_HIPS = {"near": (26.0, 34.0), "far": (42.0, 34.0)}        # under the robe
+RUN_BOOT = {"near": (50, 53, 17, 28), "far": (49, 52, 39, 51)}    # rows, columns (inclusive): each boot in its leg
+RUN_ANKLE = {"near": (21.5, 50.0), "far": (44.5, 49.5)}       # each boot's top middle
+RUN_SCALE = 1.5                              # design squares a League game px
+RUN_LIFT, RUN_LIFT_MAX = 0.5, 3
+RUN_KNEE_AT = 0.55                           # the trousers end, the greave begins this far down the leg
+RUN_HW = (2.4, 1.9)                          # greave half widths at the knee and the ankle
+RUN_THW = 2.6                                # trousers half width
+RUN_SHADES = {"near": [(-0.45, "E2AA29"), (0.05, "C6821A"), (0.5, "9F6213"), (9, "7B4E10")],
+              "far": [(-0.45, "C6821A"), (0.05, "9F6213"), (0.5, "7B4E10"), (9, "5F3E12")]}
+RUN_TROUSERS = {"near": [(-0.35, "5A4F59"), (9, "252639")], "far": [(9, "252639")]}
+RUN_OUTLINE = (0, 0, 6, 255)
+RUN_WEAPON, RUN_ARM = 20, 0                  # the lamp's turn (degrees up about the fist), the arm's
 
 
 def leg_piece(D, lg):
@@ -198,25 +221,68 @@ def leg_piece(D, lg):
     return out
 
 
-def walk(legs, step):
-    """Driver `walk` for one WALK step: the far leg, then the near one, each lifted and moved."""
-    near_step, far_step, _ = step
+def run_bone(can, off, p0, p1, hw0, hw1, shades):
+    """A tapered segment p0 -> p1 (design squares) drawn into a padded layer (pad off), coloured across it by
+    `shades` from its back to its front; -> its mask."""
+    H, W = can.shape[:2]
+    ys, xs = np.mgrid[0:H, 0:W]
+    px, py = xs + 0.5 - off, ys + 0.5 - off
+    (x0, y0), (x1, y1) = p0, p1
+    dx, dy = x1 - x0, y1 - y0
+    l2 = max(dx * dx + dy * dy, 1e-6)
+    t = ((px - x0) * dx + (py - y0) * dy) / l2
+    tc = np.clip(t, 0, 1)
+    d = np.hypot(px - (x0 + tc * dx), py - (y0 + tc * dy))
+    hw = hw0 + (hw1 - hw0) * tc
+    m = (d <= hw) & (t >= -0.15) & (t <= 1.1)
+    s = -((px - x0) * dy - (py - y0) * dx) / math.sqrt(l2) / np.maximum(hw, 1e-6)
+    for up, col in reversed(shades):
+        can[m & (s <= up)] = tuple(int(col[i:i + 2], 16) for i in (0, 2, 4)) + (255,)
+    return m
+
+
+def run_leg(D, side, hip, ank):
+    """One straight leg hip -> ankle (trousers, then the greave, one outline) with its own boot on the ankle."""
+    lg = NEAR if side == "near" else FAR
+    whole = leg_piece(D, lg)
+    off = (whole.shape[0] - D.H) // 2
+    y0, y1, x0, x1 = RUN_BOOT[side]
+    boot = np.zeros_like(whole)
+    boot[off + y0:off + y1 + 1, off + x0:off + x1 + 1] = whole[off + y0:off + y1 + 1, off + x0:off + x1 + 1]
+    can = np.zeros_like(whole)
+    knee = (hip[0] + (ank[0] - hip[0]) * RUN_KNEE_AT, hip[1] + (ank[1] - hip[1]) * RUN_KNEE_AT)
+    tm = run_bone(can, off, hip, knee, RUN_THW, RUN_HW[0], RUN_TROUSERS[side])
+    sm = run_bone(can, off, knee, ank, *RUN_HW, RUN_SHADES[side])
+    ring = ndimage.binary_dilation(tm | sm, np.ones((3, 3), bool)) & ~(tm | sm)
+    can[ring] = RUN_OUTLINE
+    ax, ay = RUN_ANKLE[side]
+    return R.put(can, K.shifted(boot, int(round(ank[0] - ax)), int(round(ank[1] - ay))))
+
+
+def run_legs(D, j):
+    """Driver `walk` for one League run frame: both legs, the far one first."""
+    low = max(j["L_Foot"][1], j["R_Foot"][1])
+    step = {}
+    for side, s in (("near", "R"), ("far", "L")):
+        ahead = (j[f"{s}_Foot"][0] - j[f"{s}_Hip"][0]) * RUN_SCALE
+        lift = min(RUN_LIFT_MAX, max(0, int(round((low - j[f"{s}_Foot"][1]) * RUN_SCALE * RUN_LIFT))))
+        step[side] = (ahead, lift)
 
     def layers(hx, dy):
         out = []
-        for lg, (dx, lift) in ((FAR, far_step), (NEAR, near_step)):
-            a = legs[lg["name"]]
-            if lift:
-                a = a.copy()
-                a[:np.nonzero(a[..., 3].any(1))[0].min() + lift] = 0
-            out.append((a, dict(dx=hx + dx, dy=dy - lift)))
+        for side in ("far", "near"):
+            ahead, lift = step[side]
+            hip = (RUN_HIPS[side][0] + hx, RUN_HIPS[side][1] + dy)
+            out.append((run_leg(D, side, hip, (hip[0] + ahead, RUN_ANKLE[side][1] - lift)), {}))
         return out
     return layers
 
 
 def frames(rig, joints):
     drv = driver(rig, joints)
-    legs = {lg["name"]: leg_piece(rig.D, lg) for lg in (NEAR, FAR)}
+    with open(R.lp(RUN_JOINTS), encoding="utf-8") as f:
+        run_j = json.load(f)
+    bobs = K.hip_bobs([fr["joints"]["Pelvis"][1] for fr in run_j], 2)
     ms = {t: [m for _, m in fr] for t, fr in R.sheet_of(HERO).items()}
     out = {}
     for tag, rows in joints["tags"].items():
@@ -225,17 +291,18 @@ def frames(rig, joints):
         rows = R.fit_rows(rows, len(ms[tag]))
         if tag == "run":
             # the hips kept on the standing point and the upper body RUN_LEAN columns ahead of them in every frame
-            # (League's pelvis rocks 4 columns to and fro over a run: the whole figure slid about); the steps one frame
-            # on so each foot lands as League's does (the far one in frame 4, the near one in frame 0)
+            # (League's pelvis rocks 4 columns to and fro over a run: the whole figure slid about)
+            if len(rows) != len(run_j):
+                sys.exit(f"run: {len(rows)} frames against {len(run_j)} of League's run joints")
             fr = []
             for i, r in enumerate(rows):
                 j = r["j"]
                 pel = (j["pelvis"][0] - joints["design"]["pelvis"][0]) * drv.s * drv.lunge
                 lean = ((j["chest"][0] - j["pelvis"][0]) -
                         (joints["design"]["chest"][0] - joints["design"]["pelvis"][0])) * drv.s * drv.lean
-                st = WALK[(i - 1) % len(WALK)]
-                fr.append(drv.frame(j, {"walk": walk(legs, st), "dy": -st[2], "dx": -pel,
-                                        "lean": RUN_LEAN - int(round(max(-5, min(5, lean))))}))
+                fr.append(drv.frame(j, {"walk": run_legs(rig.D, run_j[i]["joints"]), "dy": bobs[i], "dx": -pel,
+                                        "lean": RUN_LEAN - int(round(max(-5, min(5, lean)))),
+                                        "keep": True, "weapon": RUN_WEAPON, "arm": RUN_ARM}))
         else:
             fr = [drv.frame(r["j"]) for r in rows]
         if tag == "hit":

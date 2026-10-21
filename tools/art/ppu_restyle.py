@@ -258,9 +258,9 @@ RESTYLE = {
     "morgana": dict(ppu=1.5, edge=1, face_to=(1, -34)),     # #310: framed on her face (was chin to chest)
     "nami": dict(ppu=1.5, edge=1, lift_sq=-2, face_to=(1, -38)),   # #310; 90 % in game (hd.rs SIZES): 2 squares lower, the face x 0.9 about the soles
     "janna": dict(ppu=1.5, edge=1, face_to=(1, -27)),       # #309: her eyes no longer on the frame's top edge
-    # Jax: the forehead of his mask, right in the hood (he looks front-right; his eyes 26 px over the soles, the hood's
-    # top 32)
-    "jax": dict(ppu=1.5, edge=1, face_to=(6, -29)),
+    # Jax: his glowing eyes in the hood (he looks front-right): (4, -32), as champion_view has had it since 8b34c700b -
+    # (6, -29) put his eyes in the box's top-left corner and came back with every rerun of this table
+    "jax": dict(ppu=1.5, edge=1, face_to=(4, -32)),
     # Xin Zhao (2026-10-18): Codex's chibi picture cut to 63 rows, posed after League's own clips by
     # tools/art/rig_xinzhao_hd.py (his run League's Runbase on drawn legs, the design's boots); the W slash and the R tell
     # baked into his frames (orig/xinzhao_<tag>.over.png) laid on after the outline (fx); the face point at the top of his
