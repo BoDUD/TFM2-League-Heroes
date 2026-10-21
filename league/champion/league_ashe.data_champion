@@ -363,7 +363,7 @@
     "cooltime": 3000,
     "start_timing": 22,
     "cancelable": false,
-    "range": 150000,
+    "range": 100000,
     "casting_type": "Direction",
     "casting_target": "EnemyChampion",
     "attack_type": "Skill",
@@ -377,7 +377,7 @@
         {
           "type": "LinearProjectile",
           "name": "league_ashe_crystal",
-          "speed": 4200,
+          "speed": 8400,
           "range": 150000,
           "penetrate": false,
           "shape": {
