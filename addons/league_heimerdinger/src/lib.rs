@@ -7,11 +7,15 @@
 //! - **炮台由本包来打**：副本的炮台保留画面、音效和三个槽位（最多 3 座），但没有区域；Q 放炮台和 R 的巨型炮台那一 tick 跑本包的
 //!   `league_heimerdinger:q` / `:x`（拿施法的方向或目标），炮台站在隐形弹停下的地方（朝那个方向 `q_place` 远，`q_place / q_speed`
 //!   tick 后），和数据的炮台图同一个点。
+//! - **炮台侧面朝敌人**（用户：「炮台改成侧面朝敌人」「灵活利用PPU 炮也可以调的清晰」）：目标在他左边时 `:q` / `:x` 给他挂
+//!   `league_heimerdinger_t_face_l` / `_x_face_l`（`FACE_T` tick），副本的隐形弹落地时据此画朝左的侧面炮台
+//!   （`league_heimerdinger_turret_l` / `_apex_l`），否则朝右（`_r`）。主包不知道目标在哪边，还是正面朝镜头的炮台。
 //! - **从炮口射出看得见的炮弹**：炮台照主包区域的节奏（站稳后 `t_first` / `x_first` tick 第一发、之后每 `t_per` / `x_per`，
 //!   和炮台图的炮口闪光对齐）打一个敌人：先打范围内**受控制的英雄**（击飞、眩晕、禁锢、强制位移、恐惧、魅惑：游戏 `EnemyChampionInCC`
 //!   的六种）发射充能光束（`t_beam_line`，`tb_dmg` + `tb_ratio`% 法强），没有就打最近的敌方英雄，再没有就打最近的小兵、野怪
 //!   （防御塔不打），发射炮弹（`t_shot`，`t_dmg` + `t_ratio`%）；巨型炮台的等离子弹（`x_shot`）还减速 `x_slow`%。
-//!   炮弹从炮台的点飞向目标（`spawn_projectile`），**飞到才扣血**（游戏 0.6.4 的 `deal_damage_typed` 只把伤害排进效果队列）。
+//!   炮弹从侧面炮台的炮口（`T_MUZZLE` / `X_MUZZLE`，朝左时左右反过来）飞向目标（`spawn_projectile`），**飞到才扣血**
+//!   （游戏 0.6.4 的 `deal_damage_typed` 只把伤害排进效果队列）。
 //! - **海克斯科技亲和**：他活着时每 `p_per` tick 看一次，站在自己的炮台 `p_r` 内或己方防御塔 `p_tr` 内就加 `p_ms`% 移速
 //!   `p_t` tick（主包的 `league_heimerdinger_haste`，画面照旧）。
 //!
@@ -33,10 +37,13 @@ use mod_api_stable::*;
 const ID: &str = "league_heimerdinger";
 /// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是 league_addons 的。
 const VERSION: &str = "0.1.0";
-/// 炮弹从炮台的点往南挪多少再发（一颗飞行物画在它的点上方 5 px；炮台图的炮口在点的高度，巨型炮台的高 1.7 px：
-/// tools/art/import_heimerdinger_fx.py 的 muzzle_of）。
-const T_MUZZLE: f64 = 5_000.0;
-const X_MUZZLE: f64 = 3_300.0;
+/// 侧面炮台朝右时炮口离炮台的点多远（游戏像素 x 1000：往前、往上；tools/art/import_heimerdinger_fx.py 写的
+/// assets/source/heimerdinger/hd/side_muzzles.json，make_override.py 核对）。一颗飞行物画在它的点上方 5 px，所以发射点往南挪
+/// 5 px 减去炮口的高度。
+pub const T_MUZZLE: (i64, i64) = (10_330, -600);
+pub const X_MUZZLE: (i64, i64) = (13_670, 4_070);
+/// 朝左的标记挂多久：隐形弹飞 `q_place / q_speed`（5）tick 才落地画炮台。
+const FACE_T: usize = 30;
 /// 算「受控制」的控制种类：游戏 `CastingTarget::check` 的掩码 0x347（击飞、眩晕、禁锢、强制位移、恐惧、魅惑）。
 const CC_MASK: u32 = 0x347;
 
@@ -329,6 +336,17 @@ struct Put {
     input_kind: u32,
 }
 
+/// 炮台朝左吗：方向往左（x 为负）才朝左，没有方向朝右（数据默认画朝右的）。
+pub fn faces_left(dir: Option<(f64, f64)>) -> bool {
+    dir.is_some_and(|d| d.0 < 0.0)
+}
+
+/// 一发从哪出来：朝右的炮口 `muzzle`（往前、往上，游戏像素 x 1000）按朝向翻过来，往南挪 5 px 减炮口高度（飞行物画在点上方 5 px）。
+pub fn shot_from(pos: (f64, f64), muzzle: (i64, i64), left: bool) -> (f64, f64) {
+    let dx = if left { -muzzle.0 } else { muzzle.0 } as f64;
+    (pos.0 + dx, pos.1 + (5_000 - muzzle.1) as f64)
+}
+
 /// 原生效果放下、被动还没接走的炮台：按（这局的种子、模拟的来源、比赛、局、他的编号）分开。
 type Key = (u64, u32, u64, u64, usize);
 static PUTS: LazyLock<Mutex<HashMap<Key, Vec<Put>>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
@@ -353,6 +371,15 @@ impl StableEffectType for Stand {
             }
             _ => None,
         };
+        // the data's bolt draws the turret when it lands: from the side facing the target (t_face_l: to his left)
+        let face = hd(match self.0 {
+            Kind::Turret => "t_face_l",
+            Kind::Apex => "x_face_l",
+        });
+        sim.entity_remove_buff(caster, &face);
+        if faces_left(dir) {
+            sim.add_buff(caster, &BuffV1::timed(&face, FACE_T));
+        }
         let put = Put { kind: self.0, from, dir, tick: sim.tick(), input_kind: input.kind };
         PUTS.lock().unwrap_or_else(|e| e.into_inner()).entry(key(sim, caster)).or_default().push(put);
     }
@@ -364,6 +391,7 @@ impl StableEffectType for Stand {
 struct Turret {
     kind: Kind,
     pos: (f64, f64),
+    left: bool,
     stand: usize,
     until: usize,
     next: usize,
@@ -405,11 +433,13 @@ impl Workshop {
                 Kind::Turret => (self.p.t_life, self.p.t_first),
                 Kind::Apex => (self.p.x_life, self.p.x_first),
             };
-            self.turrets.push(Turret { kind: put.kind, pos, stand, until: stand + life, next: stand + first });
+            let left = faces_left(put.dir);
+            self.turrets.push(Turret { kind: put.kind, pos, left, stand, until: stand + life, next: stand + first });
             self.n_put += 1;
             if self.n_put <= 12 || self.n_put % 25 == 0 {
-                wlog(format!("{} PUT #{}: {:?} at ({:.0}, {:.0}) from ({:.0}, {:.0}), input kind {}{}, {} standing",
-                             head(sim, me), self.n_put, put.kind, pos.0, pos.1, put.from.0, put.from.1, put.input_kind,
+                wlog(format!("{} PUT #{}: {:?} at ({:.0}, {:.0}) from ({:.0}, {:.0}) facing {}, input kind {}{}, {} standing",
+                             head(sim, me), self.n_put, put.kind, pos.0, pos.1, put.from.0, put.from.1,
+                             if left { "left" } else { "right" }, put.input_kind,
                              if put.dir.is_some() { "" } else { " (no direction: at his feet)" }, self.turrets.len()));
             }
         }
@@ -428,10 +458,11 @@ impl Workshop {
                 continue;
             }
             let p = &self.p;
-            let (per, reach, up) = match t.kind {
+            let (per, reach, muzzle) = match t.kind {
                 Kind::Turret => (p.t_per, p.t_r, T_MUZZLE),
                 Kind::Apex => (p.x_per, p.x_r, X_MUZZLE),
             };
+            let from = shot_from(t.pos, muzzle, t.left);
             t.next = tick + per;
             let Some((u, fire)) = choose(&units, t.pos, reach as f64) else { continue };
             let (pic, speed, dmg) = match (t.kind, fire) {
@@ -443,8 +474,8 @@ impl Workshop {
             let spec = ProjectileSpawnV1 {
                 caster_id: me,
                 team,
-                x: t.pos.0.round().max(0.0) as u64,
-                y: (t.pos.1 + up).round().max(0.0) as u64,
+                x: from.0.round().max(0.0) as u64,
+                y: from.1.round().max(0.0) as u64,
                 radius: 1_000,
                 speed: speed as u64,
                 move_kind: ProjectileMoveKindV1::Target.code(),
@@ -457,7 +488,7 @@ impl Workshop {
                 casting_target: CastingTargetV1::None.code(),
             };
             sim.spawn_projectile(&hd(pic), &format!("{ID}:noop"), &spec);
-            let fly = (dist(t.pos, u.pos) / speed as f64).ceil() as usize;
+            let fly = (dist(from, u.pos) / speed as f64).ceil() as usize;
             flights.push(Flight { kind: t.kind, fire, target: u.id, due: tick + fly.max(1), dmg });
             if fire == Fire::Beam {
                 self.n_beam += 1;
@@ -635,6 +666,16 @@ mod tests {
         assert!((s.0 - 112_000.0).abs() < 1e-6 && (s.1 - 66_000.0).abs() < 1e-6);
         assert_eq!(stand_spot((1.0, 2.0), None, 20_000.0), (1.0, 2.0));
         assert_eq!(stand_spot((1.0, 2.0), Some((0.0, 0.0)), 20_000.0), (1.0, 2.0));
+    }
+
+    #[test]
+    fn side_turrets_face_their_target_and_fire_from_the_muzzle() {
+        assert!(faces_left(Some((-3.0, 1.0))));
+        assert!(!faces_left(Some((3.0, -1.0))));
+        assert!(!faces_left(None));
+        assert_eq!(shot_from((100_000.0, 50_000.0), (10_000, 2_000), false), (110_000.0, 53_000.0));
+        assert_eq!(shot_from((100_000.0, 50_000.0), (10_000, 2_000), true), (90_000.0, 53_000.0));
+        assert!(hd("t_face_l").len() <= BUFF_NAME_CAP && hd("x_face_l").len() <= BUFF_NAME_CAP);
     }
 
     #[test]

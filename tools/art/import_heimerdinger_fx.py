@@ -11,6 +11,11 @@ rockets, the grenades' lobs) loop behind a lead tick (import_jhin.flight); the b
 loop; the rest play once. w_flash and dead_burst are drawn into his frames (rig_heimerdinger.py), the turrets' deploy,
 muzzle and breaking pictures into the turrets' own tags here; t_shot, t_beam_line and x_shot (a native add-on's shots
 from the turrets) go into the fx sheet unbound.
+The side turrets (the user, 2026-10-21: 「炮台改成侧面朝敌人」, 「灵活利用PPU 炮也可以调的清晰」): the same lives drawn from
+hd/turret_side.png and hd/apex_side.png (tools/art/design_heimerdinger_side_turrets.py, PPU 3 like league_zeri), the
+muzzle flash on the barrel's end, the shot kicking the turret back a step instead of down; facing right
+(league_heimerdinger_turret_r / _apex_r) and the same mirrored (_l): effects are never mirrored by the game, and the
+add-on's copy picks the side its target is on. Only the add-on's copy draws them; the main pack keeps the front ones.
 The turret sheets are dense (league_main hd.rs EFFECTS, PPU 1.5 like him: league_leblanc_clone's way; a dense effect
 sheet holds only idle / hd_idle, so one sheet a turret): tag idle at 1x (ppu_rig.one_of, each frame centred on the
 pivot) and hd_idle at PPU 1.5 - the
@@ -137,11 +142,11 @@ def anchor(cell, kind):
 
 
 # ------------------------------------------------------------------------------------------------- the turrets
-def dense(c):
-    """A 1x effect cell at PPU (nearest: every 1x pixel kept)."""
+def dense(c, ppu=PPU):
+    """A 1x effect cell at ppu (nearest: every 1x pixel kept)."""
     h, w = c.shape[:2]
-    yy = np.minimum(((np.arange(round(h * PPU)) + 0.5) / PPU).astype(int), h - 1)
-    xx = np.minimum(((np.arange(round(w * PPU)) + 0.5) / PPU).astype(int), w - 1)
+    yy = np.minimum(((np.arange(round(h * ppu)) + 0.5) / ppu).astype(int), h - 1)
+    xx = np.minimum(((np.arange(round(w * ppu)) + 0.5) / ppu).astype(int), w - 1)
     return c[yy][:, xx].copy()
 
 
@@ -168,23 +173,28 @@ def muzzle_of(t):
 class Life:
     """One turret's life as dense canvases: the design standing on the canvas' ground row under the pivot."""
 
-    def __init__(self, design, src_fx, deploy, flash, gone):
+    def __init__(self, design, src_fx, deploy, flash, gone, ppu=PPU, muzzle=None, recoil=(0, 1), even=False):
         self.t = np.asarray(Image.open(lp(os.path.join(HD, design))).convert("RGBA")).copy()
+        self.ppu = ppu
         th, tw = self.t.shape[:2]
-        self.W = int(tw + 120)
-        self.H = int(th + 80)
+        k = ppu / PPU                                 # the margins as at the hero's 1.5
+        self.W = int(tw + 120 * k)
+        if even:                                      # the pivot on the canvas' middle line, mirrored too
+            self.W += self.W % 2
+        self.H = int(th + 80 * k)
         self.px = self.W / 2.0
-        self.ground = self.H - 20                     # the canvas row under the turret's feet
-        self.py = self.ground - FEET * PPU            # the pivot (the zone's point) FEET game px over the ground
-        self.fx = {k: [dense(c) for c in src_fx[k]] for k in (deploy, flash, gone)}
+        self.ground = self.H - int(round(20 * k))     # the canvas row under the turret's feet
+        self.py = self.ground - FEET * ppu            # the pivot (the zone's point) FEET game px over the ground
+        self.fx = {k_: [dense(c, ppu) for c in src_fx[k_]] for k_ in (deploy, flash, gone)}
         self.deploy, self.flash, self.gone = deploy, flash, gone
-        self.mz = muzzle_of(self.t)
+        self.mz = muzzle if muzzle is not None else muzzle_of(self.t)
+        self.recoil = recoil                          # where a shot kicks it (dense px): down at the front, back side on
 
     def frame(self, sink=0, kick=0, fx=()):
         can = np.zeros((self.H, self.W, 4), np.uint8)
         th, tw = self.t.shape[:2]
-        x0 = int(round(self.px - tw / 2))
-        y0 = self.ground - th + sink + kick
+        x0 = int(round(self.px - tw / 2)) + kick * self.recoil[0]
+        y0 = self.ground - th + sink + kick * self.recoil[1]
         for name, k, where in fx:
             if where != "under":
                 continue
@@ -225,7 +235,7 @@ def life_frames(L, life_ms, first_ms, per_ms, rise, deploy_ms):
         out.append((L.frame(), life_ms - t))
     ng = len(L.fx[L.gone])
     for k in range(ng):
-        out.append((L.frame(sink=[1, 3, 8, 30][min(k, 3)], fx=[(L.gone, k, "body")]), 80))
+        out.append((L.frame(sink=round([1, 3, 8, 30][min(k, 3)] * L.ppu / PPU), fx=[(L.gone, k, "body")]), 80))
     return out
 
 
@@ -238,11 +248,11 @@ def one_and_dense(L, canvases):
             ones.append((np.zeros((1, 1, 4), np.uint8), ms))
             hds.append((np.zeros((2, 2, 4), np.uint8), ms))
             continue
-        hw = int(np.ceil(max(L.px - xs.min(), xs.max() + 1 - L.px) / PPU - 0.5))
-        hh = int(np.ceil(max(L.py - ys.min(), ys.max() + 1 - L.py) / PPU - 0.5))
+        hw = int(np.ceil(max(L.px - xs.min(), xs.max() + 1 - L.px) / L.ppu - 0.5))
+        hh = int(np.ceil(max(L.py - ys.min(), ys.max() + 1 - L.py) / L.ppu - 0.5))
         hh = max(hh, int(np.ceil(FEET)) + 1)
-        ones.append((R.one_of(can, L.px, L.py, hw, hh, PPU), ms))
-        W, H = round((2 * hw + 1) * PPU), round((2 * hh + 1) * PPU)
+        ones.append((R.one_of(can, L.px, L.py, hw, hh, L.ppu), ms))
+        W, H = round((2 * hw + 1) * L.ppu), round((2 * hh + 1) * L.ppu)
         hds.append((R.crop_dense(can, L.px, L.py, W, H), ms))
     return ones, hds
 
@@ -259,6 +269,40 @@ def turret_tags(allc):
     # a dense effect sheet holds only idle / hd_idle (league_main src/lookup.rs densify_table): one sheet a turret
     return {"league_heimerdinger_turret": {"idle": t1, "hd_idle": th},
             "league_heimerdinger_apex": {"idle": x1, "hd_idle": xh}}
+
+
+SIDE = "side_turrets.json"      # tools/art/design_heimerdinger_side_turrets.py: the side pictures' PPU and muzzles
+MUZZLES = "side_muzzles.json"   # written here: each side muzzle in game px from the pivot (facing right: x ahead, y up),
+                                # for league_heimerdinger's shots (its make_override.py checks src/lib.rs against it)
+
+
+def side_tags(allc):
+    """The side turrets' lives facing right (_r) and mirrored (_l), at the side pictures' PPU: the muzzle flash on the
+    barrel's end, each shot kicking the turret back (away from the muzzle) two thirds of a game px."""
+    meta = json.load(open(lp(os.path.join(HD, SIDE)), encoding="utf-8"))
+    ppu = float(meta["ppu"])
+    back = (-int(round(ppu * 2 / 3)), 0)
+    k = ppu / PPU
+    out, muzzles = {}, {}
+    for name, design, tags, life, first, per, rise in (
+            ("turret", "turret_side.png", ("t_dust", "t_muzzle", "t_gone"), "t_life", "t_first", "t_per",
+             [24, 14, 6, 2, 0]),
+            ("apex", "apex_side.png", ("x_dust", "x_muzzle", "x_gone"), "x_life", "x_first", "x_per",
+             [40, 30, 20, 12, 6, 2, 0, 0])):
+        L = Life(design, allc, *tags, ppu=ppu, muzzle=tuple(meta[name]["muzzle"]), recoil=back, even=True)
+        th, tw = L.t.shape[:2]
+        x0, y0 = int(round(L.px - tw / 2)), L.ground - th          # Life.frame's place for the picture
+        muzzles[name] = [round((x0 + L.mz[0] - L.px) / ppu, 2), round((L.py - (y0 + L.mz[1])) / ppu, 2)]
+        fr = life_frames(L, KIT[life] * 1000 / 60, KIT[first] * 1000 / 60, KIT[per] * 1000 / 60,
+                         rise=[round(r * k) for r in rise], deploy_ms=60)
+        mirrored = [(np.ascontiguousarray(c[:, ::-1]), ms) for c, ms in fr]
+        for side, frames in (("r", fr), ("l", mirrored)):
+            one, hd = one_and_dense(L, frames)
+            out[f"league_heimerdinger_{name}_{side}"] = {"idle": one, "hd_idle": hd}
+    with open(lp(os.path.join(HD, MUZZLES)), "w", encoding="utf-8") as f:
+        json.dump(muzzles, f, indent=1)
+    print("side muzzles (game px from the pivot, facing right: ahead, up)", muzzles)
+    return out
 
 
 def main():
@@ -289,7 +333,7 @@ def main():
         w, h = G.write_sheet(lp(os.path.join(MOD, "effects", sheet)), tags, share=True)
         print(f"league/effects/{sheet}#sheet.png {w}x{h}: " + ", ".join(
             f"{t} {len(v)}f {sum(m for _, m in v):.0f}ms" for t, v in tags.items()))
-    for sheet, tt in turret_tags(allc).items():
+    for sheet, tt in {**turret_tags(allc), **side_tags(allc)}.items():
         w, h = G.write_sheet(lp(os.path.join(MOD, "effects", sheet)), tt, share=True)
         print(f"league/effects/{sheet}#sheet.png {w}x{h}: " + ", ".join(
             f"{t} {len(v)}f {sum(m for _, m in v):.0f}ms" for t, v in tt.items()))

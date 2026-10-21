@@ -898,8 +898,16 @@
                                   "applied_effects": [],
                                   "end_effects": [
                                     {
-                                      "type": "ViewEffect",
-                                      "name": "league_heimerdinger_t_turret"
+                                      "type": "SwitchByBuff",
+                                      "buff_name": "league_heimerdinger_t_face_l",
+                                      "effect_buff": {
+                                        "type": "ViewEffect",
+                                        "name": "league_heimerdinger_t_turret_l"
+                                      },
+                                      "effect_none": {
+                                        "type": "ViewEffect",
+                                        "name": "league_heimerdinger_t_turret_r"
+                                      }
                                     },
                                     {
                                       "type": "Sfx",
@@ -945,8 +953,16 @@
                                 "applied_effects": [],
                                 "end_effects": [
                                   {
-                                    "type": "ViewEffect",
-                                    "name": "league_heimerdinger_t_turret"
+                                    "type": "SwitchByBuff",
+                                    "buff_name": "league_heimerdinger_t_face_l",
+                                    "effect_buff": {
+                                      "type": "ViewEffect",
+                                      "name": "league_heimerdinger_t_turret_l"
+                                    },
+                                    "effect_none": {
+                                      "type": "ViewEffect",
+                                      "name": "league_heimerdinger_t_turret_r"
+                                    }
                                   },
                                   {
                                     "type": "Sfx",
@@ -992,8 +1008,16 @@
                               "applied_effects": [],
                               "end_effects": [
                                 {
-                                  "type": "ViewEffect",
-                                  "name": "league_heimerdinger_t_turret"
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "league_heimerdinger_t_face_l",
+                                  "effect_buff": {
+                                    "type": "ViewEffect",
+                                    "name": "league_heimerdinger_t_turret_l"
+                                  },
+                                  "effect_none": {
+                                    "type": "ViewEffect",
+                                    "name": "league_heimerdinger_t_turret_r"
+                                  }
                                 },
                                 {
                                   "type": "Sfx",
@@ -2013,8 +2037,16 @@
                                   "applied_effects": [],
                                   "end_effects": [
                                     {
-                                      "type": "ViewEffect",
-                                      "name": "league_heimerdinger_x_turret"
+                                      "type": "SwitchByBuff",
+                                      "buff_name": "league_heimerdinger_x_face_l",
+                                      "effect_buff": {
+                                        "type": "ViewEffect",
+                                        "name": "league_heimerdinger_x_turret_l"
+                                      },
+                                      "effect_none": {
+                                        "type": "ViewEffect",
+                                        "name": "league_heimerdinger_x_turret_r"
+                                      }
                                     },
                                     {
                                       "type": "Sfx",
@@ -2211,6 +2243,38 @@
       "tag": "x_beam",
       "z": 2,
       "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_heimerdinger_t_turret_r",
+      "anim": "asset/league/effects/league_heimerdinger_turret_r",
+      "tag": "idle",
+      "z": -1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_heimerdinger_t_turret_l",
+      "anim": "asset/league/effects/league_heimerdinger_turret_l",
+      "tag": "idle",
+      "z": -1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_heimerdinger_x_turret_r",
+      "anim": "asset/league/effects/league_heimerdinger_apex_r",
+      "tag": "idle",
+      "z": -1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_heimerdinger_x_turret_l",
+      "anim": "asset/league/effects/league_heimerdinger_apex_l",
+      "tag": "idle",
+      "z": -1,
+      "is_follow": false
     }
   ],
   "view_buffs": [

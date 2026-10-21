@@ -32,9 +32,11 @@ TFM2 has three active slots: H-28G Evolution Turret (Q) is `skill`, CH-2 Electro
   passive Hextech Affinity (海克斯科技亲和): every turret's aura (`AllyChampion` zone, radius p_r, every p_per ticks)
           asks `RandomTarget {AllyOnlySelf, from_projectile: true}` whether he stands in it (league_ekko's sphere) and
           gives him p_ms% move speed for p_t ticks.
-The add-on copy (--native, addons/league_heimerdinger): the turrets keep their pictures, sounds and slots but lose their
-zones; Q's `put` and R's apex run the add-on's `league_heimerdinger:q` / `:x` with the cast's input, which stand a
-native turret where the hidden bolt stops (q_place toward it, q_place / q_speed ticks later). The add-on's passive
+The add-on copy (--native, addons/league_heimerdinger): the turrets keep their sounds and slots but lose their zones;
+Q's `put` and R's apex run the add-on's `league_heimerdinger:q` / `:x` with the cast's input, which stand a native
+turret where the hidden bolt stops (q_place toward it, q_place / q_speed ticks later) and lay `t_face_l` / `x_face_l`
+on him when that is to his left: the bolt's end draws the turret from the side facing that way (TURRET_R / _L,
+APEX_R / _L; the user: 「炮台改成侧面朝敌人」 - the main pack, which cannot tell the side, keeps the front ones). The add-on's passive
 `league_heimerdinger:affinity` fires them on the zones' timing at the same targets (the beam on a champion in crowd
 control, then the nearest champion, then the nearest unit) with visible shots flying from the muzzle (t_shot /
 t_beam_line / x_shot at t_speed / b_speed / x_speed, the damage on arrival) and gives the haste near his turrets and
@@ -52,6 +54,9 @@ FX = "asset/league/effects/league_heimerdinger_fx"
 BIG = "asset/league/effects/league_heimerdinger_big"
 TURRET = "asset/league/effects/league_heimerdinger_turret"   # Q's turret's life, dense (PPU 1.5, hd.rs EFFECTS; tag idle)
 APEX = "asset/league/effects/league_heimerdinger_apex"       # R's apex turret's life, the same way
+# the add-on's copy: the same lives seen from the side, muzzle right / left (PPU 3, hd.rs EFFECTS; tag idle)
+TURRET_R, TURRET_L = TURRET + "_r", TURRET + "_l"
+APEX_R, APEX_L = APEX + "_r", APEX + "_l"
 
 # League units x 100 = ours (attack range 550 -> 55000 like every mid); radii count the unit's collision radius
 # (~15000) on top. Timings from the frames (tools/art/rig_heimerdinger.py, after League's clips): the attack's jab
@@ -256,7 +261,9 @@ def build(p):
 
     cannon = [ap(p["t_dmg"], p["t_ratio"]), view("t_hit"), tsfx("t_hit")]
     beam = [ap(p["tb_dmg"], p["tb_ratio"]), view("t_beam"), tsfx("t_beam")]
-    turret = lambda s: [view("t_turret"), sfx("t_spawn"),
+    # the add-on's copy draws the turret from the side, facing where its native effect found the target (t_face_l)
+    side = lambda k: sw(f"{k}_face_l", view(f"{k}_turret_l"), view(f"{k}_turret_r"))
+    turret = lambda s: [side("t") if native else view("t_turret"), sfx("t_spawn"),
                         *([] if native else gun(f"t{s}_shot", f"t{s}", p["t_r"], p["t_life"], p["t_per"], p["t_first"],
                                                 cannon, beam))]
     stand = (lambda k: [{"type": "Native", "effect_ref": f"league_heimerdinger:{k}"}]) if native else (lambda k: [])
@@ -316,7 +323,7 @@ def build(p):
                view("x_hit"), tsfx("x_hit")]
     xbeam = [ap(p["xb_dmg"], p["xb_ratio"]), view("x_beam"), tsfx("t_beam")]
     apex = [sfx("rq"), place("q_place", p["q_speed"], p["q_place"],
-                            [view("x_turret"), sfx("x_spawn"),
+                            [side("x") if native else view("x_turret"), sfx("x_spawn"),
                              *([] if native else gun("x_shot", "x", p["x_r"], p["x_life"], p["x_per"], p["x_first"],
                                                      xcannon, xbeam))]),
             *stand("x")]
@@ -343,6 +350,9 @@ def build(p):
     views_e = [E("a_hit"), E("w_hit"), dict(E("t_turret", TURRET, -1, False), tag="idle"), E("t_hit"), E("t_beam"),
                E("e_blast", BIG, -1, False), E("e_hit"), E("re_blast", BIG, -1, False), E("r_up", BIG),
                dict(E("x_turret", APEX, -1, False), tag="idle"), E("x_hit"), E("x_beam")]
+    if native:
+        views_e += [dict(E(f"{k}_turret_{d}", sheet, -1, False), tag="idle")
+                    for k, d, sheet in (("t", "r", TURRET_R), ("t", "l", TURRET_L), ("x", "r", APEX_R), ("x", "l", APEX_L))]
     views_b = [B_("e_slow", FX, -1), dict(B_("x_slow", FX, -1), tag="e_slow"), B_("haste", FX, -1)]
     extra = {}
     if native:

@@ -4,11 +4,13 @@
 
 Rebuilds Heimerdinger with tools/kit/build_heimerdinger.py (its parameter table P), checks that the plain build is the
 main pack's league/champion/league_heimerdinger.data_champion byte for byte (so the copy never drifts from the shipped
-kit) and that src/lib.rs's default Params are P's numbers, and writes
+kit), that src/lib.rs's default Params are P's numbers and its T_MUZZLE / X_MUZZLE the side turrets' muzzles
+(assets/source/heimerdinger/hd/side_muzzles.json, written by tools/art/import_heimerdinger_fx.py), and writes
 addons/league_heimerdinger/override/league_heimerdinger.data_champion and .../text/champion.i18n: the build with native=1 -
   * everything of the main pack's kit (the bolt and W's rockets, E's grenade, R by the situation, the combos);
-  * the turrets keep their pictures, sounds and three slots but no zones: Q's put and R's apex run the add-on's
-    league_heimerdinger:q / :x, which stand its native turrets;
+  * the turrets keep their sounds and three slots but no zones: Q's put and R's apex run the add-on's
+    league_heimerdinger:q / :x, which stand its native turrets and say which side they face (t_face_l / x_face_l):
+    the turrets are drawn from the side (league_heimerdinger_turret_r / _l, _apex_r / _l);
   * passive = the add-on's league_heimerdinger:affinity with the numbers of P it uses (passive.params);
   * the shots' views (t_shot, t_beam_line, x_shot: drawn in league_heimerdinger_fx, unbound in the main pack);
   * the skill's tooltip points to description.league_heimerdinger.skill with the add-on's wording.
@@ -56,6 +58,14 @@ def rust_defaults():
     return {m.group(1): int(m.group(2).replace("_", "")) for m in re.finditer(r"(\w+): ([0-9_]+),", body)}
 
 
+def rust_muzzles():
+    """src/lib.rs's `pub const T_MUZZLE: (i64, i64) = (.., ..);` and X_MUZZLE, in game px."""
+    src = open(lp(os.path.join(ADDON, "src", "lib.rs")), encoding="utf-8").read()
+    got = {m.group(1): (int(m.group(2).replace("_", "")) / 1000, int(m.group(3).replace("_", "")) / 1000)
+           for m in re.finditer(r"pub const ([TX])_MUZZLE: \(i64, i64\) = \((-?[0-9_]+), (-?[0-9_]+)\);", src)}
+    return {"turret": got.get("T"), "apex": got.get("X")}
+
+
 def main():
     p = dict(kit.P)
     with open(lp(os.path.join(ROOT, "league", "champion", HERO + ".data_champion")), encoding="utf-8", newline="") as f:
@@ -67,12 +77,20 @@ def main():
     if wrong or set(got) != set(kit.NATIVE_KEYS):
         sys.exit("src/lib.rs's Params defaults differ from build_heimerdinger.P (rust, P): %s %s"
                  % (wrong, sorted(set(got) ^ set(kit.NATIVE_KEYS))))
+    with open(lp(os.path.join(ROOT, "assets", "source", "heimerdinger", "hd", "side_muzzles.json")), encoding="utf-8") as f:
+        art = json.load(f)
+    rust = rust_muzzles()
+    off = {k: (rust[k], art[k]) for k in art if rust[k] is None or max(abs(a - b) for a, b in zip(rust[k], art[k])) > 0.02}
+    if off:
+        sys.exit("src/lib.rs's T_MUZZLE / X_MUZZLE differ from the side turrets' muzzles (rust, art): %s" % off)
     champion = kit.build(dict(p, native=1))
     if champion.get("passive", {}).get("passive_ref") != MOD_ID + ":affinity":
         sys.exit("the copy has no league_heimerdinger:affinity passive: update this script")
     text = json.dumps(champion)
     if "RangePeriodProjectile" in text or '"league_heimerdinger:q"' not in text or '"league_heimerdinger:x"' not in text:
         sys.exit("the copy still carries the turrets' zones or lacks the native turrets: update this script")
+    if not all(f'"league_heimerdinger_{k}_turret_{d}"' in text for k in "tx" for d in "rl"):
+        sys.exit("the copy does not draw the side turrets: update this script")
     for slot in SLOTS:
         champion[slot]["description"] = "#asset/base/text/champion?description." + MOD_ID + "." + slot
 
