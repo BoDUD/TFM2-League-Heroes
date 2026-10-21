@@ -37,7 +37,8 @@ wind_mage and white_mage, 2026-10-21; league_zyra +1.94 on seeds 1-8 the same da
 (Q's slot held by a short slot cooldown and the q_cd flag: 175 empty casts a game), Q on its own cooldown -1.31; Q, E
 or R raised alone -1.13 / -0.40 (noise +-0.45); R 230 + 100%, E 85 + 55%, Q 90 + 60% -0.41 (16 seeds), with hp 940
 def 20 -0.23; v9 (R 250 + 110%, E 90 + 60%, Q 95 + 65%, blooms 40 + 25%, W 45 + 50%, hp 950) +0.75 / +0.86 (seeds 1-16 /
-17-32); v10 = P (R 260 + 115%, hp 960, def 21) +0.86 / +1.06 (league_naafiri +1.48 / +1.25 the same day).
+17-32); v10 = P (R 260 + 115%, hp 960, def 21) +0.86 / +1.06 (league_naafiri +1.48 / +1.25 the same day); retimed to
+her frames (q_rel 14, e_rel 11) +0.92 on seeds 1-16.
 """
 import argparse
 import json
