@@ -115,6 +115,7 @@ pub const RANGES: &[(&str, u32)] = &[
     ("league_missfortune", 55000),
     ("league_mordekaiser", 25000),
     ("league_morgana", 50000),
+    ("league_naafiri", 23000),
     ("league_nami", 55000),
     ("league_nasus", 26000),
     ("league_nautilus", 25000),

@@ -27,7 +27,7 @@ pub mod combo;
 
 const ID: &str = "league_warwick";
 /// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是 league_addons 的。
-const VERSION: &str = "0.1.0";
+const VERSION: &str = "0.1.1";
 
 /// 鲜血追猎每隔几 tick 看一次。
 pub const HUNT_EVERY: usize = 6;

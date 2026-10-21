@@ -30,3 +30,7 @@
 - 在 `addons/` 下 `cargo test --release -p league_warwick`：单元测试（吸血的三档、追猎的三档、参数、和参数表一致，连招的 E → Q、R → Q、追残血）。
 - 在 `addons/` 下 `cargo build --release -p league_warwick`（Windows）得到 `target/release/league_warwick.dll`；`league_addons` 合集也会编进本包。
 - 经典 SDK 的模拟器跑不了原生代码，本包只做了单元测试，要在游戏里看日志确认。
+
+## 游戏 0.6.5（0.1.1）
+
+连招钩子回城时不出手；R 不朝 AI 正在远离的人扑（0.6.5 的官方 AI 自己追得上的残血会追，撤的时候是它的判断）。

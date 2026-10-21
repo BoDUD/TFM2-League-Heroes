@@ -30,7 +30,7 @@ use mod_api_stable::*;
 
 const ID: &str = "league_irelia";
 /// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是 league_addons 的。
-const VERSION: &str = "0.1.1";
+const VERSION: &str = "0.1.2";
 
 /// 主包艾瑞莉娅的名字（buff、音效都以它开头）。
 fn ir(x: &str) -> String {
@@ -311,12 +311,34 @@ impl StablePassive for Surge {
 
 // ===================== AI 钩子：跳兵线 =====================
 
+/// The AI is still recalling (game 0.6.5 decides when to go home and buy): its last order was a Return - it orders only
+/// on its judgement ticks, a Return again while the recall lasts, nothing in between - and any other order ends it
+/// (league_ult_press 0.5.0's rule).
+pub fn still_recalling(was: bool, base: Option<InputV1>) -> bool {
+    match base {
+        Some(b) => b.kind == InputKindV1::Return.code(),
+        None => was,
+    }
+}
+
+/// How much farther from a champion the AI's walk must end to be a retreat (league_ult_press's `HOLD_AWAY`).
+pub const AWAY: f64 = 10_000.0;
+
+/// The AI walks away from `to` this tick (a retreat, a disperse from a lost objective): its Move ends more than `AWAY`
+/// farther from it than the champion stands now.
+pub fn walking_away(base: Option<InputV1>, me: (f64, f64), to: (f64, f64)) -> bool {
+    let d = |a: (f64, f64), b: (f64, f64)| ((a.0 - b.0).powi(2) + (a.1 - b.1).powi(2)).sqrt();
+    base.is_some_and(|b| b.kind == InputKindV1::Move.code() && d((b.x as f64, b.y as f64), to) > d(me, to) + AWAY)
+}
+
 #[derive(Clone, Default)]
 struct Hop {
     hops: usize,
     marked: usize,
     /// 上一次改写的 (她, 目标)：施放开始前每 tick 都会再问一次，同一个目标只算一次
     last: Option<(usize, usize)>,
+    /// AI 在回城（`still_recalling`）：不跳兵线
+    recalling: bool,
 }
 
 /// 她看得见的敌方单位（不含塔），和敌方塔的位置。
@@ -368,6 +390,7 @@ impl StablePlayerAi for Hop {
     fn think(&mut self, ctx: &mut StableAiContext<'_>, base: Option<InputV1>) -> Option<InputV1> {
         let p = SHARED.lock().unwrap_or_else(|e| e.into_inner()).clone();
         let me_id = ctx.player_id();
+        self.recalling = still_recalling(self.recalling, base);
         let (choice, line) = {
             let sim = ctx.sim()?;
             let player = sim.get_player(me_id)?;
@@ -403,7 +426,8 @@ impl StablePlayerAi for Hop {
                     return None;
                 }
             } else {
-                if p.hop == 0 || max == 0 || hp * 100 < p.hop_hp * max || champs.iter().any(|u| in_q(u)) {
+                // not while the AI recalls (0.6.5 decides when to go home and buy)
+                if self.recalling || p.hop == 0 || max == 0 || hp * 100 < p.hop_hp * max || champs.iter().any(|u| in_q(u)) {
                     return None;
                 }
                 let safe = |c: &Unit| towers.iter().all(|t| dist(*t, c.at) > TOWER_REACH);
@@ -414,6 +438,10 @@ impl StablePlayerAi for Hop {
                 else {
                     return None;
                 };
+                // nor toward a champion the AI walks away from (a retreat, 0.6.5's disperse)
+                if walking_away(base, me, c.at) {
+                    return None;
+                }
                 let s = pick_hop(me, ad, c, &units, &p)?;
                 (
                     Some((s.id, true)),

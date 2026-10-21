@@ -80,3 +80,7 @@ python addons/league_kayn_form/make_override.py      # 主包的凯隐或别的�
 `src/view.rs`、`src/wall.rs` 的单元测试：动画名按形态和墙换、buff 对应的样子、阵亡后形态还在、地图有 90 个墙格、
 只在隔着墙时穿。`tests/wiring.rs` 走真实的导出入口跑被动：近战 / 远程分边、门槛、队友身上的标记不算、阵亡复活补回形态、准备标记过期也补、
 查不到的英雄按距离猜。原生代码在 SDK 模拟里跑不了，平衡靠主包的数据部分和游戏日志。
+
+## 游戏 0.6.5（0.3.3）
+
+近战 / 远程表（`src/ranges.rs`）补上希瓦娜、纳亚菲利（用户：「凯隐也要加吧」），`every_pack_hero_has_its_range` 测试保证以后的新英雄不漏；0.6.5 上显示钩子照常找到（`game_places`）。

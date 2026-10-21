@@ -56,3 +56,7 @@
 - 在 `addons/` 下 `cargo build --release -p league_graves`（Windows）得到 `target/release/league_graves.dll`；
   `league_addons` 合集也会编进本包。
 - 经典 SDK 的模拟器跑不了原生代码，本包只做了单元测试，要在游戏里看日志确认。
+
+## 游戏 0.6.5（0.2.1）
+
+连招钩子回城时不出手；走路时按的 E 是朝目标冲的：不朝 AI 正在远离的人冲，也不冲进敌方塔 75000 内的人（0.6.5 的官方 AI 自己决定撤退、越塔）；打得死的 R 在原地开枪，照旧。

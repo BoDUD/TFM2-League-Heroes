@@ -42,7 +42,7 @@ mod maps;
 
 const ID: &str = "league_graves";
 /// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是 league_addons 的。
-const VERSION: &str = "0.2.0";
+const VERSION: &str = "0.2.1";
 
 /// 一枪的时间窗：第一次打中起这么多 tick 内的打中都算同一枪（他的普攻间隔 54 tick）。
 pub const VOLLEY_T: usize = 14;

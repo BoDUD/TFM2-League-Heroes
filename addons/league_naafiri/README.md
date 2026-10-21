@@ -31,3 +31,7 @@
 1. 主包（League of Legends Heroes 0.187.0 以上）要装着并启用；本包随附加包合集 `league_addons` 一起装，或单独装。
 2. 看日志 `%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_naafiri.log`：`SPAWN`（她出场和参数）、`Q2 #…`（第二把匕首的斩杀）、
    `R POUNCE` / `R HELD`（开大 / 不开）、`RECAST`（参与击杀后再扑）、`FOUR hounds` / `two hounds`（显示钩子换了几次）。
+
+## 游戏 0.6.5（0.1.1）
+
+回城时（回城引导中没命令的 tick 也算）不自己开大；抓人、团战的扑击不朝 AI 正在远离的人扑，也不扑敌方塔 75000 内生命 25% 以上的人；斩杀和击杀后的再扑照旧（`league_ult_press` 0.5.0 的规则，0.6.5 的官方 AI 自己决定回城、撤退、越塔）。

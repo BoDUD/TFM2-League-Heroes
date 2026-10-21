@@ -42,3 +42,7 @@ E 构造分解炸开一片地面击飞敌人；R 生命形态瓦解射线引导 
 python addons/league_velkoz/make_override.py
 cd addons && cargo test -p league_velkoz && cargo build --release -p league_velkoz
 ```
+
+## 游戏 0.6.5（0.1.1）
+
+连招钩子回城时不出手；R 的引导不朝 AI 正在远离的人放（站着引导，撤退时放会被追上），E 之后的 Q 照放（`league_ult_press` 0.5.0 的规则，0.6.5 的官方 AI 自己决定回城、撤退）。

@@ -33,7 +33,7 @@ pub mod stealable;
 
 const ID: &str = "league_sylas";
 /// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是 league_addons 的。
-const VERSION: &str = "0.2.0";
+const VERSION: &str = "0.2.1";
 /// 五个类别（和佛耶戈附加包一样）。
 pub const CLASSES: [&str; 5] = ["melee", "range", "mage", "util", "assassin"];
 

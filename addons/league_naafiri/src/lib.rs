@@ -325,9 +325,45 @@ fn read(sim: &StableSim<'_>, me: usize) -> Option<(Me, Vec<Foe>, bool)> {
     Some((m, foes, ready))
 }
 
+/// The AI is still recalling (game 0.6.5 decides when to go home and buy): its last order was a Return - it orders only
+/// on its judgement ticks, a Return again while the recall lasts, nothing in between - and any other order ends it
+/// (league_ult_press 0.5.0's rule).
+pub fn still_recalling(was: bool, base: Option<InputV1>) -> bool {
+    match base {
+        Some(b) => b.kind == InputKindV1::Return.code(),
+        None => was,
+    }
+}
+
+/// How much farther from a champion the AI's walk must end to be a retreat (league_ult_press's `HOLD_AWAY`).
+pub const AWAY: f64 = 10_000.0;
+/// An enemy tower this close: under it (league_ult_press's `TOWER_REACH`).
+pub const TOWER_REACH: f64 = 75_000.0;
+/// A gank or a fight pounces under an enemy tower only on a champion at this health or lower (league_ult_press's
+/// `DIVE_HP`).
+pub const DIVE_HP: usize = 25;
+
+fn dist(a: (f64, f64), b: (f64, f64)) -> f64 {
+    ((a.0 - b.0).powi(2) + (a.1 - b.1).powi(2)).sqrt()
+}
+
+/// The AI walks away from `to` this tick (a retreat, a disperse from a lost objective): its Move ends more than `AWAY`
+/// farther from it than she stands now.
+pub fn walking_away(base: Option<InputV1>, me: (f64, f64), to: (f64, f64)) -> bool {
+    base.is_some_and(|b| b.kind == InputKindV1::Move.code() && dist((b.x as f64, b.y as f64), to) > dist(me, to) + AWAY)
+}
+
+/// A pounce she starts herself that 0.6.5's AI would not take: a gank or a fight at a champion it walks away from, or
+/// one under an enemy tower above `DIVE_HP` (a kill and the pounce again after a takedown still go).
+pub fn overrules_the_ai(why: Why, walking_away: bool, under_tower: bool, hp_pct: usize) -> bool {
+    matches!(why, Why::Gank | Why::Fight) && (walking_away || (under_tower && hp_pct > DIVE_HP))
+}
+
 #[derive(Clone, Default)]
 pub struct UltAi {
     last: Option<(usize, String)>,
+    /// the AI is recalling (`still_recalling`)
+    recalling: bool,
 }
 
 impl UltAi {
@@ -363,15 +399,28 @@ impl StablePlayerAi for UltAi {
             (b.kind == InputKindV1::Ult.code() && InputTargetKindV1::from_code(b.target.kind) == Some(InputTargetKindV1::Target))
                 .then_some(b.target.target_id)
         });
-        // AI 在放别的技能、回家时不主动开大
-        let busy = base.is_some_and(|b| {
+        // AI 在放别的技能、回家时不主动开大（回城引导中没命令的 tick 也算回家：0.6.5 的 AI 自己决定什么时候回城买装备）
+        self.recalling = still_recalling(self.recalling, base);
+        let busy = self.recalling || base.is_some_and(|b| {
             matches!(InputKindV1::from_code(b.kind), Some(InputKindV1::Skill | InputKindV1::Skill2 | InputKindV1::Return))
         });
-        let (m, foes, ready, line) = {
+        // her spot, each foe in reach's spot, whether an enemy tower covers it (for a pounce she starts herself)
+        let (m, foes, ready, line, my_at, spots) = {
             let sim = ctx.sim()?;
             let me = sim.get_player(player)?.champion()?.id();
             let (m, foes, ready) = read(&sim, me)?;
-            (m, foes, ready, head(&sim, me))
+            let pt = |id: usize| sim.get_entity(id).map(|e| (e.pos().0 as f64, e.pos().1 as f64));
+            let team = sim.get_entity(me).map_or(0, |e| e.team());
+            let towers: Vec<(f64, f64)> = (0..sim.entity_count())
+                .filter_map(|i| sim.entity_at(i))
+                .filter(|u| u.is_tower() && u.is_alive() && u.team() != team)
+                .map(|u| (u.pos().0 as f64, u.pos().1 as f64))
+                .collect();
+            let spots: Vec<(usize, (f64, f64), bool)> = foes
+                .iter()
+                .filter_map(|f| pt(f.id).map(|p| (f.id, p, towers.iter().any(|&w| dist(w, p) <= TOWER_REACH))))
+                .collect();
+            (m, foes, ready, head(&sim, me), pt(me)?, spots)
         };
         let hp_of = |id: usize| foes.iter().find(|f| f.id == id).map_or(0, |f| f.hp);
         match plan(ult_target, &m, &foes, ready && !busy) {
@@ -380,6 +429,14 @@ impl StablePlayerAi for UltAi {
                 // 自己按之前再看一次解锁和冷却（AI 原来就要开的不用）
                 if ult_target.is_none() && !ready {
                     return None;
+                }
+                if ult_target.is_none() {
+                    if let Some(&(_, at, towered)) = spots.iter().find(|s| s.0 == id) {
+                        let pct = foes.iter().find(|f| f.id == id).map_or(100, |f| f.hp * 100 / f.max.max(1));
+                        if overrules_the_ai(why, walking_away(base, my_at, at), towered, pct) {
+                            return None;
+                        }
+                    }
                 }
                 let input = InputV1::action(InputKindV1::Ult, InputTargetV1::target(id));
                 if !ctx.is_valid_input(&input) {
@@ -528,6 +585,19 @@ declare_stable_mod!(init, requires = 10);
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn her_own_pounces_leave_0_6_5s_recalls_retreats_and_towers_alone() {
+        assert!(still_recalling(false, Some(InputV1::return_home())) && still_recalling(true, None));
+        assert!(!still_recalling(true, Some(InputV1::move_to(0, 0))));
+        assert!(walking_away(Some(InputV1::move_to(0, 0)), (20_000.0, 0.0), (60_000.0, 0.0)));
+        assert!(!walking_away(Some(InputV1::move_to(50_000, 0)), (20_000.0, 0.0), (60_000.0, 0.0)));
+        // a gank or a fight: not while the AI walks away, not under a tower above 25 %
+        assert!(overrules_the_ai(Why::Gank, true, false, 40) && overrules_the_ai(Why::Fight, false, true, 50));
+        assert!(!overrules_the_ai(Why::Gank, false, true, 20) && !overrules_the_ai(Why::Fight, false, false, 90));
+        // a kill and the pounce again always
+        assert!(!overrules_the_ai(Why::Kill, true, true, 80) && !overrules_the_ai(Why::Again, true, true, 80));
+    }
 
     fn foe(id: usize, hp: usize, max: usize, allies_near: usize) -> Foe {
         Foe { id, hp, max, shield: 0, def: 30, allies_near }
