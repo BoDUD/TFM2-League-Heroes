@@ -1,0 +1,102 @@
+[
+  {
+    "file": "heimerdinger-model-A-1.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "visible_bbox_alpha128": [
+      59,
+      79,
+      1233,
+      1247
+    ],
+    "partial_alpha_pixels": 854617,
+    "alpha_unique_count": 256,
+    "requested_grid": 20,
+    "requested_height_rows": 54,
+    "requested_top": 100,
+    "requested_bottom": 1180,
+    "exact_grid_off_boundary_changes": 1338355,
+    "estimated_dominant_step_px": 17,
+    "estimated_height_rows": 68.7,
+    "exact_grid_pass": false,
+    "hard_alpha_pass": false,
+    "raw_identical": true
+  },
+  {
+    "file": "heimerdinger-model-A-2.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "visible_bbox_alpha128": [
+      82,
+      55,
+      1219,
+      1218
+    ],
+    "partial_alpha_pixels": 781846,
+    "alpha_unique_count": 256,
+    "requested_grid": 20,
+    "requested_height_rows": 54,
+    "requested_top": 100,
+    "requested_bottom": 1180,
+    "exact_grid_off_boundary_changes": 1184637,
+    "estimated_dominant_step_px": 19,
+    "estimated_height_rows": 61.2,
+    "exact_grid_pass": false,
+    "hard_alpha_pass": false,
+    "raw_identical": true
+  },
+  {
+    "file": "heimerdinger-model-T.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "visible_bbox_alpha128": [
+      41,
+      310,
+      1215,
+      1210
+    ],
+    "partial_alpha_pixels": 649433,
+    "alpha_unique_count": 256,
+    "requested_grid": 28,
+    "requested_height_rows": 30,
+    "requested_top": 336,
+    "requested_bottom": 1176,
+    "exact_grid_off_boundary_changes": 928679,
+    "estimated_dominant_step_px": 26,
+    "estimated_height_rows": 34.6,
+    "exact_grid_pass": false,
+    "hard_alpha_pass": false,
+    "raw_identical": true
+  },
+  {
+    "file": "heimerdinger-model-X.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "visible_bbox_alpha128": [
+      151,
+      88,
+      1103,
+      1192
+    ],
+    "partial_alpha_pixels": 685848,
+    "alpha_unique_count": 256,
+    "requested_grid": 24,
+    "requested_height_rows": 45,
+    "requested_top": 96,
+    "requested_bottom": 1176,
+    "exact_grid_off_boundary_changes": 979481,
+    "estimated_dominant_step_px": 24,
+    "estimated_height_rows": 46.0,
+    "exact_grid_pass": false,
+    "hard_alpha_pass": false,
+    "raw_identical": true
+  }
+]
