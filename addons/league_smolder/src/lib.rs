@@ -90,7 +90,7 @@ pub const E_DMG: usize = 10;
 pub const E_RATIO: usize = 30;
 pub const E_STACK: usize = 25;
 /// 一次扑棱第一枚打中英雄的才给层：这个旗子挂多久（主包 P 的 e_anim + 20）。
-pub const E_GOT_T: usize = 58;
+pub const E_GOT_T: usize = 100;
 /// 待记层数的梯子有几级（主包 P 的 p_pend）。
 pub const P_PEND: usize = 6;
 /// 前几次扑棱每次都记日志，之后每 25 次记一次。
@@ -184,11 +184,11 @@ impl Default for Params {
     fn default() -> Self {
         Self {
             e_cd_t: 1200,
-            e_anim: 38,
+            e_anim: 80,
             e_wind: 8,
-            e_tick: 19,
-            e_far: 60_000,
-            e_plain: 36_000,
+            e_tick: 64,
+            e_far: 80_000,
+            e_plain: 60_000,
             e_fly: 3_000,
             e_near: 40_000,
             e_close: 30_000,
@@ -197,7 +197,7 @@ impl Default for Params {
             e_ms: 40,
             e_ms_t: 120,
             e_n: 5,
-            e_gap: 4,
+            e_gap: 12,
             e_shot0: 9,
             e_r: 70_000,
             e_sspeed: 7_000,
