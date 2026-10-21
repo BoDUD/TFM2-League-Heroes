@@ -375,6 +375,69 @@ impl StableEffectType for Step {
 struct Steadfast {
     /// 上一 tick 光环附近的敌方英雄在哪（id -> (tick, 位置)）。
     seen: HashMap<usize, (usize, Pt)>,
+    /// DIAG（用户：「波比大招只有声音没有动作特效」「也不击飞」）：上一 tick 大招的剩余冷却、这次开大的 tick、上一行。
+    r_left: usize,
+    r_at: Option<usize>,
+    r_line: String,
+}
+
+/// DIAG：开大后逐 tick 记多久。
+const DIAG_T: usize = 70;
+
+fn diag_cc(c: &CcV1) -> String {
+    let k = CcKindV1::from_code(c.kind).map_or(format!("kind{}", c.kind), |k| format!("{k:?}"));
+    if c.name().is_empty() { format!("{k} {}", c.tick) } else { format!("{k}:{} {}", c.name(), c.tick) }
+}
+
+impl Steadfast {
+    /// DIAG：大招的冷却从 0 跳起来就是开大，之后 `DIAG_T` tick 里她的控制（动作）、波比的标记、位置，身边敌方英雄的控制；
+    /// 和上一行一样就不写。
+    fn diag(&mut self, sim: &StableSim<'_>, me: usize) {
+        let t = sim.tick();
+        let Some(e) = sim.get_entity(me) else { return };
+        let left = e.cooldown(SkillSlotV1::Ult).map_or(0, |c| c.remaining);
+        if left > self.r_left + 1 && self.r_left == 0 {
+            self.r_at = Some(t);
+            self.r_line.clear();
+            wlog(format!("{} DIAG R cast: cooldown 0 -> {left}", head(sim, me)));
+        }
+        self.r_left = left;
+        let Some(t0) = self.r_at else { return };
+        if t > t0 + DIAG_T {
+            self.r_at = None;
+            return;
+        }
+        let ccs: Vec<String> = (0..e.cc_count()).filter_map(|i| e.cc_at(i)).map(|c| diag_cc(&c)).collect();
+        let mine: Vec<String> = (0..e.buff_count())
+            .filter_map(|i| e.buff_at(i))
+            .filter(|b| b.name().starts_with(ID))
+            .map(|b| format!("{} {}", &b.name()[ID.len() + 1..], b.duration_tick))
+            .collect();
+        let (x, y) = e.pos();
+        let her = (x as f64, y as f64);
+        let team = e.team();
+        let foes: Vec<String> = (0..sim.champion_count())
+            .map(|i| sim.champion_id_at(i))
+            .filter_map(|id| sim.get_entity(id).map(|f| (id, f)))
+            .filter(|(_, f)| f.team() != team && f.is_alive() && dist((f.pos().0 as f64, f.pos().1 as f64), her) <= 80_000.0)
+            .map(|(id, f)| {
+                let cc: Vec<String> = (0..f.cc_count()).filter_map(|i| f.cc_at(i)).map(|c| diag_cc(&c)).collect();
+                format!("#{id} {:.0}k [{}]", dist((f.pos().0 as f64, f.pos().1 as f64), her) / 1000.0, cc.join(", "))
+            })
+            .collect();
+        let line = format!(
+            "alive {} targetable {} cc [{}] buffs [{}] foes [{}]",
+            e.is_alive(),
+            e.is_targetable(),
+            ccs.join(", "),
+            mine.join(", "),
+            foes.join("; ")
+        );
+        if line != self.r_line {
+            wlog(format!("{} DIAG R+{} at {}: {line}", head(sim, me), t - t0, pt(her)));
+            self.r_line = line;
+        }
+    }
 }
 
 impl Steadfast {
@@ -440,9 +503,11 @@ impl StablePassive for Steadfast {
 
     fn on_spawn(&mut self, _sim: &mut StableSim<'_>, _player: usize, _entity: usize) {
         self.seen.clear();
+        self.r_at = None;
     }
 
     fn on_update(&mut self, sim: &mut StableSim<'_>, _: u64, _player: usize, me: usize) {
+        self.diag(sim, me);
         let t = sim.tick();
         if t % 6 == 0 {
             Self::low_health(sim, me);
@@ -492,7 +557,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v{VERSION} (Poppy: Steadfast Presence stops dashes, Heroic Charge stuns on walls, Keeper's Verdict sends home) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v{VERSION} (Poppy: Steadfast Presence stops dashes, Heroic Charge stuns on walls, Keeper's Verdict sends home; DIAG R) loaded: game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
         v.patch,
