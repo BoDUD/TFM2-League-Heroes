@@ -41,6 +41,11 @@ OUT = os.path.join(REPO, "league", "champion", "league_zoe.data_champion")
 ID = "league_zoe"
 FX = "asset/league/effects/league_zoe_fx"
 BIG = "asset/league/effects/league_zoe_big"
+# the add-on's stolen summoner spells (tools/art/draw_zoe_spells.py, dense sheets: league_main hd.rs EFFECTS): their
+# pictures and League's icons
+SPELLS_FX = "asset/league/effects/league_zoe_spells"
+SPELL_ICONS = "asset/league/effects/league_zoe_spell_icons"
+SPELLS = ["flash", "ignite", "exhaust", "heal", "barrier", "ghost", "cleanse"]
 
 # League units x 100 = ours (attack range 550 -> 55000 like every mid); radii count the unit's collision radius
 # (~15000) on top. Timings from the strips (tools/art/rig_zoe.py MS): the attack's flick frame 3 from tick 9 (a_rel 10),
@@ -311,7 +316,14 @@ def build(p):
                E("w_hit"), E("r_portal_in", BIG, -1, False), E("r_portal_out", BIG, -1, False), portal_back]
     if native:          # the add-on's spell shards on the ground
         views_e.append(E("w_shard", FX, -1, False))
+        # its summoner spells: the icon lighting up on the ground where she cast it, the icons a shard cycles through,
+        # and the pictures of their own (Heal, Ignite, Exhaust, Ghost and Barrier's bubble are its buffs' views)
+        views_e += [E("sg_" + s, SPELL_ICONS, -1, False) for s in SPELLS] + [E("ss_" + s, SPELL_ICONS, -1, False) for s in SPELLS]
+        views_e += [E("s_flash", SPELLS_FX, 2, False), E("s_cleanse", SPELLS_FX)]      # Flash: where she was / lands
     views_b = [B_("e_drowsy", FX, 3), B_("e_zz", FX, 3), B_("w_haste", FX, -1)]
+    if native:
+        views_b += [B_("s_heal", SPELLS_FX), B_("s_ignite", SPELLS_FX), B_("s_exhaust", SPELLS_FX, 3),
+                    B_("s_ghost", SPELLS_FX, -1), B_("s_barrier", SPELLS_FX)]
     extra = {}
     if native:
         extra["passive"] = {"passive_ref": "league_zoe:sparkles", "params": {
