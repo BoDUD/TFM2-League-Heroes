@@ -401,6 +401,12 @@ impl Hero {
         self.ppu / self.size
     }
 
+    /// What the BP grid divides an hd_ frame's pixels by: PPU / its [`UI_SIZES`] size - the battlefield's frames at the
+    /// size the whole-body UI draws the hero (2026-10-21: 「BP 格子也改成显示战场那套 hd_ 高清帧」).
+    pub fn bp_hd(&self) -> f32 {
+        self.ppu * self.ui / UI_PPU
+    }
+
     /// The UI's divisor for a caller: `sized` (a whole-body drawer, src/build.rs ui_sized_*) takes the UI_SIZES size,
     /// the face crops (encyclopedia / face icons, scoreboard portraits) the plain [`UI_PPU`] - their face point is
     /// measured on the hero at that size (2026-10-20: Galio's and Mordekaiser's icons showed a crown / a belly).
