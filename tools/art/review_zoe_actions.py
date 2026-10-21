@@ -68,7 +68,7 @@ def main():
             for i, (fr, ms) in enumerate(hd):
                 im = Image.new("RGB", (2 * w + 12, h + 58), (30, 30, 30))
                 if lol:
-                    t = lol[i]
+                    t = lol[i % len(lol)]         # (the idle is a reel now: frame 0 held, snippets of her actions)
                     im.paste(t.crop((0, max(0, t.height - h), w, t.height)), (0, 58 + max(0, h - t.height)))
                 else:
                     ImageDraw.Draw(im).text((20, 58 + h // 2), "（英雄联盟没有对应动作）", fill=(170, 170, 170), font=small)
