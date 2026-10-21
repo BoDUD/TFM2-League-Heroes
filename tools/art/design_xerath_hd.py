@@ -7,7 +7,10 @@ by whole rows and columns, every kept square the draft's own.
 
 The user, 2026-10-21: 「主模型也要利用PPU重做吧 身材可以变细 头可以变小」「不是重做 是重新调整」, on the leg tips
 「下面要做成一样长吧 黑边要去掉吧」, and of three takes (as drawn / slim / slimmer) 「你选一个吧 反正游戏里别太大就行」 ->
-the slimmer one (32 x 73), shown at about 42 game px (the 1x was 44). Steps:
+the slimmer one (32 x 73), shown at about 42 game px (the 1x was 44). In game that one read as stretched (「泽拉斯在游戏里
+身体太长了吧？」「看着好奇怪 泽拉斯模型」: 19.5 x 43 game px beside heroes 25-37 wide), and of three shorter takes the user
+picked C (「改成这个 优先改这个 优先级最高 改完合并」): three body columns back (BODY_COLS 4, not 7) and whole rows out of the
+waist and the leg spikes (SHORTER) - 35 x 62, shown at 40 game px. Steps:
   1. the read-back of design_xerath (78 x 39) on its 24 colours (design_varus.kmeans, as the 1x);
   2. the hood (rows 0-14) loses HEAD_ROWS rows and HEAD_COLS columns (design_riven.keep_axis, never the eyes' rows
      FACE_R nor the hood's opening FACE_C), the body below it BODY_COLS columns (never the torso TORSO_C); the hood goes
@@ -15,7 +18,9 @@ the slimmer one (32 x 73), shown at about 42 game px (the 1x was 44). Steps:
   3. strips.complete_outline where a deleted line held the outline (the face kept);
   4. the leg spikes (fix_legs): below each spike's last filled row only the outline square under its fill, the black
      tails the draft drew below them gone; the shorter (far) spike grows by copies of its own rows spread down its
-     taper, so both end on one row.
+     taper, so both end on one row;
+  5. shorter (SHORTER): in each band, the rows that differ least from the row above them go, never two side by side
+     (rows 31, 33, 41 and 43 of the waist, every other row of the spikes from 54 to 66).
 --check compares the result with the committed design.png instead of writing it.
 """
 import argparse
@@ -40,7 +45,8 @@ FACE_R = range(9, 14)      # the hood's rim, the eyes, the energy face
 FACE_C = range(17, 31)     # the hood's opening
 TORSO_C = range(15, 29)    # the chest, the gem, the energy core
 NECK = 23                  # the column the hood sits over
-HEAD_ROWS, HEAD_COLS, BODY_COLS = 3, 4, 7
+HEAD_ROWS, HEAD_COLS, BODY_COLS = 3, 4, 4
+SHORTER = ((51, 68, 7), (31, 44, 4))   # (first row, end row, rows out): the leg spikes, the waist
 DARK = 30.0                # luma under which a square is outline
 
 
@@ -117,7 +123,22 @@ def build():
     assert raw.shape[:2] == (78, 39), raw.shape
     idx, pal = dv.kmeans(raw, DX.K)
     fig, outline = slimmer(idx, pal)
-    return fix_legs(fig, outline)
+    return shorter(fix_legs(fig, outline))
+
+
+def shorter(fig):
+    gone = set()
+    for r0, r1, n in SHORTER:
+        cost = sorted((int((np.abs(fig[y].astype(int) - fig[y - 1].astype(int)).sum(-1) > 0).sum()), y)
+                      for y in range(r0, r1))
+        picked = []
+        for _, y in cost:
+            if len(picked) == n:
+                break
+            if all(abs(y - q) >= 2 for q in picked):
+                picked.append(y)
+        gone |= set(picked)
+    return fig[[y for y in range(fig.shape[0]) if y not in gone]]
 
 
 def main():

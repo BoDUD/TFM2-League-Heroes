@@ -3,7 +3,7 @@
 
     python tools/art/preview_xerath.py [--out docs/preview] [--only frames|effects|showcase]
 
-  league_xerath_frames.png    every animation, frame by frame: his dense hd_ frames (PPU 1.75, rig_xerath_hd.py) as
+  league_xerath_frames.png    every animation, frame by frame: his dense hd_ frames (PPU 1.55, rig_xerath_hd.py) as
                               drawn, on the arena colour
   league_xerath_effects.png   every effect animation, 3x
   league_xerath_showcase.gif  a scripted fight against Darius with Garen behind him, timed like the kit
