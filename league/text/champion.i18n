@@ -1029,6 +1029,13 @@
         "skill": "斩击前方，造成<#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<>物理伤害；<#ffb900ff>4秒<>内下次普攻横扫周围，造成<#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<>物理伤害；魔龙形态再下次普攻撕咬，造成<#f5f5f5ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#f5f5f5ff>110%<>真实伤害。",
         "skill2": "掷出火球，命中敌人或到达终点时爆炸，造成<#a974ffff>50+3%最大生命值<>魔法伤害并减速30%，持续<#ffb900ff>2秒<>。魔龙形态下火球更大、穿透敌人，并留下燃烧的地面。",
         "ult": "<#ff9028ff>龙怒<>攒满时化身魔龙，飞向敌方英雄并沿途喷火，造成<#a974ffff>100+4%最大生命值<>魔法伤害并使其<#ef5350ff>恐惧<><#ffb900ff>0.75秒<>。魔龙持续<#ffb900ff>15秒<>，生命+30%，<#ff9028ff>龙鳞铁衣<>使护甲和魔抗+30%。"
+      },
+      "league_heimerdinger": {
+        "name": "黑默丁格",
+        "attack": "射出一道海克斯电光。<#ff9028ff>海克斯科技微型导弹<>：每第3次普攻额外射出5枚导弹，每枚造成<#a974ffff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>7%<>魔法伤害。",
+        "skill": "放下一座炮台（最多3座）<#ffb900ff>10秒<>，每<#ffb900ff>0.83秒<>攻击一个敌人，造成<#a974ffff>8<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>6%<>魔法伤害；对受控制的英雄发射光束，造成<#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>。<#ff9028ff>海克斯科技亲和<>：在炮台旁移速+20%。",
+        "skill2": "掷出手雷，造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>魔法伤害并减速35%，正中的敌人被<#ef5350ff>眩晕<><#ffb900ff>1.5秒<>。",
+        "ult": "升级！敌人扎堆时连掷3颗强化手雷，每颗<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<>魔法伤害并<#ef5350ff>眩晕<><#ffb900ff>1秒<>；否则放下巨型炮台<#ffb900ff>8秒<>，每<#ffb900ff>0.5秒<>造成<#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<>并减速25%。"
       }
     },
     "skill_name": {
@@ -1766,6 +1773,11 @@
         "skill1": "焚焰打击",
         "skill2": "爆炎吐息",
         "ult": "魔龙降世"
+      },
+      "league_heimerdinger": {
+        "skill1": "H-28 G 进化炮台",
+        "skill2": "CH-2电子风暴手雷",
+        "ult": "升级！！！"
       }
     }
   },
@@ -2799,6 +2811,13 @@
         "skill": "斬擊前方，造成<#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<>物理傷害；<#ffb900ff>4秒<>內下次普攻橫掃周圍，造成<#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<>物理傷害；真龍形態再下次普攻撕咬，造成<#f5f5f5ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#f5f5f5ff>110%<>真實傷害。",
         "skill2": "擲出火球，命中敵人或到達終點時爆炸，造成<#a974ffff>50+3%最大生命值<>魔法傷害並緩速30%，持續<#ffb900ff>2秒<>。真龍形態下火球更大、穿透敵人，並留下燃燒的地面。",
         "ult": "<#ff9028ff>龍怒<>集滿時化身為龍，飛向敵方英雄並沿途噴火，造成<#a974ffff>100+4%最大生命值<>魔法傷害並使其<#ef5350ff>恐懼<><#ffb900ff>0.75秒<>。龍形持續<#ffb900ff>15秒<>，生命+30%，<#ff9028ff>真龍鱗甲<>使護甲和魔抗+30%。"
+      },
+      "league_heimerdinger": {
+        "name": "漢默丁格",
+        "attack": "射出一道海克斯電光。<#ff9028ff>高科技微型火箭<>：每第3次普攻額外射出5枚火箭，每枚造成<#a974ffff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>7%<>魔法傷害。",
+        "skill": "放下一座砲臺（最多3座）<#ffb900ff>10秒<>，每<#ffb900ff>0.83秒<>攻擊一個敵人，造成<#a974ffff>8<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>6%<>魔法傷害；對受控制的英雄發射光束，造成<#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>。<#ff9028ff>海克斯親合性<>：在砲臺旁跑速+20%。",
+        "skill2": "擲出手雷，造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>魔法傷害並緩速35%，正中的敵人被<#ef5350ff>暈眩<><#ffb900ff>1.5秒<>。",
+        "ult": "升級！敵人聚集時連擲3顆強化手雷，每顆<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<>魔法傷害並<#ef5350ff>暈眩<><#ffb900ff>1秒<>；否則放下巨型砲臺<#ffb900ff>8秒<>，每<#ffb900ff>0.5秒<>造成<#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<>並緩速25%。"
       }
     },
     "skill_name": {
@@ -3536,6 +3555,11 @@
         "skill1": "餘燼龍擊",
         "skill2": "融焰爆裂",
         "ult": "真龍轉生"
+      },
+      "league_heimerdinger": {
+        "skill1": "H-28 G 進化砲臺",
+        "skill2": "CH-2 暴風手雷",
+        "ult": "升級！！！"
       }
     }
   },
@@ -4569,6 +4593,13 @@
         "skill": "Slashes ahead for <#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<> physical damage. Within <#ffb900ff>4s<> her next attack sweeps around her for <#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<>; as a dragon the one after bites for <#f5f5f5ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#f5f5f5ff>110%<> true damage.",
         "skill2": "Hurls a fireball that bursts on the first enemy or at its end for <#a974ffff>50 + 3% of her max health<> magic damage, slowing by 30% for <#ffb900ff>2s<>. As a dragon it is bigger, passes through enemies and leaves the ground burning.",
         "ult": "With full <#ff9028ff>Dragon Fury<> she becomes a dragon and flies at an enemy champion breathing fire: <#a974ffff>100 + 4% of her max health<> magic damage and <#ef5350ff>fear<> for <#ffb900ff>0.75s<>. The dragon lasts <#ffb900ff>15s<> with +30% health; <#ff9028ff>Scalemail<> gives +30% armour and magic resist."
+      },
+      "league_heimerdinger": {
+        "name": "Heimerdinger",
+        "attack": "Fires a hextech bolt. <#ff9028ff>Hextech Micro-Rockets<>: every third attack also fires 5 rockets, each dealing <#a974ffff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>7%<> <#a974ffff>magic damage<>.",
+        "skill": "Sets down a turret (up to 3) for <#ffb900ff>10s<> that strikes one enemy every <#ffb900ff>0.83s<> for <#a974ffff>8<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>6%<> <#a974ffff>magic damage<>, or beams a crowd-controlled champion for <#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>. <#ff9028ff>Hextech Affinity<>: +20% move speed near his turrets.",
+        "skill2": "Throws a grenade that deals <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> <#a974ffff>magic damage<> and slows by 35%; enemies at its centre are <#ef5350ff>stunned<> for <#ffb900ff>1.5s<>.",
+        "ult": "UPGRADE! Against a crowd: three empowered grenades, each <#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<> <#a974ffff>magic damage<> and a <#ffb900ff>1s<> <#ef5350ff>stun<>. Otherwise: an apex turret for <#ffb900ff>8s<>, every <#ffb900ff>0.5s<> <#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<> and a 25% slow."
       }
     },
     "skill_name": {
@@ -5306,6 +5337,11 @@
         "skill1": "Emberstrike",
         "skill2": "Molten Burst",
         "ult": "Dragon's Descent"
+      },
+      "league_heimerdinger": {
+        "skill1": "H-28 G Evolution Turret",
+        "skill2": "CH-2 Electron Storm Grenade",
+        "ult": "UPGRADE!!!"
       }
     }
   },
@@ -6339,6 +6375,13 @@
         "skill": "전방을 베어 <#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<> 물리 피해. <#ffb900ff>4초<> 안에 다음 공격은 주변을 쓸어 <#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<> 물리 피해, 용의 모습이면 그다음 공격이 물어뜯어 <#f5f5f5ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#f5f5f5ff>110%<> 고정 피해.",
         "skill2": "화염구를 던져 처음 맞힌 적이나 끝에서 폭발, <#a974ffff>50 + 최대 체력의 3%<> 마법 피해와 <#ffb900ff>2초<> 동안 30% 둔화. 용의 모습이면 더 크고 적을 관통하며 땅을 불태움.",
         "ult": "<#ff9028ff>용의 분노<>가 가득 차면 용으로 변해 적 챔피언에게 날아가며 불을 뿜어 <#a974ffff>100 + 최대 체력의 4%<> 마법 피해와 <#ffb900ff>0.75초<> <#ef5350ff>공포<>. 용의 모습 <#ffb900ff>15초<>, 체력 +30%, <#ff9028ff>미늘갑옷<>으로 방어력과 마법 저항력 +30%."
+      },
+      "league_heimerdinger": {
+        "name": "하이머딩거",
+        "attack": "마법공학 전격을 쏜다. <#ff9028ff>마법공학 초소형 로켓<>: 세 번째 공격마다 로켓 5발을 추가로 쏘아 발당 <#a974ffff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>7%<> 마법 피해.",
+        "skill": "포탑을 설치한다(최대 3개, <#ffb900ff>10초<>). <#ffb900ff>0.83초<>마다 적 하나에게 <#a974ffff>8<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>6%<> 마법 피해, 군중 제어된 챔피언에게는 광선으로 <#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>. <#ff9028ff>마법공학 전문가<>: 포탑 근처에서 이동 속도 +20%.",
+        "skill2": "수류탄을 던져 <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> 마법 피해와 35% 둔화, 중심의 적은 <#ffb900ff>1.5초<> <#ef5350ff>기절<>.",
+        "ult": "업그레이드! 적이 모여 있으면 강화 수류탄 3개(각 <#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<> 마법 피해, <#ffb900ff>1초<> <#ef5350ff>기절<>), 아니면 거대 포탑 <#ffb900ff>8초<>: <#ffb900ff>0.5초<>마다 <#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<>, 25% 둔화."
       }
     },
     "skill_name": {
@@ -7076,6 +7119,11 @@
         "skill1": "잉걸불 일격",
         "skill2": "용암 분출",
         "ult": "용의 강림"
+      },
+      "league_heimerdinger": {
+        "skill1": "H-28 G 진화형 포탑",
+        "skill2": "CH-2 전자폭풍 수류탄",
+        "ult": "업그레이드!!!"
       }
     }
   },
@@ -8109,6 +8157,13 @@
         "skill": "前方を斬り<#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<>の物理ダメージ。<#ffb900ff>4秒<>以内の次の攻撃は周囲をなぎ払い<#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<>、ドラゴン時はその次の攻撃で噛みつき<#f5f5f5ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#f5f5f5ff>110%<>の確定ダメージ。",
         "skill2": "火球を放ち、最初の敵か終点で爆発して<#a974ffff>50+最大体力の3%<>の魔法ダメージと<#ffb900ff>2秒<>の30%スロウ。ドラゴン時は大きく敵を貫通し、地面を燃やす。",
         "ult": "<#ff9028ff>ドラゴンフューリー<>が満ちるとドラゴンに変身し、敵チャンピオンへ飛びながら炎を吐いて<#a974ffff>100+最大体力の4%<>の魔法ダメージと<#ffb900ff>0.75秒<>の<#ef5350ff>フィアー<>。ドラゴンは<#ffb900ff>15秒<>、体力+30%、<#ff9028ff>スケールメイル<>で物防と魔防+30%。"
+      },
+      "league_heimerdinger": {
+        "name": "ハイマーディンガー",
+        "attack": "ヘクステックの電撃を撃つ。<#ff9028ff>ヘクステック小型ロケット<>：3回目の通常攻撃ごとにロケット5発を追加で撃ち、1発<#a974ffff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>7%<>の魔法ダメージ。",
+        "skill": "砲台を設置（最大3基、<#ffb900ff>10秒<>）。<#ffb900ff>0.83秒<>ごとに敵1体に<#a974ffff>8<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>6%<>の魔法ダメージ、行動妨害中のチャンピオンにはビームで<#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>。<#ff9028ff>ヘクステックの親和性<>：砲台の近くで移動速度+20%。",
+        "skill2": "グレネードを投げ<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>の魔法ダメージと35%スロウ、中心の敵を<#ffb900ff>1.5秒<><#ef5350ff>スタン<>。",
+        "ult": "アップグレード！敵が密集していれば強化グレネード3個（各<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<>の魔法ダメージ、<#ffb900ff>1秒<><#ef5350ff>スタン<>）、でなければ巨大砲台<#ffb900ff>8秒<>：<#ffb900ff>0.5秒<>ごとに<#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<>、25%スロウ。"
       }
     },
     "skill_name": {
@@ -8846,6 +8901,11 @@
         "skill1": "エンバーストライク",
         "skill2": "モルテンバースト",
         "ult": "龍の降臨"
+      },
+      "league_heimerdinger": {
+        "skill1": "H-28G革新砲",
+        "skill2": "CH-2超電磁グレネード",
+        "ult": "アップグレード！！！"
       }
     }
   }
