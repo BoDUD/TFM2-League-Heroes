@@ -329,14 +329,15 @@ pub fn main_stats(b: &BuffV1) -> [i32; 6] {
     [b.attack, b.magic_power, b.defence, b.hp, b.magic_resistance, b.attack_speed_mult]
 }
 
-/// 装备 buff 是哪些：永久、名字是空的（装备表里装备的 `stat.name` 都是空的）或等于他身上某件装备的名字。
+/// 装备 buff 是哪些：永久、名字等于他身上某件装备的 key（引擎用装备的 `key` 给它的属性 buff 起名：铁剑是 "ironsword"，
+/// 经典引擎的模拟里看过；英雄身上另有些名字是空的 buff，不是装备，不算）。
 /// 游戏的装备、数据 mod 的装备（装备表合并进来）、原生 mod 的装备（`StableItem::stat`）都是这样挂在英雄身上的属性 buff，
 /// 所以从 buff 读能兼容任何 mod 的装备。一条都认不出来就 None（调用的地方退回 `ITEMS` 表）。
 pub fn item_buff_stats<S: AsRef<str>>(buffs: &[(String, bool, [i32; 6])], keys: &[S]) -> Option<[i32; 6]> {
     let mut sum = [0; 6];
     let mut any = false;
     for (name, permanent, s) in buffs {
-        if *permanent && (name.is_empty() || keys.iter().any(|k| k.as_ref() == name)) {
+        if *permanent && !name.is_empty() && keys.iter().any(|k| k.as_ref() == name) {
             any = true;
             for i in 0..6 {
                 sum[i] += s[i];
@@ -802,14 +803,14 @@ mod tests {
         let on = vec![
             ("steel_armor".to_string(), true, [0, 0, 20, 0, 0, 0]),
             ("a_mods_sword".to_string(), true, [40, 0, 0, 0, 0, 15]),
+            // an unnamed permanent buff is not an item (some champions carry them), nor his own flags and the forge's buff
             ("".to_string(), true, [0, 0, 0, 100, 0, 0]),
-            // his own flags and the forge's buff are not items
             ("league_ornn_forged".to_string(), true, [0, 0, 4, 0, 0, 0]),
             ("league_ornn_q_slow".to_string(), false, [0, 0, 0, 0, 0, 0]),
             // a timed buff named like an item is not one
-            ("".to_string(), false, [99, 0, 0, 0, 0, 0]),
+            ("steel_armor".to_string(), false, [99, 0, 0, 0, 0, 0]),
         ];
-        assert_eq!(item_buff_stats(&on, &keys), Some([40, 0, 20, 100, 0, 15]));
+        assert_eq!(item_buff_stats(&on, &keys), Some([40, 0, 20, 0, 0, 15]));
         assert_eq!(item_buff_stats(&on[3..5], &keys), None);
     }
 
