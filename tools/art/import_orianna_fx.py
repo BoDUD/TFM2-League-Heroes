@@ -40,8 +40,10 @@ from design_varus import srgb2lab  # noqa: E402
 from build_orianna import P  # noqa: E402
 
 SRC = os.path.join(ROOT, "assets", "source", "orianna", "codex_fx")
-BALL_PNG = os.path.join(ROOT, "assets", "source", "orianna", "hd", "ball2.png")
-BALL_W, BALL_H = 11, 12
+# the chibi redesign's Ball (2026-10-22): Codex's new Ball drawn again by hand at game size in the design's own steel
+# and bronze (its line cuts and votes came out a dark blot at 12 px) - used as it is
+BALL_PNG = os.path.join(ROOT, "assets", "source", "orianna", "chibi", "ball_1x.png")
+BALL_W, BALL_H = 12, 12
 MOD = os.path.join(ROOT, "league")
 PRE = chr(92) * 2 + "?" + chr(92)
 MS = 1000 / 60
@@ -204,6 +206,8 @@ def ball_sprite():
     a[..., 3] = np.where(a[..., 3] >= 128, 255, 0)
     a[a[..., 3] == 0] = 0
     H, W = a.shape[:2]
+    if (W, H) == (BALL_W, BALL_H):
+        return a
     ys = [int((i + 0.5) * H / BALL_H) for i in range(BALL_H)]
     xs = [int((i + 0.5) * W / BALL_W) for i in range(BALL_W)]
     return a[ys][:, xs]

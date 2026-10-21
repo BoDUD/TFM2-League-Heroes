@@ -1,0 +1,117 @@
+[
+  {
+    "name": "orianna-q1-front",
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "bbox_1x": [
+      38,
+      33,
+      90,
+      117
+    ],
+    "width": 52,
+    "height": 84,
+    "colors": 28,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "grid_uniform": true,
+    "nearest_roundtrip": true,
+    "estimated_head_rows": 39
+  },
+  {
+    "name": "orianna-q1-side",
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "bbox_1x": [
+      43,
+      33,
+      85,
+      117
+    ],
+    "width": 42,
+    "height": 84,
+    "colors": 27,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "grid_uniform": true,
+    "nearest_roundtrip": true,
+    "estimated_head_rows": 39
+  },
+  {
+    "name": "orianna-q2-front",
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "bbox_1x": [
+      39,
+      33,
+      88,
+      117
+    ],
+    "width": 49,
+    "height": 84,
+    "colors": 27,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "grid_uniform": true,
+    "nearest_roundtrip": true,
+    "estimated_head_rows": 43
+  },
+  {
+    "name": "orianna-q2-side",
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "bbox_1x": [
+      42,
+      33,
+      85,
+      117
+    ],
+    "width": 43,
+    "height": 84,
+    "colors": 28,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "grid_uniform": true,
+    "nearest_roundtrip": true,
+    "estimated_head_rows": 39
+  },
+  {
+    "name": "orianna-ball",
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "bbox_1x": [
+      54,
+      54,
+      73,
+      74
+    ],
+    "width": 19,
+    "height": 20,
+    "colors": 15,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "grid_uniform": true,
+    "nearest_roundtrip": true,
+    "estimated_head_rows": null
+  }
+]
