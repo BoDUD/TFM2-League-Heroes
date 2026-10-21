@@ -13,7 +13,8 @@
 //!   最大生命 `BR_HP`% 真实伤害、击飞 `BR_UP` tick、从他身边击退 `BR_KB_SPEED` x `BR_KB_T`，易碎随之去掉。主包：W / E / R
 //!   打中英雄后他的下一下普攻打中任何英雄都引爆。
 //! - **活体锻炉加强装备**（被动 `league_ornn:forge`，用户：「有装备系统吧 你可以加强装备属性吧」）：每 `FORGE_EVERY` tick 按他身上的
-//!   装备（`ITEMS`，游戏的装备表）把主属性（攻击、法强、护甲、生命、魔抗、攻速）再加 `P_ITEM`%；`P_MASTER_LV` 级起锻造杰作
+//!   装备把主属性（攻击、法强、护甲、生命、魔抗、攻速）再加 `P_ITEM`%：装备的属性从他身上的装备 buff 读（`item_buff_stats`），
+//!   游戏的、数据 mod 的、原生 mod 的装备都一样（用户：「你也要能兼容mod的装备啊」）；一条都认不出来才退回游戏的装备表 `ITEMS`；`P_MASTER_LV` 级起锻造杰作
 //!   （英雄联盟 13 级）：他自己 +`P_MASTER`%，每个友方英雄的装备 +`P_ALLY`%。只补差额的永久 buff（重挂生命会掉血）。主包：
 //!   护甲、魔抗 +10%、生命 +6%（数据读不到装备）。
 //! - **连招**（AI 钩子 `league_ornn:combo`，`combo.rs`）：AI 想放 E 而 Q 好着时先放 Q 立柱（Q → E）；柱子立着、E 好了、
@@ -323,6 +324,28 @@ pub fn item_stats<S: AsRef<str>>(keys: &[S]) -> [i32; 6] {
     sum
 }
 
+/// 一条 buff 的主属性（攻击、法强、护甲、生命、魔抗、攻速 %）。
+pub fn main_stats(b: &BuffV1) -> [i32; 6] {
+    [b.attack, b.magic_power, b.defence, b.hp, b.magic_resistance, b.attack_speed_mult]
+}
+
+/// 装备 buff 是哪些：永久、名字是空的（装备表里装备的 `stat.name` 都是空的）或等于他身上某件装备的名字。
+/// 游戏的装备、数据 mod 的装备（装备表合并进来）、原生 mod 的装备（`StableItem::stat`）都是这样挂在英雄身上的属性 buff，
+/// 所以从 buff 读能兼容任何 mod 的装备。一条都认不出来就 None（调用的地方退回 `ITEMS` 表）。
+pub fn item_buff_stats<S: AsRef<str>>(buffs: &[(String, bool, [i32; 6])], keys: &[S]) -> Option<[i32; 6]> {
+    let mut sum = [0; 6];
+    let mut any = false;
+    for (name, permanent, s) in buffs {
+        if *permanent && (name.is_empty() || keys.iter().any(|k| k.as_ref() == name)) {
+            any = true;
+            for i in 0..6 {
+                sum[i] += s[i];
+            }
+        }
+    }
+    any.then_some(sum)
+}
+
 /// 放大的那部分：每项的 `pct`%（向下取整）。
 pub fn forged(sum: [i32; 6], pct: usize) -> [i32; 6] {
     sum.map(|v| v * pct as i32 / 100)
@@ -543,13 +566,25 @@ impl Forge {
             let keys = pl.item_keys();
             if id == me {
                 level = pl.level();
-                if !keys.is_empty() && keys.iter().any(|k| !ITEMS.iter().any(|(name, _)| name == k)) {
-                    if let Some(k) = counted("unknown item") {
-                        wlog(format!("{} ITEMS {keys:?}: some are not in the forge's table (not scaled) #{k}", head(sim, me)));
-                    }
+            }
+            let on: Vec<(String, bool, [i32; 6])> = (0..c.buff_count())
+                .filter_map(|j| c.buff_at(j))
+                .map(|b| (b.name().to_string(), BuffDurationV1::from_code(b.duration_kind) == Some(BuffDurationV1::Permanent),
+                          main_stats(&b)))
+                .collect();
+            // the item buffs on him (any mod's items); none found: the game's table
+            let (sum, from) = match item_buff_stats(&on, &keys) {
+                Some(s) => (s, "item buffs"),
+                None => (item_stats(&keys), "the table"),
+            };
+            if !keys.is_empty() {
+                if let Some(k) = counted(if from == "the table" { "items table" } else { "items buffs" }) {
+                    let names: Vec<&str> = on.iter().filter(|(_, p, _)| *p).map(|(n, _, _)| n.as_str()).collect();
+                    wlog(format!("{} ITEMS of #{id} {keys:?} read from {from}: {sum:?}; his permanent buffs {names:?} #{k}",
+                                 head(sim, me)));
                 }
             }
-            rows.push((id, c.is_alive(), item_stats(&keys)));
+            rows.push((id, c.is_alive(), sum));
         }
         let (mine, ally) = forge_pct(level);
         if ally > 0 && !self.master_seen {
@@ -759,6 +794,23 @@ mod tests {
         // both spellings of the iron sword
         assert_eq!(item_stats(&["ironsword"]), item_stats(&["iron_blade"]));
         assert_eq!(ITEMS.len(), 31);
+    }
+
+    #[test]
+    fn any_mods_items_come_from_their_buffs() {
+        let keys = ["steel_armor", "a_mods_sword"];
+        let on = vec![
+            ("steel_armor".to_string(), true, [0, 0, 20, 0, 0, 0]),
+            ("a_mods_sword".to_string(), true, [40, 0, 0, 0, 0, 15]),
+            ("".to_string(), true, [0, 0, 0, 100, 0, 0]),
+            // his own flags and the forge's buff are not items
+            ("league_ornn_forged".to_string(), true, [0, 0, 4, 0, 0, 0]),
+            ("league_ornn_q_slow".to_string(), false, [0, 0, 0, 0, 0, 0]),
+            // a timed buff named like an item is not one
+            ("".to_string(), false, [99, 0, 0, 0, 0, 0]),
+        ];
+        assert_eq!(item_buff_stats(&on, &keys), Some([40, 0, 20, 100, 0, 15]));
+        assert_eq!(item_buff_stats(&on[3..5], &keys), None);
     }
 
     #[test]
