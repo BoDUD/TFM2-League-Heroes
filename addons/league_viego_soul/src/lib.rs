@@ -565,6 +565,73 @@ mod tests {
         assert!(missing.is_empty(), "not in src/souls.rs - run make_override.py: {missing:?}");
     }
 
+    /// The animation tags of an `#anim.fanim` (`{"anims":{"<tag>":{...},...}}`), sorted.
+    fn fanim_tags(json: &str) -> Vec<String> {
+        let Some(k) = json.find("\"anims\"") else { return Vec::new() };
+        let Some(open) = json[k..].find('{').map(|o| k + o) else { return Vec::new() };
+        let b = json.as_bytes();
+        let (mut i, mut depth, mut out) = (open + 1, 1usize, Vec::new());
+        while i < b.len() && depth > 0 {
+            match b[i] {
+                b'{' | b'[' => depth += 1,
+                b'}' | b']' => depth -= 1,
+                b'"' => {
+                    let end = i + 1 + json[i + 1..].find('"').expect("an unclosed string");
+                    let after = json[end + 1..].trim_start();
+                    if depth == 1 && after.starts_with(':') {
+                        out.push(json[i + 1..end].to_string());
+                    }
+                    i = end;
+                }
+                _ => {}
+            }
+            i += 1;
+        }
+        out.sort();
+        out
+    }
+
+    #[test]
+    fn every_soul_has_its_sheets_tags() {
+        // the view hook writes the playing animation's name into Viego's body only when the victim's tags (here) have
+        // it: a tag left here that the hero's sheet lost makes the game panic ("animation info not found") the moment he
+        // possesses that hero, a tag the sheet gained is never used - so a re-exported sheet needs make_override.py again
+        // (the user, 2026-10-21: 「测试佛耶戈 souls.rs 的标签和每个英雄 #anim 的标签一致」)
+        let root = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
+        let mut wrong = Vec::new();
+        for id in pack_heroes() {
+            let data = std::fs::read_to_string(root.join(format!("league/champion/{id}.data_champion"))).unwrap();
+            let sprite = data
+                .lines()
+                .find_map(|l| l.trim().strip_prefix("\"sprite\": \""))
+                .map(|r| r.trim_end_matches(',').trim_end_matches('"'))
+                .unwrap_or_else(|| panic!("no sprite in {id}"));
+            let name = sprite.rsplit('/').next().unwrap();
+            let Ok(anim) = std::fs::read_to_string(root.join(format!("league/champions/{name}#anim.fanim"))) else {
+                continue; // make_override.py leaves a hero without its own sheet out (every_pack_hero_has_a_soul says so)
+            };
+            let sheet = fanim_tags(&anim);
+            assert!(!sheet.is_empty(), "no tags read from {name}#anim.fanim");
+            let Some(soul) = souls::SOULS.iter().find(|s| s.0 == id) else { continue };
+            let mut listed: Vec<String> = soul.2.iter().map(|t| t.to_string()).collect();
+            listed.sort();
+            if listed != sheet {
+                let gone: Vec<&String> = listed.iter().filter(|t| !sheet.contains(t)).collect();
+                let new: Vec<&String> = sheet.iter().filter(|t| !listed.contains(t)).collect();
+                wrong.push(format!("{id}: not in the sheet any more {gone:?}, not in souls.rs {new:?}"));
+            }
+        }
+        assert!(wrong.is_empty(), "src/souls.rs differs from the heroes' #anim.fanim - run make_override.py: {wrong:#?}");
+    }
+
+    #[test]
+    fn the_tag_reader_reads_only_the_anims_keys() {
+        let json = r#"{"anims":{"idle":{"frames":[{"duration":0.1,"data":{"x":0.0}}]},"hd_run":{"frames":[]}},"other":1}"#;
+        assert_eq!(fanim_tags(json), vec!["hd_run".to_string(), "idle".to_string()]);
+        let pretty = "{\n  \"anims\": {\n    \"run\": {\n      \"frames\": []\n    },\n    \"attack\": {}\n  }\n}";
+        assert_eq!(fanim_tags(pretty), vec!["attack".to_string(), "run".to_string()]);
+    }
+
     #[test]
     fn the_mist_rises_near_an_enemy_champion_once_a_pause() {
         assert!(mist_due(false, 1000, 0, Some(60000), 90000));
