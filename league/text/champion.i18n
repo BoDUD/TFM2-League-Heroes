@@ -1039,10 +1039,10 @@
       },
       "league_neeko": {
         "name": "妮蔻",
-        "attack": "发射一颗魔法弹。<#ff9028ff>两生花影<>：每第三次攻击额外造成<#a974ffff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>魔法伤害，并提高30%移动速度<#ffb900ff>1秒<>。",
-        "skill": "扔出一颗种子，落地炸开造成<#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>魔法伤害。炸到英雄时会再次盛开，最多两次，每次<#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>魔法伤害。",
-        "skill2": "投出一团贯穿的倒刺，路径上的敌人受到<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<>魔法伤害并被<#ef5350ff>禁锢<><#ffb900ff>1秒<>。穿过英雄后，后面的英雄多被禁锢<#ffb900ff>0.75秒<>。",
-        "ult": "蓄力<#ffb900ff>0.75秒<>，获得<#66bb6aff>护盾<>（附近每个敌方英雄额外40），然后跃起<#ef5350ff>击飞<>周围敌人，落地造成<#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>75%<>魔法伤害并<#ef5350ff>晕眩<><#ffb900ff>0.83秒<>。"
+        "attack": "发射一颗魔法弹。<#ff9028ff>两生花影<>：每第三次攻击额外造成<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>魔法伤害，并提高30%移动速度<#ffb900ff>1秒<>。",
+        "skill": "扔出一颗种子，落地炸开造成<#a974ffff>95<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<>魔法伤害。炸到英雄时会再次盛开，最多两次，每次<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<>魔法伤害。",
+        "skill2": "投出一团贯穿的倒刺，路径上的敌人受到<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>魔法伤害并被<#ef5350ff>禁锢<><#ffb900ff>1秒<>。穿过英雄后，后面的英雄多被禁锢<#ffb900ff>0.75秒<>。",
+        "ult": "蓄力<#ffb900ff>0.75秒<>，获得<#66bb6aff>护盾<>（附近每个敌方英雄额外40），然后跃起<#ef5350ff>击飞<>周围敌人，落地造成<#a974ffff>260<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>115%<>魔法伤害并<#ef5350ff>晕眩<><#ffb900ff>0.83秒<>。"
       }
     },
     "skill_name": {
@@ -2833,10 +2833,10 @@
       },
       "league_neeko": {
         "name": "妮可",
-        "attack": "射出一顆魔法彈。<#ff9028ff>擬態分裂<>：每第三次攻擊額外造成<#a974ffff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>魔法傷害，並提高30%移動速度<#ffb900ff>1秒<>。",
-        "skill": "丟出一顆種子，落地炸開造成<#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>魔法傷害。炸到英雄時會再次綻放，最多兩次，每次<#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>魔法傷害。",
-        "skill2": "擲出一團貫穿的刺花，路徑上的敵人受到<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<>魔法傷害並被<#ef5350ff>定身<><#ffb900ff>1秒<>。穿過英雄後，後面的英雄多被定身<#ffb900ff>0.75秒<>。",
-        "ult": "蓄力<#ffb900ff>0.75秒<>，獲得<#66bb6aff>護盾<>（附近每個敵方英雄額外40），然後躍起<#ef5350ff>擊飛<>周圍敵人，落地造成<#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>75%<>魔法傷害並<#ef5350ff>暈眩<><#ffb900ff>0.83秒<>。"
+        "attack": "射出一顆魔法彈。<#ff9028ff>擬態分裂<>：每第三次攻擊額外造成<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>魔法傷害，並提高30%移動速度<#ffb900ff>1秒<>。",
+        "skill": "丟出一顆種子，落地炸開造成<#a974ffff>95<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<>魔法傷害。炸到英雄時會再次綻放，最多兩次，每次<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<>魔法傷害。",
+        "skill2": "擲出一團貫穿的刺花，路徑上的敵人受到<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>魔法傷害並被<#ef5350ff>定身<><#ffb900ff>1秒<>。穿過英雄後，後面的英雄多被定身<#ffb900ff>0.75秒<>。",
+        "ult": "蓄力<#ffb900ff>0.75秒<>，獲得<#66bb6aff>護盾<>（附近每個敵方英雄額外40），然後躍起<#ef5350ff>擊飛<>周圍敵人，落地造成<#a974ffff>260<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>115%<>魔法傷害並<#ef5350ff>暈眩<><#ffb900ff>0.83秒<>。"
       }
     },
     "skill_name": {
@@ -4627,10 +4627,10 @@
       },
       "league_neeko": {
         "name": "Neeko",
-        "attack": "Fires a magic bolt. <#ff9028ff>Shapesplitter<>: every third attack deals <#a974ffff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<> bonus <#a974ffff>magic damage<> and grants 30% move speed for <#ffb900ff>1s<>.",
-        "skill": "Throws a seed that bursts for <#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> <#a974ffff>magic damage<>. If it hits a champion it blooms again, up to twice, for <#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<> <#a974ffff>magic damage<> each.",
-        "skill2": "Flings a piercing tangle of barbs, dealing <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<> <#a974ffff>magic damage<> and <#ef5350ff>rooting<> every enemy on the line for <#ffb900ff>1s<>. Champions past the first are rooted <#ffb900ff>0.75s<> longer.",
-        "ult": "Charges for <#ffb900ff>0.75s<> behind a <#66bb6aff>shield<> (40 more per nearby enemy champion), then leaps, <#ef5350ff>knocking up<> enemies around her, and lands for <#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>75%<> <#a974ffff>magic damage<>, <#ef5350ff>stunning<> them for <#ffb900ff>0.83s<>."
+        "attack": "Fires a magic bolt. <#ff9028ff>Shapesplitter<>: every third attack deals <#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> bonus <#a974ffff>magic damage<> and grants 30% move speed for <#ffb900ff>1s<>.",
+        "skill": "Throws a seed that bursts for <#a974ffff>95<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<> <#a974ffff>magic damage<>. If it hits a champion it blooms again, up to twice, for <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<> <#a974ffff>magic damage<> each.",
+        "skill2": "Flings a piercing tangle of barbs, dealing <#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> <#a974ffff>magic damage<> and <#ef5350ff>rooting<> every enemy on the line for <#ffb900ff>1s<>. Champions past the first are rooted <#ffb900ff>0.75s<> longer.",
+        "ult": "Charges for <#ffb900ff>0.75s<> behind a <#66bb6aff>shield<> (40 more per nearby enemy champion), then leaps, <#ef5350ff>knocking up<> enemies around her, and lands for <#a974ffff>260<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>115%<> <#a974ffff>magic damage<>, <#ef5350ff>stunning<> them for <#ffb900ff>0.83s<>."
       }
     },
     "skill_name": {
@@ -6421,10 +6421,10 @@
       },
       "league_neeko": {
         "name": "니코",
-        "attack": "마법 탄을 쏜다. <#ff9028ff>형상 분리<>: 세 번째 공격마다 <#a974ffff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<> 추가 마법 피해, <#ffb900ff>1초<> 동안 이동 속도 30% 증가.",
-        "skill": "씨앗을 던져 터뜨려 <#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> 마법 피해. 챔피언에 맞으면 최대 두 번 다시 피어나 각각 <#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<> 마법 피해.",
-        "skill2": "관통하는 가시 덩어리를 던져 직선상의 적에게 <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<> 마법 피해를 입히고 <#ffb900ff>1초<> <#ef5350ff>속박<>. 챔피언을 지난 뒤 맞은 챔피언은 <#ffb900ff>0.75초<> 더 속박.",
-        "ult": "<#ffb900ff>0.75초<> 동안 힘을 모으며 <#66bb6aff>보호막<>(주변 적 챔피언마다 40 추가)을 얻고, 뛰어올라 주변 적을 <#ef5350ff>에어본<>시킨 뒤 착지해 <#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>75%<> 마법 피해와 <#ffb900ff>0.83초<> <#ef5350ff>기절<>."
+        "attack": "마법 탄을 쏜다. <#ff9028ff>형상 분리<>: 세 번째 공격마다 <#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> 추가 마법 피해, <#ffb900ff>1초<> 동안 이동 속도 30% 증가.",
+        "skill": "씨앗을 던져 터뜨려 <#a974ffff>95<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<> 마법 피해. 챔피언에 맞으면 최대 두 번 다시 피어나 각각 <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<> 마법 피해.",
+        "skill2": "관통하는 가시 덩어리를 던져 직선상의 적에게 <#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> 마법 피해를 입히고 <#ffb900ff>1초<> <#ef5350ff>속박<>. 챔피언을 지난 뒤 맞은 챔피언은 <#ffb900ff>0.75초<> 더 속박.",
+        "ult": "<#ffb900ff>0.75초<> 동안 힘을 모으며 <#66bb6aff>보호막<>(주변 적 챔피언마다 40 추가)을 얻고, 뛰어올라 주변 적을 <#ef5350ff>에어본<>시킨 뒤 착지해 <#a974ffff>260<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>115%<> 마법 피해와 <#ffb900ff>0.83초<> <#ef5350ff>기절<>."
       }
     },
     "skill_name": {
@@ -8215,10 +8215,10 @@
       },
       "league_neeko": {
         "name": "ニーコ",
-        "attack": "魔法弾を撃つ。<#ff9028ff>シェイプスプリッター<>：3回目の通常攻撃ごとに<#a974ffff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>の追加魔法ダメージ、<#ffb900ff>1秒<>移動速度30%増加。",
-        "skill": "種を投げて弾けさせ<#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>の魔法ダメージ。チャンピオンに当たると最大2回再び咲き、各<#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>の魔法ダメージ。",
-        "skill2": "貫通するトゲの塊を投げ、直線上の敵に<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<>の魔法ダメージと<#ffb900ff>1秒<><#ef5350ff>移動不能<>。チャンピオンを通過した後は<#ffb900ff>0.75秒<>長くなる。",
-        "ult": "<#ffb900ff>0.75秒<>力を溜めて<#66bb6aff>シールド<>（周囲の敵チャンピオン1体ごとに40追加）を得て跳び上がり、周囲の敵を<#ef5350ff>打ち上げ<>、着地で<#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>75%<>の魔法ダメージと<#ffb900ff>0.83秒<><#ef5350ff>スタン<>。"
+        "attack": "魔法弾を撃つ。<#ff9028ff>シェイプスプリッター<>：3回目の通常攻撃ごとに<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>の追加魔法ダメージ、<#ffb900ff>1秒<>移動速度30%増加。",
+        "skill": "種を投げて弾けさせ<#a974ffff>95<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<>の魔法ダメージ。チャンピオンに当たると最大2回再び咲き、各<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<>の魔法ダメージ。",
+        "skill2": "貫通するトゲの塊を投げ、直線上の敵に<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>の魔法ダメージと<#ffb900ff>1秒<><#ef5350ff>移動不能<>。チャンピオンを通過した後は<#ffb900ff>0.75秒<>長くなる。",
+        "ult": "<#ffb900ff>0.75秒<>力を溜めて<#66bb6aff>シールド<>（周囲の敵チャンピオン1体ごとに40追加）を得て跳び上がり、周囲の敵を<#ef5350ff>打ち上げ<>、着地で<#a974ffff>260<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>115%<>の魔法ダメージと<#ffb900ff>0.83秒<><#ef5350ff>スタン<>。"
       }
     },
     "skill_name": {

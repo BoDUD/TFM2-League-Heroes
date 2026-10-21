@@ -30,7 +30,12 @@ the passive Inherent Glamour as an add-on; 「有连招要做连招」). TFM2 ha
           R -> Q (怒放落地 -> 盛开花种): the landing throws the seed at once onto a stunned champion if Q is ready.
           The bloom's twin, the stun and the root keep the champion in the burst for the second and third bloom.
 Timings: provisional (Zyra's frames) until her rig (tools/art/rig_neeko.py) sets them: every action releases on tick 10.
-Numbers: the draft from league_zyra's balanced values (mid lane 2, 2026-10-20) - the simulation sets them.
+Numbers: the classic-SDK simulations (C:/t/nk_sim, kd.py --lane 2 against pyromancer, ice_mage, lightning_mage,
+wind_mage and white_mage, 2026-10-21; league_zyra +1.94 on seeds 1-8 the same day): the draft from Zyra's numbers -1.76
+(Q's slot held by a short slot cooldown and the q_cd flag: 175 empty casts a game), Q on its own cooldown -1.31; Q, E
+or R raised alone -1.13 / -0.40 (noise +-0.45); R 230 + 100%, E 85 + 55%, Q 90 + 60% -0.41 (16 seeds), with hp 940
+def 20 -0.23; v9 (R 250 + 110%, E 90 + 60%, Q 95 + 65%, blooms 40 + 25%, W 45 + 50%, hp 950) +0.75 / +0.86 (seeds 1-16 /
+17-32); v10 = P (R 260 + 115%, hp 960, def 21) +0.86 / +1.06 (league_naafiri +1.48 / +1.25 the same day).
 """
 import argparse
 import json
@@ -51,22 +56,22 @@ BIG = "asset/league/effects/league_neeko_big"
 P = {
     # stats (Magician base: attack 76 +6, ap 40 +20, hp 860 +95, def 18 +7, mr 20 +4, move 900 +9; league_zyra 900 +95
     # hp, 70 +6 attack, 18 +7 def)
-    "hp": 880, "hp_g": 95, "atk": 70, "atk_g": 6, "apw": 40, "apw_g": 20, "def": 17, "def_g": 7, "mr": 22, "mr_g": 4,
+    "hp": 960, "hp_g": 95, "atk": 70, "atk_g": 6, "apw": 40, "apw_g": 20, "def": 21, "def_g": 7, "mr": 22, "mr_g": 4,
     "ms": 900, "ms_g": 9,
     "atk_range": 55000, "atk_dur": 27, "atk_cd": 92, "a_rel": 10, "a_speed": 4500, "a_y": -4000,
     # W Shapesplitter's passive: every third attack
-    "w_dmg": 35, "w_ratio": 40, "w_ms": 30, "w_ms_t": 60,
+    "w_dmg": 45, "w_ratio": 50, "w_ms": 30, "w_ms_t": 60,
     # Q Blooming Burst
     "q_cd": 420, "q_range": 80000, "q_dur": 30, "q_rel": 10, "q_travel": 25, "q_fast": 4, "q_r": 22000,
-    "q_dmg": 75, "q_ratio": 50, "q_rep": 45, "q2_dmg": 30, "q2_ratio": 20,
+    "q_dmg": 95, "q_ratio": 65, "q_rep": 45, "q2_dmg": 40, "q2_ratio": 25,
     # the E -> Q window after the barbs reach a champion (the root's length)
     "e_combo": 60,
     # E Tangle-Barbs
     "e_cd": 660, "e_range": 90000, "e_dur": 30, "e_rel": 10, "e_speed": 2000, "e_len": 100000, "e_w": 7000,
-    "e_dmg": 70, "e_ratio": 45, "e_root": 60, "e_add": 45, "e_y": 5000,
+    "e_dmg": 90, "e_ratio": 60, "e_root": 60, "e_add": 45, "e_y": 5000,
     # R Pop Blossom
     "r_cd": 2100, "r_range": 45000, "r_charge": 45, "r_dur": 30, "r_speed": 3500, "r_at": 2, "r_r": 40000,
-    "r_sh": 80, "r_sh_r": 30, "r_sh_c": 40, "r_sh_t": 150, "r_air": 20, "r_dmg": 170, "r_ratio": 75, "r_stun": 50,
+    "r_sh": 80, "r_sh_r": 30, "r_sh_c": 40, "r_sh_t": 150, "r_air": 20, "r_dmg": 260, "r_ratio": 115, "r_stun": 50,
     "vo_gap": 600,
     # 1 = the copy for addons/league_neeko: the passive league_neeko:glamour (the disguise; League: 2 s out of combat to
     # take it on, 6 s after it breaks, 20% magic penetration 4 s after a damaging cast breaks it) and its picture p_poof
