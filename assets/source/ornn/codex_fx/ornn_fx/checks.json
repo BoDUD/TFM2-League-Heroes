@@ -1,0 +1,15 @@
+{
+  "passed": true,
+  "effects": 18,
+  "frames": 79,
+  "symmetric_frames": 73,
+  "binary_alpha_frames": 79,
+  "nonempty_frames": 79,
+  "exact_8x_sheets": 18,
+  "palette_check": true,
+  "pillar_transition_exact": true,
+  "ground_and_projectile_anchor_checks": true,
+  "shield_central_20x12_clear": true,
+  "animated_preview_frame_counts": true,
+  "source_reference_images_included": false
+}

@@ -1,0 +1,1178 @@
+{
+  "effect_count": 18,
+  "frame_count": 79,
+  "pillar_transition_exact": true,
+  "effects": [
+    {
+      "name": "a_hit",
+      "frames": [
+        {
+          "frame": 0,
+          "opaque_pixels": 44,
+          "binary_alpha": true,
+          "symmetry_pass": true,
+          "has_bright_core": true,
+          "bbox": [
+            4,
+            7,
+            14,
+            15
+          ]
+        },
+        {
+          "frame": 1,
+          "opaque_pixels": 168,
+          "binary_alpha": true,
+          "symmetry_pass": true,
+          "has_bright_core": true,
+          "bbox": [
+            0,
+            4,
+            18,
+            18
+          ]
+        },
+        {
+          "frame": 2,
+          "opaque_pixels": 110,
+          "binary_alpha": true,
+          "symmetry_pass": true,
+          "has_bright_core": true,
+          "bbox": [
+            1,
+            2,
+            17,
+            16
+          ]
+        },
+        {
+          "frame": 3,
+          "opaque_pixels": 70,
+          "binary_alpha": true,
+          "symmetry_pass": true,
+          "has_bright_core": true,
+          "bbox": [
+            1,
+            9,
+            17,
+            16
+          ]
+        }
+      ],
+      "exact_nearest_8x": true,
+      "distinct_frames": 4,
+      "frame_count": 4
+    },
+    {
+      "name": "br_pop",
+      "frames": [
+        {
+          "frame": 0,
+          "opaque_pixels": 138,
+          "binary_alpha": true,
+          "symmetry_pass": true,
+          "has_bright_core": true,
+          "bbox": [
+            3,
+            5,
+            23,
+            24
+          ]
+        },
+        {
+          "frame": 1,
+          "opaque_pixels": 198,
+          "binary_alpha": true,
+          "symmetry_pass": true,
+          "has_bright_core": true,
+          "bbox": [
+            3,
+            4,
+            23,
+            23
+          ]
+        },
+        {
+          "frame": 2,
+          "opaque_pixels": 246,
+          "binary_alpha": true,
+          "symmetry_pass": true,
+          "has_bright_core": false,
+          "bbox": [
+            1,
+            3,
+            25,
+            24
+          ]
+        },
+        {
+          "frame": 3,
+          "opaque_pixels": 158,
+          "binary_alpha": true,
+          "symmetry_pass": true,
+          "has_bright_core": false,
+          "bbox": [
+            2,
+            2,
+            24,
+            23
+          ]
+        },
+        {
+          "frame": 4,
+          "opaque_pixels": 58,
+          "binary_alpha": true,
+          "symmetry_pass": true,
+          "has_bright_core": true,
+          "bbox": [
+            4,
+            4,
+            22,
+            22
+          ]
+        }
+      ],
+      "exact_nearest_8x": true,
+      "distinct_frames": 5,
+      "frame_count": 5
+    },
+    {
+      "name": "brittle",
+      "frames": [
+        {
+          "frame": 0,
+          "opaque_pixels": 28,
+          "binary_alpha": true,
+          "symmetry_pass": true,
+          "has_bright_core": false,
+          "bbox": [
+            4,
+            3,
+            10,
+            9
+          ]
+        },
+        {
+          "frame": 1,
+          "opaque_pixels": 38,
+          "binary_alpha": true,
+          "symmetry_pass": true,
+          "has_bright_core": false,
+          "bbox": [
+            3,
+            3,
+            11,
+            9
+          ]
+        },
+        {
+          "frame": 2,
+          "opaque_pixels": 32,
+          "binary_alpha": true,
+          "symmetry_pass": true,
+          "has_bright_core": true,
+          "bbox": [
+            4,
+            1,
+            10,
+            8
+          ]
+        },
+        {
+          "frame": 3,
+          "opaque_pixels": 36,
+          "binary_alpha": true,
+          "symmetry_pass": true,
+          "has_bright_core": true,
+          "bbox": [
+            3,
+            2,
+            11,
+            8
+          ]
+        }
+      ],
+      "exact_nearest_8x": true,
+      "distinct_frames": 4,
+      "frame_count": 4
+    },
+    {
+      "name": "w_fire",
+      "frames": [
+        {
+          "frame": 0,
+          "opaque_pixels": 437,
+          "binary_alpha": true,
+          "symmetry_pass": true,
+          "has_bright_core": true,
+          "bbox": [
+            0,
+            3,
+            46,
+            22
+          ]
+        },
+        {
+          "frame": 1,
+          "opaque_pixels": 513,
+          "binary_alpha": true,
+          "symmetry_pass": true,
+          "has_bright_core": true,
+          "bbox": [
+            0,
+            1,
+            46,
+            23
+          ]
+        },
+        {
+          "frame": 2,
+          "opaque_pixels": 633,
+          "binary_alpha": true,
+          "symmetry_pass": true,
+          "has_bright_core": true,
+          "bbox": [
+            0,
+            0,
+            47,
+            24
+          ]
+        },
+        {
+          "frame": 3,
+          "opaque_pixels": 605,
+          "binary_alpha": true,
+          "symmetry_pass": true,
+          "has_bright_core": true,
+          "bbox": [
+            0,
+            0,
+            47,
+            25
+          ]
+        },
+        {
+          "frame": 4,
+          "opaque_pixels": 561,
+          "binary_alpha": true,
+          "symmetry_pass": true,
+          "has_bright_core": true,
+          "bbox": [
+            0,
+            0,
+            46,
+            24
+          ]
+        },
+        {
+          "frame": 5,
+          "opaque_pixels": 471,
+          "binary_alpha": true,
+          "symmetry_pass": true,
+          "has_bright_core": true,
+          "bbox": [
+            0,
+            0,
+            46,
+            28
+          ]
+        }
+      ],
+      "exact_nearest_8x": true,
+      "distinct_frames": 6,
+      "frame_count": 6
+    },
+    {
+      "name": "w_hit",
+      "frames": [
+        {
+          "frame": 0,
+          "opaque_pixels": 16,
+          "binary_alpha": true,
+          "symmetry_pass": true,
+          "has_bright_core": true,
+          "bbox": [
+            3,
+            5,
+            7,
+            10
+          ]
+        },
+        {
+          "frame": 1,
+          "opaque_pixels": 34,
+          "binary_alpha": true,
+          "symmetry_pass": true,
+          "has_bright_core": true,
+          "bbox": [
+            1,
+            2,
+            9,
+            10
+          ]
+        },
+        {
+          "frame": 2,
+          "opaque_pixels": 10,
+          "binary_alpha": true,
+          "symmetry_pass": true,
+          "has_bright_core": false,
+          "bbox": [
+            2,
+            4,
+            8,
+            9
+          ]
+        }
+      ],
+      "exact_nearest_8x": true,
+      "distinct_frames": 3,
+      "frame_count": 3
+    },
+    {
+      "name": "w_shown",
+      "frames": [
+        {
+          "frame": 0,
+          "opaque_pixels": 626,
+          "binary_alpha": true,
+          "symmetry_pass": true,
+          "has_bright_core": true,
+          "bbox": [
+            3,
+            3,
+            57,
+            50
+          ]
+        },
+        {
+          "frame": 1,
+          "opaque_pixels": 650,
+          "binary_alpha": true,
+          "symmetry_pass": true,
+          "has_bright_core": true,
+          "bbox": [
+            3,
+            3,
+            57,
+            50
+          ]
+        },
+        {
+          "frame": 2,
+          "opaque_pixels": 728,
+          "binary_alpha": true,
+          "symmetry_pass": true,
+          "has_bright_core": true,
+          "bbox": [
+            3,
+            3,
+            57,
+            50
+          ]
+        },
+        {
+          "frame": 3,
+          "opaque_pixels": 658,
+          "binary_alpha": true,
+          "symmetry_pass": true,
+          "has_bright_core": true,
+          "bbox": [
+            4,
+            3,
+            56,
+            50
+          ]
+        }
+      ],
+      "exact_nearest_8x": true,
+      "distinct_frames": 4,
+      "frame_count": 4
+    },
+    {
+      "name": "q_slam",
+      "frames": [
+        {
+          "frame": 0,
+          "opaque_pixels": 62,
+          "binary_alpha": true,
+          "symmetry_pass": true,
+          "has_bright_core": true,
+          "bbox": [
+            14,
+            8,
+            30,
+            16
+          ]
+        },
+        {
+          "frame": 1,
+          "opaque_pixels": 272,
+          "binary_alpha": true,
+          "symmetry_pass": true,
+          "has_bright_core": true,
+          "bbox": [
+            4,
+            3,
+            40,
+            16
+          ]
+        },
+        {
+          "frame": 2,
+          "opaque_pixels": 316,
+          "binary_alpha": true,
+          "symmetry_pass": true,
+          "has_bright_core": true,
+          "bbox": [
+            1,
+            4,
+            43,
+            16
+          ]
+        },
+        {
+          "frame": 3,
+          "opaque_pixels": 226,
+          "binary_alpha": true,
+          "symmetry_pass": true,
+          "has_bright_core": false,
+          "bbox": [
+            0,
+            7,
+            44,
+            16
+          ]
+        },
+        {
+          "frame": 4,
+          "opaque_pixels": 78,
+          "binary_alpha": true,
+          "symmetry_pass": true,
+          "has_bright_core": false,
+          "bbox": [
+            4,
+            6,
+            40,
+            13
+          ]
+        }
+      ],
+      "exact_nearest_8x": true,
+      "distinct_frames": 5,
+      "frame_count": 5
+    },
+    {
+      "name": "q_fissure",
+      "frames": [
+        {
+          "frame": 0,
+          "opaque_pixels": 82,
+          "binary_alpha": true,
+          "symmetry_pass": true,
+          "has_bright_core": true,
+          "bbox": [
+            5,
+            2,
+            22,
+            10
+          ]
+        },
+        {
+          "frame": 1,
+          "opaque_pixels": 88,
+          "binary_alpha": true,
+          "symmetry_pass": true,
+          "has_bright_core": true,
+          "bbox": [
+            4,
+            1,
+            22,
+            11
+          ]
+        },
+        {
+          "frame": 2,
+          "opaque_pixels": 126,
+          "binary_alpha": true,
+          "symmetry_pass": true,
+          "has_bright_core": true,
+          "bbox": [
+            2,
+            1,
+            22,
+            11
+          ]
+        }
+      ],
+      "exact_nearest_8x": true,
+      "distinct_frames": 3,
+      "frame_count": 3
+    },
+    {
+      "name": "q_hit",
+      "frames": [
+        {
+          "frame": 0,
+          "opaque_pixels": 66,
+          "binary_alpha": true,
+          "symmetry_pass": true,
+          "has_bright_core": true,
+          "bbox": [
+            1,
+            5,
+            13,
+            14
+          ]
+        },
+        {
+          "frame": 1,
+          "opaque_pixels": 78,
+          "binary_alpha": true,
+          "symmetry_pass": true,
+          "has_bright_core": true,
+          "bbox": [
+            0,
+            3,
+            14,
+            14
+          ]
+        },
+        {
+          "frame": 2,
+          "opaque_pixels": 44,
+          "binary_alpha": true,
+          "symmetry_pass": true,
+          "has_bright_core": true,
+          "bbox": [
+            2,
+            2,
+            12,
+            13
+          ]
+        },
+        {
+          "frame": 3,
+          "opaque_pixels": 8,
+          "binary_alpha": true,
+          "symmetry_pass": true,
+          "has_bright_core": false,
+          "bbox": [
+            3,
+            11,
+            11,
+            12
+          ]
+        }
+      ],
+      "exact_nearest_8x": true,
+      "distinct_frames": 4,
+      "frame_count": 4
+    },
+    {
+      "name": "q_rise",
+      "frames": [
+        {
+          "frame": 0,
+          "opaque_pixels": 180,
+          "binary_alpha": true,
+          "symmetry_pass": true,
+          "has_bright_core": true,
+          "bbox": [
+            2,
+            28,
+            18,
+            44
+          ]
+        },
+        {
+          "frame": 1,
+          "opaque_pixels": 186,
+          "binary_alpha": true,
+          "symmetry_pass": true,
+          "has_bright_core": true,
+          "bbox": [
+            2,
+            27,
+            18,
+            44
+          ]
+        },
+        {
+          "frame": 2,
+          "opaque_pixels": 284,
+          "binary_alpha": true,
+          "symmetry_pass": true,
+          "has_bright_core": true,
+          "bbox": [
+            1,
+            12,
+            19,
+            44
+          ]
+        },
+        {
+          "frame": 3,
+          "opaque_pixels": 294,
+          "binary_alpha": true,
+          "symmetry_pass": true,
+          "has_bright_core": true,
+          "bbox": [
+            2,
+            12,
+            18,
+            44
+          ]
+        },
+        {
+          "frame": 4,
+          "opaque_pixels": 374,
+          "binary_alpha": true,
+          "symmetry_pass": true,
+          "has_bright_core": true,
+          "bbox": [
+            1,
+            4,
+            19,
+            44
+          ]
+        },
+        {
+          "frame": 5,
+          "opaque_pixels": 400,
+          "binary_alpha": true,
+          "symmetry_pass": true,
+          "has_bright_core": true,
+          "bbox": [
+            1,
+            7,
+            19,
+            44
+          ]
+        }
+      ],
+      "exact_nearest_8x": true,
+      "distinct_frames": 6,
+      "frame_count": 6
+    },
+    {
+      "name": "q_pillar",
+      "frames": [
+        {
+          "frame": 0,
+          "opaque_pixels": 400,
+          "binary_alpha": true,
+          "symmetry_pass": true,
+          "has_bright_core": true,
+          "bbox": [
+            1,
+            7,
+            19,
+            44
+          ]
+        },
+        {
+          "frame": 1,
+          "opaque_pixels": 410,
+          "binary_alpha": true,
+          "symmetry_pass": true,
+          "has_bright_core": true,
+          "bbox": [
+            1,
+            4,
+            19,
+            44
+          ]
+        }
+      ],
+      "exact_nearest_8x": true,
+      "distinct_frames": 2,
+      "frame_count": 2
+    },
+    {
+      "name": "e_quake",
+      "frames": [
+        {
+          "frame": 0,
+          "opaque_pixels": 84,
+          "binary_alpha": true,
+          "symmetry_pass": true,
+          "has_bright_core": true,
+          "bbox": [
+            26,
+            13,
+            38,
+            24
+          ]
+        },
+        {
+          "frame": 1,
+          "opaque_pixels": 584,
+          "binary_alpha": true,
+          "symmetry_pass": true,
+          "has_bright_core": true,
+          "bbox": [
+            10,
+            4,
+            54,
+            25
+          ]
+        },
+        {
+          "frame": 2,
+          "opaque_pixels": 888,
+          "binary_alpha": true,
+          "symmetry_pass": true,
+          "has_bright_core": true,
+          "bbox": [
+            2,
+            1,
+            62,
+            25
+          ]
+        },
+        {
+          "frame": 3,
+          "opaque_pixels": 902,
+          "binary_alpha": true,
+          "symmetry_pass": true,
+          "has_bright_core": true,
+          "bbox": [
+            1,
+            3,
+            63,
+            25
+          ]
+        },
+        {
+          "frame": 4,
+          "opaque_pixels": 656,
+          "binary_alpha": true,
+          "symmetry_pass": true,
+          "has_bright_core": true,
+          "bbox": [
+            1,
+            4,
+            63,
+            22
+          ]
+        },
+        {
+          "frame": 5,
+          "opaque_pixels": 488,
+          "binary_alpha": true,
+          "symmetry_pass": true,
+          "has_bright_core": true,
+          "bbox": [
+            3,
+            9,
+            61,
+            22
+          ]
+        }
+      ],
+      "exact_nearest_8x": true,
+      "distinct_frames": 6,
+      "frame_count": 6
+    },
+    {
+      "name": "e_hit",
+      "frames": [
+        {
+          "frame": 0,
+          "opaque_pixels": 58,
+          "binary_alpha": true,
+          "symmetry_pass": true,
+          "has_bright_core": true,
+          "bbox": [
+            3,
+            6,
+            15,
+            15
+          ]
+        },
+        {
+          "frame": 1,
+          "opaque_pixels": 152,
+          "binary_alpha": true,
+          "symmetry_pass": true,
+          "has_bright_core": true,
+          "bbox": [
+            0,
+            4,
+            18,
+            17
+          ]
+        },
+        {
+          "frame": 2,
+          "opaque_pixels": 126,
+          "binary_alpha": true,
+          "symmetry_pass": true,
+          "has_bright_core": true,
+          "bbox": [
+            0,
+            5,
+            18,
+            16
+          ]
+        },
+        {
+          "frame": 3,
+          "opaque_pixels": 70,
+          "binary_alpha": true,
+          "symmetry_pass": true,
+          "has_bright_core": false,
+          "bbox": [
+            0,
+            5,
+            18,
+            16
+          ]
+        }
+      ],
+      "exact_nearest_8x": true,
+      "distinct_frames": 4,
+      "frame_count": 4
+    },
+    {
+      "name": "r_call",
+      "frames": [
+        {
+          "frame": 0,
+          "opaque_pixels": 50,
+          "binary_alpha": true,
+          "symmetry_pass": true,
+          "has_bright_core": true,
+          "bbox": [
+            23,
+            7,
+            33,
+            16
+          ]
+        },
+        {
+          "frame": 1,
+          "opaque_pixels": 192,
+          "binary_alpha": true,
+          "symmetry_pass": true,
+          "has_bright_core": true,
+          "bbox": [
+            15,
+            4,
+            41,
+            17
+          ]
+        },
+        {
+          "frame": 2,
+          "opaque_pixels": 344,
+          "binary_alpha": true,
+          "symmetry_pass": true,
+          "has_bright_core": true,
+          "bbox": [
+            8,
+            1,
+            48,
+            17
+          ]
+        },
+        {
+          "frame": 3,
+          "opaque_pixels": 580,
+          "binary_alpha": true,
+          "symmetry_pass": true,
+          "has_bright_core": true,
+          "bbox": [
+            2,
+            0,
+            54,
+            18
+          ]
+        },
+        {
+          "frame": 4,
+          "opaque_pixels": 286,
+          "binary_alpha": true,
+          "symmetry_pass": true,
+          "has_bright_core": true,
+          "bbox": [
+            7,
+            3,
+            49,
+            16
+          ]
+        },
+        {
+          "frame": 5,
+          "opaque_pixels": 84,
+          "binary_alpha": true,
+          "symmetry_pass": true,
+          "has_bright_core": true,
+          "bbox": [
+            16,
+            5,
+            40,
+            15
+          ]
+        }
+      ],
+      "exact_nearest_8x": true,
+      "distinct_frames": 6,
+      "frame_count": 6
+    },
+    {
+      "name": "r_rise",
+      "frames": [
+        {
+          "frame": 0,
+          "opaque_pixels": 126,
+          "binary_alpha": true,
+          "symmetry_pass": true,
+          "has_bright_core": true,
+          "bbox": [
+            2,
+            32,
+            32,
+            40
+          ]
+        },
+        {
+          "frame": 1,
+          "opaque_pixels": 416,
+          "binary_alpha": true,
+          "symmetry_pass": true,
+          "has_bright_core": true,
+          "bbox": [
+            2,
+            18,
+            32,
+            40
+          ]
+        },
+        {
+          "frame": 2,
+          "opaque_pixels": 722,
+          "binary_alpha": true,
+          "symmetry_pass": true,
+          "has_bright_core": true,
+          "bbox": [
+            1,
+            1,
+            33,
+            40
+          ]
+        },
+        {
+          "frame": 3,
+          "opaque_pixels": 544,
+          "binary_alpha": true,
+          "symmetry_pass": true,
+          "has_bright_core": true,
+          "bbox": [
+            1,
+            2,
+            33,
+            40
+          ]
+        },
+        {
+          "frame": 4,
+          "opaque_pixels": 404,
+          "binary_alpha": true,
+          "symmetry_pass": true,
+          "has_bright_core": true,
+          "bbox": [
+            2,
+            2,
+            32,
+            40
+          ]
+        }
+      ],
+      "exact_nearest_8x": true,
+      "distinct_frames": 5,
+      "frame_count": 5
+    },
+    {
+      "name": "r_ram",
+      "frames": [
+        {
+          "frame": 0,
+          "opaque_pixels": 400,
+          "binary_alpha": true,
+          "symmetry_pass": true,
+          "has_bright_core": true,
+          "bbox": [
+            4,
+            4,
+            40,
+            24
+          ]
+        },
+        {
+          "frame": 1,
+          "opaque_pixels": 414,
+          "binary_alpha": true,
+          "symmetry_pass": true,
+          "has_bright_core": true,
+          "bbox": [
+            5,
+            4,
+            40,
+            24
+          ]
+        },
+        {
+          "frame": 2,
+          "opaque_pixels": 418,
+          "binary_alpha": true,
+          "symmetry_pass": true,
+          "has_bright_core": true,
+          "bbox": [
+            5,
+            4,
+            40,
+            24
+          ]
+        },
+        {
+          "frame": 3,
+          "opaque_pixels": 412,
+          "binary_alpha": true,
+          "symmetry_pass": true,
+          "has_bright_core": true,
+          "bbox": [
+            4,
+            4,
+            40,
+            24
+          ]
+        }
+      ],
+      "exact_nearest_8x": true,
+      "distinct_frames": 4,
+      "frame_count": 4
+    },
+    {
+      "name": "r_butt",
+      "frames": [
+        {
+          "frame": 0,
+          "opaque_pixels": 118,
+          "binary_alpha": true,
+          "symmetry_pass": true,
+          "has_bright_core": true,
+          "bbox": [
+            9,
+            10,
+            25,
+            25
+          ]
+        },
+        {
+          "frame": 1,
+          "opaque_pixels": 442,
+          "binary_alpha": true,
+          "symmetry_pass": true,
+          "has_bright_core": true,
+          "bbox": [
+            1,
+            3,
+            33,
+            32
+          ]
+        },
+        {
+          "frame": 2,
+          "opaque_pixels": 306,
+          "binary_alpha": true,
+          "symmetry_pass": true,
+          "has_bright_core": true,
+          "bbox": [
+            3,
+            2,
+            31,
+            31
+          ]
+        },
+        {
+          "frame": 3,
+          "opaque_pixels": 118,
+          "binary_alpha": true,
+          "symmetry_pass": true,
+          "has_bright_core": false,
+          "bbox": [
+            4,
+            4,
+            30,
+            30
+          ]
+        }
+      ],
+      "exact_nearest_8x": true,
+      "distinct_frames": 4,
+      "frame_count": 4
+    },
+    {
+      "name": "r_hit",
+      "frames": [
+        {
+          "frame": 0,
+          "opaque_pixels": 88,
+          "binary_alpha": true,
+          "symmetry_pass": true,
+          "has_bright_core": true,
+          "bbox": [
+            3,
+            7,
+            19,
+            19
+          ]
+        },
+        {
+          "frame": 1,
+          "opaque_pixels": 296,
+          "binary_alpha": true,
+          "symmetry_pass": true,
+          "has_bright_core": true,
+          "bbox": [
+            0,
+            4,
+            22,
+            21
+          ]
+        },
+        {
+          "frame": 2,
+          "opaque_pixels": 200,
+          "binary_alpha": true,
+          "symmetry_pass": true,
+          "has_bright_core": true,
+          "bbox": [
+            1,
+            2,
+            21,
+            20
+          ]
+        },
+        {
+          "frame": 3,
+          "opaque_pixels": 194,
+          "binary_alpha": true,
+          "symmetry_pass": true,
+          "has_bright_core": true,
+          "bbox": [
+            1,
+            3,
+            21,
+            20
+          ]
+        }
+      ],
+      "exact_nearest_8x": true,
+      "distinct_frames": 4,
+      "frame_count": 4
+    }
+  ]
+}
