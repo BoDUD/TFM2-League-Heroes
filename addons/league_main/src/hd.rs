@@ -288,13 +288,11 @@ pub fn grown(per: f32, stacks: usize) -> f32 {
 
 /// Effect sheets drawn dense like a hero's sheet (tags `idle` / `hd_idle` only, PPU squares a game pixel, hd_idle PPU times
 /// as wide): league_yuumi_ride, the cat lying on her book on the head of the ally Yuumi rides (the user: 「1.5 倍（21 格）」
-/// for the 14-px picture; tools/art/import_yuumi_fx.py), league_zyra_thicket and league_leblanc_clone (below). Looked up like the heroes (src/lookup.rs); the battlefield's
+/// for the 14-px picture; tools/art/import_yuumi_fx.py) and league_leblanc_clone (below; league_zyra_thicket was one
+/// until 2026-10-21, now a plain 1x sheet: 「婕拉的大招特效局内怎么这么模糊」). Looked up like the heroes (src/lookup.rs); the battlefield's
 /// entity scale (src/view.rs) never meets them - they are no entity's body.
 pub const EFFECTS: &[(&str, f32, &str)] = &[
     ("league_yuumi_ride", 1.5, include_str!("../../../league/effects/league_yuumi_ride#anim.fanim")),
-    // league_zyra's R thicket: Codex's squares 3 x 3 at PPU 2, 1.5 game px each - the picture 1.5 times as big for R's
-    // radius 44000 (the user: 「R技能范围做大点」「不用重画啊 你调整一下不就行了吗」; tools/art/import_zyra_fx.py)
-    ("league_zyra_thicket", 2.0, include_str!("../../../league/effects/league_zyra_thicket#anim.fanim")),
     // league_heimerdinger's two turrets (Q's and R's apex), one life each, drawn from their step-1 designs at his 1.5
     // (tools/art/import_heimerdinger_fx.py)
     ("league_heimerdinger_turret", 1.5, include_str!("../../../league/effects/league_heimerdinger_turret#anim.fanim")),
@@ -399,6 +397,12 @@ impl Hero {
     /// What a dense frame's pixels are divided by to give its shown size: PPU / size.
     pub fn shown(&self) -> f32 {
         self.ppu / self.size
+    }
+
+    /// What the BP grid divides an hd_ frame's pixels by: PPU / its [`UI_SIZES`] size - the battlefield's frames at the
+    /// size the whole-body UI draws the hero (2026-10-21: 「BP 格子也改成显示战场那套 hd_ 高清帧」).
+    pub fn bp_hd(&self) -> f32 {
+        self.ppu * self.ui / UI_PPU
     }
 
     /// The UI's divisor for a caller: `sized` (a whole-body drawer, src/build.rs ui_sized_*) takes the UI_SIZES size,

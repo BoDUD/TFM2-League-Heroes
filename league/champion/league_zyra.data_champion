@@ -1065,7 +1065,7 @@
     "action_name": "ult",
     "description": "#asset/base/text/champion?description.league_zyra.ult",
     "duration": 37,
-    "cooltime": 2100,
+    "cooltime": 3000,
     "start_timing": 1,
     "cancelable": false,
     "range": 70000,
@@ -1234,7 +1234,7 @@
                             "name": "league_zyra_r_burst",
                             "shape": {
                               "Circle": {
-                                "radius": 44000
+                                "radius": 32000
                               }
                             },
                             "delay": 1,
@@ -1273,7 +1273,7 @@
                                 "name": "league_zyra_r_snap",
                                 "shape": {
                                   "Circle": {
-                                    "radius": 44000
+                                    "radius": 32000
                                   }
                                 },
                                 "delay": 1,

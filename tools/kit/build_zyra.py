@@ -44,7 +44,7 @@ OUT = os.path.join(REPO, "league", "champion", "league_zyra.data_champion")
 ID = "league_zyra"
 FX = "asset/league/effects/league_zyra_fx"
 BIG = "asset/league/effects/league_zyra_big"
-THICKET = "asset/league/effects/league_zyra_thicket"    # R's thicket 1.5 x as big, dense (tag idle; tools/art/import_zyra_fx.py)
+THICKET = "asset/league/effects/league_zyra_thicket"    # R's thicket, Codex's squares 1:1 (tag idle; tools/art/import_zyra_fx.py)
 
 # League units x 100 = ours (attack range 575 -> 55000 like every mid); radii count the unit's collision radius
 # (~15000) on top. Timings from the frames (tools/art/rig_zyra.py, poses.json): every action releases on its frame 3 -
@@ -79,8 +79,10 @@ P = {
     "e_cd": 660, "e_range": 90000, "e_dur": 33, "e_rel": 10, "e_speed": 2000, "e_len": 105000, "e_w": 7000,
     "e_dmg": 70, "e_ratio": 45, "e_root": 75, "e_grow": 25, "e_y": 5000,
     # R Stranglethorns (League: 700 range, radius 575, 180-350 +70% AP, knock-up 1 s after 2 s, cd 110-90)
-    # the thicket's radius 32000 -> 44000 (the user, 2026-10-20: 「R技能范围做大点」; League's 575 is her attack range)
-    "r_cd": 2100, "r_range": 70000, "r_dur": 37, "r_rel": 10, "r_r": 44000, "r_dmg": 180, "r_ratio": 70,
+    # the thicket's radius 32000 -> 44000 (the user, 2026-10-20: 「R技能范围做大点」; League's 575 is her attack range), back to
+    # 32000 on 2026-10-21 (「杰拉德大招范围太大了点吧？」「改到3w2」)
+    # R's cooldown 35 -> 50 s, the pack's median ult (2026-10-21: 「大招CD这么快？」「婕拉的」)
+    "r_cd": 3000, "r_range": 70000, "r_dur": 37, "r_rel": 10, "r_r": 32000, "r_dmg": 180, "r_ratio": 70,
     "r_knock": 120, "r_air": 60, "r_rage": 300,
     "vo_gap": 600,
     # the add-on (addons/league_zyra): seeds on the ground and the plants they grow (League: seeds every 13-9 s by level,

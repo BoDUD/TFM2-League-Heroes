@@ -1509,7 +1509,7 @@
               {
                 "type": "CasterAnimation",
                 "name": "skill2_e",
-                "tick": 38
+                "tick": 80
               },
               {
                 "type": "Sfx",
@@ -1550,7 +1550,7 @@
                   "name": "league_smolder_e_ghost",
                   "duration": {
                     "Time": {
-                      "tick": 39
+                      "tick": 84
                     }
                   },
                   "ignore_wall": true
@@ -1585,8 +1585,8 @@
                       "effects": [
                         {
                           "type": "RushTime",
-                          "speed": 1600,
-                          "tick": 19,
+                          "speed": 940,
+                          "tick": 64,
                           "range": 20000,
                           "casting_target": "EnemyWithoutTower",
                           "penetrate": true,
@@ -1634,8 +1634,8 @@
                             "effects": [
                               {
                                 "type": "MoveBack",
-                                "speed": 2400,
-                                "tick": 19
+                                "speed": 940,
+                                "tick": 64
                               }
                             ]
                           }
@@ -1673,8 +1673,8 @@
                             "effects": [
                               {
                                 "type": "MoveBack",
-                                "speed": 2400,
-                                "tick": 19
+                                "speed": 940,
+                                "tick": 64
                               }
                             ]
                           }
@@ -1712,8 +1712,8 @@
                             "effects": [
                               {
                                 "type": "MoveBack",
-                                "speed": 2400,
-                                "tick": 19
+                                "speed": 940,
+                                "tick": 64
                               }
                             ]
                           }
@@ -1740,8 +1740,8 @@
                       {
                         "type": "AddCasted",
                         "casted_type": "Heal",
-                        "duration": 17,
-                        "period": 4,
+                        "duration": 49,
+                        "period": 12,
                         "effects": [
                           {
                             "type": "Combine",
@@ -1841,7 +1841,7 @@
                                                   "name": "league_smolder_e_got",
                                                   "duration": {
                                                     "Time": {
-                                                      "tick": 58
+                                                      "tick": 100
                                                     }
                                                   }
                                                 },
@@ -2054,7 +2054,7 @@
                                                     "name": "league_smolder_e_got",
                                                     "duration": {
                                                       "Time": {
-                                                        "tick": 58
+                                                        "tick": 100
                                                       }
                                                     }
                                                   },
