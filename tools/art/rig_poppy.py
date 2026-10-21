@@ -219,7 +219,7 @@ def up(dy=0):
 # ms per frame; the kit's ticks (tools/kit/build_poppy.py) come from these: the attack's blow at 200 ms (tick 12,
 # frame 3), Q's slam at 200 ms (q_rel 12), R's swing 133 ms after the charge (r_rel 8), the tap's at 133 (r_tap_rel 8)
 MS = {"idle": [150] * 8, "run": [100] * 8, "attack": [90, 110, 120, 60, 53], "skill": [100, 100, 140, 127],
-      "skill2": [90, 90, 87], "ult_charge": [167] * 4, "ult": [70, 63, 120, 114], "ult_tap": [133, 120, 80],
+      "skill2": [90, 90, 87], "ult_charge": [83, 84] * 4, "ult": [70, 63, 120, 114], "ult_tap": [133, 120, 80],
       "hit": [100, 100], "dead": [100, 110, 120, 150, 60, 60, 100, 500]}
 
 
@@ -242,10 +242,11 @@ def frames_all(F):
     # hammer back, the lunge, landing low
     out["skill2"] = [p(crouch=2, **BACK), p(whole=(3, -1), legs=((1, -1), (1, -1)), **BACK),
                      p(crouch=2, whole=(4, 0), **BACK)]
-    # R Keeper's Verdict: the charge (League's Poppy_Spell4_Windup: the hammer held up over her head while it gathers),
-    # the raised hammer of the attack / Q, shaking a row and the fist a row (2026-10-19 frame audit: it was drawn back
-    # at the hip, four near-identical frames - League's holds it high)
-    out["ult_charge"] = [p(crouch=c, **up(dy)) for c, dy in ((1, -2), (2, -3), (1, -3), (2, -2))]
+    # R Keeper's Verdict: the charge - the hammer whirled round her fist, twice in the charge's 40 ticks (the user,
+    # 2026-10-21: 「波比放大招没有转动锤子的动作 你想办法帮我加」 - held high and shaking a row, the charge read as no
+    # action at all): overhead, swung forward level, down by her foot, drawn back level, the hammer's own quarter turns
+    # about the fist and the attack's / Q's poses, so nothing is redrawn; the release follows from overhead
+    out["ult_charge"] = [p(crouch=1, **up(-2)), p(crouch=1, **fwd()), p(), p(crouch=1, **BACK)] * 2
     # the release (Poppy_Spell4_Charged: swung over and forward with all her weight): overhead, forward, held, back
     out["ult"] = [p(crouch=1, **up(-2)), p(crouch=2, whole=(3, 0), **fwd()), p(crouch=2, whole=(3, 0), **fwd()),
                   p(crouch=1, whole=(1, 0))]
