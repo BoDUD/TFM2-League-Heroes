@@ -1,0 +1,186 @@
+[
+  {
+    "file": "neeko_fx_a_bolt.png",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a hot pink magic ramp (#FFFFFF, #FFE0F2, #FF9AD6, #FF4FB4, #D21E8A, #7E0C54), a teal-cyan spark ramp (#F0FFFC, #A8FFF0, #4FE8D2, #1EB4A8, #0E6E6E).\nEffect: A MAGIC BOLT, 4 frames, a seamless loop, flying RIGHT, the trail behind it on the LEFT, SYMMETRIC TOP TO BOTTOM in every frame, square for square (the game turns the picture with its flight, so flying left it is upside down): at the right a hot pink orb 4 squares across with a white core, two tiny teal sparks circling it (one above, one mirrored below), a short tapering pink trail 5 squares long behind it to the left; each frame the trail flickers.\nLayout: one horizontal row of 4 equal 10:6 cells, image size 640x96 (each cell 160x96, 16 px a square); the orb's middle on the cell's middle row, 2 squares from its right edge. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n\nUse attached reference only for Neeko magic visual language, row for this skill. Deliver EXACTLY 4 distinct animation cells in a SINGLE HORIZONTAL ROW, equal widths, no padding between cells. Use pure black background #000000 if transparency interferes. Do not draw a character. Keep clean coarse pixel clusters and bright cores.",
+    "reference_images": [
+      "lol_fx_ref.png (local reference only)"
+    ],
+    "source_grid": [
+      4,
+      1
+    ],
+    "tool": "image_gen",
+    "transparent_background": true
+  },
+  {
+    "file": "neeko_fx_a_hit.png",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a hot pink magic ramp (#FFFFFF, #FFE0F2, #FF9AD6, #FF4FB4, #D21E8A, #7E0C54), a teal-cyan spark ramp (#F0FFFC, #A8FFF0, #4FE8D2, #1EB4A8, #0E6E6E).\nEffect: A SMALL MAGIC HIT, 3 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): 1 a pink-white four-pointed flash 5 squares across; 2 the flash 8 across with 4 teal sparks at mirrored places; 3 only the sparks further out, fading.\nLayout: one horizontal row of 3 equal square cells, image size 480x160 (each cell 160x160, 16 px a square); centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n\nREPAIR PRIORITY: 3 frames on ONE ROW. Fill the full height of each square cell with the LARGE eight-square second flash; first flash must have a clearly visible LARGE PURE WHITE center covering TWO BY TWO GAME PIXELS, with pink rays to left/right/up/down. Keep first flash 5 logical pixels across. The source is read into only 10x10 pixels per frame. Use very large flat uniform blocks and do not leave excessive margins. Bright white cores survive downsampling. Last frame only 4 turquoise square sparks. Do not use glow or transparency gradients.",
+    "reference_images": [],
+    "source_grid": [
+      3,
+      1
+    ],
+    "tool": "image_gen",
+    "transparent_background": true
+  },
+  {
+    "file": "neeko_fx_w_hit.png",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a hot pink magic ramp (#FFFFFF, #FFE0F2, #FF9AD6, #FF4FB4, #D21E8A, #7E0C54), a teal-cyan spark ramp (#F0FFFC, #A8FFF0, #4FE8D2, #1EB4A8, #0E6E6E), a violet ramp (#F4DCFF, #C89AF4, #9258E0, #6230B0, #3A1A70).\nEffect: A FLOWER BURST HIT, 4 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): 1 a white-pink flash 6 squares across; 2 a five-petal flower of pink light 12 squares across (one petal straight up, the rest mirrored) with a white core; 3 the petals opening wider and breaking into pink and teal sparks; 4 fading sparks with violet specks.\nLayout: one horizontal row of 4 equal square cells, image size 1024x256 (each cell 256x256, 16 px a square); centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n\nUse attached reference only for Neeko magic visual language, row for this skill. Deliver EXACTLY 4 distinct animation cells in a SINGLE HORIZONTAL ROW, equal widths, no padding between cells. Use pure black background #000000 if transparency interferes. Do not draw a character. Keep clean coarse pixel clusters and bright cores.",
+    "reference_images": [
+      "lol_fx_ref.png (local reference only)"
+    ],
+    "source_grid": [
+      4,
+      1
+    ],
+    "tool": "image_gen",
+    "transparent_background": true
+  },
+  {
+    "file": "neeko_fx_q_seed.png",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a leaf ramp (#E8FFD8, #A6E87A, #5CB848, #2E7A34, #16401E), a violet ramp (#F4DCFF, #C89AF4, #9258E0, #6230B0, #3A1A70), a hot pink magic ramp (#FFFFFF, #FFE0F2, #FF9AD6, #FF4FB4, #D21E8A, #7E0C54).\nEffect: A FLOWER SEED, 4 frames, flying RIGHT, the trail behind it on the LEFT, SYMMETRIC TOP TO BOTTOM in every frame, square for square (the game turns the picture with its flight, so flying left it is upside down): a round seed bud 4 squares across at the right (teal-green with a violet swirl, the swirl turning a quarter each frame), a short pink light trail 4 squares long behind it. SOLID OBJECTS (the seed, petals, leaves, the barbs' vines) have a 1-square near-black outline; light, sparks, rings and shockwaves have none.\nLayout: one horizontal row of 4 equal 8:6 cells, image size 512x96 (each cell 128x96, 16 px a square); the seed's middle on the cell's middle row, 2 squares from its right edge. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n\nREPAIR PRIORITY: exactly 4 frames ONE ROW. Each cell is only 8 by 6 LOGICAL GAME PIXELS: seed must be FOUR logical pixels across and FOUR tall, taking TWO THIRDS of the cell's height and HALF its width. Right-facing small round GREEN seed with a very obvious broad purple band/swirl. White-green highlight one game pixel, purple stripe one game pixel. Pink tail left four game pixels. Top-bottom symmetry. Use 1 logical pixel=32 image pixels or larger, no tiny features, NO SOFT GLOW, only large flat blocks and actual empty transparent background. The whole seed silhouette must remain readable after reading down to 8x6 pixels per frame. Keep seed's four-pixel outline inside its cell, and vary the purple band each frame.",
+    "reference_images": [],
+    "source_grid": [
+      4,
+      1
+    ],
+    "tool": "image_gen",
+    "transparent_background": true
+  },
+  {
+    "file": "neeko_fx_q_burst.png",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a hot pink magic ramp (#FFFFFF, #FFE0F2, #FF9AD6, #FF4FB4, #D21E8A, #7E0C54), a petal ramp (#FFF4F8, #FFC8DC, #FF86B0, #F2507E, #B82858), a teal-cyan spark ramp (#F0FFFC, #A8FFF0, #4FE8D2, #1EB4A8, #0E6E6E), a leaf ramp (#E8FFD8, #A6E87A, #5CB848, #2E7A34, #16401E).\nEffect: A BLOOMING BURST, 5 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): 1 a small pink flash on the ground in the middle; 2 a big flower of pink light opening upward from the middle (8 petals, 20 squares tall, white core) over a flat pink ring on the ground (an ellipse 46 squares wide and 16 tall, only its rim lit); 3 the flower bursting into flying petals (solid petals with outlines) and teal sparks, the ground ring brightest; 4 petals falling, the ring fading; 5 a few last petals and specks.\n\nIMPORTANT SAFE SOURCE LAYOUT: 3 COLUMNS x 2 ROWS. Each cell has aspect 50:26. 5 frames left-to-right then top-to-bottom. Last bottom-right cell EMPTY.\nCRITICAL: KEEP EVERY FLOWER AND SPARK COMPLETELY INSIDE ITS OWN CELL. Broad TRANSPARENT gutters INSIDE EACH CELL: minimum 10% width at left/right and 15% height at top/bottom. Shrink each effect to FIT. Do NOT allow any petal to touch the canvas edge or cross the internal cell boundaries. The flower tips MUST HAVE EMPTY TRANSPARENT SPACE ABOVE THEM. Highest petals in the TOP ROW must be at least 15% cell height below the image top. Smaller safe fully visible art is better than dramatic cropped art. Ground ellipse width-to-height 3:1. Draw large clean SQUARE pixel clusters, NO soft glows/no fine texture, light has NO black outline, WHITE core. No character, no grid or text.",
+    "reference_images": [],
+    "source_grid": [
+      3,
+      2
+    ],
+    "tool": "image_gen",
+    "transparent_background": true
+  },
+  {
+    "file": "neeko_fx_q_bloom.png",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a hot pink magic ramp (#FFFFFF, #FFE0F2, #FF9AD6, #FF4FB4, #D21E8A, #7E0C54), a violet ramp (#F4DCFF, #C89AF4, #9258E0, #6230B0, #3A1A70), a petal ramp (#FFF4F8, #FFC8DC, #FF86B0, #F2507E, #B82858).\nEffect: A SECOND BLOOM, 4 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): like the blooming burst but smaller and more violet: 1 a violet-pink flash in the middle of a flat ring (an ellipse 40 squares wide and 14 tall, only its rim lit); 2 a flower of violet-pink light 16 squares tall opening upward; 3 petals flying out; 4 fading petals and specks.\n\nSOURCE LAYOUT OVERRIDE: 2 COLUMNS BY 2 ROWS, 4 equal rectangular cells, read LEFT TO RIGHT then TOP TO BOTTOM. Exactly 4 animation frames; all cells contain one frame. Each cell aspect ratio 44:22. Total source canvas aspect 88:44. Do not draw a long single row. No labels/borders/gridlines, no padding between cells. Each effect fully inside its cell. Flat game pixel art with large square pixels. Light shapes have NO dark outline, bright WHITE/pink cores. Critically the ground ellipse has 3:1 width-to-height ratio, NOT a skinny horizontal line; preserve visible depth of ellipse. Transparent background, no champion.",
+    "reference_images": [],
+    "source_grid": [
+      2,
+      2
+    ],
+    "tool": "image_gen",
+    "transparent_background": true
+  },
+  {
+    "file": "neeko_fx_q_hit.png",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a hot pink magic ramp (#FFFFFF, #FFE0F2, #FF9AD6, #FF4FB4, #D21E8A, #7E0C54), a petal ramp (#FFF4F8, #FFC8DC, #FF86B0, #F2507E, #B82858).\nEffect: A PETAL HIT, 3 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): 1 a pink four-pointed star 7 squares across with a white core; 2 the star breaking up, 4 small petals flying out at mirrored places; 3 only falling petals.\nLayout: one horizontal row of 3 equal square cells, image size 576x192 (each cell 192x192, 16 px a square); centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n\nUse reference only for Neeko magic visual language, row for this skill. CRITICAL: EXACTLY 3 cells, ONE HORIZONTAL ROW, equal widths, each effect fully inside its cell, no touching adjacent cells. Do not draw a character. True transparent background and hard pixel clusters. Make frame sequence distinct and readable at tiny game scale.",
+    "reference_images": [
+      "lol_fx_ref.png (local reference only)"
+    ],
+    "source_grid": [
+      3,
+      1
+    ],
+    "tool": "image_gen",
+    "transparent_background": true
+  },
+  {
+    "file": "neeko_fx_e_barbs.png",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a violet ramp (#F4DCFF, #C89AF4, #9258E0, #6230B0, #3A1A70), a hot pink magic ramp (#FFFFFF, #FFE0F2, #FF9AD6, #FF4FB4, #D21E8A, #7E0C54), a leaf ramp (#E8FFD8, #A6E87A, #5CB848, #2E7A34, #16401E).\nEffect: A ROLLING TANGLE OF BARBS, 4 frames, flying RIGHT, the trail behind it on the LEFT, SYMMETRIC TOP TO BOTTOM in every frame, square for square (the game turns the picture with its flight, so flying left it is upside down): a ball of twisted violet-magenta thorny vines 8 squares across at the right, short thorn tips sticking out all round (rotating a quarter each frame), a pink light swirl round it, a violet trail 5 squares long behind it. SOLID OBJECTS (the seed, petals, leaves, the barbs' vines) have a 1-square near-black outline; light, sparks, rings and shockwaves have none.\nLayout: one horizontal row of 4 equal 14:10 cells, image size 896x160 (each cell 224x160, 16 px a square); the ball's middle on the cell's middle row, 5 squares from its right edge. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n\nUse reference only for Neeko magic visual language, row for this skill. CRITICAL: EXACTLY 4 cells, ONE HORIZONTAL ROW, equal widths, each effect fully inside its cell, no touching adjacent cells. Do not draw a character. True transparent background and hard pixel clusters. Make frame sequence distinct and readable at tiny game scale.",
+    "reference_images": [
+      "lol_fx_ref.png (local reference only)"
+    ],
+    "source_grid": [
+      4,
+      1
+    ],
+    "tool": "image_gen",
+    "transparent_background": true
+  },
+  {
+    "file": "neeko_fx_e_hit.png",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a violet ramp (#F4DCFF, #C89AF4, #9258E0, #6230B0, #3A1A70), a hot pink magic ramp (#FFFFFF, #FFE0F2, #FF9AD6, #FF4FB4, #D21E8A, #7E0C54).\nEffect: A THORN HIT, 3 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): 1 a pink flash 6 squares across ringed by 8 short violet thorns pointing out; 2 the thorns flying further out, the flash fading; 3 fading violet specks.\nLayout: one horizontal row of 3 equal square cells, image size 672x224 (each cell 224x224, 16 px a square); centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n\nCRITICAL LAYOUT: EXACTLY 3 equally sized cells in ONE HORIZONTAL ROW, no second row, no character, no borders. Minimal padding, fit animation inside each cell. For body-following effect, center must be EMPTY TRANSPARENT where the champion body stands. Match Neeko pink magic and teal sparks, purple thorn vines. White/light cores, no black outlines on energy. Transparent PNG.",
+    "reference_images": [],
+    "source_grid": [
+      3,
+      1
+    ],
+    "tool": "image_gen",
+    "transparent_background": true
+  },
+  {
+    "file": "neeko_fx_e_bound.png",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a violet ramp (#F4DCFF, #C89AF4, #9258E0, #6230B0, #3A1A70), a leaf ramp (#E8FFD8, #A6E87A, #5CB848, #2E7A34, #16401E), a petal ramp (#FFF4F8, #FFC8DC, #FF86B0, #F2507E, #B82858).\nEffect: A ROOT OF THORNY VINES, 4 frames, a seamless loop, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): violet thorny vines rising from the ground at both sides of the middle and curling round where the target's legs are (left and right mirrored), 12 squares tall, two tiny pink flowers on them, a faint pink glow on the ground under them pulsing in turn. SOLID OBJECTS (the seed, petals, leaves, the barbs' vines) have a 1-square near-black outline; light, sparks, rings and shockwaves have none.\nLayout: one horizontal row of 4 equal 22:14 cells, image size 1408x224 (each cell 352x224, 16 px a square); the vines' roots on the cell's bottom row; the champion hit stands in the middle, not drawn: 16 squares wide and 36 tall (only its legs reach the cell). Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n\nCRITICAL LAYOUT: EXACTLY 4 equally sized cells in ONE HORIZONTAL ROW, no second row, no character, no borders. Minimal padding, fit animation inside each cell. For body-following effect, center must be EMPTY TRANSPARENT where the champion body stands. Match Neeko pink magic and teal sparks, purple thorn vines. White/light cores, no black outlines on energy. Transparent PNG.",
+    "reference_images": [],
+    "source_grid": [
+      4,
+      1
+    ],
+    "tool": "image_gen",
+    "transparent_background": true
+  },
+  {
+    "file": "neeko_fx_r_charge.png",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a hot pink magic ramp (#FFFFFF, #FFE0F2, #FF9AD6, #FF4FB4, #D21E8A, #7E0C54), a violet ramp (#F4DCFF, #C89AF4, #9258E0, #6230B0, #3A1A70), a teal-cyan spark ramp (#F0FFFC, #A8FFF0, #4FE8D2, #1EB4A8, #0E6E6E).\nEffect: A CHARGING BUD, 6 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): a closing bud of pink-violet light round an upright body (only its outline and sparse inner streaks: 34 squares wide, 46 tall), a flat pink ring on the ground round her feet (an ellipse 32 squares wide and 8 tall), pink and teal motes drawn inward from the cell's edges; frame by frame the bud closes tighter and the ring brightens, frame 6 brightest. The middle EMPTY where the body is.\nLayout: one horizontal row of 6 equal 40:50 cells, image size 3840x800 (each cell 640x800, 16 px a square); she stands in the middle, not drawn: an upright girl 20 squares wide and 40 tall (her feet on the cell's bottom row, 3 squares up). Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n\nCRITICAL LAYOUT: EXACTLY 6 equally sized cells in ONE HORIZONTAL ROW, no second row, no character, no borders. Minimal padding, fit animation inside each cell. For body-following effect, center must be EMPTY TRANSPARENT where the champion body stands. Match Neeko pink magic and teal sparks, purple thorn vines. White/light cores, no black outlines on energy. Transparent PNG.",
+    "reference_images": [],
+    "source_grid": [
+      6,
+      1
+    ],
+    "tool": "image_gen",
+    "transparent_background": true
+  },
+  {
+    "file": "neeko_fx_r_jump.png",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a hot pink magic ramp (#FFFFFF, #FFE0F2, #FF9AD6, #FF4FB4, #D21E8A, #7E0C54), a teal-cyan spark ramp (#F0FFFC, #A8FFF0, #4FE8D2, #1EB4A8, #0E6E6E).\nEffect: A SPRING-UP BLAST, 4 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): 1 a bright pink flash at the bottom middle; 2 a flat pink shockwave ring spreading on the ground (an ellipse 30 squares wide and 8 tall) with 6 short upward light streaks; 3 the ring 38 wide, the streaks higher; 4 fading pink and teal specks.\n\nSOURCE LAYOUT OVERRIDE: 2 COLUMNS BY 2 ROWS, 4 equal rectangular cells, read LEFT TO RIGHT then TOP TO BOTTOM. Exactly 4 animation frames; all cells contain one frame. Each cell aspect ratio 40:24. Total source canvas aspect 80:48. Do not draw a long single row. No labels/borders/gridlines, no padding between cells. Each effect fully inside its cell. Flat game pixel art with large square pixels. Light shapes have NO dark outline, bright WHITE/pink cores. Critically the ground ellipse has 3:1 width-to-height ratio, NOT a skinny horizontal line; preserve visible depth of ellipse. Transparent background, no champion.",
+    "reference_images": [],
+    "source_grid": [
+      2,
+      2
+    ],
+    "tool": "image_gen",
+    "transparent_background": true
+  },
+  {
+    "file": "neeko_fx_r_land.png",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a hot pink magic ramp (#FFFFFF, #FFE0F2, #FF9AD6, #FF4FB4, #D21E8A, #7E0C54), a violet ramp (#F4DCFF, #C89AF4, #9258E0, #6230B0, #3A1A70), a teal-cyan spark ramp (#F0FFFC, #A8FFF0, #4FE8D2, #1EB4A8, #0E6E6E), a petal ramp (#FFF4F8, #FFC8DC, #FF86B0, #F2507E, #B82858), gold flower hearts (#FFFFFF, #FFF2B0, #FFD24A, #E89A1E) as accents only.\nEffect: A HUGE BLOSSOM BURST, 6 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): 1 a white-pink flash in the middle of the ground; 2 a flat ring of pink-violet light on the ground (an ellipse 84 squares wide and 28 tall, only its rim and a few petal shapes on it lit) at its brightest; 3 a giant flower of prismatic pink-violet light opening upward from the middle (10 petals, 34 squares tall, white core, a gold heart); 4 the flower bursting, solid petals and teal sparks flying out over the whole ellipse; 5 petals falling, the ring fading; 6 last petals and specks.\n\nIMPORTANT SAFE SOURCE LAYOUT: 3 COLUMNS x 2 ROWS. Each cell has aspect 90:44. 6 frames left-to-right then top-to-bottom. All 6 cells contain frames.\nCRITICAL: KEEP EVERY FLOWER AND SPARK COMPLETELY INSIDE ITS OWN CELL. Broad TRANSPARENT gutters INSIDE EACH CELL: minimum 10% width at left/right and 15% height at top/bottom. Shrink each effect to FIT. Do NOT allow any petal to touch the canvas edge or cross the internal cell boundaries. The flower tips MUST HAVE EMPTY TRANSPARENT SPACE ABOVE THEM. Highest petals in the TOP ROW must be at least 15% cell height below the image top. Smaller safe fully visible art is better than dramatic cropped art. Ground ellipse width-to-height 3:1. Draw large clean SQUARE pixel clusters, NO soft glows/no fine texture, light has NO black outline, WHITE core. No character, no grid or text.",
+    "reference_images": [],
+    "source_grid": [
+      3,
+      2
+    ],
+    "tool": "image_gen",
+    "transparent_background": true
+  },
+  {
+    "file": "neeko_fx_r_hit.png",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a hot pink magic ramp (#FFFFFF, #FFE0F2, #FF9AD6, #FF4FB4, #D21E8A, #7E0C54), a petal ramp (#FFF4F8, #FFC8DC, #FF86B0, #F2507E, #B82858).\nEffect: A STUNNING HIT, 4 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): 1 a pink burst 10 squares across with a white core in the lower middle; 2 the burst fading, a ring of 5 tiny petals appearing at the top; 3 the petal ring turning; 4 the petals fading.\nLayout: one horizontal row of 4 equal 16:18 cells, image size 1024x288 (each cell 256x288, 16 px a square); centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n\nCRITICAL: EXACTLY 4 frames arranged in ONE HORIZONTAL STRIP, identical cell width, no second row. Each effect self-contained in its cell. Do NOT draw any champion/character. Body area is transparent except transformation puff. Keep clear bright white/pink cores and clean square pixel clusters. Animation must visibly develop then disperse; loop effects pulse. No labels or frame borders.",
+    "reference_images": [],
+    "source_grid": [
+      4,
+      1
+    ],
+    "tool": "image_gen",
+    "transparent_background": true
+  },
+  {
+    "file": "neeko_fx_w_haste.png",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a teal-cyan spark ramp (#F0FFFC, #A8FFF0, #4FE8D2, #1EB4A8, #0E6E6E), a hot pink magic ramp (#FFFFFF, #FFE0F2, #FF9AD6, #FF4FB4, #D21E8A, #7E0C54).\nEffect: A HASTE RING, 4 frames, a seamless loop, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): a flat ring of tiny teal and pink light motes on the ground round her feet (an ellipse 22 squares wide and 6 tall), the motes winking in turn; the middle EMPTY.\nLayout: one horizontal row of 4 equal 26:8 cells, image size 1664x128 (each cell 416x128, 16 px a square); the ellipse's middle on the cell's middle; she stands in the middle, not drawn: an upright girl 20 squares wide and 40 tall (only her feet reach the cell). Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n\nCRITICAL: EXACTLY 4 frames arranged in ONE HORIZONTAL STRIP, identical cell width, no second row. Each effect self-contained in its cell. Do NOT draw any champion/character. Body area is transparent except transformation puff. Keep clear bright white/pink cores and clean square pixel clusters. Animation must visibly develop then disperse; loop effects pulse. No labels or frame borders.",
+    "reference_images": [],
+    "source_grid": [
+      4,
+      1
+    ],
+    "tool": "image_gen",
+    "transparent_background": true
+  },
+  {
+    "file": "neeko_fx_p_poof.png",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a hot pink magic ramp (#FFFFFF, #FFE0F2, #FF9AD6, #FF4FB4, #D21E8A, #7E0C54), a teal-cyan spark ramp (#F0FFFC, #A8FFF0, #4FE8D2, #1EB4A8, #0E6E6E), a violet ramp (#F4DCFF, #C89AF4, #9258E0, #6230B0, #3A1A70), a petal ramp (#FFF4F8, #FFC8DC, #FF86B0, #F2507E, #B82858).\nEffect: A TRANSFORMATION PUFF, 5 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): 1 a few pink and teal sparkles round an upright body; 2 a thick puff of pink-violet swirling smoke (round clouds, 28 squares wide and 40 tall) covering the body, petals in it; 3 the puff at its fullest with teal star glints; 4 the puff breaking into wisps and petals drifting out; 5 last sparkles.\nLayout: one horizontal row of 5 equal 34:46 cells, image size 2720x736 (each cell 544x736, 16 px a square); she stands in the middle, not drawn: an upright girl 20 squares wide and 40 tall (her feet on the cell's bottom row, 3 squares up). Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n\nCRITICAL: EXACTLY 5 frames arranged in ONE HORIZONTAL STRIP, identical cell width, no second row. Each effect self-contained in its cell. Do NOT draw any champion/character. Body area is transparent except transformation puff. Keep clear bright white/pink cores and clean square pixel clusters. Animation must visibly develop then disperse; loop effects pulse. No labels or frame borders.",
+    "reference_images": [],
+    "source_grid": [
+      5,
+      1
+    ],
+    "tool": "image_gen",
+    "transparent_background": true
+  }
+]

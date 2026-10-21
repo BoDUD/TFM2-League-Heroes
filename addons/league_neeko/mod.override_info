@@ -1,0 +1,10 @@
+{
+  "asset/league/champion/league_neeko": {
+    "remapping": "asset/league_neeko/override/league_neeko",
+    "type": "override"
+  },
+  "asset/base/text/champion": {
+    "remapping": "asset/league_neeko/text/champion",
+    "type": "merge"
+  }
+}
