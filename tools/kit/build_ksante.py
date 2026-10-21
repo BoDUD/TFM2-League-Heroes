@@ -42,7 +42,7 @@ lancer and pole_warrior, C:/t/ks_sim, 2026-10-22; league_ornn +1.86 on seeds 1-8
 60%, Q3 40, W 20 + 50%, R 80 / 60, All Out -40% resistances, R 60 s, W 12 s) -0.46; more damage +0.38; then All Out -25%,
 R 50 s, W 11 s, def 42 = P +1.18 / +1.56 (seeds 1-8 / 9-16); a tankier W (35% reduction, shield 100) on top +0.57.
 Combos measured in traces (trace.exe, seeds 3 and 5): the Q3 -> W window mostly opens right after a W (the AI plays
-W -> Q -> Q3), so only R -> W got a refund (r_cdr); with it +1.90, then Q 35, W 30, the slam 60 = P +1.28 (seeds 1-8).
+W -> Q -> Q3), so only R -> W got a refund (r_cdr); with it +1.90, then Q 35, W 30, the slam 60 = P +1.28 / +2.22 (seeds 1-8 / 9-16).
 """
 import argparse
 import json
