@@ -332,7 +332,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     ));
     module.add_native_effect(format!("{ID}:hunger"), HungerFx);
     module.add_native_passive(format!("{ID}:hunt"), Hunt::default());
-    module.add_player_input_ai(combo::Combo);
+    module.add_player_input_ai(combo::Combo::default());
     host.log(LogLevel::Info, "league_warwick loaded (Eternal Hunger by health, Blood Hunt, the combos).");
 }
 

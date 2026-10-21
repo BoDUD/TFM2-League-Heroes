@@ -646,6 +646,16 @@ pub fn hold_target(
     (theirs <= ours).then_some(t)
 }
 
+/// AI 还在不在回城（0.5.0，游戏 0.6.5 改进了「什么时候回城买装备」：回城是它的决定，钩子不再打断）：回城命令开始，别的
+/// 命令结束；引擎只在它判断的那些 tick 下命令（回城时隔一阵再发一次回城），其余 tick 没有命令，照旧。0.4.x 只看这一 tick
+/// 是不是回城命令，回城引导中没命令的 tick 被当成「原地站着」，站够 `HOLD_STILL` tick 就让他普攻。
+pub fn still_recalling(was: bool, base: Option<InputV1>) -> bool {
+    match base {
+        Some(b) => b.kind == InputKindV1::Return.code(),
+        None => was,
+    }
+}
+
 /// 这一步走路是不是在撤：目的地离目标比他现在离目标远 `HOLD_AWAY` 以上。跟着走、斜着走、往前走都不算。
 pub fn walking_away(me: (f64, f64), to: (f64, f64), target: (f64, f64)) -> bool {
     dist(to, target) > dist(me, target) + HOLD_AWAY
@@ -830,10 +840,13 @@ pub fn vladimir_r(s: &Scene) -> Vec<usize> {
     lowest_first(s, v)
 }
 
+/// 瑞兹 R 逃命的理由（日志里也是这几个字）。
+const RYZE_ESCAPE: &str = "low on health";
+
 /// 瑞兹 R（备好式）：逃命——生命不到 `RYZE_FLEE` 而 `RYZE_THREAT` 内有敌方英雄（最近的那个）；去打架——崔斯特的规则。
 pub fn ryze_r(s: &Scene) -> Option<(usize, &'static str)> {
     if s.hp < RYZE_FLEE {
-        return s.by_distance(RYZE_THREAT).first().map(|&t| (t, "low on health"));
+        return s.by_distance(RYZE_THREAT).first().map(|&t| (t, RYZE_ESCAPE));
     }
     tf_fight(s.me, s.hp, s.allies, s.enemies).map(|(e, _)| (e, "an ally fights far away"))
 }
@@ -845,7 +858,8 @@ pub enum Aim {
     Spot((f64, f64)),
 }
 
-/// 一次要按的：日志里的键名、哪个格子、对着谁、为什么；`dive` = 冲上去的（AI 正往远处撤时不按）。
+/// 一次要按的：日志里的键名、哪个格子、对着谁、为什么；`dive` = 进攻的：冲上去的、站着引导的、打人的大招（AI 正往远处撤
+/// 时不按；0.5.0 起不只是冲上去的——游戏 0.6.5 的 AI 自己决定撤退、散开，护盾、治疗、逃命这些照按）。
 #[derive(Clone, Debug, PartialEq)]
 pub struct Plan {
     pub key: &'static str,
@@ -879,7 +893,7 @@ pub fn plan(name: &str, s: &Scene, ready: [bool; 4], m: &Marks) -> Vec<Plan> {
         VIEGO if w => push("E", Skill2, engage_targets(s, VIEGO_E_RANGE), "mist and dash in", true),
         KATARINA => {
             if r {
-                push("R", Ult, katarina_r(s), "lotus", false);
+                push("R", Ult, katarina_r(s), "lotus", true);
             }
             if w {
                 push("W", Skill2, engage_targets(s, KATARINA_W_RANGE), "shunpo in", true);
@@ -887,7 +901,7 @@ pub fn plan(name: &str, s: &Scene, ready: [bool; 4], m: &Marks) -> Vec<Plan> {
         }
         ORIANNA => {
             if r {
-                push("R", Ult, s.by_distance(ORI_R_NEAR), "arm the shockwave", false);
+                push("R", Ult, s.by_distance(ORI_R_NEAR), "arm the shockwave", true);
             }
             if w && s.in_contact(ORI_E_RANGE) {
                 push("E", Skill2, s.by_distance(ORI_E_RANGE), "fight on: shield", false);
@@ -898,19 +912,20 @@ pub fn plan(name: &str, s: &Scene, ready: [bool; 4], m: &Marks) -> Vec<Plan> {
         ZILEAN if w => push("E", Skill2, zilean_e(s), "slow / haste", false),
         KALISTA if w && m.kalista_rend => push("E", Skill2, s.by_distance(KALISTA_E_RANGE), "spears enough: rend", false),
         JANNA if r => push("R", Ult, janna_r(s), "monsoon heal", false),
-        SYNDRA if r => push("R", Ult, syndra_r(s), "unleashed power", false),
-        XERATH if r => push("R", Ult, channel_targets(s, XERATH_R_REACH), "rite from afar", false),
-        JHIN if r => push("R", Ult, channel_targets(s, JHIN_R_REACH), "curtain call from afar", false),
+        SYNDRA if r => push("R", Ult, syndra_r(s), "unleashed power", true),
+        XERATH if r => push("R", Ult, channel_targets(s, XERATH_R_REACH), "rite from afar", true),
+        JHIN if r => push("R", Ult, channel_targets(s, JHIN_R_REACH), "curtain call from afar", true),
         KAYLE if r => push("R", Ult, s.by_distance(KAYLE_R_NEAR), "arm", false),
         KARMA if r => push("R", Ult, s.by_distance(KARMA_R_NEAR), "mantra", false),
-        EVELYNN if r => push("R", Ult, s.by_distance(EVELYNN_R_NEAR), "arm", false),
-        APHELIOS if r => push("R", Ult, s.by_distance(APHELIOS_R_NEAR), "arm", false),
-        SWAIN if r => push("R", Ult, s.by_distance(SWAIN_R_NEAR), "arm the demon", false),
+        EVELYNN if r => push("R", Ult, s.by_distance(EVELYNN_R_NEAR), "arm", true),
+        APHELIOS if r => push("R", Ult, s.by_distance(APHELIOS_R_NEAR), "arm", true),
+        SWAIN if r => push("R", Ult, s.by_distance(SWAIN_R_NEAR), "arm the demon", true),
         RENATA if r => push("R", Ult, s.by_distance(RENATA_R_NEAR), "arm the takeover", false),
-        VLADIMIR if r => push("R", Ult, vladimir_r(s), "hemoplague", false),
+        VLADIMIR if r => push("R", Ult, vladimir_r(s), "hemoplague", true),
         RYZE if r => {
             if let Some((t, why)) = ryze_r(s) {
-                push("R", Ult, vec![t], why, false);
+                // the escape is not an attack
+                push("R", Ult, vec![t], why, why != RYZE_ESCAPE);
             }
         }
         FIDDLESTICKS if r => {
@@ -1052,6 +1067,8 @@ struct UltPress {
     atk_ready_prev: bool,
     /// 走着不打：普攻好了、敌方英雄在 `HOLD_REACH` 内、AI 只下走路命令（不是撤）连着几 tick。
     walk_ticks: usize,
+    /// AI 在回城（[`still_recalling`]）。
+    recalling: bool,
     /// 这一局敌方的塔（实体编号、位置）：一局找一次，之后每 tick 只看还在不在（塔不会动、不会复活）。
     towers: Option<Vec<(usize, (f64, f64))>>,
     /// 这一局英雄实体在实体表里的位置和编号（按位置排）。表里的先后会变（核对版 2026-10-18：没有英雄复活，两个英雄也换了
@@ -1373,6 +1390,7 @@ impl UltPress {
                 self.volley_tick = tick;
                 self.engage = None;
                 self.walk_ticks = 0;
+                self.recalling = false;
                 self.armed_at = None;
                 self.foe_cds.clear();
                 self.towers = None;
@@ -1462,6 +1480,14 @@ impl UltPress {
                 self.engage = None;
             }
             self.atk_ready_prev = atk_ready;
+            // recalling: nothing pressed and no hold - when to go home (and buy) is the AI's call (game 0.6.5)
+            self.recalling = still_recalling(self.recalling, base);
+            if self.recalling {
+                self.still_ticks = 0;
+                self.walk_ticks = 0;
+                self.engage = None;
+                return None;
+            }
             // casting or being moved: nothing to press, and standing in a channel is no hold
             if busy(&me) {
                 self.still_ticks = 0;
@@ -1545,12 +1571,23 @@ impl UltPress {
             }
             let press = |kind: InputKindV1, t: usize| InputV1::action(kind, InputTargetV1::target(t));
             let (ult, skill2) = (Some(SkillSlotV1::Ult.code() as usize), Some(SkillSlotV1::Skill2.code() as usize));
+            // 0.5.0 (game 0.6.5: its AI decides retreats, disperses and tower dives better): nothing at a champion the AI
+            // walks away from, and a dash at one under an enemy tower only when he is nearly dead (engage_targets' rule)
+            let unit = |t: usize| enemies.iter().find(|u| u.id == t);
+            let away_from = |t: usize| match (base, unit(t)) {
+                (Some(b), Some(u)) if b.kind == InputKindV1::Move.code() => walking_away(my_at, (b.x as f64, b.y as f64), u.at),
+                _ => false,
+            };
+            let dive_ok = |t: usize| unit(t).is_some_and(|u| u.hp <= DIVE_HP || !towers.iter().any(|&w| dist(w, u.at) <= TOWER_REACH));
             let mut cands = match name.as_str() {
                 SAMIRA => {
                     let ready3 = [ready[1], ready[2], ready[3]];
                     let plan = samira_plan(my_at, hp_share(me.hp()), ready3, has_buff(&me, SAMIRA_LAST_Q), &enemies);
                     let mut v = Vec::new();
                     for (k, t) in plan {
+                        if away_from(t) || (k == 'E' && !dive_ok(t)) {
+                            continue;
+                        }
                         let why = format!("{} [style {}]", who(&sim, t), grade_name(grade));
                         match k {
                             'R' => v.push((press(InputKindV1::Ult, t), "R", ult, why)),
@@ -1568,8 +1605,8 @@ impl UltPress {
                     v
                 }
                 CAMILLE if ready[2] => match nearest_in(my_at, CAMILLE_RANGE, &enemies) {
-                    Some(t) => vec![(press(InputKindV1::Skill2, t), "E", skill2, format!("{} within {CAMILLE_RANGE:.0}", who(&sim, t)))],
-                    None => Vec::new(),
+                    Some(t) if !away_from(t) && dive_ok(t) => vec![(press(InputKindV1::Skill2, t), "E", skill2, format!("{} within {CAMILLE_RANGE:.0}", who(&sim, t)))],
+                    _ => Vec::new(),
                 },
                 // Kog'Maw's and Twisted Fate's R only when ready (unlocked and cooled down), as before 0.4.0: since every
                 // champion is held (0.4.0) the early return above no longer stops them, and the engine takes an R pressed
@@ -1593,16 +1630,16 @@ impl UltPress {
                     c
                 }
                 TF if ready[3] => match tf_fight(my_at, hp_share(me.hp()), &allies, &enemies) {
-                    Some((e, a)) => {
+                    Some((e, a)) if !away_from(e) => {
                         let far = allies.iter().find(|u| u.id == a).map_or(f64::NAN, |u| dist(my_at, u.at));
                         vec![(press(InputKindV1::Ult, e), "R", ult, format!("{} fighting {} {far:.0} away, nobody near him", who(&sim, a), who(&sim, e)))]
                     }
-                    None => Vec::new(),
+                    _ => Vec::new(),
                 },
                 _ => Vec::new(),
             };
-            // the slots the AI hardly presses (plan): not while it recalls, not over its own cast of that slot, no dive
-            // while it walks away from the target
+            // the slots the AI hardly presses (plan): not over its own cast of that slot, nothing offensive (`dive`)
+            // while it walks away from the target (a recall returned above already)
             if base.is_none_or(|b| b.kind != InputKindV1::Return.code()) {
                 let scene = Scene {
                     me: my_at,
@@ -2079,8 +2116,31 @@ mod tests {
         let f = plan(FIDDLESTICKS, &scene(0.8, &[u(9, 40_000.0, 0.0, 1.0)], &pair, &[], &[]), all, &marks(false, false));
         assert_eq!(f.iter().map(|p| p.aim).collect::<Vec<_>>(), vec![Aim::Spot((70_000.0, 10_000.0)), Aim::Unit(2)]);
         assert!(f.iter().all(|p| p.dive));
+        // 0.5.0: what waits while the AI walks away - the attacks; shields, heals and the escape do not
+        let flag = |h: &str, sc: &Scene| plan(h, sc, all, &marks(false, true)).first().map(|p| p.dive);
+        let near = [u(1, 20_000.0, 0.0, 0.4), u(2, 22_000.0, 3_000.0, 0.4)];
+        assert_eq!(flag(KATARINA, &scene(0.8, &[], &near, &[], &[])), Some(true));
+        for h in [SYNDRA, EVELYNN, APHELIOS, SWAIN, ORIANNA] {
+            assert_eq!(flag(h, &scene(0.8, &[], &near, &[], &[])), Some(true), "{h}");
+        }
+        for h in [KAYLE, KARMA, RENATA, KALISTA] {
+            assert_eq!(flag(h, &scene(0.8, &[], &near, &[], &[])), Some(false), "{h}");
+        }
+        assert_eq!(flag(RYZE, &scene(0.2, &[], &near, &[], &[])), Some(false)); // the escape
         // a hero this list does not know
         assert!(plan("league_garen", &s, all, &marks(true, true)).is_empty());
+    }
+
+    #[test]
+    fn a_recall_lasts_until_the_ai_orders_something_else() {
+        let ret = Some(InputV1::return_home());
+        let walk = Some(InputV1::move_to(1, 2));
+        assert!(still_recalling(false, ret));
+        // the ticks between its orders: still recalling (0.4.x took them for standing still and attacked)
+        assert!(still_recalling(true, None));
+        assert!(!still_recalling(false, None));
+        assert!(!still_recalling(true, walk));
+        assert!(!still_recalling(true, Some(InputV1::action(InputKindV1::Attack, InputTargetV1::target(3)))));
     }
 
     #[test]

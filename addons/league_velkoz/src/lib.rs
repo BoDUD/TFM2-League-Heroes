@@ -535,7 +535,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     module.add_native_effect(format!("{ID}:split_hit"), Step(split_hit));
     module.add_native_effect(format!("{ID}:ray"), Step(ray));
     module.add_native_passive(format!("{ID}:research"), Research::default());
-    module.add_player_input_ai(combo::Combo);
+    module.add_player_input_ai(combo::Combo::default());
     host.log(LogLevel::Info, "league_velkoz loaded (Organic Deconstruction per champion, Plasma Fission's split, the combos).");
 }
 

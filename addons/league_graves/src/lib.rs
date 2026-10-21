@@ -397,7 +397,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     module.add_native_effect(format!("{ID}:hit"), HitFx);
     module.add_native_effect(format!("{ID}:cone"), ConeFx);
     module.add_native_passive(format!("{ID}:grit"), Grit::default());
-    module.add_player_input_ai(combo::Combo);
+    module.add_player_input_ai(combo::Combo::default());
     shell::register(module);
     host.log(LogLevel::Info, "league_graves loaded (Quickdraw's cooldown, knockback, Collateral Damage's cone, the combos).");
 }

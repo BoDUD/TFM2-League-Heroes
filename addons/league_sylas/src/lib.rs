@@ -342,7 +342,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     ));
     module.add_native_effect(format!("{ID}:kingslayer"), KingslayerFx);
     module.add_native_passive(format!("{ID}:hijack"), Hijack::default());
-    module.add_player_input_ai(combo::Combo);
+    module.add_player_input_ai(combo::Combo::default());
     host.log(LogLevel::Info, "league_sylas loaded (Hijack by class, Kingslayer by missing health, the combos).");
 }
 
