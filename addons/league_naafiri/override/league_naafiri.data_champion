@@ -110,7 +110,7 @@
           {
             "type": "CasterAnimation",
             "name": "skill",
-            "tick": 22
+            "tick": 25
           },
           {
             "type": "Sfx",
@@ -118,7 +118,7 @@
           },
           {
             "type": "Delayed",
-            "tick": 7,
+            "tick": 6,
             "effects": [
               {
                 "type": "Combine",
@@ -408,7 +408,7 @@
           },
           {
             "type": "Delayed",
-            "tick": 9,
+            "tick": 8,
             "effects": [
               {
                 "type": "Combine",
@@ -473,7 +473,7 @@
                               {
                                 "type": "CasterAnimation",
                                 "name": "skill2",
-                                "tick": 26
+                                "tick": 30
                               },
                               {
                                 "type": "Sfx",
@@ -865,7 +865,7 @@
           },
           {
             "type": "Delayed",
-            "tick": 7,
+            "tick": 10,
             "effects": [
               {
                 "type": "TargetProjectile",
@@ -1168,7 +1168,7 @@
           {
             "type": "CasterAnimation",
             "name": "skill",
-            "tick": 22
+            "tick": 25
           },
           {
             "type": "Sfx",
@@ -1205,7 +1205,7 @@
           },
           {
             "type": "Delayed",
-            "tick": 7,
+            "tick": 6,
             "effects": [
               {
                 "type": "Combine",
@@ -1572,7 +1572,7 @@
           {
             "type": "CasterAnimation",
             "name": "skill2",
-            "tick": 26
+            "tick": 30
           },
           {
             "type": "Sfx",
@@ -1959,7 +1959,7 @@
           {
             "type": "CasterAnimation",
             "name": "ult_b",
-            "tick": 22
+            "tick": 28
           },
           {
             "type": "Sfx",
@@ -2357,7 +2357,7 @@
                                   {
                                     "type": "CasterAnimation",
                                     "name": "skill",
-                                    "tick": 22
+                                    "tick": 25
                                   },
                                   {
                                     "type": "Sfx",
@@ -2394,7 +2394,7 @@
                                   },
                                   {
                                     "type": "Delayed",
-                                    "tick": 7,
+                                    "tick": 6,
                                     "effects": [
                                       {
                                         "type": "Combine",
@@ -2864,7 +2864,7 @@
                             {
                               "type": "CasterAnimation",
                               "name": "ult_b",
-                              "tick": 22
+                              "tick": 28
                             },
                             {
                               "type": "Sfx",
@@ -3243,7 +3243,7 @@
                                                     {
                                                       "type": "CasterAnimation",
                                                       "name": "skill",
-                                                      "tick": 22
+                                                      "tick": 25
                                                     },
                                                     {
                                                       "type": "Sfx",
@@ -3280,7 +3280,7 @@
                                                     },
                                                     {
                                                       "type": "Delayed",
-                                                      "tick": 7,
+                                                      "tick": 6,
                                                       "effects": [
                                                         {
                                                           "type": "Combine",

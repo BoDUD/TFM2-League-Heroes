@@ -35,7 +35,8 @@ NaafiriR), as the pros cast them (W -> R).
   combos  R -> Q -> Q2 -> E (猎狗血性扑上去 -> 暗裔犬牙 -> 第二把匕首 -> 剔骨本能): the pounce's landing throws the first dagger at
           once if Q is ready; the second dagger rides her next attack; its hit runs Eviscerate at once if E is ready
           (the dash is already on the target). A takedown in the window: the pounce again onto the next champion.
-Timings: drafts until the frames exist (a_hit, q_rel, e_at / e2_at, r_roar / r_at). Numbers: candidate g2 of the
+Timings: from the frames (tools/art/rig_naafiri.py MS; a frame's start in ticks = ms x 0.06): the bite at tick 11 of 25,
+the dagger let go at tick 7 of the leap (25), Eviscerate's 30, the roar's 24, the pounce's 28. Numbers: candidate g2 of the
 classic-SDK simulations (C:/t/nf_sim, kd.py --lane 1 against ninja, demon, hunter, werewolf and vampire, 2026-10-21):
 +1.48 on seeds 1-8 and +1.25 on 9-16 (league_graves +1.57 / +0.02, league_warwick +0.57 on 1-8 the same day). The
 draft g1 (attack 112 +22, the pack 10 + 16%, the bleed 40 + 60%, the pounce 80 + 80%) was +5.07 mid (league_talon
@@ -64,19 +65,19 @@ P = {
     # stats (Assassin base: attack 120 +30, hp 900 +80, defence 25, mr 15, move 1100, range 23000; league_talon 122 +25,
     # 930 +88 hp, 26 +8 def)
     "hp": 940, "hp_g": 88, "atk": 100, "atk_g": 18, "def": 26, "def_g": 8, "mr": 18, "mr_g": 4, "ms": 1100, "ms_g": 13,
-    "atk_range": 23000, "atk_dur": 25, "atk_cd": 58, "a_hit": 8, "a_speed": 20000,
+    "atk_range": 23000, "atk_dur": 25, "atk_cd": 58, "a_hit": 11, "a_speed": 20000,
     # passive: the pack's bite on every hit (two packmates; four in `pack4`)
     "pk_dmg": 8, "pk_ratio": 12, "pk_minion": 50, "pk_ride": 180, "pk_period": 45,
     # skill: Q Darkin Daggers
-    "s_cd": 60, "q_cd": 480, "q_range": 50000, "q_dur": 22, "q_rel": 8, "q_speed": 5000,
+    "s_cd": 60, "q_cd": 480, "q_range": 50000, "q_dur": 25, "q_rel": 7, "q_speed": 5000,
     "q_dmg": 30, "q_ratio": 25, "q_b_dmg": 30, "q_b_ratio": 45, "q_bleed": 300, "q_b_period": 30,
-    "q_win": 240, "q2_dur": 22, "q2_rel": 8, "q2_dmg": 35, "q2_ratio": 55, "q_heal": 35, "q_heal_r": 30,
+    "q_win": 240, "q2_dur": 25, "q2_rel": 7, "q2_dmg": 35, "q2_ratio": 55, "q_heal": 35, "q_heal_r": 30,
     # skill2: E Eviscerate
-    "s2_cd": 60, "e_cd": 600, "e_range": 32000, "e_dur": 26, "e_speed": 4500, "e_at": 4, "e2_at": 12, "e_r": 18000,
+    "s2_cd": 60, "e_cd": 600, "e_range": 32000, "e_dur": 30, "e_speed": 4500, "e_at": 4, "e2_at": 12, "e_r": 18000,
     "e_dmg": 35, "e_ratio": 50, "e2_dmg": 25, "e2_ratio": 40,
     # ult: R Hounds' Pursuit opened by W The Call of the Pack
     "r_cd": 3000, "r_range": 60000, "r_roar": 24, "r_imm": 45, "roar_t": 300, "roar_ad": 20, "roar_ms": 20,
-    "r_dur": 22, "r_speed": 4500, "r_at": 2, "r_dmg": 70, "r_ratio": 65, "r_slow": 99, "r_slow_t": 15,
+    "r_dur": 28, "r_speed": 4500, "r_at": 2, "r_dmg": 70, "r_ratio": 65, "r_slow": 99, "r_slow_t": 15,
     "r_shred": 20, "r_shred_t": 180, "r_win": 420, "r_recast": 720, "r_sh": 70, "r_sh_r": 40, "r_sh_t": 180,
     # her spoken lines, at most one every vo_gap ticks
     "vo_gap": 600,
