@@ -1,0 +1,13 @@
+Mode: built-in image_gen; transparent_background=true
+References supplied: 1_ornn_idle, 3_ornn_head, 11_style_volibear, 12_style_gragas, 13_style_chogath (tool limit: five reference paths).
+
+A
+Use case: stylized-concept. Create ONE Ornn pixel-art game character sprite, version A. Five reference images in order: 1 idle is exact identity/pose/view/construction, 2 face closeup, 3-5 PIXEL STYLE ONLY. Match chunky low-resolution pixel art of last three images, NOT 3D rendering.
+1536x1536 RGBA genuinely transparent canvas. Single full body at lower center, highest horn at y664, soles at y1390 (height 726px); entire horns, hammers, feet visible. Huge top transparent margin as specified. Build on a single consistent 11px square grid; thick 2-cell near-black silhouette outline including horns and hammers. Flat 3-4 shades per material, no gradients/dithering/antialiasing/glow.
+Ornn: broad deep hunched ram demigod blacksmith, chibi head+crimson mane/beard excluding horns about one third of height, massively thick slate lavender blue-grey arms, short stout legs. 3/4 FRONT FACING RIGHT exactly like image 1, both equal-sized orange-red eyes visible at same height each 2 cells with yellow highlight; low brows dark ram nose. Shaggy crimson/rose mane and beard in three tones with orange-red edges, small side braids with steel rings and red gems.
+ENORMOUS dark iron curled ram horns extending widely sideways as original idle, dark red angular rune grooves and red-orange tips, not ivory. Bronze ram-horn chestplate, large bronze near shoulder armor and leather bracer, brown leather harness with large square bronze buckles, wide belt and hanging iron tongs, plum apron and boots with lighter edges. Near arm is on image LEFT with slate-blue skin and large low-held steel-blue anvil-shaped forge hammer; far arm image RIGHT has molten orange-red cracked forearm and hot fist gripping a SECOND SMALLER steel hammer low. Both hammers must be present and visibly held, not standing apart. Deep three-tone steel blue heads, dark handles. Planted wide stance leaning forward, hunch, both arms hanging low. Preserve recognizability and large face, clear color clusters like style references.
+No floor, shadow, sparks, fire, halos, scenery, text, grid lines, labels or other characters. VERSION A: large wide original ram horns and original large hammers. Save original generated PNG locally and return file location.
+
+B
+undefined
+
