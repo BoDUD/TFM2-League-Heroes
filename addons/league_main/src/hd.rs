@@ -150,6 +150,14 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // rows crest top to the lowest tentacle: 「36」「PPU 1.5」; 3/4 only, every action after League's clips; ult_loop the
     // kit's channel CasterAnimation), so no SIZES row
     ("league_velkoz", 1.5, include_str!("../../../league/champions/league_velkoz#anim.fanim")),
+    // Ornn: posed by tools/art/rig_ornn.py on Codex's step-1 take A-3 at the user's 1.5 squares a game pixel (66 game rows
+    // horn top to soles: 「44」「PPU 1.5」; 3/4 only, Codex's eighteen skeleton poses with the design's face; skill_w /
+    // skill2_hit / ult_butt the kit's CasterAnimations)
+    ("league_ornn", 1.5, include_str!("../../../league/champions/league_ornn#anim.fanim")),
+    // Shyvana: posed by tools/art/rig_shyvana.py on Codex's step-1 takes at the user's 1.5 squares a game pixel (63 game
+    // rows horn tips to soles, the dragon 64 as drawn: 「人42 龙48 PPU1.5」; 3/4 only; her actions on Codex's skeleton poses
+    // with the design's head; the dragon's d_* tags the kit's CasterAnimations), so no SIZES row
+    ("league_shyvana", 1.5, include_str!("../../../league/champions/league_shyvana#anim.fanim")),
     // Naafiri: posed by tools/art/rig_naafiri.py on Codex's step-1 takes A-2 / P-2 and its key poses at the user's 1.5
     // squares a game pixel (45 game rows blade tip to paws: 「30」「PPU 1.5」; 3/4 only; her pack drawn into her frames, the
     // p4_* tags the four hounds league_naafiri's view hook swaps in during The Call of the Pack), so no SIZES row
@@ -266,13 +274,16 @@ pub fn grown(per: f32, stacks: usize) -> f32 {
 
 /// Effect sheets drawn dense like a hero's sheet (tags `idle` / `hd_idle` only, PPU squares a game pixel, hd_idle PPU times
 /// as wide): league_yuumi_ride, the cat lying on her book on the head of the ally Yuumi rides (the user: 「1.5 倍（21 格）」
-/// for the 14-px picture; tools/art/import_yuumi_fx.py), league_zyra_thicket (below). Looked up like the heroes (src/lookup.rs); the battlefield's
+/// for the 14-px picture; tools/art/import_yuumi_fx.py), league_zyra_thicket and league_leblanc_clone (below). Looked up like the heroes (src/lookup.rs); the battlefield's
 /// entity scale (src/view.rs) never meets them - they are no entity's body.
 pub const EFFECTS: &[(&str, f32, &str)] = &[
     ("league_yuumi_ride", 1.5, include_str!("../../../league/effects/league_yuumi_ride#anim.fanim")),
     // league_zyra's R thicket: Codex's squares 3 x 3 at PPU 2, 1.5 game px each - the picture 1.5 times as big for R's
     // radius 44000 (the user: 「R技能范围做大点」「不用重画啊 你调整一下不就行了吗」; tools/art/import_zyra_fx.py)
     ("league_zyra_thicket", 2.0, include_str!("../../../league/effects/league_zyra_thicket#anim.fanim")),
+    // league_leblanc's passive clone (Mirror Image): her own dense idle where she stood, then the blink-out column - drawn
+    // at her PPU 2.0 like her body (the user: 「妖姬有点bug吧 分身怎么不是高清帧啊 被动的」; tools/fix/leblanc_clone_hd.py)
+    ("league_leblanc_clone", 2.0, include_str!("../../../league/effects/league_leblanc_clone#anim.fanim")),
 ];
 
 pub const PREFIX: &str = "hd_";

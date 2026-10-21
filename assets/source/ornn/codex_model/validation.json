@@ -1,0 +1,65 @@
+{
+  "ornn-model-A-1.png": {
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_levels": 256,
+    "semi_transparent_pixels": 931087,
+    "opaque_subject_bbox_alpha_ge_128": [
+      32,
+      117,
+      1236,
+      1219
+    ],
+    "approx_vertical_cell_period_px": 16,
+    "approx_subject_rows_from_period": 68.9,
+    "visible_16px_blocks": 3830,
+    "nonuniform_visible_16px_blocks": 3829,
+    "strict_16px_grid_pass": false,
+    "binary_alpha_pass": false
+  },
+  "ornn-model-A-2.png": {
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_levels": 256,
+    "semi_transparent_pixels": 947075,
+    "opaque_subject_bbox_alpha_ge_128": [
+      28,
+      125,
+      1239,
+      1244
+    ],
+    "approx_vertical_cell_period_px": 17,
+    "approx_subject_rows_from_period": 65.8,
+    "visible_16px_blocks": 3867,
+    "nonuniform_visible_16px_blocks": 3862,
+    "strict_16px_grid_pass": false,
+    "binary_alpha_pass": false
+  },
+  "ornn-model-A-3.png": {
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_levels": 256,
+    "semi_transparent_pixels": 963940,
+    "opaque_subject_bbox_alpha_ge_128": [
+      22,
+      111,
+      1252,
+      1229
+    ],
+    "approx_vertical_cell_period_px": 17,
+    "approx_subject_rows_from_period": 65.8,
+    "visible_16px_blocks": 3868,
+    "nonuniform_visible_16px_blocks": 3866,
+    "strict_16px_grid_pass": false,
+    "binary_alpha_pass": false
+  }
+}

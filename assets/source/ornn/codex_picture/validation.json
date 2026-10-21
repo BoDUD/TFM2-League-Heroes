@@ -1,0 +1,38 @@
+{
+  "A": {
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "alpha_levels": 256,
+    "alpha_bbox": [
+      0,
+      0,
+      1240,
+      1254
+    ]
+  },
+  "B": {
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "alpha_levels": 256,
+    "alpha_bbox": [
+      0,
+      17,
+      1216,
+      1254
+    ]
+  }
+}

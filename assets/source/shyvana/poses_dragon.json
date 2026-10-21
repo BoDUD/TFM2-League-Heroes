@@ -1,0 +1,308 @@
+{
+ "hero": "shyvana_dragon",
+ "champ": "ShyvanaDragon",
+ "wad": "Shyvana",
+ "camera": {
+  "yaw": 35,
+  "pitch": 20,
+  "mirror": true
+ },
+ "chibi": {
+  "head": 1.3,
+  "legs": 1.0,
+  "hair": 1.0
+ },
+ "height": 43,
+ "cell": [
+  200,
+  112,
+  14
+ ],
+ "design": "idle2@0",
+ "tags": {
+  "d_idle": {
+   "frames": [
+    [
+     "idle2@0",
+     150
+    ],
+    [
+     "idle2@250",
+     150
+    ],
+    [
+     "idle2@500",
+     150
+    ],
+    [
+     "idle2@750",
+     150
+    ],
+    [
+     "idle2@1000",
+     150
+    ],
+    [
+     "idle2@1250",
+     150
+    ],
+    [
+     "idle2@1500",
+     150
+    ],
+    [
+     "idle2@1750",
+     150
+    ]
+   ]
+  },
+  "d_run": {
+   "flat": true,
+   "frames": [
+    [
+     "run1@0",
+     100
+    ],
+    [
+     "run1@117",
+     100
+    ],
+    [
+     "run1@233",
+     100
+    ],
+    [
+     "run1@350",
+     100
+    ],
+    [
+     "run1@467",
+     100
+    ],
+    [
+     "run1@583",
+     100
+    ],
+    [
+     "run1@700",
+     100
+    ],
+    [
+     "run1@817",
+     100
+    ]
+   ]
+  },
+  "d_attack": {
+   "lunge": 0.6,
+   "frames": [
+    [
+     "attack1@0",
+     70
+    ],
+    [
+     "attack1@120",
+     80
+    ],
+    [
+     "attack1@240",
+     80
+    ],
+    [
+     "attack1@360",
+     90
+    ],
+    [
+     "attack1@500",
+     90
+    ],
+    [
+     "attack1@650",
+     100
+    ]
+   ]
+  },
+  "d_skill": {
+   "lunge": 0.6,
+   "frames": [
+    [
+     "spell1_wing@0",
+     70
+    ],
+    [
+     "spell1_wing@120",
+     80
+    ],
+    [
+     "spell1_wing@240",
+     80
+    ],
+    [
+     "spell1_wing@360",
+     90
+    ],
+    [
+     "spell1_wing@500",
+     90
+    ],
+    [
+     "spell1_wing@650",
+     100
+    ]
+   ]
+  },
+  "d_skill_b": {
+   "lunge": 0.6,
+   "frames": [
+    [
+     "spell1_tail@0",
+     70
+    ],
+    [
+     "spell1_tail@120",
+     80
+    ],
+    [
+     "spell1_tail@240",
+     80
+    ],
+    [
+     "spell1_tail@360",
+     90
+    ],
+    [
+     "spell1_tail@500",
+     90
+    ],
+    [
+     "spell1_tail@650",
+     100
+    ]
+   ]
+  },
+  "d_bite": {
+   "lunge": 0.6,
+   "frames": [
+    [
+     "spell1_bite@0",
+     70
+    ],
+    [
+     "spell1_bite@140",
+     80
+    ],
+    [
+     "spell1_bite@280",
+     80
+    ],
+    [
+     "spell1_bite@420",
+     90
+    ],
+    [
+     "spell1_bite@560",
+     100
+    ],
+    [
+     "spell1_bite@750",
+     100
+    ]
+   ]
+  },
+  "d_skill2": {
+   "lunge": 0.6,
+   "frames": [
+    [
+     "spell3@0",
+     60
+    ],
+    [
+     "spell3@60",
+     70
+    ],
+    [
+     "spell3@120",
+     80
+    ],
+    [
+     "spell3@180",
+     90
+    ],
+    [
+     "spell3@240",
+     90
+    ],
+    [
+     "spell3@300",
+     90
+    ]
+   ]
+  },
+  "d_fly": {
+   "lunge": 0.6,
+   "rise": 0.3,
+   "frames": [
+    [
+     "spell4_intro@0",
+     90
+    ],
+    [
+     "spell4_intro@300",
+     90
+    ],
+    [
+     "spell4_intro@600",
+     90
+    ],
+    [
+     "spell4_intro@900",
+     90
+    ],
+    [
+     "spell4@150",
+     90
+    ],
+    [
+     "spell4@450",
+     90
+    ]
+   ]
+  },
+  "d_dead": {
+   "anchor": "first",
+   "lunge": 0.5,
+   "flat": true,
+   "travel": 0.3,
+   "frames": [
+    [
+     "death@0",
+     100
+    ],
+    [
+     "death@250",
+     110
+    ],
+    [
+     "death@500",
+     120
+    ],
+    [
+     "death@750",
+     120
+    ],
+    [
+     "death@1000",
+     140
+    ],
+    [
+     "death@1300",
+     160
+    ],
+    [
+     "death@1600",
+     400
+    ]
+   ]
+  }
+ }
+}
