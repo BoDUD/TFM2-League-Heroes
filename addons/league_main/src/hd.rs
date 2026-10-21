@@ -296,12 +296,12 @@ pub const EFFECTS: &[(&str, f32, &str)] = &[
     ("league_heimerdinger_turret", 1.5, include_str!("../../../league/effects/league_heimerdinger_turret#anim.fanim")),
     ("league_heimerdinger_apex", 1.5, include_str!("../../../league/effects/league_heimerdinger_apex#anim.fanim")),
     // and the same seen from the side for league_heimerdinger's add-on (it picks the side its target is on; the user:
-    // 「炮台改成侧面朝敌人」「灵活利用PPU 炮也可以调的清晰」): League's models at PPU 3, league_zeri's density
-    // (tools/art/design_heimerdinger_side_turrets.py)
-    ("league_heimerdinger_turret_r", 3.0, include_str!("../../../league/effects/league_heimerdinger_turret_r#anim.fanim")),
-    ("league_heimerdinger_turret_l", 3.0, include_str!("../../../league/effects/league_heimerdinger_turret_l#anim.fanim")),
-    ("league_heimerdinger_apex_r", 3.0, include_str!("../../../league/effects/league_heimerdinger_apex_r#anim.fanim")),
-    ("league_heimerdinger_apex_l", 3.0, include_str!("../../../league/effects/league_heimerdinger_apex_l#anim.fanim")),
+    // 「炮台改成侧面朝敌人」「灵活利用PPU 炮也可以调的清晰」「炮太高清了 降低点像素」): League's models at PPU 1.75, a
+    // little finer than his 1.5 (tools/art/design_heimerdinger_side_turrets.py)
+    ("league_heimerdinger_turret_r", 1.75, include_str!("../../../league/effects/league_heimerdinger_turret_r#anim.fanim")),
+    ("league_heimerdinger_turret_l", 1.75, include_str!("../../../league/effects/league_heimerdinger_turret_l#anim.fanim")),
+    ("league_heimerdinger_apex_r", 1.75, include_str!("../../../league/effects/league_heimerdinger_apex_r#anim.fanim")),
+    ("league_heimerdinger_apex_l", 1.75, include_str!("../../../league/effects/league_heimerdinger_apex_l#anim.fanim")),
     // league_leblanc's passive clone (Mirror Image): her own dense idle where she stood, then the blink-out column - drawn
     // at her PPU 2.0 like her body (the user: 「妖姬有点bug吧 分身怎么不是高清帧啊 被动的」; tools/fix/leblanc_clone_hd.py)
     ("league_leblanc_clone", 2.0, include_str!("../../../league/effects/league_leblanc_clone#anim.fanim")),

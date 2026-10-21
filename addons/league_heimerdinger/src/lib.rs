@@ -40,8 +40,8 @@ const VERSION: &str = "0.1.0";
 /// 侧面炮台朝右时炮口离炮台的点多远（游戏像素 x 1000：往前、往上；tools/art/import_heimerdinger_fx.py 写的
 /// assets/source/heimerdinger/hd/side_muzzles.json，make_override.py 核对）。一颗飞行物画在它的点上方 5 px，所以发射点往南挪
 /// 5 px 减去炮口的高度。
-pub const T_MUZZLE: (i64, i64) = (10_330, -600);
-pub const X_MUZZLE: (i64, i64) = (13_670, 4_070);
+pub const T_MUZZLE: (i64, i64) = (9_710, -300);
+pub const X_MUZZLE: (i64, i64) = (13_140, 3_810);
 /// 朝左的标记挂多久：隐形弹飞 `q_place / q_speed`（5）tick 才落地画炮台。
 const FACE_T: usize = 30;
 /// 算「受控制」的控制种类：游戏 `CastingTarget::check` 的掩码 0x347（击飞、眩晕、禁锢、强制位移、恐惧、魅惑）。

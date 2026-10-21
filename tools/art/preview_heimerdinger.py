@@ -7,7 +7,7 @@
   league_heimerdinger_effects.png   every effect animation, 3x (the two turrets' lives included)
   league_heimerdinger_showcase.gif  a scripted fight against Darius, timed like the kit (tools/kit/build_heimerdinger.py,
                                     60 ticks a second), as the add-on shows it: the H-28G turret set down in front of
-                                    him, seen from the side facing Darius (league_heimerdinger_turret_r, PPU 3), firing
+                                    him, seen from the side facing Darius (league_heimerdinger_turret_r, PPU 1.75), firing
                                     its shots from the muzzle (t_shot); two hextech bolts and the third attack with
                                     the crane's five Micro-Rockets; the CH-2 grenade lobbed onto Darius (the blast, the
                                     stun, the slow) and at once the combo - the rockets on the stunned champion, the
@@ -40,10 +40,10 @@ if os.name == "nt" and not ROOT.startswith(chr(92) * 2):
 LEAGUE = os.path.join(ROOT, "league")
 CHAMP = os.path.join(LEAGUE, "champions", "league_heimerdinger")
 FX = {n: os.path.join(LEAGUE, "effects", n) for n in ("league_heimerdinger_fx", "league_heimerdinger_big")}
-# the add-on's side turrets facing right (Darius is to his right), PPU 3 (hd.rs EFFECTS)
+# the add-on's side turrets facing right (Darius is to his right), at their own PPU (hd.rs EFFECTS)
 TURRETS = {n: os.path.join(LEAGUE, "effects", n) for n in ("league_heimerdinger_turret_r", "league_heimerdinger_apex_r")}
-SIDE_PPU = 3.0
 MUZZLES = os.path.join(ROOT, "assets", "source", "heimerdinger", "hd", "side_muzzles.json")
+SIDE = os.path.join(ROOT, "assets", "source", "heimerdinger", "hd", "side_turrets.json")     # their PPU
 DARIUS = os.path.join(LEAGUE, "champions", "league_darius")
 CLAW = (-18, -41)        # the crane's claw from his pivot when W fires (the attack_w frames' flash; the kit's w_y)
 
@@ -110,6 +110,8 @@ def showcase(out, z=3):
     tur = {k: load(v) for k, v in TURRETS.items()}
     with open(T.long_path(MUZZLES), encoding="utf-8") as f:
         mz = json.load(f)                                # each muzzle: game px ahead of and up from the pivot
+    with open(T.long_path(SIDE), encoding="utf-8") as f:
+        side_ppu = float(json.load(f)["ppu"])
     W, H = 210, 112
     gy = 90
     x0 = 100
@@ -126,7 +128,7 @@ def showcase(out, z=3):
     def turret(sheet, muzzle, at, t_stand, first, per, shoot, until):
         """A turret's life on the ground (under the units) and its shots at Darius from its muzzle from first on, every
         per, while shoot(t) gives the shot's (tag, hit, speed) and until it stops."""
-        an = Anim(dense_at(sheet, "idle", SIDE_PPU, z), t_stand, at, gy)
+        an = Anim(dense_at(sheet, "idle", side_ppu, z), t_stand, at, gy)
         c.under.append(an)
         t = t_stand + tick(first)
         while t < min(until, an.until):

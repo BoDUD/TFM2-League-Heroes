@@ -8,7 +8,7 @@ E → W 都在主包数据里。主包是纯数据：数据没有召唤物，炮
 
 | | 主包（纯数据） | 装了附加包 |
 |---|---|---|
-| 炮台的样子 | 正面朝镜头（数据不知道目标在哪边） | **侧面、炮口朝目标那边**（用户：「炮台改成侧面朝敌人」）：英雄联盟模型的侧面，PPU 3（泽丽的密度，用户：「灵活利用PPU 炮也可以调的清晰」），朝左朝右两套 |
+| 炮台的样子 | 正面朝镜头（数据不知道目标在哪边） | **侧面、炮口朝目标那边**（用户：「炮台改成侧面朝敌人」）：英雄联盟模型的侧面，PPU 1.75（用户：「灵活利用PPU 炮也可以调的清晰」，PPU 3 时又「炮太高清了 降低点像素」），朝左朝右两套 |
 | 炮台出手 | 炮台的区域当场打中目标，目标身上冒命中特效 | 炮弹（`t_shot`）、充能光束（`t_beam_line`）、巨型炮台的等离子弹（`x_shot`）**从侧面炮台的炮口飞向目标，飞到才扣血** |
 | 打谁 | 受控英雄 → 英雄 → 其他敌人，各区域里先轮到的那个 | 同样的顺序，每档里打**最近的** |
 | 海克斯科技亲和 | 自己的炮台旁 +20% 移速 | 自己的炮台旁**或己方防御塔旁** +20% 移速 |
@@ -23,8 +23,8 @@ E → W 都在主包数据里。主包是纯数据：数据没有召唤物，炮
   `league_heimerdinger:affinity`（数字在 `passive.params`）；加上三种炮弹的 `view_projectiles`（画在主包的 `league_heimerdinger_fx`
   里，主包没用）；Q 的说明开头加【扩展包】。
 - **炮台朝哪边**：`:q` / `:x` 算出的方向往左时给他挂 `league_heimerdinger_t_face_l` / `_x_face_l`（30 tick），副本的隐形弹落地时
-  据此画 `league_heimerdinger_turret_l` / `_apex_l`，否则 `_r`。这四张是主包里的特效表（hd.rs EFFECTS，PPU 3），由
-  `tools/art/design_heimerdinger_side_turrets.py`（英雄联盟模型 70 度侧面渲染，黑白两底抠图，缩到 20 / 30 游戏像素 x 3，16 色
+  据此画 `league_heimerdinger_turret_l` / `_apex_l`，否则 `_r`。这四张是主包里的特效表（hd.rs EFFECTS，PPU 1.75），由
+  `tools/art/design_heimerdinger_side_turrets.py`（英雄联盟模型 70 度侧面渲染，黑白两底抠图，缩到 20 / 30 游戏像素 x 1.75，16 色
   平涂加分界线，颜色往正面造型靠）和 `tools/art/import_heimerdinger_fx.py`（同样的升起、炮口闪光、开火后坐、损坏，朝左是镜像）生成。
   炮口离炮台点的位置写在 `assets/source/heimerdinger/hd/side_muzzles.json`，`src/lib.rs` 的 `T_MUZZLE` / `X_MUZZLE` 照它（`make_override.py` 核对）。
 - **炮台站在哪**：`:q` / `:x` 拿施法的输入（Q 是方向、R 是目标），和数据的隐形弹一样朝那边 `q_place` 远、`q_place / q_speed`

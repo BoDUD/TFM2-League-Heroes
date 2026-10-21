@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Heimerdinger's two turrets seen from the side, muzzle to the right, dense at PPU_SIDE (the user, 2026-10-21:
 「炮台应该对准敌人吧？」 -> 「炮台改成侧面朝敌人 ... 附加包放炮台时朝向敌人那边；主包不知道敌人方向，保留正面朝镜头」 ->
-「你直接调啊」 -> 「灵活利用PPU 炮也可以调的清晰」: made here from League's models, no Codex).
+「你直接调啊」 -> 「灵活利用PPU 炮也可以调的清晰」 -> 「炮太高清了 降低点像素」: made here from League's models, no Codex).
 
     python tools/art/design_heimerdinger_side_turrets.py [--yaw 70] [--review DIR]
         # writes hd/turret_side.png, hd/apex_side.png (PPU_SIDE squares a game pixel) and hd/side_turrets.json
@@ -9,8 +9,9 @@
 League's models (HeimerTYellow, HeimerTBlue) rendered at yaw `--yaw` (tools/lol/pose_ref.py, --mirror as every
 Heimerdinger render: facing right) on black and on white: the two give each pixel's alpha and colour (difference
 matting, no keyed fringe). The figure goes to the user's game sizes (the Q turret 20 game px top to feet, the apex 30)
-at PPU_SIDE squares a game pixel - league_zeri's density, 3: the hero's own 1.5 left the side view a smear at 30 rows
-(the legs a line, the parts run together; a hand-placed drawing was no better) - by an area average, then flat pixel
+at PPU_SIDE squares a game pixel - 1.75: a mode reading at the hero's own 1.5 left the side view a smear (the legs a
+line, the parts run together; a hand-placed drawing was no better), league_zeri's 3 was too fine beside him (「炮太高清了」;
+2.2 and 2.0 compared too) - by an area average, then flat pixel
 art the way the PPU heroes are (pixel_down.crisp: one 16-colour palette, majority passes, a dark line on the darker
 side of every edge between parts far apart in brightness) and the ink outline round it (strips.complete_outline).
 The muzzle - the red ring's middle at the barrel's right end - goes to hd/side_turrets.json (dense px from the
@@ -36,7 +37,7 @@ import strips  # noqa: E402
 LOL = r"D:\WeGameApps\lol"
 WORK = "C:/t/hd_work/side"
 HD = os.path.join(ROOT, "assets", "source", "heimerdinger", "hd")
-PPU_SIDE = 3.0
+PPU_SIDE = 1.75
 TRANSFER = 0.45         # how far the colours go toward the front design's (toward())
 INK = (11, 3, 13)
 # name -> (League character, its idle frame, game px top to feet: the user's picks, 2026-10-21)
@@ -140,10 +141,13 @@ def build(name, yaw):
 
 
 def main():
+    global PPU_SIDE
     ap = argparse.ArgumentParser()
     ap.add_argument("--yaw", type=int, default=70)
+    ap.add_argument("--ppu", type=float, default=PPU_SIDE)
     ap.add_argument("--review")
     a = ap.parse_args()
+    PPU_SIDE = a.ppu
     meta, cells = {"ppu": PPU_SIDE, "yaw": a.yaw}, []
     for name in TURRETS:
         side = build(name, a.yaw)

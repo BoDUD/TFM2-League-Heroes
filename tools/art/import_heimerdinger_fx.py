@@ -12,7 +12,7 @@ loop; the rest play once. w_flash and dead_burst are drawn into his frames (rig_
 muzzle and breaking pictures into the turrets' own tags here; t_shot, t_beam_line and x_shot (a native add-on's shots
 from the turrets) go into the fx sheet unbound.
 The side turrets (the user, 2026-10-21: 「炮台改成侧面朝敌人」, 「灵活利用PPU 炮也可以调的清晰」): the same lives drawn from
-hd/turret_side.png and hd/apex_side.png (tools/art/design_heimerdinger_side_turrets.py, PPU 3 like league_zeri), the
+hd/turret_side.png and hd/apex_side.png (tools/art/design_heimerdinger_side_turrets.py, PPU 1.75), the
 muzzle flash on the barrel's end, the shot kicking the turret back a step instead of down; facing right
 (league_heimerdinger_turret_r / _apex_r) and the same mirrored (_l): effects are never mirrored by the game, and the
 add-on's copy picks the side its target is on. Only the add-on's copy draws them; the main pack keeps the front ones.

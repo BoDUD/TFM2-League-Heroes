@@ -54,7 +54,7 @@ FX = "asset/league/effects/league_heimerdinger_fx"
 BIG = "asset/league/effects/league_heimerdinger_big"
 TURRET = "asset/league/effects/league_heimerdinger_turret"   # Q's turret's life, dense (PPU 1.5, hd.rs EFFECTS; tag idle)
 APEX = "asset/league/effects/league_heimerdinger_apex"       # R's apex turret's life, the same way
-# the add-on's copy: the same lives seen from the side, muzzle right / left (PPU 3, hd.rs EFFECTS; tag idle)
+# the add-on's copy: the same lives seen from the side, muzzle right / left (PPU 1.75, hd.rs EFFECTS; tag idle)
 TURRET_R, TURRET_L = TURRET + "_r", TURRET + "_l"
 APEX_R, APEX_L = APEX + "_r", APEX + "_l"
 
