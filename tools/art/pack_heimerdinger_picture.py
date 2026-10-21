@@ -10,10 +10,11 @@ Heimerdinger (group F bot stand-in, 2026-10-21) is the Revered Inventor, a yordl
   a huge spiky mane of golden-yellow hair swept back, big pointed orange ears, red-rimmed goggles with glowing cyan
   lenses, a bushy white moustache and beard, a magnifying monocle on a stalk over his hair; a dark green-grey academy
   coat with a brass belt buckle, black boots; an orange hextech multitool in one hand and a green wrench in the other.
-  Turret (H-28G Evolution Turret, Q) - a small grey cannon box on a short tripod, a pale green gear on its back, a red
-  muzzle ring, a red knob on a stalk; in the WAD it is the character HeimerTBlue (clips HeimerTurret_Mega_*).
-  Apex turret (UPGRADE!!! Q) - a big grey block on four splayed red-footed legs, two pale green exhaust stacks, a big red
-  muzzle; the character HeimerTYellow (clips HeimerTurret_*). The names cross the looks: the renders decide.
+  Turret (H-28G Evolution Turret, Q) - a small grey block on two splayed red-footed legs, a big red octagonal muzzle, two
+  pale green exhaust stacks, a red ball on top; the character HeimerTYellow (clips HeimerTurret_*, bind pose 67 tall).
+  Apex turret (UPGRADE!!! Q) - a grey cannon box on a short tripod, a pale green gear on each side, a red muzzle ring, a
+  red knob on a stalk; the character HeimerTBlue (clips HeimerTurret_Mega_*, 147 tall; its sounds RQEngine and
+  BigEnergyBlast). The 3/4 renders hide the scale (each fitted): the bind-pose sizes and the sounds decide.
 Four pictures: A = his idle 3/4 front facing right, SA = his side-on facing right, T = the turret from the front, X = the
 apex turret from the front. The turrets stand in the game as effect pictures, which the client never mirrors (the skill's
 rule "the client never mirrors an effect picture"): a turret seen from the front (the muzzle toward the viewer) looks
@@ -39,21 +40,21 @@ from riot import Wad  # noqa: E402
 SRC = os.path.join(REPO, "assets", "source")
 CHAMPS = os.path.join(REPO, "league", "champions")
 GREY = (225, 225, 225)
-HERO, TUR, APEX = "heimerdinger_base_idle1@0", "heimerturret_mega_idle1@0", "heimerturret_idle1@0"
+HERO, TUR, APEX = "heimerdinger_base_idle1@0", "heimerturret_idle1@0", "heimerturret_mega_idle1@0"
 # name -> (champ, frame, yaw, size, width, crop: "box" / "head" / "none")
 RENDERS = {
     "1_heimer_idle": ("Heimerdinger", HERO, 35, 1600, 1.4, "box"),
     "2_heimer_frontal": ("Heimerdinger", HERO, 0, 1600, 1.4, "box"),
     "3_heimer_head": ("Heimerdinger", HERO, 35, 3200, 1.4, "head"),
     "4_heimer_side": ("Heimerdinger", HERO, 75, 1600, 1.4, "box"),
-    "5_turret_34": ("HeimerTBlue", TUR, 35, 1600, 1.2, "box"),
-    "6_turret_front": ("HeimerTBlue", TUR, 0, 1600, 1.2, "box"),
-    "7_apex_34": ("HeimerTYellow", APEX, 35, 1600, 1.2, "box"),
-    "8_apex_front": ("HeimerTYellow", APEX, 0, 1600, 1.2, "box"),
+    "5_turret_34": ("HeimerTYellow", TUR, 35, 1600, 1.2, "box"),
+    "6_turret_front": ("HeimerTYellow", TUR, 0, 1600, 1.2, "box"),
+    "7_apex_34": ("HeimerTBlue", APEX, 35, 1600, 1.2, "box"),
+    "8_apex_front": ("HeimerTBlue", APEX, 0, 1600, 1.2, "box"),
     "full_heimer": ("Heimerdinger", HERO, 35, 1600, 1.4, "none"),
     "full_heimer_side": ("Heimerdinger", HERO, 75, 1600, 1.4, "none"),
-    "full_turret": ("HeimerTBlue", TUR, 0, 1600, 1.2, "none"),
-    "full_apex": ("HeimerTYellow", APEX, 0, 1600, 1.2, "none"),
+    "full_turret": ("HeimerTYellow", TUR, 0, 1600, 1.2, "none"),
+    "full_apex": ("HeimerTBlue", APEX, 0, 1600, 1.2, "none"),
 }
 SQ = 11
 SOLE = 1390
