@@ -35,8 +35,10 @@ A = "<#ffb900ff>"      # durations, counts
 R = "<#ef5350ff>"      # crowd control
 G = "<#66bb6aff>"      # healing, shields
 E = "<>"
-# champion_view: provisional until the sprite (tfm2_ase.py face)
-VIEW = {"face": {"x": 1, "y": -30}, "center": {"x": 0, "y": -15}}
+# champion_view: the face point between her eyes (ppu_restyle.py RESTYLE face_to: 1 game px ahead of her standing point,
+# 27 over the ground) and the ban/pick card -10 (tools/art/bp_card_audit.py: the quill tips 1 game px under the card's
+# top, Zyra's value)
+VIEW = {"face": {"x": 1, "y": -27}, "center": {"x": 0, "y": -15}, "banpick_center": {"x": 0, "y": -10}}
 
 
 def mag(d, r):

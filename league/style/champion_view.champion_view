@@ -1915,11 +1915,15 @@
     "league_neeko": {
       "face": {
         "x": 1,
-        "y": -30
+        "y": -27
       },
       "center": {
         "x": 0,
         "y": -15
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -10
       }
     }
   }

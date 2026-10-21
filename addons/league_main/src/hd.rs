@@ -162,6 +162,10 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // squares a game pixel (45 game rows blade tip to paws: 「30」「PPU 1.5」; 3/4 only; her pack drawn into her frames, the
     // p4_* tags the four hounds league_naafiri's view hook swaps in during The Call of the Pack), so no SIZES row
     ("league_naafiri", 1.5, include_str!("../../../league/champions/league_naafiri#anim.fanim")),
+    // Neeko: posed by tools/art/rig_neeko.py on Codex's step-1 take A-1 and its key poses at the user's 2.5 squares a
+    // game pixel (100 game rows quill tips to soles: 「40」, then 「1.5也挺糊的 还得往上调整吧」; 3/4 only; league_neeko's
+    // view hook draws her as an ally while she is disguised), so no SIZES row
+    ("league_neeko", 2.5, include_str!("../../../league/champions/league_neeko#anim.fanim")),
     // Xerath: re-adjusted at 1.75 squares a game pixel (tools/art/design_xerath_hd.py: Codex's draft B on its own grid,
     // slimmer with a smaller head, 73 rows crown to spike tips = 41.7 game px: 「不是重做 是重新调整」「游戏里别太大就行」),
     // every action posed after League's clips by tools/art/rig_xerath_hd.py (R: his armour in a ring round the core), so no

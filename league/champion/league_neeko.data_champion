@@ -494,7 +494,7 @@
               },
               {
                 "type": "Delayed",
-                "tick": 9,
+                "tick": 13,
                 "effects": [
                   {
                     "type": "Combine",
@@ -1246,7 +1246,7 @@
         },
         {
           "type": "Delayed",
-          "tick": 9,
+          "tick": 10,
           "effects": [
             {
               "type": "Combine",
@@ -1844,7 +1844,7 @@
                                                             },
                                                             {
                                                               "type": "Delayed",
-                                                              "tick": 9,
+                                                              "tick": 13,
                                                               "effects": [
                                                                 {
                                                                   "type": "Combine",

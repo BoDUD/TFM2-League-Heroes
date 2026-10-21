@@ -29,7 +29,9 @@ the passive Inherent Glamour as an add-on; 「有连招要做连招」). TFM2 ha
           lobbed onto a champion in crowd control (normally the one just rooted) and bursts in q_fast ticks.
           R -> Q (怒放落地 -> 盛开花种): the landing throws the seed at once onto a stunned champion if Q is ready.
           The bloom's twin, the stun and the root keep the champion in the burst for the second and third bloom.
-Timings: provisional (Zyra's frames) until her rig (tools/art/rig_neeko.py) sets them: every action releases on tick 10.
+Timings: from the frames (tools/art/rig_neeko.py MS; a frame's start in ticks = ms x 0.06): the attack's bolt from the
+thrust at 100 ms (a_rel 10, 27 ticks), Q's seed from the throw in the air at 220 ms after the somersault (q_rel 14, 30
+ticks), E's barbs from the fling at 170 ms (e_rel 11, 30 ticks), R's charge 45 ticks (the hunch) and its leap 30.
 Numbers: the classic-SDK simulations (C:/t/nk_sim, kd.py --lane 2 against pyromancer, ice_mage, lightning_mage,
 wind_mage and white_mage, 2026-10-21; league_zyra +1.94 on seeds 1-8 the same day): the draft from Zyra's numbers -1.76
 (Q's slot held by a short slot cooldown and the q_cd flag: 175 empty casts a game), Q on its own cooldown -1.31; Q, E
@@ -62,12 +64,12 @@ P = {
     # W Shapesplitter's passive: every third attack
     "w_dmg": 45, "w_ratio": 50, "w_ms": 30, "w_ms_t": 60,
     # Q Blooming Burst
-    "q_cd": 420, "q_range": 80000, "q_dur": 30, "q_rel": 10, "q_travel": 25, "q_fast": 4, "q_r": 22000,
+    "q_cd": 420, "q_range": 80000, "q_dur": 30, "q_rel": 14, "q_travel": 25, "q_fast": 4, "q_r": 22000,
     "q_dmg": 95, "q_ratio": 65, "q_rep": 45, "q2_dmg": 40, "q2_ratio": 25,
     # the E -> Q window after the barbs reach a champion (the root's length)
     "e_combo": 60,
     # E Tangle-Barbs
-    "e_cd": 660, "e_range": 90000, "e_dur": 30, "e_rel": 10, "e_speed": 2000, "e_len": 100000, "e_w": 7000,
+    "e_cd": 660, "e_range": 90000, "e_dur": 30, "e_rel": 11, "e_speed": 2000, "e_len": 100000, "e_w": 7000,
     "e_dmg": 90, "e_ratio": 60, "e_root": 60, "e_add": 45, "e_y": 5000,
     # R Pop Blossom
     "r_cd": 2100, "r_range": 45000, "r_charge": 45, "r_dur": 30, "r_speed": 3500, "r_at": 2, "r_r": 40000,
