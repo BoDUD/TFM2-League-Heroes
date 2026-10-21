@@ -148,6 +148,15 @@ pub static BUILDS: &[Build] = &[Build {
     ],
 }];
 
+impl Build {
+    /// The BP grid's call of the anim lookup and its four size asks (the third of the UI drawers: encyclopedia, pick
+    /// slot, BP grid, pick moment, scoreboard): it draws the battlefield's hd_ frames, not the UI's lo_ ones (the user,
+    /// 2026-10-21: 「BP 格子也改成显示战场那套 hd_ 高清帧」).
+    pub fn bp_grid(&self) -> (usize, &[usize]) {
+        (self.ui_anim_ret[2], &self.ui_size_ret[8..12])
+    }
+}
+
 /// A build found at run time (game_places::resolve, 2026-10-20: 「想个方法做个动态寻地址的 后面游戏更新了我们维护压力小一点」):
 /// when no listed build's fingerprints hold, league.dll looks for the same places by the patterns made from the listed
 /// one; found, they are kept for the process (leaked: one Build per load).
@@ -231,6 +240,16 @@ mod tests {
         assert_eq!(p.ui_size_ret, b.ui_size_ret);
         assert_eq!(p.ui_sized_anim_ret, b.ui_sized_anim_ret);
         assert_eq!(p.ui_sized_size_ret, b.ui_sized_size_ret);
+    }
+
+    #[test]
+    fn the_bp_grid_is_the_third_ui_drawer() {
+        for b in BUILDS {
+            let (call, asks) = b.bp_grid();
+            // a whole-body drawer, its four asks right after its call
+            assert!(b.ui_sized_anim_ret.contains(&call) && asks.len() == 4, "{}", b.name);
+            assert!(asks.iter().all(|r| b.ui_sized_size_ret.contains(r) && *r > call && *r - call < 0x1000));
+        }
     }
 
     #[test]
