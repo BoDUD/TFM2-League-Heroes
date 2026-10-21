@@ -227,7 +227,7 @@ def build(p):
     forge = sw("forge", NONE, flag("forge", None, defence_mult=p["p_def"], magic_resistance_mult=p["p_def"],
                                    hp_mult=p["p_hp"]))
     # Brittle on an enemy champion: its picture on him (by name) and the flag on Ornn his next attack reads
-    brittle = [buff("brittle", p["br_t"]), on_me(refresh("brittle", p["br_t"]))]
+    brittle = [buff("brittle", p["br_t"]), tsfx("br"), on_me(refresh("brittle", p["br_t"]))]
     # the break: a champion-only twin of the attack's blow (it only lands when the attack's target is a champion)
     shatter = homing("br_pop", "EnemyChampion", [
         true_max(p["br_hp"]), {"type": "Knockback", "speed": p["br_kb_speed"], "tick": p["br_kb_t"]},
@@ -239,7 +239,7 @@ def build(p):
         last = k == p["w_n"] - 1
         champs = [true_max(p["w_thp"]), *(brittle if last else [])]
         return delayed(p["w_first"] + k * p["w_gap"], alive_aimed(
-            ahead(p["w_len"], p["w_cone"], "EnemyWithoutTower", [magic(p["w_dmg"], p["w_hp"]), view("w_hit")]),
+            ahead(p["w_len"], p["w_cone"], "EnemyWithoutTower", [magic(p["w_dmg"], p["w_hp"]), view("w_hit"), tsfx("w_hit")]),
             ahead(p["w_len"], p["w_cone"], "EnemyChampion", champs)))
     breath = combine(flag("w_cd", p["w_cd"]), anim("skill_w", p["w_t"]), cview("w_fire"), sfx("w"), voice("vo_w", p),
                      on_me(refresh("w_still", p["w_t"], cc_immune=True),
@@ -247,7 +247,7 @@ def build(p):
                             "tick": p["w_sh_t"]},
                            refresh("w_shown", p["w_sh_t"]), delayed(p["w_sh_t"], *rm("w_shown"))),
                      *[pulse(k) for k in range(p["w_n"])])
-    blow = combine(attack(0, 100), view("a_hit"), tsfx("a_hit"), sw("brittle", shatter))
+    blow = combine(sfx("a"), attack(0, 100), view("a_hit"), tsfx("a_hit"), sw("brittle", shatter))
     # the breath when it is ready and an enemy champion is near (a 1-tick flag from the search, read at once)
     w_go = combine(*rm("w_near"), sw("w_cd", NONE, pick(p["w_go"], "EnemyChampion", flag("w_near", 1))))
     attack_a = action("attack", p["atk_dur"], p["atk_cd"], p["atk_st"], p["atk_range"], "Targeting", "Enemy",
@@ -262,10 +262,10 @@ def build(p):
                     view("q_hit"), tsfx("q_hit")], end=rise, y=0)
     skill = action("skill", p["q_dur"], p["q_cd"], 1, p["q_range"], "Position", "EnemyWithoutTower",
                    combine(forge, sfx("q"), voice("vo_q", p),
-                           delayed(p["q_rel"] - 1, alive_aimed(cview("q_slam"), fissure))))
+                           delayed(p["q_rel"] - 1, alive_aimed(cview("q_slam"), sfx("q_crack"), fissure))))
 
     # ------------------------------------------------------------------ skill2: E Searing Charge (Q -> E)
-    quake = combine(*rm("q_pillar"), cview("e_quake"), sfx("e_quake"),
+    quake = combine(*rm("q_pillar"), cview("e_quake"), sfx("q_break"), sfx("e_up"),
                     around(p["e_quake_r"], "EnemyWithoutTower",
                            [attack(p["e_q_dmg"], 0, p["e_q_hp"]), {"type": "Airborne", "duration": p["e_up"]},
                             view("e_hit")]),
@@ -291,9 +291,9 @@ def build(p):
     ram2_c = line("r_ram2_c", p["r2_speed"], p["r_len"], p["r_w"], "EnemyChampion", True, brittle, y=0)
     ult = action("ult", p["r_rel"] + 2, p["r_cd"], 1, p["r_range"], "Targeting", "EnemyChampion",
                  combine(forge, sfx("r"), voice("vo_r", p), anim("ult", arrive),
-                         delayed(p["r_rel"] - 1, alive_aimed(cview("r_call"), out)),
+                         delayed(p["r_rel"] - 1, alive_aimed(cview("r_call"), sfx("r_run"), out)),
                          delayed(arrive, anim("ult_butt", p["r_butt_t"]), sfx("r2"), voice("vo_r2", p)),
-                         delayed(arrive + p["r_butt_rel"], alive_aimed(cview("r_butt"), ram2, ram2_c))))
+                         delayed(arrive + p["r_butt_rel"], alive_aimed(cview("r_butt"), sfx("r2_butt"), sfx("r2_run"), ram2, ram2_c))))
 
     # ------------------------------------------------------------------ views
     E = lambda name, anim_=FX, z=2, follow=True: {"type": "Animation", "name": n(name), "anim": anim_, "tag": name,
