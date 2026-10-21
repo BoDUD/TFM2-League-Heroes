@@ -113,11 +113,11 @@ TEXT = {
 }
 
 C = "league_neeko_sfx_"   # clip names differ from the sound names: a clip named like its sound is not found in game
-# sound name -> [(clip, volume, delay)]
+# sound name -> [(clip, volume, delay)]; p_on / p_off are the add-on's disguise (league_neeko plays them)
 SOUNDS = {f"league_neeko_{k}": [(C + k, v, 0.0)] for k, v in (
     ("a", 0.3), ("a_hit", 0.35), ("w", 0.35), ("w_hit", 0.4), ("q", 0.4), ("q_burst", 0.5), ("q_bloom", 0.45),
     ("q_hit", 0.3), ("e", 0.4), ("e_hit", 0.45), ("r", 0.45), ("r_sh", 0.35), ("r_jump", 0.45), ("r_land", 0.55),
-    ("r_hit", 0.4), ("vo_q", 0.85), ("vo_e", 0.85), ("vo_r", 0.9))}
+    ("r_hit", 0.4), ("p_on", 0.4), ("p_off", 0.4), ("vo_q", 0.85), ("vo_e", 0.85), ("vo_r", 0.9))}
 CLIPS = sorted({c for plays in SOUNDS.values() for c, _, _ in plays})
 
 

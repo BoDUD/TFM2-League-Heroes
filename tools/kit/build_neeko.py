@@ -68,8 +68,9 @@ P = {
     "r_cd": 2100, "r_range": 45000, "r_charge": 45, "r_dur": 30, "r_speed": 3500, "r_at": 2, "r_r": 40000,
     "r_sh": 80, "r_sh_r": 30, "r_sh_c": 40, "r_sh_t": 150, "r_air": 20, "r_dmg": 170, "r_ratio": 75, "r_stun": 50,
     "vo_gap": 600,
-    # 1 = the copy for addons/league_neeko: the passive league_neeko:glamour (the disguise)
-    "native": 0,
+    # 1 = the copy for addons/league_neeko: the passive league_neeko:glamour (the disguise; League: 2 s out of combat to
+    # take it on, 6 s after it breaks, 20% magic penetration 4 s after a damaging cast breaks it) and its picture p_poof
+    "native": 0, "p_first": 120, "p_cd": 360, "p_calm": 120, "p_hp": 35, "p_pen": 20, "p_pen_t": 240, "p_r": 200000,
 }
 
 
@@ -300,7 +301,9 @@ def build(p):
     views_b = [B_("e_bound", FX, 3), B_("w_haste", FX, -1)]
     extra = {}
     if native:
-        extra["passive"] = {"passive_ref": "league_neeko:glamour", "params": {}}
+        views_e.append(E("p_poof", FX, 3))
+        extra["passive"] = {"passive_ref": "league_neeko:glamour", "params": {
+            k: p[k] for k in ("p_first", "p_cd", "p_calm", "p_hp", "p_pen", "p_pen_t", "p_r")}}
     return {
         "id": ID, "category": "Magician", "tags": ["AP", "Magic", "Range", "CC"], **extra,
         "sprite": f"asset/league/champions/{ID}", "anim_prefix": "",

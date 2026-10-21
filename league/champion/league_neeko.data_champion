@@ -368,7 +368,7 @@
     "action_name": "idle",
     "description": "#asset/base/text/champion?description.league_neeko.skill",
     "duration": 3,
-    "cooltime": 60,
+    "cooltime": 420,
     "start_timing": 1,
     "cancelable": false,
     "range": 80000,
