@@ -438,8 +438,9 @@ RESTYLE = {
     # league_ornn (#146): posed by tools/art/rig_ornn.py on Codex's step-1 take A-3 at the user's 1.5 squares a game pixel
     # (「44」「PPU 1.5」: 66 rows horn top to soles, Codex's own face; 3/4 only, Codex's eighteen skeleton poses with the
     # design's face), so no proportion or density change here; the outer outline grown a square like the others; the face
-    # point between his eyes (28 game px over his soles, 2 ahead of his standing point)
-    "ornn": dict(ppu=1.5, edge=1, face_to=(2, -28)),
+    # point between his eyes (28 game px over his soles, 2 ahead of his standing point); W's fire drawn into his breath
+    # frames (orig/ornn_skill_w.over.png, rig_ornn with_fire) laid on after the outline (fx)
+    "ornn": dict(ppu=1.5, edge=1, face_to=(2, -28), fx=True),
     # tft_powder (the tft pack): the idle design (A-2) and Codex's skeleton poses with the one clean head, posed by
     # tools/art/rig_powder.py at 1.75 squares a game pixel (61 rows: 「35」, then 「PPU像素好低啊」 -> 1.75); shown at 90 % (the user:
     # 「人物模型太大 缩小一点」, league_main hd.rs SIZES), so the frames sit 2 squares lower (Poppy's way) to keep the

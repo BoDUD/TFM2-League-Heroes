@@ -244,6 +244,7 @@ Layout: one horizontal row of 4 equal square cells, image size 1408x352 (each ce
 | `ornn_fx_r_hit` | view_effects `league_ornn_r_hit`（跟随目标，z 2；左右对称） | 22 × 22 |
 
 - 两张表：`asset/league/effects/league_ornn_fx`（小的）和 `league_ornn_big`（w_fire、q_slam、q_fissure、q_rise、q_pillar、e_quake、r_call、r_rise、r_ram、r_butt），tag = 名字（build_ornn.py 的 views；`r_ram2` 用 `r_ram` 的帧；`brittle`、`w_shown` 绑在同名 buff 上）。
-- `w_fire` 不进特效表：用 tools/fix/bake_caster_fx.py 的做法画进他的 skill_w 帧（嘴的位置），数据里的 CasterViewEffect 去掉；其余除了两张弹道图全部断言左右对称，两张弹道图断言上下对称。
+- `w_fire` 数据里不放（CasterViewEffect 去掉）：它在 `league_ornn_big` 里只是一个 tag，`tools/art/rig_ornn.py` 的 `with_fire` 读它画进他的 skill_w 帧（火的根部对在嘴上，格雷福斯枪口火焰的做法）；其余除了两张弹道图全部断言左右对称，两张弹道图断言上下对称。
+- 公羊的三张（`r_ram`、`r_rise`、`r_hit`）导入时放大 1.5 倍（用户：「R的羊的效果范围和效果都要做大点」「不重新生成 你在那个特效的基础上改」；`import_ornn_fx.py` 的 `up15`：Scale3x 后每 2×2 格取多数色，再按对称补齐），打中的半宽 `r_w` 12000 → 18000。
 - `q_rise`、`q_pillar`、`r_rise` 底边对在落点的地面上；`q_slam`、`e_quake`、`r_call` 画在人物下面（z -1），`r_butt`、`brittle`、`w_shown` 在上面（z 3）；`q_pillar` 每 15 tick 盖一次，两帧的循环要接得上 `q_rise` 的最后一帧。
 - 用 `pixel_1x/` 切格（import_zoe_fx 的做法）；清掉给火、光描的最深色边（石头的描边保留）；核对交回的张数和这份清单；和 `raw/` 原稿对照读回（必要时从 raw/ 读回）。用户也可能用 Gemini 画好直接给图片（沃里克、格雷福斯的做法：process_*_fx.py）。

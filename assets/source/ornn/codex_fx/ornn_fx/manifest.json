@@ -1,0 +1,2554 @@
+{
+  "version": 1,
+  "effects": [
+    {
+      "name": "a_hit",
+      "file": "ornn_fx_a_hit.png",
+      "frames": 4,
+      "cell_1x": [
+        18,
+        18
+      ],
+      "symmetry": "left-right",
+      "loop": false,
+      "binding": "view_effects `league_ornn_a_hit`（跟随目标，画在人物上面 z 2；左右对称）",
+      "raw_layout": [
+        2,
+        2
+      ],
+      "direction": "centered",
+      "layout": "single_horizontal_row",
+      "scale": 8,
+      "raw_file": "raw/ornn_fx_a_hit.png",
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "raw_sha256": "a4681892ffd2c69ab49722d43bc1690c36f1e19616118525d392d43e1bdc9cdb",
+      "pixel_file": "pixel_1x/ornn_fx_a_hit.png",
+      "preview_file": "ornn_fx_a_hit.png",
+      "background_method": "native_alpha_threshold_128",
+      "cell_foreground_coverage_threshold": 0.2,
+      "symmetry_source_half": "left",
+      "palette_rgba": [
+        [
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          255,
+          255,
+          255,
+          255
+        ],
+        [
+          255,
+          243,
+          168,
+          255
+        ],
+        [
+          255,
+          198,
+          58,
+          255
+        ],
+        [
+          255,
+          138,
+          30,
+          255
+        ],
+        [
+          232,
+          72,
+          26,
+          255
+        ],
+        [
+          160,
+          32,
+          26,
+          255
+        ],
+        [
+          239,
+          226,
+          204,
+          255
+        ],
+        [
+          201,
+          179,
+          148,
+          255
+        ],
+        [
+          154,
+          131,
+          102,
+          255
+        ],
+        [
+          107,
+          88,
+          67,
+          255
+        ]
+      ],
+      "frame_sources": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor_translation_1x": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "projectile_recentering_y_1x": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "sheet_1x": [
+        72,
+        18
+      ],
+      "sheet_8x": [
+        576,
+        144
+      ]
+    },
+    {
+      "name": "br_pop",
+      "file": "ornn_fx_br_pop.png",
+      "frames": 5,
+      "cell_1x": [
+        26,
+        26
+      ],
+      "symmetry": "left-right",
+      "loop": false,
+      "binding": "view_effects `league_ornn_br_pop`（跟随目标，z 2；左右对称）",
+      "raw_layout": [
+        3,
+        2
+      ],
+      "direction": "centered",
+      "layout": "single_horizontal_row",
+      "scale": 8,
+      "raw_file": "raw/ornn_fx_br_pop.png",
+      "raw_size": [
+        1536,
+        1024
+      ],
+      "raw_sha256": "8cede6d30fdca91302dc0ac78554a5fa3bdb32e1f304ec04f4194bf037ca66cd",
+      "pixel_file": "pixel_1x/ornn_fx_br_pop.png",
+      "preview_file": "ornn_fx_br_pop.png",
+      "background_method": "native_alpha_threshold_128",
+      "cell_foreground_coverage_threshold": 0.2,
+      "symmetry_source_half": "left",
+      "palette_rgba": [
+        [
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          255,
+          255,
+          255,
+          255
+        ],
+        [
+          255,
+          243,
+          168,
+          255
+        ],
+        [
+          255,
+          198,
+          58,
+          255
+        ],
+        [
+          255,
+          138,
+          30,
+          255
+        ],
+        [
+          232,
+          72,
+          26,
+          255
+        ],
+        [
+          160,
+          32,
+          26,
+          255
+        ],
+        [
+          156,
+          143,
+          148,
+          255
+        ],
+        [
+          110,
+          97,
+          104,
+          255
+        ],
+        [
+          70,
+          59,
+          68,
+          255
+        ],
+        [
+          42,
+          33,
+          41,
+          255
+        ],
+        [
+          20,
+          14,
+          20,
+          255
+        ]
+      ],
+      "frame_sources": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "anchor_translation_1x": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "projectile_recentering_y_1x": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "sheet_1x": [
+        130,
+        26
+      ],
+      "sheet_8x": [
+        1040,
+        208
+      ]
+    },
+    {
+      "name": "brittle",
+      "file": "ornn_fx_brittle.png",
+      "frames": 4,
+      "cell_1x": [
+        14,
+        10
+      ],
+      "symmetry": "left-right",
+      "loop": true,
+      "binding": "view_buffs `league_ornn_brittle`（跟随目标，z 3；左右对称；循环）",
+      "raw_layout": [
+        2,
+        2
+      ],
+      "direction": "centered",
+      "layout": "single_horizontal_row",
+      "scale": 8,
+      "raw_file": "raw/ornn_fx_brittle.png",
+      "raw_size": [
+        1483,
+        1061
+      ],
+      "raw_sha256": "6ddbe85101f0594506df4d3077d7576ace064f462f5b16bc324ae51f24a56477",
+      "pixel_file": "pixel_1x/ornn_fx_brittle.png",
+      "preview_file": "ornn_fx_brittle.png",
+      "background_method": "native_alpha_threshold_128",
+      "cell_foreground_coverage_threshold": 0.2,
+      "symmetry_source_half": "left",
+      "palette_rgba": [
+        [
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          156,
+          143,
+          148,
+          255
+        ],
+        [
+          110,
+          97,
+          104,
+          255
+        ],
+        [
+          70,
+          59,
+          68,
+          255
+        ],
+        [
+          42,
+          33,
+          41,
+          255
+        ],
+        [
+          20,
+          14,
+          20,
+          255
+        ],
+        [
+          255,
+          255,
+          255,
+          255
+        ],
+        [
+          255,
+          243,
+          168,
+          255
+        ],
+        [
+          255,
+          198,
+          58,
+          255
+        ],
+        [
+          255,
+          138,
+          30,
+          255
+        ],
+        [
+          232,
+          72,
+          26,
+          255
+        ],
+        [
+          160,
+          32,
+          26,
+          255
+        ]
+      ],
+      "frame_sources": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor_translation_1x": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "projectile_recentering_y_1x": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "sheet_1x": [
+        56,
+        10
+      ],
+      "sheet_8x": [
+        448,
+        80
+      ]
+    },
+    {
+      "name": "w_fire",
+      "file": "ornn_fx_w_fire.png",
+      "frames": 6,
+      "cell_1x": [
+        48,
+        30
+      ],
+      "symmetry": "none",
+      "loop": true,
+      "binding": "view_effects `league_ornn_w_fire`（他自己的 skill_w 帧里：烤进动作帧，bake_caster_fx；头朝右；大图表）",
+      "raw_layout": [
+        3,
+        2
+      ],
+      "direction": "right",
+      "layout": "single_horizontal_row",
+      "scale": 8,
+      "raw_file": "raw/ornn_fx_w_fire.png",
+      "raw_size": [
+        1586,
+        992
+      ],
+      "raw_sha256": "04f5a2200e9b5fa6b342bf2633ac189583b12b1e8d1a33477ea2eb962ea8a1fc",
+      "pixel_file": "pixel_1x/ornn_fx_w_fire.png",
+      "preview_file": "ornn_fx_w_fire.png",
+      "background_method": "native_alpha_threshold_128",
+      "cell_foreground_coverage_threshold": 0.2,
+      "symmetry_source_half": "none",
+      "palette_rgba": [
+        [
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          255,
+          255,
+          255,
+          255
+        ],
+        [
+          255,
+          243,
+          168,
+          255
+        ],
+        [
+          255,
+          198,
+          58,
+          255
+        ],
+        [
+          255,
+          138,
+          30,
+          255
+        ],
+        [
+          232,
+          72,
+          26,
+          255
+        ],
+        [
+          160,
+          32,
+          26,
+          255
+        ],
+        [
+          20,
+          14,
+          20,
+          255
+        ]
+      ],
+      "frame_sources": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "anchor_translation_1x": [
+        [
+          -1,
+          -6
+        ],
+        [
+          -1,
+          -6
+        ],
+        [
+          0,
+          -6
+        ],
+        [
+          -1,
+          -4
+        ],
+        [
+          -1,
+          -4
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "projectile_recentering_y_1x": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "sheet_1x": [
+        288,
+        30
+      ],
+      "sheet_8x": [
+        2304,
+        240
+      ]
+    },
+    {
+      "name": "w_hit",
+      "file": "ornn_fx_w_hit.png",
+      "frames": 3,
+      "cell_1x": [
+        10,
+        10
+      ],
+      "symmetry": "left-right",
+      "loop": false,
+      "binding": "view_effects `league_ornn_w_hit`（跟随目标，z 2；左右对称）",
+      "raw_layout": [
+        3,
+        1
+      ],
+      "direction": "centered",
+      "layout": "single_horizontal_row",
+      "scale": 8,
+      "raw_file": "raw/ornn_fx_w_hit.png",
+      "raw_size": [
+        2172,
+        724
+      ],
+      "raw_sha256": "c6892ff29df52b11b3a605e60a98507f125edd63457548bf6f7e3a44181623dd",
+      "pixel_file": "pixel_1x/ornn_fx_w_hit.png",
+      "preview_file": "ornn_fx_w_hit.png",
+      "background_method": "native_alpha_threshold_128",
+      "cell_foreground_coverage_threshold": 0.2,
+      "symmetry_source_half": "left",
+      "palette_rgba": [
+        [
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          255,
+          255,
+          255,
+          255
+        ],
+        [
+          255,
+          243,
+          168,
+          255
+        ],
+        [
+          255,
+          198,
+          58,
+          255
+        ],
+        [
+          255,
+          138,
+          30,
+          255
+        ],
+        [
+          232,
+          72,
+          26,
+          255
+        ],
+        [
+          160,
+          32,
+          26,
+          255
+        ]
+      ],
+      "frame_sources": [
+        0,
+        1,
+        2
+      ],
+      "anchor_translation_1x": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "projectile_recentering_y_1x": [
+        0,
+        0,
+        0
+      ],
+      "sheet_1x": [
+        30,
+        10
+      ],
+      "sheet_8x": [
+        240,
+        80
+      ]
+    },
+    {
+      "name": "w_shown",
+      "file": "ornn_fx_w_shown.png",
+      "frames": 4,
+      "cell_1x": [
+        60,
+        54
+      ],
+      "symmetry": "left-right",
+      "loop": true,
+      "binding": "view_buffs `league_ornn_w_shown`（跟随他，z 3；左右对称；循环）",
+      "raw_layout": [
+        2,
+        2
+      ],
+      "direction": "centered",
+      "layout": "single_horizontal_row",
+      "scale": 8,
+      "raw_file": "raw/ornn_fx_w_shown.png",
+      "raw_size": [
+        1322,
+        1190
+      ],
+      "raw_sha256": "8a10115455282813aa1bc4cdce97bc3b6ac40252930136829f57a2ee1235e9ee",
+      "pixel_file": "pixel_1x/ornn_fx_w_shown.png",
+      "preview_file": "ornn_fx_w_shown.png",
+      "background_method": "native_alpha_threshold_128",
+      "cell_foreground_coverage_threshold": 0.2,
+      "symmetry_source_half": "left",
+      "palette_rgba": [
+        [
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          255,
+          255,
+          255,
+          255
+        ],
+        [
+          255,
+          243,
+          168,
+          255
+        ],
+        [
+          255,
+          198,
+          58,
+          255
+        ],
+        [
+          255,
+          138,
+          30,
+          255
+        ],
+        [
+          232,
+          72,
+          26,
+          255
+        ],
+        [
+          160,
+          32,
+          26,
+          255
+        ]
+      ],
+      "frame_sources": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor_translation_1x": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "projectile_recentering_y_1x": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "sheet_1x": [
+        240,
+        54
+      ],
+      "sheet_8x": [
+        1920,
+        432
+      ]
+    },
+    {
+      "name": "q_slam",
+      "file": "ornn_fx_q_slam.png",
+      "frames": 5,
+      "cell_1x": [
+        44,
+        16
+      ],
+      "symmetry": "left-right",
+      "loop": false,
+      "binding": "view_effects `league_ornn_q_slam`（他身上，不跟随，画在人物下面 z -1；左右对称；大图表）",
+      "raw_layout": [
+        2,
+        3
+      ],
+      "direction": "centered",
+      "layout": "single_horizontal_row",
+      "scale": 8,
+      "raw_file": "raw/ornn_fx_q_slam.png",
+      "raw_size": [
+        1659,
+        948
+      ],
+      "raw_sha256": "bc587f7e4f78a4a62dc56f46c5f6b2857564336a98898c854416138d1844764d",
+      "pixel_file": "pixel_1x/ornn_fx_q_slam.png",
+      "preview_file": "ornn_fx_q_slam.png",
+      "background_method": "native_alpha_threshold_128",
+      "cell_foreground_coverage_threshold": 0.2,
+      "symmetry_source_half": "left",
+      "palette_rgba": [
+        [
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          255,
+          255,
+          255,
+          255
+        ],
+        [
+          255,
+          243,
+          168,
+          255
+        ],
+        [
+          255,
+          198,
+          58,
+          255
+        ],
+        [
+          255,
+          138,
+          30,
+          255
+        ],
+        [
+          232,
+          72,
+          26,
+          255
+        ],
+        [
+          160,
+          32,
+          26,
+          255
+        ],
+        [
+          239,
+          226,
+          204,
+          255
+        ],
+        [
+          201,
+          179,
+          148,
+          255
+        ],
+        [
+          154,
+          131,
+          102,
+          255
+        ],
+        [
+          107,
+          88,
+          67,
+          255
+        ],
+        [
+          156,
+          143,
+          148,
+          255
+        ],
+        [
+          110,
+          97,
+          104,
+          255
+        ],
+        [
+          70,
+          59,
+          68,
+          255
+        ],
+        [
+          42,
+          33,
+          41,
+          255
+        ],
+        [
+          20,
+          14,
+          20,
+          255
+        ]
+      ],
+      "frame_sources": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "anchor_translation_1x": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "projectile_recentering_y_1x": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "sheet_1x": [
+        220,
+        16
+      ],
+      "sheet_8x": [
+        1760,
+        128
+      ]
+    },
+    {
+      "name": "q_fissure",
+      "file": "ornn_fx_q_fissure.png",
+      "frames": 3,
+      "cell_1x": [
+        22,
+        12
+      ],
+      "symmetry": "top-bottom",
+      "loop": true,
+      "binding": "view_projectiles `league_ornn_q_fissure`（弹道：游戏会转到前进方向；头朝右、上下对称；大图表）",
+      "raw_layout": [
+        2,
+        2
+      ],
+      "direction": "right",
+      "layout": "single_horizontal_row",
+      "scale": 8,
+      "raw_file": "raw/ornn_fx_q_fissure.png",
+      "raw_size": [
+        1698,
+        926
+      ],
+      "raw_sha256": "36b55249bca604fb0b8832d52bf0de741ddaa1a63997f5e9ecb89e1bb6988490",
+      "pixel_file": "pixel_1x/ornn_fx_q_fissure.png",
+      "preview_file": "ornn_fx_q_fissure.png",
+      "background_method": "native_alpha_threshold_128",
+      "cell_foreground_coverage_threshold": 0.2,
+      "symmetry_source_half": "top",
+      "palette_rgba": [
+        [
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          255,
+          255,
+          255,
+          255
+        ],
+        [
+          255,
+          243,
+          168,
+          255
+        ],
+        [
+          255,
+          198,
+          58,
+          255
+        ],
+        [
+          255,
+          138,
+          30,
+          255
+        ],
+        [
+          232,
+          72,
+          26,
+          255
+        ],
+        [
+          160,
+          32,
+          26,
+          255
+        ],
+        [
+          156,
+          143,
+          148,
+          255
+        ],
+        [
+          110,
+          97,
+          104,
+          255
+        ],
+        [
+          70,
+          59,
+          68,
+          255
+        ],
+        [
+          42,
+          33,
+          41,
+          255
+        ],
+        [
+          20,
+          14,
+          20,
+          255
+        ]
+      ],
+      "frame_sources": [
+        0,
+        1,
+        2
+      ],
+      "anchor_translation_1x": [
+        [
+          1,
+          0
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "projectile_recentering_y_1x": [
+        0,
+        0,
+        0
+      ],
+      "sheet_1x": [
+        66,
+        12
+      ],
+      "sheet_8x": [
+        528,
+        96
+      ]
+    },
+    {
+      "name": "q_hit",
+      "file": "ornn_fx_q_hit.png",
+      "frames": 4,
+      "cell_1x": [
+        14,
+        14
+      ],
+      "symmetry": "left-right",
+      "loop": false,
+      "binding": "view_effects `league_ornn_q_hit`（跟随目标，z 2；左右对称）",
+      "raw_layout": [
+        2,
+        2
+      ],
+      "direction": "centered",
+      "layout": "single_horizontal_row",
+      "scale": 8,
+      "raw_file": "raw/ornn_fx_q_hit.png",
+      "raw_size": [
+        1761,
+        893
+      ],
+      "raw_sha256": "d975ef285897aab314b3e7438db7eac7bdb33541027bb62afbcb472511a88de1",
+      "pixel_file": "pixel_1x/ornn_fx_q_hit.png",
+      "preview_file": "ornn_fx_q_hit.png",
+      "background_method": "native_alpha_threshold_128",
+      "cell_foreground_coverage_threshold": 0.2,
+      "symmetry_source_half": "left",
+      "palette_rgba": [
+        [
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          255,
+          255,
+          255,
+          255
+        ],
+        [
+          255,
+          243,
+          168,
+          255
+        ],
+        [
+          255,
+          198,
+          58,
+          255
+        ],
+        [
+          255,
+          138,
+          30,
+          255
+        ],
+        [
+          232,
+          72,
+          26,
+          255
+        ],
+        [
+          160,
+          32,
+          26,
+          255
+        ],
+        [
+          156,
+          143,
+          148,
+          255
+        ],
+        [
+          110,
+          97,
+          104,
+          255
+        ],
+        [
+          70,
+          59,
+          68,
+          255
+        ],
+        [
+          42,
+          33,
+          41,
+          255
+        ],
+        [
+          20,
+          14,
+          20,
+          255
+        ]
+      ],
+      "frame_sources": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor_translation_1x": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "projectile_recentering_y_1x": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "sheet_1x": [
+        56,
+        14
+      ],
+      "sheet_8x": [
+        448,
+        112
+      ]
+    },
+    {
+      "name": "q_rise",
+      "file": "ornn_fx_q_rise.png",
+      "frames": 6,
+      "cell_1x": [
+        20,
+        44
+      ],
+      "symmetry": "left-right",
+      "loop": false,
+      "binding": "view_effects `league_ornn_q_rise`（放在裂隙尽头，不跟随，z 1；左右对称；大图表）",
+      "raw_layout": [
+        3,
+        2
+      ],
+      "direction": "centered",
+      "layout": "single_horizontal_row",
+      "scale": 8,
+      "raw_file": "raw/ornn_fx_q_rise.png",
+      "raw_size": [
+        1465,
+        1074
+      ],
+      "raw_sha256": "a0a187e1d286a524663748561c0aa51949b1edeb4930da6c1ea89337129c0128",
+      "pixel_file": "pixel_1x/ornn_fx_q_rise.png",
+      "preview_file": "ornn_fx_q_rise.png",
+      "background_method": "native_alpha_threshold_128",
+      "cell_foreground_coverage_threshold": 0.2,
+      "symmetry_source_half": "left",
+      "palette_rgba": [
+        [
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          156,
+          143,
+          148,
+          255
+        ],
+        [
+          110,
+          97,
+          104,
+          255
+        ],
+        [
+          70,
+          59,
+          68,
+          255
+        ],
+        [
+          42,
+          33,
+          41,
+          255
+        ],
+        [
+          20,
+          14,
+          20,
+          255
+        ],
+        [
+          255,
+          255,
+          255,
+          255
+        ],
+        [
+          255,
+          243,
+          168,
+          255
+        ],
+        [
+          255,
+          198,
+          58,
+          255
+        ],
+        [
+          255,
+          138,
+          30,
+          255
+        ],
+        [
+          232,
+          72,
+          26,
+          255
+        ],
+        [
+          160,
+          32,
+          26,
+          255
+        ],
+        [
+          239,
+          226,
+          204,
+          255
+        ],
+        [
+          201,
+          179,
+          148,
+          255
+        ],
+        [
+          154,
+          131,
+          102,
+          255
+        ],
+        [
+          107,
+          88,
+          67,
+          255
+        ]
+      ],
+      "frame_sources": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        "q_pillar:0"
+      ],
+      "anchor_translation_1x": [
+        [
+          0,
+          3
+        ],
+        [
+          0,
+          3
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          3
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          0,
+          2
+        ]
+      ],
+      "projectile_recentering_y_1x": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "sheet_1x": [
+        120,
+        44
+      ],
+      "sheet_8x": [
+        960,
+        352
+      ]
+    },
+    {
+      "name": "q_pillar",
+      "file": "ornn_fx_q_pillar.png",
+      "frames": 2,
+      "cell_1x": [
+        20,
+        44
+      ],
+      "symmetry": "left-right",
+      "loop": true,
+      "binding": "view_effects `league_ornn_q_pillar`（裂隙尽头，每 0.25 秒盖一次，z 1；左右对称；大图表）",
+      "raw_layout": [
+        2,
+        1
+      ],
+      "direction": "centered",
+      "layout": "single_horizontal_row",
+      "scale": 8,
+      "raw_file": "raw/ornn_fx_q_pillar.png",
+      "raw_size": [
+        1402,
+        1122
+      ],
+      "raw_sha256": "0e7c51f9a9831697d612f5158a1f9df4df775c23e6d87b2820ccfe5538cf8b20",
+      "pixel_file": "pixel_1x/ornn_fx_q_pillar.png",
+      "preview_file": "ornn_fx_q_pillar.png",
+      "background_method": "native_alpha_threshold_128",
+      "cell_foreground_coverage_threshold": 0.2,
+      "symmetry_source_half": "left",
+      "palette_rgba": [
+        [
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          156,
+          143,
+          148,
+          255
+        ],
+        [
+          110,
+          97,
+          104,
+          255
+        ],
+        [
+          70,
+          59,
+          68,
+          255
+        ],
+        [
+          42,
+          33,
+          41,
+          255
+        ],
+        [
+          20,
+          14,
+          20,
+          255
+        ],
+        [
+          255,
+          255,
+          255,
+          255
+        ],
+        [
+          255,
+          243,
+          168,
+          255
+        ],
+        [
+          255,
+          198,
+          58,
+          255
+        ],
+        [
+          255,
+          138,
+          30,
+          255
+        ],
+        [
+          232,
+          72,
+          26,
+          255
+        ],
+        [
+          160,
+          32,
+          26,
+          255
+        ]
+      ],
+      "frame_sources": [
+        0,
+        1
+      ],
+      "anchor_translation_1x": [
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          1
+        ]
+      ],
+      "projectile_recentering_y_1x": [
+        0,
+        0
+      ],
+      "sheet_1x": [
+        40,
+        44
+      ],
+      "sheet_8x": [
+        320,
+        352
+      ]
+    },
+    {
+      "name": "e_quake",
+      "file": "ornn_fx_e_quake.png",
+      "frames": 6,
+      "cell_1x": [
+        64,
+        26
+      ],
+      "symmetry": "left-right",
+      "loop": false,
+      "binding": "view_effects `league_ornn_e_quake`（他身上，不跟随，z -1；左右对称；大图表）",
+      "raw_layout": [
+        2,
+        3
+      ],
+      "direction": "centered",
+      "layout": "single_horizontal_row",
+      "scale": 8,
+      "raw_file": "raw/ornn_fx_e_quake.png",
+      "raw_size": [
+        1969,
+        799
+      ],
+      "raw_sha256": "12f5632b2ded3342c3a47c2a2c10e647ff023d23abda4c440bbc901a8e1b9d73",
+      "pixel_file": "pixel_1x/ornn_fx_e_quake.png",
+      "preview_file": "ornn_fx_e_quake.png",
+      "background_method": "native_alpha_threshold_128",
+      "cell_foreground_coverage_threshold": 0.2,
+      "symmetry_source_half": "left",
+      "palette_rgba": [
+        [
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          255,
+          255,
+          255,
+          255
+        ],
+        [
+          255,
+          243,
+          168,
+          255
+        ],
+        [
+          255,
+          198,
+          58,
+          255
+        ],
+        [
+          255,
+          138,
+          30,
+          255
+        ],
+        [
+          232,
+          72,
+          26,
+          255
+        ],
+        [
+          160,
+          32,
+          26,
+          255
+        ],
+        [
+          156,
+          143,
+          148,
+          255
+        ],
+        [
+          110,
+          97,
+          104,
+          255
+        ],
+        [
+          70,
+          59,
+          68,
+          255
+        ],
+        [
+          42,
+          33,
+          41,
+          255
+        ],
+        [
+          20,
+          14,
+          20,
+          255
+        ],
+        [
+          239,
+          226,
+          204,
+          255
+        ],
+        [
+          201,
+          179,
+          148,
+          255
+        ],
+        [
+          154,
+          131,
+          102,
+          255
+        ],
+        [
+          107,
+          88,
+          67,
+          255
+        ]
+      ],
+      "frame_sources": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "anchor_translation_1x": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "projectile_recentering_y_1x": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "sheet_1x": [
+        384,
+        26
+      ],
+      "sheet_8x": [
+        3072,
+        208
+      ]
+    },
+    {
+      "name": "e_hit",
+      "file": "ornn_fx_e_hit.png",
+      "frames": 4,
+      "cell_1x": [
+        18,
+        18
+      ],
+      "symmetry": "left-right",
+      "loop": false,
+      "binding": "view_effects `league_ornn_e_hit`（跟随目标，z 2；左右对称）",
+      "raw_layout": [
+        2,
+        2
+      ],
+      "direction": "centered",
+      "layout": "single_horizontal_row",
+      "scale": 8,
+      "raw_file": "raw/ornn_fx_e_hit.png",
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "raw_sha256": "3a7e91e724780351af63be018d66c01c9b808d90c6a82261b1fc0b5ac6d80d2c",
+      "pixel_file": "pixel_1x/ornn_fx_e_hit.png",
+      "preview_file": "ornn_fx_e_hit.png",
+      "background_method": "native_alpha_threshold_128",
+      "cell_foreground_coverage_threshold": 0.2,
+      "symmetry_source_half": "left",
+      "palette_rgba": [
+        [
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          255,
+          255,
+          255,
+          255
+        ],
+        [
+          255,
+          243,
+          168,
+          255
+        ],
+        [
+          255,
+          198,
+          58,
+          255
+        ],
+        [
+          255,
+          138,
+          30,
+          255
+        ],
+        [
+          232,
+          72,
+          26,
+          255
+        ],
+        [
+          160,
+          32,
+          26,
+          255
+        ],
+        [
+          239,
+          226,
+          204,
+          255
+        ],
+        [
+          201,
+          179,
+          148,
+          255
+        ],
+        [
+          154,
+          131,
+          102,
+          255
+        ],
+        [
+          107,
+          88,
+          67,
+          255
+        ]
+      ],
+      "frame_sources": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor_translation_1x": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "projectile_recentering_y_1x": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "sheet_1x": [
+        72,
+        18
+      ],
+      "sheet_8x": [
+        576,
+        144
+      ]
+    },
+    {
+      "name": "r_call",
+      "file": "ornn_fx_r_call.png",
+      "frames": 6,
+      "cell_1x": [
+        56,
+        18
+      ],
+      "symmetry": "left-right",
+      "loop": false,
+      "binding": "view_effects `league_ornn_r_call`（他身上，不跟随，z -1；左右对称；大图表）",
+      "raw_layout": [
+        2,
+        3
+      ],
+      "direction": "centered",
+      "layout": "single_horizontal_row",
+      "scale": 8,
+      "raw_file": "raw/ornn_fx_r_call.png",
+      "raw_size": [
+        2185,
+        720
+      ],
+      "raw_sha256": "e4e8a863d1a542843d44fd0d09313b7aa41450a7a1dd7dea0e5b871969540fe4",
+      "pixel_file": "pixel_1x/ornn_fx_r_call.png",
+      "preview_file": "ornn_fx_r_call.png",
+      "background_method": "native_alpha_threshold_128",
+      "cell_foreground_coverage_threshold": 0.2,
+      "symmetry_source_half": "left",
+      "palette_rgba": [
+        [
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          255,
+          255,
+          255,
+          255
+        ],
+        [
+          255,
+          243,
+          168,
+          255
+        ],
+        [
+          255,
+          198,
+          58,
+          255
+        ],
+        [
+          255,
+          138,
+          30,
+          255
+        ],
+        [
+          232,
+          72,
+          26,
+          255
+        ],
+        [
+          160,
+          32,
+          26,
+          255
+        ]
+      ],
+      "frame_sources": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "anchor_translation_1x": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "projectile_recentering_y_1x": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "sheet_1x": [
+        336,
+        18
+      ],
+      "sheet_8x": [
+        2688,
+        144
+      ]
+    },
+    {
+      "name": "r_rise",
+      "file": "ornn_fx_r_rise.png",
+      "frames": 5,
+      "cell_1x": [
+        34,
+        40
+      ],
+      "symmetry": "left-right",
+      "loop": false,
+      "binding": "view_effects `league_ornn_r_rise`（放在远处公羊出发的点，不跟随，z 1；左右对称；大图表）",
+      "raw_layout": [
+        3,
+        2
+      ],
+      "direction": "centered",
+      "layout": "single_horizontal_row",
+      "scale": 8,
+      "raw_file": "raw/ornn_fx_r_rise.png",
+      "raw_size": [
+        1417,
+        1110
+      ],
+      "raw_sha256": "37d27a313cf0a835b4bdf8b3b3001bbfa99777174a679a1f9a8b1cd5804aac2a",
+      "pixel_file": "pixel_1x/ornn_fx_r_rise.png",
+      "preview_file": "ornn_fx_r_rise.png",
+      "background_method": "native_alpha_threshold_128",
+      "cell_foreground_coverage_threshold": 0.2,
+      "symmetry_source_half": "left",
+      "palette_rgba": [
+        [
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          255,
+          255,
+          255,
+          255
+        ],
+        [
+          255,
+          243,
+          168,
+          255
+        ],
+        [
+          255,
+          198,
+          58,
+          255
+        ],
+        [
+          255,
+          138,
+          30,
+          255
+        ],
+        [
+          232,
+          72,
+          26,
+          255
+        ],
+        [
+          160,
+          32,
+          26,
+          255
+        ],
+        [
+          156,
+          143,
+          148,
+          255
+        ],
+        [
+          110,
+          97,
+          104,
+          255
+        ],
+        [
+          70,
+          59,
+          68,
+          255
+        ],
+        [
+          42,
+          33,
+          41,
+          255
+        ],
+        [
+          20,
+          14,
+          20,
+          255
+        ]
+      ],
+      "frame_sources": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "anchor_translation_1x": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          0,
+          2
+        ]
+      ],
+      "projectile_recentering_y_1x": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "sheet_1x": [
+        170,
+        40
+      ],
+      "sheet_8x": [
+        1360,
+        320
+      ]
+    },
+    {
+      "name": "r_ram",
+      "file": "ornn_fx_r_ram.png",
+      "frames": 4,
+      "cell_1x": [
+        40,
+        28
+      ],
+      "symmetry": "top-bottom",
+      "loop": true,
+      "binding": "view_projectiles `league_ornn_r_ram`（弹道：游戏会转到奔跑方向；头朝右、上下对称；第二段头槌顶回去的 r_ram2 也用这张；大图表）",
+      "raw_layout": [
+        2,
+        2
+      ],
+      "direction": "right",
+      "layout": "single_horizontal_row",
+      "scale": 8,
+      "raw_file": "raw/ornn_fx_r_ram.png",
+      "raw_size": [
+        1499,
+        1049
+      ],
+      "raw_sha256": "cafd7e3e7de8dcc6e1ff55c0ea80c6325256354bcf16cadfc86bf78e4d028cc3",
+      "pixel_file": "pixel_1x/ornn_fx_r_ram.png",
+      "preview_file": "ornn_fx_r_ram.png",
+      "background_method": "native_alpha_threshold_128",
+      "cell_foreground_coverage_threshold": 0.2,
+      "symmetry_source_half": "top",
+      "palette_rgba": [
+        [
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          156,
+          143,
+          148,
+          255
+        ],
+        [
+          110,
+          97,
+          104,
+          255
+        ],
+        [
+          70,
+          59,
+          68,
+          255
+        ],
+        [
+          42,
+          33,
+          41,
+          255
+        ],
+        [
+          20,
+          14,
+          20,
+          255
+        ],
+        [
+          255,
+          138,
+          154,
+          255
+        ],
+        [
+          226,
+          51,
+          79,
+          255
+        ],
+        [
+          160,
+          26,
+          53,
+          255
+        ],
+        [
+          94,
+          16,
+          36,
+          255
+        ],
+        [
+          42,
+          10,
+          20,
+          255
+        ],
+        [
+          255,
+          255,
+          255,
+          255
+        ],
+        [
+          255,
+          243,
+          168,
+          255
+        ],
+        [
+          255,
+          198,
+          58,
+          255
+        ],
+        [
+          255,
+          138,
+          30,
+          255
+        ],
+        [
+          232,
+          72,
+          26,
+          255
+        ],
+        [
+          160,
+          32,
+          26,
+          255
+        ]
+      ],
+      "frame_sources": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor_translation_1x": [
+        [
+          2,
+          0
+        ],
+        [
+          2,
+          0
+        ],
+        [
+          2,
+          0
+        ],
+        [
+          2,
+          0
+        ]
+      ],
+      "projectile_recentering_y_1x": [
+        -3,
+        -3,
+        0,
+        0
+      ],
+      "sheet_1x": [
+        160,
+        28
+      ],
+      "sheet_8x": [
+        1280,
+        224
+      ]
+    },
+    {
+      "name": "r_butt",
+      "file": "ornn_fx_r_butt.png",
+      "frames": 4,
+      "cell_1x": [
+        34,
+        34
+      ],
+      "symmetry": "left-right",
+      "loop": false,
+      "binding": "view_effects `league_ornn_r_butt`（他身上，画在人物上面 z 3；左右对称；大图表）",
+      "raw_layout": [
+        2,
+        2
+      ],
+      "direction": "centered",
+      "layout": "single_horizontal_row",
+      "scale": 8,
+      "raw_file": "raw/ornn_fx_r_butt.png",
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "raw_sha256": "aed375cd3a328159370b31d4d9f80df4461ce9db541a47980d5bc36f6a884499",
+      "pixel_file": "pixel_1x/ornn_fx_r_butt.png",
+      "preview_file": "ornn_fx_r_butt.png",
+      "background_method": "native_alpha_threshold_128",
+      "cell_foreground_coverage_threshold": 0.2,
+      "symmetry_source_half": "left",
+      "palette_rgba": [
+        [
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          255,
+          255,
+          255,
+          255
+        ],
+        [
+          255,
+          243,
+          168,
+          255
+        ],
+        [
+          255,
+          198,
+          58,
+          255
+        ],
+        [
+          255,
+          138,
+          30,
+          255
+        ],
+        [
+          232,
+          72,
+          26,
+          255
+        ],
+        [
+          160,
+          32,
+          26,
+          255
+        ]
+      ],
+      "frame_sources": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor_translation_1x": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "projectile_recentering_y_1x": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "sheet_1x": [
+        136,
+        34
+      ],
+      "sheet_8x": [
+        1088,
+        272
+      ]
+    },
+    {
+      "name": "r_hit",
+      "file": "ornn_fx_r_hit.png",
+      "frames": 4,
+      "cell_1x": [
+        22,
+        22
+      ],
+      "symmetry": "left-right",
+      "loop": false,
+      "binding": "view_effects `league_ornn_r_hit`（跟随目标，z 2；左右对称）",
+      "raw_layout": [
+        2,
+        2
+      ],
+      "direction": "centered",
+      "layout": "single_horizontal_row",
+      "scale": 8,
+      "raw_file": "raw/ornn_fx_r_hit.png",
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "raw_sha256": "092458c882a84d9b5a5b4724491be0aa2b3df0afb933df413389bcf7271c86ba",
+      "pixel_file": "pixel_1x/ornn_fx_r_hit.png",
+      "preview_file": "ornn_fx_r_hit.png",
+      "background_method": "native_alpha_threshold_128",
+      "cell_foreground_coverage_threshold": 0.2,
+      "symmetry_source_half": "left",
+      "palette_rgba": [
+        [
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          255,
+          255,
+          255,
+          255
+        ],
+        [
+          255,
+          243,
+          168,
+          255
+        ],
+        [
+          255,
+          198,
+          58,
+          255
+        ],
+        [
+          255,
+          138,
+          30,
+          255
+        ],
+        [
+          232,
+          72,
+          26,
+          255
+        ],
+        [
+          160,
+          32,
+          26,
+          255
+        ],
+        [
+          156,
+          143,
+          148,
+          255
+        ],
+        [
+          110,
+          97,
+          104,
+          255
+        ],
+        [
+          70,
+          59,
+          68,
+          255
+        ],
+        [
+          42,
+          33,
+          41,
+          255
+        ],
+        [
+          20,
+          14,
+          20,
+          255
+        ]
+      ],
+      "frame_sources": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor_translation_1x": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "projectile_recentering_y_1x": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "sheet_1x": [
+        88,
+        22
+      ],
+      "sheet_8x": [
+        704,
+        176
+      ]
+    }
+  ],
+  "expected_effects": 18,
+  "expected_frames": 79,
+  "processing": "source alpha>=128; game cell opaque at >=20% foreground coverage; palette snap and majority vote among visible colors -> mirror left/top half -> brighten darkest fire/dust perimeter -> horizontal strip -> integer nearest8x",
+  "pillar_transition": "q_rise last frame == q_pillar first frame",
+  "reference_images_included": false
+}

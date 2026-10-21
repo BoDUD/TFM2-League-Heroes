@@ -68,8 +68,8 @@ P = {
     "e_cd": 720, "e_range": 55000, "e_speed": 4000, "e_anim": 20, "e_r": 18000, "e_dmg": 60, "e_hp": 4,
     "e_quake_r": 30000, "e_up": 60, "e_q_dmg": 40, "e_q_hp": 3, "e_hit_t": 14,
     # R Call of the Forge God (League: 2500 range, 125-225 +20% AP, slow 40-80%, recast: knock-up 1 s, again the
-    # damage; cd 140-100)
-    "r_cd": 3000, "r_range": 90000, "r_rel": 12, "r_len": 110000, "r_out": 40000, "r_speed": 2500, "r_w": 12000,
+    # damage; cd 140-100); the rams' half width r_w 12000 -> 18000 (the user, 2026-10-21: 「R的羊的效果范围和效果都要做大点」)
+    "r_cd": 3000, "r_range": 90000, "r_rel": 12, "r_len": 110000, "r_out": 40000, "r_speed": 2500, "r_w": 18000,
     "r_dmg": 120, "r_hp": 3, "r_slow": 50, "r_slow_t": 90, "r_butt_t": 24, "r_butt_rel": 8, "r2_speed": 3000,
     "r2_dmg": 120, "r2_hp": 3, "r2_up": 60,
     "vo_gap": 600,
@@ -251,7 +251,8 @@ def build(p):
         return delayed(p["w_first"] + k * p["w_gap"], alive_aimed(
             ahead(p["w_len"], p["w_cone"], "EnemyWithoutTower", [magic(p["w_dmg"], p["w_hp"]), view("w_hit"), tsfx("w_hit")]),
             ahead(p["w_len"], p["w_cone"], "EnemyChampion", champs)))
-    breath = combine(flag("w_cd", p["w_cd"]), anim("skill_w", p["w_t"]), cview("w_fire"), sfx("w"), voice("vo_w", p),
+    # (the fire itself is drawn into his skill_w frames: tools/art/rig_ornn.py, the client never mirrors an effect picture)
+    breath = combine(flag("w_cd", p["w_cd"]), anim("skill_w", p["w_t"]), sfx("w"), voice("vo_w", p),
                      on_me(refresh("w_still", p["w_t"], cc_immune=True),
                            {"type": "Shield", "amount": p["w_sh"], "attack_ratio": 0, "ap_ratio": 0,
                             "tick": p["w_sh_t"]},
@@ -320,7 +321,7 @@ def build(p):
     Pj = lambda name, anim_=FX: {"type": "Animated", "name": n(name), "anim": anim_, "tag": name, "repeat": True,
                                  "z": 2}
     views_p = [Pj("q_fissure", BIG), Pj("r_ram", BIG), Pj("r_ram2", BIG)]
-    views_e = [E("a_hit"), E("br_pop"), E("w_fire", BIG, 3), E("w_hit"), E("q_slam", BIG, -1),
+    views_e = [E("a_hit"), E("br_pop"), E("w_hit"), E("q_slam", BIG, -1),
                E("q_hit"), E("q_rise", BIG, 1, False), E("q_pillar", BIG, 1, False), E("e_quake", BIG, -1),
                E("e_hit"), E("r_call", BIG, -1), E("r_rise", BIG, 1, False), E("r_butt", BIG, 3), E("r_hit")]
     views_b = [B_("brittle"), B_("w_shown", FX, 3)]

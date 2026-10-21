@@ -139,10 +139,6 @@
                     "tick": 45
                   },
                   {
-                    "type": "CasterViewEffect",
-                    "name": "league_ornn_w_fire"
-                  },
-                  {
                     "type": "Sfx",
                     "name": "league_ornn_w"
                   },
@@ -2440,7 +2436,7 @@
                             "penetrate": true,
                             "shape": {
                               "Circle": {
-                                "radius": 12000
+                                "radius": 18000
                               }
                             },
                             "applied_target": "EnemyWithoutTower",
@@ -2495,7 +2491,7 @@
                             "penetrate": true,
                             "shape": {
                               "Circle": {
-                                "radius": 12000
+                                "radius": 18000
                               }
                             },
                             "applied_target": "EnemyChampion",
@@ -2605,7 +2601,7 @@
                             "penetrate": true,
                             "shape": {
                               "Circle": {
-                                "radius": 12000
+                                "radius": 18000
                               }
                             },
                             "applied_target": "EnemyWithoutTower",
@@ -2660,7 +2656,7 @@
                             "penetrate": true,
                             "shape": {
                               "Circle": {
-                                "radius": 12000
+                                "radius": 18000
                               }
                             },
                             "applied_target": "EnemyChampion",
@@ -2878,7 +2874,7 @@
                         "range": 110000,
                         "shape": {
                           "Circle": {
-                            "radius": 12000
+                            "radius": 18000
                           }
                         },
                         "y_offset": 0
@@ -2952,7 +2948,7 @@
                         "range": 110000,
                         "shape": {
                           "Circle": {
-                            "radius": 12000
+                            "radius": 18000
                           }
                         },
                         "y_offset": 0
@@ -3020,7 +3016,7 @@
                         "range": 110000,
                         "shape": {
                           "Circle": {
-                            "radius": 12000
+                            "radius": 18000
                           }
                         },
                         "y_offset": 0
@@ -3094,7 +3090,7 @@
                         "range": 110000,
                         "shape": {
                           "Circle": {
-                            "radius": 12000
+                            "radius": 18000
                           }
                         },
                         "y_offset": 0
@@ -3154,14 +3150,6 @@
       "anim": "asset/league/effects/league_ornn_fx",
       "tag": "br_pop",
       "z": 2,
-      "is_follow": true
-    },
-    {
-      "type": "Animation",
-      "name": "league_ornn_w_fire",
-      "anim": "asset/league/effects/league_ornn_big",
-      "tag": "w_fire",
-      "z": 3,
       "is_follow": true
     },
     {
