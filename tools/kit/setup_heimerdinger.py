@@ -37,8 +37,9 @@ A = "<#ffb900ff>"      # durations, counts
 R = "<#ef5350ff>"      # crowd control
 G = "<#66bb6aff>"      # healing, shields
 E = "<>"
-# champion_view: provisional until the sprite (tfm2_ase.py face)
-VIEW = {"face": {"x": 1, "y": -26}, "center": {"x": 0, "y": -13}}
+# champion_view: the face point between his goggles (ppu_restyle face_to: 19 game px over his soles, 4 ahead of his
+# standing point), the centre as the other small heroes' (Vex, Ziggs); no banpick_center (36 px: the card holds him)
+VIEW = {"face": {"x": 4, "y": -19}, "center": {"x": 0, "y": -12}}
 
 
 def mag(d, r):

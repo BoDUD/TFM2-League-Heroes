@@ -158,6 +158,11 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // rows horn tips to soles, the dragon 64 as drawn: 「人42 龙48 PPU1.5」; 3/4 only; her actions on Codex's skeleton poses
     // with the design's head; the dragon's d_* tags the kit's CasterAnimations), so no SIZES row
     ("league_shyvana", 1.5, include_str!("../../../league/champions/league_shyvana#anim.fanim")),
+    // Heimerdinger: the design (Codex's step-1 A-2 at the user's 1.5 squares a game pixel, 54 rows hair top to soles:
+    // 「36」「PPU 1.5」; 3/4 only) with Codex's whole-body poses and the backpack crane / R's gear props, posed by
+    // tools/art/rig_heimerdinger.py after League's clips; attack_w the kit's CasterAnimation (W's third attack), so no
+    // SIZES row
+    ("league_heimerdinger", 1.5, include_str!("../../../league/champions/league_heimerdinger#anim.fanim")),
     // Powder (tft_powder, the tft pack in tft/: Teamfight Tactics' own units, its own mod; this DLL draws her dense
     // frames when both packs are enabled): the idle design and Codex's skeleton poses with one clean head, posed by
     // tools/art/rig_powder.py at 1.75 squares a game pixel (61 rows: 「35」, then 「PPU像素好低啊 能调一下吗」), shown at 90 % (SIZES)
@@ -277,6 +282,9 @@ pub const EFFECTS: &[(&str, f32, &str)] = &[
     // league_zyra's R thicket: Codex's squares 3 x 3 at PPU 2, 1.5 game px each - the picture 1.5 times as big for R's
     // radius 44000 (the user: 「R技能范围做大点」「不用重画啊 你调整一下不就行了吗」; tools/art/import_zyra_fx.py)
     ("league_zyra_thicket", 2.0, include_str!("../../../league/effects/league_zyra_thicket#anim.fanim")),
+    // league_heimerdinger's two turrets (Q's and R's apex), one life each, drawn from their step-1 designs at his 1.5
+    // (tools/art/import_heimerdinger_fx.py: t_turret / x_turret and their hd_ tags)
+    ("league_heimerdinger_turret", 1.5, include_str!("../../../league/effects/league_heimerdinger_turret#anim.fanim")),
     // league_leblanc's passive clone (Mirror Image): her own dense idle where she stood, then the blink-out column - drawn
     // at her PPU 2.0 like her body (the user: 「妖姬有点bug吧 分身怎么不是高清帧啊 被动的」; tools/fix/leblanc_clone_hd.py)
     ("league_leblanc_clone", 2.0, include_str!("../../../league/effects/league_leblanc_clone#anim.fanim")),

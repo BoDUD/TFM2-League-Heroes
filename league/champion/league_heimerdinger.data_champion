@@ -93,6 +93,28 @@
           ]
         },
         {
+          "type": "SwitchByBuff",
+          "buff_name": "league_heimerdinger_a_two",
+          "effect_buff": {
+            "type": "CasterAnimation",
+            "name": "attack_w",
+            "tick": 27
+          },
+          "effect_none": {
+            "type": "SwitchByBuff",
+            "buff_name": "league_heimerdinger_e_combo",
+            "effect_buff": {
+              "type": "CasterAnimation",
+              "name": "attack_w",
+              "tick": 27
+            },
+            "effect_none": {
+              "type": "Combine",
+              "effects": []
+            }
+          }
+        },
+        {
           "type": "Delayed",
           "tick": 9,
           "effects": [
@@ -140,7 +162,7 @@
                             "type": "TargetProjectile",
                             "name": "league_heimerdinger_a_bolt",
                             "speed": 4500,
-                            "y_offset": -2000,
+                            "y_offset": 5000,
                             "applied_target": "Enemy",
                             "applied_effects": [
                               {
@@ -215,7 +237,7 @@
                                       "type": "TargetProjectile",
                                       "name": "league_heimerdinger_w_rocket",
                                       "speed": 3500,
-                                      "y_offset": -2000,
+                                      "y_offset": -36000,
                                       "applied_target": "EnemyChampion",
                                       "applied_effects": [
                                         {
@@ -254,7 +276,7 @@
                                       "type": "TargetProjectile",
                                       "name": "league_heimerdinger_w_rocket",
                                       "speed": 3500,
-                                      "y_offset": -2000,
+                                      "y_offset": -36000,
                                       "applied_target": "EnemyChampion",
                                       "applied_effects": [
                                         {
@@ -293,7 +315,7 @@
                                       "type": "TargetProjectile",
                                       "name": "league_heimerdinger_w_rocket",
                                       "speed": 3500,
-                                      "y_offset": -2000,
+                                      "y_offset": -36000,
                                       "applied_target": "EnemyChampion",
                                       "applied_effects": [
                                         {
@@ -332,7 +354,7 @@
                                       "type": "TargetProjectile",
                                       "name": "league_heimerdinger_w_rocket",
                                       "speed": 3500,
-                                      "y_offset": -2000,
+                                      "y_offset": -36000,
                                       "applied_target": "EnemyChampion",
                                       "applied_effects": [
                                         {
@@ -371,7 +393,7 @@
                                       "type": "TargetProjectile",
                                       "name": "league_heimerdinger_w_rocket",
                                       "speed": 3500,
-                                      "y_offset": -2000,
+                                      "y_offset": -36000,
                                       "applied_target": "EnemyChampion",
                                       "applied_effects": [
                                         {
@@ -438,7 +460,7 @@
                                         "type": "TargetProjectile",
                                         "name": "league_heimerdinger_w_rocket",
                                         "speed": 3500,
-                                        "y_offset": -2000,
+                                        "y_offset": -36000,
                                         "applied_target": "EnemyWithoutTower",
                                         "applied_effects": [
                                           {
@@ -477,7 +499,7 @@
                                         "type": "TargetProjectile",
                                         "name": "league_heimerdinger_w_rocket",
                                         "speed": 3500,
-                                        "y_offset": -2000,
+                                        "y_offset": -36000,
                                         "applied_target": "EnemyWithoutTower",
                                         "applied_effects": [
                                           {
@@ -516,7 +538,7 @@
                                         "type": "TargetProjectile",
                                         "name": "league_heimerdinger_w_rocket",
                                         "speed": 3500,
-                                        "y_offset": -2000,
+                                        "y_offset": -36000,
                                         "applied_target": "EnemyWithoutTower",
                                         "applied_effects": [
                                           {
@@ -555,7 +577,7 @@
                                         "type": "TargetProjectile",
                                         "name": "league_heimerdinger_w_rocket",
                                         "speed": 3500,
-                                        "y_offset": -2000,
+                                        "y_offset": -36000,
                                         "applied_target": "EnemyWithoutTower",
                                         "applied_effects": [
                                           {
@@ -594,7 +616,7 @@
                                         "type": "TargetProjectile",
                                         "name": "league_heimerdinger_w_rocket",
                                         "speed": 3500,
-                                        "y_offset": -2000,
+                                        "y_offset": -36000,
                                         "applied_target": "EnemyWithoutTower",
                                         "applied_effects": [
                                           {
@@ -681,7 +703,7 @@
   "skill": {
     "action_name": "skill",
     "description": "#asset/base/text/champion?description.league_heimerdinger.skill",
-    "duration": 30,
+    "duration": 36,
     "cooltime": 240,
     "start_timing": 1,
     "cancelable": false,
@@ -768,7 +790,7 @@
         },
         {
           "type": "Delayed",
-          "tick": 11,
+          "tick": 15,
           "effects": [
             {
               "type": "Combine",
@@ -1610,7 +1632,7 @@
   "skill2": {
     "action_name": "skill2",
     "description": "#asset/base/text/champion?description.league_heimerdinger.skill2",
-    "duration": 30,
+    "duration": 36,
     "cooltime": 660,
     "start_timing": 1,
     "cancelable": false,
@@ -1697,7 +1719,7 @@
         },
         {
           "type": "Delayed",
-          "tick": 11,
+          "tick": 15,
           "effects": [
             {
               "type": "Combine",
@@ -1971,8 +1993,14 @@
           }
         },
         {
-          "type": "ViewEffect",
-          "name": "league_heimerdinger_r_up"
+          "type": "Delayed",
+          "tick": 12,
+          "effects": [
+            {
+              "type": "CasterViewEffect",
+              "name": "league_heimerdinger_r_up"
+            }
+          ]
         },
         {
           "type": "RemoveCasterBuff",
@@ -2884,6 +2912,22 @@
       "tag": "w_rocket",
       "repeat": true,
       "z": 2
+    },
+    {
+      "type": "Animated",
+      "name": "league_heimerdinger_e_grenade",
+      "anim": "asset/league/effects/league_heimerdinger_fx",
+      "tag": "e_grenade",
+      "repeat": true,
+      "z": 2
+    },
+    {
+      "type": "Animated",
+      "name": "league_heimerdinger_re_grenade",
+      "anim": "asset/league/effects/league_heimerdinger_fx",
+      "tag": "re_grenade",
+      "repeat": true,
+      "z": 2
     }
   ],
   "view_effects": [
@@ -2906,7 +2950,7 @@
     {
       "type": "Animation",
       "name": "league_heimerdinger_t_turret",
-      "anim": "asset/league/effects/league_heimerdinger_big",
+      "anim": "asset/league/effects/league_heimerdinger_turret",
       "tag": "t_turret",
       "z": -1,
       "is_follow": false
@@ -2954,7 +2998,7 @@
     {
       "type": "Animation",
       "name": "league_heimerdinger_r_up",
-      "anim": "asset/league/effects/league_heimerdinger_fx",
+      "anim": "asset/league/effects/league_heimerdinger_big",
       "tag": "r_up",
       "z": 2,
       "is_follow": true
@@ -2962,7 +3006,7 @@
     {
       "type": "Animation",
       "name": "league_heimerdinger_x_turret",
-      "anim": "asset/league/effects/league_heimerdinger_big",
+      "anim": "asset/league/effects/league_heimerdinger_turret",
       "tag": "x_turret",
       "z": -1,
       "is_follow": false
@@ -2997,7 +3041,7 @@
       "type": "Animated",
       "name": "league_heimerdinger_x_slow",
       "anim": "asset/league/effects/league_heimerdinger_fx",
-      "tag": "x_slow",
+      "tag": "e_slow",
       "repeat": true,
       "z": -1
     },

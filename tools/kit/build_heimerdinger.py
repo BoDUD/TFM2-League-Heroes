@@ -45,32 +45,39 @@ OUT = os.path.join(REPO, "league", "champion", "league_heimerdinger.data_champio
 ID = "league_heimerdinger"
 FX = "asset/league/effects/league_heimerdinger_fx"
 BIG = "asset/league/effects/league_heimerdinger_big"
+TURRET = "asset/league/effects/league_heimerdinger_turret"   # the two turrets' lives, dense (PPU 1.5, hd.rs EFFECTS)
 
 # League units x 100 = ours (attack range 550 -> 55000 like every mid); radii count the unit's collision radius
-# (~15000) on top. Timings provisional until the frames (tools/art/rig_heimerdinger.py): releases on tick 10.
+# (~15000) on top. Timings from the frames (tools/art/rig_heimerdinger.py, after League's clips): the attack's jab
+# 167 ms (a_rel 10), the crane firing W's rockets the same tick (attack_w, its own tag, played on the third attack and
+# in the E -> W window), Q's turret set down and E's grenade flung at 267 ms (q_rel / e_rel 16) of 600 ms actions (36),
+# R's gear bursting at 200 ms (r_up on tick 12), the upgrade on 14 of 40. Heights (a projectile starts 5000 - y_offset
+# above the pivot, 1000 a game px; the pivot 11.5 px over the soles): the bolt leaves the wrench at the pivot's height
+# (a_y), the rockets the crane's claw 41 px over it (w_y).
 # Numbers = the 10-min classic-SDK simulations (mid lane 2 against pyromancer, ice_mage, lightning_mage, wind_mage and
 # white_mage, three lineups, both sides, seeds 1-8, 2026-10-21): the draft (turrets 8 + 6% / beam 25 + 20%, E 80 + 60%
 # with a 1.5 s stun, R cd 2100 with CH-3X 90 + 45% and the apex 25 + 15%) +4.03; single nerfs - turrets 6 + 4% / 18 +
 # 14% +4.08, rockets 6 + 5% +4.01 (neither drives it), E 60 + 45% with a 1 s stun +2.76, R cd 3000 with 70 + 35% / 18 +
-# 10% +3.24; the turret, E and R nerfs together +1.44 = P.
+# 10% +3.24; the turret, E and R nerfs together +1.44 = P; on the frames' timings (Q / E 36 ticks releasing on 16, the
+# rockets from the crane) +1.73 (+-0.46).
 P = {
     # stats (Magician base: attack 76 +6, ap 40 +20, hp 860 +95, def 18 +7, mr 20 +4, move 900 +9); League's
     # Heimerdinger: 558 +105 hp, 19 armour, 30 mr, 340 move, 550 range, attack speed 0.658
     "hp": 860, "hp_g": 92, "atk": 58, "atk_g": 5, "apw": 40, "apw_g": 20, "def": 17, "def_g": 7, "mr": 22, "mr_g": 4,
     "ms": 900, "ms_g": 9,
-    "atk_range": 55000, "atk_dur": 27, "atk_cd": 88, "a_rel": 10, "a_speed": 4500, "a_y": -2000,
+    "atk_range": 55000, "atk_dur": 27, "atk_cd": 88, "a_rel": 10, "a_speed": 4500, "a_y": 5000, "w_y": -36000,
     # W Hextech Micro-Rockets on every third attack (League: 5 rockets, 50-150 + 55% AP, 90-270 on one champion)
     "w_n": 5, "w_gap": 3, "w_dmg": 10, "w_ratio": 7, "w_speed": 3500, "e_combo": 90, "w_reach": 15000,
     # Q turrets (League: 3 turrets, 525 range, 7-23 + 35% AP a shot, the beam 40-120 + 55% AP; placed within 350)
-    "q_cd": 240, "q_range": 60000, "q_dur": 30, "q_rel": 12, "q_place": 20000, "q_speed": 4000,
+    "q_cd": 240, "q_range": 60000, "q_dur": 36, "q_rel": 16, "q_place": 20000, "q_speed": 4000,
     "t_life": 600, "t_per": 50, "t_first": 40, "t_r": 50000, "t_dmg": 6, "t_ratio": 4, "tb_dmg": 18, "tb_ratio": 14,
     # passive (League: 20% move speed near his turrets and allied towers)
     "p_r": 40000, "p_per": 20, "p_ms": 20, "p_t": 30,
     # E grenade (League: 970 range, 100-500... 60-220 + 60% AP, stun 1.5 s within 100, 35% slow 2 s within 210)
-    "e_cd": 660, "e_range": 85000, "e_dur": 30, "e_rel": 12, "e_travel": 30, "e_r": 23000, "e_sr": 11000,
+    "e_cd": 660, "e_range": 85000, "e_dur": 36, "e_rel": 16, "e_travel": 30, "e_r": 23000, "e_sr": 11000,
     "e_dmg": 60, "e_ratio": 45, "e_slow": 35, "e_slow_t": 120, "e_stun": 60,
     # R UPGRADE!!! (League: cd 100-70 s; CH-3X 150-500 + 60% AP, bounces three times; Apex Turret 8 s, 80-160 + 30%)
-    "r_cd": 3000, "r_range": 75000, "r_dur": 40, "r_rel": 14, "r_crowd": 30000,
+    "r_cd": 3000, "r_range": 75000, "r_dur": 40, "r_rel": 14, "r_up": 12, "r_crowd": 30000,
     "r_gap": 24, "re_r": 25000, "re_sr": 13000, "re_dmg": 70, "re_ratio": 35, "re_slow": 40, "re_slow_t": 90,
     "re_stun": 60,
     "x_life": 480, "x_per": 30, "x_first": 30, "x_r": 60000, "x_dmg": 18, "x_ratio": 10, "x_slow": 25, "x_slow_t": 45,
@@ -129,6 +136,14 @@ def delayed(tick, *effects):
 
 def view(name):
     return {"type": "ViewEffect", "name": n(name)}
+
+
+def cview(name):
+    return {"type": "CasterViewEffect", "name": n(name)}
+
+
+def anim(name, tick):
+    return {"type": "CasterAnimation", "name": name, "tick": tick}
 
 
 def sfx(name):
@@ -236,7 +251,7 @@ def build(p):
     def rockets(target):
         shots = [delayed(i * p["w_gap"], homing("w_rocket", target,
                                                  [ap(p["w_dmg"], p["w_ratio"]), view("w_hit"), tsfx("w_hit")],
-                                                 p["w_speed"], p["a_y"])) for i in range(p["w_n"])]
+                                                 p["w_speed"], p["w_y"])) for i in range(p["w_n"])]
         return [sfx("w"), *shots]
     count = sw("a_two", combine(*rm("a_two"), *rockets("EnemyWithoutTower")),
                sw("a_one", combine(*rm("a_one"), flag("a_two", None)), flag("a_one", None)))
@@ -246,8 +261,12 @@ def build(p):
     bolt = combine(*rm("w_go"), sfx("a"), homing("a_bolt", "Enemy", [attack(0, 100), view("a_hit"), tsfx("a_hit")],
                                                   p["a_speed"], p["a_y"]),
                    sw("e_combo", combo), sw("w_go", NONE, count))
+    # the rockets' attack shows the crane (League's Spell2) from its first tick: the third attack (a_two), or the E -> W
+    # window open
+    crane = anim("attack_w", p["atk_dur"])
     attack_a = action("attack", p["atk_dur"], p["atk_cd"], 1, p["atk_range"], "Targeting", "Enemy",
-                      combine(decoy(0, 100), delayed(p["a_rel"] - 1, alive(bolt))), atype="BaseAttack", cancel=True)
+                      combine(decoy(0, 100), sw("a_two", crane, sw("e_combo", crane)),
+                              delayed(p["a_rel"] - 1, alive(bolt))), atype="BaseAttack", cancel=True)
 
     # ------------------------------------------------------------------ skill: Q the turret, in the first free slot
     def slot(i):
@@ -289,7 +308,8 @@ def build(p):
     count_r = zone("r_count", p["r_crowd"], [sw("r_one", flag("r_two", 6), flag("r_one", 6))], "EnemyChampion")
     choose = combine(sw("r_two", combine(*lightning), combine(*apex)), *rm("r_one", "r_two"))
     ult = action("ult", p["r_dur"], p["r_cd"], 1, p["r_range"], "Targeting", "EnemyChampion",
-                 combine(decoy(p["re_dmg"] * 2, p["re_ratio"] * 2, ap), sfx("r"), voice("vo_r", p), view("r_up"),
+                 combine(decoy(p["re_dmg"] * 2, p["re_ratio"] * 2, ap), sfx("r"), voice("vo_r", p),
+                         delayed(p["r_up"], cview("r_up")),
                          *rm("r_one", "r_two"),
                          delayed(p["r_rel"] - 4, alive(lob("r_seek", 1, [count_r], "EnemyChampion"))),
                          delayed(p["r_rel"], alive(choose))))
@@ -301,12 +321,12 @@ def build(p):
                                       "z": z}
     Pj = lambda name, tag=None, anim_=FX: {"type": "Animated", "name": n(name), "anim": anim_, "tag": tag or name,
                                            "repeat": True, "z": 2}
-    views_p = [Pj("a_bolt"), Pj("w_rocket")]
+    views_p = [Pj("a_bolt"), Pj("w_rocket"), Pj("e_grenade"), Pj("re_grenade")]
     # the turrets under the units (z -1) like the ground; the grenade's blasts there too
-    views_e = [E("a_hit"), E("w_hit"), E("t_turret", BIG, -1, False), E("t_hit"), E("t_beam"),
-               E("e_blast", BIG, -1, False), E("e_hit"), E("re_blast", BIG, -1, False), E("r_up"),
-               E("x_turret", BIG, -1, False), E("x_hit"), E("x_beam")]
-    views_b = [B_("e_slow", FX, -1), B_("x_slow", FX, -1), B_("haste", FX, -1)]
+    views_e = [E("a_hit"), E("w_hit"), E("t_turret", TURRET, -1, False), E("t_hit"), E("t_beam"),
+               E("e_blast", BIG, -1, False), E("e_hit"), E("re_blast", BIG, -1, False), E("r_up", BIG),
+               E("x_turret", TURRET, -1, False), E("x_hit"), E("x_beam")]
+    views_b = [B_("e_slow", FX, -1), dict(B_("x_slow", FX, -1), tag="e_slow"), B_("haste", FX, -1)]
     extra = {}
     if native:
         extra["passive"] = {"passive_ref": "league_heimerdinger:affinity", "params": {
