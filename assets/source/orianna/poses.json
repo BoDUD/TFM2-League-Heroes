@@ -26,6 +26,17 @@
  ],
  "design": "Orianna_idle1@0",
  "tags": {
+  "ref": {
+   "frames": [
+    [
+     "Orianna_idle1@0",
+     100,
+     {
+      "turn": 40
+     }
+    ]
+   ]
+  },
   "run": {
    "flat": true,
    "frames": [
@@ -457,5 +468,28 @@
    ]
   }
  },
- "side_note": "every action frame turned side-on (40 degrees from the 3/4 idle pose, like the run) by its third item's turn"
+ "side_note": "every action frame turned side-on (40 degrees from the 3/4 idle pose, like the run) by its third item's turn",
+ "dump_joints": [
+  "Hip",
+  "Spine",
+  "Chest",
+  "Head",
+  "Key",
+  "L_Thigh",
+  "L_Knee",
+  "L_Foot",
+  "L_Toe",
+  "R_Thigh",
+  "R_Knee",
+  "R_Foot",
+  "R_Toe",
+  "L_UpArm",
+  "L_ForeArm",
+  "L_hand",
+  "L_Middle",
+  "R_UpArm",
+  "R_ForeArm",
+  "R_hand",
+  "R_Middle"
+ ]
 }

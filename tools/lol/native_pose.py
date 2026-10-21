@@ -426,6 +426,8 @@ def main():
     # "anchor": {"joints": [...], "base": "<joint>"} - a drawn head that sits on the torso rather than where
     # League's head is (Malphite's hangs in front of his chest, the drawn one sits between his shoulders)
     # follows the mean of these joints; "atilt" is where the torso points on screen (base joint to that mean)
+    by_lower = {j["name"].lower(): i for i, j in enumerate(ch.joints)}
+    dump = {n: by_lower[n.lower()] for n in spec.get("dump_joints", ())}
     anchor = spec.get("anchor")
     if anchor:
         by_name = {j["name"].lower(): i for i, j in enumerate(ch.joints)}
@@ -529,8 +531,15 @@ def main():
             d = rot @ (ap - glob[anc_base][:3, 3])
             anc_xy = (CELL[0] + 0.5 + sign * sp[0] * unit - x0, FEET_ROW + dy / Z + down - sp[1] * unit,
                       np.degrees(np.arctan2(sign * d[0], d[1])))
+        dumped = None
+        if dump:   # "dump_joints": League's joints on screen in the cell's game px (x, y) and their depth, for a rig
+            dumped = {}
+            for name, i in dump.items():
+                sp = rot @ glob[i][:3, 3]
+                dumped[name] = [round(float(CELL[0] + 0.5 + sign * sp[0] * unit - x0), 2),
+                                round(float(FEET_ROW + dy / Z + down - sp[1] * unit), 2), round(float(sp[2] * unit), 2)]
         return lo, hi, (pivot - x0, PIVOT_ROW), hx - ref_head, clipped, (CELL[0] + 0.5 + hx - x0, head_y, tilt), pa, face, \
-            anc_xy
+            anc_xy, dumped
 
     table = {}
     tags = args.tag or list(spec["tags"])
@@ -564,8 +573,9 @@ def main():
                        "tilt": int(round(float(h[2]))),
                        **({"face": [round(float(fc[0]), 1), round(float(fc[1]), 1), round(float(fc[2]), 2), int(fc[3])]} if fc else {}),
                        **({"anchor": [round(float(an[0]), 1), round(float(an[1]), 1)], "atilt": int(round(float(an[2])))}
-                          if an else {})}
-                      for (_, _, p, _, _, h, _, fc, an), (_, ms, *_) in zip(frames, t["frames"])]
+                          if an else {}),
+                       **({"joints": jd} if jd else {})}
+                      for (_, _, p, _, _, h, _, fc, an, jd), (_, ms, *_) in zip(frames, t["frames"])]
         colours = len(np.unique(np.concatenate([lo[lo[..., 3] > 0][:, :3] for lo, *_ in frames]), axis=0))
         print(f"{hero}_native_{tag}.png  {len(frames)} frames, {cols}x{nrows} cells, {colours} colours; head x from the "
               f"design pose " + " ".join(f"{fr[3]:+.1f}" for fr in frames) +
@@ -602,6 +612,11 @@ def main():
         with open(os.path.join(args.out, f"{hero}_cells.json"), "w", encoding="utf-8", newline="\n") as f:
             f.write(text)
         print(f"{hero}_native_design.png, {hero}_pose_design.png, {hero}_cells.json")
+        if dump:   # the dumped joints beside the cells table: {tag: [{"pivot", "ms", "joints": {name: [x, y, depth]}}]}
+            with open(os.path.join(args.out, f"{hero}_joints.json"), "w", encoding="utf-8", newline="\n") as f:
+                json.dump({tag: [{"pivot": r["pivot"], "ms": r["ms"], "joints": r["joints"]} for r in rows_]
+                           for tag, rows_ in table.items()}, f)
+            print(f"{hero}_joints.json")
 
 
 if __name__ == "__main__":
