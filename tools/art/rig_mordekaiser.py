@@ -11,8 +11,9 @@ canvases with the horn tips and the soles on the pack's lines, so they share the
   - one face (memory one-face-all-frames): the design's helm (HELM, the horns down to the chin) is pasted square for
     square over the pose's own wherever the pose shows it upright and uncovered (HELM_AT: its offset in the pose,
     found by matching); Q's raise and slam and the death keep Codex's (the helm between the raised arms, bowed, fallen);
-  - the run and every skill: Codex's drawings turned 65 degrees toward the image right (codex_run, codex_turned:
-    the user's 「待机姿势和走路放技能的时候应该不一样的」), tones matched to the run's phase 2; the idle stays A;
+  - every skill: Codex's drawings turned 65 degrees toward the image right (codex_turned: the user's
+    「待机姿势和走路放技能的时候应该不一样的」), tones matched to Codex's run phase 2 (codex_run); the idle stays A;
+  - the run: the 65-degree stand's own leg armour turned on League's walk (RUN_JOINTS, see run());
   - the idle: the design breathing - the upper body rises over the legs, the row at the cut repeated in the gap;
   - W and the hit: the design recoloured (a teal pulse; a white flash) and moved as a whole.
 Sizes (the user's pick C: a thicker outline, Kassadin's way; 110%, later 95%, then 100%): league.dll draws him SIZE about his pivot, so
@@ -26,6 +27,7 @@ Then tools/art/ppu_hd.py --hero mordekaiser adds the hd_ tags (PPU["mordekaiser"
 """
 import argparse
 import json
+import math
 import os
 import sys
 
@@ -39,6 +41,7 @@ sys.path.insert(0, os.path.join(ROOT, ".claude", "skills", "tfm2-hero-mod", "scr
 import strips as G  # noqa: E402
 sys.path.insert(0, HERE)
 import design_varus as V  # noqa: E402
+import rigkit as K  # noqa: E402
 
 SRC = os.path.join(ROOT, "assets", "source", "mordekaiser")
 FRONT = os.path.join(SRC, "hd", "front.png")
@@ -67,11 +70,12 @@ HELM_AT = {"attack-raise": (13, -10), "attack-strike": (22, 9), "e-grasp": (0, 0
 # ours); e-grasp keeps its pixels (the mace behind the helm, its helm the design's within a square)
 CLEAR = {"attack-raise", "attack-strike", "r-point"}
 CLEAR_PAD, CLEAR_ROWS = 5, 76     # hd squares round the helm, the design rows above which the clearing reaches
-RUN = os.path.join(SRC, "codex_run")          # the 65-degree run (Codex, 2026-10-12: mordekaiser_run_poses.zip)
+RUN = os.path.join(SRC, "codex_run")          # Codex's 65-degree run (2026-10-12): its phase 2 is the turned poses'
+                                              # tone reference (relum)
 TURNED = os.path.join(SRC, "codex_turned")    # the 65-degree stand and skill poses (mordekaiser_turned_done.zip; their
                                               # helms Codex's copy of walk-1's)
 TURNED_POSES = ["turned", "attack-raise", "attack-strike", "q-raise", "q-slam", "e-grasp", "r-point"]
-TURN_DX = -33                                 # the turned stand's torso over the pivot (the run's: RUN_DX)
+TURN_DX = -33                                 # the turned stand's torso over the pivot (the run's too)
 LIFT = 1                                      # Codex's 65-degree soles sit on row 252, the design's on 251: one row up
 # The user, on Codex's two raises a tenth taller than the stand and the strike's spike cut at the ground: 「我自己缩小和补
 # 尖刺」. SHRINK: pose -> (its horn row, the stand's horn row, the soles' row) from Codex's QA.json - the pose brought to
@@ -82,7 +86,6 @@ LIFT = 1                                      # Codex's 65-degree soles sit on r
 SHRINK = {"attack-raise": (142, 164, 380, (137, 142)), "q-raise": (145, 164, 380, (122, 145))}
 HELM_REF = os.path.join(TURNED, "helmet_reference_1x.png")
 SPIKE = ("attack-strike", 14, 252, 290)       # pose, Codex's shift down, the soles' row, the first column kept
-RUN_DX = {1: -37, 2: -29, 3: -37, 4: -37}     # phase 2's upper body stood 8 squares left of the others'; all onto the pivot
 # poses Codex drew away from the design's place: the body (the mace on the ground aside) brought back over the pivot
 POSE_DX = {"dead-kneel": -95, "dead-lying": -58}   # the step's bob (the helm's offset in each walk phase)
 LEG_CUT = 165                     # design row: the idle's upper body rises above it
@@ -108,9 +111,7 @@ class Rig:
                 kind = "portrait" if p.shape[0] > p.shape[1] else "landscape"
                 self.poses[f[len("mordekaiser-"):-len("_1x.png")]] = (p, kind)
         pal = np.unique(self.a[self.a[..., 3] > 0][:, :3], axis=0)
-        raw = {k: np.asarray(Image.open(os.path.join(RUN, f"mordekaiser-walk-{k}_1x.png")).convert("RGBA"))
-               for k in (1, 2, 3, 4)}
-        self.run = {k: (raw[k] if k == 2 else relum(raw[k], raw[2], pal)) for k in raw}
+        tone = np.asarray(Image.open(os.path.join(RUN, "mordekaiser-walk-2_1x.png")).convert("RGBA"))
         self.turned = {}
         helm = np.asarray(Image.open(HELM_REF).convert("RGBA"))
         for n in TURNED_POSES:
@@ -120,7 +121,7 @@ class Rig:
                 p = shrink(p, *SHRINK[n], helm)
             if n == SPIKE[0]:
                 p = spike(p)
-            self.turned[n] = (relum(p, raw[2], pal), kind)
+            self.turned[n] = (relum(p, tone, pal), kind)
 
     def canvas(self):
         return np.zeros((CH, CW, 4), np.uint8)
@@ -186,14 +187,11 @@ class Rig:
         self.put(can, p, p[..., 3] > 0, ox + TURN_DX + dx, oy - (0 if name in SHRINK else LIFT))
         return can
 
-    def walk(self, k):
-        """The run turned toward the image right (the user: 「走路的时候腿既然是那个方向 身体也要那个方向吧？」, picked
-        League's 65 degrees): Codex's phase k (codex_run), its tones matched to phase 2's (relum), moved by RUN_DX so
-        the four upper bodies stand on one column and the torso over the pivot."""
-        p = self.run[k]
+    def turned_at(self, p, kind):
+        """A picture on the 65-degree stand's grid placed as turn() places the stand."""
         can = self.canvas()
-        ox, oy = self.origin("landscape")
-        self.put(can, p, p[..., 3] > 0, ox + RUN_DX[k], oy - LIFT)
+        ox, oy = self.origin(kind)
+        self.put(can, p, p[..., 3] > 0, ox + TURN_DX, oy - LIFT)
         return can
 
 
@@ -289,6 +287,189 @@ def relum(p, ref, pal):
     return out
 
 
+# The run (2026-10-22, the user: 「铁男的走路也要改」). Until then Codex's four 65-degree walking phases (codex_run, 133 ms
+# each): phases 1 and 3 put the same leg forward and 2 and 4 lifted the same one - he limped on one leg - and each phase's
+# armour was drawn anew, so the upper body changed shape every frame. Now eight frames of League's walk on the 65-degree
+# stand (codex_turned, the skills' body) - League's walk, not its run: the run kicks the back foot up level, too light
+# for him (RUN_JOINTS, from
+#   python tools/lol/pose_joints.py assets/source/mordekaiser/poses.json --tag run
+#       --joints Pelvis,L_Hip,L_KneeLower,L_Foot,L_Toe,R_Hip,R_KneeLower,R_Foot,R_Toe
+#       --json assets/source/mordekaiser/run_joints.json;
+# League's L leg is the near one):
+#   - the upper body is the stand's as drawn in every frame, bobbing with League's hips (rigkit.hip_bobs, 0-RUN_BOB rows);
+#   - each leg is the stand's own armour - its thigh plate, knee plate, greave and sabaton (the steel pieces between the
+#     outlines under RUN_SEEDS, the boots' red trim with them) - turned about the hip, the knee and the ankle to League's
+#     thigh and shin angles on the stand's bone lengths (the knee solved where League's foot stands, rigkit.leg_chain; the
+#     knee bent at most RUN_BEND), over a leg drawn in the greave's own steels so no joint opens where the pieces turn
+#     apart. The squares are turned to the nearest: every colour is the stand's, and ppu_restyle brings the frame down to
+#     PPU 2.0, where the turned edges are gone;
+#   - the far leg in the stand's darker steels (RUN_FAR_DIM) behind everything, the near thigh under the tatters and the
+#     near knee plate, greave and sabaton over them;
+#   - the stride (「铁男的走路步伐感觉有点大啊」 had Codex's striding frames brought from 42 / 47.5 game px of soles to
+#     31.5 / 30.5, the idle's 31): League's angles at RUN_SWING of their size - in game the soles span 11-34.5 px
+#     (34.5 and 33 in the two widest frames, the back foot lifting), the cycle Codex's 533 ms in eight frames.
+RUN_JOINTS = os.path.join(SRC, "run_joints.json")
+# stand (codex_turned/mordekaiser-turned_1x.png) coordinates: a point inside each piece of each leg
+RUN_SEEDS = {"near": {"thigh": [(177, 171)], "knee": [(172, 190), (156, 194), (179, 202)], "shin": [(160, 220)],
+                      "foot": [(162, 237), (168, 246), (149, 245)]},
+             "far": {"thigh": [(213, 161)], "knee": [(218, 185)], "shin": [(218, 204), (214, 220)],
+                     "foot": [(227, 237), (240, 243), (210, 243)]}}
+RUN_HIP = {"near": (175.0, 155.0), "far": (214.0, 158.0)}     # under the tassets
+RUN_KNEE = {"near": (172.0, 192.0), "far": (218.0, 186.0)}    # the knee plates' middles
+RUN_ANKLE = {"near": (163.0, 236.0), "far": (225.0, 236.0)}   # in the sabatons' cuffs, the soles flat
+RUN_TRIM = (225, 195)            # red squares from this row down are the boots' trim: the near boot's left of this column
+RUN_PLANT_TOE = 8.5              # a League toe this low (game px; the soles on 11) stands
+RUN_BEND = 30                    # degrees the knee bends at most (League's walk lifts the back foot higher)
+RUN_SWING = 0.45                 # League's thigh and shin angles, this share of them (the stride: see the note)
+RUN_BOB = 6                      # stand rows the body sits lower at League's lowest hips
+RUN_FAR_DIM = 0.82               # the far leg: the stand's colour nearest this much darker
+RUN_THW, RUN_SHW = (11.0, 10.0), (10.0, 7.5)   # the drawn leg's half widths: thigh hip -> knee, shin knee -> ankle
+RUN_SHADES = [(-0.55, (101, 102, 112)), (-0.1, (141, 149, 171)), (0.35, (101, 102, 112)), (0.75, (51, 57, 63)),
+              (9, (40, 46, 51))]  # across the drawn leg from its back to its front: the greave's own steels
+
+
+def run_pieces(stand):
+    """The stand's legs cut into pieces and its upper body without them -> ({side: {part: mask}}, upper mask). The
+    pieces are the steel between the outlines (8-connected, red and outline squares apart) under RUN_SEEDS, each with
+    the outline squares round it; the upper body keeps every outline square that also borders a piece of its own."""
+    a = np.asarray(Image.open(os.path.join(TURNED, "mordekaiser-turned_1x.png")).convert("RGBA")).astype(int)
+    if a.shape != stand.shape:
+        sys.exit("run: the turned stand and its relum'd copy differ in size")
+    op = a[..., 3] > 0
+    lum = 0.3 * a[..., 0] + 0.59 * a[..., 1] + 0.11 * a[..., 2]
+    red = op & (a[..., 0] > a[..., 1] + 40) & (a[..., 0] > a[..., 2] + 30)
+    outline = op & (lum < 22)
+    lab, _ = ndimage.label(op & ~red & ~outline, structure=np.ones((3, 3)))
+    trim = red.copy()
+    trim[:RUN_TRIM[0]] = False
+    xx = np.arange(op.shape[1])[None, :]
+    legs = np.zeros(op.shape, bool)
+    out = {}
+    for side, parts in RUN_SEEDS.items():
+        out[side] = {}
+        for part, seeds in parts.items():
+            m = np.isin(lab, [lab[y, x] for x, y in seeds if lab[y, x]])
+            if part == "foot":
+                m |= trim & ((xx < RUN_TRIM[1]) if side == "near" else (xx >= RUN_TRIM[1]))
+            legs |= m
+            out[side][part] = m | (ndimage.binary_dilation(m, structure=np.ones((3, 3))) & outline)
+    body = op & ~outline & ~legs
+    upper = body | (outline & ndimage.binary_dilation(body, structure=np.ones((3, 3))))
+    return out, upper
+
+
+def run_turned(a, mask, pivot, deg, to):
+    """a's squares under mask turned deg degrees about pivot (rigkit.bone_angle's sense: + swings a bone hanging down
+    toward +x) with pivot moved onto `to`; each square takes the nearest one's colour. -> a layer the size of a."""
+    H, W = mask.shape
+    out = np.zeros_like(a)
+    ys, xs = np.nonzero(mask)
+    if not len(ys):
+        return out
+    c, s = math.cos(math.radians(deg)), math.sin(math.radians(deg))
+    (px, py), (tx, ty) = pivot, to
+    ends = [(tx + c * (x - px) + s * (y - py), ty - s * (x - px) + c * (y - py))
+            for x in (xs.min(), xs.max() + 1) for y in (ys.min(), ys.max() + 1)]
+    x0, x1 = max(0, int(min(e[0] for e in ends)) - 2), min(W, int(max(e[0] for e in ends)) + 3)
+    y0, y1 = max(0, int(min(e[1] for e in ends)) - 2), min(H, int(max(e[1] for e in ends)) + 3)
+    gy, gx = np.mgrid[y0:y1, x0:x1]
+    dx, dy = gx + 0.5 - tx, gy + 0.5 - ty
+    ix = np.round(c * dx - s * dy + px - 0.5).astype(int)
+    iy = np.round(s * dx + c * dy + py - 0.5).astype(int)
+    ok = (ix >= 0) & (ix < W) & (iy >= 0) & (iy < H)
+    ok[ok] = mask[iy[ok], ix[ok]]
+    out[gy[ok], gx[ok]] = a[iy[ok], ix[ok]]
+    return out
+
+
+def run_drawn(shape, p0, p1, hw0, hw1):
+    """A tapered bone p0 -> p1 in the greave's steels (RUN_SHADES across it) with its outline -> layer."""
+    H, W = shape
+    ys, xs = np.mgrid[0:H, 0:W]
+    px, py = xs + 0.5, ys + 0.5
+    (x0, y0), (x1, y1) = p0, p1
+    dx, dy = x1 - x0, y1 - y0
+    l2 = max(dx * dx + dy * dy, 1e-6)
+    t = ((px - x0) * dx + (py - y0) * dy) / l2
+    tc = np.clip(t, 0, 1)
+    hw = hw0 + (hw1 - hw0) * tc
+    m = (np.hypot(px - (x0 + tc * dx), py - (y0 + tc * dy)) <= hw) & (t >= -0.2) & (t <= 1.15)
+    side = -((px - x0) * dy - (py - y0) * dx) / math.sqrt(l2) / np.maximum(hw, 1e-6)
+    out = np.zeros((H, W, 4), np.uint8)
+    for up, col in reversed(RUN_SHADES):
+        out[m & (side <= up)] = col + (255,)
+    out[ndimage.binary_dilation(m, structure=np.ones((3, 3))) & ~m] = OUTLINE + (255,)
+    return out
+
+
+def run_over(dst, layer):
+    m = layer[..., 3] > 0
+    dst[m] = layer[m]
+    return dst
+
+
+def run_dim(layer, pal, k):
+    """Every colour -> the stand's colour nearest it k times darker (nothing the stand lacks)."""
+    m = layer[..., 3] > 0
+    want = layer[m, :3].astype(float) * k
+    layer[m, :3] = pal[np.argmin(((want[:, None, :] - pal[None]) ** 2).sum(-1), 1)].astype(np.uint8)
+    return layer
+
+
+def run(r):
+    """The run's eight frames on the hd canvas (see RUN_JOINTS)."""
+    stand, kind = r.turned["turned"]
+    pieces, upper = run_pieces(stand)
+    op = stand[..., 3] > 0
+    pal = np.unique(stand[op][:, :3], axis=0).astype(float)
+    with open(RUN_JOINTS, encoding="utf-8") as f:
+        joints = json.load(f)
+    bobs = K.hip_bobs([fr["joints"]["Pelvis"][1] for fr in joints], RUN_BOB)
+    rest = {side: (K.bone_angle(RUN_HIP[side], RUN_KNEE[side]), K.bone_angle(RUN_KNEE[side], RUN_ANKLE[side]),
+                   math.dist(RUN_HIP[side], RUN_KNEE[side]), math.dist(RUN_KNEE[side], RUN_ANKLE[side]))
+            for side in RUN_HIP}
+    out = []
+    for k, fr in enumerate(joints):
+        j = fr["joints"]
+        want = {}
+        for side, s in (("near", "L"), ("far", "R")):
+            th = RUN_SWING * K.bone_angle(j[f"{s}_Hip"][:2], j[f"{s}_KneeLower"][:2])
+            sh = max(RUN_SWING * K.bone_angle(j[f"{s}_KneeLower"][:2], j[f"{s}_Foot"][:2]), th - RUN_BEND)
+            lt, ls = rest[side][2:]
+            ax = RUN_HIP[side][0] + lt * math.sin(math.radians(th)) + ls * math.sin(math.radians(sh))
+            want[side] = (th, sh, j[f"{s}_Toe"][1] >= RUN_PLANT_TOE, ax)
+        bob = bobs[k]
+        for side, (_, _, planted, ax) in want.items():
+            if planted:
+                bob = max(bob, K.reach_bob(RUN_HIP[side], ax, RUN_ANKLE[side][1], *rest[side][2:]))
+        legs = {}
+        for side, (th, sh, planted, _) in want.items():
+            th0, sh0, lt, ls = rest[side]
+            hip = (RUN_HIP[side][0], RUN_HIP[side][1] + bob)
+            knee, ank, th2, sh2, grounded = K.leg_chain(hip, th, sh, lt, ls, RUN_ANKLE[side][1], planted)
+            P = pieces[side]
+            thigh = run_over(run_drawn(op.shape, hip, knee, *RUN_THW), run_turned(stand, P["thigh"], RUN_HIP[side],
+                                                                                   th2 - th0, hip))
+            leg = run_drawn(op.shape, knee, ank, *RUN_SHW)
+            for part, piv, deg, to in (("shin", RUN_KNEE[side], sh2 - sh0, knee),
+                                       ("foot", RUN_ANKLE[side], 0 if grounded else sh2 - sh0, ank),
+                                       ("knee", RUN_KNEE[side], (th2 - th0 + sh2 - sh0) / 2, knee)):
+                run_over(leg, run_turned(stand, P[part], piv, deg, to))
+            if side == "far":
+                run_dim(thigh, pal, RUN_FAR_DIM)
+                run_dim(leg, pal, RUN_FAR_DIM)
+            legs[side] = (thigh, leg)
+        can = np.zeros_like(stand)
+        for layer in (legs["far"][0], legs["far"][1], legs["near"][0]):
+            run_over(can, layer)
+        body = np.zeros_like(stand)
+        body[bob:][upper[:upper.shape[0] - bob]] = stand[:stand.shape[0] - bob][upper[:upper.shape[0] - bob]]
+        run_over(can, body)
+        run_over(can, legs["near"][1])
+        out.append(r.turned_at(can, kind))
+    return out
+
+
 SPECK = 12                        # loose pieces smaller than this (8-connected) are dropped
 PINHOLE = 4                       # enclosed clear holes up to this size (Codex's grid vote left them) are filled
 
@@ -368,8 +549,8 @@ def actions(r):
     stand = finish(r.turn("turned"))
     # idle: he breathes - the upper body rises 2 rows over the legs and settles
     out["idle"] = [(finish(r.design(rise=b)), ms(8)) for b in (0, 1, 2, 2, 1, 0)]
-    # run: Codex's four walking phases turned 65 degrees
-    out["run"] = [(finish(r.walk(k)), ms(8)) for k in (1, 2, 3, 4)]
+    # run: eight frames of League's walk on the stand's own leg armour (run(); the cycle as long as Codex's four phases)
+    out["run"] = [(finish(c), ms(4)) for c in run(r)]
     # attack (24 ticks, the hit on tick 10): raise, swing down on the hit, back to the shoulder
     out["attack"] = [(stand, ms(4)), (finish(r.turn("attack-raise")), ms(6)), (finish(r.turn("attack-strike")), ms(9)),
                      (stand, ms(5))]
@@ -412,7 +593,8 @@ def main():
             x += h.shape[1] + 1
         Image.fromarray(strip).save(os.path.join(PPU_SRC, f"mordekaiser_{tag}.png"))
         with open(os.path.join(PPU_SRC, f"mordekaiser_{tag}.json"), "w", encoding="utf-8", newline="\n") as f:
-            json.dump({"sizes": [[h.shape[1], h.shape[0]] for h in hds]}, f)
+            json.dump({"sizes": [[h.shape[1], h.shape[0]] for h in hds],
+                       "ppu": int(PPU) if float(PPU).is_integer() else PPU}, f)   # (ppu_restyle reads the PPU)
         if a.review:
             os.makedirs(a.review, exist_ok=True)
             Z = 2

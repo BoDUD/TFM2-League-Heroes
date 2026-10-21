@@ -15,8 +15,10 @@ them at the two places where the leg can bend without a step in its outline:
   column forward; a body sunk a row (BOB) leaves out one more.
 
 The far leg is the near one mirrored about its shin (toes outward, the user's pick B), in its own lane FAR_SHIN
-(the user's pick C). Its foot keeps to -1..+1 (further back its shin goes behind the staff) and the near one to
--1..+2, so the two boots' heels - three columns apart standing - stay at least a column apart in every frame.
+(the user's pick C). Its foot keeps to -1..+2 (further back its shin goes behind the staff) and the near one to
+-2..+3 (2026-10-21, the user: 「维克托的走路也可以改改」, of a bigger stride on these same rows or a redone PPU
+Viktor 「在现有基础上加大步子」 - it had been -1..+1 and -1..+2, a shuffle beside Jarvan's and Jax's new runs); a foot
+passing the other goes up 2 rows, so the boots meet only as one plants behind the other.
 """
 import numpy as np
 
@@ -26,10 +28,11 @@ KNEE, SHIN, BAND = 93, 94, 95
 BOOT = (96, 97, 98, 99)     # the dark ankle row, the boot and its sole
 NEAR_SHIN, FAR_SHIN = 69, 59
 # per phase (s1, s2, lift); frame k plays the near leg's phase k and the far leg's phase k + 4. The near foot lands
-# two ahead and goes back a column a frame (phases 0-3), comes up behind (4), passes a row higher with the knee forward
-# (5, 6) and reaches (7); the far foot the same in -1..+1, a frame still where it lands
-NEAR = [(1, 1, 0), (0, 1, 0), (0, 0, 0), (0, -1, 0), (0, -1, 1), (1, -1, 2), (1, 0, 2), (1, 1, 1)]
-FAR = [(0, 1, 0), (0, 1, 0), (0, 0, 0), (0, -1, 0), (0, -1, 1), (1, -1, 2), (1, 0, 2), (1, 0, 1)]
+# three ahead and goes back 1-2 columns a frame to -2 (phases 0-3), comes up behind (4), passes two rows up with the knee
+# forward (5, 6) and reaches (7); the far foot the same in -1..+2, landing at +1 (at +2 its boot met the near one
+# lifted behind it - one slab of navy - in frame 5) and a frame still where it lands
+NEAR = [(1, 2, 0), (1, 0, 0), (0, -1, 0), (0, -2, 0), (0, -2, 1), (0, -1, 2), (1, 0, 2), (1, 2, 1)]
+FAR = [(1, 0, 0), (0, 1, 0), (0, 0, 0), (0, -1, 0), (0, -1, 1), (0, 0, 2), (1, 0, 2), (1, 1, 1)]
 BOB = [1, 0, 0, 0, 1, 0, 0, 0]  # the body and the plates a row down as a foot lands
 
 
