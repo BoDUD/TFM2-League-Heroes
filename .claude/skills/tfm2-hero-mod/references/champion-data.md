@@ -2951,7 +2951,7 @@ alive flag (a dead Camille keeps `r_on`, but no flag can be added to her). Zones
 `end_effects` got (1, 0) or (-1, 0) by the side she stood on (266 of 294 pointed from her to the zone): every other
 piece upside down. Started from a projectile fired at the landing they get its (0, 0) like the anchor's own zones, so
 each piece rides a clock - a `LinearProjectile` like the anchor with `range` 30, 60 ... 150: with direction (0, 0) it
-stays on the spot and ends after `range` ticks (320 pieces logged, all (-1, 0), all on the landing point).
+stays on the spot and ends after `range` ticks (320 pieces logged, all (-1, 0), all on the landing point). A hold that should end with the picture reads the pieces themselves, not a timer beside them: each piece is a circle of 2000000 on `AllyOnlySelf` hitting her every tick (a zone's shape is never drawn) with a 3-tick caster flag `r_vis`, and the tether holds only while `r_vis` is there too (2026-10-21, game 0.6.5, the user: 「青钢影大招的框消失后酒桶还被拉在原地动不了」 - the hold had run on `r_on` alone; tools/fix/fix_camille_r_hold.py).
 
 **A hook that needs a hold, armed by its slot and thrown by pulses (league_camille E, Hookshot).** League's
 Hookshot needs a wall; TFM2 has none (section 4) and no casting target picks towers alone. The user's rules: minions,
