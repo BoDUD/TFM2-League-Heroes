@@ -25,6 +25,10 @@ in its own action. Per hero, and per form idle (c_idle, m_idle ... with that for
   the hero's UI size): an action frame that spills out of the card more than the idle does holds the frame before it;
   an action whose first frame or more than 40 % of frames spill is left out.
 
+A hero's first run adds tags to its .fanim (idle_base, bp and their hd_ / lo_ copies): run
+addons/league_viego_soul/make_override.py after it, so Viego's soul table lists them (its test
+every_soul_has_its_sheets_tags wants each sheet's tags exactly).
+
 Dense heroes get the same lists in hd_ and lo_ (the frames' own rects there; every tag has the same frames in all
 three). tools/art/hero_reels.json holds the picks made by eye where the rules pick badly:
 `{"league_x": {"idle": [["skill", [0, 1]], ...], "c_idle": [...], "bp": ["attack", "ult"], "bp_cut": {"ult": [3, 4]}}}`
