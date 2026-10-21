@@ -3,14 +3,19 @@
 
     python tools/art/preview_xerath.py [--out docs/preview] [--only frames|effects|showcase]
 
-  league_xerath_frames.png    every animation, frame by frame, 3x on the arena colour
+  league_xerath_frames.png    every animation, frame by frame: his dense hd_ frames (PPU 1.75, rig_xerath_hd.py) as
+                              drawn, on the arena colour
   league_xerath_effects.png   every effect animation, 3x
   league_xerath_showcase.gif  a scripted fight against Darius with Garen behind him, timed like the kit
                               (tools/kit/build_xerath.py, 60 ticks a second): Xerath glides in; an orb; Arcanopulse
                               charged in full pierces both; an orb, then the Mana Surge orb; Shocking Orb stuns Darius
-                              and the Eye of Destruction falls on him; Rite of the Arcane: he rises, the rune circle
-                              under him, four shells called down on Darius and Garen (the warning ring, the falling bolt,
-                              the blast) - the last finishes Darius; 3x
+                              and the Eye of Destruction falls on him; Rite of the Arcane: his armour flies off into a
+                              ring round his core, the rune circle under him, four shells called down on Darius and
+                              Garen (the warning ring, the falling bolt, the blast) - the last finishes Darius; 3x, his
+                              body drawn from the dense frames as the battlefield draws it (preview_dense)
+The casts' flashes (a_flash, p_surge, q_charge, q_fire, e_cast, r_cast_shot) are drawn into his frames
+(assets/source/native/xerath_bake.json): the clip plays the tags that carry them (attack_fx1, skill_fx1, ult_shot)
+instead of laying them on again.
 """
 import argparse
 import os
@@ -22,6 +27,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 from preview_annie import Held, OnFoe  # noqa: E402
 from preview_ashe import Anim, tick  # noqa: E402
+from preview_dense import dense, dense_rows, put  # noqa: E402
 from preview_garen import ARENA, T, contact, frames_of, load  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(HERE))
@@ -29,6 +35,7 @@ LEAGUE = os.path.join(ROOT, "league")
 CHAMP = os.path.join(LEAGUE, "champions", "league_xerath")
 FX = {n: os.path.join(LEAGUE, "effects", n) for n in ("league_xerath_fx", "league_xerath_big")}
 ATK_CD, ATK_REL, ATK_DUR = 90, 10, 28        # atk_cd, atk_st, atk_dur
+SURGE_AT = 17                                # the kit's CasterAnimation attack_fx1 (the surge's flash) at this tick
 Q_FULL, Q_REC = 54, 10                       # q_full_t, q_rec
 E_REL, E_DUR, W_DELAY = 10, 30, 30           # c_st, c_dur, w_delay
 R_DEPLOY, R_GAP, R_DELAY, R_SHOT = 30, 54, 36, 14
@@ -62,7 +69,7 @@ def showcase(out, z=3, step=40):
 
     def a(tag, dur=None, loop=False):
         nonlocal t
-        an = Anim(frames_of(me_sp, tag), t, x, gy, loop=loop, until=(t + dur) if dur else None)
+        an = Anim(dense(me_sp, tag, "xerath", z), t, x, gy, loop=loop, until=(t + dur) if dur else None)
         body.append(an)
         t = an.until
         return an
@@ -81,35 +88,38 @@ def showcase(out, z=3, step=40):
         return arrive
 
     def orb(foe, surge=False):
-        """One attack: the orb leaves the claw on tick 10 (8 px up as it flies); then the rest of the 90-tick interval."""
+        """One attack: the orb leaves the claw on tick 10 (8 px up as it flies); then the rest of the 90-tick interval.
+        The surge's swaps to attack_fx1 (its flash in the frames) on SURGE_AT, as the kit's CasterAnimation does."""
         rel = t + tick(ATK_REL)
-        on(claw, small, "p_surge" if surge else "a_flash", rel)
         tx, ty = foe.pos(rel)
         arrive = fly(small, "a_orb_p" if surge else "a_orb", rel, x + CLAW[0], gy - 8, tx, ty - 8, 4.5)
         on(foe, small, "p_hit" if surge else "a_hit", arrive)
         foe.flinches.append(arrive)
-        a("attack")
-        a("idle", tick(ATK_CD - ATK_DUR), loop=True)
+        start = t
+        if surge:
+            a("attack", tick(SURGE_AT))
+            a("attack_fx1")
+        else:
+            a("attack")
+        a("idle", start + tick(ATK_CD) - t, loop=True)
         return arrive
 
     # he glides in; Darius and Garen wait
-    walk = Anim(frames_of(me_sp, "run"), 0.0, x - 44, gy, loop=True, until=1400, x1=x)
+    walk = Anim(dense(me_sp, "run", "xerath", z), 0.0, x - 44, gy, loop=True, until=1400, x1=x)
     body.append(walk)
     t = walk.until
     a("idle", 300, loop=True)
     orb(d)
     # Arcanopulse, the full charge (54 ticks): the beam out of the claw at 15 px a tick, through both
     q0 = t
-    on(me, small, "q_charge", q0)
     rel = q0 + tick(Q_FULL)
-    on(claw, small, "q_fire", rel)
     sx, sy = x + CLAW[0], gy + CLAW[1]
     over.append(Anim(frames_of(small, "q_beam"), rel, sx, sy, until=rel + tick(150 / 15), x1=sx + 150, y1=sy))
     for foe in (d, g):
         h = rel + tick((foe.pos(rel)[0] - sx) / 15)
         on(foe, small, "q_hit", h)
         foe.flinches.append(h)
-    a("skill", tick(Q_FULL + Q_REC))
+    a("skill_fx1", tick(Q_FULL + Q_REC))           # the kit's full charge: q_charge and q_fire in its frames
     a("idle", 200, loop=True)
     orb(d)
     orb(d, surge=True)
@@ -117,7 +127,6 @@ def showcase(out, z=3, step=40):
     # bursts w_delay later
     e0 = t
     rel = e0 + tick(E_REL)
-    on(claw, small, "e_cast", rel)
     tx, ty = d.pos(rel)
     hit = fly(small, "e_orb", rel, x + CLAW[0], gy + CLAW[1], tx, ty - 12, 4.0)
     on(d, small, "e_hit", hit)
@@ -142,7 +151,6 @@ def showcase(out, z=3, step=40):
     on(me, big, "r_chan", r0, until=end_r, ground=True)
     for k, foe in enumerate(shots):
         s0 = t
-        on(claw, small, "r_cast_shot", s0)
         spot = At(*foe.pos(s0))
         on(spot, big, "r_mark", s0, ground=True)
         on(spot, big, "r_bolt", s0 + tick(R_DELAY - 8))
@@ -158,11 +166,11 @@ def showcase(out, z=3, step=40):
     end = t
 
     def place(img, f, px, py):
-        img.alpha_composite(f, (px - f.width // 2, py - f.height // 2))
+        put(img, f, px, py, z)
 
     frames, tt = [], 0.0
     while tt < end:
-        img = Image.new("RGBA", (W, H), ARENA)
+        img = Image.new("RGBA", (W * z, H * z), ARENA)
         for an in under:
             f = an.frame(tt)
             if f is not None:
@@ -180,7 +188,7 @@ def showcase(out, z=3, step=40):
             f = an.frame(tt)
             if f is not None:
                 place(img, f, *an.pos(tt))
-        frames.append(img.resize((W * z, H * z), Image.NEAREST).convert("RGB"))
+        frames.append(img.convert("RGB"))
         tt += step
     sample = frames[::6]
     strip = Image.new("RGB", (W * z, H * z * len(sample)))
@@ -200,8 +208,7 @@ def main():
     os.makedirs(T.long_path(args.out), exist_ok=True)
     if args.only in (None, "frames"):
         s = load(CHAMP)
-        print("frames", contact([(s, t["name"], t["name"]) for t in s.tags],
-                                os.path.join(args.out, "league_xerath_frames.png")))
+        print("frames", contact(dense_rows(s), os.path.join(args.out, "league_xerath_frames.png"), z=1))
     if args.only in (None, "effects"):
         rows = []
         for name, path in FX.items():
