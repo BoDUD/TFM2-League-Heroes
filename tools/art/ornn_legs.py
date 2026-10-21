@@ -11,12 +11,13 @@ and the near one is a dark lump half behind the big hammer's head - its leg was 
   * the body (all but the boots, the apron, both arms and hammers) is the design's own, never redrawn; it sets one or
     two rows down while his weight comes onto the foot under him (BOB, a bouncing trot) and leans a column forward
     (LEAN);
-  * both feet are ONE boot drawn here (BOOT: a squat boot, toe to the right, the design's own plum and brown shades),
-    the near one in full tone, the far one a shade darker (FAR); each joined to the apron by a short leg band from its
-    hip under the apron to the boot's shaft (the far leg behind the apron, the near leg's band behind the apron too,
-    its boot in front of it), both moved by whole squares only: planted a boot slides back under him, lifted it swings
-    forward a row or more up (PHASES). The near boot never steps back further than NEAR_BACK, so the big hammer's head
-    never hides all but a sliver of it (the first draw: a one-square sliver read as a twisted foot);
+  * both feet are the design's own far boot (its lit long boot, toe to the right) stamped whole - a smaller, darker
+    boot drawn here did not match the idle's foot (「右脚也应该调一调吧 看着不协调」); each joined to the apron by a short
+    leg band from its hip under the apron to the boot's shaft, the far foot first, the near one over it, the apron over
+    both (the boots' shafts go up under it), moved by whole squares only: planted a boot slides back under him, lifted it swings
+    forward a row or two up (PHASES, the same stride for both feet, half a cycle apart - a wider far stride looked out of
+    step: 「右脚也应该调一调吧 看着不协调」). No boot steps back further than a column (NEAR_BACK), so the big hammer's head
+    never hides all but a sliver of the near one (the first draw: a one-square sliver read as a twisted foot);
   * the design's own boots are taken out first (BOOT_AREAS), the apron's tip kept;
   * the hammers' heads move only where nothing opens behind them (the first draw split the big head, its box stopped
     at column 29, and swung it left off the body: a hole): the big head is taken whole (the largest steel blob of its
@@ -35,34 +36,28 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(os.path.dirname(HERE))
 SRC = os.path.join(ROOT, "assets", "source", "ornn", "hd")
 INK = (1, 0, 0, 255)
-GROUND = 63                        # the boots' sole row (the outline under the soles) on the design
 
 
 def rgb(h):
     return ((h >> 16) & 255, (h >> 8) & 255, h & 255, 255)
 
 
-# the boot, toe to the right (k outline, L its light top / heel edge, M mid, D dark, H the toe's light): the design's
-# own boot shades (its far boot: 331019, 4e142b, 763528, 874223)
-BOOT = [".kkkkk....",
-        "kLMMDDk...",
-        "kMMDDDDkk.",
-        "kMDDDDDLHk",
-        "kDDDDDDDDk",
-        ".kkkkkkkk."]
-BOOT_NEAR = {"k": INK, "L": rgb(0x763528), "M": rgb(0x4e142b), "D": rgb(0x331019), "H": rgb(0x874223)}
-FAR = {"k": INK, "L": rgb(0x4e142b), "M": rgb(0x3d131e), "D": rgb(0x2a0c14), "H": rgb(0x662b26)}
 LEG_NEAR = [rgb(0x331019), rgb(0x4e142b), rgb(0x6f1b37), rgb(0x331019)]     # a leg band across, back to front
 LEG_FAR = [rgb(0x2a0c14), rgb(0x331019), rgb(0x4e142b), rgb(0x2a0c14)]
-SHAFT = 2.5                        # the ankle: this many squares right of the boot's left edge (the shaft's middle)
-# the hips (x, y) under the apron and each boot's left edge standing (phase 0 adds its dx)
-HIP = {"near": (33.0, 56.0), "far": (47.0, 56.0)}
-FOOT_X = {"near": 28, "far": 45}
 # the design's own boots taken out: (x0, x1, y0, y1) boxes; the near boot's, and the far boot's two (right of the
 # apron's edge, and its bottom under the apron's right corner) - steel (a hammer) never taken
-BOOT_AREAS = [(24, 31, 57, 63), (49, 58, 56, 63), (44, 48, 59, 63)]
+NEAR_AREA = (24, 31, 57, 63)
+FAR_AREAS = [(49, 58, 56, 63), (44, 48, 59, 63)]
+# both feet are the design's far boot (its lit long boot, 14 x 8 from (44, 56), toe to the right) stamped whole: a
+# drawn smaller, darker boot did not match the idle's foot (「右脚也应该调一调吧 看着不协调」)
+BOOT_AT = (44, 56)
+SHAFT = 7.0                        # the ankle: this many squares right of the boot's left edge (its shaft's middle)
+# the hips (x, y) under the apron and each boot's left edge standing (phase 0 adds its dx); the far boot's at dx 0 is
+# the design's own place
+HIP = {"near": (33.0, 56.0), "far": (51.0, 56.0)}
+FOOT_X = {"near": 27, "far": 44}
 # one boot's eight phases: (columns forward, rows up); the near boot plays phase k in frame k, the far one k + 4
-PHASES = [(3, 0), (1, 0), (-1, 0), (-3, 0), (-3, 1), (-1, 3), (2, 3), (3, 1)]
+PHASES = [(3, 0), (2, 0), (0, 0), (-1, 0), (-1, 1), (0, 2), (2, 2), (3, 1)]   # both feet the same stride
 NEAR_BACK = -1                     # the near boot never further back than this (the hammer's head hides it)
 BOB = [0, 1, 2, 1, 0, 1, 2, 1]     # the body rows down: lowest at mid-stance, a heavy bouncing trot
 LEAN = 1                           # the body a column forward for the whole run
@@ -91,11 +86,22 @@ def hammer_mask(d, key):
     return s | (ndimage.binary_dilation(s) & ~s & dark)
 
 
-def boots_mask(d):
+def area_mask(d, areas):
     m = np.zeros(d.shape[:2], bool)
-    for x0, x1, y0, y1 in BOOT_AREAS:
+    for x0, x1, y0, y1 in areas:
         m[y0:y1 + 1, x0:x1 + 1] = True
     return m & (d[..., 3] > 0) & ~steel(d)
+
+
+def boots_mask(d):
+    return area_mask(d, [NEAR_AREA] + FAR_AREAS)
+
+
+def boot_sprite(d):
+    """The design's far boot: (its squares relative to BOOT_AT, their colours, its height)."""
+    m = area_mask(d, FAR_AREAS)
+    ys, xs = np.nonzero(m)
+    return np.stack([xs - BOOT_AT[0], ys - BOOT_AT[1]], 1), d[ys, xs], ys.max() + 1 - BOOT_AT[1]
 
 
 def phase(key, k):
@@ -112,11 +118,12 @@ def put(can, src, mask, dx, dy):
     can[ty[ok], tx[ok]] = src[ys[ok], xs[ok]]
 
 
-def boot(can, x0, top, colours):
-    for j, line in enumerate(BOOT):
-        for i, ch in enumerate(line):
-            if ch != ".":
-                can[top + j, x0 + i] = colours[ch]
+def boot(can, sprite, x0, top):
+    offs, cols, _ = sprite
+    for (ox, oy), c in zip(offs, cols):
+        y, x = top + oy, x0 + ox
+        if 0 <= y < can.shape[0] and 0 <= x < can.shape[1]:
+            can[y, x] = c
 
 
 def leg(can, hip, ankle, colours):
@@ -145,26 +152,20 @@ def frame(d, k, pad=(4, 4)):
     H, W = d.shape[:2]
     can = np.zeros((H + 2 * py, W + 2 * px, 4), np.uint8)
     hb, hs = hammer_mask(d, "big"), hammer_mask(d, "small")
+    sprite = boot_sprite(d)
     body = d.copy()
     body[boots_mask(d) | hb | hs] = 0
     bob = BOB[k]
     ox, oy = px + LEAN, py                       # the design's (0, 0) on the canvas, standing
-    feet = {}
-    for key in ("far", "near"):
+    # the far leg and boot, then the near ones (nearer, over the far foot), the body (the apron) over both legs' tops
+    for key, colours in (("far", LEG_FAR), ("near", LEG_NEAR)):
         dx, up = phase(key, k)
         x0 = ox + FOOT_X[key] + dx
-        top = oy + GROUND - (len(BOOT) - 1) - up
-        hip = (ox + HIP[key][0], oy + HIP[key][1] + bob)
-        feet[key] = (x0, top, hip, (x0 + SHAFT, top + 1))
-    # the far leg and boot, the near leg's band (both behind the apron), the body over them
-    x0, top, hip, ankle = feet["far"]
-    leg(can, hip, ankle, LEG_FAR)
-    boot(can, x0, top, FAR)
-    x0, top, hip, ankle = feet["near"]
-    leg(can, hip, ankle, LEG_NEAR)
+        top = oy + BOOT_AT[1] - up
+        leg(can, (ox + HIP[key][0], oy + HIP[key][1] + bob), (x0 + SHAFT, top + 1), colours)
+        boot(can, sprite, x0, top)
     put(can, body, body[..., 3] > 0, ox, oy + bob)
-    # the near boot in front of the apron, the hammers' heads over everything
-    boot(can, x0, top, BOOT_NEAR)
+    # the hammers' heads over everything
     put(can, d, hb, ox + BIG_SWAY[k], oy + bob - CARRY)
     put(can, d, hs, ox + SMALL_SWAY[k], oy + bob)
     return can
