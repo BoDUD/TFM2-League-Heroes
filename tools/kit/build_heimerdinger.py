@@ -48,7 +48,11 @@ BIG = "asset/league/effects/league_heimerdinger_big"
 
 # League units x 100 = ours (attack range 550 -> 55000 like every mid); radii count the unit's collision radius
 # (~15000) on top. Timings provisional until the frames (tools/art/rig_heimerdinger.py): releases on tick 10.
-# Numbers drafted against league_zyra's plants and Vel'Koz (no simulation yet).
+# Numbers = the 10-min classic-SDK simulations (mid lane 2 against pyromancer, ice_mage, lightning_mage, wind_mage and
+# white_mage, three lineups, both sides, seeds 1-8, 2026-10-21): the draft (turrets 8 + 6% / beam 25 + 20%, E 80 + 60%
+# with a 1.5 s stun, R cd 2100 with CH-3X 90 + 45% and the apex 25 + 15%) +4.03; single nerfs - turrets 6 + 4% / 18 +
+# 14% +4.08, rockets 6 + 5% +4.01 (neither drives it), E 60 + 45% with a 1 s stun +2.76, R cd 3000 with 70 + 35% / 18 +
+# 10% +3.24; the turret, E and R nerfs together +1.44 = P.
 P = {
     # stats (Magician base: attack 76 +6, ap 40 +20, hp 860 +95, def 18 +7, mr 20 +4, move 900 +9); League's
     # Heimerdinger: 558 +105 hp, 19 armour, 30 mr, 340 move, 550 range, attack speed 0.658
@@ -59,17 +63,17 @@ P = {
     "w_n": 5, "w_gap": 3, "w_dmg": 10, "w_ratio": 7, "w_speed": 3500, "e_combo": 90, "w_reach": 15000,
     # Q turrets (League: 3 turrets, 525 range, 7-23 + 35% AP a shot, the beam 40-120 + 55% AP; placed within 350)
     "q_cd": 240, "q_range": 60000, "q_dur": 30, "q_rel": 12, "q_place": 20000, "q_speed": 4000,
-    "t_life": 600, "t_per": 50, "t_first": 40, "t_r": 50000, "t_dmg": 8, "t_ratio": 6, "tb_dmg": 25, "tb_ratio": 20,
+    "t_life": 600, "t_per": 50, "t_first": 40, "t_r": 50000, "t_dmg": 6, "t_ratio": 4, "tb_dmg": 18, "tb_ratio": 14,
     # passive (League: 20% move speed near his turrets and allied towers)
     "p_r": 40000, "p_per": 20, "p_ms": 20, "p_t": 30,
     # E grenade (League: 970 range, 100-500... 60-220 + 60% AP, stun 1.5 s within 100, 35% slow 2 s within 210)
     "e_cd": 660, "e_range": 85000, "e_dur": 30, "e_rel": 12, "e_travel": 30, "e_r": 23000, "e_sr": 11000,
-    "e_dmg": 80, "e_ratio": 60, "e_slow": 35, "e_slow_t": 120, "e_stun": 90,
+    "e_dmg": 60, "e_ratio": 45, "e_slow": 35, "e_slow_t": 120, "e_stun": 60,
     # R UPGRADE!!! (League: cd 100-70 s; CH-3X 150-500 + 60% AP, bounces three times; Apex Turret 8 s, 80-160 + 30%)
-    "r_cd": 2100, "r_range": 75000, "r_dur": 40, "r_rel": 14, "r_crowd": 30000,
-    "r_gap": 24, "re_r": 25000, "re_sr": 13000, "re_dmg": 90, "re_ratio": 45, "re_slow": 40, "re_slow_t": 90,
+    "r_cd": 3000, "r_range": 75000, "r_dur": 40, "r_rel": 14, "r_crowd": 30000,
+    "r_gap": 24, "re_r": 25000, "re_sr": 13000, "re_dmg": 70, "re_ratio": 35, "re_slow": 40, "re_slow_t": 90,
     "re_stun": 60,
-    "x_life": 480, "x_per": 30, "x_first": 30, "x_r": 60000, "x_dmg": 25, "x_ratio": 15, "x_slow": 25, "x_slow_t": 45,
+    "x_life": 480, "x_per": 30, "x_first": 30, "x_r": 60000, "x_dmg": 18, "x_ratio": 10, "x_slow": 25, "x_slow_t": 45,
     "xb_dmg": 45, "xb_ratio": 30,
     "vo_gap": 600,
     "native": 0,
