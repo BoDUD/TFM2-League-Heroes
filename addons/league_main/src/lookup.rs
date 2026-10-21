@@ -65,10 +65,11 @@ static PROBE: Mutex<Probe> = Mutex::new(Probe { rvas: Vec::new(), dense: Vec::ne
 static PROXIES: LazyLock<Mutex<HashMap<usize, (usize, usize, usize)>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
 /// our vtable copies -> the texture data they were made for
 static FAKES: LazyLock<Mutex<HashMap<usize, usize>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
-/// texture data -> (its width entry, its height entry, the hero's shown divisor, whether the UI draws its lo_ frames)
-static SIZES: LazyLock<Mutex<HashMap<usize, (usize, usize, f32, Option<f32>)>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
-/// the UI's copies of anim tables: (table, sized) -> (its ctrl when copied, the copy)
-static UI: LazyLock<Mutex<HashMap<(usize, bool), (usize, usize)>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
+/// texture data -> (its width entry, its height entry, the hero's shown divisor, when the UI draws its lo_ frames:
+/// (the whole-body UI's divisor, the BP grid's hd_ divisor))
+static SIZES: LazyLock<Mutex<HashMap<usize, (usize, usize, f32, Option<(f32, f32)>)>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
+/// the UI's copies of anim tables: (table, sized, hd_ frames) -> (its ctrl when copied, the copy)
+static UI: LazyLock<Mutex<HashMap<(usize, bool, bool), (usize, usize)>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
 /// changed table -> (its ctrl, its battlefield copy)
 static BATTLE: LazyLock<Mutex<HashMap<usize, (usize, usize)>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
 /// anim tables already changed: (table, ctrl)
@@ -310,7 +311,7 @@ unsafe fn proxy_of(got: usize, hero: &Hero) -> Option<usize> {
         *e = read(vt + 8 * k, 8).map(|b| usize::from_le_bytes(b.try_into().unwrap())).unwrap_or(0);
     }
     if let Ok(mut s) = SIZES.lock() {
-        s.insert(data, (table[5], table[6], hero.shown(), hero.lo.then_some(hero.ui)));
+        s.insert(data, (table[5], table[6], hero.shown(), hero.lo.then_some((hero.ui, hero.bp_hd()))));
     }
     let (sw, sh) = size_stubs()?;
     table[5] = sw;
@@ -341,8 +342,8 @@ unsafe fn size_of(data: usize, ret: usize, which: usize) -> f32 {
         1.0
     } else if build().battle_size_ret.contains(&rva) {
         real
-    } else if let (Some(ui), true) = (lo, build().ui_size_ret.contains(&rva)) {
-        real / if build().ui_sized_size_ret.contains(&rva) { ui } else { hd::UI_PPU }
+    } else if let (Some((ui, bp)), true) = (lo, build().ui_size_ret.contains(&rva)) {
+        real / if build().bp_grid().1.contains(&rva) { bp } else if build().ui_sized_size_ret.contains(&rva) { ui } else { hd::UI_PPU }
     } else {
         real / ppu
     };
@@ -390,7 +391,8 @@ unsafe fn after_anim(ptr: usize, len: usize, sp: usize, got: usize) -> usize {
         return battle_table(got, hero).unwrap_or(got);
     }
     if hero.lo && build().ui_anim_ret.contains(&rva) {
-        return ui_table(got, hero, build().ui_sized_anim_ret.contains(&rva)).unwrap_or(got);
+        let hd = rva == build().bp_grid().0;
+        return ui_table(got, hero, build().ui_sized_anim_ret.contains(&rva), hd).unwrap_or(got);
     }
     got
 }
@@ -399,12 +401,14 @@ unsafe fn after_anim(ptr: usize, len: usize, sp: usize, got: usize) -> usize {
 /// every tag holds its lo_ frames with x, y, w, h divided by [`hd::UI_PPU`] - the hero drawn at 1.5 squares a game pixel
 /// there, as large as now (those callers' size asks get the texture's size / UI_PPU, [`size_of`]). `sized` (the pick
 /// slot, the BP grid, the pick moment) divides by the hero's UI_SIZES size as well ([`Hero::ui_for`]); the face crops
-/// get their own copy at the plain size. Kept, never freed.
-unsafe fn ui_table(t: usize, hero: &Hero, sized: bool) -> Option<usize> {
+/// get their own copy at the plain size. `hd` (the BP grid, [`crate::build::Build::bp_grid`]): every tag holds its hd_
+/// frames instead - the table's own, already divided by the battlefield's PPU / size - at [`Hero::bp_hd`]. Kept, never
+/// freed.
+unsafe fn ui_table(t: usize, hero: &Hero, sized: bool, hd: bool) -> Option<usize> {
     let ctrl = q(t);
-    let div = hero.ui_for(sized);
+    let div = if hd { hero.bp_hd() / hero.shown() } else { hero.ui_for(sized) };
     if let Ok(s) = UI.lock() {
-        if let Some(&(c, sh)) = s.get(&(t, sized)) {
+        if let Some(&(c, sh)) = s.get(&(t, sized, hd)) {
             if c == ctrl {
                 return Some(sh);
             }
@@ -417,7 +421,8 @@ unsafe fn ui_table(t: usize, hero: &Hero, sized: bool) -> Option<usize> {
     let buckets = mask + 1;
     let data = ctrl - buckets * BUCKET;
     let size = buckets * BUCKET + buckets + 16;
-    // first every tag's lo_ frames, read from the table; nothing copied unless every tag has them
+    // first every tag's lo_ (hd: hd_) frames, read from the table; nothing copied unless every tag has them
+    let want = if hd { hd::PREFIX } else { hd::LO_PREFIX };
     let mut plan: Vec<(usize, Vec<u8>)> = Vec::new();
     for i in 0..buckets {
         if *(ctrl as *const u8).add(i) & 0x80 != 0 {
@@ -429,12 +434,12 @@ unsafe fn ui_table(t: usize, hero: &Hero, sized: bool) -> Option<usize> {
             return None;
         }
         let key = std::slice::from_raw_parts(p as *const u8, n);
-        let lo_key: Vec<u8> = if key.starts_with(hd::LO_PREFIX.as_bytes()) {
+        let lo_key: Vec<u8> = if key.starts_with(want.as_bytes()) {
             key.to_vec()
-        } else if key.starts_with(hd::PREFIX.as_bytes()) {
-            [hd::LO_PREFIX.as_bytes(), &key[hd::PREFIX.len()..]].concat()
+        } else if let Some(rest) = key.strip_prefix(hd::PREFIX.as_bytes()).or(key.strip_prefix(hd::LO_PREFIX.as_bytes())) {
+            [want.as_bytes(), rest].concat()
         } else {
-            [hd::LO_PREFIX.as_bytes(), key].concat()
+            [want.as_bytes(), key].concat()
         };
         let src = bucket_of(t, &lo_key)?;
         let (fp, fl) = (q(src + 0x20), q(src + 0x28));
@@ -469,13 +474,14 @@ unsafe fn ui_table(t: usize, hero: &Hero, sized: bool) -> Option<usize> {
     head[0] = base + buckets * BUCKET;
     let sh = head.as_ptr() as usize;
     if let Ok(mut s) = UI.lock() {
-        s.insert((t, sized), (ctrl, sh));
+        s.insert((t, sized, hd), (ctrl, sh));
     }
     let check = match game_find(sh, b"idle") {
         Some(b) => format!("idle: {}", rect_of(b)),
         None => "idle NOT found".into(),
     };
-    wlog(format!("{}: UI table {sh:#x} for {t:#x} (lo_ frames / {div}{}); {check}", hero.id, if sized { ", whole-body" } else { "" }));
+    let what = if hd { format!("hd_ frames / {}, the BP grid", hero.bp_hd()) } else { format!("lo_ frames / {div}") };
+    wlog(format!("{}: UI table {sh:#x} for {t:#x} ({what}{}); {check}", hero.id, if sized { ", whole-body" } else { "" }));
     Some(sh)
 }
 
