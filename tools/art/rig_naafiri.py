@@ -17,7 +17,7 @@ the head steady and the body moving behind it, as a hound runs; one without (NOH
 square of its two bottom rows) where the idle's are - the hind legs planted as it rears or howls; both stand with their
 lowest square on the ground, or `lift` squares over it.
 The pack: two packmates trail her (PACK: the far one higher and behind her, drawn first; the near one lower, drawn over
-her hind legs), standing, galloping half a stride apart, diving in with her bite; the p4_* tags (The Call of the Pack,
+her hind legs), standing, galloping half a stride apart, and leaping onto the target ahead of her when she bites (BITE); the p4_* tags (The Call of the Pack,
 the add-on's view hook) have four (PACK4). They go when she dies (League's packmates vanish with her).
 """
 import argparse
@@ -42,6 +42,7 @@ STAND = 40                     # the idle's standing column: under the body's mi
 HEAD = (49, 17)                # the head box's top-left square in hd/idle.png (design_naafiri_poses.DESIGN)
 P_HEAD = (33, 4)               # the packmate's in hd/pack.png
 P_STAND = 24                   # the packmate's middle column
+P_HEAD_W = 16                  # its head box's width (design_naafiri_poses.DESIGN)
 NOHEAD = {"crouch", "rear", "rise", "howl"}
 # the pack: (column of the packmate's middle from her standing column, rows its ground lies under hers (negative: higher,
 # farther), drawn over her) - two, and four in The Call of the Pack
@@ -50,6 +51,14 @@ NOHEAD = {"crouch", "rear", "rise", "howl"}
 # heads, the second)
 PACK = [(-60, -12, False), (-44, 2, True)]
 PACK4 = [(-84, -9, False), (-60, -13, False), (-44, 2, True), (-70, 5, True)]
+# where the pack bites (the user, 2026-10-21: 「怎么小狼看起来不咬人啊」 - behind her the pack only showed fangs flashing
+# on the target): in the frames of a bite the packmates leap from behind her over to the target's far side and bite it
+# turned round, facing her - the target held between the three of them (leaping onto its near side they lay over her own
+# head and fore legs, one red mass). The target's flank is about 34 squares ahead of her standing point (her melee
+# reach), the packmates' head box middles at 43-55 (the slot's x + 17), the far ones higher and drawn first, the near
+# ones lower and drawn over; the frame before they are halfway (in the air, facing ahead), the frame after back home
+BITE = [(30, -7, False, True), (26, 4, True, True)]
+BITE4 = [(38, -12, False, True), (30, -7, False, True), (26, 4, True, True), (34, 8, True, True)]
 RUN_BACK = 12                  # her gallop and lunge are longer behind her head than the idle: the pack that much farther
 DASH_BACK = 24                 # her flat dash longer still (105 squares): the pack running that far behind her
 
@@ -85,7 +94,7 @@ class Canvas:
             hero, ppu, d0 = HERO, PPU, d
             H, W, px, ground = d.shape[0], d.shape[1], STAND, d.shape[0]
             outline = PD.edge_colour(d)
-        self.rig = R.Rig(D, pad=(110, 40, 50, 12))    # room for the pack behind her, the rear and the howl above
+        self.rig = R.Rig(D, pad=(110, 110, 50, 12))   # room for the pack behind her and past the target, the rear above
         self.outline = D.outline
         self.idle_hind = hind_x(d)
 
@@ -122,10 +131,14 @@ class Canvas:
         """A packmate: the design ('pack', `breath` rows set down onto its legs) or a pose, at its slot (column from her
         standing point, rows under her ground)."""
         CX, GY = self.rig.CX, self.rig.GY
-        sx, sy, _ = slot
+        sx, sy = slot[0], slot[1]
         if name == "pack":
             a = breathe(self.pack, breath, P_LEG_TOP) if breath else self.pack
             x0 = CX + sx - P_STAND + dx
+        elif len(slot) > 3 and slot[3]:                 # turned round (facing her): the head box's middle kept
+            a = self.poses[name][:, ::-1]
+            hx, _ = head_at(name)
+            x0 = CX + sx - P_STAND + P_HEAD[0] + P_HEAD_W // 2 - (a.shape[1] - hx - P_HEAD_W // 2) - dx
         else:
             a = self.poses[name]
             hx, _ = head_at(name)
@@ -200,6 +213,11 @@ def actions(C, slots):
     g = lambda her, mates, **k: C.frame(her, mates, back, **k)      # the stretched poses: the pack farther back
     far = [(x - DASH_BACK, y, front) for x, y, front in slots]
     h = lambda her, mates, **k: C.frame(her, mates, far, **k)       # the dash: the pack left behind
+    on = BITE if n == 2 else BITE4
+    mid = [((x0 + x1[0]) // 2, (y0 + x1[1]) // 2 - 6, fr) for (x0, y0, fr), x1 in zip(slots, on)]
+    b = lambda her, mates, **k: C.frame(her, mates, on, **k)        # the pack on the target, biting
+    m = lambda her, mates, **k: C.frame(her, mates, mid, **k)       # the pack in the air, leaping at it
+    leap_m = [("p_run4", 0, 2)] * n
     breaths = (0, 0, 1, 1, 1, 1, 0, 0)
     # the packmates breathe too, each a quarter of the cycle after the one before (her phase + 2 + 2i)
     idle_m = lambda k: [("pack", 0, 0, breaths[(k + 2 + 2 * i) % 8]) for i in range(n)]
@@ -211,8 +229,8 @@ def actions(C, slots):
     # run (League's Run: the four phases of the gallop; the pack galloping half a stride apart)
     out["run"] = [g((f"run{k + 1}", 0, 2 if k == 3 else 0, 0), run_m(k)) for k in range(4)]
     # attack (League's attack1: gathered, rearing with the jaws wide, the lunge and bite - the hit - held, back)
-    out["attack"] = [f(("crouch", 0, 0, 0), idle_m(0)), f(("rear", -2, 0, 0), idle_m(0)),
-                     g(("lunge", 6, 0, 0), bite_m), g(("lunge", 5, 0, 0), bite_m), f(("idle", 0, 0, 0), idle_m(0))]
+    out["attack"] = [f(("crouch", 0, 0, 0), idle_m(0)), m(("rear", -2, 0, 0), leap_m),
+                     b(("lunge", 6, 0, 0), bite_m), b(("lunge", 5, 0, 0), bite_m), f(("idle", 0, 0, 0), idle_m(0))]
     out["hit"] = [f(("idle", -2, 0, 0), idle_m(0), flash=True), f(("idle", -1, 0, 0), idle_m(0))]
     # death (League's Death: the howl, falling onto her side; the pack gone with her)
     out["dead"] = [f(("howl", -2, 0, 0), idle_m(0), flash=True), f(("howl", -2, 0, 0), [None] * n),
@@ -222,13 +240,13 @@ def actions(C, slots):
     out["skill"] = [f(("crouch", 0, 0, 0), idle_m(0)), f(("fling", 2, 10, 0), run_m(0)),
                     f(("flare", 2, 0, 0), run_m(1)), f(("idle", 0, 0, 0), idle_m(0))]
     # E Eviscerate (League's Spell3: the dash onto the target, rearing to shred, the second shred, back)
-    out["skill2"] = [h(("dash", 4, 3, 0), run_m(0)), h(("dash", 6, 2, 0), run_m(1)), f(("rise", 2, 0, 0), run_m(2)),
-                     g(("lunge", 4, 0, 0), bite_m), f(("idle", 0, 0, 0), idle_m(0))]
+    out["skill2"] = [h(("dash", 4, 3, 0), run_m(0)), h(("dash", 6, 2, 0), run_m(1)), m(("rise", 2, 0, 0), leap_m),
+                     b(("lunge", 4, 0, 0), bite_m), f(("idle", 0, 0, 0), idle_m(0))]
     # R opened by W: The Call of the Pack (the howl; the add-on doubles the pack from here on)
     out["ult"] = [f(("crouch", 0, 0, 0), idle_m(0)), f(("howl", 0, 0, 0), idle_m(0)), f(("howl", 0, 1, 0), idle_m(0))]
     # Hounds' Pursuit (League's Spell2: pressed low with the blades fanned, the flat dash, the bite on landing, back)
-    out["ult_b"] = [g(("flare", 0, 0, 0), idle_m(0)), h(("dash", 6, 4, 0), run_m(0)), h(("dash", 8, 2, 0), run_m(1)),
-                    g(("lunge", 8, 0, 0), bite_m), f(("idle", 0, 0, 0), idle_m(0))]
+    out["ult_b"] = [g(("flare", 0, 0, 0), idle_m(0)), h(("dash", 6, 4, 0), run_m(0)), m(("dash", 8, 2, 0), leap_m),
+                    b(("lunge", 8, 0, 0), bite_m), f(("idle", 0, 0, 0), idle_m(0))]
     return out
 
 
