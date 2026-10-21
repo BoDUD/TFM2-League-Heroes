@@ -1,0 +1,37 @@
+{
+  "zh-hans": {
+    "description": {
+      "league_heimerdinger": {
+        "skill": "【扩展包】放下一座炮台（最多3座）<#ffb900ff>10秒<>，每<#ffb900ff>0.83秒<>射击一个敌人，造成<#a974ffff>6<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>4%<>魔法伤害；对受控制的英雄发射光束，造成<#a974ffff>18<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>14%<>。<#ff9028ff>海克斯科技亲和<>：在炮台或己方防御塔旁移速+20%。"
+      }
+    }
+  },
+  "zh-hant": {
+    "description": {
+      "league_heimerdinger": {
+        "skill": "【擴充包】放下一座砲臺（最多3座）<#ffb900ff>10秒<>，每<#ffb900ff>0.83秒<>射擊一個敵人，造成<#a974ffff>6<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>4%<>魔法傷害；對受控制的英雄發射光束，造成<#a974ffff>18<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>14%<>。<#ff9028ff>海克斯親合性<>：在砲臺或己方防禦塔旁跑速+20%。"
+      }
+    }
+  },
+  "en": {
+    "description": {
+      "league_heimerdinger": {
+        "skill": "[Add-on] Sets down a turret (up to 3) for <#ffb900ff>10s<> that shoots one enemy every <#ffb900ff>0.83s<> for <#a974ffff>6<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>4%<> <#a974ffff>magic damage<>, or beams a crowd-controlled champion for <#a974ffff>18<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>14%<>. <#ff9028ff>Hextech Affinity<>: +20% move speed near his turrets or his side's towers."
+      }
+    }
+  },
+  "ko": {
+    "description": {
+      "league_heimerdinger": {
+        "skill": "[확장] 포탑을 설치한다(최대 3개, <#ffb900ff>10초<>). <#ffb900ff>0.83초<>마다 적 하나에게 <#a974ffff>6<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>4%<> 마법 피해, 군중 제어된 챔피언에게는 광선으로 <#a974ffff>18<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>14%<>. <#ff9028ff>마법공학 전문가<>: 포탑이나 아군 타워 근처에서 이동 속도 +20%."
+      }
+    }
+  },
+  "ja": {
+    "description": {
+      "league_heimerdinger": {
+        "skill": "【拡張】砲台を設置（最大3基、<#ffb900ff>10秒<>）。<#ffb900ff>0.83秒<>ごとに敵1体に<#a974ffff>6<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>4%<>の魔法ダメージ、行動妨害中のチャンピオンにはビームで<#a974ffff>18<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>14%<>。<#ff9028ff>ヘクステックの親和性<>：砲台か味方タワーの近くで移動速度+20%。"
+      }
+    }
+  }
+}

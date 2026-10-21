@@ -32,8 +32,13 @@ TFM2 has three active slots: H-28G Evolution Turret (Q) is `skill`, CH-2 Electro
   passive Hextech Affinity (海克斯科技亲和): every turret's aura (`AllyChampion` zone, radius p_r, every p_per ticks)
           asks `RandomTarget {AllyOnlySelf, from_projectile: true}` whether he stands in it (league_ekko's sphere) and
           gives him p_ms% move speed for p_t ticks.
-The add-on copy (--native, addons/league_heimerdinger): the turrets' shots fly as visible bolts from the turret (native
-spawn_projectile from a point) and the passive also counts his side's towers.
+The add-on copy (--native, addons/league_heimerdinger): the turrets keep their pictures, sounds and slots but lose their
+zones; Q's `put` and R's apex run the add-on's `league_heimerdinger:q` / `:x` with the cast's input, which stand a
+native turret where the hidden bolt stops (q_place toward it, q_place / q_speed ticks later). The add-on's passive
+`league_heimerdinger:affinity` fires them on the zones' timing at the same targets (the beam on a champion in crowd
+control, then the nearest champion, then the nearest unit) with visible shots flying from the muzzle (t_shot /
+t_beam_line / x_shot at t_speed / b_speed / x_speed, the damage on arrival) and gives the haste near his turrets and
+near his side's towers (p_tr) every p_per ticks.
 """
 import argparse
 import json
@@ -84,9 +89,15 @@ P = {
     "x_life": 480, "x_per": 30, "x_first": 30, "x_r": 60000, "x_dmg": 18, "x_ratio": 10, "x_slow": 25, "x_slow_t": 45,
     "xb_dmg": 45, "xb_ratio": 30,
     "vo_gap": 600,
-    "native": 0,
+    # 1 = the copy for addons/league_heimerdinger; its shots' speeds (League: 1650 a turret's shot) and the towers' reach
+    # for the passive
+    "native": 0, "t_speed": 2800, "b_speed": 9000, "x_speed": 3500, "p_tr": 60000,
 }
 SLOTS = "abc"
+# the numbers the add-on's passive reads (passive.params)
+NATIVE_KEYS = ("q_place", "q_speed", "t_life", "t_per", "t_first", "t_r", "t_dmg", "t_ratio", "tb_dmg", "tb_ratio",
+               "x_life", "x_per", "x_first", "x_r", "x_dmg", "x_ratio", "x_slow", "x_slow_t", "xb_dmg", "xb_ratio",
+               "p_r", "p_tr", "p_per", "p_ms", "p_t", "t_speed", "b_speed", "x_speed")
 
 
 def lp(path):
@@ -246,7 +257,9 @@ def build(p):
     cannon = [ap(p["t_dmg"], p["t_ratio"]), view("t_hit"), tsfx("t_hit")]
     beam = [ap(p["tb_dmg"], p["tb_ratio"]), view("t_beam"), tsfx("t_beam")]
     turret = lambda s: [view("t_turret"), sfx("t_spawn"),
-                        *gun(f"t{s}_shot", f"t{s}", p["t_r"], p["t_life"], p["t_per"], p["t_first"], cannon, beam)]
+                        *([] if native else gun(f"t{s}_shot", f"t{s}", p["t_r"], p["t_life"], p["t_per"], p["t_first"],
+                                                cannon, beam))]
+    stand = (lambda k: [{"type": "Native", "effect_ref": f"league_heimerdinger:{k}"}]) if native else (lambda k: [])
 
     # ------------------------------------------------------------------ attack: the bolt, W's rockets every third
     def rockets(target):
@@ -272,7 +285,8 @@ def build(p):
     # ------------------------------------------------------------------ skill: Q the turret, in the first free slot
     def slot(i):
         s = SLOTS[i]
-        put = combine(flag(f"t{s}_busy", p["t_life"]), place("q_place", p["q_speed"], p["q_place"], turret(s)))
+        put = combine(flag(f"t{s}_busy", p["t_life"]), place("q_place", p["q_speed"], p["q_place"], turret(s)),
+                      *stand("q"))
         return sw(f"t{s}_busy", NONE if i == len(SLOTS) - 1 else slot(i + 1), put)   # all three up: none
     skill = action("skill", p["q_dur"], p["q_cd"], 1, p["q_range"], "Direction", "EnemyWithoutTower",
                    combine(decoy(p["t_dmg"] * 4, p["t_ratio"] * 4, ap), sfx("q"), voice("vo_q", p),
@@ -303,7 +317,9 @@ def build(p):
     xbeam = [ap(p["xb_dmg"], p["xb_ratio"]), view("x_beam"), tsfx("t_beam")]
     apex = [sfx("rq"), place("q_place", p["q_speed"], p["q_place"],
                             [view("x_turret"), sfx("x_spawn"),
-                             *gun("x_shot", "x", p["x_r"], p["x_life"], p["x_per"], p["x_first"], xcannon, xbeam)])]
+                             *([] if native else gun("x_shot", "x", p["x_r"], p["x_life"], p["x_per"], p["x_first"],
+                                                     xcannon, xbeam))]),
+            *stand("x")]
     # the count: a lob onto the target starts a zone round him that adds r_one, then r_two (lob 1 tick + the zone's
     # delay 1); r_rel later two or more throw the storm
     count_r = zone("r_count", p["r_crowd"], [sw("r_one", flag("r_two", 6), flag("r_one", 6))], "EnemyChampion")
@@ -322,7 +338,7 @@ def build(p):
                                       "z": z}
     Pj = lambda name, tag=None, anim_=FX: {"type": "Animated", "name": n(name), "anim": anim_, "tag": tag or name,
                                            "repeat": True, "z": 2}
-    views_p = [Pj("a_bolt"), Pj("w_rocket"), Pj("e_grenade"), Pj("re_grenade")]
+    views_p = [Pj("a_bolt"), Pj("w_rocket"), Pj("e_grenade"), Pj("re_grenade")] +         ([Pj("t_shot"), Pj("t_beam_line"), Pj("x_shot")] if native else [])
     # the turrets under the units (z -1) like the ground; the grenade's blasts there too
     views_e = [E("a_hit"), E("w_hit"), dict(E("t_turret", TURRET, -1, False), tag="idle"), E("t_hit"), E("t_beam"),
                E("e_blast", BIG, -1, False), E("e_hit"), E("re_blast", BIG, -1, False), E("r_up", BIG),
@@ -331,7 +347,7 @@ def build(p):
     extra = {}
     if native:
         extra["passive"] = {"passive_ref": "league_heimerdinger:affinity", "params": {
-            k: p[k] for k in ("t_r", "t_per", "x_r", "x_per", "p_r", "p_ms", "p_t")}}
+            k: int(p[k]) for k in NATIVE_KEYS}}
     return {
         "id": ID, "category": "Magician", "tags": ["AP", "Magic", "Range", "CC"], **extra,
         "sprite": f"asset/league/champions/{ID}", "anim_prefix": "",
