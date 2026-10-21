@@ -1,8 +1,8 @@
-"""Build league_naafiri.data_champion (mid, Assassin: the Hound of a Hundred Bites) from the parameters P.
+"""Build league_naafiri.data_champion (jungle, Assassin: the Hound of a Hundred Bites) from the parameters P.
 
     python tools/kit/build_naafiri.py [--set key=value ...] [--out file] [--params json] [--nodes]
 
-Kit (group F mid, 2026-10-21; League 16.20's Naafiri; layout A - Q / E / R, the passive in every hit, W folded into
+Kit (group F, 2026-10-21; JUNGLE - the user: 「改打野啊」 (League plays her mid too); League 16.20's Naafiri; layout A - Q / E / R, the passive in every hit, W folded into
 the ult; 「有连招要做连招」). TFM2 has three active slots: Darkin Daggers (Q) is `skill`, Eviscerate (E) `skill2`,
 Hounds' Pursuit (League's R key, NaafiriW in the bins) the `ult`, opened by The Call of the Pack (League's W key,
 NaafiriR), as the pros cast them (W -> R).
@@ -35,8 +35,12 @@ NaafiriR), as the pros cast them (W -> R).
   combos  R -> Q -> Q2 -> E (猎狗血性扑上去 -> 暗裔犬牙 -> 第二把匕首 -> 剔骨本能): the pounce's landing throws the first dagger at
           once if Q is ready; the second dagger rides her next attack; its hit runs Eviscerate at once if E is ready
           (the dash is already on the target). A takedown in the window: the pounce again onto the next champion.
-Timings: drafts until the frames exist (a_hit, q_rel, e_go / e_at / e2_at, r_roar / r_at); numbers: drafts from
-league_talon's and league_khazix's balanced mid assassins, scaled from League's (CommunityDragon naafiri.bin 16.20).
+Timings: drafts until the frames exist (a_hit, q_rel, e_at / e2_at, r_roar / r_at). Numbers: candidate g2 of the
+classic-SDK simulations (C:/t/nf_sim, kd.py --lane 1 against ninja, demon, hunter, werewolf and vampire, 2026-10-21):
++1.48 on seeds 1-8 and +1.25 on 9-16 (league_graves +1.57 / +0.02, league_warwick +0.57 on 1-8 the same day). The
+draft g1 (attack 112 +22, the pack 10 + 16%, the bleed 40 + 60%, the pounce 80 + 80%) was +5.07 mid (league_talon
++2.75) and +3.90 in the jungle; g3 (all of g2's cuts and more) -1.26. The draft also panicked the engine in 170 of
+240 games until the decoys (below) gave her second dagger a damage the AI can read.
 """
 import argparse
 import json
@@ -59,20 +63,20 @@ BIG = "asset/league/effects/league_naafiri_big"
 P = {
     # stats (Assassin base: attack 120 +30, hp 900 +80, defence 25, mr 15, move 1100, range 23000; league_talon 122 +25,
     # 930 +88 hp, 26 +8 def)
-    "hp": 940, "hp_g": 88, "atk": 112, "atk_g": 22, "def": 26, "def_g": 8, "mr": 18, "mr_g": 4, "ms": 1100, "ms_g": 13,
+    "hp": 940, "hp_g": 88, "atk": 100, "atk_g": 18, "def": 26, "def_g": 8, "mr": 18, "mr_g": 4, "ms": 1100, "ms_g": 13,
     "atk_range": 23000, "atk_dur": 25, "atk_cd": 58, "a_hit": 8, "a_speed": 20000,
     # passive: the pack's bite on every hit (two packmates; four in `pack4`)
-    "pk_dmg": 10, "pk_ratio": 16, "pk_minion": 50, "pk_ride": 180, "pk_period": 45,
+    "pk_dmg": 8, "pk_ratio": 12, "pk_minion": 50, "pk_ride": 180, "pk_period": 45,
     # skill: Q Darkin Daggers
     "s_cd": 60, "q_cd": 480, "q_range": 50000, "q_dur": 22, "q_rel": 8, "q_speed": 5000,
-    "q_dmg": 30, "q_ratio": 25, "q_b_dmg": 40, "q_b_ratio": 60, "q_bleed": 300, "q_b_period": 30,
+    "q_dmg": 30, "q_ratio": 25, "q_b_dmg": 30, "q_b_ratio": 45, "q_bleed": 300, "q_b_period": 30,
     "q_win": 240, "q2_dur": 22, "q2_rel": 8, "q2_dmg": 35, "q2_ratio": 55, "q_heal": 35, "q_heal_r": 30,
     # skill2: E Eviscerate
     "s2_cd": 60, "e_cd": 600, "e_range": 32000, "e_dur": 26, "e_speed": 4500, "e_at": 4, "e2_at": 12, "e_r": 18000,
     "e_dmg": 35, "e_ratio": 50, "e2_dmg": 25, "e2_ratio": 40,
     # ult: R Hounds' Pursuit opened by W The Call of the Pack
     "r_cd": 3000, "r_range": 60000, "r_roar": 24, "r_imm": 45, "roar_t": 300, "roar_ad": 20, "roar_ms": 20,
-    "r_dur": 22, "r_speed": 4500, "r_at": 2, "r_dmg": 80, "r_ratio": 80, "r_slow": 99, "r_slow_t": 15,
+    "r_dur": 22, "r_speed": 4500, "r_at": 2, "r_dmg": 70, "r_ratio": 65, "r_slow": 99, "r_slow_t": 15,
     "r_shred": 20, "r_shred_t": 180, "r_win": 420, "r_recast": 720, "r_sh": 70, "r_sh_r": 40, "r_sh_t": 180,
     # her spoken lines, at most one every vo_gap ticks
     "vo_gap": 600,
@@ -167,6 +171,15 @@ def shield(amount, ratio, tick):
     return {"type": "Shield", "amount": amount, "attack_ratio": ratio, "ap_ratio": 0, "tick": tick}
 
 
+def decoy(dmg, ratio):
+    """The damage the game's AI reads for this action (build_gangplank.py's way): its estimate follows a SwitchByBuff by
+    the flags she has while it reads, and its battle plan divides an enemy's health by her attack's estimate - with
+    every hit behind the alive guard her second dagger read 0 (classic simulator, 2026-10-21: "attempt to divide by
+    zero" at game_core plan_legacy/sub_plan/battle.rs:1938 in 170 of 240 games). A flag she never has while it reads;
+    on the cast the flag is up and the hit is skipped, so nothing she does changes."""
+    return combine(flag("x", 1), sw("x", combine(*rm("x")), attack(dmg, ratio)), *rm("x"))
+
+
 def around(radius, target, effects):
     return {"type": "RangeEffect", "shape": circle(radius), "target": target, "apply_type": "AroundCaster",
             "effects": list(effects)}
@@ -248,7 +261,8 @@ def build(p):
     leap = homing("q_leap", p["q_speed"], "EnemyChampion", [ride, view("pk_leap"), tsfx("pk_leap")])   # the champion twin: the ride
 
     def q1():
-        return combine(refresh("q_cd", p["q_cd"]), refresh("q2", p["q_win"]), anim("skill", p["q_dur"]), sfx("q"),
+        return combine(refresh("q_cd", p["q_cd"]), refresh("q2", p["q_win"]), decoy(p["q_dmg"], p["q_ratio"]),
+                       anim("skill", p["q_dur"]), sfx("q"),
                        voice("vo_q", p), delayed(p["q_rel"] - 1, alive(dagger1, leap, pack_bite())))
 
     skill = action("idle", 3, p["s_cd"], 1, p["q_range"], "Targeting", "EnemyWithoutTower",
@@ -262,7 +276,7 @@ def build(p):
                      [attack(p["q2_dmg"], p["q2_ratio"]), view("q2_hit"), tsfx("q2_hit")])
     heal2 = homing("q2_heal", p["q_speed"], "EnemyChampion",
                    [on_me(heal(p["q_heal"], p["q_heal_r"]), cview("q_heal")), refresh("q2_land", 2)])
-    q2_atk = combine(*rm("q2"), anim("skill", p["q2_dur"]), sfx("q2"),
+    q2_atk = combine(*rm("q2"), decoy(p["q2_dmg"], p["q2_ratio"]), anim("skill", p["q2_dur"]), sfx("q2"),
                      delayed(p["q2_rel"] - 1, alive(dagger2, heal2, pack_bite())),
                      delayed(p["q2_rel"] + 1, alive(sw("e_cd", NONE, e_body()))))
     attack_a = action("attack", p["atk_dur"], p["atk_cd"], 1, p["atk_range"], "Targeting", "Enemy",

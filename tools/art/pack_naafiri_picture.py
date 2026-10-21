@@ -6,7 +6,7 @@ packmate, layout guides and style pictures.
 Writes <out>/PICTURE_PROMPT.md, <out>/refs/1..8 (League renders of Naafiri and a packmate, the loading-screen art) and
 <out>/refs/10a..10d (layout guides: Riot's, kept local, never committed) and <out>/style/11..14 (this pack's Nidalee
 cougar, Kindred, Warwick and Volibear, 8x, cut from their sheets), then <out>.zip. Render into a short folder (C:/t).
-Naafiri (group F mid, 2026-10-21) is the Hound of a Hundred Bites, a darkin dagger that took a pack of desert hounds:
+Naafiri (group F jungle, 2026-10-21) is the Hound of a Hundred Bites, a darkin dagger that took a pack of desert hounds:
   Naafiri - a big lean hound on four legs: a crimson-red wolf head with a white blaze down the snout and pointed ears,
   yellow eyes, a grinning mouth of white fangs, a slate blue-teal armoured hide over the back and the shoulders with
   crimson veins, a fan of big curved dark-purple blades rimmed in mint green rising from her neck and shoulders like a
