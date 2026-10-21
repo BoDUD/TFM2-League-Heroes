@@ -1,0 +1,2364 @@
+{
+  "id": "league_neeko",
+  "category": "Magician",
+  "tags": [
+    "AP",
+    "Magic",
+    "Range",
+    "CC"
+  ],
+  "sprite": "asset/league/champions/league_neeko",
+  "anim_prefix": "",
+  "skill_icons": [
+    "asset/league/icons/league_neeko_skill",
+    "asset/league/icons/league_neeko_skill2",
+    "asset/league/icons/league_neeko_ult"
+  ],
+  "stat": {
+    "attack": 70,
+    "magic_power": 40,
+    "hp": 880,
+    "defence": 17,
+    "magic_resistance": 22,
+    "move_speed": 900,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "growth": {
+    "attack": 6,
+    "magic_power": 20,
+    "hp": 95,
+    "defence": 7,
+    "magic_resistance": 4,
+    "move_speed": 9,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "attack": {
+    "action_name": "attack",
+    "description": "#asset/base/text/champion?description.league_neeko.attack",
+    "duration": 27,
+    "cooltime": 92,
+    "start_timing": 1,
+    "cancelable": true,
+    "range": 55000,
+    "casting_type": "Targeting",
+    "casting_target": "Enemy",
+    "attack_type": "BaseAttack",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Combine",
+          "effects": [
+            {
+              "type": "AddCasterBuff",
+              "buff_state": {
+                "name": "league_neeko_x",
+                "duration": {
+                  "Time": {
+                    "tick": 1
+                  }
+                }
+              },
+              "only_to_enemy": false
+            },
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_neeko_x",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_neeko_x"
+                  }
+                ]
+              },
+              "effect_none": {
+                "type": "Attack",
+                "damage": 0,
+                "attack_ratio": 100,
+                "hp_ratio": 0,
+                "target_hp_ratio": 0,
+                "attack_effect_type": "Target"
+              }
+            },
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_neeko_x"
+            }
+          ]
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_neeko_w2",
+          "effect_buff": {
+            "type": "CasterAnimation",
+            "name": "attack_w",
+            "tick": 27
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": []
+          }
+        },
+        {
+          "type": "Delayed",
+          "tick": 9,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_neeko_lives",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_neeko_lives",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "Sfx",
+                        "name": "league_neeko_a"
+                      },
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_neeko_w2",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_neeko_w2"
+                            },
+                            {
+                              "type": "Sfx",
+                              "name": "league_neeko_w"
+                            },
+                            {
+                              "type": "RangeEffect",
+                              "shape": {
+                                "Circle": {
+                                  "radius": 1000
+                                }
+                              },
+                              "target": "AllyOnlySelf",
+                              "apply_type": "AroundCaster",
+                              "effects": [
+                                {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "RemoveCasterBuff",
+                                      "name": "league_neeko_w_haste"
+                                    },
+                                    {
+                                      "type": "AddCasterBuff",
+                                      "buff_state": {
+                                        "name": "league_neeko_w_haste",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 60
+                                          }
+                                        },
+                                        "move_speed_mult": 30
+                                      },
+                                      "only_to_enemy": false
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "type": "TargetProjectile",
+                              "name": "league_neeko_a_bolt",
+                              "speed": 4500,
+                              "y_offset": -4000,
+                              "applied_target": "Enemy",
+                              "applied_effects": [
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "Attack",
+                                    "damage": 0,
+                                    "attack_ratio": 100,
+                                    "hp_ratio": 0,
+                                    "target_hp_ratio": 0,
+                                    "attack_effect_type": "Target"
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "ViewEffect",
+                                    "name": "league_neeko_a_hit"
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "TargetSfx",
+                                    "name": "league_neeko_a_hit"
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "ApAttack",
+                                    "damage": 35,
+                                    "attack_ratio": 40,
+                                    "hp_ratio": 0,
+                                    "can_crit": false
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "ViewEffect",
+                                    "name": "league_neeko_w_hit"
+                                  }
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "SwitchByBuff",
+                          "buff_name": "league_neeko_w1",
+                          "effect_buff": {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "league_neeko_w1"
+                              },
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_neeko_w2",
+                                  "duration": "Permanent"
+                                },
+                                "only_to_enemy": false
+                              },
+                              {
+                                "type": "TargetProjectile",
+                                "name": "league_neeko_a_bolt",
+                                "speed": 4500,
+                                "y_offset": -4000,
+                                "applied_target": "Enemy",
+                                "applied_effects": [
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "Attack",
+                                      "damage": 0,
+                                      "attack_ratio": 100,
+                                      "hp_ratio": 0,
+                                      "target_hp_ratio": 0,
+                                      "attack_effect_type": "Target"
+                                    }
+                                  },
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "ViewEffect",
+                                      "name": "league_neeko_a_hit"
+                                    }
+                                  },
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "TargetSfx",
+                                      "name": "league_neeko_a_hit"
+                                    }
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          "effect_none": {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_neeko_w1",
+                                  "duration": "Permanent"
+                                },
+                                "only_to_enemy": false
+                              },
+                              {
+                                "type": "TargetProjectile",
+                                "name": "league_neeko_a_bolt",
+                                "speed": 4500,
+                                "y_offset": -4000,
+                                "applied_target": "Enemy",
+                                "applied_effects": [
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "Attack",
+                                      "damage": 0,
+                                      "attack_ratio": 100,
+                                      "hp_ratio": 0,
+                                      "target_hp_ratio": 0,
+                                      "attack_effect_type": "Target"
+                                    }
+                                  },
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "ViewEffect",
+                                      "name": "league_neeko_a_hit"
+                                    }
+                                  },
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "TargetSfx",
+                                      "name": "league_neeko_a_hit"
+                                    }
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": []
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_neeko_lives"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill": {
+    "action_name": "idle",
+    "description": "#asset/base/text/champion?description.league_neeko.skill",
+    "duration": 3,
+    "cooltime": 60,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 80000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Combine",
+          "effects": [
+            {
+              "type": "AddCasterBuff",
+              "buff_state": {
+                "name": "league_neeko_x",
+                "duration": {
+                  "Time": {
+                    "tick": 1
+                  }
+                }
+              },
+              "only_to_enemy": false
+            },
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_neeko_x",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_neeko_x"
+                  }
+                ]
+              },
+              "effect_none": {
+                "type": "ApAttack",
+                "damage": 75,
+                "attack_ratio": 50,
+                "hp_ratio": 0,
+                "can_crit": false
+              }
+            },
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_neeko_x"
+            }
+          ]
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_neeko_q_cd",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": []
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "RemoveCasterBuff",
+                "name": "league_neeko_q_go"
+              },
+              {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_neeko_q_cd"
+                  },
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_neeko_q_cd",
+                      "duration": {
+                        "Time": {
+                          "tick": 420
+                        }
+                      }
+                    },
+                    "only_to_enemy": false
+                  }
+                ]
+              },
+              {
+                "type": "CasterAnimation",
+                "name": "skill",
+                "tick": 30
+              },
+              {
+                "type": "Sfx",
+                "name": "league_neeko_q"
+              },
+              {
+                "type": "SwitchByBuff",
+                "buff_name": "league_neeko_vo_cd",
+                "effect_buff": {
+                  "type": "Combine",
+                  "effects": []
+                },
+                "effect_none": {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_neeko_vo_cd",
+                        "duration": {
+                          "Time": {
+                            "tick": 600
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    },
+                    {
+                      "type": "Sfx",
+                      "name": "league_neeko_vo_q"
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "Delayed",
+                "tick": 9,
+                "effects": [
+                  {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RandomTarget",
+                        "range": 1,
+                        "casting_target": "AllyOnlySelf",
+                        "from_projectile": false,
+                        "effects": [
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_neeko_lives",
+                              "duration": {
+                                "Time": {
+                                  "tick": 1
+                                }
+                              }
+                            },
+                            "only_to_enemy": false
+                          }
+                        ]
+                      },
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_neeko_lives",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_neeko_q_go"
+                                },
+                                {
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "league_neeko_e_combo",
+                                  "effect_buff": {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "RemoveCasterBuff",
+                                        "name": "league_neeko_e_combo"
+                                      },
+                                      {
+                                        "type": "RandomTarget",
+                                        "range": 90000,
+                                        "casting_target": "EnemyChampionInCC",
+                                        "from_projectile": false,
+                                        "effects": [
+                                          {
+                                            "type": "AddCasterBuff",
+                                            "buff_state": {
+                                              "name": "league_neeko_q_go",
+                                              "duration": {
+                                                "Time": {
+                                                  "tick": 1
+                                                }
+                                              }
+                                            },
+                                            "only_to_enemy": false
+                                          },
+                                          {
+                                            "type": "ParabolicProjectile",
+                                            "name": "league_neeko_q_seed",
+                                            "travel_time": 4,
+                                            "range": 400000,
+                                            "range_effect_name": "",
+                                            "shape": {
+                                              "Circle": {
+                                                "radius": 1
+                                              }
+                                            },
+                                            "applied_target": "EnemyWithoutTower",
+                                            "applied_effects": [],
+                                            "end_effects": [
+                                              {
+                                                "type": "ViewEffect",
+                                                "name": "league_neeko_q_burst"
+                                              },
+                                              {
+                                                "type": "Sfx",
+                                                "name": "league_neeko_q_burst"
+                                              },
+                                              {
+                                                "type": "RangeProjectile",
+                                                "name": "league_neeko_q_hit0",
+                                                "shape": {
+                                                  "Circle": {
+                                                    "radius": 22000
+                                                  }
+                                                },
+                                                "delay": 1,
+                                                "apply": 1,
+                                                "applied_target": "EnemyWithoutTower",
+                                                "applied_effects": [
+                                                  {
+                                                    "casting_type": "Targeting",
+                                                    "effect": {
+                                                      "type": "ApAttack",
+                                                      "damage": 75,
+                                                      "attack_ratio": 50,
+                                                      "hp_ratio": 0,
+                                                      "can_crit": false
+                                                    }
+                                                  },
+                                                  {
+                                                    "casting_type": "Targeting",
+                                                    "effect": {
+                                                      "type": "ViewEffect",
+                                                      "name": "league_neeko_q_hit"
+                                                    }
+                                                  },
+                                                  {
+                                                    "casting_type": "Targeting",
+                                                    "effect": {
+                                                      "type": "TargetSfx",
+                                                      "name": "league_neeko_q_hit"
+                                                    }
+                                                  }
+                                                ]
+                                              },
+                                              {
+                                                "type": "RangeProjectile",
+                                                "name": "league_neeko_q_twin0",
+                                                "shape": {
+                                                  "Circle": {
+                                                    "radius": 22000
+                                                  }
+                                                },
+                                                "delay": 1,
+                                                "apply": 1,
+                                                "applied_target": "EnemyChampion",
+                                                "applied_effects": [
+                                                  {
+                                                    "casting_type": "Targeting",
+                                                    "effect": {
+                                                      "type": "Combine",
+                                                      "effects": [
+                                                        {
+                                                          "type": "RemoveCasterBuff",
+                                                          "name": "league_neeko_q_b1"
+                                                        },
+                                                        {
+                                                          "type": "AddCasterBuff",
+                                                          "buff_state": {
+                                                            "name": "league_neeko_q_b1",
+                                                            "duration": {
+                                                              "Time": {
+                                                                "tick": 47
+                                                              }
+                                                            }
+                                                          },
+                                                          "only_to_enemy": false
+                                                        }
+                                                      ]
+                                                    }
+                                                  }
+                                                ]
+                                              },
+                                              {
+                                                "type": "Delayed",
+                                                "tick": 45,
+                                                "effects": [
+                                                  {
+                                                    "type": "SwitchByBuff",
+                                                    "buff_name": "league_neeko_q_b1",
+                                                    "effect_buff": {
+                                                      "type": "Combine",
+                                                      "effects": [
+                                                        {
+                                                          "type": "RemoveCasterBuff",
+                                                          "name": "league_neeko_q_b1"
+                                                        },
+                                                        {
+                                                          "type": "ViewEffect",
+                                                          "name": "league_neeko_q_bloom"
+                                                        },
+                                                        {
+                                                          "type": "Sfx",
+                                                          "name": "league_neeko_q_bloom"
+                                                        },
+                                                        {
+                                                          "type": "RangeProjectile",
+                                                          "name": "league_neeko_q_hit1",
+                                                          "shape": {
+                                                            "Circle": {
+                                                              "radius": 22000
+                                                            }
+                                                          },
+                                                          "delay": 1,
+                                                          "apply": 1,
+                                                          "applied_target": "EnemyWithoutTower",
+                                                          "applied_effects": [
+                                                            {
+                                                              "casting_type": "Targeting",
+                                                              "effect": {
+                                                                "type": "ApAttack",
+                                                                "damage": 30,
+                                                                "attack_ratio": 20,
+                                                                "hp_ratio": 0,
+                                                                "can_crit": false
+                                                              }
+                                                            },
+                                                            {
+                                                              "casting_type": "Targeting",
+                                                              "effect": {
+                                                                "type": "ViewEffect",
+                                                                "name": "league_neeko_q_hit"
+                                                              }
+                                                            },
+                                                            {
+                                                              "casting_type": "Targeting",
+                                                              "effect": {
+                                                                "type": "TargetSfx",
+                                                                "name": "league_neeko_q_hit"
+                                                              }
+                                                            }
+                                                          ]
+                                                        },
+                                                        {
+                                                          "type": "RangeProjectile",
+                                                          "name": "league_neeko_q_twin1",
+                                                          "shape": {
+                                                            "Circle": {
+                                                              "radius": 22000
+                                                            }
+                                                          },
+                                                          "delay": 1,
+                                                          "apply": 1,
+                                                          "applied_target": "EnemyChampion",
+                                                          "applied_effects": [
+                                                            {
+                                                              "casting_type": "Targeting",
+                                                              "effect": {
+                                                                "type": "Combine",
+                                                                "effects": [
+                                                                  {
+                                                                    "type": "RemoveCasterBuff",
+                                                                    "name": "league_neeko_q_b2"
+                                                                  },
+                                                                  {
+                                                                    "type": "AddCasterBuff",
+                                                                    "buff_state": {
+                                                                      "name": "league_neeko_q_b2",
+                                                                      "duration": {
+                                                                        "Time": {
+                                                                          "tick": 47
+                                                                        }
+                                                                      }
+                                                                    },
+                                                                    "only_to_enemy": false
+                                                                  }
+                                                                ]
+                                                              }
+                                                            }
+                                                          ]
+                                                        },
+                                                        {
+                                                          "type": "Delayed",
+                                                          "tick": 45,
+                                                          "effects": [
+                                                            {
+                                                              "type": "SwitchByBuff",
+                                                              "buff_name": "league_neeko_q_b2",
+                                                              "effect_buff": {
+                                                                "type": "Combine",
+                                                                "effects": [
+                                                                  {
+                                                                    "type": "RemoveCasterBuff",
+                                                                    "name": "league_neeko_q_b2"
+                                                                  },
+                                                                  {
+                                                                    "type": "ViewEffect",
+                                                                    "name": "league_neeko_q_bloom"
+                                                                  },
+                                                                  {
+                                                                    "type": "Sfx",
+                                                                    "name": "league_neeko_q_bloom"
+                                                                  },
+                                                                  {
+                                                                    "type": "RangeProjectile",
+                                                                    "name": "league_neeko_q_hit2",
+                                                                    "shape": {
+                                                                      "Circle": {
+                                                                        "radius": 22000
+                                                                      }
+                                                                    },
+                                                                    "delay": 1,
+                                                                    "apply": 1,
+                                                                    "applied_target": "EnemyWithoutTower",
+                                                                    "applied_effects": [
+                                                                      {
+                                                                        "casting_type": "Targeting",
+                                                                        "effect": {
+                                                                          "type": "ApAttack",
+                                                                          "damage": 30,
+                                                                          "attack_ratio": 20,
+                                                                          "hp_ratio": 0,
+                                                                          "can_crit": false
+                                                                        }
+                                                                      },
+                                                                      {
+                                                                        "casting_type": "Targeting",
+                                                                        "effect": {
+                                                                          "type": "ViewEffect",
+                                                                          "name": "league_neeko_q_hit"
+                                                                        }
+                                                                      },
+                                                                      {
+                                                                        "casting_type": "Targeting",
+                                                                        "effect": {
+                                                                          "type": "TargetSfx",
+                                                                          "name": "league_neeko_q_hit"
+                                                                        }
+                                                                      }
+                                                                    ]
+                                                                  }
+                                                                ]
+                                                              },
+                                                              "effect_none": {
+                                                                "type": "Combine",
+                                                                "effects": []
+                                                              }
+                                                            }
+                                                          ]
+                                                        }
+                                                      ]
+                                                    },
+                                                    "effect_none": {
+                                                      "type": "Combine",
+                                                      "effects": []
+                                                    }
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  "effect_none": {
+                                    "type": "Combine",
+                                    "effects": []
+                                  }
+                                },
+                                {
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "league_neeko_q_go",
+                                  "effect_buff": {
+                                    "type": "Combine",
+                                    "effects": []
+                                  },
+                                  "effect_none": {
+                                    "type": "ParabolicProjectile",
+                                    "name": "league_neeko_q_seed",
+                                    "travel_time": 25,
+                                    "range": 400000,
+                                    "range_effect_name": "",
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 1
+                                      }
+                                    },
+                                    "applied_target": "EnemyWithoutTower",
+                                    "applied_effects": [],
+                                    "end_effects": [
+                                      {
+                                        "type": "ViewEffect",
+                                        "name": "league_neeko_q_burst"
+                                      },
+                                      {
+                                        "type": "Sfx",
+                                        "name": "league_neeko_q_burst"
+                                      },
+                                      {
+                                        "type": "RangeProjectile",
+                                        "name": "league_neeko_q_hit0",
+                                        "shape": {
+                                          "Circle": {
+                                            "radius": 22000
+                                          }
+                                        },
+                                        "delay": 1,
+                                        "apply": 1,
+                                        "applied_target": "EnemyWithoutTower",
+                                        "applied_effects": [
+                                          {
+                                            "casting_type": "Targeting",
+                                            "effect": {
+                                              "type": "ApAttack",
+                                              "damage": 75,
+                                              "attack_ratio": 50,
+                                              "hp_ratio": 0,
+                                              "can_crit": false
+                                            }
+                                          },
+                                          {
+                                            "casting_type": "Targeting",
+                                            "effect": {
+                                              "type": "ViewEffect",
+                                              "name": "league_neeko_q_hit"
+                                            }
+                                          },
+                                          {
+                                            "casting_type": "Targeting",
+                                            "effect": {
+                                              "type": "TargetSfx",
+                                              "name": "league_neeko_q_hit"
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "RangeProjectile",
+                                        "name": "league_neeko_q_twin0",
+                                        "shape": {
+                                          "Circle": {
+                                            "radius": 22000
+                                          }
+                                        },
+                                        "delay": 1,
+                                        "apply": 1,
+                                        "applied_target": "EnemyChampion",
+                                        "applied_effects": [
+                                          {
+                                            "casting_type": "Targeting",
+                                            "effect": {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_neeko_q_b1"
+                                                },
+                                                {
+                                                  "type": "AddCasterBuff",
+                                                  "buff_state": {
+                                                    "name": "league_neeko_q_b1",
+                                                    "duration": {
+                                                      "Time": {
+                                                        "tick": 47
+                                                      }
+                                                    }
+                                                  },
+                                                  "only_to_enemy": false
+                                                }
+                                              ]
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "Delayed",
+                                        "tick": 45,
+                                        "effects": [
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_neeko_q_b1",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_neeko_q_b1"
+                                                },
+                                                {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_neeko_q_bloom"
+                                                },
+                                                {
+                                                  "type": "Sfx",
+                                                  "name": "league_neeko_q_bloom"
+                                                },
+                                                {
+                                                  "type": "RangeProjectile",
+                                                  "name": "league_neeko_q_hit1",
+                                                  "shape": {
+                                                    "Circle": {
+                                                      "radius": 22000
+                                                    }
+                                                  },
+                                                  "delay": 1,
+                                                  "apply": 1,
+                                                  "applied_target": "EnemyWithoutTower",
+                                                  "applied_effects": [
+                                                    {
+                                                      "casting_type": "Targeting",
+                                                      "effect": {
+                                                        "type": "ApAttack",
+                                                        "damage": 30,
+                                                        "attack_ratio": 20,
+                                                        "hp_ratio": 0,
+                                                        "can_crit": false
+                                                      }
+                                                    },
+                                                    {
+                                                      "casting_type": "Targeting",
+                                                      "effect": {
+                                                        "type": "ViewEffect",
+                                                        "name": "league_neeko_q_hit"
+                                                      }
+                                                    },
+                                                    {
+                                                      "casting_type": "Targeting",
+                                                      "effect": {
+                                                        "type": "TargetSfx",
+                                                        "name": "league_neeko_q_hit"
+                                                      }
+                                                    }
+                                                  ]
+                                                },
+                                                {
+                                                  "type": "RangeProjectile",
+                                                  "name": "league_neeko_q_twin1",
+                                                  "shape": {
+                                                    "Circle": {
+                                                      "radius": 22000
+                                                    }
+                                                  },
+                                                  "delay": 1,
+                                                  "apply": 1,
+                                                  "applied_target": "EnemyChampion",
+                                                  "applied_effects": [
+                                                    {
+                                                      "casting_type": "Targeting",
+                                                      "effect": {
+                                                        "type": "Combine",
+                                                        "effects": [
+                                                          {
+                                                            "type": "RemoveCasterBuff",
+                                                            "name": "league_neeko_q_b2"
+                                                          },
+                                                          {
+                                                            "type": "AddCasterBuff",
+                                                            "buff_state": {
+                                                              "name": "league_neeko_q_b2",
+                                                              "duration": {
+                                                                "Time": {
+                                                                  "tick": 47
+                                                                }
+                                                              }
+                                                            },
+                                                            "only_to_enemy": false
+                                                          }
+                                                        ]
+                                                      }
+                                                    }
+                                                  ]
+                                                },
+                                                {
+                                                  "type": "Delayed",
+                                                  "tick": 45,
+                                                  "effects": [
+                                                    {
+                                                      "type": "SwitchByBuff",
+                                                      "buff_name": "league_neeko_q_b2",
+                                                      "effect_buff": {
+                                                        "type": "Combine",
+                                                        "effects": [
+                                                          {
+                                                            "type": "RemoveCasterBuff",
+                                                            "name": "league_neeko_q_b2"
+                                                          },
+                                                          {
+                                                            "type": "ViewEffect",
+                                                            "name": "league_neeko_q_bloom"
+                                                          },
+                                                          {
+                                                            "type": "Sfx",
+                                                            "name": "league_neeko_q_bloom"
+                                                          },
+                                                          {
+                                                            "type": "RangeProjectile",
+                                                            "name": "league_neeko_q_hit2",
+                                                            "shape": {
+                                                              "Circle": {
+                                                                "radius": 22000
+                                                              }
+                                                            },
+                                                            "delay": 1,
+                                                            "apply": 1,
+                                                            "applied_target": "EnemyWithoutTower",
+                                                            "applied_effects": [
+                                                              {
+                                                                "casting_type": "Targeting",
+                                                                "effect": {
+                                                                  "type": "ApAttack",
+                                                                  "damage": 30,
+                                                                  "attack_ratio": 20,
+                                                                  "hp_ratio": 0,
+                                                                  "can_crit": false
+                                                                }
+                                                              },
+                                                              {
+                                                                "casting_type": "Targeting",
+                                                                "effect": {
+                                                                  "type": "ViewEffect",
+                                                                  "name": "league_neeko_q_hit"
+                                                                }
+                                                              },
+                                                              {
+                                                                "casting_type": "Targeting",
+                                                                "effect": {
+                                                                  "type": "TargetSfx",
+                                                                  "name": "league_neeko_q_hit"
+                                                                }
+                                                              }
+                                                            ]
+                                                          }
+                                                        ]
+                                                      },
+                                                      "effect_none": {
+                                                        "type": "Combine",
+                                                        "effects": []
+                                                      }
+                                                    }
+                                                  ]
+                                                }
+                                              ]
+                                            },
+                                            "effect_none": {
+                                              "type": "Combine",
+                                              "effects": []
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      },
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_neeko_lives"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "skill2": {
+    "action_name": "skill2",
+    "description": "#asset/base/text/champion?description.league_neeko.skill2",
+    "duration": 30,
+    "cooltime": 660,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 90000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Combine",
+          "effects": [
+            {
+              "type": "AddCasterBuff",
+              "buff_state": {
+                "name": "league_neeko_x",
+                "duration": {
+                  "Time": {
+                    "tick": 1
+                  }
+                }
+              },
+              "only_to_enemy": false
+            },
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_neeko_x",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_neeko_x"
+                  }
+                ]
+              },
+              "effect_none": {
+                "type": "ApAttack",
+                "damage": 70,
+                "attack_ratio": 45,
+                "hp_ratio": 0,
+                "can_crit": false
+              }
+            },
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_neeko_x"
+            }
+          ]
+        },
+        {
+          "type": "RemoveCasterBuff",
+          "name": "league_neeko_e_big"
+        },
+        {
+          "type": "Sfx",
+          "name": "league_neeko_e"
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_neeko_vo_cd",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": []
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_neeko_vo_cd",
+                  "duration": {
+                    "Time": {
+                      "tick": 600
+                    }
+                  }
+                },
+                "only_to_enemy": false
+              },
+              {
+                "type": "Sfx",
+                "name": "league_neeko_vo_e"
+              }
+            ]
+          }
+        },
+        {
+          "type": "Delayed",
+          "tick": 9,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_neeko_lives",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_neeko_lives",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "LinearProjectile",
+                        "name": "league_neeko_e_barbs",
+                        "speed": 2000,
+                        "range": 100000,
+                        "y_offset": 5000,
+                        "penetrate": true,
+                        "shape": {
+                          "Circle": {
+                            "radius": 7000
+                          }
+                        },
+                        "applied_target": "EnemyWithoutTower",
+                        "applied_effects": [
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "ApAttack",
+                              "damage": 70,
+                              "attack_ratio": 45,
+                              "hp_ratio": 0,
+                              "can_crit": false
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "Bind",
+                              "duration": 60
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "AddBuff",
+                              "buff_state": {
+                                "name": "league_neeko_e_bound",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 60
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "ViewEffect",
+                              "name": "league_neeko_e_hit"
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "TargetSfx",
+                              "name": "league_neeko_e_hit"
+                            }
+                          }
+                        ],
+                        "end_effects": []
+                      },
+                      {
+                        "type": "LinearProjectile",
+                        "name": "league_neeko_e_twin",
+                        "speed": 2000,
+                        "range": 100000,
+                        "y_offset": 5000,
+                        "penetrate": true,
+                        "shape": {
+                          "Circle": {
+                            "radius": 7000
+                          }
+                        },
+                        "applied_target": "EnemyChampion",
+                        "applied_effects": [
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "SwitchByBuff",
+                              "buff_name": "league_neeko_e_big",
+                              "effect_buff": {
+                                "type": "Delayed",
+                                "tick": 60,
+                                "effects": [
+                                  {
+                                    "type": "Bind",
+                                    "duration": 45
+                                  },
+                                  {
+                                    "type": "AddBuff",
+                                    "buff_state": {
+                                      "name": "league_neeko_e_bound",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 45
+                                        }
+                                      }
+                                    }
+                                  }
+                                ]
+                              },
+                              "effect_none": {
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "RemoveCasterBuff",
+                                    "name": "league_neeko_e_big"
+                                  },
+                                  {
+                                    "type": "AddCasterBuff",
+                                    "buff_state": {
+                                      "name": "league_neeko_e_big",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 55
+                                        }
+                                      }
+                                    },
+                                    "only_to_enemy": false
+                                  }
+                                ]
+                              }
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_neeko_e_combo"
+                                },
+                                {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_neeko_e_combo",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 60
+                                      }
+                                    }
+                                  },
+                                  "only_to_enemy": false
+                                }
+                              ]
+                            }
+                          }
+                        ],
+                        "end_effects": []
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": []
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_neeko_lives"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "ult": {
+    "action_name": "ult",
+    "description": "#asset/base/text/champion?description.league_neeko.ult",
+    "duration": 45,
+    "cooltime": 2100,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 45000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Combine",
+          "effects": [
+            {
+              "type": "AddCasterBuff",
+              "buff_state": {
+                "name": "league_neeko_x",
+                "duration": {
+                  "Time": {
+                    "tick": 1
+                  }
+                }
+              },
+              "only_to_enemy": false
+            },
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_neeko_x",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_neeko_x"
+                  }
+                ]
+              },
+              "effect_none": {
+                "type": "ApAttack",
+                "damage": 170,
+                "attack_ratio": 75,
+                "hp_ratio": 0,
+                "can_crit": false
+              }
+            },
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_neeko_x"
+            }
+          ]
+        },
+        {
+          "type": "Sfx",
+          "name": "league_neeko_r"
+        },
+        {
+          "type": "Sfx",
+          "name": "league_neeko_r_sh"
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_neeko_vo_cd",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": []
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_neeko_vo_cd",
+                  "duration": {
+                    "Time": {
+                      "tick": 600
+                    }
+                  }
+                },
+                "only_to_enemy": false
+              },
+              {
+                "type": "Sfx",
+                "name": "league_neeko_vo_r"
+              }
+            ]
+          }
+        },
+        {
+          "type": "CasterViewEffect",
+          "name": "league_neeko_r_charge"
+        },
+        {
+          "type": "RangeEffect",
+          "shape": {
+            "Circle": {
+              "radius": 1000
+            }
+          },
+          "target": "AllyOnlySelf",
+          "apply_type": "AroundCaster",
+          "effects": [
+            {
+              "type": "Shield",
+              "amount": 80,
+              "attack_ratio": 0,
+              "ap_ratio": 30,
+              "tick": 150
+            }
+          ]
+        },
+        {
+          "type": "RangeEffect",
+          "shape": {
+            "Circle": {
+              "radius": 40000
+            }
+          },
+          "target": "EnemyChampion",
+          "apply_type": "AroundCaster",
+          "effects": [
+            {
+              "type": "RangeEffect",
+              "shape": {
+                "Circle": {
+                  "radius": 1000
+                }
+              },
+              "target": "AllyOnlySelf",
+              "apply_type": "AroundCaster",
+              "effects": [
+                {
+                  "type": "Shield",
+                  "amount": 40,
+                  "attack_ratio": 0,
+                  "ap_ratio": 0,
+                  "tick": 150
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 44,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_neeko_lives",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_neeko_lives",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "CasterAnimation",
+                            "name": "ult_b",
+                            "tick": 30
+                          },
+                          {
+                            "type": "Sfx",
+                            "name": "league_neeko_r_jump"
+                          },
+                          {
+                            "type": "CasterViewEffect",
+                            "name": "league_neeko_r_jump"
+                          },
+                          {
+                            "type": "RangeEffect",
+                            "shape": {
+                              "Circle": {
+                                "radius": 40000
+                              }
+                            },
+                            "target": "EnemyWithoutTower",
+                            "apply_type": "AroundCaster",
+                            "effects": [
+                              {
+                                "type": "Airborne",
+                                "duration": 20
+                              }
+                            ]
+                          },
+                          {
+                            "type": "MoveToTarget",
+                            "speed": 3500,
+                            "range": 65000,
+                            "end_effects": [
+                              {
+                                "type": "Delayed",
+                                "tick": 2,
+                                "effects": [
+                                  {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "RandomTarget",
+                                        "range": 1,
+                                        "casting_target": "AllyOnlySelf",
+                                        "from_projectile": false,
+                                        "effects": [
+                                          {
+                                            "type": "AddCasterBuff",
+                                            "buff_state": {
+                                              "name": "league_neeko_lives",
+                                              "duration": {
+                                                "Time": {
+                                                  "tick": 1
+                                                }
+                                              }
+                                            },
+                                            "only_to_enemy": false
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "SwitchByBuff",
+                                        "buff_name": "league_neeko_lives",
+                                        "effect_buff": {
+                                          "type": "Combine",
+                                          "effects": [
+                                            {
+                                              "type": "CasterViewEffect",
+                                              "name": "league_neeko_r_land"
+                                            },
+                                            {
+                                              "type": "Sfx",
+                                              "name": "league_neeko_r_land"
+                                            },
+                                            {
+                                              "type": "RangeEffect",
+                                              "shape": {
+                                                "Circle": {
+                                                  "radius": 40000
+                                                }
+                                              },
+                                              "target": "EnemyWithoutTower",
+                                              "apply_type": "AroundCaster",
+                                              "effects": [
+                                                {
+                                                  "type": "ApAttack",
+                                                  "damage": 170,
+                                                  "attack_ratio": 75,
+                                                  "hp_ratio": 0,
+                                                  "can_crit": false
+                                                },
+                                                {
+                                                  "type": "Stun",
+                                                  "duration": 50
+                                                },
+                                                {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_neeko_r_hit"
+                                                },
+                                                {
+                                                  "type": "TargetSfx",
+                                                  "name": "league_neeko_r_hit"
+                                                }
+                                              ]
+                                            },
+                                            {
+                                              "type": "Delayed",
+                                              "tick": 2,
+                                              "effects": [
+                                                {
+                                                  "type": "SwitchByBuff",
+                                                  "buff_name": "league_neeko_q_cd",
+                                                  "effect_buff": {
+                                                    "type": "Combine",
+                                                    "effects": []
+                                                  },
+                                                  "effect_none": {
+                                                    "type": "Combine",
+                                                    "effects": [
+                                                      {
+                                                        "type": "RemoveCasterBuff",
+                                                        "name": "league_neeko_q_go"
+                                                      },
+                                                      {
+                                                        "type": "RandomTarget",
+                                                        "range": 90000,
+                                                        "casting_target": "EnemyChampionInCC",
+                                                        "from_projectile": false,
+                                                        "effects": [
+                                                          {
+                                                            "type": "AddCasterBuff",
+                                                            "buff_state": {
+                                                              "name": "league_neeko_q_go",
+                                                              "duration": {
+                                                                "Time": {
+                                                                  "tick": 1
+                                                                }
+                                                              }
+                                                            },
+                                                            "only_to_enemy": false
+                                                          }
+                                                        ]
+                                                      },
+                                                      {
+                                                        "type": "SwitchByBuff",
+                                                        "buff_name": "league_neeko_q_go",
+                                                        "effect_buff": {
+                                                          "type": "Combine",
+                                                          "effects": [
+                                                            {
+                                                              "type": "RemoveCasterBuff",
+                                                              "name": "league_neeko_q_go"
+                                                            },
+                                                            {
+                                                              "type": "Combine",
+                                                              "effects": [
+                                                                {
+                                                                  "type": "RemoveCasterBuff",
+                                                                  "name": "league_neeko_q_cd"
+                                                                },
+                                                                {
+                                                                  "type": "AddCasterBuff",
+                                                                  "buff_state": {
+                                                                    "name": "league_neeko_q_cd",
+                                                                    "duration": {
+                                                                      "Time": {
+                                                                        "tick": 420
+                                                                      }
+                                                                    }
+                                                                  },
+                                                                  "only_to_enemy": false
+                                                                }
+                                                              ]
+                                                            },
+                                                            {
+                                                              "type": "CasterAnimation",
+                                                              "name": "skill",
+                                                              "tick": 30
+                                                            },
+                                                            {
+                                                              "type": "Sfx",
+                                                              "name": "league_neeko_q"
+                                                            },
+                                                            {
+                                                              "type": "SwitchByBuff",
+                                                              "buff_name": "league_neeko_vo_cd",
+                                                              "effect_buff": {
+                                                                "type": "Combine",
+                                                                "effects": []
+                                                              },
+                                                              "effect_none": {
+                                                                "type": "Combine",
+                                                                "effects": [
+                                                                  {
+                                                                    "type": "AddCasterBuff",
+                                                                    "buff_state": {
+                                                                      "name": "league_neeko_vo_cd",
+                                                                      "duration": {
+                                                                        "Time": {
+                                                                          "tick": 600
+                                                                        }
+                                                                      }
+                                                                    },
+                                                                    "only_to_enemy": false
+                                                                  },
+                                                                  {
+                                                                    "type": "Sfx",
+                                                                    "name": "league_neeko_vo_q"
+                                                                  }
+                                                                ]
+                                                              }
+                                                            },
+                                                            {
+                                                              "type": "Delayed",
+                                                              "tick": 9,
+                                                              "effects": [
+                                                                {
+                                                                  "type": "Combine",
+                                                                  "effects": [
+                                                                    {
+                                                                      "type": "RandomTarget",
+                                                                      "range": 1,
+                                                                      "casting_target": "AllyOnlySelf",
+                                                                      "from_projectile": false,
+                                                                      "effects": [
+                                                                        {
+                                                                          "type": "AddCasterBuff",
+                                                                          "buff_state": {
+                                                                            "name": "league_neeko_lives",
+                                                                            "duration": {
+                                                                              "Time": {
+                                                                                "tick": 1
+                                                                              }
+                                                                            }
+                                                                          },
+                                                                          "only_to_enemy": false
+                                                                        }
+                                                                      ]
+                                                                    },
+                                                                    {
+                                                                      "type": "SwitchByBuff",
+                                                                      "buff_name": "league_neeko_lives",
+                                                                      "effect_buff": {
+                                                                        "type": "Combine",
+                                                                        "effects": [
+                                                                          {
+                                                                            "type": "RandomTarget",
+                                                                            "range": 90000,
+                                                                            "casting_target": "EnemyChampionInCC",
+                                                                            "from_projectile": false,
+                                                                            "effects": [
+                                                                              {
+                                                                                "type": "AddCasterBuff",
+                                                                                "buff_state": {
+                                                                                  "name": "league_neeko_q_go",
+                                                                                  "duration": {
+                                                                                    "Time": {
+                                                                                      "tick": 1
+                                                                                    }
+                                                                                  }
+                                                                                },
+                                                                                "only_to_enemy": false
+                                                                              },
+                                                                              {
+                                                                                "type": "ParabolicProjectile",
+                                                                                "name": "league_neeko_q_seed",
+                                                                                "travel_time": 4,
+                                                                                "range": 400000,
+                                                                                "range_effect_name": "",
+                                                                                "shape": {
+                                                                                  "Circle": {
+                                                                                    "radius": 1
+                                                                                  }
+                                                                                },
+                                                                                "applied_target": "EnemyWithoutTower",
+                                                                                "applied_effects": [],
+                                                                                "end_effects": [
+                                                                                  {
+                                                                                    "type": "ViewEffect",
+                                                                                    "name": "league_neeko_q_burst"
+                                                                                  },
+                                                                                  {
+                                                                                    "type": "Sfx",
+                                                                                    "name": "league_neeko_q_burst"
+                                                                                  },
+                                                                                  {
+                                                                                    "type": "RangeProjectile",
+                                                                                    "name": "league_neeko_q_hit0",
+                                                                                    "shape": {
+                                                                                      "Circle": {
+                                                                                        "radius": 22000
+                                                                                      }
+                                                                                    },
+                                                                                    "delay": 1,
+                                                                                    "apply": 1,
+                                                                                    "applied_target": "EnemyWithoutTower",
+                                                                                    "applied_effects": [
+                                                                                      {
+                                                                                        "casting_type": "Targeting",
+                                                                                        "effect": {
+                                                                                          "type": "ApAttack",
+                                                                                          "damage": 75,
+                                                                                          "attack_ratio": 50,
+                                                                                          "hp_ratio": 0,
+                                                                                          "can_crit": false
+                                                                                        }
+                                                                                      },
+                                                                                      {
+                                                                                        "casting_type": "Targeting",
+                                                                                        "effect": {
+                                                                                          "type": "ViewEffect",
+                                                                                          "name": "league_neeko_q_hit"
+                                                                                        }
+                                                                                      },
+                                                                                      {
+                                                                                        "casting_type": "Targeting",
+                                                                                        "effect": {
+                                                                                          "type": "TargetSfx",
+                                                                                          "name": "league_neeko_q_hit"
+                                                                                        }
+                                                                                      }
+                                                                                    ]
+                                                                                  },
+                                                                                  {
+                                                                                    "type": "RangeProjectile",
+                                                                                    "name": "league_neeko_q_twin0",
+                                                                                    "shape": {
+                                                                                      "Circle": {
+                                                                                        "radius": 22000
+                                                                                      }
+                                                                                    },
+                                                                                    "delay": 1,
+                                                                                    "apply": 1,
+                                                                                    "applied_target": "EnemyChampion",
+                                                                                    "applied_effects": [
+                                                                                      {
+                                                                                        "casting_type": "Targeting",
+                                                                                        "effect": {
+                                                                                          "type": "Combine",
+                                                                                          "effects": [
+                                                                                            {
+                                                                                              "type": "RemoveCasterBuff",
+                                                                                              "name": "league_neeko_q_b1"
+                                                                                            },
+                                                                                            {
+                                                                                              "type": "AddCasterBuff",
+                                                                                              "buff_state": {
+                                                                                                "name": "league_neeko_q_b1",
+                                                                                                "duration": {
+                                                                                                  "Time": {
+                                                                                                    "tick": 47
+                                                                                                  }
+                                                                                                }
+                                                                                              },
+                                                                                              "only_to_enemy": false
+                                                                                            }
+                                                                                          ]
+                                                                                        }
+                                                                                      }
+                                                                                    ]
+                                                                                  },
+                                                                                  {
+                                                                                    "type": "Delayed",
+                                                                                    "tick": 45,
+                                                                                    "effects": [
+                                                                                      {
+                                                                                        "type": "SwitchByBuff",
+                                                                                        "buff_name": "league_neeko_q_b1",
+                                                                                        "effect_buff": {
+                                                                                          "type": "Combine",
+                                                                                          "effects": [
+                                                                                            {
+                                                                                              "type": "RemoveCasterBuff",
+                                                                                              "name": "league_neeko_q_b1"
+                                                                                            },
+                                                                                            {
+                                                                                              "type": "ViewEffect",
+                                                                                              "name": "league_neeko_q_bloom"
+                                                                                            },
+                                                                                            {
+                                                                                              "type": "Sfx",
+                                                                                              "name": "league_neeko_q_bloom"
+                                                                                            },
+                                                                                            {
+                                                                                              "type": "RangeProjectile",
+                                                                                              "name": "league_neeko_q_hit1",
+                                                                                              "shape": {
+                                                                                                "Circle": {
+                                                                                                  "radius": 22000
+                                                                                                }
+                                                                                              },
+                                                                                              "delay": 1,
+                                                                                              "apply": 1,
+                                                                                              "applied_target": "EnemyWithoutTower",
+                                                                                              "applied_effects": [
+                                                                                                {
+                                                                                                  "casting_type": "Targeting",
+                                                                                                  "effect": {
+                                                                                                    "type": "ApAttack",
+                                                                                                    "damage": 30,
+                                                                                                    "attack_ratio": 20,
+                                                                                                    "hp_ratio": 0,
+                                                                                                    "can_crit": false
+                                                                                                  }
+                                                                                                },
+                                                                                                {
+                                                                                                  "casting_type": "Targeting",
+                                                                                                  "effect": {
+                                                                                                    "type": "ViewEffect",
+                                                                                                    "name": "league_neeko_q_hit"
+                                                                                                  }
+                                                                                                },
+                                                                                                {
+                                                                                                  "casting_type": "Targeting",
+                                                                                                  "effect": {
+                                                                                                    "type": "TargetSfx",
+                                                                                                    "name": "league_neeko_q_hit"
+                                                                                                  }
+                                                                                                }
+                                                                                              ]
+                                                                                            },
+                                                                                            {
+                                                                                              "type": "RangeProjectile",
+                                                                                              "name": "league_neeko_q_twin1",
+                                                                                              "shape": {
+                                                                                                "Circle": {
+                                                                                                  "radius": 22000
+                                                                                                }
+                                                                                              },
+                                                                                              "delay": 1,
+                                                                                              "apply": 1,
+                                                                                              "applied_target": "EnemyChampion",
+                                                                                              "applied_effects": [
+                                                                                                {
+                                                                                                  "casting_type": "Targeting",
+                                                                                                  "effect": {
+                                                                                                    "type": "Combine",
+                                                                                                    "effects": [
+                                                                                                      {
+                                                                                                        "type": "RemoveCasterBuff",
+                                                                                                        "name": "league_neeko_q_b2"
+                                                                                                      },
+                                                                                                      {
+                                                                                                        "type": "AddCasterBuff",
+                                                                                                        "buff_state": {
+                                                                                                          "name": "league_neeko_q_b2",
+                                                                                                          "duration": {
+                                                                                                            "Time": {
+                                                                                                              "tick": 47
+                                                                                                            }
+                                                                                                          }
+                                                                                                        },
+                                                                                                        "only_to_enemy": false
+                                                                                                      }
+                                                                                                    ]
+                                                                                                  }
+                                                                                                }
+                                                                                              ]
+                                                                                            },
+                                                                                            {
+                                                                                              "type": "Delayed",
+                                                                                              "tick": 45,
+                                                                                              "effects": [
+                                                                                                {
+                                                                                                  "type": "SwitchByBuff",
+                                                                                                  "buff_name": "league_neeko_q_b2",
+                                                                                                  "effect_buff": {
+                                                                                                    "type": "Combine",
+                                                                                                    "effects": [
+                                                                                                      {
+                                                                                                        "type": "RemoveCasterBuff",
+                                                                                                        "name": "league_neeko_q_b2"
+                                                                                                      },
+                                                                                                      {
+                                                                                                        "type": "ViewEffect",
+                                                                                                        "name": "league_neeko_q_bloom"
+                                                                                                      },
+                                                                                                      {
+                                                                                                        "type": "Sfx",
+                                                                                                        "name": "league_neeko_q_bloom"
+                                                                                                      },
+                                                                                                      {
+                                                                                                        "type": "RangeProjectile",
+                                                                                                        "name": "league_neeko_q_hit2",
+                                                                                                        "shape": {
+                                                                                                          "Circle": {
+                                                                                                            "radius": 22000
+                                                                                                          }
+                                                                                                        },
+                                                                                                        "delay": 1,
+                                                                                                        "apply": 1,
+                                                                                                        "applied_target": "EnemyWithoutTower",
+                                                                                                        "applied_effects": [
+                                                                                                          {
+                                                                                                            "casting_type": "Targeting",
+                                                                                                            "effect": {
+                                                                                                              "type": "ApAttack",
+                                                                                                              "damage": 30,
+                                                                                                              "attack_ratio": 20,
+                                                                                                              "hp_ratio": 0,
+                                                                                                              "can_crit": false
+                                                                                                            }
+                                                                                                          },
+                                                                                                          {
+                                                                                                            "casting_type": "Targeting",
+                                                                                                            "effect": {
+                                                                                                              "type": "ViewEffect",
+                                                                                                              "name": "league_neeko_q_hit"
+                                                                                                            }
+                                                                                                          },
+                                                                                                          {
+                                                                                                            "casting_type": "Targeting",
+                                                                                                            "effect": {
+                                                                                                              "type": "TargetSfx",
+                                                                                                              "name": "league_neeko_q_hit"
+                                                                                                            }
+                                                                                                          }
+                                                                                                        ]
+                                                                                                      }
+                                                                                                    ]
+                                                                                                  },
+                                                                                                  "effect_none": {
+                                                                                                    "type": "Combine",
+                                                                                                    "effects": []
+                                                                                                  }
+                                                                                                }
+                                                                                              ]
+                                                                                            }
+                                                                                          ]
+                                                                                        },
+                                                                                        "effect_none": {
+                                                                                          "type": "Combine",
+                                                                                          "effects": []
+                                                                                        }
+                                                                                      }
+                                                                                    ]
+                                                                                  }
+                                                                                ]
+                                                                              }
+                                                                            ]
+                                                                          }
+                                                                        ]
+                                                                      },
+                                                                      "effect_none": {
+                                                                        "type": "Combine",
+                                                                        "effects": []
+                                                                      }
+                                                                    },
+                                                                    {
+                                                                      "type": "RemoveCasterBuff",
+                                                                      "name": "league_neeko_lives"
+                                                                    }
+                                                                  ]
+                                                                }
+                                                              ]
+                                                            }
+                                                          ]
+                                                        },
+                                                        "effect_none": {
+                                                          "type": "Combine",
+                                                          "effects": []
+                                                        }
+                                                      }
+                                                    ]
+                                                  }
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        },
+                                        "effect_none": {
+                                          "type": "Combine",
+                                          "effects": []
+                                        }
+                                      },
+                                      {
+                                        "type": "RemoveCasterBuff",
+                                        "name": "league_neeko_lives"
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": []
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_neeko_lives"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "view_projectiles": [
+    {
+      "type": "Animated",
+      "name": "league_neeko_a_bolt",
+      "anim": "asset/league/effects/league_neeko_fx",
+      "tag": "a_bolt",
+      "repeat": true,
+      "z": 2
+    },
+    {
+      "type": "Animated",
+      "name": "league_neeko_q_seed",
+      "anim": "asset/league/effects/league_neeko_fx",
+      "tag": "q_seed",
+      "repeat": true,
+      "z": 2
+    },
+    {
+      "type": "Animated",
+      "name": "league_neeko_e_barbs",
+      "anim": "asset/league/effects/league_neeko_fx",
+      "tag": "e_barbs",
+      "repeat": true,
+      "z": 2
+    }
+  ],
+  "view_effects": [
+    {
+      "type": "Animation",
+      "name": "league_neeko_a_hit",
+      "anim": "asset/league/effects/league_neeko_fx",
+      "tag": "a_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_neeko_w_hit",
+      "anim": "asset/league/effects/league_neeko_fx",
+      "tag": "w_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_neeko_q_burst",
+      "anim": "asset/league/effects/league_neeko_big",
+      "tag": "q_burst",
+      "z": -1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_neeko_q_bloom",
+      "anim": "asset/league/effects/league_neeko_big",
+      "tag": "q_bloom",
+      "z": -1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_neeko_q_hit",
+      "anim": "asset/league/effects/league_neeko_fx",
+      "tag": "q_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_neeko_e_hit",
+      "anim": "asset/league/effects/league_neeko_fx",
+      "tag": "e_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_neeko_r_charge",
+      "anim": "asset/league/effects/league_neeko_big",
+      "tag": "r_charge",
+      "z": 3,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_neeko_r_jump",
+      "anim": "asset/league/effects/league_neeko_big",
+      "tag": "r_jump",
+      "z": 3,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_neeko_r_land",
+      "anim": "asset/league/effects/league_neeko_big",
+      "tag": "r_land",
+      "z": -1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_neeko_r_hit",
+      "anim": "asset/league/effects/league_neeko_fx",
+      "tag": "r_hit",
+      "z": 2,
+      "is_follow": true
+    }
+  ],
+  "view_buffs": [
+    {
+      "type": "Animated",
+      "name": "league_neeko_e_bound",
+      "anim": "asset/league/effects/league_neeko_fx",
+      "tag": "e_bound",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_neeko_w_haste",
+      "anim": "asset/league/effects/league_neeko_fx",
+      "tag": "w_haste",
+      "repeat": true,
+      "z": -1
+    }
+  ]
+}
