@@ -13,7 +13,8 @@ in its own action. Per hero, and per form idle (c_idle, m_idle ... with that for
 - `idle_base` (c_idle_base ...): the idle as it was drawn - the breathing loop, no longer played (the user, 2026-10-22:
   「上下摆动全不要了啊」). Written once; every later run starts from it, so the tool can run again after a sheet is
   rebuilt or repacked.
-- `idle`: the idle's frame 0 held 1.5 s, a snippet, frame 0 again, another snippet. A snippet is a few frames of
+- `idle`: the idle's frame 0 held 0.8-3.2 s, a snippet, five times in one cycle, the holds and the order of the snippets
+  shuffled per hero (fixed by a hash of its id) so they pop up like League's idle variants. A snippet is a few frames of
   one of the hero's actions that stay where the idle stands - feet on the idle's ground row, the legs over the idle's
   legs, nothing wider than the idle +- 8 px or higher than its top + 12 (a raised weapon) - played in, held, played
   back out (a sword lifted and lowered, a gun checked); the first is near the idle (a cut, not a jump). Frame 0 stays
@@ -31,7 +32,9 @@ three). tools/art/hero_reels.json holds the picks made by eye where the rules pi
 action frames held on the card besides the spilling ones.
 """
 import argparse
+import hashlib
 import json
+import random
 import os
 import re
 import sys
@@ -51,7 +54,8 @@ CW, CH, S = 131, 88, 2.2          # the ban/pick card's canvas and scale (bp_car
 # its neighbours and the row above)
 ASIDE = {True: 0.12, False: 0.03}
 ABOVE = {True: 0.25, False: 0.15}
-STILL_S = 1.5                     # the idle's frame 0 held between snippets / actions, seconds
+STILL_S = 1.5                     # the idle's frame 0 held between card actions, seconds
+IDLE_TURNS = 5                    # snippets in one idle cycle (holds of 0.8-3.2 s before each)
 HOLD_S = 0.45                     # a snippet's last frame held
 MIN_DUR = 0.12                    # a snippet frame at least this long (the idle is calm)
 # tags never cut into an idle: they move the hero away, are effects, or are not the hero standing
@@ -238,9 +242,25 @@ def card_actions(h, picks, k):
     return out
 
 
-def still(h, idle):
-    """The idle's first frame held STILL_S: no breathing (the user, 2026-10-22: 「上下摆动全不要了啊」)."""
-    return [(h.base(idle), 0, STILL_S)]
+def still(h, idle, secs=None):
+    """The idle's first frame held (STILL_S unless given): no breathing (the user, 2026-10-22: 「上下摆动全不要了啊」)."""
+    return [(h.base(idle), 0, STILL_S if secs is None else secs)]
+
+
+def schedule(hid, idle, n):
+    """[(hold seconds, snippet index)] for one idle cycle: IDLE_TURNS snippets after holds of 0.8-3.2 s, in an order
+    that does not repeat a snippet twice running - fixed per hero and idle (a hash of the names), so the cycle is the
+    same every run but no two heroes fidget in step (the user: 「随便冒出来个动作 和英雄联盟一样」)."""
+    seed = int(hashlib.sha1(f"{hid}/{idle}".encode()).hexdigest()[:8], 16)
+    rnd = random.Random(seed)
+    out, last = [], None
+    for _ in range(IDLE_TURNS):
+        k = rnd.randrange(n)
+        if n > 1 and k == last:
+            k = (k + 1 + rnd.randrange(n - 1)) % n
+        out.append((round(rnd.uniform(0.8, 3.2), 2), k))
+        last = k
+    return out
 
 
 def played(h, tag, run, how=""):
@@ -266,10 +286,11 @@ def plan(h, picks, k):
         sn = [(e[0], list(e[1]), *e[2:]) for e in sn] if sn is not None else snippets(h, idle)
         snips[idle] = sn
         out[idle + "_base"] = [(base, i, f["duration"]) for i, f in enumerate(h.frames(base))]
-        seq = still(h, idle)
-        for t, run, *how in sn:
-            seq += played(h, t, run, *how) + still(h, idle)
-        out[idle] = seq[:-1] if sn else seq
+        seq = []
+        for hold, k in schedule(h.id, idle, len(sn)) if sn else []:
+            t, run, *how = sn[k]
+            seq += still(h, idle, hold) + played(h, t, run, *how)
+        out[idle] = seq or still(h, idle)
     acts = card_actions(h, picks, k)
     bp = []
     sn = snips["idle"]
