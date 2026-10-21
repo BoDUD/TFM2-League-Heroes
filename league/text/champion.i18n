@@ -1029,6 +1029,13 @@
         "skill": "斩击前方，造成<#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<>物理伤害；<#ffb900ff>4秒<>内下次普攻横扫周围，造成<#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<>物理伤害；魔龙形态再下次普攻撕咬，造成<#f5f5f5ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#f5f5f5ff>110%<>真实伤害。",
         "skill2": "掷出火球，命中敌人或到达终点时爆炸，造成<#a974ffff>50+3%最大生命值<>魔法伤害并减速30%，持续<#ffb900ff>2秒<>。魔龙形态下火球更大、穿透敌人，并留下燃烧的地面。",
         "ult": "<#ff9028ff>龙怒<>攒满时化身魔龙，飞向敌方英雄并沿途喷火，造成<#a974ffff>100+4%最大生命值<>魔法伤害并使其<#ef5350ff>恐惧<><#ffb900ff>0.75秒<>。魔龙持续<#ffb900ff>15秒<>，生命+30%，<#ff9028ff>龙鳞铁衣<>使护甲和魔抗+30%。"
+      },
+      "league_naafiri": {
+        "name": "纳亚菲利",
+        "attack": "扑咬目标。<#ff9028ff>狂烈种群<>：每次普攻和技能命中时狗群一起撕咬，造成<#ff9028ff>8<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>12%<>物理伤害（非英雄单位减半）。",
+        "skill": "掷出匕首，造成<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>25%<>物理伤害并流血<#ffb900ff>5秒<>（共<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>45%<>）；狗群扑向命中的英雄撕咬<#ffb900ff>3秒<>。<#ffb900ff>4秒<>内下次普攻掷出第二把匕首，造成<#ff9028ff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>55%<>，命中英雄回复<#7bd96bff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7bd96bff>30%<>生命。",
+        "skill2": "冲向目标，撕裂周围的敌人两次，造成<#ff9028ff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>和<#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>物理伤害。",
+        "ult": "<#ff9028ff>暴吼<>：<#ffb900ff>0.75秒<>不可选取，<#ffb900ff>5秒<>内狗群翻倍、攻击力+20%、移速+20%；随后扑向敌方英雄，造成<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>65%<>物理伤害、<#ef5350ff>减速<>并降低20%护甲。<#ffb900ff>7秒<>内参与击杀可再扑一次，获得<#7bd96bff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7bd96bff>40%<>护盾。"
       }
     },
     "skill_name": {
@@ -1766,6 +1773,11 @@
         "skill1": "焚焰打击",
         "skill2": "爆炎吐息",
         "ult": "魔龙降世"
+      },
+      "league_naafiri": {
+        "skill1": "暗裔犬牙",
+        "skill2": "剔骨本能",
+        "ult": "猎狗血性"
       }
     }
   },
@@ -2799,6 +2811,13 @@
         "skill": "斬擊前方，造成<#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<>物理傷害；<#ffb900ff>4秒<>內下次普攻橫掃周圍，造成<#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<>物理傷害；真龍形態再下次普攻撕咬，造成<#f5f5f5ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#f5f5f5ff>110%<>真實傷害。",
         "skill2": "擲出火球，命中敵人或到達終點時爆炸，造成<#a974ffff>50+3%最大生命值<>魔法傷害並緩速30%，持續<#ffb900ff>2秒<>。真龍形態下火球更大、穿透敵人，並留下燃燒的地面。",
         "ult": "<#ff9028ff>龍怒<>集滿時化身為龍，飛向敵方英雄並沿途噴火，造成<#a974ffff>100+4%最大生命值<>魔法傷害並使其<#ef5350ff>恐懼<><#ffb900ff>0.75秒<>。龍形持續<#ffb900ff>15秒<>，生命+30%，<#ff9028ff>真龍鱗甲<>使護甲和魔抗+30%。"
+      },
+      "league_naafiri": {
+        "name": "娜菲芮",
+        "attack": "撲咬目標。<#ff9028ff>眾犬吠聲<>：每次普攻和技能命中時犬群一起撕咬，造成<#ff9028ff>8<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>12%<>物理傷害（非英雄單位減半）。",
+        "skill": "擲出匕首，造成<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>25%<>物理傷害並流血<#ffb900ff>5秒<>（共<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>45%<>）；犬群撲向命中的英雄撕咬<#ffb900ff>3秒<>。<#ffb900ff>4秒<>內下次普攻擲出第二把匕首，造成<#ff9028ff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>55%<>，命中英雄回復<#7bd96bff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7bd96bff>30%<>生命。",
+        "skill2": "衝向目標，撕裂周圍的敵人兩次，造成<#ff9028ff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>和<#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>物理傷害。",
+        "ult": "<#ff9028ff>獵犬嚎殺<>：<#ffb900ff>0.75秒<>無法被選取，<#ffb900ff>5秒<>內犬群加倍、攻擊力+20%、移速+20%；隨後撲向敵方英雄，造成<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>65%<>物理傷害、<#ef5350ff>緩速<>並降低20%護甲。<#ffb900ff>7秒<>內參與擊殺可再撲一次，獲得<#7bd96bff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7bd96bff>40%<>護盾。"
       }
     },
     "skill_name": {
@@ -3536,6 +3555,11 @@
         "skill1": "餘燼龍擊",
         "skill2": "融焰爆裂",
         "ult": "真龍轉生"
+      },
+      "league_naafiri": {
+        "skill1": "冥血匕首",
+        "skill2": "開膛破肚",
+        "ult": "尋血獵犬"
       }
     }
   },
@@ -4569,6 +4593,13 @@
         "skill": "Slashes ahead for <#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<> physical damage. Within <#ffb900ff>4s<> her next attack sweeps around her for <#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<>; as a dragon the one after bites for <#f5f5f5ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#f5f5f5ff>110%<> true damage.",
         "skill2": "Hurls a fireball that bursts on the first enemy or at its end for <#a974ffff>50 + 3% of her max health<> magic damage, slowing by 30% for <#ffb900ff>2s<>. As a dragon it is bigger, passes through enemies and leaves the ground burning.",
         "ult": "With full <#ff9028ff>Dragon Fury<> she becomes a dragon and flies at an enemy champion breathing fire: <#a974ffff>100 + 4% of her max health<> magic damage and <#ef5350ff>fear<> for <#ffb900ff>0.75s<>. The dragon lasts <#ffb900ff>15s<> with +30% health; <#ff9028ff>Scalemail<> gives +30% armour and magic resist."
+      },
+      "league_naafiri": {
+        "name": "Naafiri",
+        "attack": "A lunging bite. <#ff9028ff>We Are More<>: every attack and ability hit, her pack bites too for <#ff9028ff>8<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>12%<> physical damage (half to non-champions).",
+        "skill": "Hurls a dagger for <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>25%<> physical damage and a bleed of <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>45%<> over <#ffb900ff>5s<>; her pack leaps on a champion hit and mauls it for <#ffb900ff>3s<>. Within <#ffb900ff>4s<> her next attack hurls the second dagger for <#ff9028ff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>55%<>, healing her <#7bd96bff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7bd96bff>30%<> on a champion.",
+        "skill2": "Dashes onto the target and shreds the enemies around her twice for <#ff9028ff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<> and <#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<> physical damage.",
+        "ult": "<#ff9028ff>The Call of the Pack<>: untargetable for <#ffb900ff>0.75s<>, for <#ffb900ff>5s<> a pack twice as big, +20% attack and +20% move speed. Then she pounces on an enemy champion for <#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>65%<> physical damage, a <#ef5350ff>slow<> and -20% armour. A takedown within <#ffb900ff>7s<> lets her pounce once more with a <#7bd96bff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7bd96bff>40%<> shield."
       }
     },
     "skill_name": {
@@ -5306,6 +5337,11 @@
         "skill1": "Emberstrike",
         "skill2": "Molten Burst",
         "ult": "Dragon's Descent"
+      },
+      "league_naafiri": {
+        "skill1": "Darkin Daggers",
+        "skill2": "Eviscerate",
+        "ult": "Hounds' Pursuit"
       }
     }
   },
@@ -6339,6 +6375,13 @@
         "skill": "전방을 베어 <#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<> 물리 피해. <#ffb900ff>4초<> 안에 다음 공격은 주변을 쓸어 <#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<> 물리 피해, 용의 모습이면 그다음 공격이 물어뜯어 <#f5f5f5ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#f5f5f5ff>110%<> 고정 피해.",
         "skill2": "화염구를 던져 처음 맞힌 적이나 끝에서 폭발, <#a974ffff>50 + 최대 체력의 3%<> 마법 피해와 <#ffb900ff>2초<> 동안 30% 둔화. 용의 모습이면 더 크고 적을 관통하며 땅을 불태움.",
         "ult": "<#ff9028ff>용의 분노<>가 가득 차면 용으로 변해 적 챔피언에게 날아가며 불을 뿜어 <#a974ffff>100 + 최대 체력의 4%<> 마법 피해와 <#ffb900ff>0.75초<> <#ef5350ff>공포<>. 용의 모습 <#ffb900ff>15초<>, 체력 +30%, <#ff9028ff>미늘갑옷<>으로 방어력과 마법 저항력 +30%."
+      },
+      "league_naafiri": {
+        "name": "나피리",
+        "attack": "달려들어 물어뜯음. <#ff9028ff>늘어나는 무리<>: 공격과 스킬이 적중할 때마다 무리가 함께 물어 <#ff9028ff>8<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>12%<> 물리 피해 (챔피언이 아니면 절반).",
+        "skill": "단검을 던져 <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>25%<> 물리 피해와 <#ffb900ff>5초<> 동안 <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>45%<> 출혈; 맞힌 챔피언에게 무리가 덤벼들어 <#ffb900ff>3초<> 동안 물어뜯음. <#ffb900ff>4초<> 안에 다음 공격은 두 번째 단검으로 <#ff9028ff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>55%<>, 챔피언 적중 시 체력 <#7bd96bff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7bd96bff>30%<> 회복.",
+        "skill2": "대상에게 돌진해 주변 적을 두 번 찢어 <#ff9028ff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>, <#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<> 물리 피해.",
+        "ult": "<#ff9028ff>무리의 부름<>: <#ffb900ff>0.75초<> 동안 대상으로 지정 불가, <#ffb900ff>5초<> 동안 무리 두 배, 공격력 +20%, 이동 속도 +20%. 이어서 적 챔피언에게 덮쳐 <#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>65%<> 물리 피해, <#ef5350ff>둔화<>, 방어력 -20%. <#ffb900ff>7초<> 안에 처치 관여 시 <#7bd96bff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7bd96bff>40%<> 보호막과 함께 한 번 더 덮침."
       }
     },
     "skill_name": {
@@ -7076,6 +7119,11 @@
         "skill1": "잉걸불 일격",
         "skill2": "용암 분출",
         "ult": "용의 강림"
+      },
+      "league_naafiri": {
+        "skill1": "다르킨 단검",
+        "skill2": "적출",
+        "ult": "사냥개의 추적"
       }
     }
   },
@@ -8109,6 +8157,13 @@
         "skill": "前方を斬り<#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<>の物理ダメージ。<#ffb900ff>4秒<>以内の次の攻撃は周囲をなぎ払い<#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<>、ドラゴン時はその次の攻撃で噛みつき<#f5f5f5ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#f5f5f5ff>110%<>の確定ダメージ。",
         "skill2": "火球を放ち、最初の敵か終点で爆発して<#a974ffff>50+最大体力の3%<>の魔法ダメージと<#ffb900ff>2秒<>の30%スロウ。ドラゴン時は大きく敵を貫通し、地面を燃やす。",
         "ult": "<#ff9028ff>ドラゴンフューリー<>が満ちるとドラゴンに変身し、敵チャンピオンへ飛びながら炎を吐いて<#a974ffff>100+最大体力の4%<>の魔法ダメージと<#ffb900ff>0.75秒<>の<#ef5350ff>フィアー<>。ドラゴンは<#ffb900ff>15秒<>、体力+30%、<#ff9028ff>スケールメイル<>で物防と魔防+30%。"
+      },
+      "league_naafiri": {
+        "name": "ナフィーリ",
+        "attack": "飛びかかって噛みつく。<#ff9028ff>我らは一つ<>：通常攻撃とスキルが当たるたびに群れも噛みつき<#ff9028ff>8<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>12%<>の物理ダメージ（チャンピオン以外は半分）。",
+        "skill": "短剣を投げ<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>25%<>の物理ダメージと<#ffb900ff>5秒<>の出血（計<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>45%<>）、当たったチャンピオンに群れが<#ffb900ff>3秒<>食らいつく。<#ffb900ff>4秒<>以内の次の攻撃で二本目を投げ<#ff9028ff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>55%<>、チャンピオンなら体力<#7bd96bff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7bd96bff>30%<>回復。",
+        "skill2": "対象へ突進し、周囲の敵を二度切り裂いて<#ff9028ff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>と<#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>の物理ダメージ。",
+        "ult": "<#ff9028ff>群れの呼び声<>：<#ffb900ff>0.75秒<>対象指定不可、<#ffb900ff>5秒<>群れが倍、攻撃力+20%、移動速度+20%。続けて敵チャンピオンに飛びかかり<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>65%<>の物理ダメージ、<#ef5350ff>スロウ<>、物防-20%。<#ffb900ff>7秒<>以内のキル関与で<#7bd96bff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7bd96bff>40%<>のシールドともう一度飛びかかる。"
       }
     },
     "skill_name": {
@@ -8846,6 +8901,11 @@
         "skill1": "エンバーストライク",
         "skill2": "モルテンバースト",
         "ult": "龍の降臨"
+      },
+      "league_naafiri": {
+        "skill1": "ダーキンダガー",
+        "skill2": "獰猛なる刃",
+        "ult": "猟犬の追跡"
       }
     }
   }

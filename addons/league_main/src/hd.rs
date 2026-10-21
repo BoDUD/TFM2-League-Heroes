@@ -158,6 +158,10 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // rows horn tips to soles, the dragon 64 as drawn: 「人42 龙48 PPU1.5」; 3/4 only; her actions on Codex's skeleton poses
     // with the design's head; the dragon's d_* tags the kit's CasterAnimations), so no SIZES row
     ("league_shyvana", 1.5, include_str!("../../../league/champions/league_shyvana#anim.fanim")),
+    // Naafiri: posed by tools/art/rig_naafiri.py on Codex's step-1 takes A-2 / P-2 and its key poses at the user's 1.5
+    // squares a game pixel (45 game rows blade tip to paws: 「30」「PPU 1.5」; 3/4 only; her pack drawn into her frames, the
+    // p4_* tags the four hounds league_naafiri's view hook swaps in during The Call of the Pack), so no SIZES row
+    ("league_naafiri", 1.5, include_str!("../../../league/champions/league_naafiri#anim.fanim")),
     // Powder (tft_powder, the tft pack in tft/: Teamfight Tactics' own units, its own mod; this DLL draws her dense
     // frames when both packs are enabled): the idle design and Codex's skeleton poses with one clean head, posed by
     // tools/art/rig_powder.py at 1.75 squares a game pixel (61 rows: 「35」, then 「PPU像素好低啊 能调一下吗」), shown at 90 % (SIZES)

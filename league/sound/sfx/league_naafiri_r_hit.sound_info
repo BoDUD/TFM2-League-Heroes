@@ -1,0 +1,14 @@
+{
+  "plays": [
+    {
+      "delay": 0.0,
+      "clip": "league_naafiri_sfx_r_hit",
+      "volume": 0.45
+    },
+    {
+      "delay": 0.05,
+      "clip": "league_naafiri_sfx_r_pack",
+      "volume": 0.3
+    }
+  ]
+}

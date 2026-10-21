@@ -1,0 +1,218 @@
+{
+  "sheet_count": 21,
+  "frame_count": 78,
+  "all_pass": true,
+  "checks": [
+    {
+      "file": "naafiri_fx_a_hit.png",
+      "frames": 3,
+      "size_pass": true,
+      "symmetry_pass": true,
+      "alpha_pass": true,
+      "palette_pass": true,
+      "scale8_pass": true,
+      "nonempty_frames_pass": true
+    },
+    {
+      "file": "naafiri_fx_pk_bite.png",
+      "frames": 3,
+      "size_pass": true,
+      "symmetry_pass": true,
+      "alpha_pass": true,
+      "palette_pass": true,
+      "scale8_pass": true,
+      "nonempty_frames_pass": true
+    },
+    {
+      "file": "naafiri_fx_pk_bite4.png",
+      "frames": 3,
+      "size_pass": true,
+      "symmetry_pass": true,
+      "alpha_pass": true,
+      "palette_pass": true,
+      "scale8_pass": true,
+      "nonempty_frames_pass": true
+    },
+    {
+      "file": "naafiri_fx_pk_leap.png",
+      "frames": 4,
+      "size_pass": true,
+      "symmetry_pass": true,
+      "alpha_pass": true,
+      "palette_pass": true,
+      "scale8_pass": true,
+      "nonempty_frames_pass": true
+    },
+    {
+      "file": "naafiri_fx_pk_ride.png",
+      "frames": 4,
+      "size_pass": true,
+      "symmetry_pass": true,
+      "alpha_pass": true,
+      "palette_pass": true,
+      "scale8_pass": true,
+      "nonempty_frames_pass": true
+    },
+    {
+      "file": "naafiri_fx_q_dagger.png",
+      "frames": 4,
+      "size_pass": true,
+      "symmetry_pass": true,
+      "alpha_pass": true,
+      "palette_pass": true,
+      "scale8_pass": true,
+      "nonempty_frames_pass": true
+    },
+    {
+      "file": "naafiri_fx_q2_dagger.png",
+      "frames": 4,
+      "size_pass": true,
+      "symmetry_pass": true,
+      "alpha_pass": true,
+      "palette_pass": true,
+      "scale8_pass": true,
+      "nonempty_frames_pass": true
+    },
+    {
+      "file": "naafiri_fx_q_leap.png",
+      "frames": 3,
+      "size_pass": true,
+      "symmetry_pass": true,
+      "alpha_pass": true,
+      "palette_pass": true,
+      "scale8_pass": true,
+      "nonempty_frames_pass": true
+    },
+    {
+      "file": "naafiri_fx_q_hit.png",
+      "frames": 3,
+      "size_pass": true,
+      "symmetry_pass": true,
+      "alpha_pass": true,
+      "palette_pass": true,
+      "scale8_pass": true,
+      "nonempty_frames_pass": true
+    },
+    {
+      "file": "naafiri_fx_q_bleed.png",
+      "frames": 3,
+      "size_pass": true,
+      "symmetry_pass": true,
+      "alpha_pass": true,
+      "palette_pass": true,
+      "scale8_pass": true,
+      "nonempty_frames_pass": true
+    },
+    {
+      "file": "naafiri_fx_q2_hit.png",
+      "frames": 4,
+      "size_pass": true,
+      "symmetry_pass": true,
+      "alpha_pass": true,
+      "palette_pass": true,
+      "scale8_pass": true,
+      "nonempty_frames_pass": true
+    },
+    {
+      "file": "naafiri_fx_q_heal.png",
+      "frames": 4,
+      "size_pass": true,
+      "symmetry_pass": true,
+      "alpha_pass": true,
+      "palette_pass": true,
+      "scale8_pass": true,
+      "nonempty_frames_pass": true
+    },
+    {
+      "file": "naafiri_fx_e_slash.png",
+      "frames": 4,
+      "size_pass": true,
+      "symmetry_pass": true,
+      "alpha_pass": true,
+      "palette_pass": true,
+      "scale8_pass": true,
+      "nonempty_frames_pass": true
+    },
+    {
+      "file": "naafiri_fx_e_slash2.png",
+      "frames": 4,
+      "size_pass": true,
+      "symmetry_pass": true,
+      "alpha_pass": true,
+      "palette_pass": true,
+      "scale8_pass": true,
+      "nonempty_frames_pass": true
+    },
+    {
+      "file": "naafiri_fx_e_hit.png",
+      "frames": 3,
+      "size_pass": true,
+      "symmetry_pass": true,
+      "alpha_pass": true,
+      "palette_pass": true,
+      "scale8_pass": true,
+      "nonempty_frames_pass": true
+    },
+    {
+      "file": "naafiri_fx_r_roar.png",
+      "frames": 5,
+      "size_pass": true,
+      "symmetry_pass": true,
+      "alpha_pass": true,
+      "palette_pass": true,
+      "scale8_pass": true,
+      "nonempty_frames_pass": true
+    },
+    {
+      "file": "naafiri_fx_r_hit.png",
+      "frames": 4,
+      "size_pass": true,
+      "symmetry_pass": true,
+      "alpha_pass": true,
+      "palette_pass": true,
+      "scale8_pass": true,
+      "nonempty_frames_pass": true
+    },
+    {
+      "file": "naafiri_fx_r_reset.png",
+      "frames": 4,
+      "size_pass": true,
+      "symmetry_pass": true,
+      "alpha_pass": true,
+      "palette_pass": true,
+      "scale8_pass": true,
+      "nonempty_frames_pass": true
+    },
+    {
+      "file": "naafiri_fx_pack_aura.png",
+      "frames": 4,
+      "size_pass": true,
+      "symmetry_pass": true,
+      "alpha_pass": true,
+      "palette_pass": true,
+      "scale8_pass": true,
+      "nonempty_frames_pass": true
+    },
+    {
+      "file": "naafiri_fx_r_shred.png",
+      "frames": 4,
+      "size_pass": true,
+      "symmetry_pass": true,
+      "alpha_pass": true,
+      "palette_pass": true,
+      "scale8_pass": true,
+      "nonempty_frames_pass": true
+    },
+    {
+      "file": "naafiri_fx_r_shield.png",
+      "frames": 4,
+      "size_pass": true,
+      "symmetry_pass": true,
+      "alpha_pass": true,
+      "palette_pass": true,
+      "scale8_pass": true,
+      "nonempty_frames_pass": true
+    }
+  ],
+  "game_runtime_tested": false
+}
