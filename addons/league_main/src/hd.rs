@@ -150,6 +150,10 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // rows crest top to the lowest tentacle: 「36」「PPU 1.5」; 3/4 only, every action after League's clips; ult_loop the
     // kit's channel CasterAnimation), so no SIZES row
     ("league_velkoz", 1.5, include_str!("../../../league/champions/league_velkoz#anim.fanim")),
+    // Ornn: posed by tools/art/rig_ornn.py on Codex's step-1 take A-3 at the user's 1.5 squares a game pixel (66 game rows
+    // horn top to soles: 「44」「PPU 1.5」; 3/4 only, Codex's eighteen skeleton poses with the design's face; skill_w /
+    // skill2_hit / ult_butt the kit's CasterAnimations)
+    ("league_ornn", 1.5, include_str!("../../../league/champions/league_ornn#anim.fanim")),
     // Powder (tft_powder, the tft pack in tft/: Teamfight Tactics' own units, its own mod; this DLL draws her dense
     // frames when both packs are enabled): the idle design and Codex's skeleton poses with one clean head, posed by
     // tools/art/rig_powder.py at 1.75 squares a game pixel (61 rows: 「35」, then 「PPU像素好低啊 能调一下吗」), shown at 90 % (SIZES)

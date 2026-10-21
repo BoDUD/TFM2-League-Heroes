@@ -36,8 +36,9 @@ T = "<#ffffffff>"      # true damage
 A = "<#ffb900ff>"      # durations, counts
 R = "<#ef5350ff>"      # crowd control
 E = "<>"
-# champion_view: placeholder until the art (tfm2_ase.py face): his eyes 42 design rows over his soles at PPU 1.5 (28 px)
-VIEW = {"face": {"x": 4, "y": -28}, "center": {"x": 0, "y": -16}}
+# champion_view: the face point between his eyes (41.5 design rows over his soles at PPU 1.5: 28 game px, 2 ahead of his
+# standing point; ppu_restyle RESTYLE face_to)
+VIEW = {"face": {"x": 2, "y": -28}, "center": {"x": 0, "y": -16}}
 
 
 def phys(d, r):
