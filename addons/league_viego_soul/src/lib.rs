@@ -544,6 +544,27 @@ declare_stable_mod!(init, requires = 9);
 mod tests {
     use super::*;
 
+    /// The main pack's heroes (league/champion/*.data_champion).
+    fn pack_heroes() -> Vec<String> {
+        let dir = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../../league/champion");
+        let mut v: Vec<String> = std::fs::read_dir(&dir)
+            .expect("league/champion")
+            .filter_map(|e| e.ok()?.file_name().into_string().ok()?.strip_suffix(".data_champion").map(str::to_string))
+            .collect();
+        v.sort();
+        assert!(v.len() > 100, "read only {} heroes from {}", v.len(), dir.display());
+        v
+    }
+
+    #[test]
+    fn every_pack_hero_has_a_soul() {
+        // src/souls.rs is generated: a hero added without make_override.py run again is never drawn as his body (Ornn
+        // and Shyvana, both dense, were missing until 2026-10-21)
+        let missing: Vec<String> =
+            pack_heroes().into_iter().filter(|h| !souls::SOULS.iter().any(|s| s.0 == h)).collect();
+        assert!(missing.is_empty(), "not in src/souls.rs - run make_override.py: {missing:?}");
+    }
+
     #[test]
     fn the_mist_rises_near_an_enemy_champion_once_a_pause() {
         assert!(mist_due(false, 1000, 0, Some(60000), 90000));

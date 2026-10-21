@@ -8,7 +8,8 @@ The same steps tools/re/find_build.py runs offline with a disassembler, cut down
 the game: every pattern here has its calls / jumps out of it and its rip-relative displacements wildcarded (capstone
 decides which bytes those are, here, once), and the layouts (where a call's size asks sit after it) are byte offsets
 with the exact bytes read from the listed build. When a game update keeps these shapes - 0.6.3 -> 0.6.4 kept all of
-them but the UI drawers' spacing - league.dll and the add-ons find the new places by themselves; when it does not,
+them but the UI drawers' spacing; 0.6.4 -> 0.6.5 all of them once the scale read may carry a REX prefix and the drawer
+inside the entity render is looked for there (UI_IN_RENDER) - league.dll and the add-ons find the new places by themselves; when it does not,
 they draw 1x frames as before and find_build.py (a human in the loop) finds them, and this script is run again on
 the new build.rs. The EXE is only read to check every pattern finds exactly the listed place.
 Needs `pip install capstone pefile`.
