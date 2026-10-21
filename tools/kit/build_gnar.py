@@ -190,6 +190,15 @@ def attack(dmg, ratio, hp=0, target_hp=0):
             "attack_effect_type": "Target"}
 
 
+def decoy(dmg, ratio):
+    """The damage the game's AI reads for this action (build_gangplank.py's way): its estimate follows a SwitchByBuff by
+    the flags he has while it reads, and its battle plan divides an enemy's health by his attack's estimate - at full
+    Rage his attack was the transform alone and read 0 (classic simulator, 2026-10-21: "attempt to divide by zero" at
+    game_core plan_legacy/sub_plan/battle.rs:1938 in 14-17% of his games, while he stood at full Rage). A flag he never
+    has while it reads; on the cast the flag is up and the hit is skipped, so nothing he does changes."""
+    return combine(flag("x", 1), sw("x", combine(*rm("x")), attack(dmg, ratio)), *rm("x"))
+
+
 def around(radius, target, effects):
     return {"type": "RangeEffect", "shape": circle(radius), "target": target, "apply_type": "AroundCaster",
             "effects": list(effects)}
@@ -289,7 +298,8 @@ def build(p):
     mega_atk = combine(anim("m_attack", p["m_atk_dur"]), sfx("m_a"),
                        delayed(p["m_rel"] - 1, homing("m_fist", 100000, "Enemy",
                                                       [attack(0, 100), view("m_hit"), tsfx("m_hit")])))
-    transform = combine(to_mega, anim("transform", p["tf_dur"]))
+    # (a Mini hit the AI can read: the transform alone read as 0 damage, and the AI divides by it - decoy)
+    transform = combine(decoy(0, 100), to_mega, anim("transform", p["tf_dur"]))
     attack_a = action("attack", p["atk_dur"], p["atk_cd"], 1, p["atk_range"], "Targeting", "Enemy",
                       combine(restore, sw("rv", revert, sw("mg", mega_atk, sw("full", transform, mini_atk)))),
                       atype="BaseAttack", cancel=True)

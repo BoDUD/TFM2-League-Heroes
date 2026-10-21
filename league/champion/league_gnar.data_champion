@@ -214,6 +214,48 @@
                     "type": "Combine",
                     "effects": [
                       {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_gnar_x",
+                          "duration": {
+                            "Time": {
+                              "tick": 1
+                            }
+                          }
+                        },
+                        "only_to_enemy": false
+                      },
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_gnar_x",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_gnar_x"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Attack",
+                          "damage": 0,
+                          "attack_ratio": 100,
+                          "hp_ratio": 0,
+                          "target_hp_ratio": 0,
+                          "attack_effect_type": "Target"
+                        }
+                      },
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_gnar_x"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Combine",
+                    "effects": [
+                      {
                         "type": "RemoveCasterBuff",
                         "name": "league_gnar_full"
                       },
