@@ -1,0 +1,66 @@
+{
+  "A": {
+    "file": "naafiri-A.png",
+    "size": [
+      1536,
+      1536
+    ],
+    "body_bbox": [
+      432,
+      994,
+      1104,
+      1390
+    ],
+    "body_height": 396,
+    "alpha": "binary 0/255",
+    "uniform_11px_grid": false
+  },
+  "SA": {
+    "file": "naafiri-SA.png",
+    "size": [
+      1536,
+      1536
+    ],
+    "body_bbox": [
+      362,
+      994,
+      1173,
+      1390
+    ],
+    "body_height": 396,
+    "alpha": "binary 0/255",
+    "uniform_11px_grid": false
+  },
+  "P": {
+    "file": "naafiri-P.png",
+    "size": [
+      1536,
+      1536
+    ],
+    "body_bbox": [
+      569,
+      1170,
+      966,
+      1390
+    ],
+    "body_height": 220,
+    "alpha": "binary 0/255",
+    "uniform_11px_grid": false
+  },
+  "SP": {
+    "file": "naafiri-SP.png",
+    "size": [
+      1536,
+      1536
+    ],
+    "body_bbox": [
+      521,
+      1170,
+      1014,
+      1390
+    ],
+    "body_height": 220,
+    "alpha": "binary 0/255",
+    "uniform_11px_grid": false
+  }
+}
