@@ -1,0 +1,279 @@
+{
+ "hero": "shyvana",
+ "champ": "Shyvana",
+ "camera": {
+  "yaw": 35,
+  "pitch": 20,
+  "mirror": true
+ },
+ "chibi": {
+  "head": 2.2,
+  "legs": 0.8,
+  "hair": 0.6
+ },
+ "height": 42,
+ "cell": [
+  120,
+  112,
+  14
+ ],
+ "design": "idle1@0",
+ "tags": {
+  "idle": {
+   "frames": [
+    [
+     "idle1@0",
+     150
+    ],
+    [
+     "idle1@575",
+     150
+    ],
+    [
+     "idle1@1150",
+     150
+    ],
+    [
+     "idle1@1725",
+     150
+    ],
+    [
+     "idle1@2300",
+     150
+    ],
+    [
+     "idle1@2875",
+     150
+    ],
+    [
+     "idle1@3450",
+     150
+    ],
+    [
+     "idle1@4025",
+     150
+    ]
+   ]
+  },
+  "run": {
+   "flat": true,
+   "head_like": "idle1@0",
+   "frames": [
+    [
+     "run@0",
+     100
+    ],
+    [
+     "run@112",
+     100
+    ],
+    [
+     "run@225",
+     100
+    ],
+    [
+     "run@338",
+     100
+    ],
+    [
+     "run@450",
+     100
+    ],
+    [
+     "run@562",
+     100
+    ],
+    [
+     "run@675",
+     100
+    ],
+    [
+     "run@788",
+     100
+    ]
+   ]
+  },
+  "attack": {
+   "lunge": 0.6,
+   "frames": [
+    [
+     "attack1_start@0",
+     70
+    ],
+    [
+     "attack1_start@150",
+     70
+    ],
+    [
+     "attack1_start@280",
+     70
+    ],
+    [
+     "attack1_hit@80",
+     80
+    ],
+    [
+     "attack1_hit@220",
+     90
+    ],
+    [
+     "attack1_hit@400",
+     100
+    ]
+   ]
+  },
+  "skill": {
+   "lunge": 0.6,
+   "frames": [
+    [
+     "spell1_attack1@0",
+     70
+    ],
+    [
+     "spell1_attack1@130",
+     80
+    ],
+    [
+     "spell1_attack1@260",
+     80
+    ],
+    [
+     "spell1_attack1@390",
+     70
+    ],
+    [
+     "spell1_attack1_hit@150",
+     90
+    ],
+    [
+     "spell1_attack1_hit@350",
+     100
+    ]
+   ]
+  },
+  "skill_b": {
+   "lunge": 0.6,
+   "frames": [
+    [
+     "spell1_attack2_start@0",
+     70
+    ],
+    [
+     "spell1_attack2_start@140",
+     80
+    ],
+    [
+     "spell1_attack2_start@280",
+     80
+    ],
+    [
+     "spell1_attack2_start@420",
+     70
+    ],
+    [
+     "spell1_attack2_hit@150",
+     100
+    ],
+    [
+     "spell1_attack2_hit@350",
+     100
+    ]
+   ]
+  },
+  "skill2": {
+   "lunge": 0.6,
+   "frames": [
+    [
+     "spell3@0",
+     60
+    ],
+    [
+     "spell3@90",
+     80
+    ],
+    [
+     "spell3@180",
+     80
+    ],
+    [
+     "spell3@270",
+     90
+    ],
+    [
+     "spell3@360",
+     90
+    ],
+    [
+     "spell3@460",
+     90
+    ]
+   ]
+  },
+  "ult": {
+   "lunge": 0.6,
+   "rise": 0.4,
+   "frames": [
+    [
+     "spell4_cast@0",
+     70
+    ],
+    [
+     "spell4_cast@130",
+     80
+    ],
+    [
+     "spell4_cast@260",
+     90
+    ],
+    [
+     "spell4_cast@400",
+     90
+    ],
+    [
+     "spell4_cast@530",
+     100
+    ],
+    [
+     "spell4_cast@660",
+     100
+    ]
+   ]
+  },
+  "dead": {
+   "anchor": "first",
+   "lunge": 0.5,
+   "flat": true,
+   "travel": 0.3,
+   "frames": [
+    [
+     "death@0",
+     100
+    ],
+    [
+     "death@250",
+     110
+    ],
+    [
+     "death@500",
+     120
+    ],
+    [
+     "death@750",
+     120
+    ],
+    [
+     "death@1000",
+     140
+    ],
+    [
+     "death@1300",
+     160
+    ],
+    [
+     "death@1600",
+     400
+    ]
+   ]
+  }
+ }
+}
