@@ -162,6 +162,39 @@ def apply(z, v):
     return (w.real, w.imag)
 
 
+def place(j, j0, bounce):
+    """Where League's frame puts the design's neck and pelvis (design squares, standing = REST), the hands and the feet:
+    rough_body's arithmetic. -> neck, pelvis, hands {side: (shoulder, hand)}, feet {side: (hip, ankle)}."""
+    off = lambda jj, a, b: (jj[b][0] - jj[a][0], jj[b][1] - jj[a][1])      # game px, y down (the export's)
+    flip = lambda v: (v[0] * S, v[1] * S)                                # -> design squares
+    dp = ((j["pelvis"][0] - j0["pelvis"][0]) * S, (j["pelvis"][1] - j0["pelvis"][1]) * S * bounce)
+    pel = (REST["pelvis"][0] + dp[0], REST["pelvis"][1] + dp[1])
+    z = similar(flip(off(j0, "pelvis", "neck")), (REST["neck"][0] - REST["pelvis"][0], REST["neck"][1] - REST["pelvis"][1]))
+    v = apply(z, flip(off(j, "pelvis", "neck")))
+    neck = (pel[0] + v[0], pel[1] + v[1])
+    dn = (neck[0] - REST["neck"][0], neck[1] - REST["neck"][1])
+    hands, feet = {}, {}
+    for side in ("r", "l"):
+        sh = (REST[f"{side}_shoulder"][0] + dn[0], REST[f"{side}_shoulder"][1] + dn[1])
+        z = similar(flip(off(j0, "neck", f"{side}_hand")), (REST[f"{side}_hand"][0] - REST["neck"][0],
+                                                              REST[f"{side}_hand"][1] - REST["neck"][1]))
+        v = apply(z, flip(off(j, "neck", f"{side}_hand")))
+        hands[side] = (sh, reach(sh, (neck[0] + v[0], neck[1] + v[1]), ARM_REACH))
+        hip = (REST[f"{side}_hip"][0] + pel[0] - REST["pelvis"][0], REST[f"{side}_hip"][1] + pel[1] - REST["pelvis"][1])
+        z = similar(flip(off(j0, "pelvis", f"{side}_foot")), (REST[f"{side}_foot"][0] - REST["pelvis"][0],
+                                                               REST[f"{side}_foot"][1] - REST["pelvis"][1]))
+        v = apply(z, flip(off(j, "pelvis", f"{side}_foot")))
+        feet[side] = (hip, reach(hip, (pel[0] + v[0], pel[1] + v[1]), LEG_REACH))
+    # standing frames stand on the ground: the lowest boot's sole on it; nothing sinks into it
+    foot = max(j[k][1] for k in ("l_foot", "r_foot", "l_toe", "r_toe"))      # the lowest foot (y down)
+    foot0 = max(j0[k][1] for k in ("l_foot", "r_foot", "l_toe", "r_toe"))
+    low = max(feet["r"][1][1] + 3.0, feet["l"][1][1] + 3.5)
+    shift = (GROUND - low) if (foot >= foot0 - 1.0 or low > GROUND) else 0.0
+    sh_ = lambda p: (p[0], p[1] + shift)
+    return (sh_(neck), sh_(pel), {k: (sh_(a), sh_(b)) for k, (a, b) in hands.items()},
+            {k: (sh_(a), sh_(b)) for k, (a, b) in feet.items()})
+
+
 def rough_body(P, j, j0, bounce):
     """One BODY rough at one pixel a square on the canvas grid ((W, H) = CANVAS / PX). League's pose re-proportioned to
     the design: the pelvis moved by League's (the vertical x bounce), the neck from the pelvis, each hand from the neck
