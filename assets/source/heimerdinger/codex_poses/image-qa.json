@@ -1,0 +1,302 @@
+[
+  {
+    "file": "heimerdinger-pose-run1.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "visible_bbox_alpha128": [
+      286,
+      254,
+      1109,
+      1067
+    ],
+    "alpha_values_count": 256,
+    "partial_alpha_pixels": 385419,
+    "hard_alpha_pass": false,
+    "exact_12px_grid_pass": false,
+    "offgrid_boundary_changes": 625021,
+    "raw_identical": true,
+    "sha256": "66e75c5486e973283ee4e9df3bd4c0d34680695b9e34af31d57821b637508e22"
+  },
+  {
+    "file": "heimerdinger-pose-run2.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "visible_bbox_alpha128": [
+      457,
+      429,
+      1140,
+      1183
+    ],
+    "alpha_values_count": 256,
+    "partial_alpha_pixels": 318082,
+    "hard_alpha_pass": false,
+    "exact_12px_grid_pass": false,
+    "offgrid_boundary_changes": 523658,
+    "raw_identical": true,
+    "sha256": "a95368f9c8ccc22a4eb96fc3a7c3526a01c62c5e30083a43b4202b81bfec4838"
+  },
+  {
+    "file": "heimerdinger-pose-run3.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "visible_bbox_alpha128": [
+      415,
+      376,
+      991,
+      1094
+    ],
+    "alpha_values_count": 256,
+    "partial_alpha_pixels": 251098,
+    "hard_alpha_pass": false,
+    "exact_12px_grid_pass": false,
+    "offgrid_boundary_changes": 421677,
+    "raw_identical": true,
+    "sha256": "7700e227517b5cb16c517251794d15a83a7e815ed52f50a99c9ffe2dc3b01de0"
+  },
+  {
+    "file": "heimerdinger-pose-run4.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "visible_bbox_alpha128": [
+      314,
+      288,
+      1190,
+      1084
+    ],
+    "alpha_values_count": 256,
+    "partial_alpha_pixels": 340680,
+    "hard_alpha_pass": false,
+    "exact_12px_grid_pass": false,
+    "offgrid_boundary_changes": 561068,
+    "raw_identical": true,
+    "sha256": "40701af08b986bc623b198629b4f85806cf6d4c53d030dc43898e41cd6ed4310"
+  },
+  {
+    "file": "heimerdinger-pose-run5.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "visible_bbox_alpha128": [
+      351,
+      393,
+      1044,
+      1136
+    ],
+    "alpha_values_count": 256,
+    "partial_alpha_pixels": 298998,
+    "hard_alpha_pass": false,
+    "exact_12px_grid_pass": false,
+    "offgrid_boundary_changes": 494988,
+    "raw_identical": true,
+    "sha256": "93b3b938288a8ee0ab4039a52f7bf1c4fa35eb81c8c1ee069f50cbebd7f3e88c"
+  },
+  {
+    "file": "heimerdinger-pose-run6.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "visible_bbox_alpha128": [
+      432,
+      407,
+      1106,
+      1163
+    ],
+    "alpha_values_count": 256,
+    "partial_alpha_pixels": 320711,
+    "hard_alpha_pass": false,
+    "exact_12px_grid_pass": false,
+    "offgrid_boundary_changes": 520076,
+    "raw_identical": true,
+    "sha256": "35e053cbc445de885462f8be9048efd45e809bb077428a18e76342c454f07b89"
+  },
+  {
+    "file": "heimerdinger-pose-run7.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "visible_bbox_alpha128": [
+      424,
+      492,
+      1067,
+      1165
+    ],
+    "alpha_values_count": 256,
+    "partial_alpha_pixels": 263691,
+    "hard_alpha_pass": false,
+    "exact_12px_grid_pass": false,
+    "offgrid_boundary_changes": 439625,
+    "raw_identical": true,
+    "sha256": "5f585fdf9287fc49efb95047920a89b122dd9b06e12822fc44df84d0baef77cd"
+  },
+  {
+    "file": "heimerdinger-pose-run8.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "visible_bbox_alpha128": [
+      344,
+      268,
+      1120,
+      1025
+    ],
+    "alpha_values_count": 256,
+    "partial_alpha_pixels": 329201,
+    "hard_alpha_pass": false,
+    "exact_12px_grid_pass": false,
+    "offgrid_boundary_changes": 537374,
+    "raw_identical": true,
+    "sha256": "1dde4d359fce7bf2252c876f242a50205e3ee8f03da383e433c2911cdebb541c"
+  },
+  {
+    "file": "heimerdinger-pose-attack1.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "visible_bbox_alpha128": [
+      342,
+      393,
+      1059,
+      1129
+    ],
+    "alpha_values_count": 256,
+    "partial_alpha_pixels": 301223,
+    "hard_alpha_pass": false,
+    "exact_12px_grid_pass": false,
+    "offgrid_boundary_changes": 496009,
+    "raw_identical": true,
+    "sha256": "b3c75a3f6565cea3b56cacc1e2fa518ac8494b5969ca89797da993373f29147e"
+  },
+  {
+    "file": "heimerdinger-pose-attack2.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "visible_bbox_alpha128": [
+      275,
+      482,
+      1206,
+      1150
+    ],
+    "alpha_values_count": 256,
+    "partial_alpha_pixels": 297718,
+    "hard_alpha_pass": false,
+    "exact_12px_grid_pass": false,
+    "offgrid_boundary_changes": 496409,
+    "raw_identical": true,
+    "sha256": "5e86bfee7e3a50b6606ea0948cbc0aa5ce3b5d01e5368bc4cf978a4ca528cd44"
+  },
+  {
+    "file": "heimerdinger-pose-attack3.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "visible_bbox_alpha128": [
+      401,
+      418,
+      1191,
+      1147
+    ],
+    "alpha_values_count": 256,
+    "partial_alpha_pixels": 378263,
+    "hard_alpha_pass": false,
+    "exact_12px_grid_pass": false,
+    "offgrid_boundary_changes": 605683,
+    "raw_identical": true,
+    "sha256": "5d2373d65e82489e515a4d8a3e1b9e297214ff6ca4fa96362bb576f6663c917f"
+  },
+  {
+    "file": "heimerdinger-pose-tinker.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "visible_bbox_alpha128": [
+      432,
+      457,
+      1064,
+      1136
+    ],
+    "alpha_values_count": 256,
+    "partial_alpha_pixels": 245280,
+    "hard_alpha_pass": false,
+    "exact_12px_grid_pass": false,
+    "offgrid_boundary_changes": 411362,
+    "raw_identical": true,
+    "sha256": "2c21617f9f51d60a6cbc312e2f98a982016bacec7319d7ed96b3b388e1912542"
+  },
+  {
+    "file": "heimerdinger-pose-death1.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "visible_bbox_alpha128": [
+      216,
+      118,
+      1127,
+      1157
+    ],
+    "alpha_values_count": 256,
+    "partial_alpha_pixels": 474818,
+    "hard_alpha_pass": false,
+    "exact_12px_grid_pass": false,
+    "offgrid_boundary_changes": 783927,
+    "raw_identical": true,
+    "sha256": "4d1b3f80e5266ca80fce7aa8ecd4ccf0c799faa63db3ce807422008300debb9c"
+  },
+  {
+    "file": "heimerdinger-pose-death2.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "visible_bbox_alpha128": [
+      187,
+      64,
+      1187,
+      1188
+    ],
+    "alpha_values_count": 256,
+    "partial_alpha_pixels": 549773,
+    "hard_alpha_pass": false,
+    "exact_12px_grid_pass": false,
+    "offgrid_boundary_changes": 904235,
+    "raw_identical": true,
+    "sha256": "4faeb82aef93fc3a8e8654dac0082545077aa56822a5ee27bf4e6bfa3c0a365c"
+  },
+  {
+    "file": "heimerdinger-pose-death3.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "visible_bbox_alpha128": [
+      141,
+      609,
+      1157,
+      1175
+    ],
+    "alpha_values_count": 256,
+    "partial_alpha_pixels": 335652,
+    "hard_alpha_pass": false,
+    "exact_12px_grid_pass": false,
+    "offgrid_boundary_changes": 551326,
+    "raw_identical": true,
+    "sha256": "ade8e4ad487060a450f40581c180ec3327d54793462f749878e6a305be8e98d1"
+  }
+]

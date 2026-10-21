@@ -1912,6 +1912,16 @@
         "y": -18
       }
     },
+    "league_heimerdinger": {
+      "face": {
+        "x": 4,
+        "y": -19
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      }
+    },
     "league_neeko": {
       "face": {
         "x": 1,

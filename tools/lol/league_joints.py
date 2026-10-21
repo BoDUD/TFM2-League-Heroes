@@ -77,6 +77,17 @@ JOINTS = {
                     tail2="Tail3_skn", tail3="Tail5_skn", tail4="Tail7_skn", tail5="Tail9_skn"),
     # her dragon (ShyvanaDragon in Shyvana's WAD): the front legs are the arms (shoulder, elbow, paw), the hind legs
     # thigh / knee / foot, the wings' main bones to their tips
+    # Heimerdinger: the tools in his hands (L_Weapon / R_Weapon), the backpack crane his Q and E lift over his head
+    # (Rocket_Base -> Rocket_Mid -> Rocket_End -> Rocket_Holder, the payload Rocket, the claw Grab_Hand_*) and R's two
+    # antennas
+    "heimerdinger": dict(pelvis="Pelvis", chest="Spine2", neck="Neck", head="Head", l_hip="L_Hip", l_knee="L_KneeLower",
+                         l_foot="L_Foot", r_hip="R_Hip", r_knee="R_KneeLower", r_foot="R_Foot", l_shoulder="L_Shoulder",
+                         l_elbow="L_Elbow", l_hand="L_Hand", r_shoulder="R_Shoulder", r_elbow="R_Elbow", r_hand="R_Hand",
+                         l_tool="L_Weapon", r_tool="R_Weapon", l_toe="L_Toe", r_toe="R_Toe", mustache="Mustache",
+                         crane0="Rocket_Base", crane1="Rocket_Mid", crane2="Rocket_End", crane3="Rocket_Holder",
+                         payload="Rocket", claw="Grab_Hand_Base", claw_top="Grab_Hand_Top", claw_low="Grab_Hand_Bottom",
+                         l_antenna="L_Antenna", r_antenna="R_Antenna", l_ant_tip="L_Buffbone_Cstm_Antenna",
+                         r_ant_tip="R_Buffbone_Cstm_Antenna"),
     "shyvana_dragon": dict(pelvis="Pelvis", chest="Spine3", neck="Neck2", head="Head", jaw="Jaw", l_shoulder="L_Shoulder",
                            l_elbow="L_Elbow", l_hand="L_Hand", r_shoulder="R_Shoulder", r_elbow="R_Elbow",
                            r_hand="R_Hand", l_hip="L_Thigh", l_knee="L_Knee", l_foot="L_Foot", r_hip="R_Thigh",
@@ -96,7 +107,9 @@ BONES = [("pelvis", "chest"), ("chest", "head"), ("l_hip", "l_knee"), ("l_knee",
          ("tail4", "tail5"), ("tail5", "tail6"), ("shield", "shield_top"), ("l_hand", "l_vine"), ("l_vine", "l_vine_tip"),
          ("r_hand", "r_vine"), ("r_vine", "r_vine_tip"), ("chest", "neck"), ("neck", "head"), ("l_wing", "l_wing_mid"),
          ("l_wing_mid", "l_wing_low"), ("l_wing_low", "l_wing_tip"), ("r_wing", "r_wing_mid"), ("r_wing_mid", "r_wing_low"),
-         ("r_wing_low", "r_wing_tip")]
+         ("r_wing_low", "r_wing_tip"), ("crane0", "crane1"), ("crane1", "crane2"), ("crane2", "crane3"),
+         ("crane3", "payload"), ("l_hand", "l_tool"), ("r_hand", "r_tool"), ("l_antenna", "l_ant_tip"),
+         ("r_antenna", "r_ant_tip")]
 
 
 def load(spec_path, lol):
@@ -132,8 +145,9 @@ def main():
     floor = cv[ch.legv, 1].min()
     weap = np.nonzero(ch.part == 2)[0]
     tip_a = tip_b = None
-    if len(weap) and "weapon" in names:
-        grip = glob[idx[names["weapon"].lower()]][:3, 3]
+    grip_name = spec.get("weapon_joint", names.get("weapon"))   # a spec may name the grip itself (Heimerdinger's two tools)
+    if len(weap) and grip_name:
+        grip = glob[idx[grip_name.lower()]][:3, 3]
         tip_a = weap[np.argmax(np.linalg.norm(pv[weap] - grip, axis=1))]
         tip_b = weap[np.argmax(np.linalg.norm(pv[weap] - pv[tip_a], axis=1))]
 

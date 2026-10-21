@@ -1,0 +1,402 @@
+[
+  {
+    "file": "heimerdinger-prop-crane_peek.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "visible_bbox_alpha128": [
+      610,
+      427,
+      1044,
+      957
+    ],
+    "alpha_values_count": 256,
+    "partial_alpha_pixels": 133008,
+    "hard_alpha_pass": false,
+    "exact_12px_grid_pass": false,
+    "offgrid_boundary_changes": 197894,
+    "raw_identical": true,
+    "sha256": "9f4f0e5eeaebe4aead3eb69f93ada9846b9a7010df28ba5ba8c5375cf2ed8b76"
+  },
+  {
+    "file": "heimerdinger-prop-crane_peek2.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "visible_bbox_alpha128": [
+      487,
+      242,
+      1084,
+      1126
+    ],
+    "alpha_values_count": 256,
+    "partial_alpha_pixels": 216398,
+    "hard_alpha_pass": false,
+    "exact_12px_grid_pass": false,
+    "offgrid_boundary_changes": 324653,
+    "raw_identical": true,
+    "sha256": "8433429c90a984284ee9fcf6514514e7b9edd96bc62192a529328406548853e5"
+  },
+  {
+    "file": "heimerdinger-prop-crane_up.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "visible_bbox_alpha128": [
+      569,
+      127,
+      901,
+      930
+    ],
+    "alpha_values_count": 256,
+    "partial_alpha_pixels": 113826,
+    "hard_alpha_pass": false,
+    "exact_12px_grid_pass": false,
+    "offgrid_boundary_changes": 184189,
+    "raw_identical": true,
+    "sha256": "db00c6ac2153d1269e6a9ee01c3fbd5c872f46fc858636a9aced0ce4747ccda7"
+  },
+  {
+    "file": "heimerdinger-prop-crane_up_empty.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "visible_bbox_alpha128": [
+      565,
+      180,
+      924,
+      1071
+    ],
+    "alpha_values_count": 256,
+    "partial_alpha_pixels": 118210,
+    "hard_alpha_pass": false,
+    "exact_12px_grid_pass": false,
+    "offgrid_boundary_changes": 185680,
+    "raw_identical": true,
+    "sha256": "991eed824f7c89e564e6c0f39329742f013eaa62086cf51a125d8784591fd0c7"
+  },
+  {
+    "file": "heimerdinger-prop-crane_up_back.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "visible_bbox_alpha128": [
+      532,
+      128,
+      902,
+      1012
+    ],
+    "alpha_values_count": 256,
+    "partial_alpha_pixels": 138422,
+    "hard_alpha_pass": false,
+    "exact_12px_grid_pass": false,
+    "offgrid_boundary_changes": 219540,
+    "raw_identical": true,
+    "sha256": "76e4ef5adec2b1a6f1e05f0fbcf95086c8359ae67f3b7330d8eb5db0b174ae62"
+  },
+  {
+    "file": "heimerdinger-prop-crane_up_high.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "visible_bbox_alpha128": [
+      560,
+      143,
+      928,
+      1006
+    ],
+    "alpha_values_count": 256,
+    "partial_alpha_pixels": 134903,
+    "hard_alpha_pass": false,
+    "exact_12px_grid_pass": false,
+    "offgrid_boundary_changes": 215266,
+    "raw_identical": true,
+    "sha256": "aeffce96b861eb1cc74c2a89e813b8e6301c52b1800232404b1f0447c43904b2"
+  },
+  {
+    "file": "heimerdinger-prop-crane_place.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "visible_bbox_alpha128": [
+      663,
+      568,
+      1140,
+      1212
+    ],
+    "alpha_values_count": 256,
+    "partial_alpha_pixels": 89570,
+    "hard_alpha_pass": false,
+    "exact_12px_grid_pass": false,
+    "offgrid_boundary_changes": 138114,
+    "raw_identical": true,
+    "sha256": "eb73346e4aefc5716e8cb32cc1ef03f509f4e1eee4c38234c5f695c35815a217"
+  },
+  {
+    "file": "heimerdinger-prop-crane_lift.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "visible_bbox_alpha128": [
+      617,
+      531,
+      1115,
+      921
+    ],
+    "alpha_values_count": 256,
+    "partial_alpha_pixels": 77879,
+    "hard_alpha_pass": false,
+    "exact_12px_grid_pass": false,
+    "offgrid_boundary_changes": 124749,
+    "raw_identical": true,
+    "sha256": "1eedd81f036d6138c702bd2d8963f37b22363b1b19b93214496daff71e24c07d"
+  },
+  {
+    "file": "heimerdinger-prop-crane_return.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "visible_bbox_alpha128": [
+      685,
+      440,
+      1117,
+      1067
+    ],
+    "alpha_values_count": 256,
+    "partial_alpha_pixels": 104079,
+    "hard_alpha_pass": false,
+    "exact_12px_grid_pass": false,
+    "offgrid_boundary_changes": 156949,
+    "raw_identical": true,
+    "sha256": "ebfc08892f1c0a194dc0361154de7da6b4ff6e2d1b15b630d575f64695692422"
+  },
+  {
+    "file": "heimerdinger-prop-crane_fold.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "visible_bbox_alpha128": [
+      633,
+      579,
+      855,
+      1058
+    ],
+    "alpha_values_count": 256,
+    "partial_alpha_pixels": 50327,
+    "hard_alpha_pass": false,
+    "exact_12px_grid_pass": false,
+    "offgrid_boundary_changes": 80877,
+    "raw_identical": true,
+    "sha256": "2c51a36949d83a113278f43eab414f241e4bd8e730060856064dd0464477554b"
+  },
+  {
+    "file": "heimerdinger-prop-crane_cock.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "visible_bbox_alpha128": [
+      608,
+      137,
+      1179,
+      1108
+    ],
+    "alpha_values_count": 256,
+    "partial_alpha_pixels": 139564,
+    "hard_alpha_pass": false,
+    "exact_12px_grid_pass": false,
+    "offgrid_boundary_changes": 227633,
+    "raw_identical": true,
+    "sha256": "9223cf60bd84cb4412956e1d119c2be51867202cfee6fbe364312506ac271314"
+  },
+  {
+    "file": "heimerdinger-prop-crane_throw.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "visible_bbox_alpha128": [
+      682,
+      348,
+      1110,
+      1101
+    ],
+    "alpha_values_count": 256,
+    "partial_alpha_pixels": 118728,
+    "hard_alpha_pass": false,
+    "exact_12px_grid_pass": false,
+    "offgrid_boundary_changes": 180775,
+    "raw_identical": true,
+    "sha256": "fecbfce0db3176588e731eb5d6bc95993de1d06a53c28d5ea6953a00aa4b10f8"
+  },
+  {
+    "file": "heimerdinger-prop-crane_recoil.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "visible_bbox_alpha128": [
+      672,
+      317,
+      1080,
+      889
+    ],
+    "alpha_values_count": 256,
+    "partial_alpha_pixels": 83505,
+    "hard_alpha_pass": false,
+    "exact_12px_grid_pass": false,
+    "offgrid_boundary_changes": 130934,
+    "raw_identical": true,
+    "sha256": "29919281cecc1a9e38d3b73c36788ec915475fb1175cc78eb54d99b6c556c3b5"
+  },
+  {
+    "file": "heimerdinger-prop-crane_aim.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "visible_bbox_alpha128": [
+      596,
+      111,
+      1088,
+      916
+    ],
+    "alpha_values_count": 256,
+    "partial_alpha_pixels": 111265,
+    "hard_alpha_pass": false,
+    "exact_12px_grid_pass": false,
+    "offgrid_boundary_changes": 175920,
+    "raw_identical": true,
+    "sha256": "c63c7c76d21322f94c18c37aed726210d662f059c9fd911c40976b62679f6622"
+  },
+  {
+    "file": "heimerdinger-prop-crane_fire.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "visible_bbox_alpha128": [
+      333,
+      113,
+      935,
+      1118
+    ],
+    "alpha_values_count": 256,
+    "partial_alpha_pixels": 143240,
+    "hard_alpha_pass": false,
+    "exact_12px_grid_pass": false,
+    "offgrid_boundary_changes": 216501,
+    "raw_identical": true,
+    "sha256": "d4de450e52e5be43d2d94bbca7b905660443ecc51b7a4cc2d47897a3839e824a"
+  },
+  {
+    "file": "heimerdinger-prop-crane_recover.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "visible_bbox_alpha128": [
+      418,
+      144,
+      883,
+      975
+    ],
+    "alpha_values_count": 256,
+    "partial_alpha_pixels": 104942,
+    "hard_alpha_pass": false,
+    "exact_12px_grid_pass": false,
+    "offgrid_boundary_changes": 161989,
+    "raw_identical": true,
+    "sha256": "00288a861eb3b56f4aa53cd5e5a2573821738588dd50c49094d58dfcd6f610d6"
+  },
+  {
+    "file": "heimerdinger-prop-crane_aim_empty.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "visible_bbox_alpha128": [
+      620,
+      145,
+      876,
+      920
+    ],
+    "alpha_values_count": 256,
+    "partial_alpha_pixels": 92954,
+    "hard_alpha_pass": false,
+    "exact_12px_grid_pass": false,
+    "offgrid_boundary_changes": 143602,
+    "raw_identical": true,
+    "sha256": "c01aa0fb32d0fb209a0baeaa537cd925647321fcd2135a79f62c2e83d1378841"
+  },
+  {
+    "file": "heimerdinger-prop-gear_drum.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "visible_bbox_alpha128": [
+      603,
+      496,
+      849,
+      751
+    ],
+    "alpha_values_count": 254,
+    "partial_alpha_pixels": 48791,
+    "hard_alpha_pass": false,
+    "exact_12px_grid_pass": false,
+    "offgrid_boundary_changes": 79481,
+    "raw_identical": true,
+    "sha256": "d07bdf8d9caa562b9d3af4c778ffabf472727c083045102a75a7a2b661f34f09"
+  },
+  {
+    "file": "heimerdinger-prop-gear_burst.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "visible_bbox_alpha128": [
+      415,
+      189,
+      1165,
+      825
+    ],
+    "alpha_values_count": 256,
+    "partial_alpha_pixels": 185883,
+    "hard_alpha_pass": false,
+    "exact_12px_grid_pass": false,
+    "offgrid_boundary_changes": 302668,
+    "raw_identical": true,
+    "sha256": "d318bad0bebf5905e1d2d0894b55046394ad3a579211b3729b2f785220b29814"
+  },
+  {
+    "file": "heimerdinger-prop-gear_settle.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "visible_bbox_alpha128": [
+      318,
+      355,
+      1167,
+      1000
+    ],
+    "alpha_values_count": 256,
+    "partial_alpha_pixels": 234638,
+    "hard_alpha_pass": false,
+    "exact_12px_grid_pass": false,
+    "offgrid_boundary_changes": 375830,
+    "raw_identical": true,
+    "sha256": "f76d4cea214862bdbae49bebacbcba3384d074304fe6a0cc6b5578a27636ab5e"
+  }
+]

@@ -1037,6 +1037,13 @@
         "skill2": "冲向目标，撕裂周围的敌人两次，造成<#ff9028ff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>和<#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>物理伤害。",
         "ult": "<#ff9028ff>暴吼<>：<#ffb900ff>0.75秒<>不可选取，<#ffb900ff>5秒<>内狗群翻倍、攻击力+20%、移速+20%；随后扑向敌方英雄，造成<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>65%<>物理伤害、<#ef5350ff>减速<>并降低20%护甲。<#ffb900ff>7秒<>内参与击杀可再扑一次，获得<#7bd96bff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7bd96bff>40%<>护盾。"
       },
+      "league_heimerdinger": {
+        "name": "黑默丁格",
+        "attack": "射出一道海克斯电光。<#ff9028ff>海克斯科技微型导弹<>：每第3次普攻额外射出5枚导弹，每枚造成<#a974ffff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>7%<>魔法伤害。",
+        "skill": "放下一座炮台（最多3座）<#ffb900ff>10秒<>，每<#ffb900ff>0.83秒<>攻击一个敌人，造成<#a974ffff>6<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>4%<>魔法伤害；对受控制的英雄发射光束，造成<#a974ffff>18<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>14%<>。<#ff9028ff>海克斯科技亲和<>：在炮台旁移速+20%。",
+        "skill2": "掷出手雷，造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<>魔法伤害并减速35%，正中的敌人被<#ef5350ff>眩晕<><#ffb900ff>1秒<>。",
+        "ult": "升级！敌人扎堆时连掷3颗强化手雷，每颗<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<>魔法伤害并<#ef5350ff>眩晕<><#ffb900ff>1秒<>；否则放下巨型炮台<#ffb900ff>8秒<>，每<#ffb900ff>0.5秒<>造成<#a974ffff>18<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<>并减速25%。"
+      },
       "league_neeko": {
         "name": "妮蔻",
         "attack": "发射一颗魔法弹。<#ff9028ff>两生花影<>：每第三次攻击额外造成<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>魔法伤害，并提高30%移动速度<#ffb900ff>1秒<>。",
@@ -1785,6 +1792,11 @@
         "skill1": "暗裔犬牙",
         "skill2": "剔骨本能",
         "ult": "猎狗血性"
+      },
+      "league_heimerdinger": {
+        "skill1": "H-28 G 进化炮台",
+        "skill2": "CH-2电子风暴手雷",
+        "ult": "升级！！！"
       },
       "league_neeko": {
         "skill1": "盛开花种",
@@ -2831,6 +2843,13 @@
         "skill2": "衝向目標，撕裂周圍的敵人兩次，造成<#ff9028ff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>和<#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>物理傷害。",
         "ult": "<#ff9028ff>獵犬嚎殺<>：<#ffb900ff>0.75秒<>無法被選取，<#ffb900ff>5秒<>內犬群加倍、攻擊力+20%、移速+20%；隨後撲向敵方英雄，造成<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>65%<>物理傷害、<#ef5350ff>緩速<>並降低20%護甲。<#ffb900ff>7秒<>內參與擊殺可再撲一次，獲得<#7bd96bff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7bd96bff>40%<>護盾。"
       },
+      "league_heimerdinger": {
+        "name": "漢默丁格",
+        "attack": "射出一道海克斯電光。<#ff9028ff>高科技微型火箭<>：每第3次普攻額外射出5枚火箭，每枚造成<#a974ffff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>7%<>魔法傷害。",
+        "skill": "放下一座砲臺（最多3座）<#ffb900ff>10秒<>，每<#ffb900ff>0.83秒<>攻擊一個敵人，造成<#a974ffff>6<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>4%<>魔法傷害；對受控制的英雄發射光束，造成<#a974ffff>18<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>14%<>。<#ff9028ff>海克斯親合性<>：在砲臺旁跑速+20%。",
+        "skill2": "擲出手雷，造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<>魔法傷害並緩速35%，正中的敵人被<#ef5350ff>暈眩<><#ffb900ff>1秒<>。",
+        "ult": "升級！敵人聚集時連擲3顆強化手雷，每顆<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<>魔法傷害並<#ef5350ff>暈眩<><#ffb900ff>1秒<>；否則放下巨型砲臺<#ffb900ff>8秒<>，每<#ffb900ff>0.5秒<>造成<#a974ffff>18<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<>並緩速25%。"
+      },
       "league_neeko": {
         "name": "妮可",
         "attack": "射出一顆魔法彈。<#ff9028ff>擬態分裂<>：每第三次攻擊額外造成<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>魔法傷害，並提高30%移動速度<#ffb900ff>1秒<>。",
@@ -3579,6 +3598,11 @@
         "skill1": "冥血匕首",
         "skill2": "開膛破肚",
         "ult": "尋血獵犬"
+      },
+      "league_heimerdinger": {
+        "skill1": "H-28 G 進化砲臺",
+        "skill2": "CH-2 暴風手雷",
+        "ult": "升級！！！"
       },
       "league_neeko": {
         "skill1": "爆裂艷花",
@@ -4625,6 +4649,13 @@
         "skill2": "Dashes onto the target and shreds the enemies around her twice for <#ff9028ff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<> and <#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<> physical damage.",
         "ult": "<#ff9028ff>The Call of the Pack<>: untargetable for <#ffb900ff>0.75s<>, for <#ffb900ff>5s<> a pack twice as big, +20% attack and +20% move speed. Then she pounces on an enemy champion for <#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>65%<> physical damage, a <#ef5350ff>slow<> and -20% armour. A takedown within <#ffb900ff>7s<> lets her pounce once more with a <#7bd96bff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7bd96bff>40%<> shield."
       },
+      "league_heimerdinger": {
+        "name": "Heimerdinger",
+        "attack": "Fires a hextech bolt. <#ff9028ff>Hextech Micro-Rockets<>: every third attack also fires 5 rockets, each dealing <#a974ffff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>7%<> <#a974ffff>magic damage<>.",
+        "skill": "Sets down a turret (up to 3) for <#ffb900ff>10s<> that strikes one enemy every <#ffb900ff>0.83s<> for <#a974ffff>6<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>4%<> <#a974ffff>magic damage<>, or beams a crowd-controlled champion for <#a974ffff>18<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>14%<>. <#ff9028ff>Hextech Affinity<>: +20% move speed near his turrets.",
+        "skill2": "Throws a grenade that deals <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<> <#a974ffff>magic damage<> and slows by 35%; enemies at its centre are <#ef5350ff>stunned<> for <#ffb900ff>1s<>.",
+        "ult": "UPGRADE! Against a crowd: three empowered grenades, each <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<> <#a974ffff>magic damage<> and a <#ffb900ff>1s<> <#ef5350ff>stun<>. Otherwise: an apex turret for <#ffb900ff>8s<>, every <#ffb900ff>0.5s<> <#a974ffff>18<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<> and a 25% slow."
+      },
       "league_neeko": {
         "name": "Neeko",
         "attack": "Fires a magic bolt. <#ff9028ff>Shapesplitter<>: every third attack deals <#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> bonus <#a974ffff>magic damage<> and grants 30% move speed for <#ffb900ff>1s<>.",
@@ -5373,6 +5404,11 @@
         "skill1": "Darkin Daggers",
         "skill2": "Eviscerate",
         "ult": "Hounds' Pursuit"
+      },
+      "league_heimerdinger": {
+        "skill1": "H-28 G Evolution Turret",
+        "skill2": "CH-2 Electron Storm Grenade",
+        "ult": "UPGRADE!!!"
       },
       "league_neeko": {
         "skill1": "Blooming Burst",
@@ -6419,6 +6455,13 @@
         "skill2": "대상에게 돌진해 주변 적을 두 번 찢어 <#ff9028ff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>, <#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<> 물리 피해.",
         "ult": "<#ff9028ff>무리의 부름<>: <#ffb900ff>0.75초<> 동안 대상으로 지정 불가, <#ffb900ff>5초<> 동안 무리 두 배, 공격력 +20%, 이동 속도 +20%. 이어서 적 챔피언에게 덮쳐 <#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>65%<> 물리 피해, <#ef5350ff>둔화<>, 방어력 -20%. <#ffb900ff>7초<> 안에 처치 관여 시 <#7bd96bff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7bd96bff>40%<> 보호막과 함께 한 번 더 덮침."
       },
+      "league_heimerdinger": {
+        "name": "하이머딩거",
+        "attack": "마법공학 전격을 쏜다. <#ff9028ff>마법공학 초소형 로켓<>: 세 번째 공격마다 로켓 5발을 추가로 쏘아 발당 <#a974ffff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>7%<> 마법 피해.",
+        "skill": "포탑을 설치한다(최대 3개, <#ffb900ff>10초<>). <#ffb900ff>0.83초<>마다 적 하나에게 <#a974ffff>6<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>4%<> 마법 피해, 군중 제어된 챔피언에게는 광선으로 <#a974ffff>18<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>14%<>. <#ff9028ff>마법공학 전문가<>: 포탑 근처에서 이동 속도 +20%.",
+        "skill2": "수류탄을 던져 <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<> 마법 피해와 35% 둔화, 중심의 적은 <#ffb900ff>1초<> <#ef5350ff>기절<>.",
+        "ult": "업그레이드! 적이 모여 있으면 강화 수류탄 3개(각 <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<> 마법 피해, <#ffb900ff>1초<> <#ef5350ff>기절<>), 아니면 거대 포탑 <#ffb900ff>8초<>: <#ffb900ff>0.5초<>마다 <#a974ffff>18<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<>, 25% 둔화."
+      },
       "league_neeko": {
         "name": "니코",
         "attack": "마법 탄을 쏜다. <#ff9028ff>형상 분리<>: 세 번째 공격마다 <#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> 추가 마법 피해, <#ffb900ff>1초<> 동안 이동 속도 30% 증가.",
@@ -7167,6 +7210,11 @@
         "skill1": "다르킨 단검",
         "skill2": "적출",
         "ult": "사냥개의 추적"
+      },
+      "league_heimerdinger": {
+        "skill1": "H-28 G 진화형 포탑",
+        "skill2": "CH-2 전자폭풍 수류탄",
+        "ult": "업그레이드!!!"
       },
       "league_neeko": {
         "skill1": "꽃망울 폭발",
@@ -8213,6 +8261,13 @@
         "skill2": "対象へ突進し、周囲の敵を二度切り裂いて<#ff9028ff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>と<#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>の物理ダメージ。",
         "ult": "<#ff9028ff>群れの呼び声<>：<#ffb900ff>0.75秒<>対象指定不可、<#ffb900ff>5秒<>群れが倍、攻撃力+20%、移動速度+20%。続けて敵チャンピオンに飛びかかり<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>65%<>の物理ダメージ、<#ef5350ff>スロウ<>、物防-20%。<#ffb900ff>7秒<>以内のキル関与で<#7bd96bff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7bd96bff>40%<>のシールドともう一度飛びかかる。"
       },
+      "league_heimerdinger": {
+        "name": "ハイマーディンガー",
+        "attack": "ヘクステックの電撃を撃つ。<#ff9028ff>ヘクステック小型ロケット<>：3回目の通常攻撃ごとにロケット5発を追加で撃ち、1発<#a974ffff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>7%<>の魔法ダメージ。",
+        "skill": "砲台を設置（最大3基、<#ffb900ff>10秒<>）。<#ffb900ff>0.83秒<>ごとに敵1体に<#a974ffff>6<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>4%<>の魔法ダメージ、行動妨害中のチャンピオンにはビームで<#a974ffff>18<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>14%<>。<#ff9028ff>ヘクステックの親和性<>：砲台の近くで移動速度+20%。",
+        "skill2": "グレネードを投げ<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<>の魔法ダメージと35%スロウ、中心の敵を<#ffb900ff>1秒<><#ef5350ff>スタン<>。",
+        "ult": "アップグレード！敵が密集していれば強化グレネード3個（各<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<>の魔法ダメージ、<#ffb900ff>1秒<><#ef5350ff>スタン<>）、でなければ巨大砲台<#ffb900ff>8秒<>：<#ffb900ff>0.5秒<>ごとに<#a974ffff>18<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<>、25%スロウ。"
+      },
       "league_neeko": {
         "name": "ニーコ",
         "attack": "魔法弾を撃つ。<#ff9028ff>シェイプスプリッター<>：3回目の通常攻撃ごとに<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>の追加魔法ダメージ、<#ffb900ff>1秒<>移動速度30%増加。",
@@ -8961,6 +9016,11 @@
         "skill1": "ダーキンダガー",
         "skill2": "獰猛なる刃",
         "ult": "猟犬の追跡"
+      },
+      "league_heimerdinger": {
+        "skill1": "H-28G革新砲",
+        "skill2": "CH-2超電磁グレネード",
+        "ult": "アップグレード！！！"
       },
       "league_neeko": {
         "skill1": "弾ける花弁",
