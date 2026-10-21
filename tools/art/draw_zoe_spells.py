@@ -198,24 +198,30 @@ def cleanse():
 
 
 def barrier():
-    """A golden bubble round her while the shield lasts (a buff's view, looped): its shine sliding down a side,
+    """A golden shell over her while the shield lasts (a buff's view, looped; the user: 「屏障罩住人啊」): an egg from
+    under her soles to over her hair, a sparse gold shimmer inside it drifting up, its shine sliding down a side,
     sparkles twinkling."""
     c = PAL["barrier"]
-    cy, r = SY - 22, 30
+    cy, rx, ry = SY - 26, 44, 52                    # 13 px up; 22 x 26 px: soles - 7 px .. 39 px over them, her mane in it
     out = []
     for k in range(4):
         f = F()
-        f.ring(cy, r, r, c["edge"], 1)
-        f.ring(cy, r - 1.2, r - 1.2, c["out"], 1, keep=lambda x, y: (x + y) % 2 == 0)
+        for y in range(int(cy - ry), int(cy + ry) + 1):
+            for x in range(0, rx + 1):
+                v = math.hypot((x + 0.5) / rx, (y + 0.5 - cy) / ry)
+                if v < 0.93 and x % 4 == 1 and (y + 2 * k + (x // 4) * 2) % 8 == 0:
+                    f.sym(x, y, c["mid"] if v > 0.6 else c["core"])
+        f.ring(cy, rx, ry, c["edge"], 1.5)
+        f.ring(cy, rx - 1.6, ry - 1.6, c["out"], 1, keep=lambda x, y: (x + y) % 2 == 0)
         a0 = math.pi * (0.30 + 0.08 * k)
-        for x in range(0, r + 1):
-            for y in range(int(cy - r - 1), int(cy + r + 1)):
-                th = math.atan2(-(y + 0.5 - cy), x + 0.5)
-                v = math.hypot(x + 0.5, y + 0.5 - cy)
-                if abs(v - (r - 2.2)) <= 0.7 and abs(th - a0) <= 0.22:
+        for x in range(0, rx + 1):
+            for y in range(int(cy - ry - 1), int(cy + ry + 1)):
+                th = math.atan2(-(y + 0.5 - cy) * rx / ry, x + 0.5)
+                v = math.hypot((x + 0.5) / rx, (y + 0.5 - cy) / ry)
+                if abs(v - 0.92) <= 0.025 and abs(th - a0) <= 0.24:
                     f.sym(x, y, c["core"])
-        f.spark(int(r * 0.55), int(cy - r * 0.62), c["core"], c["mid"], 1 if k % 2 else 2)
-        f.spark(int(r * 0.85), int(cy + r * 0.25), c["mid"], c["edge"], 1 if k % 2 == 0 else 0)
+        f.spark(int(rx * 0.55), int(cy - ry * 0.66), c["core"], c["mid"], 1 if k % 2 else 2)
+        f.spark(int(rx * 0.86), int(cy + ry * 0.2), c["mid"], c["edge"], 1 if k % 2 == 0 else 0)
         out.append((f.crop(), 120))
     return out
 

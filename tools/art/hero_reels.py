@@ -13,17 +13,21 @@ in its own action. Per hero, and per form idle (c_idle, m_idle ... with that for
 - `idle_base` (c_idle_base ...): the idle as it was drawn - the breathing loop, no longer played (the user, 2026-10-22:
   「上下摆动全不要了啊」). Written once; every later run starts from it, so the tool can run again after a sheet is
   rebuilt or repacked.
-- `idle`: the idle's frame 0 held 0.8-3.2 s, a snippet, five times in one cycle, the holds and the order of the snippets
-  shuffled per hero (fixed by a hash of its id) so they pop up like League's idle variants. A snippet is a few frames of
-  one of the hero's actions that stay where the idle stands - feet on the idle's ground row, the legs over the idle's
-  legs, nothing wider than the idle +- 8 px or higher than its top + 12 (a raised weapon) - played in, held, played
-  back out (a sword lifted and lowered, a gun checked); the first is near the idle (a cut, not a jump). Frame 0 stays
-  the idle's frame 0 (portraits, face crops, the cards' measures read it).
-- `bp`: what the ban/pick grid card plays instead of the idle (league.dll src/lookup.rs): frame 0 held, an action (attack,
-  skill, skill2, ult in turn, each hero starting at a different one so a page of cards does not strike at once), then
-  frame 0, a snippet, ... Card math as tools/art/bp_card_audit.py (131 x 88 canvas, 2.2x, banpick_center; hd_ frames at
-  the hero's UI size): an action frame that spills out of the card more than the idle does holds the frame before it;
-  an action whose first frame or more than 40 % of frames spill is left out.
+- `idle`: the idle's frame 0 held 0.8-3.2 s (the first time 0.1 s), a snippet, five times in one cycle, the holds and
+  the order of the snippets shuffled per hero (fixed by a hash of its id) so they pop up like League's idle variants.
+  A snippet is a few frames of one of the hero's actions that stay where the idle stands - feet on the idle's ground
+  row, the legs over the idle's legs, nothing wider than the idle +- 8 px or higher than its top + 12 (a raised
+  weapon) - played in, held, played back out (a sword lifted and lowered, a gun checked); the first is near the idle
+  (a cut, not a jump). Frame 0 stays the idle's frame 0 (portraits, face crops, the cards' measures read it).
+- `bp`: what the ban/pick grid card plays instead of the idle (league.dll src/lookup.rs): frame 0 (0.1 s), an action
+  (attack, skill, skill2, ult in turn, each hero starting at a different one so a page of cards does not strike at
+  once), then frame 0, a snippet, ... Card math as tools/art/bp_card_audit.py (131 x 88 canvas, 2.2x, banpick_center;
+  hd_ frames at the hero's UI size): an action frame that spills out of the card more than the idle does holds the
+  frame before it; an action whose first frame or more than 40 % of frames spill is left out.
+
+A hero's first run adds tags to its .fanim (idle_base, bp and their hd_ / lo_ copies): run
+addons/league_viego_soul/make_override.py after it, so Viego's soul table lists them (its test
+every_soul_has_its_sheets_tags wants each sheet's tags exactly).
 
 Dense heroes get the same lists in hd_ and lo_ (the frames' own rects there; every tag has the same frames in all
 three). tools/art/hero_reels.json holds the picks made by eye where the rules pick badly:
@@ -55,6 +59,7 @@ CW, CH, S = 131, 88, 2.2          # the ban/pick card's canvas and scale (bp_car
 ASIDE = {True: 0.12, False: 0.03}
 ABOVE = {True: 0.25, False: 0.15}
 STILL_S = 1.5                     # the idle's frame 0 held between card actions, seconds
+FIRST_S = 0.1                     # frame 0 before the first snippet / card action: they start the moment the UI plays them
 IDLE_TURNS = 5                    # snippets in one idle cycle (holds of 0.8-3.2 s before each)
 HOLD_S = 0.45                     # a snippet's last frame held
 MIN_DUR = 0.12                    # a snippet frame at least this long (the idle is calm)
@@ -248,7 +253,8 @@ def still(h, idle, secs=None):
 
 
 def schedule(hid, idle, n):
-    """[(hold seconds, snippet index)] for one idle cycle: IDLE_TURNS snippets after holds of 0.8-3.2 s, in an order
+    """[(hold seconds, snippet index)] for one idle cycle: IDLE_TURNS snippets after holds of 0.8-3.2 s (the first after
+    FIRST_S: a card the mouse goes over moves at once, 「鼠标放上去不是秒出效果 而是要等1-2秒」), in an order
     that does not repeat a snippet twice running - fixed per hero and idle (a hash of the names), so the cycle is the
     same every run but no two heroes fidget in step (the user: 「随便冒出来个动作 和英雄联盟一样」)."""
     seed = int(hashlib.sha1(f"{hid}/{idle}".encode()).hexdigest()[:8], 16)
@@ -258,7 +264,7 @@ def schedule(hid, idle, n):
         k = rnd.randrange(n)
         if n > 1 and k == last:
             k = (k + 1 + rnd.randrange(n - 1)) % n
-        out.append((round(rnd.uniform(0.8, 3.2), 2), k))
+        out.append((FIRST_S if not out else round(rnd.uniform(0.8, 3.2), 2), k))
         last = k
     return out
 
@@ -295,7 +301,7 @@ def plan(h, picks, k):
     bp = []
     sn = snips["idle"]
     for j, (t, shown) in enumerate(acts):
-        bp += still(h, "idle") + [(t, i, d) for i, d in shown] + still(h, "idle")
+        bp += still(h, "idle", FIRST_S if j == 0 else None) + [(t, i, d) for i, d in shown] + still(h, "idle")
         if sn:
             tt, run, *how = sn[j % len(sn)]
             bp += played(h, tt, run, *how)
