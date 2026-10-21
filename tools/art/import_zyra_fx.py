@@ -16,11 +16,12 @@ from the kit (build_zyra.P, 60 ticks a second):
   * the thicket (r_thicket) writhes (its three loop frames) until the knock-up r_knock ticks after it appears, closes
     like a cage on that tick and falls apart;
   * the add-on's seed (s_seed) is as long as the add-on replays it (s_show ticks).
-The thicket gets a sheet of its own, league_zyra_thicket, drawn 1.5 times as big as Codex drew it (R's radius 32000 ->
-44000, the user: 「R技能范围做大点」「不用重画啊 你调整一下不就行了吗」): tag hd_idle = Codex's squares 3 x 3 at PPU 2
-(league.dll's hd.rs EFFECTS: every square 1.5 game px, all alike), tag idle = the same at 1x (every other one of those
-pixels: Codex's squares 1 or 2 game px) for a game without league.dll; its ring (58 squares, 87 game px) on R's 88. Its
-frames 5 and 6 came 6 rows higher than the others with bits of the next row's frames under them (cleared, moved down).
+The thicket has a sheet of its own, league_zyra_thicket: tag idle = Codex's squares 1:1 (one game px each) with the
+ring's middle on the ground; its ring (58 squares, 58 game px) on R's 64 (radius 32000). From 2026-10-20 it was drawn
+1.5 times as big for a radius of 44000 (Codex's squares 3 x 3 at PPU 2, 1.5 game px each) - blurred in game, each
+square on a fraction of the screen's pixels (the user, 2026-10-21: 「改到3w2 婕拉的大招特效局内怎么这么模糊」): back
+to 32000 and to Codex's own squares. Its frames 5 and 6 came 6 rows higher than the others with bits of the next row's
+frames under them (cleared, moved down).
 """
 import argparse
 import json
@@ -51,8 +52,7 @@ def lp(p):
 
 TB = {"a_seed", "t_spit", "e_roots"}            # turned with their flight: drawn going right
 BIG = {"q_burst", "t_plant", "v_plant"}
-THICKET = "league_zyra_thicket"         # r_thicket's own dense sheet
-THICKET_PPU = 2                         # Codex's squares 3 x 3 at PPU 2: 1.5 game px each
+THICKET = "league_zyra_thicket"         # r_thicket's own sheet (1x: Codex's squares one game px each)
 THICKET_FIX = {4: 6, 5: 6}              # frames 5 and 6 (0-based 4, 5): rows from 39 down cleared, then moved down 6
 THICKET_RING = (34.5, 30.5)             # the ring's middle in Codex's cell (frame 1's leftmost / rightmost squares)
 FRONT = {"t_plant", "v_plant"}                   # drawn from the front, swaying left and right: not mirrored
@@ -153,23 +153,20 @@ def cells(name, meta):
 
 
 def thicket_tags(cs, frames):
-    """league_zyra_thicket's idle / hd_idle: each frame Codex's cell 3 x 3 (hd_idle, PPU 2) with the ring's middle on the
-    ground (SOLES), on a canvas centred on the pivot; idle the same canvas halved (every other pixel)."""
-    k3 = 3
+    """league_zyra_thicket's idle: each frame Codex's cell 1:1 with the ring's middle on the ground (SOLES), on a canvas
+    centred on the pivot."""
     h, w = cs[0].shape[:2]
-    ax, ay = (THICKET_RING[0] + 0.5) * k3 - 0.5, (THICKET_RING[1] + 0.5) * k3 - 0.5
-    py = ay - SOLES[1] * THICKET_PPU                      # the pivot's row in the 3 x cell
-    W, H = w * k3, int(2 * round(max(py, h * k3 - 1 - py)) + 2)
-    assert W % 2 == 0 and abs((W - 1) / 2 - ax) < 1e-6, "the ring is not in the cell's middle"
+    ax, ay = THICKET_RING
+    py = ay - SOLES[1]                                    # the pivot's row in the cell
+    H = int(2 * round(max(py, h - 1 - py)) + 2)
+    assert abs((w - 1) / 2 - ax) < 1e-6, "the ring is not in the cell's middle"
     top = int(round((H - 1) / 2 - py))
-    hd, one = {}, {}
+    out = {}
     for k, c in enumerate(cs):
-        big = np.repeat(np.repeat(c, k3, 0), k3, 1)
-        canvas = np.zeros((H, W, 4), np.uint8)
-        canvas[top:top + big.shape[0]] = big
-        hd[k] = canvas
-        one[k] = canvas[::THICKET_PPU, ::THICKET_PPU].copy()
-    return {"idle": [(one[k], ms) for k, ms in frames], "hd_idle": [(hd[k], ms) for k, ms in frames]}
+        canvas = np.zeros((H, w, 4), np.uint8)
+        canvas[top:top + h] = c
+        out[k] = canvas
+    return {"idle": [(out[k], ms) for k, ms in frames]}
 
 
 def anchor(cell, kind):
