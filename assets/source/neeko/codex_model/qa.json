@@ -1,0 +1,30 @@
+[
+  {
+    "file": "neeko-model-A-1.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "alpha_levels": 256,
+    "bbox_alpha128": [
+      352,
+      68,
+      919,
+      1215
+    ]
+  },
+  {
+    "file": "neeko-model-A-2.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "alpha_levels": 256,
+    "bbox_alpha128": [
+      351,
+      80,
+      904,
+      1220
+    ]
+  }
+]
