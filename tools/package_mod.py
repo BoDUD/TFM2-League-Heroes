@@ -204,7 +204,8 @@ def idle_pads(anim):
     draw it with league.dll, past its rect just as far in game pixels) IDLE_PAD x its density - hd_idle's frame width
     over the idle's (league_corki's card showed the bottom of the frame packed above his hd_idle: 「上面特效进来了」) - and
     round its lo_idle the same (the ban/pick card draws the lo_ frames: league_smolder's showed the feet of the lo_run
-    frame packed 1 px above his lo_idle, 「BP界面你把头顶特效塞进去了？」)."""
+    frame packed 1 px above his lo_idle, 「BP界面你把头顶特效塞进去了？」), and the same round each one's ban/pick reel
+    (bp / hd_bp / lo_bp)."""
     anims = anim.get("anims", {})
     pads = {"idle": IDLE_PAD}
     one = anims.get("idle", {}).get("frames", [])
@@ -213,6 +214,11 @@ def idle_pads(anim):
         if one and dense:
             k = float(dense[0]["data"]["w"]) / max(1.0, float(one[0]["data"]["w"]))
             pads[tag] = int(math.ceil(IDLE_PAD * max(1.0, k)))
+    # the ban/pick reel (tools/art/hero_reels.py): the grid card plays it instead of the idle, same pads
+    for tag in ("idle", "hd_idle", "lo_idle"):
+        reel = tag[:-len("idle")] + "bp"
+        if tag in pads and reel in anims:
+            pads[reel] = pads[tag]
     return pads
 
 
