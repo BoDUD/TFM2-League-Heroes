@@ -252,8 +252,9 @@ def build(p):
     hit = sw("q2", NONE, sw("q1", NONE, homing("a_hit", p["a_speed"], "Enemy", plain)))
     swing = delayed(p["a_hit"] - 1, hit, spend("q", p["q_t"], claw, rm("q_lit")), mend, quick_spent)
     attack_a = action("attack", p["atk_dur"], p["atk_cd"], 1, p["atk_range"], "Targeting", "Enemy",
-                      combine(by_stance(anim("q_attack", p["atk_dur"]), anim("e_attack", p["atk_dur"]),
-                                        anim("r_attack", p["atk_dur"]), None), sfx("a"), swing),
+                      combine(by_stance(combine(anim("q_attack", p["atk_dur"]), sfx("a_q")),
+                                        combine(anim("e_attack", p["atk_dur"]), sfx("a_e")),
+                                        combine(anim("r_attack", p["atk_dur"]), sfx("a_r")), sfx("a")), swing),
                       atype="BaseAttack", cancel=True)
 
     # ------------------------------------------------------------------ Q Wilding Claw (the Bear)

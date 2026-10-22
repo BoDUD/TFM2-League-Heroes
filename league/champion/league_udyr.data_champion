@@ -55,36 +55,59 @@
           "type": "SwitchByBuff",
           "buff_name": "league_udyr_st_q",
           "effect_buff": {
-            "type": "CasterAnimation",
-            "name": "q_attack",
-            "tick": 30
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "CasterAnimation",
+                "name": "q_attack",
+                "tick": 30
+              },
+              {
+                "type": "Sfx",
+                "name": "league_udyr_a_q"
+              }
+            ]
           },
           "effect_none": {
             "type": "SwitchByBuff",
             "buff_name": "league_udyr_st_e",
             "effect_buff": {
-              "type": "CasterAnimation",
-              "name": "e_attack",
-              "tick": 30
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "CasterAnimation",
+                  "name": "e_attack",
+                  "tick": 30
+                },
+                {
+                  "type": "Sfx",
+                  "name": "league_udyr_a_e"
+                }
+              ]
             },
             "effect_none": {
               "type": "SwitchByBuff",
               "buff_name": "league_udyr_st_r",
               "effect_buff": {
-                "type": "CasterAnimation",
-                "name": "r_attack",
-                "tick": 30
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "CasterAnimation",
+                    "name": "r_attack",
+                    "tick": 30
+                  },
+                  {
+                    "type": "Sfx",
+                    "name": "league_udyr_a_r"
+                  }
+                ]
               },
               "effect_none": {
-                "type": "Combine",
-                "effects": []
+                "type": "Sfx",
+                "name": "league_udyr_a"
               }
             }
           }
-        },
-        {
-          "type": "Sfx",
-          "name": "league_udyr_a"
         },
         {
           "type": "Delayed",
