@@ -226,22 +226,22 @@
    "frames": 4,
    "cell_1x": [
     18,
-    8
+    16
    ],
    "symmetry": "left-right",
-   "source": "drawn by tools/art/process_qiyana_fx.py (Gemini left it out)"
+   "source": "gemini g20.jpg"
   },
   {
    "name": "q_haste",
    "file": "qiyana_fx_q_haste.png",
    "frames": 4,
    "cell_1x": [
-    30,
+    28,
     10
    ],
    "symmetry": "left-right",
-   "source": "drawn by tools/art/process_qiyana_fx.py (Gemini left it out)"
+   "source": "gemini g21.jpg"
   }
  ],
- "made_by": "Gemini (the user's images; q_slow and q_haste drawn here), processed by tools/art/process_qiyana_fx.py"
+ "made_by": "Gemini (the user's images), processed by tools/art/process_qiyana_fx.py"
 }

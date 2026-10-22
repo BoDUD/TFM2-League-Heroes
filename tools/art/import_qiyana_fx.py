@@ -7,8 +7,9 @@ league_qiyana_big.
 The source is the step-3 delivery (assets/source/qiyana/codex_fx/qiyana_fx: pixel_1x/qiyana_fx_<name>.png, one row of
 equal frames each at game size, frame sizes in manifest.json (cell_1x); alpha 0 / 255; the shockwave drawn flying right
 and symmetric top to bottom, the six forward pictures pointing right, every other one symmetric left to right - checked
-again here, then made an odd number of squares across the symmetric way). The user had Gemini draw 20 of them (JPGs,
-2026-10-22), brought to that delivery with the two it left out (q_slow, q_haste) by tools/art/process_qiyana_fx.py.
+again here, then made an odd number of squares across the symmetric way). The user had Gemini draw them (JPGs,
+2026-10-22; the last two, q_slow and q_haste, later the same day), brought to that delivery by
+tools/art/process_qiyana_fx.py.
 Each frame is placed as the kit plays it (import_ksante_fx.py's way): spots are game px from the pivot (x forward, y
 down); a unit's soles are 11 under it (league.dll hd.rs FEET 11.5), hers too. A ground ring's anchor is the middle of
 its ellipse as drawn (rows above the cell's bottom). The buffs (the three elements round her waist, the slow, the
@@ -68,7 +69,7 @@ FX = {
     "q_w_hit": ("q_w_hit", ("feet", 2), seq(range(4), [50, 120, 160, 120]), [SOLES]),
     "q_r_hit": ("q_r_hit", "core", seq(range(4), [40, 60, 70, 80]), [HIT]),
     "q_g_hit": ("q_g_hit", "core", seq(range(3), [40, 60, 70]), [HIT]),
-    "q_slow": ("q_slow", ("feet", 1), loop(4, 110), [SOLES]),
+    "q_slow": ("q_slow", ("feet", 1), loop(4, 130), [SOLES]),
     "q_haste": ("q_haste", ("feet", 3), loop(4, 90), [SOLES]),
     # E: the dash's hit
     "e_hit": ("e_hit", "core", seq(range(3), [40, 50, 60]), [HIT]),
