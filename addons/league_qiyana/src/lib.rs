@@ -40,6 +40,13 @@ pub const CROWDED_HP: usize = 60;
 pub const CROWD_R: u64 = 40_000;
 /// 落地时看这么远内的地形（两格；英雄联盟的 W 朝身边的地形放）。
 pub const NEAR: f64 = 64_000.0;
+/// league_ivern 给站在艾翁草丛里的英雄挂的标记（用户 2026-10-22：「还有奇安娜也可以触发元素 艾翁的这个草 你们两可以联动一下」）。
+pub const IVERN_BRUSH: &str = "league_ivern_in_brush";
+
+fn me_in_ivern_brush(sim: &StableSim<'_>, me: usize) -> bool {
+    sim.get_entity(me).is_some_and(|e| (0..e.buff_count()).filter_map(|i| e.buff_at(i)).any(|b| b.name() == IVERN_BRUSH))
+}
+
 /// 同一类日志隔这么多 tick 才再写。
 const LOG_EVERY: usize = 120;
 
@@ -331,8 +338,11 @@ impl StableEffectType for Enchant {
             .filter(|u| u.is_alive())
             .map(|u| (u.pos().0 as f64, u.pos().1 as f64))
             .collect();
-        let near = terrain::pick_map(&points, &terrain::maps())
+        let mut near = terrain::pick_map(&points, &terrain::maps())
             .map_or_else(terrain::Near::default, |m| terrain::near(&m, x as f64, y as f64, NEAR));
+        if me_in_ivern_brush(sim, caster) {
+            near.grass = Some(0.0);                     // standing in Ivern's brush: grass right here
+        }
         let (el, why) = pick(&near, &spot, p.q_exec);
         for f in ["el_g", "el_w", "el_r", "el_on"] {
             sim.entity_remove_buff(caster, &qy(f));

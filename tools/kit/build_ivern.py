@@ -27,6 +27,10 @@ nothing to stand on in TFM2 (no camps to spare), so the passive is Brushmaker's.
           champion; its death ends her.
   combos  Q -> E (根深敌固 -> 种豆得瓜): the vine's hit seeds the nearest ally at once if E is ready (the burst lands on the
           rooted one). R -> Q (小菊！ -> 根深敌固): Daisy's drop roots the champion with the vine if Q is ready.
+The add-on copy (--native, addons/league_ivern): the brush a real brush - league_ivern:brush keeps where it grew (a
+2-tick `w_new` flag on him at the growing), gives the allies in it w_atk% attack every tick and marks every champion in
+it `league_ivern_in_brush` for Rengar's (league_rengar_bush: he pounces from it) and Qiyana's (league_qiyana: grass)
+add-ons.
 Timings: drafts until the frames exist (a frame's start in ticks = ms x 0.06): a_rel, e_rel, q_rel, r_rel.
 Numbers: League 16.20 (CommunityDragon ivern.bin) read into the jungle range; balanced on the classic-SDK simulations
 (kd.py --lane 1 against ninja, demon, hunter, werewolf and vampire, C:/t/iv_sim, 2026-10-22): the draft +0.88 on
@@ -67,6 +71,8 @@ P = {
     "r_hit_at": 21, "r_slam_at": 24,     # the fist landing on her swing's frames (rig_ivern.py DAISY_MS)
     # his spoken lines, at most one every vo_gap ticks
     "vo_gap": 600,
+    # 1 = the copy for addons/league_ivern (the brush a real brush: the add-on keeps where it grew)
+    "native": 0,
 }
 
 
@@ -218,7 +224,11 @@ def build(p):
     # ------------------------------------------------------------------ passive: Brushmaker (grown by every E)
     # the allies standing in it as it grows keep the bonus for its life (a zone on `AllyChampion` gave nobody a buff
     # in the classic engine's trace, 2026-10-22)
+    # the add-on copy (native) marks the growing for league_ivern:brush, which gives the allies standing in it the
+    # bonus every tick (and marks everyone in it for Rengar's and Qiyana's add-ons) instead
+    nat = bool(p["native"])
     brush = combine(on_me(view("w_brush")), sfx("w"), refresh("w_in", p["w_t"]),
+                    flag("w_new", 2) if nat else
                     around(p["w_r"], "AllyNotSelf", [buff("w_buff", p["w_t"], attack_mult=p["w_atk"])]))
 
     # ------------------------------------------------------------------ attack: a thrown seed
@@ -315,8 +325,11 @@ def build(p):
                D_("r_drop", "drop"), D_("r_punch", "punch"), D_("r_slam", "slam"), D_("r_bye", "bye")]
     views_b = [B_("e_seed", FX, 3), B_("e_slow", FX, -1), B_("q_root", FX, 3), B_("q_rush", FX, -1),
                B_("w_buff", FX, -1)]
+    extra = {}
+    if nat:
+        extra["passive"] = {"passive_ref": f"{ID}:brush", "params": {k: int(p[k]) for k in ("w_r", "w_t", "w_atk")}}
     return {
-        "id": ID, "category": "Util", "tags": ["AP", "Magic", "Range", "CC", "Shield"],
+        "id": ID, "category": "Util", **extra, "tags": ["AP", "Magic", "Range", "CC", "Shield"],
         "sprite": f"asset/league/champions/{ID}", "anim_prefix": "",
         "skill_icons": [f"asset/league/icons/{ID}_skill", f"asset/league/icons/{ID}_skill2", f"asset/league/icons/{ID}_ult"],
         "stat": {"attack": p["atk"], "magic_power": p["apw"], "hp": p["hp"], "defence": p["def"],
@@ -344,6 +357,7 @@ def main():
     ap_.add_argument("--params", help="json file with overrides")
     ap_.add_argument("--out", default=OUT)
     ap_.add_argument("--nodes", action="store_true")
+    ap_.add_argument("--native", action="store_true", help="the add-on's copy (native=1)")
     a = ap_.parse_args()
     p = dict(P)
     if a.params:
@@ -353,6 +367,8 @@ def main():
         if k not in p:
             raise SystemExit(f"unknown parameter {k}")
         p[k] = type(p[k])(float(v)) if isinstance(p[k], int) else float(v)
+    if a.native:
+        p["native"] = 1
     kit = build(p)
     if a.nodes:
         for s in ("attack", "skill", "skill2", "ult"):

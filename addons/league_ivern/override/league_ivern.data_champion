@@ -1,0 +1,1988 @@
+{
+  "id": "league_ivern",
+  "category": "Util",
+  "passive": {
+    "passive_ref": "league_ivern:brush",
+    "params": {
+      "w_r": 26000,
+      "w_t": 240,
+      "w_atk": 15
+    }
+  },
+  "tags": [
+    "AP",
+    "Magic",
+    "Range",
+    "CC",
+    "Shield"
+  ],
+  "sprite": "asset/league/champions/league_ivern",
+  "anim_prefix": "",
+  "skill_icons": [
+    "asset/league/icons/league_ivern_skill",
+    "asset/league/icons/league_ivern_skill2",
+    "asset/league/icons/league_ivern_ult"
+  ],
+  "stat": {
+    "attack": 60,
+    "magic_power": 40,
+    "hp": 950,
+    "defence": 24,
+    "magic_resistance": 22,
+    "move_speed": 1000,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "growth": {
+    "attack": 6,
+    "magic_power": 20,
+    "hp": 95,
+    "defence": 7,
+    "magic_resistance": 4,
+    "move_speed": 10,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "attack": {
+    "action_name": "attack",
+    "description": "#asset/base/text/champion?description.league_ivern.attack",
+    "duration": 26,
+    "cooltime": 80,
+    "start_timing": 1,
+    "cancelable": true,
+    "range": 47500,
+    "casting_type": "Targeting",
+    "casting_target": "Enemy",
+    "attack_type": "BaseAttack",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Combine",
+          "effects": [
+            {
+              "type": "AddCasterBuff",
+              "buff_state": {
+                "name": "league_ivern_x",
+                "duration": {
+                  "Time": {
+                    "tick": 1
+                  }
+                }
+              },
+              "only_to_enemy": false
+            },
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_ivern_x",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_ivern_x"
+                  }
+                ]
+              },
+              "effect_none": {
+                "type": "Attack",
+                "damage": 0,
+                "attack_ratio": 100,
+                "hp_ratio": 0,
+                "target_hp_ratio": 0,
+                "attack_effect_type": "Target"
+              }
+            },
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_ivern_x"
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 9,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_ivern_lives",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_ivern_lives",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "Sfx",
+                        "name": "league_ivern_a"
+                      },
+                      {
+                        "type": "TargetProjectile",
+                        "name": "league_ivern_a_seed",
+                        "speed": 4000,
+                        "y_offset": -4000,
+                        "applied_target": "Enemy",
+                        "applied_effects": [
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "Attack",
+                              "damage": 0,
+                              "attack_ratio": 100,
+                              "hp_ratio": 0,
+                              "target_hp_ratio": 0,
+                              "attack_effect_type": "Target"
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "SwitchByBuff",
+                              "buff_name": "league_ivern_w_in",
+                              "effect_buff": {
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "ApAttack",
+                                    "damage": 15,
+                                    "attack_ratio": 15,
+                                    "hp_ratio": 0,
+                                    "can_crit": false
+                                  },
+                                  {
+                                    "type": "ViewEffect",
+                                    "name": "league_ivern_w_hit"
+                                  }
+                                ]
+                              },
+                              "effect_none": {
+                                "type": "Combine",
+                                "effects": []
+                              }
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "ViewEffect",
+                              "name": "league_ivern_a_hit"
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "TargetSfx",
+                              "name": "league_ivern_a_hit"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": []
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_ivern_lives"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill": {
+    "action_name": "idle",
+    "description": "#asset/base/text/champion?description.league_ivern.skill",
+    "duration": 3,
+    "cooltime": 60,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 50000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Combine",
+          "effects": [
+            {
+              "type": "AddCasterBuff",
+              "buff_state": {
+                "name": "league_ivern_x",
+                "duration": {
+                  "Time": {
+                    "tick": 1
+                  }
+                }
+              },
+              "only_to_enemy": false
+            },
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_ivern_x",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_ivern_x"
+                  }
+                ]
+              },
+              "effect_none": {
+                "type": "ApAttack",
+                "damage": 50,
+                "attack_ratio": 50,
+                "hp_ratio": 0,
+                "can_crit": false
+              }
+            },
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_ivern_x"
+            }
+          ]
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_ivern_e_cd",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": []
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "CasterAnimation",
+                "name": "skill",
+                "tick": 24
+              },
+              {
+                "type": "SwitchByBuff",
+                "buff_name": "league_ivern_vo_cd",
+                "effect_buff": {
+                  "type": "Combine",
+                  "effects": []
+                },
+                "effect_none": {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_ivern_vo_cd",
+                        "duration": {
+                          "Time": {
+                            "tick": 600
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    },
+                    {
+                      "type": "Sfx",
+                      "name": "league_ivern_vo_e"
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "Delayed",
+                "tick": 8,
+                "effects": [
+                  {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RandomTarget",
+                        "range": 1,
+                        "casting_target": "AllyOnlySelf",
+                        "from_projectile": false,
+                        "effects": [
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_ivern_lives",
+                              "duration": {
+                                "Time": {
+                                  "tick": 1
+                                }
+                              }
+                            },
+                            "only_to_enemy": false
+                          }
+                        ]
+                      },
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_ivern_lives",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "RemoveCasterBuff",
+                                      "name": "league_ivern_e_cd"
+                                    },
+                                    {
+                                      "type": "AddCasterBuff",
+                                      "buff_state": {
+                                        "name": "league_ivern_e_cd",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 540
+                                          }
+                                        }
+                                      },
+                                      "only_to_enemy": false
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "RemoveCasterBuff",
+                                      "name": "league_ivern_e_ally"
+                                    },
+                                    {
+                                      "type": "RandomTarget",
+                                      "range": 45000,
+                                      "casting_target": "AllyNotSelf",
+                                      "from_projectile": false,
+                                      "effects": [
+                                        {
+                                          "type": "AddCasterBuff",
+                                          "buff_state": {
+                                            "name": "league_ivern_e_ally",
+                                            "duration": {
+                                              "Time": {
+                                                "tick": 1
+                                              }
+                                            }
+                                          },
+                                          "only_to_enemy": false
+                                        },
+                                        {
+                                          "type": "Shield",
+                                          "amount": 60,
+                                          "attack_ratio": 0,
+                                          "ap_ratio": 45,
+                                          "tick": 120
+                                        },
+                                        {
+                                          "type": "AddBuff",
+                                          "buff_state": {
+                                            "name": "league_ivern_e_seed",
+                                            "duration": {
+                                              "Time": {
+                                                "tick": 120
+                                              }
+                                            }
+                                          }
+                                        },
+                                        {
+                                          "type": "AddCasted",
+                                          "casted_type": "Fire",
+                                          "duration": 121,
+                                          "period": 120,
+                                          "effects": [
+                                            {
+                                              "type": "ParabolicProjectile",
+                                              "name": "league_ivern_e_boom",
+                                              "travel_time": 1,
+                                              "range": 400000,
+                                              "range_effect_name": "",
+                                              "shape": {
+                                                "Circle": {
+                                                  "radius": 1
+                                                }
+                                              },
+                                              "applied_target": "AllyChampion",
+                                              "applied_effects": [],
+                                              "end_effects": [
+                                                {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_ivern_e_burst"
+                                                },
+                                                {
+                                                  "type": "Sfx",
+                                                  "name": "league_ivern_e_burst"
+                                                },
+                                                {
+                                                  "type": "RangeProjectile",
+                                                  "name": "league_ivern_e_hit",
+                                                  "shape": {
+                                                    "Circle": {
+                                                      "radius": 22000
+                                                    }
+                                                  },
+                                                  "delay": 1,
+                                                  "apply": 1,
+                                                  "applied_target": "EnemyWithoutTower",
+                                                  "applied_effects": [
+                                                    {
+                                                      "casting_type": "Targeting",
+                                                      "effect": {
+                                                        "type": "ApAttack",
+                                                        "damage": 50,
+                                                        "attack_ratio": 50,
+                                                        "hp_ratio": 0,
+                                                        "can_crit": false
+                                                      }
+                                                    },
+                                                    {
+                                                      "casting_type": "Targeting",
+                                                      "effect": {
+                                                        "type": "AddBuff",
+                                                        "buff_state": {
+                                                          "name": "league_ivern_e_slow",
+                                                          "duration": {
+                                                            "Time": {
+                                                              "tick": 90
+                                                            }
+                                                          },
+                                                          "move_speed_mult": -50
+                                                        }
+                                                      }
+                                                    },
+                                                    {
+                                                      "casting_type": "Targeting",
+                                                      "effect": {
+                                                        "type": "TargetSfx",
+                                                        "name": "league_ivern_e_hit"
+                                                      }
+                                                    }
+                                                  ]
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "type": "SwitchByBuff",
+                                      "buff_name": "league_ivern_e_ally",
+                                      "effect_buff": {
+                                        "type": "Combine",
+                                        "effects": []
+                                      },
+                                      "effect_none": {
+                                        "type": "Combine",
+                                        "effects": [
+                                          {
+                                            "type": "RangeEffect",
+                                            "shape": {
+                                              "Circle": {
+                                                "radius": 1000
+                                              }
+                                            },
+                                            "target": "AllyOnlySelf",
+                                            "apply_type": "AroundCaster",
+                                            "effects": [
+                                              {
+                                                "type": "Shield",
+                                                "amount": 60,
+                                                "attack_ratio": 0,
+                                                "ap_ratio": 45,
+                                                "tick": 120
+                                              },
+                                              {
+                                                "type": "AddBuff",
+                                                "buff_state": {
+                                                  "name": "league_ivern_e_seed",
+                                                  "duration": {
+                                                    "Time": {
+                                                      "tick": 120
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "type": "Delayed",
+                                            "tick": 120,
+                                            "effects": [
+                                              {
+                                                "type": "Combine",
+                                                "effects": [
+                                                  {
+                                                    "type": "RandomTarget",
+                                                    "range": 1,
+                                                    "casting_target": "AllyOnlySelf",
+                                                    "from_projectile": false,
+                                                    "effects": [
+                                                      {
+                                                        "type": "AddCasterBuff",
+                                                        "buff_state": {
+                                                          "name": "league_ivern_lives",
+                                                          "duration": {
+                                                            "Time": {
+                                                              "tick": 1
+                                                            }
+                                                          }
+                                                        },
+                                                        "only_to_enemy": false
+                                                      }
+                                                    ]
+                                                  },
+                                                  {
+                                                    "type": "SwitchByBuff",
+                                                    "buff_name": "league_ivern_lives",
+                                                    "effect_buff": {
+                                                      "type": "Combine",
+                                                      "effects": [
+                                                        {
+                                                          "type": "RangeEffect",
+                                                          "shape": {
+                                                            "Circle": {
+                                                              "radius": 22000
+                                                            }
+                                                          },
+                                                          "target": "EnemyWithoutTower",
+                                                          "apply_type": "AroundCaster",
+                                                          "effects": [
+                                                            {
+                                                              "type": "ApAttack",
+                                                              "damage": 50,
+                                                              "attack_ratio": 50,
+                                                              "hp_ratio": 0,
+                                                              "can_crit": false
+                                                            },
+                                                            {
+                                                              "type": "AddBuff",
+                                                              "buff_state": {
+                                                                "name": "league_ivern_e_slow",
+                                                                "duration": {
+                                                                  "Time": {
+                                                                    "tick": 90
+                                                                  }
+                                                                },
+                                                                "move_speed_mult": -50
+                                                              }
+                                                            },
+                                                            {
+                                                              "type": "TargetSfx",
+                                                              "name": "league_ivern_e_hit"
+                                                            }
+                                                          ]
+                                                        },
+                                                        {
+                                                          "type": "RangeEffect",
+                                                          "shape": {
+                                                            "Circle": {
+                                                              "radius": 1000
+                                                            }
+                                                          },
+                                                          "target": "AllyOnlySelf",
+                                                          "apply_type": "AroundCaster",
+                                                          "effects": [
+                                                            {
+                                                              "type": "ViewEffect",
+                                                              "name": "league_ivern_e_burst_me"
+                                                            }
+                                                          ]
+                                                        },
+                                                        {
+                                                          "type": "Sfx",
+                                                          "name": "league_ivern_e_burst"
+                                                        }
+                                                      ]
+                                                    },
+                                                    "effect_none": {
+                                                      "type": "Combine",
+                                                      "effects": []
+                                                    }
+                                                  },
+                                                  {
+                                                    "type": "RemoveCasterBuff",
+                                                    "name": "league_ivern_lives"
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    },
+                                    {
+                                      "type": "RemoveCasterBuff",
+                                      "name": "league_ivern_e_ally"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "RangeEffect",
+                                      "shape": {
+                                        "Circle": {
+                                          "radius": 1000
+                                        }
+                                      },
+                                      "target": "AllyOnlySelf",
+                                      "apply_type": "AroundCaster",
+                                      "effects": [
+                                        {
+                                          "type": "ViewEffect",
+                                          "name": "league_ivern_w_brush"
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "type": "Sfx",
+                                      "name": "league_ivern_w"
+                                    },
+                                    {
+                                      "type": "Combine",
+                                      "effects": [
+                                        {
+                                          "type": "RemoveCasterBuff",
+                                          "name": "league_ivern_w_in"
+                                        },
+                                        {
+                                          "type": "AddCasterBuff",
+                                          "buff_state": {
+                                            "name": "league_ivern_w_in",
+                                            "duration": {
+                                              "Time": {
+                                                "tick": 240
+                                              }
+                                            }
+                                          },
+                                          "only_to_enemy": false
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "type": "AddCasterBuff",
+                                      "buff_state": {
+                                        "name": "league_ivern_w_new",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 2
+                                          }
+                                        }
+                                      },
+                                      "only_to_enemy": false
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "Sfx",
+                                  "name": "league_ivern_e"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      },
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_ivern_lives"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "skill2": {
+    "action_name": "idle",
+    "description": "#asset/base/text/champion?description.league_ivern.skill2",
+    "duration": 3,
+    "cooltime": 60,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 75000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Combine",
+          "effects": [
+            {
+              "type": "AddCasterBuff",
+              "buff_state": {
+                "name": "league_ivern_x",
+                "duration": {
+                  "Time": {
+                    "tick": 1
+                  }
+                }
+              },
+              "only_to_enemy": false
+            },
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_ivern_x",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_ivern_x"
+                  }
+                ]
+              },
+              "effect_none": {
+                "type": "ApAttack",
+                "damage": 70,
+                "attack_ratio": 55,
+                "hp_ratio": 0,
+                "can_crit": false
+              }
+            },
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_ivern_x"
+            }
+          ]
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_ivern_q_cd",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": []
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "CasterAnimation",
+                "name": "skill2",
+                "tick": 26
+              },
+              {
+                "type": "SwitchByBuff",
+                "buff_name": "league_ivern_vo_cd",
+                "effect_buff": {
+                  "type": "Combine",
+                  "effects": []
+                },
+                "effect_none": {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_ivern_vo_cd",
+                        "duration": {
+                          "Time": {
+                            "tick": 600
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    },
+                    {
+                      "type": "Sfx",
+                      "name": "league_ivern_vo_q"
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "Delayed",
+                "tick": 9,
+                "effects": [
+                  {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RandomTarget",
+                        "range": 1,
+                        "casting_target": "AllyOnlySelf",
+                        "from_projectile": false,
+                        "effects": [
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_ivern_lives",
+                              "duration": {
+                                "Time": {
+                                  "tick": 1
+                                }
+                              }
+                            },
+                            "only_to_enemy": false
+                          }
+                        ]
+                      },
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_ivern_lives",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "RemoveCasterBuff",
+                                      "name": "league_ivern_q_cd"
+                                    },
+                                    {
+                                      "type": "AddCasterBuff",
+                                      "buff_state": {
+                                        "name": "league_ivern_q_cd",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 660
+                                          }
+                                        }
+                                      },
+                                      "only_to_enemy": false
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "Sfx",
+                                  "name": "league_ivern_q"
+                                },
+                                {
+                                  "type": "TargetProjectile",
+                                  "name": "league_ivern_q_vine",
+                                  "speed": 4500,
+                                  "y_offset": -4000,
+                                  "applied_target": "EnemyWithoutTower",
+                                  "applied_effects": [
+                                    {
+                                      "casting_type": "Targeting",
+                                      "effect": {
+                                        "type": "ApAttack",
+                                        "damage": 70,
+                                        "attack_ratio": 55,
+                                        "hp_ratio": 0,
+                                        "can_crit": false
+                                      }
+                                    },
+                                    {
+                                      "casting_type": "Targeting",
+                                      "effect": {
+                                        "type": "Bind",
+                                        "duration": 90
+                                      }
+                                    },
+                                    {
+                                      "casting_type": "Targeting",
+                                      "effect": {
+                                        "type": "AddBuff",
+                                        "buff_state": {
+                                          "name": "league_ivern_q_root",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 90
+                                            }
+                                          }
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "casting_type": "Targeting",
+                                      "effect": {
+                                        "type": "ViewEffect",
+                                        "name": "league_ivern_q_hit"
+                                      }
+                                    },
+                                    {
+                                      "casting_type": "Targeting",
+                                      "effect": {
+                                        "type": "TargetSfx",
+                                        "name": "league_ivern_q_hit"
+                                      }
+                                    },
+                                    {
+                                      "casting_type": "Targeting",
+                                      "effect": {
+                                        "type": "SwitchByBuff",
+                                        "buff_name": "league_ivern_e_cd",
+                                        "effect_buff": {
+                                          "type": "Combine",
+                                          "effects": []
+                                        },
+                                        "effect_none": {
+                                          "type": "Combine",
+                                          "effects": [
+                                            {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_ivern_e_cd"
+                                                },
+                                                {
+                                                  "type": "AddCasterBuff",
+                                                  "buff_state": {
+                                                    "name": "league_ivern_e_cd",
+                                                    "duration": {
+                                                      "Time": {
+                                                        "tick": 540
+                                                      }
+                                                    }
+                                                  },
+                                                  "only_to_enemy": false
+                                                }
+                                              ]
+                                            },
+                                            {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_ivern_e_ally"
+                                                },
+                                                {
+                                                  "type": "RandomTarget",
+                                                  "range": 45000,
+                                                  "casting_target": "AllyNotSelf",
+                                                  "from_projectile": false,
+                                                  "effects": [
+                                                    {
+                                                      "type": "AddCasterBuff",
+                                                      "buff_state": {
+                                                        "name": "league_ivern_e_ally",
+                                                        "duration": {
+                                                          "Time": {
+                                                            "tick": 1
+                                                          }
+                                                        }
+                                                      },
+                                                      "only_to_enemy": false
+                                                    },
+                                                    {
+                                                      "type": "Shield",
+                                                      "amount": 60,
+                                                      "attack_ratio": 0,
+                                                      "ap_ratio": 45,
+                                                      "tick": 120
+                                                    },
+                                                    {
+                                                      "type": "AddBuff",
+                                                      "buff_state": {
+                                                        "name": "league_ivern_e_seed",
+                                                        "duration": {
+                                                          "Time": {
+                                                            "tick": 120
+                                                          }
+                                                        }
+                                                      }
+                                                    },
+                                                    {
+                                                      "type": "AddCasted",
+                                                      "casted_type": "Fire",
+                                                      "duration": 121,
+                                                      "period": 120,
+                                                      "effects": [
+                                                        {
+                                                          "type": "ParabolicProjectile",
+                                                          "name": "league_ivern_e_boom",
+                                                          "travel_time": 1,
+                                                          "range": 400000,
+                                                          "range_effect_name": "",
+                                                          "shape": {
+                                                            "Circle": {
+                                                              "radius": 1
+                                                            }
+                                                          },
+                                                          "applied_target": "AllyChampion",
+                                                          "applied_effects": [],
+                                                          "end_effects": [
+                                                            {
+                                                              "type": "ViewEffect",
+                                                              "name": "league_ivern_e_burst"
+                                                            },
+                                                            {
+                                                              "type": "Sfx",
+                                                              "name": "league_ivern_e_burst"
+                                                            },
+                                                            {
+                                                              "type": "RangeProjectile",
+                                                              "name": "league_ivern_e_hit",
+                                                              "shape": {
+                                                                "Circle": {
+                                                                  "radius": 22000
+                                                                }
+                                                              },
+                                                              "delay": 1,
+                                                              "apply": 1,
+                                                              "applied_target": "EnemyWithoutTower",
+                                                              "applied_effects": [
+                                                                {
+                                                                  "casting_type": "Targeting",
+                                                                  "effect": {
+                                                                    "type": "ApAttack",
+                                                                    "damage": 50,
+                                                                    "attack_ratio": 50,
+                                                                    "hp_ratio": 0,
+                                                                    "can_crit": false
+                                                                  }
+                                                                },
+                                                                {
+                                                                  "casting_type": "Targeting",
+                                                                  "effect": {
+                                                                    "type": "AddBuff",
+                                                                    "buff_state": {
+                                                                      "name": "league_ivern_e_slow",
+                                                                      "duration": {
+                                                                        "Time": {
+                                                                          "tick": 90
+                                                                        }
+                                                                      },
+                                                                      "move_speed_mult": -50
+                                                                    }
+                                                                  }
+                                                                },
+                                                                {
+                                                                  "casting_type": "Targeting",
+                                                                  "effect": {
+                                                                    "type": "TargetSfx",
+                                                                    "name": "league_ivern_e_hit"
+                                                                  }
+                                                                }
+                                                              ]
+                                                            }
+                                                          ]
+                                                        }
+                                                      ]
+                                                    }
+                                                  ]
+                                                },
+                                                {
+                                                  "type": "SwitchByBuff",
+                                                  "buff_name": "league_ivern_e_ally",
+                                                  "effect_buff": {
+                                                    "type": "Combine",
+                                                    "effects": []
+                                                  },
+                                                  "effect_none": {
+                                                    "type": "Combine",
+                                                    "effects": [
+                                                      {
+                                                        "type": "RangeEffect",
+                                                        "shape": {
+                                                          "Circle": {
+                                                            "radius": 1000
+                                                          }
+                                                        },
+                                                        "target": "AllyOnlySelf",
+                                                        "apply_type": "AroundCaster",
+                                                        "effects": [
+                                                          {
+                                                            "type": "Shield",
+                                                            "amount": 60,
+                                                            "attack_ratio": 0,
+                                                            "ap_ratio": 45,
+                                                            "tick": 120
+                                                          },
+                                                          {
+                                                            "type": "AddBuff",
+                                                            "buff_state": {
+                                                              "name": "league_ivern_e_seed",
+                                                              "duration": {
+                                                                "Time": {
+                                                                  "tick": 120
+                                                                }
+                                                              }
+                                                            }
+                                                          }
+                                                        ]
+                                                      },
+                                                      {
+                                                        "type": "Delayed",
+                                                        "tick": 120,
+                                                        "effects": [
+                                                          {
+                                                            "type": "Combine",
+                                                            "effects": [
+                                                              {
+                                                                "type": "RandomTarget",
+                                                                "range": 1,
+                                                                "casting_target": "AllyOnlySelf",
+                                                                "from_projectile": false,
+                                                                "effects": [
+                                                                  {
+                                                                    "type": "AddCasterBuff",
+                                                                    "buff_state": {
+                                                                      "name": "league_ivern_lives",
+                                                                      "duration": {
+                                                                        "Time": {
+                                                                          "tick": 1
+                                                                        }
+                                                                      }
+                                                                    },
+                                                                    "only_to_enemy": false
+                                                                  }
+                                                                ]
+                                                              },
+                                                              {
+                                                                "type": "SwitchByBuff",
+                                                                "buff_name": "league_ivern_lives",
+                                                                "effect_buff": {
+                                                                  "type": "Combine",
+                                                                  "effects": [
+                                                                    {
+                                                                      "type": "RangeEffect",
+                                                                      "shape": {
+                                                                        "Circle": {
+                                                                          "radius": 22000
+                                                                        }
+                                                                      },
+                                                                      "target": "EnemyWithoutTower",
+                                                                      "apply_type": "AroundCaster",
+                                                                      "effects": [
+                                                                        {
+                                                                          "type": "ApAttack",
+                                                                          "damage": 50,
+                                                                          "attack_ratio": 50,
+                                                                          "hp_ratio": 0,
+                                                                          "can_crit": false
+                                                                        },
+                                                                        {
+                                                                          "type": "AddBuff",
+                                                                          "buff_state": {
+                                                                            "name": "league_ivern_e_slow",
+                                                                            "duration": {
+                                                                              "Time": {
+                                                                                "tick": 90
+                                                                              }
+                                                                            },
+                                                                            "move_speed_mult": -50
+                                                                          }
+                                                                        },
+                                                                        {
+                                                                          "type": "TargetSfx",
+                                                                          "name": "league_ivern_e_hit"
+                                                                        }
+                                                                      ]
+                                                                    },
+                                                                    {
+                                                                      "type": "RangeEffect",
+                                                                      "shape": {
+                                                                        "Circle": {
+                                                                          "radius": 1000
+                                                                        }
+                                                                      },
+                                                                      "target": "AllyOnlySelf",
+                                                                      "apply_type": "AroundCaster",
+                                                                      "effects": [
+                                                                        {
+                                                                          "type": "ViewEffect",
+                                                                          "name": "league_ivern_e_burst_me"
+                                                                        }
+                                                                      ]
+                                                                    },
+                                                                    {
+                                                                      "type": "Sfx",
+                                                                      "name": "league_ivern_e_burst"
+                                                                    }
+                                                                  ]
+                                                                },
+                                                                "effect_none": {
+                                                                  "type": "Combine",
+                                                                  "effects": []
+                                                                }
+                                                              },
+                                                              {
+                                                                "type": "RemoveCasterBuff",
+                                                                "name": "league_ivern_lives"
+                                                              }
+                                                            ]
+                                                          }
+                                                        ]
+                                                      }
+                                                    ]
+                                                  }
+                                                },
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_ivern_e_ally"
+                                                }
+                                              ]
+                                            },
+                                            {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "RangeEffect",
+                                                  "shape": {
+                                                    "Circle": {
+                                                      "radius": 1000
+                                                    }
+                                                  },
+                                                  "target": "AllyOnlySelf",
+                                                  "apply_type": "AroundCaster",
+                                                  "effects": [
+                                                    {
+                                                      "type": "ViewEffect",
+                                                      "name": "league_ivern_w_brush"
+                                                    }
+                                                  ]
+                                                },
+                                                {
+                                                  "type": "Sfx",
+                                                  "name": "league_ivern_w"
+                                                },
+                                                {
+                                                  "type": "Combine",
+                                                  "effects": [
+                                                    {
+                                                      "type": "RemoveCasterBuff",
+                                                      "name": "league_ivern_w_in"
+                                                    },
+                                                    {
+                                                      "type": "AddCasterBuff",
+                                                      "buff_state": {
+                                                        "name": "league_ivern_w_in",
+                                                        "duration": {
+                                                          "Time": {
+                                                            "tick": 240
+                                                          }
+                                                        }
+                                                      },
+                                                      "only_to_enemy": false
+                                                    }
+                                                  ]
+                                                },
+                                                {
+                                                  "type": "AddCasterBuff",
+                                                  "buff_state": {
+                                                    "name": "league_ivern_w_new",
+                                                    "duration": {
+                                                      "Time": {
+                                                        "tick": 2
+                                                      }
+                                                    }
+                                                  },
+                                                  "only_to_enemy": false
+                                                }
+                                              ]
+                                            },
+                                            {
+                                              "type": "Sfx",
+                                              "name": "league_ivern_e"
+                                            }
+                                          ]
+                                        }
+                                      }
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "RangeEffect",
+                                  "shape": {
+                                    "Circle": {
+                                      "radius": 60000
+                                    }
+                                  },
+                                  "target": "AllyNotSelf",
+                                  "apply_type": "AroundCaster",
+                                  "effects": [
+                                    {
+                                      "type": "AddBuff",
+                                      "buff_state": {
+                                        "name": "league_ivern_q_rush",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 90
+                                          }
+                                        },
+                                        "move_speed_mult": 35
+                                      }
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      },
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_ivern_lives"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "ult": {
+    "action_name": "ult",
+    "description": "#asset/base/text/champion?description.league_ivern.ult",
+    "duration": 34,
+    "cooltime": 2400,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 70000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Combine",
+          "effects": [
+            {
+              "type": "AddCasterBuff",
+              "buff_state": {
+                "name": "league_ivern_x",
+                "duration": {
+                  "Time": {
+                    "tick": 1
+                  }
+                }
+              },
+              "only_to_enemy": false
+            },
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_ivern_x",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_ivern_x"
+                  }
+                ]
+              },
+              "effect_none": {
+                "type": "ApAttack",
+                "damage": 60,
+                "attack_ratio": 40,
+                "hp_ratio": 0,
+                "can_crit": false
+              }
+            },
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_ivern_x"
+            }
+          ]
+        },
+        {
+          "type": "Sfx",
+          "name": "league_ivern_r"
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_ivern_vo_cd",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": []
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_ivern_vo_cd",
+                  "duration": {
+                    "Time": {
+                      "tick": 600
+                    }
+                  }
+                },
+                "only_to_enemy": false
+              },
+              {
+                "type": "Sfx",
+                "name": "league_ivern_vo_r"
+              }
+            ]
+          }
+        },
+        {
+          "type": "RemoveCasterBuff",
+          "name": "league_ivern_d1"
+        },
+        {
+          "type": "RemoveCasterBuff",
+          "name": "league_ivern_d2"
+        },
+        {
+          "type": "Delayed",
+          "tick": 13,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_ivern_lives",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_ivern_lives",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "TargetProjectile",
+                        "name": "league_ivern_r_call",
+                        "speed": 100000,
+                        "y_offset": 0,
+                        "applied_target": "EnemyChampion",
+                        "applied_effects": [
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "ApAttack",
+                              "damage": 60,
+                              "attack_ratio": 40,
+                              "hp_ratio": 0,
+                              "can_crit": false
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "Airborne",
+                              "duration": 50
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "ViewEffect",
+                              "name": "league_ivern_r_drop"
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "ViewEffect",
+                              "name": "league_ivern_r_dust"
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "TargetSfx",
+                              "name": "league_ivern_r_drop"
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "AddCasted",
+                              "casted_type": "Bleed",
+                              "duration": 481,
+                              "period": 60,
+                              "effects": [
+                                {
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "league_ivern_d2",
+                                  "effect_buff": {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "RemoveCasterBuff",
+                                        "name": "league_ivern_d1"
+                                      },
+                                      {
+                                        "type": "RemoveCasterBuff",
+                                        "name": "league_ivern_d2"
+                                      },
+                                      {
+                                        "type": "Combine",
+                                        "effects": [
+                                          {
+                                            "type": "ViewEffect",
+                                            "name": "league_ivern_r_slam"
+                                          },
+                                          {
+                                            "type": "Delayed",
+                                            "tick": 24,
+                                            "effects": [
+                                              {
+                                                "type": "ApAttack",
+                                                "damage": 65,
+                                                "attack_ratio": 50,
+                                                "hp_ratio": 0,
+                                                "can_crit": false
+                                              },
+                                              {
+                                                "type": "Airborne",
+                                                "duration": 50
+                                              },
+                                              {
+                                                "type": "ViewEffect",
+                                                "name": "league_ivern_r_shock"
+                                              },
+                                              {
+                                                "type": "ViewEffect",
+                                                "name": "league_ivern_r_hit"
+                                              },
+                                              {
+                                                "type": "TargetSfx",
+                                                "name": "league_ivern_r_slam"
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  "effect_none": {
+                                    "type": "SwitchByBuff",
+                                    "buff_name": "league_ivern_d1",
+                                    "effect_buff": {
+                                      "type": "Combine",
+                                      "effects": [
+                                        {
+                                          "type": "RemoveCasterBuff",
+                                          "name": "league_ivern_d1"
+                                        },
+                                        {
+                                          "type": "AddCasterBuff",
+                                          "buff_state": {
+                                            "name": "league_ivern_d2",
+                                            "duration": "Permanent"
+                                          },
+                                          "only_to_enemy": false
+                                        },
+                                        {
+                                          "type": "Combine",
+                                          "effects": [
+                                            {
+                                              "type": "ViewEffect",
+                                              "name": "league_ivern_r_punch"
+                                            },
+                                            {
+                                              "type": "Delayed",
+                                              "tick": 21,
+                                              "effects": [
+                                                {
+                                                  "type": "ApAttack",
+                                                  "damage": 25,
+                                                  "attack_ratio": 20,
+                                                  "hp_ratio": 0,
+                                                  "can_crit": false
+                                                },
+                                                {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_ivern_r_hit"
+                                                },
+                                                {
+                                                  "type": "TargetSfx",
+                                                  "name": "league_ivern_r_punch"
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    "effect_none": {
+                                      "type": "Combine",
+                                      "effects": [
+                                        {
+                                          "type": "AddCasterBuff",
+                                          "buff_state": {
+                                            "name": "league_ivern_d1",
+                                            "duration": "Permanent"
+                                          },
+                                          "only_to_enemy": false
+                                        },
+                                        {
+                                          "type": "Combine",
+                                          "effects": [
+                                            {
+                                              "type": "ViewEffect",
+                                              "name": "league_ivern_r_punch"
+                                            },
+                                            {
+                                              "type": "Delayed",
+                                              "tick": 21,
+                                              "effects": [
+                                                {
+                                                  "type": "ApAttack",
+                                                  "damage": 25,
+                                                  "attack_ratio": 20,
+                                                  "hp_ratio": 0,
+                                                  "can_crit": false
+                                                },
+                                                {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_ivern_r_hit"
+                                                },
+                                                {
+                                                  "type": "TargetSfx",
+                                                  "name": "league_ivern_r_punch"
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "AddCasted",
+                              "casted_type": "Bleed",
+                              "duration": 482,
+                              "period": 481,
+                              "effects": [
+                                {
+                                  "type": "ViewEffect",
+                                  "name": "league_ivern_r_bye"
+                                }
+                              ]
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "Delayed",
+                              "tick": 8,
+                              "effects": [
+                                {
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "league_ivern_q_cd",
+                                  "effect_buff": {
+                                    "type": "Combine",
+                                    "effects": []
+                                  },
+                                  "effect_none": {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "Combine",
+                                        "effects": [
+                                          {
+                                            "type": "RemoveCasterBuff",
+                                            "name": "league_ivern_q_cd"
+                                          },
+                                          {
+                                            "type": "AddCasterBuff",
+                                            "buff_state": {
+                                              "name": "league_ivern_q_cd",
+                                              "duration": {
+                                                "Time": {
+                                                  "tick": 660
+                                                }
+                                              }
+                                            },
+                                            "only_to_enemy": false
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "Sfx",
+                                        "name": "league_ivern_q"
+                                      },
+                                      {
+                                        "type": "CasterAnimation",
+                                        "name": "skill2",
+                                        "tick": 26
+                                      },
+                                      {
+                                        "type": "ViewEffect",
+                                        "name": "league_ivern_q_hit"
+                                      },
+                                      {
+                                        "type": "TargetSfx",
+                                        "name": "league_ivern_q_hit"
+                                      },
+                                      {
+                                        "type": "ApAttack",
+                                        "damage": 70,
+                                        "attack_ratio": 55,
+                                        "hp_ratio": 0,
+                                        "can_crit": false
+                                      },
+                                      {
+                                        "type": "Bind",
+                                        "duration": 90
+                                      },
+                                      {
+                                        "type": "AddBuff",
+                                        "buff_state": {
+                                          "name": "league_ivern_q_root",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 90
+                                            }
+                                          }
+                                        }
+                                      }
+                                    ]
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": []
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_ivern_lives"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "view_projectiles": [
+    {
+      "type": "Animated",
+      "name": "league_ivern_a_seed",
+      "anim": "asset/league/effects/league_ivern_fx",
+      "tag": "a_seed",
+      "repeat": true,
+      "z": 2
+    },
+    {
+      "type": "Animated",
+      "name": "league_ivern_q_vine",
+      "anim": "asset/league/effects/league_ivern_fx",
+      "tag": "q_vine",
+      "repeat": true,
+      "z": 2
+    }
+  ],
+  "view_effects": [
+    {
+      "type": "Animation",
+      "name": "league_ivern_a_hit",
+      "anim": "asset/league/effects/league_ivern_fx",
+      "tag": "a_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_ivern_w_hit",
+      "anim": "asset/league/effects/league_ivern_fx",
+      "tag": "w_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_ivern_w_brush",
+      "anim": "asset/league/effects/league_ivern_big",
+      "tag": "w_brush",
+      "z": -2,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_ivern_e_burst",
+      "anim": "asset/league/effects/league_ivern_big",
+      "tag": "e_burst",
+      "z": 3,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_ivern_e_burst_me",
+      "anim": "asset/league/effects/league_ivern_big",
+      "tag": "e_burst",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_ivern_q_hit",
+      "anim": "asset/league/effects/league_ivern_fx",
+      "tag": "q_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_ivern_r_hit",
+      "anim": "asset/league/effects/league_ivern_fx",
+      "tag": "r_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_ivern_r_dust",
+      "anim": "asset/league/effects/league_ivern_big",
+      "tag": "r_dust",
+      "z": -2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_ivern_r_shock",
+      "anim": "asset/league/effects/league_ivern_big",
+      "tag": "r_shock",
+      "z": -2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_ivern_r_drop",
+      "anim": "asset/league/effects/league_ivern_daisy_drop",
+      "tag": "idle",
+      "z": -1,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_ivern_r_punch",
+      "anim": "asset/league/effects/league_ivern_daisy_punch",
+      "tag": "idle",
+      "z": -1,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_ivern_r_slam",
+      "anim": "asset/league/effects/league_ivern_daisy_slam",
+      "tag": "idle",
+      "z": -1,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_ivern_r_bye",
+      "anim": "asset/league/effects/league_ivern_daisy_bye",
+      "tag": "idle",
+      "z": -1,
+      "is_follow": true
+    }
+  ],
+  "view_buffs": [
+    {
+      "type": "Animated",
+      "name": "league_ivern_e_seed",
+      "anim": "asset/league/effects/league_ivern_fx",
+      "tag": "e_seed",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_ivern_e_slow",
+      "anim": "asset/league/effects/league_ivern_fx",
+      "tag": "e_slow",
+      "repeat": true,
+      "z": -1
+    },
+    {
+      "type": "Animated",
+      "name": "league_ivern_q_root",
+      "anim": "asset/league/effects/league_ivern_fx",
+      "tag": "q_root",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_ivern_q_rush",
+      "anim": "asset/league/effects/league_ivern_fx",
+      "tag": "q_rush",
+      "repeat": true,
+      "z": -1
+    },
+    {
+      "type": "Animated",
+      "name": "league_ivern_w_buff",
+      "anim": "asset/league/effects/league_ivern_fx",
+      "tag": "w_buff",
+      "repeat": true,
+      "z": -1
+    }
+  ]
+}

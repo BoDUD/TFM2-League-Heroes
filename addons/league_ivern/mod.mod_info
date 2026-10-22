@@ -1,0 +1,20 @@
+{
+  "author": "BoDUD",
+  "contains_code": true,
+  "dependencies": [
+    {
+      "mod_id": "base",
+      "version": ">=0.4.11"
+    },
+    {
+      "mod_id": "league",
+      "version": ">=0.195.0"
+    }
+  ],
+  "description": "Test build of Ivern as in League (needs League of Legends Heroes): replaces the main pack's Ivern so Brushmaker's brush is a real brush where it grew - the allies standing in it get the attack bonus, Rengar can pounce from it (with Rengar's add-on) and Qiyana takes grass from it (with Qiyana's add-on). Other champions are untouched. Writes a log for testing.",
+  "last_updated": "2026-10-22",
+  "mod_id": "league_ivern",
+  "mod_type": "native",
+  "name": "League Heroes: Ivern's brush for Rengar and Qiyana (test)",
+  "version": "0.1.0"
+}
