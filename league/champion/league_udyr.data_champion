@@ -1519,6 +1519,10 @@
           "name": "league_udyr_r"
         },
         {
+          "type": "CasterViewEffect",
+          "name": "league_udyr_r_on"
+        },
+        {
           "type": "SwitchByBuff",
           "buff_name": "league_udyr_vo_cd",
           "effect_buff": {
@@ -3857,7 +3861,7 @@
     {
       "type": "Animation",
       "name": "league_udyr_q_on",
-      "anim": "asset/league/effects/league_udyr_big",
+      "anim": "asset/league/effects/league_udyr_fx",
       "tag": "q_on",
       "z": 3,
       "is_follow": true
@@ -3873,9 +3877,9 @@
     {
       "type": "Animation",
       "name": "league_udyr_e_on",
-      "anim": "asset/league/effects/league_udyr_big",
+      "anim": "asset/league/effects/league_udyr_fx",
       "tag": "e_on",
-      "z": -1,
+      "z": 3,
       "is_follow": true
     },
     {
@@ -3883,7 +3887,7 @@
       "name": "league_udyr_e_wake",
       "anim": "asset/league/effects/league_udyr_big",
       "tag": "e_wake",
-      "z": -1,
+      "z": 3,
       "is_follow": true
     },
     {
@@ -3892,6 +3896,14 @@
       "anim": "asset/league/effects/league_udyr_fx",
       "tag": "e_hit",
       "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_udyr_r_on",
+      "anim": "asset/league/effects/league_udyr_fx",
+      "tag": "r_on",
+      "z": 3,
       "is_follow": true
     },
     {
@@ -3923,7 +3935,7 @@
       "name": "league_udyr_w_heal",
       "anim": "asset/league/effects/league_udyr_fx",
       "tag": "w_heal",
-      "z": 2,
+      "z": 3,
       "is_follow": true
     }
   ],
@@ -3934,12 +3946,12 @@
       "anim": "asset/league/effects/league_udyr_fx",
       "tag": "q_as",
       "repeat": true,
-      "z": 3
+      "z": -1
     },
     {
       "type": "Animated",
       "name": "league_udyr_e_ms",
-      "anim": "asset/league/effects/league_udyr_big",
+      "anim": "asset/league/effects/league_udyr_fx",
       "tag": "e_ms",
       "repeat": true,
       "z": -1
@@ -3974,7 +3986,7 @@
       "anim": "asset/league/effects/league_udyr_fx",
       "tag": "r_slow",
       "repeat": true,
-      "z": 3
+      "z": -1
     },
     {
       "type": "Animated",
@@ -3982,7 +3994,7 @@
       "anim": "asset/league/effects/league_udyr_fx",
       "tag": "r_slow",
       "repeat": true,
-      "z": 3
+      "z": -1
     },
     {
       "type": "Animated",

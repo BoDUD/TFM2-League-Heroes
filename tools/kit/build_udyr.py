@@ -31,6 +31,7 @@ already stands in its stance (a 2-tick `*_wk` flag says so, so the branch is wri
           Ram stun, then the awakened Bear on the stunned champion). Q -> R (狂暴爪击接极凌飓风): an empowered claw
           that hits a champion opens `r_go` for win_r ticks; R cast in it whirls faster (r_fast between pulses).
           The same stance twice is awakened (Q -> Q, E -> E). Every ability arms the passive's two quick attacks.
+Pictures: the step-3 effects pack (tools/art/pack_udyr_fx.py: q_swipe and e_trail drawn into q_attack / e_run).
 Timings: drafts until the frames exist (tools/art/rig_udyr.py MS; a frame's start in ticks = ms x 0.06): a_hit, q_dur,
 e_go, e_hit, r_at.
 Numbers: League 16.20 (CommunityDragon udyr.bin) read into the Melee jungle range; balanced on the classic-SDK
@@ -295,7 +296,7 @@ def build(p):
         return combine(refresh("r_storm", k * gap), *[delayed(p["r_at"] - 1 + i * gap, pulse) for i in range(k)],
                        delayed(p["r_at"] - 1 + k * gap, unleash))
     ult = action("ult", p["r_dur"], p["r_cd"], 1, p["r_range"], "Targeting", "EnemyChampion",
-                 combine(anim("ult", p["r_dur"]), sfx("r"), voice("vo_r", p), enter("st_r"), ability,
+                 combine(anim("ult", p["r_dur"]), sfx("r"), cview("r_on"), voice("vo_r", p), enter("st_r"), ability,
                          sw("r_go", combine(*rm("r_go"), storm(p["r_fast"])), storm(p["r_gap"]))))
 
     # ------------------------------------------------------------------ views (the step-3 effects pack)
@@ -306,10 +307,11 @@ def build(p):
     B_ = lambda name, anim_=FX, z=2, tag=None: {"type": "Animated", "name": n(name), "anim": anim_, "tag": tag or name,
                                                 "repeat": True, "z": z}
     views_p = [P_("q_bolt"), P_("r_rel", BIG)]
-    views_e = [E("a_hit"), E("q_hit"), E("q_bolt_hit", BIG), E("q_on", BIG, 3), E("q_wake", BIG, 3), E("e_on", BIG, -1),
-               E("e_wake", BIG, -1), E("e_hit"), E("r_hit"), E("r_rel_hit", BIG), E("w_on", BIG, 3), E("w_heal")]
-    views_b = [B_("q_as", FX, 3), B_("e_ms", BIG, -1), B_("e_imm", FX, 3), B_("e_stun", FX, 3), B_("r_storm", BIG, 3),
-               B_("r_slow", FX, 3), B_("r2_slow", FX, 3, "r_slow"), B_("w_sh", BIG, 3)]
+    views_e = [E("a_hit"), E("q_hit"), E("q_bolt_hit", BIG), E("q_on", FX, 3), E("q_wake", BIG, 3), E("e_on", FX, 3),
+               E("e_wake", BIG, 3), E("e_hit"), E("r_on", FX, 3), E("r_hit"), E("r_rel_hit", BIG), E("w_on", BIG, 3),
+               E("w_heal", FX, 3)]
+    views_b = [B_("q_as", FX, -1), B_("e_ms", FX, -1), B_("e_imm", FX, 3), B_("e_stun", FX, 3), B_("r_storm", BIG, 3),
+               B_("r_slow", FX, -1), B_("r2_slow", FX, -1, "r_slow"), B_("w_sh", BIG, 3)]
     return {
         "id": ID, "category": "Melee", "tags": ["AD", "Melee", "Tank", "Shield", "CC"],
         "sprite": f"asset/league/champions/{ID}", "anim_prefix": "",
