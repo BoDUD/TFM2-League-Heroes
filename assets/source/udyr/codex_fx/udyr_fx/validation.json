@@ -1,0 +1,242 @@
+[
+  {
+    "name": "a_hit",
+    "frame_count": 3,
+    "unique_frames": 3,
+    "binary_alpha": true,
+    "exact_8x": true,
+    "symmetry_pass": true,
+    "nonempty_frames": true,
+    "runtime_tested": false
+  },
+  {
+    "name": "q_on",
+    "frame_count": 5,
+    "unique_frames": 5,
+    "binary_alpha": true,
+    "exact_8x": true,
+    "symmetry_pass": true,
+    "nonempty_frames": true,
+    "runtime_tested": false
+  },
+  {
+    "name": "q_wake",
+    "frame_count": 6,
+    "unique_frames": 6,
+    "binary_alpha": true,
+    "exact_8x": true,
+    "symmetry_pass": true,
+    "nonempty_frames": true,
+    "runtime_tested": false
+  },
+  {
+    "name": "q_as",
+    "frame_count": 4,
+    "unique_frames": 4,
+    "binary_alpha": true,
+    "exact_8x": true,
+    "symmetry_pass": true,
+    "nonempty_frames": true,
+    "runtime_tested": false
+  },
+  {
+    "name": "q_swipe",
+    "frame_count": 3,
+    "unique_frames": 3,
+    "binary_alpha": true,
+    "exact_8x": true,
+    "symmetry_pass": true,
+    "nonempty_frames": true,
+    "runtime_tested": false
+  },
+  {
+    "name": "q_hit",
+    "frame_count": 4,
+    "unique_frames": 4,
+    "binary_alpha": true,
+    "exact_8x": true,
+    "symmetry_pass": true,
+    "nonempty_frames": true,
+    "runtime_tested": false
+  },
+  {
+    "name": "q_bolt",
+    "frame_count": 4,
+    "unique_frames": 4,
+    "binary_alpha": true,
+    "exact_8x": true,
+    "symmetry_pass": true,
+    "nonempty_frames": true,
+    "runtime_tested": false
+  },
+  {
+    "name": "q_bolt_hit",
+    "frame_count": 5,
+    "unique_frames": 5,
+    "binary_alpha": true,
+    "exact_8x": true,
+    "symmetry_pass": true,
+    "nonempty_frames": true,
+    "runtime_tested": false
+  },
+  {
+    "name": "e_on",
+    "frame_count": 5,
+    "unique_frames": 5,
+    "binary_alpha": true,
+    "exact_8x": true,
+    "symmetry_pass": true,
+    "nonempty_frames": true,
+    "runtime_tested": false
+  },
+  {
+    "name": "e_wake",
+    "frame_count": 6,
+    "unique_frames": 6,
+    "binary_alpha": true,
+    "exact_8x": true,
+    "symmetry_pass": true,
+    "nonempty_frames": true,
+    "runtime_tested": false
+  },
+  {
+    "name": "e_ms",
+    "frame_count": 4,
+    "unique_frames": 4,
+    "binary_alpha": true,
+    "exact_8x": true,
+    "symmetry_pass": true,
+    "nonempty_frames": true,
+    "runtime_tested": false
+  },
+  {
+    "name": "e_imm",
+    "frame_count": 4,
+    "unique_frames": 4,
+    "binary_alpha": true,
+    "exact_8x": true,
+    "symmetry_pass": true,
+    "nonempty_frames": true,
+    "runtime_tested": false
+  },
+  {
+    "name": "e_trail",
+    "frame_count": 4,
+    "unique_frames": 4,
+    "binary_alpha": true,
+    "exact_8x": true,
+    "symmetry_pass": true,
+    "nonempty_frames": true,
+    "runtime_tested": false
+  },
+  {
+    "name": "e_hit",
+    "frame_count": 4,
+    "unique_frames": 4,
+    "binary_alpha": true,
+    "exact_8x": true,
+    "symmetry_pass": true,
+    "nonempty_frames": true,
+    "runtime_tested": false
+  },
+  {
+    "name": "e_stun",
+    "frame_count": 4,
+    "unique_frames": 4,
+    "binary_alpha": true,
+    "exact_8x": true,
+    "symmetry_pass": true,
+    "nonempty_frames": true,
+    "runtime_tested": false
+  },
+  {
+    "name": "r_on",
+    "frame_count": 5,
+    "unique_frames": 5,
+    "binary_alpha": true,
+    "exact_8x": true,
+    "symmetry_pass": true,
+    "nonempty_frames": true,
+    "runtime_tested": false
+  },
+  {
+    "name": "r_storm",
+    "frame_count": 6,
+    "unique_frames": 6,
+    "binary_alpha": true,
+    "exact_8x": true,
+    "symmetry_pass": true,
+    "nonempty_frames": true,
+    "runtime_tested": false
+  },
+  {
+    "name": "r_hit",
+    "frame_count": 3,
+    "unique_frames": 3,
+    "binary_alpha": true,
+    "exact_8x": true,
+    "symmetry_pass": true,
+    "nonempty_frames": true,
+    "runtime_tested": false
+  },
+  {
+    "name": "r_slow",
+    "frame_count": 4,
+    "unique_frames": 4,
+    "binary_alpha": true,
+    "exact_8x": true,
+    "symmetry_pass": true,
+    "nonempty_frames": true,
+    "runtime_tested": false
+  },
+  {
+    "name": "r_rel",
+    "frame_count": 4,
+    "unique_frames": 4,
+    "binary_alpha": true,
+    "exact_8x": true,
+    "symmetry_pass": true,
+    "nonempty_frames": true,
+    "runtime_tested": false
+  },
+  {
+    "name": "r_rel_hit",
+    "frame_count": 6,
+    "unique_frames": 6,
+    "binary_alpha": true,
+    "exact_8x": true,
+    "symmetry_pass": true,
+    "nonempty_frames": true,
+    "runtime_tested": false
+  },
+  {
+    "name": "w_on",
+    "frame_count": 6,
+    "unique_frames": 6,
+    "binary_alpha": true,
+    "exact_8x": true,
+    "symmetry_pass": true,
+    "nonempty_frames": true,
+    "runtime_tested": false
+  },
+  {
+    "name": "w_sh",
+    "frame_count": 4,
+    "unique_frames": 4,
+    "binary_alpha": true,
+    "exact_8x": true,
+    "symmetry_pass": true,
+    "nonempty_frames": true,
+    "runtime_tested": false
+  },
+  {
+    "name": "w_heal",
+    "frame_count": 4,
+    "unique_frames": 4,
+    "binary_alpha": true,
+    "exact_8x": true,
+    "symmetry_pass": true,
+    "nonempty_frames": true,
+    "runtime_tested": false
+  }
+]
