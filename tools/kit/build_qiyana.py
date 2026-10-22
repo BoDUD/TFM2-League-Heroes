@@ -24,7 +24,7 @@ or changed), given by Terrashape.
   skill2  E Audacity (天纵之勇, cooldown flag `e_cd`) with W Terrashape (方圆塑令): a `Targeting` cast on
           `EnemyWithoutTower` (e_range). She dashes onto the target (`MoveToTarget`): e_dmg + e_ratio% AD, and the
           dash enchants her ring (League's W): the next element of the cycle grass -> river -> rock (pointer flags
-          `nx_w`, `nx_r`; the add-on copy's league_qiyana:element picks it by the situation instead) and Q's cooldown
+          `nx_w`, `nx_r`; the add-on copy's league_qiyana:element takes it from the terrain beside her instead, else by the situation) and Q's cooldown
           is refreshed (League: W resets Q).
   ult     R Supreme Display of Talent (惊才绝景): a `Targeting` cast on `EnemyChampion` (r_range). She swings the ring and
           a shockwave runs at the champion (a hidden penetrating line, r_len, width r_w): r_dmg + r_ratio% AD to every
@@ -38,7 +38,7 @@ Pictures: the step-3 effects pack (assets/source/qiyana/PROMPTS_FX.md; Gemini's,
 forward ones - Q's sweep in four looks (none / river / rock / grass) and R's swing and ground burst - are drawn into her
 frames (assets/source/native/qiyana_bake.json): the Q cast plays skill / skill_w / skill_r / skill_g by the element on
 her ring at the cast.
-The add-on copy (--native, addons/league_qiyana): the element by the situation, Royal Privilege per enemy, Edge of
+The add-on copy (--native, addons/league_qiyana): the element by the terrain beside her (else by the situation), Royal Privilege per enemy, Edge of
 Ixtal's rock execute.
 Timings: drafts until the frames exist (a frame's start in ticks = ms x 0.06): a_hit, q_at, e_at, r_at.
 Numbers: League 16.20 (CommunityDragon qiyana.bin) read into the Assassin jungle range; balanced on the classic-SDK
@@ -237,7 +237,7 @@ def build(p):
     def enchant():
         """The next element on her ring; Q's cooldown refreshed (League: W resets Q)."""
         if nat:
-            give = native("element")      # the add-on picks it by the situation and adds the flags
+            give = native("element")      # the add-on picks it (terrain, else situation) and adds the flags
         else:   # the cycle grass -> river -> rock (pointer flags: Q spends the element, not the pointer)
             give = sw("nx_w", combine(*element([flag("el_w", None)]), *rm("nx_w"), flag("nx_r", None)),
                       sw("nx_r", combine(*element([flag("el_r", None)]), *rm("nx_r")),

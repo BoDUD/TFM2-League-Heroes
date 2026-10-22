@@ -1,5 +1,5 @@
-"""Build the add-on's copy of Qiyana from the main pack (the element by the situation, Royal Privilege per enemy, Edge of
-Ixtal's rock execute).
+"""Build the add-on's copy of Qiyana from the main pack (the element by the terrain beside her, else by the situation,
+Royal Privilege per enemy, Edge of Ixtal's rock execute).
 
     python addons/league_qiyana/make_override.py
 
@@ -8,7 +8,7 @@ league/champion/league_qiyana.data_champion byte for byte (so the copy never dri
 defaults in src/lib.rs's Params are P's numbers, and writes addons/league_qiyana/override/league_qiyana.data_champion and
 .../text/champion.i18n: the build with native=1 -
   * everything of the main pack's kit;
-  * Terrashape's enchant is the Native league_qiyana:element (the element by the situation instead of the cycle), every
+  * Terrashape's enchant is the Native league_qiyana:element (the element by the terrain beside her - else by the situation - instead of the cycle), every
     hit's Royal Privilege the Native league_qiyana:royal (each enemy once per rp_rest ticks), Edge of Ixtal's rock bonus
     the Native league_qiyana:rock (twice the bonus under q_exec% health, none above);
   * passive = league_qiyana:empress (it keeps these numbers for the natives, passive.params);
@@ -41,8 +41,8 @@ NATIVE = {
         "skill": "【附加包】挥环横扫前方，造成" + phys("q_dmg", "q_ratio") + "物理伤害。消耗元素：河流" + R + "定身" + E + A + "{q_root}秒" + E +
                  "后减速{q_slow}%；岩石对生命低于{q_exec}%的敌人额外造成" + phys("q_rock2", "q_rock_r2") + "；草丛伪装" + A + "{q_inv}秒" + E +
                  "并加速{q_ms}%。",
-        "skill2": "【附加包】突进到敌人身上，造成" + phys("e_dmg", "e_ratio") + "物理伤害；" + O + "方圆塑令" + E + "按局势附上元素：自己残血选草丛，"
-                  "目标是残血英雄选岩石，其他英雄选河流，野怪和小兵选岩石；并刷新以绪塔尔之锋。",
+        "skill2": "【附加包】突进到敌人身上，造成" + phys("e_dmg", "e_ratio") + "物理伤害；" + O + "方圆塑令" + E + "按身边地形附上元素：草丛选草丛，"
+                  "墙选岩石，河道选河流；身边都没有就按局势选（自己残血草丛，残血英雄岩石，其他英雄河流，野怪小兵岩石）；并刷新以绪塔尔之锋。",
     },
     "zh-hant": {
         "attack": "【附加包】揮環攻擊。" + O + "皇家特權" + E + "：對每個敵人" + A + "{rp_rest}秒" + E + "內的首次命中額外造成" +
@@ -50,8 +50,8 @@ NATIVE = {
         "skill": "【附加包】揮環橫掃前方，造成" + phys("q_dmg", "q_ratio") + "物理傷害。消耗元素：河流" + R + "定身" + E + A + "{q_root}秒" + E +
                  "後緩速{q_slow}%；岩石對生命低於{q_exec}%的敵人額外造成" + phys("q_rock2", "q_rock_r2") + "；草叢偽裝" + A + "{q_inv}秒" + E +
                  "並加速{q_ms}%。",
-        "skill2": "【附加包】突進到敵人身上，造成" + phys("e_dmg", "e_ratio") + "物理傷害；" + O + "元素之形" + E + "依局勢附上元素：自己殘血選草叢，"
-                  "目標是殘血英雄選岩石，其他英雄選河流，野怪和小兵選岩石；並刷新伊克斯塔爾迴旋刀。",
+        "skill2": "【附加包】突進到敵人身上，造成" + phys("e_dmg", "e_ratio") + "物理傷害；" + O + "元素之形" + E + "依身邊地形附上元素：草叢選草叢，"
+                  "牆選岩石，河道選河流；身邊都沒有就依局勢選（自己殘血草叢，殘血英雄岩石，其他英雄河流，野怪小兵岩石）；並刷新伊克斯塔爾迴旋刀。",
     },
     "en": {
         "attack": "[Add-on] A swing of her ring blade. " + O + "Royal Privilege" + E + ": her first hit on each enemy within " + A +
@@ -62,8 +62,9 @@ NATIVE = {
                  phys("q_rock2", "q_rock_r2") + " more to enemies under {q_exec}% health; grass camouflages her for " + A +
                  "{q_inv}s" + E + " with +{q_ms}% move speed.",
         "skill2": "[Add-on] Dashes onto an enemy for " + phys("e_dmg", "e_ratio") + " physical damage. " + O + "Terrashape" + E +
-                  " picks the element by the fight: grass when she is low, rock on a wounded champion, river on any other champion, "
-                  "rock on monsters and minions; Edge of Ixtal refreshed.",
+                  " takes the element from the terrain beside her: brush gives grass, a wall rock, the river river; with none near, "
+                  "the fight picks: grass when she is low, rock on a wounded champion, a monster or a minion, river on any other "
+                  "champion; Edge of Ixtal refreshed.",
     },
     "ko": {
         "attack": "[확장] 고리 칼날로 공격. " + O + "왕가의 특권" + E + ": 적마다 " + A + "{rp_rest}초" + E + " 안의 첫 적중이 " +
@@ -72,8 +73,9 @@ NATIVE = {
         "skill": "[확장] 고리로 앞쪽을 베어 " + phys("q_dmg", "q_ratio") + " 물리 피해, 원소 소모: 강 " + A + "{q_root}초" + E + " " + R + "속박" + E +
                  " 후 {q_slow}% 둔화, 바위 체력 {q_exec}% 미만의 적에게 " + phys("q_rock2", "q_rock_r2") + " 추가, 풀숲 " + A + "{q_inv}초" + E +
                  " 위장과 이동 속도 +{q_ms}%.",
-        "skill2": "[확장] 적에게 돌진해 " + phys("e_dmg", "e_ratio") + " 물리 피해. " + O + "대지창조" + E + "가 상황에 따라 원소 선택: 자신이 "
-                  "위험하면 풀숲, 체력이 낮은 챔피언에게 바위, 다른 챔피언에게 강, 몬스터와 미니언에게 바위; 이쉬탈의 칼날 초기화.",
+        "skill2": "[확장] 적에게 돌진해 " + phys("e_dmg", "e_ratio") + " 물리 피해. " + O + "대지창조" + E + "가 주변 지형으로 원소 선택: 풀숲은 "
+                  "풀숲, 벽은 바위, 강은 강; 주변에 없으면 상황에 따라: 위험하면 풀숲, 약한 챔피언·몬스터·미니언에 바위, 다른 챔피언에 강; "
+                  "이쉬탈의 칼날 초기화.",
     },
     "ja": {
         "attack": "【拡張】リングで攻撃。" + O + "女帝の威風" + E + "：敵ごとに" + A + "{rp_rest}秒" + E + "以内の最初の命中が" +
@@ -82,8 +84,9 @@ NATIVE = {
         "skill": "【拡張】リングで前方を薙ぎ" + phys("q_dmg", "q_ratio") + "の物理ダメージ、エレメントを消費：川は" + A + "{q_root}秒" + E + R +
                  "スネア" + E + "後{q_slow}%スロウ、岩は体力{q_exec}%未満の敵に" + phys("q_rock2", "q_rock_r2") + "追加、草むらは" + A +
                  "{q_inv}秒" + E + "迷彩と移動速度+{q_ms}%。",
-        "skill2": "【拡張】敵へ突進し" + phys("e_dmg", "e_ratio") + "の物理ダメージ。" + O + "大地の力" + E + "が状況でエレメントを選ぶ：自分が"
-                  "危ない時は草むら、弱った敵チャンピオンには岩、他のチャンピオンには川、モンスターとミニオンには岩。イシュタルの切先も再使用可能に。",
+        "skill2": "【拡張】敵へ突進し" + phys("e_dmg", "e_ratio") + "の物理ダメージ。" + O + "大地の力" + E + "が近くの地形でエレメントを選ぶ："
+                  "草むらは草むら、壁は岩、川は川。近くに無ければ状況で：危ない時は草むら、弱った敵や中立・ミニオンには岩、他のチャンピオンには川。"
+                  "イシュタルの切先も再使用可能に。",
     },
 }
 
