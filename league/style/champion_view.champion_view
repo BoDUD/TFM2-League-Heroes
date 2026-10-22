@@ -1936,6 +1936,20 @@
         "y": -10
       }
     },
+    "league_ksante": {
+      "face": {
+        "x": 0,
+        "y": -36
+      },
+      "center": {
+        "x": 0,
+        "y": -14
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -6
+      }
+    },
     "league_udyr": {
       "face": {
         "x": 2,

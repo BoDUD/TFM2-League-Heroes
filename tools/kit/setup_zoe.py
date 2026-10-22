@@ -106,10 +106,11 @@ TEXT = {
 
 C = "league_zoe_sfx_"   # clip names differ from the sound names: a clip named like its sound is not found in game
 # sound name -> [(clip, volume, delay)]
+# the sfx raised toward Lux's 0.8 (「佐伊的音效也照奥莉安娜的办法调响」; attacks lower: they come often), the voice as it was
 SOUNDS = {f"league_zoe_{k}": [(C + k, v, 0.0)] for k, v in (
-    ("a", 0.3), ("a_hit", 0.35), ("p", 0.4), ("p_hit", 0.45), ("q", 0.4), ("q_fly", 0.4), ("q_hit", 0.5),
-    ("e", 0.4), ("e_fly", 0.4), ("e_hit", 0.45), ("e_pop", 0.45), ("e_sleep", 0.45), ("e_wake", 0.55),
-    ("r", 0.45), ("r_back", 0.45), ("w_shot", 0.3), ("w_hit", 0.35),
+    ("a", 0.5), ("a_hit", 0.55), ("p", 0.6), ("p_hit", 0.65), ("q", 0.8), ("q_fly", 0.75), ("q_hit", 0.85),
+    ("e", 0.8), ("e_fly", 0.75), ("e_hit", 0.8), ("e_pop", 0.8), ("e_sleep", 0.8), ("e_wake", 0.9),
+    ("r", 0.85), ("r_back", 0.8), ("w_shot", 0.7), ("w_hit", 0.75),
     ("vo_q", 0.85), ("vo_e", 0.85), ("vo_r", 0.9))}
 CLIPS = sorted({c for plays in SOUNDS.values() for c, _, _ in plays})
 

@@ -27,7 +27,7 @@ from build_udyr import P, lp  # noqa: E402
 REPO = os.path.normpath(os.path.join(HERE, "..", ".."))
 MOD = os.path.join(REPO, "league")
 ID = "league_udyr"
-VERSION = "0.192.0"     # provisional: main 0.190.6 (#457), K'Sante's branch may take 0.191.0; retaken at merge time
+VERSION = "0.192.0"     # the next free number above main 0.191.1 (K'Sante #458, Neeko's reel #459, Darius #460) (2026-10-22)
 ADi = "<i#asset/base/ui/banpick/champion_stat_icon:ad_0>"
 TOOLTIP_MAX = {"zh-hans": 130, "zh-hant": 130, "en": 334, "ja": 147, "ko": 185}
 O = "<#ff9028ff>"      # names, physical damage
