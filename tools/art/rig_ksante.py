@@ -129,11 +129,13 @@ MS = {
     "ult": [90, 110, 150, 217],                     # R's bash at 200 ms = r_at 12; 567 ms = r_dur 34
     "ult_dash": [120, 120, 127],                    # the chase: 367 ms = r_dash_dur 22
     "dead": [150, 150, 250, 600],
-    "ao_idle": [1000], "ao_hit": [100, 100],
+    "ao_idle": [1000], "ao_hit": [100, 100], "ao_run": [110, 110, 110, 110],
     "ao_attack": [80, 87, 120, 100, 80],            # the sweep at 167 ms = a_hit 10
     "ao_skill": [80, 87, 150, 50, 66],              # the smash at 167 ms = q_at 10
     "ao_skill_b": [80, 87, 150, 50, 66],
     "ao_skill_c": [90, 110, 150, 80, 70],           # the smash at 200 ms = q3_rel 12
+    "ao_skill2": [100, 300],                        # the brace: 400 ms = ao_w_charge 24
+    "ao_skill2_dash": [75, 75, 75, 75],             # the ram: 300 ms = w_dash_dur 18
 }
 
 
@@ -161,15 +163,19 @@ def frames(C, tags=None):
         "skill2": [q("w_wall", dx=-1), q("w_wall")],
         # W's ram (League's Spell2_Dash: the same wall, charging with long strides; the dust drawn in behind him)
         "skill2_dash": [q("w_dash"), q("w_dash", dx=1), q("w_dash"), q("w_dash", dx=1)],
-        # R's bash (League's Spell4_A: braced behind the ntofos, lunging, both shoved forward - the kick - and held)
-        "ult": [q("w_wall"), q("w_dash"), q("r_bash"), q("r_bash", dx=1)],
-        # R's chase (League's Spell4_dash: diving after the champion; landed All Out with the slam)
-        "ult_dash": [q("r_fly", lift=6), q("r_fly", lift=3), q("ao_smash")],
+        # R's bash (League's Spell4_A: braced behind the ntofos, lunging, both shoved forward - the kick: the ntofos
+        # break in All Out's burst (ao_on, 450 ms from the kick) and he crouches All Out to go after the champion)
+        "ult": [q("w_wall"), q("w_dash"), q("r_bash"), q("ao_charge")],
+        # R's chase (League's Spell4_dash, All Out from the kick on: launched after the champion, a club raised in
+        # the air, slammed down on it as he lands)
+        "ult_dash": [q("ao_charge", lift=4), q("ao_leap", lift=8), q("ao_smash")],
         # death (League's Death: pitching forward, the ntofos toppling, down on one knee with them on the ground)
         "dead": [q("d_slump"), q("d_slump", dx=1), q("d_kneel"), q("d_kneel")],
         # All Out
         "ao_idle": [d("ao")],
         "ao_hit": [d("ao", dx=-2, flash=True), d("ao", dx=-1)],
+        # the run (League's Run1_AllOut: hunched, the clubs trailing; the legs as the base run's)
+        "ao_run": [q("ao_run1"), q("ao_run2"), q("ao_run3"), q("ao_run4")],
         # the attack (League's Attack1_AllOut: the near club swung up behind him, both swept out wide - the hit)
         "ao_attack": [q("ao_swing_back"), q("ao_swing_back", dx=-1), q("ao_swing"), q("ao_swing", dx=1), d("ao")],
         # Q (League's Spell1_A_AllOut: a leap with a club raised over his head, smashed down in front)
@@ -177,6 +183,10 @@ def frames(C, tags=None):
         "ao_skill_b": [q("ao_leap", lift=4), q("ao_leap", lift=10), q("ao_smash"), q("ao_smash", dx=-1), d("ao")],
         # Q3 (League's Spell1_C_AllOut: the same leap, higher, the smash bursting the ground)
         "ao_skill_c": [q("ao_leap", lift=6), q("ao_leap", lift=12), q("ao_smash"), q("ao_smash", dx=-1), d("ao")],
+        # W's brace (League's Spell2_AllOut: the clubs crossed over his head) and ram (both clubs thrust low ahead,
+        # charging; the dust drawn in behind him)
+        "ao_skill2": [q("ao_cross", dx=-1), q("ao_cross")],
+        "ao_skill2_dash": [q("ao_charge"), q("ao_charge", dx=1), q("ao_charge"), q("ao_charge", dx=1)],
     }
     res = {}
     for tag, cans in out.items():

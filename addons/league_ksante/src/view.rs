@@ -160,11 +160,10 @@ mod tests {
         assert_eq!(anim_for("idle", false), None);
     }
 
-    /// Checked once his sheet is exported (`league/champions/league_ksante#anim.fanim`): every swapped tag and its hd_ copy.
+    /// Every swapped tag and its hd_ copy are in his sheet (`league/champions/league_ksante#anim.fanim`).
     #[test]
     fn every_swapped_tag_is_in_his_sheet() {
-        let path = concat!(env!("CARGO_MANIFEST_DIR"), "/../../league/champions/league_ksante#anim.fanim");
-        let Ok(fanim) = std::fs::read_to_string(path) else { return };
+        let fanim = include_str!("../../../league/champions/league_ksante#anim.fanim");
         for t in FORM_TAGS {
             for p in ["", "ao_", "hd_", "hd_ao_"] {
                 let name = format!("{p}{t}");

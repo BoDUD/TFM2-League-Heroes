@@ -1,0 +1,15 @@
+{
+  "fx": "league_ksante_fx",
+  "items": [
+    {"tag": "a_swipe", "into": "attack", "at_ms": 167, "dx": 30, "dy": -12},
+    {"tag": "q_crack", "into": "skill", "at_ms": 167, "dx": 40, "dy": 3},
+    {"tag": "q_crack", "into": "skill_b", "at_ms": 167, "dx": 40, "dy": 3},
+    {"fx": "league_ksante_big", "tag": "q3_burst", "into": "skill_c", "at_ms": 200, "dx": 30, "dy": 0},
+    {"tag": "w_trail", "into": "skill2_dash", "at_ms": 0, "dx": -30, "dy": 2, "under": true},
+    {"fx": "league_ksante_big", "tag": "ao_swipe", "into": "ao_attack", "at_ms": 167, "dx": 2, "dy": -4, "under": true},
+    {"tag": "q_crack", "into": "ao_skill", "at_ms": 167, "dx": 32, "dy": 3},
+    {"tag": "q_crack", "into": "ao_skill_b", "at_ms": 167, "dx": 32, "dy": 3},
+    {"fx": "league_ksante_big", "tag": "q3_burst", "into": "ao_skill_c", "at_ms": 200, "dx": 30, "dy": 0},
+    {"tag": "w_trail", "into": "ao_skill2_dash", "at_ms": 0, "dx": -36, "dy": 2, "under": true}
+  ]
+}

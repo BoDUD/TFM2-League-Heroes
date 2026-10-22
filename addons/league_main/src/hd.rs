@@ -176,6 +176,10 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // px: 「不是重做 是重新调整」「游戏里别太大就行」), every action posed after League's clips by tools/art/rig_xerath_hd.py
     // (R: his armour in a ring round the core), so no SIZES row
     ("league_xerath", 1.55, include_str!("../../../league/champions/league_xerath#anim.fanim")),
+    // K'Sante: posed by tools/art/rig_ksante.py on Codex's step-1 takes A-2 / O-1 at the user's 1.5 squares a game pixel
+    // (72 game rows ntofo tops to soles: 「陀斧顶到脚底 48 游戏像素，PPU 1.5」; 3/4 only; Codex's 27 skeleton poses with the
+    // design's head; the ao_* tags All Out's, the kit's CasterAnimations and league_ksante's view hook), so no SIZES row
+    ("league_ksante", 1.5, include_str!("../../../league/champions/league_ksante#anim.fanim")),
     // Powder (tft_powder, the tft pack in tft/: Teamfight Tactics' own units, its own mod; this DLL draws her dense
     // frames when both packs are enabled): the idle design and Codex's skeleton poses with one clean head, posed by
     // tools/art/rig_powder.py at 1.75 squares a game pixel (61 rows: 「35」, then 「PPU像素好低啊 能调一下吗」), shown at 90 % (SIZES)

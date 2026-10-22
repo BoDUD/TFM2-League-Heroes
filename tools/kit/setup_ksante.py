@@ -34,8 +34,10 @@ A = "<#ffb900ff>"      # durations, counts
 R = "<#ef5350ff>"      # crowd control
 G = "<#66bb6aff>"      # shields, lifesteal
 E = "<>"
-# champion_view: provisional until his sheet is exported (ppu_restyle's face_to and bp_card_audit set the real ones)
-VIEW = {"face": {"x": 2, "y": -30}, "center": {"x": 0, "y": -14}, "banpick_center": {"x": 0, "y": -8}}
+# champion_view: the face between his eyes (ppu_restyle's face_to: 36 game px over his soles, on his standing point); the
+# ban/pick card at base's rule for his head (tools/art/bp_card_audit.py: -39 - the head's top -31.8, a game px under the
+# canvas top; the ntofo tips over it are clipped, the table's CLIPPED on purpose)
+VIEW = {"face": {"x": 0, "y": -36}, "center": {"x": 0, "y": -14}, "banpick_center": {"x": 0, "y": -6}}
 
 
 def phys(d, r, hp=None):
