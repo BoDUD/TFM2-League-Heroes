@@ -25,15 +25,15 @@ import ppu_rig as R  # noqa: E402
 import rig_udyr as Z  # noqa: E402
 
 # tag -> (League's clip, from s, to s) - the part of the clip the tag shows
-CLIPS = {"idle": ("Spell2_idle", 0, 1.2), "run": ("Spell2_run", 0, 0.94), "attack": ("Spell2_attack", 0, 0.43),
-         "hit": ("Spell2_idle", 0, 0.1), "dead": ("Death", 0, 3.0),
-         "q_idle": ("spell1_Idle", 0, 1.47), "q_run": ("Spell1_Run", 0, 1.07), "q_attack": ("Spell1_attack1", 0, 0.37),
-         "skill": ("Spell1_activate", 0, 0.167), "q_hit": ("spell1_Idle", 0, 0.1), "q_dead": ("Death", 0, 3.0),
-         "e_idle": ("Spell3_Idle", 0, 0.93), "e_run": ("Spell3_Run", 0, 1.07), "e_attack": ("Spell3_Attack1", 0, 0.37),
-         "e_stun": ("Spell3_enhanced_attack", 0, 0.47), "skill2": ("Spell3", 0, 0.133), "e_hit": ("Spell3_Idle", 0, 0.1),
-         "e_dead": ("Death", 0, 3.0),
-         "r_idle": ("Spell4_Idle", 0, 1.07), "r_run": ("Spell4_run", 0, 1.07), "r_attack": ("Spell4_attack1", 0, 0.37),
-         "ult": ("Spell4", 0, 0.6), "r_hit": ("Spell4_Idle", 0, 0.1), "r_dead": ("Death", 0, 3.0)}
+CLIPS = {"idle": ("Spell2_idle", 0, 0.6), "run": ("Spell2_run", 0, 0.705), "attack": ("Spell2_attack", 0, 0.43),
+         "hit": ("Spell2_idle", 0, 0.1), "dead": ("Death", 0, 1.3),
+         "q_idle": ("spell1_Idle", 0, 0.73), "q_run": ("Spell1_Run", 0, 0.8), "q_attack": ("Spell1_attack1", 0, 0.37),
+         "skill": ("Spell1_activate", 0.04, 0.167), "q_hit": ("spell1_Idle", 0, 0.1), "q_dead": ("Death", 0, 1.3),
+         "e_idle": ("Spell3_Idle", 0, 0.47), "e_run": ("Spell3_Run", 0, 0.8), "e_attack": ("Spell3_Attack1", 0, 0.37),
+         "e_stun": ("Spell3_enhanced_attack", 0, 0.467), "skill2": ("Spell3", 0, 0.133), "e_hit": ("Spell3_Idle", 0, 0.1),
+         "e_dead": ("Death", 0, 1.3),
+         "r_idle": ("Spell4_Idle", 0, 0.53), "r_run": ("Spell4_run", 0, 0.8), "r_attack": ("Spell4_attack1", 0, 0.37),
+         "ult": ("Spell4", 0, 0.6), "r_hit": ("Spell4_Idle", 0, 0.1), "r_dead": ("Death", 0, 1.3)}
 YAW = {}
 STANCE = {"": "A", "q_": "Q", "e_": "E", "r_": "R"}
 BG = (96, 112, 96)

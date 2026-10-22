@@ -53,8 +53,30 @@ SCALES = np.arange(8.0, 22.01, 0.25)
 TILTED = {"d_hit": range(-40, 41, 10), "d_kneel": range(-40, 41, 10), "e_slam": range(-50, 51, 10),
           "e_leap": range(-30, 31, 10), "q_swipe": range(-30, 31, 10), "e_hook": range(-30, 31, 10),
           "r_thrust": range(-30, 31, 10), "r_flap": range(-30, 31, 10)}
-BODY_ALL = 1.0                  # set after the delivery (the bodies against the head, design_shyvana_poses' BODY_ALL)
-BODY = {}
+# the squares each pose is read on (px): the pose's height in the picture over the guide's height in design squares
+# (Codex drew each figure about as tall as its guide - League's frame brought to the design's size - but the heads 10-25%
+# smaller than the design's against the bodies, so the head's own scale would read the bodies too big). Measured
+# 2026-10-22 on the delivery (C:/t/ud_work/pose_scale.json).
+GUIDE_H = {"a_punch": 62.7, "run1": 61.4, "run2": 57.6, "run3": 63.1, "run4": 59.5, "d_hit": 89.6, "d_kneel": 55.0,
+           "q_wind": 62.3, "q_swipe": 61.7, "q_roar": 96.2, "q_run1": 69.1, "q_run2": 57.6, "q_run3": 67.5,
+           "q_run4": 61.5, "e_hook": 61.7, "e_leap": 73.3, "e_slam": 47.4, "e_stomp": 81.6, "e_run1": 81.2,
+           "e_run2": 65.9, "e_run3": 82.4, "e_run4": 65.3, "r_thrust": 67.2, "r_crouch": 67.8, "r_flap": 68.6,
+           "r_run1": 94.0, "r_run2": 90.1, "r_run3": 95.1, "r_run4": 88.4}
+# The squares a pose is read on: by default the size that gives the figure the stance design's area (Codex's figures
+# keep their mass from pose to pose far better than their height - a stride or a crouch changes the height by a fifth,
+# the area by a few per cent; the heights read the passing frames of the runs 10-20% small and the ram's poses a quarter
+# small). A pose that folds or spreads a lot is set by hand, between its area and its height: the death's first blow
+# (arms flung out), the kneel (legs folded under him: about 45 rows, three quarters of the idle's), the ram's leap and
+# the phoenix taking wing (legs tucked, arms spread).
+SCALE = {"d_hit": 17.5, "d_kneel": 20.5, "e_leap": 15.0, "r_flap": 13.7}
+
+
+def own_scale(name):
+    """px a square to read pose `name` on (SCALE, else the area rule)."""
+    if name in SCALE:
+        return SCALE[name]
+    a = raw(name)
+    return float(np.sqrt((a[..., 3] >= 128).sum() / (design(stance(name))[..., 3] > 0).sum()))
 
 
 def stance(name):
@@ -94,15 +116,102 @@ def finish(fig):
     return pad
 
 
+# the bodies against the heads in Codex's poses (the clean runs: the pose's sampling square over its head's): the
+# design's head is pasted at its own size on a body read at the design's size, so the head is looked for at the body's
+# square over this
+BODY = {"A": 1.12, "Q": 1.25, "E": 1.2, "R": 1.22}
+FACE = {  # rows / columns (ends exclusive) of each design's face, beard and the feather's top: the matching template
+    "A": (6, 24, 21, 36), "Q": (15, 33, 37, 51), "E": (22, 38, 41, 54), "R": (26, 44, 58, 72)}
+
+
+def feather(a, cut=128):
+    """The feather braid's pixels: a saturated bright blue with almost no red (the phoenix's blades are a greyer navy
+    with red in them, the eyes a pale cyan)."""
+    rgb = a[..., :3].astype(int)
+    r, g, b = rgb[..., 0], rgb[..., 1], rgb[..., 2]
+    return (a[..., 3] >= cut) & (b > 195) & (r < 40) & (g < 165)
+
+
+def located(name):
+    """(px a square, x, y, cost, tilt) for a pose's head box, found from its feather braid: the braid's top (where it
+    hangs from beside the face) puts the design's head box where it sits in the design, at the body's square over BODY;
+    then the face (FACE) is matched round there, a few squares each way, the scale +-10%."""
+    st = stance(name)
+    d = design(st)
+    a = raw(name)
+    s0 = own_scale(name) / BODY[st]
+    fd = feather(d)
+    fy, fx = np.nonzero(fd)
+    top = fy.min()
+    fxd = fx[fy <= top + 1].mean()
+    fr = feather(a)
+    lab, n = ndimage.label(fr, structure=np.ones((3, 3)))
+    if not n:
+        return None
+    big_ = 1 + int(np.argmax(ndimage.sum(fr, lab, range(1, n + 1))))
+    ry, rx = np.nonzero(lab == big_)
+    rtop = ry.min()
+    rxa = rx[ry <= rtop + s0].mean()
+    f0, f1, g0, g1 = FACE[st]
+    best = None
+    for k in np.arange(0.9, 1.101, 0.05):
+        sh = s0 * k
+        # the face box's top-left on the picture as the feather puts it
+        ex = rxa - (fxd + 0.5 - g0) * sh
+        ey = rtop - (top - f0) * sh
+        tmpl = d[f0:f1, g0:g1]
+        H, W = int(round(tmpl.shape[0] * sh)), int(round(tmpl.shape[1] * sh))
+        ys = np.minimum((np.arange(H) / sh).astype(int), tmpl.shape[0] - 1)
+        xs = np.minimum((np.arange(W) / sh).astype(int), tmpl.shape[1] - 1)
+        T = tmpl[np.ix_(ys, xs)]
+        M = T[..., 3] > 0
+        for dy in range(-int(3 * sh), int(3 * sh) + 1, 2):
+            for dx in range(-int(3 * sh), int(3 * sh) + 1, 2):
+                x0, y0 = int(round(ex + dx)), int(round(ey + dy))
+                if x0 < 0 or y0 < 0 or x0 + W > a.shape[1] or y0 + H > a.shape[0]:
+                    continue
+                P = a[y0:y0 + H, x0:x0 + W]
+                op = P[..., 3] >= 128
+                diff = np.abs(P[..., :3].astype(float) - T[..., :3].astype(float)).sum(-1) / 765.0
+                diff[~op] = 1.0
+                cost = float(diff[M].mean())
+                if best is None or cost < best[0]:
+                    # the head box's top-left from the face box's
+                    best = (cost, float(sh), int(round(x0 - (g0 - HEAD[st][2]) * sh)),
+                            int(round(y0 - (f0 - HEAD[st][0]) * sh)))
+    if best is None:
+        return None
+    return best[1], best[2], best[3], best[0], 0
+
+
+CACHE = "C:/t/ud_work/pose_match_cache.json"      # the matches of the last run (a run takes ten minutes)
+
+
 def matched(name, again=False):
-    """match_head's (px a square, x, y, cost, tilt) for a pose, kept in hd/pose_<name>.json ("match") once found."""
+    """match_head's (px a square, x, y, cost, tilt) for a pose, kept in hd/pose_<name>.json ("match") once found; the
+    scales searched round the pose's own sampling square (0.6-1.3 of it: the heads came smaller than the bodies)."""
     path = lp(os.path.join(OUT, f"pose_{name}.json"))
     if not again and os.path.isfile(path):
         m = json.load(open(path, encoding="utf-8")).get("match")
         if m:
             return tuple(m)
-    st = stance(name)
-    return match_head(raw(name), head_box(design(st), st), scales=SCALES, angles=TILTED.get(name, (0,)))
+    if not again and os.path.isfile(CACHE):
+        c = json.load(open(CACHE, encoding="utf-8"))
+        if name in c:
+            return tuple(c[name])
+    m = None
+    if name not in TILTED:
+        m = located(name)
+    if m is None:
+        st = stance(name)
+        s0 = own_scale(name)
+        m = match_head(raw(name), head_box(design(st), st), scales=np.arange(0.6 * s0, 1.3 * s0 + 0.01, 0.25),
+                       angles=TILTED.get(name, (0,)))
+    c = json.load(open(CACHE, encoding="utf-8")) if os.path.isfile(CACHE) else {}
+    c[name] = [float(m[0]), int(m[1]), int(m[2]), float(m[3]), int(m[4])]
+    with open(CACHE, "w", encoding="utf-8") as f:
+        json.dump(c, f)
+    return m
 
 
 def read(name, match):
@@ -114,7 +223,7 @@ def read(name, match):
     s, hx, hy, cost, ang = match
     r0, r1, c0, c1 = HEAD[st]
     hw, hh = c1 - c0, r1 - r0
-    s2 = s * BODY.get(name, BODY_ALL)
+    s2 = own_scale(name)
     cx, cy = hx + hw * s / 2, hy + hh * s / 2
     fig, (ci, cj) = sample_grid(a, s2, cx - hw * s2 / 2, cy - hh * s2 / 2)
     fig = snap(fig, d)
