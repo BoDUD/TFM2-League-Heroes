@@ -36,7 +36,7 @@ from regrid import regrid  # noqa: E402
 SRC = os.path.join(ROOT, "assets", "source", "udyr", "codex_model", "raw")
 OUT = os.path.join(ROOT, "assets", "source", "udyr", "hd")
 K = 40
-PICKS = {}   # part -> take, the user's picks
+PICKS = {"A": "A-1", "Q": "Q-1", "E": "E-1", "R": "R-1"}   # the user's picks, 2026-10-22: A-1, Q-1, E-1, R-1
 PART = {"A": "idle", "Q": "q_idle", "E": "e_idle", "R": "r_idle"}
 ROWS = {"A": 60, "Q": 61, "E": 69, "R": 73}
 # take -> (square px read at, the face's box on the raw canvas: x0, y0, x1, y1 - brows to the beard's end)
@@ -45,6 +45,16 @@ DRAFTS = {
     "Q-1": (11.5, (740, 480, 860, 620)), "Q-2": (11.5, (740, 470, 860, 600)),
     "E-1": (12.0, (690, 520, 810, 660)), "E-2": (12.0, (710, 540, 830, 680)),
     "R-1": (12.0, (770, 550, 890, 690)), "R-2": (9.5, (780, 600, 900, 740)),
+}
+
+
+# the face squares redrawn on the written designs (codex-face-half-squares): the joint palette greyed A-1's eyes and
+# R-1's near eye came out as a dark square - each eye a pale-blue glow square (League's spirit-lit eyes), the outer one
+# white-lit as in Q-1 and E-1. (x, y) on hd/<part>.png.
+EYE, LIT = (96, 206, 255), (236, 242, 236)
+FACE = {
+    "idle": [(25, 11, LIT), (26, 11, EYE), (31, 11, EYE)],
+    "r_idle": [(65, 30, EYE)],
 }
 
 
@@ -144,6 +154,10 @@ def main():
     for stance, take in PICKS.items():
         fig, rows, cols = cut(take, col[take])
         part = PART[stance]
+        fig = fig.copy()
+        for x, y, c in FACE.get(part, []):
+            assert fig[y, x, 3] > 0, (part, x, y)
+            fig[y, x, :3] = c
         Image.fromarray(fig).save(lp(os.path.join(OUT, f"{part}.png")))
         Image.fromarray(np.repeat(np.repeat(fig, 4, 0), 4, 1)).save(lp(os.path.join(OUT, f"{part}_4x.png")))
         print(part, take, fig.shape[1], "x", fig.shape[0], "rows kept", len(rows), "of", max(rows) + 1)
