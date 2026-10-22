@@ -1,0 +1,18 @@
+{
+  "fx": "league_udyr_fx",
+  "items": [
+    {
+      "tag": "q_swipe",
+      "into": "q_attack",
+      "at_ms": 70
+    },
+    {
+      "tag": "e_trail",
+      "into": "e_charge",
+      "from": "e_run",
+      "slice_ms": 0,
+      "length_ms": 440,
+      "at_ms": 0
+    }
+  ]
+}

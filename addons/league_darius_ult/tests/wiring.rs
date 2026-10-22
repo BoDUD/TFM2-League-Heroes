@@ -1,4 +1,4 @@
-//! 走真实的导出入口：在一个迷你模拟里让诺手的 AI 钩子想几 tick，检查 R 只在一刀砍得死人、或诺克萨斯之力期间放出；
+//! 走真实的导出入口：在一个迷你模拟里让诺手的 AI 钩子想几 tick，检查 R 只在一刀砍得死人时放出（诺克萨斯之力期间也是）；
 //! 层数和攻击力从诺手身上的 buff、属性读，护盾和免死算进去；砍不死时 AI 的 R 换成普攻（打不到就走过去）；
 //! R 冷却中不主动放；放出后看那一刀的结果写日志。
 
@@ -227,7 +227,7 @@ fn test_log() -> (std::sync::MutexGuard<'static, ()>, std::path::PathBuf) {
 }
 
 #[test]
-fn r_only_for_a_kill_or_under_might() {
+fn r_only_for_a_kill() {
     let (_serial, log) = test_log();
     unsafe {
         let mut host: HostApiV1 = zeroed();
@@ -306,11 +306,14 @@ fn r_only_for_a_kill_or_under_might() {
         w.units[3].buffs.clear();
         w.units[3].hp = 800;
 
-        // 诺克萨斯之力（读到的攻击 280 已含 40%）：200 + 560 = 760，谁都砍不死也放；照 AI 选的 #2，AI 没想放就砍 #3（800 < 900）
+        // 诺克萨斯之力（读到的攻击 280 已含 40%）：200 + 560 = 760，谁都砍不死就不放（0.1.1 及以前这时也放）：
+        // AI 想砍 #2 改成普攻，AI 没想放也不主动放；#3 掉到 700，760 砍得死，主动放
         w.tick += 200;
         w.units[0].attack = 280;
         w.units[0].buffs = vec![buff(MIGHT, 200)];
-        assert_eq!(think(&mut w, ai, Some(ult(2))), None);
+        assert_eq!(think(&mut w, ai, Some(ult(2))), Some(attack(2)));
+        assert_eq!(think(&mut w, ai, Some(attack(2))), None);
+        w.units[3].hp = 700;
         assert_eq!(think(&mut w, ai, Some(attack(2))), Some(ult(3)));
         // 诺克萨斯之力落刀前就没了：0 层、攻击 200，300 砍不死，不放
         w.units[0].buffs = vec![buff(MIGHT, R_LAND - 1)];
@@ -350,7 +353,9 @@ fn r_only_for_a_kill_or_under_might() {
         assert!(text.contains("R KILL: #3 hp + shield 400 vs 420 (2 stacks, attack 200)"), "{text}");
         assert!(text.contains("R HELD: #3 hp + shield 250 > 210 (300 before his damage taken changes) (0 stacks, attack 200)"), "{text}");
         assert!(text.contains("R KILL: #3 hp + shield 200 vs 210 (300 before his damage taken changes) (0 stacks, attack 200)"), "{text}");
-        assert!(text.contains("R MIGHT: #3 hp + shield 800 vs 760 (5 stacks, attack 280), the AI had not cast it"), "{text}");
+        assert!(text.contains("R HELD: #2 hp + shield 900 > 760 (5 stacks, attack 280), attacking instead"), "{text}");
+        assert!(text.contains("R KILL: #3 hp + shield 700 vs 760 (5 stacks, attack 280), the AI had not cast it"), "{text}");
+        assert!(!text.contains("R MIGHT"), "{text}");
         assert!(
             text.contains("R LANDED on #3: he died, R refreshed (cast for a kill: 300 damage at 0 stacks vs 250 hp + shield, a kill expected)"),
             "{text}"

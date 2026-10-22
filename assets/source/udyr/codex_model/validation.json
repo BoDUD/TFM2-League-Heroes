@@ -1,0 +1,186 @@
+[
+  {
+    "file": "udyr-model-A-1.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "alpha_levels": 256,
+    "binary_alpha_pass": false,
+    "visible_bbox_alpha_128": [
+      189,
+      96,
+      1141,
+      1235
+    ],
+    "target_grid_px": 18,
+    "target_top": 108,
+    "target_bottom": 1188,
+    "visible_top_delta": -12,
+    "visible_bottom_delta": 47,
+    "nonuniform_occupied_blocks": 2720,
+    "occupied_blocks": 2720,
+    "exact_grid_pass": false
+  },
+  {
+    "file": "udyr-model-A-2.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "alpha_levels": 256,
+    "binary_alpha_pass": false,
+    "visible_bbox_alpha_128": [
+      178,
+      113,
+      1121,
+      1244
+    ],
+    "target_grid_px": 18,
+    "target_top": 108,
+    "target_bottom": 1188,
+    "visible_top_delta": 5,
+    "visible_bottom_delta": 56,
+    "nonuniform_occupied_blocks": 2968,
+    "occupied_blocks": 2968,
+    "exact_grid_pass": false
+  },
+  {
+    "file": "udyr-model-E-1.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "alpha_levels": 256,
+    "binary_alpha_pass": false,
+    "visible_bbox_alpha_128": [
+      132,
+      102,
+      1151,
+      1240
+    ],
+    "target_grid_px": 15,
+    "target_top": 150,
+    "target_bottom": 1185,
+    "visible_top_delta": -48,
+    "visible_bottom_delta": 55,
+    "nonuniform_occupied_blocks": 4058,
+    "occupied_blocks": 4058,
+    "exact_grid_pass": false
+  },
+  {
+    "file": "udyr-model-E-2.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "alpha_levels": 256,
+    "binary_alpha_pass": false,
+    "visible_bbox_alpha_128": [
+      176,
+      190,
+      1141,
+      1233
+    ],
+    "target_grid_px": 15,
+    "target_top": 150,
+    "target_bottom": 1185,
+    "visible_top_delta": 40,
+    "visible_bottom_delta": 48,
+    "nonuniform_occupied_blocks": 3626,
+    "occupied_blocks": 3626,
+    "exact_grid_pass": false
+  },
+  {
+    "file": "udyr-model-Q-1.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "alpha_levels": 256,
+    "binary_alpha_pass": false,
+    "visible_bbox_alpha_128": [
+      151,
+      236,
+      1118,
+      1131
+    ],
+    "target_grid_px": 15,
+    "target_top": 270,
+    "target_bottom": 1185,
+    "visible_top_delta": -34,
+    "visible_bottom_delta": -54,
+    "nonuniform_occupied_blocks": 3124,
+    "occupied_blocks": 3124,
+    "exact_grid_pass": false
+  },
+  {
+    "file": "udyr-model-Q-2.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "alpha_levels": 256,
+    "binary_alpha_pass": false,
+    "visible_bbox_alpha_128": [
+      151,
+      238,
+      1163,
+      1062
+    ],
+    "target_grid_px": 15,
+    "target_top": 270,
+    "target_bottom": 1185,
+    "visible_top_delta": -32,
+    "visible_bottom_delta": -123,
+    "nonuniform_occupied_blocks": 3341,
+    "occupied_blocks": 3341,
+    "exact_grid_pass": false
+  },
+  {
+    "file": "udyr-model-R-1.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "alpha_levels": 256,
+    "binary_alpha_pass": false,
+    "visible_bbox_alpha_128": [
+      36,
+      161,
+      1218,
+      1129
+    ],
+    "target_grid_px": 13,
+    "target_top": 234,
+    "target_bottom": 1183,
+    "visible_top_delta": -73,
+    "visible_bottom_delta": -54,
+    "nonuniform_occupied_blocks": 4476,
+    "occupied_blocks": 4476,
+    "exact_grid_pass": false
+  },
+  {
+    "file": "udyr-model-R-2.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "alpha_levels": 256,
+    "binary_alpha_pass": false,
+    "visible_bbox_alpha_128": [
+      38,
+      240,
+      1216,
+      1210
+    ],
+    "target_grid_px": 13,
+    "target_top": 234,
+    "target_bottom": 1183,
+    "visible_top_delta": 6,
+    "visible_bottom_delta": 27,
+    "nonuniform_occupied_blocks": 4759,
+    "occupied_blocks": 4761,
+    "exact_grid_pass": false
+  }
+]

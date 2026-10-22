@@ -1,0 +1,1996 @@
+{
+  "status": "all_24_generated_grid_processed_runtime_untested",
+  "expected_sheets": 24,
+  "generated_sheets": 24,
+  "generated_frames": 107,
+  "pending_sheets": 0,
+  "generator": "built-in imagegen",
+  "effects": [
+    {
+      "name": "a_hit",
+      "file": "udyr_fx_a_hit.png",
+      "frames": 3,
+      "cell_1x": [
+        10,
+        10
+      ],
+      "symmetry": "left-right",
+      "binding": "view_effects `league_udyr_a_hit`（跟随目标，z 2；左右对称）",
+      "loop": false,
+      "source_grid": [
+        3,
+        1
+      ],
+      "source_size": [
+        2172,
+        724
+      ],
+      "palette": [
+        "#F4E8D0",
+        "#D2BC94",
+        "#A08A66",
+        "#6E5C44",
+        "#FFFFFF",
+        "#FFF2B0",
+        "#FFC850",
+        "#FF8A1E",
+        "#E0480E",
+        "#8A1E08"
+      ],
+      "frame_qa": [
+        {
+          "opaque_pixels": 4,
+          "bbox": [
+            4,
+            4,
+            6,
+            6
+          ],
+          "symmetry_pass": true,
+          "bright_pixels": 4
+        },
+        {
+          "opaque_pixels": 20,
+          "bbox": [
+            2,
+            2,
+            8,
+            8
+          ],
+          "symmetry_pass": true,
+          "bright_pixels": 14
+        },
+        {
+          "opaque_pixels": 8,
+          "bbox": [
+            2,
+            2,
+            8,
+            8
+          ],
+          "symmetry_pass": true,
+          "bright_pixels": 2
+        }
+      ],
+      "processing": "palette quantization then grid-cell modal color; symmetry by brighter existing paired pixel; horizontal packing; nearest-neighbor 8x",
+      "unique_frame_count": 3,
+      "status": "source_generated_and_grid_processed"
+    },
+    {
+      "name": "q_on",
+      "file": "udyr_fx_q_on.png",
+      "frames": 5,
+      "cell_1x": [
+        16,
+        16
+      ],
+      "symmetry": "left-right",
+      "binding": "view_effects `league_udyr_q_on`（他身上，z 3；左右对称）",
+      "loop": false,
+      "source_grid": [
+        3,
+        2
+      ],
+      "source_size": [
+        1536,
+        1024
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#E4E8FF",
+        "#A8B4FF",
+        "#6E78F0",
+        "#4A3CC8",
+        "#2A1A78"
+      ],
+      "frame_qa": [
+        {
+          "opaque_pixels": 8,
+          "bbox": [
+            6,
+            8,
+            10,
+            11
+          ],
+          "symmetry_pass": true,
+          "bright_pixels": 6
+        },
+        {
+          "opaque_pixels": 80,
+          "bbox": [
+            2,
+            5,
+            14,
+            14
+          ],
+          "symmetry_pass": true,
+          "bright_pixels": 54
+        },
+        {
+          "opaque_pixels": 78,
+          "bbox": [
+            2,
+            3,
+            14,
+            15
+          ],
+          "symmetry_pass": true,
+          "bright_pixels": 52
+        },
+        {
+          "opaque_pixels": 78,
+          "bbox": [
+            2,
+            4,
+            14,
+            13
+          ],
+          "symmetry_pass": true,
+          "bright_pixels": 38
+        },
+        {
+          "opaque_pixels": 8,
+          "bbox": [
+            2,
+            6,
+            14,
+            12
+          ],
+          "symmetry_pass": true,
+          "bright_pixels": 0
+        }
+      ],
+      "processing": "palette quantization then grid-cell modal color; symmetry by brighter existing paired pixel; horizontal packing; nearest-neighbor 8x",
+      "unique_frame_count": 5,
+      "status": "source_generated_and_grid_processed"
+    },
+    {
+      "name": "q_wake",
+      "file": "udyr_fx_q_wake.png",
+      "frames": 6,
+      "cell_1x": [
+        50,
+        50
+      ],
+      "symmetry": "left-right",
+      "binding": "view_effects `league_udyr_q_wake`（他身上，z 3；左右对称）",
+      "loop": false,
+      "source_grid": [
+        3,
+        2
+      ],
+      "source_size": [
+        1536,
+        1024
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#E4E8FF",
+        "#A8B4FF",
+        "#6E78F0",
+        "#4A3CC8",
+        "#2A1A78"
+      ],
+      "frame_qa": [
+        {
+          "opaque_pixels": 206,
+          "bbox": [
+            6,
+            9,
+            44,
+            44
+          ],
+          "symmetry_pass": true,
+          "bright_pixels": 172
+        },
+        {
+          "opaque_pixels": 618,
+          "bbox": [
+            3,
+            5,
+            47,
+            47
+          ],
+          "symmetry_pass": true,
+          "bright_pixels": 524
+        },
+        {
+          "opaque_pixels": 1026,
+          "bbox": [
+            1,
+            3,
+            49,
+            48
+          ],
+          "symmetry_pass": true,
+          "bright_pixels": 928
+        },
+        {
+          "opaque_pixels": 922,
+          "bbox": [
+            2,
+            3,
+            48,
+            47
+          ],
+          "symmetry_pass": true,
+          "bright_pixels": 858
+        },
+        {
+          "opaque_pixels": 288,
+          "bbox": [
+            4,
+            8,
+            46,
+            46
+          ],
+          "symmetry_pass": true,
+          "bright_pixels": 266
+        },
+        {
+          "opaque_pixels": 178,
+          "bbox": [
+            5,
+            10,
+            45,
+            46
+          ],
+          "symmetry_pass": true,
+          "bright_pixels": 162
+        }
+      ],
+      "processing": "palette quantization then grid-cell modal color; symmetry by brighter existing paired pixel; horizontal packing; nearest-neighbor 8x",
+      "unique_frame_count": 6,
+      "status": "source_generated_and_grid_processed"
+    },
+    {
+      "name": "q_as",
+      "file": "udyr_fx_q_as.png",
+      "frames": 4,
+      "cell_1x": [
+        34,
+        10
+      ],
+      "symmetry": "left-right",
+      "binding": "view_buffs `league_udyr_q_as`（跟着他，循环，z -1；左右对称）",
+      "loop": true,
+      "source_grid": [
+        1,
+        4
+      ],
+      "source_size": [
+        1150,
+        1368
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#E4E8FF",
+        "#A8B4FF",
+        "#6E78F0",
+        "#4A3CC8",
+        "#2A1A78"
+      ],
+      "frame_qa": [
+        {
+          "opaque_pixels": 48,
+          "bbox": [
+            2,
+            4,
+            32,
+            9
+          ],
+          "symmetry_pass": true,
+          "bright_pixels": 30
+        },
+        {
+          "opaque_pixels": 52,
+          "bbox": [
+            2,
+            3,
+            32,
+            9
+          ],
+          "symmetry_pass": true,
+          "bright_pixels": 28
+        },
+        {
+          "opaque_pixels": 52,
+          "bbox": [
+            1,
+            3,
+            33,
+            9
+          ],
+          "symmetry_pass": true,
+          "bright_pixels": 38
+        },
+        {
+          "opaque_pixels": 56,
+          "bbox": [
+            2,
+            2,
+            32,
+            9
+          ],
+          "symmetry_pass": true,
+          "bright_pixels": 42
+        }
+      ],
+      "processing": "palette quantization then grid-cell modal color; symmetry by brighter existing paired pixel; horizontal packing; nearest-neighbor 8x",
+      "unique_frame_count": 4,
+      "status": "source_generated_and_grid_processed"
+    },
+    {
+      "name": "q_swipe",
+      "file": "udyr_fx_q_swipe.png",
+      "frames": 3,
+      "cell_1x": [
+        28,
+        24
+      ],
+      "symmetry": "none (forward)",
+      "binding": "画进他自己的 q_attack 帧（bake_caster_fx；朝右）",
+      "loop": false,
+      "source_grid": [
+        1,
+        3
+      ],
+      "source_size": [
+        1182,
+        1330
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#E4E8FF",
+        "#A8B4FF",
+        "#6E78F0",
+        "#4A3CC8",
+        "#2A1A78"
+      ],
+      "frame_qa": [
+        {
+          "opaque_pixels": 51,
+          "bbox": [
+            5,
+            6,
+            15,
+            20
+          ],
+          "symmetry_pass": true,
+          "bright_pixels": 19
+        },
+        {
+          "opaque_pixels": 157,
+          "bbox": [
+            4,
+            5,
+            25,
+            23
+          ],
+          "symmetry_pass": true,
+          "bright_pixels": 82
+        },
+        {
+          "opaque_pixels": 24,
+          "bbox": [
+            5,
+            5,
+            11,
+            16
+          ],
+          "symmetry_pass": true,
+          "bright_pixels": 10
+        }
+      ],
+      "processing": "palette quantization then grid-cell modal color; symmetry by brighter existing paired pixel; horizontal packing; nearest-neighbor 8x",
+      "unique_frame_count": 3,
+      "status": "source_generated_and_grid_processed"
+    },
+    {
+      "name": "q_hit",
+      "file": "udyr_fx_q_hit.png",
+      "frames": 4,
+      "cell_1x": [
+        18,
+        18
+      ],
+      "symmetry": "left-right",
+      "binding": "view_effects `league_udyr_q_hit`（跟随目标，z 2；左右对称）",
+      "loop": false,
+      "source_grid": [
+        2,
+        2
+      ],
+      "source_size": [
+        1254,
+        1254
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#E4E8FF",
+        "#A8B4FF",
+        "#6E78F0",
+        "#4A3CC8",
+        "#2A1A78"
+      ],
+      "frame_qa": [
+        {
+          "opaque_pixels": 24,
+          "bbox": [
+            6,
+            7,
+            12,
+            13
+          ],
+          "symmetry_pass": true,
+          "bright_pixels": 24
+        },
+        {
+          "opaque_pixels": 50,
+          "bbox": [
+            4,
+            2,
+            14,
+            16
+          ],
+          "symmetry_pass": true,
+          "bright_pixels": 38
+        },
+        {
+          "opaque_pixels": 62,
+          "bbox": [
+            4,
+            2,
+            14,
+            16
+          ],
+          "symmetry_pass": true,
+          "bright_pixels": 44
+        },
+        {
+          "opaque_pixels": 28,
+          "bbox": [
+            5,
+            4,
+            13,
+            14
+          ],
+          "symmetry_pass": true,
+          "bright_pixels": 22
+        }
+      ],
+      "processing": "palette quantization then grid-cell modal color; symmetry by brighter existing paired pixel; horizontal packing; nearest-neighbor 8x",
+      "unique_frame_count": 4,
+      "status": "source_generated_and_grid_processed"
+    },
+    {
+      "name": "q_bolt",
+      "file": "udyr_fx_q_bolt.png",
+      "frames": 4,
+      "cell_1x": [
+        10,
+        8
+      ],
+      "symmetry": "top-bottom",
+      "binding": "view_projectiles `league_udyr_q_bolt`（随飞行方向转；上下对称）",
+      "loop": true,
+      "source_grid": [
+        2,
+        2
+      ],
+      "source_size": [
+        1402,
+        1122
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#E4E8FF",
+        "#A8B4FF",
+        "#6E78F0",
+        "#4A3CC8",
+        "#2A1A78"
+      ],
+      "frame_qa": [
+        {
+          "opaque_pixels": 14,
+          "bbox": [
+            4,
+            2,
+            8,
+            6
+          ],
+          "symmetry_pass": true,
+          "bright_pixels": 10
+        },
+        {
+          "opaque_pixels": 12,
+          "bbox": [
+            5,
+            2,
+            8,
+            6
+          ],
+          "symmetry_pass": true,
+          "bright_pixels": 8
+        },
+        {
+          "opaque_pixels": 8,
+          "bbox": [
+            5,
+            2,
+            8,
+            6
+          ],
+          "symmetry_pass": true,
+          "bright_pixels": 6
+        },
+        {
+          "opaque_pixels": 8,
+          "bbox": [
+            5,
+            2,
+            8,
+            6
+          ],
+          "symmetry_pass": true,
+          "bright_pixels": 4
+        }
+      ],
+      "processing": "palette quantization then grid-cell modal color; symmetry by brighter existing paired pixel; horizontal packing; nearest-neighbor 8x",
+      "unique_frame_count": 4,
+      "status": "source_generated_and_grid_processed"
+    },
+    {
+      "name": "q_bolt_hit",
+      "file": "udyr_fx_q_bolt_hit.png",
+      "frames": 5,
+      "cell_1x": [
+        22,
+        48
+      ],
+      "symmetry": "left-right",
+      "binding": "view_effects `league_udyr_q_bolt_hit`（跟随目标，z 2；左右对称）",
+      "loop": false,
+      "source_grid": [
+        3,
+        2
+      ],
+      "source_size": [
+        1536,
+        1024
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#E4E8FF",
+        "#A8B4FF",
+        "#6E78F0",
+        "#4A3CC8",
+        "#2A1A78"
+      ],
+      "frame_qa": [
+        {
+          "opaque_pixels": 88,
+          "bbox": [
+            9,
+            3,
+            13,
+            47
+          ],
+          "symmetry_pass": true,
+          "bright_pixels": 72
+        },
+        {
+          "opaque_pixels": 144,
+          "bbox": [
+            7,
+            2,
+            15,
+            47
+          ],
+          "symmetry_pass": true,
+          "bright_pixels": 132
+        },
+        {
+          "opaque_pixels": 212,
+          "bbox": [
+            2,
+            2,
+            20,
+            47
+          ],
+          "symmetry_pass": true,
+          "bright_pixels": 182
+        },
+        {
+          "opaque_pixels": 100,
+          "bbox": [
+            2,
+            36,
+            20,
+            45
+          ],
+          "symmetry_pass": true,
+          "bright_pixels": 74
+        },
+        {
+          "opaque_pixels": 4,
+          "bbox": [
+            2,
+            34,
+            20,
+            42
+          ],
+          "symmetry_pass": true,
+          "bright_pixels": 2
+        }
+      ],
+      "processing": "palette quantization then grid-cell modal color; symmetry by brighter existing paired pixel; horizontal packing; nearest-neighbor 8x",
+      "unique_frame_count": 5,
+      "status": "source_generated_and_grid_processed"
+    },
+    {
+      "name": "e_on",
+      "file": "udyr_fx_e_on.png",
+      "frames": 5,
+      "cell_1x": [
+        16,
+        16
+      ],
+      "symmetry": "left-right",
+      "binding": "view_effects `league_udyr_e_on`（他身上，z 3；左右对称）",
+      "loop": false,
+      "source_grid": [
+        5,
+        1
+      ],
+      "source_size": [
+        1536,
+        400
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#FFF2B0",
+        "#FFC850",
+        "#FF8A1E",
+        "#E0480E",
+        "#8A1E08"
+      ],
+      "frame_qa": [
+        {
+          "opaque_pixels": 12,
+          "bbox": [
+            5,
+            7,
+            11,
+            10
+          ],
+          "symmetry_pass": true,
+          "bright_pixels": 12
+        },
+        {
+          "opaque_pixels": 62,
+          "bbox": [
+            1,
+            3,
+            15,
+            11
+          ],
+          "symmetry_pass": true,
+          "bright_pixels": 62
+        },
+        {
+          "opaque_pixels": 80,
+          "bbox": [
+            0,
+            1,
+            16,
+            13
+          ],
+          "symmetry_pass": true,
+          "bright_pixels": 80
+        },
+        {
+          "opaque_pixels": 58,
+          "bbox": [
+            1,
+            2,
+            15,
+            10
+          ],
+          "symmetry_pass": true,
+          "bright_pixels": 58
+        },
+        {
+          "opaque_pixels": 22,
+          "bbox": [
+            1,
+            2,
+            15,
+            8
+          ],
+          "symmetry_pass": true,
+          "bright_pixels": 6
+        }
+      ],
+      "processing": "palette quantization then grid-cell modal color; symmetry by brighter existing paired pixel; horizontal packing; nearest-neighbor 8x",
+      "unique_frame_count": 5,
+      "status": "source_generated_and_grid_processed"
+    },
+    {
+      "name": "e_wake",
+      "file": "udyr_fx_e_wake.png",
+      "frames": 6,
+      "cell_1x": [
+        50,
+        52
+      ],
+      "symmetry": "left-right",
+      "binding": "view_effects `league_udyr_e_wake`（他身上，z 3；左右对称）",
+      "loop": false,
+      "source_grid": [
+        3,
+        2
+      ],
+      "source_size": [
+        1330,
+        1182
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#FFF2B0",
+        "#FFC850",
+        "#FF8A1E",
+        "#E0480E",
+        "#8A1E08"
+      ],
+      "frame_qa": [
+        {
+          "opaque_pixels": 194,
+          "bbox": [
+            2,
+            36,
+            48,
+            48
+          ],
+          "symmetry_pass": true,
+          "bright_pixels": 160
+        },
+        {
+          "opaque_pixels": 518,
+          "bbox": [
+            2,
+            19,
+            48,
+            48
+          ],
+          "symmetry_pass": true,
+          "bright_pixels": 440
+        },
+        {
+          "opaque_pixels": 1140,
+          "bbox": [
+            1,
+            2,
+            49,
+            48
+          ],
+          "symmetry_pass": true,
+          "bright_pixels": 1034
+        },
+        {
+          "opaque_pixels": 950,
+          "bbox": [
+            1,
+            5,
+            49,
+            48
+          ],
+          "symmetry_pass": true,
+          "bright_pixels": 874
+        },
+        {
+          "opaque_pixels": 384,
+          "bbox": [
+            2,
+            24,
+            48,
+            48
+          ],
+          "symmetry_pass": true,
+          "bright_pixels": 302
+        },
+        {
+          "opaque_pixels": 190,
+          "bbox": [
+            1,
+            29,
+            49,
+            48
+          ],
+          "symmetry_pass": true,
+          "bright_pixels": 140
+        }
+      ],
+      "processing": "palette quantization then grid-cell modal color; symmetry by brighter existing paired pixel; horizontal packing; nearest-neighbor 8x",
+      "unique_frame_count": 6,
+      "status": "source_generated_and_grid_processed"
+    },
+    {
+      "name": "e_ms",
+      "file": "udyr_fx_e_ms.png",
+      "frames": 4,
+      "cell_1x": [
+        30,
+        10
+      ],
+      "symmetry": "left-right",
+      "binding": "view_buffs `league_udyr_e_ms`（跟着他，循环，z -1；左右对称）",
+      "loop": true,
+      "source_grid": [
+        2,
+        2
+      ],
+      "source_size": [
+        2172,
+        724
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#FFF2B0",
+        "#FFC850",
+        "#FF8A1E",
+        "#E0480E",
+        "#8A1E08"
+      ],
+      "frame_qa": [
+        {
+          "opaque_pixels": 54,
+          "bbox": [
+            1,
+            4,
+            29,
+            9
+          ],
+          "symmetry_pass": true,
+          "bright_pixels": 54
+        },
+        {
+          "opaque_pixels": 64,
+          "bbox": [
+            1,
+            4,
+            29,
+            9
+          ],
+          "symmetry_pass": true,
+          "bright_pixels": 64
+        },
+        {
+          "opaque_pixels": 66,
+          "bbox": [
+            1,
+            3,
+            29,
+            9
+          ],
+          "symmetry_pass": true,
+          "bright_pixels": 64
+        },
+        {
+          "opaque_pixels": 48,
+          "bbox": [
+            1,
+            4,
+            29,
+            9
+          ],
+          "symmetry_pass": true,
+          "bright_pixels": 46
+        }
+      ],
+      "processing": "palette quantization then grid-cell modal color; symmetry by brighter existing paired pixel; horizontal packing; nearest-neighbor 8x",
+      "unique_frame_count": 4,
+      "status": "source_generated_and_grid_processed"
+    },
+    {
+      "name": "e_imm",
+      "file": "udyr_fx_e_imm.png",
+      "frames": 4,
+      "cell_1x": [
+        20,
+        8
+      ],
+      "symmetry": "left-right",
+      "binding": "view_buffs `league_udyr_e_imm`（跟着他，循环，z 3；左右对称）",
+      "loop": true,
+      "source_grid": [
+        2,
+        2
+      ],
+      "source_size": [
+        1983,
+        793
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#FFF2B0",
+        "#FFC850",
+        "#FF8A1E",
+        "#E0480E",
+        "#8A1E08"
+      ],
+      "frame_qa": [
+        {
+          "opaque_pixels": 30,
+          "bbox": [
+            3,
+            3,
+            17,
+            7
+          ],
+          "symmetry_pass": true,
+          "bright_pixels": 30
+        },
+        {
+          "opaque_pixels": 30,
+          "bbox": [
+            3,
+            3,
+            17,
+            7
+          ],
+          "symmetry_pass": true,
+          "bright_pixels": 30
+        },
+        {
+          "opaque_pixels": 34,
+          "bbox": [
+            3,
+            2,
+            17,
+            7
+          ],
+          "symmetry_pass": true,
+          "bright_pixels": 34
+        },
+        {
+          "opaque_pixels": 34,
+          "bbox": [
+            3,
+            2,
+            17,
+            7
+          ],
+          "symmetry_pass": true,
+          "bright_pixels": 34
+        }
+      ],
+      "processing": "palette quantization then grid-cell modal color; symmetry by brighter existing paired pixel; horizontal packing; nearest-neighbor 8x",
+      "unique_frame_count": 4,
+      "status": "source_generated_and_grid_processed"
+    },
+    {
+      "name": "e_trail",
+      "file": "udyr_fx_e_trail.png",
+      "frames": 4,
+      "cell_1x": [
+        36,
+        18
+      ],
+      "symmetry": "none (forward)",
+      "binding": "画进他自己的 e_run 帧（bake_caster_fx；朝右）",
+      "loop": false,
+      "source_grid": [
+        2,
+        2
+      ],
+      "source_size": [
+        1774,
+        887
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#FFF2B0",
+        "#FFC850",
+        "#FF8A1E",
+        "#E0480E",
+        "#8A1E08",
+        "#F4E8D0",
+        "#D2BC94",
+        "#A08A66",
+        "#6E5C44"
+      ],
+      "frame_qa": [
+        {
+          "opaque_pixels": 51,
+          "bbox": [
+            8,
+            10,
+            33,
+            15
+          ],
+          "symmetry_pass": true,
+          "bright_pixels": 41
+        },
+        {
+          "opaque_pixels": 114,
+          "bbox": [
+            5,
+            7,
+            33,
+            16
+          ],
+          "symmetry_pass": true,
+          "bright_pixels": 87
+        },
+        {
+          "opaque_pixels": 145,
+          "bbox": [
+            3,
+            4,
+            34,
+            14
+          ],
+          "symmetry_pass": true,
+          "bright_pixels": 118
+        },
+        {
+          "opaque_pixels": 195,
+          "bbox": [
+            3,
+            3,
+            33,
+            15
+          ],
+          "symmetry_pass": true,
+          "bright_pixels": 143
+        }
+      ],
+      "processing": "palette quantization then grid-cell modal color; symmetry by brighter existing paired pixel; horizontal packing; nearest-neighbor 8x",
+      "unique_frame_count": 4,
+      "status": "source_generated_and_grid_processed"
+    },
+    {
+      "name": "e_hit",
+      "file": "udyr_fx_e_hit.png",
+      "frames": 4,
+      "cell_1x": [
+        24,
+        24
+      ],
+      "symmetry": "left-right",
+      "binding": "view_effects `league_udyr_e_hit`（跟随目标，z 2；左右对称）",
+      "loop": false,
+      "source_grid": [
+        2,
+        2
+      ],
+      "source_size": [
+        1295,
+        1214
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#FFF2B0",
+        "#FFC850",
+        "#FF8A1E",
+        "#E0480E",
+        "#8A1E08",
+        "#F4E8D0",
+        "#D2BC94",
+        "#A08A66",
+        "#6E5C44"
+      ],
+      "frame_qa": [
+        {
+          "opaque_pixels": 44,
+          "bbox": [
+            8,
+            11,
+            16,
+            19
+          ],
+          "symmetry_pass": true,
+          "bright_pixels": 44
+        },
+        {
+          "opaque_pixels": 232,
+          "bbox": [
+            1,
+            6,
+            23,
+            22
+          ],
+          "symmetry_pass": true,
+          "bright_pixels": 188
+        },
+        {
+          "opaque_pixels": 170,
+          "bbox": [
+            1,
+            5,
+            23,
+            20
+          ],
+          "symmetry_pass": true,
+          "bright_pixels": 108
+        },
+        {
+          "opaque_pixels": 92,
+          "bbox": [
+            2,
+            7,
+            22,
+            21
+          ],
+          "symmetry_pass": true,
+          "bright_pixels": 30
+        }
+      ],
+      "processing": "palette quantization then grid-cell modal color; symmetry by brighter existing paired pixel; horizontal packing; nearest-neighbor 8x",
+      "unique_frame_count": 4,
+      "status": "source_generated_and_grid_processed"
+    },
+    {
+      "name": "e_stun",
+      "file": "udyr_fx_e_stun.png",
+      "frames": 4,
+      "cell_1x": [
+        16,
+        6
+      ],
+      "symmetry": "left-right",
+      "binding": "view_buffs `league_udyr_e_stun`（跟着目标，循环，z 3；左右对称）",
+      "loop": true,
+      "source_grid": [
+        2,
+        2
+      ],
+      "source_size": [
+        2048,
+        768
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#FFF2B0",
+        "#FFC850",
+        "#FF8A1E",
+        "#E0480E",
+        "#8A1E08"
+      ],
+      "frame_qa": [
+        {
+          "opaque_pixels": 14,
+          "bbox": [
+            2,
+            1,
+            14,
+            5
+          ],
+          "symmetry_pass": true,
+          "bright_pixels": 10
+        },
+        {
+          "opaque_pixels": 12,
+          "bbox": [
+            2,
+            2,
+            14,
+            5
+          ],
+          "symmetry_pass": true,
+          "bright_pixels": 8
+        },
+        {
+          "opaque_pixels": 10,
+          "bbox": [
+            2,
+            1,
+            14,
+            4
+          ],
+          "symmetry_pass": true,
+          "bright_pixels": 6
+        },
+        {
+          "opaque_pixels": 6,
+          "bbox": [
+            3,
+            2,
+            13,
+            5
+          ],
+          "symmetry_pass": true,
+          "bright_pixels": 6
+        }
+      ],
+      "processing": "palette quantization then grid-cell modal color; symmetry by brighter existing paired pixel; horizontal packing; nearest-neighbor 8x",
+      "unique_frame_count": 4,
+      "status": "source_generated_and_grid_processed"
+    },
+    {
+      "name": "r_on",
+      "file": "udyr_fx_r_on.png",
+      "frames": 5,
+      "cell_1x": [
+        16,
+        16
+      ],
+      "symmetry": "left-right",
+      "binding": "view_effects `league_udyr_r_on`（他身上，z 3；左右对称）",
+      "loop": false,
+      "source_grid": [
+        3,
+        2
+      ],
+      "source_size": [
+        1536,
+        1024
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#E2F8FF",
+        "#A8E6FF",
+        "#5CC0F0",
+        "#2A84C8",
+        "#164A86"
+      ],
+      "frame_qa": [
+        {
+          "opaque_pixels": 8,
+          "bbox": [
+            6,
+            7,
+            10,
+            10
+          ],
+          "symmetry_pass": true,
+          "bright_pixels": 8
+        },
+        {
+          "opaque_pixels": 70,
+          "bbox": [
+            2,
+            2,
+            14,
+            13
+          ],
+          "symmetry_pass": true,
+          "bright_pixels": 40
+        },
+        {
+          "opaque_pixels": 80,
+          "bbox": [
+            1,
+            3,
+            15,
+            12
+          ],
+          "symmetry_pass": true,
+          "bright_pixels": 80
+        },
+        {
+          "opaque_pixels": 46,
+          "bbox": [
+            2,
+            1,
+            14,
+            10
+          ],
+          "symmetry_pass": true,
+          "bright_pixels": 28
+        },
+        {
+          "opaque_pixels": 8,
+          "bbox": [
+            3,
+            3,
+            13,
+            7
+          ],
+          "symmetry_pass": true,
+          "bright_pixels": 0
+        }
+      ],
+      "processing": "palette quantization then grid-cell modal color; symmetry by brighter existing paired pixel; horizontal packing; nearest-neighbor 8x",
+      "unique_frame_count": 5,
+      "status": "source_generated_and_grid_processed"
+    },
+    {
+      "name": "r_storm",
+      "file": "udyr_fx_r_storm.png",
+      "frames": 6,
+      "cell_1x": [
+        64,
+        44
+      ],
+      "symmetry": "left-right",
+      "binding": "view_buffs `league_udyr_r_storm`（跟着他，循环，z 3；左右对称）",
+      "loop": true,
+      "source_grid": [
+        3,
+        2
+      ],
+      "source_size": [
+        1536,
+        1024
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#E2F8FF",
+        "#A8E6FF",
+        "#5CC0F0",
+        "#2A84C8",
+        "#164A86",
+        "#121D32"
+      ],
+      "frame_qa": [
+        {
+          "opaque_pixels": 806,
+          "bbox": [
+            2,
+            12,
+            62,
+            38
+          ],
+          "symmetry_pass": true,
+          "bright_pixels": 678
+        },
+        {
+          "opaque_pixels": 744,
+          "bbox": [
+            2,
+            11,
+            62,
+            38
+          ],
+          "symmetry_pass": true,
+          "bright_pixels": 624
+        },
+        {
+          "opaque_pixels": 832,
+          "bbox": [
+            2,
+            12,
+            62,
+            38
+          ],
+          "symmetry_pass": true,
+          "bright_pixels": 722
+        },
+        {
+          "opaque_pixels": 726,
+          "bbox": [
+            3,
+            10,
+            61,
+            35
+          ],
+          "symmetry_pass": true,
+          "bright_pixels": 598
+        },
+        {
+          "opaque_pixels": 760,
+          "bbox": [
+            2,
+            9,
+            62,
+            35
+          ],
+          "symmetry_pass": true,
+          "bright_pixels": 642
+        },
+        {
+          "opaque_pixels": 766,
+          "bbox": [
+            3,
+            9,
+            61,
+            35
+          ],
+          "symmetry_pass": true,
+          "bright_pixels": 650
+        }
+      ],
+      "processing": "palette quantization then grid-cell modal color; symmetry by brighter existing paired pixel; horizontal packing; nearest-neighbor 8x",
+      "unique_frame_count": 6,
+      "status": "source_generated_and_grid_processed"
+    },
+    {
+      "name": "r_hit",
+      "file": "udyr_fx_r_hit.png",
+      "frames": 3,
+      "cell_1x": [
+        14,
+        14
+      ],
+      "symmetry": "left-right",
+      "binding": "view_effects `league_udyr_r_hit`（跟随目标，z 2；左右对称）",
+      "loop": false,
+      "source_grid": [
+        3,
+        1
+      ],
+      "source_size": [
+        2172,
+        724
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#E2F8FF",
+        "#A8E6FF",
+        "#5CC0F0",
+        "#2A84C8",
+        "#164A86",
+        "#121D32"
+      ],
+      "frame_qa": [
+        {
+          "opaque_pixels": 12,
+          "bbox": [
+            5,
+            5,
+            9,
+            9
+          ],
+          "symmetry_pass": true,
+          "bright_pixels": 12
+        },
+        {
+          "opaque_pixels": 16,
+          "bbox": [
+            3,
+            3,
+            11,
+            11
+          ],
+          "symmetry_pass": true,
+          "bright_pixels": 10
+        },
+        {
+          "opaque_pixels": 12,
+          "bbox": [
+            2,
+            2,
+            12,
+            12
+          ],
+          "symmetry_pass": true,
+          "bright_pixels": 6
+        }
+      ],
+      "processing": "palette quantization then grid-cell modal color; symmetry by brighter existing paired pixel; horizontal packing; nearest-neighbor 8x",
+      "unique_frame_count": 3,
+      "status": "source_generated_and_grid_processed"
+    },
+    {
+      "name": "r_slow",
+      "file": "udyr_fx_r_slow.png",
+      "frames": 4,
+      "cell_1x": [
+        20,
+        6
+      ],
+      "symmetry": "left-right",
+      "binding": "view_buffs `league_udyr_r_slow` 和 `r2_slow`（跟着目标，循环，z -1；左右对称）",
+      "loop": true,
+      "source_grid": [
+        1,
+        4
+      ],
+      "source_size": [
+        1145,
+        1374
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#E2F8FF",
+        "#A8E6FF",
+        "#5CC0F0",
+        "#2A84C8",
+        "#164A86",
+        "#121D32"
+      ],
+      "frame_qa": [
+        {
+          "opaque_pixels": 30,
+          "bbox": [
+            2,
+            3,
+            18,
+            5
+          ],
+          "symmetry_pass": true,
+          "bright_pixels": 18
+        },
+        {
+          "opaque_pixels": 32,
+          "bbox": [
+            2,
+            2,
+            18,
+            5
+          ],
+          "symmetry_pass": true,
+          "bright_pixels": 20
+        },
+        {
+          "opaque_pixels": 32,
+          "bbox": [
+            2,
+            3,
+            18,
+            5
+          ],
+          "symmetry_pass": true,
+          "bright_pixels": 18
+        },
+        {
+          "opaque_pixels": 30,
+          "bbox": [
+            3,
+            2,
+            17,
+            5
+          ],
+          "symmetry_pass": true,
+          "bright_pixels": 18
+        }
+      ],
+      "processing": "palette quantization then grid-cell modal color; symmetry by brighter existing paired pixel; horizontal packing; nearest-neighbor 8x",
+      "unique_frame_count": 4,
+      "status": "source_generated_and_grid_processed"
+    },
+    {
+      "name": "r_rel",
+      "file": "udyr_fx_r_rel.png",
+      "frames": 4,
+      "cell_1x": [
+        30,
+        20
+      ],
+      "symmetry": "top-bottom",
+      "binding": "view_projectiles `league_udyr_r_rel`（随飞行方向转；上下对称）",
+      "loop": true,
+      "source_grid": [
+        2,
+        2
+      ],
+      "source_size": [
+        1536,
+        1024
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#E2F8FF",
+        "#A8E6FF",
+        "#5CC0F0",
+        "#2A84C8",
+        "#164A86",
+        "#121D32"
+      ],
+      "frame_qa": [
+        {
+          "opaque_pixels": 224,
+          "bbox": [
+            2,
+            2,
+            29,
+            18
+          ],
+          "symmetry_pass": true,
+          "bright_pixels": 136
+        },
+        {
+          "opaque_pixels": 242,
+          "bbox": [
+            4,
+            2,
+            29,
+            18
+          ],
+          "symmetry_pass": true,
+          "bright_pixels": 154
+        },
+        {
+          "opaque_pixels": 226,
+          "bbox": [
+            3,
+            2,
+            29,
+            18
+          ],
+          "symmetry_pass": true,
+          "bright_pixels": 132
+        },
+        {
+          "opaque_pixels": 228,
+          "bbox": [
+            4,
+            1,
+            29,
+            19
+          ],
+          "symmetry_pass": true,
+          "bright_pixels": 144
+        }
+      ],
+      "processing": "palette quantization then grid-cell modal color; symmetry by brighter existing paired pixel; horizontal packing; nearest-neighbor 8x",
+      "unique_frame_count": 4,
+      "status": "source_generated_and_grid_processed"
+    },
+    {
+      "name": "r_rel_hit",
+      "file": "udyr_fx_r_rel_hit.png",
+      "frames": 6,
+      "cell_1x": [
+        36,
+        36
+      ],
+      "symmetry": "left-right",
+      "binding": "view_effects `league_udyr_r_rel_hit`（跟随目标，z 2；左右对称）",
+      "loop": false,
+      "source_grid": [
+        3,
+        2
+      ],
+      "source_size": [
+        1536,
+        1024
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#E2F8FF",
+        "#A8E6FF",
+        "#5CC0F0",
+        "#2A84C8",
+        "#164A86",
+        "#121D32"
+      ],
+      "frame_qa": [
+        {
+          "opaque_pixels": 66,
+          "bbox": [
+            12,
+            13,
+            24,
+            25
+          ],
+          "symmetry_pass": true,
+          "bright_pixels": 66
+        },
+        {
+          "opaque_pixels": 250,
+          "bbox": [
+            4,
+            7,
+            32,
+            31
+          ],
+          "symmetry_pass": true,
+          "bright_pixels": 204
+        },
+        {
+          "opaque_pixels": 478,
+          "bbox": [
+            1,
+            7,
+            35,
+            32
+          ],
+          "symmetry_pass": true,
+          "bright_pixels": 414
+        },
+        {
+          "opaque_pixels": 472,
+          "bbox": [
+            2,
+            4,
+            34,
+            32
+          ],
+          "symmetry_pass": true,
+          "bright_pixels": 420
+        },
+        {
+          "opaque_pixels": 254,
+          "bbox": [
+            4,
+            6,
+            32,
+            32
+          ],
+          "symmetry_pass": true,
+          "bright_pixels": 188
+        },
+        {
+          "opaque_pixels": 150,
+          "bbox": [
+            1,
+            11,
+            35,
+            32
+          ],
+          "symmetry_pass": true,
+          "bright_pixels": 150
+        }
+      ],
+      "processing": "palette quantization then grid-cell modal color; symmetry by brighter existing paired pixel; horizontal packing; nearest-neighbor 8x",
+      "unique_frame_count": 6,
+      "status": "source_generated_and_grid_processed"
+    },
+    {
+      "name": "w_on",
+      "file": "udyr_fx_w_on.png",
+      "frames": 6,
+      "cell_1x": [
+        48,
+        52
+      ],
+      "symmetry": "left-right",
+      "binding": "view_effects `league_udyr_w_on`（他身上，z 3；左右对称）",
+      "loop": false,
+      "source_grid": [
+        3,
+        2
+      ],
+      "source_size": [
+        1349,
+        1166
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#E0FFE8",
+        "#9CF0B8",
+        "#4ED08A",
+        "#1E9A5E",
+        "#0E5A3A"
+      ],
+      "frame_qa": [
+        {
+          "opaque_pixels": 576,
+          "bbox": [
+            3,
+            5,
+            45,
+            36
+          ],
+          "symmetry_pass": true,
+          "bright_pixels": 310
+        },
+        {
+          "opaque_pixels": 226,
+          "bbox": [
+            0,
+            5,
+            48,
+            36
+          ],
+          "symmetry_pass": true,
+          "bright_pixels": 104
+        },
+        {
+          "opaque_pixels": 564,
+          "bbox": [
+            0,
+            5,
+            48,
+            49
+          ],
+          "symmetry_pass": true,
+          "bright_pixels": 206
+        },
+        {
+          "opaque_pixels": 996,
+          "bbox": [
+            0,
+            3,
+            48,
+            47
+          ],
+          "symmetry_pass": true,
+          "bright_pixels": 590
+        },
+        {
+          "opaque_pixels": 514,
+          "bbox": [
+            0,
+            4,
+            48,
+            46
+          ],
+          "symmetry_pass": true,
+          "bright_pixels": 162
+        },
+        {
+          "opaque_pixels": 160,
+          "bbox": [
+            2,
+            4,
+            46,
+            46
+          ],
+          "symmetry_pass": true,
+          "bright_pixels": 30
+        }
+      ],
+      "processing": "palette quantization then grid-cell modal color; symmetry by brighter existing paired pixel; horizontal packing; nearest-neighbor 8x",
+      "unique_frame_count": 6,
+      "status": "source_generated_and_grid_processed"
+    },
+    {
+      "name": "w_sh",
+      "file": "udyr_fx_w_sh.png",
+      "frames": 4,
+      "cell_1x": [
+        46,
+        50
+      ],
+      "symmetry": "left-right",
+      "binding": "view_buffs `league_udyr_w_sh`（跟着他，循环，z 3；左右对称）",
+      "loop": true,
+      "source_grid": [
+        2,
+        2
+      ],
+      "source_size": [
+        1203,
+        1307
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#E0FFE8",
+        "#9CF0B8",
+        "#4ED08A",
+        "#1E9A5E",
+        "#0E5A3A"
+      ],
+      "frame_qa": [
+        {
+          "opaque_pixels": 334,
+          "bbox": [
+            1,
+            2,
+            45,
+            47
+          ],
+          "symmetry_pass": true,
+          "bright_pixels": 132
+        },
+        {
+          "opaque_pixels": 328,
+          "bbox": [
+            1,
+            2,
+            45,
+            47
+          ],
+          "symmetry_pass": true,
+          "bright_pixels": 92
+        },
+        {
+          "opaque_pixels": 340,
+          "bbox": [
+            1,
+            2,
+            45,
+            47
+          ],
+          "symmetry_pass": true,
+          "bright_pixels": 108
+        },
+        {
+          "opaque_pixels": 350,
+          "bbox": [
+            1,
+            2,
+            45,
+            47
+          ],
+          "symmetry_pass": true,
+          "bright_pixels": 98
+        }
+      ],
+      "processing": "palette quantization then grid-cell modal color; symmetry by brighter existing paired pixel; horizontal packing; nearest-neighbor 8x",
+      "unique_frame_count": 4,
+      "status": "source_generated_and_grid_processed"
+    },
+    {
+      "name": "w_heal",
+      "file": "udyr_fx_w_heal.png",
+      "frames": 4,
+      "cell_1x": [
+        24,
+        30
+      ],
+      "symmetry": "left-right",
+      "binding": "view_effects `league_udyr_w_heal`（他身上，z 3；左右对称）",
+      "loop": false,
+      "source_grid": [
+        2,
+        2
+      ],
+      "source_size": [
+        1122,
+        1402
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#E0FFE8",
+        "#9CF0B8",
+        "#4ED08A",
+        "#1E9A5E",
+        "#0E5A3A"
+      ],
+      "frame_qa": [
+        {
+          "opaque_pixels": 18,
+          "bbox": [
+            6,
+            23,
+            18,
+            26
+          ],
+          "symmetry_pass": true,
+          "bright_pixels": 4
+        },
+        {
+          "opaque_pixels": 62,
+          "bbox": [
+            6,
+            12,
+            18,
+            27
+          ],
+          "symmetry_pass": true,
+          "bright_pixels": 26
+        },
+        {
+          "opaque_pixels": 96,
+          "bbox": [
+            5,
+            3,
+            19,
+            24
+          ],
+          "symmetry_pass": true,
+          "bright_pixels": 54
+        },
+        {
+          "opaque_pixels": 22,
+          "bbox": [
+            6,
+            3,
+            18,
+            23
+          ],
+          "symmetry_pass": true,
+          "bright_pixels": 6
+        }
+      ],
+      "processing": "palette quantization then grid-cell modal color; symmetry by brighter existing paired pixel; horizontal packing; nearest-neighbor 8x",
+      "unique_frame_count": 4,
+      "status": "source_generated_and_grid_processed"
+    }
+  ]
+}

@@ -57,7 +57,7 @@ ORIG_PPU = {"zeri": 3, "karma": 3, "braum": 2.881, "mordekaiser": 5, "corki": 5,
             "vladimir": 2, "yasuo": 3, "garen": 3, "gragas": 2, "irelia": 2, "soraka": 3, "nidalee": 3.8313,
             "nilah": 2.5, "kindred": 154 / 34, "malzahar": 1.38, "milio": 2.2, "jayce": 1.5, "elise": 1.8, "katarina": 1.5,
             "tahmkench": 1.2, "kalista": 1.4, "drmundo": 1.5, "pantheon": 1.5, "orianna": 2.25, "aphelios": 1.5, "rell": 1.5, "urgot": 1.2, "reksai": 1.58, "swain": 1.5, "nasus": 1.2, "renata": 1.5, "anivia": 1.2, "jarvaniv": 1.5, "ziggs": 1.5, "maokai": 1.5, "gangplank": 1.5, "wukong": 1.53, "cassiopeia": 1.3, "akshan": 1.61, "poppy": 1.3, "volibear": 1.2, "rammus": 1.2,
-            **{h: 1.5 for h in ('morgana', 'nami', 'janna', 'jax', 'xinzhao')}, "yunara": 1.5, "kaisa": 1.45, "camille": 1.5, "fiora": 1.5, "leblanc": 2.0, "darius": 1.45, "riven": 1.5, "zoe": 1.5, "quinn": 2.0, "yuumi": 1.5, "powder": 1.75, "chogath": 1.2, "karthus": 1.5, "vex": 1.5, "zyra": 1.7, "graves": 1.5, "warwick": 1.5, "gnar": 1.5, "sylas": 1.2, "mel": 1.5, "velkoz": 1.5, "shyvana": 1.5, "ornn": 1.5, "naafiri": 1.5, "xerath": 1.55, "heimerdinger": 1.5, "neeko": 2.5}
+            **{h: 1.5 for h in ('morgana', 'nami', 'janna', 'jax', 'xinzhao')}, "yunara": 1.5, "kaisa": 1.45, "camille": 1.5, "fiora": 1.5, "leblanc": 2.0, "darius": 1.45, "riven": 1.5, "zoe": 1.5, "quinn": 2.0, "yuumi": 1.5, "powder": 1.75, "chogath": 1.2, "karthus": 1.5, "vex": 1.5, "zyra": 1.7, "graves": 1.5, "warwick": 1.5, "gnar": 1.5, "sylas": 1.2, "mel": 1.5, "velkoz": 1.5, "shyvana": 1.5, "ornn": 1.5, "naafiri": 1.5, "xerath": 1.55, "heimerdinger": 1.5, "neeko": 2.5, "ksante": 1.5, "udyr": 1.5}
 # face: (row0, row1, col0, col1) of the face to match in the idle's first dense frame; neck: (col, row) there
 RESTYLE = {
     "zeri": dict(face=(25, 41, 22, 42), neck=None, neck_row=35, head=1.3, wide=1.45, short=0.88, band=2, edge=1, face_to=(-1, -33)),
@@ -455,6 +455,11 @@ RESTYLE = {
     # frames), so no proportion or density change here; the outer outline grown a square like the others; the face point
     # between her eyes (12 game px ahead of her standing point, 12 over the ground: a hound holds her head low)
     "naafiri": dict(ppu=1.5, edge=1, face_to=(12, -12)),
+    # league_udyr (group G jungle): his four stances posed by tools/art/rig_udyr.py on Codex's step-1 takes A-1 / Q-1 / E-1 /
+    # R-1 and its 29 key poses at the user's 1.5 squares a game pixel (「平常姿态 40 游戏像素，PPU 1.5，只做四分之三侧面」: 60
+    # rows fists to soles), so no proportion or density change here; the outer outline grown a square like the others; the
+    # face point between his eyes (2 game px ahead of his standing point, 33 over the ground)
+    "udyr": dict(ppu=1.5, edge=1, face_to=(2, -33)),
     # league_heimerdinger: the design (Codex's step-1 A-2 cut to the user's 54 rows at 1.5 squares a game pixel: 「36」
     # 「PPU 1.5」, 3/4 only) with Codex's whole-body poses (the design's head pasted back) and the backpack crane / R's gear
     # props, posed by tools/art/rig_heimerdinger.py after League's clips, so no proportion or density change here; the
@@ -467,6 +472,13 @@ RESTYLE = {
     # no proportion or density change here; the outer outline grown a square like the others; the face point between
     # her eyes (1 game px ahead of her standing point, 27 over the ground)
     "neeko": dict(ppu=2.5, edge=1, face_to=(1, -27)),
+    # league_ksante (group G top): posed by tools/art/rig_ksante.py on Codex's step-1 takes A-2 (base) / O-1 (All Out, cut to
+    # 56 rows: 「全盛裁到 56 格，和普通姿态身体一样大」) at the user's 1.5 squares a game pixel (「陀斧顶到脚底 48 游戏像素，PPU 1.5，
+    # 只做四分之三侧面」: 72 rows ntofo tops to soles) and Codex's 27 skeleton poses with the design's head, so no proportion
+    # or density change here; the outer outline grown a square like the others; the swings, Q's crack and burst and W's
+    # dust baked into attack / skill* / skill2_dash and their All Out twins (orig/ksante_<tag>.over/.under.png) laid on
+    # after the outline (fx); the face point between his eyes (36 game px over his soles, on his standing point)
+    "ksante": dict(ppu=1.5, edge=1, face_to=(0, -36), fx=True),
     # league_xerath (2026-10-21 PPU re-adjust, 「不是重做 是重新调整」): Codex's draft B read back on its own grid, slimmer
     # with a smaller head (tools/art/design_xerath_hd.py, the user's 「你选一个吧 反正游戏里别太大就行」), then shorter and a
     # little wider (「泽拉斯在游戏里身体太长了吧？」 -> take C: 35 x 62 squares, 1.55 squares a game pixel, 40 game px), posed

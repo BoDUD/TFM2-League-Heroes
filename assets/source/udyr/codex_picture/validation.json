@@ -1,0 +1,82 @@
+[
+  {
+    "file": "udyr-A.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_levels": 256,
+    "visible_bbox_alpha_ge128": [
+      338,
+      512,
+      947,
+      1241
+    ],
+    "strict_11px_grid_verified": false
+  },
+  {
+    "file": "udyr-E.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_levels": 256,
+    "visible_bbox_alpha_ge128": [
+      280,
+      454,
+      999,
+      1229
+    ],
+    "strict_11px_grid_verified": false
+  },
+  {
+    "file": "udyr-Q.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_levels": 256,
+    "visible_bbox_alpha_ge128": [
+      279,
+      519,
+      1084,
+      1214
+    ],
+    "strict_11px_grid_verified": false
+  },
+  {
+    "file": "udyr-R.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_levels": 256,
+    "visible_bbox_alpha_ge128": [
+      160,
+      441,
+      1152,
+      1235
+    ],
+    "strict_11px_grid_verified": false
+  },
+  {
+    "file": "udyr-SA.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_levels": 256,
+    "visible_bbox_alpha_ge128": [
+      430,
+      626,
+      854,
+      1213
+    ],
+    "strict_11px_grid_verified": false
+  }
+]

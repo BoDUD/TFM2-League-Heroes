@@ -108,18 +108,13 @@ pub fn best_kill(foes: &[Foe], d: usize) -> Option<Foe> {
     foes.iter().copied().filter(|f| f.dies_to(d)).min_by_key(|f| (f.ehp(), f.id))
 }
 
-/// 诺克萨斯之力期间没人砍得死：伤害 `d` 砍完剩得最少的（没有免死的）。
-pub fn best_might(foes: &[Foe], d: usize) -> Option<Foe> {
-    foes.iter().copied().filter(|f| !f.undying).min_by_key(|f| (f.ehp().saturating_sub(f.damage_from(d)), f.ehp(), f.id))
-}
-
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum Plan {
-    /// 照 AI 原来的输入（AI 想放的 R 能斩杀，或在诺克萨斯之力里）。
+    /// 照 AI 原来的输入（AI 想放的 R 能斩杀）。
     Keep,
     /// 放 R，砍这个人。
     Ult(usize),
-    /// AI 想对这个人放 R，但砍不死、也没有诺克萨斯之力：改成打他，继续叠层。
+    /// AI 想对这个人放 R，但砍不死（诺克萨斯之力期间也一样）：改成打他，继续叠层。
     Hold(usize),
 }
 
@@ -128,9 +123,7 @@ pub enum Plan {
 pub enum Why {
     /// 砍得死。
     Kill,
-    /// 诺克萨斯之力：满层伤害翻倍。
-    Might,
-    /// 砍不死、层数不满。
+    /// 砍不死。
     Wait,
     /// AI 的输入照旧（不是 R，或 R 好不了）。
     Pass,
@@ -138,9 +131,11 @@ pub enum Why {
 
 /// `ai`：AI 原来的输入是 R 时它的目标；`ai_foe`：那个目标现在的样子（不论远近；不是活着的敌方英雄就是 None）；
 /// `foes`：射程内现在能被 R 选中的敌方英雄；`ready`：R 好了、AI 没在放别的技能或回城（主动放 R 的前提）。
+///
+/// 只为斩杀放：诺克萨斯之力不单独放行，只是让这一刀伤害更高、更容易砍死人（用户：「改成只在能斩杀时放大，血怒不再单独
+/// 放行」；放行时诺手常对着八九成血的人起手，日志里 67 刀只砍死 2 个）。
 pub fn plan(ai: Option<usize>, ai_foe: Option<Foe>, foes: &[Foe], me: &Me, ready: bool) -> (Plan, Why) {
     let d = me.r_damage();
-    let might = me.stacks_at_blow() == MIGHT_TIER;
     let kill = best_kill(foes, d);
     match ai {
         Some(x) => {
@@ -148,19 +143,14 @@ pub fn plan(ai: Option<usize>, ai_foe: Option<Foe>, foes: &[Foe], me: &Me, ready
                 (Plan::Keep, Why::Kill)
             } else if let Some(k) = kill {
                 (Plan::Ult(k.id), Why::Kill)
-            } else if might && ai_foe.is_some_and(|f| !f.undying) {
-                (Plan::Keep, Why::Might)
-            } else if let Some(m) = best_might(foes, d).filter(|_| might) {
-                (Plan::Ult(m.id), Why::Might)
             } else {
                 (Plan::Hold(x), Why::Wait)
             }
         }
         None if !ready => (Plan::Keep, Why::Pass),
-        None => match (kill, best_might(foes, d).filter(|_| might)) {
-            (Some(k), _) => (Plan::Ult(k.id), Why::Kill),
-            (None, Some(m)) => (Plan::Ult(m.id), Why::Might),
-            (None, None) => (Plan::Keep, Why::Pass),
+        None => match kill {
+            Some(k) => (Plan::Ult(k.id), Why::Kill),
+            None => (Plan::Keep, Why::Pass),
         },
     }
 }
@@ -213,10 +203,9 @@ mod tests {
         let undying = Foe { id: 2, hp: 10, undying: true, ..Foe::default() };
         assert!(!undying.dies_to(10_000));
         assert_eq!(best_kill(&[shielded, undying, f(3, 400)], 500).map(|f| f.id), Some(1));
-        assert_eq!(best_might(&[undying, f(3, 900), f(4, 800)], 300).map(|f| f.id), Some(4));
-        // 减伤高的那个砍完剩得多：砍 900 血、没减伤的，不砍 800 血、减伤 50% 的
-        let tough = Foe { id: 5, hp: 800, reduce: 50, ..Foe::default() };
-        assert_eq!(best_might(&[f(3, 900), tough], 600).map(|f| f.id), Some(3));
+        // 减伤 50% 的 310 血：600 落到他身上只剩 300，砍不死；砍没减伤的 550 血
+        let tough = Foe { id: 5, hp: 310, reduce: 50, ..Foe::default() };
+        assert_eq!(best_kill(&[f(3, 550), tough], 600).map(|f| f.id), Some(3));
     }
 
     #[test]
@@ -251,7 +240,7 @@ mod tests {
     }
 
     #[test]
-    fn r_only_for_a_kill_or_under_might() {
+    fn r_only_for_a_kill() {
         let foes = [f(1, 900), f(2, 400), f(3, 280)];
         let none = me(200, None, 0); // 300 伤害
         // AI 想砍 1（砍不死）：改砍砍得死的 3
@@ -263,19 +252,19 @@ mod tests {
         assert_eq!(plan(Some(1), Some(tough[0]), &tough, &none, true), (Plan::Hold(1), Why::Wait));
         // 4 层（540）就砍得死 2
         assert_eq!(plan(Some(1), Some(tough[0]), &tough, &me(200, None, 4), true), (Plan::Ult(2), Why::Kill));
-        // 诺克萨斯之力（600）砍得死 2：改砍 2；谁都砍不死：照 AI 的目标放
+        // 诺克萨斯之力（600）砍得死 2：改砍 2；谁都砍不死：不放，改打 AI 选的人
         let might = me(200, Some(200), 0);
         assert_eq!(plan(Some(1), Some(tough[0]), &tough, &might, true), (Plan::Ult(2), Why::Kill));
         let thick = [f(1, 900), f(2, 700)];
-        assert_eq!(plan(Some(1), Some(thick[0]), &thick, &might, true), (Plan::Keep, Why::Might));
-        // AI 想砍的人有免死：诺克萨斯之力期间改砍别人
+        assert_eq!(plan(Some(1), Some(thick[0]), &thick, &might, true), (Plan::Hold(1), Why::Wait));
+        // AI 想砍的人有免死：诺克萨斯之力期间也不放
         let guarded = Foe { id: 1, hp: 900, undying: true, ..Foe::default() };
-        assert_eq!(plan(Some(1), Some(guarded), &[guarded, f(2, 700)], &might, true), (Plan::Ult(2), Why::Might));
+        assert_eq!(plan(Some(1), Some(guarded), &[guarded, f(2, 700)], &might, true), (Plan::Hold(1), Why::Wait));
         // AI 的目标不是活着的敌方英雄（已经死了）：没人砍得死就改打 / 走过去，不让 R 白放
         assert_eq!(plan(Some(9), None, &tough, &none, true), (Plan::Hold(9), Why::Wait));
-        // AI 没想放：R 好了、有人砍得死就放，诺克萨斯之力期间也放
+        // AI 没想放：R 好了、有人砍得死就放；诺克萨斯之力期间没人砍得死不放
         assert_eq!(plan(None, None, &foes, &none, true), (Plan::Ult(3), Why::Kill));
-        assert_eq!(plan(None, None, &thick, &might, true), (Plan::Ult(2), Why::Might));
+        assert_eq!(plan(None, None, &thick, &might, true), (Plan::Keep, Why::Pass));
         assert_eq!(plan(None, None, &tough, &none, true), (Plan::Keep, Why::Pass));
         assert_eq!(plan(None, None, &foes, &none, false), (Plan::Keep, Why::Pass));
     }

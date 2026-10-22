@@ -1,0 +1,154 @@
+{
+  "A": {
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "raw_bbox_alpha128": [
+      148,
+      101,
+      1175,
+      1213
+    ],
+    "canvas": [
+      1536,
+      1536
+    ],
+    "source_grid": [
+      52,
+      56
+    ],
+    "block_px": 11,
+    "grid_origin": [
+      473,
+      774
+    ],
+    "baseline_exclusive": 1390,
+    "bottom_margin": 146,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "bbox": [
+      473,
+      774,
+      1045,
+      1390
+    ],
+    "palette_max": 48
+  },
+  "SA": {
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "raw_bbox_alpha128": [
+      254,
+      71,
+      999,
+      1193
+    ],
+    "canvas": [
+      1536,
+      1536
+    ],
+    "source_grid": [
+      37,
+      56
+    ],
+    "block_px": 11,
+    "grid_origin": [
+      561,
+      774
+    ],
+    "baseline_exclusive": 1390,
+    "bottom_margin": 146,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "bbox": [
+      561,
+      774,
+      968,
+      1390
+    ],
+    "palette_max": 48
+  },
+  "O": {
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "raw_bbox_alpha128": [
+      9,
+      278,
+      1244,
+      1166
+    ],
+    "canvas": [
+      1536,
+      1536
+    ],
+    "source_grid": [
+      79,
+      57
+    ],
+    "block_px": 11,
+    "grid_origin": [
+      330,
+      763
+    ],
+    "baseline_exclusive": 1390,
+    "bottom_margin": 146,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "bbox": [
+      330,
+      763,
+      1199,
+      1390
+    ],
+    "palette_max": 48
+  },
+  "SO": {
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "raw_bbox_alpha128": [
+      48,
+      343,
+      1226,
+      1176
+    ],
+    "canvas": [
+      1536,
+      1536
+    ],
+    "source_grid": [
+      81,
+      57
+    ],
+    "block_px": 11,
+    "grid_origin": [
+      319,
+      763
+    ],
+    "baseline_exclusive": 1390,
+    "bottom_margin": 146,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "bbox": [
+      319,
+      763,
+      1210,
+      1390
+    ],
+    "palette_max": 48
+  }
+}

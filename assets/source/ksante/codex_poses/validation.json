@@ -1,0 +1,982 @@
+{
+  "completed": 27,
+  "requested": 27,
+  "missing": [],
+  "blocking_error": null,
+  "image_service_resets_at": 1792651452,
+  "image_service_reset_jst": "2026-10-22 15:44:12 UTC+09:00",
+  "checks": [
+    {
+      "slug": "a-back",
+      "number": 3,
+      "source_path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a15f93-31aa-74b3-bbbc-a3a35e007c08\\exec-5d20d67e-335f-4120-8846-72c1e17098f2.png",
+      "raw_sha256": "343d0eeee881fba593a8011ec3b9209b69004a9ddf41e9da742174b5e63d6ef4",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "bbox": [
+        23,
+        216,
+        1239,
+        1204
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "rgb_unchanged": true,
+      "raw_alpha_count": 256,
+      "target_head_box": [
+        451,
+        543,
+        675,
+        728
+      ],
+      "geometry_verified": false,
+      "exact_10px_grid_verified": false,
+      "file": "ksante-pose-a-back.png",
+      "canvas_pass": true,
+      "hard_alpha_pass": true,
+      "uniform_occupied_10px_cell_fraction": 0.0,
+      "review_status": "candidate_needs_redraw_or_alignment",
+      "visual_note": "武器轮廓与握点偏离骨架，头的位置与定稿比例需校正。"
+    },
+    {
+      "slug": "a-strike",
+      "number": 4,
+      "source_path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a15f93-31aa-74b3-bbbc-a3a35e007c08\\exec-10aadfb2-12dc-4fdf-8203-119107d9dea9.png",
+      "raw_sha256": "5ab98832a5dce76b86c415f17fefd31e8e52c2a2af3a31b78c2d0c3dd90f7472",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "bbox": [
+        69,
+        552,
+        1237,
+        1147
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "rgb_unchanged": true,
+      "raw_alpha_count": 256,
+      "target_head_box": [
+        578,
+        588,
+        803,
+        773
+      ],
+      "geometry_verified": false,
+      "exact_10px_grid_verified": false,
+      "file": "ksante-pose-a-strike.png",
+      "canvas_pass": true,
+      "hard_alpha_pass": true,
+      "uniform_occupied_10px_cell_fraction": 0.0,
+      "review_status": "candidate_needs_redraw_or_alignment",
+      "visual_note": "前推轮廓可辨，头身位置、双斧长度和着地线需校正。"
+    },
+    {
+      "slug": "q-up",
+      "number": 5,
+      "source_path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a15f93-31aa-74b3-bbbc-a3a35e007c08\\exec-6d0f4edc-00a0-41fb-935b-939b306d309d.png",
+      "raw_sha256": "18e0625db57d607b1acfe5db002dfcd3b4c8f3671c2c9d58b67e7c90153bc4c4",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "bbox": [
+        283,
+        72,
+        1122,
+        1099
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "rgb_unchanged": true,
+      "raw_alpha_count": 256,
+      "target_head_box": [
+        531,
+        467,
+        756,
+        652
+      ],
+      "geometry_verified": false,
+      "exact_10px_grid_verified": false,
+      "file": "ksante-pose-q-up.png",
+      "canvas_pass": true,
+      "hard_alpha_pass": true,
+      "uniform_occupied_10px_cell_fraction": 0.0,
+      "review_status": "candidate_needs_redraw_or_alignment",
+      "visual_note": "离地与单手举斧可辨，但抬手及武器高度明显高于骨架。"
+    },
+    {
+      "slug": "q-down",
+      "number": 6,
+      "source_path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a15f93-31aa-74b3-bbbc-a3a35e007c08\\exec-b1472d58-e7fd-471e-aadd-fdbe3bd69450.png",
+      "raw_sha256": "94d84075d3b90b194500011d57c960914f3e181927dffdec0c31fb642e0844cb",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "bbox": [
+        98,
+        96,
+        1237,
+        1237
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "rgb_unchanged": true,
+      "raw_alpha_count": 256,
+      "target_head_box": [
+        554,
+        619,
+        779,
+        804
+      ],
+      "geometry_verified": false,
+      "exact_10px_grid_verified": false,
+      "file": "ksante-pose-q-down.png",
+      "canvas_pass": true,
+      "hard_alpha_pass": true,
+      "uniform_occupied_10px_cell_fraction": 0.0,
+      "review_status": "candidate_needs_redraw_or_alignment",
+      "visual_note": "单斧落地可辨，举起的陀斧长度、人物比例和落点需校正。"
+    },
+    {
+      "slug": "q2-down",
+      "number": 7,
+      "source_path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a15f93-31aa-74b3-bbbc-a3a35e007c08\\exec-2c177986-e65f-4770-8de6-f90bd37523f8.png",
+      "raw_sha256": "7055130a78b61f839a6f40ccacc73a9677dd82b00d9847abbb3dda576b8e1d4a",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "bbox": [
+        177,
+        217,
+        1225,
+        1244
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "rgb_unchanged": true,
+      "raw_alpha_count": 256,
+      "target_head_box": [
+        634,
+        619,
+        859,
+        804
+      ],
+      "geometry_verified": false,
+      "exact_10px_grid_verified": false,
+      "file": "ksante-pose-q2-down.png",
+      "canvas_pass": true,
+      "hard_alpha_pass": true,
+      "uniform_occupied_10px_cell_fraction": 0.0,
+      "review_status": "candidate_needs_redraw_or_alignment",
+      "visual_note": "未可靠实现与 q-down 相反的近远侧手换手；需返修握持侧与斧轴。"
+    },
+    {
+      "slug": "q3-up",
+      "number": 8,
+      "source_path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a15f93-31aa-74b3-bbbc-a3a35e007c08\\exec-5b675d12-6a31-4b65-9ccd-b2440ccb4c1f.png",
+      "raw_sha256": "b9cfd0627a8978a816955acf4fd6ac6a8a8e1c89aab1f273366adabf74dbd1fa",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "bbox": [
+        52,
+        59,
+        1128,
+        1108
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "rgb_unchanged": true,
+      "raw_alpha_count": 256,
+      "target_head_box": [
+        531,
+        443,
+        756,
+        617
+      ],
+      "geometry_verified": false,
+      "exact_10px_grid_verified": false,
+      "file": "ksante-pose-q3-up.png",
+      "canvas_pass": true,
+      "hard_alpha_pass": true,
+      "uniform_occupied_10px_cell_fraction": 0.0,
+      "review_status": "candidate_needs_redraw_or_alignment",
+      "visual_note": "双手举斧离地可辨，双斧并非严格水平且位置高于骨架。"
+    },
+    {
+      "slug": "q3-slam",
+      "number": 9,
+      "source_path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a15f93-31aa-74b3-bbbc-a3a35e007c08\\exec-3d5705f9-0a3c-4140-8913-89c6bfb3f526.png",
+      "raw_sha256": "9ac66db3b8051ef84589f8ca2191cc3dfbc52fe10576868ae3e003f461184d3e",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "bbox": [
+        65,
+        524,
+        1209,
+        1219
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "rgb_unchanged": true,
+      "raw_alpha_count": 256,
+      "target_head_box": [
+        609,
+        689,
+        834,
+        874
+      ],
+      "geometry_verified": false,
+      "exact_10px_grid_verified": false,
+      "file": "ksante-pose-q3-slam.png",
+      "canvas_pass": true,
+      "hard_alpha_pass": true,
+      "uniform_occupied_10px_cell_fraction": 0.0,
+      "review_status": "candidate_needs_redraw_or_alignment",
+      "visual_note": "低身双斧砸地可辨，头与武器轴线、脚底地面仍需校正。"
+    },
+    {
+      "slug": "w-wall",
+      "number": 10,
+      "source_path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a15f93-31aa-74b3-bbbc-a3a35e007c08\\exec-a6ebbc3f-af76-48d3-bd9d-6e1403aab9e1.png",
+      "raw_sha256": "8ddeaa1ac032b5b2ca5ef6e345a2041671fe99ade41d0bf85f30eb919974eeac",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "bbox": [
+        192,
+        414,
+        1212,
+        1192
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "rgb_unchanged": true,
+      "raw_alpha_count": 256,
+      "target_head_box": [
+        542,
+        536,
+        767,
+        721
+      ],
+      "geometry_verified": false,
+      "exact_10px_grid_verified": false,
+      "file": "ksante-pose-w-wall.png",
+      "canvas_pass": true,
+      "hard_alpha_pass": true,
+      "uniform_occupied_10px_cell_fraction": 0.0,
+      "review_status": "candidate_needs_redraw_or_alignment",
+      "visual_note": "双斧成墙可辨，但趋于竖直，未达到要求的前倾约30度。"
+    },
+    {
+      "slug": "w-dash",
+      "number": 11,
+      "source_path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a15f93-31aa-74b3-bbbc-a3a35e007c08\\exec-2695daf4-e7eb-4b27-aa2f-404430bc8e89.png",
+      "raw_sha256": "0c3594bfa40a29e2c3f6ba7fc245c4e5b151b0650d65a14081d691a30ddf17b7",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "bbox": [
+        179,
+        327,
+        1226,
+        1185
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "rgb_unchanged": true,
+      "raw_alpha_count": 256,
+      "target_head_box": [
+        589,
+        539,
+        814,
+        724
+      ],
+      "geometry_verified": false,
+      "exact_10px_grid_verified": false,
+      "file": "ksante-pose-w-dash.png",
+      "canvas_pass": true,
+      "hard_alpha_pass": true,
+      "uniform_occupied_10px_cell_fraction": 0.0,
+      "review_status": "candidate_needs_redraw_or_alignment",
+      "visual_note": "弓步与双斧可辨，但并墙、前倾角和近侧武器避脸需返修。"
+    },
+    {
+      "slug": "r-bash",
+      "number": 12,
+      "source_path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a15f93-31aa-74b3-bbbc-a3a35e007c08\\exec-09071573-f096-4a76-85c9-a9631d8d1746.png",
+      "raw_sha256": "5cfcb7c97cd8aa6009903454e344183ab584562799cd89e7d12377a34d426658",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "bbox": [
+        48,
+        580,
+        1238,
+        1125
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "rgb_unchanged": true,
+      "raw_alpha_count": 256,
+      "target_head_box": [
+        531,
+        695,
+        756,
+        880
+      ],
+      "geometry_verified": false,
+      "exact_10px_grid_verified": false,
+      "file": "ksante-pose-r-bash.png",
+      "canvas_pass": true,
+      "hard_alpha_pass": true,
+      "uniform_occupied_10px_cell_fraction": 0.0,
+      "review_status": "candidate_needs_redraw_or_alignment",
+      "visual_note": "双斧前推可辨，躯干未压至要求的近水平姿势。"
+    },
+    {
+      "slug": "r-fly",
+      "number": 13,
+      "source_path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a15f93-31aa-74b3-bbbc-a3a35e007c08\\exec-9c2b8b11-9138-48ad-a8b6-8077f6a0a838.png",
+      "raw_sha256": "9458bcb0cbe43c0fa3a305761e49eb593e4c465d66791ee8ba09132b6ea14a3f",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "bbox": [
+        21,
+        288,
+        1240,
+        1023
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "rgb_unchanged": true,
+      "raw_alpha_count": 256,
+      "target_head_box": [
+        549,
+        773,
+        774,
+        958
+      ],
+      "geometry_verified": false,
+      "exact_10px_grid_verified": false,
+      "file": "ksante-pose-r-fly.png",
+      "canvas_pass": true,
+      "hard_alpha_pass": true,
+      "uniform_occupied_10px_cell_fraction": 0.0,
+      "review_status": "candidate_needs_redraw_or_alignment",
+      "visual_note": "双腿腾空可辨，身体与武器高度、方向仍偏离骨架。"
+    },
+    {
+      "slug": "d-slump",
+      "number": 14,
+      "source_path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a15f93-31aa-74b3-bbbc-a3a35e007c08\\exec-1fc00fe2-1d74-42d5-a22a-8379c74c79c0.png",
+      "raw_sha256": "80b582706305a23dfa0cfaa09489e3747ba8333d65e3381751c7ed179a0d6041",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "bbox": [
+        106,
+        477,
+        1224,
+        1206
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "rgb_unchanged": true,
+      "raw_alpha_count": 256,
+      "target_head_box": [
+        670,
+        601,
+        895,
+        786
+      ],
+      "geometry_verified": false,
+      "exact_10px_grid_verified": false,
+      "file": "ksante-pose-d-slump.png",
+      "canvas_pass": true,
+      "hard_alpha_pass": true,
+      "uniform_occupied_10px_cell_fraction": 0.0,
+      "review_status": "candidate_needs_redraw_or_alignment",
+      "visual_note": "低头垂手可辨，前栽幅度不足，双斧轴线需校正。"
+    },
+    {
+      "slug": "d-kneel",
+      "number": 15,
+      "source_path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a15f93-31aa-74b3-bbbc-a3a35e007c08\\exec-b877a3b9-4477-4566-99ac-5e103ce5b6ed.png",
+      "raw_sha256": "fb4c4f7241c5ead57d0f1b86764cdb4f6b86e864ef98364909ac77db31c9d903",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "bbox": [
+        32,
+        600,
+        1227,
+        1216
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "rgb_unchanged": true,
+      "raw_alpha_count": 256,
+      "target_head_box": [
+        638,
+        648,
+        863,
+        833
+      ],
+      "geometry_verified": false,
+      "exact_10px_grid_verified": false,
+      "file": "ksante-pose-d-kneel.png",
+      "canvas_pass": true,
+      "hard_alpha_pass": true,
+      "uniform_occupied_10px_cell_fraction": 0.0,
+      "review_status": "candidate_needs_redraw_or_alignment",
+      "visual_note": "跪地、空手与落地双斧可辨；接触线、头身与武器长度需校正。"
+    },
+    {
+      "slug": "run1",
+      "number": 16,
+      "source_path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a15f93-31aa-74b3-bbbc-a3a35e007c08\\exec-1b38a962-272b-4b01-aef9-304a35689308.png",
+      "raw_sha256": "b4e270b3748970236ac543bccc1e63f69e945a9934fc7361af6915c3f2e27be9",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "bbox": [
+        275,
+        310,
+        1089,
+        1199
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "rgb_unchanged": true,
+      "raw_alpha_count": 256,
+      "target_head_box": [
+        570,
+        594,
+        795,
+        779
+      ],
+      "geometry_verified": false,
+      "exact_10px_grid_verified": false,
+      "file": "ksante-pose-run1.png",
+      "canvas_pass": true,
+      "hard_alpha_pass": true,
+      "uniform_occupied_10px_cell_fraction": 0.0,
+      "review_status": "candidate_needs_redraw_or_alignment",
+      "visual_note": "可辨跑姿；需与其他三帧统一身体/武器大小并证明近侧腿在前。"
+    },
+    {
+      "slug": "run2",
+      "number": 17,
+      "source_path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a15f93-31aa-74b3-bbbc-a3a35e007c08\\exec-79b728e2-429c-49e7-b2ce-654b727b0def.png",
+      "raw_sha256": "1940f64c8fae219818c345a94b1cea5378c00968b610a6b2443a00f098ef36f5",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "bbox": [
+        333,
+        320,
+        1020,
+        1215
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "rgb_unchanged": true,
+      "raw_alpha_count": 256,
+      "target_head_box": [
+        570,
+        542,
+        795,
+        727
+      ],
+      "geometry_verified": false,
+      "exact_10px_grid_verified": false,
+      "file": "ksante-pose-run2.png",
+      "canvas_pass": true,
+      "hard_alpha_pass": true,
+      "uniform_occupied_10px_cell_fraction": 0.0,
+      "review_status": "candidate_needs_redraw_or_alignment",
+      "visual_note": "可辨支撑腿与抬膝；需统一身体/武器大小、脚底及前后腿颜色。"
+    },
+    {
+      "slug": "run3",
+      "number": 18,
+      "source_path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a15f93-31aa-74b3-bbbc-a3a35e007c08\\exec-34b87a02-46ed-457d-920d-701b21a37657.png",
+      "raw_sha256": "51271184be0ad60ba40b297b013b1a7eef1074555cba6b34071705ad10f14db5",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "bbox": [
+        245,
+        186,
+        1098,
+        1195
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "rgb_unchanged": true,
+      "raw_alpha_count": 256,
+      "target_head_box": [
+        570,
+        535,
+        795,
+        720
+      ],
+      "geometry_verified": false,
+      "exact_10px_grid_verified": false,
+      "file": "ksante-pose-run3.png",
+      "canvas_pass": true,
+      "hard_alpha_pass": true,
+      "uniform_occupied_10px_cell_fraction": 0.0,
+      "review_status": "candidate_needs_redraw_or_alignment",
+      "visual_note": "前后腿交换未可靠达标；武器高度与其他帧差异明显，需返修。"
+    },
+    {
+      "slug": "run4",
+      "number": 19,
+      "source_path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a15f93-31aa-74b3-bbbc-a3a35e007c08\\exec-479f4211-56ae-4d2c-8899-fcb697dffd3b.png",
+      "raw_sha256": "fb784a5387420bb3097320960a07dc23095955dae15b2ed87a844d3109c79dfe",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "bbox": [
+        353,
+        334,
+        1040,
+        1224
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "rgb_unchanged": true,
+      "raw_alpha_count": 256,
+      "target_head_box": [
+        570,
+        505,
+        795,
+        690
+      ],
+      "geometry_verified": false,
+      "exact_10px_grid_verified": false,
+      "file": "ksante-pose-run4.png",
+      "canvas_pass": true,
+      "hard_alpha_pass": true,
+      "uniform_occupied_10px_cell_fraction": 0.0,
+      "review_status": "candidate_needs_redraw_or_alignment",
+      "visual_note": "可辨抬膝跑姿；需与run2证明相反支撑腿并统一大小及落点。"
+    },
+    {
+      "slug": "ao-swing-back",
+      "number": 20,
+      "source_path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a15f93-31aa-74b3-bbbc-a3a35e007c08\\exec-d66172d2-4541-4594-9131-5eefc3ce2646.png",
+      "raw_sha256": "c362f4c88c1785fe56b0a750c3d5c56661ad108831a57d0f2b4d585a834a170b",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "bbox": [
+        71,
+        153,
+        1173,
+        1201
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "rgb_unchanged": true,
+      "raw_alpha_count": 256,
+      "target_head_box": [
+        558,
+        581,
+        813,
+        785
+      ],
+      "geometry_verified": false,
+      "exact_10px_grid_verified": false,
+      "file": "ksante-pose-ao-swing-back.png",
+      "canvas_pass": true,
+      "hard_alpha_pass": true,
+      "uniform_occupied_10px_cell_fraction": 0.0,
+      "review_status": "candidate_needs_redraw_or_alignment",
+      "visual_note": "抡棍蓄力可辨；棍长、抬手高度与头身位置偏离骨架。"
+    },
+    {
+      "slug": "ao-swing",
+      "number": 21,
+      "source_path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a15f93-31aa-74b3-bbbc-a3a35e007c08\\exec-380ba23c-8ec1-46c4-84c4-b9f1a598dddb.png",
+      "raw_sha256": "bf6d47098b45baa1c285a6aafb8606fda14e1b334ccf221350d8af1f212d7e72",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "bbox": [
+        16,
+        621,
+        1245,
+        1097
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "rgb_unchanged": true,
+      "raw_alpha_count": 256,
+      "target_head_box": [
+        580,
+        603,
+        835,
+        808
+      ],
+      "geometry_verified": false,
+      "exact_10px_grid_verified": false,
+      "file": "ksante-pose-ao-swing.png",
+      "canvas_pass": true,
+      "hard_alpha_pass": true,
+      "uniform_occupied_10px_cell_fraction": 0.0,
+      "review_status": "candidate_needs_redraw_or_alignment",
+      "visual_note": "两侧甩棍可辨，但双棍向下斜，未达到近水平横扫，脚底偏高。"
+    },
+    {
+      "slug": "ao-leap",
+      "number": 22,
+      "source_path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a15f93-31aa-74b3-bbbc-a3a35e007c08\\exec-8e92b5f2-5ed8-455d-a88e-a02222c1f561.png",
+      "raw_sha256": "c6c2c2292450bbef94dfeb400b4630acc414828671f22f21e8da54891ad9e927",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "bbox": [
+        147,
+        274,
+        1176,
+        1146
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "rgb_unchanged": true,
+      "raw_alpha_count": 256,
+      "target_head_box": [
+        555,
+        496,
+        810,
+        701
+      ],
+      "geometry_verified": false,
+      "exact_10px_grid_verified": false,
+      "file": "ksante-pose-ao-leap.png",
+      "canvas_pass": true,
+      "hard_alpha_pass": true,
+      "uniform_occupied_10px_cell_fraction": 0.0,
+      "review_status": "candidate_needs_redraw_or_alignment",
+      "visual_note": "双脚腾空与上下双棍可辨；眼部白色块有多眼歧义，脸和头部需返修。"
+    },
+    {
+      "slug": "ao-smash",
+      "number": 23,
+      "source_path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a15f93-31aa-74b3-bbbc-a3a35e007c08\\exec-25edc177-1fb1-43ae-bd98-63da7db5b3c7.png",
+      "raw_sha256": "82348a27e869770fd0d433272aaccd0291e6daf07a602d4e9203d00b942aed4a",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "bbox": [
+        46,
+        246,
+        1247,
+        1205
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "rgb_unchanged": true,
+      "raw_alpha_count": 256,
+      "target_head_box": [
+        614,
+        650,
+        869,
+        855
+      ],
+      "geometry_verified": false,
+      "exact_10px_grid_verified": false,
+      "file": "ksante-pose-ao-smash.png",
+      "canvas_pass": true,
+      "hard_alpha_pass": true,
+      "uniform_occupied_10px_cell_fraction": 0.0,
+      "review_status": "candidate_needs_redraw_or_alignment",
+      "visual_note": "新增姿势；同脸、尺度、武器长度与骨架、落地线仍需校正。"
+    },
+    {
+      "slug": "ao-cross",
+      "number": 24,
+      "source_path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a15f93-31aa-74b3-bbbc-a3a35e007c08\\exec-2ea0a79f-af05-4475-8a31-91cea222b2cd.png",
+      "raw_sha256": "e909580bc4e5a6ae602e776fbb5d2093a67b19714c1df218ffcedaed160d65fe",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "bbox": [
+        343,
+        78,
+        973,
+        1176
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "rgb_unchanged": true,
+      "raw_alpha_count": 256,
+      "target_head_box": [
+        543,
+        559,
+        798,
+        764
+      ],
+      "geometry_verified": false,
+      "exact_10px_grid_verified": false,
+      "file": "ksante-pose-ao-cross.png",
+      "canvas_pass": true,
+      "hard_alpha_pass": true,
+      "uniform_occupied_10px_cell_fraction": 0.0,
+      "review_status": "candidate_needs_redraw_or_alignment",
+      "visual_note": "新增姿势；同脸、尺度、武器长度与骨架、落地线仍需校正。"
+    },
+    {
+      "slug": "ao-charge",
+      "number": 25,
+      "source_path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a15f93-31aa-74b3-bbbc-a3a35e007c08\\exec-d193ab84-7009-4a5e-bd67-fbe78b864d43.png",
+      "raw_sha256": "a55ac1e7b8689427a645cc78c78202b6a276d9bc7702bb1c3ee1daeb1c390d59",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "bbox": [
+        42,
+        525,
+        1208,
+        1193
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "rgb_unchanged": true,
+      "raw_alpha_count": 256,
+      "target_head_box": [
+        640,
+        648,
+        895,
+        853
+      ],
+      "geometry_verified": false,
+      "exact_10px_grid_verified": false,
+      "file": "ksante-pose-ao-charge.png",
+      "canvas_pass": true,
+      "hard_alpha_pass": true,
+      "uniform_occupied_10px_cell_fraction": 0.0,
+      "review_status": "candidate_needs_redraw_or_alignment",
+      "visual_note": "新增姿势；同脸、尺度、武器长度与骨架、落地线仍需校正。"
+    },
+    {
+      "slug": "ao-run1",
+      "number": 26,
+      "source_path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a15f93-31aa-74b3-bbbc-a3a35e007c08\\exec-3201fd1e-0e3c-453f-81b9-44e41c394d07.png",
+      "raw_sha256": "e2460d8a6a5988d3720168ac80f0fed4104c961fbac5989d4d9a4b0b378bdb74",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "bbox": [
+        138,
+        625,
+        1163,
+        1213
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "rgb_unchanged": true,
+      "raw_alpha_count": 256,
+      "target_head_box": [
+        590,
+        654,
+        845,
+        859
+      ],
+      "geometry_verified": false,
+      "exact_10px_grid_verified": false,
+      "file": "ksante-pose-ao-run1.png",
+      "canvas_pass": true,
+      "hard_alpha_pass": true,
+      "uniform_occupied_10px_cell_fraction": 0.0,
+      "review_status": "candidate_needs_redraw_or_alignment",
+      "visual_note": "新增姿势；同脸、尺度、武器长度与骨架、落地线仍需校正。"
+    },
+    {
+      "slug": "ao-run2",
+      "number": 27,
+      "source_path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a15f93-31aa-74b3-bbbc-a3a35e007c08\\exec-49a6629d-2cb0-4455-9ba1-1fc7a575886f.png",
+      "raw_sha256": "310dff59fa81f3bee20549d4282648d6ee0d3b61349a4b16cd9d565f522d0b2e",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "bbox": [
+        47,
+        479,
+        1225,
+        1195
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "rgb_unchanged": true,
+      "raw_alpha_count": 256,
+      "target_head_box": [
+        590,
+        599,
+        845,
+        804
+      ],
+      "geometry_verified": false,
+      "exact_10px_grid_verified": false,
+      "file": "ksante-pose-ao-run2.png",
+      "canvas_pass": true,
+      "hard_alpha_pass": true,
+      "uniform_occupied_10px_cell_fraction": 0.0,
+      "review_status": "candidate_needs_redraw_or_alignment",
+      "visual_note": "新增姿势；同脸、尺度、武器长度与骨架、落地线仍需校正。"
+    },
+    {
+      "slug": "ao-run3",
+      "number": 28,
+      "source_path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a15f93-31aa-74b3-bbbc-a3a35e007c08\\exec-c0f90acf-ce53-455a-9473-cc0670a10875.png",
+      "raw_sha256": "2866686f63e03fe670f8214ba3c68a51797ed05347d106a4d70c97335ad874da",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "bbox": [
+        68,
+        597,
+        1216,
+        1183
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "rgb_unchanged": true,
+      "raw_alpha_count": 256,
+      "target_head_box": [
+        590,
+        595,
+        845,
+        800
+      ],
+      "geometry_verified": false,
+      "exact_10px_grid_verified": false,
+      "file": "ksante-pose-ao-run3.png",
+      "canvas_pass": true,
+      "hard_alpha_pass": true,
+      "uniform_occupied_10px_cell_fraction": 0.0,
+      "review_status": "candidate_needs_redraw_or_alignment",
+      "visual_note": "新增姿势；同脸、尺度、武器长度与骨架、落地线仍需校正。"
+    },
+    {
+      "slug": "ao-run4",
+      "number": 29,
+      "source_path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a15f93-31aa-74b3-bbbc-a3a35e007c08\\exec-b434398f-8cba-49cb-96e0-fc6257403f43.png",
+      "raw_sha256": "aab9f0319c9f14ade6cb137977be4cae7df095f077552d5c3bedcdf3e4e91eb5",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "bbox": [
+        87,
+        545,
+        1184,
+        1190
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "rgb_unchanged": true,
+      "raw_alpha_count": 256,
+      "target_head_box": [
+        590,
+        575,
+        845,
+        780
+      ],
+      "geometry_verified": false,
+      "exact_10px_grid_verified": false,
+      "file": "ksante-pose-ao-run4.png",
+      "canvas_pass": true,
+      "hard_alpha_pass": true,
+      "uniform_occupied_10px_cell_fraction": 0.0,
+      "review_status": "candidate_needs_redraw_or_alignment",
+      "visual_note": "新增姿势；同脸、尺度、武器长度与骨架、落地线仍需校正。"
+    }
+  ]
+}

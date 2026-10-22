@@ -1,0 +1,10 @@
+{
+  "asset/league/champion/league_udyr": {
+    "remapping": "asset/league_udyr/override/league_udyr",
+    "type": "override"
+  },
+  "asset/base/text/champion": {
+    "remapping": "asset/league_udyr/text/champion",
+    "type": "merge"
+  }
+}
