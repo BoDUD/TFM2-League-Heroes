@@ -30,6 +30,10 @@ DESIGN_ROWS = 65
 ROWS = DESIGN_ROWS / PPU
 SQUARE = XZ.SQUARE
 HD = os.path.join(R.ROOT, "assets", "source", HERO, "hd")
+# a frame drawn from another of the tag's drawings (1-based): the R's channel is League's kneeling level aim (the user:
+# 「放大招时枪要平着的吧？」) - Codex's frames 2-6 held the rifle low, so the level kneel of frame 8 holds the aim and
+# frame 7 (its own level drawing) fires
+DRAWING = {"ult": [1, 8, 8, 8, 8, 8, 7, 8, 9]}
 LEAD = 0.6                               # a flash's centre this share of its half width past the muzzle
 REELS = {"idle", "bp"}                   # tools/art/hero_reels.py's tags: rebuilt after the export
 
@@ -145,6 +149,8 @@ def frames(rig):
             if not n:
                 sys.exit(f"{tag}: no redrawn frames")
             idx = [min(n - 1, int(i * n / len(ms))) for i in range(len(ms))]
+            if tag in DRAWING and len(DRAWING[tag]) == len(ms):
+                idx = [k - 1 for k in DRAWING[tag]]
             fr = [placed(rig, acts_img[f"{tag}_{k + 1}"], info[f"{tag}_{k + 1}"]["pivot"], info[f"{tag}_{k + 1}"]["rifle"])
                   for k in idx]
         if tag == "hit":
