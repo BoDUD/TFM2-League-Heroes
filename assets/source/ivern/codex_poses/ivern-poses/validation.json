@@ -1,0 +1,236 @@
+{
+  "group": "poses",
+  "files": [
+    {
+      "file": "ivern-pose-a_wind.png",
+      "present": true,
+      "raw_preserved": true,
+      "size": [
+        1254,
+        1254
+      ],
+      "binary_alpha": false,
+      "raw_unchanged": true
+    },
+    {
+      "file": "ivern-pose-a_throw.png",
+      "present": true,
+      "raw_preserved": true,
+      "size": [
+        1254,
+        1254
+      ],
+      "binary_alpha": false,
+      "raw_unchanged": true
+    },
+    {
+      "file": "ivern-pose-e_gather.png",
+      "present": true,
+      "raw_preserved": true,
+      "size": [
+        1254,
+        1254
+      ],
+      "binary_alpha": false,
+      "raw_unchanged": true
+    },
+    {
+      "file": "ivern-pose-e_give.png",
+      "present": true,
+      "raw_preserved": true,
+      "size": [
+        1254,
+        1254
+      ],
+      "binary_alpha": false,
+      "raw_unchanged": true
+    },
+    {
+      "file": "ivern-pose-q_wind.png",
+      "present": true,
+      "raw_preserved": true,
+      "size": [
+        1254,
+        1254
+      ],
+      "binary_alpha": false,
+      "raw_unchanged": true
+    },
+    {
+      "file": "ivern-pose-q_fling.png",
+      "present": true,
+      "raw_preserved": true,
+      "size": [
+        1254,
+        1254
+      ],
+      "binary_alpha": false,
+      "raw_unchanged": true
+    },
+    {
+      "file": "ivern-pose-r_crouch.png",
+      "present": true,
+      "raw_preserved": true,
+      "size": [
+        1254,
+        1254
+      ],
+      "binary_alpha": false,
+      "raw_unchanged": true
+    },
+    {
+      "file": "ivern-pose-r_leap.png",
+      "present": true,
+      "raw_preserved": true,
+      "size": [
+        1254,
+        1254
+      ],
+      "binary_alpha": false,
+      "raw_unchanged": true
+    },
+    {
+      "file": "ivern-pose-r_call.png",
+      "present": true,
+      "raw_preserved": true,
+      "size": [
+        1254,
+        1254
+      ],
+      "binary_alpha": false,
+      "raw_unchanged": true
+    },
+    {
+      "file": "ivern-pose-run1.png",
+      "present": true,
+      "raw_preserved": true,
+      "size": [
+        1254,
+        1254
+      ],
+      "binary_alpha": false,
+      "raw_unchanged": true
+    },
+    {
+      "file": "ivern-pose-run2.png",
+      "present": true,
+      "raw_preserved": true,
+      "size": [
+        1254,
+        1254
+      ],
+      "binary_alpha": false,
+      "raw_unchanged": true
+    },
+    {
+      "file": "ivern-pose-run3.png",
+      "present": true,
+      "raw_preserved": true,
+      "size": [
+        1254,
+        1254
+      ],
+      "binary_alpha": false,
+      "raw_unchanged": true
+    },
+    {
+      "file": "ivern-pose-run4.png",
+      "present": true,
+      "raw_preserved": true,
+      "size": [
+        1254,
+        1254
+      ],
+      "binary_alpha": false,
+      "raw_unchanged": true
+    },
+    {
+      "file": "ivern-pose-d_stagger.png",
+      "present": true,
+      "raw_preserved": true,
+      "size": [
+        1254,
+        1254
+      ],
+      "binary_alpha": false,
+      "raw_unchanged": true
+    },
+    {
+      "file": "ivern-pose-d_slump.png",
+      "present": true,
+      "raw_preserved": true,
+      "size": [
+        1254,
+        1254
+      ],
+      "binary_alpha": false,
+      "raw_unchanged": true
+    },
+    {
+      "file": "ivern-daisy-dz_rise.png",
+      "present": true,
+      "raw_preserved": true,
+      "size": [
+        1254,
+        1254
+      ],
+      "binary_alpha": false,
+      "raw_unchanged": true
+    },
+    {
+      "file": "ivern-daisy-dz_wind.png",
+      "present": true,
+      "raw_preserved": true,
+      "size": [
+        1254,
+        1254
+      ],
+      "binary_alpha": false,
+      "raw_unchanged": true
+    },
+    {
+      "file": "ivern-daisy-dz_punch.png",
+      "present": true,
+      "raw_preserved": true,
+      "size": [
+        1254,
+        1254
+      ],
+      "binary_alpha": false,
+      "raw_unchanged": true
+    },
+    {
+      "file": "ivern-daisy-dz_up.png",
+      "present": true,
+      "raw_preserved": true,
+      "size": [
+        1254,
+        1254
+      ],
+      "binary_alpha": false,
+      "raw_unchanged": true
+    },
+    {
+      "file": "ivern-daisy-dz_slam.png",
+      "present": true,
+      "raw_preserved": true,
+      "size": [
+        1254,
+        1254
+      ],
+      "binary_alpha": false,
+      "raw_unchanged": true
+    },
+    {
+      "file": "ivern-daisy-dz_wave.png",
+      "present": true,
+      "raw_preserved": true,
+      "size": [
+        1254,
+        1254
+      ],
+      "binary_alpha": false,
+      "raw_unchanged": true
+    }
+  ]
+}

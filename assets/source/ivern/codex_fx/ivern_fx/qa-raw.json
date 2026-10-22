@@ -1,0 +1,212 @@
+[
+  {
+    "file": "ivern_fx_a_seed.png",
+    "size": [
+      2172,
+      724
+    ],
+    "partial_alpha_pixels": 218219,
+    "visible_bbox_alpha128": [
+      64,
+      214,
+      2124,
+      493
+    ]
+  },
+  {
+    "file": "ivern_fx_a_hit.png",
+    "size": [
+      2172,
+      724
+    ],
+    "partial_alpha_pixels": 575624,
+    "visible_bbox_alpha128": [
+      117,
+      59,
+      2137,
+      641
+    ]
+  },
+  {
+    "file": "ivern_fx_w_hit.png",
+    "size": [
+      2172,
+      724
+    ],
+    "partial_alpha_pixels": 571873,
+    "visible_bbox_alpha128": [
+      158,
+      76,
+      2068,
+      648
+    ]
+  },
+  {
+    "file": "ivern_fx_w_brush.png",
+    "size": [
+      1871,
+      840
+    ],
+    "partial_alpha_pixels": 214957,
+    "visible_bbox_alpha128": [
+      14,
+      348,
+      1857,
+      518
+    ]
+  },
+  {
+    "file": "ivern_fx_w_buff.png",
+    "size": [
+      2172,
+      724
+    ],
+    "partial_alpha_pixels": 302112,
+    "visible_bbox_alpha128": [
+      26,
+      237,
+      2145,
+      490
+    ]
+  },
+  {
+    "file": "ivern_fx_e_seed.png",
+    "size": [
+      2172,
+      724
+    ],
+    "partial_alpha_pixels": 982152,
+    "visible_bbox_alpha128": [
+      15,
+      94,
+      2156,
+      630
+    ]
+  },
+  {
+    "file": "ivern_fx_e_burst.png",
+    "size": [
+      2032,
+      774
+    ],
+    "partial_alpha_pixels": 426274,
+    "visible_bbox_alpha128": [
+      35,
+      225,
+      1991,
+      560
+    ]
+  },
+  {
+    "file": "ivern_fx_e_slow.png",
+    "size": [
+      1983,
+      793
+    ],
+    "partial_alpha_pixels": 434612,
+    "visible_bbox_alpha128": [
+      30,
+      277,
+      1954,
+      546
+    ]
+  },
+  {
+    "file": "ivern_fx_q_vine.png",
+    "size": [
+      2084,
+      754
+    ],
+    "partial_alpha_pixels": 278343,
+    "visible_bbox_alpha128": [
+      26,
+      286,
+      2057,
+      475
+    ]
+  },
+  {
+    "file": "ivern_fx_q_hit.png",
+    "size": [
+      2172,
+      724
+    ],
+    "partial_alpha_pixels": 794724,
+    "visible_bbox_alpha128": [
+      31,
+      128,
+      2132,
+      579
+    ]
+  },
+  {
+    "file": "ivern_fx_q_root.png",
+    "size": [
+      1983,
+      793
+    ],
+    "partial_alpha_pixels": 826674,
+    "visible_bbox_alpha128": [
+      29,
+      163,
+      1954,
+      639
+    ]
+  },
+  {
+    "file": "ivern_fx_q_rush.png",
+    "size": [
+      1881,
+      836
+    ],
+    "partial_alpha_pixels": 365032,
+    "visible_bbox_alpha128": [
+      25,
+      342,
+      1863,
+      539
+    ]
+  },
+  {
+    "file": "ivern_fx_r_dust.png",
+    "size": [
+      2172,
+      724
+    ],
+    "partial_alpha_pixels": 353530,
+    "visible_bbox_alpha128": [
+      23,
+      203,
+      2160,
+      540
+    ]
+  },
+  {
+    "file": "ivern_fx_r_shock.png",
+    "size": [
+      1484,
+      1060
+    ],
+    "partial_alpha_pixels": 198328,
+    "visible_bbox_alpha128": [
+      17,
+      435,
+      1475,
+      636
+    ]
+  },
+  {
+    "file": "ivern_fx_r_hit.png",
+    "size": [
+      2172,
+      724
+    ],
+    "partial_alpha_pixels": 701156,
+    "visible_bbox_alpha128": [
+      35,
+      132,
+      2162,
+      619
+    ]
+  }
+]

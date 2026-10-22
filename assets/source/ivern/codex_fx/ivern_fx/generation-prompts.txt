@@ -1,0 +1,186 @@
+Mode: built-in image_gen; transparent_background=true.
+Selected raw images are preserved unmodified. Earlier replaced attempts are in raw/attempts/ where available.
+
+
+FILE: ivern_fx_a_seed.png
+INITIAL REFERENCES:
+C:\Users\OWNER\Documents\Codex\2026-10-22\codex-2\work\ivern_fx_pack\ivern_fx_pack\refs\lol_fx_ref.png
+INITIAL ACTUAL PROMPT:
+Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a leaf-green ramp (#FFFFFF, #F4FFB8, #C8F04A, #7CC828, #3E8A1E, #1C4A14), a golden sunlight ramp (#FFFFFF, #FFF8C8, #FFE070, #F2B830, #B8781A).
+Effect: A GLOWING SEED, 4 looping frames, flying RIGHT, the trail behind it on the LEFT, SYMMETRIC TOP TO BOTTOM in every frame, square for square (the game turns the picture with its flight, so flying left it is upside down): a round seed 3 squares across with a gold-white core in front, two small leaves trailing behind it at mirrored places, a tail of 3 golden light-motes 6 squares long; the leaves flutter each frame. everything is NATURE MAGIC: crisp leaves, curling vines and thorns, golden light-motes and petals, earthy dust; flat shades, each leaf with a lighter edge; no smooth neon energy.
+Layout: one horizontal row of 4 equal 12:6 cells, image size 768x96 (each cell 192x96, 16 px a square); centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.
+
+Reference image contains only SHAPE inspiration: ignore its labels, black panels and unrelated rows. Draw ONLY this named effect. Exactly 4 equal adjacent frames in ONE horizontal row, no gutters. Occupancy and pixel block size must remain consistent across frames. Nature magic only, no character bodies.
+Exactly ONE horizontal sequence row. If the output canvas has extra height, leave that extra height transparent and place the complete animation strip across the middle. Never wrap frames into another row. No labels or separators. Preserve the requested number of frames.
+
+
+FILE: ivern_fx_a_hit.png
+INITIAL REFERENCES:
+C:\Users\OWNER\Documents\Codex\2026-10-22\codex-2\work\ivern_fx_pack\ivern_fx_pack\refs\lol_fx_ref.png
+INITIAL ACTUAL PROMPT:
+Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a leaf-green ramp (#FFFFFF, #F4FFB8, #C8F04A, #7CC828, #3E8A1E, #1C4A14), a golden sunlight ramp (#FFFFFF, #FFF8C8, #FFE070, #F2B830, #B8781A).
+Effect: A SEED POPPING, 3 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): 1 a gold-white flash 3 squares across; 2 six small green leaves bursting out at mirrored places, 8 squares across; 3 the leaves further out, turning to their darkest shade. everything is NATURE MAGIC: crisp leaves, curling vines and thorns, golden light-motes and petals, earthy dust; flat shades, each leaf with a lighter edge; no smooth neon energy.
+Layout: one horizontal row of 3 equal square cells, image size 480x160 (each cell 160x160, 16 px a square); centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.
+
+Reference image contains only SHAPE inspiration: ignore its labels, black panels and unrelated rows. Draw ONLY this named effect. Exactly 3 equal adjacent frames in ONE horizontal row, no gutters. Occupancy and pixel block size must remain consistent across frames. Nature magic only, no character bodies.
+Exactly ONE horizontal sequence row. If the output canvas has extra height, leave that extra height transparent and place the complete animation strip across the middle. Never wrap frames into another row. No labels or separators. Preserve the requested number of frames.
+
+
+FILE: ivern_fx_w_hit.png
+INITIAL REFERENCES:
+C:\Users\OWNER\Documents\Codex\2026-10-22\codex-2\work\ivern_fx_pack\ivern_fx_pack\refs\lol_fx_ref.png
+INITIAL ACTUAL PROMPT:
+Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a leaf-green ramp (#FFFFFF, #F4FFB8, #C8F04A, #7CC828, #3E8A1E, #1C4A14), a golden sunlight ramp (#FFFFFF, #FFF8C8, #FFE070, #F2B830, #B8781A).
+Effect: A BURST OF GRASS MAGIC, 3 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): 1 a gold-white spark 4 across with a ring of thin grass blades pointing out; 2 the blades 10 across with golden light-motes between them; 3 a few motes and blade tips fading. everything is NATURE MAGIC: crisp leaves, curling vines and thorns, golden light-motes and petals, earthy dust; flat shades, each leaf with a lighter edge; no smooth neon energy.
+Layout: one horizontal row of 3 equal square cells, image size 576x192 (each cell 192x192, 16 px a square); centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.
+
+Reference image contains only SHAPE inspiration: ignore its labels, black panels and unrelated rows. Draw ONLY this named effect. Exactly 3 equal adjacent frames in ONE horizontal row, no gutters. Occupancy and pixel block size must remain consistent across frames. Nature magic only, no character bodies.
+Exactly ONE horizontal sequence row. If the output canvas has extra height, leave that extra height transparent and place the complete animation strip across the middle. Never wrap frames into another row. No labels or separators. Preserve the requested number of frames.
+
+
+FILE: ivern_fx_w_brush.png
+INITIAL REFERENCES:
+C:\Users\OWNER\Documents\Codex\2026-10-22\codex-2\work\ivern_fx_pack\ivern_fx_pack\refs\lol_fx_ref.png
+INITIAL ACTUAL PROMPT:
+Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a leaf-green ramp (#FFFFFF, #F4FFB8, #C8F04A, #7CC828, #3E8A1E, #1C4A14), a golden sunlight ramp (#FFFFFF, #FFF8C8, #FFE070, #F2B830, #B8781A).
+Effect: A PATCH OF TALL BRUSH growing on the ground, 12 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): an oval patch on the GROUND under the unit's feet (an ellipse seen from above, three times as wide as tall) 48 squares wide and 14 deep, filled with clumps of tall grass blades 8-14 squares high, their tips pointing up and curving out to both sides, darker blades at the back, lighter at the front, a few golden motes floating between them; 1-3 the blades sprouting from the ground and shooting up; 4-10 full brush swaying gently in the wind, the blade tips bending a square to the left and back again, mirrored; 11-12 the blades sinking and wilting back into the ground. everything is NATURE MAGIC: crisp leaves, curling vines and thorns, golden light-motes and petals, earthy dust; flat shades, each leaf with a lighter edge; no smooth neon energy.
+Layout: one horizontal row of 12 equal 52:28 cells, image size 9984x448 (each cell 832x448, 16 px a square); centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.
+
+Reference image contains only SHAPE inspiration: ignore its labels, black panels and unrelated rows. Draw ONLY this named effect. Exactly 12 equal adjacent frames in ONE horizontal row, no gutters. Occupancy and pixel block size must remain consistent across frames. Nature magic only, no character bodies.
+Exactly ONE horizontal sequence row. If the output canvas has extra height, leave that extra height transparent and place the complete animation strip across the middle. Never wrap frames into another row. No labels or separators. Preserve the requested number of frames.
+
+
+FILE: ivern_fx_w_buff.png
+INITIAL REFERENCES:
+C:\Users\OWNER\Documents\Codex\2026-10-22\codex-2\work\ivern_fx_pack\ivern_fx_pack\refs\lol_fx_ref.png
+INITIAL ACTUAL PROMPT:
+Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a leaf-green ramp (#FFFFFF, #F4FFB8, #C8F04A, #7CC828, #3E8A1E, #1C4A14), a golden sunlight ramp (#FFFFFF, #FFF8C8, #FFE070, #F2B830, #B8781A).
+Effect: LEAVES CIRCLING THE FEET on the GROUND under the unit's feet (an ellipse seen from above, three times as wide as tall), 4 looping frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): a faint green ring 14 squares wide and 4 tall, two small leaves and two golden motes riding round it at mirrored places, moving a step each frame. everything is NATURE MAGIC: crisp leaves, curling vines and thorns, golden light-motes and petals, earthy dust; flat shades, each leaf with a lighter edge; no smooth neon energy.
+Layout: one horizontal row of 4 equal 16:8 cells, image size 1024x128 (each cell 256x128, 16 px a square); centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.
+
+Reference image contains only SHAPE inspiration: ignore its labels, black panels and unrelated rows. Draw ONLY this named effect. Exactly 4 equal adjacent frames in ONE horizontal row, no gutters. Occupancy and pixel block size must remain consistent across frames. Nature magic only, no character bodies.
+Exactly ONE horizontal sequence row. If the output canvas has extra height, leave that extra height transparent and place the complete animation strip across the middle. Never wrap frames into another row. No labels or separators. Preserve the requested number of frames.
+
+
+FILE: ivern_fx_e_seed.png
+INITIAL REFERENCES:
+C:\Users\OWNER\Documents\Codex\2026-10-22\codex-2\work\ivern_fx_pack\ivern_fx_pack\refs\lol_fx_ref.png
+INITIAL ACTUAL PROMPT:
+Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a leaf-green ramp (#FFFFFF, #F4FFB8, #C8F04A, #7CC828, #3E8A1E, #1C4A14), a golden sunlight ramp (#FFFFFF, #FFF8C8, #FFE070, #F2B830, #B8781A).
+Effect: A SEED SHIELD round a unit, 6 looping frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side), the champion hit stands in the middle, not drawn: 16 squares wide and 36 tall: an upright oval shell 22 squares wide and 38 tall drawn only as its rim - a bright green edge 1-2 squares thick with a leaf-vein pattern of thin lines branching inward from it, the inside left empty for the body - and a glowing seed 4 squares across floating at chest height in the middle, gold-white core; the vein lines and the seed pulse brighter in turn, the rim swelling one square in frames 3-4. everything is NATURE MAGIC: crisp leaves, curling vines and thorns, golden light-motes and petals, earthy dust; flat shades, each leaf with a lighter edge; no smooth neon energy.
+Layout: one horizontal row of 6 equal 24:40 cells, image size 2304x640 (each cell 384x640, 16 px a square); centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.
+
+Reference image contains only SHAPE inspiration: ignore its labels, black panels and unrelated rows. Draw ONLY this named effect. Exactly 6 equal adjacent frames in ONE horizontal row, no gutters. Occupancy and pixel block size must remain consistent across frames. Nature magic only, no character bodies.
+Exactly ONE horizontal sequence row. If the output canvas has extra height, leave that extra height transparent and place the complete animation strip across the middle. Never wrap frames into another row. No labels or separators. Preserve the requested number of frames.
+
+
+FILE: ivern_fx_e_burst.png
+INITIAL REFERENCES:
+C:\Users\OWNER\Documents\Codex\2026-10-22\codex-2\work\ivern_fx_pack\ivern_fx_pack\refs\lol_fx_ref.png
+INITIAL ACTUAL PROMPT:
+Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a leaf-green ramp (#FFFFFF, #F4FFB8, #C8F04A, #7CC828, #3E8A1E, #1C4A14), a golden sunlight ramp (#FFFFFF, #FFF8C8, #FFE070, #F2B830, #B8781A), a bark-brown ramp (#E8B878, #B87A3E, #7A4A22, #4A2A14).
+Effect: THE SEED BURSTING, 7 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side), the burst centred on the unit's chest (the cell's middle, a little above the bottom third): 1 a gold-white flash 8 across; 2 a round burst of green light 18 across with a bright rim; 3 the burst 30 across, sharp green thorn shards and leaves flying out at mirrored places, a green ring on the ground 32 wide and 8 tall; 4 the shards further out, the light fading to green; 5 leaves drifting and golden motes; 6 a few leaves falling; 7 two or three motes. everything is NATURE MAGIC: crisp leaves, curling vines and thorns, golden light-motes and petals, earthy dust; flat shades, each leaf with a lighter edge; no smooth neon energy.
+Layout: one horizontal row of 7 equal 36:32 cells, image size 4032x512 (each cell 576x512, 16 px a square); centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.
+
+Reference image contains only SHAPE inspiration: ignore its labels, black panels and unrelated rows. Draw ONLY this named effect. Exactly 7 equal adjacent frames in ONE horizontal row, no gutters. Occupancy and pixel block size must remain consistent across frames. Nature magic only, no character bodies.
+Exactly ONE horizontal sequence row. If the output canvas has extra height, leave that extra height transparent and place the complete animation strip across the middle. Never wrap frames into another row. No labels or separators. Preserve the requested number of frames.
+
+
+FILE: ivern_fx_e_slow.png
+INITIAL REFERENCES:
+C:\Users\OWNER\Documents\Codex\2026-10-22\codex-2\work\ivern_fx_pack\ivern_fx_pack\refs\lol_fx_ref.png
+INITIAL ACTUAL PROMPT:
+Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a leaf-green ramp (#FFFFFF, #F4FFB8, #C8F04A, #7CC828, #3E8A1E, #1C4A14), a bark-brown ramp (#E8B878, #B87A3E, #7A4A22, #4A2A14).
+Effect: CREEPERS ROUND THE FEET on the GROUND under the unit's feet (an ellipse seen from above, three times as wide as tall), 4 looping frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): a dark green patch 14 squares wide and 4 tall with four thin green creepers curling up 4-5 squares at mirrored places, a small leaf on each tip; the creepers sway a square in and out through the frames. everything is NATURE MAGIC: crisp leaves, curling vines and thorns, golden light-motes and petals, earthy dust; flat shades, each leaf with a lighter edge; no smooth neon energy.
+Layout: one horizontal row of 4 equal 16:10 cells, image size 1024x160 (each cell 256x160, 16 px a square); centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.
+
+Reference image contains only SHAPE inspiration: ignore its labels, black panels and unrelated rows. Draw ONLY this named effect. Exactly 4 equal adjacent frames in ONE horizontal row, no gutters. Occupancy and pixel block size must remain consistent across frames. Nature magic only, no character bodies.
+Exactly ONE horizontal sequence row. If the output canvas has extra height, leave that extra height transparent and place the complete animation strip across the middle. Never wrap frames into another row. No labels or separators. Preserve the requested number of frames.
+
+
+FILE: ivern_fx_q_vine.png
+INITIAL REFERENCES:
+C:\Users\OWNER\Documents\Codex\2026-10-22\codex-2\work\ivern_fx_pack\ivern_fx_pack\refs\lol_fx_ref.png
+INITIAL ACTUAL PROMPT:
+Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a leaf-green ramp (#FFFFFF, #F4FFB8, #C8F04A, #7CC828, #3E8A1E, #1C4A14), a bark-brown ramp (#E8B878, #B87A3E, #7A4A22, #4A2A14), a golden sunlight ramp (#FFFFFF, #FFF8C8, #FFE070, #F2B830, #B8781A).
+Effect: A THORNY VINE LASHING FORWARD, 4 looping frames, flying RIGHT, the trail behind it on the LEFT, SYMMETRIC TOP TO BOTTOM in every frame, square for square (the game turns the picture with its flight, so flying left it is upside down): a bright green-gold knot of light 5 squares across at the front, behind it a twisted bark-brown vine 2 squares thick and 20 squares long with small thorns and leaves sticking out at mirrored places above and below, a faint green trail at its far end; the twist shifts a square along the vine each frame. everything is NATURE MAGIC: crisp leaves, curling vines and thorns, golden light-motes and petals, earthy dust; flat shades, each leaf with a lighter edge; no smooth neon energy.
+Layout: one horizontal row of 4 equal 28:10 cells, image size 1792x160 (each cell 448x160, 16 px a square); centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.
+
+Reference image contains only SHAPE inspiration: ignore its labels, black panels and unrelated rows. Draw ONLY this named effect. Exactly 4 equal adjacent frames in ONE horizontal row, no gutters. Occupancy and pixel block size must remain consistent across frames. Nature magic only, no character bodies.
+Exactly ONE horizontal sequence row. If the output canvas has extra height, leave that extra height transparent and place the complete animation strip across the middle. Never wrap frames into another row. No labels or separators. Preserve the requested number of frames.
+
+
+FILE: ivern_fx_q_hit.png
+INITIAL REFERENCES:
+C:\Users\OWNER\Documents\Codex\2026-10-22\codex-2\work\ivern_fx_pack\ivern_fx_pack\refs\lol_fx_ref.png
+INITIAL ACTUAL PROMPT:
+Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a leaf-green ramp (#FFFFFF, #F4FFB8, #C8F04A, #7CC828, #3E8A1E, #1C4A14), a bark-brown ramp (#E8B878, #B87A3E, #7A4A22, #4A2A14), a golden sunlight ramp (#FFFFFF, #FFF8C8, #FFE070, #F2B830, #B8781A).
+Effect: VINES STRIKING, 5 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side), the champion hit stands in the middle, not drawn: 16 squares wide and 22 tall, fitting within the 24x24 frame: 1 a green-gold flash 8 across at the chest; 2 four thorny vines whipping in from the four diagonals toward the body, mirrored; 3 the vines curling round the body's edge (the body itself left empty), leaves bursting off; 4 the vines tightening, a few leaves falling; 5 the leaves and motes fading. everything is NATURE MAGIC: crisp leaves, curling vines and thorns, golden light-motes and petals, earthy dust; flat shades, each leaf with a lighter edge; no smooth neon energy.
+Layout: one horizontal row of 5 equal square cells, image size 1920x384 (each cell 384x384, 16 px a square); centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.
+
+Reference image contains only SHAPE inspiration: ignore its labels, black panels and unrelated rows. Draw ONLY this named effect. Exactly 5 equal adjacent frames in ONE horizontal row, no gutters. Occupancy and pixel block size must remain consistent across frames. Nature magic only, no character bodies.
+Exactly ONE horizontal sequence row. If the output canvas has extra height, leave that extra height transparent and place the complete animation strip across the middle. Never wrap frames into another row. No labels or separators. Preserve the requested number of frames.
+
+
+FILE: ivern_fx_q_root.png
+INITIAL REFERENCES:
+C:\Users\OWNER\Documents\Codex\2026-10-22\codex-2\work\ivern_fx_pack\ivern_fx_pack\refs\lol_fx_ref.png
+INITIAL ACTUAL PROMPT:
+Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a bark-brown ramp (#E8B878, #B87A3E, #7A4A22, #4A2A14), a leaf-green ramp (#FFFFFF, #F4FFB8, #C8F04A, #7CC828, #3E8A1E, #1C4A14).
+Effect: THORNY ROOTS BINDING THE LEGS, 4 looping frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): round the lower half of a standing unit (its legs in the middle, not drawn), three thick bark-brown thorny vines rising from the ground and wrapped round at 3 heights like loose bands (front halves only, each 14 squares wide), small green leaves and thorns on them, a ring of roots on the ground 18 wide and 5 tall; the bands squeeze a little tighter and loosen in turn through the frames. everything is NATURE MAGIC: crisp leaves, curling vines and thorns, golden light-motes and petals, earthy dust; flat shades, each leaf with a lighter edge; no smooth neon energy.
+Layout: one horizontal row of 4 equal square cells, image size 1280x320 (each cell 320x320, 16 px a square); centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.
+
+Reference image contains only SHAPE inspiration: ignore its labels, black panels and unrelated rows. Draw ONLY this named effect. Exactly 4 equal adjacent frames in ONE horizontal row, no gutters. Occupancy and pixel block size must remain consistent across frames. Nature magic only, no character bodies.
+Exactly ONE horizontal sequence row. If the output canvas has extra height, leave that extra height transparent and place the complete animation strip across the middle. Never wrap frames into another row. No labels or separators. Preserve the requested number of frames.
+
+
+FILE: ivern_fx_q_rush.png
+INITIAL REFERENCES:
+C:\Users\OWNER\Documents\Codex\2026-10-22\codex-2\work\ivern_fx_pack\ivern_fx_pack\refs\lol_fx_ref.png
+INITIAL ACTUAL PROMPT:
+Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a leaf-green ramp (#FFFFFF, #F4FFB8, #C8F04A, #7CC828, #3E8A1E, #1C4A14), a golden sunlight ramp (#FFFFFF, #FFF8C8, #FFE070, #F2B830, #B8781A).
+Effect: A LEAF WHIRL AT THE FEET on the GROUND under the unit's feet (an ellipse seen from above, three times as wide as tall), 4 looping frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): a swirl of small leaves and golden motes spinning round an ellipse 16 squares wide and 5 tall, a few streaks of green behind them, moving round a step each frame. everything is NATURE MAGIC: crisp leaves, curling vines and thorns, golden light-motes and petals, earthy dust; flat shades, each leaf with a lighter edge; no smooth neon energy.
+Layout: one horizontal row of 4 equal 18:8 cells, image size 1152x128 (each cell 288x128, 16 px a square); centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.
+
+Reference image contains only SHAPE inspiration: ignore its labels, black panels and unrelated rows. Draw ONLY this named effect. Exactly 4 equal adjacent frames in ONE horizontal row, no gutters. Occupancy and pixel block size must remain consistent across frames. Nature magic only, no character bodies.
+Exactly ONE horizontal sequence row. If the output canvas has extra height, leave that extra height transparent and place the complete animation strip across the middle. Never wrap frames into another row. No labels or separators. Preserve the requested number of frames.
+
+
+FILE: ivern_fx_r_dust.png
+INITIAL REFERENCES:
+C:\Users\OWNER\Documents\Codex\2026-10-22\codex-2\work\ivern_fx_pack\ivern_fx_pack\refs\lol_fx_ref.png
+INITIAL ACTUAL PROMPT:
+Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from an earth-dust ramp (#F0E2C4, #C8AE84, #96785A, #62503A, #3A2E22), a mossy rock ramp (#C8CCB4, #949A80, #646A54, #3C4034), a leaf-green ramp (#FFFFFF, #F4FFB8, #C8F04A, #7CC828, #3E8A1E, #1C4A14).
+Effect: EARTH BURSTING UP, 6 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side), the ground line on the bottom of the cell: 1 dark cracks in the ground, an oval 30 wide and 8 tall; 2 clods of earth and mossy rock chunks flying up and out to both sides, a dust cloud rising 10 squares; 3 the dust cloud 44 wide and 18 tall, rocks at their highest; 4 the rocks falling, the dust rolling out low; 5 a low ring of dust 46 wide; 6 thin wisps. Dust is soft round puffs in flat shades. everything is NATURE MAGIC: crisp leaves, curling vines and thorns, golden light-motes and petals, earthy dust; flat shades, each leaf with a lighter edge; no smooth neon energy.
+Layout: one horizontal row of 6 equal 48:24 cells, image size 4608x384 (each cell 768x384, 16 px a square); centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.
+
+Reference image contains only SHAPE inspiration: ignore its labels, black panels and unrelated rows. Draw ONLY this named effect. Exactly 6 equal adjacent frames in ONE horizontal row, no gutters. Occupancy and pixel block size must remain consistent across frames. Nature magic only, no character bodies.
+Exactly ONE horizontal sequence row. If the output canvas has extra height, leave that extra height transparent and place the complete animation strip across the middle. Never wrap frames into another row. No labels or separators. Preserve the requested number of frames.
+
+SELECTED REPAIR PROMPT:
+Create ONE pixel-art animation sprite sheet of EARTH DUST AND MOSSY ROCKS ONLY, exactly SIX successive frames in ONE horizontal row with six equal cells. This is an underground rock golem emerging; do NOT draw the golem. First reference is previous rejected effect: replace ALL its leaves, vines, plants and yellow magical rays with SOIL, dust CLOUD PUFFS and rock chips. Second reference shapes are inspiration only. Frame1 low brown cracked ellipse; frame2 earth clods and mossy gray rock chips rising; frame3 large rounded tan/cream dust cloud, rocks highest; frame4 rocks falling and dust rolling outward low; frame5 very low wide dust ring; frame6 only a few fading dust wisps. NO leaves, flowers, vines, green magical tendrils, sprouts, beams, stars, or energy explosion. Muted earth palette #F0E2C4 #C8AE84 #96785A #62503A #3A2E22 and moss-gray rocks #C8CCB4 #949A80 #646A54 #3C4034 with small green moss patches #7CC828 #3E8A1E. Bright cream highlights on dust, NO black outlines. Ground seen obliquely, low oval, each cell48 logical pixels wide24high, chunky square pixels, flat 3-4 shades, no gradients/glows/antialiasing. Six equal cells 768x384 each, total4608x384; if constrained leave extra canvas height transparent, all six frames across center of canvas. Perfect left-right symmetry within EACH frame. Genuine transparent background, no floor, no text/lines/borders. Keep generous separation between frame silhouettes.
+
+
+FILE: ivern_fx_r_shock.png
+INITIAL REFERENCES:
+C:\Users\OWNER\Documents\Codex\2026-10-22\codex-2\work\ivern_fx_pack\ivern_fx_pack\refs\lol_fx_ref.png
+INITIAL ACTUAL PROMPT:
+Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from an earth-dust ramp (#F0E2C4, #C8AE84, #96785A, #62503A, #3A2E22), a mossy rock ramp (#C8CCB4, #949A80, #646A54, #3C4034), a golden sunlight ramp (#FFFFFF, #FFF8C8, #FFE070, #F2B830, #B8781A).
+Effect: A GROUND SHOCKWAVE, 6 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side), on the GROUND under the unit's feet (an ellipse seen from above, three times as wide as tall), centred: 1 a bright gold-white crack-star on the ground 12 wide; 2 a ring of jagged rock slabs jutting up round it, 26 wide and 9 tall, dust puffs at their bases; 3 the ring 44 wide, the slabs tilting out, rock chips flying; 4 the ring 54 wide and low, dust rolling; 5 the slabs sinking, a faint dust ring; 6 a few chips and wisps. everything is NATURE MAGIC: crisp leaves, curling vines and thorns, golden light-motes and petals, earthy dust; flat shades, each leaf with a lighter edge; no smooth neon energy.
+Layout: one horizontal row of 6 equal 56:24 cells, image size 5376x384 (each cell 896x384, 16 px a square); centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.
+
+Reference image contains only SHAPE inspiration: ignore its labels, black panels and unrelated rows. Draw ONLY this named effect. Exactly 6 equal adjacent frames in ONE horizontal row, no gutters. Occupancy and pixel block size must remain consistent across frames. Nature magic only, no character bodies.
+Exactly ONE horizontal sequence row. If the output canvas has extra height, leave that extra height transparent and place the complete animation strip across the middle. Never wrap frames into another row. No labels or separators. Preserve the requested number of frames.
+
+
+FILE: ivern_fx_r_hit.png
+INITIAL REFERENCES:
+C:\Users\OWNER\Documents\Codex\2026-10-22\codex-2\work\ivern_fx_pack\ivern_fx_pack\refs\lol_fx_ref.png
+INITIAL ACTUAL PROMPT:
+Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a mossy rock ramp (#C8CCB4, #949A80, #646A54, #3C4034), an earth-dust ramp (#F0E2C4, #C8AE84, #96785A, #62503A, #3A2E22), a leaf-green ramp (#FFFFFF, #F4FFB8, #C8F04A, #7CC828, #3E8A1E, #1C4A14).
+Effect: A STONE PUNCH LANDING, 4 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): 1 a white flash 5 across; 2 grey-green rock chips and dust bursting out 14 across at mirrored places; 3 the chips further out, a moss fleck or two; 4 dust wisps. everything is NATURE MAGIC: crisp leaves, curling vines and thorns, golden light-motes and petals, earthy dust; flat shades, each leaf with a lighter edge; no smooth neon energy.
+Layout: one horizontal row of 4 equal square cells, image size 1024x256 (each cell 256x256, 16 px a square); centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.
+
+Reference image contains only SHAPE inspiration: ignore its labels, black panels and unrelated rows. Draw ONLY this named effect. Exactly 4 equal adjacent frames in ONE horizontal row, no gutters. Occupancy and pixel block size must remain consistent across frames. Nature magic only, no character bodies.
+Exactly ONE horizontal sequence row. If the output canvas has extra height, leave that extra height transparent and place the complete animation strip across the middle. Never wrap frames into another row. No labels or separators. Preserve the requested number of frames.
+

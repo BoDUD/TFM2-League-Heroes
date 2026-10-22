@@ -1,0 +1,14 @@
+{
+  "ivern_fx_e_burst.png": {
+    "crop": [0, 210, 2032, 574],
+    "frame_x_edges": [0, 225, 460, 852, 1218, 1500, 1790, 2032],
+    "frame_centers_x": [128, 340, 658, 1043, 1350, 1640, 1895],
+    "canvas_source_width": 410
+  },
+  "ivern_fx_r_shock.png": {
+    "crop": [0, 360, 1484, 660],
+    "frame_x_edges": [0, 154, 365, 682, 1025, 1305, 1484],
+    "frame_centers_x": [86, 255, 520, 855, 1160, 1390],
+    "canvas_source_width": 400
+  }
+}
