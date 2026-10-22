@@ -477,8 +477,8 @@ RESTYLE = {
     # pixel: 「艾翁蘑菇顶到脚底 40 游戏像素 … PPU 1.5，只做四分之三侧面」) with Codex's key poses (the design's head put back,
     # the standing poses' legs drawn again at the design's chibi length) posed by tools/art/rig_ivern.py after League's
     # clips, so no proportion or density change here; the outer outline grown a square like the others; the face point
-    # between his eyes (4 game px ahead of his standing point, 28 over the ground)
-    "ivern": dict(ppu=1.5, edge=1, face_to=(4, -28)),
+    # between his eyes (4 game px ahead of his standing point, 29 over the ground)
+    "ivern": dict(ppu=1.5, edge=1, face_to=(4, -29)),
     # league_heimerdinger: the design (Codex's step-1 A-2 cut to the user's 54 rows at 1.5 squares a game pixel: 「36」
     # 「PPU 1.5」, 3/4 only) with Codex's whole-body poses (the design's head pasted back) and the backpack crane / R's gear
     # props, posed by tools/art/rig_heimerdinger.py after League's clips, so no proportion or density change here; the

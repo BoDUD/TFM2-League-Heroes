@@ -33,9 +33,11 @@ it `league_ivern_in_brush` for Rengar's (league_rengar_bush: he pounces from it)
 add-ons.
 Timings: drafts until the frames exist (a frame's start in ticks = ms x 0.06): a_rel, e_rel, q_rel, r_rel.
 Numbers: League 16.20 (CommunityDragon ivern.bin) read into the jungle range; balanced on the classic-SDK simulations
-(kd.py --lane 1 against ninja, demon, hunter, werewolf and vampire, C:/t/iv_sim, 2026-10-22): the draft +0.88 on
-seeds 1-8 and +1.95 on 9-16 (+1.42; league_hwei +1.44 on 1-16, base hunter +0.59 on 1-8 the same day); he farms
-slowly (34 cs a game against the base hunter's 48) and wins on his allies' fights (4.9 assists).
+(kd.py --lane 1 against ninja, demon, hunter, werewolf and vampire, C:/t/iv_sim, 2026-10-22): the draft (Q 70 + 55%,
+root 80 ticks) +0.88 on seeds 1-8 and +1.95 on 9-16 (+1.42; league_hwei +1.44 on 1-16, base hunter +0.59 on 1-8 the
+same day); with the views and timings final and the root 90 ticks +2.67, root back to 80 +1.79, Q 55 + 45% and root 75
++1.35; P (Q 60 + 50%, root 75 = 1.25 s) +1.74 on 1-8 and +1.57 on 9-16 (+1.66; league_hwei's final +1.60). He farms
+slowly (33 cs a game against the base hunter's 48) and wins on his allies' fights (5.4 assists).
 """
 import argparse
 import json
@@ -63,8 +65,8 @@ P = {
     "e_cd": 540, "e_range": 50000, "e_dur": 24, "e_rel": 9, "e_ally": 45000,
     "e_sh": 60, "e_sh_r": 45, "e_t": 120, "e_r": 22000, "e_dmg": 50, "e_ratio": 50, "e_slow": 50, "e_slow_t": 90,
     # skill2: Q Rootcaller
-    "q_cd": 660, "q_range": 75000, "q_dur": 26, "q_rel": 10, "q_speed": 4500, "q_dmg": 70, "q_ratio": 55,
-    "q_root": 90, "q_ally": 60000, "q_ms": 35, "q_ms_t": 90,
+    "q_cd": 660, "q_range": 75000, "q_dur": 26, "q_rel": 10, "q_speed": 4500, "q_dmg": 60, "q_ratio": 50,
+    "q_root": 75, "q_ally": 60000, "q_ms": 35, "q_ms_t": 90,
     # ult: Daisy!
     "r_cd": 2400, "r_range": 70000, "r_dur": 34, "r_rel": 14, "r_drop": 60, "r_drop_r": 40, "r_up": 50,
     "r_t": 481, "r_per": 60, "r_dmg": 25, "r_ratio": 20, "r_slam": 40, "r_slam_r": 30, "rq_gap": 8,

@@ -776,8 +776,8 @@
               },
               "effect_none": {
                 "type": "ApAttack",
-                "damage": 70,
-                "attack_ratio": 55,
+                "damage": 60,
+                "attack_ratio": 50,
                 "hp_ratio": 0,
                 "can_crit": false
               }
@@ -904,8 +904,8 @@
                                       "casting_type": "Targeting",
                                       "effect": {
                                         "type": "ApAttack",
-                                        "damage": 70,
-                                        "attack_ratio": 55,
+                                        "damage": 60,
+                                        "attack_ratio": 50,
                                         "hp_ratio": 0,
                                         "can_crit": false
                                       }
@@ -914,7 +914,7 @@
                                       "casting_type": "Targeting",
                                       "effect": {
                                         "type": "Bind",
-                                        "duration": 90
+                                        "duration": 75
                                       }
                                     },
                                     {
@@ -925,7 +925,7 @@
                                           "name": "league_ivern_q_root",
                                           "duration": {
                                             "Time": {
-                                              "tick": 90
+                                              "tick": 75
                                             }
                                           }
                                         }
@@ -1773,14 +1773,14 @@
                                       },
                                       {
                                         "type": "ApAttack",
-                                        "damage": 70,
-                                        "attack_ratio": 55,
+                                        "damage": 60,
+                                        "attack_ratio": 50,
                                         "hp_ratio": 0,
                                         "can_crit": false
                                       },
                                       {
                                         "type": "Bind",
-                                        "duration": 90
+                                        "duration": 75
                                       },
                                       {
                                         "type": "AddBuff",
@@ -1788,7 +1788,7 @@
                                           "name": "league_ivern_q_root",
                                           "duration": {
                                             "Time": {
-                                              "tick": 90
+                                              "tick": 75
                                             }
                                           }
                                         }

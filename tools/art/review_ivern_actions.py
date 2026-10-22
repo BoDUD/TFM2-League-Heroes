@@ -11,7 +11,8 @@ the front. Writes <out>/ivern_<tag>_vs_lol.gif and .png, and <out>/ivern_all_vs_
 twice), Daisy's after his, one picture to review (memory one-gif-review). 3/4 view (yaw 35) for every tag of his: the
 user, 「只做四分之三侧面」; Daisy from the front (yaw 0).
 --sheet: his are the exported sheet's hd_ frames (league/champions/league_ivern#sheet.png, what the game draws: after
-ppu_restyle's outline and ppu_hd), each laid on its frame centre, instead of the rig's frames.
+ppu_restyle's outline and ppu_hd), each laid on its frame centre, instead of the rig's frames - the idle as hero_reels'
+reel and the ban/pick card's reel (bp) too.
 """
 import argparse
 import json
@@ -31,6 +32,7 @@ import rig_ivern as Z  # noqa: E402
 CLIPS = {"idle": ("Ivern_Idle1", 0, 0.0), "run": ("Ivern_Run_base", 0, 1.26), "attack": ("Ivern_attack01", 0.25, 0.9),
          "skill": ("Ivern_spell3_Idle_Fwd", 0.0, 0.9), "skill2": ("Ivern_Spell1", 0.1, 0.33),
          "ult": ("Ivern_spell4", 0.0, 1.2), "hit": ("Ivern_Idle1", 0, 0.1), "dead": ("Ivern_death", 0.6, 2.0),
+         "bp": ("Ivern_Idle1", 0, 0.0),           # the ban/pick card's reel (hero_reels; --sheet only)
          # Daisy's sheets (IvernMinion, from the front)
          "daisy_drop": ("IvernMinion_spawn", 0.3, 1.2), "daisy_punch": ("IvernMinion_Attack1", 0.0, 0.8),
          "daisy_slam": ("IvernMinion_Attack3", 0.0, 1.0), "daisy_bye": ("IvernMinion_despawn", 0.0, 0.45)}
@@ -77,7 +79,7 @@ def sheet_frames(rig):
     sheet = np.asarray(Image.open(R.lp(stem + "#sheet.png")).convert("RGBA"))
     cx, cy = rig.CX, rig.GY - R.FEET * Z.PPU
     out = {}
-    for tag in Z.MS:
+    for tag in list(Z.MS) + ["bp"]:                      # idle is hero_reels' reel here, bp the card's
         fr = []
         for f in anims["hd_" + tag]["frames"]:
             d = f["data"]

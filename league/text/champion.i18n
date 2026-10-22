@@ -1083,7 +1083,7 @@
         "name": "艾翁",
         "attack": "扔出一颗种子。<#ff9028ff>揠苗助攻<>：每次种豆得瓜都在脚下长出草丛<#ffb900ff>4秒<>，草丛里的队友攻击+15%，他自己的普攻追加<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<>魔法伤害。",
         "skill": "给身边的队友（没有就给自己）种下种子：<#66bb6aff>护盾<><#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<>，<#ffb900ff>2秒<>后爆开，对周围敌人造成<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>魔法伤害并减速50%。",
-        "skill2": "甩出荆棘藤，造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<>魔法伤害并<#ef5350ff>禁锢<><#ffb900ff>1.5秒<>；身边的队友移速+35%冲过去。",
+        "skill2": "甩出荆棘藤，造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>魔法伤害并<#ef5350ff>禁锢<><#ffb900ff>1.25秒<>；身边的队友移速+35%冲过去。",
         "ult": "召唤<#ff9028ff>小菊<>落到敌方英雄身上，<#ef5350ff>击飞<>并造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>魔法伤害；之后<#ffb900ff>8秒<>内每秒一拳<#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>，每第三拳砸地再加<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>并<#ef5350ff>击飞<>。"
       }
     },
@@ -2949,7 +2949,7 @@
         "name": "埃爾文",
         "attack": "扔出一顆種子。<#ff9028ff>茂林春生<>：每次施放守護種子都在腳下長出草叢<#ffb900ff>4秒<>，草叢裡的隊友攻擊+15%，他自己的普攻追加<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<>魔法傷害。",
         "skill": "替身邊的隊友（沒有就替自己）種下種子：<#66bb6aff>護盾<><#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<>，<#ffb900ff>2秒<>後爆開，對周圍敵人造成<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>魔法傷害並緩速50%。",
-        "skill2": "甩出荊棘藤，造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<>魔法傷害並<#ef5350ff>定身<><#ffb900ff>1.5秒<>；身邊的隊友移速+35%衝過去。",
+        "skill2": "甩出荊棘藤，造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>魔法傷害並<#ef5350ff>定身<><#ffb900ff>1.25秒<>；身邊的隊友移速+35%衝過去。",
         "ult": "召喚<#ff9028ff>黛西<>落到敵方英雄身上，<#ef5350ff>擊飛<>並造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>魔法傷害；之後<#ffb900ff>8秒<>內每秒一拳<#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>，每第三拳砸地再加<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>並<#ef5350ff>擊飛<>。"
       }
     },
@@ -4815,7 +4815,7 @@
         "name": "Ivern",
         "attack": "Throws a seed. <#ff9028ff>Brushmaker<>: each Triggerseed grows a brush at his feet for <#ffb900ff>4s<>; allies in it gain +15% attack and his own attacks deal <#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<> magic damage more.",
         "skill": "Plants a seed on the ally beside him (else on himself): a <#66bb6aff>shield<> of <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<> that bursts after <#ffb900ff>2s<>, dealing <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> magic damage to the enemies around and slowing them 50%.",
-        "skill2": "Lashes out a vine: <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<> magic damage and a <#ef5350ff>root<> for <#ffb900ff>1.5s<>; the allies beside him rush in with +35% move speed.",
+        "skill2": "Lashes out a vine: <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> magic damage and a <#ef5350ff>root<> for <#ffb900ff>1.25s<>; the allies beside him rush in with +35% move speed.",
         "ult": "Calls <#ff9028ff>Daisy<> down on an enemy champion: a <#ef5350ff>knock-up<> and <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<> magic damage, then a punch every second for <#ffb900ff>8s<> (<#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>), every third a slam for <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> more that <#ef5350ff>knocks up<>."
       }
     },
@@ -6681,7 +6681,7 @@
         "name": "아이번",
         "attack": "씨앗을 던진다. <#ff9028ff>수풀 가꾸기<>: 보호의 씨앗마다 발밑에 수풀이 <#ffb900ff>4초<> 자라 안의 아군 공격력 +15%, 그의 기본 공격은 <#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<> 마법 피해 추가.",
         "skill": "곁의 아군(없으면 자신)에게 씨앗을 심는다: <#66bb6aff>보호막<> <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<>, <#ffb900ff>2초<> 뒤 터져 주변 적에게 <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> 마법 피해와 50% 둔화.",
-        "skill2": "덩굴을 휘둘러 <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<> 마법 피해와 <#ffb900ff>1.5초<> <#ef5350ff>속박<>; 곁의 아군은 이동 속도 +35%로 달려든다.",
+        "skill2": "덩굴을 휘둘러 <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> 마법 피해와 <#ffb900ff>1.25초<> <#ef5350ff>속박<>; 곁의 아군은 이동 속도 +35%로 달려든다.",
         "ult": "<#ff9028ff>데이지<>를 적 챔피언 위에 불러 <#ef5350ff>공중에 띄우고<> <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<> 마법 피해, 이후 <#ffb900ff>8초<> 동안 매초 주먹 <#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>, 세 번째마다 내려찍어 <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> 추가와 <#ef5350ff>에어본<>."
       }
     },
@@ -8547,7 +8547,7 @@
         "name": "アイバーン",
         "attack": "種を投げる。<#ff9028ff>シゲミヅクリ<>：タネバクダンのたびに足元へ茂みが<#ffb900ff>4秒<>生え、中の味方は攻撃力+15%、自身の通常攻撃は<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<>の魔法ダメージを追加。",
         "skill": "そばの味方（いなければ自身）に種を植える：<#66bb6aff>シールド<><#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<>、<#ffb900ff>2秒<>後に弾けて周囲の敵に<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>の魔法ダメージと50%スロウ。",
-        "skill2": "ツタを振るい<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<>の魔法ダメージと<#ffb900ff>1.5秒<><#ef5350ff>スネア<>。そばの味方は移動速度+35%で駆けつける。",
+        "skill2": "ツタを振るい<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>の魔法ダメージと<#ffb900ff>1.25秒<><#ef5350ff>スネア<>。そばの味方は移動速度+35%で駆けつける。",
         "ult": "<#ff9028ff>デイジー<>を敵英雄の上に呼び<#ef5350ff>ノックアップ<>と<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>の魔法ダメージ、その後<#ffb900ff>8秒<>毎秒パンチ<#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>、3発ごとに叩きつけて<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>追加と<#ef5350ff>ノックアップ<>。"
       }
     },
