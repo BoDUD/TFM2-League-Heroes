@@ -280,6 +280,73 @@ def fold(leg_cells, outline=O):
 # bow_d: (dx, dy) more for the bow piece; hand: the turned near arm's fingertips' column (None: hanging); arm_k: the
 # hanging arm's swing (columns at the claw); arrow / string: drawn; scarf: the tail's sway (columns at its end);
 # legs: None (as drawn) or {"near" | "far": (hip, knee, ankle, boot)} with "lean" / "sink" for the body over them.
+def arm_rows(d, M, r0, r1):
+    """The near arm's design rows r0..r1 cut out (its own columns), and that piece's left column."""
+    arm, (ax, ay) = piece(d, M["near"])
+    return arm[r0 - ay:r1 - ay + 1].copy(), ax
+
+
+def arm_turned(f, d, M, h, ya, bx, by):
+    """The whole arm turned level (a transpose, its lit side up), the forearm sliding back along the upper arm."""
+    arm, (ax, ay) = piece(d, M["near"])
+    T = arm.transpose(1, 0, 2)                          # rows = the arm's columns (lit side up), columns = its rows
+    e = ELBOW - ARM_TOP
+    upper, fore = T[:, :e], T[:, e:]
+    row0 = ARM_ROW0 + (ax - ARM_X0) + by
+    fx0 = int(h) - fore.shape[1] + 1                    # the forearm's elbow end
+    shoulder = 13 + bx
+    if fx0 >= shoulder + upper.shape[1]:
+        f.stamp(T, fx0 - upper.shape[1], row0)          # the arm straight out
+    else:
+        if fx0 >= shoulder:
+            f.stamp(upper, shoulder, row0)
+        else:
+            f.stamp(upper[:, ::-1], fx0 - upper.shape[1] + 1, row0)     # the elbow back past the shoulder
+        f.stamp(fore, fx0, row0)
+
+
+def arm_drop(f, d, M, h, ya, bx, by):
+    """The upper arm as drawn, hanging from the shoulder; the forearm and claw (rows ELBOW_DROP on) turned level from
+    the elbow to the string (a transpose: the claw's fingers forward)."""
+    up, ax = arm_rows(d, M, ARM_TOP, ELBOW_DROP - 1)
+    f.stamp(up, ax + bx, ARM_TOP + by)
+    fore, _ = arm_rows(d, M, ELBOW_DROP, 46)
+    T = fore.transpose(1, 0, 2)
+    f.stamp(T, int(h) - T.shape[1] + 1, ya - (14 - ax))
+
+
+def arm_hang(f, d, M, h, ya, bx, by):
+    """The upper arm as drawn; the wrist turned level from the elbow; the claw as drawn (fingers down) at its end, on
+    the string."""
+    up, ax = arm_rows(d, M, ARM_TOP, ELBOW_DROP - 1)
+    f.stamp(up, ax + bx, ARM_TOP + by)
+    wrist, _ = arm_rows(d, M, ELBOW_DROP, 39)
+    claw, _ = arm_rows(d, M, 40, 46)
+    W = wrist.transpose(1, 0, 2)
+    cx0 = int(h) - claw.shape[1] + 1
+    f.stamp(W, cx0 - W.shape[1] + 2, ya - (14 - ax))
+    f.stamp(claw, cx0, ya - 2)
+
+
+def arm_bent(f, d, M, h, ya, bx, by):
+    """The upper arm as drawn (rows ARM_TOP..ELBOW-1) hanging from the shoulder, its foot sheared forward to the elbow
+    when the hand reaches past it; the forearm and claw (ELBOW on) turned level (a transpose, the lit side up) from the
+    elbow to the string."""
+    up, ax = arm_rows(d, M, ARM_TOP, ELBOW - 1)
+    fore, _ = arm_rows(d, M, ELBOW, 46)
+    T = fore.transpose(1, 0, 2)
+    fx0 = int(h) - T.shape[1] + 1                       # the forearm's elbow end
+    k = max(0, fx0 - (ax + 3) - bx)                      # the elbow ahead of where the upper arm hangs
+    img, pad = sheared(up, k, pivot_row=0)
+    f.stamp(img, ax - pad + bx, ARM_TOP + by)
+    f.stamp(T, fx0, ya - (14 - ax))
+
+
+ELBOW_DROP = 36                 # arm_drop / arm_hang: the near arm's rows above hang as drawn, the rest turns level
+ARMS = {"turned": arm_turned, "drop": arm_drop, "hang": arm_hang, "bent": arm_bent}
+ARM = "bent"                    # the drawing arm (the user: 「左手拉弓箭有点变形」 on "turned": a bar across his belly, the elbow a pink lump)
+
+
 def compose(d, M, legs_lib, pose):
     f = Frame(d)
     dx, dy = pose.get("dx", 0), pose.get("dy", 0)
@@ -342,22 +409,8 @@ def compose(d, M, legs_lib, pose):
         for i, (top, bot) in enumerate(((-1, 2), (-1, 2), (0, 1))):
             for y in range(ya + top, ya + bot + 1):
                 over[(x1 + 1 + i, y)] = HEADC[0] if top <= y - ya < bot else HEADC[1]
-    arm, (ax, ay) = piece(d, M["near"])
-    T = arm.transpose(1, 0, 2)                          # rows = the arm's columns (lit side up), columns = its rows
-    e = ELBOW - ARM_TOP
-    upper, fore = T[:, :e], T[:, e:]
-    row0 = ARM_ROW0 + (ax - ARM_X0) + by
-    fx0 = int(h) - fore.shape[1] + 1                    # the forearm's elbow end
-    shoulder = 13 + bx
     was = f.a.copy()
-    if fx0 >= shoulder + upper.shape[1]:
-        f.stamp(T, fx0 - upper.shape[1], row0)          # the arm straight out
-    else:
-        if fx0 >= shoulder:
-            f.stamp(upper, shoulder, row0)
-        else:
-            f.stamp(upper[:, ::-1], fx0 - upper.shape[1] + 1, row0)     # the elbow back past the shoulder
-        f.stamp(fore, fx0, row0)
+    ARMS[pose.get("arm", ARM)](f, d, M, h, ya, bx, by)
     ys, xs = np.nonzero((f.a != was).any(-1))
     arm_sq = set(zip((xs - PAD).tolist(), (ys - PAD).tolist()))
     over = {q: c for q, c in over.items() if q not in arm_sq}
