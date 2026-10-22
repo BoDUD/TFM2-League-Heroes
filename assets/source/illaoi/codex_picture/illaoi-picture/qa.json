@@ -1,0 +1,29 @@
+[
+  {
+    "File": "illaoi-A.png",
+    "Width": 1254,
+    "Height": 1254,
+    "Transparent": 1129615,
+    "PartialAlpha": 440911,
+    "Opaque": 1990,
+    "BBox": "0,21,1189,1253"
+  },
+  {
+    "File": "illaoi-SA.png",
+    "Width": 1254,
+    "Height": 1254,
+    "Transparent": 1324265,
+    "PartialAlpha": 247293,
+    "Opaque": 958,
+    "BBox": "17,37,1213,1253"
+  },
+  {
+    "File": "illaoi-T.png",
+    "Width": 1254,
+    "Height": 1254,
+    "Transparent": 1196990,
+    "PartialAlpha": 373876,
+    "Opaque": 1650,
+    "BBox": "48,108,1191,1253"
+  }
+]
