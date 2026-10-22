@@ -288,12 +288,15 @@ pub const HEROES: &[(&str, f32, &str)] = &[
 /// lift_sq: 11.5 x 1.5 x (1 / 0.9 - 1) = 1.9) so her tail stays on the ground.
 /// Hwei: 85 % (the user, 2026-10-22: 「画师局内有点大 可以调小一点」, 0.85 picked of 0.9 / 0.85 / 0.8), his frames 3 squares
 /// lower (RESTYLE hwei lift_sq: 11.5 x 1.5 x (1 / 0.85 - 1) = 3.0).
+/// K'Sante: 90 % (the user, 2026-10-22: 「奎桑提的模型在游戏局内也太大了」, 0.9 picked of 0.9 / 0.85 / 0.8), his frames 2
+/// squares lower (RESTYLE ksante lift_sq: 11.5 x 1.2 x (1 / 0.9 - 1) = 1.5).
 pub const SIZES: &[(&str, f32)] = &[("league_gragas", 0.90), ("league_zeri", 1.05), ("league_kassadin", 1.00),
                                     ("league_braum", 0.95), ("league_mordekaiser", 1.10),
                                     ("league_irelia", 1.05), ("league_soraka", 1.10), ("league_galio", 1.10), ("league_nilah", 0.90),
                                     ("league_corki", 0.90), ("league_malzahar", 1.15), ("league_aphelios", 0.90),
                                     ("league_poppy", 0.85), ("league_yuumi", 0.75), ("league_wukong", 1.15),
-                                    ("tft_powder", 0.90), ("league_nami", 0.90), ("league_hwei", 0.85)];
+                                    ("tft_powder", 0.90), ("league_nami", 0.90), ("league_hwei", 0.85),
+                                    ("league_ksante", 0.90)];
 
 /// Heroes whose body grows with a stack: (id, the buff whose instances on him are the stacks, growth a stack). Cho'Gath's
 /// Feast (the user, 2026-10-19: 「变大可以无限 加生命」): every champion it eats is one more Permanent `league_chogath_r_stack`

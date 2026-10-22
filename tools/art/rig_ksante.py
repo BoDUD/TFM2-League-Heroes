@@ -119,7 +119,8 @@ class Canvas:
 
 # ms per frame; the kit's ticks come from these (a frame's start in ticks = ms x 0.06)
 MS = {
-    "idle": [1000], "hit": [100, 100], "run": [110, 110, 110, 110],
+    # the runs 150 ms a frame (2026-10-22, 「走路跳动频率太高 和之前索拉卡一样」: 110 made a 0.44 s cycle; Soraka's fix was 150)
+    "idle": [1000], "hit": [100, 100], "run": [150, 150, 150, 150],
     "attack": [80, 87, 100, 100, 100],              # the strike at 167 ms = a_hit 10
     "skill": [80, 87, 120, 80, 66],                 # Q1: the slam at 167 ms = q_at 10; 433 ms = q_dur 26
     "skill_b": [80, 87, 120, 80, 66],               # Q2: the same timing
@@ -129,7 +130,7 @@ MS = {
     "ult": [90, 110, 150, 217],                     # R's bash at 200 ms = r_at 12; 567 ms = r_dur 34
     "ult_dash": [120, 120, 127],                    # the chase: 367 ms = r_dash_dur 22
     "dead": [150, 150, 250, 600],
-    "ao_idle": [1000], "ao_hit": [100, 100], "ao_run": [110, 110, 110, 110],
+    "ao_idle": [1000], "ao_hit": [100, 100], "ao_run": [150, 150, 150, 150],
     "ao_attack": [80, 87, 120, 100, 80],            # the sweep at 167 ms = a_hit 10
     "ao_skill": [80, 87, 150, 50, 66],              # the smash at 167 ms = q_at 10
     "ao_skill_b": [80, 87, 150, 50, 66],
