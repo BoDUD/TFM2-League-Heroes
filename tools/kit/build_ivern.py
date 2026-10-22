@@ -60,10 +60,11 @@ P = {
     "e_sh": 60, "e_sh_r": 45, "e_t": 120, "e_r": 22000, "e_dmg": 50, "e_ratio": 50, "e_slow": 50, "e_slow_t": 90,
     # skill2: Q Rootcaller
     "q_cd": 660, "q_range": 75000, "q_dur": 26, "q_rel": 10, "q_speed": 4500, "q_dmg": 70, "q_ratio": 55,
-    "q_root": 80, "q_ally": 60000, "q_ms": 35, "q_ms_t": 90,
+    "q_root": 90, "q_ally": 60000, "q_ms": 35, "q_ms_t": 90,
     # ult: Daisy!
     "r_cd": 2400, "r_range": 70000, "r_dur": 34, "r_rel": 14, "r_drop": 60, "r_drop_r": 40, "r_up": 50,
     "r_t": 481, "r_per": 60, "r_dmg": 25, "r_ratio": 20, "r_slam": 40, "r_slam_r": 30, "rq_gap": 8,
+    "r_hit_at": 21, "r_slam_at": 24,     # the fist landing on her swing's frames (rig_ivern.py DAISY_MS)
     # his spoken lines, at most one every vo_gap ticks
     "vo_gap": 600,
 }
@@ -217,7 +218,7 @@ def build(p):
     # ------------------------------------------------------------------ passive: Brushmaker (grown by every E)
     # the allies standing in it as it grows keep the bonus for its life (a zone on `AllyChampion` gave nobody a buff
     # in the classic engine's trace, 2026-10-22)
-    brush = combine(view("w_brush"), sfx("w"), refresh("w_in", p["w_t"]),
+    brush = combine(on_me(view("w_brush")), sfx("w"), refresh("w_in", p["w_t"]),
                     around(p["w_r"], "AllyNotSelf", [buff("w_buff", p["w_t"], attack_mult=p["w_atk"])]))
 
     # ------------------------------------------------------------------ attack: a thrown seed
@@ -244,7 +245,7 @@ def build(p):
                                                   delayed(p["e_t"], alive(around(p["e_r"], "EnemyWithoutTower", [
                                                       ap(p["e_dmg"], p["e_ratio"]),
                                                       buff("e_slow", p["e_slow_t"], move_speed_mult=-p["e_slow"]),
-                                                      tsfx("e_hit")]), view("e_burst_me"), sfx("e_burst"))))),
+                                                      tsfx("e_hit")]), on_me(view("e_burst_me")), sfx("e_burst"))))),
                        *rm("e_ally"))
 
     def e_cast():
@@ -277,8 +278,11 @@ def build(p):
     # ------------------------------------------------------------------ ult: Daisy!
     up = {"type": "Airborne", "duration": p["r_up"]}
     # the count of her punches lives on him (d1, d2): punch, punch, slam
-    punch = combine(ap(p["r_dmg"], p["r_ratio"]), view("r_punch"), tsfx("r_punch"))
-    slam = combine(ap(p["r_dmg"] + p["r_slam"], p["r_ratio"] + p["r_slam_r"]), up, view("r_slam"), tsfx("r_slam"))
+    # each run plays her 1 s swing (her own sheet) and hits when the fist lands on her frames
+    punch = combine(view("r_punch"), delayed(p["r_hit_at"], ap(p["r_dmg"], p["r_ratio"]), view("r_hit"),
+                                             tsfx("r_punch")))
+    slam = combine(view("r_slam"), delayed(p["r_slam_at"], ap(p["r_dmg"] + p["r_slam"], p["r_ratio"] + p["r_slam_r"]),
+                                           up, view("r_shock"), view("r_hit"), tsfx("r_slam")))
     count = sw("d2", combine(*rm("d1", "d2"), slam),
                sw("d1", combine(*rm("d1"), flag("d2", None), punch), combine(flag("d1", None), punch)))
     # R -> Q: the vine on the champion Daisy dropped on, if Q is ready
@@ -286,8 +290,9 @@ def build(p):
                                                      view("q_hit"), tsfx("q_hit"), ap(p["q_dmg"], p["q_ratio"]),
                                                      {"type": "Bind", "duration": p["q_root"]},
                                                      buff("q_root", p["q_root"]))))
-    drop = [ap(p["r_drop"], p["r_drop_r"]), up, view("r_drop"), tsfx("r_drop"),
-            casted("Bleed", p["r_t"], p["r_per"], count), rq]
+    drop = [ap(p["r_drop"], p["r_drop_r"]), up, view("r_drop"), view("r_dust"), tsfx("r_drop"),
+            casted("Bleed", p["r_t"], p["r_per"], count),
+            casted("Bleed", p["r_t"] + 1, p["r_t"], view("r_bye")), rq]   # her wave at the end, if the champion lives
     ult = action("ult", p["r_dur"], p["r_cd"], 1, p["r_range"], "Targeting", "EnemyChampion",
                  combine(decoy(p["r_drop"], p["r_drop_r"], ap), sfx("r"), voice("vo_r", p), *rm("d1", "d2"),
                          delayed(p["r_rel"] - 1, alive(homing("r_call", "EnemyChampion", drop, 100000)))))
@@ -300,8 +305,14 @@ def build(p):
     B_ = lambda name, anim_=FX, z=2, tag=None: {"type": "Animated", "name": n(name), "anim": anim_, "tag": tag or name,
                                                 "repeat": True, "z": z}
     views_p = [Pj("a_seed"), Pj("q_vine")]
-    views_e = [E("a_hit"), E("w_hit"), E("w_brush", BIG, -1, False), E("e_burst", BIG, 3), E("e_burst_me", BIG, 3, False),
-               E("q_hit"), E("r_drop", BIG, 3), E("r_punch", BIG, 3), E("r_slam", BIG, 3)]
+    # Daisy: her own dense sheets at PPU 1.9 (league_main hd.rs EFFECTS; tools/art/rig_ivern.py), under the champion
+    # she stands behind (league_annie's Tibbers: z -1), the dust and the shockwave under her
+    D_ = lambda name, sheet: {"type": "Animation", "name": n(name), "anim": f"asset/league/effects/{ID}_daisy_{sheet}",
+                              "tag": "idle", "z": -1, "is_follow": True}
+    views_e = [E("a_hit"), E("w_hit"), E("w_brush", BIG, -2, False), E("e_burst", BIG, 3),
+               dict(E("e_burst_me", BIG, 3, False), tag="e_burst"), E("q_hit"), E("r_hit"),
+               E("r_dust", BIG, -2), E("r_shock", BIG, -2),
+               D_("r_drop", "drop"), D_("r_punch", "punch"), D_("r_slam", "slam"), D_("r_bye", "bye")]
     views_b = [B_("e_seed", FX, 3), B_("e_slow", FX, -1), B_("q_root", FX, 3), B_("q_rush", FX, -1),
                B_("w_buff", FX, -1)]
     return {
