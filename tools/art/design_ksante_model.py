@@ -34,7 +34,7 @@ from regrid import regrid  # noqa: E402
 SRC = os.path.join(ROOT, "assets", "source", "ksante", "codex_model", "raw")
 OUT = os.path.join(ROOT, "assets", "source", "ksante", "hd")
 K = 40
-PICKS = {}   # the user's picks: {"idle": "A-?", "ao_idle": "O-?"}
+PICKS = {"idle": "A-2", "ao_idle": "O-1"}   # the user's picks, 2026-10-22: 「普通用 A-2，全盛用 O-1」
 # label -> (draft, Codex's square px, rows wanted or None = as drawn, face rows, face columns) on its own read-back
 DRAFTS = {
     "A-1": ("A-1", 15.0, 72, range(18, 29), range(30, 47)),
