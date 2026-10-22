@@ -1,0 +1,59 @@
+[
+  {
+    "file": "ivern-model-A-1.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "partial_alpha_pixels": 654024,
+    "bbox_alpha128": [
+      65,
+      105,
+      1196,
+      1216
+    ]
+  },
+  {
+    "file": "ivern-model-A-2.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "partial_alpha_pixels": 675522,
+    "bbox_alpha128": [
+      55,
+      90,
+      1200,
+      1210
+    ]
+  },
+  {
+    "file": "ivern-model-D.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "partial_alpha_pixels": 831977,
+    "bbox_alpha128": [
+      30,
+      171,
+      1224,
+      1188
+    ]
+  }
+]
