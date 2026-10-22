@@ -63,6 +63,7 @@
   "league_khazix": {"idle": [["attack", [1]], ["skill2", [4, 5]]]},
   "league_kindred": {"idle": [["attack", [4]], ["w_cast", [2]]]},
   "league_kogmaw": {"idle": [["skill2", [0, 1, 2, 3]], ["skill", [0, 1, 2, 3]]]},
+  "league_ksante": {"idle": [["skill2", [0, 1]], ["attack", [0]]], "ao_idle": [["ao_skill2", [0, 1]], ["ao_attack", [0]]]},
   "league_leblanc": {"idle": [["skill", [0, 1, 2, 3]], ["e", [5]]]},
   "league_leesin": {"idle": [["skill", [0]], ["skill", [2]]]},
   "league_leona": {"idle": [["skill2", [0, 1]], ["skill", [1]]]},

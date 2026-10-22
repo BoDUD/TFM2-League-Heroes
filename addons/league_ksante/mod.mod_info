@@ -1,0 +1,20 @@
+{
+  "author": "BoDUD",
+  "contains_code": true,
+  "dependencies": [
+    {
+      "mod_id": "base",
+      "version": ">=0.4.11"
+    },
+    {
+      "mod_id": "league",
+      "version": ">=0.191.0"
+    }
+  ],
+  "description": "Test build of K'Sante's All Out body (needs League of Legends Heroes): while he is All Out he also stands, walks and gets hit in the All Out stance (the main pack shows it only in his casts). The main pack's K'Sante is not changed. Writes a log for testing.",
+  "last_updated": "2026-10-22",
+  "mod_id": "league_ksante",
+  "mod_type": "native",
+  "name": "League Heroes: K'Sante's All Out body (test)",
+  "version": "0.1.0"
+}
