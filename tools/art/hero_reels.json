@@ -7,7 +7,7 @@
   "league_amumu": {"idle": [["skill2", [2, 3]], ["skill", [0, 1]]]},
   "league_anivia": {"idle": [["skill2", [2, 3]], ["ult", [1, 2]]], "egg_idle": []},
   "league_annie": {"idle": [["skill2", [0, 1]], ["ult", [0]]]},
-  "league_aphelios": {"idle": [["q_cal", [0, 1]], ["skill2", [0, 1, 2]]], "sev_idle": [["sev_skill2", [0, 1, 2]]], "cre_idle": [["cre_skill2", [0, 1, 2]]], "grav_idle": [["grav_skill2", [0, 1, 2]]], "inf_idle": [["inf_skill2", [0, 1, 2]]]},
+  "league_aphelios": {"idle": [["flourish", [1, 2, 3]]], "sev_idle": [["sev_flourish", [1, 2, 3], "fwd"]], "grav_idle": [["grav_flourish", [1, 2, 3], "fwd"]], "inf_idle": [["inf_flourish", [1, 2]]], "cre_idle": [["cre_flourish", [1, 2, 3], "fwd"]], "bp": ["a_cal", "skill2", "ult"]},
   "league_ashe": {"idle": [["attack", [0, 1, 2]], ["skill", [0, 1]]]},
   "league_bard": {"idle": [["ult", [0, 1, 2]], ["skill2_e", [0, 1, 2, 3]]]},
   "league_blitzcrank": {"idle": [["ult", [0, 1, 2, 3]], ["skill", [0, 1]]]},
