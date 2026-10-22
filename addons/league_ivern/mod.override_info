@@ -1,0 +1,10 @@
+{
+  "asset/league/champion/league_ivern": {
+    "remapping": "asset/league_ivern/override/league_ivern",
+    "type": "override"
+  },
+  "asset/base/text/champion": {
+    "remapping": "asset/league_ivern/text/champion",
+    "type": "merge"
+  }
+}

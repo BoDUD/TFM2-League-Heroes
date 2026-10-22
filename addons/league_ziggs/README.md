@@ -17,7 +17,7 @@
 - **打塔加成**：副本里被动强化弹打中时给他挂 2 tick 的 `league_ziggs_p_now`；本包的 `on_attack` 看到它、目标又是防御塔，就把这一下伤害
   ×`p_tower`%（整下，含普攻本身的部分）。
 
-参数写在英雄数据的 `passive.params`（`{"p_tower": 175, "w_cd": 900, "w_ex": 30, "w_hex_r": 60000}`），由 `make_override.py` 从
+参数写在英雄数据的 `passive.params`（`{"p_tower": 175, "w_cd": 900, "w_ex": 30, "w_hex_r": 100000}`），由 `make_override.py` 从
 `tools/kit/build_ziggs.py` 的参数表 `P` 写入。
 
 ## 在游戏里测

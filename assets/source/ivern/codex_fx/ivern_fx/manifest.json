@@ -1,0 +1,1290 @@
+{
+  "generator": "built-in image_gen",
+  "postprocessing": "source sampling only, no procedural effect drawing",
+  "effects": [
+    {
+      "file": "ivern_fx_a_seed.png",
+      "frames": 4,
+      "cell_1x": [
+        12,
+        6
+      ],
+      "size_1x": [
+        48,
+        6
+      ],
+      "symmetry": "top-bottom",
+      "binding": "view_projectiles `league_ivern_a_seed`（弹道，z 2；上下对称）",
+      "palette": [
+        "#FFFFFF",
+        "#F4FFB8",
+        "#C8F04A",
+        "#7CC828",
+        "#3E8A1E",
+        "#1C4A14",
+        "#FFF8C8",
+        "#FFE070",
+        "#F2B830",
+        "#B8781A",
+        "#000000"
+      ],
+      "raw_size": [
+        2172,
+        724
+      ],
+      "source_crop": [
+        0,
+        210,
+        2172,
+        497
+      ],
+      "source_rows": 1,
+      "source_columns": 4,
+      "source_layout_override": {},
+      "method": "Majority occupied alpha per cell, then majority palette class among occupied samples; binary alpha; denser half mirrored per frame; nearest-neighbor 8x preview.",
+      "records": [
+        {
+          "frame": 0,
+          "nonempty_pixels": 14,
+          "symmetry_changed_pixels": 5
+        },
+        {
+          "frame": 1,
+          "nonempty_pixels": 16,
+          "symmetry_changed_pixels": 8
+        },
+        {
+          "frame": 2,
+          "nonempty_pixels": 16,
+          "symmetry_changed_pixels": 8
+        },
+        {
+          "frame": 3,
+          "nonempty_pixels": 16,
+          "symmetry_changed_pixels": 7
+        }
+      ],
+      "unique_frames": 4,
+      "frame_durations_ms": [
+        120,
+        120,
+        120,
+        120
+      ],
+      "total_duration_ms": 480,
+      "source_layout_requires_visual_check": false,
+      "source_layout_visual_review": "Reviewed the generated single-row sequence and the extracted sprite preview. E burst and R shock use individually measured frame boundaries to avoid adjacent-frame overlap.",
+      "runtime_game_validation": "not performed"
+    },
+    {
+      "file": "ivern_fx_a_hit.png",
+      "frames": 3,
+      "cell_1x": [
+        10,
+        10
+      ],
+      "size_1x": [
+        30,
+        10
+      ],
+      "symmetry": "left-right",
+      "binding": "view_effects `league_ivern_a_hit`（跟随目标，z 2；左右对称）",
+      "palette": [
+        "#FFFFFF",
+        "#F4FFB8",
+        "#C8F04A",
+        "#7CC828",
+        "#3E8A1E",
+        "#1C4A14",
+        "#FFF8C8",
+        "#FFE070",
+        "#F2B830",
+        "#B8781A",
+        "#000000"
+      ],
+      "raw_size": [
+        2172,
+        724
+      ],
+      "source_crop": [
+        0,
+        55,
+        2172,
+        645
+      ],
+      "source_rows": 1,
+      "source_columns": 3,
+      "source_layout_override": {},
+      "method": "Majority occupied alpha per cell, then majority palette class among occupied samples; binary alpha; denser half mirrored per frame; nearest-neighbor 8x preview.",
+      "records": [
+        {
+          "frame": 0,
+          "nonempty_pixels": 14,
+          "symmetry_changed_pixels": 6
+        },
+        {
+          "frame": 1,
+          "nonempty_pixels": 26,
+          "symmetry_changed_pixels": 17
+        },
+        {
+          "frame": 2,
+          "nonempty_pixels": 16,
+          "symmetry_changed_pixels": 13
+        }
+      ],
+      "unique_frames": 3,
+      "frame_durations_ms": [
+        120,
+        120,
+        120
+      ],
+      "total_duration_ms": 360,
+      "source_layout_requires_visual_check": false,
+      "source_layout_visual_review": "Reviewed the generated single-row sequence and the extracted sprite preview. E burst and R shock use individually measured frame boundaries to avoid adjacent-frame overlap.",
+      "runtime_game_validation": "not performed"
+    },
+    {
+      "file": "ivern_fx_w_hit.png",
+      "frames": 3,
+      "cell_1x": [
+        12,
+        12
+      ],
+      "size_1x": [
+        36,
+        12
+      ],
+      "symmetry": "left-right",
+      "binding": "view_effects `league_ivern_w_hit`（跟随目标，z 2；左右对称）",
+      "palette": [
+        "#FFFFFF",
+        "#F4FFB8",
+        "#C8F04A",
+        "#7CC828",
+        "#3E8A1E",
+        "#1C4A14",
+        "#FFF8C8",
+        "#FFE070",
+        "#F2B830",
+        "#B8781A",
+        "#000000"
+      ],
+      "raw_size": [
+        2172,
+        724
+      ],
+      "source_crop": [
+        0,
+        72,
+        2172,
+        652
+      ],
+      "source_rows": 1,
+      "source_columns": 3,
+      "source_layout_override": {},
+      "method": "Majority occupied alpha per cell, then majority palette class among occupied samples; binary alpha; denser half mirrored per frame; nearest-neighbor 8x preview.",
+      "records": [
+        {
+          "frame": 0,
+          "nonempty_pixels": 16,
+          "symmetry_changed_pixels": 9
+        },
+        {
+          "frame": 1,
+          "nonempty_pixels": 40,
+          "symmetry_changed_pixels": 2
+        },
+        {
+          "frame": 2,
+          "nonempty_pixels": 12,
+          "symmetry_changed_pixels": 1
+        }
+      ],
+      "unique_frames": 3,
+      "frame_durations_ms": [
+        120,
+        120,
+        120
+      ],
+      "total_duration_ms": 360,
+      "source_layout_requires_visual_check": false,
+      "source_layout_visual_review": "Reviewed the generated single-row sequence and the extracted sprite preview. E burst and R shock use individually measured frame boundaries to avoid adjacent-frame overlap.",
+      "runtime_game_validation": "not performed"
+    },
+    {
+      "file": "ivern_fx_w_brush.png",
+      "frames": 12,
+      "cell_1x": [
+        52,
+        28
+      ],
+      "size_1x": [
+        624,
+        28
+      ],
+      "symmetry": "left-right",
+      "binding": "view_effects `league_ivern_w_brush`（大表，地上不跟随，z -1；左右对称）",
+      "palette": [
+        "#FFFFFF",
+        "#F4FFB8",
+        "#C8F04A",
+        "#7CC828",
+        "#3E8A1E",
+        "#1C4A14",
+        "#FFF8C8",
+        "#FFE070",
+        "#F2B830",
+        "#B8781A",
+        "#000000"
+      ],
+      "raw_size": [
+        1871,
+        840
+      ],
+      "source_crop": [
+        0,
+        344,
+        1871,
+        522
+      ],
+      "source_rows": 1,
+      "source_columns": 12,
+      "source_layout_override": {},
+      "method": "Majority occupied alpha per cell, then majority palette class among occupied samples; binary alpha; denser half mirrored per frame; nearest-neighbor 8x preview.",
+      "records": [
+        {
+          "frame": 0,
+          "nonempty_pixels": 176,
+          "symmetry_changed_pixels": 56
+        },
+        {
+          "frame": 1,
+          "nonempty_pixels": 296,
+          "symmetry_changed_pixels": 109
+        },
+        {
+          "frame": 2,
+          "nonempty_pixels": 500,
+          "symmetry_changed_pixels": 190
+        },
+        {
+          "frame": 3,
+          "nonempty_pixels": 728,
+          "symmetry_changed_pixels": 250
+        },
+        {
+          "frame": 4,
+          "nonempty_pixels": 798,
+          "symmetry_changed_pixels": 300
+        },
+        {
+          "frame": 5,
+          "nonempty_pixels": 812,
+          "symmetry_changed_pixels": 293
+        },
+        {
+          "frame": 6,
+          "nonempty_pixels": 844,
+          "symmetry_changed_pixels": 299
+        },
+        {
+          "frame": 7,
+          "nonempty_pixels": 824,
+          "symmetry_changed_pixels": 291
+        },
+        {
+          "frame": 8,
+          "nonempty_pixels": 736,
+          "symmetry_changed_pixels": 253
+        },
+        {
+          "frame": 9,
+          "nonempty_pixels": 522,
+          "symmetry_changed_pixels": 201
+        },
+        {
+          "frame": 10,
+          "nonempty_pixels": 290,
+          "symmetry_changed_pixels": 105
+        },
+        {
+          "frame": 11,
+          "nonempty_pixels": 192,
+          "symmetry_changed_pixels": 58
+        }
+      ],
+      "unique_frames": 12,
+      "frame_durations_ms": [
+        334,
+        334,
+        334,
+        334,
+        333,
+        333,
+        333,
+        333,
+        333,
+        333,
+        333,
+        333
+      ],
+      "total_duration_ms": 4000,
+      "source_layout_requires_visual_check": false,
+      "source_layout_visual_review": "Reviewed the generated single-row sequence and the extracted sprite preview. E burst and R shock use individually measured frame boundaries to avoid adjacent-frame overlap.",
+      "runtime_game_validation": "not performed"
+    },
+    {
+      "file": "ivern_fx_w_buff.png",
+      "frames": 4,
+      "cell_1x": [
+        16,
+        8
+      ],
+      "size_1x": [
+        64,
+        8
+      ],
+      "symmetry": "left-right",
+      "binding": "view_buffs `league_ivern_w_buff`（跟随，z -1；左右对称）",
+      "palette": [
+        "#FFFFFF",
+        "#F4FFB8",
+        "#C8F04A",
+        "#7CC828",
+        "#3E8A1E",
+        "#1C4A14",
+        "#FFF8C8",
+        "#FFE070",
+        "#F2B830",
+        "#B8781A",
+        "#000000"
+      ],
+      "raw_size": [
+        2172,
+        724
+      ],
+      "source_crop": [
+        0,
+        233,
+        2172,
+        494
+      ],
+      "source_rows": 1,
+      "source_columns": 4,
+      "source_layout_override": {},
+      "method": "Majority occupied alpha per cell, then majority palette class among occupied samples; binary alpha; denser half mirrored per frame; nearest-neighbor 8x preview.",
+      "records": [
+        {
+          "frame": 0,
+          "nonempty_pixels": 22,
+          "symmetry_changed_pixels": 13
+        },
+        {
+          "frame": 1,
+          "nonempty_pixels": 26,
+          "symmetry_changed_pixels": 13
+        },
+        {
+          "frame": 2,
+          "nonempty_pixels": 26,
+          "symmetry_changed_pixels": 12
+        },
+        {
+          "frame": 3,
+          "nonempty_pixels": 26,
+          "symmetry_changed_pixels": 14
+        }
+      ],
+      "unique_frames": 4,
+      "frame_durations_ms": [
+        120,
+        120,
+        120,
+        120
+      ],
+      "total_duration_ms": 480,
+      "source_layout_requires_visual_check": false,
+      "source_layout_visual_review": "Reviewed the generated single-row sequence and the extracted sprite preview. E burst and R shock use individually measured frame boundaries to avoid adjacent-frame overlap.",
+      "runtime_game_validation": "not performed"
+    },
+    {
+      "file": "ivern_fx_e_seed.png",
+      "frames": 6,
+      "cell_1x": [
+        24,
+        40
+      ],
+      "size_1x": [
+        144,
+        40
+      ],
+      "symmetry": "left-right",
+      "binding": "view_buffs `league_ivern_e_seed`（跟随，z 3；左右对称）",
+      "palette": [
+        "#FFFFFF",
+        "#F4FFB8",
+        "#C8F04A",
+        "#7CC828",
+        "#3E8A1E",
+        "#1C4A14",
+        "#FFF8C8",
+        "#FFE070",
+        "#F2B830",
+        "#B8781A",
+        "#000000"
+      ],
+      "raw_size": [
+        2172,
+        724
+      ],
+      "source_crop": [
+        0,
+        90,
+        2172,
+        634
+      ],
+      "source_rows": 1,
+      "source_columns": 6,
+      "source_layout_override": {},
+      "method": "Majority occupied alpha per cell, then majority palette class among occupied samples; binary alpha; denser half mirrored per frame; nearest-neighbor 8x preview.",
+      "records": [
+        {
+          "frame": 0,
+          "nonempty_pixels": 236,
+          "symmetry_changed_pixels": 55
+        },
+        {
+          "frame": 1,
+          "nonempty_pixels": 264,
+          "symmetry_changed_pixels": 85
+        },
+        {
+          "frame": 2,
+          "nonempty_pixels": 344,
+          "symmetry_changed_pixels": 98
+        },
+        {
+          "frame": 3,
+          "nonempty_pixels": 382,
+          "symmetry_changed_pixels": 97
+        },
+        {
+          "frame": 4,
+          "nonempty_pixels": 262,
+          "symmetry_changed_pixels": 116
+        },
+        {
+          "frame": 5,
+          "nonempty_pixels": 230,
+          "symmetry_changed_pixels": 48
+        }
+      ],
+      "unique_frames": 6,
+      "frame_durations_ms": [
+        334,
+        334,
+        333,
+        333,
+        333,
+        333
+      ],
+      "total_duration_ms": 2000,
+      "source_layout_requires_visual_check": false,
+      "source_layout_visual_review": "Reviewed the generated single-row sequence and the extracted sprite preview. E burst and R shock use individually measured frame boundaries to avoid adjacent-frame overlap.",
+      "runtime_game_validation": "not performed"
+    },
+    {
+      "file": "ivern_fx_e_burst.png",
+      "frames": 7,
+      "cell_1x": [
+        36,
+        32
+      ],
+      "size_1x": [
+        252,
+        32
+      ],
+      "symmetry": "left-right",
+      "binding": "view_effects `league_ivern_e_burst` / `e_burst_me`（大表，z 3；左右对称）",
+      "palette": [
+        "#FFFFFF",
+        "#F4FFB8",
+        "#C8F04A",
+        "#7CC828",
+        "#3E8A1E",
+        "#1C4A14",
+        "#FFF8C8",
+        "#FFE070",
+        "#F2B830",
+        "#B8781A",
+        "#E8B878",
+        "#B87A3E",
+        "#7A4A22",
+        "#4A2A14",
+        "#000000"
+      ],
+      "raw_size": [
+        2032,
+        774
+      ],
+      "source_crop": [
+        0,
+        210,
+        2032,
+        574
+      ],
+      "source_rows": 1,
+      "source_columns": 7,
+      "source_layout_override": {
+        "crop": [
+          0,
+          210,
+          2032,
+          574
+        ],
+        "frame_x_edges": [
+          0,
+          225,
+          460,
+          852,
+          1218,
+          1500,
+          1790,
+          2032
+        ],
+        "frame_centers_x": [
+          128,
+          340,
+          658,
+          1043,
+          1350,
+          1640,
+          1895
+        ],
+        "canvas_source_width": 410
+      },
+      "method": "Majority occupied alpha per cell, then majority palette class among occupied samples; binary alpha; denser half mirrored per frame; nearest-neighbor 8x preview.",
+      "records": [
+        {
+          "frame": 0,
+          "nonempty_pixels": 86,
+          "symmetry_changed_pixels": 36
+        },
+        {
+          "frame": 1,
+          "nonempty_pixels": 202,
+          "symmetry_changed_pixels": 36
+        },
+        {
+          "frame": 2,
+          "nonempty_pixels": 508,
+          "symmetry_changed_pixels": 97
+        },
+        {
+          "frame": 3,
+          "nonempty_pixels": 300,
+          "symmetry_changed_pixels": 112
+        },
+        {
+          "frame": 4,
+          "nonempty_pixels": 130,
+          "symmetry_changed_pixels": 95
+        },
+        {
+          "frame": 5,
+          "nonempty_pixels": 92,
+          "symmetry_changed_pixels": 70
+        },
+        {
+          "frame": 6,
+          "nonempty_pixels": 28,
+          "symmetry_changed_pixels": 22
+        }
+      ],
+      "unique_frames": 7,
+      "frame_durations_ms": [
+        120,
+        120,
+        120,
+        120,
+        120,
+        120,
+        120
+      ],
+      "total_duration_ms": 840,
+      "source_layout_requires_visual_check": false,
+      "source_layout_visual_review": "Reviewed the generated single-row sequence and the extracted sprite preview. E burst and R shock use individually measured frame boundaries to avoid adjacent-frame overlap.",
+      "runtime_game_validation": "not performed"
+    },
+    {
+      "file": "ivern_fx_e_slow.png",
+      "frames": 4,
+      "cell_1x": [
+        16,
+        10
+      ],
+      "size_1x": [
+        64,
+        10
+      ],
+      "symmetry": "left-right",
+      "binding": "view_buffs `league_ivern_e_slow`（跟随，z -1；左右对称）",
+      "palette": [
+        "#FFFFFF",
+        "#F4FFB8",
+        "#C8F04A",
+        "#7CC828",
+        "#3E8A1E",
+        "#1C4A14",
+        "#E8B878",
+        "#B87A3E",
+        "#7A4A22",
+        "#4A2A14",
+        "#000000"
+      ],
+      "raw_size": [
+        1983,
+        793
+      ],
+      "source_crop": [
+        0,
+        273,
+        1983,
+        550
+      ],
+      "source_rows": 1,
+      "source_columns": 4,
+      "source_layout_override": {},
+      "method": "Majority occupied alpha per cell, then majority palette class among occupied samples; binary alpha; denser half mirrored per frame; nearest-neighbor 8x preview.",
+      "records": [
+        {
+          "frame": 0,
+          "nonempty_pixels": 68,
+          "symmetry_changed_pixels": 5
+        },
+        {
+          "frame": 1,
+          "nonempty_pixels": 66,
+          "symmetry_changed_pixels": 10
+        },
+        {
+          "frame": 2,
+          "nonempty_pixels": 60,
+          "symmetry_changed_pixels": 5
+        },
+        {
+          "frame": 3,
+          "nonempty_pixels": 62,
+          "symmetry_changed_pixels": 10
+        }
+      ],
+      "unique_frames": 4,
+      "frame_durations_ms": [
+        120,
+        120,
+        120,
+        120
+      ],
+      "total_duration_ms": 480,
+      "source_layout_requires_visual_check": false,
+      "source_layout_visual_review": "Reviewed the generated single-row sequence and the extracted sprite preview. E burst and R shock use individually measured frame boundaries to avoid adjacent-frame overlap.",
+      "runtime_game_validation": "not performed"
+    },
+    {
+      "file": "ivern_fx_q_vine.png",
+      "frames": 4,
+      "cell_1x": [
+        28,
+        10
+      ],
+      "size_1x": [
+        112,
+        10
+      ],
+      "symmetry": "top-bottom",
+      "binding": "view_projectiles `league_ivern_q_vine`（弹道，z 2；上下对称）",
+      "palette": [
+        "#FFFFFF",
+        "#F4FFB8",
+        "#C8F04A",
+        "#7CC828",
+        "#3E8A1E",
+        "#1C4A14",
+        "#E8B878",
+        "#B87A3E",
+        "#7A4A22",
+        "#4A2A14",
+        "#FFF8C8",
+        "#FFE070",
+        "#F2B830",
+        "#B8781A",
+        "#000000"
+      ],
+      "raw_size": [
+        2084,
+        754
+      ],
+      "source_crop": [
+        0,
+        282,
+        2084,
+        479
+      ],
+      "source_rows": 1,
+      "source_columns": 4,
+      "source_layout_override": {},
+      "method": "Majority occupied alpha per cell, then majority palette class among occupied samples; binary alpha; denser half mirrored per frame; nearest-neighbor 8x preview.",
+      "records": [
+        {
+          "frame": 0,
+          "nonempty_pixels": 100,
+          "symmetry_changed_pixels": 46
+        },
+        {
+          "frame": 1,
+          "nonempty_pixels": 98,
+          "symmetry_changed_pixels": 42
+        },
+        {
+          "frame": 2,
+          "nonempty_pixels": 100,
+          "symmetry_changed_pixels": 49
+        },
+        {
+          "frame": 3,
+          "nonempty_pixels": 106,
+          "symmetry_changed_pixels": 45
+        }
+      ],
+      "unique_frames": 4,
+      "frame_durations_ms": [
+        120,
+        120,
+        120,
+        120
+      ],
+      "total_duration_ms": 480,
+      "source_layout_requires_visual_check": false,
+      "source_layout_visual_review": "Reviewed the generated single-row sequence and the extracted sprite preview. E burst and R shock use individually measured frame boundaries to avoid adjacent-frame overlap.",
+      "runtime_game_validation": "not performed"
+    },
+    {
+      "file": "ivern_fx_q_hit.png",
+      "frames": 5,
+      "cell_1x": [
+        24,
+        24
+      ],
+      "size_1x": [
+        120,
+        24
+      ],
+      "symmetry": "left-right",
+      "binding": "view_effects `league_ivern_q_hit`（跟随目标，z 3；左右对称）",
+      "palette": [
+        "#FFFFFF",
+        "#F4FFB8",
+        "#C8F04A",
+        "#7CC828",
+        "#3E8A1E",
+        "#1C4A14",
+        "#E8B878",
+        "#B87A3E",
+        "#7A4A22",
+        "#4A2A14",
+        "#FFF8C8",
+        "#FFE070",
+        "#F2B830",
+        "#B8781A",
+        "#000000"
+      ],
+      "raw_size": [
+        2172,
+        724
+      ],
+      "source_crop": [
+        0,
+        124,
+        2172,
+        583
+      ],
+      "source_rows": 1,
+      "source_columns": 5,
+      "source_layout_override": {},
+      "method": "Majority occupied alpha per cell, then majority palette class among occupied samples; binary alpha; denser half mirrored per frame; nearest-neighbor 8x preview.",
+      "records": [
+        {
+          "frame": 0,
+          "nonempty_pixels": 88,
+          "symmetry_changed_pixels": 22
+        },
+        {
+          "frame": 1,
+          "nonempty_pixels": 180,
+          "symmetry_changed_pixels": 98
+        },
+        {
+          "frame": 2,
+          "nonempty_pixels": 208,
+          "symmetry_changed_pixels": 85
+        },
+        {
+          "frame": 3,
+          "nonempty_pixels": 178,
+          "symmetry_changed_pixels": 109
+        },
+        {
+          "frame": 4,
+          "nonempty_pixels": 48,
+          "symmetry_changed_pixels": 37
+        }
+      ],
+      "unique_frames": 5,
+      "frame_durations_ms": [
+        120,
+        120,
+        120,
+        120,
+        120
+      ],
+      "total_duration_ms": 600,
+      "source_layout_requires_visual_check": false,
+      "source_layout_visual_review": "Reviewed the generated single-row sequence and the extracted sprite preview. E burst and R shock use individually measured frame boundaries to avoid adjacent-frame overlap.",
+      "runtime_game_validation": "not performed"
+    },
+    {
+      "file": "ivern_fx_q_root.png",
+      "frames": 4,
+      "cell_1x": [
+        20,
+        20
+      ],
+      "size_1x": [
+        80,
+        20
+      ],
+      "symmetry": "left-right",
+      "binding": "view_buffs `league_ivern_q_root`（跟随，z 3；左右对称）",
+      "palette": [
+        "#E8B878",
+        "#B87A3E",
+        "#7A4A22",
+        "#4A2A14",
+        "#FFFFFF",
+        "#F4FFB8",
+        "#C8F04A",
+        "#7CC828",
+        "#3E8A1E",
+        "#1C4A14",
+        "#000000"
+      ],
+      "raw_size": [
+        1983,
+        793
+      ],
+      "source_crop": [
+        0,
+        159,
+        1983,
+        643
+      ],
+      "source_rows": 1,
+      "source_columns": 4,
+      "source_layout_override": {},
+      "method": "Majority occupied alpha per cell, then majority palette class among occupied samples; binary alpha; denser half mirrored per frame; nearest-neighbor 8x preview.",
+      "records": [
+        {
+          "frame": 0,
+          "nonempty_pixels": 178,
+          "symmetry_changed_pixels": 75
+        },
+        {
+          "frame": 1,
+          "nonempty_pixels": 196,
+          "symmetry_changed_pixels": 72
+        },
+        {
+          "frame": 2,
+          "nonempty_pixels": 182,
+          "symmetry_changed_pixels": 63
+        },
+        {
+          "frame": 3,
+          "nonempty_pixels": 174,
+          "symmetry_changed_pixels": 73
+        }
+      ],
+      "unique_frames": 4,
+      "frame_durations_ms": [
+        120,
+        120,
+        120,
+        120
+      ],
+      "total_duration_ms": 480,
+      "source_layout_requires_visual_check": false,
+      "source_layout_visual_review": "Reviewed the generated single-row sequence and the extracted sprite preview. E burst and R shock use individually measured frame boundaries to avoid adjacent-frame overlap.",
+      "runtime_game_validation": "not performed"
+    },
+    {
+      "file": "ivern_fx_q_rush.png",
+      "frames": 4,
+      "cell_1x": [
+        18,
+        8
+      ],
+      "size_1x": [
+        72,
+        8
+      ],
+      "symmetry": "left-right",
+      "binding": "view_buffs `league_ivern_q_rush`（跟随，z -1；左右对称）",
+      "palette": [
+        "#FFFFFF",
+        "#F4FFB8",
+        "#C8F04A",
+        "#7CC828",
+        "#3E8A1E",
+        "#1C4A14",
+        "#FFF8C8",
+        "#FFE070",
+        "#F2B830",
+        "#B8781A",
+        "#000000"
+      ],
+      "raw_size": [
+        1881,
+        836
+      ],
+      "source_crop": [
+        0,
+        338,
+        1881,
+        543
+      ],
+      "source_rows": 1,
+      "source_columns": 4,
+      "source_layout_override": {},
+      "method": "Majority occupied alpha per cell, then majority palette class among occupied samples; binary alpha; denser half mirrored per frame; nearest-neighbor 8x preview.",
+      "records": [
+        {
+          "frame": 0,
+          "nonempty_pixels": 54,
+          "symmetry_changed_pixels": 23
+        },
+        {
+          "frame": 1,
+          "nonempty_pixels": 52,
+          "symmetry_changed_pixels": 31
+        },
+        {
+          "frame": 2,
+          "nonempty_pixels": 46,
+          "symmetry_changed_pixels": 24
+        },
+        {
+          "frame": 3,
+          "nonempty_pixels": 54,
+          "symmetry_changed_pixels": 29
+        }
+      ],
+      "unique_frames": 4,
+      "frame_durations_ms": [
+        120,
+        120,
+        120,
+        120
+      ],
+      "total_duration_ms": 480,
+      "source_layout_requires_visual_check": false,
+      "source_layout_visual_review": "Reviewed the generated single-row sequence and the extracted sprite preview. E burst and R shock use individually measured frame boundaries to avoid adjacent-frame overlap.",
+      "runtime_game_validation": "not performed"
+    },
+    {
+      "file": "ivern_fx_r_dust.png",
+      "frames": 6,
+      "cell_1x": [
+        48,
+        24
+      ],
+      "size_1x": [
+        288,
+        24
+      ],
+      "symmetry": "left-right",
+      "binding": "view_effects `league_ivern_r_dust`（大表，地上，z -1；左右对称）",
+      "palette": [
+        "#F0E2C4",
+        "#C8AE84",
+        "#96785A",
+        "#62503A",
+        "#3A2E22",
+        "#C8CCB4",
+        "#949A80",
+        "#646A54",
+        "#3C4034",
+        "#FFFFFF",
+        "#F4FFB8",
+        "#C8F04A",
+        "#7CC828",
+        "#3E8A1E",
+        "#1C4A14",
+        "#000000"
+      ],
+      "raw_size": [
+        2172,
+        724
+      ],
+      "source_crop": [
+        0,
+        199,
+        2172,
+        544
+      ],
+      "source_rows": 1,
+      "source_columns": 6,
+      "source_layout_override": {},
+      "method": "Majority occupied alpha per cell, then majority palette class among occupied samples; binary alpha; denser half mirrored per frame; nearest-neighbor 8x preview.",
+      "records": [
+        {
+          "frame": 0,
+          "nonempty_pixels": 178,
+          "symmetry_changed_pixels": 75
+        },
+        {
+          "frame": 1,
+          "nonempty_pixels": 490,
+          "symmetry_changed_pixels": 246
+        },
+        {
+          "frame": 2,
+          "nonempty_pixels": 802,
+          "symmetry_changed_pixels": 379
+        },
+        {
+          "frame": 3,
+          "nonempty_pixels": 536,
+          "symmetry_changed_pixels": 285
+        },
+        {
+          "frame": 4,
+          "nonempty_pixels": 242,
+          "symmetry_changed_pixels": 117
+        },
+        {
+          "frame": 5,
+          "nonempty_pixels": 148,
+          "symmetry_changed_pixels": 105
+        }
+      ],
+      "unique_frames": 6,
+      "frame_durations_ms": [
+        120,
+        120,
+        120,
+        120,
+        120,
+        120
+      ],
+      "total_duration_ms": 720,
+      "source_layout_requires_visual_check": false,
+      "source_layout_visual_review": "Reviewed the generated single-row sequence and the extracted sprite preview. E burst and R shock use individually measured frame boundaries to avoid adjacent-frame overlap.",
+      "runtime_game_validation": "not performed"
+    },
+    {
+      "file": "ivern_fx_r_shock.png",
+      "frames": 6,
+      "cell_1x": [
+        56,
+        24
+      ],
+      "size_1x": [
+        336,
+        24
+      ],
+      "symmetry": "left-right",
+      "binding": "view_effects `league_ivern_r_shock`（大表，跟随目标，z -1；左右对称）",
+      "palette": [
+        "#F0E2C4",
+        "#C8AE84",
+        "#96785A",
+        "#62503A",
+        "#3A2E22",
+        "#C8CCB4",
+        "#949A80",
+        "#646A54",
+        "#3C4034",
+        "#FFFFFF",
+        "#FFF8C8",
+        "#FFE070",
+        "#F2B830",
+        "#B8781A",
+        "#000000"
+      ],
+      "raw_size": [
+        1484,
+        1060
+      ],
+      "source_crop": [
+        0,
+        360,
+        1484,
+        660
+      ],
+      "source_rows": 1,
+      "source_columns": 6,
+      "source_layout_override": {
+        "crop": [
+          0,
+          360,
+          1484,
+          660
+        ],
+        "frame_x_edges": [
+          0,
+          154,
+          365,
+          682,
+          1025,
+          1305,
+          1484
+        ],
+        "frame_centers_x": [
+          86,
+          255,
+          520,
+          855,
+          1160,
+          1390
+        ],
+        "canvas_source_width": 400
+      },
+      "method": "Majority occupied alpha per cell, then majority palette class among occupied samples; binary alpha; denser half mirrored per frame; nearest-neighbor 8x preview.",
+      "records": [
+        {
+          "frame": 0,
+          "nonempty_pixels": 64,
+          "symmetry_changed_pixels": 17
+        },
+        {
+          "frame": 1,
+          "nonempty_pixels": 216,
+          "symmetry_changed_pixels": 72
+        },
+        {
+          "frame": 2,
+          "nonempty_pixels": 380,
+          "symmetry_changed_pixels": 176
+        },
+        {
+          "frame": 3,
+          "nonempty_pixels": 378,
+          "symmetry_changed_pixels": 114
+        },
+        {
+          "frame": 4,
+          "nonempty_pixels": 204,
+          "symmetry_changed_pixels": 74
+        },
+        {
+          "frame": 5,
+          "nonempty_pixels": 64,
+          "symmetry_changed_pixels": 30
+        }
+      ],
+      "unique_frames": 6,
+      "frame_durations_ms": [
+        120,
+        120,
+        120,
+        120,
+        120,
+        120
+      ],
+      "total_duration_ms": 720,
+      "source_layout_requires_visual_check": false,
+      "source_layout_visual_review": "Reviewed the generated single-row sequence and the extracted sprite preview. E burst and R shock use individually measured frame boundaries to avoid adjacent-frame overlap.",
+      "runtime_game_validation": "not performed"
+    },
+    {
+      "file": "ivern_fx_r_hit.png",
+      "frames": 4,
+      "cell_1x": [
+        16,
+        16
+      ],
+      "size_1x": [
+        64,
+        16
+      ],
+      "symmetry": "left-right",
+      "binding": "view_effects `league_ivern_r_hit`（跟随目标，z 2；左右对称）",
+      "palette": [
+        "#C8CCB4",
+        "#949A80",
+        "#646A54",
+        "#3C4034",
+        "#F0E2C4",
+        "#C8AE84",
+        "#96785A",
+        "#62503A",
+        "#3A2E22",
+        "#FFFFFF",
+        "#F4FFB8",
+        "#C8F04A",
+        "#7CC828",
+        "#3E8A1E",
+        "#1C4A14",
+        "#000000"
+      ],
+      "raw_size": [
+        2172,
+        724
+      ],
+      "source_crop": [
+        0,
+        128,
+        2172,
+        623
+      ],
+      "source_rows": 1,
+      "source_columns": 4,
+      "source_layout_override": {},
+      "method": "Majority occupied alpha per cell, then majority palette class among occupied samples; binary alpha; denser half mirrored per frame; nearest-neighbor 8x preview.",
+      "records": [
+        {
+          "frame": 0,
+          "nonempty_pixels": 60,
+          "symmetry_changed_pixels": 13
+        },
+        {
+          "frame": 1,
+          "nonempty_pixels": 98,
+          "symmetry_changed_pixels": 34
+        },
+        {
+          "frame": 2,
+          "nonempty_pixels": 86,
+          "symmetry_changed_pixels": 31
+        },
+        {
+          "frame": 3,
+          "nonempty_pixels": 98,
+          "symmetry_changed_pixels": 29
+        }
+      ],
+      "unique_frames": 4,
+      "frame_durations_ms": [
+        120,
+        120,
+        120,
+        120
+      ],
+      "total_duration_ms": 480,
+      "source_layout_requires_visual_check": false,
+      "source_layout_visual_review": "Reviewed the generated single-row sequence and the extracted sprite preview. E burst and R shock use individually measured frame boundaries to avoid adjacent-frame overlap.",
+      "runtime_game_validation": "not performed"
+    }
+  ]
+}

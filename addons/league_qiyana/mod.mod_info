@@ -11,10 +11,10 @@
       "version": ">=0.193.0"
     }
   ],
-  "description": "Test build of Qiyana as in League (needs League of Legends Heroes): replaces the main pack's Qiyana so Terrashape takes her element from the terrain beside her where Audacity lands (brush gives grass, a wall or the map's edge rock, the river river; with none near, the fight picks: grass to slip away when she is low, rock on a wounded champion, river to hold any other, rock on monsters and minions), Royal Privilege's first-hit bonus counts each enemy on its own, and Edge of Ixtal's rock hits harder only on enemies under half health. Other champions are untouched. Writes a log for testing.",
+  "description": "Test build of Qiyana as in League (needs League of Legends Heroes): replaces the main pack's Qiyana so Terrashape takes her element from the terrain beside her where Audacity lands (brush - Ivern's too, with his add-on - gives grass, a wall or the map's edge rock, the river river; with none near, the fight picks: grass to slip away when she is low, rock on a wounded champion, river to hold any other, rock on monsters and minions), Royal Privilege's first-hit bonus counts each enemy on its own, and Edge of Ixtal's rock hits harder only on enemies under half health. Other champions are untouched. Writes a log for testing.",
   "last_updated": "2026-10-22",
   "mod_id": "league_qiyana",
   "mod_type": "native",
   "name": "League Heroes: Qiyana's elements from the terrain, Royal Privilege per enemy and the rock execute (test)",
-  "version": "0.2.0"
+  "version": "0.2.1"
 }

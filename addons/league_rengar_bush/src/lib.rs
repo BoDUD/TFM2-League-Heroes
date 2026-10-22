@@ -9,6 +9,9 @@
 //! - **走出草丛**：本包给的 `ready` 在他离开草丛 `grace` tick 后去掉（英雄联盟里出了草丛就不能跳）；复活和 R 给的
 //!   （R 期间身上有 `league_rengar_r_on`）不动。
 //!
+//! - **艾翁的草丛**：身上有 `league_ivern_in_brush`（league_ivern 给站在艾翁草丛里的英雄挂的 2 tick 标记，两边都算）
+//!   也算站在草丛里（英雄联盟里雷恩加尔能从艾翁的草丛扑出来）。
+//!
 //! 草丛格子从地图自定义钩子读（地图文档的 `bushes`，和卡密尔附加包读 `walls` 一样；每种模式记一张，当前对局取站进墙里的
 //! 单位最少的那张）。读不到时退回「敌方队伍看不见他」（草丛之外战争迷雾里也算，日志里写明）。
 //! 合集 `league_addons` 里一个 mod 只能有一个地图钩子：合集用 [`BushReader::read`] 和卡密尔的读墙一起调用。
@@ -26,6 +29,8 @@ use mod_api_stable::*;
 
 const ID: &str = "league_rengar_bush";
 const HERO: &str = "league_rengar";
+/// league_ivern 给站在艾翁草丛里的英雄挂的标记（用户 2026-10-22：「还有艾翁的W能触发雷恩加尔的跳 别忘了」）。
+const IVERN_BRUSH: &str = "league_ivern_in_brush";
 /// 地图格子的边长（世界单位，卡密尔附加包量过墙格子：30 x 32000 = 960000）。
 pub const CELL: f64 = 32_000.0;
 /// 地图文档里可能装草丛格子的键。
@@ -362,10 +367,12 @@ impl StablePassive for Bush {
             });
             self.grid = Some(g);
         }
-        let in_bush = match self.grid.as_ref().and_then(|g| g.as_ref()) {
+        let in_map_bush = match self.grid.as_ref().and_then(|g| g.as_ref()) {
             Some(g) => g.at(x as f64, y as f64),
             None => !sim.is_visible(1 - team.min(1), me),
         };
+        // Ivern's brush (league_ivern marks the champions standing in one, either team: League's rule)
+        let in_bush = in_map_bush || has_buff(sim, me, IVERN_BRUSH);
         if in_bush != self.was_in && alive {
             wlog(format!("{} {} the bush at ({x}, {y})", head(sim, me), if in_bush { "INTO" } else { "OUT OF" }));
         }

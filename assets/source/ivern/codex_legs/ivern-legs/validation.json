@@ -1,0 +1,289 @@
+{
+  "files": [
+    {
+      "file": "ivern-legs-a_wind.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "grid": 12,
+      "source": "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-22\\codex-2\\work\\ivern_legs_pack\\1_a_wind_guide.png",
+      "generated_leg_region_cells": [
+        26,
+        84,
+        73,
+        100
+      ],
+      "source_leg_vertical_shift_pixels": -36,
+      "upper_body_original_pixels": 273327,
+      "upper_body_changed_pixels": 0,
+      "binary_alpha": true,
+      "last_visible_y": 1199,
+      "target_sole_y": 1200,
+      "method": "12px majority readback of generated art within leg edit rectangle; whole generated leg region translated vertically on grid to sole baseline; original guide artwork pixels restored exactly; no procedural leg drawing, limb rotation or smoothing",
+      "requires_pose_and_limb_length_review": true,
+      "nonuniform_12px_cells": 0
+    },
+    {
+      "file": "ivern-legs-a_throw.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "grid": 12,
+      "source": "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-22\\codex-2\\work\\ivern_legs_pack\\2_a_throw_guide.png",
+      "generated_leg_region_cells": [
+        31,
+        84,
+        82,
+        100
+      ],
+      "source_leg_vertical_shift_pixels": -24,
+      "upper_body_original_pixels": 281791,
+      "upper_body_changed_pixels": 0,
+      "binary_alpha": true,
+      "last_visible_y": 1199,
+      "target_sole_y": 1200,
+      "method": "12px majority readback of generated art within leg edit rectangle; whole generated leg region translated vertically on grid to sole baseline; original guide artwork pixels restored exactly; no procedural leg drawing, limb rotation or smoothing",
+      "requires_pose_and_limb_length_review": true,
+      "nonuniform_12px_cells": 0
+    },
+    {
+      "file": "ivern-legs-e_give.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "grid": 12,
+      "source": "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-22\\codex-2\\work\\ivern_legs_pack\\3_e_give_guide.png",
+      "generated_leg_region_cells": [
+        30,
+        84,
+        77,
+        100
+      ],
+      "source_leg_vertical_shift_pixels": 0,
+      "upper_body_original_pixels": 240304,
+      "upper_body_changed_pixels": 0,
+      "binary_alpha": true,
+      "last_visible_y": 1199,
+      "target_sole_y": 1200,
+      "method": "12px majority readback of generated art within leg edit rectangle; whole generated leg region translated vertically on grid to sole baseline; original guide artwork pixels restored exactly; no procedural leg drawing, limb rotation or smoothing",
+      "requires_pose_and_limb_length_review": true,
+      "nonuniform_12px_cells": 0
+    },
+    {
+      "file": "ivern-legs-q_wind.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "grid": 12,
+      "source": "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-22\\codex-2\\work\\ivern_legs_pack\\4_q_wind_guide.png",
+      "generated_leg_region_cells": [
+        44,
+        82,
+        92,
+        100
+      ],
+      "source_leg_vertical_shift_pixels": 0,
+      "upper_body_original_pixels": 249238,
+      "upper_body_changed_pixels": 0,
+      "binary_alpha": true,
+      "last_visible_y": 1199,
+      "target_sole_y": 1200,
+      "method": "12px majority readback of generated art within leg edit rectangle; whole generated leg region translated vertically on grid to sole baseline; original guide artwork pixels restored exactly; no procedural leg drawing, limb rotation or smoothing",
+      "requires_pose_and_limb_length_review": true,
+      "nonuniform_12px_cells": 0
+    },
+    {
+      "file": "ivern-legs-q_fling.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "grid": 12,
+      "source": "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-22\\codex-2\\work\\ivern_legs_pack\\5_q_fling_guide.png",
+      "generated_leg_region_cells": [
+        14,
+        84,
+        77,
+        100
+      ],
+      "source_leg_vertical_shift_pixels": -12,
+      "upper_body_original_pixels": 272340,
+      "upper_body_changed_pixels": 0,
+      "binary_alpha": true,
+      "last_visible_y": 1199,
+      "target_sole_y": 1200,
+      "method": "12px majority readback of generated art within leg edit rectangle; whole generated leg region translated vertically on grid to sole baseline; original guide artwork pixels restored exactly; no procedural leg drawing, limb rotation or smoothing",
+      "requires_pose_and_limb_length_review": true,
+      "nonuniform_12px_cells": 0
+    },
+    {
+      "file": "ivern-legs-r_call.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "grid": 12,
+      "source": "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-22\\codex-2\\work\\ivern_legs_pack\\6_r_call_guide.png",
+      "generated_leg_region_cells": [
+        36,
+        85,
+        79,
+        100
+      ],
+      "source_leg_vertical_shift_pixels": -24,
+      "upper_body_original_pixels": 253890,
+      "upper_body_changed_pixels": 0,
+      "binary_alpha": true,
+      "last_visible_y": 1199,
+      "target_sole_y": 1200,
+      "method": "12px majority readback of generated art within leg edit rectangle; whole generated leg region translated vertically on grid to sole baseline; original guide artwork pixels restored exactly; no procedural leg drawing, limb rotation or smoothing",
+      "requires_pose_and_limb_length_review": true,
+      "nonuniform_12px_cells": 0
+    },
+    {
+      "file": "ivern-legs-r_leap.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "grid": 12,
+      "source": "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-22\\codex-2\\work\\ivern_legs_pack\\7_r_leap_guide.png",
+      "generated_leg_region_cells": [
+        22,
+        73,
+        70,
+        92
+      ],
+      "source_leg_vertical_shift_pixels": -72,
+      "upper_body_original_pixels": 258212,
+      "upper_body_changed_pixels": 0,
+      "binary_alpha": true,
+      "last_visible_y": 1103,
+      "target_sole_y": 1104,
+      "method": "12px majority readback of generated art within leg edit rectangle; whole generated leg region translated vertically on grid to sole baseline; original guide artwork pixels restored exactly; no procedural leg drawing, limb rotation or smoothing",
+      "requires_pose_and_limb_length_review": true,
+      "nonuniform_12px_cells": 0
+    },
+    {
+      "file": "ivern-legs-run1.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "grid": 12,
+      "source": "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-22\\codex-2\\work\\ivern_legs_pack\\8_run1_guide.png",
+      "generated_leg_region_cells": [
+        26,
+        85,
+        86,
+        100
+      ],
+      "source_leg_vertical_shift_pixels": 12,
+      "upper_body_original_pixels": 245230,
+      "upper_body_changed_pixels": 0,
+      "binary_alpha": true,
+      "last_visible_y": 1199,
+      "target_sole_y": 1200,
+      "method": "12px majority readback of generated art within leg edit rectangle; whole generated leg region translated vertically on grid to sole baseline; original guide artwork pixels restored exactly; no procedural leg drawing, limb rotation or smoothing",
+      "requires_pose_and_limb_length_review": true,
+      "nonuniform_12px_cells": 0
+    },
+    {
+      "file": "ivern-legs-run2.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "grid": 12,
+      "source": "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-22\\codex-2\\work\\ivern_legs_pack\\9_run2_guide.png",
+      "generated_leg_region_cells": [
+        38,
+        85,
+        88,
+        99
+      ],
+      "source_leg_vertical_shift_pixels": -24,
+      "upper_body_original_pixels": 235245,
+      "upper_body_changed_pixels": 0,
+      "binary_alpha": true,
+      "last_visible_y": 1187,
+      "target_sole_y": 1188,
+      "method": "12px majority readback of generated art within leg edit rectangle; whole generated leg region translated vertically on grid to sole baseline; original guide artwork pixels restored exactly; no procedural leg drawing, limb rotation or smoothing",
+      "requires_pose_and_limb_length_review": true,
+      "nonuniform_12px_cells": 0
+    },
+    {
+      "file": "ivern-legs-run3.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "grid": 12,
+      "source": "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-22\\codex-2\\work\\ivern_legs_pack\\10_run3_guide.png",
+      "generated_leg_region_cells": [
+        38,
+        85,
+        77,
+        100
+      ],
+      "source_leg_vertical_shift_pixels": 48,
+      "upper_body_original_pixels": 246577,
+      "upper_body_changed_pixels": 0,
+      "binary_alpha": true,
+      "last_visible_y": 1199,
+      "target_sole_y": 1200,
+      "method": "12px majority readback of generated art within leg edit rectangle; whole generated leg region translated vertically on grid to sole baseline; original guide artwork pixels restored exactly; no procedural leg drawing, limb rotation or smoothing",
+      "requires_pose_and_limb_length_review": true,
+      "nonuniform_12px_cells": 0
+    },
+    {
+      "file": "ivern-legs-run4.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "grid": 12,
+      "source": "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-22\\codex-2\\work\\ivern_legs_pack\\11_run4_guide.png",
+      "generated_leg_region_cells": [
+        33,
+        85,
+        77,
+        99
+      ],
+      "source_leg_vertical_shift_pixels": -36,
+      "upper_body_original_pixels": 232370,
+      "upper_body_changed_pixels": 0,
+      "binary_alpha": true,
+      "last_visible_y": 1187,
+      "target_sole_y": 1188,
+      "method": "12px majority readback of generated art within leg edit rectangle; whole generated leg region translated vertically on grid to sole baseline; original guide artwork pixels restored exactly; no procedural leg drawing, limb rotation or smoothing",
+      "requires_pose_and_limb_length_review": true,
+      "nonuniform_12px_cells": 0
+    }
+  ],
+  "all_11_present": true,
+  "run_upper_body_top_positions": [
+    {
+      "pose": "run1",
+      "upper_art_top_y": 528
+    },
+    {
+      "pose": "run2",
+      "upper_art_top_y": 516
+    },
+    {
+      "pose": "run3",
+      "upper_art_top_y": 528
+    },
+    {
+      "pose": "run4",
+      "upper_art_top_y": 516
+    }
+  ],
+  "run_upper_body_height_variation_pixels": 12,
+  "technical_checks_passed": true
+}

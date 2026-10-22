@@ -180,6 +180,10 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // to soles, the crescent of paint above: 「头发顶到脚底 40 游戏像素，PPU 1.5」; 3/4 only; Disaster's three and Torment's
     // three each their own tag), so no SIZES row
     ("league_hwei", 1.5, include_str!("../../../league/champions/league_hwei#anim.fanim")),
+    // Ivern: posed by tools/art/rig_ivern.py on Codex's step-1 take A-2 and its key poses (the design's head put back,
+    // the standing poses' legs drawn again at the design's chibi length) at the user's 1.5 squares a game pixel (60 game
+    // rows mushroom to soles: 「艾翁蘑菇顶到脚底 40 游戏像素 … PPU 1.5，只做四分之三侧面」), so no SIZES row
+    ("league_ivern", 1.5, include_str!("../../../league/champions/league_ivern#anim.fanim")),
     // Neeko: posed by tools/art/rig_neeko.py on Codex's step-1 take A-1 and its key poses at the user's 2.5 squares a
     // game pixel (100 game rows quill tips to soles: 「40」, then 「1.5也挺糊的 还得往上调整吧」; 3/4 only; league_neeko's
     // view hook draws her as an ally while she is disguised), so no SIZES row
@@ -323,6 +327,13 @@ pub const EFFECTS: &[(&str, f32, &str)] = &[
     ("league_heimerdinger_apex_l", 1.75, include_str!("../../../league/effects/league_heimerdinger_apex_l#anim.fanim")),
     // league_leblanc's passive clone (Mirror Image): her own dense idle where she stood, then the blink-out column - drawn
     // at her PPU 2.0 like her body (the user: 「妖姬有点bug吧 分身怎么不是高清帧啊 被动的」; tools/fix/leblanc_clone_hd.py)
+    // league_ivern's Daisy (R): her rise, punch, slam and goodbye, each its own dense sheet (one life a sheet, the
+    // turrets' way), drawn from her step-1 design uncut at PPU 1.9 (the user: 「小菊用不裁的原样（D-full，PPU 1.9）」;
+    // tools/art/rig_ivern.py)
+    ("league_ivern_daisy_drop", 1.9, include_str!("../../../league/effects/league_ivern_daisy_drop#anim.fanim")),
+    ("league_ivern_daisy_punch", 1.9, include_str!("../../../league/effects/league_ivern_daisy_punch#anim.fanim")),
+    ("league_ivern_daisy_slam", 1.9, include_str!("../../../league/effects/league_ivern_daisy_slam#anim.fanim")),
+    ("league_ivern_daisy_bye", 1.9, include_str!("../../../league/effects/league_ivern_daisy_bye#anim.fanim")),
     ("league_leblanc_clone", 2.0, include_str!("../../../league/effects/league_leblanc_clone#anim.fanim")),
     // league_zoe's stolen summoner spells (the add-on plays them; tools/art/draw_zoe_spells.py): their own pictures at
     // PPU 2 and League's icons at 3 (32 squares of the client's 64-px icon still read, 22 did not) - many tags each,

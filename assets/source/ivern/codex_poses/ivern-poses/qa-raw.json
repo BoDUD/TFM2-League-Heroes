@@ -1,0 +1,296 @@
+[
+  {
+    "file": "ivern-pose-a_wind.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "partial_alpha_pixels": 505033,
+    "visible_bbox_alpha128": [
+      79,
+      166,
+      1228,
+      1178
+    ]
+  },
+  {
+    "file": "ivern-pose-a_throw.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "partial_alpha_pixels": 454337,
+    "visible_bbox_alpha128": [
+      37,
+      268,
+      1242,
+      1156
+    ]
+  },
+  {
+    "file": "ivern-pose-e_gather.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "partial_alpha_pixels": 509748,
+    "visible_bbox_alpha128": [
+      220,
+      251,
+      1158,
+      1171
+    ]
+  },
+  {
+    "file": "ivern-pose-e_give.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "partial_alpha_pixels": 491751,
+    "visible_bbox_alpha128": [
+      19,
+      187,
+      1244,
+      1195
+    ]
+  },
+  {
+    "file": "ivern-pose-q_wind.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "partial_alpha_pixels": 374421,
+    "visible_bbox_alpha128": [
+      158,
+      169,
+      1119,
+      1177
+    ]
+  },
+  {
+    "file": "ivern-pose-q_fling.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "partial_alpha_pixels": 389742,
+    "visible_bbox_alpha128": [
+      60,
+      316,
+      1225,
+      1144
+    ]
+  },
+  {
+    "file": "ivern-pose-r_crouch.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "partial_alpha_pixels": 460626,
+    "visible_bbox_alpha128": [
+      165,
+      360,
+      1138,
+      1176
+    ]
+  },
+  {
+    "file": "ivern-pose-r_leap.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "partial_alpha_pixels": 321913,
+    "visible_bbox_alpha128": [
+      333,
+      88,
+      1156,
+      1196
+    ]
+  },
+  {
+    "file": "ivern-pose-r_call.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "partial_alpha_pixels": 339188,
+    "visible_bbox_alpha128": [
+      284,
+      102,
+      1017,
+      1205
+    ]
+  },
+  {
+    "file": "ivern-pose-run1.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "partial_alpha_pixels": 453393,
+    "visible_bbox_alpha128": [
+      145,
+      218,
+      1157,
+      1161
+    ]
+  },
+  {
+    "file": "ivern-pose-run2.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "partial_alpha_pixels": 416057,
+    "visible_bbox_alpha128": [
+      160,
+      176,
+      1083,
+      1163
+    ]
+  },
+  {
+    "file": "ivern-pose-run3.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "partial_alpha_pixels": 507758,
+    "visible_bbox_alpha128": [
+      109,
+      223,
+      1187,
+      1196
+    ]
+  },
+  {
+    "file": "ivern-pose-run4.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "partial_alpha_pixels": 506990,
+    "visible_bbox_alpha128": [
+      182,
+      124,
+      1130,
+      1191
+    ]
+  },
+  {
+    "file": "ivern-pose-d_stagger.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "partial_alpha_pixels": 352773,
+    "visible_bbox_alpha128": [
+      60,
+      385,
+      1215,
+      1177
+    ]
+  },
+  {
+    "file": "ivern-pose-d_slump.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "partial_alpha_pixels": 352598,
+    "visible_bbox_alpha128": [
+      240,
+      570,
+      1207,
+      1213
+    ]
+  },
+  {
+    "file": "ivern-daisy-dz_rise.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "partial_alpha_pixels": 603476,
+    "visible_bbox_alpha128": [
+      29,
+      148,
+      1244,
+      1213
+    ]
+  },
+  {
+    "file": "ivern-daisy-dz_wind.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "partial_alpha_pixels": 625947,
+    "visible_bbox_alpha128": [
+      163,
+      24,
+      1164,
+      1234
+    ]
+  },
+  {
+    "file": "ivern-daisy-dz_punch.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "partial_alpha_pixels": 686885,
+    "visible_bbox_alpha128": [
+      71,
+      269,
+      1207,
+      1215
+    ]
+  },
+  {
+    "file": "ivern-daisy-dz_up.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "partial_alpha_pixels": 689314,
+    "visible_bbox_alpha128": [
+      118,
+      30,
+      1137,
+      1225
+    ]
+  },
+  {
+    "file": "ivern-daisy-dz_slam.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "partial_alpha_pixels": 759348,
+    "visible_bbox_alpha128": [
+      45,
+      240,
+      1210,
+      1205
+    ]
+  },
+  {
+    "file": "ivern-daisy-dz_wave.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "partial_alpha_pixels": 667808,
+    "visible_bbox_alpha128": [
+      34,
+      106,
+      1225,
+      1199
+    ]
+  }
+]

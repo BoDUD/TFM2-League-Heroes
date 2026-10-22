@@ -1,0 +1,381 @@
+{
+  "group": "fx",
+  "files": [
+    {
+      "file": "ivern_fx_a_seed.png",
+      "present": true,
+      "raw_preserved": true,
+      "size": [
+        384,
+        48
+      ],
+      "binary_alpha": true,
+      "frame_count": 4,
+      "cell_1x": [
+        12,
+        6
+      ],
+      "symmetry_exact": true,
+      "palette_exact": true,
+      "nonempty_pixels": [
+        14,
+        16,
+        16,
+        16
+      ],
+      "unique_frames": 4
+    },
+    {
+      "file": "ivern_fx_a_hit.png",
+      "present": true,
+      "raw_preserved": true,
+      "size": [
+        240,
+        80
+      ],
+      "binary_alpha": true,
+      "frame_count": 3,
+      "cell_1x": [
+        10,
+        10
+      ],
+      "symmetry_exact": true,
+      "palette_exact": true,
+      "nonempty_pixels": [
+        14,
+        26,
+        16
+      ],
+      "unique_frames": 3
+    },
+    {
+      "file": "ivern_fx_w_hit.png",
+      "present": true,
+      "raw_preserved": true,
+      "size": [
+        288,
+        96
+      ],
+      "binary_alpha": true,
+      "frame_count": 3,
+      "cell_1x": [
+        12,
+        12
+      ],
+      "symmetry_exact": true,
+      "palette_exact": true,
+      "nonempty_pixels": [
+        16,
+        40,
+        12
+      ],
+      "unique_frames": 3
+    },
+    {
+      "file": "ivern_fx_w_brush.png",
+      "present": true,
+      "raw_preserved": true,
+      "size": [
+        4992,
+        224
+      ],
+      "binary_alpha": true,
+      "frame_count": 12,
+      "cell_1x": [
+        52,
+        28
+      ],
+      "symmetry_exact": true,
+      "palette_exact": true,
+      "nonempty_pixels": [
+        176,
+        296,
+        500,
+        728,
+        798,
+        812,
+        844,
+        824,
+        736,
+        522,
+        290,
+        192
+      ],
+      "unique_frames": 12
+    },
+    {
+      "file": "ivern_fx_w_buff.png",
+      "present": true,
+      "raw_preserved": true,
+      "size": [
+        512,
+        64
+      ],
+      "binary_alpha": true,
+      "frame_count": 4,
+      "cell_1x": [
+        16,
+        8
+      ],
+      "symmetry_exact": true,
+      "palette_exact": true,
+      "nonempty_pixels": [
+        22,
+        26,
+        26,
+        26
+      ],
+      "unique_frames": 4
+    },
+    {
+      "file": "ivern_fx_e_seed.png",
+      "present": true,
+      "raw_preserved": true,
+      "size": [
+        1152,
+        320
+      ],
+      "binary_alpha": true,
+      "frame_count": 6,
+      "cell_1x": [
+        24,
+        40
+      ],
+      "symmetry_exact": true,
+      "palette_exact": true,
+      "nonempty_pixels": [
+        236,
+        264,
+        344,
+        382,
+        262,
+        230
+      ],
+      "unique_frames": 6
+    },
+    {
+      "file": "ivern_fx_e_burst.png",
+      "present": true,
+      "raw_preserved": true,
+      "size": [
+        2016,
+        256
+      ],
+      "binary_alpha": true,
+      "frame_count": 7,
+      "cell_1x": [
+        36,
+        32
+      ],
+      "symmetry_exact": true,
+      "palette_exact": true,
+      "nonempty_pixels": [
+        86,
+        202,
+        508,
+        300,
+        130,
+        92,
+        28
+      ],
+      "unique_frames": 7
+    },
+    {
+      "file": "ivern_fx_e_slow.png",
+      "present": true,
+      "raw_preserved": true,
+      "size": [
+        512,
+        80
+      ],
+      "binary_alpha": true,
+      "frame_count": 4,
+      "cell_1x": [
+        16,
+        10
+      ],
+      "symmetry_exact": true,
+      "palette_exact": true,
+      "nonempty_pixels": [
+        68,
+        66,
+        60,
+        62
+      ],
+      "unique_frames": 4
+    },
+    {
+      "file": "ivern_fx_q_vine.png",
+      "present": true,
+      "raw_preserved": true,
+      "size": [
+        896,
+        80
+      ],
+      "binary_alpha": true,
+      "frame_count": 4,
+      "cell_1x": [
+        28,
+        10
+      ],
+      "symmetry_exact": true,
+      "palette_exact": true,
+      "nonempty_pixels": [
+        100,
+        98,
+        100,
+        106
+      ],
+      "unique_frames": 4
+    },
+    {
+      "file": "ivern_fx_q_hit.png",
+      "present": true,
+      "raw_preserved": true,
+      "size": [
+        960,
+        192
+      ],
+      "binary_alpha": true,
+      "frame_count": 5,
+      "cell_1x": [
+        24,
+        24
+      ],
+      "symmetry_exact": true,
+      "palette_exact": true,
+      "nonempty_pixels": [
+        88,
+        180,
+        208,
+        178,
+        48
+      ],
+      "unique_frames": 5
+    },
+    {
+      "file": "ivern_fx_q_root.png",
+      "present": true,
+      "raw_preserved": true,
+      "size": [
+        640,
+        160
+      ],
+      "binary_alpha": true,
+      "frame_count": 4,
+      "cell_1x": [
+        20,
+        20
+      ],
+      "symmetry_exact": true,
+      "palette_exact": true,
+      "nonempty_pixels": [
+        178,
+        196,
+        182,
+        174
+      ],
+      "unique_frames": 4
+    },
+    {
+      "file": "ivern_fx_q_rush.png",
+      "present": true,
+      "raw_preserved": true,
+      "size": [
+        576,
+        64
+      ],
+      "binary_alpha": true,
+      "frame_count": 4,
+      "cell_1x": [
+        18,
+        8
+      ],
+      "symmetry_exact": true,
+      "palette_exact": true,
+      "nonempty_pixels": [
+        54,
+        52,
+        46,
+        54
+      ],
+      "unique_frames": 4
+    },
+    {
+      "file": "ivern_fx_r_dust.png",
+      "present": true,
+      "raw_preserved": true,
+      "size": [
+        2304,
+        192
+      ],
+      "binary_alpha": true,
+      "frame_count": 6,
+      "cell_1x": [
+        48,
+        24
+      ],
+      "symmetry_exact": true,
+      "palette_exact": true,
+      "nonempty_pixels": [
+        178,
+        490,
+        802,
+        536,
+        242,
+        148
+      ],
+      "unique_frames": 6
+    },
+    {
+      "file": "ivern_fx_r_shock.png",
+      "present": true,
+      "raw_preserved": true,
+      "size": [
+        2688,
+        192
+      ],
+      "binary_alpha": true,
+      "frame_count": 6,
+      "cell_1x": [
+        56,
+        24
+      ],
+      "symmetry_exact": true,
+      "palette_exact": true,
+      "nonempty_pixels": [
+        64,
+        216,
+        380,
+        378,
+        204,
+        64
+      ],
+      "unique_frames": 6
+    },
+    {
+      "file": "ivern_fx_r_hit.png",
+      "present": true,
+      "raw_preserved": true,
+      "size": [
+        512,
+        128
+      ],
+      "binary_alpha": true,
+      "frame_count": 4,
+      "cell_1x": [
+        16,
+        16
+      ],
+      "symmetry_exact": true,
+      "palette_exact": true,
+      "nonempty_pixels": [
+        60,
+        98,
+        86,
+        98
+      ],
+      "unique_frames": 4
+    }
+  ]
+}

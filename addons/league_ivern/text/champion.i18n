@@ -1,0 +1,37 @@
+{
+  "zh-hans": {
+    "description": {
+      "league_ivern": {
+        "attack": "【附加包】扔出一颗种子。<#ff9028ff>揠苗助攻<>：每次种豆得瓜都在脚下长出一片真正的草丛<#ffb900ff>4秒<>，站在里面的队友攻击+15%，雷恩加尔能从里面扑出去，奇亚娜能从里面拿草元素；他自己的普攻追加<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<>魔法伤害。"
+      }
+    }
+  },
+  "zh-hant": {
+    "description": {
+      "league_ivern": {
+        "attack": "【附加包】扔出一顆種子。<#ff9028ff>茂林春生<>：每次施放守護種子都在腳下長出一片真正的草叢<#ffb900ff>4秒<>，站在裡面的隊友攻擊+15%，雷葛爾能從裡面撲出去，琪亞娜能從裡面取得草元素；他自己的普攻追加<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<>魔法傷害。"
+      }
+    }
+  },
+  "en": {
+    "description": {
+      "league_ivern": {
+        "attack": "[Add-on] Throws a seed. <#ff9028ff>Brushmaker<>: each Triggerseed grows a real brush at his feet for <#ffb900ff>4s<>: allies standing in it gain +15% attack, Rengar can pounce from it and Qiyana take grass from it; his own attacks deal <#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<> magic damage more."
+      }
+    }
+  },
+  "ko": {
+    "description": {
+      "league_ivern": {
+        "attack": "[확장] 씨앗을 던진다. <#ff9028ff>수풀 가꾸기<>: 보호의 씨앗마다 발밑에 진짜 수풀이 <#ffb900ff>4초<> 자란다. 안에 선 아군 공격력 +15%, 렝가는 그 안에서 도약하고 키아나는 풀숲 원소를 얻는다. 그의 기본 공격은 <#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<> 마법 피해 추가."
+      }
+    }
+  },
+  "ja": {
+    "description": {
+      "league_ivern": {
+        "attack": "【拡張】種を投げる。<#ff9028ff>シゲミヅクリ<>：タネバクダンのたびに足元へ本物の茂みが<#ffb900ff>4秒<>生え、中に立つ味方は攻撃力+15%、レンガーはそこから飛びかかれ、キヤナは草むらのエレメントを得る。自身の通常攻撃は<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<>の魔法ダメージを追加。"
+      }
+    }
+  }
+}

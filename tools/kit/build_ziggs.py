@@ -38,7 +38,9 @@ the watch throws it (league_jarvaniv's W the same way).
   watch   A life-long `AddCasted` started by his first attack or R press of each life (`init`), every watch_p ticks:
           throws R when the moment holds, sets off W.
 The add-on copy (--native, addons/league_ziggs): the passive league_ziggs:hexplode reads towers' health - with W off
-cooldown it blows up an enemy tower within w_hex_r below w_ex% of its health (League: 25-35%) and puts W on cooldown;
+cooldown it blows up an enemy tower within w_hex_r below w_ex% of its health (League: 25-35%) and puts W on cooldown
+(w_hex_r is measured centre to centre: League's 1000 throw. It was 60000 to 2026-10-22 - he sieges from his 55000
+attack range plus both radii, 75000 or more from the tower's centre, so it never went off in a game);
 Short Fuse's bomb (the copy raises `p_now` on him as it hits) deals p_tower% to towers.
 """
 import argparse
@@ -78,7 +80,7 @@ P = {
     "e_p": 30, "e_dmg": 65, "e_ratio": 45, "e_low": 40, "e_slow": 30, "e_slow_t": 90, "e_show": 15,
     # W Satchel Charge (League: 70-210 +50% AP, r 325, knockback 500 / 0.5 s, self 825, cd 20-12)
     "w_cd": 900, "w_trig": 22000, "w_r": 30000, "w_dur": 24, "w_rel": 8, "w_dmg": 80, "w_ratio": 50,
-    "w_kb": 3000, "w_kb_t": 10, "w_hop": 4000, "w_hop_t": 10, "w_ex": 30, "w_hex_r": 60000,
+    "w_kb": 3000, "w_kb_t": 10, "w_hop": 4000, "w_hop_t": 10, "w_ex": 30, "w_hex_r": 100000,
     # R Mega Inferno Bomb (League: 5000 range, r 525 (centre 250), 300-700 +100% AP at the centre, 65% outside,
     # cd 120-70)
     "r_cd": 3600, "r_range": 220000, "r_arm": 600, "r_wait": 300, "r_dur": 36, "r_rel": 16, "r_travel": 70,

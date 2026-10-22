@@ -10,7 +10,7 @@
     "passive_ref": "league_ziggs:hexplode",
     "params": {
       "w_ex": 30,
-      "w_hex_r": 60000,
+      "w_hex_r": 100000,
       "w_cd": 900,
       "p_tower": 175
     }
