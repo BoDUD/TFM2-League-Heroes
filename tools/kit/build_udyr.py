@@ -1,6 +1,6 @@
 """Build league_udyr.data_champion (jungle, Melee: the Spirit Walker, four stances) from the parameters P.
 
-    python tools/kit/build_udyr.py [--set key=value ...] [--out file] [--params json] [--nodes]
+    python tools/kit/build_udyr.py [--set key=value ...] [--out file] [--params json] [--nodes] [--native]
 
 Kit (the user's picks, 2026-10-22: JUNGLE, layout A - Q / E / R, Iron Mantle (W) folded into the passive, one action
 set per stance; 「有连招要做连招」). TFM2 has three active slots: Wilding Claw (Q, the Bear) is `skill`, Blazing Stampede
@@ -32,6 +32,9 @@ already stands in its stance (a 2-tick `*_wk` flag says so, so the branch is wri
           that hits a champion opens `r_go` for win_r ticks; R cast in it whirls faster (r_fast between pulses).
           The same stance twice is awakened (Q -> Q, E -> E). Every ability arms the passive's two quick attacks.
 Pictures: the step-3 effects pack (tools/art/pack_udyr_fx.py: q_swipe and e_trail drawn into q_attack / e_run).
+The add-on copy (--native, addons/league_udyr): Iron Mantle by his health - no ability triggers it; the passive
+league_udyr:mantle shields him and arms the two healing attacks when his health falls under w_hp% (w_icd between), as
+League's W is cast when he is hurt; the add-on also shows each stance's idle, run, hit and death (its view swap).
 Timings: drafts until the frames exist (tools/art/rig_udyr.py MS; a frame's start in ticks = ms x 0.06): a_hit, q_dur,
 e_go, e_hit, r_at.
 Numbers: League 16.20 (CommunityDragon udyr.bin) read into the Melee jungle range; balanced on the classic-SDK
@@ -62,6 +65,7 @@ P = {
     # passive Bridge Between + Iron Mantle (W)
     "p_as": 30, "p_t": 180,
     "w_icd": 720, "w_sh": 70, "w_sh_r": 40, "w_sh_t": 240, "w_heal": 15, "w_heal_r": 20, "w_t": 300,
+    "w_hp": 50,                     # the add-on: Iron Mantle when his health falls under this % (league_udyr:mantle)
     # Q Wilding Claw (the Bear)
     "q_cd": 360, "q_range": 30000, "q_dur": 12, "q_as": 30, "q_as2": 60, "q_t": 240,
     "q_dmg": 15, "q_ratio": 35, "q_thp": 4, "q2_dmg": 25, "q2_ratio": 35, "q2_r": 9000, "q2_speed": 30000,
@@ -231,13 +235,14 @@ def action(name, dur, cd, st, rng, ctype, ctarget, effect, atype="Skill", cancel
             "casting_type": ctype, "casting_target": ctarget, "attack_type": atype, "effect": effect}
 
 
-def build(p):
+def build(p, native=False):
+    """native: the add-on's copy (addons/league_udyr) - Iron Mantle by his health there."""
     # ------------------------------------------------------------------ passive: Bridge Between + Iron Mantle
     quick = refresh("p2", p["p_t"], attack_speed_mult=p["p_as"])
     mantle = sw("w_icd", NONE, combine(flag("w_icd", p["w_icd"]), on_me(shield(p["w_sh"], p["w_sh_r"], p["w_sh_t"])),
                                        refresh("w_sh", p["w_sh_t"]), *rm("w1"), refresh("w2", p["w_t"]),
                                        cview("w_on"), sfx("w")))
-    ability = combine(*rm("p1"), quick, mantle)   # every ability
+    ability = combine(*rm("p1"), quick, None if native else mantle)   # every ability
 
     # ------------------------------------------------------------------ attack
     quick_spent = sw("p2", combine(*rm("p2"), flag("p1", p["p_t"], attack_speed_mult=p["p_as"])), combine(*rm("p1")))
@@ -313,7 +318,7 @@ def build(p):
                E("w_heal", FX, 3)]
     views_b = [B_("q_as", FX, -1), B_("e_ms", FX, -1), B_("e_imm", FX, 3), B_("e_stun", FX, 3), B_("r_storm", BIG, 3),
                B_("r_slow", FX, -1), B_("r2_slow", FX, -1, "r_slow"), B_("w_sh", BIG, 3)]
-    return {
+    kit = {
         "id": ID, "category": "Melee", "tags": ["AD", "Melee", "Tank", "Shield", "CC"],
         "sprite": f"asset/league/champions/{ID}", "anim_prefix": "",
         "skill_icons": [f"asset/league/icons/{ID}_skill", f"asset/league/icons/{ID}_skill2", f"asset/league/icons/{ID}_ult"],
@@ -324,6 +329,10 @@ def build(p):
         "attack": attack_a, "skill": skill, "skill2": skill2, "ult": ult,
         "view_projectiles": views_p, "view_effects": views_e, "view_buffs": views_b,
     }
+    if native:
+        kit["passive"] = {"passive_ref": "league_udyr:mantle",
+                          "params": {k: int(p[k]) for k in ("w_hp", "w_icd", "w_sh", "w_sh_r", "w_sh_t", "w_t")}}
+    return kit
 
 
 def nodes(o):
@@ -341,6 +350,7 @@ def main():
     ap_.add_argument("--params", help="json file with overrides")
     ap_.add_argument("--out", default=OUT)
     ap_.add_argument("--nodes", action="store_true")
+    ap_.add_argument("--native", action="store_true", help="the add-on's copy (addons/league_udyr)")
     a = ap_.parse_args()
     p = dict(P)
     if a.params:
@@ -350,7 +360,7 @@ def main():
         if k not in p:
             raise SystemExit(f"unknown parameter {k}")
         p[k] = type(p[k])(float(v)) if isinstance(p[k], int) else float(v)
-    kit = build(p)
+    kit = build(p, native=a.native)
     if a.nodes:
         for s in ("attack", "skill", "skill2", "ult"):
             print(f"{s:7s} {nodes(kit[s]['effect']):4d} nodes")
