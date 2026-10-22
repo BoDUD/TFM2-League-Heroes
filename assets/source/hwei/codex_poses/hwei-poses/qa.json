@@ -1,0 +1,471 @@
+{
+  "count": 21,
+  "expected_count": 21,
+  "all_size_1254": true,
+  "all_raw_identical": true,
+  "hard_alpha_pass_count": 0,
+  "rows": [
+    {
+      "file": "hwei-pose-a_flick.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_unique_count": 256,
+      "partial_alpha_pixels": 362296,
+      "hard_alpha": false,
+      "visible_bbox": [
+        78,
+        253,
+        1215,
+        1146
+      ],
+      "min_visible_margin": 39,
+      "nonconstant_visible_12px_tiles": 2667,
+      "visible_12px_tiles": 2667,
+      "sha256": "8b0b431fd414601b9c3cecbc83a44e4d9e7378ab8717cf3d7768f23a3510abc8",
+      "raw_identical": true
+    },
+    {
+      "file": "hwei-pose-a_wind.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_unique_count": 256,
+      "partial_alpha_pixels": 479640,
+      "hard_alpha": false,
+      "visible_bbox": [
+        88,
+        68,
+        1137,
+        1205
+      ],
+      "min_visible_margin": 49,
+      "nonconstant_visible_12px_tiles": 3526,
+      "visible_12px_tiles": 3526,
+      "sha256": "4aa86fa89d1549a22f9e1c9702dc9bf1836dcec5a69ffc4491b377e681a9f459",
+      "raw_identical": true
+    },
+    {
+      "file": "hwei-pose-d_kneel.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_unique_count": 256,
+      "partial_alpha_pixels": 358821,
+      "hard_alpha": false,
+      "visible_bbox": [
+        180,
+        322,
+        1217,
+        1169
+      ],
+      "min_visible_margin": 37,
+      "nonconstant_visible_12px_tiles": 2615,
+      "visible_12px_tiles": 2615,
+      "sha256": "4f029e6ea148bd1c677817f9d971eb023f011dfada327c5eec70c78b35e7e3c6",
+      "raw_identical": true
+    },
+    {
+      "file": "hwei-pose-d_stagger.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_unique_count": 256,
+      "partial_alpha_pixels": 333233,
+      "hard_alpha": false,
+      "visible_bbox": [
+        68,
+        252,
+        1227,
+        1187
+      ],
+      "min_visible_margin": 27,
+      "nonconstant_visible_12px_tiles": 2480,
+      "visible_12px_tiles": 2480,
+      "sha256": "b0e3da3dc977b78c88bf4b5e662154b9535aaf83b463e426461d3677a274e33f",
+      "raw_identical": true
+    },
+    {
+      "file": "hwei-pose-ee_swing.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_unique_count": 256,
+      "partial_alpha_pixels": 423659,
+      "hard_alpha": false,
+      "visible_bbox": [
+        125,
+        132,
+        1152,
+        1162
+      ],
+      "min_visible_margin": 92,
+      "nonconstant_visible_12px_tiles": 3123,
+      "visible_12px_tiles": 3123,
+      "sha256": "35356913e6b32555fbb94a47f98f833525afbaba557509aca00019624bc4318b",
+      "raw_identical": true
+    },
+    {
+      "file": "hwei-pose-ee_wind.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_unique_count": 256,
+      "partial_alpha_pixels": 357143,
+      "hard_alpha": false,
+      "visible_bbox": [
+        44,
+        241,
+        1169,
+        1127
+      ],
+      "min_visible_margin": 44,
+      "nonconstant_visible_12px_tiles": 2642,
+      "visible_12px_tiles": 2642,
+      "sha256": "9aadadc3f6a619b14303beb00f3d4c31e9cdd036b0a292c2f0d9c89d87fdf37d",
+      "raw_identical": true
+    },
+    {
+      "file": "hwei-pose-ew_high.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_unique_count": 256,
+      "partial_alpha_pixels": 397662,
+      "hard_alpha": false,
+      "visible_bbox": [
+        225,
+        69,
+        1212,
+        1221
+      ],
+      "min_visible_margin": 33,
+      "nonconstant_visible_12px_tiles": 2921,
+      "visible_12px_tiles": 2921,
+      "sha256": "70b0114d6f0fd9bd9c554337f4adddd1b40132333f1397e67241570ade372f85",
+      "raw_identical": true
+    },
+    {
+      "file": "hwei-pose-ew_low.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_unique_count": 256,
+      "partial_alpha_pixels": 427202,
+      "hard_alpha": false,
+      "visible_bbox": [
+        79,
+        183,
+        1226,
+        1124
+      ],
+      "min_visible_margin": 28,
+      "nonconstant_visible_12px_tiles": 3109,
+      "visible_12px_tiles": 3109,
+      "sha256": "ed74ca5b5b24bffc574f872e88b0df7bf06fd67aa7091f384b81a6ca8a006056",
+      "raw_identical": true
+    },
+    {
+      "file": "hwei-pose-q_throw.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_unique_count": 256,
+      "partial_alpha_pixels": 409372,
+      "hard_alpha": false,
+      "visible_bbox": [
+        138,
+        141,
+        1160,
+        1170
+      ],
+      "min_visible_margin": 84,
+      "nonconstant_visible_12px_tiles": 2950,
+      "visible_12px_tiles": 2950,
+      "sha256": "4f9be75b8eeba8f65fd854678be20de27f239d770834dd2f9d3fcd7cf6a9d3e6",
+      "raw_identical": true
+    },
+    {
+      "file": "hwei-pose-q_wind.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_unique_count": 256,
+      "partial_alpha_pixels": 429163,
+      "hard_alpha": false,
+      "visible_bbox": [
+        99,
+        87,
+        1201,
+        1206
+      ],
+      "min_visible_margin": 48,
+      "nonconstant_visible_12px_tiles": 3166,
+      "visible_12px_tiles": 3166,
+      "sha256": "ed1f796ce766c9e409c8c84356843fedec65a64d39224b70ba60d1c11aa2ec9f",
+      "raw_identical": true
+    },
+    {
+      "file": "hwei-pose-qe_raise.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_unique_count": 256,
+      "partial_alpha_pixels": 558806,
+      "hard_alpha": false,
+      "visible_bbox": [
+        176,
+        28,
+        1129,
+        1225
+      ],
+      "min_visible_margin": 28,
+      "nonconstant_visible_12px_tiles": 4053,
+      "visible_12px_tiles": 4053,
+      "sha256": "50f6dba376616064b698c4e5343a1992624b526d139a49c52606c56e47e8ca3c",
+      "raw_identical": true
+    },
+    {
+      "file": "hwei-pose-qe_slam.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_unique_count": 256,
+      "partial_alpha_pixels": 486691,
+      "hard_alpha": false,
+      "visible_bbox": [
+        147,
+        144,
+        1225,
+        1185
+      ],
+      "min_visible_margin": 29,
+      "nonconstant_visible_12px_tiles": 3507,
+      "visible_12px_tiles": 3507,
+      "sha256": "324b254bd0511f95a4b1baf21b4de392c58397dda11f9123f84a1ad8a31f76a1",
+      "raw_identical": true
+    },
+    {
+      "file": "hwei-pose-qw_point.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_unique_count": 256,
+      "partial_alpha_pixels": 382517,
+      "hard_alpha": false,
+      "visible_bbox": [
+        97,
+        177,
+        1195,
+        1166
+      ],
+      "min_visible_margin": 59,
+      "nonconstant_visible_12px_tiles": 2790,
+      "visible_12px_tiles": 2790,
+      "sha256": "982d058135c5caad808c8512ef53248cd97c522b0c0bc18bd63ece4c12ed4455",
+      "raw_identical": true
+    },
+    {
+      "file": "hwei-pose-qw_raise.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_unique_count": 256,
+      "partial_alpha_pixels": 440894,
+      "hard_alpha": false,
+      "visible_bbox": [
+        196,
+        49,
+        1069,
+        1205
+      ],
+      "min_visible_margin": 49,
+      "nonconstant_visible_12px_tiles": 3155,
+      "visible_12px_tiles": 3155,
+      "sha256": "1ae9210170ee81991c4187b4a3db5f048e5117a3226eaf590471285048f1ca69",
+      "raw_identical": true
+    },
+    {
+      "file": "hwei-pose-r_fling.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_unique_count": 256,
+      "partial_alpha_pixels": 356908,
+      "hard_alpha": false,
+      "visible_bbox": [
+        109,
+        274,
+        1215,
+        1166
+      ],
+      "min_visible_margin": 39,
+      "nonconstant_visible_12px_tiles": 2613,
+      "visible_12px_tiles": 2613,
+      "sha256": "1cddcac9e91276006c846dbf8377b5517708b5d30f0bcad7d3495db497a7c3c3",
+      "raw_identical": true
+    },
+    {
+      "file": "hwei-pose-r_hop.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_unique_count": 256,
+      "partial_alpha_pixels": 437872,
+      "hard_alpha": false,
+      "visible_bbox": [
+        78,
+        109,
+        1046,
+        1175
+      ],
+      "min_visible_margin": 78,
+      "nonconstant_visible_12px_tiles": 3206,
+      "visible_12px_tiles": 3206,
+      "sha256": "3a50a87a35a4fd00d408210d2c07ac5d558fc878fde577b34c93c4f658073ca9",
+      "raw_identical": true
+    },
+    {
+      "file": "hwei-pose-r_open.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_unique_count": 256,
+      "partial_alpha_pixels": 363058,
+      "hard_alpha": false,
+      "visible_bbox": [
+        133,
+        213,
+        1222,
+        1205
+      ],
+      "min_visible_margin": 32,
+      "nonconstant_visible_12px_tiles": 2698,
+      "visible_12px_tiles": 2698,
+      "sha256": "58f51a40c653eb74f4c0caaebe6a382fc32e8270773a72340619555b5822dbd1",
+      "raw_identical": true
+    },
+    {
+      "file": "hwei-pose-run1.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_unique_count": 256,
+      "partial_alpha_pixels": 377080,
+      "hard_alpha": false,
+      "visible_bbox": [
+        161,
+        166,
+        1078,
+        1186
+      ],
+      "min_visible_margin": 68,
+      "nonconstant_visible_12px_tiles": 2763,
+      "visible_12px_tiles": 2763,
+      "sha256": "2b2e3c46bc22816f6f1bf25f7c6b1ea1a5b86781358d38c39f7e9ab820b07dd3",
+      "raw_identical": true
+    },
+    {
+      "file": "hwei-pose-run2.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_unique_count": 256,
+      "partial_alpha_pixels": 404632,
+      "hard_alpha": false,
+      "visible_bbox": [
+        147,
+        128,
+        1097,
+        1196
+      ],
+      "min_visible_margin": 58,
+      "nonconstant_visible_12px_tiles": 2934,
+      "visible_12px_tiles": 2934,
+      "sha256": "33f3bd3ffe105ee12162017b6e8e51a220a25bc30c52b7e7dab838c261084463",
+      "raw_identical": true
+    },
+    {
+      "file": "hwei-pose-run3.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_unique_count": 256,
+      "partial_alpha_pixels": 387082,
+      "hard_alpha": false,
+      "visible_bbox": [
+        196,
+        168,
+        1090,
+        1196
+      ],
+      "min_visible_margin": 58,
+      "nonconstant_visible_12px_tiles": 2743,
+      "visible_12px_tiles": 2743,
+      "sha256": "2306837a2fbefbd3583e8a1edee40aebfd1a9bdbac535538896c0e5dc11e10d6",
+      "raw_identical": true
+    },
+    {
+      "file": "hwei-pose-run4.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_unique_count": 256,
+      "partial_alpha_pixels": 356683,
+      "hard_alpha": false,
+      "visible_bbox": [
+        191,
+        161,
+        1077,
+        1183
+      ],
+      "min_visible_margin": 71,
+      "nonconstant_visible_12px_tiles": 2629,
+      "visible_12px_tiles": 2629,
+      "sha256": "ce571e929493ecd98d4be6a90381332aafaebc5b2527f7c4373fec3b5e4d1aeb",
+      "raw_identical": true
+    }
+  ]
+}
