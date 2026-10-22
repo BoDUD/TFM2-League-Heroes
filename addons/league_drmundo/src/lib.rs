@@ -12,7 +12,7 @@
 //!   被踩碎、过期）才忘掉。药罐在场、他生命不满 `CAN_PCT`%、身边 `SAFE` 以内没有敌方英雄时 AI 走过去捡；该放 R 的时候
 //!   先放 R。
 //! - **感染之锯**：打中英雄时按对方**当前生命**的 `q_pct`%（至少 `q_dmg`）算魔法伤害，补上主包那一下 `q_dmg` 的差额。
-//! - **钝器创伤**：强化普攻按他**已损生命**最多再加 `e_miss`%（`e_dmg` + `e_ad`% 攻击力那部分）；他的攻击力随**额外生命**
+//! - **钝器创伤**：强化普攻按他**已损生命**最多再加 `e_miss`%（`e_dmg` + `e_hp`% 最大生命那部分）；他的攻击力随**额外生命**
 //!   （最大生命高出这一级本来的部分，装备给的）涨 `e_bonus`‰。
 //! - **心脏电击器**：开启后受到的伤害存 `w_store`% 成灰色生命；结束时数据的电击打中英雄（`w_full`）全回，只打中小兵野怪
 //!   （`w_half`）回一半，没打中不回。
@@ -160,12 +160,12 @@ pub fn saw_extra(hp_before: usize, q_pct: usize, q_dmg: usize) -> usize {
     (hp_before * q_pct / 100).max(q_dmg) - q_dmg
 }
 
-/// 强化普攻按已损生命再加多少：(e_dmg + e_ad% 攻击力) × e_miss% × 已损比例。
-pub fn bonk_extra(e_dmg: usize, e_ad: usize, attack: usize, e_miss: usize, hp: usize, max: usize) -> usize {
+/// 强化普攻按已损生命再加多少：(e_dmg + e_hp% 最大生命) × e_miss% × 已损比例（2026-10-22 起按最大生命，以前是 e_ad% 攻击力）。
+pub fn bonk_extra(e_dmg: usize, e_hp: usize, e_miss: usize, hp: usize, max: usize) -> usize {
     if max == 0 {
         return 0;
     }
-    let base = e_dmg + e_ad * attack / 100;
+    let base = e_dmg + e_hp * max / 100;
     base * e_miss / 100 * (max - hp.min(max)) / max
 }
 
@@ -251,7 +251,7 @@ pub struct Params {
     pub q_dmg: usize,
     pub q_pct: usize,
     pub e_dmg: usize,
-    pub e_ad: usize,
+    pub e_hp: usize,
     pub e_miss: usize,
     pub e_bonus: usize,
     pub hp: usize,
@@ -264,7 +264,7 @@ pub struct Params {
 
 impl Default for Params {
     fn default() -> Self {
-        Params { p_cd: 2400, q_dmg: 140, q_pct: 20, e_dmg: 80, e_ad: 60, e_miss: 100, e_bonus: 25, hp: 1350, hp_g: 125,
+        Params { p_cd: 2400, q_dmg: 140, q_pct: 20, e_dmg: 80, e_hp: 8, e_miss: 100, e_bonus: 25, hp: 1350, hp_g: 125,
                  w_store: 75, r_low: 60, r_burst: 15, r_miss: 25 }
     }
 }
@@ -281,7 +281,7 @@ pub fn parse_params(json: &str) -> Params {
             "q_dmg" => p.q_dmg = v,
             "q_pct" => p.q_pct = v,
             "e_dmg" => p.e_dmg = v,
-            "e_ad" => p.e_ad = v,
+            "e_hp" => p.e_hp = v,
             "e_miss" => p.e_miss = v,
             "e_bonus" => p.e_bonus = v,
             "hp" => p.hp = v,
@@ -391,7 +391,7 @@ impl StableEffectType for Bonk {
         let Some(me) = sim.get_entity(caster) else { return };
         let (hp, max) = me.hp();
         let p = params();
-        let extra = bonk_extra(p.e_dmg, p.e_ad, me.stat().attack, p.e_miss, hp, max);
+        let extra = bonk_extra(p.e_dmg, p.e_hp, p.e_miss, hp, max);
         if extra > 0 {
             sim.deal_damage(caster, t, extra, 0, AttackTypeV1::Skill);
         }
@@ -856,9 +856,10 @@ mod tests {
 
     #[test]
     fn the_bat_grows_with_missing_health() {
-        assert_eq!(bonk_extra(40, 30, 200, 100, 1000, 1000), 0, "full health: nothing more");
-        assert_eq!(bonk_extra(40, 30, 200, 100, 500, 1000), 50, "half health: half of 100");
-        assert_eq!(bonk_extra(40, 30, 200, 100, 0, 1000), 100);
+        // 40 + 6% of 1000 max health = 100 at 100%
+        assert_eq!(bonk_extra(40, 6, 100, 1000, 1000), 0, "full health: nothing more");
+        assert_eq!(bonk_extra(40, 6, 100, 500, 1000), 50, "half health: half of 100");
+        assert_eq!(bonk_extra(40, 6, 100, 0, 1000), 100);
     }
 
     #[test]
@@ -909,7 +910,7 @@ mod tests {
 
     #[test]
     fn params_parse() {
-        let p = parse_params(r#"{"e_ad":60,"e_bonus":25,"e_dmg":80,"e_miss":100,"hp":1350,"hp_g":125,"p_cd":2400,"q_dmg":140,"q_pct":20,"r_burst":15,"r_low":60,"r_miss":25,"w_store":75}"#);
+        let p = parse_params(r#"{"e_bonus":25,"e_hp":8,"e_dmg":80,"e_miss":100,"hp":1350,"hp_g":125,"p_cd":2400,"q_dmg":140,"q_pct":20,"r_burst":15,"r_low":60,"r_miss":25,"w_store":75}"#);
         assert_eq!(p, Params::default());
     }
 
@@ -925,7 +926,7 @@ mod tests {
             .expect("p_fly in build_drmundo.P");
         assert!(fly + 3 < LAND_WAIT, "p_fly {fly} + 3 >= LAND_WAIT {LAND_WAIT}");
         let d = Params::default();
-        for (key, v) in [("p_cd", d.p_cd), ("q_dmg", d.q_dmg), ("q_pct", d.q_pct), ("e_dmg", d.e_dmg), ("e_ad", d.e_ad),
+        for (key, v) in [("p_cd", d.p_cd), ("q_dmg", d.q_dmg), ("q_pct", d.q_pct), ("e_dmg", d.e_dmg), ("e_hp", d.e_hp),
                          ("e_miss", d.e_miss), ("e_bonus", d.e_bonus), ("hp", d.hp), ("hp_g", d.hp_g),
                          ("w_store", d.w_store), ("r_low", d.r_low), ("r_burst", d.r_burst), ("r_miss", d.r_miss)] {
             assert!(src.contains(&format!("\"{key}\": {v}")), "{key} is not {v} in build_drmundo.P");

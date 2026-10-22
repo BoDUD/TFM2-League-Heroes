@@ -15,10 +15,11 @@ with fixed numbers, maximum-health shares and his own hit count, and the add-on 
           can only end it (at most 3 ticks late) and cannot take a share of current health, so it costs nothing.
           With native=1 the add-on blocks it on the tick it lands, takes 7% of current health and walks him to the tank.
   attack  A cleaver chop (atk_st). E Blunt Force Trauma (钝器创伤) is folded in: League's passive AD from bonus health is
-          in his AD growth; with e_cd gone his next attack is the bat swing (attack_e): e_dmg + e_ad% AD more, and a
+          in his AD growth; with e_cd gone his next attack is the bat swing (attack_e): e_dmg + e_hp% of his maximum health more (2026-10-22, the user: 「蒙多加成怎么是攻击力不是生命值」 - the damage
+          ratios read his maximum health, `hp_ratio`; the heals stay on AD, no heal effect has a health part), and a
           minion or monster it kills is flung (League: the corpse damages what it passes): the kill check of
           league_jinx (a caster flag the target's 1-tick casted clears while it lives) read by a hidden lob onto its
-          spot - a dead target -> the corpse flies on away from him (e_fling_l), e_fling + e_fling_ad% AD to every
+          spot - a dead target -> the corpse flies on away from him (e_fling_l), e_fling + e_fling_hp% of his maximum health to every
           enemy unit on its way. With native=1 the swing
           adds up to e_miss% more by his real missing health, and his AD grows by e_bonus per mille of his bonus health
           (items: his maximum health above the level's own).
@@ -29,9 +30,9 @@ with fixed numbers, maximum-health shares and his own hit count, and the add-on 
           q_heal_c more health. With native=1 the add-on deals q_pct% of the champion's real current health (at
           least q_dmg) instead of q_thp.
   skill2  W Heart Zapper (心脏电击器): cast with an enemy unit within w_rad: w_n pulses w_per ticks apart zap every enemy
-          unit round him (w_tick magic + w_ad% AD); every g_per ticks a check that finds his 1-point hit sensor broken
+          unit round him (w_tick + w_hp% of his maximum health, magic); every g_per ticks a check that finds his 1-point hit sensor broken
           (any damage since the last check, league_sett's sensor) queues a grey-health heal of w_g for the end; at the end the
-          final zap (w_end + w_end_ad% AD) - a champion in it pays every queued heal in full, only minions or monsters
+          final zap (w_end + w_end_hp% of his maximum health, magic) - a champion in it pays every queued heal in full, only minions or monsters
           half, nothing in it nothing. With native=1 the add-on stores w_store% of the real damage taken and heals it.
   ult     R Maximum Dosage (极限剂量), cast at the right moment (the user's rule 「看好时机」): the slot arms it (r_arm ticks);
           each of his actions while armed fires it when his damage count reached h{r_need} and an enemy champion stands
@@ -60,6 +61,9 @@ BIG = "asset/league/effects/league_drmundo_big"
 # both sides, 12 seeds): the first draft -2.94 (damage half of league_garen's); d4c (atk 96 + 20, Q 140 + 9%, E 80 +
 # 60%, W 18 / 90) -0.21 but R at full health (the 1-point hit sensor); the damage sensor (h_sens 150, r_need 3,
 # h_hold 300: ~2 R a game at ~62% health) -0.73, with hp 1350 / def 38 -0.22 (league_garen -1.15, league_sion +0.78).
+# 2026-10-22 (「蒙多加成怎么是攻击力不是生命值」): the damage ratios on his maximum health (`hp_ratio`) - E 80 + 60% AD ->
+# 80 + 8%, the flung corpse 40 + 60% AD -> 40 + 6%, W 18 + 6% AD -> 10 + 1% a zap, the final zap 90 + 30% AD -> 90 + 4%;
+# seeds 1-8: before -0.12 (+-0.41), 7% / 3% -0.38, the kept 8% / 4% +0.37 (+-0.36), damage dealt 9450 -> 9637.
 # Timings from the frames (tools/art/import_drmundo_strips.py, league/champions/league_drmundo#anim.fanim): the chop
 # 400 ms, the saw down on frame 3 (tick 10-11); Blunt Force Trauma 433 ms, the bag out on frame 3 (tick 9-10); the
 # Bonesaw 433 ms, the throw on frame 4 (tick 11); Heart Zapper on 233 ms, its discharge 200 ms; Maximum Dosage 500 ms.
@@ -74,7 +78,7 @@ P = {
     "p_heal": 60, "p_heal_ad": 60, "p_cut": 60,
     # E Blunt Force Trauma folded into the attack (League: 5-45 + up to 100% more by missing hp, cd 9-5 s; a killed
     # unit flung, its damage to units hit)
-    "e_cd": 420, "e_dur": 26, "e_st": 10, "e_dmg": 80, "e_ad": 60, "e_fling": 40, "e_fling_ad": 60, "e_fling_r": 5000, "e_fling_v": 4000, "e_fling_l": 70000,
+    "e_cd": 420, "e_dur": 26, "e_st": 10, "e_dmg": 80, "e_hp": 8, "e_fling": 40, "e_fling_hp": 6, "e_fling_r": 5000, "e_fling_v": 4000, "e_fling_l": 70000,
     "e_miss": 100, "e_bonus": 25,
     # Q Infected Bonesaw (League: 1050 range, speed 2000, 20% current hp magic, min 80-280, max 350-550 to monsters,
     # slow 40% 2 s, cost 50 hp refunded 50% / 100% on a champion; cd 4 s)
@@ -82,8 +86,8 @@ P = {
     "q_thp": 9, "q_pct": 20, "q_slow": 40, "q_slow_t": 120, "q_heal": 20, "q_heal_c": 40,
     # W Heart Zapper (League: 4 s, 20-80 + 7% bonus hp... a second round him, 75% of damage taken stored as grey
     # health, healed 100% if the end zap hits a champion, else 50%; cd 17-13 s)
-    "w_cd": 900, "w_rad": 22000, "w_anim": 14, "w_n": 12, "w_per": 20, "g_per": 30, "w_tick": 18, "w_ad": 6,
-    "w_end": 90, "w_end_ad": 30, "w_g": 30, "w_end_anim": 12, "w_store": 75,
+    "w_cd": 900, "w_rad": 22000, "w_anim": 14, "w_n": 12, "w_per": 20, "g_per": 30, "w_tick": 10, "w_hp": 1,
+    "w_end": 90, "w_end_hp": 4, "w_g": 30, "w_end_anim": 12, "w_store": 75,
     # the damage count R reads (a shield of h_sens read on his attack, Q and W, its points paid back)
     "h_sens": 150, "h_hold": 300, "r_need": 3,
     # R Maximum Dosage (League: 20-30% missing hp at once, 20-40% max hp over 10 s, 15-35% move speed; cd 110-80 s)
@@ -167,20 +171,16 @@ def circle(r):
     return {"Circle": {"radius": r}}
 
 
-def attack(dmg, ratio):
-    return {"type": "Attack", "damage": dmg, "attack_ratio": ratio, "hp_ratio": 0, "target_hp_ratio": 0,
+def attack(dmg, ratio, hp=0):
+    """dmg + ratio% of his AD + hp% of his maximum health, physical."""
+    return {"type": "Attack", "damage": dmg, "attack_ratio": ratio, "hp_ratio": hp, "target_hp_ratio": 0,
             "attack_effect_type": "Target"}
 
 
-def magic(dmg, ratio):
-    """dmg + ratio% AP as magic damage."""
-    return {"type": "ApAttack", "damage": dmg, "attack_ratio": ratio, "hp_ratio": 0, "can_crit": False,
+def magic(dmg, ratio, hp=0):
+    """dmg + ratio% AP + hp% of his maximum health as magic damage."""
+    return {"type": "ApAttack", "damage": dmg, "attack_ratio": ratio, "hp_ratio": hp, "can_crit": False,
             "attack_effect_type": "Target"}
-
-
-def magic_ad(dmg, ad):
-    """dmg magic + ad% of his AD (ApAttack's ratio reads AP, so the AD part is physical)."""
-    return [magic(dmg, 0), attack(0, ad)] if ad else [magic(dmg, 0)]
 
 
 def maxhp(pct):
@@ -316,13 +316,13 @@ def build(p):
     # the corpse flies on from where it fell, away from him (a line started in a lob's end_effects leaves from him
     # toward the landing spot), hitting every enemy unit on its way
     fling = [line("e_fling", p["e_fling_v"], p["e_fling_l"], p["e_fling_r"], "EnemyWithoutTower", True,
-                  [attack(p["e_fling"], p["e_fling_ad"]), view("e_fling_hit"), tsfx("e_fling_hit")]), sfx("e_fling")]
+                  [attack(p["e_fling"], 0, p["e_fling_hp"]), view("e_fling_hit"), tsfx("e_fling_hit")]), sfx("e_fling")]
     # the kill check: e_k on him, a casted on the target from a tick later clears it while it lives (its first run is
     # at once: added with the blow it cleared the flag before the blow), a lob onto its spot reads it
     kill_check = lambda hit: [lob("e_corpse", 9, 60000, "EnemyWithoutTower", [sw("e_k", combine(*rm("e_k"), *fling))]),
                               flag("e_k", 12), *hit, delayed(1, casted(3, 1, rm("e_k")))]
     bonk = combine(flag("e_cd", p["e_cd"]), anim("attack_e", p["e_dur"]), sfx("e"), voice("vo_e", p),
-                   delayed(p["e_st"] - 1, *kill_check([attack(p["e_dmg"], 100 + p["e_ad"])]),
+                   delayed(p["e_st"] - 1, *kill_check([attack(p["e_dmg"], 100, p["e_hp"])]),
                            native("bonk") if nat else None, view("e_hit"), tsfx("e_hit")))
     attack_a = action("attack", p["atk_dur"], p["atk_cd"], 1, p["atk_range"], "Targeting", "Enemy",
                       combine(pre, sw("e_cd", plain, bonk)), atype="BaseAttack", cancel=True)
@@ -349,11 +349,11 @@ def build(p):
         rem = w_end_t - i * p["g_per"] + 2
         return delayed(i * p["g_per"], sw("w_on", sw("ws", NONE, combine(w_arm, delayed(rem, paid())))))
     zaps = on_me(casted(w_end_t - 1, p["w_per"], [around(p["w_rad"], "EnemyWithoutTower",
-                                                         [*magic_ad(p["w_tick"], p["w_ad"]), view("w_zap")])]))
+                                                         [magic(p["w_tick"], 0, p["w_hp"]), view("w_zap")])]))
     greys = [] if nat else [pulse(i) for i in range(1, w_end_t // p["g_per"])]
     final = delayed(w_end_t, sw("w_on", combine(
         *rm("w_full", "w_half", "w_ch", "w_any"), anim("skill2_end", p["w_end_anim"]), cview("w_burst"), sfx("w_end"),
-        around(p["w_rad"], "EnemyWithoutTower", [*magic_ad(p["w_end"], p["w_end_ad"]), view("w_end_hit"),
+        around(p["w_rad"], "EnemyWithoutTower", [magic(p["w_end"], 0, p["w_end_hp"]), view("w_end_hit"),
                                                  flag("w_any", 4)]),
         around(p["w_rad"], "EnemyChampion", [flag("w_ch", 4)]),
         delayed(1, sw("w_ch", flag("w_full", 4), sw("w_any", flag("w_half", 4))),
@@ -401,7 +401,7 @@ def build(p):
     }
     if nat:
         kit["passive"] = {"passive_ref": "league_drmundo:pleases",
-                          "params": {k: p[k] for k in ("p_cd", "q_dmg", "q_pct", "e_dmg", "e_ad", "e_miss", "e_bonus",
+                          "params": {k: p[k] for k in ("p_cd", "q_dmg", "q_pct", "e_dmg", "e_hp", "e_miss", "e_bonus",
                                                        "hp", "hp_g", "w_store", "r_low", "r_burst", "r_miss")}}
     return kit
 
