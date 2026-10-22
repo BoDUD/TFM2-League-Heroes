@@ -53,9 +53,11 @@ MOD = os.path.join(ROOT, "league")
 KIT = os.path.join(MOD, "champion", "league_caitlyn.data_champion")
 Z = 8
 TICK = 1000 / 60
-# the barrel's last pixel of each firing frame and the middle of the barrel's rows (.5: between two rows), measured on
-# league/champions/league_caitlyn's sheet: the attack's 3rd-4th frames, the Headshot's 4th-5th, Q 7, E 3, R 7
-MUZZLE = {"attack": (24, -7.5), "passive": (24, -7.5), "skill": (22, -7.5), "e": (24, -11.5), "ult": (22, -7.5)}
+# the muzzle of each firing frame (game px from the pivot, y up negative), measured on the PPU 1.45 frames
+# (tools/art/rig_caitlyn_hd.py, 2026-10-23): the attack and the net fire from the hip (W's last drawing), the Headshot
+# from the level aim of its 3rd frame, Q from its level aim, R kneeling level
+MUZZLE = {"attack": (33.5, -6.8), "passive": (28.9, -9.5), "skill": (30.9, -14.4), "e": (33.5, -6.8),
+          "ult": (37.6, -9.0)}
 HIT = (0, -8)                          # a hit on the upper body of a 32-42 px unit
 SOLES = 11                             # the soles' row under the pivot
 # each projectile: the muzzle it leaves

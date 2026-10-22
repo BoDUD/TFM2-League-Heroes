@@ -103,7 +103,7 @@
                     "type": "TargetProjectile",
                     "name": "league_caitlyn_e_net",
                     "speed": 6000,
-                    "y_offset": -6500,
+                    "y_offset": -1800,
                     "applied_target": "EnemyChampion",
                     "applied_effects": [
                       {
@@ -247,7 +247,7 @@
                           "type": "TargetProjectile",
                           "name": "league_caitlyn_hs_trap_bolt",
                           "speed": 9000,
-                          "y_offset": -2500,
+                          "y_offset": -4500,
                           "applied_target": "Enemy",
                           "applied_effects": [
                             {
@@ -325,7 +325,7 @@
                             "type": "TargetProjectile",
                             "name": "league_caitlyn_hs_bolt",
                             "speed": 9000,
-                            "y_offset": -2500,
+                            "y_offset": -4500,
                             "applied_target": "Enemy",
                             "applied_effects": [
                               {
@@ -391,7 +391,7 @@
                               "type": "TargetProjectile",
                               "name": "league_caitlyn_hs_bolt",
                               "speed": 9000,
-                              "y_offset": -2500,
+                              "y_offset": -4500,
                               "applied_target": "Enemy",
                               "applied_effects": [
                                 {
@@ -460,7 +460,7 @@
                                 "type": "TargetProjectile",
                                 "name": "league_caitlyn_bolt",
                                 "speed": 7000,
-                                "y_offset": -2500,
+                                "y_offset": -1800,
                                 "applied_target": "Enemy",
                                 "applied_effects": [
                                   {
@@ -529,7 +529,7 @@
                                   "type": "TargetProjectile",
                                   "name": "league_caitlyn_bolt",
                                   "speed": 7000,
-                                  "y_offset": -2500,
+                                  "y_offset": -1800,
                                   "applied_target": "Enemy",
                                   "applied_effects": [
                                     {
@@ -598,7 +598,7 @@
                                     "type": "TargetProjectile",
                                     "name": "league_caitlyn_bolt",
                                     "speed": 7000,
-                                    "y_offset": -2500,
+                                    "y_offset": -1800,
                                     "applied_target": "Enemy",
                                     "applied_effects": [
                                       {
@@ -667,7 +667,7 @@
                                       "type": "TargetProjectile",
                                       "name": "league_caitlyn_bolt",
                                       "speed": 7000,
-                                      "y_offset": -2500,
+                                      "y_offset": -1800,
                                       "applied_target": "Enemy",
                                       "applied_effects": [
                                         {
@@ -729,7 +729,7 @@
                                       "type": "TargetProjectile",
                                       "name": "league_caitlyn_bolt",
                                       "speed": 7000,
-                                      "y_offset": -2500,
+                                      "y_offset": -1800,
                                       "applied_target": "Enemy",
                                       "applied_effects": [
                                         {
@@ -908,7 +908,7 @@
                             "radius": 6000
                           }
                         },
-                        "y_offset": -2500
+                        "y_offset": -9400
                       }
                     ]
                   }
@@ -1036,7 +1036,7 @@
                               "radius": 6000
                             }
                           },
-                          "y_offset": -2500
+                          "y_offset": -9400
                         }
                       ]
                     }
@@ -1162,7 +1162,7 @@
                             "radius": 6000
                           }
                         },
-                        "y_offset": -2500
+                        "y_offset": -9400
                       }
                     ]
                   }
@@ -1265,7 +1265,7 @@
                     "radius": 6000
                   }
                 },
-                "y_offset": -2500
+                "y_offset": -9400
               }
             }
           ]
@@ -3607,7 +3607,7 @@
                     "type": "TargetProjectile",
                     "name": "league_caitlyn_r_laser",
                     "speed": 6000,
-                    "y_offset": -2500,
+                    "y_offset": -4000,
                     "applied_target": "EnemyChampion",
                     "applied_effects": []
                   },
@@ -3833,7 +3833,7 @@
                         "radius": 8000
                       }
                     },
-                    "y_offset": -2500
+                    "y_offset": -4000
                   }
                 ]
               },
