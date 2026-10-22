@@ -246,6 +246,10 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // grid (54 x 65), her actions Codex's whole-frame redraws (pack_caitlyn_actions.py) with the rifle drawn straight
     // square by square (rifle_caitlyn.py), stood by tools/art/rig_caitlyn_hd.py; PPU 1.45 at her old 45 rows
     ("league_caitlyn", 1.45, include_str!("../../../league/champions/league_caitlyn#anim.fanim")),
+    // Varus (2026-10-23): Codex's design picture (assets/source/varus/PICTURE_PROMPT_PPU.md) read back on its own grid
+    // (58 x 59), every action posed from the design's own squares by tools/art/rig_varus_hd.py (the bow lifted, the near
+    // arm turned level, run and kneel legs drawn from the design's leg rows); PPU 1.5 at his old 40 rows
+    ("league_varus", 1.5, include_str!("../../../league/champions/league_varus#anim.fanim")),
     // Yunara: PPU 1.5 (the user's pick), posed from the design's own squares at that density by tools/art/rig_yunara.py
     // (40 game rows ornaments to soles), so no SIZES row
     ("league_yunara", 1.5, include_str!("../../../league/champions/league_yunara#anim.fanim")),

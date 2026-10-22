@@ -186,11 +186,12 @@ def sheared(img, k, pivot_row=0):
 
 
 # ------------------------------------------------------------------------------------------------ the legs
-# drawn again, the far leg a step down the design's own purple ramps so the crossing reads (league_xinzhao's run,
-# league_taric's): the armour l > p > w > u > v > q > x, the glow m / N > M > p
+# drawn again, the far leg's lights a step down the design's own purple ramps so the crossing reads (league_xinzhao's
+# run, league_taric's): the armour l > p > w > u > v, the glow m / N > M > p; its base q stays (one more step is the
+# near-black x: the leg went black)
 SHADE = {(154, 53, 203): (129, 39, 159), (129, 39, 159): (100, 28, 134), (100, 28, 134): (77, 28, 115),
-         (77, 28, 115): (62, 24, 97), (62, 24, 97): (48, 19, 76), (48, 19, 76): (30, 7, 40),
-         (214, 23, 250): (154, 14, 250), (182, 32, 222): (154, 14, 250), (154, 14, 250): (129, 39, 159)}
+         (77, 28, 115): (62, 24, 97), (214, 23, 250): (154, 14, 250), (182, 32, 222): (154, 14, 250),
+         (154, 14, 250): (129, 39, 159)}
 
 
 def shaded(cols):
@@ -285,8 +286,8 @@ def compose(d, M, legs_lib, pose):
     bow = pose.get("bow", "low")
     bd = pose.get("bow_d", (0, 0))
     legs = pose.get("legs")
-    lean, sink = (pose.get("lean", 0), pose.get("sink", 0)) if legs else (0, 0)
-    bx, by = dx + lean, dy + sink                       # the upper body's move
+    lean, sink = pose.get("lean", 0), pose.get("sink", 0)
+    bx, by = dx + lean, dy + sink                       # the upper body's move (over the legs, which stay)
     if bow in ("low", "up"):
         ux, uy = (UP if bow == "up" else (0, 0))
         f.put(M["unit"], bx + ux + bd[0], by + uy + bd[1])
@@ -381,20 +382,21 @@ POSES = {
     # loosed on the kit's tick: attack 167 ms (4th frame), Q 1100 ms (6th) / 400 ms (6th), E 183 ms (4th), R 267 ms (4th)
     "attack": [NOCK, drawn(0.5), drawn(1.0), dict(LOOSE, dx=-1, scarf=-1), dict(LOOSE, dx=-1, scarf=-1), LOOSE,
                LOOSE, FOLLOW, LOW, LOW],
-    "skill": [NOCK, drawn(0.5), drawn(1.0), drawn(1.0, scarf=-1), drawn(1.0), dict(LOOSE, dx=-2, scarf=-2),
-              dict(LOOSE, dx=-1, scarf=-1)],
-    "skill_quick": [NOCK, drawn(0.5), drawn(1.0), drawn(1.0), drawn(1.0), dict(LOOSE, dx=-2, scarf=-2),
-                    dict(LOOSE, dx=-1, scarf=-1), LOOSE, FOLLOW, LOW],
+    # Q's charge held braced (the upper body a row down over the legs), the scarf stirring
+    "skill": [NOCK, drawn(0.5), drawn(1.0, sink=1), drawn(1.0, sink=1, scarf=-1), drawn(1.0, sink=1),
+              dict(LOOSE, dx=-1, scarf=-2), dict(LOOSE, scarf=-1)],
+    "skill_quick": [NOCK, drawn(0.5), drawn(1.0, sink=1), drawn(1.0, sink=1, scarf=-1), drawn(1.0, sink=1),
+                    dict(LOOSE, dx=-1, scarf=-2), dict(LOOSE, scarf=-1), LOOSE, FOLLOW, LOW],
     "skill2": [NOCK, drawn(0.5), drawn(1.0), dict(LOOSE, dx=-1, scarf=-1), dict(LOOSE, dx=-1, scarf=-1), LOOSE,
                LOOSE, FOLLOW, LOW, LOW],
-    "ult": [NOCK, drawn(0.5), drawn(1.0), dict(LOOSE, dx=-2, scarf=-2), dict(LOOSE, dx=-2, scarf=-2),
-            dict(LOOSE, dx=-1, scarf=-1), LOOSE, LOOSE, FOLLOW, LOW],
+    "ult": [NOCK, drawn(0.5), drawn(1.0, sink=1), dict(LOOSE, dx=-1, scarf=-2), dict(LOOSE, dx=-1, scarf=-2),
+            dict(LOOSE, scarf=-1), LOOSE, LOOSE, FOLLOW, LOW],
 }
 
 
 # ------------------------------------------------------------------------------------------------ the run
 RUN_LEAN = 3                    # the upper body ahead of the hips (League's run leans 25-30 degrees)
-RUN_HIP = 1.5                   # the hips' columns either side of the pelvis (League's ~2.2 apart, turned 3/4)
+RUN_HIP = 0.0                   # the hips' columns either side of the pelvis: one behind the other (3/4), so a step reads as a V either way
 PELVIS_X = 28.5                 # between the design's hips, over the loincloth
 RUN_K = 0.78                    # League units -> squares (his planted leg: League 16.9 from the pelvis, ours 13)
 RUN_SHIFT = 3.0                 # League units the feet come forward: League's run leans 25-30 degrees, ours stands
@@ -421,8 +423,8 @@ def bone_len(key):
 
 # the run's 8 frames on League's rhythm (near foot planted in 0-1, both up in 2-3, far planted in 4-5, both up in 6-7):
 # each ankle's column from its own hip and its rows over the ground, the body's rows down (contact low, flight high)
-RUN_KEYS = [((6, 0), (-8, 4), 1), ((1, 0), (-7, 8), 1), ((-4, 0), (0, 7), 0), ((-8, 4), (6, 2), -1),
-            ((-8, 4), (6, 0), 1), ((-7, 8), (1, 0), 1), ((0, 7), (-4, 0), 0), ((6, 2), (-8, 4), -1)]
+RUN_KEYS = [((7, 0), (-7, 6), 1), ((3, 0), (-4, 8), 1), ((-2, 0), (2, 7), 0), ((-7, 3), (6, 2), -1),
+            ((-7, 6), (6, 0), 1), ((-4, 8), (3, 0), 1), ((2, 7), (-2, 0), 0), ((6, 2), (-7, 3), -1)]
 RUN_BOW = -2                    # the bow carried two rows higher while he runs (League's runs it up in front)
 
 
