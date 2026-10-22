@@ -52,7 +52,7 @@ CLIPS = {
     C + "e_roll": ([P + "E3_OnCast", P + "E2_OnCast"], None, 0.9, -13),
     C + "w": ([P + "WStealth_buffactivate"], None, 1.0, -13),
     C + "w_mark": ([P + "WMark_buffactivate", P + "WMark_buffcast"], None, 1.0, -13),
-    C + "w_revive": ([P + "WRevive_buffcast"], None, 1.6, -11),
+    C + "w_revive": ([P + "WRevive_buffcast"], None, 1.6, -3),   # +8 dB (2026-10-22: 「复活加更响的音效」)
     C + "w_gold": ([P + "WGold_buffcast"], None, 1.0, -13),
     C + "r": ([P + "R_OnCast"], None, 1.4, -11),
     C + "r_store": ([P + "RAmmo_cast"], None, 0.6, -15),

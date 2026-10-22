@@ -32,6 +32,8 @@ use std::sync::{LazyLock, Mutex};
 
 use mod_api_stable::*;
 
+pub mod banner;
+
 const ID: &str = "league_akshan";
 const HERO: &str = "league_akshan";
 const VERSION: &str = env!("CARGO_PKG_VERSION");
@@ -155,6 +157,15 @@ fn head(sim: &StableSim<'_>, id: usize) -> String {
     };
     let m = |v: u64| if v == SimOriginV1::NONE { "-".to_string() } else { v.to_string() };
     format!("[{kind} m={} s={}] t={} #{id}", m(o.match_id), m(o.set_index), sim.tick())
+}
+
+/// The sims the screen replays (the client's own match view, spectating, a replay) - not the server's presims nor the
+/// background matches (origin unknown): their revives get the banner (banner.rs).
+fn on_screen(sim: &StableSim<'_>) -> Option<(u64, u64)> {
+    let o = sim.sim_origin().unwrap_or_default();
+    matches!(SimOriginKindV1::from_code(o.kind),
+        Some(SimOriginKindV1::ClientMatchView | SimOriginKindV1::ClientSpectate | SimOriginKindV1::ClientReplay))
+        .then_some((o.match_id, o.set_index))
 }
 
 fn has_buff(sim: &StableSim<'_>, id: usize, name: &str) -> bool {
@@ -744,6 +755,12 @@ impl Rogue {
                     sim.play_view_effect(VIEW_REVIVE, e, &InputTargetV1::target(e), 0, 0, 0);
                     sim.play_sfx(SFX_REVIVE, e, &InputTargetV1::target(e));
                     wlog(format!("{} BACK player {v}: the revive's beam on him", head(sim, me)));
+                    // the screen's match: the big line as he stands up (banner.rs)
+                    if let Some((m, s)) = on_screen(sim) {
+                        let name = |id: usize| sim.get_entity(id).and_then(|x| x.name());
+                        banner::note_revive(banner::Banner { m, s, tick: now, akshan: name(me).unwrap_or_else(|| ID.to_string()),
+                                                             ally: name(e).unwrap_or_default() });
+                    }
                 }
                 None if now < until => left.push((v, until)),
                 None => {}
@@ -842,6 +859,9 @@ impl StablePassive for Rogue {
     }
 
     fn on_update(&mut self, sim: &mut StableSim<'_>, _: u64, player: usize, me: usize) {
+        if let Some((m, s)) = on_screen(sim).filter(|_| sim.tick() % 60 == 0) {
+            banner::note_view(m, s);
+        }
         swing_tick(sim, me);
         self.read_kills(sim, player, me);
         self.haste(sim, me);
@@ -1019,6 +1039,10 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     module.add_native_effect(format!("{ID}:noop"), NoopFx);
     module.add_native_passive(format!("{ID}:rogue"), Rogue::default());
     module.add_player_input_ai(UltAi::default());
+    // the revive banner: a single league_akshan.dll draws it itself; in league_addons the bundle's one client extension
+    // (BundleClient) calls banner::draw
+    #[cfg(not(league_bundle))]
+    module.set_extension(banner::Overlay);
     host.log(LogLevel::Info, "league_akshan loaded (Dirty Fighting per target, Comeuppance on missing health, Scoundrels and revives).");
 }
 

@@ -32,7 +32,7 @@ use std::sync::{LazyLock, Mutex};
 use mod_api_stable::*;
 
 mod souls;
-mod view;
+pub mod view;
 
 const ID: &str = "league_viego_soul";
 /// 主包里佛耶戈的 id。
