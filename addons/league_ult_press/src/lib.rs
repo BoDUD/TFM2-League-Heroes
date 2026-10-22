@@ -95,8 +95,12 @@ pub const SAMIRA_LAST_Q: &str = "league_samira_l_q";
 /// E（`Targeting EnemyChampion`，主包射程 60000）：这么近有敌方英雄才冲；她生命不低于这个比例；目标身边这么近的敌方
 /// 英雄（含目标）不超过这么多个。
 pub const SAMIRA_E_RANGE: f64 = 60_000.0;
-pub const SAMIRA_E_HP: f64 = 0.4;
+pub const SAMIRA_E_HP: f64 = 0.5;
 pub const SAMIRA_E_CROWD: usize = 2;
+/// 用户 2026-10-23：「莎米拉无脑乱上」——0.5.x 见人就冲（一局对满血的茂凯、奎桑提冲十几次）。现在只冲生命不高于
+/// `SAMIRA_E_PREY` 的，或者身边 `SAMIRA_E_TEAM` 内已经有我方英雄在打的；能冲的里先冲生命最少的。
+pub const SAMIRA_E_PREY: f64 = 0.5;
+pub const SAMIRA_E_TEAM: f64 = 40_000.0;
 /// Q（`Direction`，主包射程 90000，枪弹打中第一个敌人就停）：这么近有敌方英雄才朝他放。
 pub const SAMIRA_Q_RANGE: f64 = 70_000.0;
 /// 崔斯特：身边这么近有敌方英雄就不按（主包门槛 70000，多留一点）。
@@ -574,8 +578,10 @@ pub fn tf_fight(me: (f64, f64), hp: f64, allies: &[Unit], enemies: &[Unit]) -> O
 }
 
 /// 莎弥拉这一 tick 按什么（先后顺序，引擎接哪个就是哪个）：`ready` = Q、E、R 好了没有，`last_q` = 上一下打中英雄的是 Q。
-/// R：射程内最近的敌方英雄；E：`SAMIRA_E_RANGE` 内最近的、她生命够、目标身边不挤；Q：`SAMIRA_Q_RANGE` 内最近的、上一下不是 Q。
-pub fn samira_plan(me: (f64, f64), hp: f64, ready: [bool; 3], last_q: bool, enemies: &[Unit]) -> Vec<(char, usize)> {
+/// R：射程内最近的敌方英雄；E：`SAMIRA_E_RANGE` 内、她生命够、目标身边不挤、目标残血或身边有我方英雄在打的，生命最少的那个；
+/// Q：`SAMIRA_Q_RANGE` 内最近的、上一下不是 Q。
+pub fn samira_plan(me: (f64, f64), hp: f64, ready: [bool; 3], last_q: bool, allies: &[Unit], enemies: &[Unit])
+                   -> Vec<(char, usize)> {
     let mut plan = Vec::new();
     if ready[2] {
         if let Some(t) = nearest_in(me, SAMIRA_RANGE, enemies) {
@@ -583,11 +589,14 @@ pub fn samira_plan(me: (f64, f64), hp: f64, ready: [bool; 3], last_q: bool, enem
         }
     }
     if ready[1] && hp >= SAMIRA_E_HP {
-        if let Some(t) = nearest_in(me, SAMIRA_E_RANGE, enemies) {
-            let at = enemies.iter().find(|u| u.id == t).map(|u| u.at).unwrap_or(me);
-            if enemies.iter().filter(|u| dist(at, u.at) <= SAMIRA_E_RANGE).count() <= SAMIRA_E_CROWD {
-                plan.push(('E', t));
-            }
+        let prey = enemies
+            .iter()
+            .filter(|t| dist(me, t.at) <= SAMIRA_E_RANGE)
+            .filter(|t| enemies.iter().filter(|u| dist(t.at, u.at) <= SAMIRA_E_RANGE).count() <= SAMIRA_E_CROWD)
+            .filter(|t| t.hp <= SAMIRA_E_PREY || allies.iter().any(|a| dist(a.at, t.at) <= SAMIRA_E_TEAM))
+            .min_by(|a, b| a.hp.total_cmp(&b.hp));
+        if let Some(t) = prey {
+            plan.push(('E', t.id));
         }
     }
     if ready[0] && !last_q {
@@ -1590,7 +1599,7 @@ impl UltPress {
             let mut cands = match name.as_str() {
                 SAMIRA => {
                     let ready3 = [ready[1], ready[2], ready[3]];
-                    let plan = samira_plan(my_at, hp_share(me.hp()), ready3, has_buff(&me, SAMIRA_LAST_Q), &enemies);
+                    let plan = samira_plan(my_at, hp_share(me.hp()), ready3, has_buff(&me, SAMIRA_LAST_Q), &allies, &enemies);
                     let mut v = Vec::new();
                     for (k, t) in plan {
                         if away_from(t) || (k == 'E' && !dive_ok(t)) {
@@ -1819,19 +1828,35 @@ mod tests {
 
     #[test]
     fn samira_weaves_r_then_e_then_q() {
-        let one = [u(1, 40_000.0, 0.0, 1.0)];
-        // all ready, one champion at 40000: R first (fires at S, else arms), then E, then Q
-        assert_eq!(samira_plan((0.0, 0.0), 0.9, [true, true, true], false, &one), vec![('R', 1), ('E', 1), ('Q', 1)]);
+        let one = [u(1, 40_000.0, 0.0, 0.4)];
+        // all ready, one hurt champion at 40000: R first (fires at S, else arms), then E, then Q
+        assert_eq!(samira_plan((0.0, 0.0), 0.9, [true, true, true], false, &[], &one), vec![('R', 1), ('E', 1), ('Q', 1)]);
         // the last hit was a Q: another Q would not climb
-        assert_eq!(samira_plan((0.0, 0.0), 0.9, [true, true, false], true, &one), vec![('E', 1)]);
+        assert_eq!(samira_plan((0.0, 0.0), 0.9, [true, true, false], true, &[], &one), vec![('E', 1)]);
         // low on health: no dash in
-        assert_eq!(samira_plan((0.0, 0.0), 0.3, [true, true, false], false, &one), vec![('Q', 1)]);
+        assert_eq!(samira_plan((0.0, 0.0), 0.45, [true, true, false], false, &[], &one), vec![('Q', 1)]);
         // three champions around the target: no dash into them
-        let crowd = [u(1, 40_000.0, 0.0, 1.0), u(2, 60_000.0, 0.0, 1.0), u(3, 50_000.0, 20_000.0, 1.0)];
-        assert_eq!(samira_plan((0.0, 0.0), 0.9, [false, true, false], false, &crowd), vec![]);
+        let crowd = [u(1, 40_000.0, 0.0, 0.3), u(2, 60_000.0, 0.0, 1.0), u(3, 50_000.0, 20_000.0, 1.0)];
+        assert_eq!(samira_plan((0.0, 0.0), 0.9, [false, true, false], false, &[], &crowd), vec![]);
         // out of E's reach (65000), in Q's (70000)
-        assert_eq!(samira_plan((0.0, 0.0), 0.9, [true, true, true], false, &[u(1, 65_000.0, 0.0, 1.0)]), vec![('Q', 1)]);
-        assert_eq!(samira_plan((0.0, 0.0), 0.9, [true, true, true], false, &[]), vec![]);
+        assert_eq!(samira_plan((0.0, 0.0), 0.9, [true, true, true], false, &[], &[u(1, 65_000.0, 0.0, 0.3)]), vec![('Q', 1)]);
+        assert_eq!(samira_plan((0.0, 0.0), 0.9, [true, true, true], false, &[], &[]), vec![]);
+    }
+
+    #[test]
+    fn samira_no_longer_dashes_alone_at_a_healthy_champion() {
+        // 「莎米拉无脑乱上」: a full-health tank alone - no E (Q still pokes)
+        let tank = [u(1, 40_000.0, 0.0, 1.0)];
+        assert_eq!(samira_plan((0.0, 0.0), 1.0, [true, true, false], false, &[], &tank), vec![('Q', 1)]);
+        // an ally already on him (30000 from him): she goes in
+        let ally = [u(10, 70_000.0, 0.0, 1.0)];
+        assert_eq!(samira_plan((0.0, 0.0), 1.0, [false, true, false], false, &ally, &tank), vec![('E', 1)]);
+        // an ally far away (100000 from him) does not count
+        let far = [u(10, -60_000.0, 0.0, 1.0)];
+        assert_eq!(samira_plan((0.0, 0.0), 1.0, [false, true, false], false, &far, &tank), vec![]);
+        // two in reach: the weaker one, not the nearer one
+        let two = [u(1, 20_000.0, 0.0, 0.45), u(2, 50_000.0, 10_000.0, 0.2)];
+        assert_eq!(samira_plan((0.0, 0.0), 1.0, [false, true, false], false, &[], &two), vec![('E', 2)]);
     }
 
     #[test]
