@@ -100,7 +100,7 @@ def lol_strip(tag, w, h):
     path = os.path.join(CACHE, name + ".png")
     if not os.path.isfile(path):
         cmd = [sys.executable, os.path.join(ROOT, "tools", "lol", "pose_ref.py"), "--champ", "KSante", "--hq",
-               "--mirror", "--yaw", "15" if ao else "35", "--size", str(h), "--width", f"{w / h:.4f}", "--fit", "0.9",
+               "--mirror", "--yaw", "15" if ao else "35", "--size", str(h), "--width", f"{w / h:.4f}", "--fit", "0.55",
                "--ground", f"{-BOX[1] / (BOX[3] - BOX[1]):.4f}", "--no-labels", "--bg", ",".join(map(str, LOL_BG)),
                "--name", name, "--out", CACHE, *(AO_LOL if ao else BASE_LOL)]
         for f in frames:
