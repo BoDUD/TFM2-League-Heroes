@@ -33,7 +33,12 @@ HD = os.path.join(R.ROOT, "assets", "source", HERO, "hd")
 # a frame drawn from another of the tag's drawings (1-based): the R's channel is League's kneeling level aim (the user:
 # 「放大招时枪要平着的吧？」) - Codex's frames 2-6 held the rifle low, so the level kneel of frame 8 holds the aim and
 # frame 7 (its own level drawing) fires
-DRAWING = {"ult": [1, 8, 8, 8, 8, 8, 7, 8, 9]}
+DRAWING = {"ult": [1, 8, 8, 8, 8, 8, 7, 8, 9],
+           # the attack and the net fire from the hip, the rifle level (W's last drawing, the muzzle 6.8 px over her
+           # pivot): a homing shot flies at the target's pivot, so a muzzle much higher tilts it (memory: the user's
+           # 「平A出去的子弹看起来是歪的」), and Codex's own shot frames pointed the rifle at the ground
+           "attack": [2, "skill2_6", "skill2_6", 4, 5, 6],
+           "e": ["skill2_6", "skill2_6", "skill2_6", 2, 2, 3, 3, 4, 5, 6, 7, 7, 8]}
 LEAD = 0.6                               # a flash's centre this share of its half width past the muzzle
 REELS = {"idle", "bp"}                   # tools/art/hero_reels.py's tags: rebuilt after the export
 
@@ -149,10 +154,10 @@ def frames(rig):
             if not n:
                 sys.exit(f"{tag}: no redrawn frames")
             idx = [min(n - 1, int(i * n / len(ms))) for i in range(len(ms))]
+            names = [f"{tag}_{k + 1}" for k in idx]
             if tag in DRAWING and len(DRAWING[tag]) == len(ms):
-                idx = [k - 1 for k in DRAWING[tag]]
-            fr = [placed(rig, acts_img[f"{tag}_{k + 1}"], info[f"{tag}_{k + 1}"]["pivot"], info[f"{tag}_{k + 1}"]["rifle"])
-                  for k in idx]
+                names = [k if isinstance(k, str) else f"{tag}_{k}" for k in DRAWING[tag]]
+            fr = [placed(rig, acts_img[k], info[k]["pivot"], info[k]["rifle"]) for k in names]
         if tag == "hit":
             m = MUZZLES.get(id(fr[0]))
             fr[0] = R.flash(fr[0])
