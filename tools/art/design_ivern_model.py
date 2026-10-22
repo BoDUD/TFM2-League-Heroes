@@ -37,8 +37,8 @@ from regrid import regrid  # noqa: E402
 SRC = os.path.join(ROOT, "assets", "source", "ivern", "codex_model", "ivern-model", "raw")
 OUT = os.path.join(ROOT, "assets", "source", "ivern", "hd")
 K = 40
-PICK = None      # the user's pick of A-1 / A-2
-DAISY = "D"      # "D" (cut to 60 rows, PPU 1.5) or "D-full" (76 rows, PPU 1.9)
+PICK = "A-2"     # the user's pick, 2026-10-22: 「艾翁用 A-2，小菊用不裁的原样（D-full，PPU 1.9）」
+DAISY = "D-full"  # the same pick: uncut, 76 rows at PPU 1.9 (40 game px)
 # take -> (file, square px read at, rows to, the box kept whole on the raw canvas: x0, y0, x1, y1)
 DRAFTS = {
     "A-1": ("A-1", 19.3, 60, (640, 340, 900, 580)),
