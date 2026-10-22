@@ -118,18 +118,18 @@ TEXT = {
 
 C = "league_orianna_sfx_"
 V = "league_orianna_sfx_vo_"  # clip names differ from the sound names: a clip named like its sound is not found in game
-# sound name -> [(clip, volume, delay)]
+# sound name -> [(clip, volume, delay)]; the sfx raised toward Lux's 0.8 (「技能音效好像也没有」), the voice as it was
 SOUNDS = {
-    "league_orianna_a_shot": [(C + "a_shot", 0.4, 0.0)],
-    "league_orianna_a_hit": [(C + "a_hit", 0.3, 0.0)],
-    "league_orianna_q": [(C + "q", 0.5, 0.0)],
-    "league_orianna_q_land": [(C + "q_land", 0.5, 0.0)],
-    "league_orianna_q_hit": [(C + "q_hit", 0.45, 0.0)],
-    "league_orianna_w": [(C + "w", 0.55, 0.0)],
-    "league_orianna_e": [(C + "e", 0.5, 0.0)],
-    "league_orianna_e_shield": [(C + "e_shield", 0.45, 0.0)],
-    "league_orianna_r": [(C + "r", 0.65, 0.0)],
-    "league_orianna_r_hit": [(C + "r_hit", 0.5, 0.0)],
+    "league_orianna_a_shot": [(C + "a_shot", 0.6, 0.0)],
+    "league_orianna_a_hit": [(C + "a_hit", 0.5, 0.0)],
+    "league_orianna_q": [(C + "q", 0.8, 0.0)],
+    "league_orianna_q_land": [(C + "q_land", 0.8, 0.0)],
+    "league_orianna_q_hit": [(C + "q_hit", 0.75, 0.0)],
+    "league_orianna_w": [(C + "w", 0.85, 0.0)],
+    "league_orianna_e": [(C + "e", 0.8, 0.0)],
+    "league_orianna_e_shield": [(C + "e_shield", 0.75, 0.0)],
+    "league_orianna_r": [(C + "r", 0.9, 0.0)],
+    "league_orianna_r_hit": [(C + "r_hit", 0.8, 0.0)],
     "league_orianna_vo_q": [(V + "q", 0.85, 0.0)],
     "league_orianna_vo_w": [(V + "w", 0.85, 0.0)],
     "league_orianna_vo_e": [(V + "e", 0.85, 0.0)],
