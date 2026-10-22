@@ -12,8 +12,8 @@ Spinning Axe is `skill`, Stand Aside `skill2`, Whirling Death the `ult`; Blood R
   skill   Q Spinning Axe (旋转飞斧): a `None` cast when an enemy is within attack range: one more axe spinning in his
           hands (two at most, each q_hold ticks). The next attack throws a spinning one: q_dmg + q_ratio% AD more.
           It ricochets off the target up into the air and comes down q_fly ticks later on a spot near him, at random
-          (League: wherever the bounce sends it, near him): q_far toward a random enemy near him, every other bounce
-          q_far2 toward a random ally - a catch circle and the falling axe there from the bounce. He runs over at
+          (League: wherever the bounce sends it, near him): q_far toward a random enemy within q_dir_r (his attack
+          range) - a catch circle and the falling axe there from the bounce. He runs over at
           once (the AI catches like the pros, the user: 「捡斧头不是随机掉落位置吗 然后AI可以熟练的捡斧头」) and is
           on the spot two ticks before it lands: within catch_r then = caught: back in his hands spinning, Blood Rush
           ready again and one Adoration level; stunned or knocked away on the way = it falls and is gone.
@@ -64,7 +64,11 @@ P = {
     "p_n": 6, "p_atk": 4, "p_heal": 25, "p_as": 30, "p_t": 240,
     # Q Spinning Axe (League: +40-60 + 75-115% bonus AD, 5.8 s in hand, two at most, cd 12-8 s)
     "q_cd": 540, "q_range": 55000, "q_dur": 12, "q_hold": 348, "q_dmg": 40, "q_ratio": 55, "q_fly": 24,
-    "catch_r": 4000, "q_far": 18000, "q_far2": 24000, "q_dir_r": 60000,
+    # the catch (the user, 2026-10-23: 「德莱文不A人」「一直跑来跑去 几乎不打」): it was 18000 toward an enemy, every
+    # other bounce 24000 toward an ally, walked over in 21 ticks - back and forth across the fight, out of his attack
+    # range half the time. Now q_far toward an enemy he can hit (q_dir_r = his range), run in q_run ticks (his own
+    # pace), then he stands there attacking until it lands
+    "catch_r": 4000, "q_far": 8000, "q_dir_r": 55000, "q_run": 9,
     # W Blood Rush (League: +50-70% decaying move speed 1.5 s, +30-50% attack speed 3 s, cd 12 s, reset by a catch)
     "w_cd": 720, "w_r": 70000, "w_ms": 40, "w_ms_t": 90, "w_as": 35, "w_as_t": 180,
     # E Stand Aside (League: 1050 range, 75-235 + 50% bonus AD, knocked aside, 20-40% slow 2 s, cd 18-14 s)
@@ -269,22 +273,20 @@ def build(p):
         a pro, in step with the fall. A hidden slow line down the same path gets there q_fly ticks after the bounce,
         two ticks after him: within catch_r of it then = caught (a stun or a knock-back on the way can still cost
         it)."""
-        walk_t = p["q_fly"] - 3
+        walk_t = min(p["q_run"], p["q_fly"] - 3)
         mark_end = [view("q_zone"), view("q_fall"), anim("run", walk_t),
                     {"type": "MoveTo", "speed": -(-far // walk_t), "range": far, "end_effects": []}]
         return combine(line("q_mark", far, far, 1000, 5000, "EnemyChampion", True, [], end=mark_end),
                        line("q_spot", -(-far // p["q_fly"]), far, 1000, 5000, "EnemyChampion", True, [], end=land))
 
-    # where it comes down (League: near him, wherever the bounce sends it): toward a random enemy near him, every
-    # other bounce toward a random ally (q_alt; a 1-tick flag says one was found) and a little farther; with nobody
-    # near, onto his own spot as before (a hidden lob onto him, the circle a non-following caster picture: a
+    # where it comes down (League: near him, wherever the bounce sends it): toward a random enemy within his attack
+    # range (until 2026-10-23 every other bounce went toward an ally, 24000 off: he ran away from the fight); with
+    # nobody near, onto his own spot as before (a hidden lob onto him, the circle a non-following caster picture: a
     # ViewEffect on his own spot is not shown in game)
     on_spot = on_me(cview("q_zone"), cview("q_fall"), lob("q_drop", p["q_fly"], "AllyOnlySelf", land))
     to_enemy = lambda far: combine(pick(p["q_dir_r"], "EnemyWithoutTower", flag("q_dir", 1), toss(far)),
                                    sw("q_dir", combine(*rm("q_dir")), on_spot))
-    to_ally = combine(pick(p["q_dir_r"], "AllyNotSelf", flag("q_dir", 1), toss(p["q_far2"])),
-                      sw("q_dir", combine(*rm("q_dir")), to_enemy(p["q_far2"])))
-    drop = sw("q_alt", combine(*rm("q_alt"), to_ally), combine(flag("q_alt", None), to_enemy(p["q_far"])))
+    drop = to_enemy(p["q_far"])
     spin_hit = [attack(p["q_dmg"], 100 + p["q_ratio"]), view("q_hit"), tsfx("q_hit"), delayed(1, drop)]
     a_hit = [attack(0, 100), view("a_hit"), tsfx("a_hit")]
     twin = homing("a_twin", p["axe_speed"], p["axe_y"], "EnemyChampion", [k_set, k_read])
