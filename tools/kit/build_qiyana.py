@@ -34,7 +34,10 @@ or changed), given by Terrashape.
           Q's cooldown just refreshed: League's E -> W -> Q). R -> E -> Q (惊才绝景 -> 天纵之勇 -> 以绪塔尔之锋): the shockwave's
           champion hit dashes her onto the stunned champion if E is ready (and so the enchanted Q), else Q at once if it
           is ready and the champion within reach.
-Pictures: the step-3 effects pack (assets/source/qiyana/PROMPTS_FX.md). Views are drafts until it comes.
+Pictures: the step-3 effects pack (assets/source/qiyana/PROMPTS_FX.md; Gemini's, tools/art/import_qiyana_fx.py). The
+forward ones - Q's sweep in four looks (none / river / rock / grass) and R's swing and ground burst - are drawn into her
+frames (assets/source/native/qiyana_bake.json): the Q cast plays skill / skill_w / skill_r / skill_g by the element on
+her ring at the cast.
 The add-on copy (--native, addons/league_qiyana): the element by the situation, Royal Privilege per enemy, Edge of
 Ixtal's rock execute.
 Timings: drafts until the frames exist (a frame's start in ticks = ms x 0.06): a_hit, q_at, e_at, r_at.
@@ -246,20 +249,27 @@ def build(p):
 
     def sweep(*extra, hit="q_hit"):
         return around(cone, "EnemyWithoutTower", [attack(p["q_dmg"], p["q_ratio"]), *extra, royal(), view(hit),
-                                                   tsfx("q_hit")], forward=1000)
+                                                   tsfx(hit)], forward=1000)
 
     rock_hit = native("rock") if nat else attack(p["q_rock"], p["q_rock_r"])
     wrath = sw("el_w", combine(sweep({"type": "Bind", "duration": p["q_root"]},
                                      buff("q_slow", p["q_root"] + p["q_slow_t"], move_speed_mult=-p["q_slow"]),
-                                     hit="q_w_hit"), cview("q_w")),
-               sw("el_r", combine(sweep(rock_hit, hit="q_r_hit"), cview("q_r")),
-                  sw("el_g", combine(sweep(hit="q_g_hit"), cview("q_g"),
+                                     hit="q_w_hit")),
+               sw("el_r", sweep(rock_hit, hit="q_r_hit"),
+                  sw("el_g", combine(sweep(hit="q_g_hit"),
                                      on_me({"type": "CasterInvisible", "tick": p["q_inv"]}),
                                      refresh("q_haste", p["q_ms_t"], move_speed_mult=p["q_ms"])),
-                     combine(sweep(), cview("q_swing")))))
+                     sweep())))
+    # the sweep in front of her is drawn into her frames (it points forward: the client never mirrors an effect
+    # picture), one copy of the cast per element: skill (none), skill_w (river), skill_r (rock), skill_g (grass),
+    # picked at the cast - the element is already on her ring (assets/source/native/qiyana_bake.json)
+    swing = sw("el_w", combine(anim("skill_w", p["q_dur"]), sfx("q_w")),
+               sw("el_r", combine(anim("skill_r", p["q_dur"]), sfx("q_r")),
+                  sw("el_g", combine(anim("skill_g", p["q_dur"]), sfx("q_g")),
+                     combine(anim("skill", p["q_dur"]), sfx("q")))))
 
     def q_cast():
-        return combine(refresh("q_cd", p["q_cd"]), anim("skill", p["q_dur"]), sfx("q"), voice("vo_q", p),
+        return combine(refresh("q_cd", p["q_cd"]), swing, voice("vo_q", p),
                        delayed(p["q_at"] - 1, alive(wrath, *rm(*ELEMENTS, "el_on"))))
 
     skill = action("idle", 3, p["s_cd"], 1, p["q_range"], "Targeting", "EnemyWithoutTower",
@@ -297,8 +307,8 @@ def build(p):
                   [sw("r_go", NONE, follow)])
     q_near = delayed(p["r_kb_t"] + 2, alive(sw("r_near", combine(*rm("r_near"), q_cast()))))
     ult = action("idle", 3, p["r_cd"], 1, p["r_range"], "Targeting", "EnemyChampion",
-                 combine(anim("ult", p["r_dur"]), sfx("r"), voice("vo_r", p), cview("r_swing"),
-                         delayed(p["r_at"] - 1, alive(wave, wave_c, cview("r_burst"), sfx("r_burst"))),
+                 combine(anim("ult", p["r_dur"]), sfx("r"), voice("vo_r", p),       # the swing and the burst: in her frames
+                         delayed(p["r_at"] - 1, alive(wave, wave_c, sfx("r_burst"))),
                          delayed(p["r_at"] + 1, q_near)), key="ult")
 
     # ------------------------------------------------------------------ views (the step-3 effects pack; drafts)
@@ -309,9 +319,8 @@ def build(p):
     B_ = lambda name, anim_=FX, z=2, tag=None: {"type": "Animated", "name": n(name), "anim": anim_, "tag": tag or name,
                                                 "repeat": True, "z": z}
     views_p = [P_("r_wave", BIG, 0)]
-    views_e = [E("a_hit"), E("w_hit"), E("p_hit"), E("w_on", FX, 3), E("q_swing", BIG, -1), E("q_w", BIG, -1),
-               E("q_r", BIG, -1), E("q_g", BIG, -1), E("q_hit"), E("q_w_hit"), E("q_r_hit"), E("q_g_hit"),
-               E("e_hit"), E("r_swing", BIG, 3), E("r_burst", BIG, -1), E("r_hit")]
+    views_e = [E("a_hit"), E("w_hit"), E("p_hit"), E("w_on", FX, 3), E("q_hit"), E("q_w_hit"), E("q_r_hit"),
+               E("q_g_hit"), E("e_hit"), E("r_hit")]
     views_b = [B_("el_g", FX, 3), B_("el_w", FX, 3), B_("el_r", FX, 3), B_("q_slow", FX, 3), B_("q_haste", FX, -1)]
     extra = {}
     if nat:

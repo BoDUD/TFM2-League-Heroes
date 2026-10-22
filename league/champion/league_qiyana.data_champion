@@ -218,13 +218,72 @@
             ]
           },
           {
-            "type": "CasterAnimation",
-            "name": "skill",
-            "tick": 24
-          },
-          {
-            "type": "Sfx",
-            "name": "league_qiyana_q"
+            "type": "SwitchByBuff",
+            "buff_name": "league_qiyana_el_w",
+            "effect_buff": {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "CasterAnimation",
+                  "name": "skill_w",
+                  "tick": 24
+                },
+                {
+                  "type": "Sfx",
+                  "name": "league_qiyana_q_w"
+                }
+              ]
+            },
+            "effect_none": {
+              "type": "SwitchByBuff",
+              "buff_name": "league_qiyana_el_r",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "CasterAnimation",
+                    "name": "skill_r",
+                    "tick": 24
+                  },
+                  {
+                    "type": "Sfx",
+                    "name": "league_qiyana_q_r"
+                  }
+                ]
+              },
+              "effect_none": {
+                "type": "SwitchByBuff",
+                "buff_name": "league_qiyana_el_g",
+                "effect_buff": {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "CasterAnimation",
+                      "name": "skill_g",
+                      "tick": 24
+                    },
+                    {
+                      "type": "Sfx",
+                      "name": "league_qiyana_q_g"
+                    }
+                  ]
+                },
+                "effect_none": {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "CasterAnimation",
+                      "name": "skill",
+                      "tick": 24
+                    },
+                    {
+                      "type": "Sfx",
+                      "name": "league_qiyana_q"
+                    }
+                  ]
+                }
+              }
+            }
           },
           {
             "type": "SwitchByBuff",
@@ -389,13 +448,9 @@
                                   },
                                   {
                                     "type": "TargetSfx",
-                                    "name": "league_qiyana_q_hit"
+                                    "name": "league_qiyana_q_w_hit"
                                   }
                                 ]
-                              },
-                              {
-                                "type": "CasterViewEffect",
-                                "name": "league_qiyana_q_w"
                               }
                             ]
                           },
@@ -403,102 +458,93 @@
                             "type": "SwitchByBuff",
                             "buff_name": "league_qiyana_el_r",
                             "effect_buff": {
-                              "type": "Combine",
+                              "type": "RangeEffect",
+                              "shape": {
+                                "DirDot": {
+                                  "radius": 34000,
+                                  "range": 500
+                                }
+                              },
+                              "target": "EnemyWithoutTower",
+                              "apply_type": {
+                                "Forward": {
+                                  "offset": 1000
+                                }
+                              },
                               "effects": [
                                 {
-                                  "type": "RangeEffect",
-                                  "shape": {
-                                    "DirDot": {
-                                      "radius": 34000,
-                                      "range": 500
-                                    }
+                                  "type": "Attack",
+                                  "damage": 60,
+                                  "attack_ratio": 110,
+                                  "hp_ratio": 0,
+                                  "target_hp_ratio": 0,
+                                  "attack_effect_type": "Target"
+                                },
+                                {
+                                  "type": "Attack",
+                                  "damage": 25,
+                                  "attack_ratio": 40,
+                                  "hp_ratio": 0,
+                                  "target_hp_ratio": 0,
+                                  "attack_effect_type": "Target"
+                                },
+                                {
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "league_qiyana_rp_cd",
+                                  "effect_buff": {
+                                    "type": "Combine",
+                                    "effects": []
                                   },
-                                  "target": "EnemyWithoutTower",
-                                  "apply_type": {
-                                    "Forward": {
-                                      "offset": 1000
-                                    }
-                                  },
-                                  "effects": [
-                                    {
-                                      "type": "Attack",
-                                      "damage": 60,
-                                      "attack_ratio": 110,
-                                      "hp_ratio": 0,
-                                      "target_hp_ratio": 0,
-                                      "attack_effect_type": "Target"
-                                    },
-                                    {
-                                      "type": "Attack",
-                                      "damage": 25,
-                                      "attack_ratio": 40,
-                                      "hp_ratio": 0,
-                                      "target_hp_ratio": 0,
-                                      "attack_effect_type": "Target"
-                                    },
-                                    {
-                                      "type": "SwitchByBuff",
-                                      "buff_name": "league_qiyana_rp_cd",
-                                      "effect_buff": {
-                                        "type": "Combine",
-                                        "effects": []
-                                      },
-                                      "effect_none": {
+                                  "effect_none": {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
                                         "type": "Combine",
                                         "effects": [
                                           {
-                                            "type": "Combine",
-                                            "effects": [
-                                              {
-                                                "type": "RemoveCasterBuff",
-                                                "name": "league_qiyana_rp_cd"
-                                              },
-                                              {
-                                                "type": "AddCasterBuff",
-                                                "buff_state": {
-                                                  "name": "league_qiyana_rp_cd",
-                                                  "duration": {
-                                                    "Time": {
-                                                      "tick": 240
-                                                    }
-                                                  }
-                                                },
-                                                "only_to_enemy": false
+                                            "type": "RemoveCasterBuff",
+                                            "name": "league_qiyana_rp_cd"
+                                          },
+                                          {
+                                            "type": "AddCasterBuff",
+                                            "buff_state": {
+                                              "name": "league_qiyana_rp_cd",
+                                              "duration": {
+                                                "Time": {
+                                                  "tick": 240
+                                                }
                                               }
-                                            ]
-                                          },
-                                          {
-                                            "type": "Attack",
-                                            "damage": 40,
-                                            "attack_ratio": 50,
-                                            "hp_ratio": 0,
-                                            "target_hp_ratio": 0,
-                                            "attack_effect_type": "Target"
-                                          },
-                                          {
-                                            "type": "ViewEffect",
-                                            "name": "league_qiyana_p_hit"
-                                          },
-                                          {
-                                            "type": "TargetSfx",
-                                            "name": "league_qiyana_p_hit"
+                                            },
+                                            "only_to_enemy": false
                                           }
                                         ]
+                                      },
+                                      {
+                                        "type": "Attack",
+                                        "damage": 40,
+                                        "attack_ratio": 50,
+                                        "hp_ratio": 0,
+                                        "target_hp_ratio": 0,
+                                        "attack_effect_type": "Target"
+                                      },
+                                      {
+                                        "type": "ViewEffect",
+                                        "name": "league_qiyana_p_hit"
+                                      },
+                                      {
+                                        "type": "TargetSfx",
+                                        "name": "league_qiyana_p_hit"
                                       }
-                                    },
-                                    {
-                                      "type": "ViewEffect",
-                                      "name": "league_qiyana_q_r_hit"
-                                    },
-                                    {
-                                      "type": "TargetSfx",
-                                      "name": "league_qiyana_q_hit"
-                                    }
-                                  ]
+                                    ]
+                                  }
                                 },
                                 {
-                                  "type": "CasterViewEffect",
-                                  "name": "league_qiyana_q_r"
+                                  "type": "ViewEffect",
+                                  "name": "league_qiyana_q_r_hit"
+                                },
+                                {
+                                  "type": "TargetSfx",
+                                  "name": "league_qiyana_q_r_hit"
                                 }
                               ]
                             },
@@ -587,13 +633,9 @@
                                       },
                                       {
                                         "type": "TargetSfx",
-                                        "name": "league_qiyana_q_hit"
+                                        "name": "league_qiyana_q_g_hit"
                                       }
                                     ]
-                                  },
-                                  {
-                                    "type": "CasterViewEffect",
-                                    "name": "league_qiyana_q_g"
                                   },
                                   {
                                     "type": "RangeEffect",
@@ -636,94 +678,85 @@
                                 ]
                               },
                               "effect_none": {
-                                "type": "Combine",
+                                "type": "RangeEffect",
+                                "shape": {
+                                  "DirDot": {
+                                    "radius": 34000,
+                                    "range": 500
+                                  }
+                                },
+                                "target": "EnemyWithoutTower",
+                                "apply_type": {
+                                  "Forward": {
+                                    "offset": 1000
+                                  }
+                                },
                                 "effects": [
                                   {
-                                    "type": "RangeEffect",
-                                    "shape": {
-                                      "DirDot": {
-                                        "radius": 34000,
-                                        "range": 500
-                                      }
+                                    "type": "Attack",
+                                    "damage": 60,
+                                    "attack_ratio": 110,
+                                    "hp_ratio": 0,
+                                    "target_hp_ratio": 0,
+                                    "attack_effect_type": "Target"
+                                  },
+                                  {
+                                    "type": "SwitchByBuff",
+                                    "buff_name": "league_qiyana_rp_cd",
+                                    "effect_buff": {
+                                      "type": "Combine",
+                                      "effects": []
                                     },
-                                    "target": "EnemyWithoutTower",
-                                    "apply_type": {
-                                      "Forward": {
-                                        "offset": 1000
-                                      }
-                                    },
-                                    "effects": [
-                                      {
-                                        "type": "Attack",
-                                        "damage": 60,
-                                        "attack_ratio": 110,
-                                        "hp_ratio": 0,
-                                        "target_hp_ratio": 0,
-                                        "attack_effect_type": "Target"
-                                      },
-                                      {
-                                        "type": "SwitchByBuff",
-                                        "buff_name": "league_qiyana_rp_cd",
-                                        "effect_buff": {
-                                          "type": "Combine",
-                                          "effects": []
-                                        },
-                                        "effect_none": {
+                                    "effect_none": {
+                                      "type": "Combine",
+                                      "effects": [
+                                        {
                                           "type": "Combine",
                                           "effects": [
                                             {
-                                              "type": "Combine",
-                                              "effects": [
-                                                {
-                                                  "type": "RemoveCasterBuff",
-                                                  "name": "league_qiyana_rp_cd"
-                                                },
-                                                {
-                                                  "type": "AddCasterBuff",
-                                                  "buff_state": {
-                                                    "name": "league_qiyana_rp_cd",
-                                                    "duration": {
-                                                      "Time": {
-                                                        "tick": 240
-                                                      }
-                                                    }
-                                                  },
-                                                  "only_to_enemy": false
+                                              "type": "RemoveCasterBuff",
+                                              "name": "league_qiyana_rp_cd"
+                                            },
+                                            {
+                                              "type": "AddCasterBuff",
+                                              "buff_state": {
+                                                "name": "league_qiyana_rp_cd",
+                                                "duration": {
+                                                  "Time": {
+                                                    "tick": 240
+                                                  }
                                                 }
-                                              ]
-                                            },
-                                            {
-                                              "type": "Attack",
-                                              "damage": 40,
-                                              "attack_ratio": 50,
-                                              "hp_ratio": 0,
-                                              "target_hp_ratio": 0,
-                                              "attack_effect_type": "Target"
-                                            },
-                                            {
-                                              "type": "ViewEffect",
-                                              "name": "league_qiyana_p_hit"
-                                            },
-                                            {
-                                              "type": "TargetSfx",
-                                              "name": "league_qiyana_p_hit"
+                                              },
+                                              "only_to_enemy": false
                                             }
                                           ]
+                                        },
+                                        {
+                                          "type": "Attack",
+                                          "damage": 40,
+                                          "attack_ratio": 50,
+                                          "hp_ratio": 0,
+                                          "target_hp_ratio": 0,
+                                          "attack_effect_type": "Target"
+                                        },
+                                        {
+                                          "type": "ViewEffect",
+                                          "name": "league_qiyana_p_hit"
+                                        },
+                                        {
+                                          "type": "TargetSfx",
+                                          "name": "league_qiyana_p_hit"
                                         }
-                                      },
-                                      {
-                                        "type": "ViewEffect",
-                                        "name": "league_qiyana_q_hit"
-                                      },
-                                      {
-                                        "type": "TargetSfx",
-                                        "name": "league_qiyana_q_hit"
-                                      }
-                                    ]
+                                      ]
+                                    }
                                   },
                                   {
-                                    "type": "CasterViewEffect",
-                                    "name": "league_qiyana_q_swing"
+                                    "type": "ViewEffect",
+                                    "name": "league_qiyana_q_hit"
+                                  },
+                                  {
+                                    "type": "TargetSfx",
+                                    "name": "league_qiyana_q_hit"
                                   }
                                 ]
                               }
@@ -1158,13 +1191,72 @@
                                   ]
                                 },
                                 {
-                                  "type": "CasterAnimation",
-                                  "name": "skill",
-                                  "tick": 24
-                                },
-                                {
-                                  "type": "Sfx",
-                                  "name": "league_qiyana_q"
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "league_qiyana_el_w",
+                                  "effect_buff": {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "CasterAnimation",
+                                        "name": "skill_w",
+                                        "tick": 24
+                                      },
+                                      {
+                                        "type": "Sfx",
+                                        "name": "league_qiyana_q_w"
+                                      }
+                                    ]
+                                  },
+                                  "effect_none": {
+                                    "type": "SwitchByBuff",
+                                    "buff_name": "league_qiyana_el_r",
+                                    "effect_buff": {
+                                      "type": "Combine",
+                                      "effects": [
+                                        {
+                                          "type": "CasterAnimation",
+                                          "name": "skill_r",
+                                          "tick": 24
+                                        },
+                                        {
+                                          "type": "Sfx",
+                                          "name": "league_qiyana_q_r"
+                                        }
+                                      ]
+                                    },
+                                    "effect_none": {
+                                      "type": "SwitchByBuff",
+                                      "buff_name": "league_qiyana_el_g",
+                                      "effect_buff": {
+                                        "type": "Combine",
+                                        "effects": [
+                                          {
+                                            "type": "CasterAnimation",
+                                            "name": "skill_g",
+                                            "tick": 24
+                                          },
+                                          {
+                                            "type": "Sfx",
+                                            "name": "league_qiyana_q_g"
+                                          }
+                                        ]
+                                      },
+                                      "effect_none": {
+                                        "type": "Combine",
+                                        "effects": [
+                                          {
+                                            "type": "CasterAnimation",
+                                            "name": "skill",
+                                            "tick": 24
+                                          },
+                                          {
+                                            "type": "Sfx",
+                                            "name": "league_qiyana_q"
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  }
                                 },
                                 {
                                   "type": "SwitchByBuff",
@@ -1329,13 +1421,9 @@
                                                         },
                                                         {
                                                           "type": "TargetSfx",
-                                                          "name": "league_qiyana_q_hit"
+                                                          "name": "league_qiyana_q_w_hit"
                                                         }
                                                       ]
-                                                    },
-                                                    {
-                                                      "type": "CasterViewEffect",
-                                                      "name": "league_qiyana_q_w"
                                                     }
                                                   ]
                                                 },
@@ -1343,102 +1431,93 @@
                                                   "type": "SwitchByBuff",
                                                   "buff_name": "league_qiyana_el_r",
                                                   "effect_buff": {
-                                                    "type": "Combine",
+                                                    "type": "RangeEffect",
+                                                    "shape": {
+                                                      "DirDot": {
+                                                        "radius": 34000,
+                                                        "range": 500
+                                                      }
+                                                    },
+                                                    "target": "EnemyWithoutTower",
+                                                    "apply_type": {
+                                                      "Forward": {
+                                                        "offset": 1000
+                                                      }
+                                                    },
                                                     "effects": [
                                                       {
-                                                        "type": "RangeEffect",
-                                                        "shape": {
-                                                          "DirDot": {
-                                                            "radius": 34000,
-                                                            "range": 500
-                                                          }
+                                                        "type": "Attack",
+                                                        "damage": 60,
+                                                        "attack_ratio": 110,
+                                                        "hp_ratio": 0,
+                                                        "target_hp_ratio": 0,
+                                                        "attack_effect_type": "Target"
+                                                      },
+                                                      {
+                                                        "type": "Attack",
+                                                        "damage": 25,
+                                                        "attack_ratio": 40,
+                                                        "hp_ratio": 0,
+                                                        "target_hp_ratio": 0,
+                                                        "attack_effect_type": "Target"
+                                                      },
+                                                      {
+                                                        "type": "SwitchByBuff",
+                                                        "buff_name": "league_qiyana_rp_cd",
+                                                        "effect_buff": {
+                                                          "type": "Combine",
+                                                          "effects": []
                                                         },
-                                                        "target": "EnemyWithoutTower",
-                                                        "apply_type": {
-                                                          "Forward": {
-                                                            "offset": 1000
-                                                          }
-                                                        },
-                                                        "effects": [
-                                                          {
-                                                            "type": "Attack",
-                                                            "damage": 60,
-                                                            "attack_ratio": 110,
-                                                            "hp_ratio": 0,
-                                                            "target_hp_ratio": 0,
-                                                            "attack_effect_type": "Target"
-                                                          },
-                                                          {
-                                                            "type": "Attack",
-                                                            "damage": 25,
-                                                            "attack_ratio": 40,
-                                                            "hp_ratio": 0,
-                                                            "target_hp_ratio": 0,
-                                                            "attack_effect_type": "Target"
-                                                          },
-                                                          {
-                                                            "type": "SwitchByBuff",
-                                                            "buff_name": "league_qiyana_rp_cd",
-                                                            "effect_buff": {
-                                                              "type": "Combine",
-                                                              "effects": []
-                                                            },
-                                                            "effect_none": {
+                                                        "effect_none": {
+                                                          "type": "Combine",
+                                                          "effects": [
+                                                            {
                                                               "type": "Combine",
                                                               "effects": [
                                                                 {
-                                                                  "type": "Combine",
-                                                                  "effects": [
-                                                                    {
-                                                                      "type": "RemoveCasterBuff",
-                                                                      "name": "league_qiyana_rp_cd"
-                                                                    },
-                                                                    {
-                                                                      "type": "AddCasterBuff",
-                                                                      "buff_state": {
-                                                                        "name": "league_qiyana_rp_cd",
-                                                                        "duration": {
-                                                                          "Time": {
-                                                                            "tick": 240
-                                                                          }
-                                                                        }
-                                                                      },
-                                                                      "only_to_enemy": false
+                                                                  "type": "RemoveCasterBuff",
+                                                                  "name": "league_qiyana_rp_cd"
+                                                                },
+                                                                {
+                                                                  "type": "AddCasterBuff",
+                                                                  "buff_state": {
+                                                                    "name": "league_qiyana_rp_cd",
+                                                                    "duration": {
+                                                                      "Time": {
+                                                                        "tick": 240
+                                                                      }
                                                                     }
-                                                                  ]
-                                                                },
-                                                                {
-                                                                  "type": "Attack",
-                                                                  "damage": 40,
-                                                                  "attack_ratio": 50,
-                                                                  "hp_ratio": 0,
-                                                                  "target_hp_ratio": 0,
-                                                                  "attack_effect_type": "Target"
-                                                                },
-                                                                {
-                                                                  "type": "ViewEffect",
-                                                                  "name": "league_qiyana_p_hit"
-                                                                },
-                                                                {
-                                                                  "type": "TargetSfx",
-                                                                  "name": "league_qiyana_p_hit"
+                                                                  },
+                                                                  "only_to_enemy": false
                                                                 }
                                                               ]
+                                                            },
+                                                            {
+                                                              "type": "Attack",
+                                                              "damage": 40,
+                                                              "attack_ratio": 50,
+                                                              "hp_ratio": 0,
+                                                              "target_hp_ratio": 0,
+                                                              "attack_effect_type": "Target"
+                                                            },
+                                                            {
+                                                              "type": "ViewEffect",
+                                                              "name": "league_qiyana_p_hit"
+                                                            },
+                                                            {
+                                                              "type": "TargetSfx",
+                                                              "name": "league_qiyana_p_hit"
                                                             }
-                                                          },
-                                                          {
-                                                            "type": "ViewEffect",
-                                                            "name": "league_qiyana_q_r_hit"
-                                                          },
-                                                          {
-                                                            "type": "TargetSfx",
-                                                            "name": "league_qiyana_q_hit"
-                                                          }
-                                                        ]
+                                                          ]
+                                                        }
                                                       },
                                                       {
-                                                        "type": "CasterViewEffect",
-                                                        "name": "league_qiyana_q_r"
+                                                        "type": "ViewEffect",
+                                                        "name": "league_qiyana_q_r_hit"
+                                                      },
+                                                      {
+                                                        "type": "TargetSfx",
+                                                        "name": "league_qiyana_q_r_hit"
                                                       }
                                                     ]
                                                   },
@@ -1527,13 +1606,9 @@
                                                             },
                                                             {
                                                               "type": "TargetSfx",
-                                                              "name": "league_qiyana_q_hit"
+                                                              "name": "league_qiyana_q_g_hit"
                                                             }
                                                           ]
-                                                        },
-                                                        {
-                                                          "type": "CasterViewEffect",
-                                                          "name": "league_qiyana_q_g"
                                                         },
                                                         {
                                                           "type": "RangeEffect",
@@ -1576,94 +1651,85 @@
                                                       ]
                                                     },
                                                     "effect_none": {
-                                                      "type": "Combine",
+                                                      "type": "RangeEffect",
+                                                      "shape": {
+                                                        "DirDot": {
+                                                          "radius": 34000,
+                                                          "range": 500
+                                                        }
+                                                      },
+                                                      "target": "EnemyWithoutTower",
+                                                      "apply_type": {
+                                                        "Forward": {
+                                                          "offset": 1000
+                                                        }
+                                                      },
                                                       "effects": [
                                                         {
-                                                          "type": "RangeEffect",
-                                                          "shape": {
-                                                            "DirDot": {
-                                                              "radius": 34000,
-                                                              "range": 500
-                                                            }
+                                                          "type": "Attack",
+                                                          "damage": 60,
+                                                          "attack_ratio": 110,
+                                                          "hp_ratio": 0,
+                                                          "target_hp_ratio": 0,
+                                                          "attack_effect_type": "Target"
+                                                        },
+                                                        {
+                                                          "type": "SwitchByBuff",
+                                                          "buff_name": "league_qiyana_rp_cd",
+                                                          "effect_buff": {
+                                                            "type": "Combine",
+                                                            "effects": []
                                                           },
-                                                          "target": "EnemyWithoutTower",
-                                                          "apply_type": {
-                                                            "Forward": {
-                                                              "offset": 1000
-                                                            }
-                                                          },
-                                                          "effects": [
-                                                            {
-                                                              "type": "Attack",
-                                                              "damage": 60,
-                                                              "attack_ratio": 110,
-                                                              "hp_ratio": 0,
-                                                              "target_hp_ratio": 0,
-                                                              "attack_effect_type": "Target"
-                                                            },
-                                                            {
-                                                              "type": "SwitchByBuff",
-                                                              "buff_name": "league_qiyana_rp_cd",
-                                                              "effect_buff": {
-                                                                "type": "Combine",
-                                                                "effects": []
-                                                              },
-                                                              "effect_none": {
+                                                          "effect_none": {
+                                                            "type": "Combine",
+                                                            "effects": [
+                                                              {
                                                                 "type": "Combine",
                                                                 "effects": [
                                                                   {
-                                                                    "type": "Combine",
-                                                                    "effects": [
-                                                                      {
-                                                                        "type": "RemoveCasterBuff",
-                                                                        "name": "league_qiyana_rp_cd"
-                                                                      },
-                                                                      {
-                                                                        "type": "AddCasterBuff",
-                                                                        "buff_state": {
-                                                                          "name": "league_qiyana_rp_cd",
-                                                                          "duration": {
-                                                                            "Time": {
-                                                                              "tick": 240
-                                                                            }
-                                                                          }
-                                                                        },
-                                                                        "only_to_enemy": false
+                                                                    "type": "RemoveCasterBuff",
+                                                                    "name": "league_qiyana_rp_cd"
+                                                                  },
+                                                                  {
+                                                                    "type": "AddCasterBuff",
+                                                                    "buff_state": {
+                                                                      "name": "league_qiyana_rp_cd",
+                                                                      "duration": {
+                                                                        "Time": {
+                                                                          "tick": 240
+                                                                        }
                                                                       }
-                                                                    ]
-                                                                  },
-                                                                  {
-                                                                    "type": "Attack",
-                                                                    "damage": 40,
-                                                                    "attack_ratio": 50,
-                                                                    "hp_ratio": 0,
-                                                                    "target_hp_ratio": 0,
-                                                                    "attack_effect_type": "Target"
-                                                                  },
-                                                                  {
-                                                                    "type": "ViewEffect",
-                                                                    "name": "league_qiyana_p_hit"
-                                                                  },
-                                                                  {
-                                                                    "type": "TargetSfx",
-                                                                    "name": "league_qiyana_p_hit"
+                                                                    },
+                                                                    "only_to_enemy": false
                                                                   }
                                                                 ]
+                                                              },
+                                                              {
+                                                                "type": "Attack",
+                                                                "damage": 40,
+                                                                "attack_ratio": 50,
+                                                                "hp_ratio": 0,
+                                                                "target_hp_ratio": 0,
+                                                                "attack_effect_type": "Target"
+                                                              },
+                                                              {
+                                                                "type": "ViewEffect",
+                                                                "name": "league_qiyana_p_hit"
+                                                              },
+                                                              {
+                                                                "type": "TargetSfx",
+                                                                "name": "league_qiyana_p_hit"
                                                               }
-                                                            },
-                                                            {
-                                                              "type": "ViewEffect",
-                                                              "name": "league_qiyana_q_hit"
-                                                            },
-                                                            {
-                                                              "type": "TargetSfx",
-                                                              "name": "league_qiyana_q_hit"
-                                                            }
-                                                          ]
+                                                            ]
+                                                          }
                                                         },
                                                         {
-                                                          "type": "CasterViewEffect",
-                                                          "name": "league_qiyana_q_swing"
+                                                          "type": "ViewEffect",
+                                                          "name": "league_qiyana_q_hit"
+                                                        },
+                                                        {
+                                                          "type": "TargetSfx",
+                                                          "name": "league_qiyana_q_hit"
                                                         }
                                                       ]
                                                     }
@@ -1775,10 +1841,6 @@
               }
             ]
           }
-        },
-        {
-          "type": "CasterViewEffect",
-          "name": "league_qiyana_r_swing"
         },
         {
           "type": "Delayed",
@@ -2407,13 +2469,72 @@
                                                                               ]
                                                                             },
                                                                             {
-                                                                              "type": "CasterAnimation",
-                                                                              "name": "skill",
-                                                                              "tick": 24
-                                                                            },
-                                                                            {
-                                                                              "type": "Sfx",
-                                                                              "name": "league_qiyana_q"
+                                                                              "type": "SwitchByBuff",
+                                                                              "buff_name": "league_qiyana_el_w",
+                                                                              "effect_buff": {
+                                                                                "type": "Combine",
+                                                                                "effects": [
+                                                                                  {
+                                                                                    "type": "CasterAnimation",
+                                                                                    "name": "skill_w",
+                                                                                    "tick": 24
+                                                                                  },
+                                                                                  {
+                                                                                    "type": "Sfx",
+                                                                                    "name": "league_qiyana_q_w"
+                                                                                  }
+                                                                                ]
+                                                                              },
+                                                                              "effect_none": {
+                                                                                "type": "SwitchByBuff",
+                                                                                "buff_name": "league_qiyana_el_r",
+                                                                                "effect_buff": {
+                                                                                  "type": "Combine",
+                                                                                  "effects": [
+                                                                                    {
+                                                                                      "type": "CasterAnimation",
+                                                                                      "name": "skill_r",
+                                                                                      "tick": 24
+                                                                                    },
+                                                                                    {
+                                                                                      "type": "Sfx",
+                                                                                      "name": "league_qiyana_q_r"
+                                                                                    }
+                                                                                  ]
+                                                                                },
+                                                                                "effect_none": {
+                                                                                  "type": "SwitchByBuff",
+                                                                                  "buff_name": "league_qiyana_el_g",
+                                                                                  "effect_buff": {
+                                                                                    "type": "Combine",
+                                                                                    "effects": [
+                                                                                      {
+                                                                                        "type": "CasterAnimation",
+                                                                                        "name": "skill_g",
+                                                                                        "tick": 24
+                                                                                      },
+                                                                                      {
+                                                                                        "type": "Sfx",
+                                                                                        "name": "league_qiyana_q_g"
+                                                                                      }
+                                                                                    ]
+                                                                                  },
+                                                                                  "effect_none": {
+                                                                                    "type": "Combine",
+                                                                                    "effects": [
+                                                                                      {
+                                                                                        "type": "CasterAnimation",
+                                                                                        "name": "skill",
+                                                                                        "tick": 24
+                                                                                      },
+                                                                                      {
+                                                                                        "type": "Sfx",
+                                                                                        "name": "league_qiyana_q"
+                                                                                      }
+                                                                                    ]
+                                                                                  }
+                                                                                }
+                                                                              }
                                                                             },
                                                                             {
                                                                               "type": "SwitchByBuff",
@@ -2578,13 +2699,9 @@
                                                                                                     },
                                                                                                     {
                                                                                                       "type": "TargetSfx",
-                                                                                                      "name": "league_qiyana_q_hit"
+                                                                                                      "name": "league_qiyana_q_w_hit"
                                                                                                     }
                                                                                                   ]
-                                                                                                },
-                                                                                                {
-                                                                                                  "type": "CasterViewEffect",
-                                                                                                  "name": "league_qiyana_q_w"
                                                                                                 }
                                                                                               ]
                                                                                             },
@@ -2592,102 +2709,93 @@
                                                                                               "type": "SwitchByBuff",
                                                                                               "buff_name": "league_qiyana_el_r",
                                                                                               "effect_buff": {
-                                                                                                "type": "Combine",
+                                                                                                "type": "RangeEffect",
+                                                                                                "shape": {
+                                                                                                  "DirDot": {
+                                                                                                    "radius": 34000,
+                                                                                                    "range": 500
+                                                                                                  }
+                                                                                                },
+                                                                                                "target": "EnemyWithoutTower",
+                                                                                                "apply_type": {
+                                                                                                  "Forward": {
+                                                                                                    "offset": 1000
+                                                                                                  }
+                                                                                                },
                                                                                                 "effects": [
                                                                                                   {
-                                                                                                    "type": "RangeEffect",
-                                                                                                    "shape": {
-                                                                                                      "DirDot": {
-                                                                                                        "radius": 34000,
-                                                                                                        "range": 500
-                                                                                                      }
+                                                                                                    "type": "Attack",
+                                                                                                    "damage": 60,
+                                                                                                    "attack_ratio": 110,
+                                                                                                    "hp_ratio": 0,
+                                                                                                    "target_hp_ratio": 0,
+                                                                                                    "attack_effect_type": "Target"
+                                                                                                  },
+                                                                                                  {
+                                                                                                    "type": "Attack",
+                                                                                                    "damage": 25,
+                                                                                                    "attack_ratio": 40,
+                                                                                                    "hp_ratio": 0,
+                                                                                                    "target_hp_ratio": 0,
+                                                                                                    "attack_effect_type": "Target"
+                                                                                                  },
+                                                                                                  {
+                                                                                                    "type": "SwitchByBuff",
+                                                                                                    "buff_name": "league_qiyana_rp_cd",
+                                                                                                    "effect_buff": {
+                                                                                                      "type": "Combine",
+                                                                                                      "effects": []
                                                                                                     },
-                                                                                                    "target": "EnemyWithoutTower",
-                                                                                                    "apply_type": {
-                                                                                                      "Forward": {
-                                                                                                        "offset": 1000
-                                                                                                      }
-                                                                                                    },
-                                                                                                    "effects": [
-                                                                                                      {
-                                                                                                        "type": "Attack",
-                                                                                                        "damage": 60,
-                                                                                                        "attack_ratio": 110,
-                                                                                                        "hp_ratio": 0,
-                                                                                                        "target_hp_ratio": 0,
-                                                                                                        "attack_effect_type": "Target"
-                                                                                                      },
-                                                                                                      {
-                                                                                                        "type": "Attack",
-                                                                                                        "damage": 25,
-                                                                                                        "attack_ratio": 40,
-                                                                                                        "hp_ratio": 0,
-                                                                                                        "target_hp_ratio": 0,
-                                                                                                        "attack_effect_type": "Target"
-                                                                                                      },
-                                                                                                      {
-                                                                                                        "type": "SwitchByBuff",
-                                                                                                        "buff_name": "league_qiyana_rp_cd",
-                                                                                                        "effect_buff": {
-                                                                                                          "type": "Combine",
-                                                                                                          "effects": []
-                                                                                                        },
-                                                                                                        "effect_none": {
+                                                                                                    "effect_none": {
+                                                                                                      "type": "Combine",
+                                                                                                      "effects": [
+                                                                                                        {
                                                                                                           "type": "Combine",
                                                                                                           "effects": [
                                                                                                             {
-                                                                                                              "type": "Combine",
-                                                                                                              "effects": [
-                                                                                                                {
-                                                                                                                  "type": "RemoveCasterBuff",
-                                                                                                                  "name": "league_qiyana_rp_cd"
-                                                                                                                },
-                                                                                                                {
-                                                                                                                  "type": "AddCasterBuff",
-                                                                                                                  "buff_state": {
-                                                                                                                    "name": "league_qiyana_rp_cd",
-                                                                                                                    "duration": {
-                                                                                                                      "Time": {
-                                                                                                                        "tick": 240
-                                                                                                                      }
-                                                                                                                    }
-                                                                                                                  },
-                                                                                                                  "only_to_enemy": false
+                                                                                                              "type": "RemoveCasterBuff",
+                                                                                                              "name": "league_qiyana_rp_cd"
+                                                                                                            },
+                                                                                                            {
+                                                                                                              "type": "AddCasterBuff",
+                                                                                                              "buff_state": {
+                                                                                                                "name": "league_qiyana_rp_cd",
+                                                                                                                "duration": {
+                                                                                                                  "Time": {
+                                                                                                                    "tick": 240
+                                                                                                                  }
                                                                                                                 }
-                                                                                                              ]
-                                                                                                            },
-                                                                                                            {
-                                                                                                              "type": "Attack",
-                                                                                                              "damage": 40,
-                                                                                                              "attack_ratio": 50,
-                                                                                                              "hp_ratio": 0,
-                                                                                                              "target_hp_ratio": 0,
-                                                                                                              "attack_effect_type": "Target"
-                                                                                                            },
-                                                                                                            {
-                                                                                                              "type": "ViewEffect",
-                                                                                                              "name": "league_qiyana_p_hit"
-                                                                                                            },
-                                                                                                            {
-                                                                                                              "type": "TargetSfx",
-                                                                                                              "name": "league_qiyana_p_hit"
+                                                                                                              },
+                                                                                                              "only_to_enemy": false
                                                                                                             }
                                                                                                           ]
+                                                                                                        },
+                                                                                                        {
+                                                                                                          "type": "Attack",
+                                                                                                          "damage": 40,
+                                                                                                          "attack_ratio": 50,
+                                                                                                          "hp_ratio": 0,
+                                                                                                          "target_hp_ratio": 0,
+                                                                                                          "attack_effect_type": "Target"
+                                                                                                        },
+                                                                                                        {
+                                                                                                          "type": "ViewEffect",
+                                                                                                          "name": "league_qiyana_p_hit"
+                                                                                                        },
+                                                                                                        {
+                                                                                                          "type": "TargetSfx",
+                                                                                                          "name": "league_qiyana_p_hit"
                                                                                                         }
-                                                                                                      },
-                                                                                                      {
-                                                                                                        "type": "ViewEffect",
-                                                                                                        "name": "league_qiyana_q_r_hit"
-                                                                                                      },
-                                                                                                      {
-                                                                                                        "type": "TargetSfx",
-                                                                                                        "name": "league_qiyana_q_hit"
-                                                                                                      }
-                                                                                                    ]
+                                                                                                      ]
+                                                                                                    }
                                                                                                   },
                                                                                                   {
-                                                                                                    "type": "CasterViewEffect",
-                                                                                                    "name": "league_qiyana_q_r"
+                                                                                                    "type": "ViewEffect",
+                                                                                                    "name": "league_qiyana_q_r_hit"
+                                                                                                  },
+                                                                                                  {
+                                                                                                    "type": "TargetSfx",
+                                                                                                    "name": "league_qiyana_q_r_hit"
                                                                                                   }
                                                                                                 ]
                                                                                               },
@@ -2776,13 +2884,9 @@
                                                                                                         },
                                                                                                         {
                                                                                                           "type": "TargetSfx",
-                                                                                                          "name": "league_qiyana_q_hit"
+                                                                                                          "name": "league_qiyana_q_g_hit"
                                                                                                         }
                                                                                                       ]
-                                                                                                    },
-                                                                                                    {
-                                                                                                      "type": "CasterViewEffect",
-                                                                                                      "name": "league_qiyana_q_g"
                                                                                                     },
                                                                                                     {
                                                                                                       "type": "RangeEffect",
@@ -2825,94 +2929,85 @@
                                                                                                   ]
                                                                                                 },
                                                                                                 "effect_none": {
-                                                                                                  "type": "Combine",
+                                                                                                  "type": "RangeEffect",
+                                                                                                  "shape": {
+                                                                                                    "DirDot": {
+                                                                                                      "radius": 34000,
+                                                                                                      "range": 500
+                                                                                                    }
+                                                                                                  },
+                                                                                                  "target": "EnemyWithoutTower",
+                                                                                                  "apply_type": {
+                                                                                                    "Forward": {
+                                                                                                      "offset": 1000
+                                                                                                    }
+                                                                                                  },
                                                                                                   "effects": [
                                                                                                     {
-                                                                                                      "type": "RangeEffect",
-                                                                                                      "shape": {
-                                                                                                        "DirDot": {
-                                                                                                          "radius": 34000,
-                                                                                                          "range": 500
-                                                                                                        }
+                                                                                                      "type": "Attack",
+                                                                                                      "damage": 60,
+                                                                                                      "attack_ratio": 110,
+                                                                                                      "hp_ratio": 0,
+                                                                                                      "target_hp_ratio": 0,
+                                                                                                      "attack_effect_type": "Target"
+                                                                                                    },
+                                                                                                    {
+                                                                                                      "type": "SwitchByBuff",
+                                                                                                      "buff_name": "league_qiyana_rp_cd",
+                                                                                                      "effect_buff": {
+                                                                                                        "type": "Combine",
+                                                                                                        "effects": []
                                                                                                       },
-                                                                                                      "target": "EnemyWithoutTower",
-                                                                                                      "apply_type": {
-                                                                                                        "Forward": {
-                                                                                                          "offset": 1000
-                                                                                                        }
-                                                                                                      },
-                                                                                                      "effects": [
-                                                                                                        {
-                                                                                                          "type": "Attack",
-                                                                                                          "damage": 60,
-                                                                                                          "attack_ratio": 110,
-                                                                                                          "hp_ratio": 0,
-                                                                                                          "target_hp_ratio": 0,
-                                                                                                          "attack_effect_type": "Target"
-                                                                                                        },
-                                                                                                        {
-                                                                                                          "type": "SwitchByBuff",
-                                                                                                          "buff_name": "league_qiyana_rp_cd",
-                                                                                                          "effect_buff": {
-                                                                                                            "type": "Combine",
-                                                                                                            "effects": []
-                                                                                                          },
-                                                                                                          "effect_none": {
+                                                                                                      "effect_none": {
+                                                                                                        "type": "Combine",
+                                                                                                        "effects": [
+                                                                                                          {
                                                                                                             "type": "Combine",
                                                                                                             "effects": [
                                                                                                               {
-                                                                                                                "type": "Combine",
-                                                                                                                "effects": [
-                                                                                                                  {
-                                                                                                                    "type": "RemoveCasterBuff",
-                                                                                                                    "name": "league_qiyana_rp_cd"
-                                                                                                                  },
-                                                                                                                  {
-                                                                                                                    "type": "AddCasterBuff",
-                                                                                                                    "buff_state": {
-                                                                                                                      "name": "league_qiyana_rp_cd",
-                                                                                                                      "duration": {
-                                                                                                                        "Time": {
-                                                                                                                          "tick": 240
-                                                                                                                        }
-                                                                                                                      }
-                                                                                                                    },
-                                                                                                                    "only_to_enemy": false
+                                                                                                                "type": "RemoveCasterBuff",
+                                                                                                                "name": "league_qiyana_rp_cd"
+                                                                                                              },
+                                                                                                              {
+                                                                                                                "type": "AddCasterBuff",
+                                                                                                                "buff_state": {
+                                                                                                                  "name": "league_qiyana_rp_cd",
+                                                                                                                  "duration": {
+                                                                                                                    "Time": {
+                                                                                                                      "tick": 240
+                                                                                                                    }
                                                                                                                   }
-                                                                                                                ]
-                                                                                                              },
-                                                                                                              {
-                                                                                                                "type": "Attack",
-                                                                                                                "damage": 40,
-                                                                                                                "attack_ratio": 50,
-                                                                                                                "hp_ratio": 0,
-                                                                                                                "target_hp_ratio": 0,
-                                                                                                                "attack_effect_type": "Target"
-                                                                                                              },
-                                                                                                              {
-                                                                                                                "type": "ViewEffect",
-                                                                                                                "name": "league_qiyana_p_hit"
-                                                                                                              },
-                                                                                                              {
-                                                                                                                "type": "TargetSfx",
-                                                                                                                "name": "league_qiyana_p_hit"
+                                                                                                                },
+                                                                                                                "only_to_enemy": false
                                                                                                               }
                                                                                                             ]
+                                                                                                          },
+                                                                                                          {
+                                                                                                            "type": "Attack",
+                                                                                                            "damage": 40,
+                                                                                                            "attack_ratio": 50,
+                                                                                                            "hp_ratio": 0,
+                                                                                                            "target_hp_ratio": 0,
+                                                                                                            "attack_effect_type": "Target"
+                                                                                                          },
+                                                                                                          {
+                                                                                                            "type": "ViewEffect",
+                                                                                                            "name": "league_qiyana_p_hit"
+                                                                                                          },
+                                                                                                          {
+                                                                                                            "type": "TargetSfx",
+                                                                                                            "name": "league_qiyana_p_hit"
                                                                                                           }
-                                                                                                        },
-                                                                                                        {
-                                                                                                          "type": "ViewEffect",
-                                                                                                          "name": "league_qiyana_q_hit"
-                                                                                                        },
-                                                                                                        {
-                                                                                                          "type": "TargetSfx",
-                                                                                                          "name": "league_qiyana_q_hit"
-                                                                                                        }
-                                                                                                      ]
+                                                                                                        ]
+                                                                                                      }
                                                                                                     },
                                                                                                     {
-                                                                                                      "type": "CasterViewEffect",
-                                                                                                      "name": "league_qiyana_q_swing"
+                                                                                                      "type": "ViewEffect",
+                                                                                                      "name": "league_qiyana_q_hit"
+                                                                                                    },
+                                                                                                    {
+                                                                                                      "type": "TargetSfx",
+                                                                                                      "name": "league_qiyana_q_hit"
                                                                                                     }
                                                                                                   ]
                                                                                                 }
@@ -3001,10 +3096,6 @@
                           }
                         },
                         "y_offset": 0
-                      },
-                      {
-                        "type": "CasterViewEffect",
-                        "name": "league_qiyana_r_burst"
                       },
                       {
                         "type": "Sfx",
@@ -3097,13 +3188,72 @@
                                       ]
                                     },
                                     {
-                                      "type": "CasterAnimation",
-                                      "name": "skill",
-                                      "tick": 24
-                                    },
-                                    {
-                                      "type": "Sfx",
-                                      "name": "league_qiyana_q"
+                                      "type": "SwitchByBuff",
+                                      "buff_name": "league_qiyana_el_w",
+                                      "effect_buff": {
+                                        "type": "Combine",
+                                        "effects": [
+                                          {
+                                            "type": "CasterAnimation",
+                                            "name": "skill_w",
+                                            "tick": 24
+                                          },
+                                          {
+                                            "type": "Sfx",
+                                            "name": "league_qiyana_q_w"
+                                          }
+                                        ]
+                                      },
+                                      "effect_none": {
+                                        "type": "SwitchByBuff",
+                                        "buff_name": "league_qiyana_el_r",
+                                        "effect_buff": {
+                                          "type": "Combine",
+                                          "effects": [
+                                            {
+                                              "type": "CasterAnimation",
+                                              "name": "skill_r",
+                                              "tick": 24
+                                            },
+                                            {
+                                              "type": "Sfx",
+                                              "name": "league_qiyana_q_r"
+                                            }
+                                          ]
+                                        },
+                                        "effect_none": {
+                                          "type": "SwitchByBuff",
+                                          "buff_name": "league_qiyana_el_g",
+                                          "effect_buff": {
+                                            "type": "Combine",
+                                            "effects": [
+                                              {
+                                                "type": "CasterAnimation",
+                                                "name": "skill_g",
+                                                "tick": 24
+                                              },
+                                              {
+                                                "type": "Sfx",
+                                                "name": "league_qiyana_q_g"
+                                              }
+                                            ]
+                                          },
+                                          "effect_none": {
+                                            "type": "Combine",
+                                            "effects": [
+                                              {
+                                                "type": "CasterAnimation",
+                                                "name": "skill",
+                                                "tick": 24
+                                              },
+                                              {
+                                                "type": "Sfx",
+                                                "name": "league_qiyana_q"
+                                              }
+                                            ]
+                                          }
+                                        }
+                                      }
                                     },
                                     {
                                       "type": "SwitchByBuff",
@@ -3268,13 +3418,9 @@
                                                             },
                                                             {
                                                               "type": "TargetSfx",
-                                                              "name": "league_qiyana_q_hit"
+                                                              "name": "league_qiyana_q_w_hit"
                                                             }
                                                           ]
-                                                        },
-                                                        {
-                                                          "type": "CasterViewEffect",
-                                                          "name": "league_qiyana_q_w"
                                                         }
                                                       ]
                                                     },
@@ -3282,102 +3428,93 @@
                                                       "type": "SwitchByBuff",
                                                       "buff_name": "league_qiyana_el_r",
                                                       "effect_buff": {
-                                                        "type": "Combine",
+                                                        "type": "RangeEffect",
+                                                        "shape": {
+                                                          "DirDot": {
+                                                            "radius": 34000,
+                                                            "range": 500
+                                                          }
+                                                        },
+                                                        "target": "EnemyWithoutTower",
+                                                        "apply_type": {
+                                                          "Forward": {
+                                                            "offset": 1000
+                                                          }
+                                                        },
                                                         "effects": [
                                                           {
-                                                            "type": "RangeEffect",
-                                                            "shape": {
-                                                              "DirDot": {
-                                                                "radius": 34000,
-                                                                "range": 500
-                                                              }
+                                                            "type": "Attack",
+                                                            "damage": 60,
+                                                            "attack_ratio": 110,
+                                                            "hp_ratio": 0,
+                                                            "target_hp_ratio": 0,
+                                                            "attack_effect_type": "Target"
+                                                          },
+                                                          {
+                                                            "type": "Attack",
+                                                            "damage": 25,
+                                                            "attack_ratio": 40,
+                                                            "hp_ratio": 0,
+                                                            "target_hp_ratio": 0,
+                                                            "attack_effect_type": "Target"
+                                                          },
+                                                          {
+                                                            "type": "SwitchByBuff",
+                                                            "buff_name": "league_qiyana_rp_cd",
+                                                            "effect_buff": {
+                                                              "type": "Combine",
+                                                              "effects": []
                                                             },
-                                                            "target": "EnemyWithoutTower",
-                                                            "apply_type": {
-                                                              "Forward": {
-                                                                "offset": 1000
-                                                              }
-                                                            },
-                                                            "effects": [
-                                                              {
-                                                                "type": "Attack",
-                                                                "damage": 60,
-                                                                "attack_ratio": 110,
-                                                                "hp_ratio": 0,
-                                                                "target_hp_ratio": 0,
-                                                                "attack_effect_type": "Target"
-                                                              },
-                                                              {
-                                                                "type": "Attack",
-                                                                "damage": 25,
-                                                                "attack_ratio": 40,
-                                                                "hp_ratio": 0,
-                                                                "target_hp_ratio": 0,
-                                                                "attack_effect_type": "Target"
-                                                              },
-                                                              {
-                                                                "type": "SwitchByBuff",
-                                                                "buff_name": "league_qiyana_rp_cd",
-                                                                "effect_buff": {
-                                                                  "type": "Combine",
-                                                                  "effects": []
-                                                                },
-                                                                "effect_none": {
+                                                            "effect_none": {
+                                                              "type": "Combine",
+                                                              "effects": [
+                                                                {
                                                                   "type": "Combine",
                                                                   "effects": [
                                                                     {
-                                                                      "type": "Combine",
-                                                                      "effects": [
-                                                                        {
-                                                                          "type": "RemoveCasterBuff",
-                                                                          "name": "league_qiyana_rp_cd"
-                                                                        },
-                                                                        {
-                                                                          "type": "AddCasterBuff",
-                                                                          "buff_state": {
-                                                                            "name": "league_qiyana_rp_cd",
-                                                                            "duration": {
-                                                                              "Time": {
-                                                                                "tick": 240
-                                                                              }
-                                                                            }
-                                                                          },
-                                                                          "only_to_enemy": false
+                                                                      "type": "RemoveCasterBuff",
+                                                                      "name": "league_qiyana_rp_cd"
+                                                                    },
+                                                                    {
+                                                                      "type": "AddCasterBuff",
+                                                                      "buff_state": {
+                                                                        "name": "league_qiyana_rp_cd",
+                                                                        "duration": {
+                                                                          "Time": {
+                                                                            "tick": 240
+                                                                          }
                                                                         }
-                                                                      ]
-                                                                    },
-                                                                    {
-                                                                      "type": "Attack",
-                                                                      "damage": 40,
-                                                                      "attack_ratio": 50,
-                                                                      "hp_ratio": 0,
-                                                                      "target_hp_ratio": 0,
-                                                                      "attack_effect_type": "Target"
-                                                                    },
-                                                                    {
-                                                                      "type": "ViewEffect",
-                                                                      "name": "league_qiyana_p_hit"
-                                                                    },
-                                                                    {
-                                                                      "type": "TargetSfx",
-                                                                      "name": "league_qiyana_p_hit"
+                                                                      },
+                                                                      "only_to_enemy": false
                                                                     }
                                                                   ]
+                                                                },
+                                                                {
+                                                                  "type": "Attack",
+                                                                  "damage": 40,
+                                                                  "attack_ratio": 50,
+                                                                  "hp_ratio": 0,
+                                                                  "target_hp_ratio": 0,
+                                                                  "attack_effect_type": "Target"
+                                                                },
+                                                                {
+                                                                  "type": "ViewEffect",
+                                                                  "name": "league_qiyana_p_hit"
+                                                                },
+                                                                {
+                                                                  "type": "TargetSfx",
+                                                                  "name": "league_qiyana_p_hit"
                                                                 }
-                                                              },
-                                                              {
-                                                                "type": "ViewEffect",
-                                                                "name": "league_qiyana_q_r_hit"
-                                                              },
-                                                              {
-                                                                "type": "TargetSfx",
-                                                                "name": "league_qiyana_q_hit"
-                                                              }
-                                                            ]
+                                                              ]
+                                                            }
                                                           },
                                                           {
-                                                            "type": "CasterViewEffect",
-                                                            "name": "league_qiyana_q_r"
+                                                            "type": "ViewEffect",
+                                                            "name": "league_qiyana_q_r_hit"
+                                                          },
+                                                          {
+                                                            "type": "TargetSfx",
+                                                            "name": "league_qiyana_q_r_hit"
                                                           }
                                                         ]
                                                       },
@@ -3466,13 +3603,9 @@
                                                                 },
                                                                 {
                                                                   "type": "TargetSfx",
-                                                                  "name": "league_qiyana_q_hit"
+                                                                  "name": "league_qiyana_q_g_hit"
                                                                 }
                                                               ]
-                                                            },
-                                                            {
-                                                              "type": "CasterViewEffect",
-                                                              "name": "league_qiyana_q_g"
                                                             },
                                                             {
                                                               "type": "RangeEffect",
@@ -3515,94 +3648,85 @@
                                                           ]
                                                         },
                                                         "effect_none": {
-                                                          "type": "Combine",
+                                                          "type": "RangeEffect",
+                                                          "shape": {
+                                                            "DirDot": {
+                                                              "radius": 34000,
+                                                              "range": 500
+                                                            }
+                                                          },
+                                                          "target": "EnemyWithoutTower",
+                                                          "apply_type": {
+                                                            "Forward": {
+                                                              "offset": 1000
+                                                            }
+                                                          },
                                                           "effects": [
                                                             {
-                                                              "type": "RangeEffect",
-                                                              "shape": {
-                                                                "DirDot": {
-                                                                  "radius": 34000,
-                                                                  "range": 500
-                                                                }
+                                                              "type": "Attack",
+                                                              "damage": 60,
+                                                              "attack_ratio": 110,
+                                                              "hp_ratio": 0,
+                                                              "target_hp_ratio": 0,
+                                                              "attack_effect_type": "Target"
+                                                            },
+                                                            {
+                                                              "type": "SwitchByBuff",
+                                                              "buff_name": "league_qiyana_rp_cd",
+                                                              "effect_buff": {
+                                                                "type": "Combine",
+                                                                "effects": []
                                                               },
-                                                              "target": "EnemyWithoutTower",
-                                                              "apply_type": {
-                                                                "Forward": {
-                                                                  "offset": 1000
-                                                                }
-                                                              },
-                                                              "effects": [
-                                                                {
-                                                                  "type": "Attack",
-                                                                  "damage": 60,
-                                                                  "attack_ratio": 110,
-                                                                  "hp_ratio": 0,
-                                                                  "target_hp_ratio": 0,
-                                                                  "attack_effect_type": "Target"
-                                                                },
-                                                                {
-                                                                  "type": "SwitchByBuff",
-                                                                  "buff_name": "league_qiyana_rp_cd",
-                                                                  "effect_buff": {
-                                                                    "type": "Combine",
-                                                                    "effects": []
-                                                                  },
-                                                                  "effect_none": {
+                                                              "effect_none": {
+                                                                "type": "Combine",
+                                                                "effects": [
+                                                                  {
                                                                     "type": "Combine",
                                                                     "effects": [
                                                                       {
-                                                                        "type": "Combine",
-                                                                        "effects": [
-                                                                          {
-                                                                            "type": "RemoveCasterBuff",
-                                                                            "name": "league_qiyana_rp_cd"
-                                                                          },
-                                                                          {
-                                                                            "type": "AddCasterBuff",
-                                                                            "buff_state": {
-                                                                              "name": "league_qiyana_rp_cd",
-                                                                              "duration": {
-                                                                                "Time": {
-                                                                                  "tick": 240
-                                                                                }
-                                                                              }
-                                                                            },
-                                                                            "only_to_enemy": false
+                                                                        "type": "RemoveCasterBuff",
+                                                                        "name": "league_qiyana_rp_cd"
+                                                                      },
+                                                                      {
+                                                                        "type": "AddCasterBuff",
+                                                                        "buff_state": {
+                                                                          "name": "league_qiyana_rp_cd",
+                                                                          "duration": {
+                                                                            "Time": {
+                                                                              "tick": 240
+                                                                            }
                                                                           }
-                                                                        ]
-                                                                      },
-                                                                      {
-                                                                        "type": "Attack",
-                                                                        "damage": 40,
-                                                                        "attack_ratio": 50,
-                                                                        "hp_ratio": 0,
-                                                                        "target_hp_ratio": 0,
-                                                                        "attack_effect_type": "Target"
-                                                                      },
-                                                                      {
-                                                                        "type": "ViewEffect",
-                                                                        "name": "league_qiyana_p_hit"
-                                                                      },
-                                                                      {
-                                                                        "type": "TargetSfx",
-                                                                        "name": "league_qiyana_p_hit"
+                                                                        },
+                                                                        "only_to_enemy": false
                                                                       }
                                                                     ]
+                                                                  },
+                                                                  {
+                                                                    "type": "Attack",
+                                                                    "damage": 40,
+                                                                    "attack_ratio": 50,
+                                                                    "hp_ratio": 0,
+                                                                    "target_hp_ratio": 0,
+                                                                    "attack_effect_type": "Target"
+                                                                  },
+                                                                  {
+                                                                    "type": "ViewEffect",
+                                                                    "name": "league_qiyana_p_hit"
+                                                                  },
+                                                                  {
+                                                                    "type": "TargetSfx",
+                                                                    "name": "league_qiyana_p_hit"
                                                                   }
-                                                                },
-                                                                {
-                                                                  "type": "ViewEffect",
-                                                                  "name": "league_qiyana_q_hit"
-                                                                },
-                                                                {
-                                                                  "type": "TargetSfx",
-                                                                  "name": "league_qiyana_q_hit"
-                                                                }
-                                                              ]
+                                                                ]
+                                                              }
                                                             },
                                                             {
-                                                              "type": "CasterViewEffect",
-                                                              "name": "league_qiyana_q_swing"
+                                                              "type": "ViewEffect",
+                                                              "name": "league_qiyana_q_hit"
+                                                            },
+                                                            {
+                                                              "type": "TargetSfx",
+                                                              "name": "league_qiyana_q_hit"
                                                             }
                                                           ]
                                                         }
@@ -3714,38 +3838,6 @@
     },
     {
       "type": "Animation",
-      "name": "league_qiyana_q_swing",
-      "anim": "asset/league/effects/league_qiyana_big",
-      "tag": "q_swing",
-      "z": -1,
-      "is_follow": true
-    },
-    {
-      "type": "Animation",
-      "name": "league_qiyana_q_w",
-      "anim": "asset/league/effects/league_qiyana_big",
-      "tag": "q_w",
-      "z": -1,
-      "is_follow": true
-    },
-    {
-      "type": "Animation",
-      "name": "league_qiyana_q_r",
-      "anim": "asset/league/effects/league_qiyana_big",
-      "tag": "q_r",
-      "z": -1,
-      "is_follow": true
-    },
-    {
-      "type": "Animation",
-      "name": "league_qiyana_q_g",
-      "anim": "asset/league/effects/league_qiyana_big",
-      "tag": "q_g",
-      "z": -1,
-      "is_follow": true
-    },
-    {
-      "type": "Animation",
       "name": "league_qiyana_q_hit",
       "anim": "asset/league/effects/league_qiyana_fx",
       "tag": "q_hit",
@@ -3782,22 +3874,6 @@
       "anim": "asset/league/effects/league_qiyana_fx",
       "tag": "e_hit",
       "z": 2,
-      "is_follow": true
-    },
-    {
-      "type": "Animation",
-      "name": "league_qiyana_r_swing",
-      "anim": "asset/league/effects/league_qiyana_big",
-      "tag": "r_swing",
-      "z": 3,
-      "is_follow": true
-    },
-    {
-      "type": "Animation",
-      "name": "league_qiyana_r_burst",
-      "anim": "asset/league/effects/league_qiyana_big",
-      "tag": "r_burst",
-      "z": -1,
       "is_follow": true
     },
     {
