@@ -10,7 +10,8 @@ The pictures (tools/art/design_ivern_model.py, design_ivern_poses.py):
   hd/idle.png          him, 3/4 front facing right, 61 x 60 at PPU 1.5 (40 game px mushroom to soles): the idle, the hit;
   hd/pose_<name>.png   Codex's key poses read back at the design's size with the design's head put in
                        (assets/source/ivern/POSE_PROMPTS.md; the standing ones' legs drawn again short in LEGS_PROMPTS.md):
-                       a_wind a_throw e_gather e_give q_wind q_fling r_crouch r_leap r_call run1-4 d_stagger d_slump;
+                       a_throw e_gather e_give q_wind q_fling r_crouch r_leap r_call run1-4 d_stagger d_slump (a_wind
+                       not used: the twig in the far hand);
   hd/daisy.png         Daisy from the front, 95 x 76 at PPU 1.9 (40 game px sprout to feet, the user's pick: uncut);
   hd/daisy_<name>.png  her poses the same way: dz_rise dz_wind dz_punch dz_up dz_slam dz_wave.
 Placing a pose (league_hwei's way): its head box (the design's head, pasted) stands where the design's head stands,
@@ -116,8 +117,9 @@ def actions(C):
     out["idle"] = [f("idle")]
     # run (League's Run_base: contact, passing, contact on the other leg, passing)
     out["run"] = [f("run1"), f("run2"), f("run3"), f("run4")]
-    # attack (League's Attack01: the seed hand swung back low, then thrown forward - the seed - held, back)
-    out["attack"] = [f("a_wind", dx=-1), f("a_throw", dx=1), f("a_throw", dx=1), f("idle")]
+    # attack (League's Attack01: wound up - the twig arm raised, the apple hand drawn in - then the far hand thrown
+    # forward - the seed - held, back). Codex's a_wind put the twig in the far hand: the twig would jump hands
+    out["attack"] = [f("q_wind", dx=-1), f("a_throw", dx=1), f("a_throw", dx=1), f("idle")]
     # Triggerseed (Spell3: crouched cupping the seed, then up tossing it to the ally)
     out["skill"] = [f("e_gather"), f("e_give", dx=1), f("e_give", dx=1)]
     # Rootcaller (Spell1: coiled with the twig arm high, then the big step whipping it across - the vine)
