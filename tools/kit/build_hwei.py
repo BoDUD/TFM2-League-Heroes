@@ -42,13 +42,15 @@ one of three spells after each subject; here the cast picks it by the situation 
 Action tags (the art): idle run attack hit dead; skill (QQ fire), skill_w (QW bolt), skill_e (QE lava); skill2 (EW eye),
 skill2_q (EQ visage), skill2_e (EE maw); ult. The Disaster / Torment actions are 3-tick `idle` casts that play their
 pick's tag (league_neeko's Q way).
-Timings: drafts until the frames exist (a frame's start in ticks = ms x 0.06): a_rel, q_rel, e_rel, r_rel.
+Timings on the frames (tools/art/rig_hwei.py; a frame's start in ticks = ms x 0.06): a_rel 10 (167 ms) in the first
+flick (100-220 ms), q_rel / e_rel 12 (200 ms) in every pick's second frame (140-300), r_rel 14 (233 ms) in the fling
+(220-400); every action's frames last its duration.
 Numbers: League 16.20 (CommunityDragon hwei.bin) read into the Magician mid range (league_neeko); balanced on the
 classic-SDK simulations (kd.py --lane 2 against pyromancer, ice_mage, lightning_mage, wind_mage and white_mage,
 C:/t/hw_sim, 2026-10-22): the draft +1.90 on seeds 1-8 (league_neeko +1.50 on the same games); every pick fires in
 traced games (seeds 3 / 5 / 7: Severing Bolt 4-9 a game, Devastating Fire 5-15, Molten Fissure 18-31, the eye and the maw
-9-14 each, the signature bursting 21-38 times), Grim Visage once in three games at e_near 30000 -> 38000; that is P,
-+1.44 on seeds 1-16.
+9-14 each, the signature bursting 21-38 times), Grim Visage once in three games at e_near 30000 -> 38000: +1.44 on
+seeds 1-16; e_root 80 -> 78 (the tooltip's 1.3 s) is P, +1.60 (+-0.32) on seeds 1-16.
 """
 import argparse
 import json

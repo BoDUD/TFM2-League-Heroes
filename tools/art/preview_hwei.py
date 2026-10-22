@@ -10,8 +10,10 @@
                             rooting him) with Serenity's pool under Hwei, the signature's seal under Darius; at once
                             Severing Bolt on the rooted champion (the combo 悚 -> 灾: the gathering cloud, the gold bolt)
                             and the signature bursting; two flicks of ink; Spiraling Despair (the paint flung, the
-                            canvas spreading under him and slowing him) and Devastating Fire at once (the combo R -> 灾:
-                            the fireball, a new seal), the canvas bursting - he falls; 3x.
+                            canvas spreading under him and slowing him, a new seal) and Devastating Fire at once (the
+                            combo R -> 灾: the fireball bursting the signature again), the canvas bursting - he falls; 3x.
+                            A seal stays its whole sig_t as in the game (the data cannot take a buff off him), until he
+                            dies.
 """
 import argparse
 import os
@@ -74,6 +76,7 @@ def showcase(out, z=3):
     c = Hwei(load(CHAMP), d, me, small, big)
     c.wait(400)
     signed = {"until": None}
+    seals = []
 
     def sign(when):
         """The signature: a champion hit signs him (the seal under him); a second hit bursts it sig_at ticks later."""
@@ -84,6 +87,7 @@ def showcase(out, z=3):
             return
         signed["until"] = when + tick(P["sig_t"])
         c.on("p_mark", when, until=signed["until"])
+        seals.append(c.over[-1])
 
     # Subject: Torment from afar - Gaze of the Abyss: the eye opens over him, the gaze roots him; Serenity's pool
     t = c.t
@@ -134,6 +138,8 @@ def showcase(out, z=3):
     c.on("r_burst", burst, sheet=big)
     c.on("r_hit", burst)
     d.death = burst + 150
+    for s in seals:                                     # his buffs go with him
+        s.until = min(s.until, d.death)
     end = burst + 1600
     c.wait(end - c.t)
     return c.render(out, W, H, end, z)
