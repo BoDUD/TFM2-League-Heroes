@@ -1,4 +1,4 @@
-# 卡尔萨斯附加包（测试版 v0.1.0）
+# 卡尔萨斯附加包（测试版 v0.2.0）
 
 主包 `league` 保持纯数据。用户选了「被动做附加包」。这个附加包用原生代码做主包数据做不到的**死亡契约**：
 
@@ -9,6 +9,10 @@
   - 不再受伤（`damaged_reduce` 100%）、免疫控制；
   - 照常走动、放技能、攻击；
   - 身上挂 `league_karthus_p_spirit`（附加包的副本里绑了灵体的画面），播灵体音效和台词。
+
+  - **灵体时 AI 照常打**（0.2.0）：游戏的 AI 看他 1 血就逃跑或回城，灵体 7 秒白白浪费。本包的 AI 钩子
+    `league_karthus:spirit_ai`（优先级 105，在 league_ult_press 之后）在灵体期间按：R（全图，近的英雄先）> Q（8 万内）>
+    E（4 万内）> 普攻最近的敌方英雄（够不着就走过去）；正在施法（R 的引导）时不按。
 
   时间到灵体倒下：按固定伤害记在最后打他（化成灵体之前）的人头上。每条命都有（英雄联盟每次死亡都会触发）。
   只有这条命里见过他 1 血以上之后，1 血才算致命伤（赛恩附加包的教训：游戏 0.6.4 开局第 0 tick 读到的血量是 0）。
@@ -28,6 +32,7 @@
    - `SPIRIT #1: lethal damage caught at 1 hp (last hit by ...), a spirit for 420 ticks`：化成灵体；
    - `SPIRIT KILL #1: ... killed by the spirit`：灵体击杀了英雄；
    - `FALL #1: the spirit's time is up, killed by ...`：灵体倒下。
+   - `SPIRIT AI #1: Ult on ... (the game's AI: Move)`：灵体时钩子替 AI 放了技能（普攻记成 Attack）。
 
 ## 开发
 
