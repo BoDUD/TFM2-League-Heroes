@@ -1,17 +1,20 @@
 //! 奎因附加包（用户 2026-10-19：大招主包冲刺 + 附加包换形态）。主包保持纯数据；`mod.override_info` 把主包的奎因换成 `override/`
 //! 里的副本（`make_override.py` 用 tools/kit/build_quinn.py 的 `native=1` 生成：被动换成本包的 `league_quinn:ride`，大招只叫来华洛
 //! 骑上、挂 `league_quinn_r_ride`（`R_RIDE_T` tick，移速 +`r_ride_ms`%），骑着时普攻、技能 1、技能 2 先施放鹰翼天翔，大招的说明开头加
-//! 【扩展包】），本包补数据做不到的两件事：
+//! 【扩展包】），本包补数据做不到的三件事：
 //!
 //! - **骑行到时自动落地**：英雄联盟里她骑着华洛一直跑，直到出招或骑行结束才施放鹰翼天翔；数据在 buff 到期时什么也做不了。本包每 tick
 //!   看她身上的 `r_ride`：骑了 `R_RIDE_T - 2` tick 还没出招，就挂 2 tick 的 `league_quinn_r_end`，副本里骑上时起的每 tick 守望看到就
 //!   施放鹰翼天翔（伤害、标记、华洛回到头顶、落地动作，和出招时一样）。
+//! - **旋翔掠杀踢完翻回去**（用户 2026-10-22：「奎因E完人不会拉开距离」）：冲刺停在目标身上、和它重合，数据的 MoveBack「背离目标」没有
+//!   方向、挪 0（经典引擎模拟里量的）。副本踢中时挂 `league_quinn_e_vault`，本包逐 tick 把她往冲过来的方向挪 `E_BACK`，共
+//!   `E_BACK_T` tick（4000 x 12 = 48000，约一个攻击距离），被控就停。
 //! - **骑乘的样子**（`view.rs`，游戏 0.6.4 起的 Windows 版）：骑着的时候站着、走着、挨打都是骑在华洛背上的 `r_idle` / `r_run` / `r_hit`。
 //!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_quinn.log`，每次启动游戏重写，上一次的留在 .prev.log：`RIDE`（骑上、
-//! 出招落地 / 到时落地、骑了多久多远）、`FORM`（画面里换形态），都限了条数。
+//! 出招落地 / 到时落地、骑了多久多远）、`VAULT`（往哪翻、挪了多远）、`FORM`（画面里换形态），都限了条数。
 
-use std::collections::HashMap;
+use std::collections::{HashMap, VecDeque};
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::path::PathBuf;
@@ -30,6 +33,16 @@ pub const END: &str = "league_quinn_r_end";
 pub const R_RIDE_T: usize = 360;
 /// 提前几 tick 挂落地信号：守望每 tick 看一次，骑乘 buff 在最后一 tick 还在。
 pub const END_LEAD: usize = 2;
+/// 旋翔掠杀踢中时副本挂的信号：本包把她往冲过来的方向翻回去（冲刺停在目标身上、和目标重合，数据的 MoveBack 没有方向、挪 0）。
+pub const VAULT: &str = "league_quinn_e_vault";
+/// 每 tick 挪多远、挪几 tick（build_quinn.P 的 e_back / e_back_t，单元测试核对）。
+pub const E_BACK: f64 = 4000.0;
+pub const E_BACK_T: usize = 12;
+/// 记最近几 tick 的位置（冲刺前站在哪：E 的冲刺最多 e_range + 40000 / e_speed 4000 = 25 tick）。
+pub const TRAIL: usize = 40;
+/// 离踢中的地方至少这么远的旧位置才算「从那边冲过来」。
+pub const CAME_MIN: f64 = 3000.0;
+const MAP: f64 = 960_000.0;
 
 // ===================== 日志 =====================
 
@@ -100,6 +113,22 @@ pub fn dist(a: Pt, b: Pt) -> f64 {
     ((a.0 - b.0).powi(2) + (a.1 - b.1).powi(2)).sqrt()
 }
 
+/// 翻回去的方向（单位向量）：从踢中的地方指向冲刺前站的地方——`trail` 里（旧的在前）离 `at` 至少 CAME_MIN 的最近一个，
+/// 也就是冲刺开始前那一 tick；都太近（贴身踢的）就背离最近的、不和她重合的敌人 `foe`；都没有就不翻（None）。
+pub fn vault_dir(at: Pt, trail: &[Pt], foe: Option<Pt>) -> Option<Pt> {
+    let unit = |to: Pt| {
+        let (dx, dy) = (to.0 - at.0, to.1 - at.1);
+        let l = (dx * dx + dy * dy).sqrt();
+        (l >= 1.0).then(|| (dx / l, dy / l))
+    };
+    let came = trail.iter().rev().find(|p| dist(**p, at) >= CAME_MIN).copied();
+    came.and_then(unit).or_else(|| foe.and_then(|f| unit(f).map(|d| (-d.0, -d.1))))
+}
+
+pub fn clamp(p: Pt) -> Pt {
+    (p.0.clamp(0.0, MAP - 1.0), p.1.clamp(0.0, MAP - 1.0))
+}
+
 /// 骑了 `age` tick（骑上那一 tick 是 0）时要不要挂落地信号：只在 R_RIDE_T - END_LEAD 那一 tick。
 pub fn time_to_land(age: usize) -> bool {
     age + END_LEAD == R_RIDE_T
@@ -123,6 +152,72 @@ struct Ride {
     from: Option<Pt>,
     /// 这一次已经挂过落地信号。
     ended: bool,
+    /// 最近 TRAIL tick 的位置（旧的在前）：旋翔掠杀从哪边冲过来。
+    trail: VecDeque<Pt>,
+    /// 正在翻回去：方向、还剩几 tick、起点、游戏拒绝挪人的次数。
+    vault: Option<(Pt, usize, Pt, usize)>,
+}
+
+/// 控住她的（翻到一半被控就停）。
+const HARD_CC: [CcKindV1; 6] =
+    [CcKindV1::Airborne, CcKindV1::Stun, CcKindV1::Bind, CcKindV1::Taunt, CcKindV1::Fear, CcKindV1::Charm];
+
+fn hard_cc(sim: &StableSim<'_>, id: usize) -> bool {
+    sim.get_entity(id).is_some_and(|e| {
+        (0..e.cc_count()).any(|i| e.cc_at(i).is_some_and(|c| HARD_CC.iter().any(|k| k.code() == c.kind)))
+    })
+}
+
+/// 离 `at` 最近、不和她重合的敌人（英雄、小兵、野怪都算：踢的可能是它们）。
+fn nearest_foe(sim: &StableSim<'_>, me: usize, at: Pt) -> Option<Pt> {
+    let team = sim.get_entity(me)?.team();
+    (0..sim.entity_count())
+        .filter_map(|i| sim.entity_at(i))
+        .filter(|u| u.team() != team && u.is_alive())
+        .map(|u| (u.pos().0 as f64, u.pos().1 as f64))
+        .filter(|p| dist(*p, at) >= 1.0)
+        .min_by(|a, b| dist(*a, at).total_cmp(&dist(*b, at)))
+}
+
+impl Ride {
+    /// 旋翔掠杀：副本踢中时挂 VAULT，本包逐 tick 把她往冲过来的方向挪 E_BACK，共 E_BACK_T tick。
+    fn vault(&mut self, sim: &mut StableSim<'_>, me: usize, at: Pt) {
+        if has_buff(sim, me, VAULT) && self.vault.is_none() {
+            sim.entity_remove_buff(me, VAULT);
+            let trail: Vec<Pt> = self.trail.iter().copied().collect();
+            match vault_dir(at, &trail, nearest_foe(sim, me, at)) {
+                Some(d) => {
+                    self.vault = Some((d, E_BACK_T, at, 0));
+                    if let Some(k) = counted("vault") {
+                        let came = trail.iter().rev().find(|p| dist(**p, at) >= CAME_MIN).is_some();
+                        wlog(format!("{} VAULT flip back ({:.2}, {:.2}){} #{k}", head(sim, me), d.0, d.1,
+                                     if came { ", the way she dashed in" } else { ", away from the nearest enemy" }));
+                    }
+                }
+                None => {
+                    if let Some(k) = counted("vault") {
+                        wlog(format!("{} VAULT no way to tell where to flip, stays #{k}", head(sim, me)));
+                    }
+                }
+            }
+        }
+        if let Some((d, left, from, refused)) = self.vault.as_mut() {
+            let held = hard_cc(sim, me);
+            if *left == 0 || held {
+                if let Some(k) = counted("vault_done") {
+                    wlog(format!("{} VAULT DONE moved {:.0} of {:.0} ({} steps refused{}) #{k}", head(sim, me), dist(*from, at),
+                                 E_BACK * E_BACK_T as f64, refused, if held { ", cut by CC" } else { "" }));
+                }
+                self.vault = None;
+            } else {
+                let next = clamp((at.0 + d.0 * E_BACK, at.1 + d.1 * E_BACK));
+                if !sim.entity_set_pos(me, next.0.round() as u64, next.1.round() as u64) {
+                    *refused += 1;
+                }
+                *left -= 1;
+            }
+        }
+    }
 }
 
 impl StablePassive for Ride {
@@ -136,6 +231,19 @@ impl StablePassive for Ride {
 
     fn on_update(&mut self, sim: &mut StableSim<'_>, _: u64, _player: usize, me: usize) {
         let alive = sim.get_entity(me).is_some_and(|e| e.is_alive());
+        match pos(sim, me).filter(|_| alive) {
+            Some(at) => {
+                self.vault(sim, me, at);
+                self.trail.push_back(at);
+                if self.trail.len() > TRAIL {
+                    self.trail.pop_front();
+                }
+            }
+            None => {
+                self.trail.clear();
+                self.vault = None;
+            }
+        }
         let riding = alive && has_buff(sim, me, RIDE);
         if !riding {
             if let Some(t) = self.riding.take() {
@@ -211,6 +319,27 @@ mod tests {
         assert!(!time_to_land(0));
         assert!(time_to_land(R_RIDE_T - END_LEAD));
         assert_eq!((0..R_RIDE_T * 2).filter(|&t| time_to_land(t)).count(), 1);
+    }
+
+    #[test]
+    fn the_vault_goes_back_the_way_she_dashed_in() {
+        // dashed in from the left, 4000 a tick, onto the target at (100000, 50000)
+        let trail: Vec<Pt> = (0..10).map(|k| (60000.0 + 4000.0 * k as f64, 50000.0)).collect();
+        let d = vault_dir((100000.0, 50000.0), &trail, Some((100000.0, 50000.0))).unwrap();
+        assert!((d.0 + 1.0).abs() < 1e-9 && d.1.abs() < 1e-9);
+        // kicked from point blank: away from the nearest enemy that is not on her spot
+        let d = vault_dir((0.0, 0.0), &[(0.0, 0.0)], Some((0.0, 5000.0))).unwrap();
+        assert!(d.0.abs() < 1e-9 && (d.1 + 1.0).abs() < 1e-9);
+        assert_eq!(vault_dir((0.0, 0.0), &[], None), None);
+    }
+
+    #[test]
+    fn the_vault_numbers_match_the_kit() {
+        let src = include_str!("../../../tools/kit/build_quinn.py");
+        assert!(src.contains(&format!("\"e_back\": {}", E_BACK as usize)) && src.contains(&format!("\"e_back_t\": {E_BACK_T}")));
+        let s = include_str!("../override/league_quinn.data_champion");
+        assert!(s.contains(&format!("\"{VAULT}\"")), "the copy flags no vault");
+        assert!(!s.contains("\"MoveBack\""), "the copy still has the data's MoveBack");
     }
 
     #[test]
