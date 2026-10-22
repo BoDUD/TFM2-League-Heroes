@@ -1,0 +1,20 @@
+{
+  "author": "BoDUD",
+  "contains_code": true,
+  "dependencies": [
+    {
+      "mod_id": "base",
+      "version": ">=0.4.11"
+    },
+    {
+      "mod_id": "league",
+      "version": ">=0.193.0"
+    }
+  ],
+  "description": "Test build of Qiyana as in League (needs League of Legends Heroes): replaces the main pack's Qiyana so Terrashape picks her element by the fight (grass to slip away when she is low, rock on a wounded champion, river to hold any other, rock on monsters and minions), Royal Privilege's first-hit bonus counts each enemy on its own, and Edge of Ixtal's rock hits harder only on enemies under half health. Other champions are untouched. Writes a log for testing.",
+  "last_updated": "2026-10-22",
+  "mod_id": "league_qiyana",
+  "mod_type": "native",
+  "name": "League Heroes: Qiyana's elements by the fight, Royal Privilege per enemy and the rock execute (test)",
+  "version": "0.1.0"
+}

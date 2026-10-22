@@ -1,0 +1,11 @@
+{
+  "fx": "league_qiyana_big",
+  "items": [
+    {"tag": "q_swing", "into": "skill", "at_ms": 150, "dx": 16, "dy": -9},
+    {"tag": "q_w", "into": "skill_w", "at_ms": 150, "dx": 18, "dy": -7},
+    {"tag": "q_r", "into": "skill_r", "at_ms": 150, "dx": 20, "dy": -2},
+    {"tag": "q_g", "into": "skill_g", "at_ms": 150, "dx": 18, "dy": -8},
+    {"tag": "r_swing", "into": "ult", "at_ms": 0, "dx": 0, "dy": -12, "under": true},
+    {"tag": "r_burst", "into": "ult", "at_ms": 250, "dx": 20, "dy": 1}
+  ]
+}
