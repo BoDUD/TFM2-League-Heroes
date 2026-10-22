@@ -46,7 +46,8 @@ TFM2 has three active slots: Death's Hand is `skill`, Nevermove `skill2`, Demoni
           ticks on, Demonflare (恶魔耀光) bursts whenever an enemy champion is within r_r and it is off cooldown
           (r_flare_cd): r_fl + r_fl_ap% AP round him, r_fl_slow% slow for r_fl_slow_t ticks. While `r_on` lasts his
           attack, Q and E play the demon's strips (r_attack, r_skill, r_skill2; idle / run / hit can't change in data -
-          the add-on swaps the whole body) and the wings aura (`r_on`'s view) follows him.
+          the add-on swaps the whole body); the wings are drawn in those demon frames (no separate wing picture since
+          2026-10-22: the view playing his sheet's r_wings showed one wing off his shoulder).
   watch   A life-long `AddCasted` started by his first attack or R press of each life (`init`; buffs die with him;
           not from Q and E, whose trees the engine clones every tick: they stay small, memory skill-tree-size-cpu), every
           watch_p ticks: counts enemy champions within r_r (c_e1, c_e2), allied champions within r_ally (c_a1, c_a2 =
@@ -307,8 +308,8 @@ def build(p):
             # (r_hold), so never shortened; the pulses stop after r_max and r_on runs out
             sw("r_hold", NONE, refresh("r_on", p["r_keep"])),
             sw("r_early", NONE, sw("r_fcd", NONE, flare)))))))
-    # the crouch and the leap (the ult strip's frames 1-3) are still Swain; the demon - the wings' aura, the drain -
-    # comes on r_wings_at ticks in, as frame 4 shows him with the demon arm out
+    # the crouch and the leap (the ult strip's frames 1-3) are still Swain; the demon - the form, the drain - comes on
+    # r_wings_at ticks in, as frame 4 shows him with the demon arm and the wings out
     rise = combine(anim("ult", p["r_dur"]), cview("r_cast"), sfx("r"), voice("vo_r", p),
                    delayed(p["r_wings_at"] - 1, sfx("r_rise"),
                            *rm("r_fcd", "r_hold", "r_early"), refresh("r_on", p["r_t0"]),
@@ -387,10 +388,10 @@ def build(p):
                {"type": "Animated", "name": n("e_back"), "anim": FX, "tag": "e_back", "repeat": True, "z": 2}]
     views_e = [E("a_hit"), E("q_hit"), E("e_hit"), E("e_pull"), E("w_eye", BIG, -1, False), E("w_hit"),
                E("p_frag", FX, 3), E("r_cast", BIG, 2, False), E("r_drain"), E("r_flare", BIG, -1, False), E("r_fl_hit")]
-    # the wings: a tag of his own sheet (tools/art/rig_swain.py r_wings), so league.dll draws them dense like him and they
-    # stand on his standing point like his frames (league_yone's e_body plays his sheet the same way)
-    views_b = [{"type": "Animated", "name": n("r_on"), "anim": f"asset/league/champions/{ID}", "tag": "r_wings",
-                "repeat": True, "z": -1}]
+    # no wing picture of its own: the wings are drawn in his demon frames (tools/art/rig_swain.py; the r_* actions, the
+    # ult from frame 4, and league_swain's whole body b_idle / b_run / b_hit). The buff view that played his sheet's
+    # r_wings tag came out half its width to the side in game (2026-10-22: 「只有一个翅膀」「翅膀和身体脱节」).
+    views_b = []
     extra = {}
     if native:
         extra["passive"] = {"passive_ref": "league_swain:flock",

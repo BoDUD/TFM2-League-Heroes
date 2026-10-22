@@ -269,7 +269,7 @@ class Poser:
         self.far_arm = pad(self.D.layer("far_arm"))
 
     def pose(self, form="A", arm=None, up=(0, 0), whole=(0, 0), near=(0, 0), far=(0, 0), hem=0, reach=(0, 0)):
-        """form A or B (the demon: the demon arm always out, glowing eyes; the wings are the aura's); arm: quarter turns
+        """form A or B (the demon: the demon arm always out, glowing eyes, the wings behind him); arm: quarter turns
         of the demon arm counter-clockwise from hanging, in degrees (90 straight ahead, 180 straight up) - None in A =
         the far sleeve as drawn; reach: whole squares the turned arm moves (pulled in toward his chest: negative x);
         up: the upper body (and the arm) moved over the coat and the legs - rows DOWN only (a crouch: the upper body
@@ -281,7 +281,10 @@ class Poser:
         if up[1] < 0:
             raise ValueError("the upper body never lifts off the coat")
         ux, uy = up[0] + wx, up[1] + wy
-        layers = [(self.lining, dict(dx=wx, dy=wy))]
+        # the demon's wings drawn in his own frames, behind everything and riding the upper body (2026-10-22, the user:
+        # 「乌鸦开大还是只有一个翅膀啊」「开大翅膀和身体脱节」 - the main pack's separate wing picture, his sheet's r_wings played
+        # by a buff view, came out half its width to the side: one wing hidden behind him, the other off his shoulder)
+        layers = ([(self.aura, dict(dx=ux, dy=uy))] if form == "B" else []) + [(self.lining, dict(dx=wx, dy=wy))]
         fill = []
         for name, (dx, lift) in (("far_leg", far), ("near_leg", near)):
             img = self.legs[name]
@@ -379,7 +382,7 @@ TAGS = {"A": dict(idle="idle", run="run", attack="attack", skill="skill", skill2
 def walk_frame(ps, lay, off, form):
     """A walking frame from Codex's swap; the demon's: the demon arm hanging on the far shoulder and the eyes lit, where
     this frame's head is."""
-    layers = [(lay, dict())]
+    layers = ([(ps.aura, dict(dx=off[0], dy=off[1]))] if form == "B" else []) + [(lay, dict())]
     if form == "B":
         layers.append((ps.arm.at(0), dict(dx=off[0], dy=off[1])))
     can = R.compose(ps.rig, layers)
@@ -434,10 +437,6 @@ def frames(ps):
             out[t["flare"]] = [p(arm=90, reach=(-3, 0)), p(arm=180), p(arm=180, up=(0, 1)), p(arm=90, reach=(-3, 0))]
         out[t["hit"]] = [R.flash(p(arm=rest, whole=(-2, 0))), p(arm=rest, whole=(-1, 0))]
         if form == "B":
-            # the wings: R's aura (view_buffs on league_swain_r_on plays this tag of his own sheet - league.dll draws it
-            # dense like him, and its frames sit on his standing point like his own), flapping a row
-            out["r_wings"] = [R.compose(ps.rig, [(ps.aura, dict(dy=d))]) for d in [0, 0, -1, -1, -1, -1, 0, 0]]
-            role["r_wings"] = "idle"
             continue
         # the death (Swain_Death): he staggers, sinks to his knees with the demon claw raised, falls back
         knelt = p(arm=180, up=(0, 7), whole=(-2, 0))
