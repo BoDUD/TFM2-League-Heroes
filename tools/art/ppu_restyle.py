@@ -308,7 +308,8 @@ RESTYLE = {
     "riven": dict(ppu=1.5, edge=1, face_to=(0, -34), fx=True),
     # Caitlyn (2026-10-23): Codex's design picture read back on its own grid (54 x 65), her actions Codex's whole-frame
     # redraws with the rifle drawn straight square by square (tools/art/rig_caitlyn_hd.py); effects baked at the muzzle
-    "caitlyn": dict(ppu=1.45, edge=1, face_to=(0, -40), fx=True),
+    # 2026-10-23 face (0,-38): (0,-40) framed the hat band and brim on top, the eyes low and the mouth cut
+    "caitlyn": dict(ppu=1.45, edge=1, face_to=(0, -38), fx=True),
     # league_yunara (#119): posed from the design's own squares at the user's 1.5 squares a game pixel (「选 A，40 行」,
     # Codex's step-1 take 2 cut to 60 rows, her beads apart) by tools/art/rig_yunara.py, so no proportion or density
     # change here; the outer outline grown a square like the others; the face point at her ornaments' crown
