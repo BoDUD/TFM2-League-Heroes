@@ -25,6 +25,7 @@ import sys
 
 import numpy as np
 from PIL import Image
+from scipy import ndimage
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(os.path.dirname(HERE))
@@ -60,6 +61,31 @@ def load(name):
     return np.asarray(Image.open(lp(os.path.join(SRC, name))).convert("RGBA")).copy()
 
 
+NAVY_FOLD = (12, 15, 38)       # the coat's darkest navy: a fold
+
+
+def coat_slits(d, below, share=0.6, most=60):
+    """Clear squares closed in by the coat (Codex's fold lines read back as clear: the ground would show through his
+    coat) -> filled with the coat's darkest navy. A hole counts when it lies under the head box (row `below` on; the
+    design's head keeps its own gaps between the strands) and most of the squares past the outline round it are the
+    coat's blues (a gap between the legs, round green trousers, skin and loafers, stays a gap)."""
+    op = d[..., 3] > 0
+    h = ndimage.binary_fill_holes(op) & ~op
+    lbl, n = ndimage.label(h)
+    out = d.copy()
+    for j in range(1, n + 1):
+        m = lbl == j
+        if m.sum() > most or np.nonzero(m)[0].mean() < below:
+            continue
+        ring = ndimage.binary_dilation(m, np.ones((3, 3), bool), iterations=2) & op & ~m
+        c = d[ring][:, :3].astype(int)
+        c = c[c.sum(1) >= 40]                      # past the outline: what the gap is cut into
+        blue = (c[:, 2] > c[:, 0] + 20) & (c[:, 2] >= c[:, 1])
+        if len(c) and blue.mean() >= share:
+            out[m] = NAVY_FOLD + (255,)
+    return out
+
+
 def load_pose(name, meta_too=False):
     d = load(f"pose_{name}.png")
     with open(lp(os.path.join(SRC, f"pose_{name}.json")), encoding="utf-8") as f:
@@ -71,6 +97,7 @@ def load_pose(name, meta_too=False):
         r0, r1, c0, c1 = DP.HEAD
         my, mx = np.nonzero(DP.head_mask(dd))
         d[my - r0 + hy, mx - c0 + hx] = dd[my, mx]
+    d = coat_slits(d, hy + DP.PK.HH)
     for x, y, c in PIXFIX.get(name, []):
         assert d[y, x, 3] > 0, (name, x, y)
         d[y, x, :3] = c
