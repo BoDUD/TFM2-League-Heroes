@@ -160,8 +160,9 @@ def actions(C):
     out["skill_w"] = [f("qw_raise", lift=2), f("qw_point", dx=2), f("qw_point", dx=2)]
     # Molten Fissure (Spell1E: a leap with the brush held point down, the crouch stabbing it into the ground)
     out["skill_e"] = [f("qe_raise", lift=4), f("qe_slam", dx=1), f("qe_slam", dx=1)]
-    # Subject: Torment - Gaze of the Abyss (Spell3W: the brush raised high, held while the eye opens over the target)
-    out["skill2"] = [f("ew_high", dx=-1), f("ew_high"), f("ew_high")]
+    # Subject: Torment - Gaze of the Abyss (Spell3W: the brush lifted in his hand, then the arm raised high, held while
+    # the eye opens over the target)
+    out["skill2"] = [f("cocked", dx=-1), f("ew_high"), f("ew_high")]
     # Grim Visage (Spell3Q: the brush raised, then flicked forward - the visage flies)
     out["skill2_q"] = [f("q_wind", dx=-1), f("a_flick", dx=1), f("a_flick", dx=1)]
     # Crushing Maw (Spell3E: the brush raised, chopped down forward - the jaws snap)
@@ -172,7 +173,9 @@ def actions(C):
     # death (League's Death: the stagger with the brush dropped, down on one knee); the brush lies where it lies in the
     # kneel in every frame (the stagger's own was cut by the legs redo)
     lying = C.dropped("d_kneel", dx=-2)
-    out["dead"] = [f("d_stagger", dx=-1, flash=True, brush=lying), f("d_stagger", dx=-2, brush=lying),
+    (gx, gy), deg = lying
+    falling = ((gx - 3, gy - 7), deg - 35)          # still tipping over on the first frame, a few squares up
+    out["dead"] = [f("d_stagger", dx=-1, flash=True, brush=falling), f("d_stagger", dx=-2, brush=lying),
                    f("d_kneel", dx=-2), f("d_kneel", dx=-2)]
     return out
 
