@@ -1,9 +1,12 @@
-//! 奇亚娜附加包（用户 2026-10-22「插件按局势选」）：方圆塑令按局势选元素、凌人贵气按每个敌人算、以绪塔尔之锋的岩石斩杀。
+//! 奇亚娜附加包（用户 2026-10-22「插件按局势选」，同一天「改成按地形：E 落地看附近的草丛、墙、河，附近都没有就退回按局势
+//! 选」）：方圆塑令按身边的地形选元素、凌人贵气按每个敌人算、以绪塔尔之锋的岩石斩杀。
 //!
-//! 主包是纯数据：没有地形，元素只能按草丛 -> 河流 -> 岩石轮换；`SwitchByBuff` 只读施法者自己，凌人贵气只能是她自己的
+//! 主包是纯数据：读不到地图，元素只能按草丛 -> 河流 -> 岩石轮换；`SwitchByBuff` 只读施法者自己，凌人贵气只能是她自己的
 //! 冷却（一次触发后 `rp_cd` tick 内谁都不加伤）；岩石读不到目标的生命，只好对谁都多打一点。`mod.override_info` 把主包的
 //! 奇亚娜换成 `override/` 里的副本（tools/kit/build_qiyana.py 的 native=1）：数据和主包一样，只是
-//! - 天纵之勇落地时的附魔换成本包的原生效果 `league_qiyana:element`，按局势挑元素（[`choose`]）：她自己残血、或者残血又被
+//! - 天纵之勇落地时的附魔换成本包的原生效果 `league_qiyana:element`，按她身边 `NEAR` 内的地形挑元素（[`pick`]，地形在
+//!   [`terrain`]：草丛格子 -> 草丛，墙格子和地图四边的墙面 -> 岩石，河道 -> 河流，英雄联盟的 W 朝哪块地形放就拿哪种）：
+//!   身边有局势想要的那种就拿它，没有就拿最近的那种；身边什么都没有时按局势挑（[`choose`]）：她自己残血、或者残血又被
 //!   围着 -> 草丛（伪装逃走），目标是残血英雄 -> 岩石（斩杀），目标是英雄 -> 河流（定身），打野怪和小兵 -> 岩石；
 //! - 每一下命中里的凌人贵气换成 `league_qiyana:royal`：每个敌人 `rp_rest` tick 内只加一次 `rp_dmg` + `rp_ratio`% 攻击力
 //!   （英雄联盟：对每个敌人的第一次普攻或技能）；
@@ -20,6 +23,8 @@ use std::sync::{LazyLock, Mutex};
 
 use mod_api_stable::*;
 
+pub mod terrain;
+
 const ID: &str = "league_qiyana";
 const HERO: &str = "league_qiyana";
 
@@ -33,6 +38,8 @@ pub const GRASS_HP: usize = 35;
 /// ……或者不到这个百分比，身边 `CROWD_R` 内又有两名以上敌方英雄。
 pub const CROWDED_HP: usize = 60;
 pub const CROWD_R: u64 = 40_000;
+/// 落地时看这么远内的地形（两格；英雄联盟的 W 朝身边的地形放）。
+pub const NEAR: f64 = 64_000.0;
 /// 同一类日志隔这么多 tick 才再写。
 const LOG_EVERY: usize = 120;
 
@@ -191,6 +198,33 @@ pub fn choose(s: &Spot, q_exec: usize) -> Element {
     }
 }
 
+/// 元素是从哪来的。
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum Why {
+    /// 身边的地形。
+    Terrain,
+    /// 身边没有地形：按局势。
+    Situation,
+}
+
+/// 按身边的地形挑：局势想要的那种在身边就拿它，否则拿最近的一种；身边什么都没有就按局势（[`choose`]）。
+pub fn pick(near: &terrain::Near, s: &Spot, q_exec: usize) -> (Element, Why) {
+    let want = choose(s, q_exec);
+    let of = |e: Element| match e {
+        Element::Grass => near.grass,
+        Element::River => near.river,
+        Element::Rock => near.rock,
+    };
+    if of(want).is_some() {
+        return (want, Why::Terrain);
+    }
+    [Element::Grass, Element::River, Element::Rock]
+        .into_iter()
+        .filter_map(|e| of(e).map(|d| (e, d)))
+        .min_by(|a, b| a.1.total_cmp(&b.1))
+        .map_or((want, Why::Situation), |(e, _)| (e, Why::Terrain))
+}
+
 fn pct(hp: usize, max: usize) -> usize {
     hp * 100 / max.max(1)
 }
@@ -291,7 +325,15 @@ impl StableEffectType for Enchant {
             });
         let p = params_of(sim, caster);
         let spot = Spot { my_hp: pct(hp, max), foes_near, champion, target_hp };
-        let el = choose(&spot, p.q_exec);
+        let (x, y) = me.pos();
+        let points: Vec<(f64, f64)> = (0..sim.entity_count())
+            .filter_map(|i| sim.entity_at(i))
+            .filter(|u| u.is_alive())
+            .map(|u| (u.pos().0 as f64, u.pos().1 as f64))
+            .collect();
+        let near = terrain::pick_map(&points, &terrain::maps())
+            .map_or_else(terrain::Near::default, |m| terrain::near(&m, x as f64, y as f64, NEAR));
+        let (el, why) = pick(&near, &spot, p.q_exec);
         for f in ["el_g", "el_w", "el_r", "el_on"] {
             sim.entity_remove_buff(caster, &qy(f));
         }
@@ -303,7 +345,9 @@ impl StableEffectType for Enchant {
         let mut last = self.last.lock().unwrap_or_else(|e| e.into_inner());
         if last.is_none_or(|(t0, e0)| e0 != el || tick >= t0 + LOG_EVERY) {
             *last = Some((tick, el));
-            wlog(format!("{} ELEMENT {el:?}: {spot:?}", head(sim, caster)));
+            let d = |v: Option<f64>| v.map_or("-".to_string(), |d| format!("{d:.0}"));
+            wlog(format!("{} ELEMENT {el:?} by {why:?} at ({x}, {y}): grass {} rock {} river {}; {spot:?}", head(sim, caster),
+                         d(near.grass), d(near.rock), d(near.river)));
         }
     }
 }
@@ -339,7 +383,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v{} (Qiyana: the element by the situation, Royal Privilege per enemy, the rock execute) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v{} (Qiyana: the element by the terrain beside her, else by the situation, Royal Privilege per enemy, the rock execute) loaded: game {}.{}.{} abi {} log={} ===",
         env!("CARGO_PKG_VERSION"),
         v.major,
         v.minor,
@@ -351,13 +395,14 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     module.add_native_effect(format!("{ID}:element"), Enchant { last: Mutex::new(None) });
     module.add_native_effect(format!("{ID}:royal"), Royal);
     module.add_native_effect(format!("{ID}:rock"), Rock);
-    host.log(LogLevel::Info, "league_qiyana loaded (Qiyana's elements by the situation, Royal Privilege per enemy, the rock execute).");
+    host.log(LogLevel::Info, "league_qiyana loaded (Qiyana's elements by the terrain beside her, else by the situation, Royal Privilege per enemy, the rock execute).");
 }
 
 #[cfg_attr(league_bundle, allow(dead_code))]
 fn init(host: &StableHost) -> StableMod {
     let mut module = StableMod::new(ID);
     register(host, &mut module);
+    module.set_map_customizer(terrain::TerrainReader);
     module
 }
 
@@ -384,6 +429,22 @@ mod tests {
         assert_eq!(choose(&spot(90, 1, true, 80), 50), Element::River);
         // a camp or a minion: rock
         assert_eq!(choose(&spot(90, 0, false, 100), 50), Element::Rock);
+    }
+
+    #[test]
+    fn the_element_follows_the_terrain() {
+        use terrain::Near;
+        let healthy = spot(90, 1, true, 80); // wants river
+        // the river beside her: river
+        assert_eq!(pick(&Near { river: Some(5.0), rock: Some(1.0), grass: None }, &healthy, 50), (Element::River, Why::Terrain));
+        // no river beside her: the nearest of what is there
+        assert_eq!(pick(&Near { grass: Some(30.0), rock: Some(10.0), river: None }, &healthy, 50), (Element::Rock, Why::Terrain));
+        assert_eq!(pick(&Near { grass: Some(3.0), rock: Some(10.0), river: None }, &healthy, 50), (Element::Grass, Why::Terrain));
+        // low herself with a bush beside her: grass
+        assert_eq!(pick(&Near { grass: Some(40.0), rock: Some(0.0), river: None }, &spot(30, 0, true, 90), 50), (Element::Grass, Why::Terrain));
+        // nothing beside her: by the situation
+        assert_eq!(pick(&Near::default(), &healthy, 50), (Element::River, Why::Situation));
+        assert_eq!(pick(&Near::default(), &spot(90, 0, false, 100), 50), (Element::Rock, Why::Situation));
     }
 
     #[test]
