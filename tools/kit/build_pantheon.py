@@ -1,4 +1,4 @@
-"""Build league_pantheon.data_champion (top, Melee diver) from the parameters P.
+"""Build league_pantheon.data_champion (jungle - built as top, moved by the user; Melee diver) from the parameters P.
 
     python tools/kit/build_pantheon.py [--set key=value ...] [--out file] [--params json] [--nodes]
 
