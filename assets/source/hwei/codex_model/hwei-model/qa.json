@@ -1,0 +1,44 @@
+[
+  {
+    "file": "hwei-model-A-1.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "transparent_pixels": 1069010,
+    "opaque_pixels": 4411,
+    "partial_alpha_pixels": 499095,
+    "bbox_alpha_over_127": [
+      183,
+      39,
+      1169,
+      1248
+    ]
+  },
+  {
+    "file": "hwei-model-A-2.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "transparent_pixels": 1103735,
+    "opaque_pixels": 3577,
+    "partial_alpha_pixels": 465204,
+    "bbox_alpha_over_127": [
+      178,
+      94,
+      1127,
+      1233
+    ]
+  }
+]
