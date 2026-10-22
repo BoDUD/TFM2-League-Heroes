@@ -500,7 +500,10 @@ RESTYLE = {
     # change here; brought down to 1.2 squares a game pixel (2026-10-22, the user: 「奎桑提像素也太高了」, 1.2 picked); the outer outline grown a square like the others; the swings, Q's crack and burst and W's
     # dust baked into attack / skill* / skill2_dash and their All Out twins (orig/ksante_<tag>.over/.under.png) laid on
     # after the outline (fx); the face point between his eyes (36 game px over his soles, on his standing point)
-    "ksante": dict(ppu=1.2, edge=1, face_to=(0, -36), fx=True),
+    # 2026-10-22 evening: 90 % in game (「奎桑提的模型在游戏局内也太大了」, hd.rs SIZES): 11.5 x 1.2 x (1 / 0.9 - 1) = 1.5 -> 2
+    # squares lower; the face point up from his eyes to just under his crown (「奎桑提的头像位置不对」: base heroes sit at the
+    # crown; his hair top is 43.5 game px over his soles, -36 cut the portraits low) at -41, x 0.9 about the soles
+    "ksante": dict(ppu=1.2, edge=1, lift_sq=-2, face_to=(1, -37), fx=True),
     # league_xerath (2026-10-21 PPU re-adjust, 「不是重做 是重新调整」): Codex's draft B read back on its own grid, slimmer
     # with a smaller head (tools/art/design_xerath_hd.py, the user's 「你选一个吧 反正游戏里别太大就行」), then shorter and a
     # little wider (「泽拉斯在游戏里身体太长了吧？」 -> take C: 35 x 62 squares, 1.55 squares a game pixel, 40 game px), posed
