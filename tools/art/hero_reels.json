@@ -128,6 +128,7 @@
   "league_tryndamere": {"idle": [["attack", [0, 1, 2]], ["skill2", [2, 3]]]},
   "league_twistedfate": {"idle": [["attack", [0, 1, 2, 3]], ["skill", [0, 1, 2, 3]]]},
   "league_twitch": {"idle": [["skill", [0, 1, 2]], ["skill2_e", [1, 2]]]},
+  "league_udyr": {"idle": [["attack", [1]]], "q_idle": [["q_attack", [0]], ["skill", [0]]], "e_idle": [["e_attack", [1]], ["skill2", [0]]], "r_idle": [["r_attack", [1]], ["ult", [0]]]},
   "league_urgot": {"idle": [["skill2", [0, 1, 2]], ["ult", [0, 1]]]},
   "league_varus": {"idle": [["attack", [0, 1]], ["ult", [0]]]},
   "league_vayne": {"idle": [["skill2", [5]], ["attack", [0]]]},
