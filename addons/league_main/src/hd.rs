@@ -242,6 +242,10 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // and death posed after League's clips by tools/art/rig_riven_hd.py, her three attacks (taking turns), Broken Wings
     // and Valor Codex's whole-frame redraws (tools/art/actions_riven_hd.py); PPU 1.5 at her old 40 rows, so no SIZES row
     ("league_riven", 1.5, include_str!("../../../league/champions/league_riven#anim.fanim")),
+    // Caitlyn (2026-10-23): Codex's design picture (assets/source/caitlyn/PICTURE_PROMPT_PPU.md) read back on its own
+    // grid (54 x 65), her actions Codex's whole-frame redraws (pack_caitlyn_actions.py) with the rifle drawn straight
+    // square by square (rifle_caitlyn.py), stood by tools/art/rig_caitlyn_hd.py; PPU 1.45 at her old 45 rows
+    ("league_caitlyn", 1.45, include_str!("../../../league/champions/league_caitlyn#anim.fanim")),
     // Yunara: PPU 1.5 (the user's pick), posed from the design's own squares at that density by tools/art/rig_yunara.py
     // (40 game rows ornaments to soles), so no SIZES row
     ("league_yunara", 1.5, include_str!("../../../league/champions/league_yunara#anim.fanim")),
@@ -306,8 +310,9 @@ pub const SIZES: &[(&str, f32)] = &[("league_gragas", 0.90), ("league_zeri", 1.0
 /// Feast (the user, 2026-10-19: 「变大可以无限 加生命」): every champion it eats is one more Permanent `league_chogath_r_stack`
 /// on him (+health, tools/kit/build_chogath.py r_stack_hp) and his body is drawn r_grow % bigger a stack, no cap, about
 /// his soles (src/view.rs: only the body's own commands, so his shadow and rings stay). The main pack loses the stacks
-/// at his death (Permanent buffs end with it); the add-on league_chogath puts them back.
-pub const GROWTH: &[(&str, &str, f32)] = &[("league_chogath", "league_chogath_r_stack", 0.05)];
+/// at his death (Permanent buffs end with it); the add-on league_chogath puts them back. 15 % a stack (was 5 %: one bite
+/// put 2 game pixels on his 38, the user 2026-10-23: 「大虫子身体不变大」); one bite is now 6 more, five 1.75 times his size.
+pub const GROWTH: &[(&str, &str, f32)] = &[("league_chogath", "league_chogath_r_stack", 0.15)];
 
 /// Game pixels from a frame's centre (the unit's position) down to its soles (tools/art/ppu_rig.py FEET).
 pub const FEET: f32 = 11.5;

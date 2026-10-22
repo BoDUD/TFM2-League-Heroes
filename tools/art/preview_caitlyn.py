@@ -36,7 +36,7 @@ LEAGUE = os.path.join(ROOT, "league")
 CHAMP = os.path.join(LEAGUE, "champions", "league_caitlyn")
 FX = os.path.join(LEAGUE, "effects", "league_caitlyn_fx")
 # the kit's projectiles: speed in px a tick, lift over her pivot in px (5000 - y_offset)
-BOLT, HS, NET, Q, R = (7.0, 6.5), (9.0, 8.0), (6.0, 11.5), (10.0, 7.5), (20.0, 9.0)
+BOLT, HS, NET, Q, R = (7.0, 6.8), (9.0, 9.5), (6.0, 6.8), (10.0, 14.4), (20.0, 9.0)
 LASER, LASER_EVERY, LASER_FROM = (6.0, 9.0), 1, 10     # R's laser sight: an 8 px dash a tick from tick 10
 
 

@@ -91,7 +91,7 @@ P = {
     "q_combo": 60, "w_fast": 2,
     # R Feast
     "r_cd": 3600, "r_range": 30000, "r_dur": 41, "r_rel": 6, "r_dmg": 300, "r_hp": 5, "r_ap": 50,
-    "r_stack_hp": 70, "r_grow": 5,
+    "r_stack_hp": 70, "r_grow": 15,
     # his sounds, at most one every vo_gap ticks
     "vo_gap": 600,
 }

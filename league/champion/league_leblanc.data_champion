@@ -2110,7 +2110,7 @@
     "cancelable": false,
     "range": 60000,
     "casting_type": "Targeting",
-    "casting_target": "EnemyChampion",
+    "casting_target": "EnemyWithoutTower",
     "attack_type": "Skill",
     "effect": {
       "type": "SwitchByBuff",

@@ -1,0 +1,249 @@
+{
+ "square": 6,
+ "cell": [
+  512,
+  1024
+ ],
+ "ground": 874,
+ "per_sheet": 3,
+ "near": "r",
+ "sheets": [
+  {
+   "tag": "run",
+   "name": "run_1",
+   "frames": [
+    1,
+    2,
+    3
+   ],
+   "oppi": "run",
+   "action": "run (caitlyn run)"
+  },
+  {
+   "tag": "run",
+   "name": "run_2",
+   "frames": [
+    4,
+    5,
+    6
+   ],
+   "oppi": "run",
+   "action": "run (caitlyn run)"
+  },
+  {
+   "tag": "run",
+   "name": "run_3",
+   "frames": [
+    7,
+    8
+   ],
+   "oppi": "run",
+   "action": "run (caitlyn run)"
+  },
+  {
+   "tag": "attack",
+   "name": "attack_1",
+   "frames": [
+    1,
+    2,
+    3
+   ],
+   "oppi": "attack",
+   "action": "basic attack, a shot from the hip (attack1)"
+  },
+  {
+   "tag": "attack",
+   "name": "attack_2",
+   "frames": [
+    4,
+    5,
+    6
+   ],
+   "oppi": "attack",
+   "action": "basic attack, a shot from the hip (attack1)"
+  },
+  {
+   "tag": "passive",
+   "name": "passive_1",
+   "frames": [
+    1,
+    2,
+    3
+   ],
+   "oppi": "attack",
+   "action": "Headshot, the aimed shot (passive)"
+  },
+  {
+   "tag": "passive",
+   "name": "passive_2",
+   "frames": [
+    4,
+    5,
+    6
+   ],
+   "oppi": "attack",
+   "action": "Headshot, the aimed shot (passive)"
+  },
+  {
+   "tag": "skill",
+   "name": "skill_1",
+   "frames": [
+    1,
+    2,
+    3
+   ],
+   "oppi": "skill",
+   "action": "Piltover Peacemaker, the long aimed shot (spell1)"
+  },
+  {
+   "tag": "skill",
+   "name": "skill_2",
+   "frames": [
+    4,
+    5,
+    6
+   ],
+   "oppi": "skill",
+   "action": "Piltover Peacemaker, the long aimed shot (spell1)"
+  },
+  {
+   "tag": "skill",
+   "name": "skill_3",
+   "frames": [
+    7,
+    8
+   ],
+   "oppi": "skill",
+   "action": "Piltover Peacemaker, the long aimed shot (spell1)"
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_1",
+   "frames": [
+    1,
+    2,
+    3
+   ],
+   "oppi": "attack",
+   "action": "Yordle Snap Trap, throwing a trap (spell2)"
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_2",
+   "frames": [
+    4,
+    5,
+    6
+   ],
+   "oppi": "attack",
+   "action": "Yordle Snap Trap, throwing a trap (spell2)"
+  },
+  {
+   "tag": "e",
+   "name": "e_1",
+   "frames": [
+    1,
+    2,
+    3
+   ],
+   "oppi": "skill2",
+   "action": "90 Caliber Net, a shot that kicks her back off the ground (spell3)"
+  },
+  {
+   "tag": "e",
+   "name": "e_2",
+   "frames": [
+    4,
+    5,
+    6
+   ],
+   "oppi": "skill2",
+   "action": "90 Caliber Net, a shot that kicks her back off the ground (spell3)"
+  },
+  {
+   "tag": "e",
+   "name": "e_3",
+   "frames": [
+    7,
+    8
+   ],
+   "oppi": "skill2",
+   "action": "90 Caliber Net, a shot that kicks her back off the ground (spell3)"
+  },
+  {
+   "tag": "ult",
+   "name": "ult_1",
+   "frames": [
+    1,
+    2,
+    3
+   ],
+   "oppi": "ult",
+   "action": "Ace in the Hole, kneeling to aim and the big shot (spell4)"
+  },
+  {
+   "tag": "ult",
+   "name": "ult_2",
+   "frames": [
+    4,
+    5,
+    6
+   ],
+   "oppi": "ult",
+   "action": "Ace in the Hole, kneeling to aim and the big shot (spell4)"
+  },
+  {
+   "tag": "ult",
+   "name": "ult_3",
+   "frames": [
+    7,
+    8,
+    9
+   ],
+   "oppi": "ult",
+   "action": "Ace in the Hole, kneeling to aim and the big shot (spell4)"
+  },
+  {
+   "tag": "hit",
+   "name": "hit_1",
+   "frames": [
+    1,
+    2
+   ],
+   "oppi": "hit",
+   "action": "hit, flinching (death's start)"
+  },
+  {
+   "tag": "dead",
+   "name": "dead_1",
+   "frames": [
+    1,
+    2,
+    3
+   ],
+   "oppi": "death",
+   "action": "death, falling down"
+  },
+  {
+   "tag": "dead",
+   "name": "dead_2",
+   "frames": [
+    4,
+    5,
+    6
+   ],
+   "oppi": "death",
+   "action": "death, falling down"
+  },
+  {
+   "tag": "dead",
+   "name": "dead_3",
+   "frames": [
+    7,
+    8
+   ],
+   "oppi": "death",
+   "action": "death, falling down"
+  }
+ ]
+}

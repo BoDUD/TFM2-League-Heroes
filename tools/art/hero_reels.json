@@ -14,7 +14,7 @@
   "league_brand": {"idle": [["skill2", [1, 2, 3, 4]], ["skill", [0, 1, 2, 3]]]},
   "league_braum": {"idle": [["skill2", [0, 1]], ["attack", [0]]]},
   "league_briar": {"idle": [["skill2_scream", [0, 1]], ["skill2", [2, 3, 4]]]},
-  "league_caitlyn": {"idle": [["skill2", [0, 1, 2, 3]], ["ult", [0, 1]]]},
+  "league_caitlyn": {"idle": [["skill2", [0, 1]], ["attack", [0]], ["ult", [0]]]},
   "league_camille": {"idle": [["attack_q", [5]], ["ult", [5]]]},
   "league_cassiopeia": {"idle": [["ult", [0, 1, 2, 3]], ["skill", [0, 1, 2, 3]]]},
   "league_chogath": {"idle": [["skill", [1, 2]], ["skill2", [1, 2, 3]]]},

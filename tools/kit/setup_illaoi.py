@@ -25,7 +25,7 @@ from build_illaoi import P, lp  # noqa: E402
 REPO = os.path.normpath(os.path.join(HERE, "..", ".."))
 MOD = os.path.join(REPO, "league")
 ID = "league_illaoi"
-VERSION = "0.196.0"     # the next free number above main 0.195.6 (Mundo #472) (2026-10-23)
+VERSION = "0.197.0"     # the next free number above main 0.196.1 (LeBlanc / Kassadin minions #475) (2026-10-23)
 ADi = "<i#asset/base/ui/banpick/champion_stat_icon:ad_0>"
 HPi = "<i#asset/base/ui/banpick/champion_stat_icon:hp_0>"
 TOOLTIP_MAX = {"zh-hans": 130, "zh-hant": 130, "en": 334, "ja": 147, "ko": 185}
