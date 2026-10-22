@@ -6,7 +6,7 @@
 //! - **死亡契约**：英雄联盟里卡尔萨斯死后化成灵体，7 秒内照样放技能，然后才倒下。数据读不到血量，主包做不了。
 //!   本包一直给他挂着「不死」`league_karthus_p_guard`，致命伤害只会把他打到 1 血；到 1 血（身上没有别人给的不死）时
 //!   **化成灵体** `p_t` tick：隐身（敌人选不中他，`entity_set_invisible`）、不再受伤（`damaged_reduce` 100%）、免控，
-//!   照常走动、放技能、攻击；身上挂 `league_karthus_p_spirit`（画面）。时间到就倒下，击杀算最后打他的那个人。
+//!   照常走动、放技能、攻击（灵体时 AI 钩子 `spirit_ai` 替游戏的逃跑 AI 放 R / Q / E、打人）；身上挂 `league_karthus_p_spirit`（画面）。时间到就倒下，击杀算最后打他的那个人。
 //!   每条命都有（英雄联盟每次死亡都会触发）。
 //!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_karthus.log`，每次启动游戏重写。
@@ -21,7 +21,7 @@ use mod_api_stable::*;
 
 const ID: &str = "league_karthus";
 /// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是 league_addons 的。
-const VERSION: &str = "0.1.0";
+const VERSION: &str = "0.2.0";
 
 /// 「不死」挂多久、多久续一次（一直挂着，化成灵体前不断）。
 pub const GUARD_T: usize = 30;
@@ -280,6 +280,115 @@ impl StablePassive for DeathDefied {
     }
 }
 
+// ===================== AI 钩子：灵体照常打 =====================
+
+/// Q 和 E 的施法距离（build_karthus.py 的 q_range / e_cast；单元测试核对）。R 是全图的。
+pub const Q_RANGE: f64 = 80000.0;
+pub const E_RANGE: f64 = 40000.0;
+
+/// 正在施法（R 的引导也是）或被强制位移：不替 AI 按，按了会打断。
+const BUSY: [CcKindV1; 2] = [CcKindV1::Animation, CcKindV1::ForceMove];
+
+fn busy(e: &StableEntity<'_, '_>) -> bool {
+    (0..e.cc_count()).any(|i| e.cc_at(i).is_some_and(|c| BUSY.iter().any(|k| k.code() == c.kind)))
+}
+
+fn spirit_on(e: &StableEntity<'_, '_>) -> bool {
+    (0..e.buff_count()).filter_map(|i| e.buff_at(i)).any(|b| b.name() == sn("p_spirit"))
+}
+
+/// 这一格现在能按：解锁了，冷却好了（引擎的「输入合法」不看冷却，league_pyke 的教训）。
+fn ready(e: &StableEntity<'_, '_>, slot: SkillSlotV1) -> bool {
+    e.cooldown(slot).is_some_and(|c| c.unlocked && (c.remaining == 0 || c.charges > 0))
+}
+
+fn dist(a: (f64, f64), b: (f64, f64)) -> f64 {
+    ((a.0 - b.0).powi(2) + (a.1 - b.1).powi(2)).sqrt()
+}
+
+/// 敌队活着、选得中的英雄，近的在前。
+fn foes_by_distance(sim: &StableSim<'_>, team: usize, at: (f64, f64)) -> Vec<(usize, f64)> {
+    let mut out: Vec<(usize, f64)> = (0..sim.entity_count())
+        .filter_map(|i| sim.entity_at(i))
+        .filter(|u| u.team() != team && u.is_alive() && u.is_targetable() && u.is_champion())
+        .map(|u| (u.id(), dist(at, (u.pos().0 as f64, u.pos().1 as f64))))
+        .collect();
+    out.sort_by(|a, b| a.1.total_cmp(&b.1));
+    out
+}
+
+/// 灵体这一 tick 按什么：R（全图，近的先）> Q > E（在施法距离内）> 普攻最近的英雄（够不着就走过去）。
+/// `ready` 给出 R / Q / E 三格能不能按。返回 (格子, 目标)。
+pub fn spirit_pick(foes: &[(usize, f64)], ready: [bool; 3]) -> Vec<(InputKindV1, usize)> {
+    let mut out = Vec::new();
+    if ready[0] {
+        out.extend(foes.iter().map(|f| (InputKindV1::Ult, f.0)));
+    }
+    if ready[1] {
+        out.extend(foes.iter().filter(|f| f.1 <= Q_RANGE).map(|f| (InputKindV1::Skill, f.0)));
+    }
+    if ready[2] {
+        out.extend(foes.iter().filter(|f| f.1 <= E_RANGE).map(|f| (InputKindV1::Skill2, f.0)));
+    }
+    out.extend(foes.first().map(|f| (InputKindV1::Attack, f.0)));
+    out
+}
+
+/// 游戏的 AI 看他 1 血就跑（`run_away_input`）或回城，灵体 7 秒白白浪费：灵体时换成放技能、打人。
+#[derive(Clone, Default)]
+struct SpiritAi;
+
+impl StablePlayerAi for SpiritAi {
+    fn clone_box(&self) -> Box<dyn StablePlayerAi> {
+        Box::new(self.clone())
+    }
+
+    fn id(&self) -> String {
+        format!("{ID}:spirit_ai")
+    }
+
+    /// 在 league_ult_press（100）之后：灵体时由本钩子说了算。
+    fn priority(&self) -> i32 {
+        105
+    }
+
+    fn matches(&self, init: &StableAiInit) -> bool {
+        init.champion_name == ID
+    }
+
+    fn think(&mut self, ctx: &mut StableAiContext<'_>, base: Option<InputV1>) -> Option<InputV1> {
+        let player = ctx.player_id();
+        let (cands, line) = {
+            let sim = ctx.sim()?;
+            let me = sim.get_player(player)?.champion()?;
+            if !me.is_alive() || !spirit_on(&me) || busy(&me) {
+                return None;
+            }
+            let at = (me.pos().0 as f64, me.pos().1 as f64);
+            let foes = foes_by_distance(&sim, me.team(), at);
+            let ready = [ready(&me, SkillSlotV1::Ult), ready(&me, SkillSlotV1::Skill), ready(&me, SkillSlotV1::Skill2)];
+            let cands = spirit_pick(&foes, ready);
+            let names: HashMap<usize, String> = foes.iter().map(|f| (f.0, who(&sim, f.0))).collect();
+            let line = head(&sim, me.id());
+            (cands.into_iter().map(|(k, t)| (k, t, names.get(&t).cloned().unwrap_or_default())).collect::<Vec<_>>(), line)
+        };
+        let (kind, input, name) = cands.into_iter().find_map(|(k, t, n)| {
+            let input = InputV1::action(k, InputTargetV1::target(t));
+            ctx.is_valid_input(&input).then_some((k, input, n))
+        })?;
+        let was = base.and_then(|b| InputKindV1::from_code(b.kind));
+        if was == Some(kind) {
+            return None;
+        }
+        let tag = if kind == InputKindV1::Attack { "spirit_attack" } else { "spirit_cast" };
+        if let Some(k) = counted(tag) {
+            wlog(format!("{line} SPIRIT AI #{k}: {:?} on {name} (the game's AI: {})", kind,
+                         was.map_or_else(|| "none".to_string(), |w| format!("{w:?}"))));
+        }
+        Some(input)
+    }
+}
+
 // ===================== 注册 =====================
 
 pub fn register(host: &StableHost, module: &mut StableMod) {
@@ -295,7 +404,8 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
         LOG_PATH.display()
     ));
     module.add_native_passive(format!("{ID}:death_defied"), DeathDefied::default());
-    host.log(LogLevel::Info, "league_karthus loaded (Death Defied's spirit).");
+    module.add_player_input_ai(SpiritAi);
+    host.log(LogLevel::Info, "league_karthus loaded (Death Defied's spirit, casting while a spirit).");
 }
 
 #[cfg_attr(league_bundle, allow(dead_code))]
@@ -339,6 +449,24 @@ mod tests {
         let src = std::fs::read_to_string(path).expect("build_karthus.py");
         let d = Params::default();
         assert!(src.contains(&format!("\"p_t\": {}", d.p_t)), "p_t is not {} in build_karthus.P", d.p_t);
+        assert!(src.contains(&format!("\"q_range\": {}", Q_RANGE as usize)), "q_range is not {Q_RANGE}");
+        assert!(src.contains(&format!("\"e_cast\": {}", E_RANGE as usize)), "e_cast is not {E_RANGE}");
+    }
+
+    #[test]
+    fn the_spirit_casts_r_then_q_then_e_then_attacks() {
+        let foes = [(7, 20000.0), (8, 60000.0), (9, 500000.0)];
+        let k = |v: Vec<(InputKindV1, usize)>| v.iter().map(|c| (c.0.code(), c.1)).collect::<Vec<_>>();
+        let all = spirit_pick(&foes, [true, true, true]);
+        assert_eq!(k(all)[..4], [(InputKindV1::Ult.code(), 7), (InputKindV1::Ult.code(), 8), (InputKindV1::Ult.code(), 9),
+                                 (InputKindV1::Skill.code(), 7)]);
+        // nothing ready: the nearest champion is attacked (walked to when out of reach)
+        assert_eq!(k(spirit_pick(&foes, [false; 3])), [(InputKindV1::Attack.code(), 7)]);
+        // Q only in its range, E only in its own
+        let q = spirit_pick(&foes, [false, true, true]);
+        assert_eq!(k(q), [(InputKindV1::Skill.code(), 7), (InputKindV1::Skill.code(), 8),
+                          (InputKindV1::Skill2.code(), 7), (InputKindV1::Attack.code(), 7)]);
+        assert!(spirit_pick(&[], [true; 3]).is_empty());
     }
 
     #[test]

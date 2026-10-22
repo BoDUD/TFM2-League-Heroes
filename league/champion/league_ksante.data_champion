@@ -1685,7 +1685,7 @@
                   "casting_type": "Targeting",
                   "effect": {
                     "type": "Knockback",
-                    "speed": 3000,
+                    "speed": 6000,
                     "tick": 15
                   }
                 },
@@ -1798,8 +1798,8 @@
                           },
                           {
                             "type": "MoveToTarget",
-                            "speed": 4000,
-                            "range": 90000,
+                            "speed": 6000,
+                            "range": 150000,
                             "end_effects": [
                               {
                                 "type": "Attack",

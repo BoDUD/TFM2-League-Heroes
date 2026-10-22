@@ -21,7 +21,9 @@ attack, W's active (vision) means nothing here and is left out.
           her and circles again.
   skill2  E Vault (旋翔掠杀), `Targeting` on `EnemyWithoutTower` (e_range): she dashes to the target (e_speed); on contact
           e_dmg + e_ratio% AD, a e_stun-tick interrupt, e_slow% slow for e_slow_t, the mark; then she flips back off it
-          (MoveBack e_back x e_back_t: about her attack range away).
+          (MoveBack e_back x e_back_t: about her attack range away). The dash ends on the target's own spot, so the
+          MoveBack has no direction and moves her 0 units (classic simulation 2026-10-22); the add-on's copy flags
+          `e_vault` instead and league_quinn flips her back the way she came, e_back x e_back_t.
   ult     R Behind Enemy Lines (深入敌后), `Targeting` on `EnemyChampion` (r_range): she calls Valor down and mounts him
           (r_mount ticks), rides at the target (`MoveToTarget` r_speed, the ride strip held, r_ms% move speed meanwhile)
           and on arrival casts Skystrike (鹰翼天翔): r_dmg + r_ratio% AD to every enemy within r_r, the mark; she jumps off.
@@ -267,7 +269,9 @@ def build(p):
     contact = [attack(p["e_dmg"], p["e_ratio"]), {"type": "Stun", "duration": p["e_stun"]},
                buff("e_slow", p["e_slow_t"], move_speed_mult=-p["e_slow"]), view("e_hit"), tsfx("e_hit"), mark,
                anim("e_flip", p["e_flip"]), sfx("e_flip"),
-               {"type": "MoveBack", "speed": p["e_back"], "tick": p["e_back_t"]}]
+               # the add-on's copy: a flag, league_quinn moves her (the dash ends on the target's own spot, so `MoveBack`
+               # has no way to go: 0 units in the classic simulation, the user in game 10-22: 「奎因E完人不会拉开距离」)
+               refresh("e_vault", 4) if nat else {"type": "MoveBack", "speed": p["e_back"], "tick": p["e_back_t"]}]
     e_cast = combine(anim("skill2", 60), sfx("e"), voice("vo_e", p),
                      {"type": "MoveToTarget", "speed": p["e_speed"], "range": p["e_range"] + 40000,
                       "end_effects": contact})

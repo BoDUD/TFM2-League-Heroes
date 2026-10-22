@@ -161,8 +161,8 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // Heimerdinger: the design (Codex's step-1 A-2 at the user's 1.5 squares a game pixel, 54 rows hair top to soles:
     // 「36」「PPU 1.5」; 3/4 only) with Codex's whole-body poses and the backpack crane / R's gear props, posed by
     // tools/art/rig_heimerdinger.py after League's clips; attack_w the kit's CasterAnimation (W's third attack), so no
-    // SIZES row
-    ("league_heimerdinger", 1.5, include_str!("../../../league/champions/league_heimerdinger#anim.fanim")),
+    // SIZES row; brought down to 1.2 (2026-10-22: 「像素太高了 可以调低一点」, tools/art/ppu_restyle.py)
+    ("league_heimerdinger", 1.2, include_str!("../../../league/champions/league_heimerdinger#anim.fanim")),
     // Naafiri: posed by tools/art/rig_naafiri.py on Codex's step-1 takes A-2 / P-2 and its key poses at the user's 1.5
     // squares a game pixel (45 game rows blade tip to paws: 「30」「PPU 1.5」; 3/4 only; her pack drawn into her frames, the
     // p4_* tags the four hounds league_naafiri's view hook swaps in during The Call of the Pack), so no SIZES row
@@ -195,8 +195,9 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     ("league_xerath", 1.55, include_str!("../../../league/champions/league_xerath#anim.fanim")),
     // K'Sante: posed by tools/art/rig_ksante.py on Codex's step-1 takes A-2 / O-1 at the user's 1.5 squares a game pixel
     // (72 game rows ntofo tops to soles: 「陀斧顶到脚底 48 游戏像素，PPU 1.5」; 3/4 only; Codex's 27 skeleton poses with the
-    // design's head; the ao_* tags All Out's, the kit's CasterAnimations and league_ksante's view hook), so no SIZES row
-    ("league_ksante", 1.5, include_str!("../../../league/champions/league_ksante#anim.fanim")),
+    // design's head; the ao_* tags All Out's, the kit's CasterAnimations and league_ksante's view hook), so no SIZES row;
+    // brought down to 1.2 (2026-10-22: 「奎桑提像素也太高了」, tools/art/ppu_restyle.py)
+    ("league_ksante", 1.2, include_str!("../../../league/champions/league_ksante#anim.fanim")),
     // Powder (tft_powder, the tft pack in tft/: Teamfight Tactics' own units, its own mod; this DLL draws her dense
     // frames when both packs are enabled): the idle design and Codex's skeleton poses with one clean head, posed by
     // tools/art/rig_powder.py at 1.75 squares a game pixel (61 rows: 「35」, then 「PPU像素好低啊 能调一下吗」), shown at 90 % (SIZES)
@@ -285,12 +286,14 @@ pub const HEROES: &[(&str, f32, &str)] = &[
 /// Powder (tft_powder): 90 % (the user, 2026-10-19: 「人物模型太大 缩小一点」), her frames 2 squares lower (RESTYLE powder lift).
 /// Nami: 90 % (the user, 2026-10-20: 「娜美的模型可以整体缩小一点 太大了」), her frames 2 squares lower (RESTYLE nami
 /// lift_sq: 11.5 x 1.5 x (1 / 0.9 - 1) = 1.9) so her tail stays on the ground.
+/// Hwei: 85 % (the user, 2026-10-22: 「画师局内有点大 可以调小一点」, 0.85 picked of 0.9 / 0.85 / 0.8), his frames 3 squares
+/// lower (RESTYLE hwei lift_sq: 11.5 x 1.5 x (1 / 0.85 - 1) = 3.0).
 pub const SIZES: &[(&str, f32)] = &[("league_gragas", 0.90), ("league_zeri", 1.05), ("league_kassadin", 1.00),
                                     ("league_braum", 0.95), ("league_mordekaiser", 1.10),
                                     ("league_irelia", 1.05), ("league_soraka", 1.10), ("league_galio", 1.10), ("league_nilah", 0.90),
                                     ("league_corki", 0.90), ("league_malzahar", 1.15), ("league_aphelios", 0.90),
                                     ("league_poppy", 0.85), ("league_yuumi", 0.75), ("league_wukong", 1.15),
-                                    ("tft_powder", 0.90), ("league_nami", 0.90)];
+                                    ("tft_powder", 0.90), ("league_nami", 0.90), ("league_hwei", 0.85)];
 
 /// Heroes whose body grows with a stack: (id, the buff whose instances on him are the stacks, growth a stack). Cho'Gath's
 /// Feast (the user, 2026-10-19: 「变大可以无限 加生命」): every champion it eats is one more Permanent `league_chogath_r_stack`

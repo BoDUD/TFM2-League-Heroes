@@ -471,8 +471,10 @@ RESTYLE = {
     # 「头发顶到脚底 40 游戏像素，PPU 1.5，只做四分之三侧面」, the crescent of paint above) with Codex's key poses (the design's
     # head and brush put back, the legs drawn again at the design's chibi length) posed by tools/art/rig_hwei.py after
     # League's clips, so no proportion or density change here; the outer outline grown a square like the others; the face
-    # point between his eyes (3 game px ahead of his standing point, 31 over the ground)
-    "hwei": dict(ppu=1.5, edge=1, face_to=(3, -31)),
+    # point between his eyes (3 game px ahead of his standing point, 31 over the ground); then 85 % in game (2026-10-22,
+    # 「画师局内有点大 可以调小一点」, hd.rs SIZES): 11.5 x 1.5 x (1 / 0.85 - 1) = 3.0 -> 3 squares lower, the face x 0.85
+    # about the soles
+    "hwei": dict(ppu=1.5, edge=1, lift_sq=-3, face_to=(3, -26)),
     # league_ivern (group G jungle): the design (Codex's step-1 A-2, 60 rows mushroom to soles at 1.5 squares a game
     # pixel: 「艾翁蘑菇顶到脚底 40 游戏像素 … PPU 1.5，只做四分之三侧面」) with Codex's key poses (the design's head put back,
     # the standing poses' legs drawn again at the design's chibi length) posed by tools/art/rig_ivern.py after League's
@@ -481,11 +483,12 @@ RESTYLE = {
     "ivern": dict(ppu=1.5, edge=1, face_to=(4, -29)),
     # league_heimerdinger: the design (Codex's step-1 A-2 cut to the user's 54 rows at 1.5 squares a game pixel: 「36」
     # 「PPU 1.5」, 3/4 only) with Codex's whole-body poses (the design's head pasted back) and the backpack crane / R's gear
-    # props, posed by tools/art/rig_heimerdinger.py after League's clips, so no proportion or density change here; the
+    # props, posed by tools/art/rig_heimerdinger.py after League's clips, so no proportion change here; brought down to
+    # 1.2 squares a game pixel (2026-10-22, the user: 「大发明家的像素太高了 可以调低一点」, 1.2 picked of 1.3 / 1.2 / 1.0); the
     # outer outline grown a square like the others; W's launch flash and the backpack's burst drawn into attack_w / dead
     # (orig/heimerdinger_<tag>.over.png) laid on after the outline (fx); the face point between his goggles (19 game px
     # over his soles, 4 ahead of his standing point)
-    "heimerdinger": dict(ppu=1.5, edge=1, face_to=(4, -19), fx=True),
+    "heimerdinger": dict(ppu=1.2, edge=1, face_to=(4, -19), fx=True),
     # league_neeko (group F mid): posed by tools/art/rig_neeko.py on Codex's step-1 take A-1 and its key poses at the user's
     # 2.5 squares a game pixel (「40」, then 「1.5也挺糊的 还得往上调整吧」 -> 2.5: 100 rows quill tips to soles; 3/4 only), so
     # no proportion or density change here; the outer outline grown a square like the others; the face point between
@@ -494,10 +497,10 @@ RESTYLE = {
     # league_ksante (group G top): posed by tools/art/rig_ksante.py on Codex's step-1 takes A-2 (base) / O-1 (All Out, cut to
     # 56 rows: 「全盛裁到 56 格，和普通姿态身体一样大」) at the user's 1.5 squares a game pixel (「陀斧顶到脚底 48 游戏像素，PPU 1.5，
     # 只做四分之三侧面」: 72 rows ntofo tops to soles) and Codex's 27 skeleton poses with the design's head, so no proportion
-    # or density change here; the outer outline grown a square like the others; the swings, Q's crack and burst and W's
+    # change here; brought down to 1.2 squares a game pixel (2026-10-22, the user: 「奎桑提像素也太高了」, 1.2 picked); the outer outline grown a square like the others; the swings, Q's crack and burst and W's
     # dust baked into attack / skill* / skill2_dash and their All Out twins (orig/ksante_<tag>.over/.under.png) laid on
     # after the outline (fx); the face point between his eyes (36 game px over his soles, on his standing point)
-    "ksante": dict(ppu=1.5, edge=1, face_to=(0, -36), fx=True),
+    "ksante": dict(ppu=1.2, edge=1, face_to=(0, -36), fx=True),
     # league_xerath (2026-10-21 PPU re-adjust, 「不是重做 是重新调整」): Codex's draft B read back on its own grid, slimmer
     # with a smaller head (tools/art/design_xerath_hd.py, the user's 「你选一个吧 反正游戏里别太大就行」), then shorter and a
     # little wider (「泽拉斯在游戏里身体太长了吧？」 -> take C: 35 x 62 squares, 1.55 squares a game pixel, 40 game px), posed

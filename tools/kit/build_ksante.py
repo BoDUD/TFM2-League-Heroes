@@ -30,6 +30,9 @@ run, hit and death are the add-on's view swap, league_gnar's way).
           All Out for ao_t ticks (`ao`): ao_atk% attack, ao_as% attack speed, ao_vamp% lifesteal, ao_pen defence
           penetration, skill cooldowns capped (ao_cdr), and ao_def% less armour and magic resistance (League: 85% of
           the bonus resistances lost). Tags ult (the kick), ult_dash (the chase), the slam in ao_attack's swing.
+          The kick sends the champion twice as far as it first did (r_kb 3000 -> 6000, 2026-10-22, the user: 「踢得更远，把对面
+          的人踢离他的队友」), the chase faster (r_speed 6000) and reaching the whole kick (range r_range + the knockback's
+          r_kb x r_kb_t + 30000).
   combos  Q -> Q -> Q3 (the stacks), Q3 -> W (无双陀斧三段拉人接辟路先锋): a Q3 that reaches a champion opens `w_go` for
           win_w ticks, and a W cast in it skips most of the brace (w_fast). R -> W (傲岸雄姿接辟路先锋): the slam opens
           `w_go` for win_w ticks the same way and W's cooldown left drops to a tenth (r_cdr: W ready about a second after the
@@ -80,8 +83,8 @@ P = {
     "w_dr": 25, "e_sh": 70, "e_ratio": 50, "e_sh_t": 120, "w_r": 16000,
     "w_dmg": 30, "w_ratio": 60, "w_thp": 6, "w_kb": 2500, "w_kb_t": 8, "w_stun": 50,
     # R All Out
-    "r_cd": 3000, "r_range": 30000, "r_dur": 34, "r_at": 12, "r_dmg": 100, "r_ratio": 80, "r_kb": 3000, "r_kb_t": 15,
-    "r_stun": 30, "r_chase": 16, "r_speed": 4000, "r_dash_dur": 22, "r2_dmg": 60, "r2_ratio": 60, "r2_hp": 4,
+    "r_cd": 3000, "r_range": 30000, "r_dur": 34, "r_at": 12, "r_dmg": 100, "r_ratio": 80, "r_kb": 6000, "r_kb_t": 15,
+    "r_stun": 30, "r_chase": 16, "r_speed": 6000, "r_dash_dur": 22, "r2_dmg": 60, "r2_ratio": 60, "r2_hp": 4,
     # the All Out stance
     "ao_t": 900, "ao_atk": 20, "ao_as": 40, "ao_vamp": 20, "ao_pen": 30, "ao_def": -25, "ao_cdr": 50,
     "ao_w_dr": 50, "ao_w_charge": 24, "ao_w_thp": 9,
@@ -294,7 +297,8 @@ def build(p):
     slam = [attack(p["r2_dmg"], p["r2_ratio"], p["r2_hp"]), view("r_slam"), tsfx("r_slam"), mark,
             refresh("w_go", p["win_w"]), refund(p["r_cdr"])]
     chase = combine(anim("ult_dash", p["r_dash_dur"]), sfx("r_dash"),
-                    {"type": "MoveToTarget", "speed": p["r_speed"], "range": p["r_range"] + 60000, "end_effects": slam})
+                    {"type": "MoveToTarget", "speed": p["r_speed"], "range": p["r_range"] + p["r_kb"] * p["r_kb_t"] + 30000,
+                     "end_effects": slam})
     kick = homing("r_kick", 100000, "EnemyChampion",
                   [attack(p["r_dmg"], p["r_ratio"]), {"type": "Knockback", "speed": p["r_kb"], "tick": p["r_kb_t"]},
                    {"type": "Stun", "duration": p["r_stun"]}, view("r_hit"), tsfx("r_hit")])

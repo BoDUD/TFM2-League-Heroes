@@ -1361,9 +1361,25 @@
                       "name": "league_quinn_e_flip"
                     },
                     {
-                      "type": "MoveBack",
-                      "speed": 4000,
-                      "tick": 12
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_quinn_e_vault"
+                        },
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_quinn_e_vault",
+                            "duration": {
+                              "Time": {
+                                "tick": 4
+                              }
+                            }
+                          },
+                          "only_to_enemy": false
+                        }
+                      ]
                     }
                   ]
                 }
