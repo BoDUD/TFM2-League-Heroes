@@ -8,7 +8,7 @@ The source is the step-3 delivery (assets/source/hwei/codex_fx/hwei_fx: pixel_1x
 frames each at game size, frame sizes in manifest.json (cell_1x); alpha 0 / 255; the four projectiles drawn flying right
 and symmetric top to bottom, every other one symmetric left to right - checked again here, then made an odd number of
 squares across the symmetric way). The user had Gemini draw 22 of them (JPGs, 2026-10-22), brought to that delivery by
-tools/art/process_hwei_fx.py, which draws the two Gemini left out (r_paint, r_canvas). Each frame is placed as the kit
+tools/art/process_hwei_fx.py (r_paint from the user's later Gemini picture, r_canvas from GPT's). Each frame is placed as the kit
 plays it (import_shyvana_fx.py's way): spots are game px from the pivot (x forward, y down); a unit's soles are 11 under
 it (league.dll hd.rs FEET 11.5), a ground point's too. Anchors: "core" (the cell's middle), ("feet", r) (r rows above
 the cell's bottom), "bottom" (the lowest drawn row of all its frames), "mid" (the middle of all its frames' drawn rows),
@@ -88,7 +88,7 @@ FX = {
     "w_haste": ("w_haste", "mid", loop(6, 70), [SOLES]),
     # Spiraling Despair: the paint bolt, the canvas, its burst, the hit on the units in it
     "r_paint": ("r_paint", "core", loop(4, 50), [LINE]),
-    "r_canvas": ("r_canvas", ("feet", 9), seq(range(14), [100] * 6 + [300] * 8), [SOLES]),
+    "r_canvas": ("r_canvas", "mid", seq(range(14), [100] * 6 + [300] * 8), [SOLES]),
     "r_burst": ("r_burst", "bottom", seq(range(6), [50, 60, 70, 80, 100, 120]), [GROUND]),
     "r_hit": ("r_hit", "core", seq(range(4), [40, 50, 60, 80]), [HIT]),
 }

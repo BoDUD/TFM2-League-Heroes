@@ -12,8 +12,10 @@ edy4w2* x2), copied to --src as g00.jpg .. g23.jpg in the order they were made (
 16:28) are Qiyana's River / Grass pictures (a blue puddle with white spray, a green grass ring) - not his, left alone;
 the first 22 follow the pack's order but for the ult's projectile and canvas, which Gemini left out: g20 is r_burst,
 g21 r_hit. Of the two missing ones the user had Gemini draw r_paint (the spiralling paint bolt) afterwards
-(Gemini_Generated_Image_qpgagw*, 16:57: --src g22_r_paint.jpg; read 24 x 12, the pack's 20 x 10 mashed its spiral); r_canvas (the painted spiral on the ground, 3 s) is drawn
-here square by square on the pack's own ramps (draw_r_canvas), symmetric like the rest, until GPT's comes.
+(Gemini_Generated_Image_qpgagw*, 16:57: --src g22_r_paint.jpg; read 24 x 12, the pack's 20 x 10 mashed its spiral); r_canvas (the painted spiral on the ground, 3 s) came from GPT
+(pack_hwei_canvas.py's prompt; Codex 2026-10-22/new-chat-4 outputs/hwei-canvas, --src g23_r_canvas.png: 14 frames on a
+4 x 4 grid of 384 x 256 cells, black ground, its rows drifting a few px - each frame centred up and down, no border band
+trimmed, MARGIN / VCENTRE); draw_r_canvas, the stand-in drawn here before it came, is the prompt's layout guide.
 The JPGs have no alpha and backgrounds of black, white, grey, a grey gradient (slow), a painted chequerboard (q_q_ball)
 and mixed cells (q_q_hit, r_burst, r_hit); every cell is keyed by flooding in from its own border. e_e_open has pure
 white blocks pasted into its black ground (WHITE_BLOCKS: painted black first), r_burst one in its black first cell
@@ -47,12 +49,14 @@ OUT = os.path.join(ROOT, "assets", "source", "hwei", "codex_fx", "hwei_fx")
 FLYING = {"a_ink", "q_q_ball", "e_q_face", "r_paint"}
 FORWARD = set()
 # (rows, columns) of the picture's grid where it is not one row of `frames` cells; the cells read row by row
-LAYOUT = {"q_e_lava": (4, 4), "w_haste": (3, 2)}
+LAYOUT = {"q_e_lava": (4, 4), "w_haste": (3, 2), "r_canvas": (4, 4)}
 # the cells' x edges on the JPG where they are not equal (cut on the gaps between the drawings: a_ink's balls and
 # e_q_face's heads reach over the equal cuts); ROWS the y edges where a grid's rows are not equal
 CUTS = {"a_ink": [0, 1540, 3000, 4470, 5856], "e_q_face": [0, 1550, 2970, 4460, 5856],
-        "q_e_lava": [0, 688, 1375, 2064, 2752]}
-ROWS = {"q_e_lava": [0, 383, 752, 1120, 1536]}
+        "q_e_lava": [0, 688, 1375, 2064, 2752], "r_canvas": [0, 384, 768, 1152, 1536]}
+ROWS = {"q_e_lava": [0, 383, 752, 1120, 1536], "r_canvas": [0, 256, 512, 768, 1024]}
+MARGIN = {"r_canvas": 0.0}    # its ovals reach within 6 px of their cells' sides: no border band trimmed
+VCENTRE = {"r_canvas"}        # each frame's drawing centred up and down (GPT's rows drift a few px)
 # the cells kept where not the first `frames`: q_e_lava's twelve in three rows and the faint cracks alone in the fourth
 PICK = {"q_e_lava": list(range(12)) + [15]}
 NEUTRAL = 18                  # a ground colour is grey: black, white, a panel, a chequerboard, a gradient (not his navy)
@@ -76,6 +80,7 @@ SOURCES = {
     "g15.jpg": ("e_e_open", 6, (28, 24)), "g16.jpg": ("e_e_hit", 5, (28, 24)), "g17.jpg": ("w_pool", 6, (40, 16)),
     "g18.jpg": ("w_shield", 5, (22, 40)), "g19.jpg": ("w_haste", 6, (24, 8)), "g20.jpg": ("r_burst", 7, (56, 44)),
     "g21.jpg": ("r_hit", 4, (14, 14)), "g22_r_paint.jpg": ("r_paint", 4, (24, 12)),
+    "g23_r_canvas.png": ("r_canvas", 14, (56, 22)),
 }
 KEY = {"a_ink": 26, "a_hit": 26, "e_q_face": 22, "r_paint": 30}     # white grounds: his pale pink and white cores kept
 THIN = {"r_paint": 0.45, "q_w_tell": 0.35, "q_w_hit": 0.35, "a_hit": 0.25, "p_burst": 0.4, "q_q_hit": 0.4, "e_q_hit": 0.4,
@@ -110,10 +115,11 @@ def boxes(name, n, H, W):
     xs = CUTS[name]
     ys = ROWS.get(name, [0, H])
     out = []
+    m = MARGIN.get(name, S.OVERLAP)
     for y0, y1 in zip(ys, ys[1:]):
-        my = int(S.OVERLAP * (y1 - y0))
+        my = int(m * (y1 - y0))
         for x0, x1 in zip(xs, xs[1:]):
-            mx = int(S.OVERLAP * (x1 - x0))
+            mx = int(m * (x1 - x0))
             out.append((y0 + my, y1 - my, x0 + mx, x1 - mx))
     return out
 
@@ -152,6 +158,8 @@ def cells_of(img, name, n):
         a4 = np.zeros(sub.shape[:2] + (4,), np.uint8)
         a4[..., :3] = sub
         a4[..., 3] = np.where(fg, 255, 0)
+        if name in VCENTRE:
+            a4 = S.G.centred(a4, 0)
         out.append(a4)
     return [out[i] for i in PICK[name]] if name in PICK else out[:n]
 
@@ -228,7 +236,7 @@ def draw_r_canvas():
     return frames
 
 
-DRAWN = {"r_canvas": draw_r_canvas}
+DRAWN = {}                    # draw_r_canvas stays for pack_hwei_canvas.py's layout guide
 
 
 def main():
@@ -260,7 +268,7 @@ def main():
         sheets.append((name, strip, w))
         print(f"{name}: {len(cells)} frames of {w}x{h}")
     with open(S.lp(os.path.join(OUT, "manifest.json")), "w", encoding="utf-8", newline="\n") as f:
-        json.dump({"effects": entries, "made_by": "Gemini (the user's images; r_canvas drawn here), "
+        json.dump({"effects": entries, "made_by": "Gemini (the user's images; r_canvas by GPT), "
                    "processed by tools/art/process_hwei_fx.py"}, f, ensure_ascii=False, indent=1)
     if a.review:
         from PIL import ImageDraw
