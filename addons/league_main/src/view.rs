@@ -51,6 +51,8 @@ const SCALE: usize = 0x1b4;
 const BUFFS_PTR: usize = 0xb8;
 const BUFFS_LEN: usize = 0xc0;
 const BUFF_SIZE: usize = 0x28;
+/// Growth lines a session (one for each change of a growing hero's stacks on screen).
+const GROW_LINES: usize = 400;
 
 /// One entity's draw scale: the game's own value (base) and what the hook last wrote over it.
 #[derive(Clone, Copy, Debug, PartialEq)]
@@ -134,10 +136,14 @@ struct State {
     noted: Vec<String>,
     /// (entity value, stacks) of the growing heroes, the last logged
     grows: Vec<(usize, usize)>,
+    /// growth lines written: their own budget, so the draw-scale lines of a long session never silence them (2026-10-23:
+    /// the 200 shared lines ran out a second after Cho'Gath came on screen, before his first stack)
+    grow_lines: usize,
 }
 
 static STATE: Mutex<State> = Mutex::new(State { scales: Vec::new(), by_value: Vec::new(), drawn: Vec::new(), lines: 0,
-                                                seen: Vec::new(), noted: Vec::new(), grows: Vec::new() });
+                                                seen: Vec::new(), noted: Vec::new(), grows: Vec::new(),
+                                                grow_lines: 0 });
 static PREV: AtomicUsize = AtomicUsize::new(0);
 static HOOK: Once = Once::new();
 
@@ -462,13 +468,13 @@ unsafe fn unshrink_extras(out: usize, ent: usize, sc: Scale, hero: &Hero) {
     let Some(&(_, buff, per)) = hd::GROWTH.iter().find(|g| g.0 == hero.id) else { return };
     let n = stacks(ent, buff);
     let g = hd::grown(per, n);
-    if !st.grows.iter().any(|e| e.0 == ent && e.1 == n) && st.lines < 200 {
+    if !st.grows.iter().any(|e| e.0 == ent && e.1 == n) && st.grow_lines < GROW_LINES {
         st.grows.retain(|e| e.0 != ent);
         st.grows.push((ent, n));
         if st.grows.len() > 64 {
             st.grows.remove(0);
         }
-        st.lines += 1;
+        st.grow_lines += 1;
         wlog(format!("{}: {n} x {buff} - body drawn x{g:.2} about the soles", hero.id));
     }
     if n == 0 {
