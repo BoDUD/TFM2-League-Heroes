@@ -118,10 +118,12 @@ TEXT = {
 
 C = "league_ksante_sfx_"   # clip names differ from the sound names: a clip named like its sound is not found in game
 # sound name -> [(clip, volume, delay)]
+# the sfx toward Lux's 0.8 (the level Orianna's and Zoe's got, 2026-10-22; attacks lower: they come often), the voice as
+# the other heroes'
 SOUNDS = {f"league_ksante_{k}": [(C + k, v, 0.0)] for k, v in (
-    ("a", 0.3), ("a_hit", 0.35), ("ao_a", 0.35), ("p_hit", 0.4), ("q", 0.4), ("q_hit", 0.3), ("q3", 0.5),
-    ("q3_hit", 0.4), ("w", 0.4), ("w_dash", 0.4), ("w_land", 0.5), ("w_hit", 0.4), ("r", 0.45), ("r_hit", 0.5),
-    ("r_dash", 0.4), ("r_slam", 0.55), ("ao_on", 0.5), ("vo_q", 0.85), ("vo_q3", 0.85), ("vo_w", 0.85), ("vo_r", 0.9))}
+    ("a", 0.5), ("a_hit", 0.55), ("ao_a", 0.55), ("p_hit", 0.65), ("q", 0.8), ("q_hit", 0.7), ("q3", 0.85),
+    ("q3_hit", 0.8), ("w", 0.8), ("w_dash", 0.75), ("w_land", 0.85), ("w_hit", 0.75), ("r", 0.85), ("r_hit", 0.85),
+    ("r_dash", 0.75), ("r_slam", 0.9), ("ao_on", 0.85), ("vo_q", 0.85), ("vo_q3", 0.85), ("vo_w", 0.85), ("vo_r", 0.9))}
 CLIPS = sorted({c for plays in SOUNDS.values() for c, _, _ in plays})
 
 
