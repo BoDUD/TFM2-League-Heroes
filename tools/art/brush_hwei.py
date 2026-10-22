@@ -217,7 +217,9 @@ def normalize(fig, spec, pad=12):
     body = ndimage.binary_fill_holes(g[..., 3] > 0)
     holes = cleared & body                           # crossed the coat: filled from round it
     g = inpaint(g, holes)
-    # behind the hand: the butt where Codex showed one, nothing where its sleeve hid it (the design's way)
+    # behind the hand: the butt where Codex showed one, nothing where its sleeve hid it (the design's way); "to_deg"
+    # turns the brush in the hand (the attack's cocked frame on the design)
+    deg = spec.get("to_deg", deg)
     layer, m = render(f.shape[:2], G, deg, t_from=BUTT if spec.get("butt") or spec.get("grip") is None else -HAND)
     g[m] = layer[m]
     if spec.get("grip") is not None:                 # the fingers back over the shaft

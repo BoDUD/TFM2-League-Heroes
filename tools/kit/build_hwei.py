@@ -83,7 +83,7 @@ P = {
     "q_e_dps_r": 10, "q_e_slow": 35,
     # skill2: Subject: Torment
     "e_cd": 720, "e_range": 85000, "e_dur": 30, "e_rel": 12, "e_near": 38000, "e_dmg": 80, "e_ratio": 50,
-    "e_speed": 4000, "e_fear": 60, "e_w_setup": 39, "e_root": 80, "e_e_at": 30, "e_hold": 30, "e_slow": 45,
+    "e_speed": 4000, "e_fear": 60, "e_w_setup": 39, "e_root": 78, "e_e_at": 30, "e_hold": 30, "e_slow": 45,
     "e_slow_t": 90, "eq_gap": 6,
     # ult: Spiraling Despair
     "r_cd": 2100, "r_range": 80000, "r_dur": 36, "r_rel": 14, "r_speed": 3000, "r_len": 100000, "r_w": 6000,
