@@ -1,4 +1,4 @@
-"""Build the add-on's copy of Darius from the main pack (R cast only for a kill or under Noxian Might).
+"""Build the add-on's copy of Darius from the main pack (R cast only for a kill).
 
     python addons/league_darius_ult/make_override.py
 
@@ -35,20 +35,20 @@ E = "<>"
 TEXT = {
     "zh-hans": "【大招读血测试版】" + O + "诺克萨斯断头台" + E + "：德莱厄斯跃向一名敌方英雄猛力劈下，造成" + W + "{b}" + E + " + " + ADi +
                O + "{r}% 攻击力" + E + "的" + W + "真实伤害" + E + "。" + Y + "{w}秒" + E + "内每命中敌方英雄一次，伤害提高" + Y + "{s}%" + E +
-               "；" + O + "诺克萨斯之力" + E + "时翻倍。击杀则刷新大招。只在一刀砍得死射程内的英雄、或" + O + "诺克萨斯之力" + E + "期间释放。",
+               "；" + O + "诺克萨斯之力" + E + "时翻倍。击杀则刷新大招。只在一刀砍得死射程内的英雄时释放。",
     "zh-hant": "【大招讀血測試版】" + O + "諾克薩斯斷頭台" + E + "：達瑞斯躍向一位敵方英雄猛力劈下，造成" + W + "{b}" + E + " + " + ADi +
                O + "{r}% 攻擊力" + E + "的" + W + "真實傷害" + E + "。" + Y + "{w}秒" + E + "內每命中敵方英雄一次，傷害提高" + Y + "{s}%" + E +
-               "；" + O + "諾克薩斯威能" + E + "時加倍。擊殺則刷新大招。只在一刀砍得死射程內的英雄、或" + O + "諾克薩斯威能" + E + "期間施放。",
+               "；" + O + "諾克薩斯威能" + E + "時加倍。擊殺則刷新大招。只在一刀砍得死射程內的英雄時施放。",
     "en": "[Health-reading ult test build] " + O + "Noxian Guillotine" + E + ": Darius leaps to an enemy champion and strikes, dealing " +
           W + "{b}" + E + " + " + ADi + O + "{r}% AD" + E + " " + W + "true damage" + E + ", " + Y + "{s}%" + E +
           " more for each hit he landed on an enemy champion in the last " + Y + "{w}s" + E + ", doubled during " + O + "Noxian Might" + E +
-          "; a kill refreshes it. Cast only when it kills a champion in range or during " + O + "Noxian Might" + E + ".",
+          "; a kill refreshes it. Cast only when it kills a champion in range.",
     "ko": "[체력 판독 테스트판] " + O + "녹서스의 단두대" + E + ": 적 챔피언에게 뛰어올라 " + W + "{b}" + E + " + " + ADi + O + "공격력의 {r}%" + E +
           " " + W + "고정 피해" + E + ". 최근 " + Y + "{w}초" + E + " 동안 적 챔피언 적중 1회마다 " + Y + "{s}%" + E + " 증가, " + O + "녹서스의 힘" + E +
-          " 상태에서 2배. 처치하면 초기화. 사거리 안의 챔피언을 처치할 수 있을 때나 " + O + "녹서스의 힘" + E + " 상태일 때만 사용합니다.",
+          " 상태에서 2배. 처치하면 초기화. 사거리 안의 챔피언을 처치할 수 있을 때만 사용합니다.",
     "ja": "【体力判定テスト版】" + O + "ノクサスギロチン" + E + "：敵チャンピオンに飛びかかり、" + W + "{b}" + E + " + " + ADi + O + "攻撃力の{r}%" + E +
           "の" + W + "確定ダメージ" + E + "。直近" + Y + "{w}秒" + E + "間の敵チャンピオンへの命中1回ごとに" + Y + "{s}%" + E + "増加、" + O +
-          "紅血の激昂" + E + "中は2倍。倒すとリセット。射程内のチャンピオンを倒せる時か" + O + "紅血の激昂" + E + "中にだけ使う。",
+          "紅血の激昂" + E + "中は2倍。倒すとリセット。射程内のチャンピオンを倒せる時にだけ使う。",
 }
 # the skill details panel's limits (lint_mod.TOOLTIP_MAX)
 TOOLTIP_MAX = {"zh-hans": 130, "zh-hant": 130, "en": 334, "ja": 147, "ko": 185}

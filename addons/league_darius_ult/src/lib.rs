@@ -1,13 +1,13 @@
-//! 诺手附加包：R「诺克萨斯断头台」只在一刀砍得死人、或诺克萨斯之力期间放（用户：「诺手总是在叠满血怒或敌人残血之前
-//! 就放大招，这种情况可以用"插件"（或脚本）来调整吗？」「诺手需要调整」）。
+//! 诺手附加包：R「诺克萨斯断头台」只在一刀砍得死人时放（用户：「诺手总是在叠满血怒或敌人残血之前就放大招，这种情况
+//! 可以用"插件"（或脚本）来调整吗？」「诺手需要调整」；0.1.2：「改成只在能斩杀时放大，血怒不再单独放行」）。
 //!
 //! 主包保持纯数据：数据读不到当前生命，诺手的 R 由 AI 对「队伍刚打过的敌方英雄」放出——R 一好、身边一开打就放，常常
 //! 层数还没叠、对方血还厚，一刀砍不死，R 白白进 50 秒冷却。本包的 AI 钩子 `league_darius_ult:ult` 读生命、护盾和诺手
 //! 身上的层数，照主包的数字算这一刀落下时的真实伤害（`plan.rs`）：
 //!
 //! - 射程内有人一刀砍得死（生命 + 护盾不高于伤害、身上没有免死）：放，几个时砍生命 + 护盾最少的；AI 没想放也放。
-//! - 诺克萨斯之力（满 5 层，伤害翻倍）撑得到落刀：放，照 AI 选的人（他有免死就换生命 + 护盾最少的）；AI 没想放也放。
-//! - 其余时候 AI 想放 R：改成普攻那个人（打不到就走过去），继续叠层。
+//! - 其余时候 AI 想放 R：改成普攻那个人（打不到就走过去），继续叠层。诺克萨斯之力（满 5 层）不单独放行，只让这一刀
+//!   伤害翻倍、更容易砍死人（0.1.1 及以前它期间谁都砍：诺手常对着八九成血的人起手，日志里 67 刀只砍死 2 个）。
 //!
 //! 层数只算撑得到落刀（放出后 `R_LAND` tick）的；落刀前诺克萨斯之力就没了，伤害按 0 层、攻击力去掉它的加成算。
 //! R 的伤害、击杀刷新、画面和声音全是主包的：`mod.override_info` 换上的副本只改了 R 的说明（开头【大招读血测试版】）。
@@ -147,7 +147,6 @@ fn ult(id: usize) -> InputV1 {
 fn why_text(why: Why) -> &'static str {
     match why {
         Why::Kill => "a kill",
-        Why::Might => "Noxian Might",
         Why::Wait | Why::Pass => "the AI",
     }
 }
@@ -319,7 +318,7 @@ impl StablePlayerAi for UltAi {
             // AI 的 R 没有目标（Darius 的 R 只点人，不该有）：不放行
             Plan::Keep if wants_ult && ai_target.is_none() => hold(self, ctx, None),
             Plan::Keep => {
-                if let (Some(x), Why::Kill | Why::Might) = (ai_target, why) {
+                if let (Some(x), Why::Kill) = (ai_target, why) {
                     let ehp = ehp_of(x).unwrap_or(0);
                     self.last_r = Some(Cast { tick, target: x, damage: landing(x), ehp, stacks, why, refreshed: false });
                 }
@@ -338,9 +337,8 @@ impl StablePlayerAi for UltAi {
                         (Some(x), None) => format!("retargeted from #{x}"),
                         (None, _) => "the AI had not cast it".to_string(),
                     };
-                    let kind = if why == Why::Kill { "KILL" } else { "MIGHT" };
                     wlog(format!(
-                        "{line} R {kind}: #{id} hp + shield {ehp} vs {} ({stacks} stacks, attack {}), {instead}",
+                        "{line} R KILL: #{id} hp + shield {ehp} vs {} ({stacks} stacks, attack {}), {instead}",
                         blow_on(id),
                         me.attack
                     ));
@@ -450,7 +448,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v{} (Darius's R only for a kill or under Noxian Might; his own kill before the blow refreshes it) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v{} (Darius's R only for a kill; his own kill before the blow refreshes it) loaded: game {}.{}.{} abi {} log={} ===",
         env!("CARGO_PKG_VERSION"),
         v.major,
         v.minor,
@@ -460,7 +458,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     ));
     module.add_player_input_ai(UltAi::default());
     module.add_native_passive(format!("{ID}:own_kill"), OwnKill::default());
-    host.log(LogLevel::Info, "league_darius_ult v1 loaded (Darius's R: only for a kill or under Noxian Might; his own kill before the blow refreshes it).");
+    host.log(LogLevel::Info, "league_darius_ult v1 loaded (Darius's R: only for a kill; his own kill before the blow refreshes it).");
 }
 
 #[cfg_attr(league_bundle, allow(dead_code))]
