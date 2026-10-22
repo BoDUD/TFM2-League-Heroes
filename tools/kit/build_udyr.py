@@ -21,7 +21,8 @@ already stands in its stance (a 2-tick `*_wk` flag says so, so the branch is wri
           target (`q_lit`): a splash of q2_dmg + q2_ratio% AD magic damage round it (q2_r).
   skill2  E Blazing Stampede (踏火蛮冲, the Ram, cooldown e_cd): a `Targeting` cast on `EnemyChampion` (e_range). e_ms%
           move speed for e_t ticks, he charges onto the champion (`MoveToTarget`) and his ramming blow stuns it
-          (e_stun ticks; League: the first attack on each target stuns 0.75 s): e_dmg + 100% AD. Awakened: e_ms2% and
+          (e_stun ticks; League: the first attack on each target stuns 0.75 s): e_dmg + 100% AD; the charge plays
+          e_charge (the ram's run with its fire trail drawn in). Awakened: e_ms2% and
           `cc_immune` for e_imm ticks (League: immune to immobilizing effects).
   ult     R Wingborne Storm (极凌飓风, the Phoenix, cooldown r_cd): a `Targeting` cast on `EnemyChampion` (r_range). A
           glacial storm whirls round him for r_t ticks (`r_storm`): every r_gap ticks r_dmg + r_ratio% AD magic damage
@@ -276,7 +277,7 @@ def build(p, native=False):
            view("e_hit"), tsfx("e_hit"), refresh("q_go", p["win_q"])]   # E -> Q
     land = [anim("e_stun", p["e_hit_dur"]), sfx("e_hit_swing"),
             delayed(p["e_hit"] - 1, alive(homing("e_ram", p["a_speed"], "EnemyChampion", ram)))]
-    charge = alive(anim("e_run", p["e_dash"]), sfx("e_dash"),
+    charge = alive(anim("e_charge", p["e_dash"]), sfx("e_dash"),
                    {"type": "MoveToTarget", "speed": p["e_speed"], "range": p["e_range"] + 20000, "end_effects": land})
     skill2 = action("skill2", p["e_dur"], p["e_cd"], 1, p["e_range"], "Targeting", "EnemyChampion",
                     combine(awake("st_e", "e_wk"),

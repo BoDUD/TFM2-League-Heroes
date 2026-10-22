@@ -1350,7 +1350,7 @@
                     "effects": [
                       {
                         "type": "CasterAnimation",
-                        "name": "e_run",
+                        "name": "e_charge",
                         "tick": 24
                       },
                       {

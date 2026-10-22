@@ -7,9 +7,12 @@ league_udyr_big.
 The source is the step-3 delivery (assets/source/udyr/codex_fx/udyr_fx: pixel_1x/udyr_fx_<name>.png, one row of equal
 frames each at game size, frame sizes in manifest.json's effects (cell_1x); alpha 0 / 255). The lightning ball and the
 released storm are projectiles (the game turns them to their flight: flying left they turn upside down, so they must be
-symmetric top to bottom); the forward pictures q_swipe and e_trail are drawn into his own frames (tools/fix/
-bake_caster_fx.py's way, after the action frames) and are not in the sheets; every other picture is symmetric left to
-right (the client never mirrors it on the red side) - all checked again here. Each frame is cut by the manifest's frame
+symmetric top to bottom); the forward pictures q_swipe and e_trail sit in league_udyr_fx too but no view plays them: the
+rig draws them into his own frames (assets/source/native/udyr_bake.json, ppu_rig.Rig.bake - they turn with him, the red
+side included); every other picture is symmetric left to right (the client never mirrors it on the red side) - all
+checked again here. A symmetric picture an even number of squares across gets its middle column (a projectile: its
+middle row) twice (import_shyvana_fx.odd: the game mirrors and turns about the pivot's square, so only an odd width lies
+even about it). Each frame is cut by the manifest's frame
 size and placed as the kit plays it (import_naafiri_fx.py's way): spots are game px from the pivot (x forward, y down); a
 unit's soles are 11 under it, a point's ground too. His own pictures are centred on his standing point (the middle of his
 belt's plaque). Which sheet an effect goes to is read from the kit's own views (build_udyr.build), so the two never
@@ -44,7 +47,7 @@ def lp(p):
 
 
 TB = {"q_bolt", "r_rel"}             # projectiles: turned to their flight by the game
-FORWARD = {"q_swipe", "e_trail"}     # drawn into his own frames (bake), not in the sheets
+FORWARD = {"q_swipe", "e_trail"}     # drawn into his own frames (bake), no view
 HIT = (0, -14)                       # a hit on the upper body of a 36-px unit
 SOLES = (0, 11)                      # on the ground under a unit or a point
 OVERHEAD = (0, -29)                  # over a 36-px unit's head
@@ -92,16 +95,22 @@ FX = {
     "r_storm": (("feet", 4), loop(6, 80), [HIM]),
     "r_slow": ("core", loop(4, 120), [SOLES]),
     "w_sh": (("feet", 2), loop(4, 110), [HIM]),
+    # drawn into his frames (udyr_bake.json): the bear's three claw streaks from his raking paw (the cell's left middle on
+    # the paw's sweep, in front of his chest), the ram's fire trail lying behind his feet (the cell's bottom right on them)
+    "q_swipe": (("pt", 0, 12), seq(range(3), [40, 50, 60]), [(17, -11)]),
+    "e_trail": (("pt", 35, 17), loop(4, 110), [(2, 11)]),
 }
 
 
 def sheets_of_kit():
-    """{effect: "league_udyr_fx" or "league_udyr_big"} as the kit's views name them."""
+    """{effect: "league_udyr_fx" or "league_udyr_big"} as the kit's views name them (the baked ones in the small sheet)."""
     kit = K.build(dict(P))
     out = {}
     for group in ("view_projectiles", "view_effects", "view_buffs"):
         for v in kit[group]:
             out[v["tag"]] = v["anim"].rsplit("/", 1)[1]
+    for name in FORWARD:
+        out[name] = "league_udyr_fx"
     return out
 
 
@@ -120,13 +129,27 @@ def cells(name, meta):
                 sys.exit(f"{name} frame {k + 1} is not symmetric {'top to bottom' if name in TB else 'left to right'}")
         if not c[..., 3].any():
             sys.exit(f"{name} frame {k + 1} is empty")
-    return out
+    return [odd(c, name) for c in out]
+
+
+def odd(c, name):
+    """A symmetric picture an even number of squares across gets its middle column (a projectile: its middle row)
+    twice (import_shyvana_fx.odd)."""
+    if name in FORWARD:
+        return c
+    ax = 0 if name in TB else 1
+    n_ = c.shape[ax]
+    if n_ % 2:
+        return c
+    return np.insert(c, n_ // 2, np.take(c, n_ // 2, axis=ax), axis=ax)
 
 
 def anchor(cell, kind):
     h, w = cell.shape[:2]
     if kind == "core":
         return [(w - 1) / 2, (h - 1) / 2]
+    if kind[0] == "pt":
+        return [kind[1], kind[2]]
     return [(w - 1) / 2, h - 1 - kind[1]]
 
 
@@ -144,8 +167,8 @@ def main():
     ap.add_argument("--review", help="write every effect's game-size cells at 6x here")
     a = ap.parse_args()
     meta = delivered()
-    if set(meta) != set(FX) | FORWARD:
-        sys.exit(f"delivered {sorted(meta)} against the importer's {sorted(set(FX) | FORWARD)}")
+    if set(meta) != set(FX):
+        sys.exit(f"delivered {sorted(meta)} against the importer's {sorted(FX)}")
     sheet_of = sheets_of_kit()
     if set(sheet_of) != set(FX):
         sys.exit(f"the kit's views {sorted(sheet_of)} against the importer's {sorted(FX)}")

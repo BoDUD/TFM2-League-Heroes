@@ -574,16 +574,19 @@ def main():
         return
     acts = frames(S)
     rig = S[""].rig
+    if a.review:
+        # the bear's claw streaks and the ram's charge with its fire trail (assets/source/native/udyr_bake.json, the
+        # pictures in league_udyr_fx: import_udyr_fx.py first) drawn into his frames: they turn with him
+        rig.review(rig.bake(acts), a.review)
+        return
     if a.zoom:
         os.makedirs(a.audit or ".", exist_ok=True)
         for spec in a.zoom.split(","):
             zoom(S, acts, spec, a.audit or ".")
     elif a.audit:
         audit(S, acts, a.audit, a.tags.split(",") if a.tags else None)
-    elif a.review:
-        rig.review(acts, a.review)
     else:
-        rig.export(acts)
+        rig.export(rig.bake(acts))
 
 
 if __name__ == "__main__":

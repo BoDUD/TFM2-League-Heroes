@@ -36,8 +36,9 @@ G = "<#7bd96bff>"      # healing, shields
 A = "<#ffb900ff>"      # durations, counts
 R = "<#ef5350ff>"      # crowd control
 E = "<>"
-# champion_view: provisional until the frames are exported (ppu_restyle's face_to and bp_card_audit set the final ones)
-VIEW = {"face": {"x": 3, "y": -22}, "center": {"x": 0, "y": -12}, "banpick_center": {"x": 0, "y": -8}}
+# champion_view: the face between his eyes (ppu_restyle's face_to: 2 game px ahead of his standing point, 33 over the
+# ground); the ban/pick card at base's rule for his height (tools/art/bp_card_audit.py: top -29.3 -> -10)
+VIEW = {"face": {"x": 2, "y": -33}, "center": {"x": 0, "y": -12}, "banpick_center": {"x": 0, "y": -10}}
 
 
 def phys(d, r):
