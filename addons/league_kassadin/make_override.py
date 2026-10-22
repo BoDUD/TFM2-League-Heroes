@@ -30,19 +30,19 @@ LEAD = {"zh-hans": "【附加包】", "zh-hant": "【附加包】", "en": "[Add-
 SWAP = {
     "zh-hans": {"attack": ("降低约10%", "正好降低10%"),
                 "skill2": ("每次施放虚无法球或虚空行走都会缩短它的冷却", "附近每有英雄施放技能（敌我都算）就缩短它的冷却"),
-                "ult": ("闪现到附近一名敌方英雄身边", "闪现到能击杀、或身边英雄最多的敌方后排身边（不进敌方塔下）")},
+                "ult": ("闪现到附近一名敌方英雄身边", "闪现到能击杀、或身边英雄最多的敌方后排身边（不进敌方塔下）；附近没有敌方英雄时也对小兵放，闪进兵堆清兵")},
     "zh-hant": {"attack": ("降低約10%", "正好降低10%"),
                 "skill2": ("每次施放虛無法球或虛空行走都會縮短它的冷卻", "附近每有英雄施放技能（敵我都算）就縮短它的冷卻"),
-                "ult": ("閃現到附近一名敵方英雄身邊", "閃現到能擊殺、或身邊英雄最多的敵方後排身邊（不進敵方塔下）")},
+                "ult": ("閃現到附近一名敵方英雄身邊", "閃現到能擊殺、或身邊英雄最多的敵方後排身邊（不進敵方塔下）；附近沒有敵方英雄時也對小兵放，閃進兵堆清兵")},
     "en": {"attack": ("about 10% less", "exactly 10% less"),
            "skill2": ("Each Null Sphere or Riftwalk he casts shortens its cooldown", "Every spell any champion casts near him shortens its cooldown"),
-           "ult": ("Blinks next to a nearby enemy champion", "Blinks next to the enemy he can kill, else the back liner with most champions round it (never under a tower)")},
+           "ult": ("Blinks next to a nearby enemy champion", "Blinks next to the enemy he can kill, else the back liner with most champions round it (never under a tower); with no enemy champion near, into a minion wave to clear it")},
     "ko": {"attack": ("약 10% 감소", "정확히 10% 감소"),
            "skill2": ("무의 구체나 균열 이동을 쓸 때마다 재사용 대기시간 감소", "근처에서 챔피언이 스킬을 쓸 때마다(아군·적 모두) 재사용 대기시간 감소"),
-           "ult": ("근처 적 챔피언 옆으로 순간이동해", "처치할 수 있는 적, 없으면 주변 챔피언이 가장 많은 적 후열 옆으로 순간이동해(포탑 아래 제외)")},
+           "ult": ("근처 적 챔피언 옆으로 순간이동해", "처치할 수 있는 적, 없으면 주변 챔피언이 가장 많은 적 후열 옆으로 순간이동해(포탑 아래 제외; 근처에 적 챔피언이 없으면 미니언 무리 속으로)")},
     "ja": {"attack": ("約10%軽減", "ちょうど10%軽減"),
            "skill2": ("ヴォイドスフィアかリフトウォークを使うたびCD短縮", "近くで誰かがスキルを使うたび（敵味方とも）CD短縮"),
-           "ult": ("近くの敵チャンピオンの傍へ瞬間移動し", "倒せる敵、いなければ周りの敵が最も多い後衛の傍へ瞬間移動し（塔下は除く）")},
+           "ult": ("近くの敵チャンピオンの傍へ瞬間移動し", "倒せる敵、いなければ周りの敵が最も多い後衛の傍へ瞬間移動し（塔下は除く；近くに敵チャンピオンがいなければミニオンの群れへ）")},
 }
 
 
