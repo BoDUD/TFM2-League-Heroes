@@ -106,6 +106,9 @@ def hat_area(d):
 
 
 RIFLE_BAND = 3.5                        # squares either side of Codex's rifle line taken as its rifle
+HEADC = SKIN + [(251, 250, 251), (223, 227, 242), (6, 73, 167), (208, 37, 56), (212, 115, 84)] +     [(87, 36, 144), (64, 49, 168), (59, 16, 86), (74, 25, 111), (49, 41, 137), (47, 12, 65), (40, 39, 98),
+     (35, 33, 79), (22, 12, 44)]          # her face (skin, eye whites, eyes, lips), hat and hair
+HEAD_SIDE = 4                           # squares either side of her face still counted as her head
 RIFLE_WIDE = 6.0                        # ... and its pieces running on from the band, at most this far
 CRUMB = 12
 BODY_MIN = 40                           # squares: smaller pieces off her body are leftovers
@@ -205,7 +208,24 @@ def straighten(d, aim=None):
     Y, X = ys_ + y0, xs_ + x0
     ok = (Y >= 0) & (Y < H) & (X >= 0) & (X < Wd)
     Y, X, ys_, xs_ = Y[ok], X[ok], ys_[ok], xs_[ok]
-    keep = ~hands[Y, X]
+    # her head over the rifle (the user on Riven: 「武器挥打遮挡脸部？」): above her chin, her face, hair and hat stay
+    head = np.zeros((H, Wd), bool)
+    skin = np.zeros((H, Wd), bool)
+    for c in SKIN:
+        skin |= (a[..., :3] == c).all(-1) & (a[..., 3] > 0)
+    if skin.any():
+        lab_, n_ = nd.label(skin)
+        face = lab_ == (np.argmax(nd.sum(skin, lab_, range(1, n_ + 1))) + 1)
+        chin = np.nonzero(face)[0].max()
+        cols = np.zeros((H, Wd), bool)
+        for c in HEADC:
+            cols |= (a[..., :3] == c).all(-1)
+        fx_ = np.nonzero(face)[1]
+        span = (xx >= fx_.min() - HEAD_SIDE) & (xx <= fx_.max() + HEAD_SIDE)
+        head = cols & (yy <= chin) & span & (a[..., 3] > 0) & ~old
+        # the outline round those squares too
+        head |= nd.binary_dilation(head, iterations=1) & dark & (yy <= chin + 1) & ~old
+    keep = ~hands[Y, X] & ~head[Y, X]
     out[Y[keep], X[keep]] = im[ys_[keep], xs_[keep]]
     new[Y, X] = True
     # the old rifle's squares left bare: inside her outline filled from their neighbours, outside left clear

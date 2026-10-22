@@ -238,6 +238,10 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // and death posed after League's clips by tools/art/rig_riven_hd.py, her three attacks (taking turns), Broken Wings
     // and Valor Codex's whole-frame redraws (tools/art/actions_riven_hd.py); PPU 1.5 at her old 40 rows, so no SIZES row
     ("league_riven", 1.5, include_str!("../../../league/champions/league_riven#anim.fanim")),
+    // Caitlyn (2026-10-23): Codex's design picture (assets/source/caitlyn/PICTURE_PROMPT_PPU.md) read back on its own
+    // grid (54 x 65), her actions Codex's whole-frame redraws (pack_caitlyn_actions.py) with the rifle drawn straight
+    // square by square (rifle_caitlyn.py), stood by tools/art/rig_caitlyn_hd.py; PPU 1.45 at her old 45 rows
+    ("league_caitlyn", 1.45, include_str!("../../../league/champions/league_caitlyn#anim.fanim")),
     // Yunara: PPU 1.5 (the user's pick), posed from the design's own squares at that density by tools/art/rig_yunara.py
     // (40 game rows ornaments to soles), so no SIZES row
     ("league_yunara", 1.5, include_str!("../../../league/champions/league_yunara#anim.fanim")),

@@ -693,7 +693,7 @@ class Rig:
         w, h = G.write_sheet(ppu_hd.stem_of(hero), sheet)
         print(f"{ppu_hd.hero_id(hero)}#sheet.png {w}x{h}: " + ", ".join(f"{t} {len(f)}" for t, f in sheet.items()))
 
-    def bake(self, frames, hero=None):
+    def bake(self, frames, hero=None, cfg=None):
         """assets/source/native/<hero>_bake.json applied to the rig's frames the way tools/art/import_native.bake
         applies it to a 1x sheet (the effects drawn into the old frames keep their timing: 「特效还是老样子」): each
         effect frame brought to PPU (nearest) and laid centred on the pivot into an "over" or "under" layer; an item's
@@ -701,8 +701,9 @@ class Rig:
         frames {tag: [(canvas, ms)]} -> {tag: [({"body", "over", "under"}, ms)]}, the `from` copies made too."""
         import tfm2_ase
         hero = hero or self.D.hero
-        with open(lp(os.path.join(ROOT, "assets", "source", "native", f"{hero}_bake.json")), encoding="utf-8") as f:
-            cfg = json.load(f)
+        if cfg is None:                     # (cfg: the bake table already read - league_caitlyn moves its flashes after)
+            with open(lp(os.path.join(ROOT, "assets", "source", "native", f"{hero}_bake.json")), encoding="utf-8") as f:
+                cfg = json.load(f)
         ppu = self.D.ppu
         out = {t: [({"body": c, "over": None, "under": None}, ms) for c, ms in fr] for t, fr in frames.items()}
         src = {e["into"]: e["from"] for e in cfg["items"] if "from" in e}
