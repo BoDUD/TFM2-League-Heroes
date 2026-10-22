@@ -13,6 +13,9 @@ count, so each is cut, the design-tryndamere way (design_gnar_model's): its own 
 rows then columns dropped to the count (keep_axis: least loss, never the face's rows / columns - brows, eyes, the mouth
 and the teeth), the width in proportion, strips.complete_outline with the face kept. The written set shares one
 palette (K colours by k-means over the picks' read-backs together).
+All Out is cut to 56 rows, not 73: O-1's body came out ~1.31x the base's (eye to beard 10 / 7 squares, shoulders 35 / 27,
+pauldron 12 / 10, hair 29 / 22 - step 0 matched the boxes WITH the ntofos, and Codex drew All Out with the ntofos down,
+so the body filled the box); at 56 rows his body is the base's size (the user: 「全盛裁到 56 格，和普通姿态身体一样大」).
 """
 import argparse
 import os
@@ -39,7 +42,8 @@ PICKS = {"idle": "A-2", "ao_idle": "O-1"}   # the user's picks, 2026-10-22: 「�
 DRAFTS = {
     "A-1": ("A-1", 15.0, 72, range(18, 29), range(30, 47)),
     "A-2": ("A-2", 15.0, 72, range(16, 26), range(30, 46)),
-    "O-1": ("O-1", 9.6, 73, range(13, 24), range(60, 76)),
+    "O-1": ("O-1", 9.6, 56, range(13, 24), range(60, 76)),
+    "O-1 73": ("O-1", 9.6, 73, range(13, 24), range(60, 76)),
     "O-2": ("O-2", 9.6, 73, range(13, 24), range(60, 77)),
 }
 
