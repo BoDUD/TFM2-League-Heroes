@@ -24,6 +24,23 @@ pub enum Spell {
 }
 
 impl Spell {
+    /// 地上的法术碎片轮流闪的次序（`ss_<key>`）。
+    pub const ALL: [Spell; 7] =
+        [Spell::Flash, Spell::Ignite, Spell::Exhaust, Spell::Heal, Spell::Barrier, Spell::Ghost, Spell::Cleanse];
+
+    /// 画面的名字：`league_zoe_sg_<key>`（放的时候地上亮的图标）、`league_zoe_ss_<key>`（碎片上的图标）。
+    pub fn key(self) -> &'static str {
+        match self {
+            Spell::Cleanse => "cleanse",
+            Spell::Flash => "flash",
+            Spell::Heal => "heal",
+            Spell::Ignite => "ignite",
+            Spell::Exhaust => "exhaust",
+            Spell::Barrier => "barrier",
+            Spell::Ghost => "ghost",
+        }
+    }
+
     pub fn name(self) -> &'static str {
         match self {
             Spell::Cleanse => "Cleanse",
@@ -100,6 +117,39 @@ pub fn roll(seed: u64, tick: usize, me: usize) -> u64 {
     z ^ (z >> 31)
 }
 
+/// 闪现的距离（创意工坊 Summoner Spells 的 4.5 格；英雄联盟 400，她射程 550 的七成多）。
+pub const FLASH_D: f64 = 45_000.0;
+
+/// 闪现的落点：从 `me` 背着贴脸的人 `from` 闪 [`FLASH_D`]（和英雄联盟一样能越过墙）；落在墙里或地图外就依次转
+/// ±30°、±60°、±90° 再试，都不行再缩到一半距离试一遍；还不行就不闪（`None`）。墙是 5v5 的格子（`maps.rs`）。
+pub fn flash_spot(me: (u64, u64), from: (u64, u64)) -> Option<(u64, u64)> {
+    let (mx, my) = (me.0 as f64, me.1 as f64);
+    let (dx, dy) = (mx - from.0 as f64, my - from.1 as f64);
+    let l = (dx * dx + dy * dy).sqrt();
+    let base = if l > 1.0 { dy.atan2(dx) } else { 0.0 };
+    for d in [FLASH_D, FLASH_D / 2.0] {
+        for turn in [0.0, 30.0, -30.0, 60.0, -60.0, 90.0, -90.0f64] {
+            let a = base + turn.to_radians();
+            let (x, y) = (mx + d * a.cos(), my + d * a.sin());
+            if !is_wall(x, y) {
+                return Some((x.round() as u64, y.round() as u64));
+            }
+        }
+    }
+    None
+}
+
+/// 5v5 的碰撞墙：`MOBA[y]` 第 x 个字符是 `#` 为墙，每格 32000；地图外也算墙（league_corki 的读法）。
+pub fn is_wall(x: f64, y: f64) -> bool {
+    const MAP: f64 = 960_000.0;
+    const CELL: f64 = 32_000.0;
+    if x < 0.0 || y < 0.0 || x >= MAP || y >= MAP {
+        return true;
+    }
+    let (cx, cy) = ((x / CELL) as usize, (y / CELL) as usize);
+    super::maps::MOBA.get(cy).and_then(|row| row.as_bytes().get(cx)).is_none_or(|c| *c == b'#')
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -112,6 +162,28 @@ mod tests {
     #[test]
     fn low_and_dived_flashes_low_alone_heals() {
         assert_eq!(pick(0.2, false, &[(1, 20_000, 1.0)], &[], 0), (Spell::Flash, Some(1), "low with a champion on her"));
+    }
+
+    #[test]
+    fn flash_jumps_away_from_the_one_on_her_and_never_into_a_wall() {
+        // open ground in the middle of the map: straight away, the whole distance
+        let me = (480_000, 470_000);
+        let to = flash_spot(me, (460_000, 470_000)).unwrap();
+        assert_eq!(to, (525_000, 470_000));
+        // every spot it gives is on open ground
+        for y in (40_000..920_000).step_by(37_000) {
+            for x in (40_000..920_000).step_by(41_000) {
+                if is_wall(x as f64, y as f64) {
+                    continue;
+                }
+                if let Some(t) = flash_spot((x, y), (x + 10_000, y + 3_000)) {
+                    assert!(!is_wall(t.0 as f64, t.1 as f64), "{x},{y} -> {t:?}");
+                }
+            }
+        }
+        // the map's corner: away from it is off the map, so it turns
+        let t = flash_spot((30_000, 30_000), (60_000, 60_000)).unwrap();
+        assert!(t.0 < 960_000 && t.1 < 960_000);
         assert_eq!(pick(0.2, false, &[(1, 50_000, 1.0)], &[], 0).0, Spell::Heal);
     }
 

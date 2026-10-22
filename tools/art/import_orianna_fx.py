@@ -93,7 +93,8 @@ BIG = {"w_ring", "r_wave"}
 
 HIT = (0, -14)                  # a hit on the upper body of a 34-46 px unit
 SOLES = (0, 11)                 # on the ground under a unit or a point
-BALL_AT = (12, -9)              # the Ball beside a champion: 12 px ahead of the feet's middle, 20 over the ground
+BALL_AT = (17, -9)              # the Ball beside a champion: 17 px ahead of the feet's middle, 20 over the ground (12 covered
+                                # her face as she ran: 「奥利安娜走路的时候球有点挡脸了」 - 17 clears her idle and run)
 EMPTY = J.EMPTY
 seq = J.seq
 

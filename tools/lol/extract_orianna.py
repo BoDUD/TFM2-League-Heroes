@@ -35,18 +35,19 @@ VO_BANK = "assets/sounds/wwise2016/vo/en_us/characters/orianna/skins/base/oriann
 P = "Play_sfx_Orianna_Orianna"
 V = "Play_vo_Orianna_Oriana"
 
-# clip name -> (event, media id picked among the event's variants, max seconds, peak dBFS)
+# clip name -> (event, media id picked among the event's variants, max seconds, peak dBFS); the sfx 8 dB up from the first
+# take (the user, 2026-10-22: 「技能音效好像也没有」 - her skills peaked at -9..-18 dBFS under 0.5 volume, Lux's at -1..-6)
 CLIPS = {
-    "league_orianna_sfx_a_shot": (P + "BasicAttack_OnMissileLaunch", 177148774, 0.6, -15),
-    "league_orianna_sfx_a_hit": (P + "Izuna_hit", 450485132, 0.5, -18),
-    "league_orianna_sfx_q": (P + "BallFlash_buffactivate", 495431216, 0.6, -13),
-    "league_orianna_sfx_q_land": (P + "Izuna_buffdeactivate", 324184509, 0.8, -12),
-    "league_orianna_sfx_q_hit": (P + "Izuna_hit", 580182307, 0.6, -12),
-    "league_orianna_sfx_w": (P + "DissonanceCommand_buffactivate", 206112779, 1.6, -10),
-    "league_orianna_sfx_e": (P + "BallFlash_buffactivate", 638901323, 0.6, -12),
-    "league_orianna_sfx_e_shield": (P + "BallFlash_buffactivate", 369648006, 0.6, -14),
-    "league_orianna_sfx_r": (P + "DetonateCommand_buffactivate", 1036935980, 1.6, -9),
-    "league_orianna_sfx_r_hit": (P + "DissonanceCommand_hit", 969388321, 0.8, -11),
+    "league_orianna_sfx_a_shot": (P + "BasicAttack_OnMissileLaunch", 177148774, 0.6, -7),
+    "league_orianna_sfx_a_hit": (P + "Izuna_hit", 450485132, 0.5, -10),
+    "league_orianna_sfx_q": (P + "BallFlash_buffactivate", 495431216, 0.6, -5),
+    "league_orianna_sfx_q_land": (P + "Izuna_buffdeactivate", 324184509, 0.8, -4),
+    "league_orianna_sfx_q_hit": (P + "Izuna_hit", 580182307, 0.6, -4),
+    "league_orianna_sfx_w": (P + "DissonanceCommand_buffactivate", 206112779, 1.6, -2),
+    "league_orianna_sfx_e": (P + "BallFlash_buffactivate", 638901323, 0.6, -4),
+    "league_orianna_sfx_e_shield": (P + "BallFlash_buffactivate", 369648006, 0.6, -6),
+    "league_orianna_sfx_r": (P + "DetonateCommand_buffactivate", 1036935980, 1.6, -2),
+    "league_orianna_sfx_r_hit": (P + "DissonanceCommand_hit", 969388321, 0.8, -3),
     "league_orianna_sfx_vo_q": (V + "IzunaCommand_cast3D", 3424654660, 1.6, -6),
     "league_orianna_sfx_vo_w": (V + "DissonanceCommand_cast3D", 992317345, 1.6, -6),
     "league_orianna_sfx_vo_e": (V + "RedactCommand_cast3D", 119979127, 1.6, -6),

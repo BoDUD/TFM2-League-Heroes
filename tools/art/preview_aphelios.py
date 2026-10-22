@@ -59,7 +59,14 @@ def showcase(out, z=3, step=40):
 
     def a(tag, dur=None, loop=False):
         nonlocal t
-        an = Anim(dense(sp, tag, "aphelios", z), t, 0, 0, loop=loop, until=(t + dur) if dur else None)
+        frames = dense(sp, tag, "aphelios", z)
+        total = sum(ms for _, ms in frames)
+        if dur and not loop and dur > total + 1:
+            # a strip shorter than its action (the attacks: 350 ms in a 400 ms swing): the idle for the rest - not
+            # nothing (the first showcase lost him for 50 ms after every shot)
+            a(tag, total)
+            return a("idle", dur - total, loop=True)
+        an = Anim(frames, t, 0, 0, loop=loop, until=(t + dur) if dur else None)
         an.pos = me.pos
         body.append(an)
         t = an.until

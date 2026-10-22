@@ -1,110 +1,102 @@
 #!/usr/bin/env python3
-"""Zoe's actions (tools/art/rig_zoe.py) beside League's own clips, one GIF per tag for the user's review.
+"""Zoe's actions as the game shows them (the sheet's hd_ frames: tools/art/rig_zoe.py -> ppu_restyle.py -> ppu_hd.py)
+beside League's own clips, in ONE GIF for the user's review (memory one-gif-review), then the showcase
+(tools/art/preview_zoe.py: the stars, the bubble, the portals in a scripted fight).
 
-    python tools/art/review_zoe_actions.py --out DIR [--lol D:/WeGameApps/lol] [--z 4] [--tags attack,skill]
+    python tools/art/review_zoe_actions.py --out DIR [--z 3]
 
-For each tag: League's clip (pose_ref.py, Riot's model - the renders stay in DIR, never committed) sampled at as many
-frames as the tag has, spread over the clip's part named in CLIPS, next to the rig's frame at z screen px a design
-square, both at the tag's own frame times. Writes <out>/zoe_<tag>_vs_lol.gif and <out>/zoe_<tag>_vs_lol.png,
-and <out>/zoe_all_vs_lol.gif: every tag in turn (each played twice), one picture to review (memory one-gif-review).
-League's renders leave out her props (jump rope, paddle, yo-yo, ice cream); the side view is yaw +15 on her model
-(-25 for the 3/4 idle).
+League's frames are rig_zoe.lol_strip's: her clip at the very beat each of our frames stands for (rig_zoe.LOL;
+pose_ref.py, Riot's model - local only, never committed), side-on (yaw +15, mirrored) at chibi proportions, her props
+left out. Every tag plays twice with its name over it; the hit has no League clip (ours alone). Writes
+DIR/zoe_review.gif.
 """
 import argparse
+import json
 import os
-import subprocess
 import sys
 
-import numpy as np
-from PIL import Image, ImageDraw
+from PIL import Image, ImageDraw, ImageFont
 
 HERE = os.path.dirname(os.path.abspath(__file__))
+ROOT = os.path.dirname(os.path.dirname(HERE))
 sys.path.insert(0, HERE)
-import ppu_rig as R  # noqa: E402
 import rig_zoe as Z  # noqa: E402
 
-# tag -> (League's clip, from s, to s) - the part of the clip the tag shows
-CLIPS = {"idle": ("Zoe_Idle1", 0, 2.0), "run": ("Zoe_Run1", 0, 1.33), "attack": ("Zoe_attack1", 0, 0.8),
-         "attack_p": ("Zoe_Empowered_Attack", 0, 0.9), "skill": ("Spell1_base", 0, 0.76),
-         "skill2": ("Zoe_Spell3", 0, 0.7), "ult": ("Zoe_spell4_enter", 0, 0.83), "skill_w": ("Zoe_spell2_missile", 0, 0.5),
-         "ult_exit": ("Zoe_Spell4_Exit", 0, 0.2), "ult_back": ("Zoe_Spell4_B", 0, 0.8),
-         "hit": ("Zoe_Idle1", 0, 0.1), "dead": ("Zoe_Death", 0, 2.4)}
-YAW = {"idle": -25}
-PROPS = ["Zoe_Base_Jumprope_Mat", "Zoe_Base_TennisRac_Mat", "Zoe_Base_Yoyo_Mat", "Zoe_Base_IceCream_Mat"]
-BG = (96, 112, 96)
+STEM = os.path.join(ROOT, "league", "champions", "league_zoe")
+SHOWCASE = os.path.join(ROOT, "docs", "preview", "league_zoe_showcase.gif")
+BOX = (-45, -88, 45, 4)                 # squares round the standing point / the row under the soles
+BG = (92, 98, 86)
 
 
-def lol_frames(lol, tag, n, out):
-    clip, t0, t1 = CLIPS[tag]
-    name = f"lol_{tag}"
-    cmd = [sys.executable, os.path.join(R.ROOT, "tools", "lol", "pose_ref.py"), "--lol", lol, "--champ", "Zoe",
-           "--anim", clip, "--frames", str(n), "--t0", str(t0), "--t1", str(t1), "--mirror",
-           *[x for p in PROPS for x in ("--hide-submesh", p)], "--yaw", str(YAW.get(tag, 15)), "--size", "300", "--no-labels", "--out", out]
-    subprocess.run(cmd, check=True, capture_output=True)
-    strip = Image.open(os.path.join(out, clip + ".png")).convert("RGB")
-    os.replace(os.path.join(out, clip + ".png"), os.path.join(out, name + ".png"))
-    w = strip.width // n
-    return [strip.crop((i * w, 0, (i + 1) * w, strip.height)) for i in range(n)]
+def hd_frames(tag):
+    anims = json.load(open(Z.lp(STEM + "#anim.fanim"), encoding="utf-8-sig"))["anims"]
+    sheet = Image.open(Z.lp(STEM + "#sheet.png")).convert("RGBA")
+    out = []
+    for f in anims["hd_" + tag]["frames"]:
+        d = f["data"]
+        out.append((sheet.crop((int(d["x"]), int(d["y"]), int(d["x"] + d["w"]), int(d["y"] + d["h"]))),
+                    int(round(f["duration"] * 1000))))
+    return out
+
+
+def ours(frame, z):
+    """An hd frame (its pivot at its middle, the soles' bottom edge FEET x PPU under it) on the review box."""
+    x0, y0, x1, y1 = BOX
+    can = Image.new("RGBA", ((x1 - x0) * z, (y1 - y0) * z), (*BG, 255))
+    big = frame.resize((frame.width * z, frame.height * z), Image.NEAREST)
+    px = (-x0) * z - frame.width / 2 * z
+    py = (-y0) * z - (frame.height / 2 + 11.5 * Z.PPU) * z
+    can.alpha_composite(big, (int(round(px)), int(round(py))))
+    return can.convert("RGB")
 
 
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", required=True)
-    ap.add_argument("--lol", default=r"D:\WeGameApps\lol")
-    ap.add_argument("--z", type=int, default=4)
-    ap.add_argument("--tags")
+    ap.add_argument("--z", type=int, default=3)
     a = ap.parse_args()
     os.makedirs(a.out, exist_ok=True)
-    F = Z.form()
-    acts = Z.frames(F)
-    tags = a.tags.split(",") if a.tags else list(acts)
-    every = []
-    allc = np.concatenate([np.stack([F.rig.finish(c) for c, _ in fr]) for fr in acts.values()])
-    ys, xs = np.nonzero(allc[..., 3].max(0) > 0)
-    y0, y1, x0, x1 = ys.min() - 2, ys.max() + 3, xs.min() - 2, xs.max() + 3
-    for tag in tags:
-        fr = acts[tag]
-        lol = lol_frames(a.lol, tag, len(fr), a.out)
-        cells = []
-        for (can, ms), ref in zip(fr, lol):
-            f = F.rig.finish(can)[y0:y1, x0:x1]
-            bg = Image.new("RGBA", (f.shape[1], f.shape[0]), BG + (255,))
-            bg.alpha_composite(Image.fromarray(f))
-            ours = bg.convert("RGB").resize((f.shape[1] * a.z, f.shape[0] * a.z), Image.NEAREST)
-            k = ours.height / ref.height
-            ref = ref.resize((round(ref.width * k), ours.height), Image.LANCZOS)
-            cell = Image.new("RGB", (ref.width + ours.width + 8, ours.height + 18), (40, 40, 40))
-            cell.paste(ref, (0, 18))
-            cell.paste(ours, (ref.width + 8, 18))
-            d = ImageDraw.Draw(cell)
-            d.text((4, 3), f"League {CLIPS[tag][0]}", fill=(230, 230, 230))
-            d.text((ref.width + 12, 3), f"ours: {tag}", fill=(230, 230, 230))
-            cells.append((cell, ms))
-        gif = os.path.join(a.out, f"zoe_{tag}_vs_lol.gif")
-        q = [c.quantize(255, dither=Image.Dither.NONE) for c, _ in cells]
-        q[0].save(gif, save_all=True, append_images=q[1:], duration=[int(ms) for _, ms in cells], loop=0)
-        w, h = cells[0][0].size
-        sheet = Image.new("RGB", (w, h * len(cells)), (40, 40, 40))
-        for i, (c, _) in enumerate(cells):
-            sheet.paste(c, (0, i * h))
-        sheet.save(os.path.join(a.out, f"zoe_{tag}_vs_lol.png"))
-        every += cells * 2
-        print(gif)
-    W = max(c.width for c, _ in every)
-    H = max(c.height for c, _ in every)
-    frames = []
-    for c, ms in every:
-        full = Image.new("RGB", (W, H), (40, 40, 40))
-        full.paste(c, (0, 0))
-        frames.append((full, ms))
-    pal = Image.new("RGB", (W, H * 4))
-    for i, (c, _) in enumerate(frames[::max(1, len(frames) // 4)][:4]):
-        pal.paste(c, (0, i * H))
-    pal = pal.quantize(255, dither=Image.Dither.NONE)
-    q = [c.quantize(palette=pal, dither=Image.Dither.NONE) for c, _ in frames]
-    path = os.path.join(a.out, "zoe_all_vs_lol.gif")
-    q[0].save(path, save_all=True, append_images=q[1:], duration=[int(ms) for _, ms in frames], loop=0)
-    print(path)
+    z = a.z
+    font = ImageFont.truetype("C:/Windows/Fonts/msyh.ttc", 20)
+    small = ImageFont.truetype("C:/Windows/Fonts/msyh.ttc", 15)
+    w, h = (BOX[2] - BOX[0]) * z, (BOX[3] - BOX[1]) * z
+    frames, durs = [], []
+    for tag in Z.TAGS:
+        hd = hd_frames(tag)
+        lol = [im.resize((w, int(im.height * w / im.width))) for im in Z.lol_strip(tag)] if tag in Z.LOL else None
+        for rep in range(2):
+            for i, (fr, ms) in enumerate(hd):
+                im = Image.new("RGB", (2 * w + 12, h + 58), (30, 30, 30))
+                if lol:
+                    t = lol[i % len(lol)]         # (the idle is a reel now: frame 0 held, snippets of her actions)
+                    im.paste(t.crop((0, max(0, t.height - h), w, t.height)), (0, 58 + max(0, h - t.height)))
+                else:
+                    ImageDraw.Draw(im).text((20, 58 + h // 2), "（英雄联盟没有对应动作）", fill=(170, 170, 170), font=small)
+                im.paste(ours(fr, z), (w + 12, 58))
+                d = ImageDraw.Draw(im)
+                d.text((12, 8), f"{Z.NAMES[tag]}  {i + 1}/{len(hd)}", fill=(255, 240, 160), font=font)
+                d.text((12, 34), "英雄联盟", fill=(200, 200, 200), font=small)
+                d.text((w + 24, 34), "我们的（游戏里的高清帧）", fill=(200, 200, 200), font=small)
+                frames.append(im)
+                durs.append(max(20, ms))
+    sc = Image.open(Z.lp(SHOWCASE))
+    W, H = frames[0].size
+    title = Image.new("RGB", (W, H), (30, 30, 30))
+    ImageDraw.Draw(title).text((20, H // 2 - 20), "实战演示：特效没动，换上新的动作帧", fill=(255, 240, 160), font=font)
+    frames.append(title)
+    durs.append(1200)
+    k = W / sc.width
+    for i in range(sc.n_frames):
+        sc.seek(i)
+        f = sc.convert("RGB").resize((W, int(round(sc.height * k))), Image.NEAREST)
+        im = Image.new("RGB", (W, H), (30, 30, 30))
+        im.paste(f, (0, (H - f.height) // 2))
+        frames.append(im)
+        durs.append(sc.info.get("duration", 60))
+    pal = [f.quantize(255, dither=Image.Dither.NONE) for f in frames]
+    path = os.path.join(a.out, "zoe_review.gif")
+    pal[0].save(path, save_all=True, append_images=pal[1:], duration=durs, loop=0)
+    print(path, len(frames), "frames")
 
 
 if __name__ == "__main__":

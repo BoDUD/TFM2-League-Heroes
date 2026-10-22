@@ -17,6 +17,10 @@
 //!   飞弹那一刻 = 身上的 `league_zoe_w_haste` 刚挂上，或捡起碎片时）先放一个召唤师技能，再射原来的飞弹：按局面挑（`summon.rs`：
 //!   被控净化、残血被贴脸闪现、残血或队友快死治疗、敌人快死点燃、被贴脸虚弱、打架掉血屏障、附近没人幽灵疾步），都不是就在
 //!   点燃 / 虚弱 / 屏障 / 幽灵疾步里随机（比赛的种子定，两份模拟一样）。数字在下面的 `S_*`。日志 `SUMMON`。
+//!   画面（0.3.0，用户：「加啊」「地面上最好也要有图标显示」）：放的时候她脚下的地上亮起那个技能的图标
+//!   （`league_zoe_sg_<技能>`）；闪现在她和被弹开的人身上一闪（`s_flash`），净化一道光环从脚扫到头（`s_cleanse`），屏障一个金色
+//!   气泡（`s_barrier`），治疗、点燃、虚弱、幽灵疾步是它们 buff 的画面；地上的碎片每次重画换一个图标（`ss_<技能>`，七个轮流），
+//!   捡起来才按局面定是哪个。图在 `league_zoe_spells`（tools/art/draw_zoe_spells.py）。
 //!
 //! 游戏 0.6.4 的 `deal_damage_typed` 只把伤害排进效果队列，下一次 on_update 之前才扣血：昏睡者被打醒的那一下补的真实伤害
 //! 落下时他已经醒了，不会再算一次（莉莉娅 0.1.2 的教训）。
@@ -33,11 +37,12 @@ use std::sync::{LazyLock, Mutex};
 
 use mod_api_stable::*;
 
+mod maps;
 pub mod summon;
 
 const ID: &str = "league_zoe";
 /// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是 league_addons 的。
-const VERSION: &str = "0.2.0";
+const VERSION: &str = "0.3.0";
 /// 场上最多同时留几块碎片（多了丢最早的）。
 const MAX_SHARDS: usize = 3;
 /// 碎片的画面多少 tick 重放一次（画面 4 帧 x 约 100 ms）。
@@ -47,28 +52,27 @@ const Q_WINDOW: usize = 60;
 /// 大招冷却从 0 跳到多少以上算放了大招。
 const ULT_JUMP: usize = 60;
 
-// 召唤师技能的数字（0.2.0）。点燃：每 S_IGN_PER tick 一跳、共 S_IGN_N 跳真实伤害 S_IGN_DMG + S_IGN_AP% 法强，期间受治疗
-// -S_IGN_CUT%；虚弱：移速 / 攻击 / 法强 -S_EXH%，S_EXH_T tick；治疗：S_HEAL + S_HEAL_AP% 法强（她和快死的队友），移速
-// +S_HEAL_MS% S_HEAL_MS_T tick；屏障：护盾 S_BAR + S_BAR_AP% 法强，S_BAR_T tick；幽灵疾步：移速 +S_GHOST% S_GHOST_T tick；
-// 闪现：从贴脸的人身边被推开 S_FLASH_SPEED x S_FLASH_T（引擎的击退：会停在墙边）；净化：解除控制。
+// 召唤师技能的数字（0.3.0 照创意工坊的 Summoner Spells 对齐，用户：「创意工坊里面有双召mod你直接参考」；它照英雄联盟）。
+// 点燃：每 S_IGN_PER tick 一跳、共 S_IGN_N 跳真实伤害 S_IGN_DMG + S_IGN_AP% 法强，期间受治疗 -S_IGN_CUT%；虚弱：移速
+// -S_EXH_SLOW%，攻击 / 法强（造成的伤害）-S_EXH_DMG%，S_EXH_T tick；治疗：S_HEAL + S_HEAL_AP% 法强（她和快死的队友），移速
+// +S_HEAL_MS% S_HEAL_MS_T tick；屏障：护盾最大生命的 S_BAR_PCT%，S_BAR_T tick；幽灵疾步：移速 +S_GHOST% S_GHOST_T tick；
+// 闪现：自己瞬移 summon::FLASH_D，背着贴脸的人（summon::flash_spot 挑不在墙里的落点）；净化：解除控制。
 const S_IGN_N: usize = 5;
 const S_IGN_PER: usize = 60;
 const S_IGN_DMG: usize = 25;
 const S_IGN_AP: usize = 8;
 const S_IGN_CUT: usize = 40;
-const S_EXH: i32 = 30;
-const S_EXH_T: usize = 150;
+const S_EXH_SLOW: i32 = 45;
+const S_EXH_DMG: i32 = 35;
+const S_EXH_T: usize = 180;
 const S_HEAL: usize = 90;
 const S_HEAL_AP: usize = 30;
-const S_HEAL_MS: i32 = 30;
-const S_HEAL_MS_T: usize = 60;
-const S_BAR: usize = 110;
-const S_BAR_AP: usize = 45;
-const S_BAR_T: usize = 150;
-const S_GHOST: i32 = 45;
-const S_GHOST_T: usize = 240;
-const S_FLASH_SPEED: usize = 6000;
-const S_FLASH_T: usize = 4;
+const S_HEAL_MS: i32 = 20;
+const S_HEAL_MS_T: usize = 120;
+const S_BAR_PCT: usize = 25;
+const S_BAR_T: usize = 180;
+const S_GHOST: i32 = 30;
+const S_GHOST_T: usize = 360;
 /// 被这些控住就净化（同 league_ult_press 的 NO_CAST）。
 const HARD_CC: [CcKindV1; 7] = [CcKindV1::Airborne, CcKindV1::Stun, CcKindV1::Bind, CcKindV1::Taunt, CcKindV1::Fear,
     CcKindV1::Charm, CcKindV1::BlockSkill];
@@ -302,6 +306,8 @@ struct Sparkles {
     haste_was: bool,
     burns: Vec<(usize, usize, usize)>,
     summons: usize,
+    /// 屏障放出的 tick（护盾归零后摘掉气泡，放出那一 tick 不算）。
+    barrier_at: usize,
 }
 
 fn has_buff(sim: &StableSim<'_>, id: usize, name: &str) -> bool {
@@ -355,13 +361,19 @@ impl Sparkles {
         let tick = sim.tick();
         let (spell, target, reason) = summon::pick(me_hp, controlled, &foes, &allies, summon::roll(sim.seed(), tick, me));
         let on_me = InputTargetV1::target(me);
+        sim.play_view_effect(&zo(&format!("sg_{}", spell.key())), me, &InputTargetV1::pos(pos.0, pos.1), 0, 0, 0);
         match spell {
             summon::Spell::Cleanse => {
                 sim.entity_clear_cc(me);
+                sim.play_view_effect(&zo("s_cleanse"), me, &on_me, 0, 0, 0);
             }
             summon::Spell::Flash => {
-                if let Some(t) = target {
-                    sim.entity_knockback(t, me, S_FLASH_SPEED, S_FLASH_T);
+                // a flash where she was and where she lands (s_flash stays where it is played)
+                sim.play_view_effect(&zo("s_flash"), me, &InputTargetV1::pos(pos.0, pos.1), 0, 0, 0);
+                let from = target.and_then(|t| sim.get_entity(t)).map(|t| t.pos());
+                if let Some(to) = from.and_then(|f| summon::flash_spot(pos, f)) {
+                    sim.entity_set_pos(me, to.0, to.1);
+                    sim.play_view_effect(&zo("s_flash"), me, &InputTargetV1::pos(to.0, to.1), 0, 0, 0);
                 }
             }
             summon::Spell::Heal => {
@@ -386,16 +398,20 @@ impl Sparkles {
             summon::Spell::Exhaust => {
                 if let Some(t) = target {
                     let mut b = BuffV1::timed(&zo("s_exhaust"), S_EXH_T);
-                    b.move_speed_mult = -S_EXH;
-                    b.attack_mult = -S_EXH;
-                    b.magic_power_mult = -S_EXH;
+                    b.move_speed_mult = -S_EXH_SLOW;
+                    b.attack_mult = -S_EXH_DMG;
+                    b.magic_power_mult = -S_EXH_DMG;
                     sim.entity_remove_buff(t, &zo("s_exhaust"));
                     sim.add_buff(t, &b);
-                    sim.play_view_effect(&zo("w_hit"), me, &InputTargetV1::target(t), 0, 0, 0);
                 }
             }
             summon::Spell::Barrier => {
-                sim.entity_add_shield(me, S_BAR + ap * S_BAR_AP / 100, S_BAR_T);
+                let max = sim.get_entity(me).map_or(0, |e| e.hp().1);
+                sim.entity_add_shield(me, max * S_BAR_PCT / 100, S_BAR_T);
+                // the bubble: a buff's view, taken off when the shield is gone (on_update)
+                sim.entity_remove_buff(me, &zo("s_barrier"));
+                sim.add_buff(me, &BuffV1::timed(&zo("s_barrier"), S_BAR_T));
+                self.barrier_at = tick;
             }
             summon::Spell::Ghost => {
                 let mut b = BuffV1::timed(&zo("s_ghost"), S_GHOST_T);
@@ -572,7 +588,11 @@ impl Sparkles {
             }
             if tick >= s.next_view {
                 s.next_view = tick + SHARD_VIEW;
-                sim.play_view_effect(&zo("w_shard"), me, &InputTargetV1::pos(s.at.0, s.at.1), 0, 0, 0);
+                let at = InputTargetV1::pos(s.at.0, s.at.1);
+                sim.play_view_effect(&zo("w_shard"), me, &at, 0, 0, 0);
+                // which spell it gives is picked at the pick-up: its icon cycles through the seven
+                let icon = summon::Spell::ALL[tick / SHARD_VIEW % summon::Spell::ALL.len()];
+                sim.play_view_effect(&zo(&format!("ss_{}", icon.key())), me, &at, 0, 0, 0);
             }
             keep.push(s);
         }
@@ -631,6 +651,9 @@ impl StablePassive for Sparkles {
             self.summon(sim, me, "the ult");
         }
         self.haste_was = haste;
+        if tick > self.barrier_at + 1 && has_buff(sim, me, &zo("s_barrier")) && sim.get_entity(me).is_some_and(|e| e.shield() == 0) {
+            sim.entity_remove_buff(me, &zo("s_barrier"));
+        }
         self.burn(sim, me, ap, tick);
         // the star flying and the sleepers go on after her death; only a living Zoe picks a shard up
         self.star(sim, me, team, pos, ap, tick);
@@ -722,8 +745,11 @@ mod tests {
 
     #[test]
     fn buff_names_fit() {
-        for x in ["e_mark", "e_zz", "e_wake", "q_go", "q_hit", "w_haste", "w_shard", "w_shot", "w_hit", "e_sleep", "s_heal", "s_ignite", "s_exhaust", "s_ghost"] {
+        for x in ["e_mark", "e_zz", "e_wake", "q_go", "q_hit", "w_haste", "w_shard", "w_shot", "w_hit", "e_sleep", "s_heal", "s_ignite", "s_exhaust", "s_ghost", "s_flash", "s_cleanse", "s_barrier"] {
             assert!(zo(x).len() <= BUFF_NAME_CAP);
+        }
+        for s in summon::Spell::ALL {
+            assert!(zo(&format!("sg_{}", s.key())).len() <= BUFF_NAME_CAP);
         }
     }
 }

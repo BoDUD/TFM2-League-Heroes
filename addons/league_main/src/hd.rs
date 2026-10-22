@@ -286,8 +286,8 @@ pub fn grown(per: f32, stacks: usize) -> f32 {
     1.0 + per * stacks as f32
 }
 
-/// Effect sheets drawn dense like a hero's sheet (tags `idle` / `hd_idle` only, PPU squares a game pixel, hd_idle PPU times
-/// as wide): league_yuumi_ride, the cat lying on her book on the head of the ally Yuumi rides (the user: 「1.5 倍（21 格）」
+/// Effect sheets drawn dense like a hero's sheet (`idle` / `hd_idle` and any more tags, each with its hd_ twin; PPU squares
+/// a game pixel, hd_idle PPU times as wide): league_yuumi_ride, the cat lying on her book on the head of the ally Yuumi rides (the user: 「1.5 倍（21 格）」
 /// for the 14-px picture; tools/art/import_yuumi_fx.py) and league_leblanc_clone (below; league_zyra_thicket was one
 /// until 2026-10-21, now a plain 1x sheet: 「婕拉的大招特效局内怎么这么模糊」). Looked up like the heroes (src/lookup.rs); the battlefield's
 /// entity scale (src/view.rs) never meets them - they are no entity's body.
@@ -307,6 +307,11 @@ pub const EFFECTS: &[(&str, f32, &str)] = &[
     // league_leblanc's passive clone (Mirror Image): her own dense idle where she stood, then the blink-out column - drawn
     // at her PPU 2.0 like her body (the user: 「妖姬有点bug吧 分身怎么不是高清帧啊 被动的」; tools/fix/leblanc_clone_hd.py)
     ("league_leblanc_clone", 2.0, include_str!("../../../league/effects/league_leblanc_clone#anim.fanim")),
+    // league_zoe's stolen summoner spells (the add-on plays them; tools/art/draw_zoe_spells.py): their own pictures at
+    // PPU 2 and League's icons at 3 (32 squares of the client's 64-px icon still read, 22 did not) - many tags each,
+    // every one with its hd_ twin
+    ("league_zoe_spells", 2.0, include_str!("../../../league/effects/league_zoe_spells#anim.fanim")),
+    ("league_zoe_spell_icons", 3.0, include_str!("../../../league/effects/league_zoe_spell_icons#anim.fanim")),
 ];
 
 pub const PREFIX: &str = "hd_";
@@ -534,8 +539,15 @@ mod tests {
         let h = Heroes::new();
         for &(id, ppu, fanim) in EFFECTS {
             assert!(ppu > 1.0);
-            assert_eq!(hd_tags(fanim), vec![format!("{PREFIX}idle")], "{id}: only idle / hd_idle (src/lookup.rs densify_table)");
+            // src/lookup.rs densify_table: idle / hd_idle tell a dense table, every other tag needs its hd_ twin
+            let hd = hd_tags(fanim);
+            assert!(hd.contains(&format!("{PREFIX}idle")), "{id}: no hd_idle");
             assert!(fanim.contains("\"idle\""), "{id}: no idle");
+            // the anims' names: every quoted key but the frame fields
+            let fields = ["anims", "frames", "duration", "data", "x", "y", "w", "h"];
+            for t in keys_with(fanim, "").into_iter().filter(|t| !fields.contains(&t.as_str())) {
+                assert!(t.starts_with(PREFIX) || hd.contains(&format!("{PREFIX}{t}")), "{id}: {t} has no {PREFIX}{t}");
+            }
             assert!(lo_tags(fanim).is_empty(), "{id}: no UI frames for an effect");
             assert_eq!(h.of_name(&format!("asset/league/effects/{id}#anim")).map(|x| x.id), Some(id));
             assert_eq!(h.get(id).map(|x| x.size), Some(1.0), "{id}: an effect is never resized");
