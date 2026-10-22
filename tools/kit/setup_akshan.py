@@ -135,7 +135,7 @@ SOUNDS = {
     "league_akshan_e_roll": [(C + "e_roll", 0.4, 0.0)],
     "league_akshan_w_cast": [(C + "w", 0.45, 0.0), (C + "vo_w", 0.85, 0.0)],
     "league_akshan_w_mark": [(C + "w_mark", 0.45, 0.0)],
-    "league_akshan_w_revive": [(C + "w_revive", 0.6, 0.0)],
+    "league_akshan_w_revive": [(C + "w_revive", 1.0, 0.0)],   # louder (2026-10-22: 「复活加更响的音效」)
     "league_akshan_w_gold": [(C + "w_gold", 0.45, 0.0)],
     "league_akshan_r_cast": [(C + "r", 0.55, 0.0), (C + "vo_r", 0.9, 0.0)],
     "league_akshan_r_store": [(C + "r_store", 0.35, 0.0)],

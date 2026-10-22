@@ -11,10 +11,10 @@
       "version": ">=0.184.1"
     }
   ],
-  "description": "Test build of Akshan as in League (needs League of Legends Heroes): replaces the main pack's Akshan so Dirty Fighting counts the third hit on each target, Comeuppance's bullets grow with the target's missing health (up to 3x) and fire early when they kill, the AI casts R only on a wounded champion, Heroic Swing refreshes on a takedown, and enemies who kill his allies become Scoundrels: when Akshan takes one down, the allies it killed revive at their fountain a second later. Other champions are untouched. Writes a log for testing.",
-  "last_updated": "2026-10-18",
+  "description": "Test build of Akshan as in League (needs League of Legends Heroes): replaces the main pack's Akshan so Dirty Fighting counts the third hit on each target, Comeuppance's bullets grow with the target's missing health (up to 3x) and fire early when they kill, the AI casts R only on a wounded champion, Heroic Swing refreshes on a takedown, and enemies who kill his allies become Scoundrels: when Akshan takes one down, the allies it killed revive at their fountain a second later. A revive shows a big line on screen (\"Akshan revived ...!\") and plays a louder sound. Other champions are untouched. Writes a log for testing.",
+  "last_updated": "2026-10-22",
   "mod_id": "league_akshan",
   "mod_type": "native",
   "name": "League Heroes: Akshan's Scoundrels, revives and Comeuppance (test)",
-  "version": "0.1.2"
+  "version": "0.2.0"
 }

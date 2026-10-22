@@ -142,7 +142,7 @@ def showcase(out, z=3, step=40):
     at_spot("r_cast", rise, *me.pos(rise), big)
     on_t = rise + tick(P["r_wings_at"])
     end = on_t + tick(P["r_t0"] + P["r_keep"])
-    on_me("r_wings", on_t, under_=True, until=end, frames=dense(sp, "r_wings", "swain", z))
+    # (the wings are in his demon frames since 2026-10-22: no wing picture of their own)
     a("ult", tick(P["r_dur"]))
     pulses = [on_t + tick(P["r_pulse"] * k) for k in range(int((end - on_t) // tick(P["r_pulse"])) + 1)]
     flare_at = next(p for p in pulses if p >= rise + tick(P["r_wings_at"] + P["r_flare_at"]))

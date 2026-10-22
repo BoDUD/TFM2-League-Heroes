@@ -4484,14 +4484,5 @@
       "is_follow": true
     }
   ],
-  "view_buffs": [
-    {
-      "type": "Animated",
-      "name": "league_swain_r_on",
-      "anim": "asset/league/champions/league_swain",
-      "tag": "r_wings",
-      "repeat": true,
-      "z": -1
-    }
-  ]
+  "view_buffs": []
 }
