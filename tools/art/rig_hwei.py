@@ -45,6 +45,11 @@ COCK = 150                     # the attack's cocked brush: turned up and forwar
 # poses whose head Codex drew tipped (kept by design_hwei_poses: its own face, no earrings, the clutching hand at its
 # chin like a moustache): the design's head pasted on upright here, after the legs redo's join
 REHEAD = {"d_stagger"}
+# squares set by hand on a pose (x, y on its pose png, colour): qe_slam's pink anklet Codex put on the near shin moved to
+# the far one (the design wears it on the far leg)
+SKIN, SKIN2, PINK2 = (253, 223, 193), (242, 184, 148), (188, 24, 190)
+PIXFIX = {"qe_slam": [(22, 64, SKIN), (23, 64, SKIN), (24, 64, SKIN), (25, 64, SKIN2), (25, 65, SKIN2),
+                      (38, 64, PINK2), (39, 64, PINK2), (40, 64, PINK2)]}
 
 
 def lp(path):
@@ -66,6 +71,9 @@ def load_pose(name, meta_too=False):
         r0, r1, c0, c1 = DP.HEAD
         my, mx = np.nonzero(DP.head_mask(dd))
         d[my - r0 + hy, mx - c0 + hx] = dd[my, mx]
+    for x, y, c in PIXFIX.get(name, []):
+        assert d[y, x, 3] > 0, (name, x, y)
+        d[y, x, :3] = c
     out = d, (hx, hy), int(meta.get("ground", ys.max() + 1))
     return out + (meta,) if meta_too else out
 
