@@ -16,6 +16,11 @@
 //! - **虚空行走落点**：射程（`R_REACH`）里每个敌方英雄都试一遍：这一下（算上叠层和他的魔抗）能打死的优先，其次炸得到的
 //!   英雄多、离他远（后排）的；敌方塔 `TOWER_REACH` 以内的不去。落在目标身前 `LAND_SHORT`（从卡萨丁看过去）。没有合适的
 //!   就落在大招目标身上（和主包一样）。之后数据里的爆炸照常（一 tick 后，以他的新位置为中心）。
+//! - **虚空行走清兵**（0.1.2，用户 2026-10-23：「卡萨丁的R能不能对小兵造成伤害」）：爆炸一直打得到小兵，但游戏的 AI 只在打架时
+//!   放大招、只对英雄放。副本的 R 改成对敌人放（`EnemyWithoutTower`；主包不改：那样 AI 放大招的次数不变、打架时有几次放在小兵
+//!   身上，模拟 -1.2），AI 钩子 `league_kassadin:farm`：AI 正在打小兵 / 野怪、R 好了、`FARM_CLEAR` 内没有敌方英雄时，挑射程里
+//!   爆炸能炸到最多小兵（至少 `FARM_MIN` 个、不在敌方塔下）的那一个按 R，`rift` 就落在它身上；AI 自己对小兵放 R 而射程里有敌方
+//!   英雄时，改成对最近的英雄放。日志 `FARM` / `RETARGET`。
 //!
 //! 数字：被动的参数从英雄数据来；R 的数字写在这里（`R_*`），`tests::the_numbers_match_the_kit` 读主包的参数表核对。
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_kassadin.log`，每次启动游戏重写。
@@ -30,7 +35,7 @@ use mod_api_stable::*;
 
 const ID: &str = "league_kassadin";
 /// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是 league_addons 的。
-const VERSION: &str = "0.1.0";
+const VERSION: &str = "0.1.2";
 
 /// 主包卡萨丁的名字（buff、画面都以它开头）。
 fn ks(x: &str) -> String {
@@ -50,6 +55,11 @@ pub const R_ST_RATIO: usize = 10;
 pub const BODY: f64 = 6_000.0;
 /// 落在目标身前这么远（从卡萨丁看过去），不和它叠在一起。
 pub const LAND_SHORT: f64 = 6_000.0;
+/// 大招的施放距离（r_range）。
+pub const R_RANGE: f64 = 48_000.0;
+/// 清兵：这么近没有敌方英雄才拿 R 清兵；一下至少炸到这么多个小兵 / 野怪。
+pub const FARM_CLEAR: f64 = 80_000.0;
+pub const FARM_MIN: usize = 3;
 /// 敌方塔的攻击范围（大约，塔下不去）。
 pub const TOWER_REACH: f64 = 75_000.0;
 /// 打分：能打死 KILL_SCORE，每个炸得到的英雄 CHAMP_SCORE，离他每远 10000 加 BACK_SCORE（后排），每个小兵或野怪 UNIT_SCORE。
@@ -195,6 +205,30 @@ pub fn best_spot(me: (f64, f64), foes: &[Foe], towers: &[(f64, f64)], dmg: usize
         }
     }
     best
+}
+
+/// 一个敌人：id、位置、是不是英雄。
+pub type Unit = (usize, (f64, f64), bool);
+
+/// 清兵的 R 按给谁：`FARM_CLEAR` 内没有敌方英雄；射程里、不在敌方塔下的小兵 / 野怪里，爆炸（`R_R` + 身体）炸到的小兵 / 野怪
+/// 最多的那个，至少 `FARM_MIN` 个 -> (它, 炸到几个)。
+pub fn farm_target(me: (f64, f64), foes: &[Unit], towers: &[(f64, f64)]) -> Option<(usize, usize)> {
+    if foes.iter().any(|f| f.2 && dist(me, f.1) <= FARM_CLEAR) {
+        return None;
+    }
+    foes.iter()
+        .filter(|f| !f.2 && dist(me, f.1) <= R_RANGE && !towers.iter().any(|&t| dist(t, f.1) <= TOWER_REACH))
+        .map(|f| (f.0, foes.iter().filter(|g| !g.2 && dist(f.1, g.1) <= R_R + BODY).count()))
+        .filter(|&(_, n)| n >= FARM_MIN)
+        .max_by_key(|&(_, n)| n)
+}
+
+/// 射程里最近的敌方英雄（AI 对小兵放 R 时改对他放）。
+pub fn champ_in_range(me: (f64, f64), foes: &[Unit]) -> Option<usize> {
+    foes.iter()
+        .filter(|f| f.2 && dist(me, f.1) <= R_RANGE)
+        .min_by(|a, b| dist(me, a.1).total_cmp(&dist(me, b.1)))
+        .map(|f| f.0)
 }
 
 // ===================== 小工具 =====================
@@ -424,8 +458,12 @@ fn rift(sim: &mut StableSim<'_>, caster: usize, input: InputTargetV1) {
     let list: Vec<Foe> = foes.iter().map(|f| f.1).collect();
     let towers = enemy_towers(sim, team);
     let target = (input.kind == InputTargetKindV1::Target.code()).then(|| alive_at(sim, input.target_id)).flatten();
-    let (spot, why) = match best_spot(me, &list, &towers, dmg) {
+    // cast at a minion or a monster (the user, 2026-10-23: 「卡萨丁的R能不能对小兵造成伤害」): onto it, clearing the wave
+    let at_minion = target.is_some() && sim.get_entity(input.target_id).is_some_and(|e| !e.is_champion());
+    let best = if at_minion { None } else { best_spot(me, &list, &towers, dmg) };
+    let (spot, why) = match best {
         Some((spot, s, kill)) => (spot, format!("score {s:.1}{}", if kill { ", a kill" } else { "" })),
+        None if at_minion => (target.unwrap_or(me), "cast at a minion or a monster: on it".to_string()),
         None => match target {
             Some(t) => (t, "nothing outside the towers: on the target".to_string()),
             None => {
@@ -441,6 +479,92 @@ fn rift(sim: &mut StableSim<'_>, caster: usize, input: InputTargetV1) {
     wlog(format!("{} RIFT {} -> {} ({:.0} away, {} stacks, {dmg} magic before resistance): {} champions in the blast, {why}{}",
                  head(sim, caster), pt(me), pt(spot), dist(me, spot), stacks, champs,
                  if moved { "" } else { " (entity_set_pos refused)" }));
+}
+
+// ===================== AI 钩子：清兵的 R =====================
+
+#[derive(Clone, Default)]
+struct Farm {
+    /// 正在回城（Return 开始、别的命令结束；游戏 0.6.5 的 AI 只在判断的那几 tick 下命令）。
+    recalling: bool,
+    logs: usize,
+}
+
+impl StablePlayerAi for Farm {
+    fn clone_box(&self) -> Box<dyn StablePlayerAi> {
+        Box::new(self.clone())
+    }
+
+    fn id(&self) -> String {
+        format!("{ID}:farm")
+    }
+
+    /// league_ult_press（100）之后。
+    fn priority(&self) -> i32 {
+        105
+    }
+
+    fn matches(&self, init: &StableAiInit) -> bool {
+        init.champion_name == ID
+    }
+
+    fn think(&mut self, ctx: &mut StableAiContext<'_>, base: Option<InputV1>) -> Option<InputV1> {
+        self.recalling = match base {
+            Some(b) => b.kind == InputKindV1::Return.code(),
+            None => self.recalling,
+        };
+        let b = base?;
+        if self.recalling {
+            return None;
+        }
+        let kind = InputKindV1::from_code(b.kind)?;
+        if !matches!(kind, InputKindV1::Attack | InputKindV1::Ult) {
+            return None;
+        }
+        let player = ctx.player_id();
+        let (input, line) = {
+            let sim = ctx.sim()?;
+            let me = sim.get_player(player)?.champion()?;
+            if !me.is_alive() {
+                return None;
+            }
+            let ready = me.cooldown(SkillSlotV1::Ult).is_some_and(|c| c.unlocked && (c.remaining == 0 || c.charges > 0));
+            if !ready {
+                return None;
+            }
+            let (my_id, team) = (me.id(), me.team());
+            let (x, y) = me.pos();
+            let here = (x as f64, y as f64);
+            let target = (InputTargetKindV1::from_code(b.target.kind) == Some(InputTargetKindV1::Target))
+                .then_some(b.target.target_id)
+                .and_then(|t| sim.get_entity(t));
+            // only when the AI is on a minion or a monster: an attack or an R at a champion is its own call
+            if target.as_ref().is_none_or(|t| t.is_champion()) {
+                return None;
+            }
+            let foes: Vec<Unit> = foes_of(&sim, team).into_iter().map(|(id, f)| (id, f.at, f.champion)).collect();
+            let towers = enemy_towers(&sim, team);
+            let (t, text) = match kind {
+                InputKindV1::Ult => {
+                    let c = champ_in_range(here, &foes)?;
+                    (c, format!("RETARGET the AI's R at a minion -> {}", who(&sim, c)))
+                }
+                _ => {
+                    let (t, n) = farm_target(here, &foes, &towers)?;
+                    (t, format!("FARM R at {} ({n} minions or monsters in the blast)", who(&sim, t)))
+                }
+            };
+            (InputV1::action(InputKindV1::Ult, InputTargetV1::target(t)), format!("{} {text}", head(&sim, my_id)))
+        };
+        if !ctx.is_valid_input(&input) {
+            return None;
+        }
+        self.logs += 1;
+        if self.logs <= 60 || self.logs % 50 == 0 {
+            wlog(format!("{line} #{}", self.logs));
+        }
+        Some(input)
+    }
 }
 
 // ===================== 注册 =====================
@@ -468,6 +592,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     ));
     module.add_native_passive(format!("{ID}:void_stone"), VoidStone::default());
     module.add_native_effect(format!("{ID}:rift"), Rift);
+    module.add_player_input_ai(Farm::default());
     host.log(LogLevel::Info, "league_kassadin loaded (Void Stone, Force Pulse charge, Riftwalk landing).");
 }
 
@@ -488,6 +613,25 @@ mod tests {
 
     fn champ(x: f64, y: f64, hp: usize) -> Foe {
         Foe { at: (x, y), champion: true, hp, mr: 30 }
+    }
+
+    #[test]
+    fn r_clears_a_wave_only_with_no_champion_near() {
+        let wave: Vec<Unit> = (0..4).map(|k| (10 + k, (40_000.0 + 3_000.0 * k as f64, 0.0), false)).collect();
+        assert_eq!(farm_target((0.0, 0.0), &wave, &[]).map(|t| t.1), Some(4));
+        // two minions only: not worth it
+        assert_eq!(farm_target((0.0, 0.0), &wave[..2], &[]), None);
+        // an enemy champion 70000 away: R stays for him
+        let mut with = wave.clone();
+        with.push((1, (70_000.0, 0.0), true));
+        assert_eq!(farm_target((0.0, 0.0), &with, &[]), None);
+        // the wave under an enemy tower: no
+        assert_eq!(farm_target((0.0, 0.0), &wave, &[(100_000.0, 0.0)]), None);
+        // the AI's R at a minion with a champion in range goes to him
+        let mut near = wave.clone();
+        near.push((2, (30_000.0, 0.0), true));
+        assert_eq!(champ_in_range((0.0, 0.0), &near), Some(2));
+        assert_eq!(champ_in_range((0.0, 0.0), &wave), None);
     }
 
     #[test]

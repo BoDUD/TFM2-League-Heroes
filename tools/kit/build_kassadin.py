@@ -25,7 +25,10 @@ native add-on addons/league_kassadin for the passive's exact 10%, Force Pulse's 
   ult     R Riftwalk (虚空行走): a `Targeting` cast on `EnemyChampion` (r_range): at r_at he vanishes and appears on a
           random enemy champion within r_reach (the back line about as often as the front; with native=1
           league_kassadin:rift picks the spot - a champion the blast kills, else the most champions in the blast, the
-          back line first - and keeps him out of enemy towers' reach); a tick later every enemy within r_r takes r_dmg +
+          back line first - and keeps him out of enemy towers' reach; the copy's R is cast on `EnemyWithoutTower`, and
+          the add-on's AI hook presses it at a minion wave when no enemy champion is near - the user, 2026-10-23:
+          「卡萨丁的R能不能对小兵造成伤害」; the main pack stays on champions: with `EnemyWithoutTower` the game's AI casts
+          its ult no more often but spends some in fights on minions, sim -1.2); a tick later every enemy within r_r takes r_dmg +
           r_ratio% AP plus r_st + r_st_ratio% AP for each stack. Every cast within r_stack_t of the last adds a stack (at
           most 3 more: League's 4) and refreshes them all. r_cd is short (League: 5 / 3.5 / 2 s).
   combos  R -> E: an E cast within r_combo of the landing pulses on its first tick (no wind-up). E -> Q: the orb silences
@@ -246,7 +249,7 @@ def build(p):
     jump = ({"type": "Native", "effect_ref": "league_kassadin:rift"} if native else
             {"type": "RandomTarget", "range": p["r_reach"], "casting_target": "EnemyChampion",
              "from_projectile": False, "effects": [{"type": "Teleport"}]})
-    ult = action("ult", p["r_dur"], p["r_cd"], 1, p["r_range"], "Targeting", "EnemyChampion",
+    ult = action("ult", p["r_dur"], p["r_cd"], 1, p["r_range"], "Targeting", "EnemyWithoutTower" if native else "EnemyChampion",
                  combine(stone, voice("vo_r", p),
                          delayed(p["r_at"] - 1, sfx("r"), cview("r_out"), charge, jump, land)))
 
