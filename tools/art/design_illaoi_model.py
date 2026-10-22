@@ -35,7 +35,7 @@ SRC = os.path.join(ROOT, "assets", "source", "illaoi", "codex_model", "illaoi-mo
 OUT = os.path.join(ROOT, "assets", "source", "illaoi", "hd")
 K = 40
 BUN_ROWS = 63    # 42 game px x PPU 1.5, the bun's top to the soles
-PICK = None      # the user's pick of A-1 / A-2
+PICK = "A-2"     # the user's pick, 2026-10-23: 「俄洛伊用 A-2」
 # take -> (file, square px read at, rows to (None: by BUN_ROWS), the box kept whole on the raw canvas: x0, y0, x1, y1)
 DRAFTS = {
     "A-1": ("A-1", 14.7, None, (660, 230, 860, 400)),
@@ -43,7 +43,9 @@ DRAFTS = {
     "T": ("T", 15.6, 66, (410, 140, 670, 520)),
 }
 # the face squares redrawn on the written design (codex-face-half-squares): (x, y, colour) on hd/idle.png
-FACE = []
+CHEEK = (205, 121, 68)   # her lit cheek, cd7944
+# A-2: the green smeared under both eyes back to skin (the prompt: the green only in the eyes)
+FACE = [(30, 18, CHEEK), (31, 18, CHEEK), (32, 18, CHEEK), (37, 18, CHEEK)]
 
 
 def lp(path):
