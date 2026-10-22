@@ -33,7 +33,7 @@ from regrid import regrid  # noqa: E402
 SRC = os.path.join(ROOT, "assets", "source", "qiyana", "codex_model", "raw")
 OUT = os.path.join(ROOT, "assets", "source", "qiyana", "hd")
 K = 40
-PICKS = {}   # the user's pick: {"A": "A-1"} or {"A": "A-2"}
+PICKS = {"A": "A-1"}   # the user's pick, 2026-10-22: 「用 A-1」
 PART = {"A": "idle"}
 ROWS = {"A": 60}
 # take -> (square px read at, the face's box on the raw canvas: x0, y0, x1, y1 - brows to the beard's end)
@@ -43,8 +43,10 @@ DRAFTS = {
 
 
 # the face squares redrawn on the written design (codex-face-half-squares), after the pick: (x, y, colour) on
-# hd/<part>.png.
-FACE = {}
+# hd/<part>.png. A-1's near eye came out eye-white + amber with no pupil (the far eye has one): its lower amber square
+# made the dark pupil, so both eyes read amber with a pupil at 12x.
+PUPIL = (95, 29, 14)
+FACE = {"idle": [(31, 20, PUPIL)]}
 
 
 def lp(path):
