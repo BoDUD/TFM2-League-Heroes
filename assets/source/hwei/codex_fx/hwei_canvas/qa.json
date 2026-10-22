@@ -1,0 +1,175 @@
+{
+  "size": [
+    1536,
+    1024
+  ],
+  "mode": "RGB",
+  "cells": [
+    {
+      "frame": 1,
+      "visible_pixels": 3935,
+      "bbox": [
+        123,
+        142,
+        262,
+        188
+      ],
+      "exact_mirror": false
+    },
+    {
+      "frame": 2,
+      "visible_pixels": 8950,
+      "bbox": [
+        76,
+        133,
+        305,
+        196
+      ],
+      "exact_mirror": false
+    },
+    {
+      "frame": 3,
+      "visible_pixels": 15497,
+      "bbox": [
+        41,
+        126,
+        343,
+        208
+      ],
+      "exact_mirror": false
+    },
+    {
+      "frame": 4,
+      "visible_pixels": 20389,
+      "bbox": [
+        18,
+        118,
+        371,
+        219
+      ],
+      "exact_mirror": false
+    },
+    {
+      "frame": 5,
+      "visible_pixels": 22246,
+      "bbox": [
+        22,
+        102,
+        366,
+        203
+      ],
+      "exact_mirror": false
+    },
+    {
+      "frame": 6,
+      "visible_pixels": 26672,
+      "bbox": [
+        13,
+        94,
+        372,
+        207
+      ],
+      "exact_mirror": false
+    },
+    {
+      "frame": 7,
+      "visible_pixels": 28639,
+      "bbox": [
+        12,
+        93,
+        373,
+        213
+      ],
+      "exact_mirror": false
+    },
+    {
+      "frame": 8,
+      "visible_pixels": 28716,
+      "bbox": [
+        11,
+        96,
+        374,
+        215
+      ],
+      "exact_mirror": false
+    },
+    {
+      "frame": 9,
+      "visible_pixels": 31929,
+      "bbox": [
+        9,
+        64,
+        376,
+        196
+      ],
+      "exact_mirror": false
+    },
+    {
+      "frame": 10,
+      "visible_pixels": 32557,
+      "bbox": [
+        7,
+        65,
+        378,
+        197
+      ],
+      "exact_mirror": false
+    },
+    {
+      "frame": 11,
+      "visible_pixels": 32829,
+      "bbox": [
+        7,
+        65,
+        378,
+        194
+      ],
+      "exact_mirror": false
+    },
+    {
+      "frame": 12,
+      "visible_pixels": 33337,
+      "bbox": [
+        8,
+        65,
+        378,
+        193
+      ],
+      "exact_mirror": false
+    },
+    {
+      "frame": 13,
+      "visible_pixels": 32421,
+      "bbox": [
+        6,
+        45,
+        378,
+        174
+      ],
+      "exact_mirror": false
+    },
+    {
+      "frame": 14,
+      "visible_pixels": 33464,
+      "bbox": [
+        6,
+        45,
+        378,
+        177
+      ],
+      "exact_mirror": false
+    },
+    {
+      "frame": 15,
+      "visible_pixels": 0,
+      "bbox": null,
+      "exact_mirror": false
+    },
+    {
+      "frame": 16,
+      "visible_pixels": 0,
+      "bbox": null,
+      "exact_mirror": false
+    }
+  ]
+}

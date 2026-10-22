@@ -1,0 +1,164 @@
+{
+  "count": 11,
+  "all_size_1254": true,
+  "all_raw_identical": true,
+  "hard_alpha_pass_count": 0,
+  "upper_exact_pass_count": 0,
+  "upper_test": "Colored/near-black guide pixels above y960; excludes light grid background. This is a partial upper-body test, not full preservation proof.",
+  "rows": [
+    {
+      "file": "hwei-legs-run4.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "partial_alpha_pixels": 296443,
+      "raw_identical": true,
+      "upper_sample_pixels": 200016,
+      "upper_rgb_exact_match_fraction": 0.0053645708343332535,
+      "upper_rgba_exact": false,
+      "sha256": "c781f9d485aa8103d99748f7a2c084dd1e6b175889401a71e342afcea1ad7cad"
+    },
+    {
+      "file": "hwei-legs-d_stagger.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "partial_alpha_pixels": 291723,
+      "raw_identical": true,
+      "upper_sample_pixels": 212688,
+      "upper_rgb_exact_match_fraction": 0.006511885955013917,
+      "upper_rgba_exact": false,
+      "sha256": "e3fc686db2f5655322266c0fd7be696cbf9a812a7c35710399d55cb614f4c425"
+    },
+    {
+      "file": "hwei-legs-q_wind.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "partial_alpha_pixels": 350425,
+      "raw_identical": true,
+      "upper_sample_pixels": 267696,
+      "upper_rgb_exact_match_fraction": 0.003134152172613711,
+      "upper_rgba_exact": false,
+      "sha256": "2c7f6522b2cfbbbbf2a6d74b2c0db7e23dbf0705379fd48736931ebdc90fa598"
+    },
+    {
+      "file": "hwei-legs-qe_raise.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "partial_alpha_pixels": 330090,
+      "raw_identical": true,
+      "upper_sample_pixels": 243792,
+      "upper_rgb_exact_match_fraction": 0.0022478178119052306,
+      "upper_rgba_exact": false,
+      "sha256": "6c512e48ea43c226153fc597546cd141101e8cb98b293ca6d26665d47c0ecfb7"
+    },
+    {
+      "file": "hwei-legs-ew_high.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "partial_alpha_pixels": 332245,
+      "raw_identical": true,
+      "upper_sample_pixels": 248400,
+      "upper_rgb_exact_match_fraction": 0.0057165861513687605,
+      "upper_rgba_exact": false,
+      "sha256": "f928968ff88b1df5518873cc6621c5eb8b119659bf16678f5d98b92d216b9f4b"
+    },
+    {
+      "file": "hwei-legs-r_open.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "partial_alpha_pixels": 339722,
+      "raw_identical": true,
+      "upper_sample_pixels": 258912,
+      "upper_rgb_exact_match_fraction": 0.005364757137560252,
+      "upper_rgba_exact": false,
+      "sha256": "0712e6c7c18488272ef7f4af6aef6e5a4a2258a77b266f66671d3c94a6484ec3"
+    },
+    {
+      "file": "hwei-legs-r_fling.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "partial_alpha_pixels": 319686,
+      "raw_identical": true,
+      "upper_sample_pixels": 240480,
+      "upper_rgb_exact_match_fraction": 0.004258150365934797,
+      "upper_rgba_exact": false,
+      "sha256": "8ea5b0c983ff45696a4ba7c248453dd6d3c9d658d730b609bed59e729c28285c"
+    },
+    {
+      "file": "hwei-legs-ee_swing.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "partial_alpha_pixels": 326431,
+      "raw_identical": true,
+      "upper_sample_pixels": 220032,
+      "upper_rgb_exact_match_fraction": 0.0011543775450843514,
+      "upper_rgba_exact": false,
+      "sha256": "bf29cff86b940a2c3a968d840f97ab29aa355b5f29c3cdf1a4be1ca57aac7c16"
+    },
+    {
+      "file": "hwei-legs-run1.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "partial_alpha_pixels": 295116,
+      "raw_identical": true,
+      "upper_sample_pixels": 194688,
+      "upper_rgb_exact_match_fraction": 0.0015974276791584485,
+      "upper_rgba_exact": false,
+      "sha256": "7ce39eed9f9f12abd9301ae384ea29f76735be3f73a9592b0cccecf93063715d"
+    },
+    {
+      "file": "hwei-legs-run2.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "partial_alpha_pixels": 292978,
+      "raw_identical": true,
+      "upper_sample_pixels": 204912,
+      "upper_rgb_exact_match_fraction": 0.0050851097056297334,
+      "upper_rgba_exact": false,
+      "sha256": "798a5d7f4001b9b759af59942d88f10c21a2390b6cb927dc03464249e4527074"
+    },
+    {
+      "file": "hwei-legs-run3.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "partial_alpha_pixels": 320630,
+      "raw_identical": true,
+      "upper_sample_pixels": 212112,
+      "upper_rgb_exact_match_fraction": 0.00269197405144452,
+      "upper_rgba_exact": false,
+      "sha256": "12a4c8f68ac5b4824a7a5509594b6f2b0003c82e1d17f74feaa4f22b6d4a9dba"
+    }
+  ]
+}
