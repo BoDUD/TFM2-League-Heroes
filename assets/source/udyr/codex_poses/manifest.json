@@ -1,0 +1,789 @@
+{
+  "expected_count": 29,
+  "generated_count": 29,
+  "poses": [
+    {
+      "name": "a_punch",
+      "stance": "A",
+      "file": "udyr-pose-a_punch.png",
+      "raw_file": "raw/udyr-pose-a_punch.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "size_pass": true,
+      "alpha_levels": 256,
+      "hard_alpha_pass": false,
+      "bbox_alpha128": [
+        79,
+        105,
+        1233,
+        1197
+      ],
+      "grid_requested": 18,
+      "nonuniform_blocks": 2865,
+      "occupied_blocks": 2865,
+      "exact_grid_pass": false,
+      "ground_requested": 18,
+      "ground_delta": 1179,
+      "sha256": "889093b8384cd7adc756631c3bda100e77203933bb9f5e1b9d999cce045d3c0d",
+      "status": "generated_key_pose_runtime_untested"
+    },
+    {
+      "name": "run1",
+      "stance": "A",
+      "file": "udyr-pose-run1.png",
+      "raw_file": "raw/udyr-pose-run1.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "size_pass": true,
+      "alpha_levels": 256,
+      "hard_alpha_pass": false,
+      "bbox_alpha128": [
+        199,
+        117,
+        1082,
+        1182
+      ],
+      "grid_requested": 18,
+      "nonuniform_blocks": 2388,
+      "occupied_blocks": 2388,
+      "exact_grid_pass": false,
+      "ground_requested": 18,
+      "ground_delta": 1164,
+      "sha256": "a3110a14bb52d7a65118a2ea2332c8007fa6f70c1a4bf8aae1a63f9d6e9f7d13",
+      "status": "generated_key_pose_runtime_untested"
+    },
+    {
+      "name": "run2",
+      "stance": "A",
+      "file": "udyr-pose-run2.png",
+      "raw_file": "raw/udyr-pose-run2.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "size_pass": true,
+      "alpha_levels": 256,
+      "hard_alpha_pass": false,
+      "bbox_alpha128": [
+        170,
+        71,
+        1138,
+        1227
+      ],
+      "grid_requested": 18,
+      "nonuniform_blocks": 2605,
+      "occupied_blocks": 2605,
+      "exact_grid_pass": false,
+      "ground_requested": 18,
+      "ground_delta": 1209,
+      "sha256": "e0c074d6fec6fabf50e241e0aff54536d6ab48b68eaf6232ffd56f4af48bf0f6",
+      "status": "generated_key_pose_runtime_untested"
+    },
+    {
+      "name": "run3",
+      "stance": "A",
+      "file": "udyr-pose-run3.png",
+      "raw_file": "raw/udyr-pose-run3.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "size_pass": true,
+      "alpha_levels": 256,
+      "hard_alpha_pass": false,
+      "bbox_alpha128": [
+        187,
+        95,
+        1121,
+        1208
+      ],
+      "grid_requested": 18,
+      "nonuniform_blocks": 2496,
+      "occupied_blocks": 2496,
+      "exact_grid_pass": false,
+      "ground_requested": 18,
+      "ground_delta": 1190,
+      "sha256": "fd3224a58570ffa3311a60db76bb6d7206288961deaa3f0e375cccba7590b27e",
+      "status": "generated_key_pose_runtime_untested"
+    },
+    {
+      "name": "run4",
+      "stance": "A",
+      "file": "udyr-pose-run4.png",
+      "raw_file": "raw/udyr-pose-run4.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "size_pass": true,
+      "alpha_levels": 256,
+      "hard_alpha_pass": false,
+      "bbox_alpha128": [
+        187,
+        51,
+        1085,
+        1215
+      ],
+      "grid_requested": 18,
+      "nonuniform_blocks": 2597,
+      "occupied_blocks": 2597,
+      "exact_grid_pass": false,
+      "ground_requested": 18,
+      "ground_delta": 1197,
+      "sha256": "89e3061230f9092286a9bd016be914ca59b962c33a5dcd03c47474cafc777377",
+      "status": "generated_key_pose_runtime_untested"
+    },
+    {
+      "name": "d_hit",
+      "stance": "A",
+      "file": "udyr-pose-d_hit.png",
+      "raw_file": "raw/udyr-pose-d_hit.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "size_pass": true,
+      "alpha_levels": 256,
+      "hard_alpha_pass": false,
+      "bbox_alpha128": [
+        61,
+        58,
+        1195,
+        1216
+      ],
+      "grid_requested": 13,
+      "nonuniform_blocks": 4641,
+      "occupied_blocks": 4643,
+      "exact_grid_pass": false,
+      "ground_requested": 13,
+      "ground_delta": 1203,
+      "sha256": "251fd85aa8545cd0ce1ef0cd7ffe32d8714ebdfb7a353763714817efc43198d0",
+      "status": "generated_key_pose_runtime_untested"
+    },
+    {
+      "name": "d_kneel",
+      "stance": "A",
+      "file": "udyr-pose-d_kneel.png",
+      "raw_file": "raw/udyr-pose-d_kneel.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "size_pass": true,
+      "alpha_levels": 256,
+      "hard_alpha_pass": false,
+      "bbox_alpha128": [
+        98,
+        258,
+        1147,
+        1177
+      ],
+      "grid_requested": 18,
+      "nonuniform_blocks": 2263,
+      "occupied_blocks": 2263,
+      "exact_grid_pass": false,
+      "ground_requested": 18,
+      "ground_delta": 1159,
+      "sha256": "c8542d6b3a3446219caf40897508e4426d3ec82beaff8e3965fef4b428e578b0",
+      "status": "generated_key_pose_runtime_untested"
+    },
+    {
+      "name": "q_wind",
+      "stance": "Q",
+      "file": "udyr-pose-q_wind.png",
+      "raw_file": "raw/udyr-pose-q_wind.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "size_pass": true,
+      "alpha_levels": 256,
+      "hard_alpha_pass": false,
+      "bbox_alpha128": [
+        32,
+        289,
+        1242,
+        1205
+      ],
+      "grid_requested": 15,
+      "nonuniform_blocks": 3394,
+      "occupied_blocks": 3394,
+      "exact_grid_pass": false,
+      "ground_requested": 15,
+      "ground_delta": 1190,
+      "sha256": "8699889d2f11d9b3bc7ca7888e403eced8f3399c3ffc9bae430ac3b2fb26e4ac",
+      "status": "generated_key_pose_runtime_untested"
+    },
+    {
+      "name": "q_swipe",
+      "stance": "Q",
+      "file": "udyr-pose-q_swipe.png",
+      "raw_file": "raw/udyr-pose-q_swipe.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "size_pass": true,
+      "alpha_levels": 256,
+      "hard_alpha_pass": false,
+      "bbox_alpha128": [
+        40,
+        150,
+        1234,
+        1204
+      ],
+      "grid_requested": 15,
+      "nonuniform_blocks": 4375,
+      "occupied_blocks": 4375,
+      "exact_grid_pass": false,
+      "ground_requested": 15,
+      "ground_delta": 1189,
+      "sha256": "f2b27f2c056365b57126a51c3c0e873b75cbbf641fb01ffb76c9754458587684",
+      "status": "generated_key_pose_runtime_untested"
+    },
+    {
+      "name": "q_roar",
+      "stance": "Q",
+      "file": "udyr-pose-q_roar.png",
+      "raw_file": "raw/udyr-pose-q_roar.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "size_pass": true,
+      "alpha_levels": 256,
+      "hard_alpha_pass": false,
+      "bbox_alpha128": [
+        344,
+        10,
+        981,
+        1244
+      ],
+      "grid_requested": 12,
+      "nonuniform_blocks": 4305,
+      "occupied_blocks": 4309,
+      "exact_grid_pass": false,
+      "ground_requested": 12,
+      "ground_delta": 1232,
+      "sha256": "55eff5b0a5882955f681e2300d7224505921b0a5f726c6f46cb373b30d4086fd",
+      "status": "generated_key_pose_runtime_untested"
+    },
+    {
+      "name": "q_run1",
+      "stance": "Q",
+      "file": "udyr-pose-q_run1.png",
+      "raw_file": "raw/udyr-pose-q_run1.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "size_pass": true,
+      "alpha_levels": 256,
+      "hard_alpha_pass": false,
+      "bbox_alpha128": [
+        165,
+        129,
+        1180,
+        1223
+      ],
+      "grid_requested": 15,
+      "nonuniform_blocks": 3627,
+      "occupied_blocks": 3627,
+      "exact_grid_pass": false,
+      "ground_requested": 15,
+      "ground_delta": 1208,
+      "sha256": "2edbd833210986c357ef565d32bd1fd29535323911d1b67305a17f5bf5cc9554",
+      "status": "generated_key_pose_runtime_untested"
+    },
+    {
+      "name": "q_run2",
+      "stance": "Q",
+      "file": "udyr-pose-q_run2.png",
+      "raw_file": "raw/udyr-pose-q_run2.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "size_pass": true,
+      "alpha_levels": 256,
+      "hard_alpha_pass": false,
+      "bbox_alpha128": [
+        101,
+        206,
+        1169,
+        1171
+      ],
+      "grid_requested": 15,
+      "nonuniform_blocks": 3661,
+      "occupied_blocks": 3661,
+      "exact_grid_pass": false,
+      "ground_requested": 15,
+      "ground_delta": 1156,
+      "sha256": "ba74fbc1101cc320c28edc71fb0e2b57efbf12b7ece001dadf2082d772aaaa76",
+      "status": "generated_key_pose_runtime_untested"
+    },
+    {
+      "name": "q_run3",
+      "stance": "Q",
+      "file": "udyr-pose-q_run3.png",
+      "raw_file": "raw/udyr-pose-q_run3.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "size_pass": true,
+      "alpha_levels": 256,
+      "hard_alpha_pass": false,
+      "bbox_alpha128": [
+        108,
+        94,
+        1187,
+        1196
+      ],
+      "grid_requested": 15,
+      "nonuniform_blocks": 3988,
+      "occupied_blocks": 3988,
+      "exact_grid_pass": false,
+      "ground_requested": 15,
+      "ground_delta": 1181,
+      "sha256": "48d53920f3f392f469ce50271368d9cb36aa50d3999e3c20cac538c90cd99fc2",
+      "status": "generated_key_pose_runtime_untested"
+    },
+    {
+      "name": "q_run4",
+      "stance": "Q",
+      "file": "udyr-pose-q_run4.png",
+      "raw_file": "raw/udyr-pose-q_run4.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "size_pass": true,
+      "alpha_levels": 256,
+      "hard_alpha_pass": false,
+      "bbox_alpha128": [
+        116,
+        162,
+        1206,
+        1204
+      ],
+      "grid_requested": 15,
+      "nonuniform_blocks": 3506,
+      "occupied_blocks": 3506,
+      "exact_grid_pass": false,
+      "ground_requested": 15,
+      "ground_delta": 1189,
+      "sha256": "0b9f29699aa46776b837f9fd6754021516180ca31a4c5b154dde7c6f0b506a68",
+      "status": "generated_key_pose_runtime_untested"
+    },
+    {
+      "name": "e_hook",
+      "stance": "E",
+      "file": "udyr-pose-e_hook.png",
+      "raw_file": "raw/udyr-pose-e_hook.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "size_pass": true,
+      "alpha_levels": 256,
+      "hard_alpha_pass": false,
+      "bbox_alpha128": [
+        49,
+        83,
+        1227,
+        1224
+      ],
+      "grid_requested": 15,
+      "nonuniform_blocks": 4471,
+      "occupied_blocks": 4471,
+      "exact_grid_pass": false,
+      "ground_requested": 15,
+      "ground_delta": 1209,
+      "sha256": "a953ca1396cd6ef9260ff26cff51bb7f5ad4b8b9d0e1c0aa125c370adb23d21e",
+      "status": "generated_key_pose_runtime_untested"
+    },
+    {
+      "name": "e_leap",
+      "stance": "E",
+      "file": "udyr-pose-e_leap.png",
+      "raw_file": "raw/udyr-pose-e_leap.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "size_pass": true,
+      "alpha_levels": 256,
+      "hard_alpha_pass": false,
+      "bbox_alpha128": [
+        282,
+        19,
+        1050,
+        1207
+      ],
+      "grid_requested": 11,
+      "nonuniform_blocks": 5374,
+      "occupied_blocks": 5374,
+      "exact_grid_pass": false,
+      "ground_requested": 11,
+      "ground_delta": 1196,
+      "sha256": "9728cb7ec0df4b9148e5f309ce37b737588f29d93880c75ac8d67c08bea4c45a",
+      "status": "generated_key_pose_runtime_untested"
+    },
+    {
+      "name": "e_slam",
+      "stance": "E",
+      "file": "udyr-pose-e_slam.png",
+      "raw_file": "raw/udyr-pose-e_slam.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "size_pass": true,
+      "alpha_levels": 256,
+      "hard_alpha_pass": false,
+      "bbox_alpha128": [
+        82,
+        338,
+        1191,
+        1202
+      ],
+      "grid_requested": 15,
+      "nonuniform_blocks": 3265,
+      "occupied_blocks": 3265,
+      "exact_grid_pass": false,
+      "ground_requested": 15,
+      "ground_delta": 1187,
+      "sha256": "d8bd0e897560649731ad63e19761958abbfa6100b36b548cbaa538ce3be6f71c",
+      "status": "generated_key_pose_runtime_untested"
+    },
+    {
+      "name": "e_stomp",
+      "stance": "E",
+      "file": "udyr-pose-e_stomp.png",
+      "raw_file": "raw/udyr-pose-e_stomp.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "size_pass": true,
+      "alpha_levels": 256,
+      "hard_alpha_pass": false,
+      "bbox_alpha128": [
+        285,
+        72,
+        1031,
+        1218
+      ],
+      "grid_requested": 14,
+      "nonuniform_blocks": 2952,
+      "occupied_blocks": 2952,
+      "exact_grid_pass": false,
+      "ground_requested": 14,
+      "ground_delta": 1204,
+      "sha256": "a2d0695e2f3040ddbc3a86e9f01e1aacd771ffba4c22137acea1f2f70e91b267",
+      "status": "generated_key_pose_runtime_untested"
+    },
+    {
+      "name": "e_run1",
+      "stance": "E",
+      "file": "udyr-pose-e_run1.png",
+      "raw_file": "raw/udyr-pose-e_run1.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "size_pass": true,
+      "alpha_levels": 256,
+      "hard_alpha_pass": false,
+      "bbox_alpha128": [
+        238,
+        18,
+        1091,
+        1251
+      ],
+      "grid_requested": 14,
+      "nonuniform_blocks": 3740,
+      "occupied_blocks": 3740,
+      "exact_grid_pass": false,
+      "ground_requested": 14,
+      "ground_delta": 1237,
+      "sha256": "9dff484a88d4d0e6d88a1c37bc4029329d323c3077c4f71209f3a601007e1fd9",
+      "status": "generated_key_pose_runtime_untested"
+    },
+    {
+      "name": "e_run2",
+      "stance": "E",
+      "file": "udyr-pose-e_run2.png",
+      "raw_file": "raw/udyr-pose-e_run2.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "size_pass": true,
+      "alpha_levels": 256,
+      "hard_alpha_pass": false,
+      "bbox_alpha128": [
+        157,
+        80,
+        1136,
+        1208
+      ],
+      "grid_requested": 15,
+      "nonuniform_blocks": 3495,
+      "occupied_blocks": 3495,
+      "exact_grid_pass": false,
+      "ground_requested": 15,
+      "ground_delta": 1193,
+      "sha256": "1cf2a6e7a25d4cada2aaf42949552d2a95aa3bcde72ed8937936e6d18f1b4133",
+      "status": "generated_key_pose_runtime_untested"
+    },
+    {
+      "name": "e_run3",
+      "stance": "E",
+      "file": "udyr-pose-e_run3.png",
+      "raw_file": "raw/udyr-pose-e_run3.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "size_pass": true,
+      "alpha_levels": 256,
+      "hard_alpha_pass": false,
+      "bbox_alpha128": [
+        265,
+        50,
+        1059,
+        1215
+      ],
+      "grid_requested": 14,
+      "nonuniform_blocks": 3461,
+      "occupied_blocks": 3461,
+      "exact_grid_pass": false,
+      "ground_requested": 14,
+      "ground_delta": 1201,
+      "sha256": "3add5d39a525502283fd2fd333d6c58e53a2497026354fea3e8f67f1a0c26a98",
+      "status": "generated_key_pose_runtime_untested"
+    },
+    {
+      "name": "e_run4",
+      "stance": "E",
+      "file": "udyr-pose-e_run4.png",
+      "raw_file": "raw/udyr-pose-e_run4.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "size_pass": true,
+      "alpha_levels": 256,
+      "hard_alpha_pass": false,
+      "bbox_alpha128": [
+        153,
+        87,
+        1131,
+        1224
+      ],
+      "grid_requested": 15,
+      "nonuniform_blocks": 3653,
+      "occupied_blocks": 3653,
+      "exact_grid_pass": false,
+      "ground_requested": 15,
+      "ground_delta": 1209,
+      "sha256": "43a6889bac79a8764d18228120cc3a490c0a22d2fc82856d388fb41e4d739d74",
+      "status": "generated_key_pose_runtime_untested"
+    },
+    {
+      "name": "r_thrust",
+      "stance": "R",
+      "file": "udyr-pose-r_thrust.png",
+      "raw_file": "raw/udyr-pose-r_thrust.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "size_pass": true,
+      "alpha_levels": 256,
+      "hard_alpha_pass": false,
+      "bbox_alpha128": [
+        20,
+        324,
+        1237,
+        1215
+      ],
+      "grid_requested": 13,
+      "nonuniform_blocks": 3883,
+      "occupied_blocks": 3883,
+      "exact_grid_pass": false,
+      "ground_requested": 13,
+      "ground_delta": 1202,
+      "sha256": "1ee137056c4b75680f4a370af6fa3bd7cd3347cba77767232b6a6c75ee3267c7",
+      "status": "generated_key_pose_runtime_untested"
+    },
+    {
+      "name": "r_crouch",
+      "stance": "R",
+      "file": "udyr-pose-r_crouch.png",
+      "raw_file": "raw/udyr-pose-r_crouch.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "size_pass": true,
+      "alpha_levels": 256,
+      "hard_alpha_pass": false,
+      "bbox_alpha128": [
+        49,
+        426,
+        1238,
+        1226
+      ],
+      "grid_requested": 11,
+      "nonuniform_blocks": 5046,
+      "occupied_blocks": 5046,
+      "exact_grid_pass": false,
+      "ground_requested": 11,
+      "ground_delta": 1215,
+      "sha256": "057c99beb1a1363ef8c932c8a30cbe5408d806c95fa5e45f03fd945583bc55c7",
+      "status": "generated_key_pose_runtime_untested"
+    },
+    {
+      "name": "r_flap",
+      "stance": "R",
+      "file": "udyr-pose-r_flap.png",
+      "raw_file": "raw/udyr-pose-r_flap.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "size_pass": true,
+      "alpha_levels": 256,
+      "hard_alpha_pass": false,
+      "bbox_alpha128": [
+        127,
+        124,
+        1225,
+        1195
+      ],
+      "grid_requested": 11,
+      "nonuniform_blocks": 5484,
+      "occupied_blocks": 5484,
+      "exact_grid_pass": false,
+      "ground_requested": 11,
+      "ground_delta": 1184,
+      "sha256": "39ec29ea9a43970e3e7ba9a1e44d5a7d052d20264d840d464f0db1eeea08352a",
+      "status": "generated_key_pose_runtime_untested"
+    },
+    {
+      "name": "r_run1",
+      "stance": "R",
+      "file": "udyr-pose-r_run1.png",
+      "raw_file": "raw/udyr-pose-r_run1.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "size_pass": true,
+      "alpha_levels": 256,
+      "hard_alpha_pass": false,
+      "bbox_alpha128": [
+        118,
+        78,
+        1223,
+        1225
+      ],
+      "grid_requested": 12,
+      "nonuniform_blocks": 5505,
+      "occupied_blocks": 5505,
+      "exact_grid_pass": false,
+      "ground_requested": 12,
+      "ground_delta": 1213,
+      "sha256": "f3ff681af5194a2c5b0d94ecedada63c086a2a340e75338394aceae5d70d36f3",
+      "status": "generated_key_pose_runtime_untested"
+    },
+    {
+      "name": "r_run2",
+      "stance": "R",
+      "file": "udyr-pose-r_run2.png",
+      "raw_file": "raw/udyr-pose-r_run2.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "size_pass": true,
+      "alpha_levels": 256,
+      "hard_alpha_pass": false,
+      "bbox_alpha128": [
+        187,
+        50,
+        1176,
+        1215
+      ],
+      "grid_requested": 13,
+      "nonuniform_blocks": 4355,
+      "occupied_blocks": 4355,
+      "exact_grid_pass": false,
+      "ground_requested": 13,
+      "ground_delta": 1202,
+      "sha256": "7e5af993773cfe87e9a93820de12937136006cf7acfccbbe2ee6a0a3c1a6bfb9",
+      "status": "generated_key_pose_runtime_untested"
+    },
+    {
+      "name": "r_run3",
+      "stance": "R",
+      "file": "udyr-pose-r_run3.png",
+      "raw_file": "raw/udyr-pose-r_run3.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "size_pass": true,
+      "alpha_levels": 256,
+      "hard_alpha_pass": false,
+      "bbox_alpha128": [
+        166,
+        97,
+        1166,
+        1224
+      ],
+      "grid_requested": 12,
+      "nonuniform_blocks": 5038,
+      "occupied_blocks": 5038,
+      "exact_grid_pass": false,
+      "ground_requested": 12,
+      "ground_delta": 1212,
+      "sha256": "33273ef018422f7c217d5bfdc495db1be3b1da309d5823e9d3b77c2ef3d84ab3",
+      "status": "generated_key_pose_runtime_untested"
+    },
+    {
+      "name": "r_run4",
+      "stance": "R",
+      "file": "udyr-pose-r_run4.png",
+      "raw_file": "raw/udyr-pose-r_run4.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "size_pass": true,
+      "alpha_levels": 256,
+      "hard_alpha_pass": false,
+      "bbox_alpha128": [
+        119,
+        83,
+        1222,
+        1210
+      ],
+      "grid_requested": 13,
+      "nonuniform_blocks": 4196,
+      "occupied_blocks": 4196,
+      "exact_grid_pass": false,
+      "ground_requested": 13,
+      "ground_delta": 1197,
+      "sha256": "ba4e8c33ff5af5e4a797de008f1e3876a9c161e617a5c53173d1fd782d169bf4",
+      "status": "generated_key_pose_runtime_untested"
+    }
+  ]
+}

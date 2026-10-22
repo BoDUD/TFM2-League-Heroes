@@ -112,6 +112,7 @@ pub const STEALABLE: &[&str] = &[
     "league_tristana",
     "league_twistedfate",
     "league_twitch",
+    "league_udyr",
     "league_varus",
     "league_vayne",
     "league_veigar",

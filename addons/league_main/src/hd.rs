@@ -167,6 +167,10 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // squares a game pixel (45 game rows blade tip to paws: 「30」「PPU 1.5」; 3/4 only; her pack drawn into her frames, the
     // p4_* tags the four hounds league_naafiri's view hook swaps in during The Call of the Pack), so no SIZES row
     ("league_naafiri", 1.5, include_str!("../../../league/champions/league_naafiri#anim.fanim")),
+    // Udyr: his four stances (the plain guard, the bear q_*, the ram e_*, the phoenix r_*) posed by tools/art/rig_udyr.py on
+    // Codex's step-1 takes and its key poses at the user's 1.5 squares a game pixel (60 game rows fists to soles: 「40」
+    // 「PPU 1.5」; 3/4 only; league_udyr's view hook swaps in the stance's idle / run / hit / dead), so no SIZES row
+    ("league_udyr", 1.5, include_str!("../../../league/champions/league_udyr#anim.fanim")),
     // Neeko: posed by tools/art/rig_neeko.py on Codex's step-1 take A-1 and its key poses at the user's 2.5 squares a
     // game pixel (100 game rows quill tips to soles: 「40」, then 「1.5也挺糊的 还得往上调整吧」; 3/4 only; league_neeko's
     // view hook draws her as an ally while she is disguised), so no SIZES row

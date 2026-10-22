@@ -1,0 +1,37 @@
+{
+  "zh-hans": {
+    "description": {
+      "league_udyr_addon": {
+        "attack": "【附加包】拳击目标。<#ff9028ff>众灵纽带<>：放技能后两次攻击攻速+30%。<#ff9028ff>坚铁甲胄<>：生命低于50%时获得<#7bd96bff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7bd96bff>40%<>护盾，之后两次攻击各回复<#7bd96bff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7bd96bff>20%<>生命（每<#ffb900ff>12秒<>至多一次）。"
+      }
+    }
+  },
+  "zh-hant": {
+    "description": {
+      "league_udyr_addon": {
+        "attack": "【附加包】拳擊目標。<#ff9028ff>人神一體<>：施放技能後兩次攻擊攻速+30%。<#ff9028ff>鋼筋鐵骨<>：生命低於50%時獲得<#7bd96bff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7bd96bff>40%<>護盾，之後兩次攻擊各回復<#7bd96bff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7bd96bff>20%<>生命（每<#ffb900ff>12秒<>至多一次）。"
+      }
+    }
+  },
+  "en": {
+    "description": {
+      "league_udyr_addon": {
+        "attack": "[Add-on] A punch. <#ff9028ff>Bridge Between<>: after each ability his next two attacks gain +30% attack speed. <#ff9028ff>Iron Mantle<>: falling under 50% health shields him for <#7bd96bff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7bd96bff>40%<> and his next two attacks heal him <#7bd96bff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7bd96bff>20%<> each (once every <#ffb900ff>12s<> at most)."
+      }
+    }
+  },
+  "ko": {
+    "description": {
+      "league_udyr_addon": {
+        "attack": "[애드온] 주먹으로 공격. <#ff9028ff>가교<>: 스킬 사용 후 다음 두 번의 공격 속도 +30%. <#ff9028ff>강철 갑옷<>: 체력이 50% 미만이 되면 <#7bd96bff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7bd96bff>40%<> 보호막, 다음 두 번의 공격마다 체력 <#7bd96bff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7bd96bff>20%<> 회복 (<#ffb900ff>12초<>에 한 번)."
+      }
+    }
+  },
+  "ja": {
+    "description": {
+      "league_udyr_addon": {
+        "attack": "【アドオン】拳で攻撃。<#ff9028ff>精霊の繋ぎ手<>：スキル後の2回の通常攻撃は攻撃速度+30%。<#ff9028ff>鉄の外皮<>：体力が50%未満になると<#7bd96bff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7bd96bff>40%<>のシールド、続く2回の攻撃で体力<#7bd96bff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7bd96bff>20%<>回復（<#ffb900ff>12秒<>に1回まで）。"
+      }
+    }
+  }
+}

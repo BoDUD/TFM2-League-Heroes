@@ -1,0 +1,4031 @@
+{
+  "id": "league_udyr",
+  "category": "Melee",
+  "tags": [
+    "AD",
+    "Melee",
+    "Tank",
+    "Shield",
+    "CC"
+  ],
+  "sprite": "asset/league/champions/league_udyr",
+  "anim_prefix": "",
+  "skill_icons": [
+    "asset/league/icons/league_udyr_skill",
+    "asset/league/icons/league_udyr_skill2",
+    "asset/league/icons/league_udyr_ult"
+  ],
+  "stat": {
+    "attack": 86,
+    "magic_power": 0,
+    "hp": 1120,
+    "defence": 36,
+    "magic_resistance": 25,
+    "move_speed": 1050,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "growth": {
+    "attack": 16,
+    "magic_power": 0,
+    "hp": 100,
+    "defence": 7,
+    "magic_resistance": 4,
+    "move_speed": 12,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "attack": {
+    "action_name": "attack",
+    "description": "#asset/base/text/champion?description.league_udyr.attack",
+    "duration": 30,
+    "cooltime": 64,
+    "start_timing": 1,
+    "cancelable": true,
+    "range": 25000,
+    "casting_type": "Targeting",
+    "casting_target": "Enemy",
+    "attack_type": "BaseAttack",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_udyr_st_q",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "CasterAnimation",
+                "name": "q_attack",
+                "tick": 30
+              },
+              {
+                "type": "Sfx",
+                "name": "league_udyr_a_q"
+              }
+            ]
+          },
+          "effect_none": {
+            "type": "SwitchByBuff",
+            "buff_name": "league_udyr_st_e",
+            "effect_buff": {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "CasterAnimation",
+                  "name": "e_attack",
+                  "tick": 30
+                },
+                {
+                  "type": "Sfx",
+                  "name": "league_udyr_a_e"
+                }
+              ]
+            },
+            "effect_none": {
+              "type": "SwitchByBuff",
+              "buff_name": "league_udyr_st_r",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "CasterAnimation",
+                    "name": "r_attack",
+                    "tick": 30
+                  },
+                  {
+                    "type": "Sfx",
+                    "name": "league_udyr_a_r"
+                  }
+                ]
+              },
+              "effect_none": {
+                "type": "Sfx",
+                "name": "league_udyr_a"
+              }
+            }
+          }
+        },
+        {
+          "type": "Delayed",
+          "tick": 8,
+          "effects": [
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_udyr_q2",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": []
+              },
+              "effect_none": {
+                "type": "SwitchByBuff",
+                "buff_name": "league_udyr_q1",
+                "effect_buff": {
+                  "type": "Combine",
+                  "effects": []
+                },
+                "effect_none": {
+                  "type": "TargetProjectile",
+                  "name": "league_udyr_a_hit",
+                  "speed": 20000,
+                  "y_offset": 0,
+                  "applied_target": "Enemy",
+                  "applied_effects": [
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "Attack",
+                        "damage": 0,
+                        "attack_ratio": 100,
+                        "hp_ratio": 0,
+                        "target_hp_ratio": 0,
+                        "attack_effect_type": "Target"
+                      }
+                    },
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "ViewEffect",
+                        "name": "league_udyr_a_hit"
+                      }
+                    },
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "TargetSfx",
+                        "name": "league_udyr_a_hit"
+                      }
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_udyr_q2",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_udyr_q2"
+                  },
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_udyr_q1",
+                      "duration": {
+                        "Time": {
+                          "tick": 240
+                        }
+                      }
+                    },
+                    "only_to_enemy": false
+                  },
+                  {
+                    "type": "TargetProjectile",
+                    "name": "league_udyr_a_q",
+                    "speed": 20000,
+                    "y_offset": 0,
+                    "applied_target": "Enemy",
+                    "applied_effects": [
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "Attack",
+                          "damage": 15,
+                          "attack_ratio": 135,
+                          "hp_ratio": 0,
+                          "target_hp_ratio": 4,
+                          "attack_effect_type": "Target"
+                        }
+                      },
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "ViewEffect",
+                          "name": "league_udyr_q_hit"
+                        }
+                      },
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "TargetSfx",
+                          "name": "league_udyr_q_hit"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "TargetProjectile",
+                    "name": "league_udyr_a_qc",
+                    "speed": 20000,
+                    "y_offset": 0,
+                    "applied_target": "EnemyChampion",
+                    "applied_effects": [
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_udyr_r_go"
+                            },
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_udyr_r_go",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 240
+                                  }
+                                }
+                              },
+                              "only_to_enemy": false
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_udyr_q_lit",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "TargetSplashProjectile",
+                          "name": "league_udyr_q_bolt",
+                          "speed": 30000,
+                          "range": 9000,
+                          "y_offset": 5000,
+                          "applied_target": "EnemyWithoutTower",
+                          "applied_effects": [
+                            {
+                              "casting_type": "Targeting",
+                              "effect": {
+                                "type": "ApAttack",
+                                "damage": 25,
+                                "attack_ratio": 35,
+                                "hp_ratio": 0,
+                                "can_crit": false
+                              }
+                            },
+                            {
+                              "casting_type": "Targeting",
+                              "effect": {
+                                "type": "ViewEffect",
+                                "name": "league_udyr_q_bolt_hit"
+                              }
+                            },
+                            {
+                              "casting_type": "Targeting",
+                              "effect": {
+                                "type": "TargetSfx",
+                                "name": "league_udyr_q_bolt_hit"
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Sfx",
+                          "name": "league_udyr_q_bolt"
+                        }
+                      ]
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
+                  }
+                ]
+              },
+              "effect_none": {
+                "type": "SwitchByBuff",
+                "buff_name": "league_udyr_q1",
+                "effect_buff": {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "league_udyr_q1"
+                    },
+                    {
+                      "type": "TargetProjectile",
+                      "name": "league_udyr_a_q",
+                      "speed": 20000,
+                      "y_offset": 0,
+                      "applied_target": "Enemy",
+                      "applied_effects": [
+                        {
+                          "casting_type": "Targeting",
+                          "effect": {
+                            "type": "Attack",
+                            "damage": 15,
+                            "attack_ratio": 135,
+                            "hp_ratio": 0,
+                            "target_hp_ratio": 4,
+                            "attack_effect_type": "Target"
+                          }
+                        },
+                        {
+                          "casting_type": "Targeting",
+                          "effect": {
+                            "type": "ViewEffect",
+                            "name": "league_udyr_q_hit"
+                          }
+                        },
+                        {
+                          "casting_type": "Targeting",
+                          "effect": {
+                            "type": "TargetSfx",
+                            "name": "league_udyr_q_hit"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "type": "TargetProjectile",
+                      "name": "league_udyr_a_qc",
+                      "speed": 20000,
+                      "y_offset": 0,
+                      "applied_target": "EnemyChampion",
+                      "applied_effects": [
+                        {
+                          "casting_type": "Targeting",
+                          "effect": {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "league_udyr_r_go"
+                              },
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_udyr_r_go",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 240
+                                    }
+                                  }
+                                },
+                                "only_to_enemy": false
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_udyr_q_lit",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "TargetSplashProjectile",
+                            "name": "league_udyr_q_bolt",
+                            "speed": 30000,
+                            "range": 9000,
+                            "y_offset": 5000,
+                            "applied_target": "EnemyWithoutTower",
+                            "applied_effects": [
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "ApAttack",
+                                  "damage": 25,
+                                  "attack_ratio": 35,
+                                  "hp_ratio": 0,
+                                  "can_crit": false
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "ViewEffect",
+                                  "name": "league_udyr_q_bolt_hit"
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "TargetSfx",
+                                  "name": "league_udyr_q_bolt_hit"
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Sfx",
+                            "name": "league_udyr_q_bolt"
+                          }
+                        ]
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    },
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "league_udyr_q_lit"
+                    }
+                  ]
+                },
+                "effect_none": {
+                  "type": "Combine",
+                  "effects": []
+                }
+              }
+            },
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_udyr_w2",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_udyr_w2"
+                  },
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_udyr_w1",
+                      "duration": {
+                        "Time": {
+                          "tick": 300
+                        }
+                      }
+                    },
+                    "only_to_enemy": false
+                  },
+                  {
+                    "type": "RangeEffect",
+                    "shape": {
+                      "Circle": {
+                        "radius": 1000
+                      }
+                    },
+                    "target": "AllyOnlySelf",
+                    "apply_type": "AroundCaster",
+                    "effects": [
+                      {
+                        "type": "Heal",
+                        "amount": 15,
+                        "attack_ratio": 20,
+                        "ap_ratio": 0,
+                        "heal_type": "Caster"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "CasterViewEffect",
+                    "name": "league_udyr_w_heal"
+                  }
+                ]
+              },
+              "effect_none": {
+                "type": "SwitchByBuff",
+                "buff_name": "league_udyr_w1",
+                "effect_buff": {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "league_udyr_w1"
+                    },
+                    {
+                      "type": "RangeEffect",
+                      "shape": {
+                        "Circle": {
+                          "radius": 1000
+                        }
+                      },
+                      "target": "AllyOnlySelf",
+                      "apply_type": "AroundCaster",
+                      "effects": [
+                        {
+                          "type": "Heal",
+                          "amount": 15,
+                          "attack_ratio": 20,
+                          "ap_ratio": 0,
+                          "heal_type": "Caster"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "CasterViewEffect",
+                      "name": "league_udyr_w_heal"
+                    }
+                  ]
+                },
+                "effect_none": {
+                  "type": "Combine",
+                  "effects": []
+                }
+              }
+            },
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_udyr_p2",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_udyr_p2"
+                  },
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_udyr_p1",
+                      "duration": {
+                        "Time": {
+                          "tick": 180
+                        }
+                      },
+                      "attack_speed_mult": 30
+                    },
+                    "only_to_enemy": false
+                  }
+                ]
+              },
+              "effect_none": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_udyr_p1"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill": {
+    "action_name": "skill",
+    "description": "#asset/base/text/champion?description.league_udyr.skill",
+    "duration": 12,
+    "cooltime": 360,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 30000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Combine",
+          "effects": [
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_udyr_st_q",
+              "effect_buff": {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_udyr_q_wk",
+                  "duration": {
+                    "Time": {
+                      "tick": 2
+                    }
+                  }
+                },
+                "only_to_enemy": false
+              },
+              "effect_none": {
+                "type": "Combine",
+                "effects": []
+              }
+            },
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_udyr_q_go",
+              "effect_buff": {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_udyr_q_wk",
+                  "duration": {
+                    "Time": {
+                      "tick": 2
+                    }
+                  }
+                },
+                "only_to_enemy": false
+              },
+              "effect_none": {
+                "type": "Combine",
+                "effects": []
+              }
+            }
+          ]
+        },
+        {
+          "type": "RemoveCasterBuff",
+          "name": "league_udyr_q_go"
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_udyr_q_wk",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_udyr_q_as"
+                      },
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_udyr_q_as",
+                          "duration": {
+                            "Time": {
+                              "tick": 240
+                            }
+                          },
+                          "attack_speed_mult": 60
+                        },
+                        "only_to_enemy": false
+                      }
+                    ]
+                  },
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_udyr_q1"
+                  },
+                  {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_udyr_q2"
+                      },
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_udyr_q2",
+                          "duration": {
+                            "Time": {
+                              "tick": 240
+                            }
+                          }
+                        },
+                        "only_to_enemy": false
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_udyr_q_lit"
+                  },
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_udyr_q_lit",
+                      "duration": {
+                        "Time": {
+                          "tick": 240
+                        }
+                      }
+                    },
+                    "only_to_enemy": false
+                  }
+                ]
+              },
+              {
+                "type": "CasterViewEffect",
+                "name": "league_udyr_q_wake"
+              },
+              {
+                "type": "Sfx",
+                "name": "league_udyr_q_wake"
+              }
+            ]
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_udyr_q_as"
+                      },
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_udyr_q_as",
+                          "duration": {
+                            "Time": {
+                              "tick": 240
+                            }
+                          },
+                          "attack_speed_mult": 30
+                        },
+                        "only_to_enemy": false
+                      }
+                    ]
+                  },
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_udyr_q1"
+                  },
+                  {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_udyr_q2"
+                      },
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_udyr_q2",
+                          "duration": {
+                            "Time": {
+                              "tick": 240
+                            }
+                          }
+                        },
+                        "only_to_enemy": false
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "RemoveCasterBuff",
+                "name": "league_udyr_q_lit"
+              },
+              {
+                "type": "CasterViewEffect",
+                "name": "league_udyr_q_on"
+              },
+              {
+                "type": "Sfx",
+                "name": "league_udyr_q"
+              }
+            ]
+          }
+        },
+        {
+          "type": "RemoveCasterBuff",
+          "name": "league_udyr_q_wk"
+        },
+        {
+          "type": "Combine",
+          "effects": [
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_udyr_st_e"
+            },
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_udyr_st_r"
+            },
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_udyr_st_q",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": []
+              },
+              "effect_none": {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_udyr_st_q",
+                  "duration": "Permanent"
+                },
+                "only_to_enemy": false
+              }
+            }
+          ]
+        },
+        {
+          "type": "Combine",
+          "effects": [
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_udyr_p1"
+            },
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_udyr_p2"
+                },
+                {
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "league_udyr_p2",
+                    "duration": {
+                      "Time": {
+                        "tick": 180
+                      }
+                    },
+                    "attack_speed_mult": 30
+                  },
+                  "only_to_enemy": false
+                }
+              ]
+            },
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_udyr_w_icd",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": []
+              },
+              "effect_none": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_udyr_w_icd",
+                      "duration": {
+                        "Time": {
+                          "tick": 720
+                        }
+                      }
+                    },
+                    "only_to_enemy": false
+                  },
+                  {
+                    "type": "RangeEffect",
+                    "shape": {
+                      "Circle": {
+                        "radius": 1000
+                      }
+                    },
+                    "target": "AllyOnlySelf",
+                    "apply_type": "AroundCaster",
+                    "effects": [
+                      {
+                        "type": "Shield",
+                        "amount": 70,
+                        "attack_ratio": 40,
+                        "ap_ratio": 0,
+                        "tick": 240
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_udyr_w_sh"
+                      },
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_udyr_w_sh",
+                          "duration": {
+                            "Time": {
+                              "tick": 240
+                            }
+                          }
+                        },
+                        "only_to_enemy": false
+                      }
+                    ]
+                  },
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_udyr_w1"
+                  },
+                  {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_udyr_w2"
+                      },
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_udyr_w2",
+                          "duration": {
+                            "Time": {
+                              "tick": 300
+                            }
+                          }
+                        },
+                        "only_to_enemy": false
+                      }
+                    ]
+                  },
+                  {
+                    "type": "CasterViewEffect",
+                    "name": "league_udyr_w_on"
+                  },
+                  {
+                    "type": "Sfx",
+                    "name": "league_udyr_w"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_udyr_vo_cd",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": []
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_udyr_vo_cd",
+                  "duration": {
+                    "Time": {
+                      "tick": 600
+                    }
+                  }
+                },
+                "only_to_enemy": false
+              },
+              {
+                "type": "Sfx",
+                "name": "league_udyr_vo_q"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "skill2": {
+    "action_name": "skill2",
+    "description": "#asset/base/text/champion?description.league_udyr.skill2",
+    "duration": 10,
+    "cooltime": 600,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 50000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Combine",
+          "effects": [
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_udyr_st_e",
+              "effect_buff": {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_udyr_e_wk",
+                  "duration": {
+                    "Time": {
+                      "tick": 2
+                    }
+                  }
+                },
+                "only_to_enemy": false
+              },
+              "effect_none": {
+                "type": "Combine",
+                "effects": []
+              }
+            }
+          ]
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_udyr_e_wk",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_udyr_e_ms"
+                  },
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_udyr_e_ms",
+                      "duration": {
+                        "Time": {
+                          "tick": 180
+                        }
+                      },
+                      "move_speed_mult": 60
+                    },
+                    "only_to_enemy": false
+                  }
+                ]
+              },
+              {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_udyr_e_imm"
+                  },
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_udyr_e_imm",
+                      "duration": {
+                        "Time": {
+                          "tick": 90
+                        }
+                      },
+                      "cc_immune": true
+                    },
+                    "only_to_enemy": false
+                  }
+                ]
+              },
+              {
+                "type": "CasterViewEffect",
+                "name": "league_udyr_e_wake"
+              },
+              {
+                "type": "Sfx",
+                "name": "league_udyr_e_wake"
+              }
+            ]
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_udyr_e_ms"
+                  },
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_udyr_e_ms",
+                      "duration": {
+                        "Time": {
+                          "tick": 180
+                        }
+                      },
+                      "move_speed_mult": 35
+                    },
+                    "only_to_enemy": false
+                  }
+                ]
+              },
+              {
+                "type": "CasterViewEffect",
+                "name": "league_udyr_e_on"
+              },
+              {
+                "type": "Sfx",
+                "name": "league_udyr_e"
+              }
+            ]
+          }
+        },
+        {
+          "type": "RemoveCasterBuff",
+          "name": "league_udyr_e_wk"
+        },
+        {
+          "type": "Combine",
+          "effects": [
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_udyr_st_q"
+            },
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_udyr_st_r"
+            },
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_udyr_st_e",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": []
+              },
+              "effect_none": {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_udyr_st_e",
+                  "duration": "Permanent"
+                },
+                "only_to_enemy": false
+              }
+            }
+          ]
+        },
+        {
+          "type": "Combine",
+          "effects": [
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_udyr_p1"
+            },
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_udyr_p2"
+                },
+                {
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "league_udyr_p2",
+                    "duration": {
+                      "Time": {
+                        "tick": 180
+                      }
+                    },
+                    "attack_speed_mult": 30
+                  },
+                  "only_to_enemy": false
+                }
+              ]
+            },
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_udyr_w_icd",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": []
+              },
+              "effect_none": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_udyr_w_icd",
+                      "duration": {
+                        "Time": {
+                          "tick": 720
+                        }
+                      }
+                    },
+                    "only_to_enemy": false
+                  },
+                  {
+                    "type": "RangeEffect",
+                    "shape": {
+                      "Circle": {
+                        "radius": 1000
+                      }
+                    },
+                    "target": "AllyOnlySelf",
+                    "apply_type": "AroundCaster",
+                    "effects": [
+                      {
+                        "type": "Shield",
+                        "amount": 70,
+                        "attack_ratio": 40,
+                        "ap_ratio": 0,
+                        "tick": 240
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_udyr_w_sh"
+                      },
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_udyr_w_sh",
+                          "duration": {
+                            "Time": {
+                              "tick": 240
+                            }
+                          }
+                        },
+                        "only_to_enemy": false
+                      }
+                    ]
+                  },
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_udyr_w1"
+                  },
+                  {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_udyr_w2"
+                      },
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_udyr_w2",
+                          "duration": {
+                            "Time": {
+                              "tick": 300
+                            }
+                          }
+                        },
+                        "only_to_enemy": false
+                      }
+                    ]
+                  },
+                  {
+                    "type": "CasterViewEffect",
+                    "name": "league_udyr_w_on"
+                  },
+                  {
+                    "type": "Sfx",
+                    "name": "league_udyr_w"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_udyr_vo_cd",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": []
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_udyr_vo_cd",
+                  "duration": {
+                    "Time": {
+                      "tick": 600
+                    }
+                  }
+                },
+                "only_to_enemy": false
+              },
+              {
+                "type": "Sfx",
+                "name": "league_udyr_vo_e"
+              }
+            ]
+          }
+        },
+        {
+          "type": "Delayed",
+          "tick": 5,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_udyr_lives",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_udyr_lives",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "CasterAnimation",
+                        "name": "e_charge",
+                        "tick": 24
+                      },
+                      {
+                        "type": "Sfx",
+                        "name": "league_udyr_e_dash"
+                      },
+                      {
+                        "type": "MoveToTarget",
+                        "speed": 3500,
+                        "range": 70000,
+                        "end_effects": [
+                          {
+                            "type": "CasterAnimation",
+                            "name": "e_stun",
+                            "tick": 24
+                          },
+                          {
+                            "type": "Sfx",
+                            "name": "league_udyr_e_hit_swing"
+                          },
+                          {
+                            "type": "Delayed",
+                            "tick": 7,
+                            "effects": [
+                              {
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "RandomTarget",
+                                    "range": 1,
+                                    "casting_target": "AllyOnlySelf",
+                                    "from_projectile": false,
+                                    "effects": [
+                                      {
+                                        "type": "AddCasterBuff",
+                                        "buff_state": {
+                                          "name": "league_udyr_lives",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 1
+                                            }
+                                          }
+                                        },
+                                        "only_to_enemy": false
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "SwitchByBuff",
+                                    "buff_name": "league_udyr_lives",
+                                    "effect_buff": {
+                                      "type": "Combine",
+                                      "effects": [
+                                        {
+                                          "type": "TargetProjectile",
+                                          "name": "league_udyr_e_ram",
+                                          "speed": 20000,
+                                          "y_offset": 0,
+                                          "applied_target": "EnemyChampion",
+                                          "applied_effects": [
+                                            {
+                                              "casting_type": "Targeting",
+                                              "effect": {
+                                                "type": "Attack",
+                                                "damage": 25,
+                                                "attack_ratio": 100,
+                                                "hp_ratio": 0,
+                                                "target_hp_ratio": 0,
+                                                "attack_effect_type": "Target"
+                                              }
+                                            },
+                                            {
+                                              "casting_type": "Targeting",
+                                              "effect": {
+                                                "type": "Stun",
+                                                "duration": 45
+                                              }
+                                            },
+                                            {
+                                              "casting_type": "Targeting",
+                                              "effect": {
+                                                "type": "AddBuff",
+                                                "buff_state": {
+                                                  "name": "league_udyr_e_stun",
+                                                  "duration": {
+                                                    "Time": {
+                                                      "tick": 45
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            },
+                                            {
+                                              "casting_type": "Targeting",
+                                              "effect": {
+                                                "type": "ViewEffect",
+                                                "name": "league_udyr_e_hit"
+                                              }
+                                            },
+                                            {
+                                              "casting_type": "Targeting",
+                                              "effect": {
+                                                "type": "TargetSfx",
+                                                "name": "league_udyr_e_hit"
+                                              }
+                                            },
+                                            {
+                                              "casting_type": "Targeting",
+                                              "effect": {
+                                                "type": "Combine",
+                                                "effects": [
+                                                  {
+                                                    "type": "RemoveCasterBuff",
+                                                    "name": "league_udyr_q_go"
+                                                  },
+                                                  {
+                                                    "type": "AddCasterBuff",
+                                                    "buff_state": {
+                                                      "name": "league_udyr_q_go",
+                                                      "duration": {
+                                                        "Time": {
+                                                          "tick": 300
+                                                        }
+                                                      }
+                                                    },
+                                                    "only_to_enemy": false
+                                                  }
+                                                ]
+                                              }
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    "effect_none": {
+                                      "type": "Combine",
+                                      "effects": []
+                                    }
+                                  },
+                                  {
+                                    "type": "RemoveCasterBuff",
+                                    "name": "league_udyr_lives"
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": []
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_udyr_lives"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "ult": {
+    "action_name": "ult",
+    "description": "#asset/base/text/champion?description.league_udyr.ult",
+    "duration": 24,
+    "cooltime": 2400,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 35000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "CasterAnimation",
+          "name": "ult",
+          "tick": 24
+        },
+        {
+          "type": "Sfx",
+          "name": "league_udyr_r"
+        },
+        {
+          "type": "CasterViewEffect",
+          "name": "league_udyr_r_on"
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_udyr_vo_cd",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": []
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_udyr_vo_cd",
+                  "duration": {
+                    "Time": {
+                      "tick": 600
+                    }
+                  }
+                },
+                "only_to_enemy": false
+              },
+              {
+                "type": "Sfx",
+                "name": "league_udyr_vo_r"
+              }
+            ]
+          }
+        },
+        {
+          "type": "Combine",
+          "effects": [
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_udyr_st_q"
+            },
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_udyr_st_e"
+            },
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_udyr_st_r",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": []
+              },
+              "effect_none": {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_udyr_st_r",
+                  "duration": "Permanent"
+                },
+                "only_to_enemy": false
+              }
+            }
+          ]
+        },
+        {
+          "type": "Combine",
+          "effects": [
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_udyr_p1"
+            },
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_udyr_p2"
+                },
+                {
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "league_udyr_p2",
+                    "duration": {
+                      "Time": {
+                        "tick": 180
+                      }
+                    },
+                    "attack_speed_mult": 30
+                  },
+                  "only_to_enemy": false
+                }
+              ]
+            },
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_udyr_w_icd",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": []
+              },
+              "effect_none": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_udyr_w_icd",
+                      "duration": {
+                        "Time": {
+                          "tick": 720
+                        }
+                      }
+                    },
+                    "only_to_enemy": false
+                  },
+                  {
+                    "type": "RangeEffect",
+                    "shape": {
+                      "Circle": {
+                        "radius": 1000
+                      }
+                    },
+                    "target": "AllyOnlySelf",
+                    "apply_type": "AroundCaster",
+                    "effects": [
+                      {
+                        "type": "Shield",
+                        "amount": 70,
+                        "attack_ratio": 40,
+                        "ap_ratio": 0,
+                        "tick": 240
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_udyr_w_sh"
+                      },
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_udyr_w_sh",
+                          "duration": {
+                            "Time": {
+                              "tick": 240
+                            }
+                          }
+                        },
+                        "only_to_enemy": false
+                      }
+                    ]
+                  },
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_udyr_w1"
+                  },
+                  {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_udyr_w2"
+                      },
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_udyr_w2",
+                          "duration": {
+                            "Time": {
+                              "tick": 300
+                            }
+                          }
+                        },
+                        "only_to_enemy": false
+                      }
+                    ]
+                  },
+                  {
+                    "type": "CasterViewEffect",
+                    "name": "league_udyr_w_on"
+                  },
+                  {
+                    "type": "Sfx",
+                    "name": "league_udyr_w"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_udyr_r_go",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "RemoveCasterBuff",
+                "name": "league_udyr_r_go"
+              },
+              {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_udyr_r_storm"
+                      },
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_udyr_r_storm",
+                          "duration": {
+                            "Time": {
+                              "tick": 240
+                            }
+                          }
+                        },
+                        "only_to_enemy": false
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 9,
+                    "effects": [
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RandomTarget",
+                            "range": 1,
+                            "casting_target": "AllyOnlySelf",
+                            "from_projectile": false,
+                            "effects": [
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_udyr_lives",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 1
+                                    }
+                                  }
+                                },
+                                "only_to_enemy": false
+                              }
+                            ]
+                          },
+                          {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_udyr_lives",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "RangeEffect",
+                                  "shape": {
+                                    "Circle": {
+                                      "radius": 17000
+                                    }
+                                  },
+                                  "target": "EnemyWithoutTower",
+                                  "apply_type": "AroundCaster",
+                                  "effects": [
+                                    {
+                                      "type": "ApAttack",
+                                      "damage": 18,
+                                      "attack_ratio": 22,
+                                      "hp_ratio": 0,
+                                      "can_crit": false
+                                    },
+                                    {
+                                      "type": "AddBuff",
+                                      "buff_state": {
+                                        "name": "league_udyr_r_slow",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 40
+                                          }
+                                        },
+                                        "move_speed_mult": -25
+                                      }
+                                    },
+                                    {
+                                      "type": "ViewEffect",
+                                      "name": "league_udyr_r_hit"
+                                    },
+                                    {
+                                      "type": "TargetSfx",
+                                      "name": "league_udyr_r_hit"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "Sfx",
+                                  "name": "league_udyr_r_pulse"
+                                }
+                              ]
+                            },
+                            "effect_none": {
+                              "type": "Combine",
+                              "effects": []
+                            }
+                          },
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_udyr_lives"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 29,
+                    "effects": [
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RandomTarget",
+                            "range": 1,
+                            "casting_target": "AllyOnlySelf",
+                            "from_projectile": false,
+                            "effects": [
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_udyr_lives",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 1
+                                    }
+                                  }
+                                },
+                                "only_to_enemy": false
+                              }
+                            ]
+                          },
+                          {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_udyr_lives",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "RangeEffect",
+                                  "shape": {
+                                    "Circle": {
+                                      "radius": 17000
+                                    }
+                                  },
+                                  "target": "EnemyWithoutTower",
+                                  "apply_type": "AroundCaster",
+                                  "effects": [
+                                    {
+                                      "type": "ApAttack",
+                                      "damage": 18,
+                                      "attack_ratio": 22,
+                                      "hp_ratio": 0,
+                                      "can_crit": false
+                                    },
+                                    {
+                                      "type": "AddBuff",
+                                      "buff_state": {
+                                        "name": "league_udyr_r_slow",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 40
+                                          }
+                                        },
+                                        "move_speed_mult": -25
+                                      }
+                                    },
+                                    {
+                                      "type": "ViewEffect",
+                                      "name": "league_udyr_r_hit"
+                                    },
+                                    {
+                                      "type": "TargetSfx",
+                                      "name": "league_udyr_r_hit"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "Sfx",
+                                  "name": "league_udyr_r_pulse"
+                                }
+                              ]
+                            },
+                            "effect_none": {
+                              "type": "Combine",
+                              "effects": []
+                            }
+                          },
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_udyr_lives"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 49,
+                    "effects": [
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RandomTarget",
+                            "range": 1,
+                            "casting_target": "AllyOnlySelf",
+                            "from_projectile": false,
+                            "effects": [
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_udyr_lives",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 1
+                                    }
+                                  }
+                                },
+                                "only_to_enemy": false
+                              }
+                            ]
+                          },
+                          {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_udyr_lives",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "RangeEffect",
+                                  "shape": {
+                                    "Circle": {
+                                      "radius": 17000
+                                    }
+                                  },
+                                  "target": "EnemyWithoutTower",
+                                  "apply_type": "AroundCaster",
+                                  "effects": [
+                                    {
+                                      "type": "ApAttack",
+                                      "damage": 18,
+                                      "attack_ratio": 22,
+                                      "hp_ratio": 0,
+                                      "can_crit": false
+                                    },
+                                    {
+                                      "type": "AddBuff",
+                                      "buff_state": {
+                                        "name": "league_udyr_r_slow",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 40
+                                          }
+                                        },
+                                        "move_speed_mult": -25
+                                      }
+                                    },
+                                    {
+                                      "type": "ViewEffect",
+                                      "name": "league_udyr_r_hit"
+                                    },
+                                    {
+                                      "type": "TargetSfx",
+                                      "name": "league_udyr_r_hit"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "Sfx",
+                                  "name": "league_udyr_r_pulse"
+                                }
+                              ]
+                            },
+                            "effect_none": {
+                              "type": "Combine",
+                              "effects": []
+                            }
+                          },
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_udyr_lives"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 69,
+                    "effects": [
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RandomTarget",
+                            "range": 1,
+                            "casting_target": "AllyOnlySelf",
+                            "from_projectile": false,
+                            "effects": [
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_udyr_lives",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 1
+                                    }
+                                  }
+                                },
+                                "only_to_enemy": false
+                              }
+                            ]
+                          },
+                          {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_udyr_lives",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "RangeEffect",
+                                  "shape": {
+                                    "Circle": {
+                                      "radius": 17000
+                                    }
+                                  },
+                                  "target": "EnemyWithoutTower",
+                                  "apply_type": "AroundCaster",
+                                  "effects": [
+                                    {
+                                      "type": "ApAttack",
+                                      "damage": 18,
+                                      "attack_ratio": 22,
+                                      "hp_ratio": 0,
+                                      "can_crit": false
+                                    },
+                                    {
+                                      "type": "AddBuff",
+                                      "buff_state": {
+                                        "name": "league_udyr_r_slow",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 40
+                                          }
+                                        },
+                                        "move_speed_mult": -25
+                                      }
+                                    },
+                                    {
+                                      "type": "ViewEffect",
+                                      "name": "league_udyr_r_hit"
+                                    },
+                                    {
+                                      "type": "TargetSfx",
+                                      "name": "league_udyr_r_hit"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "Sfx",
+                                  "name": "league_udyr_r_pulse"
+                                }
+                              ]
+                            },
+                            "effect_none": {
+                              "type": "Combine",
+                              "effects": []
+                            }
+                          },
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_udyr_lives"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 89,
+                    "effects": [
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RandomTarget",
+                            "range": 1,
+                            "casting_target": "AllyOnlySelf",
+                            "from_projectile": false,
+                            "effects": [
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_udyr_lives",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 1
+                                    }
+                                  }
+                                },
+                                "only_to_enemy": false
+                              }
+                            ]
+                          },
+                          {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_udyr_lives",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "RangeEffect",
+                                  "shape": {
+                                    "Circle": {
+                                      "radius": 17000
+                                    }
+                                  },
+                                  "target": "EnemyWithoutTower",
+                                  "apply_type": "AroundCaster",
+                                  "effects": [
+                                    {
+                                      "type": "ApAttack",
+                                      "damage": 18,
+                                      "attack_ratio": 22,
+                                      "hp_ratio": 0,
+                                      "can_crit": false
+                                    },
+                                    {
+                                      "type": "AddBuff",
+                                      "buff_state": {
+                                        "name": "league_udyr_r_slow",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 40
+                                          }
+                                        },
+                                        "move_speed_mult": -25
+                                      }
+                                    },
+                                    {
+                                      "type": "ViewEffect",
+                                      "name": "league_udyr_r_hit"
+                                    },
+                                    {
+                                      "type": "TargetSfx",
+                                      "name": "league_udyr_r_hit"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "Sfx",
+                                  "name": "league_udyr_r_pulse"
+                                }
+                              ]
+                            },
+                            "effect_none": {
+                              "type": "Combine",
+                              "effects": []
+                            }
+                          },
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_udyr_lives"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 109,
+                    "effects": [
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RandomTarget",
+                            "range": 1,
+                            "casting_target": "AllyOnlySelf",
+                            "from_projectile": false,
+                            "effects": [
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_udyr_lives",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 1
+                                    }
+                                  }
+                                },
+                                "only_to_enemy": false
+                              }
+                            ]
+                          },
+                          {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_udyr_lives",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "RangeEffect",
+                                  "shape": {
+                                    "Circle": {
+                                      "radius": 17000
+                                    }
+                                  },
+                                  "target": "EnemyWithoutTower",
+                                  "apply_type": "AroundCaster",
+                                  "effects": [
+                                    {
+                                      "type": "ApAttack",
+                                      "damage": 18,
+                                      "attack_ratio": 22,
+                                      "hp_ratio": 0,
+                                      "can_crit": false
+                                    },
+                                    {
+                                      "type": "AddBuff",
+                                      "buff_state": {
+                                        "name": "league_udyr_r_slow",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 40
+                                          }
+                                        },
+                                        "move_speed_mult": -25
+                                      }
+                                    },
+                                    {
+                                      "type": "ViewEffect",
+                                      "name": "league_udyr_r_hit"
+                                    },
+                                    {
+                                      "type": "TargetSfx",
+                                      "name": "league_udyr_r_hit"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "Sfx",
+                                  "name": "league_udyr_r_pulse"
+                                }
+                              ]
+                            },
+                            "effect_none": {
+                              "type": "Combine",
+                              "effects": []
+                            }
+                          },
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_udyr_lives"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 129,
+                    "effects": [
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RandomTarget",
+                            "range": 1,
+                            "casting_target": "AllyOnlySelf",
+                            "from_projectile": false,
+                            "effects": [
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_udyr_lives",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 1
+                                    }
+                                  }
+                                },
+                                "only_to_enemy": false
+                              }
+                            ]
+                          },
+                          {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_udyr_lives",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "RangeEffect",
+                                  "shape": {
+                                    "Circle": {
+                                      "radius": 17000
+                                    }
+                                  },
+                                  "target": "EnemyWithoutTower",
+                                  "apply_type": "AroundCaster",
+                                  "effects": [
+                                    {
+                                      "type": "ApAttack",
+                                      "damage": 18,
+                                      "attack_ratio": 22,
+                                      "hp_ratio": 0,
+                                      "can_crit": false
+                                    },
+                                    {
+                                      "type": "AddBuff",
+                                      "buff_state": {
+                                        "name": "league_udyr_r_slow",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 40
+                                          }
+                                        },
+                                        "move_speed_mult": -25
+                                      }
+                                    },
+                                    {
+                                      "type": "ViewEffect",
+                                      "name": "league_udyr_r_hit"
+                                    },
+                                    {
+                                      "type": "TargetSfx",
+                                      "name": "league_udyr_r_hit"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "Sfx",
+                                  "name": "league_udyr_r_pulse"
+                                }
+                              ]
+                            },
+                            "effect_none": {
+                              "type": "Combine",
+                              "effects": []
+                            }
+                          },
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_udyr_lives"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 149,
+                    "effects": [
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RandomTarget",
+                            "range": 1,
+                            "casting_target": "AllyOnlySelf",
+                            "from_projectile": false,
+                            "effects": [
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_udyr_lives",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 1
+                                    }
+                                  }
+                                },
+                                "only_to_enemy": false
+                              }
+                            ]
+                          },
+                          {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_udyr_lives",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "RangeEffect",
+                                  "shape": {
+                                    "Circle": {
+                                      "radius": 17000
+                                    }
+                                  },
+                                  "target": "EnemyWithoutTower",
+                                  "apply_type": "AroundCaster",
+                                  "effects": [
+                                    {
+                                      "type": "ApAttack",
+                                      "damage": 18,
+                                      "attack_ratio": 22,
+                                      "hp_ratio": 0,
+                                      "can_crit": false
+                                    },
+                                    {
+                                      "type": "AddBuff",
+                                      "buff_state": {
+                                        "name": "league_udyr_r_slow",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 40
+                                          }
+                                        },
+                                        "move_speed_mult": -25
+                                      }
+                                    },
+                                    {
+                                      "type": "ViewEffect",
+                                      "name": "league_udyr_r_hit"
+                                    },
+                                    {
+                                      "type": "TargetSfx",
+                                      "name": "league_udyr_r_hit"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "Sfx",
+                                  "name": "league_udyr_r_pulse"
+                                }
+                              ]
+                            },
+                            "effect_none": {
+                              "type": "Combine",
+                              "effects": []
+                            }
+                          },
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_udyr_lives"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 169,
+                    "effects": [
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RandomTarget",
+                            "range": 1,
+                            "casting_target": "AllyOnlySelf",
+                            "from_projectile": false,
+                            "effects": [
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_udyr_lives",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 1
+                                    }
+                                  }
+                                },
+                                "only_to_enemy": false
+                              }
+                            ]
+                          },
+                          {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_udyr_lives",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "RangeEffect",
+                                  "shape": {
+                                    "Circle": {
+                                      "radius": 17000
+                                    }
+                                  },
+                                  "target": "EnemyWithoutTower",
+                                  "apply_type": "AroundCaster",
+                                  "effects": [
+                                    {
+                                      "type": "ApAttack",
+                                      "damage": 18,
+                                      "attack_ratio": 22,
+                                      "hp_ratio": 0,
+                                      "can_crit": false
+                                    },
+                                    {
+                                      "type": "AddBuff",
+                                      "buff_state": {
+                                        "name": "league_udyr_r_slow",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 40
+                                          }
+                                        },
+                                        "move_speed_mult": -25
+                                      }
+                                    },
+                                    {
+                                      "type": "ViewEffect",
+                                      "name": "league_udyr_r_hit"
+                                    },
+                                    {
+                                      "type": "TargetSfx",
+                                      "name": "league_udyr_r_hit"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "Sfx",
+                                  "name": "league_udyr_r_pulse"
+                                }
+                              ]
+                            },
+                            "effect_none": {
+                              "type": "Combine",
+                              "effects": []
+                            }
+                          },
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_udyr_lives"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 189,
+                    "effects": [
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RandomTarget",
+                            "range": 1,
+                            "casting_target": "AllyOnlySelf",
+                            "from_projectile": false,
+                            "effects": [
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_udyr_lives",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 1
+                                    }
+                                  }
+                                },
+                                "only_to_enemy": false
+                              }
+                            ]
+                          },
+                          {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_udyr_lives",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "RangeEffect",
+                                  "shape": {
+                                    "Circle": {
+                                      "radius": 17000
+                                    }
+                                  },
+                                  "target": "EnemyWithoutTower",
+                                  "apply_type": "AroundCaster",
+                                  "effects": [
+                                    {
+                                      "type": "ApAttack",
+                                      "damage": 18,
+                                      "attack_ratio": 22,
+                                      "hp_ratio": 0,
+                                      "can_crit": false
+                                    },
+                                    {
+                                      "type": "AddBuff",
+                                      "buff_state": {
+                                        "name": "league_udyr_r_slow",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 40
+                                          }
+                                        },
+                                        "move_speed_mult": -25
+                                      }
+                                    },
+                                    {
+                                      "type": "ViewEffect",
+                                      "name": "league_udyr_r_hit"
+                                    },
+                                    {
+                                      "type": "TargetSfx",
+                                      "name": "league_udyr_r_hit"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "Sfx",
+                                  "name": "league_udyr_r_pulse"
+                                }
+                              ]
+                            },
+                            "effect_none": {
+                              "type": "Combine",
+                              "effects": []
+                            }
+                          },
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_udyr_lives"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 209,
+                    "effects": [
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RandomTarget",
+                            "range": 1,
+                            "casting_target": "AllyOnlySelf",
+                            "from_projectile": false,
+                            "effects": [
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_udyr_lives",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 1
+                                    }
+                                  }
+                                },
+                                "only_to_enemy": false
+                              }
+                            ]
+                          },
+                          {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_udyr_lives",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "RangeEffect",
+                                  "shape": {
+                                    "Circle": {
+                                      "radius": 17000
+                                    }
+                                  },
+                                  "target": "EnemyWithoutTower",
+                                  "apply_type": "AroundCaster",
+                                  "effects": [
+                                    {
+                                      "type": "ApAttack",
+                                      "damage": 18,
+                                      "attack_ratio": 22,
+                                      "hp_ratio": 0,
+                                      "can_crit": false
+                                    },
+                                    {
+                                      "type": "AddBuff",
+                                      "buff_state": {
+                                        "name": "league_udyr_r_slow",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 40
+                                          }
+                                        },
+                                        "move_speed_mult": -25
+                                      }
+                                    },
+                                    {
+                                      "type": "ViewEffect",
+                                      "name": "league_udyr_r_hit"
+                                    },
+                                    {
+                                      "type": "TargetSfx",
+                                      "name": "league_udyr_r_hit"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "Sfx",
+                                  "name": "league_udyr_r_pulse"
+                                }
+                              ]
+                            },
+                            "effect_none": {
+                              "type": "Combine",
+                              "effects": []
+                            }
+                          },
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_udyr_lives"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 229,
+                    "effects": [
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RandomTarget",
+                            "range": 1,
+                            "casting_target": "AllyOnlySelf",
+                            "from_projectile": false,
+                            "effects": [
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_udyr_lives",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 1
+                                    }
+                                  }
+                                },
+                                "only_to_enemy": false
+                              }
+                            ]
+                          },
+                          {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_udyr_lives",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "RangeEffect",
+                                  "shape": {
+                                    "Circle": {
+                                      "radius": 17000
+                                    }
+                                  },
+                                  "target": "EnemyWithoutTower",
+                                  "apply_type": "AroundCaster",
+                                  "effects": [
+                                    {
+                                      "type": "ApAttack",
+                                      "damage": 18,
+                                      "attack_ratio": 22,
+                                      "hp_ratio": 0,
+                                      "can_crit": false
+                                    },
+                                    {
+                                      "type": "AddBuff",
+                                      "buff_state": {
+                                        "name": "league_udyr_r_slow",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 40
+                                          }
+                                        },
+                                        "move_speed_mult": -25
+                                      }
+                                    },
+                                    {
+                                      "type": "ViewEffect",
+                                      "name": "league_udyr_r_hit"
+                                    },
+                                    {
+                                      "type": "TargetSfx",
+                                      "name": "league_udyr_r_hit"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "Sfx",
+                                  "name": "league_udyr_r_pulse"
+                                }
+                              ]
+                            },
+                            "effect_none": {
+                              "type": "Combine",
+                              "effects": []
+                            }
+                          },
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_udyr_lives"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 249,
+                    "effects": [
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RandomTarget",
+                            "range": 1,
+                            "casting_target": "AllyOnlySelf",
+                            "from_projectile": false,
+                            "effects": [
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_udyr_lives",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 1
+                                    }
+                                  }
+                                },
+                                "only_to_enemy": false
+                              }
+                            ]
+                          },
+                          {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_udyr_lives",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "RandomTarget",
+                                  "range": 60000,
+                                  "casting_target": "EnemyChampion",
+                                  "from_projectile": false,
+                                  "effects": [
+                                    {
+                                      "type": "TargetSplashProjectile",
+                                      "name": "league_udyr_r_rel",
+                                      "speed": 6000,
+                                      "range": 12000,
+                                      "y_offset": 5000,
+                                      "applied_target": "EnemyWithoutTower",
+                                      "applied_effects": [
+                                        {
+                                          "casting_type": "Targeting",
+                                          "effect": {
+                                            "type": "ApAttack",
+                                            "damage": 60,
+                                            "attack_ratio": 60,
+                                            "hp_ratio": 0,
+                                            "can_crit": false
+                                          }
+                                        },
+                                        {
+                                          "casting_type": "Targeting",
+                                          "effect": {
+                                            "type": "AddBuff",
+                                            "buff_state": {
+                                              "name": "league_udyr_r2_slow",
+                                              "duration": {
+                                                "Time": {
+                                                  "tick": 90
+                                                }
+                                              },
+                                              "move_speed_mult": -40
+                                            }
+                                          }
+                                        },
+                                        {
+                                          "casting_type": "Targeting",
+                                          "effect": {
+                                            "type": "ViewEffect",
+                                            "name": "league_udyr_r_rel_hit"
+                                          }
+                                        },
+                                        {
+                                          "casting_type": "Targeting",
+                                          "effect": {
+                                            "type": "TargetSfx",
+                                            "name": "league_udyr_r_rel_hit"
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "Sfx",
+                                  "name": "league_udyr_r_rel"
+                                }
+                              ]
+                            },
+                            "effect_none": {
+                              "type": "Combine",
+                              "effects": []
+                            }
+                          },
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_udyr_lives"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_udyr_r_storm"
+                  },
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_udyr_r_storm",
+                      "duration": {
+                        "Time": {
+                          "tick": 240
+                        }
+                      }
+                    },
+                    "only_to_enemy": false
+                  }
+                ]
+              },
+              {
+                "type": "Delayed",
+                "tick": 9,
+                "effects": [
+                  {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RandomTarget",
+                        "range": 1,
+                        "casting_target": "AllyOnlySelf",
+                        "from_projectile": false,
+                        "effects": [
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_udyr_lives",
+                              "duration": {
+                                "Time": {
+                                  "tick": 1
+                                }
+                              }
+                            },
+                            "only_to_enemy": false
+                          }
+                        ]
+                      },
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_udyr_lives",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RangeEffect",
+                              "shape": {
+                                "Circle": {
+                                  "radius": 17000
+                                }
+                              },
+                              "target": "EnemyWithoutTower",
+                              "apply_type": "AroundCaster",
+                              "effects": [
+                                {
+                                  "type": "ApAttack",
+                                  "damage": 18,
+                                  "attack_ratio": 22,
+                                  "hp_ratio": 0,
+                                  "can_crit": false
+                                },
+                                {
+                                  "type": "AddBuff",
+                                  "buff_state": {
+                                    "name": "league_udyr_r_slow",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 40
+                                      }
+                                    },
+                                    "move_speed_mult": -25
+                                  }
+                                },
+                                {
+                                  "type": "ViewEffect",
+                                  "name": "league_udyr_r_hit"
+                                },
+                                {
+                                  "type": "TargetSfx",
+                                  "name": "league_udyr_r_hit"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "Sfx",
+                              "name": "league_udyr_r_pulse"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      },
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_udyr_lives"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "Delayed",
+                "tick": 39,
+                "effects": [
+                  {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RandomTarget",
+                        "range": 1,
+                        "casting_target": "AllyOnlySelf",
+                        "from_projectile": false,
+                        "effects": [
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_udyr_lives",
+                              "duration": {
+                                "Time": {
+                                  "tick": 1
+                                }
+                              }
+                            },
+                            "only_to_enemy": false
+                          }
+                        ]
+                      },
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_udyr_lives",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RangeEffect",
+                              "shape": {
+                                "Circle": {
+                                  "radius": 17000
+                                }
+                              },
+                              "target": "EnemyWithoutTower",
+                              "apply_type": "AroundCaster",
+                              "effects": [
+                                {
+                                  "type": "ApAttack",
+                                  "damage": 18,
+                                  "attack_ratio": 22,
+                                  "hp_ratio": 0,
+                                  "can_crit": false
+                                },
+                                {
+                                  "type": "AddBuff",
+                                  "buff_state": {
+                                    "name": "league_udyr_r_slow",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 40
+                                      }
+                                    },
+                                    "move_speed_mult": -25
+                                  }
+                                },
+                                {
+                                  "type": "ViewEffect",
+                                  "name": "league_udyr_r_hit"
+                                },
+                                {
+                                  "type": "TargetSfx",
+                                  "name": "league_udyr_r_hit"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "Sfx",
+                              "name": "league_udyr_r_pulse"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      },
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_udyr_lives"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "Delayed",
+                "tick": 69,
+                "effects": [
+                  {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RandomTarget",
+                        "range": 1,
+                        "casting_target": "AllyOnlySelf",
+                        "from_projectile": false,
+                        "effects": [
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_udyr_lives",
+                              "duration": {
+                                "Time": {
+                                  "tick": 1
+                                }
+                              }
+                            },
+                            "only_to_enemy": false
+                          }
+                        ]
+                      },
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_udyr_lives",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RangeEffect",
+                              "shape": {
+                                "Circle": {
+                                  "radius": 17000
+                                }
+                              },
+                              "target": "EnemyWithoutTower",
+                              "apply_type": "AroundCaster",
+                              "effects": [
+                                {
+                                  "type": "ApAttack",
+                                  "damage": 18,
+                                  "attack_ratio": 22,
+                                  "hp_ratio": 0,
+                                  "can_crit": false
+                                },
+                                {
+                                  "type": "AddBuff",
+                                  "buff_state": {
+                                    "name": "league_udyr_r_slow",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 40
+                                      }
+                                    },
+                                    "move_speed_mult": -25
+                                  }
+                                },
+                                {
+                                  "type": "ViewEffect",
+                                  "name": "league_udyr_r_hit"
+                                },
+                                {
+                                  "type": "TargetSfx",
+                                  "name": "league_udyr_r_hit"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "Sfx",
+                              "name": "league_udyr_r_pulse"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      },
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_udyr_lives"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "Delayed",
+                "tick": 99,
+                "effects": [
+                  {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RandomTarget",
+                        "range": 1,
+                        "casting_target": "AllyOnlySelf",
+                        "from_projectile": false,
+                        "effects": [
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_udyr_lives",
+                              "duration": {
+                                "Time": {
+                                  "tick": 1
+                                }
+                              }
+                            },
+                            "only_to_enemy": false
+                          }
+                        ]
+                      },
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_udyr_lives",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RangeEffect",
+                              "shape": {
+                                "Circle": {
+                                  "radius": 17000
+                                }
+                              },
+                              "target": "EnemyWithoutTower",
+                              "apply_type": "AroundCaster",
+                              "effects": [
+                                {
+                                  "type": "ApAttack",
+                                  "damage": 18,
+                                  "attack_ratio": 22,
+                                  "hp_ratio": 0,
+                                  "can_crit": false
+                                },
+                                {
+                                  "type": "AddBuff",
+                                  "buff_state": {
+                                    "name": "league_udyr_r_slow",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 40
+                                      }
+                                    },
+                                    "move_speed_mult": -25
+                                  }
+                                },
+                                {
+                                  "type": "ViewEffect",
+                                  "name": "league_udyr_r_hit"
+                                },
+                                {
+                                  "type": "TargetSfx",
+                                  "name": "league_udyr_r_hit"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "Sfx",
+                              "name": "league_udyr_r_pulse"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      },
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_udyr_lives"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "Delayed",
+                "tick": 129,
+                "effects": [
+                  {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RandomTarget",
+                        "range": 1,
+                        "casting_target": "AllyOnlySelf",
+                        "from_projectile": false,
+                        "effects": [
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_udyr_lives",
+                              "duration": {
+                                "Time": {
+                                  "tick": 1
+                                }
+                              }
+                            },
+                            "only_to_enemy": false
+                          }
+                        ]
+                      },
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_udyr_lives",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RangeEffect",
+                              "shape": {
+                                "Circle": {
+                                  "radius": 17000
+                                }
+                              },
+                              "target": "EnemyWithoutTower",
+                              "apply_type": "AroundCaster",
+                              "effects": [
+                                {
+                                  "type": "ApAttack",
+                                  "damage": 18,
+                                  "attack_ratio": 22,
+                                  "hp_ratio": 0,
+                                  "can_crit": false
+                                },
+                                {
+                                  "type": "AddBuff",
+                                  "buff_state": {
+                                    "name": "league_udyr_r_slow",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 40
+                                      }
+                                    },
+                                    "move_speed_mult": -25
+                                  }
+                                },
+                                {
+                                  "type": "ViewEffect",
+                                  "name": "league_udyr_r_hit"
+                                },
+                                {
+                                  "type": "TargetSfx",
+                                  "name": "league_udyr_r_hit"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "Sfx",
+                              "name": "league_udyr_r_pulse"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      },
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_udyr_lives"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "Delayed",
+                "tick": 159,
+                "effects": [
+                  {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RandomTarget",
+                        "range": 1,
+                        "casting_target": "AllyOnlySelf",
+                        "from_projectile": false,
+                        "effects": [
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_udyr_lives",
+                              "duration": {
+                                "Time": {
+                                  "tick": 1
+                                }
+                              }
+                            },
+                            "only_to_enemy": false
+                          }
+                        ]
+                      },
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_udyr_lives",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RangeEffect",
+                              "shape": {
+                                "Circle": {
+                                  "radius": 17000
+                                }
+                              },
+                              "target": "EnemyWithoutTower",
+                              "apply_type": "AroundCaster",
+                              "effects": [
+                                {
+                                  "type": "ApAttack",
+                                  "damage": 18,
+                                  "attack_ratio": 22,
+                                  "hp_ratio": 0,
+                                  "can_crit": false
+                                },
+                                {
+                                  "type": "AddBuff",
+                                  "buff_state": {
+                                    "name": "league_udyr_r_slow",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 40
+                                      }
+                                    },
+                                    "move_speed_mult": -25
+                                  }
+                                },
+                                {
+                                  "type": "ViewEffect",
+                                  "name": "league_udyr_r_hit"
+                                },
+                                {
+                                  "type": "TargetSfx",
+                                  "name": "league_udyr_r_hit"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "Sfx",
+                              "name": "league_udyr_r_pulse"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      },
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_udyr_lives"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "Delayed",
+                "tick": 189,
+                "effects": [
+                  {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RandomTarget",
+                        "range": 1,
+                        "casting_target": "AllyOnlySelf",
+                        "from_projectile": false,
+                        "effects": [
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_udyr_lives",
+                              "duration": {
+                                "Time": {
+                                  "tick": 1
+                                }
+                              }
+                            },
+                            "only_to_enemy": false
+                          }
+                        ]
+                      },
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_udyr_lives",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RangeEffect",
+                              "shape": {
+                                "Circle": {
+                                  "radius": 17000
+                                }
+                              },
+                              "target": "EnemyWithoutTower",
+                              "apply_type": "AroundCaster",
+                              "effects": [
+                                {
+                                  "type": "ApAttack",
+                                  "damage": 18,
+                                  "attack_ratio": 22,
+                                  "hp_ratio": 0,
+                                  "can_crit": false
+                                },
+                                {
+                                  "type": "AddBuff",
+                                  "buff_state": {
+                                    "name": "league_udyr_r_slow",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 40
+                                      }
+                                    },
+                                    "move_speed_mult": -25
+                                  }
+                                },
+                                {
+                                  "type": "ViewEffect",
+                                  "name": "league_udyr_r_hit"
+                                },
+                                {
+                                  "type": "TargetSfx",
+                                  "name": "league_udyr_r_hit"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "Sfx",
+                              "name": "league_udyr_r_pulse"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      },
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_udyr_lives"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "Delayed",
+                "tick": 219,
+                "effects": [
+                  {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RandomTarget",
+                        "range": 1,
+                        "casting_target": "AllyOnlySelf",
+                        "from_projectile": false,
+                        "effects": [
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_udyr_lives",
+                              "duration": {
+                                "Time": {
+                                  "tick": 1
+                                }
+                              }
+                            },
+                            "only_to_enemy": false
+                          }
+                        ]
+                      },
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_udyr_lives",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RangeEffect",
+                              "shape": {
+                                "Circle": {
+                                  "radius": 17000
+                                }
+                              },
+                              "target": "EnemyWithoutTower",
+                              "apply_type": "AroundCaster",
+                              "effects": [
+                                {
+                                  "type": "ApAttack",
+                                  "damage": 18,
+                                  "attack_ratio": 22,
+                                  "hp_ratio": 0,
+                                  "can_crit": false
+                                },
+                                {
+                                  "type": "AddBuff",
+                                  "buff_state": {
+                                    "name": "league_udyr_r_slow",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 40
+                                      }
+                                    },
+                                    "move_speed_mult": -25
+                                  }
+                                },
+                                {
+                                  "type": "ViewEffect",
+                                  "name": "league_udyr_r_hit"
+                                },
+                                {
+                                  "type": "TargetSfx",
+                                  "name": "league_udyr_r_hit"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "Sfx",
+                              "name": "league_udyr_r_pulse"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      },
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_udyr_lives"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "Delayed",
+                "tick": 249,
+                "effects": [
+                  {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RandomTarget",
+                        "range": 1,
+                        "casting_target": "AllyOnlySelf",
+                        "from_projectile": false,
+                        "effects": [
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_udyr_lives",
+                              "duration": {
+                                "Time": {
+                                  "tick": 1
+                                }
+                              }
+                            },
+                            "only_to_enemy": false
+                          }
+                        ]
+                      },
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_udyr_lives",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RandomTarget",
+                              "range": 60000,
+                              "casting_target": "EnemyChampion",
+                              "from_projectile": false,
+                              "effects": [
+                                {
+                                  "type": "TargetSplashProjectile",
+                                  "name": "league_udyr_r_rel",
+                                  "speed": 6000,
+                                  "range": 12000,
+                                  "y_offset": 5000,
+                                  "applied_target": "EnemyWithoutTower",
+                                  "applied_effects": [
+                                    {
+                                      "casting_type": "Targeting",
+                                      "effect": {
+                                        "type": "ApAttack",
+                                        "damage": 60,
+                                        "attack_ratio": 60,
+                                        "hp_ratio": 0,
+                                        "can_crit": false
+                                      }
+                                    },
+                                    {
+                                      "casting_type": "Targeting",
+                                      "effect": {
+                                        "type": "AddBuff",
+                                        "buff_state": {
+                                          "name": "league_udyr_r2_slow",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 90
+                                            }
+                                          },
+                                          "move_speed_mult": -40
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "casting_type": "Targeting",
+                                      "effect": {
+                                        "type": "ViewEffect",
+                                        "name": "league_udyr_r_rel_hit"
+                                      }
+                                    },
+                                    {
+                                      "casting_type": "Targeting",
+                                      "effect": {
+                                        "type": "TargetSfx",
+                                        "name": "league_udyr_r_rel_hit"
+                                      }
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "type": "Sfx",
+                              "name": "league_udyr_r_rel"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      },
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_udyr_lives"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "view_projectiles": [
+    {
+      "type": "Animated",
+      "name": "league_udyr_q_bolt",
+      "anim": "asset/league/effects/league_udyr_fx",
+      "tag": "q_bolt",
+      "repeat": true,
+      "z": 2
+    },
+    {
+      "type": "Animated",
+      "name": "league_udyr_r_rel",
+      "anim": "asset/league/effects/league_udyr_big",
+      "tag": "r_rel",
+      "repeat": true,
+      "z": 2
+    }
+  ],
+  "view_effects": [
+    {
+      "type": "Animation",
+      "name": "league_udyr_a_hit",
+      "anim": "asset/league/effects/league_udyr_fx",
+      "tag": "a_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_udyr_q_hit",
+      "anim": "asset/league/effects/league_udyr_fx",
+      "tag": "q_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_udyr_q_bolt_hit",
+      "anim": "asset/league/effects/league_udyr_big",
+      "tag": "q_bolt_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_udyr_q_on",
+      "anim": "asset/league/effects/league_udyr_fx",
+      "tag": "q_on",
+      "z": 3,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_udyr_q_wake",
+      "anim": "asset/league/effects/league_udyr_big",
+      "tag": "q_wake",
+      "z": 3,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_udyr_e_on",
+      "anim": "asset/league/effects/league_udyr_fx",
+      "tag": "e_on",
+      "z": 3,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_udyr_e_wake",
+      "anim": "asset/league/effects/league_udyr_big",
+      "tag": "e_wake",
+      "z": 3,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_udyr_e_hit",
+      "anim": "asset/league/effects/league_udyr_fx",
+      "tag": "e_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_udyr_r_on",
+      "anim": "asset/league/effects/league_udyr_fx",
+      "tag": "r_on",
+      "z": 3,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_udyr_r_hit",
+      "anim": "asset/league/effects/league_udyr_fx",
+      "tag": "r_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_udyr_r_rel_hit",
+      "anim": "asset/league/effects/league_udyr_big",
+      "tag": "r_rel_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_udyr_w_on",
+      "anim": "asset/league/effects/league_udyr_big",
+      "tag": "w_on",
+      "z": 3,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_udyr_w_heal",
+      "anim": "asset/league/effects/league_udyr_fx",
+      "tag": "w_heal",
+      "z": 3,
+      "is_follow": true
+    }
+  ],
+  "view_buffs": [
+    {
+      "type": "Animated",
+      "name": "league_udyr_q_as",
+      "anim": "asset/league/effects/league_udyr_fx",
+      "tag": "q_as",
+      "repeat": true,
+      "z": -1
+    },
+    {
+      "type": "Animated",
+      "name": "league_udyr_e_ms",
+      "anim": "asset/league/effects/league_udyr_fx",
+      "tag": "e_ms",
+      "repeat": true,
+      "z": -1
+    },
+    {
+      "type": "Animated",
+      "name": "league_udyr_e_imm",
+      "anim": "asset/league/effects/league_udyr_fx",
+      "tag": "e_imm",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_udyr_e_stun",
+      "anim": "asset/league/effects/league_udyr_fx",
+      "tag": "e_stun",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_udyr_r_storm",
+      "anim": "asset/league/effects/league_udyr_big",
+      "tag": "r_storm",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_udyr_r_slow",
+      "anim": "asset/league/effects/league_udyr_fx",
+      "tag": "r_slow",
+      "repeat": true,
+      "z": -1
+    },
+    {
+      "type": "Animated",
+      "name": "league_udyr_r2_slow",
+      "anim": "asset/league/effects/league_udyr_fx",
+      "tag": "r_slow",
+      "repeat": true,
+      "z": -1
+    },
+    {
+      "type": "Animated",
+      "name": "league_udyr_w_sh",
+      "anim": "asset/league/effects/league_udyr_big",
+      "tag": "w_sh",
+      "repeat": true,
+      "z": 3
+    }
+  ]
+}

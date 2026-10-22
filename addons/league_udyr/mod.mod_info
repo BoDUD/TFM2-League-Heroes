@@ -1,0 +1,20 @@
+{
+  "author": "BoDUD",
+  "contains_code": true,
+  "dependencies": [
+    {
+      "mod_id": "base",
+      "version": ">=0.4.11"
+    },
+    {
+      "mod_id": "league",
+      "version": ">=0.192.0"
+    }
+  ],
+  "description": "Test build of Udyr as in League (needs League of Legends Heroes): replaces the main pack's Udyr so Iron Mantle shields him when his health falls under half (not on every ability), and he stands, runs, flinches and falls in his current stance (the Bear, the Ram, the Phoenix). Other champions are untouched. Writes a log for testing.",
+  "last_updated": "2026-10-22",
+  "mod_id": "league_udyr",
+  "mod_type": "native",
+  "name": "League Heroes: Udyr's stances (test)",
+  "version": "0.1.0"
+}

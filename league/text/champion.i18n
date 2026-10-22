@@ -1057,6 +1057,13 @@
         "skill": "向前砸地，造成<#ff9028ff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>2%<>物理伤害并减速50%。命中叠一层，两层时变成冲击波，<#ef5350ff>拉回<>路径上的敌人，造成<#ff9028ff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>3%<>物理伤害。",
         "skill2": "蓄力，受到伤害降低25%并获得<#66bb6aff>护盾<>，然后冲撞，造成<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> + 目标6%最大生命值的物理伤害，<#ef5350ff>击退<>并<#ef5350ff>晕眩<><#ffb900ff>0.83秒<>。全盛时不击退晕眩，改为9%。",
         "ult": "盾击敌方英雄，造成<#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>物理伤害并<#ef5350ff>击退<>，追上去砸地造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>4%<>物理伤害，进入全盛姿态<#ffb900ff>15秒<>：攻击+20%、攻速+40%、<#66bb6aff>吸血20%<>、技能冷却缩短，护甲和魔抗-25%。"
+      },
+      "league_udyr": {
+        "name": "乌迪尔",
+        "attack": "拳击目标。<#ff9028ff>众灵纽带<>：放技能后两次攻击攻速+30%。<#ff9028ff>坚铁甲胄<>：每<#ffb900ff>12秒<>首个技能附带<#7bd96bff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7bd96bff>40%<>护盾，之后两次攻击各回复<#7bd96bff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7bd96bff>20%<>生命。",
+        "skill": "熊姿态：攻速+30%持续<#ffb900ff>4秒<>，下两次攻击额外造成<#ff9028ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>35%<>+目标4%最大生命值。觉醒（熊姿态再放）：攻速+60%，两次攻击引来闪电，造成<#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#a974ffff>35%<>魔法伤害。",
+        "skill2": "公羊姿态：移速+35%，冲向敌方英雄，撞击造成<#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>物理伤害并<#ef5350ff>晕眩<><#ffb900ff>0.75秒<>。觉醒（公羊姿态再放）：移速+60%，<#ffb900ff>1.5秒<>免疫控制。",
+        "ult": "凤凰姿态：冰风暴环绕自身<#ffb900ff>4秒<>，每<#ffb900ff>0.5秒<>对周围敌人造成<#a974ffff>18<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#a974ffff>22%<>魔法伤害并<#ef5350ff>减速<>25%；结束时风暴飞向一名敌方英雄，造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#a974ffff>60%<>魔法伤害并减速40%。"
       }
     },
     "skill_name": {
@@ -1814,6 +1821,11 @@
         "skill1": "无双陀斧",
         "skill2": "辟路先锋",
         "ult": "傲岸雄姿"
+      },
+      "league_udyr": {
+        "skill1": "狂暴爪击",
+        "skill2": "踏火蛮冲",
+        "ult": "极凌飓风"
       }
     }
   },
@@ -2875,6 +2887,13 @@
         "skill": "向前砸地，造成<#ff9028ff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>2%<>物理傷害並緩速50%。命中疊一層，兩層時變成衝擊波，<#ef5350ff>拉回<>路徑上的敵人，造成<#ff9028ff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>3%<>物理傷害。",
         "skill2": "蓄力，受到傷害降低25%並獲得<#66bb6aff>護盾<>，然後衝撞，造成<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> + 目標6%最大生命值的物理傷害，<#ef5350ff>擊退<>並<#ef5350ff>暈眩<><#ffb900ff>0.83秒<>。拼死一搏時不擊退暈眩，改為9%。",
         "ult": "盾擊敵方英雄，造成<#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>物理傷害並<#ef5350ff>擊退<>，追上去砸地造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>4%<>物理傷害，進入拼死一搏<#ffb900ff>15秒<>：攻擊+20%、攻速+40%、<#66bb6aff>吸血20%<>、技能冷卻縮短，護甲和魔抗-25%。"
+      },
+      "league_udyr": {
+        "name": "烏迪爾",
+        "attack": "拳擊目標。<#ff9028ff>人神一體<>：施放技能後兩次攻擊攻速+30%。<#ff9028ff>鋼筋鐵骨<>：每<#ffb900ff>12秒<>首個技能附帶<#7bd96bff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7bd96bff>40%<>護盾，之後兩次攻擊各回復<#7bd96bff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7bd96bff>20%<>生命。",
+        "skill": "熊姿態：攻速+30%持續<#ffb900ff>4秒<>，下兩次攻擊額外造成<#ff9028ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>35%<>+目標4%最大生命值。覺醒（熊姿態再放）：攻速+60%，兩次攻擊引來閃電，造成<#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#a974ffff>35%<>魔法傷害。",
+        "skill2": "公羊姿態：移速+35%，衝向敵方英雄，撞擊造成<#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>物理傷害並<#ef5350ff>暈眩<><#ffb900ff>0.75秒<>。覺醒（公羊姿態再放）：移速+60%，<#ffb900ff>1.5秒<>免疫控制。",
+        "ult": "鳳凰姿態：冰風暴環繞自身<#ffb900ff>4秒<>，每<#ffb900ff>0.5秒<>對周圍敵人造成<#a974ffff>18<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#a974ffff>22%<>魔法傷害並<#ef5350ff>緩速<>25%；結束時風暴飛向一名敵方英雄，造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#a974ffff>60%<>魔法傷害並緩速40%。"
       }
     },
     "skill_name": {
@@ -3632,6 +3651,11 @@
         "skill1": "恩屠浮強擊",
         "skill2": "開山闢路",
         "ult": "拼死一搏"
+      },
+      "league_udyr": {
+        "skill1": "野蠻利爪",
+        "skill2": "熾熱衝撞",
+        "ult": "霜翼風暴"
       }
     }
   },
@@ -4693,6 +4717,13 @@
         "skill": "Strikes the ground ahead for <#ff9028ff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>2%<> physical damage, slowing 50%. Each hit is a stack; at two the strike becomes a shockwave that <#ef5350ff>pulls<> enemies in for <#ff9028ff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>3%<> physical damage.",
         "skill2": "Braces, taking 25% less damage behind a <#66bb6aff>shield<>, then rams for <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> + 6% of each target's max health physical damage, <#ef5350ff>knocking back<> and <#ef5350ff>stunning<> for <#ffb900ff>0.83s<>. All Out: no knockback or stun, 9% instead.",
         "ult": "Bashes an enemy champion for <#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> physical damage, <#ef5350ff>knocking it back<>, then slams it for <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>4%<>. He goes All Out for <#ffb900ff>15s<>: +20% attack, +40% attack speed, <#66bb6aff>20% lifesteal<>, shorter cooldowns, -25% armor and magic resist."
+      },
+      "league_udyr": {
+        "name": "Udyr",
+        "attack": "A punch. <#ff9028ff>Bridge Between<>: after each ability his next two attacks gain +30% attack speed. <#ff9028ff>Iron Mantle<>: his first ability every <#ffb900ff>12s<> also shields him for <#7bd96bff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7bd96bff>40%<> and his next two attacks heal him <#7bd96bff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7bd96bff>20%<> each.",
+        "skill": "Bear stance: +30% attack speed for <#ffb900ff>4s<> and his next two attacks deal <#ff9028ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>35%<> + 4% of the target's max health more. Awakened (cast in the Bear stance): +60% attack speed and both attacks call lightning for <#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#a974ffff>35%<> magic damage around the target.",
+        "skill2": "Ram stance: +35% move speed, he charges an enemy champion and rams it for <#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> physical damage, <#ef5350ff>stunning<> it for <#ffb900ff>0.75s<>. Awakened (cast in the Ram stance): +60% move speed and immune to crowd control for <#ffb900ff>1.5s<>.",
+        "ult": "Phoenix stance: a glacial storm whirls round him for <#ffb900ff>4s<>, every <#ffb900ff>0.5s<> dealing <#a974ffff>18<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#a974ffff>22%<> magic damage to nearby enemies and <#ef5350ff>slowing<> them 25%; at its end the storm is unleashed at an enemy champion for <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#a974ffff>60%<> magic damage and a 40% slow."
       }
     },
     "skill_name": {
@@ -5450,6 +5481,11 @@
         "skill1": "Ntofo Strikes",
         "skill2": "Path Maker",
         "ult": "All Out"
+      },
+      "league_udyr": {
+        "skill1": "Wilding Claw",
+        "skill2": "Blazing Stampede",
+        "ult": "Wingborne Storm"
       }
     }
   },
@@ -6511,6 +6547,13 @@
         "skill": "앞쪽 땅을 내리쳐 <#ff9028ff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>2%<> 물리 피해와 50% 둔화. 적중 시 중첩, 2중첩이면 충격파가 되어 적을 <#ef5350ff>끌어당기고<> <#ff9028ff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>3%<> 물리 피해.",
         "skill2": "버티며 받는 피해 25% 감소와 <#66bb6aff>보호막<>을 얻고 돌진해 <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> + 대상 최대 체력의 6% 물리 피해, <#ef5350ff>밀쳐내기<>와 <#ffb900ff>0.83초<> <#ef5350ff>기절<>. 총공세 중에는 대신 9%.",
         "ult": "적 챔피언을 방패로 쳐 <#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> 물리 피해와 <#ef5350ff>밀쳐내기<>, 쫓아가 내리찍어 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>4%<>. <#ffb900ff>15초<> 동안 총공세: 공격력 +20%, 공격 속도 +40%, <#66bb6aff>생명력 흡수 20%<>, 재사용 대기시간 감소, 방어력과 마법 저항력 -25%."
+      },
+      "league_udyr": {
+        "name": "우디르",
+        "attack": "주먹으로 공격. <#ff9028ff>가교<>: 스킬 사용 후 다음 두 번의 공격 속도 +30%. <#ff9028ff>강철 갑옷<>: <#ffb900ff>12초<>마다 첫 스킬에 <#7bd96bff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7bd96bff>40%<> 보호막, 다음 두 번의 공격마다 체력 <#7bd96bff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7bd96bff>20%<> 회복.",
+        "skill": "곰 태세: <#ffb900ff>4초<> 동안 공격 속도 +30%, 다음 두 번의 공격이 <#ff9028ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>35%<> + 대상 최대 체력의 4% 추가 피해. 각성(곰 태세에서 재사용): 공격 속도 +60%, 두 번의 공격이 번개를 불러 <#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#a974ffff>35%<> 마법 피해.",
+        "skill2": "숫양 태세: 이동 속도 +35%, 적 챔피언에게 돌진해 <#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> 물리 피해와 <#ffb900ff>0.75초<> <#ef5350ff>기절<>. 각성(숫양 태세에서 재사용): 이동 속도 +60%, <#ffb900ff>1.5초<> 동안 군중 제어 면역.",
+        "ult": "불사조 태세: <#ffb900ff>4초<> 동안 얼음 폭풍이 주위를 돌며 <#ffb900ff>0.5초<>마다 주변 적에게 <#a974ffff>18<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#a974ffff>22%<> 마법 피해와 25% <#ef5350ff>둔화<>; 끝날 때 폭풍이 적 챔피언에게 날아가 <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#a974ffff>60%<> 마법 피해와 40% 둔화."
       }
     },
     "skill_name": {
@@ -7268,6 +7311,11 @@
         "skill1": "엔토포 타격",
         "skill2": "길을 여는 자",
         "ult": "총공세"
+      },
+      "league_udyr": {
+        "skill1": "야생 발톱",
+        "skill2": "불길 쇄도",
+        "ult": "날개 돋친 폭풍"
       }
     }
   },
@@ -8329,6 +8377,13 @@
         "skill": "前方の地面を打ち<#ff9028ff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>2%<>の物理ダメージと50%スロウ。命中でスタック、2スタックで衝撃波になり、敵を<#ef5350ff>引き寄せ<><#ff9028ff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>3%<>の物理ダメージ。",
         "skill2": "構えて被ダメージ25%軽減と<#66bb6aff>シールド<>を得て突進し、<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>＋対象の最大体力の6%の物理ダメージ、<#ef5350ff>ノックバック<>と<#ffb900ff>0.83秒<><#ef5350ff>スタン<>。オールアウト中はノックバック・スタンなしで9%。",
         "ult": "敵チャンピオンを盾で打ち<#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>の物理ダメージと<#ef5350ff>ノックバック<>、追って叩きつけ<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>4%<>。<#ffb900ff>15秒<>オールアウト：攻撃+20%、攻撃速度+40%、<#66bb6aff>ライフスティール20%<>、CD短縮、物防魔防-25%。"
+      },
+      "league_udyr": {
+        "name": "ウディア",
+        "attack": "拳で攻撃。<#ff9028ff>精霊の繋ぎ手<>：スキル後の2回の通常攻撃は攻撃速度+30%。<#ff9028ff>鉄の外皮<>：<#ffb900ff>12秒<>ごとの最初のスキルで<#7bd96bff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7bd96bff>40%<>のシールド、続く2回の攻撃で体力<#7bd96bff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7bd96bff>20%<>回復。",
+        "skill": "熊の構え：<#ffb900ff>4秒<>攻撃速度+30%、次の2回の攻撃が<#ff9028ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>35%<>+対象の最大体力の4%を追加。覚醒（熊の構えで再使用）：攻撃速度+60%、2回の攻撃が雷を呼び<#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#a974ffff>35%<>の魔法ダメージ。",
+        "skill2": "雄羊の構え：移動速度+35%、敵チャンピオンへ突進し<#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の物理ダメージと<#ffb900ff>0.75秒<>の<#ef5350ff>スタン<>。覚醒（雄羊の構えで再使用）：移動速度+60%、<#ffb900ff>1.5秒<>行動妨害無効。",
+        "ult": "不死鳥の構え：<#ffb900ff>4秒<>氷の嵐がまとい、<#ffb900ff>0.5秒<>ごとに周囲の敵に<#a974ffff>18<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#a974ffff>22%<>の魔法ダメージと25%の<#ef5350ff>スロウ<>。終わりに嵐が敵チャンピオンへ飛び<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#a974ffff>60%<>の魔法ダメージと40%スロウ。"
       }
     },
     "skill_name": {
@@ -9086,6 +9141,11 @@
         "skill1": "破撃のエントーフォ",
         "skill2": "切り開く猛進",
         "ult": "オールアウト"
+      },
+      "league_udyr": {
+        "skill1": "野性の爪",
+        "skill2": "焔の猛進",
+        "ult": "氷翼の嵐"
       }
     }
   }
