@@ -1,0 +1,134 @@
+{
+  "A-1": {
+    "canvas": [
+      1254,
+      1254
+    ],
+    "raw_sha256": "9fdfb70fa72fcaad2058edf7f9fb2e40290fb190fad713883e88b550119340ee",
+    "export_sha256": "84e61c1ddfbbc9001aab4adf6fbc9c0f47bf81ce1bb0044905a14490226d0bf1",
+    "raw_alpha_value_count": 256,
+    "export_alpha_values": [
+      0,
+      255
+    ],
+    "rgb_identical_to_raw": true,
+    "raw_byte_identical_to_generation": true,
+    "bbox_alpha128": [
+      120,
+      70,
+      1210,
+      1216
+    ],
+    "target_grid_px": 15,
+    "target_y_top": 105,
+    "target_y_bottom_exclusive": 1185,
+    "actual_y_top": 70,
+    "actual_y_bottom_exclusive": 1216,
+    "exact_target_grid_pass": false,
+    "uniform_occupied_target_grid_cells_fraction": 0.0,
+    "dominant_edge_period_px_y_x_approx": [
+      15.28,
+      15.28
+    ],
+    "note": "Dominant edge spacing is approximate; no regrid or geometry correction performed. Binary alpha export preserves every RGB value."
+  },
+  "A-2": {
+    "canvas": [
+      1254,
+      1254
+    ],
+    "raw_sha256": "ce5b1b16ec933171c5e38160c707249945f48900463d9551db75069d40489d88",
+    "export_sha256": "e022557fec1b08d89d87346c2af8cffee542c9e5a7ed68594420329671789f31",
+    "raw_alpha_value_count": 256,
+    "export_alpha_values": [
+      0,
+      255
+    ],
+    "rgb_identical_to_raw": true,
+    "raw_byte_identical_to_generation": true,
+    "bbox_alpha128": [
+      109,
+      79,
+      1214,
+      1212
+    ],
+    "target_grid_px": 15,
+    "target_y_top": 105,
+    "target_y_bottom_exclusive": 1185,
+    "actual_y_top": 79,
+    "actual_y_bottom_exclusive": 1212,
+    "exact_target_grid_pass": false,
+    "uniform_occupied_target_grid_cells_fraction": 0.0,
+    "dominant_edge_period_px_y_x_approx": [
+      17.16,
+      16.93
+    ],
+    "note": "Dominant edge spacing is approximate; no regrid or geometry correction performed. Binary alpha export preserves every RGB value."
+  },
+  "O-1": {
+    "canvas": [
+      1254,
+      1254
+    ],
+    "raw_sha256": "d85e865c47e2b0dd3219f8131ef12493973a6233d2474429e7f1083b24b1eb0c",
+    "export_sha256": "3b142c1ad5ccfa4ba37934ae56ae8802af98bdcb14ef07e42d318d7b15727856",
+    "raw_alpha_value_count": 256,
+    "export_alpha_values": [
+      0,
+      255
+    ],
+    "rgb_identical_to_raw": true,
+    "raw_byte_identical_to_generation": true,
+    "bbox_alpha128": [
+      58,
+      390,
+      1207,
+      1187
+    ],
+    "target_grid_px": 11,
+    "target_y_top": 385,
+    "target_y_bottom_exclusive": 1188,
+    "actual_y_top": 390,
+    "actual_y_bottom_exclusive": 1187,
+    "exact_target_grid_pass": false,
+    "uniform_occupied_target_grid_cells_fraction": 0.0,
+    "dominant_edge_period_px_y_x_approx": [
+      9.79,
+      9.79
+    ],
+    "note": "Dominant edge spacing is approximate; no regrid or geometry correction performed. Binary alpha export preserves every RGB value."
+  },
+  "O-2": {
+    "canvas": [
+      1254,
+      1254
+    ],
+    "raw_sha256": "6e4d506a37770df798c3210a2eb985f3895cd62ad968d1ca61420984a2e574a2",
+    "export_sha256": "fb897ab7e2fa67c31d99d1a4928b22695d326b7025bdc94b31d35598ed8813fc",
+    "raw_alpha_value_count": 256,
+    "export_alpha_values": [
+      0,
+      255
+    ],
+    "rgb_identical_to_raw": true,
+    "raw_byte_identical_to_generation": true,
+    "bbox_alpha128": [
+      58,
+      391,
+      1206,
+      1186
+    ],
+    "target_grid_px": 11,
+    "target_y_top": 385,
+    "target_y_bottom_exclusive": 1188,
+    "actual_y_top": 391,
+    "actual_y_bottom_exclusive": 1186,
+    "exact_target_grid_pass": false,
+    "uniform_occupied_target_grid_cells_fraction": 0.0,
+    "dominant_edge_period_px_y_x_approx": [
+      9.79,
+      9.79
+    ],
+    "note": "Dominant edge spacing is approximate; no regrid or geometry correction performed. Binary alpha export preserves every RGB value."
+  }
+}
