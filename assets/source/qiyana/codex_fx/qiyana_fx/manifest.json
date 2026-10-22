@@ -1,0 +1,247 @@
+{
+ "effects": [
+  {
+   "name": "a_hit",
+   "file": "qiyana_fx_a_hit.png",
+   "frames": 3,
+   "cell_1x": [
+    12,
+    12
+   ],
+   "symmetry": "left-right",
+   "source": "gemini g00.jpg"
+  },
+  {
+   "name": "w_hit",
+   "file": "qiyana_fx_w_hit.png",
+   "frames": 3,
+   "cell_1x": [
+    10,
+    10
+   ],
+   "symmetry": "left-right",
+   "source": "gemini g01.jpg"
+  },
+  {
+   "name": "p_hit",
+   "file": "qiyana_fx_p_hit.png",
+   "frames": 4,
+   "cell_1x": [
+    14,
+    14
+   ],
+   "symmetry": "left-right",
+   "source": "gemini g02.jpg"
+  },
+  {
+   "name": "w_on",
+   "file": "qiyana_fx_w_on.png",
+   "frames": 7,
+   "cell_1x": [
+    40,
+    34
+   ],
+   "symmetry": "left-right",
+   "source": "gemini g03.jpg"
+  },
+  {
+   "name": "q_swing",
+   "file": "qiyana_fx_q_swing.png",
+   "frames": 4,
+   "cell_1x": [
+    40,
+    26
+   ],
+   "symmetry": "none (points right)",
+   "source": "gemini g04.jpg"
+  },
+  {
+   "name": "q_w",
+   "file": "qiyana_fx_q_w.png",
+   "frames": 4,
+   "cell_1x": [
+    44,
+    26
+   ],
+   "symmetry": "none (points right)",
+   "source": "gemini g05.jpg"
+  },
+  {
+   "name": "q_r",
+   "file": "qiyana_fx_q_r.png",
+   "frames": 5,
+   "cell_1x": [
+    44,
+    28
+   ],
+   "symmetry": "none (points right)",
+   "source": "gemini g06.jpg"
+  },
+  {
+   "name": "q_g",
+   "file": "qiyana_fx_q_g.png",
+   "frames": 4,
+   "cell_1x": [
+    44,
+    26
+   ],
+   "symmetry": "none (points right)",
+   "source": "gemini g07.jpg"
+  },
+  {
+   "name": "q_hit",
+   "file": "qiyana_fx_q_hit.png",
+   "frames": 4,
+   "cell_1x": [
+    12,
+    12
+   ],
+   "symmetry": "left-right",
+   "source": "gemini g08.jpg"
+  },
+  {
+   "name": "q_w_hit",
+   "file": "qiyana_fx_q_w_hit.png",
+   "frames": 4,
+   "cell_1x": [
+    18,
+    16
+   ],
+   "symmetry": "left-right",
+   "source": "gemini g09.jpg"
+  },
+  {
+   "name": "q_r_hit",
+   "file": "qiyana_fx_q_r_hit.png",
+   "frames": 4,
+   "cell_1x": [
+    16,
+    16
+   ],
+   "symmetry": "left-right",
+   "source": "gemini g10.jpg"
+  },
+  {
+   "name": "q_g_hit",
+   "file": "qiyana_fx_q_g_hit.png",
+   "frames": 3,
+   "cell_1x": [
+    14,
+    14
+   ],
+   "symmetry": "left-right",
+   "source": "gemini g11.jpg"
+  },
+  {
+   "name": "e_hit",
+   "file": "qiyana_fx_e_hit.png",
+   "frames": 3,
+   "cell_1x": [
+    14,
+    14
+   ],
+   "symmetry": "left-right",
+   "source": "gemini g12.jpg"
+  },
+  {
+   "name": "r_swing",
+   "file": "qiyana_fx_r_swing.png",
+   "frames": 3,
+   "cell_1x": [
+    36,
+    36
+   ],
+   "symmetry": "none (points right)",
+   "source": "gemini g13.jpg"
+  },
+  {
+   "name": "r_burst",
+   "file": "qiyana_fx_r_burst.png",
+   "frames": 4,
+   "cell_1x": [
+    40,
+    20
+   ],
+   "symmetry": "none (points right)",
+   "source": "gemini g14.jpg"
+  },
+  {
+   "name": "r_wave",
+   "file": "qiyana_fx_r_wave.png",
+   "frames": 4,
+   "cell_1x": [
+    32,
+    22
+   ],
+   "symmetry": "top-bottom",
+   "source": "gemini g15.jpg"
+  },
+  {
+   "name": "r_hit",
+   "file": "qiyana_fx_r_hit.png",
+   "frames": 4,
+   "cell_1x": [
+    20,
+    20
+   ],
+   "symmetry": "left-right",
+   "source": "gemini g16.jpg"
+  },
+  {
+   "name": "el_g",
+   "file": "qiyana_fx_el_g.png",
+   "frames": 4,
+   "cell_1x": [
+    34,
+    12
+   ],
+   "symmetry": "left-right",
+   "source": "gemini g17.jpg"
+  },
+  {
+   "name": "el_w",
+   "file": "qiyana_fx_el_w.png",
+   "frames": 4,
+   "cell_1x": [
+    34,
+    12
+   ],
+   "symmetry": "left-right",
+   "source": "gemini g18.jpg"
+  },
+  {
+   "name": "el_r",
+   "file": "qiyana_fx_el_r.png",
+   "frames": 6,
+   "cell_1x": [
+    34,
+    12
+   ],
+   "symmetry": "left-right",
+   "source": "gemini g19.jpg"
+  },
+  {
+   "name": "q_slow",
+   "file": "qiyana_fx_q_slow.png",
+   "frames": 4,
+   "cell_1x": [
+    18,
+    16
+   ],
+   "symmetry": "left-right",
+   "source": "gemini g20.jpg"
+  },
+  {
+   "name": "q_haste",
+   "file": "qiyana_fx_q_haste.png",
+   "frames": 4,
+   "cell_1x": [
+    28,
+    10
+   ],
+   "symmetry": "left-right",
+   "source": "gemini g21.jpg"
+  }
+ ],
+ "made_by": "Gemini (the user's images), processed by tools/art/process_qiyana_fx.py"
+}

@@ -132,6 +132,7 @@ pub const CLASSES_OF: &[(&str, &str)] = &[
     ("league_pantheon", "melee"),
     ("league_poppy", "util"),
     ("league_pyke", "assassin"),
+    ("league_qiyana", "assassin"),
     ("league_quinn", "range"),
     ("league_rakan", "util"),
     ("league_rammus", "melee"),
