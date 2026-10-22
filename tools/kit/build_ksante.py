@@ -35,8 +35,9 @@ run, hit and death are the add-on's view swap, league_gnar's way).
           `w_go` for win_w ticks the same way and W's cooldown left drops to a tenth (r_cdr: W ready about a second after the
           slam) (All Out's ram). W -> Q (辟路先锋晕眩接无双陀斧): a ram that hits a champion
           is one more Q stack. Every ability that lands arms the passive for the next attack (Q -> A).
-Timings: drafts until the frames exist (tools/art/rig_ksante.py MS; a frame's start in ticks = ms x 0.06): a_hit,
-q_at, q3_rel, w_charge, r_at. Numbers: League 16.20 (CommunityDragon ksante.bin) read into the Melee tank range;
+Timings: the frames' (tools/art/rig_ksante.py MS; a frame's start in ticks = ms x 0.06): a_hit 10 (the thrust, 167
+ms), q_at 10, q3_rel 12, w_charge 45 / ao_w_charge 24 (the braces), w_dash_dur 18, r_at 12 (the bash), r_dash_dur 22,
+and the actions' lengths. Numbers: League 16.20 (CommunityDragon ksante.bin) read into the Melee tank range;
 balanced on the classic-SDK simulations (kd.py --lane 0 against fighter, executioner, knight, berserker,
 lancer and pole_warrior, C:/t/ks_sim, 2026-10-22; league_ornn +1.86 on seeds 1-8 the same day): the draft (hp 1150, Q 30 +
 60%, Q3 40, W 20 + 50%, R 80 / 60, All Out -40% resistances, R 60 s, W 12 s) -0.46; more damage +0.38; then All Out -25%,
