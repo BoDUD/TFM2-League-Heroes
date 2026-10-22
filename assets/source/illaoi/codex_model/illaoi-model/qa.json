@@ -1,0 +1,134 @@
+[
+  {
+    "file": "illaoi-model-A-1.png",
+    "width": 1254,
+    "height": 1254,
+    "transparent_pixels": 945616,
+    "opaque_pixels": 2581,
+    "partial_alpha_pixels": 624319,
+    "most_common_alpha": [
+      [
+        0,
+        945616
+      ],
+      [
+        253,
+        554864
+      ],
+      [
+        252,
+        17433
+      ],
+      [
+        254,
+        16780
+      ],
+      [
+        1,
+        5888
+      ],
+      [
+        251,
+        4706
+      ]
+    ],
+    "bbox_alpha_at_least_128": [
+      170,
+      45,
+      1077,
+      1235
+    ],
+    "exact_solid_17px_active_blocks": 0,
+    "active_17px_blocks": 2556,
+    "passes_size": true,
+    "passes_binary_alpha": false
+  },
+  {
+    "file": "illaoi-model-A-2.png",
+    "width": 1254,
+    "height": 1254,
+    "transparent_pixels": 997045,
+    "opaque_pixels": 2306,
+    "partial_alpha_pixels": 573165,
+    "most_common_alpha": [
+      [
+        0,
+        997045
+      ],
+      [
+        253,
+        504844
+      ],
+      [
+        252,
+        20557
+      ],
+      [
+        254,
+        9720
+      ],
+      [
+        1,
+        8667
+      ],
+      [
+        251,
+        5266
+      ]
+    ],
+    "bbox_alpha_at_least_128": [
+      193,
+      78,
+      1052,
+      1221
+    ],
+    "exact_solid_17px_active_blocks": 0,
+    "active_17px_blocks": 2474,
+    "passes_size": true,
+    "passes_binary_alpha": false
+  },
+  {
+    "file": "illaoi-model-T.png",
+    "width": 1254,
+    "height": 1254,
+    "transparent_pixels": 1168395,
+    "opaque_pixels": 2455,
+    "partial_alpha_pixels": 401666,
+    "most_common_alpha": [
+      [
+        0,
+        1168395
+      ],
+      [
+        253,
+        330281
+      ],
+      [
+        254,
+        22274
+      ],
+      [
+        252,
+        15259
+      ],
+      [
+        1,
+        7627
+      ],
+      [
+        251,
+        4068
+      ]
+    ],
+    "bbox_alpha_at_least_128": [
+      352,
+      79,
+      921,
+      1223
+    ],
+    "exact_solid_17px_active_blocks": 0,
+    "active_17px_blocks": 1820,
+    "passes_size": true,
+    "passes_binary_alpha": false
+  }
+]

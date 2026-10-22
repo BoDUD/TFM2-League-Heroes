@@ -1,0 +1,14 @@
+illaoi-legs-run4.png
+Uses base prompt from generation-prompts.txt. References: guide, first generated leg-repair attempt, design legs.
+This pass OVERRIDES any prior leg placement: MANDATORY LOWER-BODY CORRECTION FOR RUN4. This is the OPPOSITE LEG SUPPORT of run2. FAR DARK leg must be the SUPPORT leg rooted at RIGHT HIP x742,y970, extending VERTICALLY DOWN to x749,y1065, then x741,y1166, its boot FOOT points right to x843,y1185. Draw this dark supporting boot UNDER THE RIGHT HIP, not under left hip. NEAR BRIGHT leg must CROSS IN FRONT of that dark support leg: starts LEFT HIP x622,y970, thigh angles RIGHT to lifted knee x714,y994, shin drops to ankle x702,y1098 and boot toe x803,y1123. This BRIGHT foot is HIGHER than support foot. The two thigh chains CROSS at the loincloth. This crossing is essential; do not reproduce a left support leg/right lifted leg. Draw exactly these two limb paths from guide image1. Leave upper body from guide locked.
+If reference B disagrees, ignore B leg pose; it is first attempt, not target.
+
+illaoi-legs-run3.png
+Uses base prompt from generation-prompts.txt. References: guide, first generated leg-repair attempt, design legs.
+This pass OVERRIDES any prior leg placement: MANDATORY LOWER-BODY CORRECTION RUN3: near bright leg CROSSING IN FRONT of loincloth from LEFT HIP x638,y1005 -> RIGHT knee x688,y1086 -> ankle x704,y1188 ->toe x803,y1206. This is FRONT BRIGHT foot grounded. Far dark leg goes BACK: RIGHT HIP x758,y1005 -> knee x704,y1086 -> ankle x605,y1100 ->toe x538,y1023, lifted rear foot on image LEFT. TWO leg chains CROSS at upper thighs; this is opposite to run1. No bright rear thigh. Guide image1 is definitive. Upper body locked.
+If reference B disagrees, ignore B leg pose; it is first attempt, not target.
+
+illaoi-legs-e_yank.png
+Uses base prompt from generation-prompts.txt. References: guide, first generated leg-repair attempt, design legs.
+This pass OVERRIDES any prior leg placement: MANDATORY LEG PATHS e_yank: bright NEAR thigh starts x528,y1001 -> knee x596,y1065 -> ankle x659,y1147 -> boot toe x748,y1198, extending DOWN-RIGHT. Dark FAR thigh starts x648,y991 -> knee x568,y1053 -> ankle x498,y1127 ->toe x413,y1198 extending DOWN-LEFT. Legs CROSS under belt and front of loincloth. Draw bright leg in front, dark leg behind. No symmetrical uncrossed squat. Keep upper body and weapon exactly from guide image1.
+If reference B disagrees, ignore B leg pose; it is first attempt, not target.

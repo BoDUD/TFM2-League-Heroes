@@ -1,0 +1,10 @@
+{
+  "asset/league/champion/league_illaoi": {
+    "remapping": "asset/league_illaoi/override/league_illaoi",
+    "type": "override"
+  },
+  "asset/base/text/champion": {
+    "remapping": "asset/league_illaoi/text/champion",
+    "type": "merge"
+  }
+}

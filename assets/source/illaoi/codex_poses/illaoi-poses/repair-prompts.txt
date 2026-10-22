@@ -1,0 +1,11 @@
+illaoi-pose-r_crouch.png
+Edit image 1 ONLY to REMOVE the EXTRA THIRD HAND: there is a small brown skin patch/fingers on the idol's image-right middle rim next to the left knee. Erase that brown patch and reconstruct the gold idol ridges there. Keep the ONE REAL hand grasping the idol TOP rim, connected to the image-left arm, and the other real hand dangling beside image-right knee. Exactly TWO arms, TWO hands total. Preserve the entire existing crouch pose, 3/4 face, pixel density, proportions, canvas framing, colors, outfit and all other pixels as closely as possible. Transparent background. No extra changes.
+
+illaoi-pose-r_slam.png
+Edit image 1 ONLY to REMOVE EXTRA HAND/FINGERS on the GOLD IDOL. There is a disembodied brown hand/skin patch on the idol's IMAGE RIGHT edge halfway down, separate from the TWO real hands which grasp the TOP edge. Remove this third hand completely, fill that spot with carved golden ridges matching the disc. Keep both real connected arms/hands at top, all anatomy, kneeling pose, face, pixel density, palette, framing, transparent background identical. No new elements.
+
+illaoi-pose-d_slump.png
+Edit image 1 ONLY: REMOVE the small disembodied brown HAND patch on the IDOL's image-right edge halfway up, behind the woman's hip. Idol is lying abandoned with NO HAND attached; replace the brown fingers with matching GOLD RIDGES. Keep the TWO real hands on ground attached to her shoulders/arms. Preserve seated body, face, legs, colors, outfit, idol shape/position, pixel grid and canvas margins. Transparent background; no added objects.
+
+illaoi-tentacle-tn_rise.png
+Correct the tentacle emergence pose in image1 using the design image2 for colors/style. 1254x1254 transparent canvas, 12px square pixels. This is ONLY THE FIRST SHORT EMERGENCE FRAME, not a fully grown tentacle. Exactly25 logical cells (300px) TOTAL HEIGHT including stones. Its top must be y900, bottom y1200. Center x627. Make the thick lower base emerging with a short straight blunt upward tip NOT CURLED; dark sea-green sides, pale aqua spiral fragment on belly, same fins and stone ring. Root width about300px as original design. No slender tall spike. HUGE900px blank transparent space ABOVE IT. Do not autozoom. Draw newly at this short height, not smooth resize. One-cell black outline, flat shades, binary alpha0/255, no effects or lines.

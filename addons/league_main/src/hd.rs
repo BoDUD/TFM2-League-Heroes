@@ -184,6 +184,10 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // the standing poses' legs drawn again at the design's chibi length) at the user's 1.5 squares a game pixel (60 game
     // rows mushroom to soles: 「艾翁蘑菇顶到脚底 40 游戏像素 … PPU 1.5，只做四分之三侧面」), so no SIZES row
     ("league_ivern", 1.5, include_str!("../../../league/champions/league_ivern#anim.fanim")),
+    // Illaoi: posed by tools/art/rig_illaoi.py on Codex's step-1 take A-2 and its key poses (the design's head put back,
+    // the long-legged poses' and the runs' legs drawn again at the design's length) at the user's 1.5 squares a game pixel
+    // (63 game rows bun to soles: 「俄洛伊发髻到脚底 42 游戏像素，PPU 1.5，触手 44，只做四分之三侧面」), so no SIZES row
+    ("league_illaoi", 1.5, include_str!("../../../league/champions/league_illaoi#anim.fanim")),
     // Neeko: posed by tools/art/rig_neeko.py on Codex's step-1 take A-1 and its key poses at the user's 2.5 squares a
     // game pixel (100 game rows quill tips to soles: 「40」, then 「1.5也挺糊的 还得往上调整吧」; 3/4 only; league_neeko's
     // view hook draws her as an ally while she is disguised), so no SIZES row
@@ -345,6 +349,11 @@ pub const EFFECTS: &[(&str, f32, &str)] = &[
     ("league_ivern_daisy_punch", 1.9, include_str!("../../../league/effects/league_ivern_daisy_punch#anim.fanim")),
     ("league_ivern_daisy_slam", 1.9, include_str!("../../../league/effects/league_ivern_daisy_slam#anim.fanim")),
     ("league_ivern_daisy_bye", 1.9, include_str!("../../../league/effects/league_ivern_daisy_bye#anim.fanim")),
+    // league_illaoi's tentacle (her passive, W, R): one life on the spot it grew (rising, swaying, sinking back) and the
+    // lash slamming down on the unit it strikes, each its own dense sheet, drawn from its step-1 design at PPU 1.5 (the
+    // user: 「触手 44」; tools/art/rig_illaoi.py)
+    ("league_illaoi_tentacle", 1.5, include_str!("../../../league/effects/league_illaoi_tentacle#anim.fanim")),
+    ("league_illaoi_lash", 1.5, include_str!("../../../league/effects/league_illaoi_lash#anim.fanim")),
     ("league_leblanc_clone", 2.0, include_str!("../../../league/effects/league_leblanc_clone#anim.fanim")),
     // league_zoe's stolen summoner spells (the add-on plays them; tools/art/draw_zoe_spells.py): their own pictures at
     // PPU 2 and League's icons at 3 (32 squares of the client's 64-px icon still read, 22 did not) - many tags each,
