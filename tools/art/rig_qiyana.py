@@ -97,7 +97,7 @@ def actions(C):
     out = {}
     out["idle"] = [f("idle")]
     # run (League's Run: contact, passing, contact on the other leg, passing; the ring slung across her back)
-    out["run"] = [f("run1"), f("run2", lift=1), f("run3"), f("run4", lift=1)]
+    out["run"] = [f("run1"), f("run2"), f("run3"), f("run4")]     # each on its support foot: the passing frames stand taller
     # attack (League's Attack1: the ring swung back on one leg, springing forward to strike, held, back)
     out["attack"] = [f("a_wind", dx=-1), f("a_strike", dx=2, lift=3), f("a_strike", dx=2, lift=1), f("idle")]
     # Q Edge of Ixtal (League's Spell1: the ring dragged low behind her, swept round to the front, the follow-through)

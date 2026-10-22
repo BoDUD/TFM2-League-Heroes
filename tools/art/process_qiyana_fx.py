@@ -25,6 +25,7 @@ import sys
 
 import numpy as np
 from PIL import Image
+from scipy import ndimage
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(os.path.dirname(HERE))
@@ -205,6 +206,23 @@ def draw_q_haste():
 DRAWN = {"q_slow": draw_q_slow, "q_haste": draw_q_haste}
 
 
+def edge_slivers(cells, most_w=3, most=40):
+    """A neighbouring cell's drawing reaching over the cut leaves a thin strip on a cell's left or right edge (q_w's first
+    frame: two squares of the next frame's wave down its right side): pieces touching that edge, at most most_w squares
+    wide and most squares in all, go."""
+    out = []
+    for c in cells:
+        c = c.copy()
+        lbl, n = ndimage.label(c[..., 3] > 0, structure=np.ones((3, 3)))
+        for j, o in enumerate(ndimage.find_objects(lbl), 1):
+            w = o[1].stop - o[1].start
+            touches = o[1].start == 0 or o[1].stop == c.shape[1]
+            if touches and w <= most_w and (lbl[o] == j).sum() <= most:
+                c[lbl == j] = 0
+        out.append(c)
+    return out
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--src", default="C:/t/qy_work/gemini")
@@ -221,6 +239,8 @@ def main():
         else:
             img = Image.open(S.lp(os.path.join(a.src, fn)))
             cells = w_on(img) if name == "w_on" else S.effect(name, n, size, img)
+            if name in FORWARD:
+                cells = edge_slivers(cells)
             src = f"gemini {fn}"
         h, w = cells[0].shape[:2]
         strip = np.concatenate(cells, axis=1)

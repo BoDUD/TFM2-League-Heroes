@@ -464,8 +464,9 @@ RESTYLE = {
     # 「40」「PPU 1.5」, 3/4 only) with Codex's 15 key poses (the design's head pasted back, the legs drawn again at the
     # design's chibi length) posed by tools/art/rig_qiyana.py after League's clips, so no proportion or density change here;
     # the outer outline grown a square like the others; the face point between her eyes (1 game px ahead of her standing
-    # point, 27 over the ground); Q's sweeps and R's swing / burst baked into her frames (qiyana_bake.json)
-    "qiyana": dict(ppu=1.5, edge=1, face_to=(1, -27)),
+    # point, 27 over the ground); Q's sweeps and R's swing / burst baked into her frames (qiyana_bake.json:
+    # orig/qiyana_<tag>.over.png / .under.png) laid on after the outline (fx)
+    "qiyana": dict(ppu=1.5, edge=1, face_to=(1, -27), fx=True),
     # league_heimerdinger: the design (Codex's step-1 A-2 cut to the user's 54 rows at 1.5 squares a game pixel: 「36」
     # 「PPU 1.5」, 3/4 only) with Codex's whole-body poses (the design's head pasted back) and the backpack crane / R's gear
     # props, posed by tools/art/rig_heimerdinger.py after League's clips, so no proportion or density change here; the

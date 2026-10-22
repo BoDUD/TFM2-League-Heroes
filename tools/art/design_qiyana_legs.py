@@ -12,8 +12,10 @@ colours snapped to the design's (Lab). The join keeps every square of the guide'
 canvas: assets/source/qiyana/codex_legs_guides.json) and takes from the redo only the squares that are not the upper
 body's and lie in the cut-away zone (the pack's CUT polygon moved with the body, grown GROW squares) or within REACH
 squares of the leg skeletons - the legs, the hem and what the old legs hid; loose specks go, the outline is closed.
-The pose's json keeps the head box (from the first readback, moved with the body) and the ground row (the guide's), so
-rig_qiyana stands the soles on the ground whatever dips below them (a ring striking in front of her).
+The pose's json keeps the head box (from the first readback, moved with the body) and the ground row - the guide's for a
+pose in the air, for one on the ground the lowest square round the skeletons' ankles and toes (Codex's feet came a row
+or three off the guide's line) - so rig_qiyana stands the soles on the ground whatever dips below them (a ring striking
+in front of her).
 """
 import argparse
 import json
@@ -39,6 +41,7 @@ OUT = os.path.join(SRC, "hd")
 FIRST = os.path.join(SRC, "hd_first")          # the first readbacks (long legs), kept for the guides
 GROW = 2
 REACH = 5.0
+FOOT = 5.0                       # squares round a skeleton's ankle and toe where its foot is looked for
 SPECK = 6
 
 
@@ -106,6 +109,16 @@ def join(name, design):
     top, left = ys2.min(), xs2.min()
     fig = out[top:ys2.max() + 1, left:xs2.max() + 1]
     ground = L.GROUND + 1 - top                                    # the canvas ground row, in the figure (finish padded 1)
+    if L.legs_of(name)[1] is None or name in L.RUN:              # (every run frame has a foot on the ground)
+        # a pose standing on the ground stands on its feet as Codex drew them (a row or three off the guide's line): the
+        # lowest drawn square round the skeletons' ankles and toes - not the ring, which may strike lower in front of her
+        feet = np.zeros(out.shape[:2], bool)
+        for pts in legs.values():
+            for x, y in pts[-2:]:
+                feet |= near_lines(out.shape[:2], {"f": [(x + 1, y + 1), (x + 1, y + 1.01)]}, FOOT)
+        fy = np.nonzero((feet & (out[..., 3] > 0)).any(1))[0]
+        if len(fy):
+            ground = fy.max() + 1 - top
     return fig, ground, (ox + 1 - left, oy + 1 - top)
 
 
