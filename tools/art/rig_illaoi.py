@@ -62,8 +62,34 @@ def load(name):
     return np.asarray(Image.open(lp(os.path.join(SRC, name))).convert("RGBA")).copy()
 
 
+# squares put right after the readback: (x0, y0, x1, y1) boxes on hd/pose_<name>.png whose tattoo teal goes back to the
+# skin round it - Codex drew e_yank's spiral tattoo on her FAR arm (the design has it on the near, bracer arm)
+PIXFIX = {"e_yank": [(5, 24, 15, 32)]}
+
+
+def untattoo(d, box):
+    """The tattoo's squares in box (greener than red, not the outline) take the commonest skin colour among their
+    neighbours."""
+    x0, y0, x1, y1 = box
+    f = d[..., :3].astype(int)
+    teal = (f[..., 1] > f[..., 0] + 8) & (f[..., :3].sum(-1) > 90) & (d[..., 3] > 0)   # greener than red: not skin
+    skin = (f[..., 0] > 80) & (f[..., 0] > f[..., 1]) & (f[..., 1] > f[..., 2]) & (d[..., 3] > 0)
+    out = d.copy()
+    for y in range(y0, y1):
+        for x in range(x0, x1):
+            if not teal[y, x]:
+                continue
+            near = [tuple(d[j, i, :3]) for j in range(y - 2, y + 3) for i in range(x - 2, x + 3)
+                    if 0 <= j < d.shape[0] and 0 <= i < d.shape[1] and skin[j, i]]
+            if near:
+                out[y, x, :3] = max(set(near), key=near.count)
+    return out
+
+
 def load_pose(name, prefix="pose_"):
     d = load(f"{prefix}{name}.png")
+    for box in PIXFIX.get(name, []) if prefix == "pose_" else []:
+        d = untattoo(d, box)
     with open(lp(os.path.join(SRC, f"{prefix}{name}.json")), encoding="utf-8") as f:
         meta = json.load(f)
     ys = np.nonzero((d[..., 3] > 0).any(1))[0]
@@ -122,12 +148,14 @@ def actions(C):
     f = C.frame
     out = {}
     out["idle"] = [f("idle")]
-    # run (League's Run1: contact, passing, contact on the other leg, passing; the idol carried low at her side)
-    out["run"] = [f("run1"), f("run2"), f("run3"), f("run4")]
+    # run (League's Run1: contact, passing, contact on the other leg, passing; the idol carried low at her side). The
+    # head over the ground row 61 / 62 / 61 / 62 (the readbacks stand it at 59 / 60 / 61 / 61: Codex's legs differ by a
+    # row or two), so the head bobs a row, the passing frames higher
+    out["run"] = [f("run1", lift=2), f("run2", lift=2), f("run3"), f("run4", lift=1)]
     # attack (League's attack2: the idol swung up behind her, then smashed down before her, back)
     out["attack"] = [f("a_raise", dx=-1), f("a_slam", dx=2), f("a_slam", dx=2), f("idle")]
     # Harsh Lesson (Spell2: the crouch, the leap with the idol up - the data's dash - and the landing pressing it down)
-    out["skill"] = [f("r_crouch"), f("w_jump", lift=6), f("w_land", dx=2)]
+    out["skill"] = [f("r_crouch"), f("w_jump"), f("w_land", dx=2)]     # w_jump's ground row holds its hop
     # Test of Spirit (Spell3: the idol thrust out - the ghost tentacle flies - then yanked back to her chest)
     out["skill2"] = [f("e_thrust", dx=1), f("e_yank", dx=-1)]
     # Leap of Faith (Spell4: the crouch, the high leap with the idol raised, kneeling as it is smashed down)

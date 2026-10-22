@@ -1,0 +1,170 @@
+[
+  {
+    "file": "illaoi-legs-w_jump.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "size_pass": true,
+    "raw_identical": true,
+    "sha256": "d1a23c2434a1f08c75dfed7e3972a5e9d4c57d2d391140cb84fc2b845f8c10aa",
+    "partial_alpha_pixels": 346790,
+    "binary_alpha_pass": false,
+    "bbox_alpha_at_least_128": [
+      252,
+      192,
+      1008,
+      1068
+    ],
+    "upper_inspection_cutoff_y": 780,
+    "upper_sample_pixels": 247680,
+    "upper_exact_rgba_match_fraction": 3.633720930232558e-05,
+    "upper_exact_rgb_match_fraction": 0.0011627906976744186,
+    "upper_rgb_within_20_fraction": 0.9178779069767442,
+    "upper_unchanged_pass": false
+  },
+  {
+    "file": "illaoi-legs-e_thrust.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "size_pass": true,
+    "raw_identical": true,
+    "sha256": "f77fd15d4eda1c2c8a97b9483c25963b39588dbd3aca897b692ffc03585aba9d",
+    "partial_alpha_pixels": 355497,
+    "binary_alpha_pass": false,
+    "bbox_alpha_at_least_128": [
+      98,
+      491,
+      1129,
+      1210
+    ],
+    "upper_inspection_cutoff_y": 936,
+    "upper_sample_pixels": 236736,
+    "upper_exact_rgba_match_fraction": 2.11205731278724e-05,
+    "upper_exact_rgb_match_fraction": 0.0015122330359556638,
+    "upper_rgb_within_20_fraction": 0.9007248580697486,
+    "upper_unchanged_pass": false
+  },
+  {
+    "file": "illaoi-legs-e_yank.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "size_pass": true,
+    "raw_identical": true,
+    "sha256": "a39b109e687b874de604fba680f41fbba1fe432d4801af4096ed8b025cc36d8c",
+    "partial_alpha_pixels": 317550,
+    "binary_alpha_pass": false,
+    "bbox_alpha_at_least_128": [
+      264,
+      491,
+      985,
+      1211
+    ],
+    "upper_inspection_cutoff_y": 936,
+    "upper_sample_pixels": 211248,
+    "upper_exact_rgba_match_fraction": 9.467545254866319e-06,
+    "upper_exact_rgb_match_fraction": 0.0008804817087025676,
+    "upper_rgb_within_20_fraction": 0.9156631068696508,
+    "upper_unchanged_pass": false
+  },
+  {
+    "file": "illaoi-legs-run1.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "size_pass": true,
+    "raw_identical": true,
+    "sha256": "1a3416bafbd1eb666c3818e436cf0126f7b0ae77bd76232ec03c504c5b350208",
+    "partial_alpha_pixels": 341641,
+    "binary_alpha_pass": false,
+    "bbox_alpha_at_least_128": [
+      168,
+      515,
+      1092,
+      1222
+    ],
+    "upper_inspection_cutoff_y": 936,
+    "upper_sample_pixels": 191376,
+    "upper_exact_rgba_match_fraction": 1.567594682718836e-05,
+    "upper_exact_rgb_match_fraction": 0.0012331744837388177,
+    "upper_rgb_within_20_fraction": 0.8920711060948081,
+    "upper_unchanged_pass": false
+  },
+  {
+    "file": "illaoi-legs-run2.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "size_pass": true,
+    "raw_identical": true,
+    "sha256": "f8aee6963ad1d063fcc931c93b76522d9d9d99f84dfe28992dfe5f60d1d3321a",
+    "partial_alpha_pixels": 304969,
+    "binary_alpha_pass": false,
+    "bbox_alpha_at_least_128": [
+      288,
+      431,
+      973,
+      1202
+    ],
+    "upper_inspection_cutoff_y": 936,
+    "upper_sample_pixels": 213552,
+    "upper_exact_rgba_match_fraction": 1.8730800929047726e-05,
+    "upper_exact_rgb_match_fraction": 0.002645725631227991,
+    "upper_rgb_within_20_fraction": 0.9059713793361804,
+    "upper_unchanged_pass": false
+  },
+  {
+    "file": "illaoi-legs-run3.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "size_pass": true,
+    "raw_identical": true,
+    "sha256": "ae110f1c268c3aaec0c6c17567107339b5bf3f402ccc24edfd60bfd5603c9eb7",
+    "partial_alpha_pixels": 340640,
+    "binary_alpha_pass": false,
+    "bbox_alpha_at_least_128": [
+      227,
+      468,
+      1033,
+      1244
+    ],
+    "upper_inspection_cutoff_y": 936,
+    "upper_sample_pixels": 198864,
+    "upper_exact_rgba_match_fraction": 5.028562233486201e-06,
+    "upper_exact_rgb_match_fraction": 0.0005179419100490788,
+    "upper_rgb_within_20_fraction": 0.9269852763697803,
+    "upper_unchanged_pass": false
+  },
+  {
+    "file": "illaoi-legs-run4.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "size_pass": true,
+    "raw_identical": true,
+    "sha256": "1145a2f333032e4d1b018e9e869fd64ea7a9345f32ef0c7d7867cf0d2cc5d5fb",
+    "partial_alpha_pixels": 313678,
+    "binary_alpha_pass": false,
+    "bbox_alpha_at_least_128": [
+      240,
+      479,
+      1020,
+      1210
+    ],
+    "upper_inspection_cutoff_y": 936,
+    "upper_sample_pixels": 193392,
+    "upper_exact_rgba_match_fraction": 1.5512534127575082e-05,
+    "upper_exact_rgb_match_fraction": 0.0008531893770166295,
+    "upper_rgb_within_20_fraction": 0.9149034086208323,
+    "upper_unchanged_pass": false
+  }
+]
