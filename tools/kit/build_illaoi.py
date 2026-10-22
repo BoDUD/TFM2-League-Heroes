@@ -65,16 +65,16 @@ P = {
     "hp": 1150, "hp_g": 110, "atk": 80, "atk_g": 10, "def": 36, "def_g": 7, "mr": 28, "mr_g": 4, "ms": 1000, "ms_g": 10,
     "atk_range": 25000, "atk_dur": 30, "atk_cd": 80, "a_hit": 14,
     # passive: tentacles
-    "p_cd": 300, "t_place": 15000, "t_speed": 6000, "t_life": 480, "t_per": 90, "t_first": 40, "t_r": 30000,
-    "t_dmg": 20, "t_ratio": 55, "p_heal": 12, "p_heal_r": 12,
+    "p_cd": 360, "p_reach": 60000, "t_place": 15000, "t_speed": 6000, "t_life": 360, "t_per": 90, "t_first": 40, "t_r": 30000,
+    "t_dmg": 10, "t_ratio": 35, "p_heal": 6, "p_heal_r": 6,
     # skill: W Harsh Lesson
     "w_cd": 300, "w_cd_r": 120, "w_range": 45000, "w_dur": 30, "w_dash": 12, "w_speed": 6000, "w_hit": 6,
-    "w_dmg": 30, "w_ratio": 70, "w_thp": 3, "w_gap": 6, "w_mark_t": 240,
+    "w_dmg": 30, "w_ratio": 50, "w_thp": 2, "w_gap": 6, "w_mark_t": 240,
     # skill2: E Test of Spirit
     "e_cd": 840, "e_range": 80000, "e_dur": 30, "e_rel": 12, "e_speed": 5000, "e_dmg": 20, "e_ratio": 20,
-    "e_t": 300, "e_echo": 25, "e_slow": 50, "e_slow_t": 90, "e_vt": 240, "e_leash": 150000,
+    "e_t": 300, "e_echo": 15, "e_slow": 50, "e_slow_t": 90, "e_vt": 240, "e_leash": 150000,
     # ult: R Leap of Faith
-    "r_cd": 2400, "r_range": 40000, "r_dur": 40, "r_at": 26, "r_r": 45000, "r_dmg": 120, "r_ratio": 80, "r_on": 480,
+    "r_cd": 2400, "r_range": 40000, "r_dur": 40, "r_at": 26, "r_r": 45000, "r_dmg": 90, "r_ratio": 60, "r_on": 480,
     "r_per": 60,
     # combos
     "win_w": 90, "w_refund": 900,
@@ -83,7 +83,8 @@ P = {
     "native": 0,
 }
 SLOTS = "abcd"
-NATIVE_KEYS = ("t_r", "t_life", "e_t", "e_echo", "e_leash", "e_vt", "w_mark_t")
+NATIVE_KEYS = ("t_r", "t_life", "t_per", "t_first", "r_per", "t_dmg", "t_ratio", "p_heal", "p_heal_r", "r_r", "e_t",
+               "e_echo", "e_leash", "e_vt", "w_mark_t", "w_gap", "p_reach", "t_place")
 
 
 def lp(path):
@@ -252,17 +253,21 @@ def build(p):
                 field(f"t{s}_rall", p["t_r"], p["t_life"], p["r_per"], p["t_first"], [fast(False)])]
         return out
 
-    def grow(where, i=0):
-        """A tentacle in the first free slot (all four up: none); `where` puts its effects on the spot."""
+    def grow(where, kind, i=0):
+        """A tentacle in the first free slot (all four up: none); `where` puts its effects on the spot. The add-on copy
+        raises a 2-tick `<kind>_new` on her instead (league_illaoi:prophet stands the tentacle: p by her, r on every
+        champion round her; the Vessel's own is the add-on's)."""
+        if native:
+            return flag(f"{kind}_new", 2) if kind != "v" else NONE
         s = SLOTS[i]
         put = combine(flag(f"t{s}_busy", p["t_life"]), where(tentacle(s)))
-        return sw(f"t{s}_busy", NONE if i == len(SLOTS) - 1 else grow(where, i + 1), put)
+        return sw(f"t{s}_busy", NONE if i == len(SLOTS) - 1 else grow(where, kind, i + 1), put)
 
     ahead = lambda effects: place("t_place", p["t_speed"], p["t_place"], effects)
     on_spot = lambda target: (lambda effects: lob("t_lob", 1, effects, target))
 
     # ------------------------------------------------------------------ attack: the idol swung down
-    spawn = sw("p_cd", NONE, combine(flag("p_cd", p["p_cd"]), grow(ahead)))
+    spawn = sw("p_cd", NONE, combine(flag("p_cd", p["p_cd"]), grow(ahead, "p")))
     attack_a = action("attack", p["atk_dur"], p["atk_cd"], 1, p["atk_range"], "Targeting", "Enemy",
                       combine(decoy(0, 100), sfx("a"), delayed(p["a_hit"] - 1, alive(
                           homing("a_hit_mis", "Enemy", [attack(0, 100), view("a_hit"), tsfx("a_hit")], 20000), spawn))),
@@ -275,7 +280,7 @@ def build(p):
                 for k, s in enumerate(SLOTS)]
 
     w_land = [attack(p["w_dmg"], p["w_ratio"], p["w_thp"]), view("w_slam"), tsfx("w_hit"),
-              buff("w_mark", p["w_mark_t"]), *lashes()]
+              buff("w_mark", p["w_mark_t"]), *([] if native else lashes())]   # the add-on's tentacles lash the mark
     w_cast = combine(sw("r_on", refresh("w_cd", p["w_cd_r"]), refresh("w_cd", p["w_cd"])), *rm("w_go"),
                      {"type": "MoveToTarget", "speed": p["w_speed"], "range": p["w_range"],
                       "end_effects": [delayed(p["w_hit"], alive(*w_land))]})
@@ -287,8 +292,9 @@ def build(p):
 
     # ------------------------------------------------------------------ skill2: E Test of Spirit
     open_w = combine(refresh("w_go", p["win_w"]), refresh("w_ref", 2, skill_cooldown_mult=p["w_refund"]))
-    vessel = [buff("e_vessel", p["e_vt"]), view("e_break"), tsfx("e_break"), grow(on_spot("EnemyChampion"))]
-    e_hit = [attack(p["e_dmg"], p["e_ratio"]), buff("e_spirit", p["e_t"], damaged_amplify=p["e_echo"]),
+    vessel = [buff("e_vessel", p["e_vt"]), view("e_break"), tsfx("e_break"), grow(on_spot("EnemyChampion"), "v")]
+    spirit = buff("e_spirit", p["e_t"]) if native else buff("e_spirit", p["e_t"], damaged_amplify=p["e_echo"])
+    e_hit = [attack(p["e_dmg"], p["e_ratio"]), spirit,
              buff("e_slow", p["e_slow_t"], move_speed_mult=-p["e_slow"]), tsfx("e_hit"), open_w,
              *([] if native else [{"type": "AddCasted", "casted_type": "Bleed", "duration": p["e_t"] + 1,
                                    "period": p["e_t"], "effects": vessel}])]
@@ -305,7 +311,7 @@ def build(p):
     # ------------------------------------------------------------------ ult: R Leap of Faith
     r_land = [view("r_slam"), sfx("r_slam"), refresh("r_on", p["r_on"]), on_me(buff("r_aura", p["r_on"])), open_w,
               around(p["r_r"], "EnemyWithoutTower", [attack(p["r_dmg"], p["r_ratio"]), view("r_hit"), tsfx("r_hit")]),
-              around(p["r_r"], "EnemyChampion", [grow(on_spot("EnemyChampion"))])]
+              (flag("r_new", 2) if native else around(p["r_r"], "EnemyChampion", [grow(on_spot("EnemyChampion"), "r")]))]
     ult = action("ult", p["r_dur"], p["r_cd"], 1, p["r_range"], "Targeting", "EnemyChampion",
                  combine(decoy(p["r_dmg"], p["r_ratio"]), sfx("r"), voice("vo_r", p),
                          delayed(p["r_at"] - 1, alive(*r_land))))

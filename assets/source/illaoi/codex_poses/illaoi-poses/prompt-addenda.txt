@@ -1,0 +1,13 @@
+Hero prompts additionally request: 
+CRITICAL COMPOSITION: Keep absolute positions and empty margins from skeleton C; no autozoom. Head is 288x240px, each leg about 264px along bends, idol diameter252px. Skeleton C controls pose and proportions; D is secondary. Convert reference grid and white backdrop to transparency; no guides.
+Tentacle prompts additionally request: Preserve canvas margins and root y1200. Do not autozoom short emergence/recoil/sink poses to fill the image.
+After tn_rise first attempt, subsequent tentacle calls also received these absolute coordinate instructions:
+{
+  "tn_rise": "Only 300px tall, top y900, bottom1200",
+  "tn_grow": "Only600px tall, top y600, bottom1200",
+  "tn_sway": "Only792px tall, top y408, bottom1200",
+  "tn_rear": "960px tall, top y240, bottom1200",
+  "tn_slam": "Only264px tall, top y936, bottom1200; width about720px",
+  "tn_recoil": "Only480px tall, top y720, bottom1200",
+  "tn_sink": "Only216px tall, top y984, bottom1200"
+}

@@ -1,0 +1,508 @@
+[
+  {
+    "file": "illaoi-pose-a_raise.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "bbox_alpha_at_least_128": [
+      147,
+      209,
+      1148,
+      1176
+    ],
+    "visible_height": 967,
+    "bottom_offset_from_1200": -24,
+    "partial_alpha_pixels": 372470,
+    "transparent_pixels": 1197698,
+    "opaque_pixels": 2348,
+    "dominant_nonzero_alpha": 253,
+    "binary_alpha_pass": false,
+    "size_pass": true,
+    "raw_identical": true,
+    "sha256": "c387fb9f36d674a7a10b7cd44464ea280bca727f5591221da08f02a82d149ad8"
+  },
+  {
+    "file": "illaoi-pose-a_slam.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "bbox_alpha_at_least_128": [
+      166,
+      409,
+      1170,
+      1186
+    ],
+    "visible_height": 777,
+    "bottom_offset_from_1200": -14,
+    "partial_alpha_pixels": 417281,
+    "transparent_pixels": 1153535,
+    "opaque_pixels": 1700,
+    "dominant_nonzero_alpha": 253,
+    "binary_alpha_pass": false,
+    "size_pass": true,
+    "raw_identical": true,
+    "sha256": "60eaaae250084e852206b046ef2dddf38951b4a1ed4d2bf3abdc763c49cdf4ff"
+  },
+  {
+    "file": "illaoi-pose-w_jump.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "bbox_alpha_at_least_128": [
+      284,
+      87,
+      1187,
+      1127
+    ],
+    "visible_height": 1040,
+    "bottom_offset_from_1200": -73,
+    "partial_alpha_pixels": 432054,
+    "transparent_pixels": 1138246,
+    "opaque_pixels": 2216,
+    "dominant_nonzero_alpha": 253,
+    "binary_alpha_pass": false,
+    "size_pass": true,
+    "raw_identical": true,
+    "sha256": "58bf95ab743da1999c9451d418d7f5ee7bd6315df739e0dc73ed87f0030c4a7d"
+  },
+  {
+    "file": "illaoi-pose-w_land.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "bbox_alpha_at_least_128": [
+      138,
+      331,
+      1147,
+      1235
+    ],
+    "visible_height": 904,
+    "bottom_offset_from_1200": 35,
+    "partial_alpha_pixels": 483720,
+    "transparent_pixels": 1085968,
+    "opaque_pixels": 2828,
+    "dominant_nonzero_alpha": 253,
+    "binary_alpha_pass": false,
+    "size_pass": true,
+    "raw_identical": true,
+    "sha256": "359e28e7679a406fe0720e62d28250ff5856c7c4ea2e7de00d7941f2b5997fdf"
+  },
+  {
+    "file": "illaoi-pose-e_thrust.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "bbox_alpha_at_least_128": [
+      69,
+      315,
+      1226,
+      1174
+    ],
+    "visible_height": 859,
+    "bottom_offset_from_1200": -26,
+    "partial_alpha_pixels": 454107,
+    "transparent_pixels": 1116153,
+    "opaque_pixels": 2256,
+    "dominant_nonzero_alpha": 253,
+    "binary_alpha_pass": false,
+    "size_pass": true,
+    "raw_identical": true,
+    "sha256": "0aad701504e70a42ece064447cbba0969e97b93b29a099c76ce25f9ae68433d7"
+  },
+  {
+    "file": "illaoi-pose-e_yank.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "bbox_alpha_at_least_128": [
+      235,
+      243,
+      1108,
+      1195
+    ],
+    "visible_height": 952,
+    "bottom_offset_from_1200": -5,
+    "partial_alpha_pixels": 429330,
+    "transparent_pixels": 1141337,
+    "opaque_pixels": 1849,
+    "dominant_nonzero_alpha": 253,
+    "binary_alpha_pass": false,
+    "size_pass": true,
+    "raw_identical": true,
+    "sha256": "e7d89e92bad4cb739b20128a8a425c20ceeb5fa8f70817264b5753f1ddbe7fe5"
+  },
+  {
+    "file": "illaoi-pose-r_crouch.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "bbox_alpha_at_least_128": [
+      94,
+      390,
+      1131,
+      1197
+    ],
+    "visible_height": 807,
+    "bottom_offset_from_1200": -3,
+    "partial_alpha_pixels": 479499,
+    "transparent_pixels": 1090901,
+    "opaque_pixels": 2116,
+    "dominant_nonzero_alpha": 253,
+    "binary_alpha_pass": false,
+    "size_pass": true,
+    "raw_identical": true,
+    "sha256": "477e382c97d105640bb57a7b02d8fcc9695da616b700b32e036737c021de342d"
+  },
+  {
+    "file": "illaoi-pose-r_leap.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "bbox_alpha_at_least_128": [
+      197,
+      117,
+      1088,
+      1147
+    ],
+    "visible_height": 1030,
+    "bottom_offset_from_1200": -53,
+    "partial_alpha_pixels": 434945,
+    "transparent_pixels": 1135342,
+    "opaque_pixels": 2229,
+    "dominant_nonzero_alpha": 253,
+    "binary_alpha_pass": false,
+    "size_pass": true,
+    "raw_identical": true,
+    "sha256": "16cd18884da3abb0c950a26df149c0af5735ce95514f561a3c40929dd9978bf7"
+  },
+  {
+    "file": "illaoi-pose-r_slam.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "bbox_alpha_at_least_128": [
+      125,
+      322,
+      1159,
+      1252
+    ],
+    "visible_height": 930,
+    "bottom_offset_from_1200": 52,
+    "partial_alpha_pixels": 505071,
+    "transparent_pixels": 1064982,
+    "opaque_pixels": 2463,
+    "dominant_nonzero_alpha": 253,
+    "binary_alpha_pass": false,
+    "size_pass": true,
+    "raw_identical": true,
+    "sha256": "a4b433af02aeaccb28c3ff85d7c4b219c76e22455607886e6ec3537366b16b9e"
+  },
+  {
+    "file": "illaoi-pose-run1.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "bbox_alpha_at_least_128": [
+      50,
+      235,
+      1168,
+      1175
+    ],
+    "visible_height": 940,
+    "bottom_offset_from_1200": -25,
+    "partial_alpha_pixels": 539986,
+    "transparent_pixels": 1029614,
+    "opaque_pixels": 2916,
+    "dominant_nonzero_alpha": 253,
+    "binary_alpha_pass": false,
+    "size_pass": true,
+    "raw_identical": true,
+    "sha256": "eabc4356087f08d9075663e4f885a08026e4ee616d49fd5764884f63759c2a31"
+  },
+  {
+    "file": "illaoi-pose-run2.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "bbox_alpha_at_least_128": [
+      265,
+      204,
+      1057,
+      1183
+    ],
+    "visible_height": 979,
+    "bottom_offset_from_1200": -17,
+    "partial_alpha_pixels": 418032,
+    "transparent_pixels": 1152545,
+    "opaque_pixels": 1939,
+    "dominant_nonzero_alpha": 253,
+    "binary_alpha_pass": false,
+    "size_pass": true,
+    "raw_identical": true,
+    "sha256": "f01492f1ec058a76d49e2bfa33d96b174cf0eaf41622c7160c6f44f14ad5e5b4"
+  },
+  {
+    "file": "illaoi-pose-run3.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "bbox_alpha_at_least_128": [
+      194,
+      245,
+      1142,
+      1208
+    ],
+    "visible_height": 963,
+    "bottom_offset_from_1200": 8,
+    "partial_alpha_pixels": 488801,
+    "transparent_pixels": 1081279,
+    "opaque_pixels": 2436,
+    "dominant_nonzero_alpha": 253,
+    "binary_alpha_pass": false,
+    "size_pass": true,
+    "raw_identical": true,
+    "sha256": "4b7ad76a7ff11fa144b90f076c6ced7e2ebf860998fe53b25f52940ed2177228"
+  },
+  {
+    "file": "illaoi-pose-run4.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "bbox_alpha_at_least_128": [
+      228,
+      378,
+      1011,
+      1200
+    ],
+    "visible_height": 822,
+    "bottom_offset_from_1200": 0,
+    "partial_alpha_pixels": 336272,
+    "transparent_pixels": 1234737,
+    "opaque_pixels": 1507,
+    "dominant_nonzero_alpha": 253,
+    "binary_alpha_pass": false,
+    "size_pass": true,
+    "raw_identical": true,
+    "sha256": "a3d429a59449083bb435cb62ebb1a55be203833b4c2ff35b9fcaa6bea7bb9b34"
+  },
+  {
+    "file": "illaoi-pose-d_stagger.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "bbox_alpha_at_least_128": [
+      120,
+      83,
+      1160,
+      1203
+    ],
+    "visible_height": 1120,
+    "bottom_offset_from_1200": 3,
+    "partial_alpha_pixels": 420650,
+    "transparent_pixels": 1149463,
+    "opaque_pixels": 2403,
+    "dominant_nonzero_alpha": 253,
+    "binary_alpha_pass": false,
+    "size_pass": true,
+    "raw_identical": true,
+    "sha256": "947d00b7bbbe092809948b47978301240820279d98e4d051235bf1bf37cfcc13"
+  },
+  {
+    "file": "illaoi-pose-d_slump.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "bbox_alpha_at_least_128": [
+      80,
+      554,
+      1175,
+      1160
+    ],
+    "visible_height": 606,
+    "bottom_offset_from_1200": -40,
+    "partial_alpha_pixels": 371493,
+    "transparent_pixels": 1199527,
+    "opaque_pixels": 1496,
+    "dominant_nonzero_alpha": 253,
+    "binary_alpha_pass": false,
+    "size_pass": true,
+    "raw_identical": true,
+    "sha256": "f93c5838abfbf69b31d05784d59416d727f4f097c6052acf7f8a9dd70878501e"
+  },
+  {
+    "file": "illaoi-tentacle-tn_rise.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "bbox_alpha_at_least_128": [
+      393,
+      723,
+      862,
+      1235
+    ],
+    "visible_height": 512,
+    "bottom_offset_from_1200": 35,
+    "partial_alpha_pixels": 125451,
+    "transparent_pixels": 1446085,
+    "opaque_pixels": 980,
+    "dominant_nonzero_alpha": 253,
+    "binary_alpha_pass": false,
+    "size_pass": true,
+    "raw_identical": true,
+    "sha256": "4ddfa8e6f847bbc94a7c49b19ecaceb5e13bebb149f31863c4090e82465102ea"
+  },
+  {
+    "file": "illaoi-tentacle-tn_grow.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "bbox_alpha_at_least_128": [
+      490,
+      560,
+      794,
+      1225
+    ],
+    "visible_height": 665,
+    "bottom_offset_from_1200": 25,
+    "partial_alpha_pixels": 104618,
+    "transparent_pixels": 1466549,
+    "opaque_pixels": 1349,
+    "dominant_nonzero_alpha": 253,
+    "binary_alpha_pass": false,
+    "size_pass": true,
+    "raw_identical": true,
+    "sha256": "fa1a9b77c60836662b2981a6f80df8ca7d2486fae65c8b9c822decddcc7240d9"
+  },
+  {
+    "file": "illaoi-tentacle-tn_sway.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "bbox_alpha_at_least_128": [
+      421,
+      420,
+      958,
+      1202
+    ],
+    "visible_height": 782,
+    "bottom_offset_from_1200": 2,
+    "partial_alpha_pixels": 178315,
+    "transparent_pixels": 1392931,
+    "opaque_pixels": 1270,
+    "dominant_nonzero_alpha": 253,
+    "binary_alpha_pass": false,
+    "size_pass": true,
+    "raw_identical": true,
+    "sha256": "af766c5009c1c5a11c35544803bfa8ab0018b72c1d25892c7e1dc27105499a45"
+  },
+  {
+    "file": "illaoi-tentacle-tn_rear.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "bbox_alpha_at_least_128": [
+      473,
+      193,
+      796,
+      1200
+    ],
+    "visible_height": 1007,
+    "bottom_offset_from_1200": 0,
+    "partial_alpha_pixels": 174861,
+    "transparent_pixels": 1396282,
+    "opaque_pixels": 1373,
+    "dominant_nonzero_alpha": 253,
+    "binary_alpha_pass": false,
+    "size_pass": true,
+    "raw_identical": true,
+    "sha256": "05b34189e41fe9fa9a81c67f9c87cae22736badd188b382152dbb0e02f647f6d"
+  },
+  {
+    "file": "illaoi-tentacle-tn_slam.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "bbox_alpha_at_least_128": [
+      343,
+      718,
+      950,
+      1235
+    ],
+    "visible_height": 517,
+    "bottom_offset_from_1200": 35,
+    "partial_alpha_pixels": 204149,
+    "transparent_pixels": 1367236,
+    "opaque_pixels": 1131,
+    "dominant_nonzero_alpha": 253,
+    "binary_alpha_pass": false,
+    "size_pass": true,
+    "raw_identical": true,
+    "sha256": "96047a19e7c8dfb306d0df0581ee08f7882c8f7fe02b5e66b0c2c63bb60d8c7c"
+  },
+  {
+    "file": "illaoi-tentacle-tn_recoil.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "bbox_alpha_at_least_128": [
+      471,
+      630,
+      783,
+      1227
+    ],
+    "visible_height": 597,
+    "bottom_offset_from_1200": 27,
+    "partial_alpha_pixels": 118268,
+    "transparent_pixels": 1453336,
+    "opaque_pixels": 912,
+    "dominant_nonzero_alpha": 253,
+    "binary_alpha_pass": false,
+    "size_pass": true,
+    "raw_identical": true,
+    "sha256": "6b3291bb37741c4e74ede93641fbba35dcb9d2388d0114e2383d34375180b539"
+  },
+  {
+    "file": "illaoi-tentacle-tn_sink.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "bbox_alpha_at_least_128": [
+      433,
+      890,
+      834,
+      1225
+    ],
+    "visible_height": 335,
+    "bottom_offset_from_1200": 25,
+    "partial_alpha_pixels": 94338,
+    "transparent_pixels": 1477194,
+    "opaque_pixels": 984,
+    "dominant_nonzero_alpha": 253,
+    "binary_alpha_pass": false,
+    "size_pass": true,
+    "raw_identical": true,
+    "sha256": "2e3714506f61aed18ff0e5113de6ad318de825aef3e1d1668bfb767fb929d6e5"
+  }
+]
