@@ -247,11 +247,11 @@
    "file": "hwei_fx_r_paint.png",
    "frames": 4,
    "cell_1x": [
-    20,
-    10
+    24,
+    12
    ],
    "symmetry": "top-bottom",
-   "source": "drawn by tools/art/process_hwei_fx.py (Gemini left it out)"
+   "source": "gemini g22_r_paint.jpg"
   },
   {
    "name": "r_canvas",
@@ -265,5 +265,5 @@
    "source": "drawn by tools/art/process_hwei_fx.py (Gemini left it out)"
   }
  ],
- "made_by": "Gemini (the user's images; r_paint and r_canvas drawn here), processed by tools/art/process_hwei_fx.py"
+ "made_by": "Gemini (the user's images; r_canvas drawn here), processed by tools/art/process_hwei_fx.py"
 }

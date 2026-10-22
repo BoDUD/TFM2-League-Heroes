@@ -11,8 +11,9 @@ Which JPGs are his: the 24 downloaded 16:21-16:29 (Gemini_Generated_Image_rxl9yn
 edy4w2* x2), copied to --src as g00.jpg .. g23.jpg in the order they were made (not committed). The last two (edy4w2*,
 16:28) are Qiyana's River / Grass pictures (a blue puddle with white spray, a green grass ring) - not his, left alone;
 the first 22 follow the pack's order but for the ult's projectile and canvas, which Gemini left out: g20 is r_burst,
-g21 r_hit. The two missing ones, r_paint (the spiralling paint bolt) and r_canvas (the painted spiral on the ground,
-3 s), are drawn here square by square on the pack's own ramps (draw_r_paint, draw_r_canvas), symmetric like the rest.
+g21 r_hit. Of the two missing ones the user had Gemini draw r_paint (the spiralling paint bolt) afterwards
+(Gemini_Generated_Image_qpgagw*, 16:57: --src g22_r_paint.jpg; read 24 x 12, the pack's 20 x 10 mashed its spiral); r_canvas (the painted spiral on the ground, 3 s) is drawn
+here square by square on the pack's own ramps (draw_r_canvas), symmetric like the rest, until GPT's comes.
 The JPGs have no alpha and backgrounds of black, white, grey, a grey gradient (slow), a painted chequerboard (q_q_ball)
 and mixed cells (q_q_hit, r_burst, r_hit); every cell is keyed by flooding in from its own border. e_e_open has pure
 white blocks pasted into its black ground (WHITE_BLOCKS: painted black first), r_burst one in its black first cell
@@ -58,6 +59,10 @@ NEUTRAL = 18                  # a ground colour is grey: black, white, a panel, 
 # keyed by saturation instead: slow's ground is a gradient from black to grey (its middle tones match neither end) and
 # its puddle's darkest navy is nearly black; the ground has no colour at all, the ink is blue (holes in a blob filled)
 SAT_KEY = {"slow": 9}
+# a white ground also keyed where the flood from the border cannot reach: inside r_paint's spiral loops (it has no white
+# of its own)
+WHITE = {"r_paint"}
+PALE = {"r_paint"}           # and its pale fringe squares (white ground blended into the magenta) dropped after the read
 SQUASH = {"p_mark": 0.5, "w_pool": 0.36}         # front-drawn rings brought down to ground ellipses
 WHITE_BLOCKS = {"e_e_open"}
 FIRST_WHITE = {"r_burst": 7}                     # its first (black) cell of seven: the white in it is no drawing
@@ -70,10 +75,10 @@ SOURCES = {
     "g12.jpg": ("e_w_open", 8, (20, 14)), "g13.jpg": ("e_w_hit", 5, (26, 48)), "g14.jpg": ("e_bound", 4, (16, 16)),
     "g15.jpg": ("e_e_open", 6, (28, 24)), "g16.jpg": ("e_e_hit", 5, (28, 24)), "g17.jpg": ("w_pool", 6, (40, 16)),
     "g18.jpg": ("w_shield", 5, (22, 40)), "g19.jpg": ("w_haste", 6, (24, 8)), "g20.jpg": ("r_burst", 7, (56, 44)),
-    "g21.jpg": ("r_hit", 4, (14, 14)),
+    "g21.jpg": ("r_hit", 4, (14, 14)), "g22_r_paint.jpg": ("r_paint", 4, (24, 12)),
 }
-KEY = {"a_ink": 26, "a_hit": 26, "e_q_face": 22}     # white grounds: his pale pink and white cores kept
-THIN = {"q_w_tell": 0.35, "q_w_hit": 0.35, "a_hit": 0.25, "p_burst": 0.4, "q_q_hit": 0.4, "e_q_hit": 0.4,
+KEY = {"a_ink": 26, "a_hit": 26, "e_q_face": 22, "r_paint": 30}     # white grounds: his pale pink and white cores kept
+THIN = {"r_paint": 0.45, "q_w_tell": 0.35, "q_w_hit": 0.35, "a_hit": 0.25, "p_burst": 0.4, "q_q_hit": 0.4, "e_q_hit": 0.4,
         "e_w_hit": 0.4, "e_e_hit": 0.4, "w_shield": 0.35, "w_haste": 0.35, "w_pool": 0.4, "r_burst": 0.4,
         "r_hit": 0.4, "e_bound": 0.4, "e_w_open": 0.4}
 
@@ -141,6 +146,9 @@ def cells_of(img, name, n):
             fg = ndimage.binary_fill_holes(fg)
         else:
             fg = key(sub, KEY.get(name, S.KEY_D))
+        if name in WHITE:
+            f = sub.astype(int)
+            fg &= ~((f.max(-1) - f.min(-1) < 16) & (f.mean(-1) > 228))
         a4 = np.zeros(sub.shape[:2] + (4,), np.uint8)
         a4[..., :3] = sub
         a4[..., 3] = np.where(fg, 255, 0)
@@ -172,67 +180,6 @@ def prepared(name, img):
 
 
 # ---------------------------------------------------------------------------------------------- drawn here
-def stroke(c, pts, width, col):
-    """A brush stroke along a polyline (game squares), `width` squares thick, on cell c (no mirror)."""
-    h, w = c.shape[:2]
-    for (x0, y0), (x1, y1) in zip(pts, pts[1:]):
-        n = max(2, int(math.hypot(x1 - x0, y1 - y0) * 3))
-        for t in np.linspace(0, 1, n):
-            x, y = x0 + (x1 - x0) * t, y0 + (y1 - y0) * t
-            r = width / 2
-            for yy in range(int(math.floor(y - r)), int(math.ceil(y + r)) + 1):
-                for xx in range(int(math.floor(x - r)), int(math.ceil(x + r)) + 1):
-                    if 0 <= xx < w and 0 <= yy < h and (xx + 0.5 - x) ** 2 + (yy + 0.5 - y) ** 2 <= r * r + 0.15:
-                        c[yy, xx, :3] = col
-                        c[yy, xx, 3] = 255
-
-
-def draw_r_paint():
-    """Spiraling Despair's bolt, 20 x 10, four looping frames flying right: a dark indigo ball 6 squares across at the
-    front (its upper front lit, a magenta rim on its nose), a magenta and an orange stroke curling back from it into a
-    tail 12 squares long, a gold strand between them; the curl travels back a quarter turn each frame. Drawn in the top
-    half, mirrored top to bottom (the game turns it with its flight)."""
-    W, H = 20, 10
-    frames = []
-    cx, cy, R = 15.0, H / 2, 3.1
-    for f in range(4):
-        c = np.zeros((H, W, 4), np.uint8)
-        ph = f * math.pi / 2
-        # the tail: two strokes on a sine round the middle line, the outer magenta, the inner orange (top half only)
-        mag, ora = [], []
-        for k in range(26):
-            x = 13.5 - k * 0.5
-            t = k / 25
-            amp = 3.6 * (1 - t) ** 0.6 + 0.4
-            s = abs(math.sin(ph + k * 0.42))
-            mag.append((x, cy - 0.6 - amp * (0.55 + 0.45 * s)))
-            ora.append((x, cy - 0.4 - amp * (0.25 + 0.35 * s)))
-        stroke(c, mag[:20], 1.6, DREAD[3])
-        stroke(c, mag[:12], 1.0, DREAD[2])
-        stroke(c, ora[:18], 1.3, FIRE[3])
-        stroke(c, ora[:9], 0.8, FIRE[2])
-        for x in range(4, 12):                                   # the gold strand on the middle line, broken
-            if (x + f) % 4:
-                c[H // 2 - 1, x, :3] = GOLD[2] if (x + f) % 4 == 1 else GOLD[3]
-                c[H // 2 - 1, x, 3] = 255
-        # the ball
-        for y in range(H // 2):
-            for x in range(W):
-                d = math.hypot(x + 0.5 - cx, y + 0.5 - cy)
-                if d <= R:
-                    col = INK[2] if d > R - 1.0 else INK[1]
-                    if x + 0.5 - cx > 1.4 and d > R - 1.1:
-                        col = DREAD[2]                           # the magenta rim on its nose
-                    if x + 0.5 - cx > 2.3 and y + 0.5 - cy > -1.2:
-                        col = DREAD[1]
-                    c[y, x, :3] = col
-                    c[y, x, 3] = 255
-        c[H // 2 - 3, int(cx), :3] = INK[0]                      # the lit spot on its upper front
-        c[H // 2 - 2, int(cx) + 1, :3] = INK[0]
-        frames.append(PC.symmetric_tb(c))
-    return frames
-
-
 def draw_r_canvas():
     """Spiraling Despair's canvas on the ground, 56 x 22, 14 frames over 3 s: a dark indigo ink oval growing from 20
     squares wide (frame 1) to 52 x 17 (frame 6) and staying; on it magenta and orange strokes curling round the middle
@@ -281,7 +228,7 @@ def draw_r_canvas():
     return frames
 
 
-DRAWN = {"r_paint": draw_r_paint, "r_canvas": draw_r_canvas}
+DRAWN = {"r_canvas": draw_r_canvas}
 
 
 def main():
@@ -300,6 +247,10 @@ def main():
         else:
             img = prepared(name, Image.open(S.lp(os.path.join(a.src, fn))))
             cells = S.effect(name, n, size, img)
+            if name in PALE:
+                for c in cells:
+                    f = c[..., :3].astype(int)
+                    c[(f.mean(-1) > 205) & (f.max(-1) - f.min(-1) < 80)] = 0
             src = f"gemini {fn}"
         h, w = cells[0].shape[:2]
         strip = np.concatenate(cells, axis=1)
@@ -309,7 +260,7 @@ def main():
         sheets.append((name, strip, w))
         print(f"{name}: {len(cells)} frames of {w}x{h}")
     with open(S.lp(os.path.join(OUT, "manifest.json")), "w", encoding="utf-8", newline="\n") as f:
-        json.dump({"effects": entries, "made_by": "Gemini (the user's images; r_paint and r_canvas drawn here), "
+        json.dump({"effects": entries, "made_by": "Gemini (the user's images; r_canvas drawn here), "
                    "processed by tools/art/process_hwei_fx.py"}, f, ensure_ascii=False, indent=1)
     if a.review:
         from PIL import ImageDraw
