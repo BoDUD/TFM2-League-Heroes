@@ -29,6 +29,7 @@ MOD = os.path.join(REPO, "league")
 ID = "league_drmundo"
 VERSION = "0.120.0"
 ADi = "<i#asset/base/ui/banpick/champion_stat_icon:ad_0>"
+HPi = "<i#asset/base/ui/banpick/champion_stat_icon:hp_0>"
 TOOLTIP_MAX = {"zh-hans": 130, "zh-hant": 130, "en": 334, "ja": 147, "ko": 185}
 M = "<#a974ffff>"      # magic damage
 O = "<#ff9028ff>"      # names, physical
@@ -38,11 +39,14 @@ G = "<#7dd87dff>"      # heals
 E = "<>"
 # champion_view: set from the imported sprite (tfm2_ase.py face; banpick_center when the idle tops -28)
 # 2026-10-18 ban/pick card audit (frame centre, HD from lo_idle / 1.5; user: 「还有哪些英雄BP位置不对的一起改了」): -8 -> -6: the hair was cut
-VIEW = {"face": {"x": 4, "y": -34}, "center": {"x": 0, "y": -16}, "banpick_center": {"x": 0, "y": -10}}
+# face: what tools/art/ppu_restyle.py set later (RESTYLE drmundo face_to; rerunning this must not put (4, -34) back)
+VIEW = {"face": {"x": -1, "y": -38}, "center": {"x": 0, "y": -16}, "banpick_center": {"x": 0, "y": -10}}
 
-EB = O + "{e_dmg}" + E + " + " + ADi + O + "{e_ad}%" + E
-WT = M + "{w_tick}" + E + " + " + ADi + O + "{w_ad}%" + E
-WE = M + "{w_end}" + E + " + " + ADi + O + "{w_end_ad}%" + E
+# his damage reads his maximum health (2026-10-22, the user: 「蒙多加成怎么是攻击力不是生命值」); the heals stay on AD (no heal
+# effect has a health ratio)
+EB = O + "{e_dmg}" + E + " + " + HPi + O + "{e_hp}%" + E
+WT = M + "{w_tick}" + E + " + " + HPi + M + "{w_hp}%" + E
+WE = M + "{w_end}" + E + " + " + HPi + M + "{w_end_hp}%" + E
 RH = G + "{r_heal}" + E + " + " + ADi + G + "{r_heal_ad}%" + E
 PH = G + "{p_heal}" + E + " + " + ADi + G + "{p_heal_ad}%" + E
 
@@ -127,8 +131,8 @@ def secs(t):
 
 
 def values(p):
-    v = {k: p[k] for k in ("p_heal", "p_heal_ad", "e_dmg", "e_ad", "q_dmg", "q_slow", "q_heal", "q_thp", "q_heal_c",
-                           "w_tick", "w_ad", "w_end", "w_end_ad", "r_heal", "r_heal_ad", "r_hp", "r_regen", "r_ms")}
+    v = {k: p[k] for k in ("p_heal", "p_heal_ad", "e_dmg", "e_hp", "q_dmg", "q_slow", "q_heal", "q_thp", "q_heal_c",
+                           "w_tick", "w_hp", "w_end", "w_end_hp", "r_heal", "r_heal_ad", "r_hp", "r_regen", "r_ms")}
     v.update({k: secs(p[k]) for k in ("p_imm", "e_cd", "q_slow_t", "w_per", "r_t")})
     v["w_t"] = secs(p["w_n"] * p["w_per"])
     return v
