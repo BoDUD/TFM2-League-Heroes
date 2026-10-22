@@ -115,7 +115,8 @@ def form():
 
 # ------------------------------------------------------------------------------------------------- the actions
 # ms per frame; the kit's ticks (tools/kit/build_sylas.py) come from these (a frame's start in ticks = ms x 0.06)
-MS = {"idle": [150] * 8, "run": [110] * 4,
+# the run 150 ms a frame (2026-10-22, 「塞拉斯局内也是跑的时候跳动频率太高 和之前奎桑提一个问题」: 110 made a 0.44 s cycle)
+MS = {"idle": [150] * 8, "run": [150] * 4,
       "attack": [80, 80, 70, 90, 110],            # the lash from 160 ms: a_rel 10
       "attack_p": [100, 100, 150, 150],           # the whirl from 100 ms: p_rel 7
       "skill_w": [100, 120, 140, 140],            # the stab from 100 ms: w_rel 7

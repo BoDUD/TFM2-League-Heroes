@@ -200,7 +200,9 @@ def hit_white(can, k=0.45):
 # second dagger: the fling from 90 ms = tick 5.4, the dagger let go mid-leap -> q_rel / q2_rel 7, 25 ticks = q_dur /
 # q2_dur; skill2: 30 ticks = e_dur, the rise (the first shred) from tick 10.8; ult: 400 ms = r_roar 24; ult_b: 28 ticks
 # = r_dur, the bite from 250 ms)
-MS = {"idle": [150] * 8, "run": [110] * 4, "attack": [70, 100, 100, 90, 60], "hit": [100, 100],
+# the runs (run and p4_run) 150 ms a frame (2026-10-22, 「的确纳亚菲利（狗形态）也有这问题」: 110 made a 0.44 s cycle, Sylas's and
+# K'Sante's fix)
+MS = {"idle": [150] * 8, "run": [150] * 4, "attack": [70, 100, 100, 90, 60], "hit": [100, 100],
       "dead": [120, 220, 260, 600], "skill": [90, 120, 110, 100], "skill2": [90, 90, 110, 110, 100],
       "ult": [80, 160, 160], "ult_b": [70, 90, 90, 110, 100]}
 
