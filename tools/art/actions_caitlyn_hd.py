@@ -12,6 +12,7 @@ air or lying, her middle over League's trunk. RAW_PICK names the raw file Codex 
 """
 import argparse
 import json
+import math
 import os
 import sys
 
@@ -104,6 +105,152 @@ def hat_area(d):
     return int(((lab == top) & m).sum())
 
 
+RIFLE_BAND = 3.5                        # squares either side of Codex's rifle line taken as its rifle
+RIFLE_WIDE = 6.0                        # ... and its pieces running on from the band, at most this far
+CRUMB = 12
+BODY_MIN = 40                           # squares: smaller pieces off her body are leftovers
+HANDS_BAND = 1.5                        # its non-rifle squares this close to the line are her hands (over the rifle)
+PAD = 45
+
+
+def rifle_mask(d):
+    m = np.zeros(d.shape[:2], bool)
+    for c in GOLD:
+        m |= (d[..., :3] == c).all(-1) & (d[..., 3] > 0)
+    return m
+
+
+def find_rifle(m, tries=6000, band=1.6):
+    """Codex's rifle as a line: the line through the most rifle-coloured squares (random pairs, refitted on the
+    inliers), its longest unbroken run (gaps under 4) -> the two ends, the stock first (more rifle colour round it:
+    the barrel is thin)."""
+    rng = np.random.default_rng(1)
+    ys, xs = np.nonzero(m)
+    P = np.stack([xs, ys], 1).astype(float) + 0.5
+    best = None
+    for _ in range(tries):
+        i, j = rng.integers(len(P), size=2)
+        a, b = P[i], P[j]
+        L = np.linalg.norm(b - a)
+        if L < 20:
+            continue
+        u = (b - a) / L
+        v = P - a
+        on = np.abs(v[:, 0] * u[1] - v[:, 1] * u[0]) <= band
+        if best is None or on.sum() > best[0]:
+            best = (on.sum(), on)
+    Q = P[best[1]]
+    c = Q.mean(0)
+    u = np.linalg.svd(Q - c)[2][0]
+    ts = np.sort((Q - c) @ u)
+    segs = np.split(ts, np.nonzero(np.diff(ts) > 4)[0] + 1)
+    seg = max(segs, key=len)
+    e0, e1 = c + u * seg.min(), c + u * seg.max()
+    near = lambda e: int((np.hypot(*(P - e).T) <= 7).sum())     # noqa: E731
+    return (e0, e1) if near(e0) >= near(e1) else (e1, e0)
+
+
+def straighten(d, aim=None):
+    """Codex's rifle out, the straight one (rifle_caitlyn.ways) in: the way nearest Codex's, its grip on the point
+    GRIP of the way from Codex's stock to its muzzle; her hands (non-rifle squares within HANDS_BAND of the old line)
+    stay over it; the old rifle's squares the new one does not cover are filled from the squares round them inside
+    her outline, left clear outside it. -> (frame, (dx, dy) the old frame's corner moved by, rifle info)."""
+    import rifle_caitlyn as RC
+    a = np.pad(d, ((PAD, PAD), (PAD, PAD), (0, 0)))
+    m = rifle_mask(a)
+    stock, muzzle = find_rifle(m)
+    if aim is not None:
+        # the muzzle the end League's rifle points to in this frame (Codex's thicker end is not always the stock)
+        u_ = (muzzle - stock) / (np.linalg.norm(muzzle - stock) or 1)
+        if float(u_ @ np.asarray(aim)) < -0.2:
+            stock, muzzle = muzzle, stock
+    v = muzzle - stock
+    ang = math.degrees(math.atan2(-v[1], v[0]))
+    W = RC_WAYS()
+    key = min(W, key=lambda k: abs(((k - ang + 180) % 360) - 180))
+    im, (gx, gy) = W[key]
+    grip = stock + v * RC.GRIP
+    # the old rifle: rifle colours (and the outline squares between them) near the old line
+    H, Wd = a.shape[:2]
+    yy, xx = np.mgrid[0:H, 0:Wd]
+    P = np.stack([xx + 0.5, yy + 0.5], -1) - stock
+    L = float(np.linalg.norm(v))
+    u = v / L
+    t = P @ u
+    dist = np.abs(P[..., 0] * u[1] - P[..., 1] * u[0])
+    near = (dist <= RIFLE_BAND) & (t >= -3) & (t <= L + 3)
+    wide = (dist <= RIFLE_WIDE) & (t >= -8) & (t <= L + 8)
+    dark = (a[..., :3].astype(int).sum(-1) < 60) & (a[..., 3] > 0)
+    # the whole rifle-coloured pieces the line runs through (its ends where Codex's bent away from the line too),
+    # never farther than RIFLE_WIDE from it (her coat's gold trims touch it)
+    lab, _ = nd.label(m & wide, structure=np.ones((3, 3)))
+    hit = np.unique(lab[near & m])
+    rifle = np.isin(lab, hit[hit > 0])
+    old = rifle | (wide & dark & nd.binary_dilation(rifle, iterations=1) & ~nd.binary_erosion(a[..., 3] > 0, iterations=2))
+    cand = (dist <= HANDS_BAND) & (t >= -1) & (t <= L + 1) & (a[..., 3] > 0) & ~old
+    # her hands: only what joins her body (crumbs of the old rifle's outline lie on its line too)
+    core = (a[..., 3] > 0) & ~old & ~cand
+    lab, nl = nd.label(core, structure=np.ones((3, 3)))
+    main = lab == (np.argmax(nd.sum(core, lab, range(1, nl + 1))) + 1) if nl else core
+    lab2, _ = nd.label(main | cand, structure=np.ones((3, 3)))
+    ids = np.unique(lab2[main])
+    hands = cand & np.isin(lab2, ids[ids > 0])
+    out = a.copy()
+    out[old] = 0
+    # the new rifle, grip on grip, over everything but her hands
+    x0, y0 = int(round(grip[0] - gx)), int(round(grip[1] - gy))
+    h, w = im.shape[:2]
+    new = np.zeros((H, Wd), bool)
+    ys_, xs_ = np.nonzero(im[..., 3] > 0)
+    Y, X = ys_ + y0, xs_ + x0
+    ok = (Y >= 0) & (Y < H) & (X >= 0) & (X < Wd)
+    Y, X, ys_, xs_ = Y[ok], X[ok], ys_[ok], xs_[ok]
+    keep = ~hands[Y, X]
+    out[Y[keep], X[keep]] = im[ys_[keep], xs_[keep]]
+    new[Y, X] = True
+    # the old rifle's squares left bare: inside her outline filled from their neighbours, outside left clear
+    hole = old & (out[..., 3] == 0)
+    body = out[..., 3] > 0
+    outside = ~body & ~hole
+    lab, _ = nd.label(~body)
+    edge = np.unique(np.concatenate([lab[0], lab[-1], lab[:, 0], lab[:, -1]]))
+    reach = np.isin(lab, edge[edge > 0])
+    fill = hole & ~reach
+    if fill.any():
+        src = body & ~new & ~(dark & ~fill)
+        _, (iy, ix) = nd.distance_transform_edt(~src, return_indices=True)
+        out[fill] = out[iy[fill], ix[fill]]
+    # leftovers of the old rifle (its outline ends, a stretch Codex drew off the fitted line): with the new rifle
+    # set aside, only her body's big pieces and her hands stay
+    newr = np.zeros((H, Wd), bool)
+    newr[Y[keep], X[keep]] = True
+    rest = (out[..., 3] > 0) & ~newr
+    lab, nl = nd.label(rest, structure=np.ones((3, 3)))
+    if nl:
+        sz = nd.sum(rest, lab, range(1, nl + 1))
+        big = max(sz)
+        for k in range(1, nl + 1):
+            piece = lab == k
+            if sz[k - 1] < max(BODY_MIN, 0.08 * big) and not (piece & hands).any():
+                out[piece] = 0
+    ys, xs = np.nonzero(out[..., 3] > 0)
+    y0c, x0c = ys.min(), xs.min()
+    out = out[y0c:ys.max() + 1, x0c:xs.max() + 1]
+    info = dict(angle=round(ang, 1), way=round(key, 1), grip=[round(float(grip[0] - x0c), 1),
+                                                              round(float(grip[1] - y0c), 1)])
+    return out, (PAD - x0c, PAD - y0c), info
+
+
+_WAYS = {}
+
+
+def RC_WAYS():
+    if not _WAYS:
+        import rifle_caitlyn as RC
+        _WAYS.update(RC.ways())
+    return _WAYS
+
+
 def face_area(d):
     m = np.zeros(d.shape[:2], bool)
     for c in SKIN:
@@ -182,7 +329,7 @@ def main():
             ys, xs = np.nonzero(d[..., 3] > 0)
             d = d[ys.min():ys.max() + 1, xs.min():xs.max() + 1]
             Q = PA.her_joints(joints["tags"][sh["tag"]][n - 1]["j"])
-            Q.pop("rifle_u")
+            aim = Q.pop("rifle_u")
             pts = list(Q.values())
             low = max([q[1] for q in pts] + [Q["head"][1] + PA.HEAD_R])
             y_low = min(0.0, max(q[1] for q in pts) - max(0.0, low) - ground0)
@@ -193,8 +340,11 @@ def main():
             else:
                 px_ = float(xs.mean() + 0.5) - (Q["pelvis"][0] + Q["chest"][0]) / 2
             name = f"{sh['tag']}_{n}"
+            pv = (px_, d.shape[0] - y_low)
+            d, (ox, oy), rf = straighten(d, aim=aim)
+            pv = (pv[0] + ox, pv[1] + oy)
             Image.fromarray(d).save(lp(os.path.join(out_dir, name + ".png")))
-            info[name] = dict(pivot=[round(px_, 2), round(d.shape[0] - y_low, 2)], scale=round(scale, 3),
+            info[name] = dict(pivot=[round(pv[0], 2), round(pv[1], 2)], scale=round(scale, 3), rifle=rf,
                               face=face_area(d), size=[d.shape[1], d.shape[0]])
             print(name, info[name])
     with open(lp(os.path.join(out_dir, "actions.json")), "w", encoding="utf-8") as f:
