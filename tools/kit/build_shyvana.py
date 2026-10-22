@@ -43,8 +43,12 @@ death stay human in the main pack - a whole-body dragon needs an add-on's view c
 When `dg` runs out her next action turns her back (the attack plays `revert`) and an unfinished Q chain is dropped.
 Timings: from the frames (tools/art/rig_shyvana.py MS; a frame's start in ticks = ms x 0.06), each form its own - the
 hit, the strike or the release where its frame starts (a_hit / d_rel, q_at / d_q_at, q2_at / d_q2_at, q3_at, e_rel /
-de_rel, r_at); numbers: drafts from Warwick's and Gnar's balanced kits (no simulation run yet: the classic-SDK sim
-folders were all cleaned up).
+de_rel, r_at); numbers: drafts from Warwick's and Gnar's balanced kits, then the jungle simulation (2026-10-22, seeds
+1-24 / 25-48 against demon, circus_blade, hunter, inquisitor, ninja): the draft -1.36 / -1.65 (damage 4682) - her full
+Fury lasted fury_t ticks unrefreshed and fell to nothing, the ult re-checked only every r_wait ticks, so 10.7 full
+Furies a game made 1.2 dragons; full held for full_t ticks refreshed by hits and the ult armed on reaching it: 2.9
+dragons, -1.13 / -0.98 (damage 5341); then Q every 6 s (was 8) at 110% AD a strike (was 90%) and attack 100 +20 (was
+90 +18): -0.06 / +0.22 (damage 6065 / 6100; the same seeds league_warwick +0.32 / +0.11, league_graves +0.65 / +0.62).
 """
 import argparse
 import json
@@ -67,21 +71,21 @@ BIG = "asset/league/effects/league_shyvana_big"
 P = {
     # stats (Melee base: attack 95 +19, hp 1000 +100, defence 30, mr 25, move 1000, range 25000, attack cd 65; the base
     # junglers 120 +30, hp 900 +80, move 1100 +14; league_warwick 92 +18, hp 1120 +105, def 36 +7)
-    "hp": 1080, "hp_g": 100, "atk": 90, "atk_g": 18, "def": 34, "def_g": 7, "mr": 26, "mr_g": 4, "ms": 1050, "ms_g": 12,
+    "hp": 1080, "hp_g": 100, "atk": 100, "atk_g": 20, "def": 34, "def_g": 7, "mr": 26, "mr_g": 4, "ms": 1050, "ms_g": 12,
     "atk_range": 25000, "atk_dur": 26, "atk_cd": 62, "a_hit": 9, "a_speed": 20000,
     "p_hp": 1,
     # the dragon (Scalemail folded in)
     "dg_t": 900, "dg_hp": 30, "dg_def": 30, "dg_mr": 30, "dg_range": 10000,
     "d_atk_dur": 30, "d_rel": 14, "rv_dur": 26,
     # Dragon Fury
-    "fury_n": 10, "fury_t": 360,
+    "fury_n": 10, "fury_t": 360, "full_t": 1800,
     # W Inferno Aegis (in the attack)
     "w_cd": 720, "w_t": 150, "w_sh": 70, "w_sh_r": 50, "w_ms": 25, "w_r": 33000, "w_dmg": 50, "w_hp": 4,
     "w_heal": 50, "w_heal_r": 50,
     # Q Emberstrike
-    "s_cd": 60, "q_cd": 480, "q_range": 30000, "q_dur": 28, "q_at": 11, "d_q_at": 15, "q_off": 12000,
-    "q_rad": 16000, "q_dmg": 25, "q_ratio": 90, "q_win": 240,
-    "q2_dur": 30, "q2_at": 12, "d_q2_at": 16, "q2_r": 26000, "q2_dmg": 25, "q2_ratio": 90,
+    "s_cd": 60, "q_cd": 360, "q_range": 30000, "q_dur": 28, "q_at": 11, "d_q_at": 15, "q_off": 12000,
+    "q_rad": 16000, "q_dmg": 25, "q_ratio": 110, "q_win": 240,
+    "q2_dur": 30, "q2_at": 12, "d_q2_at": 16, "q2_r": 26000, "q2_dmg": 25, "q2_ratio": 110,
     "q3_dur": 32, "q3_at": 16, "q3_dmg": 40, "q3_ratio": 110,
     # E Molten Burst
     "s2_cd": 60, "e_cd": 600, "e_range": 70000, "e_dur": 28, "e_rel": 7, "de_rel": 16, "e_speed": 3000, "e_w": 6000,
@@ -90,7 +94,7 @@ P = {
     "de_burn_r": 15000,
     # R Dragon's Descent
     "r_cd": 1800, "r_cast": 90000, "r_dur": 36, "r_at": 10, "r_speed": 3500, "r_w": 18000, "r_imm": 40,
-    "r_dmg": 100, "r_hp": 4, "r_fear": 45, "r_q": 20, "r_wait": 600,
+    "r_dmg": 100, "r_hp": 4, "r_fear": 45, "r_q": 20, "r_wait": 600, "r_arm_mult": 270000,
     # her spoken lines, at most one every vo_gap ticks
     "vo_gap": 600,
 }
@@ -260,12 +264,16 @@ def build(p):
     # fury_n steps to full Fury (fy1 .. fy<fury_n - 1>, then `full`), each a caster buff of fury_t ticks; written once
     # and carried by every hit that gains it (league_gnar's Rage ladder)
     steps = [f"fy{k}" for k in range(1, int(p["fury_n"]))]
+    # full Fury holds full_t ticks, refreshed by every hit that would gain (League keeps it for the dragon); reaching it
+    # within r_wait ticks of an empty ult makes the ult ready at once (`r_arm`: ult_cooldown_mult r_arm_mult for 2
+    # ticks caps the cooldown left, league_gnar's)
+    arm = sw("r_wait", combine(*rm("r_wait"), flag("r_arm", 2, ult_cooldown_mult=p["r_arm_mult"])))
     ladder = flag(steps[0], p["fury_t"])
     for k, name in enumerate(steps):
-        nxt = combine(*rm(name), flag("full", p["fury_t"]), sfx("full")) if k == len(steps) - 1 else \
+        nxt = combine(*rm(name), flag("full", p["full_t"]), sfx("full"), arm) if k == len(steps) - 1 else \
             combine(*rm(name), flag(steps[k + 1], p["fury_t"]))
         ladder = sw(name, nxt, ladder)
-    gain = sw("dg", NONE, sw("full", NONE, ladder))
+    gain = sw("dg", NONE, sw("full", refresh("full", p["full_t"]), ladder))
     to_dragon = combine(*rm("full", *steps), flag("was_dg", None),
                         flag("dg", p["dg_t"], hp_mult=p["dg_hp"], defence_mult=p["dg_def"],
                              magic_resistance_mult=p["dg_mr"], range=p["dg_range"]),
@@ -348,7 +356,7 @@ def build(p):
     # short of full Fury the cast does nothing and the ult comes back r_wait ticks later (ult_cooldown_mult for 2 ticks
     # caps the cooldown left; league_gnar's empty cast)
     wait_mult = -(-p["r_cd"] * 100 // p["r_wait"]) - 100
-    not_yet = flag("r_back", 2, ult_cooldown_mult=wait_mult)
+    not_yet = combine(flag("r_back", 2, ult_cooldown_mult=wait_mult), refresh("r_wait", p["r_wait"]))
     r_go = combine(restore, form(descent, sw("full", combine(to_dragon, descent), not_yet)))
     ult = action("idle", 3, p["r_cd"], 1, p["r_cast"], "Targeting", "EnemyChampion", r_go, key="ult")
 
