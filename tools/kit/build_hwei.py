@@ -346,15 +346,15 @@ def build(p):
                                                    "z": z, "is_follow": follow}
     Pj = lambda name, tag=None, anim_=FX: {"type": "Animated", "name": n(name), "anim": anim_, "tag": tag or name,
                                            "repeat": True, "z": 2}
-    B_ = lambda name, anim_=FX, z=2: {"type": "Animated", "name": n(name), "anim": anim_, "tag": name, "repeat": True,
-                                      "z": z}
+    B_ = lambda name, anim_=FX, z=2, tag=None: {"type": "Animated", "name": n(name), "anim": anim_, "tag": tag or name,
+                                                "repeat": True, "z": z}
     views_p = [Pj("a_ink"), Pj("q_q_ball"), Pj("q_q_ball2", "q_q_ball"), Pj("e_q_face"), Pj("r_paint")]
     views_e = [E("a_hit"), E("p_burst", BIG, 3), E("q_w_tell"), E("q_w_hit", BIG, 3), E("q_q_hit"),
                E("q_e_lava", BIG, -1, False), E("e_q_hit"), E("e_w_open"), E("e_w_hit"), E("e_e_open"), E("e_e_hit"),
                E("w_pool", BIG, -1), E("w_shield"), E("r_canvas", BIG, -1, False), E("r_burst", BIG, 3, False),
                E("r_hit")]
-    views_b = [B_("p_mark", FX, -1), B_("e_bound", FX, 3), B_("w_haste", FX, -1), B_("q_e_slow", FX, -1),
-               B_("e_slow", FX, -1), B_("r_slow", FX, -1)]
+    views_b = [B_("p_mark", FX, -1), B_("e_bound", FX, 3), B_("w_haste", FX, -1), B_("q_e_slow", FX, -1, "slow"),
+               B_("e_slow", FX, -1, "slow"), B_("r_slow", FX, -1, "slow")]   # one ink-drip picture for the three slows
     return {
         "id": ID, "category": "Magician", "tags": ["AP", "Magic", "Range", "CC"],
         "sprite": f"asset/league/champions/{ID}", "anim_prefix": "",

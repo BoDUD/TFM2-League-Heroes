@@ -37,7 +37,7 @@ SRC = os.path.join(ROOT, "assets", "source", "hwei", "codex_model", "hwei-model"
 OUT = os.path.join(ROOT, "assets", "source", "hwei", "hd")
 K = 40
 BODY = 60
-PICK = None   # the user's pick: "A-1" or "A-2"
+PICK = "A-1"   # the user's pick, 2026-10-22: 「用 A-1」
 # take -> (square px read at, the hair's top y on the raw canvas, the face's box there: x0, y0, x1, y1 - brows to mouth)
 DRAFTS = {
     "A-1": (16.0, 292, (600, 440, 760, 560)),
