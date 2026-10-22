@@ -1,0 +1,24 @@
+[
+  {
+    "file": "hwei-legs-q_throw.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "partial_alpha_pixels": 350419,
+    "raw_identical": true,
+    "upper_rgb_exact": false
+  },
+  {
+    "file": "hwei-legs-qw_point.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "partial_alpha_pixels": 325702,
+    "raw_identical": true,
+    "upper_rgb_exact": false
+  }
+]

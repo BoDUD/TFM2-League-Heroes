@@ -175,6 +175,11 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // design's chibi length) at the user's 1.5 squares a game pixel (60 game rows crest to soles: 「40」「PPU 1.5」; 3/4
     // only; Q's sweep in four looks, skill / skill_w / skill_r / skill_g, by the element on her ring), so no SIZES row
     ("league_qiyana", 1.5, include_str!("../../../league/champions/league_qiyana#anim.fanim")),
+    // Hwei: posed by tools/art/rig_hwei.py on Codex's step-1 take A-1 and its key poses (the design's head and brush put
+    // back, the legs drawn again at the design's chibi length) at the user's 1.5 squares a game pixel (60 game rows hair
+    // to soles, the crescent of paint above: 「头发顶到脚底 40 游戏像素，PPU 1.5」; 3/4 only; Disaster's three and Torment's
+    // three each their own tag), so no SIZES row
+    ("league_hwei", 1.5, include_str!("../../../league/champions/league_hwei#anim.fanim")),
     // Neeko: posed by tools/art/rig_neeko.py on Codex's step-1 take A-1 and its key poses at the user's 2.5 squares a
     // game pixel (100 game rows quill tips to soles: 「40」, then 「1.5也挺糊的 还得往上调整吧」; 3/4 only; league_neeko's
     // view hook draws her as an ally while she is disguised), so no SIZES row

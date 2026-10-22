@@ -1,0 +1,68 @@
+#!/usr/bin/env python3
+"""Hwei's step-1 takes for the user's pick: each take cut to the count (design_hwei_model.py --options) at 4x with its
+face at 12x, and the same takes as the game shows them at PPU 1.5 next to the pack's mid mages, feet on one line.
+
+    python tools/art/review_hwei_model.py --opts C:/t/hw_work/model_opt --out dist/hwei_packs [--scale 4]
+
+Reads <opts>/opt_A-{1,2}.png; writes <out>/hwei_model_review.png.
+"""
+import argparse
+import os
+import sys
+
+from PIL import Image, ImageDraw
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, HERE)
+from review_hwei_size import BG, NEIGHBOURS, frame0, lp, shown  # noqa: E402
+
+TAKES = ("A-1", "A-2")
+FACES = {"A-1": (18, 12), "A-2": (20, 12)}   # the head's top-left square on opt_<take>.png, a 34 x 30 window
+PPU = 1.5
+
+
+def row(cells, gap=16, top=34):
+    W = sum(im.width for _, _, im in cells) + gap * (len(cells) + 1)
+    H = max(im.height for _, _, im in cells) + top + gap
+    can = Image.new("RGBA", (W, H), BG)
+    dr = ImageDraw.Draw(can)
+    x = gap
+    for label, size, im in cells:
+        can.alpha_composite(im, (x, H - gap - im.height))
+        dr.text((x, 4), label, fill=(30, 30, 30, 255))
+        dr.text((x, 18), size, fill=(30, 30, 30, 255))
+        x += im.width + gap
+    dr.line([(0, H - gap), (W, H - gap)], fill=(120, 120, 120, 255))
+    return can
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--opts", required=True)
+    ap.add_argument("--out", required=True)
+    ap.add_argument("--scale", type=int, default=4)
+    a = ap.parse_args()
+    takes = {t: Image.open(lp(os.path.join(a.opts, f"opt_{t}.png"))).convert("RGBA") for t in TAKES}
+    big = []
+    for t, im in takes.items():
+        big.append((t, f"{im.width}x{im.height} squares", im.resize((im.width * 4, im.height * 4), Image.NEAREST)))
+        c0, r0 = FACES[t]
+        face = im.crop((c0, r0, c0 + 34, r0 + 30))
+        big.append((f"{t} face 12x", "", face.resize((face.width * 12, face.height * 12), Image.NEAREST)))
+    game = [(f"{t} at PPU {PPU}", f"{im.width / PPU:.0f}x{im.height / PPU:.0f}", shown(im, PPU, a.scale))
+            for t, im in takes.items()]
+    for hero in NEIGHBOURS:
+        im, p = frame0(hero)
+        game.append((hero, f"{im.width / p:.0f}x{im.height / p:.0f}", shown(im, p, a.scale)))
+    r1, r2 = row(big), row(game)
+    can = Image.new("RGBA", (max(r1.width, r2.width), r1.height + r2.height), BG)
+    can.alpha_composite(r1, (0, 0))
+    can.alpha_composite(r2, (0, r1.height))
+    os.makedirs(lp(a.out), exist_ok=True)
+    path = os.path.join(a.out, "hwei_model_review.png")
+    can.convert("RGB").save(lp(path))
+    print(path, can.size)
+
+
+if __name__ == "__main__":
+    main()
