@@ -149,7 +149,7 @@ def main():
     ap.add_argument("--only", help="comma-separated pose names")
     a = ap.parse_args()
     design = np.asarray(Image.open(lp(os.path.join(OUT, "idle.png"))).convert("RGBA"))
-    names = [n for n in L.NAMES if (not a.only or n in a.only.split(",")) and redo(n) is not None]
+    names = [n for n in L.NAMES + L.NAMES2 if (not a.only or n in a.only.split(",")) and redo(n) is not None]
     os.makedirs(lp(FIRST), exist_ok=True)
     results = {}
     for n in names:

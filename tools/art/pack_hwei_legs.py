@@ -4,6 +4,7 @@ again with the design's short chibi legs - only the legs (pack_qiyana_legs.py's 
 skeletons; the user, 2026-10-22: 「动作帧做到完美后再喊我review」).
 
     python tools/art/pack_hwei_legs.py [--out C:/t/hw_work/hwei_legs_pack] [--check DIR]
+    python tools/art/pack_hwei_legs.py --pack2 --out C:/t/hw_work/hwei_legs_pack2   # q_throw, qw_point
 
 Codex's poses (codex_poses, read back by design_hwei_poses.py at the head's scale, the design's brush put in) have the
 design's head, coat, arms and brush but long legs in many: the hip to the soles 1.1-2 times the skeleton's (design
@@ -50,6 +51,9 @@ GROUND = SOLE_Y // PX                     # the ground row on the canvas grid (1
 COLS = CANVAS // PX                       # 104 squares across
 NAMES = ["q_wind", "qe_raise", "ew_high", "r_open", "r_fling", "ee_swing", "run1", "run2", "run3", "run4",
          "d_stagger"]
+# found after the pack went out: the lunges' legs measured along the leg (hip to toe) - qw_point's back leg 29 squares,
+# q_throw's 23-25, the design's reach 20 - sent as a second pack (--pack2)
+NAMES2 = ["q_throw", "qw_point"]
 # the legs' colours in the design's palette: trousers, ribbon bows, shins, anklet, loafers
 LEG = [(19, 60, 51), (14, 34, 37), (118, 66, 39), (92, 49, 38), (146, 77, 46), (70, 34, 37), (155, 92, 46),
        (4, 162, 176), (0, 198, 220), (1, 126, 98), (0, 136, 122), (253, 223, 193), (242, 184, 148), (230, 40, 194),
@@ -226,10 +230,13 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", default="C:/t/hw_work/hwei_legs_pack")
     ap.add_argument("--check")
+    ap.add_argument("--pack2", action="store_true", help="the second pack (NAMES2), numbered after the first")
     a = ap.parse_args()
+    names = NAMES2 if a.pack2 else NAMES
+    first_k = len(NAMES) + 1 if a.pack2 else 1
     if a.check:
         os.makedirs(a.check, exist_ok=True)
-        for name in NAMES:
+        for name in names:
             rb, m, (px, py), _ = cut(name)
             Z = 6
             v = rb.copy()
@@ -253,8 +260,9 @@ def main():
         shutil.rmtree(out)
     os.makedirs(out)
     design_legs().save(os.path.join(out, "0_design_legs.png"))
-    meta = {}
-    for k, name in enumerate(NAMES, 1):
+    gpath = lp(os.path.join(SRC, "codex_legs_guides.json"))
+    meta = json.load(open(gpath, encoding="utf-8")) if os.path.isfile(gpath) else {}
+    for k, name in enumerate(names, first_k):
         can, keep, (ox, oy), legs = draw_guide(name)
         can.convert("RGB").save(os.path.join(out, f"{k}_{name}_guide.png"))
         meta[name] = {"offset": [ox, oy], "legs": {g: [[round(x, 2), round(y, 2)] for x, y in pts]
@@ -263,7 +271,8 @@ def main():
                         os.path.join(out, f"{k}_{name}_first.png"))
     with open(lp(os.path.join(SRC, "codex_legs_guides.json")), "w", encoding="utf-8") as f:
         json.dump(meta, f, indent=1)                # where each upper body went on the canvas (for the readback)
-    shutil.copyfile(lp(os.path.join(SRC, "LEGS_PROMPTS.md")), os.path.join(out, "LEGS_PROMPTS.md"))
+    doc = "LEGS_PROMPTS_2.md" if a.pack2 else "LEGS_PROMPTS.md"
+    shutil.copyfile(lp(os.path.join(SRC, doc)), os.path.join(out, doc))
     zp = shutil.make_archive(out, "zip", out)
     print(zp)
 
