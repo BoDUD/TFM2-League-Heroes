@@ -16,7 +16,7 @@
     "asset/league/icons/league_shyvana_ult"
   ],
   "stat": {
-    "attack": 90,
+    "attack": 100,
     "magic_power": 0,
     "hp": 1080,
     "defence": 34,
@@ -27,7 +27,7 @@
     "crit_chance": 0
   },
   "growth": {
-    "attack": 18,
+    "attack": 20,
     "magic_power": 0,
     "hp": 100,
     "defence": 7,
@@ -263,7 +263,24 @@
                                     "buff_name": "league_shyvana_full",
                                     "effect_buff": {
                                       "type": "Combine",
-                                      "effects": []
+                                      "effects": [
+                                        {
+                                          "type": "RemoveCasterBuff",
+                                          "name": "league_shyvana_full"
+                                        },
+                                        {
+                                          "type": "AddCasterBuff",
+                                          "buff_state": {
+                                            "name": "league_shyvana_full",
+                                            "duration": {
+                                              "Time": {
+                                                "tick": 1800
+                                              }
+                                            }
+                                          },
+                                          "only_to_enemy": false
+                                        }
+                                      ]
                                     },
                                     "effect_none": {
                                       "type": "SwitchByBuff",
@@ -281,7 +298,7 @@
                                               "name": "league_shyvana_full",
                                               "duration": {
                                                 "Time": {
-                                                  "tick": 360
+                                                  "tick": 1800
                                                 }
                                               }
                                             },
@@ -290,6 +307,36 @@
                                           {
                                             "type": "Sfx",
                                             "name": "league_shyvana_full"
+                                          },
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_shyvana_r_wait",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_shyvana_r_wait"
+                                                },
+                                                {
+                                                  "type": "AddCasterBuff",
+                                                  "buff_state": {
+                                                    "name": "league_shyvana_r_arm",
+                                                    "duration": {
+                                                      "Time": {
+                                                        "tick": 2
+                                                      }
+                                                    },
+                                                    "ult_cooldown_mult": 270000
+                                                  },
+                                                  "only_to_enemy": false
+                                                }
+                                              ]
+                                            },
+                                            "effect_none": {
+                                              "type": "Combine",
+                                              "effects": []
+                                            }
                                           }
                                         ]
                                       },
@@ -671,7 +718,7 @@
                           {
                             "type": "Attack",
                             "damage": 25,
-                            "attack_ratio": 90,
+                            "attack_ratio": 110,
                             "hp_ratio": 0,
                             "target_hp_ratio": 0,
                             "attack_effect_type": "Target"
@@ -702,7 +749,24 @@
                           "buff_name": "league_shyvana_full",
                           "effect_buff": {
                             "type": "Combine",
-                            "effects": []
+                            "effects": [
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "league_shyvana_full"
+                              },
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_shyvana_full",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 1800
+                                    }
+                                  }
+                                },
+                                "only_to_enemy": false
+                              }
+                            ]
                           },
                           "effect_none": {
                             "type": "SwitchByBuff",
@@ -720,7 +784,7 @@
                                     "name": "league_shyvana_full",
                                     "duration": {
                                       "Time": {
-                                        "tick": 360
+                                        "tick": 1800
                                       }
                                     }
                                   },
@@ -729,6 +793,36 @@
                                 {
                                   "type": "Sfx",
                                   "name": "league_shyvana_full"
+                                },
+                                {
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "league_shyvana_r_wait",
+                                  "effect_buff": {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "RemoveCasterBuff",
+                                        "name": "league_shyvana_r_wait"
+                                      },
+                                      {
+                                        "type": "AddCasterBuff",
+                                        "buff_state": {
+                                          "name": "league_shyvana_r_arm",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 2
+                                            }
+                                          },
+                                          "ult_cooldown_mult": 270000
+                                        },
+                                        "only_to_enemy": false
+                                      }
+                                    ]
+                                  },
+                                  "effect_none": {
+                                    "type": "Combine",
+                                    "effects": []
+                                  }
                                 }
                               ]
                             },
@@ -966,7 +1060,7 @@
                           {
                             "type": "Attack",
                             "damage": 25,
-                            "attack_ratio": 90,
+                            "attack_ratio": 110,
                             "hp_ratio": 0,
                             "target_hp_ratio": 0,
                             "attack_effect_type": "Target"
@@ -997,7 +1091,24 @@
                           "buff_name": "league_shyvana_full",
                           "effect_buff": {
                             "type": "Combine",
-                            "effects": []
+                            "effects": [
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "league_shyvana_full"
+                              },
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_shyvana_full",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 1800
+                                    }
+                                  }
+                                },
+                                "only_to_enemy": false
+                              }
+                            ]
                           },
                           "effect_none": {
                             "type": "SwitchByBuff",
@@ -1015,7 +1126,7 @@
                                     "name": "league_shyvana_full",
                                     "duration": {
                                       "Time": {
-                                        "tick": 360
+                                        "tick": 1800
                                       }
                                     }
                                   },
@@ -1024,6 +1135,36 @@
                                 {
                                   "type": "Sfx",
                                   "name": "league_shyvana_full"
+                                },
+                                {
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "league_shyvana_r_wait",
+                                  "effect_buff": {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "RemoveCasterBuff",
+                                        "name": "league_shyvana_r_wait"
+                                      },
+                                      {
+                                        "type": "AddCasterBuff",
+                                        "buff_state": {
+                                          "name": "league_shyvana_r_arm",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 2
+                                            }
+                                          },
+                                          "ult_cooldown_mult": 270000
+                                        },
+                                        "only_to_enemy": false
+                                      }
+                                    ]
+                                  },
+                                  "effect_none": {
+                                    "type": "Combine",
+                                    "effects": []
+                                  }
                                 }
                               ]
                             },
@@ -1387,7 +1528,24 @@
                                   "buff_name": "league_shyvana_full",
                                   "effect_buff": {
                                     "type": "Combine",
-                                    "effects": []
+                                    "effects": [
+                                      {
+                                        "type": "RemoveCasterBuff",
+                                        "name": "league_shyvana_full"
+                                      },
+                                      {
+                                        "type": "AddCasterBuff",
+                                        "buff_state": {
+                                          "name": "league_shyvana_full",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 1800
+                                            }
+                                          }
+                                        },
+                                        "only_to_enemy": false
+                                      }
+                                    ]
                                   },
                                   "effect_none": {
                                     "type": "SwitchByBuff",
@@ -1405,7 +1563,7 @@
                                             "name": "league_shyvana_full",
                                             "duration": {
                                               "Time": {
-                                                "tick": 360
+                                                "tick": 1800
                                               }
                                             }
                                           },
@@ -1414,6 +1572,36 @@
                                         {
                                           "type": "Sfx",
                                           "name": "league_shyvana_full"
+                                        },
+                                        {
+                                          "type": "SwitchByBuff",
+                                          "buff_name": "league_shyvana_r_wait",
+                                          "effect_buff": {
+                                            "type": "Combine",
+                                            "effects": [
+                                              {
+                                                "type": "RemoveCasterBuff",
+                                                "name": "league_shyvana_r_wait"
+                                              },
+                                              {
+                                                "type": "AddCasterBuff",
+                                                "buff_state": {
+                                                  "name": "league_shyvana_r_arm",
+                                                  "duration": {
+                                                    "Time": {
+                                                      "tick": 2
+                                                    }
+                                                  },
+                                                  "ult_cooldown_mult": 270000
+                                                },
+                                                "only_to_enemy": false
+                                              }
+                                            ]
+                                          },
+                                          "effect_none": {
+                                            "type": "Combine",
+                                            "effects": []
+                                          }
                                         }
                                       ]
                                     },
@@ -1696,7 +1884,24 @@
                                   "buff_name": "league_shyvana_full",
                                   "effect_buff": {
                                     "type": "Combine",
-                                    "effects": []
+                                    "effects": [
+                                      {
+                                        "type": "RemoveCasterBuff",
+                                        "name": "league_shyvana_full"
+                                      },
+                                      {
+                                        "type": "AddCasterBuff",
+                                        "buff_state": {
+                                          "name": "league_shyvana_full",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 1800
+                                            }
+                                          }
+                                        },
+                                        "only_to_enemy": false
+                                      }
+                                    ]
                                   },
                                   "effect_none": {
                                     "type": "SwitchByBuff",
@@ -1714,7 +1919,7 @@
                                             "name": "league_shyvana_full",
                                             "duration": {
                                               "Time": {
-                                                "tick": 360
+                                                "tick": 1800
                                               }
                                             }
                                           },
@@ -1723,6 +1928,36 @@
                                         {
                                           "type": "Sfx",
                                           "name": "league_shyvana_full"
+                                        },
+                                        {
+                                          "type": "SwitchByBuff",
+                                          "buff_name": "league_shyvana_r_wait",
+                                          "effect_buff": {
+                                            "type": "Combine",
+                                            "effects": [
+                                              {
+                                                "type": "RemoveCasterBuff",
+                                                "name": "league_shyvana_r_wait"
+                                              },
+                                              {
+                                                "type": "AddCasterBuff",
+                                                "buff_state": {
+                                                  "name": "league_shyvana_r_arm",
+                                                  "duration": {
+                                                    "Time": {
+                                                      "tick": 2
+                                                    }
+                                                  },
+                                                  "ult_cooldown_mult": 270000
+                                                },
+                                                "only_to_enemy": false
+                                              }
+                                            ]
+                                          },
+                                          "effect_none": {
+                                            "type": "Combine",
+                                            "effects": []
+                                          }
                                         }
                                       ]
                                     },
@@ -2059,7 +2294,7 @@
                       "name": "league_shyvana_q_cd",
                       "duration": {
                         "Time": {
-                          "tick": 480
+                          "tick": 360
                         }
                       }
                     },
@@ -2177,7 +2412,7 @@
                         {
                           "type": "Attack",
                           "damage": 25,
-                          "attack_ratio": 90,
+                          "attack_ratio": 110,
                           "hp_ratio": 0,
                           "target_hp_ratio": 0,
                           "attack_effect_type": "Target"
@@ -2204,7 +2439,24 @@
                         "buff_name": "league_shyvana_full",
                         "effect_buff": {
                           "type": "Combine",
-                          "effects": []
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_shyvana_full"
+                            },
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_shyvana_full",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 1800
+                                  }
+                                }
+                              },
+                              "only_to_enemy": false
+                            }
+                          ]
                         },
                         "effect_none": {
                           "type": "SwitchByBuff",
@@ -2222,7 +2474,7 @@
                                   "name": "league_shyvana_full",
                                   "duration": {
                                     "Time": {
-                                      "tick": 360
+                                      "tick": 1800
                                     }
                                   }
                                 },
@@ -2231,6 +2483,36 @@
                               {
                                 "type": "Sfx",
                                 "name": "league_shyvana_full"
+                              },
+                              {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_shyvana_r_wait",
+                                "effect_buff": {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "RemoveCasterBuff",
+                                      "name": "league_shyvana_r_wait"
+                                    },
+                                    {
+                                      "type": "AddCasterBuff",
+                                      "buff_state": {
+                                        "name": "league_shyvana_r_arm",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 2
+                                          }
+                                        },
+                                        "ult_cooldown_mult": 270000
+                                      },
+                                      "only_to_enemy": false
+                                    }
+                                  ]
+                                },
+                                "effect_none": {
+                                  "type": "Combine",
+                                  "effects": []
+                                }
                               }
                             ]
                           },
@@ -2472,7 +2754,7 @@
                         {
                           "type": "Attack",
                           "damage": 25,
-                          "attack_ratio": 90,
+                          "attack_ratio": 110,
                           "hp_ratio": 0,
                           "target_hp_ratio": 0,
                           "attack_effect_type": "Target"
@@ -2499,7 +2781,24 @@
                         "buff_name": "league_shyvana_full",
                         "effect_buff": {
                           "type": "Combine",
-                          "effects": []
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_shyvana_full"
+                            },
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_shyvana_full",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 1800
+                                  }
+                                }
+                              },
+                              "only_to_enemy": false
+                            }
+                          ]
                         },
                         "effect_none": {
                           "type": "SwitchByBuff",
@@ -2517,7 +2816,7 @@
                                   "name": "league_shyvana_full",
                                   "duration": {
                                     "Time": {
-                                      "tick": 360
+                                      "tick": 1800
                                     }
                                   }
                                 },
@@ -2526,6 +2825,36 @@
                               {
                                 "type": "Sfx",
                                 "name": "league_shyvana_full"
+                              },
+                              {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_shyvana_r_wait",
+                                "effect_buff": {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "RemoveCasterBuff",
+                                      "name": "league_shyvana_r_wait"
+                                    },
+                                    {
+                                      "type": "AddCasterBuff",
+                                      "buff_state": {
+                                        "name": "league_shyvana_r_arm",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 2
+                                          }
+                                        },
+                                        "ult_cooldown_mult": 270000
+                                      },
+                                      "only_to_enemy": false
+                                    }
+                                  ]
+                                },
+                                "effect_none": {
+                                  "type": "Combine",
+                                  "effects": []
+                                }
                               }
                             ]
                           },
@@ -3182,7 +3511,24 @@
                             "buff_name": "league_shyvana_full",
                             "effect_buff": {
                               "type": "Combine",
-                              "effects": []
+                              "effects": [
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_shyvana_full"
+                                },
+                                {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_shyvana_full",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 1800
+                                      }
+                                    }
+                                  },
+                                  "only_to_enemy": false
+                                }
+                              ]
                             },
                             "effect_none": {
                               "type": "SwitchByBuff",
@@ -3200,7 +3546,7 @@
                                       "name": "league_shyvana_full",
                                       "duration": {
                                         "Time": {
-                                          "tick": 360
+                                          "tick": 1800
                                         }
                                       }
                                     },
@@ -3209,6 +3555,36 @@
                                   {
                                     "type": "Sfx",
                                     "name": "league_shyvana_full"
+                                  },
+                                  {
+                                    "type": "SwitchByBuff",
+                                    "buff_name": "league_shyvana_r_wait",
+                                    "effect_buff": {
+                                      "type": "Combine",
+                                      "effects": [
+                                        {
+                                          "type": "RemoveCasterBuff",
+                                          "name": "league_shyvana_r_wait"
+                                        },
+                                        {
+                                          "type": "AddCasterBuff",
+                                          "buff_state": {
+                                            "name": "league_shyvana_r_arm",
+                                            "duration": {
+                                              "Time": {
+                                                "tick": 2
+                                              }
+                                            },
+                                            "ult_cooldown_mult": 270000
+                                          },
+                                          "only_to_enemy": false
+                                        }
+                                      ]
+                                    },
+                                    "effect_none": {
+                                      "type": "Combine",
+                                      "effects": []
+                                    }
                                   }
                                 ]
                               },
@@ -3832,7 +4208,24 @@
                                                             "buff_name": "league_shyvana_full",
                                                             "effect_buff": {
                                                               "type": "Combine",
-                                                              "effects": []
+                                                              "effects": [
+                                                                {
+                                                                  "type": "RemoveCasterBuff",
+                                                                  "name": "league_shyvana_full"
+                                                                },
+                                                                {
+                                                                  "type": "AddCasterBuff",
+                                                                  "buff_state": {
+                                                                    "name": "league_shyvana_full",
+                                                                    "duration": {
+                                                                      "Time": {
+                                                                        "tick": 1800
+                                                                      }
+                                                                    }
+                                                                  },
+                                                                  "only_to_enemy": false
+                                                                }
+                                                              ]
                                                             },
                                                             "effect_none": {
                                                               "type": "SwitchByBuff",
@@ -3850,7 +4243,7 @@
                                                                       "name": "league_shyvana_full",
                                                                       "duration": {
                                                                         "Time": {
-                                                                          "tick": 360
+                                                                          "tick": 1800
                                                                         }
                                                                       }
                                                                     },
@@ -3859,6 +4252,36 @@
                                                                   {
                                                                     "type": "Sfx",
                                                                     "name": "league_shyvana_full"
+                                                                  },
+                                                                  {
+                                                                    "type": "SwitchByBuff",
+                                                                    "buff_name": "league_shyvana_r_wait",
+                                                                    "effect_buff": {
+                                                                      "type": "Combine",
+                                                                      "effects": [
+                                                                        {
+                                                                          "type": "RemoveCasterBuff",
+                                                                          "name": "league_shyvana_r_wait"
+                                                                        },
+                                                                        {
+                                                                          "type": "AddCasterBuff",
+                                                                          "buff_state": {
+                                                                            "name": "league_shyvana_r_arm",
+                                                                            "duration": {
+                                                                              "Time": {
+                                                                                "tick": 2
+                                                                              }
+                                                                            },
+                                                                            "ult_cooldown_mult": 270000
+                                                                          },
+                                                                          "only_to_enemy": false
+                                                                        }
+                                                                      ]
+                                                                    },
+                                                                    "effect_none": {
+                                                                      "type": "Combine",
+                                                                      "effects": []
+                                                                    }
                                                                   }
                                                                 ]
                                                               },
@@ -4167,7 +4590,7 @@
                                                   "name": "league_shyvana_q_cd",
                                                   "duration": {
                                                     "Time": {
-                                                      "tick": 480
+                                                      "tick": 360
                                                     }
                                                   }
                                                 },
@@ -4285,7 +4708,7 @@
                                                     {
                                                       "type": "Attack",
                                                       "damage": 25,
-                                                      "attack_ratio": 90,
+                                                      "attack_ratio": 110,
                                                       "hp_ratio": 0,
                                                       "target_hp_ratio": 0,
                                                       "attack_effect_type": "Target"
@@ -4312,7 +4735,24 @@
                                                     "buff_name": "league_shyvana_full",
                                                     "effect_buff": {
                                                       "type": "Combine",
-                                                      "effects": []
+                                                      "effects": [
+                                                        {
+                                                          "type": "RemoveCasterBuff",
+                                                          "name": "league_shyvana_full"
+                                                        },
+                                                        {
+                                                          "type": "AddCasterBuff",
+                                                          "buff_state": {
+                                                            "name": "league_shyvana_full",
+                                                            "duration": {
+                                                              "Time": {
+                                                                "tick": 1800
+                                                              }
+                                                            }
+                                                          },
+                                                          "only_to_enemy": false
+                                                        }
+                                                      ]
                                                     },
                                                     "effect_none": {
                                                       "type": "SwitchByBuff",
@@ -4330,7 +4770,7 @@
                                                               "name": "league_shyvana_full",
                                                               "duration": {
                                                                 "Time": {
-                                                                  "tick": 360
+                                                                  "tick": 1800
                                                                 }
                                                               }
                                                             },
@@ -4339,6 +4779,36 @@
                                                           {
                                                             "type": "Sfx",
                                                             "name": "league_shyvana_full"
+                                                          },
+                                                          {
+                                                            "type": "SwitchByBuff",
+                                                            "buff_name": "league_shyvana_r_wait",
+                                                            "effect_buff": {
+                                                              "type": "Combine",
+                                                              "effects": [
+                                                                {
+                                                                  "type": "RemoveCasterBuff",
+                                                                  "name": "league_shyvana_r_wait"
+                                                                },
+                                                                {
+                                                                  "type": "AddCasterBuff",
+                                                                  "buff_state": {
+                                                                    "name": "league_shyvana_r_arm",
+                                                                    "duration": {
+                                                                      "Time": {
+                                                                        "tick": 2
+                                                                      }
+                                                                    },
+                                                                    "ult_cooldown_mult": 270000
+                                                                  },
+                                                                  "only_to_enemy": false
+                                                                }
+                                                              ]
+                                                            },
+                                                            "effect_none": {
+                                                              "type": "Combine",
+                                                              "effects": []
+                                                            }
                                                           }
                                                         ]
                                                       },
@@ -4580,7 +5050,7 @@
                                                     {
                                                       "type": "Attack",
                                                       "damage": 25,
-                                                      "attack_ratio": 90,
+                                                      "attack_ratio": 110,
                                                       "hp_ratio": 0,
                                                       "target_hp_ratio": 0,
                                                       "attack_effect_type": "Target"
@@ -4607,7 +5077,24 @@
                                                     "buff_name": "league_shyvana_full",
                                                     "effect_buff": {
                                                       "type": "Combine",
-                                                      "effects": []
+                                                      "effects": [
+                                                        {
+                                                          "type": "RemoveCasterBuff",
+                                                          "name": "league_shyvana_full"
+                                                        },
+                                                        {
+                                                          "type": "AddCasterBuff",
+                                                          "buff_state": {
+                                                            "name": "league_shyvana_full",
+                                                            "duration": {
+                                                              "Time": {
+                                                                "tick": 1800
+                                                              }
+                                                            }
+                                                          },
+                                                          "only_to_enemy": false
+                                                        }
+                                                      ]
                                                     },
                                                     "effect_none": {
                                                       "type": "SwitchByBuff",
@@ -4625,7 +5112,7 @@
                                                               "name": "league_shyvana_full",
                                                               "duration": {
                                                                 "Time": {
-                                                                  "tick": 360
+                                                                  "tick": 1800
                                                                 }
                                                               }
                                                             },
@@ -4634,6 +5121,36 @@
                                                           {
                                                             "type": "Sfx",
                                                             "name": "league_shyvana_full"
+                                                          },
+                                                          {
+                                                            "type": "SwitchByBuff",
+                                                            "buff_name": "league_shyvana_r_wait",
+                                                            "effect_buff": {
+                                                              "type": "Combine",
+                                                              "effects": [
+                                                                {
+                                                                  "type": "RemoveCasterBuff",
+                                                                  "name": "league_shyvana_r_wait"
+                                                                },
+                                                                {
+                                                                  "type": "AddCasterBuff",
+                                                                  "buff_state": {
+                                                                    "name": "league_shyvana_r_arm",
+                                                                    "duration": {
+                                                                      "Time": {
+                                                                        "tick": 2
+                                                                      }
+                                                                    },
+                                                                    "ult_cooldown_mult": 270000
+                                                                  },
+                                                                  "only_to_enemy": false
+                                                                }
+                                                              ]
+                                                            },
+                                                            "effect_none": {
+                                                              "type": "Combine",
+                                                              "effects": []
+                                                            }
                                                           }
                                                         ]
                                                       },
@@ -5278,7 +5795,24 @@
                                                                   "buff_name": "league_shyvana_full",
                                                                   "effect_buff": {
                                                                     "type": "Combine",
-                                                                    "effects": []
+                                                                    "effects": [
+                                                                      {
+                                                                        "type": "RemoveCasterBuff",
+                                                                        "name": "league_shyvana_full"
+                                                                      },
+                                                                      {
+                                                                        "type": "AddCasterBuff",
+                                                                        "buff_state": {
+                                                                          "name": "league_shyvana_full",
+                                                                          "duration": {
+                                                                            "Time": {
+                                                                              "tick": 1800
+                                                                            }
+                                                                          }
+                                                                        },
+                                                                        "only_to_enemy": false
+                                                                      }
+                                                                    ]
                                                                   },
                                                                   "effect_none": {
                                                                     "type": "SwitchByBuff",
@@ -5296,7 +5830,7 @@
                                                                             "name": "league_shyvana_full",
                                                                             "duration": {
                                                                               "Time": {
-                                                                                "tick": 360
+                                                                                "tick": 1800
                                                                               }
                                                                             }
                                                                           },
@@ -5305,6 +5839,36 @@
                                                                         {
                                                                           "type": "Sfx",
                                                                           "name": "league_shyvana_full"
+                                                                        },
+                                                                        {
+                                                                          "type": "SwitchByBuff",
+                                                                          "buff_name": "league_shyvana_r_wait",
+                                                                          "effect_buff": {
+                                                                            "type": "Combine",
+                                                                            "effects": [
+                                                                              {
+                                                                                "type": "RemoveCasterBuff",
+                                                                                "name": "league_shyvana_r_wait"
+                                                                              },
+                                                                              {
+                                                                                "type": "AddCasterBuff",
+                                                                                "buff_state": {
+                                                                                  "name": "league_shyvana_r_arm",
+                                                                                  "duration": {
+                                                                                    "Time": {
+                                                                                      "tick": 2
+                                                                                    }
+                                                                                  },
+                                                                                  "ult_cooldown_mult": 270000
+                                                                                },
+                                                                                "only_to_enemy": false
+                                                                              }
+                                                                            ]
+                                                                          },
+                                                                          "effect_none": {
+                                                                            "type": "Combine",
+                                                                            "effects": []
+                                                                          }
                                                                         }
                                                                       ]
                                                                     },
@@ -5613,7 +6177,7 @@
                                                         "name": "league_shyvana_q_cd",
                                                         "duration": {
                                                           "Time": {
-                                                            "tick": 480
+                                                            "tick": 360
                                                           }
                                                         }
                                                       },
@@ -5731,7 +6295,7 @@
                                                           {
                                                             "type": "Attack",
                                                             "damage": 25,
-                                                            "attack_ratio": 90,
+                                                            "attack_ratio": 110,
                                                             "hp_ratio": 0,
                                                             "target_hp_ratio": 0,
                                                             "attack_effect_type": "Target"
@@ -5758,7 +6322,24 @@
                                                           "buff_name": "league_shyvana_full",
                                                           "effect_buff": {
                                                             "type": "Combine",
-                                                            "effects": []
+                                                            "effects": [
+                                                              {
+                                                                "type": "RemoveCasterBuff",
+                                                                "name": "league_shyvana_full"
+                                                              },
+                                                              {
+                                                                "type": "AddCasterBuff",
+                                                                "buff_state": {
+                                                                  "name": "league_shyvana_full",
+                                                                  "duration": {
+                                                                    "Time": {
+                                                                      "tick": 1800
+                                                                    }
+                                                                  }
+                                                                },
+                                                                "only_to_enemy": false
+                                                              }
+                                                            ]
                                                           },
                                                           "effect_none": {
                                                             "type": "SwitchByBuff",
@@ -5776,7 +6357,7 @@
                                                                     "name": "league_shyvana_full",
                                                                     "duration": {
                                                                       "Time": {
-                                                                        "tick": 360
+                                                                        "tick": 1800
                                                                       }
                                                                     }
                                                                   },
@@ -5785,6 +6366,36 @@
                                                                 {
                                                                   "type": "Sfx",
                                                                   "name": "league_shyvana_full"
+                                                                },
+                                                                {
+                                                                  "type": "SwitchByBuff",
+                                                                  "buff_name": "league_shyvana_r_wait",
+                                                                  "effect_buff": {
+                                                                    "type": "Combine",
+                                                                    "effects": [
+                                                                      {
+                                                                        "type": "RemoveCasterBuff",
+                                                                        "name": "league_shyvana_r_wait"
+                                                                      },
+                                                                      {
+                                                                        "type": "AddCasterBuff",
+                                                                        "buff_state": {
+                                                                          "name": "league_shyvana_r_arm",
+                                                                          "duration": {
+                                                                            "Time": {
+                                                                              "tick": 2
+                                                                            }
+                                                                          },
+                                                                          "ult_cooldown_mult": 270000
+                                                                        },
+                                                                        "only_to_enemy": false
+                                                                      }
+                                                                    ]
+                                                                  },
+                                                                  "effect_none": {
+                                                                    "type": "Combine",
+                                                                    "effects": []
+                                                                  }
                                                                 }
                                                               ]
                                                             },
@@ -6026,7 +6637,7 @@
                                                           {
                                                             "type": "Attack",
                                                             "damage": 25,
-                                                            "attack_ratio": 90,
+                                                            "attack_ratio": 110,
                                                             "hp_ratio": 0,
                                                             "target_hp_ratio": 0,
                                                             "attack_effect_type": "Target"
@@ -6053,7 +6664,24 @@
                                                           "buff_name": "league_shyvana_full",
                                                           "effect_buff": {
                                                             "type": "Combine",
-                                                            "effects": []
+                                                            "effects": [
+                                                              {
+                                                                "type": "RemoveCasterBuff",
+                                                                "name": "league_shyvana_full"
+                                                              },
+                                                              {
+                                                                "type": "AddCasterBuff",
+                                                                "buff_state": {
+                                                                  "name": "league_shyvana_full",
+                                                                  "duration": {
+                                                                    "Time": {
+                                                                      "tick": 1800
+                                                                    }
+                                                                  }
+                                                                },
+                                                                "only_to_enemy": false
+                                                              }
+                                                            ]
                                                           },
                                                           "effect_none": {
                                                             "type": "SwitchByBuff",
@@ -6071,7 +6699,7 @@
                                                                     "name": "league_shyvana_full",
                                                                     "duration": {
                                                                       "Time": {
-                                                                        "tick": 360
+                                                                        "tick": 1800
                                                                       }
                                                                     }
                                                                   },
@@ -6080,6 +6708,36 @@
                                                                 {
                                                                   "type": "Sfx",
                                                                   "name": "league_shyvana_full"
+                                                                },
+                                                                {
+                                                                  "type": "SwitchByBuff",
+                                                                  "buff_name": "league_shyvana_r_wait",
+                                                                  "effect_buff": {
+                                                                    "type": "Combine",
+                                                                    "effects": [
+                                                                      {
+                                                                        "type": "RemoveCasterBuff",
+                                                                        "name": "league_shyvana_r_wait"
+                                                                      },
+                                                                      {
+                                                                        "type": "AddCasterBuff",
+                                                                        "buff_state": {
+                                                                          "name": "league_shyvana_r_arm",
+                                                                          "duration": {
+                                                                            "Time": {
+                                                                              "tick": 2
+                                                                            }
+                                                                          },
+                                                                          "ult_cooldown_mult": 270000
+                                                                        },
+                                                                        "only_to_enemy": false
+                                                                      }
+                                                                    ]
+                                                                  },
+                                                                  "effect_none": {
+                                                                    "type": "Combine",
+                                                                    "effects": []
+                                                                  }
                                                                 }
                                                               ]
                                                             },
@@ -6328,17 +6986,43 @@
               ]
             },
             "effect_none": {
-              "type": "AddCasterBuff",
-              "buff_state": {
-                "name": "league_shyvana_r_back",
-                "duration": {
-                  "Time": {
-                    "tick": 2
-                  }
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "league_shyvana_r_back",
+                    "duration": {
+                      "Time": {
+                        "tick": 2
+                      }
+                    },
+                    "ult_cooldown_mult": 200
+                  },
+                  "only_to_enemy": false
                 },
-                "ult_cooldown_mult": 200
-              },
-              "only_to_enemy": false
+                {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "league_shyvana_r_wait"
+                    },
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_shyvana_r_wait",
+                        "duration": {
+                          "Time": {
+                            "tick": 600
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                }
+              ]
             }
           }
         }
