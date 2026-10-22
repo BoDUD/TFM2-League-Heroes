@@ -80,7 +80,11 @@ SPECK = 40                                # loose pieces smaller than this (squa
 
 
 def readback(name):
-    return np.asarray(Image.open(lp(os.path.join(SRC, "hd", f"pose_{name}.png"))).convert("RGBA")).copy()
+    """The first readback (long legs): hd_first/ once design_qiyana_legs.py has written the joined poses over hd/."""
+    path = os.path.join(SRC, "hd_first", f"pose_{name}.png")
+    if not os.path.isfile(lp(path)):
+        path = os.path.join(SRC, "hd", f"pose_{name}.png")
+    return np.asarray(Image.open(lp(path)).convert("RGBA")).copy()
 
 
 def mask(shape, poly):
