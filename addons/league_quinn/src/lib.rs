@@ -8,11 +8,15 @@
 //!   施放鹰翼天翔（伤害、标记、华洛回到头顶、落地动作，和出招时一样）。
 //! - **旋翔掠杀踢完翻回去**（用户 2026-10-22：「奎因E完人不会拉开距离」）：冲刺停在目标身上、和它重合，数据的 MoveBack「背离目标」没有
 //!   方向、挪 0（经典引擎模拟里量的）。副本踢中时挂 `league_quinn_e_vault`，本包逐 tick 把她往冲过来的方向挪 `E_BACK`，共
-//!   `E_BACK_T` tick（4000 x 12 = 48000，约一个攻击距离），被控就停。
+//!   `E_BACK_T` tick（4000 x 12 = 48000，约一个攻击距离），被控就停。0.3.0（用户 2026-10-23：「奎因的E后空翻不拉开距离」）：
+//!   0.2.0 装进游戏后所有对局（预演和画面）一次 VAULT 都没有——冲刺 end_effects 里挂的标记本包从来没看到。现在副本出 E 时就挂
+//!   `league_quinn_e_dash`（`DASH_T` tick，和 `r_ride` 一样挂在动作里，本包看得到），本包看着她冲：冲起来（一 tick 挪 `DASH_STEP`
+//!   以上）后停下的那一 tick，或者 `STILL_T` tick 都没冲（贴身踢）就翻；踢中的标记要是看到了也照样翻，一次 E 只翻一次。
 //! - **骑乘的样子**（`view.rs`，游戏 0.6.4 起的 Windows 版）：骑着的时候站着、走着、挨打都是骑在华洛背上的 `r_idle` / `r_run` / `r_hit`。
 //!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_quinn.log`，每次启动游戏重写，上一次的留在 .prev.log：`RIDE`（骑上、
-//! 出招落地 / 到时落地、骑了多久多远）、`VAULT`（往哪翻、挪了多远）、`FORM`（画面里换形态），都限了条数。
+//! 出招落地 / 到时落地、骑了多久多远）、`E`（出 E、冲了几 tick）、`VAULT`（为什么翻、往哪翻、挪了多远）、`FORM`（画面里换形态），
+//! 都限了条数。
 
 use std::collections::{HashMap, VecDeque};
 use std::fs::OpenOptions;
@@ -38,6 +42,13 @@ pub const VAULT: &str = "league_quinn_e_vault";
 /// 每 tick 挪多远、挪几 tick（build_quinn.P 的 e_back / e_back_t，单元测试核对）。
 pub const E_BACK: f64 = 4000.0;
 pub const E_BACK_T: usize = 12;
+/// 出 E 时副本挂的标记和它的时长（build_quinn.P 的 e_dash_t，单元测试核对）：本包看着这段时间里的冲刺。
+pub const DASH: &str = "league_quinn_e_dash";
+pub const DASH_T: usize = 40;
+/// 一 tick 挪了这么多以上就是在冲（e_speed 4000），冲起来以后少于它就是停下了（踢中）。
+pub const DASH_STEP: f64 = 2000.0;
+/// 出 E 后这么多 tick 都没冲起来（贴身踢，冲刺不到一 tick）也翻。
+pub const STILL_T: usize = 10;
 /// 记最近几 tick 的位置（冲刺前站在哪：E 的冲刺最多 e_range + 40000 / e_speed 4000 = 25 tick）。
 pub const TRAIL: usize = 40;
 /// 离踢中的地方至少这么远的旧位置才算「从那边冲过来」。
@@ -129,6 +140,11 @@ pub fn clamp(p: Pt) -> Pt {
     (p.0.clamp(0.0, MAP - 1.0), p.1.clamp(0.0, MAP - 1.0))
 }
 
+/// 出 E 后第 `ticks` tick、这一 tick 挪了 `step`、之前冲起来过没有（`moved`）：冲刺是不是结束了（该翻了）。
+pub fn dash_over(ticks: usize, moved: bool, step: f64) -> bool {
+    if moved { step < DASH_STEP } else { ticks >= STILL_T }
+}
+
 /// 骑了 `age` tick（骑上那一 tick 是 0）时要不要挂落地信号：只在 R_RIDE_T - END_LEAD 那一 tick。
 pub fn time_to_land(age: usize) -> bool {
     age + END_LEAD == R_RIDE_T
@@ -156,6 +172,8 @@ struct Ride {
     trail: VecDeque<Pt>,
     /// 正在翻回去：方向、还剩几 tick、起点、游戏拒绝挪人的次数。
     vault: Option<(Pt, usize, Pt, usize)>,
+    /// 出 E 的标记在她身上时：看到它几 tick、冲起来过没有、这次 E 翻过没有（标记没了才清掉，一次 E 只翻一次）。
+    dash: Option<(usize, bool, bool)>,
 }
 
 /// 控住她的（翻到一半被控就停）。
@@ -180,17 +198,46 @@ fn nearest_foe(sim: &StableSim<'_>, me: usize, at: Pt) -> Option<Pt> {
 }
 
 impl Ride {
-    /// 旋翔掠杀：副本踢中时挂 VAULT，本包逐 tick 把她往冲过来的方向挪 E_BACK，共 E_BACK_T tick。
+    /// 旋翔掠杀：出 E 的标记 DASH 在时看着她冲，冲刺停下（或踢中的标记 VAULT 来了）就逐 tick 把她往冲过来的方向挪 E_BACK，
+    /// 共 E_BACK_T tick。
     fn vault(&mut self, sim: &mut StableSim<'_>, me: usize, at: Pt) {
-        if has_buff(sim, me, VAULT) && self.vault.is_none() {
+        let step = self.trail.back().map_or(0.0, |p| dist(*p, at));
+        let kicked = has_buff(sim, me, VAULT);
+        if kicked {
             sim.entity_remove_buff(me, VAULT);
+        }
+        let mut why = kicked.then_some("the kick's flag");
+        if has_buff(sim, me, DASH) {
+            let (ticks, moved, done) = self.dash.get_or_insert((0, false, false));
+            if *ticks == 0 {
+                if let Some(k) = counted("e") {
+                    wlog(format!("{} E cast, watching the dash #{k}", head(sim, me)));
+                }
+            }
+            *ticks += 1;
+            *moved |= step >= DASH_STEP;
+            if *done {
+                why = None;
+            } else if why.is_none() && dash_over(*ticks, *moved, step) {
+                why = Some(if *moved { "the dash stopped" } else { "no dash (point blank)" });
+            }
+            if why.is_some() {
+                *done = true;
+                if let Some(k) = counted("e_ticks") {
+                    wlog(format!("{} E {} ticks after the cast, last step {step:.0} #{k}", head(sim, me), *ticks));
+                }
+            }
+        } else {
+            self.dash = None;
+        }
+        if let (Some(why), None) = (why, self.vault) {
             let trail: Vec<Pt> = self.trail.iter().copied().collect();
             match vault_dir(at, &trail, nearest_foe(sim, me, at)) {
                 Some(d) => {
                     self.vault = Some((d, E_BACK_T, at, 0));
                     if let Some(k) = counted("vault") {
                         let came = trail.iter().rev().find(|p| dist(**p, at) >= CAME_MIN).is_some();
-                        wlog(format!("{} VAULT flip back ({:.2}, {:.2}){} #{k}", head(sim, me), d.0, d.1,
+                        wlog(format!("{} VAULT ({why}) flip back ({:.2}, {:.2}){} #{k}", head(sim, me), d.0, d.1,
                                      if came { ", the way she dashed in" } else { ", away from the nearest enemy" }));
                     }
                 }
@@ -242,6 +289,7 @@ impl StablePassive for Ride {
             None => {
                 self.trail.clear();
                 self.vault = None;
+                self.dash = None;
             }
         }
         let riding = alive && has_buff(sim, me, RIDE);
@@ -334,11 +382,23 @@ mod tests {
     }
 
     #[test]
+    fn she_flips_the_tick_her_dash_stops_or_when_there_was_none() {
+        assert!(!dash_over(1, false, 0.0)); // the cast's tick, not moving yet
+        assert!(!dash_over(5, true, 4000.0)); // dashing
+        assert!(dash_over(6, true, 1500.0)); // the last short step onto the target
+        assert!(dash_over(7, true, 0.0)); // standing on it
+        assert!(!dash_over(STILL_T - 1, false, 300.0) && dash_over(STILL_T, false, 300.0)); // point blank: no dash
+        assert!(STILL_T < DASH_T && 100000 / 4000 < DASH_T, "the flag outlasts the longest dash");
+    }
+
+    #[test]
     fn the_vault_numbers_match_the_kit() {
         let src = include_str!("../../../tools/kit/build_quinn.py");
         assert!(src.contains(&format!("\"e_back\": {}", E_BACK as usize)) && src.contains(&format!("\"e_back_t\": {E_BACK_T}")));
+        assert!(src.contains(&format!("\"e_dash_t\": {DASH_T}")));
         let s = include_str!("../override/league_quinn.data_champion");
         assert!(s.contains(&format!("\"{VAULT}\"")), "the copy flags no vault");
+        assert!(s.contains(&format!("\"{DASH}\"")), "the copy flags no cast");
         assert!(!s.contains("\"MoveBack\""), "the copy still has the data's MoveBack");
     }
 

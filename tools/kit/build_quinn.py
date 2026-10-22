@@ -23,7 +23,10 @@ attack, W's active (vision) means nothing here and is left out.
           e_dmg + e_ratio% AD, a e_stun-tick interrupt, e_slow% slow for e_slow_t, the mark; then she flips back off it
           (MoveBack e_back x e_back_t: about her attack range away). The dash ends on the target's own spot, so the
           MoveBack has no direction and moves her 0 units (classic simulation 2026-10-22); the add-on's copy flags
-          `e_vault` instead and league_quinn flips her back the way she came, e_back x e_back_t.
+          `e_vault` instead and league_quinn flips her back the way she came, e_back x e_back_t. The flag in the dash's
+          end_effects never reached the add-on in game (0.2.0: no VAULT line in any match, 「奎因的E后空翻不拉开距离」
+          2026-10-23), so the copy also flags `e_dash` for e_dash_t ticks as she casts (the way r_ride is laid, which the
+          add-on sees) and the add-on flips her back the tick her dash stops.
   ult     R Behind Enemy Lines (深入敌后), `Targeting` on `EnemyChampion` (r_range): she calls Valor down and mounts him
           (r_mount ticks), rides at the target (`MoveToTarget` r_speed, the ride strip held, r_ms% move speed meanwhile)
           and on arrival casts Skystrike (鹰翼天翔): r_dmg + r_ratio% AD to every enemy within r_r, the mark; she jumps off.
@@ -72,6 +75,8 @@ P = {
     # E Vault
     "e_cd": 660, "e_range": 60000, "e_dur": 8, "e_speed": 4000, "e_dmg": 50, "e_ratio": 60, "e_stun": 6,
     "e_slow": 50, "e_slow_t": 90, "e_back": 4000, "e_back_t": 12, "e_flip": 18,
+    # the add-on's copy: how long its cast flag watches the dash ((e_range + 40000) / e_speed = 25 ticks at most)
+    "e_dash_t": 40,
     # R Behind Enemy Lines + Skystrike
     "r_cd": 2400, "r_range": 60000, "r_mount": 30, "r_speed": 3200, "r_ms": 0, "r_r": 30000, "r_dmg": 170,
     "r_ratio": 100, "r_land": 29,
@@ -276,7 +281,7 @@ def build(p):
                      {"type": "MoveToTarget", "speed": p["e_speed"], "range": p["e_range"] + 40000,
                       "end_effects": contact})
     if nat:
-        e_cast = combine(sw("r_ride", skystrike()), e_cast)
+        e_cast = combine(sw("r_ride", skystrike()), refresh("e_dash", p["e_dash_t"]), e_cast)
     skill2 = action("skill2", p["e_dur"], p["e_cd"], 1, p["e_range"], "Targeting", "EnemyWithoutTower",
                     combine(life, e_cast))
 
