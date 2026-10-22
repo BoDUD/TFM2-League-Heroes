@@ -61,9 +61,11 @@ LEG = [(19, 60, 51), (14, 34, 37), (118, 66, 39), (92, 49, 38), (146, 77, 46), (
 INK = (10, 0, 14)
 NAVY = [(19, 34, 78), (17, 42, 67), (12, 15, 38), (26, 54, 136), (37, 85, 166), (31, 70, 109)]   # the coat
 # polygons (readback squares) where everything but the coat's navy is cut, above the hip line too: the runs' old feet
-# kicked up behind (their loafers' gold buckles and the bows' dark teal are no leg colour of the design's)
+# kicked up behind (their loafers' gold buckles and the bows' dark teal are no leg colour of the design's), qw_point's
+# old back thigh reaching out under the coat over the line (left a stick behind the shorter new leg)
 EXTRA = {"run1": [(2, 50), (14, 50), (14, 53), (19, 53), (19, 61), (2, 61)],
-         "run3": [(2, 54), (13, 54), (13, 57), (21, 57), (21, 65), (2, 65)]}
+         "run3": [(2, 54), (13, 54), (13, 57), (21, 57), (21, 65), (2, 65)],
+         "qw_point": [(12, 58), (23, 58), (23, 61), (12, 61)]}
 # polygons never cut: d_stagger's near hand reaching out below the hip line
 KEEP = {"d_stagger": [(3, 53), (17, 53), (17, 61), (3, 61)]}
 LYING = {"d_stagger"}                    # the dropped brush cut with the legs (drawn again on the ground)
