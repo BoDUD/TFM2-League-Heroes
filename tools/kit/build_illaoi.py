@@ -234,14 +234,14 @@ def build(p):
     # ------------------------------------------------------------------ passive: the tentacles
     def strike(champ):
         """One tentacle strike on the zone's target (the lash drawn on it); a champion heals her."""
-        return [attack(p["t_dmg"], p["t_ratio"]), view("lash"), view("p_hit"), tsfx("p_hit"),
+        return [attack(p["t_dmg"], p["t_ratio"]), view("lash"), view("p_slam"), view("p_hit"), tsfx("p_hit"),
                 *([heal(p["p_heal"], p["p_heal_r"]), on_me(buff("p_heal", 36))] if champ else [])]
 
     def tentacle(s):
         """Slot s's tentacle on this spot: its picture, then two zones (champions first) striking one enemy a period;
-        under R a third pair at the faster period runs alongside, both reading the same shot flag."""
+        a second pair at R's faster period strikes instead while `r_on` lasts (the first pair waits it out)."""
         shot = f"t{s}_shot"
-        fire = lambda champ: sw(shot, NONE, combine(flag(shot, 1), *strike(champ)))
+        fire = lambda champ: sw("r_on", NONE, sw(shot, NONE, combine(flag(shot, 1), *strike(champ))))
         fast = lambda champ: sw("r_on", sw(shot, NONE, combine(flag(shot, 1), *strike(champ))))
         out = [view("tentacle"), view("p_spawn"), sfx("p_spawn")]
         if native:
@@ -318,7 +318,7 @@ def build(p):
     B_ = lambda name, anim_=FX, z=2, tag=None: {"type": "Animated", "name": n(name), "anim": anim_, "tag": tag or name,
                                                 "repeat": True, "z": z}
     views_p = [Pj("e_grab")]     # the attack's 1-tick strike (a_hit_mis) has no picture
-    views_e = [E("a_hit"), E("p_hit"), E("p_spawn", BIG, -2, False), E("w_slam", BIG, -2), E("e_break", FX, 3),
+    views_e = [E("a_hit"), E("p_hit"), E("p_spawn", BIG, -2, False), E("p_slam", BIG, -2, False), E("w_slam", BIG, -2), E("e_break", FX, 3),
                E("r_slam", BIG, -2, False), E("r_hit"),
                {"type": "Animation", "name": n("tentacle"), "anim": TENTACLE, "tag": "idle", "z": 1,
                 "is_follow": False},
@@ -329,7 +329,7 @@ def build(p):
     if native:
         extra["passive"] = {"passive_ref": f"{ID}:prophet", "params": {k: int(p[k]) for k in NATIVE_KEYS}}
     return {
-        "id": ID, "category": "Melee", **extra, "tags": ["AD", "Physical", "Melee", "Heal", "CC"],
+        "id": ID, "category": "Melee", **extra, "tags": ["AD", "Melee", "Tank", "Heal", "CC"],
         "sprite": f"asset/league/champions/{ID}", "anim_prefix": "",
         "skill_icons": [f"asset/league/icons/{ID}_skill", f"asset/league/icons/{ID}_skill2", f"asset/league/icons/{ID}_ult"],
         "stat": {"attack": p["atk"], "magic_power": 0, "hp": p["hp"], "defence": p["def"],
