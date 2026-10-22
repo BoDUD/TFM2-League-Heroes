@@ -21,7 +21,7 @@ use mod_api_stable::*;
 
 const ID: &str = "league_ziggs";
 /// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是 league_addons 的。
-const VERSION: &str = "0.1.0";
+const VERSION: &str = "0.1.1";
 
 fn sn(x: &str) -> String {
     format!("league_ziggs_{x}")
@@ -93,7 +93,8 @@ fn head(sim: &StableSim<'_>, id: usize) -> String {
 pub struct Params {
     /// 炸塔的血量线：最大生命的百分比（英雄联盟 25–35%）。
     pub w_ex: u64,
-    /// 炸塔的距离（他和塔中心）。
+    /// 炸塔的距离（他和塔中心；英雄联盟扔 1000 码。原来的 60000 够不着：他站在攻击距离 55000 外打塔，
+    /// 加上两边的半径离塔中心 75000 以上，2026-10-22 两份日志一次都没炸过）。
     pub w_hex_r: u64,
     /// 数据里 W 的冷却（tick）。
     pub w_cd: usize,
@@ -103,7 +104,7 @@ pub struct Params {
 
 impl Default for Params {
     fn default() -> Self {
-        Params { w_ex: 30, w_hex_r: 60000, w_cd: 900, p_tower: 175 }
+        Params { w_ex: 30, w_hex_r: 100000, w_cd: 900, p_tower: 175 }
     }
 }
 
@@ -270,7 +271,7 @@ mod tests {
 
     #[test]
     fn params_from_the_kit() {
-        assert_eq!(parse_params(r#"{"p_tower":175,"w_cd":900,"w_ex":30,"w_hex_r":60000}"#), Params::default());
+        assert_eq!(parse_params(r#"{"p_tower":175,"w_cd":900,"w_ex":30,"w_hex_r":100000}"#), Params::default());
     }
 
     #[test]
@@ -283,8 +284,10 @@ mod tests {
 
     #[test]
     fn reach() {
-        assert!(in_reach(&p(), (100000, 100000), (160000, 100000)));
-        assert!(!in_reach(&p(), (100000, 100000), (160001, 100000)));
+        assert!(in_reach(&p(), (100000, 100000), (200000, 100000)));
+        assert!(!in_reach(&p(), (100000, 100000), (200001, 100000)));
+        // sieging from his attack range: 55000 + both radii (10000 each) from the tower's centre
+        assert!(in_reach(&p(), (100000, 100000), (175000, 100000)));
     }
 
     #[test]
