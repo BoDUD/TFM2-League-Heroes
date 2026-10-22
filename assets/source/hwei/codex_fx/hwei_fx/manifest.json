@@ -1,0 +1,269 @@
+{
+ "effects": [
+  {
+   "name": "a_ink",
+   "file": "hwei_fx_a_ink.png",
+   "frames": 4,
+   "cell_1x": [
+    12,
+    6
+   ],
+   "symmetry": "top-bottom",
+   "source": "gemini g00.jpg"
+  },
+  {
+   "name": "a_hit",
+   "file": "hwei_fx_a_hit.png",
+   "frames": 2,
+   "cell_1x": [
+    10,
+    10
+   ],
+   "symmetry": "left-right",
+   "source": "gemini g01.jpg"
+  },
+  {
+   "name": "p_mark",
+   "file": "hwei_fx_p_mark.png",
+   "frames": 6,
+   "cell_1x": [
+    20,
+    8
+   ],
+   "symmetry": "left-right",
+   "source": "gemini g02.jpg"
+  },
+  {
+   "name": "p_burst",
+   "file": "hwei_fx_p_burst.png",
+   "frames": 7,
+   "cell_1x": [
+    28,
+    28
+   ],
+   "symmetry": "left-right",
+   "source": "gemini g03.jpg"
+  },
+  {
+   "name": "q_q_ball",
+   "file": "hwei_fx_q_q_ball.png",
+   "frames": 4,
+   "cell_1x": [
+    16,
+    8
+   ],
+   "symmetry": "top-bottom",
+   "source": "gemini g04.jpg"
+  },
+  {
+   "name": "q_q_hit",
+   "file": "hwei_fx_q_q_hit.png",
+   "frames": 5,
+   "cell_1x": [
+    20,
+    20
+   ],
+   "symmetry": "left-right",
+   "source": "gemini g05.jpg"
+  },
+  {
+   "name": "q_w_tell",
+   "file": "hwei_fx_q_w_tell.png",
+   "frames": 6,
+   "cell_1x": [
+    16,
+    24
+   ],
+   "symmetry": "left-right",
+   "source": "gemini g06.jpg"
+  },
+  {
+   "name": "q_w_hit",
+   "file": "hwei_fx_q_w_hit.png",
+   "frames": 6,
+   "cell_1x": [
+    24,
+    48
+   ],
+   "symmetry": "left-right",
+   "source": "gemini g07.jpg"
+  },
+  {
+   "name": "q_e_lava",
+   "file": "hwei_fx_q_e_lava.png",
+   "frames": 13,
+   "cell_1x": [
+    44,
+    20
+   ],
+   "symmetry": "left-right",
+   "source": "gemini g08.jpg"
+  },
+  {
+   "name": "slow",
+   "file": "hwei_fx_slow.png",
+   "frames": 4,
+   "cell_1x": [
+    16,
+    8
+   ],
+   "symmetry": "left-right",
+   "source": "gemini g09.jpg"
+  },
+  {
+   "name": "e_q_face",
+   "file": "hwei_fx_e_q_face.png",
+   "frames": 4,
+   "cell_1x": [
+    16,
+    8
+   ],
+   "symmetry": "top-bottom",
+   "source": "gemini g10.jpg"
+  },
+  {
+   "name": "e_q_hit",
+   "file": "hwei_fx_e_q_hit.png",
+   "frames": 6,
+   "cell_1x": [
+    24,
+    24
+   ],
+   "symmetry": "left-right",
+   "source": "gemini g11.jpg"
+  },
+  {
+   "name": "e_w_open",
+   "file": "hwei_fx_e_w_open.png",
+   "frames": 8,
+   "cell_1x": [
+    20,
+    14
+   ],
+   "symmetry": "left-right",
+   "source": "gemini g12.jpg"
+  },
+  {
+   "name": "e_w_hit",
+   "file": "hwei_fx_e_w_hit.png",
+   "frames": 5,
+   "cell_1x": [
+    26,
+    48
+   ],
+   "symmetry": "left-right",
+   "source": "gemini g13.jpg"
+  },
+  {
+   "name": "e_bound",
+   "file": "hwei_fx_e_bound.png",
+   "frames": 4,
+   "cell_1x": [
+    16,
+    16
+   ],
+   "symmetry": "left-right",
+   "source": "gemini g14.jpg"
+  },
+  {
+   "name": "e_e_open",
+   "file": "hwei_fx_e_e_open.png",
+   "frames": 6,
+   "cell_1x": [
+    28,
+    24
+   ],
+   "symmetry": "left-right",
+   "source": "gemini g15.jpg"
+  },
+  {
+   "name": "e_e_hit",
+   "file": "hwei_fx_e_e_hit.png",
+   "frames": 5,
+   "cell_1x": [
+    28,
+    24
+   ],
+   "symmetry": "left-right",
+   "source": "gemini g16.jpg"
+  },
+  {
+   "name": "w_pool",
+   "file": "hwei_fx_w_pool.png",
+   "frames": 6,
+   "cell_1x": [
+    40,
+    16
+   ],
+   "symmetry": "left-right",
+   "source": "gemini g17.jpg"
+  },
+  {
+   "name": "w_shield",
+   "file": "hwei_fx_w_shield.png",
+   "frames": 5,
+   "cell_1x": [
+    22,
+    40
+   ],
+   "symmetry": "left-right",
+   "source": "gemini g18.jpg"
+  },
+  {
+   "name": "w_haste",
+   "file": "hwei_fx_w_haste.png",
+   "frames": 6,
+   "cell_1x": [
+    24,
+    8
+   ],
+   "symmetry": "left-right",
+   "source": "gemini g19.jpg"
+  },
+  {
+   "name": "r_burst",
+   "file": "hwei_fx_r_burst.png",
+   "frames": 6,
+   "cell_1x": [
+    56,
+    44
+   ],
+   "symmetry": "left-right",
+   "source": "gemini g20.jpg"
+  },
+  {
+   "name": "r_hit",
+   "file": "hwei_fx_r_hit.png",
+   "frames": 4,
+   "cell_1x": [
+    14,
+    14
+   ],
+   "symmetry": "left-right",
+   "source": "gemini g21.jpg"
+  },
+  {
+   "name": "r_paint",
+   "file": "hwei_fx_r_paint.png",
+   "frames": 4,
+   "cell_1x": [
+    20,
+    10
+   ],
+   "symmetry": "top-bottom",
+   "source": "drawn by tools/art/process_hwei_fx.py (Gemini left it out)"
+  },
+  {
+   "name": "r_canvas",
+   "file": "hwei_fx_r_canvas.png",
+   "frames": 14,
+   "cell_1x": [
+    56,
+    22
+   ],
+   "symmetry": "left-right",
+   "source": "drawn by tools/art/process_hwei_fx.py (Gemini left it out)"
+  }
+ ],
+ "made_by": "Gemini (the user's images; r_paint and r_canvas drawn here), processed by tools/art/process_hwei_fx.py"
+}
