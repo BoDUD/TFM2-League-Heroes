@@ -208,6 +208,10 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // (the design's head put back, the bodies brought to the design's size) at the user's 1.39 squares a game pixel (its
     // own squares: 50 game rows head top to soles = 36 game px, the tank above; 3/4 only), so no SIZES row
     ("league_singed", 1.39, include_str!("../../../league/champions/league_singed#anim.fanim")),
+    // Bel'Veth: posed by tools/art/rig_belveth.py on Codex's step-1 take A-1 cut to 82 rows and its key poses after
+    // League's clips (the design's head put back, the bodies brought to the design's size) at the user's 1.75 squares a
+    // game pixel (71 game rows head top to claws = 40 game px, the shoulder spikes above; 3/4 only), so no SIZES row
+    ("league_belveth", 1.75, include_str!("../../../league/champions/league_belveth#anim.fanim")),
     // Neeko: posed by tools/art/rig_neeko.py on Codex's step-1 take A-1 and its key poses at the user's 2.5 squares a
     // game pixel (100 game rows quill tips to soles: 「40」, then 「1.5也挺糊的 还得往上调整吧」; 3/4 only; league_neeko's
     // view hook draws her as an ally while she is disguised), so no SIZES row
@@ -466,6 +470,9 @@ pub const UI_SIZES: &[(&str, f32)] = &[
     // Singed: 45 game px from the tank's cap to his soles at PPU 1.39, the idle reel's raised flask higher; UI size and
     // card value set with bp_card_audit.py (the tank under the canvas top, the soles on its bottom)
     ("league_singed", 0.80),
+    // Bel'Veth: 47 game px from her shoulder spikes to her claws at PPU 1.75 (the raised wings of the reel higher); UI
+    // size and card value set with bp_card_audit.py
+    ("league_belveth", 0.82),
 ];
 
 /// The `"lo_..."` animation names of a .fanim.

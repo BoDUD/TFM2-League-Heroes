@@ -1127,6 +1127,13 @@
         "skill": "抓住目标从肩膀上扔到身后，造成<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>魔法伤害和<#e0e0e0ff>最大生命5%<>真实伤害；地上有<#ff9028ff>强力粘胶<>时，被扔的敌人<#ef5350ff>禁锢<><#ffb900ff>1秒<>。",
         "skill2": "扔出一瓶粘胶，地上留下<#ffb900ff>3秒<>的一摊胶，里面的敌人<#ef5350ff>减速<>50%并<#ef5350ff>无法位移<>。",
         "ult": "喝下药剂，<#ffb900ff>25秒<>内法强+60、双抗+30、移速+15%、每秒<#66bb6aff>回复12<>生命；<#ff9028ff>剧毒踪迹<>更大、伤害150%并附带<#ef5350ff>重伤<>（治疗-40%）。"
+      },
+      "league_belveth": {
+        "name": "卑尔维斯",
+        "attack": "用翼刃劈砍，出手很快。<#ff9028ff>溶烛化紫<>：每放一个技能攻速+50%（<#ffb900ff>4秒<>）；参与击杀敌方英雄后永久攻速+6%（最多<#ffb900ff>8层<>）。",
+        "skill": "朝目标突进并穿过去，对途经的所有敌人造成<#ff9028ff>65<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>125%<>物理伤害。",
+        "skill2": "甩尾砸地，冲击沿直线向前，造成<#ff9028ff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>115%<>物理伤害，<#ef5350ff>击飞<><#ffb900ff>0.83秒<>并<#ef5350ff>减速<>40%（<#ffb900ff>1.5秒<>）。",
+        "ult": "吞下珊瑚爆开：周围敌人受<#ff9028ff>130<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>物理伤害并<#ef5350ff>减速<>40%；化为真身<#ffb900ff>15秒<>：生命+20%、攻击距离增加、攻速+40%、移速+15%。真身被围攻时化为<#ff9028ff>搠面皇锋<>：原地<#ffb900ff>1.5秒<>减伤50%、<#66bb6aff>吸血30%<>。"
       }
     },
     "skill_name": {
@@ -1934,6 +1941,11 @@
         "skill1": "过肩摔",
         "skill2": "强力粘胶",
         "ult": "疯狂药剂"
+      },
+      "league_belveth": {
+        "skill1": "虚空激流",
+        "skill2": "上觐沉渊",
+        "ult": "万载豪筵"
       }
     }
   },
@@ -3065,6 +3077,13 @@
         "skill": "抓住目標從肩膀上扔到身後，造成<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>魔法傷害和<#e0e0e0ff>最大生命5%<>真實傷害；地上有<#ff9028ff>強力粘膠<>時，被扔的敵人<#ef5350ff>禁錮<><#ffb900ff>1秒<>。",
         "skill2": "扔出一瓶粘膠，地上留下<#ffb900ff>3秒<>的一灘膠，裡面的敵人<#ef5350ff>緩速<>50%並<#ef5350ff>無法位移<>。",
         "ult": "喝下藥劑，<#ffb900ff>25秒<>內魔攻+60、雙抗+30、移速+15%、每秒<#66bb6aff>回復12<>生命；<#ff9028ff>劇毒蹤跡<>更大、傷害150%並附帶<#ef5350ff>重傷<>（治療-40%）。"
+      },
+      "league_belveth": {
+        "name": "貝爾薇斯",
+        "attack": "用翼刃劈砍，出手很快。<#ff9028ff>魂斷紫海<>：每施放一個技能攻速+50%（<#ffb900ff>4秒<>）；參與擊殺敵方英雄後永久攻速+6%（最多<#ffb900ff>8層<>）。",
+        "skill": "朝目標突進並穿過去，對途經的所有敵人造成<#ff9028ff>65<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>125%<>物理傷害。",
+        "skill2": "甩尾砸地，衝擊沿直線向前，造成<#ff9028ff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>115%<>物理傷害，<#ef5350ff>擊飛<><#ffb900ff>0.83秒<>並<#ef5350ff>緩速<>40%（<#ffb900ff>1.5秒<>）。",
+        "ult": "吞下珊瑚爆開：周圍敵人受<#ff9028ff>130<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>物理傷害並<#ef5350ff>緩速<>40%；化為真身<#ffb900ff>15秒<>：生命+20%、攻擊距離增加、攻速+40%、移速+15%。真身被圍攻時化為<#ff9028ff>女皇風暴<>：原地<#ffb900ff>1.5秒<>減傷50%、<#66bb6aff>吸血30%<>。"
       }
     },
     "skill_name": {
@@ -3872,6 +3891,11 @@
         "skill1": "過肩摔",
         "skill2": "強力粘膠",
         "ult": "瘋狂藥劑"
+      },
+      "league_belveth": {
+        "skill1": "虛空強襲",
+        "skill2": "尾棘鞭笞",
+        "ult": "無盡盛宴"
       }
     }
   },
@@ -5003,6 +5027,13 @@
         "skill": "Flings the target over his shoulder to behind him: <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> magic damage and <#e0e0e0ff>5% of its max health<> true damage. While his <#ff9028ff>Mega Adhesive<> lies on the ground, the target is <#ef5350ff>rooted<> for <#ffb900ff>1s<>.",
         "skill2": "Throws a vial of glue: for <#ffb900ff>3s<> enemies in it are <#ef5350ff>slowed<> 50% and <#ef5350ff>grounded<> (no dashes).",
         "ult": "Drinks the potion: for <#ffb900ff>25s<> +60 ability power, +30 armor and magic resistance, +15% move speed and <#66bb6aff>12 health<> a second; <#ff9028ff>Poison Trail<> grows, deals 150% and inflicts <#ef5350ff>Grievous Wounds<> (-40% healing)."
+      },
+      "league_belveth": {
+        "name": "Bel'Veth",
+        "attack": "Fast slashes of her wing-blades. <#ff9028ff>Death in Lavender<>: every spell gives 50% attack speed for <#ffb900ff>4s<>; each enemy champion takedown adds 6% attack speed for good (up to <#ffb900ff>8 stacks<>).",
+        "skill": "Dashes at the target and through it, dealing <#ff9028ff>65<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>125%<> physical damage to every enemy she passes.",
+        "skill2": "Slams her tail: a shockwave runs along a line, dealing <#ff9028ff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>115%<> physical damage, <#ef5350ff>knocking up<> for <#ffb900ff>0.83s<> and <#ef5350ff>slowing<> 40% for <#ffb900ff>1.5s<>.",
+        "ult": "Eats the void coral: it bursts round her for <#ff9028ff>130<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> physical damage and a 40% <#ef5350ff>slow<>; she takes her true form for <#ffb900ff>15s<>: +20% health, more attack range, +40% attack speed, +15% move speed. Beset in the true form she becomes <#ff9028ff>Royal Maelstrom<>: rooted for <#ffb900ff>1.5s<>, 50% less damage taken and <#66bb6aff>30% life steal<>."
       }
     },
     "skill_name": {
@@ -5810,6 +5841,11 @@
         "skill1": "Fling",
         "skill2": "Mega Adhesive",
         "ult": "Insanity Potion"
+      },
+      "league_belveth": {
+        "skill1": "Void Surge",
+        "skill2": "Above and Below",
+        "ult": "Endless Banquet"
       }
     }
   },
@@ -6941,6 +6977,13 @@
         "skill": "대상을 어깨 너머 뒤로 내던져 <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> 마법 피해와 <#e0e0e0ff>최대 체력의 5%<> 고정 피해. <#ff9028ff>초강력 접착제<>가 바닥에 있으면 대상을 <#ffb900ff>1초<> <#ef5350ff>속박<>.",
         "skill2": "접착제 병을 던짐: <#ffb900ff>3초<> 동안 안의 적은 50% <#ef5350ff>둔화<>되고 <#ef5350ff>이동기 사용 불가<>.",
         "ult": "물약을 마심: <#ffb900ff>25초<> 동안 주문력 +60, 방어력·마법 저항력 +30, 이동 속도 +15%, 초당 <#66bb6aff>체력 12 회복<>; <#ff9028ff>맹독의 자취<>가 커지고 피해 150%에 <#ef5350ff>치유 감소<>(-40%)."
+      },
+      "league_belveth": {
+        "name": "벨베스",
+        "attack": "날개 칼날로 빠르게 벤다. <#ff9028ff>연보랏빛 죽음<>: 스킬을 쓸 때마다 <#ffb900ff>4초<> 동안 공격 속도 +50%; 적 챔피언 처치 관여 시 공격 속도 영구 +6%(최대 <#ffb900ff>8중첩<>).",
+        "skill": "대상에게 돌진해 꿰뚫고 지나가며 지나친 모든 적에게 <#ff9028ff>65<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>125%<> 물리 피해.",
+        "skill2": "꼬리로 내려쳐 직선으로 충격파를 보냄: <#ff9028ff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>115%<> 물리 피해, <#ffb900ff>0.83초<> <#ef5350ff>에어본<>, <#ffb900ff>1.5초<> 동안 40% <#ef5350ff>둔화<>.",
+        "ult": "공허 산호를 삼켜 터뜨림: 주변 적에게 <#ff9028ff>130<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> 물리 피해와 40% <#ef5350ff>둔화<>; <#ffb900ff>15초<> 동안 진정한 모습: 체력 +20%, 사거리 증가, 공격 속도 +40%, 이동 속도 +15%. 진정한 모습에서 포위되면 <#ff9028ff>여제의 소용돌이<>: <#ffb900ff>1.5초<> 동안 제자리에서 받는 피해 50% 감소, <#66bb6aff>생명력 흡수 30%<>."
       }
     },
     "skill_name": {
@@ -7748,6 +7791,11 @@
         "skill1": "던져넘기기",
         "skill2": "초강력 접착제",
         "ult": "광기의 물약"
+      },
+      "league_belveth": {
+        "skill1": "공허 쇄도",
+        "skill2": "위와 아래",
+        "ult": "끝없는 연회"
       }
     }
   },
@@ -8879,6 +8927,13 @@
         "skill": "対象を肩越しに背後へ投げ、<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>の魔法ダメージと<#e0e0e0ff>最大体力の5%<>の確定ダメージ。<#ff9028ff>強力粘着剤<>が地面にあるとき対象を<#ffb900ff>1秒<><#ef5350ff>スネア<>。",
         "skill2": "粘着剤の瓶を投げる：<#ffb900ff>3秒<>間、中の敵を50%<#ef5350ff>スロウ<>し<#ef5350ff>移動スキル封じ<>。",
         "ult": "ポーションを飲み、<#ffb900ff>25秒<>間魔力+60、物防・魔防+30、移動速度+15%、毎秒<#66bb6aff>体力12回復<>。<#ff9028ff>毒の軌跡<>が広がり150%のダメージと<#ef5350ff>重傷<>（回復-40%）。"
+      },
+      "league_belveth": {
+        "name": "ベル＝ヴェス",
+        "attack": "翼の刃で素早く斬る。<#ff9028ff>死のラベンダー<>：スキルを使うたび<#ffb900ff>4秒<>攻撃速度+50%；敵チャンピオンのキル/アシストで攻撃速度が永続+6%（最大<#ffb900ff>8スタック<>）。",
+        "skill": "対象へ突進して貫き、通過したすべての敵に<#ff9028ff>65<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>125%<>の物理ダメージ。",
+        "skill2": "尾を叩きつけ衝撃波を直線に放つ：<#ff9028ff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>115%<>の物理ダメージ、<#ffb900ff>0.83秒<><#ef5350ff>ノックアップ<>、<#ffb900ff>1.5秒<>40%<#ef5350ff>スロウ<>。",
+        "ult": "ヴォイドコーラルを喰らい炸裂：周囲の敵に<#ff9028ff>130<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>の物理ダメージと40%<#ef5350ff>スロウ<>。<#ffb900ff>15秒<>真の姿：体力+20%、射程増加、攻撃速度+40%、移動速度+15%。真の姿で囲まれると<#ff9028ff>ロイヤルストーム<>：<#ffb900ff>1.5秒<>その場で被ダメージ-50%、<#66bb6aff>ライフスティール30%<>。"
       }
     },
     "skill_name": {
@@ -9686,6 +9741,11 @@
         "skill1": "すくい投げ",
         "skill2": "強力粘着剤",
         "ult": "狂人のポーション"
+      },
+      "league_belveth": {
+        "skill1": "ヴォイドサージ",
+        "skill2": "天と地",
+        "ult": "終わりなき晩餐"
       }
     }
   }
