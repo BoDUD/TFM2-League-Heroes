@@ -192,6 +192,18 @@ def read(name, match):
         core = keep & ~is_in(HAIR) & ~is_in(INK)
         edge = keep & is_in(INK) & ndimage.binary_dilation(core)
         keep = core | edge
+        # never over the face: the design's own skin, eyes and mouth squares (inside POLY, below the ornament) and the
+        # outline round them stay
+        hm = head_mask(d)
+        hm[:16] = False
+        face = hm.copy()
+        for c in HAIR:
+            face &= ~((d[..., 0] == c[0]) & (d[..., 1] == c[1]) & (d[..., 2] == c[2]))
+        face = ndimage.binary_dilation(face) & hm
+        fy, fx = np.nonzero(face)
+        fy, fx = fy - r0 + cj, fx - c0 + ci
+        ok = (fy >= 0) & (fy < keep.shape[0]) & (fx >= 0) & (fx < keep.shape[1])
+        keep[fy[ok], fx[ok]] = False
     kept = fig.copy()
     big_ = np.pad(fig, ((pad, pad), (pad, pad), (0, 0)))
     if not ang:                                        # a tipped head keeps Codex's own (the design's is upright)
