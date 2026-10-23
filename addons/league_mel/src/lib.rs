@@ -30,7 +30,7 @@ pub mod combo;
 
 const ID: &str = "league_mel";
 /// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是 league_addons 的。
-const VERSION: &str = "0.1.2";
+const VERSION: &str = "0.1.3";
 
 /// 同一个人的弹体隔多久才再反弹一次（一个弹体从进圈到打中只有几 tick；读不到弹体的编号）。
 pub const REFLECT_GAP: usize = 20;

@@ -154,6 +154,9 @@ def main():
         anc = anchor(cs, kind)
         out = [(J.place(cs[k], anc, spots), ms) for k, ms in frames]
         tables["league_illaoi_big" if tag in BIG else "league_illaoi_fx"][tag] = out
+    # the spirit's tether, drawn here (tools/art/fx_illaoi_tether.py: 「拉灵魂没有特效 完全看不出」)
+    import fx_illaoi_tether
+    tables["league_illaoi_fx"].update(fx_illaoi_tether.frames())
     for sheet, tags in tables.items():
         w, h = G.write_sheet(lp(os.path.join(MOD, "effects", sheet)), tags, share=True)
         print(f"league/effects/{sheet}#sheet.png {w}x{h}: " + ", ".join(
