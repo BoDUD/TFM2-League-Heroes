@@ -4,10 +4,10 @@ load).
 
     python tools/art/preview_jinx.py [--out docs/preview]
 
-  league_jinx_frames.png    every animation, frame by frame, 3x on the arena colour
+  league_jinx_frames.png    every animation's dense frames (hd_, PPU 2.2, as league.dll shows them)
   league_jinx_effects.png   every effect animation, 3x
   league_jinx_showcase.gif  a scripted fight against Darius and Garen, timed like the kit: Pow-Pow's
-                            bullets and Zap! (its charge at the muzzle) bring Darius down, the kill
+                            bullets and Zap! (its charge drawn into her frames) bring Darius down, the kill
                             sets off Get Excited!, the Super Mega Death Rocket blows up on Garen far
                             off, he charges in onto the Flame Chompers (they land, arm and bite), and
                             Fishbones fires at him, out of the minigun's reach, 3x
@@ -21,6 +21,7 @@ from PIL import Image
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 from preview_ashe import Anim, tick  # noqa: E402
+from preview_dense import dense, dense_rows, put  # noqa: E402
 from preview_garen import ARENA, T, contact, frames_of, load  # noqa: E402
 from preview_leesin import Foe  # noqa: E402
 
@@ -28,6 +29,9 @@ ROOT = os.path.dirname(os.path.dirname(HERE))
 LEAGUE = os.path.join(ROOT, "league")
 CHAMP = os.path.join(LEAGUE, "champions", "league_jinx")
 FX = {n: os.path.join(LEAGUE, "effects", n) for n in ("league_jinx_fx", "league_jinx_big")}
+# (ahead, up) px of her pivot where each shot shows: the PPU redo's muzzles (rig_jinx_hd.py) at the kit's heights
+# (y_offset 5000 / -3000 / default / -6000)
+SHOT = {"bullets": (19, 0), "rocket": (12, 8), "zap": (8, 5), "r_rocket": (10, 11)}
 
 
 class Arc(Anim):
@@ -95,7 +99,7 @@ def showcase(out, z=3, step=40):
 
     def a(tag, dur=None, loop=False, at=None, to=None):
         nonlocal t
-        an = Anim(frames_of(jinx, tag), t, at if at is not None else x, gy, loop=loop,
+        an = Anim(dense(jinx, tag, "jinx", z), t, at if at is not None else x, gy, loop=loop,
                   until=(t + dur) if dur else None, x1=to)
         body.append(an)
         t = an.until
@@ -106,8 +110,10 @@ def showcase(out, z=3, step=40):
         (under if ground else over).append(an)
         return an
 
-    def fly(tag, at, x0, y0, foe, speed, sprite="league_jinx_fx", x1=None):
-        """A projectile from (x0, y0) to the foe's pivot at `speed` px a tick; its arrival time."""
+    def fly(tag, at, foe, speed, sprite="league_jinx_fx", x1=None):
+        """A projectile from her muzzle (SHOT) to the foe's pivot at `speed` px a tick; its arrival time."""
+        ahead, up = SHOT[tag]
+        x0, y0 = x + ahead, gy - up
         fx1, fy1 = (foe.x if x1 is None else x1), foe.y - 1
         arrive = at + tick(abs(fx1 - x0) / speed)
         fx_at(sprite, tag, at, x0, y0, until=arrive, x1=fx1, y1=fy1)
@@ -118,7 +124,7 @@ def showcase(out, z=3, step=40):
         hit = None
         for gap in gaps:
             start = t
-            hit = fly("bullets", start + tick(7), x + 8, gy - 2, d, 4.5)
+            hit = fly("bullets", start + tick(7), d, 4.5)
             fx_at("league_jinx_fx", "minigun_hit", hit, d.x, d.y)
             d.flinches.append(hit)
             a("attack")
@@ -129,10 +135,10 @@ def showcase(out, z=3, step=40):
 
     a("idle", 400, loop=True)
     bursts((260, 200, 150))
-    # Zap!: the charge at her muzzle for 0.4 s, the bolt on tick 23 at 3.3 px a tick, the target slowed
+    # Zap!: the charge at her muzzle for 0.4 s (drawn into her frames: jinx_bake.json, rig_jinx_hd FX_AT), the bolt
+    # on tick 23 at 3.3 px a tick, the target slowed
     start = t
-    fx_at("league_jinx_fx", "w_charge", start, x, gy)
-    hit = fly("zap", start + tick(23), x + 13, gy - 8, d, 3.3)
+    hit = fly("zap", start + tick(23), d, 3.3)
     fx_at("league_jinx_fx", "zap_hit", hit, d.x, d.y)
     d.flinches.append(hit)
     a("skill")
@@ -142,7 +148,7 @@ def showcase(out, z=3, step=40):
     over.append(Follow(frames_of(fx["league_jinx_fx"], "excited"), kill + tick(4), x, gy, on=body))
     # Super Mega Death Rocket! at Garen, far off: fired on tick 17 at 4.5 px a tick, a 62 px blast
     start = t
-    boom = fly("r_rocket", start + tick(17), x + 6, gy - 10, g, 4.5, sprite="league_jinx_big")
+    boom = fly("r_rocket", start + tick(17), g, 4.5, sprite="league_jinx_big")
     fx_at("league_jinx_big", "r_blast", boom, g.x, g.y)
     g.flinches.append(boom + 60)
     a("ult")
@@ -176,7 +182,7 @@ def showcase(out, z=3, step=40):
     x = to
     for gap in (120, 400):
         start = t
-        hit = fly("rocket", start + tick(11), x + 10, gy - 7, g, 4.5, x1=tx)
+        hit = fly("rocket", start + tick(11), g, 4.5, x1=tx)
         fx_at("league_jinx_fx", "rocket_hit", hit, tx, g.y)
         g.flinches.append(hit)
         a("rocket")
@@ -185,12 +191,12 @@ def showcase(out, z=3, step=40):
     end = t
 
     def place(img, f, px, py):
-        img.alpha_composite(f, (px - f.width // 2, py - f.height // 2))
+        put(img, f, int(px), int(py), z)
 
     frames, tt = [], 0.0
     order = sorted(foes.values(), key=lambda f: f.y)   # the one further back first
     while tt < end:
-        img = Image.new("RGBA", (W, H), ARENA)
+        img = Image.new("RGBA", (W * z, H * z), ARENA)
         for an in under:
             f = an.frame(tt)
             if f is not None:
@@ -206,7 +212,7 @@ def showcase(out, z=3, step=40):
             f = an.frame(tt)
             if f is not None:
                 place(img, f, *an.pos(tt))
-        frames.append(img.resize((W * z, H * z), Image.NEAREST).convert("RGB"))
+        frames.append(img.convert("RGB"))
         tt += step
     sample = frames[::6]                              # one palette for the whole clip
     strip = Image.new("RGB", (W * z, H * z * len(sample)))
@@ -221,16 +227,20 @@ def showcase(out, z=3, step=40):
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--out", default=os.path.join(ROOT, "docs", "preview"))
+    ap.add_argument("--only", choices=["frames", "effects", "showcase"])
     args = ap.parse_args()
     os.makedirs(T.long_path(args.out), exist_ok=True)
-    s = load(CHAMP)
-    print("frames", contact([(s, t["name"], t["name"]) for t in s.tags], os.path.join(args.out, "league_jinx_frames.png")))
-    rows = []
-    for name, path in FX.items():
-        sp = load(path)
-        rows += [(sp, t["name"], f"{name[12:]}:{t['name']}") for t in sp.tags]
-    print("effects", contact(rows, os.path.join(args.out, "league_jinx_effects.png")))
-    print("showcase frames/seconds", showcase(os.path.join(args.out, "league_jinx_showcase.gif")))
+    if args.only in (None, "frames"):
+        s = load(CHAMP)
+        print("frames", contact(dense_rows(s), os.path.join(args.out, "league_jinx_frames.png"), z=1))
+    if args.only in (None, "effects"):
+        rows = []
+        for name, path in FX.items():
+            sp = load(path)
+            rows += [(sp, t["name"], f"{name[12:]}:{t['name']}") for t in sp.tags]
+        print("effects", contact(rows, os.path.join(args.out, "league_jinx_effects.png")))
+    if args.only in (None, "showcase"):
+        print("showcase frames/seconds", showcase(os.path.join(args.out, "league_jinx_showcase.gif")))
 
 
 if __name__ == "__main__":

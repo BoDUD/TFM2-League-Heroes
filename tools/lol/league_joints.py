@@ -104,6 +104,11 @@ JOINTS = {
                            l_wing_low="L_Wing_Main_3_Lower", l_wing_tip="L_Wing_Tip", r_wing="R_Wing_Main_1",
                            r_wing_mid="R_Wing_Main_2_Upper", r_wing_low="R_Wing_Main_3_Lower", r_wing_tip="R_Wing_Tip",
                            tail1="Tail1", tail2="Tail2", tail3="Tail3", tail4="Tail4", tail5="Tail5"),
+    # Pow-Pow in her hands (Minigun), Fishbones on her back (Rocket_Launcher, its mouth's end Rocket_Launcher_Front)
+    "jinx": dict(pelvis="Pelvis", chest="Spine3", head="Head", l_hip="L_Hip", l_knee="L_KneeLower", l_foot="L_Foot",
+                 r_hip="R_Hip", r_knee="R_KneeLower", r_foot="R_Foot", l_shoulder="L_Shoulder", l_elbow="L_Elbow",
+                 l_hand="L_Hand", r_shoulder="R_Shoulder", r_elbow="R_Elbow", r_hand="R_Hand", weapon="Minigun",
+                 rocket="Rocket_Launcher", rocket_front="Rocket_Launcher_Front", l_toe="L_Toe", r_toe="R_Toe"),
     "mel": dict(pelvis="Pelvis", chest="Chest", head="Head", l_hip="L_Hip", l_knee="L_KneeLower", l_foot="L_Foot",
                 r_hip="R_Hip", r_knee="R_KneeLower", r_foot="R_Foot", l_shoulder="L_Shoulder", l_elbow="L_Elbow",
                 l_hand="L_Hand", r_shoulder="R_Shoulder", r_elbow="R_Elbow", r_hand="R_Hand", l_sleeve="L_Sleeve1",
