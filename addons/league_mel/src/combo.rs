@@ -7,7 +7,9 @@
 //! 3. **残影 → R**：鎏金蚀日打所有带残影的敌方英雄，伤害按层数算，所以 R 要等残影叠起来：
 //!    - **R KILL**：有一名敌方英雄身上的残影（本包的 `m_mark` 层数 × (`r_st` + `r_ratio`% 法强)）够打掉他的生命 + 护盾：按 R；
 //!    - **R MANY**：两名以上敌方英雄的残影都够打掉他们 `MANY_SHARE` 的生命：按 R；
-//!    - **R HELD**：AI 自己想按 R，但两样都不够：不放，改成普攻它的目标（打不到就走过去），残影接着叠。
+//!    - **R HELD**：AI 自己想按 R，但两样都不够：不放，改成普攻它的目标（打不到就走过去），残影接着叠。0.1.3（用户
+//!      2026-10-23：「梅尔有时候会直接放大」）：R 的距离（`r_range`）比普攻长，目标在普攻够不着的地方时那下普攻不合法，
+//!      0.1.2 就什么都不改、AI 的 R 照样放了出去；现在够不着就走向他，没有目标就原地站着（`held_input`），R 一律不放。
 //!    R 的施放要点一名 `r_range` 内的敌方英雄（伤害是全图的，点谁都一样），选离她最近的。
 //!
 //! 被控住、正在放技能（施法动作 `Animation`）或被强制位移时什么都不做；格子的冷却自己看（引擎的「输入合法」不看冷却）。
@@ -102,6 +104,21 @@ fn r_target(me: &Me, foes: &[Unit], p: &Params) -> Option<usize> {
         .filter(|u| u.champion && within(me, u, p.r_range))
         .min_by(|a, b| dist(me.at, a.at).total_cmp(&dist(me.at, b.at)))
         .map(|u| u.id)
+}
+
+/// R HELD 时代替 AI 的 R 的那一步：能打就普攻目标，打不到就走到目标那里，没有目标（或看不见）就站在原地。
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum Held {
+    Attack(usize),
+    Walk(u64, u64),
+}
+
+pub fn held_input(target: Option<usize>, attack_ok: bool, target_at: Option<(u64, u64)>, me: (u64, u64)) -> Held {
+    match (target, attack_ok, target_at) {
+        (Some(t), true, _) => Held::Attack(t),
+        (_, _, Some(p)) => Held::Walk(p.0, p.1),
+        _ => Held::Walk(me.0, me.1),
+    }
 }
 
 pub fn call(me: &Me, foes: &[Unit], p: &Params, want: Want) -> Option<Call> {
@@ -234,7 +251,7 @@ impl StablePlayerAi for Combo {
             return None;
         }
         let player = ctx.player_id();
-        let (call, line, tick, stacks) = {
+        let (call, line, tick, stacks, spots) = {
             let sim = ctx.sim()?;
             let me = sim.get_player(player)?.champion()?.id();
             let (m, foes) = read(&sim, me)?;
@@ -247,7 +264,10 @@ impl StablePlayerAi for Combo {
             let stacks: Vec<String> = foes.iter().filter(|u| u.champion && u.stacks > 0)
                 .map(|u| format!("{} {}x (hp {})", who(&sim, u.id), u.stacks, u.hp)).collect();
             let on = t.map_or_else(|| "-".to_string(), |t| who(&sim, t));
-            (c, format!("{} [hp {:.0}%] on {on}", head(&sim, me), m.hp * 100.0), sim.tick(), stacks.join(", "))
+            // where a held R's target and she stand (a walk toward it when the attack cannot reach)
+            let at = |p: Pt| (p.0.max(0.0) as u64, p.1.max(0.0) as u64);
+            let spots = (t.and_then(|t| foes.iter().find(|u| u.id == t)).map(|u| at(u.at)), at(m.at));
+            (c, format!("{} [hp {:.0}%] on {on}", head(&sim, me), m.hp * 100.0), sim.tick(), stacks.join(", "), spots)
         };
         let (slot, t, kind_log, why) = match call {
             Call::PressQ(t, k, w) => (InputKindV1::Skill, t, k, w),
@@ -260,9 +280,12 @@ impl StablePlayerAi for Combo {
                         wlog(format!("{line} R HELD: the stacks are not worth it yet [{stacks}] - attacking instead #{n}"));
                     }
                 }
-                let t = t?;
-                let attack = InputV1::action(InputKindV1::Attack, InputTargetV1::target(t));
-                return ctx.is_valid_input(&attack).then_some(attack);
+                // never let the AI's R through: attack, else walk to him, else stand
+                let attack_ok = t.is_some_and(|t| ctx.is_valid_input(&InputV1::action(InputKindV1::Attack, InputTargetV1::target(t))));
+                return Some(match held_input(t, attack_ok, spots.0, spots.1) {
+                    Held::Attack(t) => InputV1::action(InputKindV1::Attack, InputTargetV1::target(t)),
+                    Held::Walk(x, y) => InputV1::move_to(x, y),
+                });
             }
         };
         let input = InputV1::action(slot, InputTargetV1::target(t));
@@ -321,6 +344,15 @@ mod tests {
         // nobody in R's range: nothing to point at, the AI goes on
         let none = [champ(1, 300_000.0, 100, 10)];
         assert_eq!(call(&me(), &none, &p, Want::Move), None);
+    }
+
+    #[test]
+    fn a_held_r_never_goes_out() {
+        // 「梅尔有时候会直接放大」: the target out of her attack's reach used to let the AI's R through
+        assert_eq!(held_input(Some(3), true, Some((500, 600)), (100, 100)), Held::Attack(3));
+        assert_eq!(held_input(Some(3), false, Some((500, 600)), (100, 100)), Held::Walk(500, 600));
+        assert_eq!(held_input(Some(3), false, None, (100, 100)), Held::Walk(100, 100));
+        assert_eq!(held_input(None, false, None, (100, 100)), Held::Walk(100, 100));
     }
 
     #[test]
