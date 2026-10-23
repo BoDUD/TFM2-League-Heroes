@@ -168,7 +168,8 @@ class Daisy:
     def __init__(self):
         self.d = load("daisy.png")
         h, w = self.d.shape[:2]
-        self.W, self.H = w + 120, h + 90
+        # wide enough for her step aside (DAISY_SIDE) on either side of the pivot, so no column of her is cut off
+        self.W, self.H = w + 120 + 2 * int(np.ceil(abs(DAISY_SIDE) * D_PPU)), h + 90
         self.px = self.W / 2.0
         self.soles = self.H - 20                          # the champion's soles' row
         self.py = self.soles - FEET * D_PPU               # the pivot (the champion) FEET game px over its soles
