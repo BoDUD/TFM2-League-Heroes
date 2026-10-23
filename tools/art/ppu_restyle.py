@@ -434,7 +434,9 @@ RESTYLE = {
     # (the user on the review: 「太高清了 降点像素」 - the beasts' density, league_volibear / league_nasus); the outer
     # outline grown a square like the others; the face point between his eyes (11 game px ahead of his standing point:
     # the hunched head is pushed out over his far foot)
-    "warwick": dict(ppu=1.2, edge=1, face_to=(11, -28)),
+    # 2026-10-23: 90 % in game (「狼人局内模型有点大了 开个pr缩小一点」, hd.rs SIZES): 11.5 x 1.2 x (1 / 0.9 - 1) = 1.5 -> 2
+    # squares lower; the face point x 0.9 about the soles
+    "warwick": dict(ppu=1.2, edge=1, lift_sq=-2, face_to=(10, -25)),
     # league_gnar (#141): posed by tools/art/rig_gnar.py at the user's 1.5 squares a game pixel (「迷你 32」「巨型 44」:
     # Codex's step-1 takes A-2 cut to 48 rows, M-1 and SM-2 as drawn / cut to 66, Mega's turned poses drawn again from
     # Codex's own picture), so no proportion or density change here; the outer outline grown a square like the others;
