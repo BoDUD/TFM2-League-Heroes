@@ -1,0 +1,37 @@
+{
+  "zh-hans": {
+    "description": {
+      "league_aurora": {
+        "attack": "【附加包】魔杖点出灵光。<#ff9028ff>驱灵奇术<>：命中英雄叠层，第三层抽出灵物，造成<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> + 目标2%最大生命值的伤害，<#66bb6aff>回复<><#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<>生命并加速。<#ff9028ff>灵纱洞开<>：生命低于35%被贴身时后跳，隐身<#ffb900ff>1.25秒<>、加速30%（<#ffb900ff>20秒<>一次）。"
+      }
+    }
+  },
+  "zh-hant": {
+    "description": {
+      "league_aurora": {
+        "attack": "【附加包】魔杖點出靈光。<#ff9028ff>精靈附體<>：命中英雄疊層，第三層抽出精靈，造成<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> + 目標2%最大生命值的傷害，<#66bb6aff>回復<><#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<>生命並加速。<#ff9028ff>跨越兩界<>：生命低於35%被貼身時後跳，隱形<#ffb900ff>1.25秒<>、加速30%（<#ffb900ff>20秒<>一次）。"
+      }
+    }
+  },
+  "en": {
+    "description": {
+      "league_aurora": {
+        "attack": "[Add-on] A spirit bolt. <#ff9028ff>Spirit Abjuration<>: her hits on champions add up; the third exorcises a spirit for <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> + 2% of the target's max health, and it <#66bb6aff>heals<> her <#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<> and speeds her up. <#ff9028ff>Across the Veil<>: under 35% health with an enemy on her, she hops back, invisible <#ffb900ff>1.25s<>, 30% faster (every <#ffb900ff>20s<>)."
+      }
+    }
+  },
+  "ko": {
+    "description": {
+      "league_aurora": {
+        "attack": "[확장] 지팡이로 영혼 빛을 쏜다. <#ff9028ff>영혼 방호술<>: 챔피언 적중이 쌓여 세 번째에 영혼을 뽑아 <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> + 최대 체력의 2% 피해, <#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<> <#66bb6aff>회복<>과 이동 속도 증가. <#ff9028ff>장막 너머로<>: 체력 35% 미만에 적이 붙으면 뒤로 뛰어 <#ffb900ff>1.25초<> 투명, 이동 속도 +30% (<#ffb900ff>20초<>마다)."
+      }
+    }
+  },
+  "ja": {
+    "description": {
+      "league_aurora": {
+        "attack": "【拡張】杖から霊光を放つ。<#ff9028ff>精霊の解放<>：英雄への命中が重なり、3回目で精霊を引き出し<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>＋最大体力の2%のダメージ、<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<><#66bb6aff>回復<>し加速。<#ff9028ff>ベールを越えて<>：体力35%未満で敵に詰められると後ろへ跳び<#ffb900ff>1.25秒<>透明、移動速度+30%（<#ffb900ff>20秒<>ごと）。"
+      }
+    }
+  }
+}

@@ -1,6 +1,6 @@
 """Build league_aurora.data_champion (mid, Magician: the Witch Between Worlds) from the parameters P.
 
-    python tools/kit/build_aurora.py [--set key=value ...] [--out file] [--params json] [--nodes]
+    python tools/kit/build_aurora.py [--set key=value ...] [--out file] [--params json] [--nodes] [--native]
 
 Kit (the user's picks, 2026-10-23: MID, layout A - Twofold Hex / The Weirding / Between Worlds, Across the Veil folded
 into the passive; combos E -> Q, R -> E, Q's two passes stacking the passive, the teleport across the zone; 「有连招要做连招」).
@@ -11,10 +11,11 @@ TFM2 has three active slots: Twofold Hex (Q) is `skill`, The Weirding (E) `skill
           third exorcises the spirit: p_dmg + p_ratio% AP and p_hp% of the target's max health, and the spirit heals
           her p_heal + p_heal_r% AP and hastens her p_ms% for p_ms_t (League: 1% max health, a spirit that heals and
           gives move speed).
-          Across the Veil (灵纱洞开), folded in: low on health (the add-on league_aurora's 2-tick flag `low`; w_gate 1
-          reads instead "an enemy champion within w_near", the stand-in the classic simulation can run) and with an
-          enemy champion within w_near, her next attack or E first hops her away from it (MoveBack w_back x w_back_t),
-          turns her invisible w_inv ticks and hastens her w_ms% for w_ms_t; then w_cd ticks before the next.
+          Across the Veil (灵纱洞开), folded in: with an enemy champion within w_near (and, in the add-on's copy, low on
+          health: below w_low% - the flag `low` its passive league_aurora:veil raises every tick; data reads no health,
+          so the main pack's stand-in is the champion alone, w_gate 1), her next attack or E first hops her away from it
+          (MoveBack w_back x w_back_t), turns her invisible w_inv ticks and hastens her w_ms% for w_ms_t; then w_cd ticks
+          before the next.
   attack  A spirit bolt (homing on `Enemy`, 100% AD) released on a_rel; a champion-only twin counts the passive.
   skill   Twofold Hex (飞去来咒, cooldown q_cd, the flag `q_cd` the combos read): a `Direction` cast on
           `EnemyWithoutTower` (q_range). The hex flies q_len through everything (q_dmg + q_ratio% AP, the curse picture
@@ -34,6 +35,8 @@ TFM2 has three active slots: Twofold Hex (Q) is `skill`, The Weirding (E) `skill
           Teleport across the realm (领域内传送追击): at r_tp_at, 2 x r_tp_at and 3 x r_tp_at ticks into the realm, with no
           enemy champion within r_close of her, a hidden bolt seeks the ult's champion; if it is within r_tp_max of her
           she steps through to it (Teleport) - League's crossing from one edge of the realm to the other.
+The add-on copy (--native, addons/league_aurora): w_gate 0 and the passive league_aurora:veil (params w_low) - the hop
+needs her real low health as well (the user's pick: 残血时跳开).
 Action tags (the art): idle run attack hit dead skill skill2 ult veil.
 Numbers: League 16.20 (CommunityDragon aurora.bin) read into the Magician mid range (league_hwei, league_neeko); balanced on
 the classic-SDK simulations (kd.py --lane 2, C:/t/au_sim, 2026-10-23, w_gate 1 as the veil's stand-in): the draft -2.31
@@ -63,7 +66,7 @@ P = {
     "atk_range": 55000, "atk_dur": 27, "atk_cd": 90, "a_rel": 10, "a_speed": 4500, "a_y": -4000,
     # passive: Spirit Abjuration; Across the Veil folded in
     "p_t": 240, "p_dmg": 40, "p_ratio": 30, "p_hp": 2, "p_heal": 45, "p_heal_r": 15, "p_ms": 15, "p_ms_t": 90,
-    "w_gate": 0, "w_cd": 1200, "w_near": 35000, "w_back": 4000, "w_back_t": 6, "w_inv": 75, "w_ms": 30, "w_ms_t": 120,
+    "w_gate": 1, "w_low": 35, "native": 0, "w_cd": 1200, "w_near": 35000, "w_back": 4000, "w_back_t": 6, "w_inv": 75, "w_ms": 30, "w_ms_t": 120,
     # skill: Twofold Hex
     "q_cd": 450, "q_range": 85000, "q_dur": 30, "q_rel": 12, "q_speed": 4000, "q_len": 85000, "q_rad": 8000,
     "q_dmg": 100, "q_ratio": 55, "q_hold": 40, "q_back_speed": 4500, "q2_dmg": 100, "q2_ratio": 55, "q_ball_speed": 4500,
@@ -255,7 +258,7 @@ def build(p):
                    {"type": "MoveBack", "speed": p["w_back"], "tick": p["w_back_t"]},
                    on_me({"type": "CasterInvisible", "tick": p["w_inv"]},
                          refresh("w_haste", p["w_ms_t"], move_speed_mult=p["w_ms"])))
-        return sw("w_cd", NONE, hop if p["w_gate"] else sw("low", hop))
+        return sw("w_cd", NONE, hop if p["w_gate"] and not p["native"] else sw("low", hop))
 
     # ------------------------------------------------------------------ attack: a spirit bolt
     attack_a = action("attack", p["atk_dur"], p["atk_cd"], 1, p["atk_range"], "Targeting", "Enemy",
@@ -346,8 +349,11 @@ def build(p):
                E("r_hit"), E("r_blink")]
     views_b = [B_("q_curse", FX, 3), B_("p_mark", FX, 3), B_("w_haste", FX, -1), B_("e_slow", FX, -1, "slow"),
                B_("r_slow", FX, -1, "slow"), B_("r_slow1", FX, -1, "slow")]
+    extra = {}
+    if p["native"]:
+        extra["passive"] = {"passive_ref": f"{ID}:veil", "params": {"w_low": int(p["w_low"])}}
     return {
-        "id": ID, "category": "Magician", "tags": ["AP", "Magic", "Range", "CC"],
+        "id": ID, "category": "Magician", **extra, "tags": ["AP", "Magic", "Range", "CC"],
         "sprite": f"asset/league/champions/{ID}", "anim_prefix": "",
         "skill_icons": [f"asset/league/icons/{ID}_skill", f"asset/league/icons/{ID}_skill2", f"asset/league/icons/{ID}_ult"],
         "stat": {"attack": p["atk"], "magic_power": p["apw"], "hp": p["hp"], "defence": p["def"],
@@ -375,8 +381,11 @@ def main():
     ap_.add_argument("--params", help="json file with overrides")
     ap_.add_argument("--out", default=OUT)
     ap_.add_argument("--nodes", action="store_true")
+    ap_.add_argument("--native", action="store_true", help="the add-on's copy (native=1)")
     a = ap_.parse_args()
     p = dict(P)
+    if a.native:
+        p["native"] = 1
     if a.params:
         p.update(json.load(open(a.params, encoding="utf-8")))
     for kv in a.set:
