@@ -322,7 +322,8 @@ RESTYLE = {
     # Lux (2026-10-23): Codex's picture read back at PPU 2.2 (81 rows, design_lux_hd.py, the staff drawn straight); idle,
     # run, hit and death posed from the design's own squares (tools/art/rig_lux_hd.py), the casts Codex's whole-frame
     # redraw mended onto the design (tools/art/casts_lux_hd.py: the design's head and staff, its size)
-    "lux": dict(ppu=2.2, edge=0, face_to=(-1, -37)),
+    # 2026-10-23 face (0,-34): (-1,-37) framed the crown and headband on top, the eyes on the bottom rows and no mouth
+    "lux": dict(ppu=2.2, edge=0, face_to=(0, -34)),
     # league_yunara (#119): posed from the design's own squares at the user's 1.5 squares a game pixel (「选 A，40 行」,
     # Codex's step-1 take 2 cut to 60 rows, her beads apart) by tools/art/rig_yunara.py, so no proportion or density
     # change here; the outer outline grown a square like the others; the face point at her ornaments' crown
