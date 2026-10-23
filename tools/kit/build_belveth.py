@@ -13,7 +13,8 @@ and W ready.
           takedown of an enemy champion she damaged (within p_win ticks of her last hit on it, by anyone's hand:
           league_viego's window - the champion keeps a 2-tick flag `p_alive` up while it lives, the controller sees it
           lapse) adds a lavender stack: l_as% attack speed each, l_max at most; stacks are buffs and end with her death
-          in the main pack. League's large-monster stacks need the add-on (data cannot tell a camp's big monster).
+          in the main pack (the add-on puts them back). League's large-monster stacks are left out (nothing tells a camp's
+          big monster from its small ones).
   attack  A slash of a wing-arm (100% AD) by a hidden homing hit on `Enemy` (towers too) on a_hit; she attacks fast for
           little (atk_cd, atk), League's attack-speed fighter.
   skill   Q Void Surge (虚空激流), `Targeting` on `EnemyWithoutTower` (q_range, `q_cd`): on q_go she dashes toward the
@@ -35,6 +36,9 @@ and W ready.
           on q_cd_r instead of q_cd and q_t_r ticks of dash instead of q_t (farther), r_as% attack speed.
   controller An AddCasted pulse on her every ctl_p ticks (league_singed's, hung by her attack and the ult, only for
           Bel'Veth herself: `own`): the takedown watch, the combos' casts, the maelstrom's check.
+The add-on copy (--native, addons/league_belveth): the passive league_belveth:banquet raises `low` while she is under
+e_low% of her maximum health (the storm reads it instead of the two champions on her) and puts her lavender stacks back
+after a death (death clears every buff).
 Timings: drafts until the frames exist (tools/art/rig_belveth.py retimes them).
 Numbers: League 16.21 read into the jungle range (league_reksai, league_graves), balanced on the classic-SDK
 simulations (kd.py --lane 1 against ninja, demon, hunter, werewolf and vampire, C:/t/bv_sim, 2026-10-24; league_reksai
@@ -83,6 +87,8 @@ P = {
     # E Royal Maelstrom in the true form
     "e_cd": 720, "e_near": 30000, "e_t": 90, "e_p": 10, "e_r": 30000, "e_dr": 50, "e_vamp": 30, "e_dmg": 20,
     "e_ratio": 50,
+    # the add-on's storm: under this % of her maximum health (its passive raises `low`)
+    "e_low": 35,
     # her spoken lines, at most one every vo_gap ticks
     "vo_gap": 600,
     "native": 0,
@@ -367,8 +373,12 @@ def build(p):
                E("r_burst", BIG, -1, False), E("r_hit"), E("e_hit"), E("c_eat")]
     views_b = [B_("p_as", FX, -1, "p_as"), B_("w_slow", FX, -1, "slow"), B_("r_slow", FX, -1, "slow"),
                B_("r_on", FX, -1, "r_aura"), B_("e_on", BIG, 3, "e_storm")]
+    extra = {}
+    if p["native"]:   # addons/league_belveth: the storm by her real health, the lavender stacks kept through death
+        extra["passive"] = {"passive_ref": "league_belveth:banquet",
+                            "params": {k: p[k] for k in ("e_low", "l_max")}}
     return {
-        "id": ID, "category": "Melee", "tags": ["AD", "Melee", "CC"],
+        "id": ID, "category": "Melee", "tags": ["AD", "Melee", "CC"], **extra,
         "sprite": f"asset/league/champions/{ID}", "anim_prefix": "",
         "skill_icons": [f"asset/league/icons/{ID}_skill", f"asset/league/icons/{ID}_skill2", f"asset/league/icons/{ID}_ult"],
         "stat": {"attack": p["atk"], "magic_power": 0, "hp": p["hp"], "defence": p["def"],

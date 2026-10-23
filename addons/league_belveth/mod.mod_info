@@ -1,0 +1,20 @@
+{
+  "author": "BoDUD",
+  "contains_code": true,
+  "dependencies": [
+    {
+      "mod_id": "base",
+      "version": ">=0.4.11"
+    },
+    {
+      "mod_id": "league",
+      "version": ">=0.206.0"
+    }
+  ],
+  "description": "Test build of Bel'Veth as in League (needs League of Legends Heroes): replaces the main pack's Bel'Veth so Royal Maelstrom (the true form's storm: rooted, less damage taken, life steal) comes when she is low on health, instead of the data pack's stand-in (two enemy champions on her), which cannot read health, and her Death in Lavender attack speed stacks from takedowns stay through death (the data pack loses them when she dies). Other champions are untouched. Writes a log for testing.",
+  "last_updated": "2026-10-24",
+  "mod_id": "league_belveth",
+  "mod_type": "native",
+  "name": "League Heroes: Bel'Veth's storm at low health and lavender kept (test)",
+  "version": "0.1.0"
+}
