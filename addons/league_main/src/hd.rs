@@ -192,6 +192,10 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // the long-legged poses' legs drawn again at the design's length) at the user's 2.25 squares a game pixel (86 game
     // rows hat top to soles, the ears above: 「太模糊了 用PPU调下像素」, then A-2 at 2.25; 3/4 only), so no SIZES row
     ("league_aurora", 2.25, include_str!("../../../league/champions/league_aurora#anim.fanim")),
+    // Nunu & Willump: posed by tools/art/rig_nunu.py on Codex's step-1 take A-2 and its key poses (the design's Nunu head
+    // put back, Willump's size set pose by pose) at the user's 1.37 squares a game pixel (63 game rows pompom to soles:
+    // 「努努用 A-2，PPU 1.37（46 游戏像素）」; 3/4 only), so no SIZES row
+    ("league_nunu", 1.37, include_str!("../../../league/champions/league_nunu#anim.fanim")),
     // Azir: posed by tools/art/rig_azir.py on Codex's step-1 take A-2 (the sceptre straightened) and its key poses (the
     // design's helmet put back, each body read at its skeleton's height) at the user's 1.5 squares a game pixel (57 game
     // rows crest to soles, the sceptre above: 「38」「PPU 1.5」; 3/4 only), so no SIZES row
@@ -256,8 +260,9 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     ("league_caitlyn", 1.45, include_str!("../../../league/champions/league_caitlyn#anim.fanim")),
     // Varus (2026-10-23): Codex's design picture (assets/source/varus/PICTURE_PROMPT_PPU.md) read back on its own grid
     // (58 x 59), every action posed from the design's own squares by tools/art/rig_varus_hd.py (the bow lifted, the near
-    // arm turned level, run and kneel legs drawn from the design's leg rows); PPU 1.5 at his old 40 rows
-    ("league_varus", 1.5, include_str!("../../../league/champions/league_varus#anim.fanim")),
+    // arm turned level, run and kneel legs drawn from the design's leg rows); PPU 1.35: his body the old 39 rows (1.5
+    // drew it 35: 「维鲁斯建模小了」)
+    ("league_varus", 1.35, include_str!("../../../league/champions/league_varus#anim.fanim")),
     // Yunara: PPU 1.5 (the user's pick), posed from the design's own squares at that density by tools/art/rig_yunara.py
     // (40 game rows ornaments to soles), so no SIZES row
     ("league_yunara", 1.5, include_str!("../../../league/champions/league_yunara#anim.fanim")),
@@ -426,6 +431,10 @@ pub const UI_SIZES: &[(&str, f32)] = &[
     // cut 22 px of her ears, at the rule's -1 her legs hid; 0.82 with banpick_center -9: the ear tips 3 px under the
     // canvas top, the soles on its bottom (bp_card_audit.py)
     ("league_aurora", 0.82),
+    // Nunu & Willump: 46 game px from Nunu's pompom to Willump's soles at PPU 1.37 - at -12 the card cut 20 px of them, at
+    // the rule's -2 Willump's feet hid under the name bar; 0.85 with the card value bp_card_audit.py gives: the pompom
+    // under the canvas top, the soles on its bottom
+    ("league_nunu", 0.85),
     // Azir: about 49 game px from his sceptre's tip to his soles at PPU 1.5 (the crest 38) - 39 / 49 = 0.80
     ("league_azir", 0.80),
 ];

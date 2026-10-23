@@ -57,7 +57,7 @@
           "type": "TargetProjectile",
           "name": "league_varus_a_arrow",
           "speed": 7000,
-          "y_offset": 1200,
+          "y_offset": -500,
           "applied_target": "Enemy",
           "applied_effects": [
             {
@@ -210,7 +210,7 @@
           "type": "TargetProjectile",
           "name": "league_varus_a_twin",
           "speed": 7000,
-          "y_offset": 1200,
+          "y_offset": -500,
           "applied_target": "EnemyChampion",
           "applied_effects": [
             {
@@ -695,7 +695,7 @@
                                               "radius": 6000
                                             }
                                           },
-                                          "y_offset": 1200
+                                          "y_offset": -500
                                         },
                                         {
                                           "type": "LinearProjectile",
@@ -1008,7 +1008,7 @@
                                               "radius": 6000
                                             }
                                           },
-                                          "y_offset": 1200
+                                          "y_offset": -500
                                         }
                                       ]
                                     }
@@ -1147,7 +1147,7 @@
                                   "radius": 6000
                                 }
                               },
-                              "y_offset": 1200
+                              "y_offset": -500
                             },
                             {
                               "type": "LinearProjectile",
@@ -1460,7 +1460,7 @@
                                   "radius": 6000
                                 }
                               },
-                              "y_offset": 1200
+                              "y_offset": -500
                             }
                           ]
                         }
@@ -1655,7 +1655,7 @@
                                               "radius": 6000
                                             }
                                           },
-                                          "y_offset": 1200
+                                          "y_offset": -500
                                         },
                                         {
                                           "type": "LinearProjectile",
@@ -1928,7 +1928,7 @@
                                               "radius": 6000
                                             }
                                           },
-                                          "y_offset": 1200
+                                          "y_offset": -500
                                         }
                                       ]
                                     }
@@ -2067,7 +2067,7 @@
                                   "radius": 6000
                                 }
                               },
-                              "y_offset": 1200
+                              "y_offset": -500
                             },
                             {
                               "type": "LinearProjectile",
@@ -2340,7 +2340,7 @@
                                   "radius": 6000
                                 }
                               },
-                              "y_offset": 1200
+                              "y_offset": -500
                             }
                           ]
                         }
@@ -3190,7 +3190,7 @@
               "radius": 7000
             }
           },
-          "y_offset": 1200
+          "y_offset": -500
         }
       ]
     }

@@ -29,7 +29,7 @@ ROOT = os.path.dirname(os.path.dirname(HERE))
 LEAGUE = os.path.join(ROOT, "league")
 CHAMP = os.path.join(LEAGUE, "champions", "league_varus")
 FX = {n: os.path.join(LEAGUE, "effects", n) for n in ("league_varus_fx", "league_varus_big")}
-AHEAD, LIFT = 15, 4                   # px: the arrowhead ahead of his pivot and over it (y_offset 1200, rig_varus_hd.py)
+AHEAD, LIFT = 17, 5                   # px: the arrowhead ahead of his pivot and over it (y_offset -500, rig_varus_hd.py)
 
 
 class At:
@@ -80,7 +80,7 @@ def showcase(out, z=3, step=40):
         """One attack: the arrow leaves the bow on tick 9 (AHEAD px out, LIFT px up); then the rest of the 56-tick
         interval."""
         rel = t + tick(9)
-        on(me, small, "a_flash", rel)
+        pass  # on(me, small, "a_flash", rel)  - drawn into his frames (varus_bake.json, rig_varus_hd FX_AT)
         tx, ty = foe.pos(rel)
         arrive = fly(small, "a_arrow", rel, x + AHEAD, gy - LIFT, tx, ty - LIFT, 7.0)
         on(foe, small, "a_hit", arrive)
@@ -100,10 +100,10 @@ def showcase(out, z=3, step=40):
     arrow(d, "b_v2")
     # Piercing Arrow, the full draw (66 ticks, Blighted Arrow ready): through both, Darius's two stacks burst
     q0 = t
-    on(me, small, "q_charge", q0)
-    on(me, small, "w_glow", q0)
+    pass  # on(me, small, "q_charge", q0)  - drawn into his frames (varus_bake.json, rig_varus_hd FX_AT)
+    pass  # on(me, small, "w_glow", q0)  - drawn into his frames (varus_bake.json, rig_varus_hd FX_AT)
     rel = q0 + tick(66)
-    on(me, small, "q_fire", rel)
+    pass  # on(me, small, "q_fire", rel)  - drawn into his frames (varus_bake.json, rig_varus_hd FX_AT)
     over.append(Anim(frames_of(small, "q_arrow"), rel, x + AHEAD, gy - LIFT, until=rel + tick(140 / 6.5),
                      x1=x + AHEAD + 140, y1=gy - LIFT))
     for k, foe in enumerate((d, g)):
@@ -119,7 +119,7 @@ def showcase(out, z=3, step=40):
     # Hail of Arrows on them: the arrows land 20 ticks after the release (tick 10), the ground stays 240 ticks
     e0 = t
     rel = e0 + tick(10)
-    on(me, small, "e_cast", rel)
+    pass  # on(me, small, "e_cast", rel)  - drawn into his frames (varus_bake.json, rig_varus_hd FX_AT)
     spot = At(int((d.pos(rel)[0] + g.pos(rel)[0]) // 2), gy)
     on(spot, big, "e_rain", rel)
     land = rel + tick(20)
@@ -135,7 +135,7 @@ def showcase(out, z=3, step=40):
     # Chain of Corruption: the tendril at Darius (5.5 a tick), roots him 120 ticks, spreads to Garen 30 ticks later
     r0 = t
     rel = r0 + tick(15)
-    on(me, small, "r_cast", rel)
+    pass  # on(me, small, "r_cast", rel)  - drawn into his frames (varus_bake.json, rig_varus_hd FX_AT)
     tx, ty = d.pos(rel)
     hit = fly(small, "r_chain", rel, x + AHEAD, gy - LIFT, tx, ty - LIFT, 5.5)
     on(d, small, "r_hit", hit)
@@ -160,9 +160,9 @@ def showcase(out, z=3, step=40):
     a("idle", 300, loop=True)
     # a quick Piercing Arrow at Garen (24 ticks: only minions near... here to show the quick draw)
     q1 = t
-    on(me, small, "q_charge_s", q1)
+    pass  # on(me, small, "q_charge_s", q1)  - drawn into his frames (varus_bake.json, rig_varus_hd FX_AT)
     rel = q1 + tick(24)
-    on(me, small, "q_fire", rel)
+    pass  # on(me, small, "q_fire", rel)  - drawn into his frames (varus_bake.json, rig_varus_hd FX_AT)
     over.append(Anim(frames_of(small, "q_arrow_s"), rel, x + AHEAD, gy - LIFT, until=rel + tick(100 / 6.5),
                      x1=x + AHEAD + 100, y1=gy - LIFT))
     h = rel + tick((g.pos(rel)[0] - x - 13) / 6.5)

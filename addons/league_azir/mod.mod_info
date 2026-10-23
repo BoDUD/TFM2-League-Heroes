@@ -8,7 +8,7 @@
     },
     {
       "mod_id": "league",
-      "version": ">=0.200.0"
+      "version": ">=0.201.0"
     }
   ],
   "description": "Test build of Azir's Sun Disc and his Imperial Guards facing the charge (needs League of Legends Heroes): replaces the main pack's Azir so that, once a game, by a fallen tower of his team the Sun Disc rises from the ruin and strikes the nearest enemy every second, and the guards of Emperor's Divide face the way the wall charges (the data pack cannot see the towers or the wall's direction). His skills are otherwise the main pack's. Other champions are untouched. Writes a log for testing.",

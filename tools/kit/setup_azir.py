@@ -26,7 +26,7 @@ from build_azir import P, lp  # noqa: E402
 REPO = os.path.normpath(os.path.join(HERE, "..", ".."))
 MOD = os.path.join(REPO, "league")
 ID = "league_azir"
-VERSION = "0.200.0"     # the next free number above main 0.199.0 (Aurora #479) (2026-10-23)
+VERSION = "0.201.0"     # the next free number above main 0.200.1 (Varus #481) (2026-10-23)
 APi = "<i#asset/base/ui/banpick/champion_stat_icon:ap_0>"
 TOOLTIP_MAX = {"zh-hans": 130, "zh-hant": 130, "en": 334, "ja": 147, "ko": 185}
 M = "<#a974ffff>"      # magic damage / AP
@@ -226,7 +226,7 @@ def main():
     if tuple(int(x) for x in mi["version"].split(".")) < tuple(int(x) for x in VERSION.split(".")):
         mi["version"] = VERSION
     if "Azir" not in mi["description"]:
-        mi["description"] = re.sub(r" and ([\w'. ]+?)\. Kits", r", \1 and Azir. Kits", mi["description"], count=1)
+        mi["description"] = re.sub(r" and ([\w'.& ]+?)\. Kits", r", \1 and Azir. Kits", mi["description"], count=1)
     save(os.path.join(MOD, "mod.mod_info"), mi)
     print("written")
 

@@ -1,0 +1,439 @@
+{
+  "expected_count": 18,
+  "present_count": 18,
+  "missing": [],
+  "images": {
+    "a_wind": {
+      "canvas": [
+        1254,
+        1254
+      ],
+      "canvas_1254_pass": true,
+      "visible_bbox_alpha128": [
+        157,
+        157,
+        1119,
+        1207
+      ],
+      "transparent_pixels": 898409,
+      "opaque_pixels": 2433,
+      "partial_alpha_pixels": 671674,
+      "binary_alpha_pass": false,
+      "origin_aligned_12px_grid_pass": false,
+      "visible_12px_tiles": 5166,
+      "nonuniform_12px_tiles": 5166,
+      "bottom_bbox_equals_1200": false,
+      "raw_byte_identical": true,
+      "limb_lengths": "requires visual/manual measurement; not proven by file metrics",
+      "head_identity": "requires visual/manual comparison; not proven by file metrics"
+    },
+    "a_swipe": {
+      "canvas": [
+        1254,
+        1254
+      ],
+      "canvas_1254_pass": true,
+      "visible_bbox_alpha128": [
+        77,
+        120,
+        1213,
+        1217
+      ],
+      "transparent_pixels": 836687,
+      "opaque_pixels": 3560,
+      "partial_alpha_pixels": 732269,
+      "binary_alpha_pass": false,
+      "origin_aligned_12px_grid_pass": false,
+      "visible_12px_tiles": 5606,
+      "nonuniform_12px_tiles": 5606,
+      "bottom_bbox_equals_1200": false,
+      "raw_byte_identical": true,
+      "limb_lengths": "requires visual/manual measurement; not proven by file metrics",
+      "head_identity": "requires visual/manual comparison; not proven by file metrics"
+    },
+    "b_open": {
+      "canvas": [
+        1254,
+        1254
+      ],
+      "canvas_1254_pass": true,
+      "visible_bbox_alpha128": [
+        38,
+        88,
+        1240,
+        1213
+      ],
+      "transparent_pixels": 814863,
+      "opaque_pixels": 3236,
+      "partial_alpha_pixels": 754417,
+      "binary_alpha_pass": false,
+      "origin_aligned_12px_grid_pass": false,
+      "visible_12px_tiles": 5757,
+      "nonuniform_12px_tiles": 5757,
+      "bottom_bbox_equals_1200": false,
+      "raw_byte_identical": true,
+      "limb_lengths": "requires visual/manual measurement; not proven by file metrics",
+      "head_identity": "requires visual/manual comparison; not proven by file metrics"
+    },
+    "b_bite": {
+      "canvas": [
+        1254,
+        1254
+      ],
+      "canvas_1254_pass": true,
+      "visible_bbox_alpha128": [
+        108,
+        288,
+        1199,
+        1187
+      ],
+      "transparent_pixels": 946863,
+      "opaque_pixels": 2856,
+      "partial_alpha_pixels": 622797,
+      "binary_alpha_pass": false,
+      "origin_aligned_12px_grid_pass": false,
+      "visible_12px_tiles": 4707,
+      "nonuniform_12px_tiles": 4707,
+      "bottom_bbox_equals_1200": false,
+      "raw_byte_identical": true,
+      "limb_lengths": "requires visual/manual measurement; not proven by file metrics",
+      "head_identity": "requires visual/manual comparison; not proven by file metrics"
+    },
+    "w_pack": {
+      "canvas": [
+        1254,
+        1254
+      ],
+      "canvas_1254_pass": true,
+      "visible_bbox_alpha128": [
+        141,
+        260,
+        1121,
+        1208
+      ],
+      "transparent_pixels": 1026368,
+      "opaque_pixels": 2275,
+      "partial_alpha_pixels": 543873,
+      "binary_alpha_pass": false,
+      "origin_aligned_12px_grid_pass": false,
+      "visible_12px_tiles": 4170,
+      "nonuniform_12px_tiles": 4170,
+      "bottom_bbox_equals_1200": false,
+      "raw_byte_identical": true,
+      "limb_lengths": "requires visual/manual measurement; not proven by file metrics",
+      "head_identity": "requires visual/manual comparison; not proven by file metrics"
+    },
+    "w_push1": {
+      "canvas": [
+        1254,
+        1254
+      ],
+      "canvas_1254_pass": true,
+      "visible_bbox_alpha128": [
+        85,
+        284,
+        1243,
+        1218
+      ],
+      "transparent_pixels": 934791,
+      "opaque_pixels": 2595,
+      "partial_alpha_pixels": 635130,
+      "binary_alpha_pass": false,
+      "origin_aligned_12px_grid_pass": false,
+      "visible_12px_tiles": 4883,
+      "nonuniform_12px_tiles": 4883,
+      "bottom_bbox_equals_1200": false,
+      "raw_byte_identical": true,
+      "limb_lengths": "requires visual/manual measurement; not proven by file metrics",
+      "head_identity": "requires visual/manual comparison; not proven by file metrics"
+    },
+    "w_push2": {
+      "canvas": [
+        1254,
+        1254
+      ],
+      "canvas_1254_pass": true,
+      "visible_bbox_alpha128": [
+        48,
+        353,
+        1243,
+        1221
+      ],
+      "transparent_pixels": 1017340,
+      "opaque_pixels": 2112,
+      "partial_alpha_pixels": 553064,
+      "binary_alpha_pass": false,
+      "origin_aligned_12px_grid_pass": false,
+      "visible_12px_tiles": 4189,
+      "nonuniform_12px_tiles": 4189,
+      "bottom_bbox_equals_1200": false,
+      "raw_byte_identical": true,
+      "limb_lengths": "requires visual/manual measurement; not proven by file metrics",
+      "head_identity": "requires visual/manual comparison; not proven by file metrics"
+    },
+    "w_hit": {
+      "canvas": [
+        1254,
+        1254
+      ],
+      "canvas_1254_pass": true,
+      "visible_bbox_alpha128": [
+        109,
+        196,
+        1207,
+        1207
+      ],
+      "transparent_pixels": 929699,
+      "opaque_pixels": 2891,
+      "partial_alpha_pixels": 639926,
+      "binary_alpha_pass": false,
+      "origin_aligned_12px_grid_pass": false,
+      "visible_12px_tiles": 4923,
+      "nonuniform_12px_tiles": 4923,
+      "bottom_bbox_equals_1200": false,
+      "raw_byte_identical": true,
+      "limb_lengths": "requires visual/manual measurement; not proven by file metrics",
+      "head_identity": "requires visual/manual comparison; not proven by file metrics"
+    },
+    "e_throw1": {
+      "canvas": [
+        1254,
+        1254
+      ],
+      "canvas_1254_pass": true,
+      "visible_bbox_alpha128": [
+        211,
+        202,
+        1076,
+        1198
+      ],
+      "transparent_pixels": 1047139,
+      "opaque_pixels": 2360,
+      "partial_alpha_pixels": 523017,
+      "binary_alpha_pass": false,
+      "origin_aligned_12px_grid_pass": false,
+      "visible_12px_tiles": 4327,
+      "nonuniform_12px_tiles": 4327,
+      "bottom_bbox_equals_1200": false,
+      "raw_byte_identical": true,
+      "limb_lengths": "requires visual/manual measurement; not proven by file metrics",
+      "head_identity": "requires visual/manual comparison; not proven by file metrics"
+    },
+    "e_throw2": {
+      "canvas": [
+        1254,
+        1254
+      ],
+      "canvas_1254_pass": true,
+      "visible_bbox_alpha128": [
+        167,
+        123,
+        1167,
+        1201
+      ],
+      "transparent_pixels": 959315,
+      "opaque_pixels": 3440,
+      "partial_alpha_pixels": 609761,
+      "binary_alpha_pass": false,
+      "origin_aligned_12px_grid_pass": false,
+      "visible_12px_tiles": 4650,
+      "nonuniform_12px_tiles": 4650,
+      "bottom_bbox_equals_1200": false,
+      "raw_byte_identical": true,
+      "limb_lengths": "requires visual/manual measurement; not proven by file metrics",
+      "head_identity": "requires visual/manual comparison; not proven by file metrics"
+    },
+    "r_raise": {
+      "canvas": [
+        1254,
+        1254
+      ],
+      "canvas_1254_pass": true,
+      "visible_bbox_alpha128": [
+        60,
+        121,
+        1218,
+        1224
+      ],
+      "transparent_pixels": 814014,
+      "opaque_pixels": 3832,
+      "partial_alpha_pixels": 754670,
+      "binary_alpha_pass": false,
+      "origin_aligned_12px_grid_pass": false,
+      "visible_12px_tiles": 5856,
+      "nonuniform_12px_tiles": 5856,
+      "bottom_bbox_equals_1200": false,
+      "raw_byte_identical": true,
+      "limb_lengths": "requires visual/manual measurement; not proven by file metrics",
+      "head_identity": "requires visual/manual comparison; not proven by file metrics"
+    },
+    "r_slam": {
+      "canvas": [
+        1254,
+        1254
+      ],
+      "canvas_1254_pass": true,
+      "visible_bbox_alpha128": [
+        164,
+        362,
+        1103,
+        1203
+      ],
+      "transparent_pixels": 1041303,
+      "opaque_pixels": 2136,
+      "partial_alpha_pixels": 529077,
+      "binary_alpha_pass": false,
+      "origin_aligned_12px_grid_pass": false,
+      "visible_12px_tiles": 4187,
+      "nonuniform_12px_tiles": 4187,
+      "bottom_bbox_equals_1200": false,
+      "raw_byte_identical": true,
+      "limb_lengths": "requires visual/manual measurement; not proven by file metrics",
+      "head_identity": "requires visual/manual comparison; not proven by file metrics"
+    },
+    "run1": {
+      "canvas": [
+        1254,
+        1254
+      ],
+      "canvas_1254_pass": true,
+      "visible_bbox_alpha128": [
+        196,
+        158,
+        1122,
+        1154
+      ],
+      "transparent_pixels": 1047773,
+      "opaque_pixels": 1746,
+      "partial_alpha_pixels": 522997,
+      "binary_alpha_pass": false,
+      "origin_aligned_12px_grid_pass": false,
+      "visible_12px_tiles": 4204,
+      "nonuniform_12px_tiles": 4204,
+      "bottom_bbox_equals_1200": false,
+      "raw_byte_identical": true,
+      "limb_lengths": "requires visual/manual measurement; not proven by file metrics",
+      "head_identity": "requires visual/manual comparison; not proven by file metrics"
+    },
+    "run2": {
+      "canvas": [
+        1254,
+        1254
+      ],
+      "canvas_1254_pass": true,
+      "visible_bbox_alpha128": [
+        246,
+        168,
+        1027,
+        1181
+      ],
+      "transparent_pixels": 1077841,
+      "opaque_pixels": 2324,
+      "partial_alpha_pixels": 492351,
+      "binary_alpha_pass": false,
+      "origin_aligned_12px_grid_pass": false,
+      "visible_12px_tiles": 3851,
+      "nonuniform_12px_tiles": 3851,
+      "bottom_bbox_equals_1200": false,
+      "raw_byte_identical": true,
+      "limb_lengths": "requires visual/manual measurement; not proven by file metrics",
+      "head_identity": "requires visual/manual comparison; not proven by file metrics"
+    },
+    "run3": {
+      "canvas": [
+        1254,
+        1254
+      ],
+      "canvas_1254_pass": true,
+      "visible_bbox_alpha128": [
+        130,
+        80,
+        1204,
+        1215
+      ],
+      "transparent_pixels": 865303,
+      "opaque_pixels": 2958,
+      "partial_alpha_pixels": 704255,
+      "binary_alpha_pass": false,
+      "origin_aligned_12px_grid_pass": false,
+      "visible_12px_tiles": 5559,
+      "nonuniform_12px_tiles": 5559,
+      "bottom_bbox_equals_1200": false,
+      "raw_byte_identical": true,
+      "limb_lengths": "requires visual/manual measurement; not proven by file metrics",
+      "head_identity": "requires visual/manual comparison; not proven by file metrics"
+    },
+    "run4": {
+      "canvas": [
+        1254,
+        1254
+      ],
+      "canvas_1254_pass": true,
+      "visible_bbox_alpha128": [
+        211,
+        121,
+        1079,
+        1177
+      ],
+      "transparent_pixels": 1031276,
+      "opaque_pixels": 1745,
+      "partial_alpha_pixels": 539495,
+      "binary_alpha_pass": false,
+      "origin_aligned_12px_grid_pass": false,
+      "visible_12px_tiles": 4573,
+      "nonuniform_12px_tiles": 4573,
+      "bottom_bbox_equals_1200": false,
+      "raw_byte_identical": true,
+      "limb_lengths": "requires visual/manual measurement; not proven by file metrics",
+      "head_identity": "requires visual/manual comparison; not proven by file metrics"
+    },
+    "d_fall": {
+      "canvas": [
+        1254,
+        1254
+      ],
+      "canvas_1254_pass": true,
+      "visible_bbox_alpha128": [
+        206,
+        494,
+        1098,
+        1207
+      ],
+      "transparent_pixels": 1130509,
+      "opaque_pixels": 1646,
+      "partial_alpha_pixels": 440361,
+      "binary_alpha_pass": false,
+      "origin_aligned_12px_grid_pass": false,
+      "visible_12px_tiles": 3408,
+      "nonuniform_12px_tiles": 3408,
+      "bottom_bbox_equals_1200": false,
+      "raw_byte_identical": true,
+      "limb_lengths": "requires visual/manual measurement; not proven by file metrics",
+      "head_identity": "requires visual/manual comparison; not proven by file metrics"
+    },
+    "d_lie": {
+      "canvas": [
+        1254,
+        1254
+      ],
+      "canvas_1254_pass": true,
+      "visible_bbox_alpha128": [
+        56,
+        556,
+        1217,
+        1121
+      ],
+      "transparent_pixels": 1163739,
+      "opaque_pixels": 1499,
+      "partial_alpha_pixels": 407278,
+      "binary_alpha_pass": false,
+      "origin_aligned_12px_grid_pass": false,
+      "visible_12px_tiles": 3256,
+      "nonuniform_12px_tiles": 3256,
+      "bottom_bbox_equals_1200": false,
+      "raw_byte_identical": true,
+      "limb_lengths": "requires visual/manual measurement; not proven by file metrics",
+      "head_identity": "requires visual/manual comparison; not proven by file metrics"
+    }
+  }
+}
