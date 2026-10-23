@@ -11,7 +11,8 @@ the user's pick, 3/4 only.
 ppu_restyle's outline and ppu_hd), each laid on its frame centre, instead of the rig's frames - the idle as hero_reels'
 reel and the ban/pick card's reel (bp) too; after his tags the summons' sheets (league_azir_soldier, _guard, _disc:
 the soldier rising and standing, the guards charging right and left, the Sun Disc rising and standing) and his effects
-(league_azir_fx / _big), each at game size on the arena colour.
+(league_azir_fx / _big), each at game size on the arena colour; last, once, preview_azir.py's fight against Darius
+(docs/preview/league_azir_showcase.gif: the pictures in play, on their layers, and the combos).
 """
 import argparse
 import json
@@ -20,7 +21,7 @@ import subprocess
 import sys
 
 import numpy as np
-from PIL import Image, ImageDraw
+from PIL import Image, ImageDraw, ImageSequence
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
@@ -39,6 +40,7 @@ CLIPS = {"idle": ["azir_idle1@0"],
          "dead": ["azir_death@312", "azir_death@312", "azir_death@1250", "azir_death@1562"],
          "bp": ["azir_idle1@0"]}           # the ban/pick card's reel (hero_reels; --sheet only)
 BG = (96, 112, 96)
+SHOWCASE = os.path.join(os.path.dirname(os.path.dirname(HERE)), "docs", "preview", "league_azir_showcase.gif")
 
 
 def lol_frames(lol, tag, n, out):
@@ -151,6 +153,20 @@ def extras(z):
     return cells
 
 
+def showcase():
+    """The showcase GIF's frames, labelled (none before preview_azir.py has written it)."""
+    if not os.path.exists(SHOWCASE):
+        return []
+    cells = []
+    for f in ImageSequence.Iterator(Image.open(SHOWCASE)):
+        cell = Image.new("RGB", (f.width, f.height + 18), (40, 40, 40))
+        cell.paste(f.convert("RGB"), (0, 18))
+        ImageDraw.Draw(cell).text((4, 3), "in play: Q -> stab, E -> a soldier, E -> R pushing Darius back",
+                                  fill=(230, 230, 230))
+        cells.append((cell, f.info.get("duration", 40)))
+    return cells
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", required=True)
@@ -203,6 +219,7 @@ def main():
         every += cells * 2
         print(gif)
     every += extras(a.z * 2)                             # the summons and the effects at twice the heroes' zoom
+    every += showcase()
     W = max(c.width for c, _ in every)
     H = max(c.height for c, _ in every)
     frames = []

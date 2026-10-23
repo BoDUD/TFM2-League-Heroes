@@ -6801,7 +6801,7 @@ python tools/art/preview_nunu.py                     # 预览和演示 GIF
 | 特效 | 17 张特效（[`tools/art/pack_azir_fx.py`](tools/art/pack_azir_fx.py) 的提示词，参考是英雄联盟里阿兹尔自己的贴图），Codex 画回来，[`tools/art/import_azir_fx.py`](tools/art/import_azir_fx.py) 切成 `league_azir_fx` / `league_azir_big`：沙光和它的命中、沙兵升起的沙堆、刺在敌人身上的沙矛、狂沙猛攻的沙浪、落地的沙尘、命中、脚下的流沙、流沙移形的沙盾（中间空着露出身体，循环到护盾结束）、落地喷起的沙柱、命中、禁军之墙在他脚下翻起的沙墙、禁军脚下的沙尘、盾撞的冲击，太阳圆盘的升起、太阳光束、脚下的光环 |
 | 音效 | 英雄联盟的音效和配音（[`tools/lol/extract_azir.py`](tools/lol/extract_azir.py)）：普攻和命中，沙兵出现和刺击，狂沙猛攻的出手、士兵落地和命中，流沙移形的出手、击飞和命中，禁军之墙的出手、禁军出现和撞击，太阳圆盘升起和光束，三句台词 |
 | 图标 | 官方技能图标（狂沙猛攻、流沙移形、禁军之墙，另有沙兵现身、恕瑞玛的传承），从本地客户端取 |
-| 选人卡片 | 权杖尖到脚底约 49 游戏像素，卡片画布只装得下约 40：`league.dll` 的 UI_SIZES 画成 0.80、`banpick_center` −9（`tools/art/bp_card_audit.py`：权杖尖在画布里，脚只挡 0.6 像素）。待机按 `tools/art/hero_reels.py` 剪：举爪、高举权杖；选人卡片轮流放普攻、狂沙猛攻、流沙移形、禁军之墙 |
+| 选人卡片 | 权杖尖到脚底约 49 游戏像素，卡片画布只装得下约 40：`league.dll` 的 UI_SIZES 画成 0.80、`banpick_center` −9（`tools/art/bp_card_audit.py`：权杖尖在画布里，脚只挡 0.6 像素）。待机按 `tools/art/hero_reels.py` 剪：举爪、竖起权杖张开另一只手（大招第一帧，脚踩在地上；第二帧是跳起来的，待机里会悬空）；选人卡片轮流放普攻、狂沙猛攻、流沙移形、禁军之墙 |
 
 重新生成（素材来自本机的英雄联盟客户端，音频不进仓库）：
 
