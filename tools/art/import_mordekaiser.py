@@ -374,12 +374,17 @@ FX = {
     "r_mark": ("core", seq(range(5), [50, 60, 60, 70, 80]), [HIT]),
     # the realm's vortex where they stood: the add-on banishes both r_t 420 ticks (7 s) - its 8 frames looped 9 times
     "r_realm": ("ring", seq(list(range(8)) * 9, [100] * 72), [SOLES]),
+    # one turn of it (800 ms): the add-on plays it again while the realm lasts, so an early end takes the vortex away
+    # (the user, 2026-10-23: 「出来后死亡领域还在显示？」 - the 7.2 s r_realm played on after a win)
+    "r_realm_loop": ("ring", seq(range(8), [100] * 8), [SOLES]),
     "r_pull": ("core", seq(range(4), [50, 60, 60, 70]), [HIT]),
     "r_win": (("feet", 0), seq(range(6), [50, 60, 70, 70, 70, 80]), [SOLES]),
     # the curse over the cursed one's head while it lasts
     "r_curse": ("core", seq(range(4), [100] * 4), [OVER]),
 }
-BIG = {"p_aura", "q_slam", "q_burst", "e_beam", "r_cast", "r_realm"}
+# tags drawn from another effect's cells
+SAME_CELLS = {"r_realm_loop": "r_realm"}
+BIG = {"p_aura", "q_slam", "q_burst", "e_beam", "r_cast", "r_realm", "r_realm_loop"}
 
 
 def ring_anchor(cells):
@@ -399,7 +404,7 @@ def main():
     cells = build_cells(sheets)
     tables = {"league_mordekaiser_fx": {}, "league_mordekaiser_big": {}}
     for name, (kind, frames, spots) in FX.items():
-        cs = cells[name]
+        cs = cells[SAME_CELLS.get(name, name)]
         anc = ring_anchor(cs) if kind == "ring" else anchor(cs[0], kind)
         out = []
         for k, ms in frames:
