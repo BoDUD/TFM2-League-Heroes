@@ -1,0 +1,379 @@
+{
+  "sheets": 20,
+  "frames": 92,
+  "checks": [
+    {
+      "file": "aurora_fx_a_bolt.png",
+      "frames": 4,
+      "cell_1x": [
+        14,
+        8
+      ],
+      "hard_alpha": true,
+      "exact_symmetry": true,
+      "allowed_palette": true,
+      "preview_exact_8x": true,
+      "opaque_pixels_per_frame": [
+        32,
+        36,
+        34,
+        34
+      ]
+    },
+    {
+      "file": "aurora_fx_a_hit.png",
+      "frames": 3,
+      "cell_1x": [
+        12,
+        12
+      ],
+      "hard_alpha": true,
+      "exact_symmetry": true,
+      "allowed_palette": true,
+      "preview_exact_8x": true,
+      "opaque_pixels_per_frame": [
+        10,
+        26,
+        12
+      ]
+    },
+    {
+      "file": "aurora_fx_q_out.png",
+      "frames": 4,
+      "cell_1x": [
+        22,
+        12
+      ],
+      "hard_alpha": true,
+      "exact_symmetry": true,
+      "allowed_palette": true,
+      "preview_exact_8x": true,
+      "opaque_pixels_per_frame": [
+        90,
+        84,
+        88,
+        74
+      ]
+    },
+    {
+      "file": "aurora_fx_q_back.png",
+      "frames": 4,
+      "cell_1x": [
+        24,
+        12
+      ],
+      "hard_alpha": true,
+      "exact_symmetry": true,
+      "allowed_palette": true,
+      "preview_exact_8x": true,
+      "opaque_pixels_per_frame": [
+        124,
+        134,
+        116,
+        132
+      ]
+    },
+    {
+      "file": "aurora_fx_q_hit.png",
+      "frames": 4,
+      "cell_1x": [
+        16,
+        16
+      ],
+      "hard_alpha": true,
+      "exact_symmetry": true,
+      "allowed_palette": true,
+      "preview_exact_8x": true,
+      "opaque_pixels_per_frame": [
+        50,
+        98,
+        76,
+        42
+      ]
+    },
+    {
+      "file": "aurora_fx_q_back_hit.png",
+      "frames": 4,
+      "cell_1x": [
+        18,
+        22
+      ],
+      "hard_alpha": true,
+      "exact_symmetry": true,
+      "allowed_palette": true,
+      "preview_exact_8x": true,
+      "opaque_pixels_per_frame": [
+        88,
+        108,
+        76,
+        36
+      ]
+    },
+    {
+      "file": "aurora_fx_q_curse.png",
+      "frames": 4,
+      "cell_1x": [
+        12,
+        12
+      ],
+      "hard_alpha": true,
+      "exact_symmetry": true,
+      "allowed_palette": true,
+      "preview_exact_8x": true,
+      "opaque_pixels_per_frame": [
+        42,
+        40,
+        42,
+        42
+      ]
+    },
+    {
+      "file": "aurora_fx_p_mark.png",
+      "frames": 4,
+      "cell_1x": [
+        12,
+        8
+      ],
+      "hard_alpha": true,
+      "exact_symmetry": true,
+      "allowed_palette": true,
+      "preview_exact_8x": true,
+      "opaque_pixels_per_frame": [
+        18,
+        28,
+        26,
+        26
+      ]
+    },
+    {
+      "file": "aurora_fx_p_spirit.png",
+      "frames": 6,
+      "cell_1x": [
+        20,
+        30
+      ],
+      "hard_alpha": true,
+      "exact_symmetry": true,
+      "allowed_palette": true,
+      "preview_exact_8x": true,
+      "opaque_pixels_per_frame": [
+        134,
+        124,
+        130,
+        116,
+        94,
+        24
+      ]
+    },
+    {
+      "file": "aurora_fx_p_heal.png",
+      "frames": 6,
+      "cell_1x": [
+        28,
+        48
+      ],
+      "hard_alpha": true,
+      "exact_symmetry": true,
+      "allowed_palette": true,
+      "preview_exact_8x": true,
+      "opaque_pixels_per_frame": [
+        180,
+        234,
+        286,
+        270,
+        178,
+        34
+      ]
+    },
+    {
+      "file": "aurora_fx_w_veil.png",
+      "frames": 5,
+      "cell_1x": [
+        30,
+        40
+      ],
+      "hard_alpha": true,
+      "exact_symmetry": true,
+      "allowed_palette": true,
+      "preview_exact_8x": true,
+      "opaque_pixels_per_frame": [
+        128,
+        444,
+        636,
+        290,
+        112
+      ]
+    },
+    {
+      "file": "aurora_fx_w_haste.png",
+      "frames": 4,
+      "cell_1x": [
+        20,
+        8
+      ],
+      "hard_alpha": true,
+      "exact_symmetry": true,
+      "allowed_palette": true,
+      "preview_exact_8x": true,
+      "opaque_pixels_per_frame": [
+        46,
+        48,
+        62,
+        42
+      ]
+    },
+    {
+      "file": "aurora_fx_e_wave.png",
+      "frames": 4,
+      "cell_1x": [
+        30,
+        22
+      ],
+      "hard_alpha": true,
+      "exact_symmetry": true,
+      "allowed_palette": true,
+      "preview_exact_8x": true,
+      "opaque_pixels_per_frame": [
+        202,
+        282,
+        358,
+        274
+      ]
+    },
+    {
+      "file": "aurora_fx_e_burst.png",
+      "frames": 5,
+      "cell_1x": [
+        30,
+        30
+      ],
+      "hard_alpha": true,
+      "exact_symmetry": true,
+      "allowed_palette": true,
+      "preview_exact_8x": true,
+      "opaque_pixels_per_frame": [
+        136,
+        244,
+        558,
+        278,
+        158
+      ]
+    },
+    {
+      "file": "aurora_fx_e_hit.png",
+      "frames": 4,
+      "cell_1x": [
+        16,
+        20
+      ],
+      "hard_alpha": true,
+      "exact_symmetry": true,
+      "allowed_palette": true,
+      "preview_exact_8x": true,
+      "opaque_pixels_per_frame": [
+        46,
+        128,
+        104,
+        74
+      ]
+    },
+    {
+      "file": "aurora_fx_slow.png",
+      "frames": 4,
+      "cell_1x": [
+        16,
+        8
+      ],
+      "hard_alpha": true,
+      "exact_symmetry": true,
+      "allowed_palette": true,
+      "preview_exact_8x": true,
+      "opaque_pixels_per_frame": [
+        54,
+        56,
+        58,
+        46
+      ]
+    },
+    {
+      "file": "aurora_fx_r_shock.png",
+      "frames": 6,
+      "cell_1x": [
+        60,
+        26
+      ],
+      "hard_alpha": true,
+      "exact_symmetry": true,
+      "allowed_palette": true,
+      "preview_exact_8x": true,
+      "opaque_pixels_per_frame": [
+        218,
+        484,
+        602,
+        514,
+        344,
+        178
+      ]
+    },
+    {
+      "file": "aurora_fx_r_zone.png",
+      "frames": 8,
+      "cell_1x": [
+        80,
+        34
+      ],
+      "hard_alpha": true,
+      "exact_symmetry": true,
+      "allowed_palette": true,
+      "preview_exact_8x": true,
+      "opaque_pixels_per_frame": [
+        1036,
+        1276,
+        1616,
+        1548,
+        1574,
+        1538,
+        1554,
+        1538
+      ]
+    },
+    {
+      "file": "aurora_fx_r_hit.png",
+      "frames": 4,
+      "cell_1x": [
+        16,
+        20
+      ],
+      "hard_alpha": true,
+      "exact_symmetry": true,
+      "allowed_palette": true,
+      "preview_exact_8x": true,
+      "opaque_pixels_per_frame": [
+        86,
+        74,
+        50,
+        20
+      ]
+    },
+    {
+      "file": "aurora_fx_r_blink.png",
+      "frames": 5,
+      "cell_1x": [
+        24,
+        44
+      ],
+      "hard_alpha": true,
+      "exact_symmetry": true,
+      "allowed_palette": true,
+      "preview_exact_8x": true,
+      "opaque_pixels_per_frame": [
+        132,
+        376,
+        508,
+        378,
+        76
+      ]
+    }
+  ],
+  "runtime_verified": false
+}

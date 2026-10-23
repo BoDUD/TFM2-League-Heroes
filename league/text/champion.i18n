@@ -1092,6 +1092,13 @@
         "skill": "跃向目标，造成<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<> + 目标2%最大生命值的物理伤害，她的每条触手都抽他一下。",
         "skill2": "扯出敌方英雄的灵魂<#ffb900ff>5秒<>：受到的伤害+15%，<#ef5350ff>减速<>50%；之后成为躯壳<#ffb900ff>4秒<>，身边长出触手。",
         "ult": "跃起把神像砸进地里，对周围敌人造成<#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>物理伤害，每命中一名英雄长出一条触手；<#ffb900ff>8秒<>内触手每<#ffb900ff>1秒<>抽一次，严酷训诫冷却<#ffb900ff>2秒<>。"
+      },
+      "league_aurora": {
+        "name": "阿萝拉",
+        "attack": "魔杖点出灵光。<#ff9028ff>驱灵奇术<>：命中英雄叠层，第三层抽出灵物，造成<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>+2%最大生命值的伤害，<#66bb6aff>回复<><#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<>生命并加速。<#ff9028ff>灵纱洞开<>：被敌方英雄贴身时后跳，隐身<#ffb900ff>1.25秒<>、加速30%（<#ffb900ff>20秒<>一次）。",
+        "skill": "放出咒弹穿过敌人，造成<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<>魔法伤害并留下诅咒；<#ffb900ff>0.67秒<>后把诅咒抽回，回程再造成<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<>魔法伤害。",
+        "skill2": "向前喷出灵魂冲击，造成<#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>魔法伤害并<#ef5350ff>减速<>60%（逐渐减弱），随后向后跳开。",
+        "ult": "跳到敌方英雄身上，冲击波造成<#a974ffff>260<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>魔法伤害并<#ef5350ff>减速<>40%；张开领域<#ffb900ff>3.5秒<>，<#ef5350ff>减速<>其中敌人30%，目标走开时她穿过领域追上去。"
       }
     },
     "skill_name": {
@@ -1874,6 +1881,11 @@
         "skill1": "严酷训诫",
         "skill2": "灵魂试炼",
         "ult": "过界信仰"
+      },
+      "league_aurora": {
+        "skill1": "飞去来咒",
+        "skill2": "怪奇喷涌",
+        "ult": "双界合一"
       }
     }
   },
@@ -2970,6 +2982,13 @@
         "skill": "躍向目標，造成<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<> + 目標2%最大生命值的物理傷害，她的每條觸手都抽他一下。",
         "skill2": "扯出敵方英雄的靈魂<#ffb900ff>5秒<>：受到的傷害+15%，<#ef5350ff>緩速<>50%；之後成為軀殼<#ffb900ff>4秒<>，身邊長出觸手。",
         "ult": "躍起把神像砸進地裡，對周圍敵人造成<#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>物理傷害，每命中一名英雄長出一條觸手；<#ffb900ff>8秒<>內觸手每<#ffb900ff>1秒<>抽一次，嚴酷考驗冷卻<#ffb900ff>2秒<>。"
+      },
+      "league_aurora": {
+        "name": "歐羅拉",
+        "attack": "魔杖點出靈光。<#ff9028ff>精靈附體<>：命中英雄疊層，第三層抽出精靈，造成<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>+2%最大生命值的傷害，<#66bb6aff>回復<><#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<>生命並加速。<#ff9028ff>跨越兩界<>：被敵方英雄貼身時後跳，隱形<#ffb900ff>1.25秒<>、加速30%（<#ffb900ff>20秒<>一次）。",
+        "skill": "放出咒彈穿過敵人，造成<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<>魔法傷害並留下詛咒；<#ffb900ff>0.67秒<>後把詛咒抽回，回程再造成<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<>魔法傷害。",
+        "skill2": "向前噴出靈魂衝擊，造成<#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>魔法傷害並<#ef5350ff>緩速<>60%（逐漸減弱），隨後向後跳開。",
+        "ult": "跳到敵方英雄身上，衝擊波造成<#a974ffff>260<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>魔法傷害並<#ef5350ff>緩速<>40%；張開領域<#ffb900ff>3.5秒<>，<#ef5350ff>緩速<>其中敵人30%，目標走開時她穿過領域追上去。"
       }
     },
     "skill_name": {
@@ -3752,6 +3771,11 @@
         "skill1": "嚴酷考驗",
         "skill2": "祖靈之試",
         "ult": "虔信一躍"
+      },
+      "league_aurora": {
+        "skill1": "二重靈咒",
+        "skill2": "靈異逆躍",
+        "ult": "雙界合一"
       }
     }
   },
@@ -4848,6 +4872,13 @@
         "skill": "Leaps at her target: <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<> + 2% of its max health as physical damage, and every tentacle of hers lashes it.",
         "skill2": "Rips the spirit out of an enemy champion for <#ffb900ff>5s<>: it takes 15% more damage and is <#ef5350ff>slowed<> 50%; then it is a Vessel for <#ffb900ff>4s<> and a tentacle grows by it.",
         "ult": "Leaps and smashes her idol into the ground: <#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> physical damage to the enemies around, a tentacle for each champion hit; for <#ffb900ff>8s<> her tentacles strike every <#ffb900ff>1s<> and the cooldown of Harsh Lesson is <#ffb900ff>2s<>."
+      },
+      "league_aurora": {
+        "name": "Aurora",
+        "attack": "A spirit bolt off her wand. <#ff9028ff>Spirit Abjuration<>: her hits on champions add up; the third exorcises a spirit for <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> + 2% of the target's max health, and it <#66bb6aff>heals<> her <#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<> and speeds her up. <#ff9028ff>Across the Veil<>: with an enemy champion on top of her, she hops back, invisible for <#ffb900ff>1.25s<> and 30% faster (once every <#ffb900ff>20s<>).",
+        "skill": "A hex flies through her enemies for <#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<> magic damage, cursing them; <#ffb900ff>0.67s<> later the curses are drawn back, dealing <#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<> magic damage on the way home.",
+        "skill2": "A blast of spirit magic before her: <#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> magic damage and a <#ef5350ff>slow<> of 60% that fades; then she hops back.",
+        "ult": "Leaps onto an enemy champion: the shockwave deals <#a974ffff>260<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> magic damage and <#ef5350ff>slows<> 40%; a realm opens for <#ffb900ff>3.5s<>, <#ef5350ff>slowing<> the enemies in it 30%, and she steps across it after her target when it walks away."
       }
     },
     "skill_name": {
@@ -5630,6 +5661,11 @@
         "skill1": "Harsh Lesson",
         "skill2": "Test of Spirit",
         "ult": "Leap of Faith"
+      },
+      "league_aurora": {
+        "skill1": "Twofold Hex",
+        "skill2": "The Weirding",
+        "ult": "Between Worlds"
       }
     }
   },
@@ -6726,6 +6762,13 @@
         "skill": "대상에게 도약해 <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<> + 대상 최대 체력의 2% 물리 피해, 그녀의 모든 촉수가 대상을 내려친다.",
         "skill2": "적 챔피언의 영혼을 <#ffb900ff>5초<> 끌어낸다: 받는 피해 +15%, 50% <#ef5350ff>둔화<>; 이후 <#ffb900ff>4초<> 동안 그릇이 되어 곁에 촉수가 자란다.",
         "ult": "도약해 신상을 땅에 내리꽂아 주변 적에게 <#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> 물리 피해, 맞힌 챔피언마다 촉수 하나; <#ffb900ff>8초<> 동안 촉수는 <#ffb900ff>1초<>마다 내려치고 혹독한 가르침 재사용 대기시간 <#ffb900ff>2초<>."
+      },
+      "league_aurora": {
+        "name": "오로라",
+        "attack": "지팡이로 영혼 빛을 쏜다. <#ff9028ff>영혼 방호술<>: 챔피언 적중이 쌓여 세 번째에 영혼을 뽑아 <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> + 최대 체력의 2% 피해, <#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<> <#66bb6aff>회복<>과 이동 속도 증가. <#ff9028ff>장막 너머로<>: 적 챔피언이 붙으면 뒤로 뛰어 <#ffb900ff>1.25초<> 투명, 이동 속도 +30% (<#ffb900ff>20초<>마다).",
+        "skill": "주문 탄이 적을 꿰뚫어 <#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<> 마법 피해와 저주; <#ffb900ff>0.67초<> 뒤 저주를 끌어당겨 돌아오는 길에 <#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<> 마법 피해.",
+        "skill2": "앞으로 영혼 충격파를 뿜어 <#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> 마법 피해와 점점 약해지는 60% <#ef5350ff>둔화<>, 이후 뒤로 뛴다.",
+        "ult": "적 챔피언에게 도약해 충격파로 <#a974ffff>260<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> 마법 피해와 40% <#ef5350ff>둔화<>; <#ffb900ff>3.5초<> 동안 영역을 열어 안의 적을 30% <#ef5350ff>둔화<>, 대상이 벗어나면 영역을 건너 쫓아간다."
       }
     },
     "skill_name": {
@@ -7508,6 +7551,11 @@
         "skill1": "혹독한 가르침",
         "skill2": "영혼의 시험",
         "ult": "믿음의 도약"
+      },
+      "league_aurora": {
+        "skill1": "이중 저주",
+        "skill2": "마법의 문",
+        "ult": "세계의 경계"
       }
     }
   },
@@ -8604,6 +8652,13 @@
         "skill": "対象へ跳び<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<> + 対象の最大体力の2%の物理ダメージ、彼女の触手すべてが対象を打つ。",
         "skill2": "敵英雄の魂を<#ffb900ff>5秒<>引き出す：受けるダメージ+15%、50%<#ef5350ff>スロウ<>。その後<#ffb900ff>4秒<>器となり、そばに触手が生える。",
         "ult": "跳んで神像を地面に叩きつけ周囲の敵に<#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>の物理ダメージ、当たった英雄ごとに触手1本。<#ffb900ff>8秒<>間触手は<#ffb900ff>1秒<>ごとに打ち、過酷なる教訓のクールダウン<#ffb900ff>2秒<>。"
+      },
+      "league_aurora": {
+        "name": "オーロラ",
+        "attack": "杖から霊光を放つ。<#ff9028ff>精霊の解放<>：英雄への命中が重なり、3回目で精霊を引き出し<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>＋最大体力の2%のダメージ、<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<><#66bb6aff>回復<>し加速。<#ff9028ff>ベールを越えて<>：敵英雄に詰められると後ろへ跳び<#ffb900ff>1.25秒<>透明、移動速度+30%（<#ffb900ff>20秒<>ごと）。",
+        "skill": "呪弾が敵を貫き<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<>の魔法ダメージと呪い、<#ffb900ff>0.67秒<>後に呪いを引き戻し帰り道で<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<>の魔法ダメージ。",
+        "skill2": "前方へ霊の衝撃を放ち<#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>の魔法ダメージと弱まっていく60%<#ef5350ff>スロウ<>、その後後ろへ跳ぶ。",
+        "ult": "敵英雄へ跳び衝撃波で<#a974ffff>260<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>の魔法ダメージと40%<#ef5350ff>スロウ<>。<#ffb900ff>3.5秒<>間領域を開き中の敵を30%<#ef5350ff>スロウ<>、対象が離れると領域を越えて追う。"
       }
     },
     "skill_name": {
@@ -9386,6 +9441,11 @@
         "skill1": "過酷なる教訓",
         "skill2": "魂の試練",
         "ult": "信仰震"
+      },
+      "league_aurora": {
+        "skill1": "折れ重なる魔法",
+        "skill2": "ウィアーディング",
+        "ult": "世界の狭間"
       }
     }
   }

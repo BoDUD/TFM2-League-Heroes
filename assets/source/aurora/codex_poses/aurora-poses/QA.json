@@ -1,0 +1,342 @@
+[
+  {
+    "file": "aurora-pose-a_wind.png",
+    "requested_pose": "RAISE - standing tall, the FAR hand lifting the wand up beside her head on the image right (the tip to the upper right, never over the face), the near arm opened out to the left.",
+    "size": [
+      1254,
+      1254
+    ],
+    "bbox_alpha128": [
+      284,
+      146,
+      1158,
+      1215
+    ],
+    "alpha_0": 1207240,
+    "alpha_255": 2471,
+    "partial_alpha": 362805,
+    "strict_grid_9": false,
+    "hard_alpha": false,
+    "runtime_verified": false
+  },
+  {
+    "file": "aurora-pose-a_point.png",
+    "requested_pose": "POINT - leaning forward, the FAR arm stretched forward level, the wand thrust out to the image right (the tip to the right and a little up, at shoulder height), the near arm flung back, the feet apart.",
+    "size": [
+      1254,
+      1254
+    ],
+    "bbox_alpha128": [
+      70,
+      201,
+      1221,
+      1182
+    ],
+    "alpha_0": 1213966,
+    "alpha_255": 2324,
+    "partial_alpha": 356226,
+    "strict_grid_9": false,
+    "hard_alpha": false,
+    "runtime_verified": false
+  },
+  {
+    "file": "aurora-pose-q_wind.png",
+    "requested_pose": "WIND-UP - a small hop (the feet about 3 squares up), leaning back, the FAR hand holding the wand upright beside her head on the image right (the tip UP, never over the face), the near arm flung up to the upper left.",
+    "size": [
+      1254,
+      1254
+    ],
+    "bbox_alpha128": [
+      288,
+      39,
+      983,
+      1216
+    ],
+    "alpha_0": 1145554,
+    "alpha_255": 2018,
+    "partial_alpha": 424944,
+    "strict_grid_9": false,
+    "hard_alpha": false,
+    "runtime_verified": false
+  },
+  {
+    "file": "aurora-pose-q_cast.png",
+    "requested_pose": "CAST - a big step forward, leaning forward, the FAR arm sweeping the wand out to the lower right (the tip to the lower right), the near arm flung out to the left, the legs wide apart.",
+    "size": [
+      1254,
+      1254
+    ],
+    "bbox_alpha128": [
+      138,
+      75,
+      1221,
+      1195
+    ],
+    "alpha_0": 1155686,
+    "alpha_255": 2069,
+    "partial_alpha": 414761,
+    "strict_grid_9": false,
+    "hard_alpha": false,
+    "runtime_verified": false
+  },
+  {
+    "file": "aurora-pose-q_catch.png",
+    "requested_pose": "RECALL - up on her toes (the feet about 2 squares up), the FAR hand holding the wand straight up at her side on the image right (the tip UP, never over the face), the near arm open to the left, palm up, as if catching something flying back.",
+    "size": [
+      1254,
+      1254
+    ],
+    "bbox_alpha128": [
+      296,
+      118,
+      953,
+      1196
+    ],
+    "alpha_0": 1215679,
+    "alpha_255": 2499,
+    "partial_alpha": 354338,
+    "strict_grid_9": false,
+    "hard_alpha": false,
+    "runtime_verified": false
+  },
+  {
+    "file": "aurora-pose-e_push.png",
+    "requested_pose": "BLAST - squatting deep with the knees spread apart, leaning forward, BOTH hands holding the wand and thrusting it out to the lower right (the tip to the lower right), the tail up behind her.",
+    "size": [
+      1254,
+      1254
+    ],
+    "bbox_alpha128": [
+      177,
+      148,
+      1162,
+      1182
+    ],
+    "alpha_0": 1167472,
+    "alpha_255": 2031,
+    "partial_alpha": 403013,
+    "strict_grid_9": false,
+    "hard_alpha": false,
+    "runtime_verified": false
+  },
+  {
+    "file": "aurora-pose-e_hop.png",
+    "requested_pose": "HOP BACK - jumping back toward the image left (the feet about 10 squares up), both knees tucked, leaning back, the FAR hand resting the wand on her shoulder again as in the design, the near arm reaching forward.",
+    "size": [
+      1254,
+      1254
+    ],
+    "bbox_alpha128": [
+      354,
+      97,
+      965,
+      1176
+    ],
+    "alpha_0": 1199149,
+    "alpha_255": 2194,
+    "partial_alpha": 371173,
+    "strict_grid_9": false,
+    "hard_alpha": false,
+    "runtime_verified": false
+  },
+  {
+    "file": "aurora-pose-r_reach.png",
+    "requested_pose": "REACH - standing tall on her toes, the near arm spread out level to the left, the FAR hand pointing the wand down to the lower right (the tip to the lower right), about to leap.",
+    "size": [
+      1254,
+      1254
+    ],
+    "bbox_alpha128": [
+      228,
+      37,
+      1109,
+      1224
+    ],
+    "alpha_0": 1198971,
+    "alpha_255": 2539,
+    "partial_alpha": 371006,
+    "strict_grid_9": false,
+    "hard_alpha": false,
+    "runtime_verified": false
+  },
+  {
+    "file": "aurora-pose-r_leap.png",
+    "requested_pose": "LEAP - jumping high to the upper right (the feet about 12 squares up), both knees tucked under her, the FAR hand resting the wand on her shoulder as in the design, the near arm flung back to the left.",
+    "size": [
+      1254,
+      1254
+    ],
+    "bbox_alpha128": [
+      279,
+      17,
+      996,
+      1226
+    ],
+    "alpha_0": 1078447,
+    "alpha_255": 2633,
+    "partial_alpha": 491436,
+    "strict_grid_9": false,
+    "hard_alpha": false,
+    "runtime_verified": false
+  },
+  {
+    "file": "aurora-pose-r_land.png",
+    "requested_pose": "LAND - landing in a crouch with the knees together, leaning forward, the FAR hand pointing the wand down at the ground to the lower right (the tip nearly touching the ground), the near arm out to the left for balance.",
+    "size": [
+      1254,
+      1254
+    ],
+    "bbox_alpha128": [
+      157,
+      109,
+      1096,
+      1198
+    ],
+    "alpha_0": 1135606,
+    "alpha_255": 2786,
+    "partial_alpha": 434124,
+    "strict_grid_9": false,
+    "hard_alpha": false,
+    "runtime_verified": false
+  },
+  {
+    "file": "aurora-pose-w_hop.png",
+    "requested_pose": "VEIL HOP - leaping high back toward the image left (the feet about 10 squares up), curled up in a ball, both knees pulled up to the chest, the FAR hand holding the wand on her shoulder, the near arm hugging the knees, the tail flung out behind her.",
+    "size": [
+      1254,
+      1254
+    ],
+    "bbox_alpha128": [
+      244,
+      64,
+      1020,
+      1158
+    ],
+    "alpha_0": 1110633,
+    "alpha_255": 1754,
+    "partial_alpha": 460129,
+    "strict_grid_9": false,
+    "hard_alpha": false,
+    "runtime_verified": false
+  },
+  {
+    "file": "aurora-pose-run1.png",
+    "requested_pose": "RUN 1 - a stride: the FAR leg forward with its foot landing, the NEAR leg stretched back, leaning forward a little, the wand resting on her shoulder as in the design, the near arm swinging back.",
+    "size": [
+      1254,
+      1254
+    ],
+    "bbox_alpha128": [
+      343,
+      59,
+      961,
+      1215
+    ],
+    "alpha_0": 1177127,
+    "alpha_255": 2536,
+    "partial_alpha": 392853,
+    "strict_grid_9": false,
+    "hard_alpha": false,
+    "runtime_verified": false
+  },
+  {
+    "file": "aurora-pose-run2.png",
+    "requested_pose": "RUN 2 - the near leg under the body carrying her, the FAR knee lifted forward, the body one square higher, the wand on her shoulder as before, the near arm swinging down.",
+    "size": [
+      1254,
+      1254
+    ],
+    "bbox_alpha128": [
+      352,
+      138,
+      883,
+      1205
+    ],
+    "alpha_0": 1244109,
+    "alpha_255": 2162,
+    "partial_alpha": 326245,
+    "strict_grid_9": false,
+    "hard_alpha": false,
+    "runtime_verified": false
+  },
+  {
+    "file": "aurora-pose-run3.png",
+    "requested_pose": "RUN 3 - the NEAR leg forward with its foot landing, the FAR leg stretched back, leaning forward a little, the wand on her shoulder, the near arm swinging forward.",
+    "size": [
+      1254,
+      1254
+    ],
+    "bbox_alpha128": [
+      375,
+      167,
+      932,
+      1186
+    ],
+    "alpha_0": 1251061,
+    "alpha_255": 1901,
+    "partial_alpha": 319554,
+    "strict_grid_9": false,
+    "hard_alpha": false,
+    "runtime_verified": false
+  },
+  {
+    "file": "aurora-pose-run4.png",
+    "requested_pose": "RUN 4 - the far leg under the body carrying her, the NEAR knee lifted forward, the body one square higher, the wand on her shoulder, the near arm swinging down.",
+    "size": [
+      1254,
+      1254
+    ],
+    "bbox_alpha128": [
+      303,
+      80,
+      906,
+      1212
+    ],
+    "alpha_0": 1187560,
+    "alpha_255": 2235,
+    "partial_alpha": 382721,
+    "strict_grid_9": false,
+    "hard_alpha": false,
+    "runtime_verified": false
+  },
+  {
+    "file": "aurora-pose-d_stagger.png",
+    "requested_pose": "STAGGER - reeling back toward the image left, the knees buckling, both arms flung out to the sides, the wand slipping in the far hand, hanging down to the lower right.",
+    "size": [
+      1254,
+      1254
+    ],
+    "bbox_alpha128": [
+      196,
+      98,
+      1165,
+      1222
+    ],
+    "alpha_0": 1139067,
+    "alpha_255": 2394,
+    "partial_alpha": 431055,
+    "strict_grid_9": false,
+    "hard_alpha": false,
+    "runtime_verified": false
+  },
+  {
+    "file": "aurora-pose-d_slump.png",
+    "requested_pose": "DOWN - sitting down on the ground, both legs stretched forward to the image right with the knees a little bent, leaning back, the near hand propped on the ground behind her, the far hand resting on her leg; the wand lying flat on the ground under her, its tip to the image left.",
+    "size": [
+      1254,
+      1254
+    ],
+    "bbox_alpha128": [
+      247,
+      131,
+      1159,
+      1199
+    ],
+    "alpha_0": 1074137,
+    "alpha_255": 3113,
+    "partial_alpha": 495266,
+    "strict_grid_9": false,
+    "hard_alpha": false,
+    "runtime_verified": false
+  }
+]

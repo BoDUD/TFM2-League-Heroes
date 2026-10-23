@@ -188,6 +188,10 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // the long-legged poses' and the runs' legs drawn again at the design's length) at the user's 1.5 squares a game pixel
     // (63 game rows bun to soles: 「俄洛伊发髻到脚底 42 游戏像素，PPU 1.5，触手 44，只做四分之三侧面」), so no SIZES row
     ("league_illaoi", 1.5, include_str!("../../../league/champions/league_illaoi#anim.fanim")),
+    // Aurora: posed by tools/art/rig_aurora.py on Codex's step-1 take A-2 and its key poses (the design's head put back,
+    // the long-legged poses' legs drawn again at the design's length) at the user's 2.25 squares a game pixel (86 game
+    // rows hat top to soles, the ears above: 「太模糊了 用PPU调下像素」, then A-2 at 2.25; 3/4 only), so no SIZES row
+    ("league_aurora", 2.25, include_str!("../../../league/champions/league_aurora#anim.fanim")),
     // Neeko: posed by tools/art/rig_neeko.py on Codex's step-1 take A-1 and its key poses at the user's 2.5 squares a
     // game pixel (100 game rows quill tips to soles: 「40」, then 「1.5也挺糊的 还得往上调整吧」; 3/4 only; league_neeko's
     // view hook draws her as an ally while she is disguised), so no SIZES row
@@ -407,6 +411,10 @@ pub const UI_SIZES: &[(&str, f32)] = &[
     ("league_warwick", 0.88),
     // Mel (#144): 43.3 game rows bun top to soles at PPU 1.5 - 12.7 px of her heels and train hid under the card's canvas
     ("league_mel", 0.90),
+    // Aurora: about 48 game px from her ear tips to her soles at PPU 2.25 (the long ears 10 over the hat) - at -12 the card
+    // cut 22 px of her ears, at the rule's -1 her legs hid; 0.82 with banpick_center -9: the ear tips 3 px under the
+    // canvas top, the soles on its bottom (bp_card_audit.py)
+    ("league_aurora", 0.82),
 ];
 
 /// The `"lo_..."` animation names of a .fanim.
