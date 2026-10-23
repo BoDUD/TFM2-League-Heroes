@@ -6797,24 +6797,24 @@ python tools/art/preview_nunu.py                     # 预览和演示 GIF
 | 数值 | 攻击 72（+6）、法强 30（+15）、生命 1150（+120）、护甲 40（+10）、魔抗 30（+5）、移速 1000（+11）、射程 25000 |
 | 平衡 | 经典引擎模拟（打野，对忍者、恶魔、猎人、狼人、吸血鬼，两边三套阵容）：草稿 +1.51（同一批努努 +2.00）；按动作帧重新对时（每一跳都落到人）+3.65；击飞缩短（R 20、E 30 tick）+1.98；R 90、E 60 定稿：+1.73 / +1.03（种子 1-8 / 9-16；同一批努努 +2.00 / +2.42），和打野一档；再降到生命 1080、护甲 36 只有 +0.44，没用。黏液原来只飞出 12000、躺在他自己 58 像素宽的身体底下，游戏里看不见（用户：「这个也要改」）：飞出 32000 + 吃的范围 16000 +0.92 / +1.23（吃到的少了），范围 20000 +1.21 / +1.17，每块回血 40 → 55 定稿 +1.58 / +1.30（回血和原来一样）。数据量：黏液、W 和连招放在普攻挂上的控制器里（每 3 tick 一拍），技能 75、技能2 69 个节点（游戏每 tick 复制这两个，所以要小） |
 | 附加包 | `league_zac`（细胞分裂的复活，在 `league_addons` 合集里，[`addons/league_zac/README.md`](addons/league_zac/README.md)）：受到致命伤害时不倒下，化成一滩 6 秒（最大生命 40% 当作这一滩的生命，定身、不能普攻和放技能、双抗 −20），这一滩被打掉才阵亡（击杀算打掉它的人），撑过去就带着剩下的生命重新聚起；每 5 分钟一次，阵亡不重置。化开、一滩、聚起的动作和声音在主包里，附加包的显示钩子把他站着、挨打时也画成一滩。佛耶戈 / 妮蔻的灵魂表、塞拉斯的职业表和可偷大招（偷到的动感弹球照样连跳）、凯隐的攻击距离、大招按键的距离表都加上了扎克 |
-| 精灵图（高清帧 PPU 1.5，局内 90%） | Codex 第 0 步画了 A（四分之三侧面）和 SA（[`tools/art/pack_zac_picture.py`](tools/art/pack_zac_picture.py)；英雄联盟模型要藏掉一滩和小黏液两个分网格），[`tools/art/design_zac_hd.py`](tools/art/design_zac_hd.py) 按原图自己的格子读回（A 约 10.8、SA 约 10.4 像素一格），[`tools/art/review_zac_size.py`](tools/art/review_zac_size.py) 摆在努努、科加斯、蒙多、古拉加斯、沃利贝尔、沃里克旁边给用户定大小；用户选了触须顶到脚底 44 游戏像素、PPU 1.5、只做四分之三侧面。第 1 步两稿（[`tools/art/pack_zac_model.py`](tools/art/pack_zac_model.py)，13 像素一格），[`tools/art/design_zac_model.py`](tools/art/design_zac_model.py) 把 A-1（脸更清楚）切到 66 行：87 × 66。动作：先照 oppi 的扎克自己拼，转了四分之一的手被说「有点变形了吧？手」，橡皮管胳膊又「做的太奇怪了」，用户：「不用参照oppi 参照英雄联盟」——[`tools/art/pack_zac_poses.py`](tools/art/pack_zac_poses.py) 照英雄联盟的片段画了 17 个骨架姿势给 Codex（拍扁、化开的姿势只给方框，不画骨架）；[`tools/art/design_zac_poses.py`](tools/art/design_zac_poses.py) 按同一个身体格子读回（Codex 画的头大小不一）、换成定稿的颜色、贴回定稿的头和触须（按眼睛对齐），R 的下蹲多压 7 行。[`tools/art/rig_zac.py`](tools/art/rig_zac.py) 排成动作：待机、跑步（布隆的走法，用定稿自己的腿）、普攻（蓄力、出拳）、延伸打击（蓄力、伸手；举起、砸地）、橡筋弹弓（插手、后拉；飞；落地）、动感弹球（下蹲、起跳、成球、落下；拍扁、下蹲）、挨打（闪白）、阵亡（踉跄、化开、一滩），还有附加包用的化开、一滩、聚起；审查只发一张合成 GIF，左边英雄联盟的同名动作，用户：「动作帧可以」。之后用户「感觉模型有点大了？缩小一点」：`league.dll` 画成 90%（hd.rs SIZES），帧整体下移 2 格让脚还踩在地上 |
+| 精灵图（高清帧 PPU 1.5） | Codex 第 0 步画了 A（四分之三侧面）和 SA（[`tools/art/pack_zac_picture.py`](tools/art/pack_zac_picture.py)；英雄联盟模型要藏掉一滩和小黏液两个分网格），[`tools/art/design_zac_hd.py`](tools/art/design_zac_hd.py) 按原图自己的格子读回（A 约 10.8、SA 约 10.4 像素一格），[`tools/art/review_zac_size.py`](tools/art/review_zac_size.py) 摆在努努、科加斯、蒙多、古拉加斯、沃利贝尔、沃里克旁边给用户定大小；用户选了触须顶到脚底 44 游戏像素、PPU 1.5、只做四分之三侧面。第 1 步两稿（[`tools/art/pack_zac_model.py`](tools/art/pack_zac_model.py)，13 像素一格），[`tools/art/design_zac_model.py`](tools/art/design_zac_model.py) 把 A-1（脸更清楚）切到 66 行：87 × 66。动作：先照 oppi 的扎克自己拼，转了四分之一的手被说「有点变形了吧？手」，橡皮管胳膊又「做的太奇怪了」，用户：「不用参照oppi 参照英雄联盟」——[`tools/art/pack_zac_poses.py`](tools/art/pack_zac_poses.py) 照英雄联盟的片段画了 17 个骨架姿势给 Codex（拍扁、化开的姿势只给方框，不画骨架）；[`tools/art/design_zac_poses.py`](tools/art/design_zac_poses.py) 按同一个身体格子读回（Codex 画的头大小不一）、换成定稿的颜色、贴回定稿的头和触须（按眼睛对齐），R 的下蹲多压 7 行。[`tools/art/rig_zac.py`](tools/art/rig_zac.py) 排成动作：待机、跑步（布隆的走法，用定稿自己的腿）、普攻（蓄力、出拳）、延伸打击（蓄力、伸手；举起、砸地）、橡筋弹弓（插手、后拉；飞；落地）、动感弹球（下蹲、起跳、成球、落下；拍扁、下蹲）、挨打（闪白）、阵亡（踉跄、化开、一滩），还有附加包用的化开、一滩、聚起；审查只发一张合成 GIF，左边英雄联盟的同名动作，用户：「动作帧可以」 |
 | 特效 | 15 张特效（[`tools/art/pack_zac_fx.py`](tools/art/pack_zac_fx.py) 的提示词，参考是英雄联盟里扎克自己的贴图，[`tools/lol/fx_ref_zac.py`](tools/lol/fx_ref_zac.py)），Codex 画回来，[`tools/art/import_zac_fx.py`](tools/art/import_zac_fx.py) 切成 `league_zac_fx` / `league_zac_big`（每张都核对了对称，绕着他的三张让他的脚踩在格子底上 3 格）：拳头的黏液溅射，不稳定物质的炸开和打中，伸长的拳头和黏住目标的黏液，砸地，黏液减速，弹弓落地和击飞，弹球落地和击飞，飞出、躺在地上、被吃掉的黏液 |
 | 音效 | 英雄联盟的音效和配音（[`tools/lol/extract_zac.py`](tools/lol/extract_zac.py)）：出拳和打中，伸手、抓中、砸地，不稳定物质的炸开和打中，弹弓的拉、落地、击飞，弹球的出手、每一跳、落地、击飞，吃黏液，三句台词；附加包用的分裂、聚起和一句台词 |
 | 图标 | 官方技能图标（延伸打击、橡筋弹弓、动感弹球，另有不稳定物质、细胞分裂），从本地客户端取 |
-| 选人卡片 | 待机里最高的一帧（普攻的蓄力）触须尖到脚底按 90% 算 42 游戏像素，卡片画布只装得下约 40：`league.dll` 的 UI_SIZES 画成 0.93、`banpick_center` −11（`tools/art/bp_card_audit.py`：触须尖在画布顶下约 1 像素，脚踩在下沿）。待机按 `tools/art/hero_reels.py` 剪：普攻的蓄力、大招的下蹲；选人卡片轮流放橡筋弹弓、动感弹球、普攻（延伸打击的长手伸出卡片，按规则不放） |
+| 选人卡片 | 待机里最高的一帧（普攻的蓄力）触须尖到脚底 46.7 游戏像素，卡片画布只装得下约 40：`league.dll` 的 UI_SIZES 画成 0.84、`banpick_center` −10（`tools/art/bp_card_audit.py`：触须尖在画布顶下约 1 像素，脚踩在下沿）。待机按 `tools/art/hero_reels.py` 剪：普攻的蓄力、大招的下蹲；选人卡片轮流放延伸打击、橡筋弹弓、动感弹球、普攻 |
 
 重新生成（素材来自本机的英雄联盟客户端，音频不进仓库）：
 
 ```bash
 python tools/lol/extract_zac.py --lol "D:\WeGameApps\lol" --vgmstream <vgmstream-cli.exe>
 python tools/kit/build_zac.py                        # 技能数据，数字都在脚本的参数表 P 里
-python tools/kit/setup_zac.py                        # 五种语言的文字、音效配置、共享文件里他的键（脸 10,-26，卡片 -11）
+python tools/kit/setup_zac.py                        # 五种语言的文字、音效配置、共享文件里他的键（脸 11,-28，卡片 -10）
 python tools/art/design_zac_hd.py                    # Codex 第 0 步的原图读回（A、SA）
 python tools/art/design_zac_model.py                 # Codex 第 1 步的造型读回（A-1，66 行）
 python tools/art/design_zac_poses.py                 # Codex 的姿势读回（贴回定稿的头和触须）
 python tools/art/import_zac_fx.py                    # 特效 -> league_zac_fx / league_zac_big
 python tools/art/rig_zac.py                          # 1 倍帧和 1.5 的原帧
-python tools/art/ppu_restyle.py --hero zac           # 外描边、下移 2 格、脸的位置
+python tools/art/ppu_restyle.py --hero zac           # 外描边、脸的位置
 python tools/art/ppu_hd.py --hero zac                # hd_ / lo_ 帧
 python tools/art/hero_reels.py --hero zac            # 待机和选人卡片的小动作
 python tools/art/preview_zac.py                      # 预览和演示 GIF
