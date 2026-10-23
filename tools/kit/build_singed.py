@@ -17,8 +17,8 @@ idle). Flags die with him: a respawned Singed has E and W ready.
   attack  A blow of the shield plate (100% AD) by a hidden homing hit on `Enemy` (towers too) on a_hit.
   skill   E Fling (过肩摔), `Targeting` on `EnemyWithoutTower` (e_range, `e_cd`): on e_grab he heaves the target over
           his shoulder: e_dmg + e_ap% AP + e_thp% of its maximum health (true, `FixedAttack`; League 6-9% max health),
-          airborne e_fly ticks and pulled through him (`Pull` e_speed x e_fly: a pull runs past the caster, champion-data
-          "Pull vs Grab") to land behind him. Landing while his glue lies on the ground (`w_out`) roots it e_root ticks
+          pulled through him for e_fly ticks (`Pull` e_speed x e_fly: a pull runs past the caster, champion-data "Pull
+          vs Grab"; an `Airborne` with it kept the unit in place) to land behind him. Landing while his glue lies on the ground (`w_out`) roots it e_root ticks
           (League: landing in the glue; data reads no unit's place, so any lying glue counts - he flings toward it).
   skill2  W Mega Adhesive (强力粘胶), `Targeting` on `EnemyChampion` (w_range, `w_cd`): the vial lands w_fly ticks after
           w_rel on the spot (a lob), the glue lies w_t ticks in w_r: every w_p ticks w_slow% slow and grounding
@@ -62,7 +62,7 @@ P = {
     "p_near": 22000, "p_ms": 25, "p_t": 90, "p_gap": 240,
     # skill: E Fling
     "e_cd": 540, "e_cd_r": 360, "e_range": 20000, "e_dur": 30, "e_grab": 10, "e_dmg": 50, "e_ap": 60, "e_thp": 5,
-    "e_fly": 16, "e_speed": 2800, "e_root": 60,
+    "e_fly": 16, "e_speed": 4800, "e_root": 60,
     # skill2: W Mega Adhesive
     "w_cd": 900, "w_range": 60000, "w_dur": 30, "w_rel": 12, "w_fly": 20, "w_t": 180, "w_r": 20000, "w_p": 6,
     "w_slow": 50, "w_e_at": 2,
@@ -246,12 +246,14 @@ def build(p):
     # ------------------------------------------------------------------ E Fling
     def e_cast(target):
         root = sw("w_out", combine({"type": "Bind", "duration": p["e_root"]}, view("e_root"), tsfx("e_root")))
-        hit = [ap(p["e_dmg"], p["e_ap"]), pct(p["e_thp"]), {"type": "Airborne", "duration": p["e_fly"]},
-               {"type": "Pull", "speed": p["e_speed"], "tick": p["e_fly"]}, view("e_hit"), tsfx("e_hit"),
-               delayed(p["e_fly"], view("e_land"), root)]
+        # the pull straight on the target, not in the projectile (a Pull in a projectile heads for the projectile,
+        # already on the target: traced 2026-10-23, 0 of 35 moved), and no Airborne (a knocked-up unit is not pulled)
+        hit = [ap(p["e_dmg"], p["e_ap"]), pct(p["e_thp"]), view("e_hit"), tsfx("e_hit")]
+        throw = combine({"type": "Pull", "speed": p["e_speed"], "tick": p["e_fly"]},
+                        delayed(p["e_fly"], view("e_land"), root))
         cd = sw("r_on", refresh("e_cd", p["e_cd_r"]), refresh("e_cd", p["e_cd"]))
         return combine(cd, anim("skill", p["e_dur"]), sfx("e"), voice("vo_e", p),
-                       delayed(p["e_grab"] - 1, alive(homing("e_grab", target, hit), haste)))
+                       delayed(p["e_grab"] - 1, alive(homing("e_grab", target, hit), throw, haste)))
 
     # ------------------------------------------------------------------ W Mega Adhesive
     def w_cast(target):
