@@ -43,6 +43,9 @@ pub const P_GO: &str = "league_akshan_p_go";
 pub const R_CHAN: &str = "league_akshan_r_chan";
 pub const R_OPEN: &str = "league_akshan_r_open";
 pub const R_FIRE: &str = "league_akshan_r_fire";
+/// The data's lock on the champion he aims at (r_ch ticks from the cast): taken off here once he fires early or the
+/// channel ends (the user, 2026-10-23: 「应该是瞄准的时候没特效 导致玩家感觉没伤害」).
+pub const R_SIGHT: &str = "league_akshan_r_sight";
 pub const STORED: [&str; 5] =
     ["league_akshan_r_s1", "league_akshan_r_s2", "league_akshan_r_s3", "league_akshan_r_s4", "league_akshan_r_s5"];
 pub const MARK: &str = "league_akshan_w_mark";
@@ -786,6 +789,22 @@ impl Rogue {
         }
     }
 
+    /// The lock comes off the enemy champions once he fires (r_open) or the channel is over (no r_chan).
+    fn sight_off(&self, sim: &mut StableSim<'_>, me: usize) {
+        if has_buff(sim, me, R_CHAN) && !has_buff(sim, me, R_OPEN) {
+            return;
+        }
+        let Some(team) = sim.get_entity(me).map(|e| e.team()) else { return };
+        let locked: Vec<usize> = (0..sim.entity_count())
+            .filter_map(|i| sim.entity_at(i))
+            .filter(|u| u.team() != team && u.is_champion() && has_buff(sim, u.id(), R_SIGHT))
+            .map(|u| u.id())
+            .collect();
+        for id in locked {
+            sim.entity_remove_buff(id, R_SIGHT);
+        }
+    }
+
     /// While R channels: fire early when the stored bullets kill the weakest champion in reach, or he is leaving it.
     fn release(&self, sim: &mut StableSim<'_>, me: usize) {
         if !has_buff(sim, me, R_CHAN) || has_buff(sim, me, R_OPEN) || has_buff(sim, me, R_FIRE) {
@@ -866,6 +885,7 @@ impl StablePassive for Rogue {
         self.read_kills(sim, player, me);
         self.haste(sim, me);
         self.release(sim, me);
+        self.sight_off(sim, me);
     }
 }
 
