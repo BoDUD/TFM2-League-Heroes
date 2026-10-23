@@ -26,6 +26,7 @@ sys.path.insert(0, os.path.join(ROOT, "tools", "kit"))
 sys.path.insert(0, os.path.join(ROOT, ".claude", "skills", "tfm2-hero-mod", "scripts"))
 import build_viego as kit  # noqa: E402
 import setup_viego as setup  # noqa: E402
+import generated  # noqa: E402  --check
 
 MOD_ID = "league_viego_soul"
 HERO = "league_viego"
@@ -111,6 +112,8 @@ def souls_rs(table):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--game", help="Teamfight Manager2 folder (default: the usual Steam paths)")
+    ap.add_argument("--check", action="store_true",
+                    help="CI: rebuild what does not need the game and fail if the committed files differ")
     a = ap.parse_args()
     p = dict(kit.P)
     with open(lp(os.path.join(ROOT, "league", "champion", HERO + ".data_champion")), encoding="utf-8", newline="") as f:
@@ -127,7 +130,6 @@ def main():
             sys.exit(f"{name} is gone from the copy: update src/lib.rs")
     champion["attack"]["description"] = f"#asset/base/text/champion?description.{MOD_ID}.attack"
     champion["skill2"]["description"] = f"#asset/base/text/champion?description.{MOD_ID}.skill2"
-    table = souls(a.game)
 
     v = {k: p[k] for k in ("p_ad", "p_as")}
     v.update({k: setup.secs(p[k]) for k in ("p_win", "p_t", "p_inv", "soul_t")})
@@ -157,15 +159,21 @@ def main():
         sys.exit("no add-on text for %s" % sorted(missing))
 
     out = os.path.join(ADDON, "override", HERO + ".data_champion")
+    copy_text = json.dumps(champion, ensure_ascii=False, indent=2) + "\n"
+    out_text = os.path.join(ADDON, "text", "champion.i18n")
+    text_text = json.dumps({lang: {"description": {MOD_ID: {"attack": texts[lang], "skill2": w_texts[lang]}}}
+                            for lang in main_text},
+                           ensure_ascii=False, indent=2) + "\n"
+    if a.check:
+        generated.check(MOD_ID, [(out, copy_text), (out_text, text_text)], ["src/souls.rs"])
+        return
+    table = souls(a.game)
     os.makedirs(lp(os.path.dirname(out)), exist_ok=True)
     with open(lp(out), "w", encoding="utf-8", newline="\n") as f:
-        f.write(json.dumps(champion, ensure_ascii=False, indent=2) + "\n")
-    out_text = os.path.join(ADDON, "text", "champion.i18n")
+        f.write(copy_text)
     os.makedirs(lp(os.path.dirname(out_text)), exist_ok=True)
     with open(lp(out_text), "w", encoding="utf-8", newline="\n") as f:
-        f.write(json.dumps({lang: {"description": {MOD_ID: {"attack": texts[lang], "skill2": w_texts[lang]}}}
-                            for lang in main_text},
-                           ensure_ascii=False, indent=2) + "\n")
+        f.write(text_text)
     with open(lp(os.path.join(ADDON, "src", "souls.rs")), "w", encoding="utf-8", newline="\n") as f:
         f.write(souls_rs(table))
     cats = {}

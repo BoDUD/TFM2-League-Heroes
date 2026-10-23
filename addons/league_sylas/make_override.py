@@ -33,6 +33,7 @@ sys.path.insert(0, os.path.join(ROOT, ".claude", "skills", "tfm2-hero-mod", "scr
 sys.path.insert(0, os.path.join(ROOT, "addons", "league_viego_soul"))
 import build_sylas as kit  # noqa: E402
 import setup_sylas as setup  # noqa: E402
+import generated  # noqa: E402  --check
 
 TEXT_ID = "league_sylas_addon"      # the text's key (the hero's own id is league_sylas)
 HERO = "league_sylas"
@@ -179,6 +180,8 @@ def classes_rs(table):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--game", help="Teamfight Manager2 folder (default: the usual Steam paths)")
+    ap.add_argument("--check", action="store_true",
+                    help="CI: rebuild what does not need the game and fail if the committed files differ")
     a = ap.parse_args()
     p = dict(kit.P)
     with open(lp(os.path.join(ROOT, "league", "champion", HERO + ".data_champion")), encoding="utf-8", newline="") as f:
@@ -223,22 +226,28 @@ def main():
     if long:
         sys.exit("tooltip too long for the details panel: %s" % long)
 
+    out = os.path.join(ADDON, "override", HERO + ".data_champion")
+    # compact: the copy carries every League champion's ult (12 MB pretty-printed, 2.2 MB like this)
+    copy_text = json.dumps(champion, ensure_ascii=False, separators=(",", ":")) + "\n"
+    i18n = {lang: {"description": {TEXT_ID: d}} for lang, d in texts.items()}
+    tpath = os.path.join(ADDON, "text", "champion.i18n")
+    spath = os.path.join(ADDON, "src", "stealable.rs")
+    if a.check:
+        generated.check("league_sylas", [(out, copy_text), (tpath, dumps_main(i18n)), (spath, stealable_rs(stolen))],
+                        ["src/classes.rs"])
+        return
     import make_override as viego   # league_viego_soul's: the champion sheet's categories
     table = {cid: cat for cid, (cat, _) in viego.souls(a.game).items()}
 
-    out = os.path.join(ADDON, "override", HERO + ".data_champion")
     os.makedirs(lp(os.path.dirname(out)), exist_ok=True)
     with open(lp(out), "w", encoding="utf-8", newline="") as f:
-        # compact: the copy carries every League champion's ult (12 MB pretty-printed, 2.2 MB like this)
-        f.write(json.dumps(champion, ensure_ascii=False, separators=(",", ":")) + "\n")
-    i18n = {lang: {"description": {TEXT_ID: d}} for lang, d in texts.items()}
-    tpath = os.path.join(ADDON, "text", "champion.i18n")
+        f.write(copy_text)
     os.makedirs(lp(os.path.dirname(tpath)), exist_ok=True)
     with open(lp(tpath), "w", encoding="utf-8", newline="") as f:
         f.write(dumps_main(i18n))
     with open(lp(os.path.join(ADDON, "src", "classes.rs")), "w", encoding="utf-8", newline="\n") as f:
         f.write(classes_rs(table))
-    with open(lp(os.path.join(ADDON, "src", "stealable.rs")), "w", encoding="utf-8", newline="\n") as f:
+    with open(lp(spath), "w", encoding="utf-8", newline="\n") as f:
         f.write(stealable_rs(stolen))
     print(out)
     print(tpath)
