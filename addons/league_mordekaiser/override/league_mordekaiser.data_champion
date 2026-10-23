@@ -3539,6 +3539,14 @@
     },
     {
       "type": "Animation",
+      "name": "league_mordekaiser_r_realm_loop",
+      "anim": "asset/league/effects/league_mordekaiser_big",
+      "tag": "r_realm_loop",
+      "z": -1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
       "name": "league_mordekaiser_r_pull",
       "anim": "asset/league/effects/league_mordekaiser_fx",
       "tag": "r_pull",
