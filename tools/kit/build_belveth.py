@@ -37,7 +37,10 @@ and W ready.
           Bel'Veth herself: `own`): the takedown watch, the combos' casts, the maelstrom's check.
 Timings: drafts until the frames exist (tools/art/rig_belveth.py retimes them).
 Numbers: League 16.21 read into the jungle range (league_reksai, league_graves), balanced on the classic-SDK
-simulations (kd.py --lane 1 against ninja, demon, hunter, werewolf and vampire, C:/t/bv_sim).
+simulations (kd.py --lane 1 against ninja, demon, hunter, werewolf and vampire, C:/t/bv_sim, 2026-10-24; league_reksai
++2.41 on seeds 1-8): the draft (attack 70, hp 1000, Q 50 + 110% every 300 ticks, W 60 + 100%, R 100) +0.68; Q every 240
+with 60 + 120%, W 70 + 110%, attack 76, hp 1060 +0.93; attack 80 +14, hp 1100, defence 34, p_as 50 +1.52; with Q every
+210, 70 + 130%, W 80 + 120% every 540, R 140 +3.69; Q 65 + 125%, W 75 + 115%, R 130 = P +2.63 / +2.39 (seeds 1-8 / 9-16).
 """
 import argparse
 import json
@@ -59,21 +62,21 @@ BIG = "asset/league/effects/league_belveth_big"
 # takedown; 40-?% attack speed after each spell for 2 attacks.
 P = {
     # stats (base jungle fighters: league_reksai 1000 / 86, attack every 60 ticks; she attacks every atk_cd for less)
-    "hp": 1000, "hp_g": 100, "atk": 70, "atk_g": 12, "def": 30, "def_g": 8, "mr": 25, "mr_g": 4, "ms": 1000,
+    "hp": 1100, "hp_g": 100, "atk": 80, "atk_g": 14, "def": 34, "def_g": 8, "mr": 25, "mr_g": 4, "ms": 1000,
     "ms_g": 11, "regen": 2, "regen_g": 1,
     "atk_range": 24000, "atk_dur": 22, "atk_cd": 50, "a_hit": 9,
     # the controller
     "ctl_t": 3600, "ctl_p": 3,
     # passive: attack speed after a spell; lavender stacks from takedowns (the window)
-    "p_as": 40, "p_t": 240, "p_win": 180, "l_as": 6, "l_max": 8,
+    "p_as": 50, "p_t": 240, "p_win": 180, "l_as": 6, "l_max": 8,
     # skill: Q Void Surge
-    "q_cd": 300, "q_cd_r": 150, "q_range": 40000, "q_dur": 18, "q_go": 3, "q_speed": 6000, "q_t": 7, "q_t_r": 10,
-    "q_dmg": 50, "q_ratio": 110,
+    "q_cd": 240, "q_cd_r": 120, "q_range": 40000, "q_dur": 18, "q_go": 3, "q_speed": 6000, "q_t": 7, "q_t_r": 10,
+    "q_dmg": 65, "q_ratio": 125,
     # skill2: W Above and Below
     "w_cd": 600, "w_range": 45000, "w_dur": 30, "w_rel": 12, "w_len": 55000, "w_rad": 7000, "w_speed": 30000,
-    "w_dmg": 60, "w_ratio": 100, "w_up": 50, "w_slow": 40, "w_slow_t": 90,
+    "w_dmg": 75, "w_ratio": 115, "w_up": 50, "w_slow": 40, "w_slow_t": 90,
     # ult: R Endless Banquet
-    "r_cd": 4800, "r_range": 35000, "r_dur": 40, "r_hit": 20, "r_r": 22000, "r_dmg": 100, "r_ratio": 80,
+    "r_cd": 4800, "r_range": 35000, "r_dur": 40, "r_hit": 20, "r_r": 22000, "r_dmg": 130, "r_ratio": 80,
     "r_slow": 40, "r_slow_t": 90, "r_t": 900, "r_hp": 20, "r_rng": 6000, "r_as": 40, "r_ms": 15,
     # the coral: R's cooldown cut on a takedown out of the true form (ult_cooldown_mult for 2 ticks: 100 / (100 + c))
     "c_ult": 150,
