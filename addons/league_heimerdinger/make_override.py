@@ -7,11 +7,12 @@ main pack's league/champion/league_heimerdinger.data_champion byte for byte (so 
 kit), that src/lib.rs's default Params are P's numbers and its T_MUZZLE / X_MUZZLE the side turrets' muzzles
 (assets/source/heimerdinger/hd/side_muzzles.json, written by tools/art/import_heimerdinger_fx.py), and writes
 addons/league_heimerdinger/override/league_heimerdinger.data_champion and .../text/champion.i18n: the build with native=1 -
-  * everything of the main pack's kit (the bolt and W's rockets, E's grenade, R by the situation, the combos);
-  * the turrets keep their sounds and three slots but no zones: Q's put and R's apex run the add-on's
+  * everything of the main pack's kit (the bolt and W's rockets, E's grenade, R upgrading the next spell, the combos);
+  * the turrets keep their sounds and three slots but no zones: Q's put and the upgraded Q's apex run the add-on's
     league_heimerdinger:q / :x, which stand its native turrets and say which side they face (t_face_l / x_face_l):
     the turrets are drawn from the side (league_heimerdinger_turret_r / _l, _apex_r / _l);
-  * passive = the add-on's league_heimerdinger:affinity with the numbers of P it uses (passive.params);
+  * passive = the add-on's league_heimerdinger:affinity with the numbers of P it and the hook (combo.rs) use
+    (passive.params);
   * the shots' views (t_shot, t_beam_line, x_shot: drawn in league_heimerdinger_fx, unbound in the main pack);
   * the skill's tooltip points to description.league_heimerdinger.skill with the add-on's wording.
 Every other champion stays untouched. Run it again whenever the main pack's Heimerdinger changes.

@@ -39,7 +39,6 @@ pub const STEALABLE: &[&str] = &[
     "league_graves",
     "league_gwen",
     "league_hecarim",
-    "league_heimerdinger",
     "league_hwei",
     "league_illaoi",
     "league_irelia",

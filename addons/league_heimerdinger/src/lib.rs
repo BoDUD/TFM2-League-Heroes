@@ -4,7 +4,7 @@
 //! **看不到炮弹从炮台飞出去**；被动（海克斯科技亲和）是炮台的光环区域，**只认他自己的炮台、不认己方防御塔**。`mod.override_info`
 //! 把主包的黑默丁格换成 `override/` 里的副本（`tools/kit/build_heimerdinger.py --native`）：
 //!
-//! - **炮台由本包来打**：副本的炮台保留画面、音效和三个槽位（最多 3 座），但没有区域；Q 放炮台和 R 的巨型炮台那一 tick 跑本包的
+//! - **炮台由本包来打**：副本的炮台保留画面、音效和三个槽位（最多 3 座），但没有区域；Q 放炮台和升级的 Q 放巨型炮台那一 tick 跑本包的
 //!   `league_heimerdinger:q` / `:x`（拿施法的方向或目标），炮台站在隐形弹停下的地方（朝那个方向 `q_place` 远，`q_place / q_speed`
 //!   tick 后），和数据的炮台图同一个点。
 //! - **炮台侧面朝敌人**（用户：「炮台改成侧面朝敌人」「灵活利用PPU 炮也可以调的清晰」）：目标在他左边时 `:q` / `:x` 给他挂
@@ -19,12 +19,15 @@
 //! - **海克斯科技亲和**：他活着时每 `p_per` tick 看一次，站在自己的炮台 `p_r` 内或己方防御塔 `p_tr` 内就加 `p_ms`% 移速
 //!   `p_t` tick（主包的 `league_heimerdinger_haste`，画面照旧）。
 //!
+//! - **升级给谁**（`combo.rs`；用户 2026-10-24：R 改成「升级下一个技能」）：AI 钩子 `league_heimerdinger:combo` 在 R 的升级
+//!   挂着时替游戏的 AI 挑：敌方英雄扎堆就按 E（CH-3X），不然按 Q（巨型炮台），Q 没好再按 E。
+//!
 //! 数字都从英雄数据的 `passive.params` 来（`make_override.py` 从参数表 P 写进去）。状态记在每个黑默丁格自己的被动实例里，
 //! 原生效果把炮台交给被动时按（这局的种子、模拟的来源、他的编号）分开，服务端预模拟和你看的那场各算各的。
 //!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_heimerdinger.log`，每次启动游戏重写，上一次的留在 .prev.log：
 //! `SPAWN`（他出场和参数）、`PUT`（炮台站下，施法输入的种类）、`SHOT`（炮台出手）、`HASTE`（加速，塔边还是炮台边）、
-//! `WATCH`（每 30 秒的计数），都限了条数。
+//! `WATCH`（每 30 秒的计数）、`E CLUMP` / `Q APEX` / `E ONE`（钩子替 AI 按的），都限了条数。
 
 use std::collections::HashMap;
 use std::fs::OpenOptions;
@@ -34,9 +37,11 @@ use std::sync::{LazyLock, Mutex};
 
 use mod_api_stable::*;
 
+pub mod combo;
+
 const ID: &str = "league_heimerdinger";
 /// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是 league_addons 的。
-const VERSION: &str = "0.1.0";
+const VERSION: &str = "0.2.0";
 /// 侧面炮台朝右时炮口离炮台的点多远（游戏像素 x 1000：往前、往上；tools/art/import_heimerdinger_fx.py 写的
 /// assets/source/heimerdinger/hd/side_muzzles.json，make_override.py 核对）。一颗飞行物画在它的点上方 5 px，所以发射点往南挪
 /// 5 px 减去炮口的高度。
@@ -118,7 +123,7 @@ pub struct Params {
     pub t_ratio: usize,
     pub tb_dmg: usize,
     pub tb_ratio: usize,
-    /// R 的巨型炮台：同上，加减速 % 和 tick。
+    /// 升级的 Q 的巨型炮台：同上，加减速 % 和 tick。
     pub x_life: usize,
     pub x_per: usize,
     pub x_first: usize,
@@ -139,6 +144,10 @@ pub struct Params {
     pub t_speed: usize,
     pub b_speed: usize,
     pub x_speed: usize,
+    /// 钩子（combo.rs）：Q、E 的施放距离，CH-3X 一颗的半径。
+    pub q_range: usize,
+    pub e_range: usize,
+    pub re_r: usize,
 }
 
 impl Default for Params {
@@ -158,8 +167,8 @@ impl Default for Params {
             x_per: 30,
             x_first: 30,
             x_r: 60000,
-            x_dmg: 18,
-            x_ratio: 10,
+            x_dmg: 22,
+            x_ratio: 12,
             x_slow: 25,
             x_slow_t: 45,
             xb_dmg: 45,
@@ -172,6 +181,9 @@ impl Default for Params {
             t_speed: 2800,
             b_speed: 9000,
             x_speed: 3500,
+            q_range: 60000,
+            e_range: 85000,
+            re_r: 25000,
         }
     }
 }
@@ -213,6 +225,9 @@ pub fn parse_params(json: &str) -> Params {
             "t_speed" => &mut p.t_speed,
             "b_speed" => &mut p.b_speed,
             "x_speed" => &mut p.x_speed,
+            "q_range" => &mut p.q_range,
+            "e_range" => &mut p.e_range,
+            "re_r" => &mut p.re_r,
             _ => continue,
         };
         *slot = v;
@@ -234,7 +249,7 @@ pub fn parse_params(json: &str) -> Params {
 pub enum Kind {
     /// Q 的 H-28G 进化炮台。
     Turret,
-    /// R 的 H-28Q 巨型炮台。
+    /// 升级的 Q 的 H-28Q 巨型炮台。
     Apex,
 }
 
@@ -350,6 +365,12 @@ pub fn shot_from(pos: (f64, f64), muzzle: (i64, i64), left: bool) -> (f64, f64) 
 /// 原生效果放下、被动还没接走的炮台：按（这局的种子、模拟的来源、比赛、局、他的编号）分开。
 type Key = (u64, u32, u64, u64, usize);
 static PUTS: LazyLock<Mutex<HashMap<Key, Vec<Put>>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
+/// 每个黑默丁格的参数（被动出场时放进来，钩子读）。
+static PARAMS: LazyLock<Mutex<HashMap<Key, Params>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
+
+fn params_of(sim: &StableSim<'_>, me: usize) -> Params {
+    PARAMS.lock().unwrap_or_else(|e| e.into_inner()).get(&key(sim, me)).cloned().unwrap_or_default()
+}
 
 fn key(sim: &StableSim<'_>, me: usize) -> Key {
     let o = sim.sim_origin().unwrap_or_default();
@@ -576,6 +597,7 @@ impl StablePassive for Workshop {
         let team = sim.get_entity(me).map_or(0, |e| e.team());
         // a stale put of an earlier match with the same seed and id
         PUTS.lock().unwrap_or_else(|e| e.into_inner()).remove(&key(sim, me));
+        PARAMS.lock().unwrap_or_else(|e| e.into_inner()).insert(key(sim, me), self.p.clone());
         wlog(format!("{} SPAWN: the add-on's Heimerdinger (player {player}, team {team}), {:?}", head(sim, me), self.p));
     }
 
@@ -614,7 +636,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v{VERSION} (Heimerdinger's turrets firing visible shots, Hextech Affinity by towers too) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v{VERSION} (Heimerdinger's turrets firing visible shots, Hextech Affinity by towers too, R's upgrade picked) loaded: game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
         v.patch,
@@ -625,7 +647,8 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     module.add_native_effect(format!("{ID}:q"), Stand(Kind::Turret));
     module.add_native_effect(format!("{ID}:x"), Stand(Kind::Apex));
     module.add_native_passive(format!("{ID}:affinity"), Workshop::default());
-    host.log(LogLevel::Info, "league_heimerdinger v1 loaded (turrets firing visible shots, Hextech Affinity by towers too).");
+    module.add_player_input_ai(combo::Combo::default());
+    host.log(LogLevel::Info, "league_heimerdinger v1 loaded (turrets firing visible shots, Hextech Affinity by towers too, R's upgrade picked).");
 }
 
 #[cfg_attr(league_bundle, allow(dead_code))]

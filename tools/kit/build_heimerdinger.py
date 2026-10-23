@@ -23,17 +23,25 @@ TFM2 has three active slots: H-28G Evolution Turret (Q) is `skill`, CH-2 Electro
   skill2  E CH-2 Electron Storm Grenade (CH-2 电子风暴手雷), `Targeting` on `EnemyWithoutTower` (e_range): the grenade
           lands on the target's spot in e_travel ticks: e_dmg + e_ratio% AP and a e_slow% slow for e_slow_t ticks to
           every enemy within e_r, and a stun of e_stun ticks within e_sr (the direct hit).
-  ult     R UPGRADE!!! (升级！！！), `Targeting` on `EnemyChampion` (r_range), by the situation round its target (a hidden
-          zone counts the enemy champions within r_crowd of him, flags r_one / r_two):
-          two or more - CH-3X Lightning Grenade: three grenades r_gap ticks apart on the target's spot, each
-            re_dmg + re_ratio% AP and a re_slow% slow within re_r and a stun of re_stun ticks within re_sr;
-          one - H-28Q Apex Turret: one big turret q_place in front of him for x_life ticks, firing every x_per ticks:
-            x_dmg + x_ratio% AP and a x_slow% slow for x_slow_t ticks, the beam on a champion in crowd control.
+  ult     R UPGRADE!!! (升级！！！), `Targeting` on `EnemyChampion` (r_range) so the game's AI casts it in a fight: it
+          fires nothing; League's way, it upgrades his next spell (the user, 2026-10-24: 「大发明家的手雷不能升级？炮台不能
+          升级么？」, picked 「改成升级下一个技能」). On r_rel he gets the flag `upg` for r_keep ticks (its view buff the
+          r_glow ring) and Q's and E's cooldowns are refreshed (`r_ref`, 2 ticks of skill_cooldown_mult r_cdr; its
+          ult_cooldown_mult -r_cdr keeps R's own cooldown, which the engine caps with both); the first of these with an
+          enemy champion within its reach takes the flag off and is upgraded (none in reach: the plain spell, the
+          upgrade waits):
+          Q (q_range) - H-28Q Apex Turret: one big turret q_place toward that champion for x_life ticks (no slot: League's apex does
+            not count), firing every x_per ticks: x_dmg + x_ratio% AP and a x_slow% slow for x_slow_t ticks, the beam
+            (xb_dmg + xb_ratio%) on a champion in crowd control;
+          E (e_range) - CH-3X Lightning Grenade: three grenades r_gap ticks apart on that champion, each re_dmg + re_ratio% AP
+            and a re_slow% slow within re_r and a stun of re_stun ticks within re_sr;
+          an attack with an enemy champion within atk_range + w_reach - Hextech Rocket Swarm: rw_n rockets rw_gap ticks
+            apart at that champion (W's damage each), instead of that attack's count or E -> W combo.
   passive Hextech Affinity (海克斯科技亲和): every turret's aura (`AllyChampion` zone, radius p_r, every p_per ticks)
           asks `RandomTarget {AllyOnlySelf, from_projectile: true}` whether he stands in it (league_ekko's sphere) and
           gives him p_ms% move speed for p_t ticks.
 The add-on copy (--native, addons/league_heimerdinger): the turrets keep their sounds and slots but lose their zones;
-Q's `put` and R's apex run the add-on's `league_heimerdinger:q` / `:x` with the cast's input, which stand a native
+Q's `put` and its upgraded apex run the add-on's `league_heimerdinger:q` / `:x` with the cast's input, which stand a native
 turret where the hidden bolt stops (q_place toward it, q_place / q_speed ticks later) and lay `t_face_l` / `x_face_l`
 on him when that is to his left: the bolt's end draws the turret from the side facing that way (TURRET_R / _L,
 APEX_R / _L; the user: 「炮台改成侧面朝敌人」 - the main pack, which cannot tell the side, keeps the front ones). The add-on's passive
@@ -71,6 +79,10 @@ APEX_R, APEX_L = APEX + "_r", APEX + "_l"
 # 14% +4.08, rockets 6 + 5% +4.01 (neither drives it), E 60 + 45% with a 1 s stun +2.76, R cd 3000 with 70 + 35% / 18 +
 # 10% +3.24; the turret, E and R nerfs together +1.44 = P; on the frames' timings (Q / E 36 ticks releasing on 16, the
 # rockets from the crane) +1.73 (+-0.46).
+# R upgrading the next spell (2026-10-24, lane 2 seeds 1-12): the old R by the situation +1.53 (+-0.36); the upgrade
+# alone -1.17 (it no longer adds a spell; a 20-30 s cooldown or stronger upgrades -0.3..+0.1, the upgrade kept for a
+# champion in reach -1.39 / -0.08 at 50 / 30 s); Q and E refreshed by R +0.71 (seeds 1-6); with R at 40 s and CH-3X
+# 80 + 40% / the apex 22 + 12% +1.30 (+-0.36) = P (R at 30 s instead +1.98).
 P = {
     # stats (Magician base: attack 76 +6, ap 40 +20, hp 860 +95, def 18 +7, mr 20 +4, move 900 +9); League's
     # Heimerdinger: 558 +105 hp, 19 armour, 30 mr, 340 move, 550 range, attack speed 0.658
@@ -87,11 +99,13 @@ P = {
     # E grenade (League: 970 range, 100-500... 60-220 + 60% AP, stun 1.5 s within 100, 35% slow 2 s within 210)
     "e_cd": 660, "e_range": 85000, "e_dur": 36, "e_rel": 16, "e_travel": 30, "e_r": 23000, "e_sr": 11000,
     "e_dmg": 60, "e_ratio": 45, "e_slow": 35, "e_slow_t": 120, "e_stun": 60,
-    # R UPGRADE!!! (League: cd 100-70 s; CH-3X 150-500 + 60% AP, bounces three times; Apex Turret 8 s, 80-160 + 30%)
-    "r_cd": 3000, "r_range": 75000, "r_dur": 40, "r_rel": 14, "r_up": 12, "r_crowd": 30000,
-    "r_gap": 24, "re_r": 25000, "re_sr": 13000, "re_dmg": 70, "re_ratio": 35, "re_slow": 40, "re_slow_t": 90,
+    # R UPGRADE!!! (League: cd 100-70 s; the next spell upgraded: Apex Turret 8 s, 80-160 + 30%; CH-3X 150-500 + 60% AP,
+    # bounces three times; the rocket swarm, four waves of five) - the upgrade waits r_keep ticks
+    "r_cd": 2400, "r_range": 75000, "r_dur": 40, "r_rel": 14, "r_up": 12, "r_keep": 600, "rw_n": 12, "rw_gap": 2,
+    "r_cdr": 10000,
+    "r_gap": 24, "re_r": 25000, "re_sr": 13000, "re_dmg": 80, "re_ratio": 40, "re_slow": 40, "re_slow_t": 90,
     "re_stun": 60,
-    "x_life": 480, "x_per": 30, "x_first": 30, "x_r": 60000, "x_dmg": 18, "x_ratio": 10, "x_slow": 25, "x_slow_t": 45,
+    "x_life": 480, "x_per": 30, "x_first": 30, "x_r": 60000, "x_dmg": 22, "x_ratio": 12, "x_slow": 25, "x_slow_t": 45,
     "xb_dmg": 45, "xb_ratio": 30,
     "vo_gap": 600,
     # 1 = the copy for addons/league_heimerdinger; its shots' speeds (League: 1650 a turret's shot) and the towers' reach
@@ -102,7 +116,7 @@ SLOTS = "abc"
 # the numbers the add-on's passive reads (passive.params)
 NATIVE_KEYS = ("q_place", "q_speed", "t_life", "t_per", "t_first", "t_r", "t_dmg", "t_ratio", "tb_dmg", "tb_ratio",
                "x_life", "x_per", "x_first", "x_r", "x_dmg", "x_ratio", "x_slow", "x_slow_t", "xb_dmg", "xb_ratio",
-               "p_r", "p_tr", "p_per", "p_ms", "p_t", "t_speed", "b_speed", "x_speed")
+               "p_r", "p_tr", "p_per", "p_ms", "p_t", "t_speed", "b_speed", "x_speed", "q_range", "e_range", "re_r")
 
 
 def lp(path):
@@ -269,25 +283,54 @@ def build(p):
     stand = (lambda k: [{"type": "Native", "effect_ref": f"league_heimerdinger:{k}"}]) if native else (lambda k: [])
 
     # ------------------------------------------------------------------ attack: the bolt, W's rockets every third
-    def rockets(target):
-        shots = [delayed(i * p["w_gap"], homing("w_rocket", target,
-                                                 [ap(p["w_dmg"], p["w_ratio"]), view("w_hit"), tsfx("w_hit")],
-                                                 p["w_speed"], p["w_y"])) for i in range(p["w_n"])]
+    def rockets(target, k=p["w_n"], gap=p["w_gap"]):
+        shots = [delayed(i * gap, homing("w_rocket", target,
+                                         [ap(p["w_dmg"], p["w_ratio"]), view("w_hit"), tsfx("w_hit")],
+                                         p["w_speed"], p["w_y"])) for i in range(k)]
         return [sfx("w"), *shots]
     count = sw("a_two", combine(*rm("a_two"), *rockets("EnemyWithoutTower")),
                sw("a_one", combine(*rm("a_one"), flag("a_two", None)), flag("a_one", None)))
     # E -> W: inside e_combo the rockets go at a champion in crowd control (w_go: the search found him)
     combo = pick(p["atk_range"] + p["w_reach"], "EnemyChampionInCC", flag("w_go", 1), *rm("e_combo", "a_one", "a_two"),
                  *rockets("EnemyChampion"))
+    # R's upgrade: the rocket swarm at an enemy champion within reach (none: the upgrade waits)
+    swarm = pick(p["atk_range"] + p["w_reach"], "EnemyChampion", flag("w_go", 1), *rm("upg"),
+                 *rockets("EnemyChampion", p["rw_n"], p["rw_gap"]))
     bolt = combine(*rm("w_go"), sfx("a"), homing("a_bolt", "Enemy", [attack(0, 100), view("a_hit"), tsfx("a_hit")],
                                                   p["a_speed"], p["a_y"]),
-                   sw("e_combo", combo), sw("w_go", NONE, count))
-    # the rockets' attack shows the crane (League's Spell2) from its first tick: the third attack (a_two), or the E -> W
-    # window open
+                   sw("upg", swarm), sw("w_go", NONE, sw("e_combo", combo)), sw("w_go", NONE, count))
+    # the rockets' attack shows the crane (League's Spell2) from its first tick: the third attack (a_two), the E -> W
+    # window open, or the upgrade waiting
     crane = anim("attack_w", p["atk_dur"])
     attack_a = action("attack", p["atk_dur"], p["atk_cd"], 1, p["atk_range"], "Targeting", "Enemy",
-                      combine(decoy(0, 100), sw("a_two", crane, sw("e_combo", crane)),
+                      combine(decoy(0, 100), sw("upg", crane, sw("a_two", crane, sw("e_combo", crane))),
                               delayed(p["a_rel"] - 1, alive(bolt))), atype="BaseAttack", cancel=True)
+
+    # ------------------------------------------------------------------ R's upgrades of Q (the apex) and E (CH-3X)
+    xcannon = [ap(p["x_dmg"], p["x_ratio"]), buff("x_slow", p["x_slow_t"], move_speed_mult=-p["x_slow"]),
+               view("x_hit"), tsfx("x_hit")]
+    xbeam = [ap(p["xb_dmg"], p["xb_ratio"]), view("x_beam"), tsfx("t_beam")]
+    apex = [*rm("upg"), sfx("rq"),
+            place("q_place", p["q_speed"], p["q_place"],
+                  [side("x") if native else view("x_turret"), sfx("x_spawn"),
+                   *([] if native else gun("x_shot", "x", p["x_r"], p["x_life"], p["x_per"], p["x_first"], xcannon,
+                                           xbeam))]),
+            *stand("x")]
+
+    def storm(k):
+        return [view("re_blast"), sfx("re_land"),
+                zone(f"re_storm{k}", p["re_r"], [ap(p["re_dmg"], p["re_ratio"]),
+                                                  buff("e_slow", p["re_slow_t"], move_speed_mult=-p["re_slow"]),
+                                                  view("e_hit")]),
+                zone(f"re_core{k}", p["re_sr"], [stun(p["re_stun"]), tsfx("e_stun")]),
+                zone(f"re_hold{k}", p["re_sr"], [refresh("e_combo", p["e_combo"])], "EnemyChampion")]
+    lightning = [*rm("upg"), sfx("re"),
+                 *(delayed(k * p["r_gap"], lob("re_grenade", p["e_travel"], storm(k))) for k in range(3))]
+
+    # the upgrade goes only at an enemy champion within the spell's reach (the turret toward him, CH-3X on him; q_up /
+    # e_up: the search found one); none - the plain spell, the upgrade waits
+    up_q = pick(p["q_range"], "EnemyChampion", flag("q_up", 1), *apex)
+    up_e = pick(p["e_range"], "EnemyChampion", flag("e_up", 1), *lightning)
 
     # ------------------------------------------------------------------ skill: Q the turret, in the first free slot
     def slot(i):
@@ -297,7 +340,7 @@ def build(p):
         return sw(f"t{s}_busy", NONE if i == len(SLOTS) - 1 else slot(i + 1), put)   # all three up: none
     skill = action("skill", p["q_dur"], p["q_cd"], 1, p["q_range"], "Direction", "EnemyWithoutTower",
                    combine(decoy(p["t_dmg"] * 4, p["t_ratio"] * 4, ap), sfx("q"), voice("vo_q", p),
-                           delayed(p["q_rel"] - 1, alive(slot(0)))))
+                           delayed(p["q_rel"] - 1, alive(*rm("q_up"), sw("upg", up_q), sw("q_up", NONE, slot(0))))))
 
     # ------------------------------------------------------------------ skill2: E the grenade
     blast = [view("e_blast"), sfx("e_land"),
@@ -307,36 +350,16 @@ def build(p):
              zone("e_hold", p["e_sr"], [refresh("e_combo", p["e_combo"])], "EnemyChampion")]
     skill2 = action("skill2", p["e_dur"], p["e_cd"], 1, p["e_range"], "Targeting", "EnemyWithoutTower",
                     combine(decoy(p["e_dmg"], p["e_ratio"], ap), sfx("e"), voice("vo_e", p),
-                            delayed(p["e_rel"] - 1, alive(lob("e_grenade", p["e_travel"], blast)))))
+                            delayed(p["e_rel"] - 1, alive(*rm("e_up"), sw("upg", up_e),
+                                                          sw("e_up", NONE, lob("e_grenade", p["e_travel"], blast))))))
 
-    # ------------------------------------------------------------------ ult: R UPGRADE!!! by the situation
-    def storm(k):
-        return [view("re_blast"), sfx("re_land"),
-                zone(f"re_storm{k}", p["re_r"], [ap(p["re_dmg"], p["re_ratio"]),
-                                                  buff("e_slow", p["re_slow_t"], move_speed_mult=-p["re_slow"]),
-                                                  view("e_hit")]),
-                zone(f"re_core{k}", p["re_sr"], [stun(p["re_stun"]), tsfx("e_stun")]),
-                zone(f"re_hold{k}", p["re_sr"], [refresh("e_combo", p["e_combo"])], "EnemyChampion")]
-    lightning = [sfx("re"), *(delayed(k * p["r_gap"], lob("re_grenade", p["e_travel"], storm(k), "EnemyChampion"))
-                              for k in range(3))]
-    xcannon = [ap(p["x_dmg"], p["x_ratio"]), buff("x_slow", p["x_slow_t"], move_speed_mult=-p["x_slow"]),
-               view("x_hit"), tsfx("x_hit")]
-    xbeam = [ap(p["xb_dmg"], p["xb_ratio"]), view("x_beam"), tsfx("t_beam")]
-    apex = [sfx("rq"), place("q_place", p["q_speed"], p["q_place"],
-                            [side("x") if native else view("x_turret"), sfx("x_spawn"),
-                             *([] if native else gun("x_shot", "x", p["x_r"], p["x_life"], p["x_per"], p["x_first"],
-                                                     xcannon, xbeam))]),
-            *stand("x")]
-    # the count: a lob onto the target starts a zone round him that adds r_one, then r_two (lob 1 tick + the zone's
-    # delay 1); r_rel later two or more throw the storm
-    count_r = zone("r_count", p["r_crowd"], [sw("r_one", flag("r_two", 6), flag("r_one", 6))], "EnemyChampion")
-    choose = combine(sw("r_two", combine(*lightning), combine(*apex)), *rm("r_one", "r_two"))
+    # ------------------------------------------------------------------ ult: R UPGRADE!!! the next spell
     ult = action("ult", p["r_dur"], p["r_cd"], 1, p["r_range"], "Targeting", "EnemyChampion",
                  combine(decoy(p["re_dmg"] * 2, p["re_ratio"] * 2, ap), sfx("r"), voice("vo_r", p),
                          delayed(p["r_up"], cview("r_up")),
-                         *rm("r_one", "r_two"),
-                         delayed(p["r_rel"] - 4, alive(lob("r_seek", 1, [count_r], "EnemyChampion"))),
-                         delayed(p["r_rel"], alive(choose))))
+                         delayed(p["r_rel"], alive(refresh("upg", p["r_keep"]),
+                                                   refresh("r_ref", 2, skill_cooldown_mult=p["r_cdr"],
+                                                           ult_cooldown_mult=-p["r_cdr"])))))
 
     # ------------------------------------------------------------------ views
     E = lambda name, anim_=FX, z=2, follow=True: {"type": "Animation", "name": n(name), "anim": anim_, "tag": name,
@@ -353,7 +376,8 @@ def build(p):
     if native:
         views_e += [dict(E(f"{k}_turret_{d}", sheet, -1, False), tag="idle")
                     for k, d, sheet in (("t", "r", TURRET_R), ("t", "l", TURRET_L), ("x", "r", APEX_R), ("x", "l", APEX_L))]
-    views_b = [B_("e_slow", FX, -1), dict(B_("x_slow", FX, -1), tag="e_slow"), B_("haste", FX, -1)]
+    views_b = [B_("e_slow", FX, -1), dict(B_("x_slow", FX, -1), tag="e_slow"), B_("haste", FX, -1),
+               dict(B_("upg", FX, -1), tag="r_glow")]
     extra = {}
     if native:
         extra["passive"] = {"passive_ref": "league_heimerdinger:affinity", "params": {

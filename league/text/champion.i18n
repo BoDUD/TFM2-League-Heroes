@@ -1042,7 +1042,7 @@
         "attack": "射出一道海克斯电光。<#ff9028ff>海克斯科技微型导弹<>：每第3次普攻额外射出5枚导弹，每枚造成<#a974ffff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>7%<>魔法伤害。",
         "skill": "放下一座炮台（最多3座）<#ffb900ff>10秒<>，每<#ffb900ff>0.83秒<>攻击一个敌人，造成<#a974ffff>6<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>4%<>魔法伤害；对受控制的英雄发射光束，造成<#a974ffff>18<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>14%<>。<#ff9028ff>海克斯科技亲和<>：在炮台旁移速+20%。",
         "skill2": "掷出手雷，造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<>魔法伤害并减速35%，正中的敌人被<#ef5350ff>眩晕<><#ffb900ff>1秒<>。",
-        "ult": "升级！敌人扎堆时连掷3颗强化手雷，每颗<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<>魔法伤害并<#ef5350ff>眩晕<><#ffb900ff>1秒<>；否则放下巨型炮台<#ffb900ff>8秒<>，每<#ffb900ff>0.5秒<>造成<#a974ffff>18<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<>并减速25%。"
+        "ult": "升级！刷新Q、E，<#ffb900ff>10秒<>内强化下一个对英雄的技能：Q放下巨型炮台<#ffb900ff>8秒<>，每<#ffb900ff>0.5秒<>造成<#a974ffff>22<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>12%<>并减速25%；E连掷3颗手雷，每颗<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>并<#ef5350ff>眩晕<><#ffb900ff>1秒<>；普攻射出12枚导弹。"
       },
       "league_neeko": {
         "name": "妮蔻",
@@ -2980,7 +2980,7 @@
         "attack": "射出一道海克斯電光。<#ff9028ff>高科技微型火箭<>：每第3次普攻額外射出5枚火箭，每枚造成<#a974ffff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>7%<>魔法傷害。",
         "skill": "放下一座砲臺（最多3座）<#ffb900ff>10秒<>，每<#ffb900ff>0.83秒<>攻擊一個敵人，造成<#a974ffff>6<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>4%<>魔法傷害；對受控制的英雄發射光束，造成<#a974ffff>18<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>14%<>。<#ff9028ff>海克斯親合性<>：在砲臺旁跑速+20%。",
         "skill2": "擲出手雷，造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<>魔法傷害並緩速35%，正中的敵人被<#ef5350ff>暈眩<><#ffb900ff>1秒<>。",
-        "ult": "升級！敵人聚集時連擲3顆強化手雷，每顆<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<>魔法傷害並<#ef5350ff>暈眩<><#ffb900ff>1秒<>；否則放下巨型砲臺<#ffb900ff>8秒<>，每<#ffb900ff>0.5秒<>造成<#a974ffff>18<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<>並緩速25%。"
+        "ult": "升級！重置Q、E，<#ffb900ff>10秒<>內強化下一個對英雄的技能：Q放下巨型砲臺<#ffb900ff>8秒<>，每<#ffb900ff>0.5秒<>造成<#a974ffff>22<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>12%<>並緩速25%；E連擲3顆手雷，每顆<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>並<#ef5350ff>暈眩<><#ffb900ff>1秒<>；普攻射出12枚火箭。"
       },
       "league_neeko": {
         "name": "妮可",
@@ -4918,7 +4918,7 @@
         "attack": "Fires a hextech bolt. <#ff9028ff>Hextech Micro-Rockets<>: every third attack also fires 5 rockets, each dealing <#a974ffff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>7%<> <#a974ffff>magic damage<>.",
         "skill": "Sets down a turret (up to 3) for <#ffb900ff>10s<> that strikes one enemy every <#ffb900ff>0.83s<> for <#a974ffff>6<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>4%<> <#a974ffff>magic damage<>, or beams a crowd-controlled champion for <#a974ffff>18<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>14%<>. <#ff9028ff>Hextech Affinity<>: +20% move speed near his turrets.",
         "skill2": "Throws a grenade that deals <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<> <#a974ffff>magic damage<> and slows by 35%; enemies at its centre are <#ef5350ff>stunned<> for <#ffb900ff>1s<>.",
-        "ult": "UPGRADE! Against a crowd: three empowered grenades, each <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<> <#a974ffff>magic damage<> and a <#ffb900ff>1s<> <#ef5350ff>stun<>. Otherwise: an apex turret for <#ffb900ff>8s<>, every <#ffb900ff>0.5s<> <#a974ffff>18<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<> and a 25% slow."
+        "ult": "UPGRADE! Refreshes Q and E and empowers his next spell at a champion within <#ffb900ff>10s<>. Q: an apex turret for <#ffb900ff>8s<>, every <#ffb900ff>0.5s<> <#a974ffff>22<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>12%<> <#a974ffff>magic damage<> and a 25% slow. E: three grenades, each <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<> and a <#ffb900ff>1s<> <#ef5350ff>stun<>. Attack: 12 rockets."
       },
       "league_neeko": {
         "name": "Neeko",
@@ -6856,7 +6856,7 @@
         "attack": "마법공학 전격을 쏜다. <#ff9028ff>마법공학 초소형 로켓<>: 세 번째 공격마다 로켓 5발을 추가로 쏘아 발당 <#a974ffff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>7%<> 마법 피해.",
         "skill": "포탑을 설치한다(최대 3개, <#ffb900ff>10초<>). <#ffb900ff>0.83초<>마다 적 하나에게 <#a974ffff>6<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>4%<> 마법 피해, 군중 제어된 챔피언에게는 광선으로 <#a974ffff>18<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>14%<>. <#ff9028ff>마법공학 전문가<>: 포탑 근처에서 이동 속도 +20%.",
         "skill2": "수류탄을 던져 <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<> 마법 피해와 35% 둔화, 중심의 적은 <#ffb900ff>1초<> <#ef5350ff>기절<>.",
-        "ult": "업그레이드! 적이 모여 있으면 강화 수류탄 3개(각 <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<> 마법 피해, <#ffb900ff>1초<> <#ef5350ff>기절<>), 아니면 거대 포탑 <#ffb900ff>8초<>: <#ffb900ff>0.5초<>마다 <#a974ffff>18<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<>, 25% 둔화."
+        "ult": "업그레이드! Q, E 재사용 대기시간 초기화, <#ffb900ff>10초<> 안에 챔피언에게 쓰는 다음 스킬 강화. Q: 거대 포탑 <#ffb900ff>8초<>, <#ffb900ff>0.5초<>마다 <#a974ffff>22<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>12%<> 마법 피해, 25% 둔화. E: 수류탄 3개(각 <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>, <#ffb900ff>1초<> <#ef5350ff>기절<>). 기본 공격: 로켓 12발."
       },
       "league_neeko": {
         "name": "니코",
@@ -8794,7 +8794,7 @@
         "attack": "ヘクステックの電撃を撃つ。<#ff9028ff>ヘクステック小型ロケット<>：3回目の通常攻撃ごとにロケット5発を追加で撃ち、1発<#a974ffff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>7%<>の魔法ダメージ。",
         "skill": "砲台を設置（最大3基、<#ffb900ff>10秒<>）。<#ffb900ff>0.83秒<>ごとに敵1体に<#a974ffff>6<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>4%<>の魔法ダメージ、行動妨害中のチャンピオンにはビームで<#a974ffff>18<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>14%<>。<#ff9028ff>ヘクステックの親和性<>：砲台の近くで移動速度+20%。",
         "skill2": "グレネードを投げ<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<>の魔法ダメージと35%スロウ、中心の敵を<#ffb900ff>1秒<><#ef5350ff>スタン<>。",
-        "ult": "アップグレード！敵が密集していれば強化グレネード3個（各<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<>の魔法ダメージ、<#ffb900ff>1秒<><#ef5350ff>スタン<>）、でなければ巨大砲台<#ffb900ff>8秒<>：<#ffb900ff>0.5秒<>ごとに<#a974ffff>18<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<>、25%スロウ。"
+        "ult": "アップグレード！Q・Eのクールダウンを解消、<#ffb900ff>10秒<>以内にチャンピオンへの次のスキルを強化。Q：巨大砲台<#ffb900ff>8秒<>、<#ffb900ff>0.5秒<>ごとに<#a974ffff>22<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>12%<>の魔法ダメージと25%スロウ。E：グレネード3個（各<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>、<#ffb900ff>1秒<><#ef5350ff>スタン<>）。通常攻撃：ロケット12発。"
       },
       "league_neeko": {
         "name": "ニーコ",
