@@ -46,9 +46,12 @@ SRC = os.path.join(ROOT, "assets", "source", "ivern", "hd")
 MOD = os.path.join(ROOT, "league")
 STAND = 34                     # the idle's standing column: under his middle, between his root feet
 HEAD = (PK.HEAD[2], PK.HEAD[0])            # the design's head box top-left (column, row) in hd/idle.png
-D_PPU = 1.9                    # Daisy's sheets (the user's pick: uncut, 76 rows for 40 game px)
+D_PPU = 2.533                  # Daisy's sheets: 76 rows for 30 game px (uncut at 1.9 = 40 px until 2026-10-23, the user:
+                               # 「翠神召唤出来的东西游戏里太大了吧」 -> 75 %; league_main hd.rs EFFECTS the same)
 D_HEAD = (27, 0)               # her head box top-left in hd/daisy.png (design_ivern_poses FIG["daisy"])
-DAISY_BACK = 9                 # game px her feet stand behind (over) the champion's soles (league_annie's Tibbers: 9)
+DAISY_BACK = 9                 # game px her feet stand behind (over) the champion's soles (league_annie's Tibbers: 9; the
+                               # user tried her beside him on 2026-10-23 and kept her behind: 「还是放在后面吧」)
+DAISY_SIDE = 0                 # game px from the champion's middle to hers (0: right behind him)
 FEET = R.FEET
 
 
@@ -164,7 +167,8 @@ class Daisy:
     def __init__(self):
         self.d = load("daisy.png")
         h, w = self.d.shape[:2]
-        self.W, self.H = w + 120, h + 90
+        # wide enough for her step aside (DAISY_SIDE) on either side of the pivot, so no column of her is cut off
+        self.W, self.H = w + 120 + 2 * int(np.ceil(abs(DAISY_SIDE) * D_PPU)), h + 90
         self.px = self.W / 2.0
         self.soles = self.H - 20                          # the champion's soles' row
         self.py = self.soles - FEET * D_PPU               # the pivot (the champion) FEET game px over its soles
@@ -176,7 +180,7 @@ class Daisy:
             d, (hx, hy), ground = self.d, D_HEAD, self.d.shape[0]
         else:
             d, (hx, hy), ground = load_pose(name, "daisy_")
-        x0 = int(round(self.px - self.d.shape[1] / 2)) + D_HEAD[0] - hx
+        x0 = int(round(self.px - self.d.shape[1] / 2 + DAISY_SIDE * D_PPU)) + D_HEAD[0] - hx
         y0 = self.ground - ground - lift
         ys, xs = np.nonzero(d[..., 3] > 0)
         ty, tx = ys + y0, xs + x0
