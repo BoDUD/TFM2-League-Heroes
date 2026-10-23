@@ -1945,6 +1945,7 @@ python tools/art/design_caitlyn_hd.py --gen 2   # 设计图按自己的格子读
 python tools/lol/league_joints.py assets/source/caitlyn/poses.json --out <关节文件夹>   # 英雄联盟每帧的关节位置
 python tools/art/pack_caitlyn_actions.py --out <文件夹>   # 逐帧重画：给 Codex 的包
 python tools/art/actions_caitlyn_hd.py   # 重画帧从原图读回、换成直枪（assets/source/caitlyn/hd/actions/）
+python tools/art/idle_rifle_caitlyn.py   # 待机（设计图）也换成同一把直枪：从 hd/design_codex_rifle.png 写 hd/design.png
 python tools/art/rig_caitlyn_hd.py   # 高清帧，写 assets/source/ppu/orig/；--review <文件夹> 先看
 python tools/art/ppu_restyle.py --hero caitlyn
 python tools/art/ppu_hd.py --hero caitlyn
