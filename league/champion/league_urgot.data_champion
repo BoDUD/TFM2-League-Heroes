@@ -232,7 +232,7 @@
                                             "effects": [
                                               {
                                                 "type": "Grab",
-                                                "speed": 3000
+                                                "speed": 8000
                                               },
                                               {
                                                 "type": "AddCasted",
@@ -758,7 +758,7 @@
                                             "effects": [
                                               {
                                                 "type": "Grab",
-                                                "speed": 3000
+                                                "speed": 8000
                                               },
                                               {
                                                 "type": "AddCasted",
@@ -1420,7 +1420,7 @@
                                           "effects": [
                                             {
                                               "type": "Grab",
-                                              "speed": 3000
+                                              "speed": 8000
                                             },
                                             {
                                               "type": "AddCasted",
@@ -1990,7 +1990,7 @@
                                     "effects": [
                                       {
                                         "type": "Grab",
-                                        "speed": 3000
+                                        "speed": 8000
                                       },
                                       {
                                         "type": "AddCasted",
