@@ -7,6 +7,9 @@
 //! 宽高，src/view.rs 把实体的绘制缩放写成 ÷ PPU。只在 src/build.rs 认得的游戏版本上挂钩（每处要改要调的代码逐字节核对指纹，现在认得 0.6.5；认不得的版本由 game_places 在运行时找）；找不到的版本、
 //! Mac / Linux（没有 DLL）什么都不改，英雄照旧画 1 倍的帧。
 //!
+//! src/ui.rs（0.7.140）：BP 格子、图鉴 / 头像、选人位、选中特写、记分板头像改画每个英雄自己的小图集（打包时生成，
+//! 只有界面画的帧）——一屏画全部英雄的界面不再把整张战斗图集塞进游戏 256 MiB 的图片缓存（「BP界面非常的卡」）。
+//!
 //! src/warm.rs（0.7.27）：标题画面出来以后，后台线程把主包 `sound/bgm/` 里的音频按盘上的顺序读一遍进系统缓存，
 //! 比赛里音频第一次播放就不用在主线程等读盘。
 //!
@@ -24,12 +27,14 @@ pub mod hd;
 #[cfg(windows)]
 mod lookup;
 #[cfg(windows)]
+mod ui;
+#[cfg(windows)]
 mod view;
 #[cfg(windows)]
 mod warm;
 
 pub const ID: &str = "league";
-const VERSION: &str = "0.7.139";
+const VERSION: &str = "0.7.140";
 
 static LOG_LOCK: Mutex<()> = Mutex::new(());
 static LOG_FILE: Mutex<Option<std::fs::File>> = Mutex::new(None);

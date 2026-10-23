@@ -107,6 +107,10 @@ def main():
            f"/// Where the lookup head calls the hash.\npub const HASH_CALL: usize = {hash_call:#x};\n",
            rs_pattern("HASH", "The anim tables' hash's head.", sig[b["hash"]], b["hash"]),
            rs_pattern("DISPLAY", "The display-update handler's head.", sig[b["display_fn"]], b["display_fn"]),
+           rs_pattern("CMD_BY_NAME", "The draw command made from a sheet's name (out, name ptr, len, ...): its head - the one the "
+                      "BP grid calls (league.dll's UI sheets).", sig[b["cmd_by_name"]], b["cmd_by_name"]),
+           rs_pattern("NODE_IMAGE", "The image node's setter (node, &String name, &uv): its head - the one the encyclopedia "
+                      "calls (league.dll's UI sheets).", sig[b["node_image"]], b["node_image"]),
            "/// The battlefield frame lookup: its two size asks after its call of the anim lookup (offset from the call, bytes).",
            "pub const BATTLE_ASKS: &[(usize, &[u8])] = &[" + ", ".join(
                f"({d:#x}, &[{', '.join(f'0x{c:02x}' for c in x)}])" for d, x in battle_asks) + "];",
@@ -131,7 +135,8 @@ def main():
     with open(OUT, "w", encoding="utf-8", newline="\n") as f:
         f.write(text)
     # each pattern finds exactly its place in this EXE
-    for name, rva in (("anim", b["anim"]), ("hash", b["hash"]), ("display_fn", b["display_fn"])):
+    for name, rva in (("anim", b["anim"]), ("hash", b["hash"]), ("display_fn", b["display_fn"]),
+                      ("cmd_by_name", b["cmd_by_name"]), ("node_image", b["node_image"])):
         hits = e.find(fb.wildcard(sig[rva], rva))
         print(f"{name}: {len(hits)} hits, the listed one among them: {rva in hits}")
     print("wrote", OUT)

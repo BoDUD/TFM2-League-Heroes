@@ -71,7 +71,8 @@ def old_build(path=BUILD_RS):
     sigs = []
     for m in re.finditer(r"\((0x[0-9a-f]+),\s*&\[([^\]]*)\]\)", body[body.index("sigs: &["):]):
         sigs.append((int(m.group(1), 16), bytes(int(x, 16) for x in re.findall(r"0x([0-9a-f]{2})", m.group(2)))))
-    b = {k: num(k) for k in ("anim", "sheet", "hash", "display_fn", "display_slot", "body_draw", "cmd_grow")}
+    b = {k: num(k) for k in ("anim", "sheet", "hash", "display_fn", "display_slot", "body_draw", "cmd_grow",
+                               "cmd_by_name", "node_image")}
     b.update({k: nums(k) for k in ("battle_anim_ret", "battle_size_ret", "ui_anim_ret", "ui_size_ret")})
     b["name"] = re.search(r'name: "([^"]*)"', body).group(1)
     b["sigs"] = dict(sigs)
