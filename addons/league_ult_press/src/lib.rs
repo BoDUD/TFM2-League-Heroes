@@ -668,6 +668,13 @@ pub fn hold_target(
     (theirs <= ours).then_some(t)
 }
 
+/// 0.5.2（用户 2026-10-23：「大嘴好像没法平a英雄只能a小怪和塔」）：射程 buff 拉长了普攻距离（league_kogmaw 的 W、league_kayle
+/// 的升阶）时，游戏的 AI 照旧打小兵、塔，拉长的射程里站着的敌方英雄它不打。AI 正打着的不是英雄、这一下又不是补刀
+/// （`last_hit`），拉长的射程里又有 `hold_target` 肯打的英雄，就改打他。
+pub fn stretched_retarget(stretched: bool, on_champion: bool, last_hit: bool) -> bool {
+    stretched && !on_champion && !last_hit
+}
+
 /// AI 还在不在回城（0.5.0，游戏 0.6.5 改进了「什么时候回城买装备」：回城是它的决定，钩子不再打断）：回城命令开始，别的
 /// 命令结束；引擎只在它判断的那些 tick 下命令（回城时隔一阵再发一次回城），其余 tick 没有命令，照旧。0.4.x 只看这一 tick
 /// 是不是回城命令，回城引导中没命令的 tick 被当成「原地站着」，站够 `HOLD_STILL` tick 就让他普攻。
@@ -1566,7 +1573,23 @@ impl UltPress {
                 self.walk_ticks = if walking { self.walk_ticks + 1 } else { 0 };
                 let still_held = holding(base, my_at) && self.still_ticks >= HOLD_STILL;
                 let walk_held = self.walk_ticks >= HOLD_WALKING;
-                if !holding(base, my_at) && !walking {
+                // the AI's attack at a minion, a monster or a tower: is it the one shot that kills it (a last hit)?
+                let swing = base
+                    .filter(|b| b.kind == InputKindV1::Attack.code())
+                    .filter(|b| InputTargetKindV1::from_code(b.target.kind) == Some(InputTargetKindV1::Target))
+                    .and_then(|b| sim.get_entity(b.target.target_id))
+                    .map(|t| (t.is_champion(), t.hp().0 <= me.stat().attack));
+                let stretched = buff_range(&me) > 0.0;
+                if swing.is_some_and(|(c, l)| stretched_retarget(stretched, c, l)) {
+                    if let Some(t) = hold_target(my_at, hp_share(me.hp()), &allies, &enemies, &towers, reach, engaged) {
+                        if engaged != Some(t) {
+                            self.engage = Some((t, tick + ENGAGE_TICKS));
+                        }
+                        let d = enemies.iter().find(|u| u.id == t).map_or(f64::NAN, |u| dist(my_at, u.at));
+                        hold = Some((t, format!("on a minion or tower with {} {d:.0} away in the stretched reach ({:.0})",
+                                                who(&sim, t), reach.0)));
+                    }
+                } else if !holding(base, my_at) && !walking {
                     // the AI does something else (an attack, a skill, a walk away, a recall): its call
                     if base.is_some_and(|b| b.kind == InputKindV1::Move.code()) {
                         self.engage = None;
@@ -1829,6 +1852,15 @@ mod tests {
         let allies = [u(10, 300_000.0, 0.0, 1.0), u(11, 0.0, 150_000.0, 1.0)];
         let enemies = [u(20, 320_000.0, 0.0, 1.0), u(21, 0.0, 170_000.0, 1.0)];
         assert_eq!(tf_fight((0.0, 0.0), 1.0, &allies, &enemies), Some((21, 11)));
+    }
+
+    #[test]
+    fn a_stretched_reach_takes_the_champion_over_a_minion_unless_it_is_a_last_hit() {
+        // 「大嘴好像没法平a英雄只能a小怪和塔」: W's range buff on, the AI on a minion
+        assert!(stretched_retarget(true, false, false));
+        assert!(!stretched_retarget(true, false, true), "a last hit stays");
+        assert!(!stretched_retarget(true, true, false), "already on a champion");
+        assert!(!stretched_retarget(false, false, false), "no range buff: the old rules");
     }
 
     #[test]
