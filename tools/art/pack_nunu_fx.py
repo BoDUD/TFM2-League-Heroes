@@ -117,13 +117,16 @@ FX = [
      row(4, 18, 18) + CENTER),
     ("w_burst", "史上最大雪球：小雪球撞碎，6 帧", "view_effects `league_nunu_w_burst`（大表，地上，不跟随，z 2；左右对称）",
      "40 × 26",
-     "雪球滚得不远就撞上：雪球**炸成一大团雪块**，雪粉往两边喷，地上一圈白雪（参考 w_hit_flash、w_hit_dust、snow_chunks）。**左右对称**，6 帧。",
+     "雪球滚得不远就撞上：雪球**炸成一大团雪块**，雪粉往两边喷，地上一圈白雪（参考 w_hit_flash、w_hit_dust、snow_chunks）。**左右对称**，6 帧。"
+     "**只画爆开的雪球本身，背景纯黑：不要画雪地、沙地、地面、天空或任何风景**（第一次交回的图画了一片雪地和沙地当背景，抠不出来）；"
+     "6 格一样宽、等距排成一排。",
      SN + ", " + FR + ", " + DI,
      "A SNOWBALL SHATTERING, 6 frames, " + LR + ", the ball's centre 8 squares above the ground in the cell's middle: 1 "
      "a white flash 14 across; 2 the ball bursting into big chunks of packed snow flying out 28 across at mirrored "
      "places, frost-blue shading under them; 3 the chunks 36 across and falling, snow powder spraying up 10 squares; "
      "4 the chunks landing in a ring of snow 38 wide on the ground; 5 the powder settling; 6 a low drift of snow and a "
-     "few flakes. " + FRELJORD + ".",
+     "few flakes. " + FRELJORD + ". ONLY the burst itself on a PLAIN BLACK background: no snowfield, no sand, no ground "
+     "strip, no sky, no scenery behind or under it (the snow ring on the ground is part of the burst, drawn on the black).",
      row(6, 40, 26) + CENTER),
     ("w_big", "史上最大雪球：滚大了的雪球撞碎，7 帧", "view_effects `league_nunu_w_big`（大表，地上，不跟随，z 2；左右对称）",
      "56 × 34",
