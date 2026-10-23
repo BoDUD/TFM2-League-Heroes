@@ -38,7 +38,7 @@ T = "<#e0e0e0ff>"      # true damage
 E = "<>"
 # champion_view: the face point between his eyes (ppu_restyle.py RESTYLE face_to: his head sits forward between the
 # shoulders, league_warwick's the same) and the ban/pick card (bp_card_audit.py with hd.rs UI_SIZES)
-VIEW = {"face": {"x": 11, "y": -28}, "center": {"x": 0, "y": -15}, "banpick_center": {"x": 0, "y": -8}}
+VIEW = {"face": {"x": 11, "y": -28}, "center": {"x": 0, "y": -15}, "banpick_center": {"x": 0, "y": -10}}
 
 
 def mag(d, r):
@@ -145,7 +145,8 @@ C = "league_zac_sfx_"   # clip names differ from the sound names: a clip named l
 SOUNDS = {f"league_zac_{k}": [(C + k, v, 0.0)] for k, v in (
     ("a", 0.5), ("a_hit", 0.55), ("q", 0.7), ("q_hit", 0.65), ("q_slam", 0.85), ("w", 0.7), ("w_hit", 0.5),
     ("e", 0.75), ("e_land", 0.9), ("e_hit", 0.6), ("r", 0.85), ("r_hop", 0.55), ("r_land", 0.7), ("r_hit", 0.55),
-    ("b_pick", 0.7), ("vo_q", 0.85), ("vo_e", 0.85), ("vo_r", 0.9))}
+    ("b_pick", 0.7), ("vo_q", 0.85), ("vo_e", 0.85), ("vo_r", 0.9),
+    ("p_split", 0.85), ("p_reform", 0.85), ("vo_p", 0.9))}     # the last three: the add-on's revive
 CLIPS = sorted({c for plays in SOUNDS.values() for c, _, _ in plays})
 
 

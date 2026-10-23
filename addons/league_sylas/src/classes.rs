@@ -193,6 +193,7 @@ pub const CLASSES_OF: &[(&str, &str)] = &[
     ("league_yone", "assassin"),
     ("league_yunara", "range"),
     ("league_yuumi", "util"),
+    ("league_zac", "melee"),
     ("league_zed", "assassin"),
     ("league_zeri", "range"),
     ("league_ziggs", "mage"),

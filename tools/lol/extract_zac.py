@@ -10,7 +10,8 @@ Voice: zh_CN. Events (prefix Play_sfx_Zac_, the event names his skin bins name):
 Strikes' cast, the grab's hit and the slam (ZacQattack_OnHit); Unstable Matter's burst and its hit; the slingshot's
 charge (ZacE_OnCast) and its landing (ZacE_hit) and the knock-up (ZacE_hitg); Let's Bounce!'s cast, a bounce, the
 splat and the hit; a blob absorbed (ZacWPassive_buffactivate_heal). Voice (Play_vo_Zac_): ZacQ_cast3D, ZacE_cast3D,
-ZacR_cast3D.
+ZacR_cast3D; the add-on's revive: zacrebirthstart_OnBuffActivate (the split), Respawn (the reform), the voice
+Spell3DPReviveStart.
 Icons: ZacQ = skill (Stretching Strikes), ZacE = skill2 (Elastic Slingshot), ZacR = ult (Let's Bounce!), ZacW = Unstable
 Matter (league_zac_w), ZacPassive = Cell Division (league_zac_passive).
 """
@@ -52,6 +53,9 @@ CLIPS = {
     C + "r_land": ([P + "ZacR_bounce_lua"], 8, 1.0, -5),   # the splat: a later variant of the bounce (no hit_splatD media)
     C + "r_hit": ([P + "ZacQattack_OnHit"], 3, 1.0, -6),   # a slam hit (no hit_smallerslam media)
     C + "b_pick": ([P + "ZacWPassive_buffactivate_heal"], None, 1.0, -7),
+    C + "p_split": ([P + "zacrebirthstart_OnBuffActivate", P + "Bloblet_Death"], None, 1.5, -5),   # the add-on's revive
+    C + "p_reform": ([P + "Respawn"], None, 2.0, -5),
+    C + "vo_p": ([V + "Spell3DPReviveStart"], None, 2.5, -6),
     C + "vo_q": ([V + "ZacQ_cast3D"], None, 2.5, -6),
     C + "vo_e": ([V + "ZacE_cast3D"], None, 2.5, -6),
     C + "vo_r": ([V + "ZacR_cast3D"], None, 3.0, -6),

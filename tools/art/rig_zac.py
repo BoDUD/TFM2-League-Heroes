@@ -228,7 +228,8 @@ MS = {"idle": [1000], "run": [110] * 8,
       "skill2": [200, 400], "skill2_fly": [100, 100], "skill2_land": [167, 100],
       "ult": [83, 83, 167, 84], "ult_land": [117, 83],
       "hit": [100, 100],
-      "dead": [200, 300, 800]}
+      "dead": [200, 300, 800],
+      "split_in": [150, 150], "split": [1000], "reform": [150, 150], "split_idle": [1000], "split_hit": [100, 100]}
 WALK = [((0, 0, 0), (0, 0, 2), 1, (0, 0), 0), ((0, 0, 0), (2, 0, 4), 2, (1, -1), 1),
         ((0, 0, 0), (2, 0, 2), 1, (1, -1), 1), ((0, 0, 0), (2, 0, 0), 0, (0, 0), 0),
         ((0, 0, 2), (0, 0, 0), 1, (0, 0), -1), ((2, 0, 4), (0, 0, 0), 2, (-1, 1), -1),
@@ -268,6 +269,14 @@ def actions(F):
     out["hit"] = [R.flash(p(whole=(-2, 0))), p(whole=(-1, 0))]
     # death (League's Zac_death2: staggering, melting down, a puddle)
     out["dead"] = [R.flash(at("d_stagger")), at("d_melt"), at("d_puddle")]
+    # Cell Division's split (league_zac's add-on; its copy of the kit plays split_in, split and reform, and league_zac's
+    # view hook draws idle / hit as split_idle / split_hit while he is a puddle): melted down to the puddle, held, and
+    # back up through the melt and the crouch - the death's own frames
+    out["split_in"] = [at("d_melt"), at("d_puddle")]
+    out["split"] = [at("d_puddle")]
+    out["reform"] = [at("d_melt"), at("r_crouch")]
+    out["split_idle"] = [at("d_puddle")]
+    out["split_hit"] = [R.flash(at("d_puddle")), at("d_puddle")]
     return out
 
 

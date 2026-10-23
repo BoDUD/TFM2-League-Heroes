@@ -7,8 +7,8 @@ For each tag: League's frames named in CLIPS - the very frames the poses were dr
 with the skin's hidden puddle and bloblet left out; the renders stay in DIR, never committed), one beside each of ours,
 next to the rig's frame at z screen px a design square, both at the tag's own frame times. Writes
 <out>/zac_<tag>_vs_lol.gif and .png, and <out>/zac_all_vs_lol.gif: every tag in turn (each action played twice, the idle
-and card reels once), one picture to review (memory one-gif-review). 3/4 view (yaw 35) for every tag (the user's pick:
-3/4 only).
+and card reels once, last preview_zac.py's gank on Darius with the effects in play), one picture to review (memory
+one-gif-review). 3/4 view (yaw 35) for every tag (the user's pick: 3/4 only).
 --sheet: the exported sheet's hd_ frames (league/champions/league_zac#sheet.png, what the game draws: after
 ppu_restyle's outline and ppu_hd), each laid on its frame centre, instead of the rig's frames - the idle as hero_reels'
 reel and the ban/pick card's reel (bp) too.
@@ -20,7 +20,7 @@ import subprocess
 import sys
 
 import numpy as np
-from PIL import Image, ImageDraw
+from PIL import Image, ImageDraw, ImageSequence
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
@@ -38,8 +38,12 @@ CLIPS = {"idle": [IDLE], "run": [f"zac_run_slow@{t}" for t in range(0, 1000, 125
          "skill2": [P["e_plant"], P["e_pull"]], "skill2_fly": [P["e_fly"]], "skill2_land": [P["e_land"], P["r_crouch"]],
          "ult": [P["r_crouch"], P["r_jump"], P["r_ball"], P["r_jump"]], "ult_land": [P["r_splat"], P["r_crouch"]],
          "hit": [IDLE], "dead": [P["d_stagger"], P["d_melt"], P["d_puddle"]],
+         # the add-on's Cell Division (the main pack's frames): League's death melt / puddle stand in for the split
+         "split_in": [P["d_melt"], P["d_puddle"]], "split": [P["d_puddle"]], "reform": [P["d_melt"], P["r_crouch"]],
+         "split_idle": [P["d_puddle"]], "split_hit": [P["d_puddle"]],
          "bp": [IDLE]}           # the ban/pick card's reel (hero_reels; --sheet only)
 BG = (96, 112, 96)
+SHOWCASE = os.path.join(os.path.dirname(os.path.dirname(HERE)), "docs", "preview", "league_zac_showcase.gif")
 
 
 def lol_frames(lol, tag, n, out):
@@ -109,6 +113,20 @@ def flat(fr):
     return full
 
 
+def showcase():
+    """preview_zac.py's gank on Darius, labelled: the effects in play, on their layers, and the combos (none before
+    preview_zac.py has written it)."""
+    if not os.path.exists(SHOWCASE):
+        return []
+    cells = []
+    for f in ImageSequence.Iterator(Image.open(SHOWCASE)):
+        cell = Image.new("RGB", (f.width, f.height + 18), (40, 40, 40))
+        cell.paste(f.convert("RGB"), (0, 18))
+        ImageDraw.Draw(cell).text((4, 3), "in play: E -> W, E -> Q, Q -> R, R -> W, the blobs", fill=(230, 230, 230))
+        cells.append((cell, f.info.get("duration", 40)))
+    return cells
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", required=True)
@@ -161,6 +179,8 @@ def main():
         sheet.save(os.path.join(a.out, f"zac_{tag}_vs_lol.png"))
         every += cells * (1 if tag in ("idle", "bp") else 2)   # the long reels once, the actions twice
         print(gif)
+    if not a.tags:
+        every += showcase()
     W = max(c.width for c, _ in every)
     H = max(c.height for c, _ in every)
     frames = []

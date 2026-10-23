@@ -1,6 +1,6 @@
 """Build league_zac.data_champion (jungle, Melee tank, AP: Zac, the Secret Weapon) from the parameters P.
 
-    python tools/kit/build_zac.py [--set key=value ...] [--out file] [--params json] [--nodes]
+    python tools/kit/build_zac.py [--set key=value ...] [--out file] [--params json] [--nodes] [--native]
 
 Kit (the user's picks, 2026-10-23: JUNGLE, layout A - Q / E / R, W folded into the passive, the revive in the add-on;
 combos E's landing -> W, E's knock-up -> Q, Q's fling -> R, R's end -> W). TFM2 has three active slots for League's
@@ -12,7 +12,11 @@ its flag is up does nothing (a 3-tick idle). Flags die with him: a respawned Zac
           hidden line from him toward that champion, b_far long, lands b_fly ticks later where the blob lies for b_lie
           ticks (a picture stamped every 15 ticks, league_poppy's buckler); walking within b_catch of it absorbs it -
           b_heal + b_heal_ap% AP health (a zone on himself, once per blob). Three blob slots (`bs1`..`bs3`): a blob
-          takes the first free one. The revive (four bloblets) is the add-on's; the main pack's tooltip says so.
+          takes the first free one. The revive is the add-on's (league_anivia's egg way; the main pack's tooltip says
+          so): with the add-on the lethal hit leaves him at 1 health, he splits into a puddle for split_t ticks holding
+          split_hp% of his maximum health, armour and magic resistance -split_def, rooted, no attacks or skills; the
+          puddle destroyed is his death (the killer's), whole he reforms with what it kept. Once every split_cd ticks,
+          kept across deaths.
   W       Unstable Matter (不稳定物质): with `w_cd` off his attack bursts round him (w_r): w_dmg + w_ap% AP to every enemy
           and w_pct% of each enemy champion's maximum health more (true damage: `ApAttack` has no target_hp_ratio,
           league_amumu); w_cd ticks of cooldown.
@@ -32,12 +36,20 @@ its flag is up does nothing (a 3-tick idle). Flags die with him: a respawned Zac
   combos  E -> W: the landing bursts Unstable Matter at once (its cooldown starting over). E -> Q: a champion knocked up by
           the landing is caught by Q at once when `q_cd` is off. Q -> R: the slam of a flung champion starts R on it
           when `r_cd` is off. R -> W: the last bounce bursts Unstable Matter and leaves W ready again.
+The add-on copy (--native, addons/league_zac): the passive league_zac:split decides the split (the copy shows it:
+`split_go` / `split_end` flags, a 2-tick watch hung once a life by his attack: the melt, the puddle held every 30 ticks,
+the reform).
 Timings: tools/art/rig_zac.py's frames (a frame's start in ticks = ms x 0.06): the attack's punch at a_hit 11 of
 atk_dur 28; Q's grab leaves at q_rel 8 of q_dur 24, the slam lands q_slam_at 8 into skill_slam's 18; E's wind-up is
 e_wind 36 (the arms planted, the pull), skill2_fly held while he flies, skill2_land e_land 16; R's hop r_air 25 (the
 crouch, up, balled, down: the move from r_move_at 5), ult_land r_land 12, a bounce every r_gap 37.
 Numbers: League 16.20 (CommunityDragon zac.bin) read into the jungle tank range (league_nunu, league_rammus), balanced
-on the classic-SDK simulations (kd.py --lane 1, C:/t/za_sim).
+on the classic-SDK simulations (kd.py --lane 1 against ninja, demon, hunter, werewolf and vampire, C:/t/za_sim,
+2026-10-23; league_nunu +2.00 on the same seeds 1-8): the draft +1.51; retimed to the frames (every bounce lands) +3.65;
+the knock-ups shorter (R 20, E 30 ticks) +1.98; R 90 and E 60 damage = P +1.73 (seeds 9-16: +1.03, league_nunu
++2.42 on them - the jungle's range, kept); with 1080 health and 36 armour +0.44.
+The combos in a traced game (seed 3): every E landing bursts W, R's last landing bursts W, Q after an E knock-up and R
+after a Q slam whenever their cooldowns allow.
 """
 import argparse
 import json
@@ -71,14 +83,17 @@ P = {
     "q_hp": 2, "q_slow": 40, "q_slow_t": 60, "q_hold": 24, "q_grab": 2500, "q_drag": 10, "q_sr": 22000, "q_up": 30,
     "q_slam": 18, "q_slam_at": 8,
     # skill2: E Elastic Slingshot
-    "e_cd": 900, "e_range": 75000, "e_wind": 36, "e_speed": 4000, "e_r": 26000, "e_dmg": 70, "e_ap": 60, "e_hp": 3,
-    "e_up": 45, "e_land": 16, "e_w_at": 2, "e_q_at": 8,
+    "e_cd": 900, "e_range": 75000, "e_wind": 36, "e_speed": 4000, "e_r": 26000, "e_dmg": 60, "e_ap": 60, "e_hp": 3,
+    "e_up": 30, "e_land": 16, "e_w_at": 2, "e_q_at": 8,
     # ult: R Let's Bounce!
     "r_cd": 3600, "r_range": 40000, "r_n": 4, "r_gap": 37, "r_hop": 30000, "r_speed": 3000, "r_r": 26000,
-    "r_dmg": 110, "r_ap": 50, "r_k": 50, "r_up": 30, "r_slow": 25, "r_slow_t": 60, "r_land": 12, "r_air": 25,
+    "r_dmg": 90, "r_ap": 50, "r_k": 50, "r_up": 20, "r_slow": 25, "r_slow_t": 60, "r_land": 12, "r_air": 25,
     "r_move_at": 5,
+    # Cell Division's revive, the add-on's (League: 4 bloblets, revive with 10-50% health, cd 300 s)
+    "split_t": 360, "split_cd": 18000, "split_hp": 40, "split_def": 20, "split_in": 18, "split_out": 18,
     # his spoken lines, at most one every vo_gap ticks
     "vo_gap": 600,
+    "native": 0,
 }
 
 
@@ -308,12 +323,32 @@ def build(p):
                   sw("r_go", combine(*rm("r_go"), sw("r_cd", NONE, pick(p["r_range"], "EnemyChampion", r_cast)))))
     hang = on_me(sw("polling", NONE, combine(refresh("polling", p["ctl_p"] + 2), casted(p["ctl_t"], p["ctl_p"], ctl))))
 
+    # ------------------------------------------------------------------ the split (the add-on copy only)
+    # The main pack has no revive (data reads no health and nothing fires on a death). The add-on's passive
+    # league_zac:split catches the lethal hit (league_anivia's egg), leaves him split_hp% of his health as the puddle's
+    # and raises `split_go`; the puddle destroyed is his death. The data shows it: split_go -> `split_on` (armour and
+    # magic resistance -split_def, split_t ticks), the melt (Unstable Matter's splash), the puddle held by its loop every
+    # 30 ticks; `split_end` (the add-on, split_t ticks later with him alive) -> the reform. A watch on him every 2 ticks,
+    # hung once a life by his attack (`init`, a flag a death clears).
+    native = bool(p["native"])
+    life = None                     # combine() leaves it out: the main pack's attack as without the add-on
+    if native:
+        t_ = p["split_t"]
+        start = sw("split_go", combine(*rm("split_go"), refresh("split_on", t_, defence=-p["split_def"],
+                                                                magic_resistance=-p["split_def"]),
+                                       refresh("split_hold", p["split_in"]), anim("split_in", p["split_in"] + 2),
+                                       cview("w_burst"), sfx("p_split"), voice("vo_p", p)))
+        hold = sw("split_on", sw("split_hold", NONE, combine(flag("split_hold", 30), anim("split", 32))))
+        out = sw("split_end", combine(*rm("split_end", "split_on", "split_hold"), anim("reform", p["split_out"]),
+                                      cview("b_pick"), sfx("p_reform")))
+        life = sw("init", NONE, combine(flag("init", None), on_me(casted(1000000, 2, start, hold, out))))
+
     # ------------------------------------------------------------------ attack
     blow = combine(sfx("a"), homing("a_blow", "Enemy", [attack(0, 100), view("a_hit"), tsfx("a_hit")]),
                    sw("w_cd", NONE, burst))
     # every hit sits behind the alive guard: a decoy the AI can read (champion-data "alive guard", league_gangplank)
     attack_a = action("attack", p["atk_dur"], p["atk_cd"], 1, p["atk_range"], "Targeting", "Enemy",
-                      combine(decoy(0, 100, attack), hang, delayed(p["a_hit"] - 1, alive(blow))),
+                      combine(decoy(0, 100, attack), hang, life, delayed(p["a_hit"] - 1, alive(blow))),
                       atype="BaseAttack", cancel=True)
 
     # ------------------------------------------------------------------ the slots
@@ -344,8 +379,12 @@ def build(p):
                E("e_land", BIG, -1, False), E("e_hit"), E("r_land", BIG, -1, False), E("r_hit"),
                E("b_lie", FX, -1, False), E("b_pick")]
     views_b = [B_("q_slow", FX, -1, "slow"), B_("q_held", FX, 3), B_("r_slow", FX, -1, "slow")]
+    extra = {}
+    if native:
+        extra["passive"] = {"passive_ref": "league_zac:split", "params": {
+            "split_t": p["split_t"], "split_cd": p["split_cd"], "split_hp": p["split_hp"]}}
     return {
-        "id": ID, "category": "Melee", "tags": ["AP", "Magic", "Melee", "Tank", "CC"],
+        "id": ID, "category": "Melee", "tags": ["AP", "Magic", "Melee", "Tank", "CC"], **extra,
         "sprite": f"asset/league/champions/{ID}", "anim_prefix": "",
         "skill_icons": [f"asset/league/icons/{ID}_skill", f"asset/league/icons/{ID}_skill2", f"asset/league/icons/{ID}_ult"],
         "stat": {"attack": p["atk"], "magic_power": p["apw"], "hp": p["hp"], "defence": p["def"],
@@ -373,6 +412,7 @@ def main():
     ap_.add_argument("--params", help="json file with overrides")
     ap_.add_argument("--out", default=OUT)
     ap_.add_argument("--nodes", action="store_true")
+    ap_.add_argument("--native", action="store_true", help="the add-on's copy")
     a = ap_.parse_args()
     p = dict(P)
     if a.params:
@@ -382,6 +422,8 @@ def main():
         if k not in p:
             raise SystemExit(f"unknown parameter {k}")
         p[k] = type(p[k])(float(v)) if isinstance(p[k], int) else float(v)
+    if a.native:
+        p["native"] = 1
     kit = build(p)
     if a.nodes:
         for s in ("attack", "skill", "skill2", "ult"):
