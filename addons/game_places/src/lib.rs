@@ -262,6 +262,11 @@ pub struct Places {
     pub ui_size_ret: Vec<usize>,
     pub ui_sized_anim_ret: Vec<usize>,
     pub ui_sized_size_ret: Vec<usize>,
+    /// the UI drawers' own sheet lookups (league.dll's UI sheets: optional - empty when not found)
+    pub ui_sheet_ret: Vec<usize>,
+    /// the functions they hand the sheet's name to (0: not found)
+    pub cmd_by_name: usize,
+    pub node_image: usize,
     pub body_draw: usize,
     pub cmd_grow: usize,
     /// how each UI drawer was told apart (for the log)
@@ -486,6 +491,31 @@ pub fn resolve_with(img: &Image, display: Option<(usize, usize)>) -> Result<Plac
     }
     let ui_sized_anim_ret: Vec<usize> = UI_SIZED.iter().map(|k| ui_anim_ret[*k]).collect();
     let ui_sized_size_ret: Vec<usize> = UI_SIZED.iter().flat_map(|k| ui_size_ret[4 * k..4 * k + 4].to_vec()).collect();
+    // 6. league.dll's UI sheets (optional: not found, the UI keeps drawing from the battle sheets): each drawer's first
+    // call of the sheet lookup between its anim lookup and its first size ask, and the two functions the drawers hand
+    // the sheet's name to - by their heads, the one the BP grid (the draw command) / the encyclopedia (the image node)
+    // calls
+    let mut ui_sheet_ret = Vec::new();
+    for k in 0..ui_anim_ret.len() {
+        match (ui_anim_ret[k]..ui_size_ret[4 * k]).find(|a| img.call_target(*a) == Some(sheet)) {
+            Some(c) => ui_sheet_ret.push(c + 5),
+            None => {
+                notes.push(format!("UI drawer {k}: no call of the sheet lookup before its size asks (no UI sheets)"));
+                ui_sheet_ret.clear();
+                break;
+            }
+        }
+    }
+    let sink = |what: &str, p: &Pattern, drawer: usize, notes: &mut Vec<String>| -> usize {
+        let inside: HashSet<usize> = img.func_of(drawer).map(|f| img.calls_in(f.0, f.1)).unwrap_or_default().into_iter().collect();
+        let found: Vec<usize> = img.find(p).into_iter().filter(|f| inside.contains(f)).collect();
+        one(what, &found).unwrap_or_else(|e| {
+            notes.push(format!("{e} (no UI sheets)"));
+            0
+        })
+    };
+    let cmd_by_name = sink("the draw command by a sheet's name", &CMD_BY_NAME, ui_anim_ret[2], &mut notes);
+    let node_image = sink("the image node's setter", &NODE_IMAGE, ui_anim_ret[0], &mut notes);
     // the hooks replace a 12-byte prologue + `sub rsp`
     for (name, f) in [("anim", anim), ("sheet", sheet), ("body draw", body_draw)] {
         if img.read(f, PROLOGUE.len()) != Some(PROLOGUE) {
@@ -504,6 +534,9 @@ pub fn resolve_with(img: &Image, display: Option<(usize, usize)>) -> Result<Plac
         ui_size_ret,
         ui_sized_anim_ret,
         ui_sized_size_ret,
+        ui_sheet_ret,
+        cmd_by_name,
+        node_image,
         body_draw,
         cmd_grow,
         notes,

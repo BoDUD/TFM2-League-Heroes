@@ -11,9 +11,12 @@
                                     its shots from the muzzle (t_shot); two hextech bolts and the third attack with
                                     the crane's five Micro-Rockets; the CH-2 grenade lobbed onto Darius (the blast, the
                                     stun, the slow) and at once the combo - the rockets on the stunned champion, the
-                                    turret's charged beam (t_beam_line); a few steps back and UPGRADE!!! with one champion
-                                    round him: the gear bursting from his backpack and the H-28Q apex turret (from the
-                                    side too) firing its plasma (the slow) until Darius falls; 3x.
+                                    turret's charged beam (t_beam_line); a few steps back and UPGRADE!!!: the gear
+                                    bursting from his backpack, the upgrade waiting on him (the r_glow ring), and his
+                                    next Q sets down the H-28Q apex turret (from the side too) firing its plasma (the
+                                    slow) until Darius falls; 3x.
+  league_heimerdinger_upgrade_e.gif (--upgrade e) the same fight with the upgrade going to E: CH-3X, three grenades
+                                    r_gap apart on Darius (each blast, stun and slow).
 """
 import argparse
 import json
@@ -104,7 +107,7 @@ class Heimer(Clip):
         return t1
 
 
-def showcase(out, z=3):
+def showcase(out, z=3, upgrade="q"):
     fx = {k: load(v) for k, v in FX.items()}
     small, big = fx["league_heimerdinger_fx"], fx["league_heimerdinger_big"]
     tur = {k: load(v) for k, v in TURRETS.items()}
@@ -174,16 +177,36 @@ def showcase(out, z=3):
     c.wait(150)
     r0 = c.t
     c.on_me("r_up", r0 + tick(P["r_up"]), sheet=big)
-    x_at = back + P["q_place"] // 1000
-    x_stand = r0 + tick(P["r_rel"]) + tick(P["q_place"] / P["q_speed"])
     c.a("ult", tick(P["r_dur"]))
-    # Darius falls under the apex's plasma
-    death = x_stand + tick(P["x_first"]) + tick(P["x_per"]) * 6 + 200
+    c.wait(300)
+    # R fired nothing: the next spell is upgraded (the ring under him until it goes)
+    s0 = c.t
+    c.on_me("r_glow", r0 + tick(P["r_rel"]), until=s0 + tick(P["q_rel"] - 1), under=True)
+    if upgrade == "q":
+        # the H-28Q apex turret q_place in front of him; Darius falls under its plasma
+        x_at = back + P["q_place"] // 1000
+        x_stand = s0 + tick(P["q_rel"] - 1) + tick(P["q_place"] / P["q_speed"])
+        c.a("skill", tick(P["q_dur"]))
+        death = x_stand + tick(P["x_first"]) + tick(P["x_per"]) * 6 + 200
+        for k in range(7):
+            hit = x_stand + tick(P["x_first"] + k * P["x_per"]) + 120
+            c.on("e_slow", hit, until=hit + tick(P["x_slow_t"]))
+        turret(tur["league_heimerdinger_apex_r"], mz["apex"], x_at, x_stand, P["x_first"], P["x_per"],
+               lambda t: ("x_shot", "x_hit", P["x_speed"]), death - 200)
+    else:
+        # CH-3X: three grenades r_gap apart onto Darius, each a blast, a stun and the slow
+        rel = s0 + tick(P["e_rel"] - 1)
+        c.a("skill2", tick(P["e_dur"]))
+        for k in range(3):
+            t0 = rel + tick(k * P["r_gap"])
+            t1 = t0 + tick(P["e_travel"])
+            c.over.append(Lob(frames_of(small, "re_grenade"), t0, t1, (back + 8, gy - 12), (far, gy), 34))
+            c.under.append(Anim(frames_of(big, "re_blast"), t1, far, gy))
+            c.on("e_hit", t1)
+            c.on("e_slow", t1, until=t1 + tick(P["re_slow_t"]))
+            d.flinches.append(t1)
+        death = rel + tick(2 * P["r_gap"] + P["e_travel"]) + 300
     d.death = death
-    for k in range(7):
-        c.on("e_slow", x_stand + tick(P["x_first"] + k * P["x_per"]) + 120, until=x_stand + tick(P["x_first"] + k * P["x_per"]) + 120 + tick(P["x_slow_t"]))
-    turret(tur["league_heimerdinger_apex_r"], mz["apex"], x_at, x_stand, P["x_first"], P["x_per"],
-           lambda t: ("x_shot", "x_hit", P["x_speed"]), death - 200)
     # the Q turret's shots all along: the beam while Darius is stunned (the turret's combo), its cannon otherwise
     turret(tur["league_heimerdinger_turret_r"], mz["turret"], q_at, q_stand, P["t_first"], P["t_per"],
            lambda t: ("t_beam_line", "t_beam", P["b_speed"]) if land <= t < stun_end
@@ -197,6 +220,7 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--out", default=os.path.join(ROOT, "docs", "preview"))
     ap.add_argument("--only", choices=["frames", "effects", "showcase"])
+    ap.add_argument("--upgrade", choices=["q", "e"], default="q", help="the spell R's upgrade goes to in the showcase")
     args = ap.parse_args()
     os.makedirs(T.long_path(args.out), exist_ok=True)
     if args.only in (None, "frames"):
@@ -210,7 +234,8 @@ def main():
             rows += [(sp, t["name"], f"{name[20:]}:{t['name']}") for t in sp.tags if not t["name"].startswith("hd_")]
         print("effects", fx_contact(rows, os.path.join(args.out, "league_heimerdinger_effects.png")))
     if args.only in (None, "showcase"):
-        print("showcase frames/seconds", showcase(os.path.join(args.out, "league_heimerdinger_showcase.gif")))
+        name = "league_heimerdinger_showcase.gif" if args.upgrade == "q" else "league_heimerdinger_upgrade_e.gif"
+        print("showcase frames/seconds", showcase(os.path.join(args.out, name), upgrade=args.upgrade))
 
 
 if __name__ == "__main__":
