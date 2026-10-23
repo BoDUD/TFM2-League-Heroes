@@ -35,7 +35,7 @@ SRC = os.path.join(ROOT, "assets", "source", "azir", "codex_model", "azir-model"
 OUT = os.path.join(ROOT, "assets", "source", "azir", "hd")
 K = 40
 CREST_ROWS = 57   # 38 game px x PPU 1.5, the helmet's crest to the soles
-PICK = None       # the user's pick
+PICK = "A-2"      # the user's pick, 2026-10-23: A-2, the summons as drawn
 # take -> (file, square px read at, rows to (None: by CREST_ROWS), the box kept whole on the raw canvas: x0, y0, x1, y1)
 DRAFTS = {
     "A-1": ("A-1", 15.0, None, (560, 270, 820, 560)),
@@ -46,7 +46,29 @@ DRAFTS = {
 }
 NAMES = {"T": "soldier", "US": "guard", "D": "disc"}
 # helmet squares redrawn on the written design (codex-face-half-squares): (x, y, colour) on hd/idle.png
-FACE = []
+FACE = [(35, 28, (2, 188, 246))]   # A-2: the eye 2x2 (it came 1 teal + 1 white over a dark square)
+# A-2's sceptre under his hand stepped a column right at the gem (rows 62-70: 「法杖要做直了啊 下面有点歪」): the shaft
+# runs straight down column SHAFT[0] from SHAFT[1] to its foot, one square wide between outlines, its gem on GEM rows
+SHAFT = (12, 48, 70, 57)  # column, first row, last row (the foot; its outline under it), first row it had drifted from
+GEM = {63: (2, 209, 247), 64: (252, 252, 253), 65: (2, 188, 246)}
+
+
+def straighten(fig):
+    c, y0, y1, drift = SHAFT
+    out = fig.copy()
+    ink = out[y0, c - 1].copy()
+    gold = out[y0 + 4, c].copy()
+    for y in range(y0, y1 + 2):
+        if y >= drift:
+            out[y, c + 1:c + 4] = 0                 # the old shaft and its outline right of the line (nothing behind)
+        out[y, c - 1] = ink
+        out[y, c + 1] = ink
+        out[y, c] = ink
+        if y <= y1:
+            out[y, c, :3] = GEM.get(y, gold[:3])
+    out[y1 + 1, c - 1:c + 2] = 0
+    out[y1 + 1, c] = ink
+    return out
 
 
 def lp(path):
@@ -149,7 +171,7 @@ def main():
         sys.exit("no pick yet: run --options and ask the user")
     os.makedirs(lp(OUT), exist_ok=True)
     fig, rows, cols, H = cut(PICK)
-    fig = fig.copy()
+    fig = straighten(fig)
     for x, y, c in FACE:
         assert fig[y, x, 3] > 0, (x, y)
         fig[y, x, :3] = c
