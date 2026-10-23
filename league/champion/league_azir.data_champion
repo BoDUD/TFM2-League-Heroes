@@ -16121,7 +16121,7 @@
       "name": "league_azir_e_land",
       "anim": "asset/league/effects/league_azir_fx",
       "tag": "e_land",
-      "z": 1,
+      "z": -1,
       "is_follow": false
     },
     {
@@ -16137,7 +16137,7 @@
       "name": "league_azir_r_rise",
       "anim": "asset/league/effects/league_azir_big",
       "tag": "r_rise",
-      "z": 1,
+      "z": -1,
       "is_follow": false
     },
     {
