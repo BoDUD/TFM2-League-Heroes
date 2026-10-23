@@ -74,7 +74,7 @@ P = {
     # R Fear Beyond Death (League: 2500 range, 3200 speed, 100-350 + 50% bonus AD, leash 4 s with a slow to 75%,
     # recast under 25% max hp: a 1.5 s reel-in then the execute, nearby enemies flee 1.5 s, cd 100-70 s)
     "r_cd": 3000, "r_range": 110000, "r_dur": 30, "r_st": 8, "r_aim": 4, "r_speed": 6000, "r_rad": 8000,
-    "r_dmg": 250, "r_ratio": 50, "r_slow": 40, "r_t": 240, "r_reel": 20, "r_ex": 25, "r_fear_r": 40000, "r_fear": 90,
+    "r_dmg": 250, "r_ratio": 50, "r_slow": 40, "r_t": 240, "r_reel": 20, "r_pull": 8000, "r_ex": 25, "r_fear_r": 40000, "r_fear": 90,
     # when R fires (the user: 「大招释放逻辑是什么 不会乱放吧」): armed for r_arm ticks; it fires on the r_hits-th of his
     # hits on champions in a row (each within hit_t ticks of the last: a fight he is in), at the champion just hit;
     # unused, the cooldown is mostly given back
@@ -253,7 +253,10 @@ def build(p):
                    around(p["r_fear_r"], "EnemyChampion", [{"type": "Fear", "tick": p["r_fear"]},
                                                           buff("r_flee", p["r_fear"], move_speed_mult=-50)]))
     # pictures from a target's Delayed play on a corpse too: only an AddCasted runs on the living alone
-    execute = [{"type": "Grab", "speed": 3000}, casted(1, 1, view("r_reel")),
+    # the reel: a Grab to him (no tick: it ends at his body) fast enough to land within r_reel ticks from the drill's
+    # whole reach - it was 3000 a tick, 60000 in r_reel, so a champion leashed farther died on the way, not in front of
+    # him (the user, 2026-10-23: 「厄加特的大招不拉到自己身前 斩杀时候」); 8000 brings one from 110000 in 14 ticks
+    execute = [{"type": "Grab", "speed": p["r_pull"]}, casted(1, 1, view("r_reel")),
                delayed(p["r_reel"], refresh("r_kill", 40), true_dmg(p["r_ex"]), casted(1, 1, view("r_ex")),
                        tsfx("r_ex"), delayed(1, casted(3, 1, *rm("r_kill")))),
                on_me(delayed(p["r_reel"] + 4, sw("r_kill", fear)))]
