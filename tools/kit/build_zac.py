@@ -26,12 +26,16 @@ its flag is up does nothing (a 3-tick idle). Flags die with him: a respawned Zac
           back for e_wind ticks, then flings himself onto the target (`MoveToTarget` e_speed, league_malphite R): on
           landing e_dmg + e_ap% AP + e_hp% of his maximum health and an e_up-tick knock-up within e_r.
   ult     R Let's Bounce! (动感弹球), `Targeting` on `EnemyChampion` (r_range, `r_cd`): r_n bounces r_gap ticks apart,
-          unstoppable (`cc_immune`); each hops onto an enemy champion within r_hop (or in place) and lands for r_dmg +
+          unstoppable (`cc_immune`); each hops onto an enemy champion within r_hop (or in place) and lands r_air ticks
+          after it starts for r_dmg +
           r_ap% AP (later bounces x r_k%), an r_up-tick knock-up and r_slow% for r_slow_t within r_r.
   combos  E -> W: the landing bursts Unstable Matter at once (its cooldown starting over). E -> Q: a champion knocked up by
           the landing is caught by Q at once when `q_cd` is off. Q -> R: the slam of a flung champion starts R on it
           when `r_cd` is off. R -> W: the last bounce bursts Unstable Matter and leaves W ready again.
-Timings: drafts until the frames exist (a frame's start in ticks = ms x 0.06).
+Timings: tools/art/rig_zac.py's frames (a frame's start in ticks = ms x 0.06): the attack's punch at a_hit 11 of
+atk_dur 28; Q's grab leaves at q_rel 8 of q_dur 24, the slam lands q_slam_at 8 into skill_slam's 18; E's wind-up is
+e_wind 36 (the arms planted, the pull), skill2_fly held while he flies, skill2_land e_land 16; R's hop r_air 25 (the
+crouch, up, balled, down: the move from r_move_at 5), ult_land r_land 12, a bounce every r_gap 37.
 Numbers: League 16.20 (CommunityDragon zac.bin) read into the jungle tank range (league_nunu, league_rammus), balanced
 on the classic-SDK simulations (kd.py --lane 1, C:/t/za_sim).
 """
@@ -65,13 +69,14 @@ P = {
     # skill: Q Stretching Strikes
     "q_cd": 600, "q_range": 50000, "q_dur": 24, "q_rel": 8, "q_speed": 8000, "q_y": -6000, "q_dmg": 40, "q_ap": 30,
     "q_hp": 2, "q_slow": 40, "q_slow_t": 60, "q_hold": 24, "q_grab": 2500, "q_drag": 10, "q_sr": 22000, "q_up": 30,
-    "q_slam": 18,
+    "q_slam": 18, "q_slam_at": 8,
     # skill2: E Elastic Slingshot
     "e_cd": 900, "e_range": 75000, "e_wind": 36, "e_speed": 4000, "e_r": 26000, "e_dmg": 70, "e_ap": 60, "e_hp": 3,
     "e_up": 45, "e_land": 16, "e_w_at": 2, "e_q_at": 8,
     # ult: R Let's Bounce!
-    "r_cd": 3600, "r_range": 40000, "r_n": 4, "r_gap": 30, "r_hop": 30000, "r_speed": 3000, "r_r": 26000,
-    "r_dmg": 110, "r_ap": 50, "r_k": 50, "r_up": 30, "r_slow": 25, "r_slow_t": 60, "r_land": 12,
+    "r_cd": 3600, "r_range": 40000, "r_n": 4, "r_gap": 37, "r_hop": 30000, "r_speed": 3000, "r_r": 26000,
+    "r_dmg": 110, "r_ap": 50, "r_k": 50, "r_up": 30, "r_slow": 25, "r_slow_t": 60, "r_land": 12, "r_air": 25,
+    "r_move_at": 5,
     # his spoken lines, at most one every vo_gap ticks
     "vo_gap": 600,
 }
@@ -258,27 +263,32 @@ def build(p):
             around(p["r_r"], "EnemyChampion", shed),
             # R -> W: the last bounce bursts Unstable Matter and leaves W ready
             sw("r_fin", combine(*rm("r_fin"), burst, *rm("w_cd")))]
-    hop = {"type": "MoveToTarget", "speed": p["r_speed"], "range": p["r_hop"] + 20000, "end_effects": land}
+    # each bounce: the hop's frames (crouched, up, balled at the top, coming down) for r_air ticks, the move onto an enemy
+    # champion within r_hop while he is up (from r_move_at; MoveToTarget alone, so the landing never waits on it), the
+    # landing at r_air wherever he is - in reach of nobody, in place
+    hop = {"type": "MoveToTarget", "speed": p["r_speed"], "range": p["r_hop"] + 20000, "end_effects": []}
     count = sw("h3", combine(*rm("h3"), flag("r_fin", 60)),
                sw("h2", combine(*rm("h2"), flag("h3", 60)), sw("h1", combine(*rm("h1"), flag("h2", 60)), flag("h1", 60))))
-    bounce = combine(anim("ult", p["r_gap"]), sfx("r_hop"), count, *rm("r_found"),
-                     pick(p["r_hop"], "EnemyChampion", flag("r_found", 2), hop),
-                     # nobody in reach: the bounce lands where he is
-                     delayed(1, alive(sw("r_found", combine(*rm("r_found")), combine(*land)))))
+    bounce = combine(anim("ult", p["r_air"]), sfx("r_hop"), count,
+                     delayed(p["r_move_at"], alive(pick(p["r_hop"], "EnemyChampion", hop))),
+                     delayed(p["r_air"], alive(combine(*land))))
     t_r = p["r_n"] * p["r_gap"]
+    # the first bounce at once, the others r_gap ticks apart (a pulse on him: AddCasted runs first a period in)
     r_cast = combine(*rm("h1", "h2", "h3", "r_fin"), flag("r_first", t_r + 60), refresh("r_cd", p["r_cd"]),
-                     voice("vo_r", p), sfx("r"), anim("ult", p["r_gap"]),
-                     on_me(buff("r_on", t_r + 2, cc_immune=True), casted(t_r, p["r_gap"], bounce)))
+                     voice("vo_r", p), sfx("r"), bounce,
+                     on_me(buff("r_on", t_r + 2, cc_immune=True),
+                           casted((p["r_n"] - 1) * p["r_gap"] + 1, p["r_gap"], bounce)))
 
     # ------------------------------------------------------------------ Q Stretching Strikes (the skill and the controller)
     def q_cast(target):
         hit = [ap(p["q_dmg"], p["q_ap"], p["q_hp"]), buff("q_slow", p["q_slow_t"], move_speed_mult=-p["q_slow"]),
                view("q_hit"), tsfx("q_hit")]
         # the slam: the flung champion lands on him, everyone round him goes up; Q -> R (the controller casts it)
-        slam = combine(anim("skill_slam", p["q_slam"]), sfx("q_slam"), cview("q_slam"),
-                       around(p["q_sr"], "EnemyWithoutTower", ap(p["q_dmg"], p["q_ap"], p["q_hp"]),
-                              {"type": "Airborne", "duration": p["q_up"]}, view("q_hit"), tsfx("q_hit")),
-                       sw("r_cd", NONE, refresh("r_go", p["ctl_p"] + 2)))
+        slam = combine(anim("skill_slam", p["q_slam"]), delayed(p["q_slam_at"], alive(
+            sfx("q_slam"), cview("q_slam"),
+            around(p["q_sr"], "EnemyWithoutTower", ap(p["q_dmg"], p["q_ap"], p["q_hp"]),
+                   {"type": "Airborne", "duration": p["q_up"]}, view("q_hit"), tsfx("q_hit")),
+            sw("r_cd", NONE, refresh("r_go", p["ctl_p"] + 2)))))
         caught = [buff("q_held", p["q_hold"] + p["q_drag"]), shed,
                   delayed(p["q_hold"], {"type": "Grab", "speed": p["q_grab"], "tick": p["q_drag"]}),
                   delayed(p["q_hold"] + p["q_drag"], alive(slam))]
