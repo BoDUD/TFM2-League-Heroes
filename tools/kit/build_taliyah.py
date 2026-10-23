@@ -36,7 +36,10 @@ simulations (kd.py --lane 2 against pyromancer, ice_mage, lightning_mage, wind_m
 2026-10-24; league_aurora +0.93 on seeds 1-8): the draft (mines stun 50 every W, the wall 99%, Q 26 + 14%, W 70 + 40%,
 mines 80 + 40%) +4.58 - she won by crowd control alone; the stun 24, W every 16 s, the wall 50% and its stun 40, the
 surf 10% with every hit cut +0.47 (deal 5214 against Aurora's 11398); damage back - Q 32 + 17% a rock, W 60 + 35%,
-mines 45 + 28% = P +0.85 / +1.89 on seeds 1-8 / 9-16 (mean +1.37: league_syndra +1.17 / +1.42, league_anivia +1.29).
+mines 45 + 28% +0.85 / +1.89 on seeds 1-8 / 9-16 (mean +1.37: league_syndra +1.17 / +1.42, league_anivia +1.29);
+the wall's band widened to r_w 12000 (it was thinner than its 16-px picture: a champion dragged out still stood in it)
++1.68 / +1.65 - the wall's slow and slam drive it (Q 29 + 15% left it at +1.67 / +1.61); the slow 35% and the slam 32
+ticks +0.72 / +0.61; the slow 42% and the slam 36 ticks = P +1.02 / +1.25 (mean +1.14).
 """
 import argparse
 import json
@@ -71,7 +74,7 @@ P = {
     "e_r": 22000, "e_t": 240, "e_p": 6, "e_slow": 20, "e_dmg": 45, "e_ap": 28, "e_stun": 24,
     # ult: R Weaver's Wall
     "r_cd": 4200, "r_range": 90000, "r_dur": 40, "r_rel": 16, "r_t": 300, "r_w": 12000, "r_h": 120000, "r_out": 24,
-    "r_go": 2500, "r_p": 2, "r_slow": 50, "r_w_at": 30, "r_kb_speed": 2500, "r_kb": 8, "r_wstun": 40,
+    "r_go": 2500, "r_p": 2, "r_slow": 42, "r_w_at": 30, "r_kb_speed": 2500, "r_kb": 8, "r_wstun": 36,
     "r_ms": 40, "r_surf": 300,
     # her spoken lines, at most one every vo_gap ticks
     "vo_gap": 600,
