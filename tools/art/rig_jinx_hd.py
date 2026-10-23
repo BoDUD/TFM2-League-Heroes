@@ -9,9 +9,9 @@ view, Fishbones on her back) and League's clips.
     python tools/art/rig_jinx_hd.py                     # orig strips + the 1x sheet
     python tools/art/hero_reels.py --hero jinx          # then: the idle / ban-pick reels from idle_base
 
-No square is redrawn or resampled: the parts are cut square by square (SPANS, Fishbones by its own layer's footprint)
-and placed only by whole squares, quarter turns, mirrors and whole-row shifts; standing, the parts rebuild the design
-exactly (Poser.check).
+No square is redrawn: the parts are cut square by square (SPANS, Fishbones by its own layer's footprint) and placed only by
+whole squares, quarter turns, mirrors and whole-row shifts, the run's and the death's thighs the design's own stocking
+rows laid along the bone (Legs); standing, the parts rebuild the design exactly (Poser.check).
 """
 import argparse
 import json
@@ -314,10 +314,10 @@ Z["held"] = Z["braid_f"] + 0.5          # Fishbones shouldered: in front of the 
 
 
 def compose(d, pieces, pose, legs=None):
-    """pose: {"dx", "dy": the whole figure; "upper": the upper body over the planted legs (dx, dy); a part's name: its
+    """pose: {"dx", "dy": the whole figure; "upper": the upper body over the drawn legs (dx, dy); a part's name: its
     transform (dx, dy, shear, flip, rot, about); "held": where Fishbones shouldered goes (its picture's top-left);
-    "legs": {"near": (top, k, lift, tuck), "far": (dx, lift)}; "zap_hand": the zapper in the near hand;
-    "hide": parts left out}."""
+    "legs": {"near" / "far": (hip, knee)} the run's thighs (Legs.items); "zap_hand": the zapper in the near hand;
+    "curl_on": the far braid's curl on its end; "prone": the death on her back (prone_items); "hide": parts left out}."""
     f = Frame(d)
     gdx, gdy = pose.get("dx", 0), pose.get("dy", 0)
     pose = dict(pose)
@@ -366,13 +366,14 @@ def compose(d, pieces, pose, legs=None):
 # League's death and her old sheet's: knocked over backwards onto her back. Her head, body and arms turn a quarter
 # counter-clockwise about her hips (lossless: no square redrawn), the braids first gathered in behind her back (their
 # rows shifted toward it, BRAID_GATHER) and lying under her (her back on the ground, what of them would be below it not
-# drawn) so she is not propped on a heap of hair; her legs are drawn the run's way from
-# the turned hips - thrown up as she lands, then lying along the ground - with the design's own feet turned to stand
-# toes-up; Pow-Pow lands by her feet, Fishbones on the ground behind her head.
+# drawn) so she is not propped on a heap of hair; her near leg is drawn the run's way from the turned hip (the far one
+# lies behind it, out of sight) - thrown up as she lands, then lying along the ground - with the design's whole boot
+# turned (DEAD_TURN); Pow-Pow, dropped, lies across her thighs in front of them (the hips' join under it: 「死亡后腿断了？」),
+# Fishbones on the ground behind her head.
 PRONE_PIVOT = (40.0, 56.0)
 BRAID_GATHER = (18, 6)          # the near / far braid's tips moved toward her back (columns, before the turn)
-# the knee from the turned hip (dx, dy in squares): "up" - the legs thrown straight up as she lands, "flat" - lying
-DEAD_LEGS = {"up": {"near": (0, -13), "far": (3, -12)}, "flat": {"near": (13, 0), "far": (12, -2)}}
+# the near knee from the turned hip (dx, dy in squares): "up" - the leg thrown straight up as she lands, "flat" - lying
+DEAD_LEGS = {"up": (0, -13), "flat": (13, 0)}
 DEAD_TURN = {"up": 2, "flat": 1}         # the boots: upside down (soles to the sky), or lying toes-up
 
 
@@ -421,7 +422,7 @@ def prone_items(pieces, pr, legs, pose):
     items = [(z, n, img, x + sx, y + sy) for z, n, img, x, y in turned]
     hx, hy = px + sx, py + sy                           # the turned hip
     mode = pr.get("legs", "flat")
-    kdx, kdy = DEAD_LEGS[mode]["near"]                 # the far leg lies behind the near one, out of sight
+    kdx, kdy = DEAD_LEGS[mode]                         # the far leg lies behind the near one, out of sight
     items += legs.items("near", (hx, hy), (hx + kdx, hy + kdy), turn=DEAD_TURN[mode])
     left = min(x for _, _, img, x, y in items)
     right = max(x + img.shape[1] for _, _, img, x, y in items)
@@ -447,13 +448,13 @@ def braids(k, kf=None):
             "braid_f": dict(shear=kf if kf is not None else k, pivot=3, profile=lambda t: t ** 1.5)}
 
 
-def P(upper=None, held=None, **kw):
-    """A pose: the whole figure moved `upper[0]` columns (legs and all - the upper body slid over planted legs changed
-    how much of the stocking her shorts cover: 「放技能的时候左腿有点变形」; `upper[1]` is not used), the braids' swing,
-    Fishbones shouldered at `held`."""
+def P(dx=0, held=None, **kw):
+    """A pose: the whole figure moved dx columns, legs and all (the upper body slid over planted legs changed how much of
+    the stocking her shorts cover: 「放技能的时候左腿有点变形」), Fishbones shouldered at `held`, the braids' swing and any
+    part's transform in kw."""
     out = dict(kw)
-    if upper and upper[0]:
-        out["dx"] = out.get("dx", 0) + upper[0]
+    if dx:
+        out["dx"] = dx
     if held is not None:
         out["held"] = held
     return out
@@ -469,18 +470,13 @@ def held(dx=0, dy=0):
     return (HELD_AT[0] + dx, HELD_AT[1] + dy)
 
 
-# The run (8 frames of 117 ms): League's Jinx_minigun_run seen from the side (tools/lol/league_joints.py on poses.json's
-# spec at yaw 90, assets/source/jinx/hd/jinx_run_joints.json): each leg on League's thigh and shin angles with our bone
-# lengths (rigkit.leg_chain: a foot whose League toe is down stands on the ground, its knee solved); the hips bob with
-# League's (RUN_BOB_ROWS at the lowest), lower still where a planted foot would be out of reach; the upper body
-# RUN_LEAN columns ahead of the hips, the braids streaming back.
-RUN_JOINTS = os.path.join(HD, "jinx_run_joints.json")
-RUN_PLANT_TOE = -7.5            # a League toe this low (game px, - = up) stands on the ground
-RUN_K = 0.85                    # League's thigh angles at this much (its chibi sprint swings them 67 degrees)
+# The run (8 frames of 117 ms), set by hand after League's Jinx_minigun_run seen from the side (hd/jinx_run_joints.json:
+# tools/lol/league_joints.py on hd/poses_side.json, its run's frames; the chibi sprint swings the thighs -28 to +67
+# degrees): the thighs on RUN_LEGS's angles from hips RUN_HIP_X apart, the boots the design's own hanging from the knees,
+# the hips as high as the planted leg holds them (the body bobbing with the steps), the upper body RUN_LEAN columns
+# ahead of the hips, the braids streaming back.
 RUN_HIP_X = {"near": 40.0, "far": 44.0}
 RUN_HIP_Y = 55.0                # the hips' row with the planted thigh at 30 degrees: the upper body as drawn
-RUN_AIR = 1.0                   # rows the hips rise more with both feet in the air
-RUN_BOB_ROWS = 2
 RUN_LEAN = 2
 BRAID_RUN = [(-5, -15), (-6, -16), (-5, -15), (-4, -14), (-5, -15), (-6, -16), (-5, -15), (-4, -14)]
 
@@ -517,30 +513,27 @@ def run_poses():
 
 
 POSES = {
-    # the minigun: braced a row down, kicked back a column on each burst (the kit's shot on the 3rd frame), the braids
-    # swinging with it
-    "attack": [STAND, P((0, 1)), P((-1, 1), **braids(1)), P((0, 1), **braids(1, 0)), P((-1, 1), **braids(2, 1)),
-               P((0, 0), **braids(1, 0))],
+    # the minigun: kicked back a column on each burst (the kit's shot on the 3rd frame), the braids swinging with it
+    "attack": [STAND, P(), P(-1, **braids(1)), P(**braids(1, 0)), P(-1, **braids(2, 1)), P(**braids(1, 0))],
     # Fishbones swung onto her far shoulder (its grip in the hand that held the gun's front handle), the rocket on the
     # 4th frame (183 ms): the launcher kicks up and back, she rocks back a column
     "rocket": [P(held=held(-4, -5), **braids(-1)), P(held=held(-1, -1)), P(held=held()),
-               P((-1, 0), held=held(-3, -2), **braids(2, 1)), P((0, 0), held=held(-1, -1), **braids(1)),
-               P(held=held())],
-    # knocked back: the upper body two columns back and a row down, the braids flung forward; then halfway back
-    "hit": [P((-2, 1), **braids(3, 2)), P((-1, 0), **braids(1))],
-    # Super Mega Death Rocket (League's spell4): Fishbones heaved up off her back, swung onto her shoulder, a crouch to
-    # aim (the upper body two rows down over her legs), the rocket on the 5th frame (283 ms) blowing her back off her
-    # feet, the landing, Fishbones back on her back as she rights herself
-    "ult": [P((0, 1), fish=dict(dx=2, dy=-4), **braids(-1)),
-            P((0, 0), fish=dict(dx=6, dy=-14), **braids(-2)),
-            P((0, 1), held=held(-2, -8), **braids(-2)),
-            P((0, 2), held=held(), **braids(-1)),
-            P((0, 0), held=held(-3, -2), dx=-6, dy=-4, **braids(4, 3)),
-            P((0, 2), held=held(-1, -1), dx=-8, **braids(2)),
-            P((0, 0), dx=-3, **braids(1))],
+               P(-1, held=held(-3, -2), **braids(2, 1)), P(held=held(-1, -1), **braids(1)), P(held=held())],
+    # knocked back two columns, the braids flung forward; then halfway back
+    "hit": [P(-2, **braids(3, 2)), P(-1, **braids(1))],
+    # Super Mega Death Rocket (League's spell4): Fishbones heaved up off her back, swung onto her shoulder to aim, the
+    # rocket on the 5th frame (283 ms) blowing her back off her feet, the landing, Fishbones back on her back as she
+    # rights herself
+    "ult": [P(fish=dict(dx=2, dy=-4), **braids(-1)),
+            P(fish=dict(dx=6, dy=-14), **braids(-2)),
+            P(held=held(-2, -8), **braids(-2)),
+            P(held=held(), **braids(-1)),
+            P(-6, held=held(-3, -2), dy=-4, **braids(4, 3)),
+            P(-8, held=held(-1, -1), **braids(2)),
+            P(-3, **braids(1))],
     # struck: knocked back, she reels, topples over backwards (legs thrown up as she lands), bounces and lies flat
-    "dead": [P((-2, 1), **braids(3, 2)),
-             P((-4, 2), **braids(5, 3)),
+    "dead": [P(-2, **braids(3, 2)),
+             P(-4, **braids(5, 3)),
              dict(prone=dict(lift=10, dx=-14, legs="up", gun=(-6, -10), fish=(4, -12))),
              dict(prone=dict(lift=2, dx=-18, legs="up", gun=(-2, 0), fish=(0, 0))),
              dict(prone=dict(lift=0, dx=-18, legs="flat", fish=(0, 0))),
@@ -550,9 +543,9 @@ POSES = {
 }
 
 
-def Z_(upper=None, **kw):
+def Z_(dx=0, **kw):
     """W's pose: the zapper in the near hand."""
-    out = P(upper, **kw)
+    out = P(dx, **kw)
     out["zap_hand"] = True
     return out
 
@@ -562,12 +555,12 @@ def Z_(upper=None, **kw):
 # The sheet's frames are these split where the charge's frames change.
 BASE = {
     "skill": ([60, 60, 60, 70, 80, 90, 90, 90],
-              [STAND, Z_(), Z_((1, 0)), Z_((1, 0)), Z_((1, 0)), Z_((-1, 0), **braids(1)), Z_(), STAND]),
+              [STAND, Z_(), Z_(1), Z_(1), Z_(1), Z_(-1, **braids(1)), Z_(), STAND]),
     # E (Flame Chompers!): she rocks back and lunges into the throw (the chompers leave on the 4th frame, 200 ms), the
     # braids swinging behind her, and settles
     "skill2": ([60, 60, 60, 60, 70, 80, 90],
-               [STAND, P((-2, 1), **braids(2, 1)), P((0, 2), **braids(0)), P((3, 2), **braids(-3, -2)),
-                P((4, 2), **braids(-4, -3)), P((2, 1), **braids(-2, -1)), P((1, 0), **braids(-1))]),
+               [STAND, P(-2, **braids(2, 1)), P(**braids(0)), P(3, **braids(-3, -2)), P(4, **braids(-4, -3)),
+                P(2, **braids(-2, -1)), P(1, **braids(-1))]),
 }
 
 

@@ -267,6 +267,11 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // arm turned level, run and kneel legs drawn from the design's leg rows); PPU 1.35: his body the old 39 rows (1.5
     // drew it 35: 「维鲁斯建模小了」)
     ("league_varus", 1.35, include_str!("../../../league/champions/league_varus#anim.fanim")),
+    // Jinx (2026-10-23): the user's own side-view picture read back on its 22.23-px grid (88 x 82,
+    // tools/art/design_jinx_hd.py) with Fishbones drawn in behind her braids, every action posed from the design's own
+    // squares by tools/art/rig_jinx_hd.py (arms never moved, the run's thighs the design's stocking rows along the bone
+    // with its whole boots); PPU 2.2 at her old 37 rows, so no SIZES row
+    ("league_jinx", 2.2, include_str!("../../../league/champions/league_jinx#anim.fanim")),
     // Yunara: PPU 1.5 (the user's pick), posed from the design's own squares at that density by tools/art/rig_yunara.py
     // (40 game rows ornaments to soles), so no SIZES row
     ("league_yunara", 1.5, include_str!("../../../league/champions/league_yunara#anim.fanim")),

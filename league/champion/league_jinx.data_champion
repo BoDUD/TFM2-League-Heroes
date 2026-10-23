@@ -199,7 +199,7 @@
                     "type": "TargetProjectile",
                     "name": "league_jinx_bullets",
                     "speed": 4500,
-                    "y_offset": 1200,
+                    "y_offset": 5000,
                     "applied_target": "Enemy",
                     "applied_effects": [
                       {
@@ -233,7 +233,7 @@
                     "type": "TargetProjectile",
                     "name": "league_jinx_kill_check",
                     "speed": 4500,
-                    "y_offset": 1200,
+                    "y_offset": 5000,
                     "applied_target": "EnemyChampion",
                     "applied_effects": [
                       {
@@ -429,7 +429,7 @@
                     "type": "TargetProjectile",
                     "name": "league_jinx_rocket",
                     "speed": 4500,
-                    "y_offset": 1200,
+                    "y_offset": -3000,
                     "applied_target": "Enemy",
                     "applied_effects": [
                       {
@@ -472,7 +472,7 @@
                     "name": "league_jinx_rocket_splash",
                     "speed": 4500,
                     "range": 20000,
-                    "y_offset": 1200,
+                    "y_offset": -3000,
                     "applied_target": "EnemyWithoutTower",
                     "applied_effects": [
                       {
@@ -508,7 +508,7 @@
                     "name": "league_jinx_rocket_check",
                     "speed": 4500,
                     "range": 20000,
-                    "y_offset": 1200,
+                    "y_offset": -3000,
                     "applied_target": "EnemyChampion",
                     "applied_effects": [
                       {
@@ -7372,6 +7372,7 @@
               "name": "league_jinx_r_rocket",
               "speed": 4500,
               "range": 300000,
+              "y_offset": -6000,
               "penetrate": false,
               "shape": {
                 "Circle": {
