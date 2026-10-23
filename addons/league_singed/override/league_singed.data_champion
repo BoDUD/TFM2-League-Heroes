@@ -18,7 +18,7 @@
   "stat": {
     "attack": 66,
     "magic_power": 30,
-    "hp": 1200,
+    "hp": 1260,
     "defence": 38,
     "magic_resistance": 30,
     "move_speed": 1050,
@@ -247,8 +247,8 @@
                                                       "casting_type": "Targeting",
                                                       "effect": {
                                                         "type": "ApAttack",
-                                                        "damage": 27,
-                                                        "attack_ratio": 27,
+                                                        "damage": 30,
+                                                        "attack_ratio": 30,
                                                         "hp_ratio": 0,
                                                         "can_crit": false
                                                       }
@@ -373,8 +373,8 @@
                                                       "casting_type": "Targeting",
                                                       "effect": {
                                                         "type": "ApAttack",
-                                                        "damage": 18,
-                                                        "attack_ratio": 18,
+                                                        "damage": 20,
+                                                        "attack_ratio": 20,
                                                         "hp_ratio": 0,
                                                         "can_crit": false
                                                       }
@@ -2062,8 +2062,8 @@
                                                       "casting_type": "Targeting",
                                                       "effect": {
                                                         "type": "ApAttack",
-                                                        "damage": 27,
-                                                        "attack_ratio": 27,
+                                                        "damage": 30,
+                                                        "attack_ratio": 30,
                                                         "hp_ratio": 0,
                                                         "can_crit": false
                                                       }
@@ -2188,8 +2188,8 @@
                                                       "casting_type": "Targeting",
                                                       "effect": {
                                                         "type": "ApAttack",
-                                                        "damage": 18,
-                                                        "attack_ratio": 18,
+                                                        "damage": 20,
+                                                        "attack_ratio": 20,
                                                         "hp_ratio": 0,
                                                         "can_crit": false
                                                       }

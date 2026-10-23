@@ -1123,7 +1123,7 @@
       },
       "league_singed": {
         "name": "辛吉德",
-        "attack": "用盾板砸。<#ff9028ff>剧毒踪迹<>：一路在身后留下毒雾（<#ffb900ff>3秒<>），雾里的敌人每<#ffb900ff>0.5秒<>受<#a974ffff>18<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>18%<>魔法伤害。<#ff9028ff>剧毒冲流<>：经过敌方英雄身边时移速+25%（<#ffb900ff>1.5秒<>）。",
+        "attack": "用盾板砸。<#ff9028ff>剧毒踪迹<>：一路在身后留下毒雾（<#ffb900ff>3秒<>），雾里的敌人每<#ffb900ff>0.5秒<>受<#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>魔法伤害。<#ff9028ff>剧毒冲流<>：经过敌方英雄身边时移速+25%（<#ffb900ff>1.5秒<>）。",
         "skill": "抓住目标从肩膀上扔到身后，造成<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>魔法伤害和<#e0e0e0ff>最大生命5%<>真实伤害；地上有<#ff9028ff>强力粘胶<>时，被扔的敌人<#ef5350ff>禁锢<><#ffb900ff>1秒<>。",
         "skill2": "扔出一瓶粘胶，地上留下<#ffb900ff>3秒<>的一摊胶，里面的敌人<#ef5350ff>减速<>50%并<#ef5350ff>无法位移<>。",
         "ult": "喝下药剂，<#ffb900ff>25秒<>内法强+60、双抗+30、移速+15%、每秒<#66bb6aff>回复12<>生命；<#ff9028ff>剧毒踪迹<>更大、伤害150%并附带<#ef5350ff>重伤<>（治疗-40%）。"
@@ -3061,7 +3061,7 @@
       },
       "league_singed": {
         "name": "辛吉德",
-        "attack": "用盾板砸。<#ff9028ff>劇毒蹤跡<>：一路在身後留下毒霧（<#ffb900ff>3秒<>），霧裡的敵人每<#ffb900ff>0.5秒<>受<#a974ffff>18<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>18%<>魔法傷害。<#ff9028ff>毒氣推進<>：經過敵方英雄身邊時移速+25%（<#ffb900ff>1.5秒<>）。",
+        "attack": "用盾板砸。<#ff9028ff>劇毒蹤跡<>：一路在身後留下毒霧（<#ffb900ff>3秒<>），霧裡的敵人每<#ffb900ff>0.5秒<>受<#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>魔法傷害。<#ff9028ff>毒氣推進<>：經過敵方英雄身邊時移速+25%（<#ffb900ff>1.5秒<>）。",
         "skill": "抓住目標從肩膀上扔到身後，造成<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>魔法傷害和<#e0e0e0ff>最大生命5%<>真實傷害；地上有<#ff9028ff>強力粘膠<>時，被扔的敵人<#ef5350ff>禁錮<><#ffb900ff>1秒<>。",
         "skill2": "扔出一瓶粘膠，地上留下<#ffb900ff>3秒<>的一灘膠，裡面的敵人<#ef5350ff>緩速<>50%並<#ef5350ff>無法位移<>。",
         "ult": "喝下藥劑，<#ffb900ff>25秒<>內魔攻+60、雙抗+30、移速+15%、每秒<#66bb6aff>回復12<>生命；<#ff9028ff>劇毒蹤跡<>更大、傷害150%並附帶<#ef5350ff>重傷<>（治療-40%）。"
@@ -4999,7 +4999,7 @@
       },
       "league_singed": {
         "name": "Singed",
-        "attack": "A blow of his plate. <#ff9028ff>Poison Trail<>: he leaves poison clouds behind him (<#ffb900ff>3s<>); enemies in them take <#a974ffff>18<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>18%<> magic damage every <#ffb900ff>0.5s<>. <#ff9028ff>Noxious Slipstream<>: passing an enemy champion gives him 25% move speed for <#ffb900ff>1.5s<>.",
+        "attack": "A blow of his plate. <#ff9028ff>Poison Trail<>: he leaves poison clouds behind him (<#ffb900ff>3s<>); enemies in them take <#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<> magic damage every <#ffb900ff>0.5s<>. <#ff9028ff>Noxious Slipstream<>: passing an enemy champion gives him 25% move speed for <#ffb900ff>1.5s<>.",
         "skill": "Flings the target over his shoulder to behind him: <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> magic damage and <#e0e0e0ff>5% of its max health<> true damage. While his <#ff9028ff>Mega Adhesive<> lies on the ground, the target is <#ef5350ff>rooted<> for <#ffb900ff>1s<>.",
         "skill2": "Throws a vial of glue: for <#ffb900ff>3s<> enemies in it are <#ef5350ff>slowed<> 50% and <#ef5350ff>grounded<> (no dashes).",
         "ult": "Drinks the potion: for <#ffb900ff>25s<> +60 ability power, +30 armor and magic resistance, +15% move speed and <#66bb6aff>12 health<> a second; <#ff9028ff>Poison Trail<> grows, deals 150% and inflicts <#ef5350ff>Grievous Wounds<> (-40% healing)."
@@ -6937,7 +6937,7 @@
       },
       "league_singed": {
         "name": "신지드",
-        "attack": "방패판으로 내려침. <#ff9028ff>맹독의 자취<>: 지나간 자리에 독구름을 남김(<#ffb900ff>3초<>), 안의 적은 <#ffb900ff>0.5초<>마다 <#a974ffff>18<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>18%<> 마법 피해. <#ff9028ff>독성 급류<>: 적 챔피언 곁을 지나가면 <#ffb900ff>1.5초<> 동안 이동 속도 25% 증가.",
+        "attack": "방패판으로 내려침. <#ff9028ff>맹독의 자취<>: 지나간 자리에 독구름을 남김(<#ffb900ff>3초<>), 안의 적은 <#ffb900ff>0.5초<>마다 <#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<> 마법 피해. <#ff9028ff>독성 급류<>: 적 챔피언 곁을 지나가면 <#ffb900ff>1.5초<> 동안 이동 속도 25% 증가.",
         "skill": "대상을 어깨 너머 뒤로 내던져 <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> 마법 피해와 <#e0e0e0ff>최대 체력의 5%<> 고정 피해. <#ff9028ff>초강력 접착제<>가 바닥에 있으면 대상을 <#ffb900ff>1초<> <#ef5350ff>속박<>.",
         "skill2": "접착제 병을 던짐: <#ffb900ff>3초<> 동안 안의 적은 50% <#ef5350ff>둔화<>되고 <#ef5350ff>이동기 사용 불가<>.",
         "ult": "물약을 마심: <#ffb900ff>25초<> 동안 주문력 +60, 방어력·마법 저항력 +30, 이동 속도 +15%, 초당 <#66bb6aff>체력 12 회복<>; <#ff9028ff>맹독의 자취<>가 커지고 피해 150%에 <#ef5350ff>치유 감소<>(-40%)."
@@ -8875,7 +8875,7 @@
       },
       "league_singed": {
         "name": "シンジド",
-        "attack": "盾板で殴る。<#ff9028ff>毒の軌跡<>：通った跡に毒の雲を残し（<#ffb900ff>3秒<>）、中の敵に<#ffb900ff>0.5秒<>ごと<#a974ffff>18<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>18%<>の魔法ダメージ。<#ff9028ff>スリップストリーム<>：敵英雄のそばを通ると<#ffb900ff>1.5秒<>移動速度+25%。",
+        "attack": "盾板で殴る。<#ff9028ff>毒の軌跡<>：通った跡に毒の雲を残し（<#ffb900ff>3秒<>）、中の敵に<#ffb900ff>0.5秒<>ごと<#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>の魔法ダメージ。<#ff9028ff>スリップストリーム<>：敵英雄のそばを通ると<#ffb900ff>1.5秒<>移動速度+25%。",
         "skill": "対象を肩越しに背後へ投げ、<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>の魔法ダメージと<#e0e0e0ff>最大体力の5%<>の確定ダメージ。<#ff9028ff>強力粘着剤<>が地面にあるとき対象を<#ffb900ff>1秒<><#ef5350ff>スネア<>。",
         "skill2": "粘着剤の瓶を投げる：<#ffb900ff>3秒<>間、中の敵を50%<#ef5350ff>スロウ<>し<#ef5350ff>移動スキル封じ<>。",
         "ult": "ポーションを飲み、<#ffb900ff>25秒<>間魔力+60、物防・魔防+30、移動速度+15%、毎秒<#66bb6aff>体力12回復<>。<#ff9028ff>毒の軌跡<>が広がり150%のダメージと<#ef5350ff>重傷<>（回復-40%）。"

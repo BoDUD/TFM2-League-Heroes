@@ -38,8 +38,9 @@ Timings: drafts until the frames exist (tools/art/rig_singed.py retimes them).
 Numbers: League 16.20 read into the top tank range (league_illaoi, league_ksante), balanced on the classic-SDK
 simulations (kd.py --lane 0 against fighter, executioner, knight, berserker, lancer and pole_warrior, C:/t/si_sim,
 2026-10-23; league_illaoi +1.39 / +1.08 on seeds 1-8 / 9-16): the draft with Fling stuck in place (an Airborne froze the
-Pull) -0.12; the pull fixed +0.76; trail 18 + 18% AP and 1200 health +1.09; W -> E kept open while the glue lies = P
-+1.53 / +1.56 - top's range.
+Pull) -0.12; the pull fixed +0.76; trail 18 + 18% AP and 1200 health +1.09; W -> E kept open while the glue lies
++1.53 / +1.56; the controller gated to Singed himself (`own`: Sylas's stolen ult no longer runs it) +0.65 / +0.71;
+trail 20 + 20% AP and 1260 health = P +1.94 (seeds 1-8) - top's range (league_ksante +1.34 / +2.19).
 """
 import argparse
 import json
@@ -58,13 +59,13 @@ BIG = "asset/league/effects/league_singed_big"
 # speed, 25 s, cd 100. Passive: 20% move speed passing a champion.
 P = {
     # stats (base tanks: attack 80 +6, hp 1100 +120, defence 40 +10, mr 30 +5; league_illaoi 1150 / 80)
-    "hp": 1200, "hp_g": 115, "atk": 66, "atk_g": 5, "apw": 30, "apw_g": 15, "def": 38, "def_g": 9, "mr": 30, "mr_g": 5,
+    "hp": 1260, "hp_g": 115, "atk": 66, "atk_g": 5, "apw": 30, "apw_g": 15, "def": 38, "def_g": 9, "mr": 30, "mr_g": 5,
     "ms": 1050, "ms_g": 11,
     "atk_range": 20000, "atk_dur": 28, "atk_cd": 70, "a_hit": 11,
     # the controller
     "ctl_t": 3600, "ctl_p": 3,
     # passive: Poison Trail's clouds
-    "q_r": 11000, "q_gap": 9000, "q_t": 180, "q_p": 30, "q_dmg": 18, "q_ap": 18,
+    "q_r": 11000, "q_gap": 9000, "q_t": 180, "q_p": 30, "q_dmg": 20, "q_ap": 20,
     # passive: Noxious Slipstream
     "p_near": 22000, "p_ms": 25, "p_t": 90, "p_gap": 240,
     # skill: E Fling
