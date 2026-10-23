@@ -196,6 +196,10 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // put back, Willump's size set pose by pose) at the user's 1.37 squares a game pixel (63 game rows pompom to soles:
     // 「努努用 A-2，PPU 1.37（46 游戏像素）」; 3/4 only), so no SIZES row
     ("league_nunu", 1.37, include_str!("../../../league/champions/league_nunu#anim.fanim")),
+    // Azir: posed by tools/art/rig_azir.py on Codex's step-1 take A-2 (the sceptre straightened) and its key poses (the
+    // design's helmet put back, each body read at its skeleton's height) at the user's 1.5 squares a game pixel (57 game
+    // rows crest to soles, the sceptre above: 「38」「PPU 1.5」; 3/4 only), so no SIZES row
+    ("league_azir", 1.5, include_str!("../../../league/champions/league_azir#anim.fanim")),
     // Neeko: posed by tools/art/rig_neeko.py on Codex's step-1 take A-1 and its key poses at the user's 2.5 squares a
     // game pixel (100 game rows quill tips to soles: 「40」, then 「1.5也挺糊的 还得往上调整吧」; 3/4 only; league_neeko's
     // view hook draws her as an ally while she is disguised), so no SIZES row
@@ -367,6 +371,16 @@ pub const EFFECTS: &[(&str, f32, &str)] = &[
     // user: 「触手 44」; tools/art/rig_illaoi.py)
     ("league_illaoi_tentacle", 1.5, include_str!("../../../league/effects/league_illaoi_tentacle#anim.fanim")),
     ("league_illaoi_lash", 1.5, include_str!("../../../league/effects/league_illaoi_lash#anim.fanim")),
+    // league_azir's summons (tools/art/rig_azir.py, the user's picks: 「召唤物照图」): the sand soldier from the front (each
+    // slot's standing stamp and its rise out of the sand), the Imperial Guards' wall from the side (right-facing and the
+    // mirrored left-facing tags: the add-on picks one by the wall's direction) and the Sun Disc (its rise and its stamp),
+    // drawn from their step-1 designs at his 1.5
+    ("league_azir_soldier", 1.5, include_str!("../../../league/effects/league_azir_soldier#anim.fanim")),
+    ("league_azir_guard", 1.5, include_str!("../../../league/effects/league_azir_guard#anim.fanim")),
+    ("league_azir_disc", 1.5, include_str!("../../../league/effects/league_azir_disc#anim.fanim")),
+    // the add-on's sand soldier from the side (the user: 「沙兵没攻击动作 ... 还有不面向敌人」; tools/art/
+    // design_azir_side_soldier.py, from League's model): standing, rising and stabbing, right and left
+    ("league_azir_soldier_side", 1.5, include_str!("../../../league/effects/league_azir_soldier_side#anim.fanim")),
     ("league_leblanc_clone", 2.0, include_str!("../../../league/effects/league_leblanc_clone#anim.fanim")),
     // league_zoe's stolen summoner spells (the add-on plays them; tools/art/draw_zoe_spells.py): their own pictures at
     // PPU 2 and League's icons at 3 (32 squares of the client's 64-px icon still read, 22 did not) - many tags each,
@@ -424,6 +438,8 @@ pub const UI_SIZES: &[(&str, f32)] = &[
     // the rule's -2 Willump's feet hid under the name bar; 0.85 with the card value bp_card_audit.py gives: the pompom
     // under the canvas top, the soles on its bottom
     ("league_nunu", 0.85),
+    // Azir: about 49 game px from his sceptre's tip to his soles at PPU 1.5 (the crest 38) - 39 / 49 = 0.80
+    ("league_azir", 0.80),
 ];
 
 /// The `"lo_..."` animation names of a .fanim.
