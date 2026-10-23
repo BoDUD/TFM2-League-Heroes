@@ -31,7 +31,7 @@ use super::wlog;
 const PROLOGUE: [u8; 12] = [0x55, 0x41, 0x57, 0x41, 0x56, 0x41, 0x55, 0x41, 0x54, 0x56, 0x57, 0x53];
 /// The anim table (hashbrown): ctrl, bucket mask, growth left, items, hasher (0x30 bytes); 0x30-byte buckets below
 /// ctrl: key String {cap, ptr, len}, frames Vec {cap, ptr, len}.
-const BUCKET: usize = 0x30;
+pub(crate) const BUCKET: usize = 0x30;
 const MAX_LINES: usize = 400;
 // The battlefield body draw (0x2aaf630 in 0.6.4) takes its frame from 0x2ae8e00 (its anim lookup returns to
 // Build::battle_anim_ret) and sends only the UV: Skia draws UV x the image's real pixels and the pivot is from the
@@ -39,7 +39,7 @@ const MAX_LINES: usize = 400;
 // (Build::battle_size_ret) get the real size, and src/view.rs draws the entity at 1 / PPU. Everywhere else (cards,
 // encyclopedia, icons: an explicit size) the table / PPU and the size / PPU.
 /// A frame: x, y, w, h, duration (f32).
-const FRAME: usize = 20;
+pub(crate) const FRAME: usize = 20;
 /// vtable entries copied for a texture proxy (drop, size, align and the methods).
 const VTABLE: usize = 48;
 
@@ -48,7 +48,7 @@ static MODULE: AtomicUsize = AtomicUsize::new(0);
 /// The game build found by src/build.rs (set before any hook goes in).
 static BUILD: OnceLock<&'static Build> = OnceLock::new();
 
-fn build() -> &'static Build {
+pub(crate) fn build() -> &'static Build {
     BUILD.get().expect("hooks only go in with a known build")
 }
 static ORIG_ANIM: AtomicUsize = AtomicUsize::new(0);
@@ -90,7 +90,7 @@ extern "system" {
     fn FlushInstructionCache(h: isize, base: *const c_void, size: usize) -> i32;
 }
 
-fn read(addr: usize, len: usize) -> Option<Vec<u8>> {
+pub(crate) fn read(addr: usize, len: usize) -> Option<Vec<u8>> {
     let mut buf = vec![0u8; len];
     let mut got = 0usize;
     let ok = unsafe {
@@ -99,11 +99,11 @@ fn read(addr: usize, len: usize) -> Option<Vec<u8>> {
     (ok != 0 && got == len).then_some(buf)
 }
 
-fn plausible(p: usize) -> bool {
+pub(crate) fn plausible(p: usize) -> bool {
     (0x10000..0x7fff_ffff_ffff).contains(&p)
 }
 
-unsafe fn q(addr: usize) -> usize {
+pub(crate) unsafe fn q(addr: usize) -> usize {
     std::ptr::read_unaligned(addr as *const usize)
 }
 
@@ -139,7 +139,7 @@ fn note(kind: usize, rva: usize, name: &str, got: usize, dense: bool) {
 }
 
 /// The bucket (its address) whose key is `key` in the table at `t`.
-unsafe fn bucket_of(t: usize, key: &[u8]) -> Option<usize> {
+pub(crate) unsafe fn bucket_of(t: usize, key: &[u8]) -> Option<usize> {
     let (ctrl, mask) = (q(t), q(t + 8));
     if !plausible(ctrl) || mask >= 1 << 20 || (mask + 1) & mask != 0 {
         return None;
@@ -300,7 +300,7 @@ unsafe fn densify_table(t: usize, hero: &Hero) -> bool {
 /// pointer moved to a copy of the vtable whose width (+0x28) and height (+0x30) entries are [`tex_width`] /
 /// [`tex_height`]. (0.4.0 handed out a copy of the entry instead: the encyclopedia then drew nothing - 「亚索消失」 -
 /// the renderer needs the game's own entry.) Every other entry, drop included, is the original's.
-unsafe fn proxy_of(got: usize, hero: &Hero) -> Option<usize> {
+pub(crate) unsafe fn proxy_of(got: usize, hero: &Hero) -> Option<usize> {
     let (data, vt) = (q(got), q(got + 8));
     if !plausible(data) || !plausible(vt) {
         return None;
@@ -368,13 +368,26 @@ unsafe extern "system" fn tex_height(data: usize, ret: usize) -> f32 {
 
 type Lookup = unsafe extern "system" fn(usize, usize, usize) -> usize;
 
+/// The game's anim lookup itself (past this pack's hook) of `name` in the store `ctx`: 0 when it has none.
+pub(crate) unsafe fn orig_anim(ctx: usize, name: &str) -> usize {
+    let f: Lookup = std::mem::transmute(ORIG_ANIM.load(Ordering::Acquire));
+    f(ctx, name.as_ptr() as usize, name.len())
+}
+
+/// The game's sheet lookup itself of `name` in the store `ctx` (the UI drawers hand both lookups the same store).
+pub(crate) unsafe fn orig_sheet(ctx: usize, name: &str) -> usize {
+    let f: Lookup = std::mem::transmute(ORIG_SHEET.load(Ordering::Acquire));
+    f(ctx, name.as_ptr() as usize, name.len())
+}
+
 unsafe extern "system" fn anim_detour(ctx: usize, ptr: usize, len: usize, sp: usize) -> usize {
     let f: Lookup = std::mem::transmute(ORIG_ANIM.load(Ordering::Acquire));
     let got = f(ctx, ptr, len);
-    std::panic::catch_unwind(|| unsafe { after_anim(ptr, len, sp, got) }).unwrap_or(got)
+    std::panic::catch_unwind(|| unsafe { after_anim(ctx, ptr, len, sp, got) }).unwrap_or(got)
 }
 
-unsafe fn after_anim(ptr: usize, len: usize, sp: usize, got: usize) -> usize {
+unsafe fn after_anim(ctx: usize, ptr: usize, len: usize, sp: usize, got: usize) -> usize {
+    super::ui::seen_lookup();
     if len == 0 || len > 300 || !plausible(ptr) {
         return got;
     }
@@ -385,6 +398,17 @@ unsafe fn after_anim(ptr: usize, len: usize, sp: usize, got: usize) -> usize {
         return got;
     }
     let rva = q(sp).wrapping_sub(MODULE.load(Ordering::Relaxed));
+    // the UI drawers draw a hero with UI sheets from them (src/ui.rs): the game's table kept changed as before
+    if super::ui::ON.load(Ordering::Relaxed) {
+        if let Some(k) = build().ui_anim_ret.iter().position(|r| *r == rva) {
+            if let Some(hero) = hero {
+                densify_table(got, hero);
+            }
+            if let Some(t) = super::ui::anim(ctx, name, got, k, hero) {
+                return t;
+            }
+        }
+    }
     let Some(hero) = hero else {
         // a hero drawn at 1x (no dense frames): the BP grid plays its ban/pick reel, when its sheet has one
         if rva == build().bp_grid().0 {
@@ -630,7 +654,19 @@ unsafe extern "system" fn sheet_detour(ctx: usize, ptr: usize, len: usize, sp: u
         }
         let Ok(name) = std::str::from_utf8(std::slice::from_raw_parts(ptr as *const u8, len)) else { return got };
         let hero = hero_of_name(name);
-        note(1, q(sp).wrapping_sub(MODULE.load(Ordering::Relaxed)), name, got, hero.is_some());
+        let rva = q(sp).wrapping_sub(MODULE.load(Ordering::Relaxed));
+        note(1, rva, name, got, hero.is_some());
+        // a UI drawer's own lookup right after its redirected anim lookup: the hero's UI sheet (src/ui.rs)
+        let ui = match build().ui_sheet_ret.iter().position(|r| *r == rva) {
+            Some(k) if super::ui::ON.load(Ordering::Relaxed) && plausible(got) => super::ui::sheet(ctx, name, k, hero),
+            _ => {
+                super::ui::seen_lookup();
+                None
+            }
+        };
+        if let Some(e) = ui {
+            return e;
+        }
         if !name.ends_with("#sheet") || !plausible(got) {
             return got;
         }
@@ -734,6 +770,9 @@ pub fn install_once(b: &'static Build) {
         };
         let list: Vec<String> = HEROES.list.iter().map(|h| format!("{} x{}", h.id, h.ppu)).collect();
         wlog(format!("resource lookups hooked: anim {a:?}, sheet {s:?}: dense frames everywhere for {}", list.join(", ")));
+        if a.is_ok() && s.is_ok() {
+            super::ui::install(b, module);
+        }
     });
 }
 
