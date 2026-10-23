@@ -3,9 +3,8 @@
 
     python tools/art/review_aurora_actions.py --out DIR [--lol D:/WeGameApps/lol] [--z 3] [--tags attack,skill] [--sheet]
 
-For each tag: League's clip (pose_ref.py, Riot's model - the renders stay in DIR, never committed) sampled at as many
-frames as the tag has, spread over the clip's part named in CLIPS, next to the rig's frame at z screen px a design
-square, both at the tag's own frame times. Writes <out>/aurora_<tag>_vs_lol.gif and .png, and <out>/aurora_all_vs_lol.gif:
+For each tag: League's frames named in CLIPS (pose_ref.py, Riot's model - the renders stay in DIR, never committed),
+one beside each of ours, next to the rig's frame at z screen px a design square, both at the tag's own frame times. Writes <out>/aurora_<tag>_vs_lol.gif and .png, and <out>/aurora_all_vs_lol.gif:
 every tag in turn (each played twice), one picture to review (memory one-gif-review). 3/4 view (yaw 35) for every tag:
 the user's pick, 3/4 only.
 --sheet: hers are the exported sheet's hd_ frames (league/champions/league_aurora#sheet.png, what the game draws: after
@@ -27,19 +26,25 @@ import ppu_rig as R  # noqa: E402
 import rig_aurora as Z  # noqa: E402
 
 # tag -> (League's clip, from s, to s) - the part of the clip the tag shows
-CLIPS = {"idle": ("idle", 0, 0.0), "run": ("run_new_4", 0, 0.65), "attack": ("attack6", 0.0, 0.5),
-         "skill": ("spell1", 0.16, 0.55), "skill2": ("spell3_reblock3", 0.22, 0.56), "ult": ("spell4_e", 0.0, 0.6),
-         "veil": ("spell2", 0.23, 0.23), "hit": ("idle", 0, 0.1), "dead": ("death", 0.52, 1.29),
-         "bp": ("idle", 0, 0.0)}           # the ban/pick card's reel (hero_reels; --sheet only)
+# tag -> League's frames shown beside ours (clip@ms, the .anm names), one per frame of ours (the last held for the rest):
+# the very frames the poses were drawn after (pack_aurora_poses.POSES), the landing from the clip League plays after it
+CLIPS = {"idle": ["idle@0"], "run": ["run_new_4@0", "run_new_4@217", "run_new_4@433", "run_new_4@650"],
+         "attack": ["attack6@0", "attack6@329", "idle@0"],
+         "skill": ["spell1@158", "spell1@317", "spell1_recast@1050"],
+         "skill2": ["spell3_reblock3@225", "spell3_reblock3@563"],
+         "ult": ["spell4_e@0", "spell4_e@267", "spell4_to_idle_d@100"],
+         "veil": ["spell2@233"], "hit": ["idle@0"],
+         "dead": ["death@517", "death@517", "death@1292", "death@1550"],
+         "bp": ["idle@0"]}           # the ban/pick card's reel (hero_reels; --sheet only)
 BG = (96, 112, 96)
 
 
 def lol_frames(lol, tag, n, out):
-    clip, t0, t1 = CLIPS[tag]
-    times = [round(1000 * (t0 + (t1 - t0) * i / max(1, n - 1))) for i in range(n)] if n > 1 else [round(1000 * t0)]
+    want = CLIPS[tag]
+    times = [want[min(i, len(want) - 1)] for i in range(n)]
     frames = []
     for t in times:
-        frames += ["--frame", f"{clip.lower()}@{t}"]
+        frames += ["--frame", t]
     name = f"lol_{tag}"
     cmd = [sys.executable, os.path.join(R.ROOT, "tools", "lol", "pose_ref.py"), "--lol", lol, "--champ", "Aurora", "--hq",
            "--yaw", "35", "--size", "300", "--width", "1.6", "--fit", "0.5", "--no-labels", "--name", name, "--out", out,
@@ -140,7 +145,7 @@ def main():
             cell.paste(ref, (0, 18))
             cell.paste(ours, (ref.width + 8, 18))
             d = ImageDraw.Draw(cell)
-            d.text((4, 3), "League " + CLIPS[tag][0], fill=(230, 230, 230))
+            d.text((4, 3), "League " + CLIPS[tag][0].split("@")[0], fill=(230, 230, 230))
             d.text((ref.width + 12, 3), f"ours: {tag}", fill=(230, 230, 230))
             cells.append((cell, ms))
         gif = os.path.join(a.out, f"aurora_{tag}_vs_lol.gif")

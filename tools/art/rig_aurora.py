@@ -9,9 +9,9 @@ The pictures (tools/art/design_aurora_model.py, design_aurora_poses.py, design_a
   hd/idle.png             her, 3/4 front facing right, 53 x 104 at PPU 2.25 (38 game px hat top to soles, the ears
                           above): the idle, the hit;
   hd/pose_<name>.png      Codex's key poses read back at the design's size with the design's head put in
-                          (assets/source/aurora/POSE_PROMPTS.md; the long-legged ones' legs drawn again in
-                          LEGS_PROMPTS.md): a_wind a_point q_wind q_cast q_catch e_push e_hop r_reach r_leap r_land w_hop
-                          run1-4 d_stagger d_slump.
+                          (assets/source/aurora/POSE_PROMPTS.md; the eight long-legged ones' legs shortened to the
+                          design's by tools/art/design_aurora_legfix.py): a_wind a_point q_wind q_cast q_catch e_push e_hop
+                          r_reach r_leap r_land w_hop run1-4 d_stagger d_slump.
 Placing a pose (league_illaoi's way): its head box (the design's head, pasted) stands where the design's head stands,
 moved dx squares, its soles on the ground row (its lowest square) or `lift` rows over it. The idle is the design alone
 (no breathing: hero_reels cuts her idle snippets from these actions).
@@ -120,11 +120,11 @@ def actions(C):
     # attack (League's attack6: the wand raised by her head, then pointed out - the bolt - and back)
     out["attack"] = [f("a_wind"), f("a_point", dx=-1), f("idle")]
     # Twofold Hex (Spell1: a small hop with the wand up, the sweep - the hex flies - and the recall, the wand held up)
-    out["skill"] = [f("q_wind", lift=3), f("q_cast", dx=1), f("q_catch", lift=2)]
+    out["skill"] = [f("q_wind", lift=3), f("q_cast", dx=1), f("q_catch")]
     # The Weirding (Spell3: the deep squat thrusting the wand - the blast - then the hop back)
     out["skill2"] = [f("e_push", dx=1), f("e_hop", dx=-3, lift=8)]
     # Between Worlds (Spell4: up on her toes, the high leap - the dash - and the landing crouch with the wand down)
-    out["ult"] = [f("r_reach", lift=2), f("r_leap", dx=2, lift=14), f("r_land", dx=2)]
+    out["ult"] = [f("r_reach"), f("r_leap", dx=2, lift=14), f("r_land", dx=2)]
     # Across the Veil (Spell2: curled up in the hop back)
     out["veil"] = [f("w_hop", dx=-3, lift=8)]
     out["hit"] = [f("idle", dx=-2, flash=True), f("idle", dx=-1)]

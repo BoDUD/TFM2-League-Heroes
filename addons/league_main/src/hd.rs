@@ -411,9 +411,10 @@ pub const UI_SIZES: &[(&str, f32)] = &[
     ("league_warwick", 0.88),
     // Mel (#144): 43.3 game rows bun top to soles at PPU 1.5 - 12.7 px of her heels and train hid under the card's canvas
     ("league_mel", 0.90),
-    // Aurora: 50 game px from her ear tips to her soles at PPU 2.25 (the long ears 10 over the hat) - at -12 the card
-    // cut 22 px of her ears, at the rule's -1 her legs hid; 39 / 50
-    ("league_aurora", 0.78),
+    // Aurora: about 48 game px from her ear tips to her soles at PPU 2.25 (the long ears 10 over the hat) - at -12 the card
+    // cut 22 px of her ears, at the rule's -1 her legs hid; 0.82 with banpick_center -9: the ear tips 3 px under the
+    // canvas top, the soles on its bottom (bp_card_audit.py)
+    ("league_aurora", 0.82),
 ];
 
 /// The `"lo_..."` animation names of a .fanim.
