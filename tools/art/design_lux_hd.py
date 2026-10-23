@@ -53,16 +53,23 @@ OUTLINE_SHARE = 0.45
 PPU = 2.2
 FACE = {(40, 21): (28, 47, 112), (40, 22): (18, 127, 224), (37, 26): (195, 59, 58), (38, 26): (195, 59, 58)}
 # the staff (design squares)
-M = (33.5, 48.0)                # the shaft's middle: a square corner, so a half turn maps squares onto squares
-K = -0.54                       # rows per column
+M = (33.5, 47.5)                # the shaft's middle: a half-square point, so a half turn maps squares onto squares
+K = -0.58                       # rows per column: through her glove (26.5, 51.5) and the picture's shaft past her far
+                                # arm (44, 41.4) and at its head (14.5, 58.5)
 HALF = 19.0                     # columns from M to each end
-CORE, EDGE = 1.0, 1.75          # across the shaft: the core, then the outline
+CORE, EDGE = 0.75, 1.4          # across the shaft: the core, then the outline (Codex's: 1.3 squares of cream, thin edges)
 PERIOD = 3.0                    # squares along the shaft between the spiral's gold turns
 CREAM, SHADE, GOLD, OUTLINE_SQ = (251, 249, 247), (240, 215, 169), (244, 179, 60), OUTLINE
 GLOVE = {(x, y) for x in range(24, 29) for y in range(50, 53)} | {(25, 53), (26, 53), (27, 53)}
 HEAD = (lambda x, y: (x <= 18) & (y >= 55), (6, 62))   # where the crescent head lies, and a square of it
 END = (lambda x, y: (x >= 46) & (y <= 42), (58, 32))    # the small end
-OLD = [(11, 22, 52, 57), (11, 19, 58, 61), (46, 99, 0, 41)]    # x0, x1, y0, y1: Codex's shaft round the new one
+OLD = [(11, 22, 52, 57), (11, 19, 58, 61), (47, 99, 30, 41)]   # x0, x1, y0, y1: Codex's shaft round the new one
+# across her body Codex's shaft bent at her hand: its squares beside the new one (cream, white, pale gold, within
+# SCRUB_T of the line, columns SCRUB_X) take the body's colour from beyond them in their column
+SCRUB_X = (27, 46)
+SCRUB_T = 2.7
+PALE = {(251, 249, 247), (240, 215, 169), (251, 208, 169), (235, 200, 128), (218, 206, 205), (253, 240, 132),
+        (173, 230, 253)}
 PEERS = ["lux", "jinx", "varus", "caitlyn", "riven"]
 
 
@@ -147,6 +154,12 @@ def staff_masks(d):
     return band, piece(HEAD), piece(END)
 
 
+def across(x, y):
+    """The square's distance from the shaft's line (+ below it)."""
+    u = np.array((1.0, K)) / math.hypot(1, K)
+    return float(np.array((x + 0.5 - M[0], y + 0.5 - M[1])) @ np.array((-u[1], u[0])))
+
+
 def restaff(d):
     """The design with its shaft drawn straight (Codex's old shaft round it cleared)."""
     band, head, end = staff_masks(d)
@@ -157,6 +170,18 @@ def restaff(d):
         old |= (xx >= x0) & (xx <= x1) & (yy >= y0) & (yy <= y1)
     out = d.copy()
     out[old & op & ~band & ~head & ~end] = 0
+    stale = np.zeros(op.shape, bool)
+    for y in range(op.shape[0]):
+        for x in range(SCRUB_X[0], SCRUB_X[1] + 1):
+            if op[y, x] and not band[y, x] and (x, y) not in GLOVE and abs(across(x, y)) <= SCRUB_T                     and tuple(int(v) for v in d[y, x, :3]) in PALE:
+                stale[y, x] = True
+    for y, x in zip(*np.nonzero(stale)):
+        step = 1 if across(x, y) > 0 else -1          # away from the line
+        yy_ = y + step
+        while 0 <= yy_ < op.shape[0] and (stale[yy_, x] or band[yy_, x]):
+            yy_ += step
+        if 0 <= yy_ < op.shape[0] and op[yy_, x]:
+            out[y, x] = d[yy_, x]
     for (x, y), c in shaft(op.shape).items():
         if (x, y) in GLOVE or head[y, x] or end[y, x]:
             continue
