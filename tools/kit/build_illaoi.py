@@ -54,6 +54,7 @@ FX = "asset/league/effects/league_illaoi_fx"
 BIG = "asset/league/effects/league_illaoi_big"
 TENTACLE = "asset/league/effects/league_illaoi_tentacle"   # a tentacle's life: rising, idle sway, sinking (dense, PPU 1.5)
 LASH = "asset/league/effects/league_illaoi_lash"           # a tentacle rearing and slamming down on its target (dense)
+SOULS = "asset/league/effects/league_illaoi_souls"         # every League champion's spirit, tag = its id (illaoi_souls.py)
 
 # League's Illaoi (16.20): 656 +115 hp, 65 AD, 35 +5 armour, 32 +2.05 mr, 350 move, 125 range, attack speed 0.625.
 # Passive: tentacles 9-180 + 120% AD (Q: +10-30% tentacle damage), heal 5% missing health on a champion hit.
@@ -92,6 +93,12 @@ SLOTS = "abcd"
 NATIVE_KEYS = ("t_r", "t_life", "t_per", "t_first", "r_per", "t_dmg", "t_ratio", "p_heal", "p_heal_r", "r_r", "e_t",
                "e_echo", "e_leash", "e_vt", "w_mark_t", "w_gap", "p_reach", "t_place", "p_cd_1", "p_cd_18", "t_long",
                "t_most", "q_cd", "e_pull")
+
+
+def soul_ids():
+    """The champions league/effects/league_illaoi_souls holds (its tags), sorted."""
+    with open(lp(os.path.join(REPO, "league", "effects", "league_illaoi_souls#anim.fanim")), encoding="utf-8-sig") as f:
+        return sorted(json.load(f)["anims"])
 
 
 def lp(path):
@@ -350,6 +357,10 @@ def build(p):
                B_("e_vessel", FX, -1), B_("e_slow", FX, -1), B_("r_aura", BIG, -1)]
     extra = {}
     if native:
+        # the copy: every League champion's own spirit (the user: 「灵魂能雕刻出每个英雄的形状吗」「只要做英雄联盟的」); the add-on
+        # plays league_illaoi_soul_<id> on the spirit's spot, e_soul for a champion of another mod
+        views_e += [{"type": "Animation", "name": n(f"soul_{h}"), "anim": SOULS, "tag": h, "z": 3, "is_follow": False}
+                    for h in soul_ids()]
         extra["passive"] = {"passive_ref": f"{ID}:prophet", "params": {k: int(p[k]) for k in NATIVE_KEYS}}
     return {
         "id": ID, "category": "Melee", **extra, "tags": ["AD", "Melee", "Tank", "Heal", "CC"],

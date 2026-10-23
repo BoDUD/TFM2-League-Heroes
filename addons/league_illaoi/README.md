@@ -20,6 +20,14 @@
 tools/art/fx_illaoi_tether.py 画灵魂线的一节（import_illaoi_fx.py 放进 league_illaoi_fx）。主包只有数据，读不到谁身上有标记，
 触手照旧按固定节奏抽最近的敌人；新加的画面主包也带着，没装本包时不用。
 
+之后用户又问「灵魂能雕刻出每个英雄的形状吗」「打灵魂时也没特效啊」：
+- **每个英雄自己的灵魂**（「只要做英雄联盟的」）：tools/art/illaoi_souls.py 把主包每个英雄联盟英雄待机的第一帧（1x，和高清英雄在游戏里一样大）
+  做成幽灵——轮廓原样、外缘一圈亮边、里面按明暗换成灵魂的青白色、暗的两档隔一个点去一个（看着半透明），3 帧闪动——放进
+  `league_illaoi_souls`（每个英雄一个标签），`src/souls.rs` 记下有哪些。副本里每个英雄一条画面 `league_illaoi_soul_<id>`，本包按被扯出
+  灵魂的英雄播他自己的；别的模组的英雄用通用的 `e_soul`。特效图不会跟着英雄转身，幽灵一直朝右。
+- **打灵魂看得见**：她或触手打中灵魂被扯出来的英雄时，灵魂身上一闪（`e_echo`，fx_illaoi_tether.py 画的），一道鬼手（`e_grab`）
+  顺着灵魂线飞回本体（`PULSE_SPEED`）。
+
 ## 怎么接上的
 
 `mod.override_info` 把主包的俄洛伊换成 `override/` 里的副本（`make_override.py` 用 `tools/kit/build_illaoi.py` 的 `native=1` 生成）：

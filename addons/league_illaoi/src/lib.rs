@@ -33,6 +33,7 @@ use mod_api_stable::*;
 
 #[path = "../../league_camille_wall/src/maps.rs"]
 mod maps;
+pub mod souls;
 
 const ID: &str = "league_illaoi";
 const HERO: &str = "league_illaoi";
@@ -326,6 +327,15 @@ pub fn life_end(start: usize, t_long: usize) -> usize {
     start + RISE_T + sways.max(1) * SWAY_T
 }
 
+/// 灵魂的画面名：英雄联盟的英雄有自己的（`souls.rs`），别的用通用幽灵 `e_soul`。
+pub fn soul_look(champion: &str) -> String {
+    if souls::SOULS.binary_search(&champion).is_ok() {
+        il(&format!("soul_{champion}"))
+    } else {
+        il("e_soul")
+    }
+}
+
 /// 灵魂站的地方：从他身上朝她扯出 `pull`（她比这还近就站在两人中间）。
 pub fn spirit_spot(body: (f64, f64), her: (f64, f64), pull: f64) -> (f64, f64) {
     let d = dist(body, her);
@@ -409,6 +419,8 @@ struct Tentacle {
 struct Spirit {
     target: usize,
     spot: (f64, f64),
+    /// 灵魂的画面：这个英雄自己的（`league_illaoi_soul_<id>`），别的模组的英雄用通用的 `e_soul`。
+    look: String,
     until: usize,
     /// 灵魂画面下一次重播的 tick。
     pic: usize,
@@ -638,7 +650,9 @@ impl Prophet {
         for u in us.iter().filter(|u| u.enemy && u.champion) {
             if !self.spirits.iter().any(|s| s.target == u.id) && has_buff(sim, u.id, &spirit) {
                 let spot = spirit_spot(u.pos, her, self.p.e_pull as f64);
-                self.spirits.push(Spirit { target: u.id, spot, until: tick + self.p.e_t, pic: tick });
+                let name = sim.get_entity(u.id).and_then(|e| e.name()).unwrap_or_default();
+                let look = soul_look(&name);
+                self.spirits.push(Spirit { target: u.id, spot, look, until: tick + self.p.e_t, pic: tick });
                 wlog(format!("{} SPIRIT: #{} torn out to ({:.0}, {:.0}), {:.0} from its body", head(sim, me), u.id, spot.0,
                              spot.1, dist(spot, u.pos)));
             }
@@ -657,7 +671,7 @@ impl Prophet {
         for s in self.spirits.iter_mut() {
             if tick >= s.pic {
                 s.pic = tick + SOUL_T;
-                drawn.push((s.spot, None));
+                sim.play_view_effect(&s.look, me, &at(s.spot), 0, 0, 0);
             }
             if let Some(u) = us.iter().find(|u| u.id == s.target) {
                 drawn.push((s.spot, Some(u.pos)));
@@ -665,9 +679,7 @@ impl Prophet {
         }
         for (spot, body) in drawn {
             match body {
-                None => {
-                    sim.play_view_effect(&il("e_soul"), me, &at(spot), 0, 0, 0);
-                }
+                None => {}
                 Some(b) => {
                     for (c, dir) in tether_links(spot, b, LINK_STEP) {
                         if !link(sim, me, c, dir) {
@@ -937,6 +949,19 @@ mod tests {
         let end = life_end(100, 3600);
         assert!(end >= 100 + 3600 && end < 100 + 3600 + SWAY_T, "{end}");
         assert_eq!((end - 100 - RISE_T) % SWAY_T, 0);
+    }
+
+    #[test]
+    fn every_league_champion_has_its_own_spirit() {
+        // 「灵魂能雕刻出每个英雄的形状吗」「只要做英雄联盟的」
+        assert_eq!(soul_look("league_kaisa"), "league_illaoi_soul_league_kaisa");
+        assert_eq!(soul_look("fighter"), "league_illaoi_e_soul");
+        let copy = include_str!("../override/league_illaoi.data_champion");
+        for id in souls::SOULS {
+            assert!(copy.contains(&format!("\"league_illaoi_soul_{id}\"")), "{id}: no view in the copy");
+        }
+        assert!(souls::SOULS.windows(2).all(|w| w[0] < w[1]), "souls.rs must stay sorted");
+        assert!(souls::SOULS.len() >= 150);
     }
 
     #[test]

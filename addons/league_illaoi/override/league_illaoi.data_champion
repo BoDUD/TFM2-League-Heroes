@@ -1229,6 +1229,1286 @@
       "tag": "e_echo",
       "z": 3,
       "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_aatrox",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_aatrox",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_ahri",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_ahri",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_akali",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_akali",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_akshan",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_akshan",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_alistar",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_alistar",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_amumu",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_amumu",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_anivia",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_anivia",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_annie",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_annie",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_aphelios",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_aphelios",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_ashe",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_ashe",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_aurora",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_aurora",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_azir",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_azir",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_bard",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_bard",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_blitzcrank",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_blitzcrank",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_brand",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_brand",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_braum",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_braum",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_briar",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_briar",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_caitlyn",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_caitlyn",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_camille",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_camille",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_cassiopeia",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_cassiopeia",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_chogath",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_chogath",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_corki",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_corki",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_darius",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_darius",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_diana",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_diana",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_draven",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_draven",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_drmundo",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_drmundo",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_ekko",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_ekko",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_elise",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_elise",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_evelynn",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_evelynn",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_ezreal",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_ezreal",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_fiddlesticks",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_fiddlesticks",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_fiora",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_fiora",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_fizz",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_fizz",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_galio",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_galio",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_gangplank",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_gangplank",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_garen",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_garen",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_gnar",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_gnar",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_gragas",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_gragas",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_graves",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_graves",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_gwen",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_gwen",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_hecarim",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_hecarim",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_heimerdinger",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_heimerdinger",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_hwei",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_hwei",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_illaoi",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_illaoi",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_irelia",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_irelia",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_ivern",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_ivern",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_janna",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_janna",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_jarvaniv",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_jarvaniv",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_jax",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_jax",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_jayce",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_jayce",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_jhin",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_jhin",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_jinx",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_jinx",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_kaisa",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_kaisa",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_kalista",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_kalista",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_karma",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_karma",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_karthus",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_karthus",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_kassadin",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_kassadin",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_katarina",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_katarina",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_kayle",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_kayle",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_kayn",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_kayn",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_kennen",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_kennen",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_khazix",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_khazix",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_kindred",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_kindred",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_kogmaw",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_kogmaw",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_ksante",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_ksante",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_leblanc",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_leblanc",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_leesin",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_leesin",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_leona",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_leona",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_lillia",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_lillia",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_lissandra",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_lissandra",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_lucian",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_lucian",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_lulu",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_lulu",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_lux",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_lux",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_malphite",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_malphite",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_malzahar",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_malzahar",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_maokai",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_maokai",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_masteryi",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_masteryi",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_mel",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_mel",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_milio",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_milio",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_missfortune",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_missfortune",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_mordekaiser",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_mordekaiser",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_morgana",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_morgana",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_naafiri",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_naafiri",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_nami",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_nami",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_nasus",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_nasus",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_nautilus",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_nautilus",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_neeko",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_neeko",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_nidalee",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_nidalee",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_nilah",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_nilah",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_nocturne",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_nocturne",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_nunu",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_nunu",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_olaf",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_olaf",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_orianna",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_orianna",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_ornn",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_ornn",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_pantheon",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_pantheon",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_poppy",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_poppy",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_pyke",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_pyke",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_qiyana",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_qiyana",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_quinn",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_quinn",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_rakan",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_rakan",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_rammus",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_rammus",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_reksai",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_reksai",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_rell",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_rell",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_renata",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_renata",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_renekton",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_renekton",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_rengar",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_rengar",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_riven",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_riven",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_ryze",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_ryze",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_samira",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_samira",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_senna",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_senna",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_seraphine",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_seraphine",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_sett",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_sett",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_shaco",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_shaco",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_shen",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_shen",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_shyvana",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_shyvana",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_sion",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_sion",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_sivir",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_sivir",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_smolder",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_smolder",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_sona",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_sona",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_soraka",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_soraka",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_swain",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_swain",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_sylas",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_sylas",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_syndra",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_syndra",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_tahmkench",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_tahmkench",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_talon",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_talon",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_taric",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_taric",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_teemo",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_teemo",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_thresh",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_thresh",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_tristana",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_tristana",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_tryndamere",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_tryndamere",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_twistedfate",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_twistedfate",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_twitch",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_twitch",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_udyr",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_udyr",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_urgot",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_urgot",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_varus",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_varus",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_vayne",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_vayne",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_veigar",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_veigar",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_velkoz",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_velkoz",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_vex",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_vex",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_vi",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_vi",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_viego",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_viego",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_viktor",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_viktor",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_vladimir",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_vladimir",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_volibear",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_volibear",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_warwick",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_warwick",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_wukong",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_wukong",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_xayah",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_xayah",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_xerath",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_xerath",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_xinzhao",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_xinzhao",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_yasuo",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_yasuo",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_yone",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_yone",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_yunara",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_yunara",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_yuumi",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_yuumi",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_zac",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_zac",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_zed",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_zed",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_zeri",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_zeri",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_ziggs",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_ziggs",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_zilean",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_zilean",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_zoe",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_zoe",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_zyra",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_zyra",
+      "z": 3,
+      "is_follow": false
     }
   ],
   "view_buffs": [
