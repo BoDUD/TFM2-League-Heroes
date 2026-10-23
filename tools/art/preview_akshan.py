@@ -9,7 +9,7 @@
                               second): the double shot (two bullets, two hits); Q - the boomerang out through Darius and
                               back, a hit each way, the third hit's Sentinel burst and his shield, the catch; E - the hook
                               shot up, the swing with a shot at Darius every e_every ticks, the roll back; W - the
-                              camouflage and the speed streaks as he steps back; R - the lock sigil, the channel, five
+                              camouflage and the speed streaks as he steps back; R - the lock sigil, the lock on Darius through the channel, five
                               heavy rounds and Darius falls; 3x
 """
 import argparse
@@ -259,11 +259,12 @@ def showcase(out, z=3):
     me.moves.append((start, start + 700, x, x - 30))
     c.a("run", 700, loop=True)
     c.wait(300)
-    # R Comeuppance: the lock sigil, the channel, five heavy rounds, Darius falls
+    # R Comeuppance: the lock sigil, the lock on Darius through the channel, five heavy rounds, Darius falls
     start = c.t
     c.at_spot("r_lock", start, *me.pos(start))
     c.a("ult", tick(8))
     c.a("ult_ch", tick(P["r_ch"] - 8), loop=True)
+    c.on("r_sight", start, until=c.t)                   # the lock on Darius while he aims, off as he fires
     for k in range(P["r_n"]):
         ts = c.t + tick(k * P["r_gap"])
         t1 = c.fly("r_bullet", ts, me.pos(ts)[0] + 28, dx_, me.pos(ts)[1] + GUN_Y + 2, P["r_speed"], gy + GUN_Y + 2)

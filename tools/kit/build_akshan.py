@@ -322,8 +322,11 @@ def build(p, native=False):
     poll = on_me({"type": "AddCasted", "casted_type": "Heal", "duration": total + 2, "period": p["r_gap"],
                   "effects": [pick(1, "AllyChampionInCC", stop),
                               sw("r_chan", combine(sw("r_fire", sw("r_open", NONE, open_)), sw("r_open", fire_now)))]})
+    # the lock on the champion he aims at, until the channel's own release (a player saw nothing while he aimed and
+    # thought the R did nothing - the user, 2026-10-23); the add-on takes it off when it fires early or the channel ends
+    sight = {"type": "AddBuff", "buff_state": {"name": n("r_sight"), "duration": {"Time": {"tick": p["r_ch"]}}}}
     ult = action("ult", p["r_dur"], p["r_cd"], 1, p["r_range"], "Targeting", "EnemyChampionRecentlyAttacked", combine(
-        *rm("r_chan", "r_open", "r_fire", *stored, *hits), flag("r_chan", total + 4),
+        *rm("r_chan", "r_open", "r_fire", *stored, *hits), flag("r_chan", total + 4), sight,
         anim("ult", 8), delayed(8, sw("r_chan", anim("ult_ch", p["r_ch"] - 8))), sfx("r_cast"), cview("r_lock"),
         poll, *[delayed(p["r_store"] * (k + 1) - 1, store(k)) for k in range(p["r_n"])],
         delayed(p["r_ch"] - 1, sw("r_chan", sw("r_open", NONE, open_))), delayed(total + 3, stop)))
@@ -344,7 +347,9 @@ def build(p, native=False):
     views_b = [{"type": "Animated", "name": n("p_sh"), "anim": FX, "tag": "p_sh", "repeat": True, "z": 2},
                {"type": "Animated", "name": n("w_ms"), "anim": FX, "tag": "w_ms", "repeat": True, "z": -1},
                # the add-on's Scoundrel mark over an enemy champion (league_akshan; never laid by the main pack)
-               {"type": "Animated", "name": n("w_mark"), "anim": FX, "tag": "w_mark", "repeat": True, "z": 3}]
+               {"type": "Animated", "name": n("w_mark"), "anim": FX, "tag": "w_mark", "repeat": True, "z": 3},
+               # Comeuppance's lock on the champion he aims at (tools/art/fx_akshan_r.py)
+               {"type": "Animated", "name": n("r_sight"), "anim": FX, "tag": "r_sight", "repeat": True, "z": 3}]
     kit = {
         "id": ID, "category": "Range", "tags": ["AD", "Range"],
         "sprite": f"asset/league/champions/{ID}", "anim_prefix": "",
