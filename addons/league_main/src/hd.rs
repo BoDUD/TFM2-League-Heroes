@@ -272,6 +272,10 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // squares by tools/art/rig_jinx_hd.py (arms never moved, the run's thighs the design's stocking rows along the bone
     // with its whole boots); PPU 2.2 at her old 37 rows, so no SIZES row
     ("league_jinx", 2.2, include_str!("../../../league/champions/league_jinx#anim.fanim")),
+    // Lux (2026-10-23): Codex's picture read back at PPU 2.2 (64 x 81, tools/art/design_lux_hd.py, the staff drawn
+    // straight); idle, run, hit and death posed from the design's own squares (tools/art/rig_lux_hd.py), the four casts
+    // Codex's whole-frame redraw mended onto the design (tools/art/casts_lux_hd.py); 37 rows, so no SIZES row
+    ("league_lux", 2.2, include_str!("../../../league/champions/league_lux#anim.fanim")),
     // Yunara: PPU 1.5 (the user's pick), posed from the design's own squares at that density by tools/art/rig_yunara.py
     // (40 game rows ornaments to soles), so no SIZES row
     ("league_yunara", 1.5, include_str!("../../../league/champions/league_yunara#anim.fanim")),
@@ -585,7 +589,7 @@ mod tests {
             assert_eq!(h.of_name(&format!("asset/league/champions/{id}#anim")).map(|x| x.id), Some(id));
             assert_eq!(h.of_name(&format!("asset/base/aseprite_resources/champions/{id}#sheet")).map(|x| x.id), Some(id));
         }
-        assert!(h.get("league_lux").is_none());
+        assert!(h.get("league_annie").is_none());
         assert_eq!(h.get("tft_powder").map(|x| (x.id, x.size)), Some(("tft_powder", 0.90)));
         assert!(h.get("tft_nobody").is_none());
         assert!(h.of_name("asset/base/aseprite_resources/champions/alchemist#anim").is_none());
