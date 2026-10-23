@@ -333,7 +333,7 @@ def build(p):
     views_e = [E("a_hit"), E("q_hit"), E("q_slam", BIG, 2, False), E("w_burst", BIG, -1, False), E("w_hit"),
                E("e_land", BIG, -1, False), E("e_hit"), E("r_land", BIG, -1, False), E("r_hit"),
                E("b_lie", FX, -1, False), E("b_pick")]
-    views_b = [B_("q_slow", FX, 3), B_("q_held", FX, 3), B_("r_slow", FX, 3)]
+    views_b = [B_("q_slow", FX, -1, "slow"), B_("q_held", FX, 3), B_("r_slow", FX, -1, "slow")]
     return {
         "id": ID, "category": "Melee", "tags": ["AP", "Magic", "Melee", "Tank", "CC"],
         "sprite": f"asset/league/champions/{ID}", "anim_prefix": "",
