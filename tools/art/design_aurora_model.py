@@ -34,9 +34,9 @@ SRC = os.path.join(ROOT, "assets", "source", "aurora", "codex_model", "aurora-mo
 OUT = os.path.join(ROOT, "assets", "source", "aurora", "hd")
 K = 40
 HAT_PX = 38      # game px from the hat crown's top to the soles (the user's pick)
-PPU = 2.0        # the user: 「太模糊了 用PPU调下像素」 - PPU 1.5 (57 rows) read the takes far too coarse
+PPU = 2.25       # the user: 「太模糊了 用PPU调下像素」, then A-2 at 2.25 (PPU 1.5 read the takes far too coarse)
 HAT_ROWS = round(HAT_PX * PPU)
-PICK = None      # the user's pick
+PICK = "A-2"     # the user's pick, 2026-10-23
 # take -> (file, square px read at, rows to (None: by HAT_ROWS), the face box kept whole on the raw canvas: x0, y0, x1, y1)
 # Read on Codex's FINE squares (its glasses, eyes and trim are drawn on about half its 16 px squares): A-1 on 9.5 px
 # peaks (9.5 across, 10.9 down: 70x112, hat to soles 91), A-2 on 11 (10.8 / 10.6: 56x109, 90).
@@ -45,7 +45,12 @@ DRAFTS = {
     "A-2": ("A-2", 11, None, (570, 470, 770, 610)),
 }
 # the face squares redrawn on the written design (codex-face-half-squares): (x, y, colour) on hd/idle.png
-FACE = []
+# A-2 at PPU 2.25: the far eye (behind the far lens, cols 35-36) sat a row above the near one (rows 41-43 against 42-44)
+# and was one column of navy - redrawn like the near eye: the lash row 41, navy 2x2 on rows 42-43 with the highlight on
+# its lower right, the bright blue row 44.
+LASH, NAVY, HI, BLUE = (13, 2, 25), (19, 9, 132), (220, 244, 252), (48, 57, 238)
+FACE = [(35, 41, LASH), (36, 41, LASH), (35, 42, NAVY), (36, 42, NAVY), (35, 43, NAVY), (36, 43, HI),
+        (35, 44, BLUE), (36, 44, BLUE)]
 
 
 def lp(path):
