@@ -47,8 +47,9 @@ BIG = "asset/league/effects/league_varus_big"
 P = {
     # stats (Range base: attack 100 +20, hp 900 +90, defence 20 +7, mr 15 +3, move 900 +9); League's Varus: 575 range
     "hp": 950, "hp_g": 90, "atk": 100, "atk_g": 20, "def": 20, "def_g": 7, "mr": 15, "mr_g": 3, "ms": 900, "ms_g": 9,
-    # attack: the arrow leaves the bow on atk_st
-    "atk_range": 57500, "atk_dur": 24, "atk_cd": 56, "atk_st": 9, "arrow_speed": 7000, "arrow_y": -3000,
+    # attack: the arrow leaves the bow on atk_st; arrow_y / q_y / r_y = 5000 - 1000 x the arrow's height over the
+    # pivot in game px: the PPU redo's arrow flies level with his lower chest, 3.8 px up (rig_varus_hd.py ARROW_ROW)
+    "atk_range": 57500, "atk_dur": 24, "atk_cd": 56, "atk_st": 9, "arrow_speed": 7000, "arrow_y": 1200,
     # W Blighted Quiver: on-hit magic, stacks (b_t ticks), detonation (% max health per stack), refunds per stack count
     "w_on": 20, "b_t": 360, "d_hp": 3, "ref1": 15, "ref2": 35, "ref3": 64,
     # W active folded into Q
@@ -58,7 +59,7 @@ P = {
     # skill: Q Piercing Arrow (League: 1.25 s charge, 10-430 + 120-150% bonus AD, 925 -> 1525 range, 1900/s, width 70,
     # -15% per unit hit down to 33%, cd 17-11 s)
     "q_cd": 400, "q_range": 95000, "q_full_t": 66, "q_quick_t": 24, "q_rec": 10, "q_aim_f": 130000,
-    "q_reach_f": 140000, "q_reach_q": 100000, "q_speed": 6500, "q_rad": 6000, "q_y": -3000,
+    "q_reach_f": 140000, "q_reach_q": 100000, "q_speed": 6500, "q_rad": 6000, "q_y": 1200,
     "q_dmg": 110, "q_ratio": 130, "q_quick": 60, "q_fall": [100, 80, 60],
     # skill2: E Hail of Arrows (League: 925 range, radius 300, 30-210 + 90-110% bonus AD, slow 25-55% + grievous 40% for
     # 4 s, cd 18-10 s)
@@ -67,7 +68,7 @@ P = {
     # ult: R Chain of Corruption (League: 1250 range at 1950/s, 150-350 + 100% AP, root 2 s, spreads 600, 3 stacks,
     # cd 100/80/60 s)
     "r_cd": 3600, "r_range": 100000, "r_dur": 30, "r_st": 15, "r_speed": 5500, "r_reach": 115000, "r_rad": 7000,
-    "r_y": -3000, "r_dmg": 150, "r_ratio": 80, "r_root": 120, "r_spread": 30, "r_spread_r": 55000, "r_root2": 90,
+    "r_y": 1200, "r_dmg": 150, "r_ratio": 80, "r_root": 120, "r_spread": 30, "r_spread_r": 55000, "r_root2": 90,
 }
 
 

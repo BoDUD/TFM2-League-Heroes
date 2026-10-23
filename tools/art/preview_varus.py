@@ -3,7 +3,7 @@
 
     python tools/art/preview_varus.py [--out docs/preview]
 
-  league_varus_frames.png    every animation, frame by frame, 3x on the arena colour
+  league_varus_frames.png    every animation's dense frames (hd_, PPU 1.5, as league.dll shows them)
   league_varus_effects.png   every effect animation, 3x
   league_varus_showcase.gif  a scripted fight against Darius with Garen behind him, timed like the kit: Varus runs in;
                              two arrows stack Blight on Darius; Piercing Arrow drawn in full (the charge, Blighted Arrow's
@@ -22,12 +22,14 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 from preview_annie import Held, OnFoe  # noqa: E402
 from preview_ashe import Anim, tick  # noqa: E402
+from preview_dense import dense, dense_rows, put  # noqa: E402
 from preview_garen import ARENA, T, contact, frames_of, load  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(HERE))
 LEAGUE = os.path.join(ROOT, "league")
 CHAMP = os.path.join(LEAGUE, "champions", "league_varus")
 FX = {n: os.path.join(LEAGUE, "effects", n) for n in ("league_varus_fx", "league_varus_big")}
+AHEAD, LIFT = 15, 4                   # px: the arrowhead ahead of his pivot and over it (y_offset 1200, rig_varus_hd.py)
 
 
 class At:
@@ -56,7 +58,7 @@ def showcase(out, z=3, step=40):
 
     def a(tag, dur=None, loop=False):
         nonlocal t
-        an = Anim(frames_of(me_sp, tag), t, x, gy, loop=loop, until=(t + dur) if dur else None)
+        an = Anim(dense(me_sp, tag, "varus", z), t, x, gy, loop=loop, until=(t + dur) if dur else None)
         body.append(an)
         t = an.until
         return an
@@ -75,11 +77,12 @@ def showcase(out, z=3, step=40):
         return arrive
 
     def arrow(foe, mark=None):
-        """One attack: the arrow leaves the bow on tick 9 (13 px out, 8 px up); then the rest of the 56-tick interval."""
+        """One attack: the arrow leaves the bow on tick 9 (AHEAD px out, LIFT px up); then the rest of the 56-tick
+        interval."""
         rel = t + tick(9)
         on(me, small, "a_flash", rel)
         tx, ty = foe.pos(rel)
-        arrive = fly(small, "a_arrow", rel, x + 13, gy - 8, tx, ty - 8, 7.0)
+        arrive = fly(small, "a_arrow", rel, x + AHEAD, gy - LIFT, tx, ty - LIFT, 7.0)
         on(foe, small, "a_hit", arrive)
         if mark:
             on(foe, small, mark, arrive)
@@ -89,7 +92,7 @@ def showcase(out, z=3, step=40):
         return arrive
 
     # he runs in; Darius and Garen wait
-    walk = Anim(frames_of(me_sp, "run"), 0.0, x - 44, gy, loop=True, until=1400, x1=x)
+    walk = Anim(dense(me_sp, "run", "varus", z), 0.0, x - 44, gy, loop=True, until=1400, x1=x)
     body.append(walk)
     t = walk.until
     a("idle", 300, loop=True)
@@ -101,8 +104,8 @@ def showcase(out, z=3, step=40):
     on(me, small, "w_glow", q0)
     rel = q0 + tick(66)
     on(me, small, "q_fire", rel)
-    over.append(Anim(frames_of(small, "q_arrow"), rel, x + 13, gy - 8, until=rel + tick(140 / 6.5), x1=x + 13 + 140,
-                     y1=gy - 8))
+    over.append(Anim(frames_of(small, "q_arrow"), rel, x + AHEAD, gy - LIFT, until=rel + tick(140 / 6.5),
+                     x1=x + AHEAD + 140, y1=gy - LIFT))
     for k, foe in enumerate((d, g)):
         h = rel + tick((foe.pos(rel)[0] - x - 13) / 6.5)
         on(foe, small, "q_hit", h)
@@ -134,7 +137,7 @@ def showcase(out, z=3, step=40):
     rel = r0 + tick(15)
     on(me, small, "r_cast", rel)
     tx, ty = d.pos(rel)
-    hit = fly(small, "r_chain", rel, x + 14, gy - 8, tx, ty - 8, 5.5)
+    hit = fly(small, "r_chain", rel, x + AHEAD, gy - LIFT, tx, ty - LIFT, 5.5)
     on(d, small, "r_hit", hit)
     on(d, small, "r_bind", hit, until=hit + tick(120))
     on(d, small, "b_v3", hit + tick(2))
@@ -160,8 +163,8 @@ def showcase(out, z=3, step=40):
     on(me, small, "q_charge_s", q1)
     rel = q1 + tick(24)
     on(me, small, "q_fire", rel)
-    over.append(Anim(frames_of(small, "q_arrow_s"), rel, x + 13, gy - 8, until=rel + tick(100 / 6.5), x1=x + 13 + 100,
-                     y1=gy - 8))
+    over.append(Anim(frames_of(small, "q_arrow_s"), rel, x + AHEAD, gy - LIFT, until=rel + tick(100 / 6.5),
+                     x1=x + AHEAD + 100, y1=gy - LIFT))
     h = rel + tick((g.pos(rel)[0] - x - 13) / 6.5)
     on(g, small, "q_hit", h)
     g.flinches.append(h)
@@ -170,11 +173,11 @@ def showcase(out, z=3, step=40):
     end = t
 
     def place(img, f, px, py):
-        img.alpha_composite(f, (px - f.width // 2, py - f.height // 2))
+        put(img, f, int(px), int(py), z)
 
     frames, tt = [], 0.0
     while tt < end:
-        img = Image.new("RGBA", (W, H), ARENA)
+        img = Image.new("RGBA", (W * z, H * z), ARENA)
         for an in under:
             f = an.frame(tt)
             if f is not None:
@@ -192,7 +195,7 @@ def showcase(out, z=3, step=40):
             f = an.frame(tt)
             if f is not None:
                 place(img, f, *an.pos(tt))
-        frames.append(img.resize((W * z, H * z), Image.NEAREST).convert("RGB"))
+        frames.append(img.convert("RGB"))
         tt += step
     sample = frames[::6]
     strip = Image.new("RGB", (W * z, H * z * len(sample)))
@@ -212,8 +215,7 @@ def main():
     os.makedirs(T.long_path(args.out), exist_ok=True)
     if args.only in (None, "frames"):
         s = load(CHAMP)
-        print("frames", contact([(s, t["name"], t["name"]) for t in s.tags],
-                                os.path.join(args.out, "league_varus_frames.png")))
+        print("frames", contact(dense_rows(s), os.path.join(args.out, "league_varus_frames.png"), z=1))
     if args.only in (None, "effects"):
         rows = []
         for name, path in FX.items():
