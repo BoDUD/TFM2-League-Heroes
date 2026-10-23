@@ -12,7 +12,8 @@ and the first on ~9.8-px squares (119 rows, the face, the tails' locks and the t
 - then STEP of them make a design square (design_lux_hd's way: the mean in Lab of the parts of the squares it
   covers, outline squares apart, snapped to those colours; the outline where it covers OUTLINE_SHARE of outline);
   step 1 keeps them as they are;
-- speckle cleaned as Jinx's (design_jinx_hd.clean).
+- speckle cleaned as Jinx's (design_jinx_hd.clean);
+- the eyes set by hand (FACE).
 -> hd/design.png. With --review DIR: <dir>/ahri_ppu_size.png (the design at PPUS beside this pack's PPU heroes and
 Ahri now, as the game draws them, 3 screen pixels a game pixel) and <dir>/ahri_ppu_closeup.png (Codex's picture and
 the design at 4x).
@@ -42,6 +43,11 @@ STEP = 1.36                     # its squares to a design square: 78 x 88, PPU 2
                                 # 2.2 from 3.0 / 2.7 / 2.5 / 2.2: 「PPU调高点吧」, then 「还可以降低点」, then 「2.2」)
 PPU = 2.2
 OUTLINE_SHARE = 0.45
+# the eyes set by hand (1.36 squares a square merged the lashes into the skin and dimmed the irises): the near eye's
+# lashes dark brown over a bright iris with a gold shade, the far eye a gold iris under its dark lash
+H = lambda h: tuple(int(h[i:i + 2], 16) for i in (0, 2, 4))  # noqa: E731
+FACE = {(58, 27): H("5A2C15"), (59, 27): H("5A2C15"), (58, 28): H("F9E040"), (59, 28): H("DDA23E"),
+        (58, 29): H("DDA23E"), (59, 29): H("DDA23E"), (64, 28): H("F2C62D")}
 PEERS = ["ahri", "lux", "jinx", "caitlyn", "riven"]
 
 
@@ -102,6 +108,9 @@ def main():
     ap.add_argument("--ppu", type=float, nargs="*", default=[], help="the PPUs the review shows the design at")
     a = ap.parse_args()
     d, size = read(a.step)
+    if a.step == STEP:
+        for (x, y), c in FACE.items():
+            d[y, x, :3] = c
     Image.fromarray(d).save(lp(a.out or os.path.join(HD, "design.png")))
     print(f"square {size[0]:.2f} x {size[1]:.2f}, step {a.step} -> design {d.shape[1]}x{d.shape[0]}, "
           f"{len(np.unique(d[d[..., 3] > 0][:, :3], axis=0))} colours")
