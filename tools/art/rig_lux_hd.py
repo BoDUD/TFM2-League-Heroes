@@ -9,11 +9,11 @@ front for every cast) and League's clips.
     python tools/art/rig_lux_hd.py                     # orig strips + the 1x sheet
     python tools/art/hero_reels.py --hero lux          # then: the idle / ban-pick reels from idle_base
 
-No square is redrawn: the parts are cut square by square and placed only by whole squares, quarter turns and whole-row
-shifts, the run's and the death's thighs the design's own legging rows laid along the bone (Legs). The staff is the
-design's straight one (design_lux_hd.shaft): a half turn about its middle lays the shaft on its own squares, through
-her hand, with the crescent head forward - the casts point it at the foe that way, no arm moved (moving one bares body
-the picture never drew: league_jinx). Standing, the parts rebuild the design exactly (Poser.check).
+Idle, run, hit and death: no square is redrawn - the parts are cut square by square and placed only by whole squares,
+quarter turns and whole-row shifts, the run's and the death's thighs the design's own legging rows laid along the bone
+(Legs); standing, the parts rebuild the design exactly (Poser.check). The four casts (attack, skill, skill2, ult) are
+Codex's whole-frame redraw mended onto the design by tools/art/casts_lux_hd.py (the user on the first, rigged casts -
+the staff only turned half round about her hand: 「手和法杖一点动作都没有的 不奇怪？」, then 「Codex 重画施法动作」).
 """
 import argparse
 import math
@@ -321,8 +321,8 @@ def hair(k):
 
 
 def P(dx=0, flip=False, **kw):
-    """A pose: the whole figure moved dx columns (legs and all), the staff turned head forward (flip), the hair's swing,
-    the swing's light ("swoosh": "fwd" / "back") and any part's transform in kw."""
+    """A pose: the whole figure moved dx columns (legs and all), the staff turned head forward (flip), the hair's swing
+    and any part's transform in kw."""
     out = dict(kw)
     if dx:
         out["dx"] = dx
@@ -366,21 +366,6 @@ def run_poses():
 
 
 POSES = {
-    # the bolt (the kit's on the 4th frame, 210 ms): she draws back, swings the staff round - its crescent head from
-    # behind her to the front - and casts, then brings it back
-    "attack": [STAND, P(-1, **hair(1)), P(1, flip=True, swoosh="fwd", **hair(-1)), P(1, flip=True, **hair(-2)),
-               P(0, flip=True, **hair(-1)), P(0, swoosh="back", **hair(0))],
-    # Light Binding (the orb on the 3rd frame, 130 ms): the staff swung forward, a lunge into the cast, back
-    "skill": [STAND, P(-1, flip=True, swoosh="fwd", **hair(1)), P(2, flip=True, **hair(-2)),
-              P(2, flip=True, **hair(-2)), P(1, flip=True, **hair(-1)), P(0, swoosh="back", **hair(-1)), STAND],
-    # Lucent Singularity (the throw on the 5th frame, 260 ms): she rocks back with the staff swung up, throws, settles
-    "skill2": [STAND, P(-1, **hair(1)), P(-2, flip=True, swoosh="fwd", **hair(2)), P(-1, flip=True, **hair(1)),
-               P(2, flip=True, **hair(-2)), P(1, flip=True, **hair(-1)), P(0, swoosh="back", **hair(0))],
-    # Final Spark (the beam on the 4th frame, 300 ms): she rises off the ground, the staff swung forward, charges and
-    # fires, is pushed back by it and settles down
-    "ult": [P(flip=True, swoosh="fwd"), P(flip=True, dy=-3, **hair(-1)), P(flip=True, dy=-6, **hair(-2)),
-            P(flip=True, dy=-8, **hair(-3)), P(-2, flip=True, dy=-8, **hair(2)), P(-1, flip=True, dy=-5, **hair(1)),
-            P(flip=True, dy=-2), P(swoosh="back")],
     # knocked back two columns, the hair flung forward; then halfway back
     "hit": [P(-2, **hair(3)), P(-1, **hair(1))],
     # struck: knocked back, she reels, topples over backwards (a leg thrown up as she lands), bounces and lies still
@@ -391,47 +376,6 @@ POSES = {
              dict(prone=dict(lift=1, dx=-12, legs="flat", staff=STAFF_DOWN)),
              dict(prone=dict(lift=0, dx=-12, legs="flat", staff=STAFF_DOWN))],
 }
-
-
-# ------------------------------------------------------------------------------------------------ the swing's light
-# The staff's half turn is a swing over her head (oppi's Lux: a crescent of light from behind her to the front): the
-# frame that turns it carries the crescent head's path as a band of light behind her (an "under" effect layer: hidden
-# by her head and body), thin at the start, SWOOSH_W squares at the head; the turn back a thinner one the other way.
-HEAD_AT = (6.5, 63.0)           # the crescent head's middle (the blue gem), design squares
-SWOOSH_W = {"fwd": 6.0, "back": 3.5}
-LIGHT = [(255, 255, 240), (255, 238, 150), (250, 198, 70)]     # the core, the glow, the rim
-
-
-def swoosh(kind, dx=0, dy=0, shape=(81, 64)):
-    """{(x, y): rgb} the head's path round the shaft's middle over her head ("fwd": from behind her to the front,
-    "back": the other way), the lead the widest."""
-    mx, my = DL.M[0] + dx, DL.M[1] + dy
-    r0 = math.hypot(HEAD_AT[0] - DL.M[0], HEAD_AT[1] - DL.M[1])
-    a_back = math.degrees(math.atan2(HEAD_AT[1] - DL.M[1], HEAD_AT[0] - DL.M[0])) % 360   # ~150: behind, low
-    a_front = (a_back + 180) % 360
-    out = {}
-    for y in range(-PAD, shape[0] + PAD):
-        for x in range(-PAD, shape[1] + PAD):
-            cx, cy = x + 0.5 - mx, y + 0.5 - my
-            r, a = math.hypot(cx, cy), math.degrees(math.atan2(cy, cx)) % 360
-            p = (a - a_back) % 360 / 180.0                  # 0 behind her .. 1 in front, over the top
-            if p > 1:
-                continue
-            lead = p if kind == "fwd" else 1 - p
-            w = 1.0 + (SWOOSH_W[kind] - 1.0) * lead
-            e = abs(r - r0) / (w / 2)
-            if e <= 1:
-                out[(x, y)] = LIGHT[0] if e < 0.4 else LIGHT[1] if e < 0.75 else LIGHT[2]
-    return out
-
-
-def fx_layer(rig, cells):
-    a = np.zeros((81 + 2 * PAD, 64 + 2 * PAD, 4), np.uint8)
-    for (x, y), c in cells.items():
-        if 0 <= y + PAD < a.shape[0] and 0 <= x + PAD < a.shape[1]:
-            a[y + PAD, x + PAD, :3] = c
-            a[y + PAD, x + PAD, 3] = 255
-    return on_rig(rig, a)
 
 
 # ------------------------------------------------------------------------------------------------ the rig
@@ -564,12 +508,7 @@ def frames(rig):
             poses = [STAND] * n
         if len(poses) != n:
             sys.exit(f"{tag}: {len(poses)} poses for {n} frames")
-        fr = []
-        for p in poses:
-            body = on_rig(rig, ps.frame(p))
-            if p.get("swoosh"):
-                body = {"body": body, "under": fx_layer(rig, swoosh(p["swoosh"], p.get("dx", 0), p.get("dy", 0)))}
-            fr.append(body)
+        fr = [on_rig(rig, ps.frame(p)) for p in poses]
         if tag == "hit":
             fr[0] = R.flash(fr[0])
         out[tag] = list(zip(fr, [m for _, m in sheet[tag]]))
