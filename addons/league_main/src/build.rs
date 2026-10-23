@@ -3,7 +3,10 @@
 //! ([`from_places`]); the earlier wish to know two builds at once (2026-10-12: 「就是你要兼容0.6.3和0.7」) is why this is
 //! a list.
 //!
-//! Everything src/lookup.rs and src/view.rs patch or call sits at a fixed place in one build of the game EXE. A build
+//! 2026-10-24: + the UI drawers' own sheet lookups and the two functions they hand a sheet's name to (src/ui.rs, the
+//! UI sheets), found in 0.6.5 by hand (static disassembly; game_places::resolve finds them from the drawers).
+//!
+//! Everything src/lookup.rs, src/ui.rs and src/view.rs patch or call sits at a fixed place in one build of the game EXE. A build
 //! is known when the bytes at each of its places are exactly the ones read from that build: the two lookup functions
 //! (128 bytes each - 33 functions share their first 128 but for the calls), the hash, the display handler, and the call
 //! sites whose return addresses the hooks compare. An unknown build (a new game version, a beta) is looked for by
@@ -52,6 +55,15 @@ pub struct Build {
     /// face point and keep the plain UI size, so the face points stay on the faces
     pub ui_sized_anim_ret: &'static [usize],
     pub ui_sized_size_ret: &'static [usize],
+    /// return addresses of those UI drawers' own sheet lookups (the same order as `ui_anim_ret`): src/ui.rs hands them
+    /// the hero's UI sheet
+    pub ui_sheet_ret: &'static [usize],
+    /// the two functions the UI drawers hand the sheet's name to - each copies it, and the texture is looked up by that
+    /// name again when the frame is drawn: (out, name ptr, len, ...) -> a draw command (the BP grid, the scoreboard
+    /// portraits, the pick moment's callers) and (image node, &String, &uv) (the encyclopedia / face icons, the pick
+    /// slot). src/ui.rs swaps the name for the UI sheet's there. 0: not known (no UI sheets).
+    pub cmd_by_name: usize,
+    pub node_image: usize,
     /// the battlefield body draw (rcx = the command Vec it fills, rdx = the display entity value; src/view.rs)
     pub body_draw: usize,
     /// RawVec<draw command>::grow_one (0xd0-byte commands)
@@ -76,6 +88,9 @@ pub static BUILDS: &[Build] = &[Build {
     ui_sized_anim_ret: &[0x29e29ca, 0x20da159, 0x22fec6d],
     ui_sized_size_ret: &[0x29e2c12, 0x29e2c28, 0x29e2c39, 0x29e2c4b, 0x20da492, 0x20da4a6, 0x20da4b5, 0x20da4c6,
                          0x22ff008, 0x22ff016, 0x22ff020, 0x22ff02b],
+    ui_sheet_ret: &[0x29e682e, 0x29e29e7, 0x20da473, 0x22fedca, 0x256955f],
+    cmd_by_name: 0x1be5d0,
+    node_image: 0x2172320,
     body_draw: 0x2557a00,
     cmd_grow: 0x3822010,
     sigs: &[
@@ -127,6 +142,22 @@ pub static BUILDS: &[Build] = &[Build {
     (0x22ff005, &[0x41, 0xff, 0xd6]), (0x22ff013, &[0x41, 0xff, 0xd7]), (0x22ff01d, &[0x41, 0xff, 0xd6]), (0x22ff028, &[0x41, 0xff, 0xd7]),
     (0x25694d0, &[0xe8, 0x1b, 0x61, 0xca, 0xfd]), // scoreboard portraits
     (0x2569712, &[0x41, 0xff, 0xd6]), (0x2569731, &[0x41, 0xff, 0xd7]), (0x256974c, &[0x41, 0xff, 0xd6]), (0x2569761, &[0x41, 0xff, 0xd7]),
+    // the same drawers' own calls of the sheet lookup (src/ui.rs)
+    (0x29e6829, &[0xe8, 0x72, 0x64, 0x78, 0xfd]), (0x29e29e2, &[0xe8, 0xb9, 0xa2, 0x78, 0xfd]),
+    (0x20da46e, &[0xe8, 0x2d, 0x28, 0x09, 0xfe]), (0x22fedc5, &[0xe8, 0xd6, 0xde, 0xe6, 0xfd]),
+    (0x256955a, &[0xe8, 0x41, 0x37, 0xc0, 0xfd]),
+    // the draw command made from a sheet's name (src/ui.rs hooks its 13-byte prologue)
+    (0x1be5d0, &[
+        0x55, 0x41, 0x56, 0x56, 0x57, 0x53, 0x48, 0x81, 0xec, 0xc0, 0x00, 0x00, 0x00, 0x48, 0x8d, 0xac,
+        0x24, 0x80, 0x00, 0x00, 0x00, 0x44, 0x0f, 0x29, 0x45, 0x30, 0x0f, 0x29, 0x7d, 0x20, 0x0f, 0x29,
+        0x75, 0x10, 0x48, 0xc7, 0x45, 0x08, 0xfe, 0xff, 0xff, 0xff, 0x4c, 0x89, 0xc7, 0x4d, 0x85, 0xc0,
+    ]),
+    // the image node's setter (src/ui.rs hooks its 13-byte prologue)
+    (0x2172320, &[
+        0x41, 0x57, 0x41, 0x56, 0x41, 0x54, 0x56, 0x57, 0x53, 0x48, 0x83, 0xec, 0x28, 0x4c, 0x89, 0xc7,
+        0x48, 0x89, 0xcb, 0x4c, 0x8b, 0x72, 0x08, 0x48, 0x8b, 0x72, 0x10, 0x48, 0x85, 0xf6, 0x0f, 0x84,
+        0xe0, 0x01, 0x00, 0x00, 0x31, 0xd2, 0x49, 0x89, 0xf0, 0xe8, 0x02, 0xb9, 0xdb, 0x00, 0x48, 0x85,
+    ]),
     // the anim tables' hash
     (0x58170, &[
         0x56, 0x48, 0x81, 0xec, 0x80, 0x00, 0x00, 0x00, 0xf3, 0x0f, 0x6f, 0x01, 0x66, 0x0f, 0x70, 0xc8,
@@ -175,6 +206,9 @@ pub fn from_places(p: game_places::Places, name: String) -> &'static Build {
         ui_size_ret: keep(p.ui_size_ret),
         ui_sized_anim_ret: keep(p.ui_sized_anim_ret),
         ui_sized_size_ret: keep(p.ui_sized_size_ret),
+        ui_sheet_ret: keep(p.ui_sheet_ret),
+        cmd_by_name: p.cmd_by_name,
+        node_image: p.node_image,
         body_draw: p.body_draw,
         cmd_grow: p.cmd_grow,
         sigs: &[],
@@ -240,6 +274,21 @@ mod tests {
         assert_eq!(p.ui_size_ret, b.ui_size_ret);
         assert_eq!(p.ui_sized_anim_ret, b.ui_sized_anim_ret);
         assert_eq!(p.ui_sized_size_ret, b.ui_sized_size_ret);
+        assert_eq!(p.ui_sheet_ret, b.ui_sheet_ret);
+        assert_eq!((p.cmd_by_name, p.node_image), (b.cmd_by_name, b.node_image));
+    }
+
+    #[test]
+    fn each_ui_drawer_asks_for_its_sheet_between_its_anim_lookup_and_its_size_asks() {
+        for b in BUILDS {
+            assert_eq!(b.ui_sheet_ret.len(), b.ui_anim_ret.len(), "{}", b.name);
+            for (k, r) in b.ui_sheet_ret.iter().enumerate() {
+                assert!(b.ui_anim_ret[k] < *r && *r < b.ui_size_ret[4 * k], "{}: drawer {k}", b.name);
+                let call = b.sigs.iter().find(|s| s.0 == r - 5).expect("its call is checked").1;
+                let target = (r - 5) as i64 + 5 + i32::from_le_bytes(call[1..5].try_into().unwrap()) as i64;
+                assert_eq!(target as usize, b.sheet, "{}: drawer {k}", b.name);
+            }
+        }
     }
 
     #[test]
@@ -269,7 +318,7 @@ mod tests {
         assert!(detect(off).is_err());
         assert!(detect(|_, _| None).is_err());
         // the hooks' places are among the checked ones
-        for rva in [b.anim, b.sheet, b.hash, b.display_fn, b.body_draw, b.cmd_grow] {
+        for rva in [b.anim, b.sheet, b.hash, b.display_fn, b.body_draw, b.cmd_grow, b.cmd_by_name, b.node_image] {
             assert!(b.sigs.iter().any(|s| s.0 == rva), "{rva:#x} unchecked");
         }
     }
