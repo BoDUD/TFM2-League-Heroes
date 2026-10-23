@@ -102,8 +102,8 @@ def showcase(out, z=3):
         blobs.append([x + P["b_far"] / 1000.0, lands, None])
 
     def burst(when):
-        """Unstable Matter round him (under the units), its hit on Darius."""
-        c.on_me("w_burst", when, sheet=big, under=True)
+        """Unstable Matter round him (over the units: under them his own body hid it), its hit on Darius."""
+        c.on_me("w_burst", when, sheet=big)
         c.on("w_hit", when)
         c.d.flinches.append(when)
 

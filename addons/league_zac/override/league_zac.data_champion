@@ -9013,7 +9013,7 @@
       "name": "league_zac_w_burst",
       "anim": "asset/league/effects/league_zac_big",
       "tag": "w_burst",
-      "z": -1,
+      "z": 2,
       "is_follow": false
     },
     {

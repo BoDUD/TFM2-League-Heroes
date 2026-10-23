@@ -375,7 +375,7 @@ def build(p):
     B_ = lambda name, anim_=FX, z=3, tag=None: {"type": "Animated", "name": n(name), "anim": anim_, "tag": tag or name,
                                                 "repeat": True, "z": z}
     views_p = [Pj("q_fist"), Pj("b_fly")]
-    views_e = [E("a_hit"), E("q_hit"), E("q_slam", BIG, 2, False), E("w_burst", BIG, -1, False), E("w_hit"),
+    views_e = [E("a_hit"), E("q_hit"), E("q_slam", BIG, 2, False), E("w_burst", BIG, 2, False), E("w_hit"),
                E("e_land", BIG, -1, False), E("e_hit"), E("r_land", BIG, -1, False), E("r_hit"),
                E("b_lie", FX, -1, False), E("b_pick")]
     views_b = [B_("q_slow", FX, -1, "slow"), B_("q_held", FX, 3), B_("r_slow", FX, -1, "slow")]
