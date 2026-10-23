@@ -25,8 +25,9 @@ idle). Flags die with him: a respawned Singed has E and W ready.
           (`BlockMoveSkill`, no dashes) for w_p + 6 ticks; `w_out` while it lies.
   ult     R Insanity Potion (疯狂药剂), `Targeting` on `EnemyChampion` within r_range: he drinks (r_dur) and for r_t ticks
           gains r_apw ability power, r_def armour and magic resistance, r_ms% move speed and r_regen health a second.
-  combos  W -> E: the glue landing on a champion lets the controller cast E on an enemy champion within e_range when
-          `e_cd` is off (thrown into the glue: rooted). E -> slipstream: every fling gives the slipstream's speed at once.
+  combos  W -> E: while the glue lies (w_t ticks from its landing) the controller casts E on the first enemy champion
+          within e_range once `e_cd` is off (thrown with the glue lying: rooted; the first trace had it 1 of 14 when it
+          only looked at the landing - W is thrown from 60000, E reaches 20000). E -> slipstream: every fling gives the slipstream's speed at once.
           R -> W: the drink throws the glue at once at an enemy champion within w_range (its cooldown starting over).
           R on: clouds q_r_r round dealing r_q% of the damage and cutting healing r_gw% (League's Grievous Wounds) and
           E's cooldown e_cd_r instead of e_cd.
@@ -69,7 +70,7 @@ P = {
     "e_behind": 30000,
     # skill2: W Mega Adhesive
     "w_cd": 900, "w_range": 60000, "w_dur": 30, "w_rel": 12, "w_fly": 20, "w_t": 180, "w_r": 20000, "w_p": 6,
-    "w_slow": 50, "w_e_at": 2,
+    "w_slow": 50,
     # ult: R Insanity Potion
     "r_cd": 5400, "r_range": 40000, "r_dur": 40, "r_t": 1500, "r_apw": 60, "r_def": 30, "r_ms": 15, "r_regen": 12,
     "r_q": 150, "r_q_r": 14000, "r_gw": 40, "r_w_at": 20,
@@ -275,17 +276,16 @@ def build(p):
         return combine(refresh("w_cd", p["w_cd"]), anim("skill2", p["w_dur"]), sfx("w"), voice("vo_w", p),
                        delayed(p["w_rel"] - 1, alive(
                            lob("w_vial", p["w_fly"], land, target),
-                           # W -> E: the controller casts E once the glue lies
-                           delayed(p["w_fly"], alive(refresh("w_out", p["w_t"]),
-                                                     refresh("e_go", p["w_e_at"] + p["ctl_p"] + 2))))))
+                           # W -> E: while the glue lies the controller casts E on the first champion in reach
+                           delayed(p["w_fly"], alive(refresh("w_out", p["w_t"]), refresh("e_go", p["w_t"]))))))
 
     # ------------------------------------------------------------------ the controller (a pulse on him)
     # skill and skill2 are cloned every tick (champion-data 8), a periodic AddCasted hung on him is not
     # (league_zac): his attacks and the ult hang one (ctl_t ticks, period ctl_p) unless `polling` says one runs.
     # It drops the clouds, the slipstream, W -> E (`e_go`) and R -> W (`w_go`).
     ctl = combine(refresh("polling", p["ctl_p"] + 2), drop, slip,
-                  sw("e_go", combine(*rm("e_go"), sw("e_cd", NONE, pick(p["e_range"], "EnemyChampion",
-                                                                        e_cast("EnemyChampion"))))),
+                  sw("e_go", sw("e_cd", NONE, pick(p["e_range"], "EnemyChampion",
+                                                   combine(*rm("e_go"), e_cast("EnemyChampion"))))),
                   sw("w_go", combine(*rm("w_go"), sw("w_cd", NONE, pick(p["w_range"], "EnemyChampion",
                                                                         w_cast("EnemyChampion"))))))
     hang = on_me(sw("polling", NONE, combine(refresh("polling", p["ctl_p"] + 2), casted(p["ctl_t"], p["ctl_p"], ctl))))

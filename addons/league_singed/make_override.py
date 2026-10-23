@@ -37,15 +37,15 @@ def texts(setup):
         "zh-hans": {"skill": O + "过肩摔" + E + "：抓住目标造成" + mag("e_dmg", "e_ap") + "魔法伤害和" + tr("最大生命{e_thp}%") +
                              "，把它击飞、从头顶扔到身后；落进" + O + "强力粘胶" + E + "里就禁锢" + A + "{e_root}秒" + E + "。"},
         "zh-hant": {"skill": O + "過肩摔" + E + "：抓住目標造成" + mag("e_dmg", "e_ap") + "魔法傷害和" + tr("最大生命{e_thp}%") +
-                             "，把它擊飛、從頭頂扔到身後；落進" + O + "超級膠水" + E + "裡就禁錮" + A + "{e_root}秒" + E + "。"},
+                             "，把它擊飛、從頭頂扔到身後；落進" + O + "強力粘膠" + E + "裡就禁錮" + A + "{e_root}秒" + E + "。"},
         "en": {"skill": O + "Fling" + E + ": deals " + mag("e_dmg", "e_ap") + " magic damage and " + tr("{e_thp}% max health") +
                         ", knocks the target up and throws it over his shoulder; landing in " + O + "Mega Adhesive" + E +
                         " roots it for " + A + "{e_root}s" + E + "."},
-        "ko": {"skill": O + "내던지기" + E + ": " + mag("e_dmg", "e_ap") + " 마법 피해와 " + tr("최대 체력의 {e_thp}%") +
+        "ko": {"skill": O + "던져넘기기" + E + ": " + mag("e_dmg", "e_ap") + " 마법 피해와 " + tr("최대 체력의 {e_thp}%") +
                         ", 대상을 띄워 어깨 너머 뒤로 던짐; " + O + "초강력 접착제" + E + "에 떨어지면 " + A + "{e_root}초" + E +
                         " 속박."},
-        "ja": {"skill": O + "フリング" + E + "：" + mag("e_dmg", "e_ap") + "の魔法ダメージと" + tr("最大体力の{e_thp}%") +
-                        "、対象を打ち上げ肩越しに背後へ投げる。" + O + "メガ粘着剤" + E + "に落ちると" + A + "{e_root}秒" + E +
+        "ja": {"skill": O + "すくい投げ" + E + "：" + mag("e_dmg", "e_ap") + "の魔法ダメージと" + tr("最大体力の{e_thp}%") +
+                        "、対象を打ち上げ肩越しに背後へ投げる。" + O + "強力粘着剤" + E + "に落ちると" + A + "{e_root}秒" + E +
                         "スネア。"},
     }
 
