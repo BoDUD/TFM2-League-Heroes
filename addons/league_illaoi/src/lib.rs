@@ -44,6 +44,8 @@ pub const SINK_T: usize = 18;
 /// 灵魂画面（e_spirit，6 帧 x 100 ms）多久重播一次；灵魂线每节多远（tools/art/fx_illaoi_tether.py LENGTH x 1000）。
 pub const SOUL_T: usize = 36;
 pub const LINK_STEP: f64 = 10_000.0;
+/// 本体一 tick 横着走了这么远才算转身（站着打、被推一下不算）。
+pub const TURN: f64 = 300.0;
 /// 灵魂挨打时飞回本体的鬼手多快（一 tick）。
 pub const PULSE_SPEED: u64 = 8_000;
 /// 墙格子每格的世界单位（地图的 `walls`，卡密尔附加包同）。
@@ -327,12 +329,23 @@ pub fn life_end(start: usize, t_long: usize) -> usize {
     start + RISE_T + sways.max(1) * SWAY_T
 }
 
-/// 灵魂的画面名：英雄联盟的英雄有自己的（`souls.rs`），别的用通用幽灵 `e_soul`。
-pub fn soul_look(champion: &str) -> String {
+/// 灵魂的画面名：英雄联盟的英雄有自己的（`souls.rs`；朝左的是镜像 `_l`），别的用通用幽灵 `e_soul`。
+pub fn soul_look(champion: &str, left: bool) -> String {
     if souls::SOULS.binary_search(&champion).is_ok() {
-        il(&format!("soul_{champion}"))
+        il(&format!("soul_{champion}{}", if left { "_l" } else { "" }))
     } else {
         il("e_soul")
+    }
+}
+
+/// 本体朝哪边：这一 tick 往左走了 `TURN` 以上就朝左，往右就朝右，没怎么动就照旧（引擎接口读不到朝向）。
+pub fn faces_left(was: bool, dx: f64) -> bool {
+    if dx < -TURN {
+        true
+    } else if dx > TURN {
+        false
+    } else {
+        was
     }
 }
 
@@ -419,8 +432,10 @@ struct Tentacle {
 struct Spirit {
     target: usize,
     spot: (f64, f64),
-    /// 灵魂的画面：这个英雄自己的（`league_illaoi_soul_<id>`），别的模组的英雄用通用的 `e_soul`。
-    look: String,
+    /// 被扯出灵魂的英雄的 id（选画面：他自己的、朝哪边），本体朝左没有，上一 tick 本体的 x。
+    champion: String,
+    left: bool,
+    last_x: f64,
     until: usize,
     /// 灵魂画面下一次重播的 tick。
     pic: usize,
@@ -650,9 +665,11 @@ impl Prophet {
         for u in us.iter().filter(|u| u.enemy && u.champion) {
             if !self.spirits.iter().any(|s| s.target == u.id) && has_buff(sim, u.id, &spirit) {
                 let spot = spirit_spot(u.pos, her, self.p.e_pull as f64);
-                let name = sim.get_entity(u.id).and_then(|e| e.name()).unwrap_or_default();
-                let look = soul_look(&name);
-                self.spirits.push(Spirit { target: u.id, spot, look, until: tick + self.p.e_t, pic: tick });
+                let champion = sim.get_entity(u.id).and_then(|e| e.name()).unwrap_or_default();
+                // he faces her when she tears it out (he fights her); then the way he walks
+                let left = her.0 < u.pos.0;
+                self.spirits.push(Spirit { target: u.id, spot, champion, left, last_x: u.pos.0, until: tick + self.p.e_t,
+                                           pic: tick });
                 wlog(format!("{} SPIRIT: #{} torn out to ({:.0}, {:.0}), {:.0} from its body", head(sim, me), u.id, spot.0,
                              spot.1, dist(spot, u.pos)));
             }
@@ -669,9 +686,14 @@ impl Prophet {
         });
         let mut drawn = Vec::new();
         for s in self.spirits.iter_mut() {
-            if tick >= s.pic {
+            let x = us.iter().find(|u| u.id == s.target).map_or(s.last_x, |u| u.pos.0);
+            let left = faces_left(s.left, x - s.last_x);
+            s.last_x = x;
+            // the ghost faces the way its body does: drawn again at once when he turns (「相反问题解决了啊」)
+            if tick >= s.pic || left != s.left {
+                s.left = left;
                 s.pic = tick + SOUL_T;
-                sim.play_view_effect(&s.look, me, &at(s.spot), 0, 0, 0);
+                sim.play_view_effect(&soul_look(&s.champion, s.left), me, &at(s.spot), 0, 0, 0);
             }
             if let Some(u) = us.iter().find(|u| u.id == s.target) {
                 drawn.push((s.spot, Some(u.pos)));
@@ -954,14 +976,25 @@ mod tests {
     #[test]
     fn every_league_champion_has_its_own_spirit() {
         // 「灵魂能雕刻出每个英雄的形状吗」「只要做英雄联盟的」
-        assert_eq!(soul_look("league_kaisa"), "league_illaoi_soul_league_kaisa");
-        assert_eq!(soul_look("fighter"), "league_illaoi_e_soul");
+        assert_eq!(soul_look("league_kaisa", false), "league_illaoi_soul_league_kaisa");
+        assert_eq!(soul_look("league_kaisa", true), "league_illaoi_soul_league_kaisa_l");
+        assert_eq!(soul_look("fighter", true), "league_illaoi_e_soul");
         let copy = include_str!("../override/league_illaoi.data_champion");
         for id in souls::SOULS {
-            assert!(copy.contains(&format!("\"league_illaoi_soul_{id}\"")), "{id}: no view in the copy");
+            for side in ["", "_l"] {
+                assert!(copy.contains(&format!("\"league_illaoi_soul_{id}{side}\"")), "{id}{side}: no view in the copy");
+            }
         }
         assert!(souls::SOULS.windows(2).all(|w| w[0] < w[1]), "souls.rs must stay sorted");
         assert!(souls::SOULS.len() >= 150);
+    }
+
+    #[test]
+    fn the_ghost_faces_the_way_its_body_walks() {
+        // 「相反问题解决了啊」: no facing in the engine's interface - the way he walks, else as before
+        assert!(faces_left(false, -1000.0));
+        assert!(!faces_left(true, 1000.0));
+        assert!(faces_left(true, 100.0) && !faces_left(false, -100.0));
     }
 
     #[test]

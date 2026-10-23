@@ -5,8 +5,10 @@ drawn at too) turned into a pale ghost in the spirit's GHOST ramp (tools/art/pac
 
     python tools/art/illaoi_souls.py [--review DIR]
 
-  league/effects/league_illaoi_souls   one tag a champion (its id), 3 shimmer frames of 200 ms (SOUL_T, 36 ticks, in
-                                       addons/league_illaoi: the add-on plays it again for as long as the spirit stands)
+  league/effects/league_illaoi_souls   two tags a champion: its id (facing right, as its sprite) and <id>_l (mirrored,
+                                       facing left - an effect is never turned with the unit, so the add-on picks the side
+                                       its body faces: 「相反问题解决了啊」), 3 shimmer frames of 200 ms each (SOUL_T,
+                                       36 ticks: the add-on plays it again for as long as the spirit stands)
   addons/league_illaoi/src/souls.rs    the ids it holds (sorted): the add-on plays `league_illaoi_soul_<id>` for them,
                                        the plain e_soul for anyone else (a champion of another mod)
 The ghost: the silhouette kept square for square; the outline (a square with an empty neighbour) the pale rim; inside,
@@ -91,6 +93,7 @@ def build():
     for hero in champions():
         f = idle_of(hero)
         tags[hero] = [(ghost(f, k), MS) for k in range(FRAMES)]
+        tags[hero + "_l"] = [(np.ascontiguousarray(g[:, ::-1]), ms) for g, ms in tags[hero]]
     return tags
 
 
@@ -110,13 +113,13 @@ def main():
     a = ap.parse_args()
     tags = build()
     w, h = G.write_sheet(lp(SHEET), tags, share=True)
-    write_rs(sorted(tags))
-    print(f"league/effects/league_illaoi_souls#sheet.png {w}x{h}: {len(tags)} champions; addons/league_illaoi/src/souls.rs")
+    write_rs(sorted(t for t in tags if not t.endswith("_l")))
+    print(f"league/effects/league_illaoi_souls#sheet.png {w}x{h}: {len(tags) // 2} champions, each both ways; addons/league_illaoi/src/souls.rs")
     if a.review:
         os.makedirs(a.review, exist_ok=True)
         Z, per_row = 3, 12
         cells = []
-        for hero, fr in tags.items():
+        for hero, fr in ((h, f) for h, f in tags.items() if not h.endswith("_l")):
             src = idle_of(hero)
             g = fr[0][0]
             H = max(src.shape[0], g.shape[0])
