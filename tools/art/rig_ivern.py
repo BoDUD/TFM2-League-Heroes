@@ -49,7 +49,10 @@ HEAD = (PK.HEAD[2], PK.HEAD[0])            # the design's head box top-left (col
 D_PPU = 2.533                  # Daisy's sheets: 76 rows for 30 game px (uncut at 1.9 = 40 px until 2026-10-23, the user:
                                # 「翠神召唤出来的东西游戏里太大了吧」 -> 75 %; league_main hd.rs EFFECTS the same)
 D_HEAD = (27, 0)               # her head box top-left in hd/daisy.png (design_ivern_poses FIG["daisy"])
-DAISY_BACK = 9                 # game px her feet stand behind (over) the champion's soles (league_annie's Tibbers: 9)
+DAISY_BACK = 0                 # game px her feet stand behind (over) the champion's soles (league_annie's Tibbers: 9;
+                               # 0 since 2026-10-23: behind him at 9 she read as his mount - the user: 「小菊放出来感觉人骑在上面一样」)
+DAISY_SIDE = -32               # game px from the champion's middle to hers: beside him on his ground, not behind him (her half
+                               # width 19 at 30 px tall + a wide champion's ~13); effects are never mirrored: always on the picture's left
 FEET = R.FEET
 
 
@@ -177,7 +180,7 @@ class Daisy:
             d, (hx, hy), ground = self.d, D_HEAD, self.d.shape[0]
         else:
             d, (hx, hy), ground = load_pose(name, "daisy_")
-        x0 = int(round(self.px - self.d.shape[1] / 2)) + D_HEAD[0] - hx
+        x0 = int(round(self.px - self.d.shape[1] / 2 + DAISY_SIDE * D_PPU)) + D_HEAD[0] - hx
         y0 = self.ground - ground - lift
         ys, xs = np.nonzero(d[..., 3] > 0)
         ty, tx = ys + y0, xs + x0
