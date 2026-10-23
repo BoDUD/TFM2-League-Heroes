@@ -1,0 +1,123 @@
+[
+  {
+    "file": "belveth-pose-a_wind.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "transparent": 1027894,
+    "opaque": 3939,
+    "partial": 540683,
+    "strict_alpha": false
+  },
+  {
+    "file": "belveth-pose-a_slash.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "transparent": 1096296,
+    "opaque": 3200,
+    "partial": 473020,
+    "strict_alpha": false
+  },
+  {
+    "file": "belveth-pose-q_dash.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "transparent": 1305628,
+    "opaque": 1954,
+    "partial": 264934,
+    "strict_alpha": false
+  },
+  {
+    "file": "belveth-pose-w_coil.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "transparent": 998071,
+    "opaque": 3936,
+    "partial": 570509,
+    "strict_alpha": false
+  },
+  {
+    "file": "belveth-pose-w_slam.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "transparent": 1019952,
+    "opaque": 2916,
+    "partial": 549648,
+    "strict_alpha": false
+  },
+  {
+    "file": "belveth-pose-e_spin1.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "transparent": 986360,
+    "opaque": 3901,
+    "partial": 582255,
+    "strict_alpha": false
+  },
+  {
+    "file": "belveth-pose-e_spin2.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "transparent": 1065785,
+    "opaque": 3818,
+    "partial": 502913,
+    "strict_alpha": false
+  },
+  {
+    "file": "belveth-pose-r_curl.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "transparent": 1098352,
+    "opaque": 3383,
+    "partial": 470781,
+    "strict_alpha": false
+  },
+  {
+    "file": "belveth-pose-r_rise.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "transparent": 967866,
+    "opaque": 4399,
+    "partial": 600251,
+    "strict_alpha": false
+  },
+  {
+    "file": "belveth-pose-d_reel.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "transparent": 1127579,
+    "opaque": 2366,
+    "partial": 442571,
+    "strict_alpha": false
+  },
+  {
+    "file": "belveth-pose-d_down.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "transparent": 1272402,
+    "opaque": 1880,
+    "partial": 298234,
+    "strict_alpha": false
+  }
+]
