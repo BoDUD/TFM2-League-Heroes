@@ -34,7 +34,7 @@ SRC = os.path.join(ROOT, "assets", "source", "singed", "codex_model", "singed-mo
 OUT = os.path.join(ROOT, "assets", "source", "singed", "hd")
 K = 36
 ROWS = 66    # 36 game px x PPU 1.5 head to soles + the tank above (the cap is the figure's first row)
-PICK = ""     # the user's pick
+PICK = "A-2 as drawn"   # the user's pick 2026-10-23 (both eyes, the bald head clear): 62 rows, 36 game px head to soles at PPU 1.39
 # take -> (file, square px read at (a little above the measured square), rows to, the box kept whole on the raw canvas)
 DRAFTS = {
     "A-1": ("A-1", 19.0, ROWS, (600, 340, 800, 500)),   # the eyes and the mask
