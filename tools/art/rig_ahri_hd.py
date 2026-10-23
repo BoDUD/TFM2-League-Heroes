@@ -66,7 +66,9 @@ TASSEL = {"5C1FA2", "7127CC", "9D4EF5", "5B257E"}
 # the columns of each leg, per row band: near (image left, in front) west of the split, far east of it
 LEG_SPLIT = [(58, 71, 59), (72, 88, 58)]         # rows y0..y1: far leg from this column
 LEG_COLS = [(58, 63, 53, 63), (64, 88, 49, 70)]   # rows y0..y1: the legs' columns x0..x1
-HAIR_SEED, HAIR_BOX = (40, 50), (30, 36, 50, 62)                      # the long hair hanging down her back
+# the long hair hanging down her back below the ears: its dark squares (the hair is shaded with the outline's near
+# black too) west of the face, less the outline squares that edge the body's skin and robe
+HAIR_SEED, HAIR_BOX = (40, 50), (0, 24, 53, 60)
 PARTS = ["tails", "hair", "leg_far", "leg_near", "upper", "arm_far", "arm_near"]     # back to front
 Z = {name: i for i, name in enumerate(PARTS)}
 
@@ -116,10 +118,13 @@ def masks(d):
             tails |= comp
     allowed = col & ~np.isin(hx, list(HAIR)) & ~tails
     near = flood(allowed & (yy >= NEAR_TOP), NEAR_SEED, NEAR_BOX)
-    hair = flood(col & np.isin(hx, list(HAIR | HAIR_SHADE)) & ~tails, HAIR_SEED, HAIR_BOX)
     far = flood(allowed, FAR_SEED, FAR_BOX)
     for x, y in FAR_EXTRA:
         far[y, x] = True
+    dark = op & np.isin(hx, list(HAIR | HAIR_SHADE | {OUT_HEX})) & ~tails & ~near & ~far
+    body_light = op & ~dark & ~tails
+    edge = out & ndimage.binary_dilation(body_light, structure=ndimage.generate_binary_structure(2, 1))
+    hair = flood(dark & ~edge, HAIR_SEED, HAIR_BOX)
     legs = np.zeros_like(op)
     for y0, y1, x0, x1 in LEG_COLS:
         legs |= (yy >= y0) & (yy <= y1) & (xx >= x0) & (xx <= x1)
@@ -138,7 +143,7 @@ def masks(d):
     owner = np.full((H, W), -1)
     for name, m in parts.items():
         owner[m] = Z[name]
-    for y, x in zip(*np.nonzero(out)):
+    for y, x in zip(*np.nonzero(out & ~hair)):
         best = -1
         for dy, dx in ((0, 1), (0, -1), (1, 0), (-1, 0)):
             q = (y + dy, x + dx)
@@ -163,6 +168,92 @@ def piece(d, m):
     sub = d[ys.min():ys.max() + 1, xs.min():xs.max() + 1].copy()
     sub[~m[ys.min():ys.max() + 1, xs.min():xs.max() + 1]] = 0
     return sub, (int(xs.min()), int(ys.min()))
+
+
+# The tails as lobes, to close the fan into one bundle streaming behind her (her old sheet's run and dash): a
+# watershed over the fan from these seeds (a lobe may take several), its outline squares walls; back to front (the
+# strip by her hair behind the top tail, each lower tail over the one above it).
+TAIL_SEEDS = [[(38, 18)], [(28, 12)], [(17, 26), (34, 40)], [(8, 40), (33, 46)], [(10, 52), (32, 52)], [(14, 64)],
+              [(35, 66)]]
+TAIL_ROOT_AT = (47.0, 62.0)                       # the tails' root, design squares
+# closing: every lobe turns toward BUNDLE_AT (degrees counter-clockwise from her front: 180 = straight back), the
+# gaps between them shrinking to 1 - BUNDLE_SQUEEZE - so each lobe slides further under the one in front of it and
+# none bares what the drawn fan hid
+BUNDLE_AT = 175.0
+BUNDLE_SQUEEZE = 0.75
+
+
+def tail_lobes(d, tails):
+    """[{"fill": its colour squares (picture, (x, y)), "angle": its tip's direction from the root}] back to front."""
+    from skimage.segmentation import watershed
+    hx = hexes(d)
+    out = tails & (hx == OUT_HEX)
+    markers = np.zeros(tails.shape, int)
+    for i, pts in enumerate(TAIL_SEEDS):
+        for x, y in pts:
+            markers[y, x] = i + 1
+    lab = watershed(np.where(out, 10.0, 1.0), markers, mask=tails, connectivity=1)
+    rx, ry = TAIL_ROOT_AT
+    lobes = []
+    for i in range(1, len(TAIL_SEEDS) + 1):
+        m = lab == i
+        ys, xs = np.nonzero(m)
+        r = np.hypot(xs + 0.5 - rx, ys + 0.5 - ry)
+        k = int(r.argmax())
+        ang = math.degrees(math.atan2(-(ys[k] + 0.5 - ry), xs[k] + 0.5 - rx)) % 360
+        lobes.append(dict(fill=piece(d, m & ~out), angle=ang, mask=m))
+    return lobes
+
+
+# The tails' base stays put whatever the fan does: the bottom lobe curled under her hips and every tail's squares
+# within BASE_R of the root - drawn behind the swinging tails, it keeps them joined to her back
+# (「你尾巴和身体分离这个问题一直不解决」)
+BASE_R = 14
+
+
+def soft_base(d, base, tails):
+    """The design with the base's inner lines (outline squares with nothing but tails round them) in the colour of the
+    nearest tails square: where the swinging tails part from the base it shows as fur, not as bits of line."""
+    hx = hexes(d)
+    line = base & (hx == OUT_HEX)
+    inner = line & ~ndimage.binary_dilation(~tails, structure=np.ones((3, 3)))
+    fur = tails & (hx != OUT_HEX)
+    _, (iy, ix) = ndimage.distance_transform_edt(~fur, return_indices=True)
+    out = d.copy()
+    out[inner] = d[iy[inner], ix[inner]]
+    return out
+
+
+def tails_base(lobes, tails):
+    yy, xx = np.mgrid[0:tails.shape[0], 0:tails.shape[1]]
+    rx, ry = TAIL_ROOT_AT
+    near_root = np.hypot(xx + 0.5 - rx, yy + 0.5 - ry) < BASE_R
+    return tails & (lobes[-1]["mask"] | near_root)
+
+
+def fan(lobes, close, turn=0.0):
+    """The tails closed `close` of the way from the drawn fan (0) to the bundle (1) and turned `turn` degrees
+    counter-clockwise about the root: each lobe's colour squares turned on their own (turned_soft) and drawn whole
+    with its own unbroken outline ring over the lobes behind it (the drawn fan's inner lines, cut where its lobes
+    part, would break into bits: 「这么多尾巴为什么是断开的」). -> (picture, x, y)."""
+    rx, ry = TAIL_ROOT_AT
+    P = 80
+    can = np.zeros((88 + 2 * P, 78 + 2 * P, 4), np.uint8)
+    cross = ndimage.generate_binary_structure(2, 1)
+    for lb in lobes[:-1]:                               # (the bottom lobe stays with the base)
+        img, (x0, y0) = lb["fill"]
+        deg = close * BUNDLE_SQUEEZE * (BUNDLE_AT - lb["angle"]) + turn
+        out, x, y = turned_soft(img, x0, y0, round(deg, 1), (rx, ry)) if abs(deg) > 0.05 else (img, x0, y0)
+        m = out[..., 3] > 0
+        big = np.zeros((m.shape[0] + 2, m.shape[1] + 2), bool)
+        big[1:-1, 1:-1] = m
+        ring = ndimage.binary_dilation(big, structure=cross) & ~big
+        ys, xs = np.nonzero(ring)
+        can[ys - 1 + y + P, xs - 1 + x + P] = (*OUTLINE, 255)
+        sub = can[y + P:y + P + m.shape[0], x + P:x + P + m.shape[1]]
+        sub[m] = out[m]
+    ys, xs = np.nonzero(can[..., 3] > 0)
+    return can[ys.min():ys.max() + 1, xs.min():xs.max() + 1].copy(), int(xs.min()) - P, int(ys.min()) - P
 
 
 # ------------------------------------------------------------------------------------------------ drawing
@@ -199,11 +290,77 @@ def sheared(img, k, pivot, up, profile=1.0):
     return out, lo
 
 
+def scale2x(a):
+    H, W = a.shape[:2]
+    p = np.pad(a, ((1, 1), (1, 1), (0, 0)), mode="edge")
+    B, Dd, E, F, Hh = p[:-2, 1:-1], p[1:-1, :-2], p[1:-1, 1:-1], p[1:-1, 2:], p[2:, 1:-1]
+
+    def eq(u, v):
+        return (u == v).all(-1)
+
+    c0 = eq(Dd, B) & ~eq(B, F) & ~eq(Dd, Hh)
+    c1 = eq(B, F) & ~eq(B, Dd) & ~eq(F, Hh)
+    c2 = eq(Dd, Hh) & ~eq(Dd, B) & ~eq(Hh, F)
+    c3 = eq(Hh, F) & ~eq(Dd, Hh) & ~eq(B, F)
+    out = np.zeros((H * 2, W * 2, a.shape[2]), a.dtype)
+    out[0::2, 0::2] = np.where(c0[..., None], Dd, E)
+    out[0::2, 1::2] = np.where(c1[..., None], F, E)
+    out[1::2, 0::2] = np.where(c2[..., None], Dd, E)
+    out[1::2, 1::2] = np.where(c3[..., None], F, E)
+    return out
+
+
+_TURNED = {}
+
+
+def turned_soft(img, x0, y0, deg, about):
+    """A soft part (the tails, the long hair: no face, limb or edge to bend) turned `deg` degrees counter-clockwise on
+    screen about `about` (design squares) by RotSprite - Scale2x three times, each square the nearest of the turned
+    picture, read back at the phase drawing the fewest squares; only the part's own colours. -> (picture, x, y)."""
+    key = (hash(img.tobytes()), img.shape, x0, y0, deg, about)
+    if key in _TURNED:
+        return _TURNED[key]
+    big = img
+    for _ in range(3):
+        big = scale2x(big)
+    S = 8
+    H, W = img.shape[:2]
+    c, s = math.cos(math.radians(deg)), math.sin(math.radians(deg))
+    ax, ay = about[0] - x0, about[1] - y0
+    ends = [(ax + c * (px - ax) + s * (py - ay), ay - s * (px - ax) + c * (py - ay))
+            for px, py in ((0, 0), (W, 0), (0, H), (W, H))]
+    X0, X1 = int(math.floor(min(p[0] for p in ends))) - 1, int(math.ceil(max(p[0] for p in ends))) + 1
+    Y0, Y1 = int(math.floor(min(p[1] for p in ends))) - 1, int(math.ceil(max(p[1] for p in ends))) + 1
+    yy, xx = np.mgrid[Y0:Y1, X0:X1]
+    best = None
+    for oy in range(0, S, 2):
+        for ox in range(0, S, 2):
+            X = xx + (ox + 0.5) / S
+            Y = yy + (oy + 0.5) / S
+            dx, dy = X - ax, Y - ay
+            sx, sy = ax + c * dx - s * dy, ay + s * dx + c * dy
+            bx, by = np.floor(sx * S).astype(int), np.floor(sy * S).astype(int)
+            ok = (bx >= 0) & (bx < W * S) & (by >= 0) & (by < H * S)
+            out = np.zeros(xx.shape + (4,), np.uint8)
+            out[ok] = big[by[ok], bx[ok]]
+            n = int((out[..., 3] > 0).sum())
+            if n and (best is None or n < best[0]):
+                best = (n, out)
+    out = best[1]
+    ys, xs = np.nonzero(out[..., 3] > 0)
+    res = (out[ys.min():ys.max() + 1, xs.min():xs.max() + 1].copy(), x0 + X0 + int(xs.min()), y0 + Y0 + int(ys.min()))
+    _TURNED[key] = res
+    return res
+
+
 def transformed(img, x0, y0, t):
     """A part's picture (top-left x0, y0 in design squares) moved by its transform t: "shear" (whole rows shifted,
-    `shear` columns at the far end from row `pivot`, design rows; `up` for the rows above it), "rot" (quarter turns
-    clockwise on screen about t["about"]), "mirror" (left-right about t["about"]'s column), then (dx, dy)."""
+    `shear` columns at the far end from row `pivot`, design rows; `up` for the rows above it), "deg" (a soft part
+    turned that many degrees counter-clockwise about t["turn_about"], turned_soft), "rot" (quarter turns clockwise on
+    screen about t["about"]), "mirror" (left-right about t["about"]'s column), then (dx, dy)."""
     out, x, y = img, x0, y0
+    if t.get("deg"):
+        out, x, y = turned_soft(out, x, y, t["deg"], t["turn_about"])
     k = t.get("shear", 0)
     if k:
         out, lo = sheared(out, k, t.get("pivot", 0) - y, t.get("up", False), t.get("profile", 1.0))
@@ -320,13 +477,13 @@ def under(d, M, arm):
     """{(x, y): rgba} what shows where `arm` was when it moves: inside the body's silhouette without it (the hull of
     the rest, holes closed), each square the colour of the nearest colour square of the body or the tails; outside it
     nothing (the background)."""
+    if arm == "hair":                                   # the long hair stays where it hangs: a moved copy flows
+        return {(x, y): d[y, x].copy() for y, x in zip(*np.nonzero(M["hair"]))}      # out behind it
     op = d[..., 3] > 0
     hx = hexes(d)
-    rest = op & ~M[arm] if arm != "hair" else op
+    rest = op & ~M[arm]
     hull = ndimage.binary_fill_holes(ndimage.binary_closing(rest, structure=np.ones((3, 3)), iterations=UNDER_CLOSE))
     src = (M["upper"] | M["tails"]) & (hx != OUT_HEX)
-    if arm == "hair":                                   # behind the long hair: more of its own dark locks
-        src = (M["upper"] | M["hair"]) & np.isin(hx, list(HAIR))
     _, (iy, ix) = ndimage.distance_transform_edt(~src, return_indices=True)
     out = {}
     for y, x in zip(*np.nonzero(M[arm] & hull)):
@@ -335,17 +492,18 @@ def under(d, M, arm):
 
 
 # ------------------------------------------------------------------------------------------------ composing
-UPPER = ["tails", "hair", "upper", "arm_far", "arm_near"]      # what "trunk" moves (over the legs)
+UPPER = ["tails", "tails_base", "hair", "upper", "arm_far", "arm_near"]      # what "trunk" moves (over the legs)
 
 
-def compose(d, pieces, pose, legs, unders):
+def compose(d, pieces, pose, legs, unders, lobes=None):
     """pose: {"dx", "dy": the whole figure; "trunk": tails, hair, body and arms over the legs (dx, dy); a part's name: its
-    transform (dx, dy, shear, rot, mirror, about); "legs": {"near" / "far": (hip, knee, ankle)} the legs on bones
-    (Legs.items); "prone": the death on the ground (prone_items)}."""
+    transform (dx, dy, shear, deg, rot, mirror, about; the tails also "close" / "turn": fan()); "legs": {"near" /
+    "far": (hip, knee, ankle)} the legs on bones (Legs.items); "prone": the death on the ground (prone_items)}."""
     f = Frame(d)
     gdx, gdy = pose.get("dx", 0), pose.get("dy", 0)
     items = []
     hide = set()
+    hide |= set(pose.get("hide", ()))
     lg = pose.get("legs")
     if lg:
         hide |= {"leg_near", "leg_far"}
@@ -355,6 +513,16 @@ def compose(d, pieces, pose, legs, unders):
         if name in hide:
             continue
         img, (x0, y0) = pieces[name]
+        tp = pose.get("tails", {})
+        # swung back (counter-clockwise) or closed, the fan would leave her: its base stays and the rest swings over
+        # it; swung up (clockwise) it tucks behind her hair and hips and turns whole
+        if name == "tails" and (tp.get("close") or tp.get("deg", 0) > 0 or tp.get("shear")):
+            bimg, (bx, by) = pieces["tails_base"]
+            items.append((Z["tails"] - 0.5, "tails_base", bimg, bx, by))
+            if tp.get("close"):
+                img, x0, y0 = fan(lobes, tp["close"], tp.get("turn", 0.0))
+            else:
+                img, (x0, y0) = pieces["tails_free"]
         if name == "upper":
             img = img.copy()
             for arm in ("arm_far", "arm_near", "hair"):
@@ -382,14 +550,26 @@ PRONE_PIVOT = (58.0, 58.0)
 # the knee from the turned hip and the ankle from the knee (dx, dy in squares)
 DEAD_LEGS = {"up": ((2, -12), (6, -6)), "flat": ((14, 0), (8, 1))}
 DEAD_TURN = {"up": 2, "flat": 3}                  # the lower leg: upside down (soles to the sky), or lying toes-up
-TAIL_ROOT_AT = (47.0, 62.0)                       # the tails' root, design squares
 
 
 def prone_items(pieces, pr, legs, unders, pose):
     """Items of the body on its back: pr = {"lift": rows off the ground, "dx": columns on, "legs": "up" | "flat"}."""
     group = []
+    hidden = set(pr.get("hide", ()))                    # (the far arm would stand up off her chest)
     for name in ("hair", "upper", "arm_far", "arm_near"):
+        if name in hidden:
+            continue
         img, (x0, y0) = pieces[name]
+        if name == "upper" and hidden:
+            img = img.copy()
+            for arm in hidden:                          # what the hidden arm covered shows; bits only it held go
+                for (x, y), c in unders[arm].items():
+                    img[y - y0, x - x0] = c
+            op = img[..., 3] > 0
+            lbl, n = ndimage.label(op, structure=np.ones((3, 3)))
+            if n > 1:
+                sz = ndimage.sum(op, lbl, range(1, n + 1))
+                img[(lbl != int(np.argmax(sz)) + 1) & op] = 0
         group.append((Z[name], name, img, x0, y0))
     px, py = PRONE_PIVOT
     turned = [(z, n) + transformed(img, x, y, dict(rot=3, about=(px, py))) for z, n, img, x, y in group]
@@ -431,6 +611,17 @@ def tails(k, up=True):
     return {"tails": dict(shear=k, pivot=TAIL_ROOT, up=up, profile=1.3)}
 
 
+FWD = dict(rot=1, about=(70, 41), dy=-1)        # the far arm thrust forward: its forearm turned level, palm out
+
+
+def fwd(dx=0, dy=0):
+    return dict(FWD, dx=FWD.get("dx", 0) + dx, dy=FWD["dy"] + dy)
+
+
+def far(dx=0, dy=0):
+    return dict(dx=dx, dy=dy)
+
+
 # The run (8 frames of 125 ms), the legs half a cycle apart through RUN_PHASE: (thigh, shin) degrees from straight
 # down (+ = forward) and the rows the whole leg is lifted; the planted leg lands ahead, sweeps back under her and
 # pushes off, the free leg kicks its foot up behind and swings its knee forward - the feet cross every half cycle.
@@ -438,8 +629,12 @@ RUN_HIP_X = {"near": 57.0, "far": 59.0}
 RUN_HIP_Y = 56.0
 RUN_LEAN = 1
 RUN_PHASE = [(25, 8, 0), (12, 0, 0), (0, -6, 0), (-14, -16, 0), (-24, -40, 1), (-8, -62, 4), (16, -28, 3), (28, 2, 1)]
-TAILS_RUN = [-4, -6, -5, -3, -4, -6, -5, -3]
-HAIR_RUN = [2, 3, 2, 1, 2, 3, 2, 1]
+# League's run (and her old sheet's): the tails and the hair stream back, the arms held out - the far hand ahead
+RUN_CLOSE = 0.8
+RUN_TURN = [0, 2, 3, 1, 0, 2, 3, 1]              # the bundle's flutter (degrees), lagging the bob
+RUN_HAIR = [-8, -9, -10, -9, -8, -9, -10, -9]
+RUN_FAR = fwd(0)
+RUN_NEAR = far(-3, -1)
 
 
 def run_poses():
@@ -459,8 +654,8 @@ def run_poses():
             knee = hip + lt[key] * np.array((math.sin(th), math.cos(th)))
             ankle = knee + ls[key] * np.array((math.sin(sh), math.cos(sh)))
             lgs[key] = (tuple(hip), tuple(knee), tuple(ankle))
-        out.append(dict(trunk=dict(dx=RUN_LEAN, dy=int(round(hy - RUN_HIP_Y))), legs=lgs,
-                        **sway(TAILS_RUN[i], HAIR_RUN[i])))
+        out.append(dict(trunk=dict(dx=RUN_LEAN, dy=int(round(hy - RUN_HIP_Y))), legs=lgs, arm_far=RUN_FAR,
+                        arm_near=RUN_NEAR, **sway(hk=RUN_HAIR[i], td=RUN_TURN[i], tc=RUN_CLOSE)))
     return out
 
 
@@ -546,39 +741,42 @@ def S(spec, lean=0, sink=0, **kw):
     return out
 
 
-FWD = dict(rot=1, about=(70, 41), dy=-1)        # the far arm thrust forward: its forearm turned level, palm out
-
-
-def fwd(dx=0, dy=0):
-    return dict(FWD, dx=FWD.get("dx", 0) + dx, dy=FWD["dy"] + dy)
-
-
-def far(dx=0, dy=0):
-    return dict(dx=dx, dy=dy)
-
-
 SET = {"near": (0, 0, 0), "far": (0, 0, 0)}       # straight legs
 
 
-IN = dict(dx=-2, dy=3)                          # the far arm drawn in: the hand by her chin, ready to throw
+IN = dict(dx=-1, dy=5)                          # the far arm drawn in: the hand at her chest, ready to throw (any
+#                                                 further west and the fingers' dark edge lies over her face)
 
 
-def sway(tk=0, hk=0):
-    """The tails' tips tk columns and the long hair's ends hk columns from where they hang (right +)."""
+def sway(tk=0, hk=0, td=0, tc=0, ht=0):
+    """The tails' tips tk columns and the long hair's ends hk columns from where they hang (right +); td: the tails'
+    fan turned that many degrees about their root first (+ = counter-clockwise: streaming back), tc: closed that much
+    of the way into the bundle (fan()); ht: a lock of the long hair blown back, turned that many degrees about the back
+    of her head (- = clockwise: streaming behind her; the hair still hangs where it was, under())."""
     out = {}
-    if tk:
+    if tk or td or tc:
         out["tails"] = dict(shear=tk, pivot=TAIL_ROOT, up=True, profile=1.3)
-    if hk:
-        out["hair"] = dict(shear=hk, pivot=HAIR_PIVOT, profile=1.2)
+        if tc:
+            out["tails"].update(close=tc, turn=td)
+        elif td:
+            out["tails"].update(deg=td, turn_about=TAIL_ROOT_AT)
+    if hk or ht:
+        out["hair"] = dict(shear=hk, pivot=HAIR_PIVOT, profile=1.0)
+        if ht:
+            out["hair"].update(deg=ht, turn_about=HAIR_TOP)
     return out
 
 
-HAIR_PIVOT = 40                 # the long hair hangs still above this row
+HAIR_TOP = (50, 26)             # where the long hair leaves the back of her head
 
 
-def Q(dx=0, dy=0, lean=0, far=None, near=None, tk=0, hk=0, legs=None, sink=0, bend=None):
+HAIR_PIVOT = 30                 # the long hair hangs still above this row
+
+
+def Q(dx=0, dy=0, lean=0, far=None, near=None, tk=0, hk=0, legs=None, sink=0, bend=None, td=0, tc=0, ht=0):
     """A pose: the whole figure moved (dx, dy), the upper body `lean` columns over the legs (legs: feet() on bones
-    at those ankles instead of the design's own legs, sinking `sink` rows), the far / near arm's transform, the sway."""
+    at those ankles instead of the design's own legs, sinking `sink` rows), the far / near arm's transform, the sway
+    (td: the tails' fan turned)."""
     out = feet(legs, lean=lean, sink=sink, bend=bend) if legs else ({"trunk": dict(dx=lean)} if lean else {})
     if dx:
         out["dx"] = dx
@@ -588,58 +786,68 @@ def Q(dx=0, dy=0, lean=0, far=None, near=None, tk=0, hk=0, legs=None, sink=0, be
         out["arm_far"] = far
     if near:
         out["arm_near"] = near
-    out.update(sway(tk, hk))
+    out.update(sway(tk, hk, td, tc, ht))
     return out
 
 
+KISS = dict(dy=-2)                               # the far hand by her lips (the design's own, lifted)
+UP = dict(dx=1, dy=-6)                           # the far hand raised by her head
+
+
 POSES = {
-    # the orb flicked from her raised hand (the kit's shot on the 4th frame, 233 ms): she draws the hand in by her
-    # chin and sways back, thrusts the arm out at the foe stepping in, holds, settles
-    "attack": [Q(far=IN, tk=-2, hk=1),
-               Q(lean=-1, far=IN, tk=-6, hk=2),
-               Q(lean=-2, far=dict(IN, dx=-3), tk=-8, hk=2, legs=at(-2, 1), sink=1),
-               Q(lean=2, far=fwd(1), tk=3, hk=-2, legs=at(-3, 3), sink=2),
-               Q(lean=2, far=fwd(1), tk=2, hk=-2, legs=at(-3, 3), sink=2),
-               Q(lean=1, far=far(-1, 1), tk=1, hk=-1),
-               Q(tk=0)],
-    # Orb of Deception (the throw on the 4th frame, 167 ms): she crouches drawing the hand in, springs up, throws in
-    # the air, lands in a lunge and rises
-    "skill": [Q(far=IN, tk=-3, hk=1, legs=at(-1, 1), sink=3),
-              Q(dy=-6, far=dict(IN, dy=1), tk=-7, hk=2),
-              Q(dy=-9, far=dict(IN, dx=-3), tk=-9, hk=3),
-              Q(dy=-7, lean=2, far=fwd(2), tk=4, hk=-2),
-              Q(dy=-4, lean=2, far=fwd(2), tk=3, hk=-2),
-              Q(lean=2, far=fwd(1), tk=2, hk=-1, legs=at(-4, 4), sink=4),
-              Q(far=far(-1, 1), tk=0, legs=at(-2, 2), sink=2),
-              Q(tk=0)],
-    # Charm (the kiss on the 3rd frame, 150 ms): the hand to her lips, the kiss blown out at the foe, held, back
-    "skill2": [Q(far=far(-2, 1), tk=-2, hk=1),
-               Q(lean=-1, far=far(-3, 2), tk=-4, hk=1),
-               Q(lean=1, far=fwd(1), tk=3, hk=-1, legs=at(-2, 2), sink=1),
-               Q(lean=1, far=fwd(1), tk=2, hk=-1, legs=at(-2, 2), sink=1),
-               Q(far=fwd(), tk=1),
-               Q(far=far(-1), tk=0),
-               Q(tk=0)],
-    # Spirit Rush (the dash from the 1st frame): she crouches, dashes low (the tails and hair streaming back), lands
-    "ult": [Q(near=far(-1), tk=-4, hk=1, legs=at(-2, 2), sink=3),
-            Q(lean=3, far=fwd(1), near=far(-2, -1), tk=-11, hk=4, legs=at(-8, 5), sink=4),
-            Q(lean=3, far=fwd(1), near=far(-2, -1), tk=-13, hk=5, legs=at(-8, 5), sink=4),
-            Q(lean=3, far=fwd(1), near=far(-2, -1), tk=-14, hk=5, legs=at(-8, 5), sink=4),
-            Q(lean=3, far=fwd(1), near=far(-2, -1), tk=-13, hk=5, legs=at(-8, 5), sink=4),
-            Q(lean=3, far=fwd(1), near=far(-2, -1), tk=-12, hk=4, legs=at(-8, 5), sink=4),
-            Q(lean=2, near=far(-1), tk=-7, hk=3, legs=at(-4, 4), sink=4),
-            Q(tk=-3, hk=1, legs=at(-2, 2), sink=2),
-            Q(tk=0)],
-    "hit": [Q(dx=-2, tk=4, hk=-2), Q(dx=-1, tk=2, hk=-1)],
-    # struck: knocked back off her feet, she lands and sinks down
-    "dead": [Q(dx=-2, tk=4, hk=-2),
-             Q(dx=-4, dy=-4, tk=6, hk=-3),
-             dict(prone=dict(lift=7, dx=-10, legs="up")),
-             dict(prone=dict(lift=1, dx=-12, legs="up")),
-             dict(prone=dict(lift=0, dx=-12, legs="flat")),
-             dict(prone=dict(lift=1, dx=-12, legs="flat")),
-             dict(prone=dict(lift=0, dx=-12, legs="flat")),
-             dict(prone=dict(lift=0, dx=-12, legs="flat"))],
+    # the orb flicked from her raised hand (the kit's shot on the 4th frame, 233 ms; her old sheet): she draws the hand
+    # in by her chin and sways back (the tails swing back), steps in and thrusts the arm out at the foe (the tails swing
+    # forward), holds, settles
+    "attack": [Q(far=IN, td=6, hk=-1),
+               Q(lean=-2, far=dict(IN, dx=-2), td=12, hk=-2, legs=at(-1, 1), sink=1),
+               Q(lean=-1, far=dict(IN, dx=-2, dy=4), td=14, hk=-3, legs=at(-2, 3), sink=2),
+               Q(lean=3, far=fwd(2), td=-6, hk=2, legs=at(-4, 3), sink=2),
+               Q(lean=3, far=fwd(2), td=-8, hk=2, legs=at(-4, 3), sink=2),
+               Q(lean=1, far=far(-1, 1), td=-3, hk=1, legs=at(-2, 1), sink=1),
+               Q(td=-1)],
+    # Orb of Deception (the throw on the 4th frame, 167 ms; her old sheet: a crouch, a spring up with the hand raised,
+    # the throw in the air, the landing): the tails swing back on the way up and forward with the throw
+    "skill": [Q(far=IN, td=6, legs=at(-1, 1), sink=4),
+              Q(dy=-8, far=UP, td=10, hk=2, legs=at(-4, -2, 6, 4)),
+              Q(dy=-12, far=dict(UP, dy=-7), td=14, hk=3, legs=at(-5, -3, 8, 6)),
+              Q(dy=-10, lean=3, far=fwd(3), td=-6, hk=-2, legs=at(-4, -2, 6, 4)),
+              Q(dy=-6, lean=3, far=fwd(2), td=-8, hk=-2, legs=at(-3, -1, 3, 2)),
+              Q(lean=3, far=fwd(1), td=-4, hk=-1, legs=at(-6, 5), sink=5),
+              Q(far=far(-1, 1), td=-1, legs=at(-3, 3), sink=3),
+              Q()],
+    # Charm (the kiss leaves on the 3rd frame, 150 ms): the hand to her lips, she sways back, then dips forward
+    # blowing the kiss at the foe with the arm out, holds, back
+    "skill2": [Q(far=KISS, td=4),
+               Q(lean=-2, far=KISS, td=10, hk=2, legs=at(-1, 1), sink=1),
+               Q(lean=4, far=fwd(2), td=-6, hk=-2, legs=at(-5, 4), sink=3),
+               Q(lean=4, far=fwd(2), td=-8, hk=-2, legs=at(-5, 4), sink=3),
+               Q(lean=3, far=fwd(1), td=-6, hk=-1, legs=at(-4, 3), sink=2),
+               Q(lean=1, far=far(-1, 1), td=-2, legs=at(-2, 1), sink=1),
+               Q()],
+    # Spirit Rush (the dash from the 1st frame; her old sheet: a leap, five frames flying level, a glide, the landing):
+    # she crouches and springs, flies forward with the far hand reaching out, her legs swept back, the tails closed
+    # into one bundle and a lock of hair streaming behind her, glides down and lands
+    "ult": [Q(lean=2, far=fwd(1), near=far(-2), tc=0.3, td=8, hk=-4, legs=at(-3, 3), sink=4),
+            Q(dy=-8, lean=4, far=fwd(2), near=far(-3, -1), tc=0.8, td=-2, hk=-9, legs=at(-14, -10, 8, 10)),
+            Q(dy=-12, lean=5, far=fwd(2), near=far(-4, -2), tc=1, td=-6, hk=-12, legs=at(-22, -14, 12, 16)),
+            Q(dy=-13, lean=6, far=fwd(3), near=far(-5, -2), tc=1, td=-5, hk=-13, legs=at(-24, -16, 14, 16)),
+            Q(dy=-12, lean=6, far=fwd(3), near=far(-5, -2), tc=1, td=-7, hk=-12, legs=at(-24, -16, 14, 16)),
+            Q(dy=-10, lean=5, far=fwd(2), near=far(-4, -2), tc=1, td=-4, hk=-11, legs=at(-20, -14, 12, 14)),
+            Q(dy=-5, lean=4, far=fwd(2), near=far(-3, -1), tc=0.8, td=0, hk=-8, legs=at(-12, -8, 6, 8)),
+            Q(lean=3, far=fwd(1), near=far(-2), tc=0.4, td=6, hk=-4, legs=at(-5, 4), sink=4),
+            Q(lean=1, far=far(-1, 1), td=3, hk=-1, legs=at(-2, 2), sink=2)],
+    # struck: knocked back, the tails and hair flung forward
+    "hit": [Q(dx=-3, lean=-2, td=-10, hk=3, legs=at(1, -1)), Q(dx=-1, lean=-1, td=-4, hk=1)],
+    # struck (her old sheet): knocked back off her feet, she drops sitting with the tails behind her, props herself up
+    # reaching out, then sinks back and lies on her back, the tails along the ground past her feet
+    "dead": [Q(dx=-2, lean=-2, td=-10, hk=3),
+             Q(dx=-5, dy=-6, lean=-3, td=-16, hk=4, legs=at(4, 6, 6, 4)),
+             Q(dx=-7, dy=-3, lean=-2, td=-12, hk=3, legs=at(6, 8, 8, 6)),
+             dict(Q(dx=-8, dy=24, td=-14, hk=2), hide=["leg_near", "leg_far"]),
+             dict(Q(dx=-8, dy=25, td=-12, hk=1, far=IN), hide=["leg_near", "leg_far"]),
+             dict(Q(dx=-8, dy=23, td=-14, hk=2, far=UP), hide=["leg_near", "leg_far"]),
+             dict(prone=dict(lift=2, dx=-12, legs="flat", hide=["arm_far"], tail_dy=-3)),
+             dict(prone=dict(lift=0, dx=-12, legs="flat", hide=["arm_far"], tail_dy=-3))],
 }
 
 
@@ -675,9 +883,54 @@ def drop_stray_outline(can):
         out[stray] = 0
 
 
+GAP_MOST = 40
+TAIL_RGB = [int(h, 16) for h in TAIL]
+
+
+def close_tail_gaps(can):
+    """Enclosed gaps (up to GAP_MOST squares) that a swung or closed fan opens between the tails and her hair or body,
+    filled square by square with the nearest tails square's colour: the tails stay joined to her."""
+    op = can[..., 3] > 0
+    holes = ndimage.binary_fill_holes(op) & ~op
+    if not holes.any():
+        return can
+    rgb = (can[..., 0].astype(np.int32) << 16) | (can[..., 1].astype(np.int32) << 8) | can[..., 2]
+    tail = op & np.isin(rgb, TAIL_RGB)
+    near = ndimage.binary_dilation(tail, structure=np.ones((3, 3)), iterations=2)
+    _, (iy, ix) = ndimage.distance_transform_edt(~tail, return_indices=True)
+    out = can.copy()
+    lbl, n = ndimage.label(holes)
+    for k in range(1, n + 1):
+        m = lbl == k
+        if m.sum() > GAP_MOST or not (m & near).any():
+            continue
+        out[m] = can[iy[m], ix[m]]
+    return out
+
+
+CHINK_MOST = 12
+
+
+def close_chinks(can):
+    """Any other enclosed chink (up to CHINK_MOST squares) a moved arm leaves against her hair: each square the colour of
+    the nearest drawn square (the standing design has no enclosed gap at all)."""
+    op = can[..., 3] > 0
+    holes = ndimage.binary_fill_holes(op) & ~op
+    if not holes.any():
+        return can
+    _, (iy, ix) = ndimage.distance_transform_edt(~op, return_indices=True)
+    out = can.copy()
+    lbl, n = ndimage.label(holes)
+    for k in range(1, n + 1):
+        m = lbl == k
+        if m.sum() <= CHINK_MOST:
+            out[m] = can[iy[m], ix[m]]
+    return out
+
+
 class AhriRig(R.Rig):
     def finish(self, can):
-        return drop_stray_outline(super().finish(can))
+        return drop_stray_outline(close_chinks(close_tail_gaps(super().finish(close_tail_gaps(can)))))
 
 
 def on_rig(rig, a):
@@ -687,7 +940,9 @@ def on_rig(rig, a):
     Y, X = ys - PAD + rig.oy, xs - PAD + rig.ox
     ok = (Y >= 0) & (Y < can.shape[0]) & (X >= 0) & (X < can.shape[1])
     can[Y[ok], X[ok]] = a[ys[ok], xs[ok]]
+    cut = (can[rig.GY:rig.GY + 1, :, 3] > 0)[0] & (can[rig.GY - 1, :, 3] > 0)
     can[rig.GY:] = 0
+    can[rig.GY - 1, cut] = (*OUTLINE, 255)              # what rests on the ground edged by it (sitting, lying)
     return can
 
 
@@ -698,6 +953,10 @@ class Poser:
         self.pieces = {n: piece(d, m) for n, m in self.M.items()}
         self.unders = {arm: under(d, self.M, arm) for arm in ("arm_far", "arm_near", "hair")}
         self.legs = Legs(d, self.M)
+        self.lobes = tail_lobes(d, self.M["tails"])
+        base = tails_base(self.lobes, self.M["tails"])
+        self.pieces["tails_base"] = piece(soft_base(d, base, self.M["tails"]), base)
+        self.pieces["tails_free"] = piece(d, self.M["tails"] & ~base)
 
     def check(self):
         """Standing, the parts rebuild the design square for square; the parts cover it once."""
@@ -712,7 +971,7 @@ class Poser:
             sys.exit("the standing pose does not rebuild the design")
 
     def frame(self, pose):
-        return compose(self.d, self.pieces, pose, self.legs, self.unders)
+        return compose(self.d, self.pieces, pose, self.legs, self.unders, self.lobes)
 
 
 def frames(rig):
@@ -735,7 +994,7 @@ def frames(rig):
             sys.exit(f"{tag}: {len(poses)} poses for {n} frames")
         fr = [on_rig(rig, ps.frame(p)) for p in poses]
         if tag == "hit":
-            fr[0] = R.flash(fr[0])
+            fr[0] = R.flash(rig.finish(fr[0]))          # (finished first: its gaps are found by the tails' colours)
         out[tag] = list(zip(fr, [m for _, m in sheet[tag]]))
     out["idle"] = [(fr_, m) for fr_, m in out["idle_base"]]
     return {t: out[t] for t in sheet if t in out}
