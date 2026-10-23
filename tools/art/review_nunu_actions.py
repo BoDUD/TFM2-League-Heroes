@@ -3,9 +3,9 @@
 
     python tools/art/review_nunu_actions.py --out DIR [--lol D:/WeGameApps/lol] [--z 4] [--tags attack,skill] [--sheet]
 
-For each tag: League's clip (pose_ref.py, Riot's model with pack_nunu_picture.SKIN - Willump's own map, the hidden
-props hidden; the renders stay in DIR, never committed) sampled at as many frames as the tag has, spread over the clip's
-part named in CLIPS, next to the rig's frame at z screen px a design square, both at the tag's own frame times. Writes
+For each tag: League's frames named in CLIPS - the very frames the poses were drawn after (pose_ref.py, Riot's model
+with pack_nunu_picture.SKIN: Willump's own map, the hidden props hidden; the renders stay in DIR, never committed), one
+beside each of ours, next to the rig's frame at z screen px a design square, both at the tag's own frame times. Writes
 <out>/nunu_<tag>_vs_lol.gif and .png, and <out>/nunu_all_vs_lol.gif: every tag in turn (each played twice), one picture
 to review (memory one-gif-review). 3/4 view (yaw 35) for every tag: the user, 「只做四分之三侧面」.
 --sheet: the exported sheet's hd_ frames (league/champions/league_nunu#sheet.png, what the game draws: after
@@ -25,24 +25,29 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 import ppu_rig as R  # noqa: E402
 import rig_nunu as Z  # noqa: E402
+import pack_nunu_poses as PK  # noqa: E402
 from pack_nunu_picture import SKIN  # noqa: E402
 
-# tag -> (League's clip, from s, to s) - the part of the clip the tag shows
-CLIPS = {"idle": ("Nunu_Idle01", 0, 0.0), "run": ("Nunu_Run01", 0, 0.875), "attack": ("Nunu_Attack01", 0.2, 0.95),
-         "attack_bite": ("Nunu_Spell1", 0.05, 0.3), "skill": ("Nunu_Spell2_In", 0.2, 1.4),
-         "skill_roll": ("Nunu_Spell2", 0.0, 0.4), "skill_hit": ("Nunu_Spell2_Release", 0.1, 0.5),
-         "skill2": ("Nunu_Spell3", 0.0, 0.9), "ult": ("Nunu_Spell4", 1.0, 2.2), "ult_end": ("Nunu_Spell4", 2.5, 2.9),
-         "hit": ("Nunu_Idle01", 0, 0.1), "dead": ("Nunu_Death01", 0.3, 3.0),
-         "bp": ("Nunu_Idle01", 0, 0.0)}           # the ban/pick card's reel (hero_reels; --sheet only)
+# tag -> League's frames shown beside ours (clip@ms, the .anm names), one per frame of ours (the last held for the rest):
+# the very frames the poses were drawn after (pack_nunu_poses.POSES)
+P = {k: v[0] for k, v in PK.POSES.items()}
+CLIPS = {"idle": ["nunu_idle01@0"], "run": [P["run1"], P["run2"], P["run3"], P["run4"]],
+         "attack": [P["a_wind"], P["a_swipe"], P["a_swipe"], "nunu_idle01@0"],
+         "attack_bite": [P["b_open"], P["b_bite"]],
+         "skill": [P["w_pack"], P["w_push1"]], "skill_roll": [P["w_push2"]], "skill_hit": [P["w_hit"]],
+         "skill2": [P["e_throw1"], P["e_throw2"], P["e_throw1"], P["e_throw2"], P["e_throw1"], P["e_throw2"],
+                    "nunu_idle01@0"],
+         "ult": [P["r_raise"]], "ult_end": [P["r_slam"]], "hit": ["nunu_idle01@0"],
+         "dead": [P["d_fall"], P["d_fall"], P["d_lie"]],
+         "bp": ["nunu_idle01@0"]}           # the ban/pick card's reel (hero_reels; --sheet only)
 BG = (96, 112, 96)
 
 
 def lol_frames(lol, tag, n, out):
-    clip, t0, t1 = CLIPS[tag]
-    times = [round(1000 * (t0 + (t1 - t0) * i / max(1, n - 1))) for i in range(n)] if n > 1 else [round(1000 * t0)]
+    want = CLIPS[tag]
     frames = []
-    for t in times:
-        frames += ["--frame", f"{clip.lower()}@{t}"]
+    for i in range(n):
+        frames += ["--frame", want[min(i, len(want) - 1)]]
     name = f"lol_{tag}"
     cmd = [sys.executable, os.path.join(R.ROOT, "tools", "lol", "pose_ref.py"), "--lol", lol, "--champ", "Nunu", "--hq",
            "--yaw", "35", "--mirror", "--size", "300", "--width", "1.6", "--fit", "0.5", "--no-labels", "--name", name,
@@ -143,7 +148,7 @@ def main():
             cell.paste(ref, (0, 18))
             cell.paste(ours, (ref.width + 8, 18))
             d = ImageDraw.Draw(cell)
-            d.text((4, 3), "League " + CLIPS[tag][0], fill=(230, 230, 230))
+            d.text((4, 3), "League " + CLIPS[tag][min(len(cells), len(CLIPS[tag]) - 1)], fill=(230, 230, 230))
             d.text((ref.width + 12, 3), f"ours: {tag}", fill=(230, 230, 230))
             cells.append((cell, ms))
         gif = os.path.join(a.out, f"nunu_{tag}_vs_lol.gif")
