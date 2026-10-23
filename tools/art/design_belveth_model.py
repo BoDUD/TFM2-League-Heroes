@@ -33,7 +33,7 @@ SRC = os.path.join(ROOT, "assets", "source", "belveth", "codex_model", "belveth-
 OUT = os.path.join(ROOT, "assets", "source", "belveth", "hd")
 K = 36
 ROWS = 82    # 40 game px x PPU 1.75 head to claws + the shoulder spikes above (their tips the first row)
-PICK = None
+PICK = "A-1"   # the user's pick 2026-10-24 (both eyes clear): 82 rows, 40 game px head to claws at PPU 1.77 (1.75 asked)
 # take -> (file, square px read at (a little above the measured square), rows to, the box kept whole on the raw canvas)
 DRAFTS = {
     "A-1": ("A-1", 10.0, ROWS, (760, 250, 900, 400)),   # the crest, the eyes and the chin
