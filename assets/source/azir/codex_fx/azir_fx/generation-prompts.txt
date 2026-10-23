@@ -1,0 +1,630 @@
+{
+  "selected": [
+    {
+      "key": "a_bolt",
+      "frames": 4,
+      "cell_1x": [
+        14,
+        8
+      ],
+      "cols": 2,
+      "rows": 2,
+      "symmetry": "top-bottom",
+      "binding": "view_projectiles `league_azir_a_bolt`（弹道，z 2；上下对称）",
+      "loop": true,
+      "reference": "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-23\\new-chat-4\\work\\azir-fx-refs\\a_bolt.png",
+      "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a sun-gold light ramp (#FFFFFF, #FFF8D8, #FFE47A, #F8BC2C, #C47A12), a Shurima sand ramp (#FFFFFF, #FFF2C8, #F2D282, #D8A850, #A87430, #6A4418).\nEffect: A SMALL SAND BOLT, 4 looping frames, flying RIGHT, the trail behind it on the LEFT, SYMMETRIC TOP TO BOTTOM in every frame, square for square (the game turns the picture with its flight, so flying left it is upside down): a white-gold core 4 squares across at the right, a short tapering trail of swirling pale-gold sand grains 9 squares long behind it, the grains moving back frame to frame. everything is the SAND MAGIC of a desert emperor: swirling pale-gold sand, ochre dust, glittering grains, white-gold sun flares and a few teal glints; flat shades, crisp shapes; no fire, no smooth neon beams.\nRAW GENERATION LAYOUT: a precise grid of 2 columns and 2 rows, 4 equal frame cells, read LEFT TO RIGHT then TOP TO BOTTOM. Each cell has logical size 14 x 8 chunky square pixels. Draw frames 1 through 4 in order in those cells; any remaining cell is completely TRANSPARENT and EMPTY. The WHOLE image aspect ratio is 28:16. Use roughly16 image pixels for each logical pixel. Equal cells exactly tiled edge-to-edge, no outer sheet margin, no gutters, borders, frame numbers, labels or grid lines. Each effect is centered within its own cell and must not cross into another cell. Transparent background. This compact raw grid will be unpacked into a horizontal strip later; do NOT draw the final horizontal strip now. The attached image contains official effect texture references only: copy their sand/solar shape families, NOT their smooth shading or labels. Do not draw any champion, soldier, guard, shield object, sun disc object, icons or text. NO BLACK/DARK OUTLINE around any luminous or dusty shape. Keep VFX simple and very BRIGHT in coarse clean pixel clusters.",
+      "path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a16707-9fd1-79c0-91dd-3742c85f9f38\\exec-80eac871-6ea4-4515-9f6f-540b46181e1a.png"
+    },
+    {
+      "key": "a_hit",
+      "frames": 3,
+      "cell_1x": [
+        12,
+        12
+      ],
+      "cols": 3,
+      "rows": 1,
+      "symmetry": "left-right",
+      "binding": "view_effects `league_azir_a_hit`（跟随目标，z 2；左右对称）",
+      "loop": false,
+      "reference": "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-23\\new-chat-4\\work\\azir-fx-refs\\a_hit.png",
+      "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a sun-gold light ramp (#FFFFFF, #FFF8D8, #FFE47A, #F8BC2C, #C47A12), a Shurima sand ramp (#FFFFFF, #FFF2C8, #F2D282, #D8A850, #A87430, #6A4418).\nEffect: A SAND BOLT LANDING, 3 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): 1 a white-gold flash 5 squares across; 2 a ring of pale-gold sand grains bursting out 11 across at mirrored places; 3 the grains further out, fading to ochre. everything is the SAND MAGIC of a desert emperor: swirling pale-gold sand, ochre dust, glittering grains, white-gold sun flares and a few teal glints; flat shades, crisp shapes; no fire, no smooth neon beams.\nRAW GENERATION LAYOUT: a precise grid of 3 columns and 1 rows, 3 equal frame cells, read LEFT TO RIGHT then TOP TO BOTTOM. Each cell has logical size 12 x 12 chunky square pixels. Draw frames 1 through 3 in order in those cells; any remaining cell is completely TRANSPARENT and EMPTY. The WHOLE image aspect ratio is 36:12. Use roughly16 image pixels for each logical pixel. Equal cells exactly tiled edge-to-edge, no outer sheet margin, no gutters, borders, frame numbers, labels or grid lines. Each effect is centered within its own cell and must not cross into another cell. Transparent background. This compact raw grid will be unpacked into a horizontal strip later; do NOT draw the final horizontal strip now. The attached image contains official effect texture references only: copy their sand/solar shape families, NOT their smooth shading or labels. Do not draw any champion, soldier, guard, shield object, sun disc object, icons or text. NO BLACK/DARK OUTLINE around any luminous or dusty shape. Keep VFX simple and very BRIGHT in coarse clean pixel clusters.",
+      "path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a16707-9fd1-79c0-91dd-3742c85f9f38\\exec-f6b64b8d-a65a-4c80-a00c-a9a9eded983d.png",
+      "prompt_used_for_revision": "Edit this generated VFX frame sheet. Preserve its grid layout, frame cell positions and all unmentioned frames. Keep only the supplied sand/gold/cyan palette, hard chunky square pixels and genuine transparent background. NO outlines, extra objects, labels, ground, borders or glow haze. Keep the first TWO frame cells exactly as they are. Replace ONLY the THIRD/rightmost cell with the final FADE frame: absolutely NO central flash, NO vertical streak, NO solid circle, NO big central mound. Only 8-12 LARGE separated ochre/pale-gold square sand grains in mirrored left/right pairs, scattered around the now EMPTY center. Each grain must be a BIG completely OPAQUE square about ONE TWELFTH the cell height (60-75 image pixels on this input). No fine particles. This third frame must look almost dispersed, but visible at12x12 logicalpixel resolution. This is technical final-frame correction for a tiny tactics-game sprite sheet. Draw the replacement with the image generator, not a diagram. Hard opaque color clusters only, no partial transparency on the new grains.",
+      "revision_of": "C:\\Users\\OWNER\\.codex\\generated_images\\01a16707-9fd1-79c0-91dd-3742c85f9f38\\exec-091302a8-2868-40be-b9a6-080e538c4d4f.png"
+    },
+    {
+      "key": "s_spawn",
+      "frames": 5,
+      "cell_1x": [
+        24,
+        12
+      ],
+      "cols": 2,
+      "rows": 3,
+      "symmetry": "left-right",
+      "binding": "view_effects `league_azir_s_spawn`（在沙兵站的地方，地上，z 1，不跟随；左右对称）",
+      "loop": false,
+      "reference": "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-23\\new-chat-4\\work\\azir-fx-refs\\s_spawn.png",
+      "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a Shurima sand ramp (#FFFFFF, #FFF2C8, #F2D282, #D8A850, #A87430, #6A4418), a sun-gold light ramp (#FFFFFF, #FFF8D8, #FFE47A, #F8BC2C, #C47A12), a dull dust ramp (#E8D8B8, #C4A878, #8C7048, #5A4630).\nEffect: SAND RISING, 5 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side), on the GROUND (an ellipse seen from above, three times as wide as tall): 1 a small swirl of pale-gold sand 10 squares wide; 2 the swirl widening to 20, the sand heaping up in the middle into a mound 5 squares tall; 3 the mound at its highest with glittering grains and two white-gold glints jumping up; 4 the mound sinking and spreading; 5 a thin ring of settling dust. No soldier drawn. everything is the SAND MAGIC of a desert emperor: swirling pale-gold sand, ochre dust, glittering grains, white-gold sun flares and a few teal glints; flat shades, crisp shapes; no fire, no smooth neon beams.\nRAW GENERATION LAYOUT: a precise grid of 2 columns and 3 rows, 6 equal frame cells, read LEFT TO RIGHT then TOP TO BOTTOM. Each cell has logical size 24 x 12 chunky square pixels. Draw frames 1 through 5 in order in those cells; any remaining cell is completely TRANSPARENT and EMPTY. The WHOLE image aspect ratio is 48:36. Use roughly16 image pixels for each logical pixel. Equal cells exactly tiled edge-to-edge, no outer sheet margin, no gutters, borders, frame numbers, labels or grid lines. Each effect is centered within its own cell and must not cross into another cell. Transparent background. This compact raw grid will be unpacked into a horizontal strip later; do NOT draw the final horizontal strip now. The attached image contains official effect texture references only: copy their sand/solar shape families, NOT their smooth shading or labels. Do not draw any champion, soldier, guard, shield object, sun disc object, icons or text. NO BLACK/DARK OUTLINE around any luminous or dusty shape. Keep VFX simple and very BRIGHT in coarse clean pixel clusters.",
+      "path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a16707-9fd1-79c0-91dd-3742c85f9f38\\exec-aed415a6-ecc1-426f-a4e6-4ccc18da66ad.png"
+    },
+    {
+      "key": "s_stab",
+      "frames": 4,
+      "cell_1x": [
+        14,
+        30
+      ],
+      "cols": 4,
+      "rows": 1,
+      "symmetry": "left-right",
+      "binding": "view_effects `league_azir_s_stab`（跟随目标，z 3；左右对称）",
+      "loop": false,
+      "reference": "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-23\\new-chat-4\\work\\azir-fx-refs\\s_stab.png",
+      "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a sun-gold light ramp (#FFFFFF, #FFF8D8, #FFE47A, #F8BC2C, #C47A12), a Shurima sand ramp (#FFFFFF, #FFF2C8, #F2D282, #D8A850, #A87430, #6A4418), a teal glint ramp (#FFFFFF, #D4FFFA, #74F0E6, #22B8C8, #106878).\nEffect: A SAND SPEAR STRIKING, 4 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): 1 a vertical gold spear of packed sand 3 squares wide stabbing down from the top of the cell, its leaf-shaped white-gold tip at the target's chest; 2 the tip flashing white with a teal glint; 3 a burst of sand grains around the tip 12 squares across at mirrored places, the spear crumbling into sand from the top; 4 only falling grains. the champion hit stands in the middle, not drawn: 16 squares wide and 36 tall. everything is the SAND MAGIC of a desert emperor: swirling pale-gold sand, ochre dust, glittering grains, white-gold sun flares and a few teal glints; flat shades, crisp shapes; no fire, no smooth neon beams.\nRAW GENERATION LAYOUT: a precise grid of 4 columns and 1 rows, 4 equal frame cells, read LEFT TO RIGHT then TOP TO BOTTOM. Each cell has logical size 14 x 30 chunky square pixels. Draw frames 1 through 4 in order in those cells; any remaining cell is completely TRANSPARENT and EMPTY. The WHOLE image aspect ratio is 56:30. Use roughly16 image pixels for each logical pixel. Equal cells exactly tiled edge-to-edge, no outer sheet margin, no gutters, borders, frame numbers, labels or grid lines. Each effect is centered within its own cell and must not cross into another cell. Transparent background. This compact raw grid will be unpacked into a horizontal strip later; do NOT draw the final horizontal strip now. The attached image contains official effect texture references only: copy their sand/solar shape families, NOT their smooth shading or labels. Do not draw any champion, soldier, guard, shield object, sun disc object, icons or text. NO BLACK/DARK OUTLINE around any luminous or dusty shape. Keep VFX simple and very BRIGHT in coarse clean pixel clusters.",
+      "path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a16707-9fd1-79c0-91dd-3742c85f9f38\\exec-93fe666a-e9bb-48a9-b82b-9cb30e2d831c.png"
+    },
+    {
+      "key": "q_wave",
+      "frames": 4,
+      "cell_1x": [
+        26,
+        12
+      ],
+      "cols": 2,
+      "rows": 2,
+      "symmetry": "top-bottom",
+      "binding": "view_projectiles `league_azir_q_wave`（弹道，z 2；上下对称）",
+      "loop": true,
+      "reference": "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-23\\new-chat-4\\work\\azir-fx-refs\\q_wave.png",
+      "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a Shurima sand ramp (#FFFFFF, #FFF2C8, #F2D282, #D8A850, #A87430, #6A4418), a sun-gold light ramp (#FFFFFF, #FFF8D8, #FFE47A, #F8BC2C, #C47A12), a dull dust ramp (#E8D8B8, #C4A878, #8C7048, #5A4630).\nEffect: A SAND RUSH, 4 looping frames, flying RIGHT, the trail behind it on the LEFT, SYMMETRIC TOP TO BOTTOM in every frame, square for square (the game turns the picture with its flight, so flying left it is upside down): at the right a pointed white-gold head of packed sand 6 squares long, behind it a rolling band of pale-gold and ochre sand 18 squares long, wavy at its edges with glittering grains, the waves rolling back frame to frame. everything is the SAND MAGIC of a desert emperor: swirling pale-gold sand, ochre dust, glittering grains, white-gold sun flares and a few teal glints; flat shades, crisp shapes; no fire, no smooth neon beams.\nRAW GENERATION LAYOUT: a precise grid of 2 columns and 2 rows, 4 equal frame cells, read LEFT TO RIGHT then TOP TO BOTTOM. Each cell has logical size 26 x 12 chunky square pixels. Draw frames 1 through 4 in order in those cells; any remaining cell is completely TRANSPARENT and EMPTY. The WHOLE image aspect ratio is 52:24. Use roughly16 image pixels for each logical pixel. Equal cells exactly tiled edge-to-edge, no outer sheet margin, no gutters, borders, frame numbers, labels or grid lines. Each effect is centered within its own cell and must not cross into another cell. Transparent background. This compact raw grid will be unpacked into a horizontal strip later; do NOT draw the final horizontal strip now. The attached image contains official effect texture references only: copy their sand/solar shape families, NOT their smooth shading or labels. Do not draw any champion, soldier, guard, shield object, sun disc object, icons or text. NO BLACK/DARK OUTLINE around any luminous or dusty shape. Keep VFX simple and very BRIGHT in coarse clean pixel clusters.",
+      "path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a16707-9fd1-79c0-91dd-3742c85f9f38\\exec-a6b163ee-8501-443c-98ac-768c86a0dbaf.png"
+    },
+    {
+      "key": "q_land",
+      "frames": 5,
+      "cell_1x": [
+        36,
+        14
+      ],
+      "cols": 2,
+      "rows": 3,
+      "symmetry": "left-right",
+      "binding": "view_effects `league_azir_q_land`（在落点，地上，z 1，不跟随；左右对称）",
+      "loop": false,
+      "reference": "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-23\\new-chat-4\\work\\azir-fx-refs\\q_land.png",
+      "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a Shurima sand ramp (#FFFFFF, #FFF2C8, #F2D282, #D8A850, #A87430, #6A4418), a sun-gold light ramp (#FFFFFF, #FFF8D8, #FFE47A, #F8BC2C, #C47A12), a dull dust ramp (#E8D8B8, #C4A878, #8C7048, #5A4630).\nEffect: SAND CRASHING DOWN, 5 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side), on the GROUND (an ellipse three times as wide as tall): 1 a white-gold flash 8 squares wide in the middle; 2 a ring of sand spraying out 24 wide with a few short gold rays; 3 the ring at 34 wide, puffs of ochre dust rising at mirrored places; 4 the dust drifting, thinning; 5 a faint ring settling. everything is the SAND MAGIC of a desert emperor: swirling pale-gold sand, ochre dust, glittering grains, white-gold sun flares and a few teal glints; flat shades, crisp shapes; no fire, no smooth neon beams.\nRAW GENERATION LAYOUT: a precise grid of 2 columns and 3 rows, 6 equal frame cells, read LEFT TO RIGHT then TOP TO BOTTOM. Each cell has logical size 36 x 14 chunky square pixels. Draw frames 1 through 5 in order in those cells; any remaining cell is completely TRANSPARENT and EMPTY. The WHOLE image aspect ratio is 72:42. Use roughly16 image pixels for each logical pixel. Equal cells exactly tiled edge-to-edge, no outer sheet margin, no gutters, borders, frame numbers, labels or grid lines. Each effect is centered within its own cell and must not cross into another cell. Transparent background. This compact raw grid will be unpacked into a horizontal strip later; do NOT draw the final horizontal strip now. The attached image contains official effect texture references only: copy their sand/solar shape families, NOT their smooth shading or labels. Do not draw any champion, soldier, guard, shield object, sun disc object, icons or text. NO BLACK/DARK OUTLINE around any luminous or dusty shape. Keep VFX simple and very BRIGHT in coarse clean pixel clusters.",
+      "path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a16707-9fd1-79c0-91dd-3742c85f9f38\\exec-89d68dff-0ba4-402e-a2e2-22aa306a7e9b.png"
+    },
+    {
+      "key": "q_hit",
+      "frames": 4,
+      "cell_1x": [
+        16,
+        18
+      ],
+      "cols": 2,
+      "rows": 2,
+      "symmetry": "left-right",
+      "binding": "view_effects `league_azir_q_hit`（跟随目标，z 2；左右对称）",
+      "loop": false,
+      "reference": "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-23\\new-chat-4\\work\\azir-fx-refs\\q_hit.png",
+      "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a Shurima sand ramp (#FFFFFF, #FFF2C8, #F2D282, #D8A850, #A87430, #6A4418), a sun-gold light ramp (#FFFFFF, #FFF8D8, #FFE47A, #F8BC2C, #C47A12).\nEffect: A SAND RUSH STRIKING, 4 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): 1 a white-gold flash 6 squares across on the target's chest; 2 a burst of pale-gold sand 14 across; 3 sand grains flying out at mirrored places; 4 the grains falling, fading to ochre. the champion hit stands in the middle, not drawn: 16 squares wide and 36 tall. everything is the SAND MAGIC of a desert emperor: swirling pale-gold sand, ochre dust, glittering grains, white-gold sun flares and a few teal glints; flat shades, crisp shapes; no fire, no smooth neon beams.\nRAW GENERATION LAYOUT: a precise grid of 2 columns and 2 rows, 4 equal frame cells, read LEFT TO RIGHT then TOP TO BOTTOM. Each cell has logical size 16 x 18 chunky square pixels. Draw frames 1 through 4 in order in those cells; any remaining cell is completely TRANSPARENT and EMPTY. The WHOLE image aspect ratio is 32:36. Use roughly16 image pixels for each logical pixel. Equal cells exactly tiled edge-to-edge, no outer sheet margin, no gutters, borders, frame numbers, labels or grid lines. Each effect is centered within its own cell and must not cross into another cell. Transparent background. This compact raw grid will be unpacked into a horizontal strip later; do NOT draw the final horizontal strip now. The attached image contains official effect texture references only: copy their sand/solar shape families, NOT their smooth shading or labels. Do not draw any champion, soldier, guard, shield object, sun disc object, icons or text. NO BLACK/DARK OUTLINE around any luminous or dusty shape. Keep VFX simple and very BRIGHT in coarse clean pixel clusters.",
+      "path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a16707-9fd1-79c0-91dd-3742c85f9f38\\exec-b82b3d13-385f-40d3-bb71-e4d9de9fa143.png"
+    },
+    {
+      "key": "slow",
+      "frames": 4,
+      "cell_1x": [
+        16,
+        8
+      ],
+      "cols": 2,
+      "rows": 2,
+      "symmetry": "left-right",
+      "binding": "view_buffs `league_azir_q_slow`（tag `slow`，跟随，脚下，z -1；左右对称）",
+      "loop": true,
+      "reference": "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-23\\new-chat-4\\work\\azir-fx-refs\\slow.png",
+      "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a Shurima sand ramp (#FFFFFF, #FFF2C8, #F2D282, #D8A850, #A87430, #6A4418), a dull dust ramp (#E8D8B8, #C4A878, #8C7048, #5A4630).\nEffect: QUICKSAND, 4 looping frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side), on the GROUND under the feet (an ellipse 14 squares wide and 5 tall): a slowly swirling ring of pale-gold and ochre sand, two sand ripples turning round it at mirrored places. everything is the SAND MAGIC of a desert emperor: swirling pale-gold sand, ochre dust, glittering grains, white-gold sun flares and a few teal glints; flat shades, crisp shapes; no fire, no smooth neon beams.\nRAW GENERATION LAYOUT: a precise grid of 2 columns and 2 rows, 4 equal frame cells, read LEFT TO RIGHT then TOP TO BOTTOM. Each cell has logical size 16 x 8 chunky square pixels. Draw frames 1 through 4 in order in those cells; any remaining cell is completely TRANSPARENT and EMPTY. The WHOLE image aspect ratio is 32:16. Use roughly16 image pixels for each logical pixel. Equal cells exactly tiled edge-to-edge, no outer sheet margin, no gutters, borders, frame numbers, labels or grid lines. Each effect is centered within its own cell and must not cross into another cell. Transparent background. This compact raw grid will be unpacked into a horizontal strip later; do NOT draw the final horizontal strip now. The attached image contains official effect texture references only: copy their sand/solar shape families, NOT their smooth shading or labels. Do not draw any champion, soldier, guard, shield object, sun disc object, icons or text. NO BLACK/DARK OUTLINE around any luminous or dusty shape. Keep VFX simple and very BRIGHT in coarse clean pixel clusters.",
+      "path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a16707-9fd1-79c0-91dd-3742c85f9f38\\exec-12e104eb-5698-48e4-b4d0-1c27d3fdb17e.png"
+    },
+    {
+      "key": "e_shield",
+      "frames": 4,
+      "cell_1x": [
+        40,
+        46
+      ],
+      "cols": 2,
+      "rows": 2,
+      "symmetry": "left-right",
+      "binding": "view_effects `league_azir_e_shield`（在他身上，跟随，z 3；左右对称）",
+      "loop": false,
+      "reference": "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-23\\new-chat-4\\work\\azir-fx-refs\\e_shield.png",
+      "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a Shurima sand ramp (#FFFFFF, #FFF2C8, #F2D282, #D8A850, #A87430, #6A4418), a sun-gold light ramp (#FFFFFF, #FFF8D8, #FFE47A, #F8BC2C, #C47A12), a teal glint ramp (#FFFFFF, #D4FFFA, #74F0E6, #22B8C8, #106878).\nEffect: A SAND SHIELD, 4 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): a shell of swirling pale-gold sand streams around the body, 38 squares wide and 44 tall, a bright white-gold arc along its outer edge, two teal glints at the top and the bottom; the streams turning round frame to frame; the middle 30 x 38 squares left EMPTY for his body. he stands in the middle, not drawn: 34 squares wide and 40 tall (the sceptre not counted). everything is the SAND MAGIC of a desert emperor: swirling pale-gold sand, ochre dust, glittering grains, white-gold sun flares and a few teal glints; flat shades, crisp shapes; no fire, no smooth neon beams.\nRAW GENERATION LAYOUT: a precise grid of 2 columns and 2 rows, 4 equal frame cells, read LEFT TO RIGHT then TOP TO BOTTOM. Each cell has logical size 40 x 46 chunky square pixels. Draw frames 1 through 4 in order in those cells; any remaining cell is completely TRANSPARENT and EMPTY. The WHOLE image aspect ratio is 80:92. Use roughly16 image pixels for each logical pixel. Equal cells exactly tiled edge-to-edge, no outer sheet margin, no gutters, borders, frame numbers, labels or grid lines. Each effect is centered within its own cell and must not cross into another cell. Transparent background. This compact raw grid will be unpacked into a horizontal strip later; do NOT draw the final horizontal strip now. The attached image contains official effect texture references only: copy their sand/solar shape families, NOT their smooth shading or labels. Do not draw any champion, soldier, guard, shield object, sun disc object, icons or text. NO BLACK/DARK OUTLINE around any luminous or dusty shape. Keep VFX simple and very BRIGHT in coarse clean pixel clusters.",
+      "path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a16707-9fd1-79c0-91dd-3742c85f9f38\\exec-887e0335-5d24-4a3f-bd2a-8d58211f2faa.png",
+      "prompt_used_for_revision": "Create ONE pixel-art VFX sheet of FOUR thin SAND SHIELD SHELL frames, a precise2columns x2rows grid. Each cell is40 logical pixels wide x46 tall, the whole sheet80x92 logical pixels. This is low-resolution game art highly enlarged, so only80 square blocks across whole image, NOT many tiny squares. Every logical square should be about16-20 imagepixels. Every cell contains one VERY THIN VERTICAL OVAL RING, outer size38x44, centered with1pixel margin. The interior rectangle30wide x38tall is COMPLETELY EMPTY/TRANSPARENT for a character; no particles, haze or ornament in the middle. A shield made of pale gold SAND, bright white-gold thin arc segments riding around the shell; two tiny teal glints at very TOP and BOTTOM. Four different phases of sand grains rotating along the outer edge, but all share the SAME oval shape, center, width and height. Ring thickness ONLY2 or3 logical pixels, most of each cell empty. Whole oval must be visible and enclosed, particularly top and bottom caps; no oval may touch sheetedge or neighbor. Sand/gold flat colors only #FFFFFF #FFF2C8 #F2D282 #D8A850 #A87430 #FFF8D8 #FFE47A #F8BC2C, teal #D4FFFA #74F0E6 #22B8C8 at the two glints. NO outline, gradient, bloom, blurry halo, shadow, flame, fire, smoke, text, numbers, grid or body. GENUINE transparent PNG. Each ring LEFT-RIGHT SYMMETRIC. Equal cells exactly tiled, no gutters or outer border. Do NOT draw shields as solid objects or metallic medallions. ONLY thin sand/solar magic oval shells.",
+      "revision_of": "original e_shield has thick ring incompatible with30x38 body clearance"
+    },
+    {
+      "key": "e_land",
+      "frames": 5,
+      "cell_1x": [
+        30,
+        24
+      ],
+      "cols": 2,
+      "rows": 3,
+      "symmetry": "left-right",
+      "binding": "view_effects `league_azir_e_land`（在他落地的地方，地上，z 1，不跟随；左右对称）",
+      "loop": false,
+      "reference": "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-23\\new-chat-4\\work\\azir-fx-refs\\e_land.png",
+      "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a Shurima sand ramp (#FFFFFF, #FFF2C8, #F2D282, #D8A850, #A87430, #6A4418), a sun-gold light ramp (#FFFFFF, #FFF8D8, #FFE47A, #F8BC2C, #C47A12), a dull dust ramp (#E8D8B8, #C4A878, #8C7048, #5A4630).\nEffect: A SAND GEYSER, 5 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): 1 a ring of sand on the ground 16 wide (an ellipse); 2 columns of sand bursting up 16 squares tall around the ring with a white-gold flash in the middle; 3 the columns at their highest, grains flying out at mirrored places; 4 the sand falling back; 5 a ring of settling dust 28 wide. everything is the SAND MAGIC of a desert emperor: swirling pale-gold sand, ochre dust, glittering grains, white-gold sun flares and a few teal glints; flat shades, crisp shapes; no fire, no smooth neon beams.\nRAW GENERATION LAYOUT: a precise grid of 2 columns and 3 rows, 6 equal frame cells, read LEFT TO RIGHT then TOP TO BOTTOM. Each cell has logical size 30 x 24 chunky square pixels. Draw frames 1 through 5 in order in those cells; any remaining cell is completely TRANSPARENT and EMPTY. The WHOLE image aspect ratio is 60:72. Use roughly16 image pixels for each logical pixel. Equal cells exactly tiled edge-to-edge, no outer sheet margin, no gutters, borders, frame numbers, labels or grid lines. Each effect is centered within its own cell and must not cross into another cell. Transparent background. This compact raw grid will be unpacked into a horizontal strip later; do NOT draw the final horizontal strip now. The attached image contains official effect texture references only: copy their sand/solar shape families, NOT their smooth shading or labels. Do not draw any champion, soldier, guard, shield object, sun disc object, icons or text. NO BLACK/DARK OUTLINE around any luminous or dusty shape. Keep VFX simple and very BRIGHT in coarse clean pixel clusters.",
+      "path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a16707-9fd1-79c0-91dd-3742c85f9f38\\exec-02811f4c-cb0f-424d-9a8e-d36ec418db5a.png"
+    },
+    {
+      "key": "e_hit",
+      "frames": 4,
+      "cell_1x": [
+        16,
+        20
+      ],
+      "cols": 2,
+      "rows": 2,
+      "symmetry": "left-right",
+      "binding": "view_effects `league_azir_e_hit`（跟随目标，z 2；左右对称）",
+      "loop": false,
+      "reference": "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-23\\new-chat-4\\work\\azir-fx-refs\\e_hit.png",
+      "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a Shurima sand ramp (#FFFFFF, #FFF2C8, #F2D282, #D8A850, #A87430, #6A4418), a sun-gold light ramp (#FFFFFF, #FFF8D8, #FFE47A, #F8BC2C, #C47A12).\nEffect: A SAND DASH STRIKING, 4 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): 1 a white-gold flash on the target's chest; 2 a burst of sand 14 across with four short gold rays at mirrored angles; 3 the sand flying out; 4 the grains falling. the champion hit stands in the middle, not drawn: 16 squares wide and 36 tall. everything is the SAND MAGIC of a desert emperor: swirling pale-gold sand, ochre dust, glittering grains, white-gold sun flares and a few teal glints; flat shades, crisp shapes; no fire, no smooth neon beams.\nRAW GENERATION LAYOUT: a precise grid of 2 columns and 2 rows, 4 equal frame cells, read LEFT TO RIGHT then TOP TO BOTTOM. Each cell has logical size 16 x 20 chunky square pixels. Draw frames 1 through 4 in order in those cells; any remaining cell is completely TRANSPARENT and EMPTY. The WHOLE image aspect ratio is 32:40. Use roughly16 image pixels for each logical pixel. Equal cells exactly tiled edge-to-edge, no outer sheet margin, no gutters, borders, frame numbers, labels or grid lines. Each effect is centered within its own cell and must not cross into another cell. Transparent background. This compact raw grid will be unpacked into a horizontal strip later; do NOT draw the final horizontal strip now. The attached image contains official effect texture references only: copy their sand/solar shape families, NOT their smooth shading or labels. Do not draw any champion, soldier, guard, shield object, sun disc object, icons or text. NO BLACK/DARK OUTLINE around any luminous or dusty shape. Keep VFX simple and very BRIGHT in coarse clean pixel clusters.",
+      "path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a16707-9fd1-79c0-91dd-3742c85f9f38\\exec-2b5bc92e-01fc-4c24-97f5-0d4c03e0595d.png"
+    },
+    {
+      "key": "r_rise",
+      "frames": 6,
+      "cell_1x": [
+        70,
+        30
+      ],
+      "cols": 2,
+      "rows": 3,
+      "symmetry": "left-right",
+      "binding": "view_effects `league_azir_r_rise`（大表，在他前面，地上，z 1，不跟随；左右对称）",
+      "loop": false,
+      "reference": "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-23\\new-chat-4\\work\\azir-fx-refs\\r_rise.png",
+      "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a Shurima sand ramp (#FFFFFF, #FFF2C8, #F2D282, #D8A850, #A87430, #6A4418), a sun-gold light ramp (#FFFFFF, #FFF8D8, #FFE47A, #F8BC2C, #C47A12), a dull dust ramp (#E8D8B8, #C4A878, #8C7048, #5A4630).\nEffect: A WALL OF SAND RISING, 6 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): 1 a long line of churning sand on the ground 60 squares wide and 4 tall; 2 the sand surging up into a ragged wall 14 squares tall all along the line, white-gold glints on its crest; 3 the wall at its highest, 24 tall, grains blowing off its top; 4 the wall breaking apart into sand curtains; 5 the curtains falling; 6 a long low band of settling dust. No soldiers drawn. everything is the SAND MAGIC of a desert emperor: swirling pale-gold sand, ochre dust, glittering grains, white-gold sun flares and a few teal glints; flat shades, crisp shapes; no fire, no smooth neon beams.\nRAW GENERATION LAYOUT: a precise grid of 2 columns and 3 rows, 6 equal frame cells, read LEFT TO RIGHT then TOP TO BOTTOM. Each cell has logical size 70 x 30 chunky square pixels. Draw frames 1 through 6 in order in those cells; any remaining cell is completely TRANSPARENT and EMPTY. The WHOLE image aspect ratio is 140:90. Use roughly16 image pixels for each logical pixel. Equal cells exactly tiled edge-to-edge, no outer sheet margin, no gutters, borders, frame numbers, labels or grid lines. Each effect is centered within its own cell and must not cross into another cell. Transparent background. This compact raw grid will be unpacked into a horizontal strip later; do NOT draw the final horizontal strip now. The attached image contains official effect texture references only: copy their sand/solar shape families, NOT their smooth shading or labels. Do not draw any champion, soldier, guard, shield object, sun disc object, icons or text. NO BLACK/DARK OUTLINE around any luminous or dusty shape. Keep VFX simple and very BRIGHT in coarse clean pixel clusters.",
+      "path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a16707-9fd1-79c0-91dd-3742c85f9f38\\exec-bbb519e4-96fa-47a4-81b4-4256d0a04441.png"
+    },
+    {
+      "key": "r_dust",
+      "frames": 4,
+      "cell_1x": [
+        30,
+        12
+      ],
+      "cols": 2,
+      "rows": 2,
+      "symmetry": "left-right",
+      "binding": "view_effects `league_azir_r_dust`（在冲锋的禁军脚下，地上，z 1，不跟随；左右对称）",
+      "loop": false,
+      "reference": "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-23\\new-chat-4\\work\\azir-fx-refs\\r_dust.png",
+      "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a Shurima sand ramp (#FFFFFF, #FFF2C8, #F2D282, #D8A850, #A87430, #6A4418), a dull dust ramp (#E8D8B8, #C4A878, #8C7048, #5A4630).\nEffect: CHARGE DUST, 4 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side), on the GROUND: 1 two puffs of ochre and pale-gold dust 8 squares wide at mirrored places; 2 the puffs growing and rising to 10 squares tall with grains kicked up; 3 the puffs drifting apart, thinning; 4 faint wisps. everything is the SAND MAGIC of a desert emperor: swirling pale-gold sand, ochre dust, glittering grains, white-gold sun flares and a few teal glints; flat shades, crisp shapes; no fire, no smooth neon beams.\nRAW GENERATION LAYOUT: a precise grid of 2 columns and 2 rows, 4 equal frame cells, read LEFT TO RIGHT then TOP TO BOTTOM. Each cell has logical size 30 x 12 chunky square pixels. Draw frames 1 through 4 in order in those cells; any remaining cell is completely TRANSPARENT and EMPTY. The WHOLE image aspect ratio is 60:24. Use roughly16 image pixels for each logical pixel. Equal cells exactly tiled edge-to-edge, no outer sheet margin, no gutters, borders, frame numbers, labels or grid lines. Each effect is centered within its own cell and must not cross into another cell. Transparent background. This compact raw grid will be unpacked into a horizontal strip later; do NOT draw the final horizontal strip now. The attached image contains official effect texture references only: copy their sand/solar shape families, NOT their smooth shading or labels. Do not draw any champion, soldier, guard, shield object, sun disc object, icons or text. NO BLACK/DARK OUTLINE around any luminous or dusty shape. Keep VFX simple and very BRIGHT in coarse clean pixel clusters.",
+      "path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a16707-9fd1-79c0-91dd-3742c85f9f38\\exec-86bfda54-1d4d-475a-93bd-a0e25f1185bd.png"
+    },
+    {
+      "key": "r_hit",
+      "frames": 4,
+      "cell_1x": [
+        18,
+        22
+      ],
+      "cols": 2,
+      "rows": 2,
+      "symmetry": "left-right",
+      "binding": "view_effects `league_azir_r_hit`（跟随目标，z 2；左右对称）",
+      "loop": false,
+      "reference": "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-23\\new-chat-4\\work\\azir-fx-refs\\r_hit.png",
+      "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a sun-gold light ramp (#FFFFFF, #FFF8D8, #FFE47A, #F8BC2C, #C47A12), a Shurima sand ramp (#FFFFFF, #FFF2C8, #F2D282, #D8A850, #A87430, #6A4418).\nEffect: A SHIELD SLAM, 4 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): 1 a big white-gold impact flash 10 squares across on the target's chest; 2 a star of six short gold rays 18 across at mirrored angles with sand bursting between them; 3 the sand flying out; 4 the grains falling, fading to ochre. the champion hit stands in the middle, not drawn: 16 squares wide and 36 tall. everything is the SAND MAGIC of a desert emperor: swirling pale-gold sand, ochre dust, glittering grains, white-gold sun flares and a few teal glints; flat shades, crisp shapes; no fire, no smooth neon beams.\nRAW GENERATION LAYOUT: a precise grid of 2 columns and 2 rows, 4 equal frame cells, read LEFT TO RIGHT then TOP TO BOTTOM. Each cell has logical size 18 x 22 chunky square pixels. Draw frames 1 through 4 in order in those cells; any remaining cell is completely TRANSPARENT and EMPTY. The WHOLE image aspect ratio is 36:44. Use roughly16 image pixels for each logical pixel. Equal cells exactly tiled edge-to-edge, no outer sheet margin, no gutters, borders, frame numbers, labels or grid lines. Each effect is centered within its own cell and must not cross into another cell. Transparent background. This compact raw grid will be unpacked into a horizontal strip later; do NOT draw the final horizontal strip now. The attached image contains official effect texture references only: copy their sand/solar shape families, NOT their smooth shading or labels. Do not draw any champion, soldier, guard, shield object, sun disc object, icons or text. NO BLACK/DARK OUTLINE around any luminous or dusty shape. Keep VFX simple and very BRIGHT in coarse clean pixel clusters.",
+      "path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a16707-9fd1-79c0-91dd-3742c85f9f38\\exec-9825380a-001b-4e2e-93f5-2a04bc4400d8.png",
+      "prompt_used_for_revision": "Edit this generated VFX frame sheet. Preserve its grid layout, frame cell positions and all unmentioned frames. Keep only the supplied sand/gold/cyan palette, hard chunky square pixels and genuine transparent background. NO outlines, extra objects, labels, ground, borders or glow haze. Keep the first THREE cells unchanged. Replace ONLY frame4, the BOTTOM RIGHT quarter cell. It is the final falling-grains frame, not an impact flare. Draw 8-12 LARGE fully OPAQUE square sand grains at mirrored left/right places. Every grain is about ONE EIGHTEENTH the cell width (32-45imagepixels here), no tiny dots. The grain clusters fall mostly in lower two-thirds, empty middle and top, gold/ochre/sand tones with a few pale highlights. No rays, no core, no glowing haze. Must remain visible after reading this cell to18x22 logicalpixels. This is technical final-frame correction for a tiny tactics-game sprite sheet. Draw the replacement with the image generator, not a diagram. Hard opaque color clusters only, no partial transparency on the new grains.",
+      "revision_of": "C:\\Users\\OWNER\\.codex\\generated_images\\01a16707-9fd1-79c0-91dd-3742c85f9f38\\exec-dfa072bc-458e-4a50-909e-5d49da7f3856.png"
+    },
+    {
+      "key": "d_rise",
+      "frames": 6,
+      "cell_1x": [
+        56,
+        26
+      ],
+      "cols": 2,
+      "rows": 3,
+      "symmetry": "left-right",
+      "binding": "view_effects `league_azir_d_rise`（大表，在我方塔的废墟上，地上，z 1，不跟随；左右对称；附加包放）",
+      "loop": false,
+      "reference": "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-23\\new-chat-4\\work\\azir-fx-refs\\d_rise.png",
+      "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a Shurima sand ramp (#FFFFFF, #FFF2C8, #F2D282, #D8A850, #A87430, #6A4418), a sun-gold light ramp (#FFFFFF, #FFF8D8, #FFE47A, #F8BC2C, #C47A12), a teal glint ramp (#FFFFFF, #D4FFFA, #74F0E6, #22B8C8, #106878).\nEffect: THE SUN DISC RISING, 6 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): 1 a wide swirl of sand on the ground 30 squares across (an ellipse); 2 the swirl at 50 across, a column of white-gold light 6 wide shooting up from its middle to the top of the cell; 3 the light at its brightest with teal glints, sand spraying out at mirrored places; 4 the column thinning; 5 the sand settling in a ring; 6 a faint gold ring. No disc drawn. everything is the SAND MAGIC of a desert emperor: swirling pale-gold sand, ochre dust, glittering grains, white-gold sun flares and a few teal glints; flat shades, crisp shapes; no fire, no smooth neon beams.\nRAW GENERATION LAYOUT: a precise grid of 2 columns and 3 rows, 6 equal frame cells, read LEFT TO RIGHT then TOP TO BOTTOM. Each cell has logical size 56 x 26 chunky square pixels. Draw frames 1 through 6 in order in those cells; any remaining cell is completely TRANSPARENT and EMPTY. The WHOLE image aspect ratio is 112:78. Use roughly16 image pixels for each logical pixel. Equal cells exactly tiled edge-to-edge, no outer sheet margin, no gutters, borders, frame numbers, labels or grid lines. Each effect is centered within its own cell and must not cross into another cell. Transparent background. This compact raw grid will be unpacked into a horizontal strip later; do NOT draw the final horizontal strip now. The attached image contains official effect texture references only: copy their sand/solar shape families, NOT their smooth shading or labels. Do not draw any champion, soldier, guard, shield object, sun disc object, icons or text. NO BLACK/DARK OUTLINE around any luminous or dusty shape. Keep VFX simple and very BRIGHT in coarse clean pixel clusters.",
+      "path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a16707-9fd1-79c0-91dd-3742c85f9f38\\exec-03f305a0-4b42-4cb4-9512-7f4ba8efed71.png"
+    },
+    {
+      "key": "d_beam",
+      "frames": 5,
+      "cell_1x": [
+        16,
+        60
+      ],
+      "cols": 5,
+      "rows": 1,
+      "symmetry": "left-right",
+      "binding": "view_effects `league_azir_d_beam`（大表，跟随目标，z 3；左右对称；附加包放）",
+      "loop": false,
+      "reference": "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-23\\new-chat-4\\work\\azir-fx-refs\\d_beam.png",
+      "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a sun-gold light ramp (#FFFFFF, #FFF8D8, #FFE47A, #F8BC2C, #C47A12), a teal glint ramp (#FFFFFF, #D4FFFA, #74F0E6, #22B8C8, #106878).\nEffect: A SOLAR RAY, 5 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): 1 a thin white-gold line 2 squares wide from the top of the cell down to the target's chest; 2 the ray 8 squares wide, a white core and sun-gold edges, a flash where it lands; 3 the ray at its widest, 12, a ring of gold light 14 across at its foot with two teal glints; 4 the ray thinning; 5 sparks fading at the foot. the champion hit stands in the middle, not drawn: 16 squares wide and 36 tall at the bottom of the cell. everything is the SAND MAGIC of a desert emperor: swirling pale-gold sand, ochre dust, glittering grains, white-gold sun flares and a few teal glints; flat shades, crisp shapes; no fire, no smooth neon beams.\nRAW GENERATION LAYOUT: a precise grid of 5 columns and 1 rows, 5 equal frame cells, read LEFT TO RIGHT then TOP TO BOTTOM. Each cell has logical size 16 x 60 chunky square pixels. Draw frames 1 through 5 in order in those cells; any remaining cell is completely TRANSPARENT and EMPTY. The WHOLE image aspect ratio is 80:60. Use roughly16 image pixels for each logical pixel. Equal cells exactly tiled edge-to-edge, no outer sheet margin, no gutters, borders, frame numbers, labels or grid lines. Each effect is centered within its own cell and must not cross into another cell. Transparent background. This compact raw grid will be unpacked into a horizontal strip later; do NOT draw the final horizontal strip now. The attached image contains official effect texture references only: copy their sand/solar shape families, NOT their smooth shading or labels. Do not draw any champion, soldier, guard, shield object, sun disc object, icons or text. NO BLACK/DARK OUTLINE around any luminous or dusty shape. Keep VFX simple and very BRIGHT in coarse clean pixel clusters.",
+      "path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a16707-9fd1-79c0-91dd-3742c85f9f38\\exec-d7327d09-16ac-4804-b2b9-f6a258d4bc51.png",
+      "prompt_used_for_revision": "Edit this generated VFX frame sheet. Preserve its grid layout, frame cell positions and all unmentioned frames. Keep only the supplied sand/gold/cyan palette, hard chunky square pixels and genuine transparent background. NO outlines, extra objects, labels, ground, borders or glow haze. Keep the first FOUR cells unchanged. Correct ONLY the FIFTH/rightmost cell, the final fading frame. REMOVE THE ENTIRE VERTICAL BEAM from this cell. Its TOP EIGHTY PERCENT must be completely TRANSPARENT, not a thin line, dots or streak. At BOTTOM only, leave a small elliptical gold impact ring and 6-8 LARGE fully OPAQUE golden square sparks plus two cyan glints. No beam above that ring. Every surviving grain is about1/16 the cellwidth, clear large blocks. Last cell should be sparse and low, clearly different from frame4. This is technical final-frame correction for a tiny tactics-game sprite sheet. Draw the replacement with the image generator, not a diagram. Hard opaque color clusters only, no partial transparency on the new grains.",
+      "revision_of": "C:\\Users\\OWNER\\.codex\\generated_images\\01a16707-9fd1-79c0-91dd-3742c85f9f38\\exec-61d1ff0b-64c7-4a4c-a137-d3e8493c3bd3.png"
+    },
+    {
+      "key": "d_glow",
+      "frames": 6,
+      "cell_1x": [
+        40,
+        14
+      ],
+      "cols": 2,
+      "rows": 3,
+      "symmetry": "left-right",
+      "binding": "view_effects `league_azir_d_glow`（在圆盘脚下，地上，z -1，不跟随；左右对称；附加包放）",
+      "loop": true,
+      "reference": "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-23\\new-chat-4\\work\\azir-fx-refs\\d_glow.png",
+      "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a sun-gold light ramp (#FFFFFF, #FFF8D8, #FFE47A, #F8BC2C, #C47A12), a Shurima sand ramp (#FFFFFF, #FFF2C8, #F2D282, #D8A850, #A87430, #6A4418).\nEffect: A SOLAR RING, 6 looping frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side), on the GROUND (an ellipse 38 squares wide and 12 tall): a thin ring of sun-gold light with four short rays pointing out at mirrored angles, glittering grains drifting round it, the ring brightening and dimming. everything is the SAND MAGIC of a desert emperor: swirling pale-gold sand, ochre dust, glittering grains, white-gold sun flares and a few teal glints; flat shades, crisp shapes; no fire, no smooth neon beams.\nRAW GENERATION LAYOUT: a precise grid of 2 columns and 3 rows, 6 equal frame cells, read LEFT TO RIGHT then TOP TO BOTTOM. Each cell has logical size 40 x 14 chunky square pixels. Draw frames 1 through 6 in order in those cells; any remaining cell is completely TRANSPARENT and EMPTY. The WHOLE image aspect ratio is 80:42. Use roughly16 image pixels for each logical pixel. Equal cells exactly tiled edge-to-edge, no outer sheet margin, no gutters, borders, frame numbers, labels or grid lines. Each effect is centered within its own cell and must not cross into another cell. Transparent background. This compact raw grid will be unpacked into a horizontal strip later; do NOT draw the final horizontal strip now. The attached image contains official effect texture references only: copy their sand/solar shape families, NOT their smooth shading or labels. Do not draw any champion, soldier, guard, shield object, sun disc object, icons or text. NO BLACK/DARK OUTLINE around any luminous or dusty shape. Keep VFX simple and very BRIGHT in coarse clean pixel clusters.",
+      "path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a16707-9fd1-79c0-91dd-3742c85f9f38\\exec-17e94d74-f53b-4518-908e-b8683a46e1a9.png"
+    }
+  ],
+  "all_attempts": [
+    {
+      "key": "a_bolt",
+      "frames": 4,
+      "cell_1x": [
+        14,
+        8
+      ],
+      "cols": 2,
+      "rows": 2,
+      "symmetry": "top-bottom",
+      "binding": "view_projectiles `league_azir_a_bolt`（弹道，z 2；上下对称）",
+      "loop": true,
+      "reference": "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-23\\new-chat-4\\work\\azir-fx-refs\\a_bolt.png",
+      "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a sun-gold light ramp (#FFFFFF, #FFF8D8, #FFE47A, #F8BC2C, #C47A12), a Shurima sand ramp (#FFFFFF, #FFF2C8, #F2D282, #D8A850, #A87430, #6A4418).\nEffect: A SMALL SAND BOLT, 4 looping frames, flying RIGHT, the trail behind it on the LEFT, SYMMETRIC TOP TO BOTTOM in every frame, square for square (the game turns the picture with its flight, so flying left it is upside down): a white-gold core 4 squares across at the right, a short tapering trail of swirling pale-gold sand grains 9 squares long behind it, the grains moving back frame to frame. everything is the SAND MAGIC of a desert emperor: swirling pale-gold sand, ochre dust, glittering grains, white-gold sun flares and a few teal glints; flat shades, crisp shapes; no fire, no smooth neon beams.\nRAW GENERATION LAYOUT: a precise grid of 2 columns and 2 rows, 4 equal frame cells, read LEFT TO RIGHT then TOP TO BOTTOM. Each cell has logical size 14 x 8 chunky square pixels. Draw frames 1 through 4 in order in those cells; any remaining cell is completely TRANSPARENT and EMPTY. The WHOLE image aspect ratio is 28:16. Use roughly16 image pixels for each logical pixel. Equal cells exactly tiled edge-to-edge, no outer sheet margin, no gutters, borders, frame numbers, labels or grid lines. Each effect is centered within its own cell and must not cross into another cell. Transparent background. This compact raw grid will be unpacked into a horizontal strip later; do NOT draw the final horizontal strip now. The attached image contains official effect texture references only: copy their sand/solar shape families, NOT their smooth shading or labels. Do not draw any champion, soldier, guard, shield object, sun disc object, icons or text. NO BLACK/DARK OUTLINE around any luminous or dusty shape. Keep VFX simple and very BRIGHT in coarse clean pixel clusters.",
+      "path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a16707-9fd1-79c0-91dd-3742c85f9f38\\exec-80eac871-6ea4-4515-9f6f-540b46181e1a.png"
+    },
+    {
+      "key": "a_hit",
+      "frames": 3,
+      "cell_1x": [
+        12,
+        12
+      ],
+      "cols": 3,
+      "rows": 1,
+      "symmetry": "left-right",
+      "binding": "view_effects `league_azir_a_hit`（跟随目标，z 2；左右对称）",
+      "loop": false,
+      "reference": "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-23\\new-chat-4\\work\\azir-fx-refs\\a_hit.png",
+      "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a sun-gold light ramp (#FFFFFF, #FFF8D8, #FFE47A, #F8BC2C, #C47A12), a Shurima sand ramp (#FFFFFF, #FFF2C8, #F2D282, #D8A850, #A87430, #6A4418).\nEffect: A SAND BOLT LANDING, 3 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): 1 a white-gold flash 5 squares across; 2 a ring of pale-gold sand grains bursting out 11 across at mirrored places; 3 the grains further out, fading to ochre. everything is the SAND MAGIC of a desert emperor: swirling pale-gold sand, ochre dust, glittering grains, white-gold sun flares and a few teal glints; flat shades, crisp shapes; no fire, no smooth neon beams.\nRAW GENERATION LAYOUT: a precise grid of 3 columns and 1 rows, 3 equal frame cells, read LEFT TO RIGHT then TOP TO BOTTOM. Each cell has logical size 12 x 12 chunky square pixels. Draw frames 1 through 3 in order in those cells; any remaining cell is completely TRANSPARENT and EMPTY. The WHOLE image aspect ratio is 36:12. Use roughly16 image pixels for each logical pixel. Equal cells exactly tiled edge-to-edge, no outer sheet margin, no gutters, borders, frame numbers, labels or grid lines. Each effect is centered within its own cell and must not cross into another cell. Transparent background. This compact raw grid will be unpacked into a horizontal strip later; do NOT draw the final horizontal strip now. The attached image contains official effect texture references only: copy their sand/solar shape families, NOT their smooth shading or labels. Do not draw any champion, soldier, guard, shield object, sun disc object, icons or text. NO BLACK/DARK OUTLINE around any luminous or dusty shape. Keep VFX simple and very BRIGHT in coarse clean pixel clusters.",
+      "path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a16707-9fd1-79c0-91dd-3742c85f9f38\\exec-091302a8-2868-40be-b9a6-080e538c4d4f.png"
+    },
+    {
+      "key": "d_beam",
+      "frames": 5,
+      "cell_1x": [
+        16,
+        60
+      ],
+      "cols": 5,
+      "rows": 1,
+      "symmetry": "left-right",
+      "binding": "view_effects `league_azir_d_beam`（大表，跟随目标，z 3；左右对称；附加包放）",
+      "loop": false,
+      "reference": "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-23\\new-chat-4\\work\\azir-fx-refs\\d_beam.png",
+      "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a sun-gold light ramp (#FFFFFF, #FFF8D8, #FFE47A, #F8BC2C, #C47A12), a teal glint ramp (#FFFFFF, #D4FFFA, #74F0E6, #22B8C8, #106878).\nEffect: A SOLAR RAY, 5 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): 1 a thin white-gold line 2 squares wide from the top of the cell down to the target's chest; 2 the ray 8 squares wide, a white core and sun-gold edges, a flash where it lands; 3 the ray at its widest, 12, a ring of gold light 14 across at its foot with two teal glints; 4 the ray thinning; 5 sparks fading at the foot. the champion hit stands in the middle, not drawn: 16 squares wide and 36 tall at the bottom of the cell. everything is the SAND MAGIC of a desert emperor: swirling pale-gold sand, ochre dust, glittering grains, white-gold sun flares and a few teal glints; flat shades, crisp shapes; no fire, no smooth neon beams.\nRAW GENERATION LAYOUT: a precise grid of 5 columns and 1 rows, 5 equal frame cells, read LEFT TO RIGHT then TOP TO BOTTOM. Each cell has logical size 16 x 60 chunky square pixels. Draw frames 1 through 5 in order in those cells; any remaining cell is completely TRANSPARENT and EMPTY. The WHOLE image aspect ratio is 80:60. Use roughly16 image pixels for each logical pixel. Equal cells exactly tiled edge-to-edge, no outer sheet margin, no gutters, borders, frame numbers, labels or grid lines. Each effect is centered within its own cell and must not cross into another cell. Transparent background. This compact raw grid will be unpacked into a horizontal strip later; do NOT draw the final horizontal strip now. The attached image contains official effect texture references only: copy their sand/solar shape families, NOT their smooth shading or labels. Do not draw any champion, soldier, guard, shield object, sun disc object, icons or text. NO BLACK/DARK OUTLINE around any luminous or dusty shape. Keep VFX simple and very BRIGHT in coarse clean pixel clusters.",
+      "path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a16707-9fd1-79c0-91dd-3742c85f9f38\\exec-61d1ff0b-64c7-4a4c-a137-d3e8493c3bd3.png"
+    },
+    {
+      "key": "d_glow",
+      "frames": 6,
+      "cell_1x": [
+        40,
+        14
+      ],
+      "cols": 2,
+      "rows": 3,
+      "symmetry": "left-right",
+      "binding": "view_effects `league_azir_d_glow`（在圆盘脚下，地上，z -1，不跟随；左右对称；附加包放）",
+      "loop": true,
+      "reference": "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-23\\new-chat-4\\work\\azir-fx-refs\\d_glow.png",
+      "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a sun-gold light ramp (#FFFFFF, #FFF8D8, #FFE47A, #F8BC2C, #C47A12), a Shurima sand ramp (#FFFFFF, #FFF2C8, #F2D282, #D8A850, #A87430, #6A4418).\nEffect: A SOLAR RING, 6 looping frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side), on the GROUND (an ellipse 38 squares wide and 12 tall): a thin ring of sun-gold light with four short rays pointing out at mirrored angles, glittering grains drifting round it, the ring brightening and dimming. everything is the SAND MAGIC of a desert emperor: swirling pale-gold sand, ochre dust, glittering grains, white-gold sun flares and a few teal glints; flat shades, crisp shapes; no fire, no smooth neon beams.\nRAW GENERATION LAYOUT: a precise grid of 2 columns and 3 rows, 6 equal frame cells, read LEFT TO RIGHT then TOP TO BOTTOM. Each cell has logical size 40 x 14 chunky square pixels. Draw frames 1 through 6 in order in those cells; any remaining cell is completely TRANSPARENT and EMPTY. The WHOLE image aspect ratio is 80:42. Use roughly16 image pixels for each logical pixel. Equal cells exactly tiled edge-to-edge, no outer sheet margin, no gutters, borders, frame numbers, labels or grid lines. Each effect is centered within its own cell and must not cross into another cell. Transparent background. This compact raw grid will be unpacked into a horizontal strip later; do NOT draw the final horizontal strip now. The attached image contains official effect texture references only: copy their sand/solar shape families, NOT their smooth shading or labels. Do not draw any champion, soldier, guard, shield object, sun disc object, icons or text. NO BLACK/DARK OUTLINE around any luminous or dusty shape. Keep VFX simple and very BRIGHT in coarse clean pixel clusters.",
+      "path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a16707-9fd1-79c0-91dd-3742c85f9f38\\exec-17e94d74-f53b-4518-908e-b8683a46e1a9.png"
+    },
+    {
+      "key": "d_rise",
+      "frames": 6,
+      "cell_1x": [
+        56,
+        26
+      ],
+      "cols": 2,
+      "rows": 3,
+      "symmetry": "left-right",
+      "binding": "view_effects `league_azir_d_rise`（大表，在我方塔的废墟上，地上，z 1，不跟随；左右对称；附加包放）",
+      "loop": false,
+      "reference": "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-23\\new-chat-4\\work\\azir-fx-refs\\d_rise.png",
+      "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a Shurima sand ramp (#FFFFFF, #FFF2C8, #F2D282, #D8A850, #A87430, #6A4418), a sun-gold light ramp (#FFFFFF, #FFF8D8, #FFE47A, #F8BC2C, #C47A12), a teal glint ramp (#FFFFFF, #D4FFFA, #74F0E6, #22B8C8, #106878).\nEffect: THE SUN DISC RISING, 6 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): 1 a wide swirl of sand on the ground 30 squares across (an ellipse); 2 the swirl at 50 across, a column of white-gold light 6 wide shooting up from its middle to the top of the cell; 3 the light at its brightest with teal glints, sand spraying out at mirrored places; 4 the column thinning; 5 the sand settling in a ring; 6 a faint gold ring. No disc drawn. everything is the SAND MAGIC of a desert emperor: swirling pale-gold sand, ochre dust, glittering grains, white-gold sun flares and a few teal glints; flat shades, crisp shapes; no fire, no smooth neon beams.\nRAW GENERATION LAYOUT: a precise grid of 2 columns and 3 rows, 6 equal frame cells, read LEFT TO RIGHT then TOP TO BOTTOM. Each cell has logical size 56 x 26 chunky square pixels. Draw frames 1 through 6 in order in those cells; any remaining cell is completely TRANSPARENT and EMPTY. The WHOLE image aspect ratio is 112:78. Use roughly16 image pixels for each logical pixel. Equal cells exactly tiled edge-to-edge, no outer sheet margin, no gutters, borders, frame numbers, labels or grid lines. Each effect is centered within its own cell and must not cross into another cell. Transparent background. This compact raw grid will be unpacked into a horizontal strip later; do NOT draw the final horizontal strip now. The attached image contains official effect texture references only: copy their sand/solar shape families, NOT their smooth shading or labels. Do not draw any champion, soldier, guard, shield object, sun disc object, icons or text. NO BLACK/DARK OUTLINE around any luminous or dusty shape. Keep VFX simple and very BRIGHT in coarse clean pixel clusters.",
+      "path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a16707-9fd1-79c0-91dd-3742c85f9f38\\exec-03f305a0-4b42-4cb4-9512-7f4ba8efed71.png"
+    },
+    {
+      "key": "e_hit",
+      "frames": 4,
+      "cell_1x": [
+        16,
+        20
+      ],
+      "cols": 2,
+      "rows": 2,
+      "symmetry": "left-right",
+      "binding": "view_effects `league_azir_e_hit`（跟随目标，z 2；左右对称）",
+      "loop": false,
+      "reference": "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-23\\new-chat-4\\work\\azir-fx-refs\\e_hit.png",
+      "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a Shurima sand ramp (#FFFFFF, #FFF2C8, #F2D282, #D8A850, #A87430, #6A4418), a sun-gold light ramp (#FFFFFF, #FFF8D8, #FFE47A, #F8BC2C, #C47A12).\nEffect: A SAND DASH STRIKING, 4 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): 1 a white-gold flash on the target's chest; 2 a burst of sand 14 across with four short gold rays at mirrored angles; 3 the sand flying out; 4 the grains falling. the champion hit stands in the middle, not drawn: 16 squares wide and 36 tall. everything is the SAND MAGIC of a desert emperor: swirling pale-gold sand, ochre dust, glittering grains, white-gold sun flares and a few teal glints; flat shades, crisp shapes; no fire, no smooth neon beams.\nRAW GENERATION LAYOUT: a precise grid of 2 columns and 2 rows, 4 equal frame cells, read LEFT TO RIGHT then TOP TO BOTTOM. Each cell has logical size 16 x 20 chunky square pixels. Draw frames 1 through 4 in order in those cells; any remaining cell is completely TRANSPARENT and EMPTY. The WHOLE image aspect ratio is 32:40. Use roughly16 image pixels for each logical pixel. Equal cells exactly tiled edge-to-edge, no outer sheet margin, no gutters, borders, frame numbers, labels or grid lines. Each effect is centered within its own cell and must not cross into another cell. Transparent background. This compact raw grid will be unpacked into a horizontal strip later; do NOT draw the final horizontal strip now. The attached image contains official effect texture references only: copy their sand/solar shape families, NOT their smooth shading or labels. Do not draw any champion, soldier, guard, shield object, sun disc object, icons or text. NO BLACK/DARK OUTLINE around any luminous or dusty shape. Keep VFX simple and very BRIGHT in coarse clean pixel clusters.",
+      "path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a16707-9fd1-79c0-91dd-3742c85f9f38\\exec-2b5bc92e-01fc-4c24-97f5-0d4c03e0595d.png"
+    },
+    {
+      "key": "e_land",
+      "frames": 5,
+      "cell_1x": [
+        30,
+        24
+      ],
+      "cols": 2,
+      "rows": 3,
+      "symmetry": "left-right",
+      "binding": "view_effects `league_azir_e_land`（在他落地的地方，地上，z 1，不跟随；左右对称）",
+      "loop": false,
+      "reference": "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-23\\new-chat-4\\work\\azir-fx-refs\\e_land.png",
+      "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a Shurima sand ramp (#FFFFFF, #FFF2C8, #F2D282, #D8A850, #A87430, #6A4418), a sun-gold light ramp (#FFFFFF, #FFF8D8, #FFE47A, #F8BC2C, #C47A12), a dull dust ramp (#E8D8B8, #C4A878, #8C7048, #5A4630).\nEffect: A SAND GEYSER, 5 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): 1 a ring of sand on the ground 16 wide (an ellipse); 2 columns of sand bursting up 16 squares tall around the ring with a white-gold flash in the middle; 3 the columns at their highest, grains flying out at mirrored places; 4 the sand falling back; 5 a ring of settling dust 28 wide. everything is the SAND MAGIC of a desert emperor: swirling pale-gold sand, ochre dust, glittering grains, white-gold sun flares and a few teal glints; flat shades, crisp shapes; no fire, no smooth neon beams.\nRAW GENERATION LAYOUT: a precise grid of 2 columns and 3 rows, 6 equal frame cells, read LEFT TO RIGHT then TOP TO BOTTOM. Each cell has logical size 30 x 24 chunky square pixels. Draw frames 1 through 5 in order in those cells; any remaining cell is completely TRANSPARENT and EMPTY. The WHOLE image aspect ratio is 60:72. Use roughly16 image pixels for each logical pixel. Equal cells exactly tiled edge-to-edge, no outer sheet margin, no gutters, borders, frame numbers, labels or grid lines. Each effect is centered within its own cell and must not cross into another cell. Transparent background. This compact raw grid will be unpacked into a horizontal strip later; do NOT draw the final horizontal strip now. The attached image contains official effect texture references only: copy their sand/solar shape families, NOT their smooth shading or labels. Do not draw any champion, soldier, guard, shield object, sun disc object, icons or text. NO BLACK/DARK OUTLINE around any luminous or dusty shape. Keep VFX simple and very BRIGHT in coarse clean pixel clusters.",
+      "path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a16707-9fd1-79c0-91dd-3742c85f9f38\\exec-02811f4c-cb0f-424d-9a8e-d36ec418db5a.png"
+    },
+    {
+      "key": "e_shield",
+      "frames": 4,
+      "cell_1x": [
+        40,
+        46
+      ],
+      "cols": 2,
+      "rows": 2,
+      "symmetry": "left-right",
+      "binding": "view_effects `league_azir_e_shield`（在他身上，跟随，z 3；左右对称）",
+      "loop": false,
+      "reference": "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-23\\new-chat-4\\work\\azir-fx-refs\\e_shield.png",
+      "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a Shurima sand ramp (#FFFFFF, #FFF2C8, #F2D282, #D8A850, #A87430, #6A4418), a sun-gold light ramp (#FFFFFF, #FFF8D8, #FFE47A, #F8BC2C, #C47A12), a teal glint ramp (#FFFFFF, #D4FFFA, #74F0E6, #22B8C8, #106878).\nEffect: A SAND SHIELD, 4 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): a shell of swirling pale-gold sand streams around the body, 38 squares wide and 44 tall, a bright white-gold arc along its outer edge, two teal glints at the top and the bottom; the streams turning round frame to frame; the middle 30 x 38 squares left EMPTY for his body. he stands in the middle, not drawn: 34 squares wide and 40 tall (the sceptre not counted). everything is the SAND MAGIC of a desert emperor: swirling pale-gold sand, ochre dust, glittering grains, white-gold sun flares and a few teal glints; flat shades, crisp shapes; no fire, no smooth neon beams.\nRAW GENERATION LAYOUT: a precise grid of 2 columns and 2 rows, 4 equal frame cells, read LEFT TO RIGHT then TOP TO BOTTOM. Each cell has logical size 40 x 46 chunky square pixels. Draw frames 1 through 4 in order in those cells; any remaining cell is completely TRANSPARENT and EMPTY. The WHOLE image aspect ratio is 80:92. Use roughly16 image pixels for each logical pixel. Equal cells exactly tiled edge-to-edge, no outer sheet margin, no gutters, borders, frame numbers, labels or grid lines. Each effect is centered within its own cell and must not cross into another cell. Transparent background. This compact raw grid will be unpacked into a horizontal strip later; do NOT draw the final horizontal strip now. The attached image contains official effect texture references only: copy their sand/solar shape families, NOT their smooth shading or labels. Do not draw any champion, soldier, guard, shield object, sun disc object, icons or text. NO BLACK/DARK OUTLINE around any luminous or dusty shape. Keep VFX simple and very BRIGHT in coarse clean pixel clusters.",
+      "path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a16707-9fd1-79c0-91dd-3742c85f9f38\\exec-b5f48e4c-e0df-4424-82df-982ed0ea72ff.png"
+    },
+    {
+      "key": "q_hit",
+      "frames": 4,
+      "cell_1x": [
+        16,
+        18
+      ],
+      "cols": 2,
+      "rows": 2,
+      "symmetry": "left-right",
+      "binding": "view_effects `league_azir_q_hit`（跟随目标，z 2；左右对称）",
+      "loop": false,
+      "reference": "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-23\\new-chat-4\\work\\azir-fx-refs\\q_hit.png",
+      "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a Shurima sand ramp (#FFFFFF, #FFF2C8, #F2D282, #D8A850, #A87430, #6A4418), a sun-gold light ramp (#FFFFFF, #FFF8D8, #FFE47A, #F8BC2C, #C47A12).\nEffect: A SAND RUSH STRIKING, 4 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): 1 a white-gold flash 6 squares across on the target's chest; 2 a burst of pale-gold sand 14 across; 3 sand grains flying out at mirrored places; 4 the grains falling, fading to ochre. the champion hit stands in the middle, not drawn: 16 squares wide and 36 tall. everything is the SAND MAGIC of a desert emperor: swirling pale-gold sand, ochre dust, glittering grains, white-gold sun flares and a few teal glints; flat shades, crisp shapes; no fire, no smooth neon beams.\nRAW GENERATION LAYOUT: a precise grid of 2 columns and 2 rows, 4 equal frame cells, read LEFT TO RIGHT then TOP TO BOTTOM. Each cell has logical size 16 x 18 chunky square pixels. Draw frames 1 through 4 in order in those cells; any remaining cell is completely TRANSPARENT and EMPTY. The WHOLE image aspect ratio is 32:36. Use roughly16 image pixels for each logical pixel. Equal cells exactly tiled edge-to-edge, no outer sheet margin, no gutters, borders, frame numbers, labels or grid lines. Each effect is centered within its own cell and must not cross into another cell. Transparent background. This compact raw grid will be unpacked into a horizontal strip later; do NOT draw the final horizontal strip now. The attached image contains official effect texture references only: copy their sand/solar shape families, NOT their smooth shading or labels. Do not draw any champion, soldier, guard, shield object, sun disc object, icons or text. NO BLACK/DARK OUTLINE around any luminous or dusty shape. Keep VFX simple and very BRIGHT in coarse clean pixel clusters.",
+      "path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a16707-9fd1-79c0-91dd-3742c85f9f38\\exec-b82b3d13-385f-40d3-bb71-e4d9de9fa143.png"
+    },
+    {
+      "key": "q_land",
+      "frames": 5,
+      "cell_1x": [
+        36,
+        14
+      ],
+      "cols": 2,
+      "rows": 3,
+      "symmetry": "left-right",
+      "binding": "view_effects `league_azir_q_land`（在落点，地上，z 1，不跟随；左右对称）",
+      "loop": false,
+      "reference": "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-23\\new-chat-4\\work\\azir-fx-refs\\q_land.png",
+      "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a Shurima sand ramp (#FFFFFF, #FFF2C8, #F2D282, #D8A850, #A87430, #6A4418), a sun-gold light ramp (#FFFFFF, #FFF8D8, #FFE47A, #F8BC2C, #C47A12), a dull dust ramp (#E8D8B8, #C4A878, #8C7048, #5A4630).\nEffect: SAND CRASHING DOWN, 5 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side), on the GROUND (an ellipse three times as wide as tall): 1 a white-gold flash 8 squares wide in the middle; 2 a ring of sand spraying out 24 wide with a few short gold rays; 3 the ring at 34 wide, puffs of ochre dust rising at mirrored places; 4 the dust drifting, thinning; 5 a faint ring settling. everything is the SAND MAGIC of a desert emperor: swirling pale-gold sand, ochre dust, glittering grains, white-gold sun flares and a few teal glints; flat shades, crisp shapes; no fire, no smooth neon beams.\nRAW GENERATION LAYOUT: a precise grid of 2 columns and 3 rows, 6 equal frame cells, read LEFT TO RIGHT then TOP TO BOTTOM. Each cell has logical size 36 x 14 chunky square pixels. Draw frames 1 through 5 in order in those cells; any remaining cell is completely TRANSPARENT and EMPTY. The WHOLE image aspect ratio is 72:42. Use roughly16 image pixels for each logical pixel. Equal cells exactly tiled edge-to-edge, no outer sheet margin, no gutters, borders, frame numbers, labels or grid lines. Each effect is centered within its own cell and must not cross into another cell. Transparent background. This compact raw grid will be unpacked into a horizontal strip later; do NOT draw the final horizontal strip now. The attached image contains official effect texture references only: copy their sand/solar shape families, NOT their smooth shading or labels. Do not draw any champion, soldier, guard, shield object, sun disc object, icons or text. NO BLACK/DARK OUTLINE around any luminous or dusty shape. Keep VFX simple and very BRIGHT in coarse clean pixel clusters.",
+      "path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a16707-9fd1-79c0-91dd-3742c85f9f38\\exec-89d68dff-0ba4-402e-a2e2-22aa306a7e9b.png"
+    },
+    {
+      "key": "q_wave",
+      "frames": 4,
+      "cell_1x": [
+        26,
+        12
+      ],
+      "cols": 2,
+      "rows": 2,
+      "symmetry": "top-bottom",
+      "binding": "view_projectiles `league_azir_q_wave`（弹道，z 2；上下对称）",
+      "loop": true,
+      "reference": "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-23\\new-chat-4\\work\\azir-fx-refs\\q_wave.png",
+      "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a Shurima sand ramp (#FFFFFF, #FFF2C8, #F2D282, #D8A850, #A87430, #6A4418), a sun-gold light ramp (#FFFFFF, #FFF8D8, #FFE47A, #F8BC2C, #C47A12), a dull dust ramp (#E8D8B8, #C4A878, #8C7048, #5A4630).\nEffect: A SAND RUSH, 4 looping frames, flying RIGHT, the trail behind it on the LEFT, SYMMETRIC TOP TO BOTTOM in every frame, square for square (the game turns the picture with its flight, so flying left it is upside down): at the right a pointed white-gold head of packed sand 6 squares long, behind it a rolling band of pale-gold and ochre sand 18 squares long, wavy at its edges with glittering grains, the waves rolling back frame to frame. everything is the SAND MAGIC of a desert emperor: swirling pale-gold sand, ochre dust, glittering grains, white-gold sun flares and a few teal glints; flat shades, crisp shapes; no fire, no smooth neon beams.\nRAW GENERATION LAYOUT: a precise grid of 2 columns and 2 rows, 4 equal frame cells, read LEFT TO RIGHT then TOP TO BOTTOM. Each cell has logical size 26 x 12 chunky square pixels. Draw frames 1 through 4 in order in those cells; any remaining cell is completely TRANSPARENT and EMPTY. The WHOLE image aspect ratio is 52:24. Use roughly16 image pixels for each logical pixel. Equal cells exactly tiled edge-to-edge, no outer sheet margin, no gutters, borders, frame numbers, labels or grid lines. Each effect is centered within its own cell and must not cross into another cell. Transparent background. This compact raw grid will be unpacked into a horizontal strip later; do NOT draw the final horizontal strip now. The attached image contains official effect texture references only: copy their sand/solar shape families, NOT their smooth shading or labels. Do not draw any champion, soldier, guard, shield object, sun disc object, icons or text. NO BLACK/DARK OUTLINE around any luminous or dusty shape. Keep VFX simple and very BRIGHT in coarse clean pixel clusters.",
+      "path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a16707-9fd1-79c0-91dd-3742c85f9f38\\exec-a6b163ee-8501-443c-98ac-768c86a0dbaf.png"
+    },
+    {
+      "key": "r_dust",
+      "frames": 4,
+      "cell_1x": [
+        30,
+        12
+      ],
+      "cols": 2,
+      "rows": 2,
+      "symmetry": "left-right",
+      "binding": "view_effects `league_azir_r_dust`（在冲锋的禁军脚下，地上，z 1，不跟随；左右对称）",
+      "loop": false,
+      "reference": "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-23\\new-chat-4\\work\\azir-fx-refs\\r_dust.png",
+      "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a Shurima sand ramp (#FFFFFF, #FFF2C8, #F2D282, #D8A850, #A87430, #6A4418), a dull dust ramp (#E8D8B8, #C4A878, #8C7048, #5A4630).\nEffect: CHARGE DUST, 4 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side), on the GROUND: 1 two puffs of ochre and pale-gold dust 8 squares wide at mirrored places; 2 the puffs growing and rising to 10 squares tall with grains kicked up; 3 the puffs drifting apart, thinning; 4 faint wisps. everything is the SAND MAGIC of a desert emperor: swirling pale-gold sand, ochre dust, glittering grains, white-gold sun flares and a few teal glints; flat shades, crisp shapes; no fire, no smooth neon beams.\nRAW GENERATION LAYOUT: a precise grid of 2 columns and 2 rows, 4 equal frame cells, read LEFT TO RIGHT then TOP TO BOTTOM. Each cell has logical size 30 x 12 chunky square pixels. Draw frames 1 through 4 in order in those cells; any remaining cell is completely TRANSPARENT and EMPTY. The WHOLE image aspect ratio is 60:24. Use roughly16 image pixels for each logical pixel. Equal cells exactly tiled edge-to-edge, no outer sheet margin, no gutters, borders, frame numbers, labels or grid lines. Each effect is centered within its own cell and must not cross into another cell. Transparent background. This compact raw grid will be unpacked into a horizontal strip later; do NOT draw the final horizontal strip now. The attached image contains official effect texture references only: copy their sand/solar shape families, NOT their smooth shading or labels. Do not draw any champion, soldier, guard, shield object, sun disc object, icons or text. NO BLACK/DARK OUTLINE around any luminous or dusty shape. Keep VFX simple and very BRIGHT in coarse clean pixel clusters.",
+      "path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a16707-9fd1-79c0-91dd-3742c85f9f38\\exec-86bfda54-1d4d-475a-93bd-a0e25f1185bd.png"
+    },
+    {
+      "key": "r_hit",
+      "frames": 4,
+      "cell_1x": [
+        18,
+        22
+      ],
+      "cols": 2,
+      "rows": 2,
+      "symmetry": "left-right",
+      "binding": "view_effects `league_azir_r_hit`（跟随目标，z 2；左右对称）",
+      "loop": false,
+      "reference": "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-23\\new-chat-4\\work\\azir-fx-refs\\r_hit.png",
+      "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a sun-gold light ramp (#FFFFFF, #FFF8D8, #FFE47A, #F8BC2C, #C47A12), a Shurima sand ramp (#FFFFFF, #FFF2C8, #F2D282, #D8A850, #A87430, #6A4418).\nEffect: A SHIELD SLAM, 4 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): 1 a big white-gold impact flash 10 squares across on the target's chest; 2 a star of six short gold rays 18 across at mirrored angles with sand bursting between them; 3 the sand flying out; 4 the grains falling, fading to ochre. the champion hit stands in the middle, not drawn: 16 squares wide and 36 tall. everything is the SAND MAGIC of a desert emperor: swirling pale-gold sand, ochre dust, glittering grains, white-gold sun flares and a few teal glints; flat shades, crisp shapes; no fire, no smooth neon beams.\nRAW GENERATION LAYOUT: a precise grid of 2 columns and 2 rows, 4 equal frame cells, read LEFT TO RIGHT then TOP TO BOTTOM. Each cell has logical size 18 x 22 chunky square pixels. Draw frames 1 through 4 in order in those cells; any remaining cell is completely TRANSPARENT and EMPTY. The WHOLE image aspect ratio is 36:44. Use roughly16 image pixels for each logical pixel. Equal cells exactly tiled edge-to-edge, no outer sheet margin, no gutters, borders, frame numbers, labels or grid lines. Each effect is centered within its own cell and must not cross into another cell. Transparent background. This compact raw grid will be unpacked into a horizontal strip later; do NOT draw the final horizontal strip now. The attached image contains official effect texture references only: copy their sand/solar shape families, NOT their smooth shading or labels. Do not draw any champion, soldier, guard, shield object, sun disc object, icons or text. NO BLACK/DARK OUTLINE around any luminous or dusty shape. Keep VFX simple and very BRIGHT in coarse clean pixel clusters.",
+      "path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a16707-9fd1-79c0-91dd-3742c85f9f38\\exec-dfa072bc-458e-4a50-909e-5d49da7f3856.png"
+    },
+    {
+      "key": "r_rise",
+      "frames": 6,
+      "cell_1x": [
+        70,
+        30
+      ],
+      "cols": 2,
+      "rows": 3,
+      "symmetry": "left-right",
+      "binding": "view_effects `league_azir_r_rise`（大表，在他前面，地上，z 1，不跟随；左右对称）",
+      "loop": false,
+      "reference": "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-23\\new-chat-4\\work\\azir-fx-refs\\r_rise.png",
+      "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a Shurima sand ramp (#FFFFFF, #FFF2C8, #F2D282, #D8A850, #A87430, #6A4418), a sun-gold light ramp (#FFFFFF, #FFF8D8, #FFE47A, #F8BC2C, #C47A12), a dull dust ramp (#E8D8B8, #C4A878, #8C7048, #5A4630).\nEffect: A WALL OF SAND RISING, 6 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): 1 a long line of churning sand on the ground 60 squares wide and 4 tall; 2 the sand surging up into a ragged wall 14 squares tall all along the line, white-gold glints on its crest; 3 the wall at its highest, 24 tall, grains blowing off its top; 4 the wall breaking apart into sand curtains; 5 the curtains falling; 6 a long low band of settling dust. No soldiers drawn. everything is the SAND MAGIC of a desert emperor: swirling pale-gold sand, ochre dust, glittering grains, white-gold sun flares and a few teal glints; flat shades, crisp shapes; no fire, no smooth neon beams.\nRAW GENERATION LAYOUT: a precise grid of 2 columns and 3 rows, 6 equal frame cells, read LEFT TO RIGHT then TOP TO BOTTOM. Each cell has logical size 70 x 30 chunky square pixels. Draw frames 1 through 6 in order in those cells; any remaining cell is completely TRANSPARENT and EMPTY. The WHOLE image aspect ratio is 140:90. Use roughly16 image pixels for each logical pixel. Equal cells exactly tiled edge-to-edge, no outer sheet margin, no gutters, borders, frame numbers, labels or grid lines. Each effect is centered within its own cell and must not cross into another cell. Transparent background. This compact raw grid will be unpacked into a horizontal strip later; do NOT draw the final horizontal strip now. The attached image contains official effect texture references only: copy their sand/solar shape families, NOT their smooth shading or labels. Do not draw any champion, soldier, guard, shield object, sun disc object, icons or text. NO BLACK/DARK OUTLINE around any luminous or dusty shape. Keep VFX simple and very BRIGHT in coarse clean pixel clusters.",
+      "path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a16707-9fd1-79c0-91dd-3742c85f9f38\\exec-bbb519e4-96fa-47a4-81b4-4256d0a04441.png"
+    },
+    {
+      "key": "s_spawn",
+      "frames": 5,
+      "cell_1x": [
+        24,
+        12
+      ],
+      "cols": 2,
+      "rows": 3,
+      "symmetry": "left-right",
+      "binding": "view_effects `league_azir_s_spawn`（在沙兵站的地方，地上，z 1，不跟随；左右对称）",
+      "loop": false,
+      "reference": "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-23\\new-chat-4\\work\\azir-fx-refs\\s_spawn.png",
+      "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a Shurima sand ramp (#FFFFFF, #FFF2C8, #F2D282, #D8A850, #A87430, #6A4418), a sun-gold light ramp (#FFFFFF, #FFF8D8, #FFE47A, #F8BC2C, #C47A12), a dull dust ramp (#E8D8B8, #C4A878, #8C7048, #5A4630).\nEffect: SAND RISING, 5 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side), on the GROUND (an ellipse seen from above, three times as wide as tall): 1 a small swirl of pale-gold sand 10 squares wide; 2 the swirl widening to 20, the sand heaping up in the middle into a mound 5 squares tall; 3 the mound at its highest with glittering grains and two white-gold glints jumping up; 4 the mound sinking and spreading; 5 a thin ring of settling dust. No soldier drawn. everything is the SAND MAGIC of a desert emperor: swirling pale-gold sand, ochre dust, glittering grains, white-gold sun flares and a few teal glints; flat shades, crisp shapes; no fire, no smooth neon beams.\nRAW GENERATION LAYOUT: a precise grid of 2 columns and 3 rows, 6 equal frame cells, read LEFT TO RIGHT then TOP TO BOTTOM. Each cell has logical size 24 x 12 chunky square pixels. Draw frames 1 through 5 in order in those cells; any remaining cell is completely TRANSPARENT and EMPTY. The WHOLE image aspect ratio is 48:36. Use roughly16 image pixels for each logical pixel. Equal cells exactly tiled edge-to-edge, no outer sheet margin, no gutters, borders, frame numbers, labels or grid lines. Each effect is centered within its own cell and must not cross into another cell. Transparent background. This compact raw grid will be unpacked into a horizontal strip later; do NOT draw the final horizontal strip now. The attached image contains official effect texture references only: copy their sand/solar shape families, NOT their smooth shading or labels. Do not draw any champion, soldier, guard, shield object, sun disc object, icons or text. NO BLACK/DARK OUTLINE around any luminous or dusty shape. Keep VFX simple and very BRIGHT in coarse clean pixel clusters.",
+      "path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a16707-9fd1-79c0-91dd-3742c85f9f38\\exec-aed415a6-ecc1-426f-a4e6-4ccc18da66ad.png"
+    },
+    {
+      "key": "s_stab",
+      "frames": 4,
+      "cell_1x": [
+        14,
+        30
+      ],
+      "cols": 4,
+      "rows": 1,
+      "symmetry": "left-right",
+      "binding": "view_effects `league_azir_s_stab`（跟随目标，z 3；左右对称）",
+      "loop": false,
+      "reference": "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-23\\new-chat-4\\work\\azir-fx-refs\\s_stab.png",
+      "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a sun-gold light ramp (#FFFFFF, #FFF8D8, #FFE47A, #F8BC2C, #C47A12), a Shurima sand ramp (#FFFFFF, #FFF2C8, #F2D282, #D8A850, #A87430, #6A4418), a teal glint ramp (#FFFFFF, #D4FFFA, #74F0E6, #22B8C8, #106878).\nEffect: A SAND SPEAR STRIKING, 4 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): 1 a vertical gold spear of packed sand 3 squares wide stabbing down from the top of the cell, its leaf-shaped white-gold tip at the target's chest; 2 the tip flashing white with a teal glint; 3 a burst of sand grains around the tip 12 squares across at mirrored places, the spear crumbling into sand from the top; 4 only falling grains. the champion hit stands in the middle, not drawn: 16 squares wide and 36 tall. everything is the SAND MAGIC of a desert emperor: swirling pale-gold sand, ochre dust, glittering grains, white-gold sun flares and a few teal glints; flat shades, crisp shapes; no fire, no smooth neon beams.\nRAW GENERATION LAYOUT: a precise grid of 4 columns and 1 rows, 4 equal frame cells, read LEFT TO RIGHT then TOP TO BOTTOM. Each cell has logical size 14 x 30 chunky square pixels. Draw frames 1 through 4 in order in those cells; any remaining cell is completely TRANSPARENT and EMPTY. The WHOLE image aspect ratio is 56:30. Use roughly16 image pixels for each logical pixel. Equal cells exactly tiled edge-to-edge, no outer sheet margin, no gutters, borders, frame numbers, labels or grid lines. Each effect is centered within its own cell and must not cross into another cell. Transparent background. This compact raw grid will be unpacked into a horizontal strip later; do NOT draw the final horizontal strip now. The attached image contains official effect texture references only: copy their sand/solar shape families, NOT their smooth shading or labels. Do not draw any champion, soldier, guard, shield object, sun disc object, icons or text. NO BLACK/DARK OUTLINE around any luminous or dusty shape. Keep VFX simple and very BRIGHT in coarse clean pixel clusters.",
+      "path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a16707-9fd1-79c0-91dd-3742c85f9f38\\exec-93fe666a-e9bb-48a9-b82b-9cb30e2d831c.png"
+    },
+    {
+      "key": "slow",
+      "frames": 4,
+      "cell_1x": [
+        16,
+        8
+      ],
+      "cols": 2,
+      "rows": 2,
+      "symmetry": "left-right",
+      "binding": "view_buffs `league_azir_q_slow`（tag `slow`，跟随，脚下，z -1；左右对称）",
+      "loop": true,
+      "reference": "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-23\\new-chat-4\\work\\azir-fx-refs\\slow.png",
+      "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a Shurima sand ramp (#FFFFFF, #FFF2C8, #F2D282, #D8A850, #A87430, #6A4418), a dull dust ramp (#E8D8B8, #C4A878, #8C7048, #5A4630).\nEffect: QUICKSAND, 4 looping frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side), on the GROUND under the feet (an ellipse 14 squares wide and 5 tall): a slowly swirling ring of pale-gold and ochre sand, two sand ripples turning round it at mirrored places. everything is the SAND MAGIC of a desert emperor: swirling pale-gold sand, ochre dust, glittering grains, white-gold sun flares and a few teal glints; flat shades, crisp shapes; no fire, no smooth neon beams.\nRAW GENERATION LAYOUT: a precise grid of 2 columns and 2 rows, 4 equal frame cells, read LEFT TO RIGHT then TOP TO BOTTOM. Each cell has logical size 16 x 8 chunky square pixels. Draw frames 1 through 4 in order in those cells; any remaining cell is completely TRANSPARENT and EMPTY. The WHOLE image aspect ratio is 32:16. Use roughly16 image pixels for each logical pixel. Equal cells exactly tiled edge-to-edge, no outer sheet margin, no gutters, borders, frame numbers, labels or grid lines. Each effect is centered within its own cell and must not cross into another cell. Transparent background. This compact raw grid will be unpacked into a horizontal strip later; do NOT draw the final horizontal strip now. The attached image contains official effect texture references only: copy their sand/solar shape families, NOT their smooth shading or labels. Do not draw any champion, soldier, guard, shield object, sun disc object, icons or text. NO BLACK/DARK OUTLINE around any luminous or dusty shape. Keep VFX simple and very BRIGHT in coarse clean pixel clusters.",
+      "path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a16707-9fd1-79c0-91dd-3742c85f9f38\\exec-12e104eb-5698-48e4-b4d0-1c27d3fdb17e.png"
+    },
+    {
+      "key": "a_hit",
+      "frames": 3,
+      "cell_1x": [
+        12,
+        12
+      ],
+      "cols": 3,
+      "rows": 1,
+      "symmetry": "left-right",
+      "binding": "view_effects `league_azir_a_hit`（跟随目标，z 2；左右对称）",
+      "loop": false,
+      "reference": "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-23\\new-chat-4\\work\\azir-fx-refs\\a_hit.png",
+      "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a sun-gold light ramp (#FFFFFF, #FFF8D8, #FFE47A, #F8BC2C, #C47A12), a Shurima sand ramp (#FFFFFF, #FFF2C8, #F2D282, #D8A850, #A87430, #6A4418).\nEffect: A SAND BOLT LANDING, 3 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): 1 a white-gold flash 5 squares across; 2 a ring of pale-gold sand grains bursting out 11 across at mirrored places; 3 the grains further out, fading to ochre. everything is the SAND MAGIC of a desert emperor: swirling pale-gold sand, ochre dust, glittering grains, white-gold sun flares and a few teal glints; flat shades, crisp shapes; no fire, no smooth neon beams.\nRAW GENERATION LAYOUT: a precise grid of 3 columns and 1 rows, 3 equal frame cells, read LEFT TO RIGHT then TOP TO BOTTOM. Each cell has logical size 12 x 12 chunky square pixels. Draw frames 1 through 3 in order in those cells; any remaining cell is completely TRANSPARENT and EMPTY. The WHOLE image aspect ratio is 36:12. Use roughly16 image pixels for each logical pixel. Equal cells exactly tiled edge-to-edge, no outer sheet margin, no gutters, borders, frame numbers, labels or grid lines. Each effect is centered within its own cell and must not cross into another cell. Transparent background. This compact raw grid will be unpacked into a horizontal strip later; do NOT draw the final horizontal strip now. The attached image contains official effect texture references only: copy their sand/solar shape families, NOT their smooth shading or labels. Do not draw any champion, soldier, guard, shield object, sun disc object, icons or text. NO BLACK/DARK OUTLINE around any luminous or dusty shape. Keep VFX simple and very BRIGHT in coarse clean pixel clusters.",
+      "path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a16707-9fd1-79c0-91dd-3742c85f9f38\\exec-f6b64b8d-a65a-4c80-a00c-a9a9eded983d.png",
+      "prompt_used_for_revision": "Edit this generated VFX frame sheet. Preserve its grid layout, frame cell positions and all unmentioned frames. Keep only the supplied sand/gold/cyan palette, hard chunky square pixels and genuine transparent background. NO outlines, extra objects, labels, ground, borders or glow haze. Keep the first TWO frame cells exactly as they are. Replace ONLY the THIRD/rightmost cell with the final FADE frame: absolutely NO central flash, NO vertical streak, NO solid circle, NO big central mound. Only 8-12 LARGE separated ochre/pale-gold square sand grains in mirrored left/right pairs, scattered around the now EMPTY center. Each grain must be a BIG completely OPAQUE square about ONE TWELFTH the cell height (60-75 image pixels on this input). No fine particles. This third frame must look almost dispersed, but visible at12x12 logicalpixel resolution. This is technical final-frame correction for a tiny tactics-game sprite sheet. Draw the replacement with the image generator, not a diagram. Hard opaque color clusters only, no partial transparency on the new grains.",
+      "revision_of": "C:\\Users\\OWNER\\.codex\\generated_images\\01a16707-9fd1-79c0-91dd-3742c85f9f38\\exec-091302a8-2868-40be-b9a6-080e538c4d4f.png"
+    },
+    {
+      "key": "d_beam",
+      "frames": 5,
+      "cell_1x": [
+        16,
+        60
+      ],
+      "cols": 5,
+      "rows": 1,
+      "symmetry": "left-right",
+      "binding": "view_effects `league_azir_d_beam`（大表，跟随目标，z 3；左右对称；附加包放）",
+      "loop": false,
+      "reference": "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-23\\new-chat-4\\work\\azir-fx-refs\\d_beam.png",
+      "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a sun-gold light ramp (#FFFFFF, #FFF8D8, #FFE47A, #F8BC2C, #C47A12), a teal glint ramp (#FFFFFF, #D4FFFA, #74F0E6, #22B8C8, #106878).\nEffect: A SOLAR RAY, 5 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): 1 a thin white-gold line 2 squares wide from the top of the cell down to the target's chest; 2 the ray 8 squares wide, a white core and sun-gold edges, a flash where it lands; 3 the ray at its widest, 12, a ring of gold light 14 across at its foot with two teal glints; 4 the ray thinning; 5 sparks fading at the foot. the champion hit stands in the middle, not drawn: 16 squares wide and 36 tall at the bottom of the cell. everything is the SAND MAGIC of a desert emperor: swirling pale-gold sand, ochre dust, glittering grains, white-gold sun flares and a few teal glints; flat shades, crisp shapes; no fire, no smooth neon beams.\nRAW GENERATION LAYOUT: a precise grid of 5 columns and 1 rows, 5 equal frame cells, read LEFT TO RIGHT then TOP TO BOTTOM. Each cell has logical size 16 x 60 chunky square pixels. Draw frames 1 through 5 in order in those cells; any remaining cell is completely TRANSPARENT and EMPTY. The WHOLE image aspect ratio is 80:60. Use roughly16 image pixels for each logical pixel. Equal cells exactly tiled edge-to-edge, no outer sheet margin, no gutters, borders, frame numbers, labels or grid lines. Each effect is centered within its own cell and must not cross into another cell. Transparent background. This compact raw grid will be unpacked into a horizontal strip later; do NOT draw the final horizontal strip now. The attached image contains official effect texture references only: copy their sand/solar shape families, NOT their smooth shading or labels. Do not draw any champion, soldier, guard, shield object, sun disc object, icons or text. NO BLACK/DARK OUTLINE around any luminous or dusty shape. Keep VFX simple and very BRIGHT in coarse clean pixel clusters.",
+      "path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a16707-9fd1-79c0-91dd-3742c85f9f38\\exec-d7327d09-16ac-4804-b2b9-f6a258d4bc51.png",
+      "prompt_used_for_revision": "Edit this generated VFX frame sheet. Preserve its grid layout, frame cell positions and all unmentioned frames. Keep only the supplied sand/gold/cyan palette, hard chunky square pixels and genuine transparent background. NO outlines, extra objects, labels, ground, borders or glow haze. Keep the first FOUR cells unchanged. Correct ONLY the FIFTH/rightmost cell, the final fading frame. REMOVE THE ENTIRE VERTICAL BEAM from this cell. Its TOP EIGHTY PERCENT must be completely TRANSPARENT, not a thin line, dots or streak. At BOTTOM only, leave a small elliptical gold impact ring and 6-8 LARGE fully OPAQUE golden square sparks plus two cyan glints. No beam above that ring. Every surviving grain is about1/16 the cellwidth, clear large blocks. Last cell should be sparse and low, clearly different from frame4. This is technical final-frame correction for a tiny tactics-game sprite sheet. Draw the replacement with the image generator, not a diagram. Hard opaque color clusters only, no partial transparency on the new grains.",
+      "revision_of": "C:\\Users\\OWNER\\.codex\\generated_images\\01a16707-9fd1-79c0-91dd-3742c85f9f38\\exec-61d1ff0b-64c7-4a4c-a137-d3e8493c3bd3.png"
+    },
+    {
+      "key": "e_shield",
+      "frames": 4,
+      "cell_1x": [
+        40,
+        46
+      ],
+      "cols": 2,
+      "rows": 2,
+      "symmetry": "left-right",
+      "binding": "view_effects `league_azir_e_shield`（在他身上，跟随，z 3；左右对称）",
+      "loop": false,
+      "reference": "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-23\\new-chat-4\\work\\azir-fx-refs\\e_shield.png",
+      "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a Shurima sand ramp (#FFFFFF, #FFF2C8, #F2D282, #D8A850, #A87430, #6A4418), a sun-gold light ramp (#FFFFFF, #FFF8D8, #FFE47A, #F8BC2C, #C47A12), a teal glint ramp (#FFFFFF, #D4FFFA, #74F0E6, #22B8C8, #106878).\nEffect: A SAND SHIELD, 4 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): a shell of swirling pale-gold sand streams around the body, 38 squares wide and 44 tall, a bright white-gold arc along its outer edge, two teal glints at the top and the bottom; the streams turning round frame to frame; the middle 30 x 38 squares left EMPTY for his body. he stands in the middle, not drawn: 34 squares wide and 40 tall (the sceptre not counted). everything is the SAND MAGIC of a desert emperor: swirling pale-gold sand, ochre dust, glittering grains, white-gold sun flares and a few teal glints; flat shades, crisp shapes; no fire, no smooth neon beams.\nRAW GENERATION LAYOUT: a precise grid of 2 columns and 2 rows, 4 equal frame cells, read LEFT TO RIGHT then TOP TO BOTTOM. Each cell has logical size 40 x 46 chunky square pixels. Draw frames 1 through 4 in order in those cells; any remaining cell is completely TRANSPARENT and EMPTY. The WHOLE image aspect ratio is 80:92. Use roughly16 image pixels for each logical pixel. Equal cells exactly tiled edge-to-edge, no outer sheet margin, no gutters, borders, frame numbers, labels or grid lines. Each effect is centered within its own cell and must not cross into another cell. Transparent background. This compact raw grid will be unpacked into a horizontal strip later; do NOT draw the final horizontal strip now. The attached image contains official effect texture references only: copy their sand/solar shape families, NOT their smooth shading or labels. Do not draw any champion, soldier, guard, shield object, sun disc object, icons or text. NO BLACK/DARK OUTLINE around any luminous or dusty shape. Keep VFX simple and very BRIGHT in coarse clean pixel clusters.",
+      "path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a16707-9fd1-79c0-91dd-3742c85f9f38\\exec-887e0335-5d24-4a3f-bd2a-8d58211f2faa.png",
+      "prompt_used_for_revision": "Create ONE pixel-art VFX sheet of FOUR thin SAND SHIELD SHELL frames, a precise2columns x2rows grid. Each cell is40 logical pixels wide x46 tall, the whole sheet80x92 logical pixels. This is low-resolution game art highly enlarged, so only80 square blocks across whole image, NOT many tiny squares. Every logical square should be about16-20 imagepixels. Every cell contains one VERY THIN VERTICAL OVAL RING, outer size38x44, centered with1pixel margin. The interior rectangle30wide x38tall is COMPLETELY EMPTY/TRANSPARENT for a character; no particles, haze or ornament in the middle. A shield made of pale gold SAND, bright white-gold thin arc segments riding around the shell; two tiny teal glints at very TOP and BOTTOM. Four different phases of sand grains rotating along the outer edge, but all share the SAME oval shape, center, width and height. Ring thickness ONLY2 or3 logical pixels, most of each cell empty. Whole oval must be visible and enclosed, particularly top and bottom caps; no oval may touch sheetedge or neighbor. Sand/gold flat colors only #FFFFFF #FFF2C8 #F2D282 #D8A850 #A87430 #FFF8D8 #FFE47A #F8BC2C, teal #D4FFFA #74F0E6 #22B8C8 at the two glints. NO outline, gradient, bloom, blurry halo, shadow, flame, fire, smoke, text, numbers, grid or body. GENUINE transparent PNG. Each ring LEFT-RIGHT SYMMETRIC. Equal cells exactly tiled, no gutters or outer border. Do NOT draw shields as solid objects or metallic medallions. ONLY thin sand/solar magic oval shells.",
+      "revision_of": "original e_shield has thick ring incompatible with30x38 body clearance"
+    },
+    {
+      "key": "r_hit",
+      "frames": 4,
+      "cell_1x": [
+        18,
+        22
+      ],
+      "cols": 2,
+      "rows": 2,
+      "symmetry": "left-right",
+      "binding": "view_effects `league_azir_r_hit`（跟随目标，z 2；左右对称）",
+      "loop": false,
+      "reference": "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-23\\new-chat-4\\work\\azir-fx-refs\\r_hit.png",
+      "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a sun-gold light ramp (#FFFFFF, #FFF8D8, #FFE47A, #F8BC2C, #C47A12), a Shurima sand ramp (#FFFFFF, #FFF2C8, #F2D282, #D8A850, #A87430, #6A4418).\nEffect: A SHIELD SLAM, 4 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): 1 a big white-gold impact flash 10 squares across on the target's chest; 2 a star of six short gold rays 18 across at mirrored angles with sand bursting between them; 3 the sand flying out; 4 the grains falling, fading to ochre. the champion hit stands in the middle, not drawn: 16 squares wide and 36 tall. everything is the SAND MAGIC of a desert emperor: swirling pale-gold sand, ochre dust, glittering grains, white-gold sun flares and a few teal glints; flat shades, crisp shapes; no fire, no smooth neon beams.\nRAW GENERATION LAYOUT: a precise grid of 2 columns and 2 rows, 4 equal frame cells, read LEFT TO RIGHT then TOP TO BOTTOM. Each cell has logical size 18 x 22 chunky square pixels. Draw frames 1 through 4 in order in those cells; any remaining cell is completely TRANSPARENT and EMPTY. The WHOLE image aspect ratio is 36:44. Use roughly16 image pixels for each logical pixel. Equal cells exactly tiled edge-to-edge, no outer sheet margin, no gutters, borders, frame numbers, labels or grid lines. Each effect is centered within its own cell and must not cross into another cell. Transparent background. This compact raw grid will be unpacked into a horizontal strip later; do NOT draw the final horizontal strip now. The attached image contains official effect texture references only: copy their sand/solar shape families, NOT their smooth shading or labels. Do not draw any champion, soldier, guard, shield object, sun disc object, icons or text. NO BLACK/DARK OUTLINE around any luminous or dusty shape. Keep VFX simple and very BRIGHT in coarse clean pixel clusters.",
+      "path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a16707-9fd1-79c0-91dd-3742c85f9f38\\exec-9825380a-001b-4e2e-93f5-2a04bc4400d8.png",
+      "prompt_used_for_revision": "Edit this generated VFX frame sheet. Preserve its grid layout, frame cell positions and all unmentioned frames. Keep only the supplied sand/gold/cyan palette, hard chunky square pixels and genuine transparent background. NO outlines, extra objects, labels, ground, borders or glow haze. Keep the first THREE cells unchanged. Replace ONLY frame4, the BOTTOM RIGHT quarter cell. It is the final falling-grains frame, not an impact flare. Draw 8-12 LARGE fully OPAQUE square sand grains at mirrored left/right places. Every grain is about ONE EIGHTEENTH the cell width (32-45imagepixels here), no tiny dots. The grain clusters fall mostly in lower two-thirds, empty middle and top, gold/ochre/sand tones with a few pale highlights. No rays, no core, no glowing haze. Must remain visible after reading this cell to18x22 logicalpixels. This is technical final-frame correction for a tiny tactics-game sprite sheet. Draw the replacement with the image generator, not a diagram. Hard opaque color clusters only, no partial transparency on the new grains.",
+      "revision_of": "C:\\Users\\OWNER\\.codex\\generated_images\\01a16707-9fd1-79c0-91dd-3742c85f9f38\\exec-dfa072bc-458e-4a50-909e-5d49da7f3856.png"
+    }
+  ]
+}

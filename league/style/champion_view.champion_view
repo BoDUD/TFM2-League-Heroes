@@ -2048,6 +2048,20 @@
         "y": -7
       }
     },
+    "league_azir": {
+      "face": {
+        "x": 2,
+        "y": -30
+      },
+      "center": {
+        "x": 0,
+        "y": -18
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -9
+      }
+    },
     "league_zac": {
       "face": {
         "x": 11,
