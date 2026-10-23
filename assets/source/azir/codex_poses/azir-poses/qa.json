@@ -1,0 +1,363 @@
+{
+  "c_wind": {
+    "size": [
+      1254,
+      1254
+    ],
+    "raw_sha256": "4fac6b34bdbf697b7c47d95ade3f06ab6412e912886c4c097e904a9a19065d30",
+    "bbox": [
+      213,
+      38,
+      1111,
+      1207
+    ],
+    "raw_alpha_count": 256,
+    "export_alpha": [
+      0,
+      255
+    ],
+    "touches_canvas": false
+  },
+  "c_point": {
+    "size": [
+      1254,
+      1254
+    ],
+    "raw_sha256": "670d14adf3784685f1ae6c0602defa3dfcd270e3e4978a041174080c70636704",
+    "bbox": [
+      75,
+      79,
+      1229,
+      1181
+    ],
+    "raw_alpha_count": 256,
+    "export_alpha": [
+      0,
+      255
+    ],
+    "touches_canvas": false
+  },
+  "q_wind": {
+    "size": [
+      1254,
+      1254
+    ],
+    "raw_sha256": "083288a821699066c1b37c0c5051f14b39b8c73281ab435b08e77a69f6f153b1",
+    "bbox": [
+      52,
+      28,
+      1223,
+      1221
+    ],
+    "raw_alpha_count": 256,
+    "export_alpha": [
+      0,
+      255
+    ],
+    "touches_canvas": false
+  },
+  "q_thrust": {
+    "size": [
+      1254,
+      1254
+    ],
+    "raw_sha256": "fc96051e7be0433736a6ef1cbc2e42e47de3a17a699e5ac05f3baca7b5e940e6",
+    "bbox": [
+      19,
+      344,
+      1244,
+      1020
+    ],
+    "raw_alpha_count": 256,
+    "export_alpha": [
+      0,
+      255
+    ],
+    "touches_canvas": false
+  },
+  "e_dash": {
+    "size": [
+      1254,
+      1254
+    ],
+    "raw_sha256": "d8ab445032cd1412598ef7d839e591de01149c5f6be027384bac5e4862e9aea8",
+    "bbox": [
+      107,
+      256,
+      1238,
+      1025
+    ],
+    "raw_alpha_count": 256,
+    "export_alpha": [
+      0,
+      255
+    ],
+    "touches_canvas": false
+  },
+  "e_land": {
+    "size": [
+      1254,
+      1254
+    ],
+    "raw_sha256": "63c85a36d8cdd15a99b769e5403617274ee5a4de8e3475c0a9248bc1d8baa904",
+    "bbox": [
+      88,
+      161,
+      1234,
+      1187
+    ],
+    "raw_alpha_count": 256,
+    "export_alpha": [
+      0,
+      255
+    ],
+    "touches_canvas": false
+  },
+  "r_raise": {
+    "size": [
+      1254,
+      1254
+    ],
+    "raw_sha256": "650a41bb29d7b2041a1c4f59cc474ad2bfedd11d195a09a2f27d9506c6986267",
+    "bbox": [
+      121,
+      18,
+      1162,
+      1178
+    ],
+    "raw_alpha_count": 256,
+    "export_alpha": [
+      0,
+      255
+    ],
+    "touches_canvas": false
+  },
+  "r_lift": {
+    "size": [
+      1254,
+      1254
+    ],
+    "raw_sha256": "b2f2e920cc91e0eeba5e2e6cbd0c98700aeb525e5228e8a4aaedc351a73baf3d",
+    "bbox": [
+      305,
+      12,
+      1020,
+      1234
+    ],
+    "raw_alpha_count": 256,
+    "export_alpha": [
+      0,
+      255
+    ],
+    "touches_canvas": false
+  },
+  "r_sweep": {
+    "size": [
+      1254,
+      1254
+    ],
+    "raw_sha256": "17179415270745a15c3448f92260d2f57a6c9086af5aef85c491ec457b40ac20",
+    "bbox": [
+      83,
+      241,
+      1236,
+      1231
+    ],
+    "raw_alpha_count": 256,
+    "export_alpha": [
+      0,
+      255
+    ],
+    "touches_canvas": false
+  },
+  "run1": {
+    "size": [
+      1254,
+      1254
+    ],
+    "raw_sha256": "43250768575b2174cca1ea19509e658f35d979c0a2e5309ff4d234bced436d1c",
+    "bbox": [
+      167,
+      18,
+      1174,
+      1203
+    ],
+    "raw_alpha_count": 256,
+    "export_alpha": [
+      0,
+      255
+    ],
+    "touches_canvas": false
+  },
+  "run2": {
+    "size": [
+      1254,
+      1254
+    ],
+    "raw_sha256": "7e8832b30c6dff036ba18f7969382763c923e92b4bbdd170c08fc75d0efeea2c",
+    "bbox": [
+      220,
+      36,
+      1049,
+      1206
+    ],
+    "raw_alpha_count": 256,
+    "export_alpha": [
+      0,
+      255
+    ],
+    "touches_canvas": false
+  },
+  "run3": {
+    "size": [
+      1254,
+      1254
+    ],
+    "raw_sha256": "9e4a1de4d6aed896584b8f4deb987a7c46d9669f9ca6c948ba0eb27d9f728e0d",
+    "bbox": [
+      167,
+      19,
+      1167,
+      1205
+    ],
+    "raw_alpha_count": 256,
+    "export_alpha": [
+      0,
+      255
+    ],
+    "touches_canvas": false
+  },
+  "run4": {
+    "size": [
+      1254,
+      1254
+    ],
+    "raw_sha256": "f6dacab8761d469a33e850dd8ed44ef5c2702c6a01538d69a5dfbfebe55e05b9",
+    "bbox": [
+      219,
+      28,
+      1051,
+      1201
+    ],
+    "raw_alpha_count": 256,
+    "export_alpha": [
+      0,
+      255
+    ],
+    "touches_canvas": false
+  },
+  "d_stagger": {
+    "size": [
+      1254,
+      1254
+    ],
+    "raw_sha256": "b7f7a9545ea7b48fbf1f0db7f416dfa18430cec59bf9ba0041487e133eca7178",
+    "bbox": [
+      60,
+      66,
+      1206,
+      1167
+    ],
+    "raw_alpha_count": 256,
+    "export_alpha": [
+      0,
+      255
+    ],
+    "touches_canvas": false
+  },
+  "d_kneel": {
+    "size": [
+      1254,
+      1254
+    ],
+    "raw_sha256": "3352b5ff4a74f0d29f1411c82bd7dc69a8c621775a4349949944449b0dd164f9",
+    "bbox": [
+      49,
+      325,
+      1228,
+      1194
+    ],
+    "raw_alpha_count": 256,
+    "export_alpha": [
+      0,
+      255
+    ],
+    "touches_canvas": false
+  },
+  "s_lift": {
+    "size": [
+      1254,
+      1254
+    ],
+    "raw_sha256": "af671a88acce26c432d5adb683d15f686b8bce27630782e376c2702debbd12a1",
+    "bbox": [
+      340,
+      30,
+      924,
+      1176
+    ],
+    "raw_alpha_count": 256,
+    "export_alpha": [
+      0,
+      255
+    ],
+    "touches_canvas": false
+  },
+  "s_stab": {
+    "size": [
+      1254,
+      1254
+    ],
+    "raw_sha256": "13a2f3472672697aa7201981e51f7b5f863e85ffefc45926d3e928cbb00bbea8",
+    "bbox": [
+      307,
+      81,
+      1046,
+      1196
+    ],
+    "raw_alpha_count": 256,
+    "export_alpha": [
+      0,
+      255
+    ],
+    "touches_canvas": false
+  },
+  "g_push1": {
+    "size": [
+      1254,
+      1254
+    ],
+    "raw_sha256": "1eae3f2fc8e2729476bb6f17ad3df6258fd0ae0fed59e28f46f96e5cb0b1478a",
+    "bbox": [
+      190,
+      125,
+      1099,
+      1184
+    ],
+    "raw_alpha_count": 256,
+    "export_alpha": [
+      0,
+      255
+    ],
+    "touches_canvas": false
+  },
+  "g_push2": {
+    "size": [
+      1254,
+      1254
+    ],
+    "raw_sha256": "031ac839225271793dbe1d648283651e203c1c7f189b5fe8f44dd46f424db68c",
+    "bbox": [
+      204,
+      109,
+      1059,
+      1189
+    ],
+    "raw_alpha_count": 256,
+    "export_alpha": [
+      0,
+      255
+    ],
+    "touches_canvas": false
+  }
+}

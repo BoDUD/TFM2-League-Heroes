@@ -43,6 +43,7 @@
   "league_ivern": {"idle": [["ult", [2]], ["skill", [0]]]},
   "league_illaoi": {"idle": [["attack", [0]], ["skill2", [0]]]},
   "league_aurora": {"idle": [["attack", [0]], ["skill", [2]]]},
+  "league_azir": {"idle": [["attack", [0]], ["ult", [1]]]},
   "league_irelia": {"idle": [["skill2", [3, 4]], ["skill2_w", [5]]]},
   "league_janna": {"idle": [["ult", [0, 1]], ["skill", [0, 1]]]},
   "league_jarvaniv": {"idle": [["skill_w", [0, 1, 2]], ["skill", [1, 2, 3]]]},
