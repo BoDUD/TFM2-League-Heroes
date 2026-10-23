@@ -1,0 +1,225 @@
+{
+ "effects": [
+  {
+   "name": "a_hit",
+   "file": "nunu_fx_a_hit.png",
+   "frames": 3,
+   "cell_1x": [
+    12,
+    12
+   ],
+   "symmetry": "left-right",
+   "source": "gemini g00.jpg"
+  },
+  {
+   "name": "p_hit",
+   "file": "nunu_fx_p_hit.png",
+   "frames": 3,
+   "cell_1x": [
+    10,
+    10
+   ],
+   "symmetry": "left-right",
+   "source": "gemini g00.jpg"
+  },
+  {
+   "name": "q_hit",
+   "file": "nunu_fx_q_hit.png",
+   "frames": 4,
+   "cell_1x": [
+    16,
+    16
+   ],
+   "symmetry": "left-right",
+   "source": "gemini g00.jpg"
+  },
+  {
+   "name": "w_dust",
+   "file": "nunu_fx_w_dust.png",
+   "frames": 4,
+   "cell_1x": [
+    28,
+    12
+   ],
+   "symmetry": "left-right",
+   "source": "gemini g00.jpg"
+  },
+  {
+   "name": "w_hit",
+   "file": "nunu_fx_w_hit.png",
+   "frames": 3,
+   "cell_1x": [
+    18,
+    18
+   ],
+   "symmetry": "left-right",
+   "source": "gemini g00.jpg"
+  },
+  {
+   "name": "e_ball",
+   "file": "nunu_fx_e_ball.png",
+   "frames": 4,
+   "cell_1x": [
+    12,
+    8
+   ],
+   "symmetry": "top-bottom",
+   "source": "gemini g00.jpg"
+  },
+  {
+   "name": "e_hit",
+   "file": "nunu_fx_e_hit.png",
+   "frames": 3,
+   "cell_1x": [
+    10,
+    10
+   ],
+   "symmetry": "left-right",
+   "source": "gemini g00.jpg"
+  },
+  {
+   "name": "e_slow",
+   "file": "nunu_fx_e_slow.png",
+   "frames": 1,
+   "cell_1x": [
+    16,
+    8
+   ],
+   "symmetry": "left-right",
+   "source": "gemini g00.jpg"
+  },
+  {
+   "name": "e_mark",
+   "file": "nunu_fx_e_mark.png",
+   "frames": 4,
+   "cell_1x": [
+    10,
+    10
+   ],
+   "symmetry": "left-right",
+   "source": "gemini g00.jpg"
+  },
+  {
+   "name": "e_root_hit",
+   "file": "nunu_fx_e_root_hit.png",
+   "frames": 4,
+   "cell_1x": [
+    22,
+    30
+   ],
+   "symmetry": "left-right",
+   "source": "gemini g00.jpg"
+  },
+  {
+   "name": "e_root",
+   "file": "nunu_fx_e_root.png",
+   "frames": 4,
+   "cell_1x": [
+    20,
+    14
+   ],
+   "symmetry": "left-right",
+   "source": "gemini g00.jpg"
+  },
+  {
+   "name": "r_hit",
+   "file": "nunu_fx_r_hit.png",
+   "frames": 3,
+   "cell_1x": [
+    16,
+    20
+   ],
+   "symmetry": "left-right",
+   "source": "gemini g00.jpg"
+  },
+  {
+   "name": "r_slow",
+   "file": "nunu_fx_r_slow.png",
+   "frames": 3,
+   "cell_1x": [
+    18,
+    36
+   ],
+   "symmetry": "left-right",
+   "source": "gemini g00.jpg"
+  },
+  {
+   "name": "r_shield",
+   "file": "nunu_fx_r_shield.png",
+   "frames": 5,
+   "cell_1x": [
+    44,
+    50
+   ],
+   "symmetry": "left-right",
+   "source": "gemini g00.jpg"
+  },
+  {
+   "name": "w_burst",
+   "file": "nunu_fx_w_burst.png",
+   "frames": 7,
+   "cell_1x": [
+    40,
+    26
+   ],
+   "symmetry": "left-right",
+   "source": "gemini g07.png"
+  },
+  {
+   "name": "p_on",
+   "file": "nunu_fx_p_on.png",
+   "frames": 4,
+   "cell_1x": [
+    40,
+    12
+   ],
+   "symmetry": "left-right",
+   "source": "gemini g01.jpg"
+  },
+  {
+   "name": "p_buff",
+   "file": "nunu_fx_p_buff.png",
+   "frames": 4,
+   "cell_1x": [
+    20,
+    8
+   ],
+   "symmetry": "left-right",
+   "source": "gemini g02.jpg"
+  },
+  {
+   "name": "w_big",
+   "file": "nunu_fx_w_big.png",
+   "frames": 7,
+   "cell_1x": [
+    56,
+    34
+   ],
+   "symmetry": "left-right",
+   "source": "gemini g04.jpg"
+  },
+  {
+   "name": "r_storm",
+   "file": "nunu_fx_r_storm.png",
+   "frames": 6,
+   "cell_1x": [
+    110,
+    44
+   ],
+   "symmetry": "left-right",
+   "source": "gemini g05.jpg"
+  },
+  {
+   "name": "r_burst",
+   "file": "nunu_fx_r_burst.png",
+   "frames": 7,
+   "cell_1x": [
+    110,
+    50
+   ],
+   "symmetry": "left-right",
+   "source": "gemini g06.jpg"
+  }
+ ],
+ "made_by": "Gemini (the user's images), processed by tools/art/process_nunu_fx.py"
+}

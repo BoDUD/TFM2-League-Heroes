@@ -192,6 +192,10 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // the long-legged poses' legs drawn again at the design's length) at the user's 2.25 squares a game pixel (86 game
     // rows hat top to soles, the ears above: 「太模糊了 用PPU调下像素」, then A-2 at 2.25; 3/4 only), so no SIZES row
     ("league_aurora", 2.25, include_str!("../../../league/champions/league_aurora#anim.fanim")),
+    // Nunu & Willump: posed by tools/art/rig_nunu.py on Codex's step-1 take A-2 and its key poses (the design's Nunu head
+    // put back, Willump's size set pose by pose) at the user's 1.37 squares a game pixel (63 game rows pompom to soles:
+    // 「努努用 A-2，PPU 1.37（46 游戏像素）」; 3/4 only), so no SIZES row
+    ("league_nunu", 1.37, include_str!("../../../league/champions/league_nunu#anim.fanim")),
     // Neeko: posed by tools/art/rig_neeko.py on Codex's step-1 take A-1 and its key poses at the user's 2.5 squares a
     // game pixel (100 game rows quill tips to soles: 「40」, then 「1.5也挺糊的 还得往上调整吧」; 3/4 only; league_neeko's
     // view hook draws her as an ally while she is disguised), so no SIZES row
@@ -416,6 +420,10 @@ pub const UI_SIZES: &[(&str, f32)] = &[
     // cut 22 px of her ears, at the rule's -1 her legs hid; 0.82 with banpick_center -9: the ear tips 3 px under the
     // canvas top, the soles on its bottom (bp_card_audit.py)
     ("league_aurora", 0.82),
+    // Nunu & Willump: 46 game px from Nunu's pompom to Willump's soles at PPU 1.37 - at -12 the card cut 20 px of them, at
+    // the rule's -2 Willump's feet hid under the name bar; 0.85 with the card value bp_card_audit.py gives: the pompom
+    // under the canvas top, the soles on its bottom
+    ("league_nunu", 0.85),
 ];
 
 /// The `"lo_..."` animation names of a .fanim.

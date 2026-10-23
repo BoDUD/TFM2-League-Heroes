@@ -557,9 +557,6 @@ DEAD = [dict(LOW, dx=-1), dict(LOW, dx=-1, dy=-1, bow_d=(0, -2), scarf=1), dict(
 # varus_bake.json's pictures were drawn round the old 1x sprite's arrow (its tip 9.5 px over the pivot, 14.5 ahead);
 # this arrow flies 5.5 px over it, its head 16.7 ahead (PPU 1.35): each effect moved by (dx, dy) 1x px (e_cast left the
 # old bow's raised tip: its streak now rises from the arrowhead)
-# e_cast streaked up at 45 degrees off the old sprite's raised bow; this E looses level like the others (the user: 「这个得
-# 射正吧 怎么射歪的？」): the level release burst instead
-FX_SWAP = {"e_cast": "q_fire"}
 FX_AT = {"a_flash": (2, 4), "q_charge": (2, 3), "q_charge_s": (2, 3), "w_glow": (2, 3), "q_fire": (2, 4),
          "e_cast": (7, 11), "r_cast": (3, 4)}
 
@@ -688,7 +685,6 @@ def frames(rig):
     with open(lp(os.path.join(R.ROOT, "assets", "source", "native", f"{HERO}_bake.json")), encoding="utf-8") as f:
         bake = json.load(f)
     for e in bake["items"]:                             # the old sprite's arrow -> this one's (FX_AT)
-        e["tag"] = FX_SWAP.get(e["tag"], e["tag"])
         ddx, ddy = FX_AT.get(e["tag"], (0, 0))
         e["dx"], e["dy"] = e.get("dx", 0) + ddx, e.get("dy", 0) + ddy
     baked = {e["into"] for e in bake["items"] if "from" in e}

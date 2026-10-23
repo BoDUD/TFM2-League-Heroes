@@ -119,7 +119,7 @@ def showcase(out, z=3, step=40):
     # Hail of Arrows on them: the arrows land 20 ticks after the release (tick 10), the ground stays 240 ticks
     e0 = t
     rel = e0 + tick(10)
-    pass  # on(me, small, "q_fire", rel)                     # the sheet's E loose (rig_varus_hd FX_SWAP): level  - drawn into his frames (varus_bake.json, rig_varus_hd FX_AT)
+    pass  # on(me, small, "e_cast", rel)  - drawn into his frames (varus_bake.json, rig_varus_hd FX_AT)
     spot = At(int((d.pos(rel)[0] + g.pos(rel)[0]) // 2), gy)
     on(spot, big, "e_rain", rel)
     land = rel + tick(20)
