@@ -1,0 +1,20 @@
+{
+  "author": "BoDUD",
+  "contains_code": true,
+  "dependencies": [
+    {
+      "mod_id": "base",
+      "version": ">=0.4.11"
+    },
+    {
+      "mod_id": "league",
+      "version": ">=0.205.0"
+    }
+  ],
+  "description": "Test build of Singed's Fling as in League (needs League of Legends Heroes): replaces the main pack's Singed so Fling knocks the target up and throws it over his shoulder to land behind him (stopped by walls), rooting it only when it lands in his Mega Adhesive (the main pack pulls the target through him without a knock-up and roots it whenever his glue lies anywhere). Other champions are untouched. Writes a log for testing.",
+  "last_updated": "2026-10-23",
+  "mod_id": "league_singed",
+  "mod_type": "native",
+  "name": "League Heroes: Singed's Fling (test)",
+  "version": "0.1.0"
+}

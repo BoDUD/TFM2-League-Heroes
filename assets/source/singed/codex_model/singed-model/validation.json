@@ -1,0 +1,52 @@
+{
+  "singed-A-1.png": {
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "transparent_pixels": 1059613,
+    "opaque_pixels": 3573,
+    "semi_transparent_pixels": 509330,
+    "hard_alpha_pass": false,
+    "canvas_pass": true,
+    "visible_bbox_alpha128": [
+      247,
+      124,
+      1022,
+      1202
+    ],
+    "tank_top_y_target": 128,
+    "sole_bottom_y_target": 1184,
+    "visible_bbox_top_y": 124,
+    "visible_bbox_bottom_y_exclusive": 1202,
+    "fully_flat_occupied_16px_cells": 0,
+    "occupied_16px_cells": 2141,
+    "exact_16px_grid_pass": false
+  },
+  "singed-A-2.png": {
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "transparent_pixels": 957096,
+    "opaque_pixels": 3995,
+    "semi_transparent_pixels": 611425,
+    "hard_alpha_pass": false,
+    "canvas_pass": true,
+    "visible_bbox_alpha128": [
+      217,
+      84,
+      1085,
+      1239
+    ],
+    "tank_top_y_target": 128,
+    "sole_bottom_y_target": 1184,
+    "visible_bbox_top_y": 84,
+    "visible_bbox_bottom_y_exclusive": 1239,
+    "fully_flat_occupied_16px_cells": 0,
+    "occupied_16px_cells": 2588,
+    "exact_16px_grid_pass": false
+  }
+}
