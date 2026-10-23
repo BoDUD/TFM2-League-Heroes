@@ -38,6 +38,11 @@ JOINTS = {
                     r_hip="R_Hip", r_knee="R_KneeLower", r_foot="R_Foot", l_shoulder="L_Shoulder", l_elbow="L_Elbow",
                     l_hand="L_Hand", r_shoulder="R_Shoulder", r_elbow="R_Elbow", r_hand="R_Hand", weapon="Rifle_Root",
                     weapon_tip="Buffbone_Cstm_Rifle_Barrel_Loc"),
+    # the bow: weapon = its lower limb's tip, weapon_tip = its upper limb's tip (its axis), grip = the bow hand's joint
+    "varus": dict(pelvis="hip", chest="chest", head="head", l_hip="l_thigh", l_knee="l_knee", l_foot="l_foot",
+                  r_hip="r_thigh", r_knee="r_Knee", r_foot="r_foot", l_shoulder="l_uparm", l_elbow="l_forearm",
+                  l_hand="l_hand", r_shoulder="r_uparm", r_elbow="r_forearm", r_hand="r_Hand",
+                  weapon="l_d_weapon_c", weapon_tip="l_u_weapon_c", grip="weapon"),
     "darius": dict(pelvis="Pelvis", chest="Chest", head="Head", l_hip="L_Hip", l_knee="L_Knee", l_foot="L_Foot",
                    r_hip="R_Hip", r_knee="R_Knee", r_foot="R_Foot", l_shoulder="L_UpArm", l_elbow="L_ForeArm",
                    l_hand="L_Hand", r_shoulder="R_UpArm", r_elbow="R_ForeArm", r_hand="R_Hand", weapon="Weapon"),

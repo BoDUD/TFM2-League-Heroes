@@ -1,0 +1,132 @@
+{
+  "requested": 17,
+  "generated": 17,
+  "complete": true,
+  "blocked_by": null,
+  "poses": [
+    {
+      "name": "a_wind",
+      "file": "aurora-pose-a_wind.png",
+      "status": "generated",
+      "pose": "RAISE - standing tall, the FAR hand lifting the wand up beside her head on the image right (the tip to the upper right, never over the face), the near arm opened out to the left.",
+      "selected_raw": "raw/aurora-pose-a_wind.png"
+    },
+    {
+      "name": "a_point",
+      "file": "aurora-pose-a_point.png",
+      "status": "generated",
+      "pose": "POINT - leaning forward, the FAR arm stretched forward level, the wand thrust out to the image right (the tip to the right and a little up, at shoulder height), the near arm flung back, the feet apart.",
+      "selected_raw": "raw/aurora-pose-a_point-fixed.png"
+    },
+    {
+      "name": "q_wind",
+      "file": "aurora-pose-q_wind.png",
+      "status": "generated",
+      "pose": "WIND-UP - a small hop (the feet about 3 squares up), leaning back, the FAR hand holding the wand upright beside her head on the image right (the tip UP, never over the face), the near arm flung up to the upper left.",
+      "selected_raw": "raw/aurora-pose-q_wind.png"
+    },
+    {
+      "name": "q_cast",
+      "file": "aurora-pose-q_cast.png",
+      "status": "generated",
+      "pose": "CAST - a big step forward, leaning forward, the FAR arm sweeping the wand out to the lower right (the tip to the lower right), the near arm flung out to the left, the legs wide apart.",
+      "selected_raw": "raw/aurora-pose-q_cast-anatomy-fixed.png"
+    },
+    {
+      "name": "q_catch",
+      "file": "aurora-pose-q_catch.png",
+      "status": "generated",
+      "pose": "RECALL - up on her toes (the feet about 2 squares up), the FAR hand holding the wand straight up at her side on the image right (the tip UP, never over the face), the near arm open to the left, palm up, as if catching something flying back.",
+      "selected_raw": "raw/aurora-pose-q_catch-fixed.png"
+    },
+    {
+      "name": "e_push",
+      "file": "aurora-pose-e_push.png",
+      "status": "generated",
+      "pose": "BLAST - squatting deep with the knees spread apart, leaning forward, BOTH hands holding the wand and thrusting it out to the lower right (the tip to the lower right), the tail up behind her.",
+      "selected_raw": "raw/aurora-pose-e_push-fixed.png"
+    },
+    {
+      "name": "e_hop",
+      "file": "aurora-pose-e_hop.png",
+      "status": "generated",
+      "pose": "HOP BACK - jumping back toward the image left (the feet about 10 squares up), both knees tucked, leaning back, the FAR hand resting the wand on her shoulder again as in the design, the near arm reaching forward.",
+      "selected_raw": "raw/aurora-pose-e_hop.png"
+    },
+    {
+      "name": "r_reach",
+      "file": "aurora-pose-r_reach.png",
+      "status": "generated",
+      "pose": "REACH - standing tall on her toes, the near arm spread out level to the left, the FAR hand pointing the wand down to the lower right (the tip to the lower right), about to leap.",
+      "selected_raw": "raw/aurora-pose-r_reach-anatomy-fixed.png"
+    },
+    {
+      "name": "r_leap",
+      "file": "aurora-pose-r_leap.png",
+      "status": "generated",
+      "pose": "LEAP - jumping high to the upper right (the feet about 12 squares up), both knees tucked under her, the FAR hand resting the wand on her shoulder as in the design, the near arm flung back to the left.",
+      "selected_raw": "raw/aurora-pose-r_leap.png"
+    },
+    {
+      "name": "r_land",
+      "file": "aurora-pose-r_land.png",
+      "status": "generated",
+      "pose": "LAND - landing in a crouch with the knees together, leaning forward, the FAR hand pointing the wand down at the ground to the lower right (the tip nearly touching the ground), the near arm out to the left for balance.",
+      "selected_raw": "raw/aurora-pose-r_land-fixed.png"
+    },
+    {
+      "name": "w_hop",
+      "file": "aurora-pose-w_hop.png",
+      "status": "generated",
+      "pose": "VEIL HOP - leaping high back toward the image left (the feet about 10 squares up), curled up in a ball, both knees pulled up to the chest, the FAR hand holding the wand on her shoulder, the near arm hugging the knees, the tail flung out behind her.",
+      "selected_raw": "raw/aurora-pose-w_hop.png"
+    },
+    {
+      "name": "run1",
+      "file": "aurora-pose-run1.png",
+      "status": "generated",
+      "pose": "RUN 1 - a stride: the FAR leg forward with its foot landing, the NEAR leg stretched back, leaning forward a little, the wand resting on her shoulder as in the design, the near arm swinging back.",
+      "selected_raw": "raw/aurora-pose-run1.png"
+    },
+    {
+      "name": "run2",
+      "file": "aurora-pose-run2.png",
+      "status": "generated",
+      "pose": "RUN 2 - the near leg under the body carrying her, the FAR knee lifted forward, the body one square higher, the wand on her shoulder as before, the near arm swinging down.",
+      "selected_raw": "raw/aurora-pose-run2.png"
+    },
+    {
+      "name": "run3",
+      "file": "aurora-pose-run3.png",
+      "status": "generated",
+      "pose": "RUN 3 - the NEAR leg forward with its foot landing, the FAR leg stretched back, leaning forward a little, the wand on her shoulder, the near arm swinging forward.",
+      "selected_raw": "raw/aurora-pose-run3.png"
+    },
+    {
+      "name": "run4",
+      "file": "aurora-pose-run4.png",
+      "status": "generated",
+      "pose": "RUN 4 - the far leg under the body carrying her, the NEAR knee lifted forward, the body one square higher, the wand on her shoulder, the near arm swinging down.",
+      "selected_raw": "raw/aurora-pose-run4.png"
+    },
+    {
+      "name": "d_stagger",
+      "file": "aurora-pose-d_stagger.png",
+      "status": "generated",
+      "pose": "STAGGER - reeling back toward the image left, the knees buckling, both arms flung out to the sides, the wand slipping in the far hand, hanging down to the lower right.",
+      "selected_raw": "raw/aurora-pose-d_stagger.png"
+    },
+    {
+      "name": "d_slump",
+      "file": "aurora-pose-d_slump.png",
+      "status": "generated",
+      "pose": "DOWN - sitting down on the ground, both legs stretched forward to the image right with the knees a little bent, leaning back, the near hand propped on the ground behind her, the far hand resting on her leg; the wand lying flat on the ground under her, its tip to the image left.",
+      "selected_raw": "raw/aurora-pose-d_slump.png"
+    }
+  ],
+  "strict_grid9_verified": false,
+  "hard_alpha_verified": false,
+  "engine_verified": false,
+  "artwork_inventory_complete": true,
+  "production_ready": false
+}
