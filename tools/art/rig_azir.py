@@ -5,7 +5,8 @@
     python tools/art/rig_azir.py --review DIR      # every tag at 3x + a GIF per tag, the summons' too (nothing written)
     python tools/art/rig_azir.py                   # his frames at PPU -> assets/source/ppu/orig + the 1x sheet; the
                                                    # summons' dense sheets -> league/effects/league_azir_soldier,
-                                                   # league_azir_guard and league_azir_disc
+                                                   # league_azir_guard, league_azir_disc, league_azir_soldier_side
+    python tools/art/rig_azir.py --summons         # the summons' sheets only (his frames untouched)
 
 The pictures (tools/art/design_azir_model.py, design_azir_poses.py, design_azir_summons.py):
   hd/idle.png             him, 3/4 front facing right, 50 x 73 at PPU 1.5 (38 game px crest to soles, the sceptre above):
@@ -15,6 +16,8 @@ The pictures (tools/art/design_azir_model.py, design_azir_poses.py, design_azir_
                           e_dash e_land r_raise r_lift r_sweep run1-4 d_stagger d_kneel;
   hd/soldier.png, soldier_lift.png, soldier_stab.png   the sand soldier from the front (29 x 54, 24 x 45, 31 x 44);
   hd/guard.png, guard_push1.png, guard_push2.png       the Imperial Guard from the side facing right (36 x 45, 38 x 45);
+  hd/soldier_side_<pose>.png  the sand soldier from the side, spear to the right (design_azir_side_soldier.py: stand, wind,
+                          thrust, hold, recover; hd/soldier_side.json their roots) - the add-on's soldiers;
   hd/disc.png             the Sun Disc from the front (46 x 68).
 Placing a pose (league_aurora's way): its head box (the design's helmet, pasted) stands where the design's helmet stands,
 moved dx squares, its soles on the ground row (its lowest square, or GROUND's row where the sceptre lies lower in front
@@ -24,7 +27,9 @@ The summons are effect pictures (tools/kit/build_azir.py's views; league_illaoi'
 1x tags and their hd_ twins (PPU 1.5, league_main hd.rs EFFECTS), drawn as stored on both sides (the client never
 mirrors an effect): the soldier from the front, the disc from the front, the guard from the side in a right-facing and a
 mirrored left-facing tag (the add-on picks one by the wall's direction; the main pack's data cannot see it and draws the
-right-facing one).
+right-facing one), and the soldier from the side (league_azir_soldier_side: stand, rise and stab, each right and left,
+ss_stand / ss_rise / ss_stab ticks long - the add-on stamps them where the data's soldier stands, facing the nearest
+enemy, the stab when it strikes).
 """
 import argparse
 import json
@@ -175,12 +180,14 @@ class Summon:
         self.py = self.soles - FEET * S_PPU
 
     def frame(self, items):
-        """items: [(picture, (dx, dy) game px off the pivot, sink rows, mirrored)] drawn back to front."""
+        """items: [(picture, (dx, dy) game px off the pivot, sink rows, mirrored[, root column])] drawn back to front:
+        centred on the pivot, or with its root column (its feet) there."""
         can = np.zeros((self.H, self.W, 4), np.uint8)
-        for d, (dx, dy), sink, mirror in items:
+        for d, (dx, dy), sink, mirror, *root in items:
             if mirror:
                 d = d[:, ::-1]
-            x0 = int(round(self.px + dx * S_PPU - d.shape[1] / 2))
+                root = [d.shape[1] - 1 - r for r in root]
+            x0 = int(round(self.px + dx * S_PPU - d.shape[1] / 2)) if not root else int(round(self.px + dx * S_PPU)) - root[0]
             ground = self.soles + int(round(dy * S_PPU))
             y0 = ground - d.shape[0] + sink
             ys, xs = np.nonzero(d[..., 3] > 0)
@@ -192,9 +199,35 @@ class Summon:
         return can
 
 
+def ms_split(ticks, parts):
+    """`ticks` in ms (rounded) shared out in the proportions `parts` (whole ms, the last takes the rest)."""
+    total = round(ticks * 1000 / 60)
+    out = [round(total * p / sum(parts)) for p in parts[:-1]]
+    return out + [total - sum(out)]
+
+
+def side_soldier(S):
+    """The add-on's soldier from the side: {tag: [(canvas, ms)]} - stand (one stamp), rise (out of the sand) and stab
+    (wind, thrust, hold, recover), each facing right (_r) and mirrored left (_l), its feet on the pivot."""
+    with open(lp(os.path.join(SRC, "soldier_side.json")), encoding="utf-8") as f:
+        meta = json.load(f)
+    pose = {n: (load(f"soldier_side_{n}.png"), meta[n]["root"][0]) for n in ("stand", "wind", "thrust", "hold", "recover")}
+    out = {}
+    for side, mirror in (("r", False), ("l", True)):
+        at = lambda n, sink=0: S.frame([(pose[n][0], (0, 0), sink, mirror, pose[n][1])])
+        h = pose["stand"][0].shape[0]
+        out[f"stand_{side}"] = [(at("stand"), ms_split(KIT["ss_stand"], [1])[0])]
+        out[f"rise_{side}"] = list(zip([at("stand", h * 2 // 3), at("stand", h // 3), at("stand")],
+                                       ms_split(KIT["ss_rise"], [27, 27, 46])))
+        out[f"stab_{side}"] = list(zip([at("wind"), at("thrust"), at("hold"), at("recover")],
+                                       ms_split(KIT["ss_stab"], [3, 6, 3, 4])))
+    return out
+
+
 def summon_tags():
     """{sheet: {tag: [(canvas, ms)]}}: the soldier (each slot's standing stamp and its rise), the guard wall (a hop's
-    stamp, two steps, right and left) and the disc (its rise and its standing stamp)."""
+    stamp, two steps, right and left), the disc (its rise and its standing stamp) and the add-on's soldier from the
+    side."""
     sol, lift, stab = load("soldier.png"), load("soldier_lift.png"), load("soldier_stab.png")
     g1, g2 = load("guard_push1.png"), load("guard_push2.png")
     disc = load("disc.png")
@@ -220,7 +253,11 @@ def summon_tags():
     soldier = {"idle": soldier["soldier_a"], **soldier}
     guard = {"idle": guard["charge_r_a"], **guard}
     disc_tags = {"idle": disc_tags["disc"], **disc_tags}
-    return {"league_azir_soldier": (S, soldier), "league_azir_guard": (W, guard), "league_azir_disc": (D, disc_tags)}
+    SS = Summon(216, 90)
+    side = side_soldier(SS)
+    side = {"idle": side["stand_r"], **side}
+    return {"league_azir_soldier": (S, soldier), "league_azir_guard": (W, guard), "league_azir_disc": (D, disc_tags),
+            "league_azir_soldier_side": (SS, side)}
 
 
 def summon_sheets():
@@ -268,7 +305,11 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--review")
     ap.add_argument("--tags", help="only these tags (comma-separated)")
+    ap.add_argument("--summons", action="store_true", help="write the summons' sheets only")
     a = ap.parse_args()
+    if a.summons:
+        write_summons()
+        return
     C = Canvas()
     acts = frames(C, a.tags.split(",") if a.tags else None)
     if a.review:
@@ -276,6 +317,10 @@ def main():
         review_summons(os.path.join(a.review, "summons"))
         return
     C.rig.export(acts)
+    write_summons()
+
+
+def write_summons():
     for sheet, tt in summon_sheets().items():
         w, h = G.write_sheet(lp(os.path.join(MOD, "effects", sheet)), tt, share=True)
         print(f"league/effects/{sheet}#sheet.png {w}x{h}: " + ", ".join(f"{t} {len(v)}" for t, v in tt.items()))

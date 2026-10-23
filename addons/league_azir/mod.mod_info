@@ -11,10 +11,10 @@
       "version": ">=0.201.0"
     }
   ],
-  "description": "Test build of Azir's Sun Disc and his Imperial Guards facing the charge (needs League of Legends Heroes): replaces the main pack's Azir so that, once a game, by a fallen tower of his team the Sun Disc rises from the ruin and strikes the nearest enemy every second, and the guards of Emperor's Divide face the way the wall charges (the data pack cannot see the towers or the wall's direction). His skills are otherwise the main pack's. Other champions are untouched. Writes a log for testing.",
+  "description": "Test build of Azir's Sun Disc, his Imperial Guards facing the charge and his sand soldiers from the side (needs League of Legends Heroes): replaces the main pack's Azir so that, once a game, by a fallen tower of his team the Sun Disc rises from the ruin and strikes the nearest enemy every second, the guards of Emperor's Divide face the way the wall charges, and his sand soldiers stand side-on facing the nearest enemy and thrust their spears when they strike (the data pack cannot see the towers, the wall's direction or which side an enemy is on). His skills are otherwise the main pack's. Other champions are untouched. Writes a log for testing.",
   "last_updated": "2026-10-23",
   "mod_id": "league_azir",
   "mod_type": "native",
-  "name": "League Heroes: Azir's Sun Disc and charging guards (test)",
+  "name": "League Heroes: Azir's Sun Disc, charging guards and side-on soldiers (test)",
   "version": "0.1.0"
 }

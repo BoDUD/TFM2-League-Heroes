@@ -42,7 +42,10 @@ Shifting Sands (E) `skill2`, Emperor's Divide (R) the `ult`.
           (`RushMoveToBack`, r_rush_at - league_leesin's insec) and the wall pushes it back toward his team (反推);
           otherwise the wall pushes them away from him (正推: peels a diver, or shoves a fight apart). Every champion the
           wall meets refunds Q (`q_ref`, skill_cooldown_mult q_refund for 2 ticks: R -> Q).
-The add-on copy (--native, addons/league_azir): the passive league_azir:disc raises the Sun Disc on a fallen tower of his.
+The add-on copy (--native, addons/league_azir): the passive league_azir:disc raises the Sun Disc on a fallen tower of his;
+the soldiers' rise, checkpoints and stabs call league_azir:rise_<s> / sold_<s> / stab_<s> instead of the front pictures,
+and the add-on draws each soldier from the side, facing the nearest enemy and stabbing when it strikes (the user:
+「沙兵没攻击动作 ... 还有不面向敌人」; data cannot tell left from right, so the main pack keeps them facing the camera).
 Action tags (the art): idle run attack hit dead skill skill2 ult.
 Numbers: League 16.20 (CommunityDragon azir.bin) read into the Magician mid range (league_hwei, league_orianna);
 balanced on the classic-SDK simulations (kd.py --lane 2, C:/t/az_sim, 2026-10-23; league_hwei +1.16 on the same games): the
@@ -65,6 +68,7 @@ BIG = "asset/league/effects/league_azir_big"
 SOLDIER = "asset/league/effects/league_azir_soldier"   # a soldier: soldier_<s> standing, soldier_<s>_rise out of the sand
 GUARD = "asset/league/effects/league_azir_guard"       # R's three guards from the side: charge_<r|l>_<a|b> (one hop each)
 DISC = "asset/league/effects/league_azir_disc"         # the Sun Disc (the add-on's): disc_rise, disc
+SIDE = "asset/league/effects/league_azir_soldier_side"  # the add-on's soldier from the side: stand / rise / stab, _r / _l
 
 # League's Azir (16.20, CommunityDragon azir.bin): 575 +119 hp, 52 AD, 19 armour, 30 mr, 335 move, 525 range.
 # W: soldiers 10 s, 2 charges, stab 50-170 + 55% AP (more soldiers on one target 25% each), reach 325. Q 740 range,
@@ -78,6 +82,9 @@ P = {
     # passive: the soldiers
     "p_cd": 150, "s_life": 480, "s_step": 40, "s_r": 42000, "s_per": 2, "cmd_t": 2, "s_dmg": 75, "s_ap": 100,
     "s_place": 30000, "s_speed": 6000,
+    # the add-on's soldiers from the side (addons/league_azir; tools/art/design_azir_side_soldier.py): ticks a standing
+    # stamp, the rise and the stab last (a stamp every ss_stand ticks faces the nearest enemy; a stab starts on one)
+    "ss_stand": 4, "ss_rise": 20, "ss_stab": 16,
     # the controller
     "ctl_t": 3600, "ctl_p": 3,
     # skill: Q Conquering Sands
@@ -101,7 +108,8 @@ P = {
 }
 SLOTS = "abc"
 GENS = "ABC"
-NATIVE_KEYS = ("d_life", "d_per", "d_range", "d_dmg", "d_ap", "d_near", "r_speed", "r_len", "r_stamps", "s_step")
+NATIVE_KEYS = ("d_life", "d_per", "d_range", "d_dmg", "d_ap", "d_near", "r_speed", "r_len", "r_stamps", "s_step",
+               "ss_stand", "ss_rise", "ss_stab")
 
 
 def lp(path):
@@ -291,9 +299,15 @@ def build(p):
     def soldier(s, g):
         """Slot s's soldier of generation g on this spot (a landing's end_effects): its picture re-stamped every
         s_step ticks and two stab zones (champions first), all only while g is up."""
-        poke = lambda: gate(g, sw("cmd", sw(f"k{s}", NONE, combine(flag(f"k{s}", p["cmd_t"] + 1), *stab))))
-        out = [view("s_spawn"), sfx("s_spawn"), gate(g, view(f"sold_{s}_rise"))]   # out of the sand, then standing
-        out += [delayed(t, gate(g, view(f"sold_{s}"))) for t in range(p["s_step"], p["s_life"], p["s_step"])]
+        # the add-on's copy draws the soldier itself, from the side (it faces the nearest enemy, it stabs): its natives
+        # take the spot (the rise, every checkpoint) and the unit stabbed
+        native = lambda what: {"type": "Native", "effect_ref": f"{ID}:{what}_{s}"}
+        told = [native("stab")] if p["native"] else []
+        poke = lambda: gate(g, sw("cmd", sw(f"k{s}", NONE, combine(flag(f"k{s}", p["cmd_t"] + 1), *stab, *told))))
+        rise_, stand_ = ((native("rise"), native("sold")) if p["native"] else
+                         (view(f"sold_{s}_rise"), view(f"sold_{s}")))
+        out = [view("s_spawn"), sfx("s_spawn"), gate(g, rise_)]   # out of the sand, then standing
+        out += [delayed(t, gate(g, stand_)) for t in range(p["s_step"], p["s_life"], p["s_step"])]
         out += [field(f"s{s}_ch", p["s_r"], p["s_life"], p["s_per"], 1, [poke()], "EnemyChampion"),
                 field(f"s{s}_all", p["s_r"], p["s_life"], p["s_per"], 1, [poke()])]
         return out
@@ -415,6 +429,8 @@ def build(p):
     # the Sun Disc's (the add-on plays them: the disc's rise and stamps, its ring, its solar ray)
     views_e += [E("disc_rise", DISC, 1, False, "disc_rise"), E("disc", DISC, 1, False, "disc"), E("d_rise", BIG, 1, False),
                 E("d_glow", FX, -1, False), E("d_beam", BIG, 3)]
+    # the add-on's soldier from the side (it stamps them: standing, rising, stabbing, facing right or left)
+    views_e += [E(f"ss_{t}_{d_}", SIDE, 1, False, f"{t}_{d_}") for t in ("stand", "rise", "stab") for d_ in "rl"]
     views_b = [B_("q_slow", FX, -1, "slow")]
     extra = {}
     if p["native"]:

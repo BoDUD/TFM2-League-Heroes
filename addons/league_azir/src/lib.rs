@@ -1,4 +1,5 @@
-//! 阿兹尔附加包：数据做不到的两件事（用户选的方案 C：「太阳圆盘」做附加包；大招禁军用侧面，朝左朝右按冲锋方向）。
+//! 阿兹尔附加包：数据做不到的三件事（用户选的方案 C：「太阳圆盘」做附加包；大招禁军用侧面，朝左朝右按冲锋方向；沙兵
+//! 「沙兵没攻击动作 你想办法补吧 不让codex了 还有不面向敌人」）。
 //!
 //! `mod.override_info` 把主包的阿兹尔换成 `override/` 里的副本（tools/kit/build_azir.py --native）：技能和主包一模一样，只是
 //! - 被动挂本包的 `league_azir:disc`（参数在英雄数据的 `passive.params` 里）：**太阳圆盘**（英雄联盟的「恕瑞玛的传承」）。
@@ -9,6 +10,12 @@
 //! - 大招的禁军墙出墙那一刻调本包的 `league_azir:r_wall`（拿到大招的目标）：数据看不到墙往哪边冲，主包的禁军永远朝右；
 //!   本包按阿兹尔到目标的方向算出墙的路线，在数据那道墙每一跳停下的地方、停下的那个 tick（`r_len` 分 `r_stamps` 跳，速度
 //!   `r_speed`）盖上朝冲锋方向的禁军（朝右 `r_guards_a/b`，朝左 `r_guards_la/lb`，两步轮流）和脚下的沙尘。伤害和击退还是数据那道墙的。
+//! - **沙兵从侧面画，朝敌人，出手时刺**：数据分不出左右，主包的沙兵正面朝镜头、刺的时候不动。副本里每个槽位的沙兵升起、
+//!   每个检查点、每次刺都调本包的 `rise_<槽>` / `sold_<槽>` / `stab_<槽>`（拿到沙兵站的地方、被刺的单位）；本包自己画：
+//!   升起放侧面的 `ss_rise`，之后每 `ss_stand` tick 盖一次站着的 `ss_stand`，朝它 `FACE_R` 内最近的敌人（先英雄）；
+//!   刺过以后下一次改放 `ss_stab`（`ss_stab` tick），朝被刺的那个。每个槽位按 `SLOT_AT` 错开一点（三个站一处时分得开）。
+//!   狂沙猛攻把沙兵挪走时新的升起换一条盖章链，旧的那条自己停；检查点不来了（沙兵到时间、换代）就不再盖。
+//!   谁放的都画（佛耶戈附身阿兹尔时也一样），不靠被动。
 //!
 //! 数字从英雄数据的 `passive.params` 来（`make_override.py` 从参数表 P 写进去），本包不另记一份。服务端预模拟和你看的那场各算各的
 //! （被动是每个阿兹尔一份；墙的路线只用施放那一刻的位置）。日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_azir.log`，
@@ -18,6 +25,7 @@ use std::collections::HashMap;
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::path::PathBuf;
+use std::sync::atomic::{AtomicUsize, Ordering};
 use std::sync::{LazyLock, Mutex};
 
 use mod_api_stable::*;
@@ -109,14 +117,18 @@ pub struct Params {
     pub r_speed: usize,
     pub r_len: usize,
     pub r_stamps: usize,
-    /// 圆盘的画面隔多少 tick 重新盖一次（`disc` 那一段的长度）。
+    /// 圆盘的画面隔多少 tick 重新盖一次（`disc` 那一段的长度）；沙兵的检查点也是这个间隔。
     pub s_step: usize,
+    /// 侧面沙兵：站着的一次、升起、刺各多少 tick（`league_azir_soldier_side` 那几段的长度）。
+    pub ss_stand: usize,
+    pub ss_rise: usize,
+    pub ss_stab: usize,
 }
 
 impl Default for Params {
     fn default() -> Self {
         Self { d_life: 2700, d_per: 60, d_range: 45000, d_dmg: 50, d_ap: 35, d_near: 60000, r_speed: 3000, r_len: 60000,
-               r_stamps: 5, s_step: 40 }
+               r_stamps: 5, s_step: 40, ss_stand: 4, ss_rise: 20, ss_stab: 16 }
     }
 }
 
@@ -139,6 +151,9 @@ pub fn parse_params(json: &str) -> Params {
             "r_len" => p.r_len = v,
             "r_stamps" => p.r_stamps = v.max(1),
             "s_step" => p.s_step = v.max(1),
+            "ss_stand" => p.ss_stand = v.max(1),
+            "ss_rise" => p.ss_rise = v.max(1),
+            "ss_stab" => p.ss_stab = v.max(1),
             _ => {}
         }
     }
@@ -225,29 +240,36 @@ struct Disc {
     up: Option<Up>,
 }
 
+/// The nearest enemy of `team` within r of `at`: champions first, then minions and monsters (never a tower or the nexus):
+/// (its id, a champion, where it stands).
+fn nearest(sim: &StableSim<'_>, team: usize, at: (f64, f64), r: f64) -> Option<(usize, bool, (f64, f64))> {
+    let mut best_c: Option<(f64, usize, (f64, f64))> = None;
+    let mut best_u: Option<(f64, usize, (f64, f64))> = None;
+    for k in 0..sim.entity_count() {
+        let Some(u) = sim.entity_at(k) else { continue };
+        if u.team() == team || !u.is_alive() || !u.is_targetable() || u.is_tower() {
+            continue;
+        }
+        if matches!(u.kind(), Some(EntityKindV1::Nexus | EntityKindV1::Tower)) {
+            continue;
+        }
+        let there = at_of(&u);
+        let d = dist(there, at);
+        if d > r {
+            continue;
+        }
+        let slot = if u.is_champion() { &mut best_c } else { &mut best_u };
+        if slot.map_or(true, |(bd, _, _)| d < bd) {
+            *slot = Some((d, u.id(), there));
+        }
+    }
+    best_c.map(|(_, id, p)| (id, true, p)).or(best_u.map(|(_, id, p)| (id, false, p)))
+}
+
 impl Disc {
     /// The nearest enemy within d_range of the disc: champions first, then minions and monsters (never a tower).
     fn target(&self, sim: &StableSim<'_>, team: usize, at: (f64, f64)) -> Option<(usize, bool)> {
-        let mut best_c: Option<(f64, usize)> = None;
-        let mut best_u: Option<(f64, usize)> = None;
-        for k in 0..sim.entity_count() {
-            let Some(u) = sim.entity_at(k) else { continue };
-            if u.team() == team || !u.is_alive() || !u.is_targetable() || u.is_tower() {
-                continue;
-            }
-            if matches!(u.kind(), Some(EntityKindV1::Nexus | EntityKindV1::Tower)) {
-                continue;
-            }
-            let d = dist(at_of(&u), at);
-            if d > self.p.d_range as f64 {
-                continue;
-            }
-            let slot = if u.is_champion() { &mut best_c } else { &mut best_u };
-            if slot.map_or(true, |(bd, _)| d < bd) {
-                *slot = Some((d, u.id()));
-            }
-        }
-        best_c.map(|(_, id)| (id, true)).or(best_u.map(|(_, id)| (id, false)))
+        nearest(sim, team, at, self.p.d_range as f64).map(|(id, champ, _)| (id, champ))
     }
 
     fn snapshot(&mut self, sim: &StableSim<'_>, team: usize) {
@@ -390,6 +412,166 @@ impl StableEffectType for Stamp {
     }
 }
 
+// ===================== 沙兵：侧面，朝最近的敌人，出手时刺 =====================
+
+/// The slots (the data's a, b, c) and where each one's soldier stands off the data's spot, game units (tools/art/
+/// rig_azir.py SLOT_AT: three on one spot - after Conquering Sands - stand apart).
+const SLOTS: [&str; 3] = ["a", "b", "c"];
+const SLOT_AT: [(f64, f64); 3] = [(0.0, 0.0), (-8_000.0, -3_000.0), (8_000.0, 3_000.0)];
+/// A soldier turns to the nearest enemy within this of it (its reach, s_r 42000, and a step more).
+const FACE_R: f64 = 60_000.0;
+/// An enemy less than this to the side is straight above or below it: it keeps facing the way it faced.
+const FACE_DX: f64 = 2_000.0;
+/// More soldiers remembered than this (games that ended mid-life never removed theirs): start over.
+const MAX_SOLDIERS: usize = 4096;
+
+/// Which way a soldier at `at` faces: toward `enemy` unless that is straight above or below it, then `keep`.
+pub fn turn_to(at: (f64, f64), enemy: Option<(f64, f64)>, keep: bool) -> bool {
+    match enemy {
+        Some(e) if (e.0 - at.0).abs() >= FACE_DX => e.0 > at.0,
+        _ => keep,
+    }
+}
+
+/// One soldier's picture: the data's spot, the way it faces, its chain of stamps (a new rise starts a new one; the old
+/// one stops itself), a stab to draw on the next stamp (toward the unit stabbed), the tick its checkpoints keep it to.
+#[derive(Clone, Copy, Debug)]
+struct Soldier {
+    at: (f64, f64),
+    right: bool,
+    chain: usize,
+    stab: Option<(f64, f64)>,
+    until: usize,
+}
+
+/// Every soldier drawn: by (this game's seed, the simulation's origin, match, set, the caster, the slot) - the server's
+/// pre-simulation and the match on screen draw their own.
+type SoldierKey = (u64, u32, u64, u64, usize, usize);
+static SOLDIERS: LazyLock<Mutex<HashMap<SoldierKey, Soldier>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
+static CHAINS: AtomicUsize = AtomicUsize::new(1);
+
+fn soldier_key(sim: &StableSim<'_>, caster: usize, slot: usize) -> SoldierKey {
+    let o = sim.sim_origin().unwrap_or_default();
+    (sim.seed(), o.kind, o.match_id, o.set_index, caster, slot)
+}
+
+/// The spot a native in the soldier's landing gets: its position (a unit given instead: where it stands).
+fn spot_of(sim: &StableSim<'_>, input: &InputTargetV1) -> Option<(f64, f64)> {
+    match InputTargetKindV1::from_code(input.kind) {
+        Some(InputTargetKindV1::Pos) => Some((input.x as f64, input.y as f64)),
+        Some(InputTargetKindV1::Target) => sim.get_entity(input.target_id).map(|t| at_of(&t)),
+        _ => None,
+    }
+}
+
+/// The soldier's picture `what` (stand, rise, stab) facing its way, where its slot stands off the spot.
+fn draw_soldier(sim: &mut StableSim<'_>, me: usize, slot: usize, at: (f64, f64), what: &str, right: bool) {
+    let (ox, oy) = SLOT_AT[slot];
+    let name = az(&format!("ss_{what}_{}", if right { "r" } else { "l" }));
+    sim.play_view_effect(&name, me, &pos_input((at.0 + ox, at.1 + oy)), 0, 0, 0);
+}
+
+/// The chain's next stamp, `delay` ticks on (the chain rides in the input's target id).
+fn queue_stamp(sim: &mut StableSim<'_>, me: usize, slot: usize, at: (f64, f64), chain: usize, delay: usize) {
+    let mut input = pos_input(at);
+    input.target_id = chain;
+    let name = format!("{ID}:ss_{}", SLOTS[slot]);
+    if !sim.queue_effect(&name, AttackTypeV1::Skill, me, &input, delay.max(1)) {
+        wlog(format!("{} queue_effect({name}) refused", head(sim, me)));
+    }
+}
+
+#[derive(Clone, Copy, Debug)]
+enum Step {
+    /// `rise_<slot>`: the data's soldier rises on the spot (a new one, or one Conquering Sands moved there).
+    Rise,
+    /// `sold_<slot>`: one of its checkpoints (every s_step while it stands).
+    Seen,
+    /// `stab_<slot>`: it stabbed the unit given.
+    Stab,
+    /// `ss_<slot>`: the next stamp of its chain (queued by this add-on).
+    Stamp,
+}
+
+struct SoldierFx {
+    slot: usize,
+    step: Step,
+}
+
+impl StableEffectType for SoldierFx {
+    fn apply(&self, sim: &mut StableSim<'_>, _: u64, me: usize, input: InputTargetV1) {
+        let key = soldier_key(sim, me, self.slot);
+        let p = params_of(me);
+        let tick = sim.tick();
+        let (team, from) = sim.get_entity(me).map_or((0, None), |e| (e.team(), Some(at_of(&e))));
+        let s_ = SLOTS[self.slot];
+        match self.step {
+            Step::Rise | Step::Seen => {
+                let Some(at) = spot_of(sim, &input) else {
+                    if let Some(k) = counted("no spot") {
+                        wlog(format!("{} SOLDIER {s_} #{k}: no spot (input kind {})", head(sim, me), input.kind));
+                    }
+                    return;
+                };
+                let rising = matches!(self.step, Step::Rise);
+                let until = tick + p.s_step + p.ss_stand;
+                let mut map = SOLDIERS.lock().unwrap_or_else(|e| e.into_inner());
+                if !rising {
+                    if let Some(s) = map.get_mut(&key).filter(|s| dist(s.at, at) <= 1_000.0) {
+                        s.until = until;
+                        return;
+                    }
+                }
+                if map.len() > MAX_SOLDIERS {
+                    map.clear();
+                }
+                // a new soldier (or one this add-on lost): toward the nearest enemy, else away from him
+                let enemy = nearest(sim, team, at, FACE_R).map(|(_, _, e)| e);
+                let right = turn_to(at, enemy, from.map_or(true, |f| at.0 >= f.0));
+                let chain = CHAINS.fetch_add(1, Ordering::Relaxed);
+                map.insert(key, Soldier { at, right, chain, stab: None, until });
+                drop(map);
+                if rising {
+                    draw_soldier(sim, me, self.slot, at, "rise", right);
+                }
+                queue_stamp(sim, me, self.slot, at, chain, if rising { p.ss_rise } else { 1 });
+                if let Some(k) = counted(if rising { "rise" } else { "found" }) {
+                    wlog(format!("{} SOLDIER {s_} {} #{k} at {} (input kind {}), facing {}", head(sim, me),
+                                 if rising { "RISES" } else { "FOUND" }, pt(at), input.kind,
+                                 if right { "right" } else { "left" }));
+                }
+            }
+            Step::Stab => {
+                let target = spot_of(sim, &input);
+                if let Some(s) = SOLDIERS.lock().unwrap_or_else(|e| e.into_inner()).get_mut(&key) {
+                    s.stab = Some(target.unwrap_or(s.at));
+                }
+                if let Some(k) = counted("stab") {
+                    wlog(format!("{} SOLDIER {s_} STABS #{k} toward {} (input kind {})", head(sim, me),
+                                 target.map_or("?".to_string(), pt), input.kind));
+                }
+            }
+            Step::Stamp => {
+                let mut map = SOLDIERS.lock().unwrap_or_else(|e| e.into_inner());
+                let Some(s) = map.get(&key).copied().filter(|s| s.chain == input.target_id) else { return };
+                if tick >= s.until {
+                    map.remove(&key);
+                    return;
+                }
+                let (what, right, next) = match s.stab {
+                    Some(t) => ("stab", turn_to(s.at, Some(t), s.right), p.ss_stab),
+                    None => ("stand", turn_to(s.at, nearest(sim, team, s.at, FACE_R).map(|(_, _, e)| e), s.right),
+                             p.ss_stand),
+                };
+                map.insert(key, Soldier { right, stab: None, ..s });
+                drop(map);
+                draw_soldier(sim, me, self.slot, s.at, what, right);
+                queue_stamp(sim, me, self.slot, s.at, s.chain, next);
+            }
+        }
+    }
+}
+
 // ===================== 注册 =====================
 
 /// Everything this add-on registers, into `module`: its own DLL's (`init`) or league_addons' (all add-ons in one).
@@ -410,6 +592,11 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     // the data's stamps alternate the guards' two steps: an odd hop b, an even one a (build_azir.py: "ab"[i % 2])
     for (suffix, view) in [("ra", "r_guards_a"), ("rb", "r_guards_b"), ("la", "r_guards_la"), ("lb", "r_guards_lb")] {
         module.add_native_effect(format!("{ID}:stamp_{suffix}"), Stamp { view });
+    }
+    for (slot, s) in SLOTS.iter().enumerate() {
+        for (what, step) in [("rise", Step::Rise), ("sold", Step::Seen), ("stab", Step::Stab), ("ss", Step::Stamp)] {
+            module.add_native_effect(format!("{ID}:{what}_{s}"), SoldierFx { slot, step });
+        }
     }
     host.log(LogLevel::Info, "league_azir v1 loaded (Azir's Sun Disc, his guards facing the charge).");
 }
@@ -466,5 +653,36 @@ mod tests {
     fn the_views_are_the_data_ones() {
         assert_eq!(az("r_guards_la"), "league_azir_r_guards_la");
         assert_eq!(az("disc_rise"), "league_azir_disc_rise");
+        assert_eq!(az("ss_stab_l"), "league_azir_ss_stab_l");
+    }
+
+    #[test]
+    fn a_soldier_faces_the_nearest_enemy() {
+        assert!(turn_to((100_000.0, 0.0), Some((130_000.0, 5_000.0)), false));
+        assert!(!turn_to((100_000.0, 0.0), Some((70_000.0, 0.0)), true));
+        assert!(turn_to((100_000.0, 0.0), Some((101_000.0, 20_000.0)), true), "straight below: it keeps its way");
+        assert!(!turn_to((100_000.0, 0.0), None, false));
+    }
+
+    /// The side soldier's tags (tools/art/rig_azir.py) last the ticks the stamps are queued by.
+    #[test]
+    fn the_side_soldier_tags_last_their_ticks() {
+        let fanim = include_str!("../../../league/effects/league_azir_soldier_side#anim.fanim");
+        let ms = |tag: &str| -> f64 {
+            let at = fanim.find(&format!("\"{tag}\":{{")).unwrap_or_else(|| panic!("no {tag}"));
+            let body = &fanim[at..at + fanim[at..].find("]}").unwrap()];
+            body.split("\"duration\":").skip(1).map(|d| d.split(',').next().unwrap().parse::<f64>().unwrap()).sum::<f64>()
+                * 1000.0
+        };
+        let p = Params::default();
+        for (tag, ticks) in [("stand", p.ss_stand), ("rise", p.ss_rise), ("stab", p.ss_stab)] {
+            for side in ["r", "l"] {
+                for pre in ["", "hd_"] {
+                    let got = ms(&format!("{pre}{tag}_{side}"));
+                    let want = ticks as f64 * 1000.0 / 60.0;
+                    assert!((got - want).abs() <= 1.0, "{pre}{tag}_{side}: {got} ms against {ticks} ticks");
+                }
+            }
+        }
     }
 }

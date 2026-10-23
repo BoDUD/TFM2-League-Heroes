@@ -16275,6 +16275,54 @@
       "tag": "d_beam",
       "z": 3,
       "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_azir_ss_stand_r",
+      "anim": "asset/league/effects/league_azir_soldier_side",
+      "tag": "stand_r",
+      "z": 1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_azir_ss_stand_l",
+      "anim": "asset/league/effects/league_azir_soldier_side",
+      "tag": "stand_l",
+      "z": 1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_azir_ss_rise_r",
+      "anim": "asset/league/effects/league_azir_soldier_side",
+      "tag": "rise_r",
+      "z": 1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_azir_ss_rise_l",
+      "anim": "asset/league/effects/league_azir_soldier_side",
+      "tag": "rise_l",
+      "z": 1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_azir_ss_stab_r",
+      "anim": "asset/league/effects/league_azir_soldier_side",
+      "tag": "stab_r",
+      "z": 1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_azir_ss_stab_l",
+      "anim": "asset/league/effects/league_azir_soldier_side",
+      "tag": "stab_l",
+      "z": 1,
+      "is_follow": false
     }
   ],
   "view_buffs": [

@@ -17,7 +17,8 @@
   --skills out.gif          (not in docs/) every skill on its own against Darius, one titled segment each (SKILLS), 4x:
                             the attack and its soldier, Q, E's dash, E's hop away from a diver, R pushing out (正推),
                             E -> R pushing back (反推), the Sun Disc (the add-on) - the user, 2026-10-23: 「带技能特效的gif图
-                            给我看看」.
+                            给我看看」; with the add-on's soldiers (SideSoldier: from the side, facing Darius, stabbing -
+                            「沙兵没攻击动作 ... 还有不面向敌人」).
 Every picture goes on its view's layer in the kit (z below 0 under the units, else over them, a higher z on top): the
 soldiers stand over the units, so the ones moved onto Darius stand in front of him, as in the game.
 """
@@ -45,15 +46,18 @@ if os.name == "nt" and not ROOT.startswith(chr(92) * 2):
 LEAGUE = os.path.join(ROOT, "league")
 CHAMP = os.path.join(LEAGUE, "champions", "league_azir")
 FX = {n: os.path.join(LEAGUE, "effects", n) for n in ("league_azir_fx", "league_azir_big")}
-SUMMONS = {n: os.path.join(LEAGUE, "effects", n) for n in ("league_azir_soldier", "league_azir_guard", "league_azir_disc")}
+SUMMONS = {n: os.path.join(LEAGUE, "effects", n)
+           for n in ("league_azir_soldier", "league_azir_guard", "league_azir_disc", "league_azir_soldier_side")}
 DARIUS = os.path.join(LEAGUE, "champions", "league_darius")
 KIT = build(P)
 Z = {v["tag"]: v["z"] for v in KIT["view_effects"] + KIT["view_projectiles"]}   # a picture's layer in the game
 RISE_TICKS = 34                 # addons/league_azir/src/lib.rs: the Sun Disc's stamps and rays start after its rise
+SLOT_AT = {"a": (0, 0), "b": (-8, -3), "c": (8, 3)}   # the add-on's SLOT_AT (game px): its side soldiers stand apart
+FACE_R, FACE_DX = 60, 2         # the add-on's: a soldier faces an enemy this near, unless it is less than FACE_DX aside
 FONTS = ("C:/Windows/Fonts/msyh.ttc", "C:/Windows/Fonts/simhei.ttf")   # --skills' titles in Chinese when one is here
 SKILLS = [   # --skills: each segment's title (Chinese, English)
-    ("① 普攻 · 沙兵现身：普攻在他身前召出沙兵，沙兵替他刺",
-     "1 attack, Arise!: a soldier rises in front of him and stabs for him"),
+    ("① 普攻 · 沙兵现身：普攻在他身前召出沙兵，沙兵朝着敌人、替他刺（附加包画的侧面沙兵）",
+     "1 attack, Arise!: a soldier rises in front of him, faces the enemy and stabs for him (the add-on's)"),
     ("② 狂沙猛攻（Q）：沙浪穿过、流沙减速，沙兵移到敌人身上马上刺",
      "2 Conquering Sands: the rush, the slow, the soldier onto him stabbing at once"),
     ("③ 流沙移形（E）：沙盾，冲到敌人身上，脚下沙柱，多一个沙兵",
@@ -77,14 +81,75 @@ class Him(Me):
         return int(round(x)), int(round(y))
 
 
+class SideSoldier(Anim):
+    """The add-on's soldier (addons/league_azir SoldierFx) on (x, y) from `when`: it rises from the side, then a standing
+    stamp every ss_stand ticks facing Darius when he is within FACE_R (and not straight above or below it), and the
+    first stamp after it strikes is its stab (ss_stab ticks) toward him; nothing from `until` (its life, or Conquering
+    Sands moving it)."""
+
+    def __init__(self, sheet, d, z, when, x, y, until, slot):
+        super().__init__([], when, x + SLOT_AT[slot][0], y + SLOT_AT[slot][1])
+        self.until = until                          # Anim would end a non-looping clip of no frames at once
+        self.sheet, self.d, self.zoom, self.at = sheet, d, z, (x, y)
+        self.stabs, self.plan, self.cache = [], None, {}
+
+    def frames(self, tag):
+        if tag not in self.cache:
+            self.cache[tag] = dense(self.sheet, tag, "azir", self.zoom)
+        return self.cache[tag]
+
+    def turn(self, t, right):
+        dx = self.d.pos(t)[0] - self.at[0]
+        return dx > 0 if abs(dx) >= FACE_DX and abs(dx) <= FACE_R else right
+
+    def schedule(self):
+        """[(start, end, tag)] from the rise on, as the add-on's chain of stamps plays them."""
+        right = self.turn(self.t0, True)
+        t = self.t0 + tick(P["ss_rise"])
+        plan = [(self.t0, t, f"rise_{'r' if right else 'l'}")]
+        stabs = sorted(self.stabs)
+        end = self.until if self.until is not None else self.t0 + 60000
+        while t < end:
+            due = [x for x in stabs if x <= t]
+            if due:
+                stabs = [x for x in stabs if x > t]
+                right = self.turn(due[-1], right)
+                plan.append((t, t + tick(P["ss_stab"]), f"stab_{'r' if right else 'l'}"))
+                t += tick(P["ss_stab"])
+            else:
+                right = self.turn(t, right)
+                plan.append((t, t + tick(P["ss_stand"]), f"stand_{'r' if right else 'l'}"))
+                t += tick(P["ss_stand"])
+        return plan
+
+    def frame(self, t):
+        if t < self.t0 or (self.until is not None and t >= self.until):
+            return None
+        if self.plan is None:
+            self.plan = self.schedule()
+        for t0, t1, tag in self.plan:
+            if t0 <= t < t1:
+                dt = t - t0
+                for f, ms in self.frames(tag):
+                    if dt < ms:
+                        return f
+                    dt -= ms
+                return self.frames(tag)[-1][0]
+        return None
+
+    def pos(self, t):
+        return self.x, self.y
+
+
 class Azir(Clip):
     """preview_gnar's clip at zoom z with his own dense frames (turned round after he steps behind Darius), his summons
     and his skills, each played from the clip's time against Darius where he stands then, timed like the kit."""
 
-    def __init__(self, *a, z=3):
+    def __init__(self, *a, z=3, side=False):
         super().__init__(*a)
-        self.z, self.flip_from = z, None
-        self.soldier, self.guard, self.disc = (load(SUMMONS[f"league_azir_{n}"]) for n in ("soldier", "guard", "disc"))
+        self.z, self.flip_from, self.side, self.soldiers = z, None, side, []
+        self.soldier, self.guard, self.disc, self.sides = (load(SUMMONS[f"league_azir_{n}"])
+                                                           for n in ("soldier", "guard", "disc", "soldier_side"))
 
     def a(self, tag, dur=None, loop=False, z=None):
         fr = list(dense(self.sp, tag, "azir", z or self.z))
@@ -127,7 +192,12 @@ class Azir(Clip):
         self.under.append(OnFoe(frames_of(sheet or self.small, tag), when, self.d, until=until))
 
     def stand(self, slot, when, x, y, until):
-        """A soldier rising on (x, y) at `when`, then standing until `until` (the sheet's dense frames): the standing one."""
+        """A soldier rising on (x, y) at `when`, then standing until `until` (the sheet's dense frames): the standing one
+        (with `side`, the add-on's SideSoldier)."""
+        if self.side:
+            sol = SideSoldier(self.sides, self.d, self.z, when, x, y, until, slot)
+            self.soldiers.append(sol)
+            return self.put(sol, "stand_r")
         rise = dense(self.soldier, f"soldier_{slot}_rise", "azir", self.z)
         stand = dense(self.soldier, f"soldier_{slot}", "azir", self.z)
         end = when + sum(ms for _, ms in rise)
@@ -146,6 +216,13 @@ class Azir(Clip):
             self.put(Anim(dense(self.guard, tag, "azir", self.z), t, int(round(hx)), y, loop=True, until=t + ms), tag)
             self.at("r_dust", t, int(round(hx)), y)
 
+    def strike(self, when):
+        """The soldiers standing then with Darius in their reach (s_r) stab him (the add-on draws it on their next stamp)."""
+        dx = self.d.pos(when)[0]
+        for sol in self.soldiers:
+            if sol.t0 <= when and (sol.until is None or when < sol.until) and abs(dx - sol.at[0]) <= P["s_r"] / 1000:
+                sol.stabs.append(when)
+
     def where(self):
         """The clip's time, his x, Darius' x, the units' row."""
         return self.t, self.me.pos(self.t)[0], self.d.pos(self.t)[0], self.me.y
@@ -163,6 +240,7 @@ class Azir(Clip):
         stab = t + tick(P["a_rel"] - 1)
         self.on("s_stab", stab)
         self.d.flinches.append(stab)
+        self.strike(stab)
         self.wait(tick(P["atk_cd"] - P["atk_dur"]))
         return soldier
 
@@ -183,6 +261,7 @@ class Azir(Clip):
         self.stand("a", land, far, y, until=until)
         self.on("s_stab", land + tick(2))
         self.d.flinches.append(land + tick(2))
+        self.strike(land + tick(2))
 
     def e_dash(self, until=None):
         """Shifting Sands onto Darius (his ult ready): the sand shell, the dash, the geyser, the hit, one more soldier on
@@ -314,7 +393,7 @@ def skills(out, z=4, step=40):
     def scene(x0, dx, soldier=False):
         """Azir at x0, Darius dx to his right; with `soldier`, one an earlier attack raised stands in front of him (E
         needs one, Q moves it)."""
-        c = Azir(champ, Foe(darius, x0 + dx, gy), Him(x0, gy), small, big, z=z)
+        c = Azir(champ, Foe(darius, x0 + dx, gy), Him(x0, gy), small, big, z=z, side=True)
         return c, (c.stand("a", -1500, int(x0 + ahead), gy, until=None) if soldier else None)
 
     clips = []

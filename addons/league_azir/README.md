@@ -2,23 +2,25 @@
 
 用户（2026-10-23）选技能方案时定了：方案 C，「太阳圆盘」并进被动做附加包；大招「要会正推和反面推 可以推回来英雄」，禁军用侧面。
 
-主包的阿兹尔是纯数据：数据看不到防御塔，也看不到禁军墙往哪边冲（特效图不翻转，主包的禁军永远朝右）。这个附加包补上这两件：
+主包的阿兹尔是纯数据：数据看不到防御塔，也看不到禁军墙往哪边冲、敌人在沙兵哪一边（特效图不翻转，主包的禁军永远朝右，沙兵正面朝镜头、刺的时候不动）。这个附加包补上这三件：
 
 | 部分 | 主包（纯数据） | 附加包 |
 |---|---|---|
 | 太阳圆盘（并入被动，英雄联盟的「恕瑞玛的传承」） | 没有 | 开局记下我方每座塔；每局一次，某座塔倒了、阿兹尔走到废墟 `d_near`（60000）内、废墟 `d_range`（45000）内有敌人时，圆盘从沙里升起，立 `d_life` tick（45 秒）：每 `d_per` tick（1 秒）打最近的敌人（先打英雄，没有英雄再打小兵和野怪，不打塔），`d_dmg` + `d_ap`% 法强（50 + 35%）魔法伤害。圆盘不跟着阿兹尔死，立满时间才消失 |
 | 禁军之墙的禁军 | 永远朝右 | 按阿兹尔到大招目标的方向朝左或朝右（反推时他已经绕到目标身后，禁军就朝回冲）；伤害和击退还是数据那道墙的 |
+| 沙兵（用户：「沙兵没攻击动作 你想办法补吧 不让codex了 还有不面向敌人」） | 正面朝镜头，刺的时候不动（只在被刺的人身上出沙矛） | 从侧面画：升起，之后每 `ss_stand` tick（4）盖一次站姿，朝 60 像素内最近的敌人（先英雄，敌人正好在它上下方时不转）；刺过以后下一次改放刺击（`ss_stab` tick，16：往后收矛、刺出、停住、收回），朝被刺的那个。三个沙兵站一处（狂沙猛攻以后）时按槽位错开一点。伤害还是数据的 |
 
 ## 怎么接上的
 
 `mod.override_info` 把主包的阿兹尔换成 `override/` 里的副本（`make_override.py` 用 `tools/kit/build_azir.py` 的 `native=1` 生成），其他技能和主包一模一样：
 
-- `passive` 是本包的 `league_azir:disc`，参数（`d_life d_per d_range d_dmg d_ap d_near r_speed r_len r_stamps s_step`）来自主包参数表 P、写在英雄数据的 `passive.params` 里，本包不另记一份。圆盘的状态（记下的塔、用没用过、立到哪个 tick）在被动自己身上（每个阿兹尔一份，游戏并行跑的几局互不相干）；升起时放 `d_rise` 和 `disc_rise`，立着时每 `s_step` tick 重新盖一次 `disc` 和脚下光环 `d_glow`，每一下太阳光束放 `d_beam` 和声音；
+- `passive` 是本包的 `league_azir:disc`，参数（`d_life d_per d_range d_dmg d_ap d_near r_speed r_len r_stamps s_step ss_stand ss_rise ss_stab`）来自主包参数表 P、写在英雄数据的 `passive.params` 里，本包不另记一份。圆盘的状态（记下的塔、用没用过、立到哪个 tick）在被动自己身上（每个阿兹尔一份，游戏并行跑的几局互不相干）；升起时放 `d_rise` 和 `disc_rise`，立着时每 `s_step` tick 重新盖一次 `disc` 和脚下光环 `d_glow`，每一下太阳光束放 `d_beam` 和声音；
 - 大招的禁军墙出墙那一刻调本包的 `league_azir:r_wall`（输入是大招的目标），不再自己盖朝右的禁军：本包算出墙的路线（`r_len` 分 `r_stamps` 跳，速度 `r_speed`，和数据那道墙一样），在每一跳停下的地方、停下的那个 tick（`queue_effect` 排好）盖上朝冲锋方向的禁军（朝右 `r_guards_a/b`，朝左 `r_guards_la/lb`，两步轮流）和脚下的沙尘 `r_dust`。墙的数字由被动在出生时按单位编号存一份（每个阿兹尔的数字都来自同一张参数表）；
+- 沙兵：副本里每个槽位（a / b / c）的沙兵升起、每个检查点（`s_step` tick）、每次刺都调本包的 `league_azir:rise_<槽>` / `sold_<槽>` / `stab_<槽>`（升起和检查点拿到沙兵站的地方，刺拿到被刺的单位），不再放主包的正面沙兵。本包按（这局的种子、模拟的来源、比赛、局、施放的单位、槽位）记下每个沙兵，自己排一串 `league_azir:ss_<槽>`，每一下盖一张侧面的画（`league_azir_soldier_side` 的 `stand` / `rise` / `stab`，`_r` 朝右、`_l` 朝左），再排下一下；狂沙猛攻把沙兵挪走时新的升起换一条串，旧的那条自己停；检查点不来了就停。谁放的都画（佛耶戈附身阿兹尔时也一样），不靠被动；
 - 普攻的说明换成附加包自己的文字（加上太阳圆盘那句），游戏里看说明就知道副本有没有生效。
 
 ## 检查
 
-- 在 `addons/` 下 `cargo test --release -p league_azir`：单元测试（参数来自英雄数据、圆盘按法强打、墙停下的地方和时间和数据那道墙一样、禁军朝冲锋方向、画面名都是数据里有的）。
+- 在 `addons/` 下 `cargo test --release -p league_azir`：单元测试（参数来自英雄数据、圆盘按法强打、墙停下的地方和时间和数据那道墙一样、禁军朝冲锋方向、沙兵朝最近的敌人、侧面沙兵那几段的长度和 `ss_*` tick 一样、画面名都是数据里有的）。
 - 主包的阿兹尔改了以后重新跑 `python addons/league_azir/make_override.py`（它先核对主包的 `league_azir.data_champion` 和参数表一致、`src/lib.rs` 的默认参数和 P 一致）。
-- 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_azir.log`（每次启动游戏重写）：出生 `SPAWN`（记下几座塔、圆盘用没用过）、`DISC RISES`、每一下 `SHOT`、`DISC GONE`，每道墙 `WALL`（从哪到哪、朝哪边、停几次）。
+- 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_azir.log`（每次启动游戏重写）：出生 `SPAWN`（记下几座塔、圆盘用没用过）、`DISC RISES`、每一下 `SHOT`、`DISC GONE`，每道墙 `WALL`（从哪到哪、朝哪边、停几次），沙兵 `SOLDIER a RISES`（站在哪、原生效果拿到的输入类型、朝哪边）、`SOLDIER a STABS`。

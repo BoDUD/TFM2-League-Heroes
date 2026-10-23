@@ -114,7 +114,9 @@ def flat(fr):
 SHEETS = [("league_azir_soldier", ["soldier_a_rise", "soldier_a", "soldier_a"], "the soldier: rising, standing"),
           ("league_azir_guard", ["charge_r_a", "charge_r_b"] * 3, "R's guards charging right"),
           ("league_azir_guard", ["charge_l_a", "charge_l_b"] * 3, "R's guards charging left (the add-on's)"),
-          ("league_azir_disc", ["disc_rise", "disc"], "the Sun Disc rising (the add-on's)")]
+          ("league_azir_disc", ["disc_rise", "disc"], "the Sun Disc rising (the add-on's)"),
+          ("league_azir_soldier_side", ["rise_r", "stand_r", "stand_r", "stab_r", "stand_r", "stand_r", "stab_l", "stand_l",
+                                        "stand_l"], "the soldier from the side: rising, stabbing right and left (the add-on's)")]
 FXS = [("league_azir_fx", ["a_bolt", "a_hit", "s_spawn", "s_stab", "q_wave", "q_land", "q_hit", "slow"], "effects: attack, soldiers, Q"),
        ("league_azir_fx", ["e_shield", "e_land", "e_hit", "r_dust", "r_hit", "d_glow"], "effects: E, R, the disc's ring"),
        ("league_azir_big", ["r_rise", "d_rise", "d_beam"], "effects: R's sand, the disc's rise and ray")]
