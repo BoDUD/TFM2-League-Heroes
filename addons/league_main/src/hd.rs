@@ -371,10 +371,10 @@ pub const EFFECTS: &[(&str, f32, &str)] = &[
     // league_ivern's Daisy (R): her rise, punch, slam and goodbye, each its own dense sheet (one life a sheet, the
     // turrets' way), drawn from her step-1 design uncut at PPU 1.9 (the user: 「小菊用不裁的原样（D-full，PPU 1.9）」;
     // tools/art/rig_ivern.py)
-    ("league_ivern_daisy_drop", 1.9, include_str!("../../../league/effects/league_ivern_daisy_drop#anim.fanim")),
-    ("league_ivern_daisy_punch", 1.9, include_str!("../../../league/effects/league_ivern_daisy_punch#anim.fanim")),
-    ("league_ivern_daisy_slam", 1.9, include_str!("../../../league/effects/league_ivern_daisy_slam#anim.fanim")),
-    ("league_ivern_daisy_bye", 1.9, include_str!("../../../league/effects/league_ivern_daisy_bye#anim.fanim")),
+    ("league_ivern_daisy_drop", 2.533, include_str!("../../../league/effects/league_ivern_daisy_drop#anim.fanim")),
+    ("league_ivern_daisy_punch", 2.533, include_str!("../../../league/effects/league_ivern_daisy_punch#anim.fanim")),
+    ("league_ivern_daisy_slam", 2.533, include_str!("../../../league/effects/league_ivern_daisy_slam#anim.fanim")),
+    ("league_ivern_daisy_bye", 2.533, include_str!("../../../league/effects/league_ivern_daisy_bye#anim.fanim")),
     // league_illaoi's tentacle (her passive, W, R): one life on the spot it grew (rising, swaying, sinking back) and the
     // lash slamming down on the unit it strikes, each its own dense sheet, drawn from its step-1 design at PPU 1.5 (the
     // user: 「触手 44」; tools/art/rig_illaoi.py)

@@ -46,7 +46,8 @@ SRC = os.path.join(ROOT, "assets", "source", "ivern", "hd")
 MOD = os.path.join(ROOT, "league")
 STAND = 34                     # the idle's standing column: under his middle, between his root feet
 HEAD = (PK.HEAD[2], PK.HEAD[0])            # the design's head box top-left (column, row) in hd/idle.png
-D_PPU = 1.9                    # Daisy's sheets (the user's pick: uncut, 76 rows for 40 game px)
+D_PPU = 2.533                  # Daisy's sheets: 76 rows for 30 game px (uncut at 1.9 = 40 px until 2026-10-23, the user:
+                               # 「翠神召唤出来的东西游戏里太大了吧」 -> 75 %; league_main hd.rs EFFECTS the same)
 D_HEAD = (27, 0)               # her head box top-left in hd/daisy.png (design_ivern_poses FIG["daisy"])
 DAISY_BACK = 9                 # game px her feet stand behind (over) the champion's soles (league_annie's Tibbers: 9)
 FEET = R.FEET
