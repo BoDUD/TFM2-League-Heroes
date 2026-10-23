@@ -1,0 +1,30 @@
+{
+  "nunu-A.png": {
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "visible_bbox_alpha128": [
+      291,
+      356,
+      1035,
+      1208
+    ],
+    "partial_alpha_pixels": 416943
+  },
+  "nunu-SA.png": {
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "visible_bbox_alpha128": [
+      308,
+      529,
+      901,
+      1223
+    ],
+    "partial_alpha_pixels": 264639
+  }
+}

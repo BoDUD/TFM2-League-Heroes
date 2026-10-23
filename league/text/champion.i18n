@@ -1099,6 +1099,13 @@
         "skill": "放出咒弹穿过敌人，造成<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<>魔法伤害并留下诅咒；<#ffb900ff>0.67秒<>后把诅咒抽回，回程再造成<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<>魔法伤害。",
         "skill2": "向前喷出灵魂冲击，造成<#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>魔法伤害并<#ef5350ff>减速<>60%（逐渐减弱），随后向后跳开。",
         "ult": "跳到敌方英雄身上，冲击波造成<#a974ffff>260<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>魔法伤害并<#ef5350ff>减速<>40%；张开领域<#ffb900ff>3.5秒<>，<#ef5350ff>减速<>其中敌人30%，目标走开时她穿过领域追上去。"
+      },
+      "league_nunu": {
+        "name": "努努和威朗普",
+        "attack": "爪击。每第3次普攻是<#ff9028ff>吞噬<>：额外<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>魔法伤害（小兵野怪再受120真实伤害），<#66bb6aff>回复<><#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<>生命；随后<#ffb900ff>4秒<>内自己和一名队友攻速+30%、移速+15%，普攻溅射周围20%。",
+        "skill": "推着雪球冲向目标，撞上造成<#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>42%<>魔法伤害并<#ef5350ff>击飞<><#ffb900ff>0.5秒<>；滚得越久越大，最多170%伤害、<#ef5350ff>击飞<><#ffb900ff>1秒<>。",
+        "skill2": "连扔6个雪球，每个<#a974ffff>11<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>7%<>魔法伤害并<#ef5350ff>减速<>30%；扔完<#ef5350ff>禁锢<>被打中的英雄<#ffb900ff>0.75秒<>，造成<#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>魔法伤害。",
+        "ult": "引导暴风雪<#ffb900ff>2.5秒<>，获得<#66bb6aff>护盾<><#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>，周围敌人<#ef5350ff>减速<>40%到80%；结束时爆发造成<#a974ffff>190<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>105%<>魔法伤害（被打断按已引导的时间计算）。"
       }
     },
     "skill_name": {
@@ -1886,6 +1893,11 @@
         "skill1": "飞去来咒",
         "skill2": "怪奇喷涌",
         "ult": "双界合一"
+      },
+      "league_nunu": {
+        "skill1": "史上最大雪球！",
+        "skill2": "雪球飞射",
+        "ult": "绝对零度"
       }
     }
   },
@@ -2989,6 +3001,13 @@
         "skill": "放出咒彈穿過敵人，造成<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<>魔法傷害並留下詛咒；<#ffb900ff>0.67秒<>後把詛咒抽回，回程再造成<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<>魔法傷害。",
         "skill2": "向前噴出靈魂衝擊，造成<#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>魔法傷害並<#ef5350ff>緩速<>60%（逐漸減弱），隨後向後跳開。",
         "ult": "跳到敵方英雄身上，衝擊波造成<#a974ffff>260<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>魔法傷害並<#ef5350ff>緩速<>40%；張開領域<#ffb900ff>3.5秒<>，<#ef5350ff>緩速<>其中敵人30%，目標走開時她穿過領域追上去。"
+      },
+      "league_nunu": {
+        "name": "努努和威朗普",
+        "attack": "爪擊。每第3次普攻是<#ff9028ff>吞噬<>：額外<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>魔法傷害（小兵野怪再受120真實傷害），<#66bb6aff>回復<><#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<>生命；之後<#ffb900ff>4秒<>內自己和一名隊友攻速+30%、移速+15%，普攻濺射周圍20%。",
+        "skill": "推著雪球衝向目標，撞上造成<#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>42%<>魔法傷害並<#ef5350ff>擊飛<><#ffb900ff>0.5秒<>；滾得越久越大，最多170%傷害、<#ef5350ff>擊飛<><#ffb900ff>1秒<>。",
+        "skill2": "連扔6顆雪球，每顆<#a974ffff>11<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>7%<>魔法傷害並<#ef5350ff>緩速<>30%；扔完<#ef5350ff>禁錮<>被擊中的英雄<#ffb900ff>0.75秒<>，造成<#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>魔法傷害。",
+        "ult": "引導暴風雪<#ffb900ff>2.5秒<>，獲得<#66bb6aff>護盾<><#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>，周圍敵人<#ef5350ff>緩速<>40%到80%；結束時爆發造成<#a974ffff>190<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>105%<>魔法傷害（被打斷按已引導的時間計算）。"
       }
     },
     "skill_name": {
@@ -3776,6 +3795,11 @@
         "skill1": "二重靈咒",
         "skill2": "靈異逆躍",
         "ult": "雙界合一"
+      },
+      "league_nunu": {
+        "skill1": "巨無霸雪球！",
+        "skill2": "雪球連擊",
+        "ult": "絕對零度"
       }
     }
   },
@@ -4879,6 +4903,13 @@
         "skill": "A hex flies through her enemies for <#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<> magic damage, cursing them; <#ffb900ff>0.67s<> later the curses are drawn back, dealing <#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<> magic damage on the way home.",
         "skill2": "A blast of spirit magic before her: <#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> magic damage and a <#ef5350ff>slow<> of 60% that fades; then she hops back.",
         "ult": "Leaps onto an enemy champion: the shockwave deals <#a974ffff>260<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> magic damage and <#ef5350ff>slows<> 40%; a realm opens for <#ffb900ff>3.5s<>, <#ef5350ff>slowing<> the enemies in it 30%, and she steps across it after her target when it walks away."
+      },
+      "league_nunu": {
+        "name": "Nunu & Willump",
+        "attack": "Claw swipe. Every 3rd attack is <#ff9028ff>Consume<>: <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> more magic damage (120 true damage more to minions and monsters) and <#66bb6aff>heals<> <#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<>; then for <#ffb900ff>4s<> they and an ally gain 30% attack speed and 15% move speed, and attacks splash 20% around.",
+        "skill": "Rolls a snowball into the target: <#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>42%<> magic damage and a <#ef5350ff>knock-up<> of <#ffb900ff>0.5s<>; the longer it rolls the bigger it grows, up to 170% damage and a <#ffb900ff>1s<> <#ef5350ff>knock-up<>.",
+        "skill2": "Throws 6 snowballs, each dealing <#a974ffff>11<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>7%<> magic damage and <#ef5350ff>slowing<> 30%; then the champions hit are <#ef5350ff>rooted<> for <#ffb900ff>0.75s<> and take <#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> magic damage.",
+        "ult": "Channels a blizzard for <#ffb900ff>2.5s<> under a <#66bb6aff>shield<> of <#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>, <#ef5350ff>slowing<> nearby enemies 40% rising to 80%; at the end it bursts for <#a974ffff>190<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>105%<> magic damage (a broken channel bursts for the share channelled)."
       }
     },
     "skill_name": {
@@ -5666,6 +5697,11 @@
         "skill1": "Twofold Hex",
         "skill2": "The Weirding",
         "ult": "Between Worlds"
+      },
+      "league_nunu": {
+        "skill1": "Biggest Snowball Ever!",
+        "skill2": "Snowball Barrage",
+        "ult": "Absolute Zero"
       }
     }
   },
@@ -6769,6 +6805,13 @@
         "skill": "주문 탄이 적을 꿰뚫어 <#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<> 마법 피해와 저주; <#ffb900ff>0.67초<> 뒤 저주를 끌어당겨 돌아오는 길에 <#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<> 마법 피해.",
         "skill2": "앞으로 영혼 충격파를 뿜어 <#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> 마법 피해와 점점 약해지는 60% <#ef5350ff>둔화<>, 이후 뒤로 뛴다.",
         "ult": "적 챔피언에게 도약해 충격파로 <#a974ffff>260<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> 마법 피해와 40% <#ef5350ff>둔화<>; <#ffb900ff>3.5초<> 동안 영역을 열어 안의 적을 30% <#ef5350ff>둔화<>, 대상이 벗어나면 영역을 건너 쫓아간다."
+      },
+      "league_nunu": {
+        "name": "누누와 윌럼프",
+        "attack": "할퀴기. 3번째 기본 공격마다 <#ff9028ff>잡아먹기<>: <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> 마법 피해 추가(미니언·몬스터 120 고정 피해 추가), <#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<> <#66bb6aff>회복<>; 이후 <#ffb900ff>4초<> 동안 자신과 아군 하나 공격 속도 +30%, 이동 속도 +15%, 기본 공격이 주변에 20% 튄다.",
+        "skill": "눈덩이를 굴려 대상에 부딪쳐 <#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>42%<> 마법 피해와 <#ffb900ff>0.5초<> <#ef5350ff>에어본<>; 오래 굴릴수록 커져 최대 170% 피해, <#ffb900ff>1초<> <#ef5350ff>에어본<>.",
+        "skill2": "눈덩이 6개를 던져 각각 <#a974ffff>11<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>7%<> 마법 피해와 30% <#ef5350ff>둔화<>; 이후 맞은 챔피언을 <#ffb900ff>0.75초<> <#ef5350ff>속박<>하고 <#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> 마법 피해.",
+        "ult": "<#ffb900ff>2.5초<> 동안 눈보라를 정신 집중하며 <#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> <#66bb6aff>보호막<>, 주변 적 40%에서 80%까지 <#ef5350ff>둔화<>; 끝나면 폭발해 <#a974ffff>190<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>105%<> 마법 피해(끊기면 집중한 만큼)."
       }
     },
     "skill_name": {
@@ -7556,6 +7599,11 @@
         "skill1": "이중 저주",
         "skill2": "마법의 문",
         "ult": "세계의 경계"
+      },
+      "league_nunu": {
+        "skill1": "데굴데굴 눈덩이!",
+        "skill2": "눈덩이 팡팡팡",
+        "ult": "절대 영도"
       }
     }
   },
@@ -8659,6 +8707,13 @@
         "skill": "呪弾が敵を貫き<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<>の魔法ダメージと呪い、<#ffb900ff>0.67秒<>後に呪いを引き戻し帰り道で<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<>の魔法ダメージ。",
         "skill2": "前方へ霊の衝撃を放ち<#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>の魔法ダメージと弱まっていく60%<#ef5350ff>スロウ<>、その後後ろへ跳ぶ。",
         "ult": "敵英雄へ跳び衝撃波で<#a974ffff>260<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>の魔法ダメージと40%<#ef5350ff>スロウ<>。<#ffb900ff>3.5秒<>間領域を開き中の敵を30%<#ef5350ff>スロウ<>、対象が離れると領域を越えて追う。"
+      },
+      "league_nunu": {
+        "name": "ヌヌ＆ウィルンプ",
+        "attack": "爪で攻撃。3回目ごとの通常攻撃は<#ff9028ff>丸かじり<>：<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>の魔法ダメージ追加（ミニオン・モンスターはさらに120の確定ダメージ）、<#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<><#66bb6aff>回復<>。その後<#ffb900ff>4秒<>自身と味方1体の攻撃速度+30%・移動速度+15%、通常攻撃が周囲に20%拡散。",
+        "skill": "雪玉を転がして対象にぶつけ<#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>42%<>の魔法ダメージと<#ffb900ff>0.5秒<><#ef5350ff>ノックアップ<>。長く転がすほど大きくなり最大170%ダメージ・<#ffb900ff>1秒<><#ef5350ff>ノックアップ<>。",
+        "skill2": "雪玉を6個投げ、それぞれ<#a974ffff>11<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>7%<>の魔法ダメージと30%<#ef5350ff>スロウ<>。投げ終わると当たった英雄を<#ffb900ff>0.75秒<><#ef5350ff>スネア<>し<#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>の魔法ダメージ。",
+        "ult": "<#ffb900ff>2.5秒<>吹雪を詠唱し<#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>の<#66bb6aff>シールド<>、周囲の敵を40%から80%<#ef5350ff>スロウ<>。終わると爆発し<#a974ffff>190<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>105%<>の魔法ダメージ（中断時は詠唱した分）。"
       }
     },
     "skill_name": {
@@ -9446,6 +9501,11 @@
         "skill1": "折れ重なる魔法",
         "skill2": "ウィアーディング",
         "ult": "世界の狭間"
+      },
+      "league_nunu": {
+        "skill1": "超特大の雪玉！",
+        "skill2": "雪玉連射",
+        "ult": "アブソリュート・ゼロ"
       }
     }
   }

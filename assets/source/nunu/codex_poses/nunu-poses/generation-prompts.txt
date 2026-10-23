@@ -1,0 +1,35 @@
+Generator: built-in image_gen. transparent_background=true. One independent image generation per pose.
+Reference order for each: 2_design.png; 1_head.png; {number}_{pose}_skeleton.png; {number}_{pose}_league.png; 0_design_skeleton.png. All from nunu_pose_pack.zip.
+Prompt is COMMON below + corresponding POSE line, verbatim.
+
+COMMON:
+Use case: identity-preserve. ONE production coarse pixel-art game pose of Nunu and Willump, same approved character as reference A. Output ONE 1254x1254 RGBA PNG, genuinely transparent, alpha ONLY 0 or255, sharp flat squares. Every logical pixel exactly 12x12 output pixels, grid starts at canvas(0,0); NO small detailed pixels. Match actual coarse square density of design. Feet touching ground at y1200. Keep all anatomy, antlers, boy, claws and named snowball INSIDE canvas.
+Reference A: approved DESIGN with grid background for measurement only; copy IDENTITY, proportions, materials, palette. Reference B: approved HEAD BOX (43 logical pixels wide by46 high), copy same face front-right with both eyes visible, antlers, boy. Reference C: YETI pose SKELETON on same canvas/grid, follow positions exactly: green spine from pelvis to neck base; RED near leg image-left; BLUE far leg image-right; ORANGE near arm image-left; PURPLE far arm image-right; big dots=hands/claws; GREY BOX=head+antlers+boy location; WHITE DISC only in snowball poses=snowball location AND size. Reference D: original League pose only, never copy realistic long limbs or 3D shading. Reference E: same skeleton over approved design to identify body parts. Output NO guides/grid/skeleton lines/grey box/red baseline/background labels.
+CHIBI, same round body and BIG head as A: each leg hip-to-sole about11 logical pixels; near arm shoulder-to-claw about17 and far arm16. Draw limbs bending at skeleton joints, same thickness and length as design, ALWAYS connected to shoulders/pelvis. NEVER elongate legs to human proportions or simply rotate whole straight legs. Near side brighter, far one shade darker.
+IDENTITY LOCK: pale-blue round yeti, white fluffy crown/chest/forearms with jagged tufts, 2-3 connected blue spiral marks, two cyan-white eyes, brown nose, broad toothy grin with small tusks except named mouth changes, pink inner ears, dark-blue claws and short thick legs, fluffy tail. Brown WOOD antlers branch both sides. Boy rides head between antlers (except death poses): blue hood with pink cat ears cream pompom, brown fringe, two blue eyes level with highlight, grin, orange cape white fur trim blue gem, brown gloves/boots/satchel, olive pants. Preserve SAME HEAD MODEL front-right, BOTH eyes of both faces visible, never side profile, scale never changes. Move head box along pose, never redesign it. Named mouth/throw/both raised arms/death are exceptions. Never hide faces behind hands or ball.
+Packed snowballs ONLY when named: white 3-4 flat tones, pale ice-blue shaded side, snow lumps, match skeleton disc diameter (small approx10 or big22 logical pixels). Hand presses rim. E throw ball only3 logical pixels. Otherwise NO snowball.
+One continuous one-block near-black outer outline, grouped 2-4 flat shades per material, no gradients/noise/dither/antialiasing/blur/soft glow/half-transparent edges. No ground/shadow/scene/text/border/motion trails/dust/snow powder/blizzard/aura. SINGLE POSE not a sheet.
+THE POSE: 
+
+For poses starting with b_open, append this extra anatomy constraint after COMMON before POSE (a_wind and a_swipe used COMMON without this addition):
+ANATOMY HARD RULE: exactly TWO yeti arms and TWO yeti legs, no extra hanging third arm, no duplicate claw or shoulder. Moving an arm REPLACES its resting position, never adds another arm. Exactly one boy.
+
+POSE LINES:
+a_wind: WIND-UP: lean back toward image left. FAR arm (image right) raised high above the head with open claws ready to swipe, near arm hangs. Boy holds antlers, leaning back.
+a_swipe: SWIPE: lean forward image right, FAR arm swipes down-forward with claws low in front, near arm swings back. FAR leg steps forward.
+b_open: LUNGE JAWS WIDE: lunge forward-right, mouth VERY WIDE OPEN with separated upper/lower teeth and deep red interior. Both arms reach forward apart; back short leg pushes off. Boy hugs antlers.
+b_bite: BITE: head thrust LOW forward, JAWS SNAPPED SHUT, clenched teeth. Body bent forward, both arms hang below with claws grounded. Boy leans forward holding on.
+w_pack: PACK SNOWBALL: crouch bent over, FAR hand pats SMALL packed white snowball on ground image right exactly at skeleton white disc, near hand supports knee. Boy looks down.
+w_push1: PUSH SNOWBALL 1: lean forward, FAR arm extends to push BIG packed white snowball in front image right matching white disc. Claw presses ball rim. Near arm swings back; NEAR leg extends back and FAR leg under body. Boy rides head, laughs holding antlers.
+w_push2: PUSH SNOWBALL 2: same far-arm push of BIG packed white snowball at disc. Opposite stride: NEAR leg under body and FAR leg extends back. NEAR arm swings forward. Claws contact ball rim.
+w_hit: IMPACT: NO snowball. Body recoils backward image left, both arms flung wide, mouth open. Boy leans backward on head.
+e_throw1: THROW 1: yeti stands planted feet apart, arms slightly open. BOY on head stretches NEAR arm forward-right, tiny white snowball (3 logical pixels across) just leaving glove. Other glove holds antler. Keep both faces uncovered.
+e_throw2: THROW 2: planted yeti sways slightly opposite. BOY switches hands: FAR arm cocked behind head holding tiny white snowball (3 logical pixels) ready to throw; NEAR arm recovering forward. Boy remains riding head.
+r_raise: CALL BLIZZARD: legs wide planted. BOTH YETI ARMS HIGH and spread, mouth open roar. BOY also raises BOTH arms over head, still rides on head. NO blizzard or any effect.
+r_slam: SLAM: deep squat, hunched forward, BOTH FISTS TOGETHER hit ground in front. Boy leans forward on head. No impact effects.
+run1: RUN 1: FAR short leg steps forward landing, NEAR short leg extended back, slight forward lean; NEAR arm swings forward, FAR arm back. Keep short legs 11 logical pixels, do not lengthen despite long stride wording.
+run2: RUN 2: NEAR leg under body carries weight, FAR knee raised forward. Body one logical pixel higher, both arms close hanging. Same short 11-pixel legs as design.
+run3: RUN 3: NEAR short leg steps forward landing, FAR short leg extends back. Forward lean, FAR arm swings forward, NEAR arm back. Opposite run1. Short 11-pixel legs.
+run4: RUN 4: FAR leg under body carries weight, NEAR knee lifted forward. Body one logical pixel higher, both arms close hanging. Opposite run2, short 11-pixel legs.
+d_fall: COLLAPSING: yeti knees buckle, falls forward, both arms hang underneath, head droops front-right. Boy tumbles forward OFF yeti head, still same costume, near head.
+d_lie: LYING FLAT: yeti lies belly-down horizontally toward image right on baseline, both arms flat forward on ground, legs flat backward, head rests on ground, CLOSED eyes as lines or X. Boy sits dazed on ground IN FRONT of head, having fallen off. No duplicate boy.
