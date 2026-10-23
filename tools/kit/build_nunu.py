@@ -33,7 +33,12 @@ camps with the snowball and the barrage too.
           leave the blizzard). R -> Q (绝对零度 -> 吞噬): the burst is followed by Willump's bite on an enemy champion
           within reach, his attack count starting over.
 Timings: drafts until the frames exist (a frame's start in ticks = ms x 0.06).
-Numbers: League 16.20 (CommunityDragon nunu.bin) read into the jungle range (league_rammus, league_warwick).
+Numbers: League 16.20 (CommunityDragon nunu.bin) read into the jungle range (league_rammus, league_warwick), balanced on
+the classic-SDK simulations (kd.py --lane 1 against demon, circus_blade, hunter, inquisitor and ninja, C:/t/nu_sim,
+2026-10-23; league_rammus +1.90 on seeds 1-8 the same day). The draft panicked the AI (every hit behind the alive guard:
+the decoys) and stood 10 s in a roll that never met its target (the roll held w_max); then +5.75 (bite heal 50 + 50%,
+splash 40%); halved heals and splash, W 50 + 40%, E 10 + 6% x6 and root 40, R 180 + 100% +0.27; P between them:
++2.14 on seeds 1-8, +2.11 on 9-16.
 """
 import argparse
 import json
@@ -54,21 +59,21 @@ BIG = "asset/league/effects/league_nunu_big"
 # 625-1875 + 300% AP over 650 units, cd 110-90.
 P = {
     # stats (base tanks: attack 80 +6, hp 1100 +120, defence 40 +10, mr 30 +5; league_rammus 1250 / 84)
-    "hp": 1200, "hp_g": 120, "atk": 76, "atk_g": 6, "apw": 30, "apw_g": 15, "def": 40, "def_g": 10, "mr": 30, "mr_g": 5,
+    "hp": 1150, "hp_g": 120, "atk": 72, "atk_g": 6, "apw": 30, "apw_g": 15, "def": 40, "def_g": 10, "mr": 30, "mr_g": 5,
     "ms": 1000, "ms_g": 11,
     "atk_range": 25000, "atk_dur": 28, "atk_cd": 70, "a_hit": 11, "b_dur": 30, "b_hit": 14,
     # passive: Call of the Freljord + Consume
-    "q_dmg": 60, "q_ap": 60, "q_mon": 120, "q_heal": 50, "q_heal_ap": 50,
-    "p_t": 240, "p_ally": 60000, "p_as": 30, "p_ms": 15, "p_spl": 40, "p_r": 30000,
+    "q_dmg": 50, "q_ap": 50, "q_mon": 120, "q_heal": 25, "q_heal_ap": 25,
+    "p_t": 240, "p_ally": 60000, "p_as": 30, "p_ms": 15, "p_spl": 20, "p_r": 30000,
     # skill: W Biggest Snowball Ever!
-    "w_cd": 720, "w_range": 70000, "w_in": 18, "w_speed": 3000, "w_end": 14, "w_g1": 20, "w_g2": 40,
-    "w_dmg": 80, "w_ap": 60, "w_k1": 140, "w_k2": 180, "w_r": 18000, "w_r2": 26000, "w_up": 30, "w_up2": 60,
+    "w_cd": 720, "w_range": 70000, "w_in": 18, "w_speed": 3000, "w_end": 14, "w_g1": 20, "w_g2": 40, "w_max": 90,
+    "w_dmg": 55, "w_ap": 42, "w_k1": 140, "w_k2": 170, "w_r": 18000, "w_r2": 26000, "w_up": 30, "w_up2": 60,
     # skill2: E Snowball Barrage
     "e_cd": 660, "e_range": 60000, "e_dur": 40, "e_rel": 6, "e_n": 6, "e_per": 6, "e_speed": 5000, "e_y": -30000,
-    "e_dmg": 18, "e_ap": 12, "e_slow": 30, "e_slow_t": 60, "e_t": 66, "e_root": 60, "e_rdmg": 30, "e_rap": 40,
+    "e_dmg": 11, "e_ap": 7, "e_slow": 30, "e_slow_t": 60, "e_t": 66, "e_root": 45, "e_rdmg": 25, "e_rap": 30,
     # ult: R Absolute Zero
-    "r_cd": 3600, "r_range": 45000, "r_r": 55000, "r_t": 150, "r_tf": 100, "r_pp": 15, "r_link": 120,
-    "r_sh": 120, "r_sh_ap": 80, "r_slow0": 40, "r_slow1": 80, "r_dmg": 260, "r_ap": 150, "r_end": 18,
+    "r_cd": 3600, "r_range": 60000, "r_r": 55000, "r_t": 150, "r_tf": 100, "r_pp": 15, "r_link": 120,
+    "r_sh": 120, "r_sh_ap": 80, "r_slow0": 40, "r_slow1": 80, "r_dmg": 190, "r_ap": 105, "r_end": 18,
     # his spoken lines, at most one every vo_gap ticks
     "vo_gap": 600,
 }
@@ -237,11 +242,12 @@ def build(p):
     splash = sw("p_on", around(p["p_r"], "EnemyWithoutTower", attack(0, p["p_spl"]), view("p_hit")))
     swipe = combine(sfx("a"), homing("a_blow", "Enemy", [attack(0, 100), view("a_hit"), tsfx("a_hit")]), splash)
     # the count of his attacks lives on him (c1, c2): swipe, swipe, bite
-    attack_a = action("attack", p["atk_dur"], p["atk_cd"], 1, p["atk_range"], "Targeting", "Enemy",
-                      sw("c2", combine(*rm("c1", "c2"), anim("attack_bite", p["b_dur"]),
+    # every hit sits behind the alive guard: a decoy the AI can read (champion-data "alive guard", league_gangplank)
+    attack_a = action("attack", p["atk_dur"], p["atk_cd"], 1, p["atk_range"], "Targeting", "Enemy", combine(
+                      decoy(0, 100, attack), sw("c2", combine(*rm("c1", "c2"), anim("attack_bite", p["b_dur"]),
                                        delayed(p["b_hit"] - 1, alive(bite("Enemy"), splash))),
                          combine(sw("c1", combine(*rm("c1"), flag("c2", None)), flag("c1", None)),
-                                 delayed(p["a_hit"] - 1, alive(swipe)))),
+                                 delayed(p["a_hit"] - 1, alive(swipe))))),
                       atype="BaseAttack", cancel=True)
 
     # ------------------------------------------------------------------ skill2: E Snowball Barrage (before W: W casts it)
@@ -279,11 +285,11 @@ def build(p):
                  combine(impact(100, p["w_r"], p["w_up"]), cview("w_burst")))),
            *rm("w1", "w2"),
            sw("e_cd", NONE, combine(anim("skill2", p["e_dur"]), delayed(p["e_rel"] - 1, alive(e_cast()))))]   # W -> E
-    roll = [refresh("w_roll", 600), anim("skill_roll", 600), cview("w_dust"),
+    roll = [refresh("w_roll", p["w_max"]), anim("skill_roll", p["w_max"]), cview("w_dust"),
             delayed(p["w_g1"], sw("w_roll", refresh("w1", 600))), delayed(p["w_g2"], sw("w_roll", refresh("w2", 600))),
             {"type": "MoveToTarget", "speed": p["w_speed"], "range": p["w_range"] + 60000, "end_effects": hit}]
     skill = action("skill", p["w_in"], p["w_cd"], 1, p["w_range"], "Targeting", "EnemyWithoutTower",
-                   combine(*rm("w1", "w2", "w_roll"), sfx("w"), voice("vo_w", p), delayed(p["w_in"] - 1, alive(*roll))))
+                   combine(decoy(p["w_dmg"], p["w_ap"]), *rm("w1", "w2", "w_roll"), sfx("w"), voice("vo_w", p), delayed(p["w_in"] - 1, alive(*roll))))
 
     # ------------------------------------------------------------------ ult: R Absolute Zero
     def channel(t):
