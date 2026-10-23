@@ -35,7 +35,10 @@ TFM2 has three active slots: Twofold Hex (Q) is `skill`, The Weirding (E) `skill
           enemy champion within r_close of her, a hidden bolt seeks the ult's champion; if it is within r_tp_max of her
           she steps through to it (Teleport) - League's crossing from one edge of the realm to the other.
 Action tags (the art): idle run attack hit dead skill skill2 ult veil.
-Numbers: League 16.20 (CommunityDragon aurora.bin) read into the Magician mid range (league_hwei, league_neeko).
+Numbers: League 16.20 (CommunityDragon aurora.bin) read into the Magician mid range (league_hwei, league_neeko); balanced on
+the classic-SDK simulations (kd.py --lane 2, C:/t/au_sim, 2026-10-23, w_gate 1 as the veil's stand-in): the draft -2.31
+on seeds 1-8 (league_hwei +1.16 on the same games); more damage, health and armour -0.05; the teleport across the realm
+cost about 0.8 (she stepped onto champions deep in their team: off +0.72), so it reaches only r_tp_max 45000: +0.93.
 """
 import argparse
 import json
@@ -55,23 +58,23 @@ BIG = "asset/league/effects/league_aurora_big"
 # a 700 realm for 3-4 s (she crosses its edges), cd 140-100.
 P = {
     # stats (Magician mid: league_hwei 940 +94 hp, 70 +6 attack, 40 +20 ap, 20 +7 def)
-    "hp": 900, "hp_g": 90, "atk": 68, "atk_g": 6, "apw": 40, "apw_g": 20, "def": 18, "def_g": 6, "mr": 22, "mr_g": 4,
+    "hp": 960, "hp_g": 90, "atk": 68, "atk_g": 6, "apw": 40, "apw_g": 20, "def": 21, "def_g": 6, "mr": 26, "mr_g": 4,
     "ms": 920, "ms_g": 9,
     "atk_range": 55000, "atk_dur": 27, "atk_cd": 90, "a_rel": 10, "a_speed": 4500, "a_y": -4000,
     # passive: Spirit Abjuration; Across the Veil folded in
-    "p_t": 240, "p_dmg": 25, "p_ratio": 20, "p_hp": 2, "p_heal": 30, "p_heal_r": 15, "p_ms": 15, "p_ms_t": 90,
+    "p_t": 240, "p_dmg": 40, "p_ratio": 30, "p_hp": 2, "p_heal": 45, "p_heal_r": 15, "p_ms": 15, "p_ms_t": 90,
     "w_gate": 0, "w_cd": 1200, "w_near": 35000, "w_back": 4000, "w_back_t": 6, "w_inv": 75, "w_ms": 30, "w_ms_t": 120,
     # skill: Twofold Hex
     "q_cd": 450, "q_range": 85000, "q_dur": 30, "q_rel": 12, "q_speed": 4000, "q_len": 85000, "q_rad": 8000,
-    "q_dmg": 60, "q_ratio": 40, "q_hold": 40, "q_back_speed": 4500, "q2_dmg": 60, "q2_ratio": 40, "q_ball_speed": 4500,
+    "q_dmg": 100, "q_ratio": 55, "q_hold": 40, "q_back_speed": 4500, "q2_dmg": 100, "q2_ratio": 55, "q_ball_speed": 4500,
     # skill2: The Weirding
-    "e_cd": 780, "e_range": 70000, "e_dur": 30, "e_rel": 12, "e_len": 75000, "e_cone": 900, "e_dmg": 100,
-    "e_ratio": 60, "e_slow1": 60, "e_slow1_t": 30, "e_slow2": 25, "e_slow2_t": 60, "e_back": 3000, "e_back_t": 8,
+    "e_cd": 780, "e_range": 70000, "e_dur": 30, "e_rel": 12, "e_len": 75000, "e_cone": 900, "e_dmg": 150,
+    "e_ratio": 80, "e_slow1": 60, "e_slow1_t": 30, "e_slow2": 25, "e_slow2_t": 60, "e_back": 3000, "e_back_t": 8,
     "e_wave_speed": 6000, "eq_gap": 6, "e_near_r": 30000,
     # ult: Between Worlds
-    "r_cd": 2100, "r_range": 60000, "r_dur": 36, "r_rel": 14, "r_speed": 3500, "r_r1": 28000, "r_dmg": 200,
-    "r_ratio": 70, "r_slow1": 40, "r_slow1_t": 60, "r_zone": 38000, "r_t": 210, "r_per": 15, "r_slow": 30,
-    "re_gap": 8, "r_tp_at": 60, "r_close": 30000, "r_tp_max": 70000,
+    "r_cd": 2100, "r_range": 60000, "r_dur": 36, "r_rel": 14, "r_speed": 3500, "r_r1": 28000, "r_dmg": 260,
+    "r_ratio": 80, "r_slow1": 40, "r_slow1_t": 60, "r_zone": 38000, "r_t": 210, "r_per": 15, "r_slow": 30,
+    "re_gap": 8, "r_tp_at": 60, "r_close": 30000, "r_tp_max": 45000,
     "vo_gap": 600,
 }
 
