@@ -426,6 +426,8 @@ pub const UI_SIZES: &[(&str, f32)] = &[
     // cut 22 px of her ears, at the rule's -1 her legs hid; 0.82 with banpick_center -9: the ear tips 3 px under the
     // canvas top, the soles on its bottom (bp_card_audit.py)
     ("league_aurora", 0.82),
+    // Azir: about 49 game px from his sceptre's tip to his soles at PPU 1.5 (the crest 38) - 39 / 49 = 0.80
+    ("league_azir", 0.80),
 ];
 
 /// The `"lo_..."` animation names of a .fanim.
