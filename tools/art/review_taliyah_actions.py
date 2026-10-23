@@ -20,7 +20,7 @@ import subprocess
 import sys
 
 import numpy as np
-from PIL import Image, ImageDraw, ImageSequence
+from PIL import Image, ImageDraw, ImageFont, ImageSequence
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
@@ -41,6 +41,10 @@ CLIPS = {"idle": [IDLE], "run": [f"taliyah_run_passive@{t}" for t in range(0, 48
          "hit": [IDLE], "dead": [P["d_stagger"], P["d_stagger"], P["d_down"]],
          "bp": [IDLE]}           # the ban/pick card's reel (hero_reels; --sheet only)
 BG = (96, 112, 96)
+# the labels are Chinese (the user reads everything in Chinese): the tags' names and a CJK font
+ZH = {"idle": "待机", "run": "移动（踩石冲浪）", "attack": "普攻", "skill": "技能1 石穿", "skill2": "技能2 撒石阵+岩突",
+      "ult": "大招 墙幔", "hit": "受击", "dead": "死亡", "bp": "BP 卡片"}
+FONT = "C:/Windows/Fonts/msyh.ttc"
 SHOWCASE = os.path.join(os.path.dirname(os.path.dirname(HERE)), "docs", "preview", "league_taliyah_showcase.gif")
 
 
@@ -121,8 +125,8 @@ def showcase():
     for f in ImageSequence.Iterator(Image.open(SHOWCASE)):
         cell = Image.new("RGB", (f.width, f.height + 18), (40, 40, 40))
         cell.paste(f.convert("RGB"), (0, 18))
-        ImageDraw.Draw(cell).text((4, 3), "in play: surf, Q + Worked Ground, W through E = stun, R -> W into the wall, "
-                                          "Q on Worked Ground = boulder", fill=(230, 230, 230))
+        ImageDraw.Draw(cell).text((4, 1), "实战演示：冲浪 · 石穿+掘石场 · 岩突把人掀过石雷=眩晕 · 墙幔→马上岩突撞墙=眩晕 · "
+                                          "掘石场上石穿=大石头减速", fill=(230, 230, 230), font=ImageFont.truetype(FONT, 12))
         cells.append((cell, f.info.get("duration", 40)))
     return cells
 
@@ -166,8 +170,9 @@ def main():
             cell.paste(ref, (0, 18))
             cell.paste(ours, (ref.width + 8, 18))
             d = ImageDraw.Draw(cell)
-            d.text((4, 3), "League " + CLIPS[tag][min(len(cells), len(CLIPS[tag]) - 1)], fill=(230, 230, 230))
-            d.text((ref.width + 12, 3), f"ours: {tag}", fill=(230, 230, 230))
+            font = ImageFont.truetype(FONT, 12)
+            d.text((4, 1), "英雄联盟 " + CLIPS[tag][min(len(cells), len(CLIPS[tag]) - 1)], fill=(230, 230, 230), font=font)
+            d.text((ref.width + 12, 1), f"我们的：{ZH[tag]}", fill=(230, 230, 230), font=font)
             cells.append((cell, ms))
         gif = os.path.join(a.out, f"taliyah_{tag}_vs_lol.gif")
         q = [c.quantize(255, dither=Image.Dither.NONE) for c, _ in cells]
