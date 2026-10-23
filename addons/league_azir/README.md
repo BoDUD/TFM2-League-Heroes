@@ -24,3 +24,17 @@
 - 在 `addons/` 下 `cargo test --release -p league_azir`：单元测试（参数来自英雄数据、圆盘按法强打、墙停下的地方和时间和数据那道墙一样、禁军朝冲锋方向、沙兵朝最近的敌人、侧面沙兵那几段的长度和 `ss_*` tick 一样、画面名都是数据里有的）。
 - 主包的阿兹尔改了以后重新跑 `python addons/league_azir/make_override.py`（它先核对主包的 `league_azir.data_champion` 和参数表一致、`src/lib.rs` 的默认参数和 P 一致）。
 - 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_azir.log`（每次启动游戏重写）：出生 `SPAWN`（记下几座塔、圆盘用没用过）、`DISC RISES`、每一下 `SHOT`、`DISC GONE`，每道墙 `WALL`（从哪到哪、朝哪边、停几次），沙兵 `SOLDIER a RISES`（站在哪、原生效果拿到的输入类型、朝哪边）、`SOLDIER a STABS`。
+
+## 0.1.1：沙兵不再一闪就没、大招会挑时机
+
+用户 2026-10-23：「沙皇召唤出来的小兵会瞬间消失 和英雄联盟不一样」「沙皇不会主动R大招反推回来 不像盲僧」「沙皇大招逻辑太差了」。
+
+- **沙兵画面**：侧面沙兵每张「站着」只有 4 tick，靠本包一张接一张排下去（`queue_effect`）；接力的编号塞在位置输入的目标编号里，
+  一旦没传回来整条链就断，沙兵升起后就看不见了，数据的检查点又只延长它的寿命、不重画。现在按「下一张该在哪个 tick」接力，
+  不看那个编号；数据每 `s_step` tick 的检查点发现它 `REDRAW`（6）tick 没画过就当场补画、重新接上。日志 `STAMP`、`REDRAWN`。
+- **大招时机**（AI 钩子 `league_azir:shurima`，`src/combo.rs`）：
+  1. `R INSEC`：E 冲到英雄身上打开的反推窗口（`r_win`）里立刻按 R，绕到他身后把他推回队友那边；
+  2. `R PEEL`：有人贴脸（22000 内）而他生命不到一半或身边两个以上敌人：正推出去；
+  3. `E INSEC`：R、E 都好、有沙兵、60000 内有队友、生命过半：E 冲向 E 射程里（25000 以外）、不在敌方塔下、身边敌人不超过两个、
+     生命最少的英雄，下一刻接第 1 条；
+  4. `R HELD`：AI 自己想放 R 但以上都不成立：不放，改成普攻它的目标（打不到就走过去）。

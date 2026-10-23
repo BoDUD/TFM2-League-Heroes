@@ -30,6 +30,8 @@ use std::sync::{LazyLock, Mutex};
 
 use mod_api_stable::*;
 
+pub mod combo;
+
 const ID: &str = "league_azir";
 /// The disc_rise tag's length (tools/art/rig_azir.py: four sinking frames of 90 ms and one of 200): its standing stamps
 /// start after it.
@@ -442,6 +444,19 @@ struct Soldier {
     chain: usize,
     stab: Option<(f64, f64)>,
     until: usize,
+    /// 0.1.1 (the user, 2026-10-23: 「沙皇召唤出来的小兵会瞬间消失」): the tick its next stamp is due and the tick it was
+    /// last drawn. A stamp is taken when it is due, whatever chain number its input carries (a position's target id may
+    /// not survive the queue); a checkpoint of the data finding it undrawn for `REDRAW` ticks draws it and starts again.
+    next: usize,
+    last: usize,
+}
+
+/// A checkpoint redraws a soldier nothing drew for this many ticks (its chain of stamps broken).
+pub const REDRAW: usize = 6;
+
+/// Is a stamp arriving at `tick` the one due (`next`)? Earlier ones are another chain's, a later one a late copy.
+pub fn stamp_due(tick: usize, next: usize) -> bool {
+    tick >= next && tick <= next + 2
 }
 
 /// Every soldier drawn: by (this game's seed, the simulation's origin, match, set, the caster, the slot) - the server's
@@ -519,6 +534,20 @@ impl StableEffectType for SoldierFx {
                 if !rising {
                     if let Some(s) = map.get_mut(&key).filter(|s| dist(s.at, at) <= 1_000.0) {
                         s.until = until;
+                        if tick.saturating_sub(s.last) <= REDRAW {
+                            return;
+                        }
+                        // its stamps stopped: draw it now and start the chain again
+                        let (at_, right) = (s.at, s.right);
+                        s.last = tick;
+                        s.next = tick + p.ss_stand;
+                        let chain = s.chain;
+                        drop(map);
+                        draw_soldier(sim, me, self.slot, at_, "stand", right);
+                        queue_stamp(sim, me, self.slot, at_, chain, p.ss_stand);
+                        if let Some(k) = counted("redraw") {
+                            wlog(format!("{} SOLDIER {s_} REDRAWN #{k}: its stamps had stopped", head(sim, me)));
+                        }
                         return;
                     }
                 }
@@ -529,12 +558,13 @@ impl StableEffectType for SoldierFx {
                 let enemy = nearest(sim, team, at, FACE_R).map(|(_, _, e)| e);
                 let right = turn_to(at, enemy, from.map_or(true, |f| at.0 >= f.0));
                 let chain = CHAINS.fetch_add(1, Ordering::Relaxed);
-                map.insert(key, Soldier { at, right, chain, stab: None, until });
+                let first = if rising { p.ss_rise } else { 1 };
+                map.insert(key, Soldier { at, right, chain, stab: None, until, next: tick + first, last: tick });
                 drop(map);
                 if rising {
                     draw_soldier(sim, me, self.slot, at, "rise", right);
                 }
-                queue_stamp(sim, me, self.slot, at, chain, if rising { p.ss_rise } else { 1 });
+                queue_stamp(sim, me, self.slot, at, chain, first);
                 if let Some(k) = counted(if rising { "rise" } else { "found" }) {
                     wlog(format!("{} SOLDIER {s_} {} #{k} at {} (input kind {}), facing {}", head(sim, me),
                                  if rising { "RISES" } else { "FOUND" }, pt(at), input.kind,
@@ -553,7 +583,7 @@ impl StableEffectType for SoldierFx {
             }
             Step::Stamp => {
                 let mut map = SOLDIERS.lock().unwrap_or_else(|e| e.into_inner());
-                let Some(s) = map.get(&key).copied().filter(|s| s.chain == input.target_id) else { return };
+                let Some(s) = map.get(&key).copied().filter(|s| stamp_due(tick, s.next)) else { return };
                 if tick >= s.until {
                     map.remove(&key);
                     return;
@@ -563,10 +593,15 @@ impl StableEffectType for SoldierFx {
                     None => ("stand", turn_to(s.at, nearest(sim, team, s.at, FACE_R).map(|(_, _, e)| e), s.right),
                              p.ss_stand),
                 };
-                map.insert(key, Soldier { right, stab: None, ..s });
+                map.insert(key, Soldier { right, stab: None, next: tick + next, last: tick, ..s });
                 drop(map);
                 draw_soldier(sim, me, self.slot, s.at, what, right);
                 queue_stamp(sim, me, self.slot, s.at, s.chain, next);
+                if let Some(k) = counted("stamp") {
+                    if k <= 6 || k % 500 == 0 {
+                        wlog(format!("{} SOLDIER {s_} STAMP #{k} ({what})", head(sim, me)));
+                    }
+                }
             }
         }
     }
@@ -580,7 +615,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v1 (the Sun Disc on a fallen tower, the guards facing the charge) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v1.1 (the Sun Disc on a fallen tower, the guards facing the charge, soldiers redrawn, the R's timing) loaded: game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
         v.patch,
@@ -588,6 +623,8 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
         LOG_PATH.display()
     ));
     module.add_native_passive(format!("{ID}:disc"), Disc::default());
+    // 0.1.1: the R's timing for the AI (insec / peel / held), src/combo.rs
+    module.add_player_input_ai(combo::Shurima::default());
     module.add_native_effect(format!("{ID}:r_wall"), Wall);
     // the data's stamps alternate the guards' two steps: an odd hop b, an even one a (build_azir.py: "ab"[i % 2])
     for (suffix, view) in [("ra", "r_guards_a"), ("rb", "r_guards_b"), ("la", "r_guards_la"), ("lb", "r_guards_lb")] {

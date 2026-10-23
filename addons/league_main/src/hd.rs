@@ -271,6 +271,11 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // arm turned level, run and kneel legs drawn from the design's leg rows); PPU 1.35: his body the old 39 rows (1.5
     // drew it 35: 「维鲁斯建模小了」)
     ("league_varus", 1.35, include_str!("../../../league/champions/league_varus#anim.fanim")),
+    // Jinx (2026-10-23): the user's own side-view picture read back on its 22.23-px grid (88 x 82,
+    // tools/art/design_jinx_hd.py) with Fishbones drawn in behind her braids, every action posed from the design's own
+    // squares by tools/art/rig_jinx_hd.py (arms never moved, the run's thighs the design's stocking rows along the bone
+    // with its whole boots); PPU 2.2 at her old 37 rows, so no SIZES row
+    ("league_jinx", 2.2, include_str!("../../../league/champions/league_jinx#anim.fanim")),
     // Yunara: PPU 1.5 (the user's pick), posed from the design's own squares at that density by tools/art/rig_yunara.py
     // (40 game rows ornaments to soles), so no SIZES row
     ("league_yunara", 1.5, include_str!("../../../league/champions/league_yunara#anim.fanim")),
@@ -370,10 +375,10 @@ pub const EFFECTS: &[(&str, f32, &str)] = &[
     // league_ivern's Daisy (R): her rise, punch, slam and goodbye, each its own dense sheet (one life a sheet, the
     // turrets' way), drawn from her step-1 design uncut at PPU 1.9 (the user: 「小菊用不裁的原样（D-full，PPU 1.9）」;
     // tools/art/rig_ivern.py)
-    ("league_ivern_daisy_drop", 1.9, include_str!("../../../league/effects/league_ivern_daisy_drop#anim.fanim")),
-    ("league_ivern_daisy_punch", 1.9, include_str!("../../../league/effects/league_ivern_daisy_punch#anim.fanim")),
-    ("league_ivern_daisy_slam", 1.9, include_str!("../../../league/effects/league_ivern_daisy_slam#anim.fanim")),
-    ("league_ivern_daisy_bye", 1.9, include_str!("../../../league/effects/league_ivern_daisy_bye#anim.fanim")),
+    ("league_ivern_daisy_drop", 2.533, include_str!("../../../league/effects/league_ivern_daisy_drop#anim.fanim")),
+    ("league_ivern_daisy_punch", 2.533, include_str!("../../../league/effects/league_ivern_daisy_punch#anim.fanim")),
+    ("league_ivern_daisy_slam", 2.533, include_str!("../../../league/effects/league_ivern_daisy_slam#anim.fanim")),
+    ("league_ivern_daisy_bye", 2.533, include_str!("../../../league/effects/league_ivern_daisy_bye#anim.fanim")),
     // league_illaoi's tentacle (her passive, W, R): one life on the spot it grew (rising, swaying, sinking back) and the
     // lash slamming down on the unit it strikes, each its own dense sheet, drawn from its step-1 design at PPU 1.5 (the
     // user: 「触手 44」; tools/art/rig_illaoi.py)

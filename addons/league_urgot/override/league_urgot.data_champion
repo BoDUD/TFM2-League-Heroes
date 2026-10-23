@@ -246,7 +246,7 @@
                                                     },
                                                     {
                                                       "type": "Grab",
-                                                      "speed": 3000
+                                                      "speed": 8000
                                                     },
                                                     {
                                                       "type": "AddCasted",
@@ -779,7 +779,7 @@
                                                     },
                                                     {
                                                       "type": "Grab",
-                                                      "speed": 3000
+                                                      "speed": 8000
                                                     },
                                                     {
                                                       "type": "AddCasted",
@@ -1448,7 +1448,7 @@
                                                   },
                                                   {
                                                     "type": "Grab",
-                                                    "speed": 3000
+                                                    "speed": 8000
                                                   },
                                                   {
                                                     "type": "AddCasted",
@@ -2039,7 +2039,7 @@
                                             },
                                             {
                                               "type": "Grab",
-                                              "speed": 3000
+                                              "speed": 8000
                                             },
                                             {
                                               "type": "AddCasted",

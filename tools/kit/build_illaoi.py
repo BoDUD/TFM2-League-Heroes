@@ -54,6 +54,7 @@ FX = "asset/league/effects/league_illaoi_fx"
 BIG = "asset/league/effects/league_illaoi_big"
 TENTACLE = "asset/league/effects/league_illaoi_tentacle"   # a tentacle's life: rising, idle sway, sinking (dense, PPU 1.5)
 LASH = "asset/league/effects/league_illaoi_lash"           # a tentacle rearing and slamming down on its target (dense)
+SOULS = "asset/league/effects/league_illaoi_souls"         # every League champion's spirit, tag = its id (illaoi_souls.py)
 
 # League's Illaoi (16.20): 656 +115 hp, 65 AD, 35 +5 armour, 32 +2.05 mr, 350 move, 125 range, attack speed 0.625.
 # Passive: tentacles 9-180 + 120% AD (Q: +10-30% tentacle damage), heal 5% missing health on a champion hit.
@@ -67,6 +68,12 @@ P = {
     # passive: tentacles
     "p_cd": 360, "p_reach": 60000, "t_place": 15000, "t_speed": 6000, "t_life": 360, "t_per": 90, "t_first": 40, "t_r": 30000,
     "t_dmg": 10, "t_ratio": 35, "p_heal": 6, "p_heal_r": 6,
+    # the add-on's tentacles, League's way (the user, 2026-10-23: 「俄洛伊触手乱长 和英雄联盟逻辑不一样」, picked: on the walls,
+    # else beside her; they strike only Harsh Lesson's target, spirits and Vessels): one grows every p_cd_1 ticks at level 1
+    # down to p_cd_18 at 18 (League 20 - 10 s), lives t_long (League 60 s), at most t_most stand; Tentacle Smash folded
+    # in: the nearest one lashes her attack's target once every q_cd (League Q 10 - 6 s); the spirit stands e_pull from
+    # its body toward her, tethered
+    "p_cd_1": 1200, "p_cd_18": 600, "t_long": 3600, "t_most": 4, "q_cd": 480, "e_pull": 40000,
     # skill: W Harsh Lesson
     "w_cd": 300, "w_cd_r": 120, "w_range": 45000, "w_dur": 30, "w_dash": 12, "w_speed": 6000, "w_hit": 6,
     "w_dmg": 30, "w_ratio": 50, "w_thp": 2, "w_gap": 6, "w_mark_t": 240,
@@ -84,7 +91,14 @@ P = {
 }
 SLOTS = "abcd"
 NATIVE_KEYS = ("t_r", "t_life", "t_per", "t_first", "r_per", "t_dmg", "t_ratio", "p_heal", "p_heal_r", "r_r", "e_t",
-               "e_echo", "e_leash", "e_vt", "w_mark_t", "w_gap", "p_reach", "t_place")
+               "e_echo", "e_leash", "e_vt", "w_mark_t", "w_gap", "p_reach", "t_place", "p_cd_1", "p_cd_18", "t_long",
+               "t_most", "q_cd", "e_pull")
+
+
+def soul_ids():
+    """The champions league/effects/league_illaoi_souls holds (its tags), sorted."""
+    with open(lp(os.path.join(REPO, "league", "effects", "league_illaoi_souls#anim.fanim")), encoding="utf-8-sig") as f:
+        return sorted(t for t in json.load(f)["anims"] if not t.endswith("_l"))
 
 
 def lp(path):
@@ -267,7 +281,8 @@ def build(p):
     on_spot = lambda target: (lambda effects: lob("t_lob", 1, effects, target))
 
     # ------------------------------------------------------------------ attack: the idol swung down
-    spawn = sw("p_cd", NONE, combine(flag("p_cd", p["p_cd"]), grow(ahead, "p")))
+    # the add-on copy grows none here: league_illaoi:prophet grows them on its own timer, on the walls
+    spawn = NONE if native else sw("p_cd", NONE, combine(flag("p_cd", p["p_cd"]), grow(ahead, "p")))
     attack_a = action("attack", p["atk_dur"], p["atk_cd"], 1, p["atk_range"], "Targeting", "Enemy",
                       combine(decoy(0, 100), sfx("a"), delayed(p["a_hit"] - 1, alive(
                           homing("a_hit_mis", "Enemy", [attack(0, 100), view("a_hit"), tsfx("a_hit")], 20000), spawn))),
@@ -328,11 +343,25 @@ def build(p):
                E("r_slam", BIG, -2, False), E("r_hit"),
                {"type": "Animation", "name": n("tentacle"), "anim": TENTACLE, "tag": "idle", "z": 1,
                 "is_follow": False},
-               {"type": "Animation", "name": n("lash"), "anim": LASH, "tag": "idle", "z": 3, "is_follow": False}]
-    views_b = [B_("p_heal", FX, 3), B_("w_mark", FX, 3), B_("e_spirit", FX, 3), B_("e_vessel", FX, -1),
-               B_("e_slow", FX, -1), B_("r_aura", BIG, -1)]
+               {"type": "Animation", "name": n("lash"), "anim": LASH, "tag": "idle", "z": 3, "is_follow": False},
+               # the add-on's minute-long tentacle in parts (rising, a sway it plays again, sinking) and the torn-out
+               # spirit standing on its own spot (league_illaoi:prophet plays them on a position)
+               *[{"type": "Animation", "name": n(f"tentacle_{k}"), "anim": TENTACLE, "tag": k, "z": 1, "is_follow": False}
+                 for k in ("rise", "sway", "sink")],
+               E("e_soul", FX, 3, False) | {"tag": "e_spirit"},
+               # the spirit struck: its flash on the spirit's spot (the add-on, with a pulse down the tether)
+               E("e_echo", FX, 3, False)]
+    views_p.append(Pj("e_tether"))     # a link of the spirit's tether (the add-on spawns a chain every tick)
+    # the copy's spirit stands apart (e_soul, played by the add-on), not drawn over the body it was torn from
+    views_b = [B_("p_heal", FX, 3), B_("w_mark", FX, 3), *([] if native else [B_("e_spirit", FX, 3)]),
+               B_("e_vessel", FX, -1), B_("e_slow", FX, -1), B_("r_aura", BIG, -1)]
     extra = {}
     if native:
+        # the copy: every League champion's own spirit (the user: 「灵魂能雕刻出每个英雄的形状吗」「只要做英雄联盟的」); the add-on
+        # plays league_illaoi_soul_<id> on the spirit's spot, e_soul for a champion of another mod
+        # (and its mirror <id>_l: an effect never turns with the unit, the add-on picks the side the body faces)
+        views_e += [{"type": "Animation", "name": n(f"soul_{h}{side}"), "anim": SOULS, "tag": h + side, "z": 3,
+                     "is_follow": False} for h in soul_ids() for side in ("", "_l")]
         extra["passive"] = {"passive_ref": f"{ID}:prophet", "params": {k: int(p[k]) for k in NATIVE_KEYS}}
     return {
         "id": ID, "category": "Melee", **extra, "tags": ["AD", "Melee", "Tank", "Heal", "CC"],

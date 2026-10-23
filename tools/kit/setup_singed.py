@@ -26,7 +26,7 @@ from build_singed import P, lp  # noqa: E402
 REPO = os.path.normpath(os.path.join(HERE, "..", ".."))
 MOD = os.path.join(REPO, "league")
 ID = "league_singed"
-VERSION = "0.203.0"     # the next free number above main 0.202.3 (Caitlyn's idle rifle #488, 2026-10-23)
+VERSION = "0.204.0"     # the next free number above main 0.203.3 (Illaoi #493 / Azir #494, 2026-10-23)
 APi = "<i#asset/base/ui/banpick/champion_stat_icon:ap_0>"
 TOOLTIP_MAX = {"zh-hans": 130, "zh-hant": 130, "en": 334, "ja": 147, "ko": 185}
 M = "<#a974ffff>"      # magic damage / AP
