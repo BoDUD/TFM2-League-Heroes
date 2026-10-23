@@ -252,8 +252,9 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     ("league_caitlyn", 1.45, include_str!("../../../league/champions/league_caitlyn#anim.fanim")),
     // Varus (2026-10-23): Codex's design picture (assets/source/varus/PICTURE_PROMPT_PPU.md) read back on its own grid
     // (58 x 59), every action posed from the design's own squares by tools/art/rig_varus_hd.py (the bow lifted, the near
-    // arm turned level, run and kneel legs drawn from the design's leg rows); PPU 1.5 at his old 40 rows
-    ("league_varus", 1.5, include_str!("../../../league/champions/league_varus#anim.fanim")),
+    // arm turned level, run and kneel legs drawn from the design's leg rows); PPU 1.35: his body the old 39 rows (1.5
+    // drew it 35: 「维鲁斯建模小了」)
+    ("league_varus", 1.35, include_str!("../../../league/champions/league_varus#anim.fanim")),
     // Yunara: PPU 1.5 (the user's pick), posed from the design's own squares at that density by tools/art/rig_yunara.py
     // (40 game rows ornaments to soles), so no SIZES row
     ("league_yunara", 1.5, include_str!("../../../league/champions/league_yunara#anim.fanim")),
