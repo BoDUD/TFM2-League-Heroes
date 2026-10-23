@@ -47,7 +47,9 @@ Numbers: League 16.20 (CommunityDragon zac.bin) read into the jungle tank range 
 on the classic-SDK simulations (kd.py --lane 1 against ninja, demon, hunter, werewolf and vampire, C:/t/za_sim,
 2026-10-23; league_nunu +2.00 on the same seeds 1-8): the draft +1.51; retimed to the frames (every bounce lands) +3.65;
 the knock-ups shorter (R 20, E 30 ticks) +1.98; R 90 and E 60 damage = P +1.73 (seeds 9-16: +1.03, league_nunu
-+2.42 on them - the jungle's range, kept); with 1080 health and 36 armour +0.44.
++2.42 on them - the jungle's range, kept); with 1080 health and 36 armour +0.44. The blobs first lay 12 game px off
+him, under his own 58-px-wide body (unseen: 「这个也要改」): b_far 32000 (past his body) with b_catch 16000 +0.92 / +1.23
+(fewer absorbed), b_catch 20000 +1.21 / +1.17, and b_heal 55 = P +1.58 / +1.30 (heal 1803 / 1612, as before).
 The combos in a traced game (seed 3): every E landing bursts W, R's last landing bursts W, Q after an E knock-up and R
 after a Q slam whenever their cooldowns allow.
 """
@@ -73,7 +75,7 @@ P = {
     "ms": 1000, "ms_g": 11,
     "atk_range": 25000, "atk_dur": 28, "atk_cd": 70, "a_hit": 11,
     # passive: Cell Division's blobs
-    "b_gap": 40, "b_find": 30000, "b_far": 12000, "b_fly": 10, "b_lie": 300, "b_catch": 9000, "b_heal": 40, "b_heal_ap": 15,
+    "b_gap": 40, "b_find": 30000, "b_far": 32000, "b_fly": 10, "b_lie": 300, "b_catch": 20000, "b_heal": 55, "b_heal_ap": 15,
     # the controller
     "ctl_t": 3600, "ctl_p": 3,
     # W Unstable Matter (in the attack)
@@ -377,7 +379,7 @@ def build(p):
     views_p = [Pj("q_fist"), Pj("b_fly")]
     views_e = [E("a_hit"), E("q_hit"), E("q_slam", BIG, 2, False), E("w_burst", BIG, 2, False), E("w_hit"),
                E("e_land", BIG, -1, False), E("e_hit"), E("r_land", BIG, -1, False), E("r_hit"),
-               E("b_lie", FX, -1, False), E("b_pick")]
+               E("b_lie", FX, 2, False), E("b_pick")]
     views_b = [B_("q_slow", FX, -1, "slow"), B_("q_held", FX, 3), B_("r_slow", FX, -1, "slow")]
     extra = {}
     if native:

@@ -513,7 +513,7 @@ RESTYLE = {
     # design's head and tendril put back on the eyes), posed by tools/art/rig_zac.py, so no proportion or density change
     # here; the outer outline grown a square like the others; the face point between his eyes (11 game px ahead of the
     # standing point - his head sits forward between the shoulders - 28 over the ground)
-    "zac": dict(ppu=1.5, edge=1, face_to=(11, -28)),
+    "zac": dict(ppu=1.5, edge=1, lift_sq=-2, face_to=(10, -26)),   # 90 % in game (hd.rs SIZES): 2 squares lower, the face x 0.9 about the soles
     # league_heimerdinger: the design (Codex's step-1 A-2 cut to the user's 54 rows at 1.5 squares a game pixel: 「36」
     # 「PPU 1.5」, 3/4 only) with Codex's whole-body poses (the design's head pasted back) and the backpack crane / R's gear
     # props, posed by tools/art/rig_heimerdinger.py after League's clips, so no proportion change here; brought down to

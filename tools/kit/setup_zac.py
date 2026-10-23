@@ -37,8 +37,9 @@ G = "<#66bb6aff>"      # healing, shields
 T = "<#e0e0e0ff>"      # true damage
 E = "<>"
 # champion_view: the face point between his eyes (ppu_restyle.py RESTYLE face_to: his head sits forward between the
-# shoulders, league_warwick's the same) and the ban/pick card (bp_card_audit.py with hd.rs UI_SIZES)
-VIEW = {"face": {"x": 11, "y": -28}, "center": {"x": 0, "y": -15}, "banpick_center": {"x": 0, "y": -10}}
+# shoulders), x 0.9 about the soles like the centre (shown at 90 %, hd.rs SIZES), and the ban/pick card
+# (bp_card_audit.py with hd.rs UI_SIZES)
+VIEW = {"face": {"x": 10, "y": -26}, "center": {"x": 0, "y": -14}, "banpick_center": {"x": 0, "y": -11}}
 
 
 def mag(d, r):

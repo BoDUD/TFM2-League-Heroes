@@ -232,7 +232,7 @@
                                                     "name": "league_zac_b_ground",
                                                     "shape": {
                                                       "Circle": {
-                                                        "radius": 9000
+                                                        "radius": 20000
                                                       }
                                                     },
                                                     "tick": 300,
@@ -266,7 +266,7 @@
                                                               },
                                                               {
                                                                 "type": "Heal",
-                                                                "amount": 40,
+                                                                "amount": 55,
                                                                 "attack_ratio": 0,
                                                                 "ap_ratio": 15,
                                                                 "heal_type": "Caster"
@@ -647,8 +647,8 @@
                                                     ]
                                                   }
                                                 ],
-                                                "speed": 1200,
-                                                "range": 12000,
+                                                "speed": 3200,
+                                                "range": 32000,
                                                 "shape": {
                                                   "Circle": {
                                                     "radius": 1000
@@ -690,7 +690,7 @@
                                                   "name": "league_zac_b_ground",
                                                   "shape": {
                                                     "Circle": {
-                                                      "radius": 9000
+                                                      "radius": 20000
                                                     }
                                                   },
                                                   "tick": 300,
@@ -724,7 +724,7 @@
                                                             },
                                                             {
                                                               "type": "Heal",
-                                                              "amount": 40,
+                                                              "amount": 55,
                                                               "attack_ratio": 0,
                                                               "ap_ratio": 15,
                                                               "heal_type": "Caster"
@@ -1105,8 +1105,8 @@
                                                   ]
                                                 }
                                               ],
-                                              "speed": 1200,
-                                              "range": 12000,
+                                              "speed": 3200,
+                                              "range": 32000,
                                               "shape": {
                                                 "Circle": {
                                                   "radius": 1000
@@ -1148,7 +1148,7 @@
                                                 "name": "league_zac_b_ground",
                                                 "shape": {
                                                   "Circle": {
-                                                    "radius": 9000
+                                                    "radius": 20000
                                                   }
                                                 },
                                                 "tick": 300,
@@ -1182,7 +1182,7 @@
                                                           },
                                                           {
                                                             "type": "Heal",
-                                                            "amount": 40,
+                                                            "amount": 55,
                                                             "attack_ratio": 0,
                                                             "ap_ratio": 15,
                                                             "heal_type": "Caster"
@@ -1563,8 +1563,8 @@
                                                 ]
                                               }
                                             ],
-                                            "speed": 1200,
-                                            "range": 12000,
+                                            "speed": 3200,
+                                            "range": 32000,
                                             "shape": {
                                               "Circle": {
                                                 "radius": 1000
@@ -4798,7 +4798,7 @@
                                                     "name": "league_zac_b_ground",
                                                     "shape": {
                                                       "Circle": {
-                                                        "radius": 9000
+                                                        "radius": 20000
                                                       }
                                                     },
                                                     "tick": 300,
@@ -4832,7 +4832,7 @@
                                                               },
                                                               {
                                                                 "type": "Heal",
-                                                                "amount": 40,
+                                                                "amount": 55,
                                                                 "attack_ratio": 0,
                                                                 "ap_ratio": 15,
                                                                 "heal_type": "Caster"
@@ -5213,8 +5213,8 @@
                                                     ]
                                                   }
                                                 ],
-                                                "speed": 1200,
-                                                "range": 12000,
+                                                "speed": 3200,
+                                                "range": 32000,
                                                 "shape": {
                                                   "Circle": {
                                                     "radius": 1000
@@ -5256,7 +5256,7 @@
                                                   "name": "league_zac_b_ground",
                                                   "shape": {
                                                     "Circle": {
-                                                      "radius": 9000
+                                                      "radius": 20000
                                                     }
                                                   },
                                                   "tick": 300,
@@ -5290,7 +5290,7 @@
                                                             },
                                                             {
                                                               "type": "Heal",
-                                                              "amount": 40,
+                                                              "amount": 55,
                                                               "attack_ratio": 0,
                                                               "ap_ratio": 15,
                                                               "heal_type": "Caster"
@@ -5671,8 +5671,8 @@
                                                   ]
                                                 }
                                               ],
-                                              "speed": 1200,
-                                              "range": 12000,
+                                              "speed": 3200,
+                                              "range": 32000,
                                               "shape": {
                                                 "Circle": {
                                                   "radius": 1000
@@ -5714,7 +5714,7 @@
                                                 "name": "league_zac_b_ground",
                                                 "shape": {
                                                   "Circle": {
-                                                    "radius": 9000
+                                                    "radius": 20000
                                                   }
                                                 },
                                                 "tick": 300,
@@ -5748,7 +5748,7 @@
                                                           },
                                                           {
                                                             "type": "Heal",
-                                                            "amount": 40,
+                                                            "amount": 55,
                                                             "attack_ratio": 0,
                                                             "ap_ratio": 15,
                                                             "heal_type": "Caster"
@@ -6129,8 +6129,8 @@
                                                 ]
                                               }
                                             ],
-                                            "speed": 1200,
-                                            "range": 12000,
+                                            "speed": 3200,
+                                            "range": 32000,
                                             "shape": {
                                               "Circle": {
                                                 "radius": 1000
@@ -9061,7 +9061,7 @@
       "name": "league_zac_b_lie",
       "anim": "asset/league/effects/league_zac_fx",
       "tag": "b_lie",
-      "z": -1,
+      "z": 2,
       "is_follow": false
     },
     {

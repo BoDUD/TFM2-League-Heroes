@@ -183,7 +183,7 @@ def showcase(out, z=3):
             tt += 10
         b[2] = tt if tt < walk1 else None
     for bx, lies, gone in blobs:
-        c.at("b_lie", lies, bx, gy, under=True, until=gone or lies + tick(P["b_lie"]))
+        c.at("b_lie", lies, bx, gy, until=gone or lies + tick(P["b_lie"]))
         if gone:
             c.on_me("b_pick", gone)
     end = c.t + 1400
