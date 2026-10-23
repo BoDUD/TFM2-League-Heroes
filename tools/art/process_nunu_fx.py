@@ -14,8 +14,9 @@ The atlas is cut by ATLAS: each frame's box found by the drawings' blobs (a 25-p
 every box of an effect the same size, centred on its blob across and set on the effects' common bottom (ground pictures)
 or centred up and down. Gemini drew fewer frames than asked for w_dust (4 of 6), w_hit and r_hit (3 of 4), e_slow (1 of
 4, a still ring) and e_root (4 in two pairs, split at their middles): kept as drawn.
-w_burst (g03) came on a painted snowy ground and a sand band that cannot be keyed off its own snow: it is made from
-w_big's frames (g04) brought to w_burst's smaller size instead (W_BURST_FROM), until a clean picture comes back.
+w_burst (g03) came on a painted snowy ground and a sand band that cannot be keyed off its own snow: redrawn on black
+(the user's paste, 2026-10-23, 1024 x 434, two rows of four and three) = g07.png, cut by blobs like the atlas
+(ATLAS_SRC), every frame on its own bottom.
 Ground rings drawn rounder than asked (p_on, p_buff, e_slow, r_storm, r_burst with its tall spikes) are squashed up and down to the pack's
 proportions before the vote (SQUASH: the union of the frames brought to the pack's width : height).
 Symmetric from the fuller half: left to right, top to bottom for the projectile the game turns with its flight (e_ball).
@@ -61,9 +62,14 @@ ATLAS = {
     "r_slow": [(1762, 2022, 925, 1190), (1762, 2022, 1216, 1481), (1762, 2022, 1507, 1771)],
     "r_shield": [(2133, 2369, 8, 294), (2133, 2368, 306, 592), (2133, 2368, 603, 890), (2133, 2368, 902, 1188),
                  (2133, 2368, 1200, 1486)],
+    # the redraw g07.png (two rows: four bursting, three settling on the ground)
+    "w_burst": [(104, 190, 30, 156), (63, 196, 186, 387), (9, 215, 413, 681), (0, 221, 709, 997), (204, 406, 24, 358),
+                (267, 405, 401, 669), (350, 403, 704, 1002)],
 }
-GROUNDED = {"w_dust", "e_slow", "e_root_hit", "e_root", "r_hit", "r_shield"}   # set on the effect's common bottom
+ATLAS_SRC = {"w_burst": "g07.png"}   # an ATLAS effect not in g00.jpg
+GROUNDED = {"w_dust", "e_slow", "e_root_hit", "e_root", "r_hit", "r_shield", "w_burst"}   # set on the effect's common bottom
 PAD = 8
+MARGIN = 400
 # the strips: file -> (effect, frames)
 STRIPS = {"g01.jpg": ("p_on", 4), "g02.jpg": ("p_buff", 4), "g04.jpg": ("w_big", 7), "g05.jpg": ("r_storm", 6),
           "g06.jpg": ("r_burst", 7)}
@@ -71,7 +77,6 @@ STRIPS = {"g01.jpg": ("p_on", 4), "g02.jpg": ("p_buff", 4), "g04.jpg": ("w_big",
 # (r_burst's frames 5 and 6 touch: cut at the thinnest column, x 4560)
 STRIP_CUTS = {"w_big": [0, 866, 1741, 2578, 3426, 4196, 5037, 5856], "r_storm": [0, 976, 1953, 2927, 3900, 4880, 5856],
               "r_burst": [0, 1108, 2039, 2890, 3719, 4560, 5150, 5856]}
-W_BURST_FROM = "g04.jpg"
 SQUASH = {"p_on", "p_buff", "e_slow", "r_storm", "r_burst"}
 CROP_TOP = {"r_burst": 0.3}       # the share of each cell's rows dropped from the top (its first flash's light column)
 LAYOUT = {}
@@ -100,9 +105,9 @@ def atlas_boxes(name, H, W):
     for y0, y1, x0, x1 in bs:
         cx, cy = (x0 + x1) // 2, (y0 + y1) // 2
         top = bottom - h if name in GROUNDED and len({b[1] for b in bs}) == 1 else cy - h // 2
-        if name in GROUNDED and len({b[1] for b in bs}) > 1:   # two rows of frames (none grounded so far)
+        if name in GROUNDED and len({b[1] for b in bs}) > 1:   # frames on rows of their own (w_burst): each on its bottom
             top = y1 + PAD - h
-        out.append((max(0, top), min(H, top + h), max(0, cx - w // 2), min(W, cx - w // 2 + w)))
+        out.append((top, top + h, cx - w // 2, cx - w // 2 + w))   # cut from the picture grown by MARGIN on every side
     return out
 
 
@@ -127,17 +132,32 @@ def cells_of(img, name, n):
     rgb = np.asarray(img.convert("RGB"))
     H, W = rgb.shape[:2]
     if name in ATLAS:
-        boxes = atlas_boxes(name, H, W)
+        # a box may reach past the picture's edge: the picture grown by its ground colour (the corners' median; an
+        # edge copy drew w_burst's sparks on the top edge up into streaks), the boxes moved with it
+        ground = np.median(np.concatenate([rgb[:8, :8], rgb[:8, -8:], rgb[-8:, :8], rgb[-8:, -8:]]).reshape(-1, 3), 0)
+        big = np.empty((H + 2 * MARGIN, W + 2 * MARGIN, 3), np.uint8)
+        big[:] = ground.astype(np.uint8)
+        big[MARGIN:MARGIN + H, MARGIN:MARGIN + W] = rgb
+        rgb = big
+        boxes = [(y0 + MARGIN, y1 + MARGIN, x0 + MARGIN, x1 + MARGIN) for y0, y1, x0, x1 in atlas_boxes(name, H, W)]
+        # each box keeps only its own frame (the blob's rectangle): the boxes are as big as the biggest frame, and a
+        # narrow frame's box reached into its neighbours and the row above (w_burst)
+        own = [(y0 + MARGIN - PAD, y1 + MARGIN + PAD, x0 + MARGIN - PAD, x1 + MARGIN + PAD) for y0, y1, x0, x1 in ATLAS[name]]
     elif name in STRIP_CUTS:
         xs = STRIP_CUTS[name]
         boxes = [(0, H, xs[k], xs[k + 1]) for k in range(len(xs) - 1)]
     else:
         boxes = S.boxes(name, n, H, W)
     out = []
-    for y0, y1, x0, x1 in boxes:
+    for k, (y0, y1, x0, x1) in enumerate(boxes):
         sub = rgb[y0:y1, x0:x1]
         fg = S.key(sub, KEY.get(name, S.KEY_D))
         fg = ndimage.binary_opening(fg, np.ones((2, 2), bool))
+        if name in ATLAS:
+            oy0, oy1, ox0, ox1 = own[k]
+            keep = np.zeros_like(fg)
+            keep[max(0, oy0 - y0):max(0, oy1 - y0), max(0, ox0 - x0):max(0, ox1 - x0)] = True
+            fg &= keep
         a4 = np.zeros(sub.shape[:2] + (4,), np.uint8)
         a4[..., :3] = sub
         a4[..., 3] = np.where(fg, 255, 0)
@@ -185,14 +205,11 @@ def main():
     a = ap.parse_args()
     setup()
     os.makedirs(S.lp(os.path.join(OUT, "pixel_1x")), exist_ok=True)
-    jobs = [(name, len(bs), "g00.jpg") for name, bs in ATLAS.items()]
+    jobs = [(name, len(bs), ATLAS_SRC.get(name, "g00.jpg")) for name, bs in ATLAS.items()]
     jobs += [(name, n, fn) for fn, (name, n) in STRIPS.items()]
-    jobs.append(("w_burst", 7, W_BURST_FROM))
     entries, sheets = [], []
     for name, n, fn in jobs:
         img = Image.open(S.lp(os.path.join(a.src, fn)))
-        if fn == W_BURST_FROM and name == "w_burst":
-            S.cells_of = lambda im, _name, k: cells_of(im, "w_big", k)
         cells = S.effect(name, n, SIZE[name], img)
         S.cells_of = cells_of
         if name == "q_hit":

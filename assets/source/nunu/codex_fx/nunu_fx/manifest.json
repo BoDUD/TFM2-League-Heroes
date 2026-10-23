@@ -155,6 +155,17 @@
    "source": "gemini g00.jpg"
   },
   {
+   "name": "w_burst",
+   "file": "nunu_fx_w_burst.png",
+   "frames": 7,
+   "cell_1x": [
+    40,
+    26
+   ],
+   "symmetry": "left-right",
+   "source": "gemini g07.png"
+  },
+  {
    "name": "p_on",
    "file": "nunu_fx_p_on.png",
    "frames": 4,
@@ -208,17 +219,6 @@
    ],
    "symmetry": "left-right",
    "source": "gemini g06.jpg"
-  },
-  {
-   "name": "w_burst",
-   "file": "nunu_fx_w_burst.png",
-   "frames": 7,
-   "cell_1x": [
-    40,
-    26
-   ],
-   "symmetry": "left-right",
-   "source": "gemini g04.jpg"
   }
  ],
  "made_by": "Gemini (the user's images), processed by tools/art/process_nunu_fx.py"
