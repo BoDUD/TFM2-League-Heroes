@@ -727,17 +727,18 @@ POSES = {
                Q(lean=3, far=fwd(1), td=-6, hk=-1, legs=at(-4, 3), sink=2),
                Q(lean=1, far=far(-1, 1), td=-2, legs=at(-2, 1), sink=1),
                Q()],
-    # Spirit Rush (the dash from the 2nd frame; her old sheet: a leap, five frames flying, a glide, the landing): she
-    # crouches and springs, flies forward with the far hand reaching out, her legs swept back, the tails swept up behind
-    # her and the hair streaming back, glides down and lands
-    "ult": [Q(lean=2, far=fwd(1), near=far(-2), ty=2, hk=-4, legs=at(-3, 3), sink=4),
-            Q(dy=-8, lean=4, far=fwd(2), near=far(-3, -1), td=-10, ty=-2, hk=-9, legs=at(-14, -10, 8, 10)),
-            Q(dy=-12, lean=5, far=fwd(2), near=far(-4, -2), td=-14, ty=-3, hk=-12, legs=at(-22, -14, 12, 16)),
-            Q(dy=-13, lean=6, far=fwd(3), near=far(-5, -2), td=-15, ty=-3, hk=-13, legs=at(-24, -16, 14, 16)),
-            Q(dy=-12, lean=6, far=fwd(3), near=far(-5, -2), td=-14, ty=-3, hk=-12, legs=at(-24, -16, 14, 16)),
-            Q(dy=-10, lean=5, far=fwd(2), near=far(-4, -2), td=-12, ty=-2, hk=-11, legs=at(-20, -14, 12, 14)),
-            Q(dy=-5, lean=4, far=fwd(2), near=far(-3, -1), td=-8, ty=-1, hk=-8, legs=at(-12, -8, 6, 8)),
-            Q(lean=3, far=fwd(1), near=far(-2), td=-3, ty=1, hk=-4, legs=at(-5, 4), sink=4),
+    # Spirit Rush (the dash from the 2nd frame): she crouches, springs forward and dives through the air - every part
+    # upright as drawn (turning her body a quarter crushed it: 「你这变形也太严重了」), the dash told by her body flung far
+    # ahead of her legs (lean), the back leg trailing high, the far hand reaching out, the hair streaming back and the
+    # tails tucked up out of her legs' way - then lands in a lunge and rises
+    "ult": [Q(lean=2, far=IN, ty=2, hk=-2, legs=at(-3, 3), sink=5),
+            Q(dy=-3, lean=9, far=fwd(3), near=far(-4, -1), td=-10, ty=-2, hk=-10, legs=at(-20, 4, 4, 0)),
+            Q(dy=-6, lean=13, far=fwd(4), near=far(-5, -1), td=-14, ty=-3, hk=-14, legs=at(-30, 4, 4, 0)),
+            Q(dy=-7, lean=14, far=fwd(4), near=far(-5, -1), td=-15, ty=-3, hk=-15, legs=at(-30, 6, 6, 1)),
+            Q(dy=-6, lean=14, far=fwd(4), near=far(-5, -1), td=-14, ty=-3, hk=-14, legs=at(-28, 4, 5, 0)),
+            Q(dy=-5, lean=13, far=fwd(3), near=far(-4, -1), td=-12, ty=-2, hk=-13, legs=at(-26, 4, 4, 0)),
+            Q(dy=-2, lean=10, far=fwd(3), near=far(-3, -1), td=-8, ty=-1, hk=-10, legs=at(-18, 4, 2, 0)),
+            Q(lean=5, far=fwd(1), near=far(-2), td=-3, ty=1, hk=-5, legs=at(-6, 5), sink=5),
             Q(lean=1, far=far(-1, 1), td=-1, hk=-1, legs=at(-2, 2), sink=2)],
     # struck: knocked back, the tails and hair flung forward
     "hit": [Q(dx=-3, lean=-2, td=-10, hk=3, legs=at(1, -1)), Q(dx=-1, lean=-1, td=-4, hk=1)],
