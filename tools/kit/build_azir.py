@@ -44,7 +44,10 @@ Shifting Sands (E) `skill2`, Emperor's Divide (R) the `ult`.
 The add-on copy (--native, addons/league_azir): the passive league_azir:disc raises the Sun Disc on a fallen tower of his.
 Action tags (the art): idle run attack hit dead skill skill2 ult.
 Numbers: League 16.20 (CommunityDragon azir.bin) read into the Magician mid range (league_hwei, league_orianna);
-balanced on the classic-SDK simulations (kd.py --lane 2, C:/t/az_sim).
+balanced on the classic-SDK simulations (kd.py --lane 2, C:/t/az_sim, 2026-10-23; league_hwei +1.16 on the same games): the
+draft -3.77 (the soldiers stab, every slot casts, too little damage); without E -2.30 against -2.08 (E about even), without
+R -2.88 (R worth ~0.8); the stab is the lever (25+45% -> 65+90% AP), then reach 36000, a soldier every 150 ticks, attacks
+every 80, more health and armour: +0.45 seeds 1-8, +1.53 seeds 9-16.
 """
 import argparse
 import json
@@ -65,23 +68,23 @@ GUARD = "asset/league/effects/league_azir_guard"       # R's guards, front view 
 # champion hit stops him and readies a soldier. R 200-600 + 75% AP, wall 600 wide pushed 250 forward, cd 120-90.
 P = {
     # stats (Magician mid: league_hwei 940 +94 hp, league_orianna 860 +95, 76 +6 attack, 40 +20 ap)
-    "hp": 900, "hp_g": 92, "atk": 62, "atk_g": 6, "apw": 40, "apw_g": 20, "def": 19, "def_g": 6, "mr": 26, "mr_g": 4,
+    "hp": 1100, "hp_g": 92, "atk": 62, "atk_g": 6, "apw": 40, "apw_g": 20, "def": 27, "def_g": 6, "mr": 28, "mr_g": 4,
     "ms": 900, "ms_g": 9,
-    "atk_range": 52500, "atk_dur": 27, "atk_cd": 90, "a_rel": 10, "a_speed": 4500, "a_y": -3000,
+    "atk_range": 52500, "atk_dur": 27, "atk_cd": 80, "a_rel": 10, "a_speed": 4500, "a_y": -3000,
     # passive: the soldiers
-    "p_cd": 240, "s_life": 480, "s_step": 40, "s_r": 24000, "s_per": 2, "cmd_t": 2, "s_dmg": 25, "s_ap": 45,
+    "p_cd": 150, "s_life": 480, "s_step": 40, "s_r": 36000, "s_per": 2, "cmd_t": 2, "s_dmg": 65, "s_ap": 90,
     # the controller
     "ctl_t": 3600, "ctl_p": 3,
     # skill: Q Conquering Sands
-    "q_cd": 480, "q_range": 75000, "q_dur": 24, "q_rel": 8, "q_speed": 5000, "q_w": 9000, "q_dmg": 70, "q_ap": 40,
+    "q_cd": 480, "q_range": 75000, "q_dur": 24, "q_rel": 8, "q_speed": 5000, "q_w": 9000, "q_dmg": 110, "q_ap": 65,
     "q_slow": 25, "q_slow_t": 60, "q_travel": 12,
     # skill2: E Shifting Sands
     "e_cd": 900, "e_range": 55000, "e_dur": 24, "e_go_at": 6, "e_speed": 5000, "e_self": 25000, "e_back": 3500,
-    "e_back_t": 8, "e_sh": 80, "e_ap": 60, "e_t": 90, "e_r": 18000, "e_dmg": 60, "e_ratio": 40, "e_near": 20000,
+    "e_back_t": 8, "e_sh": 80, "e_ap": 60, "e_t": 90, "e_r": 18000, "e_dmg": 90, "e_ratio": 55, "e_near": 20000,
     "win_r": 90,
     # ult: R Emperor's Divide
     "r_cd": 2400, "r_range": 40000, "r_dur": 36, "r_at": 16, "r_rush_at": 6, "r_rush": 8000, "r_speed": 3000,
-    "r_len": 60000, "r_w": 20000, "r_dmg": 160, "r_ratio": 60, "r_kb_speed": 3000, "r_kb": 18, "r_stamps": 5,
+    "r_len": 60000, "r_w": 20000, "r_dmg": 260, "r_ratio": 90, "r_kb_speed": 3000, "r_kb": 18, "r_stamps": 5,
     "q_refund": 900,
     "vo_gap": 600,
     # 1 = the copy for addons/league_azir
