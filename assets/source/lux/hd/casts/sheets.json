@@ -1,0 +1,218 @@
+{
+  "square": 6,
+  "cell": [
+    768,
+    1024
+  ],
+  "ground": 874,
+  "per_sheet": 2,
+  "grip": "r",
+  "sheets": [
+    {
+      "tag": "attack",
+      "name": "attack_1",
+      "frames": [
+        1,
+        2
+      ],
+      "oppi": "attack",
+      "action": "basic attack, the staff swung round over her and thrust at the foe (lux_attack1)",
+      "ms": [
+        70,
+        80
+      ]
+    },
+    {
+      "tag": "attack",
+      "name": "attack_2",
+      "frames": [
+        3,
+        4
+      ],
+      "oppi": "attack",
+      "action": "basic attack, the staff swung round over her and thrust at the foe (lux_attack1)",
+      "ms": [
+        60,
+        100
+      ]
+    },
+    {
+      "tag": "attack",
+      "name": "attack_3",
+      "frames": [
+        5,
+        6
+      ],
+      "oppi": "attack",
+      "action": "basic attack, the staff swung round over her and thrust at the foe (lux_attack1)",
+      "ms": [
+        100,
+        90
+      ]
+    },
+    {
+      "tag": "skill",
+      "name": "skill_1",
+      "frames": [
+        1,
+        2
+      ],
+      "oppi": "skill",
+      "action": "Light Binding, the staff raised and thrust forward (lux_spell1)",
+      "ms": [
+        60,
+        70
+      ]
+    },
+    {
+      "tag": "skill",
+      "name": "skill_2",
+      "frames": [
+        3,
+        4
+      ],
+      "oppi": "skill",
+      "action": "Light Binding, the staff raised and thrust forward (lux_spell1)",
+      "ms": [
+        90,
+        90
+      ]
+    },
+    {
+      "tag": "skill",
+      "name": "skill_3",
+      "frames": [
+        5,
+        6
+      ],
+      "oppi": "skill",
+      "action": "Light Binding, the staff raised and thrust forward (lux_spell1)",
+      "ms": [
+        80,
+        100
+      ]
+    },
+    {
+      "tag": "skill",
+      "name": "skill_4",
+      "frames": [
+        7
+      ],
+      "oppi": "skill",
+      "action": "Light Binding, the staff raised and thrust forward (lux_spell1)",
+      "ms": [
+        90
+      ]
+    },
+    {
+      "tag": "skill2",
+      "name": "skill2_1",
+      "frames": [
+        1,
+        2
+      ],
+      "oppi": "skill2",
+      "action": "Lucent Singularity, the staff swung back and forward to throw the orb (lux_spell3)",
+      "ms": [
+        60,
+        70
+      ]
+    },
+    {
+      "tag": "skill2",
+      "name": "skill2_2",
+      "frames": [
+        3,
+        4
+      ],
+      "oppi": "skill2",
+      "action": "Lucent Singularity, the staff swung back and forward to throw the orb (lux_spell3)",
+      "ms": [
+        70,
+        60
+      ]
+    },
+    {
+      "tag": "skill2",
+      "name": "skill2_3",
+      "frames": [
+        5,
+        6
+      ],
+      "oppi": "skill2",
+      "action": "Lucent Singularity, the staff swung back and forward to throw the orb (lux_spell3)",
+      "ms": [
+        100,
+        120
+      ]
+    },
+    {
+      "tag": "skill2",
+      "name": "skill2_4",
+      "frames": [
+        7
+      ],
+      "oppi": "skill2",
+      "action": "Lucent Singularity, the staff swung back and forward to throw the orb (lux_spell3)",
+      "ms": [
+        90
+      ]
+    },
+    {
+      "tag": "ult",
+      "name": "ult_1",
+      "frames": [
+        1,
+        2
+      ],
+      "oppi": "ult",
+      "action": "Final Spark: she leaps, the staff floats ahead of her and fires, she lands (lux_spell4)",
+      "ms": [
+        100,
+        80
+      ]
+    },
+    {
+      "tag": "ult",
+      "name": "ult_2",
+      "frames": [
+        3,
+        4
+      ],
+      "oppi": "ult",
+      "action": "Final Spark: she leaps, the staff floats ahead of her and fires, she lands (lux_spell4)",
+      "ms": [
+        120,
+        200
+      ]
+    },
+    {
+      "tag": "ult",
+      "name": "ult_3",
+      "frames": [
+        5,
+        6
+      ],
+      "oppi": "ult",
+      "action": "Final Spark: she leaps, the staff floats ahead of her and fires, she lands (lux_spell4)",
+      "ms": [
+        180,
+        120
+      ]
+    },
+    {
+      "tag": "ult",
+      "name": "ult_4",
+      "frames": [
+        7,
+        8
+      ],
+      "oppi": "ult",
+      "action": "Final Spark: she leaps, the staff floats ahead of her and fires, she lands (lux_spell4)",
+      "ms": [
+        150,
+        150
+      ]
+    }
+  ]
+}

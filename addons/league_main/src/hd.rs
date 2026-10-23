@@ -276,6 +276,10 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // squares by tools/art/rig_jinx_hd.py (arms never moved, the run's thighs the design's stocking rows along the bone
     // with its whole boots); PPU 2.2 at her old 37 rows, so no SIZES row
     ("league_jinx", 2.2, include_str!("../../../league/champions/league_jinx#anim.fanim")),
+    // Lux (2026-10-23): Codex's picture read back at PPU 2.2 (64 x 81, tools/art/design_lux_hd.py, the staff drawn
+    // straight); idle, run, hit and death posed from the design's own squares (tools/art/rig_lux_hd.py), the four casts
+    // Codex's whole-frame redraw mended onto the design (tools/art/casts_lux_hd.py); 37 rows, so no SIZES row
+    ("league_lux", 2.2, include_str!("../../../league/champions/league_lux#anim.fanim")),
     // Yunara: PPU 1.5 (the user's pick), posed from the design's own squares at that density by tools/art/rig_yunara.py
     // (40 game rows ornaments to soles), so no SIZES row
     ("league_yunara", 1.5, include_str!("../../../league/champions/league_yunara#anim.fanim")),
@@ -328,13 +332,15 @@ pub const HEROES: &[(&str, f32, &str)] = &[
 /// lower (RESTYLE hwei lift_sq: 11.5 x 1.5 x (1 / 0.85 - 1) = 3.0).
 /// K'Sante: 90 % (the user, 2026-10-22: 「奎桑提的模型在游戏局内也太大了」, 0.9 picked of 0.9 / 0.85 / 0.8), his frames 2
 /// squares lower (RESTYLE ksante lift_sq: 11.5 x 1.2 x (1 / 0.9 - 1) = 1.5).
+/// Warwick: 90 % (the user, 2026-10-23: 「狼人局内模型有点大了」 - 46 game px spike to soles), his frames 2 squares lower
+/// (RESTYLE warwick lift_sq: 11.5 x 1.2 x (1 / 0.9 - 1) = 1.5).
 pub const SIZES: &[(&str, f32)] = &[("league_gragas", 0.90), ("league_zeri", 1.05), ("league_kassadin", 1.00),
                                     ("league_braum", 0.95), ("league_mordekaiser", 1.10),
                                     ("league_irelia", 1.05), ("league_soraka", 1.10), ("league_galio", 1.10), ("league_nilah", 0.90),
                                     ("league_corki", 0.90), ("league_malzahar", 1.15), ("league_aphelios", 0.90),
                                     ("league_poppy", 0.85), ("league_yuumi", 0.75), ("league_wukong", 1.15),
                                     ("tft_powder", 0.90), ("league_nami", 0.90), ("league_hwei", 0.85),
-                                    ("league_ksante", 0.90)];
+                                    ("league_ksante", 0.90), ("league_warwick", 0.90)];
 
 /// Heroes whose body grows with a stack: (id, the buff whose instances on him are the stacks, growth a stack). Cho'Gath's
 /// Feast (the user, 2026-10-19: 「变大可以无限 加生命」): every champion it eats is one more Permanent `league_chogath_r_stack`
@@ -592,7 +598,7 @@ mod tests {
             assert_eq!(h.of_name(&format!("asset/league/champions/{id}#anim")).map(|x| x.id), Some(id));
             assert_eq!(h.of_name(&format!("asset/base/aseprite_resources/champions/{id}#sheet")).map(|x| x.id), Some(id));
         }
-        assert!(h.get("league_lux").is_none());
+        assert!(h.get("league_annie").is_none());
         assert_eq!(h.get("tft_powder").map(|x| (x.id, x.size)), Some(("tft_powder", 0.90)));
         assert!(h.get("tft_nobody").is_none());
         assert!(h.of_name("asset/base/aseprite_resources/champions/alchemist#anim").is_none());

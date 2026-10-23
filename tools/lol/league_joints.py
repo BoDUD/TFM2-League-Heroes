@@ -109,6 +109,13 @@ JOINTS = {
                  r_hip="R_Hip", r_knee="R_KneeLower", r_foot="R_Foot", l_shoulder="L_Shoulder", l_elbow="L_Elbow",
                  l_hand="L_Hand", r_shoulder="R_Shoulder", r_elbow="R_Elbow", r_hand="R_Hand", weapon="Minigun",
                  rocket="Rocket_Launcher", rocket_front="Rocket_Launcher_Front", l_toe="L_Toe", r_toe="R_Toe"),
+    # the staff: WEAPON_b its grip end, BUFFBONE_GLB_WEAPON_1 its crescent head (where her spells leave it)
+    "lux": dict(pelvis="hip", chest="chest", head="head", l_hip="L_Thigh", l_knee="L_Knee", l_foot="L_Foot",
+                r_hip="R_Thigh", r_knee="R_Knee", r_foot="R_Foot", l_shoulder="L_UpArm", l_elbow="L_ForeArm",
+                l_hand="L_Hand", r_shoulder="R_UpArm", r_elbow="R_ForeArm", r_hand="R_Hand", weapon="WEAPON_b",
+                weapon_tip="BUFFBONE_GLB_WEAPON_1", w1="BUFFBONE_CSTM_WEAPON_1", w2="BUFFBONE_CSTM_WEAPON_2",
+                w3="BUFFBONE_CSTM_WEAPON_3", w4="BUFFBONE_CSTM_WEAPON_4", w5="BUFFBONE_CSTM_WEAPON_5",
+                w6="BUFFBONE_CSTM_WEAPON_6", w0="WEAPON"),
     "mel": dict(pelvis="Pelvis", chest="Chest", head="Head", l_hip="L_Hip", l_knee="L_KneeLower", l_foot="L_Foot",
                 r_hip="R_Hip", r_knee="R_KneeLower", r_foot="R_Foot", l_shoulder="L_Shoulder", l_elbow="L_Elbow",
                 l_hand="L_Hand", r_shoulder="R_Shoulder", r_elbow="R_Elbow", r_hand="R_Hand", l_sleeve="L_Sleeve1",

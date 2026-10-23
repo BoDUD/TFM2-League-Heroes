@@ -65,7 +65,7 @@
             "type": "TargetProjectile",
             "name": "league_lux_bolt",
             "speed": 5000,
-            "y_offset": 2000,
+            "y_offset": -3000,
             "applied_target": "Enemy",
             "applied_effects": [
               {
@@ -113,7 +113,7 @@
             "type": "TargetProjectile",
             "name": "league_lux_bolt",
             "speed": 5000,
-            "y_offset": 2000,
+            "y_offset": -3000,
             "applied_target": "Enemy",
             "applied_effects": [
               {
@@ -183,7 +183,7 @@
                   }
                 },
                 "penetrate": true,
-                "y_offset": 2000,
+                "y_offset": -2800,
                 "applied_target": "EnemyWithoutTower",
                 "applied_effects": [
                   {
@@ -246,7 +246,7 @@
                 "speed": 2000,
                 "range": 130000,
                 "penetrate": true,
-                "y_offset": 2000,
+                "y_offset": -2800,
                 "applied_target": "EnemyChampion",
                 "shape": {
                   "Circle": {
@@ -327,7 +327,7 @@
                   }
                 },
                 "penetrate": true,
-                "y_offset": 2000,
+                "y_offset": -2800,
                 "applied_target": "EnemyWithoutTower",
                 "applied_effects": [
                   {
@@ -390,7 +390,7 @@
                 "speed": 2000,
                 "range": 130000,
                 "penetrate": true,
-                "y_offset": 2000,
+                "y_offset": -2800,
                 "applied_target": "EnemyChampion",
                 "shape": {
                   "Circle": {

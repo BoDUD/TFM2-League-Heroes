@@ -1,0 +1,161 @@
+{
+ "hero": "lux",
+ "champ": "Lux",
+ "camera": {
+  "yaw": 45,
+  "pitch": 20,
+  "mirror": true
+ },
+ "chibi": {
+  "head": 2.6,
+  "legs": 0.85,
+  "hair": 0.5
+ },
+ "weapon": "WEAPON",
+ "height": 37,
+ "cell": [
+  96,
+  96,
+  14
+ ],
+ "design": "lux_idle1@0",
+ "tags": {
+  "attack": {
+   "lunge": 0.3,
+   "head_like": "lux_idle1@0",
+   "frames": [
+    [
+     "lux_idle1@0>lux_attack1@0:0.6",
+     70
+    ],
+    [
+     "lux_attack1@81",
+     80
+    ],
+    [
+     "lux_attack1@161",
+     60
+    ],
+    [
+     "lux_attack1@242",
+     100
+    ],
+    [
+     "lux_attack1@403",
+     100
+    ],
+    [
+     "lux_attack1@645>lux_idle1@0:0.5",
+     90
+    ]
+   ]
+  },
+  "skill": {
+   "lunge": 0.3,
+   "head_like": "lux_idle1@0",
+   "frames": [
+    [
+     "lux_spell1@0",
+     60
+    ],
+    [
+     "lux_spell1@120",
+     70
+    ],
+    [
+     "lux_spell1@242",
+     90
+    ],
+    [
+     "lux_spell1@323",
+     90
+    ],
+    [
+     "lux_spell1@403",
+     80
+    ],
+    [
+     "lux_spell1@565",
+     100
+    ],
+    [
+     "lux_spell1@800>lux_idle1@0:0.5",
+     90
+    ]
+   ]
+  },
+  "skill2": {
+   "lunge": 0.3,
+   "head_like": "lux_idle1@0",
+   "frames": [
+    [
+     "lux_spell3@0",
+     60
+    ],
+    [
+     "lux_spell3@81",
+     70
+    ],
+    [
+     "lux_spell3@161",
+     70
+    ],
+    [
+     "lux_spell3@200",
+     60
+    ],
+    [
+     "lux_spell3@242",
+     100
+    ],
+    [
+     "lux_spell3@403",
+     120
+    ],
+    [
+     "lux_spell3@726>lux_idle1@0:0.5",
+     90
+    ]
+   ]
+  },
+  "ult": {
+   "lunge": 0.3,
+   "rise": 0.5,
+   "head_like": "lux_idle1@0",
+   "frames": [
+    [
+     "lux_spell4@0",
+     100
+    ],
+    [
+     "lux_spell4@167",
+     80
+    ],
+    [
+     "lux_spell4@333",
+     120
+    ],
+    [
+     "lux_spell4@600",
+     200
+    ],
+    [
+     "lux_spell4@833",
+     180
+    ],
+    [
+     "lux_spell4@1000",
+     120
+    ],
+    [
+     "lux_spell4@1333",
+     150
+    ],
+    [
+     "lux_spell4@1667",
+     150
+    ]
+   ]
+  }
+ }
+}

@@ -57,7 +57,7 @@ ORIG_PPU = {"zeri": 3, "karma": 3, "braum": 2.881, "mordekaiser": 5, "corki": 5,
             "vladimir": 2, "yasuo": 3, "garen": 3, "gragas": 2, "irelia": 2, "soraka": 3, "nidalee": 3.8313,
             "nilah": 2.5, "kindred": 154 / 34, "malzahar": 1.38, "milio": 2.2, "jayce": 1.5, "elise": 1.8, "katarina": 1.5,
             "tahmkench": 1.2, "kalista": 1.4, "drmundo": 1.5, "pantheon": 1.5, "orianna": 2.25, "aphelios": 1.5, "rell": 1.5, "urgot": 1.2, "reksai": 1.58, "swain": 1.5, "nasus": 1.2, "renata": 1.5, "anivia": 1.2, "jarvaniv": 1.5, "ziggs": 1.5, "maokai": 1.5, "gangplank": 1.5, "wukong": 1.53, "cassiopeia": 1.3, "akshan": 1.61, "poppy": 1.3, "volibear": 1.2, "rammus": 1.2,
-            **{h: 1.5 for h in ('morgana', 'nami', 'janna', 'jax', 'xinzhao')}, "yunara": 1.5, "kaisa": 1.45, "camille": 1.5, "fiora": 1.5, "leblanc": 2.0, "darius": 1.45, "caitlyn": 1.45, "riven": 1.5, "zoe": 1.5, "quinn": 2.0, "yuumi": 1.5, "powder": 1.75, "chogath": 1.2, "karthus": 1.5, "vex": 1.5, "zyra": 1.7, "graves": 1.5, "warwick": 1.5, "gnar": 1.5, "sylas": 1.2, "mel": 1.5, "velkoz": 1.5, "shyvana": 1.5, "ornn": 1.5, "naafiri": 1.5, "xerath": 1.55, "heimerdinger": 1.5, "neeko": 2.5, "ksante": 1.5, "udyr": 1.5, "qiyana": 1.5, "hwei": 1.5, "ivern": 1.5, "illaoi": 1.5, "varus": 1.35, "aurora": 2.25, "nunu": 1.37, "azir": 1.5, "zac": 1.5, "jinx": 2.2, "singed": 1.39}
+            **{h: 1.5 for h in ('morgana', 'nami', 'janna', 'jax', 'xinzhao')}, "yunara": 1.5, "kaisa": 1.45, "camille": 1.5, "fiora": 1.5, "leblanc": 2.0, "darius": 1.45, "caitlyn": 1.45, "riven": 1.5, "zoe": 1.5, "quinn": 2.0, "yuumi": 1.5, "powder": 1.75, "chogath": 1.2, "karthus": 1.5, "vex": 1.5, "zyra": 1.7, "graves": 1.5, "warwick": 1.5, "gnar": 1.5, "sylas": 1.2, "mel": 1.5, "velkoz": 1.5, "shyvana": 1.5, "ornn": 1.5, "naafiri": 1.5, "xerath": 1.55, "heimerdinger": 1.5, "neeko": 2.5, "ksante": 1.5, "udyr": 1.5, "qiyana": 1.5, "hwei": 1.5, "ivern": 1.5, "illaoi": 1.5, "varus": 1.35, "aurora": 2.25, "nunu": 1.37, "azir": 1.5, "zac": 1.5, "jinx": 2.2, "lux": 2.2, "singed": 1.39}
 # face: (row0, row1, col0, col1) of the face to match in the idle's first dense frame; neck: (col, row) there
 RESTYLE = {
     "zeri": dict(face=(25, 41, 22, 42), neck=None, neck_row=35, head=1.3, wide=1.45, short=0.88, band=2, edge=1, face_to=(-1, -33)),
@@ -319,6 +319,11 @@ RESTYLE = {
     # run's thighs the design's stocking rows along the bone with its whole boots); the zapper's charge rides the
     # effect layer (fx)
     "jinx": dict(ppu=2.2, edge=0, face_to=(1, -36), fx=True),
+    # Lux (2026-10-23): Codex's picture read back at PPU 2.2 (81 rows, design_lux_hd.py, the staff drawn straight); idle,
+    # run, hit and death posed from the design's own squares (tools/art/rig_lux_hd.py), the casts Codex's whole-frame
+    # redraw mended onto the design (tools/art/casts_lux_hd.py: the design's head and staff, its size)
+    # 2026-10-23 face (0,-34): (-1,-37) framed the crown and headband on top, the eyes on the bottom rows and no mouth
+    "lux": dict(ppu=2.2, edge=0, face_to=(0, -34)),
     # league_yunara (#119): posed from the design's own squares at the user's 1.5 squares a game pixel (「选 A，40 行」,
     # Codex's step-1 take 2 cut to 60 rows, her beads apart) by tools/art/rig_yunara.py, so no proportion or density
     # change here; the outer outline grown a square like the others; the face point at her ornaments' crown
@@ -429,7 +434,9 @@ RESTYLE = {
     # (the user on the review: 「太高清了 降点像素」 - the beasts' density, league_volibear / league_nasus); the outer
     # outline grown a square like the others; the face point between his eyes (11 game px ahead of his standing point:
     # the hunched head is pushed out over his far foot)
-    "warwick": dict(ppu=1.2, edge=1, face_to=(11, -28)),
+    # 2026-10-23: 90 % in game (「狼人局内模型有点大了 开个pr缩小一点」, hd.rs SIZES): 11.5 x 1.2 x (1 / 0.9 - 1) = 1.5 -> 2
+    # squares lower; the face point x 0.9 about the soles
+    "warwick": dict(ppu=1.2, edge=1, lift_sq=-2, face_to=(10, -25)),
     # league_gnar (#141): posed by tools/art/rig_gnar.py at the user's 1.5 squares a game pixel (「迷你 32」「巨型 44」:
     # Codex's step-1 takes A-2 cut to 48 rows, M-1 and SM-2 as drawn / cut to 66, Mega's turned poses drawn again from
     # Codex's own picture), so no proportion or density change here; the outer outline grown a square like the others;

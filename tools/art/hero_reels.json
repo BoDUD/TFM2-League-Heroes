@@ -79,7 +79,6 @@
   "league_lissandra": {"idle": [["skill2", [0, 1, 2, 3]], ["ult_self", [0, 1, 2, 3]]]},
   "league_lucian": {"idle": [["skill", [0, 1, 2]], ["skill2", [6]]]},
   "league_lulu": {"idle": [["skill2", [5, 2]], ["attack", [5]]]},
-  "league_lux": {"idle": [["skill", [2]], ["skill2", [6, 5]]]},
   "league_malphite": {"idle": [["attack", [0, 1, 2]], ["skill2", [3, 4, 5]]]},
   "league_malzahar": {"idle": [["skill2", [4, 0]], ["attack", [4]]]},
   "league_maokai": {"idle": [["attack", [2, 1]], ["skill_e", [1, 2, 3]]]},
