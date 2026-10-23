@@ -8,9 +8,10 @@ clips (the user, 2026-10-24, Codex out of quota: 「你直接照着重画吧 没
     python tools/art/rig_ahri_hd.py                     # orig strips + the 1x sheet
     python tools/art/hero_reels.py --hero ahri          # then: the idle / ban-pick reels from idle_base
 
-No square is redrawn: the parts (the tails, the long hair, the two legs, the body, the far arm raised by her face and
-the near arm hanging by the tails) are cut square by square and placed by whole squares, quarter turns and whole-row
-shifts; the legs of the run, the casts and the falls are the design's own leg rows laid along two bones (Legs, knees by
+No square is redrawn but Spirit Rush's torso (TORSO_SIDE: flying level she needs a side view the design does not have,
+drawn square by square in its colours; the user, 2026-10-24: 「R 要旧版那样横飞，你手画侧面的躯干试试」): the parts (the
+tails, the long hair, the two legs, the body, the far arm raised by her face and the near arm hanging by the tails) are
+cut square by square and placed by whole squares, quarter turns and whole-row shifts; the legs of the run, the casts and the falls are the design's own leg rows laid along two bones (Legs, knees by
 IK from the ankles). The nine tails are one fan that only ever moves whole - down, up, or swung up into her hair about
 their root (turned_soft); cut apart, closed into a bundle or swung back they left her (「你这么多尾巴为什么是断开的啊」
 「你尾巴和身体分离这个问题一直不解决」). The long hair stays where it hangs and flows back over it (a row-shifted copy).
@@ -442,6 +443,8 @@ def compose(d, pieces, pose, legs, unders):
         items.append((Z[name], name, img, x0, y0))
     if pose.get("prone"):
         items = prone_items(pieces, pose["prone"], legs, unders, pose)
+    if pose.get("fly"):
+        items = flight_items(pieces, legs, pose["fly"])
     for _, name, img, x0, y0 in sorted(items, key=lambda t: t[0]):
         out, x, y = transformed(img, x0, y0, dict(pose.get(name, {})))
         if name in UPPER and "trunk" in pose:
@@ -498,6 +501,89 @@ def prone_items(pieces, pr, legs, unders, pose):
     # the root (turned onto itself) under the turned hips
     items.append((Z["tails"] - 1, "tails_lying", t, tx + int(round(hx - rx)) + pr.get("tail_dx", 0),
                   ty + int(round(hy - ry)) + pr.get("tail_dy", 0)))
+    return items
+
+
+# Spirit Rush flying level (her old sheet's dash; the user, 2026-10-24: 「R 要旧版那样横飞，你手画侧面的躯干试试」): the
+# design is drawn from the front only, and its torso turned a quarter crushed into a heap (「你这变形也太严重了」), so the
+# torso seen from her side, flying face down, is drawn here square by square in the design's colours (her back on top,
+# the neck on the right): the red robe, the gold sash, the cream skirt flaring back, the white fur at the shoulder, the
+# violet tassel. Everything else is the design's own: the head upright as drawn, the long hair below it turned to stream
+# back over the torso, the far arm turned a quarter to reach forward, the legs hanging back on their bones with the
+# whole boots as drawn, the whole fan turned to stream back from her back.
+SIDE_COLOURS = {
+    "O": OUT_HEX,
+    "R": "CA1D35", "r": "A4152C", "d": "851025", "k": "65091D",          # the robe, light to dark
+    "W": "FCFBFC", "w": "E5DCFC", "v": "CBBAD5", "u": "9A86A7",          # the fur at the shoulder
+    "G": "DDA23E", "g": "AD702E", "h": "8E521E",                         # the sash
+    "C": "FDE3D0", "y": "F2C96C", "t": "D25A60",                         # the skirt, its shade, its red hem
+    "P": "9D4EF5", "p": "7127CC",                                        # the tassel
+}
+TORSO_SIDE = [
+    "..........OOOOOOOOOOOO......",
+    "......OOOORRRRRRRRRRRROOO...",
+    "....OOCCOgRRRRRRRRRRRRRwWOO.",
+    "...OCCWCOGRRRRRRRRRRRRwWWwO.",
+    "..OCCWWCOGrRRRRRRRRRRwWWWwvO",
+    ".OyCCCCCOGrrrrrrrrrrrwWWwvvO",
+    "OtyCCCCyOhrrrrrrrrrrwwwwvvuO",
+    "OttyyyytOhddddddddddvwwvvuO.",
+    ".OttttttOOdddkkkkkddOvvvuO..",
+    "..OOOOOOOpOOOOOOOOOOOOOOO...",
+    "........OPpO................",
+    "........OPpO................",
+    "........OPpO................",
+    ".........OO.................",
+]
+HEAD_CUT = 39                   # the head: the body's and the hair's squares above this row (the chin's)
+
+
+def side_torso():
+    rows = TORSO_SIDE
+    a = np.zeros((len(rows), max(len(r) for r in rows), 4), np.uint8)
+    for y, row in enumerate(rows):
+        for x, ch in enumerate(row):
+            if ch in SIDE_COLOURS:
+                hx = SIDE_COLOURS[ch]
+                a[y, x] = (int(hx[:2], 16), int(hx[2:4], 16), int(hx[4:], 16), 255)
+    return a
+
+
+FAR_ELBOW = (70.0, 47.0)        # the far arm turns about this point to reach forward
+# slivers of the tails peeking between her hair locks: turned for the flight they stood up off her back as thin
+# spikes - in flight they are behind her hair (x0, y0, x1, y1 inclusive)
+FLY_TAIL_CUT = [(36, 49, 40, 52), (35, 54, 37, 55)]
+HAIR_ROOT = (46.0, float(HEAD_CUT))   # where the long hair leaves the head
+
+
+def flight_items(pieces, legs, fl):
+    """Items (z, name, picture, x, y) of her flying level: fl = {"torso": (x, y) of the side torso's top-left, "hair":
+    (degrees, dx, dy), "arm": (dx, dy), "hips": (x, y), "legs": {"near" / "far": (knee dx, dy from the hip, ankle dx, dy
+    from the knee)}, "tails": (degrees, root x, y)} - the head stays where the design has it."""
+    items = []
+    img, (x0, y0) = pieces["head_fly"]
+    items.append((5, "head", img, x0, y0))
+    tx, ty = fl["torso"]
+    items.append((3, "torso_side", side_torso(), tx, ty))
+    deg, hdx, hdy = fl["hair"]
+    img, (x0, y0) = pieces["hair_fly"]
+    img, x0, y0 = turned_soft(img, x0, y0, deg, HAIR_ROOT)
+    items.append((4, "hair_flying", img, x0 + hdx, y0 + hdy))
+    img, (x0, y0) = pieces["arm_far"]
+    img, x0, y0 = transformed(img, x0, y0, dict(rot=1, about=FAR_ELBOW))
+    adx, ady = fl["arm"]
+    items.append((4.5, "arm_flying", img, x0 + adx, y0 + ady))
+    hx, hy = fl["hips"]
+    for key, z, dy0 in (("near", 2, 1), ("far", 1, -1)):
+        kdx, kdy, adx, ady = fl["legs"][key]
+        hip = (hx, hy + dy0)
+        knee = (hip[0] + kdx, hip[1] + kdy)
+        items += [(z + 0.01 * i,) + it[1:] for i, it in
+                  enumerate(legs.items(key, hip, knee, (knee[0] + adx, knee[1] + ady)))]
+    deg, rx, ry = fl["tails"]
+    img, (x0, y0) = pieces["tails_fly"]
+    img, x0, y0 = turned_soft(img, x0, y0, deg, TAIL_ROOT_AT)
+    items.append((0, "tails_flying", img, x0 + int(round(rx - TAIL_ROOT_AT[0])), y0 + int(round(ry - TAIL_ROOT_AT[1]))))
     return items
 
 
@@ -692,6 +778,23 @@ def Q(dx=0, dy=0, lean=0, far=None, near=None, tk=0, hk=0, legs=None, sink=0, be
     return out
 
 
+FLY = dict(torso=(34, 34), hair=(-85, 0, -1), arm=(-11, -1), hips=(42, 41),
+           legs={"near": (-11, 11, -5, 6), "far": (-9, 9, -4, 6)}, tails=(52, 42, 28))
+
+
+def fly(dx=0, dy=0, hair=None, tails=None, legs=None):
+    """A frame of her level flight (FLY, flight_items): moved (dx, dy), the hair's and the tails' turn, the legs
+    ((near), (far))."""
+    f = dict(FLY)
+    if hair is not None:
+        f["hair"] = (hair,) + FLY["hair"][1:]
+    if tails is not None:
+        f["tails"] = (tails,) + FLY["tails"][1:]
+    if legs is not None:
+        f["legs"] = {"near": legs[0], "far": legs[1]}
+    return dict(fly=f, dx=dx, dy=dy)
+
+
 KISS = dict(dy=-2)                               # the far hand by her lips (the design's own, lifted)
 UP = dict(dx=1, dy=-6)                           # the far hand raised by her head
 
@@ -727,17 +830,16 @@ POSES = {
                Q(lean=3, far=fwd(1), td=-6, hk=-1, legs=at(-4, 3), sink=2),
                Q(lean=1, far=far(-1, 1), td=-2, legs=at(-2, 1), sink=1),
                Q()],
-    # Spirit Rush (the dash from the 2nd frame): she crouches, springs forward and dives through the air - every part
-    # upright as drawn (turning her body a quarter crushed it: 「你这变形也太严重了」), the dash told by her body flung far
-    # ahead of her legs (lean), the back leg trailing high, the far hand reaching out, the hair streaming back and the
-    # tails tucked up out of her legs' way - then lands in a lunge and rises
+    # Spirit Rush (the dash from the 2nd frame; her old sheet): she crouches, springs off flying level - head up in
+    # front, the hair and the tails streaming back, the far hand reaching out, the legs trailing (FLY, flight_items) -
+    # glides down and lands in a lunge
     "ult": [Q(lean=2, far=IN, ty=2, hk=-2, legs=at(-3, 3), sink=5),
-            Q(dy=-3, lean=9, far=fwd(3), near=far(-4, -1), td=-10, ty=-2, hk=-10, legs=at(-20, 4, 4, 0)),
-            Q(dy=-6, lean=13, far=fwd(4), near=far(-5, -1), td=-14, ty=-3, hk=-14, legs=at(-30, 4, 4, 0)),
-            Q(dy=-7, lean=14, far=fwd(4), near=far(-5, -1), td=-15, ty=-3, hk=-15, legs=at(-30, 6, 6, 1)),
-            Q(dy=-6, lean=14, far=fwd(4), near=far(-5, -1), td=-14, ty=-3, hk=-14, legs=at(-28, 4, 5, 0)),
-            Q(dy=-5, lean=13, far=fwd(3), near=far(-4, -1), td=-12, ty=-2, hk=-13, legs=at(-26, 4, 4, 0)),
-            Q(dy=-2, lean=10, far=fwd(3), near=far(-3, -1), td=-8, ty=-1, hk=-10, legs=at(-18, 4, 2, 0)),
+            fly(dy=8, hair=-80, tails=46, legs=((-8, 12, -3, 7), (-6, 11, -2, 7))),
+            fly(dy=0, hair=-85, tails=52),
+            fly(dy=-1, hair=-88, tails=55, legs=((-12, 10, -6, 5), (-10, 8, -5, 5))),
+            fly(dy=0, hair=-85, tails=52),
+            fly(dy=1, hair=-82, tails=50, legs=((-10, 12, -4, 6), (-8, 10, -3, 6))),
+            fly(dy=6, hair=-80, tails=46, legs=((-7, 13, -2, 7), (-5, 12, -1, 7))),
             Q(lean=5, far=fwd(1), near=far(-2), td=-3, ty=1, hk=-5, legs=at(-6, 5), sink=5),
             Q(lean=1, far=far(-1, 1), td=-1, hk=-1, legs=at(-2, 2), sink=2)],
     # struck: knocked back, the tails and hair flung forward
@@ -832,9 +934,22 @@ def close_chinks(can):
     return out
 
 
+def drop_specks(can, most=4):
+    """Bits of up to `most` squares cut off from the figure (a turned tail's tip): gone."""
+    out = can.copy()
+    op = out[..., 3] > 0
+    lbl, n = ndimage.label(op, structure=np.ones((3, 3)))
+    if n > 1:
+        sz = ndimage.sum(op, lbl, range(1, n + 1))
+        for k in range(1, n + 1):
+            if sz[k - 1] <= most:
+                out[lbl == k] = 0
+    return out
+
+
 class AhriRig(R.Rig):
     def finish(self, can):
-        return drop_stray_outline(close_chinks(close_tail_gaps(super().finish(close_tail_gaps(can)))))
+        return drop_specks(drop_stray_outline(close_chinks(close_tail_gaps(super().finish(close_tail_gaps(can))))))
 
 
 def on_rig(rig, a):
@@ -857,6 +972,14 @@ class Poser:
         self.pieces = {n: piece(d, m) for n, m in self.M.items()}
         self.unders = {arm: under(d, self.M, arm) for arm in ("arm_far", "arm_near", "hair")}
         self.legs = Legs(d, self.M)
+        yy = np.arange(d.shape[0])[:, None] + np.zeros((1, d.shape[1]), int)
+        self.pieces["head_fly"] = piece(d, (self.M["upper"] | self.M["hair"]) & (yy < HEAD_CUT))
+        self.pieces["hair_fly"] = piece(d, self.M["hair"] & (yy >= HEAD_CUT))
+        xx = np.arange(d.shape[1])[None, :] + np.zeros((d.shape[0], 1), int)
+        cut = np.zeros_like(self.M["tails"])
+        for x0, y0, x1, y1 in FLY_TAIL_CUT:
+            cut |= (xx >= x0) & (xx <= x1) & (yy >= y0) & (yy <= y1)
+        self.pieces["tails_fly"] = piece(d, self.M["tails"] & ~cut)
 
     def check(self):
         """Standing, the parts rebuild the design square for square; the parts cover it once."""
