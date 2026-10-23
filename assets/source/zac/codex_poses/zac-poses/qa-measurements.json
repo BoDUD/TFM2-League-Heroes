@@ -1,0 +1,359 @@
+[
+  {
+    "pose": "a_wind",
+    "file": "zac-pose-a_wind.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "alpha_levels": 256,
+    "transparent_pixels": 1169852,
+    "opaque_pixels": 2802,
+    "partial_alpha_pixels": 399862,
+    "solid_bbox": [
+      118,
+      549,
+      1156,
+      1215
+    ],
+    "bottom_delta_from_1197": 18,
+    "raw_identical": true,
+    "sha256": "9684e49d3cfe37711448eec95dc4114d0c070642b52c44606b01869c7d80a1c7"
+  },
+  {
+    "pose": "a_punch",
+    "file": "zac-pose-a_punch.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "alpha_levels": 256,
+    "transparent_pixels": 1212238,
+    "opaque_pixels": 1714,
+    "partial_alpha_pixels": 358564,
+    "solid_bbox": [
+      108,
+      597,
+      1229,
+      1205
+    ],
+    "bottom_delta_from_1197": 8,
+    "raw_identical": true,
+    "sha256": "82d2eb6dc1c834eb7d5c53a6c66d6197bdadc4b2f4ff1b5848892dcb348e74f7"
+  },
+  {
+    "pose": "q_wind",
+    "file": "zac-pose-q_wind.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "alpha_levels": 256,
+    "transparent_pixels": 1142868,
+    "opaque_pixels": 2039,
+    "partial_alpha_pixels": 427609,
+    "solid_bbox": [
+      138,
+      126,
+      1164,
+      1175
+    ],
+    "bottom_delta_from_1197": -22,
+    "raw_identical": true,
+    "sha256": "baae87353ee7ed7906ec005dcc9f36967c84a81d5a7dd9f6734aa7fd474442d1"
+  },
+  {
+    "pose": "q_reach",
+    "file": "zac-pose-q_reach.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "alpha_levels": 256,
+    "transparent_pixels": 1231228,
+    "opaque_pixels": 2065,
+    "partial_alpha_pixels": 339223,
+    "solid_bbox": [
+      40,
+      627,
+      1233,
+      1193
+    ],
+    "bottom_delta_from_1197": -4,
+    "raw_identical": true,
+    "sha256": "bea4adec726c3d29fcedee87200f85ac9be56107a7614755e43a4a70559b5e88"
+  },
+  {
+    "pose": "q_lift",
+    "file": "zac-pose-q_lift.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "alpha_levels": 256,
+    "transparent_pixels": 1152155,
+    "opaque_pixels": 2227,
+    "partial_alpha_pixels": 418134,
+    "solid_bbox": [
+      343,
+      235,
+      1060,
+      1195
+    ],
+    "bottom_delta_from_1197": -2,
+    "raw_identical": true,
+    "sha256": "340228460b44bede814cae58d8f0a3f2d224570acb24228b28168093cf1c2d9f"
+  },
+  {
+    "pose": "q_slam",
+    "file": "zac-pose-q_slam.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "alpha_levels": 256,
+    "transparent_pixels": 1147824,
+    "opaque_pixels": 2530,
+    "partial_alpha_pixels": 422162,
+    "solid_bbox": [
+      144,
+      516,
+      1203,
+      1172
+    ],
+    "bottom_delta_from_1197": -25,
+    "raw_identical": true,
+    "sha256": "6d5e7e75fd20caff8689a6232c5f1de80c92813b2fe096fac2c027af689cfea6"
+  },
+  {
+    "pose": "e_plant",
+    "file": "zac-pose-e_plant.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "alpha_levels": 256,
+    "transparent_pixels": 1178490,
+    "opaque_pixels": 2690,
+    "partial_alpha_pixels": 391336,
+    "solid_bbox": [
+      129,
+      483,
+      1216,
+      1210
+    ],
+    "bottom_delta_from_1197": 13,
+    "raw_identical": true,
+    "sha256": "c092077d665bfaf5b02aa35ceebef424b285997996bef77c15b80b5b34bd0c50"
+  },
+  {
+    "pose": "e_pull",
+    "file": "zac-pose-e_pull.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "alpha_levels": 256,
+    "transparent_pixels": 1208556,
+    "opaque_pixels": 2127,
+    "partial_alpha_pixels": 361833,
+    "solid_bbox": [
+      10,
+      501,
+      1236,
+      1214
+    ],
+    "bottom_delta_from_1197": 17,
+    "raw_identical": true,
+    "sha256": "6ceaf989e56ce385b48c19e8a796a44ad9e8080a51ec36172609fc096ceac971"
+  },
+  {
+    "pose": "e_fly",
+    "file": "zac-pose-e_fly.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "alpha_levels": 256,
+    "transparent_pixels": 1246825,
+    "opaque_pixels": 2008,
+    "partial_alpha_pixels": 323683,
+    "solid_bbox": [
+      21,
+      558,
+      1244,
+      1150
+    ],
+    "bottom_delta_from_1197": -47,
+    "raw_identical": true,
+    "sha256": "cd19311383f85d56b5d6148b03eb133de2b13bf65cad08246f78036ffab24271"
+  },
+  {
+    "pose": "e_land",
+    "file": "zac-pose-e_land.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "alpha_levels": 256,
+    "transparent_pixels": 1184521,
+    "opaque_pixels": 2341,
+    "partial_alpha_pixels": 385654,
+    "solid_bbox": [
+      15,
+      591,
+      1240,
+      1193
+    ],
+    "bottom_delta_from_1197": -4,
+    "raw_identical": true,
+    "sha256": "b3facc40b3c3c63696ee69118762b82ced25972adc57734a1087a82b2f09c9f2"
+  },
+  {
+    "pose": "r_crouch",
+    "file": "zac-pose-r_crouch.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "alpha_levels": 256,
+    "transparent_pixels": 1166282,
+    "opaque_pixels": 2566,
+    "partial_alpha_pixels": 403668,
+    "solid_bbox": [
+      194,
+      529,
+      1154,
+      1208
+    ],
+    "bottom_delta_from_1197": 11,
+    "raw_identical": true,
+    "sha256": "c073190c5497a3bb354a8c3d9b89d8b8a5e5caf5ef50bd3c1849e1e4879df8ac"
+  },
+  {
+    "pose": "r_jump",
+    "file": "zac-pose-r_jump.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "alpha_levels": 256,
+    "transparent_pixels": 1229430,
+    "opaque_pixels": 2152,
+    "partial_alpha_pixels": 340934,
+    "solid_bbox": [
+      75,
+      323,
+      1233,
+      951
+    ],
+    "bottom_delta_from_1197": -246,
+    "raw_identical": true,
+    "sha256": "15c7e87510f9c05c6294b1fb046ec1e96e24e377cadf0a16851814a26bf305fa"
+  },
+  {
+    "pose": "r_ball",
+    "file": "zac-pose-r_ball.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "alpha_levels": 256,
+    "transparent_pixels": 1240738,
+    "opaque_pixels": 1068,
+    "partial_alpha_pixels": 330710,
+    "solid_bbox": [
+      361,
+      446,
+      1016,
+      1175
+    ],
+    "bottom_delta_from_1197": -22,
+    "raw_identical": true,
+    "sha256": "9cb4f04c2c1df2e7b6054b153aad7a5ab11a7ba8f694b4d81c42198674c65e65"
+  },
+  {
+    "pose": "r_splat",
+    "file": "zac-pose-r_splat.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "alpha_levels": 256,
+    "transparent_pixels": 1307921,
+    "opaque_pixels": 1604,
+    "partial_alpha_pixels": 262991,
+    "solid_bbox": [
+      23,
+      845,
+      1235,
+      1213
+    ],
+    "bottom_delta_from_1197": 16,
+    "raw_identical": true,
+    "sha256": "e9f42dab846ceb1e6f9af8e5b1202e1fc1f1f68dc3a60a081bcfbfc7a0c0a1f6"
+  },
+  {
+    "pose": "d_stagger",
+    "file": "zac-pose-d_stagger.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "alpha_levels": 256,
+    "transparent_pixels": 1254390,
+    "opaque_pixels": 2091,
+    "partial_alpha_pixels": 316035,
+    "solid_bbox": [
+      240,
+      581,
+      1176,
+      1206
+    ],
+    "bottom_delta_from_1197": 9,
+    "raw_identical": true,
+    "sha256": "1e49d7fafdce70d64ff419b622296c54308f112bab4b4d5c548223388b8f64af"
+  },
+  {
+    "pose": "d_melt",
+    "file": "zac-pose-d_melt.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "alpha_levels": 256,
+    "transparent_pixels": 1293827,
+    "opaque_pixels": 1225,
+    "partial_alpha_pixels": 277464,
+    "solid_bbox": [
+      52,
+      808,
+      1215,
+      1211
+    ],
+    "bottom_delta_from_1197": 14,
+    "raw_identical": true,
+    "sha256": "1ee71e87fae387854d13bd810dbc4e1e0e2723de7a7d692b5ccc9f74de432510"
+  },
+  {
+    "pose": "d_puddle",
+    "file": "zac-pose-d_puddle.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "alpha_levels": 256,
+    "transparent_pixels": 1481287,
+    "opaque_pixels": 520,
+    "partial_alpha_pixels": 90709,
+    "solid_bbox": [
+      158,
+      1105,
+      1096,
+      1239
+    ],
+    "bottom_delta_from_1197": 42,
+    "raw_identical": true,
+    "sha256": "651864464fc22bf9e3c2ef38a08a2efe3e7ce0578d2c94a9fc8c80333b5941b8"
+  }
+]

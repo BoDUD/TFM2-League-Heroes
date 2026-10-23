@@ -200,6 +200,10 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // design's helmet put back, each body read at its skeleton's height) at the user's 1.5 squares a game pixel (57 game
     // rows crest to soles, the sceptre above: 「38」「PPU 1.5」; 3/4 only), so no SIZES row
     ("league_azir", 1.5, include_str!("../../../league/champions/league_azir#anim.fanim")),
+    // Zac: posed by tools/art/rig_zac.py on Codex's step-1 take A-1 and its key poses after League's clips (the design's
+    // head and tendril put back on the eyes; the add-on's puddle in the split_* tags) at the user's 1.5 squares a game
+    // pixel (66 game rows tendril top to soles = 44 game px; 3/4 only), so no SIZES row
+    ("league_zac", 1.5, include_str!("../../../league/champions/league_zac#anim.fanim")),
     // Neeko: posed by tools/art/rig_neeko.py on Codex's step-1 take A-1 and its key poses at the user's 2.5 squares a
     // game pixel (100 game rows quill tips to soles: 「40」, then 「1.5也挺糊的 还得往上调整吧」; 3/4 only; league_neeko's
     // view hook draws her as an ally while she is disguised), so no SIZES row
@@ -440,6 +444,10 @@ pub const UI_SIZES: &[(&str, f32)] = &[
     ("league_nunu", 0.85),
     // Azir: about 49 game px from his sceptre's tip to his soles at PPU 1.5 (the crest 38) - 39 / 49 = 0.80
     ("league_azir", 0.80),
+    // Zac: 46.7 game px from his tendril tip to his soles over the idle reel (the punch's wind-up reaches higher) at PPU
+    // 1.5 - at the placeholder -8 the card cut 6 px of the tendril and hid 4 px of his feet; 0.84 with the card value
+    // bp_card_audit.py gives: the tendril under the canvas top, the soles on its bottom
+    ("league_zac", 0.84),
 ];
 
 /// The `"lo_..."` animation names of a .fanim.
