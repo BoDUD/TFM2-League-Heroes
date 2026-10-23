@@ -341,7 +341,9 @@ def build(p):
                # spirit standing on its own spot (league_illaoi:prophet plays them on a position)
                *[{"type": "Animation", "name": n(f"tentacle_{k}"), "anim": TENTACLE, "tag": k, "z": 1, "is_follow": False}
                  for k in ("rise", "sway", "sink")],
-               E("e_soul", FX, 3, False) | {"tag": "e_spirit"}]
+               E("e_soul", FX, 3, False) | {"tag": "e_spirit"},
+               # the spirit struck: its flash on the spirit's spot (the add-on, with a pulse down the tether)
+               E("e_echo", FX, 3, False)]
     views_p.append(Pj("e_tether"))     # a link of the spirit's tether (the add-on spawns a chain every tick)
     # the copy's spirit stands apart (e_soul, played by the add-on), not drawn over the body it was torn from
     views_b = [B_("p_heal", FX, 3), B_("w_mark", FX, 3), *([] if native else [B_("e_spirit", FX, 3)]),

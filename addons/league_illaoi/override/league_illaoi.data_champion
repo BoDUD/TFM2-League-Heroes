@@ -1221,6 +1221,14 @@
       "tag": "e_spirit",
       "z": 3,
       "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_e_echo",
+      "anim": "asset/league/effects/league_illaoi_fx",
+      "tag": "e_echo",
+      "z": 3,
+      "is_follow": false
     }
   ],
   "view_buffs": [

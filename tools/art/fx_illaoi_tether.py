@@ -44,9 +44,35 @@ def e_tether():
     return out
 
 
+def e_echo():
+    """The spirit struck (the user: 「打灵魂时也没特效啊 别人看了不知道在干嘛」): a white flash on its chest and a pale ring
+    thrown out round it, 4 frames - played on the spirit's spot each time a hit on its body echoes."""
+    out = []
+    for k, (core, ring) in enumerate([(3, 0), (2, 6), (1, 9), (0, 11)]):
+        n = 2 * 12 + 1
+        a = np.zeros((n, n, 4), np.uint8)
+        c = 12
+        for y in range(n):
+            for x in range(n):
+                d = ((x - c) ** 2 + (y - c) ** 2) ** 0.5
+                col = None
+                if core and d <= core:
+                    col = GHOST[0] if d <= core - 1 else GHOST[1]
+                elif ring and abs(d - ring) < 0.7:
+                    col = GHOST[1] if k < 2 else GHOST[3]
+                if col is not None:
+                    a[y, x, :3] = col
+                    a[y, x, 3] = 255
+        # the ring breaks up as it fades
+        if k == 3:
+            a[::2, :, 3] = 0
+        out.append((G.centre_frame(a, -c, -c), [40, 50, 60, 70][k]))
+    return out
+
+
 def frames():
     """{tag: [(frame centred on its pivot, ms)]} - in league_illaoi_fx (tools/art/import_illaoi_fx.py)."""
-    return {"e_tether": e_tether()}
+    return {"e_tether": e_tether(), "e_echo": e_echo()}
 
 
 def main():

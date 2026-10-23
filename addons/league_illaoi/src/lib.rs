@@ -43,6 +43,8 @@ pub const SINK_T: usize = 18;
 /// 灵魂画面（e_spirit，6 帧 x 100 ms）多久重播一次；灵魂线每节多远（tools/art/fx_illaoi_tether.py LENGTH x 1000）。
 pub const SOUL_T: usize = 36;
 pub const LINK_STEP: f64 = 10_000.0;
+/// 灵魂挨打时飞回本体的鬼手多快（一 tick）。
+pub const PULSE_SPEED: u64 = 8_000;
 /// 墙格子每格的世界单位（地图的 `walls`，卡密尔附加包同）。
 const CELL: f64 = 32000.0;
 
@@ -490,7 +492,39 @@ fn link(sim: &mut StableSim<'_>, me: usize, c: (f64, f64), dir: (f64, f64)) -> b
     sim.spawn_projectile(&il("e_tether"), &format!("{ID}:noop"), &spec)
 }
 
+/// 灵魂挨打（用户：「打灵魂时也没特效啊 别人看了不知道在干嘛」）：灵魂身上一闪（`e_echo`），一道鬼手（`e_grab`）顺着线飞回本体。
+fn echo_fx(sim: &mut StableSim<'_>, me: usize, spot: (f64, f64), body: (f64, f64)) {
+    sim.play_view_effect(&il("e_echo"), me, &at(spot), 0, 0, 0);
+    if dist(spot, body) < 2_000.0 {
+        return;
+    }
+    let spec = ProjectileSpawnV1 {
+        caster_id: me,
+        team: sim.get_entity(me).map_or(0, |e| e.team()),
+        x: spot.0.round().max(0.0) as u64,
+        y: spot.1.round().max(0.0) as u64,
+        radius: 1_000,
+        speed: PULSE_SPEED,
+        move_kind: ProjectileMoveKindV1::Linear.code(),
+        target_id: 0,
+        target_x: body.0.round().max(0.0) as u64,
+        target_y: body.1.round().max(0.0) as u64,
+        penetrate: true,
+        attack_type: AttackTypeV1::Skill.code(),
+        casting_type: CastingTypeV1::Position.code(),
+        casting_target: CastingTargetV1::None.code(),
+    };
+    sim.spawn_projectile(&il("e_grab"), &format!("{ID}:noop"), &spec);
+}
+
 impl Prophet {
+    /// 灵魂被扯出来的英雄 `target` 挨了一下：灵魂闪一下、一道鬼手飞回本体。
+    fn echoed(&self, sim: &mut StableSim<'_>, me: usize, target: usize) {
+        let Some(s) = self.spirits.iter().find(|s| s.target == target) else { return };
+        let Some(body) = sim.get_entity(target).map(|e| fpos(e.pos())) else { return };
+        echo_fx(sim, me, s.spot, body);
+    }
+
     fn walls(&mut self, us: &[Unit]) -> &Walls {
         if self.walls.is_none() {
             let points: Vec<(f64, f64)> = us.iter().map(|u| u.pos).collect();
@@ -566,6 +600,7 @@ impl Prophet {
             return;
         }
         let tp = fpos(t.pos());
+        self.echoed(sim, me, target);
         let dmg = strike_damage(self.p.t_dmg, self.p.t_ratio, attack);
         sim.deal_damage_typed(me, target, dmg, DamageTypeV1::Ad, AttackTypeV1::Skill);
         sim.play_view_effect(&il("lash"), me, &at(tp), 0, 0, 0);
@@ -749,6 +784,7 @@ impl StablePassive for Prophet {
         }
         let extra = *damage * self.p.e_echo / 100;
         *damage += extra;
+        self.echoed(sim, me, target);
         self.n_echo += 1;
         if self.n_echo <= 10 || self.n_echo % 100 == 0 {
             wlog(format!("{} ECHO #{}: #{target} +{extra}", head(sim, me), self.n_echo));
