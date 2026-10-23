@@ -70,7 +70,7 @@ P = {
     "w_go": 2500, "w_throw": 10,
     "e_r": 22000, "e_t": 240, "e_p": 6, "e_slow": 20, "e_dmg": 45, "e_ap": 28, "e_stun": 24,
     # ult: R Weaver's Wall
-    "r_cd": 4200, "r_range": 90000, "r_dur": 40, "r_rel": 16, "r_t": 300, "r_w": 6000, "r_h": 120000, "r_out": 24,
+    "r_cd": 4200, "r_range": 90000, "r_dur": 40, "r_rel": 16, "r_t": 300, "r_w": 12000, "r_h": 120000, "r_out": 24,
     "r_go": 2500, "r_p": 2, "r_slow": 50, "r_w_at": 30, "r_kb_speed": 2500, "r_kb": 8, "r_wstun": 40,
     "r_ms": 40, "r_surf": 300,
     # her spoken lines, at most one every vo_gap ticks
