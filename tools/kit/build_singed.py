@@ -285,12 +285,16 @@ def build(p):
     # ------------------------------------------------------------------ the controller (a pulse on him)
     # skill and skill2 are cloned every tick (champion-data 8), a periodic AddCasted hung on him is not
     # (league_zac): his attacks and the ult hang one (ctl_t ticks, period ctl_p) unless `polling` says one runs.
-    # It drops the clouds, the slipstream, W -> E (`e_go`) and R -> W (`w_go`).
-    ctl = combine(refresh("polling", p["ctl_p"] + 2), drop, slip,
-                  sw("e_go", sw("e_cd", NONE, pick(p["e_range"], "EnemyChampion",
-                                                   combine(*rm("e_go"), e_cast("EnemyChampion"))))),
-                  sw("w_go", combine(*rm("w_go"), sw("w_cd", NONE, pick(p["w_range"], "EnemyChampion",
-                                                                        w_cast("EnemyChampion"))))))
+    # It drops the clouds, the slipstream, W -> E (`e_go`) and R -> W (`w_go`) - only for Singed himself (`own`, a flag
+    # his attack raises): league_sylas's copy steals the ult tree, which hangs this controller too, and with it Sylas left
+    # poison clouds, threw the glue and flung people for a minute (traced 2026-10-23: 4 grabs, 10 glues); League's Sylas
+    # gets the potion only.
+    ctl = combine(refresh("polling", p["ctl_p"] + 2), sw("own", combine(
+        drop, slip,
+        sw("e_go", sw("e_cd", NONE, pick(p["e_range"], "EnemyChampion",
+                                         combine(*rm("e_go"), e_cast("EnemyChampion"))))),
+        sw("w_go", combine(*rm("w_go"), sw("w_cd", NONE, pick(p["w_range"], "EnemyChampion",
+                                                              w_cast("EnemyChampion"))))))))
     hang = on_me(sw("polling", NONE, combine(refresh("polling", p["ctl_p"] + 2), casted(p["ctl_t"], p["ctl_p"], ctl))))
 
     # ------------------------------------------------------------------ R Insanity Potion
@@ -303,7 +307,8 @@ def build(p):
     # ------------------------------------------------------------------ attack
     blow = combine(sfx("a"), homing("a_blow", "Enemy", [attack(0, 100), view("a_hit"), tsfx("a_hit")]))
     attack_a = action("attack", p["atk_dur"], p["atk_cd"], 1, p["atk_range"], "Targeting", "Enemy",
-                      combine(decoy(0, 100, attack), hang, delayed(p["a_hit"] - 1, alive(blow))),
+                      combine(decoy(0, 100, attack), sw("own", NONE, flag("own", None)), hang,
+                              delayed(p["a_hit"] - 1, alive(blow))),
                       atype="BaseAttack", cancel=True)
 
     # ------------------------------------------------------------------ the slots
