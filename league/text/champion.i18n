@@ -1120,6 +1120,13 @@
         "skill": "伸长手臂抓向目标，造成<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> + 自身最大生命2%魔法伤害并<#ef5350ff>减速<>40%；抓住的英雄<#ffb900ff>0.4秒<>后被甩到身边砸地，再受同样伤害，周围敌人<#ef5350ff>击飞<><#ffb900ff>0.5秒<>。",
         "skill2": "蓄力<#ffb900ff>0.6秒<>后把自己弹向目标，落地造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> + 自身最大生命3%魔法伤害并<#ef5350ff>击飞<>周围敌人<#ffb900ff>0.5秒<>。",
         "ult": "不可阻挡地连跳4次，每次落地造成<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>魔法伤害（之后每次50%），<#ef5350ff>击飞<><#ffb900ff>0.33秒<>并<#ef5350ff>减速<>25%。"
+      },
+      "league_singed": {
+        "name": "辛吉德",
+        "attack": "用盾板砸。<#ff9028ff>剧毒踪迹<>：一路在身后留下毒雾（<#ffb900ff>3秒<>），雾里的敌人每<#ffb900ff>0.5秒<>受<#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>魔法伤害。<#ff9028ff>剧毒冲流<>：经过敌方英雄身边时移速+25%（<#ffb900ff>1.5秒<>）。",
+        "skill": "抓住目标从肩膀上扔到身后，造成<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>魔法伤害和<#e0e0e0ff>最大生命5%<>真实伤害；地上有<#ff9028ff>强力粘胶<>时，被扔的敌人<#ef5350ff>禁锢<><#ffb900ff>1秒<>。",
+        "skill2": "扔出一瓶粘胶，地上留下<#ffb900ff>3秒<>的一摊胶，里面的敌人<#ef5350ff>减速<>50%并<#ef5350ff>无法位移<>。",
+        "ult": "喝下药剂，<#ffb900ff>25秒<>内法强+60、双抗+30、移速+15%、每秒<#66bb6aff>回复12<>生命；<#ff9028ff>剧毒踪迹<>更大、伤害150%并附带<#ef5350ff>重伤<>（治疗-40%）。"
       }
     },
     "skill_name": {
@@ -1922,6 +1929,11 @@
         "skill1": "延伸打击",
         "skill2": "橡筋弹弓",
         "ult": "动感弹球"
+      },
+      "league_singed": {
+        "skill1": "过肩摔",
+        "skill2": "强力粘胶",
+        "ult": "疯狂药剂"
       }
     }
   },
@@ -3046,6 +3058,13 @@
         "skill": "伸長手臂抓向目標，造成<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> + 自身最大生命2%魔法傷害並<#ef5350ff>緩速<>40%；抓住的英雄<#ffb900ff>0.4秒<>後被甩到身邊砸地，再受同樣傷害，周圍敵人<#ef5350ff>擊飛<><#ffb900ff>0.5秒<>。",
         "skill2": "蓄力<#ffb900ff>0.6秒<>後把自己彈向目標，落地造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> + 自身最大生命3%魔法傷害並<#ef5350ff>擊飛<>周圍敵人<#ffb900ff>0.5秒<>。",
         "ult": "無法阻擋地連跳4次，每次落地造成<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>魔法傷害（之後每次50%），<#ef5350ff>擊飛<><#ffb900ff>0.33秒<>並<#ef5350ff>緩速<>25%。"
+      },
+      "league_singed": {
+        "name": "辛吉德",
+        "attack": "用盾板砸。<#ff9028ff>劇毒蹤跡<>：一路在身後留下毒霧（<#ffb900ff>3秒<>），霧裡的敵人每<#ffb900ff>0.5秒<>受<#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>魔法傷害。<#ff9028ff>毒氣推進<>：經過敵方英雄身邊時移速+25%（<#ffb900ff>1.5秒<>）。",
+        "skill": "抓住目標從肩膀上扔到身後，造成<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>魔法傷害和<#e0e0e0ff>最大生命5%<>真實傷害；地上有<#ff9028ff>強力粘膠<>時，被扔的敵人<#ef5350ff>禁錮<><#ffb900ff>1秒<>。",
+        "skill2": "扔出一瓶粘膠，地上留下<#ffb900ff>3秒<>的一灘膠，裡面的敵人<#ef5350ff>緩速<>50%並<#ef5350ff>無法位移<>。",
+        "ult": "喝下藥劑，<#ffb900ff>25秒<>內魔攻+60、雙抗+30、移速+15%、每秒<#66bb6aff>回復12<>生命；<#ff9028ff>劇毒蹤跡<>更大、傷害150%並附帶<#ef5350ff>重傷<>（治療-40%）。"
       }
     },
     "skill_name": {
@@ -3848,6 +3867,11 @@
         "skill1": "橡膠飛拳",
         "skill2": "必殺黏星",
         "ult": "活蹦亂跳！"
+      },
+      "league_singed": {
+        "skill1": "過肩摔",
+        "skill2": "強力粘膠",
+        "ult": "瘋狂藥劑"
       }
     }
   },
@@ -4972,6 +4996,13 @@
         "skill": "Stretches an arm at the target for <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> + 2% of his max health magic damage, <#ef5350ff>slowing<> 40%; a champion caught is flung to him after <#ffb900ff>0.4s<> and slammed for the same damage again, <#ef5350ff>knocking up<> enemies round him for <#ffb900ff>0.5s<>.",
         "skill2": "Charges for <#ffb900ff>0.6s<>, then flings himself at the target, landing for <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> + 3% of his max health magic damage and a <#ffb900ff>0.5s<> <#ef5350ff>knock-up<> round him.",
         "ult": "Bounces 4 times, unstoppable: each landing deals <#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> magic damage (the later ones 50%), a <#ffb900ff>0.33s<> <#ef5350ff>knock-up<> and a 25% <#ef5350ff>slow<>."
+      },
+      "league_singed": {
+        "name": "Singed",
+        "attack": "A blow of his plate. <#ff9028ff>Poison Trail<>: he leaves poison clouds behind him (<#ffb900ff>3s<>); enemies in them take <#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<> magic damage every <#ffb900ff>0.5s<>. <#ff9028ff>Noxious Slipstream<>: passing an enemy champion gives him 25% move speed for <#ffb900ff>1.5s<>.",
+        "skill": "Flings the target over his shoulder to behind him: <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> magic damage and <#e0e0e0ff>5% of its max health<> true damage. While his <#ff9028ff>Mega Adhesive<> lies on the ground, the target is <#ef5350ff>rooted<> for <#ffb900ff>1s<>.",
+        "skill2": "Throws a vial of glue: for <#ffb900ff>3s<> enemies in it are <#ef5350ff>slowed<> 50% and <#ef5350ff>grounded<> (no dashes).",
+        "ult": "Drinks the potion: for <#ffb900ff>25s<> +60 ability power, +30 armor and magic resistance, +15% move speed and <#66bb6aff>12 health<> a second; <#ff9028ff>Poison Trail<> grows, deals 150% and inflicts <#ef5350ff>Grievous Wounds<> (-40% healing)."
       }
     },
     "skill_name": {
@@ -5774,6 +5805,11 @@
         "skill1": "Stretching Strikes",
         "skill2": "Elastic Slingshot",
         "ult": "Let's Bounce!"
+      },
+      "league_singed": {
+        "skill1": "Fling",
+        "skill2": "Mega Adhesive",
+        "ult": "Insanity Potion"
       }
     }
   },
@@ -6898,6 +6934,13 @@
         "skill": "팔을 늘여 대상을 잡아 <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> + 자신 최대 체력의 2% 마법 피해와 40% <#ef5350ff>둔화<>; 잡힌 챔피언은 <#ffb900ff>0.4초<> 후 끌려와 내리꽂혀 같은 피해를 다시 받고, 주변 적은 <#ffb900ff>0.5초<> <#ef5350ff>에어본<>.",
         "skill2": "<#ffb900ff>0.6초<> 동안 힘을 모은 뒤 대상에게 날아가 착지하며 <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> + 자신 최대 체력의 3% 마법 피해와 주변 적 <#ffb900ff>0.5초<> <#ef5350ff>에어본<>.",
         "ult": "저지 불가 상태로 4번 튀어 오르며, 착지할 때마다 <#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> 마법 피해(이후 50%), <#ffb900ff>0.33초<> <#ef5350ff>에어본<>, 25% <#ef5350ff>둔화<>."
+      },
+      "league_singed": {
+        "name": "신지드",
+        "attack": "방패판으로 내려침. <#ff9028ff>맹독의 자취<>: 지나간 자리에 독구름을 남김(<#ffb900ff>3초<>), 안의 적은 <#ffb900ff>0.5초<>마다 <#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<> 마법 피해. <#ff9028ff>독성 급류<>: 적 챔피언 곁을 지나가면 <#ffb900ff>1.5초<> 동안 이동 속도 25% 증가.",
+        "skill": "대상을 어깨 너머 뒤로 내던져 <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> 마법 피해와 <#e0e0e0ff>최대 체력의 5%<> 고정 피해. <#ff9028ff>초강력 접착제<>가 바닥에 있으면 대상을 <#ffb900ff>1초<> <#ef5350ff>속박<>.",
+        "skill2": "접착제 병을 던짐: <#ffb900ff>3초<> 동안 안의 적은 50% <#ef5350ff>둔화<>되고 <#ef5350ff>이동기 사용 불가<>.",
+        "ult": "물약을 마심: <#ffb900ff>25초<> 동안 주문력 +60, 방어력·마법 저항력 +30, 이동 속도 +15%, 초당 <#66bb6aff>체력 12 회복<>; <#ff9028ff>맹독의 자취<>가 커지고 피해 150%에 <#ef5350ff>치유 감소<>(-40%)."
       }
     },
     "skill_name": {
@@ -7700,6 +7743,11 @@
         "skill1": "탄성 주먹",
         "skill2": "새총 발사",
         "ult": "바운스!"
+      },
+      "league_singed": {
+        "skill1": "던져넘기기",
+        "skill2": "초강력 접착제",
+        "ult": "광기의 물약"
       }
     }
   },
@@ -8824,6 +8872,13 @@
         "skill": "腕を伸ばして対象をつかみ<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>+自身の最大体力の2%の魔法ダメージと40%<#ef5350ff>スロウ<>。つかんだ英雄は<#ffb900ff>0.4秒<>後に引き寄せて叩きつけ、同じダメージを再び与え周囲の敵を<#ffb900ff>0.5秒<><#ef5350ff>ノックアップ<>。",
         "skill2": "<#ffb900ff>0.6秒<>力をためて対象へ飛び、着地で<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>+自身の最大体力の3%の魔法ダメージと周囲の敵を<#ffb900ff>0.5秒<><#ef5350ff>ノックアップ<>。",
         "ult": "阻止不能で4回跳ね、着地ごとに<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>の魔法ダメージ（2回目以降50%）、<#ffb900ff>0.33秒<><#ef5350ff>ノックアップ<>と25%<#ef5350ff>スロウ<>。"
+      },
+      "league_singed": {
+        "name": "シンジド",
+        "attack": "盾板で殴る。<#ff9028ff>毒の軌跡<>：通った跡に毒の雲を残し（<#ffb900ff>3秒<>）、中の敵に<#ffb900ff>0.5秒<>ごと<#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>の魔法ダメージ。<#ff9028ff>スリップストリーム<>：敵英雄のそばを通ると<#ffb900ff>1.5秒<>移動速度+25%。",
+        "skill": "対象を肩越しに背後へ投げ、<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>の魔法ダメージと<#e0e0e0ff>最大体力の5%<>の確定ダメージ。<#ff9028ff>強力粘着剤<>が地面にあるとき対象を<#ffb900ff>1秒<><#ef5350ff>スネア<>。",
+        "skill2": "粘着剤の瓶を投げる：<#ffb900ff>3秒<>間、中の敵を50%<#ef5350ff>スロウ<>し<#ef5350ff>移動スキル封じ<>。",
+        "ult": "ポーションを飲み、<#ffb900ff>25秒<>間魔力+60、物防・魔防+30、移動速度+15%、毎秒<#66bb6aff>体力12回復<>。<#ff9028ff>毒の軌跡<>が広がり150%のダメージと<#ef5350ff>重傷<>（回復-40%）。"
       }
     },
     "skill_name": {
@@ -9626,6 +9681,11 @@
         "skill1": "スライムパンチ",
         "skill2": "ブッ飛びスライム",
         "ult": "レッツバウンス！"
+      },
+      "league_singed": {
+        "skill1": "すくい投げ",
+        "skill2": "強力粘着剤",
+        "ult": "狂人のポーション"
       }
     }
   }

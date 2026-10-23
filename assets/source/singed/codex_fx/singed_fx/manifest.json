@@ -1,0 +1,2916 @@
+{
+  "schema_version": 1,
+  "generation": "image_gen",
+  "sampling": "alpha>=128 and RGB max>12; nearest allowed palette colour per source pixel; modal class per source grid area including transparent; mirror the more populated half per frame",
+  "raw_files_unmodified": true,
+  "preview_gif_duration_ms": 140,
+  "preview_gif_timing_is_game_timing": false,
+  "effects": [
+    {
+      "name": "a_hit",
+      "file": "singed_fx_a_hit.png",
+      "frames": 3,
+      "cell_1x": [
+        14,
+        14
+      ],
+      "size_1x": [
+        42,
+        14
+      ],
+      "preview_scale": 8,
+      "symmetry": "left-right",
+      "palette": [
+        "#FFFFFF",
+        "#F6FFE2",
+        "#E0F6AA",
+        "#F2FFB4",
+        "#C6F25C",
+        "#8CD43C",
+        "#509E2C",
+        "#2C6420",
+        "#143814"
+      ],
+      "binding": "view_effects `league_singed_a_hit`（跟随目标，z 2；左右对称）",
+      "playback": {
+        "mode": "once",
+        "start_frames": [
+          0,
+          1,
+          2
+        ]
+      },
+      "frame_rects_1x": [
+        [
+          0,
+          0,
+          14,
+          14
+        ],
+        [
+          14,
+          0,
+          14,
+          14
+        ],
+        [
+          28,
+          0,
+          14,
+          14
+        ]
+      ],
+      "transparent_actor_holdout_1x": null,
+      "source": {
+        "raw_file": "raw/singed_fx_a_hit-generated.png",
+        "raw_size": [
+          2172,
+          724
+        ],
+        "source_frame_cuts_x": [
+          0,
+          680,
+          1444,
+          2172
+        ],
+        "source_content_boxes": [
+          [
+            119,
+            213,
+            606,
+            609
+          ],
+          [
+            755,
+            113,
+            1418,
+            627
+          ],
+          [
+            1469,
+            113,
+            2151,
+            630
+          ]
+        ],
+        "sampling_boxes": [
+          [
+            -35.33333333333337,
+            69.91666666666663,
+            760.3333333333334,
+            673.0833333333334
+          ],
+          [
+            688.6666666666666,
+            69.91666666666663,
+            1484.3333333333335,
+            673.0833333333334
+          ],
+          [
+            1412.1666666666665,
+            69.91666666666663,
+            2207.8333333333335,
+            673.0833333333334
+          ]
+        ],
+        "source_pixels_per_game_pixel": [
+          56.833333333333336,
+          43.083333333333336
+        ],
+        "mapping": "gutter-separated frames; common X/Y units for each animation; shared vertical origin; one-game-pixel padding on the largest content",
+        "canonical_halves": [
+          "left",
+          "left",
+          "left"
+        ]
+      },
+      "validation": {
+        "hard_alpha": true,
+        "all_frames_nonempty": true,
+        "all_frames_symmetric": true,
+        "frames": [
+          {
+            "index": 0,
+            "nontransparent_pixels": 14,
+            "symmetry_pass": true,
+            "bbox": [
+              4,
+              7,
+              10,
+              11
+            ]
+          },
+          {
+            "index": 1,
+            "nontransparent_pixels": 32,
+            "symmetry_pass": true,
+            "bbox": [
+              2,
+              3,
+              12,
+              12
+            ]
+          },
+          {
+            "index": 2,
+            "nontransparent_pixels": 4,
+            "symmetry_pass": true,
+            "bbox": [
+              3,
+              9,
+              11,
+              11
+            ]
+          }
+        ]
+      },
+      "sha256_1x": "0a8e74c63fa971eaca5022e4dbfa0ef6ad9e2c1aa582eec56021b7d4571f5e88"
+    },
+    {
+      "name": "q_cloud",
+      "file": "singed_fx_q_cloud.png",
+      "frames": 6,
+      "cell_1x": [
+        26,
+        18
+      ],
+      "size_1x": [
+        156,
+        18
+      ],
+      "preview_scale": 8,
+      "symmetry": "left-right",
+      "palette": [
+        "#F2FFB4",
+        "#C6F25C",
+        "#8CD43C",
+        "#509E2C",
+        "#2C6420",
+        "#143814",
+        "#C4DC98",
+        "#92B468",
+        "#64844A",
+        "#3E5A32",
+        "#24361E"
+      ],
+      "binding": "view_effects `league_singed_q_cloud`（大表，在他走过的地上，不跟随，z -1；左右对称；冒出 → 飘着 → 散掉，3 秒）",
+      "playback": {
+        "mode": "start-loop-end",
+        "start_frames": [
+          0
+        ],
+        "loop_frames": [
+          1,
+          2,
+          3
+        ],
+        "end_frames": [
+          4,
+          5
+        ],
+        "target_ticks": 180
+      },
+      "frame_rects_1x": [
+        [
+          0,
+          0,
+          26,
+          18
+        ],
+        [
+          26,
+          0,
+          26,
+          18
+        ],
+        [
+          52,
+          0,
+          26,
+          18
+        ],
+        [
+          78,
+          0,
+          26,
+          18
+        ],
+        [
+          104,
+          0,
+          26,
+          18
+        ],
+        [
+          130,
+          0,
+          26,
+          18
+        ]
+      ],
+      "transparent_actor_holdout_1x": null,
+      "source": {
+        "raw_file": "raw/singed_fx_q_cloud-generated.png",
+        "raw_size": [
+          1958,
+          803
+        ],
+        "source_frame_cuts_x": [
+          0,
+          228,
+          626,
+          999,
+          1363,
+          1702,
+          1958
+        ],
+        "source_content_boxes": [
+          [
+            22,
+            406,
+            214,
+            533
+          ],
+          [
+            243,
+            299,
+            613,
+            539
+          ],
+          [
+            640,
+            304,
+            987,
+            539
+          ],
+          [
+            1011,
+            308,
+            1345,
+            539
+          ],
+          [
+            1380,
+            354,
+            1686,
+            539
+          ],
+          [
+            1718,
+            367,
+            1940,
+            533
+          ]
+        ],
+        "sampling_boxes": [
+          [
+            -82.41666666666666,
+            284.0,
+            318.41666666666663,
+            554.0
+          ],
+          [
+            227.58333333333334,
+            284.0,
+            628.4166666666666,
+            554.0
+          ],
+          [
+            613.0833333333334,
+            284.0,
+            1013.9166666666666,
+            554.0
+          ],
+          [
+            977.5833333333334,
+            284.0,
+            1378.4166666666667,
+            554.0
+          ],
+          [
+            1332.5833333333333,
+            284.0,
+            1733.4166666666667,
+            554.0
+          ],
+          [
+            1628.5833333333333,
+            284.0,
+            2029.4166666666667,
+            554.0
+          ]
+        ],
+        "source_pixels_per_game_pixel": [
+          15.416666666666666,
+          15.0
+        ],
+        "mapping": "gutter-separated frames; common X/Y units for each animation; shared vertical origin; one-game-pixel padding on the largest content",
+        "canonical_halves": [
+          "left",
+          "right",
+          "left",
+          "left",
+          "left",
+          "left"
+        ]
+      },
+      "validation": {
+        "hard_alpha": true,
+        "all_frames_nonempty": true,
+        "all_frames_symmetric": true,
+        "frames": [
+          {
+            "index": 0,
+            "nontransparent_pixels": 42,
+            "symmetry_pass": true,
+            "bbox": [
+              8,
+              8,
+              18,
+              17
+            ]
+          },
+          {
+            "index": 1,
+            "nontransparent_pixels": 256,
+            "symmetry_pass": true,
+            "bbox": [
+              2,
+              1,
+              24,
+              17
+            ]
+          },
+          {
+            "index": 2,
+            "nontransparent_pixels": 232,
+            "symmetry_pass": true,
+            "bbox": [
+              2,
+              2,
+              24,
+              17
+            ]
+          },
+          {
+            "index": 3,
+            "nontransparent_pixels": 214,
+            "symmetry_pass": true,
+            "bbox": [
+              2,
+              2,
+              24,
+              17
+            ]
+          },
+          {
+            "index": 4,
+            "nontransparent_pixels": 142,
+            "symmetry_pass": true,
+            "bbox": [
+              3,
+              5,
+              23,
+              17
+            ]
+          },
+          {
+            "index": 5,
+            "nontransparent_pixels": 32,
+            "symmetry_pass": true,
+            "bbox": [
+              8,
+              8,
+              18,
+              17
+            ]
+          }
+        ]
+      },
+      "sha256_1x": "883b0cc7c665bac0321ed3a79788a13131e243736d74926b60b8de9d533bb57c"
+    },
+    {
+      "name": "q_cloud_r",
+      "file": "singed_fx_q_cloud_r.png",
+      "frames": 6,
+      "cell_1x": [
+        32,
+        22
+      ],
+      "size_1x": [
+        192,
+        22
+      ],
+      "preview_scale": 8,
+      "symmetry": "left-right",
+      "palette": [
+        "#F2FFB4",
+        "#C6F25C",
+        "#8CD43C",
+        "#509E2C",
+        "#2C6420",
+        "#143814",
+        "#C4DC98",
+        "#92B468",
+        "#64844A",
+        "#3E5A32",
+        "#24361E",
+        "#ECCEFF",
+        "#BC84EC",
+        "#8048BE",
+        "#4A2672"
+      ],
+      "binding": "view_effects `league_singed_q_cloud_r`（大表，在地上，不跟随，z -1；左右对称；3 秒）",
+      "playback": {
+        "mode": "start-loop-end",
+        "start_frames": [
+          0
+        ],
+        "loop_frames": [
+          1,
+          2,
+          3
+        ],
+        "end_frames": [
+          4,
+          5
+        ],
+        "target_ticks": 180
+      },
+      "frame_rects_1x": [
+        [
+          0,
+          0,
+          32,
+          22
+        ],
+        [
+          32,
+          0,
+          32,
+          22
+        ],
+        [
+          64,
+          0,
+          32,
+          22
+        ],
+        [
+          96,
+          0,
+          32,
+          22
+        ],
+        [
+          128,
+          0,
+          32,
+          22
+        ],
+        [
+          160,
+          0,
+          32,
+          22
+        ]
+      ],
+      "transparent_actor_holdout_1x": null,
+      "source": {
+        "raw_file": "raw/singed_fx_q_cloud_r-generated.png",
+        "raw_size": [
+          2032,
+          774
+        ],
+        "source_frame_cuts_x": [
+          0,
+          244,
+          652,
+          1005,
+          1362,
+          1718,
+          2032
+        ],
+        "source_content_boxes": [
+          [
+            28,
+            399,
+            222,
+            537
+          ],
+          [
+            267,
+            308,
+            640,
+            548
+          ],
+          [
+            664,
+            255,
+            992,
+            548
+          ],
+          [
+            1018,
+            240,
+            1348,
+            545
+          ],
+          [
+            1376,
+            275,
+            1706,
+            548
+          ],
+          [
+            1729,
+            325,
+            2007,
+            544
+          ]
+        ],
+        "sampling_boxes": [
+          [
+            -73.93333333333334,
+            224.6,
+            323.93333333333334,
+            563.4
+          ],
+          [
+            254.56666666666666,
+            224.6,
+            652.4333333333334,
+            563.4
+          ],
+          [
+            629.0666666666666,
+            224.6,
+            1026.9333333333334,
+            563.4
+          ],
+          [
+            984.0666666666666,
+            224.6,
+            1381.9333333333334,
+            563.4
+          ],
+          [
+            1342.0666666666666,
+            224.6,
+            1739.9333333333334,
+            563.4
+          ],
+          [
+            1669.0666666666666,
+            224.6,
+            2066.9333333333334,
+            563.4
+          ]
+        ],
+        "source_pixels_per_game_pixel": [
+          12.433333333333334,
+          15.4
+        ],
+        "mapping": "gutter-separated frames; common X/Y units for each animation; shared vertical origin; one-game-pixel padding on the largest content",
+        "canonical_halves": [
+          "right",
+          "left",
+          "left",
+          "right",
+          "left",
+          "left"
+        ]
+      },
+      "validation": {
+        "hard_alpha": true,
+        "all_frames_nonempty": true,
+        "all_frames_symmetric": true,
+        "frames": [
+          {
+            "index": 0,
+            "nontransparent_pixels": 58,
+            "symmetry_pass": true,
+            "bbox": [
+              11,
+              12,
+              21,
+              20
+            ]
+          },
+          {
+            "index": 1,
+            "nontransparent_pixels": 254,
+            "symmetry_pass": true,
+            "bbox": [
+              2,
+              7,
+              30,
+              21
+            ]
+          },
+          {
+            "index": 2,
+            "nontransparent_pixels": 254,
+            "symmetry_pass": true,
+            "bbox": [
+              3,
+              5,
+              29,
+              21
+            ]
+          },
+          {
+            "index": 3,
+            "nontransparent_pixels": 238,
+            "symmetry_pass": true,
+            "bbox": [
+              3,
+              3,
+              29,
+              21
+            ]
+          },
+          {
+            "index": 4,
+            "nontransparent_pixels": 192,
+            "symmetry_pass": true,
+            "bbox": [
+              4,
+              6,
+              28,
+              21
+            ]
+          },
+          {
+            "index": 5,
+            "nontransparent_pixels": 58,
+            "symmetry_pass": true,
+            "bbox": [
+              7,
+              12,
+              25,
+              21
+            ]
+          }
+        ]
+      },
+      "sha256_1x": "8c90ab72cfa3423c754df189d442409fde3d5b939f64c2b941fe2458d8437a4e"
+    },
+    {
+      "name": "e_hit",
+      "file": "singed_fx_e_hit.png",
+      "frames": 3,
+      "cell_1x": [
+        16,
+        18
+      ],
+      "size_1x": [
+        48,
+        18
+      ],
+      "preview_scale": 8,
+      "symmetry": "left-right",
+      "palette": [
+        "#FFFFFF",
+        "#F6FFE2",
+        "#E0F6AA",
+        "#F2FFB4",
+        "#C6F25C",
+        "#8CD43C",
+        "#509E2C",
+        "#2C6420",
+        "#143814"
+      ],
+      "binding": "view_effects `league_singed_e_hit`（跟随目标，z 2；左右对称）",
+      "playback": {
+        "mode": "once",
+        "start_frames": [
+          0,
+          1,
+          2
+        ]
+      },
+      "frame_rects_1x": [
+        [
+          0,
+          0,
+          16,
+          18
+        ],
+        [
+          16,
+          0,
+          16,
+          18
+        ],
+        [
+          32,
+          0,
+          16,
+          18
+        ]
+      ],
+      "transparent_actor_holdout_1x": null,
+      "source": {
+        "raw_file": "raw/singed_fx_e_hit-generated.png",
+        "raw_size": [
+          2048,
+          768
+        ],
+        "source_frame_cuts_x": [
+          0,
+          626,
+          1388,
+          2048
+        ],
+        "source_content_boxes": [
+          [
+            133,
+            156,
+            550,
+            587
+          ],
+          [
+            704,
+            58,
+            1344,
+            716
+          ],
+          [
+            1433,
+            67,
+            1981,
+            728
+          ]
+        ],
+        "sampling_boxes": [
+          [
+            -24.214285714285722,
+            16.125,
+            707.2142857142858,
+            769.875
+          ],
+          [
+            658.2857142857142,
+            16.125,
+            1389.7142857142858,
+            769.875
+          ],
+          [
+            1341.2857142857142,
+            16.125,
+            2072.714285714286,
+            769.875
+          ]
+        ],
+        "source_pixels_per_game_pixel": [
+          45.714285714285715,
+          41.875
+        ],
+        "mapping": "gutter-separated frames; common X/Y units for each animation; shared vertical origin; one-game-pixel padding on the largest content",
+        "canonical_halves": [
+          "left",
+          "left",
+          "left"
+        ]
+      },
+      "validation": {
+        "hard_alpha": true,
+        "all_frames_nonempty": true,
+        "all_frames_symmetric": true,
+        "frames": [
+          {
+            "index": 0,
+            "nontransparent_pixels": 14,
+            "symmetry_pass": true,
+            "bbox": [
+              6,
+              6,
+              10,
+              11
+            ]
+          },
+          {
+            "index": 1,
+            "nontransparent_pixels": 16,
+            "symmetry_pass": true,
+            "bbox": [
+              1,
+              1,
+              15,
+              15
+            ]
+          },
+          {
+            "index": 2,
+            "nontransparent_pixels": 4,
+            "symmetry_pass": true,
+            "bbox": [
+              2,
+              2,
+              14,
+              6
+            ]
+          }
+        ]
+      },
+      "sha256_1x": "cf7320957d437537327cba1d53c53b059d07ecf04fd88bd930f11f370933ef44"
+    },
+    {
+      "name": "e_land",
+      "file": "singed_fx_e_land.png",
+      "frames": 4,
+      "cell_1x": [
+        30,
+        12
+      ],
+      "size_1x": [
+        120,
+        12
+      ],
+      "preview_scale": 8,
+      "symmetry": "left-right",
+      "palette": [
+        "#E6E0C8",
+        "#BDB394",
+        "#8C8466",
+        "#5E5844",
+        "#FFFFFF",
+        "#F6FFE2",
+        "#E0F6AA"
+      ],
+      "binding": "view_effects `league_singed_e_land`（在落地的人脚下，不跟随，z -1；左右对称）",
+      "playback": {
+        "mode": "once",
+        "start_frames": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      "frame_rects_1x": [
+        [
+          0,
+          0,
+          30,
+          12
+        ],
+        [
+          30,
+          0,
+          30,
+          12
+        ],
+        [
+          60,
+          0,
+          30,
+          12
+        ],
+        [
+          90,
+          0,
+          30,
+          12
+        ]
+      ],
+      "transparent_actor_holdout_1x": null,
+      "source": {
+        "raw_file": "raw/singed_fx_e_land-generated.png",
+        "raw_size": [
+          2172,
+          724
+        ],
+        "source_frame_cuts_x": [
+          0,
+          522,
+          1065,
+          1643,
+          2172
+        ],
+        "source_content_boxes": [
+          [
+            81,
+            388,
+            462,
+            543
+          ],
+          [
+            582,
+            252,
+            1035,
+            537
+          ],
+          [
+            1095,
+            240,
+            1622,
+            542
+          ],
+          [
+            1664,
+            263,
+            2146,
+            537
+          ]
+        ],
+        "sampling_boxes": [
+          [
+            -10.821428571428612,
+            209.7,
+            553.8214285714287,
+            573.3
+          ],
+          [
+            526.1785714285713,
+            209.7,
+            1090.8214285714287,
+            573.3
+          ],
+          [
+            1076.1785714285713,
+            209.7,
+            1640.8214285714287,
+            573.3
+          ],
+          [
+            1622.6785714285713,
+            209.7,
+            2187.3214285714284,
+            573.3
+          ]
+        ],
+        "source_pixels_per_game_pixel": [
+          18.821428571428573,
+          30.3
+        ],
+        "mapping": "gutter-separated frames; common X/Y units for each animation; shared vertical origin; one-game-pixel padding on the largest content",
+        "canonical_halves": [
+          "left",
+          "right",
+          "right",
+          "left"
+        ]
+      },
+      "validation": {
+        "hard_alpha": true,
+        "all_frames_nonempty": true,
+        "all_frames_symmetric": true,
+        "frames": [
+          {
+            "index": 0,
+            "nontransparent_pixels": 32,
+            "symmetry_pass": true,
+            "bbox": [
+              8,
+              6,
+              22,
+              11
+            ]
+          },
+          {
+            "index": 1,
+            "nontransparent_pixels": 88,
+            "symmetry_pass": true,
+            "bbox": [
+              3,
+              3,
+              27,
+              11
+            ]
+          },
+          {
+            "index": 2,
+            "nontransparent_pixels": 80,
+            "symmetry_pass": true,
+            "bbox": [
+              2,
+              1,
+              28,
+              11
+            ]
+          },
+          {
+            "index": 3,
+            "nontransparent_pixels": 28,
+            "symmetry_pass": true,
+            "bbox": [
+              5,
+              3,
+              25,
+              8
+            ]
+          }
+        ]
+      },
+      "sha256_1x": "0fbfff2b1d1171f048db6f1fa5f40e8d5f06d525cb6efe5ae59ac335671a813b"
+    },
+    {
+      "name": "e_root",
+      "file": "singed_fx_e_root.png",
+      "frames": 4,
+      "cell_1x": [
+        20,
+        14
+      ],
+      "size_1x": [
+        80,
+        14
+      ],
+      "preview_scale": 8,
+      "symmetry": "left-right",
+      "palette": [
+        "#FFF8D2",
+        "#F4DC8C",
+        "#DAB858",
+        "#AC863C",
+        "#725628",
+        "#FFFFFF",
+        "#F6FFE2",
+        "#E0F6AA"
+      ],
+      "binding": "view_effects `league_singed_e_root`（跟随目标，脚下，z 2；左右对称；约 1 秒）",
+      "playback": {
+        "mode": "start-hold",
+        "start_frames": [
+          0,
+          1,
+          2
+        ],
+        "hold_frame": 3,
+        "target_ticks": 60
+      },
+      "frame_rects_1x": [
+        [
+          0,
+          0,
+          20,
+          14
+        ],
+        [
+          20,
+          0,
+          20,
+          14
+        ],
+        [
+          40,
+          0,
+          20,
+          14
+        ],
+        [
+          60,
+          0,
+          20,
+          14
+        ]
+      ],
+      "transparent_actor_holdout_1x": null,
+      "source": {
+        "raw_file": "raw/singed_fx_e_root-generated.png",
+        "raw_size": [
+          1983,
+          793
+        ],
+        "source_frame_cuts_x": [
+          0,
+          497,
+          996,
+          1488,
+          1983
+        ],
+        "source_content_boxes": [
+          [
+            19,
+            495,
+            480,
+            660
+          ],
+          [
+            515,
+            206,
+            974,
+            656
+          ],
+          [
+            1019,
+            163,
+            1459,
+            661
+          ],
+          [
+            1517,
+            163,
+            1956,
+            661
+          ]
+        ],
+        "sampling_boxes": [
+          [
+            -6.611111111111086,
+            121.5,
+            505.6111111111111,
+            702.5
+          ],
+          [
+            488.3888888888889,
+            121.5,
+            1000.6111111111111,
+            702.5
+          ],
+          [
+            982.8888888888889,
+            121.5,
+            1495.111111111111,
+            702.5
+          ],
+          [
+            1480.388888888889,
+            121.5,
+            1992.611111111111,
+            702.5
+          ]
+        ],
+        "source_pixels_per_game_pixel": [
+          25.61111111111111,
+          41.5
+        ],
+        "mapping": "gutter-separated frames; common X/Y units for each animation; shared vertical origin; one-game-pixel padding on the largest content",
+        "canonical_halves": [
+          "left",
+          "right",
+          "left",
+          "right"
+        ]
+      },
+      "validation": {
+        "hard_alpha": true,
+        "all_frames_nonempty": true,
+        "all_frames_symmetric": true,
+        "frames": [
+          {
+            "index": 0,
+            "nontransparent_pixels": 30,
+            "symmetry_pass": true,
+            "bbox": [
+              2,
+              10,
+              18,
+              13
+            ]
+          },
+          {
+            "index": 1,
+            "nontransparent_pixels": 62,
+            "symmetry_pass": true,
+            "bbox": [
+              2,
+              2,
+              18,
+              13
+            ]
+          },
+          {
+            "index": 2,
+            "nontransparent_pixels": 80,
+            "symmetry_pass": true,
+            "bbox": [
+              2,
+              1,
+              18,
+              13
+            ]
+          },
+          {
+            "index": 3,
+            "nontransparent_pixels": 86,
+            "symmetry_pass": true,
+            "bbox": [
+              2,
+              1,
+              18,
+              13
+            ]
+          }
+        ]
+      },
+      "sha256_1x": "58069bb31020774b6396e1fd54309246aa08c197c7ded7b2c7d84a5d33b9c39c"
+    },
+    {
+      "name": "w_vial",
+      "file": "singed_fx_w_vial.png",
+      "frames": 4,
+      "cell_1x": [
+        10,
+        8
+      ],
+      "size_1x": [
+        40,
+        8
+      ],
+      "preview_scale": 8,
+      "symmetry": "top-bottom",
+      "palette": [
+        "#FFF8D2",
+        "#F4DC8C",
+        "#DAB858",
+        "#AC863C",
+        "#725628",
+        "#FFFFFF",
+        "#F6FFE2",
+        "#E0F6AA",
+        "#3E454A",
+        "#889294",
+        "#CBD4D8"
+      ],
+      "binding": "view_projectiles `league_singed_w_vial`（抛物线弹道，z 2；上下对称）",
+      "playback": {
+        "mode": "loop",
+        "loop_frames": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      "frame_rects_1x": [
+        [
+          0,
+          0,
+          10,
+          8
+        ],
+        [
+          10,
+          0,
+          10,
+          8
+        ],
+        [
+          20,
+          0,
+          10,
+          8
+        ],
+        [
+          30,
+          0,
+          10,
+          8
+        ]
+      ],
+      "transparent_actor_holdout_1x": null,
+      "source": {
+        "raw_file": "raw/singed_fx_w_vial-generated.png",
+        "raw_size": [
+          1983,
+          793
+        ],
+        "source_frame_cuts_x": [
+          0,
+          520,
+          994,
+          1488,
+          1983
+        ],
+        "source_content_boxes": [
+          [
+            32,
+            257,
+            500,
+            502
+          ],
+          [
+            541,
+            257,
+            962,
+            507
+          ],
+          [
+            1025,
+            257,
+            1451,
+            502
+          ],
+          [
+            1524,
+            257,
+            1943,
+            507
+          ]
+        ],
+        "sampling_boxes": [
+          [
+            -26.5,
+            215.33333333333334,
+            558.5,
+            548.6666666666666
+          ],
+          [
+            459.0,
+            215.33333333333334,
+            1044.0,
+            548.6666666666666
+          ],
+          [
+            945.5,
+            215.33333333333334,
+            1530.5,
+            548.6666666666666
+          ],
+          [
+            1441.0,
+            215.33333333333334,
+            2026.0,
+            548.6666666666666
+          ]
+        ],
+        "source_pixels_per_game_pixel": [
+          58.5,
+          41.666666666666664
+        ],
+        "mapping": "gutter-separated frames; common X/Y units for each animation; shared vertical origin; one-game-pixel padding on the largest content",
+        "canonical_halves": [
+          "top",
+          "top",
+          "bottom",
+          "top"
+        ]
+      },
+      "validation": {
+        "hard_alpha": true,
+        "all_frames_nonempty": true,
+        "all_frames_symmetric": true,
+        "frames": [
+          {
+            "index": 0,
+            "nontransparent_pixels": 20,
+            "symmetry_pass": true,
+            "bbox": [
+              1,
+              1,
+              9,
+              7
+            ]
+          },
+          {
+            "index": 1,
+            "nontransparent_pixels": 16,
+            "symmetry_pass": true,
+            "bbox": [
+              2,
+              2,
+              8,
+              6
+            ]
+          },
+          {
+            "index": 2,
+            "nontransparent_pixels": 18,
+            "symmetry_pass": true,
+            "bbox": [
+              2,
+              1,
+              8,
+              7
+            ]
+          },
+          {
+            "index": 3,
+            "nontransparent_pixels": 16,
+            "symmetry_pass": true,
+            "bbox": [
+              2,
+              2,
+              8,
+              6
+            ]
+          }
+        ]
+      },
+      "sha256_1x": "e1fcf1d50ea572af52a9130fc35fb7409c6eb667fb109fd0ccee66f126a2dc1d"
+    },
+    {
+      "name": "w_glue",
+      "file": "singed_fx_w_glue.png",
+      "frames": 8,
+      "cell_1x": [
+        44,
+        18
+      ],
+      "size_1x": [
+        352,
+        18
+      ],
+      "preview_scale": 8,
+      "symmetry": "left-right",
+      "palette": [
+        "#FFF8D2",
+        "#F4DC8C",
+        "#DAB858",
+        "#AC863C",
+        "#725628",
+        "#FFFFFF",
+        "#F6FFE2",
+        "#E0F6AA"
+      ],
+      "binding": "view_effects `league_singed_w_glue`（大表，在落点的地上，不跟随，z -1；左右对称；溅开 → 躺着冒泡 → 干掉，3 秒）",
+      "playback": {
+        "mode": "start-loop-end",
+        "start_frames": [
+          0,
+          1
+        ],
+        "loop_frames": [
+          2,
+          3,
+          4,
+          5
+        ],
+        "end_frames": [
+          6,
+          7
+        ],
+        "target_ticks": 180
+      },
+      "frame_rects_1x": [
+        [
+          0,
+          0,
+          44,
+          18
+        ],
+        [
+          44,
+          0,
+          44,
+          18
+        ],
+        [
+          88,
+          0,
+          44,
+          18
+        ],
+        [
+          132,
+          0,
+          44,
+          18
+        ],
+        [
+          176,
+          0,
+          44,
+          18
+        ],
+        [
+          220,
+          0,
+          44,
+          18
+        ],
+        [
+          264,
+          0,
+          44,
+          18
+        ],
+        [
+          308,
+          0,
+          44,
+          18
+        ]
+      ],
+      "transparent_actor_holdout_1x": null,
+      "source": {
+        "raw_file": "raw/singed_fx_w_glue-generated.png",
+        "raw_size": [
+          2079,
+          756
+        ],
+        "source_frame_cuts_x": [
+          0,
+          246,
+          531,
+          808,
+          1054,
+          1317,
+          1574,
+          1825,
+          2079
+        ],
+        "source_content_boxes": [
+          [
+            19,
+            260,
+            239,
+            463
+          ],
+          [
+            254,
+            304,
+            521,
+            462
+          ],
+          [
+            541,
+            321,
+            798,
+            448
+          ],
+          [
+            817,
+            320,
+            1044,
+            447
+          ],
+          [
+            1063,
+            322,
+            1308,
+            450
+          ],
+          [
+            1326,
+            317,
+            1565,
+            450
+          ],
+          [
+            1584,
+            344,
+            1814,
+            448
+          ],
+          [
+            1833,
+            381,
+            2059,
+            445
+          ]
+        ],
+        "sampling_boxes": [
+          [
+            -10.857142857142861,
+            247.3125,
+            268.8571428571429,
+            475.6875
+          ],
+          [
+            247.64285714285714,
+            247.3125,
+            527.3571428571429,
+            475.6875
+          ],
+          [
+            529.6428571428571,
+            247.3125,
+            809.3571428571429,
+            475.6875
+          ],
+          [
+            790.6428571428571,
+            247.3125,
+            1070.357142857143,
+            475.6875
+          ],
+          [
+            1045.642857142857,
+            247.3125,
+            1325.357142857143,
+            475.6875
+          ],
+          [
+            1305.642857142857,
+            247.3125,
+            1585.357142857143,
+            475.6875
+          ],
+          [
+            1559.142857142857,
+            247.3125,
+            1838.857142857143,
+            475.6875
+          ],
+          [
+            1806.142857142857,
+            247.3125,
+            2085.8571428571427,
+            475.6875
+          ]
+        ],
+        "source_pixels_per_game_pixel": [
+          6.357142857142857,
+          12.6875
+        ],
+        "mapping": "gutter-separated frames; common X/Y units for each animation; shared vertical origin; one-game-pixel padding on the largest content",
+        "canonical_halves": [
+          "right",
+          "left",
+          "left",
+          "right",
+          "right",
+          "right",
+          "right",
+          "right"
+        ]
+      },
+      "validation": {
+        "hard_alpha": true,
+        "all_frames_nonempty": true,
+        "all_frames_symmetric": true,
+        "frames": [
+          {
+            "index": 0,
+            "nontransparent_pixels": 162,
+            "symmetry_pass": true,
+            "bbox": [
+              6,
+              3,
+              38,
+              17
+            ]
+          },
+          {
+            "index": 1,
+            "nontransparent_pixels": 244,
+            "symmetry_pass": true,
+            "bbox": [
+              1,
+              5,
+              43,
+              17
+            ]
+          },
+          {
+            "index": 2,
+            "nontransparent_pixels": 224,
+            "symmetry_pass": true,
+            "bbox": [
+              2,
+              6,
+              42,
+              16
+            ]
+          },
+          {
+            "index": 3,
+            "nontransparent_pixels": 164,
+            "symmetry_pass": true,
+            "bbox": [
+              4,
+              8,
+              40,
+              16
+            ]
+          },
+          {
+            "index": 4,
+            "nontransparent_pixels": 212,
+            "symmetry_pass": true,
+            "bbox": [
+              3,
+              6,
+              41,
+              16
+            ]
+          },
+          {
+            "index": 5,
+            "nontransparent_pixels": 180,
+            "symmetry_pass": true,
+            "bbox": [
+              3,
+              8,
+              41,
+              16
+            ]
+          },
+          {
+            "index": 6,
+            "nontransparent_pixels": 142,
+            "symmetry_pass": true,
+            "bbox": [
+              4,
+              8,
+              40,
+              16
+            ]
+          },
+          {
+            "index": 7,
+            "nontransparent_pixels": 86,
+            "symmetry_pass": true,
+            "bbox": [
+              5,
+              12,
+              39,
+              16
+            ]
+          }
+        ]
+      },
+      "sha256_1x": "978ed9ac4d7c589197dc2338a4ee142ac008268066029f642b89116dba9da9a2"
+    },
+    {
+      "name": "slow",
+      "file": "singed_fx_slow.png",
+      "frames": 4,
+      "cell_1x": [
+        18,
+        7
+      ],
+      "size_1x": [
+        72,
+        7
+      ],
+      "preview_scale": 8,
+      "symmetry": "left-right",
+      "palette": [
+        "#FFF8D2",
+        "#F4DC8C",
+        "#DAB858",
+        "#AC863C",
+        "#725628"
+      ],
+      "binding": "view_buffs `league_singed_w_slow`（tag `slow`，跟随，脚下，z -1；左右对称）",
+      "playback": {
+        "mode": "loop",
+        "loop_frames": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      "frame_rects_1x": [
+        [
+          0,
+          0,
+          18,
+          7
+        ],
+        [
+          18,
+          0,
+          18,
+          7
+        ],
+        [
+          36,
+          0,
+          18,
+          7
+        ],
+        [
+          54,
+          0,
+          18,
+          7
+        ]
+      ],
+      "transparent_actor_holdout_1x": null,
+      "source": {
+        "raw_file": "raw/singed_fx_slow-generated.png",
+        "raw_size": [
+          2172,
+          724
+        ],
+        "source_frame_cuts_x": [
+          0,
+          544,
+          1086,
+          1630,
+          2172
+        ],
+        "source_content_boxes": [
+          [
+            15,
+            302,
+            527,
+            499
+          ],
+          [
+            560,
+            218,
+            1069,
+            499
+          ],
+          [
+            1103,
+            267,
+            1613,
+            499
+          ],
+          [
+            1646,
+            308,
+            2157,
+            499
+          ]
+        ],
+        "sampling_boxes": [
+          [
+            -17.0,
+            161.79999999999998,
+            559.0,
+            555.2
+          ],
+          [
+            526.5,
+            161.79999999999998,
+            1102.5,
+            555.2
+          ],
+          [
+            1070.0,
+            161.79999999999998,
+            1646.0,
+            555.2
+          ],
+          [
+            1613.5,
+            161.79999999999998,
+            2189.5,
+            555.2
+          ]
+        ],
+        "source_pixels_per_game_pixel": [
+          32.0,
+          56.2
+        ],
+        "mapping": "gutter-separated frames; common X/Y units for each animation; shared vertical origin; one-game-pixel padding on the largest content",
+        "canonical_halves": [
+          "left",
+          "left",
+          "left",
+          "right"
+        ]
+      },
+      "validation": {
+        "hard_alpha": true,
+        "all_frames_nonempty": true,
+        "all_frames_symmetric": true,
+        "frames": [
+          {
+            "index": 0,
+            "nontransparent_pixels": 24,
+            "symmetry_pass": true,
+            "bbox": [
+              2,
+              3,
+              16,
+              6
+            ]
+          },
+          {
+            "index": 1,
+            "nontransparent_pixels": 26,
+            "symmetry_pass": true,
+            "bbox": [
+              2,
+              1,
+              16,
+              6
+            ]
+          },
+          {
+            "index": 2,
+            "nontransparent_pixels": 28,
+            "symmetry_pass": true,
+            "bbox": [
+              2,
+              3,
+              16,
+              6
+            ]
+          },
+          {
+            "index": 3,
+            "nontransparent_pixels": 26,
+            "symmetry_pass": true,
+            "bbox": [
+              2,
+              3,
+              16,
+              6
+            ]
+          }
+        ]
+      },
+      "sha256_1x": "2e9ba87a1d0dc46fb226ce5fba864cb18b313355d2dde450d740a2507aa2c0ae"
+    },
+    {
+      "name": "r_drink",
+      "file": "singed_fx_r_drink.png",
+      "frames": 5,
+      "cell_1x": [
+        40,
+        50
+      ],
+      "size_1x": [
+        200,
+        50
+      ],
+      "preview_scale": 8,
+      "symmetry": "left-right",
+      "palette": [
+        "#F2FFB4",
+        "#C6F25C",
+        "#8CD43C",
+        "#509E2C",
+        "#2C6420",
+        "#143814",
+        "#FFFFFF",
+        "#F6FFE2",
+        "#E0F6AA"
+      ],
+      "binding": "view_effects `league_singed_r_drink`（跟随他，z 2；左右对称）",
+      "playback": {
+        "mode": "once",
+        "start_frames": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      "frame_rects_1x": [
+        [
+          0,
+          0,
+          40,
+          50
+        ],
+        [
+          40,
+          0,
+          40,
+          50
+        ],
+        [
+          80,
+          0,
+          40,
+          50
+        ],
+        [
+          120,
+          0,
+          40,
+          50
+        ],
+        [
+          160,
+          0,
+          40,
+          50
+        ]
+      ],
+      "transparent_actor_holdout_1x": null,
+      "source": {
+        "raw_file": "raw/singed_fx_r_drink-generated.png",
+        "raw_size": [
+          1983,
+          793
+        ],
+        "source_frame_cuts_x": [
+          0,
+          400,
+          798,
+          1190,
+          1590,
+          1983
+        ],
+        "source_content_boxes": [
+          [
+            14,
+            221,
+            389,
+            725
+          ],
+          [
+            411,
+            214,
+            789,
+            742
+          ],
+          [
+            806,
+            61,
+            1178,
+            737
+          ],
+          [
+            1203,
+            28,
+            1574,
+            734
+          ],
+          [
+            1605,
+            154,
+            1964,
+            732
+          ]
+        ],
+        "sampling_boxes": [
+          [
+            2.55263157894737,
+            13.125,
+            400.4473684210526,
+            756.875
+          ],
+          [
+            401.0526315789474,
+            13.125,
+            798.9473684210526,
+            756.875
+          ],
+          [
+            793.0526315789474,
+            13.125,
+            1190.9473684210527,
+            756.875
+          ],
+          [
+            1189.5526315789473,
+            13.125,
+            1587.4473684210527,
+            756.875
+          ],
+          [
+            1585.5526315789473,
+            13.125,
+            1983.4473684210527,
+            756.875
+          ]
+        ],
+        "source_pixels_per_game_pixel": [
+          9.947368421052632,
+          14.875
+        ],
+        "mapping": "gutter-separated frames; common X/Y units for each animation; shared vertical origin; one-game-pixel padding on the largest content",
+        "canonical_halves": [
+          "left",
+          "left",
+          "left",
+          "left",
+          "right"
+        ]
+      },
+      "validation": {
+        "hard_alpha": true,
+        "all_frames_nonempty": true,
+        "all_frames_symmetric": true,
+        "frames": [
+          {
+            "index": 0,
+            "nontransparent_pixels": 398,
+            "symmetry_pass": true,
+            "bbox": [
+              1,
+              15,
+              39,
+              48
+            ]
+          },
+          {
+            "index": 1,
+            "nontransparent_pixels": 470,
+            "symmetry_pass": true,
+            "bbox": [
+              1,
+              14,
+              39,
+              49
+            ]
+          },
+          {
+            "index": 2,
+            "nontransparent_pixels": 482,
+            "symmetry_pass": true,
+            "bbox": [
+              1,
+              4,
+              39,
+              49
+            ]
+          },
+          {
+            "index": 3,
+            "nontransparent_pixels": 306,
+            "symmetry_pass": true,
+            "bbox": [
+              1,
+              1,
+              39,
+              48
+            ]
+          },
+          {
+            "index": 4,
+            "nontransparent_pixels": 182,
+            "symmetry_pass": true,
+            "bbox": [
+              2,
+              10,
+              38,
+              48
+            ]
+          }
+        ]
+      },
+      "sha256_1x": "c2631e19854a02a2f46372221ccae8c0acde3e07bec4d7d18b755fba053c42e7"
+    },
+    {
+      "name": "r_aura",
+      "file": "singed_fx_r_aura.png",
+      "frames": 4,
+      "cell_1x": [
+        36,
+        50
+      ],
+      "size_1x": [
+        144,
+        50
+      ],
+      "preview_scale": 8,
+      "symmetry": "left-right",
+      "palette": [
+        "#F2FFB4",
+        "#C6F25C",
+        "#8CD43C",
+        "#509E2C",
+        "#2C6420",
+        "#143814",
+        "#C4DC98",
+        "#92B468",
+        "#64844A",
+        "#3E5A32",
+        "#24361E"
+      ],
+      "binding": "view_buffs `league_singed_r_on`（tag `r_aura`，跟随他，z -1，在他身后；左右对称；约 25 秒）",
+      "playback": {
+        "mode": "loop",
+        "loop_frames": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "target_ticks": 1500
+      },
+      "frame_rects_1x": [
+        [
+          0,
+          0,
+          36,
+          50
+        ],
+        [
+          36,
+          0,
+          36,
+          50
+        ],
+        [
+          72,
+          0,
+          36,
+          50
+        ],
+        [
+          108,
+          0,
+          36,
+          50
+        ]
+      ],
+      "transparent_actor_holdout_1x": null,
+      "source": {
+        "raw_file": "raw/singed_fx_r_aura-generated.png",
+        "raw_size": [
+          2126,
+          740
+        ],
+        "source_frame_cuts_x": [
+          0,
+          532,
+          1070,
+          1594,
+          2126
+        ],
+        "source_content_boxes": [
+          [
+            62,
+            150,
+            471,
+            691
+          ],
+          [
+            592,
+            94,
+            1014,
+            695
+          ],
+          [
+            1125,
+            42,
+            1533,
+            696
+          ],
+          [
+            1655,
+            23,
+            2069,
+            696
+          ]
+        ],
+        "sampling_boxes": [
+          [
+            43.08823529411765,
+            8.979166666666629,
+            489.9117647058823,
+            710.0208333333334
+          ],
+          [
+            579.5882352941177,
+            8.979166666666629,
+            1026.4117647058824,
+            710.0208333333334
+          ],
+          [
+            1105.5882352941176,
+            8.979166666666629,
+            1552.4117647058824,
+            710.0208333333334
+          ],
+          [
+            1638.5882352941176,
+            8.979166666666629,
+            2085.4117647058824,
+            710.0208333333334
+          ]
+        ],
+        "source_pixels_per_game_pixel": [
+          12.411764705882353,
+          14.020833333333334
+        ],
+        "mapping": "gutter-separated frames; common X/Y units for each animation; shared vertical origin; one-game-pixel padding on the largest content",
+        "canonical_halves": [
+          "right",
+          "left",
+          "right",
+          "left"
+        ]
+      },
+      "validation": {
+        "hard_alpha": true,
+        "all_frames_nonempty": true,
+        "all_frames_symmetric": true,
+        "frames": [
+          {
+            "index": 0,
+            "nontransparent_pixels": 108,
+            "symmetry_pass": true,
+            "bbox": [
+              2,
+              10,
+              34,
+              48
+            ]
+          },
+          {
+            "index": 1,
+            "nontransparent_pixels": 146,
+            "symmetry_pass": true,
+            "bbox": [
+              1,
+              8,
+              35,
+              49
+            ]
+          },
+          {
+            "index": 2,
+            "nontransparent_pixels": 154,
+            "symmetry_pass": true,
+            "bbox": [
+              2,
+              5,
+              34,
+              49
+            ]
+          },
+          {
+            "index": 3,
+            "nontransparent_pixels": 188,
+            "symmetry_pass": true,
+            "bbox": [
+              2,
+              3,
+              34,
+              49
+            ]
+          }
+        ]
+      },
+      "sha256_1x": "93f55963b1dd02b94f795aa8475f5216d1e78834956a293a076fd2c5bcc8b93d"
+    },
+    {
+      "name": "gw",
+      "file": "singed_fx_gw.png",
+      "frames": 4,
+      "cell_1x": [
+        10,
+        10
+      ],
+      "size_1x": [
+        40,
+        10
+      ],
+      "preview_scale": 8,
+      "symmetry": "left-right",
+      "palette": [
+        "#ECCEFF",
+        "#BC84EC",
+        "#8048BE",
+        "#4A2672",
+        "#F2FFB4",
+        "#C6F25C",
+        "#8CD43C",
+        "#509E2C",
+        "#2C6420",
+        "#143814"
+      ],
+      "binding": "view_buffs `league_singed_q_gw`（tag `gw`，跟随，头上，z 3；左右对称）",
+      "playback": {
+        "mode": "loop",
+        "loop_frames": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      "frame_rects_1x": [
+        [
+          0,
+          0,
+          10,
+          10
+        ],
+        [
+          10,
+          0,
+          10,
+          10
+        ],
+        [
+          20,
+          0,
+          10,
+          10
+        ],
+        [
+          30,
+          0,
+          10,
+          10
+        ]
+      ],
+      "transparent_actor_holdout_1x": null,
+      "source": {
+        "raw_file": "raw/singed_fx_gw-generated.png",
+        "raw_size": [
+          1983,
+          793
+        ],
+        "source_frame_cuts_x": [
+          0,
+          504,
+          994,
+          1482,
+          1983
+        ],
+        "source_content_boxes": [
+          [
+            124,
+            273,
+            395,
+            615
+          ],
+          [
+            614,
+            273,
+            885,
+            624
+          ],
+          [
+            1102,
+            273,
+            1374,
+            654
+          ],
+          [
+            1591,
+            273,
+            1863,
+            637
+          ]
+        ],
+        "sampling_boxes": [
+          [
+            89.5,
+            225.375,
+            429.5,
+            701.625
+          ],
+          [
+            579.5,
+            225.375,
+            919.5,
+            701.625
+          ],
+          [
+            1068.0,
+            225.375,
+            1408.0,
+            701.625
+          ],
+          [
+            1557.0,
+            225.375,
+            1897.0,
+            701.625
+          ]
+        ],
+        "source_pixels_per_game_pixel": [
+          34.0,
+          47.625
+        ],
+        "mapping": "gutter-separated frames; common X/Y units for each animation; shared vertical origin; one-game-pixel padding on the largest content",
+        "canonical_halves": [
+          "left",
+          "left",
+          "left",
+          "left"
+        ]
+      },
+      "validation": {
+        "hard_alpha": true,
+        "all_frames_nonempty": true,
+        "all_frames_symmetric": true,
+        "frames": [
+          {
+            "index": 0,
+            "nontransparent_pixels": 28,
+            "symmetry_pass": true,
+            "bbox": [
+              1,
+              1,
+              9,
+              8
+            ]
+          },
+          {
+            "index": 1,
+            "nontransparent_pixels": 30,
+            "symmetry_pass": true,
+            "bbox": [
+              1,
+              1,
+              9,
+              8
+            ]
+          },
+          {
+            "index": 2,
+            "nontransparent_pixels": 30,
+            "symmetry_pass": true,
+            "bbox": [
+              1,
+              1,
+              9,
+              9
+            ]
+          },
+          {
+            "index": 3,
+            "nontransparent_pixels": 28,
+            "symmetry_pass": true,
+            "bbox": [
+              1,
+              1,
+              9,
+              6
+            ]
+          }
+        ]
+      },
+      "sha256_1x": "137e13c6d9f8aedb10502aff7b7ebfa9d96496c8ebe41b0e9ddcf5c9f2db2cfb"
+    },
+    {
+      "name": "p_fast",
+      "file": "singed_fx_p_fast.png",
+      "frames": 3,
+      "cell_1x": [
+        34,
+        12
+      ],
+      "size_1x": [
+        102,
+        12
+      ],
+      "preview_scale": 8,
+      "symmetry": "left-right",
+      "palette": [
+        "#F2FFB4",
+        "#C6F25C",
+        "#8CD43C",
+        "#509E2C",
+        "#2C6420",
+        "#143814",
+        "#C4DC98",
+        "#92B468",
+        "#64844A",
+        "#3E5A32",
+        "#24361E"
+      ],
+      "binding": "view_effects `league_singed_p_fast`（跟随他，脚下，z -1；左右对称）",
+      "playback": {
+        "mode": "once",
+        "start_frames": [
+          0,
+          1,
+          2
+        ]
+      },
+      "frame_rects_1x": [
+        [
+          0,
+          0,
+          34,
+          12
+        ],
+        [
+          34,
+          0,
+          34,
+          12
+        ],
+        [
+          68,
+          0,
+          34,
+          12
+        ]
+      ],
+      "transparent_actor_holdout_1x": null,
+      "source": {
+        "raw_file": "raw/singed_fx_p_fast-generated.png",
+        "raw_size": [
+          2056,
+          765
+        ],
+        "source_frame_cuts_x": [
+          0,
+          516,
+          1450,
+          2056
+        ],
+        "source_content_boxes": [
+          [
+            19,
+            323,
+            496,
+            550
+          ],
+          [
+            535,
+            238,
+            1443,
+            554
+          ],
+          [
+            1457,
+            352,
+            2039,
+            554
+          ]
+        ],
+        "sampling_boxes": [
+          [
+            -224.875,
+            206.39999999999998,
+            739.875,
+            585.6
+          ],
+          [
+            506.625,
+            206.39999999999998,
+            1471.375,
+            585.6
+          ],
+          [
+            1265.625,
+            206.39999999999998,
+            2230.375,
+            585.6
+          ]
+        ],
+        "source_pixels_per_game_pixel": [
+          28.375,
+          31.6
+        ],
+        "mapping": "gutter-separated frames; common X/Y units for each animation; shared vertical origin; one-game-pixel padding on the largest content",
+        "canonical_halves": [
+          "right",
+          "left",
+          "left"
+        ]
+      },
+      "validation": {
+        "hard_alpha": true,
+        "all_frames_nonempty": true,
+        "all_frames_symmetric": true,
+        "frames": [
+          {
+            "index": 0,
+            "nontransparent_pixels": 30,
+            "symmetry_pass": true,
+            "bbox": [
+              12,
+              5,
+              22,
+              11
+            ]
+          },
+          {
+            "index": 1,
+            "nontransparent_pixels": 128,
+            "symmetry_pass": true,
+            "bbox": [
+              1,
+              2,
+              33,
+              10
+            ]
+          },
+          {
+            "index": 2,
+            "nontransparent_pixels": 28,
+            "symmetry_pass": true,
+            "bbox": [
+              7,
+              5,
+              27,
+              10
+            ]
+          }
+        ]
+      },
+      "sha256_1x": "906a7d001ba828a31155d658539ae630fd23445902ed529ce73919bc102d72ef"
+    },
+    {
+      "name": "haste",
+      "file": "singed_fx_haste.png",
+      "frames": 4,
+      "cell_1x": [
+        24,
+        8
+      ],
+      "size_1x": [
+        96,
+        8
+      ],
+      "preview_scale": 8,
+      "symmetry": "left-right",
+      "palette": [
+        "#F2FFB4",
+        "#C6F25C",
+        "#8CD43C",
+        "#509E2C",
+        "#2C6420",
+        "#143814",
+        "#C4DC98",
+        "#92B468",
+        "#64844A",
+        "#3E5A32",
+        "#24361E"
+      ],
+      "binding": "view_buffs `league_singed_p_fast`（tag `haste`，跟随，脚下，z -1；左右对称）",
+      "playback": {
+        "mode": "loop",
+        "loop_frames": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      "frame_rects_1x": [
+        [
+          0,
+          0,
+          24,
+          8
+        ],
+        [
+          24,
+          0,
+          24,
+          8
+        ],
+        [
+          48,
+          0,
+          24,
+          8
+        ],
+        [
+          72,
+          0,
+          24,
+          8
+        ]
+      ],
+      "transparent_actor_holdout_1x": null,
+      "source": {
+        "raw_file": "raw/singed_fx_haste-generated.png",
+        "raw_size": [
+          2172,
+          724
+        ],
+        "source_frame_cuts_x": [
+          0,
+          537,
+          1087,
+          1632,
+          2172
+        ],
+        "source_content_boxes": [
+          [
+            28,
+            255,
+            512,
+            501
+          ],
+          [
+            562,
+            245,
+            1067,
+            506
+          ],
+          [
+            1107,
+            240,
+            1609,
+            506
+          ],
+          [
+            1654,
+            239,
+            2146,
+            506
+          ]
+        ],
+        "sampling_boxes": [
+          [
+            -5.454545454545439,
+            194.5,
+            545.4545454545455,
+            550.5
+          ],
+          [
+            539.0454545454545,
+            194.5,
+            1089.9545454545455,
+            550.5
+          ],
+          [
+            1082.5454545454545,
+            194.5,
+            1633.4545454545455,
+            550.5
+          ],
+          [
+            1624.5454545454545,
+            194.5,
+            2175.4545454545455,
+            550.5
+          ]
+        ],
+        "source_pixels_per_game_pixel": [
+          22.954545454545453,
+          44.5
+        ],
+        "mapping": "gutter-separated frames; common X/Y units for each animation; shared vertical origin; one-game-pixel padding on the largest content",
+        "canonical_halves": [
+          "left",
+          "right",
+          "right",
+          "right"
+        ]
+      },
+      "validation": {
+        "hard_alpha": true,
+        "all_frames_nonempty": true,
+        "all_frames_symmetric": true,
+        "frames": [
+          {
+            "index": 0,
+            "nontransparent_pixels": 14,
+            "symmetry_pass": true,
+            "bbox": [
+              3,
+              3,
+              21,
+              6
+            ]
+          },
+          {
+            "index": 1,
+            "nontransparent_pixels": 34,
+            "symmetry_pass": true,
+            "bbox": [
+              2,
+              2,
+              22,
+              6
+            ]
+          },
+          {
+            "index": 2,
+            "nontransparent_pixels": 12,
+            "symmetry_pass": true,
+            "bbox": [
+              2,
+              1,
+              22,
+              6
+            ]
+          },
+          {
+            "index": 3,
+            "nontransparent_pixels": 40,
+            "symmetry_pass": true,
+            "bbox": [
+              2,
+              1,
+              22,
+              6
+            ]
+          }
+        ]
+      },
+      "sha256_1x": "8ea35713e0cdd6ce164bfd797b5c594cd3ecf9bbf3b6fdc03dec9f2096889357"
+    }
+  ]
+}

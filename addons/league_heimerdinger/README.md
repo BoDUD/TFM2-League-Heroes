@@ -43,7 +43,7 @@ E → W 都在主包数据里。主包是纯数据：数据没有召唤物，炮
 
 ## 在游戏里测
 
-1. 主包（League of Legends Heroes 0.204.2 以上）要装着并启用；本包随附加包合集 `league_addons` 一起装，或单独装。
+1. 主包（League of Legends Heroes 0.205.1 以上）要装着并启用；本包随附加包合集 `league_addons` 一起装，或单独装。
 2. 看日志 `%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_heimerdinger.log`：`SPAWN`（他出场和参数）、`PUT`（炮台站下的点和
    施法输入的种类）、`SHOT`（炮台出手打谁、炮弹还是光束、多少伤害）、`HASTE`（炮台旁还是塔旁加速）、`WATCH`（每 30 秒的计数）、`E CLUMP` / `Q APEX` / `E ONE`（钩子替 AI 按的）。
 3. 看炮弹是不是从炮口飞出去、落在炮台图上的炮台是不是在打（`PUT` 的点该在炮台图下）。

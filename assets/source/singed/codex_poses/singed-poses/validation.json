@@ -1,0 +1,277 @@
+[
+  {
+    "pose": "a_wind",
+    "exists": true,
+    "size": [
+      1254,
+      1254
+    ],
+    "canvas_pass": true,
+    "hard_alpha_pass": false,
+    "semitransparent_pixels": 302306,
+    "visible_bbox_alpha128": [
+      225,
+      122,
+      1124,
+      1206
+    ],
+    "bottom_y_exclusive": 1206,
+    "ground_y_target": 1188,
+    "exact_12px_grid_pass": false,
+    "flat_visible_12px_cells": 0,
+    "visible_12px_cells": 2224,
+    "raw_identical": true,
+    "sha256": "16b050ad25a24b22a53b571310de9fbfc88a15f002fffae59f5003cbd02163c9",
+    "head_limb_plate_measurement": "manual review required; global bbox cannot prove limb lengths"
+  },
+  {
+    "pose": "a_smash",
+    "exists": true,
+    "size": [
+      1254,
+      1254
+    ],
+    "canvas_pass": true,
+    "hard_alpha_pass": false,
+    "semitransparent_pixels": 412887,
+    "visible_bbox_alpha128": [
+      98,
+      286,
+      1245,
+      1215
+    ],
+    "bottom_y_exclusive": 1215,
+    "ground_y_target": 1188,
+    "exact_12px_grid_pass": false,
+    "flat_visible_12px_cells": 0,
+    "visible_12px_cells": 2936,
+    "raw_identical": true,
+    "sha256": "515bdf7cd0d42a73be6073a51a83eec4c39fb207a139b4bc1324f83b2ae30110",
+    "head_limb_plate_measurement": "manual review required; global bbox cannot prove limb lengths"
+  },
+  {
+    "pose": "e_grab",
+    "exists": true,
+    "size": [
+      1254,
+      1254
+    ],
+    "canvas_pass": true,
+    "hard_alpha_pass": false,
+    "semitransparent_pixels": 451663,
+    "visible_bbox_alpha128": [
+      164,
+      322,
+      1214,
+      1173
+    ],
+    "bottom_y_exclusive": 1173,
+    "ground_y_target": 1188,
+    "exact_12px_grid_pass": false,
+    "flat_visible_12px_cells": 0,
+    "visible_12px_cells": 3285,
+    "raw_identical": true,
+    "sha256": "7c24a2d570101b8d367e0a28ab8906846d70eafbdd0bd17cbdd7b96042bbd247",
+    "head_limb_plate_measurement": "manual review required; global bbox cannot prove limb lengths"
+  },
+  {
+    "pose": "e_heave",
+    "exists": true,
+    "size": [
+      1254,
+      1254
+    ],
+    "canvas_pass": true,
+    "hard_alpha_pass": false,
+    "semitransparent_pixels": 315426,
+    "visible_bbox_alpha128": [
+      245,
+      90,
+      1079,
+      1193
+    ],
+    "bottom_y_exclusive": 1193,
+    "ground_y_target": 1188,
+    "exact_12px_grid_pass": false,
+    "flat_visible_12px_cells": 0,
+    "visible_12px_cells": 2307,
+    "raw_identical": true,
+    "sha256": "969710d610c4419e9a6623da7925d25bf817e331a3d89deb42efeaa9d85d25e5",
+    "head_limb_plate_measurement": "manual review required; global bbox cannot prove limb lengths"
+  },
+  {
+    "pose": "e_throw",
+    "exists": true,
+    "size": [
+      1254,
+      1254
+    ],
+    "canvas_pass": true,
+    "hard_alpha_pass": false,
+    "semitransparent_pixels": 302561,
+    "visible_bbox_alpha128": [
+      197,
+      410,
+      1118,
+      1186
+    ],
+    "bottom_y_exclusive": 1186,
+    "ground_y_target": 1188,
+    "exact_12px_grid_pass": false,
+    "flat_visible_12px_cells": 0,
+    "visible_12px_cells": 2209,
+    "raw_identical": true,
+    "sha256": "021d1fc5d42c85fe2cc3707beae149c83e710e7f5cbcdb7dce9312a214e6759a",
+    "head_limb_plate_measurement": "manual review required; global bbox cannot prove limb lengths"
+  },
+  {
+    "pose": "w_wind",
+    "exists": true,
+    "size": [
+      1254,
+      1254
+    ],
+    "canvas_pass": true,
+    "hard_alpha_pass": false,
+    "semitransparent_pixels": 481076,
+    "visible_bbox_alpha128": [
+      206,
+      88,
+      1138,
+      1176
+    ],
+    "bottom_y_exclusive": 1176,
+    "ground_y_target": 1188,
+    "exact_12px_grid_pass": false,
+    "flat_visible_12px_cells": 0,
+    "visible_12px_cells": 3488,
+    "raw_identical": true,
+    "sha256": "c823d6b0e9591e2e6c6fbe53f305e87279c79be0ec1d836dfeacae9b970c87f9",
+    "head_limb_plate_measurement": "manual review required; global bbox cannot prove limb lengths"
+  },
+  {
+    "pose": "w_throw",
+    "exists": true,
+    "size": [
+      1254,
+      1254
+    ],
+    "canvas_pass": true,
+    "hard_alpha_pass": false,
+    "semitransparent_pixels": 388113,
+    "visible_bbox_alpha128": [
+      108,
+      361,
+      1235,
+      1176
+    ],
+    "bottom_y_exclusive": 1176,
+    "ground_y_target": 1188,
+    "exact_12px_grid_pass": false,
+    "flat_visible_12px_cells": 0,
+    "visible_12px_cells": 2811,
+    "raw_identical": true,
+    "sha256": "fd5990cb0ff256865c29311306ac97098c48d0bf634e69bfaf576f792bb57005",
+    "head_limb_plate_measurement": "manual review required; global bbox cannot prove limb lengths"
+  },
+  {
+    "pose": "r_drink",
+    "exists": true,
+    "size": [
+      1254,
+      1254
+    ],
+    "canvas_pass": true,
+    "hard_alpha_pass": false,
+    "semitransparent_pixels": 380785,
+    "visible_bbox_alpha128": [
+      317,
+      101,
+      1107,
+      1189
+    ],
+    "bottom_y_exclusive": 1189,
+    "ground_y_target": 1188,
+    "exact_12px_grid_pass": false,
+    "flat_visible_12px_cells": 0,
+    "visible_12px_cells": 2751,
+    "raw_identical": true,
+    "sha256": "356716d8680a71aa703547dabc816cdc237e11974bb9650cf04f4ff81bf4ac68",
+    "head_limb_plate_measurement": "manual review required; global bbox cannot prove limb lengths"
+  },
+  {
+    "pose": "r_rage",
+    "exists": true,
+    "size": [
+      1254,
+      1254
+    ],
+    "canvas_pass": true,
+    "hard_alpha_pass": false,
+    "semitransparent_pixels": 474301,
+    "visible_bbox_alpha128": [
+      89,
+      245,
+      1187,
+      1156
+    ],
+    "bottom_y_exclusive": 1156,
+    "ground_y_target": 1188,
+    "exact_12px_grid_pass": false,
+    "flat_visible_12px_cells": 0,
+    "visible_12px_cells": 3421,
+    "raw_identical": true,
+    "sha256": "0c661dd96622bbea70d0fcbdd9513a28fcf206396ae39894bbc163ca4dab8f02",
+    "head_limb_plate_measurement": "manual review required; global bbox cannot prove limb lengths"
+  },
+  {
+    "pose": "d_stagger",
+    "exists": true,
+    "size": [
+      1254,
+      1254
+    ],
+    "canvas_pass": true,
+    "hard_alpha_pass": false,
+    "semitransparent_pixels": 491532,
+    "visible_bbox_alpha128": [
+      49,
+      205,
+      1176,
+      1196
+    ],
+    "bottom_y_exclusive": 1196,
+    "ground_y_target": 1188,
+    "exact_12px_grid_pass": false,
+    "flat_visible_12px_cells": 0,
+    "visible_12px_cells": 3494,
+    "raw_identical": true,
+    "sha256": "5f4d30d359ff433e169e4ea9e65ed899815f43e10a1c1324fbcf6a19c6ef7a62",
+    "head_limb_plate_measurement": "manual review required; global bbox cannot prove limb lengths"
+  },
+  {
+    "pose": "d_down",
+    "exists": true,
+    "size": [
+      1254,
+      1254
+    ],
+    "canvas_pass": true,
+    "hard_alpha_pass": false,
+    "semitransparent_pixels": 371288,
+    "visible_bbox_alpha128": [
+      30,
+      423,
+      1216,
+      1205
+    ],
+    "bottom_y_exclusive": 1205,
+    "ground_y_target": 1188,
+    "exact_12px_grid_pass": false,
+    "flat_visible_12px_cells": 0,
+    "visible_12px_cells": 2706,
+    "raw_identical": true,
+    "sha256": "35c8c95480c063bb8536d0345a39ec9b314f585a1505be35cd0891da2e6f81cf",
+    "head_limb_plate_measurement": "manual review required; global bbox cannot prove limb lengths"
+  }
+]
