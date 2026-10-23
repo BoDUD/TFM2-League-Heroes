@@ -37,7 +37,7 @@ G = "<#66bb6aff>"      # healing
 E = "<>"
 # champion_view: the face point between her eyes (ppu_restyle.py RESTYLE face_to) and the ban/pick card (set at export:
 # tools/art/bp_card_audit.py)
-VIEW = {"face": {"x": 1, "y": -27}, "center": {"x": 0, "y": -18}, "banpick_center": {"x": 0, "y": -12}}
+VIEW = {"face": {"x": 1, "y": -27}, "center": {"x": 0, "y": -18}, "banpick_center": {"x": 0, "y": -9}}
 
 
 def mag(d, r):
