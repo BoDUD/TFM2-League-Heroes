@@ -6,7 +6,7 @@
 For each tag: League's frames named in CLIPS - the very frames the poses were drawn after (pose_ref.py, Riot's model
 with pack_nunu_picture.SKIN: Willump's own map, the hidden props hidden; the renders stay in DIR, never committed), one
 beside each of ours, next to the rig's frame at z screen px a design square, both at the tag's own frame times. Writes
-<out>/nunu_<tag>_vs_lol.gif and .png, and <out>/nunu_all_vs_lol.gif: every tag in turn (each played twice), one picture
+<out>/nunu_<tag>_vs_lol.gif and .png, and <out>/nunu_all_vs_lol.gif: every tag in turn (each action played twice, the idle and card reels once), one picture
 to review (memory one-gif-review). 3/4 view (yaw 35) for every tag: the user, 「只做四分之三侧面」.
 --sheet: the exported sheet's hd_ frames (league/champions/league_nunu#sheet.png, what the game draws: after
 ppu_restyle's outline and ppu_hd), each laid on its frame centre, instead of the rig's frames - the idle as hero_reels'
@@ -159,7 +159,7 @@ def main():
         for i, (c, _) in enumerate(cells):
             sheet.paste(c, (0, i * h))
         sheet.save(os.path.join(a.out, f"nunu_{tag}_vs_lol.png"))
-        every += cells * 2
+        every += cells * (1 if tag in ("idle", "bp") else 2)   # the long reels once, the actions twice
         print(gif)
     W = max(c.width for c, _ in every)
     H = max(c.height for c, _ in every)
