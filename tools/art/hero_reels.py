@@ -281,9 +281,17 @@ def played(h, tag, run, how=""):
     return seq
 
 
-def plan(h, picks, k):
-    """{tag: [(source tag, frame, duration)]} - the hero's new idles (and their _base copies) and its bp."""
+def card_turn(hid):
+    """The card's first action for a hero with no idle snippet: fixed by a hash of its id (it once took the hero's place
+    in the alphabet, so every hero added before it - league_azir before league_neeko - changed its card)."""
+    return int(hashlib.sha1(f"{hid}/bp".encode()).hexdigest()[:8], 16)
+
+
+def plan(h, picks):
+    """{tag: [(source tag, frame, duration)]} - the hero's new idles (and their _base copies) and its bp. The card starts
+    at the last idle snippet played in the cycle (card_turn for a hero with none), so cards do not strike in step."""
     out = {}
+    turn = None
     idles = ["idle"] + [f + "idle" for f in h.forms]
     snips = {}
     for idle in idles:
@@ -296,8 +304,9 @@ def plan(h, picks, k):
         for hold, k in schedule(h.id, idle, len(sn)) if sn else []:
             t, run, *how = sn[k]
             seq += still(h, idle, hold) + played(h, t, run, *how)
+            turn = k
         out[idle] = seq or still(h, idle)
-    acts = card_actions(h, picks, k)
+    acts = card_actions(h, picks, card_turn(h.id) if turn is None else turn)
     bp = []
     sn = snips["idle"]
     for j, (t, shown) in enumerate(acts):
@@ -340,10 +349,6 @@ def heroes(only=None):
                 if only is None or hid in only or hid.split("_", 1)[1] in only:
                     out.append((pack, hid))
     return out
-
-
-def all_ids():
-    return [hid for _, hid in heroes()]
 
 
 def preview(items, out, card):
@@ -422,11 +427,10 @@ def main():
     a = ap.parse_args()
     only = set(a.hero.split(",")) if a.hero else None
     picks = json.load(open(lp(PICKS), encoding="utf-8")) if os.path.exists(lp(PICKS)) else {}
-    order = {hid: k for k, hid in enumerate(all_ids())}
     stale, items = [], []
     for pack, hid in heroes(only):
         h = Hero(pack, hid)
-        p, snips, acts = plan(h, picks.get(hid, {}), order[hid])
+        p, snips, acts = plan(h, picks.get(hid, {}))
         if a.list:
             held = {t: sum(1 for i, (s, _) in enumerate(sh) if s != i) for t, sh in acts}
             print(f"{hid:28s} " + " | ".join(f"{idle}: {sn}" for idle, sn in snips.items())
