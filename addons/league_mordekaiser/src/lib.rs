@@ -40,7 +40,7 @@ use mod_api_stable::*;
 
 const ID: &str = "league_mordekaiser";
 /// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是 league_addons 的。
-const VERSION: &str = "0.1.2";
+const VERSION: &str = "0.1.3";
 
 /// 主包莫德凯撒的名字（buff、画面都以它开头）。
 fn mk(x: &str) -> String {
@@ -59,6 +59,9 @@ fn show(sim: &mut StableSim<'_>, x: &str, me: usize) {
 /// 大招：射程（r_range）、持续（r_t）、偷多少 %（r_steal）、嘲讽（r_taunt）。
 pub const R_RANGE: f64 = 48_000.0;
 pub const R_T: usize = 420;
+/// One turn of the realm's vortex (`r_realm_loop`, 8 frames of 100 ms at 60 ticks a second). It is played again each
+/// turn while the realm lasts (user 2026-10-23: 「出来后死亡领域还在显示？」 - the 7.2 s `r_realm` stayed after an early end).
+pub const VORTEX_T: usize = 48;
 /// 他自己的放逐一段多长、多久续一次（0.6.4 解不开一份长放逐，见文件开头 0.1.1）。
 pub const R_STEP: usize = 24;
 pub const R_RENEW: usize = 12;
@@ -259,6 +262,9 @@ struct Realm {
     theirs: usize,
     aura: usize,
     swings: (usize, usize),
+    /// the vortex: where it stands and the tick its next turn starts (VORTEX_T a turn, only while the realm lasts)
+    at: (u64, u64),
+    vortex: usize,
 }
 
 #[derive(Clone, Copy, Debug)]
@@ -437,6 +443,10 @@ impl Revenant {
                     }
                     r.renew = t + R_RENEW;
                 }
+                if t >= r.vortex {
+                    sim.play_view_effect(&mk("r_realm_loop"), me, &InputTargetV1::pos(r.at.0, r.at.1), 0, 0, 0);
+                    r.vortex = t + VORTEX_T;
+                }
                 if t >= r.mine {
                     sim.deal_damage(me, r.target, ms.attack, ms.magic_power * A_AP / 100, AttackTypeV1::BaseAttack);
                     r.mine = t + if mi > 0 { mi } else { SWING };
@@ -546,15 +556,15 @@ fn realm(sim: &mut StableSim<'_>, caster: usize, input: InputTargetV1) {
     sim.entity_remove_buff(caster, &mk("r_steal"));
     sim.add_buff(caster, &steal_buff(&mk("r_steal"), R_T, steal, 1));
     let t = sim.tick();
-    // his own banish in R_STEP steps (renewed by the passive) and no picture on it; the vortex on its own, where he stood
-    if let Some((x, y)) = sim.get_entity(caster).map(|e| e.pos()) {
-        sim.play_view_effect(&mk("r_realm"), caster, &InputTargetV1::pos(x, y), 0, 0, 0);
-    }
+    // his own banish in R_STEP steps (renewed by the passive) and no picture on it; the vortex on its own, where he stood,
+    // one turn at a time while the realm lasts
+    let at = sim.get_entity(caster).map_or((0, 0), |e| e.pos());
+    sim.play_view_effect(&mk("r_realm_loop"), caster, &InputTargetV1::pos(at.0, at.1), 0, 0, 0);
     let into_me = sim.entity_banish(caster, caster, realm_step(t, t + R_T), "", "");
     let into_it = sim.entity_banish(caster, target, R_T, "", "");
     with_state(sim, caster, |s| {
         s.realm = Some(Realm { target, until: t + R_T, renew: t + R_RENEW, steal, mine: t + 1, theirs: t + 1,
-                               aura: t + 1, swings: (0, 0) });
+                               aura: t + 1, swings: (0, 0), at, vortex: t + VORTEX_T });
     });
     let swapped = asked.is_some_and(|a| a != target);
     wlog(format!("{} R REALM with {}{}: steals {:?}, both banished {R_T} ticks{}", head(sim, caster),

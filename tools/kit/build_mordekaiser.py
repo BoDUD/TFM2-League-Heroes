@@ -368,7 +368,7 @@ def build(p):
                                       "z": z}
     views_p = [P_("e_beam", BIG, 2)]
     views_e = [E("a_hit"), E("p_aura", BIG, -1), E("p_hit"), E("q_slam", BIG, 1, False), E("q_burst", BIG, 1, False), E("q_hit"),
-               E("q_iso_hit"), E("e_hit"), E("w_shield"), E("w_heal"), E("r_cast", BIG, 2, False), E("r_mark"), E("r_realm", BIG, -1, False),
+               E("q_iso_hit"), E("e_hit"), E("w_shield"), E("w_heal"), E("r_cast", BIG, 2, False), E("r_mark"), E("r_realm", BIG, -1, False), E("r_realm_loop", BIG, -1, False),
                E("r_pull"), E("r_win")]
     views_b = [B_("r_curse", FX, 3)]
     kit = {
