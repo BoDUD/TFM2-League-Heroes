@@ -189,6 +189,13 @@ TENT_MS = {
                  + [("idle", 0, LIFE - 100 - 120 - 8 * SWAY - 300), ("tn_sink", 0, 300)]),
     "lash": [("tn_rear", 0, 150), ("tn_slam", 0, 150), ("tn_recoil", 0, 150), ("tn_sink", 0, 150)],
 }
+# the add-on's tentacle lives a minute (League's) and is drawn in three parts it chains on its spot (the user,
+# 2026-10-23: 「俄洛伊触手乱长 和英雄联盟逻辑不一样」): rising, one sway it plays again for as long as it stands, sinking
+TENT_PARTS = {
+    "tentacle": {"rise": [("tn_rise", 0, 100), ("tn_grow", 0, 120)],
+                 "sway": [("idle", 0, SWAY), ("tn_sway", 0, SWAY)],
+                 "sink": [("tn_sink", 0, 300)]},
+}
 
 
 class Tentacle:
@@ -221,17 +228,26 @@ def tentacle_tags():
     out = {}
     for sheet, seq in TENT_MS.items():
         T = Tentacle(0 if sheet == "tentacle" else LASH_BACK)
-        ones, hds = [], []
-        for name, sink, ms in seq:
-            can = T.frame(name, sink)
-            ys, xs = np.nonzero(can[..., 3] > 0)
-            hw = int(np.ceil(max(T.px - xs.min(), xs.max() + 1 - T.px) / T_PPU - 0.5))
-            hh = int(np.ceil(max(T.py - ys.min(), ys.max() + 1 - T.py) / T_PPU - 0.5))
-            hh = max(hh, int(np.ceil(FEET)) + 1)
-            ones.append((R.one_of(can, T.px, T.py, hw, hh, T_PPU), ms))
-            W, H = round((2 * hw + 1) * T_PPU), round((2 * hh + 1) * T_PPU)
-            hds.append((R.crop_dense(can, T.px, T.py, W, H), ms))
-        out[f"league_illaoi_{sheet}"] = {"idle": ones, "hd_idle": hds}
+
+        def drawn(seq):
+            ones, hds = [], []
+            for name, sink, ms in seq:
+                can = T.frame(name, sink)
+                ys, xs = np.nonzero(can[..., 3] > 0)
+                hw = int(np.ceil(max(T.px - xs.min(), xs.max() + 1 - T.px) / T_PPU - 0.5))
+                hh = int(np.ceil(max(T.py - ys.min(), ys.max() + 1 - T.py) / T_PPU - 0.5))
+                hh = max(hh, int(np.ceil(FEET)) + 1)
+                ones.append((R.one_of(can, T.px, T.py, hw, hh, T_PPU), ms))
+                W, H = round((2 * hw + 1) * T_PPU), round((2 * hh + 1) * T_PPU)
+                hds.append((R.crop_dense(can, T.px, T.py, W, H), ms))
+            return ones, hds
+
+        ones, hds = drawn(seq)
+        tags = {"idle": ones, "hd_idle": hds}
+        for part, pseq in TENT_PARTS.get(sheet, {}).items():
+            ones, hds = drawn(pseq)
+            tags[part], tags[f"hd_{part}"] = ones, hds
+        out[f"league_illaoi_{sheet}"] = tags
     return out
 
 
@@ -256,7 +272,14 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--review")
     ap.add_argument("--tags", help="only these tags (comma-separated)")
+    ap.add_argument("--tentacles", action="store_true",
+                    help="only the tentacle's effect sheets (her own sheet, reeled by hero_reels.py, is left alone)")
     a = ap.parse_args()
+    if a.tentacles:
+        for sheet, tt in tentacle_tags().items():
+            w, h = G.write_sheet(lp(os.path.join(MOD, "effects", sheet)), tt, share=True)
+            print(f"league/effects/{sheet}#sheet.png {w}x{h}: " + ", ".join(f"{t} {len(v)}" for t, v in tt.items()))
+        return
     C = Canvas()
     acts = frames(C, a.tags.split(",") if a.tags else None)
     if a.review:

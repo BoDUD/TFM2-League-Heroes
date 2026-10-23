@@ -21,7 +21,13 @@
       "w_mark_t": 240,
       "w_gap": 6,
       "p_reach": 60000,
-      "t_place": 15000
+      "t_place": 15000,
+      "p_cd_1": 1200,
+      "p_cd_18": 600,
+      "t_long": 3600,
+      "t_most": 4,
+      "q_cd": 480,
+      "e_pull": 40000
     }
   },
   "tags": [
@@ -188,41 +194,8 @@
                         ]
                       },
                       {
-                        "type": "SwitchByBuff",
-                        "buff_name": "league_illaoi_p_cd",
-                        "effect_buff": {
-                          "type": "Combine",
-                          "effects": []
-                        },
-                        "effect_none": {
-                          "type": "Combine",
-                          "effects": [
-                            {
-                              "type": "AddCasterBuff",
-                              "buff_state": {
-                                "name": "league_illaoi_p_cd",
-                                "duration": {
-                                  "Time": {
-                                    "tick": 360
-                                  }
-                                }
-                              },
-                              "only_to_enemy": false
-                            },
-                            {
-                              "type": "AddCasterBuff",
-                              "buff_state": {
-                                "name": "league_illaoi_p_new",
-                                "duration": {
-                                  "Time": {
-                                    "tick": 2
-                                  }
-                                }
-                              },
-                              "only_to_enemy": false
-                            }
-                          ]
-                        }
+                        "type": "Combine",
+                        "effects": []
                       }
                     ]
                   },
@@ -1126,6 +1099,14 @@
       "tag": "e_grab",
       "repeat": true,
       "z": 2
+    },
+    {
+      "type": "Animated",
+      "name": "league_illaoi_e_tether",
+      "anim": "asset/league/effects/league_illaoi_fx",
+      "tag": "e_tether",
+      "repeat": true,
+      "z": 2
     }
   ],
   "view_effects": [
@@ -1208,6 +1189,38 @@
       "tag": "idle",
       "z": 3,
       "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_tentacle_rise",
+      "anim": "asset/league/effects/league_illaoi_tentacle",
+      "tag": "rise",
+      "z": 1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_tentacle_sway",
+      "anim": "asset/league/effects/league_illaoi_tentacle",
+      "tag": "sway",
+      "z": 1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_tentacle_sink",
+      "anim": "asset/league/effects/league_illaoi_tentacle",
+      "tag": "sink",
+      "z": 1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_e_soul",
+      "anim": "asset/league/effects/league_illaoi_fx",
+      "tag": "e_spirit",
+      "z": 3,
+      "is_follow": false
     }
   ],
   "view_buffs": [
@@ -1224,14 +1237,6 @@
       "name": "league_illaoi_w_mark",
       "anim": "asset/league/effects/league_illaoi_fx",
       "tag": "w_mark",
-      "repeat": true,
-      "z": 3
-    },
-    {
-      "type": "Animated",
-      "name": "league_illaoi_e_spirit",
-      "anim": "asset/league/effects/league_illaoi_fx",
-      "tag": "e_spirit",
       "repeat": true,
       "z": 3
     },
