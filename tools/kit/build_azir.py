@@ -12,8 +12,9 @@ Shifting Sands (E) `skill2`, Emperor's Divide (R) the `ult`.
           slots a-c (`b<s>`, s_life ticks): a new soldier takes the first free one, so at most three stand. His attack
           raises `cmd` for cmd_t ticks: every soldier with an enemy within s_r stabs ONE of them then (the slot's lock
           `k<s>`), s_dmg + s_ap% AP; when no soldier stabbed (`stabbed`) his own sand bolt flies instead (100% AD;
-          League: soldiers attack for him when the target is in their reach). An attack with p_cd off raises a soldier on
-          its target's spot (League: W, two charges, 10 s soldiers).
+          League: soldiers attack for him when the target is in their reach). An attack with p_cd off raises a soldier
+          s_place toward its target (a hidden bolt's stop: League's W in front of him, the target in the spear's reach;
+          on the target's own spot the soldier stood inside it) (League: W, two charges, 10 s soldiers).
           Generations: every soldier belongs to the generation that was up when it rose - gA, gB or neither (C) - and
           its checkpoints and zones go on only while that generation is up. Q moves the soldiers by starting the next
           generation (A -> B -> C -> A): the old ones stop at their next checkpoint and new ones rise where Q lands. A
@@ -47,7 +48,9 @@ Numbers: League 16.20 (CommunityDragon azir.bin) read into the Magician mid rang
 balanced on the classic-SDK simulations (kd.py --lane 2, C:/t/az_sim, 2026-10-23; league_hwei +1.16 on the same games): the
 draft -3.77 (the soldiers stab, every slot casts, too little damage); without E -2.30 against -2.08 (E about even), without
 R -2.88 (R worth ~0.8); the stab is the lever (25+45% -> 65+90% AP), then reach 36000, a soldier every 150 ticks, attacks
-every 80, more health and armour: +0.45 seeds 1-8, +1.53 seeds 9-16.
+every 80, more health and armour: +0.45 seeds 1-8, +1.53 seeds 9-16. The soldiers then raised in front of him (s_place,
+not on their target: they stood inside it) lost ~0.85 (the target walks out of a spear further off); their reach 42000,
+the stab 75 + 100% AP and 1150 health: +1.18 on seeds 1-24 (league_hwei +1.16 / +1.38 on seeds 1-8 / 17-24).
 """
 import argparse
 import json
@@ -69,11 +72,12 @@ DISC = "asset/league/effects/league_azir_disc"         # the Sun Disc (the add-o
 # champion hit stops him and readies a soldier. R 200-600 + 75% AP, wall 600 wide pushed 250 forward, cd 120-90.
 P = {
     # stats (Magician mid: league_hwei 940 +94 hp, league_orianna 860 +95, 76 +6 attack, 40 +20 ap)
-    "hp": 1100, "hp_g": 92, "atk": 62, "atk_g": 6, "apw": 40, "apw_g": 20, "def": 27, "def_g": 6, "mr": 28, "mr_g": 4,
+    "hp": 1150, "hp_g": 92, "atk": 62, "atk_g": 6, "apw": 40, "apw_g": 20, "def": 27, "def_g": 6, "mr": 28, "mr_g": 4,
     "ms": 900, "ms_g": 9,
     "atk_range": 52500, "atk_dur": 27, "atk_cd": 80, "a_rel": 10, "a_speed": 4500, "a_y": -3000,
     # passive: the soldiers
-    "p_cd": 150, "s_life": 480, "s_step": 40, "s_r": 36000, "s_per": 2, "cmd_t": 2, "s_dmg": 65, "s_ap": 90,
+    "p_cd": 150, "s_life": 480, "s_step": 40, "s_r": 42000, "s_per": 2, "cmd_t": 2, "s_dmg": 75, "s_ap": 100,
+    "s_place": 30000, "s_speed": 6000,
     # the controller
     "ctl_t": 3600, "ctl_p": 3,
     # skill: Q Conquering Sands
@@ -329,7 +333,9 @@ def build(p):
     hang = on_me(sw("polling", NONE, combine(refresh("polling", p["ctl_p"] + 2), casted(p["ctl_t"], p["ctl_p"], ctl))))
 
     # ------------------------------------------------------------------ attack: the sceptre points
-    spawn = sw("p_cd", NONE, combine(flag("p_cd", p["p_cd"]), by_gen(lambda g: rise(on_spot("Enemy"), g))))
+    # the soldier rises between him and his target (League's W in front of Azir, his spear reaching the target), not on it
+    ahead = lambda effects: place("s_place", p["s_speed"], p["s_place"], effects)
+    spawn = sw("p_cd", NONE, combine(flag("p_cd", p["p_cd"]), by_gen(lambda g: rise(ahead, g))))
     bolt = homing("a_bolt", "Enemy", [attack(0, 100), view("a_hit"), tsfx("a_hit")], p["a_speed"], p["a_y"])
     attack_a = action("attack", p["atk_dur"], p["atk_cd"], 1, p["atk_range"], "Targeting", "Enemy",
                       combine(decoy(0, 100), hang, alive(spawn),
@@ -375,7 +381,7 @@ def build(p):
               for i in range(1, k + 1)]
     if p["native"]:
         stamps = [{"type": "Native", "effect_ref": f"{ID}:r_wall"}]
-    wall = combine(sfx("r_wall"), view("r_rise"),
+    wall = combine(sfx("r_wall"), cview("r_rise"),
                    line("r_wall", p["r_speed"], p["r_len"], p["r_w"], "EnemyWithoutTower",
                         [ap(p["r_dmg"], p["r_ratio"]), {"type": "Knockback", "speed": p["r_kb_speed"], "tick": p["r_kb"]},
                          view("r_hit"), tsfx("r_hit")]),

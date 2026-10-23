@@ -33,7 +33,7 @@
   "stat": {
     "attack": 62,
     "magic_power": 40,
-    "hp": 1100,
+    "hp": 1150,
     "defence": 27,
     "magic_resistance": 28,
     "move_speed": 900,
@@ -790,7 +790,7 @@
                                                       "name": "league_azir_sa_ch",
                                                       "shape": {
                                                         "Circle": {
-                                                          "radius": 36000
+                                                          "radius": 42000
                                                         }
                                                       },
                                                       "tick": 480,
@@ -830,8 +830,8 @@
                                                                     },
                                                                     {
                                                                       "type": "ApAttack",
-                                                                      "damage": 65,
-                                                                      "attack_ratio": 90,
+                                                                      "damage": 75,
+                                                                      "attack_ratio": 100,
                                                                       "hp_ratio": 0,
                                                                       "can_crit": false
                                                                     },
@@ -886,7 +886,7 @@
                                                       "name": "league_azir_sa_all",
                                                       "shape": {
                                                         "Circle": {
-                                                          "radius": 36000
+                                                          "radius": 42000
                                                         }
                                                       },
                                                       "tick": 480,
@@ -926,8 +926,8 @@
                                                                     },
                                                                     {
                                                                       "type": "ApAttack",
-                                                                      "damage": 65,
-                                                                      "attack_ratio": 90,
+                                                                      "damage": 75,
+                                                                      "attack_ratio": 100,
                                                                       "hp_ratio": 0,
                                                                       "can_crit": false
                                                                     },
@@ -1217,7 +1217,7 @@
                                                       "name": "league_azir_sb_ch",
                                                       "shape": {
                                                         "Circle": {
-                                                          "radius": 36000
+                                                          "radius": 42000
                                                         }
                                                       },
                                                       "tick": 480,
@@ -1257,8 +1257,8 @@
                                                                     },
                                                                     {
                                                                       "type": "ApAttack",
-                                                                      "damage": 65,
-                                                                      "attack_ratio": 90,
+                                                                      "damage": 75,
+                                                                      "attack_ratio": 100,
                                                                       "hp_ratio": 0,
                                                                       "can_crit": false
                                                                     },
@@ -1313,7 +1313,7 @@
                                                       "name": "league_azir_sb_all",
                                                       "shape": {
                                                         "Circle": {
-                                                          "radius": 36000
+                                                          "radius": 42000
                                                         }
                                                       },
                                                       "tick": 480,
@@ -1353,8 +1353,8 @@
                                                                     },
                                                                     {
                                                                       "type": "ApAttack",
-                                                                      "damage": 65,
-                                                                      "attack_ratio": 90,
+                                                                      "damage": 75,
+                                                                      "attack_ratio": 100,
                                                                       "hp_ratio": 0,
                                                                       "can_crit": false
                                                                     },
@@ -1644,7 +1644,7 @@
                                                       "name": "league_azir_sc_ch",
                                                       "shape": {
                                                         "Circle": {
-                                                          "radius": 36000
+                                                          "radius": 42000
                                                         }
                                                       },
                                                       "tick": 480,
@@ -1684,8 +1684,8 @@
                                                                     },
                                                                     {
                                                                       "type": "ApAttack",
-                                                                      "damage": 65,
-                                                                      "attack_ratio": 90,
+                                                                      "damage": 75,
+                                                                      "attack_ratio": 100,
                                                                       "hp_ratio": 0,
                                                                       "can_crit": false
                                                                     },
@@ -1740,7 +1740,7 @@
                                                       "name": "league_azir_sc_all",
                                                       "shape": {
                                                         "Circle": {
-                                                          "radius": 36000
+                                                          "radius": 42000
                                                         }
                                                       },
                                                       "tick": 480,
@@ -1780,8 +1780,8 @@
                                                                     },
                                                                     {
                                                                       "type": "ApAttack",
-                                                                      "damage": 65,
-                                                                      "attack_ratio": 90,
+                                                                      "damage": 75,
+                                                                      "attack_ratio": 100,
                                                                       "hp_ratio": 0,
                                                                       "can_crit": false
                                                                     },
@@ -2560,7 +2560,7 @@
                                                         "name": "league_azir_sa_ch",
                                                         "shape": {
                                                           "Circle": {
-                                                            "radius": 36000
+                                                            "radius": 42000
                                                           }
                                                         },
                                                         "tick": 480,
@@ -2611,8 +2611,8 @@
                                                                         },
                                                                         {
                                                                           "type": "ApAttack",
-                                                                          "damage": 65,
-                                                                          "attack_ratio": 90,
+                                                                          "damage": 75,
+                                                                          "attack_ratio": 100,
                                                                           "hp_ratio": 0,
                                                                           "can_crit": false
                                                                         },
@@ -2664,7 +2664,7 @@
                                                         "name": "league_azir_sa_all",
                                                         "shape": {
                                                           "Circle": {
-                                                            "radius": 36000
+                                                            "radius": 42000
                                                           }
                                                         },
                                                         "tick": 480,
@@ -2715,8 +2715,8 @@
                                                                         },
                                                                         {
                                                                           "type": "ApAttack",
-                                                                          "damage": 65,
-                                                                          "attack_ratio": 90,
+                                                                          "damage": 75,
+                                                                          "attack_ratio": 100,
                                                                           "hp_ratio": 0,
                                                                           "can_crit": false
                                                                         },
@@ -3099,7 +3099,7 @@
                                                         "name": "league_azir_sb_ch",
                                                         "shape": {
                                                           "Circle": {
-                                                            "radius": 36000
+                                                            "radius": 42000
                                                           }
                                                         },
                                                         "tick": 480,
@@ -3150,8 +3150,8 @@
                                                                         },
                                                                         {
                                                                           "type": "ApAttack",
-                                                                          "damage": 65,
-                                                                          "attack_ratio": 90,
+                                                                          "damage": 75,
+                                                                          "attack_ratio": 100,
                                                                           "hp_ratio": 0,
                                                                           "can_crit": false
                                                                         },
@@ -3203,7 +3203,7 @@
                                                         "name": "league_azir_sb_all",
                                                         "shape": {
                                                           "Circle": {
-                                                            "radius": 36000
+                                                            "radius": 42000
                                                           }
                                                         },
                                                         "tick": 480,
@@ -3254,8 +3254,8 @@
                                                                         },
                                                                         {
                                                                           "type": "ApAttack",
-                                                                          "damage": 65,
-                                                                          "attack_ratio": 90,
+                                                                          "damage": 75,
+                                                                          "attack_ratio": 100,
                                                                           "hp_ratio": 0,
                                                                           "can_crit": false
                                                                         },
@@ -3638,7 +3638,7 @@
                                                         "name": "league_azir_sc_ch",
                                                         "shape": {
                                                           "Circle": {
-                                                            "radius": 36000
+                                                            "radius": 42000
                                                           }
                                                         },
                                                         "tick": 480,
@@ -3689,8 +3689,8 @@
                                                                         },
                                                                         {
                                                                           "type": "ApAttack",
-                                                                          "damage": 65,
-                                                                          "attack_ratio": 90,
+                                                                          "damage": 75,
+                                                                          "attack_ratio": 100,
                                                                           "hp_ratio": 0,
                                                                           "can_crit": false
                                                                         },
@@ -3742,7 +3742,7 @@
                                                         "name": "league_azir_sc_all",
                                                         "shape": {
                                                           "Circle": {
-                                                            "radius": 36000
+                                                            "radius": 42000
                                                           }
                                                         },
                                                         "tick": 480,
@@ -3793,8 +3793,8 @@
                                                                         },
                                                                         {
                                                                           "type": "ApAttack",
-                                                                          "damage": 65,
-                                                                          "attack_ratio": 90,
+                                                                          "damage": 75,
+                                                                          "attack_ratio": 100,
                                                                           "hp_ratio": 0,
                                                                           "can_crit": false
                                                                         },
@@ -4479,7 +4479,7 @@
                                                         "name": "league_azir_sa_ch",
                                                         "shape": {
                                                           "Circle": {
-                                                            "radius": 36000
+                                                            "radius": 42000
                                                           }
                                                         },
                                                         "tick": 480,
@@ -4519,8 +4519,8 @@
                                                                       },
                                                                       {
                                                                         "type": "ApAttack",
-                                                                        "damage": 65,
-                                                                        "attack_ratio": 90,
+                                                                        "damage": 75,
+                                                                        "attack_ratio": 100,
                                                                         "hp_ratio": 0,
                                                                         "can_crit": false
                                                                       },
@@ -4575,7 +4575,7 @@
                                                         "name": "league_azir_sa_all",
                                                         "shape": {
                                                           "Circle": {
-                                                            "radius": 36000
+                                                            "radius": 42000
                                                           }
                                                         },
                                                         "tick": 480,
@@ -4615,8 +4615,8 @@
                                                                       },
                                                                       {
                                                                         "type": "ApAttack",
-                                                                        "damage": 65,
-                                                                        "attack_ratio": 90,
+                                                                        "damage": 75,
+                                                                        "attack_ratio": 100,
                                                                         "hp_ratio": 0,
                                                                         "can_crit": false
                                                                       },
@@ -4906,7 +4906,7 @@
                                                         "name": "league_azir_sb_ch",
                                                         "shape": {
                                                           "Circle": {
-                                                            "radius": 36000
+                                                            "radius": 42000
                                                           }
                                                         },
                                                         "tick": 480,
@@ -4946,8 +4946,8 @@
                                                                       },
                                                                       {
                                                                         "type": "ApAttack",
-                                                                        "damage": 65,
-                                                                        "attack_ratio": 90,
+                                                                        "damage": 75,
+                                                                        "attack_ratio": 100,
                                                                         "hp_ratio": 0,
                                                                         "can_crit": false
                                                                       },
@@ -5002,7 +5002,7 @@
                                                         "name": "league_azir_sb_all",
                                                         "shape": {
                                                           "Circle": {
-                                                            "radius": 36000
+                                                            "radius": 42000
                                                           }
                                                         },
                                                         "tick": 480,
@@ -5042,8 +5042,8 @@
                                                                       },
                                                                       {
                                                                         "type": "ApAttack",
-                                                                        "damage": 65,
-                                                                        "attack_ratio": 90,
+                                                                        "damage": 75,
+                                                                        "attack_ratio": 100,
                                                                         "hp_ratio": 0,
                                                                         "can_crit": false
                                                                       },
@@ -5333,7 +5333,7 @@
                                                         "name": "league_azir_sc_ch",
                                                         "shape": {
                                                           "Circle": {
-                                                            "radius": 36000
+                                                            "radius": 42000
                                                           }
                                                         },
                                                         "tick": 480,
@@ -5373,8 +5373,8 @@
                                                                       },
                                                                       {
                                                                         "type": "ApAttack",
-                                                                        "damage": 65,
-                                                                        "attack_ratio": 90,
+                                                                        "damage": 75,
+                                                                        "attack_ratio": 100,
                                                                         "hp_ratio": 0,
                                                                         "can_crit": false
                                                                       },
@@ -5429,7 +5429,7 @@
                                                         "name": "league_azir_sc_all",
                                                         "shape": {
                                                           "Circle": {
-                                                            "radius": 36000
+                                                            "radius": 42000
                                                           }
                                                         },
                                                         "tick": 480,
@@ -5469,8 +5469,8 @@
                                                                       },
                                                                       {
                                                                         "type": "ApAttack",
-                                                                        "damage": 65,
-                                                                        "attack_ratio": 90,
+                                                                        "damage": 75,
+                                                                        "attack_ratio": 100,
                                                                         "hp_ratio": 0,
                                                                         "can_crit": false
                                                                       },
@@ -5870,7 +5870,7 @@
                                                       "name": "league_azir_sc_ch",
                                                       "shape": {
                                                         "Circle": {
-                                                          "radius": 36000
+                                                          "radius": 42000
                                                         }
                                                       },
                                                       "tick": 480,
@@ -5910,8 +5910,8 @@
                                                                     },
                                                                     {
                                                                       "type": "ApAttack",
-                                                                      "damage": 65,
-                                                                      "attack_ratio": 90,
+                                                                      "damage": 75,
+                                                                      "attack_ratio": 100,
                                                                       "hp_ratio": 0,
                                                                       "can_crit": false
                                                                     },
@@ -5966,7 +5966,7 @@
                                                       "name": "league_azir_sc_all",
                                                       "shape": {
                                                         "Circle": {
-                                                          "radius": 36000
+                                                          "radius": 42000
                                                         }
                                                       },
                                                       "tick": 480,
@@ -6006,8 +6006,8 @@
                                                                     },
                                                                     {
                                                                       "type": "ApAttack",
-                                                                      "damage": 65,
-                                                                      "attack_ratio": 90,
+                                                                      "damage": 75,
+                                                                      "attack_ratio": 100,
                                                                       "hp_ratio": 0,
                                                                       "can_crit": false
                                                                     },
@@ -6323,7 +6323,7 @@
                                                     "name": "league_azir_sb_ch",
                                                     "shape": {
                                                       "Circle": {
-                                                        "radius": 36000
+                                                        "radius": 42000
                                                       }
                                                     },
                                                     "tick": 480,
@@ -6363,8 +6363,8 @@
                                                                   },
                                                                   {
                                                                     "type": "ApAttack",
-                                                                    "damage": 65,
-                                                                    "attack_ratio": 90,
+                                                                    "damage": 75,
+                                                                    "attack_ratio": 100,
                                                                     "hp_ratio": 0,
                                                                     "can_crit": false
                                                                   },
@@ -6419,7 +6419,7 @@
                                                     "name": "league_azir_sb_all",
                                                     "shape": {
                                                       "Circle": {
-                                                        "radius": 36000
+                                                        "radius": 42000
                                                       }
                                                     },
                                                     "tick": 480,
@@ -6459,8 +6459,8 @@
                                                                   },
                                                                   {
                                                                     "type": "ApAttack",
-                                                                    "damage": 65,
-                                                                    "attack_ratio": 90,
+                                                                    "damage": 75,
+                                                                    "attack_ratio": 100,
                                                                     "hp_ratio": 0,
                                                                     "can_crit": false
                                                                   },
@@ -6776,7 +6776,7 @@
                                                   "name": "league_azir_sa_ch",
                                                   "shape": {
                                                     "Circle": {
-                                                      "radius": 36000
+                                                      "radius": 42000
                                                     }
                                                   },
                                                   "tick": 480,
@@ -6816,8 +6816,8 @@
                                                                 },
                                                                 {
                                                                   "type": "ApAttack",
-                                                                  "damage": 65,
-                                                                  "attack_ratio": 90,
+                                                                  "damage": 75,
+                                                                  "attack_ratio": 100,
                                                                   "hp_ratio": 0,
                                                                   "can_crit": false
                                                                 },
@@ -6872,7 +6872,7 @@
                                                   "name": "league_azir_sa_all",
                                                   "shape": {
                                                     "Circle": {
-                                                      "radius": 36000
+                                                      "radius": 42000
                                                     }
                                                   },
                                                   "tick": 480,
@@ -6912,8 +6912,8 @@
                                                                 },
                                                                 {
                                                                   "type": "ApAttack",
-                                                                  "damage": 65,
-                                                                  "attack_ratio": 90,
+                                                                  "damage": 75,
+                                                                  "attack_ratio": 100,
                                                                   "hp_ratio": 0,
                                                                   "can_crit": false
                                                                 },
@@ -7245,7 +7245,7 @@
                                                         "name": "league_azir_sc_ch",
                                                         "shape": {
                                                           "Circle": {
-                                                            "radius": 36000
+                                                            "radius": 42000
                                                           }
                                                         },
                                                         "tick": 480,
@@ -7285,8 +7285,8 @@
                                                                       },
                                                                       {
                                                                         "type": "ApAttack",
-                                                                        "damage": 65,
-                                                                        "attack_ratio": 90,
+                                                                        "damage": 75,
+                                                                        "attack_ratio": 100,
                                                                         "hp_ratio": 0,
                                                                         "can_crit": false
                                                                       },
@@ -7341,7 +7341,7 @@
                                                         "name": "league_azir_sc_all",
                                                         "shape": {
                                                           "Circle": {
-                                                            "radius": 36000
+                                                            "radius": 42000
                                                           }
                                                         },
                                                         "tick": 480,
@@ -7381,8 +7381,8 @@
                                                                       },
                                                                       {
                                                                         "type": "ApAttack",
-                                                                        "damage": 65,
-                                                                        "attack_ratio": 90,
+                                                                        "damage": 75,
+                                                                        "attack_ratio": 100,
                                                                         "hp_ratio": 0,
                                                                         "can_crit": false
                                                                       },
@@ -7698,7 +7698,7 @@
                                                       "name": "league_azir_sb_ch",
                                                       "shape": {
                                                         "Circle": {
-                                                          "radius": 36000
+                                                          "radius": 42000
                                                         }
                                                       },
                                                       "tick": 480,
@@ -7738,8 +7738,8 @@
                                                                     },
                                                                     {
                                                                       "type": "ApAttack",
-                                                                      "damage": 65,
-                                                                      "attack_ratio": 90,
+                                                                      "damage": 75,
+                                                                      "attack_ratio": 100,
                                                                       "hp_ratio": 0,
                                                                       "can_crit": false
                                                                     },
@@ -7794,7 +7794,7 @@
                                                       "name": "league_azir_sb_all",
                                                       "shape": {
                                                         "Circle": {
-                                                          "radius": 36000
+                                                          "radius": 42000
                                                         }
                                                       },
                                                       "tick": 480,
@@ -7834,8 +7834,8 @@
                                                                     },
                                                                     {
                                                                       "type": "ApAttack",
-                                                                      "damage": 65,
-                                                                      "attack_ratio": 90,
+                                                                      "damage": 75,
+                                                                      "attack_ratio": 100,
                                                                       "hp_ratio": 0,
                                                                       "can_crit": false
                                                                     },
@@ -8151,7 +8151,7 @@
                                                     "name": "league_azir_sa_ch",
                                                     "shape": {
                                                       "Circle": {
-                                                        "radius": 36000
+                                                        "radius": 42000
                                                       }
                                                     },
                                                     "tick": 480,
@@ -8191,8 +8191,8 @@
                                                                   },
                                                                   {
                                                                     "type": "ApAttack",
-                                                                    "damage": 65,
-                                                                    "attack_ratio": 90,
+                                                                    "damage": 75,
+                                                                    "attack_ratio": 100,
                                                                     "hp_ratio": 0,
                                                                     "can_crit": false
                                                                   },
@@ -8247,7 +8247,7 @@
                                                     "name": "league_azir_sa_all",
                                                     "shape": {
                                                       "Circle": {
-                                                        "radius": 36000
+                                                        "radius": 42000
                                                       }
                                                     },
                                                     "tick": 480,
@@ -8287,8 +8287,8 @@
                                                                   },
                                                                   {
                                                                     "type": "ApAttack",
-                                                                    "damage": 65,
-                                                                    "attack_ratio": 90,
+                                                                    "damage": 75,
+                                                                    "attack_ratio": 100,
                                                                     "hp_ratio": 0,
                                                                     "can_crit": false
                                                                   },
@@ -8713,7 +8713,7 @@
                                                         "name": "league_azir_sc_ch",
                                                         "shape": {
                                                           "Circle": {
-                                                            "radius": 36000
+                                                            "radius": 42000
                                                           }
                                                         },
                                                         "tick": 480,
@@ -8764,8 +8764,8 @@
                                                                         },
                                                                         {
                                                                           "type": "ApAttack",
-                                                                          "damage": 65,
-                                                                          "attack_ratio": 90,
+                                                                          "damage": 75,
+                                                                          "attack_ratio": 100,
                                                                           "hp_ratio": 0,
                                                                           "can_crit": false
                                                                         },
@@ -8817,7 +8817,7 @@
                                                         "name": "league_azir_sc_all",
                                                         "shape": {
                                                           "Circle": {
-                                                            "radius": 36000
+                                                            "radius": 42000
                                                           }
                                                         },
                                                         "tick": 480,
@@ -8868,8 +8868,8 @@
                                                                         },
                                                                         {
                                                                           "type": "ApAttack",
-                                                                          "damage": 65,
-                                                                          "attack_ratio": 90,
+                                                                          "damage": 75,
+                                                                          "attack_ratio": 100,
                                                                           "hp_ratio": 0,
                                                                           "can_crit": false
                                                                         },
@@ -9278,7 +9278,7 @@
                                                       "name": "league_azir_sb_ch",
                                                       "shape": {
                                                         "Circle": {
-                                                          "radius": 36000
+                                                          "radius": 42000
                                                         }
                                                       },
                                                       "tick": 480,
@@ -9329,8 +9329,8 @@
                                                                       },
                                                                       {
                                                                         "type": "ApAttack",
-                                                                        "damage": 65,
-                                                                        "attack_ratio": 90,
+                                                                        "damage": 75,
+                                                                        "attack_ratio": 100,
                                                                         "hp_ratio": 0,
                                                                         "can_crit": false
                                                                       },
@@ -9382,7 +9382,7 @@
                                                       "name": "league_azir_sb_all",
                                                       "shape": {
                                                         "Circle": {
-                                                          "radius": 36000
+                                                          "radius": 42000
                                                         }
                                                       },
                                                       "tick": 480,
@@ -9433,8 +9433,8 @@
                                                                       },
                                                                       {
                                                                         "type": "ApAttack",
-                                                                        "damage": 65,
-                                                                        "attack_ratio": 90,
+                                                                        "damage": 75,
+                                                                        "attack_ratio": 100,
                                                                         "hp_ratio": 0,
                                                                         "can_crit": false
                                                                       },
@@ -9843,7 +9843,7 @@
                                                     "name": "league_azir_sa_ch",
                                                     "shape": {
                                                       "Circle": {
-                                                        "radius": 36000
+                                                        "radius": 42000
                                                       }
                                                     },
                                                     "tick": 480,
@@ -9894,8 +9894,8 @@
                                                                     },
                                                                     {
                                                                       "type": "ApAttack",
-                                                                      "damage": 65,
-                                                                      "attack_ratio": 90,
+                                                                      "damage": 75,
+                                                                      "attack_ratio": 100,
                                                                       "hp_ratio": 0,
                                                                       "can_crit": false
                                                                     },
@@ -9947,7 +9947,7 @@
                                                     "name": "league_azir_sa_all",
                                                     "shape": {
                                                       "Circle": {
-                                                        "radius": 36000
+                                                        "radius": 42000
                                                       }
                                                     },
                                                     "tick": 480,
@@ -9998,8 +9998,8 @@
                                                                     },
                                                                     {
                                                                       "type": "ApAttack",
-                                                                      "damage": 65,
-                                                                      "attack_ratio": 90,
+                                                                      "damage": 75,
+                                                                      "attack_ratio": 100,
                                                                       "hp_ratio": 0,
                                                                       "can_crit": false
                                                                     },
@@ -10167,17 +10167,18 @@
                                       ]
                                     },
                                     {
-                                      "type": "ParabolicProjectile",
-                                      "name": "league_azir_s_lob",
-                                      "travel_time": 1,
-                                      "range": 400000,
-                                      "range_effect_name": "",
+                                      "type": "LinearProjectile",
+                                      "name": "league_azir_s_place",
+                                      "speed": 6000,
+                                      "range": 30000,
+                                      "y_offset": 0,
+                                      "penetrate": true,
                                       "shape": {
                                         "Circle": {
                                           "radius": 1
                                         }
                                       },
-                                      "applied_target": "Enemy",
+                                      "applied_target": "EnemyChampion",
                                       "applied_effects": [],
                                       "end_effects": [
                                         {
@@ -10403,7 +10404,7 @@
                                           "name": "league_azir_sc_ch",
                                           "shape": {
                                             "Circle": {
-                                              "radius": 36000
+                                              "radius": 42000
                                             }
                                           },
                                           "tick": 480,
@@ -10443,8 +10444,8 @@
                                                         },
                                                         {
                                                           "type": "ApAttack",
-                                                          "damage": 65,
-                                                          "attack_ratio": 90,
+                                                          "damage": 75,
+                                                          "attack_ratio": 100,
                                                           "hp_ratio": 0,
                                                           "can_crit": false
                                                         },
@@ -10499,7 +10500,7 @@
                                           "name": "league_azir_sc_all",
                                           "shape": {
                                             "Circle": {
-                                              "radius": 36000
+                                              "radius": 42000
                                             }
                                           },
                                           "tick": 480,
@@ -10539,8 +10540,8 @@
                                                         },
                                                         {
                                                           "type": "ApAttack",
-                                                          "damage": 65,
-                                                          "attack_ratio": 90,
+                                                          "damage": 75,
+                                                          "attack_ratio": 100,
                                                           "hp_ratio": 0,
                                                           "can_crit": false
                                                         },
@@ -10620,17 +10621,18 @@
                                     ]
                                   },
                                   {
-                                    "type": "ParabolicProjectile",
-                                    "name": "league_azir_s_lob",
-                                    "travel_time": 1,
-                                    "range": 400000,
-                                    "range_effect_name": "",
+                                    "type": "LinearProjectile",
+                                    "name": "league_azir_s_place",
+                                    "speed": 6000,
+                                    "range": 30000,
+                                    "y_offset": 0,
+                                    "penetrate": true,
                                     "shape": {
                                       "Circle": {
                                         "radius": 1
                                       }
                                     },
-                                    "applied_target": "Enemy",
+                                    "applied_target": "EnemyChampion",
                                     "applied_effects": [],
                                     "end_effects": [
                                       {
@@ -10856,7 +10858,7 @@
                                         "name": "league_azir_sb_ch",
                                         "shape": {
                                           "Circle": {
-                                            "radius": 36000
+                                            "radius": 42000
                                           }
                                         },
                                         "tick": 480,
@@ -10896,8 +10898,8 @@
                                                       },
                                                       {
                                                         "type": "ApAttack",
-                                                        "damage": 65,
-                                                        "attack_ratio": 90,
+                                                        "damage": 75,
+                                                        "attack_ratio": 100,
                                                         "hp_ratio": 0,
                                                         "can_crit": false
                                                       },
@@ -10952,7 +10954,7 @@
                                         "name": "league_azir_sb_all",
                                         "shape": {
                                           "Circle": {
-                                            "radius": 36000
+                                            "radius": 42000
                                           }
                                         },
                                         "tick": 480,
@@ -10992,8 +10994,8 @@
                                                       },
                                                       {
                                                         "type": "ApAttack",
-                                                        "damage": 65,
-                                                        "attack_ratio": 90,
+                                                        "damage": 75,
+                                                        "attack_ratio": 100,
                                                         "hp_ratio": 0,
                                                         "can_crit": false
                                                       },
@@ -11073,17 +11075,18 @@
                                   ]
                                 },
                                 {
-                                  "type": "ParabolicProjectile",
-                                  "name": "league_azir_s_lob",
-                                  "travel_time": 1,
-                                  "range": 400000,
-                                  "range_effect_name": "",
+                                  "type": "LinearProjectile",
+                                  "name": "league_azir_s_place",
+                                  "speed": 6000,
+                                  "range": 30000,
+                                  "y_offset": 0,
+                                  "penetrate": true,
                                   "shape": {
                                     "Circle": {
                                       "radius": 1
                                     }
                                   },
-                                  "applied_target": "Enemy",
+                                  "applied_target": "EnemyChampion",
                                   "applied_effects": [],
                                   "end_effects": [
                                     {
@@ -11309,7 +11312,7 @@
                                       "name": "league_azir_sa_ch",
                                       "shape": {
                                         "Circle": {
-                                          "radius": 36000
+                                          "radius": 42000
                                         }
                                       },
                                       "tick": 480,
@@ -11349,8 +11352,8 @@
                                                     },
                                                     {
                                                       "type": "ApAttack",
-                                                      "damage": 65,
-                                                      "attack_ratio": 90,
+                                                      "damage": 75,
+                                                      "attack_ratio": 100,
                                                       "hp_ratio": 0,
                                                       "can_crit": false
                                                     },
@@ -11405,7 +11408,7 @@
                                       "name": "league_azir_sa_all",
                                       "shape": {
                                         "Circle": {
-                                          "radius": 36000
+                                          "radius": 42000
                                         }
                                       },
                                       "tick": 480,
@@ -11445,8 +11448,8 @@
                                                     },
                                                     {
                                                       "type": "ApAttack",
-                                                      "damage": 65,
-                                                      "attack_ratio": 90,
+                                                      "damage": 75,
+                                                      "attack_ratio": 100,
                                                       "hp_ratio": 0,
                                                       "can_crit": false
                                                     },
@@ -11542,17 +11545,18 @@
                                         ]
                                       },
                                       {
-                                        "type": "ParabolicProjectile",
-                                        "name": "league_azir_s_lob",
-                                        "travel_time": 1,
-                                        "range": 400000,
-                                        "range_effect_name": "",
+                                        "type": "LinearProjectile",
+                                        "name": "league_azir_s_place",
+                                        "speed": 6000,
+                                        "range": 30000,
+                                        "y_offset": 0,
+                                        "penetrate": true,
                                         "shape": {
                                           "Circle": {
                                             "radius": 1
                                           }
                                         },
-                                        "applied_target": "Enemy",
+                                        "applied_target": "EnemyChampion",
                                         "applied_effects": [],
                                         "end_effects": [
                                           {
@@ -11778,7 +11782,7 @@
                                             "name": "league_azir_sc_ch",
                                             "shape": {
                                               "Circle": {
-                                                "radius": 36000
+                                                "radius": 42000
                                               }
                                             },
                                             "tick": 480,
@@ -11818,8 +11822,8 @@
                                                           },
                                                           {
                                                             "type": "ApAttack",
-                                                            "damage": 65,
-                                                            "attack_ratio": 90,
+                                                            "damage": 75,
+                                                            "attack_ratio": 100,
                                                             "hp_ratio": 0,
                                                             "can_crit": false
                                                           },
@@ -11874,7 +11878,7 @@
                                             "name": "league_azir_sc_all",
                                             "shape": {
                                               "Circle": {
-                                                "radius": 36000
+                                                "radius": 42000
                                               }
                                             },
                                             "tick": 480,
@@ -11914,8 +11918,8 @@
                                                           },
                                                           {
                                                             "type": "ApAttack",
-                                                            "damage": 65,
-                                                            "attack_ratio": 90,
+                                                            "damage": 75,
+                                                            "attack_ratio": 100,
                                                             "hp_ratio": 0,
                                                             "can_crit": false
                                                           },
@@ -11995,17 +11999,18 @@
                                       ]
                                     },
                                     {
-                                      "type": "ParabolicProjectile",
-                                      "name": "league_azir_s_lob",
-                                      "travel_time": 1,
-                                      "range": 400000,
-                                      "range_effect_name": "",
+                                      "type": "LinearProjectile",
+                                      "name": "league_azir_s_place",
+                                      "speed": 6000,
+                                      "range": 30000,
+                                      "y_offset": 0,
+                                      "penetrate": true,
                                       "shape": {
                                         "Circle": {
                                           "radius": 1
                                         }
                                       },
-                                      "applied_target": "Enemy",
+                                      "applied_target": "EnemyChampion",
                                       "applied_effects": [],
                                       "end_effects": [
                                         {
@@ -12231,7 +12236,7 @@
                                           "name": "league_azir_sb_ch",
                                           "shape": {
                                             "Circle": {
-                                              "radius": 36000
+                                              "radius": 42000
                                             }
                                           },
                                           "tick": 480,
@@ -12271,8 +12276,8 @@
                                                         },
                                                         {
                                                           "type": "ApAttack",
-                                                          "damage": 65,
-                                                          "attack_ratio": 90,
+                                                          "damage": 75,
+                                                          "attack_ratio": 100,
                                                           "hp_ratio": 0,
                                                           "can_crit": false
                                                         },
@@ -12327,7 +12332,7 @@
                                           "name": "league_azir_sb_all",
                                           "shape": {
                                             "Circle": {
-                                              "radius": 36000
+                                              "radius": 42000
                                             }
                                           },
                                           "tick": 480,
@@ -12367,8 +12372,8 @@
                                                         },
                                                         {
                                                           "type": "ApAttack",
-                                                          "damage": 65,
-                                                          "attack_ratio": 90,
+                                                          "damage": 75,
+                                                          "attack_ratio": 100,
                                                           "hp_ratio": 0,
                                                           "can_crit": false
                                                         },
@@ -12448,17 +12453,18 @@
                                     ]
                                   },
                                   {
-                                    "type": "ParabolicProjectile",
-                                    "name": "league_azir_s_lob",
-                                    "travel_time": 1,
-                                    "range": 400000,
-                                    "range_effect_name": "",
+                                    "type": "LinearProjectile",
+                                    "name": "league_azir_s_place",
+                                    "speed": 6000,
+                                    "range": 30000,
+                                    "y_offset": 0,
+                                    "penetrate": true,
                                     "shape": {
                                       "Circle": {
                                         "radius": 1
                                       }
                                     },
-                                    "applied_target": "Enemy",
+                                    "applied_target": "EnemyChampion",
                                     "applied_effects": [],
                                     "end_effects": [
                                       {
@@ -12684,7 +12690,7 @@
                                         "name": "league_azir_sa_ch",
                                         "shape": {
                                           "Circle": {
-                                            "radius": 36000
+                                            "radius": 42000
                                           }
                                         },
                                         "tick": 480,
@@ -12724,8 +12730,8 @@
                                                       },
                                                       {
                                                         "type": "ApAttack",
-                                                        "damage": 65,
-                                                        "attack_ratio": 90,
+                                                        "damage": 75,
+                                                        "attack_ratio": 100,
                                                         "hp_ratio": 0,
                                                         "can_crit": false
                                                       },
@@ -12780,7 +12786,7 @@
                                         "name": "league_azir_sa_all",
                                         "shape": {
                                           "Circle": {
-                                            "radius": 36000
+                                            "radius": 42000
                                           }
                                         },
                                         "tick": 480,
@@ -12820,8 +12826,8 @@
                                                       },
                                                       {
                                                         "type": "ApAttack",
-                                                        "damage": 65,
-                                                        "attack_ratio": 90,
+                                                        "damage": 75,
+                                                        "attack_ratio": 100,
                                                         "hp_ratio": 0,
                                                         "can_crit": false
                                                       },
@@ -12914,17 +12920,18 @@
                                         ]
                                       },
                                       {
-                                        "type": "ParabolicProjectile",
-                                        "name": "league_azir_s_lob",
-                                        "travel_time": 1,
-                                        "range": 400000,
-                                        "range_effect_name": "",
+                                        "type": "LinearProjectile",
+                                        "name": "league_azir_s_place",
+                                        "speed": 6000,
+                                        "range": 30000,
+                                        "y_offset": 0,
+                                        "penetrate": true,
                                         "shape": {
                                           "Circle": {
                                             "radius": 1
                                           }
                                         },
-                                        "applied_target": "Enemy",
+                                        "applied_target": "EnemyChampion",
                                         "applied_effects": [],
                                         "end_effects": [
                                           {
@@ -13246,7 +13253,7 @@
                                             "name": "league_azir_sc_ch",
                                             "shape": {
                                               "Circle": {
-                                                "radius": 36000
+                                                "radius": 42000
                                               }
                                             },
                                             "tick": 480,
@@ -13297,8 +13304,8 @@
                                                             },
                                                             {
                                                               "type": "ApAttack",
-                                                              "damage": 65,
-                                                              "attack_ratio": 90,
+                                                              "damage": 75,
+                                                              "attack_ratio": 100,
                                                               "hp_ratio": 0,
                                                               "can_crit": false
                                                             },
@@ -13350,7 +13357,7 @@
                                             "name": "league_azir_sc_all",
                                             "shape": {
                                               "Circle": {
-                                                "radius": 36000
+                                                "radius": 42000
                                               }
                                             },
                                             "tick": 480,
@@ -13401,8 +13408,8 @@
                                                             },
                                                             {
                                                               "type": "ApAttack",
-                                                              "damage": 65,
-                                                              "attack_ratio": 90,
+                                                              "damage": 75,
+                                                              "attack_ratio": 100,
                                                               "hp_ratio": 0,
                                                               "can_crit": false
                                                             },
@@ -13479,17 +13486,18 @@
                                       ]
                                     },
                                     {
-                                      "type": "ParabolicProjectile",
-                                      "name": "league_azir_s_lob",
-                                      "travel_time": 1,
-                                      "range": 400000,
-                                      "range_effect_name": "",
+                                      "type": "LinearProjectile",
+                                      "name": "league_azir_s_place",
+                                      "speed": 6000,
+                                      "range": 30000,
+                                      "y_offset": 0,
+                                      "penetrate": true,
                                       "shape": {
                                         "Circle": {
                                           "radius": 1
                                         }
                                       },
-                                      "applied_target": "Enemy",
+                                      "applied_target": "EnemyChampion",
                                       "applied_effects": [],
                                       "end_effects": [
                                         {
@@ -13811,7 +13819,7 @@
                                           "name": "league_azir_sb_ch",
                                           "shape": {
                                             "Circle": {
-                                              "radius": 36000
+                                              "radius": 42000
                                             }
                                           },
                                           "tick": 480,
@@ -13862,8 +13870,8 @@
                                                           },
                                                           {
                                                             "type": "ApAttack",
-                                                            "damage": 65,
-                                                            "attack_ratio": 90,
+                                                            "damage": 75,
+                                                            "attack_ratio": 100,
                                                             "hp_ratio": 0,
                                                             "can_crit": false
                                                           },
@@ -13915,7 +13923,7 @@
                                           "name": "league_azir_sb_all",
                                           "shape": {
                                             "Circle": {
-                                              "radius": 36000
+                                              "radius": 42000
                                             }
                                           },
                                           "tick": 480,
@@ -13966,8 +13974,8 @@
                                                           },
                                                           {
                                                             "type": "ApAttack",
-                                                            "damage": 65,
-                                                            "attack_ratio": 90,
+                                                            "damage": 75,
+                                                            "attack_ratio": 100,
                                                             "hp_ratio": 0,
                                                             "can_crit": false
                                                           },
@@ -14044,17 +14052,18 @@
                                     ]
                                   },
                                   {
-                                    "type": "ParabolicProjectile",
-                                    "name": "league_azir_s_lob",
-                                    "travel_time": 1,
-                                    "range": 400000,
-                                    "range_effect_name": "",
+                                    "type": "LinearProjectile",
+                                    "name": "league_azir_s_place",
+                                    "speed": 6000,
+                                    "range": 30000,
+                                    "y_offset": 0,
+                                    "penetrate": true,
                                     "shape": {
                                       "Circle": {
                                         "radius": 1
                                       }
                                     },
-                                    "applied_target": "Enemy",
+                                    "applied_target": "EnemyChampion",
                                     "applied_effects": [],
                                     "end_effects": [
                                       {
@@ -14376,7 +14385,7 @@
                                         "name": "league_azir_sa_ch",
                                         "shape": {
                                           "Circle": {
-                                            "radius": 36000
+                                            "radius": 42000
                                           }
                                         },
                                         "tick": 480,
@@ -14427,8 +14436,8 @@
                                                         },
                                                         {
                                                           "type": "ApAttack",
-                                                          "damage": 65,
-                                                          "attack_ratio": 90,
+                                                          "damage": 75,
+                                                          "attack_ratio": 100,
                                                           "hp_ratio": 0,
                                                           "can_crit": false
                                                         },
@@ -14480,7 +14489,7 @@
                                         "name": "league_azir_sa_all",
                                         "shape": {
                                           "Circle": {
-                                            "radius": 36000
+                                            "radius": 42000
                                           }
                                         },
                                         "tick": 480,
@@ -14531,8 +14540,8 @@
                                                         },
                                                         {
                                                           "type": "ApAttack",
-                                                          "damage": 65,
-                                                          "attack_ratio": 90,
+                                                          "damage": 75,
+                                                          "attack_ratio": 100,
                                                           "hp_ratio": 0,
                                                           "can_crit": false
                                                         },
@@ -15816,7 +15825,7 @@
                             "name": "league_azir_r_wall"
                           },
                           {
-                            "type": "ViewEffect",
+                            "type": "CasterViewEffect",
                             "name": "league_azir_r_rise"
                           },
                           {
