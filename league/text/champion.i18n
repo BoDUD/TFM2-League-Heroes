@@ -1099,6 +1099,13 @@
         "skill": "放出咒弹穿过敌人，造成<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<>魔法伤害并留下诅咒；<#ffb900ff>0.67秒<>后把诅咒抽回，回程再造成<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<>魔法伤害。",
         "skill2": "向前喷出灵魂冲击，造成<#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>魔法伤害并<#ef5350ff>减速<>60%（逐渐减弱），随后向后跳开。",
         "ult": "跳到敌方英雄身上，冲击波造成<#a974ffff>260<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>魔法伤害并<#ef5350ff>减速<>40%；张开领域<#ffb900ff>3.5秒<>，<#ef5350ff>减速<>其中敌人30%，目标走开时她穿过领域追上去。"
+      },
+      "league_azir": {
+        "name": "阿兹尔",
+        "attack": "<#ff9028ff>沙兵现身<>：普攻每<#ffb900ff>2.5秒<>在目标处召出一个黄沙士兵（最多<#ffb900ff>3<>个，存在<#ffb900ff>8秒<>），士兵代他刺击，造成<#a974ffff>65<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<>魔法伤害；士兵都够不着时他自己射出沙光。",
+        "skill": "所有黄沙士兵冲向目标，沿途造成<#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<>魔法伤害并<#ef5350ff>减速<>25%，落地马上刺击；没有士兵时在目标处召出一个。",
+        "skill2": "身边有士兵才能施放：获得<#66bb6aff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>60%<>护盾，大招就绪时冲向敌方英雄，造成<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<>魔法伤害并召出一个士兵；被敌方英雄贴身时改为后跳。",
+        "ult": "一排禁军举盾冲锋，造成<#a974ffff>260<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<>魔法伤害并<#ef5350ff>击退<>敌人；刚用流沙移形冲到英雄身上时，先绕到他身后，再把他推回己方。"
       }
     },
     "skill_name": {
@@ -1886,6 +1893,11 @@
         "skill1": "飞去来咒",
         "skill2": "怪奇喷涌",
         "ult": "双界合一"
+      },
+      "league_azir": {
+        "skill1": "狂沙猛攻",
+        "skill2": "流沙移形",
+        "ult": "禁军之墙"
       }
     }
   },
@@ -2989,6 +3001,13 @@
         "skill": "放出咒彈穿過敵人，造成<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<>魔法傷害並留下詛咒；<#ffb900ff>0.67秒<>後把詛咒抽回，回程再造成<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<>魔法傷害。",
         "skill2": "向前噴出靈魂衝擊，造成<#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>魔法傷害並<#ef5350ff>緩速<>60%（逐漸減弱），隨後向後跳開。",
         "ult": "跳到敵方英雄身上，衝擊波造成<#a974ffff>260<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>魔法傷害並<#ef5350ff>緩速<>40%；張開領域<#ffb900ff>3.5秒<>，<#ef5350ff>緩速<>其中敵人30%，目標走開時她穿過領域追上去。"
+      },
+      "league_azir": {
+        "name": "阿祈爾",
+        "attack": "<#ff9028ff>砂漠禁軍<>：普攻每<#ffb900ff>2.5秒<>在目標處召出一名砂兵（最多<#ffb900ff>3<>名，存在<#ffb900ff>8秒<>），砂兵代他刺擊，造成<#a974ffff>65<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<>魔法傷害；砂兵都搆不著時他自己射出砂光。",
+        "skill": "所有砂兵衝向目標，沿途造成<#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<>魔法傷害並<#ef5350ff>緩速<>25%，落地立刻刺擊；沒有砂兵時在目標處召出一名。",
+        "skill2": "身邊有砂兵才能施放：獲得<#66bb6aff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>60%<>護盾，大絕就緒時衝向敵方英雄，造成<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<>魔法傷害並召出一名砂兵；被敵方英雄貼身時改為後跳。",
+        "ult": "一排禁軍舉盾衝鋒，造成<#a974ffff>260<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<>魔法傷害並<#ef5350ff>擊退<>敵人；剛用護砂瞬身衝到英雄身上時，先繞到他身後，再把他推回己方。"
       }
     },
     "skill_name": {
@@ -3776,6 +3795,11 @@
         "skill1": "二重靈咒",
         "skill2": "靈異逆躍",
         "ult": "雙界合一"
+      },
+      "league_azir": {
+        "skill1": "砂影霸者",
+        "skill2": "護砂瞬身",
+        "ult": "空砂防壁"
       }
     }
   },
@@ -4879,6 +4903,13 @@
         "skill": "A hex flies through her enemies for <#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<> magic damage, cursing them; <#ffb900ff>0.67s<> later the curses are drawn back, dealing <#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<> magic damage on the way home.",
         "skill2": "A blast of spirit magic before her: <#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> magic damage and a <#ef5350ff>slow<> of 60% that fades; then she hops back.",
         "ult": "Leaps onto an enemy champion: the shockwave deals <#a974ffff>260<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> magic damage and <#ef5350ff>slows<> 40%; a realm opens for <#ffb900ff>3.5s<>, <#ef5350ff>slowing<> the enemies in it 30%, and she steps across it after her target when it walks away."
+      },
+      "league_azir": {
+        "name": "Azir",
+        "attack": "<#ff9028ff>Arise!<>: every <#ffb900ff>2.5s<> his attack raises a sand soldier at the target (<#ffb900ff>3<> at most, <#ffb900ff>8s<>); his soldiers stab for him, <#a974ffff>65<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<> magic damage. With none in reach he shoots a sand bolt himself.",
+        "skill": "Every soldier charges at the target, <#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<> magic damage on the way and a 25% <#ef5350ff>slow<>; they stab at once on arrival. With none standing, one rises there.",
+        "skill2": "Only with a soldier up: a shield of <#66bb6aff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>60%<>, then, with his ultimate ready, a dash onto an enemy champion for <#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<> magic damage and one more soldier. Dived by a champion, he hops back instead.",
+        "ult": "A wall of guards charges out: <#a974ffff>260<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<> magic damage and <#ef5350ff>knocks back<> the enemies. Right after Shifting Sands onto a champion he steps behind it first and drives it toward his team."
       }
     },
     "skill_name": {
@@ -5666,6 +5697,11 @@
         "skill1": "Twofold Hex",
         "skill2": "The Weirding",
         "ult": "Between Worlds"
+      },
+      "league_azir": {
+        "skill1": "Conquering Sands",
+        "skill2": "Shifting Sands",
+        "ult": "Emperor's Divide"
       }
     }
   },
@@ -6769,6 +6805,13 @@
         "skill": "주문 탄이 적을 꿰뚫어 <#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<> 마법 피해와 저주; <#ffb900ff>0.67초<> 뒤 저주를 끌어당겨 돌아오는 길에 <#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<> 마법 피해.",
         "skill2": "앞으로 영혼 충격파를 뿜어 <#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> 마법 피해와 점점 약해지는 60% <#ef5350ff>둔화<>, 이후 뒤로 뛴다.",
         "ult": "적 챔피언에게 도약해 충격파로 <#a974ffff>260<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> 마법 피해와 40% <#ef5350ff>둔화<>; <#ffb900ff>3.5초<> 동안 영역을 열어 안의 적을 30% <#ef5350ff>둔화<>, 대상이 벗어나면 영역을 건너 쫓아간다."
+      },
+      "league_azir": {
+        "name": "아지르",
+        "attack": "<#ff9028ff>일어나라!<>: <#ffb900ff>2.5초<>마다 기본 공격이 대상 위치에 모래 병사를 세운다(최대 <#ffb900ff>3<>명, <#ffb900ff>8초<>). 병사가 대신 찔러 <#a974ffff>65<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<> 마법 피해; 닿는 병사가 없으면 직접 모래 빛을 쏜다.",
+        "skill": "모든 병사가 대상에게 돌진해 지나는 길에 <#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<> 마법 피해와 25% <#ef5350ff>둔화<>, 도착하자마자 찌른다. 병사가 없으면 그곳에 하나를 세운다.",
+        "skill2": "병사가 있을 때만: <#66bb6aff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>60%<> 보호막, 궁극기가 준비되면 적 챔피언에게 돌진해 <#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<> 마법 피해와 병사 하나 추가. 챔피언이 붙으면 대신 뒤로 뛴다.",
+        "ult": "근위대가 방패를 들고 돌격해 <#a974ffff>260<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<> 마법 피해와 <#ef5350ff>밀쳐내기<>. 신기루로 챔피언에게 막 붙었다면 먼저 그 뒤로 돌아가 아군 쪽으로 밀어 보낸다."
       }
     },
     "skill_name": {
@@ -7556,6 +7599,11 @@
         "skill1": "이중 저주",
         "skill2": "마법의 문",
         "ult": "세계의 경계"
+      },
+      "league_azir": {
+        "skill1": "사막의 맹습",
+        "skill2": "신기루",
+        "ult": "황제의 진영"
       }
     }
   },
@@ -8659,6 +8707,13 @@
         "skill": "呪弾が敵を貫き<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<>の魔法ダメージと呪い、<#ffb900ff>0.67秒<>後に呪いを引き戻し帰り道で<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<>の魔法ダメージ。",
         "skill2": "前方へ霊の衝撃を放ち<#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>の魔法ダメージと弱まっていく60%<#ef5350ff>スロウ<>、その後後ろへ跳ぶ。",
         "ult": "敵英雄へ跳び衝撃波で<#a974ffff>260<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>の魔法ダメージと40%<#ef5350ff>スロウ<>。<#ffb900ff>3.5秒<>間領域を開き中の敵を30%<#ef5350ff>スロウ<>、対象が離れると領域を越えて追う。"
+      },
+      "league_azir": {
+        "name": "アジール",
+        "attack": "<#ff9028ff>目覚めよ！<>：通常攻撃が<#ffb900ff>2.5秒<>ごとに対象の所に砂兵を呼ぶ（最大<#ffb900ff>3<>体、<#ffb900ff>8秒<>）。砂兵が代わりに突き<#a974ffff>65<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<>の魔法ダメージ、届く砂兵がいないと自ら砂光を放つ。",
+        "skill": "全砂兵が対象へ突撃し、道中<#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<>の魔法ダメージと25%<#ef5350ff>スロウ<>、着くとすぐ突く。砂兵がいなければそこに1体呼ぶ。",
+        "skill2": "砂兵がいる時だけ：<#66bb6aff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>60%<>のシールド、アルティメット準備時は敵英雄へ突進し<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<>の魔法ダメージと砂兵1体。詰められると後ろへ跳ぶ。",
+        "ult": "近衛兵の壁が突撃し<#a974ffff>260<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<>の魔法ダメージと<#ef5350ff>ノックバック<>。流砂の衝撃で英雄に寄った直後なら、背後へ回り味方側へ押し返す。"
       }
     },
     "skill_name": {
@@ -9446,6 +9501,11 @@
         "skill1": "折れ重なる魔法",
         "skill2": "ウィアーディング",
         "ult": "世界の狭間"
+      },
+      "league_azir": {
+        "skill1": "征服の勅命",
+        "skill2": "流砂の衝撃",
+        "ult": "皇帝の分砂嶺"
       }
     }
   }

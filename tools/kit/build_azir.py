@@ -59,8 +59,9 @@ OUT = os.path.join(REPO, "league", "champion", "league_azir.data_champion")
 ID = "league_azir"
 FX = "asset/league/effects/league_azir_fx"
 BIG = "asset/league/effects/league_azir_big"
-SOLDIER = "asset/league/effects/league_azir_soldier"   # a soldier standing (tags soldier_a/b/c: three places round a spot)
-GUARD = "asset/league/effects/league_azir_guard"       # R's guards, front view (never turned or mirrored)
+SOLDIER = "asset/league/effects/league_azir_soldier"   # a soldier: soldier_<s> standing, soldier_<s>_rise out of the sand
+GUARD = "asset/league/effects/league_azir_guard"       # R's three guards from the side: charge_<r|l>_<a|b> (one hop each)
+DISC = "asset/league/effects/league_azir_disc"         # the Sun Disc (the add-on's): disc_rise, disc
 
 # League's Azir (16.20, CommunityDragon azir.bin): 575 +119 hp, 52 AD, 19 armour, 30 mr, 335 move, 525 range.
 # W: soldiers 10 s, 2 charges, stab 50-170 + 55% AP (more soldiers on one target 25% each), reach 325. Q 740 range,
@@ -87,12 +88,16 @@ P = {
     "r_len": 60000, "r_w": 20000, "r_dmg": 260, "r_ratio": 90, "r_kb_speed": 3000, "r_kb": 18, "r_stamps": 5,
     "q_refund": 900,
     "vo_gap": 600,
+    # the Sun Disc (the add-on's passive league_azir:disc; League: Shurima's Legacy on a turret's ruins): once a game, with
+    # Azir within d_near of a fallen tower of his team's, it rises there for d_life ticks and strikes the nearest enemy
+    # (champions first) within d_range every d_per ticks for d_dmg + d_ap% AP magic damage
+    "d_life": 2700, "d_per": 60, "d_range": 45000, "d_dmg": 50, "d_ap": 35, "d_near": 60000,
     # 1 = the copy for addons/league_azir
     "native": 0,
 }
 SLOTS = "abc"
 GENS = "ABC"
-NATIVE_KEYS = ("s_life",)
+NATIVE_KEYS = ("d_life", "d_per", "d_range", "d_dmg", "d_ap", "d_near", "r_speed", "r_len", "r_stamps", "s_step")
 
 
 def lp(path):
@@ -283,7 +288,7 @@ def build(p):
         """Slot s's soldier of generation g on this spot (a landing's end_effects): its picture re-stamped every
         s_step ticks and two stab zones (champions first), all only while g is up."""
         poke = lambda: gate(g, sw("cmd", sw(f"k{s}", NONE, combine(flag(f"k{s}", p["cmd_t"] + 1), *stab))))
-        out = [view("s_spawn"), sfx("s_spawn"), gate(g, view(f"sold_{s}"))]
+        out = [view("s_spawn"), sfx("s_spawn"), gate(g, view(f"sold_{s}_rise"))]   # out of the sand, then standing
         out += [delayed(t, gate(g, view(f"sold_{s}"))) for t in range(p["s_step"], p["s_life"], p["s_step"])]
         out += [field(f"s{s}_ch", p["s_r"], p["s_life"], p["s_per"], 1, [poke()], "EnemyChampion"),
                 field(f"s{s}_all", p["s_r"], p["s_life"], p["s_per"], 1, [poke()])]
@@ -363,7 +368,13 @@ def build(p):
 
     # ------------------------------------------------------------------ ult: R Emperor's Divide
     k = p["r_stamps"]
-    stamps = [place(f"r_st{i}", p["r_speed"], p["r_len"] * i // k, [view("r_guards")]) for i in range(1, k + 1)]
+    # the guards: a hop's picture stamped where each hidden bolt stops (the wall's flight in k hops, two steps in turn);
+    # the main pack's data cannot see the wall's direction, so they face right - the add-on's copy stamps them itself,
+    # facing the way the wall goes (league_azir:r_wall gets the ult's target)
+    stamps = [place(f"r_st{i}", p["r_speed"], p["r_len"] * i // k, [view("r_guards_" + "ab"[i % 2]), view("r_dust")])
+              for i in range(1, k + 1)]
+    if p["native"]:
+        stamps = [{"type": "Native", "effect_ref": f"{ID}:r_wall"}]
     wall = combine(sfx("r_wall"), view("r_rise"),
                    line("r_wall", p["r_speed"], p["r_len"], p["r_w"], "EnemyWithoutTower",
                         [ap(p["r_dmg"], p["r_ratio"]), {"type": "Knockback", "speed": p["r_kb_speed"], "tick": p["r_kb"]},
@@ -387,8 +398,15 @@ def build(p):
     views_p = [Pj("a_bolt"), Pj("q_wave")]
     views_e = [E("a_hit"), E("s_stab", FX, 3), E("s_spawn", FX, 1, False), E("q_land", FX, 1, False), E("q_hit"),
                E("e_shield", FX, 3), E("e_land", FX, 1, False), E("e_hit"), E("r_rise", BIG, 1, False),
-               E("r_guards", GUARD, 2, False, "charge"), E("r_hit")]
+               E("r_hit")]
     views_e += [E(f"sold_{s}", SOLDIER, 1, False, f"soldier_{s}") for s in SLOTS]
+    views_e += [E(f"sold_{s}_rise", SOLDIER, 1, False, f"soldier_{s}_rise") for s in SLOTS]
+    views_e += [E(f"r_guards_{side}{k_}", GUARD, 2, False, f"charge_{d_}_{k_}") for side, d_ in (("", "r"), ("l", "l"))
+                for k_ in "ab"]
+    views_e += [E("r_dust", FX, 1, False)]
+    # the Sun Disc's (the add-on plays them: the disc's rise and stamps, its ring, its solar ray)
+    views_e += [E("disc_rise", DISC, 1, False, "disc_rise"), E("disc", DISC, 1, False, "disc"), E("d_rise", BIG, 1, False),
+                E("d_glow", FX, -1, False), E("d_beam", BIG, 3)]
     views_b = [B_("q_slow", FX, -1, "slow")]
     extra = {}
     if p["native"]:

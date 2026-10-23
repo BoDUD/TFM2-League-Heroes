@@ -1,0 +1,37 @@
+{
+  "zh-hans": {
+    "description": {
+      "league_azir": {
+        "attack": "<#ff9028ff>沙兵现身<>：普攻每<#ffb900ff>2.5秒<>在目标处召出一个黄沙士兵（最多<#ffb900ff>3<>个，存在<#ffb900ff>8秒<>），士兵代他刺击，造成<#a974ffff>65<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<>魔法伤害；士兵都够不着时他自己射出沙光。【附加包】<#ff9028ff>太阳圆盘<>：每局一次在倒下的我方塔旁立起，<#ffb900ff>45秒<>内每<#ffb900ff>1秒<>打最近敌人<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<>。"
+      }
+    }
+  },
+  "zh-hant": {
+    "description": {
+      "league_azir": {
+        "attack": "<#ff9028ff>砂漠禁軍<>：普攻每<#ffb900ff>2.5秒<>在目標處召出一名砂兵（最多<#ffb900ff>3<>名，存在<#ffb900ff>8秒<>），砂兵代他刺擊，造成<#a974ffff>65<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<>魔法傷害；砂兵都搆不著時他自己射出砂光。【附加包】<#ff9028ff>太陽圓盤<>：每局一次在倒下的我方塔旁立起，<#ffb900ff>45秒<>內每<#ffb900ff>1秒<>打最近的敵人<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<>。"
+      }
+    }
+  },
+  "en": {
+    "description": {
+      "league_azir": {
+        "attack": "<#ff9028ff>Arise!<>: every <#ffb900ff>2.5s<> his attack raises a sand soldier at the target (<#ffb900ff>3<> at most, <#ffb900ff>8s<>); his soldiers stab for him, <#a974ffff>65<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<> magic damage. With none in reach he shoots a sand bolt himself.[Add-on] <#ff9028ff>Sun Disc<>: once a game it rises by a fallen tower of his, for <#ffb900ff>45s<> striking the nearest enemy every <#ffb900ff>1s<>: <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<>."
+      }
+    }
+  },
+  "ko": {
+    "description": {
+      "league_azir": {
+        "attack": "<#ff9028ff>일어나라!<>: <#ffb900ff>2.5초<>마다 기본 공격이 대상 위치에 모래 병사를 세운다(최대 <#ffb900ff>3<>명, <#ffb900ff>8초<>). 병사가 대신 찔러 <#a974ffff>65<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<> 마법 피해; 닿는 병사가 없으면 직접 모래 빛을 쏜다.[확장] <#ff9028ff>태양 원반<>: 게임당 한 번 무너진 아군 포탑 옆에 솟아 <#ffb900ff>45초<>간 <#ffb900ff>1초<>마다 가장 가까운 적에게 <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<>."
+      }
+    }
+  },
+  "ja": {
+    "description": {
+      "league_azir": {
+        "attack": "<#ff9028ff>目覚めよ！<>：通常攻撃が<#ffb900ff>2.5秒<>ごとに対象の所に砂兵を呼ぶ（最大<#ffb900ff>3<>体、<#ffb900ff>8秒<>）。砂兵が代わりに突き<#a974ffff>65<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<>の魔法ダメージ、届く砂兵がいないと自ら砂光を放つ。【拡張】<#ff9028ff>太陽の円盤<>：1試合1回倒れた味方タワー跡に立ち<#ffb900ff>45秒<>間<#ffb900ff>1秒<>毎に最寄りの敵へ<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<>。"
+      }
+    }
+  }
+}

@@ -215,6 +215,11 @@ def summon_tags():
     disc_tags = {"disc_rise": [(D.frame([(disc, (0, 0), n, False)]), 90) for n in (60, 45, 30, 15)]
                  + [(D.frame([(disc, (0, 0), 0, False)]), 200)],
                  "disc": [(D.frame([(disc, (0, 0), 0, False)]), STEP)]}
+    # every dense effect sheet leads with idle / hd_idle (league_main src/lookup.rs densify_table tells a dense table by
+    # them): its standing picture
+    soldier = {"idle": soldier["soldier_a"], **soldier}
+    guard = {"idle": guard["charge_r_a"], **guard}
+    disc_tags = {"idle": disc_tags["disc"], **disc_tags}
     return {"league_azir_soldier": (S, soldier), "league_azir_guard": (W, guard), "league_azir_disc": (D, disc_tags)}
 
 
