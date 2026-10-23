@@ -1,0 +1,260 @@
+{
+  "sheet_count": 15,
+  "frame_count": 62,
+  "passed": true,
+  "checks": [
+    "saved sheet dimensions",
+    "8x exact nearest replication",
+    "hard alpha",
+    "transparent RGB zero",
+    "allowed palette only",
+    "unique and nonempty frames",
+    "per-frame exact reflection",
+    "b_pick central clearance",
+    "raw SHA256"
+  ],
+  "records": [
+    {
+      "file": "zac_fx_a_hit.png",
+      "frames": 3,
+      "cell_1x": [
+        14,
+        14
+      ],
+      "symmetry": "left-right",
+      "checks": "passed",
+      "opaque_pixels_per_frame": [
+        28,
+        22,
+        6
+      ]
+    },
+    {
+      "file": "zac_fx_w_burst.png",
+      "frames": 6,
+      "cell_1x": [
+        64,
+        44
+      ],
+      "symmetry": "left-right",
+      "checks": "passed",
+      "opaque_pixels_per_frame": [
+        86,
+        206,
+        316,
+        160,
+        62,
+        50
+      ]
+    },
+    {
+      "file": "zac_fx_w_hit.png",
+      "frames": 3,
+      "cell_1x": [
+        12,
+        12
+      ],
+      "symmetry": "left-right",
+      "checks": "passed",
+      "opaque_pixels_per_frame": [
+        24,
+        22,
+        18
+      ]
+    },
+    {
+      "file": "zac_fx_q_fist.png",
+      "frames": 4,
+      "cell_1x": [
+        30,
+        12
+      ],
+      "symmetry": "top-bottom",
+      "checks": "passed",
+      "opaque_pixels_per_frame": [
+        126,
+        132,
+        116,
+        82
+      ]
+    },
+    {
+      "file": "zac_fx_q_hit.png",
+      "frames": 4,
+      "cell_1x": [
+        16,
+        18
+      ],
+      "symmetry": "left-right",
+      "checks": "passed",
+      "opaque_pixels_per_frame": [
+        12,
+        88,
+        46,
+        20
+      ]
+    },
+    {
+      "file": "zac_fx_q_held.png",
+      "frames": 4,
+      "cell_1x": [
+        12,
+        12
+      ],
+      "symmetry": "left-right",
+      "checks": "passed",
+      "opaque_pixels_per_frame": [
+        54,
+        48,
+        56,
+        54
+      ]
+    },
+    {
+      "file": "zac_fx_q_slam.png",
+      "frames": 6,
+      "cell_1x": [
+        56,
+        26
+      ],
+      "symmetry": "left-right",
+      "checks": "passed",
+      "opaque_pixels_per_frame": [
+        122,
+        756,
+        568,
+        618,
+        368,
+        154
+      ]
+    },
+    {
+      "file": "zac_fx_slow.png",
+      "frames": 4,
+      "cell_1x": [
+        18,
+        7
+      ],
+      "symmetry": "left-right",
+      "checks": "passed",
+      "opaque_pixels_per_frame": [
+        28,
+        32,
+        26,
+        30
+      ]
+    },
+    {
+      "file": "zac_fx_e_land.png",
+      "frames": 6,
+      "cell_1x": [
+        66,
+        28
+      ],
+      "symmetry": "left-right",
+      "checks": "passed",
+      "opaque_pixels_per_frame": [
+        84,
+        206,
+        150,
+        118,
+        162,
+        36
+      ]
+    },
+    {
+      "file": "zac_fx_e_hit.png",
+      "frames": 4,
+      "cell_1x": [
+        14,
+        20
+      ],
+      "symmetry": "left-right",
+      "checks": "passed",
+      "opaque_pixels_per_frame": [
+        52,
+        46,
+        24,
+        10
+      ]
+    },
+    {
+      "file": "zac_fx_r_land.png",
+      "frames": 5,
+      "cell_1x": [
+        58,
+        24
+      ],
+      "symmetry": "left-right",
+      "checks": "passed",
+      "opaque_pixels_per_frame": [
+        44,
+        104,
+        146,
+        62,
+        32
+      ]
+    },
+    {
+      "file": "zac_fx_r_hit.png",
+      "frames": 3,
+      "cell_1x": [
+        14,
+        18
+      ],
+      "symmetry": "left-right",
+      "checks": "passed",
+      "opaque_pixels_per_frame": [
+        66,
+        50,
+        18
+      ]
+    },
+    {
+      "file": "zac_fx_b_fly.png",
+      "frames": 3,
+      "cell_1x": [
+        10,
+        6
+      ],
+      "symmetry": "top-bottom",
+      "checks": "passed",
+      "opaque_pixels_per_frame": [
+        16,
+        18,
+        12
+      ]
+    },
+    {
+      "file": "zac_fx_b_lie.png",
+      "frames": 3,
+      "cell_1x": [
+        10,
+        7
+      ],
+      "symmetry": "left-right",
+      "checks": "passed",
+      "opaque_pixels_per_frame": [
+        24,
+        30,
+        28
+      ]
+    },
+    {
+      "file": "zac_fx_b_pick.png",
+      "frames": 4,
+      "cell_1x": [
+        30,
+        40
+      ],
+      "symmetry": "left-right",
+      "checks": "passed",
+      "opaque_pixels_per_frame": [
+        18,
+        34,
+        16,
+        10
+      ]
+    }
+  ]
+}

@@ -1,0 +1,1232 @@
+{
+  "version": 1,
+  "generator": "native image_gen",
+  "items": [
+    {
+      "file": "zac_fx_a_hit.png",
+      "binding": "view_effects `league_zac_a_hit`（跟随目标，z 2；左右对称）",
+      "size": "14 × 14",
+      "symmetry": "left-right",
+      "frames": 3,
+      "cell_1x": [
+        14,
+        14
+      ],
+      "loop": false,
+      "name": "a_hit",
+      "layout": "one horizontal row",
+      "preview_scale": 8,
+      "pixel_1x_file": "pixel_1x/zac_fx_a_hit.png",
+      "preview_file": "zac_fx_a_hit.png",
+      "raw_file": "raw/zac_fx_a_hit.png",
+      "raw_size": [
+        2172,
+        724
+      ],
+      "source_frame_rects": [
+        [
+          0,
+          52,
+          724,
+          677
+        ],
+        [
+          724,
+          52,
+          1448,
+          677
+        ],
+        [
+          1448,
+          52,
+          2172,
+          677
+        ]
+      ],
+      "source_sampling": "rectangular source grid; palette-quantized majority per output cell",
+      "palette": [
+        "#F6FFC0",
+        "#D8F878",
+        "#8EE050",
+        "#48B848",
+        "#24823E",
+        "#104A2A",
+        "#FFFFFF",
+        "#F2FFE0",
+        "#D2F6A0"
+      ],
+      "actor_clearance_removed_pixels": [
+        0,
+        0,
+        0
+      ],
+      "qa": {
+        "size_ok": true,
+        "hard_alpha": true,
+        "exact_symmetry": true,
+        "nonempty_frames": [
+          true,
+          true,
+          true
+        ],
+        "distinct_frames": 3
+      },
+      "raw_sha256": "8c1a40b6723d3732a7a5a9bed4d68cfc52c0a4b7edfbd64668e89798c713550b"
+    },
+    {
+      "file": "zac_fx_w_burst.png",
+      "binding": "view_effects `league_zac_w_burst`（大表，在他身上，不跟随，z -1；左右对称）",
+      "size": "64 × 44",
+      "symmetry": "left-right",
+      "frames": 6,
+      "cell_1x": [
+        64,
+        44
+      ],
+      "loop": false,
+      "name": "w_burst",
+      "layout": "one horizontal row",
+      "preview_scale": 8,
+      "pixel_1x_file": "pixel_1x/zac_fx_w_burst.png",
+      "preview_file": "zac_fx_w_burst.png",
+      "raw_file": "raw/zac_fx_w_burst.png",
+      "raw_size": [
+        2172,
+        724
+      ],
+      "source_frame_rects": [
+        [
+          0,
+          210,
+          362,
+          529
+        ],
+        [
+          362,
+          210,
+          719,
+          529
+        ],
+        [
+          719,
+          210,
+          1086,
+          529
+        ],
+        [
+          1086,
+          210,
+          1448,
+          529
+        ],
+        [
+          1448,
+          210,
+          1810,
+          529
+        ],
+        [
+          1810,
+          210,
+          2172,
+          529
+        ]
+      ],
+      "source_sampling": "rectangular source grid; palette-quantized majority per output cell",
+      "palette": [
+        "#F6FFC0",
+        "#D8F878",
+        "#8EE050",
+        "#48B848",
+        "#24823E",
+        "#104A2A",
+        "#3A9A66",
+        "#1E6448",
+        "#0E3A2C",
+        "#06201A",
+        "#FFFFFF",
+        "#F2FFE0",
+        "#D2F6A0"
+      ],
+      "actor_clearance_removed_pixels": [
+        800,
+        1012,
+        692,
+        468,
+        280,
+        104
+      ],
+      "qa": {
+        "size_ok": true,
+        "hard_alpha": true,
+        "exact_symmetry": true,
+        "nonempty_frames": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "distinct_frames": 6
+      },
+      "raw_sha256": "cc852c6b5d6b62678f39bef5ae1273580a34e8b1a0577ccceb619ef6d6d7011d"
+    },
+    {
+      "file": "zac_fx_w_hit.png",
+      "binding": "view_effects `league_zac_w_hit`（跟随目标，z 2；左右对称）",
+      "size": "12 × 12",
+      "symmetry": "left-right",
+      "frames": 3,
+      "cell_1x": [
+        12,
+        12
+      ],
+      "loop": false,
+      "name": "w_hit",
+      "layout": "one horizontal row",
+      "preview_scale": 8,
+      "pixel_1x_file": "pixel_1x/zac_fx_w_hit.png",
+      "preview_file": "zac_fx_w_hit.png",
+      "raw_file": "raw/zac_fx_w_hit.png",
+      "raw_size": [
+        2172,
+        724
+      ],
+      "source_frame_rects": [
+        [
+          0,
+          142,
+          724,
+          643
+        ],
+        [
+          724,
+          142,
+          1448,
+          643
+        ],
+        [
+          1448,
+          142,
+          2172,
+          643
+        ]
+      ],
+      "source_sampling": "rectangular source grid; palette-quantized majority per output cell",
+      "palette": [
+        "#F6FFC0",
+        "#D8F878",
+        "#8EE050",
+        "#48B848",
+        "#24823E",
+        "#104A2A",
+        "#FFFFFF",
+        "#F2FFE0",
+        "#D2F6A0"
+      ],
+      "actor_clearance_removed_pixels": [
+        0,
+        0,
+        0
+      ],
+      "qa": {
+        "size_ok": true,
+        "hard_alpha": true,
+        "exact_symmetry": true,
+        "nonempty_frames": [
+          true,
+          true,
+          true
+        ],
+        "distinct_frames": 3
+      },
+      "raw_sha256": "ae9985ec8476c823d5624c7672e04e59f4c5391a18aa9f964a1eb4051172c7f1"
+    },
+    {
+      "file": "zac_fx_q_fist.png",
+      "binding": "view_projectiles `league_zac_q_fist`（弹道，z 2；上下对称）",
+      "size": "30 × 12",
+      "symmetry": "top-bottom",
+      "frames": 4,
+      "cell_1x": [
+        30,
+        12
+      ],
+      "loop": true,
+      "name": "q_fist",
+      "layout": "one horizontal row",
+      "preview_scale": 8,
+      "pixel_1x_file": "pixel_1x/zac_fx_q_fist.png",
+      "preview_file": "zac_fx_q_fist.png",
+      "raw_file": "raw/zac_fx_q_fist.png",
+      "raw_size": [
+        2172,
+        724
+      ],
+      "source_frame_rects": [
+        [
+          0,
+          229,
+          556,
+          499
+        ],
+        [
+          556,
+          229,
+          1096,
+          499
+        ],
+        [
+          1096,
+          229,
+          1629,
+          499
+        ],
+        [
+          1629,
+          229,
+          2172,
+          499
+        ]
+      ],
+      "source_sampling": "rectangular source grid; palette-quantized majority per output cell",
+      "palette": [
+        "#F6FFC0",
+        "#D8F878",
+        "#8EE050",
+        "#48B848",
+        "#24823E",
+        "#104A2A",
+        "#3A9A66",
+        "#1E6448",
+        "#0E3A2C",
+        "#06201A",
+        "#FFFFFF",
+        "#F2FFE0",
+        "#D2F6A0"
+      ],
+      "actor_clearance_removed_pixels": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "qa": {
+        "size_ok": true,
+        "hard_alpha": true,
+        "exact_symmetry": true,
+        "nonempty_frames": [
+          true,
+          true,
+          true,
+          true
+        ],
+        "distinct_frames": 4
+      },
+      "raw_sha256": "5c6d2014cf4ba69ebc5b0b11f32aad0191b62663f202060054d17c1738dbce54"
+    },
+    {
+      "file": "zac_fx_q_hit.png",
+      "binding": "view_effects `league_zac_q_hit`（跟随目标，z 2；左右对称）",
+      "size": "16 × 18",
+      "symmetry": "left-right",
+      "frames": 4,
+      "cell_1x": [
+        16,
+        18
+      ],
+      "loop": false,
+      "name": "q_hit",
+      "layout": "one horizontal row",
+      "preview_scale": 8,
+      "pixel_1x_file": "pixel_1x/zac_fx_q_hit.png",
+      "preview_file": "zac_fx_q_hit.png",
+      "raw_file": "raw/zac_fx_q_hit.png",
+      "raw_size": [
+        2103,
+        748
+      ],
+      "source_frame_rects": [
+        [
+          0,
+          119,
+          526,
+          639
+        ],
+        [
+          526,
+          119,
+          1051,
+          639
+        ],
+        [
+          1051,
+          119,
+          1577,
+          639
+        ],
+        [
+          1577,
+          119,
+          2103,
+          639
+        ]
+      ],
+      "source_sampling": "rectangular source grid; palette-quantized majority per output cell",
+      "palette": [
+        "#F6FFC0",
+        "#D8F878",
+        "#8EE050",
+        "#48B848",
+        "#24823E",
+        "#104A2A",
+        "#FFFFFF",
+        "#F2FFE0",
+        "#D2F6A0"
+      ],
+      "actor_clearance_removed_pixels": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "qa": {
+        "size_ok": true,
+        "hard_alpha": true,
+        "exact_symmetry": true,
+        "nonempty_frames": [
+          true,
+          true,
+          true,
+          true
+        ],
+        "distinct_frames": 4
+      },
+      "raw_sha256": "acde6bb50e5de6692e0099417bfbdff597a1a846d34132f78410ddd15d078842"
+    },
+    {
+      "file": "zac_fx_q_held.png",
+      "binding": "view_buffs `league_zac_q_held`（跟随，胸口，z 3；左右对称）",
+      "size": "12 × 12",
+      "symmetry": "left-right",
+      "frames": 4,
+      "cell_1x": [
+        12,
+        12
+      ],
+      "loop": true,
+      "name": "q_held",
+      "layout": "one horizontal row",
+      "preview_scale": 8,
+      "pixel_1x_file": "pixel_1x/zac_fx_q_held.png",
+      "preview_file": "zac_fx_q_held.png",
+      "raw_file": "raw/zac_fx_q_held.png",
+      "raw_size": [
+        2172,
+        724
+      ],
+      "source_frame_rects": [
+        [
+          0,
+          122,
+          543,
+          615
+        ],
+        [
+          543,
+          122,
+          1086,
+          615
+        ],
+        [
+          1086,
+          122,
+          1629,
+          615
+        ],
+        [
+          1629,
+          122,
+          2172,
+          615
+        ]
+      ],
+      "source_sampling": "rectangular source grid; palette-quantized majority per output cell",
+      "palette": [
+        "#F6FFC0",
+        "#D8F878",
+        "#8EE050",
+        "#48B848",
+        "#24823E",
+        "#104A2A",
+        "#FFFFFF",
+        "#F2FFE0",
+        "#D2F6A0"
+      ],
+      "actor_clearance_removed_pixels": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "qa": {
+        "size_ok": true,
+        "hard_alpha": true,
+        "exact_symmetry": true,
+        "nonempty_frames": [
+          true,
+          true,
+          true,
+          true
+        ],
+        "distinct_frames": 4
+      },
+      "raw_sha256": "295b5745c2caabab310dcb3fa4ca890db36169c180aa682f71d692b40d8940fe"
+    },
+    {
+      "file": "zac_fx_q_slam.png",
+      "binding": "view_effects `league_zac_q_slam`（大表，在他身前的地上，不跟随，z 2；左右对称）",
+      "size": "56 × 26",
+      "symmetry": "left-right",
+      "frames": 6,
+      "cell_1x": [
+        56,
+        26
+      ],
+      "loop": false,
+      "name": "q_slam",
+      "layout": "one horizontal row",
+      "preview_scale": 8,
+      "pixel_1x_file": "pixel_1x/zac_fx_q_slam.png",
+      "preview_file": "zac_fx_q_slam.png",
+      "raw_file": "raw/zac_fx_q_slam.png",
+      "raw_size": [
+        2172,
+        724
+      ],
+      "source_frame_rects": [
+        [
+          0,
+          262,
+          362,
+          503
+        ],
+        [
+          362,
+          262,
+          724,
+          503
+        ],
+        [
+          724,
+          262,
+          1086,
+          503
+        ],
+        [
+          1086,
+          262,
+          1454,
+          503
+        ],
+        [
+          1454,
+          262,
+          1810,
+          503
+        ],
+        [
+          1810,
+          262,
+          2172,
+          503
+        ]
+      ],
+      "source_sampling": "rectangular source grid; palette-quantized majority per output cell",
+      "palette": [
+        "#F6FFC0",
+        "#D8F878",
+        "#8EE050",
+        "#48B848",
+        "#24823E",
+        "#104A2A",
+        "#FFFFFF",
+        "#F2FFE0",
+        "#D2F6A0",
+        "#E6E0C8",
+        "#BDB394",
+        "#8C8466",
+        "#5E5844"
+      ],
+      "actor_clearance_removed_pixels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "qa": {
+        "size_ok": true,
+        "hard_alpha": true,
+        "exact_symmetry": true,
+        "nonempty_frames": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "distinct_frames": 6
+      },
+      "raw_sha256": "fc90666a4a8781a0d56b571b619ba4b37611da5dbc7941c4ada5e5edf7dd312f"
+    },
+    {
+      "file": "zac_fx_slow.png",
+      "binding": "view_buffs `league_zac_q_slow` / `r_slow`（tag `slow`，跟随，脚下，z -1；左右对称）",
+      "size": "18 × 7",
+      "symmetry": "left-right",
+      "frames": 4,
+      "cell_1x": [
+        18,
+        7
+      ],
+      "loop": true,
+      "name": "slow",
+      "layout": "one horizontal row",
+      "preview_scale": 8,
+      "pixel_1x_file": "pixel_1x/zac_fx_slow.png",
+      "preview_file": "zac_fx_slow.png",
+      "raw_file": "raw/zac_fx_slow.png",
+      "raw_size": [
+        2137,
+        736
+      ],
+      "source_frame_rects": [
+        [
+          0,
+          254,
+          534,
+          490
+        ],
+        [
+          534,
+          254,
+          1068,
+          490
+        ],
+        [
+          1068,
+          254,
+          1603,
+          490
+        ],
+        [
+          1603,
+          254,
+          2137,
+          490
+        ]
+      ],
+      "source_sampling": "rectangular source grid; palette-quantized majority per output cell",
+      "palette": [
+        "#F6FFC0",
+        "#D8F878",
+        "#8EE050",
+        "#48B848",
+        "#24823E",
+        "#104A2A",
+        "#3A9A66",
+        "#1E6448",
+        "#0E3A2C",
+        "#06201A"
+      ],
+      "actor_clearance_removed_pixels": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "qa": {
+        "size_ok": true,
+        "hard_alpha": true,
+        "exact_symmetry": true,
+        "nonempty_frames": [
+          true,
+          true,
+          true,
+          true
+        ],
+        "distinct_frames": 4
+      },
+      "raw_sha256": "2aa0c98266789fb049921635d8909105766e09928c764a790e0cf53330a87c21"
+    },
+    {
+      "file": "zac_fx_e_land.png",
+      "binding": "view_effects `league_zac_e_land`（大表，在他落地的地方，不跟随，z -1；左右对称）",
+      "size": "66 × 28",
+      "symmetry": "left-right",
+      "frames": 6,
+      "cell_1x": [
+        66,
+        28
+      ],
+      "loop": false,
+      "name": "e_land",
+      "layout": "one horizontal row",
+      "preview_scale": 8,
+      "pixel_1x_file": "pixel_1x/zac_fx_e_land.png",
+      "preview_file": "zac_fx_e_land.png",
+      "raw_file": "raw/zac_fx_e_land.png",
+      "raw_size": [
+        1881,
+        836
+      ],
+      "source_frame_rects": [
+        [
+          0,
+          375,
+          279,
+          573
+        ],
+        [
+          279,
+          375,
+          598,
+          573
+        ],
+        [
+          598,
+          375,
+          930,
+          573
+        ],
+        [
+          930,
+          375,
+          1273,
+          573
+        ],
+        [
+          1273,
+          375,
+          1599,
+          573
+        ],
+        [
+          1599,
+          375,
+          1881,
+          573
+        ]
+      ],
+      "source_sampling": "rectangular source grid; palette-quantized majority per output cell",
+      "palette": [
+        "#F6FFC0",
+        "#D8F878",
+        "#8EE050",
+        "#48B848",
+        "#24823E",
+        "#104A2A",
+        "#FFFFFF",
+        "#F2FFE0",
+        "#D2F6A0",
+        "#E6E0C8",
+        "#BDB394",
+        "#8C8466",
+        "#5E5844"
+      ],
+      "actor_clearance_removed_pixels": [
+        172,
+        762,
+        670,
+        404,
+        346,
+        140
+      ],
+      "qa": {
+        "size_ok": true,
+        "hard_alpha": true,
+        "exact_symmetry": true,
+        "nonempty_frames": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "distinct_frames": 6
+      },
+      "raw_sha256": "3e93f47aa421c7b3b6a1a76a3072e11c5fc9c7c713a131bf2ba68d2cff4a1c10"
+    },
+    {
+      "file": "zac_fx_e_hit.png",
+      "binding": "view_effects `league_zac_e_hit`（跟随目标，z 2；左右对称）",
+      "size": "14 × 20",
+      "symmetry": "left-right",
+      "frames": 4,
+      "cell_1x": [
+        14,
+        20
+      ],
+      "loop": false,
+      "name": "e_hit",
+      "layout": "one horizontal row",
+      "preview_scale": 8,
+      "pixel_1x_file": "pixel_1x/zac_fx_e_hit.png",
+      "preview_file": "zac_fx_e_hit.png",
+      "raw_file": "raw/zac_fx_e_hit.png",
+      "raw_size": [
+        2098,
+        749
+      ],
+      "source_frame_rects": [
+        [
+          0,
+          115,
+          524,
+          678
+        ],
+        [
+          524,
+          115,
+          1049,
+          678
+        ],
+        [
+          1049,
+          115,
+          1573,
+          678
+        ],
+        [
+          1573,
+          115,
+          2098,
+          678
+        ]
+      ],
+      "source_sampling": "rectangular source grid; palette-quantized majority per output cell",
+      "palette": [
+        "#F6FFC0",
+        "#D8F878",
+        "#8EE050",
+        "#48B848",
+        "#24823E",
+        "#104A2A",
+        "#FFFFFF",
+        "#F2FFE0",
+        "#D2F6A0"
+      ],
+      "actor_clearance_removed_pixels": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "qa": {
+        "size_ok": true,
+        "hard_alpha": true,
+        "exact_symmetry": true,
+        "nonempty_frames": [
+          true,
+          true,
+          true,
+          true
+        ],
+        "distinct_frames": 4
+      },
+      "raw_sha256": "1cbfcd7e6336a56f540282b8ad633105b4d9adac9312a5278d80d7fde4a64563"
+    },
+    {
+      "file": "zac_fx_r_land.png",
+      "binding": "view_effects `league_zac_r_land`（大表，在他落地的地方，不跟随，z -1；左右对称）",
+      "size": "58 × 24",
+      "symmetry": "left-right",
+      "frames": 5,
+      "cell_1x": [
+        58,
+        24
+      ],
+      "loop": false,
+      "name": "r_land",
+      "layout": "one horizontal row",
+      "preview_scale": 8,
+      "pixel_1x_file": "pixel_1x/zac_fx_r_land.png",
+      "preview_file": "zac_fx_r_land.png",
+      "raw_file": "raw/zac_fx_r_land.png",
+      "raw_size": [
+        2172,
+        724
+      ],
+      "source_frame_rects": [
+        [
+          0,
+          222,
+          433,
+          550
+        ],
+        [
+          433,
+          222,
+          877,
+          550
+        ],
+        [
+          877,
+          222,
+          1304,
+          550
+        ],
+        [
+          1304,
+          222,
+          1738,
+          550
+        ],
+        [
+          1738,
+          222,
+          2172,
+          550
+        ]
+      ],
+      "source_sampling": "rectangular source grid; palette-quantized majority per output cell",
+      "palette": [
+        "#F6FFC0",
+        "#D8F878",
+        "#8EE050",
+        "#48B848",
+        "#24823E",
+        "#104A2A",
+        "#3A9A66",
+        "#1E6448",
+        "#0E3A2C",
+        "#06201A",
+        "#FFFFFF",
+        "#F2FFE0",
+        "#D2F6A0"
+      ],
+      "actor_clearance_removed_pixels": [
+        110,
+        398,
+        300,
+        140,
+        56
+      ],
+      "qa": {
+        "size_ok": true,
+        "hard_alpha": true,
+        "exact_symmetry": true,
+        "nonempty_frames": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "distinct_frames": 5
+      },
+      "raw_sha256": "dfe5353f0a0f5ac2251cbf5343a219b8be05e584c00f6525cb0c32b00bd22c40"
+    },
+    {
+      "file": "zac_fx_r_hit.png",
+      "binding": "view_effects `league_zac_r_hit`（跟随目标，z 2；左右对称）",
+      "size": "14 × 18",
+      "symmetry": "left-right",
+      "frames": 3,
+      "cell_1x": [
+        14,
+        18
+      ],
+      "loop": false,
+      "name": "r_hit",
+      "layout": "one horizontal row",
+      "preview_scale": 8,
+      "pixel_1x_file": "pixel_1x/zac_fx_r_hit.png",
+      "preview_file": "zac_fx_r_hit.png",
+      "raw_file": "raw/zac_fx_r_hit.png",
+      "raw_size": [
+        1900,
+        828
+      ],
+      "source_frame_rects": [
+        [
+          0,
+          183,
+          633,
+          713
+        ],
+        [
+          633,
+          183,
+          1267,
+          713
+        ],
+        [
+          1267,
+          183,
+          1900,
+          713
+        ]
+      ],
+      "source_sampling": "rectangular source grid; palette-quantized majority per output cell",
+      "palette": [
+        "#F6FFC0",
+        "#D8F878",
+        "#8EE050",
+        "#48B848",
+        "#24823E",
+        "#104A2A",
+        "#FFFFFF",
+        "#F2FFE0",
+        "#D2F6A0"
+      ],
+      "actor_clearance_removed_pixels": [
+        0,
+        0,
+        0
+      ],
+      "qa": {
+        "size_ok": true,
+        "hard_alpha": true,
+        "exact_symmetry": true,
+        "nonempty_frames": [
+          true,
+          true,
+          true
+        ],
+        "distinct_frames": 3
+      },
+      "raw_sha256": "af97ff550acd6c0529265685f5b3e75d8242ccd4cb3bb409f07f1651a9d9d13f"
+    },
+    {
+      "file": "zac_fx_b_fly.png",
+      "binding": "view_projectiles `league_zac_b_fly`（弹道，z 2；上下对称）",
+      "size": "10 × 6",
+      "symmetry": "top-bottom",
+      "frames": 3,
+      "cell_1x": [
+        10,
+        6
+      ],
+      "loop": true,
+      "name": "b_fly",
+      "layout": "one horizontal row",
+      "preview_scale": 8,
+      "pixel_1x_file": "pixel_1x/zac_fx_b_fly.png",
+      "preview_file": "zac_fx_b_fly.png",
+      "raw_file": "raw/zac_fx_b_fly.png",
+      "raw_size": [
+        2172,
+        724
+      ],
+      "source_frame_rects": [
+        [
+          0,
+          249,
+          724,
+          495
+        ],
+        [
+          724,
+          249,
+          1448,
+          495
+        ],
+        [
+          1448,
+          249,
+          2172,
+          495
+        ]
+      ],
+      "source_sampling": "rectangular source grid; palette-quantized majority per output cell",
+      "palette": [
+        "#F6FFC0",
+        "#D8F878",
+        "#8EE050",
+        "#48B848",
+        "#24823E",
+        "#104A2A",
+        "#FFFFFF",
+        "#F2FFE0",
+        "#D2F6A0"
+      ],
+      "actor_clearance_removed_pixels": [
+        0,
+        0,
+        0
+      ],
+      "qa": {
+        "size_ok": true,
+        "hard_alpha": true,
+        "exact_symmetry": true,
+        "nonempty_frames": [
+          true,
+          true,
+          true
+        ],
+        "distinct_frames": 3
+      },
+      "raw_sha256": "b34dc6859050c848abd150f8db313c9ab519c3373ab325e3a2190b89cba14a06"
+    },
+    {
+      "file": "zac_fx_b_lie.png",
+      "binding": "view_effects `league_zac_b_lie`（在地上，不跟随，z -1；左右对称；每 15 帧放一次）",
+      "size": "10 × 7",
+      "symmetry": "left-right",
+      "frames": 3,
+      "cell_1x": [
+        10,
+        7
+      ],
+      "loop": true,
+      "name": "b_lie",
+      "layout": "one horizontal row",
+      "preview_scale": 8,
+      "pixel_1x_file": "pixel_1x/zac_fx_b_lie.png",
+      "preview_file": "zac_fx_b_lie.png",
+      "raw_file": "raw/zac_fx_b_lie.png",
+      "raw_size": [
+        2172,
+        724
+      ],
+      "source_frame_rects": [
+        [
+          0,
+          223,
+          724,
+          608
+        ],
+        [
+          724,
+          223,
+          1448,
+          608
+        ],
+        [
+          1448,
+          223,
+          2172,
+          608
+        ]
+      ],
+      "source_sampling": "rectangular source grid; palette-quantized majority per output cell",
+      "palette": [
+        "#F6FFC0",
+        "#D8F878",
+        "#8EE050",
+        "#48B848",
+        "#24823E",
+        "#104A2A",
+        "#3A9A66",
+        "#1E6448",
+        "#0E3A2C",
+        "#06201A",
+        "#FFFFFF",
+        "#F2FFE0",
+        "#D2F6A0"
+      ],
+      "actor_clearance_removed_pixels": [
+        0,
+        0,
+        0
+      ],
+      "qa": {
+        "size_ok": true,
+        "hard_alpha": true,
+        "exact_symmetry": true,
+        "nonempty_frames": [
+          true,
+          true,
+          true
+        ],
+        "distinct_frames": 3
+      },
+      "raw_sha256": "f99e5ed1deb69aaabc7476bfb1c1dc19dc0b9d484a53ad81ab823ff4abee6641"
+    },
+    {
+      "file": "zac_fx_b_pick.png",
+      "binding": "view_effects `league_zac_b_pick`（跟随他，z 3；左右对称）",
+      "size": "30 × 40",
+      "symmetry": "left-right",
+      "frames": 4,
+      "cell_1x": [
+        30,
+        40
+      ],
+      "loop": false,
+      "name": "b_pick",
+      "layout": "one horizontal row",
+      "preview_scale": 8,
+      "pixel_1x_file": "pixel_1x/zac_fx_b_pick.png",
+      "preview_file": "zac_fx_b_pick.png",
+      "raw_file": "raw/zac_fx_b_pick.png",
+      "raw_size": [
+        2172,
+        724
+      ],
+      "source_frame_rects": [
+        [
+          42,
+          89,
+          499,
+          694
+        ],
+        [
+          586,
+          89,
+          1042,
+          694
+        ],
+        [
+          1140,
+          89,
+          1575,
+          694
+        ],
+        [
+          1685,
+          89,
+          2115,
+          694
+        ]
+      ],
+      "source_sampling": "rectangular source grid; palette-quantized majority per output cell",
+      "palette": [
+        "#F6FFC0",
+        "#D8F878",
+        "#8EE050",
+        "#48B848",
+        "#24823E",
+        "#104A2A",
+        "#FFFFFF",
+        "#F2FFE0",
+        "#D2F6A0"
+      ],
+      "actor_clearance_removed_pixels": [
+        0,
+        2,
+        0,
+        0
+      ],
+      "qa": {
+        "size_ok": true,
+        "hard_alpha": true,
+        "exact_symmetry": true,
+        "nonempty_frames": [
+          true,
+          true,
+          true,
+          true
+        ],
+        "distinct_frames": 4
+      },
+      "raw_sha256": "04b3921be78dd75ee4e457c6ae04c7f6b2ebef6d4bcf3e9fa978d91453b4307a"
+    }
+  ]
+}
