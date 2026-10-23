@@ -48,9 +48,12 @@ DRAFTS = {
 # A-2 at PPU 2.25: the far eye (behind the far lens, cols 35-36) sat a row above the near one (rows 41-43 against 42-44)
 # and was one column of navy - redrawn like the near eye: the lash row 41, navy 2x2 on rows 42-43 with the highlight on
 # its lower right, the bright blue row 44.
+# The chin's underside (row 51, cols 29-33) was outline black against the neck: a black bar under her face (the user,
+# 2026-10-23: 「阿罗拉脸下面这条黑线能处理吗」「好怪」) - drawn in the skin's deep shadow instead, the jaw's sides kept.
 LASH, NAVY, HI, BLUE = (13, 2, 25), (19, 9, 132), (220, 244, 252), (48, 57, 238)
+CHIN = (220, 132, 122)
 FACE = [(35, 41, LASH), (36, 41, LASH), (35, 42, NAVY), (36, 42, NAVY), (35, 43, NAVY), (36, 43, HI),
-        (35, 44, BLUE), (36, 44, BLUE)]
+        (35, 44, BLUE), (36, 44, BLUE)] + [(x, 51, CHIN) for x in range(29, 34)]
 
 
 def lp(path):
