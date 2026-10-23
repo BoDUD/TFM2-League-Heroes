@@ -9,7 +9,7 @@ and the first on ~9.8-px squares (119 rows, the face, the tails' locks and the t
 - the picture's own squares read first (design_fiora_hd.grid: one fitted pitch and phase per axis, the median of
   each square's middle half; the semi-transparent rim dropped at alpha 128), cut to COLOURS by k-means in Lab
   (design_varus.kmeans);
-- then `step` of them make a design square (design_lux_hd's way: the mean in Lab of the parts of the squares it
+- then STEP of them make a design square (design_lux_hd's way: the mean in Lab of the parts of the squares it
   covers, outline squares apart, snapped to those colours; the outline where it covers OUTLINE_SHARE of outline);
   step 1 keeps them as they are;
 - speckle cleaned as Jinx's (design_jinx_hd.clean).
@@ -38,6 +38,9 @@ HD = os.path.join(ROOT, "assets", "source", "ahri", "hd")
 RAW = "ahri-first.png"
 PITCH = (9.3, 10.3)             # the picture's own square (9.80 x 9.79)
 COLOURS = 48
+STEP = 1.36                     # its squares to a design square: 78 x 88, PPU 2.2 at her old 40 px (the user picked
+                                # 2.2 from 3.0 / 2.7 / 2.5 / 2.2: 「PPU调高点吧」, then 「还可以降低点」, then 「2.2」)
+PPU = 2.2
 OUTLINE_SHARE = 0.45
 PEERS = ["ahri", "lux", "jinx", "caitlyn", "riven"]
 
@@ -93,7 +96,7 @@ def read(step):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--step", type=float, default=1.0)
+    ap.add_argument("--step", type=float, default=STEP)
     ap.add_argument("--review")
     ap.add_argument("--out", help="write the design here instead of hd/design.png")
     ap.add_argument("--ppu", type=float, nargs="*", default=[], help="the PPUs the review shows the design at")
