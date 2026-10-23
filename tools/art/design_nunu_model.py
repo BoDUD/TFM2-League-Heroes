@@ -34,7 +34,7 @@ SRC = os.path.join(ROOT, "assets", "source", "nunu", "codex_model", "nunu-model"
 OUT = os.path.join(ROOT, "assets", "source", "nunu", "hd")
 K = 40
 BUN_ROWS = 69    # 46 game px x PPU 1.5, the pompom's top to the soles
-PICK = None      # the user's pick
+PICK = "A-2"     # the user's pick, 2026-10-23: 「努努用 A-2，PPU 1.37（46 游戏像素）」 - 63 rows at PPU 1.37
 # take -> (file, square px read at, rows to (None: by BUN_ROWS), the box kept whole on the raw canvas: x0, y0, x1, y1)
 DRAFTS = {
     "A-1": ("A-1", 15.0, None, (620, 250, 940, 390)),   # Nunu's face rows only: wider boxes squashed the legs or the pompom
