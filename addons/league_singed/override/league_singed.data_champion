@@ -1,0 +1,3165 @@
+{
+  "id": "league_singed",
+  "category": "Melee",
+  "tags": [
+    "AP",
+    "Magic",
+    "Melee",
+    "Tank",
+    "CC"
+  ],
+  "sprite": "asset/league/champions/league_singed",
+  "anim_prefix": "",
+  "skill_icons": [
+    "asset/league/icons/league_singed_skill",
+    "asset/league/icons/league_singed_skill2",
+    "asset/league/icons/league_singed_ult"
+  ],
+  "stat": {
+    "attack": 66,
+    "magic_power": 30,
+    "hp": 1120,
+    "defence": 38,
+    "magic_resistance": 30,
+    "move_speed": 1050,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "growth": {
+    "attack": 5,
+    "magic_power": 15,
+    "hp": 115,
+    "defence": 9,
+    "magic_resistance": 5,
+    "move_speed": 11,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "attack": {
+    "action_name": "attack",
+    "description": "#asset/base/text/champion?description.league_singed.attack",
+    "duration": 28,
+    "cooltime": 70,
+    "start_timing": 1,
+    "cancelable": true,
+    "range": 20000,
+    "casting_type": "Targeting",
+    "casting_target": "Enemy",
+    "attack_type": "BaseAttack",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Combine",
+          "effects": [
+            {
+              "type": "AddCasterBuff",
+              "buff_state": {
+                "name": "league_singed_x",
+                "duration": {
+                  "Time": {
+                    "tick": 1
+                  }
+                }
+              },
+              "only_to_enemy": false
+            },
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_singed_x",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_singed_x"
+                  }
+                ]
+              },
+              "effect_none": {
+                "type": "Attack",
+                "damage": 0,
+                "attack_ratio": 100,
+                "hp_ratio": 0,
+                "target_hp_ratio": 0,
+                "attack_effect_type": "Target"
+              }
+            },
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_singed_x"
+            }
+          ]
+        },
+        {
+          "type": "RangeEffect",
+          "shape": {
+            "Circle": {
+              "radius": 1000
+            }
+          },
+          "target": "AllyOnlySelf",
+          "apply_type": "AroundCaster",
+          "effects": [
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_singed_polling",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": []
+              },
+              "effect_none": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_singed_polling"
+                      },
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_singed_polling",
+                          "duration": {
+                            "Time": {
+                              "tick": 5
+                            }
+                          }
+                        },
+                        "only_to_enemy": false
+                      }
+                    ]
+                  },
+                  {
+                    "type": "AddCasted",
+                    "casted_type": "Heal",
+                    "duration": 3600,
+                    "period": 3,
+                    "effects": [
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "league_singed_polling"
+                              },
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_singed_polling",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 5
+                                    }
+                                  }
+                                },
+                                "only_to_enemy": false
+                              }
+                            ]
+                          },
+                          {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_singed_in_cloud",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": []
+                            },
+                            "effect_none": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "RemoveCasterBuff",
+                                      "name": "league_singed_in_cloud"
+                                    },
+                                    {
+                                      "type": "AddCasterBuff",
+                                      "buff_state": {
+                                        "name": "league_singed_in_cloud",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 4
+                                          }
+                                        }
+                                      },
+                                      "only_to_enemy": false
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "league_singed_r_on",
+                                  "effect_buff": {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "LinearProjectile",
+                                        "name": "league_singed_q_drop",
+                                        "penetrate": true,
+                                        "applied_target": "Ally",
+                                        "applied_effects": [],
+                                        "end_effects": [
+                                          {
+                                            "type": "RangePeriodProjectile",
+                                            "name": "league_singed_q_cloud",
+                                            "shape": {
+                                              "Circle": {
+                                                "radius": 14000
+                                              }
+                                            },
+                                            "tick": 180,
+                                            "period": 30,
+                                            "first_delay": 0,
+                                            "applied_target": "EnemyWithoutTower",
+                                            "applied_effects": [
+                                              {
+                                                "casting_type": "Targeting",
+                                                "effect": {
+                                                  "type": "ApAttack",
+                                                  "damage": 21,
+                                                  "attack_ratio": 21,
+                                                  "hp_ratio": 0,
+                                                  "can_crit": false
+                                                }
+                                              },
+                                              {
+                                                "casting_type": "Targeting",
+                                                "effect": {
+                                                  "type": "TargetSfx",
+                                                  "name": "league_singed_q_hit"
+                                                }
+                                              },
+                                              {
+                                                "casting_type": "Targeting",
+                                                "effect": {
+                                                  "type": "AddBuff",
+                                                  "buff_state": {
+                                                    "name": "league_singed_q_gw",
+                                                    "duration": {
+                                                      "Time": {
+                                                        "tick": 36
+                                                      }
+                                                    },
+                                                    "heal_reduce": 40
+                                                  }
+                                                }
+                                              }
+                                            ],
+                                            "end_effects": []
+                                          },
+                                          {
+                                            "type": "RangePeriodProjectile",
+                                            "name": "league_singed_q_me",
+                                            "shape": {
+                                              "Circle": {
+                                                "radius": 9000
+                                              }
+                                            },
+                                            "tick": 180,
+                                            "period": 3,
+                                            "first_delay": 0,
+                                            "applied_target": "AllyOnlySelf",
+                                            "applied_effects": [
+                                              {
+                                                "casting_type": "Targeting",
+                                                "effect": {
+                                                  "type": "Combine",
+                                                  "effects": [
+                                                    {
+                                                      "type": "RemoveCasterBuff",
+                                                      "name": "league_singed_in_cloud"
+                                                    },
+                                                    {
+                                                      "type": "AddCasterBuff",
+                                                      "buff_state": {
+                                                        "name": "league_singed_in_cloud",
+                                                        "duration": {
+                                                          "Time": {
+                                                            "tick": 4
+                                                          }
+                                                        }
+                                                      },
+                                                      "only_to_enemy": false
+                                                    }
+                                                  ]
+                                                }
+                                              }
+                                            ],
+                                            "end_effects": []
+                                          }
+                                        ],
+                                        "speed": 1,
+                                        "range": 1,
+                                        "shape": {
+                                          "Circle": {
+                                            "radius": 1000
+                                          }
+                                        },
+                                        "y_offset": 0
+                                      },
+                                      {
+                                        "type": "RangeEffect",
+                                        "shape": {
+                                          "Circle": {
+                                            "radius": 1000
+                                          }
+                                        },
+                                        "target": "AllyOnlySelf",
+                                        "apply_type": "AroundCaster",
+                                        "effects": [
+                                          {
+                                            "type": "ViewEffect",
+                                            "name": "league_singed_q_cloud_r"
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  "effect_none": {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "LinearProjectile",
+                                        "name": "league_singed_q_drop",
+                                        "penetrate": true,
+                                        "applied_target": "Ally",
+                                        "applied_effects": [],
+                                        "end_effects": [
+                                          {
+                                            "type": "RangePeriodProjectile",
+                                            "name": "league_singed_q_cloud",
+                                            "shape": {
+                                              "Circle": {
+                                                "radius": 11000
+                                              }
+                                            },
+                                            "tick": 180,
+                                            "period": 30,
+                                            "first_delay": 0,
+                                            "applied_target": "EnemyWithoutTower",
+                                            "applied_effects": [
+                                              {
+                                                "casting_type": "Targeting",
+                                                "effect": {
+                                                  "type": "ApAttack",
+                                                  "damage": 14,
+                                                  "attack_ratio": 14,
+                                                  "hp_ratio": 0,
+                                                  "can_crit": false
+                                                }
+                                              },
+                                              {
+                                                "casting_type": "Targeting",
+                                                "effect": {
+                                                  "type": "TargetSfx",
+                                                  "name": "league_singed_q_hit"
+                                                }
+                                              }
+                                            ],
+                                            "end_effects": []
+                                          },
+                                          {
+                                            "type": "RangePeriodProjectile",
+                                            "name": "league_singed_q_me",
+                                            "shape": {
+                                              "Circle": {
+                                                "radius": 9000
+                                              }
+                                            },
+                                            "tick": 180,
+                                            "period": 3,
+                                            "first_delay": 0,
+                                            "applied_target": "AllyOnlySelf",
+                                            "applied_effects": [
+                                              {
+                                                "casting_type": "Targeting",
+                                                "effect": {
+                                                  "type": "Combine",
+                                                  "effects": [
+                                                    {
+                                                      "type": "RemoveCasterBuff",
+                                                      "name": "league_singed_in_cloud"
+                                                    },
+                                                    {
+                                                      "type": "AddCasterBuff",
+                                                      "buff_state": {
+                                                        "name": "league_singed_in_cloud",
+                                                        "duration": {
+                                                          "Time": {
+                                                            "tick": 4
+                                                          }
+                                                        }
+                                                      },
+                                                      "only_to_enemy": false
+                                                    }
+                                                  ]
+                                                }
+                                              }
+                                            ],
+                                            "end_effects": []
+                                          }
+                                        ],
+                                        "speed": 1,
+                                        "range": 1,
+                                        "shape": {
+                                          "Circle": {
+                                            "radius": 1000
+                                          }
+                                        },
+                                        "y_offset": 0
+                                      },
+                                      {
+                                        "type": "RangeEffect",
+                                        "shape": {
+                                          "Circle": {
+                                            "radius": 1000
+                                          }
+                                        },
+                                        "target": "AllyOnlySelf",
+                                        "apply_type": "AroundCaster",
+                                        "effects": [
+                                          {
+                                            "type": "ViewEffect",
+                                            "name": "league_singed_q_cloud"
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_singed_p_gap",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": []
+                            },
+                            "effect_none": {
+                              "type": "RandomTarget",
+                              "range": 22000,
+                              "casting_target": "EnemyChampion",
+                              "from_projectile": false,
+                              "effects": [
+                                {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "Combine",
+                                      "effects": [
+                                        {
+                                          "type": "RemoveCasterBuff",
+                                          "name": "league_singed_p_gap"
+                                        },
+                                        {
+                                          "type": "AddCasterBuff",
+                                          "buff_state": {
+                                            "name": "league_singed_p_gap",
+                                            "duration": {
+                                              "Time": {
+                                                "tick": 240
+                                              }
+                                            }
+                                          },
+                                          "only_to_enemy": false
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "type": "Combine",
+                                      "effects": [
+                                        {
+                                          "type": "RemoveCasterBuff",
+                                          "name": "league_singed_p_fast"
+                                        },
+                                        {
+                                          "type": "AddCasterBuff",
+                                          "buff_state": {
+                                            "name": "league_singed_p_fast",
+                                            "duration": {
+                                              "Time": {
+                                                "tick": 90
+                                              }
+                                            },
+                                            "move_speed_mult": 25
+                                          },
+                                          "only_to_enemy": false
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "type": "CasterViewEffect",
+                                      "name": "league_singed_p_fast"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          },
+                          {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_singed_e_go",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_singed_e_go"
+                                },
+                                {
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "league_singed_e_cd",
+                                  "effect_buff": {
+                                    "type": "Combine",
+                                    "effects": []
+                                  },
+                                  "effect_none": {
+                                    "type": "RandomTarget",
+                                    "range": 20000,
+                                    "casting_target": "EnemyChampion",
+                                    "from_projectile": false,
+                                    "effects": [
+                                      {
+                                        "type": "Combine",
+                                        "effects": [
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_singed_r_on",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_singed_e_cd"
+                                                },
+                                                {
+                                                  "type": "AddCasterBuff",
+                                                  "buff_state": {
+                                                    "name": "league_singed_e_cd",
+                                                    "duration": {
+                                                      "Time": {
+                                                        "tick": 360
+                                                      }
+                                                    }
+                                                  },
+                                                  "only_to_enemy": false
+                                                }
+                                              ]
+                                            },
+                                            "effect_none": {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_singed_e_cd"
+                                                },
+                                                {
+                                                  "type": "AddCasterBuff",
+                                                  "buff_state": {
+                                                    "name": "league_singed_e_cd",
+                                                    "duration": {
+                                                      "Time": {
+                                                        "tick": 540
+                                                      }
+                                                    }
+                                                  },
+                                                  "only_to_enemy": false
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          {
+                                            "type": "CasterAnimation",
+                                            "name": "skill",
+                                            "tick": 30
+                                          },
+                                          {
+                                            "type": "Sfx",
+                                            "name": "league_singed_e"
+                                          },
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_singed_vo_cd",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": []
+                                            },
+                                            "effect_none": {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "AddCasterBuff",
+                                                  "buff_state": {
+                                                    "name": "league_singed_vo_cd",
+                                                    "duration": {
+                                                      "Time": {
+                                                        "tick": 600
+                                                      }
+                                                    }
+                                                  },
+                                                  "only_to_enemy": false
+                                                },
+                                                {
+                                                  "type": "Sfx",
+                                                  "name": "league_singed_vo_e"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          {
+                                            "type": "Delayed",
+                                            "tick": 9,
+                                            "effects": [
+                                              {
+                                                "type": "Combine",
+                                                "effects": [
+                                                  {
+                                                    "type": "RandomTarget",
+                                                    "range": 1,
+                                                    "casting_target": "AllyOnlySelf",
+                                                    "from_projectile": false,
+                                                    "effects": [
+                                                      {
+                                                        "type": "AddCasterBuff",
+                                                        "buff_state": {
+                                                          "name": "league_singed_lives",
+                                                          "duration": {
+                                                            "Time": {
+                                                              "tick": 1
+                                                            }
+                                                          }
+                                                        },
+                                                        "only_to_enemy": false
+                                                      }
+                                                    ]
+                                                  },
+                                                  {
+                                                    "type": "SwitchByBuff",
+                                                    "buff_name": "league_singed_lives",
+                                                    "effect_buff": {
+                                                      "type": "Combine",
+                                                      "effects": [
+                                                        {
+                                                          "type": "TargetProjectile",
+                                                          "name": "league_singed_e_grab",
+                                                          "speed": 40000,
+                                                          "y_offset": 0,
+                                                          "applied_target": "EnemyChampion",
+                                                          "applied_effects": [
+                                                            {
+                                                              "casting_type": "Targeting",
+                                                              "effect": {
+                                                                "type": "ApAttack",
+                                                                "damage": 50,
+                                                                "attack_ratio": 60,
+                                                                "hp_ratio": 0,
+                                                                "can_crit": false
+                                                              }
+                                                            },
+                                                            {
+                                                              "casting_type": "Targeting",
+                                                              "effect": {
+                                                                "type": "FixedAttack",
+                                                                "damage": 0,
+                                                                "attack_ratio": 0,
+                                                                "hp_ratio": 0,
+                                                                "target_hp_ratio": 5,
+                                                                "attack_effect_type": "Target"
+                                                              }
+                                                            },
+                                                            {
+                                                              "casting_type": "Targeting",
+                                                              "effect": {
+                                                                "type": "ViewEffect",
+                                                                "name": "league_singed_e_hit"
+                                                              }
+                                                            },
+                                                            {
+                                                              "casting_type": "Targeting",
+                                                              "effect": {
+                                                                "type": "TargetSfx",
+                                                                "name": "league_singed_e_hit"
+                                                              }
+                                                            }
+                                                          ]
+                                                        },
+                                                        {
+                                                          "type": "Combine",
+                                                          "effects": [
+                                                            {
+                                                              "type": "Native",
+                                                              "effect_ref": "league_singed:fling"
+                                                            },
+                                                            {
+                                                              "type": "Delayed",
+                                                              "tick": 16,
+                                                              "effects": [
+                                                                {
+                                                                  "type": "ViewEffect",
+                                                                  "name": "league_singed_e_land"
+                                                                }
+                                                              ]
+                                                            }
+                                                          ]
+                                                        },
+                                                        {
+                                                          "type": "Combine",
+                                                          "effects": [
+                                                            {
+                                                              "type": "Combine",
+                                                              "effects": [
+                                                                {
+                                                                  "type": "RemoveCasterBuff",
+                                                                  "name": "league_singed_p_gap"
+                                                                },
+                                                                {
+                                                                  "type": "AddCasterBuff",
+                                                                  "buff_state": {
+                                                                    "name": "league_singed_p_gap",
+                                                                    "duration": {
+                                                                      "Time": {
+                                                                        "tick": 240
+                                                                      }
+                                                                    }
+                                                                  },
+                                                                  "only_to_enemy": false
+                                                                }
+                                                              ]
+                                                            },
+                                                            {
+                                                              "type": "Combine",
+                                                              "effects": [
+                                                                {
+                                                                  "type": "RemoveCasterBuff",
+                                                                  "name": "league_singed_p_fast"
+                                                                },
+                                                                {
+                                                                  "type": "AddCasterBuff",
+                                                                  "buff_state": {
+                                                                    "name": "league_singed_p_fast",
+                                                                    "duration": {
+                                                                      "Time": {
+                                                                        "tick": 90
+                                                                      }
+                                                                    },
+                                                                    "move_speed_mult": 25
+                                                                  },
+                                                                  "only_to_enemy": false
+                                                                }
+                                                              ]
+                                                            },
+                                                            {
+                                                              "type": "CasterViewEffect",
+                                                              "name": "league_singed_p_fast"
+                                                            }
+                                                          ]
+                                                        }
+                                                      ]
+                                                    },
+                                                    "effect_none": {
+                                                      "type": "Combine",
+                                                      "effects": []
+                                                    }
+                                                  },
+                                                  {
+                                                    "type": "RemoveCasterBuff",
+                                                    "name": "league_singed_lives"
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                }
+                              ]
+                            },
+                            "effect_none": {
+                              "type": "Combine",
+                              "effects": []
+                            }
+                          },
+                          {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_singed_w_go",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_singed_w_go"
+                                },
+                                {
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "league_singed_w_cd",
+                                  "effect_buff": {
+                                    "type": "Combine",
+                                    "effects": []
+                                  },
+                                  "effect_none": {
+                                    "type": "RandomTarget",
+                                    "range": 60000,
+                                    "casting_target": "EnemyChampion",
+                                    "from_projectile": false,
+                                    "effects": [
+                                      {
+                                        "type": "Combine",
+                                        "effects": [
+                                          {
+                                            "type": "Combine",
+                                            "effects": [
+                                              {
+                                                "type": "RemoveCasterBuff",
+                                                "name": "league_singed_w_cd"
+                                              },
+                                              {
+                                                "type": "AddCasterBuff",
+                                                "buff_state": {
+                                                  "name": "league_singed_w_cd",
+                                                  "duration": {
+                                                    "Time": {
+                                                      "tick": 900
+                                                    }
+                                                  }
+                                                },
+                                                "only_to_enemy": false
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "type": "CasterAnimation",
+                                            "name": "skill2",
+                                            "tick": 30
+                                          },
+                                          {
+                                            "type": "Sfx",
+                                            "name": "league_singed_w"
+                                          },
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_singed_vo_cd",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": []
+                                            },
+                                            "effect_none": {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "AddCasterBuff",
+                                                  "buff_state": {
+                                                    "name": "league_singed_vo_cd",
+                                                    "duration": {
+                                                      "Time": {
+                                                        "tick": 600
+                                                      }
+                                                    }
+                                                  },
+                                                  "only_to_enemy": false
+                                                },
+                                                {
+                                                  "type": "Sfx",
+                                                  "name": "league_singed_vo_w"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          {
+                                            "type": "Delayed",
+                                            "tick": 11,
+                                            "effects": [
+                                              {
+                                                "type": "Combine",
+                                                "effects": [
+                                                  {
+                                                    "type": "RandomTarget",
+                                                    "range": 1,
+                                                    "casting_target": "AllyOnlySelf",
+                                                    "from_projectile": false,
+                                                    "effects": [
+                                                      {
+                                                        "type": "AddCasterBuff",
+                                                        "buff_state": {
+                                                          "name": "league_singed_lives",
+                                                          "duration": {
+                                                            "Time": {
+                                                              "tick": 1
+                                                            }
+                                                          }
+                                                        },
+                                                        "only_to_enemy": false
+                                                      }
+                                                    ]
+                                                  },
+                                                  {
+                                                    "type": "SwitchByBuff",
+                                                    "buff_name": "league_singed_lives",
+                                                    "effect_buff": {
+                                                      "type": "Combine",
+                                                      "effects": [
+                                                        {
+                                                          "type": "ParabolicProjectile",
+                                                          "name": "league_singed_w_vial",
+                                                          "travel_time": 20,
+                                                          "range": 400000,
+                                                          "shape": {
+                                                            "Circle": {
+                                                              "radius": 1000
+                                                            }
+                                                          },
+                                                          "range_effect_name": "",
+                                                          "applied_target": "EnemyChampion",
+                                                          "applied_effects": [],
+                                                          "end_effects": [
+                                                            {
+                                                              "type": "RangePeriodProjectile",
+                                                              "name": "league_singed_w_glue",
+                                                              "shape": {
+                                                                "Circle": {
+                                                                  "radius": 20000
+                                                                }
+                                                              },
+                                                              "tick": 180,
+                                                              "period": 6,
+                                                              "first_delay": 0,
+                                                              "applied_target": "EnemyWithoutTower",
+                                                              "applied_effects": [
+                                                                {
+                                                                  "casting_type": "Targeting",
+                                                                  "effect": {
+                                                                    "type": "AddBuff",
+                                                                    "buff_state": {
+                                                                      "name": "league_singed_w_slow",
+                                                                      "duration": {
+                                                                        "Time": {
+                                                                          "tick": 12
+                                                                        }
+                                                                      },
+                                                                      "move_speed_mult": -50
+                                                                    }
+                                                                  }
+                                                                },
+                                                                {
+                                                                  "casting_type": "Targeting",
+                                                                  "effect": {
+                                                                    "type": "BlockMoveSkill",
+                                                                    "tick": 12
+                                                                  }
+                                                                }
+                                                              ],
+                                                              "end_effects": []
+                                                            },
+                                                            {
+                                                              "type": "ViewEffect",
+                                                              "name": "league_singed_w_glue"
+                                                            },
+                                                            {
+                                                              "type": "Sfx",
+                                                              "name": "league_singed_w_land"
+                                                            }
+                                                          ]
+                                                        },
+                                                        {
+                                                          "type": "Delayed",
+                                                          "tick": 20,
+                                                          "effects": [
+                                                            {
+                                                              "type": "Combine",
+                                                              "effects": [
+                                                                {
+                                                                  "type": "RandomTarget",
+                                                                  "range": 1,
+                                                                  "casting_target": "AllyOnlySelf",
+                                                                  "from_projectile": false,
+                                                                  "effects": [
+                                                                    {
+                                                                      "type": "AddCasterBuff",
+                                                                      "buff_state": {
+                                                                        "name": "league_singed_lives",
+                                                                        "duration": {
+                                                                          "Time": {
+                                                                            "tick": 1
+                                                                          }
+                                                                        }
+                                                                      },
+                                                                      "only_to_enemy": false
+                                                                    }
+                                                                  ]
+                                                                },
+                                                                {
+                                                                  "type": "SwitchByBuff",
+                                                                  "buff_name": "league_singed_lives",
+                                                                  "effect_buff": {
+                                                                    "type": "Combine",
+                                                                    "effects": [
+                                                                      {
+                                                                        "type": "Combine",
+                                                                        "effects": [
+                                                                          {
+                                                                            "type": "RemoveCasterBuff",
+                                                                            "name": "league_singed_w_out"
+                                                                          },
+                                                                          {
+                                                                            "type": "AddCasterBuff",
+                                                                            "buff_state": {
+                                                                              "name": "league_singed_w_out",
+                                                                              "duration": {
+                                                                                "Time": {
+                                                                                  "tick": 180
+                                                                                }
+                                                                              }
+                                                                            },
+                                                                            "only_to_enemy": false
+                                                                          }
+                                                                        ]
+                                                                      },
+                                                                      {
+                                                                        "type": "Combine",
+                                                                        "effects": [
+                                                                          {
+                                                                            "type": "RemoveCasterBuff",
+                                                                            "name": "league_singed_e_go"
+                                                                          },
+                                                                          {
+                                                                            "type": "AddCasterBuff",
+                                                                            "buff_state": {
+                                                                              "name": "league_singed_e_go",
+                                                                              "duration": {
+                                                                                "Time": {
+                                                                                  "tick": 7
+                                                                                }
+                                                                              }
+                                                                            },
+                                                                            "only_to_enemy": false
+                                                                          }
+                                                                        ]
+                                                                      }
+                                                                    ]
+                                                                  },
+                                                                  "effect_none": {
+                                                                    "type": "Combine",
+                                                                    "effects": []
+                                                                  }
+                                                                },
+                                                                {
+                                                                  "type": "RemoveCasterBuff",
+                                                                  "name": "league_singed_lives"
+                                                                }
+                                                              ]
+                                                            }
+                                                          ]
+                                                        }
+                                                      ]
+                                                    },
+                                                    "effect_none": {
+                                                      "type": "Combine",
+                                                      "effects": []
+                                                    }
+                                                  },
+                                                  {
+                                                    "type": "RemoveCasterBuff",
+                                                    "name": "league_singed_lives"
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                }
+                              ]
+                            },
+                            "effect_none": {
+                              "type": "Combine",
+                              "effects": []
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 10,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_singed_lives",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_singed_lives",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "Sfx",
+                            "name": "league_singed_a"
+                          },
+                          {
+                            "type": "TargetProjectile",
+                            "name": "league_singed_a_blow",
+                            "speed": 40000,
+                            "y_offset": 0,
+                            "applied_target": "Enemy",
+                            "applied_effects": [
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "Attack",
+                                  "damage": 0,
+                                  "attack_ratio": 100,
+                                  "hp_ratio": 0,
+                                  "target_hp_ratio": 0,
+                                  "attack_effect_type": "Target"
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "ViewEffect",
+                                  "name": "league_singed_a_hit"
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "TargetSfx",
+                                  "name": "league_singed_a_hit"
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": []
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_singed_lives"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill": {
+    "action_name": "idle",
+    "description": "#asset/base/text/champion?description.league_singed.skill",
+    "duration": 3,
+    "cooltime": 60,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 20000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Combine",
+          "effects": [
+            {
+              "type": "AddCasterBuff",
+              "buff_state": {
+                "name": "league_singed_x",
+                "duration": {
+                  "Time": {
+                    "tick": 1
+                  }
+                }
+              },
+              "only_to_enemy": false
+            },
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_singed_x",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_singed_x"
+                  }
+                ]
+              },
+              "effect_none": {
+                "type": "ApAttack",
+                "damage": 50,
+                "attack_ratio": 60,
+                "hp_ratio": 0,
+                "can_crit": false
+              }
+            },
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_singed_x"
+            }
+          ]
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_singed_e_cd",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": []
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "SwitchByBuff",
+                "buff_name": "league_singed_r_on",
+                "effect_buff": {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "league_singed_e_cd"
+                    },
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_singed_e_cd",
+                        "duration": {
+                          "Time": {
+                            "tick": 360
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                "effect_none": {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "league_singed_e_cd"
+                    },
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_singed_e_cd",
+                        "duration": {
+                          "Time": {
+                            "tick": 540
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "CasterAnimation",
+                "name": "skill",
+                "tick": 30
+              },
+              {
+                "type": "Sfx",
+                "name": "league_singed_e"
+              },
+              {
+                "type": "SwitchByBuff",
+                "buff_name": "league_singed_vo_cd",
+                "effect_buff": {
+                  "type": "Combine",
+                  "effects": []
+                },
+                "effect_none": {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_singed_vo_cd",
+                        "duration": {
+                          "Time": {
+                            "tick": 600
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    },
+                    {
+                      "type": "Sfx",
+                      "name": "league_singed_vo_e"
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "Delayed",
+                "tick": 9,
+                "effects": [
+                  {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RandomTarget",
+                        "range": 1,
+                        "casting_target": "AllyOnlySelf",
+                        "from_projectile": false,
+                        "effects": [
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_singed_lives",
+                              "duration": {
+                                "Time": {
+                                  "tick": 1
+                                }
+                              }
+                            },
+                            "only_to_enemy": false
+                          }
+                        ]
+                      },
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_singed_lives",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "TargetProjectile",
+                              "name": "league_singed_e_grab",
+                              "speed": 40000,
+                              "y_offset": 0,
+                              "applied_target": "EnemyWithoutTower",
+                              "applied_effects": [
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "ApAttack",
+                                    "damage": 50,
+                                    "attack_ratio": 60,
+                                    "hp_ratio": 0,
+                                    "can_crit": false
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "FixedAttack",
+                                    "damage": 0,
+                                    "attack_ratio": 0,
+                                    "hp_ratio": 0,
+                                    "target_hp_ratio": 5,
+                                    "attack_effect_type": "Target"
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "ViewEffect",
+                                    "name": "league_singed_e_hit"
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "TargetSfx",
+                                    "name": "league_singed_e_hit"
+                                  }
+                                }
+                              ]
+                            },
+                            {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "Native",
+                                  "effect_ref": "league_singed:fling"
+                                },
+                                {
+                                  "type": "Delayed",
+                                  "tick": 16,
+                                  "effects": [
+                                    {
+                                      "type": "ViewEffect",
+                                      "name": "league_singed_e_land"
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "RemoveCasterBuff",
+                                      "name": "league_singed_p_gap"
+                                    },
+                                    {
+                                      "type": "AddCasterBuff",
+                                      "buff_state": {
+                                        "name": "league_singed_p_gap",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 240
+                                          }
+                                        }
+                                      },
+                                      "only_to_enemy": false
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "RemoveCasterBuff",
+                                      "name": "league_singed_p_fast"
+                                    },
+                                    {
+                                      "type": "AddCasterBuff",
+                                      "buff_state": {
+                                        "name": "league_singed_p_fast",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 90
+                                          }
+                                        },
+                                        "move_speed_mult": 25
+                                      },
+                                      "only_to_enemy": false
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "CasterViewEffect",
+                                  "name": "league_singed_p_fast"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      },
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_singed_lives"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "skill2": {
+    "action_name": "idle",
+    "description": "#asset/base/text/champion?description.league_singed.skill2",
+    "duration": 3,
+    "cooltime": 60,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 60000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Combine",
+          "effects": [
+            {
+              "type": "AddCasterBuff",
+              "buff_state": {
+                "name": "league_singed_x",
+                "duration": {
+                  "Time": {
+                    "tick": 1
+                  }
+                }
+              },
+              "only_to_enemy": false
+            },
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_singed_x",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_singed_x"
+                  }
+                ]
+              },
+              "effect_none": {
+                "type": "ApAttack",
+                "damage": 50,
+                "attack_ratio": 60,
+                "hp_ratio": 0,
+                "can_crit": false
+              }
+            },
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_singed_x"
+            }
+          ]
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_singed_w_cd",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": []
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_singed_w_cd"
+                  },
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_singed_w_cd",
+                      "duration": {
+                        "Time": {
+                          "tick": 900
+                        }
+                      }
+                    },
+                    "only_to_enemy": false
+                  }
+                ]
+              },
+              {
+                "type": "CasterAnimation",
+                "name": "skill2",
+                "tick": 30
+              },
+              {
+                "type": "Sfx",
+                "name": "league_singed_w"
+              },
+              {
+                "type": "SwitchByBuff",
+                "buff_name": "league_singed_vo_cd",
+                "effect_buff": {
+                  "type": "Combine",
+                  "effects": []
+                },
+                "effect_none": {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_singed_vo_cd",
+                        "duration": {
+                          "Time": {
+                            "tick": 600
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    },
+                    {
+                      "type": "Sfx",
+                      "name": "league_singed_vo_w"
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "Delayed",
+                "tick": 11,
+                "effects": [
+                  {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RandomTarget",
+                        "range": 1,
+                        "casting_target": "AllyOnlySelf",
+                        "from_projectile": false,
+                        "effects": [
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_singed_lives",
+                              "duration": {
+                                "Time": {
+                                  "tick": 1
+                                }
+                              }
+                            },
+                            "only_to_enemy": false
+                          }
+                        ]
+                      },
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_singed_lives",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "ParabolicProjectile",
+                              "name": "league_singed_w_vial",
+                              "travel_time": 20,
+                              "range": 400000,
+                              "shape": {
+                                "Circle": {
+                                  "radius": 1000
+                                }
+                              },
+                              "range_effect_name": "",
+                              "applied_target": "EnemyChampion",
+                              "applied_effects": [],
+                              "end_effects": [
+                                {
+                                  "type": "RangePeriodProjectile",
+                                  "name": "league_singed_w_glue",
+                                  "shape": {
+                                    "Circle": {
+                                      "radius": 20000
+                                    }
+                                  },
+                                  "tick": 180,
+                                  "period": 6,
+                                  "first_delay": 0,
+                                  "applied_target": "EnemyWithoutTower",
+                                  "applied_effects": [
+                                    {
+                                      "casting_type": "Targeting",
+                                      "effect": {
+                                        "type": "AddBuff",
+                                        "buff_state": {
+                                          "name": "league_singed_w_slow",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 12
+                                            }
+                                          },
+                                          "move_speed_mult": -50
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "casting_type": "Targeting",
+                                      "effect": {
+                                        "type": "BlockMoveSkill",
+                                        "tick": 12
+                                      }
+                                    }
+                                  ],
+                                  "end_effects": []
+                                },
+                                {
+                                  "type": "ViewEffect",
+                                  "name": "league_singed_w_glue"
+                                },
+                                {
+                                  "type": "Sfx",
+                                  "name": "league_singed_w_land"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "Delayed",
+                              "tick": 20,
+                              "effects": [
+                                {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "RandomTarget",
+                                      "range": 1,
+                                      "casting_target": "AllyOnlySelf",
+                                      "from_projectile": false,
+                                      "effects": [
+                                        {
+                                          "type": "AddCasterBuff",
+                                          "buff_state": {
+                                            "name": "league_singed_lives",
+                                            "duration": {
+                                              "Time": {
+                                                "tick": 1
+                                              }
+                                            }
+                                          },
+                                          "only_to_enemy": false
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "type": "SwitchByBuff",
+                                      "buff_name": "league_singed_lives",
+                                      "effect_buff": {
+                                        "type": "Combine",
+                                        "effects": [
+                                          {
+                                            "type": "Combine",
+                                            "effects": [
+                                              {
+                                                "type": "RemoveCasterBuff",
+                                                "name": "league_singed_w_out"
+                                              },
+                                              {
+                                                "type": "AddCasterBuff",
+                                                "buff_state": {
+                                                  "name": "league_singed_w_out",
+                                                  "duration": {
+                                                    "Time": {
+                                                      "tick": 180
+                                                    }
+                                                  }
+                                                },
+                                                "only_to_enemy": false
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "type": "Combine",
+                                            "effects": [
+                                              {
+                                                "type": "RemoveCasterBuff",
+                                                "name": "league_singed_e_go"
+                                              },
+                                              {
+                                                "type": "AddCasterBuff",
+                                                "buff_state": {
+                                                  "name": "league_singed_e_go",
+                                                  "duration": {
+                                                    "Time": {
+                                                      "tick": 7
+                                                    }
+                                                  }
+                                                },
+                                                "only_to_enemy": false
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      },
+                                      "effect_none": {
+                                        "type": "Combine",
+                                        "effects": []
+                                      }
+                                    },
+                                    {
+                                      "type": "RemoveCasterBuff",
+                                      "name": "league_singed_lives"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      },
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_singed_lives"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "ult": {
+    "action_name": "ult",
+    "description": "#asset/base/text/champion?description.league_singed.ult",
+    "duration": 40,
+    "cooltime": 5400,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 40000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Combine",
+          "effects": [
+            {
+              "type": "AddCasterBuff",
+              "buff_state": {
+                "name": "league_singed_x",
+                "duration": {
+                  "Time": {
+                    "tick": 1
+                  }
+                }
+              },
+              "only_to_enemy": false
+            },
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_singed_x",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_singed_x"
+                  }
+                ]
+              },
+              "effect_none": {
+                "type": "ApAttack",
+                "damage": 50,
+                "attack_ratio": 60,
+                "hp_ratio": 0,
+                "can_crit": false
+              }
+            },
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_singed_x"
+            }
+          ]
+        },
+        {
+          "type": "RangeEffect",
+          "shape": {
+            "Circle": {
+              "radius": 1000
+            }
+          },
+          "target": "AllyOnlySelf",
+          "apply_type": "AroundCaster",
+          "effects": [
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_singed_polling",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": []
+              },
+              "effect_none": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_singed_polling"
+                      },
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_singed_polling",
+                          "duration": {
+                            "Time": {
+                              "tick": 5
+                            }
+                          }
+                        },
+                        "only_to_enemy": false
+                      }
+                    ]
+                  },
+                  {
+                    "type": "AddCasted",
+                    "casted_type": "Heal",
+                    "duration": 3600,
+                    "period": 3,
+                    "effects": [
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "league_singed_polling"
+                              },
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_singed_polling",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 5
+                                    }
+                                  }
+                                },
+                                "only_to_enemy": false
+                              }
+                            ]
+                          },
+                          {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_singed_in_cloud",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": []
+                            },
+                            "effect_none": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "RemoveCasterBuff",
+                                      "name": "league_singed_in_cloud"
+                                    },
+                                    {
+                                      "type": "AddCasterBuff",
+                                      "buff_state": {
+                                        "name": "league_singed_in_cloud",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 4
+                                          }
+                                        }
+                                      },
+                                      "only_to_enemy": false
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "league_singed_r_on",
+                                  "effect_buff": {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "LinearProjectile",
+                                        "name": "league_singed_q_drop",
+                                        "penetrate": true,
+                                        "applied_target": "Ally",
+                                        "applied_effects": [],
+                                        "end_effects": [
+                                          {
+                                            "type": "RangePeriodProjectile",
+                                            "name": "league_singed_q_cloud",
+                                            "shape": {
+                                              "Circle": {
+                                                "radius": 14000
+                                              }
+                                            },
+                                            "tick": 180,
+                                            "period": 30,
+                                            "first_delay": 0,
+                                            "applied_target": "EnemyWithoutTower",
+                                            "applied_effects": [
+                                              {
+                                                "casting_type": "Targeting",
+                                                "effect": {
+                                                  "type": "ApAttack",
+                                                  "damage": 21,
+                                                  "attack_ratio": 21,
+                                                  "hp_ratio": 0,
+                                                  "can_crit": false
+                                                }
+                                              },
+                                              {
+                                                "casting_type": "Targeting",
+                                                "effect": {
+                                                  "type": "TargetSfx",
+                                                  "name": "league_singed_q_hit"
+                                                }
+                                              },
+                                              {
+                                                "casting_type": "Targeting",
+                                                "effect": {
+                                                  "type": "AddBuff",
+                                                  "buff_state": {
+                                                    "name": "league_singed_q_gw",
+                                                    "duration": {
+                                                      "Time": {
+                                                        "tick": 36
+                                                      }
+                                                    },
+                                                    "heal_reduce": 40
+                                                  }
+                                                }
+                                              }
+                                            ],
+                                            "end_effects": []
+                                          },
+                                          {
+                                            "type": "RangePeriodProjectile",
+                                            "name": "league_singed_q_me",
+                                            "shape": {
+                                              "Circle": {
+                                                "radius": 9000
+                                              }
+                                            },
+                                            "tick": 180,
+                                            "period": 3,
+                                            "first_delay": 0,
+                                            "applied_target": "AllyOnlySelf",
+                                            "applied_effects": [
+                                              {
+                                                "casting_type": "Targeting",
+                                                "effect": {
+                                                  "type": "Combine",
+                                                  "effects": [
+                                                    {
+                                                      "type": "RemoveCasterBuff",
+                                                      "name": "league_singed_in_cloud"
+                                                    },
+                                                    {
+                                                      "type": "AddCasterBuff",
+                                                      "buff_state": {
+                                                        "name": "league_singed_in_cloud",
+                                                        "duration": {
+                                                          "Time": {
+                                                            "tick": 4
+                                                          }
+                                                        }
+                                                      },
+                                                      "only_to_enemy": false
+                                                    }
+                                                  ]
+                                                }
+                                              }
+                                            ],
+                                            "end_effects": []
+                                          }
+                                        ],
+                                        "speed": 1,
+                                        "range": 1,
+                                        "shape": {
+                                          "Circle": {
+                                            "radius": 1000
+                                          }
+                                        },
+                                        "y_offset": 0
+                                      },
+                                      {
+                                        "type": "RangeEffect",
+                                        "shape": {
+                                          "Circle": {
+                                            "radius": 1000
+                                          }
+                                        },
+                                        "target": "AllyOnlySelf",
+                                        "apply_type": "AroundCaster",
+                                        "effects": [
+                                          {
+                                            "type": "ViewEffect",
+                                            "name": "league_singed_q_cloud_r"
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  "effect_none": {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "LinearProjectile",
+                                        "name": "league_singed_q_drop",
+                                        "penetrate": true,
+                                        "applied_target": "Ally",
+                                        "applied_effects": [],
+                                        "end_effects": [
+                                          {
+                                            "type": "RangePeriodProjectile",
+                                            "name": "league_singed_q_cloud",
+                                            "shape": {
+                                              "Circle": {
+                                                "radius": 11000
+                                              }
+                                            },
+                                            "tick": 180,
+                                            "period": 30,
+                                            "first_delay": 0,
+                                            "applied_target": "EnemyWithoutTower",
+                                            "applied_effects": [
+                                              {
+                                                "casting_type": "Targeting",
+                                                "effect": {
+                                                  "type": "ApAttack",
+                                                  "damage": 14,
+                                                  "attack_ratio": 14,
+                                                  "hp_ratio": 0,
+                                                  "can_crit": false
+                                                }
+                                              },
+                                              {
+                                                "casting_type": "Targeting",
+                                                "effect": {
+                                                  "type": "TargetSfx",
+                                                  "name": "league_singed_q_hit"
+                                                }
+                                              }
+                                            ],
+                                            "end_effects": []
+                                          },
+                                          {
+                                            "type": "RangePeriodProjectile",
+                                            "name": "league_singed_q_me",
+                                            "shape": {
+                                              "Circle": {
+                                                "radius": 9000
+                                              }
+                                            },
+                                            "tick": 180,
+                                            "period": 3,
+                                            "first_delay": 0,
+                                            "applied_target": "AllyOnlySelf",
+                                            "applied_effects": [
+                                              {
+                                                "casting_type": "Targeting",
+                                                "effect": {
+                                                  "type": "Combine",
+                                                  "effects": [
+                                                    {
+                                                      "type": "RemoveCasterBuff",
+                                                      "name": "league_singed_in_cloud"
+                                                    },
+                                                    {
+                                                      "type": "AddCasterBuff",
+                                                      "buff_state": {
+                                                        "name": "league_singed_in_cloud",
+                                                        "duration": {
+                                                          "Time": {
+                                                            "tick": 4
+                                                          }
+                                                        }
+                                                      },
+                                                      "only_to_enemy": false
+                                                    }
+                                                  ]
+                                                }
+                                              }
+                                            ],
+                                            "end_effects": []
+                                          }
+                                        ],
+                                        "speed": 1,
+                                        "range": 1,
+                                        "shape": {
+                                          "Circle": {
+                                            "radius": 1000
+                                          }
+                                        },
+                                        "y_offset": 0
+                                      },
+                                      {
+                                        "type": "RangeEffect",
+                                        "shape": {
+                                          "Circle": {
+                                            "radius": 1000
+                                          }
+                                        },
+                                        "target": "AllyOnlySelf",
+                                        "apply_type": "AroundCaster",
+                                        "effects": [
+                                          {
+                                            "type": "ViewEffect",
+                                            "name": "league_singed_q_cloud"
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_singed_p_gap",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": []
+                            },
+                            "effect_none": {
+                              "type": "RandomTarget",
+                              "range": 22000,
+                              "casting_target": "EnemyChampion",
+                              "from_projectile": false,
+                              "effects": [
+                                {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "Combine",
+                                      "effects": [
+                                        {
+                                          "type": "RemoveCasterBuff",
+                                          "name": "league_singed_p_gap"
+                                        },
+                                        {
+                                          "type": "AddCasterBuff",
+                                          "buff_state": {
+                                            "name": "league_singed_p_gap",
+                                            "duration": {
+                                              "Time": {
+                                                "tick": 240
+                                              }
+                                            }
+                                          },
+                                          "only_to_enemy": false
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "type": "Combine",
+                                      "effects": [
+                                        {
+                                          "type": "RemoveCasterBuff",
+                                          "name": "league_singed_p_fast"
+                                        },
+                                        {
+                                          "type": "AddCasterBuff",
+                                          "buff_state": {
+                                            "name": "league_singed_p_fast",
+                                            "duration": {
+                                              "Time": {
+                                                "tick": 90
+                                              }
+                                            },
+                                            "move_speed_mult": 25
+                                          },
+                                          "only_to_enemy": false
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "type": "CasterViewEffect",
+                                      "name": "league_singed_p_fast"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          },
+                          {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_singed_e_go",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_singed_e_go"
+                                },
+                                {
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "league_singed_e_cd",
+                                  "effect_buff": {
+                                    "type": "Combine",
+                                    "effects": []
+                                  },
+                                  "effect_none": {
+                                    "type": "RandomTarget",
+                                    "range": 20000,
+                                    "casting_target": "EnemyChampion",
+                                    "from_projectile": false,
+                                    "effects": [
+                                      {
+                                        "type": "Combine",
+                                        "effects": [
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_singed_r_on",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_singed_e_cd"
+                                                },
+                                                {
+                                                  "type": "AddCasterBuff",
+                                                  "buff_state": {
+                                                    "name": "league_singed_e_cd",
+                                                    "duration": {
+                                                      "Time": {
+                                                        "tick": 360
+                                                      }
+                                                    }
+                                                  },
+                                                  "only_to_enemy": false
+                                                }
+                                              ]
+                                            },
+                                            "effect_none": {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_singed_e_cd"
+                                                },
+                                                {
+                                                  "type": "AddCasterBuff",
+                                                  "buff_state": {
+                                                    "name": "league_singed_e_cd",
+                                                    "duration": {
+                                                      "Time": {
+                                                        "tick": 540
+                                                      }
+                                                    }
+                                                  },
+                                                  "only_to_enemy": false
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          {
+                                            "type": "CasterAnimation",
+                                            "name": "skill",
+                                            "tick": 30
+                                          },
+                                          {
+                                            "type": "Sfx",
+                                            "name": "league_singed_e"
+                                          },
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_singed_vo_cd",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": []
+                                            },
+                                            "effect_none": {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "AddCasterBuff",
+                                                  "buff_state": {
+                                                    "name": "league_singed_vo_cd",
+                                                    "duration": {
+                                                      "Time": {
+                                                        "tick": 600
+                                                      }
+                                                    }
+                                                  },
+                                                  "only_to_enemy": false
+                                                },
+                                                {
+                                                  "type": "Sfx",
+                                                  "name": "league_singed_vo_e"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          {
+                                            "type": "Delayed",
+                                            "tick": 9,
+                                            "effects": [
+                                              {
+                                                "type": "Combine",
+                                                "effects": [
+                                                  {
+                                                    "type": "RandomTarget",
+                                                    "range": 1,
+                                                    "casting_target": "AllyOnlySelf",
+                                                    "from_projectile": false,
+                                                    "effects": [
+                                                      {
+                                                        "type": "AddCasterBuff",
+                                                        "buff_state": {
+                                                          "name": "league_singed_lives",
+                                                          "duration": {
+                                                            "Time": {
+                                                              "tick": 1
+                                                            }
+                                                          }
+                                                        },
+                                                        "only_to_enemy": false
+                                                      }
+                                                    ]
+                                                  },
+                                                  {
+                                                    "type": "SwitchByBuff",
+                                                    "buff_name": "league_singed_lives",
+                                                    "effect_buff": {
+                                                      "type": "Combine",
+                                                      "effects": [
+                                                        {
+                                                          "type": "TargetProjectile",
+                                                          "name": "league_singed_e_grab",
+                                                          "speed": 40000,
+                                                          "y_offset": 0,
+                                                          "applied_target": "EnemyChampion",
+                                                          "applied_effects": [
+                                                            {
+                                                              "casting_type": "Targeting",
+                                                              "effect": {
+                                                                "type": "ApAttack",
+                                                                "damage": 50,
+                                                                "attack_ratio": 60,
+                                                                "hp_ratio": 0,
+                                                                "can_crit": false
+                                                              }
+                                                            },
+                                                            {
+                                                              "casting_type": "Targeting",
+                                                              "effect": {
+                                                                "type": "FixedAttack",
+                                                                "damage": 0,
+                                                                "attack_ratio": 0,
+                                                                "hp_ratio": 0,
+                                                                "target_hp_ratio": 5,
+                                                                "attack_effect_type": "Target"
+                                                              }
+                                                            },
+                                                            {
+                                                              "casting_type": "Targeting",
+                                                              "effect": {
+                                                                "type": "ViewEffect",
+                                                                "name": "league_singed_e_hit"
+                                                              }
+                                                            },
+                                                            {
+                                                              "casting_type": "Targeting",
+                                                              "effect": {
+                                                                "type": "TargetSfx",
+                                                                "name": "league_singed_e_hit"
+                                                              }
+                                                            }
+                                                          ]
+                                                        },
+                                                        {
+                                                          "type": "Combine",
+                                                          "effects": [
+                                                            {
+                                                              "type": "Native",
+                                                              "effect_ref": "league_singed:fling"
+                                                            },
+                                                            {
+                                                              "type": "Delayed",
+                                                              "tick": 16,
+                                                              "effects": [
+                                                                {
+                                                                  "type": "ViewEffect",
+                                                                  "name": "league_singed_e_land"
+                                                                }
+                                                              ]
+                                                            }
+                                                          ]
+                                                        },
+                                                        {
+                                                          "type": "Combine",
+                                                          "effects": [
+                                                            {
+                                                              "type": "Combine",
+                                                              "effects": [
+                                                                {
+                                                                  "type": "RemoveCasterBuff",
+                                                                  "name": "league_singed_p_gap"
+                                                                },
+                                                                {
+                                                                  "type": "AddCasterBuff",
+                                                                  "buff_state": {
+                                                                    "name": "league_singed_p_gap",
+                                                                    "duration": {
+                                                                      "Time": {
+                                                                        "tick": 240
+                                                                      }
+                                                                    }
+                                                                  },
+                                                                  "only_to_enemy": false
+                                                                }
+                                                              ]
+                                                            },
+                                                            {
+                                                              "type": "Combine",
+                                                              "effects": [
+                                                                {
+                                                                  "type": "RemoveCasterBuff",
+                                                                  "name": "league_singed_p_fast"
+                                                                },
+                                                                {
+                                                                  "type": "AddCasterBuff",
+                                                                  "buff_state": {
+                                                                    "name": "league_singed_p_fast",
+                                                                    "duration": {
+                                                                      "Time": {
+                                                                        "tick": 90
+                                                                      }
+                                                                    },
+                                                                    "move_speed_mult": 25
+                                                                  },
+                                                                  "only_to_enemy": false
+                                                                }
+                                                              ]
+                                                            },
+                                                            {
+                                                              "type": "CasterViewEffect",
+                                                              "name": "league_singed_p_fast"
+                                                            }
+                                                          ]
+                                                        }
+                                                      ]
+                                                    },
+                                                    "effect_none": {
+                                                      "type": "Combine",
+                                                      "effects": []
+                                                    }
+                                                  },
+                                                  {
+                                                    "type": "RemoveCasterBuff",
+                                                    "name": "league_singed_lives"
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                }
+                              ]
+                            },
+                            "effect_none": {
+                              "type": "Combine",
+                              "effects": []
+                            }
+                          },
+                          {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_singed_w_go",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_singed_w_go"
+                                },
+                                {
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "league_singed_w_cd",
+                                  "effect_buff": {
+                                    "type": "Combine",
+                                    "effects": []
+                                  },
+                                  "effect_none": {
+                                    "type": "RandomTarget",
+                                    "range": 60000,
+                                    "casting_target": "EnemyChampion",
+                                    "from_projectile": false,
+                                    "effects": [
+                                      {
+                                        "type": "Combine",
+                                        "effects": [
+                                          {
+                                            "type": "Combine",
+                                            "effects": [
+                                              {
+                                                "type": "RemoveCasterBuff",
+                                                "name": "league_singed_w_cd"
+                                              },
+                                              {
+                                                "type": "AddCasterBuff",
+                                                "buff_state": {
+                                                  "name": "league_singed_w_cd",
+                                                  "duration": {
+                                                    "Time": {
+                                                      "tick": 900
+                                                    }
+                                                  }
+                                                },
+                                                "only_to_enemy": false
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "type": "CasterAnimation",
+                                            "name": "skill2",
+                                            "tick": 30
+                                          },
+                                          {
+                                            "type": "Sfx",
+                                            "name": "league_singed_w"
+                                          },
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_singed_vo_cd",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": []
+                                            },
+                                            "effect_none": {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "AddCasterBuff",
+                                                  "buff_state": {
+                                                    "name": "league_singed_vo_cd",
+                                                    "duration": {
+                                                      "Time": {
+                                                        "tick": 600
+                                                      }
+                                                    }
+                                                  },
+                                                  "only_to_enemy": false
+                                                },
+                                                {
+                                                  "type": "Sfx",
+                                                  "name": "league_singed_vo_w"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          {
+                                            "type": "Delayed",
+                                            "tick": 11,
+                                            "effects": [
+                                              {
+                                                "type": "Combine",
+                                                "effects": [
+                                                  {
+                                                    "type": "RandomTarget",
+                                                    "range": 1,
+                                                    "casting_target": "AllyOnlySelf",
+                                                    "from_projectile": false,
+                                                    "effects": [
+                                                      {
+                                                        "type": "AddCasterBuff",
+                                                        "buff_state": {
+                                                          "name": "league_singed_lives",
+                                                          "duration": {
+                                                            "Time": {
+                                                              "tick": 1
+                                                            }
+                                                          }
+                                                        },
+                                                        "only_to_enemy": false
+                                                      }
+                                                    ]
+                                                  },
+                                                  {
+                                                    "type": "SwitchByBuff",
+                                                    "buff_name": "league_singed_lives",
+                                                    "effect_buff": {
+                                                      "type": "Combine",
+                                                      "effects": [
+                                                        {
+                                                          "type": "ParabolicProjectile",
+                                                          "name": "league_singed_w_vial",
+                                                          "travel_time": 20,
+                                                          "range": 400000,
+                                                          "shape": {
+                                                            "Circle": {
+                                                              "radius": 1000
+                                                            }
+                                                          },
+                                                          "range_effect_name": "",
+                                                          "applied_target": "EnemyChampion",
+                                                          "applied_effects": [],
+                                                          "end_effects": [
+                                                            {
+                                                              "type": "RangePeriodProjectile",
+                                                              "name": "league_singed_w_glue",
+                                                              "shape": {
+                                                                "Circle": {
+                                                                  "radius": 20000
+                                                                }
+                                                              },
+                                                              "tick": 180,
+                                                              "period": 6,
+                                                              "first_delay": 0,
+                                                              "applied_target": "EnemyWithoutTower",
+                                                              "applied_effects": [
+                                                                {
+                                                                  "casting_type": "Targeting",
+                                                                  "effect": {
+                                                                    "type": "AddBuff",
+                                                                    "buff_state": {
+                                                                      "name": "league_singed_w_slow",
+                                                                      "duration": {
+                                                                        "Time": {
+                                                                          "tick": 12
+                                                                        }
+                                                                      },
+                                                                      "move_speed_mult": -50
+                                                                    }
+                                                                  }
+                                                                },
+                                                                {
+                                                                  "casting_type": "Targeting",
+                                                                  "effect": {
+                                                                    "type": "BlockMoveSkill",
+                                                                    "tick": 12
+                                                                  }
+                                                                }
+                                                              ],
+                                                              "end_effects": []
+                                                            },
+                                                            {
+                                                              "type": "ViewEffect",
+                                                              "name": "league_singed_w_glue"
+                                                            },
+                                                            {
+                                                              "type": "Sfx",
+                                                              "name": "league_singed_w_land"
+                                                            }
+                                                          ]
+                                                        },
+                                                        {
+                                                          "type": "Delayed",
+                                                          "tick": 20,
+                                                          "effects": [
+                                                            {
+                                                              "type": "Combine",
+                                                              "effects": [
+                                                                {
+                                                                  "type": "RandomTarget",
+                                                                  "range": 1,
+                                                                  "casting_target": "AllyOnlySelf",
+                                                                  "from_projectile": false,
+                                                                  "effects": [
+                                                                    {
+                                                                      "type": "AddCasterBuff",
+                                                                      "buff_state": {
+                                                                        "name": "league_singed_lives",
+                                                                        "duration": {
+                                                                          "Time": {
+                                                                            "tick": 1
+                                                                          }
+                                                                        }
+                                                                      },
+                                                                      "only_to_enemy": false
+                                                                    }
+                                                                  ]
+                                                                },
+                                                                {
+                                                                  "type": "SwitchByBuff",
+                                                                  "buff_name": "league_singed_lives",
+                                                                  "effect_buff": {
+                                                                    "type": "Combine",
+                                                                    "effects": [
+                                                                      {
+                                                                        "type": "Combine",
+                                                                        "effects": [
+                                                                          {
+                                                                            "type": "RemoveCasterBuff",
+                                                                            "name": "league_singed_w_out"
+                                                                          },
+                                                                          {
+                                                                            "type": "AddCasterBuff",
+                                                                            "buff_state": {
+                                                                              "name": "league_singed_w_out",
+                                                                              "duration": {
+                                                                                "Time": {
+                                                                                  "tick": 180
+                                                                                }
+                                                                              }
+                                                                            },
+                                                                            "only_to_enemy": false
+                                                                          }
+                                                                        ]
+                                                                      },
+                                                                      {
+                                                                        "type": "Combine",
+                                                                        "effects": [
+                                                                          {
+                                                                            "type": "RemoveCasterBuff",
+                                                                            "name": "league_singed_e_go"
+                                                                          },
+                                                                          {
+                                                                            "type": "AddCasterBuff",
+                                                                            "buff_state": {
+                                                                              "name": "league_singed_e_go",
+                                                                              "duration": {
+                                                                                "Time": {
+                                                                                  "tick": 7
+                                                                                }
+                                                                              }
+                                                                            },
+                                                                            "only_to_enemy": false
+                                                                          }
+                                                                        ]
+                                                                      }
+                                                                    ]
+                                                                  },
+                                                                  "effect_none": {
+                                                                    "type": "Combine",
+                                                                    "effects": []
+                                                                  }
+                                                                },
+                                                                {
+                                                                  "type": "RemoveCasterBuff",
+                                                                  "name": "league_singed_lives"
+                                                                }
+                                                              ]
+                                                            }
+                                                          ]
+                                                        }
+                                                      ]
+                                                    },
+                                                    "effect_none": {
+                                                      "type": "Combine",
+                                                      "effects": []
+                                                    }
+                                                  },
+                                                  {
+                                                    "type": "RemoveCasterBuff",
+                                                    "name": "league_singed_lives"
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                }
+                              ]
+                            },
+                            "effect_none": {
+                              "type": "Combine",
+                              "effects": []
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "type": "Combine",
+          "effects": [
+            {
+              "type": "Sfx",
+              "name": "league_singed_r"
+            },
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_singed_vo_cd",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": []
+              },
+              "effect_none": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_singed_vo_cd",
+                      "duration": {
+                        "Time": {
+                          "tick": 600
+                        }
+                      }
+                    },
+                    "only_to_enemy": false
+                  },
+                  {
+                    "type": "Sfx",
+                    "name": "league_singed_vo_r"
+                  }
+                ]
+              }
+            },
+            {
+              "type": "CasterViewEffect",
+              "name": "league_singed_r_drink"
+            },
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_singed_r_on"
+                },
+                {
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "league_singed_r_on",
+                    "duration": {
+                      "Time": {
+                        "tick": 1500
+                      }
+                    },
+                    "magic_power": 60,
+                    "defence": 30,
+                    "magic_resistance": 30,
+                    "move_speed_mult": 15,
+                    "hp_regen": 12
+                  },
+                  "only_to_enemy": false
+                }
+              ]
+            },
+            {
+              "type": "Delayed",
+              "tick": 20,
+              "effects": [
+                {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "RandomTarget",
+                      "range": 1,
+                      "casting_target": "AllyOnlySelf",
+                      "from_projectile": false,
+                      "effects": [
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_singed_lives",
+                            "duration": {
+                              "Time": {
+                                "tick": 1
+                              }
+                            }
+                          },
+                          "only_to_enemy": false
+                        }
+                      ]
+                    },
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_singed_lives",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_singed_w_cd"
+                          },
+                          {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "league_singed_w_go"
+                              },
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_singed_w_go",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 5
+                                    }
+                                  }
+                                },
+                                "only_to_enemy": false
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    },
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "league_singed_lives"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "view_projectiles": [
+    {
+      "type": "Animated",
+      "name": "league_singed_w_vial",
+      "anim": "asset/league/effects/league_singed_fx",
+      "tag": "w_vial",
+      "repeat": true,
+      "z": 2
+    }
+  ],
+  "view_effects": [
+    {
+      "type": "Animation",
+      "name": "league_singed_a_hit",
+      "anim": "asset/league/effects/league_singed_fx",
+      "tag": "a_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_singed_e_hit",
+      "anim": "asset/league/effects/league_singed_fx",
+      "tag": "e_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_singed_e_land",
+      "anim": "asset/league/effects/league_singed_fx",
+      "tag": "e_land",
+      "z": -1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_singed_e_root",
+      "anim": "asset/league/effects/league_singed_fx",
+      "tag": "e_root",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_singed_w_glue",
+      "anim": "asset/league/effects/league_singed_big",
+      "tag": "w_glue",
+      "z": -1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_singed_q_cloud",
+      "anim": "asset/league/effects/league_singed_big",
+      "tag": "q_cloud",
+      "z": -1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_singed_q_cloud_r",
+      "anim": "asset/league/effects/league_singed_big",
+      "tag": "q_cloud_r",
+      "z": -1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_singed_r_drink",
+      "anim": "asset/league/effects/league_singed_fx",
+      "tag": "r_drink",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_singed_p_fast",
+      "anim": "asset/league/effects/league_singed_fx",
+      "tag": "p_fast",
+      "z": 2,
+      "is_follow": true
+    }
+  ],
+  "view_buffs": [
+    {
+      "type": "Animated",
+      "name": "league_singed_w_slow",
+      "anim": "asset/league/effects/league_singed_fx",
+      "tag": "slow",
+      "repeat": true,
+      "z": -1
+    },
+    {
+      "type": "Animated",
+      "name": "league_singed_q_gw",
+      "anim": "asset/league/effects/league_singed_fx",
+      "tag": "gw",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_singed_r_on",
+      "anim": "asset/league/effects/league_singed_fx",
+      "tag": "r_aura",
+      "repeat": true,
+      "z": -1
+    },
+    {
+      "type": "Animated",
+      "name": "league_singed_p_fast",
+      "anim": "asset/league/effects/league_singed_fx",
+      "tag": "haste",
+      "repeat": true,
+      "z": -1
+    }
+  ]
+}

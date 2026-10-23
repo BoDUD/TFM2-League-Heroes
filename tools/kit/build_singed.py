@@ -30,6 +30,9 @@ idle). Flags die with him: a respawned Singed has E and W ready.
           R -> W: the drink throws the glue at once at an enemy champion within w_range (its cooldown starting over).
           R on: clouds q_r_r round dealing r_q% of the damage and cutting healing r_gw% (League's Grievous Wounds) and
           E's cooldown e_cd_r instead of e_cd.
+The add-on copy (--native, addons/league_singed): Fling calls league_singed:fling instead of the pull and the root - the
+target knocked up for e_fly ticks and carried to e_behind behind him (stopped at walls), rooted e_root ticks only if it
+lands in glue (the glue's slow reaches it after landing).
 Timings: drafts until the frames exist (tools/art/rig_singed.py retimes them).
 Numbers: League 16.20 read into the top tank range (league_illaoi, league_ksante), balanced on the classic-SDK
 simulations (kd.py --lane 0 against fighter, executioner, knight, berserker, lancer and pole_warrior, C:/t/si_sim).
@@ -63,6 +66,7 @@ P = {
     # skill: E Fling
     "e_cd": 540, "e_cd_r": 360, "e_range": 20000, "e_dur": 30, "e_grab": 10, "e_dmg": 50, "e_ap": 60, "e_thp": 5,
     "e_fly": 16, "e_speed": 4800, "e_root": 60,
+    "e_behind": 30000,
     # skill2: W Mega Adhesive
     "w_cd": 900, "w_range": 60000, "w_dur": 30, "w_rel": 12, "w_fly": 20, "w_t": 180, "w_r": 20000, "w_p": 6,
     "w_slow": 50, "w_e_at": 2,
@@ -71,6 +75,7 @@ P = {
     "r_q": 150, "r_q_r": 14000, "r_gw": 40, "r_w_at": 20,
     # his spoken lines, at most one every vo_gap ticks
     "vo_gap": 600,
+    "native": 0,
 }
 
 
@@ -214,6 +219,10 @@ def field(name, radius, tick, period, effects, target="EnemyWithoutTower", first
             "applied_effects": [T(e) for e in effects], "end_effects": []}
 
 
+def native(name):
+    return {"type": "Native", "effect_ref": f"{ID}:{name}"}
+
+
 def voice(name, p):
     """His spoken line, at most one every vo_gap ticks."""
     return sw("vo_cd", NONE, combine(flag("vo_cd", p["vo_gap"]), sfx(name)))
@@ -251,6 +260,8 @@ def build(p):
         hit = [ap(p["e_dmg"], p["e_ap"]), pct(p["e_thp"]), view("e_hit"), tsfx("e_hit")]
         throw = combine({"type": "Pull", "speed": p["e_speed"], "tick": p["e_fly"]},
                         delayed(p["e_fly"], view("e_land"), root))
+        if p["native"]:   # the add-on's: a real knock-up behind him, rooted only when it lands in glue
+            throw = combine(native("fling"), delayed(p["e_fly"], view("e_land")))
         cd = sw("r_on", refresh("e_cd", p["e_cd_r"]), refresh("e_cd", p["e_cd"]))
         return combine(cd, anim("skill", p["e_dur"]), sfx("e"), voice("vo_e", p),
                        delayed(p["e_grab"] - 1, alive(homing("e_grab", target, hit), throw, haste)))
@@ -341,6 +352,7 @@ def main():
     ap_.add_argument("--params", help="json file with overrides")
     ap_.add_argument("--out", default=OUT)
     ap_.add_argument("--nodes", action="store_true")
+    ap_.add_argument("--native", action="store_true", help="the add-on's copy")
     a = ap_.parse_args()
     p = dict(P)
     if a.params:
@@ -350,6 +362,8 @@ def main():
         if k not in p:
             raise SystemExit(f"unknown parameter {k}")
         p[k] = type(p[k])(float(v)) if isinstance(p[k], int) else float(v)
+    if a.native:
+        p["native"] = 1
     kit = build(p)
     if a.nodes:
         for s in ("attack", "skill", "skill2", "ult"):
