@@ -344,7 +344,7 @@ def build(p):
     views_b = [B_("q_curse", FX, 3), B_("p_mark", FX, 3), B_("w_haste", FX, -1), B_("e_slow", FX, -1, "slow"),
                B_("r_slow", FX, -1, "slow"), B_("r_slow1", FX, -1, "slow")]
     return {
-        "id": ID, "category": "Magician", "tags": ["AP", "Magic", "Range", "Mobility"],
+        "id": ID, "category": "Magician", "tags": ["AP", "Magic", "Range", "CC"],
         "sprite": f"asset/league/champions/{ID}", "anim_prefix": "",
         "skill_icons": [f"asset/league/icons/{ID}_skill", f"asset/league/icons/{ID}_skill2", f"asset/league/icons/{ID}_ult"],
         "stat": {"attack": p["atk"], "magic_power": p["apw"], "hp": p["hp"], "defence": p["def"],
