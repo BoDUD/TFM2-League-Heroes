@@ -2,40 +2,40 @@
   "zh-hans": {
     "description": {
       "league_illaoi": {
-        "attack": "【附加包】抡神像砸下。<#ff9028ff>古神先知<>：普攻时每<#ffb900ff>6秒<>在她附近的墙边长出触手<#ffb900ff>6秒<>（没墙就在身前），每<#ffb900ff>1.5秒<>抽一个敌人<#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>35%<>物理伤害，先抽被教训的和躯壳；抽中英雄<#66bb6aff>回复<><#ff9028ff>6<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>6%<>生命。",
-        "skill2": "【附加包】扯出敌方英雄的灵魂<#ffb900ff>5秒<>：她打他多造成15%伤害，<#ef5350ff>减速<>50%；他走得离灵魂太远或灵魂到时，变成躯壳<#ffb900ff>4秒<>，身边长出触手。"
+        "attack": "【附加包】抡神像砸下。<#ff9028ff>古神先知<>：每<#ffb900ff>20-10秒<>在她附近的墙边长出触手（没墙就在身边），活<#ffb900ff>60秒<>、最多4条；只抽被教训的、灵魂和躯壳，她打中敌人时每<#ffb900ff>8秒<>抽一下，<#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>35%<>物理伤害；抽中英雄<#66bb6aff>回复<><#ff9028ff>6<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>6%<>生命。",
+        "skill2": "【附加包】扯出敌方英雄的灵魂<#ffb900ff>5秒<>，灵魂站在外面连着线：她打他多造成15%伤害，<#ef5350ff>减速<>50%；他走得离灵魂太远或灵魂到时，变成躯壳<#ffb900ff>4秒<>，身边长出触手。"
       }
     }
   },
   "zh-hant": {
     "description": {
       "league_illaoi": {
-        "attack": "【附加包】掄神像砸下。<#ff9028ff>遠古預言<>：普攻時每<#ffb900ff>6秒<>在她附近的牆邊長出觸手<#ffb900ff>6秒<>（沒牆就在身前），每<#ffb900ff>1.5秒<>抽一個敵人<#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>35%<>物理傷害，先抽被教訓的和軀殼；抽中英雄<#66bb6aff>回復<><#ff9028ff>6<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>6%<>生命。",
-        "skill2": "【附加包】扯出敵方英雄的靈魂<#ffb900ff>5秒<>：她打他多造成15%傷害，<#ef5350ff>緩速<>50%；他走得離靈魂太遠或靈魂到時，變成軀殼<#ffb900ff>4秒<>，身邊長出觸手。"
+        "attack": "【附加包】掄神像砸下。<#ff9028ff>遠古預言<>：每<#ffb900ff>20-10秒<>在她附近的牆邊長出觸手（沒牆就在身邊），活<#ffb900ff>60秒<>、最多4條；只抽被教訓的、靈魂和軀殼，她打中敵人時每<#ffb900ff>8秒<>抽一下，<#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>35%<>物理傷害；抽中英雄<#66bb6aff>回復<><#ff9028ff>6<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>6%<>生命。",
+        "skill2": "【附加包】扯出敵方英雄的靈魂<#ffb900ff>5秒<>，靈魂站在外面連著線：她打他多造成15%傷害，<#ef5350ff>緩速<>50%；他走得離靈魂太遠或靈魂到時，變成軀殼<#ffb900ff>4秒<>，身邊長出觸手。"
       }
     }
   },
   "en": {
     "description": {
       "league_illaoi": {
-        "attack": "[Add-on] Swings her idol down. <#ff9028ff>Prophet of an Elder God<>: an attack grows a tentacle on the edge of the walls near her every <#ffb900ff>6s<> for <#ffb900ff>6s<> (before her in the open); it strikes an enemy every <#ffb900ff>1.5s<> for <#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>35%<> physical damage, the lessoned and Vessels first, and <#66bb6aff>heals<> her <#ff9028ff>6<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>6%<> when it hits a champion.",
-        "skill2": "[Add-on] Rips the spirit out of an enemy champion for <#ffb900ff>5s<>: her hits on it deal 15% more and it is <#ef5350ff>slowed<> 50%; walking too far from its spirit, or when the spirit runs out, it becomes a Vessel for <#ffb900ff>4s<> and a tentacle grows by it."
+        "attack": "[Add-on] Swings her idol down. <#ff9028ff>Prophet of an Elder God<>: every <#ffb900ff>20-10s<> a tentacle grows on the walls near her (beside her in the open) for <#ffb900ff>60s<>, 4 at most; they strike only the lessoned, spirits and Vessels, and her target every <#ffb900ff>8s<>, for <#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>35%<> physical damage, <#66bb6aff>healing<> her <#ff9028ff>6<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>6%<> on a champion.",
+        "skill2": "[Add-on] Rips the spirit out of an enemy champion for <#ffb900ff>5s<>; it stands apart, tethered: her hits on it deal 15% more and it is <#ef5350ff>slowed<> 50%; walking too far from its spirit, or when the spirit runs out, it becomes a Vessel for <#ffb900ff>4s<> and a tentacle grows by it."
       }
     }
   },
   "ko": {
     "description": {
       "league_illaoi": {
-        "attack": "[확장] 신상을 내리친다. <#ff9028ff>고대신의 예언자<>: 기본 공격 시 <#ffb900ff>6초<>마다 근처 벽 가장자리에 촉수가 <#ffb900ff>6초<> 자라(벽이 없으면 앞에) <#ffb900ff>1.5초<>마다 적에게 <#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>35%<> 물리 피해, 가르침 대상과 그릇을 먼저 친다. 챔피언 적중 시 <#ff9028ff>6<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>6%<> <#66bb6aff>회복<>.",
-        "skill2": "[확장] 적 챔피언의 영혼을 <#ffb900ff>5초<> 끌어낸다: 그녀의 공격 피해 +15%, 50% <#ef5350ff>둔화<>; 영혼에서 너무 멀어지거나 시간이 다 되면 <#ffb900ff>4초<> 동안 그릇이 되어 곁에 촉수가 자란다."
+        "attack": "[확장] 신상을 내리친다. <#ff9028ff>고대신의 예언자<>: <#ffb900ff>20-10초<>마다 근처 벽에 촉수가 <#ffb900ff>60초<> 자란다(벽이 없으면 곁에, 최대 4개). 가르침 대상·영혼·그릇과 <#ffb900ff>8초<>마다 그녀의 대상만 친다: <#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>35%<> 물리 피해, 챔피언 적중 시 <#ff9028ff>6<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>6%<> <#66bb6aff>회복<>.",
+        "skill2": "[확장] 적 챔피언의 영혼을 <#ffb900ff>5초<> 끌어내 밖에 세우고 선으로 잇는다: 그녀의 공격 피해 +15%, 50% <#ef5350ff>둔화<>; 영혼에서 너무 멀어지거나 시간이 다 되면 <#ffb900ff>4초<> 동안 그릇이 되어 곁에 촉수가 자란다."
       }
     }
   },
   "ja": {
     "description": {
       "league_illaoi": {
-        "attack": "【拡張】神像を振り下ろす。<#ff9028ff>旧神の預言者<>：通常攻撃時<#ffb900ff>6秒<>ごとに近くの壁際へ触手が<#ffb900ff>6秒<>生え（壁がなければ前へ）、<#ffb900ff>1.5秒<>ごとに敵へ<#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>35%<>の物理ダメージ、教訓の対象と器を優先。英雄に当たると<#ff9028ff>6<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>6%<><#66bb6aff>回復<>。",
-        "skill2": "【拡張】敵英雄の魂を<#ffb900ff>5秒<>引き出す：彼女の攻撃ダメージ+15%、50%<#ef5350ff>スロウ<>。魂から離れすぎるか時間切れで<#ffb900ff>4秒<>器となり、そばに触手が生える。"
+        "attack": "【拡張】神像を振り下ろす。<#ff9028ff>旧神の預言者<>：<#ffb900ff>20-10秒<>ごとに近くの壁際へ触手が<#ffb900ff>60秒<>生える（壁がなければそば、最大4本）。教訓の対象・魂・器と<#ffb900ff>8秒<>ごとに彼女の対象だけを打つ：<#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>35%<>の物理ダメージ、英雄に当たると<#ff9028ff>6<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>6%<><#66bb6aff>回復<>。",
+        "skill2": "【拡張】敵英雄の魂を<#ffb900ff>5秒<>引き出し、外に立たせて線でつなぐ：彼女の攻撃ダメージ+15%、50%<#ef5350ff>スロウ<>。魂から離れすぎるか時間切れで<#ffb900ff>4秒<>器となり、そばに触手が生える。"
       }
     }
   }

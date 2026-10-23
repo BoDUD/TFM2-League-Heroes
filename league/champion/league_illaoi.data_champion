@@ -6371,6 +6371,14 @@
       "tag": "e_grab",
       "repeat": true,
       "z": 2
+    },
+    {
+      "type": "Animated",
+      "name": "league_illaoi_e_tether",
+      "anim": "asset/league/effects/league_illaoi_fx",
+      "tag": "e_tether",
+      "repeat": true,
+      "z": 2
     }
   ],
   "view_effects": [
@@ -6451,6 +6459,46 @@
       "name": "league_illaoi_lash",
       "anim": "asset/league/effects/league_illaoi_lash",
       "tag": "idle",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_tentacle_rise",
+      "anim": "asset/league/effects/league_illaoi_tentacle",
+      "tag": "rise",
+      "z": 1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_tentacle_sway",
+      "anim": "asset/league/effects/league_illaoi_tentacle",
+      "tag": "sway",
+      "z": 1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_tentacle_sink",
+      "anim": "asset/league/effects/league_illaoi_tentacle",
+      "tag": "sink",
+      "z": 1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_e_soul",
+      "anim": "asset/league/effects/league_illaoi_fx",
+      "tag": "e_spirit",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_e_echo",
+      "anim": "asset/league/effects/league_illaoi_fx",
+      "tag": "e_echo",
       "z": 3,
       "is_follow": false
     }
