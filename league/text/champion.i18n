@@ -1106,6 +1106,20 @@
         "skill": "推着雪球冲向目标，撞上造成<#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>42%<>魔法伤害并<#ef5350ff>击飞<><#ffb900ff>0.5秒<>；滚得越久越大，最多170%伤害、<#ef5350ff>击飞<><#ffb900ff>1秒<>。",
         "skill2": "连扔6个雪球，每个<#a974ffff>11<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>7%<>魔法伤害并<#ef5350ff>减速<>30%；扔完<#ef5350ff>禁锢<>被打中的英雄<#ffb900ff>0.75秒<>，造成<#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>魔法伤害。",
         "ult": "引导暴风雪<#ffb900ff>2.5秒<>，获得<#66bb6aff>护盾<><#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>，周围敌人<#ef5350ff>减速<>40%到80%；结束时爆发造成<#a974ffff>190<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>105%<>魔法伤害（被打断按已引导的时间计算）。"
+      },
+      "league_azir": {
+        "name": "阿兹尔",
+        "attack": "<#ff9028ff>沙兵现身<>：普攻每<#ffb900ff>2.5秒<>在目标处召出一个黄沙士兵（最多<#ffb900ff>3<>个，存在<#ffb900ff>8秒<>），士兵代他刺击，造成<#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<>魔法伤害；士兵都够不着时他自己射出沙光。",
+        "skill": "所有黄沙士兵冲向目标，沿途造成<#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<>魔法伤害并<#ef5350ff>减速<>25%，落地马上刺击；没有士兵时在目标处召出一个。",
+        "skill2": "身边有士兵才能施放：获得<#66bb6aff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>60%<>护盾，大招就绪时冲向敌方英雄，造成<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<>魔法伤害并召出一个士兵；被敌方英雄贴身时改为后跳。",
+        "ult": "一排禁军举盾冲锋，造成<#a974ffff>260<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<>魔法伤害并<#ef5350ff>击退<>敌人；刚用流沙移形冲到英雄身上时，先绕到他身后，再把他推回己方。"
+      },
+      "league_zac": {
+        "name": "扎克",
+        "attack": "拳击。<#ff9028ff>不稳定物质<>：冷却好时普攻炸开，周围敌人受<#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>魔法伤害，英雄再受<#e0e0e0ff>最大生命4%<>真实伤害（冷却<#ffb900ff>5秒<>）。<#ff9028ff>细胞分裂<>：技能打中英雄掉下黏液，吃掉<#66bb6aff>回复<><#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<>生命（复活需扩展包）。",
+        "skill": "伸长手臂抓向目标，造成<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> + 自身最大生命2%魔法伤害并<#ef5350ff>减速<>40%；抓住的英雄<#ffb900ff>0.4秒<>后被甩到身边砸地，再受同样伤害，周围敌人<#ef5350ff>击飞<><#ffb900ff>0.5秒<>。",
+        "skill2": "蓄力<#ffb900ff>0.6秒<>后把自己弹向目标，落地造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> + 自身最大生命3%魔法伤害并<#ef5350ff>击飞<>周围敌人<#ffb900ff>0.5秒<>。",
+        "ult": "不可阻挡地连跳4次，每次落地造成<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>魔法伤害（之后每次50%），<#ef5350ff>击飞<><#ffb900ff>0.33秒<>并<#ef5350ff>减速<>25%。"
       }
     },
     "skill_name": {
@@ -1898,6 +1912,16 @@
         "skill1": "史上最大雪球！",
         "skill2": "雪球飞射",
         "ult": "绝对零度"
+      },
+      "league_azir": {
+        "skill1": "狂沙猛攻",
+        "skill2": "流沙移形",
+        "ult": "禁军之墙"
+      },
+      "league_zac": {
+        "skill1": "延伸打击",
+        "skill2": "橡筋弹弓",
+        "ult": "动感弹球"
       }
     }
   },
@@ -3008,6 +3032,20 @@
         "skill": "推著雪球衝向目標，撞上造成<#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>42%<>魔法傷害並<#ef5350ff>擊飛<><#ffb900ff>0.5秒<>；滾得越久越大，最多170%傷害、<#ef5350ff>擊飛<><#ffb900ff>1秒<>。",
         "skill2": "連扔6顆雪球，每顆<#a974ffff>11<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>7%<>魔法傷害並<#ef5350ff>緩速<>30%；扔完<#ef5350ff>禁錮<>被擊中的英雄<#ffb900ff>0.75秒<>，造成<#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>魔法傷害。",
         "ult": "引導暴風雪<#ffb900ff>2.5秒<>，獲得<#66bb6aff>護盾<><#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>，周圍敵人<#ef5350ff>緩速<>40%到80%；結束時爆發造成<#a974ffff>190<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>105%<>魔法傷害（被打斷按已引導的時間計算）。"
+      },
+      "league_azir": {
+        "name": "阿祈爾",
+        "attack": "<#ff9028ff>砂漠禁軍<>：普攻每<#ffb900ff>2.5秒<>在目標處召出一名砂兵（最多<#ffb900ff>3<>名，存在<#ffb900ff>8秒<>），砂兵代他刺擊，造成<#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<>魔法傷害；砂兵都搆不著時他自己射出砂光。",
+        "skill": "所有砂兵衝向目標，沿途造成<#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<>魔法傷害並<#ef5350ff>緩速<>25%，落地立刻刺擊；沒有砂兵時在目標處召出一名。",
+        "skill2": "身邊有砂兵才能施放：獲得<#66bb6aff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>60%<>護盾，大絕就緒時衝向敵方英雄，造成<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<>魔法傷害並召出一名砂兵；被敵方英雄貼身時改為後跳。",
+        "ult": "一排禁軍舉盾衝鋒，造成<#a974ffff>260<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<>魔法傷害並<#ef5350ff>擊退<>敵人；剛用護砂瞬身衝到英雄身上時，先繞到他身後，再把他推回己方。"
+      },
+      "league_zac": {
+        "name": "札克",
+        "attack": "拳擊。<#ff9028ff>自體爆破<>：冷卻好時普攻炸開，周圍敵人受<#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>魔法傷害，英雄再受<#e0e0e0ff>最大生命4%<>真實傷害（冷卻<#ffb900ff>5秒<>）。<#ff9028ff>組織分裂<>：技能擊中英雄掉下黏液，吃掉<#66bb6aff>回復<><#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<>生命（復活需擴充包）。",
+        "skill": "伸長手臂抓向目標，造成<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> + 自身最大生命2%魔法傷害並<#ef5350ff>緩速<>40%；抓住的英雄<#ffb900ff>0.4秒<>後被甩到身邊砸地，再受同樣傷害，周圍敵人<#ef5350ff>擊飛<><#ffb900ff>0.5秒<>。",
+        "skill2": "蓄力<#ffb900ff>0.6秒<>後把自己彈向目標，落地造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> + 自身最大生命3%魔法傷害並<#ef5350ff>擊飛<>周圍敵人<#ffb900ff>0.5秒<>。",
+        "ult": "無法阻擋地連跳4次，每次落地造成<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>魔法傷害（之後每次50%），<#ef5350ff>擊飛<><#ffb900ff>0.33秒<>並<#ef5350ff>緩速<>25%。"
       }
     },
     "skill_name": {
@@ -3800,6 +3838,16 @@
         "skill1": "巨無霸雪球！",
         "skill2": "雪球連擊",
         "ult": "絕對零度"
+      },
+      "league_azir": {
+        "skill1": "砂影霸者",
+        "skill2": "護砂瞬身",
+        "ult": "空砂防壁"
+      },
+      "league_zac": {
+        "skill1": "橡膠飛拳",
+        "skill2": "必殺黏星",
+        "ult": "活蹦亂跳！"
       }
     }
   },
@@ -4910,6 +4958,20 @@
         "skill": "Rolls a snowball into the target: <#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>42%<> magic damage and a <#ef5350ff>knock-up<> of <#ffb900ff>0.5s<>; the longer it rolls the bigger it grows, up to 170% damage and a <#ffb900ff>1s<> <#ef5350ff>knock-up<>.",
         "skill2": "Throws 6 snowballs, each dealing <#a974ffff>11<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>7%<> magic damage and <#ef5350ff>slowing<> 30%; then the champions hit are <#ef5350ff>rooted<> for <#ffb900ff>0.75s<> and take <#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> magic damage.",
         "ult": "Channels a blizzard for <#ffb900ff>2.5s<> under a <#66bb6aff>shield<> of <#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>, <#ef5350ff>slowing<> nearby enemies 40% rising to 80%; at the end it bursts for <#a974ffff>190<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>105%<> magic damage (a broken channel bursts for the share channelled)."
+      },
+      "league_azir": {
+        "name": "Azir",
+        "attack": "<#ff9028ff>Arise!<>: every <#ffb900ff>2.5s<> his attack raises a sand soldier at the target (<#ffb900ff>3<> at most, <#ffb900ff>8s<>); his soldiers stab for him, <#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<> magic damage. With none in reach he shoots a sand bolt himself.",
+        "skill": "Every soldier charges at the target, <#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<> magic damage on the way and a 25% <#ef5350ff>slow<>; they stab at once on arrival. With none standing, one rises there.",
+        "skill2": "Only with a soldier up: a shield of <#66bb6aff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>60%<>, then, with his ultimate ready, a dash onto an enemy champion for <#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<> magic damage and one more soldier. Dived by a champion, he hops back instead.",
+        "ult": "A wall of guards charges out: <#a974ffff>260<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<> magic damage and <#ef5350ff>knocks back<> the enemies. Right after Shifting Sands onto a champion he steps behind it first and drives it toward his team."
+      },
+      "league_zac": {
+        "name": "Zac",
+        "attack": "A goo punch. <#ff9028ff>Unstable Matter<>: when ready, an attack bursts for <#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> magic damage round him, champions also taking <#e0e0e0ff>4% of their max health<> true damage (cooldown <#ffb900ff>5s<>). <#ff9028ff>Cell Division<>: skills hitting a champion shed a blob; absorbing it <#66bb6aff>heals<> <#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<> (the revive needs the add-on).",
+        "skill": "Stretches an arm at the target for <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> + 2% of his max health magic damage, <#ef5350ff>slowing<> 40%; a champion caught is flung to him after <#ffb900ff>0.4s<> and slammed for the same damage again, <#ef5350ff>knocking up<> enemies round him for <#ffb900ff>0.5s<>.",
+        "skill2": "Charges for <#ffb900ff>0.6s<>, then flings himself at the target, landing for <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> + 3% of his max health magic damage and a <#ffb900ff>0.5s<> <#ef5350ff>knock-up<> round him.",
+        "ult": "Bounces 4 times, unstoppable: each landing deals <#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> magic damage (the later ones 50%), a <#ffb900ff>0.33s<> <#ef5350ff>knock-up<> and a 25% <#ef5350ff>slow<>."
       }
     },
     "skill_name": {
@@ -5702,6 +5764,16 @@
         "skill1": "Biggest Snowball Ever!",
         "skill2": "Snowball Barrage",
         "ult": "Absolute Zero"
+      },
+      "league_azir": {
+        "skill1": "Conquering Sands",
+        "skill2": "Shifting Sands",
+        "ult": "Emperor's Divide"
+      },
+      "league_zac": {
+        "skill1": "Stretching Strikes",
+        "skill2": "Elastic Slingshot",
+        "ult": "Let's Bounce!"
       }
     }
   },
@@ -6812,6 +6884,20 @@
         "skill": "눈덩이를 굴려 대상에 부딪쳐 <#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>42%<> 마법 피해와 <#ffb900ff>0.5초<> <#ef5350ff>에어본<>; 오래 굴릴수록 커져 최대 170% 피해, <#ffb900ff>1초<> <#ef5350ff>에어본<>.",
         "skill2": "눈덩이 6개를 던져 각각 <#a974ffff>11<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>7%<> 마법 피해와 30% <#ef5350ff>둔화<>; 이후 맞은 챔피언을 <#ffb900ff>0.75초<> <#ef5350ff>속박<>하고 <#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> 마법 피해.",
         "ult": "<#ffb900ff>2.5초<> 동안 눈보라를 정신 집중하며 <#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> <#66bb6aff>보호막<>, 주변 적 40%에서 80%까지 <#ef5350ff>둔화<>; 끝나면 폭발해 <#a974ffff>190<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>105%<> 마법 피해(끊기면 집중한 만큼)."
+      },
+      "league_azir": {
+        "name": "아지르",
+        "attack": "<#ff9028ff>일어나라!<>: <#ffb900ff>2.5초<>마다 기본 공격이 대상 위치에 모래 병사를 세운다(최대 <#ffb900ff>3<>명, <#ffb900ff>8초<>). 병사가 대신 찔러 <#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<> 마법 피해; 닿는 병사가 없으면 직접 모래 빛을 쏜다.",
+        "skill": "모든 병사가 대상에게 돌진해 지나는 길에 <#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<> 마법 피해와 25% <#ef5350ff>둔화<>, 도착하자마자 찌른다. 병사가 없으면 그곳에 하나를 세운다.",
+        "skill2": "병사가 있을 때만: <#66bb6aff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>60%<> 보호막, 궁극기가 준비되면 적 챔피언에게 돌진해 <#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<> 마법 피해와 병사 하나 추가. 챔피언이 붙으면 대신 뒤로 뛴다.",
+        "ult": "근위대가 방패를 들고 돌격해 <#a974ffff>260<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<> 마법 피해와 <#ef5350ff>밀쳐내기<>. 신기루로 챔피언에게 막 붙었다면 먼저 그 뒤로 돌아가 아군 쪽으로 밀어 보낸다."
+      },
+      "league_zac": {
+        "name": "자크",
+        "attack": "점액 주먹. <#ff9028ff>불안정 물질<>: 준비되면 기본 공격이 터져 주변 적에게 <#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> 마법 피해, 챔피언은 <#e0e0e0ff>최대 체력의 4%<> 고정 피해 추가(재사용 <#ffb900ff>5초<>). <#ff9028ff>세포 분열<>: 스킬이 챔피언을 맞히면 점액이 떨어지고, 먹으면 <#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<> <#66bb6aff>회복<>(부활은 확장 팩 필요).",
+        "skill": "팔을 늘여 대상을 잡아 <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> + 자신 최대 체력의 2% 마법 피해와 40% <#ef5350ff>둔화<>; 잡힌 챔피언은 <#ffb900ff>0.4초<> 후 끌려와 내리꽂혀 같은 피해를 다시 받고, 주변 적은 <#ffb900ff>0.5초<> <#ef5350ff>에어본<>.",
+        "skill2": "<#ffb900ff>0.6초<> 동안 힘을 모은 뒤 대상에게 날아가 착지하며 <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> + 자신 최대 체력의 3% 마법 피해와 주변 적 <#ffb900ff>0.5초<> <#ef5350ff>에어본<>.",
+        "ult": "저지 불가 상태로 4번 튀어 오르며, 착지할 때마다 <#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> 마법 피해(이후 50%), <#ffb900ff>0.33초<> <#ef5350ff>에어본<>, 25% <#ef5350ff>둔화<>."
       }
     },
     "skill_name": {
@@ -7604,6 +7690,16 @@
         "skill1": "데굴데굴 눈덩이!",
         "skill2": "눈덩이 팡팡팡",
         "ult": "절대 영도"
+      },
+      "league_azir": {
+        "skill1": "사막의 맹습",
+        "skill2": "신기루",
+        "ult": "황제의 진영"
+      },
+      "league_zac": {
+        "skill1": "탄성 주먹",
+        "skill2": "새총 발사",
+        "ult": "바운스!"
       }
     }
   },
@@ -8714,6 +8810,20 @@
         "skill": "雪玉を転がして対象にぶつけ<#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>42%<>の魔法ダメージと<#ffb900ff>0.5秒<><#ef5350ff>ノックアップ<>。長く転がすほど大きくなり最大170%ダメージ・<#ffb900ff>1秒<><#ef5350ff>ノックアップ<>。",
         "skill2": "雪玉を6個投げ、それぞれ<#a974ffff>11<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>7%<>の魔法ダメージと30%<#ef5350ff>スロウ<>。投げ終わると当たった英雄を<#ffb900ff>0.75秒<><#ef5350ff>スネア<>し<#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>の魔法ダメージ。",
         "ult": "<#ffb900ff>2.5秒<>吹雪を詠唱し<#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>の<#66bb6aff>シールド<>、周囲の敵を40%から80%<#ef5350ff>スロウ<>。終わると爆発し<#a974ffff>190<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>105%<>の魔法ダメージ（中断時は詠唱した分）。"
+      },
+      "league_azir": {
+        "name": "アジール",
+        "attack": "<#ff9028ff>目覚めよ！<>：通常攻撃が<#ffb900ff>2.5秒<>ごとに対象の所に砂兵を呼ぶ（最大<#ffb900ff>3<>体、<#ffb900ff>8秒<>）。砂兵が代わりに突き<#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<>の魔法ダメージ、届く砂兵がいないと自ら砂光を放つ。",
+        "skill": "全砂兵が対象へ突撃し、道中<#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<>の魔法ダメージと25%<#ef5350ff>スロウ<>、着くとすぐ突く。砂兵がいなければそこに1体呼ぶ。",
+        "skill2": "砂兵がいる時だけ：<#66bb6aff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>60%<>のシールド、アルティメット準備時は敵英雄へ突進し<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<>の魔法ダメージと砂兵1体。詰められると後ろへ跳ぶ。",
+        "ult": "近衛兵の壁が突撃し<#a974ffff>260<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<>の魔法ダメージと<#ef5350ff>ノックバック<>。流砂の衝撃で英雄に寄った直後なら、背後へ回り味方側へ押し返す。"
+      },
+      "league_zac": {
+        "name": "ザック",
+        "attack": "スライムの拳。<#ff9028ff>スライムクラッシュ<>：使用可能なとき通常攻撃が弾け、周囲の敵に<#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>の魔法ダメージ、英雄にはさらに<#e0e0e0ff>最大体力の4%<>の確定ダメージ（クールダウン<#ffb900ff>5秒<>）。<#ff9028ff>はぐれスライム<>：スキルが英雄に当たるとスライムが落ち、拾うと<#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<><#66bb6aff>回復<>（復活は拡張パック）。",
+        "skill": "腕を伸ばして対象をつかみ<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>+自身の最大体力の2%の魔法ダメージと40%<#ef5350ff>スロウ<>。つかんだ英雄は<#ffb900ff>0.4秒<>後に引き寄せて叩きつけ、同じダメージを再び与え周囲の敵を<#ffb900ff>0.5秒<><#ef5350ff>ノックアップ<>。",
+        "skill2": "<#ffb900ff>0.6秒<>力をためて対象へ飛び、着地で<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>+自身の最大体力の3%の魔法ダメージと周囲の敵を<#ffb900ff>0.5秒<><#ef5350ff>ノックアップ<>。",
+        "ult": "阻止不能で4回跳ね、着地ごとに<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>の魔法ダメージ（2回目以降50%）、<#ffb900ff>0.33秒<><#ef5350ff>ノックアップ<>と25%<#ef5350ff>スロウ<>。"
       }
     },
     "skill_name": {
@@ -9506,6 +9616,16 @@
         "skill1": "超特大の雪玉！",
         "skill2": "雪玉連射",
         "ult": "アブソリュート・ゼロ"
+      },
+      "league_azir": {
+        "skill1": "征服の勅命",
+        "skill2": "流砂の衝撃",
+        "ult": "皇帝の分砂嶺"
+      },
+      "league_zac": {
+        "skill1": "スライムパンチ",
+        "skill2": "ブッ飛びスライム",
+        "ult": "レッツバウンス！"
       }
     }
   }

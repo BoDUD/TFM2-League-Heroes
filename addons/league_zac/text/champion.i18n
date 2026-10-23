@@ -1,0 +1,37 @@
+{
+  "zh-hans": {
+    "description": {
+      "league_zac_addon": {
+        "attack": "【附加包】拳击。<#ff9028ff>不稳定物质<>：冷却好时普攻炸开，周围敌人受<#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>魔法伤害，英雄再受<#e0e0e0ff>最大生命4%<>。<#ff9028ff>细胞分裂<>：吃掉掉下的黏液<#66bb6aff>回复<><#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<>；致命伤害时化成一滩<#ffb900ff>6秒<>（最大生命40%），被打掉才阵亡。冷却<#ffb900ff>300秒<>。"
+      }
+    }
+  },
+  "zh-hant": {
+    "description": {
+      "league_zac_addon": {
+        "attack": "【附加包】拳擊。<#ff9028ff>自體爆破<>：冷卻好時普攻炸開，周圍敵人受<#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>魔法傷害，英雄再受<#e0e0e0ff>最大生命4%<>。<#ff9028ff>組織分裂<>：吃掉掉下的黏液<#66bb6aff>回復<><#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<>；致命傷害時化成一灘<#ffb900ff>6秒<>（最大生命40%），被打掉才陣亡。冷卻<#ffb900ff>300秒<>。"
+      }
+    }
+  },
+  "en": {
+    "description": {
+      "league_zac_addon": {
+        "attack": "[Add-on] A goo punch. <#ff9028ff>Unstable Matter<>: a ready attack bursts for <#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> magic damage round him, <#e0e0e0ff>+4% max health<> to champions. <#ff9028ff>Cell Division<>: a shed blob <#66bb6aff>heals<> <#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<>; lethal damage melts him into a puddle for <#ffb900ff>6s<> (40% max health) - only destroying it kills him. Cooldown <#ffb900ff>300s<>, kept through death."
+      }
+    }
+  },
+  "ko": {
+    "description": {
+      "league_zac_addon": {
+        "attack": "[애드온] 점액 주먹. <#ff9028ff>불안정 물질<>: 준비되면 기본 공격이 터져 주변 적에게 <#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> 마법 피해, 챔피언은 <#e0e0e0ff>최대 체력의 4%<> 추가. <#ff9028ff>세포 분열<>: 떨어진 점액을 먹으면 <#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<> <#66bb6aff>회복<>; 치명적인 피해를 받으면 <#ffb900ff>6초<> 동안 웅덩이가 됨(최대 체력의 40%), 웅덩이가 파괴되어야 사망. 재사용 <#ffb900ff>300초<>."
+      }
+    }
+  },
+  "ja": {
+    "description": {
+      "league_zac_addon": {
+        "attack": "【アドオン】スライムの拳。<#ff9028ff>スライムクラッシュ<>：通常攻撃が弾け周囲の敵に<#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>の魔法ダメージ、英雄にはさらに<#e0e0e0ff>最大体力の4%<>。<#ff9028ff>はぐれスライム<>：拾ったスライムで<#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<><#66bb6aff>回復<>。致死ダメージで<#ffb900ff>6秒<>水たまりになり（最大体力の40%）、壊されると死亡。CD<#ffb900ff>300秒<>。"
+      }
+    }
+  }
+}

@@ -1,0 +1,107 @@
+{
+  "A1": {
+    "raw_sha256": "bc30c4dc97dbca23e6179b3b0d54f694b4a71ec9aab37e453f53014996a8824f",
+    "size": [
+      1254,
+      1254
+    ],
+    "opaque_bbox": [
+      233,
+      121,
+      1029,
+      1196
+    ],
+    "alpha_values_raw_count": 256,
+    "alpha_values_export": [
+      0,
+      255
+    ],
+    "rough_pitch_from_horizontal_color_changes": 14.5,
+    "rough_occupied_rows_by_pitch": 74.1,
+    "art_transforms": "none; only alpha threshold128 and clear hidden RGB"
+  },
+  "A2": {
+    "raw_sha256": "d6166a035ad5059ecc0086ace696ae891548ed8a9a7fe76c8f2d45c54079fa8d",
+    "size": [
+      1254,
+      1254
+    ],
+    "opaque_bbox": [
+      242,
+      60,
+      1019,
+      1196
+    ],
+    "alpha_values_raw_count": 256,
+    "alpha_values_export": [
+      0,
+      255
+    ],
+    "rough_pitch_from_horizontal_color_changes": 16.0,
+    "rough_occupied_rows_by_pitch": 71.0,
+    "art_transforms": "none; only alpha threshold128 and clear hidden RGB"
+  },
+  "T": {
+    "raw_sha256": "224fd5401147fd471189f484d741b283f7bcae44c1f85497cf43382d4dd7c484",
+    "size": [
+      1254,
+      1254
+    ],
+    "opaque_bbox": [
+      290,
+      39,
+      945,
+      1195
+    ],
+    "alpha_values_raw_count": 256,
+    "alpha_values_export": [
+      0,
+      255
+    ],
+    "rough_pitch_from_horizontal_color_changes": 21.0,
+    "rough_occupied_rows_by_pitch": 55.0,
+    "art_transforms": "none; only alpha threshold128 and clear hidden RGB"
+  },
+  "US": {
+    "raw_sha256": "9cd3a88c77adc6d4a4dbe1407f5427562ed81a873da3da7cfed3fc2458e39047",
+    "size": [
+      1254,
+      1254
+    ],
+    "opaque_bbox": [
+      162,
+      55,
+      1125,
+      1224
+    ],
+    "alpha_values_raw_count": 256,
+    "alpha_values_export": [
+      0,
+      255
+    ],
+    "rough_pitch_from_horizontal_color_changes": 27.0,
+    "rough_occupied_rows_by_pitch": 43.3,
+    "art_transforms": "none; only alpha threshold128 and clear hidden RGB"
+  },
+  "D": {
+    "raw_sha256": "676274874c015b88deb4d8f51897175b9cecd2d33117a87b0111cda310d7fe6a",
+    "size": [
+      1254,
+      1254
+    ],
+    "opaque_bbox": [
+      238,
+      26,
+      1017,
+      1197
+    ],
+    "alpha_values_raw_count": 256,
+    "alpha_values_export": [
+      0,
+      255
+    ],
+    "rough_pitch_from_horizontal_color_changes": 17.0,
+    "rough_occupied_rows_by_pitch": 68.9,
+    "art_transforms": "none; only alpha threshold128 and clear hidden RGB"
+  }
+}

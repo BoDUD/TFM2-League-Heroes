@@ -1,0 +1,844 @@
+{
+  "version": 1,
+  "scale": 8,
+  "art_source": "built-in image_gen",
+  "export": "per-cell modal palette voting, mirror projection, horizontal packing",
+  "assets": [
+    {
+      "name": "a_bolt",
+      "file": "azir_fx_a_bolt.png",
+      "pixel_1x": "pixel_1x/azir_fx_a_bolt.png",
+      "raw": "raw/azir_fx_a_bolt.png",
+      "frames": 4,
+      "cell_1x": [
+        14,
+        8
+      ],
+      "cell_8x": [
+        112,
+        64
+      ],
+      "sheet_1x": [
+        56,
+        8
+      ],
+      "sheet_8x": [
+        448,
+        64
+      ],
+      "layout": "one horizontal row, frame0 at left",
+      "symmetry": "top-bottom",
+      "loop": true,
+      "binding": "view_projectiles `league_azir_a_bolt`（弹道，z 2；上下对称）",
+      "palette": [
+        "#FFFFFF",
+        "#FFF8D8",
+        "#FFE47A",
+        "#F8BC2C",
+        "#C47A12",
+        "#FFF2C8",
+        "#F2D282",
+        "#D8A850",
+        "#A87430",
+        "#6A4418"
+      ],
+      "source_grid": [
+        2,
+        2
+      ],
+      "source_frame_order": "row-major",
+      "body_clearance": null,
+      "preview_frame_ms": 120,
+      "game_frame_duration": null
+    },
+    {
+      "name": "a_hit",
+      "file": "azir_fx_a_hit.png",
+      "pixel_1x": "pixel_1x/azir_fx_a_hit.png",
+      "raw": "raw/azir_fx_a_hit.png",
+      "frames": 3,
+      "cell_1x": [
+        12,
+        12
+      ],
+      "cell_8x": [
+        96,
+        96
+      ],
+      "sheet_1x": [
+        36,
+        12
+      ],
+      "sheet_8x": [
+        288,
+        96
+      ],
+      "layout": "one horizontal row, frame0 at left",
+      "symmetry": "left-right",
+      "loop": false,
+      "binding": "view_effects `league_azir_a_hit`（跟随目标，z 2；左右对称）",
+      "palette": [
+        "#FFFFFF",
+        "#FFF8D8",
+        "#FFE47A",
+        "#F8BC2C",
+        "#C47A12",
+        "#FFF2C8",
+        "#F2D282",
+        "#D8A850",
+        "#A87430",
+        "#6A4418"
+      ],
+      "source_grid": [
+        3,
+        1
+      ],
+      "source_frame_order": "row-major",
+      "body_clearance": null,
+      "preview_frame_ms": 120,
+      "game_frame_duration": null
+    },
+    {
+      "name": "s_spawn",
+      "file": "azir_fx_s_spawn.png",
+      "pixel_1x": "pixel_1x/azir_fx_s_spawn.png",
+      "raw": "raw/azir_fx_s_spawn.png",
+      "frames": 5,
+      "cell_1x": [
+        24,
+        12
+      ],
+      "cell_8x": [
+        192,
+        96
+      ],
+      "sheet_1x": [
+        120,
+        12
+      ],
+      "sheet_8x": [
+        960,
+        96
+      ],
+      "layout": "one horizontal row, frame0 at left",
+      "symmetry": "left-right",
+      "loop": false,
+      "binding": "view_effects `league_azir_s_spawn`（在沙兵站的地方，地上，z 1，不跟随；左右对称）",
+      "palette": [
+        "#FFFFFF",
+        "#FFF2C8",
+        "#F2D282",
+        "#D8A850",
+        "#A87430",
+        "#6A4418",
+        "#FFF8D8",
+        "#FFE47A",
+        "#F8BC2C",
+        "#C47A12",
+        "#E8D8B8",
+        "#C4A878",
+        "#8C7048",
+        "#5A4630"
+      ],
+      "source_grid": [
+        2,
+        3
+      ],
+      "source_frame_order": "row-major",
+      "body_clearance": null,
+      "preview_frame_ms": 120,
+      "game_frame_duration": null
+    },
+    {
+      "name": "s_stab",
+      "file": "azir_fx_s_stab.png",
+      "pixel_1x": "pixel_1x/azir_fx_s_stab.png",
+      "raw": "raw/azir_fx_s_stab.png",
+      "frames": 4,
+      "cell_1x": [
+        14,
+        30
+      ],
+      "cell_8x": [
+        112,
+        240
+      ],
+      "sheet_1x": [
+        56,
+        30
+      ],
+      "sheet_8x": [
+        448,
+        240
+      ],
+      "layout": "one horizontal row, frame0 at left",
+      "symmetry": "left-right",
+      "loop": false,
+      "binding": "view_effects `league_azir_s_stab`（跟随目标，z 3；左右对称）",
+      "palette": [
+        "#FFFFFF",
+        "#FFF8D8",
+        "#FFE47A",
+        "#F8BC2C",
+        "#C47A12",
+        "#FFF2C8",
+        "#F2D282",
+        "#D8A850",
+        "#A87430",
+        "#6A4418",
+        "#D4FFFA",
+        "#74F0E6",
+        "#22B8C8",
+        "#106878"
+      ],
+      "source_grid": [
+        4,
+        1
+      ],
+      "source_frame_order": "row-major",
+      "body_clearance": null,
+      "preview_frame_ms": 120,
+      "game_frame_duration": null
+    },
+    {
+      "name": "q_wave",
+      "file": "azir_fx_q_wave.png",
+      "pixel_1x": "pixel_1x/azir_fx_q_wave.png",
+      "raw": "raw/azir_fx_q_wave.png",
+      "frames": 4,
+      "cell_1x": [
+        26,
+        12
+      ],
+      "cell_8x": [
+        208,
+        96
+      ],
+      "sheet_1x": [
+        104,
+        12
+      ],
+      "sheet_8x": [
+        832,
+        96
+      ],
+      "layout": "one horizontal row, frame0 at left",
+      "symmetry": "top-bottom",
+      "loop": true,
+      "binding": "view_projectiles `league_azir_q_wave`（弹道，z 2；上下对称）",
+      "palette": [
+        "#FFFFFF",
+        "#FFF2C8",
+        "#F2D282",
+        "#D8A850",
+        "#A87430",
+        "#6A4418",
+        "#FFF8D8",
+        "#FFE47A",
+        "#F8BC2C",
+        "#C47A12",
+        "#E8D8B8",
+        "#C4A878",
+        "#8C7048",
+        "#5A4630"
+      ],
+      "source_grid": [
+        2,
+        2
+      ],
+      "source_frame_order": "row-major",
+      "body_clearance": null,
+      "preview_frame_ms": 120,
+      "game_frame_duration": null
+    },
+    {
+      "name": "q_land",
+      "file": "azir_fx_q_land.png",
+      "pixel_1x": "pixel_1x/azir_fx_q_land.png",
+      "raw": "raw/azir_fx_q_land.png",
+      "frames": 5,
+      "cell_1x": [
+        36,
+        14
+      ],
+      "cell_8x": [
+        288,
+        112
+      ],
+      "sheet_1x": [
+        180,
+        14
+      ],
+      "sheet_8x": [
+        1440,
+        112
+      ],
+      "layout": "one horizontal row, frame0 at left",
+      "symmetry": "left-right",
+      "loop": false,
+      "binding": "view_effects `league_azir_q_land`（在落点，地上，z 1，不跟随；左右对称）",
+      "palette": [
+        "#FFFFFF",
+        "#FFF2C8",
+        "#F2D282",
+        "#D8A850",
+        "#A87430",
+        "#6A4418",
+        "#FFF8D8",
+        "#FFE47A",
+        "#F8BC2C",
+        "#C47A12",
+        "#E8D8B8",
+        "#C4A878",
+        "#8C7048",
+        "#5A4630"
+      ],
+      "source_grid": [
+        2,
+        3
+      ],
+      "source_frame_order": "row-major",
+      "body_clearance": null,
+      "preview_frame_ms": 120,
+      "game_frame_duration": null
+    },
+    {
+      "name": "q_hit",
+      "file": "azir_fx_q_hit.png",
+      "pixel_1x": "pixel_1x/azir_fx_q_hit.png",
+      "raw": "raw/azir_fx_q_hit.png",
+      "frames": 4,
+      "cell_1x": [
+        16,
+        18
+      ],
+      "cell_8x": [
+        128,
+        144
+      ],
+      "sheet_1x": [
+        64,
+        18
+      ],
+      "sheet_8x": [
+        512,
+        144
+      ],
+      "layout": "one horizontal row, frame0 at left",
+      "symmetry": "left-right",
+      "loop": false,
+      "binding": "view_effects `league_azir_q_hit`（跟随目标，z 2；左右对称）",
+      "palette": [
+        "#FFFFFF",
+        "#FFF2C8",
+        "#F2D282",
+        "#D8A850",
+        "#A87430",
+        "#6A4418",
+        "#FFF8D8",
+        "#FFE47A",
+        "#F8BC2C",
+        "#C47A12"
+      ],
+      "source_grid": [
+        2,
+        2
+      ],
+      "source_frame_order": "row-major",
+      "body_clearance": null,
+      "preview_frame_ms": 120,
+      "game_frame_duration": null
+    },
+    {
+      "name": "slow",
+      "file": "azir_fx_slow.png",
+      "pixel_1x": "pixel_1x/azir_fx_slow.png",
+      "raw": "raw/azir_fx_slow.png",
+      "frames": 4,
+      "cell_1x": [
+        16,
+        8
+      ],
+      "cell_8x": [
+        128,
+        64
+      ],
+      "sheet_1x": [
+        64,
+        8
+      ],
+      "sheet_8x": [
+        512,
+        64
+      ],
+      "layout": "one horizontal row, frame0 at left",
+      "symmetry": "left-right",
+      "loop": true,
+      "binding": "view_buffs `league_azir_q_slow`（tag `slow`，跟随，脚下，z -1；左右对称）",
+      "palette": [
+        "#FFFFFF",
+        "#FFF2C8",
+        "#F2D282",
+        "#D8A850",
+        "#A87430",
+        "#6A4418",
+        "#E8D8B8",
+        "#C4A878",
+        "#8C7048",
+        "#5A4630"
+      ],
+      "source_grid": [
+        2,
+        2
+      ],
+      "source_frame_order": "row-major",
+      "body_clearance": null,
+      "preview_frame_ms": 120,
+      "game_frame_duration": null
+    },
+    {
+      "name": "e_shield",
+      "file": "azir_fx_e_shield.png",
+      "pixel_1x": "pixel_1x/azir_fx_e_shield.png",
+      "raw": "raw/azir_fx_e_shield.png",
+      "frames": 4,
+      "cell_1x": [
+        40,
+        46
+      ],
+      "cell_8x": [
+        320,
+        368
+      ],
+      "sheet_1x": [
+        160,
+        46
+      ],
+      "sheet_8x": [
+        1280,
+        368
+      ],
+      "layout": "one horizontal row, frame0 at left",
+      "symmetry": "left-right",
+      "loop": false,
+      "binding": "view_effects `league_azir_e_shield`（在他身上，跟随，z 3；左右对称）",
+      "palette": [
+        "#FFFFFF",
+        "#FFF2C8",
+        "#F2D282",
+        "#D8A850",
+        "#A87430",
+        "#6A4418",
+        "#FFF8D8",
+        "#FFE47A",
+        "#F8BC2C",
+        "#C47A12",
+        "#D4FFFA",
+        "#74F0E6",
+        "#22B8C8",
+        "#106878"
+      ],
+      "source_grid": [
+        2,
+        2
+      ],
+      "source_frame_order": "row-major",
+      "body_clearance": {
+        "size": [
+          30,
+          38
+        ],
+        "shape": "ellipse"
+      },
+      "preview_frame_ms": 120,
+      "game_frame_duration": null
+    },
+    {
+      "name": "e_land",
+      "file": "azir_fx_e_land.png",
+      "pixel_1x": "pixel_1x/azir_fx_e_land.png",
+      "raw": "raw/azir_fx_e_land.png",
+      "frames": 5,
+      "cell_1x": [
+        30,
+        24
+      ],
+      "cell_8x": [
+        240,
+        192
+      ],
+      "sheet_1x": [
+        150,
+        24
+      ],
+      "sheet_8x": [
+        1200,
+        192
+      ],
+      "layout": "one horizontal row, frame0 at left",
+      "symmetry": "left-right",
+      "loop": false,
+      "binding": "view_effects `league_azir_e_land`（在他落地的地方，地上，z 1，不跟随；左右对称）",
+      "palette": [
+        "#FFFFFF",
+        "#FFF2C8",
+        "#F2D282",
+        "#D8A850",
+        "#A87430",
+        "#6A4418",
+        "#FFF8D8",
+        "#FFE47A",
+        "#F8BC2C",
+        "#C47A12",
+        "#E8D8B8",
+        "#C4A878",
+        "#8C7048",
+        "#5A4630"
+      ],
+      "source_grid": [
+        2,
+        3
+      ],
+      "source_frame_order": "row-major",
+      "body_clearance": null,
+      "preview_frame_ms": 120,
+      "game_frame_duration": null
+    },
+    {
+      "name": "e_hit",
+      "file": "azir_fx_e_hit.png",
+      "pixel_1x": "pixel_1x/azir_fx_e_hit.png",
+      "raw": "raw/azir_fx_e_hit.png",
+      "frames": 4,
+      "cell_1x": [
+        16,
+        20
+      ],
+      "cell_8x": [
+        128,
+        160
+      ],
+      "sheet_1x": [
+        64,
+        20
+      ],
+      "sheet_8x": [
+        512,
+        160
+      ],
+      "layout": "one horizontal row, frame0 at left",
+      "symmetry": "left-right",
+      "loop": false,
+      "binding": "view_effects `league_azir_e_hit`（跟随目标，z 2；左右对称）",
+      "palette": [
+        "#FFFFFF",
+        "#FFF2C8",
+        "#F2D282",
+        "#D8A850",
+        "#A87430",
+        "#6A4418",
+        "#FFF8D8",
+        "#FFE47A",
+        "#F8BC2C",
+        "#C47A12"
+      ],
+      "source_grid": [
+        2,
+        2
+      ],
+      "source_frame_order": "row-major",
+      "body_clearance": null,
+      "preview_frame_ms": 120,
+      "game_frame_duration": null
+    },
+    {
+      "name": "r_rise",
+      "file": "azir_fx_r_rise.png",
+      "pixel_1x": "pixel_1x/azir_fx_r_rise.png",
+      "raw": "raw/azir_fx_r_rise.png",
+      "frames": 6,
+      "cell_1x": [
+        70,
+        30
+      ],
+      "cell_8x": [
+        560,
+        240
+      ],
+      "sheet_1x": [
+        420,
+        30
+      ],
+      "sheet_8x": [
+        3360,
+        240
+      ],
+      "layout": "one horizontal row, frame0 at left",
+      "symmetry": "left-right",
+      "loop": false,
+      "binding": "view_effects `league_azir_r_rise`（大表，在他前面，地上，z 1，不跟随；左右对称）",
+      "palette": [
+        "#FFFFFF",
+        "#FFF2C8",
+        "#F2D282",
+        "#D8A850",
+        "#A87430",
+        "#6A4418",
+        "#FFF8D8",
+        "#FFE47A",
+        "#F8BC2C",
+        "#C47A12",
+        "#E8D8B8",
+        "#C4A878",
+        "#8C7048",
+        "#5A4630"
+      ],
+      "source_grid": [
+        2,
+        3
+      ],
+      "source_frame_order": "row-major",
+      "body_clearance": null,
+      "preview_frame_ms": 120,
+      "game_frame_duration": null
+    },
+    {
+      "name": "r_dust",
+      "file": "azir_fx_r_dust.png",
+      "pixel_1x": "pixel_1x/azir_fx_r_dust.png",
+      "raw": "raw/azir_fx_r_dust.png",
+      "frames": 4,
+      "cell_1x": [
+        30,
+        12
+      ],
+      "cell_8x": [
+        240,
+        96
+      ],
+      "sheet_1x": [
+        120,
+        12
+      ],
+      "sheet_8x": [
+        960,
+        96
+      ],
+      "layout": "one horizontal row, frame0 at left",
+      "symmetry": "left-right",
+      "loop": false,
+      "binding": "view_effects `league_azir_r_dust`（在冲锋的禁军脚下，地上，z 1，不跟随；左右对称）",
+      "palette": [
+        "#FFFFFF",
+        "#FFF2C8",
+        "#F2D282",
+        "#D8A850",
+        "#A87430",
+        "#6A4418",
+        "#E8D8B8",
+        "#C4A878",
+        "#8C7048",
+        "#5A4630"
+      ],
+      "source_grid": [
+        2,
+        2
+      ],
+      "source_frame_order": "row-major",
+      "body_clearance": null,
+      "preview_frame_ms": 120,
+      "game_frame_duration": null
+    },
+    {
+      "name": "r_hit",
+      "file": "azir_fx_r_hit.png",
+      "pixel_1x": "pixel_1x/azir_fx_r_hit.png",
+      "raw": "raw/azir_fx_r_hit.png",
+      "frames": 4,
+      "cell_1x": [
+        18,
+        22
+      ],
+      "cell_8x": [
+        144,
+        176
+      ],
+      "sheet_1x": [
+        72,
+        22
+      ],
+      "sheet_8x": [
+        576,
+        176
+      ],
+      "layout": "one horizontal row, frame0 at left",
+      "symmetry": "left-right",
+      "loop": false,
+      "binding": "view_effects `league_azir_r_hit`（跟随目标，z 2；左右对称）",
+      "palette": [
+        "#FFFFFF",
+        "#FFF8D8",
+        "#FFE47A",
+        "#F8BC2C",
+        "#C47A12",
+        "#FFF2C8",
+        "#F2D282",
+        "#D8A850",
+        "#A87430",
+        "#6A4418"
+      ],
+      "source_grid": [
+        2,
+        2
+      ],
+      "source_frame_order": "row-major",
+      "body_clearance": null,
+      "preview_frame_ms": 120,
+      "game_frame_duration": null
+    },
+    {
+      "name": "d_rise",
+      "file": "azir_fx_d_rise.png",
+      "pixel_1x": "pixel_1x/azir_fx_d_rise.png",
+      "raw": "raw/azir_fx_d_rise.png",
+      "frames": 6,
+      "cell_1x": [
+        56,
+        26
+      ],
+      "cell_8x": [
+        448,
+        208
+      ],
+      "sheet_1x": [
+        336,
+        26
+      ],
+      "sheet_8x": [
+        2688,
+        208
+      ],
+      "layout": "one horizontal row, frame0 at left",
+      "symmetry": "left-right",
+      "loop": false,
+      "binding": "view_effects `league_azir_d_rise`（大表，在我方塔的废墟上，地上，z 1，不跟随；左右对称；附加包放）",
+      "palette": [
+        "#FFFFFF",
+        "#FFF2C8",
+        "#F2D282",
+        "#D8A850",
+        "#A87430",
+        "#6A4418",
+        "#FFF8D8",
+        "#FFE47A",
+        "#F8BC2C",
+        "#C47A12",
+        "#D4FFFA",
+        "#74F0E6",
+        "#22B8C8",
+        "#106878"
+      ],
+      "source_grid": [
+        2,
+        3
+      ],
+      "source_frame_order": "row-major",
+      "body_clearance": null,
+      "preview_frame_ms": 120,
+      "game_frame_duration": null
+    },
+    {
+      "name": "d_beam",
+      "file": "azir_fx_d_beam.png",
+      "pixel_1x": "pixel_1x/azir_fx_d_beam.png",
+      "raw": "raw/azir_fx_d_beam.png",
+      "frames": 5,
+      "cell_1x": [
+        16,
+        60
+      ],
+      "cell_8x": [
+        128,
+        480
+      ],
+      "sheet_1x": [
+        80,
+        60
+      ],
+      "sheet_8x": [
+        640,
+        480
+      ],
+      "layout": "one horizontal row, frame0 at left",
+      "symmetry": "left-right",
+      "loop": false,
+      "binding": "view_effects `league_azir_d_beam`（大表，跟随目标，z 3；左右对称；附加包放）",
+      "palette": [
+        "#FFFFFF",
+        "#FFF8D8",
+        "#FFE47A",
+        "#F8BC2C",
+        "#C47A12",
+        "#D4FFFA",
+        "#74F0E6",
+        "#22B8C8",
+        "#106878"
+      ],
+      "source_grid": [
+        5,
+        1
+      ],
+      "source_frame_order": "row-major",
+      "body_clearance": null,
+      "preview_frame_ms": 120,
+      "game_frame_duration": null
+    },
+    {
+      "name": "d_glow",
+      "file": "azir_fx_d_glow.png",
+      "pixel_1x": "pixel_1x/azir_fx_d_glow.png",
+      "raw": "raw/azir_fx_d_glow.png",
+      "frames": 6,
+      "cell_1x": [
+        40,
+        14
+      ],
+      "cell_8x": [
+        320,
+        112
+      ],
+      "sheet_1x": [
+        240,
+        14
+      ],
+      "sheet_8x": [
+        1920,
+        112
+      ],
+      "layout": "one horizontal row, frame0 at left",
+      "symmetry": "left-right",
+      "loop": true,
+      "binding": "view_effects `league_azir_d_glow`（在圆盘脚下，地上，z -1，不跟随；左右对称；附加包放）",
+      "palette": [
+        "#FFFFFF",
+        "#FFF8D8",
+        "#FFE47A",
+        "#F8BC2C",
+        "#C47A12",
+        "#FFF2C8",
+        "#F2D282",
+        "#D8A850",
+        "#A87430",
+        "#6A4418"
+      ],
+      "source_grid": [
+        2,
+        3
+      ],
+      "source_frame_order": "row-major",
+      "body_clearance": null,
+      "preview_frame_ms": 120,
+      "game_frame_duration": null
+    }
+  ]
+}

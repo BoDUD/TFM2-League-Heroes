@@ -1,0 +1,158 @@
+{
+  "A": {
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "measured_raw_pitch": 9.0,
+    "readback_size": [
+      61,
+      93
+    ],
+    "logical_size": [
+      55,
+      84
+    ],
+    "packed_bbox": [
+      466,
+      466,
+      1071,
+      1390
+    ],
+    "alpha": [
+      0,
+      255
+    ],
+    "scale": 11
+  },
+  "SA": {
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "measured_raw_pitch": 10.0,
+    "readback_size": [
+      35,
+      97
+    ],
+    "logical_size": [
+      30,
+      84
+    ],
+    "packed_bbox": [
+      603,
+      466,
+      933,
+      1390
+    ],
+    "alpha": [
+      0,
+      255
+    ],
+    "scale": 11
+  },
+  "T": {
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "measured_raw_pitch": 14.0,
+    "readback_size": [
+      47,
+      83
+    ],
+    "logical_size": [
+      31,
+      55
+    ],
+    "packed_bbox": [
+      598,
+      785,
+      939,
+      1390
+    ],
+    "alpha": [
+      0,
+      255
+    ],
+    "scale": 11
+  },
+  "U": {
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "measured_raw_pitch": 10.5,
+    "readback_size": [
+      35,
+      88
+    ],
+    "logical_size": [
+      25,
+      64
+    ],
+    "packed_bbox": [
+      631,
+      686,
+      906,
+      1390
+    ],
+    "alpha": [
+      0,
+      255
+    ],
+    "scale": 11
+  },
+  "US": {
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "measured_raw_pitch": 13.0,
+    "readback_size": [
+      56,
+      76
+    ],
+    "logical_size": [
+      38,
+      52
+    ],
+    "packed_bbox": [
+      559,
+      818,
+      977,
+      1390
+    ],
+    "alpha": [
+      0,
+      255
+    ],
+    "scale": 11
+  },
+  "D": {
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "measured_raw_pitch": 12.0,
+    "readback_size": [
+      60,
+      90
+    ],
+    "logical_size": [
+      44,
+      66
+    ],
+    "packed_bbox": [
+      526,
+      664,
+      1010,
+      1390
+    ],
+    "alpha": [
+      0,
+      255
+    ],
+    "scale": 11
+  }
+}
