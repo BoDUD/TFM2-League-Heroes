@@ -2774,6 +2774,17 @@
           "only_to_enemy": false
         },
         {
+          "type": "AddBuff",
+          "buff_state": {
+            "name": "league_akshan_r_sight",
+            "duration": {
+              "Time": {
+                "tick": 150
+              }
+            }
+          }
+        },
+        {
           "type": "CasterAnimation",
           "name": "ult",
           "tick": 8
@@ -4334,6 +4345,14 @@
       "name": "league_akshan_w_mark",
       "anim": "asset/league/effects/league_akshan_fx",
       "tag": "w_mark",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_akshan_r_sight",
+      "anim": "asset/league/effects/league_akshan_fx",
+      "tag": "r_sight",
       "repeat": true,
       "z": 3
     }

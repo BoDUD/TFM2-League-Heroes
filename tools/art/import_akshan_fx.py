@@ -133,6 +133,10 @@ def main():
         anc = anchor(cs[0], kind)
         out = [(J.place(cs[k], anc, spots), ms) for k, ms in frames]
         tables["league_akshan_big" if name in BIG else "league_akshan_fx"][name] = out
+    # Comeuppance's bullet and hit redrawn bigger, and the lock on the champion while he aims (tools/art/fx_akshan_r.py:
+    # a player could not see his R, the user: 「应该是瞄准的时候没特效 导致玩家感觉没伤害」)
+    import fx_akshan_r
+    tables["league_akshan_fx"].update(fx_akshan_r.frames())
     for sheet, tags in tables.items():
         w, h = G.write_sheet(lp(os.path.join(MOD, "effects", sheet)), tags, share=True)
         print(f"league/effects/{sheet}#sheet.png {w}x{h}: " + ", ".join(
