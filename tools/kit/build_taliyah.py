@@ -32,7 +32,11 @@ Unraveled Earth (E) laid first, Weaver's Wall (R) the `ult`; Rock Surfing is the
           she surfs (the passive's r_ms%) for r_surf ticks.
 Timings: drafts until the frames exist (a rig script retimes them).
 Numbers: League 16.21 read into the mid mage range (league_aurora, league_syndra); balanced on the classic-SDK
-simulations (kd.py --lane 2, C:/t/ta_sim).
+simulations (kd.py --lane 2 against pyromancer, ice_mage, lightning_mage, wind_mage and white_mage, C:/t/ta_sim,
+2026-10-24; league_aurora +0.93 on seeds 1-8): the draft (mines stun 50 every W, the wall 99%, Q 26 + 14%, W 70 + 40%,
+mines 80 + 40%) +4.58 - she won by crowd control alone; the stun 24, W every 16 s, the wall 50% and its stun 40, the
+surf 10% with every hit cut +0.47 (deal 5214 against Aurora's 11398); damage back - Q 32 + 17% a rock, W 60 + 35%,
+mines 45 + 28% = P +0.85 / +1.89 on seeds 1-8 / 9-16 (mean +1.37: league_syndra +1.17 / +1.42, league_anivia +1.29).
 """
 import argparse
 import json
@@ -56,18 +60,18 @@ P = {
     "ms": 890, "ms_g": 9,
     "atk_range": 55000, "atk_dur": 27, "atk_cd": 90, "a_rel": 10, "a_speed": 4500, "f_t": 240,
     # passive: Rock Surfing
-    "p_ms": 15,
+    "p_ms": 10,
     # skill: Q Threaded Volley
     "q_cd": 360, "q_range": 90000, "q_dur": 36, "q_rel": 8, "q_n": 5, "q_gap": 5, "q_speed": 4500, "q_w": 4000,
-    "q_dmg": 26, "q_ap": 14, "q_gr": 14000, "q_gt": 480, "q_p": 3,
+    "q_dmg": 32, "q_ap": 17, "q_gr": 14000, "q_gt": 480, "q_p": 3,
     "q_b_dmg": 110, "q_b_ap": 60, "q_b_w": 7000, "q_b_speed": 3500, "q_b_slow": 40, "q_b_slow_t": 90,
     # skill2: W Seismic Shove with E Unraveled Earth
-    "w_cd": 720, "w_range": 80000, "w_dur": 36, "w_rel": 14, "w_delay": 30, "w_r": 16000, "w_dmg": 70, "w_ap": 40,
+    "w_cd": 960, "w_range": 80000, "w_dur": 36, "w_rel": 14, "w_delay": 30, "w_r": 16000, "w_dmg": 60, "w_ap": 35,
     "w_go": 2500, "w_throw": 10,
-    "e_r": 22000, "e_t": 240, "e_p": 6, "e_slow": 20, "e_dmg": 80, "e_ap": 40, "e_stun": 50,
+    "e_r": 22000, "e_t": 240, "e_p": 6, "e_slow": 20, "e_dmg": 45, "e_ap": 28, "e_stun": 24,
     # ult: R Weaver's Wall
     "r_cd": 4200, "r_range": 90000, "r_dur": 40, "r_rel": 16, "r_t": 300, "r_w": 6000, "r_h": 120000, "r_out": 24,
-    "r_go": 2500, "r_p": 2, "r_slow": 99, "r_w_at": 30, "r_kb_speed": 2500, "r_kb": 8, "r_wstun": 70,
+    "r_go": 2500, "r_p": 2, "r_slow": 50, "r_w_at": 30, "r_kb_speed": 2500, "r_kb": 8, "r_wstun": 40,
     "r_ms": 40, "r_surf": 300,
     # her spoken lines, at most one every vo_gap ticks
     "vo_gap": 600,
