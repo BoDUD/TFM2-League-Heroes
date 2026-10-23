@@ -1,0 +1,34 @@
+[
+  {
+    "file": "aurora-model-A-1.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "transparent": 1078877,
+    "opaque": 2171,
+    "partial": 491468,
+    "bbox_alpha128": [
+      315,
+      32,
+      983,
+      1248
+    ]
+  },
+  {
+    "file": "aurora-model-A-2.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "transparent": 1154260,
+    "opaque": 2208,
+    "partial": 416048,
+    "bbox_alpha128": [
+      327,
+      49,
+      934,
+      1208
+    ]
+  }
+]
