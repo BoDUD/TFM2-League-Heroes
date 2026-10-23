@@ -26,6 +26,7 @@ from scipy import ndimage
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
+import casts_lux_hd as CL  # noqa: E402
 import design_lux_hd as DL  # noqa: E402
 import ppu_rig as R  # noqa: E402
 import rig_xinzhao_hd as XZ  # noqa: E402
@@ -545,11 +546,16 @@ def frames(rig):
     ps = Poser(d)
     ps.check()
     sheet = R.sheet_of(HERO)
+    casts, _ = CL.placed(rig)
     out = {}
     for tag in sheet:
         if tag in ("idle", "bp"):
             continue
         n = len(sheet[tag])
+        if tag in CL.TAGS:
+            fr = [casts[f"{tag}_{k + 1}"] for k in range(n)]
+            out[tag] = list(zip(fr, [m for _, m in sheet[tag]]))
+            continue
         if tag in POSES:
             poses = POSES[tag]
         elif tag == "run":
