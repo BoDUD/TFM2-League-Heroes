@@ -402,9 +402,10 @@ def build(p):
     B_ = lambda name, anim_=FX, z=2, tag=None: {"type": "Animated", "name": n(name), "anim": anim_, "tag": tag or name,
                                                 "repeat": True, "z": z}
     views_p = [Pj("a_bolt"), Pj("q_wave")]
-    # his geyser and the sand wall he raises go under the units: over them (z 1) they hid his landing and his ult poses
+    # the sand wall he raises goes under the units: over them (z 1) it hid his ult poses; the geyser (a short burst)
+    # stays over them - under them his body, Darius and the soldier rising there hid all of it
     views_e = [E("a_hit"), E("s_stab", FX, 3), E("s_spawn", FX, 1, False), E("q_land", FX, 1, False), E("q_hit"),
-               E("e_shield", FX, 3), E("e_land", FX, -1, False), E("e_hit"), E("r_rise", BIG, -1, False),
+               E("e_shield", FX, 3), E("e_land", FX, 1, False), E("e_hit"), E("r_rise", BIG, -1, False),
                E("r_hit")]
     views_e += [E(f"sold_{s}", SOLDIER, 1, False, f"soldier_{s}") for s in SLOTS]
     views_e += [E(f"sold_{s}_rise", SOLDIER, 1, False, f"soldier_{s}_rise") for s in SLOTS]
