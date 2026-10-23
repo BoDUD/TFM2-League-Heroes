@@ -57,7 +57,7 @@ ORIG_PPU = {"zeri": 3, "karma": 3, "braum": 2.881, "mordekaiser": 5, "corki": 5,
             "vladimir": 2, "yasuo": 3, "garen": 3, "gragas": 2, "irelia": 2, "soraka": 3, "nidalee": 3.8313,
             "nilah": 2.5, "kindred": 154 / 34, "malzahar": 1.38, "milio": 2.2, "jayce": 1.5, "elise": 1.8, "katarina": 1.5,
             "tahmkench": 1.2, "kalista": 1.4, "drmundo": 1.5, "pantheon": 1.5, "orianna": 2.25, "aphelios": 1.5, "rell": 1.5, "urgot": 1.2, "reksai": 1.58, "swain": 1.5, "nasus": 1.2, "renata": 1.5, "anivia": 1.2, "jarvaniv": 1.5, "ziggs": 1.5, "maokai": 1.5, "gangplank": 1.5, "wukong": 1.53, "cassiopeia": 1.3, "akshan": 1.61, "poppy": 1.3, "volibear": 1.2, "rammus": 1.2,
-            **{h: 1.5 for h in ('morgana', 'nami', 'janna', 'jax', 'xinzhao')}, "yunara": 1.5, "kaisa": 1.45, "camille": 1.5, "fiora": 1.5, "leblanc": 2.0, "darius": 1.45, "caitlyn": 1.45, "riven": 1.5, "zoe": 1.5, "quinn": 2.0, "yuumi": 1.5, "powder": 1.75, "chogath": 1.2, "karthus": 1.5, "vex": 1.5, "zyra": 1.7, "graves": 1.5, "warwick": 1.5, "gnar": 1.5, "sylas": 1.2, "mel": 1.5, "velkoz": 1.5, "shyvana": 1.5, "ornn": 1.5, "naafiri": 1.5, "xerath": 1.55, "heimerdinger": 1.5, "neeko": 2.5, "ksante": 1.5, "udyr": 1.5, "qiyana": 1.5, "hwei": 1.5, "ivern": 1.5, "illaoi": 1.5, "varus": 1.5, "aurora": 2.25, "nunu": 1.37}
+            **{h: 1.5 for h in ('morgana', 'nami', 'janna', 'jax', 'xinzhao')}, "yunara": 1.5, "kaisa": 1.45, "camille": 1.5, "fiora": 1.5, "leblanc": 2.0, "darius": 1.45, "caitlyn": 1.45, "riven": 1.5, "zoe": 1.5, "quinn": 2.0, "yuumi": 1.5, "powder": 1.75, "chogath": 1.2, "karthus": 1.5, "vex": 1.5, "zyra": 1.7, "graves": 1.5, "warwick": 1.5, "gnar": 1.5, "sylas": 1.2, "mel": 1.5, "velkoz": 1.5, "shyvana": 1.5, "ornn": 1.5, "naafiri": 1.5, "xerath": 1.55, "heimerdinger": 1.5, "neeko": 2.5, "ksante": 1.5, "udyr": 1.5, "qiyana": 1.5, "hwei": 1.5, "ivern": 1.5, "illaoi": 1.5, "varus": 1.35, "aurora": 2.25, "nunu": 1.37}
 # face: (row0, row1, col0, col1) of the face to match in the idle's first dense frame; neck: (col, row) there
 RESTYLE = {
     "zeri": dict(face=(25, 41, 22, 42), neck=None, neck_row=35, head=1.3, wide=1.45, short=0.88, band=2, edge=1, face_to=(-1, -33)),
@@ -313,7 +313,7 @@ RESTYLE = {
     # Varus (2026-10-23): Codex's design picture read back on its own grid (58 x 59, design_varus_hd.py), every action
     # posed from the design's own squares (tools/art/rig_varus_hd.py: the bow piece lifted, the near arm turned level,
     # drawn run / kneel legs sampled from the design's leg rows); the string and the arrow ride the effect layers (fx)
-    "varus": dict(ppu=1.5, edge=1, face_to=(1, -35), fx=True),
+    "varus": dict(ppu=1.35, edge=1, face_to=(1, -39), fx=True),   # 1.5 -> 1.35: 「维鲁斯建模小了」
     # league_yunara (#119): posed from the design's own squares at the user's 1.5 squares a game pixel (「选 A，40 行」,
     # Codex's step-1 take 2 cut to 60 rows, her beads apart) by tools/art/rig_yunara.py, so no proportion or density
     # change here; the outer outline grown a square like the others; the face point at her ornaments' crown
@@ -1121,6 +1121,12 @@ def restyle(hero, spec, write=True, only=None):
     return out, sheet, ppu, new_ppu, notes, outline
 
 
+# tags whose hd frames must be exactly PPU x as wide as their 1x frames: the DLL changes a table only when its hd_idle
+# is (src/lookup.rs), and hero_reels.py's idle (the table the DLL reads) begins on idle_base's frame - league_varus's
+# idle_base came out 43 -> 66 (64.5 +- 0.5 wanted): his encyclopedia card blank, the battlefield on 1x frames
+EXACT = ("idle", "idle_base")
+
+
 def framed(hero, out, sheet, new_ppu):
     """The restyled frames on their frames (the 1x idle padded where the idle needs more width). -> ({tag: frames},
     pad columns)."""
@@ -1132,9 +1138,10 @@ def framed(hero, out, sheet, new_ppu):
             ones = sheet[tag]
             frames = []
             for (content, pivot, ms), (one, _) in zip(fr, ones):
-                w1 = one.shape[1] + (2 * pad if tag == "idle" else 0)
+                exact = tag in EXACT                # hero_reels' idle reel starts on idle_base's frame
+                w1 = one.shape[1] + (2 * pad if exact else 0)
                 W, H = P.hd_size(w1, one.shape[0], k)
-                f = fit(content, pivot, W, H, exact_w=W if tag == "idle" else None)
+                f = fit(content, pivot, W, H, exact_w=W if exact else None)
                 if f is None:
                     ok = False
                     break
@@ -1202,7 +1209,9 @@ def write_hero(hero, res, sheet, pad, new_ppu):
             json.dump({"sizes": [[f.shape[1], f.shape[0]] for f, _ in frames]}, fh)
     if pad:
         plain = {t: v for t, v in sheet.items() if P.plain(t)}
-        plain["idle"] = [(np.pad(a, ((0, 0), (pad, pad), (0, 0))), ms) for a, ms in plain["idle"]]
+        for t in EXACT:
+            if t in plain:
+                plain[t] = [(np.pad(a, ((0, 0), (pad, pad), (0, 0))), ms) for a, ms in plain[t]]
         G.write_sheet(P.stem_of(hero), plain)
 
 

@@ -43,7 +43,7 @@ import ppu_rig as R  # noqa: E402
 import rig_xinzhao_hd as XZ  # noqa: E402
 
 HERO = "varus"
-PPU = 1.5
+PPU = 1.35                      # 1.5 at first: his body 35 px against the old 39 (the user: 「维鲁斯建模小了」)
 DESIGN_ROWS = 59
 ROWS = DESIGN_ROWS / PPU
 SQUARE = XZ.SQUARE
@@ -555,10 +555,10 @@ DEAD = [dict(LOW, dx=-1), dict(LOW, dx=-1, dy=-1, bow_d=(0, -2), scarf=1), dict(
 
 # ------------------------------------------------------------------------------------------------ the effects
 # varus_bake.json's pictures were drawn round the old 1x sprite's arrow (its tip 9.5 px over the pivot, 14.5 ahead);
-# this arrow flies 4.2 px over it, its head 15 ahead: each effect moved by (dx, dy) 1x px (e_cast left the old bow's
-# raised tip: its streak now rises from the arrowhead)
-FX_AT = {"a_flash": (0, 5), "q_charge": (0, 4), "q_charge_s": (0, 4), "w_glow": (0, 4), "q_fire": (0, 5),
-         "e_cast": (5, 12), "r_cast": (1, 5)}
+# this arrow flies 5.5 px over it, its head 16.7 ahead (PPU 1.35): each effect moved by (dx, dy) 1x px (e_cast left the
+# old bow's raised tip: its streak now rises from the arrowhead)
+FX_AT = {"a_flash": (2, 4), "q_charge": (2, 3), "q_charge_s": (2, 3), "w_glow": (2, 3), "q_fire": (2, 4),
+         "e_cast": (7, 11), "r_cast": (3, 4)}
 
 
 # ------------------------------------------------------------------------------------------------ the rig
