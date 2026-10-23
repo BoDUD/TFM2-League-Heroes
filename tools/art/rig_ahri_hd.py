@@ -322,9 +322,11 @@ def under(d, M, arm):
     nothing (the background)."""
     op = d[..., 3] > 0
     hx = hexes(d)
-    rest = op & ~M[arm]
+    rest = op & ~M[arm] if arm != "hair" else op
     hull = ndimage.binary_fill_holes(ndimage.binary_closing(rest, structure=np.ones((3, 3)), iterations=UNDER_CLOSE))
     src = (M["upper"] | M["tails"]) & (hx != OUT_HEX)
+    if arm == "hair":                                   # behind the long hair: more of its own dark locks
+        src = (M["upper"] | M["hair"]) & np.isin(hx, list(HAIR))
     _, (iy, ix) = ndimage.distance_transform_edt(~src, return_indices=True)
     out = {}
     for y, x in zip(*np.nonzero(M[arm] & hull)):
@@ -370,8 +372,43 @@ def compose(d, pieces, pose, legs, unders):
     return f.a
 
 
+# The death on her back (League's and her old sheet's: knocked over, she lands, bounces and lies still): her body,
+# hair and arms turn a quarter counter-clockwise about her hips (no square redrawn) and lie on the ground, head to the
+# left; her near leg is drawn on its bones from the turned hip - thrown up as she lands, then lying along the ground
+# - with the design's whole lower leg turned (DEAD_TURN). The tails, which grow from under her, turn a quarter
+# counter-clockwise and mirror about their root (a lossless move): the long upper tail then lies along the ground
+# over her legs (her old sheet's death), the others fall below the ground line and are not drawn (on_rig clears it).
+PRONE_PIVOT = (58.0, 58.0)
+# the knee from the turned hip and the ankle from the knee (dx, dy in squares)
+DEAD_LEGS = {"up": ((2, -12), (6, -6)), "flat": ((14, 0), (8, 1))}
+DEAD_TURN = {"up": 2, "flat": 3}                  # the lower leg: upside down (soles to the sky), or lying toes-up
+TAIL_ROOT_AT = (47.0, 62.0)                       # the tails' root, design squares
+
+
 def prone_items(pieces, pr, legs, unders, pose):
-    return []
+    """Items of the body on its back: pr = {"lift": rows off the ground, "dx": columns on, "legs": "up" | "flat"}."""
+    group = []
+    for name in ("hair", "upper", "arm_far", "arm_near"):
+        img, (x0, y0) = pieces[name]
+        group.append((Z[name], name, img, x0, y0))
+    px, py = PRONE_PIVOT
+    turned = [(z, n) + transformed(img, x, y, dict(rot=3, about=(px, py))) for z, n, img, x, y in group]
+    bottom = max(y + img.shape[0] for _, n, img, x, y in turned if n == "upper")
+    sy = int(round(GROUND - bottom)) - pr.get("lift", 0)
+    sx = pr.get("dx", 0)
+    items = [(z, n + "_lying", img, x + sx, y + sy) for z, n, img, x, y in turned]
+    hx, hy = px + sx, py + sy                           # the turned hip
+    mode = pr.get("legs", "flat")
+    (kdx, kdy), (adx, ady) = DEAD_LEGS[mode]
+    items += [(Z["leg_far"] if it[1].endswith("near") else it[0],) + it[1:] for it in
+              legs.items("near", (hx, hy), (hx + kdx, hy + kdy), (hx + kdx + adx, hy + kdy + ady), turn=DEAD_TURN[mode])]
+    img, (x0, y0) = pieces["tails"]
+    rx, ry = TAIL_ROOT_AT
+    t, tx, ty = transformed(img, x0, y0, dict(rot=1, mirror=True, about=(rx, ry)))   # (x, y) -> (-y, -x)
+    # the root (turned onto itself) under the turned hips
+    items.append((Z["tails"] - 1, "tails_lying", t, tx + int(round(hx - rx)) + pr.get("tail_dx", 0),
+                  ty + int(round(hy - ry)) + pr.get("tail_dy", 0)))
+    return items
 
 
 # ------------------------------------------------------------------------------------------------ poses
@@ -597,12 +634,12 @@ POSES = {
     # struck: knocked back off her feet, she lands and sinks down
     "dead": [Q(dx=-2, tk=4, hk=-2),
              Q(dx=-4, dy=-4, tk=6, hk=-3),
-             Q(dx=-5, dy=-1, tk=5, hk=-2),
-             Q(dx=-6, tk=3, hk=-1, legs=at(-2, 2), sink=4),
-             Q(dx=-6, tk=2, legs=at(-3, 3), sink=4),
-             Q(dx=-6, tk=1, legs=at(-3, 3), sink=4),
-             Q(dx=-6, tk=0, legs=at(-3, 3), sink=4),
-             Q(dx=-6, tk=0, legs=at(-3, 3), sink=4)],
+             dict(prone=dict(lift=7, dx=-10, legs="up")),
+             dict(prone=dict(lift=1, dx=-12, legs="up")),
+             dict(prone=dict(lift=0, dx=-12, legs="flat")),
+             dict(prone=dict(lift=1, dx=-12, legs="flat")),
+             dict(prone=dict(lift=0, dx=-12, legs="flat")),
+             dict(prone=dict(lift=0, dx=-12, legs="flat"))],
 }
 
 
