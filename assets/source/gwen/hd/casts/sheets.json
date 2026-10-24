@@ -1,0 +1,460 @@
+{
+ "square": 5.5,
+ "sheet": [
+  1536,
+  1024
+ ],
+ "ground": 904,
+ "same": {
+  "run": {
+   "3": 2,
+   "7": 6,
+   "8": 4
+  },
+  "attack": {
+   "5": 4,
+   "7": 6
+  },
+  "skill": {
+   "4": 3,
+   "5": 2,
+   "6": 2,
+   "7": 3,
+   "8": 3,
+   "10": 9,
+   "11": 9
+  },
+  "skill2": {
+   "5": 4,
+   "8": 6,
+   "9": 4
+  },
+  "ult": {
+   "3": 2
+  },
+  "dead": {
+   "8": 7
+  }
+ },
+ "sheets": [
+  {
+   "tag": "run",
+   "name": "run_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "action": "running (her move loop): a light skipping run, the scissors over her shoulder",
+   "ms": [
+    150,
+    150
+   ],
+   "scissors": "The scissors stay CLOSED over her shoulder as in image 1, bobbing with her skip."
+  },
+  {
+   "tag": "run",
+   "name": "run_2",
+   "frames": [
+    4,
+    5
+   ],
+   "cells": 2,
+   "action": "running (her move loop): a light skipping run, the scissors over her shoulder",
+   "ms": [
+    150,
+    150
+   ],
+   "scissors": "The scissors stay CLOSED over her shoulder as in image 1, bobbing with her skip."
+  },
+  {
+   "tag": "run",
+   "name": "run_3",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "action": "running (her move loop): a light skipping run, the scissors over her shoulder",
+   "ms": [
+    150
+   ],
+   "scissors": "The scissors stay CLOSED over her shoulder as in image 1, bobbing with her skip."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "action": "basic attack: the scissors swung down off her shoulder and thrust forward, a snip, back onto the shoulder",
+   "ms": [
+    60,
+    60
+   ],
+   "scissors": "The scissors stay CLOSED; they swing down and thrust forward, pointing to the right, where the pale figure has them."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_2",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "action": "basic attack: the scissors swung down off her shoulder and thrust forward, a snip, back onto the shoulder",
+   "ms": [
+    70
+   ],
+   "scissors": "The scissors stay CLOSED; they swing down and thrust forward, pointing to the right, where the pale figure has them."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_3",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "action": "basic attack: the scissors swung down off her shoulder and thrust forward, a snip, back onto the shoulder",
+   "ms": [
+    40
+   ],
+   "scissors": "The scissors stay CLOSED; they swing down and thrust forward, pointing to the right, where the pale figure has them."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_4",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "action": "basic attack: the scissors swung down off her shoulder and thrust forward, a snip, back onto the shoulder",
+   "ms": [
+    20
+   ],
+   "scissors": "The scissors stay CLOSED; they swing down and thrust forward, pointing to the right, where the pale figure has them."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_5",
+   "frames": [
+    8
+   ],
+   "cells": 1,
+   "action": "basic attack: the scissors swung down off her shoulder and thrust forward, a snip, back onto the shoulder",
+   "ms": [
+    100
+   ],
+   "scissors": "The scissors stay CLOSED; they swing down and thrust forward, pointing to the right, where the pale figure has them."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "action": "Snip Snip!: the scissors held forward level, snipping open and shut again and again, one last big snip, back onto the shoulder",
+   "ms": [
+    50
+   ],
+   "scissors": "The scissors point forward to the right, level, where the pale figure has them: OPEN where the pale figure's two blades part in a V (the two blades open from the pivot like real scissors), CLOSED where they are together."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "action": "Snip Snip!: the scissors held forward level, snipping open and shut again and again, one last big snip, back onto the shoulder",
+   "ms": [
+    60
+   ],
+   "scissors": "The scissors point forward to the right, level, where the pale figure has them: OPEN where the pale figure's two blades part in a V (the two blades open from the pivot like real scissors), CLOSED where they are together."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_3",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "action": "Snip Snip!: the scissors held forward level, snipping open and shut again and again, one last big snip, back onto the shoulder",
+   "ms": [
+    30
+   ],
+   "scissors": "The scissors point forward to the right, level, where the pale figure has them: OPEN where the pale figure's two blades part in a V (the two blades open from the pivot like real scissors), CLOSED where they are together."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_4",
+   "frames": [
+    9
+   ],
+   "cells": 1,
+   "action": "Snip Snip!: the scissors held forward level, snipping open and shut again and again, one last big snip, back onto the shoulder",
+   "ms": [
+    10
+   ],
+   "scissors": "The scissors point forward to the right, level, where the pale figure has them: OPEN where the pale figure's two blades part in a V (the two blades open from the pivot like real scissors), CLOSED where they are together."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_5",
+   "frames": [
+    12
+   ],
+   "cells": 1,
+   "action": "Snip Snip!: the scissors held forward level, snipping open and shut again and again, one last big snip, back onto the shoulder",
+   "ms": [
+    50
+   ],
+   "scissors": "The scissors point forward to the right, level, where the pale figure has them: OPEN where the pale figure's two blades part in a V (the two blades open from the pivot like real scissors), CLOSED where they are together."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_6",
+   "frames": [
+    13
+   ],
+   "cells": 1,
+   "action": "Snip Snip!: the scissors held forward level, snipping open and shut again and again, one last big snip, back onto the shoulder",
+   "ms": [
+    30
+   ],
+   "scissors": "The scissors point forward to the right, level, where the pale figure has them: OPEN where the pale figure's two blades part in a V (the two blades open from the pivot like real scissors), CLOSED where they are together."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_7",
+   "frames": [
+    14
+   ],
+   "cells": 1,
+   "action": "Snip Snip!: the scissors held forward level, snipping open and shut again and again, one last big snip, back onto the shoulder",
+   "ms": [
+    30
+   ],
+   "scissors": "The scissors point forward to the right, level, where the pale figure has them: OPEN where the pale figure's two blades part in a V (the two blades open from the pivot like real scissors), CLOSED where they are together."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_8",
+   "frames": [
+    15
+   ],
+   "cells": 1,
+   "action": "Snip Snip!: the scissors held forward level, snipping open and shut again and again, one last big snip, back onto the shoulder",
+   "ms": [
+    70
+   ],
+   "scissors": "The scissors point forward to the right, level, where the pale figure has them: OPEN where the pale figure's two blades part in a V (the two blades open from the pivot like real scissors), CLOSED where they are together."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "action": "Skip 'n Slash then Hallowed Mist: a quick dash forward, then the scissors raised up high and lowered",
+   "ms": [
+    40
+   ],
+   "scissors": "The scissors stay CLOSED: over her shoulder while she dashes, raised up high where the pale figure raises them."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "action": "Skip 'n Slash then Hallowed Mist: a quick dash forward, then the scissors raised up high and lowered",
+   "ms": [
+    40
+   ],
+   "scissors": "The scissors stay CLOSED: over her shoulder while she dashes, raised up high where the pale figure raises them."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_3",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "action": "Skip 'n Slash then Hallowed Mist: a quick dash forward, then the scissors raised up high and lowered",
+   "ms": [
+    40
+   ],
+   "scissors": "The scissors stay CLOSED: over her shoulder while she dashes, raised up high where the pale figure raises them."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_4",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "action": "Skip 'n Slash then Hallowed Mist: a quick dash forward, then the scissors raised up high and lowered",
+   "ms": [
+    10
+   ],
+   "scissors": "The scissors stay CLOSED: over her shoulder while she dashes, raised up high where the pale figure raises them."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_5",
+   "frames": [
+    6,
+    7
+   ],
+   "cells": 2,
+   "action": "Skip 'n Slash then Hallowed Mist: a quick dash forward, then the scissors raised up high and lowered",
+   "ms": [
+    80,
+    80
+   ],
+   "scissors": "The scissors stay CLOSED: over her shoulder while she dashes, raised up high where the pale figure raises them."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "action": "Needlework: her free hand flicks needles forward, the scissors stay over her shoulder",
+   "ms": [
+    50,
+    60
+   ],
+   "scissors": "The scissors stay CLOSED over her shoulder as in image 1; only her free hand moves."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_2",
+   "frames": [
+    4,
+    5
+   ],
+   "cells": 2,
+   "action": "Needlework: her free hand flicks needles forward, the scissors stay over her shoulder",
+   "ms": [
+    70,
+    80
+   ],
+   "scissors": "The scissors stay CLOSED over her shoulder as in image 1; only her free hand moves."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_3",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "action": "Needlework: her free hand flicks needles forward, the scissors stay over her shoulder",
+   "ms": [
+    100
+   ],
+   "scissors": "The scissors stay CLOSED over her shoulder as in image 1; only her free hand moves."
+  },
+  {
+   "tag": "hit",
+   "name": "hit_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "action": "struck, flinching back",
+   "ms": [
+    100,
+    100
+   ],
+   "scissors": "The scissors stay CLOSED over her shoulder as in image 1."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "action": "death: she falls back and lies down, the scissors drop to the ground beside her",
+   "ms": [
+    100,
+    110
+   ],
+   "scissors": "The scissors stay CLOSED in her hand, then slip from it as she falls."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_2",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "action": "death: she falls back and lies down, the scissors drop to the ground beside her",
+   "ms": [
+    110
+   ],
+   "scissors": "The scissors lie CLOSED on the ground beside her, still (where the pale figure has them)."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_3",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "action": "death: she falls back and lies down, the scissors drop to the ground beside her",
+   "ms": [
+    120
+   ],
+   "scissors": "The scissors lie CLOSED on the ground beside her, still (where the pale figure has them)."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_4",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "action": "death: she falls back and lies down, the scissors drop to the ground beside her",
+   "ms": [
+    130
+   ],
+   "scissors": "The scissors lie CLOSED on the ground beside her, still (where the pale figure has them)."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_5",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "action": "death: she falls back and lies down, the scissors drop to the ground beside her",
+   "ms": [
+    150
+   ],
+   "scissors": "The scissors lie CLOSED on the ground beside her, still (where the pale figure has them)."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_6",
+   "frames": [
+    7
+   ],
+   "cells": 1,
+   "action": "death: she falls back and lies down, the scissors drop to the ground beside her",
+   "ms": [
+    200
+   ],
+   "scissors": "The scissors lie CLOSED on the ground beside her, still (where the pale figure has them)."
+  }
+ ]
+}

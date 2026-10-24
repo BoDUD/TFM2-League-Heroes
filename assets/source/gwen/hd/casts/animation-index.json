@@ -1,0 +1,425 @@
+{
+  "run": [
+    {
+      "ms": 150,
+      "source": "run_1.png",
+      "cell": 0,
+      "frame": 1,
+      "file": "frames/run_01.png"
+    },
+    {
+      "ms": 150,
+      "source": "run_1.png",
+      "cell": 1,
+      "frame": 2,
+      "file": "frames/run_02.png"
+    },
+    {
+      "ms": 150,
+      "source": "run_1.png",
+      "cell": 1,
+      "same_as": 2,
+      "frame": 3,
+      "file": "frames/run_03.png"
+    },
+    {
+      "ms": 150,
+      "source": "run_2.png",
+      "cell": 0,
+      "frame": 4,
+      "file": "frames/run_04.png"
+    },
+    {
+      "ms": 150,
+      "source": "run_2.png",
+      "cell": 1,
+      "frame": 5,
+      "file": "frames/run_05.png"
+    },
+    {
+      "ms": 150,
+      "source": "run_3.png",
+      "cell": 0,
+      "frame": 6,
+      "file": "frames/run_06.png"
+    },
+    {
+      "ms": 150,
+      "source": "run_3.png",
+      "cell": 0,
+      "same_as": 6,
+      "frame": 7,
+      "file": "frames/run_07.png"
+    },
+    {
+      "ms": 150,
+      "source": "run_2.png",
+      "cell": 0,
+      "same_as": 4,
+      "frame": 8,
+      "file": "frames/run_08.png"
+    }
+  ],
+  "attack": [
+    {
+      "ms": 60,
+      "source": "attack_1.png",
+      "cell": 0,
+      "frame": 1,
+      "file": "frames/attack_01.png"
+    },
+    {
+      "ms": 60,
+      "source": "attack_1.png",
+      "cell": 1,
+      "frame": 2,
+      "file": "frames/attack_02.png"
+    },
+    {
+      "ms": 70,
+      "source": "attack_2.png",
+      "cell": 0,
+      "frame": 3,
+      "file": "frames/attack_03.png"
+    },
+    {
+      "ms": 40,
+      "source": "attack_3.png",
+      "cell": 0,
+      "frame": 4,
+      "file": "frames/attack_04.png"
+    },
+    {
+      "ms": 40,
+      "source": "attack_3.png",
+      "cell": 0,
+      "same_as": 4,
+      "frame": 5,
+      "file": "frames/attack_05.png"
+    },
+    {
+      "ms": 20,
+      "source": "attack_4.png",
+      "cell": 0,
+      "frame": 6,
+      "file": "frames/attack_06.png"
+    },
+    {
+      "ms": 20,
+      "source": "attack_4.png",
+      "cell": 0,
+      "same_as": 6,
+      "frame": 7,
+      "file": "frames/attack_07.png"
+    },
+    {
+      "ms": 100,
+      "source": "attack_5.png",
+      "cell": 0,
+      "frame": 8,
+      "file": "frames/attack_08.png"
+    }
+  ],
+  "skill": [
+    {
+      "ms": 50,
+      "source": "skill_1.png",
+      "cell": 0,
+      "frame": 1,
+      "file": "frames/skill_01.png"
+    },
+    {
+      "ms": 60,
+      "source": "skill_2.png",
+      "cell": 0,
+      "frame": 2,
+      "file": "frames/skill_02.png"
+    },
+    {
+      "ms": 30,
+      "source": "skill_3.png",
+      "cell": 0,
+      "frame": 3,
+      "file": "frames/skill_03.png"
+    },
+    {
+      "ms": 30,
+      "source": "skill_3.png",
+      "cell": 0,
+      "same_as": 3,
+      "frame": 4,
+      "file": "frames/skill_04.png"
+    },
+    {
+      "ms": 60,
+      "source": "skill_2.png",
+      "cell": 0,
+      "same_as": 2,
+      "frame": 5,
+      "file": "frames/skill_05.png"
+    },
+    {
+      "ms": 60,
+      "source": "skill_2.png",
+      "cell": 0,
+      "same_as": 2,
+      "frame": 6,
+      "file": "frames/skill_06.png"
+    },
+    {
+      "ms": 30,
+      "source": "skill_3.png",
+      "cell": 0,
+      "same_as": 3,
+      "frame": 7,
+      "file": "frames/skill_07.png"
+    },
+    {
+      "ms": 30,
+      "source": "skill_3.png",
+      "cell": 0,
+      "same_as": 3,
+      "frame": 8,
+      "file": "frames/skill_08.png"
+    },
+    {
+      "ms": 10,
+      "source": "skill_4.png",
+      "cell": 0,
+      "frame": 9,
+      "file": "frames/skill_09.png"
+    },
+    {
+      "ms": 10,
+      "source": "skill_4.png",
+      "cell": 0,
+      "same_as": 9,
+      "frame": 10,
+      "file": "frames/skill_10.png"
+    },
+    {
+      "ms": 10,
+      "source": "skill_4.png",
+      "cell": 0,
+      "same_as": 9,
+      "frame": 11,
+      "file": "frames/skill_11.png"
+    },
+    {
+      "ms": 50,
+      "source": "skill_5.png",
+      "cell": 0,
+      "frame": 12,
+      "file": "frames/skill_12.png"
+    },
+    {
+      "ms": 30,
+      "source": "skill_6.png",
+      "cell": 0,
+      "frame": 13,
+      "file": "frames/skill_13.png"
+    },
+    {
+      "ms": 30,
+      "source": "skill_7.png",
+      "cell": 0,
+      "frame": 14,
+      "file": "frames/skill_14.png"
+    },
+    {
+      "ms": 70,
+      "source": "skill_8.png",
+      "cell": 0,
+      "frame": 15,
+      "file": "frames/skill_15.png"
+    }
+  ],
+  "skill2": [
+    {
+      "ms": 40,
+      "source": "skill2_1.png",
+      "cell": 0,
+      "frame": 1,
+      "file": "frames/skill2_01.png"
+    },
+    {
+      "ms": 40,
+      "source": "skill2_2.png",
+      "cell": 0,
+      "frame": 2,
+      "file": "frames/skill2_02.png"
+    },
+    {
+      "ms": 40,
+      "source": "skill2_3.png",
+      "cell": 0,
+      "frame": 3,
+      "file": "frames/skill2_03.png"
+    },
+    {
+      "ms": 10,
+      "source": "skill2_4.png",
+      "cell": 0,
+      "frame": 4,
+      "file": "frames/skill2_04.png"
+    },
+    {
+      "ms": 10,
+      "source": "skill2_4.png",
+      "cell": 0,
+      "same_as": 4,
+      "frame": 5,
+      "file": "frames/skill2_05.png"
+    },
+    {
+      "ms": 80,
+      "source": "skill2_5.png",
+      "cell": 0,
+      "frame": 6,
+      "file": "frames/skill2_06.png"
+    },
+    {
+      "ms": 80,
+      "source": "skill2_5.png",
+      "cell": 1,
+      "frame": 7,
+      "file": "frames/skill2_07.png"
+    },
+    {
+      "ms": 80,
+      "source": "skill2_5.png",
+      "cell": 0,
+      "same_as": 6,
+      "frame": 8,
+      "file": "frames/skill2_08.png"
+    },
+    {
+      "ms": 10,
+      "source": "skill2_4.png",
+      "cell": 0,
+      "same_as": 4,
+      "frame": 9,
+      "file": "frames/skill2_09.png"
+    }
+  ],
+  "ult": [
+    {
+      "ms": 50,
+      "source": "ult_1.png",
+      "cell": 0,
+      "frame": 1,
+      "file": "frames/ult_01.png"
+    },
+    {
+      "ms": 60,
+      "source": "ult_1.png",
+      "cell": 1,
+      "frame": 2,
+      "file": "frames/ult_02.png"
+    },
+    {
+      "ms": 60,
+      "source": "ult_1.png",
+      "cell": 1,
+      "same_as": 2,
+      "frame": 3,
+      "file": "frames/ult_03.png"
+    },
+    {
+      "ms": 70,
+      "source": "ult_2.png",
+      "cell": 0,
+      "frame": 4,
+      "file": "frames/ult_04.png"
+    },
+    {
+      "ms": 80,
+      "source": "ult_2.png",
+      "cell": 1,
+      "frame": 5,
+      "file": "frames/ult_05.png"
+    },
+    {
+      "ms": 100,
+      "source": "ult_3.png",
+      "cell": 0,
+      "frame": 6,
+      "file": "frames/ult_06.png"
+    }
+  ],
+  "hit": [
+    {
+      "ms": 100,
+      "source": "hit_1.png",
+      "cell": 0,
+      "frame": 1,
+      "file": "frames/hit_01.png"
+    },
+    {
+      "ms": 100,
+      "source": "hit_1.png",
+      "cell": 1,
+      "frame": 2,
+      "file": "frames/hit_02.png"
+    }
+  ],
+  "dead": [
+    {
+      "ms": 100,
+      "source": "dead_1.png",
+      "cell": 0,
+      "frame": 1,
+      "file": "frames/dead_01.png"
+    },
+    {
+      "ms": 110,
+      "source": "dead_1.png",
+      "cell": 1,
+      "frame": 2,
+      "file": "frames/dead_02.png"
+    },
+    {
+      "ms": 110,
+      "source": "dead_2.png",
+      "cell": 0,
+      "frame": 3,
+      "file": "frames/dead_03.png"
+    },
+    {
+      "ms": 120,
+      "source": "dead_3.png",
+      "cell": 0,
+      "frame": 4,
+      "file": "frames/dead_04.png"
+    },
+    {
+      "ms": 130,
+      "source": "dead_4.png",
+      "cell": 0,
+      "frame": 5,
+      "file": "frames/dead_05.png"
+    },
+    {
+      "ms": 150,
+      "source": "dead_5.png",
+      "cell": 0,
+      "frame": 6,
+      "file": "frames/dead_06.png"
+    },
+    {
+      "ms": 200,
+      "source": "dead_6.png",
+      "cell": 0,
+      "frame": 7,
+      "file": "frames/dead_07.png"
+    },
+    {
+      "ms": 200,
+      "source": "dead_6.png",
+      "cell": 0,
+      "same_as": 7,
+      "frame": 8,
+      "file": "frames/dead_08.png"
+    }
+  ]
+}
