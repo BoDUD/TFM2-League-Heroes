@@ -247,8 +247,8 @@
                                                       "casting_type": "Targeting",
                                                       "effect": {
                                                         "type": "ApAttack",
-                                                        "damage": 30,
-                                                        "attack_ratio": 30,
+                                                        "damage": 19,
+                                                        "attack_ratio": 19,
                                                         "hp_ratio": 0,
                                                         "can_crit": false
                                                       }
@@ -326,7 +326,7 @@
                                                   "radius": 1000
                                                 }
                                               },
-                                              "y_offset": 0
+                                              "y_offset": 5000
                                             },
                                             {
                                               "type": "RangeEffect",
@@ -373,8 +373,8 @@
                                                       "casting_type": "Targeting",
                                                       "effect": {
                                                         "type": "ApAttack",
-                                                        "damage": 20,
-                                                        "attack_ratio": 20,
+                                                        "damage": 13,
+                                                        "attack_ratio": 13,
                                                         "hp_ratio": 0,
                                                         "can_crit": false
                                                       }
@@ -437,7 +437,7 @@
                                                   "radius": 1000
                                                 }
                                               },
-                                              "y_offset": 0
+                                              "y_offset": 5000
                                             },
                                             {
                                               "type": "RangeEffect",
@@ -2062,8 +2062,8 @@
                                                       "casting_type": "Targeting",
                                                       "effect": {
                                                         "type": "ApAttack",
-                                                        "damage": 30,
-                                                        "attack_ratio": 30,
+                                                        "damage": 19,
+                                                        "attack_ratio": 19,
                                                         "hp_ratio": 0,
                                                         "can_crit": false
                                                       }
@@ -2141,7 +2141,7 @@
                                                   "radius": 1000
                                                 }
                                               },
-                                              "y_offset": 0
+                                              "y_offset": 5000
                                             },
                                             {
                                               "type": "RangeEffect",
@@ -2188,8 +2188,8 @@
                                                       "casting_type": "Targeting",
                                                       "effect": {
                                                         "type": "ApAttack",
-                                                        "damage": 20,
-                                                        "attack_ratio": 20,
+                                                        "damage": 13,
+                                                        "attack_ratio": 13,
                                                         "hp_ratio": 0,
                                                         "can_crit": false
                                                       }
@@ -2252,7 +2252,7 @@
                                                   "radius": 1000
                                                 }
                                               },
-                                              "y_offset": 0
+                                              "y_offset": 5000
                                             },
                                             {
                                               "type": "RangeEffect",
