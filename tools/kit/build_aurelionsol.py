@@ -21,7 +21,8 @@ the combos can cast them; a slot cast while its flag is up does nothing (a 3-tic
   attack  A star bolt (homing on `Enemy`, 100% AD) released on a_rel; a champion-only twin keeps the takedown watch.
   skill   Breath of Light (星河冲荡, `q_cd`): a `Targeting` cast on `EnemyWithoutTower` (q_range). He channels q_t ticks
           (q_t_f in flight; crowd control breaks it): every q_p ticks the breath (a fast line through everything toward
-          the target, q_rad wide: the first hit and the splash behind it) deals q_dmg + q_ratio% AP, after q_sec ticks
+          the target, q_rad wide: the first hit and the splash behind it; q_speed slow enough that the segments
+          overlap into one stream, at his mouth's height q_y) deals q_dmg + q_ratio% AP, after q_sec ticks
           of channel q_sec_dmg more (League: the bonus for each second on one enemy).
   skill2  Singularity (星芒凝汇, `e_cd`): a `Targeting` cast on `EnemyWithoutTower` (e_range): the black hole lands on the
           target's spot for e_t ticks (e_r wide): every e_p ticks e_dmg + e_ratio% AP, a short pull toward its centre
@@ -79,7 +80,7 @@ P = {
     "w_t": 240, "w_ms": 60, "w_ap": 20, "w_cd": 1200, "w_cut": 300,
     # skill: Breath of Light
     "q_cd": 300, "q_cd_f": 150, "q_range": 75000, "q_t": 90, "q_t_f": 150, "q_p": 10, "q_rel": 8,
-    "q_len": 78000, "q_rad": 6000, "q_speed": 30000, "q_dmg": 26, "q_ratio": 17, "q_sec": 60, "q_sec_dmg": 30,
+    "q_len": 78000, "q_rad": 6000, "q_speed": 2500, "q_y": -13000, "q_dmg": 26, "q_ratio": 17, "q_sec": 60, "q_sec_dmg": 30,
     # skill2: Singularity
     "e_cd": 630, "e_range": 75000, "e_dur": 30, "e_rel": 12, "e_fly": 18, "e_r": 26000, "e_t": 300, "e_p": 15,
     "e_dmg": 16, "e_ratio": 9, "e_pull": 250, "e_pull_t": 4, "e_slow": 25, "e_core": 9000, "e_cp": 60, "e_exec": 4,
@@ -287,8 +288,8 @@ def build(p):
         """The channel: an AddCasted on the target (league_caitlyn R's: projectiles from him to it every q_p ticks while
         `q_ch` holds), and from q_sec on a second one with the bonus for staying on it."""
         breath = line("q_beam", p["q_speed"], p["q_len"], p["q_rad"], "EnemyWithoutTower",
-                      [ap(p["q_dmg"], p["q_ratio"]), view("q_hit"), tsfx("q_hit")], p["a_y"])
-        twin = line("q_twin", p["q_speed"], p["q_len"], p["q_rad"], "EnemyChampion", [gain("g_q", "q_lk")], p["a_y"])
+                      [ap(p["q_dmg"], p["q_ratio"]), view("q_hit"), tsfx("q_hit")], p["q_y"])
+        twin = line("q_twin", p["q_speed"], p["q_len"], p["q_rad"], "EnemyChampion", [gain("g_q", "q_lk")], p["q_y"])
         held = homing("q_held", "EnemyWithoutTower", [ap(p["q_sec_dmg"], 0)])
         cd = sw("w_fly", combine(refresh("q_cd", p["q_cd_f"]), refresh("q_ch", p["q_t_f"])),
                 combine(refresh("q_cd", p["q_cd"]), refresh("q_ch", p["q_t"])))

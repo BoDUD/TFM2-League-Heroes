@@ -48,6 +48,11 @@ DRAFTS = {
 }
 # the face squares redrawn on the written designs (codex-face-half-squares): name -> [(x, y, colour)]
 FACE = {"idle": [], "run": []}
+# the tail's tip: in step 0 Codex ended the tail with a little star, which read back on the game grid as a dark knob
+# (idle: 4 squares under the tip) and a cross hanging off it (run) - the user, 2026-10-24: 「这里多出来一个是什么意思」.
+# Squares cleared (None) or set to the outline ("ink") so the tail tapers to a clean tip: name -> [(x, y, colour)]
+TIP = {"idle": [(33, 76, None), (34, 76, None), (32, 76, "ink")],
+       "run": [(x, y, None) for y in (45, 46, 47) for x in range(14, 19)] + [(16, 45, "ink"), (17, 44, "ink")]}
 
 
 def lp(path):
@@ -145,6 +150,9 @@ def main():
         for x, y, c in FACE[name]:
             assert fig[y, x, 3] > 0, (x, y)
             fig[y, x, :3] = c
+        ink = PD.edge_colour(fig)
+        for x, y, c in TIP.get(name, []):
+            fig[y, x] = (0, 0, 0, 0) if c is None else (*ink, 255)
         write(fig, name)
         print(name, take, fig.shape[1], "x", fig.shape[0], "rows kept", len(rows), "of", H)
 
