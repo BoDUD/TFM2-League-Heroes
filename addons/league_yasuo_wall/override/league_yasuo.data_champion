@@ -1493,6 +1493,30 @@
       "tag": "ground",
       "z": -1,
       "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_yasuo_w_cast",
+      "anim": "asset/league_yasuo_wall/effects/league_yasuo_wall_fx",
+      "tag": "cast",
+      "z": 1,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_yasuo_w_block",
+      "anim": "asset/league_yasuo_wall/effects/league_yasuo_wall_fx",
+      "tag": "block",
+      "z": 2,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_yasuo_w_fade",
+      "anim": "asset/league_yasuo_wall/effects/league_yasuo_wall_fx",
+      "tag": "fade",
+      "z": 1,
+      "is_follow": false
     }
   ],
   "view_buffs": [

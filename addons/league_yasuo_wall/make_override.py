@@ -52,8 +52,9 @@ def build():
     pieces = int(re.search(r"pub const PIECES: usize = (\d+);", src).group(1))
     piece = re.search(r'pub const PIECE_PIC: &str = "([^"]+)";', src).group(1)
     ground = re.search(r'pub const GROUND_PIC: &str = "([^"]+)";', src).group(1)
+    shots = {t: re.search(r'pub const ' + t.upper() + r'_PIC: &str = "([^"]+)";', src).group(1) for t in ("cast", "block", "fade")}
     anims = json.load(open(lp(os.path.join(ADDON, "effects", FX + "#anim.fanim")), encoding="utf-8-sig"))["anims"]
-    want = [f"plume_{k}" for k in range(pieces)] + ["ground"]
+    want = [f"plume_{k}" for k in range(pieces)] + ["ground", "cast", "block", "fade"]
     missing = [t for t in want if t not in anims]
     if missing:
         sys.exit(f"effects/{FX} lacks {missing}: run tools/art/import_yasuo_wall.py")
@@ -66,6 +67,9 @@ def build():
     views = [{"type": "Animation", "name": f"{piece}{k}", "anim": anim, "tag": f"plume_{k}", "z": 1, "is_follow": False}
              for k in range(pieces)]
     views.append({"type": "Animation", "name": ground, "anim": anim, "tag": "ground", "z": -1, "is_follow": False})
+    views.append({"type": "Animation", "name": shots["cast"], "anim": anim, "tag": "cast", "z": 1, "is_follow": True})
+    views.append({"type": "Animation", "name": shots["block"], "anim": anim, "tag": "block", "z": 2, "is_follow": False})
+    views.append({"type": "Animation", "name": shots["fade"], "anim": anim, "tag": "fade", "z": 1, "is_follow": False})
     names = {v["name"] for v in champion["view_effects"]}
     if names & {v["name"] for v in views}:
         sys.exit("the main pack's Yasuo already has these view names: update this script")

@@ -11,7 +11,9 @@ ochre ground line taken out, and the wind cut into PIECES columns. Written to ad
 league_yasuo_wall_fx (#sheet.png + #anim.fanim):
   plume_<k>  piece k of the wind, the six frames looped for the wall's 4 s; the frame's middle is the ground line under
              it (the pivot), the wind above it, nothing below;
-  ground     one ochre ground dot for the line (3 x 2), 4 s.
+  ground     one ochre ground dot for the line (3 x 2), 4 s;
+  cast / block / fade  Codex's gust at his feet (on his soles, SOLES under the pivot), the flash where a missile is
+             stopped (centred) and the wall dispersing (centred FADE_UP over the ground line), 4 frames each.
 The add-on plays plume_<k> at PIECES points along the wall (left to right on screen) and ground dots every DOT units,
 all upright: the line follows the wall, the wind always rises (src/lib.rs `pieces`). --preview also draws the wall
 across, up and down, and slanting next to Yasuo at game size.
@@ -32,6 +34,11 @@ WIDTHS = [7, 6, 7, 6, 7, 6, 7]   # the pieces, left to right (src/lib.rs PIECES 
 LIFE = 4.0                       # seconds (src/lib.rs LIFE = 240 ticks)
 FRAME = 1 / 12
 WIND_COLOURS = 6
+# the one-shot pictures: file, game px wide (the widest frame), frame ms, where the pivot is (soles: SOLES under it;
+# middle: centred; up: FADE_UP over the ground)
+SHOTS = {"cast": ("yasuo_w_cast.png", 26, 60, "soles"), "block": ("yasuo_w_block.png", 12, 50, "middle"),
+         "fade": ("yasuo_w_fade.png", 22, 80, "up")}
+SOLES, FADE_UP = 11, 10
 PRE = chr(92) * 2 + "?" + chr(92)
 
 
@@ -120,6 +127,59 @@ def build():
     return plumes, dot, base
 
 
+def cells_of(a, n):
+    """Codex's frames: the solid runs of columns, grouped into n by which equal share of the sheet holds their middle."""
+    W = a.shape[1]
+    on = (a[..., 3] > 40).any(0)
+    runs, st = [], None
+    for x, c in enumerate(list(on) + [False]):
+        if c and st is None:
+            st = x
+        if not c and st is not None:
+            if x - st > 8:
+                runs.append((st, x))
+            st = None
+    groups = [[] for _ in range(n)]
+    for r in runs:
+        groups[min(n - 1, int((r[0] + r[1]) / 2 / (W / n)))].append(r)
+    return [a[:, g[0][0]:g[-1][1]] for g in groups if g]
+
+
+def shot(fn, width, n=4):
+    a = np.asarray(Image.open(lp(os.path.join(os.path.dirname(SRC), fn))).convert("RGBA"))
+    raw = [crop(c) for c in cells_of(a, n)]
+    s = width / max(r.shape[1] for r in raw)
+    small = [shrink(r, max(1, round(r.shape[1] * s))) for r in raw]
+    px = np.concatenate([f[f[..., 3] > 0][:, :3] for f in small]).astype(int)
+    pal = kmeans(px, min(8, len(px)))
+    out = []
+    for f in small:
+        g = f.copy()
+        on = g[..., 3] > 0
+        lab = ((g[on][:, :3].astype(int)[:, None, :] - pal[None].astype(int)) ** 2).sum(-1).argmin(1)
+        g[on] = np.c_[pal[lab], np.full(len(lab), 255)]
+        out.append(g)
+    return out, [r.shape[0] for r in raw], s
+
+
+def placed(f, where, rows):
+    """A frame in a cell whose middle is the pivot: drawn standing on the soles, centred, or over the ground."""
+    h, w = f.shape[:2]
+    if where == "middle":
+        H, top = h + (h % 2 == 0), 0
+    elif where == "soles":
+        H = 2 * (rows - SOLES) if rows > SOLES else 2 * h
+        H = max(H, 2 * (h - SOLES) + 1)
+        top = H // 2 + SOLES - rows
+    else:
+        H = 2 * (FADE_UP + (h + 1) // 2) + 1
+        top = H // 2 - FADE_UP - h // 2
+    W = w + (w % 2 == 0)
+    cell = np.zeros((H, W, 4), np.uint8)
+    cell[top + rows - h if where == "soles" else top:(top + rows if where == "soles" else top + h), :w] = f
+    return cell
+
+
 def write(plumes, dot, base):
     pieces, x0 = [], 0
     for w in WIDTHS:
@@ -136,6 +196,16 @@ def write(plumes, dot, base):
             rects.append({"x": float(x), "y": 0.0, "w": float(cell.shape[1]), "h": float(cell.shape[0])})
             x += cell.shape[1] + 1
         anims[f"plume_{k}"] = {"frames": [{"duration": FRAME, "data": r} for _ in range(loops) for r in rects]}
+    for tag, (fn, width, ms, where) in SHOTS.items():
+        frs, _, _ = shot(fn, width)
+        rows = max(f.shape[0] for f in frs)
+        rects = []
+        for f in frs:
+            cell = placed(np.pad(f, ((rows - f.shape[0], 0), (0, 0), (0, 0))) if where == "soles" else f, where, rows)
+            tiles.append((x, cell))
+            rects.append({"x": float(x), "y": 0.0, "w": float(cell.shape[1]), "h": float(cell.shape[0])})
+            x += cell.shape[1] + 1
+        anims[tag] = {"frames": [{"duration": ms / 1000, "data": r} for r in rects]}
     cell = np.zeros((4, 3, 4), np.uint8)
     cell[2:] = dot                                                   # the dot just under the pivot
     tiles.append((x, cell))

@@ -10,7 +10,8 @@
 //!   （英雄联盟的弧形墙），`LIFE` tick。
 //! - **画面像英雄联盟**（用户：「跟着方向转有点奇怪啊风墙 做成像英雄联盟那样啊」）：墙脚是地上的一条线，跟着墙的方向；风永远
 //!   往上升，图不转。Codex 画的墙切成 `PIECES` 段竖着的风（`tools/art/import_yasuo_wall.py`），沿墙脚从屏幕左到右（竖着的墙
-//!   从上到下）一段段摆开，墙脚每 `DOT` 放一个地上的小点。
+//!   从上到下）一段段摆开，墙脚每 `DOT` 放一个地上的小点；出手时他脚下卷起一阵风（`CAST_PIC`），挡住飞行物的地方一道青白的
+//!   光（`BLOCK_PIC`），墙到时间在第 1、3、5 段散开（`FADE_PIC`）。
 //! - **挡住**：敌方英雄的飞行物这一 tick 从墙的这一边穿到那一边，就算被挡：在穿过的地方播挡住的画面。引擎删不掉飞行物，
 //!   所以之后它打到的友方英雄（它经过的路线 `HIT_R` 内、这一 tick 掉了血的）把这一下的伤害补回去（`heal`），这一 tick 新挂上的
 //!   控制也清掉（`entity_clear_cc`）。塔的炮弹不挡（英雄联盟也不挡）。
@@ -45,6 +46,10 @@ pub const MATCH_R: f64 = 30_000.0;
 /// 墙的画面：`PIECE_PIC` + 段号（`plume_0`..`plume_6`），墙脚的小点。
 pub const PIECE_PIC: &str = "league_yasuo_w_plume_";
 pub const GROUND_PIC: &str = "league_yasuo_w_ground";
+/// 出手时他脚下的风（跟着他）、挡住飞行物的一下（在穿过的地方）、墙散掉（墙到时间时，在第 1、3、5 段的地方）。
+pub const CAST_PIC: &str = "league_yasuo_w_cast";
+pub const BLOCK_PIC: &str = "league_yasuo_w_block";
+pub const FADE_PIC: &str = "league_yasuo_w_fade";
 const MAP: f64 = 960_000.0;
 const HARD_CC: [CcKindV1; 7] = [CcKindV1::Airborne, CcKindV1::Stun, CcKindV1::Bind, CcKindV1::Taunt, CcKindV1::Fear,
                                 CcKindV1::Charm, CcKindV1::ForceMove];
@@ -283,6 +288,7 @@ impl WallPassive {
             let (x, y) = upos(p);
             sim.play_view_effect(GROUND_PIC, me, &InputTargetV1::pos(x, y), 0, 0, 0);
         }
+        sim.play_view_effect(CAST_PIC, me, &InputTargetV1::target(me), 0, 0, 0);
         let mut shown = 0;
         for (k, p) in plumes.iter().enumerate() {
             let (x, y) = upos(*p);
@@ -335,10 +341,17 @@ impl StablePassive for WallPassive {
                 }
             }
             if tick >= w.until {
+                let (plumes, _) = pieces(w.mid, w.dir);
+                for p in plumes.iter().skip(1).step_by(2) {
+                    let (x, y) = upos(*p);
+                    sim.play_view_effect(FADE_PIC, me, &InputTargetV1::pos(x, y), 0, 0, 0);
+                }
                 self.wall = None;
             }
         }
         for (c, now_at, p) in newly {
+            let (x, y) = upos(p);
+            sim.play_view_effect(BLOCK_PIC, me, &InputTargetV1::pos(x, y), 0, 0, 0);
             self.stops += 1;
             if self.stops <= 120 {
                 wlog(format!("{} BLOCKED #{}: a missile of #{c} at ({:.0}, {:.0})", head(sim, me), self.stops, p.0, p.1));
