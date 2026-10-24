@@ -532,6 +532,136 @@ MS = {"idle": [150] * 8, "hit": [100, 100], "run": [120] * 4,
       "d_dead": [100, 80, 100, 160, 220, 600]}
 
 
+# ------------------------------------------------------------------------------------------------- the dragon's run
+# The run's legs (the user, 2026-10-24, after the whole-body dragon add-on: 「这走路腿都不动的？」 - the old run moved
+# each leg 2-3 squares as a block; moved 5-7 the blocks tore off the body: 「走路时腿部变形了 你应该能改好 不用依赖codex」).
+# League_hecarim's way (fix_hecarim_strips.py, the user's 「四个脚都要有明显错开并且自然」): the body as drawn goes over the
+# legs untouched and the legs step under it in a four-beat gait. Here each paw is the design's own squares moved whole -
+# RUN_GROUND frames on the ground sliding back from RUN_REACH ahead to as far behind, then forward through the air on
+# RUN_LIFT - and the leg above it is turned about its root (hip / shoulder, inside the body) to reach the paw's ankle,
+# drawn again from Codex's picture at that angle (Turner, as the wings and the tail). The near fore stays one straight
+# piece too, steeper as its paw comes back, the length it has over hidden behind the paw (bent at an elbow it folded into
+# an L: 「右前脚有略微变形」). A leg's piece takes RUN_BAND rows of the body over its top along (drawn under the body: no
+# seam opens however it turns) and is cut two rows into its paw (its end never shows between the claws).
+# Every other dragon action keeps DRAGON_PARTS' legs.
+RUN_LEGS = {   # cut: the leg's squares (taken out of the body); paw: its rows from paw_y (and columns from paw_x), with
+               # wrist: also every square past the line through the ankle square to the leg (the wrist moves with the paw)
+    "far_hind": dict(cut=[(25, 51), (33, 51), (33, 55), (35, 55), (35, 61), (22, 61), (22, 55), (25, 55)],
+                     root=(30, 47), ankle=(29, 56), paw_y=56),
+    "near_hind": dict(cut=[(41, 50), (54, 50), (54, 51), (56, 51), (56, 58), (57, 58), (57, 64), (41, 64)],
+                      root=(48, 48), ankle=(48, 58), paw_y=58),
+    "far_fore": dict(cut=[(59, 51), (67, 51), (67, 55), (72, 55), (72, 60), (59, 60)],
+                     root=(63, 48), ankle=(63, 55), paw_y=55),
+    "near_fore": dict(cut=[(79, 50), (87, 50), (87, 48), (95, 48), (97, 51), (108, 57), (108, 63), (92, 63),
+                           (88, 56), (79, 51)],
+                      root=(84, 50), ankle=(96, 56), paw_y=57, paw_x=93, wrist=True),
+}
+RUN_BAND = 3
+RUN_GROUND = 5                 # frames a paw is on the ground (of 8)
+RUN_LIFT = [2, 3, 2]           # rows a paw is up in the air frames
+RUN_OFFSET = {"near_hind": 0, "far_hind": 2, "far_fore": 4, "near_fore": 6}    # the four beats, a quarter cycle apart
+RUN_REACH = {"near_hind": 4, "far_hind": 3, "far_fore": 3, "near_fore": 3}
+RUN_CENTRE = {"near_hind": 0, "far_hind": 0, "far_fore": 0, "near_fore": -3}  # the near fore reaches as drawn at most
+RUN_BOB = [0, 0, -1, 0, 0, 0, -1, 0]   # the body rows up (the legs reach after it)
+
+
+def _ang(v):
+    """Screen angle of a vector (y down), counter-clockwise, radians."""
+    return math.atan2(-v[1], v[0])
+
+
+def _wrap(deg):
+    return (deg + 180) % 360 - 180
+
+
+class RunLegs:
+    """The dragon design's legs for the run: each leg's cut and its two pieces (the leg, the paw)."""
+
+    def __init__(self, f):
+        self.f = f
+        op = f.d[..., 3] > 0
+        yy, xx = np.mgrid[0:f.H, 0:f.W]
+        self.cuts = {n: poly(L["cut"], (f.H, f.W)) & op for n, L in RUN_LEGS.items()}
+        self.allcut = np.zeros((f.H, f.W), bool)
+        for m in self.cuts.values():
+            self.allcut |= m
+        self.pieces = {}
+        for name, L in RUN_LEGS.items():
+            cut = self.cuts[name]
+            paw = cut & (yy >= L["paw_y"]) & (xx >= L.get("paw_x", 0))
+            if L.get("wrist"):
+                (rx, ry), (ax, ay) = L["root"], L["ankle"]
+                n = math.hypot(ax - rx, ay - ry)
+                paw |= cut & (((xx + 0.5 - rx) * (ax - rx) + (yy + 0.5 - ry) * (ay - ry)) / n >= n)
+            leg = cut & ~paw
+            top = leg.any(1).nonzero()[0].min()
+            # the band: inner squares only (an outline square turned with it stood out alone past the jaw)
+            band = (ndimage.binary_dilation(leg, iterations=RUN_BAND) & ndimage.binary_erosion(op) & ~self.allcut
+                    & (yy <= top) & (yy >= top - RUN_BAND))
+            self.pieces[name] = {"leg": leg | band, "paw": paw}
+
+    def layer(self, mask):
+        out = np.zeros_like(self.f.d)
+        out[mask] = self.f.d[mask]
+        return out
+
+
+def run_paw(name, t):
+    """Frame t of the run: the paw's columns from where it is drawn and its rows up."""
+    p = (t - RUN_OFFSET[name]) % 8
+    r, c = RUN_REACH[name], RUN_CENTRE[name]
+    if p < RUN_GROUND:
+        return c + r - 2 * r * p / (RUN_GROUND - 1), 0
+    j = p - RUN_GROUND
+    return c - r + 2 * r * (j + 1) / (8 - RUN_GROUND + 1), RUN_LIFT[j]
+
+
+def run_leg(C, can, RL, name, gx, lift, by):
+    """One leg of the run: the paw moved (gx, -lift) whole, the leg turned about its root (moved `by` rows with the
+    body) to point at the paw's ankle."""
+    L, P, f = RUN_LEGS[name], RL.pieces[name], RL.f
+    gx = int(round(gx))
+    (rx, ry), (ax, ay) = L["root"], L["ankle"]
+    deg = _wrap(math.degrees(_ang((ax + gx - rx, ay - lift - ry - by)) - _ang((ax - rx, ay - ry))))
+    legs = C.blank()
+    if abs(deg) < 0.5:
+        C.stamp(legs, f, RL.layer(P["leg"]), 0, by)
+    else:
+        C.turned(legs, f, P["leg"], deg, (rx, ry), (rx, ry + by))
+    legs[C.origin(f)[1] + L["paw_y"] - lift + 2:] = 0
+    m = legs[..., 3] > 0
+    can[m] = legs[m]
+    C.stamp(can, f, RL.layer(P["paw"]), gx, -lift)
+
+
+def dragon_run(C, RL, t, far_wing=0.0, near_wing=0.0, tail=0.0, head=(0, 0)):
+    """Frame t of the run: the legs (far, then near) under everything else as dragon() draws it standing - the wings
+    and the tail turned about their roots, the head moved - with the body RUN_BOB rows up."""
+    f, m = C.dragon, C.dragon.masks
+    can = C.blank()
+    by = RUN_BOB[t]
+    for name in ("far_hind", "far_fore", "near_hind", "near_fore"):
+        gx, lift = run_paw(name, t)
+        run_leg(C, can, RL, name, gx, lift, by)
+
+    def part(name, deg):
+        pm = m[name] & ~RL.allcut
+        if deg:
+            C.turned(can, f, pm, deg, D_ROOTS[name], D_ROOTS[name], 0, by)
+        else:
+            C.stamp(can, f, RL.layer(pm), 0, by)
+
+    part("far_wing", far_wing)
+    part("tail", tail)
+    body = m["body"] | m["far_fore"] | m["near_fore"] | m["near_hind"] | m["far_hind"]
+    C.stamp(can, f, RL.layer(body & ~RL.allcut), 0, by)
+    part("near_wing", near_wing)
+    C.stamp(can, f, RL.layer((m["head"] | m["jaw"]) & ~RL.allcut), head[0], by + head[1])
+    can = seal(can, C.outline)
+    can[C.rig.GY:] = 0
+    return can
+
+
 def dragon_fly(C):
     """R's flight and landing (League's Spell4_Intro / Spell4: the dragon in the air, both wings beating wide, the claws
     reaching forward, then coming down onto the target with the wings spread): two beats in the air, the touch-down,
@@ -555,26 +685,14 @@ def dragon_frames(C):
     tail = [0, -2, -3, -4, -3, -2, 0, 1]
     out["d_idle"] = [p(far_wing=w, near_wing=-w * 0.6, wing_dy=u, head=(0, h), tail=t)
                      for w, u, h, t in zip(wings, up, head, tail)]
-    # run (League's run1: a bounding gallop, the wings beating, the tail swinging): the diagonal pairs of legs stepping
-    # in turn (league_braum's walk on four legs: a leg lifted steps forward, the one on the ground draws back), the body
-    # rising as the legs push, the wings beating, the head bobbing, the tail swinging
-    gait = [  # near_fore, far_hind | far_fore, near_hind: (dx, dy) - a lifted leg goes up into the body (no seam)
-        ((2, -2), (2, -2), (-1, 0), (-1, 0)),
-        ((3, -1), (3, -1), (-2, 0), (-2, 0)),
-        ((2, 0), (2, 0), (-2, -1), (-2, -1)),
-        ((0, 0), (0, 0), (0, -2), (0, -2)),
-        ((-1, 0), (-1, 0), (2, -2), (2, -2)),
-        ((-2, 0), (-2, 0), (3, -1), (3, -1)),
-        ((-2, -1), (-2, -1), (2, 0), (2, 0)),
-        ((0, -2), (0, -2), (0, 0), (0, 0)),
-    ]
-    lift = [0, 1, 0, 0, 0, 1, 0, 0]              # the suspension of the gallop: the whole dragon off the ground
+    # run (League's run1: a bounding gallop, the wings beating, the tail swinging): the legs stepping under the body in
+    # four beats (RunLegs, dragon_run), the body bobbing a row, the wings beating, the head bobbing, the tail swinging
+    RL = RunLegs(C.dragon)
     beat = [-6, -12, -6, 4, 8, 4, -2, -4]
     tail = [-3, -5, -3, 0, 3, 5, 3, 0]
     head = [(1, 0), (1, -1), (1, 0), (1, 1), (1, 0), (1, -1), (1, 0), (1, 1)]
-    out["d_run"] = [p(lift=lf, far_wing=b, near_wing=-b * 0.5, tail=t, head=h,
-                      legs={"near_fore": nf, "far_hind": fh, "far_fore": ff, "near_hind": nh})
-                    for (nf, fh, ff, nh), lf, b, t, h in zip(gait, lift, beat, tail, head)]
+    out["d_run"] = [dragon_run(C, RL, k, far_wing=b, near_wing=-b * 0.5, tail=t, head=h)
+                    for k, (b, t, h) in enumerate(zip(beat, tail, head))]
     # auto attack (League's Attack1: drawn back low, the head and the near fore claw thrown forward, the claw raking
     # down; the hit at ~230 ms = tick 14): drawn back, the claw raised, thrown forward, the rake (frame 4, the hit),
     # held, back
