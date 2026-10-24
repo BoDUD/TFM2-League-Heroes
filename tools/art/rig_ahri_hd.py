@@ -1,7 +1,10 @@
 #!/usr/bin/env python3
 """league_ahri redone at PPU 2.2 from Codex's picture (tools/art/design_ahri_hd.py; the user, 2026-10-23: 「下一个英雄重做
 阿狸」), every action posed here from the design's own squares (rig_lux_hd.py's way) after her old sheet and League's
-clips (the user, 2026-10-24, Codex out of quota: 「你直接照着重画吧 没额度了」「做到完美了喊我review」).
+clips (the user, 2026-10-24, Codex out of quota: 「你直接照着重画吧 没额度了」「做到完美了喊我review」). Those were rejected
+(「尾巴和身体分离 不及格」, 「尾巴和身体又脱节了啊」): every action on the sheet is now Codex's whole-frame redraw mended onto the
+design (tools/art/casts_ahri_hd.py: the design's head, her size, the tails joined, placed on the ground); the rig below
+still builds the standing idle_base and is kept for its posing tools.
 
     python tools/art/rig_ahri_hd.py --parts DIR         # the parts tinted
     python tools/art/rig_ahri_hd.py --review DIR        # every tag at 3x + GIFs
@@ -29,6 +32,7 @@ from scipy import ndimage
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
+import casts_ahri_hd as CA  # noqa: E402
 import design_ahri_hd as DA  # noqa: E402
 import ppu_rig as R  # noqa: E402
 import rig_xinzhao_hd as XZ  # noqa: E402
@@ -965,6 +969,21 @@ def on_rig(rig, a):
     return can
 
 
+def on_grid(rig, d, x, y):
+    """A picture whose top-left square sits at (x, y) on the design's grid, on the rig's canvas (on_rig's ground)."""
+    ys, xs = np.nonzero(d[..., 3] > 0)
+    can = rig.canvas()
+    Y, X = ys + y + rig.oy, xs + x + rig.ox
+    ok = (Y >= 0) & (Y < can.shape[0]) & (X >= 0) & (X < can.shape[1])
+    if not ok.all():
+        sys.exit(f"{int((~ok).sum())} squares off the canvas")
+    can[Y, X] = d[ys, xs]
+    cut = (can[rig.GY:rig.GY + 1, :, 3] > 0)[0] & (can[rig.GY - 1, :, 3] > 0)
+    can[rig.GY:] = 0
+    can[rig.GY - 1, cut] = (*OUTLINE, 255)
+    return can
+
+
 class Poser:
     def __init__(self, d):
         self.d = d
@@ -1002,11 +1021,18 @@ def frames(rig):
     ps = Poser(d)
     ps.check()
     sheet = R.sheet_of(HERO)
+    casts = CA.placed()
     out = {}
     for tag in sheet:
         if tag in ("idle", "bp"):
             continue
         n = len(sheet[tag])
+        if f"{tag}_1" in casts:                         # Codex's redraw, mended onto the design (casts_ahri_hd.py)
+            fr = [on_grid(rig, *casts[f"{tag}_{k + 1}"]) for k in range(n)]
+            if tag == "hit":
+                fr[0] = R.flash(rig.finish(fr[0]))
+            out[tag] = list(zip(fr, [m for _, m in sheet[tag]]))
+            continue
         if tag in POSES:
             poses = POSES[tag]
         elif tag == "run":
