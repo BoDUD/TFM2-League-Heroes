@@ -58,7 +58,7 @@
           "type": "TargetProjectile",
           "name": "league_ahri_orb",
           "speed": 4500,
-          "y_offset": 1200,
+          "y_offset": -3000,
           "applied_target": "Enemy",
           "applied_effects": [
             {
@@ -229,7 +229,7 @@
                         "type": "TargetProjectile",
                         "name": "league_ahri_w_fire",
                         "speed": 3500,
-                        "y_offset": 1200,
+                        "y_offset": -3000,
                         "applied_target": "EnemyWithoutTower",
                         "applied_effects": [
                           {
@@ -400,7 +400,7 @@
                           "type": "TargetProjectile",
                           "name": "league_ahri_w_fire",
                           "speed": 3500,
-                          "y_offset": 1200,
+                          "y_offset": -3000,
                           "applied_target": "EnemyWithoutTower",
                           "applied_effects": [
                             {
@@ -560,7 +560,7 @@
                           "type": "TargetProjectile",
                           "name": "league_ahri_w_fire",
                           "speed": 3500,
-                          "y_offset": 1200,
+                          "y_offset": -3000,
                           "applied_target": "EnemyWithoutTower",
                           "applied_effects": [
                             {
@@ -731,7 +731,7 @@
                         "type": "TargetProjectile",
                         "name": "league_ahri_w_fire",
                         "speed": 3500,
-                        "y_offset": 1200,
+                        "y_offset": -3000,
                         "applied_target": "EnemyWithoutTower",
                         "applied_effects": [
                           {
@@ -902,7 +902,7 @@
                           "type": "TargetProjectile",
                           "name": "league_ahri_w_fire",
                           "speed": 3500,
-                          "y_offset": 1200,
+                          "y_offset": -3000,
                           "applied_target": "EnemyWithoutTower",
                           "applied_effects": [
                             {
@@ -1062,7 +1062,7 @@
                           "type": "TargetProjectile",
                           "name": "league_ahri_w_fire",
                           "speed": 3500,
-                          "y_offset": 1200,
+                          "y_offset": -3000,
                           "applied_target": "EnemyWithoutTower",
                           "applied_effects": [
                             {
@@ -1233,7 +1233,7 @@
                         "type": "TargetProjectile",
                         "name": "league_ahri_w_fire",
                         "speed": 3500,
-                        "y_offset": 1200,
+                        "y_offset": -3000,
                         "applied_target": "EnemyWithoutTower",
                         "applied_effects": [
                           {
@@ -1404,7 +1404,7 @@
                           "type": "TargetProjectile",
                           "name": "league_ahri_w_fire",
                           "speed": 3500,
-                          "y_offset": 1200,
+                          "y_offset": -3000,
                           "applied_target": "EnemyWithoutTower",
                           "applied_effects": [
                             {
@@ -1564,7 +1564,7 @@
                           "type": "TargetProjectile",
                           "name": "league_ahri_w_fire",
                           "speed": 3500,
-                          "y_offset": 1200,
+                          "y_offset": -3000,
                           "applied_target": "EnemyWithoutTower",
                           "applied_effects": [
                             {
@@ -2912,7 +2912,7 @@
                                 "type": "TargetProjectile",
                                 "name": "league_ahri_r_bolt",
                                 "speed": 4500,
-                                "y_offset": 1200,
+                                "y_offset": -3000,
                                 "applied_target": "EnemyWithoutTower",
                                 "applied_effects": [
                                   {
@@ -3084,7 +3084,7 @@
                         "type": "TargetProjectile",
                         "name": "league_ahri_r_bolt",
                         "speed": 4500,
-                        "y_offset": 1200,
+                        "y_offset": -3000,
                         "applied_target": "EnemyWithoutTower",
                         "applied_effects": [
                           {
@@ -3275,7 +3275,7 @@
                                 "type": "TargetProjectile",
                                 "name": "league_ahri_r_bolt",
                                 "speed": 4500,
-                                "y_offset": 1200,
+                                "y_offset": -3000,
                                 "applied_target": "EnemyWithoutTower",
                                 "applied_effects": [
                                   {
@@ -3447,7 +3447,7 @@
                         "type": "TargetProjectile",
                         "name": "league_ahri_r_bolt",
                         "speed": 4500,
-                        "y_offset": 1200,
+                        "y_offset": -3000,
                         "applied_target": "EnemyWithoutTower",
                         "applied_effects": [
                           {
@@ -3638,7 +3638,7 @@
                                 "type": "TargetProjectile",
                                 "name": "league_ahri_r_bolt",
                                 "speed": 4500,
-                                "y_offset": 1200,
+                                "y_offset": -3000,
                                 "applied_target": "EnemyWithoutTower",
                                 "applied_effects": [
                                   {
@@ -3810,7 +3810,7 @@
                         "type": "TargetProjectile",
                         "name": "league_ahri_r_bolt",
                         "speed": 4500,
-                        "y_offset": 1200,
+                        "y_offset": -3000,
                         "applied_target": "EnemyWithoutTower",
                         "applied_effects": [
                           {

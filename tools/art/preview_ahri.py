@@ -3,7 +3,7 @@
 
     python tools/art/preview_ahri.py [--out docs/preview]
 
-  league_ahri_frames.png    every animation, frame by frame, 3x on the arena colour
+  league_ahri_frames.png    every animation's dense frames (hd_, PPU 2.2, as league.dll shows them)
   league_ahri_effects.png   every effect animation, 3x
   league_ahri_showcase.gif  a scripted fight against Darius and Garen, timed like the kit: Ahri runs in and
                             blows a kiss at Darius (Charm: the hearts over his head, he walks to her); Orb of
@@ -27,6 +27,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 from preview_annie import Held, OnFoe  # noqa: E402
 from preview_ashe import Anim, tick  # noqa: E402
+from preview_dense import dense, dense_rows, put  # noqa: E402
 from preview_garen import ARENA, T, contact, frames_of, load  # noqa: E402
 from preview_jinx import Follow  # noqa: E402
 from preview_thresh import turned  # noqa: E402
@@ -36,6 +37,10 @@ ROOT = os.path.dirname(os.path.dirname(HERE))
 LEAGUE = os.path.join(ROOT, "league")
 CHAMP = os.path.join(LEAGUE, "champions", "league_ahri")
 FX = {n: os.path.join(LEAGUE, "effects", n) for n in ("league_ahri_fx", "league_ahri_big")}
+# (ahead, up) px of her pivot where each shot leaves: the hand on the release frame of the PPU redo (casts_ahri_hd.py)
+# at the kit's heights (the homing orb, fox-fires and essence bolts y_offset -3000; Orb of Deception and the kiss lines
+# the default 5 px)
+SHOT = {"orb": (16, 8), "q_orb": (17, 5), "e_kiss": (11, 5), "w_fire": (0, 8), "r_bolt": (4, 8)}
 
 
 def showcase(out, z=3, step=40):
@@ -54,7 +59,7 @@ def showcase(out, z=3, step=40):
 
     def a(tag, dur=None, loop=False, way=None):
         nonlocal t
-        an = Path(frames_of(ah, tag), t, x, gy, loop=loop, until=(t + dur) if dur else None, way=way or ())
+        an = Path(dense(ah, tag, "ahri", z), t, x, gy, loop=loop, until=(t + dur) if dur else None, way=way or ())
         body.append(an)
         t = an.until
 
@@ -92,7 +97,7 @@ def showcase(out, z=3, step=40):
     # Charm: the kiss leaves on tick 9 at 4 px a tick; Darius walks to her for 1.25 s
     start = t
     tx, ty = at_foe(d, start + tick(9))
-    kissed = fly("e_kiss", start + tick(9), x + 6, gy - 8, tx, ty, 4)
+    kissed = fly("e_kiss", start + tick(9), x + SHOT["e_kiss"][0], gy - SHOT["e_kiss"][1], tx, ty, 4)
     over.append(OnFoe(frames_of(small, "e_charm"), kissed, d, z=2))
     d.walks.append((kissed, kissed + 1250, -40))
     a("skill2", tick(31))
@@ -100,23 +105,24 @@ def showcase(out, z=3, step=40):
     start = t
     go = start + tick(10)
     far = x + 75
-    back_at = fly("q_orb", go, x + 6, gy - 8, far, gy - 8, 4, loop=True)
+    qx, qy = x + SHOT["q_orb"][0], gy - SHOT["q_orb"][1]
+    back_at = fly("q_orb", go, qx, qy, far, qy, 4, loop=True)
     dx_hit = d.pos(go + tick(10))[0]
-    hit(d, go + tick(max(1, (dx_hit - x - 6) / 4)), "q_hit")
-    home = fly("q_orb", back_at, far, gy - 8, x + 6, gy - 8, 4.5, loop=True)
+    hit(d, go + tick(max(1, (dx_hit - qx) / 4)), "q_hit")
+    home = fly("q_orb", back_at, far, qy, qx, qy, 4.5, loop=True)
     hit(d, back_at + tick(max(1, (far - d.pos(back_at + tick(8))[0]) / 4.5)), "q_true")
     over.append(Follow(frames_of(small, "w_orbit"), go, x, gy, on=body, z=1))
     for k in range(3):
         f0 = go + tick(8 + 4 * k)
         tx, ty = at_foe(d, f0 + tick(6))
-        arrived = fly("w_fire", f0, x, gy - 10, tx, ty, 3.5)
+        arrived = fly("w_fire", f0, x + SHOT["w_fire"][0], gy - SHOT["w_fire"][1], tx, ty, 3.5)
         hit(d, arrived, "w_hit")
     glow_from = back_at                               # the third spell hit: Essence Theft charged
     a("skill", tick(30))
     # an attack (the orb on tick 14)
     start = t
     tx, ty = at_foe(d, start + tick(14))
-    arrived = fly("orb", start + tick(14), x + 6, gy - 8, tx, ty, 4.5)
+    arrived = fly("orb", start + tick(14), x + SHOT["orb"][0], gy - SHOT["orb"][1], tx, ty, 4.5)
     hit(d, arrived, "hit")
     a("attack", tick(28))
     a("idle", 300, loop=True)
@@ -130,7 +136,7 @@ def showcase(out, z=3, step=40):
         for k, foe in enumerate(foes):
             b0 = start + tick(19)
             tx, ty = at_foe(foe, b0 + tick(8))
-            arrived = fly("r_bolt", b0, x + 4, gy - 10, tx, ty, 4.5)
+            arrived = fly("r_bolt", b0, x + SHOT["r_bolt"][0], gy - SHOT["r_bolt"][1], tx, ty, 4.5)
             hit(foe, arrived, "r_hit")
             if n_dash == 0 and k == 0:
                 essence_until(start)
@@ -142,33 +148,34 @@ def showcase(out, z=3, step=40):
     # Garen walks up: another kiss charms him, an orb flies through him and back
     start = t
     tx, ty = at_foe(g, start + tick(9))
-    kissed = fly("e_kiss", start + tick(9), x + 6, gy - 8, tx, ty, 4)
+    kissed = fly("e_kiss", start + tick(9), x + SHOT["e_kiss"][0], gy - SHOT["e_kiss"][1], tx, ty, 4)
     over.append(OnFoe(frames_of(small, "e_charm"), kissed, g, z=2))
     g.walks.append((kissed, kissed + 1250, -30))
     a("skill2", tick(31))
     start = t
     go = start + tick(10)
     far = x + 75
-    back_at = fly("q_orb", go, x + 6, gy - 8, far, gy - 8, 4, loop=True)
-    hit(g, go + tick(max(1, (g.pos(go + tick(12))[0] - x - 6) / 4)), "q_hit")
-    fly("q_orb", back_at, far, gy - 8, x + 6, gy - 8, 4.5, loop=True)
+    qx, qy = x + SHOT["q_orb"][0], gy - SHOT["q_orb"][1]
+    back_at = fly("q_orb", go, qx, qy, far, qy, 4, loop=True)
+    hit(g, go + tick(max(1, (g.pos(go + tick(12))[0] - qx) / 4)), "q_hit")
+    fly("q_orb", back_at, far, qy, qx, qy, 4.5, loop=True)
     hit(g, back_at + tick(max(1, (far - g.pos(back_at + tick(6))[0]) / 4.5)), "q_true")
     a("skill", tick(30))
     for _ in range(3):                                # three attacks at her 1.5 s attack interval
         start = t
         tx, ty = at_foe(g, start + tick(14))
-        arrived = fly("orb", start + tick(14), x + 6, gy - 8, tx, ty, 4.5)
+        arrived = fly("orb", start + tick(14), x + SHOT["orb"][0], gy - SHOT["orb"][1], tx, ty, 4.5)
         hit(g, arrived, "hit")
         a("attack", tick(28))
         a("idle", tick(90 - 28), loop=True)
     end = t
 
     def place(img, f, px, py):
-        img.alpha_composite(f, (int(px) - f.width // 2, int(py) - f.height // 2))
+        put(img, f, int(px), int(py), z)
 
     frames, tt = [], 0.0
     while tt < end:
-        img = Image.new("RGBA", (W, H), ARENA)
+        img = Image.new("RGBA", (W * z, H * z), ARENA)
         for an in under:
             f = an.frame(tt)
             if f is not None:
@@ -186,7 +193,7 @@ def showcase(out, z=3, step=40):
             f = an.frame(tt)
             if f is not None:
                 place(img, f, *an.pos(tt))
-        frames.append(img.resize((W * z, H * z), Image.NEAREST).convert("RGB"))
+        frames.append(img.convert("RGB"))
         tt += step
     sample = frames[::6]                              # one palette for the whole clip
     strip = Image.new("RGB", (W * z, H * z * len(sample)))
@@ -204,7 +211,7 @@ def main():
     args = ap.parse_args()
     os.makedirs(T.long_path(args.out), exist_ok=True)
     s = load(CHAMP)
-    print("frames", contact([(s, t["name"], t["name"]) for t in s.tags], os.path.join(args.out, "league_ahri_frames.png")))
+    print("frames", contact(dense_rows(s), os.path.join(args.out, "league_ahri_frames.png"), z=1))
     rows = []
     for name, path in FX.items():
         sp = load(path)

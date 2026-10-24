@@ -288,6 +288,10 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // straight); idle, run, hit and death posed from the design's own squares (tools/art/rig_lux_hd.py), the four casts
     // Codex's whole-frame redraw mended onto the design (tools/art/casts_lux_hd.py); 37 rows, so no SIZES row
     ("league_lux", 2.2, include_str!("../../../league/champions/league_lux#anim.fanim")),
+    // Ahri (2026-10-24): Codex's picture read back at PPU 2.2 (78 x 88, tools/art/design_ahri_hd.py, the eyes and face
+    // set by hand); every action Codex's whole-frame redraw mended onto the design (tools/art/casts_ahri_hd.py: the
+    // design's head, her size, the nine tails joined to her hair); 40 rows, so no SIZES row
+    ("league_ahri", 2.2, include_str!("../../../league/champions/league_ahri#anim.fanim")),
     // Yunara: PPU 1.5 (the user's pick), posed from the design's own squares at that density by tools/art/rig_yunara.py
     // (40 game rows ornaments to soles), so no SIZES row
     ("league_yunara", 1.5, include_str!("../../../league/champions/league_yunara#anim.fanim")),
