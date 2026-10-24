@@ -9,6 +9,8 @@
 | 黛安娜 E 月光冲击 | Q 打中过任何东西，下一次 E 就能再冲一次 | E 冲向的目标身上带月光时才再冲一次；冲到后所有敌人身上的月光都消耗掉 |
 | 凯南 雷缚印 | 层数记在凯南身上：打 A 一次、打 B 两次，B 就被眩晕 | 每个英雄各记各的（6 秒），同一个人第三层眩晕 1.25 秒，7 秒内再次只有 0.5 秒 |
 | 卡莎 体表活肤 | 电浆层数记在卡莎身上：打 A 叠的层数会在 B 身上引爆 | 每个英雄各记各的（4 秒）：普攻每次附加 18 + 9 × 层数 + 20% 法强的魔法伤害，同一个人第五层引爆 80 + 60% 攻击力 + 8% 最大生命的真实伤害 |
+| 拉克丝 光芒四射 | 技能打中过敌人，下一次普攻打谁都引爆 | 光芒留在被技能打中的敌人身上（5 秒），普攻打中带光芒的人才引爆 50 + 35% 法强的魔法伤害 |
+| 厄运小姐 爱心一击 | 上一个目标被她打死，或 1.25 秒没开枪，下一枪算新目标 | 和上一枪打的不是同一个人就算新目标 |
 
 ## 怎么做的
 
@@ -16,12 +18,14 @@
 - 被动（`league_marks:diana`）找身上有「问」标记的敌人，看他有没有主包的标记（`league_diana_moon_mark`，主包 Q 命中时挂上，3 秒），有就给施放者挂「答」标记。
 - 再冲一次的画面、伤害都是主包数据里的那一套。
 - 凯南、卡莎：副本把主包「读、数自己身上层数」的那一段换成给被打中的英雄挂一个命中标记（凯南 `league_marks_kennen_hit`；卡莎普攻 `league_marks_kaisa_a`、被控英雄多叠的那层 `_c`、W 的 `_w2` / `_w3`）。被动 `league_marks:kennen` / `:kaisa` 按目标数层：凯南第三层用 `apply_cc` 眩晕，卡莎的附加伤害和引爆用 `deal_damage_typed`（数字由 `make_override.py` 从主包读进 `passive.params`），层数、眩晕和引爆的画面播主包的。
+- 拉克丝：副本里技能命中时把光芒挂在目标身上（`league_marks_lux_lit`），普攻改成普通光弹，命中时给目标挂 `league_marks_lux_hit`；被动 `league_marks:lux` 看到它时目标还带光芒就引爆（`deal_damage_typed`，数字从主包读）。
+- 厄运小姐：副本的普攻出手时给目标挂 `league_marks_mf_ask`，2 tick 后看 `league_missfortune_new_target` 决定开爱心一击还是普通子弹（出枪晚 2 tick）；被动 `league_marks:missfortune` 记住上一枪的目标。
 
 ## 在游戏里测
 
 1. 主包（League of Legends Heroes 0.210.0 以上）要装着并启用。
 2. 把 `league_marks` 文件夹放进 `<游戏目录>\mods\`，或者用附加包合集 `league_addons`（已经包含本包）。在 MOD 菜单里启用，排在主包后面，重启游戏。
-3. 黛安娜 E、凯南和卡莎普攻的说明开头是「【附加包】」就说明换上了。
+3. 黛安娜 E，凯南、卡莎、拉克丝、厄运小姐普攻的说明开头是「【附加包】」就说明换上了。
 4. 日志 `%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_marks.log`：`DIANA E #n on #7: moonlit, dash again (3 of 5 moonlit)`、`KENNEN STUN #n on #7: 75 ticks`、`KAISA POP #n on #7: 420 true`。
 
 ## 开发

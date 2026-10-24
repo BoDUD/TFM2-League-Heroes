@@ -16,6 +16,12 @@
 //!   各换成给目标挂一个标记（`KAISA_ATTACK` / `KAISA_CC` / `KAISA_W2` / `KAISA_W3`）；本包给那个目标加层（`KAISA_LIFE`
 //!   tick 内有效）：普攻每次附加 `base + step × 层数` + `ap`% 法强的魔法伤害，第五层引爆：`pop` + `pop_ad`% 攻击力 +
 //!   `pop_hp`% 目标最大生命的真实伤害（数字照主包，在 `passive.params`），播主包的层数和引爆画面。
+//! - **拉克丝 `league_marks:lux`**：光芒四射挂在目标身上（主包挂在拉克丝身上：打中 A，下一次普攻打 B 也引爆）。副本的技能
+//!   命中给目标挂 `LUX_LIT`（5 秒），普攻命中给目标挂 `LUX_HIT`；本包看到 `LUX_HIT` 时目标还带 `LUX_LIT`，就引爆：
+//!   `base` + `ap`% 法强的魔法伤害，播主包的引爆画面和音效。
+//! - **厄运小姐 `league_marks:missfortune`**：爱心一击打在「新目标」上（主包：上一个目标被她打死，或 1.25 秒没开枪）。副本的
+//!   普攻出手时给目标挂 `MF_ASK`，2 tick 后读 `MF_NEW` 决定开哪种枪；本包记住她上一枪的目标，换了人（或上一个死了）就挂
+//!   `MF_NEW`。
 //!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_marks.log`。
 
@@ -42,6 +48,10 @@ pub const KAISA_CC: &str = "league_marks_kaisa_c";
 pub const KAISA_W2: &str = "league_marks_kaisa_w2";
 pub const KAISA_W3: &str = "league_marks_kaisa_w3";
 pub const KAISA_LIFE: usize = 240;
+pub const LUX_LIT: &str = "league_marks_lux_lit";
+pub const LUX_HIT: &str = "league_marks_lux_hit";
+pub const MF_ASK: &str = "league_marks_mf_ask";
+pub const MF_NEW: &str = "league_missfortune_new_target";
 
 // ===================== 日志 =====================
 
@@ -321,6 +331,89 @@ impl StablePassive for Kaisa {
     }
 }
 
+#[derive(Clone, Default)]
+struct Lux {
+    p: Vec<(String, usize)>,
+    n: usize,
+}
+
+impl StablePassive for Lux {
+    fn clone_box(&self) -> Box<dyn StablePassive> {
+        Box::new(self.clone())
+    }
+
+    fn configure(&mut self, params_json: &str) {
+        self.p = params(params_json);
+    }
+
+    fn on_spawn(&mut self, sim: &mut StableSim<'_>, player: usize, me: usize) {
+        wlog(format!("{} SPAWN: the add-on's Lux (player {player}), {:?}", head(sim, me), self.p));
+    }
+
+    fn on_update(&mut self, sim: &mut StableSim<'_>, _: u64, _: usize, me: usize) {
+        let Some(e) = sim.get_entity(me) else { return };
+        let (team, power) = (e.team(), e.stat().magic_power);
+        for target in enemies_with(sim, team, LUX_HIT) {
+            sim.entity_remove_buff(target, LUX_HIT);
+            if sim.get_entity(target).is_some_and(|t| has(&t, LUX_LIT)) {
+                sim.entity_remove_buff(target, LUX_LIT);
+                let d = get(&self.p, "base") + power * get(&self.p, "ap") / 100;
+                sim.deal_damage_typed(me, target, d, DamageTypeV1::Ap, AttackTypeV1::BaseAttack);
+                let at = InputTargetV1::target(target);
+                sim.play_view_effect("league_lux_ignite", me, &at, 0, 0, 0);
+                sim.play_sfx("league_lux_passive_hit", me, &at);
+                self.n += 1;
+                if self.n <= 80 {
+                    wlog(format!("{} LUX ILLUMINATION #{} on #{target}: {d} magic", head(sim, me), self.n));
+                }
+            }
+        }
+    }
+}
+
+/// Miss Fortune: is `target` a new one after `last` (`last_alive`: whether her last target still lives)?
+pub fn mf_new(last: Option<usize>, last_alive: bool, target: usize) -> bool {
+    last != Some(target) || !last_alive
+}
+
+#[derive(Clone, Default)]
+struct MissFortune {
+    last: Option<usize>,
+    taps: usize,
+    shots: usize,
+}
+
+impl StablePassive for MissFortune {
+    fn clone_box(&self) -> Box<dyn StablePassive> {
+        Box::new(self.clone())
+    }
+
+    fn on_spawn(&mut self, sim: &mut StableSim<'_>, player: usize, me: usize) {
+        self.last = None;
+        wlog(format!("{} SPAWN: the add-on's Miss Fortune (player {player})", head(sim, me)));
+    }
+
+    fn on_update(&mut self, sim: &mut StableSim<'_>, _: u64, _: usize, me: usize) {
+        let Some(team) = sim.get_entity(me).map(|e| e.team()) else { return };
+        for target in enemies_with(sim, team, MF_ASK) {
+            sim.entity_remove_buff(target, MF_ASK);
+            let alive = self.last.and_then(|l| sim.get_entity(l)).is_some_and(|l| l.is_alive());
+            let new = mf_new(self.last, alive, target);
+            self.last = Some(target);
+            self.shots += 1;
+            if new {
+                self.taps += 1;
+                sim.entity_remove_buff(me, MF_NEW);
+                sim.add_buff(me, &BuffV1::timed(MF_NEW, ANSWER));
+            }
+            if new && self.taps <= 60 {
+                wlog(format!("{} MF LOVE TAP #{} on #{target} ({} of {} shots)", head(sim, me), self.taps, self.taps,
+                             self.shots));
+            }
+        }
+    }
+}
+
 // ===================== 注册 =====================
 
 pub fn register(host: &StableHost, module: &mut StableMod) {
@@ -328,7 +421,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v{} (marks read on the target: Diana, Kennen, Kai'Sa) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v{} (marks read on the target: Diana, Kennen, Kai'Sa, Lux, Miss Fortune) loaded: game {}.{}.{} abi {} log={} ===",
         env!("CARGO_PKG_VERSION"),
         v.major,
         v.minor,
@@ -339,6 +432,8 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     module.add_native_passive(format!("{ID}:diana"), Diana::default());
     module.add_native_passive(format!("{ID}:kennen"), Kennen::default());
     module.add_native_passive(format!("{ID}:kaisa"), Kaisa::default());
+    module.add_native_passive(format!("{ID}:lux"), Lux::default());
+    module.add_native_passive(format!("{ID}:missfortune"), MissFortune::default());
     host.log(LogLevel::Info, "league_marks v1 loaded (marks read on the target).");
 }
 
@@ -377,8 +472,17 @@ mod tests {
     }
 
     #[test]
+    fn love_tap_on_a_new_target() {
+        assert!(mf_new(None, false, 7));
+        assert!(!mf_new(Some(7), true, 7));
+        assert!(mf_new(Some(7), true, 8));
+        assert!(mf_new(Some(7), false, 7));
+    }
+
+    #[test]
     fn the_names_fit() {
-        for n in [DIANA_MOON, DIANA_ASK, DIANA_YES, KENNEN_HIT, KAISA_ATTACK, KAISA_CC, KAISA_W2, KAISA_W3] {
+        for n in [DIANA_MOON, DIANA_ASK, DIANA_YES, KENNEN_HIT, KAISA_ATTACK, KAISA_CC, KAISA_W2, KAISA_W3, LUX_LIT, LUX_HIT,
+                  MF_ASK, MF_NEW] {
             assert!(n.len() <= BUFF_NAME_CAP);
         }
     }

@@ -8,6 +8,10 @@ Reads the main pack's kits and writes addons/league_marks/override/<hero>.data_c
   * league_kaisa: the four Plasma ladders on her own flags become KAISA_ATTACK / KAISA_CC / KAISA_W2 / KAISA_W3 marks
     on the champion struck (the add-on counts per target, deals the extra hits and the pop with the main pack's
     numbers, read here into passive.params); passive league_marks:kaisa;
+  * league_lux: the skills' Illumination lands on the struck enemy (LUX_LIT), the attack fires the plain bolt marking
+    its target (LUX_HIT; the add-on ignites a lit one with the main pack's numbers); passive league_marks:lux;
+  * league_missfortune: the attack asks MF_ASK on its target and fires two ticks later, the Love Tap bullet on MF_NEW
+    (the add-on raises it when the target is not her last); passive league_marks:missfortune;
   * league_diana: Lunar Rush's start no longer reads her own league_diana_moonlight (any Q hit); it marks its target
     with src/lib.rs's DIANA_ASK and, 2 ticks later, reads DIANA_YES (the add-on raises it when that target carries Q's
     league_diana_moon_mark) to queue the second dash (league_diana_e_again, as the main pack); passive league_marks:diana.
@@ -25,7 +29,7 @@ ADDON = os.path.join(ROOT, "addons", "league_marks")
 MOD_ID = "league_marks"
 TOOLTIP_MAX = {"zh-hans": 130, "zh-hant": 130, "en": 334, "ja": 147, "ko": 185}
 LEAD = {"zh-hans": "【附加包】", "zh-hant": "【附加包】", "en": "[Add-on] ", "ko": "[확장] ", "ja": "【拡張】"}
-M, E = "<#a974ffff>", "<>"
+M, E, Y = "<#a974ffff>", "<>", "<#ffb900ff>"
 TEXT = {
     ("league_diana", "skill2"): {
         "zh-hans": ("有" + M + "月光" + E + "时立刻再冲一次（优先英雄）", "目标带" + M + "月光" + E + "时再冲一次"),
@@ -38,6 +42,23 @@ TEXT = {
         "zh-hans": ("第三层", "同一人第三层"), "zh-hant": ("第三層", "同一人第三層"),
         "en": ("the third mark", "the third on one champion"), "ko": ("세 번째 표식은", "한 챔피언의 세 번째 표식은"),
         "ja": ("3つ目で", "同じ相手に3つ目で"),
+    },
+    ("league_missfortune", "attack"): {
+        "zh-hans": ("（她击杀上一个目标后，或" + Y + "1.25秒" + E + "没开枪后）", "（换了目标就算）"),
+        "zh-hant": ("（她擊殺上一個目標後，或" + Y + "1.25秒" + E + "沒開槍後）", "（換了目標就算）"),
+        "en": (" (after she kills her last one, or when she has not fired for " + Y + "1.25s" + E + ")", " (any target other than her last)"),
+        "ko": ("(직전 대상을 처치했거나 " + Y + "1.25초" + E + " 동안 쏘지 않았을 때)", "(직전 대상이 아니면)"),
+        "ja": ("（前の対象を倒した後か、" + Y + "1.25秒" + E + "撃っていない時）", "（前の対象と違えば）"),
+    },
+    ("league_lux", "attack"): {
+        "zh-hans": ("技能命中敌人后" + Y + "5秒" + E + "内，下一次普攻引爆光芒", "技能命中的敌人带光芒" + Y + "5秒" + E + "，普攻打中他时引爆"),
+        "zh-hant": ("技能命中敵人後" + Y + "5秒" + E + "內，下一次普攻引爆光芒", "技能命中的敵人帶光芒" + Y + "5秒" + E + "，普攻打中他時引爆"),
+        "en": ("for " + Y + "5s" + E + " after her abilities hit an enemy, her next basic attack ignites the light",
+               "enemies her abilities hit carry the light for " + Y + "5s" + E + "; her basic attack on one ignites it"),
+        "ko": ("스킬이 적에게 적중한 뒤 " + Y + "5초" + E + " 안에 하는 다음 기본 공격이 빛을 폭발시켜",
+               "스킬에 맞은 적에게 " + Y + "5초" + E + " 동안 빛이 남고, 그 적을 기본 공격하면 폭발해"),
+        "ja": ("スキルが敵に命中してから" + Y + "5秒" + E + "以内の次の通常攻撃が光を炸裂させ",
+               "スキルが当たった敵に" + Y + "5秒" + E + "光が残り、その敵への通常攻撃で炸裂し"),
     },
     ("league_kaisa", "attack"): {
         "zh-hans": ("普攻命中英雄叠电浆", "普攻在英雄身上叠电浆"), "zh-hant": ("普攻命中英雄疊電漿", "普攻在英雄身上疊電漿"),
@@ -61,7 +82,8 @@ def shown_length(text):
 def consts():
     src = open(lp(os.path.join(ADDON, "src", "lib.rs")), encoding="utf-8").read()
     return {k: re.search(k + r': &str = "([^"]+)"', src).group(1)
-            for k in ("DIANA_MOON", "DIANA_ASK", "DIANA_YES", "KENNEN_HIT", "KAISA_ATTACK", "KAISA_CC", "KAISA_W2", "KAISA_W3")}
+            for k in ("DIANA_MOON", "DIANA_ASK", "DIANA_YES", "KENNEN_HIT", "KAISA_ATTACK", "KAISA_CC", "KAISA_W2", "KAISA_W3",
+                      "LUX_LIT", "LUX_HIT", "MF_ASK", "MF_NEW")}
 
 
 def load(hero):
@@ -172,6 +194,66 @@ def kaisa(c):
     return d, [("league_kaisa", "attack")]
 
 
+def lux(c):
+    """Illumination on the target: the skills' AddCasterBuff league_lux_illumination becomes LUX_LIT on the struck enemy;
+    the attack fires the plain bolt with a LUX_HIT mark (the add-on ignites it on a lit target)."""
+    d = load("league_lux")
+    n = []
+
+    def walk(o):
+        if isinstance(o, dict):
+            b = o.get("buff_state")
+            if o.get("type") == "AddCasterBuff" and isinstance(b, dict) and b.get("name") == "league_lux_illumination":
+                n.append(1)
+                return {"type": "AddBuff", "buff_state": {"name": c["LUX_LIT"], "duration": b["duration"]}}
+            return {k: walk(v) for k, v in o.items()}
+        if isinstance(o, list):
+            return [walk(v) for v in o]
+        return o
+
+    for slot in ("skill", "skill2", "ult"):
+        d[slot] = walk(d[slot])
+    if not n:
+        sys.exit("Lux's skills no longer add league_lux_illumination: update this script")
+    a = d["attack"]["effect"]
+    if not (a.get("type") == "SwitchByBuff" and a.get("buff_name") == "league_lux_illumination"):
+        sys.exit("Lux's attack no longer branches on league_lux_illumination: update this script")
+    ignite = [e for x in a["effect_buff"]["effects"] if x.get("type") == "TargetProjectile"
+              for ae in x["applied_effects"] for e in [ae["effect"]] if e.get("type") == "ApAttack"]
+    if len(ignite) != 1:
+        sys.exit("Lux's ignite hit changed: update this script")
+    plain = a["effect_none"]
+    bolts = [x for x in plain["effects"] if x.get("type") == "TargetProjectile"]
+    if len(bolts) != 1:
+        sys.exit("Lux's plain bolt changed: update this script")
+    bolts[0]["applied_effects"].append({"casting_type": "Targeting", "effect": mark(c["LUX_HIT"])})
+    d["attack"]["effect"] = plain
+    d["passive"] = {"passive_ref": MOD_ID + ":lux", "params": {"base": ignite[0]["damage"], "ap": ignite[0]["attack_ratio"]}}
+    return d, [("league_lux", "attack")]
+
+
+def missfortune(c):
+    """Love Tap on a new target: the attack asks (MF_ASK on its target) and fires two ticks later - the Love Tap bullet
+    when the add-on raised MF_NEW, else the plain one."""
+    d = load("league_missfortune")
+    eff = d["attack"]["effect"]["effects"]
+    k = [i for i, x in enumerate(eff) if x.get("type") == "SwitchByBuff" and x.get("buff_name") == "league_missfortune_lt_ready"]
+    if len(k) != 1:
+        sys.exit("Miss Fortune's attack no longer branches on lt_ready: update this script")
+    sw = eff[k[0]]
+    tap = [x for x in sw["effect_buff"]["effects"] if x.get("name") == "league_missfortune_bullet_lt"]
+    fight = sw["effect_none"]
+    plain = [fight["effect_buff"]] if fight.get("type") == "SwitchByBuff" else []
+    if len(tap) != 1 or len(plain) != 1 or plain[0].get("name") != "league_missfortune_bullet":
+        sys.exit("Miss Fortune's bullets changed: update this script")
+    eff[k[0]] = {"type": "Combine", "effects": [mark(c["MF_ASK"]), {"type": "Delayed", "tick": 2, "effects": [{
+        "type": "SwitchByBuff", "buff_name": c["MF_NEW"],
+        "effect_buff": {"type": "Combine", "effects": [{"type": "RemoveCasterBuff", "name": c["MF_NEW"]}, tap[0]]},
+        "effect_none": plain[0]}]}]}
+    d["passive"] = {"passive_ref": MOD_ID + ":missfortune", "params": {}}
+    return d, [("league_missfortune", "attack")]
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--check", action="store_true")
@@ -181,7 +263,7 @@ def main():
         main_text = json.load(f)
     texts = {lang: {} for lang in main_text}
     files = {}
-    for make in (diana, kennen, kaisa):
+    for make in (diana, kennen, kaisa, lux, missfortune):
         d, slots = make(c)
         hero = d["id"]
         for _, slot in slots:
