@@ -1,0 +1,10 @@
+{
+  "asset/league/champion/league_ahri": {
+    "remapping": "asset/league_ahri/override/league_ahri",
+    "type": "override"
+  },
+  "asset/base/text/champion": {
+    "remapping": "asset/league_ahri/text/champion",
+    "type": "merge"
+  }
+}
