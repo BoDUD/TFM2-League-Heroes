@@ -7,6 +7,10 @@
     "remapping": "asset/league_executes/override/league_akali",
     "type": "override"
   },
+  "asset/league/champion/league_riven": {
+    "remapping": "asset/league_executes/override/league_riven",
+    "type": "override"
+  },
   "asset/base/text/champion": {
     "remapping": "asset/league_executes/text/champion",
     "type": "merge"

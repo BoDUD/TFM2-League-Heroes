@@ -23,7 +23,7 @@ ADDON = os.path.join(ROOT, "addons", "league_executes")
 MOD_ID = "league_executes"
 TOOLTIP_MAX = {"zh-hans": 130, "zh-hant": 130, "en": 334, "ja": 147, "ko": 185}
 LEAD = {"zh-hans": "【附加包】", "zh-hant": "【附加包】", "en": "[Add-on] ", "ko": "[확장] ", "ja": "【拡張】"}
-Y, E = "<#ffb900ff>", "<>"
+Y, E, O = "<#ffb900ff>", "<>", "<#ff9028ff>"
 SWAPS = {
     "league_evelynn": {
         "zh-hans": ("，最近每打中英雄一次+" + Y + "35%" + E + "（最多×2.4）", "，对生命不高于" + Y + "30%" + E + "的目标×2.4"),
@@ -39,6 +39,22 @@ SWAPS = {
                ", up to +" + Y + "200%" + E + " by missing health"),
         "ko": (", 그 사이 챔피언 적중마다 +" + Y + "25%" + E + "(최대 " + Y + "200%" + E + ")", ", 대상의 잃은 체력에 비례해 최대 +" + Y + "200%" + E),
         "ja": ("、その間の命中ごとに+" + Y + "25%" + E + "（最大" + Y + "200%" + E + "）", "、対象の減少体力に応じて最大+" + Y + "200%" + E),
+    },
+    "league_riven": {
+        "zh-hans": [("开启" + Y + "5秒" + E + "后向身边的敌方英雄放出", "开启" + Y + "5秒" + E + "后，有人残血、可斩杀或大招将尽时放出"),
+                    (" + " + O + "8% 最大生命值" + E + "的" + O + "物理伤害" + E, "的" + O + "物理伤害" + E + "，按已损失生命最多+" + Y + "200%" + E)],
+        "zh-hant": [("啟動" + Y + "5秒" + E + "後向身邊的敵方英雄發射", "啟動" + Y + "5秒" + E + "後，有人殘血、可斬殺或大招將盡時發射"),
+                    (" + " + O + "8% 最大生命" + E + "的" + O + "物理傷害" + E, "的" + O + "物理傷害" + E + "，按已損失生命最多+" + Y + "200%" + E)],
+        "en": [("After " + Y + "5s" + E + " she fires " + O + "Wind Slash" + E + " at an enemy champion near her",
+                "After " + Y + "5s" + E + " she fires " + O + "Wind Slash" + E + " when a foe is low or killable, or R ends"),
+               (" + " + O + "8% max health" + E + " " + O + "physical damage" + E + " to enemies in a line",
+                " " + O + "physical damage" + E + " in a line, up to +" + Y + "200%" + E + " by missing health")],
+        "ko": [(Y + "5초" + E + " 후 주변의 적 챔피언에게", Y + "5초" + E + " 후 적이 빈사·처치 가능하거나 궁극기가 끝날 때"),
+               (" + " + O + "최대 체력의 8%" + E + " " + O + "물리 피해" + E + "를 입힙니다",
+                " " + O + "물리 피해" + E + "(잃은 체력 비례 최대 +" + Y + "200%" + E + ")")],
+        "ja": [(Y + "5秒" + E + "後、近くの敵チャンピオンへ", Y + "5秒" + E + "後、瀕死・倒せる敵がいるか終了間際に"),
+               (" + " + O + "最大体力の8%" + E + "の" + O + "物理ダメージ" + E + "を与える",
+                "の" + O + "物理ダメージ" + E + "（減少体力に応じ最大+" + Y + "200%" + E + "）")],
     },
 }
 
@@ -61,7 +77,7 @@ def load(hero):
 
 def marks():
     src = open(lp(os.path.join(ADDON, "src", "lib.rs")), encoding="utf-8").read()
-    return {k: re.search(k + r': &str = "([^"]+)"', src).group(1) for k in ("EVELYNN_MARK", "AKALI_MARK")}
+    return {k: re.search(k + r': &str = "([^"]+)"', src).group(1) for k in ("EVELYNN_MARK", "AKALI_MARK", "RIVEN_MARK", "RIVEN_GO", "RIVEN_WAIT")}
 
 
 def mark_effect(name):
@@ -115,6 +131,42 @@ def akali(m):
     return d, len(n)
 
 
+def riven(m):
+    """Wind Slash waits for the add-on's RIVEN_GO at every check and marks whoever it hits (no 8% max health)."""
+    d = load("league_riven")
+    n, w = [], []
+
+    def is_check(o):
+        return (o.get("type") == "SwitchByBuff" and o.get("buff_name") == m["RIVEN_WAIT"]
+                and o["effect_none"].get("type") == "RandomTarget")
+
+    def gate(o):
+        fire = o["effect_none"]
+        go = {"type": "Combine", "effects": [{"type": "RemoveCasterBuff", "name": m["RIVEN_GO"]}, fire]}
+        return dict(o, effect_none={"type": "SwitchByBuff", "buff_name": m["RIVEN_GO"], "effect_buff": go,
+                                    "effect_none": {"type": "Combine", "effects": []}})
+
+    def is_wave(o):
+        return o.get("type") == "LinearProjectile" and o.get("name") == "league_riven_r_wave"
+
+    def wave(o):
+        hit = [a["effect"] for a in o["applied_effects"] if a["effect"].get("type") == "Attack"]
+        if [(x["damage"], x["attack_ratio"], x["target_hp_ratio"]) for x in hit] != [(100, 100, 8)]:
+            sys.exit("Riven's Wind Slash hit (100 + 100% AD + 8% max health) changed: update this script")
+        applied = [dict(a, effect=dict(a["effect"], target_hp_ratio=0)) if a["effect"].get("type") == "Attack" else a
+                   for a in o["applied_effects"]]
+        return dict(o, applied_effects=applied + [{"casting_type": "Targeting", "effect": mark_effect(m["RIVEN_MARK"])}])
+
+    d = replace(d, is_check, gate, n)
+    d = replace(d, is_wave, wave, w)
+    if not n or len(w) != len(n):
+        sys.exit(f"Riven's Wind Slash checks ({len(n)}) / waves ({len(w)}) changed in the main pack: update this script")
+    if d.get("passive"):
+        sys.exit("Riven has a passive in the main pack now: update this script")
+    d["passive"] = {"passive_ref": MOD_ID + ":riven", "params": {"base": 100, "ad": 100, "full": 75, "max": 200}}
+    return d, len(n)
+
+
 def walk_ap(o, out=None):
     out = [] if out is None else out
     if isinstance(o, dict):
@@ -137,17 +189,19 @@ def main():
     with open(lp(os.path.join(ROOT, "league", "text", "champion.i18n")), encoding="utf-8-sig") as f:
         main_text = json.load(f)
     texts = {lang: {} for lang in main_text}
-    for make in (evelynn, akali):
+    for make in (evelynn, akali, riven):
         d, n = make(m)
         hero = d["id"]
         d["ult"]["description"] = f"#asset/base/text/champion?description.{MOD_ID}.{hero[7:]}_ult"
         files[os.path.join(ADDON, "override", hero + ".data_champion")] = json.dumps(d, ensure_ascii=False, indent=2) + "\n"
         for lang, tab in main_text.items():
-            old, new = SWAPS[hero][lang]
+            swaps = SWAPS[hero][lang]
             t = tab["description"][hero]["ult"]
-            if old not in t:
-                sys.exit(f"{lang} {hero}.ult: the main pack's text changed ({old!r} not found): update this script")
-            t = LEAD[lang] + t.replace(old, new)
+            for old, new in swaps if isinstance(swaps, list) else [swaps]:
+                if old not in t:
+                    sys.exit(f"{lang} {hero}.ult: the main pack's text changed ({old!r} not found): update this script")
+                t = t.replace(old, new)
+            t = LEAD[lang] + t
             if shown_length(t) > TOOLTIP_MAX[lang]:
                 sys.exit(f"{lang} {hero}.ult: tooltip too long ({shown_length(t)} > {TOOLTIP_MAX[lang]})")
             texts[lang][f"{hero[7:]}_ult"] = t
