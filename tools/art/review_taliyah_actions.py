@@ -38,12 +38,13 @@ CLIPS = {"idle": [IDLE], "run": [f"taliyah_run_passive@{t}" for t in range(0, 48
          "skill": [P["q_raise"], P["q_cast"]],
          "skill2": [P["e_raise"], P["e_sweep"], P["w_crouch"], P["w_push"]],
          "ult": ["taliyah_spell4@0", P["r_call"]],
+         "ult_ride": [P["r_call"]] + [f"taliyah_spell4_run@{t}" for t in range(0, 480, 120)],
          "hit": [IDLE], "dead": [P["d_stagger"], P["d_stagger"], P["d_down"]],
          "bp": [IDLE]}           # the ban/pick card's reel (hero_reels; --sheet only)
 BG = (96, 112, 96)
 # the labels are Chinese (the user reads everything in Chinese): the tags' names and a CJK font
 ZH = {"idle": "待机", "run": "移动（踩石冲浪）", "attack": "普攻", "skill": "技能1 石穿", "skill2": "技能2 撒石阵+岩突",
-      "ult": "大招 墙幔", "hit": "受击", "dead": "死亡", "bp": "BP 卡片"}
+      "ult": "大招 墙幔（近：竖墙）", "ult_ride": "大招 墙幔（远：骑墙）", "hit": "受击", "dead": "死亡", "bp": "BP 卡片"}
 FONT = "C:/Windows/Fonts/msyh.ttc"
 SHOWCASE = os.path.join(os.path.dirname(os.path.dirname(HERE)), "docs", "preview", "league_taliyah_showcase.gif")
 
@@ -54,7 +55,8 @@ def lol_frames(lol, tag, n, out):
     for i in range(n):
         frames += ["--frame", want[min(i, len(want) - 1)]]
     name = f"lol_{tag}"
-    props = (["--hide-submesh", "TauntRock", "--hide-submesh", "RecallRock"] if tag == "run" else ["--hide-submeshes"])
+    props = (["--hide-submesh", "TauntRock", "--hide-submesh", "RecallRock"] if tag in ("run", "ult_ride")
+             else ["--hide-submeshes"])
     cmd = [sys.executable, os.path.join(R.ROOT, "tools", "lol", "pose_ref.py"), "--lol", lol, "--champ", "Taliyah",
            "--hq", "--yaw", "35", "--mirror", "--size", "300", "--width", "1.6", "--fit", "0.5", "--no-labels", "--name",
            name, "--out", out, "--fit-all", *props, *frames]

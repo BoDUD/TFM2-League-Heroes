@@ -1,0 +1,20 @@
+Mode: built-in image_gen. transparent_background=false (black background fallback allowed by source brief).
+Reference 1: design/taliyah_fx_r_wall_upright.png
+Reference 2: refs/lol_fx_ref.png
+Layout changed to 4x2 for generation; delivered as a horizontal 8-frame row.
+
+Use attached image1 as STYLE AND PALETTE reference: the previously approved upright sandstone wall pixel sprite sheet, with cream sandstone lit faces, warm brown shadows and thin woven gold cracks. Image2 bottom row is original stone/dust shape reference ONLY, do not copy its dark background, labels or smooth rendering.
+Create ONE new pixel-art game VFX animation sheet: HORIZONTAL STONE WALL SEGMENT r_wall_h. EIGHT separate animation frames, arranged FOUR columns by TWO rows, exactly equal26:28 cells in row-major order. Requested canvas1664x896, each cell416x448, every logical pixel16x16px. Do not draw a single long wall across the sheet: each of the8 cells shows a complete 3-pillar segment, horizontal ground at the SAME height. No labels, borders, dividers or outside canvas margins.
+The segment is THREE angular sandstone pillars side by side ALONG THE GROUND from left to right. Center pillar24 logical pixels high, two side pillars16 high. Pillars have chunky crisp geometric stone facets in ONLY2-3 flat shades, thin1pixel golden threads through cracks. Match the upright reference's actual chunky pixel look, no high resolution painted texture. LEFT-RIGHT symmetric frame by frame, including gold cracks and pale dust.
+CRITICAL TILEABLE GEOMETRY: lower side pillars and rubble at both LEFT AND RIGHT edges must extend to the cell boundary at the same base rows. The first and last column of each logical26x28 frame must have identical colors and occupancy. NO empty black gutter at the base between repeated wall segments. At bottom there is continuous broken sandstone foundation/cracked earth across the FULL26pixels width; at upper heights only the3 pillar silhouettes remain. Whole pillars and dust INSIDE their own cell, nothing leaks into next frame. Top2pixels safety space, foundation bottom atrow27.
+Animation frames:
+1 ground cracks in gold, low pillar tips breaking through with small chips;
+2 all THREE pillars fully risen, center highest;
+3 stable full-height wall, dim gold threads, little pale dust at base;
+4 same exact stable wall silhouette, golden threads brighter;
+5 same wall silhouette, golden threads brightest, tiny base dust variation;
+6 same wall silhouette, threads dimmer smoothly returning to frame3;
+7 fractured pillars sinking to half height;
+8 collapsed low rubble and settling pale sand.
+Everything stoneweaving: sandstone #F4E2BC #DABE8C #B8945E #8C6A40 #624628 #3C2A18, gold #FFF6C8 #FFE07A #F2B83C #C8862A #8A5418, dust #F6ECD4 #E2D0A8 #C4AE84 #9A8662 #6E6046. Light pale highlights visible on dark battlefield. Dust and threads use own dark colors, NO black outlines.
+Background SOLID PURE BLACK #000000, opaque. Black is only empty negative space and will be keyed out after generation; keep it exactly black. NO soft glow, gradient, antialias, texture, bloom, fire, electricity, neon beams, stars, character, UI, ground plane, cast shadow, text or numbering. Crisp flat chunky square pixels ONLY.

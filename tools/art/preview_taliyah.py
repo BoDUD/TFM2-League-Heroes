@@ -119,8 +119,9 @@ def showcase(out, z=3, steps=FIGHT, W=250, H=170, gap=130, tail=1400):
             c.on("slow", lands, until=lands + tick(P["q_b_slow_t"]))
             d.flinches.append(lands)
             return lands
-        for k in range(P["q_n"]):
+        for k in range(P["q_n"]):              # each rock from where she is then (she walks on after the first)
             t = rel + tick(k * P["q_gap"])
+            hx, hy = hand(t)
             lands = t + abs(d.pos(t)[0] - hx) / px_ms(P["q_speed"])
             c.fly("q_rock", t, lands, hx, d.pos(lands)[0], hy, gy - 14)
             c.on("q_hit", lands)
@@ -129,13 +130,19 @@ def showcase(out, z=3, steps=FIGHT, W=250, H=170, gap=130, tail=1400):
         return rel
 
     def shove(when, into_wall=None):
-        """Seismic Shove with Unraveled Earth: the mark thrown at w_rel, the eruption w_delay later where Syndra
-        stands - the mines strewn there, Syndra thrown toward Taliyah through them and stunned as they blow up; with
-        the wall standing she is shoved away from Taliyah into it and stunned against it."""
+        """Unraveled Earth then Seismic Shove: the mines thrown onto the ground in front of her (e_rel, e_dist toward
+        Syndra), W's warning crack under Syndra (w_rel) and the eruption w_delay later - Syndra thrown toward Taliyah
+        across the mines and stunned as they blow up; with the wall standing she is shoved away from Taliyah into it
+        and stunned against it."""
         c.a("skill2", tick(P["w_dur"]))
-        erupt = when + tick(P["w_rel"] - 1 + P["w_delay"])
-        x = d.pos(erupt)[0]
-        c.at("e_mines", erupt, x, gy, sheet=big, under=True, until=erupt + tick(P["e_t"]))
+        toss = when + tick(P["e_rel"] - 1)
+        mx = me.pos(toss)[0] + P["e_dist"] / 1000.0
+        lands = toss + P["e_dist"] / 1000.0 / px_ms(P["e_speed"])
+        c.at("e_mines", lands, mx, gy, sheet=big, under=True, until=lands + tick(P["e_t"]))
+        warn = when + tick(P["w_rel"] - 1)
+        erupt = warn + tick(P["w_delay"])
+        x = d.pos(warn)[0]
+        c.at("w_warn", warn, x, gy, sheet=big, under=True, until=erupt)
         c.at("w_erupt", erupt, x, gy, sheet=big)
         c.on("w_hit", erupt)
         if into_wall is None:
@@ -179,6 +186,28 @@ def showcase(out, z=3, steps=FIGHT, W=250, H=170, gap=130, tail=1400):
             w2 = rise + tick(P["r_w_at"])
             c.t = max(c.t, w2)
             state["stun"] = shove(w2, into_wall=wall_x - 4)
+        elif step == "walk":            # she walks on while the volley's rocks keep flying (League: she moves freely)
+            run(me.pos(c.t)[0] + 14, surf=False)
+            c.wait(tick(P["q_gap"] * (P["q_n"] - 1)))
+        elif step == "ride":            # Weaver's Wall far: the horizontal wall laid from her toward Syndra; she rides it
+            t = c.t                     # in steps and jumps off once Syndra is within r_off (or the steps run out), the
+            go = t + tick(P["r_ride_at"] - 1)   # Shove at once (R -> W)
+            xa = me.pos(go)[0]
+            step_px = P["r_speed"] * P["r_step"] / 1000.0
+            n = 0
+            while n < P["r_steps"] and d.pos(go)[0] - (xa + n * step_px) > P["r_off"] / 1000.0:
+                n += 1
+            ride_ms = tick(n * P["r_step"])
+            c.a("ult_ride", tick(P["r_ride_at"]) + ride_ms)
+            for k in range(P["r_n"]):
+                lay = go + k * P["r_seg"] / 1000.0 / px_ms(P["r_lay_speed"])
+                c.at("r_wall_h", lay, xa + k * P["r_seg"] / 1000.0, gy, sheet=big, under=True,
+                     until=go + tick(P["r_t"]))
+            me.moves.append((go, go + ride_ms, xa, xa + n * step_px))
+            c.on_me("surf", go, until=go + tick(P["r_surf"]), under=True)
+            c.t = max(c.t, go + ride_ms)
+            shove(c.t)
+            c.wait(tick(P["w_delay"] + P["w_throw"] + P["e_stun"]) - tick(P["w_dur"]) + 100)
         elif step == "boulder":         # Threaded Volley on her Worked Ground: the boulder and its slow
             if "stun" in state:
                 c.t = max(c.t, state["stun"] - tick(P["q_rel"]))
@@ -219,10 +248,11 @@ def main():
 # each skill alone (the user, 2026-10-24: 「带技能的gif图给我看下」): (caption, steps, Syndra's distance, canvas height)
 SCENES = [("移动：踩石冲浪（脱战加速，石头下面扬沙）", ["surf_in"], 130, 170),
           ("普攻：甩出一块小石子", ["attack"], 60, 170),
-          ("技能1 石穿：连射五颗石头，脚下留下掘石场", ["q"], 80, 170),
+          ("技能1 石穿：一颗接一颗扔出五颗石头（约 1 秒），边走边扔，脚下留下掘石场", ["q", "walk"], 80, 170),
           ("连招：站在掘石场上再放石穿 = 一颗大石头 + 减速", ["q", "boulder"], 80, 170),
-          ("技能2 撒石阵+岩突：撒下石雷，地面隆起把人掀过雷区 = 眩晕", ["shove"], 70, 170),
-          ("大招 墙幔：石墙竖起，马上接岩突把人推到墙上 = 撞墙眩晕", ["wall"], 70, 170)]
+          ("技能2 撒石阵+岩突：身前地上撒石雷，敌人脚下裂纹预警，隆起把人掀过雷区 = 眩晕", ["shove"], 70, 170),
+          ("大招 墙幔（敌人远）：拉出一道横墙，踩着石头沿墙冲，离敌人够近就提前跳下来马上接岩突", ["ride"], 120, 170),
+          ("大招 墙幔（敌人近/正在打）：敌人身后竖起石墙，马上接岩突把人推到墙上 = 撞墙眩晕", ["wall"], 60, 170)]
 
 
 def skills(out, z=4):

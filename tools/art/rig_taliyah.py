@@ -91,6 +91,7 @@ PANELS = [([(0, 30, 33, 45)], (0, 33)),
 HAND = (29, 47, 41, 57)
 # per frame: (the upper body's rows sunk, the panels' sway: rows their free ends are lifted)
 SURF = [(0, 0), (1, 1), (1, 0), (0, -1)]
+RIDE_UP = 36                   # R far: her boulder riding on the wall's pillars (24 game px tall: 42 squares), a little sunk in
 
 
 def surf_frame(sunk, lift):
@@ -172,9 +173,10 @@ class Form:
         """A Codex pose standing where the design stands (left_of), moved dx squares, `lift` rows over the ground."""
         return self.place(load(f"pose_{name}.png"), self.left_of(name) + dx, lift)
 
-    def surf(self, sunk, lift):
+    def surf(self, sunk, lift, up=0):
+        """A surf frame (the run), its boulder `up` rows over the ground (the ride on top of her wall)."""
         left = self.rig.ox + int(round((DESIGN_FEET[0] + DESIGN_FEET[1]) / 2 - BOULDER_FOOT))
-        return self.place(surf_frame(sunk, lift), left)
+        return self.place(surf_frame(sunk, lift), left, lift=up)
 
 
 def head_at(name):
@@ -186,16 +188,19 @@ def head_at(name):
 # ------------------------------------------------------------------------------------------------- the actions
 # ms per frame; the kit's ticks (tools/kit/build_taliyah.py) come from these (a frame's start in ticks = ms x 0.06):
 # attack 450 ms = atk_dur 27: a stone called up over the far hand, flicked at a_rel 10 (167 ms), back to the idle;
-# Q (skill, q_dur 36 = 600 ms): the call, the volley from q_rel 8 (133 ms) - five rocks q_gap 5 apart;
-# W + E (skill2's CasterAnimation, w_dur 36 = 600 ms): both hands up, the mines swept out, the mark thrown at w_rel 14
-# (233 ms), the press on the ground, the shove;
-# R (ult, r_dur 40 = 667 ms): the crouch, the wall called up (r_rel 16 = 267 ms);
+# Q (skill, q_dur 16 = 267 ms): the call, the first rock at q_rel 8 (133 ms) - she walks on, the other four following
+# q_gap 12 apart (League's volley over about a second);
+# W + E (skill2's CasterAnimation, w_dur 36 = 600 ms): both hands up, the mines swept out in front of her (e_rel 14 =
+# 233 ms), the press on the ground and W's warning crack (w_rel 21 = 350 ms), the shove;
+# R near (ult, r_dur 40 = 667 ms): the crouch, the upright wall called up (r_rel 16 = 267 ms); R far (ult_ride): the
+# wall called, then she rides her boulder along it (the surf);
 # the run: the surf, 4 frames.
 MS = {"idle": [1000], "run": [120] * 4,
       "attack": [167, 183, 100],
-      "skill": [133, 467],
+      "skill": [133, 134],
       "skill2": [100, 133, 117, 250],
       "ult": [167, 500],
+      "ult_ride": [133, 70, 70, 70, 70],
       "hit": [100, 100],
       "dead": [150, 250, 1000]}
 # where each pose stands: its planted soles' outer columns on hd/pose_<name>.png (the near sole's left, the far sole's
@@ -229,6 +234,8 @@ def actions(F):
     out["skill2"] = [at("e_raise"), at("e_sweep"), at("w_crouch"), at("w_push")]
     # R Weaver's Wall (taliyah_spell4: the crouch, the far arm raised calling the wall)
     out["ult"] = [at("w_crouch"), at("r_call")]
+    # R far: the wall called, then riding it on her boulder (the surf frames)
+    out["ult_ride"] = [at("r_call")] + [F.surf(s, k, up=RIDE_UP) for s, k in SURF]
     out["hit"] = [R.flash(p(whole=(-2, 0))), p(whole=(-1, 0))]
     # death (League's taliyah_death: reeling back, sitting down on the ground)
     out["dead"] = [R.flash(at("d_stagger")), at("d_stagger"), at("d_down")]

@@ -45,9 +45,11 @@ from import_hwei_fx import anchor, lp, odd  # noqa: E402
 from build_taliyah import P  # noqa: E402
 
 SRC = os.path.join(ROOT, "assets", "source", "taliyah", "codex_fx", "taliyah_fx")
+# the horizontal wall's stretch, drawn later (the user, 2026-10-24: 「大招的墙可以竖着放横着放吧」; Codex new-chat-2)
+SRC_WALL = os.path.join(ROOT, "assets", "source", "taliyah", "codex_fx_wall", "taliyah_fx_wall")
 MOD = os.path.join(ROOT, "league")
 
-BIG = {"q_ground", "e_mines", "w_erupt", "r_wall"}
+BIG = {"q_ground", "e_mines", "w_erupt", "w_warn", "r_wall", "r_wall_h"}
 FLYING = {"a_rock", "q_rock", "q_boulder"}      # turned with their flight: drawn going right, symmetric top to bottom
 HIT = (0, -14)                  # a hit on the upper body of a 32-46 px unit
 GROUND = (0, 12)                # a picture's lowest row on the ground line
@@ -91,6 +93,8 @@ FX = {
     # Seismic Shove: the eruption, the heave on the thrown; Unraveled Earth: the minefield (falling, lying 2-5 looped,
     # crumbling - e_t ticks), a mine's blast and the stun ring over the head (frames 2-3 looped)
     "w_erupt": ("w_erupt", "bottom", seq(range(5), [70, 90, 110, 130, 150]), [GROUND]),
+    # W's warning under the target: the eruption's first frame (its gold crack ring) held until it erupts (w_delay)
+    "w_warn": ("w_erupt", "bottom", seq([0], [T(P["w_delay"])]), [GROUND]),
     "w_hit": ("w_hit", "core", seq(range(3), [50, 70, 90]), [HIT]),
     "e_mines": ("e_mines", "bottom", lasting(seq([0, 1], [100, 150]), seq([2, 3, 4, 5], [180] * 4),
                                              seq([6, 7], [250, 250]), T(P["e_t"])), [GROUND]),
@@ -100,6 +104,10 @@ FX = {
     # Weaver's Wall: rising, standing (frames 2-5 looped), collapsing - r_t ticks; its middle row on the landing point
     "r_wall": ("r_wall", "core", lasting(seq([0, 1], [120, 150]), seq([2, 3, 4, 5], [160] * 4), seq([6, 7], [220, 260]),
                                          T(P["r_t"])), [SOLES]),
+    # Weaver's Wall far: a stretch of the horizontal wall where each hidden line stops (r_n of them, r_seg apart), rising,
+    # standing (frames 2-5 looped), collapsing - r_t ticks; its feet on the ground line
+    "r_wall_h": ("r_wall_h", "bottom", lasting(seq([0, 1], [120, 150]), seq([2, 3, 4, 5], [160] * 4),
+                                               seq([6, 7], [220, 260]), T(P["r_t"])), [GROUND]),
     # Rock Surfing: the dust under the boulder while she surfs
     "surf": ("surf", "bottom", loop(4, 90), [GROUND]),
 }
@@ -138,7 +146,7 @@ def ring_up(cells_):
 
 
 def cells(name, meta, src):
-    a = np.asarray(Image.open(lp(os.path.join(src, meta["pixel_1x"]))).convert("RGBA")).copy()
+    a = np.asarray(Image.open(lp(meta["pixel_1x"])).convert("RGBA")).copy()
     a[..., 3] = np.where(a[..., 3] >= 128, 255, 0)
     a[a[..., 3] == 0] = 0
     w, h = meta["cell_1x"]
@@ -168,12 +176,15 @@ def odd_(c, name):
     return odd(c, name)
 
 
-def manifest(src):
-    man = json.load(open(lp(os.path.join(src, "manifest.json")), encoding="utf-8-sig"))
+def manifest(*srcs):
+    """{name: the manifest's entry, pixel_1x = its strip's path} over the deliveries (a later one adds its pictures)."""
     meta = {}
-    for e in man["assets"]:
-        f = os.path.basename(e["file"])
-        meta[e["name"]] = dict(e, pixel_1x=os.path.join("pixel_1x", f))
+    for src in srcs:
+        man = json.load(open(lp(os.path.join(src, "manifest.json")), encoding="utf-8-sig"))
+        for e in man["assets"]:
+            f = os.path.basename(e["file"])
+            name = e.get("name") or f[:-4].replace("taliyah_fx_", "")
+            meta[name] = dict(e, pixel_1x=os.path.join(src, "pixel_1x", f))
     return meta
 
 
@@ -182,7 +193,7 @@ def main():
     ap.add_argument("--src", default=SRC, help="the delivery (the folder holding manifest.json and pixel_1x/)")
     ap.add_argument("--review", help="write every effect's game-size cells at 6x here")
     a = ap.parse_args()
-    meta = manifest(a.src)
+    meta = manifest(a.src, SRC_WALL)
     pics = {v[0] for v in FX.values()}
     if set(meta) != pics:
         sys.exit(f"delivered {sorted(meta)} against the kit's {sorted(pics)}")

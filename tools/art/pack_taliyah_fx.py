@@ -188,6 +188,24 @@ FX = [
      "feet (frames 3-6 loop, frame 6 flowing back into 3); 7 the pillars cracked and lower; 8 collapsed into rubble and "
      "sand, fading. " + EARTH + ".",
      row(8, 16, 126) + CENTER),
+    ("r_wall_h", "墙幔（远处骑墙）：横着的一段石墙，8 帧（约 5 秒）",
+     "view_effects `league_taliyah_r_wall_h`（大表，在她骑墙经过的地上一段一段盖下去，不跟随，z -1；左右对称；升起 → 立着 → 塌掉，5 秒）",
+     "26 × 28",
+     "远处骑墙（参考 r_rock_main、r_rock_side、r_ground_crack、r_smoke_dust）：敌人离得远时，塔莉垭从脚下往敌人方向拉出一道**横着的长石墙**，"
+     "踩着石头沿墙冲过去。墙是一段一段盖下去的，**这张图是其中一段**：**沿地面横向并排的三根尖尖的砂岩石柱**（中间一根最高约 24 格，两边的矮一点），"
+     "石面上有金色的细线，脚下一道裂开的地缝和一点沙尘；**左右两端要能和下一段接上**（两端的石柱矮、边缘是碎石，连着放不会有缝）。"
+     "第 1 帧地面裂开、石柱尖冒头（碎石飞溅）；第 2 帧长到全高；第 3–6 帧循环（金线一亮一暗，脚下飘一点沙尘，第 6 帧接得回第 3 帧）；"
+     "第 7 帧石柱裂开、变矮；第 8 帧塌成碎石和沙。**左右对称**，8 帧。和竖着的那道墙（`r_wall`）是同一种石头、同样的金线和颜色。",
+     ST + ", " + GO + ", " + SA,
+     "A STRETCH OF A LONG STONE WALL SEEN FROM THE SIDE, 8 frames, " + LR + ": THREE jagged sandstone pillars standing side by "
+     "side along the ground, the middle one tallest (24 squares), the two outer ones lower (16 squares) with broken rubble at "
+     "both ends so stretches laid in a row join without a gap, thin GOLDEN threads across their faces, a crack of ground "
+     "and a little dust along their feet " + FEET + "; the same stone, gold threads and colours as the upright wall. "
+     "1 the ground cracking and the pillars' tips breaking out, low, with rock chips flying; 2 the pillars at full height; "
+     "3, 4, 5 and 6 standing, the gold threads pulsing brighter and dimmer and a little dust drifting at their feet "
+     "(frames 3-6 loop, frame 6 flowing back into 3); 7 the pillars cracked and lower; 8 collapsed into rubble and sand, "
+     "fading. " + EARTH + ".",
+     row(8, 26, 28) + CENTER),
     # ---- passive: Rock Surfing
     ("surf", "浮石冲：冲浪时脚下的沙尘，4 帧循环",
      "view_buffs `league_taliyah_surf` / `r_surf`（tag `surf`，跟随，脚下 = 冲浪石底下，z -1；左右对称）", "36 × 8",
@@ -199,7 +217,7 @@ FX = [
      "plumes and pebbles shift frame to frame so the loop keeps moving. " + EARTH + ".",
      row(4, 36, 8) + CENTER),
 ]
-BIG_FX = ["q_ground", "e_mines", "w_erupt", "r_wall"]
+BIG_FX = ["q_ground", "e_mines", "w_erupt", "r_wall", "r_wall_h"]
 FLYING = ["a_rock", "q_rock", "q_boulder"]
 FORWARD = []
 
@@ -302,7 +320,7 @@ def document(shape):
     a("| 被动「浮石冲」 | 不在战斗中时踩着大石头冲浪加速（移动动作就是冲浪）；放完大招也冲浪加速 | `surf` |")
     a("| 技能 1 =「石穿」 | 朝一个方向连射 5 颗石头，脚下留下一块掘石场；站在掘石场上再放，就扔出一颗大石头（减速） | `q_rock` · `q_hit` · `q_ground` · `q_boulder` · `q_big_hit` · `slow` |")
     a("| 技能 2 =「岩突」+「撒石阵」 | 先在目标处撒一片石雷（减速），地面隆起把敌人往她这边掀，穿过雷区时石雷炸开把人晕住 | `e_mines` · `w_erupt` · `w_hit` · `e_blast` · `slow` |")
-    a("| 大招 =「墙幔」 | 在目标处竖起一道很长的石墙，墙上的人被拖到她这边，碰到墙就走不动；接着马上一个岩突把人推到墙上撞晕 | `r_wall` · `w_erupt` · `e_blast` · `slow` |\n")
+    a("| 大招 =「墙幔」 | 敌人在附近：在目标处竖起一道很长的石墙，墙上的人被拖到她这边，碰到墙就走不动，接着马上一个岩突把人推到墙上撞晕；敌人离得远：从脚下往敌人方向拉出一道横墙，她踩着石头沿墙冲过去，落地马上接岩突 | `r_wall` · `r_wall_h` · `w_erupt` · `e_blast` · `slow` |\n")
     a("连招：**岩突把人掀过雷区 → 眩晕**，**掘石场上再放石穿 → 大石头**，**墙幔 → 马上岩突推到墙上撞晕**，**放完墙幔冲浪加速**。\n")
     a("## 所有特效图的规则\n")
     a("- 像素画：方块清楚、硬边、没有抗锯齿、没有模糊和柔光。**沙尘、光、冲击波、金线没有黑描边**；石头用它自己最深的棕色勾边，不要黑边。")
