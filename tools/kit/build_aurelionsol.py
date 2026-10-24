@@ -335,7 +335,7 @@ def build(p):
     then_e = sw("e_cd", NONE, combine(refresh("e_cd", p["e_cd"]), *rm("eq_lk"), sfx("e"), hole()))
     landing = [sw("sky", skies, star), then_e]
     r_cast = combine(anim("ult", p["r_dur"]), sfx("r"), voice("vo_r", p),
-                     delayed(p["r_rel"] - 1, alive(cview("r_call"),
+                     delayed(p["r_rel"] - 1, alive(cview("r_call"), view("r_fall"),
                                                    lob("r_star", p["r_fall"], landing, "EnemyChampion"))))
 
     # ------------------------------------------------------------------ the controller (a pulse on him)
@@ -377,8 +377,8 @@ def build(p):
                                            "repeat": True, "z": 2}
     B_ = lambda name, anim_=FX, z=3, tag=None: {"type": "Animated", "name": n(name), "anim": anim_, "tag": tag or name,
                                                 "repeat": True, "z": z}
-    views_p = [Pj("a_bolt"), Pj("q_beam"), Pj("e_orb"), Pj("r_star")]
-    views_e = [E("a_hit"), E("q_hit"), E("e_hole", BIG, -1, False), E("e_core"), E("r_call", FX, 3, False),
+    views_p = [Pj("a_bolt"), Pj("q_beam"), Pj("e_orb")]   # r_star flies unseen: r_fall draws the star coming down
+    views_e = [E("a_hit"), E("q_hit"), E("e_hole", BIG, -1, False), E("e_core"), E("r_call", FX, 3, False), E("r_fall", BIG, 3, False),
                E("r_impact", BIG, -1, False), E("r_sky", BIG, -1, False), E("r_wave", BIG, -1, False), E("r_hit"),
                E("w_lift", FX, 3, False), E("d_gain"), E("sky_ready")]
     views_b = [B_("e_slow", FX, -1, "slow"), B_("r_slow", FX, -1, "slow"), B_("w_fly", FX, -1, "w_trail"),
