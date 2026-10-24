@@ -71,7 +71,7 @@ class Fight:
     def a(self, tag, dur=None, loop=False):
         x, y = self.me.pos(self.t)
         an = Anim(dense(self.sp, tag, "twitch", self.z), self.t, x, y, loop=loop,
-                  until=(self.t + dur) if dur else None)
+                  until=(self.t + dur) if dur is not None else None)
         an.pos = self.me.pos
         self.body.append(an)
         self.t = an.until
@@ -91,7 +91,8 @@ class Fight:
         return arrive
 
     def wait(self, ms):
-        self.a("idle", ms, loop=True)
+        if ms > 0:
+            self.a("idle", ms, loop=True)
 
 
 def step_run(f):
