@@ -5501,7 +5501,7 @@
     {
       "type": "Animation",
       "name": "league_kled_e_dust",
-      "anim": "asset/league/effects/league_kled_fx",
+      "anim": "asset/league/effects/league_kled_big",
       "tag": "e_dust",
       "z": -1,
       "is_follow": false

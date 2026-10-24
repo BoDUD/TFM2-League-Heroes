@@ -374,7 +374,7 @@ def build(p):
                                                 "repeat": True, "z": z}
     views_p = [Pj("q_trap"), Pj("p_blast")]
     views_e = [E("a_hit"), E("w_hit"), E("w_on", FX, 3), E("w_ready", FX, 3), E("q_hit"), E("q_mark"), E("q_yank"),
-               E("p_flash", FX, 3), E("p_hit"), E("e_dust", FX, -1, False), E("e_hit"), E("r_trail", BIG, -1),
+               E("p_flash", FX, 3), E("p_hit"), E("e_dust", BIG, -1, False), E("e_hit"), E("r_trail", BIG, -1),
                E("r_crash", BIG, -1, False), E("r_hit"), E("dismount", BIG, 3, False), E("remount", BIG, 3)]
     views_b = [B_("vt", FX, -1, "w_aura"), B_("q_slow", FX, 3, "q_rope"), B_("e_ms", FX, -1, "haste"),
                B_("r_ms", FX, -1, "haste"), B_("re_ms", FX, -1, "haste")]
