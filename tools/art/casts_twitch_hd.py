@@ -63,6 +63,7 @@ PIVOT_COL = 53                  # the design's standing point: between the rear 
 CELL_X = 384                    # Codex's standing point in a cell (the template's)
 FEET_ROWS, FEET_WIDE, FEET_GAP = 3, 3, 6       # a foot's claws lie 1-3 squares apart, the feet 10 or more
 OLD_SOLES = 11                  # the old 1x frames: the soles this many pixels under the frame's centre standing
+OLD_REV = "9dd65f7d4"           # main when the redo began: the old sheet the lifts are read from
 PPU = 2.2
 
 
@@ -312,10 +313,16 @@ def feet(d):
 
 
 def old_lift():
-    """{"<tag>_<frame>": design rows the old 1x frame stood off the ground} (its soles over OLD_SOLES)."""
-    stem = os.path.join(R.ROOT, "league", "champions", "league_twitch")
-    sheet = np.asarray(Image.open(lp(stem + "#sheet.png")).convert("RGBA"))
-    anims = json.load(open(lp(stem + "#anim.fanim"), encoding="utf-8-sig"))["anims"]
+    """{"<tag>_<frame>": design rows the old 1x frame stood off the ground} (its soles over OLD_SOLES): the old sheet
+    as main had it when the redo began (OLD_REV - the sheet in league/ is this redo's own once exported)."""
+    import io
+    import subprocess
+    stem = "league/champions/league_twitch"
+
+    def show(path):
+        return subprocess.run(["git", "show", f"{OLD_REV}:{path}"], cwd=R.ROOT, check=True, capture_output=True).stdout
+    sheet = np.asarray(Image.open(io.BytesIO(show(stem + "#sheet.png"))).convert("RGBA"))
+    anims = json.loads(show(stem + "#anim.fanim").decode("utf-8-sig"))["anims"]
     out = {}
     for tag in TAGS:
         for i, f in enumerate(anims[tag]["frames"]):

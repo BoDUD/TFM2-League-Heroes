@@ -59,7 +59,8 @@ TAIL_FROM = {"attack": {2: 1, 4: 3, 6: 5, 8: 7}, "skill": {2: 1}, "skill2_e": {2
 COAT_RGB = [0x25353A, 0x1B2124]                                   # the coat's blue-greens
 TAIL_BOX = (-40, 26, 24, 68)    # x0, x1, y0, y1: where the tail is, left of the coat
 TAIL_REACH = 12                 # a tail piece reaches this far left
-ROOT = 3                        # columns: a tail's root, by the coat
+REAR_X = 32                     # the coat's back half: its squares left of this column
+TUCK = 2                        # columns a swapped tail goes further in under the coat
 
 
 class Design:
@@ -164,25 +165,27 @@ def tail_mask(rig, can):
     return np.isin(lbl, list(far))
 
 
-def tail_root(m):
-    """Where a tail goes in under the coat: the middle of its squares in the ROOT columns nearest the coat."""
+def rear_coat(rig, can):
+    """The middle of the coat's back half (its blue-green squares left of REAR_X): where the tail goes in under it."""
+    x, y = on_grid(rig, can)
+    m = (can[..., 3] > 0) & np.isin(CT.rgb24(can), COAT_RGB) & (x <= REAR_X)
     ys, xs = np.nonzero(m)
-    near = xs >= xs.max() - ROOT + 1
-    return xs[near].mean(), ys[near].mean()
+    return xs.mean(), ys.mean()
 
 
 def same_tail(rig, can, ref):
-    """can with its tail swapped for ref's, moved so the two go in under the coat at one place (tail_root) and laid
-    behind the coat: Codex drew each sheet's right frame with the tail flung up and the left one with it curled low, so
-    the tail flicked every frame."""
+    """can with its tail swapped for ref's, moved as the coat's back half moved between the two (rear_coat: the tail
+    goes in under it) and laid behind the coat: Codex drew each sheet's right frame with the tail flung up and the left
+    one with it curled low, so the tail flicked every frame."""
     m = tail_mask(rig, can)
     rm = tail_mask(rig, ref)
-    (cx, cy), (rx, ry) = tail_root(m), tail_root(rm)
+    (cx, cy), (rx, ry) = rear_coat(rig, can), rear_coat(rig, ref)
     out = can.copy()
     out[m] = 0
     piece = np.zeros_like(ref)
     piece[rm] = ref[rm]
-    piece = moved(piece, int(round(cx - rx)), int(round(cy - ry)))
+    # TUCK columns further in: the piece was cut where ref's coat began, so its cut end goes in behind this coat
+    piece = moved(piece, int(round(cx - rx)) + TUCK, int(round(cy - ry)))
     return edge_outline(behind(out, piece), m & (behind(out, piece)[..., 3] == 0))
 
 
