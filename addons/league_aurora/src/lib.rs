@@ -8,15 +8,20 @@
 //!   回到 `w_low`% 以上就不再挂，3 tick 后自己消失。数据在普攻和怪奇喷涌的开头读它（还要敌方英雄在 `w_near` 内、
 //!   `w_cd` 已过）。
 //!
+//! 大招的时机由 AI 钩子 `league_aurora:realm` 挑（`realm.rs`：开团关住一堆人、关住想跑的残血、被贴脸时砸下去，其余时候按住）。
+//!
 //! 数字从英雄数据的 `passive.params` 来（`make_override.py` 从参数表 P 写进去），本包不另记一份。不用全局变量，服务端预模拟和
 //! 你看的那场各算各的。日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_aurora.log`，每次启动游戏重写。
 
+use std::collections::HashMap;
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::path::PathBuf;
 use std::sync::{LazyLock, Mutex};
 
 use mod_api_stable::*;
+
+pub mod realm;
 
 const ID: &str = "league_aurora";
 /// The flag the data's veil reads (build_aurora.py: `sw("low", hop)`).
@@ -28,6 +33,10 @@ const LOW_TICKS: usize = 3;
 
 static LOG_LOCK: Mutex<()> = Mutex::new(());
 static LOG_FILE: Mutex<Option<std::fs::File>> = Mutex::new(None);
+static COUNTS: LazyLock<Mutex<HashMap<&'static str, usize>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
+/// The first this many lines of a kind, then every LOG_EVERY-th.
+const LOG_FIRST: usize = 40;
+const LOG_EVERY: usize = 100;
 
 fn log_path() -> PathBuf {
     if let Some(path) = std::env::var_os("LEAGUE_AURORA_LOG") {
@@ -59,6 +68,18 @@ fn wlog(msg: impl AsRef<str>) {
 /// Lets go of the log file: each load starts a fresh one (renamed to .prev.log first), the tests delete it between runs.
 fn close_log() {
     *LOG_FILE.lock().unwrap_or_else(|e| e.into_inner()) = None;
+}
+
+/// Counts a line of this kind; Some(n) when it is to be written.
+fn counted(kind: &'static str) -> Option<usize> {
+    let mut c = COUNTS.lock().unwrap_or_else(|e| e.into_inner());
+    let n = c.entry(kind).or_insert(0);
+    *n += 1;
+    (*n <= LOG_FIRST || *n % LOG_EVERY == 0).then_some(*n)
+}
+
+pub fn dist(a: (f64, f64), b: (f64, f64)) -> f64 {
+    ((a.0 - b.0).powi(2) + (a.1 - b.1).powi(2)).sqrt()
 }
 
 fn head(sim: &StableSim<'_>, id: usize) -> String {
@@ -169,10 +190,11 @@ impl StablePassive for Veil {
 /// Everything this add-on registers, into `module`: its own DLL's (`init`) or league_addons' (all add-ons in one).
 pub fn register(host: &StableHost, module: &mut StableMod) {
     close_log();
+    COUNTS.lock().unwrap_or_else(|e| e.into_inner()).clear();
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v1 (Across the Veil at low health) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v2 (Across the Veil at low health, the realm's timing) loaded: game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
         v.patch,
@@ -180,7 +202,8 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
         LOG_PATH.display()
     ));
     module.add_native_passive(format!("{ID}:veil"), Veil::default());
-    host.log(LogLevel::Info, "league_aurora v1 loaded (Aurora's Across the Veil reads her health).");
+    module.add_player_input_ai(realm::Realm::default());
+    host.log(LogLevel::Info, "league_aurora v2 loaded (Aurora's Across the Veil reads her health, her R waits for its moment).");
 }
 
 #[cfg_attr(league_bundle, allow(dead_code))]

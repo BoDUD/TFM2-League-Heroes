@@ -8,6 +8,19 @@
 |---|---|---|
 | 灵纱洞开（并入被动） | 普攻或怪奇喷涌开头，`w_cd` 过了、`w_near` 内有敌方英雄，就往后跳开、隐身 `w_inv` tick、加速 `w_ms`% | 同样的跳法，但还要她**生命低于 `w_low`%**（默认 35%），英雄联盟「残血时跳开」 |
 
+用户（2026-10-24）：「阿罗拉大招逻辑怎么和LOL里面高手的不太一样」。游戏的 AI 见到射程里有敌方英雄就按 R，她就跳到第一个看见的人
+身上（满血的坦克、敌方塔下、对面一堆人中间）。英雄联盟里会玩的阿萝拉把双界合一留着开团、收残血、自保。本包加一个 AI 钩子
+`league_aurora:realm`（`src/realm.rs`）替 AI 挑时机：
+
+| 时机 | 条件 | 日志 |
+|---|---|---|
+| 自保 | `PEEL_R`（22000）内有敌方英雄贴着她、她生命不到 50%：砸在贴得最近的那个身上（落地接怪奇喷涌后跳，领域减他的速） | `R PEEL` |
+| 开团 | 她生命不低于 40%；R 射程里的敌方英雄身边、领域半径（38000）内有两个以上敌方英雄，60000 内至少有一个我方英雄，敌方人数不比我方（含她）多一个以上，不在敌方塔下：挑领域里人最多的（一样多挑血最少的） | `R TRAP` |
+| 收残血 | 她生命不低于 30%；R 射程里生命不到 40% 的敌方英雄，身边 30000 内敌方英雄不超过两个，不在敌方塔下（不到 20% 的除外）：挑血最少的 | `R KILL` |
+| 按住 | AI 自己想按 R，以上都不成立：不放，改成普攻目标（打不到就走过去） | `R HELD` |
+
+前三条在 AI 没想按 R 时也按。回城、被控住、正在放技能时不管。
+
 ## 怎么接上的
 
 `mod.override_info` 把主包的阿萝拉换成 `override/` 里的副本（`make_override.py` 用 `tools/kit/build_aurora.py` 的 `native=1` 生成）：
@@ -20,6 +33,6 @@
 
 ## 检查
 
-- 在 `addons/` 下 `cargo test --release -p league_aurora`：单元测试（参数、残血的界线、标记的名字）。
+- 在 `addons/` 下 `cargo test --release -p league_aurora`：单元测试（参数、残血的界线、标记的名字、大招的四种时机、R 射程和领域半径与参数表一致）。
 - 主包的阿萝拉改了以后重新跑 `python addons/league_aurora/make_override.py`（它先核对主包的 `league_aurora.data_champion` 和参数表一致、`src/lib.rs` 的默认参数和 P 一致）。
-- 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_aurora.log`：`SPAWN`、生命掉到界线以下 `LOW`、回到界线以上 `UP`。
+- 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_aurora.log`：`SPAWN`、生命掉到界线以下 `LOW`、回到界线以上 `UP`；大招 `R PEEL` / `R TRAP` / `R KILL` / `R HELD`（每种前 40 行，之后每 100 次一行）。
