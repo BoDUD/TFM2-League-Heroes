@@ -69,13 +69,16 @@ def px_ms(speed):
     return speed / 1000.0 * 60 / 1000
 
 
-def showcase(out, z=3):
+FIGHT = ["surf_in", "attack", "q", "shove", "wall", "boulder", "kill"]
+
+
+def showcase(out, z=3, steps=FIGHT, W=250, H=170, gap=130, tail=1400):
+    """The scripted fight (or some of its steps: skills() plays each skill alone) written to `out`."""
     fx = {k: load(v) for k, v in FX.items()}
     small, big = fx["league_taliyah_fx"], fx["league_taliyah_big"]
-    W, H = 250, 170
     gy = 90
     x0 = 30
-    far = x0 + 130                                      # Syndra
+    far = x0 + gap                                      # Syndra
     d = Foe(load(SYNDRA), far, gy)
     me = Me(x0, gy)
     c = Taliyah(load(CHAMP), d, me, small, big)
@@ -148,52 +151,54 @@ def showcase(out, z=3):
         d.flinches.append(erupt)
         return stun
 
-    # in on her boulder, out of a fight: the surf's speed and dust
-    run(x0 + 50)
-    # a pebble
-    t = c.t
-    c.a("attack", tick(P["atk_dur"]))
-    pebble(t)
-    # Threaded Volley: five rocks, the Worked Ground under her
-    t = c.t
-    c.a("skill", tick(P["q_dur"]))
-    volley(t)
-    # Seismic Shove + Unraveled Earth: Syndra thrown toward her through the mines - stunned (W -> E)
-    t = c.t
-    shove(t)
-    c.wait(tick(P["w_delay"] + P["w_throw"] + P["e_stun"]) - tick(P["w_dur"]) + 100)
-    # Weaver's Wall where Syndra stands (r_rel): she is dragged out to Taliyah's side; the second Shove at once
-    # throws her back into it (R -> W), stunned against the wall
-    t = c.t
-    c.a("ult", tick(P["r_dur"]))
-    rise = t + tick(P["r_rel"] - 1)
-    wall_x = d.pos(rise)[0]
-    c.at("r_wall", rise, wall_x, gy, sheet=big, under=True, until=rise + tick(P["r_t"]))
-    out_ = P["r_w"] / 2000.0 + 2                    # dragged out of the wall's band (r_w wide)
-    d.slides.append((rise, rise + tick(4), -out_))
-    c.on_me("surf", rise, until=rise + tick(P["r_surf"]), under=True)
-    w2 = rise + tick(P["r_w_at"])
-    c.t = max(c.t, w2)
-    stun = shove(w2, into_wall=wall_x - 4)
-    # Threaded Volley again, still on her Worked Ground: the boulder and its slow (Q on Worked Ground)
-    c.t = max(c.t, stun - tick(P["q_rel"]))
-    t = c.t
-    c.a("skill", tick(P["q_dur"]))
-    volley(t, boulder=True)
-    # two pebbles finish her
-    for _ in range(2):
-        t = c.t
-        c.a("attack", tick(P["atk_dur"]))
-        pebble(t)
-    d.death = c.t + 120
-    c.wait(1400)
+    state = {}
+    for step in steps:
+        if step == "surf_in":           # in on her boulder, out of a fight: the surf's speed and dust
+            run(x0 + 50)
+        elif step == "attack":          # a pebble
+            t = c.t
+            c.a("attack", tick(P["atk_dur"]))
+            pebble(t)
+        elif step == "q":               # Threaded Volley: five rocks, the Worked Ground under her
+            t = c.t
+            c.a("skill", tick(P["q_dur"]))
+            volley(t)
+        elif step == "shove":           # Seismic Shove + Unraveled Earth: thrown through the mines - stunned (W -> E)
+            t = c.t
+            shove(t)
+            c.wait(tick(P["w_delay"] + P["w_throw"] + P["e_stun"]) - tick(P["w_dur"]) + 100)
+        elif step == "wall":            # Weaver's Wall where Syndra stands (r_rel): dragged out to Taliyah's side; the
+            t = c.t                     # second Shove at once throws her back into it (R -> W), stunned against it
+            c.a("ult", tick(P["r_dur"]))
+            rise = t + tick(P["r_rel"] - 1)
+            wall_x = d.pos(rise)[0]
+            c.at("r_wall", rise, wall_x, gy, sheet=big, under=True, until=rise + tick(P["r_t"]))
+            out_ = P["r_w"] / 2000.0 + 2                # dragged out of the wall's band (r_w wide)
+            d.slides.append((rise, rise + tick(4), -out_))
+            c.on_me("surf", rise, until=rise + tick(P["r_surf"]), under=True)
+            w2 = rise + tick(P["r_w_at"])
+            c.t = max(c.t, w2)
+            state["stun"] = shove(w2, into_wall=wall_x - 4)
+        elif step == "boulder":         # Threaded Volley on her Worked Ground: the boulder and its slow
+            if "stun" in state:
+                c.t = max(c.t, state["stun"] - tick(P["q_rel"]))
+            t = c.t
+            c.a("skill", tick(P["q_dur"]))
+            volley(t, boulder=True)
+        elif step == "kill":            # two pebbles finish her
+            for _ in range(2):
+                t = c.t
+                c.a("attack", tick(P["atk_dur"]))
+                pebble(t)
+            d.death = c.t + 120
+    c.wait(tail)
     return c.render(out, W, H, c.t, z)
 
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--out", default=os.path.join(ROOT, "docs", "preview"))
-    ap.add_argument("--only", choices=["frames", "effects", "showcase"])
+    ap.add_argument("--only", choices=["frames", "effects", "showcase", "skills"])
     args = ap.parse_args()
     os.makedirs(T.long_path(args.out), exist_ok=True)
     if args.only in (None, "frames"):
@@ -207,6 +212,46 @@ def main():
         print("effects", fx_contact(rows, os.path.join(args.out, "league_taliyah_effects.png")))
     if args.only in (None, "showcase"):
         print("showcase frames/seconds", showcase(os.path.join(args.out, "league_taliyah_showcase.gif")))
+    if args.only == "skills":
+        print("skills", skills(os.path.join(args.out, "league_taliyah_skills.gif")))
+
+
+# each skill alone (the user, 2026-10-24: 「带技能的gif图给我看下」): (caption, steps, Syndra's distance, canvas height)
+SCENES = [("移动：踩石冲浪（脱战加速，石头下面扬沙）", ["surf_in"], 130, 170),
+          ("普攻：甩出一块小石子", ["attack"], 60, 170),
+          ("技能1 石穿：连射五颗石头，脚下留下掘石场", ["q"], 80, 170),
+          ("连招：站在掘石场上再放石穿 = 一颗大石头 + 减速", ["q", "boulder"], 80, 170),
+          ("技能2 撒石阵+岩突：撒下石雷，地面隆起把人掀过雷区 = 眩晕", ["shove"], 70, 170),
+          ("大招 墙幔：石墙竖起，马上接岩突把人推到墙上 = 撞墙眩晕", ["wall"], 70, 170)]
+
+
+def skills(out, z=4):
+    """Every skill alone with its effects, captioned, one GIF."""
+    import tempfile
+    from PIL import Image, ImageDraw, ImageFont, ImageSequence
+    font = ImageFont.truetype("C:/Windows/Fonts/msyh.ttc", 16)
+    tmp = tempfile.mkdtemp()
+    frames = []
+    for k, (cap, steps, gap, h) in enumerate(SCENES):
+        path = os.path.join(tmp, f"s{k}.gif")
+        showcase(path, z=z, steps=steps, W=190, H=h, gap=gap, tail=900)
+        for f in ImageSequence.Iterator(Image.open(path)):
+            frames.append((cap, f.convert("RGB").copy(), f.info.get("duration", 40)))
+    W = max(f.width for _, f, _ in frames)
+    H = max(f.height for _, f, _ in frames) + 26
+    out_frames = []
+    for cap, f, ms in frames:
+        img = Image.new("RGB", (W, H), (40, 40, 40))
+        img.paste(f, (0, 26))
+        ImageDraw.Draw(img).text((6, 3), cap, fill=(240, 240, 240), font=font)
+        out_frames.append((img, ms))
+    sample = Image.new("RGB", (W, H * 6))
+    for i, (img, _) in enumerate(out_frames[::max(1, len(out_frames) // 6)][:6]):
+        sample.paste(img, (0, i * H))
+    pal = sample.quantize(colors=255, method=Image.Quantize.MEDIANCUT, dither=Image.Dither.NONE)
+    q = [img.quantize(palette=pal, dither=Image.Dither.NONE) for img, _ in out_frames]
+    q[0].save(out, save_all=True, append_images=q[1:], duration=[int(ms) for _, ms in out_frames], loop=0)
+    return len(q), round(sum(ms for _, ms in out_frames) / 1000, 1)
 
 
 if __name__ == "__main__":
