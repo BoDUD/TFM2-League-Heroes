@@ -1141,6 +1141,13 @@
         "skill": "朝目标方向一颗接一颗扔出<#ffb900ff>5颗<>石头（扔出第一颗后可以移动），第一颗<#a974ffff>46<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>24%<>魔法伤害，之后每颗<#a974ffff>23<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>12%<>；脚下留下掘石场（<#ffb900ff>8秒<>），站在上面施放改为一颗大石头：<#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>并<#ef5350ff>减速<>40%。",
         "skill2": "在身前地上撒下石雷（<#ef5350ff>减速<>20%，<#ffb900ff>4秒<>），目标脚下裂开后隆起，造成<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>魔法伤害并把敌人掀向自己；飞过石雷时石雷爆炸，造成<#a974ffff>38<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>24%<>魔法伤害并<#ef5350ff>眩晕<><#ffb900ff>0.4秒<>。",
         "ult": "敌人在附近或已在交战：在目标处竖起长石墙（<#ffb900ff>5秒<>），墙上的敌人被拖到她这一侧；敌人较远：从脚下拉出一道横墙，踩着石头沿墙冲刺，靠近敌人时跳下。碰到墙的敌人<#ef5350ff>减速<>42%。"
+      },
+      "league_aurelionsol": {
+        "name": "奥瑞利安·索尔",
+        "attack": "甩出一颗星星。<#ff9028ff>星海焕然<>：技能命中英雄收集星尘（每层法强+3%，最多15层），每6层下一次大招变为天瀑。<#ff9028ff>星穹流丽<>：击杀英雄后起飞<#ffb900ff>4秒<>，移速+60%、法强+20%。",
+        "skill": "引导龙息<#ffb900ff>1.5秒<>，每<#ffb900ff>0.17秒<>对一线上的敌人造成<#a974ffff>26<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>17%<>魔法伤害，喷同一目标<#ffb900ff>1秒<>后每次额外30；被控制打断。飞行中无冷却、引导更久。",
+        "skill2": "在目标处召唤黑洞（<#ffb900ff>5秒<>），每<#ffb900ff>0.25秒<>造成<#a974ffff>16<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>9%<>魔法伤害，把敌人拉向中心并<#ef5350ff>减速<>25%；中心每秒造成英雄最大生命值4%的真实伤害。",
+        "ult": "<#ff9028ff>星落<>：星星坠落在目标处，造成<#a974ffff>270<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>85%<>魔法伤害并<#ef5350ff>眩晕<><#ffb900ff>1秒<>。<#ff9028ff>天瀑<>：范围更大，<#a974ffff>350<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>105%<>并<#ef5350ff>击飞<><#ffb900ff>0.83秒<>，外圈冲击波再造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>并<#ef5350ff>减速<>50%。"
       }
     },
     "skill_name": {
@@ -1958,6 +1965,11 @@
         "skill1": "石穿",
         "skill2": "岩突",
         "ult": "墙幔"
+      },
+      "league_aurelionsol": {
+        "skill1": "星河冲荡",
+        "skill2": "星芒凝汇",
+        "ult": "星天落瀑"
       }
     }
   },
@@ -3103,6 +3115,13 @@
         "skill": "朝目標方向一顆接一顆擲出<#ffb900ff>5顆<>石頭（擲出第一顆後可以移動），第一顆<#a974ffff>46<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>24%<>魔法傷害，之後每顆<#a974ffff>23<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>12%<>；腳下留下碎石地（<#ffb900ff>8秒<>），站在上面施放改為一顆大石頭：<#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>並<#ef5350ff>緩速<>40%。",
         "skill2": "在身前地上灑下石雷（<#ef5350ff>緩速<>20%，<#ffb900ff>4秒<>），目標腳下裂開後隆起，造成<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>魔法傷害並把敵人掀向自己；飛過石雷時石雷爆炸，造成<#a974ffff>38<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>24%<>魔法傷害並<#ef5350ff>暈眩<><#ffb900ff>0.4秒<>。",
         "ult": "敵人在附近或已在交戰：在目標處豎起長石牆（<#ffb900ff>5秒<>），牆上的敵人被拖到她這一側；敵人較遠：從腳下拉出一道橫牆，踩著石頭沿牆衝刺，靠近敵人時跳下。碰到牆的敵人<#ef5350ff>緩速<>42%。"
+      },
+      "league_aurelionsol": {
+        "name": "翱銳龍獸",
+        "attack": "甩出一顆星星。<#ff9028ff>宇宙創世<>：技能命中英雄收集星塵（每層魔攻+3%，最多15層），每6層下一次大絕變為天界殞落。<#ff9028ff>星界翱翔<>：擊殺英雄後起飛<#ffb900ff>4秒<>，移速+60%、魔攻+20%。",
+        "skill": "引導吐息<#ffb900ff>1.5秒<>，每<#ffb900ff>0.17秒<>對一線上的敵人造成<#a974ffff>26<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>17%<>魔法傷害，噴同一目標<#ffb900ff>1秒<>後每次額外30；被控制打斷。飛行中無冷卻、引導更久。",
+        "skill2": "在目標處召喚奇點（<#ffb900ff>5秒<>），每<#ffb900ff>0.25秒<>造成<#a974ffff>16<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>9%<>魔法傷害，把敵人拉向中心並<#ef5350ff>緩速<>25%；中心每秒造成英雄最大生命4%的真實傷害。",
+        "ult": "<#ff9028ff>降世星辰<>：星辰墜落在目標處，造成<#a974ffff>270<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>85%<>魔法傷害並<#ef5350ff>暈眩<><#ffb900ff>1秒<>。<#ff9028ff>天界殞落<>：範圍更大，<#a974ffff>350<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>105%<>並<#ef5350ff>擊飛<><#ffb900ff>0.83秒<>，外圈衝擊波再造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>並<#ef5350ff>緩速<>50%。"
       }
     },
     "skill_name": {
@@ -3920,6 +3939,11 @@
         "skill1": "旋舞飛岩",
         "skill2": "震地之擊",
         "ult": "編織者之牆"
+      },
+      "league_aurelionsol": {
+        "skill1": "星光吐息",
+        "skill2": "宇宙奇點",
+        "ult": "降世星辰"
       }
     }
   },
@@ -5065,6 +5089,13 @@
         "skill": "Throws <#ffb900ff>5 rocks<> one after another toward the target (she can move after the first): the first deals <#a974ffff>46<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>24%<> magic damage, each after it <#a974ffff>23<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>12%<>. It leaves Worked Ground under her for <#ffb900ff>8s<>; cast on it, she throws one boulder instead: <#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> and a 40% <#ef5350ff>slow<>.",
         "skill2": "Strews mines on the ground in front of her (<#ef5350ff>slowing<> 20% for <#ffb900ff>4s<>); the ground under the target cracks, then erupts for <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> magic damage, throwing enemies toward her. A mine passed over blows up: <#a974ffff>38<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>24%<> magic damage and a <#ffb900ff>0.4s<> <#ef5350ff>stun<>.",
         "ult": "With an enemy champion near or a fight on: a long stone wall rises where the target stands for <#ffb900ff>5s<>, dragging enemies on it to her side. With the enemies far: a wall runs out from her feet and she surfs along its top on her boulder, jumping off once enemies are near. Enemies touching the wall are <#ef5350ff>slowed<> 42%."
+      },
+      "league_aurelionsol": {
+        "name": "Aurelion Sol",
+        "attack": "Flings a star. <#ff9028ff>Cosmic Creator<>: his spells hitting champions gather Stardust (+3% ability power a stack, 15 at most); every 6 make his next ult The Skies Descend. <#ff9028ff>Astral Flight<>: after a takedown he flies for <#ffb900ff>4s<>, +60% move speed and +20% ability power.",
+        "skill": "Channels his breath for <#ffb900ff>1.5s<>: every <#ffb900ff>0.17s<> it deals <#a974ffff>26<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>17%<> magic damage to the enemies in a line, 30 more after <#ffb900ff>1s<> on one target; crowd control breaks it. In flight it has no cooldown and channels longer.",
+        "skill2": "Summons a black hole at the target for <#ffb900ff>5s<>: every <#ffb900ff>0.25s<> <#a974ffff>16<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>9%<> magic damage, pulling enemies toward its centre and <#ef5350ff>slowing<> them 25%; its centre deals 4% of a champion's maximum health as true damage each second.",
+        "ult": "<#ff9028ff>Falling Star<>: a star crashes on the target for <#a974ffff>270<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>85%<> magic damage and a <#ffb900ff>1s<> <#ef5350ff>stun<>. <#ff9028ff>The Skies Descend<>: a wider impact, <#a974ffff>350<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>105%<> and a <#ffb900ff>0.83s<> <#ef5350ff>knock-up<>, then a shockwave from its edge for <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> and a 50% <#ef5350ff>slow<>."
       }
     },
     "skill_name": {
@@ -5882,6 +5913,11 @@
         "skill1": "Threaded Volley",
         "skill2": "Seismic Shove",
         "ult": "Weaver's Wall"
+      },
+      "league_aurelionsol": {
+        "skill1": "Breath of Light",
+        "skill2": "Singularity",
+        "ult": "Falling Star"
       }
     }
   },
@@ -7027,6 +7063,13 @@
         "skill": "대상 방향으로 돌 <#ffb900ff>5개<>를 차례로 던짐(첫 돌 후 이동 가능): 첫 돌 <#a974ffff>46<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>24%<> 마법 피해, 이후 각 <#a974ffff>23<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>12%<>. 발밑에 <#ffb900ff>8초<> 동안 다져진 땅을 남기고, 그 위에서 쓰면 큰 바위 하나: <#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>, 40% <#ef5350ff>둔화<>.",
         "skill2": "앞쪽 땅에 지뢰를 뿌림(<#ffb900ff>4초<> 동안 20% <#ef5350ff>둔화<>); 대상 발밑이 갈라진 뒤 솟아올라 <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> 마법 피해를 주고 적을 자신 쪽으로 던짐. 지뢰 위를 지나면 폭발: <#a974ffff>38<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>24%<> 마법 피해와 <#ffb900ff>0.4초<> <#ef5350ff>기절<>.",
         "ult": "적 챔피언이 가깝거나 교전 중: 대상 위치에 <#ffb900ff>5초<> 동안 긴 돌벽을 세우고 벽 위의 적을 자신 쪽으로 끌어냄. 적이 멀면: 발밑에서 벽을 뻗어 바위를 타고 벽 위를 달리다 적이 가까워지면 뛰어내림. 벽에 닿은 적은 42% <#ef5350ff>둔화<>."
+      },
+      "league_aurelionsol": {
+        "name": "아우렐리온 솔",
+        "attack": "별을 던진다. <#ff9028ff>우주의 창조자<>: 스킬이 챔피언을 맞히면 별무리 획득(중첩당 주문력 +3%, 최대 15), 6개마다 다음 궁극기가 천상 강림이 됨. <#ff9028ff>별의 비행<>: 처치 관여 후 <#ffb900ff>4초<> 동안 비행, 이동 속도 +60%, 주문력 +20%.",
+        "skill": "<#ffb900ff>1.5초<> 동안 숨결을 정신 집중: <#ffb900ff>0.17초<>마다 일직선의 적에게 <#a974ffff>26<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>17%<> 마법 피해, 한 대상에 <#ffb900ff>1초<> 이상 시 매번 30 추가; 군중 제어에 끊김. 비행 중 재사용 대기시간 없음.",
+        "skill2": "대상 위치에 <#ffb900ff>5초<> 동안 블랙홀 소환: <#ffb900ff>0.25초<>마다 <#a974ffff>16<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>9%<> 마법 피해, 적을 중심으로 끌어당기고 25% <#ef5350ff>둔화<>; 중심은 매초 챔피언 최대 체력의 4% 고정 피해.",
+        "ult": "<#ff9028ff>유성<>: 대상 위치에 별이 떨어져 <#a974ffff>270<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>85%<> 마법 피해와 <#ffb900ff>1초<> <#ef5350ff>기절<>. <#ff9028ff>천상 강림<>: 더 넓게 <#a974ffff>350<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>105%<>와 <#ffb900ff>0.83초<> <#ef5350ff>에어본<>, 이어서 가장자리 충격파 <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>와 50% <#ef5350ff>둔화<>."
       }
     },
     "skill_name": {
@@ -7844,6 +7887,11 @@
         "skill1": "파편 난사",
         "skill2": "지각변동",
         "ult": "바위술사의 벽"
+      },
+      "league_aurelionsol": {
+        "skill1": "빛의 숨결",
+        "skill2": "특이점",
+        "ult": "유성"
       }
     }
   },
@@ -8989,6 +9037,13 @@
         "skill": "対象の方向へ岩を<#ffb900ff>5個<>続けて投げる（1個目の後は移動可）：1個目<#a974ffff>46<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>24%<>の魔法ダメージ、以降各<#a974ffff>23<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>12%<>。足元に<#ffb900ff>8秒<>採掘場を残し、その上では大岩1個：<#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>と40%<#ef5350ff>スロウ<>。",
         "skill2": "前方の地面に地雷をまく（<#ffb900ff>4秒<>20%<#ef5350ff>スロウ<>）；対象の足元が割れて隆起し<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>の魔法ダメージ、敵を自分の方へ投げる。地雷の上を飛ぶと爆発：<#a974ffff>38<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>24%<>の魔法ダメージと<#ffb900ff>0.4秒<><#ef5350ff>スタン<>。",
         "ult": "敵チャンピオンが近いか交戦中：対象の位置に<#ffb900ff>5秒<>長い石壁を立て、壁の上の敵を自分の側へ引き出す。敵が遠い：足元から壁を伸ばし岩に乗って壁の上を進み、敵が近づくと飛び降りる。壁に触れた敵に42%<#ef5350ff>スロウ<>。"
+      },
+      "league_aurelionsol": {
+        "name": "オレリオン・ソル",
+        "attack": "星を投げる。<#ff9028ff>宇宙の創造者<>：スキルがチャンピオンに当たると星屑獲得（1スタックにつき魔力+3%、最大15）、6個ごとに次のアルティメットが崩れ落つ天穹に。<#ff9028ff>天空への飛翔<>：キル関与後<#ffb900ff>4秒<>飛行、移動速度+60%、魔力+20%。",
+        "skill": "<#ffb900ff>1.5秒<>息吹を詠唱：<#ffb900ff>0.17秒<>ごとに直線上の敵に<#a974ffff>26<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>17%<>の魔法ダメージ、同じ対象に<#ffb900ff>1秒<>以上で毎回+30；行動妨害で中断。飛行中はクールダウンなし。",
+        "skill2": "対象の位置に<#ffb900ff>5秒<>ブラックホールを召喚：<#ffb900ff>0.25秒<>ごとに<#a974ffff>16<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>9%<>の魔法ダメージ、敵を中心へ引き寄せ25%<#ef5350ff>スロウ<>；中心は毎秒チャンピオンの最大体力4%の確定ダメージ。",
+        "ult": "<#ff9028ff>星の邂逅<>：対象の位置に星が落ち<#a974ffff>270<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>85%<>の魔法ダメージと<#ffb900ff>1秒<><#ef5350ff>スタン<>。<#ff9028ff>崩れ落つ天穹<>：範囲が広く<#a974ffff>350<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>105%<>と<#ffb900ff>0.83秒<><#ef5350ff>ノックアップ<>、続いて外縁の衝撃波<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>と50%<#ef5350ff>スロウ<>。"
       }
     },
     "skill_name": {
@@ -9806,6 +9861,11 @@
         "skill1": "スレッドボレー",
         "skill2": "サイズミックシャーブ",
         "ult": "ウィーバーウォール"
+      },
+      "league_aurelionsol": {
+        "skill1": "星炎の息吹",
+        "skill2": "特異点",
+        "ult": "星の邂逅"
       }
     }
   }

@@ -1,0 +1,188 @@
+{
+  "expected": 10,
+  "generated": 10,
+  "items": [
+    {
+      "key": "a_wind",
+      "file": "aurelionsol-pose-a_wind.png",
+      "status": "generated",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_levels": 256,
+      "visible_bbox_alpha128": [
+        370,
+        86,
+        974,
+        1195
+      ],
+      "raw_identical": true,
+      "sha256": "2cc1bfaac0b3a2138915bc65754b1b105a0fd1bd01a99fe843ae42eee353428c"
+    },
+    {
+      "key": "a_throw",
+      "file": "aurelionsol-pose-a_throw.png",
+      "status": "generated",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_levels": 256,
+      "visible_bbox_alpha128": [
+        49,
+        344,
+        1235,
+        1156
+      ],
+      "raw_identical": true,
+      "sha256": "420278ba337258cc98c0e004a5f0e7705216d93177d8a449578043fbbd478c51"
+    },
+    {
+      "key": "q_wind",
+      "file": "aurelionsol-pose-q_wind.png",
+      "status": "generated",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_levels": 256,
+      "visible_bbox_alpha128": [
+        362,
+        200,
+        1000,
+        1215
+      ],
+      "raw_identical": true,
+      "sha256": "36fdf920aa61a377b38f0fdb41e977779965dda7da582e89f099f66bf51d6015"
+    },
+    {
+      "key": "q_breath",
+      "file": "aurelionsol-pose-q_breath.png",
+      "status": "generated",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_levels": 256,
+      "visible_bbox_alpha128": [
+        236,
+        251,
+        1147,
+        1214
+      ],
+      "raw_identical": true,
+      "sha256": "fc5c7b351b5a44216d326ca97da1ff4d0d9e2fbd8aaa8afd1caab78454ccb310"
+    },
+    {
+      "key": "e_reach",
+      "file": "aurelionsol-pose-e_reach.png",
+      "status": "generated",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_levels": 256,
+      "visible_bbox_alpha128": [
+        134,
+        247,
+        1215,
+        1196
+      ],
+      "raw_identical": true,
+      "sha256": "57606262ad877096dd17bc5daf0401ffd36a8f6257a633d00c8d113e3826a6a8"
+    },
+    {
+      "key": "e_hold",
+      "file": "aurelionsol-pose-e_hold.png",
+      "status": "generated",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_levels": 256,
+      "visible_bbox_alpha128": [
+        363,
+        302,
+        911,
+        1207
+      ],
+      "raw_identical": true,
+      "sha256": "aac160b8dfca73dfa8ac8b920dd3552db7fdf0e841dfb3e8998fbf4e0959e5fc"
+    },
+    {
+      "key": "r_call",
+      "file": "aurelionsol-pose-r_call.png",
+      "status": "generated",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_levels": 256,
+      "visible_bbox_alpha128": [
+        293,
+        97,
+        1075,
+        1234
+      ],
+      "raw_identical": true,
+      "sha256": "1722ce03d0265e7109b9f7ad0b2ec717ad0490504ea401a4a423ceb264257487"
+    },
+    {
+      "key": "r_pull",
+      "file": "aurelionsol-pose-r_pull.png",
+      "status": "generated",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_levels": 256,
+      "visible_bbox_alpha128": [
+        117,
+        157,
+        1157,
+        1166
+      ],
+      "raw_identical": true,
+      "sha256": "29c5f5b0f8624d40be9720f111bfa014e34e16702d6596dd7e919d6559d000a8"
+    },
+    {
+      "key": "d_rear",
+      "file": "aurelionsol-pose-d_rear.png",
+      "status": "generated",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_levels": 256,
+      "visible_bbox_alpha128": [
+        197,
+        19,
+        1147,
+        1235
+      ],
+      "raw_identical": true,
+      "sha256": "689a2eb330bac25edb64d12768e360459589949aad4a6c13665dcbe7e81620f6"
+    },
+    {
+      "key": "d_down",
+      "file": "aurelionsol-pose-d_down.png",
+      "status": "generated",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_levels": 256,
+      "visible_bbox_alpha128": [
+        11,
+        485,
+        1240,
+        1167
+      ],
+      "raw_identical": true,
+      "sha256": "62e5e025a01497ccf4a93db98e1dc7accae4f4e1beae619ea1fd4366cdabd145"
+    }
+  ],
+  "inventory_complete": true,
+  "strict_spec_complete": false
+}

@@ -1,0 +1,226 @@
+[
+  {
+    "file": "aurelionsol-A-1.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "alpha_levels": 256,
+    "partial_alpha_pixels": 604287,
+    "visible_bbox_alpha128": [
+      236,
+      26,
+      1157,
+      1254
+    ],
+    "visible_size": [
+      921,
+      1228
+    ],
+    "rgba_colors": 151109,
+    "frequent_horizontal_color_runs": [
+      [
+        16,
+        740
+      ],
+      [
+        15,
+        296
+      ],
+      [
+        4,
+        293
+      ],
+      [
+        5,
+        234
+      ],
+      [
+        6,
+        203
+      ],
+      [
+        33,
+        198
+      ],
+      [
+        17,
+        198
+      ],
+      [
+        14,
+        192
+      ]
+    ],
+    "sha256": "bf69bf6200a07a600cb01db7720be4562fe58cf040e0dce84e6839e9342e4f2d",
+    "raw_identical": true
+  },
+  {
+    "file": "aurelionsol-A-2.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "alpha_levels": 256,
+    "partial_alpha_pixels": 563282,
+    "visible_bbox_alpha128": [
+      229,
+      22,
+      1139,
+      1253
+    ],
+    "visible_size": [
+      910,
+      1231
+    ],
+    "rgba_colors": 147106,
+    "frequent_horizontal_color_runs": [
+      [
+        16,
+        468
+      ],
+      [
+        15,
+        445
+      ],
+      [
+        4,
+        311
+      ],
+      [
+        5,
+        247
+      ],
+      [
+        6,
+        227
+      ],
+      [
+        13,
+        219
+      ],
+      [
+        14,
+        208
+      ],
+      [
+        12,
+        200
+      ]
+    ],
+    "sha256": "bff1c0361e25439b39a974b9a0f2cd4807bf0c4cc52d482635e43477c0802183",
+    "raw_identical": true
+  },
+  {
+    "file": "aurelionsol-B-1.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "alpha_levels": 256,
+    "partial_alpha_pixels": 492688,
+    "visible_bbox_alpha128": [
+      26,
+      528,
+      1234,
+      1241
+    ],
+    "visible_size": [
+      1208,
+      713
+    ],
+    "rgba_colors": 135160,
+    "frequent_horizontal_color_runs": [
+      [
+        13,
+        398
+      ],
+      [
+        14,
+        381
+      ],
+      [
+        4,
+        281
+      ],
+      [
+        12,
+        269
+      ],
+      [
+        11,
+        239
+      ],
+      [
+        5,
+        222
+      ],
+      [
+        6,
+        192
+      ],
+      [
+        10,
+        173
+      ]
+    ],
+    "sha256": "16b90fd3f6ac4bfea7869d8ab8bbc167feb6f169b4b4a47dfda6a10240ea08ef",
+    "raw_identical": true
+  },
+  {
+    "file": "aurelionsol-B-2.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "alpha_levels": 256,
+    "partial_alpha_pixels": 449181,
+    "visible_bbox_alpha128": [
+      39,
+      540,
+      1220,
+      1228
+    ],
+    "visible_size": [
+      1181,
+      688
+    ],
+    "rgba_colors": 129966,
+    "frequent_horizontal_color_runs": [
+      [
+        12,
+        366
+      ],
+      [
+        13,
+        311
+      ],
+      [
+        11,
+        272
+      ],
+      [
+        4,
+        258
+      ],
+      [
+        5,
+        241
+      ],
+      [
+        10,
+        230
+      ],
+      [
+        6,
+        205
+      ],
+      [
+        9,
+        193
+      ]
+    ],
+    "sha256": "bba78c4a22b9a72658c48b77e050c07598b63a8cb69a1644b9273772f7f02fdc",
+    "raw_identical": true
+  }
+]
