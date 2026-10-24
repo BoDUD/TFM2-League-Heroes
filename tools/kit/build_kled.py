@@ -47,7 +47,7 @@ classic-SDK simulations (kd.py --lane 0 against fighter, executioner, knight, be
 C:/t/kl_sim, 2026-10-24; league_gnar --native +0.01 / +0.59 on seeds 1-8 / 9-16): the draft (hp 760, attack 88, Skaarl
 360 + 120%, on foot -20%, Q 40 / 60 + 120%, E 40 + 65%, W 30, R 60) -3.36; hp 920, attack 94, on foot -10%, Skaarl 420,
 Q 50 / 80, E 55, W 40, R 90 -1.44; hp 1000 +90, attack 98 +17, defence 32, Skaarl 480 + 140%, Q 60 / 90 + 140% every
-480, E 60 + 80% every 540, W 50 + 6%, R 110 -0.22 / +0.08; with hp 1040, attack 100, Skaarl 500 = P +0.48 (1-8).
+480, E 60 + 80% every 540, W 50 + 6%, R 110 -0.22 / +0.08; with hp 1040, attack 100, Skaarl 500 = P +0.48 / +0.09 (mean +0.29; Gnar +0.30).
 """
 import argparse
 import json
