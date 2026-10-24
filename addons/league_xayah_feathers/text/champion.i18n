@@ -1,0 +1,37 @@
+{
+  "zh-hans": {
+    "description": {
+      "league_xayah_feathers": {
+        "skill": "【附加包】扔出两把穿透匕首，各造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<><#ff9028ff>物理伤害<>（后续目标50%），各留一根羽毛；随后<#ff9028ff>倒钩<>收回所有羽毛，每根对路过的敌人造成<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>伤害，同一个英雄被一次收回的3根羽毛打中时<#ef5350ff>禁锢1.25秒<>。"
+      }
+    }
+  },
+  "zh-hant": {
+    "description": {
+      "league_xayah_feathers": {
+        "skill": "【附加包】擲出兩把貫穿匕首，各造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<><#ff9028ff>物理傷害<>（後續目標50%），各留一根羽毛；隨後<#ff9028ff>漫天血刃<>收回所有羽毛，每根對經過的敵人造成<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>傷害，同一個英雄被一次收回的3根羽毛打中時<#ef5350ff>定身1.25秒<>。"
+      }
+    }
+  },
+  "en": {
+    "description": {
+      "league_xayah_feathers": {
+        "skill": "[Add-on] Throws two piercing daggers, each <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> <#ff9028ff>physical damage<> (50% after the first target), each leaving a Feather; then <#ff9028ff>Bladecaller<> calls every Feather back, each dealing <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> to enemies it passes. A champion struck by 3 Feathers of one recall is <#ef5350ff>rooted<> for <#ffb900ff>1.25s<>."
+      }
+    }
+  },
+  "ko": {
+    "description": {
+      "league_xayah_feathers": {
+        "skill": "[확장] 관통하는 단검 두 개를 던져 각각 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>의 <#ff9028ff>물리 피해<>(다음 대상 50%), 깃털을 남깁니다. 이어서 <#ff9028ff>깃부르미<>로 깃털을 모두 회수해 지나가는 적에게 <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>의 피해, 한 번의 회수에서 깃털 3개에 맞은 챔피언은 <#ffb900ff>1.25초<> <#ef5350ff>속박<>."
+      }
+    }
+  },
+  "ja": {
+    "description": {
+      "league_xayah_feathers": {
+        "skill": "【拡張】貫通する短剣を2本投げ、各<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>の<#ff9028ff>物理ダメージ<>（後続50%）、羽根を残す。続けて<#ff9028ff>ブレードコーラー<>で全羽根を回収、通過した敵に<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>、1回の回収で羽根3本に当たったチャンピオンは<#ffb900ff>1.25秒<><#ef5350ff>スネア<>。"
+      }
+    }
+  }
+}

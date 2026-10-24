@@ -1,0 +1,20 @@
+{
+  "author": "BoDUD",
+  "contains_code": true,
+  "dependencies": [
+    {
+      "mod_id": "base",
+      "version": ">=0.4.11"
+    },
+    {
+      "mod_id": "league",
+      "version": ">=0.208.0"
+    }
+  ],
+  "description": "Test build of Ahri's Essence Theft as in League (needs League of Legends Heroes): replaces the main pack's Ahri so every minion or monster she kills, with anything, counts an essence (the ninth heals her), and every enemy champion she kills or assists on heals her and, while Spirit Rush's window is open, grants one more dash - several at once too. Other champions are untouched. Writes a log for testing.",
+  "last_updated": "2026-10-24",
+  "mod_id": "league_ahri",
+  "mod_type": "native",
+  "name": "League Heroes: Ahri's Essence Theft on every kill and takedown (test)",
+  "version": "0.1.0"
+}

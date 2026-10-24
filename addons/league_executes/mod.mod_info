@@ -1,0 +1,20 @@
+{
+  "author": "BoDUD",
+  "contains_code": true,
+  "dependencies": [
+    {
+      "mod_id": "base",
+      "version": ">=0.4.11"
+    },
+    {
+      "mod_id": "league",
+      "version": ">=0.208.0"
+    }
+  ],
+  "description": "Test build of three executes as in League (needs League of Legends Heroes): Evelynn's Last Caress deals x2.4 to targets at 30% health or below, Akali's Perfect Execution's second dash deals up to 200% more by the target's missing health, and Riven keeps Wind Slash for a low or killable champion (or the end of her ult) and it deals up to 200% more by missing health instead of 8% max health (the main pack scales them by their own hits or fires at once, since data cannot read health). Other champions are untouched. Writes a log for testing.",
+  "last_updated": "2026-10-24",
+  "mod_id": "league_executes",
+  "mod_type": "native",
+  "name": "League Heroes: Evelynn's, Akali's and Riven's ults on the target's health (test)",
+  "version": "0.2.0"
+}

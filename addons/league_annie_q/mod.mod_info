@@ -1,0 +1,20 @@
+{
+  "author": "BoDUD",
+  "contains_code": true,
+  "dependencies": [
+    {
+      "mod_id": "base",
+      "version": ">=0.4.11"
+    },
+    {
+      "mod_id": "league",
+      "version": ">=0.210.0"
+    }
+  ],
+  "description": "Test build of Annie's Disintegrate as in League (needs League of Legends Heroes): replaces the main pack's Annie so a fireball that kills its target (minion, monster or champion) refunds half of Q's cooldown (the main pack's has no refund, since data cannot cut a cooldown on a kill). Annie has no mana here, so only the cooldown comes back. Tibbers also goes on to the nearest enemy champion when the one he follows dies (the main pack's leaves), with the main pack's pictures and burn. Other champions are untouched. Writes a log for testing.",
+  "last_updated": "2026-10-24",
+  "mod_id": "league_annie_q",
+  "mod_type": "native",
+  "name": "League Heroes: Annie's Disintegrate refund and Tibbers (test)",
+  "version": "0.2.0"
+}

@@ -1,0 +1,20 @@
+{
+  "author": "BoDUD",
+  "contains_code": true,
+  "dependencies": [
+    {
+      "mod_id": "base",
+      "version": ">=0.4.11"
+    },
+    {
+      "mod_id": "league",
+      "version": ">=0.210.0"
+    }
+  ],
+  "description": "Test build of three supports as in League (needs League of Legends Heroes): Janna's Eye of the Storm and Lulu's Help, Pix! go to the nearby allied champion in danger (low health or surrounded; else the one fighting) and Sona's Aria of Perseverance heals the most wounded nearby ally, instead of a random ally (the main pack's RandomTarget). Shields, heals and pictures are the main pack's numbers. Other champions are untouched. Writes a log for testing.",
+  "last_updated": "2026-10-24",
+  "mod_id": "league_support_pick",
+  "mod_type": "native",
+  "name": "League Heroes: Janna's, Sona's and Lulu's gifts to the ally who needs it (test)",
+  "version": "0.1.0"
+}

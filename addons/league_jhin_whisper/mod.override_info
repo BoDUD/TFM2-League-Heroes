@@ -1,0 +1,10 @@
+{
+  "asset/league/champion/league_jhin": {
+    "remapping": "asset/league_jhin_whisper/override/league_jhin",
+    "type": "override"
+  },
+  "asset/base/text/champion": {
+    "remapping": "asset/league_jhin_whisper/text/champion",
+    "type": "merge"
+  }
+}

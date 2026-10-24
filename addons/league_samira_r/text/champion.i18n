@@ -1,0 +1,37 @@
+{
+  "zh-hans": {
+    "description": {
+      "league_samira_r": {
+        "ult": "【附加包】评价到<#ffb900ff>S<>时才会施放：旋转连射并走向残血的敌人<#ffb900ff>2秒<>，每0.2秒向周围所有敌人各开一枪，造成<#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<><#ff9028ff>物理伤害<>，期间生命偷取40%。放完评价清零。"
+      }
+    }
+  },
+  "zh-hant": {
+    "description": {
+      "league_samira_r": {
+        "ult": "【附加包】評價到<#ffb900ff>S<>時才會施放：旋轉連射並走向殘血的敵人<#ffb900ff>2秒<>，每0.2秒向周圍所有敵人各開一槍，造成<#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<><#ff9028ff>物理傷害<>，期間生命偷取40%。放完評價清零。"
+      }
+    }
+  },
+  "en": {
+    "description": {
+      "league_samira_r": {
+        "ult": "[Add-on] Only at Style <#ffb900ff>S<>: spins firing as she walks at the weakest enemy for <#ffb900ff>2s<>, every 0.2s a shot at every enemy around her for <#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<> <#ff9028ff>physical damage<>, with 40% life steal. Spends her Style."
+      }
+    }
+  },
+  "ko": {
+    "description": {
+      "league_samira_r": {
+        "ult": "[확장] 스타일 <#ffb900ff>S<>일 때만: 가장 약한 적에게 걸어가며 회전해 <#ffb900ff>2초<>간 0.2초마다 주변 모든 적을 쏴 <#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>의 <#ff9028ff>물리 피해<>, 생명력 흡수 40%. 스타일을 소모합니다."
+      }
+    }
+  },
+  "ja": {
+    "description": {
+      "league_samira_r": {
+        "ult": "【拡張】スタイル<#ffb900ff>S<>の時だけ：弱った敵へ歩きながら回転し<#ffb900ff>2秒<>、0.2秒ごとに周囲の全ての敵を撃ち<#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>の<#ff9028ff>物理ダメージ<>、ライフスティール40%。スタイルを消費。"
+      }
+    }
+  }
+}

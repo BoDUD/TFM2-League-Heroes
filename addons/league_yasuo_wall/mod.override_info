@@ -1,0 +1,10 @@
+{
+  "asset/league/champion/league_yasuo": {
+    "remapping": "asset/league_yasuo_wall/override/league_yasuo",
+    "type": "override"
+  },
+  "asset/base/text/champion": {
+    "remapping": "asset/league_yasuo_wall/text/champion",
+    "type": "merge"
+  }
+}

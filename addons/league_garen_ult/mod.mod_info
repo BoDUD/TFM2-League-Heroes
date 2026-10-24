@@ -1,0 +1,20 @@
+{
+  "author": "BoDUD",
+  "contains_code": true,
+  "dependencies": [
+    {
+      "mod_id": "base",
+      "version": ">=0.4.11"
+    },
+    {
+      "mod_id": "league",
+      "version": ">=0.208.0"
+    }
+  ],
+  "description": "Test build of Garen's Demacian Justice as in League (needs League of Legends Heroes): replaces the main pack's Garen so his ult deals 150 + 120% AD + 30% of the target's missing health as true damage, and the AI casts it only when it kills a champion in range (the main pack's casts it at once, at 12% of max health). Other champions are untouched. Writes a log for testing.",
+  "last_updated": "2026-10-24",
+  "mod_id": "league_garen_ult",
+  "mod_type": "native",
+  "name": "League Heroes: Garen's ult an execute on missing health (test)",
+  "version": "0.1.0"
+}

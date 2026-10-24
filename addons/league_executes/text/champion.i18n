@@ -1,0 +1,47 @@
+{
+  "zh-hans": {
+    "description": {
+      "league_executes": {
+        "evelynn_ult": "【附加包】就绪后等她连续打中英雄或被围时释放：前方扇形<#a974ffff>150<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>75%<><#a974ffff>魔法伤害<>，对生命不高于<#ffb900ff>30%<>的目标×2.4，期间<#ef5350ff>不可选中<>并向后闪，随后很快重回魅影。",
+        "akali_ult": "【附加包】穿过目标英雄，路径上的敌人受到<#a974ffff>140<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% 法术强度<>的<#a974ffff>魔法伤害<>；<#ffb900ff>2.5秒<>后再穿过它（死了或跑远就换附近的英雄），<#a974ffff>86<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>43%<>，按目标已损失生命最多+<#ffb900ff>200%<>。<#ff9028ff>连招 R E E R<>：两段之间隼舞二段落到英雄身上，立刻放第二段。",
+        "riven_ult": "【附加包】身边有敌方英雄时开启，持续<#ffb900ff>15秒<>：攻击力提高<#ffb900ff>20%<>，攻击距离变长，<#ff9028ff>折翼之舞<>和<#ff9028ff>震魂怒吼<>范围扩大<#ffb900ff>25%<>。开启<#ffb900ff>5秒<>后，有人残血、可斩杀或大招将尽时放出<#ff9028ff>疾风斩<>，对直线上的敌人造成<#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻击力<>的<#ff9028ff>物理伤害<>，按已损失生命最多+<#ffb900ff>200%<>。"
+      }
+    }
+  },
+  "zh-hant": {
+    "description": {
+      "league_executes": {
+        "evelynn_ult": "【附加包】就緒後待她連續擊中英雄或被包圍時施放：前方扇形<#a974ffff>150<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>75%<><#a974ffff>魔法傷害<>，對生命不高於<#ffb900ff>30%<>的目標×2.4，期間<#ef5350ff>無法被選取<>並向後閃，隨後很快重回魔魅之影。",
+        "akali_ult": "【附加包】穿過目標英雄，路徑上的敵人受到<#a974ffff>140<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% 魔法強度<>的<#a974ffff>魔法傷害<>；<#ffb900ff>2.5秒<>後再穿過它（死了或跑遠就換附近的英雄），<#a974ffff>86<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>43%<>，按目標已損失生命最多+<#ffb900ff>200%<>。<#ff9028ff>連招 R E E R<>：兩段之間離群手裡劍第二段命中英雄，立刻放第二段。",
+        "riven_ult": "【附加包】身邊有敵方英雄時啟動，持續<#ffb900ff>15秒<>：物理攻擊提高<#ffb900ff>20%<>，攻擊距離變長，<#ff9028ff>斷罪之翼<>和<#ff9028ff>符文衝擊<>範圍擴大<#ffb900ff>25%<>。啟動<#ffb900ff>5秒<>後，有人殘血、可斬殺或大招將盡時發射<#ff9028ff>疾風斬<>，對直線上的敵人造成<#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 物理攻擊<>的<#ff9028ff>物理傷害<>，按已損失生命最多+<#ffb900ff>200%<>。"
+      }
+    }
+  },
+  "en": {
+    "description": {
+      "league_executes": {
+        "evelynn_ult": "[Add-on] Readied, cast once she has hit champions a few times or is surrounded: a cone of <#a974ffff>150<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>75%<> <#a974ffff>magic damage<>, x2.4 on targets at <#ffb900ff>30%<> health or below; she is <#ef5350ff>untargetable<>, warps back and soon returns to the Shade.",
+        "akali_ult": "[Add-on] Akali dashes through the target champion: <#a974ffff>140<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% Ability Power<> <#a974ffff>magic damage<> to enemies in her path. <#ffb900ff>2.5s<> later she dashes through it again (or a nearby champion) for <#a974ffff>86<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>43% AP<>, up to +<#ffb900ff>200%<> by missing health. <#ff9028ff>Combo R E E R<>: Shuriken Flip's dash landing on a champion in between fires the second dash at once.",
+        "riven_ult": "[Add-on] Starts when an enemy champion is near her and lasts <#ffb900ff>15s<>: <#ffb900ff>20%<> more AD, longer attack range and <#ffb900ff>25%<> larger <#ff9028ff>Broken Wings<> and <#ff9028ff>Ki Burst<>. After <#ffb900ff>5s<> she fires <#ff9028ff>Wind Slash<> when a foe is low or killable, or R ends, dealing <#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% AD<> <#ff9028ff>physical damage<> in a line, up to +<#ffb900ff>200%<> by missing health."
+      }
+    }
+  },
+  "ko": {
+    "description": {
+      "league_executes": {
+        "evelynn_ult": "[확장] 준비된 뒤 챔피언을 여러 번 맞히거나 포위되면 시전: 전방 부채꼴에 <#a974ffff>150<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>75%<>의 <#a974ffff>마법 피해<>, 체력 <#ffb900ff>30%<> 이하 대상에게 x2.4. <#ef5350ff>대상으로 지정 불가<> 상태로 뒤로 순간이동하고 곧 장막에 들어갑니다.",
+        "akali_ult": "[확장] 대상 챔피언을 관통해 경로의 적에게 <#a974ffff>140<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 70%<> <#a974ffff>마법 피해<>. <#ffb900ff>2.5초<> 뒤 다시 관통해(없으면 근처 챔피언) <#a974ffff>86<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 43%<>, 대상의 잃은 체력에 비례해 최대 +<#ffb900ff>200%<>. <#ff9028ff>연계 R E E R<>: 그 사이 표창곡예 두 번째 돌진이 챔피언에게 닿으면 바로 두 번째 돌진.",
+        "riven_ult": "[확장] 주변에 적 챔피언이 있을 때 발동하여 <#ffb900ff>15초<> 동안 공격력이 <#ffb900ff>20%<> 증가하고 공격 사거리가 늘어나며 <#ff9028ff>부러진 날개<>와 <#ff9028ff>기 폭발<>의 범위가 <#ffb900ff>25%<> 커집니다. <#ffb900ff>5초<> 후 적이 빈사·처치 가능하거나 궁극기가 끝날 때 <#ff9028ff>바람 가르기<>를 날려 일직선 상의 적에게 <#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 100%<> <#ff9028ff>물리 피해<>(잃은 체력 비례 최대 +<#ffb900ff>200%<>)."
+      }
+    }
+  },
+  "ja": {
+    "description": {
+      "league_executes": {
+        "evelynn_ult": "【拡張】準備後、チャンピオンに何度か当てるか囲まれると発動：前方扇形に<#a974ffff>150<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>75%<>の<#a974ffff>魔法ダメージ<>、体力<#ffb900ff>30%<>以下の対象にはx2.4。<#ef5350ff>対象指定不可<>で後方へ移動し、すぐ影に戻る。",
+        "akali_ult": "【拡張】対象を突き抜け、通過した敵に<#a974ffff>140<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の70%<>の<#a974ffff>魔法ダメージ<>。<#ffb900ff>2.5秒<>後に再び突き抜け（いなければ近くの別のチャンピオン）<#a974ffff>86<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の43%<>、対象の減少体力に応じて最大+<#ffb900ff>200%<>。<#ff9028ff>コンボ R E E R<>：その間に翻身手裏剣の2段目が当たるとすぐ2段目。",
+        "riven_ult": "【拡張】近くに敵チャンピオンがいると発動し、<#ffb900ff>15秒<>間攻撃力<#ffb900ff>20%<>増加、射程が伸び、<#ff9028ff>折れた翼<>と<#ff9028ff>気功破<>の範囲が<#ffb900ff>25%<>拡大。<#ffb900ff>5秒<>後、瀕死・倒せる敵がいるか終了間際に<#ff9028ff>ウィンドスラッシュ<>を放ち、直線上の敵に<#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の100%<>の<#ff9028ff>物理ダメージ<>（減少体力に応じ最大+<#ffb900ff>200%<>）。"
+      }
+    }
+  }
+}

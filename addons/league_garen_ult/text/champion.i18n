@@ -1,0 +1,37 @@
+{
+  "zh-hans": {
+    "description": {
+      "league_garen_ult": {
+        "ult": "【附加包】<#ff9028ff>德玛西亚正义<>：召唤巨剑从天而降，对目标敌方英雄造成<#f5f5f5ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120% 攻击力<> + <#f5f5f5ff>30% 目标已损失生命值<>的<#f5f5f5ff>真实伤害<>。只在能斩杀射程内的英雄时释放。"
+      }
+    }
+  },
+  "zh-hant": {
+    "description": {
+      "league_garen_ult": {
+        "ult": "【附加包】<#ff9028ff>德瑪西亞正義<>：召喚巨劍從天而降，對目標敵方英雄造成<#f5f5f5ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120% 攻擊力<> + <#f5f5f5ff>30% 目標已損失生命值<>的<#f5f5f5ff>真實傷害<>。只在能斬殺射程內的英雄時施放。"
+      }
+    }
+  },
+  "en": {
+    "description": {
+      "league_garen_ult": {
+        "ult": "[Add-on] <#ff9028ff>Demacian Justice<>: Calls a giant sword down on the target enemy champion, dealing <#f5f5f5ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120% AD<> + <#f5f5f5ff>30% of its missing health<> <#f5f5f5ff>true damage<>. Cast only when it kills a champion in range."
+      }
+    }
+  },
+  "ko": {
+    "description": {
+      "league_garen_ult": {
+        "ult": "[확장] <#ff9028ff>데마시아의 정의<>: 대상 적 챔피언에게 거대한 검을 내리꽂아 <#f5f5f5ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 120%<> + <#f5f5f5ff>대상 잃은 체력의 30%<> <#f5f5f5ff>고정 피해<>를 줍니다. 사거리 안의 챔피언을 처치할 수 있을 때만 사용합니다."
+      }
+    }
+  },
+  "ja": {
+    "description": {
+      "league_garen_ult": {
+        "ult": "【拡張】<#ff9028ff>デマーシアの正義<>：対象の敵チャンピオンに巨大な剣を落とし、<#f5f5f5ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の120%<> + <#f5f5f5ff>対象の減少体力の30%<>の<#f5f5f5ff>確定ダメージ<>を与える。射程内のチャンピオンを倒せる時にだけ使う。"
+      }
+    }
+  }
+}

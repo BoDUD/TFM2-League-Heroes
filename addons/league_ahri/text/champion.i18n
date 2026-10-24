@@ -1,0 +1,37 @@
+{
+  "zh-hans": {
+    "description": {
+      "league_ahri": {
+        "attack": "【附加包】普攻发射妖力球，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻击力<>的<#ff9028ff>物理伤害<>。被动 <#ff9028ff>摄魂夺魄<>：每补到<#ffb900ff>1<>个小兵或野怪（用什么打死的都算）积攒<#ffb900ff>1<>层，满<#ffb900ff>9<>层回复<#6aff55ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20% 法术强度<>的<#6aff55ff>生命值<>；她参与击杀的每个敌方英雄都让她回复<#6aff55ff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30% 法术强度<>的<#6aff55ff>生命值<>。"
+      }
+    }
+  },
+  "zh-hant": {
+    "description": {
+      "league_ahri": {
+        "attack": "【附加包】普攻發射妖力球，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻擊力<>的<#ff9028ff>物理傷害<>。被動 <#ff9028ff>銷魂<>：每擊殺<#ffb900ff>1<>個小兵或野怪（用什麼打死的都算）累積<#ffb900ff>1<>層，滿<#ffb900ff>9<>層回復<#6aff55ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20% 魔法強度<>的<#6aff55ff>生命值<>；她參與擊殺的每個敵方英雄都讓她回復<#6aff55ff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30% 魔法強度<>的<#6aff55ff>生命值<>。"
+      }
+    }
+  },
+  "en": {
+    "description": {
+      "league_ahri": {
+        "attack": "[Add-on] Basic attacks fire a fox-magic orb for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% AD<> <#ff9028ff>physical damage<>. Passive <#ff9028ff>Essence Theft<>: every minion or monster she kills (with anything) grants an essence; at <#ffb900ff>9<> she heals <#6aff55ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20% Ability Power<>. Every enemy champion she takes down heals her <#6aff55ff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30% Ability Power<>."
+      }
+    }
+  },
+  "ko": {
+    "description": {
+      "league_ahri": {
+        "attack": "[확장] 기본 공격으로 여우 구슬을 날려 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 100%<> <#ff9028ff>물리 피해<>를 입힙니다. 기본 지속 효과 <#ff9028ff>정기 흡수<>: 미니언이나 몬스터를 처치할 때마다(무엇으로든) 정기 1개, <#ffb900ff>9<>개가 모이면 <#6aff55ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 20%<>의 <#6aff55ff>체력<>을 회복합니다. 관여한 적 챔피언 처치마다 <#6aff55ff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 30%<>의 <#6aff55ff>체력<>을 회복합니다."
+      }
+    }
+  },
+  "ja": {
+    "description": {
+      "league_ahri": {
+        "attack": "【拡張】通常攻撃は妖力の玉を放ち、<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の100%<>の<#ff9028ff>物理ダメージ<>を与える。パッシブ <#ff9028ff>生気吸引<>：ミニオンかモンスターを倒すたびに（何で倒しても）生気1つ、<#ffb900ff>9<>つで<#6aff55ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の20%<>の<#6aff55ff>体力<>を回復。敵チャンピオンの撃破に関わるたびに<#6aff55ff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の30%<>の<#6aff55ff>体力<>を回復。"
+      }
+    }
+  }
+}

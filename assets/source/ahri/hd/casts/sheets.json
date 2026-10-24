@@ -1,0 +1,343 @@
+{
+ "square": 6,
+ "cell": [
+  768,
+  1024
+ ],
+ "ground": 874,
+ "per_sheet": 2,
+ "sheets": [
+  {
+   "tag": "run",
+   "name": "run_1",
+   "frames": [
+    1,
+    2
+   ],
+   "action": "running (her move loop)",
+   "ms": [
+    125,
+    125
+   ]
+  },
+  {
+   "tag": "run",
+   "name": "run_2",
+   "frames": [
+    3,
+    4
+   ],
+   "action": "running (her move loop)",
+   "ms": [
+    125,
+    125
+   ]
+  },
+  {
+   "tag": "run",
+   "name": "run_3",
+   "frames": [
+    5,
+    6
+   ],
+   "action": "running (her move loop)",
+   "ms": [
+    125,
+    125
+   ]
+  },
+  {
+   "tag": "run",
+   "name": "run_4",
+   "frames": [
+    7,
+    8
+   ],
+   "action": "running (her move loop)",
+   "ms": [
+    125,
+    125
+   ]
+  },
+  {
+   "tag": "attack",
+   "name": "attack_1",
+   "frames": [
+    1,
+    2
+   ],
+   "action": "basic attack, a spirit orb flicked from her hand at the foe",
+   "ms": [
+    60,
+    60
+   ]
+  },
+  {
+   "tag": "attack",
+   "name": "attack_2",
+   "frames": [
+    3,
+    4
+   ],
+   "action": "basic attack, a spirit orb flicked from her hand at the foe",
+   "ms": [
+    60,
+    60
+   ]
+  },
+  {
+   "tag": "attack",
+   "name": "attack_3",
+   "frames": [
+    5,
+    6
+   ],
+   "action": "basic attack, a spirit orb flicked from her hand at the foe",
+   "ms": [
+    70,
+    80
+   ]
+  },
+  {
+   "tag": "attack",
+   "name": "attack_4",
+   "frames": [
+    7
+   ],
+   "action": "basic attack, a spirit orb flicked from her hand at the foe",
+   "ms": [
+    80
+   ]
+  },
+  {
+   "tag": "skill",
+   "name": "skill_1",
+   "frames": [
+    1,
+    2
+   ],
+   "action": "Orb of Deception: a crouch, a spring up with the hand raised, the orb thrown forward in the air, the landing",
+   "ms": [
+    50,
+    50
+   ]
+  },
+  {
+   "tag": "skill",
+   "name": "skill_2",
+   "frames": [
+    3,
+    4
+   ],
+   "action": "Orb of Deception: a crouch, a spring up with the hand raised, the orb thrown forward in the air, the landing",
+   "ms": [
+    60,
+    60
+   ]
+  },
+  {
+   "tag": "skill",
+   "name": "skill_3",
+   "frames": [
+    5,
+    6
+   ],
+   "action": "Orb of Deception: a crouch, a spring up with the hand raised, the orb thrown forward in the air, the landing",
+   "ms": [
+    60,
+    70
+   ]
+  },
+  {
+   "tag": "skill",
+   "name": "skill_4",
+   "frames": [
+    7,
+    8
+   ],
+   "action": "Orb of Deception: a crouch, a spring up with the hand raised, the orb thrown forward in the air, the landing",
+   "ms": [
+    70,
+    80
+   ]
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_1",
+   "frames": [
+    1,
+    2
+   ],
+   "action": "Charm: the hand to her lips, a kiss blown forward at the foe",
+   "ms": [
+    60,
+    60
+   ]
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_2",
+   "frames": [
+    3,
+    4
+   ],
+   "action": "Charm: the hand to her lips, a kiss blown forward at the foe",
+   "ms": [
+    70,
+    70
+   ]
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_3",
+   "frames": [
+    5,
+    6
+   ],
+   "action": "Charm: the hand to her lips, a kiss blown forward at the foe",
+   "ms": [
+    80,
+    80
+   ]
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_4",
+   "frames": [
+    7
+   ],
+   "action": "Charm: the hand to her lips, a kiss blown forward at the foe",
+   "ms": [
+    90
+   ]
+  },
+  {
+   "tag": "ult",
+   "name": "ult_1",
+   "frames": [
+    1,
+    2
+   ],
+   "action": "Spirit Rush: a leap into a LEVEL FLIGHT forward, head up in front, hair and tails streaming behind, then the landing",
+   "ms": [
+    50,
+    50
+   ]
+  },
+  {
+   "tag": "ult",
+   "name": "ult_2",
+   "frames": [
+    3,
+    4
+   ],
+   "action": "Spirit Rush: a leap into a LEVEL FLIGHT forward, head up in front, hair and tails streaming behind, then the landing",
+   "ms": [
+    50,
+    50
+   ]
+  },
+  {
+   "tag": "ult",
+   "name": "ult_3",
+   "frames": [
+    5,
+    6
+   ],
+   "action": "Spirit Rush: a leap into a LEVEL FLIGHT forward, head up in front, hair and tails streaming behind, then the landing",
+   "ms": [
+    50,
+    60
+   ]
+  },
+  {
+   "tag": "ult",
+   "name": "ult_4",
+   "frames": [
+    7,
+    8
+   ],
+   "action": "Spirit Rush: a leap into a LEVEL FLIGHT forward, head up in front, hair and tails streaming behind, then the landing",
+   "ms": [
+    70,
+    80
+   ]
+  },
+  {
+   "tag": "ult",
+   "name": "ult_5",
+   "frames": [
+    9
+   ],
+   "action": "Spirit Rush: a leap into a LEVEL FLIGHT forward, head up in front, hair and tails streaming behind, then the landing",
+   "ms": [
+    100
+   ]
+  },
+  {
+   "tag": "hit",
+   "name": "hit_1",
+   "frames": [
+    1,
+    2
+   ],
+   "action": "struck, knocked back a little",
+   "ms": [
+    120,
+    120
+   ]
+  },
+  {
+   "tag": "dead",
+   "name": "dead_1",
+   "frames": [
+    1,
+    2
+   ],
+   "action": "death: knocked back, she drops sitting, props up, then lies down",
+   "ms": [
+    100,
+    120
+   ]
+  },
+  {
+   "tag": "dead",
+   "name": "dead_2",
+   "frames": [
+    3,
+    4
+   ],
+   "action": "death: knocked back, she drops sitting, props up, then lies down",
+   "ms": [
+    120,
+    150
+   ]
+  },
+  {
+   "tag": "dead",
+   "name": "dead_3",
+   "frames": [
+    5,
+    6
+   ],
+   "action": "death: knocked back, she drops sitting, props up, then lies down",
+   "ms": [
+    150,
+    200
+   ]
+  },
+  {
+   "tag": "dead",
+   "name": "dead_4",
+   "frames": [
+    7,
+    8
+   ],
+   "action": "death: knocked back, she drops sitting, props up, then lies down",
+   "ms": [
+    200,
+    500
+   ]
+  }
+ ]
+}

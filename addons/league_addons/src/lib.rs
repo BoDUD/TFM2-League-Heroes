@@ -154,6 +154,68 @@ mod jayce;
 mod elise;
 #[path = "../../league_katarina/src/lib.rs"]
 mod katarina;
+#[path = "../../league_ahri/src/lib.rs"]
+mod ahri;
+#[allow(dead_code)] // items public in the add-on's own crate
+#[path = "../../league_garen_ult/src/lib.rs"]
+mod garen_ult;
+#[allow(dead_code)] // items public in the add-on's own crate
+#[path = "../../league_takedowns/src/lib.rs"]
+mod takedowns;
+#[allow(dead_code)] // items public in the add-on's own crate
+#[path = "../../league_executes/src/lib.rs"]
+mod executes;
+#[allow(dead_code)] // items public in the add-on's own crate
+#[path = "../../league_lowhp/src/lib.rs"]
+mod lowhp;
+#[allow(dead_code)] // items public in the add-on's own crate
+#[path = "../../league_marks/src/lib.rs"]
+mod marks;
+#[allow(dead_code)] // items public in the add-on's own crate
+#[path = "../../league_ult_aim/src/lib.rs"]
+mod ult_aim;
+#[allow(dead_code)] // items public in the add-on's own crate
+#[path = "../../league_ekko_rewind/src/lib.rs"]
+mod ekko_rewind;
+#[allow(dead_code)] // items public in the add-on's own crate
+#[path = "../../league_samira_r/src/lib.rs"]
+mod samira_r;
+#[allow(dead_code)] // items public in the add-on's own crate
+#[path = "../../league_thresh_lantern/src/lib.rs"]
+mod thresh_lantern;
+#[allow(dead_code)] // items public in the add-on's own crate
+#[path = "../../league_yone_r/src/lib.rs"]
+mod yone_r;
+#[allow(dead_code)] // items public in the add-on's own crate
+#[path = "../../league_jhin_whisper/src/lib.rs"]
+mod jhin_whisper;
+#[allow(dead_code)] // items public in the add-on's own crate
+#[path = "../../league_shaco_backstab/src/lib.rs"]
+mod shaco_backstab;
+#[allow(dead_code)] // items public in the add-on's own crate
+#[path = "../../league_sett_grit/src/lib.rs"]
+mod sett_grit;
+#[allow(dead_code)] // items public in the add-on's own crate
+#[path = "../../league_varus_blight/src/lib.rs"]
+mod varus_blight;
+#[allow(dead_code)] // items public in the add-on's own crate
+#[path = "../../league_xayah_feathers/src/lib.rs"]
+mod xayah_feathers;
+#[allow(dead_code)] // items public in the add-on's own crate
+#[path = "../../league_annie_q/src/lib.rs"]
+mod annie_q;
+#[allow(dead_code)] // items public in the add-on's own crate
+#[path = "../../league_support_pick/src/lib.rs"]
+mod support_pick;
+#[allow(dead_code)] // items public in the add-on's own crate
+#[path = "../../league_briar_frenzy/src/lib.rs"]
+mod briar_frenzy;
+#[allow(dead_code)] // items public in the add-on's own crate
+#[path = "../../league_teemo_shrooms/src/lib.rs"]
+mod teemo_shrooms;
+#[allow(dead_code)] // items public in the add-on's own crate
+#[path = "../../league_yasuo_wall/src/lib.rs"]
+mod yasuo_wall;
 #[path = "../../league_shen_shield/src/lib.rs"]
 mod shen_shield;
 #[allow(dead_code)] // items public in the add-on's own crate
@@ -399,6 +461,27 @@ fn init(host: &StableHost) -> StableMod {
     jayce::register(host, &mut module);
     elise::register(host, &mut module);
     katarina::register(host, &mut module);
+    ahri::register(host, &mut module);
+    garen_ult::register(host, &mut module);
+    takedowns::register(host, &mut module);
+    executes::register(host, &mut module);
+    lowhp::register(host, &mut module);
+    marks::register(host, &mut module);
+    ult_aim::register(host, &mut module);
+    ekko_rewind::register(host, &mut module);
+    samira_r::register(host, &mut module);
+    thresh_lantern::register(host, &mut module);
+    yone_r::register(host, &mut module);
+    jhin_whisper::register(host, &mut module);
+    shaco_backstab::register(host, &mut module);
+    sett_grit::register(host, &mut module);
+    varus_blight::register(host, &mut module);
+    xayah_feathers::register(host, &mut module);
+    annie_q::register(host, &mut module);
+    support_pick::register(host, &mut module);
+    briar_frenzy::register(host, &mut module);
+    teemo_shrooms::register(host, &mut module);
+    yasuo_wall::register(host, &mut module);
     shen_shield::register(host, &mut module);
     tahmkench::register(host, &mut module);
     kalista::register(host, &mut module);
