@@ -1779,8 +1779,8 @@
               "effects": [
                 {
                   "type": "Pull",
-                  "speed": 2600,
-                  "tick": 10
+                  "speed": 9000,
+                  "tick": 3
                 },
                 {
                   "type": "ViewEffect",
@@ -1848,6 +1848,18 @@
                         "name": "league_urgot_w_on"
                       }
                     ]
+                  }
+                },
+                {
+                  "type": "AddBuff",
+                  "buff_state": {
+                    "name": "league_urgot_e_plant",
+                    "duration": {
+                      "Time": {
+                        "tick": 19
+                      }
+                    },
+                    "move_speed_mult": -100
                   }
                 }
               ]
