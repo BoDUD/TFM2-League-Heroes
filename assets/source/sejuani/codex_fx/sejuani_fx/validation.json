@@ -1,0 +1,10 @@
+{
+  "poses": 14,
+  "fx_sheets": 15,
+  "fx_frames": 58,
+  "mechanical_errors": [],
+  "mechanical_pass": true,
+  "pose_hard_alpha_pass": 0,
+  "pose_uniform_grid_not_certified": true,
+  "game_import_tested": false
+}
