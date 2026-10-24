@@ -1,6 +1,6 @@
 {
   "league_aatrox": {"idle": [["attack_p", [0, 1, 2]], ["ult", [0]]]},
-  "league_ahri": {"idle": [["skill2", [0, 1]], ["attack", [3, 4]]]},
+  "league_ahri": {"idle": [["skill2", [0, 1, 2, 3]], ["attack", [0, 1]]]},
   "league_akali": {"idle": [["attack", [0, 1]]]},
   "league_akshan": {"idle": [["skill", [0, 1]], ["ult", [0, 1]]]},
   "league_alistar": {"idle": [["ult", [0, 1]], ["attack", [5]]]},

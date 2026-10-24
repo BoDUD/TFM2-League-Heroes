@@ -1,0 +1,37 @@
+{
+  "zh-hans": {
+    "description": {
+      "league_ekko_rewind": {
+        "ult": "【附加包】回到<#ffb900ff>4秒<>前的位置，短暂无敌并回复<#6aff55ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% 法术强度<>的<#6aff55ff>生命值<>（这4秒每损失1%生命 +<#ffb900ff>4%<>，最多 +<#ffb900ff>200%<>），对落点周围的敌人造成<#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100% 法术强度<>的<#a974ffff>魔法伤害<>。残血、掉血快或回去能打到人时释放。"
+      }
+    }
+  },
+  "zh-hant": {
+    "description": {
+      "league_ekko_rewind": {
+        "ult": "【附加包】回到<#ffb900ff>4秒<>前的位置，短暫無敵並回復<#6aff55ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% 魔法強度<>的<#6aff55ff>生命值<>（這4秒每損失1%生命 +<#ffb900ff>4%<>，最多 +<#ffb900ff>200%<>），對落點周圍的敵人造成<#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100% 魔法強度<>的<#a974ffff>魔法傷害<>。殘血、掉血快或回去能打到人時施放。"
+      }
+    }
+  },
+  "en": {
+    "description": {
+      "league_ekko_rewind": {
+        "ult": "[Add-on] Ekko snaps back to where he was <#ffb900ff>4s<> ago, briefly invulnerable, heals <#6aff55ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% Ability Power<> <#6aff55ff>health<> (+<#ffb900ff>4%<> per 1% health lost in those 4s, up to +<#ffb900ff>200%<>) and deals <#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100% Ability Power<> <#a974ffff>magic damage<> to enemies around his arrival point. Cast when low, after a burst, or to land on enemies."
+      }
+    }
+  },
+  "ko": {
+    "description": {
+      "league_ekko_rewind": {
+        "ult": "[확장] <#ffb900ff>4초<> 전의 위치로 되돌아갑니다. 잠시 무적이 되며 <#6aff55ff>체력<>을 <#6aff55ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 80%<> 회복하고(그 4초 동안 잃은 체력 1%당 +<#ffb900ff>4%<>, 최대 +<#ffb900ff>200%<>), 도착 지점 주변의 적에게 <#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 100%<> <#a974ffff>마법 피해<>를 입힙니다. 체력이 낮거나 급격히 잃었거나 적에게 착지할 수 있을 때 사용합니다."
+      }
+    }
+  },
+  "ja": {
+    "description": {
+      "league_ekko_rewind": {
+        "ult": "【拡張】<#ffb900ff>4秒<>前の位置へ戻る。一瞬無敵になり<#6aff55ff>体力<>を<#6aff55ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の80%<>回復し（その4秒の減少体力1%ごとに+<#ffb900ff>4%<>、最大+<#ffb900ff>200%<>）、到着地点周囲の敵に<#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の100%<>の<#a974ffff>魔法ダメージ<>を与える。瀕死、急な被弾、敵の中へ戻れる時に使う。"
+      }
+    }
+  }
+}

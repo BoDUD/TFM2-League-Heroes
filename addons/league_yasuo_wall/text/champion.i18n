@@ -1,0 +1,37 @@
+{
+  "zh-hans": {
+    "description": {
+      "league_yasuo_wall": {
+        "attack": "【附加包】普攻造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻击力<>的<#ff9028ff>物理伤害<>。被动 <#ff9028ff>浪客之道<>：<#ffb900ff>20%<>暴击几率，暴击造成双倍伤害。<#ff9028ff>剑意<>每<#ffb900ff>15秒<>充满一次，充满后下一次出手获得<#e8d44dff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40% 攻击力<>的<#e8d44dff>护盾<>，持续<#ffb900ff>2秒<>。<#ff9028ff>风之障壁<>：飞行物来袭时竖起风墙<#ffb900ff>4秒<>，挡下敌方英雄的飞行物（<#ffb900ff>20秒<>一次）。"
+      }
+    }
+  },
+  "zh-hant": {
+    "description": {
+      "league_yasuo_wall": {
+        "attack": "【附加包】普攻造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻擊力<>的<#ff9028ff>物理傷害<>。被動 <#ff9028ff>浪人之道<>：<#ffb900ff>20%<>暴擊率，暴擊造成雙倍傷害。<#ff9028ff>風湧<>每<#ffb900ff>15秒<>充滿一次，充滿後下一次出手獲得<#e8d44dff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40% 攻擊力<>的<#e8d44dff>護盾<>，持續<#ffb900ff>2秒<>。<#ff9028ff>風之障壁<>：飛行物來襲時豎起風牆<#ffb900ff>4秒<>，擋下敵方英雄的飛行物（<#ffb900ff>20秒<>一次）。"
+      }
+    }
+  },
+  "en": {
+    "description": {
+      "league_yasuo_wall": {
+        "attack": "[Add-on] Basic attacks deal <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% AD<> <#ff9028ff>physical damage<>. Passive <#ff9028ff>Way of the Wanderer<>: <#ffb900ff>20%<> critical strike chance; crits deal double damage. <#ff9028ff>Flow<> fills every <#ffb900ff>15s<>; when full, Yasuo's next attack or ability grants him a <#e8d44dff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40% AD<> <#e8d44dff>shield<> for <#ffb900ff>2s<>. <#ff9028ff>Wind Wall<>: stops enemy champions' missiles for <#ffb900ff>4s<> when they fly in (every <#ffb900ff>20s<>)."
+      }
+    }
+  },
+  "ko": {
+    "description": {
+      "league_yasuo_wall": {
+        "attack": "[확장] 기본 공격으로 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 100%<> <#ff9028ff>물리 피해<>를 입힙니다. 기본 지속 효과 <#ff9028ff>낭인의 길<>: 치명타 확률 <#ffb900ff>20%<>, 치명타 피해 2배. <#ff9028ff>기류<>가 <#ffb900ff>15초<>마다 가득 차며, 가득 차면 다음 행동으로 <#ffb900ff>2초<> 동안 <#e8d44dff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 40%<> <#e8d44dff>보호막<>을 얻습니다. <#ff9028ff>바람 장막<>: <#ffb900ff>4초<>간 적 챔피언 투사체 차단(<#ffb900ff>20초<>마다)."
+      }
+    }
+  },
+  "ja": {
+    "description": {
+      "league_yasuo_wall": {
+        "attack": "【拡張】通常攻撃は<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の100%<>の<#ff9028ff>物理ダメージ<>を与える。パッシブ <#ff9028ff>浪人道<>：クリティカル率<#ffb900ff>20%<>、クリティカルで2倍ダメージ。<#ff9028ff>波動<>は<#ffb900ff>15秒<>ごとに満タンになり、次の行動で<#ffb900ff>2秒<>間<#e8d44dff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の40%<>の<#e8d44dff>シールド<>を得る。<#ff9028ff>風殺の壁<>：<#ffb900ff>4秒<>敵の飛び道具を防ぐ（<#ffb900ff>20秒<>毎）。"
+      }
+    }
+  }
+}

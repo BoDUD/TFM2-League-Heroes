@@ -1,0 +1,37 @@
+{
+  "zh-hans": {
+    "description": {
+      "league_varus_blight": {
+        "attack": "【附加包】射箭攻击，附带<#a974ffff>20魔法伤害<>，命中英雄叠一层<#ff9028ff>枯萎<>（最多3层，每个英雄各算各的）。被动<#ff9028ff>复仇之欲<>：击杀英雄后攻速+<#ffb900ff>60%<>，击杀小兵野怪+<#ffb900ff>20%<>，持续5秒。"
+      }
+    }
+  },
+  "zh-hant": {
+    "description": {
+      "league_varus_blight": {
+        "attack": "【附加包】射箭攻擊，附帶<#a974ffff>20魔法傷害<>，命中英雄疊一層<#ff9028ff>荒蕪<>（最多3層，每個英雄各算各的）。被動<#ff9028ff>復仇怒火<>：擊殺英雄後攻速+<#ffb900ff>60%<>，擊殺小兵野怪+<#ffb900ff>20%<>，持續5秒。"
+      }
+    }
+  },
+  "en": {
+    "description": {
+      "league_varus_blight": {
+        "attack": "[Add-on] Shoots arrows dealing <#a974ffff>20 magic damage<> on hit; each champion hit adds a stack of <#ff9028ff>Blight<> on that champion (up to 3 each). Passive <#ff9028ff>Living Vengeance<>: a champion kill gives <#ffb900ff>+60%<> attack speed, a minion or monster kill <#ffb900ff>+20%<>, for 5s."
+      }
+    }
+  },
+  "ko": {
+    "description": {
+      "league_varus_blight": {
+        "attack": "[확장] 화살로 공격해 <#a974ffff>20의 마법 피해<>를 추가로 입히고, 챔피언에게 <#ff9028ff>역병<> 중첩을 그 챔피언에게 쌓습니다(각각 최대 3). 기본 지속 효과 <#ff9028ff>죽지 않는 복수심<>: 챔피언 처치 시 공격 속도 <#ffb900ff>+60%<>, 미니언·몬스터 처치 시 <#ffb900ff>+20%<> (5초)."
+      }
+    }
+  },
+  "ja": {
+    "description": {
+      "league_varus_blight": {
+        "attack": "【拡張】矢で攻撃し<#a974ffff>20の魔法ダメージ<>を追加、チャンピオンに<#ff9028ff>枯死<>をそのチャンピオンに付与（各最大3）。パッシブ <#ff9028ff>復讐の化身<>：チャンピオンを倒すと攻撃速度<#ffb900ff>+60%<>、ミニオン・モンスターで<#ffb900ff>+20%<>（5秒）。"
+      }
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "author": "BoDUD",
+  "contains_code": true,
+  "dependencies": [
+    {
+      "mod_id": "base",
+      "version": ">=0.4.11"
+    },
+    {
+      "mod_id": "league",
+      "version": ">=0.210.0"
+    }
+  ],
+  "description": "Test build of Yasuo's Wind Wall (needs League of Legends Heroes): when enemy champions' missiles fly at Yasuo or an ally near him (two or more, or one at a low ally), he raises a bowed wall of rising wind in front of him for 4 seconds (every 20 seconds); a missile crossing it is stopped - the game cannot delete a missile, so the damage it then does to an ally is given back and its new crowd control cleared. The main pack's Yasuo has no Wind Wall. Other champions are untouched. Writes a log for testing.",
+  "last_updated": "2026-10-24",
+  "mod_id": "league_yasuo_wall",
+  "mod_type": "native",
+  "name": "League Heroes: Yasuo's Wind Wall (test)",
+  "version": "0.1.0"
+}

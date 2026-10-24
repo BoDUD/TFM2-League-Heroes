@@ -1,0 +1,20 @@
+{
+  "author": "BoDUD",
+  "contains_code": true,
+  "dependencies": [
+    {
+      "mod_id": "base",
+      "version": ">=0.4.11"
+    },
+    {
+      "mod_id": "league",
+      "version": ">=0.210.0"
+    }
+  ],
+  "description": "Test build of Jhin's Whisper as in League (needs League of Legends Heroes): replaces the main pack's Jhin so bonus attack speed from items and buffs no longer speeds his shots; each 1% becomes 0.25% attack damage instead (the main pack's Jhin shoots faster with attack speed). Attack speed slows still apply. Other champions are untouched. Writes a log for testing.",
+  "last_updated": "2026-10-24",
+  "mod_id": "league_jhin_whisper",
+  "mod_type": "native",
+  "name": "League Heroes: Jhin's bonus attack speed into attack damage (test)",
+  "version": "0.1.0"
+}

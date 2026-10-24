@@ -1,0 +1,10 @@
+{
+  "asset/league/champion/league_yone": {
+    "remapping": "asset/league_yone_r/override/league_yone",
+    "type": "override"
+  },
+  "asset/base/text/champion": {
+    "remapping": "asset/league_yone_r/text/champion",
+    "type": "merge"
+  }
+}

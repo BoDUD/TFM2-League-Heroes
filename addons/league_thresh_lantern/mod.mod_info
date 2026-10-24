@@ -1,0 +1,20 @@
+{
+  "author": "BoDUD",
+  "contains_code": true,
+  "dependencies": [
+    {
+      "mod_id": "base",
+      "version": ">=0.4.11"
+    },
+    {
+      "mod_id": "league",
+      "version": ">=0.210.0"
+    }
+  ],
+  "description": "Test build of Thresh's Dark Passage as in League (needs League of Legends Heroes): replaces the main pack's Thresh so his lantern goes to the allied champion in most danger (low health or surrounded) instead of a random one, and pulls that ally to him (the main pack's only shields, since nobody can click a lantern in data). The shield is the main pack's. Other champions are untouched. Writes a log for testing.",
+  "last_updated": "2026-10-24",
+  "mod_id": "league_thresh_lantern",
+  "mod_type": "native",
+  "name": "League Heroes: Thresh's lantern pulls the ally in danger (test)",
+  "version": "0.1.0"
+}

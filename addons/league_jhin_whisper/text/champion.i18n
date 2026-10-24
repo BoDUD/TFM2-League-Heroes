@@ -1,0 +1,37 @@
+{
+  "zh-hans": {
+    "description": {
+      "league_jhin_whisper": {
+        "attack": "【附加包】被动 <#ff9028ff>低语<>：四发一轮，第四发必定<#ff9028ff>暴击<>并附加目标<#ffb900ff>10%<>最大生命值的伤害，然后装弹<#ffb900ff>2.17秒<>（可走动、放技能）并加速<#ffb900ff>25%<>。烬击杀的英雄会在倒下处绽放莲花。额外攻速不加快开枪，每<#ffb900ff>1%<>换成<#ffb900ff>0.25%<>攻击力。"
+      }
+    }
+  },
+  "zh-hant": {
+    "description": {
+      "league_jhin_whisper": {
+        "attack": "【附加包】被動 <#ff9028ff>低語<>：四發一輪，第四發必定<#ff9028ff>暴擊<>並附加目標<#ffb900ff>10%<>最大生命值的傷害，然後裝彈<#ffb900ff>2.17秒<>（可走動、施放技能）並加速<#ffb900ff>25%<>。燼擊殺的英雄會在倒下處綻放蓮花。額外攻速不加快開槍，每<#ffb900ff>1%<>換成<#ffb900ff>0.25%<>攻擊力。"
+      }
+    }
+  },
+  "en": {
+    "description": {
+      "league_jhin_whisper": {
+        "attack": "[Add-on] Passive <#ff9028ff>Whisper<>: four shots a round; the fourth always <#ff9028ff>crits<> and adds <#ffb900ff>10%<> of the target's max health, then Jhin reloads for <#ffb900ff>2.17s<> (he can move and cast meanwhile) and gains <#ffb900ff>25%<> move speed. Champions he kills bloom a lotus where they fall. Bonus attack speed does not speed his shots: each <#ffb900ff>1%<> becomes <#ffb900ff>0.25%<> AD."
+      }
+    }
+  },
+  "ko": {
+    "description": {
+      "league_jhin_whisper": {
+        "attack": "[확장] 기본 지속 효과 <#ff9028ff>속삭임<>: 네 발이 한 바퀴이며 네 번째 공격은 항상 <#ff9028ff>치명타<>로 대상 최대 체력의 <#ffb900ff>10%<>를 더합니다. 이후 <#ffb900ff>2.17초<> 동안 재장전(이동, 스킬 사용 가능)하며 이동 속도 +<#ffb900ff>25%<>. 진이 처치한 챔피언 자리에 연꽃이 핍니다. 추가 공격 속도 <#ffb900ff>1%<>당 공격력 <#ffb900ff>0.25%<>로 전환."
+      }
+    }
+  },
+  "ja": {
+    "description": {
+      "league_jhin_whisper": {
+        "attack": "【拡張】パッシブ <#ff9028ff>囁き<>：4発で1巡、4発目は必ず<#ff9028ff>クリティカル<>し対象の最大体力の<#ffb900ff>10%<>を追加。その後<#ffb900ff>2.17秒<>リロード（移動・スキル可）し移動速度+<#ffb900ff>25%<>。キルしたチャンピオンの場所に蓮が咲く。追加攻撃速度は<#ffb900ff>1%<>ごとに攻撃力<#ffb900ff>0.25%<>に変換。"
+      }
+    }
+  }
+}

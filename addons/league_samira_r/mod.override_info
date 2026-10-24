@@ -1,0 +1,10 @@
+{
+  "asset/league/champion/league_samira": {
+    "remapping": "asset/league_samira_r/override/league_samira",
+    "type": "override"
+  },
+  "asset/base/text/champion": {
+    "remapping": "asset/league_samira_r/text/champion",
+    "type": "merge"
+  }
+}

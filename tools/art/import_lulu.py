@@ -62,6 +62,10 @@ RAMPS = {
     "GOLD": ["FF9E21", "FFC63A", "FFE47A", "FFF8D6", "FFFFFF"],
     "GREEN": ["2A7A22", "4AAE2C", "7CD83A", "B4F04E", "DCFF8A", "F4FFD6", "FFFFFF"],
     "FUR": ["2A1430", "5A2E66", "8A4A8A", "C068A8", "E890C0", "F8C0DC", "FFE6F2", "FFFFFF"],
+    # League's Squill (2026-10-24 redo): its plum outline, the lilac fur, the white face and tail tips, the pink ears and
+    # nose, the eyes (tools/art/pack_squill_windwall.py's colours)
+    "SQUILL": ["2A1430", "38206E", "5634A8", "7A50D4", "9C74EC", "BE9CF8", "DCC8FF", "F4ECFF", "FFFFFF", "F0F0FA",
+               "D2D4EA", "A8ACCE", "FFD6F0", "FF9ADA", "F05AC0", "B82A94", "120A1E"],
 }
 # a glow's darkest shade at its edge -> the next shade (the critter's plum outline stays)
 RIM = {"7A1890": "B020B8", "3A1C90": "5A30C8", "FF9E21": "FFC63A", "2A7A22": "4AAE2C"}
@@ -77,9 +81,11 @@ RAW = {
     "q_hit": dict(n=5, size=16, measure="m", anchor=("grid", "box"), ramps="PINK VIOLET GOLD"),
     "q_slow2": dict(n=4, size=18, measure="w", anchor=("grid", "ellipse"), ramps="PINK VIOLET"),
     "w_bolt": dict(n=4, size=12, measure="w", anchor="head", ramps="PINK VIOLET GOLD"),
-    "w_poly_in": dict(n=4, size=36, measure="h", anchor=("grid", "low"), ramps="PINK VIOLET FUR", critter=18),
-    "w_poly": dict(n=6, size=32, measure="h", anchor=("grid", "low"), ramps="PINK VIOLET FUR", critter=18),
-    "w_poly_out": dict(n=4, size=36, measure="h", anchor=("grid", "low"), ramps="PINK VIOLET FUR"),
+    # 2026-10-24 redo (the user's pick C of tools/art/pack_squill_windwall.py: League's Squill, 20 px, before a
+    # 34 x 30 cloud; Codex's squill_windwall_C_pack, equal cells; in and out on the loop's scale, 0.1 a source px)
+    "w_poly_in": dict(n=4, size=42, measure="h", anchor=("grid", "low"), ramps="PINK VIOLET SQUILL", critter=24),
+    "w_poly": dict(n=6, size=32, measure="h", anchor=("grid", "low"), ramps="PINK VIOLET SQUILL", critter=24, steady=True),
+    "w_poly_out": dict(n=4, size=46, measure="h", anchor=("grid", "low"), ramps="PINK VIOLET SQUILL"),
     "e_pix": dict(n=4, size=12, measure="w", anchor="head", ramps="VIOLET PINK", mirror=True),
     "e_land": dict(n=5, size=26, measure="h", anchor=("grid", "ellipse"), ramps="VIOLET PINK GOLD"),
     "e_on": dict(n=6, size=44, measure="h", anchor=("grid", "ellipse"), ramps="VIOLET PINK GOLD"),
@@ -103,7 +109,7 @@ def unrim(a):
 
 
 OUTLINE = "2A1430"
-FUR = set(RAMPS["FUR"]) - {"FFFFFF"}
+FUR = (set(RAMPS["FUR"]) | set(RAMPS["SQUILL"][:8]) | {"120A1E"}) - {"FFFFFF"}
 
 
 def critter_of(solid, outline):
@@ -207,11 +213,16 @@ def smoke_over(cell, keep, hexes_):
     return int(left.sum())
 
 
-def from_raw(folder):
+def from_raw(folder, only=None):
     with open(G.lp(os.path.join(folder, "manifest.json")), encoding="utf-8-sig") as f:
         manifest = {os.path.basename(a["file"]): a for a in json.load(f)["assets"]}
     anchors = {}
+    if only:                                             # a redo of some strips: the others keep their anchors
+        with open(G.lp(os.path.join(SRC, "lulu_fx_anchors.json")), encoding="utf-8") as f:
+            anchors = json.load(f)
     for name, spec in RAW.items():
+        if only and name not in only:
+            continue
         fn = f"lulu_fx_{name}.png"
         hexes_, pal = palette(spec["ramps"])
         a = np.asarray(Image.open(G.lp(os.path.join(folder, fn))).convert("RGBA")).copy()
@@ -295,6 +306,22 @@ def from_raw(folder):
             if spec.get("mirror"):
                 cell = J.mirror(cell, U)
             out[:, i * tw:(i + 1) * tw] = cell
+        if spec.get("steady"):
+            # a loop: Codex slid the critter a few px from frame to frame - each cell moved so the critter's outline
+            # (its middle column) stands on the median one
+            mids = []
+            for i in range(len(rects)):
+                c = out[:, i * tw:(i + 1) * tw]
+                xs = np.nonzero((J.hexes(c) == OUTLINE) & (c[..., 3] > 0))[1]
+                mids.append((xs.min() + xs.max()) / 2 if len(xs) else None)
+            want = float(np.median([m for m in mids if m is not None]))
+            for i, m in enumerate(mids):
+                if m is None:
+                    continue
+                d = int(round(want - m))
+                c = out[:, i * tw:(i + 1) * tw].copy()
+                out[:, i * tw:(i + 1) * tw] = np.roll(c, d, axis=1)
+                print(f"  {name} {i}: critter moved {d:+d} px")
         Image.fromarray(np.repeat(np.repeat(out, Z, 0), Z, 1), "RGBA").save(G.lp(os.path.join(SRC, fn)))
         anchors[name] = {"cell": [tw, th], "anchor": [L, U], "frames": len(rects)}
         print(f"{fn}  {len(rects)} cells of {tw}x{th}, anchor {L},{U}, scale {s:.4f} ({spec['size']} px over "
@@ -381,9 +408,10 @@ def build(table):
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--raw", help="Codex's delivery folder: rebuild the native strips from its PNGs first")
+    ap.add_argument("--only", help="with --raw: just these strips (comma separated), e.g. w_poly_in,w_poly,w_poly_out")
     args = ap.parse_args()
     if args.raw:
-        from_raw(args.raw)
+        from_raw(args.raw, set(args.only.split(",")) if args.only else None)
     for sheet, table in (("league_lulu_fx", FX), ("league_lulu_big", BIG)):
         tags = build(table)
         w, h = G.write_sheet(os.path.join(MOD, "effects", sheet), tags)

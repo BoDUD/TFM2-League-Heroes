@@ -1,0 +1,20 @@
+{
+  "author": "BoDUD",
+  "contains_code": true,
+  "dependencies": [
+    {
+      "mod_id": "base",
+      "version": ">=0.4.11"
+    },
+    {
+      "mod_id": "league",
+      "version": ">=0.210.0"
+    }
+  ],
+  "description": "Test build of Ekko's Chronobreak as in League (needs League of Legends Heroes): replaces the main pack's Ekko so his ult takes him back to where he was 4 seconds ago at once, healing more for the health he lost in those 4 seconds (+4% per 1%, up to +200%), and the AI casts it when he is low, after a burst, or to land on enemies (the main pack's leaves an anchor and snaps back 4 seconds later with a fixed heal, since data cannot remember past positions). Other champions are untouched. Writes a log for testing.",
+  "last_updated": "2026-10-24",
+  "mod_id": "league_ekko_rewind",
+  "mod_type": "native",
+  "name": "League Heroes: Ekko's Chronobreak back to 4 seconds ago (test)",
+  "version": "0.1.0"
+}

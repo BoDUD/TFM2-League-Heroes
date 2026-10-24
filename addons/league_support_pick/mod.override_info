@@ -1,0 +1,18 @@
+{
+  "asset/league/champion/league_janna": {
+    "remapping": "asset/league_support_pick/override/league_janna",
+    "type": "override"
+  },
+  "asset/league/champion/league_sona": {
+    "remapping": "asset/league_support_pick/override/league_sona",
+    "type": "override"
+  },
+  "asset/league/champion/league_lulu": {
+    "remapping": "asset/league_support_pick/override/league_lulu",
+    "type": "override"
+  },
+  "asset/base/text/champion": {
+    "remapping": "asset/league_support_pick/text/champion",
+    "type": "merge"
+  }
+}

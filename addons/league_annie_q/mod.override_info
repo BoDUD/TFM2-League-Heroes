@@ -1,0 +1,10 @@
+{
+  "asset/league/champion/league_annie": {
+    "remapping": "asset/league_annie_q/override/league_annie",
+    "type": "override"
+  },
+  "asset/base/text/champion": {
+    "remapping": "asset/league_annie_q/text/champion",
+    "type": "merge"
+  }
+}
