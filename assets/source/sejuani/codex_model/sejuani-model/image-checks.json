@@ -1,0 +1,110 @@
+[
+  {
+    "file": "sejuani-A-1.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_levels": 256,
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "semitransparent_pixels": 589162,
+    "visible_bbox_alpha_ge_128": [
+      70,
+      240,
+      1164,
+      1185
+    ],
+    "visible_height": 945,
+    "target_top": 216,
+    "target_bottom": 1188,
+    "grid18_sampled_occupied_cells": 1937,
+    "grid18_sampled_uniform_cells": 0,
+    "strict_grid18_pass": false,
+    "notes": "Sample-based grid diagnostic; no image pixels modified. Not a certified uniform logical-pixel grid."
+  },
+  {
+    "file": "sejuani-A-2.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_levels": 256,
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "semitransparent_pixels": 592343,
+    "visible_bbox_alpha_ge_128": [
+      78,
+      250,
+      1150,
+      1187
+    ],
+    "visible_height": 937,
+    "target_top": 216,
+    "target_bottom": 1188,
+    "grid18_sampled_occupied_cells": 1886,
+    "grid18_sampled_uniform_cells": 0,
+    "strict_grid18_pass": false,
+    "notes": "Sample-based grid diagnostic; no image pixels modified. Not a certified uniform logical-pixel grid."
+  },
+  {
+    "file": "sejuani-B-1.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_levels": 256,
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "semitransparent_pixels": 639148,
+    "visible_bbox_alpha_ge_128": [
+      57,
+      177,
+      1174,
+      1188
+    ],
+    "visible_height": 1011,
+    "target_top": 180,
+    "target_bottom": 1188,
+    "grid18_sampled_occupied_cells": 2054,
+    "grid18_sampled_uniform_cells": 0,
+    "strict_grid18_pass": false,
+    "notes": "Sample-based grid diagnostic; no image pixels modified. Not a certified uniform logical-pixel grid."
+  },
+  {
+    "file": "sejuani-B-2.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_levels": 256,
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "semitransparent_pixels": 609964,
+    "visible_bbox_alpha_ge_128": [
+      59,
+      186,
+      1167,
+      1176
+    ],
+    "visible_height": 990,
+    "target_top": 180,
+    "target_bottom": 1188,
+    "grid18_sampled_occupied_cells": 1972,
+    "grid18_sampled_uniform_cells": 0,
+    "strict_grid18_pass": false,
+    "notes": "Sample-based grid diagnostic; no image pixels modified. Not a certified uniform logical-pixel grid."
+  }
+]

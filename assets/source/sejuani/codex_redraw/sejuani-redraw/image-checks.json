@@ -1,0 +1,110 @@
+[
+  {
+    "file": "sejuani-A-1.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_levels": 256,
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "semitransparent_pixels": 665908,
+    "visible_bbox_alpha_ge_128": [
+      41,
+      192,
+      1204,
+      1193
+    ],
+    "visible_height": 1001,
+    "target_top": 182,
+    "target_bottom": 1190,
+    "grid14_sampled_occupied_cells": 3538,
+    "grid14_sampled_uniform_cells": 0,
+    "hard_alpha_pass": false,
+    "grid_test_note": "Nine samples per complete 14px cell starting at (0,0); diagnostics only. No image edits."
+  },
+  {
+    "file": "sejuani-A-2.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_levels": 256,
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "semitransparent_pixels": 719994,
+    "visible_bbox_alpha_ge_128": [
+      39,
+      165,
+      1233,
+      1205
+    ],
+    "visible_height": 1040,
+    "target_top": 182,
+    "target_bottom": 1190,
+    "grid14_sampled_occupied_cells": 3833,
+    "grid14_sampled_uniform_cells": 0,
+    "hard_alpha_pass": false,
+    "grid_test_note": "Nine samples per complete 14px cell starting at (0,0); diagnostics only. No image edits."
+  },
+  {
+    "file": "sejuani-B-1.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_levels": 256,
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "semitransparent_pixels": 699827,
+    "visible_bbox_alpha_ge_128": [
+      33,
+      123,
+      1227,
+      1200
+    ],
+    "visible_height": 1077,
+    "target_top": 126,
+    "target_bottom": 1190,
+    "grid14_sampled_occupied_cells": 3727,
+    "grid14_sampled_uniform_cells": 0,
+    "hard_alpha_pass": false,
+    "grid_test_note": "Nine samples per complete 14px cell starting at (0,0); diagnostics only. No image edits."
+  },
+  {
+    "file": "sejuani-B-2.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_levels": 256,
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "semitransparent_pixels": 717698,
+    "visible_bbox_alpha_ge_128": [
+      40,
+      121,
+      1218,
+      1202
+    ],
+    "visible_height": 1081,
+    "target_top": 126,
+    "target_bottom": 1190,
+    "grid14_sampled_occupied_cells": 3699,
+    "grid14_sampled_uniform_cells": 0,
+    "hard_alpha_pass": false,
+    "grid_test_note": "Nine samples per complete 14px cell starting at (0,0); diagnostics only. No image edits."
+  }
+]

@@ -1,0 +1,310 @@
+[
+  {
+    "file": "sejuani-pose-a_wind.png",
+    "raw": "raw/sejuani-pose-a_wind-original.png",
+    "sha256": "80e55d0f0b6e02608f4f7220f8bdd55a26c1a99b6861ef285a180ac7fe64c629",
+    "checks": {
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_levels": 256,
+      "hard_alpha": false,
+      "bbox_alpha_ge128": [
+        59,
+        294,
+        1197,
+        1176
+      ],
+      "grid11_sampled_occupied": 4527,
+      "grid11_sampled_uniform": 0
+    },
+    "status": "generated_pose_source_requires_rig_validation"
+  },
+  {
+    "file": "sejuani-pose-a_smash.png",
+    "raw": "raw/sejuani-pose-a_smash-original.png",
+    "sha256": "03156ba661748f84ae609106fa600a0dbe4d3449fc932f91300313c65d715846",
+    "checks": {
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_levels": 256,
+      "hard_alpha": false,
+      "bbox_alpha_ge128": [
+        59,
+        402,
+        1254,
+        1146
+      ],
+      "grid11_sampled_occupied": 3494,
+      "grid11_sampled_uniform": 0
+    },
+    "status": "generated_pose_source_requires_rig_validation"
+  },
+  {
+    "file": "sejuani-pose-q_toss.png",
+    "raw": "raw/sejuani-pose-q_toss-original.png",
+    "sha256": "3900d87c3fab888d292c728ed0ed29a6464755d02da0a633f265a9c6b216ea34",
+    "checks": {
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_levels": 256,
+      "hard_alpha": false,
+      "bbox_alpha_ge128": [
+        20,
+        215,
+        1245,
+        1127
+      ],
+      "grid11_sampled_occupied": 4890,
+      "grid11_sampled_uniform": 0
+    },
+    "status": "generated_pose_source_requires_rig_validation"
+  },
+  {
+    "file": "sejuani-pose-w_sweep.png",
+    "raw": "raw/sejuani-pose-w_sweep-original.png",
+    "sha256": "37417631450fde5eb5f4c8e37ba8a4414ecb88324a124275bd8e3678b3c863c1",
+    "checks": {
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_levels": 256,
+      "hard_alpha": false,
+      "bbox_alpha_ge128": [
+        48,
+        298,
+        1250,
+        1048
+      ],
+      "grid11_sampled_occupied": 3455,
+      "grid11_sampled_uniform": 0
+    },
+    "status": "generated_pose_source_requires_rig_validation"
+  },
+  {
+    "file": "sejuani-pose-w_raise.png",
+    "raw": "raw/sejuani-pose-w_raise-original.png",
+    "sha256": "25c98c8da6b2d1ac5ff9cdea0cc30f55eeab8a93f0bec58197cac6229292e92a",
+    "checks": {
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_levels": 256,
+      "hard_alpha": false,
+      "bbox_alpha_ge128": [
+        157,
+        59,
+        1088,
+        1215
+      ],
+      "grid11_sampled_occupied": 4121,
+      "grid11_sampled_uniform": 1
+    },
+    "status": "generated_pose_source_requires_rig_validation"
+  },
+  {
+    "file": "sejuani-pose-w_slam.png",
+    "raw": "raw/sejuani-pose-w_slam-original.png",
+    "sha256": "43224bd7b34d95795e652f7a66f06260ab01c59371ea4d33b78e288d12b0b143",
+    "checks": {
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_levels": 256,
+      "hard_alpha": false,
+      "bbox_alpha_ge128": [
+        26,
+        453,
+        1230,
+        1197
+      ],
+      "grid11_sampled_occupied": 3933,
+      "grid11_sampled_uniform": 0
+    },
+    "status": "generated_pose_source_requires_rig_validation"
+  },
+  {
+    "file": "sejuani-pose-r_wind.png",
+    "raw": "raw/sejuani-pose-r_wind-original.png",
+    "sha256": "a2c7efde29700ca795b4cd422453c93678b23541a28a97c0895e3a361918a430",
+    "checks": {
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_levels": 256,
+      "hard_alpha": false,
+      "bbox_alpha_ge128": [
+        167,
+        86,
+        1176,
+        1195
+      ],
+      "grid11_sampled_occupied": 5123,
+      "grid11_sampled_uniform": 0
+    },
+    "status": "generated_pose_source_requires_rig_validation"
+  },
+  {
+    "file": "sejuani-pose-r_throw.png",
+    "raw": "raw/sejuani-pose-r_throw-original.png",
+    "sha256": "d6226fb2a22a6152f0ed26450c18b4af3d7689acc99e25015ef69b8db35e4a16",
+    "checks": {
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_levels": 256,
+      "hard_alpha": false,
+      "bbox_alpha_ge128": [
+        59,
+        283,
+        1216,
+        1166
+      ],
+      "grid11_sampled_occupied": 4551,
+      "grid11_sampled_uniform": 0
+    },
+    "status": "generated_pose_source_requires_rig_validation"
+  },
+  {
+    "file": "sejuani-pose-run1.png",
+    "raw": "raw/sejuani-pose-run1-original.png",
+    "sha256": "4964b09a7a3f2ff07b0773b7a4a3074093430540ada00be72b009401ce5c0074",
+    "checks": {
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_levels": 256,
+      "hard_alpha": false,
+      "bbox_alpha_ge128": [
+        40,
+        300,
+        1226,
+        1214
+      ],
+      "grid11_sampled_occupied": 4851,
+      "grid11_sampled_uniform": 0
+    },
+    "status": "generated_pose_source_requires_rig_validation"
+  },
+  {
+    "file": "sejuani-pose-run2.png",
+    "raw": "raw/sejuani-pose-run2-original.png",
+    "sha256": "f4062eed33fa2077441cae3bfda07fa82c888232af394be1c0c33ec565fccd28",
+    "checks": {
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_levels": 256,
+      "hard_alpha": false,
+      "bbox_alpha_ge128": [
+        30,
+        285,
+        1226,
+        1187
+      ],
+      "grid11_sampled_occupied": 5162,
+      "grid11_sampled_uniform": 1
+    },
+    "status": "generated_pose_source_requires_rig_validation"
+  },
+  {
+    "file": "sejuani-pose-run3.png",
+    "raw": "raw/sejuani-pose-run3-original.png",
+    "sha256": "b127f55597135d54a5934e0e1950ff196a81eddd6aadb605293406741bf415ac",
+    "checks": {
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_levels": 256,
+      "hard_alpha": false,
+      "bbox_alpha_ge128": [
+        49,
+        263,
+        1166,
+        1146
+      ],
+      "grid11_sampled_occupied": 4455,
+      "grid11_sampled_uniform": 0
+    },
+    "status": "generated_pose_source_requires_rig_validation"
+  },
+  {
+    "file": "sejuani-pose-run4.png",
+    "raw": "raw/sejuani-pose-run4-original.png",
+    "sha256": "c20a4075728e15dc47bd1de510ff34eea7552bc1bba1217933caf87123cbf161",
+    "checks": {
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_levels": 256,
+      "hard_alpha": false,
+      "bbox_alpha_ge128": [
+        49,
+        402,
+        1215,
+        1195
+      ],
+      "grid11_sampled_occupied": 4552,
+      "grid11_sampled_uniform": 0
+    },
+    "status": "generated_pose_source_requires_rig_validation"
+  },
+  {
+    "file": "sejuani-pose-d_rear.png",
+    "raw": "raw/sejuani-pose-d_rear-original.png",
+    "sha256": "1bcca852c9026cfee1dab40a08ab06f942a1f497244fb245f9386862f1e01bac",
+    "checks": {
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_levels": 256,
+      "hard_alpha": false,
+      "bbox_alpha_ge128": [
+        78,
+        218,
+        1206,
+        1176
+      ],
+      "grid11_sampled_occupied": 4929,
+      "grid11_sampled_uniform": 0
+    },
+    "status": "generated_pose_source_requires_rig_validation"
+  },
+  {
+    "file": "sejuani-pose-d_down.png",
+    "raw": "raw/sejuani-pose-d_down-original.png",
+    "sha256": "d5121e1c4ee76d09d0ff851cd068a6397328f962adbac35294a814027ee7c1a4",
+    "checks": {
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_levels": 256,
+      "hard_alpha": false,
+      "bbox_alpha_ge128": [
+        30,
+        638,
+        1234,
+        1058
+      ],
+      "grid11_sampled_occupied": 2661,
+      "grid11_sampled_uniform": 0
+    },
+    "status": "generated_pose_source_requires_rig_validation"
+  }
+]

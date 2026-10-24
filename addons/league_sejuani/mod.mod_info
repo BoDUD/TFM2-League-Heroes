@@ -1,0 +1,20 @@
+{
+  "author": "BoDUD",
+  "contains_code": true,
+  "dependencies": [
+    {
+      "mod_id": "base",
+      "version": ">=0.4.11"
+    },
+    {
+      "mod_id": "league",
+      "version": ">=0.211.0"
+    }
+  ],
+  "description": "Test build of Sejuani as in League (needs League of Legends Heroes): replaces the main pack's Sejuani so her Frost stacks sit on each enemy champion (four freeze it), her shatter works on a champion stunned or knocked up by anyone (her allies too), her Frost Armour makes her immune to slows and ends when she takes damage, and Arctic Assault stops at the first enemy champion - the data pack's stand-ins count Frost on her, shatter only after her own stuns, give tenacity instead of slow immunity and charge through. Other champions are untouched. Writes a log for testing.",
+  "last_updated": "2026-10-24",
+  "mod_id": "league_sejuani",
+  "mod_type": "native",
+  "name": "League Heroes: Sejuani's Frost, shatter, slow immunity and Arctic Assault as in League (test)",
+  "version": "0.1.0"
+}

@@ -1,0 +1,43 @@
+工具：内置 image_gen；transparent_background=true。
+只使用用户提供的 sejuani_redraw_pack.zip 内参考。未缩放、重采样或脚本改画。
+每种姿势使用相同提示词独立生成两次。
+
+=== A-1 / A-2 ===
+参考顺序：
+C:/Users/OWNER/Documents/Codex/2026-10-24/new-chat-4/work/sejuani-redraw/1_picture_A.png
+C:/Users/OWNER/Documents/Codex/2026-10-24/new-chat-4/work/sejuani-redraw/2_target_A.png
+C:/Users/OWNER/Documents/Codex/2026-10-24/new-chat-4/work/sejuani-redraw/3_layout_A.png
+C:/Users/OWNER/Documents/Codex/2026-10-24/new-chat-4/work/sejuani-redraw/4_face_A.png
+C:/Users/OWNER/Documents/Codex/2026-10-24/new-chat-4/work/sejuani-redraw/style/7_style_braum.png
+
+Use case: identity-preserve. Exactly FIVE input references: 1 approved idle model, preserve its exact appearance, pose, body shapes, rider-to-boar proportions and colors; 2 target for size and placement only; 3 layout guide for placement only (omit every line); 4 corrected face for exact eye/brow/mouth arrangement; 5 Braum for pixel-art technique only. Keep the character identical to image 1. Redraw, do not upscale. Increase logical pixel density modestly from about 54 to 72-76 rows, NOT to a high-resolution illustration. Every detail consists of solid aligned 14px squares, with clean hard edges and flat limited color clusters. Focus most of the added resolution on the face. No subpixel detail, tiny brush strokes, realistic fur, antialiasing or semitransparency. All foreground alpha 255, all background alpha 0.
+Redraw image 1 FINER as GAME-SIZE PIXEL ART like a pixel artist: a 1254x1254 PNG with a genuine transparent background (alpha only 0 or 255), every square 14 px, aligned on one grid starting at the canvas corner (0, 0). The SAME warrior woman on her war boar at rest in 3/4 view facing right, the SAME pose and proportions as image 1: the tip of her ice horn at y 182, her eyes at about y 406, the hooves on y 1190 - 72 squares tall, about 82 squares wide. Use the extra squares for clearer details, not for a different design. Every detail in whole 14-px squares.
+HER FACE (most important): a pale face in 3 shades turned to the front-right; TWO ICE-BLUE EYES at the SAME height: the near eye 3x2 squares (a white highlight, bright blue, deep blue), the far eye 2x2; a 1-square dark brown brow over each eye; a small 2-square PINK mouth; two pale blonde locks beside the face, never over the eyes.
+THE HELM: bronze-gold in 3-4 shades with a BLUE ICE GEM on the brow (3x3 squares, a white highlight); two CURVED BLUE ICE HORNS sweeping back (the near one big, the far one smaller; 3 blues with a light edge).
+THE ARMOUR: purple leather in 3 shades; pointed bronze-gold shoulder plates set with BRIGHT BLUE GEMS (2-3 squares each, highlighted); CREAM-WHITE FUR in pointed tufts at the collar.
+THE FLAIL: a BROWN-AND-BLACK WRAPPED CHAIN (2 squares thick, alternating) hanging down to a BIG BLUE ICE HEAD behind the boar's rump (3 blues with a 1-square cyan glowing line).
+THE BOAR: BLUE-GREY FUR in 4 shades (jagged darker edges for the tufts); the WHITE BRISTLY MANE crest in pointed tufts; TWO BIG IVORY TUSKS curving up (3 shades, clear outlines); a PINK SNOUT with two dark pink nostrils; a pink open mouth with white teeth; one GLOWING CYAN EYE (2x2, the brightest almost white); pink inner ears; DARK GREY split HOOVES; OLIVE-GREEN / BRONZE SADDLE ARMOUR with two BIG BLUE GEMS; BROWN straps. The near legs in full tone, the far ones a step darker; the background visible between the legs and between the chain and the body.
+A continuous 1-square near-black outline round the whole character; inside it every material in its own 2-4 flat shades, the shadow of a material its own darkest shade; no stray single odd squares; no dithering, no gradients, no soft glow, no blur, no anti-aliasing.
+No background, no grid lines, no text, no frame, no cast shadow, no ground, no spell effects.
+
+
+=== B-1 / B-2 ===
+参考顺序：
+C:/Users/OWNER/Documents/Codex/2026-10-24/new-chat-4/work/sejuani-redraw/1_picture_B.png
+C:/Users/OWNER/Documents/Codex/2026-10-24/new-chat-4/work/sejuani-redraw/2_target_B.png
+C:/Users/OWNER/Documents/Codex/2026-10-24/new-chat-4/work/sejuani-redraw/3_layout_B.png
+C:/Users/OWNER/Documents/Codex/2026-10-24/new-chat-4/work/sejuani-redraw/4_face_B.png
+C:/Users/OWNER/Documents/Codex/2026-10-24/new-chat-4/work/sejuani-redraw/style/7_style_braum.png
+
+Use case: identity-preserve. Exactly FIVE input references: 1 approved charging model, preserve its exact appearance, pose, body shapes, rider-to-boar proportions and colors; 2 target for size and placement only; 3 layout guide for placement only (omit every line); 4 corrected face for exact eye/brow/mouth arrangement; 5 Braum for pixel-art technique only. Keep the character identical to image 1. Redraw, do not upscale. Increase logical pixel density modestly from about 54 to 72-76 rows, NOT to a high-resolution illustration. Every detail consists of solid aligned 14px squares, with clean hard edges and flat limited color clusters. Focus most of the added resolution on the face. No subpixel detail, tiny brush strokes, realistic fur, antialiasing or semitransparency. All foreground alpha 255, all background alpha 0.
+Redraw image 1 FINER as GAME-SIZE PIXEL ART like a pixel artist: a 1254x1254 PNG with a genuine transparent background (alpha only 0 or 255), every square 14 px, aligned on one grid starting at the canvas corner (0, 0). The SAME warrior woman on her war boar CHARGING to the image right in 3/4 view, the SAME pose and proportions as image 1: the boar lunging forward, front legs tucked, tusks thrust ahead; the woman crouching low over the saddle, the flail raised high behind her, its ice head up on the image left (keep it inside the picture, one square from the left edge); the top of the raised flail at y 126, her eyes at about y 448, the lowest tusk / hoof on y 1190 - 76 squares tall, about 86 squares wide. Use the extra squares for clearer details, not for a different design. Every detail in whole 14-px squares.
+HER FACE (most important): a pale face in 3 shades turned to the front-right; TWO ICE-BLUE EYES at the SAME height: the near eye 3x2 squares (a white highlight, bright blue, deep blue), the far eye 2x2; a 1-square dark brown brow over each eye; a small 2-square PINK mouth; the blonde locks never over the eyes.
+THE HELM: bronze-gold in 3-4 shades with a BLUE ICE GEM on the brow (3x3, highlighted) and two CURVED BLUE ICE HORNS sweeping back.
+THE ARMOUR: purple leather in 3 shades; pointed bronze-gold plates with BRIGHT BLUE GEMS (2-3 squares each); CREAM-WHITE FUR tufts at the collar.
+THE FLAIL: the BROWN-AND-BLACK WRAPPED CHAIN (2 squares thick, alternating) up behind her, the BIG BLUE ICE HEAD at its end (3 blues, a 1-square cyan glowing line).
+THE BOAR: BLUE-GREY FUR in 4 shades; the WHITE BRISTLY MANE crest swept back; TWO BIG IVORY TUSKS thrust forward and up (3 shades); the PINK SNOUT with dark pink nostrils and a pink open mouth with white teeth; one GLOWING CYAN EYE (2x2); pink inner ears; DARK GREY split HOOVES; OLIVE-GREEN / BRONZE SADDLE ARMOUR with two BIG BLUE GEMS; BROWN straps; the tail flying back. The near legs in full tone, the far ones a step darker; the background visible between the legs.
+A continuous 1-square near-black outline round the whole character; inside it every material in its own 2-4 flat shades, the shadow of a material its own darkest shade; no stray single odd squares; no dithering, no gradients, no soft glow, no blur, no anti-aliasing.
+No background, no grid lines, no text, no frame, no cast shadow, no ground, no spell effects.
+
+
+
