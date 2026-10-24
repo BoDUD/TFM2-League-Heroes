@@ -4562,383 +4562,391 @@
                               },
                               {
                                 "type": "SwitchByBuff",
-                                "buff_name": "league_aurelionsol_e_cd",
+                                "buff_name": "league_aurelionsol_own",
                                 "effect_buff": {
-                                  "type": "Combine",
-                                  "effects": []
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "league_aurelionsol_e_cd",
+                                  "effect_buff": {
+                                    "type": "Combine",
+                                    "effects": []
+                                  },
+                                  "effect_none": {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "Combine",
+                                        "effects": [
+                                          {
+                                            "type": "RemoveCasterBuff",
+                                            "name": "league_aurelionsol_e_cd"
+                                          },
+                                          {
+                                            "type": "AddCasterBuff",
+                                            "buff_state": {
+                                              "name": "league_aurelionsol_e_cd",
+                                              "duration": {
+                                                "Time": {
+                                                  "tick": 630
+                                                }
+                                              }
+                                            },
+                                            "only_to_enemy": false
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "RemoveCasterBuff",
+                                        "name": "league_aurelionsol_eq_lk"
+                                      },
+                                      {
+                                        "type": "Sfx",
+                                        "name": "league_aurelionsol_e"
+                                      },
+                                      {
+                                        "type": "Combine",
+                                        "effects": [
+                                          {
+                                            "type": "ViewEffect",
+                                            "name": "league_aurelionsol_e_hole"
+                                          },
+                                          {
+                                            "type": "Sfx",
+                                            "name": "league_aurelionsol_e_hole"
+                                          },
+                                          {
+                                            "type": "RangeEffect",
+                                            "shape": {
+                                              "Circle": {
+                                                "radius": 1000
+                                              }
+                                            },
+                                            "target": "AllyOnlySelf",
+                                            "apply_type": "AroundCaster",
+                                            "effects": [
+                                              {
+                                                "type": "Combine",
+                                                "effects": [
+                                                  {
+                                                    "type": "RemoveCasterBuff",
+                                                    "name": "league_aurelionsol_e_on"
+                                                  },
+                                                  {
+                                                    "type": "AddCasterBuff",
+                                                    "buff_state": {
+                                                      "name": "league_aurelionsol_e_on",
+                                                      "duration": {
+                                                        "Time": {
+                                                          "tick": 300
+                                                        }
+                                                      },
+                                                      "magic_power_mult": 15
+                                                    },
+                                                    "only_to_enemy": false
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "type": "RangePeriodProjectile",
+                                            "name": "league_aurelionsol_e_field",
+                                            "shape": {
+                                              "Circle": {
+                                                "radius": 26000
+                                              }
+                                            },
+                                            "tick": 300,
+                                            "period": 15,
+                                            "first_delay": 15,
+                                            "applied_target": "EnemyWithoutTower",
+                                            "applied_effects": [
+                                              {
+                                                "casting_type": "Targeting",
+                                                "effect": {
+                                                  "type": "ApAttack",
+                                                  "damage": 16,
+                                                  "attack_ratio": 9,
+                                                  "hp_ratio": 0,
+                                                  "can_crit": false
+                                                }
+                                              },
+                                              {
+                                                "casting_type": "Targeting",
+                                                "effect": {
+                                                  "type": "Pull",
+                                                  "speed": 250,
+                                                  "tick": 4
+                                                }
+                                              },
+                                              {
+                                                "casting_type": "Targeting",
+                                                "effect": {
+                                                  "type": "AddBuff",
+                                                  "buff_state": {
+                                                    "name": "league_aurelionsol_e_slow",
+                                                    "duration": {
+                                                      "Time": {
+                                                        "tick": 20
+                                                      }
+                                                    },
+                                                    "move_speed_mult": -25
+                                                  }
+                                                }
+                                              }
+                                            ],
+                                            "end_effects": []
+                                          },
+                                          {
+                                            "type": "RangePeriodProjectile",
+                                            "name": "league_aurelionsol_e_catch",
+                                            "shape": {
+                                              "Circle": {
+                                                "radius": 26000
+                                              }
+                                            },
+                                            "tick": 300,
+                                            "period": 15,
+                                            "first_delay": 15,
+                                            "applied_target": "EnemyChampion",
+                                            "applied_effects": [
+                                              {
+                                                "casting_type": "Targeting",
+                                                "effect": {
+                                                  "type": "SwitchByBuff",
+                                                  "buff_name": "league_aurelionsol_e_lk",
+                                                  "effect_buff": {
+                                                    "type": "Combine",
+                                                    "effects": []
+                                                  },
+                                                  "effect_none": {
+                                                    "type": "Combine",
+                                                    "effects": [
+                                                      {
+                                                        "type": "AddCasterBuff",
+                                                        "buff_state": {
+                                                          "name": "league_aurelionsol_e_lk",
+                                                          "duration": {
+                                                            "Time": {
+                                                              "tick": 60
+                                                            }
+                                                          }
+                                                        },
+                                                        "only_to_enemy": false
+                                                      },
+                                                      {
+                                                        "type": "Combine",
+                                                        "effects": [
+                                                          {
+                                                            "type": "RemoveCasterBuff",
+                                                            "name": "league_aurelionsol_g_e"
+                                                          },
+                                                          {
+                                                            "type": "AddCasterBuff",
+                                                            "buff_state": {
+                                                              "name": "league_aurelionsol_g_e",
+                                                              "duration": {
+                                                                "Time": {
+                                                                  "tick": 30
+                                                                }
+                                                              }
+                                                            },
+                                                            "only_to_enemy": false
+                                                          }
+                                                        ]
+                                                      },
+                                                      {
+                                                        "type": "Combine",
+                                                        "effects": [
+                                                          {
+                                                            "type": "AddCasted",
+                                                            "casted_type": "Heal",
+                                                            "duration": 180,
+                                                            "period": 1,
+                                                            "effects": [
+                                                              {
+                                                                "type": "Combine",
+                                                                "effects": [
+                                                                  {
+                                                                    "type": "RemoveCasterBuff",
+                                                                    "name": "league_aurelionsol_p_alive"
+                                                                  },
+                                                                  {
+                                                                    "type": "AddCasterBuff",
+                                                                    "buff_state": {
+                                                                      "name": "league_aurelionsol_p_alive",
+                                                                      "duration": {
+                                                                        "Time": {
+                                                                          "tick": 2
+                                                                        }
+                                                                      }
+                                                                    },
+                                                                    "only_to_enemy": false
+                                                                  }
+                                                                ]
+                                                              }
+                                                            ]
+                                                          },
+                                                          {
+                                                            "type": "RangeEffect",
+                                                            "shape": {
+                                                              "Circle": {
+                                                                "radius": 1000
+                                                              }
+                                                            },
+                                                            "target": "AllyOnlySelf",
+                                                            "apply_type": "AroundCaster",
+                                                            "effects": [
+                                                              {
+                                                                "type": "Combine",
+                                                                "effects": [
+                                                                  {
+                                                                    "type": "RemoveCasterBuff",
+                                                                    "name": "league_aurelionsol_p_alive"
+                                                                  },
+                                                                  {
+                                                                    "type": "AddCasterBuff",
+                                                                    "buff_state": {
+                                                                      "name": "league_aurelionsol_p_alive",
+                                                                      "duration": {
+                                                                        "Time": {
+                                                                          "tick": 3
+                                                                        }
+                                                                      }
+                                                                    },
+                                                                    "only_to_enemy": false
+                                                                  }
+                                                                ]
+                                                              },
+                                                              {
+                                                                "type": "Combine",
+                                                                "effects": [
+                                                                  {
+                                                                    "type": "RemoveCasterBuff",
+                                                                    "name": "league_aurelionsol_p_win_on"
+                                                                  },
+                                                                  {
+                                                                    "type": "AddCasterBuff",
+                                                                    "buff_state": {
+                                                                      "name": "league_aurelionsol_p_win_on",
+                                                                      "duration": {
+                                                                        "Time": {
+                                                                          "tick": 178
+                                                                        }
+                                                                      }
+                                                                    },
+                                                                    "only_to_enemy": false
+                                                                  }
+                                                                ]
+                                                              }
+                                                            ]
+                                                          }
+                                                        ]
+                                                      }
+                                                    ]
+                                                  }
+                                                }
+                                              },
+                                              {
+                                                "casting_type": "Targeting",
+                                                "effect": {
+                                                  "type": "SwitchByBuff",
+                                                  "buff_name": "league_aurelionsol_eq_lk",
+                                                  "effect_buff": {
+                                                    "type": "Combine",
+                                                    "effects": []
+                                                  },
+                                                  "effect_none": {
+                                                    "type": "Combine",
+                                                    "effects": [
+                                                      {
+                                                        "type": "AddCasterBuff",
+                                                        "buff_state": {
+                                                          "name": "league_aurelionsol_eq_lk",
+                                                          "duration": {
+                                                            "Time": {
+                                                              "tick": 300
+                                                            }
+                                                          }
+                                                        },
+                                                        "only_to_enemy": false
+                                                      },
+                                                      {
+                                                        "type": "Combine",
+                                                        "effects": [
+                                                          {
+                                                            "type": "RemoveCasterBuff",
+                                                            "name": "league_aurelionsol_q_go"
+                                                          },
+                                                          {
+                                                            "type": "AddCasterBuff",
+                                                            "buff_state": {
+                                                              "name": "league_aurelionsol_q_go",
+                                                              "duration": {
+                                                                "Time": {
+                                                                  "tick": 9
+                                                                }
+                                                              }
+                                                            },
+                                                            "only_to_enemy": false
+                                                          }
+                                                        ]
+                                                      }
+                                                    ]
+                                                  }
+                                                }
+                                              }
+                                            ],
+                                            "end_effects": []
+                                          },
+                                          {
+                                            "type": "RangePeriodProjectile",
+                                            "name": "league_aurelionsol_e_eye",
+                                            "shape": {
+                                              "Circle": {
+                                                "radius": 9000
+                                              }
+                                            },
+                                            "tick": 300,
+                                            "period": 60,
+                                            "first_delay": 60,
+                                            "applied_target": "EnemyChampion",
+                                            "applied_effects": [
+                                              {
+                                                "casting_type": "Targeting",
+                                                "effect": {
+                                                  "type": "FixedAttack",
+                                                  "damage": 0,
+                                                  "attack_ratio": 0,
+                                                  "hp_ratio": 0,
+                                                  "target_hp_ratio": 4,
+                                                  "attack_effect_type": "Target"
+                                                }
+                                              },
+                                              {
+                                                "casting_type": "Targeting",
+                                                "effect": {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_aurelionsol_e_core"
+                                                }
+                                              },
+                                              {
+                                                "casting_type": "Targeting",
+                                                "effect": {
+                                                  "type": "TargetSfx",
+                                                  "name": "league_aurelionsol_e_core"
+                                                }
+                                              }
+                                            ],
+                                            "end_effects": []
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
                                 },
                                 "effect_none": {
                                   "type": "Combine",
-                                  "effects": [
-                                    {
-                                      "type": "Combine",
-                                      "effects": [
-                                        {
-                                          "type": "RemoveCasterBuff",
-                                          "name": "league_aurelionsol_e_cd"
-                                        },
-                                        {
-                                          "type": "AddCasterBuff",
-                                          "buff_state": {
-                                            "name": "league_aurelionsol_e_cd",
-                                            "duration": {
-                                              "Time": {
-                                                "tick": 630
-                                              }
-                                            }
-                                          },
-                                          "only_to_enemy": false
-                                        }
-                                      ]
-                                    },
-                                    {
-                                      "type": "RemoveCasterBuff",
-                                      "name": "league_aurelionsol_eq_lk"
-                                    },
-                                    {
-                                      "type": "Sfx",
-                                      "name": "league_aurelionsol_e"
-                                    },
-                                    {
-                                      "type": "Combine",
-                                      "effects": [
-                                        {
-                                          "type": "ViewEffect",
-                                          "name": "league_aurelionsol_e_hole"
-                                        },
-                                        {
-                                          "type": "Sfx",
-                                          "name": "league_aurelionsol_e_hole"
-                                        },
-                                        {
-                                          "type": "RangeEffect",
-                                          "shape": {
-                                            "Circle": {
-                                              "radius": 1000
-                                            }
-                                          },
-                                          "target": "AllyOnlySelf",
-                                          "apply_type": "AroundCaster",
-                                          "effects": [
-                                            {
-                                              "type": "Combine",
-                                              "effects": [
-                                                {
-                                                  "type": "RemoveCasterBuff",
-                                                  "name": "league_aurelionsol_e_on"
-                                                },
-                                                {
-                                                  "type": "AddCasterBuff",
-                                                  "buff_state": {
-                                                    "name": "league_aurelionsol_e_on",
-                                                    "duration": {
-                                                      "Time": {
-                                                        "tick": 300
-                                                      }
-                                                    },
-                                                    "magic_power_mult": 15
-                                                  },
-                                                  "only_to_enemy": false
-                                                }
-                                              ]
-                                            }
-                                          ]
-                                        },
-                                        {
-                                          "type": "RangePeriodProjectile",
-                                          "name": "league_aurelionsol_e_field",
-                                          "shape": {
-                                            "Circle": {
-                                              "radius": 26000
-                                            }
-                                          },
-                                          "tick": 300,
-                                          "period": 15,
-                                          "first_delay": 15,
-                                          "applied_target": "EnemyWithoutTower",
-                                          "applied_effects": [
-                                            {
-                                              "casting_type": "Targeting",
-                                              "effect": {
-                                                "type": "ApAttack",
-                                                "damage": 16,
-                                                "attack_ratio": 9,
-                                                "hp_ratio": 0,
-                                                "can_crit": false
-                                              }
-                                            },
-                                            {
-                                              "casting_type": "Targeting",
-                                              "effect": {
-                                                "type": "Pull",
-                                                "speed": 250,
-                                                "tick": 4
-                                              }
-                                            },
-                                            {
-                                              "casting_type": "Targeting",
-                                              "effect": {
-                                                "type": "AddBuff",
-                                                "buff_state": {
-                                                  "name": "league_aurelionsol_e_slow",
-                                                  "duration": {
-                                                    "Time": {
-                                                      "tick": 20
-                                                    }
-                                                  },
-                                                  "move_speed_mult": -25
-                                                }
-                                              }
-                                            }
-                                          ],
-                                          "end_effects": []
-                                        },
-                                        {
-                                          "type": "RangePeriodProjectile",
-                                          "name": "league_aurelionsol_e_catch",
-                                          "shape": {
-                                            "Circle": {
-                                              "radius": 26000
-                                            }
-                                          },
-                                          "tick": 300,
-                                          "period": 15,
-                                          "first_delay": 15,
-                                          "applied_target": "EnemyChampion",
-                                          "applied_effects": [
-                                            {
-                                              "casting_type": "Targeting",
-                                              "effect": {
-                                                "type": "SwitchByBuff",
-                                                "buff_name": "league_aurelionsol_e_lk",
-                                                "effect_buff": {
-                                                  "type": "Combine",
-                                                  "effects": []
-                                                },
-                                                "effect_none": {
-                                                  "type": "Combine",
-                                                  "effects": [
-                                                    {
-                                                      "type": "AddCasterBuff",
-                                                      "buff_state": {
-                                                        "name": "league_aurelionsol_e_lk",
-                                                        "duration": {
-                                                          "Time": {
-                                                            "tick": 60
-                                                          }
-                                                        }
-                                                      },
-                                                      "only_to_enemy": false
-                                                    },
-                                                    {
-                                                      "type": "Combine",
-                                                      "effects": [
-                                                        {
-                                                          "type": "RemoveCasterBuff",
-                                                          "name": "league_aurelionsol_g_e"
-                                                        },
-                                                        {
-                                                          "type": "AddCasterBuff",
-                                                          "buff_state": {
-                                                            "name": "league_aurelionsol_g_e",
-                                                            "duration": {
-                                                              "Time": {
-                                                                "tick": 30
-                                                              }
-                                                            }
-                                                          },
-                                                          "only_to_enemy": false
-                                                        }
-                                                      ]
-                                                    },
-                                                    {
-                                                      "type": "Combine",
-                                                      "effects": [
-                                                        {
-                                                          "type": "AddCasted",
-                                                          "casted_type": "Heal",
-                                                          "duration": 180,
-                                                          "period": 1,
-                                                          "effects": [
-                                                            {
-                                                              "type": "Combine",
-                                                              "effects": [
-                                                                {
-                                                                  "type": "RemoveCasterBuff",
-                                                                  "name": "league_aurelionsol_p_alive"
-                                                                },
-                                                                {
-                                                                  "type": "AddCasterBuff",
-                                                                  "buff_state": {
-                                                                    "name": "league_aurelionsol_p_alive",
-                                                                    "duration": {
-                                                                      "Time": {
-                                                                        "tick": 2
-                                                                      }
-                                                                    }
-                                                                  },
-                                                                  "only_to_enemy": false
-                                                                }
-                                                              ]
-                                                            }
-                                                          ]
-                                                        },
-                                                        {
-                                                          "type": "RangeEffect",
-                                                          "shape": {
-                                                            "Circle": {
-                                                              "radius": 1000
-                                                            }
-                                                          },
-                                                          "target": "AllyOnlySelf",
-                                                          "apply_type": "AroundCaster",
-                                                          "effects": [
-                                                            {
-                                                              "type": "Combine",
-                                                              "effects": [
-                                                                {
-                                                                  "type": "RemoveCasterBuff",
-                                                                  "name": "league_aurelionsol_p_alive"
-                                                                },
-                                                                {
-                                                                  "type": "AddCasterBuff",
-                                                                  "buff_state": {
-                                                                    "name": "league_aurelionsol_p_alive",
-                                                                    "duration": {
-                                                                      "Time": {
-                                                                        "tick": 3
-                                                                      }
-                                                                    }
-                                                                  },
-                                                                  "only_to_enemy": false
-                                                                }
-                                                              ]
-                                                            },
-                                                            {
-                                                              "type": "Combine",
-                                                              "effects": [
-                                                                {
-                                                                  "type": "RemoveCasterBuff",
-                                                                  "name": "league_aurelionsol_p_win_on"
-                                                                },
-                                                                {
-                                                                  "type": "AddCasterBuff",
-                                                                  "buff_state": {
-                                                                    "name": "league_aurelionsol_p_win_on",
-                                                                    "duration": {
-                                                                      "Time": {
-                                                                        "tick": 178
-                                                                      }
-                                                                    }
-                                                                  },
-                                                                  "only_to_enemy": false
-                                                                }
-                                                              ]
-                                                            }
-                                                          ]
-                                                        }
-                                                      ]
-                                                    }
-                                                  ]
-                                                }
-                                              }
-                                            },
-                                            {
-                                              "casting_type": "Targeting",
-                                              "effect": {
-                                                "type": "SwitchByBuff",
-                                                "buff_name": "league_aurelionsol_eq_lk",
-                                                "effect_buff": {
-                                                  "type": "Combine",
-                                                  "effects": []
-                                                },
-                                                "effect_none": {
-                                                  "type": "Combine",
-                                                  "effects": [
-                                                    {
-                                                      "type": "AddCasterBuff",
-                                                      "buff_state": {
-                                                        "name": "league_aurelionsol_eq_lk",
-                                                        "duration": {
-                                                          "Time": {
-                                                            "tick": 300
-                                                          }
-                                                        }
-                                                      },
-                                                      "only_to_enemy": false
-                                                    },
-                                                    {
-                                                      "type": "Combine",
-                                                      "effects": [
-                                                        {
-                                                          "type": "RemoveCasterBuff",
-                                                          "name": "league_aurelionsol_q_go"
-                                                        },
-                                                        {
-                                                          "type": "AddCasterBuff",
-                                                          "buff_state": {
-                                                            "name": "league_aurelionsol_q_go",
-                                                            "duration": {
-                                                              "Time": {
-                                                                "tick": 9
-                                                              }
-                                                            }
-                                                          },
-                                                          "only_to_enemy": false
-                                                        }
-                                                      ]
-                                                    }
-                                                  ]
-                                                }
-                                              }
-                                            }
-                                          ],
-                                          "end_effects": []
-                                        },
-                                        {
-                                          "type": "RangePeriodProjectile",
-                                          "name": "league_aurelionsol_e_eye",
-                                          "shape": {
-                                            "Circle": {
-                                              "radius": 9000
-                                            }
-                                          },
-                                          "tick": 300,
-                                          "period": 60,
-                                          "first_delay": 60,
-                                          "applied_target": "EnemyChampion",
-                                          "applied_effects": [
-                                            {
-                                              "casting_type": "Targeting",
-                                              "effect": {
-                                                "type": "FixedAttack",
-                                                "damage": 0,
-                                                "attack_ratio": 0,
-                                                "hp_ratio": 0,
-                                                "target_hp_ratio": 4,
-                                                "attack_effect_type": "Target"
-                                              }
-                                            },
-                                            {
-                                              "casting_type": "Targeting",
-                                              "effect": {
-                                                "type": "ViewEffect",
-                                                "name": "league_aurelionsol_e_core"
-                                              }
-                                            },
-                                            {
-                                              "casting_type": "Targeting",
-                                              "effect": {
-                                                "type": "TargetSfx",
-                                                "name": "league_aurelionsol_e_core"
-                                              }
-                                            }
-                                          ],
-                                          "end_effects": []
-                                        }
-                                      ]
-                                    }
-                                  ]
+                                  "effects": []
                                 }
                               }
                             ]

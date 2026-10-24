@@ -36,7 +36,8 @@ the combos can cast them; a slot cast while its flag is up does nothing (a 3-tic
           ticks later the shockwave from its edge (r_wave wide): r_wdmg + r_wratio% AP and r_wslow% slower for r_wslow_t.
   combos  E -> Q: the black hole's first champion caught has the controller breathe at it at once (if `q_cd` is off);
           while a black hole lasts (`e_on`) he has e_ap% ability power (the pulled ones take more).
-          R -> E: the star's impact drops the black hole on the same spot at once if `e_cd` is off (stunned, then pulled).
+          R -> E: the star's impact drops the black hole on the same spot at once if `e_cd` is off (stunned, then pulled);
+          only for Aurelion Sol himself (`own`: league_sylas's stolen ult brings the star alone).
           Stardust full -> The Skies Descend (sky_n stardust, above).
           Takedown -> flight with the breath unbound (above).
   controller An AddCasted pulse on him every ctl_p ticks (league_belveth's, hung by his attack and the ult, only for
@@ -237,6 +238,10 @@ def blast(name, radius, effects, target="EnemyWithoutTower"):
     return field(name, radius, 2, 30, effects, target, first=0)
 
 
+def native(name):
+    return {"type": "Native", "effect_ref": f"{ID}:{name}"}
+
+
 def voice(name, p):
     """His spoken line, at most one every vo_gap ticks."""
     return sw("vo_cd", NONE, combine(flag("vo_cd", p["vo_gap"]), sfx(name)))
@@ -306,7 +311,7 @@ def build(p):
         hit = [ap(p["e_dmg"], p["e_ratio"]), {"type": "Pull", "speed": p["e_pull"], "tick": p["e_pull_t"]},
                buff("e_slow", p["e_p"] + 5, move_speed_mult=-p["e_slow"])]
         caught = [gain("g_e", "e_lk"), sw("eq_lk", NONE, combine(flag("eq_lk", p["e_t"]), refresh("q_go", ctl_p * 3)))]
-        core = [pct(p["e_exec"]), view("e_core"), tsfx("e_core")]
+        core = [pct(p["e_exec"]), view("e_core"), tsfx("e_core")] + ([native("core")] if p["native"] else [])
         return combine(view("e_hole"), sfx("e_hole"), on_me(refresh("e_on", p["e_t"], magic_power_mult=p["e_ap"])),
                        field("e_field", p["e_r"], p["e_t"], p["e_p"], hit),
                        field("e_catch", p["e_r"], p["e_t"], p["e_p"], caught, "EnemyChampion"),
@@ -334,8 +339,9 @@ def build(p):
                                                   tsfx("r_hit")]),
                     blast("r_tw2", p["r_r2"], [r_gain()], "EnemyChampion"),
                     delayed(p["r_wave_at"], view("r_wave"), sfx("r_wave"), blast("r_shock", p["r_wave"], wave_hit)))
-    # R -> E: the black hole on the impact's spot at once, if Singularity is ready
-    then_e = sw("e_cd", NONE, combine(refresh("e_cd", p["e_cd"]), *rm("eq_lk"), sfx("e"), hole()))
+    # R -> E: the black hole on the impact's spot at once, if Singularity is ready - only for Aurelion Sol himself (`own`,
+    # raised by his attack: league_sylas's stolen ult brings the star alone)
+    then_e = sw("own", sw("e_cd", NONE, combine(refresh("e_cd", p["e_cd"]), *rm("eq_lk"), sfx("e"), hole())))
     landing = [sw("sky", skies, star), then_e]
     r_cast = combine(anim("ult", p["r_dur"]), sfx("r"), voice("vo_r", p),
                      delayed(p["r_rel"] - 1, alive(cview("r_call"), view("r_fall"),
