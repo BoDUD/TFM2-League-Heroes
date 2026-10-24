@@ -38,7 +38,7 @@ TOP_PX = 36      # game px from the ice horn's tip to the hooves (the user's pic
 PPU = 1.5
 TOP_ROWS = round(TOP_PX * PPU)
 B_ROWS = 56      # the charge on A's scale (hd/B 193 rows x 54 / 187)
-PICK = {"idle": None, "run": None}   # the user's picks
+PICK = {"idle": "A-2", "run": "B-1"}   # the user's picks, 2026-10-24
 # take -> (file, square px read at, rows to (None: TOP_ROWS), the face box kept whole on the raw canvas: x0, y0, x1, y1)
 DRAFTS = {
     "A-1": ("A-1", 10.2, None, (700, 420, 800, 545)),
@@ -46,8 +46,18 @@ DRAFTS = {
     "B-1": ("B-1", 18.2, B_ROWS, (840, 470, 1000, 600)),
     "B-2": ("B-2", 10.0, B_ROWS, (840, 500, 1000, 620)),
 }
-# the face squares redrawn on the written designs (codex-face-half-squares): name -> [(x, y, colour)]
-FACE = {"idle": [], "run": []}
+# the face squares redrawn on the written designs (codex-face-half-squares): name -> [(x, y, colour)]. The picked takes
+# drew her face on few squares (the user picked them for their proportions, 2026-10-24): at 16x the near eye was a light
+# square beside a dark one, the far eye a single blue square, a pink smear for the brow and no mouth. Redrawn from the
+# take's own palette: the near eye 2x2 (a white highlight, a bright blue, two deep blue), the far eye 1x2 against the
+# face's edge, dark brows above both, skin between them, a pink mouth square.
+SKIN_I, SKIN_R = (216, 171, 124), (224, 191, 151)
+FACE = {"idle": [(34, 11, (163, 198, 250)), (35, 11, (5, 167, 241)), (34, 12, (4, 67, 208)), (35, 12, (4, 67, 208)),
+                 (38, 11, (5, 167, 241)), (38, 12, (4, 67, 208)), (35, 10, (81, 53, 39)), (36, 11, SKIN_I),
+                 (36, 14, (211, 126, 113))],
+        "run": [(44, 16, (249, 249, 250)), (45, 16, (4, 150, 248)), (44, 17, (0, 79, 243)), (45, 17, (0, 79, 243)),
+                (47, 16, (4, 150, 248)), (47, 17, (0, 79, 243)), (44, 15, (48, 39, 37)), (45, 15, (48, 39, 37)),
+                (47, 15, (48, 39, 37)), (46, 16, SKIN_R), (46, 19, (209, 118, 107))]}
 
 
 def lp(path):
