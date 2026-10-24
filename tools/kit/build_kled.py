@@ -39,8 +39,10 @@ nothing (a 3-tick idle). Flags die with him: every life starts mounted with Q an
   controller An AddCasted pulse on him every ctl_p ticks (league_sejuani's, hung by his attack and the ult, only for
           Kled himself: `own`): the dismount, courage and the remount, the combos' casts.
 The add-on copy (--native, addons/league_kled: everything League does that the data cannot): Skaarl's own health pool
-(the data's shield is only the stand-in), the shackle broken when the champion walks q_break away, the whole body on
-foot while `ft` holds (idle, run, hit), courage from time out of fights.
+(the main pack's `sk` is a WithShield flag beside his shield, so R's shield kept him too; the copy's is a plain flag the
+add-on takes off when the damage taken while mounted has used up sk_hp + sk_ad% AD, re_hp + re_ad% after a remount),
+the shackle broken when the champion walks q_break away (the yank waits on `q_hold`, which the add-on takes off), the
+whole body on foot while `ft` holds (idle, run, hit and the attack's first tick play the f_* tags).
 Timings: drafts until the frames exist (tools/art/rig_kled.py retimes them).
 Numbers: League 16.21 read into the top fighter range (league_gnar, league_renekton, league_ksante), balanced on the
 classic-SDK simulations (kd.py --lane 0 against fighter, executioner, knight, berserker, lancer and pole_warrior,
@@ -83,6 +85,7 @@ P = {
     # skill: Q Bear Trap on a Rope / Pocket Pistol
     "q_cd": 480, "q_range": 55000, "q_dur": 24, "q_rel": 8, "q_speed": 9000, "q_rad": 3000, "q_dmg": 60,
     "q_ratio": 60, "q_teth": 90, "q_slow": 40, "q2_dmg": 90, "q2_ratio": 140, "q_pull": 2500, "q_pull_t": 8,
+    "q_break": 60000,
     "p_dur": 24, "p_rel": 8, "p_len": 45000, "p_rad": 9000, "p_speed": 20000, "p_dmg": 40, "p_ratio": 100,
     "p_back": 2000, "p_back_t": 6,
     # skill2: E Jousting
@@ -236,10 +239,12 @@ def build(p):
 
     # ------------------------------------------------------------------ passive: Skaarl, courage
     # Skaarl's health: the shield first, then the WithShield flag that finds it (league_malphite's granite)
-    mount = combine(flag("on", None), shield(p["sk_hp"], p["sk_ad"], p["sk_t"]), flag("sk", "shield"))
+    # the add-on keeps Skaarl's health itself: its copy's `sk` is a plain flag it takes off when his health is gone
+    sk = flag("sk", None if p["native"] else "shield")
+    mount = combine(flag("on", None), shield(p["sk_hp"], p["sk_ad"], p["sk_t"]), sk)
     life = sw("on", NONE, mount)   # the first action of a life mounts him
     steps = [f"c{k}" for k in range(1, int(p["c_n"]))]
-    remount = combine(*rm("ft", *steps), shield(p["re_hp"], p["re_ad"], p["sk_t"]), flag("sk", "shield"),
+    remount = combine(*rm("ft", *steps), shield(p["re_hp"], p["re_ad"], p["sk_t"]), sk,
                       on_me(haste("re_ms", p["re_ms_t"], p["re_ms"])), *rm("w_cd"), cview("remount"), sfx("remount"),
                       voice("vo_mount", p))
     ladder = flag(steps[0], None)
@@ -276,8 +281,11 @@ def build(p):
         # the yank, in the shackled champion's context q_teth ticks on; Q -> E (`e_go` for the controller)
         yank = [attack(p["q2_dmg"], p["q2_ratio"]), {"type": "Grab", "speed": p["q_pull"], "tick": p["q_pull_t"]},
                 view("q_yank"), tsfx("q_yank"), on_me(refresh("e_go", ctl_p + p["q_pull_t"] + 6))]
+        # the yank only while the shackle holds (`q_hold` on him: the add-on takes it off when the champion walks
+        # q_break away, League's broken tether)
         shackle = homing("q_tw", "EnemyChampion", [buff("q_slow", p["q_teth"], move_speed_mult=-p["q_slow"]),
-                                                   view("q_mark"), delayed(p["q_teth"], *yank)])
+                                                   view("q_mark"), on_me(refresh("q_hold", p["q_teth"] + 4)),
+                                                   delayed(p["q_teth"], sw("q_hold", combine(*rm("q_hold"), *yank)))])
         trap = line("q_trap", p["q_speed"], p["q_range"], p["q_rad"], "EnemyWithoutTower",
                     [attack(p["q_dmg"], p["q_ratio"]), view("q_hit"), tsfx("q_hit"), shackle], penetrate=False)
         return combine(refresh("q_cd", p["q_cd"]), anim("skill", p["q_dur"]), sfx("q"), voice("vo_q", p),
@@ -373,7 +381,7 @@ def build(p):
     extra = {}
     if p["native"]:   # addons/league_kled: the League rules the data cannot read
         extra["passive"] = {"passive_ref": "league_kled:skaarl",
-                            "params": {k: p[k] for k in ("sk_hp", "sk_ad", "re_hp", "re_ad", "q_teth", "c_n")}}
+                            "params": {k: p[k] for k in ("sk_hp", "sk_ad", "re_hp", "re_ad", "q_break")}}
     return {
         "id": ID, "category": "Melee", "tags": ["AD", "Melee", "Shield"], **extra,
         "sprite": f"asset/league/champions/{ID}", "anim_prefix": "",
