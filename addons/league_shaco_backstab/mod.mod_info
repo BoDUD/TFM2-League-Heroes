@@ -1,0 +1,20 @@
+{
+  "author": "BoDUD",
+  "contains_code": true,
+  "dependencies": [
+    {
+      "mod_id": "base",
+      "version": ">=0.4.11"
+    },
+    {
+      "mod_id": "league",
+      "version": ">=0.210.0"
+    }
+  ],
+  "description": "Test build of Shaco's Backstab as in League (needs League of Legends Heroes): replaces the main pack's Shaco so his attacks and shivs deal the backstab bonus when he hits an enemy champion from behind, judged from where the target walks or faces (the main pack's backstab needs a crowd-controlled target, since data cannot read facing). Q's and R's backstabs are the main pack's. Other champions are untouched. Writes a log for testing.",
+  "last_updated": "2026-10-24",
+  "mod_id": "league_shaco_backstab",
+  "mod_type": "native",
+  "name": "League Heroes: Shaco's Backstab from behind (test)",
+  "version": "0.1.0"
+}

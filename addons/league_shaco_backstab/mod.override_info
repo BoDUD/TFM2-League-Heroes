@@ -1,0 +1,10 @@
+{
+  "asset/league/champion/league_shaco": {
+    "remapping": "asset/league_shaco_backstab/override/league_shaco",
+    "type": "override"
+  },
+  "asset/base/text/champion": {
+    "remapping": "asset/league_shaco_backstab/text/champion",
+    "type": "merge"
+  }
+}

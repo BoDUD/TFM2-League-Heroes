@@ -1,0 +1,37 @@
+{
+  "zh-hans": {
+    "description": {
+      "league_sett_grit": {
+        "skill2": "【附加包】受到的伤害积攒为<#e8d44dff>豪意<>（最多<#ffb900ff>50%<>最大生命，<#ffb900ff>4秒<>消散）。消耗豪意获得<#e8d44dff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#e8d44dff>20%<><#e8d44dff>护盾<>，蓄力前轰一拳：<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<><#ff9028ff>物理伤害<>，正中的敌人再受<#f5f5f5ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#f5f5f5ff>30%<><#f5f5f5ff>真实伤害<>。护盾再加上全部豪意，正中的真伤再加<#ffb900ff>25%<>豪意。"
+      }
+    }
+  },
+  "zh-hant": {
+    "description": {
+      "league_sett_grit": {
+        "skill2": "【附加包】受到的傷害累積為<#e8d44dff>拳皇恆毅<>（最多<#ffb900ff>50%<>最大生命，<#ffb900ff>4秒<>消散）。消耗拳皇恆毅獲得<#e8d44dff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#e8d44dff>20%<><#e8d44dff>護盾<>，蓄力前轟一拳：<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<><#ff9028ff>物理傷害<>，正中的敵人再受<#f5f5f5ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#f5f5f5ff>30%<><#f5f5f5ff>真實傷害<>。護盾再加上全部拳皇恆毅，正中的真傷再加<#ffb900ff>25%<>拳皇恆毅。"
+      }
+    }
+  },
+  "en": {
+    "description": {
+      "league_sett_grit": {
+        "skill2": "[Add-on] Passive: Sett stores the damage he takes as <#e8d44dff>Grit<> (up to <#ffb900ff>50%<> max health, lost after <#ffb900ff>4s<>). He spends it on a <#e8d44dff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#e8d44dff>20% AD<> <#e8d44dff>shield<> and winds up a punch: <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70% AD<> <#ff9028ff>physical damage<>; enemies in the middle also take <#f5f5f5ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#f5f5f5ff>30% AD<> <#f5f5f5ff>true damage<>. The shield also adds all his Grit, the middle's true damage <#ffb900ff>25%<> of it."
+      }
+    }
+  },
+  "ko": {
+    "description": {
+      "league_sett_grit": {
+        "skill2": "[확장] 받은 피해가 <#e8d44dff>투지<>로 쌓입니다(최대 체력의 <#ffb900ff>50%<>, <#ffb900ff>4초<> 후 소멸). 투지를 소모해 <#e8d44dff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#e8d44dff>20%<> <#e8d44dff>보호막<>을 얻고 기를 모아 주먹을 날립니다: <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> <#ff9028ff>물리 피해<>, 중앙의 적은 <#f5f5f5ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#f5f5f5ff>30%<> <#f5f5f5ff>고정 피해<> 추가. 보호막에 투지 전부, 중앙 고정 피해에 투지의 <#ffb900ff>25%<> 추가."
+      }
+    }
+  },
+  "ja": {
+    "description": {
+      "league_sett_grit": {
+        "skill2": "【拡張】受けたダメージを<#e8d44dff>闘魂<>として蓄積（最大体力の<#ffb900ff>50%<>まで、<#ffb900ff>4秒<>で消滅）。消費して<#e8d44dff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#e8d44dff>20%<>の<#e8d44dff>シールド<>、溜めて殴り<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<>の<#ff9028ff>物理ダメージ<>、中央の敵には<#f5f5f5ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#f5f5f5ff>30%<>の<#f5f5f5ff>確定ダメージ<>も。シールドに闘魂すべて、中央の確定に闘魂の<#ffb900ff>25%<>を追加。"
+      }
+    }
+  }
+}

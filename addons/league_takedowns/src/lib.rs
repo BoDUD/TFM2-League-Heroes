@@ -12,6 +12,9 @@
 //!   无极剑道开着时再延长 `YI_EXTEND` tick。他每次普攻，阿尔法突袭冷却减 `YI_ATTACK_CUT` tick。无极剑道期间身上的
 //!   减速都去掉（免疫减速）。副本的无极剑道去掉主包近似用的「冷却加快 40%」。
 //!
+//! - **图奇 `league_takedowns:twitch`**：英雄联盟里身上有毒的敌方英雄死了就刷新埋伏。主包只认他自己的击杀（击杀检查留着），
+//!   本包补上助攻：清掉 Q 的剩余冷却（`entity_reduce_cooldown`），播主包的刷新画面和声音（`TWITCH_RESET`）。
+//!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_takedowns.log`，每次启动游戏重写。
 
 use std::fs::OpenOptions;
@@ -34,6 +37,9 @@ pub const JINX_VIEW: &str = "league_jinx_excited";
 /// 崔丝塔娜火箭跳跃的冷却标记和「就绪」画面。
 pub const TRIS_W_CD: &str = "league_tristana_w_cd";
 pub const TRIS_READY: &str = "league_tristana_w_ready";
+/// 图奇埋伏刷新的画面和声音（主包同名）；一次减掉的冷却（比 Q 的 900 tick 长就是清零）。
+pub const TWITCH_RESET: &str = "league_twitch_q_reset";
+pub const TWITCH_CUT: usize = 3_600;
 /// 易：无极剑道的 buff，参与击杀减剩余冷却 %，延长 tick，普攻减 Q 冷却 tick。
 pub const YI_HIGHLANDER: &str = "league_masteryi_highlander";
 pub const YI_CUT: usize = 70;
@@ -196,6 +202,37 @@ impl StablePassive for Tristana {
     }
 }
 
+// ===================== 图奇 =====================
+
+#[derive(Clone, Default)]
+struct Twitch {
+    n: usize,
+}
+
+impl StablePassive for Twitch {
+    fn clone_box(&self) -> Box<dyn StablePassive> {
+        Box::new(self.clone())
+    }
+
+    fn on_spawn(&mut self, sim: &mut StableSim<'_>, player: usize, me: usize) {
+        wlog(format!("{} SPAWN: the add-on's Twitch (player {player})", head(sim, me)));
+    }
+
+    fn on_assist(&mut self, sim: &mut StableSim<'_>, _: usize, me: usize) {
+        let left = sim.get_entity(me).and_then(|e| e.cooldown(SkillSlotV1::Skill)).map(|c| c.remaining).unwrap_or(0);
+        if left == 0 {
+            return;
+        }
+        sim.entity_reduce_cooldown(me, SkillSlotV1::Skill, TWITCH_CUT);
+        sim.play_view_effect(TWITCH_RESET, me, &InputTargetV1::target(me), 0, 0, 0);
+        sim.play_sfx(TWITCH_RESET, me, &InputTargetV1::target(me));
+        self.n += 1;
+        if self.n <= 80 {
+            wlog(format!("{} TWITCH Q RESET #{} (assist, {left} ticks left)", head(sim, me), self.n));
+        }
+    }
+}
+
 // ===================== 易 =====================
 
 #[derive(Clone, Default)]
@@ -283,7 +320,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v{} (Jinx, Tristana and Master Yi on every takedown) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v{} (Jinx, Tristana, Master Yi and Twitch on every takedown) loaded: game {}.{}.{} abi {} log={} ===",
         env!("CARGO_PKG_VERSION"),
         v.major,
         v.minor,
@@ -294,6 +331,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     module.add_native_passive(format!("{ID}:jinx"), Jinx::default());
     module.add_native_passive(format!("{ID}:tristana"), Tristana::default());
     module.add_native_passive(format!("{ID}:masteryi"), MasterYi::default());
+    module.add_native_passive(format!("{ID}:twitch"), Twitch::default());
     host.log(LogLevel::Info, "league_takedowns v1 loaded (Jinx, Tristana and Master Yi on every takedown).");
 }
 

@@ -11,6 +11,10 @@
     "remapping": "asset/league_takedowns/override/league_masteryi",
     "type": "override"
   },
+  "asset/league/champion/league_twitch": {
+    "remapping": "asset/league_takedowns/override/league_twitch",
+    "type": "override"
+  },
   "asset/base/text/champion": {
     "remapping": "asset/league_takedowns/text/champion",
     "type": "merge"

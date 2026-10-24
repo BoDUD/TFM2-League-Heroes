@@ -186,6 +186,15 @@ mod thresh_lantern;
 #[allow(dead_code)] // items public in the add-on's own crate
 #[path = "../../league_yone_r/src/lib.rs"]
 mod yone_r;
+#[allow(dead_code)] // items public in the add-on's own crate
+#[path = "../../league_jhin_whisper/src/lib.rs"]
+mod jhin_whisper;
+#[allow(dead_code)] // items public in the add-on's own crate
+#[path = "../../league_shaco_backstab/src/lib.rs"]
+mod shaco_backstab;
+#[allow(dead_code)] // items public in the add-on's own crate
+#[path = "../../league_sett_grit/src/lib.rs"]
+mod sett_grit;
 #[path = "../../league_shen_shield/src/lib.rs"]
 mod shen_shield;
 #[allow(dead_code)] // items public in the add-on's own crate
@@ -439,6 +448,9 @@ fn init(host: &StableHost) -> StableMod {
     samira_r::register(host, &mut module);
     thresh_lantern::register(host, &mut module);
     yone_r::register(host, &mut module);
+    jhin_whisper::register(host, &mut module);
+    shaco_backstab::register(host, &mut module);
+    sett_grit::register(host, &mut module);
     shen_shield::register(host, &mut module);
     tahmkench::register(host, &mut module);
     kalista::register(host, &mut module);

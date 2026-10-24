@@ -10,6 +10,8 @@ and .../text/champion.i18n -
     her on every takedown instead); passive league_takedowns:jinx; her attack's tooltip (it carries Get Excited!);
   * league_tristana: the kit as it is (her own kill check stays: the add-on only adds the assists); passive
     league_takedowns:tristana; Rocket Jump's tooltip;
+  * league_twitch: the kit as it is (his own kill check stays: the add-on only adds the assists); passive
+    league_takedowns:twitch; Ambush's tooltip;
   * league_masteryi: Highlander without the main pack's 40% cooldown share (the add-on cuts the cooldowns on takedowns
     and attacks instead); passive league_takedowns:masteryi; Highlander's tooltip.
 Every tooltip changed points to description.league_takedowns.<hero>_<slot>, so the tooltip in game shows whether the
@@ -34,6 +36,10 @@ SWAPS = {
         "zh-hant": [("親手擊殺英雄後", "參與擊殺後"), ("（逐漸回落）", "")],
         "en": [("a champion kill grants", "a takedown grants"), (" (fading)", "")],
         "ko": [("적 챔피언 처치 시", "챔피언 처치 관여 시")], "ja": [("敵チャンピオンを倒すと", "撃破に関わると")]},
+    ("league_twitch", "skill"): {
+        "zh-hans": ("击杀敌方英雄时刷新冷却", "参与击杀敌方英雄时刷新冷却"), "zh-hant": ("擊殺敵方英雄時重置冷卻", "參與擊殺敵方英雄時重置冷卻"),
+        "en": ("Champion takedowns reset the cooldown.", "Champion kills and assists reset the cooldown."),
+        "ko": ("챔피언 처치 시 초기화.", "챔피언 처치 관여 시 초기화."), "ja": ("キルでCD解消。", "キルかアシストでCD解消。")},
     ("league_tristana", "skill2"): {
         "zh-hans": ("她击杀敌方英雄", "她参与击杀敌方英雄"), "zh-hant": ("她擊殺敵方英雄", "她參與擊殺敵方英雄"),
         "en": [("when she kills an enemy champion", "when she takes down a champion"), ("firing with an enemy champion on top of her", "firing with one on top of her")],
@@ -80,7 +86,8 @@ def lib_consts():
     excited = re.findall(r'\("(league_jinx_excited[a-z0-9_]*)", (\d+), (\d+), (\d+)\)', src)
     return {"excited": [(n, int(t), int(a), int(m)) for n, t, a, m in excited],
             "tris_w_cd": re.search(r'TRIS_W_CD: &str = "([^"]+)"', src).group(1),
-            "yi_r": re.search(r'YI_HIGHLANDER: &str = "([^"]+)"', src).group(1)}
+            "yi_r": re.search(r'YI_HIGHLANDER: &str = "([^"]+)"', src).group(1),
+            "twitch_reset": re.search(r'TWITCH_RESET: &str = "([^"]+)"', src).group(1)}
 
 
 def buffs_named(o, name, out=None):
@@ -136,6 +143,14 @@ def tristana(c):
     return d, [("league_tristana", "skill2")]
 
 
+def twitch(c):
+    d = load("league_twitch")
+    if json.dumps(d).count('"' + c["twitch_reset"] + '"') < 10:
+        sys.exit("Twitch's Ambush reset (league_twitch_q_reset) is gone from the main pack: update src/lib.rs")
+    d["passive"] = {"passive_ref": MOD_ID + ":twitch", "params": {}}
+    return d, [("league_twitch", "skill")]
+
+
 def masteryi(c):
     d = load("league_masteryi")
     found = buffs_named(d["ult"], c["yi_r"])
@@ -174,7 +189,7 @@ def main():
     a = ap.parse_args()
     c = lib_consts()
     files, changed = {}, []
-    for make in (jinx, tristana, masteryi):
+    for make in (jinx, tristana, masteryi, twitch):
         d, slots = make(c)
         for hero, slot in slots:
             d[slot]["description"] = f"#asset/base/text/champion?description.{MOD_ID}.{hero[7:]}_{slot}"

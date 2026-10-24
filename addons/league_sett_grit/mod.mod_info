@@ -1,0 +1,20 @@
+{
+  "author": "BoDUD",
+  "contains_code": true,
+  "dependencies": [
+    {
+      "mod_id": "base",
+      "version": ">=0.4.11"
+    },
+    {
+      "mod_id": "league",
+      "version": ">=0.210.0"
+    }
+  ],
+  "description": "Test build of Sett's Grit as in League (needs League of Legends Heroes): replaces the main pack's Sett so Grit is the damage he took in the last 4 seconds (up to 50% of his max health) instead of a count of hits; Haymaker's shield adds all of it and its middle deals 25% of it as extra true damage (the main pack's scales both by five levels of hits). Other champions are untouched. Writes a log for testing.",
+  "last_updated": "2026-10-24",
+  "mod_id": "league_sett_grit",
+  "mod_type": "native",
+  "name": "League Heroes: Sett's Grit from the damage he takes (test)",
+  "version": "0.1.0"
+}
