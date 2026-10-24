@@ -166,6 +166,7 @@ pub const RANGES: &[(&str, u32)] = &[
     ("league_sylas", 26000),
     ("league_syndra", 55000),
     ("league_tahmkench", 28000),
+    ("league_taliyah", 55000),
     ("league_talon", 23000),
     ("league_taric", 25000),
     ("league_teemo", 50000),
