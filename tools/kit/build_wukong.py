@@ -18,7 +18,7 @@ Kit (the user's pick, 2026-10-18: layout A with the add-on league_wukong - 「�
   skill   E Nimbus Strike: a `Targeting` cast on `EnemyWithoutTower` (e_range): `MoveToTarget` onto the target; on
           arrival the cloud clones strike up to three enemies within e_rad (champions first, the entity-id order; the
           target is one of them when it is in), e_dmg + e_ratio% AD each (League's magic 100% AP: he has no AP here),
-          and he gains e_as% attack speed for e_as_t. Landing on a champion leaves `e_in` (R's single-champion check).
+          and he gains e_as% attack speed for e_as_t.
   skill2  W Warrior Trickster: a `Targeting` cast on `EnemyChampion` (w_range, only in a fight): `CasterInvisible` w_inv,
           an anchor at his feet (league_ekko R's range-1 projectile) and a dash through the target to its back
           (`RushMoveToBack`). The clone stands at the anchor for w_t ticks (League's clone does not walk): its
@@ -27,8 +27,7 @@ Kit (the user's pick, 2026-10-18: layout A with the add-on league_wukong - 「�
           round it (r_dmg/r_ratio/r_hp at w_spin%), the first one knocking up (`r_ck`).
   ult     R Cyclone: the slot only arms it (league_kayle R: the AI casts an `EnemyChampion` ult on the approach) - a
           3-tick action adds `r_armed` (r_arm ticks; unused, a 3-tick ult_cooldown_mult refunds it). While armed every
-          attack counts the enemy champions within r_rad: two or more, or one in crowd control, or one right after E
-          landed on a champion or with the clone out -> the spin. The spin: `CasterAnimation spin` for r_t, a pulse every
+          attack looks for an enemy champion within r_rad: one is enough (League spins in a duel too) -> the spin. The spin: `CasterAnimation spin` for r_t, a pulse every
           r_every ticks (league_garen E: each pulse damages everyone within r_rad, r_dmg + r_ratio% AD + r_hp% of a
           champion's max health, and moves him at r_speed toward a champion / the units round him / the next group);
           the first pulse knocks up r_up ticks. The first spin opens `r_two` (r_two_t from the cast, after r_gap): the
@@ -70,7 +69,7 @@ P = {
     # skill: E Nimbus Strike (League: 650 range, 80-240 +100% AP to the target and two more within 187.5, +40-60% AS
     # 5 s, cd 10-7 s)
     "e_cd": 480, "e_range": 50000, "e_dur": 18, "e_anim": 18, "e_speed": 3500, "e_rad": 22000, "e_n": 3,
-    "e_dmg": 40, "e_ratio": 70, "e_as": 40, "e_as_t": 300, "e_in_t": 120,
+    "e_dmg": 40, "e_ratio": 70, "e_as": 40, "e_as_t": 300,
     # skill2: W Warrior Trickster (League: invisible 1 s, dash 300, clone 4 s at 40-60% damage, range 275, cd 22-18 s)
     "w_cd": 1200, "w_range": 30000, "w_dur": 12, "w_inv": 60, "w_dash": 6000, "w_t": 240, "w_slot": 20,
     "w_rad": 30000, "w_period": 60, "w_ratio": 50, "w_spin": 50,
@@ -241,12 +240,12 @@ def build(p, native=False):
                            buff("q_shred", p["q_shred_t"], defence_mult=-p["q_shred"]),
                            view("q_hit"), tsfx("q_hit"), twin))
     normal = sw("q_cd", plain, blow)
-    count = [around(p["r_rad"], "EnemyChampion", [sw("c_1", flag("c_2", 3), flag("c_1", 3))]),
-             pick(p["r_rad"], "EnemyChampionInCC", flag("c_cc", 3))]
+    # League spins for one champion too (user 2026-10-24: 「猴子开大不能把敌方英雄击飞？」 - two or more, one in crowd
+    # control or one right after E / with the clone out left the armed R unused in most fights)
+    count = [pick(p["r_rad"], "EnemyChampion", flag("c_1", 3))]
     go = flag("r_go", 3)
-    first = sw("c_2", go, sw("c_cc", go, sw("c_1", sw("e_in", go, sw("w_live", go)))))
     second = sw("r_gap", NONE, sw("c_1", go))
-    decide = sw("r_two", second, sw("r_armed", first))
+    decide = sw("r_two", second, sw("r_armed", sw("c_1", go)))
     # the count runs only while R is armed or its second cast open; every attack decides two ticks in (a_hit / q_hit
     # count from there)
     counted = combine(*count, delayed(1, decide))
@@ -260,7 +259,6 @@ def build(p, native=False):
         sw("e_3", NONE, combine(sw("e_2", flag("e_3", 2), sw("e_1", flag("e_2", 2), flag("e_1", 2))),
                                 attack(p["e_dmg"], p["e_ratio"]), view("e_hit"), tsfx("e_hit")))])
     land = [*rm("e_1", "e_2", "e_3"), hits, cview("e_land"), sfx("e_hit"),
-            around(p["e_rad"], "EnemyChampion", [on_me(flag("e_in", p["e_in_t"]))]),
             *rm("e_as"), flag("e_as", p["e_as_t"], attack_speed_mult=p["e_as"])]
     charge = {"type": "MoveToTarget", "speed": p["e_speed"], "range": p["e_range"], "end_effects": land}
     skill = action("skill", p["e_dur"], p["e_cd"], 1, p["e_range"], "Targeting", "EnemyWithoutTower",
