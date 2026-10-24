@@ -888,7 +888,7 @@
         "attack": "金箍棒横扫。<#ff9028ff>金刚不坏<>：打中英雄叠1层（最多5层）：每层护甲+4、每秒<#66bb6aff>回复2<>生命。<#ff9028ff>粉碎打击<>：每<#ffb900ff>4秒<>下一次普攻伸长棒子，多造成<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>物理伤害，目标<#ef5350ff>护甲-20%<>，持续<#ffb900ff>3秒<>。",
         "skill": "腾云冲向目标，分身打中目标和附近最多<#ffb900ff>2个<>敌人，各造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<>物理伤害；之后攻击速度+40%，持续<#ffb900ff>5秒<>。",
         "skill2": "隐身<#ffb900ff>1秒<>冲到敌方英雄身后，原地留下分身<#ffb900ff>4秒<>：每秒打身边一个敌人（英雄优先），造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>物理伤害；他放大招时分身也跟着转。",
-        "ult": "伸长金箍棒旋转<#ffb900ff>2秒<>，每<#ffb900ff>0.25秒<>造成<#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>35%<>外加英雄2%最大生命的物理伤害，第一下<#ef5350ff>击飞0.6秒<>；<#ffb900ff>8秒<>内可再转一次。2个以上敌方英雄、目标被控制或刚突进时才放。"
+        "ult": "伸长金箍棒旋转<#ffb900ff>2秒<>，每<#ffb900ff>0.25秒<>造成<#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>35%<>外加英雄2%最大生命的物理伤害，第一下<#ef5350ff>击飞0.6秒<>；<#ffb900ff>8秒<>内可再转一次。身边有敌方英雄时才放。"
       },
       "league_cassiopeia": {
         "name": "卡西奥佩娅",
@@ -1117,9 +1117,9 @@
       "league_zac": {
         "name": "扎克",
         "attack": "拳击。<#ff9028ff>不稳定物质<>：冷却好时普攻炸开，周围敌人受<#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>魔法伤害，英雄再受<#e0e0e0ff>最大生命4%<>真实伤害（冷却<#ffb900ff>5秒<>）。<#ff9028ff>细胞分裂<>：技能打中英雄掉下黏液，吃掉<#66bb6aff>回复<><#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<>生命（复活需扩展包）。",
-        "skill": "伸长手臂抓向目标，造成<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> + 自身最大生命2%魔法伤害并<#ef5350ff>减速<>40%；抓住的英雄<#ffb900ff>0.4秒<>后被甩到身边砸地，再受同样伤害，周围敌人<#ef5350ff>击飞<><#ffb900ff>0.5秒<>。",
-        "skill2": "蓄力<#ffb900ff>0.6秒<>后把自己弹向目标，落地造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> + 自身最大生命3%魔法伤害并<#ef5350ff>击飞<>周围敌人<#ffb900ff>0.5秒<>。",
-        "ult": "不可阻挡地连跳4次，每次落地造成<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>魔法伤害（之后每次50%），<#ef5350ff>击飞<><#ffb900ff>0.33秒<>并<#ef5350ff>减速<>25%。"
+        "skill": "伸长手臂抓向目标，造成<#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> + 自身最大生命2%魔法伤害并<#ef5350ff>减速<>40%；抓住的英雄<#ffb900ff>0.4秒<>后被甩到身边砸地，再受同样伤害，周围敌人<#ef5350ff>击飞<><#ffb900ff>0.5秒<>。",
+        "skill2": "蓄力<#ffb900ff>0.6秒<>后把自己弹向目标，落地造成<#a974ffff>85<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> + 自身最大生命3%魔法伤害并<#ef5350ff>击飞<>周围敌人<#ffb900ff>0.5秒<>。",
+        "ult": "不可阻挡地连跳4次，每次落地造成<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>魔法伤害（之后每次50%）并<#ef5350ff>减速<>25%；第一跳越过目标把敌人<#ef5350ff>击退<>回自己那边，之后每跳<#ef5350ff>击飞<><#ffb900ff>0.33秒<>。"
       },
       "league_singed": {
         "name": "辛吉德",
@@ -2874,7 +2874,7 @@
         "attack": "金箍棒橫掃。<#ff9028ff>仙山石猴<>：打中英雄疊1層（最多5層）：每層護甲+4、每秒<#66bb6aff>回復2<>生命。<#ff9028ff>定海神兵<>：每<#ffb900ff>4秒<>下一次普攻伸長棒子，多造成<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>物理傷害，目標<#ef5350ff>護甲-20%<>，持續<#ffb900ff>3秒<>。",
         "skill": "騰雲衝向目標，分身打中目標和附近最多<#ffb900ff>2個<>敵人，各造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<>物理傷害；之後攻擊速度+40%，持續<#ffb900ff>5秒<>。",
         "skill2": "隱身<#ffb900ff>1秒<>衝到敵方英雄身後，原地留下分身<#ffb900ff>4秒<>：每秒打身邊一個敵人（英雄優先），造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>物理傷害；他放大招時分身也跟著轉。",
-        "ult": "伸長金箍棒旋轉<#ffb900ff>2秒<>，每<#ffb900ff>0.25秒<>造成<#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>35%<>外加英雄2%最大生命的物理傷害，第一下<#ef5350ff>擊飛0.6秒<>；<#ffb900ff>8秒<>內可再轉一次。2個以上敵方英雄、目標被控制或剛突進時才放。"
+        "ult": "伸長金箍棒旋轉<#ffb900ff>2秒<>，每<#ffb900ff>0.25秒<>造成<#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>35%<>外加英雄2%最大生命的物理傷害，第一下<#ef5350ff>擊飛0.6秒<>；<#ffb900ff>8秒<>內可再轉一次。身邊有敵方英雄時才放。"
       },
       "league_cassiopeia": {
         "name": "卡莎碧雅",
@@ -3103,9 +3103,9 @@
       "league_zac": {
         "name": "札克",
         "attack": "拳擊。<#ff9028ff>自體爆破<>：冷卻好時普攻炸開，周圍敵人受<#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>魔法傷害，英雄再受<#e0e0e0ff>最大生命4%<>真實傷害（冷卻<#ffb900ff>5秒<>）。<#ff9028ff>組織分裂<>：技能擊中英雄掉下黏液，吃掉<#66bb6aff>回復<><#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<>生命（復活需擴充包）。",
-        "skill": "伸長手臂抓向目標，造成<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> + 自身最大生命2%魔法傷害並<#ef5350ff>緩速<>40%；抓住的英雄<#ffb900ff>0.4秒<>後被甩到身邊砸地，再受同樣傷害，周圍敵人<#ef5350ff>擊飛<><#ffb900ff>0.5秒<>。",
-        "skill2": "蓄力<#ffb900ff>0.6秒<>後把自己彈向目標，落地造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> + 自身最大生命3%魔法傷害並<#ef5350ff>擊飛<>周圍敵人<#ffb900ff>0.5秒<>。",
-        "ult": "無法阻擋地連跳4次，每次落地造成<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>魔法傷害（之後每次50%），<#ef5350ff>擊飛<><#ffb900ff>0.33秒<>並<#ef5350ff>緩速<>25%。"
+        "skill": "伸長手臂抓向目標，造成<#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> + 自身最大生命2%魔法傷害並<#ef5350ff>緩速<>40%；抓住的英雄<#ffb900ff>0.4秒<>後被甩到身邊砸地，再受同樣傷害，周圍敵人<#ef5350ff>擊飛<><#ffb900ff>0.5秒<>。",
+        "skill2": "蓄力<#ffb900ff>0.6秒<>後把自己彈向目標，落地造成<#a974ffff>85<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> + 自身最大生命3%魔法傷害並<#ef5350ff>擊飛<>周圍敵人<#ffb900ff>0.5秒<>。",
+        "ult": "無法阻擋地連跳4次，每次落地造成<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>魔法傷害（之後每次50%）並<#ef5350ff>緩速<>25%；第一跳越過目標把敵人<#ef5350ff>擊退<>回自己那邊，之後每跳<#ef5350ff>擊飛<><#ffb900ff>0.33秒<>。"
       },
       "league_singed": {
         "name": "辛吉德",
@@ -4860,7 +4860,7 @@
         "attack": "Staff strikes. <#ff9028ff>Stone Skin<>: each hit on a champion adds a stack (5 at most): +4 armour and <#66bb6aff>2 health<> a second each. <#ff9028ff>Crushing Blow<>: every <#ffb900ff>4s<> his next attack reaches farther and deals <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<> physical damage more, <#ef5350ff>-20% armour<> on the target for <#ffb900ff>3s<>.",
         "skill": "Dashes to the target on his cloud; images strike it and up to <#ffb900ff>2<> enemies near it for <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> physical damage each, then he gains 40% attack speed for <#ffb900ff>5s<>.",
         "skill2": "Turns invisible for <#ffb900ff>1s<> and dashes behind an enemy champion, leaving a clone for <#ffb900ff>4s<>: each second it hits one enemy near it (champions first) for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<> physical damage, and spins when he does.",
-        "ult": "Spins his lengthened staff for <#ffb900ff>2s<>: every <#ffb900ff>0.25s<> <#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>35%<> physical damage plus 2% of a champion's max health; the first hit <#ef5350ff>knocks up for 0.6s<>. A second spin within <#ffb900ff>8s<>. Cast with 2+ enemy champions near, a target in crowd control or right after a dash."
+        "ult": "Spins his lengthened staff for <#ffb900ff>2s<>: every <#ffb900ff>0.25s<> <#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>35%<> physical damage plus 2% of a champion's max health; the first hit <#ef5350ff>knocks up for 0.6s<>. A second spin within <#ffb900ff>8s<>. Cast with an enemy champion near."
       },
       "league_cassiopeia": {
         "name": "Cassiopeia",
@@ -5089,9 +5089,9 @@
       "league_zac": {
         "name": "Zac",
         "attack": "A goo punch. <#ff9028ff>Unstable Matter<>: when ready, an attack bursts for <#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> magic damage round him, champions also taking <#e0e0e0ff>4% of their max health<> true damage (cooldown <#ffb900ff>5s<>). <#ff9028ff>Cell Division<>: skills hitting a champion shed a blob; absorbing it <#66bb6aff>heals<> <#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<> (the revive needs the add-on).",
-        "skill": "Stretches an arm at the target for <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> + 2% of his max health magic damage, <#ef5350ff>slowing<> 40%; a champion caught is flung to him after <#ffb900ff>0.4s<> and slammed for the same damage again, <#ef5350ff>knocking up<> enemies round him for <#ffb900ff>0.5s<>.",
-        "skill2": "Charges for <#ffb900ff>0.6s<>, then flings himself at the target, landing for <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> + 3% of his max health magic damage and a <#ffb900ff>0.5s<> <#ef5350ff>knock-up<> round him.",
-        "ult": "Bounces 4 times, unstoppable: each landing deals <#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> magic damage (the later ones 50%), a <#ffb900ff>0.33s<> <#ef5350ff>knock-up<> and a 25% <#ef5350ff>slow<>."
+        "skill": "Stretches an arm at the target for <#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> + 2% of his max health magic damage, <#ef5350ff>slowing<> 40%; a champion caught is flung to him after <#ffb900ff>0.4s<> and slammed for the same damage again, <#ef5350ff>knocking up<> enemies round him for <#ffb900ff>0.5s<>.",
+        "skill2": "Charges for <#ffb900ff>0.6s<>, then flings himself at the target, landing for <#a974ffff>85<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> + 3% of his max health magic damage and a <#ffb900ff>0.5s<> <#ef5350ff>knock-up<> round him.",
+        "ult": "Bounces 4 times, unstoppable: each landing deals <#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> magic damage (the later ones 50%) and a 25% <#ef5350ff>slow<>. The first leaps past the target and <#ef5350ff>knocks<> enemies back toward his side; the others <#ef5350ff>knock up<> for <#ffb900ff>0.33s<>."
       },
       "league_singed": {
         "name": "Singed",
@@ -6846,7 +6846,7 @@
         "attack": "여의봉 공격. <#ff9028ff>바위 피부<>: 챔피언 적중 시 중첩(최대 5): 중첩당 방어력 +4, 초당 <#66bb6aff>체력 2 회복<>. <#ff9028ff>파쇄격<>: <#ffb900ff>4초<>마다 다음 공격의 사거리가 늘고 <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<> 물리 피해 추가, 대상 <#ef5350ff>방어력 -20%<> <#ffb900ff>3초<>.",
         "skill": "근두운을 타고 대상에게 돌진, 분신이 대상과 주변 최대 <#ffb900ff>2명<>에게 각각 <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> 물리 피해, 이후 <#ffb900ff>5초<>간 공격 속도 +40%.",
         "skill2": "<#ffb900ff>1초<>간 투명해져 적 챔피언 뒤로 돌진하고 <#ffb900ff>4초<>간 분신을 남김: 매초 주변 적 하나(챔피언 우선)에게 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<> 물리 피해, 궁극기 때 함께 회전.",
-        "ult": "<#ffb900ff>2초<>간 늘어난 여의봉을 회전: <#ffb900ff>0.25초<>마다 <#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>35%<> + 챔피언 최대 체력 2% 물리 피해, 첫 타격 <#ef5350ff>0.6초 공중에 띄움<>. <#ffb900ff>8초<> 안에 한 번 더. 적 챔피언 2명 이상, 군중 제어된 대상, 돌진 직후 사용."
+        "ult": "<#ffb900ff>2초<>간 늘어난 여의봉을 회전: <#ffb900ff>0.25초<>마다 <#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>35%<> + 챔피언 최대 체력 2% 물리 피해, 첫 타격 <#ef5350ff>0.6초 공중에 띄움<>. <#ffb900ff>8초<> 안에 한 번 더. 근처에 적 챔피언이 있을 때 사용."
       },
       "league_cassiopeia": {
         "name": "카시오페아",
@@ -7075,9 +7075,9 @@
       "league_zac": {
         "name": "자크",
         "attack": "점액 주먹. <#ff9028ff>불안정 물질<>: 준비되면 기본 공격이 터져 주변 적에게 <#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> 마법 피해, 챔피언은 <#e0e0e0ff>최대 체력의 4%<> 고정 피해 추가(재사용 <#ffb900ff>5초<>). <#ff9028ff>세포 분열<>: 스킬이 챔피언을 맞히면 점액이 떨어지고, 먹으면 <#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<> <#66bb6aff>회복<>(부활은 확장 팩 필요).",
-        "skill": "팔을 늘여 대상을 잡아 <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> + 자신 최대 체력의 2% 마법 피해와 40% <#ef5350ff>둔화<>; 잡힌 챔피언은 <#ffb900ff>0.4초<> 후 끌려와 내리꽂혀 같은 피해를 다시 받고, 주변 적은 <#ffb900ff>0.5초<> <#ef5350ff>에어본<>.",
-        "skill2": "<#ffb900ff>0.6초<> 동안 힘을 모은 뒤 대상에게 날아가 착지하며 <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> + 자신 최대 체력의 3% 마법 피해와 주변 적 <#ffb900ff>0.5초<> <#ef5350ff>에어본<>.",
-        "ult": "저지 불가 상태로 4번 튀어 오르며, 착지할 때마다 <#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> 마법 피해(이후 50%), <#ffb900ff>0.33초<> <#ef5350ff>에어본<>, 25% <#ef5350ff>둔화<>."
+        "skill": "팔을 늘여 대상을 잡아 <#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> + 자신 최대 체력의 2% 마법 피해와 40% <#ef5350ff>둔화<>; 잡힌 챔피언은 <#ffb900ff>0.4초<> 후 끌려와 내리꽂혀 같은 피해를 다시 받고, 주변 적은 <#ffb900ff>0.5초<> <#ef5350ff>에어본<>.",
+        "skill2": "<#ffb900ff>0.6초<> 동안 힘을 모은 뒤 대상에게 날아가 착지하며 <#a974ffff>85<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> + 자신 최대 체력의 3% 마법 피해와 주변 적 <#ffb900ff>0.5초<> <#ef5350ff>에어본<>.",
+        "ult": "저지 불가 상태로 4번 튀어 오르며, 착지할 때마다 <#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> 마법 피해(이후 50%), 25% <#ef5350ff>둔화<>. 첫 착지는 대상을 넘어 적을 자기 쪽으로 <#ef5350ff>밀쳐내고<>, 이후 <#ffb900ff>0.33초<> <#ef5350ff>에어본<>."
       },
       "league_singed": {
         "name": "신지드",
@@ -8832,7 +8832,7 @@
         "attack": "如意棒で攻撃。<#ff9028ff>岩の皮膚<>：チャンピオンに命中で1スタック（最大5）：スタック毎に物理防御+4、毎秒<#66bb6aff>体力2回復<>。<#ff9028ff>強棒打<>：<#ffb900ff>4秒<>毎に次の通常攻撃が伸び<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>の物理ダメージを追加、対象の<#ef5350ff>物理防御-20%<>（<#ffb900ff>3秒<>）。",
         "skill": "觔斗雲で対象へ突進、分身が対象と周囲の敵最大<#ffb900ff>2体<>に各<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<>の物理ダメージ、その後<#ffb900ff>5秒<>攻撃速度+40%。",
         "skill2": "<#ffb900ff>1秒<>透明になり敵チャンピオンの背後へ、<#ffb900ff>4秒<>分身を残す：毎秒近くの敵1体（チャンピオン優先）に<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>の物理ダメージ、アルティメット中は一緒に回転。",
-        "ult": "伸びた如意棒を<#ffb900ff>2秒<>回転：<#ffb900ff>0.25秒<>毎に<#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>35%<>+最大体力2%の物理ダメージ、初撃は<#ef5350ff>0.6秒打ち上げ<>。<#ffb900ff>8秒<>以内にもう一度。敵2体以上・行動妨害中・突進直後に使う。"
+        "ult": "伸びた如意棒を<#ffb900ff>2秒<>回転：<#ffb900ff>0.25秒<>毎に<#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>35%<>+最大体力2%の物理ダメージ、初撃は<#ef5350ff>0.6秒打ち上げ<>。<#ffb900ff>8秒<>以内にもう一度。近くに敵チャンピオンがいる時に使う。"
       },
       "league_cassiopeia": {
         "name": "カシオペア",
@@ -9061,9 +9061,9 @@
       "league_zac": {
         "name": "ザック",
         "attack": "スライムの拳。<#ff9028ff>スライムクラッシュ<>：使用可能なとき通常攻撃が弾け、周囲の敵に<#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>の魔法ダメージ、英雄にはさらに<#e0e0e0ff>最大体力の4%<>の確定ダメージ（クールダウン<#ffb900ff>5秒<>）。<#ff9028ff>はぐれスライム<>：スキルが英雄に当たるとスライムが落ち、拾うと<#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<><#66bb6aff>回復<>（復活は拡張パック）。",
-        "skill": "腕を伸ばして対象をつかみ<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>+自身の最大体力の2%の魔法ダメージと40%<#ef5350ff>スロウ<>。つかんだ英雄は<#ffb900ff>0.4秒<>後に引き寄せて叩きつけ、同じダメージを再び与え周囲の敵を<#ffb900ff>0.5秒<><#ef5350ff>ノックアップ<>。",
-        "skill2": "<#ffb900ff>0.6秒<>力をためて対象へ飛び、着地で<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>+自身の最大体力の3%の魔法ダメージと周囲の敵を<#ffb900ff>0.5秒<><#ef5350ff>ノックアップ<>。",
-        "ult": "阻止不能で4回跳ね、着地ごとに<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>の魔法ダメージ（2回目以降50%）、<#ffb900ff>0.33秒<><#ef5350ff>ノックアップ<>と25%<#ef5350ff>スロウ<>。"
+        "skill": "腕を伸ばして対象をつかみ<#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>+自身の最大体力の2%の魔法ダメージと40%<#ef5350ff>スロウ<>。つかんだ英雄は<#ffb900ff>0.4秒<>後に引き寄せて叩きつけ、同じダメージを再び与え周囲の敵を<#ffb900ff>0.5秒<><#ef5350ff>ノックアップ<>。",
+        "skill2": "<#ffb900ff>0.6秒<>力をためて対象へ飛び、着地で<#a974ffff>85<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>+自身の最大体力の3%の魔法ダメージと周囲の敵を<#ffb900ff>0.5秒<><#ef5350ff>ノックアップ<>。",
+        "ult": "阻止不能で4回跳ね、着地ごとに<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>の魔法ダメージ（2回目以降50%）と25%<#ef5350ff>スロウ<>。最初は対象を飛び越え敵を自分側へ<#ef5350ff>ノックバック<>、以降は<#ffb900ff>0.33秒<><#ef5350ff>ノックアップ<>。"
       },
       "league_singed": {
         "name": "シンジド",

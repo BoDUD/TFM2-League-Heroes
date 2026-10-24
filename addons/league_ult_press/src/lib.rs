@@ -153,6 +153,7 @@ pub const APHELIOS: &str = "league_aphelios";
 pub const VLADIMIR: &str = "league_vladimir";
 pub const SWAIN: &str = "league_swain";
 pub const RENATA: &str = "league_renata";
+pub const WUKONG: &str = "league_wukong";
 /// 冲上去的技能：他生命不低于这个才冲；目标在敌方塔下也冲的残血线。
 pub const ENGAGE_HP: f64 = 0.4;
 pub const DIVE_HP: f64 = 0.25;
@@ -214,6 +215,9 @@ pub const SWAIN_R_NEAR: f64 = 55_000.0;
 /// 烈娜塔 R（备好式，`Targeting EnemyChampion` 75000：主包待命 360 tick，身边 70000 内两个敌方英雄、或射程内有被控住的敌方
 /// 英雄且 45000 内有队友才放，没用上冷却只剩 60 tick）：射程内有敌方英雄就按。
 pub const RENATA_R_NEAR: f64 = 75_000.0;
+/// 悟空 R（备好式，`Targeting EnemyChampion` 60000：主包待命 900 tick，备好时普攻、28000 内有敌方英雄就转，第一下击飞；没用上
+/// 冷却退还）：这么近有敌方英雄就按（用户 2026-10-24：「猴子开大不能把敌方英雄击飞？」——游戏里 AI 从没按过他的 R）。
+pub const WUKONG_R_NEAR: f64 = 40_000.0;
 /// 备好式大招按下后看这么久：冷却一下掉了很多就是退还了，没掉就是用掉了（最长的凯尔待命 900 tick）。
 pub const ARM_WATCH: usize = 960;
 /// 费德提克 R（`Position` 80000，引导 1 秒后传过去，鸦群打 45000 内的敌人）。
@@ -955,6 +959,7 @@ pub fn plan(name: &str, s: &Scene, ready: [bool; 4], m: &Marks) -> Vec<Plan> {
         APHELIOS if r => push("R", Ult, s.by_distance(APHELIOS_R_NEAR), "arm", true),
         SWAIN if r => push("R", Ult, s.by_distance(SWAIN_R_NEAR), "arm the demon", true),
         RENATA if r => push("R", Ult, s.by_distance(RENATA_R_NEAR), "arm the takeover", false),
+        WUKONG if r => push("R", Ult, s.by_distance(WUKONG_R_NEAR), "arm the cyclone", true),
         VLADIMIR if r => push("R", Ult, vladimir_r(s), "hemoplague", true),
         RYZE if r => {
             if let Some((t, why)) = ryze_r(s) {
@@ -976,7 +981,7 @@ pub fn plan(name: &str, s: &Scene, ready: [bool; 4], m: &Marks) -> Vec<Plan> {
 
 /// 备好式的大招（主包待命一段时间等时机，没用上退还冷却）：按下以后看它退没退。
 pub fn is_armed_ult(name: &str) -> bool {
-    matches!(name, ORIANNA | SYNDRA | KAYLE | KARMA | EVELYNN | RYZE | APHELIOS | SWAIN | RENATA)
+    matches!(name, ORIANNA | SYNDRA | KAYLE | KARMA | EVELYNN | RYZE | APHELIOS | SWAIN | RENATA | WUKONG)
 }
 
 /// 放不出技能的控制。
@@ -1044,7 +1049,7 @@ const P_W1: PressSlot = PressSlot { slot: SkillSlotV1::Skill, key: "W" };
 pub fn slots_of(name: &str) -> &'static [PressSlot] {
     match name {
         SAMIRA | TF | KOGMAW | JANNA | SYNDRA | XERATH | KAYLE | JHIN | KARMA | EVELYNN | FIDDLESTICKS | RYZE | APHELIOS
-        | VLADIMIR | SWAIN | RENATA => &[P_R],
+        | VLADIMIR | SWAIN | RENATA | WUKONG => &[P_R],
         CAMILLE | GWEN | VIEGO | SIVIR | ZILEAN | KALISTA => &[P_E2],
         ORIANNA => &[P_R, P_E2],
         KATARINA => &[P_R, P_W2],
@@ -2183,6 +2188,11 @@ mod tests {
         assert_eq!(keys(plan(RENATA, &s, all, &marks(false, false))), vec![("R", SkillSlotV1::Ult, Aim::Unit(1))]);
         assert!(plan(RENATA, &scene(0.8, &[], &[u(1, 80_000.0, 0.0, 1.0)], &[], &[]), all, &marks(false, false)).is_empty());
         assert!(plan(RENATA, &s, [true, true, true, false], &marks(false, false)).is_empty());
+        // Wukong arms the cyclone on anyone within 40000 (the spin needs one within 28000 at an attack); not with R down
+        // (still locked at a low level or on cooldown)
+        assert_eq!(keys(plan(WUKONG, &s, all, &marks(false, false))), vec![("R", SkillSlotV1::Ult, Aim::Unit(1))]);
+        assert!(plan(WUKONG, &scene(0.8, &[], &[u(1, 50_000.0, 0.0, 1.0)], &[], &[]), all, &marks(false, false)).is_empty());
+        assert!(plan(WUKONG, &s, [true, true, true, false], &marks(false, false)).is_empty());
         let low = [u(1, 40_000.0, 0.0, 0.4)];
         assert_eq!(keys(plan(VLADIMIR, &scene(0.8, &[], &low, &[], &[]), all, &marks(false, false))), vec![("R", SkillSlotV1::Ult, Aim::Unit(1))]);
         assert!(plan(VLADIMIR, &s, all, &marks(false, false)).is_empty()); // one at half health, alone: not yet
@@ -2195,7 +2205,7 @@ mod tests {
         let flag = |h: &str, sc: &Scene| plan(h, sc, all, &marks(false, true)).first().map(|p| p.dive);
         let near = [u(1, 20_000.0, 0.0, 0.4), u(2, 22_000.0, 3_000.0, 0.4)];
         assert_eq!(flag(KATARINA, &scene(0.8, &[], &near, &[], &[])), Some(true));
-        for h in [SYNDRA, EVELYNN, APHELIOS, SWAIN, ORIANNA] {
+        for h in [SYNDRA, EVELYNN, APHELIOS, SWAIN, ORIANNA, WUKONG] {
             assert_eq!(flag(h, &scene(0.8, &[], &near, &[], &[])), Some(true), "{h}");
         }
         for h in [KAYLE, KARMA, RENATA, KALISTA] {
@@ -2223,14 +2233,14 @@ mod tests {
         assert_eq!(slots_of(ZED), &[PressSlot { slot: SkillSlotV1::Skill, key: "W" }]);
         assert_eq!(slots_of(ORIANNA).len(), 2);
         assert_eq!(slots_of(KATARINA).iter().map(|p| p.slot).collect::<Vec<_>>(), vec![SkillSlotV1::Ult, SkillSlotV1::Skill2]);
-        for h in [SAMIRA, TF, KOGMAW, JANNA, SYNDRA, XERATH, KAYLE, JHIN, KARMA, EVELYNN, FIDDLESTICKS, RYZE, APHELIOS, VLADIMIR, SWAIN, RENATA] {
+        for h in [SAMIRA, TF, KOGMAW, JANNA, SYNDRA, XERATH, KAYLE, JHIN, KARMA, EVELYNN, FIDDLESTICKS, RYZE, APHELIOS, VLADIMIR, SWAIN, RENATA, WUKONG] {
             assert_eq!(slots_of(h), &[P_R], "{h}");
         }
         for h in [CAMILLE, GWEN, VIEGO, SIVIR, ZILEAN, KALISTA] {
             assert_eq!(slots_of(h), &[P_E2], "{h}");
         }
         assert!(slots_of("league_garen").is_empty());
-        assert!(is_armed_ult(KAYLE) && is_armed_ult(APHELIOS) && is_armed_ult(SWAIN) && is_armed_ult(RENATA) && !is_armed_ult(JANNA) && !is_armed_ult(VLADIMIR));
+        assert!(is_armed_ult(KAYLE) && is_armed_ult(APHELIOS) && is_armed_ult(SWAIN) && is_armed_ult(RENATA) && is_armed_ult(WUKONG) && !is_armed_ult(JANNA) && !is_armed_ult(VLADIMIR));
     }
 
     /// The action-level `"range"` of a slot in the main pack's data (four spaces in, like `melee_list_matches_the_data`).
@@ -2279,6 +2289,7 @@ mod tests {
             (EVELYNN, EVELYNN_R_NEAR),
             (RYZE, TF_REACH),
             (APHELIOS, APHELIOS_R_NEAR),
+            (WUKONG, WUKONG_R_NEAR),
         ] {
             assert!(reach <= data_range(hero, "ult") as f64, "{hero}");
         }

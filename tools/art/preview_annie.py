@@ -3,7 +3,7 @@
 
     python tools/art/preview_annie.py [--out docs/preview]
 
-  league_annie_frames.png    every animation, frame by frame, 3x on the arena colour
+  league_annie_frames.png    every animation's dense frames (hd_, PPU 2.2, as league.dll shows them)
   league_annie_effects.png   every effect animation, 3x
   league_annie_showcase.gif  a scripted fight against Darius and Garen, timed like the kit: Annie runs in
                              with Pyromania's stun ready (she spawns with it), summons Tibbers onto Garen as
@@ -23,6 +23,7 @@ from PIL import Image
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 from preview_ashe import Anim, tick  # noqa: E402
+from preview_dense import dense, dense_rows, put  # noqa: E402
 from preview_garen import ARENA, T, contact, frames_of, load  # noqa: E402
 from preview_jinx import Follow, Walker  # noqa: E402
 
@@ -30,6 +31,9 @@ ROOT = os.path.dirname(os.path.dirname(HERE))
 LEAGUE = os.path.join(ROOT, "league")
 CHAMP = os.path.join(LEAGUE, "champions", "league_annie")
 FX = {n: os.path.join(LEAGUE, "effects", n) for n in ("league_annie_fx", "league_annie_big")}
+# (ahead, up) px of her pivot where each fireball leaves: the far hand on the release frame of the PPU redo
+# (casts_annie_hd.py) at the kit's heights (the bolt y_offset -1800, Disintegrate -1000)
+SHOT = {"bolt": (16, 7), "q_ball": (19, 6)}
 
 
 class Held(Walker):
@@ -71,7 +75,7 @@ def showcase(out, z=3, step=40):
 
     def a(tag, dur=None, loop=False, at=None, to=None):
         nonlocal t
-        an = Anim(frames_of(annie, tag), t, at if at is not None else x, gy, loop=loop,
+        an = Anim(dense(annie, tag, "annie", z), t, at if at is not None else x, gy, loop=loop,
                   until=(t + dur) if dur else None, x1=to)
         body.append(an)
         t = an.until
@@ -86,7 +90,7 @@ def showcase(out, z=3, step=40):
         """A fireball leaves her hand `fire` ticks into the action and homes on the foe."""
         foe = foe or d
         launch = start + tick(fire)
-        x0, y0 = x + 8, gy - 12
+        x0, y0 = x + SHOT[tag][0], gy - SHOT[tag][1]
         fx_, fy = foe.pos(launch)
         arrive = launch + tick(max(1.0, (fx_ - 6 - x0) / speed))
         fx_at("league_annie_fx", tag, launch, x0, y0, until=arrive, x1=fx_ - 6, y1=fy - 4)
@@ -96,7 +100,7 @@ def showcase(out, z=3, step=40):
 
     # she runs in with the stun ready: the glow is on from the start
     glow.append([0.0, None])
-    run_in = Anim(frames_of(annie, "run"), 0.0, x - 36, gy, loop=True, until=1200, x1=x)
+    run_in = Anim(dense(annie, "run", "annie", z), 0.0, x - 36, gy, loop=True, until=1200, x1=x)
     body.append(run_in)
     t = run_in.until
     # Garen walks up to 28 px beyond Darius
@@ -170,12 +174,12 @@ def showcase(out, z=3, step=40):
                            until=t1 if t1 is not None else end, on=body))
 
     def place(img, f, px, py):
-        img.alpha_composite(f, (px - f.width // 2, py - f.height // 2))
+        put(img, f, int(px), int(py), z)
 
     frames, tt = [], 0.0
     order = sorted((d, g), key=lambda f: f.y)         # the one further back first
     while tt < end:
-        img = Image.new("RGBA", (W, H), ARENA)
+        img = Image.new("RGBA", (W * z, H * z), ARENA)
         for an in under:
             f = an.frame(tt)
             if f is not None:
@@ -191,7 +195,7 @@ def showcase(out, z=3, step=40):
             f = an.frame(tt)
             if f is not None:
                 place(img, f, *an.pos(tt))
-        frames.append(img.resize((W * z, H * z), Image.NEAREST).convert("RGB"))
+        frames.append(img.convert("RGB"))
         tt += step
     sample = frames[::6]                              # one palette for the whole clip
     strip = Image.new("RGB", (W * z, H * z * len(sample)))
@@ -209,7 +213,7 @@ def main():
     args = ap.parse_args()
     os.makedirs(T.long_path(args.out), exist_ok=True)
     s = load(CHAMP)
-    print("frames", contact([(s, t["name"], t["name"]) for t in s.tags], os.path.join(args.out, "league_annie_frames.png")))
+    print("frames", contact(dense_rows(s), os.path.join(args.out, "league_annie_frames.png"), z=1))
     rows = []
     for name, path in FX.items():
         sp = load(path)
