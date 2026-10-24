@@ -1,0 +1,20 @@
+{
+  "author": "BoDUD",
+  "contains_code": true,
+  "dependencies": [
+    {
+      "mod_id": "base",
+      "version": ">=0.4.11"
+    },
+    {
+      "mod_id": "league",
+      "version": ">=0.209.0"
+    }
+  ],
+  "description": "Test build of Aurelion Sol as in League (needs League of Legends Heroes): replaces the main pack's Aurelion Sol so his Cosmic Creator stardust (ability power for every stack) stays through death (the data pack loses it when he dies) and Singularity's centre executes champions below 5% of their maximum health plus 1% per stardust, by their real health, instead of the data pack's stand-in (a % of maximum health each second), which cannot read health. Other champions are untouched. Writes a log for testing.",
+  "last_updated": "2026-10-24",
+  "mod_id": "league_aurelionsol",
+  "mod_type": "native",
+  "name": "League Heroes: Aurelion Sol's stardust kept and the black hole's execute (test)",
+  "version": "0.1.0"
+}

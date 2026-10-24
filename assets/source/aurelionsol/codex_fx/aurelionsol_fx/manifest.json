@@ -1,0 +1,1392 @@
+{
+  "inventory_complete": true,
+  "game_validation_complete": false,
+  "expected": 19,
+  "exported": 19,
+  "items": [
+    {
+      "file": "aurelionsol_fx_a_bolt.png",
+      "status": "exported",
+      "frames": 3,
+      "cell_1x": [
+        12,
+        6
+      ],
+      "preview_scale": 8,
+      "symmetry": "top-bottom",
+      "symmetry_pass": [
+        true,
+        true,
+        true
+      ],
+      "alpha_levels": [
+        0,
+        255
+      ],
+      "opaque_pixels": [
+        22,
+        24,
+        24
+      ],
+      "unique_frames": 3,
+      "raw_size": [
+        2172,
+        724
+      ],
+      "raw_grid": [
+        3,
+        1
+      ],
+      "raw_frame_rects": [
+        [
+          0,
+          0,
+          724,
+          724
+        ],
+        [
+          724,
+          0,
+          1448,
+          724
+        ],
+        [
+          1448,
+          0,
+          2172,
+          724
+        ]
+      ],
+      "common_source_viewport": [
+        67,
+        245,
+        662,
+        518
+      ],
+      "content_rows": 6,
+      "source_sha256": "c1b37dfd528ea6fefca4cca18420fed52e60a4aa47ac8ecab9f5e675e445c52c",
+      "binding": "view_projectiles `league_aurelionsol_a_bolt`（追踪弹道，z 2；上下对称）",
+      "method": "AI-generated art; common viewport; per-cell palette majority; mirror stronger half; horizontal repack; nearest 8x preview"
+    },
+    {
+      "file": "aurelionsol_fx_a_hit.png",
+      "status": "exported",
+      "frames": 3,
+      "cell_1x": [
+        12,
+        12
+      ],
+      "preview_scale": 8,
+      "symmetry": "left-right",
+      "symmetry_pass": [
+        true,
+        true,
+        true
+      ],
+      "alpha_levels": [
+        0,
+        255
+      ],
+      "opaque_pixels": [
+        16,
+        44,
+        6
+      ],
+      "unique_frames": 3,
+      "raw_size": [
+        2172,
+        724
+      ],
+      "raw_grid": [
+        3,
+        1
+      ],
+      "raw_frame_rects": [
+        [
+          0,
+          0,
+          724,
+          724
+        ],
+        [
+          724,
+          0,
+          1448,
+          724
+        ],
+        [
+          1448,
+          0,
+          2172,
+          724
+        ]
+      ],
+      "common_source_viewport": [
+        49,
+        94,
+        676,
+        653
+      ],
+      "content_rows": 12,
+      "source_sha256": "5240c178c3e04751eba4100d918b60bc9fde318493a27adfc8ad5b7399de92a7",
+      "binding": "view_effects `league_aurelionsol_a_hit`（跟随目标，z 2；左右对称）",
+      "method": "AI-generated art; common viewport; per-cell palette majority; mirror stronger half; horizontal repack; nearest 8x preview"
+    },
+    {
+      "file": "aurelionsol_fx_q_beam.png",
+      "status": "exported",
+      "frames": 3,
+      "cell_1x": [
+        40,
+        8
+      ],
+      "preview_scale": 8,
+      "symmetry": "top-bottom",
+      "symmetry_pass": [
+        true,
+        true,
+        true
+      ],
+      "alpha_levels": [
+        0,
+        255
+      ],
+      "opaque_pixels": [
+        232,
+        204,
+        160
+      ],
+      "unique_frames": 3,
+      "raw_size": [
+        1619,
+        971
+      ],
+      "raw_grid": [
+        1,
+        3
+      ],
+      "raw_frame_rects": [
+        [
+          0,
+          0,
+          1619,
+          324
+        ],
+        [
+          0,
+          324,
+          1619,
+          647
+        ],
+        [
+          0,
+          647,
+          1619,
+          971
+        ]
+      ],
+      "common_source_viewport": [
+        67,
+        0,
+        1563,
+        324
+      ],
+      "content_rows": 8,
+      "source_sha256": "82f7b402aa60ea7eb8f1c321bd796335e945e617e7613f4550b6cef80e154413",
+      "binding": "view_projectiles `league_aurelionsol_q_beam`（直线弹道，很快，z 2；上下对称）",
+      "method": "AI-generated art; common viewport; per-cell palette majority; mirror stronger half; horizontal repack; nearest 8x preview"
+    },
+    {
+      "file": "aurelionsol_fx_q_hit.png",
+      "status": "exported",
+      "frames": 3,
+      "cell_1x": [
+        14,
+        14
+      ],
+      "preview_scale": 8,
+      "symmetry": "left-right",
+      "symmetry_pass": [
+        true,
+        true,
+        true
+      ],
+      "alpha_levels": [
+        0,
+        255
+      ],
+      "opaque_pixels": [
+        16,
+        56,
+        6
+      ],
+      "unique_frames": 3,
+      "raw_size": [
+        2172,
+        724
+      ],
+      "raw_grid": [
+        3,
+        1
+      ],
+      "raw_frame_rects": [
+        [
+          0,
+          0,
+          724,
+          724
+        ],
+        [
+          724,
+          0,
+          1448,
+          724
+        ],
+        [
+          1448,
+          0,
+          2172,
+          724
+        ]
+      ],
+      "common_source_viewport": [
+        27,
+        92,
+        698,
+        631
+      ],
+      "content_rows": 14,
+      "source_sha256": "5c835cf41f22aa080eeff619b736840a55a2e09b65302f3dcc600cd9cf53f4b7",
+      "binding": "view_effects `league_aurelionsol_q_hit`（跟随目标，z 2；左右对称）",
+      "method": "AI-generated art; common viewport; per-cell palette majority; mirror stronger half; horizontal repack; nearest 8x preview"
+    },
+    {
+      "file": "aurelionsol_fx_e_orb.png",
+      "status": "exported",
+      "frames": 3,
+      "cell_1x": [
+        10,
+        10
+      ],
+      "preview_scale": 8,
+      "symmetry": "both",
+      "symmetry_pass": [
+        true,
+        true,
+        true
+      ],
+      "alpha_levels": [
+        0,
+        255
+      ],
+      "opaque_pixels": [
+        60,
+        68,
+        68
+      ],
+      "unique_frames": 3,
+      "raw_size": [
+        2172,
+        724
+      ],
+      "raw_grid": [
+        3,
+        1
+      ],
+      "raw_frame_rects": [
+        [
+          0,
+          0,
+          724,
+          724
+        ],
+        [
+          724,
+          0,
+          1448,
+          724
+        ],
+        [
+          1448,
+          0,
+          2172,
+          724
+        ]
+      ],
+      "common_source_viewport": [
+        45,
+        45,
+        679,
+        679
+      ],
+      "content_rows": 10,
+      "source_sha256": "7b777f54dd3f74cd6de8fa01b627c70b847a0a85253e758fc27b4918ee0b413a",
+      "binding": "view_projectiles `league_aurelionsol_e_orb`（抛物线弹道，z 2；圆形，两个方向都对称）",
+      "method": "AI-generated art; common viewport; per-cell palette majority; mirror stronger half; horizontal repack; nearest 8x preview"
+    },
+    {
+      "file": "aurelionsol_fx_e_hole.png",
+      "status": "exported",
+      "frames": 6,
+      "cell_1x": [
+        56,
+        26
+      ],
+      "preview_scale": 8,
+      "symmetry": "left-right",
+      "symmetry_pass": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "alpha_levels": [
+        0,
+        255
+      ],
+      "opaque_pixels": [
+        710,
+        690,
+        698,
+        696,
+        686,
+        682
+      ],
+      "unique_frames": 6,
+      "raw_size": [
+        2129,
+        738
+      ],
+      "raw_grid": [
+        3,
+        2
+      ],
+      "raw_frame_rects": [
+        [
+          0,
+          0,
+          710,
+          369
+        ],
+        [
+          710,
+          0,
+          1419,
+          369
+        ],
+        [
+          1419,
+          0,
+          2129,
+          369
+        ],
+        [
+          0,
+          369,
+          710,
+          738
+        ],
+        [
+          710,
+          369,
+          1419,
+          738
+        ],
+        [
+          1419,
+          369,
+          2129,
+          738
+        ]
+      ],
+      "common_source_viewport": [
+        19,
+        61,
+        696,
+        360
+      ],
+      "content_rows": 26,
+      "source_sha256": "4964cd3124a5ee5f3723e48acbd4bd80eb0b8c47f0640cbd90f3dbb8b39f2927",
+      "binding": "view_effects `league_aurelionsol_e_hole`（大表，落点的地上，不跟随，z -1；左右对称；约 5 秒）",
+      "method": "AI-generated art; common viewport; per-cell palette majority; mirror stronger half; horizontal repack; nearest 8x preview"
+    },
+    {
+      "file": "aurelionsol_fx_e_core.png",
+      "status": "exported",
+      "frames": 4,
+      "cell_1x": [
+        16,
+        24
+      ],
+      "preview_scale": 8,
+      "symmetry": "left-right",
+      "symmetry_pass": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "alpha_levels": [
+        0,
+        255
+      ],
+      "opaque_pixels": [
+        52,
+        156,
+        100,
+        48
+      ],
+      "unique_frames": 4,
+      "raw_size": [
+        1024,
+        1536
+      ],
+      "raw_grid": [
+        2,
+        2
+      ],
+      "raw_frame_rects": [
+        [
+          0,
+          0,
+          512,
+          768
+        ],
+        [
+          512,
+          0,
+          1024,
+          768
+        ],
+        [
+          0,
+          768,
+          512,
+          1536
+        ],
+        [
+          512,
+          768,
+          1024,
+          1536
+        ]
+      ],
+      "common_source_viewport": [
+        44,
+        27,
+        482,
+        763
+      ],
+      "content_rows": 24,
+      "source_sha256": "516478a6b52aa45fb1d879a1252f176bb3ad4f6292d510b110c3d1f119103454",
+      "binding": "view_effects `league_aurelionsol_e_core`（跟随目标，z 2；左右对称）",
+      "method": "AI-generated art; common viewport; per-cell palette majority; mirror stronger half; horizontal repack; nearest 8x preview"
+    },
+    {
+      "file": "aurelionsol_fx_slow.png",
+      "status": "exported",
+      "frames": 4,
+      "cell_1x": [
+        18,
+        7
+      ],
+      "preview_scale": 8,
+      "symmetry": "left-right",
+      "symmetry_pass": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "alpha_levels": [
+        0,
+        255
+      ],
+      "opaque_pixels": [
+        28,
+        30,
+        28,
+        30
+      ],
+      "unique_frames": 4,
+      "raw_size": [
+        948,
+        1659
+      ],
+      "raw_grid": [
+        1,
+        4
+      ],
+      "raw_frame_rects": [
+        [
+          0,
+          0,
+          948,
+          415
+        ],
+        [
+          0,
+          415,
+          948,
+          830
+        ],
+        [
+          0,
+          830,
+          948,
+          1244
+        ],
+        [
+          0,
+          1244,
+          948,
+          1659
+        ]
+      ],
+      "common_source_viewport": [
+        59,
+        0,
+        894,
+        415
+      ],
+      "content_rows": 7,
+      "source_sha256": "ffd39ef476513049f6404c14a572af9b51dcfdf7f765753a1c678fd901220d78",
+      "binding": "view_buffs `league_aurelionsol_e_slow` / `league_aurelionsol_r_slow`（tag `slow`，跟随，脚下，z -1；左右对称）",
+      "method": "AI-generated art; common viewport; per-cell palette majority; mirror stronger half; horizontal repack; nearest 8x preview"
+    },
+    {
+      "file": "aurelionsol_fx_r_call.png",
+      "status": "exported",
+      "frames": 4,
+      "cell_1x": [
+        26,
+        20
+      ],
+      "preview_scale": 8,
+      "symmetry": "left-right",
+      "symmetry_pass": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "alpha_levels": [
+        0,
+        255
+      ],
+      "opaque_pixels": [
+        70,
+        92,
+        118,
+        90
+      ],
+      "unique_frames": 4,
+      "raw_size": [
+        1522,
+        1033
+      ],
+      "raw_grid": [
+        2,
+        2
+      ],
+      "raw_frame_rects": [
+        [
+          0,
+          0,
+          761,
+          516
+        ],
+        [
+          761,
+          0,
+          1522,
+          516
+        ],
+        [
+          0,
+          516,
+          761,
+          1033
+        ],
+        [
+          761,
+          516,
+          1522,
+          1033
+        ]
+      ],
+      "common_source_viewport": [
+        38,
+        31,
+        719,
+        394
+      ],
+      "content_rows": 10,
+      "source_sha256": "804c53e5d1539704c2d114d53c144cd6ad7774d57247fa5ad31fb62f654da336",
+      "binding": "view_effects `league_aurelionsol_r_call`（他头顶，不跟随，z 3；左右对称）",
+      "method": "AI-generated art; common viewport; per-cell palette majority; mirror stronger half; horizontal repack; nearest 8x preview"
+    },
+    {
+      "file": "aurelionsol_fx_r_fall.png",
+      "status": "exported",
+      "frames": 6,
+      "cell_1x": [
+        26,
+        84
+      ],
+      "preview_scale": 8,
+      "symmetry": "left-right",
+      "symmetry_pass": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "alpha_levels": [
+        0,
+        255
+      ],
+      "opaque_pixels": [
+        110,
+        286,
+        532,
+        650,
+        798,
+        464
+      ],
+      "unique_frames": 6,
+      "raw_size": [
+        1807,
+        870
+      ],
+      "raw_grid": [
+        6,
+        1
+      ],
+      "raw_frame_rects": [
+        [
+          0,
+          0,
+          301,
+          870
+        ],
+        [
+          301,
+          0,
+          602,
+          870
+        ],
+        [
+          602,
+          0,
+          904,
+          870
+        ],
+        [
+          904,
+          0,
+          1205,
+          870
+        ],
+        [
+          1205,
+          0,
+          1506,
+          870
+        ],
+        [
+          1506,
+          0,
+          1807,
+          870
+        ]
+      ],
+      "common_source_viewport": [
+        0,
+        36,
+        301,
+        837
+      ],
+      "content_rows": 84,
+      "source_sha256": "6b84da195a84a06a363d10aee386764b89246f655f7c062bae097490e2baabf2",
+      "binding": "view_effects `league_aurelionsol_r_fall`（大表，落点，不跟随，z 3；左右对称；半秒）",
+      "method": "AI-generated art; common viewport; per-cell palette majority; mirror stronger half; horizontal repack; nearest 8x preview"
+    },
+    {
+      "file": "aurelionsol_fx_r_impact.png",
+      "status": "exported",
+      "frames": 5,
+      "cell_1x": [
+        50,
+        26
+      ],
+      "preview_scale": 8,
+      "symmetry": "left-right",
+      "symmetry_pass": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "alpha_levels": [
+        0,
+        255
+      ],
+      "opaque_pixels": [
+        94,
+        424,
+        658,
+        288,
+        152
+      ],
+      "unique_frames": 5,
+      "raw_size": [
+        2129,
+        738
+      ],
+      "raw_grid": [
+        3,
+        2
+      ],
+      "raw_frame_rects": [
+        [
+          0,
+          0,
+          710,
+          369
+        ],
+        [
+          710,
+          0,
+          1419,
+          369
+        ],
+        [
+          1419,
+          0,
+          2129,
+          369
+        ],
+        [
+          0,
+          369,
+          710,
+          738
+        ],
+        [
+          710,
+          369,
+          1419,
+          738
+        ]
+      ],
+      "common_source_viewport": [
+        12,
+        43,
+        696,
+        369
+      ],
+      "content_rows": 26,
+      "source_sha256": "0486470abafe583f1f6382809a582e2765d9d83342ebe5a9980cfdbca287d6b0",
+      "binding": "view_effects `league_aurelionsol_r_impact`（大表，落点的地上，不跟随，z -1；左右对称）",
+      "method": "AI-generated art; common viewport; per-cell palette majority; mirror stronger half; horizontal repack; nearest 8x preview"
+    },
+    {
+      "file": "aurelionsol_fx_r_sky.png",
+      "status": "exported",
+      "frames": 6,
+      "cell_1x": [
+        72,
+        44
+      ],
+      "preview_scale": 8,
+      "symmetry": "left-right",
+      "symmetry_pass": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "alpha_levels": [
+        0,
+        255
+      ],
+      "opaque_pixels": [
+        718,
+        640,
+        1450,
+        1834,
+        1014,
+        556
+      ],
+      "unique_frames": 6,
+      "raw_size": [
+        1916,
+        821
+      ],
+      "raw_grid": [
+        3,
+        2
+      ],
+      "raw_frame_rects": [
+        [
+          0,
+          0,
+          639,
+          410
+        ],
+        [
+          639,
+          0,
+          1277,
+          410
+        ],
+        [
+          1277,
+          0,
+          1916,
+          410
+        ],
+        [
+          0,
+          410,
+          639,
+          821
+        ],
+        [
+          639,
+          410,
+          1277,
+          821
+        ],
+        [
+          1277,
+          410,
+          1916,
+          821
+        ]
+      ],
+      "common_source_viewport": [
+        0,
+        9,
+        639,
+        409
+      ],
+      "content_rows": 44,
+      "source_sha256": "94c945a4d3fe563c7a876bc6b0d6058a228ef69401ee7d11fd71a5ca0e2ea1ea",
+      "binding": "view_effects `league_aurelionsol_r_sky`（大表，落点的地上，不跟随，z -1；左右对称）",
+      "method": "AI-generated art; common viewport; per-cell palette majority; mirror stronger half; horizontal repack; nearest 8x preview"
+    },
+    {
+      "file": "aurelionsol_fx_r_wave.png",
+      "status": "exported",
+      "frames": 5,
+      "cell_1x": [
+        96,
+        30
+      ],
+      "preview_scale": 8,
+      "symmetry": "left-right",
+      "symmetry_pass": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "alpha_levels": [
+        0,
+        255
+      ],
+      "opaque_pixels": [
+        272,
+        542,
+        772,
+        452,
+        140
+      ],
+      "unique_frames": 5,
+      "raw_size": [
+        1003,
+        1568
+      ],
+      "raw_grid": [
+        1,
+        5
+      ],
+      "raw_frame_rects": [
+        [
+          0,
+          0,
+          1003,
+          314
+        ],
+        [
+          0,
+          314,
+          1003,
+          627
+        ],
+        [
+          0,
+          627,
+          1003,
+          941
+        ],
+        [
+          0,
+          941,
+          1003,
+          1254
+        ],
+        [
+          0,
+          1254,
+          1003,
+          1568
+        ]
+      ],
+      "common_source_viewport": [
+        25,
+        1,
+        978,
+        304
+      ],
+      "content_rows": 30,
+      "source_sha256": "225a5e7268bd26ad54dbfef1a398df57bd4fcc2bc72d1db973f70993a303ca10",
+      "binding": "view_effects `league_aurelionsol_r_wave`（大表，落点的地上，不跟随，z -1；左右对称）",
+      "method": "AI-generated art; common viewport; per-cell palette majority; mirror stronger half; horizontal repack; nearest 8x preview"
+    },
+    {
+      "file": "aurelionsol_fx_r_hit.png",
+      "status": "exported",
+      "frames": 3,
+      "cell_1x": [
+        16,
+        18
+      ],
+      "preview_scale": 8,
+      "symmetry": "left-right",
+      "symmetry_pass": [
+        true,
+        true,
+        true
+      ],
+      "alpha_levels": [
+        0,
+        255
+      ],
+      "opaque_pixels": [
+        72,
+        58,
+        22
+      ],
+      "unique_frames": 3,
+      "raw_size": [
+        1983,
+        793
+      ],
+      "raw_grid": [
+        3,
+        1
+      ],
+      "raw_frame_rects": [
+        [
+          0,
+          0,
+          661,
+          793
+        ],
+        [
+          661,
+          0,
+          1322,
+          793
+        ],
+        [
+          1322,
+          0,
+          1983,
+          793
+        ]
+      ],
+      "common_source_viewport": [
+        0,
+        125,
+        661,
+        656
+      ],
+      "content_rows": 18,
+      "source_sha256": "0bcc21d8235829f5c8a2b1ef1a7201c25b44f406e96da22fbfb394492f70547a",
+      "binding": "view_effects `league_aurelionsol_r_hit`（跟随目标，z 2；左右对称）",
+      "method": "AI-generated art; common viewport; per-cell palette majority; mirror stronger half; horizontal repack; nearest 8x preview"
+    },
+    {
+      "file": "aurelionsol_fx_w_lift.png",
+      "status": "exported",
+      "frames": 4,
+      "cell_1x": [
+        40,
+        48
+      ],
+      "preview_scale": 8,
+      "symmetry": "left-right",
+      "symmetry_pass": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "alpha_levels": [
+        0,
+        255
+      ],
+      "opaque_pixels": [
+        202,
+        364,
+        480,
+        170
+      ],
+      "unique_frames": 4,
+      "raw_size": [
+        1024,
+        1536
+      ],
+      "raw_grid": [
+        2,
+        2
+      ],
+      "raw_frame_rects": [
+        [
+          0,
+          0,
+          512,
+          768
+        ],
+        [
+          512,
+          0,
+          1024,
+          768
+        ],
+        [
+          0,
+          768,
+          512,
+          1536
+        ],
+        [
+          512,
+          768,
+          1024,
+          1536
+        ]
+      ],
+      "common_source_viewport": [
+        14,
+        28,
+        479,
+        729
+      ],
+      "content_rows": 48,
+      "source_sha256": "4204e961939d281da00ad73bd44bd69ea99821798419ad2651e336415a22640a",
+      "binding": "view_effects `league_aurelionsol_w_lift`（在他身边，不跟随，z 3；左右对称）",
+      "method": "AI-generated art; common viewport; per-cell palette majority; mirror stronger half; horizontal repack; nearest 8x preview"
+    },
+    {
+      "file": "aurelionsol_fx_w_trail.png",
+      "status": "exported",
+      "frames": 4,
+      "cell_1x": [
+        44,
+        20
+      ],
+      "preview_scale": 8,
+      "symmetry": "left-right",
+      "symmetry_pass": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "alpha_levels": [
+        0,
+        255
+      ],
+      "opaque_pixels": [
+        160,
+        216,
+        250,
+        170
+      ],
+      "unique_frames": 4,
+      "raw_size": [
+        1858,
+        846
+      ],
+      "raw_grid": [
+        2,
+        2
+      ],
+      "raw_frame_rects": [
+        [
+          0,
+          0,
+          929,
+          423
+        ],
+        [
+          929,
+          0,
+          1858,
+          423
+        ],
+        [
+          0,
+          423,
+          929,
+          846
+        ],
+        [
+          929,
+          423,
+          1858,
+          846
+        ]
+      ],
+      "common_source_viewport": [
+        50,
+        101,
+        878,
+        399
+      ],
+      "content_rows": 20,
+      "source_sha256": "06a8a52468ff5c06ba212be2743e00246fd1c6228b66c9e32a4784ded5e5ab1b",
+      "binding": "view_buffs `league_aurelionsol_w_fly`（tag `w_trail`，跟随他，z -1，在他身后；左右对称；约 4 秒）",
+      "method": "AI-generated art; common viewport; per-cell palette majority; mirror stronger half; horizontal repack; nearest 8x preview"
+    },
+    {
+      "file": "aurelionsol_fx_d_gain.png",
+      "status": "exported",
+      "frames": 4,
+      "cell_1x": [
+        34,
+        46
+      ],
+      "preview_scale": 8,
+      "symmetry": "left-right",
+      "symmetry_pass": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "alpha_levels": [
+        0,
+        255
+      ],
+      "opaque_pixels": [
+        48,
+        256,
+        368,
+        414
+      ],
+      "unique_frames": 4,
+      "raw_size": [
+        1082,
+        1454
+      ],
+      "raw_grid": [
+        2,
+        2
+      ],
+      "raw_frame_rects": [
+        [
+          0,
+          0,
+          541,
+          727
+        ],
+        [
+          541,
+          0,
+          1082,
+          727
+        ],
+        [
+          0,
+          727,
+          541,
+          1454
+        ],
+        [
+          541,
+          727,
+          1082,
+          1454
+        ]
+      ],
+      "common_source_viewport": [
+        24,
+        62,
+        492,
+        672
+      ],
+      "content_rows": 46,
+      "source_sha256": "7be130720d2839075262178bbabf31e6d5ab848eea5ce03532885f7dd4e8cc7d",
+      "binding": "view_effects `league_aurelionsol_d_gain`（跟随他，z 2；左右对称）",
+      "method": "AI-generated art; common viewport; per-cell palette majority; mirror stronger half; horizontal repack; nearest 8x preview"
+    },
+    {
+      "file": "aurelionsol_fx_sky_ready.png",
+      "status": "exported",
+      "frames": 4,
+      "cell_1x": [
+        40,
+        50
+      ],
+      "preview_scale": 8,
+      "symmetry": "left-right",
+      "symmetry_pass": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "alpha_levels": [
+        0,
+        255
+      ],
+      "opaque_pixels": [
+        228,
+        652,
+        654,
+        236
+      ],
+      "unique_frames": 4,
+      "raw_size": [
+        1122,
+        1402
+      ],
+      "raw_grid": [
+        2,
+        2
+      ],
+      "raw_frame_rects": [
+        [
+          0,
+          0,
+          561,
+          701
+        ],
+        [
+          561,
+          0,
+          1122,
+          701
+        ],
+        [
+          0,
+          701,
+          561,
+          1402
+        ],
+        [
+          561,
+          701,
+          1122,
+          1402
+        ]
+      ],
+      "common_source_viewport": [
+        0,
+        0,
+        554,
+        701
+      ],
+      "content_rows": 50,
+      "source_sha256": "29f5cc13d4e21f8b559b72d6298c48780102e926a5d8fe377bb17204463589d3",
+      "binding": "view_effects `league_aurelionsol_sky_ready`（跟随他，z 3；左右对称）",
+      "method": "AI-generated art; common viewport; per-cell palette majority; mirror stronger half; horizontal repack; nearest 8x preview"
+    },
+    {
+      "file": "aurelionsol_fx_sky_glow.png",
+      "status": "exported",
+      "frames": 4,
+      "cell_1x": [
+        34,
+        56
+      ],
+      "preview_scale": 8,
+      "symmetry": "left-right",
+      "symmetry_pass": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "alpha_levels": [
+        0,
+        255
+      ],
+      "opaque_pixels": [
+        70,
+        70,
+        72,
+        70
+      ],
+      "unique_frames": 4,
+      "raw_size": [
+        1052,
+        1495
+      ],
+      "raw_grid": [
+        2,
+        2
+      ],
+      "raw_frame_rects": [
+        [
+          0,
+          0,
+          526,
+          748
+        ],
+        [
+          526,
+          0,
+          1052,
+          748
+        ],
+        [
+          0,
+          748,
+          526,
+          1495
+        ],
+        [
+          526,
+          748,
+          1052,
+          1495
+        ]
+      ],
+      "common_source_viewport": [
+        28,
+        72,
+        506,
+        391
+      ],
+      "content_rows": 10,
+      "source_sha256": "58bdb75581cb7481955a2a285cac30e616f8cc666a640a64e0ee1406767ecf0c",
+      "binding": "view_buffs `league_aurelionsol_sky`（tag `sky_glow`，跟随他，z 3；左右对称；到下次大招为止）",
+      "method": "AI-generated art; common viewport; per-cell palette majority; mirror stronger half; horizontal repack; nearest 8x preview"
+    }
+  ]
+}

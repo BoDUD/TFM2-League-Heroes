@@ -212,6 +212,15 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // League's clips (the design's head put back, the bodies brought to the design's size) at the user's 1.75 squares a
     // game pixel (71 game rows head top to claws = 40 game px, the shoulder spikes above; 3/4 only), so no SIZES row
     ("league_belveth", 1.75, include_str!("../../../league/champions/league_belveth#anim.fanim")),
+    // Taliyah: posed by tools/art/rig_taliyah.py on Codex's step-1 take A-2 cut to 70 rows and its key poses after
+    // League's clips (read at their bodies' scale, the design's head put back) at the user's 1.75 squares a game pixel
+    // (70 rows hair top to soles = 40 game px; the surf and the ride on her boulder higher; 3/4 only), so no SIZES row
+    ("league_taliyah", 1.75, include_str!("../../../league/champions/league_taliyah#anim.fanim")),
+    // Aurelion Sol: posed by tools/art/rig_aurelionsol.py on Codex's step-1 take A-2 as drawn (77 rows crest to tail tip
+    // = 44 game px, hovering 4 rows over the ground; the flight on take B-2) and its key poses after League's clips (the
+    // design's head put back, the bodies brought to the design's size) at the user's 1.75 squares a game pixel (3/4
+    // only), so no SIZES row
+    ("league_aurelionsol", 1.75, include_str!("../../../league/champions/league_aurelionsol#anim.fanim")),
     // Neeko: posed by tools/art/rig_neeko.py on Codex's step-1 take A-1 and its key poses at the user's 2.5 squares a
     // game pixel (100 game rows quill tips to soles: 「40」, then 「1.5也挺糊的 还得往上调整吧」; 3/4 only; league_neeko's
     // view hook draws her as an ally while she is disguised), so no SIZES row
@@ -473,6 +482,12 @@ pub const UI_SIZES: &[(&str, f32)] = &[
     // Bel'Veth: 47 game px from her shoulder spikes to her claws at PPU 1.75 (the raised wings of the reel higher); UI
     // size and card value set with bp_card_audit.py
     ("league_belveth", 0.82),
+    // Taliyah: 40 game px from her piled hair to her soles at PPU 1.75 (shorter than Bel'Veth: 0.82 left her head 15 px
+    // under the card's top); UI size 0.98 and card value -10 set with bp_card_audit.py
+    ("league_taliyah", 0.98),
+    // Aurelion Sol: 44 game px from his crest to his tail tip at PPU 1.75, hovering 2 more; UI size and card value set
+    // with bp_card_audit.py (-3: the raised claw of the idle reel's attack snippet stays on the card)
+    ("league_aurelionsol", 0.86),
 ];
 
 /// The `"lo_..."` animation names of a .fanim.

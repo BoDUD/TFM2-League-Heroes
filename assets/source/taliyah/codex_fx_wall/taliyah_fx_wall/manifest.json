@@ -1,0 +1,234 @@
+{
+  "generator": "built-in image_gen",
+  "assets": [
+    {
+      "file": "taliyah_fx_r_wall_h.png",
+      "frames": 8,
+      "cell_1x": [
+        26,
+        28
+      ],
+      "sheet_1x": [
+        208,
+        28
+      ],
+      "display_scale": 8,
+      "output_size": [
+        1664,
+        224
+      ],
+      "symmetry": "left-right",
+      "source_grid": [
+        4,
+        2
+      ],
+      "raw_size": [
+        1708,
+        921
+      ],
+      "raw_alpha": {
+        "transparent": 0,
+        "opaque": 1573068,
+        "partial": 0
+      },
+      "raw_sha256": "e2f9dc8643c4900bacf4c53c64c71ef0a3d03921918b4826cfa05173d892371c",
+      "background": "generated black, RGB max<=32 keyed transparent",
+      "palette": [
+        "#F4E2BC",
+        "#DABE8C",
+        "#B8945E",
+        "#8C6A40",
+        "#624628",
+        "#3C2A18",
+        "#FFF6C8",
+        "#FFE07A",
+        "#F2B83C",
+        "#C8862A",
+        "#8A5418",
+        "#F6ECD4",
+        "#E2D0A8",
+        "#C4AE84",
+        "#9A8662",
+        "#6E6046"
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "binding": "view_effects league_taliyah_r_wall_h; league_taliyah_big; z=-1",
+      "sequence_zero_based": {
+        "start": [
+          0,
+          1
+        ],
+        "loop": [
+          2,
+          3,
+          4,
+          5
+        ],
+        "end": [
+          6,
+          7
+        ],
+        "duration_ticks": 300
+      },
+      "processing": "majority palette color readback, hard alpha, mirrored corresponding cells; no procedural shape drawing",
+      "frame_metrics": [
+        {
+          "index": 0,
+          "source_cell": [
+            0,
+            0,
+            427,
+            460
+          ],
+          "readback_rect": [
+            9,
+            32,
+            418,
+            418
+          ],
+          "occupied_height": 13,
+          "edge_match": true,
+          "foundation_connected": true,
+          "nonempty": true
+        },
+        {
+          "index": 1,
+          "source_cell": [
+            427,
+            0,
+            854,
+            460
+          ],
+          "readback_rect": [
+            436,
+            32,
+            845,
+            418
+          ],
+          "occupied_height": 24,
+          "edge_match": true,
+          "foundation_connected": true,
+          "nonempty": true
+        },
+        {
+          "index": 2,
+          "source_cell": [
+            854,
+            0,
+            1281,
+            460
+          ],
+          "readback_rect": [
+            863,
+            32,
+            1272,
+            418
+          ],
+          "occupied_height": 24,
+          "edge_match": true,
+          "foundation_connected": true,
+          "nonempty": true
+        },
+        {
+          "index": 3,
+          "source_cell": [
+            1281,
+            0,
+            1708,
+            460
+          ],
+          "readback_rect": [
+            1290,
+            32,
+            1699,
+            418
+          ],
+          "occupied_height": 24,
+          "edge_match": true,
+          "foundation_connected": true,
+          "nonempty": true
+        },
+        {
+          "index": 4,
+          "source_cell": [
+            0,
+            460,
+            427,
+            921
+          ],
+          "readback_rect": [
+            9,
+            484,
+            419,
+            870
+          ],
+          "occupied_height": 24,
+          "edge_match": true,
+          "foundation_connected": true,
+          "nonempty": true
+        },
+        {
+          "index": 5,
+          "source_cell": [
+            427,
+            460,
+            854,
+            921
+          ],
+          "readback_rect": [
+            436,
+            484,
+            845,
+            870
+          ],
+          "occupied_height": 24,
+          "edge_match": true,
+          "foundation_connected": true,
+          "nonempty": true
+        },
+        {
+          "index": 6,
+          "source_cell": [
+            854,
+            460,
+            1281,
+            921
+          ],
+          "readback_rect": [
+            863,
+            484,
+            1272,
+            870
+          ],
+          "occupied_height": 17,
+          "edge_match": true,
+          "foundation_connected": true,
+          "nonempty": true
+        },
+        {
+          "index": 7,
+          "source_cell": [
+            1281,
+            460,
+            1708,
+            921
+          ],
+          "readback_rect": [
+            1290,
+            484,
+            1699,
+            870
+          ],
+          "occupied_height": 9,
+          "edge_match": true,
+          "foundation_connected": true,
+          "nonempty": true
+        }
+      ],
+      "runtime_tested": false
+    }
+  ]
+}
