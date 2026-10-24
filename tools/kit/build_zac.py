@@ -7,7 +7,9 @@ combos E's landing -> W, E's knock-up -> Q, Q's fling -> R, R's end -> W). TFM2 
 four buttons: Stretching Strikes (Q) is `skill`, Elastic Slingshot (E) `skill2`, Let's Bounce! (R) the `ult`; Unstable
 Matter (W) rides on his attack and the combos. Damaging skills go on `EnemyWithoutTower`, so he clears camps with them.
 Q and R keep their cooldowns in flags (`q_cd`, `r_cd`; league_nunu's E) so the combos can cast them; a slot cast while
-its flag is up does nothing (a 3-tick idle). Flags die with him: a respawned Zac has Q and R ready.
+its flag is up does nothing (a 3-tick idle). Flags die with him: a respawned Zac has Q and R ready. The combos cast R
+only after the ult slot (open from level 5) has fired once this life (the flag `r_open` it lays; it dies with him too,
+and the slot lays it again its first try): without it Q -> R bounced him from level 1 (the user, 2026-10-24).
   passive Cell Division (细胞分裂): every skill hit on an enemy champion sheds a blob (at most one every b_gap ticks): a
           hidden line from him toward that champion, b_far long, lands b_fly ticks later where the blob lies for b_lie
           ticks (a picture stamped every 15 ticks, league_poppy's buckler); walking within b_catch of it absorbs it -
@@ -30,12 +32,16 @@ its flag is up does nothing (a 3-tick idle). Flags die with him: a respawned Zac
           back for e_wind ticks, then flings himself onto the target (`MoveToTarget` e_speed, league_malphite R): on
           landing e_dmg + e_ap% AP + e_hp% of his maximum health and an e_up-tick knock-up within e_r.
   ult     R Let's Bounce! (动感弹球), `Targeting` on `EnemyChampion` (r_range, `r_cd`): r_n bounces r_gap ticks apart,
-          unstoppable (`cc_immune`); each hops onto an enemy champion within r_hop (or in place) and lands r_air ticks
-          after it starts for r_dmg +
-          r_ap% AP (later bounces x r_k%), an r_up-tick knock-up and r_slow% for r_slow_t within r_r.
+          unstoppable (`cc_immune`); each lands r_air ticks after it starts for r_dmg + r_ap% AP (later bounces x r_k%)
+          and r_slow% for r_slow_t within r_r. The first dashes through an enemy champion within r_range + 25000 (the
+          AI casts from its range plus both bodies) to 15000 beyond it (`RushMoveToBack` r_rush from r_rush_at,
+          league_leesin's insec) and its landing kicks them back away from him (`Knockback` r_kb x r_kb_t), toward
+          where he came from - League's first bounce, the carry back to his team (the user, 2026-10-24: 「大招应该也能
+          抱一个人回来」); the others hop onto an enemy champion within r_hop (or in place) for an r_up-tick knock-up, so
+          he follows the one he kicked.
   combos  E -> W: the landing bursts Unstable Matter at once (its cooldown starting over). E -> Q: a champion knocked up by
           the landing is caught by Q at once when `q_cd` is off. Q -> R: the slam of a flung champion starts R on it
-          when `r_cd` is off. R -> W: the last bounce bursts Unstable Matter and leaves W ready again.
+          when `r_cd` and `r_open` allow. R -> W: the last bounce bursts Unstable Matter and leaves W ready again.
 The add-on copy (--native, addons/league_zac): the passive league_zac:split decides the split (the copy shows it:
 `split_go` / `split_end` flags, a 2-tick watch hung once a life by his attack: the melt, the puddle held every 30 ticks,
 the reform).
@@ -71,7 +77,10 @@ BIG = "asset/league/effects/league_zac_big"
 # 0.5-1 s, cd 22-10. R: four bounces, 140-280 + 40% AP (later hits 50%), knock-up 1 s, 20-30% slow, cd 120-90.
 P = {
     # stats (base tanks: attack 80 +6, hp 1100 +120, defence 40 +10, mr 30 +5; league_nunu 1150 / 72)
-    "hp": 1150, "hp_g": 120, "atk": 72, "atk_g": 6, "apw": 30, "apw_g": 15, "def": 40, "def_g": 10, "mr": 30, "mr_g": 5,
+    # hp 1150 -> 1250, q_dmg 40 -> 55, e_dmg 60 -> 85 (2026-10-24): R gated to level 5 cost his early game - kd.py
+    # --lane 1 seeds 1-8 +1.58 -> -0.22 (the gate alone; the first bounce's kick -0.21, no change); with these +1.66 / +1.48
+    # on seeds 1-8 / 9-16 (before: +1.58 / +1.30)
+    "hp": 1250, "hp_g": 120, "atk": 72, "atk_g": 6, "apw": 30, "apw_g": 15, "def": 40, "def_g": 10, "mr": 30, "mr_g": 5,
     "ms": 1000, "ms_g": 11,
     "atk_range": 25000, "atk_dur": 28, "atk_cd": 70, "a_hit": 11,
     # passive: Cell Division's blobs
@@ -81,16 +90,16 @@ P = {
     # W Unstable Matter (in the attack)
     "w_cd": 300, "w_r": 24000, "w_dmg": 25, "w_ap": 30, "w_pct": 4,
     # skill: Q Stretching Strikes
-    "q_cd": 600, "q_range": 50000, "q_dur": 24, "q_rel": 8, "q_speed": 8000, "q_y": -6000, "q_dmg": 40, "q_ap": 30,
+    "q_cd": 600, "q_range": 50000, "q_dur": 24, "q_rel": 8, "q_speed": 8000, "q_y": -6000, "q_dmg": 55, "q_ap": 30,
     "q_hp": 2, "q_slow": 40, "q_slow_t": 60, "q_hold": 24, "q_grab": 2500, "q_drag": 10, "q_sr": 22000, "q_up": 30,
     "q_slam": 18, "q_slam_at": 8,
     # skill2: E Elastic Slingshot
-    "e_cd": 900, "e_range": 75000, "e_wind": 36, "e_speed": 4000, "e_r": 26000, "e_dmg": 60, "e_ap": 60, "e_hp": 3,
+    "e_cd": 900, "e_range": 75000, "e_wind": 36, "e_speed": 4000, "e_r": 26000, "e_dmg": 85, "e_ap": 60, "e_hp": 3,
     "e_up": 30, "e_land": 16, "e_w_at": 2, "e_q_at": 8,
     # ult: R Let's Bounce!
     "r_cd": 3600, "r_range": 40000, "r_n": 4, "r_gap": 37, "r_hop": 30000, "r_speed": 3000, "r_r": 26000,
     "r_dmg": 90, "r_ap": 50, "r_k": 50, "r_up": 20, "r_slow": 25, "r_slow_t": 60, "r_land": 12, "r_air": 25,
-    "r_move_at": 5,
+    "r_move_at": 5, "r_rush": 7000, "r_rush_at": 12, "r_kb": 2000, "r_kb_t": 12,
     # Cell Division's revive, the add-on's (League: 4 bloblets, revive with 10-50% health, cd 300 s)
     "split_t": 360, "split_cd": 18000, "split_hp": 40, "split_def": 20, "split_in": 18, "split_out": 18,
     # his spoken lines, at most one every vo_gap ticks
@@ -273,9 +282,14 @@ def build(p):
     # ------------------------------------------------------------------ R Let's Bounce! (the ult and the controller)
     # A pulse on him every r_gap ticks is one bounce; the ladder h1..h3 counts them, `r_fin` marks the last.
     land = [anim("ult_land", p["r_land"]), sfx("r_land"), cview("r_land"),
+            # the first landing kicks them back (away from him: he landed beyond them, so toward where he came from),
+            # the others knock them up
+            sw("r_first",
+               around(p["r_r"], "EnemyWithoutTower", {"type": "Knockback", "speed": p["r_kb"], "tick": p["r_kb_t"]}),
+               around(p["r_r"], "EnemyWithoutTower", {"type": "Airborne", "duration": p["r_up"]})),
             sw("r_first", combine(*rm("r_first"), around(p["r_r"], "EnemyWithoutTower", ap(p["r_dmg"], p["r_ap"]))),
                around(p["r_r"], "EnemyWithoutTower", ap(p["r_dmg"] * p["r_k"] // 100, p["r_ap"] * p["r_k"] // 100))),
-            around(p["r_r"], "EnemyWithoutTower", {"type": "Airborne", "duration": p["r_up"]},
+            around(p["r_r"], "EnemyWithoutTower",
                    buff("r_slow", p["r_slow_t"], move_speed_mult=-p["r_slow"]), view("r_hit"), tsfx("r_hit")),
             around(p["r_r"], "EnemyChampion", shed),
             # R -> W: the last bounce bursts Unstable Matter and leaves W ready
@@ -284,10 +298,17 @@ def build(p):
     # champion within r_hop while he is up (from r_move_at; MoveToTarget alone, so the landing never waits on it), the
     # landing at r_air wherever he is - in reach of nobody, in place
     hop = {"type": "MoveToTarget", "speed": p["r_speed"], "range": p["r_hop"] + 20000, "end_effects": []}
+    # the first bounce (`r_first` lives until its landing) dashes through an enemy champion within r_range to 15000
+    # beyond it (league_leesin's insec), so its landing kicks the champion back toward his side - League's carry
+    rush = {"type": "RushMoveToBack", "speed": p["r_rush"], "applied_effects": []}
+    # (late and fast, r_rush_at at r_rush: a fresh aim the target can't walk out of before the landing; from r_move_at
+    # at 3500 the landing came short of a fleeing champion and kicked it on away from him)
+    leap = sw("r_first", NONE, pick(p["r_hop"], "EnemyChampion", hop))
+    lunge = sw("r_first", pick(p["r_range"] + 25000, "EnemyChampion", rush))
     count = sw("h3", combine(*rm("h3"), flag("r_fin", 60)),
                sw("h2", combine(*rm("h2"), flag("h3", 60)), sw("h1", combine(*rm("h1"), flag("h2", 60)), flag("h1", 60))))
     bounce = combine(anim("ult", p["r_air"]), sfx("r_hop"), count,
-                     delayed(p["r_move_at"], alive(pick(p["r_hop"], "EnemyChampion", hop))),
+                     delayed(p["r_move_at"], alive(leap)), delayed(p["r_rush_at"], alive(lunge)),
                      delayed(p["r_air"], alive(combine(*land))))
     t_r = p["r_n"] * p["r_gap"]
     # the first bounce at once, the others r_gap ticks apart (a pulse on him: AddCasted runs first a period in)
@@ -305,7 +326,7 @@ def build(p):
             sfx("q_slam"), cview("q_slam"),
             around(p["q_sr"], "EnemyWithoutTower", ap(p["q_dmg"], p["q_ap"], p["q_hp"]),
                    {"type": "Airborne", "duration": p["q_up"]}, view("q_hit"), tsfx("q_hit")),
-            sw("r_cd", NONE, refresh("r_go", p["ctl_p"] + 2)))))
+            sw("r_open", sw("r_cd", NONE, refresh("r_go", p["ctl_p"] + 2))))))
         caught = [buff("q_held", p["q_hold"] + p["q_drag"]), shed,
                   delayed(p["q_hold"], {"type": "Grab", "speed": p["q_grab"], "tick": p["q_drag"]}),
                   delayed(p["q_hold"] + p["q_drag"], alive(slam))]
@@ -355,7 +376,8 @@ def build(p):
 
     # ------------------------------------------------------------------ the slots
     ult = action("idle", 3, 90, 1, p["r_range"], "Targeting", "EnemyChampion",
-                 combine(decoy(p["r_dmg"], p["r_ap"]), hang, sw("r_cd", NONE, r_cast)), key="ult")
+                 combine(decoy(p["r_dmg"], p["r_ap"]), hang, sw("r_open", NONE, flag("r_open", None)),
+                         sw("r_cd", NONE, r_cast)), key="ult")
     skill = action("idle", 3, 60, 1, p["q_range"], "Targeting", "EnemyWithoutTower",
                    combine(decoy(p["q_dmg"], p["q_ap"]), sw("q_cd", NONE, q_cast("EnemyWithoutTower"))), key="skill")
     landing = [anim("skill2_land", p["e_land"]), sfx("e_land"), cview("e_land"),

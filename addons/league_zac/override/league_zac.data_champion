@@ -26,7 +26,7 @@
   "stat": {
     "attack": 72,
     "magic_power": 30,
-    "hp": 1150,
+    "hp": 1250,
     "defence": 40,
     "magic_resistance": 30,
     "move_speed": 1000,
@@ -1713,7 +1713,7 @@
                                                               "casting_type": "Targeting",
                                                               "effect": {
                                                                 "type": "ApAttack",
-                                                                "damage": 40,
+                                                                "damage": 55,
                                                                 "attack_ratio": 30,
                                                                 "hp_ratio": 2,
                                                                 "can_crit": false
@@ -1930,7 +1930,7 @@
                                                                                                 "effects": [
                                                                                                   {
                                                                                                     "type": "ApAttack",
-                                                                                                    "damage": 40,
+                                                                                                    "damage": 55,
                                                                                                     "attack_ratio": 30,
                                                                                                     "hp_ratio": 2,
                                                                                                     "can_crit": false
@@ -1951,31 +1951,39 @@
                                                                                               },
                                                                                               {
                                                                                                 "type": "SwitchByBuff",
-                                                                                                "buff_name": "league_zac_r_cd",
+                                                                                                "buff_name": "league_zac_r_open",
                                                                                                 "effect_buff": {
-                                                                                                  "type": "Combine",
-                                                                                                  "effects": []
+                                                                                                  "type": "SwitchByBuff",
+                                                                                                  "buff_name": "league_zac_r_cd",
+                                                                                                  "effect_buff": {
+                                                                                                    "type": "Combine",
+                                                                                                    "effects": []
+                                                                                                  },
+                                                                                                  "effect_none": {
+                                                                                                    "type": "Combine",
+                                                                                                    "effects": [
+                                                                                                      {
+                                                                                                        "type": "RemoveCasterBuff",
+                                                                                                        "name": "league_zac_r_go"
+                                                                                                      },
+                                                                                                      {
+                                                                                                        "type": "AddCasterBuff",
+                                                                                                        "buff_state": {
+                                                                                                          "name": "league_zac_r_go",
+                                                                                                          "duration": {
+                                                                                                            "Time": {
+                                                                                                              "tick": 5
+                                                                                                            }
+                                                                                                          }
+                                                                                                        },
+                                                                                                        "only_to_enemy": false
+                                                                                                      }
+                                                                                                    ]
+                                                                                                  }
                                                                                                 },
                                                                                                 "effect_none": {
                                                                                                   "type": "Combine",
-                                                                                                  "effects": [
-                                                                                                    {
-                                                                                                      "type": "RemoveCasterBuff",
-                                                                                                      "name": "league_zac_r_go"
-                                                                                                    },
-                                                                                                    {
-                                                                                                      "type": "AddCasterBuff",
-                                                                                                      "buff_state": {
-                                                                                                        "name": "league_zac_r_go",
-                                                                                                        "duration": {
-                                                                                                          "Time": {
-                                                                                                            "tick": 5
-                                                                                                          }
-                                                                                                        }
-                                                                                                      },
-                                                                                                      "only_to_enemy": false
-                                                                                                    }
-                                                                                                  ]
+                                                                                                  "effects": []
                                                                                                 }
                                                                                               }
                                                                                             ]
@@ -2281,18 +2289,95 @@
                                                           "type": "Combine",
                                                           "effects": [
                                                             {
-                                                              "type": "RandomTarget",
-                                                              "range": 30000,
-                                                              "casting_target": "EnemyChampion",
-                                                              "from_projectile": false,
-                                                              "effects": [
-                                                                {
-                                                                  "type": "MoveToTarget",
-                                                                  "speed": 3000,
-                                                                  "range": 50000,
-                                                                  "end_effects": []
+                                                              "type": "SwitchByBuff",
+                                                              "buff_name": "league_zac_r_first",
+                                                              "effect_buff": {
+                                                                "type": "Combine",
+                                                                "effects": []
+                                                              },
+                                                              "effect_none": {
+                                                                "type": "RandomTarget",
+                                                                "range": 30000,
+                                                                "casting_target": "EnemyChampion",
+                                                                "from_projectile": false,
+                                                                "effects": [
+                                                                  {
+                                                                    "type": "MoveToTarget",
+                                                                    "speed": 3000,
+                                                                    "range": 50000,
+                                                                    "end_effects": []
+                                                                  }
+                                                                ]
+                                                              }
+                                                            }
+                                                          ]
+                                                        },
+                                                        "effect_none": {
+                                                          "type": "Combine",
+                                                          "effects": []
+                                                        }
+                                                      },
+                                                      {
+                                                        "type": "RemoveCasterBuff",
+                                                        "name": "league_zac_lives"
+                                                      }
+                                                    ]
+                                                  }
+                                                ]
+                                              },
+                                              {
+                                                "type": "Delayed",
+                                                "tick": 12,
+                                                "effects": [
+                                                  {
+                                                    "type": "Combine",
+                                                    "effects": [
+                                                      {
+                                                        "type": "RandomTarget",
+                                                        "range": 1,
+                                                        "casting_target": "AllyOnlySelf",
+                                                        "from_projectile": false,
+                                                        "effects": [
+                                                          {
+                                                            "type": "AddCasterBuff",
+                                                            "buff_state": {
+                                                              "name": "league_zac_lives",
+                                                              "duration": {
+                                                                "Time": {
+                                                                  "tick": 1
                                                                 }
-                                                              ]
+                                                              }
+                                                            },
+                                                            "only_to_enemy": false
+                                                          }
+                                                        ]
+                                                      },
+                                                      {
+                                                        "type": "SwitchByBuff",
+                                                        "buff_name": "league_zac_lives",
+                                                        "effect_buff": {
+                                                          "type": "Combine",
+                                                          "effects": [
+                                                            {
+                                                              "type": "SwitchByBuff",
+                                                              "buff_name": "league_zac_r_first",
+                                                              "effect_buff": {
+                                                                "type": "RandomTarget",
+                                                                "range": 65000,
+                                                                "casting_target": "EnemyChampion",
+                                                                "from_projectile": false,
+                                                                "effects": [
+                                                                  {
+                                                                    "type": "RushMoveToBack",
+                                                                    "speed": 7000,
+                                                                    "applied_effects": []
+                                                                  }
+                                                                ]
+                                                              },
+                                                              "effect_none": {
+                                                                "type": "Combine",
+                                                                "effects": []
+                                                              }
                                                             }
                                                           ]
                                                         },
@@ -2362,6 +2447,43 @@
                                                                   "type": "SwitchByBuff",
                                                                   "buff_name": "league_zac_r_first",
                                                                   "effect_buff": {
+                                                                    "type": "RangeEffect",
+                                                                    "shape": {
+                                                                      "Circle": {
+                                                                        "radius": 26000
+                                                                      }
+                                                                    },
+                                                                    "target": "EnemyWithoutTower",
+                                                                    "apply_type": "AroundCaster",
+                                                                    "effects": [
+                                                                      {
+                                                                        "type": "Knockback",
+                                                                        "speed": 2000,
+                                                                        "tick": 12
+                                                                      }
+                                                                    ]
+                                                                  },
+                                                                  "effect_none": {
+                                                                    "type": "RangeEffect",
+                                                                    "shape": {
+                                                                      "Circle": {
+                                                                        "radius": 26000
+                                                                      }
+                                                                    },
+                                                                    "target": "EnemyWithoutTower",
+                                                                    "apply_type": "AroundCaster",
+                                                                    "effects": [
+                                                                      {
+                                                                        "type": "Airborne",
+                                                                        "duration": 20
+                                                                      }
+                                                                    ]
+                                                                  }
+                                                                },
+                                                                {
+                                                                  "type": "SwitchByBuff",
+                                                                  "buff_name": "league_zac_r_first",
+                                                                  "effect_buff": {
                                                                     "type": "Combine",
                                                                     "effects": [
                                                                       {
@@ -2419,10 +2541,6 @@
                                                                   "target": "EnemyWithoutTower",
                                                                   "apply_type": "AroundCaster",
                                                                   "effects": [
-                                                                    {
-                                                                      "type": "Airborne",
-                                                                      "duration": 20
-                                                                    },
                                                                     {
                                                                       "type": "AddBuff",
                                                                       "buff_state": {
@@ -2826,18 +2944,95 @@
                                                                   "type": "Combine",
                                                                   "effects": [
                                                                     {
-                                                                      "type": "RandomTarget",
-                                                                      "range": 30000,
-                                                                      "casting_target": "EnemyChampion",
-                                                                      "from_projectile": false,
-                                                                      "effects": [
-                                                                        {
-                                                                          "type": "MoveToTarget",
-                                                                          "speed": 3000,
-                                                                          "range": 50000,
-                                                                          "end_effects": []
+                                                                      "type": "SwitchByBuff",
+                                                                      "buff_name": "league_zac_r_first",
+                                                                      "effect_buff": {
+                                                                        "type": "Combine",
+                                                                        "effects": []
+                                                                      },
+                                                                      "effect_none": {
+                                                                        "type": "RandomTarget",
+                                                                        "range": 30000,
+                                                                        "casting_target": "EnemyChampion",
+                                                                        "from_projectile": false,
+                                                                        "effects": [
+                                                                          {
+                                                                            "type": "MoveToTarget",
+                                                                            "speed": 3000,
+                                                                            "range": 50000,
+                                                                            "end_effects": []
+                                                                          }
+                                                                        ]
+                                                                      }
+                                                                    }
+                                                                  ]
+                                                                },
+                                                                "effect_none": {
+                                                                  "type": "Combine",
+                                                                  "effects": []
+                                                                }
+                                                              },
+                                                              {
+                                                                "type": "RemoveCasterBuff",
+                                                                "name": "league_zac_lives"
+                                                              }
+                                                            ]
+                                                          }
+                                                        ]
+                                                      },
+                                                      {
+                                                        "type": "Delayed",
+                                                        "tick": 12,
+                                                        "effects": [
+                                                          {
+                                                            "type": "Combine",
+                                                            "effects": [
+                                                              {
+                                                                "type": "RandomTarget",
+                                                                "range": 1,
+                                                                "casting_target": "AllyOnlySelf",
+                                                                "from_projectile": false,
+                                                                "effects": [
+                                                                  {
+                                                                    "type": "AddCasterBuff",
+                                                                    "buff_state": {
+                                                                      "name": "league_zac_lives",
+                                                                      "duration": {
+                                                                        "Time": {
+                                                                          "tick": 1
                                                                         }
-                                                                      ]
+                                                                      }
+                                                                    },
+                                                                    "only_to_enemy": false
+                                                                  }
+                                                                ]
+                                                              },
+                                                              {
+                                                                "type": "SwitchByBuff",
+                                                                "buff_name": "league_zac_lives",
+                                                                "effect_buff": {
+                                                                  "type": "Combine",
+                                                                  "effects": [
+                                                                    {
+                                                                      "type": "SwitchByBuff",
+                                                                      "buff_name": "league_zac_r_first",
+                                                                      "effect_buff": {
+                                                                        "type": "RandomTarget",
+                                                                        "range": 65000,
+                                                                        "casting_target": "EnemyChampion",
+                                                                        "from_projectile": false,
+                                                                        "effects": [
+                                                                          {
+                                                                            "type": "RushMoveToBack",
+                                                                            "speed": 7000,
+                                                                            "applied_effects": []
+                                                                          }
+                                                                        ]
+                                                                      },
+                                                                      "effect_none": {
+                                                                        "type": "Combine",
+                                                                        "effects": []
+                                                                      }
                                                                     }
                                                                   ]
                                                                 },
@@ -2907,6 +3102,43 @@
                                                                           "type": "SwitchByBuff",
                                                                           "buff_name": "league_zac_r_first",
                                                                           "effect_buff": {
+                                                                            "type": "RangeEffect",
+                                                                            "shape": {
+                                                                              "Circle": {
+                                                                                "radius": 26000
+                                                                              }
+                                                                            },
+                                                                            "target": "EnemyWithoutTower",
+                                                                            "apply_type": "AroundCaster",
+                                                                            "effects": [
+                                                                              {
+                                                                                "type": "Knockback",
+                                                                                "speed": 2000,
+                                                                                "tick": 12
+                                                                              }
+                                                                            ]
+                                                                          },
+                                                                          "effect_none": {
+                                                                            "type": "RangeEffect",
+                                                                            "shape": {
+                                                                              "Circle": {
+                                                                                "radius": 26000
+                                                                              }
+                                                                            },
+                                                                            "target": "EnemyWithoutTower",
+                                                                            "apply_type": "AroundCaster",
+                                                                            "effects": [
+                                                                              {
+                                                                                "type": "Airborne",
+                                                                                "duration": 20
+                                                                              }
+                                                                            ]
+                                                                          }
+                                                                        },
+                                                                        {
+                                                                          "type": "SwitchByBuff",
+                                                                          "buff_name": "league_zac_r_first",
+                                                                          "effect_buff": {
                                                                             "type": "Combine",
                                                                             "effects": [
                                                                               {
@@ -2964,10 +3196,6 @@
                                                                           "target": "EnemyWithoutTower",
                                                                           "apply_type": "AroundCaster",
                                                                           "effects": [
-                                                                            {
-                                                                              "type": "Airborne",
-                                                                              "duration": 20
-                                                                            },
                                                                             {
                                                                               "type": "AddBuff",
                                                                               "buff_state": {
@@ -3722,7 +3950,7 @@
               },
               "effect_none": {
                 "type": "ApAttack",
-                "damage": 40,
+                "damage": 55,
                 "attack_ratio": 30,
                 "hp_ratio": 0,
                 "can_crit": false
@@ -3847,7 +4075,7 @@
                                   "casting_type": "Targeting",
                                   "effect": {
                                     "type": "ApAttack",
-                                    "damage": 40,
+                                    "damage": 55,
                                     "attack_ratio": 30,
                                     "hp_ratio": 2,
                                     "can_crit": false
@@ -4064,7 +4292,7 @@
                                                                     "effects": [
                                                                       {
                                                                         "type": "ApAttack",
-                                                                        "damage": 40,
+                                                                        "damage": 55,
                                                                         "attack_ratio": 30,
                                                                         "hp_ratio": 2,
                                                                         "can_crit": false
@@ -4085,31 +4313,39 @@
                                                                   },
                                                                   {
                                                                     "type": "SwitchByBuff",
-                                                                    "buff_name": "league_zac_r_cd",
+                                                                    "buff_name": "league_zac_r_open",
                                                                     "effect_buff": {
-                                                                      "type": "Combine",
-                                                                      "effects": []
+                                                                      "type": "SwitchByBuff",
+                                                                      "buff_name": "league_zac_r_cd",
+                                                                      "effect_buff": {
+                                                                        "type": "Combine",
+                                                                        "effects": []
+                                                                      },
+                                                                      "effect_none": {
+                                                                        "type": "Combine",
+                                                                        "effects": [
+                                                                          {
+                                                                            "type": "RemoveCasterBuff",
+                                                                            "name": "league_zac_r_go"
+                                                                          },
+                                                                          {
+                                                                            "type": "AddCasterBuff",
+                                                                            "buff_state": {
+                                                                              "name": "league_zac_r_go",
+                                                                              "duration": {
+                                                                                "Time": {
+                                                                                  "tick": 5
+                                                                                }
+                                                                              }
+                                                                            },
+                                                                            "only_to_enemy": false
+                                                                          }
+                                                                        ]
+                                                                      }
                                                                     },
                                                                     "effect_none": {
                                                                       "type": "Combine",
-                                                                      "effects": [
-                                                                        {
-                                                                          "type": "RemoveCasterBuff",
-                                                                          "name": "league_zac_r_go"
-                                                                        },
-                                                                        {
-                                                                          "type": "AddCasterBuff",
-                                                                          "buff_state": {
-                                                                            "name": "league_zac_r_go",
-                                                                            "duration": {
-                                                                              "Time": {
-                                                                                "tick": 5
-                                                                              }
-                                                                            }
-                                                                          },
-                                                                          "only_to_enemy": false
-                                                                        }
-                                                                      ]
+                                                                      "effects": []
                                                                     }
                                                                   }
                                                                 ]
@@ -4211,7 +4447,7 @@
               },
               "effect_none": {
                 "type": "ApAttack",
-                "damage": 60,
+                "damage": 85,
                 "attack_ratio": 60,
                 "hp_ratio": 0,
                 "can_crit": false
@@ -4324,7 +4560,7 @@
                             "effects": [
                               {
                                 "type": "ApAttack",
-                                "damage": 60,
+                                "damage": 85,
                                 "attack_ratio": 60,
                                 "hp_ratio": 3,
                                 "can_crit": false
@@ -6279,7 +6515,7 @@
                                                               "casting_type": "Targeting",
                                                               "effect": {
                                                                 "type": "ApAttack",
-                                                                "damage": 40,
+                                                                "damage": 55,
                                                                 "attack_ratio": 30,
                                                                 "hp_ratio": 2,
                                                                 "can_crit": false
@@ -6496,7 +6732,7 @@
                                                                                                 "effects": [
                                                                                                   {
                                                                                                     "type": "ApAttack",
-                                                                                                    "damage": 40,
+                                                                                                    "damage": 55,
                                                                                                     "attack_ratio": 30,
                                                                                                     "hp_ratio": 2,
                                                                                                     "can_crit": false
@@ -6517,31 +6753,39 @@
                                                                                               },
                                                                                               {
                                                                                                 "type": "SwitchByBuff",
-                                                                                                "buff_name": "league_zac_r_cd",
+                                                                                                "buff_name": "league_zac_r_open",
                                                                                                 "effect_buff": {
-                                                                                                  "type": "Combine",
-                                                                                                  "effects": []
+                                                                                                  "type": "SwitchByBuff",
+                                                                                                  "buff_name": "league_zac_r_cd",
+                                                                                                  "effect_buff": {
+                                                                                                    "type": "Combine",
+                                                                                                    "effects": []
+                                                                                                  },
+                                                                                                  "effect_none": {
+                                                                                                    "type": "Combine",
+                                                                                                    "effects": [
+                                                                                                      {
+                                                                                                        "type": "RemoveCasterBuff",
+                                                                                                        "name": "league_zac_r_go"
+                                                                                                      },
+                                                                                                      {
+                                                                                                        "type": "AddCasterBuff",
+                                                                                                        "buff_state": {
+                                                                                                          "name": "league_zac_r_go",
+                                                                                                          "duration": {
+                                                                                                            "Time": {
+                                                                                                              "tick": 5
+                                                                                                            }
+                                                                                                          }
+                                                                                                        },
+                                                                                                        "only_to_enemy": false
+                                                                                                      }
+                                                                                                    ]
+                                                                                                  }
                                                                                                 },
                                                                                                 "effect_none": {
                                                                                                   "type": "Combine",
-                                                                                                  "effects": [
-                                                                                                    {
-                                                                                                      "type": "RemoveCasterBuff",
-                                                                                                      "name": "league_zac_r_go"
-                                                                                                    },
-                                                                                                    {
-                                                                                                      "type": "AddCasterBuff",
-                                                                                                      "buff_state": {
-                                                                                                        "name": "league_zac_r_go",
-                                                                                                        "duration": {
-                                                                                                          "Time": {
-                                                                                                            "tick": 5
-                                                                                                          }
-                                                                                                        }
-                                                                                                      },
-                                                                                                      "only_to_enemy": false
-                                                                                                    }
-                                                                                                  ]
+                                                                                                  "effects": []
                                                                                                 }
                                                                                               }
                                                                                             ]
@@ -6847,18 +7091,95 @@
                                                           "type": "Combine",
                                                           "effects": [
                                                             {
-                                                              "type": "RandomTarget",
-                                                              "range": 30000,
-                                                              "casting_target": "EnemyChampion",
-                                                              "from_projectile": false,
-                                                              "effects": [
-                                                                {
-                                                                  "type": "MoveToTarget",
-                                                                  "speed": 3000,
-                                                                  "range": 50000,
-                                                                  "end_effects": []
+                                                              "type": "SwitchByBuff",
+                                                              "buff_name": "league_zac_r_first",
+                                                              "effect_buff": {
+                                                                "type": "Combine",
+                                                                "effects": []
+                                                              },
+                                                              "effect_none": {
+                                                                "type": "RandomTarget",
+                                                                "range": 30000,
+                                                                "casting_target": "EnemyChampion",
+                                                                "from_projectile": false,
+                                                                "effects": [
+                                                                  {
+                                                                    "type": "MoveToTarget",
+                                                                    "speed": 3000,
+                                                                    "range": 50000,
+                                                                    "end_effects": []
+                                                                  }
+                                                                ]
+                                                              }
+                                                            }
+                                                          ]
+                                                        },
+                                                        "effect_none": {
+                                                          "type": "Combine",
+                                                          "effects": []
+                                                        }
+                                                      },
+                                                      {
+                                                        "type": "RemoveCasterBuff",
+                                                        "name": "league_zac_lives"
+                                                      }
+                                                    ]
+                                                  }
+                                                ]
+                                              },
+                                              {
+                                                "type": "Delayed",
+                                                "tick": 12,
+                                                "effects": [
+                                                  {
+                                                    "type": "Combine",
+                                                    "effects": [
+                                                      {
+                                                        "type": "RandomTarget",
+                                                        "range": 1,
+                                                        "casting_target": "AllyOnlySelf",
+                                                        "from_projectile": false,
+                                                        "effects": [
+                                                          {
+                                                            "type": "AddCasterBuff",
+                                                            "buff_state": {
+                                                              "name": "league_zac_lives",
+                                                              "duration": {
+                                                                "Time": {
+                                                                  "tick": 1
                                                                 }
-                                                              ]
+                                                              }
+                                                            },
+                                                            "only_to_enemy": false
+                                                          }
+                                                        ]
+                                                      },
+                                                      {
+                                                        "type": "SwitchByBuff",
+                                                        "buff_name": "league_zac_lives",
+                                                        "effect_buff": {
+                                                          "type": "Combine",
+                                                          "effects": [
+                                                            {
+                                                              "type": "SwitchByBuff",
+                                                              "buff_name": "league_zac_r_first",
+                                                              "effect_buff": {
+                                                                "type": "RandomTarget",
+                                                                "range": 65000,
+                                                                "casting_target": "EnemyChampion",
+                                                                "from_projectile": false,
+                                                                "effects": [
+                                                                  {
+                                                                    "type": "RushMoveToBack",
+                                                                    "speed": 7000,
+                                                                    "applied_effects": []
+                                                                  }
+                                                                ]
+                                                              },
+                                                              "effect_none": {
+                                                                "type": "Combine",
+                                                                "effects": []
+                                                              }
                                                             }
                                                           ]
                                                         },
@@ -6928,6 +7249,43 @@
                                                                   "type": "SwitchByBuff",
                                                                   "buff_name": "league_zac_r_first",
                                                                   "effect_buff": {
+                                                                    "type": "RangeEffect",
+                                                                    "shape": {
+                                                                      "Circle": {
+                                                                        "radius": 26000
+                                                                      }
+                                                                    },
+                                                                    "target": "EnemyWithoutTower",
+                                                                    "apply_type": "AroundCaster",
+                                                                    "effects": [
+                                                                      {
+                                                                        "type": "Knockback",
+                                                                        "speed": 2000,
+                                                                        "tick": 12
+                                                                      }
+                                                                    ]
+                                                                  },
+                                                                  "effect_none": {
+                                                                    "type": "RangeEffect",
+                                                                    "shape": {
+                                                                      "Circle": {
+                                                                        "radius": 26000
+                                                                      }
+                                                                    },
+                                                                    "target": "EnemyWithoutTower",
+                                                                    "apply_type": "AroundCaster",
+                                                                    "effects": [
+                                                                      {
+                                                                        "type": "Airborne",
+                                                                        "duration": 20
+                                                                      }
+                                                                    ]
+                                                                  }
+                                                                },
+                                                                {
+                                                                  "type": "SwitchByBuff",
+                                                                  "buff_name": "league_zac_r_first",
+                                                                  "effect_buff": {
                                                                     "type": "Combine",
                                                                     "effects": [
                                                                       {
@@ -6985,10 +7343,6 @@
                                                                   "target": "EnemyWithoutTower",
                                                                   "apply_type": "AroundCaster",
                                                                   "effects": [
-                                                                    {
-                                                                      "type": "Airborne",
-                                                                      "duration": 20
-                                                                    },
                                                                     {
                                                                       "type": "AddBuff",
                                                                       "buff_state": {
@@ -7392,18 +7746,95 @@
                                                                   "type": "Combine",
                                                                   "effects": [
                                                                     {
-                                                                      "type": "RandomTarget",
-                                                                      "range": 30000,
-                                                                      "casting_target": "EnemyChampion",
-                                                                      "from_projectile": false,
-                                                                      "effects": [
-                                                                        {
-                                                                          "type": "MoveToTarget",
-                                                                          "speed": 3000,
-                                                                          "range": 50000,
-                                                                          "end_effects": []
+                                                                      "type": "SwitchByBuff",
+                                                                      "buff_name": "league_zac_r_first",
+                                                                      "effect_buff": {
+                                                                        "type": "Combine",
+                                                                        "effects": []
+                                                                      },
+                                                                      "effect_none": {
+                                                                        "type": "RandomTarget",
+                                                                        "range": 30000,
+                                                                        "casting_target": "EnemyChampion",
+                                                                        "from_projectile": false,
+                                                                        "effects": [
+                                                                          {
+                                                                            "type": "MoveToTarget",
+                                                                            "speed": 3000,
+                                                                            "range": 50000,
+                                                                            "end_effects": []
+                                                                          }
+                                                                        ]
+                                                                      }
+                                                                    }
+                                                                  ]
+                                                                },
+                                                                "effect_none": {
+                                                                  "type": "Combine",
+                                                                  "effects": []
+                                                                }
+                                                              },
+                                                              {
+                                                                "type": "RemoveCasterBuff",
+                                                                "name": "league_zac_lives"
+                                                              }
+                                                            ]
+                                                          }
+                                                        ]
+                                                      },
+                                                      {
+                                                        "type": "Delayed",
+                                                        "tick": 12,
+                                                        "effects": [
+                                                          {
+                                                            "type": "Combine",
+                                                            "effects": [
+                                                              {
+                                                                "type": "RandomTarget",
+                                                                "range": 1,
+                                                                "casting_target": "AllyOnlySelf",
+                                                                "from_projectile": false,
+                                                                "effects": [
+                                                                  {
+                                                                    "type": "AddCasterBuff",
+                                                                    "buff_state": {
+                                                                      "name": "league_zac_lives",
+                                                                      "duration": {
+                                                                        "Time": {
+                                                                          "tick": 1
                                                                         }
-                                                                      ]
+                                                                      }
+                                                                    },
+                                                                    "only_to_enemy": false
+                                                                  }
+                                                                ]
+                                                              },
+                                                              {
+                                                                "type": "SwitchByBuff",
+                                                                "buff_name": "league_zac_lives",
+                                                                "effect_buff": {
+                                                                  "type": "Combine",
+                                                                  "effects": [
+                                                                    {
+                                                                      "type": "SwitchByBuff",
+                                                                      "buff_name": "league_zac_r_first",
+                                                                      "effect_buff": {
+                                                                        "type": "RandomTarget",
+                                                                        "range": 65000,
+                                                                        "casting_target": "EnemyChampion",
+                                                                        "from_projectile": false,
+                                                                        "effects": [
+                                                                          {
+                                                                            "type": "RushMoveToBack",
+                                                                            "speed": 7000,
+                                                                            "applied_effects": []
+                                                                          }
+                                                                        ]
+                                                                      },
+                                                                      "effect_none": {
+                                                                        "type": "Combine",
+                                                                        "effects": []
+                                                                      }
                                                                     }
                                                                   ]
                                                                 },
@@ -7473,6 +7904,43 @@
                                                                           "type": "SwitchByBuff",
                                                                           "buff_name": "league_zac_r_first",
                                                                           "effect_buff": {
+                                                                            "type": "RangeEffect",
+                                                                            "shape": {
+                                                                              "Circle": {
+                                                                                "radius": 26000
+                                                                              }
+                                                                            },
+                                                                            "target": "EnemyWithoutTower",
+                                                                            "apply_type": "AroundCaster",
+                                                                            "effects": [
+                                                                              {
+                                                                                "type": "Knockback",
+                                                                                "speed": 2000,
+                                                                                "tick": 12
+                                                                              }
+                                                                            ]
+                                                                          },
+                                                                          "effect_none": {
+                                                                            "type": "RangeEffect",
+                                                                            "shape": {
+                                                                              "Circle": {
+                                                                                "radius": 26000
+                                                                              }
+                                                                            },
+                                                                            "target": "EnemyWithoutTower",
+                                                                            "apply_type": "AroundCaster",
+                                                                            "effects": [
+                                                                              {
+                                                                                "type": "Airborne",
+                                                                                "duration": 20
+                                                                              }
+                                                                            ]
+                                                                          }
+                                                                        },
+                                                                        {
+                                                                          "type": "SwitchByBuff",
+                                                                          "buff_name": "league_zac_r_first",
+                                                                          "effect_buff": {
                                                                             "type": "Combine",
                                                                             "effects": [
                                                                               {
@@ -7530,10 +7998,6 @@
                                                                           "target": "EnemyWithoutTower",
                                                                           "apply_type": "AroundCaster",
                                                                           "effects": [
-                                                                            {
-                                                                              "type": "Airborne",
-                                                                              "duration": 20
-                                                                            },
                                                                             {
                                                                               "type": "AddBuff",
                                                                               "buff_state": {
@@ -7803,6 +8267,22 @@
         },
         {
           "type": "SwitchByBuff",
+          "buff_name": "league_zac_r_open",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": []
+          },
+          "effect_none": {
+            "type": "AddCasterBuff",
+            "buff_state": {
+              "name": "league_zac_r_open",
+              "duration": "Permanent"
+            },
+            "only_to_enemy": false
+          }
+        },
+        {
+          "type": "SwitchByBuff",
           "buff_name": "league_zac_r_cd",
           "effect_buff": {
             "type": "Combine",
@@ -8026,18 +8506,95 @@
                               "type": "Combine",
                               "effects": [
                                 {
-                                  "type": "RandomTarget",
-                                  "range": 30000,
-                                  "casting_target": "EnemyChampion",
-                                  "from_projectile": false,
-                                  "effects": [
-                                    {
-                                      "type": "MoveToTarget",
-                                      "speed": 3000,
-                                      "range": 50000,
-                                      "end_effects": []
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "league_zac_r_first",
+                                  "effect_buff": {
+                                    "type": "Combine",
+                                    "effects": []
+                                  },
+                                  "effect_none": {
+                                    "type": "RandomTarget",
+                                    "range": 30000,
+                                    "casting_target": "EnemyChampion",
+                                    "from_projectile": false,
+                                    "effects": [
+                                      {
+                                        "type": "MoveToTarget",
+                                        "speed": 3000,
+                                        "range": 50000,
+                                        "end_effects": []
+                                      }
+                                    ]
+                                  }
+                                }
+                              ]
+                            },
+                            "effect_none": {
+                              "type": "Combine",
+                              "effects": []
+                            }
+                          },
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_zac_lives"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 12,
+                    "effects": [
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RandomTarget",
+                            "range": 1,
+                            "casting_target": "AllyOnlySelf",
+                            "from_projectile": false,
+                            "effects": [
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_zac_lives",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 1
                                     }
-                                  ]
+                                  }
+                                },
+                                "only_to_enemy": false
+                              }
+                            ]
+                          },
+                          {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_zac_lives",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "league_zac_r_first",
+                                  "effect_buff": {
+                                    "type": "RandomTarget",
+                                    "range": 65000,
+                                    "casting_target": "EnemyChampion",
+                                    "from_projectile": false,
+                                    "effects": [
+                                      {
+                                        "type": "RushMoveToBack",
+                                        "speed": 7000,
+                                        "applied_effects": []
+                                      }
+                                    ]
+                                  },
+                                  "effect_none": {
+                                    "type": "Combine",
+                                    "effects": []
+                                  }
                                 }
                               ]
                             },
@@ -8107,6 +8664,43 @@
                                       "type": "SwitchByBuff",
                                       "buff_name": "league_zac_r_first",
                                       "effect_buff": {
+                                        "type": "RangeEffect",
+                                        "shape": {
+                                          "Circle": {
+                                            "radius": 26000
+                                          }
+                                        },
+                                        "target": "EnemyWithoutTower",
+                                        "apply_type": "AroundCaster",
+                                        "effects": [
+                                          {
+                                            "type": "Knockback",
+                                            "speed": 2000,
+                                            "tick": 12
+                                          }
+                                        ]
+                                      },
+                                      "effect_none": {
+                                        "type": "RangeEffect",
+                                        "shape": {
+                                          "Circle": {
+                                            "radius": 26000
+                                          }
+                                        },
+                                        "target": "EnemyWithoutTower",
+                                        "apply_type": "AroundCaster",
+                                        "effects": [
+                                          {
+                                            "type": "Airborne",
+                                            "duration": 20
+                                          }
+                                        ]
+                                      }
+                                    },
+                                    {
+                                      "type": "SwitchByBuff",
+                                      "buff_name": "league_zac_r_first",
+                                      "effect_buff": {
                                         "type": "Combine",
                                         "effects": [
                                           {
@@ -8164,10 +8758,6 @@
                                       "target": "EnemyWithoutTower",
                                       "apply_type": "AroundCaster",
                                       "effects": [
-                                        {
-                                          "type": "Airborne",
-                                          "duration": 20
-                                        },
                                         {
                                           "type": "AddBuff",
                                           "buff_state": {
@@ -8571,18 +9161,95 @@
                                       "type": "Combine",
                                       "effects": [
                                         {
-                                          "type": "RandomTarget",
-                                          "range": 30000,
-                                          "casting_target": "EnemyChampion",
-                                          "from_projectile": false,
-                                          "effects": [
-                                            {
-                                              "type": "MoveToTarget",
-                                              "speed": 3000,
-                                              "range": 50000,
-                                              "end_effects": []
+                                          "type": "SwitchByBuff",
+                                          "buff_name": "league_zac_r_first",
+                                          "effect_buff": {
+                                            "type": "Combine",
+                                            "effects": []
+                                          },
+                                          "effect_none": {
+                                            "type": "RandomTarget",
+                                            "range": 30000,
+                                            "casting_target": "EnemyChampion",
+                                            "from_projectile": false,
+                                            "effects": [
+                                              {
+                                                "type": "MoveToTarget",
+                                                "speed": 3000,
+                                                "range": 50000,
+                                                "end_effects": []
+                                              }
+                                            ]
+                                          }
+                                        }
+                                      ]
+                                    },
+                                    "effect_none": {
+                                      "type": "Combine",
+                                      "effects": []
+                                    }
+                                  },
+                                  {
+                                    "type": "RemoveCasterBuff",
+                                    "name": "league_zac_lives"
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Delayed",
+                            "tick": 12,
+                            "effects": [
+                              {
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "RandomTarget",
+                                    "range": 1,
+                                    "casting_target": "AllyOnlySelf",
+                                    "from_projectile": false,
+                                    "effects": [
+                                      {
+                                        "type": "AddCasterBuff",
+                                        "buff_state": {
+                                          "name": "league_zac_lives",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 1
                                             }
-                                          ]
+                                          }
+                                        },
+                                        "only_to_enemy": false
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "SwitchByBuff",
+                                    "buff_name": "league_zac_lives",
+                                    "effect_buff": {
+                                      "type": "Combine",
+                                      "effects": [
+                                        {
+                                          "type": "SwitchByBuff",
+                                          "buff_name": "league_zac_r_first",
+                                          "effect_buff": {
+                                            "type": "RandomTarget",
+                                            "range": 65000,
+                                            "casting_target": "EnemyChampion",
+                                            "from_projectile": false,
+                                            "effects": [
+                                              {
+                                                "type": "RushMoveToBack",
+                                                "speed": 7000,
+                                                "applied_effects": []
+                                              }
+                                            ]
+                                          },
+                                          "effect_none": {
+                                            "type": "Combine",
+                                            "effects": []
+                                          }
                                         }
                                       ]
                                     },
@@ -8652,6 +9319,43 @@
                                               "type": "SwitchByBuff",
                                               "buff_name": "league_zac_r_first",
                                               "effect_buff": {
+                                                "type": "RangeEffect",
+                                                "shape": {
+                                                  "Circle": {
+                                                    "radius": 26000
+                                                  }
+                                                },
+                                                "target": "EnemyWithoutTower",
+                                                "apply_type": "AroundCaster",
+                                                "effects": [
+                                                  {
+                                                    "type": "Knockback",
+                                                    "speed": 2000,
+                                                    "tick": 12
+                                                  }
+                                                ]
+                                              },
+                                              "effect_none": {
+                                                "type": "RangeEffect",
+                                                "shape": {
+                                                  "Circle": {
+                                                    "radius": 26000
+                                                  }
+                                                },
+                                                "target": "EnemyWithoutTower",
+                                                "apply_type": "AroundCaster",
+                                                "effects": [
+                                                  {
+                                                    "type": "Airborne",
+                                                    "duration": 20
+                                                  }
+                                                ]
+                                              }
+                                            },
+                                            {
+                                              "type": "SwitchByBuff",
+                                              "buff_name": "league_zac_r_first",
+                                              "effect_buff": {
                                                 "type": "Combine",
                                                 "effects": [
                                                   {
@@ -8709,10 +9413,6 @@
                                               "target": "EnemyWithoutTower",
                                               "apply_type": "AroundCaster",
                                               "effects": [
-                                                {
-                                                  "type": "Airborne",
-                                                  "duration": 20
-                                                },
                                                 {
                                                   "type": "AddBuff",
                                                   "buff_state": {
