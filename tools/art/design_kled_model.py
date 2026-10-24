@@ -20,7 +20,7 @@ import os
 import sys
 
 import numpy as np
-from PIL import Image
+from PIL import Image, ImageDraw
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(os.path.dirname(HERE))
@@ -39,7 +39,7 @@ TOP_PX = 40      # game px from the hat spike's tip to Skaarl's claws (the user'
 PPU = 2.0
 TOP_ROWS = round(TOP_PX * PPU)
 B_ROWS = 58      # on foot on A's scale (hd/B 177 rows x 80 / 244)
-PICK = {"idle": None, "foot": None}
+PICK = {"idle": "A-1", "foot": "B-1"}   # the user's picks, 2026-10-24
 # take -> (file, square px read at, rows to (None: TOP_ROWS), the face box kept whole on the raw canvas: x0, y0, x1, y1:
 # both eyes, the scar and the grin)
 DRAFTS = {
@@ -49,6 +49,15 @@ DRAFTS = {
     "B-2": ("B-2", 13.8, B_ROWS, (485, 665, 650, 780)),
 }
 FACE = {"idle": [], "foot": []}
+# One face in all frames (the user's picks: A-1 + B-1, 2026-10-24): B-1 was drawn on 16 px squares, 52 rows, its head
+# 30 rows to A-1's 38 and its eyes one square each. Its head is taken off (HEAD_B, a polygon on the read-back) and A-1's
+# (HEAD_A: hat spike, both ears, the flaps, the beard) put on with the beard's tip on B's (CHIN: A -> B), the outline
+# closed after: 60 rows, about the 58 that A's scale asks.
+HEAD_A = [(3, 13), (12, 12), (16, 10), (22, 6), (28, 0), (31, 0), (34, 7), (38, 8), (40, 12), (42, 14), (42, 26),
+          (40, 30), (38, 36), (35, 39), (26, 39), (22, 37), (21, 35), (19, 33), (15, 33), (12, 28), (3, 16)]
+HEAD_B = [(0, 11), (8, 10), (12, 6), (19, 0), (22, 0), (25, 6), (27, 7), (29, 11), (31, 13), (31, 20), (29, 24),
+          (27, 27), (26, 30), (19, 31), (16, 28), (13, 27), (10, 25), (7, 22), (0, 14)]
+CHIN = ((31, 38), (23, 30))
 
 
 def lp(path):
@@ -114,6 +123,32 @@ def cut(take):
     return fig, rows, cols, H
 
 
+def polygon(shape, pts):
+    im = Image.new("L", (shape[1], shape[0]), 0)
+    ImageDraw.Draw(im).polygon(pts, fill=1)
+    return np.asarray(im).astype(bool)
+
+
+def head_swap(foot, idle):
+    """B's body under A's head (HEAD_A / HEAD_B / CHIN above)."""
+    (ax, ay), (bx, by) = CHIN
+    dx, dy = bx - ax, by - ay
+    ma = polygon(idle.shape, HEAD_A) & (idle[..., 3] > 0)
+    mb = polygon(foot.shape, HEAD_B) & (foot[..., 3] > 0)
+    ys, xs = np.nonzero(ma)
+    top, left = max(0, -(ys.min() + dy)), max(0, -(xs.min() + dx))
+    right = max(0, xs.max() + dx + 1 - foot.shape[1])
+    can = np.zeros((foot.shape[0] + top, foot.shape[1] + left + right, 4), np.uint8)
+    can[top:, left:left + foot.shape[1]] = foot
+    yb, xb = np.nonzero(mb)
+    can[yb + top, xb + left] = 0
+    can[ys + dy + top, xs + dx + left] = idle[ys, xs]
+    pad = np.pad(can, ((1, 1), (1, 1), (0, 0)))
+    pad, _, _ = strips.complete_outline(pad, color=PD.edge_colour(foot), feet=pad.shape[0] - 1)
+    ys, xs = np.nonzero(pad[..., 3] > 0)
+    return pad[ys.min():ys.max() + 1, xs.min():xs.max() + 1]
+
+
 def write(fig, name):
     Image.fromarray(fig).save(lp(os.path.join(OUT, f"{name}.png")))
     Image.fromarray(np.repeat(np.repeat(fig, 4, 0), 4, 1)).save(lp(os.path.join(OUT, f"{name}_4x.png")))
@@ -136,12 +171,16 @@ def main():
     if not all(PICK.values()):
         sys.exit("no pick yet: run --options and ask the user")
     os.makedirs(lp(OUT), exist_ok=True)
+    figs = {}
     for name, take in PICK.items():
         fig, rows, cols, H = cut(take)
+        if name == "foot":
+            fig = head_swap(fig, figs["idle"])
         fig = fig.copy()
         for x, y, c in FACE[name]:
             assert fig[y, x, 3] > 0, (x, y)
             fig[y, x, :3] = c
+        figs[name] = fig
         write(fig, name)
         print(name, take, fig.shape[1], "x", fig.shape[0], "rows kept", len(rows), "of", H)
 
