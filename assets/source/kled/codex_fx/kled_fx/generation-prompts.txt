@@ -1,0 +1,208 @@
+kled_fx_a_hit.png
+
+Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a white flash ramp (#FFFFFF, #FFFDF0, #FFF2C8), a rage ramp from white-yellow to orange and red (#FFFFFF, #FFF6B8, #FFD848, #FFA020, #F06418, #C02C14), a dark purple-red ramp only for the outer tips of sparks (#7A1838, #4E1030, #2E0A22).
+Effect: AN AXE HIT, 3 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): 1 a white-yellow flash 6 squares across; 2 a burst 13 across - five or six short orange-red spark streaks flying out at mirrored places, dark purple-red tips; 3 the sparks further out and smaller, fading. a grumpy warrior's RAGE: hot white-yellow cores, orange and red sparks and streaks with dark purple-red tips, beige dust; flat shades, crisp shapes; no ice, no electricity, no magic glow. the champion hit stands in the middle, not drawn: 16 squares wide and 36 tall.
+Layout: one horizontal row of 3 equal square cells, image size 672x224 (each cell 224x224, 16 px a square); centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.
+
+References: lol_fx_ref.png, kled_size.png
+
+
+
+kled_fx_w_on.png
+
+Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a rage ramp from white-yellow to orange and red (#FFFFFF, #FFF6B8, #FFD848, #FFA020, #F06418, #C02C14), a dark purple-red ramp only for the outer tips of sparks (#7A1838, #4E1030, #2E0A22), a white flash ramp (#FFFFFF, #FFFDF0, #FFF2C8).
+Effect: A RAGE FLARE, 4 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): 1 a ring of orange flame licks round the unit's feet 20 wide; 2 the flames shooting up both sides 30 tall, white-yellow at their roots; 3 the flames 42 tall with sparks flying off at mirrored places; 4 the flames thinning to wisps. The middle EMPTY. a grumpy warrior's RAGE: hot white-yellow cores, orange and red sparks and streaks with dark purple-red tips, beige dust; flat shades, crisp shapes; no ice, no electricity, no magic glow. Kled on his lizard stands in the middle, not drawn: 31 squares wide and 40 tall (the hat spike to the claws).
+Layout: one horizontal row of 4 equal 36:44 cells, image size 2304x704 (each cell 576x704, 16 px a square); centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.
+
+References: lol_fx_ref.png, kled_size.png
+
+
+
+kled_fx_w_aura.png
+
+Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a rage ramp from white-yellow to orange and red (#FFFFFF, #FFF6B8, #FFD848, #FFA020, #F06418, #C02C14), a dark purple-red ramp only for the outer tips of sparks (#7A1838, #4E1030, #2E0A22).
+Effect: A RAGE RING, 4 looping frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): on the GROUND under the unit's feet (an ellipse seen from above, three times as wide as tall), a flat ring of small orange-red flame licks 32 wide and 8 tall, the licks at mirrored places flickering up and down in turn. a grumpy warrior's RAGE: hot white-yellow cores, orange and red sparks and streaks with dark purple-red tips, beige dust; flat shades, crisp shapes; no ice, no electricity, no magic glow.
+Layout: one horizontal row of 4 equal 34:10 cells, image size 2176x160 (each cell 544x160, 16 px a square); centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.
+
+References: lol_fx_ref.png, kled_size.png
+
+
+
+kled_fx_w_hit.png
+
+Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a white flash ramp (#FFFFFF, #FFFDF0, #FFF2C8), a rage ramp from white-yellow to orange and red (#FFFFFF, #FFF6B8, #FFD848, #FFA020, #F06418, #C02C14), a dark purple-red ramp only for the outer tips of sparks (#7A1838, #4E1030, #2E0A22).
+Effect: A HEAVY CRIT, 4 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): 1 a white-yellow burst 9 squares across; 2 a jagged ring of orange-red spikes 20 across round it at mirrored places; 3 the spikes breaking into sparks flying out; 4 fading sparks. a grumpy warrior's RAGE: hot white-yellow cores, orange and red sparks and streaks with dark purple-red tips, beige dust; flat shades, crisp shapes; no ice, no electricity, no magic glow. the champion hit stands in the middle, not drawn: 16 squares wide and 36 tall.
+Layout: one horizontal row of 4 equal square cells, image size 1408x352 (each cell 352x352, 16 px a square); centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.
+
+References: lol_fx_ref.png, kled_size.png
+
+
+
+kled_fx_w_ready.png
+
+Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a rage ramp from white-yellow to orange and red (#FFFFFF, #FFF6B8, #FFD848, #FFA020, #F06418, #C02C14), a white flash ramp (#FFFFFF, #FFFDF0, #FFF2C8).
+Effect: A RAGE MARK, 3 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): 1 a small white-yellow spark 3 squares; 2 a jagged orange anger mark (four short bent strokes, like a cartoon vein) 11 across; 3 it fading. Drawn at the TOP of the cell. a grumpy warrior's RAGE: hot white-yellow cores, orange and red sparks and streaks with dark purple-red tips, beige dust; flat shades, crisp shapes; no ice, no electricity, no magic glow.
+Layout: one horizontal row of 3 equal square cells, image size 576x192 (each cell 192x192, 16 px a square); centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.
+
+References: lol_fx_ref.png, kled_size.png
+
+
+
+kled_fx_q_trap.png
+
+Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a steel ramp (#FFFFFF, #DCE2EA, #AEB6C4, #767E8E, #4A505E), a rope ramp (#D29A60, #A06A3C, #6E4426).
+Effect: A FLYING BEAR TRAP, 3 looping frames, flying RIGHT, the trail behind it on the LEFT, SYMMETRIC TOP TO BOTTOM in every frame, square for square (the game turns the picture with its flight, so flying left it is upside down): at the front a steel bear trap seen from the side, its two jaws OPEN like a V pointing right with a row of sharp teeth on each jaw, 8 squares long; behind it on the left a brown rope 1 square thick and 14 long, its knots stepping back frame to frame. Steel and rope only, no glow.
+Layout: one horizontal row of 3 equal 22:10 cells, image size 1056x160 (each cell 352x160, 16 px a square); centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.
+
+References: lol_fx_ref.png, kled_size.png
+
+
+
+kled_fx_q_hit.png
+
+Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a white flash ramp (#FFFFFF, #FFFDF0, #FFF2C8), a steel ramp (#FFFFFF, #DCE2EA, #AEB6C4, #767E8E, #4A505E), a rage ramp from white-yellow to orange and red (#FFFFFF, #FFF6B8, #FFD848, #FFA020, #F06418, #C02C14).
+Effect: A TRAP SNAP, 3 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): 1 a white flash 7 squares across; 2 small steel splinters and orange sparks flying out 15 across at mirrored places; 3 fading. the champion hit stands in the middle, not drawn: 16 squares wide and 36 tall.
+Layout: one horizontal row of 3 equal square cells, image size 768x256 (each cell 256x256, 16 px a square); centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.
+
+References: lol_fx_ref.png, kled_size.png
+
+
+
+kled_fx_q_mark.png
+
+Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a rage ramp from white-yellow to orange and red (#FFFFFF, #FFF6B8, #FFD848, #FFA020, #F06418, #C02C14), a white flash ramp (#FFFFFF, #FFFDF0, #FFF2C8).
+Effect: AN ALERT FLASH, 3 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): 1 a small white-yellow spark; 2 a bold orange exclamation mark 9 tall inside a jagged ring 11 across; 3 fading. Drawn at the TOP of the cell (over the head). a grumpy warrior's RAGE: hot white-yellow cores, orange and red sparks and streaks with dark purple-red tips, beige dust; flat shades, crisp shapes; no ice, no electricity, no magic glow.
+Layout: one horizontal row of 3 equal square cells, image size 576x192 (each cell 192x192, 16 px a square); centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.
+
+References: lol_fx_ref.png, kled_size.png
+
+
+
+kled_fx_q_rope.png
+
+Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a steel ramp (#FFFFFF, #DCE2EA, #AEB6C4, #767E8E, #4A505E), a rope ramp (#D29A60, #A06A3C, #6E4426).
+Effect: A TRAP ON THE ANKLES, 4 looping frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): at the BOTTOM of the cell (the unit's feet) a CLOSED steel bear trap seen from the front, 12 squares wide and 5 tall, its teeth biting, a short brown rope end hanging on each side; the trap jolting up and down one square in turn.
+Layout: one horizontal row of 4 equal 18:10 cells, image size 1152x160 (each cell 288x160, 16 px a square); centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.
+
+References: lol_fx_ref.png, kled_size.png
+
+
+
+kled_fx_q_yank.png
+
+Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a white flash ramp (#FFFFFF, #FFFDF0, #FFF2C8), a rope ramp (#D29A60, #A06A3C, #6E4426), a dust ramp from beige to brown (#F6EAD0, #DCC49A, #B49470, #86684C, #5C4634).
+Effect: A YANK, 4 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): 1 a white flash 8 squares across; 2 snapped brown rope ends whipping out to both sides 20 across and a puff of beige dust at the feet; 3 the dust spreading; 4 fading. the champion hit stands in the middle, not drawn: 16 squares wide and 36 tall.
+Layout: one horizontal row of 4 equal 22:20 cells, image size 1408x320 (each cell 352x320, 16 px a square); centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.
+
+References: lol_fx_ref.png, kled_size.png
+
+
+
+kled_fx_p_blast.png
+
+Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a rage ramp from white-yellow to orange and red (#FFFFFF, #FFF6B8, #FFD848, #FFA020, #F06418, #C02C14), a teal-green smoke ramp (#ECFFF6, #A4F2D4, #4ECDAA, #24907E), a white flash ramp (#FFFFFF, #FFFDF0, #FFF2C8).
+Effect: A SHOTGUN SPRAY, 3 looping frames, flying RIGHT, the trail behind it on the LEFT, SYMMETRIC TOP TO BOTTOM in every frame, square for square (the game turns the picture with its flight, so flying left it is upside down): five bright white-yellow pellets in a fan spreading to the right (the middle one in front, two above and two below at mirrored places), each with a short orange streak behind it, a little teal-green smoke at the left end; the streaks flickering. a grumpy warrior's RAGE: hot white-yellow cores, orange and red sparks and streaks with dark purple-red tips, beige dust; flat shades, crisp shapes; no ice, no electricity, no magic glow.
+Layout: one horizontal row of 3 equal 30:14 cells, image size 1440x224 (each cell 480x224, 16 px a square); centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.
+
+References: lol_fx_ref.png, kled_size.png
+
+
+
+kled_fx_p_flash.png
+
+Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a teal-green smoke ramp (#ECFFF6, #A4F2D4, #4ECDAA, #24907E), a white flash ramp (#FFFFFF, #FFFDF0, #FFF2C8), a rage ramp from white-yellow to orange and red (#FFFFFF, #FFF6B8, #FFD848, #FFA020, #F06418, #C02C14).
+Effect: A GUNSMOKE PUFF, 4 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): 1 a white-yellow flash 6 squares across in the middle at chest height; 2 a round puff of teal-green smoke 18 across with a few orange sparks at mirrored places; 3 the smoke spreading to both sides 28 across; 4 thin wisps. Kled on foot stands in the middle, not drawn: 29 squares wide and 30 tall.
+Layout: one horizontal row of 4 equal 30:22 cells, image size 1920x352 (each cell 480x352, 16 px a square); centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.
+
+References: lol_fx_ref.png, kled_size.png
+
+
+
+kled_fx_p_hit.png
+
+Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a white flash ramp (#FFFFFF, #FFFDF0, #FFF2C8), a rage ramp from white-yellow to orange and red (#FFFFFF, #FFF6B8, #FFD848, #FFA020, #F06418, #C02C14), a teal-green smoke ramp (#ECFFF6, #A4F2D4, #4ECDAA, #24907E).
+Effect: PELLET HITS, 3 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): 1 four small white-yellow pops at mirrored places 12 across; 2 they bursting into orange sparks with a little teal-green smoke; 3 fading. the champion hit stands in the middle, not drawn: 16 squares wide and 36 tall.
+Layout: one horizontal row of 3 equal square cells, image size 672x224 (each cell 224x224, 16 px a square); centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.
+
+References: lol_fx_ref.png, kled_size.png
+
+
+
+kled_fx_e_dust.png
+
+Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a dust ramp from beige to brown (#F6EAD0, #DCC49A, #B49470, #86684C, #5C4634), a rage ramp from white-yellow to orange and red (#FFFFFF, #FFF6B8, #FFD848, #FFA020, #F06418, #C02C14).
+Effect: A DUST KICK-UP, 4 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): on the GROUND under the unit's feet (an ellipse seen from above, three times as wide as tall), 1 a low puff of beige dust 16 squares wide; 2 the dust spreading to both sides 30 wide and 8 tall, a few small brown rocks flying up at mirrored places, two short orange scorch streaks on the ground; 3 38 wide, thinner; 4 fading wisps at both ends.
+Layout: one horizontal row of 4 equal 40:12 cells, image size 2560x192 (each cell 640x192, 16 px a square); centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.
+
+References: lol_fx_ref.png, kled_size.png
+
+
+
+kled_fx_e_hit.png
+
+Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a white flash ramp (#FFFFFF, #FFFDF0, #FFF2C8), a rage ramp from white-yellow to orange and red (#FFFFFF, #FFF6B8, #FFD848, #FFA020, #F06418, #C02C14), a dark purple-red ramp only for the outer tips of sparks (#7A1838, #4E1030, #2E0A22).
+Effect: A JOUSTING SLASH, 3 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): 1 a white-yellow X of two crossing slash streaks 16 across; 2 the X orange with sparks flying out at mirrored places; 3 fading. a grumpy warrior's RAGE: hot white-yellow cores, orange and red sparks and streaks with dark purple-red tips, beige dust; flat shades, crisp shapes; no ice, no electricity, no magic glow. the champion hit stands in the middle, not drawn: 16 squares wide and 36 tall.
+Layout: one horizontal row of 3 equal square cells, image size 864x288 (each cell 288x288, 16 px a square); centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.
+
+References: lol_fx_ref.png, kled_size.png
+
+
+
+kled_fx_haste.png
+
+Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a white flash ramp (#FFFFFF, #FFFDF0, #FFF2C8), a dust ramp from beige to brown (#F6EAD0, #DCC49A, #B49470, #86684C, #5C4634).
+Effect: SPEED LINES, 4 looping frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): on BOTH sides of the unit (the middle empty) three short pale yellow-white streaks 6-9 squares long, the left side's and the right side's mirroring each other, stepping outward frame to frame and fading at their ends. Kled on his lizard stands in the middle, not drawn: 31 squares wide and 40 tall (the hat spike to the claws).
+Layout: one horizontal row of 4 equal 30:16 cells, image size 1920x256 (each cell 480x256, 16 px a square); centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.
+
+References: lol_fx_ref.png, kled_size.png
+
+
+
+kled_fx_r_trail.png
+
+Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a rage ramp from white-yellow to orange and red (#FFFFFF, #FFF6B8, #FFD848, #FFA020, #F06418, #C02C14), a dark purple-red ramp only for the outer tips of sparks (#7A1838, #4E1030, #2E0A22), a dust ramp from beige to brown (#F6EAD0, #DCC49A, #B49470, #86684C, #5C4634).
+Effect: A CHARGE SHIELD, 4 looping frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): an oval ring of orange shield light round the unit 40 squares wide and 44 tall, 1-2 squares thick, brighter white-yellow arcs at mirrored places moving round, a low puff of beige dust at the feet on both sides; the middle EMPTY. a grumpy warrior's RAGE: hot white-yellow cores, orange and red sparks and streaks with dark purple-red tips, beige dust; flat shades, crisp shapes; no ice, no electricity, no magic glow. Kled on his lizard stands in the middle, not drawn: 31 squares wide and 40 tall (the hat spike to the claws).
+Layout: one horizontal row of 4 equal 44:46 cells, image size 2816x736 (each cell 704x736, 16 px a square); centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.
+
+References: lol_fx_ref.png, kled_size.png
+
+
+
+kled_fx_r_crash.png
+
+Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a white flash ramp (#FFFFFF, #FFFDF0, #FFF2C8), a rage ramp from white-yellow to orange and red (#FFFFFF, #FFF6B8, #FFD848, #FFA020, #F06418, #C02C14), a dust ramp from beige to brown (#F6EAD0, #DCC49A, #B49470, #86684C, #5C4634).
+Effect: A CRASH, 5 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): on the GROUND under the unit's feet (an ellipse seen from above, three times as wide as tall), 1 a white-yellow flash 14 wide; 2 an orange shockwave ring 34 wide and 11 tall with dust bursting up; 3 the ring 50 wide, beige dust clouds and brown rocks flying out at mirrored places; 4 the dust settling; 5 fading wisps. a grumpy warrior's RAGE: hot white-yellow cores, orange and red sparks and streaks with dark purple-red tips, beige dust; flat shades, crisp shapes; no ice, no electricity, no magic glow.
+Layout: one horizontal row of 5 equal 52:26 cells, image size 4160x416 (each cell 832x416, 16 px a square); centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.
+
+References: lol_fx_ref.png, kled_size.png
+
+
+
+kled_fx_r_hit.png
+
+Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a white flash ramp (#FFFFFF, #FFFDF0, #FFF2C8), a rage ramp from white-yellow to orange and red (#FFFFFF, #FFF6B8, #FFD848, #FFA020, #F06418, #C02C14), a dust ramp from beige to brown (#F6EAD0, #DCC49A, #B49470, #86684C, #5C4634).
+Effect: A RAM IMPACT, 4 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): 1 a big white-yellow impact star 12 across; 2 a jagged orange-red ring 22 across with beige dust puffs at mirrored places; 3 sparks and dust out; 4 fading. a grumpy warrior's RAGE: hot white-yellow cores, orange and red sparks and streaks with dark purple-red tips, beige dust; flat shades, crisp shapes; no ice, no electricity, no magic glow. the champion hit stands in the middle, not drawn: 16 squares wide and 36 tall.
+Layout: one horizontal row of 4 equal square cells, image size 1536x384 (each cell 384x384, 16 px a square); centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.
+
+References: lol_fx_ref.png, kled_size.png
+
+
+
+kled_fx_dismount.png
+
+Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a dust ramp from beige to brown (#F6EAD0, #DCC49A, #B49470, #86684C, #5C4634), a rage ramp from white-yellow to orange and red (#FFFFFF, #FFF6B8, #FFD848, #FFA020, #F06418, #C02C14), a white flash ramp (#FFFFFF, #FFFDF0, #FFF2C8).
+Effect: A POOF, 5 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): 1 a white flash 12 across; 2 a big round cloud of beige dust 36 across bursting out, a bold orange exclamation spark above its middle; 3 the cloud 48 wide, a few small orange scales and teal-blue spines flying out at mirrored places; 4 the cloud thinning; 5 wisps. Kled on his lizard stands in the middle, not drawn: 31 squares wide and 40 tall (the hat spike to the claws).
+Layout: one horizontal row of 5 equal 50:46 cells, image size 4000x736 (each cell 800x736, 16 px a square); centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.
+
+References: lol_fx_ref.png, kled_size.png
+
+
+
+kled_fx_remount.png
+
+Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a rage ramp from white-yellow to orange and red (#FFFFFF, #FFF6B8, #FFD848, #FFA020, #F06418, #C02C14), a dust ramp from beige to brown (#F6EAD0, #DCC49A, #B49470, #86684C, #5C4634), a white flash ramp (#FFFFFF, #FFFDF0, #FFF2C8).
+Effect: A REMOUNT BURST, 5 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): 1 a ring of white-yellow light at the feet 24 wide; 2 orange-red flames and beige dust swirling up both sides 30 tall; 3 the flames 44 tall with sparks at mirrored places on top; 4 the flames breaking up; 5 sparks fading. The middle EMPTY. a grumpy warrior's RAGE: hot white-yellow cores, orange and red sparks and streaks with dark purple-red tips, beige dust; flat shades, crisp shapes; no ice, no electricity, no magic glow. Kled on his lizard stands in the middle, not drawn: 31 squares wide and 40 tall (the hat spike to the claws).
+Layout: one horizontal row of 5 equal 50:46 cells, image size 4000x736 (each cell 800x736, 16 px a square); centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.
+
+References: lol_fx_ref.png, kled_size.png
+
