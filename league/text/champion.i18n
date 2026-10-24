@@ -1162,6 +1162,13 @@
         "skill": "扔捕熊夹造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>；夹住英雄<#ef5350ff>减速<>40%，<#ffb900ff>1.5秒<>后再造成<#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<>并<#ef5350ff>拽过来<>。下马时是<#ff9028ff>随身手枪<>：<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>，自己往后跳。",
         "skill2": "斯嘎尔冲过目标造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>物理伤害，加速50%；穿过英雄还会再冲回来一次。",
         "ult": "带护盾（150 + <i#asset/base/ui/banpick/champion_stat_icon:ad_0>150%）冲向敌方英雄，撞上造成<#ff9028ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>+最大生命8%并<#ef5350ff>击退<>；身边队友加速40%。"
+      },
+      "league_yorick": {
+        "name": "约里克",
+        "attack": "抡铲。<#ff9028ff>牧魂人<>：临终仪式打英雄（打别的每两下）挖一座坟，满3座时下一铲唤醒3只<#ff9028ff>雾行者<>咬目标<#ffb900ff>6秒<>（每只每口<#ff9028ff>9<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>13%<>），同时<#ff9028ff>暗灵缠身<>把附近的敌方英雄<#ef5350ff>定身<><#ffb900ff>1秒<>。",
+        "skill": "下一铲造成<#ff9028ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<>物理伤害，回复30 + <i#asset/base/ui/banpick/champion_stat_icon:ad_0>20%生命。",
+        "skill2": "扔出一团黑雾：范围内敌人受到<#ff9028ff>65<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>65%<>+最大生命4%，护甲-25%持续<#ffb900ff>4秒<>，<#ef5350ff>减速<>30%。",
+        "ult": "在敌方英雄身后召唤<#ff9028ff>迷雾室女<>和2只雾行者，跟着它<#ffb900ff>10秒<>，<#ffb900ff>每秒<>抓<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>45%<>；期间约里克普攻英雄额外造成最大生命3%真实伤害。"
       }
     },
     "skill_name": {
@@ -1994,6 +2001,11 @@
         "skill1": "飞索捕熊器",
         "skill2": "比武",
         "ult": "冲啊——！！"
+      },
+      "league_yorick": {
+        "skill1": "临终仪式",
+        "skill2": "哀伤之雾",
+        "ult": "海屿悼词"
       }
     }
   },
@@ -3160,6 +3172,13 @@
         "skill": "丟出捕獸夾造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>；夾住英雄<#ef5350ff>緩速<>40%，<#ffb900ff>1.5秒<>後再造成<#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<>並<#ef5350ff>拉過來<>。下馬時是<#ff9028ff>隨身手槍<>：<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>，自己往後跳。",
         "skill2": "小嘎衝過目標造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>物理傷害，加速50%；穿過英雄還會再衝回來一次。",
         "ult": "帶護盾（150 + <i#asset/base/ui/banpick/champion_stat_icon:ad_0>150%）衝向敵方英雄，撞上造成<#ff9028ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>+最大生命8%並<#ef5350ff>擊退<>；身邊隊友加速40%。"
+      },
+      "league_yorick": {
+        "name": "約瑞科",
+        "attack": "揮鏟。<#ff9028ff>亡魂牧人<>：臨終葬儀打英雄（打其他每兩下）挖一座墳，滿3座時下一鏟喚醒3隻<#ff9028ff>霧行者<>咬目標<#ffb900ff>6秒<>（每隻每口<#ff9028ff>9<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>13%<>），同時<#ff9028ff>黯影屍陣<>把附近的敵方英雄<#ef5350ff>定身<><#ffb900ff>1秒<>。",
+        "skill": "下一鏟造成<#ff9028ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<>物理傷害，回復30 + <i#asset/base/ui/banpick/champion_stat_icon:ad_0>20%生命。",
+        "skill2": "丟出一團黑霧：範圍內敵人受到<#ff9028ff>65<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>65%<>+最大生命4%，護甲-25%持續<#ffb900ff>4秒<>，<#ef5350ff>緩速<>30%。",
+        "ult": "在敵方英雄身後召喚<#ff9028ff>迷霧少女<>和2隻霧行者，跟著它<#ffb900ff>10秒<>，<#ffb900ff>每秒<>抓<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>45%<>；期間約瑞科普攻英雄額外造成最大生命3%真實傷害。"
       }
     },
     "skill_name": {
@@ -3992,6 +4011,11 @@
         "skill1": "飛射夾夾",
         "skill2": "比武角逐",
         "ult": "衝啊！！！"
+      },
+      "league_yorick": {
+        "skill1": "臨終葬儀",
+        "skill2": "悲鳴瘴霧",
+        "ult": "荒島輓歌"
       }
     }
   },
@@ -5158,6 +5182,13 @@
         "skill": "Throws a bear trap for <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>; a champion caught is <#ef5350ff>slowed<> 40%, then after <#ffb900ff>1.5s<> takes <#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<> and is <#ef5350ff>yanked<> to him. On foot it is <#ff9028ff>Pocket Pistol<>: <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>, knocking him back.",
         "skill2": "Skaarl dashes through the target for <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> physical damage and +50% speed; through a champion he dashes back once more.",
         "ult": "Charges an enemy champion with a shield (150 + <i#asset/base/ui/banpick/champion_stat_icon:ad_0>150%): the ram deals <#ff9028ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> + 8% max health and <#ef5350ff>knocks it back<>; allies near him +40% speed."
+      },
+      "league_yorick": {
+        "name": "Yorick",
+        "attack": "Shovel blows. <#ff9028ff>Shepherd of Souls<>: Last Rites on a champion (on anything else every second time) digs a grave; with 3 graves the next one raises 3 <#ff9028ff>Mist Walkers<> that gnaw at the target for <#ffb900ff>6s<> (<#ff9028ff>9<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>13%<> a bite each), and <#ff9028ff>Dark Procession<> <#ef5350ff>roots<> the enemy champions near it for <#ffb900ff>1s<>.",
+        "skill": "His next blow deals <#ff9028ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<> physical damage and heals him 30 + <i#asset/base/ui/banpick/champion_stat_icon:ad_0>20%.",
+        "skill2": "Throws a globule of Black Mist: enemies hit take <#ff9028ff>65<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>65%<> + 4% max health, lose 25% armour for <#ffb900ff>4s<> and are <#ef5350ff>slowed<> 30%.",
+        "ult": "Raises the <#ff9028ff>Maiden of the Mist<> and 2 walkers behind an enemy champion; she follows it for <#ffb900ff>10s<>, clawing for <#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>45%<> <#ffb900ff>every second<>, and his attacks on champions deal 3% max health more as true damage meanwhile."
       }
     },
     "skill_name": {
@@ -5990,6 +6021,11 @@
         "skill1": "Bear Trap on a Rope",
         "skill2": "Jousting",
         "ult": "Chaaaaaaaarge!!!"
+      },
+      "league_yorick": {
+        "skill1": "Last Rites",
+        "skill2": "Mourning Mist",
+        "ult": "Eulogy of the Isles"
       }
     }
   },
@@ -7156,6 +7192,13 @@
         "skill": "덫을 던져 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>; 걸린 챔피언 40% <#ef5350ff>둔화<>, <#ffb900ff>1.5초<> 뒤 <#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<> 후 <#ef5350ff>끌어옴<>. 걸어서는 <#ff9028ff>주머니 권총<>: <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>, 뒤로 밀려남.",
         "skill2": "스칼이 대상을 관통 돌진해 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> 물리 피해, 이동 속도 +50%; 챔피언을 지나면 한 번 더 돌진.",
         "ult": "보호막(150 + <i#asset/base/ui/banpick/champion_stat_icon:ad_0>150%)을 두르고 적 챔피언에게 돌격, 부딪히면 <#ff9028ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> + 최대 체력 8%와 <#ef5350ff>넉백<>; 주변 아군 이동 속도 +40%."
+      },
+      "league_yorick": {
+        "name": "요릭",
+        "attack": "삽 공격. <#ff9028ff>영혼의 길잡이<>: 최후의 의식으로 챔피언을 치면(그 외는 두 번마다) 무덤 생성, 3개가 차면 다음 일격에 <#ff9028ff>안개 망령<> 3마리가 <#ffb900ff>6초<> 동안 대상을 물어뜯음(한 번에 <#ff9028ff>9<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>13%<>), <#ff9028ff>망자의 진<>이 주변 적 챔피언 <#ffb900ff>1초<> <#ef5350ff>속박<>.",
+        "skill": "다음 공격이 <#ff9028ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<> 물리 피해, 체력 30 + <i#asset/base/ui/banpick/champion_stat_icon:ad_0>20% 회복.",
+        "skill2": "검은 안개를 던짐: 범위 적에게 <#ff9028ff>65<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>65%<> + 최대 체력 4%, 방어력 -25% <#ffb900ff>4초<>, 30% <#ef5350ff>둔화<>.",
+        "ult": "적 챔피언 뒤에 <#ff9028ff>안개 처녀<>와 망령 2마리 소환, <#ffb900ff>10초<> 동안 따라다니며 <#ffb900ff>매초<> <#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>45%<>; 그동안 요릭의 챔피언 공격에 최대 체력 3% 고정 피해 추가."
       }
     },
     "skill_name": {
@@ -7988,6 +8031,11 @@
         "skill1": "덫날리기",
         "skill2": "이랴!",
         "ult": "돌겨어어억!!!"
+      },
+      "league_yorick": {
+        "skill1": "최후의 의식",
+        "skill2": "애도의 안개",
+        "ult": "군도의 장송곡"
       }
     }
   },
@@ -9154,6 +9202,13 @@
         "skill": "トラバサミを投げ<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>；捕えたチャンピオンを40%<#ef5350ff>スロウ<>、<#ffb900ff>1.5秒<>後に<#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<>で<#ef5350ff>引き寄せ<>。徒歩時は<#ff9028ff>ポケットピストル<>：<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>、自分は後ろへ跳ぶ。",
         "skill2": "スカールが対象を貫いて突進し<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>の物理ダメージ、移動速度+50%；チャンピオンを貫くともう一度突進。",
         "ult": "シールド（150 + <i#asset/base/ui/banpick/champion_stat_icon:ad_0>150%）を張って敵チャンピオンへ突撃、衝突で<#ff9028ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>+最大体力8%と<#ef5350ff>ノックバック<>；周囲の味方の移動速度+40%。"
+      },
+      "league_yorick": {
+        "name": "ヨリック",
+        "attack": "シャベル攻撃。<#ff9028ff>魂の導き手<>：葬送でチャンピオンを打つと（他は2回毎）墓を掘る、3つ溜まると次の一撃で<#ff9028ff>ミストウォーカー<>3体が<#ffb900ff>6秒<>噛みつく（1回<#ff9028ff>9<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>13%<>）、<#ff9028ff>屍の列<>が周囲の敵チャンピオンを<#ffb900ff>1秒<><#ef5350ff>スネア<>。",
+        "skill": "次の攻撃が<#ff9028ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<>の物理ダメージ、体力30 + <i#asset/base/ui/banpick/champion_stat_icon:ad_0>20%回復。",
+        "skill2": "黒い霧を投げる：範囲の敵に<#ff9028ff>65<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>65%<>+最大体力4%、物理防御-25%（<#ffb900ff>4秒<>）、30%<#ef5350ff>スロウ<>。",
+        "ult": "敵チャンピオンの背後に<#ff9028ff>霧の乙女<>とウォーカー2体を召喚、<#ffb900ff>10秒<>追従し<#ffb900ff>毎秒<><#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>45%<>；その間ヨリックのチャンピオンへの攻撃に最大体力3%の確定ダメージ。"
       }
     },
     "skill_name": {
@@ -9986,6 +10041,11 @@
         "skill1": "トラバサミロープ",
         "skill2": "ジャウスト",
         "ult": "チャァァァァァァァジ！！！"
+      },
+      "league_yorick": {
+        "skill1": "葬送",
+        "skill2": "悲嘆の霧",
+        "ult": "嘆きの墓標"
       }
     }
   }
