@@ -1,0 +1,42 @@
+{
+  "zh-hans": {
+    "description": {
+      "league_belveth": {
+        "attack": "【附加包】用翼刃劈砍，出手很快。<#ff9028ff>溶烛化紫<>：每放一个技能攻速+50%（<#ffb900ff>4秒<>）；参与击杀敌方英雄后永久攻速+6%（最多<#ffb900ff>8层<>，死亡后保留）。",
+        "ult": "【附加包】吞下珊瑚爆开：周围敌人受<#ff9028ff>130<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>物理伤害并<#ef5350ff>减速<>40%；化为真身<#ffb900ff>15秒<>：生命+20%、攻击距离增加、攻速+40%、移速+15%。真身生命低于35%时化为<#ff9028ff>搠面皇锋<>：原地<#ffb900ff>1.5秒<>减伤50%、<#66bb6aff>吸血30%<>。"
+      }
+    }
+  },
+  "zh-hant": {
+    "description": {
+      "league_belveth": {
+        "attack": "【附加包】用翼刃劈砍，出手很快。<#ff9028ff>魂斷紫海<>：每施放一個技能攻速+50%（<#ffb900ff>4秒<>）；參與擊殺敵方英雄後永久攻速+6%（最多<#ffb900ff>8層<>，死亡後保留）。",
+        "ult": "【附加包】吞下珊瑚爆開：周圍敵人受<#ff9028ff>130<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>物理傷害並<#ef5350ff>緩速<>40%；化為真身<#ffb900ff>15秒<>：生命+20%、攻擊距離增加、攻速+40%、移速+15%。真身生命低於35%時化為<#ff9028ff>女皇風暴<>：原地<#ffb900ff>1.5秒<>減傷50%、<#66bb6aff>吸血30%<>。"
+      }
+    }
+  },
+  "en": {
+    "description": {
+      "league_belveth": {
+        "attack": "[Add-on] Fast slashes of her wing-blades. <#ff9028ff>Death in Lavender<>: every spell gives 50% attack speed for <#ffb900ff>4s<>; each enemy champion takedown adds 6% attack speed for good (up to <#ffb900ff>8 stacks<>, kept through death).",
+        "ult": "[Add-on] Eats the void coral: it bursts round her for <#ff9028ff>130<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> physical damage and a 40% <#ef5350ff>slow<>; she takes her true form for <#ffb900ff>15s<>: +20% health, more attack range, +40% attack speed, +15% move speed. Under 35% health in it she becomes <#ff9028ff>Royal Maelstrom<>: rooted for <#ffb900ff>1.5s<>, 50% less damage taken, <#66bb6aff>30% life steal<>."
+      }
+    }
+  },
+  "ko": {
+    "description": {
+      "league_belveth": {
+        "attack": "[확장] 날개 칼날로 빠르게 벤다. <#ff9028ff>연보랏빛 죽음<>: 스킬을 쓸 때마다 <#ffb900ff>4초<> 동안 공격 속도 +50%; 적 챔피언 처치 관여 시 공격 속도 영구 +6%(최대 <#ffb900ff>8중첩<>, 죽어도 유지).",
+        "ult": "[확장] 공허 산호를 삼켜 터뜨림: 주변 적에게 <#ff9028ff>130<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> 물리 피해와 40% <#ef5350ff>둔화<>; <#ffb900ff>15초<> 동안 진정한 모습: 체력 +20%, 사거리 증가, 공격 속도 +40%, 이동 속도 +15%. 체력 35% 미만이면 <#ff9028ff>여제의 소용돌이<>: <#ffb900ff>1.5초<> 동안 제자리에서 받는 피해 50% 감소, <#66bb6aff>생명력 흡수 30%<>."
+      }
+    }
+  },
+  "ja": {
+    "description": {
+      "league_belveth": {
+        "attack": "【拡張】翼の刃で素早く斬る。<#ff9028ff>死のラベンダー<>：スキルを使うたび<#ffb900ff>4秒<>攻撃速度+50%；敵チャンピオンのキル/アシストで攻撃速度が永続+6%（最大<#ffb900ff>8スタック<>、死んでも残る）。",
+        "ult": "【拡張】ヴォイドコーラルを喰らい炸裂：周囲の敵に<#ff9028ff>130<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>の物理ダメージと40%<#ef5350ff>スロウ<>。<#ffb900ff>15秒<>真の姿：体力+20%、射程増加、攻撃速度+40%、移動速度+15%。真の姿で体力35%未満なら<#ff9028ff>ロイヤルストーム<>：<#ffb900ff>1.5秒<>その場で被ダメージ-50%、<#66bb6aff>ライフスティール30%<>。"
+      }
+    }
+  }
+}

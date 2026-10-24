@@ -11,6 +11,7 @@ addons/league_neeko/override/league_neeko.data_champion and .../text/champion.i1
     tooltip in game shows whether the override took.
 Every other champion stays untouched. Run it again whenever the main pack's Neeko changes.
 """
+import argparse
 import json
 import os
 import sys
@@ -20,6 +21,7 @@ ADDON = os.path.join(ROOT, "addons", "league_neeko")
 sys.path.insert(0, os.path.join(ROOT, "tools", "kit"))
 import build_neeko as kit  # noqa: E402
 import setup_neeko as setup  # noqa: E402
+import generated  # noqa: E402  --check
 
 MOD_ID = "league_neeko"
 HERO = "league_neeko"
@@ -68,6 +70,10 @@ def dumps_main(o):
 
 
 def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--check", action="store_true",
+                    help="CI: rebuild what does not need the game and fail if the committed files differ")
+    a = ap.parse_args()
     p = dict(kit.P)
     with open(lp(os.path.join(ROOT, "league", "champion", HERO + ".data_champion")), encoding="utf-8", newline="") as f:
         shipped = f.read()
@@ -89,20 +95,24 @@ def main():
         sys.exit("tooltip too long for the details panel: %s" % long)
 
     out = os.path.join(ADDON, "override", HERO + ".data_champion")
-    os.makedirs(lp(os.path.dirname(out)), exist_ok=True)
-    with open(lp(out), "w", encoding="utf-8", newline="\n") as f:
-        f.write(json.dumps(champion, ensure_ascii=False, indent=2) + "\n")
-
+    copy_text = json.dumps(champion, ensure_ascii=False, indent=2) + "\n"
     with open(lp(os.path.join(ROOT, "league", "text", "champion.i18n")), encoding="utf-8-sig") as f:
         main_text = json.load(f)
     missing = set(main_text) - set(texts)
     if missing:
         sys.exit("no add-on text for %s" % sorted(missing))
     out_text = os.path.join(ADDON, "text", "champion.i18n")
+    text_text = json.dumps({lang: {"description": {MOD_ID: texts[lang]}} for lang in main_text},
+                           ensure_ascii=False, indent=2) + "\n"
+    if a.check:
+        generated.check(MOD_ID, [(out, copy_text), (out_text, text_text)])
+        return
+    os.makedirs(lp(os.path.dirname(out)), exist_ok=True)
+    with open(lp(out), "w", encoding="utf-8", newline="\n") as f:
+        f.write(copy_text)
     os.makedirs(lp(os.path.dirname(out_text)), exist_ok=True)
     with open(lp(out_text), "w", encoding="utf-8", newline="\n") as f:
-        f.write(json.dumps({lang: {"description": {MOD_ID: texts[lang]}} for lang in main_text},
-                           ensure_ascii=False, indent=2) + "\n")
+        f.write(text_text)
     print("wrote", os.path.relpath(out, ROOT), "and", os.path.relpath(out_text, ROOT), "- passive =",
           champion["passive"]["passive_ref"], json.dumps(champion["passive"]["params"]))
     print("tooltip lengths", {f"{lang}.{k}": f"{setup.shown_length(x)}/{setup.TOOLTIP_MAX[lang]}"
