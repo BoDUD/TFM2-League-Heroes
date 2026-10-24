@@ -56,55 +56,15 @@
             "type": "Combine",
             "effects": [
               {
-                "type": "RangeEffect",
-                "shape": {
-                  "Circle": {
-                    "radius": 28000
-                  }
-                },
-                "target": "EnemyChampion",
-                "apply_type": "AroundCaster",
-                "effects": [
-                  {
-                    "type": "SwitchByBuff",
-                    "buff_name": "league_wukong_c_1",
-                    "effect_buff": {
-                      "type": "AddCasterBuff",
-                      "buff_state": {
-                        "name": "league_wukong_c_2",
-                        "duration": {
-                          "Time": {
-                            "tick": 3
-                          }
-                        }
-                      },
-                      "only_to_enemy": false
-                    },
-                    "effect_none": {
-                      "type": "AddCasterBuff",
-                      "buff_state": {
-                        "name": "league_wukong_c_1",
-                        "duration": {
-                          "Time": {
-                            "tick": 3
-                          }
-                        }
-                      },
-                      "only_to_enemy": false
-                    }
-                  }
-                ]
-              },
-              {
                 "type": "RandomTarget",
                 "range": 28000,
-                "casting_target": "EnemyChampionInCC",
+                "casting_target": "EnemyChampion",
                 "from_projectile": false,
                 "effects": [
                   {
                     "type": "AddCasterBuff",
                     "buff_state": {
-                      "name": "league_wukong_c_cc",
+                      "name": "league_wukong_c_1",
                       "duration": {
                         "Time": {
                           "tick": 3
@@ -155,7 +115,7 @@
                       "buff_name": "league_wukong_r_armed",
                       "effect_buff": {
                         "type": "SwitchByBuff",
-                        "buff_name": "league_wukong_c_2",
+                        "buff_name": "league_wukong_c_1",
                         "effect_buff": {
                           "type": "AddCasterBuff",
                           "buff_state": {
@@ -169,64 +129,8 @@
                           "only_to_enemy": false
                         },
                         "effect_none": {
-                          "type": "SwitchByBuff",
-                          "buff_name": "league_wukong_c_cc",
-                          "effect_buff": {
-                            "type": "AddCasterBuff",
-                            "buff_state": {
-                              "name": "league_wukong_r_go",
-                              "duration": {
-                                "Time": {
-                                  "tick": 3
-                                }
-                              }
-                            },
-                            "only_to_enemy": false
-                          },
-                          "effect_none": {
-                            "type": "SwitchByBuff",
-                            "buff_name": "league_wukong_c_1",
-                            "effect_buff": {
-                              "type": "SwitchByBuff",
-                              "buff_name": "league_wukong_e_in",
-                              "effect_buff": {
-                                "type": "AddCasterBuff",
-                                "buff_state": {
-                                  "name": "league_wukong_r_go",
-                                  "duration": {
-                                    "Time": {
-                                      "tick": 3
-                                    }
-                                  }
-                                },
-                                "only_to_enemy": false
-                              },
-                              "effect_none": {
-                                "type": "SwitchByBuff",
-                                "buff_name": "league_wukong_w_live",
-                                "effect_buff": {
-                                  "type": "AddCasterBuff",
-                                  "buff_state": {
-                                    "name": "league_wukong_r_go",
-                                    "duration": {
-                                      "Time": {
-                                        "tick": 3
-                                      }
-                                    }
-                                  },
-                                  "only_to_enemy": false
-                                },
-                                "effect_none": {
-                                  "type": "Combine",
-                                  "effects": []
-                                }
-                              }
-                            },
-                            "effect_none": {
-                              "type": "Combine",
-                              "effects": []
-                            }
-                          }
+                          "type": "Combine",
+                          "effects": []
                         }
                       },
                       "effect_none": {
@@ -246,55 +150,15 @@
               "type": "Combine",
               "effects": [
                 {
-                  "type": "RangeEffect",
-                  "shape": {
-                    "Circle": {
-                      "radius": 28000
-                    }
-                  },
-                  "target": "EnemyChampion",
-                  "apply_type": "AroundCaster",
-                  "effects": [
-                    {
-                      "type": "SwitchByBuff",
-                      "buff_name": "league_wukong_c_1",
-                      "effect_buff": {
-                        "type": "AddCasterBuff",
-                        "buff_state": {
-                          "name": "league_wukong_c_2",
-                          "duration": {
-                            "Time": {
-                              "tick": 3
-                            }
-                          }
-                        },
-                        "only_to_enemy": false
-                      },
-                      "effect_none": {
-                        "type": "AddCasterBuff",
-                        "buff_state": {
-                          "name": "league_wukong_c_1",
-                          "duration": {
-                            "Time": {
-                              "tick": 3
-                            }
-                          }
-                        },
-                        "only_to_enemy": false
-                      }
-                    }
-                  ]
-                },
-                {
                   "type": "RandomTarget",
                   "range": 28000,
-                  "casting_target": "EnemyChampionInCC",
+                  "casting_target": "EnemyChampion",
                   "from_projectile": false,
                   "effects": [
                     {
                       "type": "AddCasterBuff",
                       "buff_state": {
-                        "name": "league_wukong_c_cc",
+                        "name": "league_wukong_c_1",
                         "duration": {
                           "Time": {
                             "tick": 3
@@ -345,7 +209,7 @@
                         "buff_name": "league_wukong_r_armed",
                         "effect_buff": {
                           "type": "SwitchByBuff",
-                          "buff_name": "league_wukong_c_2",
+                          "buff_name": "league_wukong_c_1",
                           "effect_buff": {
                             "type": "AddCasterBuff",
                             "buff_state": {
@@ -359,64 +223,8 @@
                             "only_to_enemy": false
                           },
                           "effect_none": {
-                            "type": "SwitchByBuff",
-                            "buff_name": "league_wukong_c_cc",
-                            "effect_buff": {
-                              "type": "AddCasterBuff",
-                              "buff_state": {
-                                "name": "league_wukong_r_go",
-                                "duration": {
-                                  "Time": {
-                                    "tick": 3
-                                  }
-                                }
-                              },
-                              "only_to_enemy": false
-                            },
-                            "effect_none": {
-                              "type": "SwitchByBuff",
-                              "buff_name": "league_wukong_c_1",
-                              "effect_buff": {
-                                "type": "SwitchByBuff",
-                                "buff_name": "league_wukong_e_in",
-                                "effect_buff": {
-                                  "type": "AddCasterBuff",
-                                  "buff_state": {
-                                    "name": "league_wukong_r_go",
-                                    "duration": {
-                                      "Time": {
-                                        "tick": 3
-                                      }
-                                    }
-                                  },
-                                  "only_to_enemy": false
-                                },
-                                "effect_none": {
-                                  "type": "SwitchByBuff",
-                                  "buff_name": "league_wukong_w_live",
-                                  "effect_buff": {
-                                    "type": "AddCasterBuff",
-                                    "buff_state": {
-                                      "name": "league_wukong_r_go",
-                                      "duration": {
-                                        "Time": {
-                                          "tick": 3
-                                        }
-                                      }
-                                    },
-                                    "only_to_enemy": false
-                                  },
-                                  "effect_none": {
-                                    "type": "Combine",
-                                    "effects": []
-                                  }
-                                }
-                              },
-                              "effect_none": {
-                                "type": "Combine",
-                                "effects": []
-                              }
-                            }
+                            "type": "Combine",
+                            "effects": []
                           }
                         },
                         "effect_none": {
@@ -5435,42 +5243,6 @@
             {
               "type": "Sfx",
               "name": "league_wukong_e_hit"
-            },
-            {
-              "type": "RangeEffect",
-              "shape": {
-                "Circle": {
-                  "radius": 22000
-                }
-              },
-              "target": "EnemyChampion",
-              "apply_type": "AroundCaster",
-              "effects": [
-                {
-                  "type": "RangeEffect",
-                  "shape": {
-                    "Circle": {
-                      "radius": 1000
-                    }
-                  },
-                  "target": "AllyOnlySelf",
-                  "apply_type": "AroundCaster",
-                  "effects": [
-                    {
-                      "type": "AddCasterBuff",
-                      "buff_state": {
-                        "name": "league_wukong_e_in",
-                        "duration": {
-                          "Time": {
-                            "tick": 120
-                          }
-                        }
-                      },
-                      "only_to_enemy": false
-                    }
-                  ]
-                }
-              ]
             },
             {
               "type": "RemoveCasterBuff",
