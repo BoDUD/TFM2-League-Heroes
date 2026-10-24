@@ -301,6 +301,11 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // set by hand); every action Codex's whole-frame redraw mended onto the design (tools/art/casts_ahri_hd.py: the
     // design's head, her size, the nine tails joined to her hair); 40 rows, so no SIZES row
     ("league_ahri", 2.2, include_str!("../../../league/champions/league_ahri#anim.fanim")),
+    // Twitch (2026-10-24): the user's own picture read back at PPU 2.2 (109 x 71, tools/art/design_twitch_hd.py, the goggle
+    // and the grin redrawn by hand); every action Codex's whole-frame redraw mended onto the design
+    // (tools/art/casts_twitch_hd.py: the design's head, his size; rig_twitch_hd.py: Venom Cask thrown overhead by the far
+    // arm, not a third one); 32 rows as his 1x sprite, so no SIZES row
+    ("league_twitch", 2.2, include_str!("../../../league/champions/league_twitch#anim.fanim")),
     // Yunara: PPU 1.5 (the user's pick), posed from the design's own squares at that density by tools/art/rig_yunara.py
     // (40 game rows ornaments to soles), so no SIZES row
     ("league_yunara", 1.5, include_str!("../../../league/champions/league_yunara#anim.fanim")),

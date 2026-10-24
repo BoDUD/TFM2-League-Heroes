@@ -1,0 +1,291 @@
+{
+ "square": 5,
+ "cell": [
+  768,
+  1024
+ ],
+ "ground": 824,
+ "per_sheet": 2,
+ "sheets": [
+  {
+   "tag": "run",
+   "name": "run_1",
+   "frames": [
+    1,
+    2
+   ],
+   "action": "running (his move loop), hunched forward, the crossbow held in both hands",
+   "ms": [
+    100,
+    100
+   ]
+  },
+  {
+   "tag": "run",
+   "name": "run_2",
+   "frames": [
+    3,
+    4
+   ],
+   "action": "running (his move loop), hunched forward, the crossbow held in both hands",
+   "ms": [
+    100,
+    100
+   ]
+  },
+  {
+   "tag": "run",
+   "name": "run_3",
+   "frames": [
+    5,
+    6
+   ],
+   "action": "running (his move loop), hunched forward, the crossbow held in both hands",
+   "ms": [
+    100,
+    100
+   ]
+  },
+  {
+   "tag": "run",
+   "name": "run_4",
+   "frames": [
+    7,
+    8
+   ],
+   "action": "running (his move loop), hunched forward, the crossbow held in both hands",
+   "ms": [
+    100,
+    100
+   ]
+  },
+  {
+   "tag": "attack",
+   "name": "attack_1",
+   "frames": [
+    1,
+    2
+   ],
+   "action": "basic attack, a crossbow bolt fired forward from the levelled crossbow, a small recoil",
+   "ms": [
+    60,
+    60
+   ]
+  },
+  {
+   "tag": "attack",
+   "name": "attack_2",
+   "frames": [
+    3,
+    4
+   ],
+   "action": "basic attack, a crossbow bolt fired forward from the levelled crossbow, a small recoil",
+   "ms": [
+    40,
+    40
+   ]
+  },
+  {
+   "tag": "attack",
+   "name": "attack_3",
+   "frames": [
+    5,
+    6
+   ],
+   "action": "basic attack, a crossbow bolt fired forward from the levelled crossbow, a small recoil",
+   "ms": [
+    10,
+    60
+   ]
+  },
+  {
+   "tag": "attack",
+   "name": "attack_4",
+   "frames": [
+    7,
+    8
+   ],
+   "action": "basic attack, a crossbow bolt fired forward from the levelled crossbow, a small recoil",
+   "ms": [
+    10,
+    80
+   ]
+  },
+  {
+   "tag": "skill",
+   "name": "skill_1",
+   "frames": [
+    1,
+    2
+   ],
+   "action": "Ambush: he crouches low and sneaks, the crossbow held close, ready to vanish",
+   "ms": [
+    100,
+    100
+   ]
+  },
+  {
+   "tag": "skill",
+   "name": "skill_2",
+   "frames": [
+    3
+   ],
+   "action": "Ambush: he crouches low and sneaks, the crossbow held close, ready to vanish",
+   "ms": [
+    100
+   ]
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_1",
+   "frames": [
+    1,
+    2
+   ],
+   "action": "Venom Cask: the far hand swings a small poison cask up and throws it forward at the foe",
+   "ms": [
+    80,
+    70
+   ]
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_2",
+   "frames": [
+    3,
+    4
+   ],
+   "action": "Venom Cask: the far hand swings a small poison cask up and throws it forward at the foe",
+   "ms": [
+    100,
+    100
+   ]
+  },
+  {
+   "tag": "skill2_e",
+   "name": "skill2_e_1",
+   "frames": [
+    1,
+    2
+   ],
+   "action": "Contaminate: a hop, the crossbow and the body jerked, the poison on the foes bursting",
+   "ms": [
+    80,
+    80
+   ]
+  },
+  {
+   "tag": "skill2_e",
+   "name": "skill2_e_2",
+   "frames": [
+    3,
+    4
+   ],
+   "action": "Contaminate: a hop, the crossbow and the body jerked, the poison on the foes bursting",
+   "ms": [
+    100,
+    80
+   ]
+  },
+  {
+   "tag": "skill2_e",
+   "name": "skill2_e_3",
+   "frames": [
+    5
+   ],
+   "action": "Contaminate: a hop, the crossbow and the body jerked, the poison on the foes bursting",
+   "ms": [
+    80
+   ]
+  },
+  {
+   "tag": "ult",
+   "name": "ult_1",
+   "frames": [
+    1,
+    2
+   ],
+   "action": "Spray and Pray: the crossbow raised and fired hard forward, a big recoil",
+   "ms": [
+    100,
+    100
+   ]
+  },
+  {
+   "tag": "ult",
+   "name": "ult_2",
+   "frames": [
+    3
+   ],
+   "action": "Spray and Pray: the crossbow raised and fired hard forward, a big recoil",
+   "ms": [
+    100
+   ]
+  },
+  {
+   "tag": "hit",
+   "name": "hit_1",
+   "frames": [
+    1,
+    2
+   ],
+   "action": "struck, knocked back a little",
+   "ms": [
+    100,
+    100
+   ]
+  },
+  {
+   "tag": "dead",
+   "name": "dead_1",
+   "frames": [
+    1,
+    2
+   ],
+   "action": "death: knocked back, he falls and lies on the ground, the crossbow dropped",
+   "ms": [
+    100,
+    110
+   ]
+  },
+  {
+   "tag": "dead",
+   "name": "dead_2",
+   "frames": [
+    3,
+    4
+   ],
+   "action": "death: knocked back, he falls and lies on the ground, the crossbow dropped",
+   "ms": [
+    120,
+    130
+   ]
+  },
+  {
+   "tag": "dead",
+   "name": "dead_3",
+   "frames": [
+    5,
+    6
+   ],
+   "action": "death: knocked back, he falls and lies on the ground, the crossbow dropped",
+   "ms": [
+    150,
+    200
+   ]
+  },
+  {
+   "tag": "dead",
+   "name": "dead_4",
+   "frames": [
+    7,
+    8
+   ],
+   "action": "death: knocked back, he falls and lies on the ground, the crossbow dropped",
+   "ms": [
+    300,
+    400
+   ]
+  }
+ ]
+}
