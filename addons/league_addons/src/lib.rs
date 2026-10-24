@@ -162,6 +162,9 @@ mod garen_ult;
 #[allow(dead_code)] // items public in the add-on's own crate
 #[path = "../../league_takedowns/src/lib.rs"]
 mod takedowns;
+#[allow(dead_code)] // items public in the add-on's own crate
+#[path = "../../league_executes/src/lib.rs"]
+mod executes;
 #[path = "../../league_shen_shield/src/lib.rs"]
 mod shen_shield;
 #[allow(dead_code)] // items public in the add-on's own crate
@@ -404,6 +407,7 @@ fn init(host: &StableHost) -> StableMod {
     ahri::register(host, &mut module);
     garen_ult::register(host, &mut module);
     takedowns::register(host, &mut module);
+    executes::register(host, &mut module);
     shen_shield::register(host, &mut module);
     tahmkench::register(host, &mut module);
     kalista::register(host, &mut module);
