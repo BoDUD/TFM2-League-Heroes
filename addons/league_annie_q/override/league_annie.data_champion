@@ -132,7 +132,7 @@
           "type": "TargetProjectile",
           "name": "league_annie_bolt",
           "speed": 6000,
-          "y_offset": 1200,
+          "y_offset": -1800,
           "applied_target": "Enemy",
           "applied_effects": [
             {
@@ -286,7 +286,7 @@
                 "type": "TargetProjectile",
                 "name": "league_annie_q",
                 "speed": 5000,
-                "y_offset": 1200,
+                "y_offset": -1000,
                 "applied_target": "EnemyWithoutTower",
                 "applied_effects": [
                   {
@@ -333,7 +333,7 @@
                   "type": "TargetProjectile",
                   "name": "league_annie_q_stun",
                   "speed": 5000,
-                  "y_offset": 1200,
+                  "y_offset": -1000,
                   "applied_target": "EnemyChampion",
                   "applied_effects": [
                     {
@@ -384,7 +384,7 @@
                 "type": "TargetProjectile",
                 "name": "league_annie_q",
                 "speed": 5000,
-                "y_offset": 1200,
+                "y_offset": -1000,
                 "applied_target": "EnemyWithoutTower",
                 "applied_effects": [
                   {

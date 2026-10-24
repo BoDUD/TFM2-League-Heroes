@@ -338,7 +338,8 @@ RESTYLE = {
     # Annie (2026-10-24): Codex's take A read back at PPU 2.2 (44 x 75, design_annie_hd.py, the face set by hand); every
     # action Codex's whole-frame redraw mended onto the design (tools/art/casts_annie_hd.py: the design's head, her size,
     # the ground), Tibbers in her near hand
-    "annie": dict(ppu=2.2, edge=0, face_to=(0, -30)),
+    # face (-2,-28): (0,-30) framed the crown and fringe, her eyes on the bottom rows and no mouth (Lux's lesson)
+    "annie": dict(ppu=2.2, edge=0, face_to=(-2, -28)),
     # league_yunara (#119): posed from the design's own squares at the user's 1.5 squares a game pixel (「选 A，40 行」,
     # Codex's step-1 take 2 cut to 60 rows, her beads apart) by tools/art/rig_yunara.py, so no proportion or density
     # change here; the outer outline grown a square like the others; the face point at her ornaments' crown
