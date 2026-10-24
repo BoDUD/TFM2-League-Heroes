@@ -9,9 +9,9 @@ assets/source/yasuo/windwall/yasuo_w_wall_loop.png (Codex, six frames of a 46-pi
 to game size (the commonest colour of each block), mapped to one palette for the six frames (wind shades + ochre), the
 ochre ground line taken out, and the wind cut into PIECES columns. Written to addons/league_yasuo_wall/effects/
 league_yasuo_wall_fx (#sheet.png + #anim.fanim):
-  plume_<k>  piece k of the wind, the six frames looped for the wall's 4 s; the frame's middle is the ground line under
-             it (the pivot), the wind above it, nothing below;
-  ground     one ochre ground dot for the line (3 x 2), 4 s;
+  plume_<k>  piece k of the wind, the six frames looped for the wall's 4 s, standing on the ground line SOLES rows
+             under the frame's middle (the pivot: a unit's soles are that far under the point the game places it at);
+  ground     one ochre ground dot for the line (3 x 2) on that line, 4 s;
   cast / block / fade  Codex's gust at his feet (on his soles, SOLES under the pivot), the flash where a missile is
              stopped (centred) and the wall dispersing (centred FADE_UP over the ground line), 4 frames each.
 The add-on plays plume_<k> at PIECES points along the wall (left to right on screen) and ground dots every DOT units,
@@ -172,8 +172,9 @@ def placed(f, where, rows):
         H = max(H, 2 * (h - SOLES) + 1)
         top = H // 2 + SOLES - rows
     else:
-        H = 2 * (FADE_UP + (h + 1) // 2) + 1
-        top = H // 2 - FADE_UP - h // 2
+        up = FADE_UP - SOLES                                          # over the ground line, which is SOLES under
+        H = 2 * (abs(up) + (h + 1) // 2) + 1
+        top = H // 2 - up - h // 2
     W = w + (w % 2 == 0)
     cell = np.zeros((H, W, 4), np.uint8)
     cell[top + rows - h if where == "soles" else top:(top + rows if where == "soles" else top + h), :w] = f
@@ -190,8 +191,11 @@ def write(plumes, dot, base):
     for k, fr in enumerate(pieces):
         rects = []
         for f in fr:
-            cell = np.zeros((base * 2, f.shape[1], 4), np.uint8)    # the middle row = the ground line (the pivot)
-            cell[:base] = f
+            # a unit's soles are SOLES rows under its pivot (the point the game places it at): the ground line is too
+            H = 2 * max(base - SOLES, SOLES) + 1
+            cell = np.zeros((H, f.shape[1], 4), np.uint8)
+            top = H // 2 + SOLES - base
+            cell[top:top + base] = f
             tiles.append((x, cell))
             rects.append({"x": float(x), "y": 0.0, "w": float(cell.shape[1]), "h": float(cell.shape[0])})
             x += cell.shape[1] + 1
@@ -206,10 +210,11 @@ def write(plumes, dot, base):
             rects.append({"x": float(x), "y": 0.0, "w": float(cell.shape[1]), "h": float(cell.shape[0])})
             x += cell.shape[1] + 1
         anims[tag] = {"frames": [{"duration": ms / 1000, "data": r} for r in rects]}
-    cell = np.zeros((4, 3, 4), np.uint8)
-    cell[2:] = dot                                                   # the dot just under the pivot
+    cell = np.zeros((2 * (SOLES + 2) + 1, 3, 4), np.uint8)
+    cell[SOLES + 2 + SOLES:SOLES + 2 + SOLES + 2] = dot              # on the ground line, SOLES under the pivot
     tiles.append((x, cell))
-    anims["ground"] = {"frames": [{"duration": LIFE, "data": {"x": float(x), "y": 0.0, "w": 3.0, "h": 4.0}}]}
+    anims["ground"] = {"frames": [{"duration": LIFE, "data": {"x": float(x), "y": 0.0, "w": 3.0,
+                                                            "h": float(cell.shape[0])}}]}
     x += 4
     sheet = np.zeros((max(t.shape[0] for _, t in tiles), x, 4), np.uint8)
     for tx, t in tiles:
