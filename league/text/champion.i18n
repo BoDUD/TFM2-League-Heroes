@@ -1148,6 +1148,13 @@
         "skill": "引导龙息<#ffb900ff>1.5秒<>，每<#ffb900ff>0.17秒<>对一线上的敌人造成<#a974ffff>26<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>17%<>魔法伤害，喷同一目标<#ffb900ff>1秒<>后每次额外30；被控制打断。飞行中无冷却、引导更久。",
         "skill2": "在目标处召唤黑洞（<#ffb900ff>5秒<>），每<#ffb900ff>0.25秒<>造成<#a974ffff>16<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>9%<>魔法伤害，把敌人拉向中心并<#ef5350ff>减速<>25%；中心每秒造成英雄最大生命值4%的真实伤害。",
         "ult": "<#ff9028ff>星落<>：星星坠落在目标处，造成<#a974ffff>270<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>85%<>魔法伤害并<#ef5350ff>眩晕<><#ffb900ff>1秒<>。<#ff9028ff>天瀑<>：范围更大，<#a974ffff>350<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>105%<>并<#ef5350ff>击飞<><#ffb900ff>0.83秒<>，外圈冲击波再造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>并<#ef5350ff>减速<>50%。"
+      },
+      "league_sejuani": {
+        "name": "瑟庄妮",
+        "attack": "链枷抽打。<#ff9028ff>北地之怒<>：脱战后冰霜护甲，护甲、魔抗+40%。普攻和凛冬之怒叠霜冻，满4层<#ef5350ff>冻住<><#ffb900ff>1秒<>并造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>；打中被她晕住的敌人再造成其最大生命6%。",
+        "skill": "钢鬃冲向目标，路上的敌人受到<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>魔法伤害并被<#ef5350ff>击飞<><#ffb900ff>0.5秒<>。",
+        "skill2": "链枷先横扫一圈造成<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>，再往前砸出一道冰造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>魔法伤害，都<#ef5350ff>减速<>40%<#ffb900ff>1.5秒<>。",
+        "ult": "甩出冰套索，第一个敌方英雄受到<#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>魔法伤害并被<#ef5350ff>眩晕<><#ffb900ff>1.25秒<>；落点冰风暴<#ef5350ff>减速<>周围敌人35%，持续<#ffb900ff>2秒<>。"
       }
     },
     "skill_name": {
@@ -1970,6 +1977,11 @@
         "skill1": "星河冲荡",
         "skill2": "星芒凝汇",
         "ult": "星天落瀑"
+      },
+      "league_sejuani": {
+        "skill1": "极寒突袭",
+        "skill2": "凛冬之怒",
+        "ult": "极冰寒狱"
       }
     }
   },
@@ -3122,6 +3134,13 @@
         "skill": "引導吐息<#ffb900ff>1.5秒<>，每<#ffb900ff>0.17秒<>對一線上的敵人造成<#a974ffff>26<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>17%<>魔法傷害，噴同一目標<#ffb900ff>1秒<>後每次額外30；被控制打斷。飛行中無冷卻、引導更久。",
         "skill2": "在目標處召喚奇點（<#ffb900ff>5秒<>），每<#ffb900ff>0.25秒<>造成<#a974ffff>16<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>9%<>魔法傷害，把敵人拉向中心並<#ef5350ff>緩速<>25%；中心每秒造成英雄最大生命4%的真實傷害。",
         "ult": "<#ff9028ff>降世星辰<>：星辰墜落在目標處，造成<#a974ffff>270<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>85%<>魔法傷害並<#ef5350ff>暈眩<><#ffb900ff>1秒<>。<#ff9028ff>天界殞落<>：範圍更大，<#a974ffff>350<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>105%<>並<#ef5350ff>擊飛<><#ffb900ff>0.83秒<>，外圈衝擊波再造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>並<#ef5350ff>緩速<>50%。"
+      },
+      "league_sejuani": {
+        "name": "史瓦妮",
+        "attack": "鏈枷抽打。<#ff9028ff>北境之怒<>：脫戰後冰霜護甲，護甲、魔防+40%。普攻和凜冬狂怒疊霜凍，滿4層<#ef5350ff>冰凍<><#ffb900ff>1秒<>並造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>；打中被她暈眩的敵人再造成其最大生命6%。",
+        "skill": "坐騎衝向目標，路上的敵人受到<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>魔法傷害並被<#ef5350ff>擊飛<><#ffb900ff>0.5秒<>。",
+        "skill2": "鏈枷先橫掃一圈造成<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>，再往前砸出一道冰造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>魔法傷害，都<#ef5350ff>緩速<>40%<#ffb900ff>1.5秒<>。",
+        "ult": "甩出冰套索，第一個敵方英雄受到<#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>魔法傷害並被<#ef5350ff>暈眩<><#ffb900ff>1.25秒<>；落點冰風暴<#ef5350ff>緩速<>周圍敵人35%，持續<#ffb900ff>2秒<>。"
       }
     },
     "skill_name": {
@@ -3944,6 +3963,11 @@
         "skill1": "星光吐息",
         "skill2": "宇宙奇點",
         "ult": "降世星辰"
+      },
+      "league_sejuani": {
+        "skill1": "極地衝刺",
+        "skill2": "凜冬狂怒",
+        "ult": "冰河籠牢"
       }
     }
   },
@@ -5096,6 +5120,13 @@
         "skill": "Channels his breath for <#ffb900ff>1.5s<>: every <#ffb900ff>0.17s<> it deals <#a974ffff>26<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>17%<> magic damage to the enemies in a line, 30 more after <#ffb900ff>1s<> on one target; crowd control breaks it. In flight it has no cooldown and channels longer.",
         "skill2": "Summons a black hole at the target for <#ffb900ff>5s<>: every <#ffb900ff>0.25s<> <#a974ffff>16<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>9%<> magic damage, pulling enemies toward its centre and <#ef5350ff>slowing<> them 25%; its centre deals 4% of a champion's maximum health as true damage each second.",
         "ult": "<#ff9028ff>Falling Star<>: a star crashes on the target for <#a974ffff>270<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>85%<> magic damage and a <#ffb900ff>1s<> <#ef5350ff>stun<>. <#ff9028ff>The Skies Descend<>: a wider impact, <#a974ffff>350<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>105%<> and a <#ffb900ff>0.83s<> <#ef5350ff>knock-up<>, then a shockwave from its edge for <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> and a 50% <#ef5350ff>slow<>."
+      },
+      "league_sejuani": {
+        "name": "Sejuani",
+        "attack": "Flail blows. <#ff9028ff>Fury of the North<>: out of combat her Frost Armour gives +40% armour and magic resist. Her attacks and Winter's Wrath add Frost; 4 <#ef5350ff>freeze<> the target for <#ffb900ff>1s<> and deal <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>; hitting an enemy she stunned deals 6% of its maximum health more.",
+        "skill": "Bristle charges at the target: the enemies in the way take <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> magic damage and are <#ef5350ff>knocked up<> for <#ffb900ff>0.5s<>.",
+        "skill2": "Her flail sweeps round her for <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>, then slams a line of ice ahead for <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> magic damage, each <#ef5350ff>slowing<> 40% for <#ffb900ff>1.5s<>.",
+        "ult": "Throws her ice bola: the first enemy champion takes <#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> magic damage and is <#ef5350ff>stunned<> for <#ffb900ff>1.25s<>; an ice storm there <#ef5350ff>slows<> the enemies round it 35% for <#ffb900ff>2s<>."
       }
     },
     "skill_name": {
@@ -5918,6 +5949,11 @@
         "skill1": "Breath of Light",
         "skill2": "Singularity",
         "ult": "Falling Star"
+      },
+      "league_sejuani": {
+        "skill1": "Arctic Assault",
+        "skill2": "Winter's Wrath",
+        "ult": "Glacial Prison"
       }
     }
   },
@@ -7070,6 +7106,13 @@
         "skill": "<#ffb900ff>1.5초<> 동안 숨결을 정신 집중: <#ffb900ff>0.17초<>마다 일직선의 적에게 <#a974ffff>26<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>17%<> 마법 피해, 한 대상에 <#ffb900ff>1초<> 이상 시 매번 30 추가; 군중 제어에 끊김. 비행 중 재사용 대기시간 없음.",
         "skill2": "대상 위치에 <#ffb900ff>5초<> 동안 블랙홀 소환: <#ffb900ff>0.25초<>마다 <#a974ffff>16<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>9%<> 마법 피해, 적을 중심으로 끌어당기고 25% <#ef5350ff>둔화<>; 중심은 매초 챔피언 최대 체력의 4% 고정 피해.",
         "ult": "<#ff9028ff>유성<>: 대상 위치에 별이 떨어져 <#a974ffff>270<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>85%<> 마법 피해와 <#ffb900ff>1초<> <#ef5350ff>기절<>. <#ff9028ff>천상 강림<>: 더 넓게 <#a974ffff>350<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>105%<>와 <#ffb900ff>0.83초<> <#ef5350ff>에어본<>, 이어서 가장자리 충격파 <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>와 50% <#ef5350ff>둔화<>."
+      },
+      "league_sejuani": {
+        "name": "세주아니",
+        "attack": "철퇴 공격. <#ff9028ff>혹한의 분노<>: 비전투 시 서리 갑옷, 방어력·마법 저항력 +40%. 기본 공격과 혹한의 서릿발이 서리 중첩, 4중첩 시 <#ffb900ff>1초<> <#ef5350ff>빙결<>, <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>; 그녀가 기절시킨 적을 치면 최대 체력의 6% 추가.",
+        "skill": "브리슬이 대상에게 돌진: 경로의 적에게 <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> 마법 피해와 <#ffb900ff>0.5초<> <#ef5350ff>에어본<>.",
+        "skill2": "철퇴로 주변을 휩쓸어 <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>, 이어서 앞으로 얼음을 내리쳐 <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> 마법 피해, 각각 <#ffb900ff>1.5초<> 동안 40% <#ef5350ff>둔화<>.",
+        "ult": "얼음 볼라를 던져 첫 적 챔피언에게 <#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> 마법 피해와 <#ffb900ff>1.25초<> <#ef5350ff>기절<>; 그 자리의 얼음 폭풍이 <#ffb900ff>2초<> 동안 주변 적 35% <#ef5350ff>둔화<>."
       }
     },
     "skill_name": {
@@ -7892,6 +7935,11 @@
         "skill1": "빛의 숨결",
         "skill2": "특이점",
         "ult": "유성"
+      },
+      "league_sejuani": {
+        "skill1": "혹한의 맹습",
+        "skill2": "혹한의 서릿발",
+        "ult": "빙하 감옥"
       }
     }
   },
@@ -9044,6 +9092,13 @@
         "skill": "<#ffb900ff>1.5秒<>息吹を詠唱：<#ffb900ff>0.17秒<>ごとに直線上の敵に<#a974ffff>26<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>17%<>の魔法ダメージ、同じ対象に<#ffb900ff>1秒<>以上で毎回+30；行動妨害で中断。飛行中はクールダウンなし。",
         "skill2": "対象の位置に<#ffb900ff>5秒<>ブラックホールを召喚：<#ffb900ff>0.25秒<>ごとに<#a974ffff>16<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>9%<>の魔法ダメージ、敵を中心へ引き寄せ25%<#ef5350ff>スロウ<>；中心は毎秒チャンピオンの最大体力4%の確定ダメージ。",
         "ult": "<#ff9028ff>星の邂逅<>：対象の位置に星が落ち<#a974ffff>270<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>85%<>の魔法ダメージと<#ffb900ff>1秒<><#ef5350ff>スタン<>。<#ff9028ff>崩れ落つ天穹<>：範囲が広く<#a974ffff>350<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>105%<>と<#ffb900ff>0.83秒<><#ef5350ff>ノックアップ<>、続いて外縁の衝撃波<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>と50%<#ef5350ff>スロウ<>。"
+      },
+      "league_sejuani": {
+        "name": "セジュアニ",
+        "attack": "フレイルで打つ。<#ff9028ff>極北の激憤<>：非戦闘時フロストアーマー、物理・魔法防御+40%。通常攻撃と氷河の怒りでフロスト付与、4つで<#ffb900ff>1秒<><#ef5350ff>凍結<>し<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>；彼女がスタンさせた敵を打つと最大体力6%追加。",
+        "skill": "ブリッスルが対象へ突進：進路の敵に<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>の魔法ダメージと<#ffb900ff>0.5秒<><#ef5350ff>ノックアップ<>。",
+        "skill2": "フレイルで周囲を薙ぎ<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>、続けて前方へ氷を叩きつけ<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>の魔法ダメージ、それぞれ<#ffb900ff>1.5秒<>40%<#ef5350ff>スロウ<>。",
+        "ult": "氷のボーラを投げ、最初の敵チャンピオンに<#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>の魔法ダメージと<#ffb900ff>1.25秒<><#ef5350ff>スタン<>；その場の氷嵐が<#ffb900ff>2秒<>周囲の敵を35%<#ef5350ff>スロウ<>。"
       }
     },
     "skill_name": {
@@ -9866,6 +9921,11 @@
         "skill1": "星炎の息吹",
         "skill2": "特異点",
         "ult": "星の邂逅"
+      },
+      "league_sejuani": {
+        "skill1": "猪突凍進",
+        "skill2": "氷河の怒り",
+        "ult": "グレイシャルプリズン"
       }
     }
   }
