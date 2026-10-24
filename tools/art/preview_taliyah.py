@@ -43,8 +43,10 @@ SYNDRA = os.path.join(LEAGUE, "champions", "league_syndra")
 class Taliyah(Clip):
     """preview_gnar's clip with her own dense frames."""
 
-    def a(self, tag, dur=None, loop=False, z=3):
-        fr = list(dense(self.sp, tag, "taliyah", z))
+    z = 3                                               # the clip's zoom: render() draws at it, so her frames must too
+
+    def a(self, tag, dur=None, loop=False, z=None):
+        fr = list(dense(self.sp, tag, "taliyah", z or self.z))
         if dur and not loop and dur > sum(ms for _, ms in fr):     # the last frame held to the action's end
             fr[-1] = (fr[-1][0], fr[-1][1] + dur - sum(ms for _, ms in fr))
         an = Anim(fr, self.t, 0, 0, loop=loop, until=(self.t + dur) if dur else None)
@@ -82,6 +84,7 @@ def showcase(out, z=3, steps=FIGHT, W=250, H=170, gap=130, tail=1400):
     d = Foe(load(SYNDRA), far, gy)
     me = Me(x0, gy)
     c = Taliyah(load(CHAMP), d, me, small, big)
+    c.z = z
     c.wait(300)
 
     def run(x1, surf=True):
