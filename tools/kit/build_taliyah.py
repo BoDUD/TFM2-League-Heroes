@@ -1,6 +1,6 @@
 """Build league_taliyah.data_champion (mid, Magician: Taliyah, the Stoneweaver) from the parameters P.
 
-    python tools/kit/build_taliyah.py [--set key=value ...] [--out file] [--params json] [--nodes]
+    python tools/kit/build_taliyah.py [--set key=value ...] [--out file] [--params json] [--nodes] [--native]
 
 Kit (the user's picks, 2026-10-24: MID, layout A - Q / W with E folded in / R; combos W's throw through the mines = a
 stun, Q on Worked Ground = the boulder, R's wall -> W at once into the wall, the surf's haste after R and out of fights).
@@ -34,6 +34,8 @@ Unraveled Earth (E) laid first, Weaver's Wall (R) the `ult`; Rock Surfing is the
           apart, picture r_wall_h, the same slow) and rides its crest in RushTime steps (r_speed x r_step, r_steps at
           most), jumping off as soon as an enemy champion is within r_off - W at once if ready (the eruption throws
           the target across her mines). Either way she surfs (the passive's r_ms%) for r_surf ticks.
+The add-on's copy (--native, addons/league_taliyah/make_override.py): the walls neither slow nor drag - the passive
+`league_taliyah:wall` makes them real terrain, found from the `wall_up` / `lay_up` flags and the `aim` mark on the target.
 Timings: drafts until the frames exist (a rig script retimes them).
 Numbers: League 16.21 read into the mid mage range (league_aurora, league_syndra); balanced on the classic-SDK
 simulations (kd.py --lane 2 against pyromancer, ice_mage, lightning_mage, wind_mage and white_mage, C:/t/ta_sim,
@@ -48,7 +50,9 @@ The skills redone as League (the user, 2026-10-24: Q's rocks a beat apart, the m
 horizontal wall): the ride as one MoveToTarget (always all the way: into them) -0.71 .. -1.28; in RushTime steps
 with the jump-off at r_off +1.48 / +2.21 - every R a free W (its cooldown reset), a sure stun across the mines; damage,
 health or R's cooldown cut barely moved it (+1.45 .. +2.2); R -> W only when W is ready (r_reset 0) = P +0.55 / +1.12 /
-+1.81 / +2.21 on seeds 1-32 (mean +1.42: league_syndra +1.17 / +1.42).
++1.81 / +2.21 on seeds 1-32 (mean +1.42: league_syndra +1.17 / +1.42) - but the AI always casts W before R, so in
+a trace the R -> W slam never came (4 upright walls, 0 slams); the combo kept (r_reset 1) with every hit cut (Q 46 +
+24% a rock, repeats 23 + 12%, W 50 + 30%, mines 38 + 24%) = P +1.62 / +1.39 / +1.73 / +1.38 on seeds 1-32 (mean +1.53).
 """
 import argparse
 import json
@@ -75,12 +79,12 @@ P = {
     "p_ms": 10,
     # skill: Q Threaded Volley
     "q_cd": 360, "q_range": 90000, "q_dur": 16, "q_rel": 8, "q_n": 5, "q_gap": 12, "q_speed": 4500, "q_w": 4000,
-    "q_dmg": 54, "q_ap": 28, "q_dmg2": 27, "q_ap2": 14, "q_gr": 14000, "q_gt": 480, "q_p": 3,
+    "q_dmg": 46, "q_ap": 24, "q_dmg2": 23, "q_ap2": 12, "q_gr": 14000, "q_gt": 480, "q_p": 3,
     "q_b_dmg": 110, "q_b_ap": 60, "q_b_w": 7000, "q_b_speed": 3500, "q_b_slow": 40, "q_b_slow_t": 90,
     # skill2: W Seismic Shove with E Unraveled Earth
-    "w_cd": 960, "w_range": 80000, "w_dur": 36, "w_rel": 21, "w_delay": 30, "w_r": 16000, "w_dmg": 60, "w_ap": 35,
+    "w_cd": 960, "w_range": 80000, "w_dur": 36, "w_rel": 21, "w_delay": 30, "w_r": 16000, "w_dmg": 50, "w_ap": 30,
     "w_go": 3500, "w_throw": 10,
-    "e_r": 22000, "e_t": 240, "e_p": 6, "e_slow": 20, "e_dmg": 45, "e_ap": 28, "e_stun": 24, "e_rel": 14, "e_dist": 25000,
+    "e_r": 22000, "e_t": 240, "e_p": 6, "e_slow": 20, "e_dmg": 38, "e_ap": 24, "e_stun": 24, "e_rel": 14, "e_dist": 25000,
     "e_speed": 6000,
     # ult: R Weaver's Wall
     "r_cd": 4200, "r_range": 90000, "r_dur": 40, "r_rel": 16, "r_t": 300, "r_w": 12000, "r_h": 120000, "r_out": 24,
@@ -92,9 +96,11 @@ P = {
     "r_near": 60000, "r_speed": 2500, "r_ride_at": 8, "r_step": 2, "r_steps": 8, "r_off": 55000, "r_seg": 26000,
     "r_n": 6, "r_lay_speed": 8000,
     # 1: R starts W's cooldown over and casts it at once; 0: R casts W only when it is ready
-    "r_reset": 0,
+    "r_reset": 1,
     # her spoken lines, at most one every vo_gap ticks
     "vo_gap": 600,
+    # 1: the add-on's copy (addons/league_taliyah: the walls real terrain)
+    "native": 0,
 }
 
 
@@ -319,19 +325,27 @@ def build(p):
                             sw("w_cd", NONE, w_cast("EnemyChampion"))), key="skill2")
 
     # ------------------------------------------------------------------ ult: R Weaver's Wall
-    wall = [view("r_wall"), sfx("r_wall"),
+    native = bool(p["native"])
+    # the add-on's copy (native): no slow and no drag - addons/league_taliyah makes the walls real terrain (it finds the
+    # upright one under the champion carrying `aim` the tick `wall_up` rises, the ride's stretches from her spot toward
+    # that champion the tick `lay_up` rises, snapped onto the stretches' empty zones)
+    marks = lambda up: [flag(up, 3), buff("aim", 3)] if native else []
+    wall = [view("r_wall"), sfx("r_wall")] if native else [view("r_wall"), sfx("r_wall"),
             # on it when it rises: dragged out to her side (a Grab heads for the caster, league_anivia)
             field("r_out", rect(p["r_w"], p["r_h"]), p["r_out"], 2, [{"type": "Grab", "speed": p["r_go"], "tick": 2}],
                   first=1),
             field("r_stone", rect(p["r_w"], p["r_h"]), p["r_t"], p["r_p"],
                   [buff("r_stuck", p["r_p"] + 2, move_speed_mult=-p["r_slow"])], first=1)]
+    # R -> W only for Taliyah herself (`own`, a flag her attack raises): league_sylas's copy steals the ult tree, and
+    # League's Sylas gets the wall (and the ride), not her Shove
+    w_now = sw("own", combine(*rm("w_cd"), w_cast("EnemyChampion")) if p["r_reset"] else
+               sw("w_cd", NONE, w_cast("EnemyChampion")))
     surf_on = refresh("r_surf", p["r_surf"], move_speed_mult=p["r_ms"])
     # near (an enemy champion within r_near): the upright wall where the target stands, then W into it
     upright = combine(anim("ult", p["r_dur"]), delayed(p["r_rel"] - 1, alive(
-        refresh("r_wall", p["r_t"]), lob("r_mark", 1, wall), surf_on,
+        refresh("r_wall", p["r_t"]), *marks("wall_up"), lob("r_mark", 1, wall), surf_on,
         # R -> W at once on the same champion, into the wall (W's cooldown starts over)
-        delayed(p["r_w_at"], alive(*rm("w_cd"), w_cast("EnemyChampion")) if p["r_reset"] else
-                alive(sw("w_cd", NONE, w_cast("EnemyChampion")))))))
+        delayed(p["r_w_at"], alive(w_now)))))
     # far: she rides - a long horizontal wall laid from her toward the target (r_n stretches r_seg apart: hidden lines
     # flying 0, r_seg, 2 r_seg ... and laying a Rect r_seg long and r_w thick where each stops, its picture r_wall_h),
     # then rides along it step by step (League: she jumps off wherever she likes): before every step (a RushTime of
@@ -341,11 +355,10 @@ def build(p):
     # takes it down, so the steps after it do nothing; W's CasterAnimation ends the ride's.
     stretch = [view("r_wall_h"),
                field("r_seg", rect(p["r_seg"], p["r_w"]), p["r_t"], p["r_p"],
-                     [buff("r_stuck", p["r_p"] + 2, move_speed_mult=-p["r_slow"])], first=1)]
+                     [] if native else [buff("r_stuck", p["r_p"] + 2, move_speed_mult=-p["r_slow"])], first=1)]
     lay = [line("r_lay", p["r_lay_speed"], k * p["r_seg"] + 1, 1000, "Ally", [], end=stretch, penetrate=True)
            for k in range(p["r_n"])]
     ride_t = p["r_steps"] * p["r_step"]
-    w_now = combine(*rm("w_cd"), w_cast("EnemyChampion")) if p["r_reset"] else sw("w_cd", NONE, w_cast("EnemyChampion"))
     jump_off = combine(*rm("riding"), w_now)
     step = combine(pick(p["r_off"], "EnemyChampion", flag("off", 1)),
                    sw("off", combine(*rm("off"), jump_off),
@@ -355,7 +368,7 @@ def build(p):
                        "casting_target": "EnemyChampion", "penetrate": True, "applied_effects": []}))
     ride = combine(anim("ult_ride", p["r_ride_at"] + ride_t + 4), sfx("r_wall"),
                    refresh("riding", p["r_ride_at"] + ride_t + 2),
-                   delayed(p["r_ride_at"] - 1, alive(surf_on, *lay)),
+                   delayed(p["r_ride_at"] - 1, alive(surf_on, *marks("lay_up"), *lay)),
                    # the steps from one pulse laid on the target (its effects run with the target as theirs, so the
                    # MoveToTarget heads for it; written once, not r_steps times)
                    delayed(p["r_ride_at"] - 1, alive(casted(ride_t, p["r_step"], sw("riding", step)))),
@@ -372,7 +385,8 @@ def build(p):
     pebble = combine(sfx("a"), homing("a_rock", "Enemy", [attack(0, 100), view("a_hit"), tsfx("a_hit")], p["a_speed"]),
                      homing("a_rock_c", "EnemyChampion", fight, p["a_speed"]))
     attack_a = action("attack", p["atk_dur"], p["atk_cd"], 1, p["atk_range"], "Targeting", "Enemy",
-                      combine(decoy(0, 100, attack), sw("fight", NONE, sw("surf", NONE, surf)),
+                      combine(decoy(0, 100, attack), sw("own", NONE, flag("own", None)),
+                              sw("fight", NONE, sw("surf", NONE, surf)),
                               delayed(p["a_rel"] - 1, alive(pebble))),
                       atype="BaseAttack", cancel=True)
 
@@ -389,8 +403,12 @@ def build(p):
                E("r_wall_h", BIG, -1, False), E("w_warn", BIG, -2, False)]
     views_b = [B_("q_slow", FX, -1, "slow"), B_("e_slow", FX, -1, "slow"), B_("r_stuck", FX, -1, "slow"),
                B_("surf", FX, -1, "surf"), B_("r_surf", FX, -1, "surf")]
+    extra = {}
+    if native:
+        extra["passive"] = {"passive_ref": "league_taliyah:wall", "params": {
+            k: p[k] for k in ("r_t", "r_w", "r_h", "r_seg", "r_n", "r_lay_speed")}}
     return {
-        "id": ID, "category": "Magician", "tags": ["AP", "Magic", "Range", "CC"],
+        "id": ID, "category": "Magician", "tags": ["AP", "Magic", "Range", "CC"], **extra,
         "sprite": f"asset/league/champions/{ID}", "anim_prefix": "",
         "skill_icons": [f"asset/league/icons/{ID}_skill", f"asset/league/icons/{ID}_skill2", f"asset/league/icons/{ID}_ult"],
         "stat": {"attack": p["atk"], "magic_power": p["apw"], "hp": p["hp"], "defence": p["def"],
@@ -418,6 +436,7 @@ def main():
     ap_.add_argument("--params", help="json file with overrides")
     ap_.add_argument("--out", default=OUT)
     ap_.add_argument("--nodes", action="store_true")
+    ap_.add_argument("--native", action="store_true", help="the add-on's copy")
     a = ap_.parse_args()
     p = dict(P)
     if a.params:
@@ -427,6 +446,8 @@ def main():
         if k not in p:
             raise SystemExit(f"unknown parameter {k}")
         p[k] = type(p[k])(float(v)) if isinstance(p[k], int) else float(v)
+    if a.native:
+        p["native"] = 1
     kit = build(p)
     if a.nodes:
         for s in ("attack", "skill", "skill2", "ult"):

@@ -1138,8 +1138,8 @@
       "league_taliyah": {
         "name": "塔莉垭",
         "attack": "甩出一块石子。<#ff9028ff>浮石冲<>：脱战时移速+10%；放出墙幔后踩石冲浪，移速+40%（<#ffb900ff>5秒<>）。",
-        "skill": "朝目标方向一颗接一颗扔出<#ffb900ff>5颗<>石头（扔出第一颗后可以移动），第一颗<#a974ffff>54<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>28%<>魔法伤害，之后每颗<#a974ffff>27<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>14%<>；脚下留下掘石场（<#ffb900ff>8秒<>），站在上面施放改为一颗大石头：<#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>并<#ef5350ff>减速<>40%。",
-        "skill2": "在身前地上撒下石雷（<#ef5350ff>减速<>20%，<#ffb900ff>4秒<>），目标脚下裂开后隆起，造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<>魔法伤害并把敌人掀向自己；飞过石雷时石雷爆炸，造成<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>28%<>魔法伤害并<#ef5350ff>眩晕<><#ffb900ff>0.4秒<>。",
+        "skill": "朝目标方向一颗接一颗扔出<#ffb900ff>5颗<>石头（扔出第一颗后可以移动），第一颗<#a974ffff>46<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>24%<>魔法伤害，之后每颗<#a974ffff>23<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>12%<>；脚下留下掘石场（<#ffb900ff>8秒<>），站在上面施放改为一颗大石头：<#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>并<#ef5350ff>减速<>40%。",
+        "skill2": "在身前地上撒下石雷（<#ef5350ff>减速<>20%，<#ffb900ff>4秒<>），目标脚下裂开后隆起，造成<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>魔法伤害并把敌人掀向自己；飞过石雷时石雷爆炸，造成<#a974ffff>38<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>24%<>魔法伤害并<#ef5350ff>眩晕<><#ffb900ff>0.4秒<>。",
         "ult": "敌人在附近或已在交战：在目标处竖起长石墙（<#ffb900ff>5秒<>），墙上的敌人被拖到她这一侧；敌人较远：从脚下拉出一道横墙，踩着石头沿墙冲刺，靠近敌人时跳下。碰到墙的敌人<#ef5350ff>减速<>42%。"
       }
     },
@@ -3100,8 +3100,8 @@
       "league_taliyah": {
         "name": "塔莉雅",
         "attack": "甩出一塊石子。<#ff9028ff>馭石之術<>：脫戰時移速+10%；放出編織者之牆後踩石衝浪，移速+40%（<#ffb900ff>5秒<>）。",
-        "skill": "朝目標方向一顆接一顆擲出<#ffb900ff>5顆<>石頭（擲出第一顆後可以移動），第一顆<#a974ffff>54<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>28%<>魔法傷害，之後每顆<#a974ffff>27<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>14%<>；腳下留下碎石地（<#ffb900ff>8秒<>），站在上面施放改為一顆大石頭：<#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>並<#ef5350ff>緩速<>40%。",
-        "skill2": "在身前地上灑下石雷（<#ef5350ff>緩速<>20%，<#ffb900ff>4秒<>），目標腳下裂開後隆起，造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<>魔法傷害並把敵人掀向自己；飛過石雷時石雷爆炸，造成<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>28%<>魔法傷害並<#ef5350ff>暈眩<><#ffb900ff>0.4秒<>。",
+        "skill": "朝目標方向一顆接一顆擲出<#ffb900ff>5顆<>石頭（擲出第一顆後可以移動），第一顆<#a974ffff>46<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>24%<>魔法傷害，之後每顆<#a974ffff>23<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>12%<>；腳下留下碎石地（<#ffb900ff>8秒<>），站在上面施放改為一顆大石頭：<#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>並<#ef5350ff>緩速<>40%。",
+        "skill2": "在身前地上灑下石雷（<#ef5350ff>緩速<>20%，<#ffb900ff>4秒<>），目標腳下裂開後隆起，造成<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>魔法傷害並把敵人掀向自己；飛過石雷時石雷爆炸，造成<#a974ffff>38<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>24%<>魔法傷害並<#ef5350ff>暈眩<><#ffb900ff>0.4秒<>。",
         "ult": "敵人在附近或已在交戰：在目標處豎起長石牆（<#ffb900ff>5秒<>），牆上的敵人被拖到她這一側；敵人較遠：從腳下拉出一道橫牆，踩著石頭沿牆衝刺，靠近敵人時跳下。碰到牆的敵人<#ef5350ff>緩速<>42%。"
       }
     },
@@ -5062,8 +5062,8 @@
       "league_taliyah": {
         "name": "Taliyah",
         "attack": "Flicks a pebble. <#ff9028ff>Rock Surfing<>: +10% move speed out of a fight; after Weaver's Wall she surfs a boulder, +40% move speed for <#ffb900ff>5s<>.",
-        "skill": "Throws <#ffb900ff>5 rocks<> one after another toward the target (she can move after the first): the first deals <#a974ffff>54<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>28%<> magic damage, each after it <#a974ffff>27<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>14%<>. It leaves Worked Ground under her for <#ffb900ff>8s<>; cast on it, she throws one boulder instead: <#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> and a 40% <#ef5350ff>slow<>.",
-        "skill2": "Strews mines on the ground in front of her (<#ef5350ff>slowing<> 20% for <#ffb900ff>4s<>); the ground under the target cracks, then erupts for <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<> magic damage, throwing enemies toward her. A mine passed over blows up: <#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>28%<> magic damage and a <#ffb900ff>0.4s<> <#ef5350ff>stun<>.",
+        "skill": "Throws <#ffb900ff>5 rocks<> one after another toward the target (she can move after the first): the first deals <#a974ffff>46<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>24%<> magic damage, each after it <#a974ffff>23<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>12%<>. It leaves Worked Ground under her for <#ffb900ff>8s<>; cast on it, she throws one boulder instead: <#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> and a 40% <#ef5350ff>slow<>.",
+        "skill2": "Strews mines on the ground in front of her (<#ef5350ff>slowing<> 20% for <#ffb900ff>4s<>); the ground under the target cracks, then erupts for <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> magic damage, throwing enemies toward her. A mine passed over blows up: <#a974ffff>38<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>24%<> magic damage and a <#ffb900ff>0.4s<> <#ef5350ff>stun<>.",
         "ult": "With an enemy champion near or a fight on: a long stone wall rises where the target stands for <#ffb900ff>5s<>, dragging enemies on it to her side. With the enemies far: a wall runs out from her feet and she surfs along its top on her boulder, jumping off once enemies are near. Enemies touching the wall are <#ef5350ff>slowed<> 42%."
       }
     },
@@ -7024,8 +7024,8 @@
       "league_taliyah": {
         "name": "탈리야",
         "attack": "돌멩이를 던진다. <#ff9028ff>바위타기<>: 전투 중이 아닐 때 이동 속도 +10%; 바위술사의 벽 후 바위를 타고 <#ffb900ff>5초<> 동안 이동 속도 +40%.",
-        "skill": "대상 방향으로 돌 <#ffb900ff>5개<>를 차례로 던짐(첫 돌 후 이동 가능): 첫 돌 <#a974ffff>54<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>28%<> 마법 피해, 이후 각 <#a974ffff>27<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>14%<>. 발밑에 <#ffb900ff>8초<> 동안 다져진 땅을 남기고, 그 위에서 쓰면 큰 바위 하나: <#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>, 40% <#ef5350ff>둔화<>.",
-        "skill2": "앞쪽 땅에 지뢰를 뿌림(<#ffb900ff>4초<> 동안 20% <#ef5350ff>둔화<>); 대상 발밑이 갈라진 뒤 솟아올라 <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<> 마법 피해를 주고 적을 자신 쪽으로 던짐. 지뢰 위를 지나면 폭발: <#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>28%<> 마법 피해와 <#ffb900ff>0.4초<> <#ef5350ff>기절<>.",
+        "skill": "대상 방향으로 돌 <#ffb900ff>5개<>를 차례로 던짐(첫 돌 후 이동 가능): 첫 돌 <#a974ffff>46<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>24%<> 마법 피해, 이후 각 <#a974ffff>23<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>12%<>. 발밑에 <#ffb900ff>8초<> 동안 다져진 땅을 남기고, 그 위에서 쓰면 큰 바위 하나: <#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>, 40% <#ef5350ff>둔화<>.",
+        "skill2": "앞쪽 땅에 지뢰를 뿌림(<#ffb900ff>4초<> 동안 20% <#ef5350ff>둔화<>); 대상 발밑이 갈라진 뒤 솟아올라 <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> 마법 피해를 주고 적을 자신 쪽으로 던짐. 지뢰 위를 지나면 폭발: <#a974ffff>38<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>24%<> 마법 피해와 <#ffb900ff>0.4초<> <#ef5350ff>기절<>.",
         "ult": "적 챔피언이 가깝거나 교전 중: 대상 위치에 <#ffb900ff>5초<> 동안 긴 돌벽을 세우고 벽 위의 적을 자신 쪽으로 끌어냄. 적이 멀면: 발밑에서 벽을 뻗어 바위를 타고 벽 위를 달리다 적이 가까워지면 뛰어내림. 벽에 닿은 적은 42% <#ef5350ff>둔화<>."
       }
     },
@@ -8986,8 +8986,8 @@
       "league_taliyah": {
         "name": "タリヤ",
         "attack": "小石を投げる。<#ff9028ff>ロックサーフィン<>：戦闘外で移動速度+10%；ウィーバーウォールの後は岩に乗り<#ffb900ff>5秒<>移動速度+40%。",
-        "skill": "対象の方向へ岩を<#ffb900ff>5個<>続けて投げる（1個目の後は移動可）：1個目<#a974ffff>54<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>28%<>の魔法ダメージ、以降各<#a974ffff>27<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>14%<>。足元に<#ffb900ff>8秒<>採掘場を残し、その上では大岩1個：<#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>と40%<#ef5350ff>スロウ<>。",
-        "skill2": "前方の地面に地雷をまく（<#ffb900ff>4秒<>20%<#ef5350ff>スロウ<>）；対象の足元が割れて隆起し<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<>の魔法ダメージ、敵を自分の方へ投げる。地雷の上を飛ぶと爆発：<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>28%<>の魔法ダメージと<#ffb900ff>0.4秒<><#ef5350ff>スタン<>。",
+        "skill": "対象の方向へ岩を<#ffb900ff>5個<>続けて投げる（1個目の後は移動可）：1個目<#a974ffff>46<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>24%<>の魔法ダメージ、以降各<#a974ffff>23<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>12%<>。足元に<#ffb900ff>8秒<>採掘場を残し、その上では大岩1個：<#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>と40%<#ef5350ff>スロウ<>。",
+        "skill2": "前方の地面に地雷をまく（<#ffb900ff>4秒<>20%<#ef5350ff>スロウ<>）；対象の足元が割れて隆起し<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>の魔法ダメージ、敵を自分の方へ投げる。地雷の上を飛ぶと爆発：<#a974ffff>38<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>24%<>の魔法ダメージと<#ffb900ff>0.4秒<><#ef5350ff>スタン<>。",
         "ult": "敵チャンピオンが近いか交戦中：対象の位置に<#ffb900ff>5秒<>長い石壁を立て、壁の上の敵を自分の側へ引き出す。敵が遠い：足元から壁を伸ばし岩に乗って壁の上を進み、敵が近づくと飛び降りる。壁に触れた敵に42%<#ef5350ff>スロウ<>。"
       }
     },
