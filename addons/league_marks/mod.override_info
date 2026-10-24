@@ -3,6 +3,14 @@
     "remapping": "asset/league_marks/override/league_diana",
     "type": "override"
   },
+  "asset/league/champion/league_kennen": {
+    "remapping": "asset/league_marks/override/league_kennen",
+    "type": "override"
+  },
+  "asset/league/champion/league_kaisa": {
+    "remapping": "asset/league_marks/override/league_kaisa",
+    "type": "override"
+  },
   "asset/base/text/champion": {
     "remapping": "asset/league_marks/text/champion",
     "type": "merge"

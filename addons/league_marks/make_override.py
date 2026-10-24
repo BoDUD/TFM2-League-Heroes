@@ -3,6 +3,11 @@
     python addons/league_marks/make_override.py [--check]
 
 Reads the main pack's kits and writes addons/league_marks/override/<hero>.data_champion and .../text/champion.i18n:
+  * league_kennen: every Mark of the Storm hit marks the champion with KENNEN_HIT instead of reading and counting his
+    own flags (the add-on counts per target and stuns on the third); passive league_marks:kennen;
+  * league_kaisa: the four Plasma ladders on her own flags become KAISA_ATTACK / KAISA_CC / KAISA_W2 / KAISA_W3 marks
+    on the champion struck (the add-on counts per target, deals the extra hits and the pop with the main pack's
+    numbers, read here into passive.params); passive league_marks:kaisa;
   * league_diana: Lunar Rush's start no longer reads her own league_diana_moonlight (any Q hit); it marks its target
     with src/lib.rs's DIANA_ASK and, 2 ticks later, reads DIANA_YES (the add-on raises it when that target carries Q's
     league_diana_moon_mark) to queue the second dash (league_diana_e_again, as the main pack); passive league_marks:diana.
@@ -29,6 +34,16 @@ TEXT = {
         "ko": (M + "달빛" + E + "이 있으면", "대상에게 " + M + "달빛" + E + "이 있으면"),
         "ja": (M + "月光" + E + "があれば", "対象に" + M + "月光" + E + "があれば"),
     },
+    ("league_kennen", "attack"): {
+        "zh-hans": ("第三层", "同一人第三层"), "zh-hant": ("第三層", "同一人第三層"),
+        "en": ("the third mark", "the third on one champion"), "ko": ("세 번째 표식은", "한 챔피언의 세 번째 표식은"),
+        "ja": ("3つ目で", "同じ相手に3つ目で"),
+    },
+    ("league_kaisa", "attack"): {
+        "zh-hans": ("普攻命中英雄叠电浆", "普攻在英雄身上叠电浆"), "zh-hant": ("普攻命中英雄疊電漿", "普攻在英雄身上疊電漿"),
+        "en": ("hits on a champion add Plasma (2 if crowd-controlled)", "hits stack Plasma on that champion (2 if CC'd)"),
+        "ko": ("챔피언을 맞히면 플라즈마 중첩", "맞힌 챔피언에게 플라즈마 중첩"), "ja": ("命中でプラズマ", "相手にプラズマ"),
+    },
 }
 
 
@@ -45,7 +60,8 @@ def shown_length(text):
 
 def consts():
     src = open(lp(os.path.join(ADDON, "src", "lib.rs")), encoding="utf-8").read()
-    return {k: re.search(k + r': &str = "([^"]+)"', src).group(1) for k in ("DIANA_MOON", "DIANA_ASK", "DIANA_YES")}
+    return {k: re.search(k + r': &str = "([^"]+)"', src).group(1)
+            for k in ("DIANA_MOON", "DIANA_ASK", "DIANA_YES", "KENNEN_HIT", "KAISA_ATTACK", "KAISA_CC", "KAISA_W2", "KAISA_W3")}
 
 
 def load(hero):
@@ -74,6 +90,88 @@ def diana(c):
     return d, [("league_diana", "skill2")]
 
 
+def mark(name):
+    return {"type": "AddBuff", "buff_state": {"name": name, "duration": {"Time": {"tick": 3}}}}
+
+
+def kennen(c):
+    """Every Mark of the Storm hit: the pair [SwitchByBuff k_2 (stun or mark view), SwitchByBuff k_lock_<x> (her own
+    counter)] becomes one mark on the struck champion."""
+    d = load("league_kennen")
+    n = []
+
+    def walk(o):
+        if isinstance(o, dict):
+            return {k: walk(v) for k, v in o.items()}
+        if isinstance(o, list):
+            out, i = [], 0
+            while i < len(o):
+                x = o[i]
+                if (isinstance(x, dict) and x.get("type") == "SwitchByBuff" and x.get("buff_name") == "league_kennen_k_2"
+                        and i + 1 < len(o) and o[i + 1].get("buff_name", "").startswith("league_kennen_k_lock_")):
+                    out.append(mark(c["KENNEN_HIT"]))
+                    n.append(1)
+                    i += 2
+                    continue
+                out.append(walk(x))
+                i += 1
+            return out
+        return o
+
+    d = walk(d)
+    if len(n) != 8:
+        sys.exit(f"Kennen: {len(n)} mark hits found, expected 8: check the main pack and update this script")
+    d["passive"] = {"passive_ref": MOD_ID + ":kennen", "params": {}}
+    return d, [("league_kennen", "attack")]
+
+
+def kaisa(c):
+    """The four Plasma ladders (SwitchByBuff league_kaisa_pl_4 .. pl_1 on her own flags) become marks on the struck
+    champion: the attack's (it carries the extra hits) KAISA_ATTACK, its crowd-control twin KAISA_CC, W's KAISA_W2 /
+    KAISA_W3 (the ladder whose first step adds pl_2 / pl_3)."""
+    d = load("league_kaisa")
+    found = []
+    params = {}
+
+    def ladder(o):
+        steps, x = [], o
+        while isinstance(x, dict) and x.get("type") == "SwitchByBuff" and x["buff_name"].startswith("league_kaisa_pl_"):
+            steps.append(x["effect_buff"]["effects"])
+            x = x["effect_none"]
+        return steps, x["effects"]
+
+    def kind(o):
+        steps, base = ladder(o)
+        first = [e["buff_state"]["name"] for e in base if e.get("type") == "AddCasterBuff"]
+        aps = [e for e in base if e.get("type") == "ApAttack"]
+        if aps:
+            pop = [e for e in steps[0] if e.get("type") == "FixedAttack"][0]
+            params.update(base=aps[0]["damage"], ap=aps[0]["attack_ratio"],
+                          step=[e for e in steps[-1] if e.get("type") == "ApAttack"][0]["damage"] - aps[0]["damage"],
+                          pop=pop["damage"], pop_ad=pop["attack_ratio"], pop_hp=pop["target_hp_ratio"])
+            return c["KAISA_ATTACK"]
+        if any(e.get("type") == "FixedAttack" for e in steps[0]):
+            return c["KAISA_CC"]
+        return {"league_kaisa_pl_2": c["KAISA_W2"], "league_kaisa_pl_3": c["KAISA_W3"]}[first[0]]
+
+    def walk(o):
+        if isinstance(o, dict):
+            if o.get("type") == "SwitchByBuff" and o.get("buff_name") == "league_kaisa_pl_4":
+                k = kind(o)
+                found.append(k)
+                return mark(k)
+            return {k: walk(v) for k, v in o.items()}
+        if isinstance(o, list):
+            return [walk(v) for v in o]
+        return o
+
+    d = walk(d)
+    if sorted(found) != sorted([c["KAISA_ATTACK"], c["KAISA_CC"], c["KAISA_W2"], c["KAISA_W3"]]):
+        sys.exit(f"Kai'Sa's Plasma ladders changed ({found}): update this script")
+    d["passive"] = {"passive_ref": MOD_ID + ":kaisa", "params": params}
+    return d, [("league_kaisa", "attack")]
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--check", action="store_true")
@@ -83,7 +181,7 @@ def main():
         main_text = json.load(f)
     texts = {lang: {} for lang in main_text}
     files = {}
-    for make in (diana,):
+    for make in (diana, kennen, kaisa):
         d, slots = make(c)
         hero = d["id"]
         for _, slot in slots:

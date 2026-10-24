@@ -11,10 +11,10 @@
       "version": ">=0.210.0"
     }
   ],
-  "description": "Test build of effects that read a mark on the target, as in League (needs League of Legends Heroes): Diana's Lunar Rush dashes again only when its target carries Moonlight (and then clears Moonlight from every enemy); the main pack lets any Q hit do it, since data cannot read the target's buffs. Other champions are untouched. Writes a log for testing.",
+  "description": "Test build of effects that read a mark on the target, as in League (needs League of Legends Heroes): Diana's Lunar Rush dashes again only when its target carries Moonlight (and then clears Moonlight from every enemy), Kennen's Mark of the Storm and Kai'Sa's Plasma stack on each champion apart (the third mark on one champion stuns, the fifth Plasma on one champion bursts); the main pack keeps them on the caster, since data cannot read the target's buffs. Other champions are untouched. Writes a log for testing.",
   "last_updated": "2026-10-24",
   "mod_id": "league_marks",
   "mod_type": "native",
-  "name": "League Heroes: marks read on the target (Diana) (test)",
+  "name": "League Heroes: marks read on the target (Diana, Kennen, Kai'Sa) (test)",
   "version": "0.1.0"
 }
