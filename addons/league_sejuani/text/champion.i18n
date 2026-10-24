@@ -1,0 +1,42 @@
+{
+  "zh-hans": {
+    "description": {
+      "league_sejuani": {
+        "attack": "【附加包】链枷抽打。<#ff9028ff>北地之怒<>：脱战后冰霜护甲，护甲、魔抗+40%、免疫减速。普攻和凛冬之怒给每个敌方英雄叠霜冻，满4层<#ef5350ff>冻住<><#ffb900ff>1秒<>并造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>；打中被晕住的敌人（谁晕的都算）再造成其最大生命6%。",
+        "skill": "【附加包】钢鬃冲向目标，撞到第一个敌方英雄就停下，路上的敌人受到<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>魔法伤害并被<#ef5350ff>击飞<><#ffb900ff>0.5秒<>。"
+      }
+    }
+  },
+  "zh-hant": {
+    "description": {
+      "league_sejuani": {
+        "attack": "【附加包】鏈枷抽打。<#ff9028ff>北境之怒<>：脫戰後冰霜護甲，護甲、魔防+40%、免疫緩速。普攻和凜冬狂怒給每個敵方英雄疊霜凍，滿4層<#ef5350ff>冰凍<><#ffb900ff>1秒<>並造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>；打中被暈眩的敵人（誰暈的都算）再造成其最大生命6%。",
+        "skill": "【附加包】坐騎衝向目標，撞到第一個敵方英雄就停下，路上的敵人受到<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>魔法傷害並被<#ef5350ff>擊飛<><#ffb900ff>0.5秒<>。"
+      }
+    }
+  },
+  "en": {
+    "description": {
+      "league_sejuani": {
+        "attack": "[Add-on] Flail blows. <#ff9028ff>Fury of the North<>: out of combat her Frost Armour gives +40% armour and magic resist and slow immunity. Her attacks and Winter's Wrath add Frost to each enemy champion; 4 <#ef5350ff>freeze<> it for <#ffb900ff>1s<> and deal <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>; hitting a stunned enemy (anyone's stun) deals 6% of its maximum health more.",
+        "skill": "[Add-on] Bristle charges at the target and stops at the first enemy champion: the enemies in the way take <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> magic damage and are <#ef5350ff>knocked up<> for <#ffb900ff>0.5s<>."
+      }
+    }
+  },
+  "ko": {
+    "description": {
+      "league_sejuani": {
+        "attack": "[확장] 철퇴 공격. <#ff9028ff>혹한의 분노<>: 비전투 시 서리 갑옷, 방어력·마법 저항력 +40%, 둔화 면역. 기본 공격과 혹한의 서릿발이 적 챔피언마다 서리 중첩, 4중첩 시 <#ffb900ff>1초<> <#ef5350ff>빙결<>, <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>; 기절한 적(누가 기절시켰든)을 치면 최대 체력의 6% 추가.",
+        "skill": "[확장] 브리슬이 대상에게 돌진, 첫 적 챔피언에서 멈춤: 경로의 적에게 <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> 마법 피해와 <#ffb900ff>0.5초<> <#ef5350ff>에어본<>."
+      }
+    }
+  },
+  "ja": {
+    "description": {
+      "league_sejuani": {
+        "attack": "【拡張】フレイルで打つ。<#ff9028ff>極北の激憤<>：非戦闘時フロストアーマー、物理・魔法防御+40%、スロウ無効。通常攻撃と氷河の怒りで敵チャンピオンごとにフロスト、4つで<#ffb900ff>1秒<><#ef5350ff>凍結<>し<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>；スタン中の敵（誰のスタンでも）を打つと最大体力6%追加。",
+        "skill": "【拡張】ブリッスルが対象へ突進、最初の敵チャンピオンで止まる：進路の敵に<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>の魔法ダメージと<#ffb900ff>0.5秒<><#ef5350ff>ノックアップ<>。"
+      }
+    }
+  }
+}
