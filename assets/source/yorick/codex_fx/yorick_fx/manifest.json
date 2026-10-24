@@ -1,0 +1,1136 @@
+[
+  {
+    "file": "yorick_fx_a_hit.png",
+    "frames": 3,
+    "cell_1x": [
+      12,
+      12
+    ],
+    "symmetry": "left-right",
+    "preview_scale": 8,
+    "pixel_1x_size": [
+      36,
+      12
+    ],
+    "raw": {
+      "size": [
+        2172,
+        724
+      ],
+      "alpha_count": 256
+    },
+    "source_row_band": [
+      0,
+      134,
+      2172,
+      675
+    ],
+    "unique_frames": 3,
+    "nonempty_frames": 3,
+    "source_cell_bboxes": [
+      [
+        49,
+        23,
+        676,
+        509
+      ],
+      [
+        17,
+        37,
+        707,
+        538
+      ],
+      [
+        22,
+        2,
+        702,
+        539
+      ]
+    ],
+    "status": "pixel-normalized; game binding not performed",
+    "binding": "view_effects `league_yorick_a_hit`（跟随目标，z 2；左右对称）",
+    "sha256_1x": "c479f74bbbd1a73ef55f8cb96b25afe6f3f1664679d66add3a56b38c8e7a69f1",
+    "validation": "PASS: size, binary-alpha, per-frame symmetry, nonempty and animated"
+  },
+  {
+    "file": "yorick_fx_q_hit.png",
+    "frames": 4,
+    "cell_1x": [
+      18,
+      18
+    ],
+    "symmetry": "left-right",
+    "preview_scale": 8,
+    "pixel_1x_size": [
+      72,
+      18
+    ],
+    "raw": {
+      "size": [
+        2172,
+        724
+      ],
+      "alpha_count": 256
+    },
+    "source_row_band": [
+      0,
+      114,
+      2172,
+      625
+    ],
+    "unique_frames": 4,
+    "nonempty_frames": 4,
+    "source_cell_bboxes": [
+      [
+        45,
+        201,
+        499,
+        488
+      ],
+      [
+        14,
+        57,
+        529,
+        488
+      ],
+      [
+        24,
+        2,
+        519,
+        509
+      ],
+      [
+        36,
+        49,
+        507,
+        508
+      ]
+    ],
+    "status": "pixel-normalized; game binding not performed",
+    "binding": "view_effects `league_yorick_q_hit`（跟随目标，z 2；左右对称）",
+    "sha256_1x": "4a53453701b1d251cfb24fef03be92c10134f3505ad3ddb59980cbc34199f9ea",
+    "validation": "PASS: size, binary-alpha, per-frame symmetry, nonempty and animated"
+  },
+  {
+    "file": "yorick_fx_q_grave.png",
+    "frames": 6,
+    "cell_1x": [
+      18,
+      20
+    ],
+    "symmetry": "left-right",
+    "preview_scale": 8,
+    "pixel_1x_size": [
+      108,
+      20
+    ],
+    "raw": {
+      "size": [
+        2172,
+        724
+      ],
+      "alpha_count": 256
+    },
+    "source_row_band": [
+      0,
+      200,
+      2172,
+      593
+    ],
+    "unique_frames": 6,
+    "nonempty_frames": 6,
+    "source_cell_bboxes": [
+      [
+        19,
+        209,
+        344,
+        390
+      ],
+      [
+        6,
+        128,
+        357,
+        390
+      ],
+      [
+        18,
+        99,
+        344,
+        390
+      ],
+      [
+        10,
+        6,
+        352,
+        390
+      ],
+      [
+        10,
+        2,
+        352,
+        391
+      ],
+      [
+        18,
+        102,
+        345,
+        391
+      ]
+    ],
+    "status": "pixel-normalized; game binding not performed",
+    "binding": "view_effects `league_yorick_q_grave`（地上，z -1，不跟随；左右对称）",
+    "sha256_1x": "407318f0493fe8b2e564056c5c685c15af082132fa28a82e0b07ecc398c27115",
+    "validation": "PASS: size, binary-alpha, per-frame symmetry, nonempty and animated"
+  },
+  {
+    "file": "yorick_fx_k_spawn.png",
+    "frames": 6,
+    "cell_1x": [
+      56,
+      30
+    ],
+    "symmetry": "left-right",
+    "preview_scale": 8,
+    "pixel_1x_size": [
+      336,
+      30
+    ],
+    "raw": {
+      "size": [
+        2172,
+        724
+      ],
+      "alpha_count": 256
+    },
+    "source_row_band": [
+      0,
+      355,
+      2172,
+      600
+    ],
+    "unique_frames": 6,
+    "nonempty_frames": 6,
+    "source_cell_bboxes": [
+      [
+        12,
+        0,
+        351,
+        236
+      ],
+      [
+        4,
+        0,
+        358,
+        241
+      ],
+      [
+        5,
+        0,
+        357,
+        242
+      ],
+      [
+        5,
+        0,
+        358,
+        242
+      ],
+      [
+        0,
+        0,
+        362,
+        243
+      ],
+      [
+        2,
+        0,
+        359,
+        241
+      ]
+    ],
+    "status": "pixel-normalized; game binding not performed",
+    "binding": "view_effects `league_yorick_k_spawn`（跟随目标，z -1；左右对称）",
+    "sha256_1x": "d5dd95439d292516f1a9dc8b0657621b5eb31e38b92758d7d90a69f8c9155905",
+    "validation": "PASS: size, binary-alpha, per-frame symmetry, nonempty and animated"
+  },
+  {
+    "file": "yorick_fx_k_swarm.png",
+    "frames": 6,
+    "cell_1x": [
+      56,
+      30
+    ],
+    "symmetry": "left-right",
+    "preview_scale": 8,
+    "pixel_1x_size": [
+      336,
+      30
+    ],
+    "raw": {
+      "size": [
+        2032,
+        774
+      ],
+      "alpha_count": 256
+    },
+    "source_row_band": [
+      0,
+      244,
+      2032,
+      622
+    ],
+    "unique_frames": 6,
+    "nonempty_frames": 6,
+    "source_cell_bboxes": [
+      [
+        9,
+        93,
+        331,
+        372
+      ],
+      [
+        0,
+        69,
+        338,
+        373
+      ],
+      [
+        10,
+        0,
+        329,
+        373
+      ],
+      [
+        13,
+        2,
+        326,
+        373
+      ],
+      [
+        1,
+        18,
+        337,
+        376
+      ],
+      [
+        8,
+        95,
+        332,
+        376
+      ]
+    ],
+    "status": "pixel-normalized; game binding not performed",
+    "binding": "view_effects `league_yorick_k_swarm`（跟随目标，z -1；左右对称）",
+    "sha256_1x": "e204bf3dd33a16bc0f174c3e53af6d94c92928c0db383a1acc569921adaf7ec0",
+    "validation": "PASS: size, binary-alpha, per-frame symmetry, nonempty and animated"
+  },
+  {
+    "file": "yorick_fx_k_bite.png",
+    "frames": 3,
+    "cell_1x": [
+      14,
+      14
+    ],
+    "symmetry": "left-right",
+    "preview_scale": 8,
+    "pixel_1x_size": [
+      42,
+      14
+    ],
+    "raw": {
+      "size": [
+        2172,
+        724
+      ],
+      "alpha_count": 256
+    },
+    "source_row_band": [
+      0,
+      75,
+      2172,
+      663
+    ],
+    "unique_frames": 3,
+    "nonempty_frames": 3,
+    "source_cell_bboxes": [
+      [
+        26,
+        2,
+        699,
+        577
+      ],
+      [
+        33,
+        46,
+        691,
+        586
+      ],
+      [
+        17,
+        30,
+        707,
+        570
+      ]
+    ],
+    "status": "pixel-normalized; game binding not performed",
+    "binding": "view_effects `league_yorick_k_bite`（跟随目标，z 2；左右对称）",
+    "sha256_1x": "de1be3fcb89b372c5b5dc4be95547eb2da1123633748e20cd587bdaf08b45ee1",
+    "validation": "PASS: size, binary-alpha, per-frame symmetry, nonempty and animated"
+  },
+  {
+    "file": "yorick_fx_k_leap.png",
+    "frames": 4,
+    "cell_1x": [
+      26,
+      22
+    ],
+    "symmetry": "left-right",
+    "preview_scale": 8,
+    "pixel_1x_size": [
+      104,
+      22
+    ],
+    "raw": {
+      "size": [
+        2172,
+        724
+      ],
+      "alpha_count": 256
+    },
+    "source_row_band": [
+      0,
+      160,
+      2172,
+      593
+    ],
+    "unique_frames": 4,
+    "nonempty_frames": 4,
+    "source_cell_bboxes": [
+      [
+        7,
+        43,
+        536,
+        367
+      ],
+      [
+        31,
+        16,
+        512,
+        431
+      ],
+      [
+        6,
+        2,
+        536,
+        431
+      ],
+      [
+        11,
+        32,
+        531,
+        431
+      ]
+    ],
+    "status": "pixel-normalized; game binding not performed",
+    "binding": "view_effects `league_yorick_k_leap`（跟随目标，z 2；左右对称）",
+    "sha256_1x": "d0124109c0824f13ba74cf4f83043fd7ce36f5e28f39eea047568090addb5471",
+    "validation": "PASS: size, binary-alpha, per-frame symmetry, nonempty and animated"
+  },
+  {
+    "file": "yorick_fx_w_wall.png",
+    "frames": 8,
+    "cell_1x": [
+      46,
+      28
+    ],
+    "symmetry": "left-right",
+    "preview_scale": 8,
+    "pixel_1x_size": [
+      368,
+      28
+    ],
+    "raw": {
+      "size": [
+        1437,
+        1095
+      ],
+      "alpha_count": 256
+    },
+    "source_row_band": [
+      0,
+      458,
+      1437,
+      677
+    ],
+    "unique_frames": 8,
+    "nonempty_frames": 8,
+    "source_cell_bboxes": [
+      [
+        6,
+        138,
+        174,
+        203
+      ],
+      [
+        2,
+        91,
+        177,
+        208
+      ],
+      [
+        0,
+        52,
+        179,
+        208
+      ],
+      [
+        4,
+        3,
+        175,
+        210
+      ],
+      [
+        4,
+        2,
+        176,
+        213
+      ],
+      [
+        5,
+        12,
+        175,
+        210
+      ],
+      [
+        4,
+        13,
+        175,
+        217
+      ],
+      [
+        7,
+        55,
+        173,
+        208
+      ]
+    ],
+    "status": "pixel-normalized; game binding not performed",
+    "binding": "view_effects `league_yorick_w_wall`（大表，地上，z -1，不跟随；左右对称）",
+    "sha256_1x": "55adc3f8a4a03712b8d4fe5650a53e03259b555c8eb344531534951f709517e1",
+    "validation": "PASS: size, binary-alpha, per-frame symmetry, nonempty and animated"
+  },
+  {
+    "file": "yorick_fx_w_hit.png",
+    "frames": 4,
+    "cell_1x": [
+      20,
+      12
+    ],
+    "symmetry": "left-right",
+    "preview_scale": 8,
+    "pixel_1x_size": [
+      80,
+      12
+    ],
+    "raw": {
+      "size": [
+        1983,
+        793
+      ],
+      "alpha_count": 256
+    },
+    "source_row_band": [
+      0,
+      287,
+      1983,
+      661
+    ],
+    "unique_frames": 4,
+    "nonempty_frames": 4,
+    "source_cell_bboxes": [
+      [
+        22,
+        151,
+        474,
+        372
+      ],
+      [
+        20,
+        2,
+        476,
+        372
+      ],
+      [
+        7,
+        50,
+        488,
+        372
+      ],
+      [
+        13,
+        14,
+        482,
+        372
+      ]
+    ],
+    "status": "pixel-normalized; game binding not performed",
+    "binding": "view_effects `league_yorick_w_hit`（跟随目标，z 2；左右对称）",
+    "sha256_1x": "11218e77ca8cd83050ba9005860890baac015020ed2503309dbbb45524e8889a",
+    "validation": "PASS: size, binary-alpha, per-frame symmetry, nonempty and animated"
+  },
+  {
+    "file": "yorick_fx_e_mist.png",
+    "frames": 4,
+    "cell_1x": [
+      16,
+      10
+    ],
+    "symmetry": "top-bottom",
+    "preview_scale": 8,
+    "pixel_1x_size": [
+      64,
+      10
+    ],
+    "raw": {
+      "size": [
+        1983,
+        793
+      ],
+      "alpha_count": 256
+    },
+    "source_row_band": [
+      0,
+      258,
+      1983,
+      511
+    ],
+    "unique_frames": 4,
+    "nonempty_frames": 4,
+    "source_cell_bboxes": [
+      [
+        19,
+        15,
+        477,
+        251
+      ],
+      [
+        18,
+        9,
+        478,
+        251
+      ],
+      [
+        20,
+        2,
+        476,
+        244
+      ],
+      [
+        14,
+        2,
+        481,
+        251
+      ]
+    ],
+    "status": "pixel-normalized; game binding not performed",
+    "binding": "view_projectiles `league_yorick_e_mist`（弹道，z 2；上下对称）",
+    "sha256_1x": "a6d7f001541c635ce9abcfa2d532e214ab1db12d20585c4cc4c3f898adb51a69",
+    "validation": "PASS: size, binary-alpha, per-frame symmetry, nonempty and animated"
+  },
+  {
+    "file": "yorick_fx_e_cloud.png",
+    "frames": 6,
+    "cell_1x": [
+      34,
+      18
+    ],
+    "symmetry": "left-right",
+    "preview_scale": 8,
+    "pixel_1x_size": [
+      204,
+      18
+    ],
+    "raw": {
+      "size": [
+        2172,
+        724
+      ],
+      "alpha_count": 256
+    },
+    "source_row_band": [
+      0,
+      248,
+      2172,
+      550
+    ],
+    "unique_frames": 6,
+    "nonempty_frames": 6,
+    "source_cell_bboxes": [
+      [
+        31,
+        147,
+        331,
+        283
+      ],
+      [
+        0,
+        72,
+        362,
+        289
+      ],
+      [
+        0,
+        68,
+        362,
+        300
+      ],
+      [
+        5,
+        2,
+        356,
+        300
+      ],
+      [
+        9,
+        82,
+        352,
+        295
+      ],
+      [
+        20,
+        173,
+        343,
+        294
+      ]
+    ],
+    "status": "pixel-normalized; game binding not performed",
+    "binding": "view_effects `league_yorick_e_cloud`（大表，地上，z -1，不跟随；左右对称）",
+    "sha256_1x": "19edf8f84ffbd94a1ea95caf11e29e8a92a33a92d40d127527a09a47430c5d1f",
+    "validation": "PASS: size, binary-alpha, per-frame symmetry, nonempty and animated"
+  },
+  {
+    "file": "yorick_fx_e_hit.png",
+    "frames": 3,
+    "cell_1x": [
+      14,
+      14
+    ],
+    "symmetry": "left-right",
+    "preview_scale": 8,
+    "pixel_1x_size": [
+      42,
+      14
+    ],
+    "raw": {
+      "size": [
+        2172,
+        724
+      ],
+      "alpha_count": 256
+    },
+    "source_row_band": [
+      0,
+      105,
+      2172,
+      669
+    ],
+    "unique_frames": 3,
+    "nonempty_frames": 3,
+    "source_cell_bboxes": [
+      [
+        121,
+        201,
+        604,
+        562
+      ],
+      [
+        14,
+        2,
+        710,
+        553
+      ],
+      [
+        33,
+        22,
+        691,
+        554
+      ]
+    ],
+    "status": "pixel-normalized; game binding not performed",
+    "binding": "view_effects `league_yorick_e_hit`（跟随目标，z 2；左右对称）",
+    "sha256_1x": "44b0875dfee716666200603981d697c333847f308087c69b978fe241da1bb6ba",
+    "validation": "PASS: size, binary-alpha, per-frame symmetry, nonempty and animated"
+  },
+  {
+    "file": "yorick_fx_e_mark.png",
+    "frames": 4,
+    "cell_1x": [
+      12,
+      12
+    ],
+    "symmetry": "left-right",
+    "preview_scale": 8,
+    "pixel_1x_size": [
+      48,
+      12
+    ],
+    "raw": {
+      "size": [
+        2172,
+        724
+      ],
+      "alpha_count": 256
+    },
+    "source_row_band": [
+      0,
+      199,
+      2172,
+      540
+    ],
+    "unique_frames": 4,
+    "nonempty_frames": 4,
+    "source_cell_bboxes": [
+      [
+        70,
+        2,
+        472,
+        338
+      ],
+      [
+        71,
+        2,
+        472,
+        339
+      ],
+      [
+        72,
+        2,
+        472,
+        338
+      ],
+      [
+        71,
+        2,
+        472,
+        338
+      ]
+    ],
+    "status": "pixel-normalized; game binding not performed",
+    "binding": "view_buffs `league_yorick_e_mark`（跟随，头顶，z 3；左右对称）",
+    "sha256_1x": "008721bd0267f67b1c0eb988699775c577ca748840364f3e828f038949db2dcf",
+    "validation": "PASS: size, binary-alpha, per-frame symmetry, nonempty and animated"
+  },
+  {
+    "file": "yorick_fx_e_slow.png",
+    "frames": 4,
+    "cell_1x": [
+      16,
+      8
+    ],
+    "symmetry": "left-right",
+    "preview_scale": 8,
+    "pixel_1x_size": [
+      64,
+      8
+    ],
+    "raw": {
+      "size": [
+        2172,
+        724
+      ],
+      "alpha_count": 256
+    },
+    "source_row_band": [
+      0,
+      235,
+      2172,
+      497
+    ],
+    "unique_frames": 4,
+    "nonempty_frames": 4,
+    "source_cell_bboxes": [
+      [
+        26,
+        33,
+        517,
+        260
+      ],
+      [
+        16,
+        2,
+        527,
+        260
+      ],
+      [
+        16,
+        49,
+        527,
+        258
+      ],
+      [
+        22,
+        2,
+        520,
+        260
+      ]
+    ],
+    "status": "pixel-normalized; game binding not performed",
+    "binding": "view_buffs `league_yorick_e_slow`（跟随，脚下，z -1；左右对称）",
+    "sha256_1x": "9e9a24371f1027ddae290262518305f483f5d9c30e2229f93c0550af63fabf68",
+    "validation": "PASS: size, binary-alpha, per-frame symmetry, nonempty and animated"
+  },
+  {
+    "file": "yorick_fx_r_spawn.png",
+    "frames": 7,
+    "cell_1x": [
+      50,
+      58
+    ],
+    "symmetry": "left-right",
+    "preview_scale": 8,
+    "pixel_1x_size": [
+      350,
+      58
+    ],
+    "raw": {
+      "size": [
+        2075,
+        758
+      ],
+      "alpha_count": 256
+    },
+    "source_row_band": [
+      0,
+      142,
+      2075,
+      713
+    ],
+    "unique_frames": 7,
+    "nonempty_frames": 7,
+    "source_cell_bboxes": [
+      [
+        12,
+        380,
+        284,
+        569
+      ],
+      [
+        5,
+        215,
+        295,
+        569
+      ],
+      [
+        56,
+        104,
+        280,
+        569
+      ],
+      [
+        66,
+        80,
+        297,
+        569
+      ],
+      [
+        86,
+        2,
+        296,
+        569
+      ],
+      [
+        77,
+        12,
+        297,
+        569
+      ],
+      [
+        28,
+        41,
+        296,
+        569
+      ]
+    ],
+    "status": "pixel-normalized; game binding not performed",
+    "binding": "view_effects `league_yorick_r_spawn`（大表，跟随目标，z -1；左右对称）",
+    "sha256_1x": "cae0b6f38238cb6df43aaa9b3abd9b6368b826cfab45d888c7cedca2934e9c78",
+    "validation": "PASS: size, binary-alpha, per-frame symmetry, nonempty and animated"
+  },
+  {
+    "file": "yorick_fx_r_maiden.png",
+    "frames": 6,
+    "cell_1x": [
+      50,
+      58
+    ],
+    "symmetry": "left-right",
+    "preview_scale": 8,
+    "pixel_1x_size": [
+      300,
+      58
+    ],
+    "raw": {
+      "size": [
+        2172,
+        724
+      ],
+      "alpha_count": 256
+    },
+    "source_row_band": [
+      0,
+      111,
+      2172,
+      641
+    ],
+    "unique_frames": 6,
+    "nonempty_frames": 6,
+    "source_cell_bboxes": [
+      [
+        17,
+        7,
+        361,
+        528
+      ],
+      [
+        11,
+        2,
+        356,
+        528
+      ],
+      [
+        1,
+        18,
+        330,
+        528
+      ],
+      [
+        28,
+        18,
+        362,
+        528
+      ],
+      [
+        7,
+        3,
+        356,
+        528
+      ],
+      [
+        5,
+        4,
+        354,
+        528
+      ]
+    ],
+    "status": "pixel-normalized; game binding not performed",
+    "binding": "view_effects `league_yorick_r_maiden`（大表，跟随目标，z -1；左右对称）",
+    "sha256_1x": "bf5df361274abdf99ac085a917149a21955066277cfeed932cae9a782979dee3",
+    "validation": "PASS: size, binary-alpha, per-frame symmetry, nonempty and animated"
+  },
+  {
+    "file": "yorick_fx_r_claw.png",
+    "frames": 3,
+    "cell_1x": [
+      16,
+      16
+    ],
+    "symmetry": "left-right",
+    "preview_scale": 8,
+    "pixel_1x_size": [
+      48,
+      16
+    ],
+    "raw": {
+      "size": [
+        2172,
+        724
+      ],
+      "alpha_count": 256
+    },
+    "source_row_band": [
+      0,
+      109,
+      2172,
+      622
+    ],
+    "unique_frames": 3,
+    "nonempty_frames": 3,
+    "source_cell_bboxes": [
+      [
+        52,
+        8,
+        672,
+        511
+      ],
+      [
+        48,
+        2,
+        676,
+        511
+      ],
+      [
+        37,
+        2,
+        688,
+        500
+      ]
+    ],
+    "status": "pixel-normalized; game binding not performed",
+    "binding": "view_effects `league_yorick_r_claw`（跟随目标，z 2；左右对称）",
+    "sha256_1x": "849a4283ca29c16b50c6efbb87f9fc0c3579b11f9a3168938ad71ce00b74a0af",
+    "validation": "PASS: size, binary-alpha, per-frame symmetry, nonempty and animated"
+  },
+  {
+    "file": "yorick_fx_r_mark.png",
+    "frames": 3,
+    "cell_1x": [
+      14,
+      14
+    ],
+    "symmetry": "left-right",
+    "preview_scale": 8,
+    "pixel_1x_size": [
+      42,
+      14
+    ],
+    "raw": {
+      "size": [
+        2172,
+        724
+      ],
+      "alpha_count": 256
+    },
+    "source_row_band": [
+      0,
+      68,
+      2172,
+      646
+    ],
+    "unique_frames": 3,
+    "nonempty_frames": 3,
+    "source_cell_bboxes": [
+      [
+        145,
+        103,
+        578,
+        491
+      ],
+      [
+        16,
+        2,
+        708,
+        576
+      ],
+      [
+        73,
+        45,
+        652,
+        534
+      ]
+    ],
+    "status": "pixel-normalized; game binding not performed",
+    "binding": "view_effects `league_yorick_r_mark`（跟随目标，z 2；左右对称）",
+    "sha256_1x": "7281b6fcdf1cd340a3ddaeb84310b87f414127321cb8cf9f8551759b547c6421",
+    "validation": "PASS: size, binary-alpha, per-frame symmetry, nonempty and animated"
+  }
+]

@@ -14,7 +14,8 @@ plays their pictures there; its death ends them.
   passive Shepherd of Souls (牧魂人): graves - Q on a champion digs one, Q on anything else every second time (League:
           a kill or a large monster; the data cannot read a kill on the spot). They are counted on him (hidden caster
           buffs g1..g3, g_t ticks each, league_darius's Hemorrhage). With g_n (3) graves his next Q raises the walkers
-          (Awakening, League's Q2): k_n walkers on the target for k_t ticks, each bite k_dmg + k_ratio% AD.
+          (Awakening, League's Q2; his `awaken` tag instead of `skill`): k_n walkers on the target for k_t ticks, each
+          bite k_dmg + k_ratio% AD.
           Dark Procession (暗灵缠身, W) folded in: the Awakening also raises the wall round the target - every enemy
           champion within w_r is caged (`Bind` w_root ticks; League's wall blocks movement, the data has no walls).
   attack  A shovel blow (100% AD) by a hidden homing hit on `Enemy` (towers too) on a_hit; while the Maiden stands (`r_on`)
@@ -257,7 +258,8 @@ def build(p):
                                                               tsfx("q_hit")]),
                        awaken, champ, delayed(2, alive(other)))
         return combine(sw("r_on", refresh("q_cd", p["q_cd_r"]), refresh("q_cd", p["q_cd"])), *rm("q_go", "q_ch"),
-                       anim("skill", p["q_dur"]), sfx("q"), voice("vo_q", p), delayed(p["q_hit"] - 1, alive(blow)))
+                       sw("g3", anim("awaken", p["q_dur"]), anim("skill", p["q_dur"])), sfx("q"), voice("vo_q", p),
+                       delayed(p["q_hit"] - 1, alive(blow)))
 
     # ------------------------------------------------------------------ E Mourning Mist
     def e_cast():

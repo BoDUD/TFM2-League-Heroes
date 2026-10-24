@@ -1,0 +1,427 @@
+[
+  {
+    "file": "yorick-pose-a_wind.png",
+    "kind": "pose",
+    "size": [
+      1254,
+      1254
+    ],
+    "grid_px": 11,
+    "logical_size": [
+      114,
+      114
+    ],
+    "anchor_y": 1188,
+    "vertical_shift_grid": -2,
+    "anchor_method": "boot-colour lower-body mask; floating pose uses grounded shovel",
+    "raw": {
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_count": 256
+    },
+    "sha256": "b31d79ac1e7e99ae2df43e29f598bf210e1d925f4401f6a181f636403c086733",
+    "status": "generated-key-pose; rig integration and in-game QA pending"
+  },
+  {
+    "file": "yorick-pose-a_smash.png",
+    "kind": "pose",
+    "size": [
+      1254,
+      1254
+    ],
+    "grid_px": 11,
+    "logical_size": [
+      114,
+      114
+    ],
+    "anchor_y": 1188,
+    "vertical_shift_grid": -1,
+    "anchor_method": "boot-colour lower-body mask; floating pose uses grounded shovel",
+    "raw": {
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_count": 256
+    },
+    "sha256": "997f21f8af94b823a450ca5f2659a2bae6cf1912a00baa3c5196830ed3207807",
+    "status": "generated-key-pose; rig integration and in-game QA pending"
+  },
+  {
+    "file": "yorick-pose-q_raise.png",
+    "kind": "pose",
+    "size": [
+      1254,
+      1254
+    ],
+    "grid_px": 11,
+    "logical_size": [
+      114,
+      114
+    ],
+    "anchor_y": 1188,
+    "vertical_shift_grid": -1,
+    "anchor_method": "boot-colour lower-body mask; floating pose uses grounded shovel",
+    "raw": {
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_count": 256
+    },
+    "sha256": "8d22afd456066df83ba933f7e5762037f12b2f4a984d1e8c0b6313922d3c7b8e",
+    "status": "generated-key-pose; rig integration and in-game QA pending"
+  },
+  {
+    "file": "yorick-pose-q_slam.png",
+    "kind": "pose",
+    "size": [
+      1254,
+      1254
+    ],
+    "grid_px": 11,
+    "logical_size": [
+      114,
+      114
+    ],
+    "anchor_y": 1188,
+    "vertical_shift_grid": 0,
+    "anchor_method": "boot-colour lower-body mask; floating pose uses grounded shovel",
+    "raw": {
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_count": 256
+    },
+    "sha256": "57389a5ffc8e63928ab7a580e60d11591f78e47fd37cabb943e85515db1c3206",
+    "status": "generated-key-pose; rig integration and in-game QA pending"
+  },
+  {
+    "file": "yorick-pose-w_raise.png",
+    "kind": "pose",
+    "size": [
+      1254,
+      1254
+    ],
+    "grid_px": 11,
+    "logical_size": [
+      114,
+      114
+    ],
+    "anchor_y": 1188,
+    "vertical_shift_grid": 0,
+    "anchor_method": "boot-colour lower-body mask; floating pose uses grounded shovel",
+    "raw": {
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_count": 256
+    },
+    "sha256": "270bc3ecff023b1f2eb25f7e76d35b43bb863eebd0eea3028c4b26bc754bb5e2",
+    "status": "generated-key-pose; rig integration and in-game QA pending"
+  },
+  {
+    "file": "yorick-pose-w_slam.png",
+    "kind": "pose",
+    "size": [
+      1254,
+      1254
+    ],
+    "grid_px": 11,
+    "logical_size": [
+      114,
+      114
+    ],
+    "anchor_y": 1188,
+    "vertical_shift_grid": 4,
+    "anchor_method": "boot-colour lower-body mask; floating pose uses grounded shovel",
+    "raw": {
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_count": 256
+    },
+    "sha256": "0def990595477e4d0302d3db6ef19c7d620b4a2136f6cae74369eda2432e34d5",
+    "status": "generated-key-pose; rig integration and in-game QA pending"
+  },
+  {
+    "file": "yorick-pose-k_call.png",
+    "kind": "pose",
+    "size": [
+      1254,
+      1254
+    ],
+    "grid_px": 11,
+    "logical_size": [
+      114,
+      114
+    ],
+    "anchor_y": 1188,
+    "vertical_shift_grid": 0,
+    "anchor_method": "boot-colour lower-body mask; floating pose uses grounded shovel",
+    "raw": {
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_count": 256
+    },
+    "sha256": "efa2c5dd42db1ef62e2cdb955c997b2836140698ab032e2340d65448830dc5ac",
+    "status": "generated-key-pose; rig integration and in-game QA pending"
+  },
+  {
+    "file": "yorick-pose-e_wind.png",
+    "kind": "pose",
+    "size": [
+      1254,
+      1254
+    ],
+    "grid_px": 11,
+    "logical_size": [
+      114,
+      114
+    ],
+    "anchor_y": 1188,
+    "vertical_shift_grid": 1,
+    "anchor_method": "boot-colour lower-body mask; floating pose uses grounded shovel",
+    "raw": {
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_count": 256
+    },
+    "sha256": "7298ca82c00cfe188ae8cf38b90169334e6283dda83f41d20ee9d96fd95b8e11",
+    "status": "generated-key-pose; rig integration and in-game QA pending"
+  },
+  {
+    "file": "yorick-pose-e_throw.png",
+    "kind": "pose",
+    "size": [
+      1254,
+      1254
+    ],
+    "grid_px": 11,
+    "logical_size": [
+      114,
+      114
+    ],
+    "anchor_y": 1188,
+    "vertical_shift_grid": 5,
+    "anchor_method": "boot-colour lower-body mask; floating pose uses grounded shovel",
+    "raw": {
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_count": 256
+    },
+    "sha256": "a62c0f8ff92c43b60d9b16c1d00946097a21a032ab240c0582c69f240d79056e",
+    "status": "generated-key-pose; rig integration and in-game QA pending"
+  },
+  {
+    "file": "yorick-pose-r_raise.png",
+    "kind": "pose",
+    "size": [
+      1254,
+      1254
+    ],
+    "grid_px": 11,
+    "logical_size": [
+      114,
+      114
+    ],
+    "anchor_y": 1188,
+    "vertical_shift_grid": -1,
+    "anchor_method": "boot-colour lower-body mask; floating pose uses grounded shovel",
+    "raw": {
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_count": 256
+    },
+    "sha256": "6978309c96b3c38a88fc169076ce3c5a0c48efc540d6164d89e0e3bbd3ea0a4c",
+    "status": "generated-key-pose; rig integration and in-game QA pending"
+  },
+  {
+    "file": "yorick-pose-r_plant.png",
+    "kind": "pose",
+    "size": [
+      1254,
+      1254
+    ],
+    "grid_px": 11,
+    "logical_size": [
+      114,
+      114
+    ],
+    "anchor_y": 1188,
+    "vertical_shift_grid": 0,
+    "anchor_method": "boot-colour lower-body mask; floating pose uses grounded shovel",
+    "raw": {
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_count": 256
+    },
+    "sha256": "6514a156577f77eb1169dbfb4c25bb556d72b4833f2c9def106ac524809d2e0a",
+    "status": "generated-key-pose; rig integration and in-game QA pending"
+  },
+  {
+    "file": "yorick-pose-run1.png",
+    "kind": "pose",
+    "size": [
+      1254,
+      1254
+    ],
+    "grid_px": 11,
+    "logical_size": [
+      114,
+      114
+    ],
+    "anchor_y": 1188,
+    "vertical_shift_grid": 1,
+    "anchor_method": "boot-colour lower-body mask; floating pose uses grounded shovel",
+    "raw": {
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_count": 256
+    },
+    "sha256": "cc289c70fc50cdf97e44969801b41003d97c983eb01fcd4f02c7fcd45a2d8dc4",
+    "status": "generated-key-pose; rig integration and in-game QA pending"
+  },
+  {
+    "file": "yorick-pose-run2.png",
+    "kind": "pose",
+    "size": [
+      1254,
+      1254
+    ],
+    "grid_px": 11,
+    "logical_size": [
+      114,
+      114
+    ],
+    "anchor_y": 1188,
+    "vertical_shift_grid": 1,
+    "anchor_method": "boot-colour lower-body mask; floating pose uses grounded shovel",
+    "raw": {
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_count": 256
+    },
+    "sha256": "f20496ac5fb83f4afa27f465fc076ac8f70f26f2a87c88a594913455f655375c",
+    "status": "generated-key-pose; rig integration and in-game QA pending"
+  },
+  {
+    "file": "yorick-pose-run3.png",
+    "kind": "pose",
+    "size": [
+      1254,
+      1254
+    ],
+    "grid_px": 11,
+    "logical_size": [
+      114,
+      114
+    ],
+    "anchor_y": 1188,
+    "vertical_shift_grid": 2,
+    "anchor_method": "boot-colour lower-body mask; floating pose uses grounded shovel",
+    "raw": {
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_count": 256
+    },
+    "sha256": "42dfda26212693f531d08fb919e2a3455b2b999e6b04ba2895022d935ddae51c",
+    "status": "generated-key-pose; rig integration and in-game QA pending"
+  },
+  {
+    "file": "yorick-pose-run4.png",
+    "kind": "pose",
+    "size": [
+      1254,
+      1254
+    ],
+    "grid_px": 11,
+    "logical_size": [
+      114,
+      114
+    ],
+    "anchor_y": 1188,
+    "vertical_shift_grid": -2,
+    "anchor_method": "boot-colour lower-body mask; floating pose uses grounded shovel",
+    "raw": {
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_count": 256
+    },
+    "sha256": "b3e5f855f156fb29cedb9f728a5daa709a376637c2a19786a0ed764b55bab8a3",
+    "status": "generated-key-pose; rig integration and in-game QA pending"
+  },
+  {
+    "file": "yorick-pose-d_drop.png",
+    "kind": "pose",
+    "size": [
+      1254,
+      1254
+    ],
+    "grid_px": 11,
+    "logical_size": [
+      114,
+      114
+    ],
+    "anchor_y": 1188,
+    "vertical_shift_grid": 3,
+    "anchor_method": "boot-colour lower-body mask; floating pose uses grounded shovel",
+    "raw": {
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_count": 256
+    },
+    "sha256": "48f9942f058c08f5d16391ceeac479b671e1bf363a4962d6a1cb01a630c183e8",
+    "status": "generated-key-pose; rig integration and in-game QA pending"
+  },
+  {
+    "file": "yorick-pose-d_float.png",
+    "kind": "pose",
+    "size": [
+      1254,
+      1254
+    ],
+    "grid_px": 11,
+    "logical_size": [
+      114,
+      114
+    ],
+    "anchor_y": 1188,
+    "vertical_shift_grid": -4,
+    "anchor_method": "boot-colour lower-body mask; floating pose uses grounded shovel",
+    "raw": {
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_count": 256
+    },
+    "sha256": "76c9031365918c4e5c27d32d39efebc30f506eef1b033418f62e58bbf2fb02c8",
+    "status": "generated-key-pose; rig integration and in-game QA pending"
+  }
+]

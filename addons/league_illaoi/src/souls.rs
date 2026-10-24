@@ -158,6 +158,7 @@ pub const SOULS: &[&str] = &[
     "league_xinzhao",
     "league_yasuo",
     "league_yone",
+    "league_yorick",
     "league_yunara",
     "league_yuumi",
     "league_zac",

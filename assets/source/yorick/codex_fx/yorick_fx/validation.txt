@@ -1,0 +1,20 @@
+yorick_fx_a_hit.png: PASS; 3 frames; cell 12x12; left-right; 3 unique frames
+yorick_fx_q_hit.png: PASS; 4 frames; cell 18x18; left-right; 4 unique frames
+yorick_fx_q_grave.png: PASS; 6 frames; cell 18x20; left-right; 6 unique frames
+yorick_fx_k_spawn.png: PASS; 6 frames; cell 56x30; left-right; 6 unique frames
+yorick_fx_k_swarm.png: PASS; 6 frames; cell 56x30; left-right; 6 unique frames
+yorick_fx_k_bite.png: PASS; 3 frames; cell 14x14; left-right; 3 unique frames
+yorick_fx_k_leap.png: PASS; 4 frames; cell 26x22; left-right; 4 unique frames
+yorick_fx_w_wall.png: PASS; 8 frames; cell 46x28; left-right; 8 unique frames
+yorick_fx_w_hit.png: PASS; 4 frames; cell 20x12; left-right; 4 unique frames
+yorick_fx_e_mist.png: PASS; 4 frames; cell 16x10; top-bottom; 4 unique frames
+yorick_fx_e_cloud.png: PASS; 6 frames; cell 34x18; left-right; 6 unique frames
+yorick_fx_e_hit.png: PASS; 3 frames; cell 14x14; left-right; 3 unique frames
+yorick_fx_e_mark.png: PASS; 4 frames; cell 12x12; left-right; 4 unique frames
+yorick_fx_e_slow.png: PASS; 4 frames; cell 16x8; left-right; 4 unique frames
+yorick_fx_r_spawn.png: PASS; 7 frames; cell 50x58; left-right; 7 unique frames
+yorick_fx_r_maiden.png: PASS; 6 frames; cell 50x58; left-right; 6 unique frames
+yorick_fx_r_claw.png: PASS; 3 frames; cell 16x16; left-right; 3 unique frames
+yorick_fx_r_mark.png: PASS; 3 frames; cell 14x14; left-right; 3 unique frames
+
+Automated file checks only. Source art was visually inspected. Game runtime integration was not performed.
