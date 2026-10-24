@@ -38,7 +38,7 @@ TOP_PX = 44      # game px from the crest's top to the tail tip (the user's pick
 PPU = 1.75
 TOP_ROWS = round(TOP_PX * PPU)
 B_ROWS = 51      # the flight on A's scale (hd/B 100 rows x 77 / 151)
-PICK = {"idle": None, "run": None}   # the user's picks
+PICK = {"idle": "A-2", "run": "B-2"}   # the user's picks, 2026-10-24
 # take -> (file, square px read at, rows to (None: TOP_ROWS), the face box kept whole on the raw canvas: x0, y0, x1, y1)
 DRAFTS = {
     "A-1": ("A-1", 17.2, None, (595, 360, 878, 533)),
