@@ -37,7 +37,10 @@ plays their pictures there; its death ends them.
 Timings: drafts until the frames exist.
 Numbers: League 16.21 read into the top fighter range (league_kled, league_darius, league_illaoi), balanced on the
 classic-SDK simulations (kd.py --lane 0 against fighter, executioner, knight, berserker, lancer and pole_warrior,
-C:/t/yo_sim, 2026-10-25; league_gnar --native as the control).
+C:/t/yo_sim, 2026-10-25; league_gnar --native the control: +0.01 / +0.59 on seeds 1-8 / 9-16): the draft (hp 1080,
+attack 90, Q 40 + 140% every 300, walkers 8 + 12%, E 60 + 60%, R 40%) +0.05 / -0.98; hp 1140, attack 94, defence 36, Q 55
+every 270, walkers 10 + 14%, E 70 + 70%, R 50% +1.70 (1-16); P (hp 1100, attack 91, defence 35, Q 45 every 285, walkers
+9 + 13%, E 65 + 65%, R 45%) +0.44 (1-16; league_kled +0.29).
 """
 import argparse
 import json
@@ -57,24 +60,24 @@ BIG = "asset/league/effects/league_yorick_big"
 # walkers run at the marked. R: the Maiden + 2-4 walkers, his attacks on her target +3-7% max hp, cd 160-100.
 P = {
     # stats (base fighters: attack 90 +12, hp 1000 +100, defence 35 +8; league_kled 1040 / 100, league_darius)
-    "hp": 1080, "hp_g": 100, "atk": 90, "atk_g": 14, "apw": 10, "apw_g": 5, "def": 34, "def_g": 8, "mr": 26, "mr_g": 4,
+    "hp": 1100, "hp_g": 100, "atk": 91, "atk_g": 14, "apw": 10, "apw_g": 5, "def": 35, "def_g": 8, "mr": 26, "mr_g": 4,
     "ms": 1000, "ms_g": 10, "regen": 2, "regen_g": 1,
     "atk_range": 25000, "atk_dur": 30, "atk_cd": 80, "a_hit": 12,
     # the controller
     "ctl_t": 3600, "ctl_p": 3,
     # passive: graves and the walkers
-    "g_t": 1800, "g_n": 3, "k_n": 3, "k_t": 360, "k_p": 60, "k_dmg": 8, "k_ratio": 12,
+    "g_t": 1800, "g_n": 3, "k_n": 3, "k_t": 360, "k_p": 60, "k_dmg": 9, "k_ratio": 13,
     "k_jmp": 20, "k_jmp_r": 30,
     # passive: W Dark Procession (the cage)
     "w_r": 18000, "w_root": 60,
     # skill: Q Last Rites
-    "q_cd": 300, "q_cd_r": 150, "q_range": 25000, "q_dur": 30, "q_hit": 14, "q_dmg": 40, "q_ratio": 140,
+    "q_cd": 285, "q_cd_r": 150, "q_range": 25000, "q_dur": 30, "q_hit": 14, "q_dmg": 45, "q_ratio": 140,
     "q_heal": 30, "q_heal_r": 20, "q_go_t": 120,
     # skill2: E Mourning Mist
-    "e_cd": 540, "e_range": 55000, "e_dur": 26, "e_rel": 12, "e_fly": 16, "e_r": 15000, "e_dmg": 60, "e_ratio": 60,
+    "e_cd": 540, "e_range": 55000, "e_dur": 26, "e_rel": 12, "e_fly": 16, "e_r": 15000, "e_dmg": 65, "e_ratio": 65,
     "e_hp": 4, "e_arm": 25, "e_t": 240, "e_slow": 30, "e_slow_t": 90, "e_go_t": 60,
     # ult: R Eulogy of the Isles
-    "r_cd": 4800, "r_range": 40000, "r_dur": 34, "r_rel": 16, "r_t": 600, "r_p": 60, "r_dmg": 20, "r_ratio": 40,
+    "r_cd": 4800, "r_range": 40000, "r_dur": 34, "r_rel": 16, "r_t": 600, "r_p": 60, "r_dmg": 20, "r_ratio": 45,
     "r_n": 2, "r_pct": 3, "r_go_t": 120,
     # his spoken lines, at most one every vo_gap ticks
     "vo_gap": 600,
