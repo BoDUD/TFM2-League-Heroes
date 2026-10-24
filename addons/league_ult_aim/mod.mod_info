@@ -1,0 +1,20 @@
+{
+  "author": "BoDUD",
+  "contains_code": true,
+  "dependencies": [
+    {
+      "mod_id": "base",
+      "version": ">=0.4.11"
+    },
+    {
+      "mod_id": "league",
+      "version": ">=0.210.0"
+    }
+  ],
+  "description": "Test build of ults aimed as League players aim them (needs League of Legends Heroes): Malphite's Unstoppable Force goes at the enemy champion with the most enemy champions around him, and is cast when it can knock up three or more. An AI hook only: no champion data is replaced. Writes a log for testing.",
+  "last_updated": "2026-10-24",
+  "mod_id": "league_ult_aim",
+  "mod_type": "native",
+  "name": "League Heroes: ults aimed as in League (Malphite) (test)",
+  "version": "0.1.0"
+}
