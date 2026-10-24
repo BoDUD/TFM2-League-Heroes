@@ -221,6 +221,10 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // design's head put back, the bodies brought to the design's size) at the user's 1.75 squares a game pixel (3/4
     // only), so no SIZES row
     ("league_aurelionsol", 1.75, include_str!("../../../league/champions/league_aurelionsol#anim.fanim")),
+    // Sejuani: posed by tools/art/rig_sejuani.py on Codex's PPU-2.0 redraw of her step-1 take A-2 (72 rows ice horn tip
+    // to hooves = 36 game px, riding Bristle) and its key poses after League's clips (her design head put back, Bristle
+    // brought to the design's size) at the user's 2.0 squares a game pixel (3/4 only), so no SIZES row
+    ("league_sejuani", 2.0, include_str!("../../../league/champions/league_sejuani#anim.fanim")),
     // Neeko: posed by tools/art/rig_neeko.py on Codex's step-1 take A-1 and its key poses at the user's 2.5 squares a
     // game pixel (100 game rows quill tips to soles: 「40」, then 「1.5也挺糊的 还得往上调整吧」; 3/4 only; league_neeko's
     // view hook draws her as an ally while she is disguised), so no SIZES row
