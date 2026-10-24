@@ -37,6 +37,12 @@ has Q and W ready.
           champion in reach while the stun lasts (`q_go`, r_stun ticks).
   controller An AddCasted pulse on her every ctl_p ticks (league_belveth's, hung by her attack and the ult, only for
           Sejuani herself: `own`): the Frost Armour, the combos' casts.
+The add-on copy (--native, addons/league_sejuani: everything League does that the data cannot): the passive
+league_sejuani:frost keeps the Frost stacks on each champion (the data adds a `frost` buff to it, f_n of them freeze
+it: stunned e_stun ticks, e_dmg + e_ap% AP), shatters every champion she hits while it is stunned or knocked up by
+anyone (her allies too: a 3-tick `hit` mark from her attack and W; sh_cd ticks a champion), clears every slow off her
+while the Frost Armour lasts (no tenacity stand-in) and puts her in combat (`fight`) when she takes damage, and stops
+Arctic Assault at the first enemy champion (`q_stop`: she is held where she hit it for the rest of the charge).
 Timings: drafts until the frames exist (tools/art/rig_sejuani.py retimes them).
 Numbers: League 16.21 read into the jungle tank range (league_zac, league_nunu, league_rammus), balanced on the
 classic-SDK simulations (kd.py --lane 1 against ninja, demon, hunter, werewolf and vampire, C:/t/se_sim, 2026-10-24).
@@ -67,7 +73,7 @@ P = {
     # passive: Frost Armour
     "fa_out": 300, "fa_keep": 120, "fa_def": 40, "fa_mr": 40, "fa_tough": 30,
     # passive: Permafrost (Frost stacks -> freeze) and the shatter
-    "f_t": 300, "e_stun": 60, "e_dmg": 40, "e_ap": 40,
+    "f_t": 300, "f_n": 4, "e_stun": 60, "e_dmg": 40, "e_ap": 40,
     "sh_win": 90, "sh_cd": 300, "sh_dmg": 20, "sh_ap": 40, "sh_pct": 6,
     # skill: Q Arctic Assault
     "q_cd": 480, "q_range": 45000, "q_dur": 24, "q_go": 6, "q_speed": 6000, "q_t": 8, "q_dmg": 60, "q_ap": 60,
@@ -241,8 +247,11 @@ def build(p):
         """She attacked or cast: the Frost Armour stops being renewed (it lingers fa_keep ticks)."""
         return refresh("fight", p["fa_out"])
 
-    armour = sw("fight", NONE, refresh("fa", p["fa_keep"], defence_mult=p["fa_def"],
-                                       magic_resistance_mult=p["fa_mr"], toughness=p["fa_tough"]))
+    # the add-on clears slows off her while `fa` lasts (no tenacity stand-in) and renews `fight` when she is hurt
+    fa = dict(defence_mult=p["fa_def"], magic_resistance_mult=p["fa_mr"])
+    if not p["native"]:
+        fa["toughness"] = p["fa_tough"]
+    armour = sw("fight", NONE, refresh("fa", p["fa_keep"], **fa))
 
     def open_shatter(tick):
         """A champion she just stunned (in its hit's context) is open to the shatter."""
@@ -256,12 +265,15 @@ def build(p):
     freeze = combine(*rm("f1", "f2", "f3"), stun(p["e_stun"]), ap(p["e_dmg"], p["e_ap"]), view("e_freeze"),
                      tsfx("e_freeze"), open_shatter(p["e_stun"] + p["sh_win"]))
     frost = sw("f3", freeze, sw("f2", flag("f3", p["f_t"]), sw("f1", flag("f2", p["f_t"]), flag("f1", p["f_t"]))))
+    if p["native"]:   # the add-on: a Frost stack on the champion itself (it freezes at four) and a hit mark (the shatter)
+        frost = combine(buff("frost", p["f_t"]), buff("hit", 3))
+        shatter = NONE
 
     # ------------------------------------------------------------------ Q Arctic Assault
     def q_cast():
         # Q -> W: through a champion (once a cast: `q_lk`), the controller swings W (once she has cast W: `w_lv`)
         champ = homing("q_tw", "EnemyChampion", [sw("q_lk", NONE, combine(
-            flag("q_lk", p["q_t"] + 4), open_shatter(p["q_up"] + p["sh_win"]),
+            flag("q_lk", p["q_t"] + 4), open_shatter(p["q_up"] + p["sh_win"]), flag("q_stop", 2) if p["native"] else None,
             sw("w_lv", combine(*rm("w_cd"), refresh("w_go", ctl_p + p["q_t"] + 3))), view("f_mark")))])
         hit = [ap(p["q_dmg"], p["q_ap"]), {"type": "Airborne", "duration": p["q_up"]}, view("q_hit"), tsfx("q_hit"),
                champ]
@@ -273,8 +285,8 @@ def build(p):
     # ------------------------------------------------------------------ W Winter's Wrath
     def w_cast():
         def swing(lk, dmg, ratio):
-            champ = homing(f"w_tw{lk}", "EnemyChampion",
-                           [shatter, sw(f"w_lk{lk}", NONE, combine(flag(f"w_lk{lk}", 6), frost))])
+            once = frost if p["native"] else sw(f"w_lk{lk}", NONE, combine(flag(f"w_lk{lk}", 6), frost))
+            champ = homing(f"w_tw{lk}", "EnemyChampion", [shatter, once])
             return [ap(dmg, ratio), buff("w_slow", p["w_slow_t"], move_speed_mult=-p["w_slow"]), view("w_hit"),
                     tsfx("w_hit"), champ]
         sweep = around(p["w_r1"], "EnemyWithoutTower", *swing(1, p["w1_dmg"], p["w1_ap"]))
@@ -335,8 +347,14 @@ def build(p):
                E("w_slam", BIG, -1, False), E("w_hit"), E("e_freeze"), E("sh_hit"), E("r_hit"),
                E("r_storm", BIG, -1, False)]
     views_b = [B_("fa", FX, -1, "fa_armour"), B_("w_slow", FX, -1, "slow"), B_("r_slow", FX, -1, "slow")]
+    extra = {}
+    if p["native"]:   # addons/league_sejuani: the League rules the data cannot read
+        views_b.append(B_("frost", FX, 3, "frost"))
+        extra["passive"] = {"passive_ref": "league_sejuani:frost",
+                            "params": {k: p[k] for k in ("f_n", "e_stun", "e_dmg", "e_ap", "sh_cd", "sh_dmg", "sh_ap",
+                                                         "sh_pct", "q_t", "fa_out")}}
     return {
-        "id": ID, "category": "Melee", "tags": ["AP", "Melee", "CC", "Tank"],
+        "id": ID, "category": "Melee", "tags": ["AP", "Melee", "CC", "Tank"], **extra,
         "sprite": f"asset/league/champions/{ID}", "anim_prefix": "",
         "skill_icons": [f"asset/league/icons/{ID}_skill", f"asset/league/icons/{ID}_skill2", f"asset/league/icons/{ID}_ult"],
         "stat": {"attack": p["atk"], "magic_power": p["apw"], "hp": p["hp"], "defence": p["def"],
