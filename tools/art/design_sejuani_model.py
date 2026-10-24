@@ -47,7 +47,7 @@ PPU = 2.0
 TOP_ROWS = round(TOP_PX * PPU)
 B_ROWS = 76      # the charge on A's scale (round 1: hd/B 193 rows x 54 / 187 = 56; x 72 / 53 = 76)
 PICK1 = {"idle": "A-2", "run": "B-1"}   # the user's round-1 picks, 2026-10-24
-PICK = {"idle": None, "run": None}      # round 2
+PICK = {"idle": "A-2", "run": "B-1"}    # round 2, the user's picks 2026-10-24
 # take -> (file, square px read at, rows to (None: TOP_ROWS), the face box kept whole on the raw canvas: x0, y0, x1, y1)
 DRAFTS1 = {
     "A-1": ("A-1", 10.2, None, (700, 420, 800, 545)),
