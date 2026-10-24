@@ -349,20 +349,25 @@ def build(p):
     # ------------------------------------------------------------------ the split (the add-on copy only)
     # The main pack has no revive (data reads no health and nothing fires on a death). The add-on's passive
     # league_zac:split catches the lethal hit (league_anivia's egg), leaves him split_hp% of his health as the puddle's
-    # and raises `split_go`; the puddle destroyed is his death. The data shows it: split_go -> `split_on` (armour and
-    # magic resistance -split_def, split_t ticks), the melt (Unstable Matter's splash), the puddle held by its loop every
-    # 30 ticks; `split_end` (the add-on, split_t ticks later with him alive) -> the reform. A watch on him every 2 ticks,
-    # hung once a life by his attack (`init`, a flag a death clears).
+    # and raises `split_go`; the puddle destroyed is his death. The data shows it: split_go -> `split_on` (the form, a
+    # plain flag, split_t ticks) and `split_def` (armour and magic resistance -split_def, as long), the melt (Unstable
+    # Matter's splash), the puddle held by its loop every 30 ticks; `split_end` (the add-on, split_t ticks later with him
+    # alive) -> the reform. A watch on him every 2 ticks, hung once a life by his attack (`init`, a flag a death clears).
+    # The form and the debuff are two buffs (the user, 2026-10-24: 「扎克变细胞的时候 还能变回英雄原来的样子？」): in game
+    # the one buff carrying both was gone from him a few ticks into the puddle (league_zac.log: the display world held
+    # `split_hold`, never `split_on`), so the loop stopped and the display hook had nothing to draw the puddle by - he stood
+    # there as Zac. league_swain's form, a plain flag, holds. The loop also runs on the add-on's own `split_form`.
     native = bool(p["native"])
     life = None                     # combine() leaves it out: the main pack's attack as without the add-on
     if native:
         t_ = p["split_t"]
-        start = sw("split_go", combine(*rm("split_go"), refresh("split_on", t_, defence=-p["split_def"],
-                                                                magic_resistance=-p["split_def"]),
+        start = sw("split_go", combine(*rm("split_go"), refresh("split_on", t_),
+                                       refresh("split_def", t_, defence=-p["split_def"], magic_resistance=-p["split_def"]),
                                        refresh("split_hold", p["split_in"]), anim("split_in", p["split_in"] + 2),
                                        cview("w_burst"), sfx("p_split"), voice("vo_p", p)))
-        hold = sw("split_on", sw("split_hold", NONE, combine(flag("split_hold", 30), anim("split", 32))))
-        out = sw("split_end", combine(*rm("split_end", "split_on", "split_hold"), anim("reform", p["split_out"]),
+        loop = sw("split_hold", NONE, combine(flag("split_hold", 30), anim("split", 32)))
+        hold = sw("split_on", loop, sw("split_form", loop, NONE))
+        out = sw("split_end", combine(*rm("split_end", "split_on", "split_def", "split_hold"), anim("reform", p["split_out"]),
                                       cview("b_pick"), sfx("p_reform")))
         life = sw("init", NONE, combine(flag("init", None), on_me(casted(1000000, 2, start, hold, out))))
 

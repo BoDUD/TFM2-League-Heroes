@@ -3522,6 +3522,27 @@
                                       "Time": {
                                         "tick": 360
                                       }
+                                    }
+                                  },
+                                  "only_to_enemy": false
+                                }
+                              ]
+                            },
+                            {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_zac_split_def"
+                                },
+                                {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_zac_split_def",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 360
+                                      }
                                     },
                                     "defence": -20,
                                     "magic_resistance": -20
@@ -3634,8 +3655,42 @@
                           }
                         },
                         "effect_none": {
-                          "type": "Combine",
-                          "effects": []
+                          "type": "SwitchByBuff",
+                          "buff_name": "league_zac_split_form",
+                          "effect_buff": {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_zac_split_hold",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": []
+                            },
+                            "effect_none": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_zac_split_hold",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 30
+                                      }
+                                    }
+                                  },
+                                  "only_to_enemy": false
+                                },
+                                {
+                                  "type": "CasterAnimation",
+                                  "name": "split",
+                                  "tick": 32
+                                }
+                              ]
+                            }
+                          },
+                          "effect_none": {
+                            "type": "Combine",
+                            "effects": []
+                          }
                         }
                       },
                       {
@@ -3651,6 +3706,10 @@
                             {
                               "type": "RemoveCasterBuff",
                               "name": "league_zac_split_on"
+                            },
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_zac_split_def"
                             },
                             {
                               "type": "RemoveCasterBuff",

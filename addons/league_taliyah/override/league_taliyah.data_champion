@@ -667,7 +667,7 @@
                                       "radius": 1000
                                     }
                                   },
-                                  "y_offset": 0
+                                  "y_offset": 5000
                                 },
                                 {
                                   "type": "RangeEffect",

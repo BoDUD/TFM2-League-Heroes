@@ -12,6 +12,16 @@
 //! - **超越死亡的恐惧的真处决**：拴满 4 秒时，目标当前生命低于最大生命的 `EXECUTE`%（英雄联盟 25%）才拽回来处决；
 //!   血多的只吃钻头的伤害和减速。主包数据读不到当前生命，拴满就拽、造成最大生命 25% 的真实伤害。
 //!
+//! - **鄙弃把人甩到身后**（用户 2026-10-24：「厄加特的E是不是有bug啊 不能把人背回来」）：E 出手时 `league_urgot:dash` 记下
+//!   他起跳的位置；抓住后 `e_fling` tick，`league_urgot:fling` 把目标在 `e_pull_t` tick 内一步步挪到他身后 `e_behind`
+//!   处、朝起跳那一边（英雄联盟：越过他的头甩到背后，等于拖回自己这边）。主包数据只能用 `Pull` 往他身上拉：冲刺落在目标
+//!   身上时两人重叠，引擎把两人往随机方向推开，大约一半甩错了边（经典模拟 trace）。
+//!
+//! - **鄙弃把人甩到身后**（用户 2026-10-24：「厄加特的E是不是有bug啊 不能把人背回来」）：E 出手时 `league_urgot:dash` 记下
+//!   他起跳的位置；抓住 `e_fling` tick 后 `league_urgot:fling` 把目标在 `e_pull_t` tick 内一步步挪到他身后 `e_behind` 处、
+//!   朝起跳那一边（英雄联盟：越过他的头甩到背后，等于拖回自己这边）。主包数据只能用 `Pull` 往他身上拉：冲刺落在目标身上时
+//!   两人重叠，引擎把两人往随机方向推开，大约一半甩错了边（经典模拟 trace）。
+//!
 //! 数字：`EXECUTE`、`LEGS_FACING` 写在这里；其余从英雄数据来，`tests::the_numbers_match_the_kit` 读主包的参数表核对默认值。
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_urgot.log`，每次启动游戏重写。
 
@@ -26,7 +36,7 @@ use mod_api_stable::*;
 
 const ID: &str = "league_urgot";
 /// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是 league_addons 的。
-const VERSION: &str = "0.1.0";
+const VERSION: &str = "0.2.0";
 
 // ===================== 数值 =====================
 
@@ -143,11 +153,14 @@ pub struct Params {
     pub leg_t: u64,
     /// 主包处决的真实伤害（最大生命 %），只用来核对处决线。
     pub r_ex: usize,
+    /// 鄙弃：甩到他身后多远、几 tick 甩完。
+    pub e_behind: u64,
+    pub e_pull_t: u64,
 }
 
 impl Default for Params {
     fn default() -> Self {
-        Params { leg_t0: 480, leg_t: 180, r_ex: 25 }
+        Params { leg_t0: 480, leg_t: 180, r_ex: 25, e_behind: 15000, e_pull_t: 3 }
     }
 }
 
@@ -183,11 +196,48 @@ fn sim_of(sim: &StableSim<'_>, me: usize) -> u64 {
         .map(|b| b.name().to_string())))
 }
 
-/// 每份模拟的每个厄加特：参数、六条腿上次喷的 tick（0 = 还没喷过）。
+/// 每份模拟的每个厄加特：参数、六条腿上次喷的 tick（0 = 还没喷过）、鄙弃起跳的位置、正在甩的人。
 #[derive(Clone, Copy, Default)]
 struct Legs {
     p: Params,
     last: [u64; 6],
+    from: Option<(f64, f64)>,
+    throw: Option<Throw>,
+}
+
+/// 一次甩人：谁、从哪到哪、第几 tick 开始、几 tick 甩完。
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct Throw {
+    pub target: usize,
+    pub start: (f64, f64),
+    pub end: (f64, f64),
+    pub at: u64,
+    pub ticks: u64,
+}
+
+/// 地图的边（单位坐标，留一个身位）。
+const MAP_MIN: f64 = 12_000.0;
+const MAP_MAX: f64 = 948_000.0;
+
+/// Where the caught one lands: `behind` past him, on the side he dashed from (from the target's side when he did not
+/// move: then straight over him).
+pub fn landing(me: (f64, f64), from: Option<(f64, f64)>, target: (f64, f64), behind: f64) -> (f64, f64) {
+    let unit = |d: (f64, f64)| {
+        let n = (d.0 * d.0 + d.1 * d.1).sqrt();
+        (n > 1.0).then(|| (d.0 / n, d.1 / n))
+    };
+    let back = from
+        .and_then(|f| unit((f.0 - me.0, f.1 - me.1)))
+        .or_else(|| unit((me.0 - target.0, me.1 - target.1)))
+        .unwrap_or((1.0, 0.0));
+    let c = |v: f64| v.clamp(MAP_MIN, MAP_MAX);
+    (c(me.0 + back.0 * behind), c(me.1 + back.1 * behind))
+}
+
+/// The thrown one's spot `k` ticks into the throw (the last tick on the landing).
+pub fn step(t: &Throw, k: u64) -> (f64, f64) {
+    let f = (k as f64 / t.ticks.max(1) as f64).min(1.0);
+    (t.start.0 + (t.end.0 - t.start.0) * f, t.start.1 + (t.end.1 - t.start.1) * f)
 }
 
 static STATE: LazyLock<Mutex<HashMap<(u64, usize), Legs>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
@@ -225,6 +275,41 @@ impl StableEffectType for Leg {
         if let Some(n) = counted("leg") {
             wlog(format!("{} LEG #{n} leg {k} (facing {legs:?}) at {}, cooldown {cd} ticks", head(sim, caster),
                          who(sim, input.target_id)));
+        }
+    }
+}
+
+// ===================== 鄙弃：起跳的位置、甩到身后 =====================
+
+struct Dash;
+
+impl StableEffectType for Dash {
+    fn apply(&self, sim: &mut StableSim<'_>, _: u64, caster: usize, _: InputTargetV1) {
+        let Some(me) = pos_of(sim, caster) else { return };
+        let key = (sim_of(sim, caster), caster);
+        STATE.lock().unwrap_or_else(|e| e.into_inner()).entry(key).or_default().from = Some(me);
+    }
+}
+
+struct Fling;
+
+impl StableEffectType for Fling {
+    fn apply(&self, sim: &mut StableSim<'_>, _: u64, caster: usize, input: InputTargetV1) {
+        if InputTargetKindV1::from_code(input.kind) != Some(InputTargetKindV1::Target) {
+            return;
+        }
+        let target = input.target_id;
+        let (Some(me), Some(at)) = (pos_of(sim, caster), pos_of(sim, target)) else { return };
+        let key = (sim_of(sim, caster), caster);
+        let now = sim.tick() as u64;
+        let mut st = STATE.lock().unwrap_or_else(|e| e.into_inner());
+        let s = st.entry(key).or_default();
+        let end = landing(me, s.from.take(), at, s.p.e_behind as f64);
+        s.throw = Some(Throw { target, start: at, end, at: now, ticks: s.p.e_pull_t.max(1) });
+        drop(st);
+        if let Some(n) = counted("fling") {
+            wlog(format!("{} FLING #{n} {} from ({:.0}, {:.0}) over him at ({:.0}, {:.0}) to ({:.0}, {:.0})", head(sim, caster),
+                         who(sim, target), at.0, at.1, me.0, me.1, end.0, end.1));
         }
     }
 }
@@ -283,10 +368,26 @@ impl StablePassive for Passive {
         if st.len() > 4096 {
             st.clear(); // finished sims
         }
-        st.insert((self.sim_no, me), Legs { p: self.p, last: [0; 6] });
+        st.insert((self.sim_no, me), Legs { p: self.p, ..Legs::default() });
         drop(st);
         let team = sim.get_entity(me).map_or(0, |e| e.team());
         wlog(format!("{} SPAWN: the add-on's Urgot (player {player}, team {team}), {:?}", head(sim, me), self.p));
+    }
+
+    fn on_update(&mut self, sim: &mut StableSim<'_>, _: u64, _: usize, me: usize) {
+        let key = (self.sim_no, me);
+        let throw = STATE.lock().unwrap_or_else(|e| e.into_inner()).get(&key).and_then(|s| s.throw);
+        let Some(t) = throw else { return };
+        let k = (sim.tick() as u64).saturating_sub(t.at) + 1;
+        if pos_of(sim, t.target).is_some() {
+            let (x, y) = step(&t, k);
+            sim.entity_set_pos(t.target, x.round() as u64, y.round() as u64);
+        }
+        if k >= t.ticks || pos_of(sim, t.target).is_none() {
+            if let Some(s) = STATE.lock().unwrap_or_else(|e| e.into_inner()).get_mut(&key) {
+                s.throw = None;
+            }
+        }
     }
 }
 
@@ -298,7 +399,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v{VERSION} (Urgot: Echoing Flames by direction, Fear Beyond Death executes below {EXECUTE}% health) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v{VERSION} (Urgot: Echoing Flames by direction, Disdain flings over him, Fear Beyond Death executes below {EXECUTE}% health) loaded: game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
         v.patch,
@@ -308,7 +409,9 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     module.add_native_passive(format!("{ID}:legs"), Passive::default());
     module.add_native_effect(format!("{ID}:leg"), Leg);
     module.add_native_effect(format!("{ID}:mercy"), Mercy);
-    host.log(LogLevel::Info, "league_urgot loaded (Echoing Flames by direction, Fear Beyond Death's real execute).");
+    module.add_native_effect(format!("{ID}:dash"), Dash);
+    module.add_native_effect(format!("{ID}:fling"), Fling);
+    host.log(LogLevel::Info, "league_urgot loaded (Echoing Flames by direction, Disdain flings over him, Fear Beyond Death's real execute).");
 }
 
 #[cfg_attr(league_bundle, allow(dead_code))]
@@ -358,8 +461,32 @@ mod tests {
 
     #[test]
     fn params_parse() {
-        let p = parse_params(r#"{"leg_t":180,"leg_t0":480,"r_ex":25}"#);
+        let p = parse_params(r#"{"leg_t":180,"leg_t0":480,"r_ex":25,"e_behind":15000,"e_pull_t":3}"#);
         assert_eq!(p, Params::default());
+    }
+
+    #[test]
+    fn the_fling_lands_behind_him_on_the_side_he_came_from() {
+        // he dashed from (400000, 500000) to (500000, 500000) onto a target standing on him
+        let end = landing((500_000.0, 500_000.0), Some((400_000.0, 500_000.0)), (500_000.0, 500_000.0), 15_000.0);
+        assert_eq!(end, (485_000.0, 500_000.0));
+        // the target bumped past him: still thrown to the side he came from
+        let end = landing((500_000.0, 500_000.0), Some((400_000.0, 500_000.0)), (490_000.0, 500_000.0), 15_000.0);
+        assert_eq!(end, (485_000.0, 500_000.0));
+        // no dash recorded: straight over him, away from the target
+        let end = landing((500_000.0, 500_000.0), None, (510_000.0, 500_000.0), 15_000.0);
+        assert_eq!(end, (485_000.0, 500_000.0));
+        // never off the map
+        let end = landing((14_000.0, 500_000.0), Some((0.0, 500_000.0)), (20_000.0, 500_000.0), 15_000.0);
+        assert_eq!(end, (MAP_MIN, 500_000.0));
+    }
+
+    #[test]
+    fn the_throw_steps_to_the_landing() {
+        let t = Throw { target: 9, start: (0.0, 0.0), end: (30_000.0, 0.0), at: 100, ticks: 3 };
+        assert_eq!(step(&t, 1), (10_000.0, 0.0));
+        assert_eq!(step(&t, 3), (30_000.0, 0.0));
+        assert_eq!(step(&t, 5), (30_000.0, 0.0));
     }
 
     #[test]
@@ -367,7 +494,8 @@ mod tests {
         let path = concat!(env!("CARGO_MANIFEST_DIR"), "/../../tools/kit/build_urgot.py");
         let src = std::fs::read_to_string(path).expect("build_urgot.py");
         let d = Params::default();
-        for (key, v) in [("leg_t0", d.leg_t0 as usize), ("leg_t", d.leg_t as usize), ("r_ex", d.r_ex)] {
+        for (key, v) in [("leg_t0", d.leg_t0 as usize), ("leg_t", d.leg_t as usize), ("r_ex", d.r_ex),
+                         ("e_behind", d.e_behind as usize), ("e_pull_t", d.e_pull_t as usize)] {
             assert!(src.contains(&format!("\"{key}\": {v}")), "{key} is not {v} in build_urgot.P");
         }
         assert_eq!(d.r_ex, EXECUTE, "the main pack's execute line is the add-on's");

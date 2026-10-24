@@ -329,12 +329,14 @@ RESTYLE = {
     # Ahri (2026-10-24): Codex's first picture read back at PPU 2.2 (78 x 88, design_ahri_hd.py, the eyes set by hand);
     # every action Codex's whole-frame redraw mended onto the design (tools/art/casts_ahri_hd.py: the design's head, her
     # size, the tails joined to her hair)
-    "ahri": dict(ppu=2.2, edge=0, face_to=(2, -36)),
+    # 2026-10-25 face (2,-33): (2,-36) framed the ears and hair on rows 1-5, the eyes on rows 7-8 and no mouth
+    "ahri": dict(ppu=2.2, edge=0, face_to=(2, -33)),
     # Twitch (2026-10-24): the user's own picture read back at PPU 2.2 (71 rows, design_twitch_hd.py, the goggle and the
     # grin redrawn by hand); every action Codex's whole-frame redraw mended onto the design (casts_twitch_hd.py: the
     # design's head, his size), Venom Cask's third arm moved over his head (rig_twitch_hd.py); the attack's flash rides
     # the effect layer (fx)
-    "twitch": dict(ppu=2.2, edge=0, face_to=(5, -24), fx=True),
+    # 2026-10-25 face (7,-28): (5,-24) framed his mouth, neck and chest and cut the goggles off
+    "twitch": dict(ppu=2.2, edge=0, face_to=(7, -28), fx=True),
     # Annie (2026-10-24): Codex's take A read back at PPU 2.2 (44 x 75, design_annie_hd.py, the face set by hand); every
     # action Codex's whole-frame redraw mended onto the design (tools/art/casts_annie_hd.py: the design's head, her size,
     # the ground), Tibbers in her near hand
