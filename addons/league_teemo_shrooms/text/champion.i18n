@@ -1,0 +1,37 @@
+{
+  "zh-hans": {
+    "description": {
+      "league_teemo_shrooms": {
+        "ult": "【附加包】向敌方英雄脚下扔出蘑菇，<#ffb900ff>1秒<>后布好并潜伏<#ffb900ff>3分钟<>，提莫阵亡也在。敌人踩中时爆出毒云，使周围敌人<#78e85cff>中毒<><#ffb900ff>4秒<>，共受到<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>48% 法术强度<>的<#a974ffff>魔法伤害<>，并<#ef5350ff>减速<><#ffb900ff>40%<>，持续<#ffb900ff>2秒<>。可储存<#ffb900ff>3<>个蘑菇。"
+      }
+    }
+  },
+  "zh-hant": {
+    "description": {
+      "league_teemo_shrooms": {
+        "ult": "【附加包】向敵方英雄腳下擲出蘑菇，<#ffb900ff>1秒<>後布好並潛伏<#ffb900ff>3分鐘<>，提摩陣亡也在。敵人踩中時釋放毒霧，使周圍敵人<#78e85cff>中毒<><#ffb900ff>4秒<>，共承受<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>48% 魔法強度<>的<#a974ffff>魔法傷害<>，並<#ef5350ff>緩速<><#ffb900ff>40%<>，持續<#ffb900ff>2秒<>。可儲存<#ffb900ff>3<>朵蘑菇。"
+      }
+    }
+  },
+  "en": {
+    "description": {
+      "league_teemo_shrooms": {
+        "ult": "[Add-on] Teemo throws a mushroom at an enemy champion's feet. It arms after <#ffb900ff>1s<> and hides for <#ffb900ff>3 minutes<>, even after Teemo dies. When an enemy steps on it, it bursts into a toxic cloud: enemies around are <#78e85cff>poisoned<>, taking <#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>48% Ability Power<> <#a974ffff>magic damage<> over <#ffb900ff>4s<>, and <#ef5350ff>slowed<> by <#ffb900ff>40%<> for <#ffb900ff>2s<>. Holds up to <#ffb900ff>3<> mushrooms."
+      }
+    }
+  },
+  "ko": {
+    "description": {
+      "league_teemo_shrooms": {
+        "ult": "[확장] 적 챔피언의 발밑에 버섯을 던집니다. 버섯은 <#ffb900ff>1초<> 후 설치되어 <#ffb900ff>3분<> 동안 숨어 있으며 티모가 죽어도 남습니다. 적이 밟으면 독 구름이 터져 주변 적을 <#78e85cff>중독<>시켜 <#ffb900ff>4초<>에 걸쳐 <#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 48%<> <#a974ffff>마법 피해<>를 입히고 <#ffb900ff>2초<> 동안 <#ffb900ff>40%<> <#ef5350ff>둔화<>시킵니다. 버섯은 최대 <#ffb900ff>3<>개까지 보관합니다."
+      }
+    }
+  },
+  "ja": {
+    "description": {
+      "league_teemo_shrooms": {
+        "ult": "【拡張】敵チャンピオンの足元に毒キノコを投げる。<#ffb900ff>1秒<>後に設置され、<#ffb900ff>3分<>潜み、ティーモが倒れても残る。敵が踏むと毒霧が広がり、周囲の敵を<#ffb900ff>4秒<>間<#78e85cff>毒<>にして計<#a974ffff>100<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の48%<>の<#a974ffff>魔法ダメージ<>を与え、<#ffb900ff>2秒<>間<#ffb900ff>40%<><#ef5350ff>スロウ<>。最大<#ffb900ff>3<>個まで持てる。"
+      }
+    }
+  }
+}

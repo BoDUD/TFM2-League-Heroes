@@ -1,0 +1,10 @@
+{
+  "asset/league/champion/league_teemo": {
+    "remapping": "asset/league_teemo_shrooms/override/league_teemo",
+    "type": "override"
+  },
+  "asset/base/text/champion": {
+    "remapping": "asset/league_teemo_shrooms/text/champion",
+    "type": "merge"
+  }
+}
