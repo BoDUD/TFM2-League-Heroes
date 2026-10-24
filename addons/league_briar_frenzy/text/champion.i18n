@@ -1,0 +1,42 @@
+{
+  "zh-hans": {
+    "description": {
+      "league_briar_frenzy": {
+        "skill2": "【附加包】蓄力<#ffb900ff>1秒<>，期间受到的伤害降低<#ffb900ff>15%<>并回复<#6aff55ff>24<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>16% 攻击力<>的<#6aff55ff>生命值<>；然后向前尖啸，造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90% 攻击力<>的<#ff9028ff>物理伤害<>，<#ef5350ff>减速<><#ffb900ff>80%<>并<#ef5350ff>击退<>，撞上墙或单位的英雄<#ef5350ff>眩晕<><#ffb900ff>1秒<>。",
+        "ult": "【附加包】踢出血石，标记命中的第一个英雄（穿过小兵）并飞向它，落地对周围敌人造成<#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60% 攻击力<>的<#ff9028ff>物理伤害<>，<#ef5350ff>恐惧<>猎物以外的敌人<#ffb900ff>1.5秒<>。猎物倒下前一直<#ff9028ff>彻底血狂<>：获得血莽的效果、<i#asset/base/ui/banpick/champion_stat_icon:armor_0><#ffdd8eff>20 护甲<>和魔抗、<#6aff55ff>10% 吸血<>、额外<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>25% 移速<>。"
+      }
+    }
+  },
+  "zh-hant": {
+    "description": {
+      "league_briar_frenzy": {
+        "skill2": "【附加包】蓄力<#ffb900ff>1秒<>，期間受到的傷害降低<#ffb900ff>15%<>並回復<#6aff55ff>24<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>16% 攻擊力<>的<#6aff55ff>生命<>；然後向前尖嘯，造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90% 攻擊力<>的<#ff9028ff>物理傷害<>，<#ef5350ff>緩速<><#ffb900ff>80%<>並<#ef5350ff>擊退<>，撞上牆或單位的英雄<#ef5350ff>暈眩<><#ffb900ff>1秒<>。",
+        "ult": "【附加包】踢出血色石，標記命中的第一名英雄（穿過小兵）並衝向對方，落地對周圍敵人造成<#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60% 攻擊力<>的<#ff9028ff>物理傷害<>，<#ef5350ff>恐懼<>獵物以外的敵人<#ffb900ff>1.5秒<>。獵物倒下前一直<#ff9028ff>嗜血如命<>：獲得嗜血狂熱的效果、<i#asset/base/ui/banpick/champion_stat_icon:armor_0><#ffdd8eff>20 護甲<>和魔防、<#6aff55ff>10% 吸血<>、額外<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>25% 跑速<>。"
+      }
+    }
+  },
+  "en": {
+    "description": {
+      "league_briar_frenzy": {
+        "skill2": "[Add-on] <#ff9028ff>Chilling Scream<>: Briar charges for <#ffb900ff>1s<>, taking <#ffb900ff>15%<> less damage and healing <#6aff55ff>24<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>16% AD<>, then screams forward for <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90% AD<> <#ff9028ff>physical damage<>, <#ef5350ff>slowing<> by <#ffb900ff>80%<> and <#ef5350ff>knocking back<>; champions knocked into a wall or unit are <#ef5350ff>stunned<> for <#ffb900ff>1s<>.",
+        "ult": "[Add-on] <#ff9028ff>Certain Death<>: Briar kicks her hemolith, marking the first champion hit (it passes minions), and flies to it. Landing deals <#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60% AD<> <#ff9028ff>physical damage<> around her and <#ef5350ff>fears<> other enemies for <#ffb900ff>1.5s<>. Till the prey falls she's in <#ff9028ff>Hemomania<>: Blood Frenzy plus <i#asset/base/ui/banpick/champion_stat_icon:armor_0><#ffdd8eff>20 armor<> and magic resist, <#6aff55ff>10% life steal<> and <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>25% more Move Speed<>."
+      }
+    }
+  },
+  "ko": {
+    "description": {
+      "league_briar_frenzy": {
+        "skill2": "[확장] <#ff9028ff>오싹한 비명<>: <#ffb900ff>1초<> 동안 충전하며 받는 피해 <#ffb900ff>15%<> 감소, 체력 <#6aff55ff>24<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 16%<> 회복. 이후 앞으로 비명을 질러 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 90%<> <#ff9028ff>물리 피해<>, <#ef5350ff>둔화<> <#ffb900ff>80%<>, <#ef5350ff>넉백<>; 벽이나 유닛에 부딪힌 챔피언은 <#ffb900ff>1초<> <#ef5350ff>기절<>.",
+        "ult": "[확장] <#ff9028ff>불가항력적 죽음<>: 혈석을 차 처음 맞힌 챔피언(미니언 통과)을 표시하고 날아갑니다. 착지 시 주변에 <#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 60%<> <#ff9028ff>물리 피해<>, 먹잇감 외의 적 <#ffb900ff>1.5초<> <#ef5350ff>공포<>. 먹잇감이 쓰러질 때까지 피의 갈증: 핏빛 광분 효과, <i#asset/base/ui/banpick/champion_stat_icon:armor_0><#ffdd8eff>방어력 20<>·마저, <#6aff55ff>생명력 흡수 10%<>, <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>이동 속도 25%<> 추가."
+      }
+    }
+  },
+  "ja": {
+    "description": {
+      "league_briar_frenzy": {
+        "skill2": "【拡張】<#ff9028ff>呪福の叫び<>：<#ffb900ff>1秒<>溜めて被ダメージ<#ffb900ff>15%<>軽減、体力<#6aff55ff>24<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の16%<>回復。前方に叫び<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の90%<>の<#ff9028ff>物理ダメージ<>、<#ef5350ff>スロウ<><#ffb900ff>80%<>と<#ef5350ff>ノックバック<>、壁かユニットにぶつかったチャンピオンは<#ffb900ff>1秒<><#ef5350ff>スタン<>。",
+        "ult": "【拡張】<#ff9028ff>迫りくる死<>：魔石を蹴り、最初に当たったチャンピオン（ミニオン貫通）へ飛ぶ。着地で周囲に<#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の60%<>の<#ff9028ff>物理ダメージ<>、獲物以外に<#ffb900ff>1.5秒<><#ef5350ff>フィアー<>。獲物が倒れるまで渇血状態：血の狂乱、<i#asset/base/ui/banpick/champion_stat_icon:armor_0><#ffdd8eff>物理防御20<>と魔防、<#6aff55ff>ライフスティール10%<>、<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移動速度25%<>追加。"
+      }
+    }
+  }
+}

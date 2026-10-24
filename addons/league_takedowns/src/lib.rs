@@ -14,6 +14,10 @@
 //!
 //! - **图奇 `league_takedowns:twitch`**：英雄联盟里身上有毒的敌方英雄死了就刷新埋伏。主包只认他自己的击杀（击杀检查留着），
 //!   本包补上助攻：清掉 Q 的剩余冷却（`entity_reduce_cooldown`），播主包的刷新画面和声音（`TWITCH_RESET`）。
+//!   v0.3.0 起 E「毒性爆发」照英雄联盟等时机：主包在他最近打中英雄 3 次后的下一下就引爆。副本里每一层毒旁边多调用
+//!   原生效果 `league_takedowns:twitch_venom`，在中毒的英雄身上数层数（`TWITCH_VENOM`，最多 6 层）；引爆的那 5 处检查改读
+//!   `TWITCH_E_GO`：有人满 6 层、或这一爆能毒死人（每层 6 + 16% 攻击力的物理伤害，按护甲折算）时本包才挂上。引爆本身还是
+//!   主包的（每层毒各结算一次），看到主包的爆发标记就把层数清零。
 //!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_takedowns.log`，每次启动游戏重写。
 
@@ -40,6 +44,16 @@ pub const TRIS_READY: &str = "league_tristana_w_ready";
 /// 图奇埋伏刷新的画面和声音（主包同名）；一次减掉的冷却（比 Q 的 900 tick 长就是清零）。
 pub const TWITCH_RESET: &str = "league_twitch_q_reset";
 pub const TWITCH_CUT: usize = 3_600;
+/// 图奇的毒层（记在每个英雄身上，最多 6 层，6 秒）、毒性爆发的旗子、冷却标记、爆发中的标记（主包同名）、距离和每层伤害。
+pub const TWITCH_VENOM: [&str; 6] = ["league_takedowns_tw_v1", "league_takedowns_tw_v2", "league_takedowns_tw_v3",
+                                     "league_takedowns_tw_v4", "league_takedowns_tw_v5", "league_takedowns_tw_v6"];
+pub const TWITCH_VENOM_LIFE: usize = 360;
+pub const TWITCH_E_GO: &str = "league_takedowns_tw_e_go";
+pub const TWITCH_E_CD: &str = "league_twitch_e_cd";
+pub const TWITCH_E_POP: &str = "league_twitch_e_pop";
+pub const TWITCH_E_REACH: u64 = 120_000;
+pub const TWITCH_E_BASE: usize = 6;
+pub const TWITCH_E_AD: usize = 16;
 /// 易：无极剑道的 buff，参与击杀减剩余冷却 %，延长 tick，普攻减 Q 冷却 tick。
 pub const YI_HIGHLANDER: &str = "league_masteryi_highlander";
 pub const YI_CUT: usize = 70;
@@ -204,9 +218,42 @@ impl StablePassive for Tristana {
 
 // ===================== 图奇 =====================
 
+/// Venom stacks on a champion after one more (League caps them at 6).
+pub fn venom_after(n: usize) -> usize {
+    (n + 1).min(TWITCH_VENOM.len())
+}
+
+/// Contaminate now? `foes` (stacks, hp + shield, armour); `per` the physical damage of one stack before armour.
+pub fn contaminate(foes: &[(usize, usize, usize)], per: usize) -> bool {
+    foes.iter().any(|&(n, hp, def)| n >= TWITCH_VENOM.len() || (n > 0 && n * per * 100 / (100 + def) >= hp))
+}
+
+fn venom_of(e: &StableEntity<'_, '_>) -> usize {
+    (0..e.buff_count()).filter_map(|i| e.buff_at(i))
+        .filter_map(|b| TWITCH_VENOM.iter().position(|n| b.name() == *n)).map(|k| k + 1).max().unwrap_or(0)
+}
+
+/// Data calls this next to every venom layer it puts on a unit (`input` = that unit): one more stack on a champion.
+struct Venom;
+
+impl StableEffectType for Venom {
+    fn apply(&self, sim: &mut StableSim<'_>, _: u64, _caster: usize, input: InputTargetV1) {
+        if InputTargetKindV1::from_code(input.kind) != Some(InputTargetKindV1::Target) {
+            return;
+        }
+        let id = input.target_id;
+        let Some(n) = sim.get_entity(id).filter(|e| e.is_champion() && e.is_alive()).map(|e| venom_of(&e)) else { return };
+        for b in TWITCH_VENOM {
+            sim.entity_remove_buff(id, b);
+        }
+        sim.add_buff(id, &BuffV1::timed(TWITCH_VENOM[venom_after(n) - 1], TWITCH_VENOM_LIFE));
+    }
+}
+
 #[derive(Clone, Default)]
 struct Twitch {
     n: usize,
+    pops: usize,
 }
 
 impl StablePassive for Twitch {
@@ -216,6 +263,38 @@ impl StablePassive for Twitch {
 
     fn on_spawn(&mut self, sim: &mut StableSim<'_>, player: usize, me: usize) {
         wlog(format!("{} SPAWN: the add-on's Twitch (player {player})", head(sim, me)));
+    }
+
+    fn on_update(&mut self, sim: &mut StableSim<'_>, _: u64, _: usize, me: usize) {
+        let Some(e) = sim.get_entity(me).filter(|e| e.is_alive()) else { return };
+        let (team, attack) = (e.team(), e.stat().attack);
+        let has = |name: &str| (0..e.buff_count()).filter_map(|i| e.buff_at(i)).any(|b| b.name() == name);
+        let (popping, ready, going) = (has(TWITCH_E_POP), !has(TWITCH_E_CD), has(TWITCH_E_GO));
+        let reach = TWITCH_E_REACH * TWITCH_E_REACH;
+        let foes: Vec<(usize, usize, usize, usize)> = (0..sim.entity_count()).filter_map(|i| sim.entity_at(i))
+            .filter(|u| u.is_champion() && u.is_alive() && u.team() != team && sim.distance_sq(me, u.id()) <= reach)
+            .map(|u| (u.id(), venom_of(&u), u.hp().0 + u.shield(), u.stat().defence))
+            .collect();
+        if popping {
+            // the data's Contaminate resolves every layer now: the counts start over
+            for f in foes.iter().filter(|f| f.1 > 0) {
+                for b in TWITCH_VENOM {
+                    sim.entity_remove_buff(f.0, b);
+                }
+            }
+            return;
+        }
+        let per = TWITCH_E_BASE + attack * TWITCH_E_AD / 100;
+        let list: Vec<(usize, usize, usize)> = foes.iter().map(|f| (f.1, f.2, f.3)).collect();
+        if ready && !going && contaminate(&list, per) {
+            sim.add_buff(me, &BuffV1::timed(TWITCH_E_GO, 30));
+            self.pops += 1;
+            if self.pops <= 80 || self.pops % 25 == 0 {
+                let top = foes.iter().max_by_key(|f| f.1).map_or(0, |f| f.1);
+                wlog(format!("{} TWITCH E GO #{}: stacks {:?}, most {top}, {per} a stack", head(sim, me), self.pops,
+                             foes.iter().map(|f| f.1).collect::<Vec<_>>()));
+            }
+        }
     }
 
     fn on_assist(&mut self, sim: &mut StableSim<'_>, _: usize, me: usize) {
@@ -332,6 +411,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     module.add_native_passive(format!("{ID}:tristana"), Tristana::default());
     module.add_native_passive(format!("{ID}:masteryi"), MasterYi::default());
     module.add_native_passive(format!("{ID}:twitch"), Twitch::default());
+    module.add_native_effect(format!("{ID}:twitch_venom"), Venom);
     host.log(LogLevel::Info, "league_takedowns v1 loaded (Jinx, Tristana and Master Yi on every takedown).");
 }
 
@@ -348,6 +428,17 @@ declare_stable_mod!(init, requires = 10);
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn twitch_pops_at_six_or_for_a_kill() {
+        assert_eq!(venom_after(5), 6);
+        assert_eq!(venom_after(6), 6);
+        assert!(!contaminate(&[(3, 1000, 0)], 50));
+        assert!(contaminate(&[(6, 5000, 0)], 50));
+        assert!(contaminate(&[(3, 140, 0)], 50));
+        assert!(!contaminate(&[(3, 140, 100)], 50));
+        assert!(!contaminate(&[(0, 0, 0)], 50));
+    }
 
     #[test]
     fn a_takedown_cuts_most_of_what_is_left() {

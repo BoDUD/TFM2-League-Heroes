@@ -5,7 +5,8 @@
         "jinx_attack": "【附加包】<#ff9028ff>枪炮交响曲！<>：近处有敌人时用<#ff9028ff>砰砰<>，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻击力<>的<#ff9028ff>物理伤害<>，每发加<i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>15% 攻击速度<>（至多<#ffb900ff>3<>层）；否则换<#ff9028ff>鱼骨头<>，射程更远，对目标及周围敌人造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110% 攻击力<>的伤害。<#ff9028ff>罪恶快感<>：参与击杀后<#ffb900ff>6秒<>内<i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>25% 攻击速度<>，<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>100% 移动速度<>。",
         "tristana_skill2": "【附加包】炮弹打中炸弹已叠<#ffb900ff>2<>层以上的敌方英雄时跳到他身边；开炮时有敌方英雄贴身则向后跳开。落地对周围敌人造成<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60% 攻击力<>的<#ff9028ff>物理伤害<>并<#ef5350ff>减速40%<>，持续<#ffb900ff>2秒<>。冷却<#ffb900ff>18秒<>；她参与击杀敌方英雄或满层引爆英雄身上的炸弹时刷新。",
         "masteryi_ult": "【附加包】<#ffb900ff>7秒<>内获得<i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>45% 攻击速度<>和<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>45% 移动速度<>，免疫减速；期间参与击杀英雄延长<#ffb900ff>4秒<>。参与击杀英雄时<#ff9028ff>阿尔法突袭<>和<#ff9028ff>无极剑道<>的剩余冷却减少<#ffb900ff>70%<>；普攻使<#ff9028ff>阿尔法突袭<>冷却减少<#ffb900ff>1秒<>。",
-        "twitch_skill": "【附加包】伪装隐身最多<#ffb900ff>5秒<>并加速20%，出手即现形，之后<#ffb900ff>6秒<>攻速+35%。参与击杀敌方英雄时刷新冷却。"
+        "twitch_skill": "【附加包】伪装隐身最多<#ffb900ff>5秒<>并加速20%，出手即现形，之后<#ffb900ff>6秒<>攻速+35%。参与击杀敌方英雄时刷新冷却。",
+        "twitch_skill2": "【附加包】扔出毒桶：范围内敌人挂一层毒并减速30%，毒池持续<#ffb900ff>3秒<>。有人满<#ffb900ff>6<>层或能毒死时接<#ff9028ff>毒性爆发<>：每层毒造成<#ff9028ff>6<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>16%<><#ff9028ff>物理伤害<>。"
       }
     }
   },
@@ -15,7 +16,8 @@
         "jinx_attack": "【附加包】<#ff9028ff>鬼靈精怪！<>：近處有敵人時用<#ff9028ff>砰砰<>，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻擊力<>的<#ff9028ff>物理傷害<>，每發加<i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>15% 攻擊速度<>（至多<#ffb900ff>3<>層）；否則換<#ff9028ff>惡鯊<>，射程更遠，對目標及周圍敵人造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110% 攻擊力<>的傷害。<#ff9028ff>狂躁！<>：參與擊殺後<#ffb900ff>6秒<>內<i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>25% 攻擊速度<>，<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>100% 移動速度<>。",
         "tristana_skill2": "【附加包】砲彈打中炸彈已疊<#ffb900ff>2<>層以上的敵方英雄時跳到他身邊；開砲時有敵方英雄貼身則向後跳開。落地對周圍敵人造成<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60% 攻擊力<>的<#ff9028ff>物理傷害<>並<#ef5350ff>緩速40%<>，持續<#ffb900ff>2秒<>。冷卻<#ffb900ff>18秒<>；她參與擊殺敵方英雄或滿層引爆英雄身上的炸彈時重置。",
         "masteryi_ult": "【附加包】<#ffb900ff>7秒<>內獲得<i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>45% 攻擊速度<>和<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>45% 移動速度<>，免疫緩速；期間參與擊殺英雄延長<#ffb900ff>4秒<>。參與擊殺英雄時<#ff9028ff>先聲奪人<>和<#ff9028ff>無極劍道<>的剩餘冷卻減少<#ffb900ff>70%<>；普攻使<#ff9028ff>先聲奪人<>冷卻減少<#ffb900ff>1秒<>。",
-        "twitch_skill": "【附加包】偽裝隱形最多<#ffb900ff>5秒<>並加速20%，出手即現形，之後<#ffb900ff>6秒<>攻速+35%。參與擊殺敵方英雄時重置冷卻。"
+        "twitch_skill": "【附加包】偽裝隱形最多<#ffb900ff>5秒<>並加速20%，出手即現形，之後<#ffb900ff>6秒<>攻速+35%。參與擊殺敵方英雄時重置冷卻。",
+        "twitch_skill2": "【附加包】擲出毒桶：範圍內敵人掛一層毒並緩速30%，毒池持續<#ffb900ff>3秒<>。有人滿<#ffb900ff>6<>層或能毒死時接<#ff9028ff>毒性爆發<>：每層毒造成<#ff9028ff>6<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>16%<><#ff9028ff>物理傷害<>。"
       }
     }
   },
@@ -25,7 +27,8 @@
         "jinx_attack": "[Add-on] <#ff9028ff>Switcheroo!<>: with an enemy close, Jinx fires <#ff9028ff>Pow-Pow<>: <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% AD<> <#ff9028ff>physical damage<>, each shot granting <i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>15% attack speed<> (up to <#ffb900ff>3<> times). Otherwise she fires <#ff9028ff>Fishbones<> from further away, dealing <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110% AD<> to the target and enemies around it. <#ff9028ff>Get Excited!<>: a takedown grants <i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>25% attack speed<> and <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>100% move speed<> for <#ffb900ff>6s<>.",
         "tristana_skill2": "[Add-on] When her cannonball hits an enemy champion whose charge holds <#ffb900ff>2<>+ stacks, Tristana jumps onto him; firing with one on top of her, she jumps away. Landing deals <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60% AD<> <#ff9028ff>physical damage<> around her and <#ef5350ff>slows<> by 40% for <#ffb900ff>2s<>. Cooldown <#ffb900ff>18s<>, reset when she takes down a champion or detonates a full charge on one.",
         "masteryi_ult": "[Add-on] For <#ffb900ff>7s<> Master Yi gains <i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>45% attack speed<> and <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>45% move speed<> and is immune to slows; a champion takedown extends it by <#ffb900ff>4s<>. Champion takedowns cut <#ff9028ff>Alpha Strike<>'s and <#ff9028ff>Wuju Style<>'s remaining cooldowns by <#ffb900ff>70%<>; each attack cuts <#ff9028ff>Alpha Strike<>'s by <#ffb900ff>1s<>.",
-        "twitch_skill": "[Add-on] Camouflaged for up to <#ffb900ff>5s<> with 20% move speed; attacking or casting reveals him and grants 35% attack speed for <#ffb900ff>6s<>. Champion kills and assists reset the cooldown."
+        "twitch_skill": "[Add-on] Camouflaged for up to <#ffb900ff>5s<> with 20% move speed; attacking or casting reveals him and grants 35% attack speed for <#ffb900ff>6s<>. Champion kills and assists reset the cooldown.",
+        "twitch_skill2": "[Add-on] Hurls a cask: enemies in the area gain a stack and are slowed 30%; the puddle lasts <#ffb900ff>3s<>. When a champion has <#ffb900ff>6<> stacks or would die, <#ff9028ff>Contaminate<>: every venom stack deals <#ff9028ff>6<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>16%<> <#ff9028ff>physical damage<>."
       }
     }
   },
@@ -35,7 +38,8 @@
         "jinx_attack": "[확장] <#ff9028ff>휘릭휘릭!<>: 가까이 적이 있으면 <#ff9028ff>빵야빵야<>로 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 100%<> <#ff9028ff>물리 피해<>, 쏠 때마다 <i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>공격 속도 15%<>(최대 <#ffb900ff>3<>회). 없으면 <#ff9028ff>생선대가리<>로 멀리서 대상과 주변 적에게 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 110%<> 피해. <#ff9028ff>신난다!<>: 챔피언 처치 관여 시 <#ffb900ff>6초<> 동안 <i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>공격 속도 25%<>와 점점 줄어드는 <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>이동 속도 100%<>.",
         "tristana_skill2": "[확장] 포탄이 화약 <#ffb900ff>2<>중첩 이상인 적 챔피언을 맞히면 그에게 뛰어들고, 적 챔피언이 붙어 있을 때 포를 쏘면 뒤로 뛰어 벗어납니다. 착지 시 주변 적에게 <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 60%<> <#ff9028ff>물리 피해<>를 입히고 <#ffb900ff>2초<> 동안 <#ef5350ff>40% 둔화<>시킵니다. 재사용 대기시간 <#ffb900ff>18초<>, 적 챔피언 처치에 관여하거나 최대 중첩 화약을 터뜨리면 초기화됩니다.",
         "masteryi_ult": "[확장] <#ffb900ff>7초<> 동안 <i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>공격 속도가 45%<>, <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>이동 속도가 45%<> 증가하고 둔화에 면역, 그동안 챔피언 처치에 관여하면 <#ffb900ff>4초<> 연장. 챔피언 처치 관여 시 <#ff9028ff>일격 필살<>과 <#ff9028ff>우주류 검술<>의 남은 재사용 대기시간 <#ffb900ff>70%<> 감소, 기본 공격마다 <#ff9028ff>일격 필살<> <#ffb900ff>1초<> 감소.",
-        "twitch_skill": "[확장] 최대 <#ffb900ff>5초<> 위장, 이동 속도 20%. 공격하거나 스킬을 쓰면 드러나고 <#ffb900ff>6초<> 동안 공격 속도 35%. 챔피언 처치 관여 시 초기화."
+        "twitch_skill": "[확장] 최대 <#ffb900ff>5초<> 위장, 이동 속도 20%. 공격하거나 스킬을 쓰면 드러나고 <#ffb900ff>6초<> 동안 공격 속도 35%. 챔피언 처치 관여 시 초기화.",
+        "twitch_skill2": "[확장] 독약 병 투척: 범위 안의 적에게 독 1중첩, 30% 둔화, 웅덩이 <#ffb900ff>3초<>. 누군가 <#ffb900ff>6<>중첩이거나 죽일 수 있으면 <#ff9028ff>오염<>: 독 중첩마다 <#ff9028ff>6<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>16%<>의 <#ff9028ff>물리 피해<>."
       }
     }
   },
@@ -45,7 +49,8 @@
         "jinx_attack": "【拡張】<#ff9028ff>スイッチング！<>：近くに敵がいれば<#ff9028ff>パウパウガン<>で<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の100%<>の<#ff9028ff>物理ダメージ<>、撃つたび<i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>攻撃速度15%<>（<#ffb900ff>3<>回まで）。いなければ<#ff9028ff>フィッシュボーン<>で対象と周囲に<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の110%<>のダメージ。<#ff9028ff>超エキサイティン！<>：撃破に関わると<#ffb900ff>6秒<>間<i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>攻撃速度25%<>と<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移動速度100%<>（徐々に低下）。",
         "tristana_skill2": "【拡張】砲弾が爆弾<#ffb900ff>2<>スタック以上の敵チャンピオンに当たると跳び込み、密着されて撃つと後ろへ跳ぶ。着地時、周囲の敵に<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の60%<>の<#ff9028ff>物理ダメージ<>と<#ffb900ff>2秒<>間<#ef5350ff>40%スロウ<>。CD<#ffb900ff>18秒<>、敵チャンピオン撃破に関わるか最大スタックの爆弾を爆発させるとリセット。",
         "masteryi_ult": "【拡張】<#ffb900ff>7秒<>間<i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>攻撃速度が45%<>、<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移動速度が45%<>増加しスロウ無効、その間にチャンピオン撃破に関わると<#ffb900ff>4秒<>延長。撃破に関わると<#ff9028ff>アルファストライク<>と<#ff9028ff>ウージュースタイル<>の残りCD<#ffb900ff>70%<>短縮、通常攻撃ごとに<#ff9028ff>アルファストライク<>のCD<#ffb900ff>1秒<>短縮。",
-        "twitch_skill": "【拡張】最大<#ffb900ff>5秒<>カモフラージュ、移動速度20%。攻撃かスキルで姿を現し<#ffb900ff>6秒<>攻撃速度35%。キルかアシストでCD解消。"
+        "twitch_skill": "【拡張】最大<#ffb900ff>5秒<>カモフラージュ、移動速度20%。攻撃かスキルで姿を現し<#ffb900ff>6秒<>攻撃速度35%。キルかアシストでCD解消。",
+        "twitch_skill2": "【拡張】毒瓶を投げ、範囲の敵に毒1スタックと30%スロウ、毒溜まり<#ffb900ff>3秒<>。誰かが<#ffb900ff>6<>スタックか倒せる時<#ff9028ff>ボーン！<>：毒1スタックにつき<#ff9028ff>6<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>16%<>の<#ff9028ff>物理ダメージ<>。"
       }
     }
   }

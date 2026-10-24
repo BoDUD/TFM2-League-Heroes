@@ -191,18 +191,27 @@
                                 {
                                   "casting_type": "Targeting",
                                   "effect": {
-                                    "type": "AddCasted",
-                                    "casted_type": "Poison",
-                                    "duration": 360,
-                                    "period": 60,
+                                    "type": "Combine",
                                     "effects": [
                                       {
-                                        "type": "FixedAttack",
-                                        "damage": 1,
-                                        "attack_ratio": 2,
-                                        "hp_ratio": 0,
-                                        "target_hp_ratio": 0,
-                                        "attack_effect_type": "Target"
+                                        "type": "AddCasted",
+                                        "casted_type": "Poison",
+                                        "duration": 360,
+                                        "period": 60,
+                                        "effects": [
+                                          {
+                                            "type": "FixedAttack",
+                                            "damage": 1,
+                                            "attack_ratio": 2,
+                                            "hp_ratio": 0,
+                                            "target_hp_ratio": 0,
+                                            "attack_effect_type": "Target"
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "Native",
+                                        "effect_ref": "league_takedowns:twitch_venom"
                                       }
                                     ]
                                   }
@@ -210,35 +219,44 @@
                                 {
                                   "casting_type": "Targeting",
                                   "effect": {
-                                    "type": "AddCasted",
-                                    "casted_type": "Poison",
-                                    "duration": 360,
-                                    "period": 2,
+                                    "type": "Combine",
                                     "effects": [
                                       {
-                                        "type": "SwitchByBuff",
-                                        "buff_name": "league_twitch_e_pop",
-                                        "effect_buff": {
-                                          "type": "Combine",
-                                          "effects": [
-                                            {
-                                              "type": "Attack",
-                                              "damage": 6,
-                                              "attack_ratio": 16,
-                                              "hp_ratio": 0,
-                                              "target_hp_ratio": 0,
-                                              "attack_effect_type": "Target"
+                                        "type": "AddCasted",
+                                        "casted_type": "Poison",
+                                        "duration": 360,
+                                        "period": 2,
+                                        "effects": [
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_twitch_e_pop",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "Attack",
+                                                  "damage": 6,
+                                                  "attack_ratio": 16,
+                                                  "hp_ratio": 0,
+                                                  "target_hp_ratio": 0,
+                                                  "attack_effect_type": "Target"
+                                                },
+                                                {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_twitch_v_pop"
+                                                }
+                                              ]
                                             },
-                                            {
-                                              "type": "ViewEffect",
-                                              "name": "league_twitch_v_pop"
+                                            "effect_none": {
+                                              "type": "Combine",
+                                              "effects": []
                                             }
-                                          ]
-                                        },
-                                        "effect_none": {
-                                          "type": "Combine",
-                                          "effects": []
-                                        }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "Native",
+                                        "effect_ref": "league_takedowns:twitch_venom"
                                       }
                                     ]
                                   }
@@ -550,18 +568,27 @@
                                     {
                                       "casting_type": "Targeting",
                                       "effect": {
-                                        "type": "AddCasted",
-                                        "casted_type": "Poison",
-                                        "duration": 360,
-                                        "period": 60,
+                                        "type": "Combine",
                                         "effects": [
                                           {
-                                            "type": "FixedAttack",
-                                            "damage": 1,
-                                            "attack_ratio": 2,
-                                            "hp_ratio": 0,
-                                            "target_hp_ratio": 0,
-                                            "attack_effect_type": "Target"
+                                            "type": "AddCasted",
+                                            "casted_type": "Poison",
+                                            "duration": 360,
+                                            "period": 60,
+                                            "effects": [
+                                              {
+                                                "type": "FixedAttack",
+                                                "damage": 1,
+                                                "attack_ratio": 2,
+                                                "hp_ratio": 0,
+                                                "target_hp_ratio": 0,
+                                                "attack_effect_type": "Target"
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "type": "Native",
+                                            "effect_ref": "league_takedowns:twitch_venom"
                                           }
                                         ]
                                       }
@@ -569,35 +596,44 @@
                                     {
                                       "casting_type": "Targeting",
                                       "effect": {
-                                        "type": "AddCasted",
-                                        "casted_type": "Poison",
-                                        "duration": 360,
-                                        "period": 2,
+                                        "type": "Combine",
                                         "effects": [
                                           {
-                                            "type": "SwitchByBuff",
-                                            "buff_name": "league_twitch_e_pop",
-                                            "effect_buff": {
-                                              "type": "Combine",
-                                              "effects": [
-                                                {
-                                                  "type": "Attack",
-                                                  "damage": 6,
-                                                  "attack_ratio": 16,
-                                                  "hp_ratio": 0,
-                                                  "target_hp_ratio": 0,
-                                                  "attack_effect_type": "Target"
+                                            "type": "AddCasted",
+                                            "casted_type": "Poison",
+                                            "duration": 360,
+                                            "period": 2,
+                                            "effects": [
+                                              {
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_twitch_e_pop",
+                                                "effect_buff": {
+                                                  "type": "Combine",
+                                                  "effects": [
+                                                    {
+                                                      "type": "Attack",
+                                                      "damage": 6,
+                                                      "attack_ratio": 16,
+                                                      "hp_ratio": 0,
+                                                      "target_hp_ratio": 0,
+                                                      "attack_effect_type": "Target"
+                                                    },
+                                                    {
+                                                      "type": "ViewEffect",
+                                                      "name": "league_twitch_v_pop"
+                                                    }
+                                                  ]
                                                 },
-                                                {
-                                                  "type": "ViewEffect",
-                                                  "name": "league_twitch_v_pop"
+                                                "effect_none": {
+                                                  "type": "Combine",
+                                                  "effects": []
                                                 }
-                                              ]
-                                            },
-                                            "effect_none": {
-                                              "type": "Combine",
-                                              "effects": []
-                                            }
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "type": "Native",
+                                            "effect_ref": "league_takedowns:twitch_venom"
                                           }
                                         ]
                                       }
@@ -1032,10 +1068,14 @@
                                 },
                                 "effect_none": {
                                   "type": "SwitchByBuff",
-                                  "buff_name": "league_twitch_h3",
+                                  "buff_name": "league_takedowns_tw_e_go",
                                   "effect_buff": {
                                     "type": "Combine",
                                     "effects": [
+                                      {
+                                        "type": "RemoveCasterBuff",
+                                        "name": "league_takedowns_tw_e_go"
+                                      },
                                       {
                                         "type": "AddCasterBuff",
                                         "buff_state": {
@@ -1408,10 +1448,14 @@
                                         },
                                         "effect_none": {
                                           "type": "SwitchByBuff",
-                                          "buff_name": "league_twitch_h3",
+                                          "buff_name": "league_takedowns_tw_e_go",
                                           "effect_buff": {
                                             "type": "Combine",
                                             "effects": [
+                                              {
+                                                "type": "RemoveCasterBuff",
+                                                "name": "league_takedowns_tw_e_go"
+                                              },
                                               {
                                                 "type": "AddCasterBuff",
                                                 "buff_state": {
@@ -1922,18 +1966,27 @@
                             {
                               "casting_type": "Targeting",
                               "effect": {
-                                "type": "AddCasted",
-                                "casted_type": "Poison",
-                                "duration": 360,
-                                "period": 60,
+                                "type": "Combine",
                                 "effects": [
                                   {
-                                    "type": "FixedAttack",
-                                    "damage": 1,
-                                    "attack_ratio": 2,
-                                    "hp_ratio": 0,
-                                    "target_hp_ratio": 0,
-                                    "attack_effect_type": "Target"
+                                    "type": "AddCasted",
+                                    "casted_type": "Poison",
+                                    "duration": 360,
+                                    "period": 60,
+                                    "effects": [
+                                      {
+                                        "type": "FixedAttack",
+                                        "damage": 1,
+                                        "attack_ratio": 2,
+                                        "hp_ratio": 0,
+                                        "target_hp_ratio": 0,
+                                        "attack_effect_type": "Target"
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "Native",
+                                    "effect_ref": "league_takedowns:twitch_venom"
                                   }
                                 ]
                               }
@@ -1941,35 +1994,44 @@
                             {
                               "casting_type": "Targeting",
                               "effect": {
-                                "type": "AddCasted",
-                                "casted_type": "Poison",
-                                "duration": 360,
-                                "period": 2,
+                                "type": "Combine",
                                 "effects": [
                                   {
-                                    "type": "SwitchByBuff",
-                                    "buff_name": "league_twitch_e_pop",
-                                    "effect_buff": {
-                                      "type": "Combine",
-                                      "effects": [
-                                        {
-                                          "type": "Attack",
-                                          "damage": 6,
-                                          "attack_ratio": 16,
-                                          "hp_ratio": 0,
-                                          "target_hp_ratio": 0,
-                                          "attack_effect_type": "Target"
+                                    "type": "AddCasted",
+                                    "casted_type": "Poison",
+                                    "duration": 360,
+                                    "period": 2,
+                                    "effects": [
+                                      {
+                                        "type": "SwitchByBuff",
+                                        "buff_name": "league_twitch_e_pop",
+                                        "effect_buff": {
+                                          "type": "Combine",
+                                          "effects": [
+                                            {
+                                              "type": "Attack",
+                                              "damage": 6,
+                                              "attack_ratio": 16,
+                                              "hp_ratio": 0,
+                                              "target_hp_ratio": 0,
+                                              "attack_effect_type": "Target"
+                                            },
+                                            {
+                                              "type": "ViewEffect",
+                                              "name": "league_twitch_v_pop"
+                                            }
+                                          ]
                                         },
-                                        {
-                                          "type": "ViewEffect",
-                                          "name": "league_twitch_v_pop"
+                                        "effect_none": {
+                                          "type": "Combine",
+                                          "effects": []
                                         }
-                                      ]
-                                    },
-                                    "effect_none": {
-                                      "type": "Combine",
-                                      "effects": []
-                                    }
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "Native",
+                                    "effect_ref": "league_takedowns:twitch_venom"
                                   }
                                 ]
                               }
@@ -2284,18 +2346,27 @@
                             {
                               "casting_type": "Targeting",
                               "effect": {
-                                "type": "AddCasted",
-                                "casted_type": "Poison",
-                                "duration": 360,
-                                "period": 60,
+                                "type": "Combine",
                                 "effects": [
                                   {
-                                    "type": "FixedAttack",
-                                    "damage": 1,
-                                    "attack_ratio": 2,
-                                    "hp_ratio": 0,
-                                    "target_hp_ratio": 0,
-                                    "attack_effect_type": "Target"
+                                    "type": "AddCasted",
+                                    "casted_type": "Poison",
+                                    "duration": 360,
+                                    "period": 60,
+                                    "effects": [
+                                      {
+                                        "type": "FixedAttack",
+                                        "damage": 1,
+                                        "attack_ratio": 2,
+                                        "hp_ratio": 0,
+                                        "target_hp_ratio": 0,
+                                        "attack_effect_type": "Target"
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "Native",
+                                    "effect_ref": "league_takedowns:twitch_venom"
                                   }
                                 ]
                               }
@@ -2303,35 +2374,44 @@
                             {
                               "casting_type": "Targeting",
                               "effect": {
-                                "type": "AddCasted",
-                                "casted_type": "Poison",
-                                "duration": 360,
-                                "period": 2,
+                                "type": "Combine",
                                 "effects": [
                                   {
-                                    "type": "SwitchByBuff",
-                                    "buff_name": "league_twitch_e_pop",
-                                    "effect_buff": {
-                                      "type": "Combine",
-                                      "effects": [
-                                        {
-                                          "type": "Attack",
-                                          "damage": 6,
-                                          "attack_ratio": 16,
-                                          "hp_ratio": 0,
-                                          "target_hp_ratio": 0,
-                                          "attack_effect_type": "Target"
+                                    "type": "AddCasted",
+                                    "casted_type": "Poison",
+                                    "duration": 360,
+                                    "period": 2,
+                                    "effects": [
+                                      {
+                                        "type": "SwitchByBuff",
+                                        "buff_name": "league_twitch_e_pop",
+                                        "effect_buff": {
+                                          "type": "Combine",
+                                          "effects": [
+                                            {
+                                              "type": "Attack",
+                                              "damage": 6,
+                                              "attack_ratio": 16,
+                                              "hp_ratio": 0,
+                                              "target_hp_ratio": 0,
+                                              "attack_effect_type": "Target"
+                                            },
+                                            {
+                                              "type": "ViewEffect",
+                                              "name": "league_twitch_v_pop"
+                                            }
+                                          ]
                                         },
-                                        {
-                                          "type": "ViewEffect",
-                                          "name": "league_twitch_v_pop"
+                                        "effect_none": {
+                                          "type": "Combine",
+                                          "effects": []
                                         }
-                                      ]
-                                    },
-                                    "effect_none": {
-                                      "type": "Combine",
-                                      "effects": []
-                                    }
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "Native",
+                                    "effect_ref": "league_takedowns:twitch_venom"
                                   }
                                 ]
                               }
@@ -2632,18 +2712,27 @@
                       {
                         "casting_type": "Targeting",
                         "effect": {
-                          "type": "AddCasted",
-                          "casted_type": "Poison",
-                          "duration": 360,
-                          "period": 60,
+                          "type": "Combine",
                           "effects": [
                             {
-                              "type": "FixedAttack",
-                              "damage": 1,
-                              "attack_ratio": 2,
-                              "hp_ratio": 0,
-                              "target_hp_ratio": 0,
-                              "attack_effect_type": "Target"
+                              "type": "AddCasted",
+                              "casted_type": "Poison",
+                              "duration": 360,
+                              "period": 60,
+                              "effects": [
+                                {
+                                  "type": "FixedAttack",
+                                  "damage": 1,
+                                  "attack_ratio": 2,
+                                  "hp_ratio": 0,
+                                  "target_hp_ratio": 0,
+                                  "attack_effect_type": "Target"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "Native",
+                              "effect_ref": "league_takedowns:twitch_venom"
                             }
                           ]
                         }
@@ -2651,35 +2740,44 @@
                       {
                         "casting_type": "Targeting",
                         "effect": {
-                          "type": "AddCasted",
-                          "casted_type": "Poison",
-                          "duration": 360,
-                          "period": 2,
+                          "type": "Combine",
                           "effects": [
                             {
-                              "type": "SwitchByBuff",
-                              "buff_name": "league_twitch_e_pop",
-                              "effect_buff": {
-                                "type": "Combine",
-                                "effects": [
-                                  {
-                                    "type": "Attack",
-                                    "damage": 6,
-                                    "attack_ratio": 16,
-                                    "hp_ratio": 0,
-                                    "target_hp_ratio": 0,
-                                    "attack_effect_type": "Target"
+                              "type": "AddCasted",
+                              "casted_type": "Poison",
+                              "duration": 360,
+                              "period": 2,
+                              "effects": [
+                                {
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "league_twitch_e_pop",
+                                  "effect_buff": {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "Attack",
+                                        "damage": 6,
+                                        "attack_ratio": 16,
+                                        "hp_ratio": 0,
+                                        "target_hp_ratio": 0,
+                                        "attack_effect_type": "Target"
+                                      },
+                                      {
+                                        "type": "ViewEffect",
+                                        "name": "league_twitch_v_pop"
+                                      }
+                                    ]
                                   },
-                                  {
-                                    "type": "ViewEffect",
-                                    "name": "league_twitch_v_pop"
+                                  "effect_none": {
+                                    "type": "Combine",
+                                    "effects": []
                                   }
-                                ]
-                              },
-                              "effect_none": {
-                                "type": "Combine",
-                                "effects": []
-                              }
+                                }
+                              ]
+                            },
+                            {
+                              "type": "Native",
+                              "effect_ref": "league_takedowns:twitch_venom"
                             }
                           ]
                         }
@@ -3125,7 +3223,7 @@
   },
   "skill2": {
     "action_name": "skill2",
-    "description": "#asset/base/text/champion?description.league_twitch.skill2",
+    "description": "#asset/base/text/champion?description.league_takedowns.twitch_skill2",
     "duration": 10,
     "cooltime": 660,
     "start_timing": 1,
@@ -3201,10 +3299,14 @@
             },
             "effect_none": {
               "type": "SwitchByBuff",
-              "buff_name": "league_twitch_h3",
+              "buff_name": "league_takedowns_tw_e_go",
               "effect_buff": {
                 "type": "Combine",
                 "effects": [
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_takedowns_tw_e_go"
+                  },
                   {
                     "type": "AddCasterBuff",
                     "buff_state": {
@@ -3522,18 +3624,27 @@
                       {
                         "casting_type": "Targeting",
                         "effect": {
-                          "type": "AddCasted",
-                          "casted_type": "Poison",
-                          "duration": 360,
-                          "period": 60,
+                          "type": "Combine",
                           "effects": [
                             {
-                              "type": "FixedAttack",
-                              "damage": 1,
-                              "attack_ratio": 2,
-                              "hp_ratio": 0,
-                              "target_hp_ratio": 0,
-                              "attack_effect_type": "Target"
+                              "type": "AddCasted",
+                              "casted_type": "Poison",
+                              "duration": 360,
+                              "period": 60,
+                              "effects": [
+                                {
+                                  "type": "FixedAttack",
+                                  "damage": 1,
+                                  "attack_ratio": 2,
+                                  "hp_ratio": 0,
+                                  "target_hp_ratio": 0,
+                                  "attack_effect_type": "Target"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "Native",
+                              "effect_ref": "league_takedowns:twitch_venom"
                             }
                           ]
                         }
@@ -3541,35 +3652,44 @@
                       {
                         "casting_type": "Targeting",
                         "effect": {
-                          "type": "AddCasted",
-                          "casted_type": "Poison",
-                          "duration": 360,
-                          "period": 2,
+                          "type": "Combine",
                           "effects": [
                             {
-                              "type": "SwitchByBuff",
-                              "buff_name": "league_twitch_e_pop",
-                              "effect_buff": {
-                                "type": "Combine",
-                                "effects": [
-                                  {
-                                    "type": "Attack",
-                                    "damage": 6,
-                                    "attack_ratio": 16,
-                                    "hp_ratio": 0,
-                                    "target_hp_ratio": 0,
-                                    "attack_effect_type": "Target"
+                              "type": "AddCasted",
+                              "casted_type": "Poison",
+                              "duration": 360,
+                              "period": 2,
+                              "effects": [
+                                {
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "league_twitch_e_pop",
+                                  "effect_buff": {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "Attack",
+                                        "damage": 6,
+                                        "attack_ratio": 16,
+                                        "hp_ratio": 0,
+                                        "target_hp_ratio": 0,
+                                        "attack_effect_type": "Target"
+                                      },
+                                      {
+                                        "type": "ViewEffect",
+                                        "name": "league_twitch_v_pop"
+                                      }
+                                    ]
                                   },
-                                  {
-                                    "type": "ViewEffect",
-                                    "name": "league_twitch_v_pop"
+                                  "effect_none": {
+                                    "type": "Combine",
+                                    "effects": []
                                   }
-                                ]
-                              },
-                              "effect_none": {
-                                "type": "Combine",
-                                "effects": []
-                              }
+                                }
+                              ]
+                            },
+                            {
+                              "type": "Native",
+                              "effect_ref": "league_takedowns:twitch_venom"
                             }
                           ]
                         }
@@ -3881,18 +4001,27 @@
                           {
                             "casting_type": "Targeting",
                             "effect": {
-                              "type": "AddCasted",
-                              "casted_type": "Poison",
-                              "duration": 360,
-                              "period": 60,
+                              "type": "Combine",
                               "effects": [
                                 {
-                                  "type": "FixedAttack",
-                                  "damage": 1,
-                                  "attack_ratio": 2,
-                                  "hp_ratio": 0,
-                                  "target_hp_ratio": 0,
-                                  "attack_effect_type": "Target"
+                                  "type": "AddCasted",
+                                  "casted_type": "Poison",
+                                  "duration": 360,
+                                  "period": 60,
+                                  "effects": [
+                                    {
+                                      "type": "FixedAttack",
+                                      "damage": 1,
+                                      "attack_ratio": 2,
+                                      "hp_ratio": 0,
+                                      "target_hp_ratio": 0,
+                                      "attack_effect_type": "Target"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "Native",
+                                  "effect_ref": "league_takedowns:twitch_venom"
                                 }
                               ]
                             }
@@ -3900,35 +4029,44 @@
                           {
                             "casting_type": "Targeting",
                             "effect": {
-                              "type": "AddCasted",
-                              "casted_type": "Poison",
-                              "duration": 360,
-                              "period": 2,
+                              "type": "Combine",
                               "effects": [
                                 {
-                                  "type": "SwitchByBuff",
-                                  "buff_name": "league_twitch_e_pop",
-                                  "effect_buff": {
-                                    "type": "Combine",
-                                    "effects": [
-                                      {
-                                        "type": "Attack",
-                                        "damage": 6,
-                                        "attack_ratio": 16,
-                                        "hp_ratio": 0,
-                                        "target_hp_ratio": 0,
-                                        "attack_effect_type": "Target"
+                                  "type": "AddCasted",
+                                  "casted_type": "Poison",
+                                  "duration": 360,
+                                  "period": 2,
+                                  "effects": [
+                                    {
+                                      "type": "SwitchByBuff",
+                                      "buff_name": "league_twitch_e_pop",
+                                      "effect_buff": {
+                                        "type": "Combine",
+                                        "effects": [
+                                          {
+                                            "type": "Attack",
+                                            "damage": 6,
+                                            "attack_ratio": 16,
+                                            "hp_ratio": 0,
+                                            "target_hp_ratio": 0,
+                                            "attack_effect_type": "Target"
+                                          },
+                                          {
+                                            "type": "ViewEffect",
+                                            "name": "league_twitch_v_pop"
+                                          }
+                                        ]
                                       },
-                                      {
-                                        "type": "ViewEffect",
-                                        "name": "league_twitch_v_pop"
+                                      "effect_none": {
+                                        "type": "Combine",
+                                        "effects": []
                                       }
-                                    ]
-                                  },
-                                  "effect_none": {
-                                    "type": "Combine",
-                                    "effects": []
-                                  }
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "Native",
+                                  "effect_ref": "league_takedowns:twitch_venom"
                                 }
                               ]
                             }
@@ -4194,232 +4332,244 @@
                       "effects": []
                     },
                     "effect_none": {
-                      "type": "Combine",
-                      "effects": [
-                        {
-                          "type": "AddCasterBuff",
-                          "buff_state": {
-                            "name": "league_twitch_e_cd",
-                            "duration": {
-                              "Time": {
-                                "tick": 600
-                              }
-                            }
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_takedowns_tw_e_go",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_takedowns_tw_e_go"
                           },
-                          "only_to_enemy": false
-                        },
-                        {
-                          "type": "RemoveCasterBuff",
-                          "name": "league_twitch_h1"
-                        },
-                        {
-                          "type": "RemoveCasterBuff",
-                          "name": "league_twitch_h2"
-                        },
-                        {
-                          "type": "RemoveCasterBuff",
-                          "name": "league_twitch_h3"
-                        },
-                        {
-                          "type": "RemoveCasterBuff",
-                          "name": "league_twitch_h4"
-                        },
-                        {
-                          "type": "CasterAnimation",
-                          "name": "skill2_e",
-                          "tick": 25
-                        },
-                        {
-                          "type": "Sfx",
-                          "name": "league_twitch_e_cast"
-                        },
-                        {
-                          "type": "SwitchByBuff",
-                          "buff_name": "league_twitch_vo_cd",
-                          "effect_buff": {
-                            "type": "Combine",
-                            "effects": []
-                          },
-                          "effect_none": {
-                            "type": "Combine",
-                            "effects": [
-                              {
-                                "type": "AddCasterBuff",
-                                "buff_state": {
-                                  "name": "league_twitch_vo_cd",
-                                  "duration": {
-                                    "Time": {
-                                      "tick": 600
-                                    }
-                                  }
-                                },
-                                "only_to_enemy": false
-                              },
-                              {
-                                "type": "Sfx",
-                                "name": "league_twitch_vo_e"
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_twitch_e_cd",
+                              "duration": {
+                                "Time": {
+                                  "tick": 600
+                                }
                               }
-                            ]
-                          }
-                        },
-                        {
-                          "type": "Delayed",
-                          "tick": 10,
-                          "effects": [
-                            {
-                              "type": "CasterViewEffect",
-                              "name": "league_twitch_e_cast"
                             },
-                            {
-                              "type": "Sfx",
-                              "name": "league_twitch_e_pop"
+                            "only_to_enemy": false
+                          },
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_twitch_h1"
+                          },
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_twitch_h2"
+                          },
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_twitch_h3"
+                          },
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_twitch_h4"
+                          },
+                          {
+                            "type": "CasterAnimation",
+                            "name": "skill2_e",
+                            "tick": 25
+                          },
+                          {
+                            "type": "Sfx",
+                            "name": "league_twitch_e_cast"
+                          },
+                          {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_twitch_vo_cd",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": []
                             },
-                            {
-                              "type": "RangeEffect",
-                              "shape": {
-                                "Circle": {
-                                  "radius": 120000
-                                }
-                              },
-                              "target": "EnemyChampion",
-                              "apply_type": "AroundCaster",
-                              "effects": [
-                                {
-                                  "type": "Combine",
-                                  "effects": [
-                                    {
-                                      "type": "RemoveCasterBuff",
-                                      "name": "league_twitch_k_e"
-                                    },
-                                    {
-                                      "type": "AddCasterBuff",
-                                      "buff_state": {
-                                        "name": "league_twitch_k_e",
-                                        "duration": {
-                                          "Time": {
-                                            "tick": 40
-                                          }
-                                        }
-                                      },
-                                      "only_to_enemy": false
-                                    }
-                                  ]
-                                },
-                                {
-                                  "type": "Delayed",
-                                  "tick": 3,
-                                  "effects": [
-                                    {
-                                      "type": "AddCasted",
-                                      "casted_type": "Heal",
-                                      "duration": 3,
-                                      "period": 1,
-                                      "effects": [
-                                        {
-                                          "type": "RemoveCasterBuff",
-                                          "name": "league_twitch_k_e"
-                                        }
-                                      ]
-                                    }
-                                  ]
-                                }
-                              ]
-                            },
-                            {
+                            "effect_none": {
                               "type": "Combine",
                               "effects": [
                                 {
-                                  "type": "RemoveCasterBuff",
-                                  "name": "league_twitch_e_pop"
-                                },
-                                {
                                   "type": "AddCasterBuff",
                                   "buff_state": {
-                                    "name": "league_twitch_e_pop",
+                                    "name": "league_twitch_vo_cd",
                                     "duration": {
                                       "Time": {
-                                        "tick": 3
+                                        "tick": 600
                                       }
                                     }
                                   },
                                   "only_to_enemy": false
+                                },
+                                {
+                                  "type": "Sfx",
+                                  "name": "league_twitch_vo_e"
                                 }
                               ]
-                            },
-                            {
-                              "type": "RangeEffect",
-                              "shape": {
-                                "Circle": {
-                                  "radius": 1000
-                                }
+                            }
+                          },
+                          {
+                            "type": "Delayed",
+                            "tick": 10,
+                            "effects": [
+                              {
+                                "type": "CasterViewEffect",
+                                "name": "league_twitch_e_cast"
                               },
-                              "target": "AllyOnlySelf",
-                              "apply_type": "AroundCaster",
-                              "effects": [
-                                {
-                                  "type": "Delayed",
-                                  "tick": 7,
-                                  "effects": [
-                                    {
-                                      "type": "SwitchByBuff",
-                                      "buff_name": "league_twitch_k_e",
-                                      "effect_buff": {
-                                        "type": "Combine",
+                              {
+                                "type": "Sfx",
+                                "name": "league_twitch_e_pop"
+                              },
+                              {
+                                "type": "RangeEffect",
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 120000
+                                  }
+                                },
+                                "target": "EnemyChampion",
+                                "apply_type": "AroundCaster",
+                                "effects": [
+                                  {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "RemoveCasterBuff",
+                                        "name": "league_twitch_k_e"
+                                      },
+                                      {
+                                        "type": "AddCasterBuff",
+                                        "buff_state": {
+                                          "name": "league_twitch_k_e",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 40
+                                            }
+                                          }
+                                        },
+                                        "only_to_enemy": false
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "Delayed",
+                                    "tick": 3,
+                                    "effects": [
+                                      {
+                                        "type": "AddCasted",
+                                        "casted_type": "Heal",
+                                        "duration": 3,
+                                        "period": 1,
                                         "effects": [
                                           {
                                             "type": "RemoveCasterBuff",
                                             "name": "league_twitch_k_e"
-                                          },
-                                          {
-                                            "type": "Combine",
-                                            "effects": [
-                                              {
-                                                "type": "Combine",
-                                                "effects": [
-                                                  {
-                                                    "type": "RemoveCasterBuff",
-                                                    "name": "league_twitch_q_reset"
-                                                  },
-                                                  {
-                                                    "type": "AddCasterBuff",
-                                                    "buff_state": {
-                                                      "name": "league_twitch_q_reset",
-                                                      "duration": {
-                                                        "Time": {
-                                                          "tick": 2
-                                                        }
-                                                      },
-                                                      "skill_cooldown_mult": 10000,
-                                                      "ult_cooldown_mult": -10000
-                                                    },
-                                                    "only_to_enemy": false
-                                                  }
-                                                ]
-                                              },
-                                              {
-                                                "type": "CasterViewEffect",
-                                                "name": "league_twitch_q_reset"
-                                              },
-                                              {
-                                                "type": "Sfx",
-                                                "name": "league_twitch_q_reset"
-                                              }
-                                            ]
                                           }
                                         ]
-                                      },
-                                      "effect_none": {
-                                        "type": "Combine",
-                                        "effects": []
                                       }
-                                    }
-                                  ]
-                                }
-                              ]
-                            }
-                          ]
-                        }
-                      ]
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "RemoveCasterBuff",
+                                    "name": "league_twitch_e_pop"
+                                  },
+                                  {
+                                    "type": "AddCasterBuff",
+                                    "buff_state": {
+                                      "name": "league_twitch_e_pop",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 3
+                                        }
+                                      }
+                                    },
+                                    "only_to_enemy": false
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "RangeEffect",
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 1000
+                                  }
+                                },
+                                "target": "AllyOnlySelf",
+                                "apply_type": "AroundCaster",
+                                "effects": [
+                                  {
+                                    "type": "Delayed",
+                                    "tick": 7,
+                                    "effects": [
+                                      {
+                                        "type": "SwitchByBuff",
+                                        "buff_name": "league_twitch_k_e",
+                                        "effect_buff": {
+                                          "type": "Combine",
+                                          "effects": [
+                                            {
+                                              "type": "RemoveCasterBuff",
+                                              "name": "league_twitch_k_e"
+                                            },
+                                            {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "Combine",
+                                                  "effects": [
+                                                    {
+                                                      "type": "RemoveCasterBuff",
+                                                      "name": "league_twitch_q_reset"
+                                                    },
+                                                    {
+                                                      "type": "AddCasterBuff",
+                                                      "buff_state": {
+                                                        "name": "league_twitch_q_reset",
+                                                        "duration": {
+                                                          "Time": {
+                                                            "tick": 2
+                                                          }
+                                                        },
+                                                        "skill_cooldown_mult": 10000,
+                                                        "ult_cooldown_mult": -10000
+                                                      },
+                                                      "only_to_enemy": false
+                                                    }
+                                                  ]
+                                                },
+                                                {
+                                                  "type": "CasterViewEffect",
+                                                  "name": "league_twitch_q_reset"
+                                                },
+                                                {
+                                                  "type": "Sfx",
+                                                  "name": "league_twitch_q_reset"
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        },
+                                        "effect_none": {
+                                          "type": "Combine",
+                                          "effects": []
+                                        }
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
                     }
                   }
                 ]
@@ -4659,10 +4809,14 @@
                           },
                           "effect_none": {
                             "type": "SwitchByBuff",
-                            "buff_name": "league_twitch_h3",
+                            "buff_name": "league_takedowns_tw_e_go",
                             "effect_buff": {
                               "type": "Combine",
                               "effects": [
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_takedowns_tw_e_go"
+                                },
                                 {
                                   "type": "AddCasterBuff",
                                   "buff_state": {
@@ -5015,18 +5169,27 @@
                                     {
                                       "casting_type": "Targeting",
                                       "effect": {
-                                        "type": "AddCasted",
-                                        "casted_type": "Poison",
-                                        "duration": 360,
-                                        "period": 60,
+                                        "type": "Combine",
                                         "effects": [
                                           {
-                                            "type": "FixedAttack",
-                                            "damage": 1,
-                                            "attack_ratio": 2,
-                                            "hp_ratio": 0,
-                                            "target_hp_ratio": 0,
-                                            "attack_effect_type": "Target"
+                                            "type": "AddCasted",
+                                            "casted_type": "Poison",
+                                            "duration": 360,
+                                            "period": 60,
+                                            "effects": [
+                                              {
+                                                "type": "FixedAttack",
+                                                "damage": 1,
+                                                "attack_ratio": 2,
+                                                "hp_ratio": 0,
+                                                "target_hp_ratio": 0,
+                                                "attack_effect_type": "Target"
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "type": "Native",
+                                            "effect_ref": "league_takedowns:twitch_venom"
                                           }
                                         ]
                                       }
@@ -5034,35 +5197,44 @@
                                     {
                                       "casting_type": "Targeting",
                                       "effect": {
-                                        "type": "AddCasted",
-                                        "casted_type": "Poison",
-                                        "duration": 360,
-                                        "period": 2,
+                                        "type": "Combine",
                                         "effects": [
                                           {
-                                            "type": "SwitchByBuff",
-                                            "buff_name": "league_twitch_e_pop",
-                                            "effect_buff": {
-                                              "type": "Combine",
-                                              "effects": [
-                                                {
-                                                  "type": "Attack",
-                                                  "damage": 6,
-                                                  "attack_ratio": 16,
-                                                  "hp_ratio": 0,
-                                                  "target_hp_ratio": 0,
-                                                  "attack_effect_type": "Target"
+                                            "type": "AddCasted",
+                                            "casted_type": "Poison",
+                                            "duration": 360,
+                                            "period": 2,
+                                            "effects": [
+                                              {
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_twitch_e_pop",
+                                                "effect_buff": {
+                                                  "type": "Combine",
+                                                  "effects": [
+                                                    {
+                                                      "type": "Attack",
+                                                      "damage": 6,
+                                                      "attack_ratio": 16,
+                                                      "hp_ratio": 0,
+                                                      "target_hp_ratio": 0,
+                                                      "attack_effect_type": "Target"
+                                                    },
+                                                    {
+                                                      "type": "ViewEffect",
+                                                      "name": "league_twitch_v_pop"
+                                                    }
+                                                  ]
                                                 },
-                                                {
-                                                  "type": "ViewEffect",
-                                                  "name": "league_twitch_v_pop"
+                                                "effect_none": {
+                                                  "type": "Combine",
+                                                  "effects": []
                                                 }
-                                              ]
-                                            },
-                                            "effect_none": {
-                                              "type": "Combine",
-                                              "effects": []
-                                            }
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "type": "Native",
+                                            "effect_ref": "league_takedowns:twitch_venom"
                                           }
                                         ]
                                       }
@@ -5374,18 +5546,27 @@
                                         {
                                           "casting_type": "Targeting",
                                           "effect": {
-                                            "type": "AddCasted",
-                                            "casted_type": "Poison",
-                                            "duration": 360,
-                                            "period": 60,
+                                            "type": "Combine",
                                             "effects": [
                                               {
-                                                "type": "FixedAttack",
-                                                "damage": 1,
-                                                "attack_ratio": 2,
-                                                "hp_ratio": 0,
-                                                "target_hp_ratio": 0,
-                                                "attack_effect_type": "Target"
+                                                "type": "AddCasted",
+                                                "casted_type": "Poison",
+                                                "duration": 360,
+                                                "period": 60,
+                                                "effects": [
+                                                  {
+                                                    "type": "FixedAttack",
+                                                    "damage": 1,
+                                                    "attack_ratio": 2,
+                                                    "hp_ratio": 0,
+                                                    "target_hp_ratio": 0,
+                                                    "attack_effect_type": "Target"
+                                                  }
+                                                ]
+                                              },
+                                              {
+                                                "type": "Native",
+                                                "effect_ref": "league_takedowns:twitch_venom"
                                               }
                                             ]
                                           }
@@ -5393,35 +5574,44 @@
                                         {
                                           "casting_type": "Targeting",
                                           "effect": {
-                                            "type": "AddCasted",
-                                            "casted_type": "Poison",
-                                            "duration": 360,
-                                            "period": 2,
+                                            "type": "Combine",
                                             "effects": [
                                               {
-                                                "type": "SwitchByBuff",
-                                                "buff_name": "league_twitch_e_pop",
-                                                "effect_buff": {
-                                                  "type": "Combine",
-                                                  "effects": [
-                                                    {
-                                                      "type": "Attack",
-                                                      "damage": 6,
-                                                      "attack_ratio": 16,
-                                                      "hp_ratio": 0,
-                                                      "target_hp_ratio": 0,
-                                                      "attack_effect_type": "Target"
+                                                "type": "AddCasted",
+                                                "casted_type": "Poison",
+                                                "duration": 360,
+                                                "period": 2,
+                                                "effects": [
+                                                  {
+                                                    "type": "SwitchByBuff",
+                                                    "buff_name": "league_twitch_e_pop",
+                                                    "effect_buff": {
+                                                      "type": "Combine",
+                                                      "effects": [
+                                                        {
+                                                          "type": "Attack",
+                                                          "damage": 6,
+                                                          "attack_ratio": 16,
+                                                          "hp_ratio": 0,
+                                                          "target_hp_ratio": 0,
+                                                          "attack_effect_type": "Target"
+                                                        },
+                                                        {
+                                                          "type": "ViewEffect",
+                                                          "name": "league_twitch_v_pop"
+                                                        }
+                                                      ]
                                                     },
-                                                    {
-                                                      "type": "ViewEffect",
-                                                      "name": "league_twitch_v_pop"
+                                                    "effect_none": {
+                                                      "type": "Combine",
+                                                      "effects": []
                                                     }
-                                                  ]
-                                                },
-                                                "effect_none": {
-                                                  "type": "Combine",
-                                                  "effects": []
-                                                }
+                                                  }
+                                                ]
+                                              },
+                                              {
+                                                "type": "Native",
+                                                "effect_ref": "league_takedowns:twitch_venom"
                                               }
                                             ]
                                           }

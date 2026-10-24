@@ -10,8 +10,10 @@ and .../text/champion.i18n -
     her on every takedown instead); passive league_takedowns:jinx; her attack's tooltip (it carries Get Excited!);
   * league_tristana: the kit as it is (her own kill check stays: the add-on only adds the assists); passive
     league_takedowns:tristana; Rocket Jump's tooltip;
-  * league_twitch: the kit as it is (his own kill check stays: the add-on only adds the assists); passive
-    league_takedowns:twitch; Ambush's tooltip;
+  * league_twitch: his own kill check stays (the add-on only adds the assists); the five Contaminate checks read
+    src/lib.rs's TWITCH_E_GO instead of his hit count (league_twitch_h3) and every venom layer (AddCasted Poison) also
+    calls league_takedowns:twitch_venom (the add-on counts the stacks on each champion); passive league_takedowns:twitch;
+    Ambush's and the cask's tooltips;
   * league_masteryi: Highlander without the main pack's 40% cooldown share (the add-on cuts the cooldowns on takedowns
     and attacks instead); passive league_takedowns:masteryi; Highlander's tooltip.
 Every tooltip changed points to description.league_takedowns.<hero>_<slot>, so the tooltip in game shows whether the
@@ -40,6 +42,11 @@ SWAPS = {
         "zh-hans": ("击杀敌方英雄时刷新冷却", "参与击杀敌方英雄时刷新冷却"), "zh-hant": ("擊殺敵方英雄時重置冷卻", "參與擊殺敵方英雄時重置冷卻"),
         "en": ("Champion takedowns reset the cooldown.", "Champion kills and assists reset the cooldown."),
         "ko": ("챔피언 처치 시 초기화.", "챔피언 처치 관여 시 초기화."), "ja": ("キルでCD解消。", "キルかアシストでCD解消。")},
+    ("league_twitch", "skill2"): {
+        "zh-hans": ("随后接", "有人满" + Y + "6" + E + "层或能毒死时接"), "zh-hant": ("隨後接", "有人滿" + Y + "6" + E + "層或能毒死時接"),
+        "en": ("Then <#ff9028ff>Contaminate<>:", "When a champion has " + Y + "6" + E + " stacks or would die, <#ff9028ff>Contaminate<>:"),
+        "ko": ("이어서 <#ff9028ff>오염<>:", "누군가 " + Y + "6" + E + "중첩이거나 죽일 수 있으면 <#ff9028ff>오염<>:"),
+        "ja": ("続けて<#ff9028ff>ボーン！<>：", "誰かが" + Y + "6" + E + "スタックか倒せる時<#ff9028ff>ボーン！<>：")},
     ("league_tristana", "skill2"): {
         "zh-hans": ("她击杀敌方英雄", "她参与击杀敌方英雄"), "zh-hant": ("她擊殺敵方英雄", "她參與擊殺敵方英雄"),
         "en": [("when she kills an enemy champion", "when she takes down a champion"), ("firing with an enemy champion on top of her", "firing with one on top of her")],
@@ -87,7 +94,9 @@ def lib_consts():
     return {"excited": [(n, int(t), int(a), int(m)) for n, t, a, m in excited],
             "tris_w_cd": re.search(r'TRIS_W_CD: &str = "([^"]+)"', src).group(1),
             "yi_r": re.search(r'YI_HIGHLANDER: &str = "([^"]+)"', src).group(1),
-            "twitch_reset": re.search(r'TWITCH_RESET: &str = "([^"]+)"', src).group(1)}
+            "twitch_reset": re.search(r'TWITCH_RESET: &str = "([^"]+)"', src).group(1),
+            "twitch_go": re.search(r'TWITCH_E_GO: &str = "([^"]+)"', src).group(1),
+            "twitch_cd": re.search(r'TWITCH_E_CD: &str = "([^"]+)"', src).group(1)}
 
 
 def buffs_named(o, name, out=None):
@@ -147,8 +156,46 @@ def twitch(c):
     d = load("league_twitch")
     if json.dumps(d).count('"' + c["twitch_reset"] + '"') < 10:
         sys.exit("Twitch's Ambush reset (league_twitch_q_reset) is gone from the main pack: update src/lib.rs")
+    gates, layers = [], []
+
+    def is_gate(o):
+        if not (o.get("type") == "SwitchByBuff" and o.get("buff_name") == c["twitch_cd"]):
+            return False
+        n = o["effect_none"]
+        return n.get("buff_name") == "league_twitch_h3" or (  # after 3 hits / W's own, 68 ticks after the cask
+            n.get("type") == "Combine" and n["effects"][0].get("buff_state", {}).get("name") == c["twitch_cd"])
+
+    def gate(o):
+        n = o["effect_none"]
+        lead = {"type": "RemoveCasterBuff", "name": c["twitch_go"]}
+        if n.get("type") == "SwitchByBuff":
+            return dict(o, effect_none=dict(n, buff_name=c["twitch_go"],
+                                             effect_buff=dict(n["effect_buff"], effects=[lead] + n["effect_buff"]["effects"])))
+        return dict(o, effect_none={"type": "SwitchByBuff", "buff_name": c["twitch_go"],
+                                    "effect_buff": {"type": "Combine", "effects": [lead] + n["effects"]},
+                                    "effect_none": {"type": "Combine", "effects": []}})
+
+    def venom(o):
+        return {"type": "Combine", "effects": [o, {"type": "Native", "effect_ref": MOD_ID + ":twitch_venom"}]}
+
+    for slot in ("attack", "skill", "skill2", "ult"):
+        d[slot] = replace(d[slot], is_gate, gate, gates)
+        d[slot] = replace(d[slot], lambda o: o.get("type") == "AddCasted" and o.get("casted_type") == "Poison", venom, layers)
+    if len(gates) != 5 or len(layers) != 18:
+        sys.exit(f"Twitch's Contaminate checks ({len(gates)}) / venom layers ({len(layers)}) changed: update this script")
     d["passive"] = {"passive_ref": MOD_ID + ":twitch", "params": {}}
-    return d, [("league_twitch", "skill")]
+    return d, [("league_twitch", "skill"), ("league_twitch", "skill2")]
+
+
+def replace(o, match, make, count):
+    if isinstance(o, dict):
+        if match(o):
+            count.append(o)
+            return make(o)
+        return {k: replace(v, match, make, count) for k, v in o.items()}
+    if isinstance(o, list):
+        return [replace(v, match, make, count) for v in o]
+    return o
 
 
 def masteryi(c):

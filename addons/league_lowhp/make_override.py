@@ -7,6 +7,8 @@ every SwitchByBuff that reads the hero's "two or more enemy champions round me" 
 raised by the counting the main pack runs before) reads src/lib.rs's <hero>_low instead, which the add-on's passive
 league_lowhp:<name> holds while the hero is at or under the threshold; the counting stays (nobody reads its flag);
 passive league_lowhp:<name>; the tooltip that names the trigger points to description.league_lowhp.<name>_<slot>.
+Lissandra's copy also loses the main pack's thralls (the seven SwitchByBuff league_lissandra_k_* blocks keep only their
+RemoveCasterBuff): the passive raises one from any enemy champion dying near her; her attack's tooltip says so.
 Run it again whenever one of them changes in the main pack (--check: compare only).
 """
 import argparse
@@ -42,6 +44,27 @@ HEROES = {
         "ko": ("적 챔피언 둘 이상에게 둘러싸이면", "체력이 " + Y + "{p}%" + E + " 이하면"),
         "ja": ("敵チャンピオン2体以上に囲まれると", "体力が" + Y + "{p}%" + E + "以下だと")}),
 }
+# hero -> (slot, lang -> (main words, add-on words)): more tooltips changed
+EXTRA = {
+    "league_lissandra": ("attack", {
+        "zh-hans": ("她击杀的敌方英雄化为冰仆", "她身边阵亡的敌方英雄化为冰仆"),
+        "zh-hant": ("她擊殺的敵方英雄化為冰僕", "她身邊陣亡的敵方英雄化為冰僕"),
+        "en": ("an enemy champion she kills becomes", "an enemy champion dying near her becomes"),
+        "ko": ("리산드라가 처치한 적 챔피언은", "리산드라 근처에서 죽은 적 챔피언은"),
+        "ja": ("倒した敵チャンピオンは", "近くで倒れた敵チャンピオンは")}),
+}
+
+
+def strip_thralls(o, n):
+    if isinstance(o, dict):
+        if o.get("type") == "SwitchByBuff" and o.get("buff_name", "").startswith("league_lissandra_k_")                 and "league_lissandra_p_thrall" in json.dumps(o["effect_buff"]):
+            n.append(1)
+            keep = [e for e in o["effect_buff"]["effects"] if e.get("type") == "RemoveCasterBuff"]
+            return dict(o, effect_buff={"type": "Combine", "effects": keep})
+        return {k: strip_thralls(v, n) for k, v in o.items()}
+    if isinstance(o, list):
+        return [strip_thralls(v, n) for v in o]
+    return o
 
 
 def lp(path):
@@ -91,18 +114,27 @@ def main():
         d = rename(d, count_flag, flag, n)
         if len(n) != reads:
             sys.exit(f"{hero}: {len(n)} reads of {count_flag}, expected {reads}: check the main pack and update this script")
+        if hero == "league_lissandra":
+            k = []
+            d = strip_thralls(d, k)
+            if len(k) != 7 or "league_lissandra_p_thrall" in json.dumps({s: d[s] for s in ("attack", "skill", "skill2", "ult")}):
+                sys.exit(f"Lissandra's thralls ({len(k)} blocks) changed in the main pack: update this script")
         d["passive"] = {"passive_ref": f"{MOD_ID}:{name}", "params": {}}
         d[slot]["description"] = f"#asset/base/text/champion?description.{MOD_ID}.{name}_{slot}"
+        more = [EXTRA[hero]] if hero in EXTRA else []
+        for sl, sw in [(slot, swaps)] + more:
+            if sl != slot:
+                d[sl]["description"] = f"#asset/base/text/champion?description.{MOD_ID}.{name}_{sl}"
+            for lang, tab in main_text.items():
+                old, new = sw[lang]
+                t = tab["description"][hero][sl]
+                if old not in t:
+                    sys.exit(f"{lang} {hero}.{sl}: the main pack's text changed ({old!r} not found): update this script")
+                t = LEAD[lang] + t.replace(old, new.format(p=pct))
+                if shown_length(t) > TOOLTIP_MAX[lang]:
+                    sys.exit(f"{lang} {hero}.{sl}: tooltip too long ({shown_length(t)} > {TOOLTIP_MAX[lang]})")
+                texts[lang][f"{name}_{sl}"] = t
         files[os.path.join(ADDON, "override", hero + ".data_champion")] = json.dumps(d, ensure_ascii=False, indent=2) + "\n"
-        for lang, tab in main_text.items():
-            old, new = swaps[lang]
-            t = tab["description"][hero][slot]
-            if old not in t:
-                sys.exit(f"{lang} {hero}.{slot}: the main pack's text changed ({old!r} not found): update this script")
-            t = LEAD[lang] + t.replace(old, new.format(p=pct))
-            if shown_length(t) > TOOLTIP_MAX[lang]:
-                sys.exit(f"{lang} {hero}.{slot}: tooltip too long ({shown_length(t)} > {TOOLTIP_MAX[lang]})")
-            texts[lang][f"{name}_{slot}"] = t
     files[os.path.join(ADDON, "text", "champion.i18n")] = json.dumps(
         {lang: {"description": {MOD_ID: k}} for lang, k in texts.items()}, ensure_ascii=False, indent=2) + "\n"
     if a.check:

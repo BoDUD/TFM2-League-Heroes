@@ -11,10 +11,10 @@
       "version": ">=0.210.0"
     }
   ],
-  "description": "Test build of three low-health triggers as in League (needs League of Legends Heroes): Blitzcrank's Mana Barrier at 30% health, LeBlanc's Mirror Image at 40% and Lissandra's self-encasing ult at 35% (the main pack fires them when two or more enemy champions are close, since data cannot read health). Other champions are untouched. Writes a log for testing.",
+  "description": "Test build of three low-health triggers as in League (needs League of Legends Heroes): Blitzcrank's Mana Barrier at 30% health, LeBlanc's Mirror Image at 40% and Lissandra's self-encasing ult at 35% (the main pack fires them when two or more enemy champions are close, since data cannot read health). Lissandra's thralls also rise from any enemy champion dying near her (the main pack's only from her own kills). Other champions are untouched. Writes a log for testing.",
   "last_updated": "2026-10-24",
   "mod_id": "league_lowhp",
   "mod_type": "native",
   "name": "League Heroes: Blitzcrank, LeBlanc and Lissandra on low health (test)",
-  "version": "0.1.0"
+  "version": "0.2.0"
 }

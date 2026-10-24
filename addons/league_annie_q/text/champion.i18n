@@ -2,35 +2,40 @@
   "zh-hans": {
     "description": {
       "league_annie_q": {
-        "skill": "【附加包】扔出火球，造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65% 法术强度<>的<#a974ffff>魔法伤害<>。击杀目标时返还一半冷却。"
+        "skill": "【附加包】扔出火球，造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65% 法术强度<>的<#a974ffff>魔法伤害<>。击杀目标时返还一半冷却。",
+        "ult": "【附加包】召唤提伯斯砸向敌方英雄，对周围敌人造成<#a974ffff>130<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% 法术强度<>的<#a974ffff>魔法伤害<>。提伯斯紧跟该英雄<#ffb900ff>6秒<>，每秒灼烧其周围敌人，造成<#a974ffff>14<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>8% 法术强度<>的<#a974ffff>魔法伤害<>；该英雄阵亡时提伯斯转向附近的敌方英雄。"
       }
     }
   },
   "zh-hant": {
     "description": {
       "league_annie_q": {
-        "skill": "【附加包】扔出火球，造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65% 魔法強度<>的<#a974ffff>魔法傷害<>。擊殺目標時返還一半冷卻。"
+        "skill": "【附加包】扔出火球，造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65% 魔法強度<>的<#a974ffff>魔法傷害<>。擊殺目標時返還一半冷卻。",
+        "ult": "【附加包】召喚泰貝爾砸向敵方英雄，對周圍敵人造成<#a974ffff>130<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% 魔法強度<>的<#a974ffff>魔法傷害<>。泰貝爾緊跟該英雄<#ffb900ff>6秒<>，每秒灼燒其周圍敵人，造成<#a974ffff>14<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>8% 魔法強度<>的<#a974ffff>魔法傷害<>；該英雄陣亡時泰貝爾轉向附近的敵方英雄。"
       }
     }
   },
   "en": {
     "description": {
       "league_annie_q": {
-        "skill": "[Add-on] Annie hurls a fireball that deals <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65% Ability Power<> <#a974ffff>magic damage<>. A kill refunds half its cooldown."
+        "skill": "[Add-on] Annie hurls a fireball that deals <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65% Ability Power<> <#a974ffff>magic damage<>. A kill refunds half its cooldown.",
+        "ult": "[Add-on] Annie summons Tibbers onto an enemy champion, dealing <#a974ffff>130<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% Ability Power<> <#a974ffff>magic damage<> around him. For <#ffb900ff>6s<> Tibbers follows that champion and burns enemies around him for <#a974ffff>14<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>8% Ability Power<> <#a974ffff>magic damage<> every second; when the champion dies he goes on to a nearby one."
       }
     }
   },
   "ko": {
     "description": {
       "league_annie_q": {
-        "skill": "[확장] 불덩이를 던져 <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 65%<> <#a974ffff>마법 피해<>를 입힙니다. 대상을 처치하면 재사용 대기시간 절반을 돌려받습니다."
+        "skill": "[확장] 불덩이를 던져 <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 65%<> <#a974ffff>마법 피해<>를 입힙니다. 대상을 처치하면 재사용 대기시간 절반을 돌려받습니다.",
+        "ult": "[확장] 티버를 적 챔피언에게 떨어뜨려 주변 적에게 <#a974ffff>130<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 70%<> <#a974ffff>마법 피해<>를 입힙니다. 티버는 <#ffb900ff>6초<> 동안 그 챔피언을 따라다니며 매초 주변 적을 불태워 <#a974ffff>14<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 8%<> <#a974ffff>마법 피해<>를 입힙니다. 그 챔피언이 죽으면 티버는 근처의 다른 챔피언에게 갑니다."
       }
     }
   },
   "ja": {
     "description": {
       "league_annie_q": {
-        "skill": "【拡張】火の玉を投げ、<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の65%<>の<#a974ffff>魔法ダメージ<>を与える。倒すとCDが半分戻る。"
+        "skill": "【拡張】火の玉を投げ、<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の65%<>の<#a974ffff>魔法ダメージ<>を与える。倒すとCDが半分戻る。",
+        "ult": "【拡張】ティバーズを敵チャンピオンに落とし、周囲の敵に<#a974ffff>130<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の70%<>の<#a974ffff>魔法ダメージ<>を与える。ティバーズは<#ffb900ff>6秒<>間そのチャンピオンを追いかけ、毎秒周囲の敵を燃やして<#a974ffff>14<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の8%<>の<#a974ffff>魔法ダメージ<>を与える。そのチャンピオンが倒れるとティバーズは近くの別の敵へ向かう。"
       }
     }
   }

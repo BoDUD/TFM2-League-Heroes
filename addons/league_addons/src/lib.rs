@@ -207,6 +207,9 @@ mod annie_q;
 #[allow(dead_code)] // items public in the add-on's own crate
 #[path = "../../league_support_pick/src/lib.rs"]
 mod support_pick;
+#[allow(dead_code)] // items public in the add-on's own crate
+#[path = "../../league_briar_frenzy/src/lib.rs"]
+mod briar_frenzy;
 #[path = "../../league_shen_shield/src/lib.rs"]
 mod shen_shield;
 #[allow(dead_code)] // items public in the add-on's own crate
@@ -467,6 +470,7 @@ fn init(host: &StableHost) -> StableMod {
     xayah_feathers::register(host, &mut module);
     annie_q::register(host, &mut module);
     support_pick::register(host, &mut module);
+    briar_frenzy::register(host, &mut module);
     shen_shield::register(host, &mut module);
     tahmkench::register(host, &mut module);
     kalista::register(host, &mut module);
