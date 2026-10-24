@@ -11,7 +11,7 @@ shoulder (one big and one small round finger loop, gold frame). hd/raw/gwen-v2.p
 to colours by k-means, then design_ahri_hd.read's Lab-mean step takes her crown (CROWN rows under the ahoge's tip) to
 her soles to her height now (38 game rows) times PPU.
 Brought to size by whole lines dropped (design()), the face's lines kept.
--> hd/design.png. With --review DIR: <dir>/gwen_ppu_size.png (the design at each --ppus beside this pack's PPU 2.2
+-> hd/design.png (PPU 2.84: as drawn). With --review DIR: <dir>/gwen_ppu_size.png (the design at each --ppus beside this pack's PPU 2.2
 heroes and Gwen now, as the game draws them) and <dir>/gwen_ppu_closeup.png (Codex's picture and the design at 6x).
 """
 import argparse
@@ -31,7 +31,7 @@ AH.HD = os.path.join(ROOT, "assets", "source", "gwen", "hd")
 AH.RAW, AH.PITCH = "gwen-v2.png", (10.3, 11.2)  # its own square (10.67 x 10.56)
 OLD = 38                        # her 1x idle, crown to soles (the ahoge and the blade apart; 2026-10-09 「格温好像也偏大」)
 CROWN = 8                       # squares of Codex's read from the ahoge's tip down to her crown (the headband's top)
-PPU = 2.2
+PPU = 2.84                      # the user's pick, 2026-10-25: 「用 2.84，按原图密度」 - her read as drawn (108 / 38 rows)
 FACE_ROWS, FACE_COLS = range(34, 51), range(43, 68)   # her eyes (rows 37-45), mouth (48-49) on the read's squares
 PEERS = ["gwen", "annie", "ahri", "lux"]
 
@@ -43,8 +43,8 @@ def design(ppu, how="cut"):
     q, _, _ = AH.native()
     ys, xs = np.nonzero(q[..., 3])
     q = q[ys.min():ys.max() + 1, xs.min():xs.max() + 1]
-    step = max(1.0, (q.shape[0] - CROWN) / (OLD * ppu))
-    if step == 1.0:
+    step = (q.shape[0] - CROWN) / (OLD * ppu)
+    if step < 1.01:
         return q, step                                  # (as drawn: PPU 2.84)
     if how == "mean":
         return AH.read(step)[0], step
