@@ -1,0 +1,20 @@
+{
+  "author": "BoDUD",
+  "contains_code": true,
+  "dependencies": [
+    {
+      "mod_id": "base",
+      "version": ">=0.4.11"
+    },
+    {
+      "mod_id": "league",
+      "version": ">=0.210.0"
+    }
+  ],
+  "description": "Test build of Samira's Inferno Trigger as in League (needs League of Legends Heroes): replaces the main pack's Samira so she walks toward the weakest enemy champion while her ult spins and fires (the main pack's spins in place, since a cast animation stops her). The ult's shots, damage and pictures are the main pack's. Other champions are untouched. Writes a log for testing.",
+  "last_updated": "2026-10-24",
+  "mod_id": "league_samira_r",
+  "mod_type": "native",
+  "name": "League Heroes: Samira walks while her ult spins (test)",
+  "version": "0.1.0"
+}
