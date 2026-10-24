@@ -1,0 +1,42 @@
+{
+  "zh-hans": {
+    "description": {
+      "league_aurelionsol": {
+        "attack": "【附加包】甩出一颗星星。<#ff9028ff>星海焕然<>：技能命中英雄收集星尘（每层法强+3%，最多15层，死亡后保留），每6层下一次大招变为天瀑。<#ff9028ff>星穹流丽<>：击杀英雄后起飞<#ffb900ff>4秒<>，移速+60%、法强+20%。",
+        "skill2": "【附加包】在目标处召唤黑洞（<#ffb900ff>5秒<>），每<#ffb900ff>0.25秒<>造成<#a974ffff>16<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>9%<>魔法伤害，把敌人拉向中心并<#ef5350ff>减速<>25%；中心<#ef5350ff>处决<>生命低于5%（每层星尘+1%）的英雄。"
+      }
+    }
+  },
+  "zh-hant": {
+    "description": {
+      "league_aurelionsol": {
+        "attack": "【附加包】甩出一顆星星。<#ff9028ff>宇宙創世<>：技能命中英雄收集星塵（每層魔攻+3%，最多15層，死亡後保留），每6層下一次大絕變為天界殞落。<#ff9028ff>星界翱翔<>：擊殺英雄後起飛<#ffb900ff>4秒<>，移速+60%、魔攻+20%。",
+        "skill2": "【附加包】在目標處召喚奇點（<#ffb900ff>5秒<>），每<#ffb900ff>0.25秒<>造成<#a974ffff>16<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>9%<>魔法傷害，把敵人拉向中心並<#ef5350ff>緩速<>25%；中心<#ef5350ff>處決<>生命低於5%（每層星塵+1%）的英雄。"
+      }
+    }
+  },
+  "en": {
+    "description": {
+      "league_aurelionsol": {
+        "attack": "[Add-on] Flings a star. <#ff9028ff>Cosmic Creator<>: his spells hitting champions gather Stardust (+3% ability power a stack, 15 at most, kept through death); every 6 make his next ult The Skies Descend. <#ff9028ff>Astral Flight<>: after a takedown he flies for <#ffb900ff>4s<>, +60% move speed and +20% ability power.",
+        "skill2": "[Add-on] Summons a black hole at the target for <#ffb900ff>5s<>: every <#ffb900ff>0.25s<> <#a974ffff>16<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>9%<> magic damage, pulling enemies toward its centre and <#ef5350ff>slowing<> them 25%; its centre <#ef5350ff>executes<> champions under 5% health (+1% per Stardust)."
+      }
+    }
+  },
+  "ko": {
+    "description": {
+      "league_aurelionsol": {
+        "attack": "[확장] 별을 던진다. <#ff9028ff>우주의 창조자<>: 스킬이 챔피언을 맞히면 별무리 획득(중첩당 주문력 +3%, 최대 15, 죽어도 유지), 6개마다 다음 궁극기가 천상 강림이 됨. <#ff9028ff>별의 비행<>: 처치 관여 후 <#ffb900ff>4초<> 동안 비행, 이동 속도 +60%, 주문력 +20%.",
+        "skill2": "[확장] 대상 위치에 <#ffb900ff>5초<> 동안 블랙홀 소환: <#ffb900ff>0.25초<>마다 <#a974ffff>16<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>9%<> 마법 피해, 적을 중심으로 끌어당기고 25% <#ef5350ff>둔화<>; 중심은 체력 5%(별무리당 +1%) 미만 챔피언을 <#ef5350ff>처형<>."
+      }
+    }
+  },
+  "ja": {
+    "description": {
+      "league_aurelionsol": {
+        "attack": "【拡張】星を投げる。<#ff9028ff>宇宙の創造者<>：スキルがチャンピオンに当たると星屑獲得（1スタックにつき魔力+3%、最大15、死んでも残る）、6個ごとに次のアルティメットが崩れ落つ天穹に。<#ff9028ff>天空への飛翔<>：キル関与後<#ffb900ff>4秒<>飛行、移動速度+60%、魔力+20%。",
+        "skill2": "【拡張】対象の位置に<#ffb900ff>5秒<>ブラックホールを召喚：<#ffb900ff>0.25秒<>ごとに<#a974ffff>16<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>9%<>の魔法ダメージ、敵を中心へ引き寄せ25%<#ef5350ff>スロウ<>；中心は体力5%（星屑1つにつき+1%）未満のチャンピオンを<#ef5350ff>処刑<>。"
+      }
+    }
+  }
+}

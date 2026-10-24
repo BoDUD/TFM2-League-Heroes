@@ -1,0 +1,10 @@
+{
+  "asset/league/champion/league_aurelionsol": {
+    "remapping": "asset/league_aurelionsol/override/league_aurelionsol",
+    "type": "override"
+  },
+  "asset/base/text/champion": {
+    "remapping": "asset/league_aurelionsol/text/champion",
+    "type": "merge"
+  }
+}
