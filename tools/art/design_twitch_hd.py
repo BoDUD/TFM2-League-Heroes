@@ -11,7 +11,7 @@ Ahri's way (design_ahri_hd.py):
 - then STEP of them make a design square (design_lux_hd's way: the mean in Lab of the parts of the squares it
   covers, outline squares apart, snapped to those colours; the outline where it covers OUTLINE_SHARE of outline);
 - speckle cleaned as Jinx's (design_jinx_hd.clean);
-- the face set by hand (FACE).
+- the goggle, the grin and the nose redrawn by hand (face()).
 -> hd/design.png. With --review DIR: <dir>/twitch_ppu_size.png (the design at --ppu beside this pack's PPU heroes and
 Twitch now, as the game draws them, 3 screen pixels a game pixel) and <dir>/twitch_ppu_closeup.png (the picture and
 the design at 4x).
@@ -38,12 +38,58 @@ HD = os.path.join(ROOT, "assets", "source", "twitch", "hd")
 RAW = "twitch-user.png"
 PITCH = (7.7, 8.3)              # the picture's own square (~8 px: its edges' comb peaks at 8.0)
 COLOURS = 48
-STEP = 1.0                      # its squares to a design square (set once the user picks the PPU)
+STEP = 1.534                    # its squares to a design square: 109 x 71, PPU 2.2 at his 32 px (the user picked 2.2
+                                # from 2.2 / 2.5 / 3.0, 2026-10-24: 「用 PPU 2.2，牙齿和脸手修清楚」)
 GAME_ROWS = 32                  # his sprite now, ears to soles: the game size he keeps
 PPU = 2.2
 OUTLINE_SHARE = 0.45
 H = lambda h: tuple(int(h[i:i + 2], 16) for i in (0, 2, 4))  # noqa: E731
-FACE = {}
+# the face redrawn by hand (the user, 2026-10-24: 「牙齿和脸手修清楚」 - read at 1.534 squares a square the teeth ran
+# into one smear and the goggle into a gold blob): the design's own colours by letter, P a paler lens highlight
+C = dict(a='474335', b='302D27', c='5D5C45', d='7A7958', e='9D9A6E', f='0E0A10', g='735036', h='A46049', j='4A311D',
+         k='94691F', l='DCB24C', n='724E15', o='C69E63', p='E5BB7A', q='573A14', s='352318', u='511724', v='7A2031', w='7D3511', P='F2D9A6')
+
+
+def face():
+    """(x, y) -> colour letter on the 109 x 71 design."""
+    F = {}
+    # goggle: a round lens (cream, darker rim) with a 2x2 pupil, a gold ring lit top-left, a dark edge
+    cx, cy = 63.5, 18.5
+    for y in range(12, 26):
+        for x in range(57, 71):
+            r = np.hypot(x - cx, y - cy)
+            lit = (x - cx) + (y - cy)
+            if r < 1.2: F[x, y] = 'f'
+            elif r < 2.5: F[x, y] = 'P' if lit < -1.5 else ('p' if lit < 2 else 'o')
+            elif r < 3.1: F[x, y] = 'j'
+            elif r < 4.1: F[x, y] = 'l' if lit < 1 else 'k'
+            elif r < 4.6: F[x, y] = 'f'
+    # mouth: a grin slanting down to the snout, the gum on top, upper and lower teeth locked, the lower gum
+    for x in range(64, 79):
+        t = 26 + (x - 63) // 4
+        if x == 64:                     # the back corner: closed to a dark slit
+            F[x, t + 1], F[x, t + 2] = 'u', 'f'
+            continue
+        if x == 78:                     # the front corner, under the nose
+            F[x, t], F[x, t + 1], F[x, t + 2] = 'v', 'u', 'f'
+            continue
+        F[x, t] = 'v'
+        F[x, t + 1] = 'p' if x % 3 else 'f'
+        F[x, t + 2] = 'o' if x % 3 == 1 else ('u' if x < 67 else 'f')
+        F[x, t + 3] = 'v'
+        F[x, t + 4] = 'b'
+    # the fang at the corner, over the lower gum and below the chin
+    for (x, y), c in {(76, 31): 'p', (77, 31): 'p', (76, 32): 'p', (77, 32): 'o', (76, 33): 'o', (77, 33): 'f',
+                      (75, 33): 'b', (75, 34): 'f', (76, 34): 'o', (77, 34): 'f', (76, 35): 'f'}.items():
+        F[x, y] = c
+    # the nose: red-brown, lit on top, a nostril
+    for (x, y), c in {(78, 23): 'w', (79, 23): 'w', (80, 23): 'h', (78, 24): 'w', (79, 24): 'j', (80, 24): 'w',
+                      (81, 24): 'w', (78, 25): 'j', (79, 25): 'w', (80, 25): 'w', (81, 25): 'w', (78, 26): 'j',
+                      (79, 26): 'j', (80, 26): 'j'}.items():
+        F[x, y] = c
+    return F
+
+
 PEERS = ["twitch", "jinx", "caitlyn", "varus", "kogmaw"]
 
 
@@ -105,8 +151,9 @@ def main():
     a = ap.parse_args()
     d, size = read(a.step)
     if a.step == STEP:
-        for (x, y), c in FACE.items():
-            d[y, x, :3] = c
+        for (x, y), c in face().items():
+            if d[y, x, 3]:
+                d[y, x, :3] = H(C[c])
     Image.fromarray(d).save(lp(a.out or os.path.join(HD, "design.png")))
     print(f"square {size[0]:.2f} x {size[1]:.2f}, step {a.step} -> design {d.shape[1]}x{d.shape[0]}, "
           f"{len(np.unique(d[d[..., 3] > 0][:, :3], axis=0))} colours")
