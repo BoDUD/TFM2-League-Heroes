@@ -45,7 +45,11 @@ The add-on copy (--native, addons/league_aurelionsol): the passive league_aureli
 through death and executes in the black hole's core by real health.
 Action tags (the art): idle run attack hit dead skill skill2 ult.
 Numbers: League 16.21 read into the Magician mid range (league_aurora, league_hwei); timings are drafts until the frames
-exist.
+exist. Balanced on the classic-SDK simulations (kd.py --lane 2 against the five base mid mages, C:/t/as_sim, 2026-10-24;
+league_aurora +0.93 / +1.01 on seeds 1-8 / 9-16): the draft (Q 14 + 9% a pulse, E 8 + 5%, R 200 + 65%) -3.01; Q 22 + 15%,
+E 14 + 8%, R 260 + 80%, 1000 health, 24 defence +0.35; Q 30 + 20%, E 18 + 10%, R 280 + 90% +1.74; between them (Q 26 + 17%
+every 300 ticks, the held bonus 30, E 16 + 9% every 630, the core 4%, R 270 + 85% / Skies 350 + 105% every 2100) = P
++0.40 / +1.41.
 """
 import argparse
 import json
@@ -65,7 +69,7 @@ BIG = "asset/league/effects/league_aurelionsol_big"
 # 50% slow; cd 120-100.
 P = {
     # stats (Magician mid: league_aurora 960 +90 hp, 68 +6 attack, 40 +20 ap, 21 +6 def)
-    "hp": 960, "hp_g": 92, "atk": 66, "atk_g": 6, "apw": 40, "apw_g": 20, "def": 21, "def_g": 6, "mr": 26, "mr_g": 4,
+    "hp": 1000, "hp_g": 92, "atk": 66, "atk_g": 6, "apw": 40, "apw_g": 20, "def": 24, "def_g": 6, "mr": 26, "mr_g": 4,
     "ms": 900, "ms_g": 9,
     "atk_range": 55000, "atk_dur": 27, "atk_cd": 90, "a_rel": 10, "a_speed": 4500, "a_y": -5000,
     # the controller
@@ -74,15 +78,15 @@ P = {
     "d_max": 15, "d_ap": 3, "d_lk": 60, "g_t": 30, "sky_n": 6, "p_win": 180,
     "w_t": 240, "w_ms": 60, "w_ap": 20, "w_cd": 1200, "w_cut": 300,
     # skill: Breath of Light
-    "q_cd": 360, "q_cd_f": 150, "q_range": 75000, "q_t": 90, "q_t_f": 150, "q_p": 10, "q_rel": 8,
-    "q_len": 78000, "q_rad": 6000, "q_speed": 30000, "q_dmg": 14, "q_ratio": 9, "q_sec": 60, "q_sec_dmg": 10,
+    "q_cd": 300, "q_cd_f": 150, "q_range": 75000, "q_t": 90, "q_t_f": 150, "q_p": 10, "q_rel": 8,
+    "q_len": 78000, "q_rad": 6000, "q_speed": 30000, "q_dmg": 26, "q_ratio": 17, "q_sec": 60, "q_sec_dmg": 30,
     # skill2: Singularity
-    "e_cd": 720, "e_range": 75000, "e_dur": 30, "e_rel": 12, "e_fly": 18, "e_r": 26000, "e_t": 300, "e_p": 15,
-    "e_dmg": 8, "e_ratio": 5, "e_pull": 250, "e_pull_t": 4, "e_slow": 25, "e_core": 9000, "e_cp": 60, "e_exec": 3,
+    "e_cd": 630, "e_range": 75000, "e_dur": 30, "e_rel": 12, "e_fly": 18, "e_r": 26000, "e_t": 300, "e_p": 15,
+    "e_dmg": 16, "e_ratio": 9, "e_pull": 250, "e_pull_t": 4, "e_slow": 25, "e_core": 9000, "e_cp": 60, "e_exec": 4,
     "e_ap": 15, "e_low": 5, "e_low_d": 1,
     # ult: Falling Star / The Skies Descend
-    "r_cd": 2400, "r_range": 125000, "r_dur": 36, "r_rel": 14, "r_fall": 30, "r_r": 22000, "r_dmg": 200,
-    "r_ratio": 65, "r_stun": 60, "r_r2": 30000, "r_dmg2": 260, "r_ratio2": 80, "r_up": 50, "r_wave_at": 12,
+    "r_cd": 2100, "r_range": 125000, "r_dur": 36, "r_rel": 14, "r_fall": 30, "r_r": 22000, "r_dmg": 270,
+    "r_ratio": 85, "r_stun": 60, "r_r2": 30000, "r_dmg2": 350, "r_ratio2": 105, "r_up": 50, "r_wave_at": 12,
     "r_wave": 45000, "r_wdmg": 80, "r_wratio": 30, "r_wslow": 50, "r_wslow_t": 90,
     # his spoken lines, at most one every vo_gap ticks
     "vo_gap": 600,
