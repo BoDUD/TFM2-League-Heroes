@@ -168,6 +168,9 @@ mod executes;
 #[allow(dead_code)] // items public in the add-on's own crate
 #[path = "../../league_lowhp/src/lib.rs"]
 mod lowhp;
+#[allow(dead_code)] // items public in the add-on's own crate
+#[path = "../../league_marks/src/lib.rs"]
+mod marks;
 #[path = "../../league_shen_shield/src/lib.rs"]
 mod shen_shield;
 #[allow(dead_code)] // items public in the add-on's own crate
@@ -415,6 +418,7 @@ fn init(host: &StableHost) -> StableMod {
     takedowns::register(host, &mut module);
     executes::register(host, &mut module);
     lowhp::register(host, &mut module);
+    marks::register(host, &mut module);
     shen_shield::register(host, &mut module);
     tahmkench::register(host, &mut module);
     kalista::register(host, &mut module);

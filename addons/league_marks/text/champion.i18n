@@ -1,0 +1,37 @@
+{
+  "zh-hans": {
+    "description": {
+      "league_marks": {
+        "diana_skill2": "【附加包】冲向目标，造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% 法术强度<>的<#a974ffff>魔法伤害<>；目标带<#a974ffff>月光<>时再冲一次。<#a974ffff>苍白之瀑<>（<#ffb900ff>10秒<>一次）：冲到时获得<#e8d44dff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50% 法术强度<>的<#e8d44dff>护盾<>，三颗法球依次撞向身边的敌人，各造成<#a974ffff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30% 法术强度<>的<#a974ffff>魔法伤害<>，三颗炸完护盾再加一层。"
+      }
+    }
+  },
+  "zh-hant": {
+    "description": {
+      "league_marks": {
+        "diana_skill2": "【附加包】衝向目標，造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% 魔法攻擊<>的<#a974ffff>魔法傷害<>；目標帶<#a974ffff>月光精華<>時再衝一次。<#a974ffff>蒼白月瀑<>（<#ffb900ff>10秒<>一次）：衝到時獲得<#e8d44dff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50% 魔法攻擊<>的<#e8d44dff>護盾<>，三個星體依次撞向身邊的敵人，各造成<#a974ffff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30% 魔法攻擊<>的<#a974ffff>魔法傷害<>，三個炸完護盾再加一層。"
+      }
+    }
+  },
+  "en": {
+    "description": {
+      "league_marks": {
+        "diana_skill2": "[Add-on] <#a974ffff>Lunar Rush<>: dash to the target for <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% AP<> <#a974ffff>magic damage<>; if the target bears <#a974ffff>Moonlight<> she dashes again at once (champions first). <#a974ffff>Pale Cascade<> (every <#ffb900ff>10s<>): on arrival a <#e8d44dff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50% AP<> <#e8d44dff>shield<> and three orbs that hit nearby enemies for <#a974ffff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30% AP<> each; after the third the shield comes again."
+      }
+    }
+  },
+  "ko": {
+    "description": {
+      "league_marks": {
+        "diana_skill2": "[확장] 대상에게 돌진해 <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 70%<> <#a974ffff>마법 피해<>. 대상에게 <#a974ffff>달빛<>이 있으면 즉시 한 번 더 돌진(챔피언 우선). <#a974ffff>은빛 가호<>(<#ffb900ff>10초<>마다): <#e8d44dff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> <#e8d44dff>보호막<>, 구체 3개가 주변 적에게 각각 <#a974ffff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> <#a974ffff>마법 피해<>; 3개 모두 터지면 보호막 한 번 더."
+      }
+    }
+  },
+  "ja": {
+    "description": {
+      "league_marks": {
+        "diana_skill2": "【拡張】対象へダッシュし<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>の<#a974ffff>魔法ダメージ<>。対象に<#a974ffff>月光<>があればすぐもう一度（チャンピオン優先）。<#a974ffff>朧月の羽衣<>（<#ffb900ff>10秒<>毎）：到着時に<#e8d44dff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>の<#e8d44dff>シールド<>、光の玉3つが周囲の敵に各<#a974ffff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>、3つ目でシールド再展開。"
+      }
+    }
+  }
+}
