@@ -1134,6 +1134,13 @@
         "skill": "朝目标突进并穿过去，对途经的所有敌人造成<#ff9028ff>65<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>125%<>物理伤害。",
         "skill2": "甩尾砸地，冲击沿直线向前，造成<#ff9028ff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>115%<>物理伤害，<#ef5350ff>击飞<><#ffb900ff>0.83秒<>并<#ef5350ff>减速<>40%（<#ffb900ff>1.5秒<>）。",
         "ult": "吞下珊瑚爆开：周围敌人受<#ff9028ff>130<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>物理伤害并<#ef5350ff>减速<>40%；化为真身<#ffb900ff>15秒<>：生命+20%、攻击距离增加、攻速+40%、移速+15%。真身被围攻时化为<#ff9028ff>搠面皇锋<>：原地<#ffb900ff>1.5秒<>减伤50%、<#66bb6aff>吸血30%<>。"
+      },
+      "league_taliyah": {
+        "name": "塔莉垭",
+        "attack": "甩出一块石子。<#ff9028ff>浮石冲<>：脱战时移速+10%；放出墙幔后踩石冲浪，移速+40%（<#ffb900ff>5秒<>）。",
+        "skill": "朝目标方向一颗接一颗扔出<#ffb900ff>5颗<>石头（扔出第一颗后可以移动），第一颗<#a974ffff>46<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>24%<>魔法伤害，之后每颗<#a974ffff>23<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>12%<>；脚下留下掘石场（<#ffb900ff>8秒<>），站在上面施放改为一颗大石头：<#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>并<#ef5350ff>减速<>40%。",
+        "skill2": "在身前地上撒下石雷（<#ef5350ff>减速<>20%，<#ffb900ff>4秒<>），目标脚下裂开后隆起，造成<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>魔法伤害并把敌人掀向自己；飞过石雷时石雷爆炸，造成<#a974ffff>38<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>24%<>魔法伤害并<#ef5350ff>眩晕<><#ffb900ff>0.4秒<>。",
+        "ult": "敌人在附近或已在交战：在目标处竖起长石墙（<#ffb900ff>5秒<>），墙上的敌人被拖到她这一侧；敌人较远：从脚下拉出一道横墙，踩着石头沿墙冲刺，靠近敌人时跳下。碰到墙的敌人<#ef5350ff>减速<>42%。"
       }
     },
     "skill_name": {
@@ -1946,6 +1953,11 @@
         "skill1": "虚空激流",
         "skill2": "上觐沉渊",
         "ult": "万载豪筵"
+      },
+      "league_taliyah": {
+        "skill1": "石穿",
+        "skill2": "岩突",
+        "ult": "墙幔"
       }
     }
   },
@@ -3084,6 +3096,13 @@
         "skill": "朝目標突進並穿過去，對途經的所有敵人造成<#ff9028ff>65<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>125%<>物理傷害。",
         "skill2": "甩尾砸地，衝擊沿直線向前，造成<#ff9028ff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>115%<>物理傷害，<#ef5350ff>擊飛<><#ffb900ff>0.83秒<>並<#ef5350ff>緩速<>40%（<#ffb900ff>1.5秒<>）。",
         "ult": "吞下珊瑚爆開：周圍敵人受<#ff9028ff>130<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>物理傷害並<#ef5350ff>緩速<>40%；化為真身<#ffb900ff>15秒<>：生命+20%、攻擊距離增加、攻速+40%、移速+15%。真身被圍攻時化為<#ff9028ff>女皇風暴<>：原地<#ffb900ff>1.5秒<>減傷50%、<#66bb6aff>吸血30%<>。"
+      },
+      "league_taliyah": {
+        "name": "塔莉雅",
+        "attack": "甩出一塊石子。<#ff9028ff>馭石之術<>：脫戰時移速+10%；放出編織者之牆後踩石衝浪，移速+40%（<#ffb900ff>5秒<>）。",
+        "skill": "朝目標方向一顆接一顆擲出<#ffb900ff>5顆<>石頭（擲出第一顆後可以移動），第一顆<#a974ffff>46<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>24%<>魔法傷害，之後每顆<#a974ffff>23<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>12%<>；腳下留下碎石地（<#ffb900ff>8秒<>），站在上面施放改為一顆大石頭：<#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>並<#ef5350ff>緩速<>40%。",
+        "skill2": "在身前地上灑下石雷（<#ef5350ff>緩速<>20%，<#ffb900ff>4秒<>），目標腳下裂開後隆起，造成<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>魔法傷害並把敵人掀向自己；飛過石雷時石雷爆炸，造成<#a974ffff>38<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>24%<>魔法傷害並<#ef5350ff>暈眩<><#ffb900ff>0.4秒<>。",
+        "ult": "敵人在附近或已在交戰：在目標處豎起長石牆（<#ffb900ff>5秒<>），牆上的敵人被拖到她這一側；敵人較遠：從腳下拉出一道橫牆，踩著石頭沿牆衝刺，靠近敵人時跳下。碰到牆的敵人<#ef5350ff>緩速<>42%。"
       }
     },
     "skill_name": {
@@ -3896,6 +3915,11 @@
         "skill1": "虛空強襲",
         "skill2": "尾棘鞭笞",
         "ult": "無盡盛宴"
+      },
+      "league_taliyah": {
+        "skill1": "旋舞飛岩",
+        "skill2": "震地之擊",
+        "ult": "編織者之牆"
       }
     }
   },
@@ -5034,6 +5058,13 @@
         "skill": "Dashes at the target and through it, dealing <#ff9028ff>65<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>125%<> physical damage to every enemy she passes.",
         "skill2": "Slams her tail: a shockwave runs along a line, dealing <#ff9028ff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>115%<> physical damage, <#ef5350ff>knocking up<> for <#ffb900ff>0.83s<> and <#ef5350ff>slowing<> 40% for <#ffb900ff>1.5s<>.",
         "ult": "Eats the void coral: it bursts round her for <#ff9028ff>130<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> physical damage and a 40% <#ef5350ff>slow<>; she takes her true form for <#ffb900ff>15s<>: +20% health, more attack range, +40% attack speed, +15% move speed. Beset in the true form she becomes <#ff9028ff>Royal Maelstrom<>: rooted for <#ffb900ff>1.5s<>, 50% less damage taken and <#66bb6aff>30% life steal<>."
+      },
+      "league_taliyah": {
+        "name": "Taliyah",
+        "attack": "Flicks a pebble. <#ff9028ff>Rock Surfing<>: +10% move speed out of a fight; after Weaver's Wall she surfs a boulder, +40% move speed for <#ffb900ff>5s<>.",
+        "skill": "Throws <#ffb900ff>5 rocks<> one after another toward the target (she can move after the first): the first deals <#a974ffff>46<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>24%<> magic damage, each after it <#a974ffff>23<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>12%<>. It leaves Worked Ground under her for <#ffb900ff>8s<>; cast on it, she throws one boulder instead: <#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> and a 40% <#ef5350ff>slow<>.",
+        "skill2": "Strews mines on the ground in front of her (<#ef5350ff>slowing<> 20% for <#ffb900ff>4s<>); the ground under the target cracks, then erupts for <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> magic damage, throwing enemies toward her. A mine passed over blows up: <#a974ffff>38<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>24%<> magic damage and a <#ffb900ff>0.4s<> <#ef5350ff>stun<>.",
+        "ult": "With an enemy champion near or a fight on: a long stone wall rises where the target stands for <#ffb900ff>5s<>, dragging enemies on it to her side. With the enemies far: a wall runs out from her feet and she surfs along its top on her boulder, jumping off once enemies are near. Enemies touching the wall are <#ef5350ff>slowed<> 42%."
       }
     },
     "skill_name": {
@@ -5846,6 +5877,11 @@
         "skill1": "Void Surge",
         "skill2": "Above and Below",
         "ult": "Endless Banquet"
+      },
+      "league_taliyah": {
+        "skill1": "Threaded Volley",
+        "skill2": "Seismic Shove",
+        "ult": "Weaver's Wall"
       }
     }
   },
@@ -6984,6 +7020,13 @@
         "skill": "대상에게 돌진해 꿰뚫고 지나가며 지나친 모든 적에게 <#ff9028ff>65<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>125%<> 물리 피해.",
         "skill2": "꼬리로 내려쳐 직선으로 충격파를 보냄: <#ff9028ff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>115%<> 물리 피해, <#ffb900ff>0.83초<> <#ef5350ff>에어본<>, <#ffb900ff>1.5초<> 동안 40% <#ef5350ff>둔화<>.",
         "ult": "공허 산호를 삼켜 터뜨림: 주변 적에게 <#ff9028ff>130<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> 물리 피해와 40% <#ef5350ff>둔화<>; <#ffb900ff>15초<> 동안 진정한 모습: 체력 +20%, 사거리 증가, 공격 속도 +40%, 이동 속도 +15%. 진정한 모습에서 포위되면 <#ff9028ff>여제의 소용돌이<>: <#ffb900ff>1.5초<> 동안 제자리에서 받는 피해 50% 감소, <#66bb6aff>생명력 흡수 30%<>."
+      },
+      "league_taliyah": {
+        "name": "탈리야",
+        "attack": "돌멩이를 던진다. <#ff9028ff>바위타기<>: 전투 중이 아닐 때 이동 속도 +10%; 바위술사의 벽 후 바위를 타고 <#ffb900ff>5초<> 동안 이동 속도 +40%.",
+        "skill": "대상 방향으로 돌 <#ffb900ff>5개<>를 차례로 던짐(첫 돌 후 이동 가능): 첫 돌 <#a974ffff>46<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>24%<> 마법 피해, 이후 각 <#a974ffff>23<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>12%<>. 발밑에 <#ffb900ff>8초<> 동안 다져진 땅을 남기고, 그 위에서 쓰면 큰 바위 하나: <#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>, 40% <#ef5350ff>둔화<>.",
+        "skill2": "앞쪽 땅에 지뢰를 뿌림(<#ffb900ff>4초<> 동안 20% <#ef5350ff>둔화<>); 대상 발밑이 갈라진 뒤 솟아올라 <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> 마법 피해를 주고 적을 자신 쪽으로 던짐. 지뢰 위를 지나면 폭발: <#a974ffff>38<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>24%<> 마법 피해와 <#ffb900ff>0.4초<> <#ef5350ff>기절<>.",
+        "ult": "적 챔피언이 가깝거나 교전 중: 대상 위치에 <#ffb900ff>5초<> 동안 긴 돌벽을 세우고 벽 위의 적을 자신 쪽으로 끌어냄. 적이 멀면: 발밑에서 벽을 뻗어 바위를 타고 벽 위를 달리다 적이 가까워지면 뛰어내림. 벽에 닿은 적은 42% <#ef5350ff>둔화<>."
       }
     },
     "skill_name": {
@@ -7796,6 +7839,11 @@
         "skill1": "공허 쇄도",
         "skill2": "위와 아래",
         "ult": "끝없는 연회"
+      },
+      "league_taliyah": {
+        "skill1": "파편 난사",
+        "skill2": "지각변동",
+        "ult": "바위술사의 벽"
       }
     }
   },
@@ -8934,6 +8982,13 @@
         "skill": "対象へ突進して貫き、通過したすべての敵に<#ff9028ff>65<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>125%<>の物理ダメージ。",
         "skill2": "尾を叩きつけ衝撃波を直線に放つ：<#ff9028ff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>115%<>の物理ダメージ、<#ffb900ff>0.83秒<><#ef5350ff>ノックアップ<>、<#ffb900ff>1.5秒<>40%<#ef5350ff>スロウ<>。",
         "ult": "ヴォイドコーラルを喰らい炸裂：周囲の敵に<#ff9028ff>130<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>の物理ダメージと40%<#ef5350ff>スロウ<>。<#ffb900ff>15秒<>真の姿：体力+20%、射程増加、攻撃速度+40%、移動速度+15%。真の姿で囲まれると<#ff9028ff>ロイヤルストーム<>：<#ffb900ff>1.5秒<>その場で被ダメージ-50%、<#66bb6aff>ライフスティール30%<>。"
+      },
+      "league_taliyah": {
+        "name": "タリヤ",
+        "attack": "小石を投げる。<#ff9028ff>ロックサーフィン<>：戦闘外で移動速度+10%；ウィーバーウォールの後は岩に乗り<#ffb900ff>5秒<>移動速度+40%。",
+        "skill": "対象の方向へ岩を<#ffb900ff>5個<>続けて投げる（1個目の後は移動可）：1個目<#a974ffff>46<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>24%<>の魔法ダメージ、以降各<#a974ffff>23<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>12%<>。足元に<#ffb900ff>8秒<>採掘場を残し、その上では大岩1個：<#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>と40%<#ef5350ff>スロウ<>。",
+        "skill2": "前方の地面に地雷をまく（<#ffb900ff>4秒<>20%<#ef5350ff>スロウ<>）；対象の足元が割れて隆起し<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>の魔法ダメージ、敵を自分の方へ投げる。地雷の上を飛ぶと爆発：<#a974ffff>38<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>24%<>の魔法ダメージと<#ffb900ff>0.4秒<><#ef5350ff>スタン<>。",
+        "ult": "敵チャンピオンが近いか交戦中：対象の位置に<#ffb900ff>5秒<>長い石壁を立て、壁の上の敵を自分の側へ引き出す。敵が遠い：足元から壁を伸ばし岩に乗って壁の上を進み、敵が近づくと飛び降りる。壁に触れた敵に42%<#ef5350ff>スロウ<>。"
       }
     },
     "skill_name": {
@@ -9746,6 +9801,11 @@
         "skill1": "ヴォイドサージ",
         "skill2": "天と地",
         "ult": "終わりなき晩餐"
+      },
+      "league_taliyah": {
+        "skill1": "スレッドボレー",
+        "skill2": "サイズミックシャーブ",
+        "ult": "ウィーバーウォール"
       }
     }
   }

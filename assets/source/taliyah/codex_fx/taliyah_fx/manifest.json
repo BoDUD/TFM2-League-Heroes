@@ -1,0 +1,1440 @@
+{
+  "generator": "built-in image_gen",
+  "processing": "majority color readback; hard alpha; whole-cell translation (poses) or palette quantization and mirrored pairs (FX)",
+  "artwork_created_by_code": false,
+  "assets": [
+    {
+      "name": "a_rock",
+      "file": "taliyah_fx_a_rock.png",
+      "raw_file": "raw/taliyah_fx_a_rock.png",
+      "raw_size": [
+        1448,
+        1086
+      ],
+      "raw_sha256": "afe41a531d1c61471f8d6a4511a5b66fda162b06c13d2342fc2b8cd34ed5b34a",
+      "raw_alpha": {
+        "transparent": 0,
+        "opaque": 1572528,
+        "partial": 0
+      },
+      "frames": 4,
+      "cell_1x": [
+        8,
+        6
+      ],
+      "sheet_1x": [
+        32,
+        6
+      ],
+      "display_scale": 8,
+      "output_size": [
+        256,
+        48
+      ],
+      "symmetry": "top-bottom",
+      "source_grid": [
+        2,
+        2
+      ],
+      "source_rects": [
+        [
+          0,
+          0,
+          724,
+          543
+        ],
+        [
+          724,
+          0,
+          1448,
+          543
+        ],
+        [
+          0,
+          543,
+          724,
+          1086
+        ],
+        [
+          724,
+          543,
+          1448,
+          1086
+        ]
+      ],
+      "palette": [
+        "#F4E2BC",
+        "#DABE8C",
+        "#B8945E",
+        "#8C6A40",
+        "#624628",
+        "#3C2A18",
+        "#F6ECD4",
+        "#E2D0A8",
+        "#C4AE84",
+        "#9A8662",
+        "#6E6046",
+        "#000000"
+      ],
+      "binding": "view_projectiles `league_taliyah_a_rock`（追踪弹，z 2；上下对称）",
+      "alpha_values": [
+        0,
+        255
+      ],
+      "source_black_key_threshold": 32,
+      "occupancy_threshold": 0.2,
+      "occupied_pixels_per_frame": [
+        14,
+        12,
+        14,
+        12
+      ],
+      "sequence_zero_based": {
+        "loop": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      "status": "format_alpha_symmetry_pass; runtime not tested"
+    },
+    {
+      "name": "a_hit",
+      "file": "taliyah_fx_a_hit.png",
+      "raw_file": "raw/taliyah_fx_a_hit.png",
+      "raw_size": [
+        2172,
+        724
+      ],
+      "raw_sha256": "119fcdaa545c8a69dff53edf60b9d1559f9a80b718a73f92f41659970672c44e",
+      "raw_alpha": {
+        "transparent": 1245274,
+        "opaque": 1952,
+        "partial": 325302
+      },
+      "frames": 3,
+      "cell_1x": [
+        12,
+        12
+      ],
+      "sheet_1x": [
+        36,
+        12
+      ],
+      "display_scale": 8,
+      "output_size": [
+        288,
+        96
+      ],
+      "symmetry": "left-right",
+      "source_grid": [
+        3,
+        1
+      ],
+      "source_rects": [
+        [
+          0,
+          0,
+          724,
+          724
+        ],
+        [
+          724,
+          0,
+          1448,
+          724
+        ],
+        [
+          1448,
+          0,
+          2172,
+          724
+        ]
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#FFF8E4",
+        "#FFE8B0",
+        "#F4E2BC",
+        "#DABE8C",
+        "#B8945E",
+        "#8C6A40",
+        "#624628",
+        "#3C2A18",
+        "#F6ECD4",
+        "#E2D0A8",
+        "#C4AE84",
+        "#9A8662",
+        "#6E6046",
+        "#000000"
+      ],
+      "binding": "view_effects `league_taliyah_a_hit`（跟随目标，z 2；左右对称）",
+      "alpha_values": [
+        0,
+        255
+      ],
+      "source_black_key_threshold": null,
+      "occupancy_threshold": 0.5,
+      "occupied_pixels_per_frame": [
+        12,
+        36,
+        10
+      ],
+      "sequence_zero_based": {},
+      "status": "format_alpha_symmetry_pass; runtime not tested"
+    },
+    {
+      "name": "q_rock",
+      "file": "taliyah_fx_q_rock.png",
+      "raw_file": "raw/taliyah_fx_q_rock.png",
+      "raw_size": [
+        1536,
+        1024
+      ],
+      "raw_sha256": "755424b4db92f6d01db4fcdba40d0b220aec1cc299aa90cfb273c0ef728523a8",
+      "raw_alpha": {
+        "transparent": 0,
+        "opaque": 1572864,
+        "partial": 0
+      },
+      "frames": 4,
+      "cell_1x": [
+        12,
+        8
+      ],
+      "sheet_1x": [
+        48,
+        8
+      ],
+      "display_scale": 8,
+      "output_size": [
+        384,
+        64
+      ],
+      "symmetry": "top-bottom",
+      "source_grid": [
+        2,
+        2
+      ],
+      "source_rects": [
+        [
+          0,
+          0,
+          768,
+          512
+        ],
+        [
+          768,
+          0,
+          1536,
+          512
+        ],
+        [
+          0,
+          512,
+          768,
+          1024
+        ],
+        [
+          768,
+          512,
+          1536,
+          1024
+        ]
+      ],
+      "palette": [
+        "#F4E2BC",
+        "#DABE8C",
+        "#B8945E",
+        "#8C6A40",
+        "#624628",
+        "#3C2A18",
+        "#FFF6C8",
+        "#FFE07A",
+        "#F2B83C",
+        "#C8862A",
+        "#8A5418",
+        "#F6ECD4",
+        "#E2D0A8",
+        "#C4AE84",
+        "#9A8662",
+        "#6E6046",
+        "#000000"
+      ],
+      "binding": "view_projectiles `league_taliyah_q_rock`（直线弹道，z 2；上下对称）",
+      "alpha_values": [
+        0,
+        255
+      ],
+      "source_black_key_threshold": 32,
+      "occupancy_threshold": 0.2,
+      "occupied_pixels_per_frame": [
+        20,
+        20,
+        18,
+        16
+      ],
+      "sequence_zero_based": {
+        "loop": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      "status": "format_alpha_symmetry_pass; runtime not tested"
+    },
+    {
+      "name": "q_hit",
+      "file": "taliyah_fx_q_hit.png",
+      "raw_file": "raw/taliyah_fx_q_hit.png",
+      "raw_size": [
+        2172,
+        724
+      ],
+      "raw_sha256": "74f8d0975e882ba2040f8f77bfa92d4379bd1e50ed6ca437ff32d227b8871c49",
+      "raw_alpha": {
+        "transparent": 955960,
+        "opaque": 1665,
+        "partial": 614903
+      },
+      "frames": 3,
+      "cell_1x": [
+        14,
+        14
+      ],
+      "sheet_1x": [
+        42,
+        14
+      ],
+      "display_scale": 8,
+      "output_size": [
+        336,
+        112
+      ],
+      "symmetry": "left-right",
+      "source_grid": [
+        3,
+        1
+      ],
+      "source_rects": [
+        [
+          0,
+          0,
+          724,
+          724
+        ],
+        [
+          724,
+          0,
+          1448,
+          724
+        ],
+        [
+          1448,
+          0,
+          2172,
+          724
+        ]
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#FFF8E4",
+        "#FFE8B0",
+        "#F4E2BC",
+        "#DABE8C",
+        "#B8945E",
+        "#8C6A40",
+        "#624628",
+        "#3C2A18",
+        "#F6ECD4",
+        "#E2D0A8",
+        "#C4AE84",
+        "#9A8662",
+        "#6E6046",
+        "#000000"
+      ],
+      "binding": "view_effects `league_taliyah_q_hit`（跟随目标，z 2；左右对称）",
+      "alpha_values": [
+        0,
+        255
+      ],
+      "source_black_key_threshold": null,
+      "occupancy_threshold": 0.5,
+      "occupied_pixels_per_frame": [
+        24,
+        74,
+        44
+      ],
+      "sequence_zero_based": {},
+      "status": "format_alpha_symmetry_pass; runtime not tested"
+    },
+    {
+      "name": "q_boulder",
+      "file": "taliyah_fx_q_boulder.png",
+      "raw_file": "raw/taliyah_fx_q_boulder.png",
+      "raw_size": [
+        1470,
+        1070
+      ],
+      "raw_sha256": "891904b7edb5c3eecc2ad8a1d073fd777937da7ff9cbf2f39d14dfc8e16f9861",
+      "raw_alpha": {
+        "transparent": 699139,
+        "opaque": 3318,
+        "partial": 870443
+      },
+      "frames": 4,
+      "cell_1x": [
+        22,
+        16
+      ],
+      "sheet_1x": [
+        88,
+        16
+      ],
+      "display_scale": 8,
+      "output_size": [
+        704,
+        128
+      ],
+      "symmetry": "top-bottom",
+      "source_grid": [
+        2,
+        2
+      ],
+      "source_rects": [
+        [
+          0,
+          0,
+          735,
+          535
+        ],
+        [
+          735,
+          0,
+          1470,
+          535
+        ],
+        [
+          0,
+          535,
+          735,
+          1070
+        ],
+        [
+          735,
+          535,
+          1470,
+          1070
+        ]
+      ],
+      "palette": [
+        "#F4E2BC",
+        "#DABE8C",
+        "#B8945E",
+        "#8C6A40",
+        "#624628",
+        "#3C2A18",
+        "#FFF6C8",
+        "#FFE07A",
+        "#F2B83C",
+        "#C8862A",
+        "#8A5418",
+        "#F6ECD4",
+        "#E2D0A8",
+        "#C4AE84",
+        "#9A8662",
+        "#6E6046",
+        "#000000"
+      ],
+      "binding": "view_projectiles `league_taliyah_q_boulder`（直线弹道，穿透，z 2；上下对称）",
+      "alpha_values": [
+        0,
+        255
+      ],
+      "source_black_key_threshold": null,
+      "occupancy_threshold": 0.5,
+      "occupied_pixels_per_frame": [
+        152,
+        158,
+        142,
+        140
+      ],
+      "sequence_zero_based": {
+        "loop": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      "status": "format_alpha_symmetry_pass; runtime not tested"
+    },
+    {
+      "name": "q_big_hit",
+      "file": "taliyah_fx_q_big_hit.png",
+      "raw_file": "raw/taliyah_fx_q_big_hit.png",
+      "raw_size": [
+        1315,
+        1196
+      ],
+      "raw_sha256": "39f9b896167ab628e038a20812abaeab458f6016eaea6fe273b7459f3073c0b2",
+      "raw_alpha": {
+        "transparent": 584752,
+        "opaque": 2586,
+        "partial": 985402
+      },
+      "frames": 4,
+      "cell_1x": [
+        22,
+        20
+      ],
+      "sheet_1x": [
+        88,
+        20
+      ],
+      "display_scale": 8,
+      "output_size": [
+        704,
+        160
+      ],
+      "symmetry": "left-right",
+      "source_grid": [
+        2,
+        2
+      ],
+      "source_rects": [
+        [
+          0,
+          0,
+          658,
+          598
+        ],
+        [
+          658,
+          0,
+          1315,
+          598
+        ],
+        [
+          0,
+          598,
+          658,
+          1196
+        ],
+        [
+          658,
+          598,
+          1315,
+          1196
+        ]
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#FFF8E4",
+        "#FFE8B0",
+        "#F4E2BC",
+        "#DABE8C",
+        "#B8945E",
+        "#8C6A40",
+        "#624628",
+        "#3C2A18",
+        "#F6ECD4",
+        "#E2D0A8",
+        "#C4AE84",
+        "#9A8662",
+        "#6E6046",
+        "#000000"
+      ],
+      "binding": "view_effects `league_taliyah_q_big_hit`（跟随目标，z 2；左右对称）",
+      "alpha_values": [
+        0,
+        255
+      ],
+      "source_black_key_threshold": null,
+      "occupancy_threshold": 0.5,
+      "occupied_pixels_per_frame": [
+        122,
+        152,
+        136,
+        62
+      ],
+      "sequence_zero_based": {},
+      "status": "format_alpha_symmetry_pass; runtime not tested"
+    },
+    {
+      "name": "q_ground",
+      "file": "taliyah_fx_q_ground.png",
+      "raw_file": "raw/taliyah_fx_q_ground.png",
+      "raw_size": [
+        1774,
+        887
+      ],
+      "raw_sha256": "e5462d97338b5b3eef0987428289afdd0776bc7376a2ab42869c2185fad603d0",
+      "raw_alpha": {
+        "transparent": 824129,
+        "opaque": 1566,
+        "partial": 747843
+      },
+      "frames": 6,
+      "cell_1x": [
+        30,
+        10
+      ],
+      "sheet_1x": [
+        180,
+        10
+      ],
+      "display_scale": 8,
+      "output_size": [
+        1440,
+        80
+      ],
+      "symmetry": "left-right",
+      "source_grid": [
+        2,
+        3
+      ],
+      "source_rects": [
+        [
+          0,
+          0,
+          887,
+          296
+        ],
+        [
+          887,
+          0,
+          1774,
+          296
+        ],
+        [
+          0,
+          296,
+          887,
+          591
+        ],
+        [
+          887,
+          296,
+          1774,
+          591
+        ],
+        [
+          0,
+          591,
+          887,
+          887
+        ],
+        [
+          887,
+          591,
+          1774,
+          887
+        ]
+      ],
+      "palette": [
+        "#F4E2BC",
+        "#DABE8C",
+        "#B8945E",
+        "#8C6A40",
+        "#624628",
+        "#3C2A18",
+        "#FFF6C8",
+        "#FFE07A",
+        "#F2B83C",
+        "#C8862A",
+        "#8A5418",
+        "#000000"
+      ],
+      "binding": "view_effects `league_taliyah_q_ground`（大表，在她放石穿的地上，不跟随，z -2；左右对称；出现 → 躺着 → 消失，8 秒）",
+      "alpha_values": [
+        0,
+        255
+      ],
+      "source_black_key_threshold": null,
+      "occupancy_threshold": 0.5,
+      "occupied_pixels_per_frame": [
+        96,
+        86,
+        90,
+        90,
+        92,
+        90
+      ],
+      "sequence_zero_based": {
+        "start": [
+          0
+        ],
+        "loop": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "end": [
+          5
+        ],
+        "duration_ticks": 480
+      },
+      "status": "format_alpha_symmetry_pass; runtime not tested"
+    },
+    {
+      "name": "e_mines",
+      "file": "taliyah_fx_e_mines.png",
+      "raw_file": "raw/taliyah_fx_e_mines.png",
+      "raw_size": [
+        1504,
+        1046
+      ],
+      "raw_sha256": "ccf048e874ed29c97feda160cfccb287f2cd7922e46f3c733523f86454d66b1b",
+      "raw_alpha": {
+        "transparent": 570553,
+        "opaque": 60,
+        "partial": 1002571
+      },
+      "frames": 8,
+      "cell_1x": [
+        46,
+        16
+      ],
+      "sheet_1x": [
+        368,
+        16
+      ],
+      "display_scale": 8,
+      "output_size": [
+        2944,
+        128
+      ],
+      "symmetry": "left-right",
+      "source_grid": [
+        2,
+        4
+      ],
+      "source_rects": [
+        [
+          0,
+          0,
+          752,
+          262
+        ],
+        [
+          752,
+          0,
+          1504,
+          262
+        ],
+        [
+          0,
+          262,
+          752,
+          523
+        ],
+        [
+          752,
+          262,
+          1504,
+          523
+        ],
+        [
+          0,
+          523,
+          752,
+          784
+        ],
+        [
+          752,
+          523,
+          1504,
+          784
+        ],
+        [
+          0,
+          784,
+          752,
+          1046
+        ],
+        [
+          752,
+          784,
+          1504,
+          1046
+        ]
+      ],
+      "palette": [
+        "#F4E2BC",
+        "#DABE8C",
+        "#B8945E",
+        "#8C6A40",
+        "#624628",
+        "#3C2A18",
+        "#FFF6C8",
+        "#FFE07A",
+        "#F2B83C",
+        "#C8862A",
+        "#8A5418",
+        "#F6ECD4",
+        "#E2D0A8",
+        "#C4AE84",
+        "#9A8662",
+        "#6E6046",
+        "#000000"
+      ],
+      "binding": "view_effects `league_taliyah_e_mines`（大表，在岩突的落点，不跟随，z -2；左右对称；撒下 → 躺着 → 碎掉，4 秒）",
+      "alpha_values": [
+        0,
+        255
+      ],
+      "source_black_key_threshold": null,
+      "occupancy_threshold": 0.5,
+      "occupied_pixels_per_frame": [
+        234,
+        210,
+        232,
+        250,
+        224,
+        228,
+        340,
+        220
+      ],
+      "sequence_zero_based": {
+        "start": [
+          0,
+          1
+        ],
+        "loop": [
+          2,
+          3,
+          4,
+          5
+        ],
+        "end": [
+          6,
+          7
+        ],
+        "duration_ticks": 240
+      },
+      "status": "format_alpha_symmetry_pass; runtime not tested"
+    },
+    {
+      "name": "w_erupt",
+      "file": "taliyah_fx_w_erupt.png",
+      "raw_file": "raw/taliyah_fx_w_erupt.png",
+      "raw_size": [
+        1629,
+        965
+      ],
+      "raw_sha256": "f200387f7e25585c8bbdc913d7a83d93a4315c453082afd874538fc1b7d3866b",
+      "raw_alpha": {
+        "transparent": 1019873,
+        "opaque": 16,
+        "partial": 552096
+      },
+      "frames": 5,
+      "cell_1x": [
+        36,
+        32
+      ],
+      "sheet_1x": [
+        180,
+        32
+      ],
+      "display_scale": 8,
+      "output_size": [
+        1440,
+        256
+      ],
+      "symmetry": "left-right",
+      "source_grid": [
+        3,
+        2
+      ],
+      "source_rects": [
+        [
+          0,
+          0,
+          543,
+          482
+        ],
+        [
+          543,
+          0,
+          1086,
+          482
+        ],
+        [
+          1086,
+          0,
+          1629,
+          482
+        ],
+        [
+          0,
+          482,
+          543,
+          965
+        ],
+        [
+          543,
+          482,
+          1086,
+          965
+        ]
+      ],
+      "palette": [
+        "#F4E2BC",
+        "#DABE8C",
+        "#B8945E",
+        "#8C6A40",
+        "#624628",
+        "#3C2A18",
+        "#FFF6C8",
+        "#FFE07A",
+        "#F2B83C",
+        "#C8862A",
+        "#8A5418",
+        "#F6ECD4",
+        "#E2D0A8",
+        "#C4AE84",
+        "#9A8662",
+        "#6E6046",
+        "#000000"
+      ],
+      "binding": "view_effects `league_taliyah_w_erupt`（大表，在落点，不跟随，z 2；左右对称）",
+      "alpha_values": [
+        0,
+        255
+      ],
+      "source_black_key_threshold": null,
+      "occupancy_threshold": 0.5,
+      "occupied_pixels_per_frame": [
+        132,
+        282,
+        512,
+        500,
+        294
+      ],
+      "sequence_zero_based": {},
+      "status": "format_alpha_symmetry_pass; runtime not tested"
+    },
+    {
+      "name": "w_hit",
+      "file": "taliyah_fx_w_hit.png",
+      "raw_file": "raw/taliyah_fx_w_hit.png",
+      "raw_size": [
+        2056,
+        765
+      ],
+      "raw_sha256": "a3238be32704aaef365e8c6283838db33f67261c9f1417f0bd11f251c65c7944",
+      "raw_alpha": {
+        "transparent": 1078834,
+        "opaque": 2617,
+        "partial": 491389
+      },
+      "frames": 3,
+      "cell_1x": [
+        18,
+        20
+      ],
+      "sheet_1x": [
+        54,
+        20
+      ],
+      "display_scale": 8,
+      "output_size": [
+        432,
+        160
+      ],
+      "symmetry": "left-right",
+      "source_grid": [
+        3,
+        1
+      ],
+      "source_rects": [
+        [
+          0,
+          0,
+          685,
+          765
+        ],
+        [
+          685,
+          0,
+          1371,
+          765
+        ],
+        [
+          1371,
+          0,
+          2056,
+          765
+        ]
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#FFF8E4",
+        "#FFE8B0",
+        "#F4E2BC",
+        "#DABE8C",
+        "#B8945E",
+        "#8C6A40",
+        "#624628",
+        "#3C2A18",
+        "#F6ECD4",
+        "#E2D0A8",
+        "#C4AE84",
+        "#9A8662",
+        "#6E6046",
+        "#000000"
+      ],
+      "binding": "view_effects `league_taliyah_w_hit`（跟随目标，z 2；左右对称）",
+      "alpha_values": [
+        0,
+        255
+      ],
+      "source_black_key_threshold": null,
+      "occupancy_threshold": 0.5,
+      "occupied_pixels_per_frame": [
+        34,
+        86,
+        40
+      ],
+      "sequence_zero_based": {},
+      "status": "format_alpha_symmetry_pass; runtime not tested"
+    },
+    {
+      "name": "e_blast",
+      "file": "taliyah_fx_e_blast.png",
+      "raw_file": "raw/taliyah_fx_e_blast.png",
+      "raw_size": [
+        1145,
+        1374
+      ],
+      "raw_sha256": "db9e3509d47f844f2cc071f2c1dd90eccadfccfd90d4ea67578f705a8aa5a72a",
+      "raw_alpha": {
+        "transparent": 996493,
+        "opaque": 2003,
+        "partial": 574734
+      },
+      "frames": 4,
+      "cell_1x": [
+        20,
+        24
+      ],
+      "sheet_1x": [
+        80,
+        24
+      ],
+      "display_scale": 8,
+      "output_size": [
+        640,
+        192
+      ],
+      "symmetry": "left-right",
+      "source_grid": [
+        2,
+        2
+      ],
+      "source_rects": [
+        [
+          0,
+          0,
+          572,
+          687
+        ],
+        [
+          572,
+          0,
+          1145,
+          687
+        ],
+        [
+          0,
+          687,
+          572,
+          1374
+        ],
+        [
+          572,
+          687,
+          1145,
+          1374
+        ]
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#FFF8E4",
+        "#FFE8B0",
+        "#F4E2BC",
+        "#DABE8C",
+        "#B8945E",
+        "#8C6A40",
+        "#624628",
+        "#3C2A18",
+        "#FFF6C8",
+        "#FFE07A",
+        "#F2B83C",
+        "#C8862A",
+        "#8A5418",
+        "#000000"
+      ],
+      "binding": "view_effects `league_taliyah_e_blast`（跟随目标，z 2；左右对称；被眩晕时）",
+      "alpha_values": [
+        0,
+        255
+      ],
+      "source_black_key_threshold": null,
+      "occupancy_threshold": 0.5,
+      "occupied_pixels_per_frame": [
+        104,
+        124,
+        86,
+        74
+      ],
+      "sequence_zero_based": {
+        "start": [
+          0,
+          1
+        ],
+        "loop": [
+          2,
+          3
+        ],
+        "duration_ticks": "runtime stun duration"
+      },
+      "status": "format_alpha_symmetry_pass; runtime not tested"
+    },
+    {
+      "name": "slow",
+      "file": "taliyah_fx_slow.png",
+      "raw_file": "raw/taliyah_fx_slow.png",
+      "raw_size": [
+        2009,
+        783
+      ],
+      "raw_sha256": "78372be2f4ccc9882572beef3e38c092456fcd24ab7ae49781f223c718dd1ab8",
+      "raw_alpha": {
+        "transparent": 490172,
+        "opaque": 230,
+        "partial": 1082645
+      },
+      "frames": 4,
+      "cell_1x": [
+        18,
+        7
+      ],
+      "sheet_1x": [
+        72,
+        7
+      ],
+      "display_scale": 8,
+      "output_size": [
+        576,
+        56
+      ],
+      "symmetry": "left-right",
+      "source_grid": [
+        2,
+        2
+      ],
+      "source_rects": [
+        [
+          0,
+          0,
+          1004,
+          392
+        ],
+        [
+          1004,
+          0,
+          2009,
+          392
+        ],
+        [
+          0,
+          392,
+          1004,
+          783
+        ],
+        [
+          1004,
+          392,
+          2009,
+          783
+        ]
+      ],
+      "palette": [
+        "#F6ECD4",
+        "#E2D0A8",
+        "#C4AE84",
+        "#9A8662",
+        "#6E6046",
+        "#F4E2BC",
+        "#DABE8C",
+        "#B8945E",
+        "#8C6A40",
+        "#624628",
+        "#3C2A18",
+        "#000000"
+      ],
+      "binding": "view_buffs `league_taliyah_q_slow` / `e_slow` / `r_stuck`（tag `slow`，跟随，脚下，z -1；左右对称）",
+      "alpha_values": [
+        0,
+        255
+      ],
+      "source_black_key_threshold": null,
+      "occupancy_threshold": 0.5,
+      "occupied_pixels_per_frame": [
+        22,
+        24,
+        30,
+        22
+      ],
+      "sequence_zero_based": {
+        "loop": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      "status": "format_alpha_symmetry_pass; runtime not tested"
+    },
+    {
+      "name": "r_wall",
+      "file": "taliyah_fx_r_wall.png",
+      "raw_file": "raw/taliyah_fx_r_wall.png",
+      "raw_size": [
+        1774,
+        887
+      ],
+      "raw_sha256": "d4c89439e9c0c87abfd71f4abdc05176a1b4797b1fb43c8beef5357812c9db70",
+      "raw_alpha": {
+        "transparent": 699589,
+        "opaque": 401,
+        "partial": 873548
+      },
+      "frames": 8,
+      "cell_1x": [
+        16,
+        126
+      ],
+      "sheet_1x": [
+        128,
+        126
+      ],
+      "display_scale": 8,
+      "output_size": [
+        1024,
+        1008
+      ],
+      "symmetry": "left-right",
+      "source_grid": [
+        8,
+        1
+      ],
+      "source_rects": [
+        [
+          0,
+          0,
+          222,
+          887
+        ],
+        [
+          222,
+          0,
+          444,
+          887
+        ],
+        [
+          444,
+          0,
+          665,
+          887
+        ],
+        [
+          665,
+          0,
+          887,
+          887
+        ],
+        [
+          887,
+          0,
+          1109,
+          887
+        ],
+        [
+          1109,
+          0,
+          1330,
+          887
+        ],
+        [
+          1330,
+          0,
+          1552,
+          887
+        ],
+        [
+          1552,
+          0,
+          1774,
+          887
+        ]
+      ],
+      "palette": [
+        "#F4E2BC",
+        "#DABE8C",
+        "#B8945E",
+        "#8C6A40",
+        "#624628",
+        "#3C2A18",
+        "#FFF6C8",
+        "#FFE07A",
+        "#F2B83C",
+        "#C8862A",
+        "#8A5418",
+        "#F6ECD4",
+        "#E2D0A8",
+        "#C4AE84",
+        "#9A8662",
+        "#6E6046",
+        "#000000"
+      ],
+      "binding": "view_effects `league_taliyah_r_wall`（大表，墙心在落点，不跟随，z -1；左右对称；升起 → 立着 → 塌掉，5 秒）",
+      "alpha_values": [
+        0,
+        255
+      ],
+      "source_black_key_threshold": null,
+      "occupancy_threshold": 0.5,
+      "occupied_pixels_per_frame": [
+        968,
+        968,
+        982,
+        1002,
+        1002,
+        986,
+        764,
+        338
+      ],
+      "sequence_zero_based": {
+        "start": [
+          0,
+          1
+        ],
+        "loop": [
+          2,
+          3,
+          4,
+          5
+        ],
+        "end": [
+          6,
+          7
+        ],
+        "duration_ticks": 300
+      },
+      "status": "format_alpha_symmetry_pass; runtime not tested"
+    },
+    {
+      "name": "surf",
+      "file": "taliyah_fx_surf.png",
+      "raw_file": "raw/taliyah_fx_surf.png",
+      "raw_size": [
+        1086,
+        1448
+      ],
+      "raw_sha256": "4cb7b196a1aeadff8a829717d75c7498a600291025183eadc7036cbe375b6b81",
+      "raw_alpha": {
+        "transparent": 862093,
+        "opaque": 1706,
+        "partial": 708729
+      },
+      "frames": 4,
+      "cell_1x": [
+        36,
+        8
+      ],
+      "sheet_1x": [
+        144,
+        8
+      ],
+      "display_scale": 8,
+      "output_size": [
+        1152,
+        64
+      ],
+      "symmetry": "left-right",
+      "source_grid": [
+        1,
+        4
+      ],
+      "source_rects": [
+        [
+          0,
+          0,
+          1086,
+          397
+        ],
+        [
+          0,
+          397,
+          1086,
+          740
+        ],
+        [
+          0,
+          740,
+          1086,
+          1086
+        ],
+        [
+          0,
+          1086,
+          1086,
+          1448
+        ]
+      ],
+      "palette": [
+        "#F6ECD4",
+        "#E2D0A8",
+        "#C4AE84",
+        "#9A8662",
+        "#6E6046",
+        "#F4E2BC",
+        "#DABE8C",
+        "#B8945E",
+        "#8C6A40",
+        "#624628",
+        "#3C2A18",
+        "#000000"
+      ],
+      "binding": "view_buffs `league_taliyah_surf` / `r_surf`（tag `surf`，跟随，脚下 = 冲浪石底下，z -1；左右对称）",
+      "alpha_values": [
+        0,
+        255
+      ],
+      "source_black_key_threshold": null,
+      "occupancy_threshold": 0.5,
+      "occupied_pixels_per_frame": [
+        40,
+        68,
+        38,
+        32
+      ],
+      "sequence_zero_based": {
+        "loop": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      "status": "format_alpha_symmetry_pass; runtime not tested"
+    }
+  ]
+}
