@@ -49,8 +49,10 @@ Numbers: League 16.21 read into the Magician mid range (league_aurora, league_hw
 exist. Balanced on the classic-SDK simulations (kd.py --lane 2 against the five base mid mages, C:/t/as_sim, 2026-10-24;
 league_aurora +0.93 / +1.01 on seeds 1-8 / 9-16): the draft (Q 14 + 9% a pulse, E 8 + 5%, R 200 + 65%) -3.01; Q 22 + 15%,
 E 14 + 8%, R 260 + 80%, 1000 health, 24 defence +0.35; Q 30 + 20%, E 18 + 10%, R 280 + 90% +1.74; between them (Q 26 + 17%
-every 300 ticks, the held bonus 30, E 16 + 9% every 630, the core 4%, R 270 + 85% / Skies 350 + 105% every 2100) = P
-+0.40 / +1.41.
+every 300 ticks, the held bonus 30, E 16 + 9% every 630, the core 4%, R 270 + 85% / Skies 350 + 105% every 2100)
++0.40 / +1.41; the breath slowed to 2500 a tick at his mouth's height (one stream on screen, its hits a little later) = P
++0.54 / +1.02. Traced (seeds 1-3): every combo fires - E -> Q 2-16 a game, R -> E 1-5, The Skies Descend 1-4, flights
+1-3.
 """
 import argparse
 import json
