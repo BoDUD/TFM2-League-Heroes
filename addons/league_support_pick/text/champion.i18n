@@ -1,0 +1,47 @@
+{
+  "zh-hans": {
+    "description": {
+      "league_support_pick": {
+        "janna_skill2": "【附加包】对一名敌方英雄放出<#ff9028ff>和风守护<>，造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40% 法术强度<>的<#a974ffff>魔法伤害<>并<#ef5350ff>减速30%<>，持续<#ffb900ff>2秒<>。同时以<#ff9028ff>风暴之眼<>为最需要的队友提供<#e8d44dff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>75% 法术强度<>的<#e8d44dff>护盾<>，持续<#ffb900ff>4秒<>，护盾存在时<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻击力提高15%<>；身边没有队友时护住自己。",
+        "sona_skill2": "【附加包】为自己和附近损失生命最多的队友回复<#6aff55ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#6aff55ff>40% 法强<>生命值。<#ff9028ff>旋律<>：身边的友方英雄获得<#e8d44dff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>40% 法强<>的护盾<#ffb900ff>1.5秒<>。每<#ffb900ff>14秒<>同时弹<#ff9028ff>迅捷奏鸣曲<>：身边友方英雄<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移速+20%<>（自己+30%）<#ffb900ff>3秒<>。",
+        "lulu_skill2": "【附加包】<#ff9028ff>奇思妙想<>：把敌方英雄<#ef5350ff>变形1.75秒<>（无法攻击和施法、减速），造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<><#a974ffff>魔法伤害<>；<#ff9028ff>帮忙，皮克斯！<>：附近最需要的队友获得<#9fd8ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#9fd8ffff>50%<><#9fd8ffff>护盾<>和<#ffb900ff>25%<>移速、攻速（<#ffb900ff>3.5秒<>）。"
+      }
+    }
+  },
+  "zh-hant": {
+    "description": {
+      "league_support_pick": {
+        "janna_skill2": "【附加包】對一名敵方英雄放出<#ff9028ff>和風守護<>，造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40% 魔法強度<>的<#a974ffff>魔法傷害<>並<#ef5350ff>緩速30%<>，持續<#ffb900ff>2秒<>。同時以<#ff9028ff>風暴之眼<>為最需要的隊友提供<#e8d44dff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>75% 魔法強度<>的<#e8d44dff>護盾<>，持續<#ffb900ff>4秒<>，護盾存在時<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻擊力提高15%<>；身邊沒有隊友時保護自己。",
+        "sona_skill2": "【附加包】為自身和附近損失生命最多的隊友回復<#6aff55ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#6aff55ff>40% 法術強度<>生命。<#ff9028ff>旋律<>：身邊的友方英雄獲得<#e8d44dff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>40% 法術強度<>護盾<#ffb900ff>1.5秒<>。每<#ffb900ff>14秒<>同時彈<#ff9028ff>迅捷奏鳴曲<>：身邊友方英雄<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>跑速+20%<>（自身+30%）<#ffb900ff>3秒<>。",
+        "lulu_skill2": "【附加包】<#ff9028ff>幻想曲<>：把敵方英雄<#ef5350ff>變形1.75秒<>（無法攻擊和施法、緩速），造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<><#a974ffff>魔法傷害<>；<#ff9028ff>帥啊小皮！<>：附近最需要的隊友獲得<#9fd8ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#9fd8ffff>50%<><#9fd8ffff>護盾<>和<#ffb900ff>25%<>移速、攻速（<#ffb900ff>3.5秒<>）。"
+      }
+    }
+  },
+  "en": {
+    "description": {
+      "league_support_pick": {
+        "janna_skill2": "[Add-on] <#ff9028ff>Zephyr<> strikes an enemy champion for <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40% Ability Power<> <#a974ffff>magic damage<> and <#ef5350ff>slows<> it by 30% for <#ffb900ff>2s<>. <#ff9028ff>Eye of the Storm<> gives the nearby ally who needs it most (in danger, else fighting) a <#e8d44dff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>75% Ability Power<> <#e8d44dff>shield<> for <#ffb900ff>4s<>; while it holds they gain <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>15% Attack<>. With no ally nearby she shields herself.",
+        "sona_skill2": "[Add-on] Sona heals herself and the most wounded nearby ally for <#6aff55ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#6aff55ff>40% AP<>. <#ff9028ff>Melody<>: allied champions near her gain a <#e8d44dff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>40% AP<> shield for <#ffb900ff>1.5s<>. Every <#ffb900ff>14s<> she also plays <#ff9028ff>Song of Celerity<>: allied champions near her gain <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>20% Move Speed<> (30% for herself) for <#ffb900ff>3s<>.",
+        "lulu_skill2": "[Add-on] <#ff9028ff>Whimsy<>: <#ef5350ff>polymorphs<> an enemy champion for <#ffb900ff>1.75s<> (no attacks or spells, slowed) and deals <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<> <#a974ffff>magic damage<>; <#ff9028ff>Help, Pix!<>: the nearby ally who needs it most gets a <#9fd8ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#9fd8ffff>50%<> <#9fd8ffff>shield<> and <#ffb900ff>25%<> move and attack speed for <#ffb900ff>3.5s<>."
+      }
+    }
+  },
+  "ko": {
+    "description": {
+      "league_support_pick": {
+        "janna_skill2": "[확장] 적 챔피언 하나에게 <#ff9028ff>서풍<>을 날려 <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 40%<> <#a974ffff>마법 피해<>를 입히고 <#ffb900ff>2초<> 동안 <#ef5350ff>30% 둔화<>시킵니다. 동시에 <#ff9028ff>폭풍의 눈<>으로 가장 필요한 아군에게 <#ffb900ff>4초<> 동안 <#e8d44dff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 75%<> <#e8d44dff>보호막<>을 씌우며, 보호막이 유지되는 동안 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력이 15% 증가<>합니다. 주변에 아군이 없으면 자신에게 씌웁니다.",
+        "sona_skill2": "[확장] 자신과 근처에서 가장 많이 다친 아군의 체력을 <#6aff55ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#6aff55ff>주문력의 40%<> 회복합니다. <#ff9028ff>멜로디<>: 곁의 아군 챔피언은 <#ffb900ff>1.5초<> 동안 <#e8d44dff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>주문력의 40%<>의 보호막을 얻습니다. <#ffb900ff>14초<>마다 <#ff9028ff>기민함의 노래<>도 연주해 곁의 아군 챔피언의 <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>이동 속도가 20%<>(자신 30%) <#ffb900ff>3초<> 동안 증가합니다.",
+        "lulu_skill2": "[확장] <#ff9028ff>변덕쟁이<>: 적 챔피언을 <#ffb900ff>1.75초<> <#ef5350ff>변이<>시키고(공격·스킬 불가, 둔화) <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>의 <#a974ffff>마법 피해<>; <#ff9028ff>도와줘, 픽스!<>: 가장 필요한 근처 아군에게 <#9fd8ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#9fd8ffff>50%<>의 <#9fd8ffff>보호막<>과 <#ffb900ff>3.5초<> 동안 이동·공격 속도 <#ffb900ff>25%<>."
+      }
+    }
+  },
+  "ja": {
+    "description": {
+      "league_support_pick": {
+        "janna_skill2": "【拡張】敵チャンピオン1体に<#ff9028ff>ゼファー<>を放ち、<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の40%<>の<#a974ffff>魔法ダメージ<>と<#ffb900ff>2秒<>間<#ef5350ff>30%スロウ<>を与える。同時に<#ff9028ff>ストームブレス<>で最も必要な近くの味方（危険か交戦中）に<#ffb900ff>4秒<>間<#e8d44dff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の75%<>の<#e8d44dff>シールド<>を付与し、その間<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力が15%増加<>する。味方がいなければ自身に付与。",
+        "sona_skill2": "【拡張】自身と近くで最も傷ついた味方の体力を<#6aff55ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#6aff55ff>魔力の40%<>回復。<#ff9028ff>メロディー<>：そばの味方チャンピオンに<#ffb900ff>1.5秒<>間<#e8d44dff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>魔力の40%<>のシールド。<#ffb900ff>14秒<>ごとに<#ff9028ff>セレリティ<>も奏で、そばの味方は<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移動速度20%<>増加(自身30%)、<#ffb900ff>3秒<>。",
+        "lulu_skill2": "【拡張】<#ff9028ff>イタズラ<>：敵チャンピオンを<#ffb900ff>1.75秒<><#ef5350ff>変身<>させ（攻撃・スキル不可、スロウ）<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>の<#a974ffff>魔法ダメージ<>。<#ff9028ff>ピックス、おねがい！<>：最も必要な近くの味方に<#9fd8ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#9fd8ffff>50%<>の<#9fd8ffff>シールド<>と移動・攻撃速度<#ffb900ff>25%<>（<#ffb900ff>3.5秒<>）。"
+      }
+    }
+  }
+}
