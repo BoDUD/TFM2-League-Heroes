@@ -36,7 +36,8 @@ E = "<>"
 # face suggests -36, the backpack's top); the idle's top is 26 over the pivot, so no banpick_center (only tops above -28)
 # 2026-10-24 PPU 2.2 redo (rig_twitch_hd.py): the face on his goggle, 24 over the feet and 5 ahead (ppu_restyle face_to;
 # tfm2_ase.py face: the crown 29 over the feet, 5 below it passes); the idle's top 25.3 over the pivot: still no banpick_center
-VIEW = {"face": {"x": 5, "y": -24}, "center": {"x": 0, "y": -11}}
+# 2026-10-25: face (7,-28) - (5,-24) cut the goggles off; kept equal to champion_view and ppu_restyle.py
+VIEW = {"face": {"x": 7, "y": -28}, "center": {"x": 0, "y": -11}}
 
 
 def phy(d, r):
