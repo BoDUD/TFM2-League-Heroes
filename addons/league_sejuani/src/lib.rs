@@ -120,7 +120,7 @@ pub struct Params {
 
 impl Default for Params {
     fn default() -> Self {
-        Self { f_n: 4, e_stun: 60, e_dmg: 40, e_ap: 40, sh_cd: 300, sh_dmg: 20, sh_ap: 40, sh_pct: 6, q_t: 8, fa_out: 300 }
+        Self { f_n: 4, e_stun: 60, e_dmg: 60, e_ap: 40, sh_cd: 300, sh_dmg: 30, sh_ap: 40, sh_pct: 6, q_t: 8, fa_out: 300 }
     }
 }
 
@@ -382,8 +382,8 @@ mod tests {
     #[test]
     fn damage_follows_the_numbers() {
         let p = Params::default();
-        assert_eq!(freeze_damage(&p, 100), 80);
-        assert_eq!(shatter_damage(&p, 100, 2000), 20 + 40 + 120);
+        assert_eq!(freeze_damage(&p, 100), 100);
+        assert_eq!(shatter_damage(&p, 100, 2000), 30 + 40 + 120);
     }
 
     #[test]

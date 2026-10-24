@@ -45,7 +45,11 @@ while the Frost Armour lasts (no tenacity stand-in) and puts her in combat (`fig
 Arctic Assault at the first enemy champion (`q_stop`: she is held where she hit it for the rest of the charge).
 Timings: drafts until the frames exist (tools/art/rig_sejuani.py retimes them).
 Numbers: League 16.21 read into the jungle tank range (league_zac, league_nunu, league_rammus), balanced on the
-classic-SDK simulations (kd.py --lane 1 against ninja, demon, hunter, werewolf and vampire, C:/t/se_sim, 2026-10-24).
+classic-SDK simulations (kd.py --lane 1 against ninja, demon, hunter, werewolf and vampire, C:/t/se_sim, 2026-10-24;
+league_zac --native +1.58 / +1.30 on seeds 1-8 / 9-16): the draft (hp 1150, attack 70, Q 60 + 60% every 480, W 30 + 30% /
+50 + 50% every 360, R 120) -1.16; hp 1250, attack 76, Q 80 + 70% every 420, W 40 + 40% / 60 + 60% every 300, R 150
++1.23 / +0.33; with hp 1300, defence 44 +1.27 (1-8); with W every 270, R 170, shatter 30, freeze 60 = P +1.40 (1-16);
+with hp 1350, attack 80 instead +1.30 (1-16). The add-on's rules cannot run in that engine (Native effects dropped).
 """
 import argparse
 import json
@@ -65,7 +69,7 @@ BIG = "asset/league/effects/league_sejuani_big"
 # 55-255 + 60% AP. R: bola 1300, 125-325 + 80% AP, stun 1-1.5 s, storm slows 30% (a later blast), cd 120-90.
 P = {
     # stats (base tanks: attack 80 +6, hp 1100 +120, defence 40 +10, mr 30 +5; league_zac 1150 / 72, apw 30 +15)
-    "hp": 1150, "hp_g": 120, "atk": 70, "atk_g": 6, "apw": 30, "apw_g": 15, "def": 40, "def_g": 10, "mr": 30,
+    "hp": 1300, "hp_g": 120, "atk": 76, "atk_g": 6, "apw": 30, "apw_g": 15, "def": 44, "def_g": 10, "mr": 30,
     "mr_g": 5, "ms": 1000, "ms_g": 11, "regen": 2, "regen_g": 1,
     "atk_range": 25000, "atk_dur": 28, "atk_cd": 70, "a_hit": 11,
     # the controller
@@ -73,17 +77,17 @@ P = {
     # passive: Frost Armour
     "fa_out": 300, "fa_keep": 120, "fa_def": 40, "fa_mr": 40, "fa_tough": 30,
     # passive: Permafrost (Frost stacks -> freeze) and the shatter
-    "f_t": 300, "f_n": 4, "e_stun": 60, "e_dmg": 40, "e_ap": 40,
-    "sh_win": 90, "sh_cd": 300, "sh_dmg": 20, "sh_ap": 40, "sh_pct": 6,
+    "f_t": 300, "f_n": 4, "e_stun": 60, "e_dmg": 60, "e_ap": 40,
+    "sh_win": 90, "sh_cd": 300, "sh_dmg": 30, "sh_ap": 40, "sh_pct": 6,
     # skill: Q Arctic Assault
-    "q_cd": 480, "q_range": 45000, "q_dur": 24, "q_go": 6, "q_speed": 6000, "q_t": 8, "q_dmg": 60, "q_ap": 60,
+    "q_cd": 420, "q_range": 45000, "q_dur": 24, "q_go": 6, "q_speed": 6000, "q_t": 8, "q_dmg": 80, "q_ap": 70,
     "q_up": 30,
     # skill2: W Winter's Wrath
-    "w_cd": 360, "w_range": 30000, "w_dur": 40, "w_rel1": 10, "w_rel2": 26, "w_r1": 22000, "w_len": 45000,
-    "w_rad": 7000, "w_speed": 30000, "w1_dmg": 30, "w1_ap": 30, "w2_dmg": 50, "w2_ap": 50, "w_slow": 40,
+    "w_cd": 270, "w_range": 30000, "w_dur": 40, "w_rel1": 10, "w_rel2": 26, "w_r1": 22000, "w_len": 45000,
+    "w_rad": 7000, "w_speed": 30000, "w1_dmg": 40, "w1_ap": 40, "w2_dmg": 60, "w2_ap": 60, "w_slow": 40,
     "w_slow_t": 90,
     # ult: R Glacial Prison
-    "r_cd": 4200, "r_range": 70000, "r_dur": 30, "r_rel": 14, "r_speed": 12000, "r_len": 80000, "r_dmg": 120,
+    "r_cd": 4200, "r_range": 70000, "r_dur": 30, "r_rel": 14, "r_speed": 12000, "r_len": 80000, "r_dmg": 170,
     "r_ap": 80, "r_stun": 75, "r_sr": 26000, "r_slow": 35, "r_storm": 120,
     # her spoken lines, at most one every vo_gap ticks
     "vo_gap": 600,

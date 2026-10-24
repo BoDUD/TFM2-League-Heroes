@@ -12,10 +12,10 @@
     "params": {
       "f_n": 4,
       "e_stun": 60,
-      "e_dmg": 40,
+      "e_dmg": 60,
       "e_ap": 40,
       "sh_cd": 300,
-      "sh_dmg": 20,
+      "sh_dmg": 30,
       "sh_ap": 40,
       "sh_pct": 6,
       "q_t": 8,
@@ -30,10 +30,10 @@
     "asset/league/icons/league_sejuani_ult"
   ],
   "stat": {
-    "attack": 70,
+    "attack": 76,
     "magic_power": 30,
-    "hp": 1150,
-    "defence": 40,
+    "hp": 1300,
+    "defence": 44,
     "magic_resistance": 30,
     "move_speed": 1000,
     "hp_regen": 2,
@@ -275,7 +275,7 @@
                                                         "name": "league_sejuani_q_cd",
                                                         "duration": {
                                                           "Time": {
-                                                            "tick": 480
+                                                            "tick": 420
                                                           }
                                                         }
                                                       },
@@ -395,8 +395,8 @@
                                                                     "casting_type": "Targeting",
                                                                     "effect": {
                                                                       "type": "ApAttack",
-                                                                      "damage": 60,
-                                                                      "attack_ratio": 60,
+                                                                      "damage": 80,
+                                                                      "attack_ratio": 70,
                                                                       "hp_ratio": 0,
                                                                       "can_crit": false
                                                                     }
@@ -605,7 +605,7 @@
                                                         "name": "league_sejuani_w_cd",
                                                         "duration": {
                                                           "Time": {
-                                                            "tick": 360
+                                                            "tick": 270
                                                           }
                                                         }
                                                       },
@@ -733,8 +733,8 @@
                                                                 "effects": [
                                                                   {
                                                                     "type": "ApAttack",
-                                                                    "damage": 30,
-                                                                    "attack_ratio": 30,
+                                                                    "damage": 40,
+                                                                    "attack_ratio": 40,
                                                                     "hp_ratio": 0,
                                                                     "can_crit": false
                                                                   },
@@ -872,8 +872,8 @@
                                                                     "casting_type": "Targeting",
                                                                     "effect": {
                                                                       "type": "ApAttack",
-                                                                      "damage": 50,
-                                                                      "attack_ratio": 50,
+                                                                      "damage": 60,
+                                                                      "attack_ratio": 60,
                                                                       "hp_ratio": 0,
                                                                       "can_crit": false
                                                                     }
@@ -1214,8 +1214,8 @@
               },
               "effect_none": {
                 "type": "ApAttack",
-                "damage": 60,
-                "attack_ratio": 60,
+                "damage": 80,
+                "attack_ratio": 70,
                 "hp_ratio": 0,
                 "can_crit": false
               }
@@ -1249,7 +1249,7 @@
                       "name": "league_sejuani_q_cd",
                       "duration": {
                         "Time": {
-                          "tick": 480
+                          "tick": 420
                         }
                       }
                     },
@@ -1369,8 +1369,8 @@
                                   "casting_type": "Targeting",
                                   "effect": {
                                     "type": "ApAttack",
-                                    "damage": 60,
-                                    "attack_ratio": 60,
+                                    "damage": 80,
+                                    "attack_ratio": 70,
                                     "hp_ratio": 0,
                                     "can_crit": false
                                   }
@@ -1577,8 +1577,8 @@
               },
               "effect_none": {
                 "type": "ApAttack",
-                "damage": 80,
-                "attack_ratio": 80,
+                "damage": 100,
+                "attack_ratio": 100,
                 "hp_ratio": 0,
                 "can_crit": false
               }
@@ -1631,7 +1631,7 @@
                           "name": "league_sejuani_w_cd",
                           "duration": {
                             "Time": {
-                              "tick": 360
+                              "tick": 270
                             }
                           }
                         },
@@ -1759,8 +1759,8 @@
                                   "effects": [
                                     {
                                       "type": "ApAttack",
-                                      "damage": 30,
-                                      "attack_ratio": 30,
+                                      "damage": 40,
+                                      "attack_ratio": 40,
                                       "hp_ratio": 0,
                                       "can_crit": false
                                     },
@@ -1898,8 +1898,8 @@
                                       "casting_type": "Targeting",
                                       "effect": {
                                         "type": "ApAttack",
-                                        "damage": 50,
-                                        "attack_ratio": 50,
+                                        "damage": 60,
+                                        "attack_ratio": 60,
                                         "hp_ratio": 0,
                                         "can_crit": false
                                       }
@@ -2059,7 +2059,7 @@
               },
               "effect_none": {
                 "type": "ApAttack",
-                "damage": 120,
+                "damage": 170,
                 "attack_ratio": 80,
                 "hp_ratio": 0,
                 "can_crit": false
@@ -2223,7 +2223,7 @@
                                                         "name": "league_sejuani_q_cd",
                                                         "duration": {
                                                           "Time": {
-                                                            "tick": 480
+                                                            "tick": 420
                                                           }
                                                         }
                                                       },
@@ -2343,8 +2343,8 @@
                                                                     "casting_type": "Targeting",
                                                                     "effect": {
                                                                       "type": "ApAttack",
-                                                                      "damage": 60,
-                                                                      "attack_ratio": 60,
+                                                                      "damage": 80,
+                                                                      "attack_ratio": 70,
                                                                       "hp_ratio": 0,
                                                                       "can_crit": false
                                                                     }
@@ -2553,7 +2553,7 @@
                                                         "name": "league_sejuani_w_cd",
                                                         "duration": {
                                                           "Time": {
-                                                            "tick": 360
+                                                            "tick": 270
                                                           }
                                                         }
                                                       },
@@ -2681,8 +2681,8 @@
                                                                 "effects": [
                                                                   {
                                                                     "type": "ApAttack",
-                                                                    "damage": 30,
-                                                                    "attack_ratio": 30,
+                                                                    "damage": 40,
+                                                                    "attack_ratio": 40,
                                                                     "hp_ratio": 0,
                                                                     "can_crit": false
                                                                   },
@@ -2820,8 +2820,8 @@
                                                                     "casting_type": "Targeting",
                                                                     "effect": {
                                                                       "type": "ApAttack",
-                                                                      "damage": 50,
-                                                                      "attack_ratio": 50,
+                                                                      "damage": 60,
+                                                                      "attack_ratio": 60,
                                                                       "hp_ratio": 0,
                                                                       "can_crit": false
                                                                     }
@@ -3074,7 +3074,7 @@
                                 "casting_type": "Targeting",
                                 "effect": {
                                   "type": "ApAttack",
-                                  "damage": 120,
+                                  "damage": 170,
                                   "attack_ratio": 80,
                                   "hp_ratio": 0,
                                   "can_crit": false
