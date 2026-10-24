@@ -27,9 +27,13 @@ Unraveled Earth (E) laid first, Weaver's Wall (R) the `ult`; Rock Surfing is the
   ult     R Weaver's Wall (墙幔), `Targeting` on `EnemyChampion` (r_range): a long upright wall (`Rect` r_w x r_h,
           axis-aligned: always upright on the screen) rises where the target stands r_rel ticks after the cast and
           stays r_t ticks: whoever stands on it when it rises is dragged out to her side (league_anivia's Grab field,
-          r_out ticks), every r_p ticks each enemy touching it is slowed r_slow% (stuck at its edge). R -> W (combo):
-          r_w_at ticks later she casts W on the target at once (W's cooldown starts over), shoving it into the wall;
-          she surfs (the passive's r_ms%) for r_surf ticks.
+          r_out ticks), every r_p ticks each enemy touching it is slowed r_slow% (stuck at its edge) - when an enemy
+          champion is within r_near or she is already in a fight. R -> W (combo): r_w_at ticks later she casts W on
+          the target at once if W is ready (r_reset 1: always, its cooldown started over), shoving it into the wall.
+          Otherwise (the target far, no fight) she lays a long horizontal wall from her toward it (r_n stretches r_seg
+          apart, picture r_wall_h, the same slow) and rides its crest in RushTime steps (r_speed x r_step, r_steps at
+          most), jumping off as soon as an enemy champion is within r_off - W at once if ready (the eruption throws
+          the target across her mines). Either way she surfs (the passive's r_ms%) for r_surf ticks.
 Timings: drafts until the frames exist (a rig script retimes them).
 Numbers: League 16.21 read into the mid mage range (league_aurora, league_syndra); balanced on the classic-SDK
 simulations (kd.py --lane 2 against pyromancer, ice_mage, lightning_mage, wind_mage and white_mage, C:/t/ta_sim,
@@ -39,7 +43,12 @@ surf 10% with every hit cut +0.47 (deal 5214 against Aurora's 11398); damage bac
 mines 45 + 28% +0.85 / +1.89 on seeds 1-8 / 9-16 (mean +1.37: league_syndra +1.17 / +1.42, league_anivia +1.29);
 the wall's band widened to r_w 12000 (it was thinner than its 16-px picture: a champion dragged out still stood in it)
 +1.68 / +1.65 - the wall's slow and slam drive it (Q 29 + 15% left it at +1.67 / +1.61); the slow 35% and the slam 32
-ticks +0.72 / +0.61; the slow 42% and the slam 36 ticks = P +1.02 / +1.25 (mean +1.14).
+ticks +0.72 / +0.61; the slow 42% and the slam 36 ticks +1.02 / +1.25 (mean +1.14).
+The skills redone as League (the user, 2026-10-24: Q's rocks a beat apart, the mines in front of her, the ride with the
+horizontal wall): the ride as one MoveToTarget (always all the way: into them) -0.71 .. -1.28; in RushTime steps
+with the jump-off at r_off +1.48 / +2.21 - every R a free W (its cooldown reset), a sure stun across the mines; damage,
+health or R's cooldown cut barely moved it (+1.45 .. +2.2); R -> W only when W is ready (r_reset 0) = P +0.55 / +1.12 /
++1.81 / +2.21 on seeds 1-32 (mean +1.42: league_syndra +1.17 / +1.42).
 """
 import argparse
 import json
@@ -82,6 +91,8 @@ P = {
     # champion is within r_off (W + E's sweet spot) or the steps run out - W at once on the target
     "r_near": 60000, "r_speed": 2500, "r_ride_at": 8, "r_step": 2, "r_steps": 8, "r_off": 55000, "r_seg": 26000,
     "r_n": 6, "r_lay_speed": 8000,
+    # 1: R starts W's cooldown over and casts it at once; 0: R casts W only when it is ready
+    "r_reset": 0,
     # her spoken lines, at most one every vo_gap ticks
     "vo_gap": 600,
 }
@@ -319,7 +330,8 @@ def build(p):
     upright = combine(anim("ult", p["r_dur"]), delayed(p["r_rel"] - 1, alive(
         refresh("r_wall", p["r_t"]), lob("r_mark", 1, wall), surf_on,
         # R -> W at once on the same champion, into the wall (W's cooldown starts over)
-        delayed(p["r_w_at"], alive(*rm("w_cd"), w_cast("EnemyChampion"))))))
+        delayed(p["r_w_at"], alive(*rm("w_cd"), w_cast("EnemyChampion")) if p["r_reset"] else
+                alive(sw("w_cd", NONE, w_cast("EnemyChampion")))))))
     # far: she rides - a long horizontal wall laid from her toward the target (r_n stretches r_seg apart: hidden lines
     # flying 0, r_seg, 2 r_seg ... and laying a Rect r_seg long and r_w thick where each stops, its picture r_wall_h),
     # then rides along it step by step (League: she jumps off wherever she likes): before every step (a RushTime of
@@ -333,7 +345,8 @@ def build(p):
     lay = [line("r_lay", p["r_lay_speed"], k * p["r_seg"] + 1, 1000, "Ally", [], end=stretch, penetrate=True)
            for k in range(p["r_n"])]
     ride_t = p["r_steps"] * p["r_step"]
-    jump_off = combine(*rm("riding", "w_cd"), w_cast("EnemyChampion"))
+    w_now = combine(*rm("w_cd"), w_cast("EnemyChampion")) if p["r_reset"] else sw("w_cd", NONE, w_cast("EnemyChampion"))
+    jump_off = combine(*rm("riding"), w_now)
     step = combine(pick(p["r_off"], "EnemyChampion", flag("off", 1)),
                    sw("off", combine(*rm("off"), jump_off),
                       # RushTime: speed x tick toward the target and stops (MoveToTarget always goes all the way: a
