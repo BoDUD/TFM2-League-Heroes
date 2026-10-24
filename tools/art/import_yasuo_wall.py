@@ -1,0 +1,219 @@
+#!/usr/bin/env python3
+"""Import Codex's Wind Wall loop for league_yasuo_wall: upright wind pieces that stand along the wall's ground line.
+
+    python tools/art/import_yasuo_wall.py [--preview DIR]
+
+The user, 2026-10-24: 「跟着方向转有点奇怪啊风墙 做成像英雄联盟那样啊」 - League's wall is a line on the ground (any
+direction) with the wind always RISING from it, so the picture is never turned. Source:
+assets/source/yasuo/windwall/yasuo_w_wall_loop.png (Codex, six frames of a 46-pixel wall front on). Each frame is shrunk
+to game size (the commonest colour of each block), mapped to one palette for the six frames (wind shades + ochre), the
+ochre ground line taken out, and the wind cut into PIECES columns. Written to addons/league_yasuo_wall/effects/
+league_yasuo_wall_fx (#sheet.png + #anim.fanim):
+  plume_<k>  piece k of the wind, the six frames looped for the wall's 4 s; the frame's middle is the ground line under
+             it (the pivot), the wind above it, nothing below;
+  ground     one ochre ground dot for the line (3 x 2), 4 s.
+The add-on plays plume_<k> at PIECES points along the wall (left to right on screen) and ground dots every DOT units,
+all upright: the line follows the wall, the wind always rises (src/lib.rs `pieces`). --preview also draws the wall
+across, up and down, and slanting next to Yasuo at game size.
+"""
+import argparse
+import json
+import os
+
+import numpy as np
+from PIL import Image, ImageDraw, ImageFont
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+ROOT = os.path.dirname(os.path.dirname(HERE))
+SRC = os.path.join(ROOT, "assets", "source", "yasuo", "windwall", "yasuo_w_wall_loop.png")
+OUT = os.path.join(ROOT, "addons", "league_yasuo_wall", "effects", "league_yasuo_wall_fx")
+WIDTH = 46                       # the wall's length at game size (src/lib.rs HALF * 2 = 44000 units, + the plumes' tips)
+WIDTHS = [7, 6, 7, 6, 7, 6, 7]   # the pieces, left to right (src/lib.rs PIECES = 7)
+LIFE = 4.0                       # seconds (src/lib.rs LIFE = 240 ticks)
+FRAME = 1 / 12
+WIND_COLOURS = 6
+PRE = chr(92) * 2 + "?" + chr(92)
+
+
+def lp(p):
+    p = os.path.abspath(p)
+    return PRE + p if os.name == "nt" and not p.startswith(PRE) else p
+
+
+def crop(a):
+    ys, xs = np.nonzero(a[..., 3] > 128)
+    return a[ys.min():ys.max() + 1, xs.min():xs.max() + 1]
+
+
+def shrink(a, w):
+    """Each target pixel = the commonest colour of its block (alpha by majority)."""
+    H, W = a.shape[:2]
+    h = max(1, round(H * w / W))
+    out = np.zeros((h, w, 4), np.uint8)
+    for j in range(h):
+        y0, y1 = int(j * H / h), max(int(j * H / h) + 1, int((j + 1) * H / h))
+        for i in range(w):
+            x0, x1 = int(i * W / w), max(int(i * W / w) + 1, int((i + 1) * W / w))
+            blk = a[y0:y1, x0:x1].reshape(-1, 4)
+            on = blk[blk[:, 3] > 128]
+            if len(on) * 2 < len(blk):
+                continue
+            q = (on[:, :3] // 12).astype(np.int32)
+            key = q[:, 0] * 10000 + q[:, 1] * 100 + q[:, 2]
+            vals, cnt = np.unique(key, return_counts=True)
+            out[j, i, :3] = on[key == vals[cnt.argmax()]][:, :3].mean(0)
+            out[j, i, 3] = 255
+    return out
+
+
+def frames():
+    a = np.asarray(Image.open(lp(SRC)).convert("RGBA"))
+    on = (a[..., 3] > 40).any(0)
+    runs, s = [], None
+    for x, c in enumerate(list(on) + [False]):
+        if c and s is None:
+            s = x
+        if not c and s is not None:
+            if x - s > 50:
+                runs.append((s, x))
+            s = None
+    return [crop(shrink(crop(a[:, x0:x1]), WIDTH)) for x0, x1 in runs]
+
+
+def kmeans(px, k, it=20):
+    rng = np.random.default_rng(0)
+    c = px[rng.choice(len(px), k, replace=False)].astype(float)
+    for _ in range(it):
+        lab = ((px[:, None, :] - c[None]) ** 2).sum(-1).argmin(1)
+        for j in range(k):
+            if (lab == j).any():
+                c[j] = px[lab == j].mean(0)
+    return np.round(c).astype(np.uint8)
+
+
+def build():
+    fr = frames()
+    H = max(f.shape[0] for f in fr)
+    fr = [np.pad(f, ((H - f.shape[0], 0), (0, WIDTH - f.shape[1]), (0, 0))) for f in fr]     # bottoms aligned
+    allpx = np.concatenate([f[f[..., 3] > 0][:, :3] for f in fr]).astype(int)
+    warm = allpx[:, 0] > allpx[:, 2] + 20
+    wind_pal = kmeans(allpx[~warm], WIND_COLOURS)
+    ochre_pal = kmeans(allpx[warm], 3) if warm.sum() >= 3 else np.array([[200, 150, 70]] * 3, np.uint8)
+    base = min(int(np.nonzero((f[..., 3] > 0) & (f[..., 0].astype(int) > f[..., 2].astype(int) + 20))[0].min())
+               for f in fr if ((f[..., 0].astype(int) > f[..., 2].astype(int) + 20) & (f[..., 3] > 0)).any())
+    plumes = []
+    for f in fr:
+        g = np.zeros_like(f)
+        rgb = f[..., :3].astype(int)
+        on = f[..., 3] > 0
+        hot = on & (rgb[..., 0] > rgb[..., 2] + 20)
+        wind = on & ~hot
+        lab = ((rgb[wind][:, None, :] - wind_pal[None].astype(int)) ** 2).sum(-1).argmin(1)
+        g[wind] = np.c_[wind_pal[lab], np.full(len(lab), 255)]
+        g[base:] = 0                                   # the ground line and anything under it: the dots draw it
+        plumes.append(g[:base])
+    ochre = sorted(ochre_pal.tolist(), key=lambda c: -sum(c))
+    dot = np.zeros((2, 3, 4), np.uint8)
+    dot[0, :] = ochre[0] + [255]
+    dot[1, :] = ochre[2] + [255]
+    dot[1, 0, 3] = dot[1, 2, 3] = 0
+    return plumes, dot, base
+
+
+def write(plumes, dot, base):
+    pieces, x0 = [], 0
+    for w in WIDTHS:
+        pieces.append([p[:, x0:x0 + w] for p in plumes])
+        x0 += w
+    tiles, anims, x = [], {}, 0
+    loops = int(round(LIFE / (FRAME * len(plumes))))
+    for k, fr in enumerate(pieces):
+        rects = []
+        for f in fr:
+            cell = np.zeros((base * 2, f.shape[1], 4), np.uint8)    # the middle row = the ground line (the pivot)
+            cell[:base] = f
+            tiles.append((x, cell))
+            rects.append({"x": float(x), "y": 0.0, "w": float(cell.shape[1]), "h": float(cell.shape[0])})
+            x += cell.shape[1] + 1
+        anims[f"plume_{k}"] = {"frames": [{"duration": FRAME, "data": r} for _ in range(loops) for r in rects]}
+    cell = np.zeros((4, 3, 4), np.uint8)
+    cell[2:] = dot                                                   # the dot just under the pivot
+    tiles.append((x, cell))
+    anims["ground"] = {"frames": [{"duration": LIFE, "data": {"x": float(x), "y": 0.0, "w": 3.0, "h": 4.0}}]}
+    x += 4
+    sheet = np.zeros((max(t.shape[0] for _, t in tiles), x, 4), np.uint8)
+    for tx, t in tiles:
+        sheet[:t.shape[0], tx:tx + t.shape[1]] = t
+    os.makedirs(lp(os.path.dirname(OUT)), exist_ok=True)
+    Image.fromarray(sheet).save(lp(OUT + "#sheet.png"))
+    with open(lp(OUT + "#anim.fanim"), "w", encoding="utf-8", newline="\n") as f:
+        json.dump({"anims": anims}, f, indent=1)
+        f.write("\n")
+    print("wrote", OUT, sheet.shape, "pieces", [p[0].shape for p in pieces], "loops", loops)
+    return pieces
+
+
+# the add-on's layout (src/lib.rs `pieces`, `dots`): the line in map units, 1000 units a game pixel
+HALF, BOW, DOT, AHEAD = 22_000.0, 5_000.0, 1_600.0, 24_000.0
+
+
+def layout(mid, d):
+    side = np.array([-d[1], d[0]])
+    if side[0] < 0 or (abs(side[0]) < 1e-9 and side[1] < 0):
+        side = -side                                    # pieces go left to right on screen (top to bottom if upright)
+    def at(t):
+        return np.array(mid) + side * HALF * t + np.array(d) * BOW * (1 - t * t)
+    n = len(WIDTHS)
+    plumes = [at(-1 + (2 * k + 1) / n) for k in range(n)]
+    ndots = int(2 * HALF / DOT) + 1
+    dots = [at(-1 + 2 * i / (ndots - 1)) for i in range(ndots)]
+    return plumes, dots
+
+
+def preview(path, pieces, dot):
+    import pack_squill_windwall as P
+    yas = P.champ_1x("league_yasuo")
+    Z = 4
+    font = ImageFont.truetype("C:/Windows/Fonts/msyh.ttc", 16)
+    cases = [("敌人在右边：墙竖着", (1.0, 0.0)), ("敌人在下面：墙横着", (0.0, 1.0)), ("敌人在右下：墙斜着", (0.7071, 0.7071)),
+             ("敌人在左上：墙斜着", (-0.7071, -0.7071))]
+    tiles = []
+    for name, d in cases:
+        W, H = 110, 100
+        img = Image.new("RGBA", (W * Z, H * Z + 30), P.ARENA)
+        me = np.array([40.0, 55.0])
+        img.alpha_composite(P.up(yas, Z), (int((me[0] - yas.shape[1] / 2) * Z), int((me[1] - yas.shape[0]) * Z) + 30))
+        mid = me * 1000 + np.array(d) * AHEAD
+        plumes, dots = layout(tuple(mid), d)
+        for p in dots:
+            q = p / 1000
+            img.alpha_composite(P.up(dot, Z), (int((q[0] - 1.5) * Z), int(q[1] * Z) + 30))
+        order = sorted(range(len(plumes)), key=lambda k: plumes[k][1])           # back (higher up) drawn first
+        for k in order:
+            f = pieces[k][0]
+            q = plumes[k] / 1000
+            img.alpha_composite(P.up(f, Z), (int((q[0] - f.shape[1] / 2) * Z), int((q[1] - f.shape[0]) * Z) + 30))
+        ImageDraw.Draw(img).text((6, 4), name, fill=(255, 255, 255, 255), font=font)
+        tiles.append(img)
+    out = Image.new("RGB", (sum(t.width + 8 for t in tiles), max(t.height for t in tiles)), (50, 54, 44))
+    x = 0
+    for t in tiles:
+        out.paste(t.convert("RGB"), (x, 0))
+        x += t.width + 8
+    out.save(path)
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--preview")
+    a = ap.parse_args()
+    plumes, dot, base = build()
+    pieces = write(plumes, dot, base)
+    if a.preview:
+        os.makedirs(a.preview, exist_ok=True)
+        preview(os.path.join(a.preview, "wall_ways.png"), pieces, dot)
+        print("preview", a.preview)
+
+
+if __name__ == "__main__":
+    main()

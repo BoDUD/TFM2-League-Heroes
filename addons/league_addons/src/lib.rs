@@ -213,6 +213,9 @@ mod briar_frenzy;
 #[allow(dead_code)] // items public in the add-on's own crate
 #[path = "../../league_teemo_shrooms/src/lib.rs"]
 mod teemo_shrooms;
+#[allow(dead_code)] // items public in the add-on's own crate
+#[path = "../../league_yasuo_wall/src/lib.rs"]
+mod yasuo_wall;
 #[path = "../../league_shen_shield/src/lib.rs"]
 mod shen_shield;
 #[allow(dead_code)] // items public in the add-on's own crate
@@ -478,6 +481,7 @@ fn init(host: &StableHost) -> StableMod {
     support_pick::register(host, &mut module);
     briar_frenzy::register(host, &mut module);
     teemo_shrooms::register(host, &mut module);
+    yasuo_wall::register(host, &mut module);
     shen_shield::register(host, &mut module);
     tahmkench::register(host, &mut module);
     kalista::register(host, &mut module);

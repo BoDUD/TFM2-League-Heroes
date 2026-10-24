@@ -6,8 +6,11 @@
 //! - **什么时候放（智能）**：墙好了（冷却 `CD`，`MIN_LEVEL` 级起），亚索没被硬控，而且敌方英雄的飞行物正朝亚索或 `GUARD_R`
 //!   内的队友飞来、`NEAR`–`FAR` 之内就要打到：这样的飞行物 ≥ `MANY` 个，或者有一个是冲着生命不高于 `LOW`% 的人去的，才放。
 //!   飞行物的方向由它这一 tick 和上一 tick 的位置算（按施放者配对）。
-//! - **放在哪**：亚索身前 `AHEAD`，朝着来袭飞行物的平均方向，墙和这个方向垂直，长 2 × `HALF`，`LIFE` tick，每 tick 往前飘
-//!   `DRIFT`（主包的墙图是一个同样飘着的投射物，图跟着飞行方向转）。
+//! - **放在哪**：亚索身前 `AHEAD`，朝着来袭飞行物的平均方向，墙和这个方向垂直，长 2 × `HALF`，中间往敌人那边鼓 `BOW`
+//!   （英雄联盟的弧形墙），`LIFE` tick。
+//! - **画面像英雄联盟**（用户：「跟着方向转有点奇怪啊风墙 做成像英雄联盟那样啊」）：墙脚是地上的一条线，跟着墙的方向；风永远
+//!   往上升，图不转。Codex 画的墙切成 `PIECES` 段竖着的风（`tools/art/import_yasuo_wall.py`），沿墙脚从屏幕左到右（竖着的墙
+//!   从上到下）一段段摆开，墙脚每 `DOT` 放一个地上的小点。
 //! - **挡住**：敌方英雄的飞行物这一 tick 从墙的这一边穿到那一边，就算被挡：在穿过的地方播挡住的画面。引擎删不掉飞行物，
 //!   所以之后它打到的友方英雄（它经过的路线 `HIT_R` 内、这一 tick 掉了血的）把这一下的伤害补回去（`heal`），这一 tick 新挂上的
 //!   控制也清掉（`entity_clear_cc`）。塔的炮弹不挡（英雄联盟也不挡）。
@@ -26,9 +29,11 @@ const ID: &str = "league_yasuo_wall";
 pub const CD: usize = 1_200;
 pub const MIN_LEVEL: usize = 2;
 pub const LIFE: usize = 240;
-pub const AHEAD: f64 = 6_000.0;
+pub const AHEAD: f64 = 24_000.0;
+pub const BOW: f64 = 5_000.0;
+pub const PIECES: usize = 7;
+pub const DOT: f64 = 1_600.0;
 pub const HALF: f64 = 22_000.0;
-pub const DRIFT: f64 = 50.0;
 pub const GUARD_R: f64 = 50_000.0;
 pub const NEAR: f64 = 4_000.0;
 pub const FAR: f64 = 32_000.0;
@@ -37,10 +42,9 @@ pub const LOW: usize = 40;
 pub const HIT_R: f64 = 12_000.0;
 /// 上一 tick 和这一 tick 的同一个飞行物最多差这么远（最快的飞行物每 tick 约 20000）。
 pub const MATCH_R: f64 = 30_000.0;
-pub const WALL_PIC: &str = "league_yasuo_w_wall";
-pub const CAST_PIC: &str = "league_yasuo_w_cast";
-pub const BLOCK_PIC: &str = "league_yasuo_w_block";
-pub const FADE_PIC: &str = "league_yasuo_w_fade";
+/// 墙的画面：`PIECE_PIC` + 段号（`plume_0`..`plume_6`），墙脚的小点。
+pub const PIECE_PIC: &str = "league_yasuo_w_plume_";
+pub const GROUND_PIC: &str = "league_yasuo_w_ground";
 const MAP: f64 = 960_000.0;
 const HARD_CC: [CcKindV1; 7] = [CcKindV1::Airborne, CcKindV1::Stun, CcKindV1::Bind, CcKindV1::Taunt, CcKindV1::Fear,
                                 CcKindV1::Charm, CcKindV1::ForceMove];
@@ -208,10 +212,29 @@ pub fn plan(me: Pt, missiles: &[Missile], guarded: &[Guarded]) -> Option<(Pt, Pt
     Some((add(me, mul(dir, AHEAD)), dir, threats.len()))
 }
 
-/// The wall's two ends.
-pub fn ends(mid: Pt, dir: Pt) -> (Pt, Pt) {
-    let side = (-dir.1, dir.0);
-    (add(mid, mul(side, HALF)), sub(mid, mul(side, HALF)))
+/// Along the wall: the side vector, pointing left to right on screen (top to bottom when the wall stands up and down).
+pub fn side_of(dir: Pt) -> Pt {
+    let s = (-dir.1, dir.0);
+    if s.0 < 0.0 || (s.0.abs() < 1e-9 && s.1 < 0.0) { mul(s, -1.0) } else { s }
+}
+
+/// The point at `t` (-1 .. 1) along the bowed wall.
+pub fn along(mid: Pt, dir: Pt, t: f64) -> Pt {
+    add(add(mid, mul(side_of(dir), HALF * t)), mul(dir, BOW * (1.0 - t * t)))
+}
+
+/// The wall's line as a polyline (for the blocking test).
+pub fn line(mid: Pt, dir: Pt) -> Vec<Pt> {
+    (0..=8).map(|i| along(mid, dir, -1.0 + i as f64 / 4.0)).collect()
+}
+
+/// Where the pieces of wind stand (piece k from the left), and the ground dots.
+pub fn pieces(mid: Pt, dir: Pt) -> (Vec<Pt>, Vec<Pt>) {
+    let n = PIECES as f64;
+    let plumes = (0..PIECES).map(|k| along(mid, dir, -1.0 + (2.0 * k as f64 + 1.0) / n)).collect();
+    let dots = (2.0 * HALF / DOT) as usize + 1;
+    let ground = (0..dots).map(|i| along(mid, dir, -1.0 + 2.0 * i as f64 / (dots - 1) as f64)).collect();
+    (plumes, ground)
 }
 
 // ===================== 被动 =====================
@@ -251,34 +274,24 @@ fn upos(p: Pt) -> (u64, u64) {
 }
 
 impl WallPassive {
-    fn raise(&mut self, sim: &mut StableSim<'_>, me: usize, team: usize, mid: Pt, dir: Pt, n: usize) {
+    fn raise(&mut self, sim: &mut StableSim<'_>, me: usize, mid: Pt, dir: Pt, n: usize) {
         let tick = sim.tick();
         self.wall = Some(Wall { mid, dir, until: tick + LIFE });
         self.ready_at = tick + CD;
-        let (x, y) = upos(mid);
-        let (tx, ty) = upos(add(mid, mul(dir, DRIFT * LIFE as f64)));
-        let spec = ProjectileSpawnV1 {
-            caster_id: me,
-            team,
-            x,
-            y,
-            radius: 1_000,
-            speed: DRIFT as u64,
-            move_kind: ProjectileMoveKindV1::Linear.code(),
-            target_id: 0,
-            target_x: tx,
-            target_y: ty,
-            penetrate: true,
-            attack_type: AttackTypeV1::Skill.code(),
-            casting_type: CastingTypeV1::Targeting.code(),
-            casting_target: CastingTargetV1::EnemyChampion.code(),
-        };
-        let shown = sim.spawn_projectile(WALL_PIC, &format!("{ID}:none"), &spec);
-        sim.play_view_effect(CAST_PIC, me, &InputTargetV1::target(me), 0, 0, 0);
+        let (plumes, ground) = pieces(mid, dir);
+        for p in ground {
+            let (x, y) = upos(p);
+            sim.play_view_effect(GROUND_PIC, me, &InputTargetV1::pos(x, y), 0, 0, 0);
+        }
+        let mut shown = 0;
+        for (k, p) in plumes.iter().enumerate() {
+            let (x, y) = upos(*p);
+            shown += sim.play_view_effect(&format!("{PIECE_PIC}{k}"), me, &InputTargetV1::pos(x, y), 0, 0, 0) as usize;
+        }
         self.walls += 1;
         if self.walls <= 80 {
-            wlog(format!("{} WALL #{} at ({:.0}, {:.0}) facing ({:.2}, {:.2}): {n} missiles coming{}", head(sim, me), self.walls,
-                         mid.0, mid.1, dir.0, dir.1, if shown { "" } else { " (no wall picture: spawn_projectile refused)" }));
+            wlog(format!("{} WALL #{} at ({:.0}, {:.0}) facing ({:.2}, {:.2}): {n} missiles coming, {shown} of {PIECES} pieces shown",
+                         head(sim, me), self.walls, mid.0, mid.1, dir.0, dir.1));
         }
     }
 }
@@ -309,30 +322,23 @@ impl StablePassive for WallPassive {
             .map(|p| (p.caster_id, (p.x as f64, p.y as f64)))
             .collect();
         let missiles = pair(&self.prev, &now);
-        // the wall drifts, stops what crosses it, and fades
-        if let Some(w) = self.wall.as_mut() {
-            w.mid = add(w.mid, mul(w.dir, DRIFT));
-        }
+        // the wall stops what crosses it, then goes (its pictures last as long)
         let mut newly = Vec::new();
         if let Some(w) = self.wall {
-            let (a, b) = ends(w.mid, w.dir);
+            let pl = line(w.mid, w.dir);
             for m in &missiles {
                 if self.blocked.iter().any(|q| q.0 == m.caster && len(sub(q.1, m.from)) < 1.0) {
                     continue;
                 }
-                if let Some(p) = crossing(m.from, m.at, a, b) {
+                if let Some(p) = pl.windows(2).find_map(|s| crossing(m.from, m.at, s[0], s[1])) {
                     newly.push((m.caster, m.at, p));
                 }
             }
             if tick >= w.until {
-                let (x, y) = upos(w.mid);
-                sim.play_view_effect(FADE_PIC, me, &InputTargetV1::pos(x, y), 0, 0, 0);
                 self.wall = None;
             }
         }
         for (c, now_at, p) in newly {
-            let (x, y) = upos(p);
-            sim.play_view_effect(BLOCK_PIC, me, &InputTargetV1::pos(x, y), 0, 0, 0);
             self.stops += 1;
             if self.stops <= 120 {
                 wlog(format!("{} BLOCKED #{}: a missile of #{c} at ({:.0}, {:.0})", head(sim, me), self.stops, p.0, p.1));
@@ -385,20 +391,13 @@ impl StablePassive for WallPassive {
             .collect();
         let _ = (hp, max);
         if let Some((mid, dir, n)) = plan(at, &missiles, &guarded) {
-            self.raise(sim, me, team, mid, dir, n);
+            self.raise(sim, me, mid, dir, n);
         }
     }
 
     fn on_dead(&mut self, _sim: &mut StableSim<'_>, _: usize) {
         // a wall already up stays until it fades (League's does too); nothing to forget
     }
-}
-
-/// The wall picture's projectile hits nobody on purpose.
-struct NoEffect;
-
-impl StableEffectType for NoEffect {
-    fn apply(&self, _sim: &mut StableSim<'_>, _: u64, _caster: usize, _input: InputTargetV1) {}
 }
 
 // ===================== 注册 =====================
@@ -417,7 +416,6 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
         LOG_PATH.display()
     ));
     module.add_native_passive(format!("{ID}:wall"), WallPassive::default());
-    module.add_native_effect(format!("{ID}:none"), NoEffect);
     host.log(LogLevel::Info, "league_yasuo_wall v1 loaded (Wind Wall).");
 }
 
@@ -458,9 +456,15 @@ mod tests {
 
     #[test]
     fn crossing_the_wall_is_seen() {
-        let (a, b) = ends((-6_000.0, 0.0), (-1.0, 0.0));
-        assert!(crossing((-10_000.0, 0.0), (-2_000.0, 0.0), a, b).is_some());
-        assert!(crossing((-10_000.0, 30_000.0), (-2_000.0, 30_000.0), a, b).is_none());
+        let pl = line((-24_000.0, 0.0), (-1.0, 0.0));
+        let hit = |p0: Pt, p1: Pt| pl.windows(2).any(|s| crossing(p0, p1, s[0], s[1]).is_some());
+        assert!(hit((-40_000.0, 0.0), (-10_000.0, 0.0)));
+        assert!(hit((-40_000.0, 20_000.0), (-10_000.0, 20_000.0)));
+        assert!(!hit((-40_000.0, 30_000.0), (-10_000.0, 30_000.0)));
+        let (plumes, ground) = pieces((0.0, 0.0), (1.0, 0.0));
+        assert_eq!(plumes.len(), PIECES);
+        assert!(plumes[0].1 < plumes[6].1 && plumes[3].0 > plumes[0].0); // top to bottom, bowed toward the enemy
+        assert!(ground.len() > 20);
         assert!(seg_dist((0.0, 5_000.0), (-1.0, 0.0), (1.0, 0.0)) < 5_001.0);
     }
 }
