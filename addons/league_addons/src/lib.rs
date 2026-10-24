@@ -180,6 +180,12 @@ mod ekko_rewind;
 #[allow(dead_code)] // items public in the add-on's own crate
 #[path = "../../league_samira_r/src/lib.rs"]
 mod samira_r;
+#[allow(dead_code)] // items public in the add-on's own crate
+#[path = "../../league_thresh_lantern/src/lib.rs"]
+mod thresh_lantern;
+#[allow(dead_code)] // items public in the add-on's own crate
+#[path = "../../league_yone_r/src/lib.rs"]
+mod yone_r;
 #[path = "../../league_shen_shield/src/lib.rs"]
 mod shen_shield;
 #[allow(dead_code)] // items public in the add-on's own crate
@@ -431,6 +437,8 @@ fn init(host: &StableHost) -> StableMod {
     ult_aim::register(host, &mut module);
     ekko_rewind::register(host, &mut module);
     samira_r::register(host, &mut module);
+    thresh_lantern::register(host, &mut module);
+    yone_r::register(host, &mut module);
     shen_shield::register(host, &mut module);
     tahmkench::register(host, &mut module);
     kalista::register(host, &mut module);

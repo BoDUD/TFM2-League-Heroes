@@ -1,0 +1,37 @@
+{
+  "zh-hans": {
+    "description": {
+      "league_thresh_lantern": {
+        "skill": "【附加包】掷出镰刀，钩住直线上第一个敌方英雄（穿过小兵），造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60% 法术强度<>的<#a974ffff>魔法伤害<>，<#ef5350ff>眩晕<><#ffb900ff>1秒<>并把它拉到身前。<#ff9028ff>魂引之灯<>：每<#ffb900ff>14秒<>同时掷出灯笼，为自己和最危险的队友提供<#e8d44dff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40% 法术强度<>的<#e8d44dff>护盾<>，持续<#ffb900ff>2.5秒<>，有危险时把他拉到身边。"
+      }
+    }
+  },
+  "zh-hant": {
+    "description": {
+      "league_thresh_lantern": {
+        "skill": "【附加包】擲出鐮刀，鉤住直線上第一個敵方英雄（穿過小兵），造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60% 魔法強度<>的<#a974ffff>魔法傷害<>，<#ef5350ff>暈眩<><#ffb900ff>1秒<>並把它拉到身前。<#ff9028ff>鬼影燈籠<>：每<#ffb900ff>14秒<>同時擲出燈籠，為自己和最危險的隊友提供<#e8d44dff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40% 魔法強度<>的<#e8d44dff>護盾<>，持續<#ffb900ff>2.5秒<>，有危險時把他拉到身邊。"
+      }
+    }
+  },
+  "en": {
+    "description": {
+      "league_thresh_lantern": {
+        "skill": "[Add-on] Thresh throws his scythe at the first enemy champion in a line (it passes minions), dealing <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60% Ability Power<> <#a974ffff>magic damage<>, <#ef5350ff>stunning<> it for <#ffb900ff>1s<> and pulling it to him. <#ff9028ff>Dark Passage<>: every <#ffb900ff>14s<> his lantern goes to the ally in most danger, pulled to him if threatened; both get a <#e8d44dff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40% Ability Power<> <#e8d44dff>shield<> for <#ffb900ff>2.5s<>."
+      }
+    }
+  },
+  "ko": {
+    "description": {
+      "league_thresh_lantern": {
+        "skill": "[확장] 낫을 던져 일직선상의 첫 적 챔피언을 낚아채(미니언 통과) <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 60%<> <#a974ffff>마법 피해<>를 입히고 <#ffb900ff>1초<> 동안 <#ef5350ff>기절<>시키며 앞으로 끌어옵니다. <#ff9028ff>어둠의 통로<>: <#ffb900ff>14초<>마다 등불도 던져 자신과 가장 위험한 아군(위험하면 끌어옴)에게 <#ffb900ff>2.5초<> 동안 <#e8d44dff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 40%<> <#e8d44dff>보호막<>을 씌웁니다."
+      }
+    }
+  },
+  "ja": {
+    "description": {
+      "league_thresh_lantern": {
+        "skill": "【拡張】鎌を投げ、直線上で最初の敵チャンピオン（ミニオンは貫通）に<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の60%<>の<#a974ffff>魔法ダメージ<>を与え、<#ffb900ff>1秒<>間<#ef5350ff>スタン<>させて引き寄せる。<#ff9028ff>嘆きの魂灯<>：<#ffb900ff>14秒<>ごとにランタンも投げ、自身と最も危険な味方（危なければ引き寄せる）に<#ffb900ff>2.5秒<>間<#e8d44dff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の40%<>の<#e8d44dff>シールド<>を付与する。"
+      }
+    }
+  }
+}
