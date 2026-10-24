@@ -22,7 +22,9 @@ addons/league_urgot, PPU 1.5 - 「方案可以，全按推荐做（上单，W �
           game's AI fire it on the move, champion-data 7). A shield of e_sh + e_sh_ratio% AD for e_sh_t from the
           start, a charge onto the champion (MoveToTarget e_speed); on the catch e_dmg + e_ratio% AD, a stun of e_stun,
           and e_fling ticks later he hurls it over himself (a Pull through him: speed e_pull x e_pull_t, forced
-          movement = crowd control for league_yasuo's R). The catch opens Purge.
+          movement = crowd control for league_yasuo's R); he stands planted (e_plant) until it lands. With native=1
+          the add-on throws it e_behind past him on the side he dashed from (league_urgot:dash / :fling) - the main
+          pack's pull goes the wrong way when the bodies part the wrong way. The catch opens Purge.
   ult     R Fear Beyond Death (超越死亡的恐惧): a `Targeting` cast on `EnemyChampionRecentlyAttacked` (r_range: a champion
           his team is already hurting, the stand-in for a wounded one; nothing in the data reads current health).
           A hidden lob locks where it stands r_aim ticks before the drill leaves; the drill (LinearProjectile, stops on
@@ -70,7 +72,8 @@ P = {
     # E Disdain (League: 475 range, shield 55-135 + 135% bonus AD 4 s, 90-210 + 100% bonus AD, stun 1.5 s, the fling
     # 0.25 s after, cd 16-14 s)
     "e_cd": 960, "e_range": 46000, "e_dur": 26, "e_speed": 3200, "e_sh": 60, "e_sh_ratio": 40, "e_sh_t": 240,
-    "e_dmg": 40, "e_ratio": 80, "e_stun": 60, "e_fling": 15, "e_pull": 2600, "e_pull_t": 10,
+    "e_dmg": 40, "e_ratio": 80, "e_stun": 60, "e_fling": 15, "e_pull": 9000, "e_pull_t": 3, "e_plant": 19,
+    "e_behind": 15000,
     # R Fear Beyond Death (League: 2500 range, 3200 speed, 100-350 + 50% bonus AD, leash 4 s with a slow to 75%,
     # recast under 25% max hp: a 1.5 s reel-in then the execute, nearby enemies flee 1.5 s, cd 100-70 s)
     "r_cd": 3000, "r_range": 110000, "r_dur": 30, "r_st": 8, "r_aim": 4, "r_speed": 6000, "r_rad": 8000,
@@ -305,11 +308,19 @@ def build(p):
                                                             apply=p["q_apply"]), sfx("q_land")], mark="q_mark")))
 
     # ------------------------------------------------------------------ skill2: E Disdain
+    # the fling (the user, 2026-10-24: 「厄加特的E是不是有bug啊 不能把人背回来」): the game's AI walked him off while the
+    # caught one was stunned (2600 x 10 pulled it only back to him), so he stands planted (e_plant) until it lands; the
+    # pull is one quick yank (e_pull x e_pull_t) - a slow one is held at his body (the two bodies push apart ~950 a tick).
+    # The dash ends on the target, the bodies overlap and the engine parts them either way, so the main pack's pull
+    # throws it behind him about half the time; the add-on throws it to the side he dashed from every time.
+    fling = ({"type": "Native", "effect_ref": f"{ID}:fling"} if nat else
+             {"type": "Pull", "speed": p["e_pull"], "tick": p["e_pull_t"]})
     catch = [attack(p["e_dmg"], p["e_ratio"]), {"type": "Stun", "duration": p["e_stun"]}, view("e_hit"), tsfx("e_hit"),
-             delayed(p["e_fling"], {"type": "Pull", "speed": p["e_pull"], "tick": p["e_pull_t"]}, view("e_fling")),
-             on_me(purge), climb()]
+             delayed(p["e_fling"], fling, view("e_fling")),
+             on_me(purge, buff("e_plant", p["e_plant"], move_speed_mult=-100)), climb()]
+    dash_from = [{"type": "Native", "effect_ref": f"{ID}:dash"}] if nat else []
     skill2 = action("skill2", p["e_dur"], p["e_cd"], 1, p["e_range"], "Targeting", "EnemyChampion",
-                    combine(sfx("e"), voice("vo_e", p), cview("e_shield"),
+                    combine(*dash_from, sfx("e"), voice("vo_e", p), cview("e_shield"),
                             on_me({"type": "Shield", "amount": p["e_sh"], "attack_ratio": p["e_sh_ratio"],
                                    "ap_ratio": 0, "tick": p["e_sh_t"]}),
                             {"type": "MoveToTarget", "speed": p["e_speed"], "range": p["e_range"],
@@ -345,7 +356,7 @@ def build(p):
     }
     if nat:
         kit["passive"] = {"passive_ref": f"{ID}:legs",
-                          "params": {k: p[k] for k in ("leg_t0", "leg_t", "r_ex")}}
+                          "params": {k: p[k] for k in ("leg_t0", "leg_t", "r_ex", "e_behind", "e_pull_t")}}
     return kit
 
 

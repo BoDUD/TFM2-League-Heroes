@@ -11,10 +11,10 @@
       "version": ">=0.126.0"
     }
   ],
-  "description": "Test build of Urgot as in League (needs League of Legends Heroes): replaces the main pack's Urgot so Echoing Flames fires the leg facing the target, each leg on its own cooldown, and Fear Beyond Death executes only a champion below 25% health (the others keep the drill's damage and slow). Other champions are untouched. Writes a log for testing.",
-  "last_updated": "2026-10-17",
+  "description": "Test build of Urgot as in League (needs League of Legends Heroes): replaces the main pack's Urgot so Echoing Flames fires the leg facing the target, each leg on its own cooldown, Disdain always flings the caught champion behind him (to the side he dashed from), and Fear Beyond Death executes only a champion below 25% health (the others keep the drill's damage and slow). Other champions are untouched. Writes a log for testing.",
+  "last_updated": "2026-10-24",
   "mod_id": "league_urgot",
   "mod_type": "native",
   "name": "League Heroes: Urgot's legs by direction and real execute (test)",
-  "version": "0.1.0"
+  "version": "0.2.0"
 }

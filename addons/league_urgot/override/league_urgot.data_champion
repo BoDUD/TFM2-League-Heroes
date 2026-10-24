@@ -1728,6 +1728,10 @@
       "type": "Combine",
       "effects": [
         {
+          "type": "Native",
+          "effect_ref": "league_urgot:dash"
+        },
+        {
           "type": "Sfx",
           "name": "league_urgot_e"
         },
@@ -1813,9 +1817,8 @@
               "tick": 15,
               "effects": [
                 {
-                  "type": "Pull",
-                  "speed": 2600,
-                  "tick": 10
+                  "type": "Native",
+                  "effect_ref": "league_urgot:fling"
                 },
                 {
                   "type": "ViewEffect",
@@ -1883,6 +1886,18 @@
                         "name": "league_urgot_w_on"
                       }
                     ]
+                  }
+                },
+                {
+                  "type": "AddBuff",
+                  "buff_state": {
+                    "name": "league_urgot_e_plant",
+                    "duration": {
+                      "Time": {
+                        "tick": 19
+                      }
+                    },
+                    "move_speed_mult": -100
                   }
                 }
               ]
@@ -2570,7 +2585,9 @@
     "params": {
       "leg_t0": 480,
       "leg_t": 180,
-      "r_ex": 25
+      "r_ex": 25,
+      "e_behind": 15000,
+      "e_pull_t": 3
     }
   }
 }
