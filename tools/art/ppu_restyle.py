@@ -309,7 +309,9 @@ RESTYLE = {
     # Caitlyn (2026-10-23): Codex's design picture read back on its own grid (54 x 65), her actions Codex's whole-frame
     # redraws with the rifle drawn straight square by square (tools/art/rig_caitlyn_hd.py); effects baked at the muzzle
     # 2026-10-23 face (0,-38): (0,-40) framed the hat band and brim on top, the eyes low and the mouth cut
-    "caitlyn": dict(ppu=1.45, edge=1, face_to=(0, -38), fx=True),
+    # 2026-10-24: 90 % in game (「女警模型局内整体有点大 调小一点需要」, hd.rs SIZES): 11.5 x 1.45 x (1 / 0.9 - 1) = 1.9 -> 2
+    # squares lower; the face point x 0.9 about the soles
+    "caitlyn": dict(ppu=1.45, edge=1, lift_sq=-2, face_to=(0, -34), fx=True),
     # Varus (2026-10-23): Codex's design picture read back on its own grid (58 x 59, design_varus_hd.py), every action
     # posed from the design's own squares (tools/art/rig_varus_hd.py: the bow piece lifted, the near arm turned level,
     # drawn run / kneel legs sampled from the design's leg rows); the string and the arrow ride the effect layers (fx)
