@@ -1,0 +1,37 @@
+{
+  "zh-hans": {
+    "description": {
+      "league_taliyah_addon": {
+        "ult": "【附加包】敌人在附近或已在交战：在目标处竖起长石墙（<#ffb900ff>5秒<>），墙上的单位被推到她这一侧；敌人较远：从脚下拉出一道横墙，踩着石头沿墙冲刺，靠近敌人时跳下。墙是真的地形：英雄、小兵和野怪都过不去。"
+      }
+    }
+  },
+  "zh-hant": {
+    "description": {
+      "league_taliyah_addon": {
+        "ult": "【附加包】敵人在附近或已在交戰：在目標處豎起長石牆（<#ffb900ff>5秒<>），牆上的單位被推到她這一側；敵人較遠：從腳下拉出一道橫牆，踩著石頭沿牆衝刺，靠近敵人時跳下。牆是真的地形：英雄、小兵和野怪都過不去。"
+      }
+    }
+  },
+  "en": {
+    "description": {
+      "league_taliyah_addon": {
+        "ult": "[Add-on] With an enemy champion near or a fight on: a long stone wall rises where the target stands for <#ffb900ff>5s<>, pushing units on it to her side. With the enemies far: a wall runs out from her feet and she surfs along its top, jumping off once enemies are near. The walls are real terrain: no champion, minion or monster can cross them."
+      }
+    }
+  },
+  "ko": {
+    "description": {
+      "league_taliyah_addon": {
+        "ult": "[애드온] 적 챔피언이 가깝거나 교전 중: 대상 위치에 <#ffb900ff>5초<> 동안 긴 돌벽을 세우고 벽 위의 유닛을 자신 쪽으로 밀어냄. 적이 멀면: 발밑에서 벽을 뻗어 바위를 타고 벽 위를 달리다 적이 가까워지면 뛰어내림. 벽은 진짜 지형: 챔피언도 미니언도 몬스터도 넘을 수 없음."
+      }
+    }
+  },
+  "ja": {
+    "description": {
+      "league_taliyah_addon": {
+        "ult": "【アドオン】敵チャンピオンが近いか交戦中：対象の位置に<#ffb900ff>5秒<>長い石壁を立て、壁の上のユニットを自分の側へ押し出す。敵が遠い：足元から壁を伸ばし岩に乗って壁の上を進み、敵が近づくと飛び降りる。壁は本物の地形：チャンピオンもミニオンもモンスターも越えられない。"
+      }
+    }
+  }
+}

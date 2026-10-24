@@ -255,7 +255,7 @@ pub const VLAD_R_LOW: f64 = 0.5;
 /// 照样由它控制。引擎接口读不到普攻距离，表照数据写在这里，单元测试 `attack_ranges_match_the_data` 逐个对照
 /// league/champion，加了新英雄没补进来就报错。
 pub const MELEE_RANGE: u64 = 30_000;
-pub const ATTACK_RANGE: [(&str, u64); 162] = [
+pub const ATTACK_RANGE: [(&str, u64); 163] = [
     ("league_aatrox", 26000),
     ("league_ahri", 55000),
     ("league_akali", 24000),
@@ -418,6 +418,7 @@ pub const ATTACK_RANGE: [(&str, u64); 162] = [
     ("league_zac", 25000),
     ("league_singed", 20000),
     ("league_belveth", 24000),
+    ("league_taliyah", 55000),
 ];
 /// 远程：盯住的目标走出普攻距离这么多就不追。
 pub const RANGED_KEEP: f64 = 10_000.0;
