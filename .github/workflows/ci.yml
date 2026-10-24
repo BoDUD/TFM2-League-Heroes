@@ -61,6 +61,7 @@ jobs:
           python -I addons/league_kayn_form/make_override.py --check
           python -I addons/league_ahri/make_override.py --check
           python -I addons/league_garen_ult/make_override.py --check
+          python -I addons/league_takedowns/make_override.py --check
       - name: league.dll - PPU, UI sheets, run-time places
         run: cargo test --manifest-path addons/Cargo.toml -p league_main -p game_places
       - name: Sylas's steal table, Viego's possession, Neeko's disguise, Kayn's ranges
