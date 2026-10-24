@@ -1,0 +1,12 @@
+Read-only validation with System.Drawing.Bitmap.GetPixel, 2026-10-25.
+
+yorick-A.png: 1254 x 1254, RGBA. Alpha values include all integers 0..255.
+Nonzero-alpha bbox (left,top,right-exclusive,bottom-exclusive): 33,19,1218,1254.
+
+yorick-B.png: 1254 x 1254, RGBA. Alpha values include all integers 0..255.
+Nonzero-alpha bbox: 0,35,1240,1254.
+
+Real transparent background is present. Edges are not strictly binary alpha.
+Extremely faint generated alpha residue extends beyond the visible sprite, reaching canvas edges.
+These are original generated concepts, not validated grid-ready animation assets.
+Requested 1536x1536 dimensions, 11px uniform grid, shared y=1390 baseline and hard alpha are NOT satisfied.
