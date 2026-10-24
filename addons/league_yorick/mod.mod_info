@@ -1,0 +1,20 @@
+{
+  "author": "BoDUD",
+  "contains_code": true,
+  "dependencies": [
+    {
+      "mod_id": "base",
+      "version": ">=0.4.11"
+    },
+    {
+      "mod_id": "league",
+      "version": ">=0.217.0"
+    }
+  ],
+  "description": "Test build of Yorick as in League (needs League of Legends Heroes): replaces the main pack's Yorick so Last Rites digs a grave for every minion or monster it kills (the main pack: every second blow on anything but a champion), and the Maiden of the Mist's bonus damage hits only the champion she follows (the main pack: any champion while she stands). Other champions are untouched. Writes a log for testing.",
+  "last_updated": "2026-10-25",
+  "mod_id": "league_yorick",
+  "mod_type": "native",
+  "name": "League Heroes: Yorick's graves and the Maiden's target as in League (test)",
+  "version": "0.1.0"
+}

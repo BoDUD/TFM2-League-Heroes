@@ -1,0 +1,42 @@
+{
+  "zh-hans": {
+    "description": {
+      "league_yorick": {
+        "attack": "【附加包】抡铲。<#ff9028ff>牧魂人<>：临终仪式打英雄或打死单位挖一座坟，满3座时下一铲唤醒3只<#ff9028ff>雾行者<>咬目标<#ffb900ff>6秒<>（每只每口<#ff9028ff>9<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>13%<>），同时<#ff9028ff>暗灵缠身<>把附近的敌方英雄<#ef5350ff>定身<><#ffb900ff>1秒<>。",
+        "ult": "【附加包】在敌方英雄身后召唤<#ff9028ff>迷雾室女<>和2只雾行者，跟着它<#ffb900ff>10秒<>，<#ffb900ff>每秒<>抓<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>45%<>；期间约里克普攻她的目标额外造成最大生命3%真实伤害。"
+      }
+    }
+  },
+  "zh-hant": {
+    "description": {
+      "league_yorick": {
+        "attack": "【附加包】揮鏟。<#ff9028ff>亡魂牧人<>：臨終葬儀打英雄或打死單位挖一座墳，滿3座時下一鏟喚醒3隻<#ff9028ff>霧行者<>咬目標<#ffb900ff>6秒<>（每隻每口<#ff9028ff>9<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>13%<>），同時<#ff9028ff>黯影屍陣<>把附近的敵方英雄<#ef5350ff>定身<><#ffb900ff>1秒<>。",
+        "ult": "【附加包】在敵方英雄身後召喚<#ff9028ff>迷霧少女<>和2隻霧行者，跟著它<#ffb900ff>10秒<>，<#ffb900ff>每秒<>抓<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>45%<>；期間約瑞科普攻她的目標額外造成最大生命3%真實傷害。"
+      }
+    }
+  },
+  "en": {
+    "description": {
+      "league_yorick": {
+        "attack": "[Add-on] Shovel blows. <#ff9028ff>Shepherd of Souls<>: Last Rites digs a grave on a champion or on a unit it kills; with 3 graves the next one raises 3 <#ff9028ff>Mist Walkers<> that gnaw at the target for <#ffb900ff>6s<> (<#ff9028ff>9<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>13%<> a bite each), and <#ff9028ff>Dark Procession<> <#ef5350ff>roots<> the enemy champions near it for <#ffb900ff>1s<>.",
+        "ult": "[Add-on] Raises the <#ff9028ff>Maiden of the Mist<> and 2 walkers behind an enemy champion; she follows it for <#ffb900ff>10s<>, clawing for <#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>45%<> <#ffb900ff>every second<>, and his attacks on her target deal 3% max health more as true damage meanwhile."
+      }
+    }
+  },
+  "ko": {
+    "description": {
+      "league_yorick": {
+        "attack": "[확장] 삽 공격. <#ff9028ff>영혼의 길잡이<>: 최후의 의식으로 챔피언을 치거나 유닛을 처치하면 무덤 생성, 3개가 차면 다음 일격에 <#ff9028ff>안개 망령<> 3마리가 <#ffb900ff>6초<> 동안 대상을 물어뜯음(한 번에 <#ff9028ff>9<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>13%<>), <#ff9028ff>망자의 진<>이 주변 적 챔피언 <#ffb900ff>1초<> <#ef5350ff>속박<>.",
+        "ult": "[확장] 적 챔피언 뒤에 <#ff9028ff>안개 처녀<>와 망령 2마리 소환, <#ffb900ff>10초<> 동안 따라다니며 <#ffb900ff>매초<> <#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>45%<>; 그동안 요릭이 그 대상을 공격하면 최대 체력 3% 고정 피해 추가."
+      }
+    }
+  },
+  "ja": {
+    "description": {
+      "league_yorick": {
+        "attack": "【拡張】シャベル攻撃。<#ff9028ff>魂の導き手<>：葬送でチャンピオンを打つかユニットを倒すと墓を掘る、3つ溜まると次の一撃で<#ff9028ff>ミストウォーカー<>3体が<#ffb900ff>6秒<>噛みつく（1回<#ff9028ff>9<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>13%<>）、<#ff9028ff>屍の列<>が周囲の敵チャンピオンを<#ffb900ff>1秒<><#ef5350ff>スネア<>。",
+        "ult": "【拡張】敵チャンピオンの背後に<#ff9028ff>霧の乙女<>とウォーカー2体を召喚、<#ffb900ff>10秒<>追従し<#ffb900ff>毎秒<><#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>45%<>；その間ヨリックがその対象を攻撃すると最大体力3%の確定ダメージ。"
+      }
+    }
+  }
+}

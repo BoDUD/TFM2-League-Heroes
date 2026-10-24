@@ -380,6 +380,9 @@ mod sejuani;
 #[allow(dead_code)] // items public in the add-on's own crate
 #[path = "../../league_kled/src/lib.rs"]
 mod kled;
+#[allow(dead_code)] // items public in the add-on's own crate
+#[path = "../../league_yorick/src/lib.rs"]
+mod yorick;
 
 pub const ID: &str = "league_addons";
 
@@ -545,6 +548,7 @@ fn init(host: &StableHost) -> StableMod {
     aurelionsol::register(host, &mut module);
     sejuani::register(host, &mut module);
     kled::register(host, &mut module);
+    yorick::register(host, &mut module);
     module.set_map_customizer(MapReaders);
     module.set_extension(BundleClient);
     host.log(

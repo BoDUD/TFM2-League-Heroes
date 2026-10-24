@@ -35,7 +35,11 @@ plays their pictures there; its death ends them.
           q_cd_r ticks instead of q_cd. Q -> walkers: the graves above.
   controller An AddCasted pulse on him every ctl_p ticks (league_sejuani's, hung by his attack and the ult, only for
           Yorick himself: `own`): the combos' casts.
-Timings: drafts until the frames exist.
+The add-on copy (--native, addons/league_yorick): the Q blow raises `q_win` on him (q_win ticks) - the add-on digs a
+grave for every unit that dies to it (League: a kill or a champion) instead of the main pack's every second blow; the
+ult puts `maiden` on her champion and his attacks a 3-tick `hit` on the champions they strike while she stands - the
+add-on deals r_pct% of its maximum health as true damage to her own target only (the main pack: any champion).
+Timings: frames by tools/art/rig_yorick.py (attack 500 ms, Q / the Awakening 500, E 433, R 567 ms).
 Numbers: League 16.21 read into the top fighter range (league_kled, league_darius, league_illaoi), balanced on the
 classic-SDK simulations (kd.py --lane 0 against fighter, executioner, knight, berserker, lancer and pole_warrior,
 C:/t/yo_sim, 2026-10-25; league_gnar --native the control: +0.01 / +0.59 on seeds 1-8 / 9-16): the draft (hp 1080,
@@ -82,6 +86,10 @@ P = {
     "r_n": 2, "r_pct": 3, "r_go_t": 120,
     # his spoken lines, at most one every vo_gap ticks
     "vo_gap": 600,
+    # 1 = the copy for addons/league_yorick (League's rules the data cannot read): its passive league_yorick:shepherd
+    # digs a grave for every unit Last Rites kills (the `q_win` flag on him) instead of every second Q, and deals the
+    # Maiden's bonus (r_pct% max health as true damage) on her own target only (`maiden` on it, `hit` from his attack)
+    "native": 0, "q_win": 4,
 }
 
 
@@ -253,6 +261,8 @@ def build(p):
         champ = homing("q_tw", "EnemyChampion", [refresh("q_ch", 3), grave])
         other = sw("q_ch", NONE, sw("q_half", combine(*rm("q_half"), pick(p["q_range"], "EnemyWithoutTower", grave)),
                                    flag("q_half", None)))
+        if p["native"]:      # the add-on digs a grave for each unit the blow kills (League), not every second blow
+            other = refresh("q_win", p["q_win"])
         blow = combine(sfx("q_hit"), heal(p["q_heal"], p["q_heal_r"]),
                        homing("q_blow", "EnemyWithoutTower", [attack(p["q_dmg"], p["q_ratio"]), view("q_hit"),
                                                               tsfx("q_hit")]),
@@ -288,12 +298,15 @@ def build(p):
               casted(p["r_t"], p["r_p"], attack(p["r_dmg"], p["r_ratio"]), view("r_claw"), tsfx("r_claw"), kind="Fire"),
               casted(p["r_t"], 60, view("r_maiden")),
               sw("own", combine(*rm("q_cd"), refresh("q_go", p["r_go_t"])))]
+    if p["native"]:
+        maiden.append(buff("maiden", p["r_t"]))
     r_cast = combine(refresh("r_on", p["r_t"]), anim("ult", p["r_dur"]), sfx("r"), voice("vo_r", p),
                      delayed(p["r_rel"] - 1, alive(homing("r_rise", "EnemyChampion", maiden))))
 
     # ------------------------------------------------------------------ attack
+    bonus = [buff("hit", 3)] if p["native"] else [pct(p["r_pct"]), view("r_mark")]   # the add-on: on her target only
     blow = combine(sfx("a"), homing("a_blow", "Enemy", [attack(0, 100), view("a_hit"), tsfx("a_hit")]),
-                   sw("r_on", homing("a_tw", "EnemyChampion", [pct(p["r_pct"]), view("r_mark")])))
+                   sw("r_on", homing("a_tw", "EnemyChampion", bonus)))
     attack_a = action("attack", p["atk_dur"], p["atk_cd"], 1, p["atk_range"], "Targeting", "Enemy",
                       combine(decoy(0, 100), sw("own", NONE, flag("own", None)), hang,
                               delayed(p["a_hit"] - 1, alive(blow))),
@@ -319,8 +332,12 @@ def build(p):
                E("k_bite"), E("k_leap"), E("w_wall", BIG, -1, False), E("w_hit"), E("e_hit"),
                E("e_cloud", BIG, -1, False), E("r_spawn", BIG, -1), E("r_maiden", BIG, -1), E("r_claw"), E("r_mark")]
     views_b = [B_("e_mark", FX, -1, "e_mark"), B_("e_slow", FX, -1, "slow")]
+    extra = {}
+    if p["native"]:   # addons/league_yorick: the League rules the data cannot read
+        extra["passive"] = {"passive_ref": "league_yorick:shepherd",
+                            "params": {k: p[k] for k in ("r_pct", "g_t")}}
     return {
-        "id": ID, "category": "Melee", "tags": ["AD", "Melee", "Tank"],
+        "id": ID, "category": "Melee", "tags": ["AD", "Melee", "Tank"], **extra,
         "sprite": f"asset/league/champions/{ID}", "anim_prefix": "",
         "skill_icons": [f"asset/league/icons/{ID}_skill", f"asset/league/icons/{ID}_skill2", f"asset/league/icons/{ID}_ult"],
         "stat": {"attack": p["atk"], "magic_power": p["apw"], "hp": p["hp"], "defence": p["def"],
@@ -349,6 +366,7 @@ def main():
     ap_.add_argument("--params", help="json file with overrides")
     ap_.add_argument("--out", default=OUT)
     ap_.add_argument("--nodes", action="store_true")
+    ap_.add_argument("--native", action="store_true", help="the add-on's copy")
     a = ap_.parse_args()
     p = dict(P)
     if a.params:
@@ -358,6 +376,8 @@ def main():
         if k not in p:
             raise SystemExit(f"unknown parameter {k}")
         p[k] = type(p[k])(float(v)) if isinstance(p[k], int) else float(v)
+    if a.native:
+        p["native"] = 1
     kit = build(p)
     if a.nodes:
         for s in ("attack", "skill", "skill2", "ult"):
