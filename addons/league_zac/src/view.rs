@@ -4,12 +4,13 @@
 //! （地址由 game_places 运行时找），别的版本什么都不做。
 //!
 //! 照 league_anivia 的 view.rs（源自 league_nasus / league_swain / league_rell）：显示世界每帧调用显示处理表里的更新函数，函数
-//! 指针在 game_places 找到的槽里（别的附加包也挂在这里，一个接一个调用）。名字是 `league_zac` 的实体身上有主包的 buff
-//! `league_zac_split_on` 时，正在播的 idle / hit 换成 `split_idle` / `split_hit`；buff 没了换回来。
+//! 指针在 game_places 找到的槽里（别的附加包也挂在这里，一个接一个调用）。名字是 `league_zac` 的实体身上有一滩的标记
+//! （主包的 `league_zac_split_on` 或本包的 `league_zac_split_form`）时，正在播的 idle / hit 换成 `split_idle` / `split_hit`；
+//! 标记没了换回来。
 
 use std::sync::{Mutex, Once};
 
-use super::{wlog, FORM};
+use super::{wlog, FORMS};
 use game_places::hook::{Ent, VALUE, NAME_PTR, NAME_LEN_AT, ANIM_CAP, ANIM_PTR, ANIM_LEN, BUFFS_PTR, BUFFS_LEN, BUFF_SIZE};
 
 /// 显示更新函数和它的槽：游戏版本不同地址不同，由 game_places::display() 在加载时找（2026-10-20，以前写死 0.6.4 的
@@ -93,7 +94,7 @@ unsafe fn dress(world: usize, ents: &[Ent]) {
         let foot = plausible(bp) && bn <= 256 && (0..bn).any(|k| {
             let b = bp + k * BUFF_SIZE;
             let (p, n) = (q(b + 8), q(b + 0x10));
-            plausible(p) && n == FORM.len() && std::slice::from_raw_parts(p as *const u8, n) == FORM.as_bytes()
+            plausible(p) && FORMS.iter().any(|f| n == f.len() && std::slice::from_raw_parts(p as *const u8, n) == f.as_bytes())
         });
         st.seen += 1;
         // what the display world holds on him (once every 10 s while the form is off, at most DUMP_CAP lines; league_swain's

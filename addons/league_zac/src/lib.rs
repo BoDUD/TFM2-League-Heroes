@@ -5,8 +5,9 @@
 //!
 //! - **细胞分裂**：每 `split_cd` tick 一次（阵亡不重置），受到致命伤害时不倒下（本包一直挂着「不死」`league_zac_p_guard`，
 //!   生命停在 1 就触发），化成一滩 `split_t` tick：生命设成最大生命的 `split_hp`%（英雄联盟：四块小黏液，存活的越多复活时
-//!   生命越多），定身、禁普攻、禁技能；主包数据看到 `league_zac_split_go` 播化开、挂双抗降低的 `league_zac_split_on`、每 30 tick
-//!   续一次一滩的动作。这一滩被打掉就是他阵亡（击杀算打掉它的人）；撑过 `split_t` tick 就挂 `league_zac_split_end`，数据播
+//!   生命越多），定身、禁普攻、禁技能，本包自己挂上 `league_zac_split_form`（`split_t` tick，纯标记）；主包数据看到
+//!   `league_zac_split_go` 播化开、挂一滩的标记 `league_zac_split_on` 和双抗降低 `league_zac_split_def`、每 30 tick
+//!   续一次一滩的动作（两个一滩标记有一个在就续）。这一滩被打掉就是他阵亡（击杀算打掉它的人）；撑过 `split_t` tick 就挂 `league_zac_split_end`，数据播
 //!   重新聚起，他带着这一滩剩下的生命继续打。别人给的「不死」在身上时不触发。
 //!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_zac.log`，每次启动游戏重写。
@@ -22,12 +23,14 @@ use mod_api_stable::*;
 #[cfg(windows)]
 pub mod view;
 
-/// 主包数据的一滩 buff（双抗降低，一滩在就有）：显示钩子按它把 idle / hit 换成一滩。
-pub const FORM: &str = "league_zac_split_on";
+/// 一滩的标记（都不带属性）：主包数据的 `split_on`、本包自己挂的 `split_form`。显示钩子见到任一个就把 idle / hit 换成一滩。
+/// 用户 2026-10-24「扎克变细胞的时候 还能变回英雄原来的样子？」：以前 `split_on` 同时带着双抗降低，游戏里化开没几 tick 它就
+/// 不在他身上了（显示世界只见到 `split_hold`），一滩的续播停了、显示钩子也认不出，他就站回扎克的样子。
+pub const FORMS: [&str; 2] = ["league_zac_split_on", "league_zac_split_form"];
 
 const ID: &str = "league_zac";
 /// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是 league_addons 的。
-const VERSION: &str = "0.1.0";
+const VERSION: &str = "0.1.1";
 
 /// 「不死」挂多久、多久续一次。
 pub const GUARD_T: usize = 30;
@@ -186,6 +189,8 @@ impl Split {
         sim.entity_remove_buff(me, &sn("p_guard"));
         sim.entity_set_hp(me, hp);
         sim.add_buff(me, &BuffV1::timed(&sn("split_go"), FLAG_T));
+        sim.entity_remove_buff(me, FORMS[1]);
+        sim.add_buff(me, &BuffV1::timed(FORMS[1], self.p.split_t + FLAG_T));
         let t = self.p.split_t as u64;
         sim.apply_cc(me, &CcV1::of_kind(CcKindV1::Bind, t));
         sim.apply_cc(me, &CcV1::of_kind(CcKindV1::BlockSkill, t));
@@ -198,6 +203,7 @@ impl Split {
 
     fn reform(&mut self, sim: &mut StableSim<'_>, me: usize) {
         self.split = None;
+        sim.entity_remove_buff(me, FORMS[1]);
         sim.add_buff(me, &BuffV1::timed(&sn("split_end"), FLAG_T));
         if let Some(k) = counted("reform") {
             let (hp, max) = sim.get_entity(me).map_or((0, 0), |e| e.hp());
@@ -313,6 +319,15 @@ mod tests {
         assert_eq!(puddle_hp(2400, &p), 960);
         assert_eq!(puddle_hp(1, &p), 1);
         assert_eq!(puddle_hp(0, &p), 1);
+    }
+
+    #[test]
+    fn the_forms_are_the_datas_and_this_add_ons() {
+        assert_eq!(FORMS[0], sn("split_on"));
+        assert_eq!(FORMS[1], sn("split_form"));
+        let kit = include_str!("../../../tools/kit/build_zac.py");
+        assert!(kit.contains("refresh(\"split_on\", t_)"), "split_on stays a plain flag");
+        assert!(kit.contains("sw(\"split_form\", loop, NONE)"), "the loop runs on the add-on's flag too");
     }
 
     #[test]
