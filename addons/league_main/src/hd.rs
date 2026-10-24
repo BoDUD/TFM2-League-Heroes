@@ -360,13 +360,15 @@ pub const HEROES: &[(&str, f32, &str)] = &[
 /// squares lower (RESTYLE ksante lift_sq: 11.5 x 1.2 x (1 / 0.9 - 1) = 1.5).
 /// Warwick: 90 % (the user, 2026-10-23: 「狼人局内模型有点大了」 - 46 game px spike to soles), his frames 2 squares lower
 /// (RESTYLE warwick lift_sq: 11.5 x 1.2 x (1 / 0.9 - 1) = 1.5).
+/// Caitlyn: 90 % (the user, 2026-10-24: 「女警模型局内整体有点大 调小一点需要」 - 46 game px hat to soles, the tallest
+/// marksman: Kai'Sa 43, Varus 45, Jinx 37), her frames 2 squares lower (RESTYLE caitlyn lift_sq: 11.5 x 1.45 x (1 / 0.9 - 1) = 1.9).
 pub const SIZES: &[(&str, f32)] = &[("league_gragas", 0.90), ("league_zeri", 1.05), ("league_kassadin", 1.00),
                                     ("league_braum", 0.95), ("league_mordekaiser", 1.10),
                                     ("league_irelia", 1.05), ("league_soraka", 1.10), ("league_galio", 1.10), ("league_nilah", 0.90),
                                     ("league_corki", 0.90), ("league_malzahar", 1.15), ("league_aphelios", 0.90),
                                     ("league_poppy", 0.85), ("league_yuumi", 0.75), ("league_wukong", 1.15),
                                     ("tft_powder", 0.90), ("league_nami", 0.90), ("league_hwei", 0.85),
-                                    ("league_ksante", 0.90), ("league_warwick", 0.90)];
+                                    ("league_ksante", 0.90), ("league_warwick", 0.90), ("league_caitlyn", 0.90)];
 
 /// Heroes whose body grows with a stack: (id, the buff whose instances on him are the stacks, growth a stack). Cho'Gath's
 /// Feast (the user, 2026-10-19: 「变大可以无限 加生命」): every champion it eats is one more Permanent `league_chogath_r_stack`
