@@ -57,7 +57,8 @@
 //!   （不是明显往远处撤，`walking_away`）连着 `HOLD_WALKING` tick，也算被停住。
 //!   先是卡密尔、瑟提、奥拉夫，之后加上蒙多、赵信、凯尔、洛、亚托克斯、伊芙琳、赛娜，再加上李青、泰达米尔、塔里克，然后扩到所有近战，
 //!   最后扩到远程（用户：「远程英雄也补上吧 我发现德莱文这种也有问题」）。
-//!   原地站了 `HOLD_STILL` tick、普攻好了、AI 还让他原地站（`holding`）时，`hold_target` 挑人普攻：
+//!   原地站了 `HOLD_STILL` tick（远程和射程被拉长的 `HOLD_STILL_RANGED`，走着不打 `HOLD_WALKING_RANGED`：0.5.4，玩家反馈德莱文、大嘴不 A 人）、
+//!   普攻好了、AI 还让他原地站（`holding`）时，`hold_target` 挑人普攻：
 //!   他生命不低于 `HOLD_MIN_HP`、目标离敌方塔超过 `TOWER_REACH`、目标身边不比他身边人多；打出一下或 `ENGAGE_TICKS` 后重新算，
 //!   AI 自己下了别的命令（普攻、技能、走开）就不管。没有要按的格子时才这样做。
 //! - 被控住（眩晕、击飞、沉默等）、正在放技能（施法动作还在播，`busy`：引导中的大招人站着不动、普攻又是好的）、被强制
@@ -259,7 +260,7 @@ pub const VLAD_R_LOW: f64 = 0.5;
 /// 照样由它控制。引擎接口读不到普攻距离，表照数据写在这里，单元测试 `attack_ranges_match_the_data` 逐个对照
 /// league/champion，加了新英雄没补进来就报错。
 pub const MELEE_RANGE: u64 = 30_000;
-pub const ATTACK_RANGE: [(&str, u64); 165] = [
+pub const ATTACK_RANGE: [(&str, u64); 166] = [
     ("league_aatrox", 26000),
     ("league_ahri", 55000),
     ("league_akali", 24000),
@@ -425,6 +426,7 @@ pub const ATTACK_RANGE: [(&str, u64); 165] = [
     ("league_taliyah", 55000),
     ("league_aurelionsol", 55000),
     ("league_sejuani", 25000),
+    ("league_kled", 25000),
 ];
 /// 远程：盯住的目标走出普攻距离这么多就不追。
 pub const RANGED_KEEP: f64 = 10_000.0;
@@ -466,6 +468,21 @@ pub const HOLD_STILL: usize = 15;
 /// 5–7%——`HOLD_STILL` 抓不到。普攻好了、`HOLD_REACH` 内有敌方英雄、AI 只下走路命令或不下命令、不是往远处撤，连着这么多 tick
 /// 也算被停住。
 pub const HOLD_WALKING: usize = 30;
+/// 远程（自己的普攻距离超过 `MELEE_RANGE`，或射程 buff 拉长了普攻：league_kayle 的升阶、league_kogmaw 的 W）等得短一半
+/// （0.5.4，玩家反馈德莱文、大嘴不 A 人，用户 2026-10-25：「德莱文和大嘴别人反馈是有问题的」）：远程站着就打得到，被停住的
+/// 每一 tick 都是白丢的输出；近战照旧等 `HOLD_STILL` / `HOLD_WALKING`，免得打断 AI 自己的走位。
+pub const HOLD_STILL_RANGED: usize = 8;
+pub const HOLD_WALKING_RANGED: usize = 15;
+
+/// How long he stands / walks without attacking before he counts as held: (`HOLD_STILL`, `HOLD_WALKING`) for melee,
+/// the `_RANGED` pair for a ranged attack or a melee one stretched by a range buff.
+pub fn hold_waits(name: &str, stretched: bool) -> (usize, usize) {
+    if stretched || attack_range(name).is_some_and(|r| r > MELEE_RANGE) {
+        (HOLD_STILL_RANGED, HOLD_WALKING_RANGED)
+    } else {
+        (HOLD_STILL, HOLD_WALKING)
+    }
+}
 /// 走路的目的地比他现在离目标远这么多以上，就是在撤（拉开、回撤）：那是 AI 自己的打算，不算被停住。
 pub const HOLD_AWAY: f64 = 10_000.0;
 pub const HOLD_HERE: f64 = 3_000.0;
@@ -1581,8 +1598,9 @@ impl UltPress {
                     _ => false,
                 };
                 self.walk_ticks = if walking { self.walk_ticks + 1 } else { 0 };
-                let still_held = holding(base, my_at) && self.still_ticks >= HOLD_STILL;
-                let walk_held = self.walk_ticks >= HOLD_WALKING;
+                let (still_t, walk_t) = hold_waits(&name, buff_range(&me) > 0.0);
+                let still_held = holding(base, my_at) && self.still_ticks >= still_t;
+                let walk_held = self.walk_ticks >= walk_t;
                 // the AI's attack at a minion, a monster or a tower: is it the one shot that kills it (a last hit)?
                 let swing = base
                     .filter(|b| b.kind == InputKindV1::Attack.code())
@@ -2010,6 +2028,11 @@ mod tests {
         for name in ["priest", "monk", "league_nobody"] {
             assert!(!is_holder(name), "{name}");
         }
+        // the ranged (and a stretched melee) wait half as long before they count as held
+        assert_eq!(hold_waits("league_draven", false), (HOLD_STILL_RANGED, HOLD_WALKING_RANGED));
+        assert_eq!(hold_waits("league_kogmaw", false), (HOLD_STILL_RANGED, HOLD_WALKING_RANGED));
+        assert_eq!(hold_waits("league_garen", false), (HOLD_STILL, HOLD_WALKING));
+        assert_eq!(hold_waits("league_kayle", true), (HOLD_STILL_RANGED, HOLD_WALKING_RANGED));
         // melee step up to HOLD_REACH; the ranged shoot from where they stand, within their own attack range
         assert_eq!(hold_reach("league_garen"), (HOLD_REACH, HOLD_KEEP));
         assert_eq!(hold_reach("league_draven"), (55_000.0, 65_000.0));

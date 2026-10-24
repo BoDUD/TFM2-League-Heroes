@@ -67,6 +67,7 @@ pub const SOULS: &[&str] = &[
     "league_kennen",
     "league_khazix",
     "league_kindred",
+    "league_kled",
     "league_kogmaw",
     "league_ksante",
     "league_leblanc",

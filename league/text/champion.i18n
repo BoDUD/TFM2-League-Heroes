@@ -1123,7 +1123,7 @@
       },
       "league_singed": {
         "name": "辛吉德",
-        "attack": "用盾板砸。<#ff9028ff>剧毒踪迹<>：一路在身后留下毒雾（<#ffb900ff>3秒<>），雾里的敌人每<#ffb900ff>0.5秒<>受<#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>魔法伤害。<#ff9028ff>剧毒冲流<>：经过敌方英雄身边时移速+25%（<#ffb900ff>1.5秒<>）。",
+        "attack": "用盾板砸。<#ff9028ff>剧毒踪迹<>：一路在身后留下毒雾（<#ffb900ff>3秒<>），雾里的敌人每<#ffb900ff>0.5秒<>受<#a974ffff>13<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>13%<>魔法伤害。<#ff9028ff>剧毒冲流<>：经过敌方英雄身边时移速+25%（<#ffb900ff>1.5秒<>）。",
         "skill": "抓住目标从肩膀上扔到身后，造成<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>魔法伤害和<#e0e0e0ff>最大生命5%<>真实伤害；地上有<#ff9028ff>强力粘胶<>时，被扔的敌人<#ef5350ff>禁锢<><#ffb900ff>1秒<>。",
         "skill2": "扔出一瓶粘胶，地上留下<#ffb900ff>3秒<>的一摊胶，里面的敌人<#ef5350ff>减速<>50%并<#ef5350ff>无法位移<>。",
         "ult": "喝下药剂，<#ffb900ff>25秒<>内法强+60、双抗+30、移速+15%、每秒<#66bb6aff>回复12<>生命；<#ff9028ff>剧毒踪迹<>更大、伤害150%并附带<#ef5350ff>重伤<>（治疗-40%）。"
@@ -1155,6 +1155,13 @@
         "skill": "钢鬃冲向目标，路上的敌人受到<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>魔法伤害并被<#ef5350ff>击飞<><#ffb900ff>0.5秒<>。",
         "skill2": "链枷先横扫一圈造成<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>，再往前砸出一道冰造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>魔法伤害，都<#ef5350ff>减速<>40%<#ffb900ff>1.5秒<>。",
         "ult": "甩出冰套索，第一个敌方英雄受到<#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>魔法伤害并被<#ef5350ff>眩晕<><#ffb900ff>1.25秒<>；落点冰风暴<#ef5350ff>减速<>周围敌人35%，持续<#ffb900ff>2秒<>。"
+      },
+      "league_kled": {
+        "name": "克烈",
+        "attack": "挥斧。<#ff9028ff>斯嘎尔<>替他挡伤害（500 + <i#asset/base/ui/banpick/champion_stat_icon:ad_0>140%），没了就下马：攻击-10%，不能比武、冲锋；打人攒勇气，满了上马。<#ff9028ff>暴烈秉性<>：每<#ffb900ff>10秒<>四下快攻，第四下多<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<>+最大生命6%。",
+        "skill": "扔捕熊夹造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>；夹住英雄<#ef5350ff>减速<>40%，<#ffb900ff>1.5秒<>后再造成<#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<>并<#ef5350ff>拽过来<>。下马时是<#ff9028ff>随身手枪<>：<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>，自己往后跳。",
+        "skill2": "斯嘎尔冲过目标造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>物理伤害，加速50%；穿过英雄还会再冲回来一次。",
+        "ult": "带护盾（150 + <i#asset/base/ui/banpick/champion_stat_icon:ad_0>150%）冲向敌方英雄，撞上造成<#ff9028ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>+最大生命8%并<#ef5350ff>击退<>；身边队友加速40%。"
       }
     },
     "skill_name": {
@@ -1982,6 +1989,11 @@
         "skill1": "极寒突袭",
         "skill2": "凛冬之怒",
         "ult": "极冰寒狱"
+      },
+      "league_kled": {
+        "skill1": "飞索捕熊器",
+        "skill2": "比武",
+        "ult": "冲啊——！！"
       }
     }
   },
@@ -3109,7 +3121,7 @@
       },
       "league_singed": {
         "name": "辛吉德",
-        "attack": "用盾板砸。<#ff9028ff>劇毒蹤跡<>：一路在身後留下毒霧（<#ffb900ff>3秒<>），霧裡的敵人每<#ffb900ff>0.5秒<>受<#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>魔法傷害。<#ff9028ff>毒氣推進<>：經過敵方英雄身邊時移速+25%（<#ffb900ff>1.5秒<>）。",
+        "attack": "用盾板砸。<#ff9028ff>劇毒蹤跡<>：一路在身後留下毒霧（<#ffb900ff>3秒<>），霧裡的敵人每<#ffb900ff>0.5秒<>受<#a974ffff>13<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>13%<>魔法傷害。<#ff9028ff>毒氣推進<>：經過敵方英雄身邊時移速+25%（<#ffb900ff>1.5秒<>）。",
         "skill": "抓住目標從肩膀上扔到身後，造成<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>魔法傷害和<#e0e0e0ff>最大生命5%<>真實傷害；地上有<#ff9028ff>強力粘膠<>時，被扔的敵人<#ef5350ff>禁錮<><#ffb900ff>1秒<>。",
         "skill2": "扔出一瓶粘膠，地上留下<#ffb900ff>3秒<>的一灘膠，裡面的敵人<#ef5350ff>緩速<>50%並<#ef5350ff>無法位移<>。",
         "ult": "喝下藥劑，<#ffb900ff>25秒<>內魔攻+60、雙抗+30、移速+15%、每秒<#66bb6aff>回復12<>生命；<#ff9028ff>劇毒蹤跡<>更大、傷害150%並附帶<#ef5350ff>重傷<>（治療-40%）。"
@@ -3141,6 +3153,13 @@
         "skill": "坐騎衝向目標，路上的敵人受到<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>魔法傷害並被<#ef5350ff>擊飛<><#ffb900ff>0.5秒<>。",
         "skill2": "鏈枷先橫掃一圈造成<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>，再往前砸出一道冰造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>魔法傷害，都<#ef5350ff>緩速<>40%<#ffb900ff>1.5秒<>。",
         "ult": "甩出冰套索，第一個敵方英雄受到<#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>魔法傷害並被<#ef5350ff>暈眩<><#ffb900ff>1.25秒<>；落點冰風暴<#ef5350ff>緩速<>周圍敵人35%，持續<#ffb900ff>2秒<>。"
+      },
+      "league_kled": {
+        "name": "克雷德",
+        "attack": "揮斧。<#ff9028ff>小嘎<>替他擋傷害（500 + <i#asset/base/ui/banpick/champion_stat_icon:ad_0>140%），沒了就下馬：攻擊-10%，不能比武、衝鋒；打人攢勇氣，滿了上馬。<#ff9028ff>生性暴戾<>：每<#ffb900ff>10秒<>四下快攻，第四下多<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<>+最大生命6%。",
+        "skill": "丟出捕獸夾造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>；夾住英雄<#ef5350ff>緩速<>40%，<#ffb900ff>1.5秒<>後再造成<#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<>並<#ef5350ff>拉過來<>。下馬時是<#ff9028ff>隨身手槍<>：<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>，自己往後跳。",
+        "skill2": "小嘎衝過目標造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>物理傷害，加速50%；穿過英雄還會再衝回來一次。",
+        "ult": "帶護盾（150 + <i#asset/base/ui/banpick/champion_stat_icon:ad_0>150%）衝向敵方英雄，撞上造成<#ff9028ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>+最大生命8%並<#ef5350ff>擊退<>；身邊隊友加速40%。"
       }
     },
     "skill_name": {
@@ -3968,6 +3987,11 @@
         "skill1": "極地衝刺",
         "skill2": "凜冬狂怒",
         "ult": "冰河籠牢"
+      },
+      "league_kled": {
+        "skill1": "飛射夾夾",
+        "skill2": "比武角逐",
+        "ult": "衝啊！！！"
       }
     }
   },
@@ -5095,7 +5119,7 @@
       },
       "league_singed": {
         "name": "Singed",
-        "attack": "A blow of his plate. <#ff9028ff>Poison Trail<>: he leaves poison clouds behind him (<#ffb900ff>3s<>); enemies in them take <#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<> magic damage every <#ffb900ff>0.5s<>. <#ff9028ff>Noxious Slipstream<>: passing an enemy champion gives him 25% move speed for <#ffb900ff>1.5s<>.",
+        "attack": "A blow of his plate. <#ff9028ff>Poison Trail<>: he leaves poison clouds behind him (<#ffb900ff>3s<>); enemies in them take <#a974ffff>13<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>13%<> magic damage every <#ffb900ff>0.5s<>. <#ff9028ff>Noxious Slipstream<>: passing an enemy champion gives him 25% move speed for <#ffb900ff>1.5s<>.",
         "skill": "Flings the target over his shoulder to behind him: <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> magic damage and <#e0e0e0ff>5% of its max health<> true damage. While his <#ff9028ff>Mega Adhesive<> lies on the ground, the target is <#ef5350ff>rooted<> for <#ffb900ff>1s<>.",
         "skill2": "Throws a vial of glue: for <#ffb900ff>3s<> enemies in it are <#ef5350ff>slowed<> 50% and <#ef5350ff>grounded<> (no dashes).",
         "ult": "Drinks the potion: for <#ffb900ff>25s<> +60 ability power, +30 armor and magic resistance, +15% move speed and <#66bb6aff>12 health<> a second; <#ff9028ff>Poison Trail<> grows, deals 150% and inflicts <#ef5350ff>Grievous Wounds<> (-40% healing)."
@@ -5127,6 +5151,13 @@
         "skill": "Bristle charges at the target: the enemies in the way take <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> magic damage and are <#ef5350ff>knocked up<> for <#ffb900ff>0.5s<>.",
         "skill2": "Her flail sweeps round her for <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>, then slams a line of ice ahead for <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> magic damage, each <#ef5350ff>slowing<> 40% for <#ffb900ff>1.5s<>.",
         "ult": "Throws her ice bola: the first enemy champion takes <#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> magic damage and is <#ef5350ff>stunned<> for <#ffb900ff>1.25s<>; an ice storm there <#ef5350ff>slows<> the enemies round it 35% for <#ffb900ff>2s<>."
+      },
+      "league_kled": {
+        "name": "Kled",
+        "attack": "Axe blows. <#ff9028ff>Skaarl<> takes his damage (500 + <i#asset/base/ui/banpick/champion_stat_icon:ad_0>140%); when he flees Kled fights on foot: -10% attack, no Jousting, no charge; hitting enemies builds courage to remount. <#ff9028ff>Violent Tendencies<>: every <#ffb900ff>10s<> four fast attacks, the fourth dealing <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<> + 6% max health more.",
+        "skill": "Throws a bear trap for <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>; a champion caught is <#ef5350ff>slowed<> 40%, then after <#ffb900ff>1.5s<> takes <#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<> and is <#ef5350ff>yanked<> to him. On foot it is <#ff9028ff>Pocket Pistol<>: <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>, knocking him back.",
+        "skill2": "Skaarl dashes through the target for <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> physical damage and +50% speed; through a champion he dashes back once more.",
+        "ult": "Charges an enemy champion with a shield (150 + <i#asset/base/ui/banpick/champion_stat_icon:ad_0>150%): the ram deals <#ff9028ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> + 8% max health and <#ef5350ff>knocks it back<>; allies near him +40% speed."
       }
     },
     "skill_name": {
@@ -5954,6 +5985,11 @@
         "skill1": "Arctic Assault",
         "skill2": "Winter's Wrath",
         "ult": "Glacial Prison"
+      },
+      "league_kled": {
+        "skill1": "Bear Trap on a Rope",
+        "skill2": "Jousting",
+        "ult": "Chaaaaaaaarge!!!"
       }
     }
   },
@@ -7081,7 +7117,7 @@
       },
       "league_singed": {
         "name": "신지드",
-        "attack": "방패판으로 내려침. <#ff9028ff>맹독의 자취<>: 지나간 자리에 독구름을 남김(<#ffb900ff>3초<>), 안의 적은 <#ffb900ff>0.5초<>마다 <#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<> 마법 피해. <#ff9028ff>독성 급류<>: 적 챔피언 곁을 지나가면 <#ffb900ff>1.5초<> 동안 이동 속도 25% 증가.",
+        "attack": "방패판으로 내려침. <#ff9028ff>맹독의 자취<>: 지나간 자리에 독구름을 남김(<#ffb900ff>3초<>), 안의 적은 <#ffb900ff>0.5초<>마다 <#a974ffff>13<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>13%<> 마법 피해. <#ff9028ff>독성 급류<>: 적 챔피언 곁을 지나가면 <#ffb900ff>1.5초<> 동안 이동 속도 25% 증가.",
         "skill": "대상을 어깨 너머 뒤로 내던져 <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> 마법 피해와 <#e0e0e0ff>최대 체력의 5%<> 고정 피해. <#ff9028ff>초강력 접착제<>가 바닥에 있으면 대상을 <#ffb900ff>1초<> <#ef5350ff>속박<>.",
         "skill2": "접착제 병을 던짐: <#ffb900ff>3초<> 동안 안의 적은 50% <#ef5350ff>둔화<>되고 <#ef5350ff>이동기 사용 불가<>.",
         "ult": "물약을 마심: <#ffb900ff>25초<> 동안 주문력 +60, 방어력·마법 저항력 +30, 이동 속도 +15%, 초당 <#66bb6aff>체력 12 회복<>; <#ff9028ff>맹독의 자취<>가 커지고 피해 150%에 <#ef5350ff>치유 감소<>(-40%)."
@@ -7113,6 +7149,13 @@
         "skill": "브리슬이 대상에게 돌진: 경로의 적에게 <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> 마법 피해와 <#ffb900ff>0.5초<> <#ef5350ff>에어본<>.",
         "skill2": "철퇴로 주변을 휩쓸어 <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>, 이어서 앞으로 얼음을 내리쳐 <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> 마법 피해, 각각 <#ffb900ff>1.5초<> 동안 40% <#ef5350ff>둔화<>.",
         "ult": "얼음 볼라를 던져 첫 적 챔피언에게 <#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> 마법 피해와 <#ffb900ff>1.25초<> <#ef5350ff>기절<>; 그 자리의 얼음 폭풍이 <#ffb900ff>2초<> 동안 주변 적 35% <#ef5350ff>둔화<>."
+      },
+      "league_kled": {
+        "name": "클레드",
+        "attack": "도끼 공격. <#ff9028ff>스칼<>이 피해를 대신 받음(500 + <i#asset/base/ui/banpick/champion_stat_icon:ad_0>140%), 도망가면 걸어서 싸움: 공격력 -10%, 이랴!·돌격 불가; 적을 치면 용기가 쌓여 다시 탑승. <#ff9028ff>버럭버럭<>: <#ffb900ff>10초<>마다 빠른 4회 공격, 4번째 <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<> + 최대 체력 6%.",
+        "skill": "덫을 던져 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>; 걸린 챔피언 40% <#ef5350ff>둔화<>, <#ffb900ff>1.5초<> 뒤 <#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<> 후 <#ef5350ff>끌어옴<>. 걸어서는 <#ff9028ff>주머니 권총<>: <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>, 뒤로 밀려남.",
+        "skill2": "스칼이 대상을 관통 돌진해 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> 물리 피해, 이동 속도 +50%; 챔피언을 지나면 한 번 더 돌진.",
+        "ult": "보호막(150 + <i#asset/base/ui/banpick/champion_stat_icon:ad_0>150%)을 두르고 적 챔피언에게 돌격, 부딪히면 <#ff9028ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> + 최대 체력 8%와 <#ef5350ff>넉백<>; 주변 아군 이동 속도 +40%."
       }
     },
     "skill_name": {
@@ -7940,6 +7983,11 @@
         "skill1": "혹한의 맹습",
         "skill2": "혹한의 서릿발",
         "ult": "빙하 감옥"
+      },
+      "league_kled": {
+        "skill1": "덫날리기",
+        "skill2": "이랴!",
+        "ult": "돌겨어어억!!!"
       }
     }
   },
@@ -9067,7 +9115,7 @@
       },
       "league_singed": {
         "name": "シンジド",
-        "attack": "盾板で殴る。<#ff9028ff>毒の軌跡<>：通った跡に毒の雲を残し（<#ffb900ff>3秒<>）、中の敵に<#ffb900ff>0.5秒<>ごと<#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>の魔法ダメージ。<#ff9028ff>スリップストリーム<>：敵英雄のそばを通ると<#ffb900ff>1.5秒<>移動速度+25%。",
+        "attack": "盾板で殴る。<#ff9028ff>毒の軌跡<>：通った跡に毒の雲を残し（<#ffb900ff>3秒<>）、中の敵に<#ffb900ff>0.5秒<>ごと<#a974ffff>13<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>13%<>の魔法ダメージ。<#ff9028ff>スリップストリーム<>：敵英雄のそばを通ると<#ffb900ff>1.5秒<>移動速度+25%。",
         "skill": "対象を肩越しに背後へ投げ、<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>の魔法ダメージと<#e0e0e0ff>最大体力の5%<>の確定ダメージ。<#ff9028ff>強力粘着剤<>が地面にあるとき対象を<#ffb900ff>1秒<><#ef5350ff>スネア<>。",
         "skill2": "粘着剤の瓶を投げる：<#ffb900ff>3秒<>間、中の敵を50%<#ef5350ff>スロウ<>し<#ef5350ff>移動スキル封じ<>。",
         "ult": "ポーションを飲み、<#ffb900ff>25秒<>間魔力+60、物防・魔防+30、移動速度+15%、毎秒<#66bb6aff>体力12回復<>。<#ff9028ff>毒の軌跡<>が広がり150%のダメージと<#ef5350ff>重傷<>（回復-40%）。"
@@ -9099,6 +9147,13 @@
         "skill": "ブリッスルが対象へ突進：進路の敵に<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>の魔法ダメージと<#ffb900ff>0.5秒<><#ef5350ff>ノックアップ<>。",
         "skill2": "フレイルで周囲を薙ぎ<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>、続けて前方へ氷を叩きつけ<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>の魔法ダメージ、それぞれ<#ffb900ff>1.5秒<>40%<#ef5350ff>スロウ<>。",
         "ult": "氷のボーラを投げ、最初の敵チャンピオンに<#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>の魔法ダメージと<#ffb900ff>1.25秒<><#ef5350ff>スタン<>；その場の氷嵐が<#ffb900ff>2秒<>周囲の敵を35%<#ef5350ff>スロウ<>。"
+      },
+      "league_kled": {
+        "name": "クレッド",
+        "attack": "斧で攻撃。<#ff9028ff>スカール<>がダメージを肩代わり（500 + <i#asset/base/ui/banpick/champion_stat_icon:ad_0>140%）、逃げると徒歩で戦う：攻撃-10%、ジャウスト・突撃不可；敵を打つと勇気が溜まり再騎乗。<#ff9028ff>狂暴の宴<>：<#ffb900ff>10秒<>毎に4回の速攻、4回目<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<>+最大体力6%。",
+        "skill": "トラバサミを投げ<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>；捕えたチャンピオンを40%<#ef5350ff>スロウ<>、<#ffb900ff>1.5秒<>後に<#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<>で<#ef5350ff>引き寄せ<>。徒歩時は<#ff9028ff>ポケットピストル<>：<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>、自分は後ろへ跳ぶ。",
+        "skill2": "スカールが対象を貫いて突進し<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>の物理ダメージ、移動速度+50%；チャンピオンを貫くともう一度突進。",
+        "ult": "シールド（150 + <i#asset/base/ui/banpick/champion_stat_icon:ad_0>150%）を張って敵チャンピオンへ突撃、衝突で<#ff9028ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>+最大体力8%と<#ef5350ff>ノックバック<>；周囲の味方の移動速度+40%。"
       }
     },
     "skill_name": {
@@ -9926,6 +9981,11 @@
         "skill1": "猪突凍進",
         "skill2": "氷河の怒り",
         "ult": "グレイシャルプリズン"
+      },
+      "league_kled": {
+        "skill1": "トラバサミロープ",
+        "skill2": "ジャウスト",
+        "ult": "チャァァァァァァァジ！！！"
       }
     }
   }

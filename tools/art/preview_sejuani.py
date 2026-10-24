@@ -46,8 +46,10 @@ class Sejuani(Clip):
 
     flip = False
 
-    def a(self, tag, dur=None, loop=False, z=3):
-        fr = list(dense(self.sp, tag, "sejuani", z))
+    z = 3                                               # the clip's zoom: render() draws at it, so her frames must too
+
+    def a(self, tag, dur=None, loop=False, z=None):
+        fr = list(dense(self.sp, tag, "sejuani", z or self.z))
         if dur and not loop and dur > sum(ms for _, ms in fr):     # the last frame held to the action's end
             fr[-1] = (fr[-1][0], fr[-1][1] + dur - sum(ms for _, ms in fr))
         an = Anim(fr, self.t, 0, 0, loop=loop, until=(self.t + dur) if dur else None, flip=self.flip)
@@ -91,6 +93,7 @@ def showcase(out, z=3, steps=FIGHT, W=320, H=130, gap=150, tail=1500):
     d = Foe(load(DARIUS), far, gy)
     me = Me(x0, gy)
     c = Sejuani(load(CHAMP), d, me, small, big)
+    c.z = z
     frost = {"n": 0}
     fight = {"from": None}
     c.wait(300)
