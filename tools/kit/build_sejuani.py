@@ -299,7 +299,7 @@ def build(p):
         return combine(refresh("w_cd", p["w_cd"]), *rm("w_lk1", "w_lk2"), fight(), anim("skill2", p["w_dur"]),
                        sfx("w"), voice("vo_w", p),
                        delayed(p["w_rel1"] - 1, alive(cview("w_sweep"), sfx("w_sweep"), sweep)),
-                       delayed(p["w_rel2"] - 1, alive(cview("w_slam"), sfx("w_slam"), slam)))
+                       delayed(p["w_rel2"] - 1, alive(sfx("w_slam"), slam)))
 
     # ------------------------------------------------------------------ the controller (a pulse on her)
     # skill and skill2 are cloned every tick (champion-data 8), a periodic AddCasted hung on her is not (league_zac):
@@ -348,7 +348,7 @@ def build(p):
                                                 "repeat": True, "z": z}
     views_p = [Pj("w_line"), Pj("r_bola")]
     views_e = [E("a_hit"), E("q_dash", FX, -1, False), E("q_hit"), E("f_mark"), E("w_sweep", BIG, -1, False),
-               E("w_slam", BIG, -1, False), E("w_hit"), E("e_freeze"), E("sh_hit"), E("r_hit"),
+               E("w_hit"), E("e_freeze"), E("sh_hit"), E("r_hit"),
                E("r_storm", BIG, -1, False)]
     views_b = [B_("fa", FX, -1, "fa_armour"), B_("w_slow", FX, -1, "slow"), B_("r_slow", FX, -1, "slow")]
     extra = {}

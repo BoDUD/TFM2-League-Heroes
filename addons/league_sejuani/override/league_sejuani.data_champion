@@ -855,10 +855,6 @@
                                                             "type": "Combine",
                                                             "effects": [
                                                               {
-                                                                "type": "CasterViewEffect",
-                                                                "name": "league_sejuani_w_slam"
-                                                              },
-                                                              {
                                                                 "type": "Sfx",
                                                                 "name": "league_sejuani_w_slam"
                                                               },
@@ -1881,10 +1877,6 @@
                               "type": "Combine",
                               "effects": [
                                 {
-                                  "type": "CasterViewEffect",
-                                  "name": "league_sejuani_w_slam"
-                                },
-                                {
                                   "type": "Sfx",
                                   "name": "league_sejuani_w_slam"
                                 },
@@ -2803,10 +2795,6 @@
                                                             "type": "Combine",
                                                             "effects": [
                                                               {
-                                                                "type": "CasterViewEffect",
-                                                                "name": "league_sejuani_w_slam"
-                                                              },
-                                                              {
                                                                 "type": "Sfx",
                                                                 "name": "league_sejuani_w_slam"
                                                               },
@@ -3286,14 +3274,6 @@
       "name": "league_sejuani_w_sweep",
       "anim": "asset/league/effects/league_sejuani_big",
       "tag": "w_sweep",
-      "z": -1,
-      "is_follow": false
-    },
-    {
-      "type": "Animation",
-      "name": "league_sejuani_w_slam",
-      "anim": "asset/league/effects/league_sejuani_big",
-      "tag": "w_slam",
       "z": -1,
       "is_follow": false
     },
