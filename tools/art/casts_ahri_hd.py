@@ -392,11 +392,11 @@ def placed():
 
 
 def cached_frames():
-    """frames(), kept in the temp folder against this file's and the sources' bytes (it reads for ~2 minutes)."""
+    """frames(), kept in the temp folder against this file's, the design's and the sources' bytes (it reads for ~2 minutes)."""
     import hashlib
     import pickle
     import tempfile
-    h = hashlib.sha1(open(__file__, "rb").read())
+    h = hashlib.sha1(open(__file__, "rb").read() + open(lp(os.path.join(HD, "design.png")), "rb").read())
     for f in sorted(os.listdir(lp(SRC))):
         if f.endswith(".png") or f.endswith(".json"):
             h.update(open(lp(os.path.join(SRC, f)), "rb").read())

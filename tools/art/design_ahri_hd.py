@@ -48,6 +48,15 @@ OUTLINE_SHARE = 0.45
 H = lambda h: tuple(int(h[i:i + 2], 16) for i in (0, 2, 4))  # noqa: E731
 FACE = {(58, 27): H("5A2C15"), (59, 27): H("5A2C15"), (58, 28): H("F9E040"), (59, 28): H("DDA23E"),
         (58, 29): H("DDA23E"), (59, 29): H("DDA23E"), (64, 28): H("F2C62D")}
+# the face cleaned by hand (the user, 2026-10-24: 「脸上弄干净点」): the grey band over her forehead skin, the grey
+# and brown specks in the fringe, a grey square by the near eye (its lid now), the far cheek's pale square and the
+# dark one past it, the near cheek's dark stripe of blush
+FACE.update({(59, 23): H("FBC1AF"), (60, 23): H("FBC1AF"), (61, 23): H("FBC1AF"), (62, 23): H("FBC1AF"),
+             (59, 22): H("282655"), (62, 22): H("FBC1AF"), (58, 23): H("282655"), (61, 20): H("282655"),
+             (62, 21): H("282655"), (64, 21): H("282655"), (64, 22): H("282655"), (64, 23): H("282655"),
+             (64, 25): H("282655"), (65, 21): H("282655"), (65, 24): H("D29888"), (56, 27): H("5A2C15"),
+             (64, 32): H("FDE3D0"), (65, 32): H("0A0210"), (55, 29): H("F3A592"), (55, 30): H("F3A592"),
+             (55, 31): H("F3A592"), (56, 31): H("FBC1AF")})
 PEERS = ["ahri", "lux", "jinx", "caitlyn", "riven"]
 
 
