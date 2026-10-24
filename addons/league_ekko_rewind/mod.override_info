@@ -1,0 +1,10 @@
+{
+  "asset/league/champion/league_ekko": {
+    "remapping": "asset/league_ekko_rewind/override/league_ekko",
+    "type": "override"
+  },
+  "asset/base/text/champion": {
+    "remapping": "asset/league_ekko_rewind/text/champion",
+    "type": "merge"
+  }
+}
