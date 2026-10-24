@@ -6,6 +6,12 @@ scale.
 
     python tools/art/design_sejuani_model.py --options DIR   # the candidates side by side
     python tools/art/design_sejuani_model.py                 # writes assets/source/sejuani/hd/{idle,run}.png
+    python tools/art/design_sejuani_model.py --round 1 ...   # the first round (PPU 1.5, 54 / 56 rows)
+
+Round 2 (the default): the user asked for a higher PPU after picking A-2 / B-1 (「先调高ppu像素吧」, PPU 2.0: A 72 rows,
+B 76 on A's scale); Codex redrew the picked two finer (assets/source/sejuani/codex_redraw/sejuani-redraw, 2026-10-24,
+asked 14 px squares, drawn on about A-1 11.5, A-2 10.4, B-1 11.4, B-2 9.5 by the edges' autocorrelation: 87-114 rows),
+all cut to the count the same way. Round 1's face fixes (FACE) belong to round 1's picks.
 
 Codex's squares (asked 18 px for both; its HANDOFF: no exact grid, soft alpha): by the period of the colour edges A-1
 10.0, A-2 17.9, B-1 17.9, B-2 9.8 both ways - A-2 and B-1 on the asked grid (about 52 / 56 rows), A-1 and B-2 on a fine
@@ -31,21 +37,31 @@ import strips  # noqa: E402
 from design_gnar_model import keep_axis, sheet  # noqa: E402
 from regrid import regrid  # noqa: E402
 
-SRC = os.path.join(ROOT, "assets", "source", "sejuani", "codex_model", "sejuani-model", "raw")
+SRC1 = os.path.join(ROOT, "assets", "source", "sejuani", "codex_model", "sejuani-model", "raw")
+SRC2 = os.path.join(ROOT, "assets", "source", "sejuani", "codex_redraw", "sejuani-redraw", "raw")
+SRC = SRC2
 OUT = os.path.join(ROOT, "assets", "source", "sejuani", "hd")
 K = 36
 TOP_PX = 36      # game px from the ice horn's tip to the hooves (the user's pick)
-PPU = 1.5
+PPU = 2.0
 TOP_ROWS = round(TOP_PX * PPU)
-B_ROWS = 56      # the charge on A's scale (hd/B 193 rows x 54 / 187)
-PICK = {"idle": "A-2", "run": "B-1"}   # the user's picks, 2026-10-24
+B_ROWS = 76      # the charge on A's scale (round 1: hd/B 193 rows x 54 / 187 = 56; x 72 / 53 = 76)
+PICK1 = {"idle": "A-2", "run": "B-1"}   # the user's round-1 picks, 2026-10-24
+PICK = {"idle": None, "run": None}      # round 2
 # take -> (file, square px read at, rows to (None: TOP_ROWS), the face box kept whole on the raw canvas: x0, y0, x1, y1)
-DRAFTS = {
+DRAFTS1 = {
     "A-1": ("A-1", 10.2, None, (700, 420, 800, 545)),
     "A-2": ("A-2", 18.2, None, (690, 420, 820, 545)),
-    "B-1": ("B-1", 18.2, B_ROWS, (840, 470, 1000, 600)),
-    "B-2": ("B-2", 10.0, B_ROWS, (840, 500, 1000, 620)),
+    "B-1": ("B-1", 18.2, 56, (840, 470, 1000, 600)),
+    "B-2": ("B-2", 10.0, 56, (840, 500, 1000, 620)),
 }
+DRAFTS2 = {
+    "A-1": ("A-1", 11.7, None, (670, 370, 810, 500)),
+    "A-2": ("A-2", 10.6, None, (690, 360, 830, 490)),
+    "B-1": ("B-1", 11.6, B_ROWS, (840, 400, 965, 500)),
+    "B-2": ("B-2", 9.7, B_ROWS, (840, 410, 960, 510)),
+}
+DRAFTS = DRAFTS2
 # the face squares redrawn on the written designs (codex-face-half-squares): name -> [(x, y, colour)]. The picked takes
 # drew her face on few squares (the user picked them for their proportions, 2026-10-24): at 16x the near eye was a light
 # square beside a dark one, the far eye a single blue square, a pink smear for the brow and no mouth. Redrawn from the
@@ -132,9 +148,14 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--options", help="write the candidates sheet into this folder")
     ap.add_argument("--ppu", type=float, help="PPU to cut at (default PPU)")
+    ap.add_argument("--round", type=int, default=2)
     a = ap.parse_args()
+    if a.round == 1:
+        global SRC, DRAFTS, PICK, TOP_ROWS, FACE
+        SRC, DRAFTS, PICK, TOP_ROWS = SRC1, DRAFTS1, PICK1, round(TOP_PX * 1.5)
+    else:
+        FACE = {"idle": [], "run": []}
     if a.ppu:
-        global TOP_ROWS
         TOP_ROWS = round(TOP_PX * a.ppu)
     if a.options:
         os.makedirs(lp(a.options), exist_ok=True)
