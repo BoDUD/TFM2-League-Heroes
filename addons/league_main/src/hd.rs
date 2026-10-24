@@ -306,6 +306,10 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // (tools/art/casts_twitch_hd.py: the design's head, his size; rig_twitch_hd.py: Venom Cask thrown overhead by the far
     // arm, not a third one); 32 rows as his 1x sprite, so no SIZES row
     ("league_twitch", 2.2, include_str!("../../../league/champions/league_twitch#anim.fanim")),
+    // Annie (2026-10-24): Codex's take A read back at PPU 2.2 (44 x 75, tools/art/design_annie_hd.py, the face set by
+    // hand); every action Codex's whole-frame redraw mended onto the design (tools/art/casts_annie_hd.py: the design's
+    // head, her size, the ground), Tibbers in her near hand; 34 rows as her 1x sprite, so no SIZES row
+    ("league_annie", 2.2, include_str!("../../../league/champions/league_annie#anim.fanim")),
     // Yunara: PPU 1.5 (the user's pick), posed from the design's own squares at that density by tools/art/rig_yunara.py
     // (40 game rows ornaments to soles), so no SIZES row
     ("league_yunara", 1.5, include_str!("../../../league/champions/league_yunara#anim.fanim")),
@@ -635,7 +639,7 @@ mod tests {
             assert_eq!(h.of_name(&format!("asset/league/champions/{id}#anim")).map(|x| x.id), Some(id));
             assert_eq!(h.of_name(&format!("asset/base/aseprite_resources/champions/{id}#sheet")).map(|x| x.id), Some(id));
         }
-        assert!(h.get("league_annie").is_none());
+        assert!(h.get("league_amumu").is_none());
         assert_eq!(h.get("tft_powder").map(|x| (x.id, x.size)), Some(("tft_powder", 0.90)));
         assert!(h.get("tft_nobody").is_none());
         assert!(h.of_name("asset/base/aseprite_resources/champions/alchemist#anim").is_none());
