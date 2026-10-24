@@ -301,6 +301,11 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // set by hand); every action Codex's whole-frame redraw mended onto the design (tools/art/casts_ahri_hd.py: the
     // design's head, her size, the nine tails joined to her hair); 40 rows, so no SIZES row
     ("league_ahri", 2.2, include_str!("../../../league/champions/league_ahri#anim.fanim")),
+    // Twitch (2026-10-24): the user's own picture read back at PPU 2.2 (109 x 71, tools/art/design_twitch_hd.py, the goggle
+    // and the grin redrawn by hand); every action Codex's whole-frame redraw mended onto the design
+    // (tools/art/casts_twitch_hd.py: the design's head, his size; rig_twitch_hd.py: Venom Cask thrown overhead by the far
+    // arm, not a third one); 32 rows as his 1x sprite, so no SIZES row
+    ("league_twitch", 2.2, include_str!("../../../league/champions/league_twitch#anim.fanim")),
     // Yunara: PPU 1.5 (the user's pick), posed from the design's own squares at that density by tools/art/rig_yunara.py
     // (40 game rows ornaments to soles), so no SIZES row
     ("league_yunara", 1.5, include_str!("../../../league/champions/league_yunara#anim.fanim")),
@@ -355,13 +360,15 @@ pub const HEROES: &[(&str, f32, &str)] = &[
 /// squares lower (RESTYLE ksante lift_sq: 11.5 x 1.2 x (1 / 0.9 - 1) = 1.5).
 /// Warwick: 90 % (the user, 2026-10-23: 「狼人局内模型有点大了」 - 46 game px spike to soles), his frames 2 squares lower
 /// (RESTYLE warwick lift_sq: 11.5 x 1.2 x (1 / 0.9 - 1) = 1.5).
+/// Caitlyn: 90 % (the user, 2026-10-24: 「女警模型局内整体有点大 调小一点需要」 - 46 game px hat to soles, the tallest
+/// marksman: Kai'Sa 43, Varus 45, Jinx 37), her frames 2 squares lower (RESTYLE caitlyn lift_sq: 11.5 x 1.45 x (1 / 0.9 - 1) = 1.9).
 pub const SIZES: &[(&str, f32)] = &[("league_gragas", 0.90), ("league_zeri", 1.05), ("league_kassadin", 1.00),
                                     ("league_braum", 0.95), ("league_mordekaiser", 1.10),
                                     ("league_irelia", 1.05), ("league_soraka", 1.10), ("league_galio", 1.10), ("league_nilah", 0.90),
                                     ("league_corki", 0.90), ("league_malzahar", 1.15), ("league_aphelios", 0.90),
                                     ("league_poppy", 0.85), ("league_yuumi", 0.75), ("league_wukong", 1.15),
                                     ("tft_powder", 0.90), ("league_nami", 0.90), ("league_hwei", 0.85),
-                                    ("league_ksante", 0.90), ("league_warwick", 0.90)];
+                                    ("league_ksante", 0.90), ("league_warwick", 0.90), ("league_caitlyn", 0.90)];
 
 /// Heroes whose body grows with a stack: (id, the buff whose instances on him are the stacks, growth a stack). Cho'Gath's
 /// Feast (the user, 2026-10-19: 「变大可以无限 加生命」): every champion it eats is one more Permanent `league_chogath_r_stack`
