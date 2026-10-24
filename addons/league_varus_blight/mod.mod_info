@@ -1,0 +1,20 @@
+{
+  "author": "BoDUD",
+  "contains_code": true,
+  "dependencies": [
+    {
+      "mod_id": "base",
+      "version": ">=0.4.11"
+    },
+    {
+      "mod_id": "league",
+      "version": ">=0.210.0"
+    }
+  ],
+  "description": "Test build of Varus's Blight as in League (needs League of Legends Heroes): replaces the main pack's Varus so Blight stacks sit on each enemy champion his attacks hit and his Q, E and R pop the stacks on the champion they hit (the main pack counts them on Varus himself, so stacks put on one champion could pop on another). Pop damage, pictures and the Q/E cooldown refund are the main pack's numbers; the refund no longer shortens R. Other champions are untouched. Writes a log for testing.",
+  "last_updated": "2026-10-24",
+  "mod_id": "league_varus_blight",
+  "mod_type": "native",
+  "name": "League Heroes: Varus's Blight on each enemy apart (test)",
+  "version": "0.1.0"
+}

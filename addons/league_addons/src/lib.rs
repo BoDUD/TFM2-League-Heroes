@@ -195,6 +195,15 @@ mod shaco_backstab;
 #[allow(dead_code)] // items public in the add-on's own crate
 #[path = "../../league_sett_grit/src/lib.rs"]
 mod sett_grit;
+#[allow(dead_code)] // items public in the add-on's own crate
+#[path = "../../league_varus_blight/src/lib.rs"]
+mod varus_blight;
+#[allow(dead_code)] // items public in the add-on's own crate
+#[path = "../../league_xayah_feathers/src/lib.rs"]
+mod xayah_feathers;
+#[allow(dead_code)] // items public in the add-on's own crate
+#[path = "../../league_annie_q/src/lib.rs"]
+mod annie_q;
 #[path = "../../league_shen_shield/src/lib.rs"]
 mod shen_shield;
 #[allow(dead_code)] // items public in the add-on's own crate
@@ -451,6 +460,9 @@ fn init(host: &StableHost) -> StableMod {
     jhin_whisper::register(host, &mut module);
     shaco_backstab::register(host, &mut module);
     sett_grit::register(host, &mut module);
+    varus_blight::register(host, &mut module);
+    xayah_feathers::register(host, &mut module);
+    annie_q::register(host, &mut module);
     shen_shield::register(host, &mut module);
     tahmkench::register(host, &mut module);
     kalista::register(host, &mut module);

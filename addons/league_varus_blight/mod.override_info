@@ -1,0 +1,10 @@
+{
+  "asset/league/champion/league_varus": {
+    "remapping": "asset/league_varus_blight/override/league_varus",
+    "type": "override"
+  },
+  "asset/base/text/champion": {
+    "remapping": "asset/league_varus_blight/text/champion",
+    "type": "merge"
+  }
+}

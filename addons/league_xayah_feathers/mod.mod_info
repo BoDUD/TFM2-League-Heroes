@@ -1,0 +1,20 @@
+{
+  "author": "BoDUD",
+  "contains_code": true,
+  "dependencies": [
+    {
+      "mod_id": "base",
+      "version": ">=0.4.11"
+    },
+    {
+      "mod_id": "league",
+      "version": ">=0.210.0"
+    }
+  ],
+  "description": "Test build of Xayah's Bladecaller as in League (needs League of Legends Heroes): replaces the main pack's Xayah so a recall roots an enemy champion when three of its feathers strike that same champion (the main pack's roots from the third champion hit of a recall, whoever was struck). Damage, root length and pictures are the main pack's. Other champions are untouched. Writes a log for testing.",
+  "last_updated": "2026-10-24",
+  "mod_id": "league_xayah_feathers",
+  "mod_type": "native",
+  "name": "League Heroes: Xayah's three feathers root one enemy (test)",
+  "version": "0.1.0"
+}

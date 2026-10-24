@@ -1,0 +1,37 @@
+{
+  "zh-hans": {
+    "description": {
+      "league_annie_q": {
+        "skill": "【附加包】扔出火球，造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65% 法术强度<>的<#a974ffff>魔法伤害<>。击杀目标时返还一半冷却。"
+      }
+    }
+  },
+  "zh-hant": {
+    "description": {
+      "league_annie_q": {
+        "skill": "【附加包】扔出火球，造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65% 魔法強度<>的<#a974ffff>魔法傷害<>。擊殺目標時返還一半冷卻。"
+      }
+    }
+  },
+  "en": {
+    "description": {
+      "league_annie_q": {
+        "skill": "[Add-on] Annie hurls a fireball that deals <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65% Ability Power<> <#a974ffff>magic damage<>. A kill refunds half its cooldown."
+      }
+    }
+  },
+  "ko": {
+    "description": {
+      "league_annie_q": {
+        "skill": "[확장] 불덩이를 던져 <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 65%<> <#a974ffff>마법 피해<>를 입힙니다. 대상을 처치하면 재사용 대기시간 절반을 돌려받습니다."
+      }
+    }
+  },
+  "ja": {
+    "description": {
+      "league_annie_q": {
+        "skill": "【拡張】火の玉を投げ、<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の65%<>の<#a974ffff>魔法ダメージ<>を与える。倒すとCDが半分戻る。"
+      }
+    }
+  }
+}
