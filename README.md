@@ -10,7 +10,7 @@
 
 **金铲铲之战系列（tft 包，2026-10-19 起）**：仓库里还有第二个 mod，mod_id 是 `tft`，源文件在 [`tft/`](tft/)，名字「Teamfight Tactics Heroes」——金铲铲之战（云顶之弈）里英雄联盟没有的棋子，第一个是爆爆（`tft_powder`，见她的一节）。用户：「我们下一个做金铲铲的英雄爆爆 这个属于新的系列 … 制作精灵图的时候通知写好提示词通知codex 音效什么都要自己找 技能也要自己设计」，结构上的选择：单独的新 mod（以后金铲铲的英雄都放这里，mod_id 发布后不改），高清帧借 `league.dll`（两个包都开着时 `league.dll` 也画 `tft_` 开头的英雄的 `hd_` 帧；只开 tft 包时退回 1 倍帧），爆爆是法师、走中路（金克丝是射手，两个分开）。tft 包本身是纯数据，不带代码、也不带音频文件：音效全是游戏本体自带的音频片段，在她自己的 `.sound_info` 里按名字叠起来播（见她的一节）。工具链共用：`python tools/package_mod.py --src tft --hero powder --install` 装进 `<游戏>/mods/tft`（第一次装要在 Mods 菜单里勾上），`ppu_hd.PACKS` 把她的图写进 `tft/champions/`，`lint_mod.py tft` 检查。
 
-高清帧（PPU，0.97.0，用户：「PPU 可以先改一版亚索试试」「这个要装进主包里 不是附加包」）：登记的英雄（现在是亚索 PPU 2.2、古拉加斯 PPU 1.45（画成 90%）、泽丽 PPU 3（画成 105%）、弗拉基米尔 PPU 1.8、卡尔玛 PPU 2.2、艾瑞莉娅 PPU 2（画成 105%）、艾希 PPU 2.2、卡萨丁 PPU 2.42（画成 100%）、库奇 PPU 2.2（画成 90%）、盖伦 PPU 1.9（放大 12%）、布隆 PPU 1.98（画成 105%）、莫德凯撒 PPU 2.0（画成 110%）、索拉卡 PPU 2.2（画成 110%）、奈德丽 PPU 2.2、加里奥 PPU 1.65（画成 110%）、尼菈 PPU 1.98（画成 90%）、千珏 PPU 2.2、玛尔扎哈 PPU 1.38（画成 115%）、米利欧 PPU 2.2、杰斯 PPU 1.5、伊莉丝 PPU 1.8、卡特琳娜 PPU 1.5、塔姆 PPU 1.2、卡莉丝塔 PPU 1.4（画成 85%）、蒙多 PPU 1.5、潘森 PPU 1.5、奥莉安娜 PPU 2.2、厄斐琉斯 PPU 1.5（画成 90%）、芮尔 PPU 1.5、厄加特 PPU 1.2、雷克塞 PPU 1.2、莫甘娜 PPU 1.5、娜美 PPU 1.5、迦娜 PPU 1.5、贾克斯 PPU 1.5、赵信 PPU 1.5、卡莎 PPU 1.45、青钢影 PPU 1.5、剑姬 PPU 1.5、诺手 PPU 1.45、锐雯 PPU 1.5、凯特琳 PPU 1.45、韦鲁斯 PPU 1.35、金克丝 PPU 2.2、拉克丝 PPU 2.2、阿狸 PPU 2.2、芸阿娜 PPU 1.5、乐芙兰 PPU 2.0、泽拉斯 PPU 1.75）在自己的图里多一套 `hd_<动作>` 帧，每帧是 1 倍帧的 PPU 倍大小（[`tools/art/ppu_hd.py`](tools/art/ppu_hd.py)：亚索最早是身体 1 倍帧整 3 倍放大、头换成 Codex 画的那张帅脸，现在整套是 Codex 重画的，见他的一节；泽丽（0.99.0）每一帧都是画的，[`tools/art/ppu_zeri.py`](tools/art/ppu_zeri.py) 从按 Codex 原画读出的高清造型摆出来，见她的一节）。游戏里画出来大小不变、像素细 PPU 倍：DLL 挂在游戏按名字取动画表和贴图的两个函数上，动画表里每个动作都换成高清帧、矩形除以 PPU，贴图报的宽高也除以 PPU，卡牌、图鉴、头像、选人槽位按帧大小画，UV 正好落在高清那块；战场按「UV × 图的真实像素」画，所以战场拿真实的高清帧和宽高，实体的绘制缩放写成 1/PPU（佛耶戈附身高清英雄时按他身体用的那套图认，一样缩；附加包在我们算完缩放之后才换身体，所以画身体的那一刻（游戏 0.6.4 的 0x2aaf630）再认一次，0.6.50 起不再变得超级大）。卡牌和图鉴用的 `idle` 也是高清的。日志在 `%APPDATA%\TeamSamoyed\TeamfightManager2\data\league.log`。`tools/package_mod.py` 打包和安装时会编译并带上 `league.dll`（需要 cargo）。弗拉基米尔、卡尔玛、艾希、亚索的高清帧是 Codex 照高清造型逐帧重画的（用户：「接下来使用PPU修复吸血鬼和卡尔玛和艾希 做到所有动作帧一致 待机一致」）：[`tools/art/pack_ppu_strips.py`](tools/art/pack_ppu_strips.py) 把现在的动作帧按 PPU 放大成「骨架」，连同造型打包给 Codex（也可以一个包两步：先照一张图画造型，再画全部动作），[`tools/art/import_ppu_strips.py`](tools/art/import_ppu_strips.py) 把交付按格子读回、按锚点放回帧里，写成 `assets/source/ppu/<英雄>_<动作>.png`，`ppu_hd.py` 当画好的高清帧读。高清英雄的 1 倍帧只是时间轴、没有 DLL 时的后备，也是其他英雄演示动图里出场时的样子：盖伦、艾希、索拉卡、亚索改成高清时 1 倍帧还是旧造型，[`tools/art/ppu_one.py`](tools/art/ppu_one.py) 把它们按各自的高清帧缩回 1 倍（帧的大小、时间不变；2026-10-18，诺手重做后用户：「还有所有设计诺手的gif图全要重做吧」「盖伦也是吧？」），用到诺手、盖伦、艾希、索拉卡、亚索的演示动图都重新生成了。
+高清帧（PPU，0.97.0，用户：「PPU 可以先改一版亚索试试」「这个要装进主包里 不是附加包」）：登记的英雄（现在是亚索 PPU 2.2、古拉加斯 PPU 1.45（画成 90%）、泽丽 PPU 3（画成 105%）、弗拉基米尔 PPU 1.8、卡尔玛 PPU 2.2、艾瑞莉娅 PPU 2（画成 105%）、艾希 PPU 2.2、卡萨丁 PPU 2.42（画成 100%）、库奇 PPU 2.2（画成 90%）、盖伦 PPU 1.9（放大 12%）、布隆 PPU 1.98（画成 105%）、莫德凯撒 PPU 2.0（画成 110%）、索拉卡 PPU 2.2（画成 110%）、奈德丽 PPU 2.2、加里奥 PPU 1.65（画成 110%）、尼菈 PPU 1.98（画成 90%）、千珏 PPU 2.2、玛尔扎哈 PPU 1.38（画成 115%）、米利欧 PPU 2.2、杰斯 PPU 1.5、伊莉丝 PPU 1.8、卡特琳娜 PPU 1.5、塔姆 PPU 1.2、卡莉丝塔 PPU 1.4（画成 85%）、蒙多 PPU 1.5、潘森 PPU 1.5、奥莉安娜 PPU 2.2、厄斐琉斯 PPU 1.5（画成 90%）、芮尔 PPU 1.5、厄加特 PPU 1.2、雷克塞 PPU 1.2、莫甘娜 PPU 1.5、娜美 PPU 1.5、迦娜 PPU 1.5、贾克斯 PPU 1.5、赵信 PPU 1.5、卡莎 PPU 1.45、青钢影 PPU 1.5、剑姬 PPU 1.5、诺手 PPU 1.45、锐雯 PPU 1.5、凯特琳 PPU 1.45、韦鲁斯 PPU 1.35、金克丝 PPU 2.2、拉克丝 PPU 2.2、阿狸 PPU 2.2、图奇 PPU 2.2、安妮 PPU 2.2、芸阿娜 PPU 1.5、乐芙兰 PPU 2.0、泽拉斯 PPU 1.75）在自己的图里多一套 `hd_<动作>` 帧，每帧是 1 倍帧的 PPU 倍大小（[`tools/art/ppu_hd.py`](tools/art/ppu_hd.py)：亚索最早是身体 1 倍帧整 3 倍放大、头换成 Codex 画的那张帅脸，现在整套是 Codex 重画的，见他的一节；泽丽（0.99.0）每一帧都是画的，[`tools/art/ppu_zeri.py`](tools/art/ppu_zeri.py) 从按 Codex 原画读出的高清造型摆出来，见她的一节）。游戏里画出来大小不变、像素细 PPU 倍：DLL 挂在游戏按名字取动画表和贴图的两个函数上，动画表里每个动作都换成高清帧、矩形除以 PPU，贴图报的宽高也除以 PPU，卡牌、图鉴、头像、选人槽位按帧大小画，UV 正好落在高清那块；战场按「UV × 图的真实像素」画，所以战场拿真实的高清帧和宽高，实体的绘制缩放写成 1/PPU（佛耶戈附身高清英雄时按他身体用的那套图认，一样缩；附加包在我们算完缩放之后才换身体，所以画身体的那一刻（游戏 0.6.4 的 0x2aaf630）再认一次，0.6.50 起不再变得超级大）。卡牌和图鉴用的 `idle` 也是高清的。日志在 `%APPDATA%\TeamSamoyed\TeamfightManager2\data\league.log`。`tools/package_mod.py` 打包和安装时会编译并带上 `league.dll`（需要 cargo）。弗拉基米尔、卡尔玛、艾希、亚索的高清帧是 Codex 照高清造型逐帧重画的（用户：「接下来使用PPU修复吸血鬼和卡尔玛和艾希 做到所有动作帧一致 待机一致」）：[`tools/art/pack_ppu_strips.py`](tools/art/pack_ppu_strips.py) 把现在的动作帧按 PPU 放大成「骨架」，连同造型打包给 Codex（也可以一个包两步：先照一张图画造型，再画全部动作），[`tools/art/import_ppu_strips.py`](tools/art/import_ppu_strips.py) 把交付按格子读回、按锚点放回帧里，写成 `assets/source/ppu/<英雄>_<动作>.png`，`ppu_hd.py` 当画好的高清帧读。高清英雄的 1 倍帧只是时间轴、没有 DLL 时的后备，也是其他英雄演示动图里出场时的样子：盖伦、艾希、索拉卡、亚索改成高清时 1 倍帧还是旧造型，[`tools/art/ppu_one.py`](tools/art/ppu_one.py) 把它们按各自的高清帧缩回 1 倍（帧的大小、时间不变；2026-10-18，诺手重做后用户：「还有所有设计诺手的gif图全要重做吧」「盖伦也是吧？」），用到诺手、盖伦、艾希、索拉卡、亚索的演示动图都重新生成了。
 
 画风统一（2026-10-13，用户：「这几个ppu英雄会导致人物体型很细 不协调 和其他像素风格的英雄不太搭」「太高清了看上去像动画贴图」，看了泽丽的样张后：「泽丽是榜样 其他英雄都按照这种思路来改就行了」「都要像泽丽那样像素多但是有清晰的感觉」「其他英雄也差不多2.2」「要有像素风」）：[`tools/art/ppu_restyle.py`](tools/art/ppu_restyle.py) 从各自原来的高清帧（留在 `assets/source/ppu/orig/`）重做。泽丽、卡尔玛：每帧找到头（待机的脸在帧里匹配），脖子以上等比放大、以下加宽变矮（脚不动，伸出身体的枪、手臂只外移不拉长；躺倒的帧横着做），卡尔玛的光环取出缩小再放回；布隆、莫德凯撒：身体加宽变矮；库奇：整体放大 1.2 倍。除泽丽、艾瑞莉娅外都降到每个游戏像素约 2.2 格（按格子面积平均，再贴回该帧自己最常用的 64 种颜色，近黑占四成以上的格子画成描边，单个异色格子并入四周），弗拉基米尔 1.8；描边细的再往外加一格。头像中心点（champion_view face）跟着头移动。选人界面另有一套帧（用户：「BP界面里看英雄还是太清晰」，看了 2.2 / 1.5 / 1 倍三行的预览选了 1.5）：[`ppu_hd.py`](tools/art/ppu_hd.py) 给每个高清英雄的每个动作从高清帧再做一套每个游戏像素 1.5 格的 `lo_<动作>` 帧，`league.dll` 只在图鉴（和头像）、选人槽位、选中瞬间这几处取它们（矩形和贴图尺寸都 ÷ 1.5，画出来一样大），战场照旧画高清帧。选人网格（BP 格子）从 0.7.94 起改回战场那套 `hd_` 高清帧（用户 2026-10-21：「发条在BP格子里不是显示的高清帧？」「BP 格子也改成显示战场那套 hd_ 高清帧」）：矩形和贴图尺寸都 ÷（高清倍数 ÷ 界面大小），画出来和原来一样大。
 
@@ -56,7 +56,7 @@
 
 ![易演示：Q 阿尔法突袭在德莱厄斯、盖伦、艾希之间闪斩、冥想接无极剑道、双重打击、R 高原血统加速连砍](docs/preview/league_masteryi_showcase.gif?v=1018dg)
 
-![安妮演示：带着嗜火跑进场、R 提伯斯砸在盖伦身边眩晕盖伦和德莱厄斯、跟着后撤的盖伦走并灼烧、Q 碎裂之火、普攻火球、W 焚烧和熔岩护盾、第 4 次施法后火光重新亮起、提伯斯化烟消失](docs/preview/league_annie_showcase.gif?v=1018dg)
+![安妮演示（PPU 2.2 高清帧）：带着嗜火跑进场、R 提伯斯砸在盖伦身边眩晕盖伦和德莱厄斯、跟着后撤的盖伦走并灼烧、Q 碎裂之火、普攻火球、W 焚烧和熔岩护盾、第 4 次施法后火光重新亮起、提伯斯化烟消失](docs/preview/league_annie_showcase.gif?v=1024an)
 
 ![厄运小姐演示：开战第一枪是厄运的眷顾（红心），Q 一箭双雕穿过德莱厄斯打到身后的盖伦、E 枪林弹雨加大步流星、R 弹幕时间十二波扇形子弹，最后一发 Q 打死德莱厄斯、弹到盖伦身上暴击](docs/preview/league_missfortune_showcase.gif?v=1018dg)
 
@@ -150,7 +150,7 @@
 ![卡兹克演示：他跑进场，腰间亮着无形威胁的洋红火光，第一爪打出被动、德莱厄斯被减速；Q 品尝恐惧：德莱厄斯身边没有队友，孤立无援的重击；E 跃击跳到身后的盖伦身上，落地的冲击波，接 W 虚空突刺甩出尖刺打中盖伦、减速、自己回血；他转身朝左（红色方的样子）跑回德莱厄斯，再一记孤立的 Q；R 虚空来袭：虚空爆发后隐身（画成半透明），出来一爪带被动，德莱厄斯倒下，E 刷新；最后一次进化](docs/preview/league_khazix_showcase.gif?v=1018dg)
 
 ![布兰德演示：他走进场，朝德莱厄斯扔两个火球；W 烈焰之柱：德莱厄斯脚下亮起一圈火纹，火柱冲天而起，他身上烧起来、头顶亮起一个火苗；E 烈火燃烧：火从德莱厄斯脚下往外烧成一圈，蔓延到后面的盖伦，头顶两个火苗；Q 火焰烙印：火球打中德莱厄斯，他被晕住，头顶三个火苗、脚下的火焰圈开始倒计时，两秒后轰地炸开，盖伦也被炸到；布兰德绕到他们右边转身朝左（红色方的样子）放 R 烈焰风暴：身边卷起火焰，火种打中盖伦，在两人之间弹了五次，每次从上面砸下来，脚下烧起余烬（减速），德莱厄斯倒下](docs/preview/league_brand_showcase.gif?v=1018dg)
-![图奇演示：他放 Q 埋伏，身边炸开一团紫烟，隐身（画成半透明）摸到德莱厄斯面前，第一箭现形，腰两侧亮起攻速毒火，两箭给德莱厄斯上毒；W 剧毒之桶：毒桶抛到德莱厄斯和身后的盖伦中间，绿色毒液溅满两人、地上留下毒池，两人减速；E 毒性爆发：他身边炸开毒云，两人身上的毒刺爆炸；他绕到右边转身朝左（红色方的样子）开 R 火力全开：身边冲起绿色光丝，穿透箭一箭穿过盖伦和德莱厄斯，德莱厄斯倒下，头顶亮起埋伏刷新的小老鼠](docs/preview/league_twitch_showcase.gif?v=1018dg)
+![图奇演示（PPU 2.2 高清帧）：他放 Q 埋伏，身边炸开一团紫烟，隐身（画成半透明）摸到德莱厄斯面前，第一箭现形，腰两侧亮起攻速毒火，两箭给德莱厄斯上毒；W 剧毒之桶：远侧的手把毒桶举过头顶甩出，毒桶抛到德莱厄斯和身后的盖伦中间，绿色毒液溅满两人、地上留下毒池，两人减速；E 毒性爆发：他身边炸开毒云，两人身上的毒刺爆炸；R 火力全开：身边冲起绿色光丝，穿透箭一箭穿过德莱厄斯和盖伦，德莱厄斯倒下，头顶亮起埋伏刷新的小老鼠](docs/preview/league_twitch_showcase.gif?v=1024p)
 ![萨勒芬妮演示：她站在浮空小舞台上，头顶飘着两个音符，一记带音符的彩色音球打中德莱厄斯；Q 清籁穿云：高音抛到德莱厄斯和身后的盖伦之间，落地炸开一圈声波环；E 增幅节拍：声波推过两人（脚下五线谱光减速），回音的彩虹光一闪，第二道声波把两人定身；接着 W 聚和心声：脚下扩开歌声光环，她和身后的金克丝罩上护盾泡泡，随后飘起回血的爱心；她滑到两人右边、转身朝左（红色方的样子）放 R 炫音返场：舞台聚光灯亮起，一道大音波穿过盖伦和德莱厄斯，魅惑的爱心炸开，紧接着 E 让被魅惑的德莱厄斯头顶转起眩晕音符；最后舞台下亮起回音就绪的彩光](docs/preview/league_seraphine_showcase.gif?v=1023jx)
 
 ![雷克顿演示：他跑进场，月牙刀砍德莱厄斯（刀光画在动作里），三刀后怒气满了，身后烧起红光；Q 巨鳄狂袭：一圈象牙白的刀光扫过德莱厄斯和身后的盖伦；E 横冲直撞：身后拖着沙色风痕冲过德莱厄斯；满怒气的 W 冷酷捕猎：身上冒出红色怒气，转身劈三刀，德莱厄斯头顶冒金星晕 1.5 秒；二段 E 再冲回来；R 终极统治：脚下炸开沙暴、头顶亮起金色的鳄鱼神符号，之后脚下一圈沙暴光环每半秒烫两人，他接着砍，德莱厄斯倒下](docs/preview/league_renekton_showcase.gif?v=1018dg)
@@ -825,7 +825,8 @@ python tools/art/preview_masteryi.py
 | 数值 | 攻击 80（+6）、法术强度 40（+20）、生命 900（+100）、护甲 20（+7）、魔抗 20（+3）、移速 900（+9），射程 60000，攻击间隔 1.5 秒，都是原版法师的标准。LoL Reborn 里没有安妮，数值是自己设计的，用 SDK 对战模拟调：打中路，对 5 个原版中单（`pyromancer`、`ice_mage`、`lightning_mage`、`wind_mage`、`white_mage`），两边、三套队友阵容各 24 局，团队击杀差 +1.49（0.13.0 原地不动的提伯斯）；0.13.1 提伯斯改为跟随目标，目标走不出火圈，灼烧保持英雄联盟 1 级光环的 20 + 12% 时是 +2.32；降到 14 + 8% 后两批各 720 局（1–24、25–48 号种子）是 +1.57 / +1.78，旧版同样两批是 +1.49 / +2.22（同一套技能换一批种子差 0.7，单批噪声约 ±0.35），平均输出新版高 2.6%；原版中单里最强的 `lightning_mage` 是 +1.19，拉克丝 +2.23。初版（眩晕 1.25 秒、Q 80%、反伤 30%、R 150 + 75%、灼烧 30 + 15%）是 +2.65。以上都是 0.15.0 之前的数字：那时熔岩护盾也给了被喷的敌人，修正后按下面"修正（0.15.0）"一行重新调过 |
 | 修正（0.15.0） | W 的熔岩护盾写在 `WithSelf` 里（见迦娜一节后的说明）：W 是对敌方英雄施放的，护盾（连同 20% 反伤）也给了被喷的那个敌方英雄。改成只给自己后安妮明显变强：SDK 对战模拟（打中路，对 5 个原版中单，两边、三套队友阵容各 24 局）团队击杀差 +1.57 → +3.74（同一批种子）。只降 W 的伤害（60 + 65%）是 +3.47，Q、W 一起降是 +2.69，再把嗜火的眩晕从 1 秒缩到 0.75 秒是 +1.65 / +1.36（两批种子，修正前两批 +1.57 / +1.78），就用这一版；降护盾和反伤几乎没有影响（+3.74） |
 | 亚索联动 | 眩晕算亚索大招要的控制。亚索打上路、安妮中路时，他每局放 R 2.19 次（队友换成带眩晕的 `lightning_mage` 2.73 次，`pyromancer` 0.67 次，拉克丝 1.04 次），在以往控制型队友的范围内，亚索不用调。0.13.1 提伯斯跟随目标后重测：新旧安妮同一批 48 局分别是 2.50 和 2.48 次，没有变化。0.15.0 嗜火眩晕缩到 0.75 秒后（亚索也换成 0.15.0 的数值）是 1.92 次，同一批里 1 秒眩晕的安妮 2.60 次，仍在控制型队友的范围内 |
-| 精灵图 | 8 个动作 47 帧：待机、跑步、普攻、Q、W、R、受击、死亡。猫耳尖到脚底 32 px（腿缩短 2 行之前 34 px），30 色，动作全部取自英雄联盟原版动画 |
+| 精灵图（旧版 1 倍） | 8 个动作 47 帧：待机、跑步、普攻、Q、W、R、受击、死亡。猫耳尖到脚底 32 px（腿缩短 2 行之前 34 px），30 色，动作全部取自英雄联盟原版动画 |
+| 高清帧（PPU 2.2） | 2026-10-24 用 PPU 重做（用户：「继续重做下一个英雄 安妮」）。设计图：Codex 照英雄联盟的模型画了两张（[`tools/art/pack_annie_ppu.py`](tools/art/pack_annie_ppu.py)），用户选了 A（英雄联盟的待机：近侧的手拎着提伯斯，远侧的手空着），按原图自己的格子读回、缩到 PPU 2.2 的 44 × 75 格，脸逐格手修（[`tools/art/design_annie_hd.py`](tools/art/design_annie_hd.py)）；衣服照英雄联盟：粉色猫耳发箍、蓝色菱格纹背心、兔子背包、紫色条纹长袜。动作：Codex 照旧版同一帧整帧重画（[`tools/art/pack_annie_actions.py`](tools/art/pack_annie_actions.py)，22 张 41 帧），放火都用远侧那只空手，提伯斯一直拎在近侧手里，R 第 3 帧扔出去、之后两手空，死亡时提伯斯脱手摔在她旁边；[`tools/art/casts_annie_hd.py`](tools/art/casts_annie_hd.py) 修到设计图上（每张按站直时眼睛到脚底定比例，贴回设计图的头，抠掉腿和熊之间的白缝，脚踩地面线），待机和选人卡轮播从动作里剪。普攻火球、Q 从新手的高度出手（`y_offset` 1200 → −1800 / −1000，手在站位点上方 6–7 px，追踪火球不歪）。头像截取点 (−2, −28)，选人卡不用设偏移（头顶在中心点上方 22.7 px） |
 | 特效 | 普攻火球和命中、碎裂之火大火球和爆炸、焚烧扇形火、灼烧、熔岩护盾、嗜火火光、火焰眩晕星、提伯斯落地、站立挥爪、消失、脚下火圈 |
 | 图标 | 官方技能图标（Q / W / R），64×64 |
 | 音频 | 从本地客户端提取的 12 条技能音效和 2 条中文语音（Q、R；W、E 没有语音）。不提交到仓库，按下面的命令在本地生成 |
@@ -837,7 +838,13 @@ python tools/art/restyle_native.py assets/source/annie/poses.json --renders <渲
 python tools/art/shorten_legs.py --hero annie       # 腿缩短 2 行（从 legs_long/ 里的原图开始）
 python tools/art/import_native.py --hero annie
 python tools/art/import_annie.py      # 特效；--raw <Codex 的交付文件夹> 先把原始图转成原尺寸条
-python tools/art/preview_annie.py
+python tools/art/preview_annie.py      # 逐帧预览（高清帧）、特效预览、演示 GIF
+# PPU 2.2 重做（2026-10-24）：
+python tools/art/pack_annie_ppu.py --out <文件夹>       # 给 Codex 的设计图包（A / B 两种姿势）
+python tools/art/design_annie_hd.py --take A          # 原图按自己的格子读回成 44 × 75 格，脸逐格手修 -> hd/design.png
+python tools/art/pack_annie_actions.py --out <文件夹>   # 给 Codex 的动作包（照旧版同一帧整帧重画）
+python tools/art/rig_annie_hd.py                      # Codex 的交付（hd/casts）修到设计图上 -> 原始条和 1 倍图（--review <文件夹> 只看）
+python tools/art/ppu_restyle.py --hero annie && python tools/art/ppu_hd.py --hero annie && python tools/art/hero_reels.py --hero annie
 ```
 
 美术（提示词见 [`assets/source/annie/PROMPTS.md`](assets/source/annie/PROMPTS.md)）：
@@ -851,7 +858,7 @@ python tools/art/preview_annie.py
 - 结果：30 色，和右边像素同色的比例 37%（原版英雄 18%–46%）。头像截取点 (0, −26)（腿缩短前 (0, −28)）：猫耳尖下 6 格，卡片上能看到眼睛。
 - 腿（2026-10-01）：用户：“安妮的腿也可以缩短一点 安妮的定位是小女孩”。`shorten_legs.py` 在每帧最低处往上 2–7 行（裙摆以下的腿）里删 2 整行（她腿上的颜色描边和裙子也用，找不到裙摆，按待机腿长从脚往上数），上半身下移、脚不动；死亡被抛起和落下的两帧整帧下移 2 行，躺下的三帧不动。待机呼吸的接缝还是站位点下第 6 行（上下两行只差 5 格）。原图留在 [`legs_long/`](assets/source/annie/legs_long/)。
 
-逐帧预览：[`docs/preview/league_annie_frames.png`](docs/preview/league_annie_frames.png?v=1014g)，特效：[`docs/preview/league_annie_effects.png`](docs/preview/league_annie_effects.png?v=1014g)。
+逐帧预览：[`docs/preview/league_annie_frames.png`](docs/preview/league_annie_frames.png?v=1024an)，特效：[`docs/preview/league_annie_effects.png`](docs/preview/league_annie_effects.png?v=1024an)。
 
 ## 英雄：厄运小姐
 
@@ -3299,7 +3306,7 @@ python tools/art/preview_brand.py
 | 部分 | 内容 |
 |---|---|
 | 定位 | ADC（射手，分类 Range），用户排的第十四组的 ADC（同组：上单格温、打野卡兹克、中单布兰德已做，辅助萨勒芬妮后来做了），第 69 位英雄。瘟疫之源 图奇：每一箭给目标挂一层毒，Q 隐身摸过去、出手后攻速大涨，W 毒桶减速上毒，E 引爆所有中毒敌人身上的毒，R 射程变长、弩箭穿透一条线。四个选择都按推荐的来（用户选的）：技能位「Q / W→E 连招」，毒层「每层挂在敌人身上」，Q「伊芙琳式：打出第一下才现形」，R「直线穿透箭 + 等有利时机」；另外「加入高手的连招」 |
-| 普攻 / 被动 | 弩箭，射程 55000，攻击间隔 54 tick，第 7 tick 出箭（弩尖在站位点前 19 px、和站位点同高，箭就在这个高度飞）。被动「死亡毒液」：普攻、毒桶和它的毒池、大招的箭每打中一次，就在目标身上挂一层毒（6 秒，每秒 1 + 2% 攻击力的真实伤害，游戏自带的中毒图标）。每层是目标身上自己的一份（`AddCasted Poison`），所以每个敌人的层数各算各的；数据里封顶不了 6 层，攻速很高时能叠到 8–9 层，数值按模拟压 |
+| 普攻 / 被动 | 弩箭，射程 55000，攻击间隔 54 tick，第 7 tick 出箭（弩尖在站位点前 19 px、和站位点同高，箭就在这个高度飞；PPU 重做后弩更长，弩尖在前 25 px、高 1–2 px，`y_offset` 0 照旧）。被动「死亡毒液」：普攻、毒桶和它的毒池、大招的箭每打中一次，就在目标身上挂一层毒（6 秒，每秒 1 + 2% 攻击力的真实伤害，游戏自带的中毒图标）。每层是目标身上自己的一份（`AddCasted Poison`），所以每个敌人的层数各算各的；数据里封顶不了 6 层，攻速很高时能叠到 8–9 层，数值按模拟压 |
 | 技能1 | Q「埋伏」：冷却 900 tick（15 秒），90000 内有敌方英雄时放。隐身最多 5 秒、移速 +20%（每 6 tick 续一次隐身，伊芙琳的做法）；他打出下一箭或放技能就现形，之后 6 秒攻速 +35%（时间到自己现形也给）。他参与击杀敌方英雄时埋伏刷新（金克丝的击杀检测，挂在普攻、大招的箭和毒性爆发上） |
 | 技能2 | W「剧毒之桶」→ E「毒性爆发」：W 冷却 660 tick（11 秒），射程 90000，也对小兵和野怪放。毒桶抛向目标站的地方（14 tick 落地，能躲）：半径 28000 内的敌人挂一层毒、减速 30%，地上留下 3 秒毒池（站在里面一直减速、每秒再挂一层）；落地 45 tick 后 E 好了就接毒性爆发（冷却 600 tick）：**每个中毒的敌人身上每一层毒**各结算一次 6 + 16% 攻击力的物理伤害——每层毒都是挂在敌人身上的一份，各自等一个 3 tick 的「引爆」标记（瑞兹 E 印记的做法），所以每个敌人按自己身上的层数吃伤害；模拟里统计过每次引爆的次数正好等于当时活着的层数 |
 | 大招 | R「火力全开」：冷却 3600 tick（60 秒）。AI 一遇到英雄就会放大招技能位，所以技能位只是让它「待命」10 秒（伊芙琳 R、莎弥拉 R 的做法）：85000 内有两名敌方英雄就立刻开；只有一名时，待命满 3 秒后他打的英雄还在射程里也开；没开成就退还冷却。开了以后 6 秒内射程 +30000、攻击力 +15，每一箭改成沿目标方向飞的直线穿透箭：第一个单位全额，之后每多穿一个少 10%，最低 60%，每支箭都上毒；打防御塔时还是普通弩箭 |
@@ -3307,7 +3314,8 @@ python tools/art/preview_brand.py
 | 连招 | 用户：「加入高手的连招」。**Q→W**：埋伏现形的那一箭射完，W 好了就朝那个目标扔毒桶；**R→W→箭**：大招从技能位开时，W 好了先扔桶再射穿透箭；**R 收尾的 E**：大招结束前 0.5 秒，E 好了、最近打中英雄 3 次以上，就毒性爆发收尾。W 的冷却记在他身上（技能位的冷却也是 W 的），连招扔过桶后技能位只剩 E 可放 |
 | 数值 | 攻击 94（+19）、生命 900（+88）、护甲 20（+7）、魔抗 15（+3）、移速 900（+9）。数值是自己设计的，用 SDK 对战模拟调：下路，对 4 个原版射手（`gunner`、`soldier`、`archer`、`gambler`），3 套阵容、两边各打，10 分钟。初稿 +3.41（明显太强）；削 E 和毒几乎没变化，毒桶的减速才是大开关（35% 降到 20% 直接掉到 +0.08）：攻击 98 → 94、Q 攻速 45% → 35%、R 攻击力 +25 → +15、E 每层 12 + 28% → 6 + 16%、毒 2 → 1 + 2%、减速 35% → 30%，+1.59 / +1.59；配上动作条的出手时间后 +1.62 / +1.35（同批种子莎弥拉 +1.36 / +1.19、韦鲁斯 +1.63 / +1.91） |
 | 亚索联动 | 图奇只有减速，没有击飞和眩晕，亚索大招不受影响，不用调 |
-| 精灵图 | 9 个动作 44 帧：待机、移动、普攻、Q（`skill`）、W 扔桶（`skill2`）、E 毒爆（`skill2_e`）、R（`ult`）、受击、死亡。造型 44 × 38 px（背包顶到脚底 38 行，和德莱厄斯差不多高），24 色。待机 6 帧同一张，呼吸的缝在斗篷下摆下面；头像截取点 (4, −22)（耳朵尖、头的中间那列；工具按最高处建议的 −36 是背包顶），选人卡片装得下，不设 `banpick_center` |
+| 精灵图（旧版 1 倍） | 9 个动作 44 帧：待机、移动、普攻、Q（`skill`）、W 扔桶（`skill2`）、E 毒爆（`skill2_e`）、R（`ult`）、受击、死亡。造型 44 × 38 px（背包顶到脚底 38 行，和德莱厄斯差不多高），24 色。待机 6 帧同一张，呼吸的缝在斗篷下摆下面；头像截取点 (4, −22)（耳朵尖、头的中间那列；工具按最高处建议的 −36 是背包顶），选人卡片装得下，不设 `banpick_center` |
+| 高清帧（PPU 2.2） | 2026-10-24 用 PPU 重做（用户：「我们利用PPU可以重做一下图奇 有不少英雄已经重做过了 可以参考一下经验」）。设计图是用户给的原图（[`assets/source/twitch/hd/raw/twitch-user.png`](assets/source/twitch/hd/raw/twitch-user.png)，原本备了 Codex 的设计图包 [`tools/art/pack_twitch_ppu.py`](tools/art/pack_twitch_ppu.py)，用户：「用这一张就行了」）按自己约 8 px 的格子读回，1.534 格合成一格，109 × 71 格（[`tools/art/design_twitch_hd.py`](tools/art/design_twitch_hd.py)），游戏里还是 32 px 高、约 49 px 宽（弩和尾巴伸得更开）；用户在 2.2 / 2.5 / 3.0 里选了 2.2，护目镜、牙齿、獠牙和鼻头逐格手修（「牙齿和脸手修清楚」）。八个动作（跑步、普攻、Q、W、E、R、受击、死亡，41 帧）都是 Codex 照旧版同一帧整帧重画（[`tools/art/pack_twitch_actions.py`](tools/art/pack_twitch_actions.py) / [`ACTIONS_PROMPT_PPU.md`](assets/source/twitch/ACTIONS_PROMPT_PPU.md)，参考英雄联盟同一动作），再由 [`tools/art/casts_twitch_hd.py`](tools/art/casts_twitch_hd.py) 修到设计图上：按身体面积定大小，换上设计图的头（对准护目镜，Codex 多出的耳朵、鼻子清掉；被打飞、倒地时保留 Codex 自己的头），脚踩地面线，跑步时头稳住，出招时后脚钉住，跳起按旧版的离地高度。[`tools/art/rig_twitch_hd.py`](tools/art/rig_twitch_hd.py) 再修：W 扔桶 Codex 画成近侧手握弩、另一只手从背包后面长出来（用户：「这不就是第三只手吗」），改成远侧的手从头后把毒桶举过头顶甩出、第 4 帧收回，近侧手一直握弩；每张两格模板 Codex 右格的尾巴都甩上去，连起来一帧一跳，换成左格的尾巴、按衣摆后半的位置接回衣摆下面（「放大时尾巴断开了？」：第一次按尾根对齐，几帧尾巴掉到脚边，已改）；死亡改成被打飞 → 继续飞 → 落地 → 弹一下 → 躺平。待机和选人卡片的小动作由 `hero_reels` 从 Q 和 E 里剪。头像截取点 (5, −24)（护目镜），选人卡片待机最高 −25.3，仍不设 `banpick_center`。佛耶戈附身的动作表（souls.rs）带上 hd_ / lo_；数据没改（弩箭 `y_offset` 0、毒桶抛物线从身上起、出手 tick 和新帧对得上），塞拉斯、参与击杀附加包的副本不变 |
 | 特效 | Codex 画的 17 张，按游戏尺寸交付，两张表 `league_twitch_fx` / `league_twitch_big`：弩箭、穿透箭、毒桶（飞行，严格上下对称），普攻、毒桶、穿透箭的命中，每层毒引爆的毒刺爆炸，毒池、减速，Q 的隐身烟、现形、攻速毒火、刷新，E 身边炸开的毒云，R 开大的冲击波和光丝；弩口的毒烟画进普攻出手帧里 |
 | 音效 | 英雄联盟的音效和配音（`tools/lol/extract_twitch.py`）：弩箭出手、命中，Q 隐身、现形、刷新，W 出手、飞出、落地，E 施放、爆发，R 开大、穿透箭出手、命中；Q、W、E、R 的中文配音。版权属于 Riot Games，**不提交到仓库**，按下面的命令在本地生成 |
 | 图标 | 官方技能图标（Q / W / R），从本地客户端提取，缩到 64×64 |
@@ -3323,7 +3331,13 @@ python tools/lol/native_pose.py assets/source/twitch/poses.json --out <渲染文
 python tools/art/fix_twitch_strips.py     # 动作：Codex 的动作条，W / E / R 的手臂和跑步的远侧腿按造型修
 python tools/art/import_twitch.py         # 特效
 python tools/art/import_native.py --hero twitch   # 精灵（弩口的毒烟按 twitch_bake.json 画进普攻）
-python tools/art/preview_twitch.py        # 逐帧预览、特效预览、演示 GIF
+python tools/art/preview_twitch.py        # 逐帧预览（高清帧）、特效预览、演示 GIF、带中文说明的技能 GIF（--only skills）
+# PPU 2.2 重做（2026-10-24）：
+python tools/art/design_twitch_hd.py      # 用户的原图按自己的格子读回成 109 × 71 格，脸逐格手修 -> hd/design.png
+python tools/art/pack_twitch_actions.py --out <文件夹>   # 给 Codex 的动作包（照旧版同一帧整帧重画）
+python tools/art/rig_twitch_hd.py         # Codex 的交付（hd/casts）修到设计图上 -> 原始条和 1 倍图（--review <文件夹> 只看）
+python tools/art/ppu_restyle.py --hero twitch && python tools/art/ppu_hd.py --hero twitch && python tools/art/hero_reels.py --hero twitch
+python tools/art/review_twitch_actions.py --out <文件夹>  # 全部动作和英雄联盟并排的 GIF
 ```
 
 美术（原画的提示词见 [`assets/source/twitch/PICTURE_PROMPT.md`](assets/source/twitch/PICTURE_PROMPT.md)，造型的见 [`MODEL_PROMPTS.md`](assets/source/twitch/MODEL_PROMPTS.md)，动作的见 [`MODEL_STRIPS.md`](assets/source/twitch/MODEL_STRIPS.md)，特效的见 [`PROMPTS_FX.md`](assets/source/twitch/PROMPTS_FX.md)；Codex 的交付在 [`codex_picture/`](assets/source/twitch/codex_picture/)、[`codex_model/`](assets/source/twitch/codex_model/)、[`codex_strips/`](assets/source/twitch/codex_strips/)、[`codex_fx/`](assets/source/twitch/codex_fx/)；附图包由 `tools/art/pack_twitch_*.py` 在本地生成，英雄联盟的渲染不进仓库）：
@@ -3335,7 +3349,7 @@ python tools/art/preview_twitch.py        # 逐帧预览、特效预览、演示
 - 特效：Codex 第 3 步把 17 张都按游戏尺寸画了一份（[`codex_fx/twitch-fx/pixel_1x/`](assets/source/twitch/codex_fx/twitch-fx/pixel_1x/)），`tools/art/import_twitch.py` 每格切出、按锚点（中心、箭尖、脚底、喷口）放好，导入时逐格检查对称。
 - 红色方：飞出去的弩箭、穿透箭、毒桶严格上下对称；晚于动作第一 tick 播放的（现形、刷新、毒云、开大）不跟随、严格左右对称；挂在他身上、脚下循环的（攻速毒火、大招光丝、减速）和 Q 的隐身烟也左右对称，毒池上下左右都对称；挂在他身上的画面都在站位点那一列。只有弩口的毒烟有朝向，画进普攻的出手帧里（`twitch_bake.json`），跟着他一起翻转。演示 GIF 后半段他转身朝左开大，就是红色方的样子。
 
-逐帧预览：[`docs/preview/league_twitch_frames.png`](docs/preview/league_twitch_frames.png?v=1014g)，特效：[`docs/preview/league_twitch_effects.png`](docs/preview/league_twitch_effects.png?v=1014g)。
+逐帧预览：[`docs/preview/league_twitch_frames.png`](docs/preview/league_twitch_frames.png?v=1024p)，特效：[`docs/preview/league_twitch_effects.png`](docs/preview/league_twitch_effects.png?v=1024p)，每个技能单独带特效：[`docs/preview/league_twitch_skills.gif`](docs/preview/league_twitch_skills.gif?v=1024p)。
 
 
 ## 英雄：萨勒芬妮
