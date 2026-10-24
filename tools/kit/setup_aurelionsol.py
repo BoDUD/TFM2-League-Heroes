@@ -27,7 +27,7 @@ from build_aurelionsol import P, lp  # noqa: E402
 REPO = os.path.normpath(os.path.join(HERE, "..", ".."))
 MOD = os.path.join(REPO, "league")
 ID = "league_aurelionsol"
-VERSION = "0.208.0"     # the next free number above main 0.207.0 (Taliyah #503, 2026-10-24)
+VERSION = "0.209.0"     # above main 0.207.0 (Taliyah #503) and Ahri PPU 2.2's 0.208.0 (#504, open), 2026-10-24
 APi = "<i#asset/base/ui/banpick/champion_stat_icon:ap_0>"
 TOOLTIP_MAX = {"zh-hans": 130, "zh-hant": 130, "en": 334, "ja": 147, "ko": 185}
 M = "<#a974ffff>"      # magic damage / AP
