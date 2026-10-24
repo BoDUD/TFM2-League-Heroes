@@ -8,8 +8,8 @@ takes, Codex drew (hd/raw/) A (League's idle: Tibbers hanging from her near hand
 B (Tibbers hugged in front) on ~11.0 x 10.8-px squares, 111 rows; both with a soft alpha rim (dropped at 128). Each is
 read on its own squares (design_fiora_hd.grid), cut to colours by k-means, then design_ahri_hd.read's Lab-mean step
 takes it to her old height (34 px) times PPU.
--> hd/design.png. With --review DIR: <dir>/annie_ppu_size.png (both takes at each --ppus beside this pack's PPU 2.2
-heroes and Annie now, as the game draws them) and <dir>/annie_ppu_closeup.png (Codex's pictures and the designs at 6x).
+-> hd/design.png (take A at 2.2 with FACE). With --review DIR: <dir>/annie_ppu_size.png (both takes at each --ppus beside this pack's PPU 2.2
+heroes and Annie now, as the game draws them) and <dir>/annie_ppu_closeup.png (the designs at 6x).
 """
 import argparse
 import os
@@ -29,6 +29,15 @@ TAKES = {"A": ("annie-A.png", (11.3, 11.8)), "B": ("annie-B.png", (10.6, 11.4))}
 OLD = 34                        # her 1x idle, cat-ear tips to soles
 PPU = 2.2
 PEERS = ["annie", "ahri", "lux", "jinx"]
+# take A at PPU 2.2 (the user's pick, 2026-10-24: 「用 A，PPU 2.2，修脸后给我看」), the face set by hand after Codex's
+# picture: the near eye's lash one dark row over a white-left / green iris (lime light, dark rim below), the far eye a
+# green iris with a lime light, the nose a shade square, the mouth a crimson line, the cheek's tan speck skin
+H = lambda h: tuple(int(h[i:i + 2], 16) for i in (0, 2, 4))  # noqa: E731
+OUT, WHITE, IRIS, LIME, RIM, SKIN = (H(c) for c in ("100213", "F5F1F2", "3D7A05", "62A608", "1D370A", "FCC58E"))
+FACE = {(21, 23): OUT, (26, 23): OUT, (22, 24): WHITE, (21, 25): WHITE, (22, 25): WHITE, (23, 25): IRIS,
+        (24, 25): LIME, (25, 25): IRIS, (21, 26): H("F39A6E"), (23, 26): RIM, (24, 26): RIM, (25, 26): SKIN,
+        (31, 22): IRIS, (31, 23): LIME, (32, 23): RIM, (30, 25): H("F39A6E"),
+        (27, 28): SKIN, (28, 28): H("BA1E36"), (29, 28): H("BA1E36"), (30, 28): SKIN}
 
 
 def design(take, ppu):
@@ -46,8 +55,12 @@ def main():
     ap.add_argument("--review")
     ap.add_argument("--ppus", type=float, nargs="*", default=[2.2, 2.5])
     ap.add_argument("--out", help="write the design here instead of hd/design.png")
+    ap.add_argument("--raw-face", action="store_true", help="leave the face as read (no FACE)")
     a = ap.parse_args()
     d, step = design(a.take, a.ppu)
+    if (a.take, a.ppu) == ("A", PPU) and not a.raw_face:
+        for (x, y), c in FACE.items():
+            d[y, x, :3] = c
     Image.fromarray(d).save(AH.lp(a.out or os.path.join(AH.HD, "design.png")))
     print(f"take {a.take}, step {step:.2f} -> design {d.shape[1]}x{d.shape[0]}, "
           f"{len(np.unique(d[d[..., 3] > 0][:, :3], axis=0))} colours")
