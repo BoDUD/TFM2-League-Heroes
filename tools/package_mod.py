@@ -23,6 +23,13 @@ The game reads every mod file except background music into memory when it starts
   player cards draw a little more than the idle frame's rect, and a neighbour packed right above showed through
   (league_tryndamere's card had his E fire over his head: 「蛮王头顶混入了一点特效？」). Every frame keeps its size, its pixels and its duration; only x and y in the
   .fanim change.
+- Every hero's two UI sheets written next to the package's sheets, ui_sheets/<kind>/<hero>#sheet.png + #anim.fanim:
+  only the frames the screens that show many heroes at once draw, pixel for pixel - ui_sheets/idle: `idle` (the
+  encyclopedia, faces, pick slots, pick moment, scoreboard portraits: a dense hero's lo_idle); ui_sheets/bp: `bp`
+  (the ban/pick grid's reel: hd_bp) and `dead` (a banned hero in the grid: hd_dead). league.dll draws those screens
+  from them (addons/league_main/src/lookup.rs): they drew every hero from its whole battle sheet, 589 MiB of RGBA for
+  167 heroes against the game's 256 MiB image cache, so every frame decoded them again (2026-10-24, the user:
+  「PPU导致页面卡 特别是英雄界面 还有BP界面非常的卡」).
 - JSON files (.data_champion .fanim .i18n .champion_view .override_info .sound_info) minified: whitespace
   outside strings is dropped, the text of every value stays as it was.
 - Effect trees (.data_champion) also go through tools/kit/slim.py: wrappers that change nothing (a Combine inside an
@@ -92,6 +99,10 @@ MP3_QUALITY = 0.0          # libsndfile compression level for VBR MP3: 0.0 = LAM
 MAX_SHEET = 2048           # repacked sheets stay within 2048 x 2048, like the sheets the mod ships today
 GAP = 1                    # transparent pixels between packed frames
 IDLE_PAD = 8               # clear pixels round every idle frame (the cards draw past its rect)
+UI_DIR = "ui_sheets"       # each hero's UI sheets (ui_sheets): league.dll's src/lookup.rs looks them up by this path
+# ui_sheets/<kind>/<hero>: idle for the encyclopedia, faces, pick slots, pick moment and scoreboard; bp (the reel and
+# dead) for the ban/pick grid alone - a screen showing every hero keeps only the one it draws
+UI_KINDS = {"idle": ("idle",), "bp": ("bp", "dead")}
 
 
 DLL = "league.dll"           # the main pack's own code (addons/league_main), next to mod.mod_info
@@ -308,6 +319,11 @@ def repack(png_raw, anim, where):
     return png, new_anim, (sheet_w * sheet_h, out_w * out_h, len(rects), len(uniq))
 
 
+def png_size(data):
+    """(width, height) from a PNG's IHDR."""
+    return int.from_bytes(data[16:20], "big"), int.from_bytes(data[20:24], "big")
+
+
 def frames_of(anim):
     for tag, a in anim.get("anims", {}).items():
         for i, fr in enumerate(a.get("frames", [])):
@@ -336,6 +352,132 @@ def check_frames(png_a, anim_a, png_b, anim_b, where):
 
 def strip_frames(a):
     return {k: v for k, v in a.items() if k != "frames"}
+
+
+def ui_sources(anim):
+    """{UI tag: the sheet's tag it copies}: a dense hero (hd_ tags) idle <- lo_idle (else hd_idle), bp <- hd_bp (else
+    hd_idle), dead <- hd_dead; a 1x hero idle, bp (else idle), dead. Empty without an idle."""
+    anims = anim.get("anims", {})
+    first = lambda *tags: next((t for t in tags if anims.get(t, {}).get("frames")), None)
+    if any(t.startswith("hd_") for t in anims):
+        src = {"idle": first("lo_idle", "hd_idle"), "bp": first("hd_bp", "hd_idle"), "dead": first("hd_dead")}
+    else:
+        src = {"idle": first("idle"), "bp": first("bp", "idle"), "dead": first("dead")}
+    return {k: t for k, t in src.items() if t} if src["idle"] else {}
+
+
+def ui_pads(anim, src):
+    """{UI tag: (left, right, top, bottom) clear pixels round its frames}. The idle its source tag's pad all round
+    (idle_pads): the encyclopedia's and the scoreboard's face crops reach past the idle frame on any side. The reel and
+    dead the reel's pad above - the grid card draws past the frame's top (league_tryndamere's, league_corki's and
+    league_smolder's cards showed the frame packed above) - and one game pixel at the sides and below."""
+    pads = idle_pads(anim)
+    out = {}
+    for k, t in src.items():
+        p = pads.get(src["bp"] if k == "dead" else t, IDLE_PAD)
+        if k == "idle":
+            out[k] = (p, p, p, p)
+        else:
+            s = max(1, math.ceil(p / IDLE_PAD))
+            out[k] = (s, s, p, s)
+    return out
+
+
+def ui_sheets(png_raw, anim, where):
+    """-> [(kind, png bytes, fanim object)]: a hero's UI sheets (UI_KINDS) - the frames of ui_sources at the sheet's own
+    pixels and nothing else - or [] (no idle, or a frame rect that is not whole pixels). Identical frames share one rect,
+    each with the clear pixels of ui_pads round it."""
+    src = ui_sources(anim)
+    if not src:
+        return []
+    anims = anim["anims"]
+    pads = ui_pads(anim, src)
+    px = np.asarray(Image.open(io.BytesIO(png_raw)).convert("RGBA"))
+    out = []
+    for kind, tags in UI_KINDS.items():
+        part = {k: src[k] for k in tags if k in src}
+        if not part:
+            continue
+        content, uniq, upad, slot = {}, [], [], {}
+        for k, t in part.items():
+            for i, fr in enumerate(anims[t]["frames"]):
+                r = tuple(fr.get("data", {}).get(c) for c in ("x", "y", "w", "h"))
+                if any(not isinstance(v, (int, float)) or v != int(v) for v in r):
+                    return []
+                x, y, w, h = (int(v) for v in r)
+                crop = px[y:y + h, x:x + w]
+                key = (w, h, hashlib.sha1(crop.tobytes()).hexdigest())
+                if key not in content:
+                    content[key] = len(uniq)
+                    uniq.append(crop)
+                    upad.append((0, 0, 0, 0))
+                j = content[key]
+                upad[j] = tuple(max(a, b) for a, b in zip(upad[j], pads[k]))
+                slot[(k, i)] = j
+        sizes = [(c.shape[1] + p[0] + p[1], c.shape[0] + p[2] + p[3]) for c, p in zip(uniq, upad)]
+        max_w = max(w for w, _ in sizes)
+        best = None
+        for width in sorted({max_w, 128, 256, 384, 512, 768, 1024, 1536, MAX_SHEET}):
+            if width < max_w or width > MAX_SHEET:
+                continue
+            pos, used_w, used_h = shelf_pack(sizes, width)
+            if used_h > MAX_SHEET:
+                continue
+            cand = (used_w * used_h, max(used_w, used_h), pos, used_w, used_h)
+            if best is None or cand[:2] < best[:2]:
+                best = cand
+        if best is None:
+            raise ValueError(f"{where}: its UI frames ({kind}) do not fit a {MAX_SHEET} x {MAX_SHEET} sheet")
+        _, _, pos, out_w, out_h = best
+        pos = [(x + p[0], y + p[2]) for (x, y), p in zip(pos, upad)]
+        sheet = np.zeros((out_h, out_w, 4), np.uint8)
+        for (x, y), crop in zip(pos, uniq):
+            sheet[y:y + crop.shape[0], x:x + crop.shape[1]] = crop
+        ui = {k: v for k, v in anim.items() if k != "anims"}
+        ui["anims"] = {}
+        for k, t in part.items():
+            a = copy.deepcopy(anims[t])
+            for i, fr in enumerate(a["frames"]):
+                d = fr["data"]
+                nx, ny = pos[slot[(k, i)]]
+                d["x"] = float(nx) if isinstance(d["x"], float) else nx
+                d["y"] = float(ny) if isinstance(d["y"], float) else ny
+            ui["anims"][k] = a
+        buf = io.BytesIO()
+        Image.fromarray(sheet, "RGBA").save(buf, "PNG", optimize=True)
+        png = buf.getvalue()
+        check_ui(px, anim, png, ui, kind, where)
+        out.append((kind, png, ui))
+    return out
+
+
+def check_ui(pa, anim_a, png_b, ui, kind, where):
+    """The UI sheet of `kind` holds its tags' source frames: same count, timing and size, the same pixels, and nothing
+    opaque within its pads outside them."""
+    pb = np.asarray(Image.open(io.BytesIO(png_b)).convert("RGBA"))
+    src = {k: t for k, t in ui_sources(anim_a).items() if k in UI_KINDS[kind]}
+    if set(src) != set(ui["anims"]):
+        raise ValueError(f"{where}: UI sheet {kind} has tags {sorted(ui['anims'])}, want {sorted(src)}")
+    for k, t in src.items():
+        fa, fb = anim_a["anims"][t]["frames"], ui["anims"][k]["frames"]
+        if len(fa) != len(fb) or strip_frames(anim_a["anims"][t]) != strip_frames(ui["anims"][k]):
+            raise ValueError(f"{where}: UI tag {k} is not {t}")
+        for i, (a, b) in enumerate(zip(fa, fb)):
+            ra, rb = a["data"], b["data"]
+            if (ra["w"], ra["h"]) != (rb["w"], rb["h"]) or {x: v for x, v in a.items() if x != "data"} !=                     {x: v for x, v in b.items() if x != "data"}:
+                raise ValueError(f"{where}: UI frame {k}[{i}] changed size or timing")
+            xa, ya, xb, yb, w, h = (int(v) for v in (ra["x"], ra["y"], rb["x"], rb["y"], ra["w"], ra["h"]))
+            if not np.array_equal(pa[ya:ya + h, xa:xa + w], pb[yb:yb + h, xb:xb + w]):
+                raise ValueError(f"{where}: UI frame {k}[{i}] pixels differ from {t}[{i}]")
+    op = pb[..., 3] > 0
+    for k, (l, r, t, b) in ui_pads(anim_a, ui_sources(anim_a)).items():
+        for i, fr in enumerate(ui["anims"].get(k, {}).get("frames", [])):
+            x, y, w, h = (int(fr["data"][c]) for c in ("x", "y", "w", "h"))
+            y0, x0 = max(0, y - t), max(0, x - l)
+            near = op[y0:y + h + b, x0:x + w + r].copy()
+            near[y - y0:y - y0 + h, x - x0:x - x0 + w] = False
+            if near.any():
+                raise ValueError(f"{where}: UI frame {k}[{i}] has opaque pixels within its pads")
 
 
 # ---------------------------------------------------------------- the package
@@ -391,6 +533,7 @@ def build(src, heroes, everything, workers):
     """-> dict rel -> bytes, plus a report."""
     files = select_files(src, heroes, everything)
     clips = played_clips(src, files)
+    champs = set(hero_ids(src))                  # the UI sheets are for these (not Kayn's forms, Yuumi's ride, ...)
     out, report = {}, {"before": {}, "after": {}, "dropped": [], "sheets": [], "audio_s": 0.0}
 
     def count(side, rel, n):
@@ -456,9 +599,19 @@ def build(src, heroes, everything, workers):
         anim = parse_json(fanim_raw, base + "#anim.fanim")
         res = repack(png, anim, base)
         if res is None:
-            return [(rel, png), (base + "#anim.fanim", minify(fanim_raw))], None
-        new_png, new_anim, st = res
-        return [(rel, new_png), (base + "#anim.fanim", dump_min(new_anim))], ("sheet", (base,) + st)
+            written, extra = [(rel, png), (base + "#anim.fanim", minify(fanim_raw))], None
+        else:
+            png, anim, st = res
+            written, extra = [(rel, png), (base + "#anim.fanim", dump_min(anim))], ("sheet", (base,) + st)
+        if os.path.dirname(rel) == "champions" and os.path.basename(base) in champs:
+            uis = ui_sheets(png, anim, base)
+            if not uis:
+                print(f"warning: {base}: no UI sheets (no idle, or a frame rect that is not whole pixels) - the BP grid "
+                      f"and the encyclopedia draw its whole battle sheet")
+            for kind, ui_png, ui_anim in uis:
+                name = f"{UI_DIR}/{kind}/{os.path.basename(base)}"
+                written += [(name + "#sheet.png", ui_png), (name + "#anim.fanim", dump_min(ui_anim))]
+        return written, extra
 
     with cf.ThreadPoolExecutor(workers) as ex:
         for written, extra in ex.map(run, jobs):
@@ -471,6 +624,10 @@ def build(src, heroes, everything, workers):
                 report["nodes"] = [a + b for a, b in zip(report.get("nodes", [0, 0]), extra[1])]
             elif extra:
                 report["sheets"].append(extra[1])
+    report["ui"] = [(rel.split("/")[1], png_size(data)) for rel, data in out.items()
+                    if rel.startswith(UI_DIR + "/") and rel.endswith("#sheet.png")]
+    report["heroes_px"] = sum(png_size(data)[0] * png_size(data)[1] for rel, data in out.items()
+                              if rel.startswith("champions/") and rel.endswith("#sheet.png"))
     if "mod.override_info" in out:
         mod_id = parse_json(read(os.path.join(src, "mod.mod_info")), "mod.mod_info")["mod_id"]
         out["mod.override_info"], report["streamed"] = stream_overrides(out, mod_id)
@@ -522,6 +679,10 @@ def print_report(report, seconds):
         uniq = sum(s[4] for s in report["sheets"])
         print(f"sheets repacked: {len(report['sheets'])}, {before / 1e6:.1f}M -> {after / 1e6:.1f}M pixels "
               f"({4 * before / 1e6:.0f} -> {4 * after / 1e6:.0f} MB once decoded), {frames} frame rects -> {uniq} unique")
+    if report.get("ui"):
+        kinds = {k: sum(w * h for kk, (w, h) in report["ui"] if kk == k) for k in UI_KINDS}
+        print(f"UI sheets: {len(report['ui'])}, once decoded " + ", ".join(f"{k} {4 * v / 2 ** 20:.0f} MiB"
+              for k, v in kinds.items()) + f" (the heroes' whole sheets: {4 * report['heroes_px'] / 2 ** 20:.0f} MiB)")
     if report["audio_s"]:
         print(f"audio encoded: {report['audio_s']:.0f} s of WAV -> MP3")
     if report.get("nodes"):

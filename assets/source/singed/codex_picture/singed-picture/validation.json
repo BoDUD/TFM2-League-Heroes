@@ -1,0 +1,40 @@
+{
+  "singed-A.png": {
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_min": 0,
+    "alpha_max": 255,
+    "semitransparent_pixels": 293980,
+    "visible_bbox_alpha128": [
+      366,
+      460,
+      963,
+      1242
+    ],
+    "exact_1536_canvas_pass": false,
+    "hard_alpha_pass": false,
+    "exact_11px_grid_pass": false
+  },
+  "singed-SA.png": {
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_min": 0,
+    "alpha_max": 255,
+    "semitransparent_pixels": 279353,
+    "visible_bbox_alpha128": [
+      403,
+      407,
+      949,
+      1210
+    ],
+    "exact_1536_canvas_pass": false,
+    "hard_alpha_pass": false,
+    "exact_11px_grid_pass": false
+  }
+}

@@ -67,15 +67,18 @@ def check(sim, base, hero, seed=3):
          else None)
     team = ["base:fighter", "base:ninja", path, "base:archer", "base:priest"]
     foes = ["base:knight", "base:demon", "base:pyromancer", "base:gunner", "base:monk"]
-    out = subprocess.run([os.path.join(sim, "sim", "trace.exe"), "600", str(seed)] + team + foes, capture_output=True,
-                         text=True, encoding="utf-8", errors="replace", cwd=sim,
-                         env=dict(os.environ, TRACE_DUMP="0-36000")).stdout
+    # read line by line: a champion whose zones last (league_singed's clouds) dumps over a gigabyte - read whole, it came
+    # back empty and the check said "nothing of its own" (2026-10-23)
+    proc = subprocess.Popen([os.path.join(sim, "sim", "trace.exe"), "600", str(seed)] + team + foes,
+                            stdout=subprocess.PIPE, text=True, encoding="utf-8", errors="replace", cwd=sim,
+                            env=dict(os.environ, TRACE_DUMP="0-36000"))
     seen = collections.Counter()
-    for line in out.splitlines():
+    for line in proc.stdout:
         if line.startswith("E "):
             for n in names:
                 if f'"{n}"' in line:
                     seen[n] += 1
+    proc.wait()
     os.remove(path)
     return hero, seen
 

@@ -1,0 +1,10 @@
+{
+  "asset/league/champion/league_taliyah": {
+    "remapping": "asset/league_taliyah/override/league_taliyah",
+    "type": "override"
+  },
+  "asset/base/text/champion": {
+    "remapping": "asset/league_taliyah/text/champion",
+    "type": "merge"
+  }
+}

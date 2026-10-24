@@ -1,0 +1,567 @@
+{
+  "generator": "built-in image_gen",
+  "processing": "majority color readback; hard alpha; whole-cell translation (poses) or palette quantization and mirrored pairs (FX)",
+  "artwork_created_by_code": false,
+  "assets": [
+    {
+      "name": "a_wind",
+      "file": "taliyah-pose-a_wind.png",
+      "raw_file": "raw/taliyah-pose-a_wind.png",
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "raw_sha256": "ed07d70b3e3d04e0609fd176422775386cf50cb90e48de415cb2e661bf6841d5",
+      "raw_alpha": {
+        "transparent": 1314482,
+        "opaque": 1826,
+        "partial": 256208
+      },
+      "output_size": [
+        1254,
+        1254
+      ],
+      "logical_grid": [
+        114,
+        114
+      ],
+      "pixel_block": 11,
+      "baseline_y": 1188,
+      "translate_rows": -1,
+      "bbox_logical": [
+        37,
+        30,
+        82,
+        108
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "exact_head_copy_verified": false,
+      "limb_lengths_verified": false,
+      "surf_boulder_identical_verified": false,
+      "status": "generated_pose_source_regridded; anatomical parity needs rig-stage check"
+    },
+    {
+      "name": "a_throw",
+      "file": "taliyah-pose-a_throw.png",
+      "raw_file": "raw/taliyah-pose-a_throw.png",
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "raw_sha256": "81b09ee15ed924917e5f463256051571ad1333b53458b4988e6b8f574e07c932",
+      "raw_alpha": {
+        "transparent": 1318414,
+        "opaque": 2397,
+        "partial": 251705
+      },
+      "output_size": [
+        1254,
+        1254
+      ],
+      "logical_grid": [
+        114,
+        114
+      ],
+      "pixel_block": 11,
+      "baseline_y": 1188,
+      "translate_rows": 0,
+      "bbox_logical": [
+        22,
+        38,
+        93,
+        108
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "exact_head_copy_verified": false,
+      "limb_lengths_verified": false,
+      "surf_boulder_identical_verified": false,
+      "status": "generated_pose_source_regridded; anatomical parity needs rig-stage check"
+    },
+    {
+      "name": "q_raise",
+      "file": "taliyah-pose-q_raise.png",
+      "raw_file": "raw/taliyah-pose-q_raise.png",
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "raw_sha256": "a6f8249fb77254ad210b8cf807aef6645c2f83c2d2d5aa5c42a708407fd6edea",
+      "raw_alpha": {
+        "transparent": 1298772,
+        "opaque": 2318,
+        "partial": 271426
+      },
+      "output_size": [
+        1254,
+        1254
+      ],
+      "logical_grid": [
+        114,
+        114
+      ],
+      "pixel_block": 11,
+      "baseline_y": 1188,
+      "translate_rows": 0,
+      "bbox_logical": [
+        35,
+        21,
+        93,
+        108
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "exact_head_copy_verified": false,
+      "limb_lengths_verified": false,
+      "surf_boulder_identical_verified": false,
+      "status": "generated_pose_source_regridded; anatomical parity needs rig-stage check"
+    },
+    {
+      "name": "q_cast",
+      "file": "taliyah-pose-q_cast.png",
+      "raw_file": "raw/taliyah-pose-q_cast.png",
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "raw_sha256": "f8f82b21a3fd90abb5d78397939ff5ea6289a7cc43c4f82dfb0b908d654fd916",
+      "raw_alpha": {
+        "transparent": 1247338,
+        "opaque": 2132,
+        "partial": 323046
+      },
+      "output_size": [
+        1254,
+        1254
+      ],
+      "logical_grid": [
+        114,
+        114
+      ],
+      "pixel_block": 11,
+      "baseline_y": 1188,
+      "translate_rows": 5,
+      "bbox_logical": [
+        18,
+        39,
+        101,
+        108
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "exact_head_copy_verified": false,
+      "limb_lengths_verified": false,
+      "surf_boulder_identical_verified": false,
+      "status": "generated_pose_source_regridded; anatomical parity needs rig-stage check"
+    },
+    {
+      "name": "e_raise",
+      "file": "taliyah-pose-e_raise.png",
+      "raw_file": "raw/taliyah-pose-e_raise.png",
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "raw_sha256": "e0483cfcf4812ca7897ff3be0108c2ef03171b92a383ffdf37df594e8b059aaf",
+      "raw_alpha": {
+        "transparent": 1356022,
+        "opaque": 1846,
+        "partial": 214648
+      },
+      "output_size": [
+        1254,
+        1254
+      ],
+      "logical_grid": [
+        114,
+        114
+      ],
+      "pixel_block": 11,
+      "baseline_y": 1188,
+      "translate_rows": 0,
+      "bbox_logical": [
+        36,
+        32,
+        82,
+        108
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "exact_head_copy_verified": false,
+      "limb_lengths_verified": false,
+      "surf_boulder_identical_verified": false,
+      "status": "generated_pose_source_regridded; anatomical parity needs rig-stage check"
+    },
+    {
+      "name": "e_sweep",
+      "file": "taliyah-pose-e_sweep.png",
+      "raw_file": "raw/taliyah-pose-e_sweep.png",
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "raw_sha256": "c30ea8a2b823c6cd7923bbcce7fa08036fc0c607fc84cf614c577ee043527218",
+      "raw_alpha": {
+        "transparent": 1315421,
+        "opaque": 1556,
+        "partial": 255539
+      },
+      "output_size": [
+        1254,
+        1254
+      ],
+      "logical_grid": [
+        114,
+        114
+      ],
+      "pixel_block": 11,
+      "baseline_y": 1188,
+      "translate_rows": -1,
+      "bbox_logical": [
+        25,
+        36,
+        91,
+        108
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "exact_head_copy_verified": false,
+      "limb_lengths_verified": false,
+      "surf_boulder_identical_verified": false,
+      "status": "generated_pose_source_regridded; anatomical parity needs rig-stage check"
+    },
+    {
+      "name": "w_crouch",
+      "file": "taliyah-pose-w_crouch.png",
+      "raw_file": "raw/taliyah-pose-w_crouch.png",
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "raw_sha256": "908f0bee188deadcbf78a8dde2c5da83aad62b3cc99266dbf37febddc187042d",
+      "raw_alpha": {
+        "transparent": 1304326,
+        "opaque": 2078,
+        "partial": 266112
+      },
+      "output_size": [
+        1254,
+        1254
+      ],
+      "logical_grid": [
+        114,
+        114
+      ],
+      "pixel_block": 11,
+      "baseline_y": 1188,
+      "translate_rows": 4,
+      "bbox_logical": [
+        26,
+        44,
+        97,
+        108
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "exact_head_copy_verified": false,
+      "limb_lengths_verified": false,
+      "surf_boulder_identical_verified": false,
+      "status": "generated_pose_source_regridded; anatomical parity needs rig-stage check"
+    },
+    {
+      "name": "w_push",
+      "file": "taliyah-pose-w_push.png",
+      "raw_file": "raw/taliyah-pose-w_push.png",
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "raw_sha256": "3c0e71734147a35d6bd19774643fe59dfbf9e6feb39c46884ea57e5742f7b90b",
+      "raw_alpha": {
+        "transparent": 1355736,
+        "opaque": 2433,
+        "partial": 214347
+      },
+      "output_size": [
+        1254,
+        1254
+      ],
+      "logical_grid": [
+        114,
+        114
+      ],
+      "pixel_block": 11,
+      "baseline_y": 1188,
+      "translate_rows": -1,
+      "bbox_logical": [
+        36,
+        36,
+        87,
+        108
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "exact_head_copy_verified": false,
+      "limb_lengths_verified": false,
+      "surf_boulder_identical_verified": false,
+      "status": "generated_pose_source_regridded; anatomical parity needs rig-stage check"
+    },
+    {
+      "name": "r_call",
+      "file": "taliyah-pose-r_call.png",
+      "raw_file": "raw/taliyah-pose-r_call.png",
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "raw_sha256": "56a5b3c9596d340605fc8d8a0ce3b1d612d6eb32d43af2d2f9383f9dcc123d17",
+      "raw_alpha": {
+        "transparent": 1316549,
+        "opaque": 2459,
+        "partial": 253508
+      },
+      "output_size": [
+        1254,
+        1254
+      ],
+      "logical_grid": [
+        114,
+        114
+      ],
+      "pixel_block": 11,
+      "baseline_y": 1188,
+      "translate_rows": 1,
+      "bbox_logical": [
+        31,
+        30,
+        87,
+        108
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "exact_head_copy_verified": false,
+      "limb_lengths_verified": false,
+      "surf_boulder_identical_verified": false,
+      "status": "generated_pose_source_regridded; anatomical parity needs rig-stage check"
+    },
+    {
+      "name": "surf1",
+      "file": "taliyah-pose-surf1.png",
+      "raw_file": "raw/taliyah-pose-surf1.png",
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "raw_sha256": "66216b0fb58675191971accdb9e0d4596a05a4f999ce27a1e03a291505aaf570",
+      "raw_alpha": {
+        "transparent": 1094867,
+        "opaque": 1825,
+        "partial": 475824
+      },
+      "output_size": [
+        1254,
+        1254
+      ],
+      "logical_grid": [
+        114,
+        114
+      ],
+      "pixel_block": 11,
+      "baseline_y": 1188,
+      "translate_rows": -4,
+      "bbox_logical": [
+        15,
+        19,
+        104,
+        108
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "exact_head_copy_verified": false,
+      "limb_lengths_verified": false,
+      "surf_boulder_identical_verified": false,
+      "status": "generated_pose_source_regridded; anatomical parity needs rig-stage check"
+    },
+    {
+      "name": "surf2",
+      "file": "taliyah-pose-surf2.png",
+      "raw_file": "raw/taliyah-pose-surf2.png",
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "raw_sha256": "d030c37c95f61c42b31a4b223427c542bcc176fd925b602bac3d5f73ab33c30c",
+      "raw_alpha": {
+        "transparent": 1085298,
+        "opaque": 1425,
+        "partial": 485793
+      },
+      "output_size": [
+        1254,
+        1254
+      ],
+      "logical_grid": [
+        114,
+        114
+      ],
+      "pixel_block": 11,
+      "baseline_y": 1188,
+      "translate_rows": -3,
+      "bbox_logical": [
+        17,
+        26,
+        111,
+        108
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "exact_head_copy_verified": false,
+      "limb_lengths_verified": false,
+      "surf_boulder_identical_verified": false,
+      "status": "generated_pose_source_regridded; anatomical parity needs rig-stage check"
+    },
+    {
+      "name": "surf3",
+      "file": "taliyah-pose-surf3.png",
+      "raw_file": "raw/taliyah-pose-surf3.png",
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "raw_sha256": "2c51ae2b146af356ace2d36c688880bb9052359cd161330024741473685ff73d",
+      "raw_alpha": {
+        "transparent": 1085731,
+        "opaque": 2159,
+        "partial": 484626
+      },
+      "output_size": [
+        1254,
+        1254
+      ],
+      "logical_grid": [
+        114,
+        114
+      ],
+      "pixel_block": 11,
+      "baseline_y": 1188,
+      "translate_rows": -2,
+      "bbox_logical": [
+        14,
+        18,
+        103,
+        108
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "exact_head_copy_verified": false,
+      "limb_lengths_verified": false,
+      "surf_boulder_identical_verified": false,
+      "status": "generated_pose_source_regridded; anatomical parity needs rig-stage check"
+    },
+    {
+      "name": "d_stagger",
+      "file": "taliyah-pose-d_stagger.png",
+      "raw_file": "raw/taliyah-pose-d_stagger.png",
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "raw_sha256": "dc56a305f8b53fac7affa972bc5ef9a07366a98b23f145103eb9eddefe123e10",
+      "raw_alpha": {
+        "transparent": 1316992,
+        "opaque": 2033,
+        "partial": 253491
+      },
+      "output_size": [
+        1254,
+        1254
+      ],
+      "logical_grid": [
+        114,
+        114
+      ],
+      "pixel_block": 11,
+      "baseline_y": 1188,
+      "translate_rows": 0,
+      "bbox_logical": [
+        26,
+        38,
+        88,
+        108
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "exact_head_copy_verified": false,
+      "limb_lengths_verified": false,
+      "surf_boulder_identical_verified": false,
+      "status": "generated_pose_source_regridded; anatomical parity needs rig-stage check"
+    },
+    {
+      "name": "d_down",
+      "file": "taliyah-pose-d_down.png",
+      "raw_file": "raw/taliyah-pose-d_down.png",
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "raw_sha256": "278da760b8755665615dd4926af2a050c7b13d07e2c8801740e7ebb39bbd3ba2",
+      "raw_alpha": {
+        "transparent": 1299491,
+        "opaque": 1636,
+        "partial": 271389
+      },
+      "output_size": [
+        1254,
+        1254
+      ],
+      "logical_grid": [
+        114,
+        114
+      ],
+      "pixel_block": 11,
+      "baseline_y": 1188,
+      "translate_rows": 2,
+      "bbox_logical": [
+        8,
+        43,
+        107,
+        108
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "exact_head_copy_verified": false,
+      "limb_lengths_verified": false,
+      "surf_boulder_identical_verified": false,
+      "status": "generated_pose_source_regridded; anatomical parity needs rig-stage check"
+    }
+  ]
+}

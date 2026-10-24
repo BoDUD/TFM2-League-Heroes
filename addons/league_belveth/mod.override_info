@@ -1,0 +1,10 @@
+{
+  "asset/league/champion/league_belveth": {
+    "remapping": "asset/league_belveth/override/league_belveth",
+    "type": "override"
+  },
+  "asset/base/text/champion": {
+    "remapping": "asset/league_belveth/text/champion",
+    "type": "merge"
+  }
+}

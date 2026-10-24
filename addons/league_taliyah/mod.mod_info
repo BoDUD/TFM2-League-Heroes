@@ -1,0 +1,20 @@
+{
+  "author": "BoDUD",
+  "contains_code": true,
+  "dependencies": [
+    {
+      "mod_id": "base",
+      "version": ">=0.4.11"
+    },
+    {
+      "mod_id": "league",
+      "version": ">=0.207.0"
+    }
+  ],
+  "description": "Test build of Taliyah as in League (needs League of Legends Heroes): replaces the main pack's Taliyah so Weaver's Wall is real terrain - the upright wall behind her target and the long wall she rides are walls no champion, minion or monster can cross (she stands on top while riding), instead of the data pack's stand-in, a zone that slows enemies at its edge. Other champions are untouched. Writes a log for testing.",
+  "last_updated": "2026-10-24",
+  "mod_id": "league_taliyah",
+  "mod_type": "native",
+  "name": "League Heroes: Taliyah's Weaver's Wall as real terrain (test)",
+  "version": "0.1.0"
+}

@@ -10,8 +10,8 @@ CRLF, UTF-8. --check only prints each text's shown length against lint_mod's TOO
 Names: Data Dragon 16.20.1 - zh_CN 黑默丁格 (大发明家): 海克斯科技亲和, H-28 G 进化炮台, 海克斯科技微型导弹, CH-2电子风暴手雷,
 升级！！！; zh_TW 漢默丁格: 海克斯親合性, H-28 G 進化砲臺, 高科技微型火箭, CH-2 暴風手雷, 升級！！！; ja ハイマーディンガー:
 ヘクステックの親和性, H-28G革新砲, ヘクステック小型ロケット, CH-2超電磁グレネード, アップグレード！！！; ko 하이머딩거: 마법공학 전문가,
-H-28 G 진화형 포탑, 마법공학 초소형 로켓, CH-2 전자폭풍 수류탄, 업그레이드!!!. R's two upgrades are described, not named
-(CH-3X / H-28Q have no Data Dragon names in every language).
+H-28 G 진화형 포탑, 마법공학 초소형 로켓, CH-2 전자폭풍 수류탄, 업그레이드!!!. R upgrades his next spell (2026-10-24); its three
+upgrades are described, not named (CH-3X / H-28Q have no Data Dragon names in every language).
 Slots: skill = Q the turret (with the passive Hextech Affinity), skill2 = E the grenade, ult = R UPGRADE!!!; W's rockets
 are in the attack's text. No combo sentence in any text (the user's rule).
 """
@@ -60,8 +60,9 @@ TEXT = {
                  "：在炮台旁移速+{p_ms}%。",
         "skill2": "掷出手雷，造成" + mag("e_dmg", "e_ratio") + "魔法伤害并减速{e_slow}%，正中的敌人被" + R + "眩晕" + E +
                   t("{e_stun}秒") + "。",
-        "ult": "升级！敌人扎堆时连掷3颗强化手雷，每颗" + mag("re_dmg", "re_ratio") + "魔法伤害并" + R + "眩晕" + E + t("{re_stun}秒") +
-               "；否则放下巨型炮台" + t("{x_life}秒") + "，每" + t("{x_per}秒") + "造成" + mag("x_dmg", "x_ratio") + "并减速{x_slow}%。",
+        "ult": "升级！刷新Q、E，" + t("{r_keep}秒") + "内强化下一个对英雄的技能：Q放下巨型炮台" + t("{x_life}秒") + "，每" + t("{x_per}秒") + "造成" +
+               mag("x_dmg", "x_ratio") + "并减速{x_slow}%；E连掷3颗手雷，每颗" + mag("re_dmg", "re_ratio") + "并" + R + "眩晕" + E +
+               t("{re_stun}秒") + "；普攻射出{rw_n}枚导弹。",
         "names": ("H-28 G 进化炮台", "CH-2电子风暴手雷", "升级！！！"),
     },
     "zh-hant": {
@@ -73,8 +74,9 @@ TEXT = {
                  "：在砲臺旁跑速+{p_ms}%。",
         "skill2": "擲出手雷，造成" + mag("e_dmg", "e_ratio") + "魔法傷害並緩速{e_slow}%，正中的敵人被" + R + "暈眩" + E +
                   t("{e_stun}秒") + "。",
-        "ult": "升級！敵人聚集時連擲3顆強化手雷，每顆" + mag("re_dmg", "re_ratio") + "魔法傷害並" + R + "暈眩" + E + t("{re_stun}秒") +
-               "；否則放下巨型砲臺" + t("{x_life}秒") + "，每" + t("{x_per}秒") + "造成" + mag("x_dmg", "x_ratio") + "並緩速{x_slow}%。",
+        "ult": "升級！重置Q、E，" + t("{r_keep}秒") + "內強化下一個對英雄的技能：Q放下巨型砲臺" + t("{x_life}秒") + "，每" + t("{x_per}秒") + "造成" +
+               mag("x_dmg", "x_ratio") + "並緩速{x_slow}%；E連擲3顆手雷，每顆" + mag("re_dmg", "re_ratio") + "並" + R + "暈眩" + E +
+               t("{re_stun}秒") + "；普攻射出{rw_n}枚火箭。",
         "names": ("H-28 G 進化砲臺", "CH-2 暴風手雷", "升級！！！"),
     },
     "en": {
@@ -86,9 +88,9 @@ TEXT = {
                  mag("tb_dmg", "tb_ratio") + ". " + O + "Hextech Affinity" + E + ": +{p_ms}% move speed near his turrets.",
         "skill2": "Throws a grenade that deals " + mag("e_dmg", "e_ratio") + " " + M + "magic damage" + E + " and slows by {e_slow}%; "
                   "enemies at its centre are " + R + "stunned" + E + " for " + t("{e_stun}s") + ".",
-        "ult": "UPGRADE! Against a crowd: three empowered grenades, each " + mag("re_dmg", "re_ratio") + " " + M + "magic damage" + E +
-               " and a " + t("{re_stun}s") + " " + R + "stun" + E + ". Otherwise: an apex turret for " + t("{x_life}s") + ", every " +
-               t("{x_per}s") + " " + mag("x_dmg", "x_ratio") + " and a {x_slow}% slow.",
+        "ult": "UPGRADE! Refreshes Q and E and empowers his next spell at a champion within " + t("{r_keep}s") + ". Q: an apex turret for " + t("{x_life}s") + ", every " +
+               t("{x_per}s") + " " + mag("x_dmg", "x_ratio") + " " + M + "magic damage" + E + " and a {x_slow}% slow. E: three grenades, "
+               "each " + mag("re_dmg", "re_ratio") + " and a " + t("{re_stun}s") + " " + R + "stun" + E + ". Attack: {rw_n} rockets.",
         "names": ("H-28 G Evolution Turret", "CH-2 Electron Storm Grenade", "UPGRADE!!!"),
     },
     "ko": {
@@ -100,9 +102,9 @@ TEXT = {
                  ": 포탑 근처에서 이동 속도 +{p_ms}%.",
         "skill2": "수류탄을 던져 " + mag("e_dmg", "e_ratio") + " 마법 피해와 {e_slow}% 둔화, 중심의 적은 " + t("{e_stun}초") + " " + R +
                   "기절" + E + ".",
-        "ult": "업그레이드! 적이 모여 있으면 강화 수류탄 3개(각 " + mag("re_dmg", "re_ratio") + " 마법 피해, " + t("{re_stun}초") + " " + R +
-               "기절" + E + "), 아니면 거대 포탑 " + t("{x_life}초") + ": " + t("{x_per}초") + "마다 " + mag("x_dmg", "x_ratio") +
-               ", {x_slow}% 둔화.",
+        "ult": "업그레이드! Q, E 재사용 대기시간 초기화, " + t("{r_keep}초") + " 안에 챔피언에게 쓰는 다음 스킬 강화. Q: 거대 포탑 " + t("{x_life}초") + ", " + t("{x_per}초") + "마다 " +
+               mag("x_dmg", "x_ratio") + " 마법 피해, {x_slow}% 둔화. E: 수류탄 3개(각 " + mag("re_dmg", "re_ratio") + ", " +
+               t("{re_stun}초") + " " + R + "기절" + E + "). 기본 공격: 로켓 {rw_n}발.",
         "names": ("H-28 G 진화형 포탑", "CH-2 전자폭풍 수류탄", "업그레이드!!!"),
     },
     "ja": {
@@ -114,9 +116,9 @@ TEXT = {
                  "：砲台の近くで移動速度+{p_ms}%。",
         "skill2": "グレネードを投げ" + mag("e_dmg", "e_ratio") + "の魔法ダメージと{e_slow}%スロウ、中心の敵を" + t("{e_stun}秒") + R +
                   "スタン" + E + "。",
-        "ult": "アップグレード！敵が密集していれば強化グレネード3個（各" + mag("re_dmg", "re_ratio") + "の魔法ダメージ、" + t("{re_stun}秒") +
-               R + "スタン" + E + "）、でなければ巨大砲台" + t("{x_life}秒") + "：" + t("{x_per}秒") + "ごとに" + mag("x_dmg", "x_ratio") +
-               "、{x_slow}%スロウ。",
+        "ult": "アップグレード！Q・Eのクールダウンを解消、" + t("{r_keep}秒") + "以内にチャンピオンへの次のスキルを強化。Q：巨大砲台" + t("{x_life}秒") + "、" + t("{x_per}秒") +
+               "ごとに" + mag("x_dmg", "x_ratio") + "の魔法ダメージと{x_slow}%スロウ。E：グレネード3個（各" + mag("re_dmg", "re_ratio") +
+               "、" + t("{re_stun}秒") + R + "スタン" + E + "）。通常攻撃：ロケット{rw_n}発。",
         "names": ("H-28G革新砲", "CH-2超電磁グレネード", "アップグレード！！！"),
     },
 }
@@ -136,8 +138,8 @@ def secs(t):
 
 def values(p):
     v = {k: p[k] for k in ("w_n", "w_dmg", "w_ratio", "t_dmg", "t_ratio", "tb_dmg", "tb_ratio", "p_ms", "e_dmg", "e_ratio",
-                           "e_slow", "re_dmg", "re_ratio", "x_dmg", "x_ratio", "x_slow")}
-    for k in ("t_life", "t_per", "e_stun", "re_stun", "x_life", "x_per"):
+                           "e_slow", "re_dmg", "re_ratio", "x_dmg", "x_ratio", "x_slow", "rw_n")}
+    for k in ("t_life", "t_per", "e_stun", "re_stun", "x_life", "x_per", "r_keep"):
         v[k] = secs(p[k])
     return v
 

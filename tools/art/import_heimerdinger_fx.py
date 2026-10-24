@@ -94,7 +94,37 @@ FX = {
     "x_hit": ("x_hit", "core", seq(range(4), [40, 50, 60, 70]), [HIT]),
     "x_beam": ("x_beam", "core", seq(range(4), [50, 60, 70, 80]), [HIT]),
     "haste": ("haste", ("feet", 3), loop(3, 120), [SOLES]),
+    "r_glow": ("r_glow", ("feet", 3), loop(4, 110), [SOLES]),
 }
+DRAWN = {"r_glow"}              # drawn here (glow_cells), not delivered
+
+
+def glow_cells():
+    """R's upgrade waiting on him (the user, 2026-10-24: R upgrades the next spell): a hextech ring at his feet whose
+    bright arcs sweep from front to back in four frames, two pairs of sparks rising beside him (r_up's colours). Symmetric left to
+    right, odd width."""
+    W, H, cy, rx, ry = 29, 38, 34, 11, 3
+    white, cyan, blue, deep = (235, 255, 255, 255), (90, 225, 255, 255), (40, 140, 235, 255), (25, 70, 165, 255)
+    out = []
+    for k in range(4):
+        c = np.zeros((H, W, 4), np.uint8)
+        lead = (math.pi / 2, math.pi / 4, -math.pi / 4, -math.pi / 2)[k]       # front to back, both sides alike
+        for i in range(81):                                                       # the right half, mirrored
+            a = -math.pi / 2 + i * math.pi / 80
+            x, y = int(round(rx * math.cos(a))), int(round(cy + ry * math.sin(a)))
+            d = abs((a - lead + math.pi) % (2 * math.pi) - math.pi)
+            c[y, 14 + x] = c[y, 14 - x] = white if d < 0.5 else cyan if d < 1.2 else blue if d < 2.0 else deep
+        for dx, phase in ((13, 0), (9, 12)):
+            y = cy - 5 - (k * 6 + phase) % 24
+            for x in (14 - dx, 14 + dx):
+                c[y, x] = white
+                for ax, ay in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+                    if 0 <= x + ax < W:
+                        c[y + ay, x + ax] = cyan
+                c[y + 2, x] = blue
+        assert (c == c[:, ::-1]).all()
+        out.append(c)
+    return out
 
 
 def manifest(src):
@@ -312,9 +342,10 @@ def main():
     a = ap.parse_args()
     meta = manifest(a.src)
     allc = {n: cells(n, meta[n], a.src) for n in meta}
-    want = {v[0] for v in FX.values()} | IN_FRAMES
+    want = {v[0] for v in FX.values()} - DRAWN | IN_FRAMES
     if set(meta) != want:
         sys.exit(f"delivered {sorted(meta)} against {sorted(want)}")
+    allc["r_glow"] = glow_cells()
     tables = {"league_heimerdinger_fx": {}, "league_heimerdinger_big": {}}
     for tag, (pic, kind, frames, spots) in FX.items():
         cs = allc[pic]

@@ -1,0 +1,37 @@
+{
+  "zh-hans": {
+    "description": {
+      "league_singed_addon": {
+        "skill": "【附加包】<#ff9028ff>过肩摔<>：抓住目标造成<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>魔法伤害和<#e0e0e0ff>最大生命5%<>，把它击飞、从头顶扔到身后；落进<#ff9028ff>强力粘胶<>里就禁锢<#ffb900ff>1秒<>。"
+      }
+    }
+  },
+  "zh-hant": {
+    "description": {
+      "league_singed_addon": {
+        "skill": "【附加包】<#ff9028ff>過肩摔<>：抓住目標造成<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>魔法傷害和<#e0e0e0ff>最大生命5%<>，把它擊飛、從頭頂扔到身後；落進<#ff9028ff>強力粘膠<>裡就禁錮<#ffb900ff>1秒<>。"
+      }
+    }
+  },
+  "en": {
+    "description": {
+      "league_singed_addon": {
+        "skill": "[Add-on] <#ff9028ff>Fling<>: deals <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> magic damage and <#e0e0e0ff>5% max health<>, knocks the target up and throws it over his shoulder; landing in <#ff9028ff>Mega Adhesive<> roots it for <#ffb900ff>1s<>."
+      }
+    }
+  },
+  "ko": {
+    "description": {
+      "league_singed_addon": {
+        "skill": "[애드온] <#ff9028ff>던져넘기기<>: <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> 마법 피해와 <#e0e0e0ff>최대 체력의 5%<>, 대상을 띄워 어깨 너머 뒤로 던짐; <#ff9028ff>초강력 접착제<>에 떨어지면 <#ffb900ff>1초<> 속박."
+      }
+    }
+  },
+  "ja": {
+    "description": {
+      "league_singed_addon": {
+        "skill": "【アドオン】<#ff9028ff>すくい投げ<>：<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>の魔法ダメージと<#e0e0e0ff>最大体力の5%<>、対象を打ち上げ肩越しに背後へ投げる。<#ff9028ff>強力粘着剤<>に落ちると<#ffb900ff>1秒<>スネア。"
+      }
+    }
+  }
+}

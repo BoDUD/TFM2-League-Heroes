@@ -26,8 +26,8 @@
     },
     "league_lux": {
       "face": {
-        "x": -1,
-        "y": -37
+        "x": 0,
+        "y": -34
       },
       "center": {
         "x": 0,
@@ -1814,8 +1814,8 @@
     },
     "league_warwick": {
       "face": {
-        "x": 11,
-        "y": -28
+        "x": 10,
+        "y": -25
       },
       "center": {
         "x": 0,
@@ -2074,6 +2074,48 @@
       "center": {
         "x": 0,
         "y": -15
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -10
+      }
+    },
+    "league_singed": {
+      "face": {
+        "x": 3,
+        "y": -31
+      },
+      "center": {
+        "x": 0,
+        "y": -13
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -10
+      }
+    },
+    "league_belveth": {
+      "face": {
+        "x": 0,
+        "y": -34
+      },
+      "center": {
+        "x": 0,
+        "y": -17
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -8
+      }
+    },
+    "league_taliyah": {
+      "face": {
+        "x": 1,
+        "y": -28
+      },
+      "center": {
+        "x": 0,
+        "y": -17
       },
       "banpick_center": {
         "x": 0,

@@ -204,6 +204,18 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // head and tendril put back on the eyes; the add-on's puddle in the split_* tags) at the user's 1.5 squares a game
     // pixel (66 game rows tendril top to soles = 44 game px; 3/4 only), so no SIZES row
     ("league_zac", 1.5, include_str!("../../../league/champions/league_zac#anim.fanim")),
+    // Singed: posed by tools/art/rig_singed.py on Codex's step-1 take A-2 as drawn and its key poses after League's clips
+    // (the design's head put back, the bodies brought to the design's size) at the user's 1.39 squares a game pixel (its
+    // own squares: 50 game rows head top to soles = 36 game px, the tank above; 3/4 only), so no SIZES row
+    ("league_singed", 1.39, include_str!("../../../league/champions/league_singed#anim.fanim")),
+    // Bel'Veth: posed by tools/art/rig_belveth.py on Codex's step-1 take A-1 cut to 82 rows and its key poses after
+    // League's clips (the design's head put back, the bodies brought to the design's size) at the user's 1.75 squares a
+    // game pixel (71 game rows head top to claws = 40 game px, the shoulder spikes above; 3/4 only), so no SIZES row
+    ("league_belveth", 1.75, include_str!("../../../league/champions/league_belveth#anim.fanim")),
+    // Taliyah: posed by tools/art/rig_taliyah.py on Codex's step-1 take A-2 cut to 70 rows and its key poses after
+    // League's clips (read at their bodies' scale, the design's head put back) at the user's 1.75 squares a game pixel
+    // (70 rows hair top to soles = 40 game px; the surf and the ride on her boulder higher; 3/4 only), so no SIZES row
+    ("league_taliyah", 1.75, include_str!("../../../league/champions/league_taliyah#anim.fanim")),
     // Neeko: posed by tools/art/rig_neeko.py on Codex's step-1 take A-1 and its key poses at the user's 2.5 squares a
     // game pixel (100 game rows quill tips to soles: 「40」, then 「1.5也挺糊的 还得往上调整吧」; 3/4 only; league_neeko's
     // view hook draws her as an ally while she is disguised), so no SIZES row
@@ -328,13 +340,15 @@ pub const HEROES: &[(&str, f32, &str)] = &[
 /// lower (RESTYLE hwei lift_sq: 11.5 x 1.5 x (1 / 0.85 - 1) = 3.0).
 /// K'Sante: 90 % (the user, 2026-10-22: 「奎桑提的模型在游戏局内也太大了」, 0.9 picked of 0.9 / 0.85 / 0.8), his frames 2
 /// squares lower (RESTYLE ksante lift_sq: 11.5 x 1.2 x (1 / 0.9 - 1) = 1.5).
+/// Warwick: 90 % (the user, 2026-10-23: 「狼人局内模型有点大了」 - 46 game px spike to soles), his frames 2 squares lower
+/// (RESTYLE warwick lift_sq: 11.5 x 1.2 x (1 / 0.9 - 1) = 1.5).
 pub const SIZES: &[(&str, f32)] = &[("league_gragas", 0.90), ("league_zeri", 1.05), ("league_kassadin", 1.00),
                                     ("league_braum", 0.95), ("league_mordekaiser", 1.10),
                                     ("league_irelia", 1.05), ("league_soraka", 1.10), ("league_galio", 1.10), ("league_nilah", 0.90),
                                     ("league_corki", 0.90), ("league_malzahar", 1.15), ("league_aphelios", 0.90),
                                     ("league_poppy", 0.85), ("league_yuumi", 0.75), ("league_wukong", 1.15),
                                     ("tft_powder", 0.90), ("league_nami", 0.90), ("league_hwei", 0.85),
-                                    ("league_ksante", 0.90)];
+                                    ("league_ksante", 0.90), ("league_warwick", 0.90)];
 
 /// Heroes whose body grows with a stack: (id, the buff whose instances on him are the stacks, growth a stack). Cho'Gath's
 /// Feast (the user, 2026-10-19: 「变大可以无限 加生命」): every champion it eats is one more Permanent `league_chogath_r_stack`
@@ -457,6 +471,15 @@ pub const UI_SIZES: &[(&str, f32)] = &[
     // 1.5 - at the placeholder -8 the card cut 6 px of the tendril and hid 4 px of his feet; 0.84 with the card value
     // bp_card_audit.py gives: the tendril under the canvas top, the soles on its bottom
     ("league_zac", 0.84),
+    // Singed: 45 game px from the tank's cap to his soles at PPU 1.39, the idle reel's raised flask higher; UI size and
+    // card value set with bp_card_audit.py (the tank under the canvas top, the soles on its bottom)
+    ("league_singed", 0.80),
+    // Bel'Veth: 47 game px from her shoulder spikes to her claws at PPU 1.75 (the raised wings of the reel higher); UI
+    // size and card value set with bp_card_audit.py
+    ("league_belveth", 0.82),
+    // Taliyah: 40 game px from her piled hair to her soles at PPU 1.75 (shorter than Bel'Veth: 0.82 left her head 15 px
+    // under the card's top); UI size 0.98 and card value -10 set with bp_card_audit.py
+    ("league_taliyah", 0.98),
 ];
 
 /// The `"lo_..."` animation names of a .fanim.
