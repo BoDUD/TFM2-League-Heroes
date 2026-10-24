@@ -43,7 +43,11 @@ The add-on copy (--native, addons/league_kled: everything League does that the d
 foot while `ft` holds (idle, run, hit), courage from time out of fights.
 Timings: drafts until the frames exist (tools/art/rig_kled.py retimes them).
 Numbers: League 16.21 read into the top fighter range (league_gnar, league_renekton, league_ksante), balanced on the
-classic-SDK simulations (kd.py --lane 0, C:/t/kl_sim).
+classic-SDK simulations (kd.py --lane 0 against fighter, executioner, knight, berserker, lancer and pole_warrior,
+C:/t/kl_sim, 2026-10-24; league_gnar --native +0.01 / +0.59 on seeds 1-8 / 9-16): the draft (hp 760, attack 88, Skaarl
+360 + 120%, on foot -20%, Q 40 / 60 + 120%, E 40 + 65%, W 30, R 60) -3.36; hp 920, attack 94, on foot -10%, Skaarl 420,
+Q 50 / 80, E 55, W 40, R 90 -1.44; hp 1000 +90, attack 98 +17, defence 32, Skaarl 480 + 140%, Q 60 / 90 + 140% every
+480, E 60 + 80% every 540, W 50 + 6%, R 110 -0.22 / +0.08; with hp 1040, attack 100, Skaarl 500 = P +0.48 (1-8).
 """
 import argparse
 import json
@@ -66,27 +70,27 @@ BIG = "asset/league/effects/league_kled_big"
 # bonus AD) max hp, allies on the trail up to +50% move speed, cd 140-110.
 P = {
     # stats (Melee base: attack 95 +19, hp 1000 +100, def 30, mr 25, move 1000; league_gnar 1000 / 90)
-    "hp": 760, "hp_g": 80, "atk": 88, "atk_g": 16, "def": 28, "def_g": 8, "mr": 22, "mr_g": 4,
+    "hp": 1040, "hp_g": 90, "atk": 100, "atk_g": 17, "def": 32, "def_g": 8, "mr": 22, "mr_g": 4,
     "ms": 1050, "ms_g": 12, "regen": 2, "regen_g": 1,
     "atk_range": 25000, "atk_dur": 26, "atk_cd": 64, "a_hit": 11,
     # the controller
     "ctl_t": 3600, "ctl_p": 3,
     # passive: Skaarl (a shield as long as a life), on foot, courage, the remount
-    "sk_hp": 360, "sk_ad": 120, "sk_t": 36000, "dm_atk": 20,
+    "sk_hp": 500, "sk_ad": 140, "sk_t": 36000, "dm_atk": 10,
     "c_n": 10, "c_time": 120, "re_hp": 180, "re_ad": 60, "re_ms": 40, "re_ms_t": 120,
     # W Violent Tendencies (in the attack)
-    "w_cd": 600, "w_t": 240, "w_as": 150, "w_dmg": 30, "w_ratio": 30, "w_pct": 5,
+    "w_cd": 600, "w_t": 240, "w_as": 150, "w_dmg": 50, "w_ratio": 30, "w_pct": 6,
     # skill: Q Bear Trap on a Rope / Pocket Pistol
-    "q_cd": 540, "q_range": 55000, "q_dur": 24, "q_rel": 8, "q_speed": 9000, "q_rad": 3000, "q_dmg": 40,
-    "q_ratio": 60, "q_teth": 90, "q_slow": 40, "q2_dmg": 60, "q2_ratio": 120, "q_pull": 2500, "q_pull_t": 8,
+    "q_cd": 480, "q_range": 55000, "q_dur": 24, "q_rel": 8, "q_speed": 9000, "q_rad": 3000, "q_dmg": 60,
+    "q_ratio": 60, "q_teth": 90, "q_slow": 40, "q2_dmg": 90, "q2_ratio": 140, "q_pull": 2500, "q_pull_t": 8,
     "p_dur": 24, "p_rel": 8, "p_len": 45000, "p_rad": 9000, "p_speed": 20000, "p_dmg": 40, "p_ratio": 100,
     "p_back": 2000, "p_back_t": 6,
     # skill2: E Jousting
-    "e_cd": 600, "e_range": 40000, "e_range2": 60000, "e_dur": 24, "e_go": 5, "e_speed": 3500, "e_dmg": 40,
-    "e_ratio": 65, "e_ms": 50, "e_ms_t": 60, "e_gap": 40, "e_win": 150,
+    "e_cd": 540, "e_range": 40000, "e_range2": 60000, "e_dur": 24, "e_go": 5, "e_speed": 3500, "e_dmg": 60,
+    "e_ratio": 80, "e_ms": 50, "e_ms_t": 60, "e_gap": 40, "e_win": 150,
     # ult: R Chaaaaaaaarge!!!
     "r_cd": 5400, "r_range": 90000, "r_dur": 40, "r_go": 12, "r_speed": 3000, "r_sh": 150, "r_sh_ad": 150,
-    "r_sh_t": 240, "r_dmg": 60, "r_ratio": 60, "r_pct": 8, "r_kb": 1500, "r_kb_t": 6, "r_ally": 40000, "r_ms": 40,
+    "r_sh_t": 240, "r_dmg": 110, "r_ratio": 60, "r_pct": 8, "r_kb": 1500, "r_kb_t": 6, "r_ally": 40000, "r_ms": 40,
     "r_ms_t": 120, "r_wait": 600,
     # his spoken lines, at most one every vo_gap ticks
     "vo_gap": 600,
