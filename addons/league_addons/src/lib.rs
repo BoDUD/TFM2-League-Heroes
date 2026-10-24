@@ -154,6 +154,11 @@ mod jayce;
 mod elise;
 #[path = "../../league_katarina/src/lib.rs"]
 mod katarina;
+#[path = "../../league_ahri/src/lib.rs"]
+mod ahri;
+#[allow(dead_code)] // items public in the add-on's own crate
+#[path = "../../league_garen_ult/src/lib.rs"]
+mod garen_ult;
 #[path = "../../league_shen_shield/src/lib.rs"]
 mod shen_shield;
 #[allow(dead_code)] // items public in the add-on's own crate
@@ -393,6 +398,8 @@ fn init(host: &StableHost) -> StableMod {
     jayce::register(host, &mut module);
     elise::register(host, &mut module);
     katarina::register(host, &mut module);
+    ahri::register(host, &mut module);
+    garen_ult::register(host, &mut module);
     shen_shield::register(host, &mut module);
     tahmkench::register(host, &mut module);
     kalista::register(host, &mut module);
