@@ -3,7 +3,7 @@
 
     python tools/art/preview_samira.py [--out docs/preview] [--only frames|effects|showcase]
 
-  league_samira_frames.png    every animation, frame by frame, 3x on the arena colour
+  league_samira_frames.png    every animation's dense frames (hd_, PPU 2.84, as league.dll shows them)
   league_samira_effects.png   every effect animation, 3x
   league_samira_showcase.gif  a scripted fight against Darius with Garen behind him, timed like the kit
                               (tools/kit/build_samira.py, 60 ticks a second): Samira runs in; a shot (Style E); Q's
@@ -23,6 +23,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 from preview_annie import Held  # noqa: E402
 from preview_ashe import Anim, tick  # noqa: E402
+from preview_dense import dense, dense_rows, put  # noqa: E402
 from preview_garen import ARENA, T, contact, frames_of, load  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(HERE))
@@ -89,7 +90,7 @@ def showcase(out, z=3, step=40):
     def a(tag, dur=None, loop=False):
         nonlocal t
         x, y = me.pos(t)
-        an = Anim(frames_of(sp, tag), t, x, y, loop=loop, until=(t + dur) if dur else None, flip=face[0])
+        an = Anim(dense(sp, tag, "samira", z), t, x, y, loop=loop, until=(t + dur) if dur else None, flip=face[0])
         body.append(an)
         t = an.until
         return an
@@ -123,7 +124,7 @@ def showcase(out, z=3, step=40):
         over.append(OnMe(frames_of(small, "g_s" if grade[0] == GRADES else "g_up"), when, me, dy=-36))
 
     # she runs in; Darius and Garen wait
-    walk = Anim(frames_of(sp, "run"), 0.0, x0 - 50, gy, loop=True, until=1250, x1=x0)
+    walk = Anim(dense(sp, "run", "samira", z), 0.0, x0 - 50, gy, loop=True, until=1250, x1=x0)
     body.append(walk)
     t = walk.until
     a("idle", 300, loop=True)
@@ -150,7 +151,7 @@ def showcase(out, z=3, step=40):
     e0 = t
     land = e0 + tick(E_TICK)
     me.moves.append((e0, land, me.pos(e0)[0], d.pos(e0)[0] + 15))
-    an = Anim(frames_of(sp, "skill2"), e0, me.pos(e0)[0], gy, until=e0 + tick(E_TICK + W_T),
+    an = Anim(dense(sp, "skill2", "samira", z), e0, me.pos(e0)[0], gy, until=e0 + tick(E_TICK + W_T),
               x1=d.pos(e0)[0] + 15)
     an.pos = me.pos                                     # she rides the dash, then stands
     body.append(an)
@@ -193,11 +194,11 @@ def showcase(out, z=3, step=40):
     end = t
 
     def place(img, f, px, py):
-        img.alpha_composite(f, (px - f.width // 2, py - f.height // 2))
+        put(img, f, int(px), int(py), z)
 
     frames, tt = [], 0.0
     while tt < end:
-        img = Image.new("RGBA", (W, H), ARENA)
+        img = Image.new("RGBA", (W * z, H * z), ARENA)
         units = [(g.pos(tt)[1], g.frame(tt), g.pos(tt)), (d.pos(tt)[1], d.frame(tt), d.pos(tt))]
         for an in body:
             f = an.frame(tt)
@@ -211,7 +212,7 @@ def showcase(out, z=3, step=40):
             f = an.frame(tt)
             if f is not None:
                 place(img, f, *an.pos(tt))
-        frames.append(img.resize((W * z, H * z), Image.NEAREST).convert("RGB"))
+        frames.append(img.convert("RGB"))
         tt += step
     sample = frames[::6]
     strip = Image.new("RGB", (W * z, H * z * len(sample)))
@@ -231,8 +232,7 @@ def main():
     os.makedirs(T.long_path(args.out), exist_ok=True)
     if args.only in (None, "frames"):
         s = load(CHAMP)
-        print("frames", contact([(s, t["name"], t["name"]) for t in s.tags],
-                                os.path.join(args.out, "league_samira_frames.png")))
+        print("frames", contact(dense_rows(s), os.path.join(args.out, "league_samira_frames.png"), z=1))
     if args.only in (None, "effects"):
         rows = []
         for name, path in FX.items():

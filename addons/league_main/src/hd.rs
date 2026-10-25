@@ -335,6 +335,12 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // (tools/art/casts_gwen_hd.py: the scissors full size and always in her right hand); 38 rows as her 1x sprite, so
     // no SIZES row
     ("league_gwen", 2.84, include_str!("../../../league/champions/league_gwen#anim.fanim")),
+    // Samira (2026-10-25): Codex's v3 picture (head 26%) read as drawn at PPU 2.84 (76 x 105,
+    // tools/art/design_samira_hd.py, the sword behind her straightened by tools/art/sword_samira_hd.py); every action
+    // Codex's whole-frame redraw read onto the design (tools/art/casts_samira_hd.py: the sword always in her far hand);
+    // 37 rows as her 1x sprite, so no SIZES row. In game she looked thin at 2.84 (「感觉降低像素就行了」): laid out
+    // at 2.2 squares on her 2.84 grid with the face kept as drawn (ppu_restyle.py look, 「脸做好点啊」)
+    ("league_samira", 2.84, include_str!("../../../league/champions/league_samira#anim.fanim")),
     // Yunara: PPU 1.5 (the user's pick), posed from the design's own squares at that density by tools/art/rig_yunara.py
     // (40 game rows ornaments to soles), so no SIZES row
     ("league_yunara", 1.5, include_str!("../../../league/champions/league_yunara#anim.fanim")),

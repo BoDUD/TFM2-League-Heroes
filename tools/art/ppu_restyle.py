@@ -57,7 +57,7 @@ ORIG_PPU = {"zeri": 3, "karma": 3, "braum": 2.881, "mordekaiser": 5, "corki": 5,
             "vladimir": 2, "yasuo": 3, "garen": 3, "gragas": 2, "irelia": 2, "soraka": 3, "nidalee": 3.8313,
             "nilah": 2.5, "kindred": 154 / 34, "malzahar": 1.38, "milio": 2.2, "jayce": 1.5, "elise": 1.8, "katarina": 1.5,
             "tahmkench": 1.2, "kalista": 1.4, "drmundo": 1.5, "pantheon": 1.5, "orianna": 2.25, "aphelios": 1.5, "rell": 1.5, "urgot": 1.2, "reksai": 1.58, "swain": 1.5, "nasus": 1.2, "renata": 1.5, "anivia": 1.2, "jarvaniv": 1.5, "ziggs": 1.5, "maokai": 1.5, "gangplank": 1.5, "wukong": 1.53, "cassiopeia": 1.3, "akshan": 1.61, "poppy": 1.3, "volibear": 1.2, "rammus": 1.2,
-            **{h: 1.5 for h in ('morgana', 'nami', 'janna', 'jax', 'xinzhao')}, "yunara": 1.5, "kaisa": 1.45, "camille": 1.5, "fiora": 1.5, "leblanc": 2.0, "darius": 1.45, "caitlyn": 1.45, "riven": 1.5, "zoe": 1.5, "quinn": 2.0, "yuumi": 1.5, "powder": 1.75, "chogath": 1.2, "karthus": 1.5, "vex": 1.5, "zyra": 1.7, "graves": 1.5, "warwick": 1.5, "gnar": 1.5, "sylas": 1.2, "mel": 1.5, "velkoz": 1.5, "shyvana": 1.5, "ornn": 1.5, "naafiri": 1.5, "xerath": 1.55, "heimerdinger": 1.5, "neeko": 2.5, "ksante": 1.5, "udyr": 1.5, "qiyana": 1.5, "hwei": 1.5, "ivern": 1.5, "illaoi": 1.5, "varus": 1.35, "aurora": 2.25, "nunu": 1.37, "azir": 1.5, "zac": 1.5, "jinx": 2.2, "lux": 2.2, "singed": 1.39, "belveth": 1.75, "taliyah": 1.75, "aurelionsol": 1.75, "sejuani": 2.0, "ahri": 2.2, "twitch": 2.2, "annie": 2.2, "kled": 2.0, "yorick": 1.75, "gwen": 2.84, "ambessa": 2.0, "rumble": 1.75, "trundle": 2.0, "locke": 2.0}
+            **{h: 1.5 for h in ('morgana', 'nami', 'janna', 'jax', 'xinzhao')}, "yunara": 1.5, "kaisa": 1.45, "camille": 1.5, "fiora": 1.5, "leblanc": 2.0, "darius": 1.45, "caitlyn": 1.45, "riven": 1.5, "zoe": 1.5, "quinn": 2.0, "yuumi": 1.5, "powder": 1.75, "chogath": 1.2, "karthus": 1.5, "vex": 1.5, "zyra": 1.7, "graves": 1.5, "warwick": 1.5, "gnar": 1.5, "sylas": 1.2, "mel": 1.5, "velkoz": 1.5, "shyvana": 1.5, "ornn": 1.5, "naafiri": 1.5, "xerath": 1.55, "heimerdinger": 1.5, "neeko": 2.5, "ksante": 1.5, "udyr": 1.5, "qiyana": 1.5, "hwei": 1.5, "ivern": 1.5, "illaoi": 1.5, "varus": 1.35, "aurora": 2.25, "nunu": 1.37, "azir": 1.5, "zac": 1.5, "jinx": 2.2, "lux": 2.2, "singed": 1.39, "belveth": 1.75, "taliyah": 1.75, "aurelionsol": 1.75, "sejuani": 2.0, "ahri": 2.2, "twitch": 2.2, "annie": 2.2, "kled": 2.0, "yorick": 1.75, "gwen": 2.84, "ambessa": 2.0, "rumble": 1.75, "trundle": 2.0, "samira": 2.84, "locke": 2.0}
 # face: (row0, row1, col0, col1) of the face to match in the idle's first dense frame; neck: (col, row) there
 RESTYLE = {
     "zeri": dict(face=(25, 41, 22, 42), neck=None, neck_row=35, head=1.3, wide=1.45, short=0.88, band=2, edge=1, face_to=(-1, -33)),
@@ -350,6 +350,17 @@ RESTYLE = {
     # ride the effect layer (fx), moved to the new blade's tip (gwen_bake.json)
     # 2026-10-25 face (2,-33): (2,-38) was the old 1x point: on the PPU 2.84 redo it frames hair band and hair, the eyes on the bottom rows, no mouth
     "gwen": dict(ppu=2.84, edge=0, face_to=(2, -33), fx=True),
+    # Samira (2026-10-25): Codex's v3 picture (League's look, the head made smaller) read on its own squares at PPU 2.84
+    # (76 x 105, design_samira_hd.py, the greatsword straightened); every action Codex's whole-frame redraw read onto
+    # the design (tools/art/casts_samira_hd.py); the muzzle flashes and sword arcs ride the effect layer (fx), moved to
+    # the new muzzles (samira_bake.json). Then in game: 「我怎么感觉身体有点细啊 和原版画风不符」「感觉降低像素就行了」
+    # 「泽丽之前也一样 但是后面调整好了」 - picked 2.2 from a 2.84 / 2.2 / 1.8 / 1.5 sheet (tools/art/review_samira_ppu.py,
+    # 「用 2.2」): drawn at 2.84 (ORIG_PPU), brought to 2.2 squares a game pixel like Jinx, Lux, Ahri and Annie; the
+    # 1-2 square holes the coarser grid closes round thin gaps (arm and waist, hair strands) filled. Then 「这嘴也太丑了」
+    # (2.2 voted her lips into a dark slash and her one-pixel green eye away) and 「你可以其他地方模糊点 脸做好点啊」:
+    # the frames stay on their 2.84 grid, everything laid back on it at 2.2 squares (look) but her face as drawn
+    # (look_keep: tools/art/face_samira_hd.py) - the approved 2.84 face in a 2.2 body; the effects ride on as drawn
+    "samira": dict(edge=0, face_to=(-4, -36), fx=True, look=2.2, look_holes=2, look_keep="face_samira_hd"),
     # league_yunara (#119): posed from the design's own squares at the user's 1.5 squares a game pixel (「选 A，40 行」,
     # Codex's step-1 take 2 cut to 60 rows, her beads apart) by tools/art/rig_yunara.py, so no proportion or density
     # change here; the outer outline grown a square like the others; the face point at her ornaments' crown
@@ -896,6 +907,42 @@ def close_pinholes(grown, n, colour, most=2):
     return out
 
 
+def fill_holes(a, most):
+    """The enclosed clear holes of at most `most` squares (ground showing through the body where the coarser grid
+    closed a thin gap round a speck of it - league_samira at 2.2) filled with the commonest colour round each."""
+    op = a[..., 3] > 0
+    lb, k = ndimage.label(ndimage.binary_fill_holes(op) & ~op)
+    out = a.copy()
+    for j in range(1, k + 1):
+        h = lb == j
+        if h.sum() > most:
+            continue
+        ring = ndimage.binary_dilation(h, structure=np.ones((3, 3), bool)) & ~h & op
+        cols, cnt = np.unique(a[ring][:, :3], axis=0, return_counts=True)
+        out[h, :3] = cols[cnt.argmax()]
+        out[h, 3] = 255
+    return out
+
+
+def coarse_look(a, pivot, k, outline, holes=0, keep=None):
+    """`a` brought to k times as many squares a side (pixelate) and laid back on its own grid - every pixel the colour
+    of the coarse square it falls in - its enclosed holes of up to `holes` squares filled (and, laid back, any of
+    up to 3 pixels), the pixels `keep` marks put back as drawn (league_samira: her face kept fine in a coarse
+    body)."""
+    c, pv = pixelate(a, k, pivot, outline)
+    if holes:
+        c = fill_holes(c, holes)
+    H, W = a.shape[:2]
+    cx = np.floor((np.arange(W) + 0.5 - pivot[0]) * k).astype(int) + pv[0]
+    cy = np.floor((np.arange(H) + 0.5 - pivot[1]) * k).astype(int) + pv[1]
+    okx, oky = (cx >= 0) & (cx < c.shape[1]), (cy >= 0) & (cy < c.shape[0])
+    out = np.zeros_like(a)
+    out[np.ix_(oky, okx)] = c[np.ix_(cy[oky], cx[okx])]
+    if keep is not None:
+        out[keep] = a[keep]
+    return fill_holes(out, 3) if holes else out
+
+
 def grow_edge(a, n, colour):
     if n <= 0:
         return a
@@ -1193,6 +1240,15 @@ def restyle(hero, spec, write=True, only=None):
             content = grow_edge(content, spec.get("edge", 0), outline)
             if spec.get("pinholes"):                       # the specks of ground the grown outline closed in
                 content = close_pinholes(content, spec.get("edge", 0), outline)
+            if spec.get("fill_holes"):                    # specks of ground the coarser grid closed in
+                content = fill_holes(content, int(spec["fill_holes"]))
+            if spec.get("look"):                          # coarser to the eye, on the frame's own grid
+                kept = None
+                if spec.get("look_keep"):
+                    import importlib
+                    kept = importlib.import_module(spec["look_keep"]).keep(tag, i, content)
+                content = coarse_look(content, pivot, spec["look"] / new_ppu, outline, int(spec.get("look_holes", 0)),
+                                      kept)
             if spec.get("fx") and not spec.get("fix"):
                 if i == 0:
                     fx = read_fx(hero, tag)
