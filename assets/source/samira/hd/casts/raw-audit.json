@@ -1,0 +1,310 @@
+{
+  "missing": [],
+  "count_warnings": [],
+  "details": [
+    {
+      "name": "run_1",
+      "expected_figures": 2,
+      "large_components": [
+        239999,
+        244382
+      ]
+    },
+    {
+      "name": "run_2",
+      "expected_figures": 2,
+      "large_components": [
+        219283,
+        234206
+      ]
+    },
+    {
+      "name": "run_3",
+      "expected_figures": 2,
+      "large_components": [
+        204909,
+        198374
+      ]
+    },
+    {
+      "name": "run_4",
+      "expected_figures": 2,
+      "large_components": [
+        273176,
+        246419
+      ]
+    },
+    {
+      "name": "attack_1",
+      "expected_figures": 2,
+      "large_components": [
+        229882,
+        230382
+      ]
+    },
+    {
+      "name": "attack_2",
+      "expected_figures": 1,
+      "large_components": [
+        270211
+      ]
+    },
+    {
+      "name": "attack_3",
+      "expected_figures": 1,
+      "large_components": [
+        268410
+      ]
+    },
+    {
+      "name": "attack_4",
+      "expected_figures": 1,
+      "large_components": [
+        266991
+      ]
+    },
+    {
+      "name": "attack_m_1",
+      "expected_figures": 2,
+      "large_components": [
+        203967,
+        202306
+      ]
+    },
+    {
+      "name": "attack_m_2",
+      "expected_figures": 1,
+      "large_components": [
+        276502
+      ]
+    },
+    {
+      "name": "attack_m_3",
+      "expected_figures": 2,
+      "large_components": [
+        213968,
+        211460
+      ]
+    },
+    {
+      "name": "attack_m_4",
+      "expected_figures": 2,
+      "large_components": [
+        246283,
+        224709
+      ]
+    },
+    {
+      "name": "skill_1",
+      "expected_figures": 2,
+      "large_components": [
+        197564,
+        199503
+      ]
+    },
+    {
+      "name": "skill_2",
+      "expected_figures": 1,
+      "large_components": [
+        266223
+      ]
+    },
+    {
+      "name": "skill_3",
+      "expected_figures": 2,
+      "large_components": [
+        217065,
+        205431
+      ]
+    },
+    {
+      "name": "skill_m_1",
+      "expected_figures": 2,
+      "large_components": [
+        158096,
+        174673
+      ]
+    },
+    {
+      "name": "skill_m_2",
+      "expected_figures": 1,
+      "large_components": [
+        244640
+      ]
+    },
+    {
+      "name": "skill_m_3",
+      "expected_figures": 1,
+      "large_components": [
+        266503
+      ]
+    },
+    {
+      "name": "skill_m_4",
+      "expected_figures": 1,
+      "large_components": [
+        244053
+      ]
+    },
+    {
+      "name": "skill_m_5",
+      "expected_figures": 1,
+      "large_components": [
+        228484
+      ]
+    },
+    {
+      "name": "skill_m_6",
+      "expected_figures": 1,
+      "large_components": [
+        270747
+      ]
+    },
+    {
+      "name": "skill2_1",
+      "expected_figures": 1,
+      "large_components": [
+        252706
+      ]
+    },
+    {
+      "name": "skill2_2",
+      "expected_figures": 1,
+      "large_components": [
+        253368
+      ]
+    },
+    {
+      "name": "skill2_3",
+      "expected_figures": 1,
+      "large_components": [
+        267923
+      ]
+    },
+    {
+      "name": "skill2_4",
+      "expected_figures": 1,
+      "large_components": [
+        266072
+      ]
+    },
+    {
+      "name": "skill2_5",
+      "expected_figures": 1,
+      "large_components": [
+        291931
+      ]
+    },
+    {
+      "name": "skill2_6",
+      "expected_figures": 1,
+      "large_components": [
+        241034
+      ]
+    },
+    {
+      "name": "skill2_7",
+      "expected_figures": 1,
+      "large_components": [
+        267329
+      ]
+    },
+    {
+      "name": "skill2_8",
+      "expected_figures": 1,
+      "large_components": [
+        279273
+      ]
+    },
+    {
+      "name": "skill2_9",
+      "expected_figures": 2,
+      "large_components": [
+        192260,
+        183495
+      ]
+    },
+    {
+      "name": "skill2_10",
+      "expected_figures": 2,
+      "large_components": [
+        208613,
+        206373
+      ]
+    },
+    {
+      "name": "ult_1",
+      "expected_figures": 1,
+      "large_components": [
+        316942
+      ]
+    },
+    {
+      "name": "ult_2",
+      "expected_figures": 1,
+      "large_components": [
+        305526
+      ]
+    },
+    {
+      "name": "ult_3",
+      "expected_figures": 1,
+      "large_components": [
+        283248
+      ]
+    },
+    {
+      "name": "ult_4",
+      "expected_figures": 1,
+      "large_components": [
+        288611
+      ]
+    },
+    {
+      "name": "ult_5",
+      "expected_figures": 1,
+      "large_components": [
+        255028
+      ]
+    },
+    {
+      "name": "hit_1",
+      "expected_figures": 2,
+      "large_components": [
+        221473,
+        224483
+      ]
+    },
+    {
+      "name": "dead_1",
+      "expected_figures": 2,
+      "large_components": [
+        256649,
+        251443
+      ]
+    },
+    {
+      "name": "dead_2",
+      "expected_figures": 1,
+      "large_components": [
+        324158,
+        59312
+      ]
+    },
+    {
+      "name": "dead_3",
+      "expected_figures": 1,
+      "large_components": [
+        289283,
+        50529
+      ]
+    },
+    {
+      "name": "dead_4",
+      "expected_figures": 1,
+      "large_components": [
+        286916
+      ]
+    }
+  ]
+}

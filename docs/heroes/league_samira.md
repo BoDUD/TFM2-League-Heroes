@@ -10,7 +10,7 @@
 | 所属的包 | 主包（mod_id `league`） |
 | 分路 | ADC |
 | 分类 / 标签 | 射手（Range） · AD / Range |
-| 高清帧 | 1 倍像素（无高清帧） |
+| 高清帧 | PPU 2.84 |
 | 附加包 | [莎弥拉边走边射附加包](#附加包)（`league_samira_r`）、[游戏 AI 不按的技能替它按](#附加包)（`league_ult_press`） |
 
 ![莎弥拉演示](../preview/league_samira_showcase.gif)
@@ -96,7 +96,8 @@
 | 附加包 | 可选的附加包 [`addons/league_ult_press`](../../addons/league_ult_press/README.md)（在附加包合集里，原生代码，主包不装它也完整）：游戏 0.6.4 的 AI 几乎不按她只「备好」的 R 格（只读观察包：每 10 分钟 0.2 次，多数英雄 3–9 次；格子里加 200 或 1000 的护盾、再加一次搜敌方英雄都没用）。附加包替 AI 按（用户：「莎弥拉和卡牌用附加包在合适时机替AI按R，主包保持现在这样」）：R 好了、她没被控住、R 射程（50000）内有敌方英雄就按，S 评价时立刻放出炼狱扳机，不到 S 就备好，期间到了 S 再放。只按 R 时 40 局一次都没到 S（游戏的 AI 几乎不对英雄放 E，Q 多半打小兵，评价 9 秒不打中英雄就掉），用户选「帮她连招攒评价」：R 不按时，60000 内有敌方英雄、她生命不低于 40%、目标身边的敌方英雄不超过 2 个就按 E 冲过去（落地接 W），再不然 70000 内有敌方英雄、上一下打中英雄的不是 Q 就把 Q 朝他放，其余照旧由 AI 平 A；主包的数据一点没改 |
 | 数值 | 攻击 112（+20）、生命 1030（+92）、护甲 26（+7）、魔抗 15（+3）、移速 900（+9）。数值是自己设计的，用 SDK 对战模拟调：下路，对 4 个原版 ADC（`gunner`、`soldier`、`archer`、`gambler`），3 套阵容、两边各打，10 分钟。初稿 −2.72（E 冲刺距离固定把她留在兵线里、评价 9 秒太短升不到 S）；E 只冲英雄并落到目标身后、挥剑普攻单独算一种招式、攻击 100 → 112、生命 920 → 1030、护甲 22 → 26、射程 50000 → 55000、Q 110% → 130%、E 50 → 70、W 50% → 70% 后 +1.36 / +1.19；配上动作条和特效后 +1.73 / +1.38（同包韦鲁斯 +1.63 / +1.91、烬 +1.43 / +2.08） |
 | 亚索联动 | 被动的挑飞是亚索大招要的击飞：莎弥拉在下路时亚索大招每局对英雄放 0.25 次（同批原版枪手 0.35，韦鲁斯 0.67），挑飞要先有人控住对面，不用调 |
-| 精灵图 | 10 个动作 101 帧（含画进帧里的特效）：待机、移动、开枪普攻（`attack`）、挥剑普攻（`attack_m`）、Q 开枪（`skill`）、Q 挥剑（`skill_m`）、E→W（`skill2`）、R（`ult`）、受击、死亡。第二版造型 32 × 37 px，25 色。待机 8 帧上下呼吸（剑身跟着身体整体移动，不前倾，两只靴子不动）；头像截取点 (−4, −36) |
+| 精灵图（旧版 1 倍） | 10 个动作 101 帧（含画进帧里的特效）：待机、移动、开枪普攻（`attack`）、挥剑普攻（`attack_m`）、Q 开枪（`skill`）、Q 挥剑（`skill_m`）、E→W（`skill2`）、R（`ult`）、受击、死亡。第二版造型 32 × 37 px，25 色。待机 8 帧上下呼吸（剑身跟着身体整体移动，不前倾，两只靴子不动）；头像截取点 (−4, −36) |
+| 高清帧（PPU 2.84，身体 2.2 的格子） | 2026-10-25 用 PPU 重做（用户：「下一个英雄重做萨米拉」）。设计图：Codex 照她现在的精灵和英雄联盟的样子画（[`tools/art/pack_samira_ppu.py`](tools/art/pack_samira_ppu.py)），用户选 v2 那张（「不对 应该使用这个」）；PPU 2.2 取平均把眼睛糊掉了（「太糊了 用2.84吧」），改成按原图自己的格子读回、脸的线条保留；头太大（「这头怎么这么大」）请 Codex 把头从 32% 缩到 26% 重画（[`tools/art/pack_samira_head.py`](tools/art/pack_samira_head.py)，v3）；背后的大剑是歪的（「背后的武器看起来是歪的」），[`tools/art/sword_samira_hd.py`](tools/art/sword_samira_hd.py) 把旧剑身去掉、从护手到剑尖画一把直的（6 档银色、往剑尖收窄），压在身体下面。76 × 105 格，头顶到脚底还是 37 像素（[`tools/art/design_samira_hd.py`](tools/art/design_samira_hd.py)），用户看过大小后「保持 100%」。动作：Codex 照旧版同一帧整帧重画（[`tools/art/pack_samira_actions.py`](tools/art/pack_samira_actions.py)，41 张，重复的姿势只画一次），每格按 5.5 px 一格、从站立点和脚底线读回（[`tools/art/casts_samira_hd.py`](tools/art/casts_samira_hd.py)）：Q 挥剑的起手 Codex 把剑换到了近侧手、W 旋转举剑那帧把她画小了一号，这两帧换成剑普攻的起手（远侧手高举大剑，剑永远在同一只手）；跑步按脸的位置对齐（Codex 有一帧偏了 12 格），读回留下的 1–3 格小洞补上。导出 [`tools/art/rig_samira_hd.py`](tools/art/rig_samira_hd.py)：待机底帧就是设计图，画进帧里的枪口火光、半月斩、R 两把枪的火光跟着新枪口挪（`samira_bake.json`，R 的火光左右朝向分开量），待机和选人卡轮播由 `hero_reels.py` 从动作里切。新枪口比旧版高约 3 像素，子弹高度不变（再高会斜着飞向目标）。头像点 (−4, −36) 不变；头顶到 −33.3，选人卡加 `banpick_center` −6。装进游戏后她显得细（「我怎么感觉身体有点细啊 和原版画风不符」），加宽身体的试验被否（「不不不 你方向错了 感觉降低像素就行了」「泽丽之前也一样 但是后面调整好了」——10 月 13 日 PPU 英雄统一到泽丽的画风、约 2.2 格一像素那次）：按 2.84 画好的帧原样保留（`ORIG_PPU`），由 [`tools/art/ppu_restyle.py`](tools/art/ppu_restyle.py) 降到 2.2 格一像素（2.84 / 2.2 / 1.8 / 1.5 对比图里用户选「用 2.2」，[`tools/art/review_samira_ppu.py`](tools/art/review_samira_ppu.py)），和金克丝、拉克丝、阿狸、安妮一样。2.2 的格子把她的嘴（深色唇线压在红唇上）投成一道深褐红的斜杠、一个像素的绿眼睛也投没了（「这嘴也太丑了」），用户：「你可以其他地方模糊点 脸做好点啊」——帧留在 2.84 的格子上，全身按 2.2 的格子取色再铺回原格子（`look`），脸（头发里的那块皮肤连同它围住的眼睛、眼罩、伤疤、鼻子、嘴，外扩一像素，[`tools/art/face_samira_hd.py`](tools/art/face_samira_hd.py)：受击闪白的那帧先去掉白再找，倒下第一帧手给范围）原样放回——认可过的 2.84 的脸配 2.2 的身体，像亚索的高清头配身体那样；铺回后 3 像素以内的封闭小洞补上；特效原样叠在上面。设计图的头比 Codex 画的每个动作都大一号（头顶到下巴 33 行，动作 28–31 行），待机和动作之间头一大一小（「现在头还会变一大一小」）：待机改用 Codex 自己画的站姿——剑 Q 收招那帧（`rig_samira_hd.py` 的 `IDLE`），尺寸保持 100%。头顶到 −34.0，选人卡 `banpick_center` −6 → −5 |
 | 特效 | Codex 生图的 23 张（`import_samira.py` 缩成游戏像素）：`league_samira_fx` 普攻、Q、R 的子弹和命中，挥剑、Q 剑斩、E、W 的命中，挑飞，E 击杀刷新的金光，头顶的评价字母 E D C B A S、升级闪光和到 S 的爆闪；`league_samira_big` W 绕身旋转的剑刃火环、R 身边的枪火和玫瑰花瓣；画进她自己动作帧里的：普攻和 Q 的枪口火光、R 两把枪的火光、挥剑的火焰弧光、Q 的半月斩、E 冲刺的拖尾 |
 | 音效 | 英雄联盟的音效和配音（`tools/lol/extract_samira.py`）：开枪、挥剑、命中，评价升级和到 S，Q 上膛、开枪、挥剑、命中，E 冲刺、命中，W 旋转、命中，R 开始、连射、每一枪；Q（开枪、挥剑各一句）、E、R 的中文配音。版权属于 Riot Games，**不提交到仓库**，按下面的命令在本地生成 |
 | 图标 | 官方技能图标（Q / E / R），从本地客户端提取，缩到 64×64 |
@@ -112,7 +113,16 @@ python tools/lol/native_pose.py assets/source/samira/poses.json --out <渲染文
 python tools/art/rig_samira.py          # 动作：每帧都是造型本身，手臂、腿、武器按下面的做法摆；--review <文件夹> 先看
 python tools/art/import_samira.py       # 特效；--raw assets/source/samira/codex_fx 先把生图原稿缩成游戏尺寸的原尺寸条
 python tools/art/import_native.py --hero samira   # 动作条 + 画进帧里的特效（assets/source/native/samira_bake.json）
-python tools/art/preview_samira.py
+python tools/art/preview_samira.py     # 逐帧预览（高清帧）、特效预览、演示 GIF
+# PPU 2.84 重做（2026-10-25）：
+python tools/art/pack_samira_ppu.py --out <文件夹>       # 给 Codex 的设计图包（照她现在的精灵 + 英雄联盟的样子）
+python tools/art/pack_samira_head.py --out <文件夹>      # 头缩到 26% 的重画包
+python tools/art/design_samira_hd.py                   # Codex 的 v3 原图（hd/raw/samira-v3.png）按自己的格子读回、剑理直 -> hd/design.png
+python tools/art/pack_samira_actions.py --out <文件夹>   # 给 Codex 的动作包（照旧版同一帧整帧重画）
+python tools/art/rig_samira_hd.py                      # Codex 的交付（hd/casts）读回到设计图上 -> 原始条和 1 倍图（PPU 2.84）
+python tools/art/ppu_restyle.py --hero samira && python tools/art/ppu_hd.py --hero samira && python tools/art/hero_reels.py --hero samira
+python tools/art/review_samira_ppu.py --out <文件夹>    # 几档像素密度并排（2.84 / 2.2 / 1.8 / 1.5），和同批英雄同一游戏尺寸
+python tools/art/face_samira_hd.py --review <文件夹>     # 每帧保留原样的脸的范围（品红框）
 ```
 
 美术（原画的提示词见 [`assets/source/samira/PICTURE_PROMPT.md`](../../assets/source/samira/PICTURE_PROMPT.md)，造型的见 [`MODEL_PROMPTS.md`](../../assets/source/samira/MODEL_PROMPTS.md)，动作的见 [`MODEL_STRIPS.md`](../../assets/source/samira/MODEL_STRIPS.md)，特效的见 [`PROMPTS_FX.md`](../../assets/source/samira/PROMPTS_FX.md)；Codex 的交付在 [`codex_picture/`](../../assets/source/samira/codex_picture)、[`codex_model/`](../../assets/source/samira/codex_model)、[`codex_strips/`](../../assets/source/samira/codex_strips)、[`codex_fx/`](../../assets/source/samira/codex_fx)；附图包由 `tools/art/pack_samira_*.py` 在本地生成，英雄联盟的渲染和 oppi 的图不进仓库）：
@@ -126,4 +136,4 @@ python tools/art/preview_samira.py
 - 红色方（用户：「注意红色方和蓝色方的技能特效不要不对称 导致歪的」）：游戏只会按朝向镜像英雄自己的动作帧、不镜像特效图，所以有朝向的特效全部画进她的动作帧（`samira_bake.json`）：普攻、Q、R 两把枪的枪口火光，挥剑的弧光，Q 的半月斩，E 冲刺的拖尾——技能数据里不再单独播放 Q 斩和 E 拖尾。三种子弹做成严格上下对称（朝左飞时转半圈和左右翻转一样）；挂在她身上、不管朝哪边都播放的（W 剑环、R 枪火、E 刷新、升级和到 S 的闪光）做成严格左右对称，剑环和枪火在她身体上方那半圈掏空，看起来从她身后绕过；评价字母不镜像。子弹从她身上 8 格高处出发、前 2–3 tick 不显示，飞过枪口才出现（太高会斜着飞向目标脚下）。演示 GIF 后半段她转身朝左打，就是红色方的样子。
 - 10 月 7 日精修（「你把我44行的精修一下吧」）：头部按用户的图重画——两侧螺旋卷发、头顶两个小蝴蝶结、刘海和呆毛，裙子上的金饰减少；剪刀环上的爱心修好（清理步骤曾把它打成棋盘格），轮廓里的透明小洞补上。站姿照最初的设计微微侧身（「你现在站的太正了」）：大腿并拢、近腿直立、靴子朝前，远腿的脚尖朝右，脸的五官往右转一格，左脸一缕鬓发、近眼加眼角睫毛（「左边脸部有点奇怪吧 再精致一点」）。跑步改成英雄联盟那样一脚着地、另一只脚往后踢起（「走路姿势也有点奇怪」），空着的左手不再摆（「左手摇来摇去要变形了」），剪刀留在身后。
 
-逐帧预览：[`docs/preview/league_samira_frames.png`](../preview/league_samira_frames.png?v=1014g)，特效：[`docs/preview/league_samira_effects.png`](../preview/league_samira_effects.png?v=1014g)。
+逐帧预览：[`docs/preview/league_samira_frames.png`](../preview/league_samira_frames.png?v=1026sm)，特效：[`docs/preview/league_samira_effects.png`](../preview/league_samira_effects.png?v=1014g)。

@@ -253,7 +253,7 @@ GitHub Actions（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)，Window
 | <img src="docs/heroes/img/league_mel.png" width="32"> | [梅尔](docs/heroes/league_mel.md)<br>Mel | ADC | 耀光齐射 · 阳炎涡旋 · 大招 鎏金蚀日 | [梅尔附加包](addons/league_mel/README.md) | PPU 1.5 |
 | <img src="docs/heroes/img/league_missfortune.png" width="32"> | [厄运小姐](docs/heroes/league_missfortune.md)<br>Miss Fortune | ADC | 被动 厄运的眷顾 · 一箭双雕 · 枪林弹雨 · 大招 弹幕时间 | [目标标记附加包](addons/league_marks/README.md) | — |
 | <img src="docs/heroes/img/league_nilah.png" width="32"> | [尼菈](docs/heroes/league_nilah.md)<br>Nilah | ADC | 游刃万变 · 纵情逐流 / 轻纱飞漾 · 大招 神恩激荡 | [尼菈附加包](addons/league_nilah/README.md) | PPU 1.98 |
-| <img src="docs/heroes/img/league_samira.png" width="32"> | [莎弥拉](docs/heroes/league_samira.md)<br>Samira | ADC | 被动 悍勇本色 · 交火 · 狂飙 · 大招 炼狱扳机 | [莎弥拉边走边射附加包](addons/league_samira_r/README.md) | — |
+| <img src="docs/heroes/img/league_samira.png" width="32"> | [莎弥拉](docs/heroes/league_samira.md)<br>Samira | ADC | 被动 悍勇本色 · 交火 · 狂飙 · 大招 炼狱扳机 | [莎弥拉边走边射附加包](addons/league_samira_r/README.md) | PPU 2.84 |
 | <img src="docs/heroes/img/league_sivir.png" width="32"> | [希维尔](docs/heroes/league_sivir.md)<br>Sivir | ADC | 被动 敏锐疾行 · 回旋之刃 · 法术护盾 · 大招 狩猎 | — | — |
 | <img src="docs/heroes/img/league_smolder.png" width="32"> | [斯莫德](docs/heroes/league_smolder.md)<br>Smolder | ADC | 被动 龙之研习 · 超级灼热龙息 · 阿嚏！ / 扑棱，扑棱，扑棱！ · 大招 妈----！ | [斯莫德附加包](addons/league_smolder/README.md) | PPU 1.5 |
 | <img src="docs/heroes/img/league_tristana.png" width="32"> | [崔丝塔娜](docs/heroes/league_tristana.md)<br>Tristana | ADC | 被动 瞄准 · 爆炸火花 · 火箭跳跃 · 大招 毁灭射击 | [参与击杀附加包：金克丝、崔丝塔娜、易、图奇](addons/league_takedowns/README.md) | — |
