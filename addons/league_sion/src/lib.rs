@@ -6,7 +6,8 @@
 //!
 //! - **死亡荣耀**：每条命第一次受到致命伤害时不倒下（本包一直给他挂着 `league_sion_p_guard`「不死」，生命停在 1 就触发），
 //!   变成亡灵 `z_t` tick：生命回满，之后每 tick 均匀流失（`z_t` tick 后归零），攻速 +`z_as`%、吸血 `z_vamp`%，
-//!   不能放技能（`BlockSkill`），身上挂 `league_sion_p_zombie`（画面）。时间到就倒下，击杀算最后打他的那个人。
+//!   不能放技能（`BlockSkill`），身上挂 `league_sion_p_zombie`（画面）。时间到就倒下，击杀算最后打他的那个人；
+//!   亡灵不是不死的（0.1.2）：血被打光就照常阵亡。
 //!   别人给的「不死」（索拉卡 W、基兰符文、凯尔等）在身上时不触发：那段时间他本来就死不了。
 //! - **灵魂熔炉（被动）**：每击杀一个单位永久 +`k_u` 最大生命，英雄 +`k_c`（英雄联盟：小兵 4、英雄和大型野怪 15）；
 //!   技能击杀也算，阵亡后不丢（主包数据的版本只算普攻击杀，阵亡就没了）。
@@ -27,7 +28,7 @@ pub mod zombie;
 
 const ID: &str = "league_sion";
 /// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是 league_addons 的。
-const VERSION: &str = "0.1.1";
+const VERSION: &str = "0.1.2";
 
 /// 「不死」挂多久、多久续一次（一直挂着，复活用掉前不断）。
 pub const GUARD_T: usize = 30;
@@ -218,8 +219,10 @@ impl Glory {
         self.ready = false;
         self.zombie = Some(now);
         sim.entity_remove_buff(me, &sn("p_guard"));
+        // mortal (0.1.2, the user 2026-10-25: 「塞恩得尸体太变态 死了比活着的时候还能扛」): the zombie was undying for all
+        // its z_t ticks - full health, 100% life steal and nothing could kill it before the time ran out; League's zombie
+        // dies to damage, its health running down meanwhile
         let mut z = BuffV1::timed(&sn("p_zombie"), self.p.z_t + 2);
-        z.undying = true;
         z.attack_speed_mult = self.p.z_as as i32;
         z.vamp = self.p.z_vamp as i32;
         sim.add_buff(me, &z);
