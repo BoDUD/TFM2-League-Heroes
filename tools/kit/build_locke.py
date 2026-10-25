@@ -96,7 +96,7 @@ P = {
 
 
 # the numbers addons/league_locke reads from passive.params (its Params, in this order)
-NATIVE_KEYS = ("p_miss", "w_t", "w_cost", "w_back", "r_t", "r_exec", "r_exec_step", "r_drop", "pick_r", "r_cap")
+NATIVE_KEYS = ("p_miss", "w_t", "w_cost", "w_back", "r_t", "r_exec", "r_exec_step", "r_drop", "pick_r", "r_cap", "p_win")
 
 
 def lp(path):
@@ -390,7 +390,9 @@ def build(p):
 
     # ------------------------------------------------------------------ attack
     stake = magic(p["p_dmg"], p["p_ap"])
-    blow = combine(sfx("a"), homing("a_blow", "Enemy", [attack(0, 100), stake, view("a_hit"), tsfx("a_hit")]),
+    # the add-on adds the missing-health part of Silver Stake on the unit marked `p_hit`
+    blow = combine(sfx("a"), homing("a_blow", "Enemy", [attack(0, 100), stake, buff("p_hit", 3) if native else None,
+                                                        view("a_hit"), tsfx("a_hit")]),
                    homing("a_tw", "EnemyChampion", [pop(), track()]))
     # the pursuit: after E the next attack dashes through the target (League: to it, hitting all on the way)
     pursuit = combine(*rm("e_next"), cview("e_dash"), sfx("e_dash"),
