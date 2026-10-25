@@ -2,7 +2,7 @@
 """league_samira redone at PPU 2.84 (the user, 2026-10-25: 「下一个英雄重做萨米拉」): the design is Codex's v3 picture (League's
 look, the head made smaller - 「这头怎么这么大」) read on its own squares and cut to 77 x 105 (tools/art/design_samira_hd.py,
 the greatsword straightened by tools/art/sword_samira_hd.py), every action Codex's whole-frame redraw read onto it
-(tools/art/casts_samira_hd.py). The standing idle_base is the design itself; the idle and the ban/pick card are cut from
+(tools/art/casts_samira_hd.py). The standing idle_base is Codex's own stance frame (IDLE); the idle and the ban/pick card are cut from
 the actions by tools/art/hero_reels.py. Her muzzle flashes, sword arcs and the dash's dust stay baked as before
 (assets/source/native/samira_bake.json, Rig.bake), moved to the new muzzles and hands (her guns at shoulder height now,
 R's two flashes each to its own gun).
@@ -33,6 +33,10 @@ DESIGN_ROWS = 105
 ROWS = DESIGN_ROWS / PPU
 SQUARE = XZ.SQUARE
 HD = os.path.join(R.ROOT, "assets", "source", HERO, "hd")
+# the standing frame: Codex's own redraw of her stance (Flair's last frame, hands on hips, the sword on her back) -
+# the design's head is a size bigger than every action's (crown to chin 33 rows against 28-31), so idling between
+# actions her head grew and shrank (「现在头还会变一大一小」)
+IDLE = "skill_m_8"
 PAD = (110, 170, 70, 30)        # the canvas round the design: R's guns out to both sides, the Q's thrust ahead
 
 
@@ -103,7 +107,7 @@ def frames(rig):
             continue
         n = len(sheet[tag])
         if tag == "idle_base":
-            fr = [on_grid(rig, rig.D.d0, 0, 0) for _ in range(n)]
+            fr = [on_grid(rig, *casts[IDLE]) for _ in range(n)]
         else:
             fr = [on_grid(rig, *casts[f"{tag}_{k + 1}"]) for k in range(n)]
             if tag == "hit":
