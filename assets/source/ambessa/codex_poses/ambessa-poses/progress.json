@@ -1,0 +1,154 @@
+{
+  "status": "all_21_generated_precision_review_required",
+  "generated": 21,
+  "total": 21,
+  "items": [
+    {
+      "name": "a1_wind",
+      "pose": "ATTACK 1 WIND-UP - twisting back toward the image left, the NEAR fist raised behind her near shoulder with its blade swung up to the upper left (never over the face), the far blade hanging at her side, feet planted apart.",
+      "index": 3,
+      "status": "generated_needs_precision_review",
+      "file": "ambessa-pose-a1_wind.png"
+    },
+    {
+      "name": "a1_slash",
+      "pose": "ATTACK 1 SLASH - pressing forward in a lunge, the NEAR blade cut down from the upper left to the lower right in front of her belly (its tip low on the image right), the far arm pulled back.",
+      "index": 4,
+      "status": "generated_needs_precision_review",
+      "file": "ambessa-pose-a1_slash.png"
+    },
+    {
+      "name": "a2_wind",
+      "pose": "ATTACK 2 WIND-UP - twisting toward the image right, the FAR fist raised above her far shoulder with its blade pointing up (above her head on the right, never over the face), the near blade hanging in front of her.",
+      "index": 5,
+      "status": "generated_needs_precision_review",
+      "file": "ambessa-pose-a2_wind.png"
+    },
+    {
+      "name": "a2_slash",
+      "pose": "ATTACK 2 SWEEP - the FAR blade swept across in front of her from the upper right (its tip pointing to the image right and a little down), the body pressing forward, the near blade swung back.",
+      "index": 6,
+      "status": "generated_needs_precision_review",
+      "file": "ambessa-pose-a2_slash.png"
+    },
+    {
+      "name": "q_wind",
+      "pose": "CUNNING SWEEP WIND-UP - squatting deep and low, BOTH arms spread out low to the sides, the two blades swung out at knee height on either side of her (their tips pointing outward and a little up), the chains swinging with them.",
+      "index": 7,
+      "status": "generated_needs_precision_review",
+      "file": "ambessa-pose-q_wind.png"
+    },
+    {
+      "name": "q_sweep",
+      "pose": "CUNNING SWEEP - standing tall on her toes, BOTH arms flung straight out to the sides at shoulder height, the two blades sweeping out and up on either side (the near blade's tip to the upper left, the far blade's to the upper right), the far leg stepping forward.",
+      "index": 8,
+      "status": "generated_needs_precision_review",
+      "file": "ambessa-pose-q_sweep.png"
+    },
+    {
+      "name": "q2_leap",
+      "pose": "SUNDERING SLAM LEAP - jumping (the feet about 10 squares off the ground), BOTH blades raised high over her head together (their tips up and back to the upper left, never over the face), knees drawn up.",
+      "index": 9,
+      "status": "generated_needs_precision_review",
+      "file": "ambessa-pose-q2_leap.png"
+    },
+    {
+      "name": "q2_slam",
+      "pose": "SUNDERING SLAM - landing in a deep crouch, BOTH blades slammed down together onto the ground in front of her (on the image right, their tips on the ground line), the body thrown forward.",
+      "index": 10,
+      "status": "generated_needs_precision_review",
+      "file": "ambessa-pose-q2_slam.png"
+    },
+    {
+      "name": "w_guard",
+      "pose": "REPUDIATION BRACE - the FAR fist raised over her head holding its blade across above her head as a guard (the blade lying flat over the head, its tip to the image left, never over the face), the NEAR blade held across in front of her belly, hunched, knees bent, braced.",
+      "index": 11,
+      "status": "generated_needs_precision_review",
+      "file": "ambessa-pose-w_guard.png"
+    },
+    {
+      "name": "w_slam",
+      "pose": "REPUDIATION SLAM - squatting deep, BOTH blades slammed down onto the ground on either side of her (the near one low on the image left, the far one low on the image right, their tips on the ground).",
+      "index": 12,
+      "status": "generated_needs_precision_review",
+      "file": "ambessa-pose-w_slam.png"
+    },
+    {
+      "name": "e_lash1",
+      "pose": "LACERATE 1 - both arms flung out to the sides, the two blades WHIRLED OUT ON THEIR CHAINS and flying at her sides (the near blade out on the image left at waist height, the far blade out on the image right at shoulder height), each chain pulled straight from the fist to the blade's handle, turning a little to the right.",
+      "index": 13,
+      "status": "generated_needs_precision_review",
+      "file": "ambessa-pose-e_lash1.png"
+    },
+    {
+      "name": "e_lash2",
+      "pose": "LACERATE 2 - half a turn on, the arms swapped over, the blades whirled round on their chains to the other side (the near blade low on the image right, the far blade high on the image left above her head, never over the face), the chains pulled straight.",
+      "index": 14,
+      "status": "generated_needs_precision_review",
+      "file": "ambessa-pose-e_lash2.png"
+    },
+    {
+      "name": "step",
+      "pose": "DRAKEHOUND'S STEP - a dashing lunge forward to the image right, the body leaning far forward, the front leg bent, the back leg pushing straight, both blades trailing behind her (their tips low on the image left, off the ground).",
+      "index": 15,
+      "status": "generated_needs_precision_review",
+      "file": "ambessa-pose-step.png"
+    },
+    {
+      "name": "r_grab",
+      "pose": "PUBLIC EXECUTION GRAB - the FAR fist thrust high over her head, hoisting her victim (its blade in the fist, tip up), the NEAR blade hanging at her side, standing tall on her toes.",
+      "index": 16,
+      "status": "generated_needs_precision_review",
+      "file": "ambessa-pose-r_grab.png"
+    },
+    {
+      "name": "r_slam",
+      "pose": "PUBLIC EXECUTION SLAM - dropping into a deep crouch, almost kneeling, the FAR hand driven down in front of her (pinning her victim into the ground on the image right), the NEAR blade hewn down onto the ground in front of her (its tip on the ground).",
+      "index": 17,
+      "status": "generated_needs_precision_review",
+      "file": "ambessa-pose-r_slam.png"
+    },
+    {
+      "name": "run1",
+      "pose": "RUN 1 - a long stride: the FAR leg reaching forward with its foot landing, the NEAR leg stretched back, leaning forward, both blades trailing behind at her sides (tips low on the image left, off the ground).",
+      "index": 18,
+      "status": "generated_needs_precision_review",
+      "file": "ambessa-pose-run1.png"
+    },
+    {
+      "name": "run2",
+      "pose": "RUN 2 - the near leg under the body carrying her, the FAR knee lifted forward, the body one square higher, both blades still trailing behind.",
+      "index": 19,
+      "status": "generated_needs_precision_review",
+      "file": "ambessa-pose-run2.png"
+    },
+    {
+      "name": "run3",
+      "pose": "RUN 3 - a long stride: the NEAR leg reaching forward with its foot landing, the FAR leg stretched back, leaning forward, both blades trailing behind.",
+      "index": 20,
+      "status": "generated_needs_precision_review",
+      "file": "ambessa-pose-run3.png"
+    },
+    {
+      "name": "run4",
+      "pose": "RUN 4 - the far leg under the body carrying her, the NEAR knee lifted forward, the body one square higher, both blades trailing behind.",
+      "index": 21,
+      "status": "generated_needs_precision_review",
+      "file": "ambessa-pose-run4.png"
+    },
+    {
+      "name": "d_kneel",
+      "pose": "COLLAPSE - struck down onto both knees (the shins flat on the ground behind), the body sagging back, both hands opening and hanging, the two blades dropped flat on the ground at her sides.",
+      "index": 22,
+      "status": "generated_needs_precision_review",
+      "file": "ambessa-pose-d_kneel.png"
+    },
+    {
+      "name": "d_slump",
+      "pose": "SLUMP - still kneeling, slumping forward, the body bent over, the head low (never turned), both arms hanging limp to the ground, the two blades lying flat on the ground.",
+      "index": 23,
+      "status": "generated_needs_precision_review",
+      "file": "ambessa-pose-d_slump.png"
+    }
+  ]
+}
