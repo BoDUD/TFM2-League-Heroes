@@ -1496,10 +1496,6 @@
                         "type": "Combine",
                         "effects": [
                           {
-                            "type": "ViewEffect",
-                            "name": "league_skarner_r_tails"
-                          },
-                          {
                             "type": "LinearProjectile",
                             "name": "league_skarner_r_lash",
                             "penetrate": true,
@@ -1602,6 +1598,14 @@
       "tag": "q_rock",
       "repeat": true,
       "z": 2
+    },
+    {
+      "type": "Animated",
+      "name": "league_skarner_r_lash",
+      "anim": "asset/league/effects/league_skarner_big",
+      "tag": "r_spike",
+      "repeat": true,
+      "z": 2
     }
   ],
   "view_effects": [
@@ -1676,14 +1680,6 @@
       "tag": "r_hit",
       "z": 2,
       "is_follow": true
-    },
-    {
-      "type": "Animation",
-      "name": "league_skarner_r_tails",
-      "anim": "asset/league/effects/league_skarner_big",
-      "tag": "r_tails",
-      "z": 2,
-      "is_follow": false
     }
   ],
   "view_buffs": [
@@ -1742,6 +1738,14 @@
       "tag": "r_haste",
       "repeat": true,
       "z": -1
+    },
+    {
+      "type": "Animated",
+      "name": "league_skarner_rock",
+      "anim": "asset/league/effects/league_skarner_big",
+      "tag": "q_held",
+      "repeat": true,
+      "z": 3
     }
   ]
 }

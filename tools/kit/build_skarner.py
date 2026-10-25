@@ -324,7 +324,7 @@ def build(p):
     lash = line("r_lash", p["r_speed"], p["r_len"], p["r_w"], "EnemyChampion", True, struck)
     # R -> Upheaval: holding the boulder, it flies at the target first (League)
     r_cast = combine(sw("rock", toss()), anim("ult", p["r_dur"]), sfx("r"), voice("vo_r", p),
-                     delayed(p["r_rel"] - 1, alive(view("r_tails"), lash)))
+                     delayed(p["r_rel"] - 1, alive(lash)))
 
     # ------------------------------------------------------------------ attack
     blow = combine(sfx("a"), homing("a_blow", "Enemy", [attack(0, 100), view("a_hit"), tsfx("a_hit"),
@@ -348,11 +348,11 @@ def build(p):
     B_ = lambda name, anim_=FX, z=3, tag=None: {"type": "Animated", "name": n(name), "anim": anim_, "tag": tag or name,
                                                 "repeat": True, "z": z}
     views_e = [E("a_hit"), E("p_burst"), E("q_hit"), E("q_land", FX, 1, False), E("w_quake", BIG, -1, False),
-               E("w_hit"), E("e_hit"), E("e_slam"), E("r_hit"), E("r_tails", BIG, 2, False)]
+               E("w_hit"), E("e_hit"), E("e_slam"), E("r_hit")]
     views_b = [B_("p_quake", FX, 3, "p_quake"), B_("q_slow", FX, -1, "slow"), B_("w_slow", FX, -1, "slow"),
                B_("w_on", FX, 3, "w_shield"), B_("e_stun", FX, 3, "stun"), B_("r_held", FX, 3, "r_held"),
-               B_("r_haste", FX, -1, "r_haste")]
-    views_p = [B_("q_throw", FX, 2, "q_rock")]
+               B_("r_haste", FX, -1, "r_haste"), B_("rock", BIG, 3, "q_held")]
+    views_p = [B_("q_throw", FX, 2, "q_rock"), B_("r_lash", BIG, 2, "r_spike")]
     extra = {}
     if nat:   # addons/league_skarner: the League rules the data cannot read
         extra["passive"] = {"passive_ref": "league_skarner:sovereign", "params": {k: p[k] for k in NATIVE_KEYS}}
