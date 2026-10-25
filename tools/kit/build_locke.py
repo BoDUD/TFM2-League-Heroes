@@ -46,7 +46,13 @@ what it took, executes marked champions under r_exec% of their maximum health (+
 the seals for the whole game and drops the artifact where a champion was sealed for him to pick up; and swaps his
 frames for the W look.
 Timings: drafts until the frames exist (tools/art/rig_locke.py retimes them).
-Numbers: League 16.21 read into the mid assassin range (league_katarina, league_talon); balance below.
+Numbers: League 16.21 read into the mid assassin range (league_katarina, league_talon), balanced on the classic-SDK
+simulations (kd.py --lane 2 against the five base mages, C:/t/lk_sim, 2026-10-26; league_katarina the control: +1.73 /
++1.64 on seeds 1-8 / 9-16): the draft (hp 980, attack 100, an execute check every 20 ticks at 150 + 50% AP) +3.36 -
+its execute pulses also counted their heal-back as his healing; checks every 30 ticks at 100 + 40% AP +3.27; Q / E
+damage cut +3.04; hp 940 and W's heal 40 + 20% +2.08 (without the execute at all +0.74: it is worth ~1.3 kills); P =
+hp 900, attack 92, W's heal 20 + 10% and attack speed 35%: +1.60 / +1.62 (R at 160 + 60% fell to +0.75). The add-on's
+rules cannot run in that engine (Native effects dropped).
 """
 import argparse
 import json
@@ -66,7 +72,7 @@ BIG = "asset/league/effects/league_locke_big"
 # are sealed (executed); picking it up adds threshold and refunds cooldown, cd 120-80.
 P = {
     # stats (the pack's mid assassins: league_katarina hp 1020 +92, atk 112 +13, ap 40 +26, def 32 +8, mr 24 +4)
-    "hp": 980, "hp_g": 92, "atk": 100, "atk_g": 12, "ap": 40, "ap_g": 24, "def": 30, "def_g": 8, "mr": 24, "mr_g": 4,
+    "hp": 900, "hp_g": 92, "atk": 92, "atk_g": 12, "ap": 40, "ap_g": 24, "def": 30, "def_g": 8, "mr": 24, "mr_g": 4,
     "ms": 1100, "ms_g": 13,
     "atk_range": 23000, "atk_dur": 24, "atk_cd": 55, "atk_st": 8,
     # the controller
@@ -74,19 +80,19 @@ P = {
     # passive: Silver Stake (on-hit magic)
     "p_dmg": 15, "p_ap": 15,
     # passive: W Soul Ignition
-    "w_cd": 960, "w_t": 240, "w_dur": 20, "w_as": 45, "w_ms": 40, "w_cost": 2, "w_heal": 60, "w_heal_ap": 30,
+    "w_cd": 960, "w_t": 240, "w_dur": 20, "w_as": 35, "w_ms": 40, "w_cost": 2, "w_heal": 20, "w_heal_ap": 10,
     # skill: Q Ritual Nails
     "q_cd": 480, "q_range": 50000, "q_dur": 30, "q_at": 8, "q_gap": 6, "q_speed": 6000, "q_y": -3000,
-    "q_dmg": 45, "q_ap": 25, "q_slow": 15, "q_slow_t": 90, "q_mark_t": 240,
-    "q_pop": 30, "q_pop_ap": 15, "q_two": 25, "q_three": 50, "q_go_t": 120,
+    "q_dmg": 35, "q_ap": 20, "q_slow": 15, "q_slow_t": 90, "q_mark_t": 240,
+    "q_pop": 25, "q_pop_ap": 12, "q_two": 25, "q_three": 50, "q_go_t": 120,
     # skill2: E Ashen Pursuit
     "e_cd": 600, "e_range": 45000, "e_tgt": "EnemyChampionRecentlyAttacked", "e_dur": 16, "e_at": 6, "e_r": 20000,
-    "e_dmg": 60, "e_ap": 30, "e_next": 180, "e_dash": 70, "e_dash_ap": 35, "e_speed": 4000, "e_go_t": 120,
+    "e_dmg": 50, "e_ap": 25, "e_next": 180, "e_dash": 55, "e_dash_ap": 30, "e_speed": 4000, "e_go_t": 120,
     # the takedown window (league_viego's)
     "p_win": 180,
     # ult: R Purgatory
     "r_cd": 3600, "r_range": 50000, "r_dur": 30, "r_rel": 14, "r_travel": 18, "r_r": 25000, "r_dmg": 200, "r_ap": 80,
-    "r_slow": 50, "r_slow_t": 90, "r_t": 240, "r_p": 20, "r_ex": 150, "r_ex_ap": 50, "r_ex_step": 40, "r_cap": 50,
+    "r_slow": 50, "r_slow_t": 90, "r_t": 240, "r_p": 30, "r_ex": 100, "r_ex_ap": 40, "r_ex_step": 40, "r_cap": 50,
     "r_go_t": 120,
     # his spoken lines, at most one every vo_gap ticks
     "vo_gap": 600,
