@@ -1,6 +1,6 @@
 """Build league_ambessa.data_champion (top, Melee fighter, AD: Ambessa, the Matriarch of War) from the parameters P.
 
-    python tools/kit/build_ambessa.py [--set key=value ...] [--out file] [--params json] [--nodes]
+    python tools/kit/build_ambessa.py [--set key=value ...] [--out file] [--params json] [--nodes] [--native]
 
 Kit (2026-10-25, the plan's group J: TOP; 「有连招要做连招」). The draft takes the defaults of the last heroes (layout A
 - Q / E / R, the fourth button folded in): the user may still pick otherwise.
@@ -38,6 +38,19 @@ nothing (a 3-tick idle). Flags die with her: a respawned Ambessa has every butto
           R -> Q -> Q2, League's all-in) and Repudiation ready (`w_cd` off).
   controller An AddCasted pulse on her every ctl_p ticks (league_sejuani's, hung by her attack and the ult, only for
           Ambessa herself: `own`): Sundering Slam, R's Q, Repudiation.
+The add-on copy (--native, addons/league_ambessa: everything League does that the data cannot; the user: 「和原版不一样的
+地方要做附加包」):
+  Q   the sweep marks what it hits (`q_edge` on them, `q_on` on her) without the % max-health part; the add-on deals
+      q_pct% of maximum health only to those at the blade's edge (q_tip% of q_r or farther from her).
+  Q2  the line marks what it hits (`q2_first`, `q2_on` on her) and has no twin on the action's target; the add-on deals
+      q2_pct% of maximum health to the first enemy on the line (the one nearest her).
+  W   the brace raises `w_on` on her; the add-on raises `w_hit` when an enemy champion or monster strikes her
+      meanwhile, and the slam deals w_pct% of maximum health to everyone it hits only then (main pack: champions,
+      always).
+  R   the cast marks its champion (`r_aim`) and raises `r_go` on her, nothing else on r_go: the add-on blinks her to the
+      farthest enemy champion on the line from her through it (r_range long, r_w half-wide), pins it (r_sup), r_slam
+      ticks later slams it (r_dmg + r_ratio% AD + r_pct% max health, r_stun) and fires the combos (Q -> Q2,
+      Repudiation ready) and the empowered attack itself.
 Sprite tags: idle run attack skill (the sweep) slam (Q2) skill2 (the lash) w (the brace and slam) ult step hit dead.
 Timings: drafts until the frames exist.
 Numbers: League's Ambessa (recalled in a session without the client: check them against her bins with the
@@ -88,7 +101,15 @@ P = {
     "r_ratio": 90, "r_pct": 6, "r_stun": 36, "r_pen": 15,
     # her spoken lines, at most one every vo_gap ticks
     "vo_gap": 600,
+    # the add-on's (addons/league_ambessa): the blade's edge, the line's half-width
+    "q_tip": 60, "r_w": 8000,
+    "native": 0,
 }
+
+
+# the numbers the add-on reads (passive.params; addons/league_ambessa/src/lib.rs's Params)
+ADDON_KEYS = ("ctl_p", "pw_t", "pw_as", "q_r", "q_tip", "q_pct", "q2_pct", "r_range", "r_w", "r_sup", "r_slam",
+              "r_dmg", "r_ratio", "r_pct", "r_stun")
 
 
 def lp(path):
@@ -232,6 +253,7 @@ def line(name, length, width, target, effects, delay=2):
 
 def build(p):
     ctl_p = p["ctl_p"]
+    native = bool(p["native"])
 
     def busy(t):
         return refresh("busy", t)
@@ -247,18 +269,25 @@ def build(p):
     # ------------------------------------------------------------------ Q Cunning Sweep / Sundering Slam
     def q1_cast():
         # a hit readies the slam (q2_wait for the recast's gap, then q2_go for the slot and the controller)
-        hit = [attack(p["q_dmg"], p["q_ratio"], target_hp=p["q_pct"]), view("q_hit"), tsfx("q_hit"),
+        # the add-on: the % max-health part only at the blade's edge (`q_edge` marks, `q_on` asks it to look)
+        hit = [attack(p["q_dmg"], p["q_ratio"], target_hp=0 if native else p["q_pct"]),
+               buff("q_edge", 3) if native else None, view("q_hit"), tsfx("q_hit"),
                on_me(refresh("q2_wait", p["q2_gap"]), refresh("q2_go", p["q2_gap"] + p["q2_win"]))]
-        sweep = combine(cview("q_sweep"), sfx("q_sweep"), ahead(p["q_r"], "EnemyWithoutTower", *hit))
+        sweep = combine(cview("q_sweep"), sfx("q_sweep"), refresh("q_on", 3) if native else None,
+                        ahead(p["q_r"], "EnemyWithoutTower", *[h for h in hit if h is not None]))
         return combine(refresh("q_cd", p["q_cd"]), *rm("q_go", "q2_go", "q2_wait"), busy(p["q_dur"]),
                        anim("skill", p["q_dur"]), sfx("q"), voice("vo_q", p),
                        delayed(p["q_hit"] - 1, alive(sweep, step())))
 
     def q2_cast():
-        first = homing("q2_tw", "EnemyWithoutTower", [attack(0, 0, target_hp=p["q2_pct"])])
+        # the add-on: the bonus on the first enemy on the line (`q2_first` marks, `q2_on` asks it to look); the main
+        # pack gives it to the action's target
+        first = refresh("q2_on", 4) if native else homing("q2_tw", "EnemyWithoutTower",
+                                                         [attack(0, 0, target_hp=p["q2_pct"])])
+        mark = [buff("q2_first", 4)] if native else []
         slam = combine(sfx("q2_hit"), first,
                        line("q2_crack", p["q2_len"], p["q2_w"], "EnemyWithoutTower",
-                            [attack(p["q2_dmg"], p["q2_ratio"]), view("q2_hit"), tsfx("q2_hit")]))
+                            [attack(p["q2_dmg"], p["q2_ratio"]), *mark, view("q2_hit"), tsfx("q2_hit")]))
         return combine(*rm("q2_go", "q2_wait"), busy(p["q2_dur"]), anim("slam", p["q2_dur"]), sfx("q2"),
                        voice("vo_q2", p), delayed(p["q2_hit"] - 1, alive(slam, step())))
 
@@ -277,11 +306,17 @@ def build(p):
 
     # ------------------------------------------------------------------ W Repudiation (the controller casts it)
     def w_cast():
+        # the add-on: the bonus on everyone only when she was struck while braced (`w_on` -> `w_hit`); the main pack
+        # gives it to the champions, always
+        bonus = (sw("w_hit", combine(*rm("w_hit"), around(p["w_r"], "EnemyWithoutTower",
+                                                          attack(0, 0, target_hp=p["w_pct"]), view("w_crit"))))
+                 if native else around(p["w_r"], "EnemyChampion", attack(0, 0, target_hp=p["w_pct"])))
         slam = combine(cview("w_slam"), sfx("w_slam"),
                        around(p["w_r"], "EnemyWithoutTower", attack(p["w_dmg"], p["w_ratio"]), view("w_hit"),
                               tsfx("w_hit")),
-                       around(p["w_r"], "EnemyChampion", attack(0, 0, target_hp=p["w_pct"])))
+                       bonus, *(rm("w_on") if native else []))
         return combine(refresh("w_cd", p["w_cd"]), busy(p["w_dur"]), anim("w", p["w_dur"]), sfx("w"),
+                       *([refresh("w_on", p["w_brace"] + 2), *rm("w_hit")] if native else []),
                        voice("vo_w", p), on_me(shield(p["w_sh"], p["w_ad"], p["w_t"])), cview("w_brace"),
                        delayed(p["w_brace"], alive(slam, step())))
 
@@ -302,9 +337,12 @@ def build(p):
                     sw("own", on_me(*rm("q_cd", "w_cd"), refresh("q_go", ctl_p + 30))))
     pin = combine({"type": "Teleport"}, {"type": "Stun", "duration": p["r_sup"]}, view("r_pin"), tsfx("r_pin"),
                   delayed(p["r_slam"], alive(homing("r_slam", "EnemyChampion", [crash]), step())))
+    # the add-on: the farthest champion on the line, the blink, the pin, the slam and the combos (`r_aim` on the
+    # cast's champion, `r_go` on her)
+    go = combine(buff("r_aim", 4), on_me(refresh("r_go", 4))) if native else pin
     r_cast = combine(on_me(refresh("r_pen", None, defence_penetration=p["r_pen"])), busy(p["r_dur"]),
                      anim("ult", p["r_dur"]), sfx("r"), voice("vo_r", p),
-                     delayed(p["r_go"] - 1, alive(cview("r_blink"), pin)))
+                     delayed(p["r_go"] - 1, alive(cview("r_blink"), go)))
 
     # ------------------------------------------------------------------ attack (+ the empowered one)
     def blow(extra=()):
@@ -338,8 +376,13 @@ def build(p):
                E("q_hit"), E("q2_hit"), E("e_lash", BIG, 3), E("e_hit"), E("w_brace", FX, 3), E("w_slam", BIG, -1),
                E("w_hit"), E("r_blink", BIG, 3, False), E("r_pin"), E("r_crash", BIG, -1, False)]
     views_b = [B_("e_slow", FX, -1, "slow"), B_("pw", FX, -1, "pw_aura")]
+    extra = {}
+    if native:   # addons/league_ambessa: the League rules the data cannot read
+        views_e += [E("q_tip"), E("w_crit")]
+        extra["passive"] = {"passive_ref": "league_ambessa:matriarch",
+                            "params": {k: p[k] for k in ADDON_KEYS}}
     return {
-        "id": ID, "category": "Melee", "tags": ["AD", "Melee", "Shield", "CC"],
+        "id": ID, "category": "Melee", "tags": ["AD", "Melee", "Shield", "CC"], **extra,
         "sprite": f"asset/league/champions/{ID}", "anim_prefix": "",
         "skill_icons": [f"asset/league/icons/{ID}_skill", f"asset/league/icons/{ID}_skill2", f"asset/league/icons/{ID}_ult"],
         "stat": {"attack": p["atk"], "magic_power": 0, "hp": p["hp"], "defence": p["def"],
@@ -368,6 +411,7 @@ def main():
     ap_.add_argument("--params", help="json file with overrides")
     ap_.add_argument("--out", default=OUT)
     ap_.add_argument("--nodes", action="store_true")
+    ap_.add_argument("--native", action="store_true", help="the add-on's copy")
     a = ap_.parse_args()
     p = dict(P)
     if a.params:
@@ -377,6 +421,8 @@ def main():
         if k not in p:
             raise SystemExit(f"unknown parameter {k}")
         p[k] = type(p[k])(float(v)) if isinstance(p[k], int) else float(v)
+    if a.native:
+        p["native"] = 1
     kit = build(p)
     if a.nodes:
         for s in ("attack", "skill", "skill2", "ult"):
