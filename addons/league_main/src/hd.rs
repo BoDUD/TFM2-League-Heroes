@@ -237,6 +237,14 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // soles = 48 game px, the blades out to her sides) and its key poses after League's clips (read at each body's own
     // scale, the design's head put back) at the user's 2.0 squares a game pixel (3/4 only), shown at 85 % (SIZES)
     ("league_ambessa", 2.0, include_str!("../../../league/champions/league_ambessa#anim.fanim")),
+    // Rumble: posed by tools/art/rig_rumble.py on Codex's step-1 take B-1 as drawn (62 rows mohawk to the red feet = 36
+    // game px) and its key poses after League's clips (the design's head put back) at the user's 1.75 squares a game
+    // pixel (3/4 only; Overheat's red-hot oh_* tags league_rumble's view hook swaps in), so no SIZES row
+    ("league_rumble", 1.75, include_str!("../../../league/champions/league_rumble#anim.fanim")),
+    // Trundle: posed by tools/art/rig_trundle.py on Codex's step-0 take A-1 as drawn (85 rows mane to feet = 42.5 game
+    // px, hunched, the ice club out to 52 px) and its key poses after League's clips (the design's head put back) at the
+    // user's 2.0 squares a game pixel (3/4 only), so no SIZES row
+    ("league_trundle", 2.0, include_str!("../../../league/champions/league_trundle#anim.fanim")),
     // Neeko: posed by tools/art/rig_neeko.py on Codex's step-1 take A-1 and its key poses at the user's 2.5 squares a
     // game pixel (100 game rows quill tips to soles: 「40」, then 「1.5也挺糊的 还得往上调整吧」; 3/4 only; league_neeko's
     // view hook draws her as an ally while she is disguised), so no SIZES row
@@ -447,12 +455,14 @@ pub const EFFECTS: &[(&str, f32, &str)] = &[
     // slot's standing stamp and its rise out of the sand), the Imperial Guards' wall from the side (right-facing and the
     // mirrored left-facing tags: the add-on picks one by the wall's direction) and the Sun Disc (its rise and its stamp),
     // drawn from their step-1 designs at his 1.5
-    ("league_azir_soldier", 1.5, include_str!("../../../league/effects/league_azir_soldier#anim.fanim")),
+    ("league_azir_soldier", 2.143, include_str!("../../../league/effects/league_azir_soldier#anim.fanim")),
     ("league_azir_guard", 1.5, include_str!("../../../league/effects/league_azir_guard#anim.fanim")),
     ("league_azir_disc", 1.5, include_str!("../../../league/effects/league_azir_disc#anim.fanim")),
+    // the sand soldiers (front and side) at 2.143 = 1.5 / 0.7: drawn at 70 % (the user, 2026-10-25: 「沙皇的沙兵游戏里这么大？
+    // 得缩小一点吧」; tools/art/rig_azir.py SOLDIER_PPU)
     // the add-on's sand soldier from the side (the user: 「沙兵没攻击动作 ... 还有不面向敌人」; tools/art/
     // design_azir_side_soldier.py, from League's model): standing, rising and stabbing, right and left
-    ("league_azir_soldier_side", 1.5, include_str!("../../../league/effects/league_azir_soldier_side#anim.fanim")),
+    ("league_azir_soldier_side", 2.143, include_str!("../../../league/effects/league_azir_soldier_side#anim.fanim")),
     ("league_leblanc_clone", 2.0, include_str!("../../../league/effects/league_leblanc_clone#anim.fanim")),
     // league_zoe's stolen summoner spells (the add-on plays them; tools/art/draw_zoe_spells.py): their own pictures at
     // PPU 2 and League's icons at 3 (32 squares of the client's 64-px icon still read, 22 did not) - many tags each,
@@ -537,6 +547,9 @@ pub const UI_SIZES: &[(&str, f32)] = &[
     // Ambessa: 48 game px from her hair to her soles at PPU 2.0 (39 / 48; the blades out to 59 px wide); UI size and card
     // value set with bp_card_audit.py
     ("league_ambessa", 0.81),
+    // Trundle: 42.5 game px from his mane to his feet at PPU 2.0 but 52 wide with the ice club (the card's canvas is 59.5):
+    // at 1.0 the club and his feet ran off the card; UI size and card value set with bp_card_audit.py
+    ("league_trundle", 0.82),
 ];
 
 /// The `"lo_..."` animation names of a .fanim.

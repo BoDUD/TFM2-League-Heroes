@@ -1,0 +1,282 @@
+{
+  "rumble-pose-a_smash": {
+    "size": [
+      1254,
+      1254
+    ],
+    "requested_canvas_pass": true,
+    "alpha_levels": 256,
+    "hard_alpha_pass": false,
+    "bbox_alpha128": [
+      59,
+      169,
+      1244,
+      1175
+    ],
+    "occupied_12px_cells": 4432,
+    "uniform_12px_cells": 0,
+    "uniform_12px_fraction": 0.0,
+    "raw_byte_identical": true,
+    "sha256": "18cc98198c40334e58ae096888163d0ef172d484c141903771d8f75192e8589f"
+  },
+  "rumble-pose-a_wind": {
+    "size": [
+      1254,
+      1254
+    ],
+    "requested_canvas_pass": true,
+    "alpha_levels": 256,
+    "hard_alpha_pass": false,
+    "bbox_alpha128": [
+      157,
+      206,
+      1215,
+      1195
+    ],
+    "occupied_12px_cells": 4055,
+    "uniform_12px_cells": 0,
+    "uniform_12px_fraction": 0.0,
+    "raw_byte_identical": true,
+    "sha256": "d314f61f3814962a4399d6f2ff721c698f39ee79a5ae3708fca1ab1440d99850"
+  },
+  "rumble-pose-d_down": {
+    "size": [
+      1254,
+      1254
+    ],
+    "requested_canvas_pass": true,
+    "alpha_levels": 256,
+    "hard_alpha_pass": false,
+    "bbox_alpha128": [
+      24,
+      278,
+      1222,
+      1154
+    ],
+    "occupied_12px_cells": 4192,
+    "uniform_12px_cells": 0,
+    "uniform_12px_fraction": 0.0,
+    "raw_byte_identical": true,
+    "sha256": "e88b806802f93fd026cc1700b53c637d745bfc2a1a667de750b861f6fff7cbdc"
+  },
+  "rumble-pose-d_drop": {
+    "size": [
+      1254,
+      1254
+    ],
+    "requested_canvas_pass": true,
+    "alpha_levels": 256,
+    "hard_alpha_pass": false,
+    "bbox_alpha128": [
+      20,
+      267,
+      1236,
+      1176
+    ],
+    "occupied_12px_cells": 4203,
+    "uniform_12px_cells": 0,
+    "uniform_12px_fraction": 0.0,
+    "raw_byte_identical": true,
+    "sha256": "7f1d67fcf0cc129af84a3e3dea11f824b5fef4aa769bd88a0551958ff86949f0"
+  },
+  "rumble-pose-e_aim": {
+    "size": [
+      1254,
+      1254
+    ],
+    "requested_canvas_pass": true,
+    "alpha_levels": 256,
+    "hard_alpha_pass": false,
+    "bbox_alpha128": [
+      14,
+      360,
+      1247,
+      1150
+    ],
+    "occupied_12px_cells": 4602,
+    "uniform_12px_cells": 0,
+    "uniform_12px_fraction": 0.0,
+    "raw_byte_identical": true,
+    "sha256": "787615fa8413097ab467a49b23ec9ffb4bcda5ecc08ec6d2ce0ee9a36d1b45ae"
+  },
+  "rumble-pose-e_recoil": {
+    "size": [
+      1254,
+      1254
+    ],
+    "requested_canvas_pass": true,
+    "alpha_levels": 256,
+    "hard_alpha_pass": false,
+    "bbox_alpha128": [
+      99,
+      274,
+      1235,
+      1224
+    ],
+    "occupied_12px_cells": 4595,
+    "uniform_12px_cells": 0,
+    "uniform_12px_fraction": 0.0,
+    "raw_byte_identical": true,
+    "sha256": "15f3737f6140aa7fdc251a53bf84151fc174948d7a6619963812f099515fbf9b"
+  },
+  "rumble-pose-q_aim": {
+    "size": [
+      1254,
+      1254
+    ],
+    "requested_canvas_pass": true,
+    "alpha_levels": 256,
+    "hard_alpha_pass": false,
+    "bbox_alpha128": [
+      38,
+      482,
+      1238,
+      1163
+    ],
+    "occupied_12px_cells": 3302,
+    "uniform_12px_cells": 0,
+    "uniform_12px_fraction": 0.0,
+    "raw_byte_identical": true,
+    "sha256": "7dc0b1a63a7a569876b620f9bc80159790adabe4ea84ae3e0c42047404edf74a"
+  },
+  "rumble-pose-q_spray": {
+    "size": [
+      1254,
+      1254
+    ],
+    "requested_canvas_pass": true,
+    "alpha_levels": 256,
+    "hard_alpha_pass": false,
+    "bbox_alpha128": [
+      17,
+      537,
+      1235,
+      1176
+    ],
+    "occupied_12px_cells": 3158,
+    "uniform_12px_cells": 0,
+    "uniform_12px_fraction": 0.0,
+    "raw_byte_identical": true,
+    "sha256": "39e623c86a3fe57dd450375b273753c31282665deaf68c93984b3f70a9968826"
+  },
+  "rumble-pose-r_crouch": {
+    "size": [
+      1254,
+      1254
+    ],
+    "requested_canvas_pass": true,
+    "alpha_levels": 256,
+    "hard_alpha_pass": false,
+    "bbox_alpha128": [
+      44,
+      486,
+      1226,
+      1206
+    ],
+    "occupied_12px_cells": 3443,
+    "uniform_12px_cells": 0,
+    "uniform_12px_fraction": 0.0,
+    "raw_byte_identical": true,
+    "sha256": "a56d674841bbd52e5f67846f5ee2367833148bdd16bd074dca843c3db4cf5450"
+  },
+  "rumble-pose-r_launch": {
+    "size": [
+      1254,
+      1254
+    ],
+    "requested_canvas_pass": true,
+    "alpha_levels": 256,
+    "hard_alpha_pass": false,
+    "bbox_alpha128": [
+      40,
+      417,
+      1209,
+      1162
+    ],
+    "occupied_12px_cells": 3632,
+    "uniform_12px_cells": 0,
+    "uniform_12px_fraction": 0.0,
+    "raw_byte_identical": true,
+    "sha256": "34a3123f6e66fb2f9a74b11cbcf7d38e133ee670f71c7c067e07a0ab26c8de9f"
+  },
+  "rumble-pose-run1": {
+    "size": [
+      1254,
+      1254
+    ],
+    "requested_canvas_pass": true,
+    "alpha_levels": 256,
+    "hard_alpha_pass": false,
+    "bbox_alpha128": [
+      10,
+      436,
+      1238,
+      1154
+    ],
+    "occupied_12px_cells": 3729,
+    "uniform_12px_cells": 0,
+    "uniform_12px_fraction": 0.0,
+    "raw_byte_identical": true,
+    "sha256": "2ad173416d755d2be1440f54c13320068afc783abf510bcb4af6ac4d292d1b85"
+  },
+  "rumble-pose-run2": {
+    "size": [
+      1254,
+      1254
+    ],
+    "requested_canvas_pass": true,
+    "alpha_levels": 256,
+    "hard_alpha_pass": false,
+    "bbox_alpha128": [
+      50,
+      333,
+      1217,
+      1138
+    ],
+    "occupied_12px_cells": 3841,
+    "uniform_12px_cells": 0,
+    "uniform_12px_fraction": 0.0,
+    "raw_byte_identical": true,
+    "sha256": "0093bc8c05a9b102fbe8aad5a3a405e60b26a7deb3d8e2a0af8278ab7d08542e"
+  },
+  "rumble-pose-run3": {
+    "size": [
+      1254,
+      1254
+    ],
+    "requested_canvas_pass": true,
+    "alpha_levels": 256,
+    "hard_alpha_pass": false,
+    "bbox_alpha128": [
+      109,
+      327,
+      1225,
+      1146
+    ],
+    "occupied_12px_cells": 4019,
+    "uniform_12px_cells": 0,
+    "uniform_12px_fraction": 0.0,
+    "raw_byte_identical": true,
+    "sha256": "b8fbb8a67987228ce83d22776e922469bf2a8cb4dfca5b6d56c3910f261f4bd9"
+  },
+  "rumble-pose-run4": {
+    "size": [
+      1254,
+      1254
+    ],
+    "requested_canvas_pass": true,
+    "alpha_levels": 256,
+    "hard_alpha_pass": false,
+    "bbox_alpha128": [
+      48,
+      320,
+      1215,
+      1124
+    ],
+    "occupied_12px_cells": 3814,
+    "uniform_12px_cells": 0,
+    "uniform_12px_fraction": 0.0,
+    "raw_byte_identical": true,
+    "sha256": "2f48ee57ca23a73cfd2b3a5e2e060351145f976b8f50220ef9d8006ca8837b6a"
+  }
+}

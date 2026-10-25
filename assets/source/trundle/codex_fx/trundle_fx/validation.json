@@ -1,0 +1,131 @@
+{
+  "poses": 16,
+  "fx_sheets": 15,
+  "fx_frames": 72,
+  "checks": [
+    {
+      "file": "trundle-pose-a_wind.png",
+      "status": "pass"
+    },
+    {
+      "file": "trundle-pose-a_smash.png",
+      "status": "pass"
+    },
+    {
+      "file": "trundle-pose-q_rear.png",
+      "status": "pass"
+    },
+    {
+      "file": "trundle-pose-q_chomp.png",
+      "status": "pass"
+    },
+    {
+      "file": "trundle-pose-w_crouch.png",
+      "status": "pass"
+    },
+    {
+      "file": "trundle-pose-w_roar.png",
+      "status": "pass"
+    },
+    {
+      "file": "trundle-pose-e_swing.png",
+      "status": "pass"
+    },
+    {
+      "file": "trundle-pose-e_raise.png",
+      "status": "pass"
+    },
+    {
+      "file": "trundle-pose-r_rise.png",
+      "status": "pass"
+    },
+    {
+      "file": "trundle-pose-r_reach.png",
+      "status": "pass"
+    },
+    {
+      "file": "trundle-pose-run1.png",
+      "status": "pass"
+    },
+    {
+      "file": "trundle-pose-run2.png",
+      "status": "pass"
+    },
+    {
+      "file": "trundle-pose-run3.png",
+      "status": "pass"
+    },
+    {
+      "file": "trundle-pose-run4.png",
+      "status": "pass"
+    },
+    {
+      "file": "trundle-pose-d_fall.png",
+      "status": "pass"
+    },
+    {
+      "file": "trundle-pose-d_down.png",
+      "status": "pass"
+    },
+    {
+      "file": "trundle_fx_a_hit.png",
+      "status": "pass"
+    },
+    {
+      "file": "trundle_fx_p_heal.png",
+      "status": "pass"
+    },
+    {
+      "file": "trundle_fx_q_hit.png",
+      "status": "pass"
+    },
+    {
+      "file": "trundle_fx_q_buff.png",
+      "status": "pass"
+    },
+    {
+      "file": "trundle_fx_q_sap.png",
+      "status": "pass"
+    },
+    {
+      "file": "trundle_fx_slow.png",
+      "status": "pass"
+    },
+    {
+      "file": "trundle_fx_w_hop.png",
+      "status": "pass"
+    },
+    {
+      "file": "trundle_fx_w_domain.png",
+      "status": "pass"
+    },
+    {
+      "file": "trundle_fx_w_aura.png",
+      "status": "pass"
+    },
+    {
+      "file": "trundle_fx_e_pillar.png",
+      "status": "pass"
+    },
+    {
+      "file": "trundle_fx_e_hit.png",
+      "status": "pass"
+    },
+    {
+      "file": "trundle_fx_r_hit.png",
+      "status": "pass"
+    },
+    {
+      "file": "trundle_fx_r_tick.png",
+      "status": "pass"
+    },
+    {
+      "file": "trundle_fx_r_chain.png",
+      "status": "pass"
+    },
+    {
+      "file": "trundle_fx_r_sap.png",
+      "status": "pass"
+    }
+  ]
+}

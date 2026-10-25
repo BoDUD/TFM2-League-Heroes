@@ -955,10 +955,13 @@
                           "name": "league_viego_q"
                         },
                         {
-                          "type": "MoveToTarget",
+                          "type": "RushTime",
                           "speed": 5000,
-                          "range": 56000,
-                          "end_effects": []
+                          "tick": 6,
+                          "range": 1000,
+                          "casting_target": "EnemyChampion",
+                          "penetrate": true,
+                          "applied_effects": []
                         },
                         {
                           "type": "Delayed",
@@ -1393,10 +1396,13 @@
                 "name": "league_viego_w"
               },
               {
-                "type": "MoveToTarget",
+                "type": "RushTime",
                 "speed": 3000,
-                "range": 46000,
-                "end_effects": []
+                "tick": 10,
+                "range": 1000,
+                "casting_target": "EnemyChampion",
+                "penetrate": true,
+                "applied_effects": []
               },
               {
                 "type": "Delayed",
@@ -1903,10 +1909,13 @@
                                 }
                               },
                               {
-                                "type": "MoveTo",
+                                "type": "RushTime",
                                 "speed": 3000,
-                                "range": 18000,
-                                "end_effects": []
+                                "tick": 6,
+                                "range": 1000,
+                                "casting_target": "EnemyChampion",
+                                "penetrate": true,
+                                "applied_effects": []
                               },
                               {
                                 "type": "Delayed",

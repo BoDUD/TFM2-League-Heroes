@@ -27,11 +27,15 @@ Kit (the user's pick, 2026-10-18: layout A with the add-on league_akshan, and W'
           count). The add-on adds the Scoundrel marks and the revive (addons/league_akshan).
   ult     R Comeuppance (恩怨相抵): a `Targeting` cast on `EnemyChampionRecentlyAttacked` (r_range: the stand-in for "a
           wounded champion", champion-data section 3). He channels r_ch ticks storing a bullet every r_store (r_n at
-          most), crowd control breaks it (league_jhin's 6-tick poll); then the stored bullets go one every r_gap,
+          most; 2026-10-25, the user: 「这前摇太长 英雄联盟只有0.5秒吧」 - League fires from 0.5 s: r_ch 150 -> 30, r_store
+          30 -> 6, the first shot 152 -> 32 ticks after the cast), crowd control breaks it (league_jhin's 6-tick poll); then the stored bullets go one every r_gap,
           each aimed where the champion stands (a 6-tick hidden lob, dodgeable) and flying r_speed until the FIRST
           enemy it meets (non-penetrating, `Enemy`: minions and towers block). Main pack: r_dmg + r_ratio% AD, every
           bullet that hit before adds r_up% (League's missing-health growth, approximated by the hits); the add-on
           deals the damage from the target's missing health instead and decides when to cast and when to fire.
+Balance after the short channel (kd.py --lane 3): the 2.5 s standing still had been his R's real cost, so bullet
+damage barely moved it - +1.19 / +1.58 (seeds 1-8 / 9-16) -> R 60 + 40% at 0.5 s +2.84; R 35 + 25% and attack growth
+20 -> 17 +1.24 / +2.06.
 Timings are placeholders until the strips exist (a_hit1 / a_hit2 from League's Attack1: two shots 0.12 s apart).
 """
 import argparse
@@ -52,7 +56,7 @@ RV = "asset/league/effects/league_akshan_rv"     # the revive beam (tools/art/fx
 P = {
     # stats (Range base: league_lucian 100 +20 attack, 900 +90 hp, 20 +7 defence, 15 +3 mr, 900 +9 move); League's
     # Akshan: 52 AD +3, 610 +107 hp, 26 +4.7 armour, 33 mr, 330 move, attack speed 0.638 +4%, range 500
-    "hp": 900, "hp_g": 92, "atk": 100, "atk_g": 20, "def": 20, "def_g": 7, "mr": 15, "mr_g": 3, "ms": 900, "ms_g": 9,
+    "hp": 900, "hp_g": 92, "atk": 100, "atk_g": 17, "def": 20, "def_g": 7, "mr": 15, "mr_g": 3, "ms": 900, "ms_g": 9,
     "regen": 0, "regen_g": 0,
     # attack: the double shot (League: second shot 50% AD on champions, 100% on minions)
     "atk_range": 55000, "atk_dur": 26, "atk_cd": 64, "a_hit1": 5, "a_hit2": 12, "a_speed": 7000, "a_y": -8000,
@@ -70,8 +74,8 @@ P = {
     "w_rad": 40000, "w_inv": 120, "w_ms": 40, "w_cd": 1080,
     # ult: R Comeuppance (League: 2500 range, 2.5 s channel, 5/6/7 bullets, 25-45 +15% AD to 3x on missing health,
     # cd 100-70 s)
-    "r_cd": 3000, "r_range": 160000, "r_dur": 6, "r_ch": 150, "r_store": 30, "r_n": 5, "r_gap": 6, "r_aim": 6,
-    "r_speed": 20000, "r_reach": 220000, "r_w": 6000, "r_dmg": 60, "r_ratio": 40, "r_up": 30,
+    "r_cd": 3000, "r_range": 160000, "r_dur": 6, "r_ch": 30, "r_store": 6, "r_n": 5, "r_gap": 6, "r_aim": 6,
+    "r_speed": 20000, "r_reach": 220000, "r_w": 6000, "r_dmg": 35, "r_ratio": 25, "r_up": 30,
     # the add-on (addons/league_akshan): bullets from min to r_max x min as the target's missing health goes 0 -> r_full%
     "r_max": 3, "r_full": 67,
 }

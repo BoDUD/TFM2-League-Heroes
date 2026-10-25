@@ -371,7 +371,7 @@
                                           "name": "league_illaoi_w_cd",
                                           "duration": {
                                             "Time": {
-                                              "tick": 120
+                                              "tick": 100
                                             }
                                           }
                                         },
@@ -764,11 +764,41 @@
                                                   "tick": 2
                                                 }
                                               },
-                                              "skill_cooldown_mult": 900
+                                              "skill_cooldown_mult": 900,
+                                              "ult_cooldown_mult": -900
                                             },
                                             "only_to_enemy": false
                                           }
                                         ]
+                                      },
+                                      {
+                                        "type": "SwitchByBuff",
+                                        "buff_name": "league_illaoi_w_cd",
+                                        "effect_buff": {
+                                          "type": "Combine",
+                                          "effects": [
+                                            {
+                                              "type": "RemoveCasterBuff",
+                                              "name": "league_illaoi_w_cd"
+                                            },
+                                            {
+                                              "type": "AddCasterBuff",
+                                              "buff_state": {
+                                                "name": "league_illaoi_w_cd",
+                                                "duration": {
+                                                  "Time": {
+                                                    "tick": 30
+                                                  }
+                                                }
+                                              },
+                                              "only_to_enemy": false
+                                            }
+                                          ]
+                                        },
+                                        "effect_none": {
+                                          "type": "Combine",
+                                          "effects": []
+                                        }
                                       }
                                     ]
                                   }
@@ -854,8 +884,8 @@
               },
               "effect_none": {
                 "type": "Attack",
-                "damage": 90,
-                "attack_ratio": 60,
+                "damage": 160,
+                "attack_ratio": 95,
                 "hp_ratio": 0,
                 "target_hp_ratio": 0,
                 "attack_effect_type": "Target"
@@ -1025,11 +1055,41 @@
                                       "tick": 2
                                     }
                                   },
-                                  "skill_cooldown_mult": 900
+                                  "skill_cooldown_mult": 900,
+                                  "ult_cooldown_mult": -900
                                 },
                                 "only_to_enemy": false
                               }
                             ]
+                          },
+                          {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_illaoi_w_cd",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_illaoi_w_cd"
+                                },
+                                {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_illaoi_w_cd",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 30
+                                      }
+                                    }
+                                  },
+                                  "only_to_enemy": false
+                                }
+                              ]
+                            },
+                            "effect_none": {
+                              "type": "Combine",
+                              "effects": []
+                            }
                           }
                         ]
                       },
@@ -1045,8 +1105,8 @@
                         "effects": [
                           {
                             "type": "Attack",
-                            "damage": 90,
-                            "attack_ratio": 60,
+                            "damage": 160,
+                            "attack_ratio": 95,
                             "hp_ratio": 0,
                             "target_hp_ratio": 0,
                             "attack_effect_type": "Target"
@@ -3008,6 +3068,22 @@
     },
     {
       "type": "Animation",
+      "name": "league_illaoi_soul_league_rumble",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_rumble",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_rumble_l",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_rumble_l",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
       "name": "league_illaoi_soul_league_ryze",
       "anim": "asset/league/effects/league_illaoi_souls",
       "tag": "league_ryze",
@@ -3403,6 +3479,22 @@
       "name": "league_illaoi_soul_league_tristana_l",
       "anim": "asset/league/effects/league_illaoi_souls",
       "tag": "league_tristana_l",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_trundle",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_trundle",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_trundle_l",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_trundle_l",
       "z": 3,
       "is_follow": false
     },
