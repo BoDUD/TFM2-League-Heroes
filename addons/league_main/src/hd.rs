@@ -542,8 +542,9 @@ pub const UI_SIZES: &[(&str, f32)] = &[
     // card value set with bp_card_audit.py
     ("league_kled", 0.95),
     // Yorick: 48 game px from his shovel's tip to his boots at PPU 1.75 (39 / 48); UI size and card value set with
-    // bp_card_audit.py
-    ("league_yorick", 0.81),
+    // bp_card_audit.py. 0.81 / -1 put the shovel's tip on the canvas top and hid 8.7 px of his legs under the name
+    // (the user, 2026-10-25: 「约里克BP界面位置不对」): 0.76 / -11 - hood to boots on the card, the thin tip over the top
+    ("league_yorick", 0.76),
     // Ambessa: 48 game px from her hair to her soles at PPU 2.0 (39 / 48; the blades out to 59 px wide); UI size and card
     // value set with bp_card_audit.py
     ("league_ambessa", 0.81),
