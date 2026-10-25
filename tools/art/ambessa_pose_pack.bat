@@ -10,11 +10,21 @@ set WORK=C:\t\am_work
 set PYTHONUTF8=1
 set REPO=%~dp0..\..
 if not exist "%REPO%\.git" set REPO=%~dp0
-if not exist "%REPO%\.git" set /p REPO=Folder of your TFM2-League-Heroes clone (e.g. D:\code\TFM2-League-Heroes): 
-if not exist "%REPO%\.git" (
+if exist "%REPO%\.git" goto :repo
+echo Paste or drag the folder of your TFM2-League-Heroes clone here and press Enter.
+echo Just press Enter if you have none: it is cloned into C:\t\TFM2-League-Heroes.
+set REPO=
+set /p REPO=Folder: 
+if defined REPO set REPO=%REPO:"=%
+if not defined REPO set REPO=C:\t\TFM2-League-Heroes
+if exist "%REPO%\.git" goto :repo
+if exist "%REPO%" (
   echo Not a git clone: %REPO%
   goto :fail
 )
+echo === cloning the repository into %REPO% ===
+git clone https://github.com/BoDUD/TFM2-League-Heroes.git "%REPO%" || goto :fail
+:repo
 cd /d "%REPO%"
 
 echo === 1/3 updating the branch %BRANCH% ===
