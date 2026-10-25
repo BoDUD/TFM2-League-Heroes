@@ -3,7 +3,7 @@
 
     python tools/art/preview_gwen.py [--out docs/preview] [--only frames|effects|showcase]
 
-  league_gwen_frames.png    every animation, frame by frame, 3x on the arena colour
+  league_gwen_frames.png    every animation's dense frames (hd_, PPU 2.84, as league.dll shows them)
   league_gwen_effects.png   every effect animation, 3x
   league_gwen_showcase.gif  a scripted fight against Darius with Garen behind him, timed like the kit
                             (tools/kit/build_gwen.py, 60 ticks a second): Gwen runs in; four snips stack Q (the marks
@@ -23,6 +23,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 from preview_annie import Held  # noqa: E402
 from preview_ashe import Anim, tick  # noqa: E402
+from preview_dense import dense, dense_rows, put  # noqa: E402
 from preview_garen import ARENA, T, contact, frames_of, load  # noqa: E402
 from preview_samira import Me, OnFoe, OnMe  # noqa: E402
 
@@ -55,7 +56,7 @@ def showcase(out, z=3, step=40):
     def a(tag, dur=None, loop=False):
         nonlocal t
         x, y = me.pos(t)
-        an = Anim(frames_of(sp, tag), t, x, y, loop=loop, until=(t + dur) if dur else None, flip=face[0])
+        an = Anim(dense(sp, tag, "gwen", z), t, x, y, loop=loop, until=(t + dur) if dur else None, flip=face[0])
         body.append(an)
         t = an.until
         return an
@@ -86,7 +87,7 @@ def showcase(out, z=3, step=40):
         a("idle", tick(ATK_CD - ATK_DUR), loop=True)
 
     # she runs in; Darius and Garen wait
-    walk = Anim(frames_of(sp, "run"), 0.0, x0 - 60, gy, loop=True, until=1300, x1=x0)
+    walk = Anim(dense(sp, "run", "gwen", z), 0.0, x0 - 60, gy, loop=True, until=1300, x1=x0)
     body.append(walk)
     t = walk.until
     a("idle", 300, loop=True)
@@ -105,7 +106,7 @@ def showcase(out, z=3, step=40):
     land = e0 + tick(E_TICK)
     gx = g.pos(e0)[0] + 18
     me.moves.append((e0, land, me.pos(e0)[0], gx))
-    an = Anim(frames_of(sp, "skill2"), e0, me.pos(e0)[0], gy, x1=gx)          # the whole strip (skip and W)
+    an = Anim(dense(sp, "skill2", "gwen", z), e0, me.pos(e0)[0], gy, x1=gx)   # the whole strip (skip and W)
     an.pos = me.pos
     body.append(an)
     hit(g, "a_hit", land + tick(1))
@@ -140,11 +141,11 @@ def showcase(out, z=3, step=40):
     end = t
 
     def place(img, f, px, py):
-        img.alpha_composite(f, (px - f.width // 2, py - f.height // 2))
+        put(img, f, int(px), int(py), z)
 
     frames, tt = [], 0.0
     while tt < end:
-        img = Image.new("RGBA", (W, H), ARENA)
+        img = Image.new("RGBA", (W * z, H * z), ARENA)
         for an in under:
             f = an.frame(tt)
             if f is not None:
@@ -162,7 +163,7 @@ def showcase(out, z=3, step=40):
             f = an.frame(tt)
             if f is not None:
                 place(img, f, *an.pos(tt))
-        frames.append(img.resize((W * z, H * z), Image.NEAREST).convert("RGB"))
+        frames.append(img.convert("RGB"))
         tt += step
     sample = frames[::6]
     strip = Image.new("RGB", (W * z, H * z * len(sample)))
@@ -182,8 +183,7 @@ def main():
     os.makedirs(T.long_path(args.out), exist_ok=True)
     if args.only in (None, "frames"):
         s = load(CHAMP)
-        print("frames", contact([(s, t["name"], t["name"]) for t in s.tags],
-                                os.path.join(args.out, "league_gwen_frames.png")))
+        print("frames", contact(dense_rows(s), os.path.join(args.out, "league_gwen_frames.png"), z=1))
     if args.only in (None, "effects"):
         rows = []
         for name, path in FX.items():
