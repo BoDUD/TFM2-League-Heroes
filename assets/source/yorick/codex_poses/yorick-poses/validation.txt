@@ -1,0 +1,19 @@
+yorick-pose-a_wind.png: PASS; 1254x1254; 11px aligned grid; binary alpha; ground anchor1188
+yorick-pose-a_smash.png: PASS; 1254x1254; 11px aligned grid; binary alpha; ground anchor1188
+yorick-pose-q_raise.png: PASS; 1254x1254; 11px aligned grid; binary alpha; ground anchor1188
+yorick-pose-q_slam.png: PASS; 1254x1254; 11px aligned grid; binary alpha; ground anchor1188
+yorick-pose-w_raise.png: PASS; 1254x1254; 11px aligned grid; binary alpha; ground anchor1188
+yorick-pose-w_slam.png: PASS; 1254x1254; 11px aligned grid; binary alpha; ground anchor1188
+yorick-pose-k_call.png: PASS; 1254x1254; 11px aligned grid; binary alpha; ground anchor1188
+yorick-pose-e_wind.png: PASS; 1254x1254; 11px aligned grid; binary alpha; ground anchor1188
+yorick-pose-e_throw.png: PASS; 1254x1254; 11px aligned grid; binary alpha; ground anchor1188
+yorick-pose-r_raise.png: PASS; 1254x1254; 11px aligned grid; binary alpha; ground anchor1188
+yorick-pose-r_plant.png: PASS; 1254x1254; 11px aligned grid; binary alpha; ground anchor1188
+yorick-pose-run1.png: PASS; 1254x1254; 11px aligned grid; binary alpha; ground anchor1188
+yorick-pose-run2.png: PASS; 1254x1254; 11px aligned grid; binary alpha; ground anchor1188
+yorick-pose-run3.png: PASS; 1254x1254; 11px aligned grid; binary alpha; ground anchor1188
+yorick-pose-run4.png: PASS; 1254x1254; 11px aligned grid; binary alpha; ground anchor1188
+yorick-pose-d_drop.png: PASS; 1254x1254; 11px aligned grid; binary alpha; ground anchor1188
+yorick-pose-d_float.png: PASS; 1254x1254; 11px aligned grid; binary alpha; ground anchor1188
+
+Automated file checks only. Source art was visually inspected. Game runtime integration was not performed.

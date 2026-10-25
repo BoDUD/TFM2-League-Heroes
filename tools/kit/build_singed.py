@@ -12,7 +12,7 @@ idle). Flags die with him: a respawned Singed has E and W ready.
           ticks, hung by his attack and the ult, league_zac's) drops a poison cloud where he stands whenever he stands
           in none (a self-only zone of radius q_gap round each cloud raises `in_cloud`), so walking leaves a trail and
           standing still keeps one cloud: q_r round, q_t ticks, every q_p ticks q_dmg + q_ap% AP to every enemy in it
-          (the zones start from a 1-unit anchor's end_effects: champion-data "zones start from a projectile").
+          (the zones start from a 1-unit anchor's end_effects, y_offset 5000 or it falls for 5000 ticks).
           An enemy champion within p_near (passing him) gives him p_ms% move speed for p_t ticks, once every p_gap.
   attack  A blow of the shield plate (100% AD) by a hidden homing hit on `Enemy` (towers too) on a_hit.
   skill   E Fling (过肩摔), `Targeting` on `EnemyWithoutTower` (e_range, `e_cd`): on e_grab he heaves the target over
@@ -40,7 +40,12 @@ simulations (kd.py --lane 0 against fighter, executioner, knight, berserker, lan
 2026-10-23; league_illaoi +1.39 / +1.08 on seeds 1-8 / 9-16): the draft with Fling stuck in place (an Airborne froze the
 Pull) -0.12; the pull fixed +0.76; trail 18 + 18% AP and 1200 health +1.09; W -> E kept open while the glue lies
 +1.53 / +1.56; the controller gated to Singed himself (`own`: Sylas's stolen ult no longer runs it) +0.65 / +0.71;
-trail 20 + 20% AP and 1260 health = P +1.94 (seeds 1-8) - top's range (league_ksante +1.34 / +2.19).
+trail 20 + 20% AP and 1260 health +1.94 (seeds 1-8) - top's range (league_ksante +1.34 / +2.19).
+2026-10-25 (the user: 「炼金的特效特别的卡 如果开倍速的话」): the anchor had y_offset 0, so it fell from 5000 at a unit a
+tick and the clouds started 5000 ticks (83 s) late - about 700 anchors alive at once (25 million projectile moves a
+game, Illaoi's 131 thousand), and with no cloud under him `in_cloud` never rose, so he dropped one every ctl_p ticks
+(4635 a game; now 632). y_offset 5000 (league_ekko's anchor): the clouds start at once. Then +3.37; the trail cut
+to 13 + 13% AP = P +2.29 (15: +2.50, 12: +1.67).
 """
 import argparse
 import json
@@ -65,7 +70,7 @@ P = {
     # the controller
     "ctl_t": 3600, "ctl_p": 3,
     # passive: Poison Trail's clouds
-    "q_r": 11000, "q_gap": 9000, "q_t": 180, "q_p": 30, "q_dmg": 20, "q_ap": 20,
+    "q_r": 11000, "q_gap": 9000, "q_t": 180, "q_p": 30, "q_dmg": 13, "q_ap": 13,
     # passive: Noxious Slipstream
     "p_near": 22000, "p_ms": 25, "p_t": 90, "p_gap": 240,
     # skill: E Fling
@@ -205,7 +210,7 @@ def anchor(name, end):
     """A 1-unit line whose end_effects start zones where he stands (league_gwen's mist)."""
     return {"type": "LinearProjectile", "name": n(name), "penetrate": True, "applied_target": "Ally",
             "applied_effects": [], "end_effects": list(end), "speed": 1, "range": 1, "shape": circle(1000),
-            "y_offset": 0}
+            "y_offset": 5000}
 
 
 def lob(name, travel, end, target="EnemyChampion"):

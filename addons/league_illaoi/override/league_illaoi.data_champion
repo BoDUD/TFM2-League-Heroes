@@ -2272,6 +2272,22 @@
     },
     {
       "type": "Animation",
+      "name": "league_illaoi_soul_league_kled",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_kled",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_kled_l",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_kled_l",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
       "name": "league_illaoi_soul_league_kogmaw",
       "anim": "asset/league/effects/league_illaoi_souls",
       "tag": "league_kogmaw",
@@ -3723,6 +3739,22 @@
       "name": "league_illaoi_soul_league_yone_l",
       "anim": "asset/league/effects/league_illaoi_souls",
       "tag": "league_yone_l",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_yorick",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_yorick",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_yorick_l",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_yorick_l",
       "z": 3,
       "is_follow": false
     },

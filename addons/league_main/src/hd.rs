@@ -225,6 +225,14 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // to hooves = 36 game px, riding Bristle) and its key poses after League's clips (her design head put back, Bristle
     // brought to the design's size) at the user's 2.0 squares a game pixel (3/4 only), so no SIZES row
     ("league_sejuani", 2.0, include_str!("../../../league/champions/league_sejuani#anim.fanim")),
+    // Kled: posed by tools/art/rig_kled.py on Codex's step-1 take A-1 (80 rows hat spike to Skaarl's claws = 40 game px)
+    // and, on foot, B-1 under A-1's head, with their key poses after League's clips (the design's head put back, Skaarl and
+    // the on-foot bodies brought to the designs' size) at the user's 2.0 squares a game pixel (3/4 only), so no SIZES row
+    ("league_kled", 2.0, include_str!("../../../league/champions/league_kled#anim.fanim")),
+    // Yorick: posed by tools/art/rig_yorick.py on Codex's step-0 take A-2 as drawn (83 rows shovel tip to boots = 48 game
+    // px) and its key poses after League's clips (the design's head put back) at the user's 1.75 squares a game pixel (3/4
+    // only), so no SIZES row
+    ("league_yorick", 1.75, include_str!("../../../league/champions/league_yorick#anim.fanim")),
     // Neeko: posed by tools/art/rig_neeko.py on Codex's step-1 take A-1 and its key poses at the user's 2.5 squares a
     // game pixel (100 game rows quill tips to soles: 「40」, then 「1.5也挺糊的 还得往上调整吧」; 3/4 only; league_neeko's
     // view hook draws her as an ally while she is disguised), so no SIZES row
@@ -507,6 +515,12 @@ pub const UI_SIZES: &[(&str, f32)] = &[
     // Aurelion Sol: 44 game px from his crest to his tail tip at PPU 1.75, hovering 2 more; UI size and card value set
     // with bp_card_audit.py (-3: the raised claw of the idle reel's attack snippet stays on the card)
     ("league_aurelionsol", 0.86),
+    // Kled: 41 game px from his hat spike to Skaarl's claws at PPU 2.0 (the idle reel's raised axe higher); UI size and
+    // card value set with bp_card_audit.py
+    ("league_kled", 0.95),
+    // Yorick: 48 game px from his shovel's tip to his boots at PPU 1.75 (39 / 48); UI size and card value set with
+    // bp_card_audit.py
+    ("league_yorick", 0.81),
 ];
 
 /// The `"lo_..."` animation names of a .fanim.

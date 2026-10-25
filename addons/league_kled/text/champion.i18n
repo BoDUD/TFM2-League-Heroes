@@ -1,0 +1,42 @@
+{
+  "zh-hans": {
+    "description": {
+      "league_kled": {
+        "attack": "【附加包】挥斧。<#ff9028ff>斯嘎尔<>有自己的血（500 + <i#asset/base/ui/banpick/champion_stat_icon:ad_0>140%），替他挡伤害，打空就下马：攻击-10%，不能比武、冲锋；打人攒勇气，满了上马。<#ff9028ff>暴烈秉性<>：每<#ffb900ff>10秒<>四下快攻，第四下多<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<>+最大生命6%。",
+        "skill": "【附加包】扔捕熊夹造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>；夹住英雄<#ef5350ff>减速<>40%，<#ffb900ff>1.5秒<>后再造成<#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<>并<#ef5350ff>拽过来<>，它跑太远绳子会断。下马时是<#ff9028ff>随身手枪<>：<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>，自己往后跳。"
+      }
+    }
+  },
+  "zh-hant": {
+    "description": {
+      "league_kled": {
+        "attack": "【附加包】揮斧。<#ff9028ff>小嘎<>有自己的血（500 + <i#asset/base/ui/banpick/champion_stat_icon:ad_0>140%），替他擋傷害，打空就下馬：攻擊-10%，不能比武、衝鋒；打人攢勇氣，滿了上馬。<#ff9028ff>生性暴戾<>：每<#ffb900ff>10秒<>四下快攻，第四下多<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<>+最大生命6%。",
+        "skill": "【附加包】丟出捕獸夾造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>；夾住英雄<#ef5350ff>緩速<>40%，<#ffb900ff>1.5秒<>後再造成<#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<>並<#ef5350ff>拉過來<>，牠跑太遠繩子會斷。下馬時是<#ff9028ff>隨身手槍<>：<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>，自己往後跳。"
+      }
+    }
+  },
+  "en": {
+    "description": {
+      "league_kled": {
+        "attack": "[Add-on] Axe blows. <#ff9028ff>Skaarl<> has his own health (500 + <i#asset/base/ui/banpick/champion_stat_icon:ad_0>140%) and takes Kled's damage; when it is gone Kled fights on foot: -10% attack, no Jousting, no charge; hitting enemies builds courage to remount. <#ff9028ff>Violent Tendencies<>: every <#ffb900ff>10s<> four fast attacks, the fourth dealing <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<> + 6% max health more.",
+        "skill": "[Add-on] Throws a bear trap for <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>; a champion caught is <#ef5350ff>slowed<> 40%, then after <#ffb900ff>1.5s<> takes <#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<> and is <#ef5350ff>yanked<> - unless it ran far enough to snap the rope. On foot it is <#ff9028ff>Pocket Pistol<>: <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>, knocking him back."
+      }
+    }
+  },
+  "ko": {
+    "description": {
+      "league_kled": {
+        "attack": "[확장] 도끼 공격. <#ff9028ff>스칼<>은 자기 체력(500 + <i#asset/base/ui/banpick/champion_stat_icon:ad_0>140%)으로 피해를 대신 받고, 바닥나면 걸어서 싸움: 공격력 -10%, 이랴!·돌격 불가; 적을 치면 용기가 쌓여 다시 탑승. <#ff9028ff>버럭버럭<>: <#ffb900ff>10초<>마다 빠른 4회 공격, 4번째 <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<> + 최대 체력 6%.",
+        "skill": "[확장] 덫을 던져 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>; 걸린 챔피언 40% <#ef5350ff>둔화<>, <#ffb900ff>1.5초<> 뒤 <#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<> 후 <#ef5350ff>끌어옴<>(너무 멀어지면 줄이 끊김). 걸어서는 <#ff9028ff>주머니 권총<>: <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>, 뒤로 밀려남."
+      }
+    }
+  },
+  "ja": {
+    "description": {
+      "league_kled": {
+        "attack": "【拡張】斧で攻撃。<#ff9028ff>スカール<>は自分の体力（500 + <i#asset/base/ui/banpick/champion_stat_icon:ad_0>140%）でダメージを肩代わり、尽きると徒歩：攻撃-10%、ジャウスト・突撃不可；敵を打つと勇気が溜まり再騎乗。<#ff9028ff>狂暴の宴<>：<#ffb900ff>10秒<>毎に4回の速攻、4回目<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<>+最大体力6%。",
+        "skill": "【拡張】トラバサミを投げ<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>；捕えたチャンピオンを40%<#ef5350ff>スロウ<>、<#ffb900ff>1.5秒<>後に<#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<>で<#ef5350ff>引き寄せ<>（離れすぎるとロープが切れる）。徒歩時は<#ff9028ff>ポケットピストル<>：<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>、自分は後ろへ跳ぶ。"
+      }
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "asset/league/champion/league_yorick": {
+    "remapping": "asset/league_yorick/override/league_yorick",
+    "type": "override"
+  },
+  "asset/base/text/champion": {
+    "remapping": "asset/league_yorick/text/champion",
+    "type": "merge"
+  }
+}

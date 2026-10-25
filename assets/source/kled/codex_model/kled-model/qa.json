@@ -1,0 +1,90 @@
+{
+  "kled-A-1.png": {
+    "size": [
+      1254,
+      1254
+    ],
+    "visible_bbox_alpha128": [
+      212,
+      80,
+      1052,
+      1182
+    ],
+    "alpha_levels": 256,
+    "hard_alpha_only": false,
+    "exact_14px_uniform_cell_fraction": 0.0,
+    "target_top": 70,
+    "target_bottom": 1190,
+    "target_size": [
+      1254,
+      1254
+    ],
+    "note": "Measurements only. No resampling, alpha thresholding, repainting, or grid repair applied to deliverables."
+  },
+  "kled-A-2.png": {
+    "size": [
+      1254,
+      1254
+    ],
+    "visible_bbox_alpha128": [
+      238,
+      90,
+      1033,
+      1176
+    ],
+    "alpha_levels": 256,
+    "hard_alpha_only": false,
+    "exact_14px_uniform_cell_fraction": 0.0,
+    "target_top": 70,
+    "target_bottom": 1190,
+    "target_size": [
+      1254,
+      1254
+    ],
+    "note": "Measurements only. No resampling, alpha thresholding, repainting, or grid repair applied to deliverables."
+  },
+  "kled-B-1.png": {
+    "size": [
+      1254,
+      1254
+    ],
+    "visible_bbox_alpha128": [
+      174,
+      385,
+      1090,
+      1232
+    ],
+    "alpha_levels": 256,
+    "hard_alpha_only": false,
+    "exact_14px_uniform_cell_fraction": 0.0,
+    "target_top": 378,
+    "target_bottom": 1190,
+    "target_size": [
+      1254,
+      1254
+    ],
+    "note": "Measurements only. No resampling, alpha thresholding, repainting, or grid repair applied to deliverables."
+  },
+  "kled-B-2.png": {
+    "size": [
+      1254,
+      1254
+    ],
+    "visible_bbox_alpha128": [
+      191,
+      394,
+      1068,
+      1202
+    ],
+    "alpha_levels": 256,
+    "hard_alpha_only": false,
+    "exact_14px_uniform_cell_fraction": 0.0,
+    "target_top": 378,
+    "target_bottom": 1190,
+    "target_size": [
+      1254,
+      1254
+    ],
+    "note": "Measurements only. No resampling, alpha thresholding, repainting, or grid repair applied to deliverables."
+  }
+}

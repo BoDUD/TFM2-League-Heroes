@@ -213,10 +213,10 @@ def homing(name, target, effects, speed=40000, y=0):
 
 
 def anchor(name, end):
-    """A 1-unit line whose end_effects start zones where he stands (league_gwen's mist)."""
+    """y_offset 5000: at 0 it falls from 5000 a unit a tick and starts its zones 5000 ticks late (league_singed). A 1-unit line whose end_effects start zones where he stands (league_gwen's mist)."""
     return {"type": "LinearProjectile", "name": n(name), "penetrate": True, "applied_target": "Ally",
             "applied_effects": [], "end_effects": list(end), "speed": 1, "range": 1, "shape": circle(1000),
-            "y_offset": 0}
+            "y_offset": 5000}
 
 
 def lob(name, travel, end, target="EnemyChampion"):
