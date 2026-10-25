@@ -11,8 +11,8 @@ Kit (the user's picks, 2026-10-17: 「全按推荐做：主包近似蛋、W 折�
           through (q_pass + q_pass_r% AP and q_slow% for q_slow_t ticks); the seen ball, a champion-only twin on the
           same line, stops on the first enemy champion or at the cast point and blows up there (League's recast at
           the right moment): q_dmg + q_ratio% AP and a q_stun-tick stun in q_r, a champion-only twin zone of the same
-          size flags the stun (`q_stc`).
-  W       Crystallize (寒冰屏障), on Q: two ticks after a blast that stunned a champion, with `w_cd` off, a wall stands
+          size marks the champions stunned (Iced, the combo's Frostbite).
+  W       Crystallize (寒冰屏障), on Q: the tick a blast catches an enemy champion in q_r, with `w_cd` off, a wall stands
           on the blast point for w_t ticks: a `Rect` w_w x w_h (axis-aligned, so always upright on the screen - the
           fights run left-right), its picture ice blocks stacked up (never turned). Enemies standing on it when it
           rises are dragged out to her side (League pushes them off): a w_out-tick field on the wall drags whoever
@@ -195,8 +195,8 @@ def on_me(*effects):
     return around(1000, "AllyOnlySelf", effects)
 
 
-def pick(rng, target, *effects):
-    return {"type": "RandomTarget", "range": rng, "casting_target": target, "from_projectile": False,
+def pick(rng, target, *effects, fp=False):
+    return {"type": "RandomTarget", "range": rng, "casting_target": target, "from_projectile": fp,
             "effects": list(effects)}
 
 
@@ -285,10 +285,16 @@ def build(p):
     if p["e_combo"]:
         combo_e = [sw("e_cc", NONE, combine(flag("e_cc", p["e_cd"]),
                                             delayed(p["e_combo_at"], sfx("e"), shard("e_combo"))))]
-    stc = [refresh("q_stc", 4), iced] + marked + combo_e
+    stc = [iced] + marked + combo_e
+    # the wall rises in the ball's own end_effects, the tick it bursts, when an enemy champion stands in the blast (a
+    # 1-tick w_in from a search round the ball, `from_projectile`): the zones start on the blast point like q_burst's.
+    # Until 2026-10-25 it rose 2 ticks later from a `Delayed` there behind Q's stun flag, and in the game that
+    # raised w_cd but started no zone in 32 of 72 walls (league_anivia.log 2026-10-24, `WALL?`: her projectiles as
+    # many after as before; the ball is gone by then). A line from the end_effects as an anchor leaves from her, not
+    # from the blast point (the SDK trace).
     blast = [view("q_blast"), sfx("q_blast"), zone("q_burst", circle(p["q_r"]), burst),
              zone("q_burst_c", circle(p["q_r"]), stc, target="EnemyChampion"),
-             delayed(2, sw("q_stc", wall))]
+             pick(p["q_r"], "EnemyChampion", flag("w_in", 1), fp=True), sw("w_in", combine(*rm("w_in"), wall))]
     pass_ = [ap(p["q_pass"], p["q_pass_r"]), buff("q_slow", p["q_slow_t"], move_speed_mult=-p["q_slow"]),
              tsfx("q_pass")]
     ball = combine(line("q_hide", p["q_speed"], p["q_range"] + 20000, p["q_w"], "EnemyWithoutTower", pass_, [], True),
