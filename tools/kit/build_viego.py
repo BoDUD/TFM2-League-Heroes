@@ -85,7 +85,7 @@ P = {
     "p_skill": 100, "p_ult": 0,
     # the add-on's soul kits (native=1 only): bolts, the slam ring, the piercing shot, heals, stuns
     "s_bolt_speed": 5000, "s_y": 4000, "s_a_dmg": 20, "s_q_dmg": 70, "s_q_ratio": 80, "s_e_dmg": 90, "s_e_ratio": 80,
-    "s_e_at": 10, "s_stun": 50, "s_slow": 30, "s_slow_t": 120, "s_ring_r": 20000, "s_line_len": 50000, "s_heal": 60,
+    "s_rush": 30000, "s_e_at": 10, "s_stun": 50, "s_slow": 30, "s_slow_t": 120, "s_ring_r": 20000, "s_line_len": 50000, "s_heal": 60,
     "s_heal_ratio": 40,
     # the add-on's soul: picked up within soul_r of the body, kept soul_t ticks; ranged souls lengthen his attack
     "soul_r": 35000, "soul_t": 480, "s_range": 0,
@@ -215,6 +215,15 @@ def action(name, dur, cd, st, rng, ctype, ctarget, effect, atype="Skill", cancel
 SOULS = ("melee", "range", "mage", "util", "assassin")
 
 
+def rush(speed, tick):
+    """A dash of speed x tick toward the target that stops there (RushTime). MoveTo / MoveToTarget run until they reach
+    the target's spot, however far: in game 0.6.5 one that never got there left him dashing in place the whole match,
+    until a knock-up or death broke it (the user, 2026-10-25: 「3级以后经常硬控自己。开技能后，就一整局不动，被击飞或击杀后
+    恢复正常」; the classic sim had W's 18000 dash run 23 ticks = 69000)."""
+    return {"type": "RushTime", "speed": speed, "tick": tick, "range": 1000, "casting_target": "EnemyChampion",
+            "penetrate": True, "applied_effects": []}
+
+
 def soul_kits(p, track):
     """The add-on's possession (native=1): five generic kits by the possessed champion's category, played through
     his attack / Q / W slots while the add-on's buff league_viego_soul_<category> is on him (the slots' ranges and
@@ -230,7 +239,7 @@ def soul_kits(p, track):
                   combine(anim("skill", p["q_dur"]), sfx("q"),
                           delayed(p["q_at"] - 1, ring(p["s_ring_r"], [attack(p["s_q_dmg"], p["s_q_ratio"]), slow, *hit]))),
                   combine(anim("skill2", p["w_dur"]), sfx("w"),
-                          {"type": "MoveToTarget", "speed": p["w_dspeed"], "range": p["w_range"], "end_effects": []},
+                          rush(p["w_dspeed"], -(-p["s_rush"] // p["w_dspeed"])),
                           delayed(p["s_e_at"], attack(p["s_e_dmg"], p["s_e_ratio"]),
                                   {"type": "Stun", "duration": p["s_stun"]}, champ, *hit))),
         # marksmen: bolts from afar; a piercing shot; three bolts at enemies near
@@ -272,7 +281,7 @@ def soul_kits(p, track):
         # assassins: a swift cut that hits harder; a blink onto the target; vanishing for a moment
         "assassin": (combine(attack(p["s_a_dmg"], 115), champ, *hit),
                      combine(anim("skill", p["q_dur"]), sfx("q"),
-                             {"type": "MoveToTarget", "speed": p["r_speed"], "range": p["q_range"] + 20000, "end_effects": []},
+                             rush(p["r_speed"], -(-p["s_rush"] // p["r_speed"])),
                              delayed(p["q_at"], attack(p["s_q_dmg"], p["s_q_ratio"] + 30), champ, *hit)),
                      combine(anim("skill2", p["w_dur"]), sfx("e"), cview("e_mist"),
                              {"type": "CasterInvisible", "tick": p["s_slow_t"]},
@@ -370,7 +379,7 @@ def build(p):
     combo = sw("w_got", sw("q_cd", NONE, combine(*rm("w_got"), anim("skill", p["q_dur"]), q_use, sfx("q"),
                                                  delayed(p["q_at"] - 1, thrust()))))
     maw = combine(sfx("w"), voice("vo_w", p),
-                  {"type": "MoveTo", "speed": p["w_dspeed"], "range": p["w_dash"], "end_effects": []},
+                  rush(p["w_dspeed"], dash_t),
                   delayed(dash_t, line("w_maw", p["w_speed"], p["w_len"], p["w_rad"], p["w_y"], "EnemyWithoutTower",
                                        False, w_hit),
                           line("w_twin", p["w_speed"], p["w_len"], p["w_rad"], p["w_y"], "EnemyChampion", False,
