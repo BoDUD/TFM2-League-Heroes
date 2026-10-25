@@ -28,7 +28,7 @@ from build_rumble import P, lp  # noqa: E402
 REPO = os.path.normpath(os.path.join(HERE, "..", ".."))
 MOD = os.path.join(REPO, "league")
 ID = "league_rumble"
-VERSION = "0.219.0"     # above main 0.218.2 (#525), no open PR, 2026-10-25
+VERSION = "0.221.0"     # above main 0.220.0 (Ambessa #527), 2026-10-25
 APi = "<i#asset/base/ui/banpick/champion_stat_icon:ap_0>"
 TOOLTIP_MAX = {"zh-hans": 130, "zh-hant": 130, "en": 334, "ja": 147, "ko": 185}
 O = "<#ff9028ff>"      # names

@@ -7,6 +7,7 @@ pub const SOULS: &[&str] = &[
     "league_akali",
     "league_akshan",
     "league_alistar",
+    "league_ambessa",
     "league_amumu",
     "league_anivia",
     "league_annie",
