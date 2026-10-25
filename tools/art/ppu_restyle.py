@@ -356,8 +356,11 @@ RESTYLE = {
     # the new muzzles (samira_bake.json). Then in game: 「我怎么感觉身体有点细啊 和原版画风不符」「感觉降低像素就行了」
     # 「泽丽之前也一样 但是后面调整好了」 - picked 2.2 from a 2.84 / 2.2 / 1.8 / 1.5 sheet (tools/art/review_samira_ppu.py,
     # 「用 2.2」): drawn at 2.84 (ORIG_PPU), brought to 2.2 squares a game pixel like Jinx, Lux, Ahri and Annie; the
-    # 1-2 square holes the coarser grid closes round thin gaps (arm and waist, hair strands) filled (fill_holes)
-    "samira": dict(ppu=2.2, edge=0, face_to=(-4, -36), fx=True, fill_holes=2),
+    # 1-2 square holes the coarser grid closes round thin gaps (arm and waist, hair strands) filled. Then 「这嘴也太丑了」
+    # (2.2 voted her lips into a dark slash and her one-pixel green eye away) and 「你可以其他地方模糊点 脸做好点啊」:
+    # the frames stay on their 2.84 grid, everything laid back on it at 2.2 squares (look) but her face as drawn
+    # (look_keep: tools/art/face_samira_hd.py) - the approved 2.84 face in a 2.2 body; the effects ride on as drawn
+    "samira": dict(edge=0, face_to=(-4, -36), fx=True, look=2.2, look_holes=2, look_keep="face_samira_hd"),
     # league_yunara (#119): posed from the design's own squares at the user's 1.5 squares a game pixel (「选 A，40 行」,
     # Codex's step-1 take 2 cut to 60 rows, her beads apart) by tools/art/rig_yunara.py, so no proportion or density
     # change here; the outer outline grown a square like the others; the face point at her ornaments' crown
@@ -915,6 +918,25 @@ def fill_holes(a, most):
     return out
 
 
+def coarse_look(a, pivot, k, outline, holes=0, keep=None):
+    """`a` brought to k times as many squares a side (pixelate) and laid back on its own grid - every pixel the colour
+    of the coarse square it falls in - its enclosed holes of up to `holes` squares filled (and, laid back, any of
+    up to 3 pixels), the pixels `keep` marks put back as drawn (league_samira: her face kept fine in a coarse
+    body)."""
+    c, pv = pixelate(a, k, pivot, outline)
+    if holes:
+        c = fill_holes(c, holes)
+    H, W = a.shape[:2]
+    cx = np.floor((np.arange(W) + 0.5 - pivot[0]) * k).astype(int) + pv[0]
+    cy = np.floor((np.arange(H) + 0.5 - pivot[1]) * k).astype(int) + pv[1]
+    okx, oky = (cx >= 0) & (cx < c.shape[1]), (cy >= 0) & (cy < c.shape[0])
+    out = np.zeros_like(a)
+    out[np.ix_(oky, okx)] = c[np.ix_(cy[oky], cx[okx])]
+    if keep is not None:
+        out[keep] = a[keep]
+    return fill_holes(out, 3) if holes else out
+
+
 def grow_edge(a, n, colour):
     if n <= 0:
         return a
@@ -1214,6 +1236,13 @@ def restyle(hero, spec, write=True, only=None):
                 content = close_pinholes(content, spec.get("edge", 0), outline)
             if spec.get("fill_holes"):                    # specks of ground the coarser grid closed in
                 content = fill_holes(content, int(spec["fill_holes"]))
+            if spec.get("look"):                          # coarser to the eye, on the frame's own grid
+                kept = None
+                if spec.get("look_keep"):
+                    import importlib
+                    kept = importlib.import_module(spec["look_keep"]).keep(tag, i, content)
+                content = coarse_look(content, pivot, spec["look"] / new_ppu, outline, int(spec.get("look_holes", 0)),
+                                      kept)
             if spec.get("fx") and not spec.get("fix"):
                 if i == 0:
                     fx = read_fx(hero, tag)
