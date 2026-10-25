@@ -902,7 +902,7 @@
         "attack": "每次普攻开两枪，第二枪对英雄只有50%伤害。<#ff9028ff>无所不用<>：普攻和技能每打中3下，多造成<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<>物理伤害，打中英雄还获得<#66bb6aff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#66bb6aff>35%<>护盾<#ffb900ff>2秒<>。<#ff9028ff>赴险夺人<>：被2个以上敌方英雄围住时伪装<#ffb900ff>2秒<>并加速40%。",
         "skill": "朝敌人扔出回旋镖（先瞄准再出手，能躲开），去程和回程各造成<#ff9028ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<>物理伤害；打中英雄加速20%，持续<#ffb900ff>1秒<>。",
         "skill2": "甩出钩索朝敌方英雄荡过去，<#ffb900ff>1.4秒<>内每<#ffb900ff>0.23秒<>朝最近的敌人开一枪，造成<#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>物理伤害，最后翻滚离开再开一枪。",
-        "ult": "锁定受伤的敌方英雄蓄力<#ffb900ff>2.5秒<>，最多存5发子弹，被<#ef5350ff>控制<>会中断；然后连射，每发打中路上第一个敌人，造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>物理伤害，前面每打中一发，后面的子弹多30%。"
+        "ult": "锁定受伤的敌方英雄蓄力<#ffb900ff>0.5秒<>，最多存5发子弹，被<#ef5350ff>控制<>会中断；然后连射，每发打中路上第一个敌人，造成<#ff9028ff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>25%<>物理伤害，前面每打中一发，后面的子弹多30%。"
       },
       "league_poppy": {
         "name": "波比",
@@ -1075,7 +1075,7 @@
       "league_hwei": {
         "name": "彗",
         "attack": "挥笔甩出一团墨。<#ff9028ff>落款<>：技能命中英雄后<#ffb900ff>4秒<>内再命中则引爆，造成<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<>魔法伤害。<#ff9028ff>主题：靖<>：画灾时加速25%，画悚时为自己和附近队友加<#66bb6aff>护盾<><#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<>。",
-        "skill": "依局势作画：被控制的英雄头上落<#ff9028ff>攒聚雷<><#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<>，再加<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>；否则向英雄掷<#ff9028ff>没骨火<><#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>加3%最大生命；没有英雄时画<#ff9028ff>连皴山<>，熔岩灼烧并减速35%。均为魔法伤害。",
+        "skill": "依局势作画：被控制的英雄头上落<#ff9028ff>攒聚雷<><#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<>，再加<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>；否则向英雄掷<#ff9028ff>没骨火<><#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>加3%最大生命；没有英雄时画<#ff9028ff>连皴山<>，熔岩灼烧并减速35%。均为魔法伤害。",
         "skill2": "依局势作画：贴身的英雄被<#ff9028ff>阴沉变意<><#ef5350ff>恐惧<><#ffb900ff>1秒<>；否则轮流画<#ff9028ff>滞涩幽瞳<>（睁眼后<#ef5350ff>禁锢<><#ffb900ff>1.3秒<>）与<#ff9028ff>双钩血喉<>（咬住并减速45%）。均造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>魔法伤害。",
         "ult": "向英雄甩出颜料，命中后在其脚下展开画卷<#ffb900ff>3秒<>，持续造成魔法伤害并减速25%，最后爆炸造成<#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<>魔法伤害。"
       },
@@ -1091,7 +1091,7 @@
         "attack": "抡神像砸下。<#ff9028ff>古神先知<>：普攻时每<#ffb900ff>6秒<>身前长出触手<#ffb900ff>6秒<>，每<#ffb900ff>1.5秒<>抽附近一个敌人<#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>35%<>物理伤害，抽中英雄<#66bb6aff>回复<><#ff9028ff>6<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>6%<>生命。",
         "skill": "跃向目标，造成<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<> + 目标2%最大生命值的物理伤害，她的每条触手都抽他一下。",
         "skill2": "扯出敌方英雄的灵魂<#ffb900ff>5秒<>：受到的伤害+15%，<#ef5350ff>减速<>50%；之后成为躯壳<#ffb900ff>4秒<>，身边长出触手。",
-        "ult": "跃起把神像砸进地里，对周围敌人造成<#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>物理伤害，每命中一名英雄长出一条触手；<#ffb900ff>8秒<>内触手每<#ffb900ff>1秒<>抽一次，严酷训诫冷却<#ffb900ff>2秒<>。"
+        "ult": "跃起把神像砸进地里，对周围敌人造成<#ff9028ff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>95%<>物理伤害，每命中一名英雄长出一条触手；<#ffb900ff>8秒<>内触手每<#ffb900ff>1秒<>抽一次，严酷训诫冷却<#ffb900ff>1.67秒<>。"
       },
       "league_aurora": {
         "name": "阿萝拉",
@@ -2948,7 +2948,7 @@
         "attack": "每次普攻開兩槍，第二槍對英雄只有50%傷害。<#ff9028ff>無賴之道<>：普攻和技能每打中3下，多造成<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<>物理傷害，打中英雄還獲得<#66bb6aff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#66bb6aff>35%<>護盾<#ffb900ff>2秒<>。<#ff9028ff>離經叛道<>：被2個以上敵方英雄圍住時偽裝<#ffb900ff>2秒<>並加速40%。",
         "skill": "朝敵人扔出迴力鏢（先瞄準再出手，能躲開），去程和回程各造成<#ff9028ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<>物理傷害；打中英雄加速20%，持續<#ffb900ff>1秒<>。",
         "skill2": "甩出勾索朝敵方英雄盪過去，<#ffb900ff>1.4秒<>內每<#ffb900ff>0.23秒<>朝最近的敵人開一槍，造成<#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>物理傷害，最後翻滾離開再開一槍。",
-        "ult": "鎖定受傷的敵方英雄蓄力<#ffb900ff>2.5秒<>，最多存5發子彈，被<#ef5350ff>控制<>會中斷；然後連射，每發打中路上第一個敵人，造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>物理傷害，前面每打中一發，後面的子彈多30%。"
+        "ult": "鎖定受傷的敵方英雄蓄力<#ffb900ff>0.5秒<>，最多存5發子彈，被<#ef5350ff>控制<>會中斷；然後連射，每發打中路上第一個敵人，造成<#ff9028ff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>25%<>物理傷害，前面每打中一發，後面的子彈多30%。"
       },
       "league_poppy": {
         "name": "波比",
@@ -3121,7 +3121,7 @@
       "league_hwei": {
         "name": "赫威",
         "attack": "揮筆甩出一團墨。<#ff9028ff>筆仙真跡<>：技能命中英雄後<#ffb900ff>4秒<>內再命中則引爆，造成<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<>魔法傷害。<#ff9028ff>靜謐筆法<>：施展厄禍時加速25%，施展苦惱時為自己和附近隊友加<#66bb6aff>護盾<><#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<>。",
-        "skill": "依局勢作畫：受控的英雄頭上落下<#ff9028ff>震顫轟雷<><#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<>，再加<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>；否則向英雄擲出<#ff9028ff>壞滅熾燄<><#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>加3%最大生命；沒有英雄時畫<#ff9028ff>熔岩裂隙<>，灼燒並緩速35%。皆為魔法傷害。",
+        "skill": "依局勢作畫：受控的英雄頭上落下<#ff9028ff>震顫轟雷<><#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<>，再加<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>；否則向英雄擲出<#ff9028ff>壞滅熾燄<><#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>加3%最大生命；沒有英雄時畫<#ff9028ff>熔岩裂隙<>，灼燒並緩速35%。皆為魔法傷害。",
         "skill2": "依局勢作畫：貼身的英雄被<#ff9028ff>死神面影<><#ef5350ff>恐懼<><#ffb900ff>1秒<>；否則輪流畫<#ff9028ff>深淵凝視<>（睜眼後<#ef5350ff>定身<><#ffb900ff>1.3秒<>）與<#ff9028ff>碎骨大顎<>（咬住並緩速45%）。皆造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>魔法傷害。",
         "ult": "向英雄甩出顏料，命中後在其腳下展開氣場<#ffb900ff>3秒<>，持續造成魔法傷害並緩速25%，最後爆炸造成<#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<>魔法傷害。"
       },
@@ -3137,7 +3137,7 @@
         "attack": "掄神像砸下。<#ff9028ff>遠古預言<>：普攻時每<#ffb900ff>6秒<>身前長出觸手<#ffb900ff>6秒<>，每<#ffb900ff>1.5秒<>抽附近一個敵人<#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>35%<>物理傷害，抽中英雄<#66bb6aff>回復<><#ff9028ff>6<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>6%<>生命。",
         "skill": "躍向目標，造成<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<> + 目標2%最大生命值的物理傷害，她的每條觸手都抽他一下。",
         "skill2": "扯出敵方英雄的靈魂<#ffb900ff>5秒<>：受到的傷害+15%，<#ef5350ff>緩速<>50%；之後成為軀殼<#ffb900ff>4秒<>，身邊長出觸手。",
-        "ult": "躍起把神像砸進地裡，對周圍敵人造成<#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>物理傷害，每命中一名英雄長出一條觸手；<#ffb900ff>8秒<>內觸手每<#ffb900ff>1秒<>抽一次，嚴酷考驗冷卻<#ffb900ff>2秒<>。"
+        "ult": "躍起把神像砸進地裡，對周圍敵人造成<#ff9028ff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>95%<>物理傷害，每命中一名英雄長出一條觸手；<#ffb900ff>8秒<>內觸手每<#ffb900ff>1秒<>抽一次，嚴酷考驗冷卻<#ffb900ff>1.67秒<>。"
       },
       "league_aurora": {
         "name": "歐羅拉",
@@ -4994,7 +4994,7 @@
         "attack": "Every attack fires two shots, the second dealing 50% to champions. <#ff9028ff>Dirty Fighting<>: every third hit of his attacks and abilities deals <#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<> physical damage more and, on a champion, gives him a <#66bb6aff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#66bb6aff>35%<> shield for <#ffb900ff>2s<>. <#ff9028ff>Going Rogue<>: with 2+ enemy champions near he camouflages for <#ffb900ff>2s<> and gains 40% move speed.",
         "skill": "Throws a boomerang at an enemy (aimed first, so it can be dodged) that deals <#ff9028ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<> physical damage going out and again coming back; a champion hit gives him 20% move speed for <#ffb900ff>1s<>.",
         "skill2": "Hooks and swings toward an enemy champion: for <#ffb900ff>1.4s<> he shoots the nearest enemy every <#ffb900ff>0.23s<> for <#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> physical damage, then rolls off with a last shot.",
-        "ult": "Locks onto a wounded enemy champion and charges for <#ffb900ff>2.5s<>, storing up to 5 bullets (<#ef5350ff>crowd control<> stops it), then fires them: each hits the first enemy in its path for <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<> physical damage, 30% more for every bullet that hit before."
+        "ult": "Locks onto a wounded enemy champion and charges for <#ffb900ff>0.5s<>, storing up to 5 bullets (<#ef5350ff>crowd control<> stops it), then fires them: each hits the first enemy in its path for <#ff9028ff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>25%<> physical damage, 30% more for every bullet that hit before."
       },
       "league_poppy": {
         "name": "Poppy",
@@ -5167,7 +5167,7 @@
       "league_hwei": {
         "name": "Hwei",
         "attack": "A flick of ink. <#ff9028ff>Signature of the Visionary<>: a champion hit by his ability and hit again within <#ffb900ff>4s<> takes <#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<> magic damage. <#ff9028ff>Subject: Serenity<>: painting Disaster gives him +25% move speed; painting Torment <#66bb6aff>shields<> him and the allies near for <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<>.",
-        "skill": "Paints by the situation: <#ff9028ff>Severing Bolt<> on a crowd-controlled champion, <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<> plus <#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>; else <#ff9028ff>Devastating Fire<> at a champion, <#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> plus 3% of its max health; with no champion near, <#ff9028ff>Molten Fissure<>, lava that burns and slows 35%. All magic damage.",
+        "skill": "Paints by the situation: <#ff9028ff>Severing Bolt<> on a crowd-controlled champion, <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<> plus <#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>; else <#ff9028ff>Devastating Fire<> at a champion, <#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> plus 3% of its max health; with no champion near, <#ff9028ff>Molten Fissure<>, lava that burns and slows 35%. All magic damage.",
         "skill2": "Paints by the situation: <#ff9028ff>Grim Visage<> makes a champion on top of him <#ef5350ff>flee<> for <#ffb900ff>1s<>; else in turn <#ff9028ff>Gaze of the Abyss<> (an eye that <#ef5350ff>roots<> for <#ffb900ff>1.3s<>) and <#ff9028ff>Crushing Maw<> (jaws that hold and slow 45%). Each deals <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> magic damage.",
         "ult": "Flings paint at a champion: a canvas spreads under it for <#ffb900ff>3s<>, burning and slowing the enemies on it 25%, then bursts for <#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<> magic damage."
       },
@@ -5183,7 +5183,7 @@
         "attack": "Swings her idol down. <#ff9028ff>Prophet of an Elder God<>: an attack grows a tentacle before her every <#ffb900ff>6s<> for <#ffb900ff>6s<>; it strikes an enemy nearby every <#ffb900ff>1.5s<> for <#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>35%<> physical damage, and <#66bb6aff>heals<> her <#ff9028ff>6<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>6%<> when it hits a champion.",
         "skill": "Leaps at her target: <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<> + 2% of its max health as physical damage, and every tentacle of hers lashes it.",
         "skill2": "Rips the spirit out of an enemy champion for <#ffb900ff>5s<>: it takes 15% more damage and is <#ef5350ff>slowed<> 50%; then it is a Vessel for <#ffb900ff>4s<> and a tentacle grows by it.",
-        "ult": "Leaps and smashes her idol into the ground: <#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> physical damage to the enemies around, a tentacle for each champion hit; for <#ffb900ff>8s<> her tentacles strike every <#ffb900ff>1s<> and the cooldown of Harsh Lesson is <#ffb900ff>2s<>."
+        "ult": "Leaps and smashes her idol into the ground: <#ff9028ff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>95%<> physical damage to the enemies around, a tentacle for each champion hit; for <#ffb900ff>8s<> her tentacles strike every <#ffb900ff>1s<> and the cooldown of Harsh Lesson is <#ffb900ff>1.67s<>."
       },
       "league_aurora": {
         "name": "Aurora",
@@ -7040,7 +7040,7 @@
         "attack": "공격마다 두 발 발사, 두 번째는 챔피언에게 50% 피해. <#ff9028ff>비열한 싸움<>: 공격과 스킬 3회 적중마다 <#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<> 물리 피해 추가, 챔피언이면 <#66bb6aff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#66bb6aff>35%<> 보호막 <#ffb900ff>2초<>. <#ff9028ff>악당 처단<>: 적 챔피언 2명 이상이 가까우면 <#ffb900ff>2초<> 위장, 이동 속도 +40%.",
         "skill": "적에게 부메랑을 던짐(조준 후 발사, 피할 수 있음): 갈 때와 돌아올 때 각각 <#ff9028ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<> 물리 피해, 챔피언 적중 시 <#ffb900ff>1초<>간 이동 속도 +20%.",
         "skill2": "갈고리를 걸고 적 챔피언 쪽으로 날아감: <#ffb900ff>1.4초<> 동안 <#ffb900ff>0.23초<>마다 가장 가까운 적에게 <#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> 물리 피해, 마지막에 구르며 한 발 더.",
-        "ult": "부상당한 적 챔피언을 조준해 <#ffb900ff>2.5초<> 충전, 최대 5발 저장(<#ef5350ff>군중 제어<> 시 중단) 후 발사: 각 탄환은 처음 맞는 적에게 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<> 물리 피해, 앞서 맞힌 탄환마다 +30%."
+        "ult": "부상당한 적 챔피언을 조준해 <#ffb900ff>0.5초<> 충전, 최대 5발 저장(<#ef5350ff>군중 제어<> 시 중단) 후 발사: 각 탄환은 처음 맞는 적에게 <#ff9028ff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>25%<> 물리 피해, 앞서 맞힌 탄환마다 +30%."
       },
       "league_poppy": {
         "name": "뽀삐",
@@ -7213,7 +7213,7 @@
       "league_hwei": {
         "name": "흐웨이",
         "attack": "붓으로 먹을 튕긴다. <#ff9028ff>몽상가의 서명<>: 스킬에 맞은 챔피언이 <#ffb900ff>4초<> 안에 다시 맞으면 폭발해 <#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<> 마법 피해. <#ff9028ff>주제: 평온<>: 참사를 그리면 이동 속도 +25%, 고통을 그리면 자신과 주변 아군에게 <#66bb6aff>보호막<> <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<>.",
-        "skill": "상황에 맞게 그린다: 군중 제어된 챔피언에게 <#ff9028ff>절단의 번개<> <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<>, 추가 <#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>; 아니면 챔피언에게 <#ff9028ff>파멸의 화염<> <#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> + 최대 체력의 3%; 챔피언이 없으면 <#ff9028ff>녹아내린 균열<>, 용암이 불태우고 35% 둔화. 모두 마법 피해.",
+        "skill": "상황에 맞게 그린다: 군중 제어된 챔피언에게 <#ff9028ff>절단의 번개<> <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<>, 추가 <#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>; 아니면 챔피언에게 <#ff9028ff>파멸의 화염<> <#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> + 최대 체력의 3%; 챔피언이 없으면 <#ff9028ff>녹아내린 균열<>, 용암이 불태우고 35% 둔화. 모두 마법 피해.",
         "skill2": "상황에 맞게 그린다: 붙은 챔피언은 <#ff9028ff>암울한 형상<>에 <#ffb900ff>1초<> <#ef5350ff>공포<>; 아니면 번갈아 <#ff9028ff>심연의 응시<>(<#ffb900ff>1.3초<> <#ef5350ff>속박<>)와 <#ff9028ff>파괴의 아귀<>(물고 45% 둔화). 모두 <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> 마법 피해.",
         "ult": "챔피언에게 물감을 던져 발밑에 그림을 <#ffb900ff>3초<> 펼친다. 위의 적을 불태우고 25% 둔화시킨 뒤 폭발해 <#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<> 마법 피해."
       },
@@ -7229,7 +7229,7 @@
         "attack": "신상을 내리친다. <#ff9028ff>고대신의 예언자<>: 기본 공격 시 <#ffb900ff>6초<>마다 앞에 촉수가 <#ffb900ff>6초<> 자라 <#ffb900ff>1.5초<>마다 근처 적에게 <#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>35%<> 물리 피해, 챔피언 적중 시 <#ff9028ff>6<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>6%<> <#66bb6aff>회복<>.",
         "skill": "대상에게 도약해 <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<> + 대상 최대 체력의 2% 물리 피해, 그녀의 모든 촉수가 대상을 내려친다.",
         "skill2": "적 챔피언의 영혼을 <#ffb900ff>5초<> 끌어낸다: 받는 피해 +15%, 50% <#ef5350ff>둔화<>; 이후 <#ffb900ff>4초<> 동안 그릇이 되어 곁에 촉수가 자란다.",
-        "ult": "도약해 신상을 땅에 내리꽂아 주변 적에게 <#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> 물리 피해, 맞힌 챔피언마다 촉수 하나; <#ffb900ff>8초<> 동안 촉수는 <#ffb900ff>1초<>마다 내려치고 혹독한 가르침 재사용 대기시간 <#ffb900ff>2초<>."
+        "ult": "도약해 신상을 땅에 내리꽂아 주변 적에게 <#ff9028ff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>95%<> 물리 피해, 맞힌 챔피언마다 촉수 하나; <#ffb900ff>8초<> 동안 촉수는 <#ffb900ff>1초<>마다 내려치고 혹독한 가르침 재사용 대기시간 <#ffb900ff>1.67초<>."
       },
       "league_aurora": {
         "name": "오로라",
@@ -9086,7 +9086,7 @@
         "attack": "通常攻撃は2発、2発目はチャンピオンに50%。<#ff9028ff>ダーティーファイト<>：攻撃とスキルの3回目の命中で<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<>の物理ダメージを追加、チャンピオンなら<#66bb6aff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#66bb6aff>35%<>のシールド（<#ffb900ff>2秒<>）。<#ff9028ff>義賊の流儀<>：敵2体以上に囲まれると<#ffb900ff>2秒<>迷彩、移動速度+40%。",
         "skill": "ブーメランを投げる（狙ってから投げるので避けられる）：行きと帰りに各<#ff9028ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<>の物理ダメージ、チャンピオン命中で<#ffb900ff>1秒<>移動速度+20%。",
         "skill2": "フックで敵チャンピオンへスイング：<#ffb900ff>1.4秒<>間、<#ffb900ff>0.23秒<>毎に最も近い敵へ<#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>の物理ダメージ、最後に転がってもう1発。",
-        "ult": "負傷した敵チャンピオンを狙い<#ffb900ff>2.5秒<>チャージ、最大5発（<#ef5350ff>行動妨害<>で中断）、その後発射：各弾は最初に当たった敵に<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>の物理ダメージ、先に当たった弾毎に+30%。"
+        "ult": "負傷した敵チャンピオンを狙い<#ffb900ff>0.5秒<>チャージ、最大5発（<#ef5350ff>行動妨害<>で中断）、その後発射：各弾は最初に当たった敵に<#ff9028ff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>25%<>の物理ダメージ、先に当たった弾毎に+30%。"
       },
       "league_poppy": {
         "name": "ポッピー",
@@ -9259,7 +9259,7 @@
       "league_hwei": {
         "name": "フェイ",
         "attack": "筆で墨を飛ばす。<#ff9028ff>夢想家の銘<>：スキルが当たった英雄に<#ffb900ff>4秒<>以内に再び当てると爆発し<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<>の魔法ダメージ。<#ff9028ff>題材: 静謐<>：厄災で移動速度+25%、苦悩で自身と周囲の味方に<#66bb6aff>シールド<><#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<>。",
-        "skill": "状況で描き分ける：行動妨害中の英雄に<#ff9028ff>断ち切る稲妻<><#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<>＋<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>、なければ英雄へ<#ff9028ff>荒廃の炎<><#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>＋最大体力の3%、英雄がいなければ<#ff9028ff>沸き立つ大地<>で燃やし35%スロウ。すべて魔法ダメージ。",
+        "skill": "状況で描き分ける：行動妨害中の英雄に<#ff9028ff>断ち切る稲妻<><#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<>＋<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>、なければ英雄へ<#ff9028ff>荒廃の炎<><#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>＋最大体力の3%、英雄がいなければ<#ff9028ff>沸き立つ大地<>で燃やし35%スロウ。すべて魔法ダメージ。",
         "skill2": "状況で描き分ける：密着した英雄を<#ff9028ff>恐怖の形相<>で<#ffb900ff>1秒<><#ef5350ff>恐怖<>、それ以外は<#ff9028ff>深淵の眼差し<>（<#ffb900ff>1.3秒<><#ef5350ff>スネア<>）と<#ff9028ff>粉砕の牙<>（噛みつき45%スロウ）を交互に。各<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>の魔法ダメージ。",
         "ult": "英雄へ絵の具を放ち、足元に絵画を<#ffb900ff>3秒<>広げて燃やし25%スロウ、最後に爆発して<#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<>の魔法ダメージ。"
       },
@@ -9275,7 +9275,7 @@
         "attack": "神像を振り下ろす。<#ff9028ff>旧神の預言者<>：通常攻撃時<#ffb900ff>6秒<>ごとに前へ触手が<#ffb900ff>6秒<>生え、<#ffb900ff>1.5秒<>ごとに近くの敵へ<#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>35%<>の物理ダメージ、英雄に当たると<#ff9028ff>6<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>6%<><#66bb6aff>回復<>。",
         "skill": "対象へ跳び<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<> + 対象の最大体力の2%の物理ダメージ、彼女の触手すべてが対象を打つ。",
         "skill2": "敵英雄の魂を<#ffb900ff>5秒<>引き出す：受けるダメージ+15%、50%<#ef5350ff>スロウ<>。その後<#ffb900ff>4秒<>器となり、そばに触手が生える。",
-        "ult": "跳んで神像を地面に叩きつけ周囲の敵に<#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>の物理ダメージ、当たった英雄ごとに触手1本。<#ffb900ff>8秒<>間触手は<#ffb900ff>1秒<>ごとに打ち、過酷なる教訓のクールダウン<#ffb900ff>2秒<>。"
+        "ult": "跳んで神像を地面に叩きつけ周囲の敵に<#ff9028ff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>95%<>の物理ダメージ、当たった英雄ごとに触手1本。<#ffb900ff>8秒<>間触手は<#ffb900ff>1秒<>ごとに打ち、過酷なる教訓のクールダウン<#ffb900ff>1.67秒<>。"
       },
       "league_aurora": {
         "name": "オーロラ",

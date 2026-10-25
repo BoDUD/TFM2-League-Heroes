@@ -41,7 +41,8 @@ Shifting Sands (E) `skill2`, Emperor's Divide (R) the `ult`.
           meets. Two pushes: with `r_win` up (he just dashed onto the champion with E) he first rushes through it
           (`RushMoveToBack`, r_rush_at - league_leesin's insec) and the wall pushes it back toward his team (反推);
           otherwise the wall pushes them away from him (正推: peels a diver, or shoves a fight apart). Every champion the
-          wall meets refunds Q (`q_ref`, skill_cooldown_mult q_refund for 2 ticks: R -> Q).
+          wall meets refunds Q (`q_ref`, skill_cooldown_mult q_refund for 2 ticks: R -> Q; ult_cooldown_mult -q_refund keeps
+          R's own cooldown - without it the cap cut R's 40 s to 4, 2026-10-25).
 The add-on copy (--native, addons/league_azir): the passive league_azir:disc raises the Sun Disc on a fallen tower of his;
 the soldiers' rise, checkpoints and stabs call league_azir:rise_<s> / sold_<s> / stab_<s> instead of the front pictures,
 and the add-on draws each soldier from the side, facing the nearest enemy and stabbing when it strikes (the user:
@@ -54,6 +55,8 @@ R -2.88 (R worth ~0.8); the stab is the lever (25+45% -> 65+90% AP), then reach 
 every 80, more health and armour: +0.45 seeds 1-8, +1.53 seeds 9-16. The soldiers then raised in front of him (s_place,
 not on their target: they stood inside it) lost ~0.85 (the target walks out of a spear further off); their reach 42000,
 the stab 75 + 100% AP and 1150 health: +1.18 on seeds 1-24 (league_hwei +1.16 / +1.38 on seeds 1-8 / 17-24).
+2026-10-25: R's cooldown really runs now (R -> Q's refund capped it to a tenth, 10.6 casts a game -> 6.5); r_cd 2400 ->
+1800: +1.34 / +0.92 -> +1.02 / +0.43 (seeds 1-8 / 9-16).
 """
 import argparse
 import json
@@ -95,7 +98,7 @@ P = {
     "e_back_t": 8, "e_sh": 80, "e_ap": 60, "e_t": 90, "e_r": 18000, "e_dmg": 90, "e_ratio": 55, "e_near": 20000,
     "win_r": 90,
     # ult: R Emperor's Divide
-    "r_cd": 2400, "r_range": 40000, "r_dur": 36, "r_at": 16, "r_rush_at": 6, "r_rush": 8000, "r_speed": 3000,
+    "r_cd": 1800, "r_range": 40000, "r_dur": 36, "r_at": 16, "r_rush_at": 6, "r_rush": 8000, "r_speed": 3000,
     "r_len": 60000, "r_w": 20000, "r_dmg": 260, "r_ratio": 90, "r_kb_speed": 3000, "r_kb": 18, "r_stamps": 5,
     "q_refund": 900,
     "vo_gap": 600,
@@ -400,7 +403,7 @@ def build(p):
                         [ap(p["r_dmg"], p["r_ratio"]), {"type": "Knockback", "speed": p["r_kb_speed"], "tick": p["r_kb"]},
                          view("r_hit"), tsfx("r_hit")]),
                    line("r_wall_ch", p["r_speed"], p["r_len"], p["r_w"], "EnemyChampion",
-                        [refresh("q_ref", 2, skill_cooldown_mult=p["q_refund"])]),
+                        [refresh("q_ref", 2, skill_cooldown_mult=p["q_refund"], ult_cooldown_mult=-p["q_refund"])]),
                    *stamps)
     behind = delayed(p["r_rush_at"] - 1, alive({"type": "RushMoveToBack", "speed": p["r_rush"], "applied_effects": []}))
     ult = action("ult", p["r_dur"], p["r_cd"], 1, p["r_range"], "Targeting", "EnemyChampion",

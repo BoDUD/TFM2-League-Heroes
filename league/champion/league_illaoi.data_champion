@@ -2023,7 +2023,7 @@
                                           "name": "league_illaoi_w_cd",
                                           "duration": {
                                             "Time": {
-                                              "tick": 120
+                                              "tick": 100
                                             }
                                           }
                                         },
@@ -2709,11 +2709,41 @@
                                                   "tick": 2
                                                 }
                                               },
-                                              "skill_cooldown_mult": 900
+                                              "skill_cooldown_mult": 900,
+                                              "ult_cooldown_mult": -900
                                             },
                                             "only_to_enemy": false
                                           }
                                         ]
+                                      },
+                                      {
+                                        "type": "SwitchByBuff",
+                                        "buff_name": "league_illaoi_w_cd",
+                                        "effect_buff": {
+                                          "type": "Combine",
+                                          "effects": [
+                                            {
+                                              "type": "RemoveCasterBuff",
+                                              "name": "league_illaoi_w_cd"
+                                            },
+                                            {
+                                              "type": "AddCasterBuff",
+                                              "buff_state": {
+                                                "name": "league_illaoi_w_cd",
+                                                "duration": {
+                                                  "Time": {
+                                                    "tick": 30
+                                                  }
+                                                }
+                                              },
+                                              "only_to_enemy": false
+                                            }
+                                          ]
+                                        },
+                                        "effect_none": {
+                                          "type": "Combine",
+                                          "effects": []
+                                        }
                                       }
                                     ]
                                   }
@@ -4470,8 +4500,8 @@
               },
               "effect_none": {
                 "type": "Attack",
-                "damage": 90,
-                "attack_ratio": 60,
+                "damage": 160,
+                "attack_ratio": 95,
                 "hp_ratio": 0,
                 "target_hp_ratio": 0,
                 "attack_effect_type": "Target"
@@ -4641,11 +4671,41 @@
                                       "tick": 2
                                     }
                                   },
-                                  "skill_cooldown_mult": 900
+                                  "skill_cooldown_mult": 900,
+                                  "ult_cooldown_mult": -900
                                 },
                                 "only_to_enemy": false
                               }
                             ]
+                          },
+                          {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_illaoi_w_cd",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_illaoi_w_cd"
+                                },
+                                {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_illaoi_w_cd",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 30
+                                      }
+                                    }
+                                  },
+                                  "only_to_enemy": false
+                                }
+                              ]
+                            },
+                            "effect_none": {
+                              "type": "Combine",
+                              "effects": []
+                            }
                           }
                         ]
                       },
@@ -4661,8 +4721,8 @@
                         "effects": [
                           {
                             "type": "Attack",
-                            "damage": 90,
-                            "attack_ratio": 60,
+                            "damage": 160,
+                            "attack_ratio": 95,
                             "hp_ratio": 0,
                             "target_hp_ratio": 0,
                             "attack_effect_type": "Target"

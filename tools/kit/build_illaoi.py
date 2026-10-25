@@ -41,6 +41,8 @@ reach first.
 Timings: drafts until the frames exist (a frame's start in ticks = ms x 0.06): a_hit, w_dash, w_hit, e_rel, r_at.
 Numbers: League 16.20 (CommunityDragon illaoi.bin) read into the Melee fighter range; balanced on the classic-SDK
 simulations (kd.py --lane 0 against fighter, executioner, knight, berserker, lancer and pole_warrior, C:/t/il_sim).
+2026-10-25: R's 40 s really waits now (the E -> W refund at its landing capped it to 4 s, 9.5 casts a game -> 5.2):
+r_dmg 90 + 60% -> 160 + 95% AD, w_cd_r 120 -> 100: +1.39 / +1.08 -> +1.32 / +1.68 (seeds 1-8 / 9-16).
 """
 import argparse
 import json
@@ -75,13 +77,13 @@ P = {
     # its body toward her, tethered
     "p_cd_1": 1200, "p_cd_18": 600, "t_long": 3600, "t_most": 4, "q_cd": 480, "e_pull": 40000,
     # skill: W Harsh Lesson
-    "w_cd": 300, "w_cd_r": 120, "w_range": 45000, "w_dur": 30, "w_dash": 12, "w_speed": 6000, "w_hit": 6,
+    "w_cd": 300, "w_cd_r": 100, "w_range": 45000, "w_dur": 30, "w_dash": 12, "w_speed": 6000, "w_hit": 6,
     "w_dmg": 30, "w_ratio": 50, "w_thp": 2, "w_gap": 6, "w_mark_t": 240,
     # skill2: E Test of Spirit
     "e_cd": 840, "e_range": 80000, "e_dur": 30, "e_rel": 12, "e_speed": 5000, "e_dmg": 20, "e_ratio": 20,
     "e_t": 300, "e_echo": 15, "e_slow": 50, "e_slow_t": 90, "e_vt": 240, "e_leash": 150000,
     # ult: R Leap of Faith
-    "r_cd": 2400, "r_range": 40000, "r_dur": 40, "r_at": 26, "r_r": 45000, "r_dmg": 90, "r_ratio": 60, "r_on": 480,
+    "r_cd": 2400, "r_range": 40000, "r_dur": 40, "r_at": 26, "r_r": 45000, "r_dmg": 160, "r_ratio": 95, "r_on": 480,
     "r_per": 60,
     # combos
     "win_w": 90, "w_refund": 900,
@@ -306,7 +308,12 @@ def build(p):
                    key="skill")
 
     # ------------------------------------------------------------------ skill2: E Test of Spirit
-    open_w = combine(refresh("w_go", p["win_w"]), refresh("w_ref", 2, skill_cooldown_mult=p["w_refund"]))
+    # the refund's skill_cooldown_mult caps the ult's remaining cooldown as well unless ult_cooldown_mult offsets it: R's
+    # landing opened it too and Leap of Faith's 40 s fell to 4 (the user, 2026-10-25: 「俄洛伊大招释放进冷却之后直接从40秒
+    # 一下跳到4秒」). W's real cooldown is the flag `w_cd` (its slot only idles 3 ticks), so the cut is the flag's too.
+    open_w = combine(refresh("w_go", p["win_w"]),
+                     refresh("w_ref", 2, skill_cooldown_mult=p["w_refund"], ult_cooldown_mult=-p["w_refund"]),
+                     sw("w_cd", refresh("w_cd", p["w_cd"] * 100 // (100 + p["w_refund"]))))
     vessel = [buff("e_vessel", p["e_vt"]), view("e_break"), tsfx("e_break"), grow(on_spot("EnemyChampion"), "v")]
     spirit = buff("e_spirit", p["e_t"]) if native else buff("e_spirit", p["e_t"], damaged_amplify=p["e_echo"])
     e_hit = [attack(p["e_dmg"], p["e_ratio"]), spirit,
