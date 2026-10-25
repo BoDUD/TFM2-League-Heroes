@@ -175,11 +175,27 @@ def cut(hero, tag, out):
     print(os.path.basename(out), pad.size)
 
 
+def box_guide(name, squares, wide, label):
+    """A layout guide without her model (--no-lol): the ground line, the top line and a box of the figure's size."""
+    can = Image.new("RGB", (1536, 1536), GREY)
+    d = ImageDraw.Draw(can)
+    top, half = SOLE - squares * SQ, wide * SQ // 2
+    d.rectangle([CX - half, top, CX + half, SOLE], outline=(120, 120, 120), width=3)
+    d.line([(0, SOLE), (1536, SOLE)], fill=(150, 150, 150), width=2)
+    d.line([(0, top), (1536, top)], fill=(190, 190, 190), width=1)
+    d.text((24, 24), label, fill=(60, 60, 60))
+    can.save(name)
+    print(os.path.basename(name), "box", (CX - half, top, CX + half, SOLE))
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", required=True)
     ap.add_argument("--lol", default=r"D:\WeGameApps\lol")
     ap.add_argument("--no-render", action="store_true", help="reuse the renders already in <out>/refs")
+    ap.add_argument("--no-lol", action="store_true",
+                    help="no League client (a cloud session): box guides and style pictures only, for the prompt's "
+                         "no-reference version")
     ap.add_argument("--tex", action="append", default=[], metavar="SUBMESH=TEXTURE",
                     help="colour a submesh with this texture (pose_ref --submesh-texture), repeatable")
     ap.add_argument("--hide", action="append", default=[], metavar="SUBMESH", help="leave a submesh out, repeatable")
@@ -188,7 +204,12 @@ def main():
     for d in (refs, style, work):
         os.makedirs(d, exist_ok=True)
     extra = [x for t in a.tex for x in ("--submesh-texture", t)] + [x for s in a.hide for x in ("--hide-submesh", s)]
-    if not a.no_render:
+    if a.no_lol:
+        box_guide(os.path.join(refs, "9a_layout_ambessa.png"), 58, 40,
+                  "A: her idle, 3/4 front, facing right; top to soles ~640 px (58 squares of 11); box ~40 squares wide")
+        box_guide(os.path.join(refs, "9b_layout_ambessa_side.png"), 58, 32,
+                  "SA: her side, facing right; same size and ground; box ~32 squares wide")
+    elif not a.no_render:
         wad = Wad(os.path.join(a.lol, "Game", "DATA", "FINAL", "Champions", "Ambessa.wad.client"))
         clips, skn, subs, hidden, texs = names(wad)
         pick = roles(clips)
@@ -220,7 +241,7 @@ def main():
             break
         else:
             print("no loading screen found at", SPLASH, "- put one in refs/5_ambessa_splash.png by hand")
-    for name, (src, squares, label) in GUIDES.items():
+    for name, (src, squares, label) in ({} if a.no_lol else GUIDES).items():
         guide(os.path.join(work, src + ".png"), os.path.join(refs, name), squares, label)
     for name, (hero, tag) in CUT.items():
         cut(hero, tag, os.path.join(style, name))
