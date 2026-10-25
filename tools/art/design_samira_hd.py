@@ -7,8 +7,8 @@ own ChatGPT picture cut to game size) read back on its own squares, design_gwen_
 Codex delivered (2026-10-25) hd/raw/samira-refined.png drawn on ~10-px squares - 138 of them from the sword's hilt to
 her soles, PPU 3.7 at her 37 game rows - and its own export samira-A.png, that resampled to 72 x 81 squares at 11 px
 (PPU 2.2: muddy). The raw is read on its own squares (design_fiora_hd.grid), cut to colours by k-means, then brought to
-her height (OLD game rows from the hilt's top to the soles) times PPU by whole lines dropped (design_rell_cut.even_cut,
-never the face's lines). -> hd/design.png. With --review DIR: <dir>/samira_ppu_size.png (each --ppus beside this pack's
+her height (OLD game rows from the hilt's top to the soles) times PPU by whole lines dropped (design_rell_cut.even_cut, never the
+face's lines; sharper than the Lab mean, design_ahri_hd.read). -> hd/design.png. With --review DIR: <dir>/samira_ppu_size.png (each --ppus beside this pack's
 PPU 2.2 heroes and Samira now, as the game draws them) and <dir>/samira_ppu_closeup.png.
 """
 import argparse
@@ -28,8 +28,9 @@ AH.HD = os.path.join(ROOT, "assets", "source", "samira", "hd")
 AH.RAW, AH.PITCH = "samira-lol-refined.png", (7.5, 8.6)  # its own square (~8 px)
 OLD = 37                        # her 1x idle, the sword's hilt to her soles
 CROWN = 0                       # (measured from the top of the read: the hilt)
-PPU = 2.2
-FACE_ROWS, FACE_COLS = range(0), range(0)             # set once the read is looked at
+PPU = 2.84                      # the user's pick, 2026-10-25: 「用 PPU 2.2 取平均的那版」, then on the result 「太糊了 用2.84吧」
+HOW = "cut"                     # whole lines dropped: sharper than the Lab mean at 2.84 (her eye, the tattoo, the chains)
+FACE_ROWS, FACE_COLS = range(26, 46), range(50, 75)   # her eye (read rows 29-35), mouth (39-44), never dropped
 PEERS = ["samira", "annie", "ahri", "lux"]
 
 
@@ -58,7 +59,7 @@ def main():
     ap.add_argument("--ppus", type=float, nargs="*", default=[2.2, 2.84, 3.7])
     ap.add_argument("--out", help="write the design here instead of hd/design.png")
     a = ap.parse_args()
-    d, step = design(a.ppu)
+    d, step = design(a.ppu, HOW)
     Image.fromarray(d).save(AH.lp(a.out or os.path.join(AH.HD, "design.png")))
     print(f"step {step:.2f} -> design {d.shape[1]}x{d.shape[0]}, "
           f"{len(np.unique(d[d[..., 3] > 0][:, :3], axis=0))} colours")
@@ -70,7 +71,7 @@ def main():
     raw.putalpha(raw.getchannel("A").point(lambda v: 255 if v >= 128 else 0))
     raw = raw.crop(raw.getbbox())
     for p in a.ppus:
-        dt, _ = design(p)
+        dt, _ = design(p, HOW)
         cells.append((f"new {p}: {(dt.shape[0]) / p:.1f}px", FD.shown(Image.fromarray(dt), p, 3)))
         z = 600 / dt.shape[0]
         if not close:
