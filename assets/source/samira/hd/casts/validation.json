@@ -1,0 +1,1140 @@
+{
+  "expected_sheets": 41,
+  "completed_sheets": 41,
+  "checks": [
+    {
+      "name": "run_1",
+      "size": [
+        1536,
+        1024
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "palette_only": true,
+      "cells": [
+        {
+          "frame": 1,
+          "bbox": [
+            58,
+            336,
+            443,
+            904
+          ],
+          "sha256": "999396c018bb123fe47fc1ad299be6fe8071b755b30b150323473da2d9b3cfb4"
+        },
+        {
+          "frame": 2,
+          "bbox": [
+            99,
+            336,
+            458,
+            904
+          ],
+          "sha256": "a141a8999127096da9a69b771ce11aee4b4e802891d84532e8b96d8634ee5663"
+        }
+      ]
+    },
+    {
+      "name": "run_2",
+      "size": [
+        1536,
+        1024
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "palette_only": true,
+      "cells": [
+        {
+          "frame": 3,
+          "bbox": [
+            75,
+            342,
+            458,
+            904
+          ],
+          "sha256": "2f2b7ae1f21d80afb69924ab88c376008c18c36b28f4af3b6213061e64421dd0"
+        },
+        {
+          "frame": 4,
+          "bbox": [
+            97,
+            341,
+            435,
+            904
+          ],
+          "sha256": "488f70f36d6230297bd7d36a11176300fa2d81c57870c8f26b5bb86808c6f83d"
+        }
+      ]
+    },
+    {
+      "name": "run_3",
+      "size": [
+        1536,
+        1024
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "palette_only": true,
+      "cells": [
+        {
+          "frame": 5,
+          "bbox": [
+            8,
+            329,
+            508,
+            904
+          ],
+          "sha256": "f5f263c6613a1c437fa87ada1d26b8ebded0c316ec47cca0cde5907b936f198a"
+        },
+        {
+          "frame": 6,
+          "bbox": [
+            310,
+            358,
+            745,
+            904
+          ],
+          "sha256": "eb5a029fa8f951ff97b16c3527b3ea5cde9fa4337232449076878f53da82867c"
+        }
+      ]
+    },
+    {
+      "name": "run_4",
+      "size": [
+        1536,
+        1024
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "palette_only": true,
+      "cells": [
+        {
+          "frame": 7,
+          "bbox": [
+            8,
+            309,
+            473,
+            904
+          ],
+          "sha256": "b41eeb2780d81a52071cab44085e7027ce51a7a77e4739dc69c9fb8bfce821c3"
+        },
+        {
+          "frame": 8,
+          "bbox": [
+            192,
+            310,
+            615,
+            904
+          ],
+          "sha256": "860dab8449da82cdd6480a9de0896f9fc647a8af7b189fe18dcfca86ad8e0399"
+        }
+      ]
+    },
+    {
+      "name": "attack_1",
+      "size": [
+        1536,
+        1024
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "palette_only": true,
+      "cells": [
+        {
+          "frame": 1,
+          "bbox": [
+            191,
+            342,
+            603,
+            904
+          ],
+          "sha256": "2a8ed3dcfbdc59c27b6297179e8a437e878153fe1f48af3d050fdc5522003735"
+        },
+        {
+          "frame": 2,
+          "bbox": [
+            195,
+            327,
+            711,
+            904
+          ],
+          "sha256": "5782cf383a6de5be5c0f7fd703c89ced9fd046b590b53a7c5cdc74aa4eb06111"
+        }
+      ]
+    },
+    {
+      "name": "attack_2",
+      "size": [
+        1536,
+        1024
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "palette_only": true,
+      "cells": [
+        {
+          "frame": 3,
+          "bbox": [
+            547,
+            342,
+            1110,
+            904
+          ],
+          "sha256": "dbfea4bf584ce67af61d7e235ccfd75a44cf49f79667f7074991a3f00e1ddfe5"
+        }
+      ]
+    },
+    {
+      "name": "attack_3",
+      "size": [
+        1536,
+        1024
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "palette_only": true,
+      "cells": [
+        {
+          "frame": 4,
+          "bbox": [
+            556,
+            342,
+            1128,
+            904
+          ],
+          "sha256": "73b28b35a0f34542f82cb0546ed68aaef0f9180c10100902a6519037c5072e0d"
+        }
+      ]
+    },
+    {
+      "name": "attack_4",
+      "size": [
+        1536,
+        1024
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "palette_only": true,
+      "cells": [
+        {
+          "frame": 8,
+          "bbox": [
+            565,
+            337,
+            1026,
+            904
+          ],
+          "sha256": "b42325b3ad3613a98c49075ae8617c6d163ebcf45c5dde018b63ec5129bf2f61"
+        }
+      ]
+    },
+    {
+      "name": "attack_m_1",
+      "size": [
+        1536,
+        1024
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "palette_only": true,
+      "cells": [
+        {
+          "frame": 1,
+          "bbox": [
+            234,
+            211,
+            665,
+            904
+          ],
+          "sha256": "290bea103f2f1e03cac3c6317413438bc0a8291bcc6b2dd2796ae5e390257561"
+        },
+        {
+          "frame": 2,
+          "bbox": [
+            229,
+            192,
+            669,
+            904
+          ],
+          "sha256": "c080fe96ec86d87b049a5342a9a25e9c395ccd6de34a1cb4b47ed9b30f561574"
+        }
+      ]
+    },
+    {
+      "name": "attack_m_2",
+      "size": [
+        1536,
+        1024
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "palette_only": true,
+      "cells": [
+        {
+          "frame": 3,
+          "bbox": [
+            621,
+            337,
+            1321,
+            904
+          ],
+          "sha256": "4ee0d2f46764055fa7e229b64787e8c8de1ac1de5c33c0943b51ae8de8b5d054"
+        }
+      ]
+    },
+    {
+      "name": "attack_m_3",
+      "size": [
+        1536,
+        1024
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "palette_only": true,
+      "cells": [
+        {
+          "frame": 4,
+          "bbox": [
+            223,
+            342,
+            718,
+            904
+          ],
+          "sha256": "2fbb126a59c19d1049f99601ce302adf33798419f7b1bf5d2613b64c3a15f740"
+        },
+        {
+          "frame": 5,
+          "bbox": [
+            121,
+            333,
+            648,
+            904
+          ],
+          "sha256": "28a0fc65928d5b38356bb6aa9fe0f7d59e03bf7de90b2217fbcd7fa430237b82"
+        }
+      ]
+    },
+    {
+      "name": "attack_m_4",
+      "size": [
+        1536,
+        1024
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "palette_only": true,
+      "cells": [
+        {
+          "frame": 6,
+          "bbox": [
+            125,
+            338,
+            622,
+            904
+          ],
+          "sha256": "a0360c809246e36e0d89821eed436b054f8be55c4577469760fc15931091c447"
+        },
+        {
+          "frame": 8,
+          "bbox": [
+            211,
+            338,
+            532,
+            904
+          ],
+          "sha256": "f04fbb6bc7b98fae131a2c7f68c84fe9ee5ed8b93f6c785198a622a664f53972"
+        }
+      ]
+    },
+    {
+      "name": "skill_1",
+      "size": [
+        1536,
+        1024
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "palette_only": true,
+      "cells": [
+        {
+          "frame": 1,
+          "bbox": [
+            178,
+            339,
+            655,
+            904
+          ],
+          "sha256": "3635dae648be7754209ebe7c1e3eb3d02f3b29091402d190ce8e44663ee7f4ba"
+        },
+        {
+          "frame": 2,
+          "bbox": [
+            191,
+            335,
+            697,
+            904
+          ],
+          "sha256": "50429c2626c8b2bbc4d06e63fdab3c80b6ef987f31549b994c2e41d4d199dd76"
+        }
+      ]
+    },
+    {
+      "name": "skill_2",
+      "size": [
+        1536,
+        1024
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "palette_only": true,
+      "cells": [
+        {
+          "frame": 3,
+          "bbox": [
+            558,
+            342,
+            1114,
+            904
+          ],
+          "sha256": "f50661d4de5567feb7583b26c52fa04f703957a4a3d26b6e443bc4983baf6883"
+        }
+      ]
+    },
+    {
+      "name": "skill_3",
+      "size": [
+        1536,
+        1024
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "palette_only": true,
+      "cells": [
+        {
+          "frame": 6,
+          "bbox": [
+            175,
+            332,
+            727,
+            904
+          ],
+          "sha256": "e75aa7bf26ff51f7e194d316cc33b8011aae2b03e9833dc654db396f67f92195"
+        },
+        {
+          "frame": 7,
+          "bbox": [
+            179,
+            342,
+            664,
+            904
+          ],
+          "sha256": "603ec45c10ba77e91e347d5d0979b08bf545d34f0028a6f97174bcb49ebec362"
+        }
+      ]
+    },
+    {
+      "name": "skill_m_1",
+      "size": [
+        1536,
+        1024
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "palette_only": true,
+      "cells": [
+        {
+          "frame": 1,
+          "bbox": [
+            238,
+            198,
+            687,
+            904
+          ],
+          "sha256": "aeff935521f11c950efcbb3f23b013a8a7348b34a5bf42f40184e3bd4f02b004"
+        },
+        {
+          "frame": 2,
+          "bbox": [
+            184,
+            153,
+            533,
+            904
+          ],
+          "sha256": "2c103d25925053a44f97a203d0e85113d1d437f14efc12a594e7e657b65b99b0"
+        }
+      ]
+    },
+    {
+      "name": "skill_m_2",
+      "size": [
+        1536,
+        1024
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "palette_only": true,
+      "cells": [
+        {
+          "frame": 4,
+          "bbox": [
+            743,
+            338,
+            1465,
+            904
+          ],
+          "sha256": "86ccbf68a9acfae5af01ac92245e23035d34a3771fbe0abdca32705300ffcb96"
+        }
+      ]
+    },
+    {
+      "name": "skill_m_3",
+      "size": [
+        1536,
+        1024
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "palette_only": true,
+      "cells": [
+        {
+          "frame": 5,
+          "bbox": [
+            605,
+            342,
+            1318,
+            904
+          ],
+          "sha256": "9680d8273ba5da046d05a9761e0a09c5b5adbe625997d60a631436977ff107f8"
+        }
+      ]
+    },
+    {
+      "name": "skill_m_4",
+      "size": [
+        1536,
+        1024
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "palette_only": true,
+      "cells": [
+        {
+          "frame": 6,
+          "bbox": [
+            620,
+            337,
+            1348,
+            904
+          ],
+          "sha256": "e8fc88612fed758b79cddc8732f998315bd491aae5bed3dc228dc7cdebbdb922"
+        }
+      ]
+    },
+    {
+      "name": "skill_m_5",
+      "size": [
+        1536,
+        1024
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "palette_only": true,
+      "cells": [
+        {
+          "frame": 7,
+          "bbox": [
+            624,
+            334,
+            1292,
+            904
+          ],
+          "sha256": "5a7683af70b5b65dc2a141ba3288204e86f9571930fa9a40f6744f206c0448f5"
+        }
+      ]
+    },
+    {
+      "name": "skill_m_6",
+      "size": [
+        1536,
+        1024
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "palette_only": true,
+      "cells": [
+        {
+          "frame": 8,
+          "bbox": [
+            552,
+            342,
+            949,
+            904
+          ],
+          "sha256": "d8503c670ff7135b60a45826a3fef9721ad5980370078117781a68eb220d0ebc"
+        }
+      ]
+    },
+    {
+      "name": "skill2_1",
+      "size": [
+        1536,
+        1024
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "palette_only": true,
+      "cells": [
+        {
+          "frame": 1,
+          "bbox": [
+            597,
+            342,
+            1514,
+            904
+          ],
+          "sha256": "a791e4ba5e29c5040ad95fdeda090185b8791ab8f2e83e169da7c59f5923f94e"
+        }
+      ]
+    },
+    {
+      "name": "skill2_2",
+      "size": [
+        1536,
+        1024
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "palette_only": true,
+      "cells": [
+        {
+          "frame": 2,
+          "bbox": [
+            533,
+            338,
+            1512,
+            904
+          ],
+          "sha256": "739fc01af4d2dcc51b5dfe6ae3fecad5dc985c66233c1d8a15d1811e767d7329"
+        }
+      ]
+    },
+    {
+      "name": "skill2_3",
+      "size": [
+        1536,
+        1024
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "palette_only": true,
+      "cells": [
+        {
+          "frame": 3,
+          "bbox": [
+            561,
+            342,
+            1381,
+            904
+          ],
+          "sha256": "56ba0c9120efa2d8ae397c842f2886afa4fe97462614f55bad6e505a8b1345d6"
+        }
+      ]
+    },
+    {
+      "name": "skill2_4",
+      "size": [
+        1536,
+        1024
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "palette_only": true,
+      "cells": [
+        {
+          "frame": 4,
+          "bbox": [
+            537,
+            331,
+            1335,
+            904
+          ],
+          "sha256": "6aa172770e1617150ce50c8ba9ef381763b92900668626c9f71d430d7532540f"
+        }
+      ]
+    },
+    {
+      "name": "skill2_5",
+      "size": [
+        1536,
+        1024
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "palette_only": true,
+      "cells": [
+        {
+          "frame": 5,
+          "bbox": [
+            511,
+            338,
+            1020,
+            904
+          ],
+          "sha256": "87c97f5c93bea98a022bc0098667797e013747c8a8b0d2eed77e4f5fb03271a3"
+        }
+      ]
+    },
+    {
+      "name": "skill2_6",
+      "size": [
+        1536,
+        1024
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "palette_only": true,
+      "cells": [
+        {
+          "frame": 6,
+          "bbox": [
+            528,
+            338,
+            998,
+            904
+          ],
+          "sha256": "ac10b7912e71fb5a5c2c14ff3c06842168316a69e832238a9977e0dcb3645772"
+        }
+      ]
+    },
+    {
+      "name": "skill2_7",
+      "size": [
+        1536,
+        1024
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "palette_only": true,
+      "cells": [
+        {
+          "frame": 7,
+          "bbox": [
+            600,
+            342,
+            1297,
+            904
+          ],
+          "sha256": "0007fd6a3fba0edaab4cdc046102b7e56a88afe85410937c4ceb61e829ee7c2c"
+        }
+      ]
+    },
+    {
+      "name": "skill2_8",
+      "size": [
+        1536,
+        1024
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "palette_only": true,
+      "cells": [
+        {
+          "frame": 8,
+          "bbox": [
+            597,
+            335,
+            1314,
+            904
+          ],
+          "sha256": "9893fd41017adb0c6018451f2014d36e863b33b94e3f477ae65b2b4c7601bf2d"
+        }
+      ]
+    },
+    {
+      "name": "skill2_9",
+      "size": [
+        1536,
+        1024
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "palette_only": true,
+      "cells": [
+        {
+          "frame": 9,
+          "bbox": [
+            233,
+            339,
+            728,
+            904
+          ],
+          "sha256": "f1f1dd6e27a6e063f515e74a9b3c40bbff9c6f52e446c6b2797b39192254cd54"
+        },
+        {
+          "frame": 10,
+          "bbox": [
+            259,
+            315,
+            525,
+            904
+          ],
+          "sha256": "1a9032826805ba0f6bf75d8c531f02d15e11abe80d9ab6758e69f00d3aab6de4"
+        }
+      ]
+    },
+    {
+      "name": "skill2_10",
+      "size": [
+        1536,
+        1024
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "palette_only": true,
+      "cells": [
+        {
+          "frame": 11,
+          "bbox": [
+            235,
+            234,
+            714,
+            904
+          ],
+          "sha256": "d2b25c49d2798b1cb7d668537895886f53db6879670df76c7f5b8c85fdb296c2"
+        },
+        {
+          "frame": 16,
+          "bbox": [
+            205,
+            342,
+            581,
+            904
+          ],
+          "sha256": "c7b278eb9835bff257d5b66dcb216ad236188c6bdcbd008ff253ccc56805f8b3"
+        }
+      ]
+    },
+    {
+      "name": "ult_1",
+      "size": [
+        1536,
+        1024
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "palette_only": true,
+      "cells": [
+        {
+          "frame": 1,
+          "bbox": [
+            369,
+            338,
+            1158,
+            904
+          ],
+          "sha256": "7b403e2da905b9459f7af3549815a5f5d2def5ec194475f823f123da9c9de903"
+        }
+      ]
+    },
+    {
+      "name": "ult_2",
+      "size": [
+        1536,
+        1024
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "palette_only": true,
+      "cells": [
+        {
+          "frame": 2,
+          "bbox": [
+            355,
+            340,
+            1171,
+            904
+          ],
+          "sha256": "f7eb125566309da199b96e60a60c894646d7a83e1ff51885dea4bbe0bedc7d7a"
+        }
+      ]
+    },
+    {
+      "name": "ult_3",
+      "size": [
+        1536,
+        1024
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "palette_only": true,
+      "cells": [
+        {
+          "frame": 5,
+          "bbox": [
+            373,
+            343,
+            1156,
+            904
+          ],
+          "sha256": "90c8bf0bdb2a622d75cbc4787f310c53b987be30fc0f02d223239b3823879ad3"
+        }
+      ]
+    },
+    {
+      "name": "ult_4",
+      "size": [
+        1536,
+        1024
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "palette_only": true,
+      "cells": [
+        {
+          "frame": 11,
+          "bbox": [
+            382,
+            341,
+            1156,
+            904
+          ],
+          "sha256": "14d36e2cd018c3701d8dd30cf9c2df07bd80cd25002aca53b688ce6fa1871f03"
+        }
+      ]
+    },
+    {
+      "name": "ult_5",
+      "size": [
+        1536,
+        1024
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "palette_only": true,
+      "cells": [
+        {
+          "frame": 26,
+          "bbox": [
+            559,
+            342,
+            989,
+            904
+          ],
+          "sha256": "51ecf5b025f07cebe726edaaff5ad7ba50bf0d4e074e4f37b35496e81480a736"
+        }
+      ]
+    },
+    {
+      "name": "hit_1",
+      "size": [
+        1536,
+        1024
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "palette_only": true,
+      "cells": [
+        {
+          "frame": 1,
+          "bbox": [
+            144,
+            337,
+            574,
+            904
+          ],
+          "sha256": "ff80c482d0f1ea1453be67efdf8e8498ca6130b5c7e79c383d39d16c759dfc45"
+        },
+        {
+          "frame": 2,
+          "bbox": [
+            126,
+            327,
+            596,
+            904
+          ],
+          "sha256": "32d858b95adfe9b6ab1388716209687ff4ed2139a331551e6b588f3fca4f43d7"
+        }
+      ]
+    },
+    {
+      "name": "dead_1",
+      "size": [
+        1536,
+        1024
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "palette_only": true,
+      "cells": [
+        {
+          "frame": 1,
+          "bbox": [
+            98,
+            326,
+            529,
+            904
+          ],
+          "sha256": "2bf8389695f56c6c70cd00acbc1c0529276a12a1d5aeaed128b5ee10f64d24a1"
+        },
+        {
+          "frame": 2,
+          "bbox": [
+            53,
+            310,
+            542,
+            888
+          ],
+          "sha256": "9257fdb7f3ae2e926e78d602bd0e80e14fb4c91fe511669a45812d00d8b4d89d"
+        }
+      ]
+    },
+    {
+      "name": "dead_2",
+      "size": [
+        1536,
+        1024
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "palette_only": true,
+      "cells": [
+        {
+          "frame": 3,
+          "bbox": [
+            182,
+            531,
+            745,
+            904
+          ],
+          "sha256": "197e57d75cd90a08b0dc919c208507f6b7b52f05b416f7f87856836e46c0ac0f"
+        }
+      ]
+    },
+    {
+      "name": "dead_3",
+      "size": [
+        1536,
+        1024
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "palette_only": true,
+      "cells": [
+        {
+          "frame": 4,
+          "bbox": [
+            213,
+            624,
+            1088,
+            905
+          ],
+          "sha256": "171d9ccc94c91cced42b321b381a03e499b498a1f0e6244a07d4d01326d0f1d9"
+        }
+      ]
+    },
+    {
+      "name": "dead_4",
+      "size": [
+        1536,
+        1024
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "palette_only": true,
+      "cells": [
+        {
+          "frame": 5,
+          "bbox": [
+            213,
+            634,
+            1088,
+            903
+          ],
+          "sha256": "a10774405f7bff74c253d51646516006104d4c27bda326be476d01d089c2867d"
+        }
+      ]
+    }
+  ]
+}

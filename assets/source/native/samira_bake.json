@@ -4,12 +4,16 @@
   {
    "tag": "a_flash",
    "into": "attack",
-   "at_ms": 180
+   "at_ms": 180,
+   "dx": 5.8,
+   "dy": -6.6
   },
   {
    "tag": "q_flash",
    "into": "skill",
-   "at_ms": 120
+   "at_ms": 120,
+   "dx": 5.1,
+   "dy": -6.8
   },
   {
    "tag": "a_slash",
@@ -20,7 +24,9 @@
    "tag": "q_slash",
    "into": "skill_m",
    "at_ms": 140,
-   "fx": "league_samira_big"
+   "fx": "league_samira_big",
+   "dx": 8.0,
+   "dy": -8.0
   },
   {
    "tag": "e_dash",
@@ -31,42 +37,130 @@
   {
    "tag": "rf_a",
    "into": "ult",
-   "at_ms": 150
+   "at_ms": 150,
+   "side": "right",
+   "dx": 7.6,
+   "dy": -5.2
+  },
+  {
+   "tag": "rf_a",
+   "into": "ult",
+   "at_ms": 150,
+   "side": "left",
+   "dx": -3.5,
+   "dy": -4.2
   },
   {
    "tag": "rf_b",
    "into": "ult",
-   "at_ms": 334
-  },
-  {
-   "tag": "rf_a",
-   "into": "ult",
-   "at_ms": 518
-  },
-  {
-   "tag": "rf_c",
-   "into": "ult",
-   "at_ms": 702
-  },
-  {
-   "tag": "rf_a",
-   "into": "ult",
-   "at_ms": 886
+   "at_ms": 334,
+   "side": "right",
+   "dx": 6.9,
+   "dy": -4.5
   },
   {
    "tag": "rf_b",
    "into": "ult",
-   "at_ms": 1070
+   "at_ms": 334,
+   "side": "left",
+   "dx": -2.4,
+   "dy": -7.6
   },
   {
    "tag": "rf_a",
    "into": "ult",
-   "at_ms": 1254
+   "at_ms": 518,
+   "side": "right",
+   "dx": 7.6,
+   "dy": -5.2
+  },
+  {
+   "tag": "rf_a",
+   "into": "ult",
+   "at_ms": 518,
+   "side": "left",
+   "dx": -3.5,
+   "dy": -4.2
   },
   {
    "tag": "rf_c",
    "into": "ult",
-   "at_ms": 1438
+   "at_ms": 702,
+   "side": "right",
+   "dx": 6.9,
+   "dy": -8.8
+  },
+  {
+   "tag": "rf_c",
+   "into": "ult",
+   "at_ms": 702,
+   "side": "left",
+   "dx": -1.7,
+   "dy": -4.0
+  },
+  {
+   "tag": "rf_a",
+   "into": "ult",
+   "at_ms": 886,
+   "side": "right",
+   "dx": 7.6,
+   "dy": -5.2
+  },
+  {
+   "tag": "rf_a",
+   "into": "ult",
+   "at_ms": 886,
+   "side": "left",
+   "dx": -3.5,
+   "dy": -4.2
+  },
+  {
+   "tag": "rf_b",
+   "into": "ult",
+   "at_ms": 1070,
+   "side": "right",
+   "dx": 6.9,
+   "dy": -4.5
+  },
+  {
+   "tag": "rf_b",
+   "into": "ult",
+   "at_ms": 1070,
+   "side": "left",
+   "dx": -2.4,
+   "dy": -7.6
+  },
+  {
+   "tag": "rf_a",
+   "into": "ult",
+   "at_ms": 1254,
+   "side": "right",
+   "dx": 7.6,
+   "dy": -5.2
+  },
+  {
+   "tag": "rf_a",
+   "into": "ult",
+   "at_ms": 1254,
+   "side": "left",
+   "dx": -3.5,
+   "dy": -4.2
+  },
+  {
+   "tag": "rf_c",
+   "into": "ult",
+   "at_ms": 1438,
+   "side": "right",
+   "dx": 6.9,
+   "dy": -8.8
+  },
+  {
+   "tag": "rf_c",
+   "into": "ult",
+   "at_ms": 1438,
+   "side": "left",
+   "dx": -1.7,
+   "dy": -4.0
   }
  ]
 }
