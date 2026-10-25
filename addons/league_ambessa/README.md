@@ -25,12 +25,12 @@
 
 状态都在被动自己身上（被动跟着单位、每局一份，游戏并行跑的几局互不相干），不用全局变量。
 
-## 接入（2026-10-25，主包 0.219.0）
+## 接入（2026-10-25，主包 0.220.0）
 
 - `override/` 和 `text/champion.i18n` 由 `make_override.py` 写（先核对主包的 `league/champion/league_ambessa.data_champion`
   就是参数表 P 的那一份）；技能名是客户端里的官方名字（Data Dragon 16.21.1，和 `tools/kit/setup_ambessa.py` 一样）。
 - `mod.override_info` 两条映射（主包安蓓萨换成副本、文字合并），`league_addons/src/lib.rs` 里登记（`mod ambessa;`、
-  `ambessa::register`），`mod.mod_info` 要 `league` 0.219.0 以上。
+  `ambessa::register`），`mod.mod_info` 要 `league` 0.220.0 以上。
 - 特效（`tools/art/import_ambessa_fx.py`）：`q_tip`、`w_crit` 只有附加包播；`r_pin`、`r_crash` 两边共用。
 
 ## 检查

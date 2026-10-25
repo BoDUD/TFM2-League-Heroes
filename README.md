@@ -7330,7 +7330,7 @@ python addons/league_yorick/make_override.py    # 附加包的约里克副本（
 | 音效 | 英雄联盟的音效和配音（[`tools/lol/extract_ambessa.py`](tools/lol/extract_ambessa.py)，23 段）：普攻的出手和打中、强化一刀、龙犬诡步，暗袭的出手、横扫和打中，裂斩的出手和砸地，血戮的出手、旋风和打中，铁令的格挡、砸地和打中，大招的出手、压制和砸下；配音：暗袭、裂斩、血戮、铁令、公开处刑 |
 | 图标 | 官方技能图标（暗袭、血戮、公开处刑，另有裂斩、铁令、龙犬诡步），从本地客户端取 |
 | 选人卡片 | 头发到脚底 48 游戏像素：界面缩到 0.81（`league.dll` 的 UI_SIZES），脸 (2, −35)、`banpick_center` −4（按 `tools/art/bp_card_audit.py` 的规则）。待机按 `tools/art/hero_reels.py` 剪进铁令格挡和举刀各一帧 |
-| 俄洛伊的灵魂 | `tools/art/illaoi_souls.py` 加上安蓓萨（168 个），`league_illaoi` 0.2.4 |
+| 俄洛伊的灵魂 | `tools/art/illaoi_souls.py` 加上安蓓萨（168 个），`league_illaoi` 0.2.5 |
 
 重新生成（素材来自本机的英雄联盟客户端，音频不进仓库）：
 

@@ -8,7 +8,7 @@
     },
     {
       "mod_id": "league",
-      "version": ">=0.219.0"
+      "version": ">=0.220.0"
     }
   ],
   "description": "Test build of Ambessa as in League (needs League of Legends Heroes): replaces the main pack's Ambessa so Cunning Sweep's bonus hits only at the blade's edge, Sundering Slam's bonus the first enemy on the line, Repudiation is empowered only when she is struck while braced, and Public Execution blinks to the farthest enemy champion on the line (the main pack: everyone the sweep hits, the slam's target, champions always, the cast's target). Other champions are untouched. Writes a log for testing.",
