@@ -1754,7 +1754,12 @@ it, a `WithShield` flag added with no shield of her own says an ally's shield is
 flag): skip and try later. After it, a 100 shield against a 99 `FixedAttack` must break - any damage
 amplification would fake a level. Each life's first action re-reads the stages silently (death cleared them),
 then an action at most every 2 s tries the next one, with the ascent's picture and voice. In 12 simulated
-games no stage came early; they came 2-4 s after the level-up (median).
+games no stage came early; they came 2-4 s after the level-up (median). In game they did not hold *(league_kayle.log, 2026-10-24: rank5 at level 3 in 9 of 23
+games, rank12 at levels 6-10 in all 23)*: health the level table does not have (items) passes a threshold levels early,
+and the data cannot tell it from a level. Gating a stage on the ult slot (it unlocks at 5) is no way out either: the game's
+AI never picks her armed R by itself (observer: chose it 0 times; addons/league_ult_press presses it). The add-on
+addons/league_kayle reads `level()` natively and swaps each probe in its copy for a `SwitchByBuff` on a level flag it lays
+(`lv5` / `lv8` / `lv12`), so the stages and their ceremony come at the level.
 
 **An ult that waits for danger (league_kayle R, Divine Judgment).** League gives the invulnerability to whoever
 is about to die; nothing in a mod reads current health (section 3 "Which ally gets an ally skill"), so the rule
