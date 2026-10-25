@@ -123,8 +123,8 @@ pub struct Params {
 
 impl Default for Params {
     fn default() -> Self {
-        Self { ctl_p: 3, pw_t: 180, pw_as: 50, q_r: 30000, q_tip: 60, q_pct: 3, q2_pct: 5, r_range: 60000, r_w: 8000,
-               r_sup: 36, r_slam: 30, r_dmg: 120, r_ratio: 90, r_pct: 6, r_stun: 36 }
+        Self { ctl_p: 3, pw_t: 180, pw_as: 50, q_r: 30000, q_tip: 60, q_pct: 3, q2_pct: 4, r_range: 60000, r_w: 8000,
+               r_sup: 36, r_slam: 30, r_dmg: 115, r_ratio: 85, r_pct: 5, r_stun: 36 }
     }
 }
 
@@ -488,7 +488,7 @@ mod tests {
     #[test]
     fn the_slam_scales_with_attack_and_max_health() {
         let p = Params::default();
-        assert_eq!(slam_damage(&p, 200, 2000), 120 + 180 + 120);
+        assert_eq!(slam_damage(&p, 200, 2000), 115 + 170 + 100);
     }
 
     #[test]

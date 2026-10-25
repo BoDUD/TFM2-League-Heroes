@@ -2,45 +2,45 @@
   "zh-hans": {
     "description": {
       "league_ambessa": {
-        "attack": "【附加包】双刀。<#ff9028ff>龙犬诡步<>：每放一个技能就朝目标冲一步，下一刀更快更重。<#ff9028ff>铁令<>：敌方英雄靠近时举刀格挡得到护盾，然后砸地<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>；格挡时挨了英雄或野怪的打，砸地再加最大生命4%。",
-        "skill": "【附加包】<#ff9028ff>暗袭<>向前扫半圈<#ff9028ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<>，刀尖扫到的再加最大生命3%；扫中后可接<#ff9028ff>裂斩<>：直线劈下<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>，第一个敌人再加最大生命5%。",
-        "ult": "【附加包】闪到她和目标这条线上最远的敌方英雄身边，<#ef5350ff>压制<><#ffb900ff>0.6秒<>后砸进地里：<#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<> + 最大生命6%，<#ef5350ff>眩晕<><#ffb900ff>0.6秒<>。"
+        "attack": "【附加包】双刀。<#ff9028ff>龙犬诡步<>：每放一个技能就朝目标冲一步，下一刀更快更重。<#ff9028ff>铁令<>：敌方英雄靠近时举刀格挡得到护盾，然后砸地<#ff9028ff>48<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>55%<>；格挡时挨了英雄或野怪的打，砸地再加最大生命3%。",
+        "skill": "【附加包】<#ff9028ff>暗袭<>向前扫半圈<#ff9028ff>42<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>65%<>，刀尖扫到的再加最大生命3%；扫中后可接<#ff9028ff>裂斩<>：直线劈下<#ff9028ff>48<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>75%<>，第一个敌人再加最大生命4%。",
+        "ult": "【附加包】闪到她和目标这条线上最远的敌方英雄身边，<#ef5350ff>压制<><#ffb900ff>0.6秒<>后砸进地里：<#ff9028ff>115<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>85%<> + 最大生命5%，<#ef5350ff>眩晕<><#ffb900ff>0.6秒<>。"
       }
     }
   },
   "zh-hant": {
     "description": {
       "league_ambessa": {
-        "attack": "【附加包】雙刀。<#ff9028ff>龍犬詭步<>：每放一個技能就朝目標衝一步，下一刀更快更重。<#ff9028ff>鐵令<>：敵方英雄靠近時舉刀格擋得到護盾，然後砸地<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>；格擋時挨了英雄或野怪的打，砸地再加最大生命4%。",
-        "skill": "【附加包】<#ff9028ff>暗襲<>向前掃半圈<#ff9028ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<>，刀尖掃到的再加最大生命3%；掃中後可接<#ff9028ff>裂斬<>：直線劈下<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>，第一個敵人再加最大生命5%。",
-        "ult": "【附加包】閃到她和目標這條線上最遠的敵方英雄身邊，<#ef5350ff>壓制<><#ffb900ff>0.6秒<>後砸進地裡：<#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<> + 最大生命6%，<#ef5350ff>暈眩<><#ffb900ff>0.6秒<>。"
+        "attack": "【附加包】雙刀。<#ff9028ff>龍犬詭步<>：每放一個技能就朝目標衝一步，下一刀更快更重。<#ff9028ff>鐵令<>：敵方英雄靠近時舉刀格擋得到護盾，然後砸地<#ff9028ff>48<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>55%<>；格擋時挨了英雄或野怪的打，砸地再加最大生命3%。",
+        "skill": "【附加包】<#ff9028ff>暗襲<>向前掃半圈<#ff9028ff>42<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>65%<>，刀尖掃到的再加最大生命3%；掃中後可接<#ff9028ff>裂斬<>：直線劈下<#ff9028ff>48<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>75%<>，第一個敵人再加最大生命4%。",
+        "ult": "【附加包】閃到她和目標這條線上最遠的敵方英雄身邊，<#ef5350ff>壓制<><#ffb900ff>0.6秒<>後砸進地裡：<#ff9028ff>115<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>85%<> + 最大生命5%，<#ef5350ff>暈眩<><#ffb900ff>0.6秒<>。"
       }
     }
   },
   "en": {
     "description": {
       "league_ambessa": {
-        "attack": "[Add-on] Twin blades. <#ff9028ff>Drakehound's Step<>: every ability ends in a dash at her target and a faster, harder next attack. <#ff9028ff>Repudiation<>: with an enemy champion close she braces behind her raised blade for a shield, then slams for <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>; struck by a champion or monster while braced, the slam adds 4% max health.",
-        "skill": "[Add-on] <#ff9028ff>Cunning Sweep<> in a half circle for <#ff9028ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<>, 3% max health more at the blade's edge; on a hit <#ff9028ff>Sundering Slam<> follows down a line for <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>, the first enemy taking 5% max health more.",
-        "ult": "[Add-on] Blinks to the farthest enemy champion on the line through her target and <#ef5350ff>suppresses<> it for <#ffb900ff>0.6s<>, then slams it down for <#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<> + 6% max health, <#ef5350ff>stunning<> for <#ffb900ff>0.6s<>."
+        "attack": "[Add-on] Twin blades. <#ff9028ff>Drakehound's Step<>: every ability ends in a dash at her target and a faster, harder next attack. <#ff9028ff>Repudiation<>: with an enemy champion close she braces behind her raised blade for a shield, then slams for <#ff9028ff>48<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>55%<>; struck by a champion or monster while braced, the slam adds 3% max health.",
+        "skill": "[Add-on] <#ff9028ff>Cunning Sweep<> in a half circle for <#ff9028ff>42<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>65%<>, 3% max health more at the blade's edge; on a hit <#ff9028ff>Sundering Slam<> follows down a line for <#ff9028ff>48<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>75%<>, the first enemy taking 4% max health more.",
+        "ult": "[Add-on] Blinks to the farthest enemy champion on the line through her target and <#ef5350ff>suppresses<> it for <#ffb900ff>0.6s<>, then slams it down for <#ff9028ff>115<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>85%<> + 5% max health, <#ef5350ff>stunning<> for <#ffb900ff>0.6s<>."
       }
     }
   },
   "ko": {
     "description": {
       "league_ambessa": {
-        "attack": "[확장] 쌍검. <#ff9028ff>용사냥개의 발걸음<>: 스킬마다 대상에게 짧게 돌진하고 다음 공격이 더 빠르고 강해짐. <#ff9028ff>배척<>: 적 챔피언이 가까우면 검을 들어 막아 보호막을 얻고 내려찍어 <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>; 막는 동안 챔피언이나 몬스터에게 맞으면 최대 체력 4% 추가.",
-        "skill": "[확장] <#ff9028ff>교활한 휩쓸기<>: 반원으로 <#ff9028ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<>, 칼끝에 닿으면 최대 체력 3% 추가; 적중 시 <#ff9028ff>파멸의 일격<>: 직선으로 <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>, 첫 번째 적은 최대 체력 5% 추가.",
-        "ult": "[확장] 대상 방향 직선 위 가장 먼 적 챔피언 옆으로 순간이동해 <#ffb900ff>0.6초<> <#ef5350ff>제압<> 후 내려찍어 <#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<> + 최대 체력 6%, <#ffb900ff>0.6초<> <#ef5350ff>기절<>."
+        "attack": "[확장] 쌍검. <#ff9028ff>용사냥개의 발걸음<>: 스킬마다 대상에게 짧게 돌진하고 다음 공격이 더 빠르고 강해짐. <#ff9028ff>배척<>: 적 챔피언이 가까우면 검을 들어 막아 보호막을 얻고 내려찍어 <#ff9028ff>48<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>55%<>; 막는 동안 챔피언이나 몬스터에게 맞으면 최대 체력 3% 추가.",
+        "skill": "[확장] <#ff9028ff>교활한 휩쓸기<>: 반원으로 <#ff9028ff>42<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>65%<>, 칼끝에 닿으면 최대 체력 3% 추가; 적중 시 <#ff9028ff>파멸의 일격<>: 직선으로 <#ff9028ff>48<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>75%<>, 첫 번째 적은 최대 체력 4% 추가.",
+        "ult": "[확장] 대상 방향 직선 위 가장 먼 적 챔피언 옆으로 순간이동해 <#ffb900ff>0.6초<> <#ef5350ff>제압<> 후 내려찍어 <#ff9028ff>115<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>85%<> + 최대 체력 5%, <#ffb900ff>0.6초<> <#ef5350ff>기절<>."
       }
     }
   },
   "ja": {
     "description": {
       "league_ambessa": {
-        "attack": "【拡張】双剣。<#ff9028ff>ドレイクハウンドの猛攻<>：スキルごとに対象へ短く突進し、次の攻撃が速く重くなる。<#ff9028ff>断交<>：敵チャンピオンが近いと剣を掲げて防御しシールドを得てから叩きつけ<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>；構え中にチャンピオンかモンスターに殴られると最大体力4%追加。",
-        "skill": "【拡張】<#ff9028ff>カニングスイープ<>：半円に<#ff9028ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<>、刃先は最大体力3%追加；命中すると<#ff9028ff>サンダリングスラム<>：直線に<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>、最初の敵は最大体力5%追加。",
-        "ult": "【拡張】対象への直線上で最も遠い敵チャンピオンの側へ瞬間移動し<#ffb900ff>0.6秒<><#ef5350ff>制圧<>、叩きつけて<#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<> + 最大体力6%、<#ffb900ff>0.6秒<><#ef5350ff>スタン<>。"
+        "attack": "【拡張】双剣。<#ff9028ff>ドレイクハウンドの猛攻<>：スキルごとに対象へ短く突進し、次の攻撃が速く重くなる。<#ff9028ff>断交<>：敵チャンピオンが近いと剣を掲げて防御しシールドを得てから叩きつけ<#ff9028ff>48<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>55%<>；構え中にチャンピオンかモンスターに殴られると最大体力3%追加。",
+        "skill": "【拡張】<#ff9028ff>カニングスイープ<>：半円に<#ff9028ff>42<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>65%<>、刃先は最大体力3%追加；命中すると<#ff9028ff>サンダリングスラム<>：直線に<#ff9028ff>48<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>75%<>、最初の敵は最大体力4%追加。",
+        "ult": "【拡張】対象への直線上で最も遠い敵チャンピオンの側へ瞬間移動し<#ffb900ff>0.6秒<><#ef5350ff>制圧<>、叩きつけて<#ff9028ff>115<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>85%<> + 最大体力5%、<#ffb900ff>0.6秒<><#ef5350ff>スタン<>。"
       }
     }
   }

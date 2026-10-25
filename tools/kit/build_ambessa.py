@@ -59,10 +59,12 @@ Q 24, the sweep at q_hit 10; Q2 24, the slam at q2_hit 12; E 24, the lash at e_h
 before the dash, st_dur 10). Cunning Sweep's half circle and the step's streaks are drawn into her own frames (the
 client never mirrors an effect picture: tfm2-hero-mod), so the kit plays no picture for them; Sundering Slam's rift is
 a view-only line (q2_vis ticks) beside the damage line (q2_line, no picture: it lives 2 ticks).
-Numbers: League's Ambessa (recalled in a session without the client: check them against her bins with the
-extractor, then rebalance) read into the top fighter range (league_kled, league_yorick, league_darius); not yet
-balanced on the classic-SDK simulations (kd.py --lane 0 against fighter, executioner, knight, berserker, lancer and
-pole_warrior, league_gnar --native as the control).
+Numbers: League's Ambessa read into the top fighter range (league_kled, league_yorick, league_darius), balanced on the
+classic-SDK simulations (2026-10-25: kd.py --lane 0 against fighter, executioner, knight, berserker, lancer and
+pole_warrior, three lineups, both sides; the same games: league_gnar +0.30, league_kled +0.13, league_yorick +0.44):
+the draft (attack 96, Q 45 + 70% + 3%, Q2 50 + 80% + 5%, E 40 + 55%, the empowered blow 20 + 20% + 2%, W 50 + 60% + 4%,
+R 120 + 90% + 6%) +1.74, too strong; a cut to attack 92 / Q 40 + 60% + 2% ... -0.19; P (half way) +0.59 on seeds 1-16,
++0.42 on 17-32.
 """
 import argparse
 import json
@@ -84,27 +86,27 @@ BIG = "asset/league/effects/league_ambessa_big"
 # it, slams it down (stun); passive armour penetration and ability lifesteal.
 P = {
     # stats (Melee base: attack 95 +19, hp 1000 +100, def 30, mr 25, move 1000; league_kled 1040 / 90)
-    "hp": 1000, "hp_g": 92, "atk": 96, "atk_g": 16, "def": 32, "def_g": 8, "mr": 24, "mr_g": 4,
+    "hp": 1000, "hp_g": 92, "atk": 94, "atk_g": 16, "def": 32, "def_g": 8, "mr": 24, "mr_g": 4,
     "ms": 1050, "ms_g": 12, "regen": 2, "regen_g": 1,
     "atk_range": 25000, "atk_dur": 26, "atk_cd": 70, "a_hit": 10,
     # the controller
     "ctl_t": 3600, "ctl_p": 3,
     # passive: Drakehound's Step
     "st_gap": 8, "st_dur": 10, "st_speed": 3000, "st_reach": 45000,
-    "pw_t": 180, "pw_as": 50, "pw_dmg": 20, "pw_ratio": 20, "pw_pct": 2,
+    "pw_t": 180, "pw_as": 50, "pw_dmg": 18, "pw_ratio": 18, "pw_pct": 1,
     # skill: Q Cunning Sweep / Sundering Slam
-    "q_cd": 480, "q_range": 30000, "q_dur": 24, "q_hit": 10, "q_r": 30000, "q_dmg": 45, "q_ratio": 70, "q_pct": 3,
+    "q_cd": 480, "q_range": 30000, "q_dur": 24, "q_hit": 10, "q_r": 30000, "q_dmg": 42, "q_ratio": 65, "q_pct": 3,
     "q2_gap": 18, "q2_win": 180, "q2_range": 40000, "q2_dur": 24, "q2_hit": 12, "q2_len": 40000, "q2_w": 6000,
-    "q2_dmg": 50, "q2_ratio": 80, "q2_pct": 5, "q2_vis": 12,
+    "q2_dmg": 48, "q2_ratio": 75, "q2_pct": 4, "q2_vis": 12,
     # skill2: E Lacerate
-    "e_cd": 540, "e_range": 25000, "e_dur": 24, "e_hit": 10, "e_r": 24000, "e_dmg": 40, "e_ratio": 55,
+    "e_cd": 540, "e_range": 25000, "e_dur": 24, "e_hit": 10, "e_r": 24000, "e_dmg": 38, "e_ratio": 52,
     "e_slow": 50, "e_slow_t": 60,
     # W Repudiation (the controller)
     "w_cd": 720, "w_trig": 30000, "w_dur": 36, "w_sh": 80, "w_ad": 80, "w_t": 90, "w_brace": 24, "w_r": 25000,
-    "w_dmg": 50, "w_ratio": 60, "w_pct": 4,
+    "w_dmg": 48, "w_ratio": 55, "w_pct": 3,
     # ult: R Public Execution
-    "r_cd": 5400, "r_range": 60000, "r_dur": 48, "r_go": 8, "r_sup": 36, "r_slam": 30, "r_dmg": 120,
-    "r_ratio": 90, "r_pct": 6, "r_stun": 36, "r_pen": 15,
+    "r_cd": 5400, "r_range": 60000, "r_dur": 48, "r_go": 8, "r_sup": 36, "r_slam": 30, "r_dmg": 115,
+    "r_ratio": 85, "r_pct": 5, "r_stun": 36, "r_pen": 15,
     # her spoken lines, at most one every vo_gap ticks
     "vo_gap": 600,
     # the add-on's (addons/league_ambessa): the blade's edge, the line's half-width
