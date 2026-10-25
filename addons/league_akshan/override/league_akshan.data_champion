@@ -24,7 +24,7 @@
     "crit_chance": 0
   },
   "growth": {
-    "attack": 20,
+    "attack": 17,
     "magic_power": 0,
     "hp": 92,
     "defence": 7,
@@ -3452,7 +3452,7 @@
             "name": "league_akshan_r_chan",
             "duration": {
               "Time": {
-                "tick": 184
+                "tick": 64
               }
             }
           },
@@ -3464,7 +3464,7 @@
             "name": "league_akshan_r_sight",
             "duration": {
               "Time": {
-                "tick": 150
+                "tick": 30
               }
             }
           }
@@ -3484,7 +3484,7 @@
               "effect_buff": {
                 "type": "CasterAnimation",
                 "name": "ult_ch",
-                "tick": 142
+                "tick": 22
               },
               "effect_none": {
                 "type": "Combine",
@@ -3514,7 +3514,7 @@
             {
               "type": "AddCasted",
               "casted_type": "Heal",
-              "duration": 182,
+              "duration": 62,
               "period": 6,
               "effects": [
                 {
@@ -3615,7 +3615,7 @@
                                   "name": "league_akshan_r_open",
                                   "duration": {
                                     "Time": {
-                                      "tick": 180
+                                      "tick": 60
                                     }
                                   }
                                 },
@@ -4446,7 +4446,7 @@
         },
         {
           "type": "Delayed",
-          "tick": 29,
+          "tick": 5,
           "effects": [
             {
               "type": "SwitchByBuff",
@@ -4467,7 +4467,7 @@
                         "name": "league_akshan_r_s1",
                         "duration": {
                           "Time": {
-                            "tick": 210
+                            "tick": 90
                           }
                         }
                       },
@@ -4489,7 +4489,7 @@
         },
         {
           "type": "Delayed",
-          "tick": 59,
+          "tick": 11,
           "effects": [
             {
               "type": "SwitchByBuff",
@@ -4510,7 +4510,7 @@
                         "name": "league_akshan_r_s2",
                         "duration": {
                           "Time": {
-                            "tick": 210
+                            "tick": 90
                           }
                         }
                       },
@@ -4532,7 +4532,7 @@
         },
         {
           "type": "Delayed",
-          "tick": 89,
+          "tick": 17,
           "effects": [
             {
               "type": "SwitchByBuff",
@@ -4553,7 +4553,7 @@
                         "name": "league_akshan_r_s3",
                         "duration": {
                           "Time": {
-                            "tick": 210
+                            "tick": 90
                           }
                         }
                       },
@@ -4575,7 +4575,7 @@
         },
         {
           "type": "Delayed",
-          "tick": 119,
+          "tick": 23,
           "effects": [
             {
               "type": "SwitchByBuff",
@@ -4596,7 +4596,7 @@
                         "name": "league_akshan_r_s4",
                         "duration": {
                           "Time": {
-                            "tick": 210
+                            "tick": 90
                           }
                         }
                       },
@@ -4618,7 +4618,7 @@
         },
         {
           "type": "Delayed",
-          "tick": 149,
+          "tick": 29,
           "effects": [
             {
               "type": "SwitchByBuff",
@@ -4639,7 +4639,7 @@
                         "name": "league_akshan_r_s5",
                         "duration": {
                           "Time": {
-                            "tick": 210
+                            "tick": 90
                           }
                         }
                       },
@@ -4661,7 +4661,7 @@
         },
         {
           "type": "Delayed",
-          "tick": 149,
+          "tick": 29,
           "effects": [
             {
               "type": "SwitchByBuff",
@@ -4682,7 +4682,7 @@
                         "name": "league_akshan_r_open",
                         "duration": {
                           "Time": {
-                            "tick": 180
+                            "tick": 60
                           }
                         }
                       },
@@ -4704,7 +4704,7 @@
         },
         {
           "type": "Delayed",
-          "tick": 183,
+          "tick": 63,
           "effects": [
             {
               "type": "Combine",
@@ -4945,8 +4945,8 @@
   "passive": {
     "passive_ref": "league_akshan:rogue",
     "params": {
-      "r_dmg": 60,
-      "r_ratio": 40,
+      "r_dmg": 35,
+      "r_ratio": 25,
       "r_max": 3,
       "r_full": 67,
       "p_t": 300

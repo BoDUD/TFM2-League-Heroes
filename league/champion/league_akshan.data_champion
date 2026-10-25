@@ -24,7 +24,7 @@
     "crit_chance": 0
   },
   "growth": {
-    "attack": 20,
+    "attack": 17,
     "magic_power": 0,
     "hp": 92,
     "defence": 7,
@@ -2767,7 +2767,7 @@
             "name": "league_akshan_r_chan",
             "duration": {
               "Time": {
-                "tick": 184
+                "tick": 64
               }
             }
           },
@@ -2779,7 +2779,7 @@
             "name": "league_akshan_r_sight",
             "duration": {
               "Time": {
-                "tick": 150
+                "tick": 30
               }
             }
           }
@@ -2799,7 +2799,7 @@
               "effect_buff": {
                 "type": "CasterAnimation",
                 "name": "ult_ch",
-                "tick": 142
+                "tick": 22
               },
               "effect_none": {
                 "type": "Combine",
@@ -2829,7 +2829,7 @@
             {
               "type": "AddCasted",
               "casted_type": "Heal",
-              "duration": 182,
+              "duration": 62,
               "period": 6,
               "effects": [
                 {
@@ -2930,7 +2930,7 @@
                                   "name": "league_akshan_r_open",
                                   "duration": {
                                     "Time": {
-                                      "tick": 180
+                                      "tick": 60
                                     }
                                   }
                                 },
@@ -3163,8 +3163,8 @@
                                                             "buff_name": "league_akshan_r_h4",
                                                             "effect_buff": {
                                                               "type": "Attack",
-                                                              "damage": 132,
-                                                              "attack_ratio": 88,
+                                                              "damage": 77,
+                                                              "attack_ratio": 55,
                                                               "hp_ratio": 0,
                                                               "target_hp_ratio": 0,
                                                               "attack_effect_type": "Target"
@@ -3174,8 +3174,8 @@
                                                               "buff_name": "league_akshan_r_h3",
                                                               "effect_buff": {
                                                                 "type": "Attack",
-                                                                "damage": 114,
-                                                                "attack_ratio": 76,
+                                                                "damage": 66,
+                                                                "attack_ratio": 47,
                                                                 "hp_ratio": 0,
                                                                 "target_hp_ratio": 0,
                                                                 "attack_effect_type": "Target"
@@ -3185,8 +3185,8 @@
                                                                 "buff_name": "league_akshan_r_h2",
                                                                 "effect_buff": {
                                                                   "type": "Attack",
-                                                                  "damage": 96,
-                                                                  "attack_ratio": 64,
+                                                                  "damage": 56,
+                                                                  "attack_ratio": 40,
                                                                   "hp_ratio": 0,
                                                                   "target_hp_ratio": 0,
                                                                   "attack_effect_type": "Target"
@@ -3196,16 +3196,16 @@
                                                                   "buff_name": "league_akshan_r_h1",
                                                                   "effect_buff": {
                                                                     "type": "Attack",
-                                                                    "damage": 78,
-                                                                    "attack_ratio": 52,
+                                                                    "damage": 45,
+                                                                    "attack_ratio": 32,
                                                                     "hp_ratio": 0,
                                                                     "target_hp_ratio": 0,
                                                                     "attack_effect_type": "Target"
                                                                   },
                                                                   "effect_none": {
                                                                     "type": "Attack",
-                                                                    "damage": 60,
-                                                                    "attack_ratio": 40,
+                                                                    "damage": 35,
+                                                                    "attack_ratio": 25,
                                                                     "hp_ratio": 0,
                                                                     "target_hp_ratio": 0,
                                                                     "attack_effect_type": "Target"
@@ -3230,7 +3230,7 @@
                                                                     "name": "league_akshan_r_h4",
                                                                     "duration": {
                                                                       "Time": {
-                                                                        "tick": 270
+                                                                        "tick": 150
                                                                       }
                                                                     }
                                                                   },
@@ -3245,7 +3245,7 @@
                                                                       "name": "league_akshan_r_h3",
                                                                       "duration": {
                                                                         "Time": {
-                                                                          "tick": 270
+                                                                          "tick": 150
                                                                         }
                                                                       }
                                                                     },
@@ -3260,7 +3260,7 @@
                                                                         "name": "league_akshan_r_h2",
                                                                         "duration": {
                                                                           "Time": {
-                                                                            "tick": 270
+                                                                            "tick": 150
                                                                           }
                                                                         }
                                                                       },
@@ -3272,7 +3272,7 @@
                                                                         "name": "league_akshan_r_h1",
                                                                         "duration": {
                                                                           "Time": {
-                                                                            "tick": 270
+                                                                            "tick": 150
                                                                           }
                                                                         }
                                                                       },
@@ -3520,8 +3520,8 @@
                                                     "buff_name": "league_akshan_r_h4",
                                                     "effect_buff": {
                                                       "type": "Attack",
-                                                      "damage": 132,
-                                                      "attack_ratio": 88,
+                                                      "damage": 77,
+                                                      "attack_ratio": 55,
                                                       "hp_ratio": 0,
                                                       "target_hp_ratio": 0,
                                                       "attack_effect_type": "Target"
@@ -3531,8 +3531,8 @@
                                                       "buff_name": "league_akshan_r_h3",
                                                       "effect_buff": {
                                                         "type": "Attack",
-                                                        "damage": 114,
-                                                        "attack_ratio": 76,
+                                                        "damage": 66,
+                                                        "attack_ratio": 47,
                                                         "hp_ratio": 0,
                                                         "target_hp_ratio": 0,
                                                         "attack_effect_type": "Target"
@@ -3542,8 +3542,8 @@
                                                         "buff_name": "league_akshan_r_h2",
                                                         "effect_buff": {
                                                           "type": "Attack",
-                                                          "damage": 96,
-                                                          "attack_ratio": 64,
+                                                          "damage": 56,
+                                                          "attack_ratio": 40,
                                                           "hp_ratio": 0,
                                                           "target_hp_ratio": 0,
                                                           "attack_effect_type": "Target"
@@ -3553,16 +3553,16 @@
                                                           "buff_name": "league_akshan_r_h1",
                                                           "effect_buff": {
                                                             "type": "Attack",
-                                                            "damage": 78,
-                                                            "attack_ratio": 52,
+                                                            "damage": 45,
+                                                            "attack_ratio": 32,
                                                             "hp_ratio": 0,
                                                             "target_hp_ratio": 0,
                                                             "attack_effect_type": "Target"
                                                           },
                                                           "effect_none": {
                                                             "type": "Attack",
-                                                            "damage": 60,
-                                                            "attack_ratio": 40,
+                                                            "damage": 35,
+                                                            "attack_ratio": 25,
                                                             "hp_ratio": 0,
                                                             "target_hp_ratio": 0,
                                                             "attack_effect_type": "Target"
@@ -3587,7 +3587,7 @@
                                                             "name": "league_akshan_r_h4",
                                                             "duration": {
                                                               "Time": {
-                                                                "tick": 270
+                                                                "tick": 150
                                                               }
                                                             }
                                                           },
@@ -3602,7 +3602,7 @@
                                                               "name": "league_akshan_r_h3",
                                                               "duration": {
                                                                 "Time": {
-                                                                  "tick": 270
+                                                                  "tick": 150
                                                                 }
                                                               }
                                                             },
@@ -3617,7 +3617,7 @@
                                                                 "name": "league_akshan_r_h2",
                                                                 "duration": {
                                                                   "Time": {
-                                                                    "tick": 270
+                                                                    "tick": 150
                                                                   }
                                                                 }
                                                               },
@@ -3629,7 +3629,7 @@
                                                                 "name": "league_akshan_r_h1",
                                                                 "duration": {
                                                                   "Time": {
-                                                                    "tick": 270
+                                                                    "tick": 150
                                                                   }
                                                                 }
                                                               },
@@ -3861,7 +3861,7 @@
         },
         {
           "type": "Delayed",
-          "tick": 29,
+          "tick": 5,
           "effects": [
             {
               "type": "SwitchByBuff",
@@ -3882,7 +3882,7 @@
                         "name": "league_akshan_r_s1",
                         "duration": {
                           "Time": {
-                            "tick": 210
+                            "tick": 90
                           }
                         }
                       },
@@ -3904,7 +3904,7 @@
         },
         {
           "type": "Delayed",
-          "tick": 59,
+          "tick": 11,
           "effects": [
             {
               "type": "SwitchByBuff",
@@ -3925,7 +3925,7 @@
                         "name": "league_akshan_r_s2",
                         "duration": {
                           "Time": {
-                            "tick": 210
+                            "tick": 90
                           }
                         }
                       },
@@ -3947,7 +3947,7 @@
         },
         {
           "type": "Delayed",
-          "tick": 89,
+          "tick": 17,
           "effects": [
             {
               "type": "SwitchByBuff",
@@ -3968,7 +3968,7 @@
                         "name": "league_akshan_r_s3",
                         "duration": {
                           "Time": {
-                            "tick": 210
+                            "tick": 90
                           }
                         }
                       },
@@ -3990,7 +3990,7 @@
         },
         {
           "type": "Delayed",
-          "tick": 119,
+          "tick": 23,
           "effects": [
             {
               "type": "SwitchByBuff",
@@ -4011,7 +4011,7 @@
                         "name": "league_akshan_r_s4",
                         "duration": {
                           "Time": {
-                            "tick": 210
+                            "tick": 90
                           }
                         }
                       },
@@ -4033,7 +4033,7 @@
         },
         {
           "type": "Delayed",
-          "tick": 149,
+          "tick": 29,
           "effects": [
             {
               "type": "SwitchByBuff",
@@ -4054,7 +4054,7 @@
                         "name": "league_akshan_r_s5",
                         "duration": {
                           "Time": {
-                            "tick": 210
+                            "tick": 90
                           }
                         }
                       },
@@ -4076,7 +4076,7 @@
         },
         {
           "type": "Delayed",
-          "tick": 149,
+          "tick": 29,
           "effects": [
             {
               "type": "SwitchByBuff",
@@ -4097,7 +4097,7 @@
                         "name": "league_akshan_r_open",
                         "duration": {
                           "Time": {
-                            "tick": 180
+                            "tick": 60
                           }
                         }
                       },
@@ -4119,7 +4119,7 @@
         },
         {
           "type": "Delayed",
-          "tick": 183,
+          "tick": 63,
           "effects": [
             {
               "type": "Combine",
