@@ -1,0 +1,92 @@
+[
+ {
+  "file": "trundle_fx_a_hit.png",
+  "binding": "view_effects `league_trundle_a_hit`（跟随目标，z 2；左右对称）",
+  "size": "14 × 14",
+  "symmetry": "left-right"
+ },
+ {
+  "file": "trundle_fx_p_heal.png",
+  "binding": "view_effects `league_trundle_p_heal`（跟随特朗德尔，z 2；左右对称）",
+  "size": "40 × 44",
+  "symmetry": "left-right"
+ },
+ {
+  "file": "trundle_fx_q_hit.png",
+  "binding": "view_effects `league_trundle_q_hit`（跟随目标，z 2；左右对称）",
+  "size": "18 × 18",
+  "symmetry": "left-right"
+ },
+ {
+  "file": "trundle_fx_q_buff.png",
+  "binding": "view_buffs `league_trundle_q_ad`（跟随特朗德尔，头顶，z 3；左右对称）",
+  "size": "14 × 10",
+  "symmetry": "left-right"
+ },
+ {
+  "file": "trundle_fx_q_sap.png",
+  "binding": "view_buffs `league_trundle_q_sap`（跟随目标，头顶，z 3；左右对称）",
+  "size": "12 × 10",
+  "symmetry": "left-right"
+ },
+ {
+  "file": "trundle_fx_slow.png",
+  "binding": "view_buffs `league_trundle_q_slow` / `league_trundle_e_slow`（跟随，脚下，z -1；左右对称）",
+  "size": "16 × 8",
+  "symmetry": "left-right"
+ },
+ {
+  "file": "trundle_fx_w_hop.png",
+  "binding": "view_effects `league_trundle_w_hop`（地上，z -1，不跟随；左右对称）",
+  "size": "36 × 14",
+  "symmetry": "left-right"
+ },
+ {
+  "file": "trundle_fx_w_domain.png",
+  "binding": "view_effects `league_trundle_w_domain`（大表，地上，z -1，不跟随；左右对称）",
+  "size": "64 × 24",
+  "symmetry": "left-right"
+ },
+ {
+  "file": "trundle_fx_w_aura.png",
+  "binding": "view_buffs `league_trundle_w_on`（跟随特朗德尔，脚下，z -1；左右对称）",
+  "size": "48 × 16",
+  "symmetry": "left-right"
+ },
+ {
+  "file": "trundle_fx_e_pillar.png",
+  "binding": "view_effects `league_trundle_e_pillar`（大表，地上，z 1，不跟随；左右对称）",
+  "size": "26 × 58",
+  "symmetry": "left-right"
+ },
+ {
+  "file": "trundle_fx_e_hit.png",
+  "binding": "view_effects `league_trundle_e_hit`（跟随目标，z 2；左右对称）",
+  "size": "22 × 16",
+  "symmetry": "left-right"
+ },
+ {
+  "file": "trundle_fx_r_hit.png",
+  "binding": "view_effects `league_trundle_r_hit`（跟随目标，z 2；左右对称）",
+  "size": "26 × 30",
+  "symmetry": "left-right"
+ },
+ {
+  "file": "trundle_fx_r_tick.png",
+  "binding": "view_effects `league_trundle_r_tick`（跟随目标，z 2；左右对称）",
+  "size": "14 × 14",
+  "symmetry": "left-right"
+ },
+ {
+  "file": "trundle_fx_r_chain.png",
+  "binding": "view_effects `league_trundle_r_chain`（跟随目标，z 2；左右对称）",
+  "size": "26 × 34",
+  "symmetry": "left-right"
+ },
+ {
+  "file": "trundle_fx_r_sap.png",
+  "binding": "view_buffs `league_trundle_r_sap`（跟随目标，头顶，z 3；左右对称）",
+  "size": "12 × 12",
+  "symmetry": "left-right"
+ }
+]

@@ -9,7 +9,10 @@
 //!   当记号；本包在记号出现（或被刷新）时记下他脚下的位置，他站在那一圈（`w_r`）里时每拍挂 2 拍的 `league_trundle_w_in`（攻速、
 //!   移速、回血），并且他每拍多回的血放大 `w_amp`%（英雄联盟：受到的所有治疗加成）。
 //! - **寒冰之柱是地形**：主包的冰柱只减速（副本连定身也不要）。副本给冰柱旁的英雄挂 3 拍 `league_trundle_e_at`；本包看到它，就在
-//!   那个英雄身后（背对特朗德尔的一侧）立一根半径 `e_wall` 的冰柱，立 `e_t` 拍，期间敌方英雄和小兵走不进去（每拍推到圈外）。
+//!   那个英雄身后（背对特朗德尔的一侧，紧贴着它）立一根半径 `e_wall` 的冰柱、在那里播冰柱的画面，立 `e_t` 拍。冰柱立着时每拍看
+//!   每个单位（两边的英雄、小兵、野怪、召唤物，特朗德尔自己也算：英雄联盟里冰柱谁都挡），中心进了柱子（`e_wall` + 单位半径）就
+//!   退回上一拍的位置，只留下顺着柱边走的那一半（绕着走不会被粘住）；柱子立起时压在谁身上就推到柱外（league_ornn 的岩柱、
+//!   league_taliyah 的墙一样的做法）。
 //! - **利齿撕咬偷固定的攻击力**：主包按百分比改双方攻击力。副本给被咬的单位挂 3 拍 `league_trundle_q_mark`；本包按它当时的攻击力，
 //!   给特朗德尔加 `q_flat`%（`league_trundle_q_take`），它减一半（`league_trundle_q_lose`），各 `q_t` 拍。
 //! - **强权至上照英雄联盟偷**：主包按百分比改双方护甲魔抗、伤害是真实伤害、回固定的血。副本给目标挂 `league_trundle_r_drain`；本包
@@ -44,8 +47,16 @@ const R_DRAIN: &str = "league_trundle_r_drain";
 /// Subjugate's steal: his defence and magic resistance up, the champion's down.
 const R_TAKE: &str = "league_trundle_r_take";
 const R_LOSE: &str = "league_trundle_r_lose";
-/// A pillar stands this far behind its champion beyond its own radius (squares of 1000: the champion's body).
-const PILLAR_GAP: u64 = 3000;
+/// A unit's body radius when the engine gives none (league_ornn's BODY).
+const BODY: f64 = 6000.0;
+/// A pillar stands this far behind its champion beyond its own radius: the champion's body and a little, so the pillar
+/// rises at its back and cuts off its way out (not on it).
+const PILLAR_GAP: u64 = 7000;
+/// The pictures this add-on plays where the data cannot: the frozen field (a second long, again every FIELD_EVERY ticks
+/// while the domain lasts) and the pillar (its rise, the standing frame held, its fall: the kit's e_t).
+const W_FIELD: &str = "league_trundle_w_field";
+const E_PILLAR: &str = "league_trundle_e_pillar";
+const FIELD_EVERY: usize = 60;
 
 // ===================== 日志 =====================
 
@@ -145,7 +156,7 @@ pub struct Params {
 
 impl Default for Params {
     fn default() -> Self {
-        Self { p_pct: 5, p_r: 50000, w_as: 50, w_ms: 15, w_regen: 6, w_r: 50000, w_amp: 25, e_t: 240, e_wall: 9000, q_t: 240, q_flat: 20, r_steal: 40, r_pct0: 10, r_pct: 3, r_p: 60, r_t: 240, r_keep: 240 }
+        Self { p_pct: 5, p_r: 50000, w_as: 50, w_ms: 15, w_regen: 6, w_r: 24000, w_amp: 25, e_t: 240, e_wall: 9000, q_t: 240, q_flat: 20, r_steal: 40, r_pct0: 10, r_pct: 3, r_p: 60, r_t: 240, r_keep: 240 }
     }
 }
 
@@ -221,17 +232,32 @@ pub fn pillar_spot(me: (u64, u64), champ: (u64, u64), radius: u64, gap: u64) -> 
     ((champ.0 as f64 + ux * off).max(0.0) as u64, (champ.1 as f64 + uy * off).max(0.0) as u64)
 }
 
-/// A unit inside a pillar is put on its edge, straight out from its centre (from the side Trundle is on when it stands
-/// on the very centre: away from where he stood).
-pub fn push_out(centre: (u64, u64), at: (u64, u64), radius: u64) -> Option<(u64, u64)> {
-    if dist2(centre, at) >= radius.saturating_mul(radius) {
-        return None;
+type Pt = (f64, f64);
+
+fn fdist(a: Pt, b: Pt) -> f64 {
+    ((a.0 - b.0).powi(2) + (a.1 - b.1).powi(2)).sqrt()
+}
+
+/// The pillars as terrain (league_ornn's and league_taliyah's way): where a unit of body radius `r` may be this tick.
+/// None = not in a pillar (`reach` = the pillar's radius + r round each centre). A unit that walked in since last tick
+/// goes back to where it stood but keeps the part of its step along the pillar's edge (it slides round, never sticks);
+/// one a pillar rose on (it was inside last tick too, or has no last place) is put straight out from that pillar's centre.
+pub fn hold(pillars: &[Pt], radius: f64, last: Option<Pt>, now: Pt, r: f64) -> Option<Pt> {
+    let reach = radius + r;
+    let inside = |q: Pt| pillars.iter().any(|&p| fdist(p, q) < reach);
+    let &p = pillars.iter().find(|&&p| fdist(p, now) < reach)?;
+    if let Some(l) = last.filter(|&l| !inside(l)) {
+        let (mx, my) = (now.0 - l.0, now.1 - l.1);
+        let d = fdist(p, l).max(1.0);
+        let (ux, uy) = ((l.0 - p.0) / d, (l.1 - p.1) / d);   // out from the pillar at the last place
+        let along = mx * ux + my * uy;
+        let (tx, ty) = (mx - along * ux, my - along * uy);  // the step along the edge
+        let slide = (l.0 + tx + along.max(0.0) * ux, l.1 + ty + along.max(0.0) * uy);
+        return Some(if inside(slide) { l } else { slide });
     }
-    let (dx, dy) = (at.0 as f64 - centre.0 as f64, at.1 as f64 - centre.1 as f64);
-    let d = (dx * dx + dy * dy).sqrt();
-    let (ux, uy) = if d < 1.0 { (1.0, 0.0) } else { (dx / d, dy / d) };
-    let r = radius as f64 + 1.0;
-    Some(((centre.0 as f64 + ux * r).max(0.0) as u64, (centre.1 as f64 + uy * r).max(0.0) as u64))
+    let d = fdist(p, now);
+    let (ux, uy) = if d < 1.0 { (1.0, 0.0) } else { ((now.0 - p.0) / d, (now.1 - p.1) / d) };
+    Some((p.0 + ux * (reach + 1.0), p.1 + uy * (reach + 1.0)))
 }
 
 fn has(e: &StableEntity<'_, '_>, name: &str) -> bool {
@@ -262,12 +288,16 @@ struct Troll {
     /// The domain's centre while `w_on` lasts, and `w_on`'s remaining ticks last tick (a renewal = a new domain).
     domain: Option<(u64, u64)>,
     w_left: usize,
+    /// The tick the frozen field's picture plays again.
+    field_at: usize,
     /// His health at the end of last tick (the domain's heal amplifier reads the rise).
     last_hp: usize,
     /// Enemy units near him last tick: (id, max health).
     near: Vec<(usize, usize)>,
     /// Standing pillars: (centre, the tick it falls).
     pillars: Vec<((u64, u64), usize)>,
+    /// Where each unit stood last tick while a pillar stands (the terrain sends a unit that walks in back there).
+    last_pos: Vec<(usize, Pt)>,
     drains: Vec<Drain>,
     n_tribute: usize,
     n_domain: usize,
@@ -305,6 +335,7 @@ impl Troll {
             Some(l) => {
                 if self.domain.is_none() || l > self.w_left {
                     self.domain = Some(pos);
+                    self.field_at = sim.tick();
                     self.n_domain += 1;
                     if often(self.n_domain) {
                         wlog(format!("{} DOMAIN frozen at ({}, {}) for {l} ticks ({} in all)", head(sim, me), pos.0, pos.1,
@@ -312,6 +343,14 @@ impl Troll {
                     }
                 }
                 self.w_left = l;
+            }
+        }
+        // the frozen field where it froze, a second at a time while it lasts
+        if let Some((x, y)) = self.domain {
+            let tick = sim.tick();
+            if tick >= self.field_at {
+                sim.play_view_effect(W_FIELD, me, &InputTargetV1::pos(x, y), 0, 0, 0);
+                self.field_at = tick + FIELD_EVERY;
             }
         }
         let inside = self.on_domain(sim, me);
@@ -394,6 +433,7 @@ impl Troll {
             risen = true;
             let spot = pillar_spot(at, pos, self.p.e_wall, PILLAR_GAP);
             self.pillars.push((spot, tick + self.p.e_t));
+            sim.play_view_effect(E_PILLAR, me, &InputTargetV1::pos(spot.0, spot.1), 0, 0, 0);
             self.n_pillar += 1;
             if often(self.n_pillar) {
                 wlog(format!("{} PILLAR behind {} at ({}, {}) for {} ticks ({} in all)", head(sim, me), name_of(sim, id),
@@ -402,33 +442,45 @@ impl Troll {
         }
         self.pillars.retain(|&(_, until)| tick < until);
         if self.pillars.is_empty() {
+            self.last_pos.clear();
             return;
         }
+        // terrain blocks everyone, as in League: both sides' champions, minions, monsters and summons, Trundle too
+        let centres: Vec<Pt> = self.pillars.iter().map(|&(c, _)| (c.0 as f64, c.1 as f64)).collect();
+        let radius = self.p.e_wall as f64;
         let mut moves = Vec::new();
+        let mut seen = Vec::new();
         for i in 0..sim.entity_count() {
             let Some(u) = sim.entity_at(i) else { continue };
-            if u.team() == team || !u.is_alive() || !matches!(u.kind(), Some(EntityKindV1::Champion | EntityKindV1::Minion)) {
+            if !u.is_alive() {
                 continue;
             }
-            let mut p = u.pos();
-            let mut moved = false;
-            for &(c, _) in &self.pillars {
-                if let Some(q) = push_out(c, p, self.p.e_wall) {
-                    p = q;
-                    moved = true;
+            match u.kind() {
+                Some(EntityKindV1::Champion | EntityKindV1::Minion | EntityKindV1::Jungle | EntityKindV1::Summon) => {}
+                _ => continue,
+            }
+            let id = u.id();
+            let now = (u.pos().0 as f64, u.pos().1 as f64);
+            let r = match u.radius() as f64 { r if r > 0.0 => r, _ => BODY };
+            let last = self.last_pos.iter().find(|&&(k, _)| k == id).map(|&(_, q)| q);
+            let at = match hold(&centres, radius, last, now, r) {
+                Some(q) => {
+                    moves.push((id, q, last.is_some_and(|l| centres.iter().all(|&c| fdist(c, l) >= radius + r))));
+                    q
                 }
-            }
-            if moved {
-                moves.push((u.id(), p));
-            }
+                None => now,
+            };
+            seen.push((id, at));
         }
-        for (id, (x, y)) in moves {
-            sim.entity_set_pos(id, x, y);
+        for (id, (x, y), walked_in) in moves {
+            sim.entity_set_pos(id, x.max(0.0).round() as u64, y.max(0.0).round() as u64);
             self.n_push += 1;
-            if self.n_push <= 20 || self.n_push % 500 == 0 {
-                wlog(format!("{} WALL {} kept out of a pillar ({} pushes)", head(sim, me), name_of(sim, id), self.n_push));
+            if self.n_push <= 40 || self.n_push % 500 == 0 {
+                wlog(format!("{} {} {} kept out of a pillar at ({x:.0}, {y:.0}) ({} in all)", head(sim, me),
+                             if walked_in { "HOLD" } else { "PUSH" }, name_of(sim, id), self.n_push));
             }
         }
+        self.last_pos = seen;
     }
 
     /// One drain of Subjugate: pct% of the champion's maximum health as magic damage; he heals what it lost.
@@ -599,16 +651,41 @@ mod tests {
 
     #[test]
     fn a_pillar_rises_behind_its_champion() {
-        // Trundle at x 0, the champion at x 20000: the pillar's centre further right, its edge 3000 past the champion
-        assert_eq!(pillar_spot((0, 50000), (20000, 50000), 9000, 3000), (32000, 50000));
-        assert_eq!(pillar_spot((20000, 50000), (20000, 50000), 9000, 3000), (32000, 50000));   // on the spot: to the right
+        // Trundle at x 0, the champion at x 20000: the pillar's centre further right, its edge PILLAR_GAP past the champion
+        assert_eq!(pillar_spot((0, 50000), (20000, 50000), 9000, 7000), (36000, 50000));
+        assert_eq!(pillar_spot((20000, 50000), (20000, 50000), 9000, 7000), (36000, 50000));   // on the spot: to the right
+        // the champion itself is not in it (its body: BODY): it is walled off, not pushed
+        let c = (36000.0, 50000.0);
+        assert_eq!(hold(&[c], 9000.0, Some((20000.0, 50000.0)), (20000.0, 50000.0), BODY), None);
     }
 
     #[test]
-    fn units_are_kept_out_of_a_pillar() {
-        assert_eq!(push_out((50000, 50000), (52000, 50000), 9000), Some((59001, 50000)));
-        assert_eq!(push_out((50000, 50000), (60000, 50000), 9000), None);
-        assert_eq!(push_out((50000, 50000), (50000, 50000), 9000), Some((59001, 50000)));
+    fn a_unit_cannot_walk_through_a_pillar() {
+        let p = [(50000.0, 50000.0)];
+        let (radius, r) = (9000.0, 6000.0);
+        // walking straight at it from the left: every step it is sent back where it stood, tick after tick
+        let mut at = (30000.0, 50000.0);
+        for _ in 0..200 {
+            let step = (at.0 + 1000.0, at.1);
+            at = hold(&p, radius, Some(at), step, r).unwrap_or(step);
+            assert!(fdist(at, p[0]) >= radius + r - 1e-6, "walked into the pillar: {at:?}");
+        }
+        assert!(at.0 < 50000.0, "got past it: {at:?}");
+        // a step that also runs along the edge keeps that part: it slides round instead of sticking
+        let l = (35000.0, 50000.0);
+        let q = hold(&p, radius, Some(l), (36000.0, 49000.0), r).unwrap();
+        assert!(q.1 < 50000.0 && fdist(q, p[0]) >= radius + r - 1e-6, "{q:?}");
+        // far away: free
+        assert_eq!(hold(&p, radius, Some((0.0, 0.0)), (1000.0, 0.0), r), None);
+    }
+
+    #[test]
+    fn a_pillar_rising_on_a_unit_puts_it_outside() {
+        let p = [(50000.0, 50000.0)];
+        let q = hold(&p, 9000.0, None, (52000.0, 50000.0), 6000.0).unwrap();
+        assert!((q.0 - 65001.0).abs() < 1e-6 && q.1 == 50000.0, "{q:?}");
+        let q = hold(&p, 9000.0, Some((51000.0, 50000.0)), (52000.0, 50000.0), 6000.0).unwrap();   // inside last tick too
+        assert!((q.0 - 65001.0).abs() < 1e-6, "{q:?}");
     }
 
     #[test]

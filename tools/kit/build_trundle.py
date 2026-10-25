@@ -86,7 +86,7 @@ P = {
     # his spoken lines, at most one every vo_gap ticks
     "vo_gap": 600,
     # 1 = the copy for addons/league_trundle (League's rules the data cannot read, see the docstring); its parameters
-    "native": 0, "p_pct": 5, "p_r": 50000, "w_r": 50000, "w_amp": 25, "e_wall": 9000, "q_flat": 20, "r_steal": 40,
+    "native": 0, "p_pct": 5, "p_r": 50000, "w_r": 24000, "w_amp": 25, "e_wall": 9000, "q_flat": 20, "r_steal": 40,
 }
 
 
@@ -286,8 +286,9 @@ def build(p):
         hold = [h for h in hold if h is not None]
         if combo:
             hold.append(sw("own", combine(*rm("q_cd"), refresh("q_go", p["q_go_t"]))))
+        # the add-on plays the pillar's picture where its pillar stands (behind the champion), not here
         return lob("e_drop", 1, 1000, "EnemyWithoutTower", [], end=[
-            view("e_pillar"), sfx("e_rise"),
+            *([] if native else [view("e_pillar")]), sfx("e_rise"),
             zone("e_hold", 9000, "EnemyChampion", hold),
             field("e_cold", p["e_r"], p["e_t"], 10, [buff("e_slow", 10, move_speed_mult=-p["e_slow"])], first=1)])
 
@@ -343,8 +344,12 @@ def build(p):
                                                 "repeat": True, "z": z}
     views_e = [E("a_hit"), E("p_heal"), E("q_hit"), E("w_hop", FX, -1, False), E("w_domain", BIG, -1, False),
                E("e_pillar", BIG, 1, False), E("e_hit"), E("r_hit"), E("r_tick"), E("r_chain")]
-    views_b = [B_("w_in" if native else "w_on", FX, -1, "w_aura"), B_("q_slow", FX, -1, "slow"),
-               B_("e_slow", FX, -1, "slow"), B_("q_take" if native else "q_ad", FX, 3, "q_buff")]
+    views_b = [B_("q_slow", FX, -1, "slow"), B_("e_slow", FX, -1, "slow"),
+               B_("q_take" if native else "q_ad", FX, 3, "q_buff")]
+    if not native:   # the domain under him while it lasts (it follows him)
+        views_b.insert(0, B_("w_on", FX, -1, "w_aura"))
+    else:            # the add-on plays the frozen field where it froze, a second at a time (w_field), and the pillar
+        views_e.append(E("w_field", FX, -1, False))
     if native:
         views_b += [B_("q_lose", FX, 3, "q_sap"), B_("r_drain", FX, 3, "r_sap")]
     else:

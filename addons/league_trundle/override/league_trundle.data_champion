@@ -14,7 +14,7 @@
       "w_as": 50,
       "w_ms": 15,
       "w_regen": 6,
-      "w_r": 50000,
+      "w_r": 24000,
       "w_amp": 25,
       "e_t": 240,
       "e_wall": 9000,
@@ -1235,10 +1235,6 @@
                                     "applied_effects": [],
                                     "end_effects": [
                                       {
-                                        "type": "ViewEffect",
-                                        "name": "league_trundle_e_pillar"
-                                      },
-                                      {
                                         "type": "Sfx",
                                         "name": "league_trundle_e_rise"
                                       },
@@ -2133,10 +2129,6 @@
                                   "applied_effects": [],
                                   "end_effects": [
                                     {
-                                      "type": "ViewEffect",
-                                      "name": "league_trundle_e_pillar"
-                                    },
-                                    {
                                       "type": "Sfx",
                                       "name": "league_trundle_e_rise"
                                     },
@@ -2319,17 +2311,17 @@
       "tag": "r_chain",
       "z": 2,
       "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_trundle_w_field",
+      "anim": "asset/league/effects/league_trundle_fx",
+      "tag": "w_field",
+      "z": -1,
+      "is_follow": false
     }
   ],
   "view_buffs": [
-    {
-      "type": "Animated",
-      "name": "league_trundle_w_in",
-      "anim": "asset/league/effects/league_trundle_fx",
-      "tag": "w_aura",
-      "repeat": true,
-      "z": -1
-    },
     {
       "type": "Animated",
       "name": "league_trundle_q_slow",
