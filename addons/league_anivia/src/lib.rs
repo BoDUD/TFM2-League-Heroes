@@ -8,7 +8,7 @@
 //!   播缩进蛋里的动作、挂双抗降低的 `league_anivia_egg_on`、每 30 tick 续一次蛋的动作。蛋被打碎就是她阵亡（击杀算打碎蛋的人）；
 //!   撑过 `egg_t` tick 就挂 `league_anivia_egg_hatch`，数据播孵化，她带着蛋剩下的生命继续打（英雄联盟一样）。
 //!   别人给的「不死」在身上时不触发。
-//! - **真冰墙**：数据在 Q 晕到英雄 2 tick 后立墙（她身上新出现 `league_anivia_w_cd`），墙心就是那一 tick 她新放出、不在她脚下的
+//! - **真冰墙**：数据在 Q 炸开、炸点里有敌方英雄的那一 tick 立墙（她身上新出现 `league_anivia_w_cd`），墙心就是那一 tick 她新放出、不在她脚下的
 //!   区域的位置（投射物信息里没有名字，只有位置）。之后 `w_t` tick 里，每个单位（英雄、小兵、野怪，两边都算，她自己也算）的中心
 //!   一进墙（竖着的长方形，半宽 `w_w`/2 + 单位半径，半高 `w_h`/2 + 单位半径）就放回上一 tick 的位置；立墙时站在墙上的被推到她那一侧（和主包数据的拖出一样：墙在被晕的人身后）。
 //! - **冰冻翻倍**：数据给 Q 打中、成形风暴打中的英雄挂 `league_anivia_iced`（`ice_t` tick）；E 打中时她身上亮 1 tick 的
@@ -32,7 +32,7 @@ pub const FORM: &str = "league_anivia_egg_on";
 
 const ID: &str = "league_anivia";
 /// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是 league_addons 的。
-const VERSION: &str = "0.1.3";
+const VERSION: &str = "0.1.4";
 
 /// 「不死」挂多久、多久续一次。
 pub const GUARD_T: usize = 30;
