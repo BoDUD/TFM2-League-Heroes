@@ -56,9 +56,14 @@ Flags die with him: every life starts cold with Q, E and W ready.
 Not built (data cannot): Q while walking; an R line at any angle (across or up and down the screen only); heat from
 casting outside fights cooling slower
 (League's heat decays only out of combat - here any h_hold ticks without a cast).
-Timings: drafts until the frames exist (tools/art/rig_rumble.py retimes them).
-Numbers: League (16.21 read at draft time, to recheck) into the top fighter range (league_kled, league_singed,
-league_gnar); not balanced yet (kd.py --lane 0, C:/t/ru_sim).
+Timings: from the frames (tools/art/rig_rumble.py MS; a frame's start in ticks = ms x 0.06): the attack 28 ticks, the
+blow on 11; Q 90, the first pulse on 8; E 24, the harpoon on 8; R 36, the rockets on 14.
+Numbers: League (16.21) into the top fighter range (league_kled, league_singed, league_gnar), then the classic-engine
+sim (kd.py --lane 0: top against the fighter, executioner, knight, berserker, lancer and pole warrior, both sides): the
+draft (hp 1080 +100, atk 70 +5, AP +14, Q 18 + 18%, E 50 + 40%, R 25 + 15%) -3.19, it dealt two thirds of what it took;
+hp 1150, atk 78, def 34, Q 26 + 24%, E 70 + 50%, R 35 + 20% -1.84; + atk 25000 range -1.96 (the range is not it);
++ atk +9, AP +18 a level -0.77; + hp +115, def +9 a level, Q 30 + 27% +0.43 / -0.22 (range 25000); final (P above:
++ hp 1200, atk 80) +0.31 (16 seeds, +-0.27).
 """
 import argparse
 import json
@@ -79,9 +84,9 @@ BIG = "asset/league/effects/league_rumble_big"
 # burning 5 s, about 140-280 (+17.5% AP) a second and 35% slow, cd 140-100.
 P = {
     # stats (Melee fighters: league_kled 760 / 88, league_singed 1260 / 66 + 30 AP)
-    "hp": 1080, "hp_g": 100, "atk": 70, "atk_g": 5, "apw": 30, "apw_g": 14, "def": 30, "def_g": 7, "mr": 25, "mr_g": 4,
+    "hp": 1200, "hp_g": 115, "atk": 80, "atk_g": 9, "apw": 30, "apw_g": 18, "def": 34, "def_g": 9, "mr": 25, "mr_g": 4,
     "ms": 1050, "ms_g": 11,
-    "atk_range": 20000, "atk_dur": 28, "atk_cd": 68, "a_hit": 11,
+    "atk_range": 25000, "atk_dur": 28, "atk_cd": 68, "a_hit": 11,
     # the controller
     "ctl_t": 3600, "ctl_p": 3,
     # passive: heat (steps of 10), the Danger Zone, Overheat
@@ -91,13 +96,13 @@ P = {
     "w_cd": 420, "w_near": 45000, "w_sh": 60, "w_ap": 45, "w_sh_t": 90, "w_ms": 20, "w_ms_t": 60,
     # skill: Q Flamespitter
     "q_cd": 360, "q_range": 45000, "q_t": 90, "q_n": 6, "q_gap": 15, "q_first": 8, "q_len": 72000, "q_cone": 700,
-    "q_dmg": 18, "q_ap": 18, "q_go": 30000,
+    "q_dmg": 30, "q_ap": 27, "q_go": 30000,
     # skill2: E Electro-Harpoon (+ the second harpoon)
-    "e_cd": 480, "e_range": 55000, "e_dur": 24, "e_rel": 8, "e_speed": 6000, "e_rad": 3000, "e_dmg": 50, "e_ap": 40,
+    "e_cd": 480, "e_range": 55000, "e_dur": 24, "e_rel": 8, "e_speed": 6000, "e_rad": 3000, "e_dmg": 70, "e_ap": 50,
     "e_slow": 20, "e_slow_t": 120, "e_gap": 30, "e_win": 150, "e2_k": 125, "e2_slow": 35,
     # ult: R The Equalizer
     "r_cd": 5400, "r_range": 60000, "r_dur": 36, "r_rel": 14, "r_len": 84000, "r_wid": 20000, "r_bite": 8,
-    "r_t": 240, "r_p": 30, "r_dmg": 25, "r_ap": 15, "r_slow": 35,
+    "r_t": 240, "r_p": 30, "r_dmg": 35, "r_ap": 20, "r_slow": 35,
     "r_wait": 330,
     # his spoken lines, at most one every vo_gap ticks
     "vo_gap": 600,

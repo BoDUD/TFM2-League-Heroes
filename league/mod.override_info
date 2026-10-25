@@ -23170,5 +23170,157 @@
   "asset/base/sound/sfx/league_yorick_sfx_w_wall": {
     "remapping": "asset/league/sound/sfx/league_yorick_sfx_w_wall",
     "type": "override"
+  },
+  "asset/base/sound/sfx/league_rumble_a": {
+    "remapping": "asset/league/sound/sfx/league_rumble_a",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_rumble_a_hit": {
+    "remapping": "asset/league/sound/sfx/league_rumble_a_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_rumble_oh_hit": {
+    "remapping": "asset/league/sound/sfx/league_rumble_oh_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_rumble_q": {
+    "remapping": "asset/league/sound/sfx/league_rumble_q",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_rumble_q_hit": {
+    "remapping": "asset/league/sound/sfx/league_rumble_q_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_rumble_e": {
+    "remapping": "asset/league/sound/sfx/league_rumble_e",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_rumble_e2": {
+    "remapping": "asset/league/sound/sfx/league_rumble_e2",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_rumble_e_hit": {
+    "remapping": "asset/league/sound/sfx/league_rumble_e_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_rumble_w": {
+    "remapping": "asset/league/sound/sfx/league_rumble_w",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_rumble_dz": {
+    "remapping": "asset/league/sound/sfx/league_rumble_dz",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_rumble_oh": {
+    "remapping": "asset/league/sound/sfx/league_rumble_oh",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_rumble_r": {
+    "remapping": "asset/league/sound/sfx/league_rumble_r",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_rumble_r_fall": {
+    "remapping": "asset/league/sound/sfx/league_rumble_r_fall",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_rumble_r_hit": {
+    "remapping": "asset/league/sound/sfx/league_rumble_r_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_rumble_vo_q": {
+    "remapping": "asset/league/sound/sfx/league_rumble_vo_q",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_rumble_vo_e": {
+    "remapping": "asset/league/sound/sfx/league_rumble_vo_e",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_rumble_vo_w": {
+    "remapping": "asset/league/sound/sfx/league_rumble_vo_w",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_rumble_vo_oh": {
+    "remapping": "asset/league/sound/sfx/league_rumble_vo_oh",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_rumble_vo_r": {
+    "remapping": "asset/league/sound/sfx/league_rumble_vo_r",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_rumble_sfx_a": {
+    "remapping": "asset/league/sound/sfx/league_rumble_sfx_a",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_rumble_sfx_a_hit": {
+    "remapping": "asset/league/sound/sfx/league_rumble_sfx_a_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_rumble_sfx_dz": {
+    "remapping": "asset/league/sound/sfx/league_rumble_sfx_dz",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_rumble_sfx_e": {
+    "remapping": "asset/league/sound/sfx/league_rumble_sfx_e",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_rumble_sfx_e2": {
+    "remapping": "asset/league/sound/sfx/league_rumble_sfx_e2",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_rumble_sfx_e_hit": {
+    "remapping": "asset/league/sound/sfx/league_rumble_sfx_e_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_rumble_sfx_oh": {
+    "remapping": "asset/league/sound/sfx/league_rumble_sfx_oh",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_rumble_sfx_oh_hit": {
+    "remapping": "asset/league/sound/sfx/league_rumble_sfx_oh_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_rumble_sfx_q": {
+    "remapping": "asset/league/sound/sfx/league_rumble_sfx_q",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_rumble_sfx_q_hit": {
+    "remapping": "asset/league/sound/sfx/league_rumble_sfx_q_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_rumble_sfx_r": {
+    "remapping": "asset/league/sound/sfx/league_rumble_sfx_r",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_rumble_sfx_r_fall": {
+    "remapping": "asset/league/sound/sfx/league_rumble_sfx_r_fall",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_rumble_sfx_r_hit": {
+    "remapping": "asset/league/sound/sfx/league_rumble_sfx_r_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_rumble_sfx_vo_e": {
+    "remapping": "asset/league/sound/sfx/league_rumble_sfx_vo_e",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_rumble_sfx_vo_oh": {
+    "remapping": "asset/league/sound/sfx/league_rumble_sfx_vo_oh",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_rumble_sfx_vo_q": {
+    "remapping": "asset/league/sound/sfx/league_rumble_sfx_vo_q",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_rumble_sfx_vo_r": {
+    "remapping": "asset/league/sound/sfx/league_rumble_sfx_vo_r",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_rumble_sfx_vo_w": {
+    "remapping": "asset/league/sound/sfx/league_rumble_sfx_vo_w",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_rumble_sfx_w": {
+    "remapping": "asset/league/sound/sfx/league_rumble_sfx_w",
+    "type": "override"
   }
 }
