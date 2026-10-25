@@ -22,6 +22,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 import design_ahri_hd as AH  # noqa: E402
 import design_fiora_hd as FD  # noqa: E402
+import sword_samira_hd as SW  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(HERE))
 AH.HD = os.path.join(ROOT, "assets", "source", "samira", "hd")
@@ -60,6 +61,8 @@ def main():
     ap.add_argument("--out", help="write the design here instead of hd/design.png")
     a = ap.parse_args()
     d, step = design(a.ppu, HOW)
+    if a.ppu == PPU:
+        d = SW.sword(d)                                 # the greatsword straight (sword_samira_hd.py)
     Image.fromarray(d).save(AH.lp(a.out or os.path.join(AH.HD, "design.png")))
     print(f"step {step:.2f} -> design {d.shape[1]}x{d.shape[0]}, "
           f"{len(np.unique(d[d[..., 3] > 0][:, :3], axis=0))} colours")
