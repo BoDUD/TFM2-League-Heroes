@@ -15586,7 +15586,7 @@
     "action_name": "ult",
     "description": "#asset/base/text/champion?description.league_azir.ult",
     "duration": 36,
-    "cooltime": 2400,
+    "cooltime": 1800,
     "start_timing": 1,
     "cancelable": false,
     "range": 40000,
@@ -15650,7 +15650,7 @@
                 "name": "league_azir_r_cd",
                 "duration": {
                   "Time": {
-                    "tick": 2400
+                    "tick": 1800
                   }
                 }
               },
@@ -15894,7 +15894,8 @@
                                             "tick": 2
                                           }
                                         },
-                                        "skill_cooldown_mult": 900
+                                        "skill_cooldown_mult": 900,
+                                        "ult_cooldown_mult": -900
                                       },
                                       "only_to_enemy": false
                                     }
