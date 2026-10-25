@@ -1,5 +1,6 @@
 @echo off
-rem Ambessa's pose pack with League's own frames (tools/art/pack_ambessa_poses.py): double-click it in Explorer.
+rem Ambessa's pose pack with League's own frames (tools/art/pack_ambessa_poses.py): double-click it in Explorer -
+rem from tools\art in the clone, from the clone's top folder, or from anywhere (it then asks where the clone is).
 rem It updates the branch, renders League's frame for every pose from the local client, writes the pack (and its zip)
 rem and the check sheet (each skeleton beside League's frame), then opens the folder.
 setlocal
@@ -7,7 +8,14 @@ set LOL=D:\WeGameApps\lol
 set BRANCH=claude/nifty-hypatia-462gjk
 set WORK=C:\t\am_work
 set PYTHONUTF8=1
-cd /d "%~dp0..\.."
+set REPO=%~dp0..\..
+if not exist "%REPO%\.git" set REPO=%~dp0
+if not exist "%REPO%\.git" set /p REPO=Folder of your TFM2-League-Heroes clone (e.g. D:\code\TFM2-League-Heroes): 
+if not exist "%REPO%\.git" (
+  echo Not a git clone: %REPO%
+  goto :fail
+)
+cd /d "%REPO%"
 
 echo === 1/3 updating the branch %BRANCH% ===
 git fetch origin %BRANCH% || goto :fail
