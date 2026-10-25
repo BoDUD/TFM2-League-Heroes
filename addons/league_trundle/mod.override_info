@@ -1,0 +1,10 @@
+{
+  "asset/league/champion/league_trundle": {
+    "remapping": "asset/league_trundle/override/league_trundle",
+    "type": "override"
+  },
+  "asset/base/text/champion": {
+    "remapping": "asset/league_trundle/text/champion",
+    "type": "merge"
+  }
+}

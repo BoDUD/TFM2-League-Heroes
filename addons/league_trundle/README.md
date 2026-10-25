@@ -1,0 +1,33 @@
+# 特朗德尔附加包（`league_trundle`）
+
+用户（2026-10-25）：特朗德尔「和英雄联盟不一样的地方要做附加包」——和瑟庄妮、克烈、约里克一样。
+
+主包的特朗德尔是纯数据：数据读不到「谁死在他身边」「他站在哪」「对方有多少攻击力、护甲」，也没有地形，所以主包里有五处只能近似。这个附加包把它们做成英雄联盟的样子：
+
+| 机制 | 主包（纯数据） | 附加包 |
+|---|---|---|
+| 国王的贡品 | 只有**他自己打死**的单位回一口血，回固定的数（`p_heal` + `p_heal_r`% 攻击力），冰面上翻倍 | 他身边 `p_r` 内**任何敌方单位倒下**（谁打死的都算）都回它**最大生命 `p_pct`%** 的血，冰面上翻倍 |
+| 冰封领域 | 冰面**跟着他走**：一个加攻速、移速、回血的 buff | 冰面**留在冻住的地方**（半径 `w_r`），他站在里面才有攻速、移速、回血，并且受到的治疗多 `w_amp`% |
+| 寒冰之柱 | 冰柱只是一圈减速 | 冰柱是**地形**：立在被冰柱打中的英雄**身后**（背对特朗德尔），半径 `e_wall`，立 `e_t` 拍，敌方英雄和小兵**走不进去** |
+| 利齿撕咬 | 双方攻击力按百分比改（他 +`q_gain`%，对方 -`q_sap`%） | 按**被咬者当时的攻击力**偷：他加它的 `q_flat`%，它减一半，各 `q_t` 拍 |
+| 强权至上 | 双方护甲魔抗按百分比改，伤害是真实伤害，回固定的血 | 偷走目标**自己护甲、魔抗的 `r_steal`%**（`r_t + r_keep` 拍），伤害是**魔法伤害**（立刻 `r_pct0`%、之后每 `r_p` 拍 `r_pct`% 最大生命），**打掉多少血就回多少**（冰面上再放大） |
+
+冰面的冻地跳、Q 咬中英雄冻地、冰柱刷新 Q、大招刷新 Q 并顺带冒冰柱这些连招两边一样。
+
+## 怎么接上的
+
+`mod.override_info` 把主包的特朗德尔换成 `override/` 里的副本（`make_override.py` 用 `tools/kit/build_trundle.py` 的 `native=1` 生成），`passive` 是本包的 `league_trundle:troll`，参数（`build_trundle.NATIVE_KEYS`）来自主包参数表 P：
+
+- 副本**没有击杀检测**；本包每拍记下他身边 `p_r` 内活着的敌方单位（英雄、小兵、野怪、大龙小龙、召唤物）和它们的最大生命，下一拍谁不在了 / 死了就给他回血；
+- 副本的 `league_trundle_w_on` **不带属性**，只是记号；它出现或被刷新时本包记下他脚下的位置，他在那一圈里时每拍挂 2 拍的 `league_trundle_w_in`（攻速 `w_as`%、移速 `w_ms`%、回血 `w_regen`），并把他这一拍多出来的血（治疗、回血）再放大 `w_amp`%；
+- 副本的冰柱**不定身**，只给冰柱旁的英雄挂 3 拍 `league_trundle_e_at`；本包看到它就在那个英雄身后立柱（一次施法一根），每拍把冰柱圈里的敌方英雄、小兵推到圈外（`entity_set_pos`）；他死了冰柱照样立着；
+- 副本的 Q 不改攻击力，只给被咬的单位挂 3 拍 `league_trundle_q_mark`；本包读它的攻击力，挂 `league_trundle_q_take`（他）和 `league_trundle_q_lose`（它）；
+- 副本的大招不打伤害、不回血、不改属性，只给目标挂 `league_trundle_r_drain`；本包读它的护甲魔抗，挂 `league_trundle_r_lose` / `league_trundle_r_take`，并用 `deal_damage_typed`（`Ap`）按时打伤害、按打掉的血给他回血。
+
+计数都在被动自己身上（被动跟着单位、每局一份，游戏并行跑的几局互不相干），不用全局变量。
+
+## 检查
+
+- 在 `addons/` 下 `cargo test --release -p league_trundle`：单元测试（参数、贡品、偷攻击力、冰柱的位置和推人、冰面放大、名字和数据一致）。
+- 主包的特朗德尔改了以后重新跑 `python addons/league_trundle/make_override.py`（它先核对主包的 `league_trundle.data_champion` 和参数表一致、`src/lib.rs` 的默认参数和 P 一致；`--check` 只核对不写；文字接入前用 `--draft`）。
+- 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_trundle.log`：`SPAWN`、贡品回血 `TRIBUTE`、冻地 `DOMAIN`、立柱 `PILLAR`、推人 `WALL`、偷攻击力 `CHOMP`、大招 `SUBJUGATE`。

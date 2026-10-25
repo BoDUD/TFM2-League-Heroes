@@ -267,8 +267,7 @@ def build(p):
     # ------------------------------------------------------------------ Q Chomp
     def q_cast():
         # Q -> W: the bite on a champion with W ready (`w_go`); the controller freezes the ground after the bite (`busy`)
-        champ = homing("q_tw", "EnemyChampion", [sw("w_cd", NONE, refresh("w_go", p["q_dur"] + 30)),
-                                                 buff("hit", 3) if native else None])
+        champ = homing("q_tw", "EnemyChampion", [sw("w_cd", NONE, refresh("w_go", p["q_dur"] + 30))])
         sap = buff("q_mark", 3) if native else buff("q_sap", p["q_t"], attack_mult=-p["q_sap"])
         bite = combine(sfx("q_hit"), None if native else refresh("q_ad", p["q_t"], attack_mult=p["q_gain"]),
                        homing("q_bite", "EnemyWithoutTower", [
