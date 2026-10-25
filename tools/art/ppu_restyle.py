@@ -57,7 +57,7 @@ ORIG_PPU = {"zeri": 3, "karma": 3, "braum": 2.881, "mordekaiser": 5, "corki": 5,
             "vladimir": 2, "yasuo": 3, "garen": 3, "gragas": 2, "irelia": 2, "soraka": 3, "nidalee": 3.8313,
             "nilah": 2.5, "kindred": 154 / 34, "malzahar": 1.38, "milio": 2.2, "jayce": 1.5, "elise": 1.8, "katarina": 1.5,
             "tahmkench": 1.2, "kalista": 1.4, "drmundo": 1.5, "pantheon": 1.5, "orianna": 2.25, "aphelios": 1.5, "rell": 1.5, "urgot": 1.2, "reksai": 1.58, "swain": 1.5, "nasus": 1.2, "renata": 1.5, "anivia": 1.2, "jarvaniv": 1.5, "ziggs": 1.5, "maokai": 1.5, "gangplank": 1.5, "wukong": 1.53, "cassiopeia": 1.3, "akshan": 1.61, "poppy": 1.3, "volibear": 1.2, "rammus": 1.2,
-            **{h: 1.5 for h in ('morgana', 'nami', 'janna', 'jax', 'xinzhao')}, "yunara": 1.5, "kaisa": 1.45, "camille": 1.5, "fiora": 1.5, "leblanc": 2.0, "darius": 1.45, "caitlyn": 1.45, "riven": 1.5, "zoe": 1.5, "quinn": 2.0, "yuumi": 1.5, "powder": 1.75, "chogath": 1.2, "karthus": 1.5, "vex": 1.5, "zyra": 1.7, "graves": 1.5, "warwick": 1.5, "gnar": 1.5, "sylas": 1.2, "mel": 1.5, "velkoz": 1.5, "shyvana": 1.5, "ornn": 1.5, "naafiri": 1.5, "xerath": 1.55, "heimerdinger": 1.5, "neeko": 2.5, "ksante": 1.5, "udyr": 1.5, "qiyana": 1.5, "hwei": 1.5, "ivern": 1.5, "illaoi": 1.5, "varus": 1.35, "aurora": 2.25, "nunu": 1.37, "azir": 1.5, "zac": 1.5, "jinx": 2.2, "lux": 2.2, "singed": 1.39, "belveth": 1.75, "taliyah": 1.75, "aurelionsol": 1.75, "sejuani": 2.0, "ahri": 2.2, "twitch": 2.2, "annie": 2.2, "kled": 2.0, "yorick": 1.75}
+            **{h: 1.5 for h in ('morgana', 'nami', 'janna', 'jax', 'xinzhao')}, "yunara": 1.5, "kaisa": 1.45, "camille": 1.5, "fiora": 1.5, "leblanc": 2.0, "darius": 1.45, "caitlyn": 1.45, "riven": 1.5, "zoe": 1.5, "quinn": 2.0, "yuumi": 1.5, "powder": 1.75, "chogath": 1.2, "karthus": 1.5, "vex": 1.5, "zyra": 1.7, "graves": 1.5, "warwick": 1.5, "gnar": 1.5, "sylas": 1.2, "mel": 1.5, "velkoz": 1.5, "shyvana": 1.5, "ornn": 1.5, "naafiri": 1.5, "xerath": 1.55, "heimerdinger": 1.5, "neeko": 2.5, "ksante": 1.5, "udyr": 1.5, "qiyana": 1.5, "hwei": 1.5, "ivern": 1.5, "illaoi": 1.5, "varus": 1.35, "aurora": 2.25, "nunu": 1.37, "azir": 1.5, "zac": 1.5, "jinx": 2.2, "lux": 2.2, "singed": 1.39, "belveth": 1.75, "taliyah": 1.75, "aurelionsol": 1.75, "sejuani": 2.0, "ahri": 2.2, "twitch": 2.2, "annie": 2.2, "kled": 2.0, "yorick": 1.75, "gwen": 2.84}
 # face: (row0, row1, col0, col1) of the face to match in the idle's first dense frame; neck: (col, row) there
 RESTYLE = {
     "zeri": dict(face=(25, 41, 22, 42), neck=None, neck_row=35, head=1.3, wide=1.45, short=0.88, band=2, edge=1, face_to=(-1, -33)),
@@ -248,12 +248,14 @@ RESTYLE = {
     # league_nasus (#121): posed by tools/art/rig_nasus.py from Codex's step-1 takes A-1 / B-1 cut to 53 / 71 rows (the
     # user's 44 / 59 game rows at 1.2), the big body (Fury of the Sands) its own design; no proportion or density change
     # here; the outer outline grown a square like the others; the face point on his glowing eye
-    "nasus": dict(ppu=1.2, edge=1, face_to=(7, -36)),
+    # 2026-10-25 face (7,-39): (7,-36) sat low: the eyes on the top rows, fangs and collar below
+    "nasus": dict(ppu=1.2, edge=1, face_to=(7, -39)),
     # league_anivia (#123): posed by tools/art/rig_anivia.py from Codex's step-1 takes A-2 / B-1 cut to 46 / 23 rows (the
     # user's 38 game rows at 1.2, 「模型有点大」 from 44; in game 「凤凰的局内模型太大」 -> 31 rows, 37 / 19 cut); the wings
     # rigid (as drawn or mirrored); no proportion or density change here; the outer outline grown a square like the
     # others; the face point on her violet brow gem's row, between it and her magenta eye
-    "anivia": dict(ppu=1.2, edge=1, face_to=(2, -20)),
+    # 2026-10-25 face (2,-23): (2,-20) left the crest out, the purple eyes on top and body below
+    "anivia": dict(ppu=1.2, edge=1, face_to=(2, -23)),
     # the 2026-10-16 redo from Codex's pictures, posed by tools/art/rig_<hero>_hd.py (tools/art/ppu_rig.py) at PPU 1.5 -
     # Nami after League's own clips (tools/lol/league_joints.py): only the outer outline grown a square, the face point
     # at the new head
@@ -342,6 +344,12 @@ RESTYLE = {
     # the ground), Tibbers in her near hand
     # face (-2,-28): (0,-30) framed the crown and fringe, her eyes on the bottom rows and no mouth (Lux's lesson)
     "annie": dict(ppu=2.2, edge=0, face_to=(-2, -28)),
+    # Gwen (2026-10-25): Codex's v2 picture (the user's own Gemini picture redrawn) read as drawn at PPU 2.84 (93 x 116,
+    # design_gwen_hd.py; 「用 2.84，按原图密度」); every action Codex's whole-frame redraw mended onto the design
+    # (tools/art/casts_gwen_hd.py: the scissors full size and always in her right hand); the snips and the dash's mist
+    # ride the effect layer (fx), moved to the new blade's tip (gwen_bake.json)
+    # 2026-10-25 face (2,-33): (2,-38) was the old 1x point: on the PPU 2.84 redo it frames hair band and hair, the eyes on the bottom rows, no mouth
+    "gwen": dict(ppu=2.84, edge=0, face_to=(2, -33), fx=True),
     # league_yunara (#119): posed from the design's own squares at the user's 1.5 squares a game pixel (「选 A，40 行」,
     # Codex's step-1 take 2 cut to 60 rows, her beads apart) by tools/art/rig_yunara.py, so no proportion or density
     # change here; the outer outline grown a square like the others; the face point at her ornaments' crown
@@ -350,18 +358,21 @@ RESTYLE = {
     # league_jarvaniv (#122): posed from the design's own squares at the user's 1.5 squares a game pixel (「身体 40」,
     # Codex's step-1 take A-2 cut to 60 rows) by tools/art/rig_jarvaniv.py, so no proportion or density change here;
     # the outer outline grown a square like the others; the face point between his eyes under the helmet's brim
-    "jarvaniv": dict(ppu=1.5, edge=1, face_to=(1, -32)),
+    # 2026-10-25 face (1,-37): (1,-32) framed his breastplate with only the chin showing
+    "jarvaniv": dict(ppu=1.5, edge=1, face_to=(1, -37)),
     # league_ziggs (#124): posed from the design's own squares at 1.5 squares a game pixel (「游戏里 32 像素高」, Codex's
     # step-1 take A-1 cut to 48 rows) by tools/art/rig_ziggs.py, then brought to 1.2 here (the user, 2026-10-18, on the
     # showcase: 「太高清了 降低点像素」 - shown 1.5 / 1.3 / 1.2 / 1.0 by tools/art/review_ziggs_ppu.py: 「降到 PPU 1.2」); the
     # outer outline grown a square like the others; the face point between his goggles
-    "ziggs": dict(ppu=1.2, edge=1, face_to=(2, -26)),
+    # 2026-10-25 face (2,-27): (2,-26) cut the top of his goggles
+    "ziggs": dict(ppu=1.2, edge=1, face_to=(2, -27)),
     # league_maokai (#125): posed from the design's own squares at 1.5 squares a game pixel (the user picked 40 game rows
     # at 1.2, then 「太模糊了 PPU调整一下像素」: Codex's step-1 take A-2 cut to 60 rows) by tools/art/rig_maokai.py, then
     # brought to 1.3 here (the user, 2026-10-18, on the PR: 「太高清了 降低点像素」 - shown 1.5 / 1.4 / 1.3 / 1.2 by
     # tools/art/review_maokai_ppu.py: 「1.3吧」); the outer outline grown a square like the others; the face point between
     # the eyes of the face in his trunk
-    "maokai": dict(ppu=1.3, edge=1, face_to=(8, -23)),
+    # 2026-10-25 face (8,-28): (8,-23) missed his eyes: mossy chin and hands only
+    "maokai": dict(ppu=1.3, edge=1, face_to=(8, -28)),
     # league_gangplank (#126): posed from the design's own squares at the user's 1.5 squares a game pixel (Codex's
     # step-1 redo take A-2 read back uncut, 62 rows = 41 game rows: the 50-row cut for 1.2 broke the gun hand - 「拿枪的
     # 那个手啊」, 「PPU 用 1.5」) by tools/art/rig_gangplank.py, Q / R from Codex's gun-hand poses, so no proportion or

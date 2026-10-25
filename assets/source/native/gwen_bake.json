@@ -5,29 +5,29 @@
    "tag": "a_snip",
    "into": "attack",
    "at_ms": 190,
-   "dx": -2,
-   "dy": 3
+   "dx": 12.0,
+   "dy": 3.7
   },
   {
    "tag": "q_snip",
    "into": "skill",
    "at_ms": 110,
-   "dx": -2,
-   "dy": 3
+   "dx": 3.4,
+   "dy": 3.2
   },
   {
    "tag": "q_snip",
    "into": "skill",
    "at_ms": 230,
-   "dx": -2,
-   "dy": 3
+   "dx": 3.4,
+   "dy": 3.2
   },
   {
    "tag": "q_final",
    "into": "skill",
    "at_ms": 360,
-   "dx": -2,
-   "dy": 3
+   "dx": 4.5,
+   "dy": 1.9
   },
   {
    "tag": "e_dash",

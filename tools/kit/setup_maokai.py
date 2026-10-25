@@ -37,7 +37,8 @@ E = "<>"
 # champion_view: the face between the eyes of the face in his trunk (ppu_restyle face_to); the card's top at the moss
 # crown (29.3 px over the frame centre on lo_idle at PPU 1.3, tools/art/bp_card_audit.py: banpick_center y = -39 + 29;
 # -9 at 1.5)
-VIEW = {"face": {"x": 8, "y": -23}, "center": {"x": 0, "y": -14}, "banpick_center": {"x": 0, "y": -10}}
+# 2026-10-25: face (8,-28) - (8,-23) missed his eyes: mossy chin and hands only; kept equal to champion_view and ppu_restyle.py
+VIEW = {"face": {"x": 8, "y": -28}, "center": {"x": 0, "y": -14}, "banpick_center": {"x": 0, "y": -10}}
 
 
 def mag(d, r):

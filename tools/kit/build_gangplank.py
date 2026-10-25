@@ -52,6 +52,10 @@ The add-on presses no key.
 Balance (sim/kd.py 600 8, top lane against the six base top laners, 2026-10-18): +1.89 (league_darius +1.99,
 league_nasus +1.55 on the same seeds); per 10 minutes about 20 kegs landed and 11 blown, the orange eaten 9 times,
 5 Cannon Barrages.
+2026-10-25 (the user: 「普朗克的大招范围被你扩大了 但是看起来好像没伤害？」「普朗克大招每波伤害加大，强度用模拟对齐」):
+a wave was 30 + 25% AD (about 50, 2-4% of a champion's health; a whole barrage took 100-300 off each champion in it),
+so R 60 + 50% a wave; Parrrley 30 + 100% -> 20 + 80% and health growth 108 -> 95 give it back: +1.99 -> +2.15 (seeds
+1-8; R alone 55 +2.62, 60 +3.26, 70 +3.59; Q cut alone +2.74).
 """
 import argparse
 import json
@@ -69,13 +73,13 @@ BIG = "asset/league/effects/league_gangplank_big"
 P = {
     # stats (Melee base: attack 95 +19, hp 1000 +100, defence 30 +8, mr 25 +4, move 1000 +11); League's Gangplank:
     # 64 AD +4.2, 630 +114 hp, 31 armour, 345 move, 125 range, attack speed 0.658 +3.2%
-    "hp": 1000, "hp_g": 108, "atk": 82, "atk_g": 16, "def": 30, "def_g": 8, "mr": 25, "mr_g": 4, "ms": 1000,
+    "hp": 1000, "hp_g": 95, "atk": 82, "atk_g": 16, "def": 30, "def_g": 8, "mr": 25, "mr_g": 4, "ms": 1000,
     "ms_g": 11,
     "atk_range": 26000, "atk_dur": 26, "atk_cd": 60, "a_hit": 9, "f_t": 180,
     # passive Trial by Fire (League: 50-250 +100% bonus AD true over 2.5 s, +15-30% move speed 2 s, every 15 s)
     "p_t": 720, "p_dmg": 60, "p_ratio": 60, "p_burn": 150, "p_per": 15, "p_ms": 20, "p_ms_t": 120,
     # Q Parrrley (League: 625 range, 10-130 +100% AD, crits, cd 4.5)
-    "q_cd": 270, "q_range": 62500, "q_dur": 24, "q_rel": 10, "q_speed": 6000, "q_dmg": 30, "q_ratio": 100,
+    "q_cd": 270, "q_range": 62500, "q_dur": 24, "q_rel": 10, "q_speed": 6000, "q_dmg": 20, "q_ratio": 80,
     # E Powder Keg (League: 1000 range, r 345, 25 s, 3-5 charges every 17-13 s, ripe after 4-1 s, slow 40-80% 2 s,
     # +75-155 to champions, 40% armour ignored)
     "e_cd": 480, "e_range": 70000, "e_dur": 22, "e_rel": 9, "e_travel": 16, "e_t": 480, "e_arm": 60, "e_link": 10,
@@ -85,7 +89,7 @@ P = {
     "w_cd": 900, "w_dur": 20, "w_rel": 10, "w_heal": 80, "w_ratio": 60, "w_imm": 60, "w_crowd": 35000, "w_low": 40,
     # R Cannon Barrage (League: global, r 580 (inner 170), 12 waves 40-100 + 10% AP, slow 30% 0.5 s, cd 160-120)
     "r_cd": 3600, "r_range": 400000, "r_arm": 600, "r_wait": 300, "r_dur": 24, "r_rel": 10, "r_call": 60,
-    "r_waves": 12, "r_p": 30, "r_r": 58000, "r_dmg": 30, "r_ratio": 25, "r_slow": 30, "r_slow_t": 30,
+    "r_waves": 12, "r_p": 30, "r_r": 58000, "r_dmg": 60, "r_ratio": 50, "r_slow": 30, "r_slow_t": 30,
     "watch_p": 12,
     "vo_gap": 600,
     "native": 0,

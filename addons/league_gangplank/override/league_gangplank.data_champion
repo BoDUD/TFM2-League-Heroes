@@ -37,7 +37,7 @@
   "growth": {
     "attack": 16,
     "magic_power": 0,
-    "hp": 108,
+    "hp": 95,
     "defence": 8,
     "magic_resistance": 4,
     "move_speed": 11,
@@ -278,8 +278,8 @@
                                                                     "casting_type": "Targeting",
                                                                     "effect": {
                                                                       "type": "Attack",
-                                                                      "damage": 30,
-                                                                      "attack_ratio": 25,
+                                                                      "damage": 60,
+                                                                      "attack_ratio": 50,
                                                                       "hp_ratio": 0,
                                                                       "target_hp_ratio": 0,
                                                                       "attack_effect_type": "Target"
@@ -344,8 +344,8 @@
                                                                     "casting_type": "Targeting",
                                                                     "effect": {
                                                                       "type": "Attack",
-                                                                      "damage": 30,
-                                                                      "attack_ratio": 25,
+                                                                      "damage": 60,
+                                                                      "attack_ratio": 50,
                                                                       "hp_ratio": 0,
                                                                       "target_hp_ratio": 0,
                                                                       "attack_effect_type": "Target"
@@ -410,8 +410,8 @@
                                                                     "casting_type": "Targeting",
                                                                     "effect": {
                                                                       "type": "Attack",
-                                                                      "damage": 30,
-                                                                      "attack_ratio": 25,
+                                                                      "damage": 60,
+                                                                      "attack_ratio": 50,
                                                                       "hp_ratio": 0,
                                                                       "target_hp_ratio": 0,
                                                                       "attack_effect_type": "Target"
@@ -476,8 +476,8 @@
                                                                     "casting_type": "Targeting",
                                                                     "effect": {
                                                                       "type": "Attack",
-                                                                      "damage": 30,
-                                                                      "attack_ratio": 25,
+                                                                      "damage": 60,
+                                                                      "attack_ratio": 50,
                                                                       "hp_ratio": 0,
                                                                       "target_hp_ratio": 0,
                                                                       "attack_effect_type": "Target"
@@ -542,8 +542,8 @@
                                                                     "casting_type": "Targeting",
                                                                     "effect": {
                                                                       "type": "Attack",
-                                                                      "damage": 30,
-                                                                      "attack_ratio": 25,
+                                                                      "damage": 60,
+                                                                      "attack_ratio": 50,
                                                                       "hp_ratio": 0,
                                                                       "target_hp_ratio": 0,
                                                                       "attack_effect_type": "Target"
@@ -608,8 +608,8 @@
                                                                     "casting_type": "Targeting",
                                                                     "effect": {
                                                                       "type": "Attack",
-                                                                      "damage": 30,
-                                                                      "attack_ratio": 25,
+                                                                      "damage": 60,
+                                                                      "attack_ratio": 50,
                                                                       "hp_ratio": 0,
                                                                       "target_hp_ratio": 0,
                                                                       "attack_effect_type": "Target"
@@ -674,8 +674,8 @@
                                                                     "casting_type": "Targeting",
                                                                     "effect": {
                                                                       "type": "Attack",
-                                                                      "damage": 30,
-                                                                      "attack_ratio": 25,
+                                                                      "damage": 60,
+                                                                      "attack_ratio": 50,
                                                                       "hp_ratio": 0,
                                                                       "target_hp_ratio": 0,
                                                                       "attack_effect_type": "Target"
@@ -740,8 +740,8 @@
                                                                     "casting_type": "Targeting",
                                                                     "effect": {
                                                                       "type": "Attack",
-                                                                      "damage": 30,
-                                                                      "attack_ratio": 25,
+                                                                      "damage": 60,
+                                                                      "attack_ratio": 50,
                                                                       "hp_ratio": 0,
                                                                       "target_hp_ratio": 0,
                                                                       "attack_effect_type": "Target"
@@ -806,8 +806,8 @@
                                                                     "casting_type": "Targeting",
                                                                     "effect": {
                                                                       "type": "Attack",
-                                                                      "damage": 30,
-                                                                      "attack_ratio": 25,
+                                                                      "damage": 60,
+                                                                      "attack_ratio": 50,
                                                                       "hp_ratio": 0,
                                                                       "target_hp_ratio": 0,
                                                                       "attack_effect_type": "Target"
@@ -872,8 +872,8 @@
                                                                     "casting_type": "Targeting",
                                                                     "effect": {
                                                                       "type": "Attack",
-                                                                      "damage": 30,
-                                                                      "attack_ratio": 25,
+                                                                      "damage": 60,
+                                                                      "attack_ratio": 50,
                                                                       "hp_ratio": 0,
                                                                       "target_hp_ratio": 0,
                                                                       "attack_effect_type": "Target"
@@ -938,8 +938,8 @@
                                                                     "casting_type": "Targeting",
                                                                     "effect": {
                                                                       "type": "Attack",
-                                                                      "damage": 30,
-                                                                      "attack_ratio": 25,
+                                                                      "damage": 60,
+                                                                      "attack_ratio": 50,
                                                                       "hp_ratio": 0,
                                                                       "target_hp_ratio": 0,
                                                                       "attack_effect_type": "Target"
@@ -1004,8 +1004,8 @@
                                                                     "casting_type": "Targeting",
                                                                     "effect": {
                                                                       "type": "Attack",
-                                                                      "damage": 30,
-                                                                      "attack_ratio": 25,
+                                                                      "damage": 60,
+                                                                      "attack_ratio": 50,
                                                                       "hp_ratio": 0,
                                                                       "target_hp_ratio": 0,
                                                                       "attack_effect_type": "Target"
@@ -1253,8 +1253,8 @@
                                                                             "casting_type": "Targeting",
                                                                             "effect": {
                                                                               "type": "Attack",
-                                                                              "damage": 30,
-                                                                              "attack_ratio": 25,
+                                                                              "damage": 60,
+                                                                              "attack_ratio": 50,
                                                                               "hp_ratio": 0,
                                                                               "target_hp_ratio": 0,
                                                                               "attack_effect_type": "Target"
@@ -1319,8 +1319,8 @@
                                                                             "casting_type": "Targeting",
                                                                             "effect": {
                                                                               "type": "Attack",
-                                                                              "damage": 30,
-                                                                              "attack_ratio": 25,
+                                                                              "damage": 60,
+                                                                              "attack_ratio": 50,
                                                                               "hp_ratio": 0,
                                                                               "target_hp_ratio": 0,
                                                                               "attack_effect_type": "Target"
@@ -1385,8 +1385,8 @@
                                                                             "casting_type": "Targeting",
                                                                             "effect": {
                                                                               "type": "Attack",
-                                                                              "damage": 30,
-                                                                              "attack_ratio": 25,
+                                                                              "damage": 60,
+                                                                              "attack_ratio": 50,
                                                                               "hp_ratio": 0,
                                                                               "target_hp_ratio": 0,
                                                                               "attack_effect_type": "Target"
@@ -1451,8 +1451,8 @@
                                                                             "casting_type": "Targeting",
                                                                             "effect": {
                                                                               "type": "Attack",
-                                                                              "damage": 30,
-                                                                              "attack_ratio": 25,
+                                                                              "damage": 60,
+                                                                              "attack_ratio": 50,
                                                                               "hp_ratio": 0,
                                                                               "target_hp_ratio": 0,
                                                                               "attack_effect_type": "Target"
@@ -1517,8 +1517,8 @@
                                                                             "casting_type": "Targeting",
                                                                             "effect": {
                                                                               "type": "Attack",
-                                                                              "damage": 30,
-                                                                              "attack_ratio": 25,
+                                                                              "damage": 60,
+                                                                              "attack_ratio": 50,
                                                                               "hp_ratio": 0,
                                                                               "target_hp_ratio": 0,
                                                                               "attack_effect_type": "Target"
@@ -1583,8 +1583,8 @@
                                                                             "casting_type": "Targeting",
                                                                             "effect": {
                                                                               "type": "Attack",
-                                                                              "damage": 30,
-                                                                              "attack_ratio": 25,
+                                                                              "damage": 60,
+                                                                              "attack_ratio": 50,
                                                                               "hp_ratio": 0,
                                                                               "target_hp_ratio": 0,
                                                                               "attack_effect_type": "Target"
@@ -1649,8 +1649,8 @@
                                                                             "casting_type": "Targeting",
                                                                             "effect": {
                                                                               "type": "Attack",
-                                                                              "damage": 30,
-                                                                              "attack_ratio": 25,
+                                                                              "damage": 60,
+                                                                              "attack_ratio": 50,
                                                                               "hp_ratio": 0,
                                                                               "target_hp_ratio": 0,
                                                                               "attack_effect_type": "Target"
@@ -1715,8 +1715,8 @@
                                                                             "casting_type": "Targeting",
                                                                             "effect": {
                                                                               "type": "Attack",
-                                                                              "damage": 30,
-                                                                              "attack_ratio": 25,
+                                                                              "damage": 60,
+                                                                              "attack_ratio": 50,
                                                                               "hp_ratio": 0,
                                                                               "target_hp_ratio": 0,
                                                                               "attack_effect_type": "Target"
@@ -1781,8 +1781,8 @@
                                                                             "casting_type": "Targeting",
                                                                             "effect": {
                                                                               "type": "Attack",
-                                                                              "damage": 30,
-                                                                              "attack_ratio": 25,
+                                                                              "damage": 60,
+                                                                              "attack_ratio": 50,
                                                                               "hp_ratio": 0,
                                                                               "target_hp_ratio": 0,
                                                                               "attack_effect_type": "Target"
@@ -1847,8 +1847,8 @@
                                                                             "casting_type": "Targeting",
                                                                             "effect": {
                                                                               "type": "Attack",
-                                                                              "damage": 30,
-                                                                              "attack_ratio": 25,
+                                                                              "damage": 60,
+                                                                              "attack_ratio": 50,
                                                                               "hp_ratio": 0,
                                                                               "target_hp_ratio": 0,
                                                                               "attack_effect_type": "Target"
@@ -1913,8 +1913,8 @@
                                                                             "casting_type": "Targeting",
                                                                             "effect": {
                                                                               "type": "Attack",
-                                                                              "damage": 30,
-                                                                              "attack_ratio": 25,
+                                                                              "damage": 60,
+                                                                              "attack_ratio": 50,
                                                                               "hp_ratio": 0,
                                                                               "target_hp_ratio": 0,
                                                                               "attack_effect_type": "Target"
@@ -1979,8 +1979,8 @@
                                                                             "casting_type": "Targeting",
                                                                             "effect": {
                                                                               "type": "Attack",
-                                                                              "damage": 30,
-                                                                              "attack_ratio": 25,
+                                                                              "damage": 60,
+                                                                              "attack_ratio": 50,
                                                                               "hp_ratio": 0,
                                                                               "target_hp_ratio": 0,
                                                                               "attack_effect_type": "Target"
@@ -8761,8 +8761,8 @@
               },
               "effect_none": {
                 "type": "Attack",
-                "damage": 30,
-                "attack_ratio": 100,
+                "damage": 20,
+                "attack_ratio": 80,
                 "hp_ratio": 0,
                 "target_hp_ratio": 0,
                 "attack_effect_type": "Target"
@@ -8857,8 +8857,8 @@
                                   "casting_type": "Targeting",
                                   "effect": {
                                     "type": "Attack",
-                                    "damage": 30,
-                                    "attack_ratio": 100,
+                                    "damage": 20,
+                                    "attack_ratio": 80,
                                     "hp_ratio": 0,
                                     "target_hp_ratio": 0,
                                     "attack_effect_type": "Target"
@@ -8957,8 +8957,8 @@
                                       "casting_type": "Targeting",
                                       "effect": {
                                         "type": "Attack",
-                                        "damage": 30,
-                                        "attack_ratio": 100,
+                                        "damage": 20,
+                                        "attack_ratio": 80,
                                         "hp_ratio": 0,
                                         "target_hp_ratio": 0,
                                         "attack_effect_type": "Target"

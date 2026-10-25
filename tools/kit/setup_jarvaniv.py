@@ -34,7 +34,8 @@ R = "<#ef5350ff>"      # crowd control
 E = "<>"
 # champion_view: the face between his eyes under the helmet's brim (ppu_restyle face_to); the card's top at the
 # helmet's crown (28.5 px over the pivot: banpick_center y = -39 + 28.5), the lance's tip above it clipped
-VIEW = {"face": {"x": 1, "y": -32}, "center": {"x": 0, "y": -14}, "banpick_center": {"x": 0, "y": -10}}
+# 2026-10-25: face (1,-37) - (1,-32) framed his breastplate with only the chin showing; kept equal to champion_view and ppu_restyle.py
+VIEW = {"face": {"x": 1, "y": -37}, "center": {"x": 0, "y": -14}, "banpick_center": {"x": 0, "y": -10}}
 
 
 def phy(d, r):
