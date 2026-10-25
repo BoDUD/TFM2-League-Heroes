@@ -1312,6 +1312,22 @@
     },
     {
       "type": "Animation",
+      "name": "league_illaoi_soul_league_ambessa",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_ambessa",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_ambessa_l",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_ambessa_l",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
       "name": "league_illaoi_soul_league_amumu",
       "anim": "asset/league/effects/league_illaoi_souls",
       "tag": "league_amumu",

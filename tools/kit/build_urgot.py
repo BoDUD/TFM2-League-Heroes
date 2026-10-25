@@ -313,10 +313,13 @@ def build(p):
     # pull is one quick yank (e_pull x e_pull_t) - a slow one is held at his body (the two bodies push apart ~950 a tick).
     # The dash ends on the target, the bodies overlap and the engine parts them either way, so the main pack's pull
     # throws it behind him about half the time; the add-on throws it to the side he dashed from every time.
-    fling = ({"type": "Native", "effect_ref": f"{ID}:fling"} if nat else
-             {"type": "Pull", "speed": p["e_pull"], "tick": p["e_pull_t"]})
+    # The add-on's call sits at the catch itself, next to the stun: queued in the Delayed it never ran in game (0 FLING
+    # lines in 146 Urgots, 2026-10-24 - a Delayed in MoveToTarget's end_effects hands a native no Target); the add-on
+    # waits the e_fling ticks itself.
+    pull = {"type": "Pull", "speed": p["e_pull"], "tick": p["e_pull_t"]}
+    at_catch = [{"type": "Native", "effect_ref": f"{ID}:fling"}] if nat else []
     catch = [attack(p["e_dmg"], p["e_ratio"]), {"type": "Stun", "duration": p["e_stun"]}, view("e_hit"), tsfx("e_hit"),
-             delayed(p["e_fling"], fling, view("e_fling")),
+             *at_catch, delayed(p["e_fling"], *([] if nat else [pull]), view("e_fling")),
              on_me(purge, buff("e_plant", p["e_plant"], move_speed_mult=-100)), climb()]
     dash_from = [{"type": "Native", "effect_ref": f"{ID}:dash"}] if nat else []
     skill2 = action("skill2", p["e_dur"], p["e_cd"], 1, p["e_range"], "Targeting", "EnemyChampion",
@@ -356,7 +359,7 @@ def build(p):
     }
     if nat:
         kit["passive"] = {"passive_ref": f"{ID}:legs",
-                          "params": {k: p[k] for k in ("leg_t0", "leg_t", "r_ex", "e_behind", "e_pull_t")}}
+                          "params": {k: p[k] for k in ("leg_t0", "leg_t", "r_ex", "e_behind", "e_pull_t", "e_fling")}}
     return kit
 
 

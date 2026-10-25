@@ -233,6 +233,10 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // px) and its key poses after League's clips (the design's head put back) at the user's 1.75 squares a game pixel (3/4
     // only), so no SIZES row
     ("league_yorick", 1.75, include_str!("../../../league/champions/league_yorick#anim.fanim")),
+    // Ambessa: posed by tools/art/rig_ambessa.py on Codex's step-1 take A-1 with its head cut to 27 % (96 rows hair to
+    // soles = 48 game px, the blades out to her sides) and its key poses after League's clips (read at each body's own
+    // scale, the design's head put back) at the user's 2.0 squares a game pixel (3/4 only), shown at 85 % (SIZES)
+    ("league_ambessa", 2.0, include_str!("../../../league/champions/league_ambessa#anim.fanim")),
     // Neeko: posed by tools/art/rig_neeko.py on Codex's step-1 take A-1 and its key poses at the user's 2.5 squares a
     // game pixel (100 game rows quill tips to soles: 「40」, then 「1.5也挺糊的 还得往上调整吧」; 3/4 only; league_neeko's
     // view hook draws her as an ally while she is disguised), so no SIZES row
@@ -379,13 +383,17 @@ pub const HEROES: &[(&str, f32, &str)] = &[
 /// (RESTYLE warwick lift_sq: 11.5 x 1.2 x (1 / 0.9 - 1) = 1.5).
 /// Caitlyn: 90 % (the user, 2026-10-24: 「女警模型局内整体有点大 调小一点需要」 - 46 game px hat to soles, the tallest
 /// marksman: Kai'Sa 43, Varus 45, Jinx 37), her frames 2 squares lower (RESTYLE caitlyn lift_sq: 11.5 x 1.45 x (1 / 0.9 - 1) = 1.9).
+/// Ambessa: 85 % (the user, 2026-10-25: 「太大了安倍萨 整体模型缩小一点可以吗」 - 48 game px hair to soles with the two blades
+/// out to 59; 85 % = 41, Darius's / Garen's 42, from a true-scale sheet), her frames 4 squares lower (RESTYLE ambessa
+/// lift_sq: 11.5 x 2.0 x (1 / 0.85 - 1) = 4.1).
 pub const SIZES: &[(&str, f32)] = &[("league_gragas", 0.90), ("league_zeri", 1.05), ("league_kassadin", 1.00),
                                     ("league_braum", 0.95), ("league_mordekaiser", 1.10),
                                     ("league_irelia", 1.05), ("league_soraka", 1.10), ("league_galio", 1.10), ("league_nilah", 0.90),
                                     ("league_corki", 0.90), ("league_malzahar", 1.15), ("league_aphelios", 0.90),
                                     ("league_poppy", 0.85), ("league_yuumi", 0.75), ("league_wukong", 1.15),
                                     ("tft_powder", 0.90), ("league_nami", 0.90), ("league_hwei", 0.85),
-                                    ("league_ksante", 0.90), ("league_warwick", 0.90), ("league_caitlyn", 0.90)];
+                                    ("league_ksante", 0.90), ("league_warwick", 0.90), ("league_caitlyn", 0.90),
+                                    ("league_ambessa", 0.85)];
 
 /// Heroes whose body grows with a stack: (id, the buff whose instances on him are the stacks, growth a stack). Cho'Gath's
 /// Feast (the user, 2026-10-19: 「变大可以无限 加生命」): every champion it eats is one more Permanent `league_chogath_r_stack`
@@ -526,6 +534,9 @@ pub const UI_SIZES: &[(&str, f32)] = &[
     // Yorick: 48 game px from his shovel's tip to his boots at PPU 1.75 (39 / 48); UI size and card value set with
     // bp_card_audit.py
     ("league_yorick", 0.81),
+    // Ambessa: 48 game px from her hair to her soles at PPU 2.0 (39 / 48; the blades out to 59 px wide); UI size and card
+    // value set with bp_card_audit.py
+    ("league_ambessa", 0.81),
 ];
 
 /// The `"lo_..."` animation names of a .fanim.

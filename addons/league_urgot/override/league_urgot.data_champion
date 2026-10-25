@@ -1813,13 +1813,13 @@
               "name": "league_urgot_e_hit"
             },
             {
+              "type": "Native",
+              "effect_ref": "league_urgot:fling"
+            },
+            {
               "type": "Delayed",
               "tick": 15,
               "effects": [
-                {
-                  "type": "Native",
-                  "effect_ref": "league_urgot:fling"
-                },
                 {
                   "type": "ViewEffect",
                   "name": "league_urgot_e_fling"
@@ -2587,7 +2587,8 @@
       "leg_t": 180,
       "r_ex": 25,
       "e_behind": 15000,
-      "e_pull_t": 3
+      "e_pull_t": 3,
+      "e_fling": 15
     }
   }
 }

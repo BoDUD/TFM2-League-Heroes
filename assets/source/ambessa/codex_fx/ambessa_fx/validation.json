@@ -1,0 +1,149 @@
+{
+  "passed": true,
+  "sheets": 10,
+  "frames": 42,
+  "checks": [
+    {
+      "file": "ambessa_fx_e_lash.png",
+      "frames": 5,
+      "dimensions_pass": true,
+      "alpha_pass": true,
+      "palette_pass": true,
+      "symmetry_pass": true,
+      "opaque_pixels_per_frame": [
+        380,
+        654,
+        833,
+        588,
+        306
+      ]
+    },
+    {
+      "file": "ambessa_fx_e_hit.png",
+      "frames": 3,
+      "dimensions_pass": true,
+      "alpha_pass": true,
+      "palette_pass": true,
+      "symmetry_pass": true,
+      "opaque_pixels_per_frame": [
+        28,
+        50,
+        26
+      ]
+    },
+    {
+      "file": "ambessa_fx_slow.png",
+      "frames": 4,
+      "dimensions_pass": true,
+      "alpha_pass": true,
+      "palette_pass": true,
+      "symmetry_pass": true,
+      "opaque_pixels_per_frame": [
+        20,
+        38,
+        20,
+        14
+      ]
+    },
+    {
+      "file": "ambessa_fx_w_brace.png",
+      "frames": 4,
+      "dimensions_pass": true,
+      "alpha_pass": true,
+      "palette_pass": true,
+      "symmetry_pass": true,
+      "opaque_pixels_per_frame": [
+        598,
+        747,
+        687,
+        540
+      ]
+    },
+    {
+      "file": "ambessa_fx_w_slam.png",
+      "frames": 5,
+      "dimensions_pass": true,
+      "alpha_pass": true,
+      "palette_pass": true,
+      "symmetry_pass": true,
+      "opaque_pixels_per_frame": [
+        106,
+        226,
+        270,
+        184,
+        120
+      ]
+    },
+    {
+      "file": "ambessa_fx_w_hit.png",
+      "frames": 3,
+      "dimensions_pass": true,
+      "alpha_pass": true,
+      "palette_pass": true,
+      "symmetry_pass": true,
+      "opaque_pixels_per_frame": [
+        22,
+        110,
+        28
+      ]
+    },
+    {
+      "file": "ambessa_fx_w_crit.png",
+      "frames": 4,
+      "dimensions_pass": true,
+      "alpha_pass": true,
+      "palette_pass": true,
+      "symmetry_pass": true,
+      "opaque_pixels_per_frame": [
+        56,
+        184,
+        120,
+        48
+      ]
+    },
+    {
+      "file": "ambessa_fx_r_blink.png",
+      "frames": 4,
+      "dimensions_pass": true,
+      "alpha_pass": true,
+      "palette_pass": true,
+      "symmetry_pass": true,
+      "opaque_pixels_per_frame": [
+        926,
+        1273,
+        582,
+        242
+      ]
+    },
+    {
+      "file": "ambessa_fx_r_pin.png",
+      "frames": 4,
+      "dimensions_pass": true,
+      "alpha_pass": true,
+      "palette_pass": true,
+      "symmetry_pass": true,
+      "opaque_pixels_per_frame": [
+        74,
+        156,
+        110,
+        74
+      ]
+    },
+    {
+      "file": "ambessa_fx_r_crash.png",
+      "frames": 6,
+      "dimensions_pass": true,
+      "alpha_pass": true,
+      "palette_pass": true,
+      "symmetry_pass": true,
+      "opaque_pixels_per_frame": [
+        112,
+        338,
+        556,
+        344,
+        286,
+        216
+      ]
+    }
+  ]
+}
