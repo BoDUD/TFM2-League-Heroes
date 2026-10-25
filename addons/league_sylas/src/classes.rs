@@ -178,6 +178,7 @@ pub const CLASSES_OF: &[(&str, &str)] = &[
     ("league_teemo", "mage"),
     ("league_thresh", "util"),
     ("league_tristana", "range"),
+    ("league_trundle", "melee"),
     ("league_tryndamere", "melee"),
     ("league_twistedfate", "mage"),
     ("league_twitch", "range"),

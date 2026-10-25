@@ -1,0 +1,20 @@
+{
+  "author": "BoDUD",
+  "contains_code": true,
+  "dependencies": [
+    {
+      "mod_id": "base",
+      "version": ">=0.4.11"
+    },
+    {
+      "mod_id": "league",
+      "version": ">=0.222.0"
+    }
+  ],
+  "description": "Test build of Trundle as in League (needs League of Legends Heroes): replaces the main pack's Trundle so King's Tribute heals for a share of every enemy unit that dies near him (the main pack: only the units he kills), Frozen Domain stays frozen on the ground where he cast it and amplifies his heals (the main pack: it follows him), Pillar of Ice is terrain enemies cannot walk through (the main pack: only a slow), Chomp steals a share of the bitten unit's own attack and Subjugate a share of the champion's own armour and magic resistance, its drain healing him for what it takes (the main pack: fixed percentages). Other champions are untouched. Writes a log for testing.",
+  "last_updated": "2026-10-25",
+  "mod_id": "league_trundle",
+  "mod_type": "native",
+  "name": "League Heroes: Trundle's tribute, domain, pillar and steals as in League (test)",
+  "version": "0.1.0"
+}

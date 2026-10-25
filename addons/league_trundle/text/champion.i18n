@@ -1,0 +1,52 @@
+{
+  "zh-hans": {
+    "description": {
+      "league_trundle": {
+        "attack": "【附加包】抡冰棒。<#ff9028ff>国王的贡品<>：身边敌方单位倒下时回复它最大生命5%，冰面上双倍。<#ff9028ff>冰封领域<>：利齿撕咬咬中英雄时在原地冻出冰面<#ffb900ff>8秒<>（每<#ffb900ff>12秒<>一次），站在上面攻速+50%、移速+15%，受到的治疗+25%。",
+        "skill": "【附加包】咬一口造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<>物理伤害并<#ef5350ff>减速<>60%；<#ffb900ff>4秒<>内偷走对方攻击力的20%（对方少一半）。",
+        "skill2": "【附加包】在敌方英雄身后立起寒冰之柱<#ffb900ff>4秒<>：冰柱是地形，谁都过不去；周围敌人<#ef5350ff>减速<>25%。",
+        "ult": "【附加包】吸取敌方英雄：立刻造成最大生命10%魔法伤害，<#ffb900ff>4秒<>内<#ffb900ff>每秒<>再3%，吸多少回多少；偷走它40%护甲和魔抗<#ffb900ff>8秒<>。"
+      }
+    }
+  },
+  "zh-hant": {
+    "description": {
+      "league_trundle": {
+        "attack": "【附加包】揮冰棒。<#ff9028ff>帝王獻祭<>：身邊敵方單位倒下時回復它最大生命5%，冰面上雙倍。<#ff9028ff>極凍領地<>：狂野撕咬咬中英雄時在原地凍出冰面<#ffb900ff>8秒<>（每<#ffb900ff>12秒<>一次），站在上面攻速+50%、移速+15%，受到的治療+25%。",
+        "skill": "【附加包】咬一口造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<>物理傷害並<#ef5350ff>緩速<>60%；<#ffb900ff>4秒<>內偷走對方攻擊力的20%（對方少一半）。",
+        "skill2": "【附加包】在敵方英雄身後立起狡詰冰柱<#ffb900ff>4秒<>：冰柱是地形，誰都過不去；周圍敵人<#ef5350ff>緩速<>25%。",
+        "ult": "【附加包】吸取敵方英雄：立刻造成最大生命10%魔法傷害，<#ffb900ff>4秒<>內<#ffb900ff>每秒<>再3%，吸多少回多少；偷走它40%護甲和魔抗<#ffb900ff>8秒<>。"
+      }
+    }
+  },
+  "en": {
+    "description": {
+      "league_trundle": {
+        "attack": "[Add-on] Ice club blows. <#ff9028ff>King's Tribute<>: an enemy unit dying near him heals him 5% of its max health, doubled on his domain. <#ff9028ff>Frozen Domain<>: Chomp biting a champion freezes the ground where he stands for <#ffb900ff>8s<> (once every <#ffb900ff>12s<>): on it +50% attack speed, +15% move speed and 25% more healing.",
+        "skill": "[Add-on] Bites for <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<> physical damage and <#ef5350ff>slows<> 60%; for <#ffb900ff>4s<> he steals 20% of the target's attack (it loses half that).",
+        "skill2": "[Add-on] Raises a Pillar of Ice behind an enemy champion for <#ffb900ff>4s<>: terrain no one can walk through; enemies around it are <#ef5350ff>slowed<> 25%.",
+        "ult": "[Add-on] Drains an enemy champion: 10% max health as magic damage at once, 3% more <#ffb900ff>every second<> for <#ffb900ff>4s<>, healing him for all it drains; steals 40% of its armour and magic resistance for <#ffb900ff>8s<>."
+      }
+    }
+  },
+  "ko": {
+    "description": {
+      "league_trundle": {
+        "attack": "[확장] 얼음 몽둥이 공격. <#ff9028ff>헌납<>: 주변 적 유닛이 죽으면 그 최대 체력의 5% 회복, 얼음 위에서는 2배. <#ff9028ff>얼음 왕국<>: 깨물기가 챔피언을 물면 그 자리 땅을 <#ffb900ff>8초<> 얼림(<#ffb900ff>12초<>마다 한 번), 그 위에서 공격 속도 +50%, 이동 속도 +15%, 받는 회복 +25%.",
+        "skill": "[확장] 깨물어 <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<> 물리 피해, 60% <#ef5350ff>둔화<>; <#ffb900ff>4초<> 동안 대상 공격력의 20%를 빼앗음(대상은 그 절반 감소).",
+        "skill2": "[확장] 적 챔피언 뒤에 얼음 기둥을 <#ffb900ff>4초<> 세움: 누구도 지나갈 수 없는 지형, 주변 적 25% <#ef5350ff>둔화<>.",
+        "ult": "[확장] 적 챔피언을 흡수: 즉시 최대 체력 10% 마법 피해, <#ffb900ff>4초<> 동안 <#ffb900ff>매초<> 3% 추가, 흡수한 만큼 회복; 방어력과 마법 저항력 40%를 <#ffb900ff>8초<> 동안 빼앗음."
+      }
+    }
+  },
+  "ja": {
+    "description": {
+      "league_trundle": {
+        "attack": "【拡張】氷の棍棒で攻撃。<#ff9028ff>王への貢物<>：近くの敵ユニットが倒れるとその最大体力の5%回復、氷の上では2倍。<#ff9028ff>凍てつく大地<>：咬み付きがチャンピオンに当たるとその場の地面を<#ffb900ff>8秒<>凍らせる（<#ffb900ff>12秒<>に1回）、その上で攻撃速度+50%、移動速度+15%、受ける回復+25%。",
+        "skill": "【拡張】咬み付いて<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<>の物理ダメージ、60%<#ef5350ff>スロウ<>；<#ffb900ff>4秒<>間 相手の攻撃力の20%を奪う（相手はその半分減少）。",
+        "skill2": "【拡張】敵チャンピオンの背後に氷冷の柱を<#ffb900ff>4秒<>立てる：誰も通れない地形、周囲の敵に25%<#ef5350ff>スロウ<>。",
+        "ult": "【拡張】敵チャンピオンから搾取：即座に最大体力10%の魔法ダメージ、<#ffb900ff>4秒<>間<#ffb900ff>毎秒<>3%、奪った分だけ回復；物理防御と魔法防御の40%を<#ffb900ff>8秒<>奪う。"
+      }
+    }
+  }
+}

@@ -139,6 +139,7 @@ pub const SOULS: &[&str] = &[
     "league_teemo",
     "league_thresh",
     "league_tristana",
+    "league_trundle",
     "league_tryndamere",
     "league_twistedfate",
     "league_twitch",
