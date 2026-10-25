@@ -601,6 +601,9 @@ def main():
     ap.add_argument("--hq", action="store_true", help="per-pixel textured render (clearer face and trim; slower)")
     ap.add_argument("--opaque", action="store_true",
                     help="ignore the colour map's alpha (Evelynn's holds a glow mask, not cut-outs: 93%% of it is < 128)")
+    ap.add_argument("--tex", help="a texture in the WAD (its path) to colour the model with instead of the skin's own: "
+                                  "a state's alternate map (Rumble overheated: ASSETS/Characters/Rumble/Skins/Base/"
+                                  "Particles/rumble_overheat_base.tex)")
     ap.add_argument("--head", type=float, default=1.0,
                     help="scale the head (about 2 gives the big-headed TFM2 proportions)")
     ap.add_argument("--legs", type=float, default=1.0, help="scale each leg from the hip down (TFM2: about 0.8)")
@@ -659,6 +662,8 @@ def main():
             prop = chain_vertices(joints, influences, verts, re.compile(rx, re.I))
             tris = tris[prop[tris].all(axis=1) == keep_it] if keep_it else tris[~prop[tris].any(axis=1)]
     influences, hair_re = keep_parts(joints, influences, verts, {k: float(r) for k, r in (x.split(":") for x in args.keep)})
+    if args.tex:
+        texs = [args.tex]
     tex = read_tex(w.read_path(texs[0].lower())) if texs else Image.new("RGB", (4, 4), (180, 180, 180))
     if args.opaque:
         tex = tex.convert("RGB").convert("RGBA")

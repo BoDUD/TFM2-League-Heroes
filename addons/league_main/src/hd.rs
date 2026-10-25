@@ -237,6 +237,10 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // soles = 48 game px, the blades out to her sides) and its key poses after League's clips (read at each body's own
     // scale, the design's head put back) at the user's 2.0 squares a game pixel (3/4 only), shown at 85 % (SIZES)
     ("league_ambessa", 2.0, include_str!("../../../league/champions/league_ambessa#anim.fanim")),
+    // Rumble: posed by tools/art/rig_rumble.py on Codex's step-1 take B-1 as drawn (62 rows mohawk to the red feet = 36
+    // game px) and its key poses after League's clips (the design's head put back) at the user's 1.75 squares a game
+    // pixel (3/4 only; Overheat's red-hot oh_* tags league_rumble's view hook swaps in), so no SIZES row
+    ("league_rumble", 1.75, include_str!("../../../league/champions/league_rumble#anim.fanim")),
     // Neeko: posed by tools/art/rig_neeko.py on Codex's step-1 take A-1 and its key poses at the user's 2.5 squares a
     // game pixel (100 game rows quill tips to soles: 「40」, then 「1.5也挺糊的 还得往上调整吧」; 3/4 only; league_neeko's
     // view hook draws her as an ally while she is disguised), so no SIZES row

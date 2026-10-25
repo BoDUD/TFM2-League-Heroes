@@ -1,0 +1,70 @@
+{
+ "effects": [
+  {
+   "name": "r_fall",
+   "file": "rumble_fx_r_fall.png",
+   "frames": 11,
+   "cell_1x": [
+    45,
+    62
+   ],
+   "symmetry": "left-right",
+   "source": "drawn by tools/art/fix_rumble_fx.py"
+  },
+  {
+   "name": "w_shield",
+   "file": "rumble_fx_w_shield.png",
+   "frames": 4,
+   "cell_1x": [
+    57,
+    43
+   ],
+   "symmetry": "left-right",
+   "source": "drawn by tools/art/fix_rumble_fx.py"
+  },
+  {
+   "name": "e_harpoon",
+   "file": "rumble_fx_e_harpoon.png",
+   "frames": 4,
+   "cell_1x": [
+    17,
+    9
+   ],
+   "symmetry": "top-bottom",
+   "source": "drawn by tools/art/fix_rumble_fx.py"
+  },
+  {
+   "name": "e_zap",
+   "file": "rumble_fx_e_zap.png",
+   "frames": 4,
+   "cell_1x": [
+    21,
+    31
+   ],
+   "symmetry": "left-right",
+   "source": "drawn by tools/art/fix_rumble_fx.py"
+  },
+  {
+   "name": "a_hit",
+   "file": "rumble_fx_a_hit.png",
+   "frames": 3,
+   "cell_1x": [
+    13,
+    13
+   ],
+   "symmetry": "left-right",
+   "source": "drawn by tools/art/fix_rumble_fx.py"
+  },
+  {
+   "name": "oh_on",
+   "file": "rumble_fx_oh_on.png",
+   "frames": 6,
+   "cell_1x": [
+    56,
+    50
+   ],
+   "symmetry": "left-right",
+   "source": "drawn by tools/art/fix_rumble_fx.py (frames 1-3 Gemini's)"
+  }
+ ]
+}

@@ -151,6 +151,7 @@ pub const RANGES: &[(&str, u32)] = &[
     ("league_renekton", 25000),
     ("league_rengar", 23000),
     ("league_riven", 25000),
+    ("league_rumble", 25000),
     ("league_ryze", 55000),
     ("league_samira", 55000),
     ("league_sejuani", 25000),

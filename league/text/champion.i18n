@@ -1176,6 +1176,13 @@
         "skill": "<#ff9028ff>暗袭<>：身前横扫半圈，造成<#ff9028ff>42<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>65%<>+最大生命3%物理伤害；扫中后可接<#ff9028ff>裂斩<>：直线劈下<#ff9028ff>48<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>75%<>，目标再加最大生命4%。",
         "skill2": "<#ff9028ff>血戮<>：甩链刀绕身一圈，造成<#ff9028ff>38<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>52%<>物理伤害并<#ef5350ff>减速<>50%，持续<#ffb900ff>1秒<>；冲刺后再甩一圈。",
         "ult": "<#ff9028ff>公开处刑<>：闪到敌方英雄身边<#ef5350ff>压制<><#ffb900ff>0.6秒<>，再砸进地里：<#ff9028ff>115<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>85%<>+最大生命5%，<#ef5350ff>眩晕<><#ffb900ff>0.6秒<>；此后护甲穿透+15%。"
+      },
+      "league_rumble": {
+        "name": "兰博",
+        "attack": "抡铁球。<#ff9028ff>机械重组<>：放技能攒热量，过半进入<#ff9028ff>危险温度<>（技能效果+50%），满了<#ff9028ff>过热<><#ffb900ff>5秒<>：不能放技能，攻速+60%，普攻附加<#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<>魔法伤害（英雄再加最大生命3%）。<#ff9028ff>破碎护盾<>：敌方英雄靠近时自动套上<#7ee0ffff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7ee0ffff>45%<>护盾<#ffb900ff>1.5秒<>。",
+        "skill": "端起喷火炮往前喷火<#ffb900ff>1.5秒<>：锥形范围内的敌人每<#ffb900ff>0.25秒<>受到<#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>27%<>魔法伤害。",
+        "skill2": "射出电子鱼叉：<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>魔法伤害，<#ef5350ff>减速<>20%<#ffb900ff>2秒<>；射中英雄后再射第二发，伤害+25%，减速35%。",
+        "ult": "火箭在敌方英雄脚下砸出一条火线（横着或竖着，挑罩住敌人多的一边），燃烧<#ffb900ff>4秒<>：每<#ffb900ff>0.5秒<><#a974ffff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>魔法伤害，<#ef5350ff>减速<>35%。"
       }
     },
     "skill_name": {
@@ -2018,6 +2025,11 @@
         "skill1": "暗袭",
         "skill2": "血戮",
         "ult": "公开处刑"
+      },
+      "league_rumble": {
+        "skill1": "纵火盛宴",
+        "skill2": "电子鱼叉",
+        "ult": "恒温灼烧"
       }
     }
   },
@@ -3198,6 +3210,13 @@
         "skill": "<#ff9028ff>暗襲<>：身前橫掃半圈，造成<#ff9028ff>42<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>65%<>+最大生命3%物理傷害；掃中後可接<#ff9028ff>裂斬<>：直線劈下<#ff9028ff>48<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>75%<>，目標再加最大生命4%。",
         "skill2": "<#ff9028ff>血戮<>：甩鏈刀繞身一圈，造成<#ff9028ff>38<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>52%<>物理傷害並<#ef5350ff>緩速<>50%，持續<#ffb900ff>1秒<>；衝刺後再甩一圈。",
         "ult": "<#ff9028ff>殛刑<>：閃到敵方英雄身邊<#ef5350ff>壓制<><#ffb900ff>0.6秒<>，再砸進地裡：<#ff9028ff>115<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>85%<>+最大生命5%，<#ef5350ff>暈眩<><#ffb900ff>0.6秒<>；此後護甲穿透+15%。"
+      },
+      "league_rumble": {
+        "name": "藍寶",
+        "attack": "揮鐵球。<#ff9028ff>泰坦熱能<>：放技能累積熱能，過半進入<#ff9028ff>危險禁區<>（技能效果+50%），滿了<#ff9028ff>系統過熱<><#ffb900ff>5秒<>：無法施放技能，攻速+60%，普攻附加<#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<>魔法傷害（英雄再加最大生命3%）。<#ff9028ff>鐵屑電磁盾<>：敵方英雄靠近時自動套上<#7ee0ffff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7ee0ffff>45%<>護盾<#ffb900ff>1.5秒<>。",
+        "skill": "端起噴火炮往前噴火<#ffb900ff>1.5秒<>：錐形範圍內的敵人每<#ffb900ff>0.25秒<>受到<#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>27%<>魔法傷害。",
+        "skill2": "射出高壓電魚叉：<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>魔法傷害，<#ef5350ff>緩速<>20%<#ffb900ff>2秒<>；射中英雄後再射第二發，傷害+25%，緩速35%。",
+        "ult": "飛彈在敵方英雄腳下砸出一條火線（橫著或豎著，挑罩住敵人多的一邊），燃燒<#ffb900ff>4秒<>：每<#ffb900ff>0.5秒<><#a974ffff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>魔法傷害，<#ef5350ff>緩速<>35%。"
       }
     },
     "skill_name": {
@@ -4040,6 +4059,11 @@
         "skill1": "暗襲",
         "skill2": "血戮",
         "ult": "殛刑"
+      },
+      "league_rumble": {
+        "skill1": "火焰噴射器",
+        "skill2": "高壓電魚叉",
+        "ult": "等離子飛彈"
       }
     }
   },
@@ -5220,6 +5244,13 @@
         "skill": "<#ff9028ff>Cunning Sweep<>: sweeps a half circle in front of her for <#ff9028ff>42<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>65%<> + 3% max health physical damage; after a hit it recasts as <#ff9028ff>Sundering Slam<>, slamming down a line for <#ff9028ff>48<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>75%<>, the target taking 4% max health more.",
         "skill2": "<#ff9028ff>Lacerate<>: whirls her chained blades round her for <#ff9028ff>38<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>52%<> physical damage, <#ef5350ff>slowing<> 50% for <#ffb900ff>1s<>; the step after it whirls them again.",
         "ult": "<#ff9028ff>Public Execution<>: blinks onto an enemy champion, <#ef5350ff>suppresses<> it for <#ffb900ff>0.6s<> and slams it down for <#ff9028ff>115<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>85%<> + 5% max health, <#ef5350ff>stunning<> for <#ffb900ff>0.6s<>; she keeps 15% armour penetration after."
+      },
+      "league_rumble": {
+        "name": "Rumble",
+        "attack": "Mace blows. <#ff9028ff>Junkyard Titan<>: abilities build heat; past half, the <#ff9028ff>Danger Zone<> (abilities +50%); full, he <#ff9028ff>Overheats<> for <#ffb900ff>5s<>: no abilities, +60% attack speed, attacks deal <#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<> magic damage more (+3% max health on champions). <#ff9028ff>Scrap Shield<>: an enemy champion near raises a <#7ee0ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7ee0ffff>45%<> shield for <#ffb900ff>1.5s<> by itself.",
+        "skill": "Sprays fire ahead for <#ffb900ff>1.5s<>: enemies in the cone take <#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>27%<> magic damage every <#ffb900ff>0.25s<>.",
+        "skill2": "Fires a harpoon: <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> magic damage and <#ef5350ff>slows<> 20% for <#ffb900ff>2s<>; through a champion it fires a second one, +25% damage, 35% slow.",
+        "ult": "His rockets come down in a burning line on an enemy champion (across or up and down, whichever covers more enemies), burning for <#ffb900ff>4s<>: <#a974ffff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<> magic damage every <#ffb900ff>0.5s<> and a 35% <#ef5350ff>slow<>."
       }
     },
     "skill_name": {
@@ -6062,6 +6093,11 @@
         "skill1": "Cunning Sweep",
         "skill2": "Lacerate",
         "ult": "Public Execution"
+      },
+      "league_rumble": {
+        "skill1": "Flamespitter",
+        "skill2": "Electro Harpoon",
+        "ult": "The Equalizer"
       }
     }
   },
@@ -7242,6 +7278,13 @@
         "skill": "<#ff9028ff>교활한 휩쓸기<>: 앞쪽 반원을 휩쓸어 <#ff9028ff>42<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>65%<> + 최대 체력 3% 물리 피해; 적중 후 <#ff9028ff>파멸의 일격<>: 직선으로 내려찍어 <#ff9028ff>48<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>75%<>, 대상은 최대 체력 4% 추가.",
         "skill2": "<#ff9028ff>찢어 가르기<>: 사슬 검을 휘둘러 주변에 <#ff9028ff>38<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>52%<> 물리 피해, <#ffb900ff>1초<> 동안 50% <#ef5350ff>둔화<>; 돌진 후 한 번 더.",
         "ult": "<#ff9028ff>공개 처형<>: 적 챔피언 옆으로 순간이동해 <#ffb900ff>0.6초<> <#ef5350ff>제압<> 후 내려찍어 <#ff9028ff>115<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>85%<> + 최대 체력 5%, <#ffb900ff>0.6초<> <#ef5350ff>기절<>; 이후 방어구 관통 15%."
+      },
+      "league_rumble": {
+        "name": "럼블",
+        "attack": "철퇴 공격. <#ff9028ff>고철장 거인<>: 스킬로 열기 축적, 절반을 넘으면 <#ff9028ff>위험 상태<>(스킬 효과 +50%), 가득 차면 <#ffb900ff>5초<> <#ff9028ff>과열<>: 스킬 사용 불가, 공격 속도 +60%, 기본 공격에 <#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<> 마법 피해 추가(챔피언은 최대 체력 3%). <#ff9028ff>고철 방패<>: 적 챔피언이 가까우면 <#7ee0ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7ee0ffff>45%<> 보호막 <#ffb900ff>1.5초<> 자동.",
+        "skill": "화염방사기로 <#ffb900ff>1.5초<> 동안 전방에 불을 뿜음: 부채꼴 안의 적에게 <#ffb900ff>0.25초<>마다 <#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>27%<> 마법 피해.",
+        "skill2": "작살 발사: <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> 마법 피해, <#ffb900ff>2초<> 동안 20% <#ef5350ff>둔화<>; 챔피언에 맞으면 두 번째 작살, 피해 +25%, 둔화 35%.",
+        "ult": "적 챔피언 발밑에 로켓이 불길 한 줄을 만듦(가로 또는 세로, 적이 더 많은 쪽), <#ffb900ff>4초<> 동안 <#ffb900ff>0.5초<>마다 <#a974ffff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<> 마법 피해, 35% <#ef5350ff>둔화<>."
       }
     },
     "skill_name": {
@@ -8084,6 +8127,11 @@
         "skill1": "교활한 휩쓸기",
         "skill2": "찢어 가르기",
         "ult": "공개 처형"
+      },
+      "league_rumble": {
+        "skill1": "화염방사기",
+        "skill2": "전기 작살",
+        "ult": "이퀄라이저 미사일"
       }
     }
   },
@@ -9264,6 +9312,13 @@
         "skill": "<#ff9028ff>カニングスイープ<>：前方半円を薙ぎ払い<#ff9028ff>42<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>65%<>+最大体力3%の物理ダメージ；命中後<#ff9028ff>サンダリングスラム<>：直線に叩きつけ<#ff9028ff>48<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>75%<>、対象は最大体力4%追加。",
         "skill2": "<#ff9028ff>ラセレイト<>：鎖の剣を振り回し周囲に<#ff9028ff>38<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>52%<>の物理ダメージ、50%<#ef5350ff>スロウ<>（<#ffb900ff>1秒<>）；突進後もう一度。",
         "ult": "<#ff9028ff>公開処刑<>：敵チャンピオンの側へ瞬間移動し<#ffb900ff>0.6秒<><#ef5350ff>制圧<>、叩きつけて<#ff9028ff>115<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>85%<>+最大体力5%、<#ffb900ff>0.6秒<><#ef5350ff>スタン<>；以後物理防御貫通15%。"
+      },
+      "league_rumble": {
+        "name": "ランブル",
+        "attack": "鉄球攻撃。<#ff9028ff>ポンコツタイタン<>：スキルでヒート上昇、半分で<#ff9028ff>デンジャーゾーン<>（効果+50%）、満タンで<#ff9028ff>オーバーヒート<><#ffb900ff>5秒<>：スキル不可、攻撃速度+60%、攻撃に<#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<>（対チャンピオン+最大体力3%）。<#ff9028ff>ジャンクシールド<>：敵チャンピオン接近で<#7ee0ffff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7ee0ffff>45%<>シールド<#ffb900ff>1.5秒<>。",
+        "skill": "火炎放射器で<#ffb900ff>1.5秒<>前方に火を噴く：扇形内の敵に<#ffb900ff>0.25秒<>毎<#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>27%<>の魔法ダメージ。",
+        "skill2": "銛を発射：<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>の魔法ダメージ、<#ffb900ff>2秒<>20%<#ef5350ff>スロウ<>；チャンピオンに当たると2発目、ダメージ+25%、スロウ35%。",
+        "ult": "敵チャンピオンの足元にロケットで炎の列（横か縦、敵の多い方）、<#ffb900ff>4秒<>燃えて<#ffb900ff>0.5秒<>毎<#a974ffff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>の魔法ダメージ、35%<#ef5350ff>スロウ<>。"
       }
     },
     "skill_name": {
@@ -10106,6 +10161,11 @@
         "skill1": "カニングスイープ",
         "skill2": "ラセレイト",
         "ult": "公開処刑"
+      },
+      "league_rumble": {
+        "skill1": "スピットファイア",
+        "skill2": "エレクトロハープーン",
+        "ult": "イコライザー"
       }
     }
   }
