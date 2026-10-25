@@ -32,6 +32,8 @@ import import_jhin as J  # noqa: E402
 from import_hwei_fx import anchor, lp, odd  # noqa: E402
 
 SRC = os.path.join(ROOT, "assets", "source", "trundle", "codex_fx", "trundle_fx")
+# the redraws (the domain made big, 80 x 26: 「那gif图的冰面那么小？」, Codex 2026-10-25/new-chat-5), read in place of SRC's
+REDO = os.path.join(ROOT, "assets", "source", "trundle", "codex_fx", "trundle_fx_redo")
 MOD = os.path.join(ROOT, "league")
 
 BIG = {"w_domain", "e_pillar"}
@@ -95,15 +97,19 @@ def cells(name, meta, src):
     return [odd(c, name) for c in out]
 
 
-def manifest(src):
-    man = json.load(open(lp(os.path.join(src, "manifest.json")), encoding="utf-8-sig"))
-    if isinstance(man, dict):                     # a delivery shaped {"schema_version", ..., "effects": [...]}
-        man = man.get("effects") or man.get("items")
+def manifest(src, redo=REDO):
+    """{name: its manifest entry, pixel_1x = its picture}: the delivery's, the redraws' (REDO) in place of theirs."""
     meta = {}
-    for e in man:
-        f = os.path.basename(e["file"])
-        name = f[:-4].replace("trundle_fx_", "")
-        meta[name] = dict(e, pixel_1x=os.path.join("pixel_1x", f))
+    for folder in (src, redo):
+        if not os.path.isfile(lp(os.path.join(folder, "manifest.json"))):
+            continue
+        man = json.load(open(lp(os.path.join(folder, "manifest.json")), encoding="utf-8-sig"))
+        if isinstance(man, dict):                 # a delivery shaped {"schema_version", ..., "effects": [...]}
+            man = man.get("effects") or man.get("items")
+        for e in man:
+            f = os.path.basename(e["file"])
+            name = f[:-4].replace("trundle_fx_", "")
+            meta[name] = dict(e, pixel_1x=os.path.join(folder, "pixel_1x", f))
     return meta
 
 

@@ -85,7 +85,7 @@ def showcase(out, z=3, steps=FIGHT, W=320, H=150, gap=150, tail=1500, w_ready=Tr
     fx = {k: load(v) for k, v in FX.items()}
     small, big = fx["league_trundle_fx"], fx["league_trundle_big"]
     gy = H - 30
-    x0 = 40
+    x0 = 56                                             # room for the domain's 80 px field round him
     far = x0 + gap                                      # Darius
     d = Foe(load(DARIUS), far, gy)
     me = Me(x0, gy)
@@ -220,7 +220,7 @@ def skills(out, z=4):
     frames = []
     for k, (cap, steps, gap, h, ready) in enumerate(SCENES):
         path = os.path.join(tmp, f"s{k}.gif")
-        showcase(path, z=z, steps=steps, W=230, H=h, gap=gap, tail=900, w_ready=ready)
+        showcase(path, z=z, steps=steps, W=250, H=h, gap=gap, tail=900, w_ready=ready)
         for f in ImageSequence.Iterator(Image.open(path)):
             frames.append((cap, f.convert("RGB").copy(), f.info.get("duration", 40)))
     W = max(f.width for _, f, _ in frames)
