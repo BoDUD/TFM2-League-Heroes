@@ -19,11 +19,13 @@ E and W ready.
   attack  A nail stab (physical 100% AD, the passive's magic on top) on `Enemy` at atk_st. On a champion it pops the
           nails his Q left (League: the marks on that enemy; here the caster's own count, league_diana's Moonlight):
           q_pop + q_pop_ap% AP magic damage a nail, x (100 + q_two)% for two, x (100 + q_three)% for three.
-          After E the next attack is the pursuit: he dashes through the target (`RushMoveToBack`), e_dash + e_dash_ap%
-          AP magic damage to it.
+          After E the next attack is the pursuit: he dashes through the target (`RushMoveToBack`, the `dash` tag
+          e_dash_t ticks), e_dash + e_dash_ap% AP magic damage to it.
   skill   Q Ritual Nails (伏魔三钉), `Targeting` on `EnemyWithoutTower` (q_range, `q_cd`): three nails q_gap ticks apart
           (homing), each q_dmg + q_ap% AP magic damage and a q_slow% slow for q_slow_t (three hits stack it); every
-          nail on a champion adds one to the count (n1 -> n2 -> n3, q_mark_t ticks) and the first one readies E.
+          nail on a champion adds one to the count (n1 -> n2 -> n3, q_mark_t ticks) and the first one readies E; the
+          mark over the champion's head shows while he holds the count (a `Bleed` casted on it, a round of the
+          picture every q_mark_p ticks), so it goes when his stab pops the nails.
   skill2  E Ashen Pursuit (灰猎无影), `Targeting` on e_tgt (e_range, `e_cd`): he blinks onto the champion
           (`Teleport`), e_dmg + e_ap% AP magic damage round him (e_r) on arrival, and his next attack within e_next
           ticks is the pursuit (above). With W ready the soul ignites at once.
@@ -83,11 +85,12 @@ P = {
     "w_cd": 960, "w_t": 240, "w_dur": 20, "w_as": 35, "w_ms": 40, "w_cost": 2, "w_heal": 20, "w_heal_ap": 10,
     # skill: Q Ritual Nails
     "q_cd": 480, "q_range": 50000, "q_dur": 30, "q_at": 8, "q_gap": 6, "q_speed": 6000, "q_y": -3000,
-    "q_dmg": 35, "q_ap": 20, "q_slow": 15, "q_slow_t": 90, "q_mark_t": 240,
+    "q_dmg": 35, "q_ap": 20, "q_slow": 15, "q_slow_t": 90, "q_mark_t": 240, "q_mark_p": 36,
     "q_pop": 25, "q_pop_ap": 12, "q_two": 25, "q_three": 50, "q_go_t": 120,
     # skill2: E Ashen Pursuit
     "e_cd": 600, "e_range": 45000, "e_tgt": "EnemyChampionRecentlyAttacked", "e_dur": 16, "e_at": 6, "e_r": 20000,
-    "e_dmg": 50, "e_ap": 25, "e_next": 180, "e_dash": 55, "e_dash_ap": 30, "e_speed": 4000, "e_go_t": 120,
+    "e_dmg": 50, "e_ap": 25, "e_next": 180, "e_dash": 55, "e_dash_ap": 30, "e_speed": 4000, "e_dash_t": 14,
+    "e_go_t": 120,
     # the takedown window (league_viego's)
     "p_win": 180,
     # ult: R Purgatory
@@ -336,8 +339,14 @@ def build(p):
     # ------------------------------------------------------------------ Q Ritual Nails
     def q_cast():
         def nail(k):
+            # the mark over the head shows while he holds the count (a casted on the champion reads his flags every
+            # q_mark_p ticks and plays one round of the mark): his stab pops the nails and the mark goes with them -
+            # a buff's picture would stay its whole time (the data cannot take a buff off another unit); the plain
+            # q_mark buff stays for the add-on (who he touched)
+            seen = sw("n1", view("q_mark_v"), sw("n2", view("q_mark_v"), sw("n3", view("q_mark_v"))))
             champ = homing(f"q_tw{k}", "EnemyChampion",
                            [count(), buff("q_mark", p["q_mark_t"]), track(),
+                            casted(p["q_mark_t"], p["q_mark_p"], seen, kind="Bleed") if k == 0 else None,
                             # Q -> E: the first nail on a champion readies E (Locke's own: `own`)
                             sw("own", combine(*rm("e_cd"), refresh("e_go", p["e_go_t"]))) if k == 0 else None],
                            speed=p["q_speed"], y=p["q_y"])
@@ -401,7 +410,7 @@ def build(p):
                                                         view("a_hit"), tsfx("a_hit")]),
                    homing("a_tw", "EnemyChampion", [pop(), track()]))
     # the pursuit: after E the next attack dashes through the target (League: to it, hitting all on the way)
-    pursuit = combine(*rm("e_next"), cview("e_dash"), sfx("e_dash"),
+    pursuit = combine(*rm("e_next"), anim("dash", p["e_dash_t"]), cview("e_dash"), sfx("e_dash"),
                       {"type": "RushMoveToBack", "speed": p["e_speed"],
                        "applied_effects": [magic(p["e_dash"], p["e_dash_ap"]), view("e_hit")]})
     attack_a = action("attack", p["atk_dur"], p["atk_cd"], 1, p["atk_range"], "Targeting", "Enemy",
@@ -423,10 +432,11 @@ def build(p):
     B_ = lambda name, anim_=FX, z=3, tag=None: {"type": "Animated", "name": n(name), "anim": anim_, "tag": tag or name,
                                                 "repeat": True, "z": z}
     views_p = [B_("q_nail", FX, 2), B_("r_case", FX, 2)]
-    views_e = [E("a_hit"), E("q_hit"), E("q_pop"), E("e_out", FX, 2, False), E("e_in", FX, 2, False), E("e_hit"),
+    views_e = [E("a_hit"), E("q_hit"), {"type": "Animation", "name": n("q_mark_v"), "anim": FX, "tag": "q_mark", "z": 3,
+                                         "is_follow": True}, E("q_pop"), E("e_out", FX, 2, False), E("e_in", FX, 2, False), E("e_hit"),
                E("e_dash", FX, 2, False), E("w_ign"), E("w_end"), E("r_land", BIG, 1, False), E("r_hit"),
                E("r_tick"), E("r_seal"), E("p_reset")]
-    views_b = [B_("q_slow", FX, -1, "slow"), B_("r_slow", FX, -1, "slow"), B_("q_mark", FX, 3), B_("r_mark", FX, 3),
+    views_b = [B_("q_slow", FX, -1, "slow"), B_("r_slow", FX, -1, "slow"), B_("r_mark", FX, 3),
                B_("w_on", FX, -1, "w_aura")]
     extra = {}
     if native:   # addons/league_locke: the League rules the data cannot read

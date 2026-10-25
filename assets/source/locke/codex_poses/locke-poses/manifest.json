@@ -1,0 +1,338 @@
+[
+  {
+    "file": "locke-pose-a_wind.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "grid_px": 11,
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "hard_alpha": true,
+    "pose_and_identity_status": "visually reviewed; approximate match, exact head and bone-length contract not proven",
+    "exact_approved_head_pixel_match": false,
+    "ground_anchor_exported": 1188,
+    "whole_figure_fit_scale": 1.0,
+    "placement_shift_cells": [
+      0,
+      -1
+    ]
+  },
+  {
+    "file": "locke-pose-a_stab.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "grid_px": 11,
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "hard_alpha": true,
+    "pose_and_identity_status": "visually reviewed; approximate match, exact head and bone-length contract not proven",
+    "exact_approved_head_pixel_match": false,
+    "ground_anchor_exported": 1188,
+    "whole_figure_fit_scale": 1.0,
+    "placement_shift_cells": [
+      0,
+      0
+    ]
+  },
+  {
+    "file": "locke-pose-q_raise.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "grid_px": 11,
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "hard_alpha": true,
+    "pose_and_identity_status": "visually reviewed; approximate match, exact head and bone-length contract not proven",
+    "exact_approved_head_pixel_match": false,
+    "ground_anchor_exported": 1188,
+    "whole_figure_fit_scale": 0.9907407407407407,
+    "placement_shift_cells": [
+      0,
+      0
+    ]
+  },
+  {
+    "file": "locke-pose-q_throw.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "grid_px": 11,
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "hard_alpha": true,
+    "pose_and_identity_status": "visually reviewed; approximate match, exact head and bone-length contract not proven",
+    "exact_approved_head_pixel_match": false,
+    "ground_anchor_exported": 1188,
+    "whole_figure_fit_scale": 1.0,
+    "placement_shift_cells": [
+      0,
+      0
+    ]
+  },
+  {
+    "file": "locke-pose-w_hunch.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "grid_px": 11,
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "hard_alpha": true,
+    "pose_and_identity_status": "visually reviewed; approximate match, exact head and bone-length contract not proven",
+    "exact_approved_head_pixel_match": false,
+    "ground_anchor_exported": 1188,
+    "whole_figure_fit_scale": 1.0,
+    "placement_shift_cells": [
+      0,
+      -2
+    ]
+  },
+  {
+    "file": "locke-pose-w_spread.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "grid_px": 11,
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "hard_alpha": true,
+    "pose_and_identity_status": "visually reviewed; approximate match, exact head and bone-length contract not proven",
+    "exact_approved_head_pixel_match": false,
+    "ground_anchor_exported": 1155,
+    "whole_figure_fit_scale": 1.0,
+    "placement_shift_cells": [
+      0,
+      -4
+    ]
+  },
+  {
+    "file": "locke-pose-e_blink.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "grid_px": 11,
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "hard_alpha": true,
+    "pose_and_identity_status": "visually reviewed; approximate match, exact head and bone-length contract not proven",
+    "exact_approved_head_pixel_match": false,
+    "ground_anchor_exported": 1188,
+    "whole_figure_fit_scale": 1.0,
+    "placement_shift_cells": [
+      0,
+      0
+    ]
+  },
+  {
+    "file": "locke-pose-e_dash.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "grid_px": 11,
+    "raw_size": [
+      1388,
+      1133
+    ],
+    "hard_alpha": true,
+    "pose_and_identity_status": "visually reviewed; approximate match, exact head and bone-length contract not proven",
+    "exact_approved_head_pixel_match": false,
+    "ground_anchor_exported": 1122,
+    "whole_figure_fit_scale": 1.0,
+    "placement_shift_cells": [
+      0,
+      10
+    ]
+  },
+  {
+    "file": "locke-pose-r_swing.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "grid_px": 11,
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "hard_alpha": true,
+    "pose_and_identity_status": "visually reviewed; approximate match, exact head and bone-length contract not proven",
+    "exact_approved_head_pixel_match": false,
+    "ground_anchor_exported": 1188,
+    "whole_figure_fit_scale": 1.0,
+    "placement_shift_cells": [
+      0,
+      -2
+    ]
+  },
+  {
+    "file": "locke-pose-r_throw.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "grid_px": 11,
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "hard_alpha": true,
+    "pose_and_identity_status": "visually reviewed; approximate match, exact head and bone-length contract not proven",
+    "exact_approved_head_pixel_match": false,
+    "ground_anchor_exported": 1188,
+    "whole_figure_fit_scale": 0.963963963963964,
+    "placement_shift_cells": [
+      0,
+      0
+    ]
+  },
+  {
+    "file": "locke-pose-run1.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "grid_px": 11,
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "hard_alpha": true,
+    "pose_and_identity_status": "visually reviewed; approximate match, exact head and bone-length contract not proven",
+    "exact_approved_head_pixel_match": false,
+    "ground_anchor_exported": 1188,
+    "whole_figure_fit_scale": 1.0,
+    "placement_shift_cells": [
+      0,
+      1
+    ]
+  },
+  {
+    "file": "locke-pose-run2.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "grid_px": 11,
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "hard_alpha": true,
+    "pose_and_identity_status": "visually reviewed; approximate match, exact head and bone-length contract not proven",
+    "exact_approved_head_pixel_match": false,
+    "ground_anchor_exported": 1188,
+    "whole_figure_fit_scale": 1.0,
+    "placement_shift_cells": [
+      0,
+      -1
+    ]
+  },
+  {
+    "file": "locke-pose-run3.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "grid_px": 11,
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "hard_alpha": true,
+    "pose_and_identity_status": "visually reviewed; approximate match, exact head and bone-length contract not proven",
+    "exact_approved_head_pixel_match": false,
+    "ground_anchor_exported": 1188,
+    "whole_figure_fit_scale": 1.0,
+    "placement_shift_cells": [
+      0,
+      -3
+    ]
+  },
+  {
+    "file": "locke-pose-run4.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "grid_px": 11,
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "hard_alpha": true,
+    "pose_and_identity_status": "visually reviewed; approximate match, exact head and bone-length contract not proven",
+    "exact_approved_head_pixel_match": false,
+    "ground_anchor_exported": 1188,
+    "whole_figure_fit_scale": 1.0,
+    "placement_shift_cells": [
+      0,
+      0
+    ]
+  },
+  {
+    "file": "locke-pose-d_fall.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "grid_px": 11,
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "hard_alpha": true,
+    "pose_and_identity_status": "visually reviewed; approximate match, exact head and bone-length contract not proven",
+    "exact_approved_head_pixel_match": false,
+    "ground_anchor_exported": 1188,
+    "whole_figure_fit_scale": 1.0,
+    "placement_shift_cells": [
+      0,
+      -1
+    ]
+  },
+  {
+    "file": "locke-pose-d_down.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "grid_px": 11,
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "hard_alpha": true,
+    "pose_and_identity_status": "visually reviewed; approximate match, exact head and bone-length contract not proven",
+    "exact_approved_head_pixel_match": false,
+    "ground_anchor_exported": 1188,
+    "whole_figure_fit_scale": 1.0,
+    "placement_shift_cells": [
+      0,
+      -2
+    ]
+  }
+]

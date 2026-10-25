@@ -951,6 +951,45 @@
                                                         {
                                                           "casting_type": "Targeting",
                                                           "effect": {
+                                                            "type": "AddCasted",
+                                                            "casted_type": "Bleed",
+                                                            "duration": 240,
+                                                            "period": 36,
+                                                            "effects": [
+                                                              {
+                                                                "type": "SwitchByBuff",
+                                                                "buff_name": "league_locke_n1",
+                                                                "effect_buff": {
+                                                                  "type": "ViewEffect",
+                                                                  "name": "league_locke_q_mark_v"
+                                                                },
+                                                                "effect_none": {
+                                                                  "type": "SwitchByBuff",
+                                                                  "buff_name": "league_locke_n2",
+                                                                  "effect_buff": {
+                                                                    "type": "ViewEffect",
+                                                                    "name": "league_locke_q_mark_v"
+                                                                  },
+                                                                  "effect_none": {
+                                                                    "type": "SwitchByBuff",
+                                                                    "buff_name": "league_locke_n3",
+                                                                    "effect_buff": {
+                                                                      "type": "ViewEffect",
+                                                                      "name": "league_locke_q_mark_v"
+                                                                    },
+                                                                    "effect_none": {
+                                                                      "type": "Combine",
+                                                                      "effects": []
+                                                                    }
+                                                                  }
+                                                                }
+                                                              }
+                                                            ]
+                                                          }
+                                                        },
+                                                        {
+                                                          "casting_type": "Targeting",
+                                                          "effect": {
                                                             "type": "SwitchByBuff",
                                                             "buff_name": "league_locke_own",
                                                             "effect_buff": {
@@ -1513,6 +1552,11 @@
                         {
                           "type": "RemoveCasterBuff",
                           "name": "league_locke_e_next"
+                        },
+                        {
+                          "type": "CasterAnimation",
+                          "name": "dash",
+                          "tick": 14
                         },
                         {
                           "type": "CasterViewEffect",
@@ -2086,6 +2130,45 @@
                                     }
                                   }
                                 }
+                              }
+                            },
+                            {
+                              "casting_type": "Targeting",
+                              "effect": {
+                                "type": "AddCasted",
+                                "casted_type": "Bleed",
+                                "duration": 240,
+                                "period": 36,
+                                "effects": [
+                                  {
+                                    "type": "SwitchByBuff",
+                                    "buff_name": "league_locke_n1",
+                                    "effect_buff": {
+                                      "type": "ViewEffect",
+                                      "name": "league_locke_q_mark_v"
+                                    },
+                                    "effect_none": {
+                                      "type": "SwitchByBuff",
+                                      "buff_name": "league_locke_n2",
+                                      "effect_buff": {
+                                        "type": "ViewEffect",
+                                        "name": "league_locke_q_mark_v"
+                                      },
+                                      "effect_none": {
+                                        "type": "SwitchByBuff",
+                                        "buff_name": "league_locke_n3",
+                                        "effect_buff": {
+                                          "type": "ViewEffect",
+                                          "name": "league_locke_q_mark_v"
+                                        },
+                                        "effect_none": {
+                                          "type": "Combine",
+                                          "effects": []
+                                        }
+                                      }
+                                    }
+                                  }
+                                ]
                               }
                             },
                             {
@@ -3770,6 +3853,45 @@
                                                         {
                                                           "casting_type": "Targeting",
                                                           "effect": {
+                                                            "type": "AddCasted",
+                                                            "casted_type": "Bleed",
+                                                            "duration": 240,
+                                                            "period": 36,
+                                                            "effects": [
+                                                              {
+                                                                "type": "SwitchByBuff",
+                                                                "buff_name": "league_locke_n1",
+                                                                "effect_buff": {
+                                                                  "type": "ViewEffect",
+                                                                  "name": "league_locke_q_mark_v"
+                                                                },
+                                                                "effect_none": {
+                                                                  "type": "SwitchByBuff",
+                                                                  "buff_name": "league_locke_n2",
+                                                                  "effect_buff": {
+                                                                    "type": "ViewEffect",
+                                                                    "name": "league_locke_q_mark_v"
+                                                                  },
+                                                                  "effect_none": {
+                                                                    "type": "SwitchByBuff",
+                                                                    "buff_name": "league_locke_n3",
+                                                                    "effect_buff": {
+                                                                      "type": "ViewEffect",
+                                                                      "name": "league_locke_q_mark_v"
+                                                                    },
+                                                                    "effect_none": {
+                                                                      "type": "Combine",
+                                                                      "effects": []
+                                                                    }
+                                                                  }
+                                                                }
+                                                              }
+                                                            ]
+                                                          }
+                                                        },
+                                                        {
+                                                          "casting_type": "Targeting",
+                                                          "effect": {
                                                             "type": "SwitchByBuff",
                                                             "buff_name": "league_locke_own",
                                                             "effect_buff": {
@@ -4617,6 +4739,14 @@
     },
     {
       "type": "Animation",
+      "name": "league_locke_q_mark_v",
+      "anim": "asset/league/effects/league_locke_fx",
+      "tag": "q_mark",
+      "z": 3,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
       "name": "league_locke_q_pop",
       "anim": "asset/league/effects/league_locke_fx",
       "tag": "q_pop",
@@ -4728,14 +4858,6 @@
       "tag": "slow",
       "repeat": true,
       "z": -1
-    },
-    {
-      "type": "Animated",
-      "name": "league_locke_q_mark",
-      "anim": "asset/league/effects/league_locke_fx",
-      "tag": "q_mark",
-      "repeat": true,
-      "z": 3
     },
     {
       "type": "Animated",
