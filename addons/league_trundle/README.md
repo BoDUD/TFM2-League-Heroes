@@ -7,8 +7,8 @@
 | 机制 | 主包（纯数据） | 附加包 |
 |---|---|---|
 | 国王的贡品 | 只有**他自己打死**的单位回一口血，回固定的数（`p_heal` + `p_heal_r`% 攻击力），冰面上翻倍 | 他身边 `p_r` 内**任何敌方单位倒下**（谁打死的都算）都回它**最大生命 `p_pct`%** 的血，冰面上翻倍 |
-| 冰封领域 | 冰面**跟着他走**：一个加攻速、移速、回血的 buff | 冰面**留在冻住的地方**（半径 `w_r`），他站在里面才有攻速、移速、回血，并且受到的治疗多 `w_amp`% |
-| 寒冰之柱 | 冰柱只是一圈减速 | 冰柱是**地形**：立在被冰柱打中的英雄**身后**（背对特朗德尔），半径 `e_wall`，立 `e_t` 拍，敌方英雄和小兵**走不进去** |
+| 冰封领域 | 冰面**跟着他走**：一个加攻速、移速、回血的 buff | 冰面**留在冻住的地方**（半径 `w_r` = 40000，和画面一样大，冰面的画面每秒在那里播一次），他站在里面才有攻速、移速、回血，并且受到的治疗多 `w_amp`% |
+| 寒冰之柱 | 冰柱只是一圈减速 | 冰柱是**地形**（用户：「你要确认e真的能卡住人 而不是假的贴图」）：立在被冰柱打中的英雄**身后**（背对特朗德尔、紧贴着它），半径 `e_wall`，立 `e_t` 拍；两边的英雄、小兵、野怪、召唤物（特朗德尔自己也算）**都走不进去** |
 | 利齿撕咬 | 双方攻击力按百分比改（他 +`q_gain`%，对方 -`q_sap`%） | 按**被咬者当时的攻击力**偷：他加它的 `q_flat`%，它减一半，各 `q_t` 拍 |
 | 强权至上 | 双方护甲魔抗按百分比改，伤害是真实伤害，回固定的血 | 偷走目标**自己护甲、魔抗的 `r_steal`%**（`r_t + r_keep` 拍），伤害是**魔法伤害**（立刻 `r_pct0`%、之后每 `r_p` 拍 `r_pct`% 最大生命），**打掉多少血就回多少**（冰面上再放大） |
 
@@ -19,8 +19,8 @@
 `mod.override_info` 把主包的特朗德尔换成 `override/` 里的副本（`make_override.py` 用 `tools/kit/build_trundle.py` 的 `native=1` 生成），`passive` 是本包的 `league_trundle:troll`，参数（`build_trundle.NATIVE_KEYS`）来自主包参数表 P：
 
 - 副本**没有击杀检测**；本包每拍记下他身边 `p_r` 内活着的敌方单位（英雄、小兵、野怪、大龙小龙、召唤物）和它们的最大生命，下一拍谁不在了 / 死了就给他回血；
-- 副本的 `league_trundle_w_on` **不带属性**，只是记号；它出现或被刷新时本包记下他脚下的位置，他在那一圈里时每拍挂 2 拍的 `league_trundle_w_in`（攻速 `w_as`%、移速 `w_ms`%、回血 `w_regen`），并把他这一拍多出来的血（治疗、回血）再放大 `w_amp`%；
-- 副本的冰柱**不定身**，只给冰柱旁的英雄挂 3 拍 `league_trundle_e_at`；本包看到它就在那个英雄身后立柱（一次施法一根），每拍把冰柱圈里的敌方英雄、小兵推到圈外（`entity_set_pos`）；他死了冰柱照样立着；
+- 副本的 `league_trundle_w_on` **不带属性**，只是记号，脚下也不跟着播冰面；它出现或被刷新时本包记下他脚下的位置，每 60 拍在那里播一次 `league_trundle_w_field`（冻地铺满的两帧），他在那一圈里时每拍挂 2 拍的 `league_trundle_w_in`（攻速 `w_as`%、移速 `w_ms`%、回血 `w_regen`），并把他这一拍多出来的血（治疗、回血）再放大 `w_amp`%；
+- 副本的冰柱**不定身**，也不播冰柱的画面，只给冰柱旁的英雄挂 3 拍 `league_trundle_e_at`；本包看到它就在那个英雄身后立柱（一次施法一根）、在柱子的位置播 `league_trundle_e_pillar`。冰柱立着时每拍看每个单位：中心进了柱子（`e_wall` + 单位半径）就退回上一拍的位置，只留下顺着柱边走的那一半（绕着走不会被粘住）；柱子立起时压在谁身上就推到柱外（`entity_set_pos`，奥恩的岩柱、塔莉垭的墙、艾尼维亚的冰墙一样的做法——它们的日志里能看到英雄被连续几拍挡在同一个坐标）；他死了冰柱照样立着；
 - 副本的 Q 不改攻击力，只给被咬的单位挂 3 拍 `league_trundle_q_mark`；本包读它的攻击力，挂 `league_trundle_q_take`（他）和 `league_trundle_q_lose`（它）；
 - 副本的大招不打伤害、不回血、不改属性，只给目标挂 `league_trundle_r_drain`；本包读它的护甲魔抗，挂 `league_trundle_r_lose` / `league_trundle_r_take`，并用 `deal_damage_typed`（`Ap`）按时打伤害、按打掉的血给他回血。
 
@@ -28,6 +28,6 @@
 
 ## 检查
 
-- 在 `addons/` 下 `cargo test --release -p league_trundle`：单元测试（参数、贡品、偷攻击力、冰柱的位置和推人、冰面放大、名字和数据一致）。
+- 在 `addons/` 下 `cargo test --release -p league_trundle`：单元测试（参数、贡品、偷攻击力、冰柱的位置、挡路（一路往柱子走 200 拍进不去、贴边能绕、立起时推出去）、冰面放大、名字和数据一致）。
 - 主包的特朗德尔改了以后重新跑 `python addons/league_trundle/make_override.py`（它先核对主包的 `league_trundle.data_champion` 和参数表一致、`src/lib.rs` 的默认参数和 P 一致；`--check` 只核对不写；文字接入前用 `--draft`）。
-- 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_trundle.log`：`SPAWN`、贡品回血 `TRIBUTE`、冻地 `DOMAIN`、立柱 `PILLAR`、推人 `WALL`、偷攻击力 `CHOMP`、大招 `SUBJUGATE`。
+- 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_trundle.log`：`SPAWN`、贡品回血 `TRIBUTE`、冻地 `DOMAIN`、立柱 `PILLAR`、推人 `WALL`、偷攻击力 `CHOMP`（挡路的 `HOLD` / `PUSH` 就是冰柱真的挡住了人）、大招 `SUBJUGATE`。

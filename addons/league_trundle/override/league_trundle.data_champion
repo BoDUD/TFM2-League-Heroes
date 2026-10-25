@@ -36,9 +36,9 @@
     "asset/league/icons/league_trundle_ult"
   ],
   "stat": {
-    "attack": 82,
+    "attack": 84,
     "magic_power": 10,
-    "hp": 1120,
+    "hp": 1160,
     "defence": 34,
     "magic_resistance": 28,
     "move_speed": 1000,

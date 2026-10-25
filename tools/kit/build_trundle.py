@@ -46,7 +46,10 @@ league_warwick the control: +0.57 / +0.52 on seeds 1-8 / 9-16): the draft (hp 11
 fixed: one 10-tick buff); with one slow +5.29 (1-4); the pillar at 25% for 4 s over 16000 every 540 with a 20-tick hold
 +3.02, with hp 1080 / attack 84 +1.68 (1-4); hp 1080, attack 82, defence 34, R 25% and the heals cut (tribute 12 + 8%,
 R 20 + 10%, domain regen 6) +1.60 (1-8), without the hold +0.05, a 10-tick hold +0.12; P (no hold, hp 1120) +0.70 /
-+0.51 (1-8 / 9-16; mean +0.61). The add-on's rules cannot run in that engine (Native effects dropped).
++0.51 (1-8 / 9-16; mean +0.61). 2026-10-25 at integration lint's "WithSelf around Heal" showed King's Tribute healing
+twice (the dead unit's queue ran the heal too): the heal moved to the controller (`tri`), +0.20 (1-16); tribute 18 + 12%
++1.19; P = hp 1160, attack 84 +0.51 (1-16; league_warwick +0.55). The add-on's rules cannot run in that engine (Native
+effects dropped).
 """
 import argparse
 import json
@@ -66,7 +69,7 @@ BIG = "asset/league/effects/league_trundle_big"
 # steals 40% armour / mr (held 4 s, then decays), he heals what he drains, cd 120-80.
 P = {
     # stats (base fighters: attack 90 +12, hp 1000 +100, defence 35 +8; league_warwick, league_volibear)
-    "hp": 1120, "hp_g": 110, "atk": 82, "atk_g": 13, "apw": 10, "apw_g": 5, "def": 34, "def_g": 9, "mr": 28, "mr_g": 4,
+    "hp": 1160, "hp_g": 110, "atk": 84, "atk_g": 13, "apw": 10, "apw_g": 5, "def": 34, "def_g": 9, "mr": 28, "mr_g": 4,
     "ms": 1000, "ms_g": 11, "regen": 2, "regen_g": 1,
     "atk_range": 25000, "atk_dur": 28, "atk_cd": 72, "a_hit": 11,
     # the controller
@@ -246,9 +249,12 @@ def build(p):
 
     # ------------------------------------------------------------------ passive: King's Tribute (the kill trigger)
     # in a hit's twin on the unit: `kl` on him, cleared a tick later by a casted on the unit while it lives; a dead unit
-    # leaves it, and the check 4 ticks on (queued on him and the unit: the first run takes the flag) heals him
-    tribute = combine(*rm("kl"), view("p_heal"), sfx("p_heal"),
-                      sw("w_on", heal(p["p_heal"] * 2, p["p_heal_r"] * 2), heal(p["p_heal"], p["p_heal_r"])))
+    # leaves it, and the check 4 ticks on (queued on him and the unit) raises `tri`: a caster flag, so only his own run
+    # adds it (a dead unit's Delayed skips caster buffs - league_jinx's reward) and the heal comes once, from the
+    # controller on him (a Heal in the WithSelf would run in the dead unit's queue too: lint's "WithSelf around Heal")
+    tribute = combine(*rm("kl"), refresh("tri", 4))
+    tribute_heal = sw("tri", combine(*rm("tri"), view("p_heal"), sfx("p_heal"),
+                                     sw("w_on", heal(p["p_heal"] * 2, p["p_heal_r"] * 2), heal(p["p_heal"], p["p_heal_r"]))))
 
     def kill_check(name):
         if native:   # the add-on heals for every enemy unit dying near him, whoever killed it
@@ -301,6 +307,7 @@ def build(p):
     # his attacks and the ult hang one (ctl_t ticks, period ctl_p) unless `polling` says one runs; only for Trundle
     # himself (`own`, a flag his attack raises: league_sylas's stolen ult hangs it too)
     ctl = combine(refresh("polling", ctl_p + 2), sw("own", combine(
+        None if native else tribute_heal,
         sw("w_go", sw("busy", NONE, sw("w_cd", combine(*rm("w_go")), w_cast()))),
         sw("q_go", sw("busy", NONE, sw("q_cd", NONE, pick(p["q_range"], "EnemyChampion", q_cast())))))))
     hang = on_me(sw("polling", NONE, combine(refresh("polling", ctl_p + 2), casted(p["ctl_t"], ctl_p, ctl))))

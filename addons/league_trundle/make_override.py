@@ -26,13 +26,73 @@ ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)
 ADDON = os.path.join(ROOT, "addons", "league_trundle")
 sys.path.insert(0, os.path.join(ROOT, "tools", "kit"))
 import build_trundle as kit  # noqa: E402
+import setup_trundle as setup  # noqa: E402
 
 MOD_ID = "league_trundle"
 HERO = "league_trundle"
 KEYS = kit.NATIVE_KEYS
-# lang -> the add-on's attack and ult texts (the main pack's with the add-on's rules): written at integration with
-# tools/kit/setup_trundle.py's helpers (setup.phys / t / n / cc); until then --draft only
-NATIVE = {}
+SLOTS = ("attack", "skill", "skill2", "ult")   # every slot's rules differ from the main pack's
+phys, t, n, cc = setup.phys, setup.t, setup.n, setup.cc
+# lang -> the add-on's texts for every slot (the main pack's with the add-on's rules)
+NATIVE = {
+    "zh-hans": {
+        "attack": "【附加包】抡冰棒。" + n("国王的贡品") + "：身边敌方单位倒下时回复它最大生命{p_pct}%，冰面上双倍。" + n("冰封领域") +
+                  "：利齿撕咬咬中英雄时在原地冻出冰面" + t("{w_t}秒") + "（每" + t("{w_cd}秒") + "一次），站在上面攻速+{w_as}%、"
+                  "移速+{w_ms}%，受到的治疗+{w_amp}%。",
+        "skill": "【附加包】咬一口造成" + phys("q_dmg", "q_ratio") + "物理伤害并" + cc("减速") + "{q_slow}%；" + t("{q_t}秒") +
+                 "内偷走对方攻击力的{q_flat}%（对方少一半）。",
+        "skill2": "【附加包】在敌方英雄身后立起寒冰之柱" + t("{e_t}秒") + "：冰柱是地形，谁都过不去；周围敌人" + cc("减速") +
+                  "{e_slow}%。",
+        "ult": "【附加包】吸取敌方英雄：立刻造成最大生命{r_pct0}%魔法伤害，" + t("{r_t}秒") + "内" + t("每秒") + "再{r_pct}%，"
+               "吸多少回多少；偷走它{r_steal}%护甲和魔抗" + t("{r_hold}秒") + "。",
+    },
+    "zh-hant": {
+        "attack": "【附加包】揮冰棒。" + n("帝王獻祭") + "：身邊敵方單位倒下時回復它最大生命{p_pct}%，冰面上雙倍。" + n("極凍領地") +
+                  "：狂野撕咬咬中英雄時在原地凍出冰面" + t("{w_t}秒") + "（每" + t("{w_cd}秒") + "一次），站在上面攻速+{w_as}%、"
+                  "移速+{w_ms}%，受到的治療+{w_amp}%。",
+        "skill": "【附加包】咬一口造成" + phys("q_dmg", "q_ratio") + "物理傷害並" + cc("緩速") + "{q_slow}%；" + t("{q_t}秒") +
+                 "內偷走對方攻擊力的{q_flat}%（對方少一半）。",
+        "skill2": "【附加包】在敵方英雄身後立起狡詰冰柱" + t("{e_t}秒") + "：冰柱是地形，誰都過不去；周圍敵人" + cc("緩速") +
+                  "{e_slow}%。",
+        "ult": "【附加包】吸取敵方英雄：立刻造成最大生命{r_pct0}%魔法傷害，" + t("{r_t}秒") + "內" + t("每秒") + "再{r_pct}%，"
+               "吸多少回多少；偷走它{r_steal}%護甲和魔抗" + t("{r_hold}秒") + "。",
+    },
+    "en": {
+        "attack": "[Add-on] Ice club blows. " + n("King's Tribute") + ": an enemy unit dying near him heals him {p_pct}% of its "
+                  "max health, doubled on his domain. " + n("Frozen Domain") + ": Chomp biting a champion freezes the ground "
+                  "where he stands for " + t("{w_t}s") + " (once every " + t("{w_cd}s") + "): on it +{w_as}% attack speed, "
+                  "+{w_ms}% move speed and {w_amp}% more healing.",
+        "skill": "[Add-on] Bites for " + phys("q_dmg", "q_ratio") + " physical damage and " + cc("slows") + " {q_slow}%; for " +
+                 t("{q_t}s") + " he steals {q_flat}% of the target's attack (it loses half that).",
+        "skill2": "[Add-on] Raises a Pillar of Ice behind an enemy champion for " + t("{e_t}s") + ": terrain no one can walk "
+                  "through; enemies around it are " + cc("slowed") + " {e_slow}%.",
+        "ult": "[Add-on] Drains an enemy champion: {r_pct0}% max health as magic damage at once, {r_pct}% more " +
+               t("every second") + " for " + t("{r_t}s") + ", healing him for all it drains; steals {r_steal}% of its "
+               "armour and magic resistance for " + t("{r_hold}s") + ".",
+    },
+    "ko": {
+        "attack": "[확장] 얼음 몽둥이 공격. " + n("헌납") + ": 주변 적 유닛이 죽으면 그 최대 체력의 {p_pct}% 회복, 얼음 위에서는 2배. " +
+                  n("얼음 왕국") + ": 깨물기가 챔피언을 물면 그 자리 땅을 " + t("{w_t}초") + " 얼림(" + t("{w_cd}초") + "마다 한 번), "
+                  "그 위에서 공격 속도 +{w_as}%, 이동 속도 +{w_ms}%, 받는 회복 +{w_amp}%.",
+        "skill": "[확장] 깨물어 " + phys("q_dmg", "q_ratio") + " 물리 피해, {q_slow}% " + cc("둔화") + "; " + t("{q_t}초") +
+                 " 동안 대상 공격력의 {q_flat}%를 빼앗음(대상은 그 절반 감소).",
+        "skill2": "[확장] 적 챔피언 뒤에 얼음 기둥을 " + t("{e_t}초") + " 세움: 누구도 지나갈 수 없는 지형, 주변 적 {e_slow}% " +
+                  cc("둔화") + ".",
+        "ult": "[확장] 적 챔피언을 흡수: 즉시 최대 체력 {r_pct0}% 마법 피해, " + t("{r_t}초") + " 동안 " + t("매초") + " {r_pct}% "
+               "추가, 흡수한 만큼 회복; 방어력과 마법 저항력 {r_steal}%를 " + t("{r_hold}초") + " 동안 빼앗음.",
+    },
+    "ja": {
+        "attack": "【拡張】氷の棍棒で攻撃。" + n("王への貢物") + "：近くの敵ユニットが倒れるとその最大体力の{p_pct}%回復、氷の上では2倍。" +
+                  n("凍てつく大地") + "：咬み付きがチャンピオンに当たるとその場の地面を" + t("{w_t}秒") + "凍らせる（" +
+                  t("{w_cd}秒") + "に1回）、その上で攻撃速度+{w_as}%、移動速度+{w_ms}%、受ける回復+{w_amp}%。",
+        "skill": "【拡張】咬み付いて" + phys("q_dmg", "q_ratio") + "の物理ダメージ、{q_slow}%" + cc("スロウ") + "；" + t("{q_t}秒") +
+                 "間 相手の攻撃力の{q_flat}%を奪う（相手はその半分減少）。",
+        "skill2": "【拡張】敵チャンピオンの背後に氷冷の柱を" + t("{e_t}秒") + "立てる：誰も通れない地形、周囲の敵に{e_slow}%" +
+                  cc("スロウ") + "。",
+        "ult": "【拡張】敵チャンピオンから搾取：即座に最大体力{r_pct0}%の魔法ダメージ、" + t("{r_t}秒") + "間" + t("毎秒") +
+               "{r_pct}%、奪った分だけ回復；物理防御と魔法防御の{r_steal}%を" + t("{r_hold}秒") + "奪う。",
+    },
+}
 
 
 def lp(path):
@@ -64,14 +124,13 @@ def files(draft):
         sys.exit("the copy does not call the add-on: update this script")
     out = {}
     if not draft:
-        import setup_trundle as setup  # noqa: E402 (the main pack's texts, at integration)
         with open(lp(os.path.join(ROOT, "league", "champion", HERO + ".data_champion")), encoding="utf-8", newline="") as f:
             shipped = f.read()
         if dumps_main(kit.build(p)) != shipped:
             sys.exit("the main pack's league_trundle differs from build_trundle.P: rebuild it first")
-        for slot in ("attack", "ult"):
+        for slot in SLOTS:
             champion[slot]["description"] = "#asset/base/text/champion?description." + MOD_ID + "." + slot
-        values = setup.values(p)
+        values = dict(setup.values(p), p_pct=p["p_pct"], w_amp=p["w_amp"], q_flat=p["q_flat"], r_steal=p["r_steal"])
         texts = {lang: {k: tx.format(**values) for k, tx in d.items()} for lang, d in NATIVE.items()}
         long = {f"{lang}.{k}": setup.shown_length(tx) for lang, d in NATIVE.items() for k, tx in d.items()
                 if setup.shown_length(tx) > setup.TOOLTIP_MAX.get(lang, 10 ** 6)}
