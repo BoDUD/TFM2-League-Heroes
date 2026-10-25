@@ -609,7 +609,9 @@ RESTYLE = {
     # outer outline grown a square like the others; Cunning Sweep's half circle and the step's streaks drawn into her
     # frames (orig/ambessa_<tag>.over / .under) laid on after the outline (fx); the face point between her eyes (2 game
     # px ahead of the standing point, 41 over the ground)
-    "ambessa": dict(ppu=2.0, edge=1, face_to=(2, -41), fx=True),
+    # 2026-10-25: 85 % in game (「太大了安倍萨 整体模型缩小一点可以吗」, hd.rs SIZES): 11.5 x 2.0 x (1 / 0.85 - 1) = 4.1 -> 4
+    # squares lower; the face point x 0.85 about the soles
+    "ambessa": dict(ppu=2.0, edge=1, lift_sq=-4, face_to=(2, -35), fx=True),
     # league_heimerdinger: the design (Codex's step-1 A-2 cut to the user's 54 rows at 1.5 squares a game pixel: 「36」
     # 「PPU 1.5」, 3/4 only) with Codex's whole-body poses (the design's head pasted back) and the backpack crane / R's gear
     # props, posed by tools/art/rig_heimerdinger.py after League's clips, so no proportion change here; brought down to
