@@ -1,0 +1,166 @@
+[
+  {
+    "file": "trundle_fx_w_domain.png",
+    "frames": 8,
+    "cell_1x": [
+      84,
+      28
+    ],
+    "symmetry": "left-right",
+    "layout": "horizontal-row",
+    "upscale": 8,
+    "visible_widths": [
+      14,
+      34,
+      56,
+      74,
+      80,
+      80,
+      80,
+      80
+    ],
+    "frame_bboxes": [
+      [
+        35,
+        11,
+        49,
+        16
+      ],
+      [
+        25,
+        8,
+        59,
+        19
+      ],
+      [
+        14,
+        5,
+        70,
+        23
+      ],
+      [
+        5,
+        2,
+        79,
+        26
+      ],
+      [
+        2,
+        1,
+        82,
+        27
+      ],
+      [
+        2,
+        1,
+        82,
+        27
+      ],
+      [
+        2,
+        1,
+        82,
+        27
+      ],
+      [
+        2,
+        1,
+        82,
+        27
+      ]
+    ],
+    "frame_hashes": [
+      "59085767bbd1dd618e530c1247c9c3c1239897bba38b140ace382394ebf8525e",
+      "489dbb2cd5f916655bd97e8fe028ccba0bb63b19d5f21502666d87bdd3022ec8",
+      "5c764a1c14f344bd01ea89c61b17252bca2740c0d4316919c20504ec4c6d962a",
+      "255b0d1349b7d84ddc10d61aabbf12388e2761c4e054234ae035d59fed01c783",
+      "f939639d8303a120281299969c7350732261e589185ae9ed1f294991972e8f77",
+      "4c81aade4d634cf6b3ac154f8086252946d6f1705ff0c2ee2f2f1f9719d8bb21",
+      "6af18b677511823b445f9e87fe1ab6c44e7b871a500c7bf73548b257ca27b103",
+      "f2e52a30f129104cbf9bdb426dd5842b05ed1b264901757effe8fac48c054cf4"
+    ],
+    "raw_layout": [
+      4,
+      2
+    ],
+    "raw_size": [
+      2172,
+      724
+    ],
+    "raw_sha256": "892e7aaff5f593a74516056ef6475704052b7d9e1978df8abe3da5026c8cf4b2"
+  },
+  {
+    "file": "trundle_fx_w_aura.png",
+    "frames": 6,
+    "cell_1x": [
+      84,
+      28
+    ],
+    "symmetry": "left-right",
+    "layout": "horizontal-row",
+    "upscale": 8,
+    "visible_widths": [
+      80,
+      80,
+      80,
+      80,
+      80,
+      80
+    ],
+    "frame_bboxes": [
+      [
+        2,
+        1,
+        82,
+        27
+      ],
+      [
+        2,
+        1,
+        82,
+        27
+      ],
+      [
+        2,
+        1,
+        82,
+        27
+      ],
+      [
+        2,
+        1,
+        82,
+        27
+      ],
+      [
+        2,
+        1,
+        82,
+        27
+      ],
+      [
+        2,
+        1,
+        82,
+        27
+      ]
+    ],
+    "frame_hashes": [
+      "4128d52da734451d60f597d8c512e76f4158f00db255f9bceaf2523e001e513c",
+      "3ac7f82383c3696bb36c5935981a33c5785ed3bd1a9cdc9d25035bdbd9cee7c9",
+      "650b28de92a93b84aa5c81345c115128f38c3b2d943d6378d1eb1452cd090010",
+      "9f7f6a2712ece2c2d7a2f17102a32b6f9fbebdb127213fcd4355698a261f5e23",
+      "c9b128e4616f870eeb695e1f1fb52c142da03e312523fac6fb130be039759d71",
+      "6e39ba8e14c44bf7a65bba93ff6462769c421b68101047d77016fec54b3a6f51"
+    ],
+    "raw_layout": [
+      3,
+      2
+    ],
+    "raw_size": [
+      2172,
+      724
+    ],
+    "raw_sha256": "4e28046cb4a2182cc7ee01608b881dc8f3bd8159eef8a6472beccad13b36fb91"
+  }
+]

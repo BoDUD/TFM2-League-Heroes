@@ -1183,6 +1183,13 @@
         "skill": "端起喷火炮往前喷火<#ffb900ff>1.5秒<>：锥形范围内的敌人每<#ffb900ff>0.25秒<>受到<#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>27%<>魔法伤害。",
         "skill2": "射出电子鱼叉：<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>魔法伤害，<#ef5350ff>减速<>20%<#ffb900ff>2秒<>；射中英雄后再射第二发，伤害+25%，减速35%。",
         "ult": "火箭在敌方英雄脚下砸出一条火线（横着或竖着，挑罩住敌人多的一边），燃烧<#ffb900ff>4秒<>：每<#ffb900ff>0.5秒<><#a974ffff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>魔法伤害，<#ef5350ff>减速<>35%。"
+      },
+      "league_trundle": {
+        "name": "特朗德尔",
+        "attack": "抡冰棒。<#ff9028ff>国王的贡品<>：打死单位回复12 + <i#asset/base/ui/banpick/champion_stat_icon:ad_0>8%生命，冰面上双倍。<#ff9028ff>冰封领域<>：利齿撕咬咬中英雄时冻住地面<#ffb900ff>8秒<>（每<#ffb900ff>12秒<>一次），其间攻速+50%、移速+15%。",
+        "skill": "咬一口造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<>物理伤害并<#ef5350ff>减速<>60%；<#ffb900ff>4秒<>内对方攻击力-15%，自己+20%。",
+        "skill2": "在敌方英雄处立起寒冰之柱<#ffb900ff>4秒<>，周围敌人<#ef5350ff>减速<>25%。",
+        "ult": "吸取敌方英雄：立刻造成最大生命10%真实伤害，<#ffb900ff>4秒<>内<#ffb900ff>每秒<>再3%，每次回复20 + <i#asset/base/ui/banpick/champion_stat_icon:ad_0>10%生命；偷走25%护甲和魔抗<#ffb900ff>8秒<>。"
       }
     },
     "skill_name": {
@@ -2030,6 +2037,11 @@
         "skill1": "纵火盛宴",
         "skill2": "电子鱼叉",
         "ult": "恒温灼烧"
+      },
+      "league_trundle": {
+        "skill1": "利齿撕咬",
+        "skill2": "寒冰之柱",
+        "ult": "强权至上"
       }
     }
   },
@@ -3217,6 +3229,13 @@
         "skill": "端起噴火炮往前噴火<#ffb900ff>1.5秒<>：錐形範圍內的敵人每<#ffb900ff>0.25秒<>受到<#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>27%<>魔法傷害。",
         "skill2": "射出高壓電魚叉：<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>魔法傷害，<#ef5350ff>緩速<>20%<#ffb900ff>2秒<>；射中英雄後再射第二發，傷害+25%，緩速35%。",
         "ult": "飛彈在敵方英雄腳下砸出一條火線（橫著或豎著，挑罩住敵人多的一邊），燃燒<#ffb900ff>4秒<>：每<#ffb900ff>0.5秒<><#a974ffff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>魔法傷害，<#ef5350ff>緩速<>35%。"
+      },
+      "league_trundle": {
+        "name": "特朗德",
+        "attack": "揮冰棒。<#ff9028ff>帝王獻祭<>：打死單位回復12 + <i#asset/base/ui/banpick/champion_stat_icon:ad_0>8%生命，冰面上雙倍。<#ff9028ff>極凍領地<>：狂野撕咬咬中英雄時凍住地面<#ffb900ff>8秒<>（每<#ffb900ff>12秒<>一次），其間攻速+50%、移速+15%。",
+        "skill": "咬一口造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<>物理傷害並<#ef5350ff>緩速<>60%；<#ffb900ff>4秒<>內對方攻擊力-15%，自己+20%。",
+        "skill2": "在敵方英雄處立起狡詰冰柱<#ffb900ff>4秒<>，周圍敵人<#ef5350ff>緩速<>25%。",
+        "ult": "吸取敵方英雄：立刻造成最大生命10%真實傷害，<#ffb900ff>4秒<>內<#ffb900ff>每秒<>再3%，每次回復20 + <i#asset/base/ui/banpick/champion_stat_icon:ad_0>10%生命；偷走25%護甲和魔抗<#ffb900ff>8秒<>。"
       }
     },
     "skill_name": {
@@ -4064,6 +4083,11 @@
         "skill1": "火焰噴射器",
         "skill2": "高壓電魚叉",
         "ult": "等離子飛彈"
+      },
+      "league_trundle": {
+        "skill1": "狂野撕咬",
+        "skill2": "狡詰冰柱",
+        "ult": "盛怒霸體"
       }
     }
   },
@@ -5251,6 +5275,13 @@
         "skill": "Sprays fire ahead for <#ffb900ff>1.5s<>: enemies in the cone take <#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>27%<> magic damage every <#ffb900ff>0.25s<>.",
         "skill2": "Fires a harpoon: <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> magic damage and <#ef5350ff>slows<> 20% for <#ffb900ff>2s<>; through a champion it fires a second one, +25% damage, 35% slow.",
         "ult": "His rockets come down in a burning line on an enemy champion (across or up and down, whichever covers more enemies), burning for <#ffb900ff>4s<>: <#a974ffff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<> magic damage every <#ffb900ff>0.5s<> and a 35% <#ef5350ff>slow<>."
+      },
+      "league_trundle": {
+        "name": "Trundle",
+        "attack": "Ice club blows. <#ff9028ff>King's Tribute<>: a unit he kills heals him 12 + <i#asset/base/ui/banpick/champion_stat_icon:ad_0>8%, doubled on his domain. <#ff9028ff>Frozen Domain<>: Chomp biting a champion freezes the ground for <#ffb900ff>8s<> (once every <#ffb900ff>12s<>): +50% attack speed and +15% move speed meanwhile.",
+        "skill": "Bites for <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<> physical damage and <#ef5350ff>slows<> 60%; for <#ffb900ff>4s<> the target has 15% less attack, Trundle 20% more.",
+        "skill2": "Raises a Pillar of Ice at an enemy champion for <#ffb900ff>4s<>; enemies around it are <#ef5350ff>slowed<> 25%.",
+        "ult": "Drains an enemy champion: 10% max health as true damage at once, 3% more <#ffb900ff>every second<> for <#ffb900ff>4s<>, each healing him 20 + <i#asset/base/ui/banpick/champion_stat_icon:ad_0>10%; steals 25% of its armour and magic resistance for <#ffb900ff>8s<>."
       }
     },
     "skill_name": {
@@ -6098,6 +6129,11 @@
         "skill1": "Flamespitter",
         "skill2": "Electro Harpoon",
         "ult": "The Equalizer"
+      },
+      "league_trundle": {
+        "skill1": "Chomp",
+        "skill2": "Pillar of Ice",
+        "ult": "Subjugate"
       }
     }
   },
@@ -7285,6 +7321,13 @@
         "skill": "화염방사기로 <#ffb900ff>1.5초<> 동안 전방에 불을 뿜음: 부채꼴 안의 적에게 <#ffb900ff>0.25초<>마다 <#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>27%<> 마법 피해.",
         "skill2": "작살 발사: <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> 마법 피해, <#ffb900ff>2초<> 동안 20% <#ef5350ff>둔화<>; 챔피언에 맞으면 두 번째 작살, 피해 +25%, 둔화 35%.",
         "ult": "적 챔피언 발밑에 로켓이 불길 한 줄을 만듦(가로 또는 세로, 적이 더 많은 쪽), <#ffb900ff>4초<> 동안 <#ffb900ff>0.5초<>마다 <#a974ffff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<> 마법 피해, 35% <#ef5350ff>둔화<>."
+      },
+      "league_trundle": {
+        "name": "트런들",
+        "attack": "얼음 몽둥이 공격. <#ff9028ff>헌납<>: 처치한 유닛마다 체력 12 + <i#asset/base/ui/banpick/champion_stat_icon:ad_0>8% 회복, 얼음 위에서는 2배. <#ff9028ff>얼음 왕국<>: 깨물기가 챔피언을 물면 <#ffb900ff>8초<> 동안 땅을 얼림(<#ffb900ff>12초<>마다 한 번), 그동안 공격 속도 +50%, 이동 속도 +15%.",
+        "skill": "깨물어 <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<> 물리 피해, 60% <#ef5350ff>둔화<>; <#ffb900ff>4초<> 동안 대상 공격력 -15%, 트런들 +20%.",
+        "skill2": "적 챔피언 위치에 얼음 기둥을 <#ffb900ff>4초<> 세움, 주변 적 25% <#ef5350ff>둔화<>.",
+        "ult": "적 챔피언을 흡수: 즉시 최대 체력 10% 고정 피해, <#ffb900ff>4초<> 동안 <#ffb900ff>매초<> 3% 추가, 매번 체력 20 + <i#asset/base/ui/banpick/champion_stat_icon:ad_0>10% 회복; 방어력과 마법 저항력 25%를 <#ffb900ff>8초<> 동안 빼앗음."
       }
     },
     "skill_name": {
@@ -8132,6 +8175,11 @@
         "skill1": "화염방사기",
         "skill2": "전기 작살",
         "ult": "이퀄라이저 미사일"
+      },
+      "league_trundle": {
+        "skill1": "깨물기",
+        "skill2": "얼음 기둥",
+        "ult": "진압"
       }
     }
   },
@@ -9319,6 +9367,13 @@
         "skill": "火炎放射器で<#ffb900ff>1.5秒<>前方に火を噴く：扇形内の敵に<#ffb900ff>0.25秒<>毎<#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>27%<>の魔法ダメージ。",
         "skill2": "銛を発射：<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>の魔法ダメージ、<#ffb900ff>2秒<>20%<#ef5350ff>スロウ<>；チャンピオンに当たると2発目、ダメージ+25%、スロウ35%。",
         "ult": "敵チャンピオンの足元にロケットで炎の列（横か縦、敵の多い方）、<#ffb900ff>4秒<>燃えて<#ffb900ff>0.5秒<>毎<#a974ffff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>の魔法ダメージ、35%<#ef5350ff>スロウ<>。"
+      },
+      "league_trundle": {
+        "name": "トランドル",
+        "attack": "氷の棍棒で攻撃。<#ff9028ff>王への貢物<>：倒したユニットごとに体力12 + <i#asset/base/ui/banpick/champion_stat_icon:ad_0>8%回復、氷の上では2倍。<#ff9028ff>凍てつく大地<>：咬み付きがチャンピオンに当たると地面を<#ffb900ff>8秒<>凍らせる（<#ffb900ff>12秒<>に1回）、その間攻撃速度+50%、移動速度+15%。",
+        "skill": "咬み付いて<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<>の物理ダメージ、60%<#ef5350ff>スロウ<>；<#ffb900ff>4秒<>間 相手の攻撃力-15%、自身+20%。",
+        "skill2": "敵チャンピオンの位置に氷冷の柱を<#ffb900ff>4秒<>立てる、周囲の敵に25%<#ef5350ff>スロウ<>。",
+        "ult": "敵チャンピオンから搾取：即座に最大体力10%の確定ダメージ、<#ffb900ff>4秒<>間<#ffb900ff>毎秒<>3%、毎回体力20 + <i#asset/base/ui/banpick/champion_stat_icon:ad_0>10%回復；物理防御と魔法防御の25%を<#ffb900ff>8秒<>奪う。"
       }
     },
     "skill_name": {
@@ -10166,6 +10221,11 @@
         "skill1": "スピットファイア",
         "skill2": "エレクトロハープーン",
         "ult": "イコライザー"
+      },
+      "league_trundle": {
+        "skill1": "咬み付き",
+        "skill2": "氷冷の柱",
+        "ult": "暴虐なる搾取"
       }
     }
   }

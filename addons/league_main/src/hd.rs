@@ -241,6 +241,10 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // game px) and its key poses after League's clips (the design's head put back) at the user's 1.75 squares a game
     // pixel (3/4 only; Overheat's red-hot oh_* tags league_rumble's view hook swaps in), so no SIZES row
     ("league_rumble", 1.75, include_str!("../../../league/champions/league_rumble#anim.fanim")),
+    // Trundle: posed by tools/art/rig_trundle.py on Codex's step-0 take A-1 as drawn (85 rows mane to feet = 42.5 game
+    // px, hunched, the ice club out to 52 px) and its key poses after League's clips (the design's head put back) at the
+    // user's 2.0 squares a game pixel (3/4 only), so no SIZES row
+    ("league_trundle", 2.0, include_str!("../../../league/champions/league_trundle#anim.fanim")),
     // Neeko: posed by tools/art/rig_neeko.py on Codex's step-1 take A-1 and its key poses at the user's 2.5 squares a
     // game pixel (100 game rows quill tips to soles: 「40」, then 「1.5也挺糊的 还得往上调整吧」; 3/4 only; league_neeko's
     // view hook draws her as an ally while she is disguised), so no SIZES row
@@ -541,6 +545,9 @@ pub const UI_SIZES: &[(&str, f32)] = &[
     // Ambessa: 48 game px from her hair to her soles at PPU 2.0 (39 / 48; the blades out to 59 px wide); UI size and card
     // value set with bp_card_audit.py
     ("league_ambessa", 0.81),
+    // Trundle: 42.5 game px from his mane to his feet at PPU 2.0 but 52 wide with the ice club (the card's canvas is 59.5):
+    // at 1.0 the club and his feet ran off the card; UI size and card value set with bp_card_audit.py
+    ("league_trundle", 0.82),
 ];
 
 /// The `"lo_..."` animation names of a .fanim.

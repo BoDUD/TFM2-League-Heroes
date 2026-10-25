@@ -3424,6 +3424,22 @@
     },
     {
       "type": "Animation",
+      "name": "league_illaoi_soul_league_trundle",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_trundle",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_trundle_l",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_trundle_l",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
       "name": "league_illaoi_soul_league_tryndamere",
       "anim": "asset/league/effects/league_illaoi_souls",
       "tag": "league_tryndamere",

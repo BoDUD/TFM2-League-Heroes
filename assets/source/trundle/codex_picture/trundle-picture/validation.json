@@ -1,0 +1,66 @@
+{
+  "A": {
+    "raw_size": [
+      1310,
+      1201
+    ],
+    "raw_opaque_bbox": [
+      47,
+      174,
+      1288,
+      1201
+    ],
+    "logical_size": [
+      48,
+      44
+    ],
+    "block_px": 11,
+    "output_size": [
+      1536,
+      1536
+    ],
+    "output_bbox": [
+      504,
+      906,
+      1032,
+      1390
+    ],
+    "alpha_levels": [
+      0,
+      255
+    ],
+    "anchor_bottom": 1390
+  },
+  "B": {
+    "raw_size": [
+      1290,
+      1219
+    ],
+    "raw_opaque_bbox": [
+      29,
+      84,
+      1267,
+      1190
+    ],
+    "logical_size": [
+      55,
+      52
+    ],
+    "block_px": 11,
+    "output_size": [
+      1536,
+      1536
+    ],
+    "output_bbox": [
+      466,
+      818,
+      1071,
+      1390
+    ],
+    "alpha_levels": [
+      0,
+      255
+    ],
+    "anchor_bottom": 1390
+  }
+}

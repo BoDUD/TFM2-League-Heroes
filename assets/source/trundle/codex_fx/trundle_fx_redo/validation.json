@@ -1,0 +1,28 @@
+{
+  "status": "pass",
+  "sheets": 2,
+  "frames": 14,
+  "cell_1x": [
+    84,
+    28
+  ],
+  "full_field_bbox": [
+    2,
+    1,
+    82,
+    27
+  ],
+  "full_field_size": [
+    80,
+    26
+  ],
+  "checks": [
+    "actual visible width per frame",
+    "full field height",
+    "hard alpha",
+    "pixel bilateral symmetry",
+    "8x export equivalence",
+    "nonstatic frames",
+    "source preservation hashes"
+  ]
+}

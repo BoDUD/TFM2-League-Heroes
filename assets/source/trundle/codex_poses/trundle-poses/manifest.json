@@ -1,0 +1,402 @@
+[
+  {
+    "file": "trundle-pose-a_wind.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "logical_size": [
+      139,
+      139
+    ],
+    "export_grid_px": 9,
+    "bbox": [
+      9,
+      9,
+      1179,
+      1188
+    ],
+    "ground_anchor": 1188,
+    "source_size": [
+      1254,
+      1254
+    ],
+    "uniform_fit": true,
+    "source_sha256": "a6ecc735d321a7bf7cf625256349a1d4ae4d8a33536d8d16ae56e830dc776811"
+  },
+  {
+    "file": "trundle-pose-a_smash.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "logical_size": [
+      139,
+      139
+    ],
+    "export_grid_px": 9,
+    "bbox": [
+      9,
+      333,
+      1242,
+      1188
+    ],
+    "ground_anchor": 1188,
+    "source_size": [
+      1254,
+      1254
+    ],
+    "uniform_fit": true,
+    "source_sha256": "61b78c575230582e71d445ec03077f7eb89df642c261939a1cd27db52ef9edab"
+  },
+  {
+    "file": "trundle-pose-q_rear.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "logical_size": [
+      139,
+      139
+    ],
+    "export_grid_px": 9,
+    "bbox": [
+      9,
+      126,
+      1242,
+      1188
+    ],
+    "ground_anchor": 1188,
+    "source_size": [
+      1254,
+      1254
+    ],
+    "uniform_fit": true,
+    "source_sha256": "2c839162dc9e4410ed817b445c225ea3e09a73aa14ed7634e1ebff88ddb05774"
+  },
+  {
+    "file": "trundle-pose-q_chomp.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "logical_size": [
+      139,
+      139
+    ],
+    "export_grid_px": 9,
+    "bbox": [
+      9,
+      495,
+      1242,
+      1188
+    ],
+    "ground_anchor": 1188,
+    "source_size": [
+      1254,
+      1254
+    ],
+    "uniform_fit": true,
+    "source_sha256": "8840ab6b88ded0af03df7034b7f641fa8c13f0072e4ce71a6b71f0637334cd0c"
+  },
+  {
+    "file": "trundle-pose-w_crouch.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "logical_size": [
+      139,
+      139
+    ],
+    "export_grid_px": 9,
+    "bbox": [
+      9,
+      378,
+      1242,
+      1188
+    ],
+    "ground_anchor": 1188,
+    "source_size": [
+      1254,
+      1254
+    ],
+    "uniform_fit": true,
+    "source_sha256": "af6945216d5e9f6692207934d5b56bed332a396253e8a4f67dfb39ad891e9d66"
+  },
+  {
+    "file": "trundle-pose-w_roar.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "logical_size": [
+      139,
+      139
+    ],
+    "export_grid_px": 9,
+    "bbox": [
+      9,
+      180,
+      1242,
+      1134
+    ],
+    "ground_anchor": 1134,
+    "source_size": [
+      1254,
+      1254
+    ],
+    "uniform_fit": true,
+    "source_sha256": "7aa1cec65f84e861d63129845da5285ef2a2d0fb76cdf0fabd3913ccdab8e5d3"
+  },
+  {
+    "file": "trundle-pose-e_swing.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "logical_size": [
+      139,
+      139
+    ],
+    "export_grid_px": 9,
+    "bbox": [
+      9,
+      450,
+      1242,
+      1188
+    ],
+    "ground_anchor": 1188,
+    "source_size": [
+      1254,
+      1254
+    ],
+    "uniform_fit": true,
+    "source_sha256": "8235e26c2b67ccd737c21cd62efafa870dd8bec0c73bb28f56bcb3862595a5d2"
+  },
+  {
+    "file": "trundle-pose-e_raise.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "logical_size": [
+      139,
+      139
+    ],
+    "export_grid_px": 9,
+    "bbox": [
+      171,
+      9,
+      1116,
+      1188
+    ],
+    "ground_anchor": 1188,
+    "source_size": [
+      1254,
+      1254
+    ],
+    "uniform_fit": true,
+    "source_sha256": "7433da83bb79b648771b3bd72d724eb5b29fa726b2c2d00bba99227d8016bf03"
+  },
+  {
+    "file": "trundle-pose-r_rise.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "logical_size": [
+      139,
+      139
+    ],
+    "export_grid_px": 9,
+    "bbox": [
+      9,
+      297,
+      1242,
+      1188
+    ],
+    "ground_anchor": 1188,
+    "source_size": [
+      1254,
+      1254
+    ],
+    "uniform_fit": true,
+    "source_sha256": "dc8accc2087dd33146e95d4a2af22af6def0be2c0303bd2f696bd9b2d4600d27"
+  },
+  {
+    "file": "trundle-pose-r_reach.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "logical_size": [
+      139,
+      139
+    ],
+    "export_grid_px": 9,
+    "bbox": [
+      9,
+      261,
+      1242,
+      1188
+    ],
+    "ground_anchor": 1188,
+    "source_size": [
+      1254,
+      1254
+    ],
+    "uniform_fit": true,
+    "source_sha256": "ef8f7f119359ca08c6374c5966e355005eda575494f964d7b26c28d40fb8552e"
+  },
+  {
+    "file": "trundle-pose-run1.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "logical_size": [
+      139,
+      139
+    ],
+    "export_grid_px": 9,
+    "bbox": [
+      9,
+      585,
+      1242,
+      1188
+    ],
+    "ground_anchor": 1188,
+    "source_size": [
+      1536,
+      1024
+    ],
+    "uniform_fit": true,
+    "source_sha256": "ce02a420c4bc69ca832586bcd9e991764bd5578acab9dea28f3da4ab0f316bf1"
+  },
+  {
+    "file": "trundle-pose-run2.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "logical_size": [
+      139,
+      139
+    ],
+    "export_grid_px": 9,
+    "bbox": [
+      9,
+      423,
+      1242,
+      1188
+    ],
+    "ground_anchor": 1188,
+    "source_size": [
+      1254,
+      1254
+    ],
+    "uniform_fit": true,
+    "source_sha256": "7b84ffeb3fbbd02f66b106f3f5d93fe107d7ad4eff65d45e4ba0b9b8b4de3aa8"
+  },
+  {
+    "file": "trundle-pose-run3.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "logical_size": [
+      139,
+      139
+    ],
+    "export_grid_px": 9,
+    "bbox": [
+      9,
+      468,
+      1242,
+      1188
+    ],
+    "ground_anchor": 1188,
+    "source_size": [
+      1254,
+      1254
+    ],
+    "uniform_fit": true,
+    "source_sha256": "1b9340e4d002ca46d48c8a29009743be3519057c9956ad0aa0ad145ec490cefc"
+  },
+  {
+    "file": "trundle-pose-run4.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "logical_size": [
+      139,
+      139
+    ],
+    "export_grid_px": 9,
+    "bbox": [
+      9,
+      423,
+      1242,
+      1188
+    ],
+    "ground_anchor": 1188,
+    "source_size": [
+      1254,
+      1254
+    ],
+    "uniform_fit": true,
+    "source_sha256": "a36a8f8084f316da6d8642b4d9e4769d302dc3b73c7e808dd2d4fb5b92e61c58"
+  },
+  {
+    "file": "trundle-pose-d_fall.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "logical_size": [
+      139,
+      139
+    ],
+    "export_grid_px": 9,
+    "bbox": [
+      9,
+      54,
+      1242,
+      1188
+    ],
+    "ground_anchor": 1188,
+    "source_size": [
+      1254,
+      1254
+    ],
+    "uniform_fit": true,
+    "source_sha256": "ea00899d0954432d54d65a51a1336b99a4e41dbe540a8da3df0f4dfe0080dd7d"
+  },
+  {
+    "file": "trundle-pose-d_down.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "logical_size": [
+      139,
+      139
+    ],
+    "export_grid_px": 9,
+    "bbox": [
+      9,
+      513,
+      1242,
+      1188
+    ],
+    "ground_anchor": 1188,
+    "source_size": [
+      1254,
+      1254
+    ],
+    "uniform_fit": true,
+    "source_sha256": "46d76ade496ed279ef57514de05bb8b42460763f75a222fae69b04f5783bde34"
+  }
+]
