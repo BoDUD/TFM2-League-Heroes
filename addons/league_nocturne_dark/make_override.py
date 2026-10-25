@@ -5,7 +5,7 @@
 Reads league/champion/league_nocturne.data_champion and league/text/champion.i18n and writes
 addons/league_nocturne_dark/override/league_nocturne.data_champion, .../text/champion.i18n and
 .../effects/league_nocturne_dark#sheet.png + #anim.fanim: the same kit with three changes -
-  * R's "every allied champion Invisible" at the cast (until the landing, at most 32 ticks) and at the
+  * R's "every allied champion Invisible" at the cast (until the landing, at most 60 ticks) and at the
     landing (20 ticks, the burst) are dropped and R calls the add-on's native effects
     league_nocturne_dark:start / :land instead, which for as long hide each allied champion that has no
     enemy champion within 40000 (re-applied every tick) and play the map veil below (v4: only while
