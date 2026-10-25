@@ -115,22 +115,22 @@ Layout: one horizontal row of 4 equal 36:14 cells, image size 2304x224 (each cel
 
 ### 8. `trundle_fx_w_domain.png`：冰封领域：地面冻起来，8 帧
 
-他的领地：从他脚下往外**冻出一大片冰面**——蓝白的冰往四周铺开，冰面上有裂纹，边上冒出一圈小冰刺（参考 w_ground、w_ground_cracks、w_speedbuff_ground_glow），最后一帧是铺满的冰面（之后由脚下的 w_aura 接着循环）。**左右对称**，8 帧。
+他的领地：从他脚下往外**冻出一大片冰面**——蓝白的冰往四周铺开，冰面上有裂纹，边上冒出一圈小冰刺（参考 w_ground、w_ground_cracks、w_speedbuff_ground_glow），最后一帧是铺满的冰面（之后由脚下的 w_aura 接着循环）。**冰面要大**：最后铺满时**横向 80 格、纵向 26 格**，差不多是特朗德尔（连冰棒 52 格宽）的一倍半宽，几乎占满整格（上一版只画到 46 格宽，太小了）。**左右对称**，8 帧。
 
 ```text
 Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from an ice ramp (#FFFFFF, #D8F8FF, #9EE6FF, #52BFF0, #2A80C8, #164C8C), a frost and snow ramp (#FFFFFF, #E4F4FA, #B8D8E8, #7EA8C4).
-Effect: THE GROUND FREEZING OVER, 8 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side), on the GROUND under the unit's feet (an ellipse seen from above, three times as wide as tall), centred, the field growing to an ellipse 60 squares wide and 20 tall: 1 a bright white-blue crack star 10 wide; 2 pale-blue ice spreading 24 wide with white cracks; 3 the ice 40 wide, frost smoke at its edge; 4 the ice 56 wide, a ring of small ice spikes (3-4 squares tall) popping up along its rim; 5 the spikes at full height, the cracks glowing white; 6-7 the frost smoke settling, a few glints; 8 the full frozen ellipse 60 x 20 with its cracks and a thin rim of spikes, calm. everything is the FRELJORD'S ICE and a TROLL KING'S brute strength: faceted pale-blue ice with white facets and deep-blue shade, frost dust and snow, red for the strength he steals, a cold violet-blue for Subjugate's drain; flat shades, crisp angular shapes; no smooth neon beams, no fire.
-Layout: one horizontal row of 8 equal 64:24 cells, image size 8192x384 (each cell 1024x384, 16 px a square); centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.
+Effect: THE GROUND FREEZING OVER, 8 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side), on the GROUND under the unit's feet (an ellipse seen from above, three times as wide as tall), centred, the field growing to a BIG ellipse 80 squares wide and 26 tall - nearly the whole cell, one and a half times as wide as the troll standing on it (52 squares with his club): 1 a bright white-blue crack star 14 wide; 2 pale-blue ice spreading 34 wide with white cracks; 3 the ice 56 wide, frost smoke at its edge; 4 the ice 74 wide, a ring of small ice spikes (3-4 squares tall) popping up along its rim; 5 the ice 80 wide, the spikes at full height, the cracks glowing white; 6-7 the frost smoke settling, a few glints; 8 the full frozen ellipse 80 x 26 with its cracks and a thin rim of spikes, calm. Frames 5-8 MUST fill 80 squares across. everything is the FRELJORD'S ICE and a TROLL KING'S brute strength: faceted pale-blue ice with white facets and deep-blue shade, frost dust and snow, red for the strength he steals, a cold violet-blue for Subjugate's drain; flat shades, crisp angular shapes; no smooth neon beams, no fire.
+Layout: one horizontal row of 8 equal 84:28 cells, image size 10752x448 (each cell 1344x448, 16 px a square); centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.
 ```
 
 ### 9. `trundle_fx_w_aura.png`：冰封领域：脚下的冰面，6 帧循环
 
-领地生效时（8 秒）他脚下一直有一片冰面：蓝白的冰、白色的裂纹一闪一闪，边上几缕寒气往上飘（他在冰面上攻速、移速更快）。**左右对称**，6 帧循环。
+领地生效时（8 秒）他脚下一直有一片冰面：蓝白的冰、白色的裂纹一闪一闪，边上几缕寒气往上飘（他在冰面上攻速、移速更快）。**和 w_domain 最后一帧一样大：横向 80 格、纵向 26 格**（上一版只有 34 格宽，太小了）。**左右对称**，6 帧循环。
 
 ```text
 Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from an ice ramp (#FFFFFF, #D8F8FF, #9EE6FF, #52BFF0, #2A80C8, #164C8C), a frost and snow ramp (#FFFFFF, #E4F4FA, #B8D8E8, #7EA8C4).
-Effect: A FROZEN PATCH UNDER HIM, 6 looping frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side), on the GROUND under the unit's feet (an ellipse seen from above, three times as wide as tall): an ellipse of pale-blue ice 44 wide and 14 tall with white cracks; frames 1-6 the cracks glinting in turn around the ellipse, thin wisps of frost smoke rising from its rim. everything is the FRELJORD'S ICE and a TROLL KING'S brute strength: faceted pale-blue ice with white facets and deep-blue shade, frost dust and snow, red for the strength he steals, a cold violet-blue for Subjugate's drain; flat shades, crisp angular shapes; no smooth neon beams, no fire.
-Layout: one horizontal row of 6 equal 48:16 cells, image size 4608x256 (each cell 768x256, 16 px a square); centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.
+Effect: A BIG FROZEN FIELD UNDER HIM, 6 looping frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side), on the GROUND under the unit's feet (an ellipse seen from above, three times as wide as tall): an ellipse of pale-blue ice 80 squares wide and 26 tall (nearly the whole cell, as big as the domain's last frame) with white cracks and a thin rim of small ice spikes; frames 1-6 the cracks glinting in turn around the ellipse, thin wisps of frost smoke rising from its rim. Every frame MUST fill 80 squares across. everything is the FRELJORD'S ICE and a TROLL KING'S brute strength: faceted pale-blue ice with white facets and deep-blue shade, frost dust and snow, red for the strength he steals, a cold violet-blue for Subjugate's drain; flat shades, crisp angular shapes; no smooth neon beams, no fire.
+Layout: one horizontal row of 6 equal 84:28 cells, image size 8064x448 (each cell 1344x448, 16 px a square); centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.
 ```
 
 ### 10. `trundle_fx_e_pillar.png`：寒冰之柱：冰柱冒出、立着、碎掉，8 帧
@@ -206,8 +206,8 @@ Layout: one horizontal row of 4 equal square cells, image size 768x192 (each cel
 | `trundle_fx_q_sap` | view_buffs `league_trundle_q_sap`（跟随目标，头顶，z 3；左右对称） | 12 × 10 |
 | `trundle_fx_slow` | view_buffs `league_trundle_q_slow` / `league_trundle_e_slow`（跟随，脚下，z -1；左右对称） | 16 × 8 |
 | `trundle_fx_w_hop` | view_effects `league_trundle_w_hop`（地上，z -1，不跟随；左右对称） | 36 × 14 |
-| `trundle_fx_w_domain` | view_effects `league_trundle_w_domain`（大表，地上，z -1，不跟随；左右对称） | 64 × 24 |
-| `trundle_fx_w_aura` | view_buffs `league_trundle_w_on`（跟随特朗德尔，脚下，z -1；左右对称） | 48 × 16 |
+| `trundle_fx_w_domain` | view_effects `league_trundle_w_domain`（大表，地上，z -1，不跟随；左右对称） | 84 × 28 |
+| `trundle_fx_w_aura` | view_buffs `league_trundle_w_on`（跟随特朗德尔，脚下，z -1；左右对称） | 84 × 28 |
 | `trundle_fx_e_pillar` | view_effects `league_trundle_e_pillar`（大表，地上，z 1，不跟随；左右对称） | 26 × 58 |
 | `trundle_fx_e_hit` | view_effects `league_trundle_e_hit`（跟随目标，z 2；左右对称） | 22 × 16 |
 | `trundle_fx_r_hit` | view_effects `league_trundle_r_hit`（跟随目标，z 2；左右对称） | 26 × 30 |

@@ -86,7 +86,7 @@ P = {
     # his spoken lines, at most one every vo_gap ticks
     "vo_gap": 600,
     # 1 = the copy for addons/league_trundle (League's rules the data cannot read, see the docstring); its parameters
-    "native": 0, "p_pct": 5, "p_r": 50000, "w_r": 24000, "w_amp": 25, "e_wall": 9000, "q_flat": 20, "r_steal": 40,
+    "native": 0, "p_pct": 5, "p_r": 50000, "w_r": 40000, "w_amp": 25, "e_wall": 9000, "q_flat": 20, "r_steal": 40,
 }
 
 

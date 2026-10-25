@@ -156,7 +156,7 @@ pub struct Params {
 
 impl Default for Params {
     fn default() -> Self {
-        Self { p_pct: 5, p_r: 50000, w_as: 50, w_ms: 15, w_regen: 6, w_r: 24000, w_amp: 25, e_t: 240, e_wall: 9000, q_t: 240, q_flat: 20, r_steal: 40, r_pct0: 10, r_pct: 3, r_p: 60, r_t: 240, r_keep: 240 }
+        Self { p_pct: 5, p_r: 50000, w_as: 50, w_ms: 15, w_regen: 6, w_r: 40000, w_amp: 25, e_t: 240, e_wall: 9000, q_t: 240, q_flat: 20, r_steal: 40, r_pct0: 10, r_pct: 3, r_p: 60, r_t: 240, r_keep: 240 }
     }
 }
 

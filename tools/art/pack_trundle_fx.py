@@ -116,23 +116,30 @@ FX = [
      "frost and snow dust 22 wide pushing out; 3 the ring 32 wide, breaking into puffs of snow; 4 the last snow puffs "
      "fading at both ends. " + FREL + ".",
      row(4, 36, 14) + CENTER),
-    ("w_domain", "冰封领域：地面冻起来，8 帧", "view_effects `league_trundle_w_domain`（大表，地上，z -1，不跟随；左右对称）", "64 × 24",
+    # the domain is a BIG field (the user, 2026-10-25: 「那gif图的冰面那么小？」 of the first delivery's 46 x 18): 80 squares
+    # across, about one and a half times his width with the club, the add-on's w_r 40000
+    ("w_domain", "冰封领域：地面冻起来，8 帧", "view_effects `league_trundle_w_domain`（大表，地上，z -1，不跟随；左右对称）", "84 × 28",
      "他的领地：从他脚下往外**冻出一大片冰面**——蓝白的冰往四周铺开，冰面上有裂纹，边上冒出一圈小冰刺（参考 w_ground、w_ground_cracks、"
-     "w_speedbuff_ground_glow），最后一帧是铺满的冰面（之后由脚下的 w_aura 接着循环）。**左右对称**，8 帧。",
+     "w_speedbuff_ground_glow），最后一帧是铺满的冰面（之后由脚下的 w_aura 接着循环）。**冰面要大**：最后铺满时**横向 80 格、纵向 26 格**，"
+     "差不多是特朗德尔（连冰棒 52 格宽）的一倍半宽，几乎占满整格（上一版只画到 46 格宽，太小了）。**左右对称**，8 帧。",
      IC + ", " + FR,
-     "THE GROUND FREEZING OVER, 8 frames, " + LR + ", " + FEET + ", centred, the field growing to an ellipse 60 squares "
-     "wide and 20 tall: 1 a bright white-blue crack star 10 wide; 2 pale-blue ice spreading 24 wide with white cracks; 3 "
-     "the ice 40 wide, frost smoke at its edge; 4 the ice 56 wide, a ring of small ice spikes (3-4 squares tall) popping up "
-     "along its rim; 5 the spikes at full height, the cracks glowing white; 6-7 the frost smoke settling, a few glints; 8 "
-     "the full frozen ellipse 60 x 20 with its cracks and a thin rim of spikes, calm. " + FREL + ".",
-     row(8, 64, 24) + CENTER),
-    ("w_aura", "冰封领域：脚下的冰面，6 帧循环", "view_buffs `league_trundle_w_on`（跟随特朗德尔，脚下，z -1；左右对称）", "48 × 16",
-     "领地生效时（8 秒）他脚下一直有一片冰面：蓝白的冰、白色的裂纹一闪一闪，边上几缕寒气往上飘（他在冰面上攻速、移速更快）。**左右对称**，6 帧循环。",
+     "THE GROUND FREEZING OVER, 8 frames, " + LR + ", " + FEET + ", centred, the field growing to a BIG ellipse 80 squares "
+     "wide and 26 tall - nearly the whole cell, one and a half times as wide as the troll standing on it (52 squares with "
+     "his club): 1 a bright white-blue crack star 14 wide; 2 pale-blue ice spreading 34 wide with white cracks; 3 the ice "
+     "56 wide, frost smoke at its edge; 4 the ice 74 wide, a ring of small ice spikes (3-4 squares tall) popping up along "
+     "its rim; 5 the ice 80 wide, the spikes at full height, the cracks glowing white; 6-7 the frost smoke settling, a few "
+     "glints; 8 the full frozen ellipse 80 x 26 with its cracks and a thin rim of spikes, calm. Frames 5-8 MUST fill 80 "
+     "squares across. " + FREL + ".",
+     row(8, 84, 28) + CENTER),
+    ("w_aura", "冰封领域：脚下的冰面，6 帧循环", "view_buffs `league_trundle_w_on`（跟随特朗德尔，脚下，z -1；左右对称）", "84 × 28",
+     "领地生效时（8 秒）他脚下一直有一片冰面：蓝白的冰、白色的裂纹一闪一闪，边上几缕寒气往上飘（他在冰面上攻速、移速更快）。"
+     "**和 w_domain 最后一帧一样大：横向 80 格、纵向 26 格**（上一版只有 34 格宽，太小了）。**左右对称**，6 帧循环。",
      IC + ", " + FR,
-     "A FROZEN PATCH UNDER HIM, 6 looping frames, " + LR + ", " + FEET + ": an ellipse of pale-blue ice 44 wide and 14 "
-     "tall with white cracks; frames 1-6 the cracks glinting in turn around the ellipse, thin wisps of frost smoke rising "
-     "from its rim. " + FREL + ".",
-     row(6, 48, 16) + CENTER),
+     "A BIG FROZEN FIELD UNDER HIM, 6 looping frames, " + LR + ", " + FEET + ": an ellipse of pale-blue ice 80 squares "
+     "wide and 26 tall (nearly the whole cell, as big as the domain's last frame) with white cracks and a thin rim of "
+     "small ice spikes; frames 1-6 the cracks glinting in turn around the ellipse, thin wisps of frost smoke rising from "
+     "its rim. Every frame MUST fill 80 squares across. " + FREL + ".",
+     row(6, 84, 28) + CENTER),
     # ---- skill2: E Pillar of Ice
     ("e_pillar", "寒冰之柱：冰柱冒出、立着、碎掉，8 帧", "view_effects `league_trundle_e_pillar`（大表，地上，z 1，不跟随；左右对称）", "26 × 58",
      "在目标处的地面上**冒出一根巨大的冰柱**（英雄联盟里是挡路的地形）：先是地面裂开冒寒气，一根粗大的多面体冰柱从地里猛地顶上来（深蓝的冰、"
@@ -280,7 +287,7 @@ def document(shape):
     a("> - **冰柱**（`e_pillar`）在游戏里要立 4 秒：第 6 帧是「立着」的那一帧，导入时会让它停 3 秒多，所以第 5、6 帧要是完整、稳定的冰柱。")
     a("> - 每张生成后按格子取回（每格取多数颜色），交付 8 倍的 `trundle_fx_<名字>.png` 和原尺寸的 `pixel_1x/`（严格按格子取色、透明度只有 "
       "0 和 255、逐格左右对称——Claude 直接用这一份切格导入），附 `HANDOFF.md`、`manifest.json`（每张的帧数、每格大小 `cell_1x`、"
-      f"对称方式）和生图原稿 `raw/`，都放在 `outputs/trundle_fx/` 里，**最后**写 `HANDOFF.md`，再打包成 `outputs/{NAME}_done.zip`。"
+      f"对称方式）和生图原稿 `raw/`，都放在 `outputs/{NAME.replace('_pack', '')}/` 里，**最后**写 `HANDOFF.md`，再打包成 `outputs/{NAME}_done.zip`。"
       "**请用生图画，不要用代码拼方块**。中间不要停，全部画完再交。\n")
     a("## 技能方案（每张图用在哪里）\n")
     a("| 技能位 | 内容 | 用到的图 |")
