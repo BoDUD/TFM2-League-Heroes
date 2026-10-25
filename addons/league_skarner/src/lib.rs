@@ -14,7 +14,7 @@
 //! - **毒刺贯体只压前 `R_N` 个英雄，并拖在身后**（原生效果 `league_skarner:impale`，尾巴打中英雄时）：一次施法数到第 `R_N`
 //!   个为止（他身上的 `league_skarner_rc_<他>`），每个受到 `R_DMG` + `R_RATIO`% 攻击力的**魔法伤害**、压制 `R_SUP` 拍并立刻战栗；
 //!   压制期间被动每拍把它们放在他身边、保持被打中时的方向，离他最多 `R_GAP`（他走到哪拖到哪）。主包：线上所有英雄都中，物理
-//!   伤害，每 3 拍往他身上拽一下。
+//!   伤害，每 3 拍往他身上拽一下。被拽时每拍最多走 `R_PULL`：远的先被拽到他身边（不是一下瞬移）。
 //!
 //! 数字是主包参数表 P 的同名项（小写）；`make_override.py` 生成副本时核对，不一致就停。计数在目标身上（按斯卡纳的编号起名）
 //! 和被动自己身上，不用全局变量，服务端预模拟和你看的那场各算各的。
@@ -54,8 +54,10 @@ pub const R_N: usize = 3;
 pub const R_SUP: usize = 45;
 pub const R_DMG: usize = 60;
 pub const R_RATIO: usize = 50;
-/// 被拖着的英雄离他最远多少（身体挨着身体）。
+/// 被拖着的英雄离他最远多少（身体挨着身体），每拍最多被拽多远（主包的拽：每 3 拍 2 拍 3000，约每拍 2000；这里每拍
+/// 3000，先被拽到他身边，之后跟着他走）。
 pub const R_GAP: f64 = 9_000.0;
+pub const R_PULL: f64 = 3_000.0;
 /// 一次毒刺贯体数人的记号留多久（尾巴飞完整条线还有余）。
 pub const R_COUNT_T: usize = 30;
 
@@ -248,6 +250,16 @@ pub fn quake_tick(max_hp: usize) -> usize {
 /// 战栗的每一下在第几 tick（从开始战栗算起）。
 pub fn quake_ticks() -> Vec<usize> {
     (1..=P_T / P_P).map(|k| k * P_P).collect()
+}
+
+/// 被拖着的英雄这一拍走到哪：朝目标点 `to` 走，最多 `R_PULL`（远的先被拽过来，不是一下瞬移）。
+pub fn pull_step(at: Pt, to: Pt) -> Pt {
+    let d = dist(at, to);
+    if d <= R_PULL {
+        to
+    } else {
+        (at.0 + (to.0 - at.0) * R_PULL / d, at.1 + (to.1 - at.1) * R_PULL / d)
+    }
 }
 
 /// 被拖着的英雄相对他的位置：保持方向 `off`，离他不超过 `R_GAP`（太近就不动它的距离）。
@@ -468,7 +480,7 @@ impl Sovereign {
         }
         let Some(at) = pos(sim, foe) else { return };
         let off = *self.dragged.entry(foe).or_insert_with(|| drag_offset((at.0 - him.0, at.1 - him.1)));
-        let to = (him.0 + off.0, him.1 + off.1);
+        let to = pull_step(at, (him.0 + off.0, him.1 + off.1));
         if to.0 < 0.0 || to.1 < 0.0 || grid_now(sim).is_some_and(|g| g.is_wall(to.0, to.1)) {
             return;   // never into a wall: it waits where it is until he comes back to open ground
         }
@@ -568,6 +580,13 @@ mod tests {
         assert_eq!(quake_tick(10), 1);
         assert_eq!(quake_ticks().len(), P_T / P_P);
         assert_eq!(*quake_ticks().last().unwrap(), P_T);
+    }
+
+    #[test]
+    fn pulled_not_teleported() {
+        assert_eq!(pull_step((0.0, 0.0), (2_000.0, 0.0)), (2_000.0, 0.0));
+        let (x, y) = pull_step((0.0, 0.0), (30_000.0, 40_000.0));
+        assert!(((x * x + y * y).sqrt() - R_PULL).abs() < 1e-6, "one step of R_PULL");
     }
 
     #[test]

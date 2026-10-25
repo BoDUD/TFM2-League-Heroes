@@ -1190,6 +1190,13 @@
         "skill": "咬一口造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<>物理伤害并<#ef5350ff>减速<>60%；<#ffb900ff>4秒<>内对方攻击力-15%，自己+20%。",
         "skill2": "在敌方英雄处立起寒冰之柱<#ffb900ff>4秒<>，周围敌人<#ef5350ff>减速<>25%。",
         "ult": "吸取敌方英雄：立刻造成最大生命10%真实伤害，<#ffb900ff>4秒<>内<#ffb900ff>每秒<>再3%，每次回复20 + <i#asset/base/ui/banpick/champion_stat_icon:ad_0>10%生命；偷走25%护甲和魔抗<#ffb900ff>8秒<>。"
+      },
+      "league_skarner": {
+        "name": "斯卡纳",
+        "attack": "毒刺扎击。<#ff9028ff>战栗<>：普攻、巨石、毒刺打中英雄叠层，满3层<#ffb900ff>4秒<>内每秒掉最大生命1%。<#ff9028ff>震地壁垒<>：冲锋停下时得<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>20%<>护盾<#ffb900ff>3秒<>，震伤周围<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<>、<#ef5350ff>减速<>30%。",
+        "skill": "掘起巨石<#ffb900ff>6秒<>，攻速+20%；3次普攻溅射<#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>20%<>，第3次加最大生命3%、<#ef5350ff>减速<>40%。举满<#ffb900ff>3秒<>就扔出<#ff9028ff>擎天<>：<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>+最大生命3%。",
+        "skill2": "冲向敌方英雄，撞上后拖着走，停下时造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>物理伤害并<#ef5350ff>晕眩<><#ffb900ff>0.67秒<>。",
+        "ult": "三根毒刺往前扎：直线上的敌方英雄受到<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>物理伤害，被<#ef5350ff>压制<><#ffb900ff>0.75秒<>并拖到身边跟着走；扎中后移速+30%<#ffb900ff>2.5秒<>。"
       }
     },
     "skill_name": {
@@ -2042,6 +2049,11 @@
         "skill1": "利齿撕咬",
         "skill2": "寒冰之柱",
         "ult": "强权至上"
+      },
+      "league_skarner": {
+        "skill1": "撼地",
+        "skill2": "以绪塔尔冲击",
+        "ult": "毒刺贯体"
       }
     }
   },
@@ -3236,6 +3248,13 @@
         "skill": "咬一口造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<>物理傷害並<#ef5350ff>緩速<>60%；<#ffb900ff>4秒<>內對方攻擊力-15%，自己+20%。",
         "skill2": "在敵方英雄處立起狡詰冰柱<#ffb900ff>4秒<>，周圍敵人<#ef5350ff>緩速<>25%。",
         "ult": "吸取敵方英雄：立刻造成最大生命10%真實傷害，<#ffb900ff>4秒<>內<#ffb900ff>每秒<>再3%，每次回復20 + <i#asset/base/ui/banpick/champion_stat_icon:ad_0>10%生命；偷走25%護甲和魔抗<#ffb900ff>8秒<>。"
+      },
+      "league_skarner": {
+        "name": "史加納",
+        "attack": "毒刺扎擊。<#ff9028ff>震動餘波<>：普攻、巨石、毒刺打中英雄疊層，滿3層<#ffb900ff>4秒<>內每秒掉最大生命1%。<#ff9028ff>壁壘波動<>：衝鋒停下時得<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>20%<>護盾<#ffb900ff>3秒<>，震傷周圍<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<>、<#ef5350ff>緩速<>30%。",
+        "skill": "掘起巨石<#ffb900ff>6秒<>，攻速+20%；3次普攻濺射<#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>20%<>，第3次加最大生命3%、<#ef5350ff>緩速<>40%。舉滿<#ffb900ff>3秒<>就扔出<#ff9028ff>尖岩飛彈<>：<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>+最大生命3%。",
+        "skill2": "衝向敵方英雄，撞上後拖著走，停下時造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>物理傷害並<#ef5350ff>暈眩<><#ffb900ff>0.67秒<>。",
+        "ult": "三根毒刺往前扎：直線上的敵方英雄受到<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>物理傷害，被<#ef5350ff>壓制<><#ffb900ff>0.75秒<>並拖到身邊跟著走；扎中後移速+30%<#ffb900ff>2.5秒<>。"
       }
     },
     "skill_name": {
@@ -4088,6 +4107,11 @@
         "skill1": "狂野撕咬",
         "skill2": "狡詰冰柱",
         "ult": "盛怒霸體"
+      },
+      "league_skarner": {
+        "skill1": "翻天覆地",
+        "skill2": "伊克斯塔爾衝擊",
+        "ult": "蠍尾穿刺"
       }
     }
   },
@@ -5282,6 +5306,13 @@
         "skill": "Bites for <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<> physical damage and <#ef5350ff>slows<> 60%; for <#ffb900ff>4s<> the target has 15% less attack, Trundle 20% more.",
         "skill2": "Raises a Pillar of Ice at an enemy champion for <#ffb900ff>4s<>; enemies around it are <#ef5350ff>slowed<> 25%.",
         "ult": "Drains an enemy champion: 10% max health as true damage at once, 3% more <#ffb900ff>every second<> for <#ffb900ff>4s<>, each healing him 20 + <i#asset/base/ui/banpick/champion_stat_icon:ad_0>10%; steals 25% of its armour and magic resistance for <#ffb900ff>8s<>."
+      },
+      "league_skarner": {
+        "name": "Skarner",
+        "attack": "Stinger strikes. <#ff9028ff>Threads of Vibration<>: his attacks, the boulder and Impale stack Quaking on champions; at 3 they take 1% max health a second for <#ffb900ff>4s<>. <#ff9028ff>Seismic Bastion<>: when his charge stops he gains a <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>20%<> shield for <#ffb900ff>3s<> and quakes the ground for <#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<>, <#ef5350ff>slowing<> 30%.",
+        "skill": "Rips up a boulder for <#ffb900ff>6s<>: +20% attack speed, his next 3 attacks splash <#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>20%<>, the third 3% max health more and <#ef5350ff>slows<> 40%. Held <#ffb900ff>3s<>, it is thrown (<#ff9028ff>Upheaval<>): <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> + 3% max health.",
+        "skill2": "Charges an enemy champion and carries it along; when the charge stops it takes <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> physical damage and is <#ef5350ff>stunned<> for <#ffb900ff>0.67s<>.",
+        "ult": "His three tails lash forward: enemy champions on the line take <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<> physical damage, are <#ef5350ff>suppressed<> for <#ffb900ff>0.75s<> and dragged along beside him; on a hit he gains 30% move speed for <#ffb900ff>2.5s<>."
       }
     },
     "skill_name": {
@@ -6134,6 +6165,11 @@
         "skill1": "Chomp",
         "skill2": "Pillar of Ice",
         "ult": "Subjugate"
+      },
+      "league_skarner": {
+        "skill1": "Shattered Earth",
+        "skill2": "Ixtal's Impact",
+        "ult": "Impale"
       }
     }
   },
@@ -7328,6 +7364,13 @@
         "skill": "깨물어 <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<> 물리 피해, 60% <#ef5350ff>둔화<>; <#ffb900ff>4초<> 동안 대상 공격력 -15%, 트런들 +20%.",
         "skill2": "적 챔피언 위치에 얼음 기둥을 <#ffb900ff>4초<> 세움, 주변 적 25% <#ef5350ff>둔화<>.",
         "ult": "적 챔피언을 흡수: 즉시 최대 체력 10% 고정 피해, <#ffb900ff>4초<> 동안 <#ffb900ff>매초<> 3% 추가, 매번 체력 20 + <i#asset/base/ui/banpick/champion_stat_icon:ad_0>10% 회복; 방어력과 마법 저항력 25%를 <#ffb900ff>8초<> 동안 빼앗음."
+      },
+      "league_skarner": {
+        "name": "스카너",
+        "attack": "독침 공격. <#ff9028ff>진동의 가닥<>: 기본 공격, 바위, 꿰뚫기가 챔피언에게 진동 중첩, 3중첩이면 <#ffb900ff>4초<> 동안 매초 최대 체력 1% 피해. <#ff9028ff>대지의 수호자<>: 돌진이 멈추면 <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>20%<> 보호막 <#ffb900ff>3초<>, 주변에 <#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<> 피해, 30% <#ef5350ff>둔화<>.",
+        "skill": "바위를 <#ffb900ff>6초<> 들어 올림: 공격 속도 +20%, 다음 기본 공격 3회가 <#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>20%<> 범위 피해, 3번째는 최대 체력 3% 추가와 40% <#ef5350ff>둔화<>. <#ffb900ff>3초<> 들고 있으면 던짐(<#ff9028ff>지반 돌출<>): <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> + 최대 체력 3%.",
+        "skill2": "적 챔피언에게 돌진해 끌고 감; 돌진이 멈추면 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> 물리 피해와 <#ffb900ff>0.67초<> <#ef5350ff>기절<>.",
+        "ult": "세 꼬리로 앞을 꿰뚫음: 직선 위 적 챔피언에게 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<> 물리 피해, <#ffb900ff>0.75초<> <#ef5350ff>제압<>하고 곁으로 끌고 다님; 적중하면 이동 속도 +30% <#ffb900ff>2.5초<>."
       }
     },
     "skill_name": {
@@ -8180,6 +8223,11 @@
         "skill1": "깨물기",
         "skill2": "얼음 기둥",
         "ult": "진압"
+      },
+      "league_skarner": {
+        "skill1": "부서진 대지",
+        "skill2": "이쉬탈의 격돌",
+        "ult": "꿰뚫기"
       }
     }
   },
@@ -9374,6 +9422,13 @@
         "skill": "咬み付いて<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<>の物理ダメージ、60%<#ef5350ff>スロウ<>；<#ffb900ff>4秒<>間 相手の攻撃力-15%、自身+20%。",
         "skill2": "敵チャンピオンの位置に氷冷の柱を<#ffb900ff>4秒<>立てる、周囲の敵に25%<#ef5350ff>スロウ<>。",
         "ult": "敵チャンピオンから搾取：即座に最大体力10%の確定ダメージ、<#ffb900ff>4秒<>間<#ffb900ff>毎秒<>3%、毎回体力20 + <i#asset/base/ui/banpick/champion_stat_icon:ad_0>10%回復；物理防御と魔法防御の25%を<#ffb900ff>8秒<>奪う。"
+      },
+      "league_skarner": {
+        "name": "スカーナー",
+        "attack": "毒針で攻撃。<#ff9028ff>響振動<>：通常攻撃・岩・インペイルがチャンピオンに振動を付与、3スタックで<#ffb900ff>4秒<>間毎秒最大体力1%のダメージ。<#ff9028ff>激震の砦<>：突進が止まるとシールド<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>20%<>を<#ffb900ff>3秒<>得て周囲に<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<>、30%<#ef5350ff>スロウ<>。",
+        "skill": "岩を<#ffb900ff>6秒<>掲げる：攻撃速度+20%、次の通常攻撃3回が<#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>20%<>の範囲ダメージ、3回目は最大体力3%追加と40%<#ef5350ff>スロウ<>。<#ffb900ff>3秒<>持つと投げる（<#ff9028ff>大地の怒り<>）：<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>+最大体力3%。",
+        "skill2": "敵チャンピオンに突進して引きずる；止まると<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>の物理ダメージと<#ffb900ff>0.67秒<><#ef5350ff>スタン<>。",
+        "ult": "三本の尾で前方を貫く：直線上の敵チャンピオンに<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>の物理ダメージ、<#ffb900ff>0.75秒<><#ef5350ff>サプレッション<>して引きずる；命中すると移動速度+30%を<#ffb900ff>2.5秒<>。"
       }
     },
     "skill_name": {
@@ -10226,6 +10281,11 @@
         "skill1": "咬み付き",
         "skill2": "氷冷の柱",
         "ult": "暴虐なる搾取"
+      },
+      "league_skarner": {
+        "skill1": "砕けし大地",
+        "skill2": "イシュタルの衝動",
+        "ult": "インペイル"
       }
     }
   }

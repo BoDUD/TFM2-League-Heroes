@@ -55,7 +55,7 @@
 
 ### 俄洛伊附加包
 
-[俄洛伊附加包](../../addons/league_illaoi/README.md)：`league_illaoi` v0.2.8
+[俄洛伊附加包](../../addons/league_illaoi/README.md)：`league_illaoi` v0.2.9
 
 | 技能 | 主包（纯数据） | 附加包 |
 |---|---|---|
