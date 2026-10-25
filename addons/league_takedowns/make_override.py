@@ -12,7 +12,8 @@ and .../text/champion.i18n -
     league_takedowns:tristana; Rocket Jump's tooltip;
   * league_twitch: his own kill check stays (the add-on only adds the assists); the five Contaminate checks read
     src/lib.rs's TWITCH_E_GO instead of his hit count (league_twitch_h3) and every venom layer (AddCasted Poison) also
-    calls league_takedowns:twitch_venom (the add-on counts the stacks on each champion); passive league_takedowns:twitch;
+    calls league_takedowns:twitch_venom (the add-on counts the stacks on each champion); every attack reads
+    TWITCH_E_GO as well (E pops on the first shot after it goes up); passive league_takedowns:twitch;
     Ambush's and the cask's tooltips;
   * league_masteryi: Highlander without the main pack's 40% cooldown share (the add-on cuts the cooldowns on takedowns
     and attacks instead); passive league_takedowns:masteryi; Highlander's tooltip.
@@ -183,6 +184,13 @@ def twitch(c):
         d[slot] = replace(d[slot], lambda o: o.get("type") == "AddCasted" and o.get("casted_type") == "Poison", venom, layers)
     if len(gates) != 5 or len(layers) != 18:
         sys.exit(f"Twitch's Contaminate checks ({len(gates)}) / venom layers ({len(layers)}) changed: update this script")
+    # the five come at set moments (68 ticks after a slot cask, R's last 30 ticks, a slot cast inside a combo's cask)
+    # and TWITCH_E_GO is seldom up then: in game E hardly went off (10-24 log: 1080 GO, re-raised every 30 ticks at
+    # 6 stacks). Every attack reads it too (his E alone, on him like R's end): the first shot after it goes up pops E.
+    alone = next(o for o in gates if o["effect_none"].get("type") == "SwitchByBuff")
+    shot = {"type": "RangeEffect", "shape": {"Circle": {"radius": 1000}}, "target": "AllyOnlySelf",
+            "apply_type": "AroundCaster", "effects": [gate(alone)]}
+    d["attack"]["effect"] = {"type": "Combine", "effects": [shot, d["attack"]["effect"]]}
     d["passive"] = {"passive_ref": MOD_ID + ":twitch", "params": {}}
     return d, [("league_twitch", "skill"), ("league_twitch", "skill2")]
 

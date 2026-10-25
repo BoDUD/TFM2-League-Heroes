@@ -6,7 +6,7 @@ use std::collections::HashMap;
 use std::ffi::c_void;
 use std::mem::{size_of, zeroed};
 
-use league_nocturne_dark::{FLY_T, LAND_T, VEIL, VEIL_LAYERS, VEIL_STEP};
+use league_nocturne_dark::{FLY_T, LAND_T, LONGEST_DIVE, VEIL, VEIL_LAYERS, VEIL_STEP};
 use mod_api_stable::*;
 
 struct Unit {
@@ -284,9 +284,47 @@ fn paranoia_hides_the_team_and_veils_the_map_in_the_sim() {
             let _ = std::fs::remove_file(&log);
         }
         assert!(text.starts_with(&format!("=== league_nocturne_dark v{}", env!("CARGO_PKG_VERSION"))), "{text}");
-        assert!(text.contains("DARKNESS until the landing (at most 32 ticks), then 20: 2 of 3 allies unseen"), "{text}");
+        assert!(text.contains("DARKNESS until the landing (at most 60 ticks), then 20: 2 of 3 allies unseen"), "{text}");
         assert!(text.contains("landed: darkness for 20 more ticks"), "{text}");
         assert!(text.contains("darkness over"), "{text}");
+    }
+}
+
+/// 飞扑多久都不断：出手到落地每 tick 都黑、落地后再 `LAND_T`，只结束一次。
+/// (10-24 的日志里 54% 的 R 落地晚于原来的 32 tick 上限，黑暗先停再开：`darkness over` 比 `DARKNESS` 多 100 行。)
+#[test]
+fn the_darkness_lasts_until_the_landing_however_long_the_dive() {
+    let (_serial, log) = test_log();
+    unsafe {
+        let mut host: HostApiV1 = zeroed();
+        host.size = size_of::<HostApiV1>();
+        host.host_abi_level = ABI_LEVEL;
+        host.log = Some(host_log);
+        let ex = &*league_nocturne_dark::tfm2_mod_entry_stable(&host);
+        let _ = std::panic::take_hook();
+        let regs = std::slice::from_raw_parts(ex.native_effects_ptr, ex.native_effects_len);
+        let fx: Effects = regs.iter().map(|e| (e.name.as_str().to_string(), e)).collect();
+
+        // 日志里见过的：最短 6，原来的上限 32 前后，常见的 46–51，再到保底 FLY_T 前一 tick
+        let dives = [6, 31, 32, 33, 46, 49, LONGEST_DIVE, FLY_T - 1];
+        for fly in dives {
+            let mut w = world(true);
+            call(&mut w, &fx, "league_nocturne_dark:start", 0);
+            run(&mut w, &fx, fly);
+            call(&mut w, &fx, "league_nocturne_dark:land", 0);
+            run(&mut w, &fx, LAND_T + 30);
+            let gap: Vec<usize> = (0..fly + LAND_T).filter(|t| !w.hidden.contains_key(t)).collect();
+            assert!(gap.is_empty(), "a {fly}-tick dive: allies seen at ticks {gap:?}");
+            assert!((fly + LAND_T + 2..fly + LAND_T + 30).all(|t| !w.hidden.contains_key(&t)), "a {fly}-tick dive");
+            assert!(w.queue.is_empty());
+        }
+
+        let text = std::fs::read_to_string(&log).expect("log written");
+        if std::env::var_os("KEEP_LOG").is_none() {
+            let _ = std::fs::remove_file(&log);
+        }
+        assert_eq!(text.matches("darkness over").count(), dives.len(), "the darkness stopped before a landing: {text}");
+        assert_eq!(text.matches("DARKNESS until the landing (at most 60 ticks)").count(), dives.len(), "{text}");
     }
 }
 

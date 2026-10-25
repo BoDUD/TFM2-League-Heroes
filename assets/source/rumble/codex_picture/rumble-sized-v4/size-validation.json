@@ -1,0 +1,48 @@
+{
+  "A": {
+    "canvas": [
+      1536,
+      1536
+    ],
+    "character_bbox": [
+      526,
+      895,
+      1010,
+      1390
+    ],
+    "character_size": [
+      484,
+      495
+    ],
+    "bottom_margin": 146,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "strict_11px_grid": false,
+    "method": "nearest-neighbor resize to specified bounding rectangle; hard alpha; transparent canvas"
+  },
+  "B": {
+    "canvas": [
+      1536,
+      1536
+    ],
+    "character_bbox": [
+      526,
+      895,
+      1010,
+      1390
+    ],
+    "character_size": [
+      484,
+      495
+    ],
+    "bottom_margin": 146,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "strict_11px_grid": false,
+    "method": "nearest-neighbor resize to specified bounding rectangle; hard alpha; transparent canvas"
+  }
+}

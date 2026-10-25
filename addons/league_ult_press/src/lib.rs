@@ -31,6 +31,8 @@
 //!   `plan` 按局面替 AI 按，按下去以后的事全是主包的数据：
 //!   - 冲上去的（劫 W 还要 Q 好着、格温 E、佛耶戈 E、卡特琳娜 W）：他生命不低于 `ENGAGE_HP`；目标不在敌方塔下（生命
 //!     `DIVE_HP` 以下的除外）、目标身边的敌方英雄不比他身边的我方英雄（含他）多，挑生命比例最低的。AI 正往远处撤时不按。
+//!   - 永恩 R（0.5.5，用户：「永恩还是不放大吗」）：冲上去的规则，再加上值得一刀——目标身边 `YONE_R_LINE` 内两个以上敌方英雄、
+//!     目标生命不到 `YONE_R_LOW`，或我方有人贴着他；一串的先斩。
 //!   - 卡特琳娜 R：她生命不低于 `KAT_R_HP`、自己不在敌方塔下，`KAT_R_REACH` 内的敌方英雄、`KAT_R_RING` 内有两个以上或
 //!     目标生命不到 `KAT_R_LOW`。费德提克 R：`FIDDLE_R_RANGE` 内一处 `FIDDLE_STORM` 内有两个以上敌方英雄（或单个生命
 //!     不到 `FIDDLE_LOW`）、不在敌方塔下、那里的敌方英雄最多比那里的我方英雄（含他）多一个，朝那里放。
@@ -155,6 +157,7 @@ pub const VLADIMIR: &str = "league_vladimir";
 pub const SWAIN: &str = "league_swain";
 pub const RENATA: &str = "league_renata";
 pub const WUKONG: &str = "league_wukong";
+pub const YONE: &str = "league_yone";
 /// 冲上去的技能：他生命不低于这个才冲；目标在敌方塔下也冲的残血线。
 pub const ENGAGE_HP: f64 = 0.4;
 pub const DIVE_HP: f64 = 0.25;
@@ -219,6 +222,11 @@ pub const RENATA_R_NEAR: f64 = 75_000.0;
 /// 悟空 R（备好式，`Targeting EnemyChampion` 60000：主包待命 900 tick，备好时普攻、28000 内有敌方英雄就转，第一下击飞；没用上
 /// 冷却退还）：这么近有敌方英雄就按（用户 2026-10-24：「猴子开大不能把敌方英雄击飞？」——游戏里 AI 从没按过他的 R）。
 pub const WUKONG_R_NEAR: f64 = 40_000.0;
+/// 永恩 R（用户 2026-10-25：「永恩还是不放大吗」「给永恩加上替 AI 按大招的规则」）：格子的射程（主包 `ult.range`）、
+/// 一条直线上算一堆的范围、算残血的生命比例。
+pub const YONE_R_RANGE: f64 = 80_000.0;
+pub const YONE_R_LINE: f64 = 30_000.0;
+pub const YONE_R_LOW: f64 = 0.5;
 /// 备好式大招按下后看这么久：冷却一下掉了很多就是退还了，没掉就是用掉了（最长的凯尔待命 900 tick）。
 pub const ARM_WATCH: usize = 960;
 /// 费德提克 R（`Position` 80000，引导 1 秒后传过去，鸦群打 45000 内的敌人）。
@@ -260,7 +268,7 @@ pub const VLAD_R_LOW: f64 = 0.5;
 /// 照样由它控制。引擎接口读不到普攻距离，表照数据写在这里，单元测试 `attack_ranges_match_the_data` 逐个对照
 /// league/champion，加了新英雄没补进来就报错。
 pub const MELEE_RANGE: u64 = 30_000;
-pub const ATTACK_RANGE: [(&str, u64); 167] = [
+pub const ATTACK_RANGE: [(&str, u64); 169] = [
     ("league_aatrox", 26000),
     ("league_ahri", 55000),
     ("league_akali", 24000),
@@ -428,6 +436,8 @@ pub const ATTACK_RANGE: [(&str, u64); 167] = [
     ("league_sejuani", 25000),
     ("league_kled", 25000),
     ("league_yorick", 25000),
+    ("league_ambessa", 25000),
+    ("league_rumble", 25000),
 ];
 /// 远程：盯住的目标走出普攻距离这么多就不追。
 pub const RANGED_KEEP: f64 = 10_000.0;
@@ -776,6 +786,25 @@ pub fn engage_targets(s: &Scene, range: f64) -> Vec<usize> {
     lowest_first(s, v)
 }
 
+/// 永恩 R 封尘绝念斩打谁：冲上去的规则（他生命不低于 `ENGAGE_HP`；`YONE_R_RANGE` 内、不在敌方塔下（`DIVE_HP` 以下除外）、
+/// 那里不以少打多），而且值得一刀：目标身边 `YONE_R_LINE` 内有两个以上敌方英雄（一刀斩一串）、目标生命不到 `YONE_R_LOW`，或我方
+/// 有人 `FIGHT_CONTACT` 内贴着他（接团）。一串的在前，再按生命比例从低到高。
+pub fn yone_r(s: &Scene) -> Vec<usize> {
+    let ok = engage_targets(s, YONE_R_RANGE);
+    let mut v: Vec<&Unit> = s
+        .enemies
+        .iter()
+        .filter(|u| ok.contains(&u.id))
+        .filter(|u| {
+            s.foes_within(u.at, YONE_R_LINE) >= 2
+                || u.hp < YONE_R_LOW
+                || s.allies.iter().any(|a| dist(a.at, u.at) <= FIGHT_CONTACT)
+        })
+        .collect();
+    v.sort_by(|a, b| s.foes_within(b.at, YONE_R_LINE).cmp(&s.foes_within(a.at, YONE_R_LINE)).then(a.hp.total_cmp(&b.hp)));
+    v.into_iter().map(|u| u.id).collect()
+}
+
 /// 卡特琳娜 R：她生命不低于 `KAT_R_HP`、站的地方不在敌方塔下（目标残血除外）；`KAT_R_REACH` 内的敌方英雄，
 /// `KAT_R_RING` 内有两个以上，或目标生命不到 `KAT_R_LOW`。由近到远（格子射程 30000）。
 pub fn katarina_r(s: &Scene) -> Vec<usize> {
@@ -978,6 +1007,7 @@ pub fn plan(name: &str, s: &Scene, ready: [bool; 4], m: &Marks) -> Vec<Plan> {
         SWAIN if r => push("R", Ult, s.by_distance(SWAIN_R_NEAR), "arm the demon", true),
         RENATA if r => push("R", Ult, s.by_distance(RENATA_R_NEAR), "arm the takeover", false),
         WUKONG if r => push("R", Ult, s.by_distance(WUKONG_R_NEAR), "arm the cyclone", true),
+        YONE if r => push("R", Ult, yone_r(s), "fate sealed", true),
         VLADIMIR if r => push("R", Ult, vladimir_r(s), "hemoplague", true),
         RYZE if r => {
             if let Some((t, why)) = ryze_r(s) {
@@ -1067,7 +1097,7 @@ const P_W1: PressSlot = PressSlot { slot: SkillSlotV1::Skill, key: "W" };
 pub fn slots_of(name: &str) -> &'static [PressSlot] {
     match name {
         SAMIRA | TF | KOGMAW | JANNA | SYNDRA | XERATH | KAYLE | JHIN | KARMA | EVELYNN | FIDDLESTICKS | RYZE | APHELIOS
-        | VLADIMIR | SWAIN | RENATA | WUKONG => &[P_R],
+        | VLADIMIR | SWAIN | RENATA | WUKONG | YONE => &[P_R],
         CAMILLE | GWEN | VIEGO | SIVIR | ZILEAN | KALISTA => &[P_E2],
         ORIANNA => &[P_R, P_E2],
         KATARINA => &[P_R, P_W2],
@@ -2253,11 +2283,39 @@ mod tests {
     }
 
     #[test]
+    fn yone_cuts_a_crowd_a_low_one_or_into_a_fight() {
+        // a lone healthy champion with nobody of ours on him: not worth the ult
+        let lone = [u(1, 50_000.0, 0.0, 1.0)];
+        assert!(yone_r(&scene(0.9, &[], &lone, &[], &[])).is_empty());
+        // two of them together (an ally by him, so not two against one): the lower of the pair first
+        let two = [u(1, 50_000.0, 0.0, 1.0), u(2, 60_000.0, 0.0, 0.9)];
+        assert_eq!(yone_r(&scene(0.9, &[u(9, 5_000.0, 0.0, 1.0)], &two, &[], &[])), vec![2, 1]);
+        // the same pair with him alone: two against one, no
+        assert!(yone_r(&scene(0.9, &[], &two, &[], &[])).is_empty());
+        // a low one alone
+        assert_eq!(yone_r(&scene(0.9, &[], &[u(1, 50_000.0, 0.0, 0.4)], &[], &[])), vec![1]);
+        // an ally on him
+        assert_eq!(yone_r(&scene(0.9, &[u(9, 60_000.0, 0.0, 1.0)], &lone, &[], &[])), vec![1]);
+        // too far, or Yone hurt
+        assert!(yone_r(&scene(0.9, &[], &[u(1, 95_000.0, 0.0, 0.2)], &[], &[])).is_empty());
+        assert!(yone_r(&scene(0.3, &[], &[u(1, 50_000.0, 0.0, 0.2)], &[], &[])).is_empty());
+        assert_eq!(slots_of(YONE), &[P_R]);
+        assert!(!is_armed_ult(YONE));
+    }
+
+    #[test]
+    fn yone_r_range_is_the_slot_range() {
+        let src = include_str!("../../../league/champion/league_yone.data_champion");
+        let ult = &src[src.find("\"action_name\": \"ult\"").expect("ult")..];
+        assert!(ult[..600].contains(&format!("\"range\": {}", YONE_R_RANGE as u64)));
+    }
+
+    #[test]
     fn each_pressed_hero_watches_its_slots() {
         assert_eq!(slots_of(ZED), &[PressSlot { slot: SkillSlotV1::Skill, key: "W" }]);
         assert_eq!(slots_of(ORIANNA).len(), 2);
         assert_eq!(slots_of(KATARINA).iter().map(|p| p.slot).collect::<Vec<_>>(), vec![SkillSlotV1::Ult, SkillSlotV1::Skill2]);
-        for h in [SAMIRA, TF, KOGMAW, JANNA, SYNDRA, XERATH, KAYLE, JHIN, KARMA, EVELYNN, FIDDLESTICKS, RYZE, APHELIOS, VLADIMIR, SWAIN, RENATA, WUKONG] {
+        for h in [SAMIRA, TF, KOGMAW, JANNA, SYNDRA, XERATH, KAYLE, JHIN, KARMA, EVELYNN, FIDDLESTICKS, RYZE, APHELIOS, VLADIMIR, SWAIN, RENATA, WUKONG, YONE] {
             assert_eq!(slots_of(h), &[P_R], "{h}");
         }
         for h in [CAMILLE, GWEN, VIEGO, SIVIR, ZILEAN, KALISTA] {

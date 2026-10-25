@@ -1,0 +1,126 @@
+{
+  "rumble-B-1.png": {
+    "size": [
+      1254,
+      1254
+    ],
+    "alpha_levels": 256,
+    "hard_alpha": false,
+    "visible_bbox_alpha128": [
+      70,
+      437,
+      1180,
+      1189
+    ],
+    "visible_height": 752,
+    "visible_width": 1110,
+    "occupied_12px_cells": 3780,
+    "uniform_12px_cells": 0,
+    "uniform_fraction": 0.0,
+    "common_horizontal_constant_color_runs": [
+      [
+        2,
+        9745
+      ],
+      [
+        3,
+        2291
+      ],
+      [
+        4,
+        899
+      ],
+      [
+        5,
+        435
+      ],
+      [
+        6,
+        250
+      ],
+      [
+        7,
+        159
+      ],
+      [
+        8,
+        105
+      ],
+      [
+        9,
+        104
+      ],
+      [
+        10,
+        77
+      ],
+      [
+        11,
+        52
+      ]
+    ],
+    "note": "Read-only validation. Images not resized, regridded, painted or alpha-thresholded."
+  },
+  "rumble-B-2.png": {
+    "size": [
+      1254,
+      1254
+    ],
+    "alpha_levels": 256,
+    "hard_alpha": false,
+    "visible_bbox_alpha128": [
+      68,
+      437,
+      1186,
+      1186
+    ],
+    "visible_height": 749,
+    "visible_width": 1118,
+    "occupied_12px_cells": 3800,
+    "uniform_12px_cells": 0,
+    "uniform_fraction": 0.0,
+    "common_horizontal_constant_color_runs": [
+      [
+        2,
+        9751
+      ],
+      [
+        3,
+        2253
+      ],
+      [
+        4,
+        862
+      ],
+      [
+        5,
+        436
+      ],
+      [
+        6,
+        265
+      ],
+      [
+        7,
+        144
+      ],
+      [
+        8,
+        133
+      ],
+      [
+        9,
+        86
+      ],
+      [
+        10,
+        75
+      ],
+      [
+        11,
+        54
+      ]
+    ],
+    "note": "Read-only validation. Images not resized, regridded, painted or alpha-thresholded."
+  }
+}

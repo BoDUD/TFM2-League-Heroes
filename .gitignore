@@ -7,3 +7,4 @@ league/sound/sfx/*.ogg
 
 # tools/package_mod.py output (installed / uploaded copy of league/)
 dist/
+outputs/

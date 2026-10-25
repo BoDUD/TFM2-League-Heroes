@@ -11,8 +11,13 @@
 //!   移速 +10%、射程 +10000，form3 只是翅膀），死着的时候也补，所以倒下时翅膀还在；补过任何一阶就同时补上
 //!   `league_kayle_life`，主包这条命就不再补读（补读不看身上已有的阶，同名 buff 会叠成两层，射程变两倍）。
 //!
-//! 新的一阶仍由主包的等级探测在出手时认出来（金翼仪式和语音照旧）；本包只补已经升过的阶，从不提前。
-//! 第一条命（还什么都没记）和死着时升到新一阶的情况都交给主包。
+//! - **等级**（0.2.0）：主包拿最大生命值当等级表探测（10% 最大生命打破 123 / 151 / 189 的护盾），等级表以外的生命（装备）、
+//!   探测那 2 tick 里挨的一下、暴击都会让它提前好几级（游戏日志 10-24：rank5 有 9 / 23 次在 3 级，rank12 全在 6-10 级，
+//!   从没在 12 级）。副本里每个探测都换成读本包挂的等级标记 `league_kayle_lv5` / `lv8` / `lv12`（make_override.py），
+//!   被动每 tick 按她真实的等级（`level()`）把缺的标记补上，死了清掉也马上补回。
+//!
+//! 新的一阶仍由主包的那段数据在出手时给（金翼仪式和语音照旧），只是读的是等级标记；本包只补已经升过的阶，从不提前。
+//! 第一条命（还什么都没记）和死着时升到新一阶的情况都交给那段数据。
 //!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_kayle.log`，每次启动游戏重写，上一次的留在 .prev.log。
 
@@ -87,6 +92,14 @@ fn head(sim: &StableSim<'_>, id: usize) -> String {
 /// 三阶的 buff 名（主包的），按顺序。
 pub const RANKS: [&str; 3] = ["rank5", "rank8", "rank12"];
 
+/// 三阶的等级标记和要的等级：副本的数据读它们代替主包的血量探测（make_override.py 的 PROBE_SHIELDS）。
+pub const LEVEL_FLAGS: [(&str, u32); 3] = [("lv5", 5), ("lv8", 8), ("lv12", 12)];
+
+/// 到了 `level` 级身上该有、却缺了的等级标记。
+pub fn missing_flags(level: u32, has: &dyn Fn(&str) -> bool) -> Vec<String> {
+    LEVEL_FLAGS.iter().filter(|(_, at)| level >= *at).map(|(f, _)| ky(f)).filter(|n| !has(n)).collect()
+}
+
 /// 第 k 阶要补上的 buff：和主包 `AddCasterBuff` 的一样（12 级的 form3 是另一条，只带翅膀）。
 pub fn rank_buff(k: usize) -> BuffV1 {
     let mut b = BuffV1::named(&ky(RANKS[k]));
@@ -128,6 +141,8 @@ struct Ascend {
     had: [bool; 3],
     /// 上一 tick 她活着：死了 / 复活的那一刻记一行日志。
     was_alive: bool,
+    /// 挂过等级标记的最高等级：每个标记第一次挂上时记一行日志，死后补回的不记。
+    flagged: u32,
 }
 
 impl StablePassive for Ascend {
@@ -138,6 +153,15 @@ impl StablePassive for Ascend {
     fn on_update(&mut self, sim: &mut StableSim<'_>, _: u64, _player: usize, me: usize) {
         let Some(e) = sim.get_entity(me) else { return };
         let alive = e.is_alive();
+        let level = e.level() as u32;
+        // the level flags the copy's data reads in place of the health probes: laid before her next action can look
+        for name in missing_flags(level, &|n| has_buff(sim, me, n)) {
+            sim.add_buff(me, &BuffV1::named(&name));
+            if level > self.flagged {
+                wlog(format!("{} LEVEL {name} laid", head(sim, me)));
+            }
+        }
+        self.flagged = self.flagged.max(level);
         if alive {
             for k in 0..3 {
                 if !self.had[k] && has_buff(sim, me, &ky(RANKS[k])) {
@@ -178,7 +202,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v{} (Kayle: her ascension and its wings kept through death) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v{} (Kayle: her ascension at her real levels, and its wings kept through death) loaded: game {}.{}.{} abi {} log={} ===",
         env!("CARGO_PKG_VERSION"),
         v.major,
         v.minor,
@@ -187,7 +211,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
         LOG_PATH.display()
     ));
     module.add_native_passive(format!("{ID}:ascend"), Ascend::default());
-    host.log(LogLevel::Info, "league_kayle v1 loaded (Kayle: ascension and wings kept through death).");
+    host.log(LogLevel::Info, "league_kayle v2 loaded (Kayle: ascension at her real levels, kept through death).");
 }
 
 #[cfg_attr(league_bundle, allow(dead_code))]
@@ -224,6 +248,28 @@ mod tests {
         assert!(missing([true, true, true], &all).is_empty());
         let only5 = |n: &str| n == "league_kayle_rank5";
         assert_eq!(missing([true, true, false], &only5), vec!["league_kayle_rank8"]);
+    }
+
+    #[test]
+    fn level_flags_at_their_levels() {
+        let none = |_: &str| false;
+        // the game logs had rank5 at level 3 and rank12 at 6-10: the flags come at the level alone
+        assert!(missing_flags(4, &none).is_empty());
+        assert_eq!(missing_flags(5, &none), vec!["league_kayle_lv5"]);
+        assert_eq!(missing_flags(11, &none), vec!["league_kayle_lv5", "league_kayle_lv8"]);
+        assert_eq!(missing_flags(12, &none), vec!["league_kayle_lv5", "league_kayle_lv8", "league_kayle_lv12"]);
+        // after death only the cleared ones come back, never one twice
+        let has5 = |n: &str| n == "league_kayle_lv5";
+        assert_eq!(missing_flags(9, &has5), vec!["league_kayle_lv8"]);
+    }
+
+    #[test]
+    fn the_copy_reads_these_flags() {
+        let copy = include_str!("../override/league_kayle.data_champion");
+        for (f, _) in LEVEL_FLAGS {
+            assert!(copy.contains(&format!("\"buff_name\": \"{}\"", ky(f))), "{f}");
+        }
+        assert!(!copy.contains("league_kayle_probe_amp"), "a health probe is left in the copy");
     }
 
     #[test]
