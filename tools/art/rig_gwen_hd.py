@@ -2,7 +2,9 @@
 """league_gwen redone at PPU 2.84 (the user, 2026-10-25: 「接下来可以优化格温 格温感觉只要利用PPU调高像素 还有眼睛那里改一下
 就可以了」): the design is Codex's v2 picture read as drawn (tools/art/design_gwen_hd.py, 93 x 116), every action Codex's
 whole-frame redraw mended onto it (tools/art/casts_gwen_hd.py: her scissors full size and always in her right hand, each
-frame placed on the design's grid). The standing idle_base is the design itself; the idle and the ban/pick card are cut
+frame placed on the design's grid). The run is the design's own skip (run_frames): Codex drew one pose eight times, the
+same foot always kicked back (the user: 「跑步有点不对啊」「没有格温跳动的感觉 左右腿也不明显的交换」). The standing
+idle_base is the design itself; the idle and the ban/pick card are cut
 from the actions by tools/art/hero_reels.py. Her snips and the dash's mist stay baked as before
 (assets/source/native/gwen_bake.json, Rig.bake), the snips moved with the blade's tip: the old frames' tips were 42 / 39
 / 40 game px in front of her (attack frame 4, Snip Snip!'s frames 3 and 7, its frame 12), the new ones 56 / 44 / 46.5.
@@ -98,6 +100,38 @@ def on_grid(rig, d, x, y):
     return can
 
 
+# the run: her legs under the skirt (design rows from LEG_CUT, these columns) cut out whole and moved - translation only;
+# each half cycle one leg pushes off and kicks up (the near one mostly up: kicked back it would cover the far one), the
+# other lands and reaches on, the whole figure hops and the body sinks over the legs when she lands; the legs swap
+# every half cycle. Per frame: (hop up, body sink, kicking leg (dx, dy), planted leg (dx, dy)), design squares.
+LEG_CUT = 103
+LEGS = {"far": (32, 46), "near": (54, 73)}
+SKIP = {"near": [(0, 3, (-2, 0), (1, 0)), (-4, 0, (-3, -5), (1, 0)), (-8, 0, (-4, -8), (2, -1)), (-4, 1, (-3, -4), (2, 0))],
+        "far": [(0, 3, (-4, 0), (3, 0)), (-4, 0, (-6, -5), (3, 0)), (-8, 0, (-7, -8), (5, -1)), (-4, 1, (-5, -4), (4, 0))]}
+
+
+def run_frames(rig):
+    d = rig.D.d0
+    legs = {}
+    for name, (x0, x1) in LEGS.items():
+        m = np.zeros(d.shape[:2], bool)
+        m[LEG_CUT:, x0:x1] = True
+        legs[name] = m & (d[..., 3] > 0)
+    body = d.copy()
+    body[legs["far"] | legs["near"]] = 0
+    out = []
+    for kick, plant in (("near", "far"), ("far", "near")):
+        for hop, sink, kd, pd in SKIP[kick]:
+            can = rig.canvas()
+            for name, (dx, dy) in ((kick, kd), (plant, pd)):
+                ys, xs = np.nonzero(legs[name])
+                can[ys + dy + hop + rig.oy, xs + dx + rig.ox] = d[ys, xs]
+            ys, xs = np.nonzero(body[..., 3] > 0)
+            can[ys + sink + hop + rig.oy, xs + rig.ox] = body[ys, xs]      # the body over the legs
+            out.append(can)
+    return out
+
+
 def frames(rig):
     sheet = R.sheet_of(HERO)
     casts = CG.placed()
@@ -108,6 +142,10 @@ def frames(rig):
         n = len(sheet[tag])
         if tag == "idle_base":
             fr = [on_grid(rig, rig.D.d0, 0, 0) for _ in range(n)]
+        elif tag == "run":
+            fr = run_frames(rig)
+            if len(fr) != n:
+                sys.exit(f"run: {len(fr)} frames, the sheet has {n}")
         else:
             fr = [on_grid(rig, *casts[f"{tag}_{k + 1}"]) for k in range(n)]
             if tag == "hit":
