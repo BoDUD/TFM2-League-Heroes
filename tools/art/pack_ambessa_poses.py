@@ -12,7 +12,7 @@ Sundering Slam's leaping slam, Repudiation's crossed-blade brace and slam, Lacer
 grab and slam, Drakehound's Step's lunging dash), drafted in a session without the League client. With the client
 (the default; the user: 「重新参考英雄联盟的 重新整理了给我」) each pose also carries League's own frame,
 <k>_<name>_league.png (tools/lol/pose_ref.py at the 3/4 camera, Riot's, kept local): the clip found in her animation
-bin at run time by its role (LEAGUE: the clip, the moment as a share of it; the names it picked go to
+bin at run time by its role (LEAGUE: the clip, the moment in ms; the names it picked go to
 assets/source/ambessa/lol_names.txt with pack_ambessa_picture.py's), and --check DIR shows every skeleton beside it so
 the skeletons can be set after League's frames before the pack goes out. --no-lol: no League frames, the prompt's words
 only. Every bone at the design's
@@ -110,19 +110,20 @@ POSES = {
                  dict(pelvis=(64.0, 54.0), lift=None, shift=-8, spine=168, near_arm=(-40, -50, -50),
                       far_arm=((100.0, 48.0), -1, 95), near_leg=((46.0, 95.0), -1, -60), far_leg=((86.0, 95.0), -1, 60),
                       blades=dict(near_arm=dict(dir=-45.0, side=1), far_arm=dict(dir=80.0, side=-1)))),
-    "q_wind": ("狡诈横扫起手：身子往左后方扭到底，两只手把两把刀都拉到身体左边腰高的位置（刀尖朝左后方），膝盖弯、重心压低",
-               "CUNNING SWEEP WIND-UP - twisted all the way back toward the image left, BOTH fists pulled to her left at "
-               "waist height with both blades trailing back to the image left, knees bent, low.",
-               dict(pelvis=(64.0, 56.0), lift=None, shift=14, spine=-170, near_arm=((30.0, 50.0), 1, -95),
-                    far_arm=((44.0, 52.0), 1, -90), near_leg=((40.0, 95.0), -1, -60), far_leg=((86.0, 95.0), -1, 60),
-                    blades=dict(near_arm=dict(dir=-100.0, side=1), far_arm=dict(dir=-80.0, side=-1)))),
-    "q_sweep": ("狡诈横扫：两只手臂往前伸直、两把刀在身前横扫成半圈（近侧的刀尖朝右前方、远侧的刀尖朝右下方），弓步往前压",
-                "CUNNING SWEEP - BOTH arms swung straight out in front of her, the two blades sweeping a half circle at "
-                "her front (the near blade's tip forward to the image right, the far blade's to the lower right), a "
-                "deep lunge forward.",
-                dict(pelvis=(64.0, 57.0), lift=None, shift=-14, spine=160, near_arm=((80.0, 44.0), 1, 95),
-                     far_arm=((96.0, 54.0), -1, 110), near_leg=((42.0, 95.0), -1, -70), far_leg=((90.0, 95.0), -1, 60),
-                     blades=dict(near_arm=dict(dir=95.0, side=1), far_arm=dict(dir=60.0, side=-1)))),
+    "q_wind": ("狡诈横扫起手：深深蹲下，两只手臂往两边张开、压低，两把刀在身体两侧齐膝高往外甩开（刀尖朝外、略朝上），铁链跟着甩起来",
+               "CUNNING SWEEP WIND-UP - squatting deep and low, BOTH arms spread out low to the sides, the two blades "
+               "swung out at knee height on either side of her (their tips pointing outward and a little up), the chains "
+               "swinging with them.",
+               dict(pelvis=(64.0, 60.0), lift=None, shift=-3, spine=172, near_arm=(-45, -55, -60),
+                    far_arm=(40, 50, 55), near_leg=((38.0, 95.0), 1, -70), far_leg=((88.0, 95.0), -1, 70),
+                    blades=dict(near_arm=dict(dir=-110.0, side=-1), far_arm=dict(dir=110.0, side=1)))),
+    "q_sweep": ("狡诈横扫：身子挺直、踮起脚，两只手臂往两边伸直齐肩高，两把刀在两边往外上方横扫出去（近侧的刀尖朝左上、远侧的刀尖朝右上），远侧的腿往前迈",
+                "CUNNING SWEEP - standing tall on her toes, BOTH arms flung straight out to the sides at shoulder height, "
+                "the two blades sweeping out and up on either side (the near blade's tip to the upper left, the far "
+                "blade's to the upper right), the far leg stepping forward.",
+                dict(pelvis=(64.0, 50.0), lift=2, shift=-2, spine=176, near_arm=(-100, -95, -95),
+                     far_arm=(100, 95, 95), near_leg=((48.0, 95.0), 1, -50), far_leg=((80.0, 93.0), -1, 50),
+                     blades=dict(near_arm=dict(dir=-125.0, side=-1), far_arm=dict(dir=125.0, side=1)))),
     "q2_leap": ("裂地重击起跳：双脚离地跳起（脚离地约 10 格），两只手把两把刀一起高高举过头顶（刀尖朝左后上方，不挡脸），膝盖收起",
                 "SUNDERING SLAM LEAP - jumping (the feet about 10 squares off the ground), BOTH blades raised high over "
                 "her head together (their tips up and back to the upper left, never over the face), knees drawn up.",
@@ -135,13 +136,13 @@ POSES = {
                 dict(pelvis=(62.0, 64.0), lift=None, shift=-14, spine=145, near_arm=((84.0, 60.0), -1, 100),
                      far_arm=((92.0, 62.0), -1, 110), near_leg=((42.0, 95.0), -1, -80), far_leg=((82.0, 95.0), -1, 60),
                      blades=dict(near_arm=dict(dir=40.0, side=1), far_arm=dict(dir=35.0, side=1)))),
-    "w_guard": ("拒斥格挡：两把刀在身前交叉成 X 挡着（刀身竖着、刀尖朝上，交叉点在胸口下面，刀尖在脸的两边、不挡脸），两只拳头在肚子前，膝盖弯、站稳",
-                "REPUDIATION BRACE - the two blades CROSSED in an X in front of her body (upright, tips up, crossing "
-                "below her chest, the tips beside her face, never over it), both fists in front of her belly, knees "
-                "bent, braced.",
-                dict(pelvis=(64.0, 56.0), lift=None, shift=0, spine=178, near_arm=((56.0, 50.0), 1, 60),
-                     far_arm=((76.0, 50.0), -1, -60), near_leg=((44.0, 95.0), -1, -60), far_leg=((84.0, 95.0), -1, 60),
-                     blades=dict(near_arm=dict(dir=140.0, side=1), far_arm=dict(dir=-140.0, side=-1)))),
+    "w_guard": ("拒斥格挡：远侧那只手把刀举过头顶横着挡住（刀身横在头的上方、刀尖朝左，不挡脸），近侧那只手的刀护在身前，弓着背、膝盖弯、站稳",
+                "REPUDIATION BRACE - the FAR fist raised over her head holding its blade across above her head as a "
+                "guard (the blade lying flat over the head, its tip to the image left, never over the face), the NEAR "
+                "blade held across in front of her belly, hunched, knees bent, braced.",
+                dict(pelvis=(64.0, 56.0), lift=None, shift=0, spine=172, near_arm=((70.0, 54.0), 1, 80),
+                     far_arm=(170, 178, 180), near_leg=((44.0, 95.0), -1, -60), far_leg=((84.0, 95.0), -1, 60),
+                     blades=dict(near_arm=dict(dir=70.0, side=1), far_arm=dict(dir=-110.0, side=1)))),
     "w_slam": ("拒斥砸地：深深蹲下，两只手把两把刀往两边的地上砸下去（近侧的刀在画面左下、远侧的刀在画面右下，刀尖着地）",
                "REPUDIATION SLAM - squatting deep, BOTH blades slammed down onto the ground on either side of her (the "
                "near one low on the image left, the far one low on the image right, their tips on the ground).",
@@ -172,13 +173,12 @@ POSES = {
              dict(pelvis=(62.0, 57.0), lift=None, shift=4, spine=150, near_arm=(-70, -75, -80),
                   far_arm=(-45, -60, -70), near_leg=((34.0, 95.0), 1, -80), far_leg=((86.0, 95.0), -1, 60),
                   blades=dict(near_arm=dict(dir=-95.0, side=1), far_arm=dict(dir=-80.0, side=1)))),
-    "r_grab": ("公开处决抓人：远侧那只手往前（画面右边）伸出去、五指张开抓住敌人（齐肩高，刀从手腕垂下），近侧那只手把刀高高举到左后上方（不挡脸），弓步",
-               "PUBLIC EXECUTION GRAB - the FAR hand thrust forward to the image right at shoulder height, open, seizing "
-               "her victim (its blade hanging from the wrist), the NEAR blade raised high behind her to the upper left "
-               "(never over the face), a lunge.",
-               dict(pelvis=(64.0, 55.0), lift=None, shift=-8, spine=168, near_arm=(-120, -160, -165),
-                    far_arm=((104.0, 36.0), -1, 95), near_leg=((44.0, 95.0), -1, -60), far_leg=((88.0, 95.0), -1, 60),
-                    blades=dict(near_arm=dict(dir=-135.0, side=1), far_arm=dict(dir=10.0, side=-1)))),
+    "r_grab": ("公开处决抓人：远侧那只手高高举过头顶（把抓住的敌人提起来，刀柄在拳头里、刀尖朝上），近侧那只手的刀垂在身侧，身子挺直、踮起脚",
+               "PUBLIC EXECUTION GRAB - the FAR fist thrust high over her head, hoisting her victim (its blade in the "
+               "fist, tip up), the NEAR blade hanging at her side, standing tall on her toes.",
+               dict(pelvis=(64.0, 50.0), lift=2, shift=0, spine=178, near_arm=(-20, -15, -15),
+                    far_arm=(170, 175, 180), near_leg=((52.0, 95.0), 1, -50), far_leg=((78.0, 95.0), -1, 50),
+                    blades=dict(near_arm=dict(dir=-35.0, side=1), far_arm=dict(dir=175.0, side=-1)))),
     "r_slam": ("公开处决砸下：几乎单膝跪地的深蹲，远侧那只手往前下方猛按（把敌人按进画面右边的地里），近侧那只手的刀从上往下砍到身前地面（刀尖着地）",
                "PUBLIC EXECUTION SLAM - dropping into a deep crouch, almost kneeling, the FAR hand driven down in front "
                "of her (pinning her victim into the ground on the image right), the NEAR blade hewn down onto the ground "
@@ -227,29 +227,31 @@ POSES = {
 }
 
 
-# pose -> (clip role, the moment as a share of that clip): League's frame each skeleton follows. The roles are looked up
-# in her animation bin by these patterns (stems in lower case; newer champions drop the prefix: Mel's idle1); a role
-# with no clip falls back to the next one listed (Sundering Slam to the Q clip's end, the Step to the run).
+# pose -> (clip role, the moment in ms into that clip): League's frame each skeleton follows, picked on strips of her
+# clips (tools/lol/pose_ref.py). The roles are looked up in her animation bin by these patterns (stems in lower case),
+# the first pattern with a hit wins and among its hits the shortest stem: her PassiveDash_Spell* clips (each ability
+# cast out of Drakehound's Step) and Joke_Intro_Run match the looser patterns too. A role with no clip falls back to
+# the next one listed (Sundering Slam to the Q clip, the Step to the run).
 ROLES = {
-    "a1": [r"(^|_)attack1$", r"(^|_)attack_?1"],
-    "a2": [r"(^|_)attack2$", r"(^|_)attack_?2"],
-    "q": [r"(^|_)spell1(_?a)?$", r"(^|_)spell1"],
-    "q2": [r"(^|_)spell1_?b$", r"(^|_)spell1_?2$", r"(^|_)spell1_?recast", r"(^|_)spell1_?slam"],
-    "w": [r"(^|_)spell2(_?a)?$", r"(^|_)spell2"],
-    "e": [r"(^|_)spell3(_?a)?$", r"(^|_)spell3"],
-    "r": [r"(^|_)spell4(_?a)?$", r"(^|_)spell4"],
-    "step": [r"(^|_)passive", r"(^|_)dash", r"(^|_)step"],
-    "run": [r"(^|_)run(_?base)?$", r"(^|_)run\d*$", r"(^|_)run"],
-    "death": [r"(^|_)death$", r"(^|_)death"],
+    "a1": [r"^attack_?1$", r"(^|_)attack_?1"],
+    "a2": [r"^attack_?2$", r"(^|_)attack_?2"],
+    "q": [r"^spell1_?a?$", r"(^|_)spell1(_?a)?$", r"(^|_)spell1"],
+    "q2": [r"^spell1_?b$", r"(^|_)spell1_?b$", r"(^|_)spell1_?2$", r"(^|_)spell1_?recast", r"(^|_)spell1_?slam"],
+    "w": [r"^spell2_?a?$", r"(^|_)spell2(_?a)?$", r"(^|_)spell2"],
+    "e": [r"^spell3_?a?$", r"(^|_)spell3(_?a)?$", r"(^|_)spell3"],
+    "r": [r"^spell4_?hit$", r"^spell4_?a?$", r"(^|_)spell4"],
+    "step": [r"^passivedash_spell1_?a$", r"(^|_)passivedash", r"(^|_)dash", r"(^|_)step"],
+    "run": [r"^run(_?base)?$", r"^run\d*$", r"(^|_)run"],
+    "death": [r"^death$", r"(^|_)death"],
 }
-FALLBACK = {"q2": ("q", 0.8), "step": ("run", None)}
+FALLBACK = {"q2": ("q", 600), "step": ("run", None)}
 LEAGUE = {
-    "a1_wind": ("a1", 0.3), "a1_slash": ("a1", 0.55), "a2_wind": ("a2", 0.3), "a2_slash": ("a2", 0.55),
-    "q_wind": ("q", 0.25), "q_sweep": ("q", 0.5), "q2_leap": ("q2", 0.3), "q2_slam": ("q2", 0.55),
-    "w_guard": ("w", 0.3), "w_slam": ("w", 0.65), "e_lash1": ("e", 0.35), "e_lash2": ("e", 0.6),
-    "step": ("step", 0.4), "r_grab": ("r", 0.3), "r_slam": ("r", 0.6),
-    "run1": ("run", 0.0), "run2": ("run", 0.25), "run3": ("run", 0.5), "run4": ("run", 0.75),
-    "d_kneel": ("death", 0.35), "d_slump": ("death", 0.7),
+    "a1_wind": ("a1", 125), "a1_slash": ("a1", 250), "a2_wind": ("a2", 125), "a2_slash": ("a2", 250),
+    "q_wind": ("q", 88), "q_sweep": ("q", 350), "q2_leap": ("q2", 150), "q2_slam": ("q2", 300),
+    "w_guard": ("w", 250), "w_slam": ("w", 500), "e_lash1": ("e", 175), "e_lash2": ("e", 350),
+    "step": ("step", 150), "r_grab": ("r", 488), "r_slam": ("r", 838),
+    "run1": ("run", 0), "run2": ("run", 267), "run3": ("run", 533), "run4": ("run", 800),
+    "d_kneel": ("death", 900), "d_slump": ("death", 2250),
 }
 
 
@@ -266,20 +268,20 @@ def league_clips(lol):
     pick = {}
     for role, pats in ROLES.items():
         for pat in pats:
-            hit = sorted(st for st, (_, d) in clips.items() if d and re.search(pat, st))
+            hit = sorted((st for st, (_, d) in clips.items() if d and re.search(pat, st)), key=lambda st: (len(st), st))
             if hit:
                 pick[role] = hit[0]
                 break
     out = {}
-    for pose, (role, share) in LEAGUE.items():
-        r, sh = role, share
+    for pose, (role, ms) in LEAGUE.items():
+        r, at = role, ms
         if r not in pick and r in FALLBACK:
             r, f = FALLBACK[r]
-            sh = f if f is not None else share
+            at = f if f is not None else ms
         if r not in pick:
             print("no League clip for", pose, "(role", role + ")")
             continue
-        out[pose] = f"{pick[r]}@{round(clips[pick[r]][1] * sh * 1000)}"
+        out[pose] = f"{pick[r]}@{min(at, round(clips[pick[r]][1] * 1000))}"
     path = os.path.join(SRC, "lol_names.txt")
     old = open(path, encoding="utf-8").read() if os.path.isfile(path) else ""
     old = old.split("\n## poses")[0].rstrip("\n")

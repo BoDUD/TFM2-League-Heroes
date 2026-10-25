@@ -1,6 +1,6 @@
 """Write assets/source/ambessa/POSE_PROMPTS.md from tools/art/pack_ambessa_poses.py's POSES (run from the repo root).
 gen_yorick_pose_md.py's way: every limb's length in squares for Codex to count; her two blades are big props, placed
-by the teal / light-blue crescents on each skeleton. No League frames (the pack was built without the client): each
+by the teal / light-blue crescents on each skeleton. League's frame beside each skeleton (`*_league.png`, from the local client); each
 pose is described in words too."""
 import sys
 sys.path.insert(0, 'tools/art')
@@ -18,7 +18,7 @@ a("> - 安蓓萨的造型用户已经定稿（`2_design.png` 是你第 1 步画�
   "银白色往后梳的波浪短发、深棕色皮肤、红唇、金耳环；肩上一圈深青绿色的尖毛领；黑铁胸甲带铜色接缝、红围巾、红腰布垂到膝下；"
   "粗壮的上臂、黑色的大护臂；黑铁腿甲、黑靴；**两只手各握一把带钩的月牙形龙犬刃**（亮银刃边、深色刃身、三角镂空），"
   "刀柄连着粗铁链，两把刀垂在身体两侧）。")
-a(f"> - 英雄联盟里她左右开弓地砍、横扫半圈、跳起来砸地、交叉双刀格挡再砸地、抡着铁链甩刀、闪过去按住敌人砸下、冲刺突进，这些靠挪动定稿的部件摆不出来，"
+a(f"> - 英雄联盟里她左右开弓地砍、张开双臂把两把刀甩开横扫、跳起来砸地、举刀过头格挡再砸地、抡着铁链甩刀、把敌人提起来再砸下、冲刺突进，这些靠挪动定稿的部件摆不出来，"
   f"所以请你按骨架画 **{n} 个姿势**（{n - 6} 个动作 + 4 帧跑步 + 2 帧死亡），**每个一张图**。待机、挨打我从定稿本身来做，不用画。")
 a(f"> - **每张都是同一个安蓓萨**：样子、颜色、粗细、长短全照 `2_design.png`，**格子和它一样大：每格 {P.PX} px**，画布 **1254 × 1254**，"
   f"红线是地面（**脚底 y = {P.SOLE_Y}**），网格从画布左上角对齐。")

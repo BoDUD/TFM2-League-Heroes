@@ -2,7 +2,7 @@
 
 > **这一轮必须用画图模型（image_gen）画，不要用 Python 脚本逐格写。**
 > - 安蓓萨的造型用户已经定稿（`2_design.png` 是你第 1 步画的 A-1，头按用户要求缩小到约四分之一、身子更清楚：3/4 正面朝右的 Q 版女军阀——银白色往后梳的波浪短发、深棕色皮肤、红唇、金耳环；肩上一圈深青绿色的尖毛领；黑铁胸甲带铜色接缝、红围巾、红腰布垂到膝下；粗壮的上臂、黑色的大护臂；黑铁腿甲、黑靴；**两只手各握一把带钩的月牙形龙犬刃**（亮银刃边、深色刃身、三角镂空），刀柄连着粗铁链，两把刀垂在身体两侧）。
-> - 英雄联盟里她左右开弓地砍、横扫半圈、跳起来砸地、交叉双刀格挡再砸地、抡着铁链甩刀、闪过去按住敌人砸下、冲刺突进，这些靠挪动定稿的部件摆不出来，所以请你按骨架画 **21 个姿势**（15 个动作 + 4 帧跑步 + 2 帧死亡），**每个一张图**。待机、挨打我从定稿本身来做，不用画。
+> - 英雄联盟里她左右开弓地砍、张开双臂把两把刀甩开横扫、跳起来砸地、举刀过头格挡再砸地、抡着铁链甩刀、把敌人提起来再砸下、冲刺突进，这些靠挪动定稿的部件摆不出来，所以请你按骨架画 **21 个姿势**（15 个动作 + 4 帧跑步 + 2 帧死亡），**每个一张图**。待机、挨打我从定稿本身来做，不用画。
 > - **每张都是同一个安蓓萨**：样子、颜色、粗细、长短全照 `2_design.png`，**格子和它一样大：每格 8 px**，画布 **1254 × 1254**，红线是地面（**脚底 y = 1200**），网格从画布左上角对齐。
 > - **骨架**（每个姿势一张 `*_skeleton.png`）：绿线 = 脊柱（骨盆到脖子根），**红线 = 近侧的腿（画面左边那条）**，**蓝线 = 远侧的腿（画面右边那条）**，**紫线 = 近侧的手臂**（定稿里在画面左边），**橙线 = 远侧的手臂**（定稿里在画面右边）；两条手臂末端**大一点的圆点是拳头**；**灰框 = 头的位置**（头发连脸）；**青绿色的月牙 = 近侧那只手的刀**，**浅蓝色的月牙 = 远侧那只手的刀**（月牙上的小圆圈 = 刀柄）；**深灰直线 = 铁链**（刀被甩出去、不在手里的时候，从拳头连到刀柄）。`0_design_skeleton.png` 是同样的骨架画在定稿上，看每条线对应身体的哪一部分。
 > - **长短要数格子**：**每条腿从胯到脚底约 44 格**；**近侧的手臂从肩膀到拳头约 34 格、远侧的约 32 格**；头（头发连脸）32 × 27 格；**每把刀从刀柄到刀尖约 34 格、最宽处约 18 格**（和定稿一样大，不放大不缩小）。骨架就是按定稿量的：**腿、手臂沿着骨架画，长短粗细和定稿一样，关节处弯折，不要拉长或压短**（之前一个英雄的腿画长了，只能重画——请画完数一数），**不要把直的腿整块转个方向贴上去**。手臂从肩膀长出来，不能悬空；毛领、围巾、腰布跟着身子走、摆动。
@@ -18,16 +18,16 @@
 | 4 | `ambessa-pose-a1_slash.png` | 普攻一砍下：身子往前压、弓步，近侧那只手的刀从左上方斜着砍到身前右下方（刀尖朝右下），远侧那只手往后收 |
 | 5 | `ambessa-pose-a2_wind.png` | 普攻二起手：身子往右前方扭，远侧（画面右边）那只手把刀举到右肩上方（刀尖朝上，在头的右上方，不挡脸），近侧那只手的刀垂在身前 |
 | 6 | `ambessa-pose-a2_slash.png` | 普攻二横扫：远侧那只手的刀从右上方往前横扫到身前（刀尖朝右、略朝下），身子往前压，近侧的刀往后摆 |
-| 7 | `ambessa-pose-q_wind.png` | 狡诈横扫起手：身子往左后方扭到底，两只手把两把刀都拉到身体左边腰高的位置（刀尖朝左后方），膝盖弯、重心压低 |
-| 8 | `ambessa-pose-q_sweep.png` | 狡诈横扫：两只手臂往前伸直、两把刀在身前横扫成半圈（近侧的刀尖朝右前方、远侧的刀尖朝右下方），弓步往前压 |
+| 7 | `ambessa-pose-q_wind.png` | 狡诈横扫起手：深深蹲下，两只手臂往两边张开、压低，两把刀在身体两侧齐膝高往外甩开（刀尖朝外、略朝上），铁链跟着甩起来 |
+| 8 | `ambessa-pose-q_sweep.png` | 狡诈横扫：身子挺直、踮起脚，两只手臂往两边伸直齐肩高，两把刀在两边往外上方横扫出去（近侧的刀尖朝左上、远侧的刀尖朝右上），远侧的腿往前迈 |
 | 9 | `ambessa-pose-q2_leap.png` | 裂地重击起跳：双脚离地跳起（脚离地约 10 格），两只手把两把刀一起高高举过头顶（刀尖朝左后上方，不挡脸），膝盖收起 |
 | 10 | `ambessa-pose-q2_slam.png` | 裂地重击砸下：落地深蹲，两只手把两把刀一起往身前（画面右边）的地上狠狠砸下（刀尖砸在地面线上），身子往前扑 |
-| 11 | `ambessa-pose-w_guard.png` | 拒斥格挡：两把刀在身前交叉成 X 挡着（刀身竖着、刀尖朝上，交叉点在胸口下面，刀尖在脸的两边、不挡脸），两只拳头在肚子前，膝盖弯、站稳 |
+| 11 | `ambessa-pose-w_guard.png` | 拒斥格挡：远侧那只手把刀举过头顶横着挡住（刀身横在头的上方、刀尖朝左，不挡脸），近侧那只手的刀护在身前，弓着背、膝盖弯、站稳 |
 | 12 | `ambessa-pose-w_slam.png` | 拒斥砸地：深深蹲下，两只手把两把刀往两边的地上砸下去（近侧的刀在画面左下、远侧的刀在画面右下，刀尖着地） |
 | 13 | `ambessa-pose-e_lash1.png` | 割裂一：两只手臂往两边张开，两把刀被铁链甩出去、飞在身体两侧（近侧的刀在画面左边齐腰高、远侧的刀在画面右边齐肩高），铁链从拳头拉直连到刀柄，身子微微往右转 |
 | 14 | `ambessa-pose-e_lash2.png` | 割裂二：转了半圈，手臂换个方向，两把刀被铁链甩到另一边（近侧的刀在画面右下、远侧的刀在画面左上方、高过头，不挡脸），铁链拉直 |
 | 15 | `ambessa-pose-step.png` | 龙犬之步：往前（画面右边）冲刺的一步，身子往前倾得很厉害，前腿弓、后腿蹬直，两把刀都拖在身后（刀尖朝左下、离地） |
-| 16 | `ambessa-pose-r_grab.png` | 公开处决抓人：远侧那只手往前（画面右边）伸出去、五指张开抓住敌人（齐肩高，刀从手腕垂下），近侧那只手把刀高高举到左后上方（不挡脸），弓步 |
+| 16 | `ambessa-pose-r_grab.png` | 公开处决抓人：远侧那只手高高举过头顶（把抓住的敌人提起来，刀柄在拳头里、刀尖朝上），近侧那只手的刀垂在身侧，身子挺直、踮起脚 |
 | 17 | `ambessa-pose-r_slam.png` | 公开处决砸下：几乎单膝跪地的深蹲，远侧那只手往前下方猛按（把敌人按进画面右边的地里），近侧那只手的刀从上往下砍到身前地面（刀尖着地） |
 | 18 | `ambessa-pose-run1.png` | 跑 1（远侧腿往前迈大步着地，近侧腿往后伸）：身子前倾，两把刀拖在身后两侧（刀尖朝左下、离地），手臂往后摆 |
 | 19 | `ambessa-pose-run2.png` | 跑 2（近侧腿在身下撑地，远侧腿屈膝抬到前面）：身子高一格，两把刀还拖在身后 |
@@ -56,16 +56,16 @@ THE POSE: <one line from the list below>
 - a1_slash: `ATTACK 1 SLASH - pressing forward in a lunge, the NEAR blade cut down from the upper left to the lower right in front of her belly (its tip low on the image right), the far arm pulled back.`
 - a2_wind: `ATTACK 2 WIND-UP - twisting toward the image right, the FAR fist raised above her far shoulder with its blade pointing up (above her head on the right, never over the face), the near blade hanging in front of her.`
 - a2_slash: `ATTACK 2 SWEEP - the FAR blade swept across in front of her from the upper right (its tip pointing to the image right and a little down), the body pressing forward, the near blade swung back.`
-- q_wind: `CUNNING SWEEP WIND-UP - twisted all the way back toward the image left, BOTH fists pulled to her left at waist height with both blades trailing back to the image left, knees bent, low.`
-- q_sweep: `CUNNING SWEEP - BOTH arms swung straight out in front of her, the two blades sweeping a half circle at her front (the near blade's tip forward to the image right, the far blade's to the lower right), a deep lunge forward.`
+- q_wind: `CUNNING SWEEP WIND-UP - squatting deep and low, BOTH arms spread out low to the sides, the two blades swung out at knee height on either side of her (their tips pointing outward and a little up), the chains swinging with them.`
+- q_sweep: `CUNNING SWEEP - standing tall on her toes, BOTH arms flung straight out to the sides at shoulder height, the two blades sweeping out and up on either side (the near blade's tip to the upper left, the far blade's to the upper right), the far leg stepping forward.`
 - q2_leap: `SUNDERING SLAM LEAP - jumping (the feet about 10 squares off the ground), BOTH blades raised high over her head together (their tips up and back to the upper left, never over the face), knees drawn up.`
 - q2_slam: `SUNDERING SLAM - landing in a deep crouch, BOTH blades slammed down together onto the ground in front of her (on the image right, their tips on the ground line), the body thrown forward.`
-- w_guard: `REPUDIATION BRACE - the two blades CROSSED in an X in front of her body (upright, tips up, crossing below her chest, the tips beside her face, never over it), both fists in front of her belly, knees bent, braced.`
+- w_guard: `REPUDIATION BRACE - the FAR fist raised over her head holding its blade across above her head as a guard (the blade lying flat over the head, its tip to the image left, never over the face), the NEAR blade held across in front of her belly, hunched, knees bent, braced.`
 - w_slam: `REPUDIATION SLAM - squatting deep, BOTH blades slammed down onto the ground on either side of her (the near one low on the image left, the far one low on the image right, their tips on the ground).`
 - e_lash1: `LACERATE 1 - both arms flung out to the sides, the two blades WHIRLED OUT ON THEIR CHAINS and flying at her sides (the near blade out on the image left at waist height, the far blade out on the image right at shoulder height), each chain pulled straight from the fist to the blade's handle, turning a little to the right.`
 - e_lash2: `LACERATE 2 - half a turn on, the arms swapped over, the blades whirled round on their chains to the other side (the near blade low on the image right, the far blade high on the image left above her head, never over the face), the chains pulled straight.`
 - step: `DRAKEHOUND'S STEP - a dashing lunge forward to the image right, the body leaning far forward, the front leg bent, the back leg pushing straight, both blades trailing behind her (their tips low on the image left, off the ground).`
-- r_grab: `PUBLIC EXECUTION GRAB - the FAR hand thrust forward to the image right at shoulder height, open, seizing her victim (its blade hanging from the wrist), the NEAR blade raised high behind her to the upper left (never over the face), a lunge.`
+- r_grab: `PUBLIC EXECUTION GRAB - the FAR fist thrust high over her head, hoisting her victim (its blade in the fist, tip up), the NEAR blade hanging at her side, standing tall on her toes.`
 - r_slam: `PUBLIC EXECUTION SLAM - dropping into a deep crouch, almost kneeling, the FAR hand driven down in front of her (pinning her victim into the ground on the image right), the NEAR blade hewn down onto the ground in front of her (its tip on the ground).`
 - run1: `RUN 1 - a long stride: the FAR leg reaching forward with its foot landing, the NEAR leg stretched back, leaning forward, both blades trailing behind at her sides (tips low on the image left, off the ground).`
 - run2: `RUN 2 - the near leg under the body carrying her, the FAR knee lifted forward, the body one square higher, both blades still trailing behind.`
