@@ -36,7 +36,8 @@ R = "<#ef5350ff>"      # crowd control
 E = "<>"
 # champion_view: set from tfm2_ase.py face once the sheet exists
 # (2026-10-18 at 31 rows: --face 2,-20 --banpick -12 - the brow gem's row; her top 26.7 px over the frame centre)
-VIEW = {"face": {"x": 2, "y": -20}, "center": {"x": 0, "y": -14}, "banpick_center": {"x": 0, "y": -12}}
+# 2026-10-25: face (2,-23) - (2,-20) left the crest out, the purple eyes on top and body below; kept equal to champion_view and ppu_restyle.py
+VIEW = {"face": {"x": 2, "y": -23}, "center": {"x": 0, "y": -14}, "banpick_center": {"x": 0, "y": -12}}
 
 
 def mag(d, r):
