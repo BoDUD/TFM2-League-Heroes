@@ -102,7 +102,7 @@ def px_ms(speed):
 
 
 # the fight's steps in order (showcase); skills() plays some of them alone
-FIGHT = ["walk_in", "attack", "q_e", "r_q", "seal"]
+FIGHT = ["walk_in", "attack", "q_e", "back", "r_q", "seal"]
 
 
 def showcase(out, z=3, steps=FIGHT, W=320, H=150, gap=150, tail=1500, w_ready=True):
@@ -245,6 +245,10 @@ def showcase(out, z=3, steps=FIGHT, W=320, H=150, gap=150, tail=1500, w_ready=Tr
             pursuit()
             stab()
             stab()
+        elif step == "back":            # past him after the dash: round to his front again, facing him
+            walk(far - 40)
+            c.facing_left = False
+            c.wait(200)
         elif step == "w":               # the soul fire alone: faster stabs in his W look (the add-on's)
             ignite()
             stab()
