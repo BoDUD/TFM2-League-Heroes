@@ -58,6 +58,10 @@ STAND = 32                     # the idle's standing column: under his middle, b
 HEAD = (PK.HEAD[2], PK.HEAD[0])            # the design's helmet box top-left (column, row) in hd/idle.png
 GROUND = {"r_sweep": 55, "d_kneel": 51}    # the soles' / knees' row where the sceptre lies lower, in front of him
 S_PPU = 1.5                    # the summons' sheets (the user's picks: soldier 36, guard 32, disc 48 game px, as drawn)
+# the sand soldiers (front and the add-on's side view) shown at 70 % (the user, 2026-10-25: 「沙皇的沙兵游戏里这么大？得缩小
+# 一点吧」 - drawn 36 game px against Azir's 30 crest to soles at his SIZES 0.80): the same pixels at a denser 1.5 / 0.7, so
+# league.dll draws them smaller (hd.rs rows), their feet laid FEET game px under the pivot at that density
+SOLDIER_PPU = 2.143
 FEET = R.FEET
 
 
@@ -173,11 +177,11 @@ class Summon:
     """A summon's frames as dense canvases: pictures placed about the pivot (a ground spot's soles are FEET under it,
     like a unit's), each `sink` rows under the ground clipped (rising out of the sand)."""
 
-    def __init__(self, W=150, H=200):
-        self.W, self.H = W, H
+    def __init__(self, W=150, H=200, ppu=S_PPU):
+        self.W, self.H, self.ppu = W, H, ppu
         self.px = W / 2.0
         self.soles = H - 30
-        self.py = self.soles - FEET * S_PPU
+        self.py = self.soles - FEET * ppu
 
     def frame(self, items):
         """items: [(picture, (dx, dy) game px off the pivot, sink rows, mirrored[, root column])] drawn back to front:
@@ -187,8 +191,8 @@ class Summon:
             if mirror:
                 d = d[:, ::-1]
                 root = [d.shape[1] - 1 - r for r in root]
-            x0 = int(round(self.px + dx * S_PPU - d.shape[1] / 2)) if not root else int(round(self.px + dx * S_PPU)) - root[0]
-            ground = self.soles + int(round(dy * S_PPU))
+            x0 = int(round(self.px + dx * self.ppu - d.shape[1] / 2)) if not root else int(round(self.px + dx * self.ppu)) - root[0]
+            ground = self.soles + int(round(dy * self.ppu))
             y0 = ground - d.shape[0] + sink
             ys, xs = np.nonzero(d[..., 3] > 0)
             ty, tx = ys + y0, xs + x0
@@ -231,7 +235,7 @@ def summon_tags():
     sol, lift, stab = load("soldier.png"), load("soldier_lift.png"), load("soldier_stab.png")
     g1, g2 = load("guard_push1.png"), load("guard_push2.png")
     disc = load("disc.png")
-    S = Summon()
+    S = Summon(ppu=SOLDIER_PPU)
     soldier = {}
     for s, at in SLOT_AT.items():
         soldier[f"soldier_{s}"] = [(S.frame([(sol, at, 0, False)]), STEP)]
@@ -253,7 +257,7 @@ def summon_tags():
     soldier = {"idle": soldier["soldier_a"], **soldier}
     guard = {"idle": guard["charge_r_a"], **guard}
     disc_tags = {"idle": disc_tags["disc"], **disc_tags}
-    SS = Summon(216, 90)
+    SS = Summon(216, 120, ppu=SOLDIER_PPU)
     side = side_soldier(SS)
     side = {"idle": side["stand_r"], **side}
     return {"league_azir_soldier": (S, soldier), "league_azir_guard": (W, guard), "league_azir_disc": (D, disc_tags),
@@ -270,11 +274,11 @@ def summon_sheets():
             ones, hds = [], []
             for can, ms in seq:
                 ys, xs = np.nonzero(can[..., 3] > 0)
-                hw = int(np.ceil(max(S.px - xs.min(), xs.max() + 1 - S.px) / S_PPU - 0.5))
-                hh = int(np.ceil(max(S.py - ys.min(), ys.max() + 1 - S.py) / S_PPU - 0.5))
+                hw = int(np.ceil(max(S.px - xs.min(), xs.max() + 1 - S.px) / S.ppu - 0.5))
+                hh = int(np.ceil(max(S.py - ys.min(), ys.max() + 1 - S.py) / S.ppu - 0.5))
                 hh = max(hh, int(np.ceil(FEET)) + 1)
-                ones.append((R.one_of(can, S.px, S.py, hw, hh, S_PPU), ms))
-                Wd, Hd = round((2 * hw + 1) * S_PPU), round((2 * hh + 1) * S_PPU)
+                ones.append((R.one_of(can, S.px, S.py, hw, hh, S.ppu), ms))
+                Wd, Hd = round((2 * hw + 1) * S.ppu), round((2 * hh + 1) * S.ppu)
                 hds.append((R.crop_dense(can, S.px, S.py, Wd, Hd), ms))
             tt[tag] = ones
             tt[f"hd_{tag}"] = hds

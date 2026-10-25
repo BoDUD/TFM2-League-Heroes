@@ -62,8 +62,8 @@ const SFX_GOLD: &str = "league_akshan_w_gold";
 
 // ---- 数字（和 build_akshan.P 一致：make_override.py 把 P 写进副本的 passive.params，测试核对）
 pub const P_T: usize = 300;
-pub const R_DMG: usize = 60;
-pub const R_RATIO: usize = 40;
+pub const R_DMG: usize = 35;
+pub const R_RATIO: usize = 25;
 pub const R_MAX: usize = 3;
 pub const R_FULL: usize = 67;
 pub const R_REACH: u64 = 220_000;
@@ -1163,16 +1163,17 @@ mod tests {
 
     #[test]
     fn bullets_grow_with_missing_health() {
-        // attack 200: min 60 + 80 = 140
-        assert_eq!(bullet_damage(200, 1000, 1000), 140);
+        // attack 200: min R_DMG + R_RATIO% of 200 (35 + 50 = 85)
+        let min = R_DMG + R_RATIO * 2;
+        assert_eq!(bullet_damage(200, 1000, 1000), min);
         // 67% missing or more: 3x
-        assert_eq!(bullet_damage(200, 330, 1000), 420);
-        assert_eq!(bullet_damage(200, 10, 1000), 420);
-        // half way to the cap
+        assert_eq!(bullet_damage(200, 330, 1000), min * R_MAX);
+        assert_eq!(bullet_damage(200, 10, 1000), min * R_MAX);
+        // half way to the cap: about 2x
         let mid = bullet_damage(200, 665, 1000);
-        assert!(mid > 270 && mid < 290, "{mid}");
+        assert!(mid > min * 19 / 10 && mid < min * 21 / 10, "{mid}");
         // each bullet is read on the health left
-        assert!(volley(200, 1000, 1000, 5) > 5 * 140);
+        assert!(volley(200, 1000, 1000, 5) > 5 * min);
     }
 
     #[test]

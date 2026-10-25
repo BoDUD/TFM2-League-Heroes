@@ -19,7 +19,9 @@ camps with the snowball and the barrage too.
           deals w_dmg + w_ap% AP (x w_k1% / w_k2% grown) to every enemy within w_r (w_r2 grown) and knocks them up
           w_up ticks (w_up2 grown). League's ball is steered for up to 10 s; data cannot steer, so it rolls straight at
           the target.
-  skill2  E Snowball Barrage (雪球飞射), `Targeting` on `EnemyWithoutTower` (e_range; cooldown flag `e_cd`, so W can cast it):
+  skill2  E Snowball Barrage (雪球飞射), `Targeting` on `EnemyWithoutTower` (e_range; cooldown flag `e_cd`, so W can cast it;
+          the flag goes up the tick E is decided - set with the throw e_rel ticks later, the AI pressed E again in between
+          and threw twice, the user 2026-10-25: 「有时候会在一技能释放之后连放两次」):
           Nunu throws e_n snowballs, one every e_per ticks, each at a random enemy within e_range: e_dmg + e_ap% AP and
           an e_slow% slow; a champion hit is marked (`e_mark`, a champion-only twin), and at e_t ticks from the cast
           Willump roots every marked champion for e_root ticks (League: the champions and large monsters hit).
@@ -28,7 +30,9 @@ camps with the snowball and the barrage too.
           are slowed (r_slow0% rising to r_slow1%), and at the end the blizzard bursts: r_dmg + r_ap% AP to every enemy
           within r_r. Crowd control breaks the channel at the next pulse (league_karthus R's check); a broken channel
           bursts for its share so far (League: damage grows with the time channelled).
-  combos  W -> E (雪球 -> 雪球飞射): the snowball's impact throws the barrage at once if E is ready. E -> R (雪球飞射 ->
+  combos  W -> E (雪球 -> 雪球飞射): the snowball's impact throws the barrage at once if E is ready - from level 3 only,
+          when E's slot opens (「1级二技能还没解锁的时候也能在一技能释放之后触发」). A roll whose target dies ends at once
+          (`w_tgt`, a flag the target keeps up on him while it lives; he stood out w_max: 「1技能在目标死亡…原地发呆」). E -> R (雪球飞射 ->
           绝对零度): within r_link ticks of a root, R channels faster (r_tf ticks, the full burst; League: the rooted can't
           leave the blizzard). R -> Q (绝对零度 -> 吞噬): the burst is followed by Willump's bite on an enemy champion
           within reach, his attack count starting over.
@@ -39,6 +43,9 @@ the classic-SDK simulations (kd.py --lane 1 against demon, circus_blade, hunter,
 the decoys) and stood 10 s in a roll that never met its target (the roll held w_max); then +5.75 (bite heal 50 + 50%,
 splash 40%); halved heals and splash, W 50 + 40%, E 10 + 6% x6 and root 40, R 180 + 100% +0.27; P between them:
 +2.14 on seeds 1-8, +2.11 on 9-16.
+2026-10-25 (the user: 「雪人的二技能释放逻辑有问题而且冷却太短」): W -> E only from level 3, E's flag up the tick it is decided,
+a roll whose target dies ends: those early free barrages were part of his strength (+2.00 -> +0.54 with e_cd 900);
+e_cd 660 -> 780 (13 s, League's 14-10): +1.86 (seeds 1-8; 780 with E 14 + 9% +1.56, 900 with E 16 + 10% +1.48).
 """
 import argparse
 import json
@@ -69,7 +76,7 @@ P = {
     "w_cd": 720, "w_range": 70000, "w_in": 18, "w_speed": 3000, "w_end": 14, "w_g1": 20, "w_g2": 40, "w_max": 90,
     "w_dmg": 55, "w_ap": 42, "w_k1": 140, "w_k2": 170, "w_r": 18000, "w_r2": 26000, "w_up": 30, "w_up2": 60,
     # skill2: E Snowball Barrage
-    "e_cd": 660, "e_range": 60000, "e_dur": 40, "e_rel": 6, "e_n": 6, "e_per": 6, "e_speed": 5000, "e_y": -30000,
+    "e_cd": 780, "e_range": 60000, "e_dur": 40, "e_rel": 6, "e_n": 6, "e_per": 6, "e_speed": 5000, "e_y": -30000,
     "e_dmg": 11, "e_ap": 7, "e_slow": 30, "e_slow_t": 60, "e_t": 66, "e_root": 45, "e_rdmg": 25, "e_rap": 30,
     # ult: R Absolute Zero
     "r_cd": 3600, "r_range": 60000, "r_r": 55000, "r_t": 150, "r_tf": 100, "r_pp": 15, "r_link": 120,
@@ -271,8 +278,8 @@ def build(p):
 
     skill2 = action("idle", 3, 60, 1, p["e_range"], "Targeting", "EnemyWithoutTower",
                     combine(decoy(p["e_dmg"] * p["e_n"], p["e_ap"] * p["e_n"]),
-                            sw("e_cd", NONE, combine(anim("skill2", p["e_dur"]), voice("vo_e", p),
-                                                     delayed(p["e_rel"] - 1, alive(e_cast()))))),
+                            sw("e_cd", NONE, combine(refresh("e_cd", p["e_cd"]), anim("skill2", p["e_dur"]),
+                                                     voice("vo_e", p), delayed(p["e_rel"] - 1, alive(e_cast()))))),
                     key="skill2")
 
     # ------------------------------------------------------------------ skill: W Biggest Snowball Ever!
@@ -284,8 +291,12 @@ def build(p):
               sw("w1", combine(impact(p["w_k1"], p["w_r2"], p["w_up"]), cview("w_big")),
                  combine(impact(100, p["w_r"], p["w_up"]), cview("w_burst")))),
            *rm("w1", "w2"),
-           sw("e_cd", NONE, combine(anim("skill2", p["e_dur"]), delayed(p["e_rel"] - 1, alive(e_cast()))))]   # W -> E
+           {"type": "SwitchByLevel3", "effect_start": NONE, "effect_level3": sw("e_cd", NONE, combine(   # W -> E
+               refresh("e_cd", p["e_cd"]), anim("skill2", p["e_dur"]), delayed(p["e_rel"] - 1, alive(e_cast()))))}]
+    stop = combine(*rm("w_roll", "w1", "w2", "w_tgt"), unanim("skill_roll"))
+    watch = on_me(delayed(3, casted("Heal", p["w_max"], 1, sw("w_roll", sw("w_tgt", NONE, stop)))))
     roll = [refresh("w_roll", p["w_max"]), anim("skill_roll", p["w_max"]), cview("w_dust"),
+            casted("Heal", p["w_max"], 1, refresh("w_tgt", 3)), watch,
             delayed(p["w_g1"], sw("w_roll", refresh("w1", 600))), delayed(p["w_g2"], sw("w_roll", refresh("w2", 600))),
             {"type": "MoveToTarget", "speed": p["w_speed"], "range": p["w_range"] + 60000, "end_effects": hit}]
     skill = action("skill", p["w_in"], p["w_cd"], 1, p["w_range"], "Targeting", "EnemyWithoutTower",

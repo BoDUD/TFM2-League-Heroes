@@ -455,12 +455,14 @@ pub const EFFECTS: &[(&str, f32, &str)] = &[
     // slot's standing stamp and its rise out of the sand), the Imperial Guards' wall from the side (right-facing and the
     // mirrored left-facing tags: the add-on picks one by the wall's direction) and the Sun Disc (its rise and its stamp),
     // drawn from their step-1 designs at his 1.5
-    ("league_azir_soldier", 1.5, include_str!("../../../league/effects/league_azir_soldier#anim.fanim")),
+    ("league_azir_soldier", 2.143, include_str!("../../../league/effects/league_azir_soldier#anim.fanim")),
     ("league_azir_guard", 1.5, include_str!("../../../league/effects/league_azir_guard#anim.fanim")),
     ("league_azir_disc", 1.5, include_str!("../../../league/effects/league_azir_disc#anim.fanim")),
+    // the sand soldiers (front and side) at 2.143 = 1.5 / 0.7: drawn at 70 % (the user, 2026-10-25: 「沙皇的沙兵游戏里这么大？
+    // 得缩小一点吧」; tools/art/rig_azir.py SOLDIER_PPU)
     // the add-on's sand soldier from the side (the user: 「沙兵没攻击动作 ... 还有不面向敌人」; tools/art/
     // design_azir_side_soldier.py, from League's model): standing, rising and stabbing, right and left
-    ("league_azir_soldier_side", 1.5, include_str!("../../../league/effects/league_azir_soldier_side#anim.fanim")),
+    ("league_azir_soldier_side", 2.143, include_str!("../../../league/effects/league_azir_soldier_side#anim.fanim")),
     ("league_leblanc_clone", 2.0, include_str!("../../../league/effects/league_leblanc_clone#anim.fanim")),
     // league_zoe's stolen summoner spells (the add-on plays them; tools/art/draw_zoe_spells.py): their own pictures at
     // PPU 2 and League's icons at 3 (32 squares of the client's 64-px icon still read, 22 did not) - many tags each,
