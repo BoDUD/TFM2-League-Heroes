@@ -26,13 +26,16 @@ Flags die with him: every life starts cold with Q, E and W ready.
           `DirDot` range q_cone; league_ornn W's), x dz_k% when cast in the Danger Zone (`q_dz` for the whole burst).
           League lets him walk while it burns for 3 s; the flame has a front and a back and rides on him, so it is
           drawn into his own skill frames (the client never mirrors an effect picture) and he stands for the burst.
+          The cone reaches as far as the fire is drawn (2026-10-25: his cannon's muzzle is 35 px ahead of him in the
+          frame and the fire pours 42 px on from it, so q_len 72 px), and he casts it from q_range 45 px.
   skill2  E Electro-Harpoon (电子鱼叉), `Targeting` on `EnemyWithoutTower` (e_range, `e_cd`): a harpoon (a line
           stopping on the first enemy, e_speed <= 2 x e_rad): e_dmg + e_ap% AP and e_slow% slower for e_slow_t
           ticks, x dz_k% in the Danger Zone.
   ult     R The Equalizer (恒温灼烧), `Targeting` on `EnemyChampion` (r_range): he fires the rockets on r_rel; r_n
           hidden lines run toward the champion and end r_first, r_first + r_step, ... away (League's line laid
           along his aim; data has no perpendicular line), each landing a burning zone of radius r_r for r_t ticks:
-          every r_p ticks r_dmg + r_ap% AP and r_slow% slower. The rockets' fall and the fire are one `ViewEffect` on
+          every r_p ticks r_dmg + r_ap% AP and r_slow% slower. The launch (r_launch) is drawn behind him (z -1: the
+          rockets leave the pods on his back, their smoke behind his body). The rockets' fall and the fire are one `ViewEffect` on
           each landing point, its tag as long as the zone (never turned: an upright picture on a zone would stand on
           its head on the red side).
   combos  E -> E2 (League's second charge): a harpoon through a champion opens the recast - e_gap ticks later the
@@ -82,7 +85,7 @@ P = {
     # W Scrap Shield (in the controller)
     "w_cd": 420, "w_near": 45000, "w_sh": 60, "w_ap": 45, "w_sh_t": 90, "w_ms": 20, "w_ms_t": 60,
     # skill: Q Flamespitter
-    "q_cd": 360, "q_range": 30000, "q_t": 90, "q_n": 6, "q_gap": 15, "q_first": 8, "q_len": 36000, "q_cone": 700,
+    "q_cd": 360, "q_range": 45000, "q_t": 90, "q_n": 6, "q_gap": 15, "q_first": 8, "q_len": 72000, "q_cone": 700,
     "q_dmg": 18, "q_ap": 18, "q_go": 30000,
     # skill2: E Electro-Harpoon (+ the second harpoon)
     "e_cd": 480, "e_range": 55000, "e_dur": 24, "e_rel": 8, "e_speed": 6000, "e_rad": 3000, "e_dmg": 50, "e_ap": 40,
@@ -380,9 +383,10 @@ def build(p):
                                                 "repeat": True, "z": z}
     views_p = [Pj("e_harpoon")]
     views_e = [E("a_hit"), E("oh_hit"), E("q_hit"), E("e_hit"), E("e2_hit"), E("dz_on", FX, 3), E("oh_on", BIG, 3),
-               E("r_launch", BIG, 3), E("r_fall", BIG, -1, False)]
-    views_b = [B_("w_shown", FX, 3, "w_shield"), B_("w_ms", FX, -1, "haste"), B_("dz", FX, 3, "dz_steam"),
-               B_("oh", FX, 3, "oh_smoke"), B_("e_slow", FX, 3, "e_zap"), B_("r_slow", FX, -1, "burn")]
+               E("r_launch", BIG, -1), E("r_fall", BIG, -1, False)]
+    # the Danger Zone's steam and Overheat's smoke rise from behind him (z -1: drawn over him they covered his face)
+    views_b = [B_("w_shown", FX, 3, "w_shield"), B_("w_ms", FX, -1, "haste"), B_("dz", FX, -1, "dz_steam"),
+               B_("oh", FX, -1, "oh_smoke"), B_("e_slow", FX, 3, "e_zap"), B_("r_slow", FX, -1, "burn")]
     return {
         "id": ID, "category": "Melee", "tags": ["AP", "Magic", "Melee", "Shield"],
         "sprite": f"asset/league/champions/{ID}", "anim_prefix": "",
