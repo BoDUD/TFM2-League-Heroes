@@ -1169,6 +1169,13 @@
         "skill": "下一铲造成<#ff9028ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<>物理伤害，回复30 + <i#asset/base/ui/banpick/champion_stat_icon:ad_0>20%生命。",
         "skill2": "扔出一团黑雾：范围内敌人受到<#ff9028ff>65<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>65%<>+最大生命4%，护甲-25%持续<#ffb900ff>4秒<>，<#ef5350ff>减速<>30%。",
         "ult": "在敌方英雄身后召唤<#ff9028ff>迷雾室女<>和2只雾行者，跟着它<#ffb900ff>10秒<>，<#ffb900ff>每秒<>抓<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>45%<>；期间约里克普攻英雄额外造成最大生命3%真实伤害。"
+      },
+      "league_ambessa": {
+        "name": "安蓓萨",
+        "attack": "双刀。<#ff9028ff>龙犬诡步<>：每放一个技能就朝目标冲一步，<#ffb900ff>3秒<>内攻速+50%，下一刀加<#ff9028ff>18<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>18%<>+最大生命1%。<#ff9028ff>铁令<>：敌方英雄靠近时举刀格挡，护盾80+<i#asset/base/ui/banpick/champion_stat_icon:ad_0>80%，然后砸地<#ff9028ff>48<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>55%<>，英雄再加最大生命3%。",
+        "skill": "<#ff9028ff>暗袭<>：身前横扫半圈，造成<#ff9028ff>42<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>65%<>+最大生命3%物理伤害；扫中后可接<#ff9028ff>裂斩<>：直线劈下<#ff9028ff>48<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>75%<>，目标再加最大生命4%。",
+        "skill2": "<#ff9028ff>血戮<>：甩链刀绕身一圈，造成<#ff9028ff>38<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>52%<>物理伤害并<#ef5350ff>减速<>50%，持续<#ffb900ff>1秒<>；冲刺后再甩一圈。",
+        "ult": "<#ff9028ff>公开处刑<>：闪到敌方英雄身边<#ef5350ff>压制<><#ffb900ff>0.6秒<>，再砸进地里：<#ff9028ff>115<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>85%<>+最大生命5%，<#ef5350ff>眩晕<><#ffb900ff>0.6秒<>；此后护甲穿透+15%。"
       }
     },
     "skill_name": {
@@ -2006,6 +2013,11 @@
         "skill1": "临终仪式",
         "skill2": "哀伤之雾",
         "ult": "海屿悼词"
+      },
+      "league_ambessa": {
+        "skill1": "暗袭",
+        "skill2": "血戮",
+        "ult": "公开处刑"
       }
     }
   },
@@ -3179,6 +3191,13 @@
         "skill": "下一鏟造成<#ff9028ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<>物理傷害，回復30 + <i#asset/base/ui/banpick/champion_stat_icon:ad_0>20%生命。",
         "skill2": "丟出一團黑霧：範圍內敵人受到<#ff9028ff>65<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>65%<>+最大生命4%，護甲-25%持續<#ffb900ff>4秒<>，<#ef5350ff>緩速<>30%。",
         "ult": "在敵方英雄身後召喚<#ff9028ff>迷霧少女<>和2隻霧行者，跟著它<#ffb900ff>10秒<>，<#ffb900ff>每秒<>抓<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>45%<>；期間約瑞科普攻英雄額外造成最大生命3%真實傷害。"
+      },
+      "league_ambessa": {
+        "name": "安比薩",
+        "attack": "雙刀。<#ff9028ff>龍犬詭步<>：每放一個技能就朝目標衝一步，<#ffb900ff>3秒<>內攻速+50%，下一刀加<#ff9028ff>18<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>18%<>+最大生命1%。<#ff9028ff>鐵令<>：敵方英雄靠近時舉刀格擋，護盾80+<i#asset/base/ui/banpick/champion_stat_icon:ad_0>80%，然後砸地<#ff9028ff>48<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>55%<>，英雄再加最大生命3%。",
+        "skill": "<#ff9028ff>暗襲<>：身前橫掃半圈，造成<#ff9028ff>42<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>65%<>+最大生命3%物理傷害；掃中後可接<#ff9028ff>裂斬<>：直線劈下<#ff9028ff>48<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>75%<>，目標再加最大生命4%。",
+        "skill2": "<#ff9028ff>血戮<>：甩鏈刀繞身一圈，造成<#ff9028ff>38<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>52%<>物理傷害並<#ef5350ff>緩速<>50%，持續<#ffb900ff>1秒<>；衝刺後再甩一圈。",
+        "ult": "<#ff9028ff>殛刑<>：閃到敵方英雄身邊<#ef5350ff>壓制<><#ffb900ff>0.6秒<>，再砸進地裡：<#ff9028ff>115<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>85%<>+最大生命5%，<#ef5350ff>暈眩<><#ffb900ff>0.6秒<>；此後護甲穿透+15%。"
       }
     },
     "skill_name": {
@@ -4016,6 +4035,11 @@
         "skill1": "臨終葬儀",
         "skill2": "悲鳴瘴霧",
         "ult": "荒島輓歌"
+      },
+      "league_ambessa": {
+        "skill1": "暗襲",
+        "skill2": "血戮",
+        "ult": "殛刑"
       }
     }
   },
@@ -5189,6 +5213,13 @@
         "skill": "His next blow deals <#ff9028ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<> physical damage and heals him 30 + <i#asset/base/ui/banpick/champion_stat_icon:ad_0>20%.",
         "skill2": "Throws a globule of Black Mist: enemies hit take <#ff9028ff>65<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>65%<> + 4% max health, lose 25% armour for <#ffb900ff>4s<> and are <#ef5350ff>slowed<> 30%.",
         "ult": "Raises the <#ff9028ff>Maiden of the Mist<> and 2 walkers behind an enemy champion; she follows it for <#ffb900ff>10s<>, clawing for <#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>45%<> <#ffb900ff>every second<>, and his attacks on champions deal 3% max health more as true damage meanwhile."
+      },
+      "league_ambessa": {
+        "name": "Ambessa",
+        "attack": "Twin blades. <#ff9028ff>Drakehound's Step<>: every ability ends in a dash at her target; for <#ffb900ff>3s<> she attacks 50% faster and her next attack deals <#ff9028ff>18<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>18%<> + 1% max health more. <#ff9028ff>Repudiation<>: with an enemy champion close she braces for a shield of 80 + <i#asset/base/ui/banpick/champion_stat_icon:ad_0>80%, then slams for <#ff9028ff>48<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>55%<>, champions taking 3% max health more.",
+        "skill": "<#ff9028ff>Cunning Sweep<>: sweeps a half circle in front of her for <#ff9028ff>42<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>65%<> + 3% max health physical damage; after a hit it recasts as <#ff9028ff>Sundering Slam<>, slamming down a line for <#ff9028ff>48<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>75%<>, the target taking 4% max health more.",
+        "skill2": "<#ff9028ff>Lacerate<>: whirls her chained blades round her for <#ff9028ff>38<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>52%<> physical damage, <#ef5350ff>slowing<> 50% for <#ffb900ff>1s<>; the step after it whirls them again.",
+        "ult": "<#ff9028ff>Public Execution<>: blinks onto an enemy champion, <#ef5350ff>suppresses<> it for <#ffb900ff>0.6s<> and slams it down for <#ff9028ff>115<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>85%<> + 5% max health, <#ef5350ff>stunning<> for <#ffb900ff>0.6s<>; she keeps 15% armour penetration after."
       }
     },
     "skill_name": {
@@ -6026,6 +6057,11 @@
         "skill1": "Last Rites",
         "skill2": "Mourning Mist",
         "ult": "Eulogy of the Isles"
+      },
+      "league_ambessa": {
+        "skill1": "Cunning Sweep",
+        "skill2": "Lacerate",
+        "ult": "Public Execution"
       }
     }
   },
@@ -7199,6 +7235,13 @@
         "skill": "다음 공격이 <#ff9028ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<> 물리 피해, 체력 30 + <i#asset/base/ui/banpick/champion_stat_icon:ad_0>20% 회복.",
         "skill2": "검은 안개를 던짐: 범위 적에게 <#ff9028ff>65<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>65%<> + 최대 체력 4%, 방어력 -25% <#ffb900ff>4초<>, 30% <#ef5350ff>둔화<>.",
         "ult": "적 챔피언 뒤에 <#ff9028ff>안개 처녀<>와 망령 2마리 소환, <#ffb900ff>10초<> 동안 따라다니며 <#ffb900ff>매초<> <#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>45%<>; 그동안 요릭의 챔피언 공격에 최대 체력 3% 고정 피해 추가."
+      },
+      "league_ambessa": {
+        "name": "암베사",
+        "attack": "쌍검. <#ff9028ff>용사냥개의 발걸음<>: 스킬마다 대상에게 짧게 돌진, <#ffb900ff>3초<> 동안 공격 속도 +50%, 다음 공격 <#ff9028ff>18<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>18%<> + 최대 체력 1% 추가. <#ff9028ff>배척<>: 적 챔피언이 가까우면 검을 들어 막아 보호막 80 + <i#asset/base/ui/banpick/champion_stat_icon:ad_0>80%, 이어 내려찍어 <#ff9028ff>48<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>55%<>, 챔피언은 최대 체력 3% 추가.",
+        "skill": "<#ff9028ff>교활한 휩쓸기<>: 앞쪽 반원을 휩쓸어 <#ff9028ff>42<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>65%<> + 최대 체력 3% 물리 피해; 적중 후 <#ff9028ff>파멸의 일격<>: 직선으로 내려찍어 <#ff9028ff>48<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>75%<>, 대상은 최대 체력 4% 추가.",
+        "skill2": "<#ff9028ff>찢어 가르기<>: 사슬 검을 휘둘러 주변에 <#ff9028ff>38<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>52%<> 물리 피해, <#ffb900ff>1초<> 동안 50% <#ef5350ff>둔화<>; 돌진 후 한 번 더.",
+        "ult": "<#ff9028ff>공개 처형<>: 적 챔피언 옆으로 순간이동해 <#ffb900ff>0.6초<> <#ef5350ff>제압<> 후 내려찍어 <#ff9028ff>115<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>85%<> + 최대 체력 5%, <#ffb900ff>0.6초<> <#ef5350ff>기절<>; 이후 방어구 관통 15%."
       }
     },
     "skill_name": {
@@ -8036,6 +8079,11 @@
         "skill1": "최후의 의식",
         "skill2": "애도의 안개",
         "ult": "군도의 장송곡"
+      },
+      "league_ambessa": {
+        "skill1": "교활한 휩쓸기",
+        "skill2": "찢어 가르기",
+        "ult": "공개 처형"
       }
     }
   },
@@ -9209,6 +9257,13 @@
         "skill": "次の攻撃が<#ff9028ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<>の物理ダメージ、体力30 + <i#asset/base/ui/banpick/champion_stat_icon:ad_0>20%回復。",
         "skill2": "黒い霧を投げる：範囲の敵に<#ff9028ff>65<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>65%<>+最大体力4%、物理防御-25%（<#ffb900ff>4秒<>）、30%<#ef5350ff>スロウ<>。",
         "ult": "敵チャンピオンの背後に<#ff9028ff>霧の乙女<>とウォーカー2体を召喚、<#ffb900ff>10秒<>追従し<#ffb900ff>毎秒<><#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>45%<>；その間ヨリックのチャンピオンへの攻撃に最大体力3%の確定ダメージ。"
+      },
+      "league_ambessa": {
+        "name": "アンベッサ",
+        "attack": "双剣。<#ff9028ff>ドレイクハウンドの猛攻<>：スキル毎に対象へ突進、<#ffb900ff>3秒<>攻撃速度+50%、次の攻撃に<#ff9028ff>18<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>18%<>+最大体力1%。<#ff9028ff>断交<>：敵チャンピオンが近いと剣で防御しシールド80+<i#asset/base/ui/banpick/champion_stat_icon:ad_0>80%、叩きつけ<#ff9028ff>48<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>55%<>、チャンピオンは最大体力3%追加。",
+        "skill": "<#ff9028ff>カニングスイープ<>：前方半円を薙ぎ払い<#ff9028ff>42<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>65%<>+最大体力3%の物理ダメージ；命中後<#ff9028ff>サンダリングスラム<>：直線に叩きつけ<#ff9028ff>48<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>75%<>、対象は最大体力4%追加。",
+        "skill2": "<#ff9028ff>ラセレイト<>：鎖の剣を振り回し周囲に<#ff9028ff>38<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>52%<>の物理ダメージ、50%<#ef5350ff>スロウ<>（<#ffb900ff>1秒<>）；突進後もう一度。",
+        "ult": "<#ff9028ff>公開処刑<>：敵チャンピオンの側へ瞬間移動し<#ffb900ff>0.6秒<><#ef5350ff>制圧<>、叩きつけて<#ff9028ff>115<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>85%<>+最大体力5%、<#ffb900ff>0.6秒<><#ef5350ff>スタン<>；以後物理防御貫通15%。"
       }
     },
     "skill_name": {
@@ -10046,6 +10101,11 @@
         "skill1": "葬送",
         "skill2": "悲嘆の霧",
         "ult": "嘆きの墓標"
+      },
+      "league_ambessa": {
+        "skill1": "カニングスイープ",
+        "skill2": "ラセレイト",
+        "ult": "公開処刑"
       }
     }
   }

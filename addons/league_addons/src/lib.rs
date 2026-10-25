@@ -383,6 +383,9 @@ mod kled;
 #[allow(dead_code)] // items public in the add-on's own crate
 #[path = "../../league_yorick/src/lib.rs"]
 mod yorick;
+#[allow(dead_code)] // items public in the add-on's own crate
+#[path = "../../league_ambessa/src/lib.rs"]
+mod ambessa;
 
 pub const ID: &str = "league_addons";
 
@@ -549,6 +552,7 @@ fn init(host: &StableHost) -> StableMod {
     sejuani::register(host, &mut module);
     kled::register(host, &mut module);
     yorick::register(host, &mut module);
+    ambessa::register(host, &mut module);
     module.set_map_customizer(MapReaders);
     module.set_extension(BundleClient);
     host.log(
