@@ -4,7 +4,7 @@ and brought to the game's count: A (her idle 3/4 front: idle, run, every action)
 the top of her hair to her soles (48 game px at PPU 1.75, the step-1 pack's numbers).
 
     python tools/art/design_ambessa_model.py --options DIR   # the candidates side by side
-    python tools/art/design_ambessa_model.py                 # writes assets/source/ambessa/hd/{idle,side}.png
+    python tools/art/design_ambessa_model.py                 # writes assets/source/ambessa/hd/{idle,side}.png (PICK)
 
 Codex's squares (asked 13 px; its HANDOFF: no exact grid, soft alpha, the alpha cut at 128 in its own copies): the
 faces' steps at 3x about 30 px, the colour edges' period A-1 9.7 (10 / 19-20 / 29) both ways, the others less clear
@@ -12,13 +12,18 @@ faces' steps at 3x about 30 px, the colour edges' period A-1 9.7 (10 / 19-20 / 2
 (design_gnar_model's keep_axis): its own K colours (design_varus.kmeans), whole rows then columns dropped to the count
 (least loss - a twin first - never the face's rows / columns: the eyes, the brows, the lips), the width in proportion,
 strips.complete_outline with that box kept. The hair's top is the figure's first row.
+The picks (the user, 2026-10-25: 「头可以缩小点」「身体清晰点」「你调整一下」): A-1 (idle) and SA-1 (side), at PPU 2.0 (96 rows,
+48 game px) - the body cut to 70 rows from Codex's ~77 (few dropped, its plates and blades stay clear), the head
+(HEADS: a polygon and its outline ring, not the fur or the scarf) cut on its own to 26 rows (HEAD_SHARE 0.27; the pack
+drew a third), the eye band whole, its chin where it was, the pixels it leaves the nearest body colour within 3 squares
+(the fur behind it) or clear (small_head). --options shows the four takes cut whole to the count, as first read.
 """
 import argparse
 import os
 import sys
 
 import numpy as np
-from PIL import Image
+from PIL import Image, ImageDraw
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(os.path.dirname(HERE))
@@ -34,9 +39,19 @@ SRC = os.path.join(ROOT, "assets", "source", "ambessa", "codex_model", "ambessa-
 OUT = os.path.join(ROOT, "assets", "source", "ambessa", "hd")
 K = 40
 TOP_PX = 48      # game px from the top of her hair to her soles
-PPU = 1.75
+PPU = 2.0        # 1.75 in the step-1 pack; 2.0 so the body keeps nearly every row Codex drew (the user: 「身体清晰点」)
 TOP_ROWS = round(TOP_PX * PPU)
-PICK = {"idle": None, "side": None}   # the user's picks
+HEAD_SHARE = 0.27   # hair top to chin, of the height (the pack asked a third; the user: 「头可以缩小点」)
+PICK = {"idle": "A-1", "side": "SA-1"}   # the user left the pick to Claude (「你调整一下」, 2026-10-25)
+# take -> (her head on the read-back: a polygon (x, y) round the hair and the face down to the chin; the eye band kept
+# whole when the head shrinks: rows y0..y1, columns x0..x1)
+HEADS = {
+    "A-1": ([(36, 15), (40, 10), (44, 5), (52, 1), (58, 0), (65, 1), (72, 4), (80, 8), (84, 13), (87, 18), (84, 24),
+             (81, 28), (80, 33), (77, 37), (70, 39), (62, 39), (58, 36), (54, 33), (52, 30), (47, 30), (43, 28),
+             (39, 25), (37, 21)], (19, 27, 60, 80)),
+    "SA-1": ([(17, 13), (21, 8), (27, 3), (35, 0), (46, 0), (55, 3), (61, 8), (62, 14), (64, 20), (65, 26), (63, 31),
+              (61, 35), (55, 38), (48, 38), (44, 33), (40, 31), (30, 31), (22, 31), (18, 27), (16, 20)], (17, 25, 50, 63)),
+}
 # take -> (file, square px read at, rows to (None: TOP_ROWS), the face box kept whole on the raw canvas: x0, y0, x1, y1:
 # the eyes, the brows, the lips)
 DRAFTS = {
@@ -97,6 +112,68 @@ def cut_to(raw, fr, fc, idx, pal, rows_to):
     return pad[ys.min():ys.max() + 1, xs.min():xs.max() + 1], rows, cols
 
 
+def polygon(shape, pts):
+    im = Image.new("L", (shape[1], shape[0]), 0)
+    ImageDraw.Draw(im).polygon(pts, fill=1)
+    return np.asarray(im).astype(bool)
+
+
+def small_head(take):
+    """The take at TOP_ROWS with its head HEAD_SHARE of them: the body cut to the rest (few rows dropped), the head
+    (HEADS polygon) cut on its own to its share - rows and columns, the eye band whole - its chin back where it was,
+    the pixels it no longer covers taking the nearest body colour within 3 squares (the fur behind it) or clear.
+    -> (picture, rows read)."""
+    raw, fr, fc = read_back(take)
+    idx, pal = dv.kmeans(raw, K)
+    idx = np.where(raw[..., 3] > 0, idx, -1)
+    H, W = idx.shape
+    poly, (e0, e1, x0, x1) = HEADS[take]
+    # the polygon and its outline ring (2 squares out), the fur (teal) and the scarf (red) left to the body
+    from scipy import ndimage
+    inside = polygon(idx.shape, poly)
+    rgb = pal[np.maximum(idx, 0)].astype(int)
+    fur = (rgb[..., 1] > rgb[..., 0] + 15) & (idx >= 0)
+    red = (rgb[..., 0] > rgb[..., 1] + 80) & (idx >= 0)
+    head = (inside | (ndimage.binary_dilation(inside, iterations=2) & ~fur & ~red)) & (idx >= 0)
+    chin = int(np.nonzero(head.any(1))[0].max())
+    ht = round(TOP_ROWS * HEAD_SHARE)
+    bt = TOP_ROWS - ht
+    rows_to = round(H * bt / (H - chin - 1))
+    rows = [0] + [r + 1 for r in keep_axis([idx[y] for y in range(1, H)], rows_to - 1, range(e0 - 1, e1))]
+    cols = keep_axis([idx[rows][:, x] for x in range(W)], round(W * rows_to / H), range(x0, x1 + 1))
+    sub, hm = idx[np.ix_(rows, cols)], head[np.ix_(rows, cols)]
+    ri = [i for i, r in enumerate(rows) if e0 <= r <= e1]
+    ci = [i for i, c in enumerate(cols) if x0 <= c <= x1]
+    hy, hx = np.nonzero(hm)
+    by0, by1, bx0, bx1 = hy.min(), hy.max() + 1, hx.min(), hx.max() + 1
+    hs = np.where(hm[by0:by1, bx0:bx1], sub[by0:by1, bx0:bx1], -1)
+    k = ht / (by1 - by0)
+    kr = keep_axis([hs[y] for y in range(hs.shape[0])], ht, range(min(ri) - by0, max(ri) - by0 + 1))
+    hs = hs[kr]
+    kc = keep_axis([hs[:, x] for x in range(hs.shape[1])], round(hs.shape[1] * k), range(min(ci) - bx0, max(ci) - bx0 + 1))
+    hs = hs[:, kc]
+    # the chin's centre stays: the new head's bottom row on the old one's, centred where the old bottom row was
+    bottom = np.nonzero(hm[by1 - 1])[0]
+    cx = (bottom.min() + bottom.max()) / 2
+    nb = np.nonzero(hs[-1] >= 0)[0]
+    ox = round(cx - (nb.min() + nb.max()) / 2)
+    oy = by1 - hs.shape[0]
+    body = np.where(hm, -1, sub)
+    dist, (iy, ix) = ndimage.distance_transform_edt(body < 0, return_indices=True)
+    fill = np.where(hm & (dist <= 3), body[iy, ix], -1)
+    out = np.where(hm, fill, body)
+    ys, xs = np.nonzero(hs >= 0)
+    out[ys + oy, xs + ox] = hs[ys, xs]
+    fig = paint(out, pal)
+    keep = np.zeros(fig.shape[:2], bool)
+    keep[ys.min() + oy:ys.max() + oy + 1, xs.min() + ox:xs.max() + ox + 1] = True
+    fig = PD.despeckle(fig)
+    pad = np.pad(fig, ((1, 1), (1, 1), (0, 0)))
+    pad, _, _ = strips.complete_outline(pad, color=PD.edge_colour(fig), feet=fig.shape[0], keep=np.pad(keep, 1))
+    ys, xs = np.nonzero(pad[..., 3] > 0)
+    return pad[ys.min():ys.max() + 1, xs.min():xs.max() + 1], H
+
+
 def cut(take):
     """The take at its count: (picture, rows kept, columns kept, rows read)."""
     raw, fr, fc = read_back(take)
@@ -131,9 +208,9 @@ def main():
         sys.exit("no pick yet: run --options and ask the user")
     os.makedirs(lp(OUT), exist_ok=True)
     for name, take in PICK.items():
-        fig, rows, cols, H = cut(take)
+        fig, H = small_head(take)
         write(fig, name)
-        print(name, take, fig.shape[1], "x", fig.shape[0], "rows kept", len(rows), "of", H)
+        print(name, take, fig.shape[1], "x", fig.shape[0], "of", H, "rows read")
 
 if __name__ == "__main__":
     main()
