@@ -245,6 +245,10 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // px, hunched, the ice club out to 52 px) and its key poses after League's clips (the design's head put back) at the
     // user's 2.0 squares a game pixel (3/4 only), so no SIZES row
     ("league_trundle", 2.0, include_str!("../../../league/champions/league_trundle#anim.fanim")),
+    // Skarner: posed by tools/art/rig_skarner.py on Codex's step-0 picture A as drawn (59 rows stinger tips to feet = 33.7
+    // game px, 80 squares = 46 px wide) and Codex's key poses after League's clips (read back at the body's size, the
+    // design's head put back) at the user's 1.75 squares a game pixel (3/4 only), so no SIZES row
+    ("league_skarner", 1.75, include_str!("../../../league/champions/league_skarner#anim.fanim")),
     // Neeko: posed by tools/art/rig_neeko.py on Codex's step-1 take A-1 and its key poses at the user's 2.5 squares a
     // game pixel (100 game rows quill tips to soles: 「40」, then 「1.5也挺糊的 还得往上调整吧」; 3/4 only; league_neeko's
     // view hook draws her as an ally while she is disguised), so no SIZES row

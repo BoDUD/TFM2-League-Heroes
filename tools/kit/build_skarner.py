@@ -41,7 +41,7 @@ league_skarner:impact (the carry runs on to a wall, the stun and its damage only
 he charges); Quaking counts per champion (league_skarner:quake: stacks of a buff named for this Skarner on the target,
 3 to burst, as league_brand's blaze); Impale takes the first r_n champions on the line and keeps them behind him while he
 moves (league_skarner:impale).
-Timings: drafts until the frames exist (tools/art/rig_skarner.py retimes them).
+Timings: tools/art/rig_skarner.py's MS (the throw on q_toss_rel, the slam's quake on w_rel, the lash on r_rel).
 Numbers: League 16.21 read into the jungle fighter range (league_trundle, league_sejuani, league_warwick); balance on the
 classic-SDK simulations (kd.py --lane 1 against ninja, demon, hunter, werewolf and vampire, C:/t/sk_sim, 2026-10-26;
 league_warwick --native the control: +0.57 on seeds 1-8): the draft (hp 1150, attack 80, Quaking 2% x 4, E stun 60, W
@@ -75,10 +75,10 @@ P = {
     # passive: Quaking
     "p_t": 240, "p_p": 60, "p_pct": 1,
     # passive: W Seismic Bastion (on E's carry end)
-    "w_sh": 40, "w_sh_r": 20, "w_sh_t": 180, "w_r": 16000, "w_dmg": 20, "w_ratio": 30, "w_slow": 30, "w_slow_t": 90,
+    "w_dur": 16, "w_rel": 7, "w_sh": 40, "w_sh_r": 20, "w_sh_t": 180, "w_r": 16000, "w_dmg": 20, "w_ratio": 30, "w_slow": 30, "w_slow_t": 90,
     # skill: Q Shattered Earth / Upheaval
     "q_cd": 420, "q_range": 30000, "q_dur": 30, "q_t": 360, "q_hold": 180, "q_as": 20, "q_r": 9000, "q_dmg": 10,
-    "q_ratio": 20, "q_hp": 3, "q_slow": 40, "q_slow_t": 60, "q_toss": 24, "q_travel": 16, "q_toss_dmg": 50,
+    "q_ratio": 20, "q_hp": 3, "q_slow": 40, "q_slow_t": 60, "q_toss": 24, "q_toss_rel": 9, "q_travel": 16, "q_toss_dmg": 50,
     "q_toss_ratio": 80,
     # skill2: E Ixtal's Impact
     "e_cd": 900, "e_cut": 240, "e_range": 60000, "e_speed": 3000, "e_kb_speed": 2500, "e_kb_t": 20, "e_dmg": 60,
@@ -269,28 +269,33 @@ def build(p):
     def rock_hit():
         """The boulder's splash round the unit his attack hits: rk1 -> rk2 -> the third (spent), on a 1-tick lob."""
         splash = [attack(p["q_dmg"], p["q_ratio"]), view("q_hit")]
-        last = combine(*rm("rock", "rk1", "rk2", "q_toss"),
+        last = combine(*rm("rock", "rock_v", "rk1", "rk2", "q_toss"),
                        lob("q_smash", 1, p["q_r"], "EnemyWithoutTower", third,
                            end=[zone("q_sc", p["q_r"], "EnemyChampion", [quake(), q_to_e])]))
         mid = combine(refresh("rk2", p["q_t"]), lob("q_split", 1, p["q_r"], "EnemyWithoutTower", splash))
         first = combine(refresh("rk1", p["q_t"]), lob("q_split", 1, p["q_r"], "EnemyWithoutTower", splash))
         return sw("rk2", last, sw("rk1", mid, first))
 
-    def toss():
-        """Upheaval: the boulder thrown on the unit in hand, the third hit's damage round where it lands."""
+    def toss(delay=0):
+        """Upheaval: the boulder thrown on the unit in hand (`delay` ticks on: the throw frame of skill_toss), the third
+        hit's damage round where it lands; the boulder is spent at once."""
         hit = [attack(p["q_toss_dmg"], p["q_toss_ratio"], p["q_hp"]),
                buff("q_slow", p["q_slow_t"], move_speed_mult=-p["q_slow"]), view("q_hit"), tsfx("q_hit")]
-        return combine(*rm("rock", "rk1", "rk2", "q_toss"), sfx("q_toss"),
-                       lob("q_throw", p["q_travel"], p["q_r"], "EnemyWithoutTower", hit,
-                           end=[view("q_land"), sfx("q_land"), zone("q_tc", p["q_r"], "EnemyChampion", [quake(), q_to_e])]))
+        throw = combine(sfx("q_toss"), lob("q_throw", p["q_travel"], p["q_r"], "EnemyWithoutTower", hit,
+                                           end=[view("q_land"), sfx("q_land"),
+                                                zone("q_tc", p["q_r"], "EnemyChampion", [quake(), q_to_e])]))
+        return combine(*rm("rock", "rock_v", "rk1", "rk2", "q_toss"), delayed(delay - 1, alive(throw)) if delay else throw)
 
     def q_pickup():
+        # the boulder's picture over his back (`rock_v`, the effect q_held) from the pickup's end: its two frames draw it
+        # in his tails themselves; only while he still holds it
+        shown = delayed(p["q_dur"] - 1, sw("rock", refresh("rock_v", p["q_t"] - p["q_dur"])))
         return combine(refresh("q_cd", p["q_cd"]), refresh("rock", p["q_t"], attack_speed_mult=p["q_as"]),
                        refresh("q_toss", p["q_hold"]), *rm("rk1", "rk2"), anim("skill", p["q_dur"]), sfx("q"),
-                       voice("vo_q", p))
+                       voice("vo_q", p), shown)
 
     # the slot: holding the boulder past q_hold -> throw it; else the pickup when Q is ready
-    q_slot = sw("rock", sw("q_toss", NONE, combine(anim("skill_toss", p["q_toss"]), toss())),
+    q_slot = sw("rock", sw("q_toss", NONE, combine(anim("skill_toss", p["q_toss"]), toss(p["q_toss_rel"]))),
                 sw("q_cd", NONE, q_pickup()))
 
     # ------------------------------------------------------------------ W Seismic Bastion (E's carry end)
@@ -300,15 +305,17 @@ def build(p):
                         buff("w_slow", p["w_slow_t"], move_speed_mult=-p["w_slow"]), view("w_hit"))
 
     # ------------------------------------------------------------------ E Ixtal's Impact
-    # the carry's end (the main pack's slam, the add-on's wall check): W's shield + quake, E -> Q (q_cd off)
-    carry_end = combine(bastion, quake_ring, *rm("q_cd"))
+    # the carry's end (the main pack's slam, the add-on's wall check): E -> Q (q_cd off), the bounce and slam (tag `w`)
+    # with W's shield + quake on the slam frame (w_rel)
+    carry_end = combine(anim("w", p["w_dur"]), *rm("q_cd"), delayed(p["w_rel"] - 1, alive(bastion, quake_ring)))
     if nat:
         slam = [native("impact")]
     else:
         slam = [delayed(p["e_kb_t"], attack(p["e_dmg"], p["e_ratio"]), {"type": "Stun", "duration": p["e_stun"]},
                         buff("e_stun", p["e_stun"]), view("e_slam"), tsfx("e_slam"))]
     push = [] if nat else [{"type": "Knockback", "speed": p["e_kb_speed"], "tick": p["e_kb_t"]}]
-    contact = [view("e_hit"), tsfx("e_hit"), *push, *slam, on_me(delayed(p["e_kb_t"], alive(carry_end)))]
+    contact = [anim("grab", p["e_kb_t"]), view("e_hit"), tsfx("e_hit"), *push, *slam,
+               on_me(delayed(p["e_kb_t"], alive(carry_end)))]
     follow = {"type": "MoveToTarget", "speed": p["e_kb_speed"], "range": p["e_kb_speed"] * p["e_kb_t"] + 20000,
               "end_effects": []}
     charge = {"type": "MoveToTarget", "speed": p["e_speed"], "range": p["e_range"] + 40000,
@@ -335,8 +342,11 @@ def build(p):
     blow = combine(sfx("a"), homing("a_blow", "Enemy", [attack(0, 100), view("a_hit"), tsfx("a_hit"),
                                                         sw("rock", rock_hit())]),
                    homing("a_tw", "EnemyChampion", [quake()]))
+    # holding the boulder the tails keep it up and the claw strikes (League's BaseAttack1_Rock): attack_rock swapped in
+    # at the first tick (the attack tag opens on the idle, so no tail stab shows before it)
     attack_a = action("attack", p["atk_dur"], p["atk_cd"], 1, p["atk_range"], "Targeting", "Enemy",
-                      combine(decoy(0, 100), delayed(p["a_hit"] - 1, alive(blow))),
+                      combine(decoy(0, 100), sw("rock", anim("attack_rock", p["atk_dur"] - 1)),
+                              delayed(p["a_hit"] - 1, alive(blow))),
                       atype="BaseAttack", cancel=True)
 
     # ------------------------------------------------------------------ the slots
@@ -356,7 +366,7 @@ def build(p):
                E("w_hit"), E("e_hit"), E("e_slam"), E("r_hit")]
     views_b = [B_("p_quake", FX, 3, "p_quake"), B_("q_slow", FX, -1, "slow"), B_("w_slow", FX, -1, "slow"),
                B_("w_on", FX, 3, "w_shield"), B_("e_stun", FX, 3, "stun"), B_("r_held", FX, 3, "r_held"),
-               B_("r_haste", FX, -1, "r_haste"), B_("rock", BIG, 3, "q_held")]
+               B_("r_haste", FX, -1, "r_haste"), B_("rock_v", BIG, 3, "q_held")]
     views_p = [B_("q_throw", FX, 2, "q_rock"), B_("r_lash", BIG, 2, "r_spike")]
     extra = {}
     if nat:   # addons/league_skarner: the League rules the data cannot read
