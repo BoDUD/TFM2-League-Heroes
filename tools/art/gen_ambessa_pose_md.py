@@ -1,7 +1,7 @@
 """Write assets/source/ambessa/POSE_PROMPTS.md from tools/art/pack_ambessa_poses.py's POSES (run from the repo root).
 gen_yorick_pose_md.py's way: every limb's length in squares for Codex to count; her two blades are big props, placed
 by the teal / light-blue crescents on each skeleton. No League frames (the pack was built without the client): each
-pose is described in words."""
+pose is described in words too."""
 import sys
 sys.path.insert(0, 'tools/art')
 import pack_ambessa_poses as P
@@ -35,7 +35,8 @@ a("> - **两把刀**：照定稿的刀画（带钩的月牙、亮银刃边、深
   "**铁链沿着深灰线拉直**，刀飞在月牙的位置。月牙只表示刀的位置、大小和朝向，**刀的样子照定稿画，不照月牙的形状**。")
 a("> - **头一格一格照 `1_head.png` 画在灰框里**（同样朝右前方、银白波浪短发、两只眼睛、红唇、金耳环）。每个姿势都是这一个头，只跟着身体移动，"
   "**不要转头、不要画成侧脸、不要重新设计**。手臂、拳头、刀**不要盖住脸**（眼睛、嘴）。")
-a("> - 这一包**没有附英雄联盟原版的帧**（这次没有游戏客户端），**动作照骨架和每个姿势的文字**画。\n")
+a("> - 每个姿势附一张英雄联盟原版的那一帧（`*_league.png`，3/4 朝右），**动作照它和骨架**，长相照定稿。英雄联盟的安蓓萨是高大的成年人、"
+  "手臂和腿长；我们的是 Q 版：**照骨架的长短和刀的位置画，不照原版的长短**。包里如果没有某个姿势的 `_league` 图，就照骨架和文字画。\n")
 a(f"## {n} 个姿势\n")
 a("| 图 | 文件 | 姿势 |")
 a("|---|---|---|")
@@ -43,7 +44,7 @@ for k, name in enumerate(names, 3):
     a(f"| {k} | `ambessa-pose-{name}.png` | {P.POSES[name][0]} |")
 a("")
 a("## 提示词（每个姿势一次，换掉最后一段的姿势）\n")
-a("每次上传：`2_design.png`（定稿）、`1_head.png`（头）、这个姿势的 `*_skeleton.png`，有余量再加 `0_design_skeleton.png`。**用 image_gen 画。**\n")
+a("每次上传：`2_design.png`（定稿）、`1_head.png`（头）、这个姿势的 `*_skeleton.png`、这个姿势的 `*_league.png`，有余量再加 `0_design_skeleton.png`。**用 image_gen 画。**\n")
 a("```text")
 a(f"Attached images: A the APPROVED pixel-art character, 3/4 view facing right, on a 1254x1254 canvas with {P.PX} px squares (soles on y {P.SOLE_Y}) - "
   "a chibi POWERFUL WARLORD WOMAN: SILVER-WHITE short wavy swept-back hair, DARK BROWN skin, dark red lips, a gold earring; a spiky DARK TEAL-GREEN "
@@ -54,9 +55,10 @@ a(f"Attached images: A the APPROVED pixel-art character, 3/4 view facing right, 
   "green = the spine (pelvis to the base of the neck), RED = the NEAR leg (image left), BLUE = the FAR leg (image right), PURPLE = the NEAR arm (on "
   "the image left in A), ORANGE = the FAR arm (on the image right in A), the bigger dot at the end of each arm = the fist, GREY BOX = where the head "
   "goes, a TEAL CRESCENT = where the near fist's blade goes, a LIGHT BLUE CRESCENT = where the far fist's blade goes (the small circle on a crescent "
-  "= its handle), a DARK GREY LINE = a chain pulled straight from a fist to a blade flung out on it, the red horizontal line = the ground; D (if "
+  "= its handle), a DARK GREY LINE = a chain pulled straight from a fist to a blade flung out on it, the red horizontal line = the ground; D the "
+  "original character in this pose, 3/4 view facing right (copy the POSE from it, never its 3D look or its long realistic limbs); E (if "
   "attached) the same skeleton drawn over image A, showing which line is which part.")
-a("Draw with the image generator ONE clean pixel-art picture of the character of image A in the POSE of the skeleton C: a 1254x1254 PNG with a real "
+a("Draw with the image generator ONE clean pixel-art picture of the character of image A in the POSE of the skeleton C (and image D): a 1254x1254 PNG with a real "
   f"transparent background (alpha only 0 or 255), every square exactly {P.PX} px - the SAME square size as image A - aligned on one straight grid "
   f"from the canvas corner; feet that touch the ground on y {P.SOLE_Y}.")
 a(f"COUNT THE SQUARES: each leg about {LEG} squares from the hip to the sole, the near arm about {ARM} squares from the shoulder to the fist and the "
@@ -97,7 +99,7 @@ a("|---|---|")
 a("| `0_design_skeleton.png` | 定稿上画着它自己的骨架（每条线对应哪一部分，大圆点 = 拳头，月牙 = 刀） |")
 a("| `1_head.png` | 定稿的头（8 倍，头发连脸）：每个姿势都照它逐格画 |")
 a(f"| `2_design.png` | 安蓓萨定稿（每格 {P.PX} px，脚底 y {P.SOLE_Y}） |")
-a(f"| `3_{names[0]}_skeleton.png` … `{n + 2}_{names[-1]}_skeleton.png` | 每个姿势的骨架 |\n")
+a(f"| `3_{names[0]}_*` … `{n + 2}_{names[-1]}_*` | 每个姿势的骨架（`_skeleton`）和英雄联盟原版那一帧（`_league`） |\n")
 a("## Claude 收到后（给 Claude 看）\n")
 a(f"- 量格子（应约 {P.PX} px），按格读回（design_illaoi_poses 的做法：按头的大小定比例，头换成定稿的头），颜色对到定稿的调色板；"
   "**先在 8 倍下量每条腿、手臂的长短粗细和刀的大小，和定稿比**，腿长了就重画腿，再拼进 rig_ambessa.py 的动作里，"

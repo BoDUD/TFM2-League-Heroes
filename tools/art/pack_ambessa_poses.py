@@ -2,14 +2,20 @@
 """Ambessa's pose pack for Codex (assets/source/ambessa/POSE_PROMPTS.md): the whole-body poses her League clips go
 through (pack_yorick_poses.py's way).
 
-    python tools/art/pack_ambessa_poses.py [--out DIR] [--check DIR]
+    python tools/art/pack_ambessa_poses.py [--out C:/t/am_work/ambessa_pose_pack] [--lol D:/WeGameApps/lol] [--check DIR]
+    python tools/art/pack_ambessa_poses.py --no-lol ...   # without the League client (a cloud session)
 
 Every pose is ONE 1254 picture at PX px a square, soles on y SOLE_Y - the design hd/idle.png (step 1's A-1 with its head
 cut to 27%, 117 x 96, PPU 2.0; the user: 「用这个」) sits at squares (DX + shift, DY) on it. The skeletons are set by
 hand after League's Ambessa (her clips as known: the alternating blade attacks, Cunning Sweep's half-circle sweep and
 Sundering Slam's leaping slam, Repudiation's crossed-blade brace and slam, Lacerate's chain lash, Public Execution's
-grab and slam, Drakehound's Step's lunging dash); this session had no League client, so the pack carries no League
-frames (pack_yorick_poses renders them with --lol): the prompt describes each pose in words. Every bone at the design's
+grab and slam, Drakehound's Step's lunging dash), drafted in a session without the League client. With the client
+(the default; the user: 「重新参考英雄联盟的 重新整理了给我」) each pose also carries League's own frame,
+<k>_<name>_league.png (tools/lol/pose_ref.py at the 3/4 camera, Riot's, kept local): the clip found in her animation
+bin at run time by its role (LEAGUE: the clip, the moment as a share of it; the names it picked go to
+assets/source/ambessa/lol_names.txt with pack_ambessa_picture.py's), and --check DIR shows every skeleton beside it so
+the skeletons can be set after League's frames before the pack goes out. --no-lol: no League frames, the prompt's words
+only. Every bone at the design's
 OWN length (measured on hd/idle.png at 8x: REST), only its direction set per pose (POSES), the lowest foot on the ground
 unless the pose lifts it. The prompt gives the legs' and arms' lengths in squares and asks Codex to count them.
 HER BLADES are big props, each held in one fist: a hooked crescent BLADE_L squares from the handle to its far tip and
@@ -29,7 +35,9 @@ LIGHT BLUE crescent = the far arm's blade; dark grey line = a chain to a flung b
 import argparse
 import math
 import os
+import re
 import shutil
+import subprocess
 import sys
 
 import numpy as np
@@ -219,6 +227,84 @@ POSES = {
 }
 
 
+# pose -> (clip role, the moment as a share of that clip): League's frame each skeleton follows. The roles are looked up
+# in her animation bin by these patterns (stems in lower case; newer champions drop the prefix: Mel's idle1); a role
+# with no clip falls back to the next one listed (Sundering Slam to the Q clip's end, the Step to the run).
+ROLES = {
+    "a1": [r"(^|_)attack1$", r"(^|_)attack_?1"],
+    "a2": [r"(^|_)attack2$", r"(^|_)attack_?2"],
+    "q": [r"(^|_)spell1(_?a)?$", r"(^|_)spell1"],
+    "q2": [r"(^|_)spell1_?b$", r"(^|_)spell1_?2$", r"(^|_)spell1_?recast", r"(^|_)spell1_?slam"],
+    "w": [r"(^|_)spell2(_?a)?$", r"(^|_)spell2"],
+    "e": [r"(^|_)spell3(_?a)?$", r"(^|_)spell3"],
+    "r": [r"(^|_)spell4(_?a)?$", r"(^|_)spell4"],
+    "step": [r"(^|_)passive", r"(^|_)dash", r"(^|_)step"],
+    "run": [r"(^|_)run(_?base)?$", r"(^|_)run\d*$", r"(^|_)run"],
+    "death": [r"(^|_)death$", r"(^|_)death"],
+}
+FALLBACK = {"q2": ("q", 0.8), "step": ("run", None)}
+LEAGUE = {
+    "a1_wind": ("a1", 0.3), "a1_slash": ("a1", 0.55), "a2_wind": ("a2", 0.3), "a2_slash": ("a2", 0.55),
+    "q_wind": ("q", 0.25), "q_sweep": ("q", 0.5), "q2_leap": ("q2", 0.3), "q2_slam": ("q2", 0.55),
+    "w_guard": ("w", 0.3), "w_slam": ("w", 0.65), "e_lash1": ("e", 0.35), "e_lash2": ("e", 0.6),
+    "step": ("step", 0.4), "r_grab": ("r", 0.3), "r_slam": ("r", 0.6),
+    "run1": ("run", 0.0), "run2": ("run", 0.25), "run3": ("run", 0.5), "run4": ("run", 0.75),
+    "d_kneel": ("death", 0.35), "d_slump": ("death", 0.7),
+}
+
+
+def league_clips(lol):
+    """{pose: "clip@ms"} for League's frames, from her animation bin (pack_ambessa_picture.names), and the roles
+    picked (written to assets/source/ambessa/lol_names.txt next to the picture pack's)."""
+    sys.path.insert(0, os.path.join(ROOT, "tools", "lol"))
+    import pack_ambessa_picture as PP
+    from riot import Wad
+    wad = os.path.join(lol, "Game", "DATA", "FINAL", "Champions", "Ambessa.wad.client")
+    if not os.path.isfile(wad):
+        sys.exit(f"League client not found: {wad} - pass --lol <League folder>, or --no-lol for a pack without League's frames")
+    clips = PP.names(Wad(wad))[0]
+    pick = {}
+    for role, pats in ROLES.items():
+        for pat in pats:
+            hit = sorted(st for st, (_, d) in clips.items() if d and re.search(pat, st))
+            if hit:
+                pick[role] = hit[0]
+                break
+    out = {}
+    for pose, (role, share) in LEAGUE.items():
+        r, sh = role, share
+        if r not in pick and r in FALLBACK:
+            r, f = FALLBACK[r]
+            sh = f if f is not None else share
+        if r not in pick:
+            print("no League clip for", pose, "(role", role + ")")
+            continue
+        out[pose] = f"{pick[r]}@{round(clips[pick[r]][1] * sh * 1000)}"
+    path = os.path.join(SRC, "lol_names.txt")
+    old = open(path, encoding="utf-8").read() if os.path.isfile(path) else ""
+    old = old.split("\n## poses")[0].rstrip("\n")
+    with open(path, "w", encoding="utf-8", newline="\n") as f:
+        f.write(old + "\n\n## poses (tools/art/pack_ambessa_poses.py)\n"
+                + "\n".join(f"{k} {v}" for k, v in out.items()) + "\n")
+    print("League roles", pick)
+    return out
+
+
+def lol_frame(lol, frame, work):
+    """League's frame, Ambessa at the 3/4 camera facing right (all her submeshes: the blades and chains)."""
+    os.makedirs(work, exist_ok=True)
+    cmd = [sys.executable, os.path.join(ROOT, "tools", "lol", "pose_ref.py"), "--lol", lol, "--champ", "Ambessa",
+           "--fit-all", "--hq", "--bg", ",".join(map(str, GREY)), "--no-labels", "--size", "900", "--fit", "0.4",
+           "--ground", "0.8", "--width", "2.2", "--yaw", "35", "--name", "f", "--out", work, "--frame", frame, "--mirror"]
+    subprocess.run(cmd, check=True, capture_output=True)
+    im = Image.open(os.path.join(work, "f.png")).convert("RGB")
+    a = np.asarray(im).astype(int)
+    fg = np.abs(a - GREY).sum(2) > 12
+    ys, xs = np.nonzero(fg)
+    m = 40
+    return im.crop((max(0, xs.min() - m), max(0, ys.min() - m), min(im.width, xs.max() + m), min(im.height, ys.max() + m)))
+
+
 def lengths(name):
     pts = REST[name]
     return [math.hypot(pts[i + 1][0] - pts[i][0], pts[i + 1][1] - pts[i][1]) for i in range(len(pts) - 1)]
@@ -384,7 +470,10 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", default=os.path.join(os.environ.get("TMP", "/tmp"), "ambessa_pose_pack"))
     ap.add_argument("--check")
+    ap.add_argument("--lol", default=r"D:\WeGameApps\lol")
+    ap.add_argument("--no-lol", action="store_true", help="no League client: the skeletons and the words only")
     a = ap.parse_args()
+    frames = {} if a.no_lol else league_clips(a.lol)
     idle = np.asarray(Image.open(lp(os.path.join(SRC, "hd", "idle.png"))).convert("RGBA"))
     poses = poses_built()
     rest = rest_built()
@@ -407,8 +496,21 @@ def main():
             can.alpha_composite(Image.fromarray(up(idle[r0:r1, c0:c1], PX)),
                                 (round((hx - HW / 2) * PX), round((hy - HH / 2) * PX)))
             skeleton(can, s, name)
-            tiles.append(can.convert("RGB").resize((CANVAS * 2 // 5, CANVAS * 2 // 5)))
-        tile_sheet(tiles, os.path.join(a.check, "poses_check.png"), cols=5)
+            sk = can.convert("RGB").resize((CANVAS * 2 // 5, CANVAS * 2 // 5))
+            if name in frames:   # League's frame beside it (cached)
+                cache = os.path.join(a.check, "_league", name + ".png")
+                if not os.path.isfile(cache):
+                    os.makedirs(os.path.dirname(cache), exist_ok=True)
+                    lol_frame(a.lol, frames[name], os.path.join(a.check, "_work")).save(cache)
+                lf = Image.open(cache).convert("RGB")
+                lf = lf.resize((round(lf.width * sk.height / lf.height), sk.height))
+                t = Image.new("RGB", (sk.width + lf.width, sk.height), (255, 255, 255))
+                t.paste(sk, (0, 0))
+                t.paste(lf, (sk.width, 0))
+                sk = t
+            tiles.append(sk)
+        tile_sheet(tiles, os.path.join(a.check, "poses_check.png"), cols=3 if frames else 5)
+        shutil.rmtree(os.path.join(a.check, "_work"), ignore_errors=True)
         print("problems", bad)
         return
     out = a.out
@@ -426,6 +528,10 @@ def main():
         can = canvas_grid()
         skeleton(can, s, f"{k}: {name} - skeleton on the {PX} px grid, red line = the ground (soles on y {SOLE_Y})")
         can.convert("RGB").save(os.path.join(out, f"{k}_{name}_skeleton.png"))
+        if name in frames:
+            lol_frame(a.lol, frames[name], out + "_work").save(os.path.join(out, f"{k}_{name}_league.png"))
+            print(name, frames[name])
+    shutil.rmtree(out + "_work", ignore_errors=True)
     shutil.copyfile(lp(os.path.join(SRC, "POSE_PROMPTS.md")), os.path.join(out, "POSE_PROMPTS.md"))
     zp = shutil.make_archive(out, "zip", out)
     print(zp)
