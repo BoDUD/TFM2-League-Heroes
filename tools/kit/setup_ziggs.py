@@ -36,7 +36,8 @@ R = "<#ef5350ff>"      # crowd control
 E = "<>"
 # champion_view: the face point between his goggles (ppu_restyle face_to); his idle tops 20 px over the frame centre,
 # under the card's -28 line, so no banpick_center (card-banpick rule)
-VIEW = {"face": {"x": 2, "y": -26}, "center": {"x": 0, "y": -12}}
+# 2026-10-25: face (2,-27) - (2,-26) cut the top of his goggles; kept equal to champion_view and ppu_restyle.py
+VIEW = {"face": {"x": 2, "y": -27}, "center": {"x": 0, "y": -12}}
 
 
 def mag(d, r):

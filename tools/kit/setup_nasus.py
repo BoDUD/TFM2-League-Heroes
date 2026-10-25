@@ -39,7 +39,8 @@ E = "<>"
 # measured over the pivot (the frame's centre), not over the soles: the ear tips reach 33.3 px over it (lo_idle / 1.5),
 # so banpick_center y = -39 - top = -6 puts them 1 px under the card's top edge and his feet behind the name. The first
 # value, -2 (from the headdress's 37 px over the soles), drew him 9 px lower than every other hero (「狗头也是」)
-VIEW = {"face": {"x": 7, "y": -36}, "center": {"x": 0, "y": -14}, "banpick_center": {"x": 0, "y": -11}}
+# 2026-10-25: face (7,-39) - (7,-36) sat low: the eyes on the top rows, fangs and collar below; kept equal to champion_view and ppu_restyle.py
+VIEW = {"face": {"x": 7, "y": -39}, "center": {"x": 0, "y": -14}, "banpick_center": {"x": 0, "y": -11}}
 
 
 def phy(d, r):
