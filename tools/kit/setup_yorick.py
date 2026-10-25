@@ -37,7 +37,7 @@ R = "<#ef5350ff>"      # crowd control
 E = "<>"
 # champion_view: the face point between his eyes (ppu_restyle.py RESTYLE face_to) and the ban/pick card
 # (bp_card_audit.py with hd.rs UI_SIZES)
-VIEW = {"face": {"x": 3, "y": -31}, "center": {"x": 0, "y": -18}, "banpick_center": {"x": 0, "y": -1}}
+VIEW = {"face": {"x": 3, "y": -31}, "center": {"x": 0, "y": -18}, "banpick_center": {"x": 0, "y": -11}}
 
 
 def phys(d, r):

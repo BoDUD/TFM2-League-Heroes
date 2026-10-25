@@ -1,4 +1,6 @@
 //! 亡灵不回城（用户 2026-10-21：「还有塞恩的僵尸 死了还能跑回城的？」）：AI 钩子 `league_sion:zombie`。
+//! 0.1.3（用户 2026-10-25：「塞恩的僵尸又能回城了？」）：回城命令以前在他出招 / 被控时、或普攻命令无效时被原样放过（那天亡灵期间
+//! 9 次回城，一行 ZOMBIE 都没有）；现在回城一律拦下：打不了就原地站，两样都无效才放过并记 `ZOMBIE … the recall passed`。
 //!
 //! 死亡荣耀把他复活成亡灵后，生命每 tick 均匀流失（lib.rs `Glory`），游戏的 AI 看到生命一路往下掉，就照平时残血的做法
 //! 往回跑、回城——英雄联盟里亡灵塞恩不会回城，只会扑向敌人打到倒下。所以他身上有 `league_sion_p_zombie` 时，AI 要
@@ -105,7 +107,8 @@ impl StablePlayerAi for Zombie {
             if !e.is_alive() || !(0..e.buff_count()).filter_map(|i| e.buff_at(i)).any(|b| b.name() == zombie) {
                 return None;
             }
-            if (0..e.cc_count()).any(|i| e.cc_at(i).is_some_and(|c| STOP.iter().any(|k| k.code() == c.kind))) {
+            let stopped = (0..e.cc_count()).any(|i| e.cc_at(i).is_some_and(|c| STOP.iter().any(|k| k.code() == c.kind)));
+            if stopped && want != Want::Return {
                 return None;
             }
             let (x, y) = e.pos();
@@ -126,13 +129,24 @@ impl StablePlayerAi for Zombie {
             };
             (c, format!("{} ZOMBIE: the AI wanted {want:?} - {c:?} ({on})", head(&sim, me)), (x, y))
         };
+        let stay = InputV1::move_to(at.0, at.1);                 // where he stands: no recall
         let input = match c {
             Call::Attack(t) => InputV1::action(InputKindV1::Attack, InputTargetV1::target(t)),
-            Call::Stay => InputV1::move_to(at.0, at.1),          // where he stands: no recall
+            Call::Stay => stay,
         };
-        if !ctx.is_valid_input(&input) {
+        // an attack the game refuses (out of reach, in an action): for a recall stand still instead, never let it pass
+        let input = if ctx.is_valid_input(&input) {
+            input
+        } else if want == Want::Return && ctx.is_valid_input(&stay) {
+            stay
+        } else {
+            if want == Want::Return {
+                if let Some(n) = counted("zombie_pass") {
+                    wlog(format!("{line} - neither order valid: the recall passed #{n}"));
+                }
+            }
             return None;
-        }
+        };
         if let Some(n) = counted("zombie") {
             wlog(format!("{line} #{n}"));
         }

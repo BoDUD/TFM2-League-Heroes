@@ -30,9 +30,11 @@ one of three spells after each subject; here the cast picks it by the situation 
              e_dmg + e_ratio% AP, held e_hold ticks (`Bind`) and slowed e_slow% for e_slow_t (League pulls to the maw's
              middle; a pull to the target's own spot is a hold here).
   ult     Spiraling Despair (焚心绚华绘): a `Targeting` cast on `EnemyChampion` (r_range). The paint flies straight
-          (r_speed, r_len, width r_w) and stops on the first champion: there the canvas spreads (r_r) for r_t ticks,
-          burning r_dps + r_dps_r% AP every r_per ticks and slowing r_slow%, then it bursts: r_dmg + r_ratio% AP
-          (League: 200-450 + 80% AP burst, a stacking slow, 3 s; it bursts early when the centre dies - nothing reads that).
+          (r_speed, r_len, width r_w) and stops on the first champion: the canvas rides him (drawn as his buff
+          `r_painted`) for r_t ticks - every r_per ticks r_dps + r_dps_r% AP to the enemies within r_r of him and a slow
+          rising r_slow0% -> r_slow1% - then bursts round him: r_dmg + r_ratio% AP; if he dies first it bursts at the
+          next pulse (League: 200-450 + 80% AP, a stacking slow, 3 s, early on the centre's death). A stroke that meets
+          no champion leaves the canvas fixed where it stops (r_slow% slow).
   combos  悚 -> 灾 (控住 -> 攒聚雷): every Torment hit on a champion (fear, root, hold) strikes Severing Bolt on it
           eq_gap ticks later if Disaster is ready (its cooldown flag taken), with the immobile bonus - the AI casts
           Torment and Disaster on their own timers, so the chain fires here instead.
@@ -55,6 +57,10 @@ seeds 1-16; e_root 80 -> 78 (the tooltip's 1.3 s) is P, +1.60 (+-0.32) on seeds 
 the flag the AI's next press found it up, did nothing and the slot still sat out q_cd; the slot is 60 ticks now (the flag
 is the cooldown). Disasters a game 33-44 -> 46 and +1.16 -> +2.72 (seeds 1-8), so q_cd 480 -> 600 and every pick 15-20%
 less (QW 70 -> 60, QQ 90 + 60% -> 75 + 50%, QE 35 -> 30): +1.34 (q_cd 600 alone +1.56, 660 +1.44).
+2026-10-25 (the user: 「要做附加包了」, R's fixed circle let the champion walk out): the canvas rides the champion
+(data alone: a 1-tick lob onto him every r_per ticks opens a one-tick zone round him; a watch left on each pulse's spot
+bursts it there if he dies), traced: the zones follow him, a stroke that misses keeps the fixed canvas. +1.16 -> +2.69
+(seeds 1-8); the burst halved, 220 + 100% -> 110 + 55%: +1.52 (150 + 70% +1.95, with r_cd 2700 +2.03).
 """
 import argparse
 import json
@@ -93,7 +99,7 @@ P = {
     "e_slow_t": 90, "eq_gap": 6,
     # ult: Spiraling Despair
     "r_cd": 2100, "r_range": 80000, "r_dur": 36, "r_rel": 14, "r_speed": 3000, "r_len": 100000, "r_w": 6000,
-    "r_r": 25000, "r_t": 180, "r_per": 20, "r_dps": 12, "r_dps_r": 8, "r_slow": 25, "r_dmg": 220, "r_ratio": 100,
+    "r_r": 25000, "r_t": 180, "r_per": 20, "r_dps": 12, "r_dps_r": 8, "r_slow": 25, "r_slow0": 15, "r_slow1": 45, "r_dmg": 110, "r_ratio": 55,
     "r_q_gap": 10, "r_y": -4000,
     "vo_gap": 600,
 }
@@ -240,6 +246,11 @@ def field(name, radius, tick, period, first, effects):
             "end_effects": []}
 
 
+def casted(kind, tick, period, *effects):
+    return {"type": "AddCasted", "casted_type": kind, "duration": tick, "period": period,
+            "effects": [e for e in effects if e is not None]}
+
+
 def voice(name, p):
     """His spoken line, at most one every vo_gap ticks."""
     return sw("vo_cd", NONE, combine(flag("vo_cd", p["vo_gap"]), sfx(name)))
@@ -333,13 +344,36 @@ def build(p):
                     key="skill2")
 
     # ------------------------------------------------------------------ ult: Spiraling Despair
+    # The painting rides the champion it stopped on (League; the user, 2026-10-25: 「要做附加包了」 - the fixed circle let him
+    # walk out): his own buff draws the canvas on him, and every r_per ticks a 1-tick lob onto his spot opens a one-tick
+    # zone round him (damage, a slow rising r_slow0 -> r_slow1); r_t ticks in it bursts on him, or - he died first (the
+    # flag `r_live` he keeps up on Hwei while he lives lapses) - where the last pulse found him. A stroke that meets no champion leaves
+    # the fixed canvas where it stops (`r_got`).
+    pulses = list(range(p["r_per"], p["r_t"], p["r_per"]))
+
+    blast = [ap(p["r_dmg"], p["r_ratio"]), view("r_hit"), tsfx("r_hit")]
+
+    def pulse(k):
+        slow = p["r_slow0"] + (p["r_slow1"] - p["r_slow0"]) * k // max(1, len(pulses) - 1)
+        # a lob at a dead champion never leaves, so each pulse also leaves a watch on his spot: r_per ticks later, his
+        # flag gone (he died meanwhile), the canvas bursts there
+        watch = field("r_watch", p["r_r"], p["r_per"] + 2, p["r_per"], p["r_per"], [sw("r_live", NONE, combine(*blast))])
+        return lob("r_pulse", 1, [zone("r_tick", p["r_r"], [ap(p["r_dps"], p["r_dps_r"]),
+                                                             buff("r_slow", p["r_per"] + 5, move_speed_mult=-slow)]),
+                                  watch])
+    burst = lob("r_end", 1, [view("r_burst"), sfx("r_burst"), zone("r_blast", p["r_r"], blast)])
+    on_him = [flag("r_got", 3), buff("r_painted", p["r_t"]), sfx("r_canvas"),
+              casted("Heal", p["r_t"] + 2, 1, refresh("r_live", 2)),
+              *[delayed(t, sw("r_live", pulse(k))) for k, t in enumerate(pulses)],
+              delayed(p["r_t"], sw("r_live", burst))]
     canvas = [view("r_canvas"), sfx("r_canvas"),
               field("r_field", p["r_r"], p["r_t"], p["r_per"], p["r_per"],
                     [ap(p["r_dps"], p["r_dps_r"]), buff("r_slow", p["r_per"] + 5, move_speed_mult=-p["r_slow"])]),
               field("r_blast", p["r_r"], p["r_t"] + 2, p["r_t"] + 10, p["r_t"],
                     [ap(p["r_dmg"], p["r_ratio"]), view("r_hit"), tsfx("r_hit")]),
               delayed(p["r_t"] - 1, view("r_burst"), sfx("r_burst"))]
-    first = [sign, delayed(p["r_q_gap"], sw("q_cd", NONE, combine(refresh("q_cd", p["q_cd"]), sfx("q_q"),
+    fixed = [sw("r_got", combine(*rm("r_got")), combine(*canvas))]
+    first = [*on_him, sign, delayed(p["r_q_gap"], sw("q_cd", NONE, combine(refresh("q_cd", p["q_cd"]), sfx("q_q"),
                                                                   homing("q_q_ball2", "EnemyChampion",
                                                                          [ap(p["q_q_dmg"], p["q_q_ratio"]),
                                                                           maxhp(p["q_q_hp"]), view("q_q_hit"),
@@ -348,7 +382,7 @@ def build(p):
     ult = action("ult", p["r_dur"], p["r_cd"], 1, p["r_range"], "Targeting", "EnemyChampion",
                  combine(decoy(p["r_dmg"], p["r_ratio"], ap), sfx("r"), voice("vo_r", p),
                          delayed(p["r_rel"] - 1, alive(line("r_paint", p["r_speed"], p["r_len"], p["r_w"],
-                                                            "EnemyChampion", first, canvas, p["r_y"])))))
+                                                            "EnemyChampion", first, fixed, p["r_y"])))))
 
     # ------------------------------------------------------------------ views (the step-3 effects pack)
     E = lambda name, anim_=FX, z=2, follow=True: {"type": "Animation", "name": n(name), "anim": anim_, "tag": name,
@@ -363,7 +397,7 @@ def build(p):
                E("w_pool", BIG, -1), E("w_shield"), E("r_canvas", BIG, -1, False), E("r_burst", BIG, 3, False),
                E("r_hit")]
     views_b = [B_("p_mark", FX, -1), B_("e_bound", FX, 3), B_("w_haste", FX, -1), B_("q_e_slow", FX, -1, "slow"),
-               B_("e_slow", FX, -1, "slow"), B_("r_slow", FX, -1, "slow")]   # one ink-drip picture for the three slows
+               B_("e_slow", FX, -1, "slow"), B_("r_slow", FX, -1, "slow"), B_("r_painted", BIG, -1, "r_canvas")]   # one ink-drip picture for the three slows
     return {
         "id": ID, "category": "Magician", "tags": ["AP", "Magic", "Range", "CC"],
         "sprite": f"asset/league/champions/{ID}", "anim_prefix": "",

@@ -28,7 +28,7 @@ pub mod zombie;
 
 const ID: &str = "league_sion";
 /// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是 league_addons 的。
-const VERSION: &str = "0.1.2";
+const VERSION: &str = "0.1.3";
 
 /// 「不死」挂多久、多久续一次（一直挂着，复活用掉前不断）。
 pub const GUARD_T: usize = 30;
