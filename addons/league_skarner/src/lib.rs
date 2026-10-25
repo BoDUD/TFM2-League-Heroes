@@ -41,19 +41,19 @@ const VERSION: &str = env!("CARGO_PKG_VERSION");
 pub const P_N: usize = 3;
 pub const P_T: usize = 240;
 pub const P_P: usize = 60;
-pub const P_PCT: usize = 2;
+pub const P_PCT: usize = 1;
 /// 以绪塔尔冲击：拖的速度和 tick、撞墙眩晕、撞墙伤害（固定、攻击力 %、最大生命 %）。
 pub const E_KB_SPEED: usize = 2_500;
 pub const E_KB_T: usize = 20;
-pub const E_STUN: usize = 60;
+pub const E_STUN: usize = 40;
 pub const E_WALL_DMG: usize = 60;
 pub const E_RATIO: usize = 80;
 pub const E_WALL_HP: usize = 6;
 /// 毒刺贯体：最多压几个、压制 tick、伤害（固定、攻击力 %）。
 pub const R_N: usize = 3;
-pub const R_SUP: usize = 90;
-pub const R_DMG: usize = 120;
-pub const R_RATIO: usize = 100;
+pub const R_SUP: usize = 45;
+pub const R_DMG: usize = 60;
+pub const R_RATIO: usize = 50;
 /// 被拖着的英雄离他最远多少（身体挨着身体）。
 pub const R_GAP: f64 = 9_000.0;
 /// 一次毒刺贯体数人的记号留多久（尾巴飞完整条线还有余）。

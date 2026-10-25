@@ -43,7 +43,12 @@ he charges); Quaking counts per champion (league_skarner:quake: stacks of a buff
 moves (league_skarner:impale).
 Timings: drafts until the frames exist (tools/art/rig_skarner.py retimes them).
 Numbers: League 16.21 read into the jungle fighter range (league_trundle, league_sejuani, league_warwick); balance on the
-classic-SDK simulations (kd.py --lane 1, C:/t/sk_sim) pending.
+classic-SDK simulations (kd.py --lane 1 against ninja, demon, hunter, werewolf and vampire, C:/t/sk_sim, 2026-10-26;
+league_warwick --native the control: +0.57 on seeds 1-8): the draft (hp 1150, attack 80, Quaking 2% x 4, E stun 60, W
+120 + 60% shield and 40 + 60% quake, Q +50% attack speed and 20 + 40% / 6% max hp, R 90-tick suppression and 120 + 100%)
++4.99 (1-8); no single cut moved it more than 0.7 (E off +2.40), every cut together +0.31; P = those cuts with hp 1100,
+attack 76 and a 40-tick E stun +0.75 (1-16; Quaking 2% and a 45-tick stun on top +1.33). The add-on's rules cannot run in
+that engine (Native effects dropped).
 """
 import argparse
 import json
@@ -64,23 +69,23 @@ BIG = "asset/league/effects/league_skarner_big"
 # R: the first 3 champions in front of him: 150-350 + 100% AP magic, suppressed 1.5 s and dragged, +40% ms, cd 120-90.
 P = {
     # stats (base fighters: attack 90 +12, hp 1000 +100, defence 35 +8; league_trundle, league_sejuani)
-    "hp": 1150, "hp_g": 110, "atk": 80, "atk_g": 12, "apw": 10, "apw_g": 5, "def": 36, "def_g": 9, "mr": 30, "mr_g": 4,
+    "hp": 1100, "hp_g": 110, "atk": 76, "atk_g": 12, "apw": 10, "apw_g": 5, "def": 32, "def_g": 9, "mr": 30, "mr_g": 4,
     "ms": 1000, "ms_g": 10, "regen": 2, "regen_g": 1,
     "atk_range": 25000, "atk_dur": 28, "atk_cd": 80, "a_hit": 12,
     # passive: Quaking
-    "p_t": 240, "p_p": 60, "p_pct": 2,
+    "p_t": 240, "p_p": 60, "p_pct": 1,
     # passive: W Seismic Bastion (on E's carry end)
-    "w_sh": 120, "w_sh_r": 60, "w_sh_t": 180, "w_r": 16000, "w_dmg": 40, "w_ratio": 60, "w_slow": 30, "w_slow_t": 90,
+    "w_sh": 40, "w_sh_r": 20, "w_sh_t": 180, "w_r": 16000, "w_dmg": 20, "w_ratio": 30, "w_slow": 30, "w_slow_t": 90,
     # skill: Q Shattered Earth / Upheaval
-    "q_cd": 420, "q_range": 30000, "q_dur": 30, "q_t": 360, "q_hold": 180, "q_as": 50, "q_r": 9000, "q_dmg": 20,
-    "q_ratio": 40, "q_hp": 6, "q_slow": 40, "q_slow_t": 60, "q_toss": 24, "q_travel": 16, "q_toss_dmg": 50,
+    "q_cd": 420, "q_range": 30000, "q_dur": 30, "q_t": 360, "q_hold": 180, "q_as": 20, "q_r": 9000, "q_dmg": 10,
+    "q_ratio": 20, "q_hp": 3, "q_slow": 40, "q_slow_t": 60, "q_toss": 24, "q_travel": 16, "q_toss_dmg": 50,
     "q_toss_ratio": 80,
     # skill2: E Ixtal's Impact
     "e_cd": 900, "e_cut": 240, "e_range": 60000, "e_speed": 3000, "e_kb_speed": 2500, "e_kb_t": 20, "e_dmg": 60,
-    "e_ratio": 80, "e_stun": 60, "e_anim": 24,
+    "e_ratio": 80, "e_stun": 40, "e_anim": 24,
     # ult: R Impale
     "r_cd": 4800, "r_range": 50000, "r_dur": 36, "r_rel": 14, "r_len": 52000, "r_w": 7000, "r_speed": 6000, "r_n": 3,
-    "r_dmg": 120, "r_ratio": 100, "r_sup": 90, "r_drag": 3, "r_grab": 3000, "r_ms": 30, "r_ms_t": 150,
+    "r_dmg": 60, "r_ratio": 50, "r_sup": 45, "r_drag": 3, "r_grab": 3000, "r_ms": 30, "r_ms_t": 150,
     # his spoken lines, at most one every vo_gap ticks
     "vo_gap": 600,
     # 1 = the copy for addons/league_skarner (League's rules the data cannot read, see the docstring); its parameters
