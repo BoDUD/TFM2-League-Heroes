@@ -10,6 +10,8 @@
 //! - 黑暗只在大招的动作里（v4）：从出手到落地（最长 `FLY_T`），落地（`land`）后再 `LAND_T`（落地爆开的动作）。
 //!   原来固定 180 tick（3 秒），魔腾 0.75 秒就落地爆开完了，之后两秒多看不出在放大、队友却还隐着身
 //!   （用户：「魔腾不放大的时候也全队隐身」，选了「只在大招动作期间隐身」）。
+//!   （v0.4.2：`FLY_T` 原来 32，可飞扑常常更久——10-24 的日志 178 次 R 有 97 次落地晚于 32 tick，最长 51：
+//!   黑暗先停、队友现身、鬼影重重失效，落地再开 20 tick，中间断一截。现在 60，盖过最长的飞扑，黑暗一直到落地。）
 //! - 鬼影重重（v3，`Paranoia`：每个玩家每 tick 的 AI 输入钩子）：本作的视野是全队共享的——一个敌人贴近，
 //!   整队都看得见，魔腾飞扑落地后连远处的射手都锁他（用户：「梦魇开大时5个隐身别人还可以攻击的到」，模拟里
 //!   R 期间 52 次出手 47 次打魔腾、一半从 6 万外）。League 的鬼影重重是每个敌人只看得见自己身边、没有共享
@@ -35,9 +37,13 @@ use mod_api_stable::*;
 
 const ID: &str = "league_nocturne_dark";
 
-/// 黑暗从 R 出手算起最长这么久（同主包出手时的隐身）：飞扑最长约 32 tick（每 tick 3500，施放距离 110000）；
-/// 落地时改成再 `LAND_T`。
-pub const FLY_T: usize = 32;
+/// 黑暗从 R 出手算起最长这么久，落地时改成再 `LAND_T`：只是飞扑一直不落地时的保底，要比最长的飞扑
+/// （`LONGEST_DIVE`）长，否则黑暗在落地前就停了。
+pub const FLY_T: usize = 60;
+/// 游戏里见过最长的飞扑（出手到落地）：日志 10-24 两份共 450 次 R，最长 51 tick（目标在跑，每 tick 3500 追不上
+/// 「施放距离 110000 → 32 tick」的估算；超过 32 的有 266 次）。
+pub const LONGEST_DIVE: usize = 51;
+const _: () = assert!(FLY_T > LONGEST_DIVE, "the darkness would end before the longest dive lands");
 /// 落地后黑暗再留这么久（同主包落地时的隐身）：落地爆开的动作 ult_hit 20 tick。
 pub const LAND_T: usize = 20;
 /// 敌方英雄这么近才看得见魔腾一方的英雄。
@@ -187,7 +193,7 @@ fn start(sim: &mut StableSim<'_>, nocturne: usize) {
     ));
 }
 
-/// R 落地：黑暗只再留 `LAND_T` tick（落地爆开的动作），之后结束；飞得比 `FLY_T` 久、黑暗已经停了，就从落地再开 `LAND_T`。
+/// R 落地：黑暗只再留 `LAND_T` tick（落地爆开的动作），之后结束；万一飞得比 `FLY_T` 还久、黑暗已经停了，就从落地再开 `LAND_T`。
 fn land(sim: &mut StableSim<'_>, nocturne: usize) {
     let running = has_buff(sim, nocturne, ON);
     sim.entity_remove_buff(nocturne, ON);
