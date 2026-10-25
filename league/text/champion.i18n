@@ -1075,7 +1075,7 @@
       "league_hwei": {
         "name": "彗",
         "attack": "挥笔甩出一团墨。<#ff9028ff>落款<>：技能命中英雄后<#ffb900ff>4秒<>内再命中则引爆，造成<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<>魔法伤害。<#ff9028ff>主题：靖<>：画灾时加速25%，画悚时为自己和附近队友加<#66bb6aff>护盾<><#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<>。",
-        "skill": "依局势作画：被控制的英雄头上落<#ff9028ff>攒聚雷<><#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<>，再加<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>；否则向英雄掷<#ff9028ff>没骨火<><#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>加3%最大生命；没有英雄时画<#ff9028ff>连皴山<>，熔岩灼烧并减速35%。均为魔法伤害。",
+        "skill": "依局势作画：被控制的英雄头上落<#ff9028ff>攒聚雷<><#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<>，再加<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>；否则向英雄掷<#ff9028ff>没骨火<><#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>加3%最大生命；没有英雄时画<#ff9028ff>连皴山<>，熔岩灼烧并减速35%。均为魔法伤害。",
         "skill2": "依局势作画：贴身的英雄被<#ff9028ff>阴沉变意<><#ef5350ff>恐惧<><#ffb900ff>1秒<>；否则轮流画<#ff9028ff>滞涩幽瞳<>（睁眼后<#ef5350ff>禁锢<><#ffb900ff>1.3秒<>）与<#ff9028ff>双钩血喉<>（咬住并减速45%）。均造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>魔法伤害。",
         "ult": "向英雄甩出颜料，命中后在其脚下展开画卷<#ffb900ff>3秒<>，持续造成魔法伤害并减速25%，最后爆炸造成<#a974ffff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<>魔法伤害。"
       },
@@ -3121,7 +3121,7 @@
       "league_hwei": {
         "name": "赫威",
         "attack": "揮筆甩出一團墨。<#ff9028ff>筆仙真跡<>：技能命中英雄後<#ffb900ff>4秒<>內再命中則引爆，造成<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<>魔法傷害。<#ff9028ff>靜謐筆法<>：施展厄禍時加速25%，施展苦惱時為自己和附近隊友加<#66bb6aff>護盾<><#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<>。",
-        "skill": "依局勢作畫：受控的英雄頭上落下<#ff9028ff>震顫轟雷<><#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<>，再加<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>；否則向英雄擲出<#ff9028ff>壞滅熾燄<><#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>加3%最大生命；沒有英雄時畫<#ff9028ff>熔岩裂隙<>，灼燒並緩速35%。皆為魔法傷害。",
+        "skill": "依局勢作畫：受控的英雄頭上落下<#ff9028ff>震顫轟雷<><#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<>，再加<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>；否則向英雄擲出<#ff9028ff>壞滅熾燄<><#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>加3%最大生命；沒有英雄時畫<#ff9028ff>熔岩裂隙<>，灼燒並緩速35%。皆為魔法傷害。",
         "skill2": "依局勢作畫：貼身的英雄被<#ff9028ff>死神面影<><#ef5350ff>恐懼<><#ffb900ff>1秒<>；否則輪流畫<#ff9028ff>深淵凝視<>（睜眼後<#ef5350ff>定身<><#ffb900ff>1.3秒<>）與<#ff9028ff>碎骨大顎<>（咬住並緩速45%）。皆造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>魔法傷害。",
         "ult": "向英雄甩出顏料，命中後在其腳下展開氣場<#ffb900ff>3秒<>，持續造成魔法傷害並緩速25%，最後爆炸造成<#a974ffff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<>魔法傷害。"
       },
@@ -5167,7 +5167,7 @@
       "league_hwei": {
         "name": "Hwei",
         "attack": "A flick of ink. <#ff9028ff>Signature of the Visionary<>: a champion hit by his ability and hit again within <#ffb900ff>4s<> takes <#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<> magic damage. <#ff9028ff>Subject: Serenity<>: painting Disaster gives him +25% move speed; painting Torment <#66bb6aff>shields<> him and the allies near for <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<>.",
-        "skill": "Paints by the situation: <#ff9028ff>Severing Bolt<> on a crowd-controlled champion, <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<> plus <#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>; else <#ff9028ff>Devastating Fire<> at a champion, <#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> plus 3% of its max health; with no champion near, <#ff9028ff>Molten Fissure<>, lava that burns and slows 35%. All magic damage.",
+        "skill": "Paints by the situation: <#ff9028ff>Severing Bolt<> on a crowd-controlled champion, <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<> plus <#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>; else <#ff9028ff>Devastating Fire<> at a champion, <#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> plus 3% of its max health; with no champion near, <#ff9028ff>Molten Fissure<>, lava that burns and slows 35%. All magic damage.",
         "skill2": "Paints by the situation: <#ff9028ff>Grim Visage<> makes a champion on top of him <#ef5350ff>flee<> for <#ffb900ff>1s<>; else in turn <#ff9028ff>Gaze of the Abyss<> (an eye that <#ef5350ff>roots<> for <#ffb900ff>1.3s<>) and <#ff9028ff>Crushing Maw<> (jaws that hold and slow 45%). Each deals <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> magic damage.",
         "ult": "Flings paint at a champion: a canvas spreads under it for <#ffb900ff>3s<>, burning and slowing the enemies on it 25%, then bursts for <#a974ffff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<> magic damage."
       },
@@ -7213,7 +7213,7 @@
       "league_hwei": {
         "name": "흐웨이",
         "attack": "붓으로 먹을 튕긴다. <#ff9028ff>몽상가의 서명<>: 스킬에 맞은 챔피언이 <#ffb900ff>4초<> 안에 다시 맞으면 폭발해 <#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<> 마법 피해. <#ff9028ff>주제: 평온<>: 참사를 그리면 이동 속도 +25%, 고통을 그리면 자신과 주변 아군에게 <#66bb6aff>보호막<> <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<>.",
-        "skill": "상황에 맞게 그린다: 군중 제어된 챔피언에게 <#ff9028ff>절단의 번개<> <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<>, 추가 <#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>; 아니면 챔피언에게 <#ff9028ff>파멸의 화염<> <#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> + 최대 체력의 3%; 챔피언이 없으면 <#ff9028ff>녹아내린 균열<>, 용암이 불태우고 35% 둔화. 모두 마법 피해.",
+        "skill": "상황에 맞게 그린다: 군중 제어된 챔피언에게 <#ff9028ff>절단의 번개<> <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<>, 추가 <#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>; 아니면 챔피언에게 <#ff9028ff>파멸의 화염<> <#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> + 최대 체력의 3%; 챔피언이 없으면 <#ff9028ff>녹아내린 균열<>, 용암이 불태우고 35% 둔화. 모두 마법 피해.",
         "skill2": "상황에 맞게 그린다: 붙은 챔피언은 <#ff9028ff>암울한 형상<>에 <#ffb900ff>1초<> <#ef5350ff>공포<>; 아니면 번갈아 <#ff9028ff>심연의 응시<>(<#ffb900ff>1.3초<> <#ef5350ff>속박<>)와 <#ff9028ff>파괴의 아귀<>(물고 45% 둔화). 모두 <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> 마법 피해.",
         "ult": "챔피언에게 물감을 던져 발밑에 그림을 <#ffb900ff>3초<> 펼친다. 위의 적을 불태우고 25% 둔화시킨 뒤 폭발해 <#a974ffff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<> 마법 피해."
       },
@@ -9259,7 +9259,7 @@
       "league_hwei": {
         "name": "フェイ",
         "attack": "筆で墨を飛ばす。<#ff9028ff>夢想家の銘<>：スキルが当たった英雄に<#ffb900ff>4秒<>以内に再び当てると爆発し<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<>の魔法ダメージ。<#ff9028ff>題材: 静謐<>：厄災で移動速度+25%、苦悩で自身と周囲の味方に<#66bb6aff>シールド<><#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<>。",
-        "skill": "状況で描き分ける：行動妨害中の英雄に<#ff9028ff>断ち切る稲妻<><#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<>＋<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>、なければ英雄へ<#ff9028ff>荒廃の炎<><#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>＋最大体力の3%、英雄がいなければ<#ff9028ff>沸き立つ大地<>で燃やし35%スロウ。すべて魔法ダメージ。",
+        "skill": "状況で描き分ける：行動妨害中の英雄に<#ff9028ff>断ち切る稲妻<><#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<>＋<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>、なければ英雄へ<#ff9028ff>荒廃の炎<><#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>＋最大体力の3%、英雄がいなければ<#ff9028ff>沸き立つ大地<>で燃やし35%スロウ。すべて魔法ダメージ。",
         "skill2": "状況で描き分ける：密着した英雄を<#ff9028ff>恐怖の形相<>で<#ffb900ff>1秒<><#ef5350ff>恐怖<>、それ以外は<#ff9028ff>深淵の眼差し<>（<#ffb900ff>1.3秒<><#ef5350ff>スネア<>）と<#ff9028ff>粉砕の牙<>（噛みつき45%スロウ）を交互に。各<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>の魔法ダメージ。",
         "ult": "英雄へ絵の具を放ち、足元に絵画を<#ffb900ff>3秒<>広げて燃やし25%スロウ、最後に爆発して<#a974ffff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<>の魔法ダメージ。"
       },

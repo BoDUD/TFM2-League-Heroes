@@ -14,7 +14,7 @@ one of three spells after each subject; here the cast picks it by the situation 
           of w_sh + w_sh_r% AP on him and w_ally% of it on allied champions within w_r for w_sh_t ticks - and every
           Disaster cast Fleeting Current (飞染), +w_ms% move speed for w_ms_t ticks.
   attack  A flick of ink (homing on `Enemy`, 100% AD), released on a_rel.
-  skill   Subject: Disaster (主题：灾, cooldown q_cd, the flag `q_cd` the combos read): a `Targeting` cast on
+  skill   Subject: Disaster (主题：灾, cooldown q_cd in the flag `q_cd` the combos read - the slot's own is 60 ticks): a `Targeting` cast on
           `EnemyWithoutTower` (q_range), which picks in tiers (q_go, a 1-tick flag, says one fired):
           1. a champion in crowd control within q_range -> QW Severing Bolt (攒聚雷): lightning strikes it q_w_at ticks
              later, q_w_dmg + q_w_ratio% AP and q_w_cc + q_w_cc_r% AP more (League: x2-2.75 on the immobile);
@@ -51,6 +51,10 @@ C:/t/hw_sim, 2026-10-22): the draft +1.90 on seeds 1-8 (league_neeko +1.50 on th
 traced games (seeds 3 / 5 / 7: Severing Bolt 4-9 a game, Devastating Fire 5-15, Molten Fissure 18-31, the eye and the maw
 9-14 each, the signature bursting 21-38 times), Grim Visage once in three games at e_near 30000 -> 38000: +1.44 on
 seeds 1-16; e_root 80 -> 78 (the tooltip's 1.3 s) is P, +1.60 (+-0.32) on seeds 1-16.
+2026-10-25 (the user: 「彗的1技能会强制进冷却」): the Disaster slot's own cooltime was q_cd, so after a combo's Disaster took
+the flag the AI's next press found it up, did nothing and the slot still sat out q_cd; the slot is 60 ticks now (the flag
+is the cooldown). Disasters a game 33-44 -> 46 and +1.16 -> +2.72 (seeds 1-8), so q_cd 480 -> 600 and every pick 15-20%
+less (QW 70 -> 60, QQ 90 + 60% -> 75 + 50%, QE 35 -> 30): +1.34 (q_cd 600 alone +1.56, 660 +1.44).
 """
 import argparse
 import json
@@ -78,10 +82,10 @@ P = {
     "sig_t": 240, "sig_at": 30, "sig_dmg": 45, "sig_ratio": 35,
     "w_sh": 60, "w_sh_r": 35, "w_ally": 85, "w_r": 35000, "w_sh_t": 120, "w_ms": 25, "w_ms_t": 60,
     # skill: Subject: Disaster
-    "q_cd": 480, "q_range": 80000, "q_dur": 30, "q_rel": 12,
-    "q_w_at": 45, "q_w_dmg": 70, "q_w_ratio": 45, "q_w_cc": 90, "q_w_cc_r": 60,
-    "q_q_speed": 3000, "q_q_dmg": 90, "q_q_ratio": 60, "q_q_hp": 3,
-    "q_e_travel": 15, "q_e_r": 20000, "q_e_dmg": 35, "q_e_ratio": 25, "q_e_t": 150, "q_e_per": 30, "q_e_dps": 15,
+    "q_cd": 600, "q_range": 80000, "q_dur": 30, "q_rel": 12,
+    "q_w_at": 45, "q_w_dmg": 60, "q_w_ratio": 45, "q_w_cc": 90, "q_w_cc_r": 60,
+    "q_q_speed": 3000, "q_q_dmg": 75, "q_q_ratio": 50, "q_q_hp": 3,
+    "q_e_travel": 15, "q_e_r": 20000, "q_e_dmg": 30, "q_e_ratio": 25, "q_e_t": 150, "q_e_per": 30, "q_e_dps": 15,
     "q_e_dps_r": 10, "q_e_slow": 35,
     # skill2: Subject: Torment
     "e_cd": 720, "e_range": 85000, "e_dur": 30, "e_rel": 12, "e_near": 38000, "e_dmg": 80, "e_ratio": 50,
@@ -285,7 +289,10 @@ def build(p):
                               delayed(p["q_rel"] - 1, alive(fire())))),
         sw("q_go", NONE, combine(anim("skill_e", p["q_dur"]), sfx("q_e"), delayed(p["q_rel"] - 1, alive(lava)))),
         *rm("q_go"))
-    skill = action("idle", 3, p["q_cd"], 1, p["q_range"], "Targeting", "EnemyWithoutTower",
+    # the slot's own cooltime is 60 ticks: the flag `q_cd` is Disaster's cooldown. With the slot at q_cd, a combo's
+    # Disaster (悚 -> 灾, R -> 灾) took the flag, the AI then pressed the ready slot, the press found the flag up and did
+    # nothing - and the slot sat out q_cd anyway (the user, 2026-10-25: 「彗的1技能会强制进冷却」)
+    skill = action("idle", 3, 60, 1, p["q_range"], "Targeting", "EnemyWithoutTower",
                    combine(decoy(p["q_q_dmg"], p["q_q_ratio"], ap),
                            sw("q_cd", NONE, combine(refresh("q_cd", p["q_cd"]), voice("vo_q", p), haste, picks))),
                    key="skill")
