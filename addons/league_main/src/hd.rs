@@ -318,6 +318,11 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // hand); every action Codex's whole-frame redraw mended onto the design (tools/art/casts_annie_hd.py: the design's
     // head, her size, the ground), Tibbers in her near hand; 34 rows as her 1x sprite, so no SIZES row
     ("league_annie", 2.2, include_str!("../../../league/champions/league_annie#anim.fanim")),
+    // Gwen (2026-10-25): Codex's v2 picture (the user's own Gemini picture redrawn) read as drawn at PPU 2.84 (93 x 116,
+    // tools/art/design_gwen_hd.py); every action Codex's whole-frame redraw mended onto the design
+    // (tools/art/casts_gwen_hd.py: the scissors full size and always in her right hand); 38 rows as her 1x sprite, so
+    // no SIZES row
+    ("league_gwen", 2.84, include_str!("../../../league/champions/league_gwen#anim.fanim")),
     // Yunara: PPU 1.5 (the user's pick), posed from the design's own squares at that density by tools/art/rig_yunara.py
     // (40 game rows ornaments to soles), so no SIZES row
     ("league_yunara", 1.5, include_str!("../../../league/champions/league_yunara#anim.fanim")),
