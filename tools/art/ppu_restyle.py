@@ -353,8 +353,11 @@ RESTYLE = {
     # Samira (2026-10-25): Codex's v3 picture (League's look, the head made smaller) read on its own squares at PPU 2.84
     # (76 x 105, design_samira_hd.py, the greatsword straightened); every action Codex's whole-frame redraw read onto
     # the design (tools/art/casts_samira_hd.py); the muzzle flashes and sword arcs ride the effect layer (fx), moved to
-    # the new muzzles (samira_bake.json)
-    "samira": dict(ppu=2.84, edge=0, face_to=(-4, -36), fx=True),
+    # the new muzzles (samira_bake.json). Then in game: 「我怎么感觉身体有点细啊 和原版画风不符」「感觉降低像素就行了」
+    # 「泽丽之前也一样 但是后面调整好了」 - picked 2.2 from a 2.84 / 2.2 / 1.8 / 1.5 sheet (tools/art/review_samira_ppu.py,
+    # 「用 2.2」): drawn at 2.84 (ORIG_PPU), brought to 2.2 squares a game pixel like Jinx, Lux, Ahri and Annie; the
+    # 1-2 square holes the coarser grid closes round thin gaps (arm and waist, hair strands) filled (fill_holes)
+    "samira": dict(ppu=2.2, edge=0, face_to=(-4, -36), fx=True, fill_holes=2),
     # league_yunara (#119): posed from the design's own squares at the user's 1.5 squares a game pixel (「选 A，40 行」,
     # Codex's step-1 take 2 cut to 60 rows, her beads apart) by tools/art/rig_yunara.py, so no proportion or density
     # change here; the outer outline grown a square like the others; the face point at her ornaments' crown
@@ -895,6 +898,23 @@ def close_pinholes(grown, n, colour, most=2):
     return out
 
 
+def fill_holes(a, most):
+    """The enclosed clear holes of at most `most` squares (ground showing through the body where the coarser grid
+    closed a thin gap round a speck of it - league_samira at 2.2) filled with the commonest colour round each."""
+    op = a[..., 3] > 0
+    lb, k = ndimage.label(ndimage.binary_fill_holes(op) & ~op)
+    out = a.copy()
+    for j in range(1, k + 1):
+        h = lb == j
+        if h.sum() > most:
+            continue
+        ring = ndimage.binary_dilation(h, structure=np.ones((3, 3), bool)) & ~h & op
+        cols, cnt = np.unique(a[ring][:, :3], axis=0, return_counts=True)
+        out[h, :3] = cols[cnt.argmax()]
+        out[h, 3] = 255
+    return out
+
+
 def grow_edge(a, n, colour):
     if n <= 0:
         return a
@@ -1192,6 +1212,8 @@ def restyle(hero, spec, write=True, only=None):
             content = grow_edge(content, spec.get("edge", 0), outline)
             if spec.get("pinholes"):                       # the specks of ground the grown outline closed in
                 content = close_pinholes(content, spec.get("edge", 0), outline)
+            if spec.get("fill_holes"):                    # specks of ground the coarser grid closed in
+                content = fill_holes(content, int(spec["fill_holes"]))
             if spec.get("fx") and not spec.get("fix"):
                 if i == 0:
                     fx = read_fx(hero, tag)
