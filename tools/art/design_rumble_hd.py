@@ -1,17 +1,20 @@
 #!/usr/bin/env python3
-"""Rumble's step-0 picture read back on its own grid.
+"""Rumble's step-0 pictures read back on their own grid, A and B on one palette.
 
-    python tools/art/design_rumble_hd.py [--a 5.0]   # writes assets/source/rumble/hd/A.png (+ _4x)
+    python tools/art/design_rumble_hd.py [--a 5.0] [--b 4.2]   # writes assets/source/rumble/hd/{A,B}.png (+ _4x)
 
-Step 0 (assets/source/rumble/codex_picture/rumble-1.png, delivered 2026-10-25 as one 1254 px webp, saved as png): his
-idle 3/4 front facing right; drawn without League's references (the pack went out without refs 1-9: the container could
+Step 0 (assets/source/rumble/codex_picture/rumble-sized-v4, the user's pick 2026-10-25: 「用这个吧 刚才那个不对」 - its
+raw/ drafts; its own rumble-A/B.png are the drafts squeezed by nearest-neighbour into a 484x495 box, x and y by different
+factors, so they are not read). A: his idle 3/4 front facing right (the same drawing as the first delivery, re-encoded);
+B: the same "more chibi" - the head about a third of his height, the mech shorter and rounder, drawn smaller on the
+canvas (squares about 4 px). drawn without League's references (the pack went out without refs 1-9: the container could
 not reach raw.communitydragon.org), so Codex drew Rumble from its own knowledge - blue fur and a blue mohawk, the goggles
 pushed up, yellow eyes, a grin; the mech brass-olive and rusty, a long flamethrower cannon forward (image right), a
 harpoon spike on its chest, a SPIKED MACE BALL on the back arm (asked: a claw), two red-capped rocket pods on its back,
 thin jointed legs on red disc feet. Asked 1536 and 11 px squares: the squares run 4-5 px (soft, no exact grid, lossy
 alpha 224-254 inside); regrid is given a little above (it splits rows below the real square), as for Kled.
-Read on SIZE px squares, one pixel per drawn square; the colours cut to COLOURS by k-means in Lab (design_varus.kmeans),
-alpha 0/255.
+Read on SIZE px squares, one pixel per drawn square; the colours of the two cut to COLOURS together by k-means in Lab
+(design_varus.kmeans), alpha 0/255.
 """
 import argparse
 import os
@@ -34,9 +37,9 @@ def lp(path):
     return pre + path if os.name == "nt" and not path.startswith(pre) else path
 
 
-SRC = os.path.join(ROOT, "assets", "source", "rumble", "codex_picture")
+SRC = os.path.join(ROOT, "assets", "source", "rumble", "codex_picture", "rumble-sized-v4", "raw")
 OUT = os.path.join(ROOT, "assets", "source", "rumble", "hd")
-FILES = {"A": "rumble-1.png"}
+FILES = {"A": "rumble-A-raw.png", "B": "rumble-B-raw.png"}
 COLOURS = 40
 
 
@@ -54,18 +57,30 @@ def read(name, size):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--a", type=float, default=5.0)
+    ap.add_argument("--b", type=float, default=4.2)
     ap.add_argument("--out", default=OUT)
     a = ap.parse_args()
     os.makedirs(lp(a.out), exist_ok=True)
-    d = read("A", a.a)
-    op = d[..., 3] > 0
-    idx, pal = V.kmeans(d, COLOURS)
-    out = np.zeros_like(d)
+    parts = [read("A", a.a), read("B", a.b)]
+    h = max(p.shape[0] for p in parts)
+    both = np.zeros((h, sum(p.shape[1] for p in parts), 4), np.uint8)
+    x = 0
+    for p in parts:
+        both[:p.shape[0], x:x + p.shape[1]] = p
+        x += p.shape[1]
+    op = both[..., 3] > 0
+    idx, pal = V.kmeans(both, COLOURS)
+    out = np.zeros_like(both)
     out[op, :3] = pal[idx[op]]
     out[op, 3] = 255
-    Image.fromarray(out).save(lp(os.path.join(a.out, "A.png")))
-    Image.fromarray(np.repeat(np.repeat(out, 4, 0), 4, 1)).save(lp(os.path.join(a.out, "A_4x.png")))
-    print("A", out.shape[1], "x", out.shape[0])
+    x = 0
+    for name, p in zip(("A", "B"), parts):
+        part = out[:p.shape[0], x:x + p.shape[1]]
+        x += p.shape[1]
+        part = part[np.ix_(np.any(part[..., 3] > 0, 1), np.any(part[..., 3] > 0, 0))]
+        Image.fromarray(part).save(lp(os.path.join(a.out, f"{name}.png")))
+        Image.fromarray(np.repeat(np.repeat(part, 4, 0), 4, 1)).save(lp(os.path.join(a.out, f"{name}_4x.png")))
+        print(name, part.shape[1], "x", part.shape[0])
 
 
 if __name__ == "__main__":

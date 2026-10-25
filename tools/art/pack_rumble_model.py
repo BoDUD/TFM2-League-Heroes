@@ -4,14 +4,14 @@ BIG so the image generator's habit of filling the canvas lands on the right coun
 
     python tools/art/pack_rumble_model.py [--out outputs/rumble_model_pack]
 
-The pick (2026-10-25, review_rumble_size.py): 44 game px from the tip of his mohawk to the mech's red feet at PPU 1.75
-(Yorick's) -> 77 squares (hd/A, the mohawk its first row, 247 rows); about 88 squares across with the mace and the
-cannon, so 13 px squares (88 x 13 = 1144 inside Codex's 1254 canvas). The pilot's head is only ~29% of the height in
-step 0 (rows 0-72): take 1 keeps the design, take 2 is the "more chibi" B the step-0 pack asked for and did not get
-(the head about a third of the height, the mech more compact). The feet's bottom edge is a whole number of squares from
-the canvas top (1196 = 92 x 13), so the grid starts at the corner.
-Writes <out>/ (and <out>.zip): MODEL_PROMPTS.md, 1_picture_A.png (step 0, the look to keep), 2_target_A.png (cut to the
-count: size, place, pose - details broken), 3_layout_A.png (with the grid, the top / eye / ground lines), 4_head.png (his
+The design: step 0's B (rumble-sized-v4, the user's delivery 2026-10-25), the more chibi one - at game size A's face is a
+few pixels (its head ~29% of the height), B's reads like Heimerdinger's (review_rumble_size.py). B is wide (1.45 : 1),
+so the pick is 36 game px from the tip of his mohawk to the mech's red feet at PPU 1.75 (Yorick's) -> 63 squares (hd/B,
+the mohawk its first row, 161 rows), about 53 game px / 92 squares across with the mace and the cannon (Urgot 49):
+12 px squares (92 x 12 = 1104 inside Codex's 1254 canvas). Two takes of one prompt. The feet's bottom edge is a whole
+number of squares from the canvas top (1188 = 99 x 12), so the grid starts at the corner.
+Writes <out>/ (and <out>.zip): MODEL_PROMPTS.md, 1_picture_B.png (step 0, the look to keep), 2_target_B.png (cut to the
+count: size, place, pose - details broken), 3_layout_B.png (with the grid, the top / eye / ground lines), 4_head.png (his
 head read back, 8x), style/5..7.
 """
 import argparse
@@ -31,8 +31,8 @@ from pack_gangplank_model import cut, up  # noqa: E402
 
 SRC = os.path.join(ROOT, "assets", "source", "rumble")
 # name -> (rows, px a square, lowest point's bottom edge, his eye row in hd/<name>.png)
-PICS = {"A": (77, 13, 1196, 56)}
-HEAD = (0, 76, 104, 182)   # rows / cols of his head (the mohawk to the chin, both ears, the goggles) in hd/A.png
+PICS = {"B": (63, 12, 1188, 46)}
+HEAD = (0, 66, 86, 160)   # rows / cols of his head (the mohawk to the chin, both ears, the goggles) in hd/B.png
 GREY = (225, 225, 225)
 STYLE = {"5_style_kled.png": ("kled", "hd_idle"), "6_style_blitzcrank.png": ("blitzcrank", "idle"),
          "7_style_urgot.png": ("urgot", "hd_idle")}
@@ -61,11 +61,12 @@ def main():
         RM.lines(lay, top, eye, f"{name}: orange the top y {top}   blue his eyes y {eye}   red ground y {sole}   "
                  f"one square = {px} px   {g.shape[1]} x {g.shape[0]} squares")
         lay.convert("RGB").save(os.path.join(out, f"3_layout_{name}.png"))
-        shutil.copyfile(lp(os.path.join(SRC, "codex_picture", "rumble-1.png")), os.path.join(out, f"1_picture_{name}.png"))
+        shutil.copyfile(lp(os.path.join(SRC, "codex_picture", "rumble-sized-v4", "raw", f"rumble-{name}-raw.png")),
+                        os.path.join(out, f"1_picture_{name}.png"))
         report.append(f"{name} {g.shape[1]}x{g.shape[0]} at ({x0},{y0}) px {px}, top y {top}, eyes y {eye}, "
                       f"ground y {sole}")
     r0, r1, c0, c1 = HEAD
-    d = np.asarray(Image.open(lp(os.path.join(SRC, "hd", "A.png"))).convert("RGBA"))
+    d = np.asarray(Image.open(lp(os.path.join(SRC, "hd", "B.png"))).convert("RGBA"))
     h = d[r0:r1, c0:c1]
     hb = Image.new("RGBA", (h.shape[1] * 8, h.shape[0] * 8), GREY + (255,))
     hb.alpha_composite(Image.fromarray(up(h, 8)))

@@ -1,0 +1,76 @@
+{
+  "A": {
+    "canvas": [
+      1536,
+      1536
+    ],
+    "logical_grid": [
+      44,
+      45
+    ],
+    "cell_size": 11,
+    "slot_origin": [
+      526,
+      895
+    ],
+    "slot_size": [
+      484,
+      495
+    ],
+    "visible_bbox": [
+      526,
+      895,
+      1010,
+      1390
+    ],
+    "bottom_margin": 146,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "palette_colors": 40,
+    "source_crop": [
+      39,
+      176,
+      1225,
+      1161
+    ]
+  },
+  "B": {
+    "canvas": [
+      1536,
+      1536
+    ],
+    "logical_grid": [
+      44,
+      45
+    ],
+    "cell_size": 11,
+    "slot_origin": [
+      526,
+      895
+    ],
+    "slot_size": [
+      484,
+      495
+    ],
+    "visible_bbox": [
+      526,
+      895,
+      1010,
+      1390
+    ],
+    "bottom_margin": 146,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "palette_colors": 40,
+    "source_crop": [
+      209,
+      573,
+      1117,
+      1198
+    ]
+  }
+}

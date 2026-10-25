@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Rumble's step-0 design at game size at several heights and PPUs, next to the pack's yordles and machines (Kled,
+"""Rumble's step-0 designs (A, and B the more chibi one, each at its own height) at game size at several heights and PPUs, next to the pack's yordles and machines (Kled,
 Blitzcrank, Corki, Heimerdinger, Urgot, Ziggs) as the game shows them, the lowest points on one line, for the user's pick.
 
     python tools/art/review_rumble_size.py --out DIR [--a 36,40,44] [--ppu 1.5,1.75,2.0] [--scale 4]
@@ -27,7 +27,7 @@ import ppu_hd  # noqa: E402
 SRC = os.path.join(ROOT, "assets", "source", "rumble", "hd")
 CHAMPS = os.path.join(ROOT, "league", "champions")
 NEIGHBOURS = ["kled", "blitzcrank", "corki", "heimerdinger", "urgot", "ziggs"]
-TOP = {"A": 0}   # the mohawk's outline row
+TOP = {"A": 0, "B": 0}   # the mohawk's outline row
 BG = (196, 200, 190, 255)
 
 
@@ -60,15 +60,15 @@ def main():
     ap.add_argument("--ppu", default="1.5,1.75,2.0")
     ap.add_argument("--scale", type=int, default=4)
     a = ap.parse_args()
-    D = {"A": np.asarray(Image.open(lp(os.path.join(SRC, "A.png"))).convert("RGBA"))}
+    D = {k: np.asarray(Image.open(lp(os.path.join(SRC, f"{k}.png"))).convert("RGBA")) for k in ("A", "B")}
     hs = [int(x) for x in a.a.split(",")]
     rows = []
     for ppu in [float(x) for x in a.ppu.split(",")]:
         cells = []
-        for key, heights in (("A", hs),):
+        for key, heights in (("A", hs), ("B", hs)):
             d = D[key]
             for h in heights:
-                k = ppu * h / (D["A"].shape[0] - TOP["A"])
+                k = ppu * h / (D[key].shape[0] - TOP[key])
                 im, _ = PD.pixelate(d, k, (d.shape[1] / 2, d.shape[0]), PD.edge_colour(d))
                 im = Image.fromarray(im)
                 im = im.crop(im.getbbox())
