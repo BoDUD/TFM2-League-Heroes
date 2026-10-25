@@ -1,0 +1,477 @@
+{
+  "scope": "10 missing FX only",
+  "count": 10,
+  "total_frames": 42,
+  "items": [
+    {
+      "file": "ambessa_fx_e_lash.png",
+      "source": "Codex image_gen",
+      "frames": 5,
+      "cell_1x": [
+        73,
+        36
+      ],
+      "sheet_1x": [
+        365,
+        36
+      ],
+      "preview_scale": 8,
+      "symmetry": "left-right",
+      "alpha": [
+        0,
+        255
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#EEF1F6",
+        "#C6CCD8",
+        "#8E96A6",
+        "#5A6272",
+        "#FFF6D6",
+        "#FFD67A",
+        "#F6A23A",
+        "#D2661E",
+        "#8A3410",
+        "#E6DED4",
+        "#B6AA9C",
+        "#807468",
+        "#4E4640",
+        "#2A2422"
+      ],
+      "raw_size": [
+        2120,
+        742
+      ],
+      "readback": "same crop over all equal-width source panels; nearest listed palette; 15% opaque coverage threshold; majority opaque palette color in each target cell; left half mirrored",
+      "source_crop": [
+        0,
+        237,
+        424,
+        505
+      ],
+      "loop": false,
+      "binding": "view_effects `league_ambessa_e_lash`（大表，跟随她，z 3；左右对称）"
+    },
+    {
+      "file": "ambessa_fx_e_hit.png",
+      "source": "Codex image_gen",
+      "frames": 3,
+      "cell_1x": [
+        14,
+        14
+      ],
+      "sheet_1x": [
+        42,
+        14
+      ],
+      "preview_scale": 8,
+      "symmetry": "left-right",
+      "alpha": [
+        0,
+        255
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#EEF1F6",
+        "#C6CCD8",
+        "#8E96A6",
+        "#5A6272",
+        "#FFF6D6",
+        "#FFD67A",
+        "#F6A23A",
+        "#D2661E",
+        "#8A3410"
+      ],
+      "raw_size": [
+        2172,
+        724
+      ],
+      "readback": "same crop over all equal-width source panels; nearest listed palette; 15% opaque coverage threshold; majority opaque palette color in each target cell; left half mirrored",
+      "source_crop": [
+        92,
+        48,
+        627,
+        671
+      ],
+      "loop": false,
+      "binding": "view_effects `league_ambessa_e_hit`（跟随目标，z 2；左右对称）"
+    },
+    {
+      "file": "ambessa_fx_slow.png",
+      "source": "Codex image_gen",
+      "frames": 4,
+      "cell_1x": [
+        18,
+        7
+      ],
+      "sheet_1x": [
+        72,
+        7
+      ],
+      "preview_scale": 8,
+      "symmetry": "left-right",
+      "alpha": [
+        0,
+        255
+      ],
+      "palette": [
+        "#E6DED4",
+        "#B6AA9C",
+        "#807468",
+        "#4E4640",
+        "#2A2422",
+        "#FFFFFF",
+        "#EEF1F6",
+        "#C6CCD8",
+        "#8E96A6",
+        "#5A6272"
+      ],
+      "raw_size": [
+        2172,
+        724
+      ],
+      "readback": "same crop over all equal-width source panels; nearest listed palette; 15% opaque coverage threshold; majority opaque palette color in each target cell; left half mirrored",
+      "source_crop": [
+        19,
+        250,
+        511,
+        467
+      ],
+      "loop": true,
+      "binding": "view_buffs `league_ambessa_e_slow`（tag `slow`，跟随，脚下，z -1；左右对称）"
+    },
+    {
+      "file": "ambessa_fx_w_brace.png",
+      "source": "Codex image_gen",
+      "frames": 4,
+      "cell_1x": [
+        67,
+        44
+      ],
+      "sheet_1x": [
+        268,
+        44
+      ],
+      "preview_scale": 8,
+      "symmetry": "left-right",
+      "alpha": [
+        0,
+        255
+      ],
+      "palette": [
+        "#FFF6CC",
+        "#EED088",
+        "#C49446",
+        "#865A22",
+        "#4E3212",
+        "#FFFFFF",
+        "#EEF1F6",
+        "#C6CCD8",
+        "#8E96A6",
+        "#5A6272"
+      ],
+      "raw_size": [
+        2185,
+        720
+      ],
+      "readback": "same crop over all equal-width source panels; nearest listed palette; 15% opaque coverage threshold; majority opaque palette color in each target cell; left half mirrored",
+      "source_crop": [
+        0,
+        159,
+        547,
+        549
+      ],
+      "loop": false,
+      "binding": "view_effects `league_ambessa_w_brace`（跟随她，z 3；左右对称；约 0.4 秒）"
+    },
+    {
+      "file": "ambessa_fx_w_slam.png",
+      "source": "Codex image_gen",
+      "frames": 5,
+      "cell_1x": [
+        54,
+        20
+      ],
+      "sheet_1x": [
+        270,
+        20
+      ],
+      "preview_scale": 8,
+      "symmetry": "left-right",
+      "alpha": [
+        0,
+        255
+      ],
+      "palette": [
+        "#FFF6CC",
+        "#EED088",
+        "#C49446",
+        "#865A22",
+        "#4E3212",
+        "#FFF6D6",
+        "#FFD67A",
+        "#F6A23A",
+        "#D2661E",
+        "#8A3410",
+        "#E6DED4",
+        "#B6AA9C",
+        "#807468",
+        "#4E4640",
+        "#2A2422",
+        "#D2C6B6",
+        "#A09080",
+        "#6E6052",
+        "#443A32",
+        "#26201C"
+      ],
+      "raw_size": [
+        2172,
+        724
+      ],
+      "readback": "same crop over all equal-width source panels; nearest listed palette; 15% opaque coverage threshold; majority opaque palette color in each target cell; left half mirrored",
+      "source_crop": [
+        0,
+        250,
+        435,
+        480
+      ],
+      "loop": false,
+      "binding": "view_effects `league_ambessa_w_slam`（大表，在她身边的地上，跟随她，z -1；左右对称）"
+    },
+    {
+      "file": "ambessa_fx_w_hit.png",
+      "source": "Codex image_gen",
+      "frames": 3,
+      "cell_1x": [
+        16,
+        16
+      ],
+      "sheet_1x": [
+        48,
+        16
+      ],
+      "preview_scale": 8,
+      "symmetry": "left-right",
+      "alpha": [
+        0,
+        255
+      ],
+      "palette": [
+        "#FFF6CC",
+        "#EED088",
+        "#C49446",
+        "#865A22",
+        "#4E3212",
+        "#D2C6B6",
+        "#A09080",
+        "#6E6052",
+        "#443A32",
+        "#26201C"
+      ],
+      "raw_size": [
+        2172,
+        724
+      ],
+      "readback": "same crop over all equal-width source panels; nearest listed palette; 15% opaque coverage threshold; majority opaque palette color in each target cell; left half mirrored",
+      "source_crop": [
+        0,
+        78,
+        724,
+        640
+      ],
+      "loop": false,
+      "binding": "view_effects `league_ambessa_w_hit`（跟随目标，z 2；左右对称）"
+    },
+    {
+      "file": "ambessa_fx_w_crit.png",
+      "source": "Codex image_gen",
+      "frames": 4,
+      "cell_1x": [
+        22,
+        22
+      ],
+      "sheet_1x": [
+        88,
+        22
+      ],
+      "preview_scale": 8,
+      "symmetry": "left-right",
+      "alpha": [
+        0,
+        255
+      ],
+      "palette": [
+        "#FFF6CC",
+        "#EED088",
+        "#C49446",
+        "#865A22",
+        "#4E3212",
+        "#FFF6D6",
+        "#FFD67A",
+        "#F6A23A",
+        "#D2661E",
+        "#8A3410",
+        "#FFE0D6",
+        "#F47A62",
+        "#CC3226",
+        "#8A161C",
+        "#4C0A10"
+      ],
+      "raw_size": [
+        2092,
+        752
+      ],
+      "readback": "same crop over all equal-width source panels; nearest listed palette; 15% opaque coverage threshold; majority opaque palette color in each target cell; left half mirrored",
+      "source_crop": [
+        0,
+        109,
+        523,
+        641
+      ],
+      "loop": false,
+      "binding": "view_effects `league_ambessa_w_crit`（附加包，跟随目标，z 2；左右对称）"
+    },
+    {
+      "file": "ambessa_fx_r_blink.png",
+      "source": "Codex image_gen",
+      "frames": 4,
+      "cell_1x": [
+        65,
+        48
+      ],
+      "sheet_1x": [
+        260,
+        48
+      ],
+      "preview_scale": 8,
+      "symmetry": "left-right",
+      "alpha": [
+        0,
+        255
+      ],
+      "palette": [
+        "#E6DED4",
+        "#B6AA9C",
+        "#807468",
+        "#4E4640",
+        "#2A2422",
+        "#FFE0D6",
+        "#F47A62",
+        "#CC3226",
+        "#8A161C",
+        "#4C0A10"
+      ],
+      "raw_size": [
+        2155,
+        730
+      ],
+      "readback": "same crop over all equal-width source panels; nearest listed palette; 15% opaque coverage threshold; majority opaque palette color in each target cell; left half mirrored",
+      "source_crop": [
+        0,
+        194,
+        539,
+        524
+      ],
+      "loop": false,
+      "binding": "view_effects `league_ambessa_r_blink`（大表，在她出发的地方，不跟随，z 3；左右对称）"
+    },
+    {
+      "file": "ambessa_fx_r_pin.png",
+      "source": "Codex image_gen",
+      "frames": 4,
+      "cell_1x": [
+        22,
+        30
+      ],
+      "sheet_1x": [
+        88,
+        30
+      ],
+      "preview_scale": 8,
+      "symmetry": "left-right",
+      "alpha": [
+        0,
+        255
+      ],
+      "palette": [
+        "#FFE0D6",
+        "#F47A62",
+        "#CC3226",
+        "#8A161C",
+        "#4C0A10",
+        "#FFFFFF",
+        "#EEF1F6",
+        "#C6CCD8",
+        "#8E96A6",
+        "#5A6272"
+      ],
+      "raw_size": [
+        2146,
+        733
+      ],
+      "readback": "same crop over all equal-width source panels; nearest listed palette; 15% opaque coverage threshold; majority opaque palette color in each target cell; left half mirrored",
+      "source_crop": [
+        29,
+        150,
+        509,
+        587
+      ],
+      "loop": true,
+      "binding": "view_effects `league_ambessa_r_pin`（跟随目标，z 2；左右对称；约 0.6 秒）"
+    },
+    {
+      "file": "ambessa_fx_r_crash.png",
+      "source": "Codex image_gen",
+      "frames": 6,
+      "cell_1x": [
+        64,
+        30
+      ],
+      "sheet_1x": [
+        384,
+        30
+      ],
+      "preview_scale": 8,
+      "symmetry": "left-right",
+      "alpha": [
+        0,
+        255
+      ],
+      "palette": [
+        "#FFE0D6",
+        "#F47A62",
+        "#CC3226",
+        "#8A161C",
+        "#4C0A10",
+        "#FFF6D6",
+        "#FFD67A",
+        "#F6A23A",
+        "#D2661E",
+        "#8A3410",
+        "#E6DED4",
+        "#B6AA9C",
+        "#807468",
+        "#4E4640",
+        "#2A2422",
+        "#D2C6B6",
+        "#A09080",
+        "#6E6052",
+        "#443A32",
+        "#26201C"
+      ],
+      "raw_size": [
+        2172,
+        724
+      ],
+      "readback": "same crop over all equal-width source panels; nearest listed palette; 15% opaque coverage threshold; majority opaque palette color in each target cell; left half mirrored",
+      "source_crop": [
+        0,
+        196,
+        362,
+        491
+      ],
+      "loop": false,
+      "binding": "view_effects `league_ambessa_r_crash`（大表，在目标的地上，不跟随，z -1；左右对称）"
+    }
+  ]
+}
