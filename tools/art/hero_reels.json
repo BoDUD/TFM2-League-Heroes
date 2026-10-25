@@ -46,6 +46,7 @@
   "league_sejuani": {"idle": [["attack", [0]], ["ult", [1]]], "bp": ["attack", "skill2", "ult"]},
   "league_kled": {"idle": [["skill", [0]], ["skill", [2]]], "f_idle": [["f_skill", [0]]], "bp": ["attack", "skill", "ult"]},
   "league_yorick": {"idle": [["awaken", [2]], ["ult", [1]]], "bp": ["attack", "skill", "ult"]},
+  "league_ambessa": {"idle": [["w", [0]], ["attack", [2]]], "bp": ["attack", "skill2", "ult"]},
   "league_aurora": {"idle": [["attack", [0]], ["skill", [2]]]},
   "league_nunu": {"idle": [["skill2", [0, 1]], ["attack", [0]]]},
   "league_azir": {"idle": [["attack", [0]], ["ult", [0]]]},

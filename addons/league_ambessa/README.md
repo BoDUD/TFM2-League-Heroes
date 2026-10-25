@@ -29,7 +29,7 @@
 
 - 现在只有草稿：`override/` 是 `make_override.py --draft` 写的（不核对主包、没有文字）。主包有了她（`league/champion/league_ambessa.data_champion`、`tools/kit/setup_ambessa.py` 的 `values` / `shown_length` / `TOOLTIP_MAX`）以后不带 `--draft` 重跑，写出 `text/champion.i18n`；技能名换成客户端里的官方名字。
 - 那时再加 `mod.override_info`（主包安蓓萨和文字的两条映射，照 `league_yorick`）、在 `league_addons/src/lib.rs` 里登记（`mod ambessa;` 和 `ambessa::register`，合集说明加一句），`mod.mod_info` 的 `league` 版本改成她进主包的那一版。没有 `mod.override_info` 时 `league_addons/assemble.py` 不会把这个文件夹并进合集。
-- 特效 `q_tip`、`w_crit` 在第 3 步的特效包里画；`r_pin`、`r_crash` 两边共用。
+- 特效已画好（`tools/art/import_ambessa_fx.py`）：`q_tip`、`w_crit` 只有附加包播；`r_pin`、`r_crash` 两边共用。
 
 ## 检查
 

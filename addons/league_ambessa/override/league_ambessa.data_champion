@@ -354,7 +354,7 @@
                                                               },
                                                               {
                                                                 "type": "LineRangeProjectile",
-                                                                "name": "league_ambessa_q2_crack",
+                                                                "name": "league_ambessa_q2_line",
                                                                 "width": 6000,
                                                                 "length": 40000,
                                                                 "delay": 2,
@@ -401,6 +401,16 @@
                                                                     }
                                                                   }
                                                                 ]
+                                                              },
+                                                              {
+                                                                "type": "LineRangeProjectile",
+                                                                "name": "league_ambessa_q2_crack",
+                                                                "width": 6000,
+                                                                "length": 40000,
+                                                                "delay": 12,
+                                                                "apply": 1,
+                                                                "applied_target": "EnemyWithoutTower",
+                                                                "applied_effects": []
                                                               }
                                                             ]
                                                           },
@@ -431,7 +441,7 @@
                                                               },
                                                               {
                                                                 "type": "Delayed",
-                                                                "tick": 2,
+                                                                "tick": 8,
                                                                 "effects": [
                                                                   {
                                                                     "type": "Combine",
@@ -466,10 +476,6 @@
                                                                               "type": "CasterAnimation",
                                                                               "name": "step",
                                                                               "tick": 10
-                                                                            },
-                                                                            {
-                                                                              "type": "CasterViewEffect",
-                                                                              "name": "league_ambessa_st_dash"
                                                                             },
                                                                             {
                                                                               "type": "Sfx",
@@ -681,10 +687,6 @@
                                                             "type": "Combine",
                                                             "effects": [
                                                               {
-                                                                "type": "CasterViewEffect",
-                                                                "name": "league_ambessa_q_sweep"
-                                                              },
-                                                              {
                                                                 "type": "Sfx",
                                                                 "name": "league_ambessa_q_sweep"
                                                               },
@@ -836,7 +838,7 @@
                                                               },
                                                               {
                                                                 "type": "Delayed",
-                                                                "tick": 2,
+                                                                "tick": 8,
                                                                 "effects": [
                                                                   {
                                                                     "type": "Combine",
@@ -871,10 +873,6 @@
                                                                               "type": "CasterAnimation",
                                                                               "name": "step",
                                                                               "tick": 10
-                                                                            },
-                                                                            {
-                                                                              "type": "CasterViewEffect",
-                                                                              "name": "league_ambessa_st_dash"
                                                                             },
                                                                             {
                                                                               "type": "Sfx",
@@ -1230,7 +1228,7 @@
                                                               },
                                                               {
                                                                 "type": "Delayed",
-                                                                "tick": 2,
+                                                                "tick": 8,
                                                                 "effects": [
                                                                   {
                                                                     "type": "Combine",
@@ -1265,10 +1263,6 @@
                                                                               "type": "CasterAnimation",
                                                                               "name": "step",
                                                                               "tick": 10
-                                                                            },
-                                                                            {
-                                                                              "type": "CasterViewEffect",
-                                                                              "name": "league_ambessa_st_dash"
                                                                             },
                                                                             {
                                                                               "type": "Sfx",
@@ -1696,7 +1690,7 @@
                                   },
                                   {
                                     "type": "LineRangeProjectile",
-                                    "name": "league_ambessa_q2_crack",
+                                    "name": "league_ambessa_q2_line",
                                     "width": 6000,
                                     "length": 40000,
                                     "delay": 2,
@@ -1743,6 +1737,16 @@
                                         }
                                       }
                                     ]
+                                  },
+                                  {
+                                    "type": "LineRangeProjectile",
+                                    "name": "league_ambessa_q2_crack",
+                                    "width": 6000,
+                                    "length": 40000,
+                                    "delay": 12,
+                                    "apply": 1,
+                                    "applied_target": "EnemyWithoutTower",
+                                    "applied_effects": []
                                   }
                                 ]
                               },
@@ -1773,7 +1777,7 @@
                                   },
                                   {
                                     "type": "Delayed",
-                                    "tick": 2,
+                                    "tick": 8,
                                     "effects": [
                                       {
                                         "type": "Combine",
@@ -1808,10 +1812,6 @@
                                                   "type": "CasterAnimation",
                                                   "name": "step",
                                                   "tick": 10
-                                                },
-                                                {
-                                                  "type": "CasterViewEffect",
-                                                  "name": "league_ambessa_st_dash"
                                                 },
                                                 {
                                                   "type": "Sfx",
@@ -2002,10 +2002,6 @@
                                 "type": "Combine",
                                 "effects": [
                                   {
-                                    "type": "CasterViewEffect",
-                                    "name": "league_ambessa_q_sweep"
-                                  },
-                                  {
                                     "type": "Sfx",
                                     "name": "league_ambessa_q_sweep"
                                   },
@@ -2157,7 +2153,7 @@
                                   },
                                   {
                                     "type": "Delayed",
-                                    "tick": 2,
+                                    "tick": 8,
                                     "effects": [
                                       {
                                         "type": "Combine",
@@ -2192,10 +2188,6 @@
                                                   "type": "CasterAnimation",
                                                   "name": "step",
                                                   "tick": 10
-                                                },
-                                                {
-                                                  "type": "CasterViewEffect",
-                                                  "name": "league_ambessa_st_dash"
                                                 },
                                                 {
                                                   "type": "Sfx",
@@ -2510,7 +2502,7 @@
                                 },
                                 {
                                   "type": "Delayed",
-                                  "tick": 2,
+                                  "tick": 8,
                                   "effects": [
                                     {
                                       "type": "Combine",
@@ -2545,10 +2537,6 @@
                                                 "type": "CasterAnimation",
                                                 "name": "step",
                                                 "tick": 10
-                                              },
-                                              {
-                                                "type": "CasterViewEffect",
-                                                "name": "league_ambessa_st_dash"
                                               },
                                               {
                                                 "type": "Sfx",
@@ -2943,7 +2931,7 @@
                                                               },
                                                               {
                                                                 "type": "LineRangeProjectile",
-                                                                "name": "league_ambessa_q2_crack",
+                                                                "name": "league_ambessa_q2_line",
                                                                 "width": 6000,
                                                                 "length": 40000,
                                                                 "delay": 2,
@@ -2990,6 +2978,16 @@
                                                                     }
                                                                   }
                                                                 ]
+                                                              },
+                                                              {
+                                                                "type": "LineRangeProjectile",
+                                                                "name": "league_ambessa_q2_crack",
+                                                                "width": 6000,
+                                                                "length": 40000,
+                                                                "delay": 12,
+                                                                "apply": 1,
+                                                                "applied_target": "EnemyWithoutTower",
+                                                                "applied_effects": []
                                                               }
                                                             ]
                                                           },
@@ -3020,7 +3018,7 @@
                                                               },
                                                               {
                                                                 "type": "Delayed",
-                                                                "tick": 2,
+                                                                "tick": 8,
                                                                 "effects": [
                                                                   {
                                                                     "type": "Combine",
@@ -3055,10 +3053,6 @@
                                                                               "type": "CasterAnimation",
                                                                               "name": "step",
                                                                               "tick": 10
-                                                                            },
-                                                                            {
-                                                                              "type": "CasterViewEffect",
-                                                                              "name": "league_ambessa_st_dash"
                                                                             },
                                                                             {
                                                                               "type": "Sfx",
@@ -3270,10 +3264,6 @@
                                                             "type": "Combine",
                                                             "effects": [
                                                               {
-                                                                "type": "CasterViewEffect",
-                                                                "name": "league_ambessa_q_sweep"
-                                                              },
-                                                              {
                                                                 "type": "Sfx",
                                                                 "name": "league_ambessa_q_sweep"
                                                               },
@@ -3425,7 +3415,7 @@
                                                               },
                                                               {
                                                                 "type": "Delayed",
-                                                                "tick": 2,
+                                                                "tick": 8,
                                                                 "effects": [
                                                                   {
                                                                     "type": "Combine",
@@ -3460,10 +3450,6 @@
                                                                               "type": "CasterAnimation",
                                                                               "name": "step",
                                                                               "tick": 10
-                                                                            },
-                                                                            {
-                                                                              "type": "CasterViewEffect",
-                                                                              "name": "league_ambessa_st_dash"
                                                                             },
                                                                             {
                                                                               "type": "Sfx",
@@ -3819,7 +3805,7 @@
                                                               },
                                                               {
                                                                 "type": "Delayed",
-                                                                "tick": 2,
+                                                                "tick": 8,
                                                                 "effects": [
                                                                   {
                                                                     "type": "Combine",
@@ -3854,10 +3840,6 @@
                                                                               "type": "CasterAnimation",
                                                                               "name": "step",
                                                                               "tick": 10
-                                                                            },
-                                                                            {
-                                                                              "type": "CasterViewEffect",
-                                                                              "name": "league_ambessa_st_dash"
                                                                             },
                                                                             {
                                                                               "type": "Sfx",
@@ -4155,27 +4137,11 @@
     },
     {
       "type": "Animation",
-      "name": "league_ambessa_st_dash",
-      "anim": "asset/league/effects/league_ambessa_big",
-      "tag": "st_dash",
-      "z": -1,
-      "is_follow": true
-    },
-    {
-      "type": "Animation",
       "name": "league_ambessa_st_land",
       "anim": "asset/league/effects/league_ambessa_fx",
       "tag": "st_land",
       "z": -1,
       "is_follow": false
-    },
-    {
-      "type": "Animation",
-      "name": "league_ambessa_q_sweep",
-      "anim": "asset/league/effects/league_ambessa_big",
-      "tag": "q_sweep",
-      "z": 3,
-      "is_follow": true
     },
     {
       "type": "Animation",

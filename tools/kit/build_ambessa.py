@@ -33,7 +33,8 @@ nothing (a 3-tick idle). Flags die with her: a respawned Ambessa has every butto
           defence penetration for good (League's passive on R: armour penetration; the flag dies with her and comes
           back with her next R).
   combos  Q sweep -> Sundering Slam (League's recast): the controller slams the nearest unit (q2_range) q2_gap ticks
-          after a sweep that hit. Every ability -> the step -> the empowered attack (the passive). E -> the step ->
+          after a sweep that hit. Every ability -> the step -> the empowered attack (the passive); R's slam takes no
+          step of its own: the Q it gives back comes at once with its own (a step there cut the sweep's wind-up). E -> the step ->
           a second lash at the dash's end. R's slam -> Q at once (`q_cd` off, the controller sweeps the champion:
           R -> Q -> Q2, League's all-in) and Repudiation ready (`w_cd` off).
   controller An AddCasted pulse on her every ctl_p ticks (league_sejuani's, hung by her attack and the ult, only for
@@ -52,7 +53,12 @@ The add-on copy (--native, addons/league_ambessa: everything League does that th
       ticks later slams it (r_dmg + r_ratio% AD + r_pct% max health, r_stun) and fires the combos (Q -> Q2,
       Repudiation ready) and the empowered attack itself.
 Sprite tags: idle run attack skill (the sweep) slam (Q2) skill2 (the lash) w (the brace and slam) ult step hit dead.
-Timings: drafts until the frames exist.
+Timings: the frames' (tools/art/rig_ambessa.py MS, 2026-10-25): attack 26 ticks, the first blade landing at a_hit 10;
+Q 24, the sweep at q_hit 10; Q2 24, the slam at q2_hit 12; E 24, the lash at e_hit 10; W 36, the slam at w_brace 24; R
+48, the blink at r_go 8, the slam r_slam 30 later; Drakehound's Step st_gap 8 after each hit (its pose held 133 ms
+before the dash, st_dur 10). Cunning Sweep's half circle and the step's streaks are drawn into her own frames (the
+client never mirrors an effect picture: tfm2-hero-mod), so the kit plays no picture for them; Sundering Slam's rift is
+a view-only line (q2_vis ticks) beside the damage line (q2_line, no picture: it lives 2 ticks).
 Numbers: League's Ambessa (recalled in a session without the client: check them against her bins with the
 extractor, then rebalance) read into the top fighter range (league_kled, league_yorick, league_darius); not yet
 balanced on the classic-SDK simulations (kd.py --lane 0 against fighter, executioner, knight, berserker, lancer and
@@ -84,12 +90,12 @@ P = {
     # the controller
     "ctl_t": 3600, "ctl_p": 3,
     # passive: Drakehound's Step
-    "st_gap": 2, "st_dur": 10, "st_speed": 3000, "st_reach": 45000,
+    "st_gap": 8, "st_dur": 10, "st_speed": 3000, "st_reach": 45000,
     "pw_t": 180, "pw_as": 50, "pw_dmg": 20, "pw_ratio": 20, "pw_pct": 2,
     # skill: Q Cunning Sweep / Sundering Slam
     "q_cd": 480, "q_range": 30000, "q_dur": 24, "q_hit": 10, "q_r": 30000, "q_dmg": 45, "q_ratio": 70, "q_pct": 3,
     "q2_gap": 18, "q2_win": 180, "q2_range": 40000, "q2_dur": 24, "q2_hit": 12, "q2_len": 40000, "q2_w": 6000,
-    "q2_dmg": 50, "q2_ratio": 80, "q2_pct": 5,
+    "q2_dmg": 50, "q2_ratio": 80, "q2_pct": 5, "q2_vis": 12,
     # skill2: E Lacerate
     "e_cd": 540, "e_range": 25000, "e_dur": 24, "e_hit": 10, "e_r": 24000, "e_dmg": 40, "e_ratio": 55,
     "e_slow": 50, "e_slow_t": 60,
@@ -264,7 +270,7 @@ def build(p):
         dash = {"type": "MoveToTarget", "speed": p["st_speed"], "range": p["st_reach"],
                 "end_effects": [cview("st_land"), *end]}
         return combine(refresh("pw", p["pw_t"], attack_speed_mult=p["pw_as"]),
-                       delayed(p["st_gap"], alive(anim("step", p["st_dur"]), cview("st_dash"), sfx("st"), dash)))
+                       delayed(p["st_gap"], alive(anim("step", p["st_dur"]), sfx("st"), dash)))
 
     # ------------------------------------------------------------------ Q Cunning Sweep / Sundering Slam
     def q1_cast():
@@ -273,7 +279,7 @@ def build(p):
         hit = [attack(p["q_dmg"], p["q_ratio"], target_hp=0 if native else p["q_pct"]),
                buff("q_edge", 3) if native else None, view("q_hit"), tsfx("q_hit"),
                on_me(refresh("q2_wait", p["q2_gap"]), refresh("q2_go", p["q2_gap"] + p["q2_win"]))]
-        sweep = combine(cview("q_sweep"), sfx("q_sweep"), refresh("q_on", 3) if native else None,
+        sweep = combine(sfx("q_sweep"), refresh("q_on", 3) if native else None,
                         ahead(p["q_r"], "EnemyWithoutTower", *[h for h in hit if h is not None]))
         return combine(refresh("q_cd", p["q_cd"]), *rm("q_go", "q2_go", "q2_wait"), busy(p["q_dur"]),
                        anim("skill", p["q_dur"]), sfx("q"), voice("vo_q", p),
@@ -286,8 +292,9 @@ def build(p):
                                                          [attack(0, 0, target_hp=p["q2_pct"])])
         mark = [buff("q2_first", 4)] if native else []
         slam = combine(sfx("q2_hit"), first,
-                       line("q2_crack", p["q2_len"], p["q2_w"], "EnemyWithoutTower",
-                            [attack(p["q2_dmg"], p["q2_ratio"]), *mark, view("q2_hit"), tsfx("q2_hit")]))
+                       line("q2_line", p["q2_len"], p["q2_w"], "EnemyWithoutTower",
+                            [attack(p["q2_dmg"], p["q2_ratio"]), *mark, view("q2_hit"), tsfx("q2_hit")]),
+                       line("q2_crack", p["q2_len"], p["q2_w"], "EnemyWithoutTower", [], delay=p["q2_vis"]))
         return combine(*rm("q2_go", "q2_wait"), busy(p["q2_dur"]), anim("slam", p["q2_dur"]), sfx("q2"),
                        voice("vo_q2", p), delayed(p["q2_hit"] - 1, alive(slam, step())))
 
@@ -336,7 +343,7 @@ def build(p):
                     view("r_crash"), tsfx("r_crash"),
                     sw("own", on_me(*rm("q_cd", "w_cd"), refresh("q_go", ctl_p + 30))))
     pin = combine({"type": "Teleport"}, {"type": "Stun", "duration": p["r_sup"]}, view("r_pin"), tsfx("r_pin"),
-                  delayed(p["r_slam"], alive(homing("r_slam", "EnemyChampion", [crash]), step())))
+                  delayed(p["r_slam"], alive(homing("r_slam", "EnemyChampion", [crash]))))
     # the add-on: the farthest champion on the line, the blink, the pin, the slam and the combos (`r_aim` on the
     # cast's champion, `r_go` on her)
     go = combine(buff("r_aim", 4), on_me(refresh("r_go", 4))) if native else pin
@@ -364,7 +371,7 @@ def build(p):
     skill2 = action("idle", 3, 60, 1, p["e_range"], "Targeting", "EnemyWithoutTower",
                     combine(decoy(p["e_dmg"], p["e_ratio"]), sw("e_cd", NONE, e_cast())), key="skill2")
 
-    # ------------------------------------------------------------------ views (the step-3 effects pack; drafts)
+    # ------------------------------------------------------------------ views (tools/art/import_ambessa_fx.py)
     E = lambda name, anim_=FX, z=2, follow=True: {"type": "Animation", "name": n(name), "anim": anim_, "tag": name,
                                                    "z": z, "is_follow": follow}
     Pj = lambda name, tag=None, anim_=FX: {"type": "Animated", "name": n(name), "anim": anim_, "tag": tag or name,
@@ -372,7 +379,7 @@ def build(p):
     B_ = lambda name, anim_=FX, z=3, tag=None: {"type": "Animated", "name": n(name), "anim": anim_, "tag": tag or name,
                                                 "repeat": True, "z": z}
     views_p = [Pj("q2_crack", anim_=BIG)]
-    views_e = [E("a_hit"), E("pw_hit"), E("st_dash", BIG, -1), E("st_land", FX, -1, False), E("q_sweep", BIG, 3),
+    views_e = [E("a_hit"), E("pw_hit"), E("st_land", FX, -1, False),
                E("q_hit"), E("q2_hit"), E("e_lash", BIG, 3), E("e_hit"), E("w_brace", FX, 3), E("w_slam", BIG, -1),
                E("w_hit"), E("r_blink", BIG, 3, False), E("r_pin"), E("r_crash", BIG, -1, False)]
     views_b = [B_("e_slow", FX, -1, "slow"), B_("pw", FX, -1, "pw_aura")]
