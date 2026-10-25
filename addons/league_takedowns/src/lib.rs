@@ -17,7 +17,9 @@
 //!   v0.3.0 起 E「毒性爆发」照英雄联盟等时机：主包在他最近打中英雄 3 次后的下一下就引爆。副本里每一层毒旁边多调用
 //!   原生效果 `league_takedowns:twitch_venom`，在中毒的英雄身上数层数（`TWITCH_VENOM`，最多 6 层）；引爆的那 5 处检查改读
 //!   `TWITCH_E_GO`：有人满 6 层、或这一爆能毒死人（每层 6 + 16% 攻击力的物理伤害，按护甲折算）时本包才挂上。引爆本身还是
-//!   主包的（每层毒各结算一次），看到主包的爆发标记就把层数清零。
+//!   主包的（每层毒各结算一次），看到主包的爆发标记就把层数清零。v0.3.1：那 5 处只在固定时刻读（W 落地后 68 tick、R 最后
+//!   30 tick、连招冷却里的 W 键），标记那时多半没挂，游戏里 E 几乎不爆（10-24 的日志 1080 次 GO 都没被读走）；副本的每次普攻也读它，挂上后的下一箭就引爆。
+//!   每次引爆记一行 `TWITCH E POP`。
 //!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_takedowns.log`，每次启动游戏重写。
 
@@ -254,6 +256,8 @@ impl StableEffectType for Venom {
 struct Twitch {
     n: usize,
     pops: usize,
+    bursts: usize,
+    bursting: bool,
 }
 
 impl StablePassive for Twitch {
@@ -276,6 +280,14 @@ impl StablePassive for Twitch {
             .map(|u| (u.id(), venom_of(&u), u.hp().0 + u.shield(), u.stat().defence))
             .collect();
         if popping {
+            if !self.bursting {
+                self.bursts += 1;
+                if self.bursts <= 80 || self.bursts % 25 == 0 {
+                    wlog(format!("{} TWITCH E POP #{}: stacks {:?}", head(sim, me), self.bursts,
+                                 foes.iter().map(|f| f.1).collect::<Vec<_>>()));
+                }
+            }
+            self.bursting = true;
             // the data's Contaminate resolves every layer now: the counts start over
             for f in foes.iter().filter(|f| f.1 > 0) {
                 for b in TWITCH_VENOM {
@@ -284,6 +296,7 @@ impl StablePassive for Twitch {
             }
             return;
         }
+        self.bursting = false;
         let per = TWITCH_E_BASE + attack * TWITCH_E_AD / 100;
         let list: Vec<(usize, usize, usize)> = foes.iter().map(|f| (f.1, f.2, f.3)).collect();
         if ready && !going && contaminate(&list, per) {
