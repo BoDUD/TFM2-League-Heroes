@@ -14,6 +14,8 @@
 //! - **E 送给最危险的队友**：`e_range` 内、`e_near` 内有敌方英雄的友方英雄里，按「最近约一秒受到的伤害占最大生命的比例 × 2 +
 //!   已损失生命比例」挑最高的；她自己身边也有敌人而且比他们都危险时留给自己（数据 2 tick 后给自己加盾）。
 //! - **R 读血量**：球附近 2 个敌方英雄照旧放；只有 1 个时，`r_dmg` + `r_ap`% 法强按他的魔抗（伤害 × 100 / (100 + 魔抗)）算得死才放。
+//! - **走上去补刀**（0.2.0，玩家反馈「Orianna doesn't walk up to farm」）：AI 钩子 `league_orianna:farm`（`farm.rs`），附近没有
+//!   敌方英雄时打普攻距离内的小兵（打得死的优先）、走上去打 60k 内的兵线。
 //!
 //! 球在哪：她身上有 `league_orianna_home` 就在她身边；Q 扔出后按 `q_travel` 飞到落点，之后停在那里；E 送出后追着队友，那个队友身上
 //! 出现 `league_orianna_e_def` 就跟着他；她身上有 `league_orianna_b_ret`（球在飞回来）就以 `b_back` 每 tick 朝她走。
@@ -30,9 +32,11 @@ use std::sync::{LazyLock, Mutex};
 
 use mod_api_stable::*;
 
+pub mod farm;
+
 const ID: &str = "league_orianna";
 /// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是 league_addons 的。
-const VERSION: &str = "0.1.1";
+const VERSION: &str = "0.2.0";
 
 // ===================== 数值 =====================
 
@@ -852,7 +856,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v{VERSION} (Orianna: the Ball flies from where it is, Command: Protect to the ally in danger, Command: Shockwave for two champions or a kill) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v{VERSION} (Orianna: the Ball flies from where it is, Command: Protect to the ally in danger, Command: Shockwave for two champions or a kill, walking up to farm) loaded: game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
         v.patch,
@@ -869,7 +873,8 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     module.add_native_effect(format!("{ID}:noop"), Noop);
     module.add_native_effect(format!("{ID}:e_cast"), ECast);
     module.add_native_effect(format!("{ID}:e_try"), ETry);
-    host.log(LogLevel::Info, "league_orianna loaded (the Ball from where it is, Protect to the ally in danger, Shockwave for a kill).");
+    module.add_player_input_ai(farm::Farm::default());
+    host.log(LogLevel::Info, "league_orianna loaded (the Ball from where it is, Protect to the ally in danger, Shockwave for a kill, walking up to farm).");
 }
 
 #[cfg_attr(league_bundle, allow(dead_code))]
