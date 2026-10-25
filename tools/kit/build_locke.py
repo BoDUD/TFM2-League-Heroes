@@ -53,8 +53,9 @@ simulations (kd.py --lane 2 against the five base mages, C:/t/lk_sim, 2026-10-26
 +1.64 on seeds 1-8 / 9-16): the draft (hp 980, attack 100, an execute check every 20 ticks at 150 + 50% AP) +3.36 -
 its execute pulses also counted their heal-back as his healing; checks every 30 ticks at 100 + 40% AP +3.27; Q / E
 damage cut +3.04; hp 940 and W's heal 40 + 20% +2.08 (without the execute at all +0.74: it is worth ~1.3 kills); P =
-hp 900, attack 92, W's heal 20 + 10% and attack speed 35%: +1.60 / +1.62 (R at 160 + 60% fell to +0.75). The add-on's
-rules cannot run in that engine (Native effects dropped).
+hp 900, attack 92, W's heal 20 + 10% and attack speed 35%: +1.60 / +1.62 (R at 160 + 60% fell to +0.75); the shipped build
+(the frames in: the pursuit's dash animation, the nail mark's casted) +1.11 / +1.76, within a standard error of it. The
+add-on's rules cannot run in that engine (Native effects dropped).
 """
 import argparse
 import json

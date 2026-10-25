@@ -1,7 +1,7 @@
 //! W 期间整身换成 W 的样子：灵焰仪式点燃时，站着、跑着、挨打、出招都是 W 配色的洛克（第 0 步 B：深蓝 / 靛紫皮肤、白西装、
 //! 发白光的眼镜）。主包只能用 `CasterAnimation` 换出招的动作，游戏按名字自动播的 idle / run / hit 数据换不了。照 league_kled 的
 //! view.rs（下马整身步行，同一个显示处理表的槽，game_places::hook::add 一个接一个调用）：名字是 `league_locke` 的实体身上有
-//! `league_locke_w_on` 时，正在播的 idle / run / hit / attack / skill / skill2 / ult 换成洛克图里的 `w_idle` …。死亡不换（W 随
+//! `league_locke_w_on` 时，正在播的 idle / run / hit / attack / skill / skill2 / ult / dash 换成洛克图里的 `w_idle` …。死亡不换（W 随
 //! 阵亡清掉）；点燃的那一下 `w` 本身不换。找不到槽时什么都不做，W 期间就是平常的样子。
 
 use std::sync::{Mutex, Once};
@@ -13,8 +13,8 @@ use game_places::hook::{Ent, VALUE, NAME_PTR, NAME_LEN_AT, ANIM_CAP, ANIM_PTR, A
 pub const NAME: &[u8] = b"league_locke";
 
 /// W 期间有自己一套的动作（洛克图里的 `w_*`）：游戏按名字播的 idle / run / hit，和数据用 `CasterAnimation` 播的普攻、
-/// 技能、大招（`attack` 也是普攻的第一 tick）。
-pub const FORM_TAGS: [&str; 7] = ["idle", "run", "hit", "attack", "skill", "skill2", "ult"];
+/// 技能、大招、E 之后追击的冲刺 `dash`（`attack` 也是普攻的第一 tick）。
+pub const FORM_TAGS: [&str; 8] = ["idle", "run", "hit", "attack", "skill", "skill2", "ult", "dash"];
 const PREFIX: &str = "w_";
 
 /// 正在播的动画名 + W 是不是点着 → 该播的名字（不用换就是 None）。W 结束后把本包换上去的 `w_idle` 等换回来。
@@ -142,6 +142,7 @@ mod tests {
         assert_eq!(anim_for("attack", true).as_deref(), Some("w_attack"));
         assert_eq!(anim_for("skill2", true).as_deref(), Some("w_skill2"));
         assert_eq!(anim_for("ult", true).as_deref(), Some("w_ult"));
+        assert_eq!(anim_for("dash", true).as_deref(), Some("w_dash")); // the pursuit after E
         assert_eq!(anim_for("w_attack", true), None); // already swapped
         assert_eq!(anim_for("w", true), None); // the ignition itself
         assert_eq!(anim_for("dead", true), None);
