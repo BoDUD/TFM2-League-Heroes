@@ -34,6 +34,7 @@ sys.path.insert(0, os.path.join(ROOT, ".claude", "skills", "tfm2-hero-mod", "scr
 import ppu_rig as R  # noqa: E402
 import pixel_down as PD  # noqa: E402
 import pack_rumble_poses as PK  # noqa: E402
+from design_rumble_poses import POLY  # noqa: E402
 
 HERO = "rumble"
 PPU = 1.75
@@ -42,6 +43,14 @@ STAND = 46                     # the idle's standing column: under the hull's bo
 HEAD = (PK.HEAD[2], PK.HEAD[0])            # the design's head box top-left (column, row) in hd/idle.png
 # how far the head moves across in each pose (the pose pack's skeleton head against the design's own)
 HEAD_DX = {n: int(round(PK.build(spec)["head"][0] - PK.REST["head"][0])) for n, (_, _, _, spec) in PK.POSES.items()}
+# Overheat (红温, the user 2026-10-25: 「红温特效补一个吧」): League turns the mech's metal glowing red while the yordle stays
+# himself (his model under rumble_overheat_base.tex, rendered from the local client). The oh_ tags are his frames with
+# every square of the mech - brass, steel, the ball, the cannon, the pods, the joints - put on this crimson ramp by its
+# brightness (the outline kept); the pilot's head (POLY, where the pose's head box went) and his blue fur in the bowl under
+# it keep their colours. league_rumble's view hook (the add-on) swaps them in while he is Overheated; his attacks
+# play oh_attack from the data too.
+HOT = [(45, (42, 8, 8, 255)), (75, (88, 16, 14, 255)), (110, (140, 24, 18, 255)), (150, (196, 38, 26, 255)),
+       (195, (238, 70, 40, 255)), (256, (255, 140, 90, 255))]
 
 
 def lp(path):
@@ -78,25 +87,51 @@ class Canvas:
         self.rig.idle_canvas = self.frame("idle")
 
     def placed(self, name, dx=0, lift=0):
-        """(picture, its top-left on the canvas)."""
+        """(picture, its top-left on the canvas, the head box's top-left in the picture)."""
         rig = self.rig
         if name == "idle":
             d, (hx, hy), ground, mv = self.d, HEAD, self.d.shape[0], 0
         else:
             (d, (hx, hy), ground), mv = load_pose(name), HEAD_DX[name]
-        return d, (rig.ox + HEAD[0] - hx + mv + dx, rig.GY - ground - lift)
+        return d, (rig.ox + HEAD[0] - hx + mv + dx, rig.GY - ground - lift), (hx, hy)
 
-    def frame(self, name, dx=0, lift=0, flash=False):
+    def frame(self, name, dx=0, lift=0, flash=False, hot=False):
         rig = self.rig
         can = rig.canvas()
-        d, (left, top) = self.placed(name, dx, lift)
+        d, (left, top), (hx, hy) = self.placed(name, dx, lift)
         ys, xs = np.nonzero(d[..., 3] > 0)
         ty, tx = ys + top, xs + left
         ok = (ty >= 0) & (ty < rig.CH) & (tx >= 0) & (tx < rig.CW)
         if not ok.all():
             sys.exit(f"{name}: {int((~ok).sum())} squares off the canvas (pad the rig)")
         can[ty, tx] = d[ys, xs]
+        if hot:
+            can = self.red_hot(can, (left + hx - HEAD[0], top + hy - HEAD[1]))
         return R.flash(can) if flash else can
+
+    def red_hot(self, can, at):
+        """The mech glowing red (HOT), the pilot as he is: `at` is where the design's (0, 0) lies for the head (POLY)."""
+        from PIL import ImageDraw
+        img = Image.new("L", (can.shape[1], can.shape[0]), 0)
+        ImageDraw.Draw(img).polygon([(x + at[0], y + at[1]) for x, y in POLY], fill=255)
+        head = np.asarray(img) > 0
+        # the pilot under his head: his blue fur and arms in the bowl, a band the head box's width, 16 rows down
+        pilot = np.zeros_like(head)
+        x0, y0 = at[0] + HEAD[0], at[1] + HEAD[1] + (PK.HEAD[1] - PK.HEAD[0])
+        pilot[max(0, y0 - 4):max(0, y0 + 16), max(0, x0 - 4):max(0, x0 + (PK.HEAD[3] - PK.HEAD[2]) + 4)] = True
+        rgb = can[..., :3].astype(int)
+        op = can[..., 3] > 0
+        ink = (rgb == np.array(self.outline[:3])).all(-1)
+        blue = (rgb[..., 2] - rgb[..., 0] > 40) & (rgb[..., 2] >= rgb[..., 1])
+        metal = op & ~ink & ~head & ~(pilot & blue)
+        lum = rgb @ np.array([299, 587, 114]) // 1000
+        out = can.copy()
+        lo = 0
+        for hi, col in HOT:
+            m = metal & (lum >= lo) & (lum < hi)
+            out[m] = col
+            lo = hi
+        return out
 
 
 # ms per frame; the kit's ticks (tools/kit/build_rumble.py) match these (a frame's start in ticks = ms x 0.06):
@@ -105,6 +140,7 @@ class Canvas:
 # (133 ms); The Equalizer 600 ms = r_dur 36, the rockets off on r_rel 14 (233 ms)
 MS = {"idle": [1000], "run": [150] * 4, "attack": [183, 184, 100], "skill": [133, 1367], "skill2": [133, 267],
       "ult": [233, 367], "hit": [100, 100], "dead": [140, 260, 300, 600]}
+MS.update({f"oh_{t}": MS[t] for t in ("idle", "run", "attack", "hit", "dead")})
 
 
 def actions(C):
@@ -124,6 +160,13 @@ def actions(C):
     out["hit"] = [f("idle", dx=-2, flash=True), f("idle", dx=-1)]
     # death (Death: knocked back, toppled onto his back with the legs in the air)
     out["dead"] = [f("d_drop", flash=True), f("d_drop"), f("d_down"), f("d_down")]
+    # Overheated (红温): the same frames with the mech glowing red, for the tags he plays while it lasts (no casts then)
+    out["oh_idle"] = [f("idle", hot=True)]
+    out["oh_run"] = [f("run1", hot=True), f("run2", hot=True), f("run3", hot=True), f("run4", hot=True)]
+    out["oh_attack"] = [f("a_wind", hot=True), f("a_smash", hot=True), f("idle", hot=True)]
+    out["oh_hit"] = [f("idle", dx=-2, flash=True, hot=True), f("idle", dx=-1, hot=True)]
+    out["oh_dead"] = [f("d_drop", flash=True, hot=True), f("d_drop", hot=True), f("d_down", hot=True),
+                      f("d_down", hot=True)]
     return out
 
 
@@ -145,7 +188,10 @@ def baked(C, acts):
     sheet = os.path.join(ROOT, "league", "effects", "league_rumble_fx#sheet.png")
     if not (os.path.isfile(lp(path)) and os.path.isfile(lp(sheet))):
         return acts
-    return C.rig.bake(acts)
+    with open(lp(path), encoding="utf-8") as f:
+        cfg = json.load(f)
+    cfg["items"] = [e for e in cfg["items"] if e["into"] in acts]        # (--tags: only the tags asked for)
+    return C.rig.bake(acts, cfg=cfg) if cfg["items"] else acts
 
 
 def main():

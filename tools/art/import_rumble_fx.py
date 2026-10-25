@@ -14,7 +14,11 @@ Each frame is placed as the kit plays it (import_yorick_fx.py's way): spots are 
 down); a unit's soles are 11 under it (league.dll hd.rs FEET 11.5), a ground point's too. Anchors: "core" (the cell's
 middle), "bottom" (the lowest drawn row of all its frames), or a point (x, y) in the cell. Buffs loop while they last
 (the shield, the haste, the slow, the burn, the Danger Zone's steam, Overheat's smoke), the harpoon while it flies, the
-fire through the skill; a landing rocket's tag is as long as its burning zone (build_rumble.py r_t).
+fire through the skill. The Equalizer's burning line is one picture a band (r_band_h across the screen, r_band_v up and
+down it: the kit lays whichever covers more enemy champions), six r_fall landings composed along it, the rockets coming
+down one after another (the horizontal band from its middle out: an effect picture is never mirrored, so it stays
+symmetric left to right; the vertical one from its far end to the near), all burning to the end of the zone together
+(build_rumble.py r_t).
 The fire (q_flame) is a tag only for rig_rumble.py's bake (assets/source/native/rumble_bake.json, written here): each frame
 with its nozzle on the pivot, the bake moves it onto the cannon's muzzle in q_spray (MUZZLE).
 """
@@ -41,7 +45,7 @@ FIX = os.path.join(ROOT, "assets", "source", "rumble", "fx_fix")      # tools/ar
 MOD = os.path.join(ROOT, "league")
 NATIVE = os.path.join(ROOT, "assets", "source", "native")
 
-BIG = {"oh_on", "r_launch", "r_fall"}
+BIG = {"oh_on", "r_launch", "r_band_h", "r_band_v"}
 FLYING = {"e_harpoon"}          # turned with its flight: drawn going right, symmetric top to bottom
 FORWARD = {"q_flame"}           # drawn into his own frames: points right, no symmetry
 HIT = (0, -14)                  # a hit on the upper body of a 32-46 px unit
@@ -77,18 +81,16 @@ def ms_of(ticks):
 
 
 Q_FIRE = ms_of(P["q_t"]) - 133            # the fire from q_spray's first moment to the end of the skill (rig_rumble.MS)
-R_ZONE = ms_of(P["r_t"])                  # a landing rocket's burning zone
-R_HEAD = [40, 40, 60, 80, 100]            # the rocket diving, the flash, the blast, the cloud settling
-R_TAIL = [160, 240]                       # the fire dying down to embers
-R_LOOP = 4                                # frames 6-9 burn in a loop between them
-
-
-def r_fall_frames():
-    head = seq(range(5), R_HEAD)
-    burn = R_ZONE - sum(R_HEAD) - sum(R_TAIL)
-    mid = [(5 + k, ms) for k, ms in over(R_LOOP, 120, burn)]
-    tail = seq([9, 10], R_TAIL)
-    return head + mid + tail
+R_ZONE = ms_of(P["r_t"])                  # the burning line's zone
+R_HEAD = [40, 40, 60, 80, 100]            # a rocket diving, the flash, the blast, the cloud settling
+R_TAIL = [160, 240]                       # the fire dying down to embers (every landing together, at the zone's end)
+R_LOOP, R_BURN = 4, 120                   # frames 6-9 of r_fall burn in a loop between them, R_BURN ms each
+R_STEP = P["r_len"] // 6000               # game px between two landings: six along the band's r_len
+# the landings along each band: (x, y) from the band's middle (y down) and when each rocket comes down (ms)
+BANDS = {"r_band_h": [((-R_STEP // 2, 0), 0), ((R_STEP // 2, 0), 0), ((-3 * R_STEP // 2, 0), 60),
+                      ((3 * R_STEP // 2, 0), 60), ((-5 * R_STEP // 2, 0), 120), ((5 * R_STEP // 2, 0), 120)],
+         "r_band_v": [((0, (2 * k - 5) * R_STEP // 2), 60 * k) for k in range(6)]}   # (60 ms: R_BURN's half)
+PATCH = "patch"                           # r_fall's anchor: the middle of its ground ellipse
 
 
 # tag -> (picture, anchor, frames with ms, spots)
@@ -112,9 +114,8 @@ FX = {
     "dz_steam": ("dz_steam", "bottom", loop(4, 150), [SHOULDERS]),
     "oh_on": ("oh_on", "bottom", seq(range(6), [60, 80, 100, 140, 160, 200]), [GROUND]),
     "oh_smoke": ("oh_smoke", "bottom", loop(4, 150), [SHOULDERS]),
-    # The Equalizer: the rockets off his back, each one's landing and the fire it leaves, the burn on one standing in it
+    # The Equalizer: the rockets off his back (the burning line itself: BANDS), the burn on one standing in it
     "r_launch": ("r_launch", "bottom", seq(range(5), [60, 80, 90, 110, 160]), [GROUND]),
-    "r_fall": ("r_fall", "patch", r_fall_frames(), [(0, 11)]),
     "burn": ("burn", "bottom", loop(4, 100), [GROUND]),
 }
 
@@ -161,6 +162,63 @@ def anchor_of(cs, kind):
     return anchor(cs, kind)
 
 
+def landing_frame(u, k):
+    """The r_fall frame a landing shows u ms after its rocket came down (None before), burning in phase k."""
+    if u < 0:
+        return None
+    t = u
+    for i, ms in enumerate(R_HEAD):
+        if t < ms:
+            return i
+        t -= ms
+    return 5 + int((u - sum(R_HEAD)) // R_BURN + k) % R_LOOP
+
+
+def band(cells, anc, landings):
+    """The burning line: r_fall's cells at each landing's spot (x, 11 + y: a ground point), each from its own moment,
+    composed far to near and centred on the pivot, every landing dying down together in the zone's last sum(R_TAIL) ms;
+    the horizontal one made symmetric from its left half (two landings overlap in the middle)."""
+    tail0 = int(R_ZONE - sum(R_TAIL))
+    cuts = {0, int(R_ZONE), tail0, tail0 + R_TAIL[0]}
+    for _, o in landings:
+        t = o
+        for ms in R_HEAD:
+            cuts.add(int(t))
+            t += ms
+        while t < tail0:
+            cuts.add(int(t))
+            t += R_BURN
+    cuts = sorted(c for c in cuts if 0 <= c <= R_ZONE)
+    h, w = cells[0].shape[:2]
+    ax, ay = int(round(anc[0])), int(round(anc[1]))
+    spots = [(x - ax, 11 + y - ay) for (x, y), _ in landings]
+    u0, r0 = min(x for x, _ in spots), min(y for _, y in spots)
+    W, H = max(x for x, _ in spots) - u0 + w, max(y for _, y in spots) - r0 + h
+    order = sorted(range(len(landings)), key=lambda i: landings[i][0][1])          # far (up) first
+    flat = all(y == 0 for (_, y), _ in landings)                                    # the horizontal band
+    out = []
+    for a, b in zip(cuts, cuts[1:]):
+        can = np.zeros((H, W, 4), np.uint8)
+        for i in order:
+            if a >= tail0:
+                f = 9 if a < tail0 + R_TAIL[0] else 10
+            else:
+                f = landing_frame(a - landings[i][1], i)
+            if f is None:
+                continue
+            x, y = spots[i][0] - u0, spots[i][1] - r0
+            c = cells[f]
+            m = c[..., 3] > 0
+            can[y:y + h, x:x + w][m] = c[m]
+        if flat:
+            mid = -u0                                       # the pivot's column
+            left = can[:, :mid + 1].copy()
+            n = min(left.shape[1], W - mid)
+            can[:, mid:mid + n] = left[:, ::-1][:, :n]
+        out.append((G.centre_frame(can, u0, r0), b - a))
+    return out
+
+
 def manifest(src):
     man = json.load(open(lp(os.path.join(src, "manifest.json")), encoding="utf-8-sig"))
     meta = {}
@@ -191,7 +249,7 @@ def main():
     ap.add_argument("--review", help="write every effect's game-size cells at 6x here")
     a = ap.parse_args()
     meta = manifest(a.src)
-    pics = {v[0] for v in FX.values()}
+    pics = {v[0] for v in FX.values()} | {"r_fall"}        # (r_fall: the bands' landings)
     if set(meta) != pics:
         sys.exit(f"delivered {sorted(meta)} against the kit's {sorted(pics)}")
     allc = {n: cells(n, meta[n], a.src) for n in pics}
@@ -203,6 +261,9 @@ def main():
         anc = anchor_of(cs, kind)
         out = [(J.place(cs[k], anc, spots), ms) for k, ms in frames]
         tables["league_rumble_big" if tag in BIG else "league_rumble_fx"][tag] = out
+    fall = allc["r_fall"]
+    for tag, landings in BANDS.items():
+        tables["league_rumble_big"][tag] = band(fall, anchor_of(fall, PATCH), landings)
     for sheet, tags in tables.items():
         w, h = G.write_sheet(lp(os.path.join(MOD, "effects", sheet)), tags, share=True)
         print(f"league/effects/{sheet}#sheet.png {w}x{h}: " + ", ".join(

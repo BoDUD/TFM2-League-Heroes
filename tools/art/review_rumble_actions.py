@@ -36,6 +36,9 @@ CLIPS = {"idle": [IDLE], "run": [P["run1"], P["run2"], P["run3"], P["run4"]],
          "skill2": [P["e_aim"], P["e_recoil"]],
          "ult": [P["r_crouch"], P["r_launch"]],
          "hit": [IDLE], "dead": [P["d_drop"], P["d_drop"], P["d_down"]]}
+CLIPS.update({f"oh_{t}": CLIPS[t] for t in ("idle", "run", "attack", "hit", "dead")})
+# Overheated (红温): League's model under its overheat map beside the red-hot tags
+OH_TEX = "ASSETS/Characters/Rumble/Skins/Base/Particles/rumble_overheat_base.tex"
 BG = (96, 112, 96)
 
 
@@ -48,8 +51,10 @@ def lol_frames(lol, tag, n, out):
     cmd = [sys.executable, os.path.join(R.ROOT, "tools", "lol", "pose_ref.py"), "--lol", lol, "--champ", "Rumble", "--hq",
            "--yaw", "35", "--mirror", "--size", "300", "--width", "1.6", "--fit", "0.5", "--no-labels", "--name", name,
            "--out", out, "--fit-all", *frames]
-    if tag in ("dead", "attack", "skill"):              # the ball swung up, the cannon levelled, the mech toppled: room
+    if tag.replace("oh_", "") in ("dead", "attack", "skill"):   # the ball swung up, the cannon levelled, toppled: room
         cmd += ["--fit", "0.4", "--width", "2.0"]
+    if tag.startswith("oh_"):
+        cmd += ["--tex", OH_TEX]
     subprocess.run(cmd, check=True, capture_output=True)
     strip = Image.open(os.path.join(out, name + ".png")).convert("RGB")
     w = strip.width // n

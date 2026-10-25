@@ -20,7 +20,8 @@ Flags die with him: every life starts cold with Q, E and W ready.
           Zone), two steps of heat. No animation of its own (League's W does not stop him): the shield is a picture
           on him, made left-right symmetric (it plays while he walks).
   attack  A blow of the claw (100% AD) by a hidden homing hit on `Enemy` (towers too) on a_hit; Overheated, the
-          blow burns (above).
+          blow burns (above) and he swings red-hot (红温: `oh_attack`; his red-hot idle / run / hit / dead, oh_*, the
+          add-on's view hook swaps in while `oh` is on - the data cannot change what the game plays by name).
   skill   Q Flamespitter (纵火盛宴), `Targeting` on `EnemyWithoutTower` (q_range, `q_cd`): he flames a cone ahead for
           q_t ticks: q_n pulses every q_gap ticks of q_dmg + q_ap% AP to every enemy in the cone (q_len long,
           `DirDot` range q_cone; league_ornn W's), x dz_k% when cast in the Danger Zone (`q_dz` for the whole burst).
@@ -31,13 +32,16 @@ Flags die with him: every life starts cold with Q, E and W ready.
   skill2  E Electro-Harpoon (电子鱼叉), `Targeting` on `EnemyWithoutTower` (e_range, `e_cd`): a harpoon (a line
           stopping on the first enemy, e_speed <= 2 x e_rad): e_dmg + e_ap% AP and e_slow% slower for e_slow_t
           ticks, x dz_k% in the Danger Zone.
-  ult     R The Equalizer (恒温灼烧), `Targeting` on `EnemyChampion` (r_range): he fires the rockets on r_rel; r_n
-          hidden lines run toward the champion and end r_first, r_first + r_step, ... away (League's line laid
-          along his aim; data has no perpendicular line), each landing a burning zone of radius r_r for r_t ticks:
-          every r_p ticks r_dmg + r_ap% AP and r_slow% slower. The launch (r_launch) is drawn behind him (z -1: the
-          rockets leave the pods on his back, their smoke behind his body). The rockets' fall and the fire are one `ViewEffect` on
-          each landing point, its tag as long as the zone (never turned: an upright picture on a zone would stand on
-          its head on the red side).
+  ult     R The Equalizer (恒温灼烧), `Targeting` on `EnemyChampion` (r_range): he fires the rockets on r_rel and the
+          burning line is laid on the champion's spot across the screen or up and down it, whichever covers more enemy
+          champions (the user, 2026-10-25: 「R的大招会智能放吗 竖着放横着放 都要会」; League drags it any way): a hidden
+          lob onto the champion starts two one-tick areas there, the two bands (`Rect` r_len x r_wid and r_wid x
+          r_len, axis-aligned: league_anivia W's wall), each counting the enemy champions in it on him (rh1..3,
+          rv1..3); two ticks later a second lob lays the band with more (as many: across, the way the fights run, so a
+          champion walking left or right stays longer in the fire): a zone of that `Rect` for r_t ticks, every r_p
+          ticks r_dmg + r_ap% AP and r_slow% slower, its picture r_band_h / r_band_v (six rockets coming down along
+          it, one `ViewEffect` on the spot, never turned). The launch (r_launch) is drawn behind him (z -1: the
+          rockets leave the pods on his back, their smoke behind his body).
   combos  E -> E2 (League's second charge): a harpoon through a champion opens the recast - e_gap ticks later the
           controller fires a second harpoon at a champion within e_range (e2_k% damage, e2_slow% slow: League's
           stacking slow and the second harpoon's bonus on the same target).
@@ -49,7 +53,8 @@ Flags die with him: every life starts cold with Q, E and W ready.
           Overheat -> his attacks (above).
   controller An AddCasted pulse on him every ctl_p ticks (league_sejuani's, hung by his attack and the ult, only for
           Rumble himself: `own`): heat, cooling, Overheat, W and the combos' casts.
-Not built (data cannot): Q while walking; a perpendicular R line; heat from casting outside fights cooling slower
+Not built (data cannot): Q while walking; an R line at any angle (across or up and down the screen only); heat from
+casting outside fights cooling slower
 (League's heat decays only out of combat - here any h_hold ticks without a cast).
 Timings: drafts until the frames exist (tools/art/rig_rumble.py retimes them).
 Numbers: League (16.21 read at draft time, to recheck) into the top fighter range (league_kled, league_singed,
@@ -91,8 +96,8 @@ P = {
     "e_cd": 480, "e_range": 55000, "e_dur": 24, "e_rel": 8, "e_speed": 6000, "e_rad": 3000, "e_dmg": 50, "e_ap": 40,
     "e_slow": 20, "e_slow_t": 120, "e_gap": 30, "e_win": 150, "e2_k": 125, "e2_slow": 35,
     # ult: R The Equalizer
-    "r_cd": 5400, "r_range": 60000, "r_dur": 36, "r_rel": 14, "r_n": 6, "r_first": 20000, "r_step": 14000,
-    "r_speed": 6000, "r_r": 7000, "r_t": 240, "r_p": 30, "r_dmg": 25, "r_ap": 15, "r_slow": 35,
+    "r_cd": 5400, "r_range": 60000, "r_dur": 36, "r_rel": 14, "r_len": 84000, "r_wid": 20000, "r_bite": 8,
+    "r_t": 240, "r_p": 30, "r_dmg": 25, "r_ap": 15, "r_slow": 35,
     "r_wait": 330,
     # his spoken lines, at most one every vo_gap ticks
     "vo_gap": 600,
@@ -241,10 +246,28 @@ def line(name, speed, rng, radius, target, effects, penetrate=True, end=()):
             "shape": circle(radius), "y_offset": 0}
 
 
-def field(name, radius, tick, period, effects, target="EnemyWithoutTower", first=None):
-    return {"type": "RangePeriodProjectile", "name": n(name), "shape": circle(radius), "tick": tick, "period": period,
+def rect(w, h):
+    """An axis-aligned box round the centre (league_anivia W's wall): never turned, so across or up and down the screen."""
+    return {"Rect": {"width": w, "height": h}}
+
+
+def field(name, shape, tick, period, effects, target="EnemyWithoutTower", first=None):
+    return {"type": "RangePeriodProjectile", "name": n(name), "shape": shape, "tick": tick, "period": period,
             "first_delay": period if first is None else first, "applied_target": target,
             "applied_effects": [T(e) for e in effects], "end_effects": []}
+
+
+def zone(name, shape, effects, target):
+    """A one-tick area (hits the tick it appears: champion-data RangeProjectile delay 1 apply 1)."""
+    return {"type": "RangeProjectile", "name": n(name), "shape": shape, "delay": 1, "apply": 1,
+            "applied_target": target, "applied_effects": [T(e) for e in effects]}
+
+
+def lob(name, end, target="EnemyChampion"):
+    """A hidden lob with travel_time 1 onto the action's target: its end_effects run on the spot it stands on, the tick
+    it is fired (league_annie R's way to start an area round a unit)."""
+    return {"type": "ParabolicProjectile", "name": n(name), "travel_time": 1, "range": 400000, "range_effect_name": "",
+            "shape": circle(1), "applied_target": target, "applied_effects": [], "end_effects": list(end)}
 
 
 def casted(duration, period, *effects, kind="Heal"):
@@ -335,15 +358,28 @@ def build(p):
     def e_cast():
         return combine(refresh("e_cd", p["e_cd"]), *rm("e_go2", "e_wait"), voice("vo_e", p), harpoon(False))
 
-    # ------------------------------------------------------------------ R The Equalizer
-    def landing(k):
+    # ------------------------------------------------------------------ R The Equalizer: across or up and down
+    bands = {"h": rect(p["r_len"], p["r_wid"]), "v": rect(p["r_wid"], p["r_len"])}
+    counts = [f"r{ax}{i}" for ax in "hv" for i in (1, 2, 3)]
+
+    def probe(ax):
+        """Every enemy champion in the band round the target's spot counts a step on him (r<ax>1..3, 4 ticks): the
+        units of one area are applied one after another in the same tick, each seeing the flags the last one set."""
+        f = lambda i: f"r{ax}{i}"
+        step = sw(f(2), flag(f(3), 4), sw(f(1), flag(f(2), 4), flag(f(1), 4)))
+        return zone(f"r_probe_{ax}", bands[ax], [step], "EnemyChampion")
+
+    def lay(ax):
         burn_ = [ap(p["r_dmg"], p["r_ap"]), buff("r_slow", p["r_p"] + 6, move_speed_mult=-p["r_slow"]), tsfx("r_hit")]
-        end = [field("r_zone", p["r_r"], p["r_t"], p["r_p"], burn_, first=0), view("r_fall"), sfx("r_fall")]
-        if k == 0:   # R -> E: the first rocket down takes E off its cooldown and the controller harpoons
-            end.append(sw("own", combine(*rm("e_cd"), refresh("e_go", 30))))
-        return line(f"r_rocket{k}", p["r_speed"], p["r_first"] + k * p["r_step"], 1000, "Ally", [], end=end)
+        return combine(field(f"r_zone_{ax}", bands[ax], p["r_t"], p["r_p"], burn_, first=p["r_bite"]),
+                       view(f"r_band_{ax}"), sfx("r_fall"),
+                       # R -> E: the rockets down take E off its cooldown and the controller harpoons
+                       sw("own", combine(*rm("e_cd"), refresh("e_go", 30))))
+    # the band with more enemy champions in it (three or more counted as three); as many: across the screen
+    smart = sw("rv3", sw("rh3", lay("h"), lay("v")), sw("rv2", sw("rh2", lay("h"), lay("v")), lay("h")))
     rockets = combine(anim("ult", p["r_dur"]), sfx("r"), voice("vo_r", p),
-                      delayed(p["r_rel"] - 1, alive_aimed(cview("r_launch"), *[landing(k) for k in range(p["r_n"])])))
+                      delayed(p["r_rel"] - 1, alive_aimed(cview("r_launch"), lob("r_aim", [probe("h"), probe("v")]))),
+                      delayed(p["r_rel"] + 1, alive_aimed(lob("r_mark", [smart, *rm(*counts)]))))
     # Overheated R waits: the empty cast's cooldown capped at r_wait ticks (league_kled's on foot)
     wait_mult = -(-p["r_cd"] * 100 // p["r_wait"]) - 100
     r_go = sw("oh", flag("r_back", 2, ult_cooldown_mult=wait_mult), rockets)
@@ -364,6 +400,7 @@ def build(p):
     # ------------------------------------------------------------------ the slots
     attack_a = action("attack", p["atk_dur"], p["atk_cd"], 1, p["atk_range"], "Targeting", "Enemy",
                       combine(decoy(0, 100, attack), sw("own", NONE, flag("own", None)), hang,
+                              sw("oh", anim("oh_attack", p["atk_dur"])),       # Overheated: the red-hot swing
                               delayed(p["a_hit"] - 1, alive(blow))),
                       atype="BaseAttack", cancel=True)
     ult = action("idle", 3, p["r_cd"], 1, p["r_range"], "Targeting", "EnemyChampion",
@@ -383,7 +420,7 @@ def build(p):
                                                 "repeat": True, "z": z}
     views_p = [Pj("e_harpoon")]
     views_e = [E("a_hit"), E("oh_hit"), E("q_hit"), E("e_hit"), E("e2_hit"), E("dz_on", FX, 3), E("oh_on", BIG, 3),
-               E("r_launch", BIG, -1), E("r_fall", BIG, -1, False)]
+               E("r_launch", BIG, -1), E("r_band_h", BIG, -1, False), E("r_band_v", BIG, -1, False)]
     # the Danger Zone's steam and Overheat's smoke rise from behind him (z -1: drawn over him they covered his face)
     views_b = [B_("w_shown", FX, 3, "w_shield"), B_("w_ms", FX, -1, "haste"), B_("dz", FX, -1, "dz_steam"),
                B_("oh", FX, -1, "oh_smoke"), B_("e_slow", FX, 3, "e_zap"), B_("r_slow", FX, -1, "burn")]
