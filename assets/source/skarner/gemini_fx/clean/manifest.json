@@ -1,0 +1,164 @@
+[
+ {
+  "file": "skarner_fx_a_hit.png",
+  "frames": 3,
+  "cell_1x": [
+   14,
+   14
+  ],
+  "symmetry": "left-right"
+ },
+ {
+  "file": "skarner_fx_e_hit.png",
+  "frames": 4,
+  "cell_1x": [
+   22,
+   20
+  ],
+  "symmetry": "left-right"
+ },
+ {
+  "file": "skarner_fx_e_slam.png",
+  "frames": 5,
+  "cell_1x": [
+   28,
+   30
+  ],
+  "symmetry": "left-right"
+ },
+ {
+  "file": "skarner_fx_p_burst.png",
+  "frames": 5,
+  "cell_1x": [
+   24,
+   24
+  ],
+  "symmetry": "left-right"
+ },
+ {
+  "file": "skarner_fx_p_quake.png",
+  "frames": 4,
+  "cell_1x": [
+   18,
+   8
+  ],
+  "symmetry": "left-right"
+ },
+ {
+  "file": "skarner_fx_q_held.png",
+  "frames": 4,
+  "cell_1x": [
+   64,
+   56
+  ],
+  "symmetry": "left-right"
+ },
+ {
+  "file": "skarner_fx_q_hit.png",
+  "frames": 3,
+  "cell_1x": [
+   20,
+   18
+  ],
+  "symmetry": "left-right"
+ },
+ {
+  "file": "skarner_fx_q_land.png",
+  "frames": 5,
+  "cell_1x": [
+   36,
+   18
+  ],
+  "symmetry": "left-right"
+ },
+ {
+  "file": "skarner_fx_q_rock.png",
+  "frames": 2,
+  "cell_1x": [
+   20,
+   14
+  ],
+  "symmetry": "top-bottom"
+ },
+ {
+  "file": "skarner_fx_r_haste.png",
+  "frames": 4,
+  "cell_1x": [
+   50,
+   12
+  ],
+  "symmetry": "left-right"
+ },
+ {
+  "file": "skarner_fx_r_held.png",
+  "frames": 6,
+  "cell_1x": [
+   26,
+   34
+  ],
+  "symmetry": "left-right"
+ },
+ {
+  "file": "skarner_fx_r_hit.png",
+  "frames": 4,
+  "cell_1x": [
+   26,
+   30
+  ],
+  "symmetry": "left-right"
+ },
+ {
+  "file": "skarner_fx_r_spike.png",
+  "frames": 3,
+  "cell_1x": [
+   44,
+   15
+  ],
+  "symmetry": "left-right"
+ },
+ {
+  "file": "skarner_fx_slow.png",
+  "frames": 4,
+  "cell_1x": [
+   16,
+   8
+  ],
+  "symmetry": "left-right"
+ },
+ {
+  "file": "skarner_fx_stun.png",
+  "frames": 4,
+  "cell_1x": [
+   16,
+   8
+  ],
+  "symmetry": "left-right"
+ },
+ {
+  "file": "skarner_fx_w_hit.png",
+  "frames": 4,
+  "cell_1x": [
+   18,
+   18
+  ],
+  "symmetry": "left-right"
+ },
+ {
+  "file": "skarner_fx_w_quake.png",
+  "frames": 5,
+  "cell_1x": [
+   84,
+   28
+  ],
+  "symmetry": "left-right"
+ },
+ {
+  "file": "skarner_fx_w_shield.png",
+  "frames": 6,
+  "cell_1x": [
+   54,
+   42
+  ],
+  "symmetry": "left-right"
+ }
+]
