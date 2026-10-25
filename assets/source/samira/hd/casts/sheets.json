@@ -1,0 +1,626 @@
+{
+ "square": 5.5,
+ "sheet": [
+  1536,
+  1024
+ ],
+ "ground": 904,
+ "same": {
+  "attack": {
+   "5": 4,
+   "6": 3,
+   "7": 3
+  },
+  "attack_m": {
+   "7": 6
+  },
+  "skill": {
+   "4": 3,
+   "5": 3,
+   "8": 1
+  },
+  "skill_m": {
+   "3": 1,
+   "9": 8
+  },
+  "skill2": {
+   "12": 8,
+   "13": 9,
+   "14": 10,
+   "15": 11
+  },
+  "ult": {
+   "3": 2,
+   "4": 2,
+   "6": 5,
+   "7": 5,
+   "8": 2,
+   "9": 2,
+   "10": 2,
+   "12": 11,
+   "13": 11,
+   "14": 2,
+   "15": 2,
+   "16": 2,
+   "17": 5,
+   "18": 5,
+   "19": 5,
+   "20": 2,
+   "21": 2,
+   "22": 2,
+   "23": 11,
+   "24": 11,
+   "25": 11
+  },
+  "dead": {
+   "6": 5,
+   "7": 5,
+   "8": 5
+  }
+ },
+ "sheets": [
+  {
+   "tag": "run",
+   "name": "run_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "action": "running (her move loop): a quick run, the greatsword on her back, the LEGS SWAPPING every half cycle (left foot forward, then right foot forward) and the body bobbing up and down with each stride",
+   "ms": [
+    133,
+    133
+   ],
+   "weapons": "The greatsword stays on her back as in image 1 (hilt with the red tassel up at the upper left), the pistol in its gold holster on her near hip."
+  },
+  {
+   "tag": "run",
+   "name": "run_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "action": "running (her move loop): a quick run, the greatsword on her back, the LEGS SWAPPING every half cycle (left foot forward, then right foot forward) and the body bobbing up and down with each stride",
+   "ms": [
+    133,
+    133
+   ],
+   "weapons": "The greatsword stays on her back as in image 1 (hilt with the red tassel up at the upper left), the pistol in its gold holster on her near hip."
+  },
+  {
+   "tag": "run",
+   "name": "run_3",
+   "frames": [
+    5,
+    6
+   ],
+   "cells": 2,
+   "action": "running (her move loop): a quick run, the greatsword on her back, the LEGS SWAPPING every half cycle (left foot forward, then right foot forward) and the body bobbing up and down with each stride",
+   "ms": [
+    133,
+    133
+   ],
+   "weapons": "The greatsword stays on her back as in image 1 (hilt with the red tassel up at the upper left), the pistol in its gold holster on her near hip."
+  },
+  {
+   "tag": "run",
+   "name": "run_4",
+   "frames": [
+    7,
+    8
+   ],
+   "cells": 2,
+   "action": "running (her move loop): a quick run, the greatsword on her back, the LEGS SWAPPING every half cycle (left foot forward, then right foot forward) and the body bobbing up and down with each stride",
+   "ms": [
+    133,
+    133
+   ],
+   "weapons": "The greatsword stays on her back as in image 1 (hilt with the red tassel up at the upper left), the pistol in its gold holster on her near hip."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "action": "gun attack: her far hand (image right) raises her pistol and fires forward, then lowers it",
+   "ms": [
+    60,
+    60
+   ],
+   "weapons": "The pistol is in her FAR hand (image right) every frame; the greatsword stays on her back."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_2",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "action": "gun attack: her far hand (image right) raises her pistol and fires forward, then lowers it",
+   "ms": [
+    60
+   ],
+   "weapons": "The pistol is in her FAR hand (image right) every frame; the greatsword stays on her back."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_3",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "action": "gun attack: her far hand (image right) raises her pistol and fires forward, then lowers it",
+   "ms": [
+    25
+   ],
+   "weapons": "The pistol is in her FAR hand (image right) every frame; the greatsword stays on her back."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_4",
+   "frames": [
+    8
+   ],
+   "cells": 1,
+   "action": "gun attack: her far hand (image right) raises her pistol and fires forward, then lowers it",
+   "ms": [
+    100
+   ],
+   "weapons": "The pistol is in her FAR hand (image right) every frame; the greatsword stays on her back."
+  },
+  {
+   "tag": "attack_m",
+   "name": "attack_m_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "action": "sword attack: she draws the greatsword from her back, swings it down in front of her and puts it back on her back",
+   "ms": [
+    50,
+    40
+   ],
+   "weapons": "The greatsword is in ONE hand all through the swing - the same hand in every frame, where the pale figure holds it; between swings it is back on her back. The pistol stays in its holster."
+  },
+  {
+   "tag": "attack_m",
+   "name": "attack_m_2",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "action": "sword attack: she draws the greatsword from her back, swings it down in front of her and puts it back on her back",
+   "ms": [
+    50
+   ],
+   "weapons": "The greatsword is in ONE hand all through the swing - the same hand in every frame, where the pale figure holds it; between swings it is back on her back. The pistol stays in its holster."
+  },
+  {
+   "tag": "attack_m",
+   "name": "attack_m_3",
+   "frames": [
+    4,
+    5
+   ],
+   "cells": 2,
+   "action": "sword attack: she draws the greatsword from her back, swings it down in front of her and puts it back on her back",
+   "ms": [
+    40,
+    50
+   ],
+   "weapons": "The greatsword is in ONE hand all through the swing - the same hand in every frame, where the pale figure holds it; between swings it is back on her back. The pistol stays in its holster."
+  },
+  {
+   "tag": "attack_m",
+   "name": "attack_m_4",
+   "frames": [
+    6,
+    8
+   ],
+   "cells": 2,
+   "action": "sword attack: she draws the greatsword from her back, swings it down in front of her and puts it back on her back",
+   "ms": [
+    60,
+    110
+   ],
+   "weapons": "The greatsword is in ONE hand all through the swing - the same hand in every frame, where the pale figure holds it; between swings it is back on her back. The pistol stays in its holster."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "action": "Flair (gun): her far hand fires the pistol forward",
+   "ms": [
+    60,
+    60
+   ],
+   "weapons": "The pistol is in her FAR hand (image right) every frame; the greatsword stays on her back."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_2",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "action": "Flair (gun): her far hand fires the pistol forward",
+   "ms": [
+    25
+   ],
+   "weapons": "The pistol is in her FAR hand (image right) every frame; the greatsword stays on her back."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_3",
+   "frames": [
+    6,
+    7
+   ],
+   "cells": 2,
+   "action": "Flair (gun): her far hand fires the pistol forward",
+   "ms": [
+    90,
+    80
+   ],
+   "weapons": "The pistol is in her FAR hand (image right) every frame; the greatsword stays on her back."
+  },
+  {
+   "tag": "skill_m",
+   "name": "skill_m_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "action": "Flair (sword): the greatsword raised and slashed across in front of her, then back on her back",
+   "ms": [
+    50,
+    50
+   ],
+   "weapons": "The greatsword is in ONE hand all through the slash - the same hand in every frame, where the pale figure holds it; at the end it is back on her back."
+  },
+  {
+   "tag": "skill_m",
+   "name": "skill_m_2",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "action": "Flair (sword): the greatsword raised and slashed across in front of her, then back on her back",
+   "ms": [
+    40
+   ],
+   "weapons": "The greatsword is in ONE hand all through the slash - the same hand in every frame, where the pale figure holds it; at the end it is back on her back."
+  },
+  {
+   "tag": "skill_m",
+   "name": "skill_m_3",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "action": "Flair (sword): the greatsword raised and slashed across in front of her, then back on her back",
+   "ms": [
+    60
+   ],
+   "weapons": "The greatsword is in ONE hand all through the slash - the same hand in every frame, where the pale figure holds it; at the end it is back on her back."
+  },
+  {
+   "tag": "skill_m",
+   "name": "skill_m_4",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "action": "Flair (sword): the greatsword raised and slashed across in front of her, then back on her back",
+   "ms": [
+    60
+   ],
+   "weapons": "The greatsword is in ONE hand all through the slash - the same hand in every frame, where the pale figure holds it; at the end it is back on her back."
+  },
+  {
+   "tag": "skill_m",
+   "name": "skill_m_5",
+   "frames": [
+    7
+   ],
+   "cells": 1,
+   "action": "Flair (sword): the greatsword raised and slashed across in front of her, then back on her back",
+   "ms": [
+    40
+   ],
+   "weapons": "The greatsword is in ONE hand all through the slash - the same hand in every frame, where the pale figure holds it; at the end it is back on her back."
+  },
+  {
+   "tag": "skill_m",
+   "name": "skill_m_6",
+   "frames": [
+    8
+   ],
+   "cells": 1,
+   "action": "Flair (sword): the greatsword raised and slashed across in front of her, then back on her back",
+   "ms": [
+    20
+   ],
+   "weapons": "The greatsword is in ONE hand all through the slash - the same hand in every frame, where the pale figure holds it; at the end it is back on her back."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "action": "Wild Rush then Blade Whirl: she dashes forward with the greatsword held out in front, then whirls the sword round herself, then stands",
+   "ms": [
+    40
+   ],
+   "weapons": "The greatsword in ONE hand all through (the same hand every frame), held forward in the dash, whirled round her after it, then on her back."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "action": "Wild Rush then Blade Whirl: she dashes forward with the greatsword held out in front, then whirls the sword round herself, then stands",
+   "ms": [
+    10
+   ],
+   "weapons": "The greatsword in ONE hand all through (the same hand every frame), held forward in the dash, whirled round her after it, then on her back."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_3",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "action": "Wild Rush then Blade Whirl: she dashes forward with the greatsword held out in front, then whirls the sword round herself, then stands",
+   "ms": [
+    30
+   ],
+   "weapons": "The greatsword in ONE hand all through (the same hand every frame), held forward in the dash, whirled round her after it, then on her back."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_4",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "action": "Wild Rush then Blade Whirl: she dashes forward with the greatsword held out in front, then whirls the sword round herself, then stands",
+   "ms": [
+    20
+   ],
+   "weapons": "The greatsword in ONE hand all through (the same hand every frame), held forward in the dash, whirled round her after it, then on her back."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_5",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "action": "Wild Rush then Blade Whirl: she dashes forward with the greatsword held out in front, then whirls the sword round herself, then stands",
+   "ms": [
+    25
+   ],
+   "weapons": "The greatsword in ONE hand all through (the same hand every frame), held forward in the dash, whirled round her after it, then on her back."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_6",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "action": "Wild Rush then Blade Whirl: she dashes forward with the greatsword held out in front, then whirls the sword round herself, then stands",
+   "ms": [
+    42
+   ],
+   "weapons": "The greatsword in ONE hand all through (the same hand every frame), held forward in the dash, whirled round her after it, then on her back."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_7",
+   "frames": [
+    7
+   ],
+   "cells": 1,
+   "action": "Wild Rush then Blade Whirl: she dashes forward with the greatsword held out in front, then whirls the sword round herself, then stands",
+   "ms": [
+    3
+   ],
+   "weapons": "The greatsword in ONE hand all through (the same hand every frame), held forward in the dash, whirled round her after it, then on her back."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_8",
+   "frames": [
+    8
+   ],
+   "cells": 1,
+   "action": "Wild Rush then Blade Whirl: she dashes forward with the greatsword held out in front, then whirls the sword round herself, then stands",
+   "ms": [
+    87
+   ],
+   "weapons": "The greatsword in ONE hand all through (the same hand every frame), held forward in the dash, whirled round her after it, then on her back."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_9",
+   "frames": [
+    9,
+    10
+   ],
+   "cells": 2,
+   "action": "Wild Rush then Blade Whirl: she dashes forward with the greatsword held out in front, then whirls the sword round herself, then stands",
+   "ms": [
+    90,
+    90
+   ],
+   "weapons": "The greatsword in ONE hand all through (the same hand every frame), held forward in the dash, whirled round her after it, then on her back."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_10",
+   "frames": [
+    11,
+    16
+   ],
+   "cells": 2,
+   "action": "Wild Rush then Blade Whirl: she dashes forward with the greatsword held out in front, then whirls the sword round herself, then stands",
+   "ms": [
+    90,
+    100
+   ],
+   "weapons": "The greatsword in ONE hand all through (the same hand every frame), held forward in the dash, whirled round her after it, then on her back."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "action": "Inferno Trigger: a pistol in EACH hand, firing to both sides in turn",
+   "ms": [
+    150
+   ],
+   "weapons": "A pistol in EACH hand, pointing out to each side as the pale figure; the greatsword stays on her back."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "action": "Inferno Trigger: a pistol in EACH hand, firing to both sides in turn",
+   "ms": [
+    50
+   ],
+   "weapons": "A pistol in EACH hand, pointing out to each side as the pale figure; the greatsword stays on her back."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_3",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "action": "Inferno Trigger: a pistol in EACH hand, firing to both sides in turn",
+   "ms": [
+    50
+   ],
+   "weapons": "A pistol in EACH hand, pointing out to each side as the pale figure; the greatsword stays on her back."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_4",
+   "frames": [
+    11
+   ],
+   "cells": 1,
+   "action": "Inferno Trigger: a pistol in EACH hand, firing to both sides in turn",
+   "ms": [
+    50
+   ],
+   "weapons": "A pistol in EACH hand, pointing out to each side as the pale figure; the greatsword stays on her back."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_5",
+   "frames": [
+    26
+   ],
+   "cells": 1,
+   "action": "Inferno Trigger: a pistol in EACH hand, firing to both sides in turn",
+   "ms": [
+    380
+   ],
+   "weapons": "A pistol in EACH hand, pointing out to each side as the pale figure; the greatsword stays on her back."
+  },
+  {
+   "tag": "hit",
+   "name": "hit_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "action": "struck, flinching back",
+   "ms": [
+    100,
+    100
+   ],
+   "weapons": "The greatsword stays on her back, the pistol in its holster."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "action": "death: she falls back and lies down, the greatsword dropping to the ground beside her",
+   "ms": [
+    100,
+    110
+   ],
+   "weapons": "The greatsword still on her back as she starts to fall."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_2",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "action": "death: she falls back and lies down, the greatsword dropping to the ground beside her",
+   "ms": [
+    110
+   ],
+   "weapons": "The greatsword lies on the ground beside her, still (where the pale figure has it)."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_3",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "action": "death: she falls back and lies down, the greatsword dropping to the ground beside her",
+   "ms": [
+    120
+   ],
+   "weapons": "The greatsword lies on the ground beside her, still (where the pale figure has it)."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_4",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "action": "death: she falls back and lies down, the greatsword dropping to the ground beside her",
+   "ms": [
+    130
+   ],
+   "weapons": "The greatsword lies on the ground beside her, still (where the pale figure has it)."
+  }
+ ]
+}

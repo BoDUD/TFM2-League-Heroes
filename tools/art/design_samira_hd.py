@@ -63,6 +63,8 @@ def main():
     d, step = design(a.ppu, HOW)
     if a.ppu == PPU:
         d = SW.sword(d)                                 # the greatsword straight (sword_samira_hd.py)
+        ys, xs = np.nonzero(d[..., 3])
+        d = d[ys.min():ys.max() + 1, xs.min():xs.max() + 1]   # (the old blade's tip took the last column with it)
     Image.fromarray(d).save(AH.lp(a.out or os.path.join(AH.HD, "design.png")))
     print(f"step {step:.2f} -> design {d.shape[1]}x{d.shape[0]}, "
           f"{len(np.unique(d[d[..., 3] > 0][:, :3], axis=0))} colours")
