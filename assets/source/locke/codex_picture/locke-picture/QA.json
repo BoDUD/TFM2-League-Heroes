@@ -1,0 +1,41 @@
+{
+  "locke-A.png": {
+    "dimensions": [
+      1254,
+      1254
+    ],
+    "visible_bbox_alpha128": [
+      355,
+      325,
+      882,
+      1235
+    ],
+    "alpha_levels": 256,
+    "transparent_pixels": 1276318,
+    "semitransparent_pixels": 294407,
+    "strict_1536_pass": false,
+    "hard_alpha_pass": false
+  },
+  "locke-B.png": {
+    "dimensions": [
+      1254,
+      1254
+    ],
+    "visible_bbox_alpha128": [
+      354,
+      325,
+      884,
+      1237
+    ],
+    "alpha_levels": 256,
+    "transparent_pixels": 1273641,
+    "semitransparent_pixels": 296947,
+    "strict_1536_pass": false,
+    "hard_alpha_pass": false
+  },
+  "alignment": {
+    "silhouette_equal": false,
+    "different_mask_pixels": 4504,
+    "intersection_over_union": 0.9843556790552275
+  }
+}
