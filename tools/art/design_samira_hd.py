@@ -25,12 +25,12 @@ import design_fiora_hd as FD  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(HERE))
 AH.HD = os.path.join(ROOT, "assets", "source", "samira", "hd")
-AH.RAW, AH.PITCH = "samira-lol-refined.png", (7.5, 8.6)  # its own square (~8 px)
+AH.RAW, AH.PITCH = "samira-v3.png", (7.5, 8.6)  # its own square (~8 px): v3, the head smaller
 OLD = 37                        # her 1x idle, the sword's hilt to her soles
 CROWN = 0                       # (measured from the top of the read: the hilt)
 PPU = 2.84                      # the user's pick, 2026-10-25: 「用 PPU 2.2 取平均的那版」, then on the result 「太糊了 用2.84吧」
 HOW = "cut"                     # whole lines dropped: sharper than the Lab mean at 2.84 (her eye, the tattoo, the chains)
-FACE_ROWS, FACE_COLS = range(26, 46), range(50, 75)   # her eye (read rows 29-35), mouth (39-44), never dropped
+FACE_ROWS, FACE_COLS = range(18, 36), range(44, 68)   # v3: her eye (read rows 22-27), mouth (31-32), chin 35, never dropped
 PEERS = ["samira", "annie", "ahri", "lux"]
 
 
