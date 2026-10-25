@@ -185,7 +185,7 @@
     "action_name": "idle",
     "description": "#asset/base/text/champion?description.league_hwei.skill",
     "duration": 3,
-    "cooltime": 480,
+    "cooltime": 60,
     "start_timing": 1,
     "cancelable": false,
     "range": 80000,
@@ -224,8 +224,8 @@
               },
               "effect_none": {
                 "type": "ApAttack",
-                "damage": 90,
-                "attack_ratio": 60,
+                "damage": 75,
+                "attack_ratio": 50,
                 "hp_ratio": 0,
                 "can_crit": false
               }
@@ -259,7 +259,7 @@
                       "name": "league_hwei_q_cd",
                       "duration": {
                         "Time": {
-                          "tick": 480
+                          "tick": 600
                         }
                       }
                     },
@@ -374,7 +374,7 @@
                         "effects": [
                           {
                             "type": "ApAttack",
-                            "damage": 70,
+                            "damage": 60,
                             "attack_ratio": 45,
                             "hp_ratio": 0,
                             "can_crit": false
@@ -563,8 +563,8 @@
                                             "casting_type": "Targeting",
                                             "effect": {
                                               "type": "ApAttack",
-                                              "damage": 90,
-                                              "attack_ratio": 60,
+                                              "damage": 75,
+                                              "attack_ratio": 50,
                                               "hp_ratio": 0,
                                               "can_crit": false
                                             }
@@ -793,7 +793,7 @@
                                                 "casting_type": "Targeting",
                                                 "effect": {
                                                   "type": "ApAttack",
-                                                  "damage": 35,
+                                                  "damage": 30,
                                                   "attack_ratio": 25,
                                                   "hp_ratio": 0,
                                                   "can_crit": false
@@ -1244,7 +1244,7 @@
                                                       "name": "league_hwei_q_cd",
                                                       "duration": {
                                                         "Time": {
-                                                          "tick": 480
+                                                          "tick": 600
                                                         }
                                                       }
                                                     },
@@ -1266,7 +1266,7 @@
                                                 "effects": [
                                                   {
                                                     "type": "ApAttack",
-                                                    "damage": 70,
+                                                    "damage": 60,
                                                     "attack_ratio": 45,
                                                     "hp_ratio": 0,
                                                     "can_crit": false
@@ -1624,7 +1624,7 @@
                                                               "name": "league_hwei_q_cd",
                                                               "duration": {
                                                                 "Time": {
-                                                                  "tick": 480
+                                                                  "tick": 600
                                                                 }
                                                               }
                                                             },
@@ -1646,7 +1646,7 @@
                                                         "effects": [
                                                           {
                                                             "type": "ApAttack",
-                                                            "damage": 70,
+                                                            "damage": 60,
                                                             "attack_ratio": 45,
                                                             "hp_ratio": 0,
                                                             "can_crit": false
@@ -1999,7 +1999,7 @@
                                                               "name": "league_hwei_q_cd",
                                                               "duration": {
                                                                 "Time": {
-                                                                  "tick": 480
+                                                                  "tick": 600
                                                                 }
                                                               }
                                                             },
@@ -2021,7 +2021,7 @@
                                                         "effects": [
                                                           {
                                                             "type": "ApAttack",
-                                                            "damage": 70,
+                                                            "damage": 60,
                                                             "attack_ratio": 45,
                                                             "hp_ratio": 0,
                                                             "can_crit": false
@@ -2422,7 +2422,7 @@
                                               "name": "league_hwei_q_cd",
                                               "duration": {
                                                 "Time": {
-                                                  "tick": 480
+                                                  "tick": 600
                                                 }
                                               }
                                             },
@@ -2445,8 +2445,8 @@
                                             "casting_type": "Targeting",
                                             "effect": {
                                               "type": "ApAttack",
-                                              "damage": 90,
-                                              "attack_ratio": 60,
+                                              "damage": 75,
+                                              "attack_ratio": 50,
                                               "hp_ratio": 0,
                                               "can_crit": false
                                             }
