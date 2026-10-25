@@ -1,0 +1,20 @@
+{
+  "author": "BoDUD",
+  "contains_code": true,
+  "dependencies": [
+    {
+      "mod_id": "base",
+      "version": ">=0.4.11"
+    },
+    {
+      "mod_id": "league",
+      "version": ">=0.224.0"
+    }
+  ],
+  "description": "Test build of Skarner as in League (needs League of Legends Heroes): replaces the main pack's Skarner so Quaking stacks on each enemy champion and deals magic damage (the main pack: stacks counted on Skarner, true damage), Ixtal's Impact stuns only when it slams the champion into a wall (the main pack: at the end of every carry) and Impale suppresses only the first three champions, keeping them beside Skarner while he moves (the main pack: every champion on the line, pulled toward him). Other champions are untouched. Writes a log for testing.",
+  "last_updated": "2026-10-26",
+  "mod_id": "league_skarner",
+  "mod_type": "native",
+  "name": "League Heroes: Skarner's Quaking, wall stun and Impale drag as in League (test)",
+  "version": "0.1.0"
+}
