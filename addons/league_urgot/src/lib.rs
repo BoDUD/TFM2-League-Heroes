@@ -18,7 +18,8 @@
 //!   身上时两人重叠，引擎把两人往随机方向推开，大约一半甩错了边（经典模拟 trace）。
 //!
 //! - **鄙弃把人甩到身后**（用户 2026-10-24：「厄加特的E是不是有bug啊 不能把人背回来」）：E 出手时 `league_urgot:dash` 记下
-//!   他起跳的位置；抓住 `e_fling` tick 后 `league_urgot:fling` 把目标在 `e_pull_t` tick 内一步步挪到他身后 `e_behind` 处、
+//!   他起跳的位置；抓住时 `league_urgot:fling` 记下抓住的人（0.2.1：原来放在冲刺结束后的 Delayed 里，游戏里一次都没调到，
+//!   146 个厄加特 0 行 FLING），`e_fling` tick 后本包把目标在 `e_pull_t` tick 内一步步挪到他身后 `e_behind` 处、
 //!   朝起跳那一边（英雄联盟：越过他的头甩到背后，等于拖回自己这边）。主包数据只能用 `Pull` 往他身上拉：冲刺落在目标身上时
 //!   两人重叠，引擎把两人往随机方向推开，大约一半甩错了边（经典模拟 trace）。
 //!
@@ -36,7 +37,7 @@ use mod_api_stable::*;
 
 const ID: &str = "league_urgot";
 /// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是 league_addons 的。
-const VERSION: &str = "0.2.0";
+const VERSION: &str = "0.2.1";
 
 // ===================== 数值 =====================
 
@@ -156,11 +157,13 @@ pub struct Params {
     /// 鄙弃：甩到他身后多远、几 tick 甩完。
     pub e_behind: u64,
     pub e_pull_t: u64,
+    /// 抓住后几 tick 才甩（数据的 `e_fling`；本包自己等，数据里的 Delayed 在游戏里调不到本包）。
+    pub e_fling: u64,
 }
 
 impl Default for Params {
     fn default() -> Self {
-        Params { leg_t0: 480, leg_t: 180, r_ex: 25, e_behind: 15000, e_pull_t: 3 }
+        Params { leg_t0: 480, leg_t: 180, r_ex: 25, e_behind: 15000, e_pull_t: 3, e_fling: 15 }
     }
 }
 
@@ -175,6 +178,9 @@ pub fn parse_params(json: &str) -> Params {
             "leg_t0" => p.leg_t0 = v,
             "leg_t" => p.leg_t = v,
             "r_ex" => p.r_ex = v as usize,
+            "e_behind" => p.e_behind = v,
+            "e_pull_t" => p.e_pull_t = v,
+            "e_fling" => p.e_fling = v,
             _ => {}
         }
     }
@@ -202,6 +208,8 @@ struct Legs {
     p: Params,
     last: [u64; 6],
     from: Option<(f64, f64)>,
+    /// 抓住的人和甩出去的 tick（到了才算落点：那时他和目标的位置）。
+    due: Option<(usize, u64)>,
     throw: Option<Throw>,
 }
 
@@ -296,21 +304,37 @@ struct Fling;
 impl StableEffectType for Fling {
     fn apply(&self, sim: &mut StableSim<'_>, _: u64, caster: usize, input: InputTargetV1) {
         if InputTargetKindV1::from_code(input.kind) != Some(InputTargetKindV1::Target) {
+            if let Some(n) = counted("fling?") {
+                wlog(format!("{} FLING? #{n}: called without a target (input kind {})", head(sim, caster), input.kind));
+            }
             return;
         }
         let target = input.target_id;
-        let (Some(me), Some(at)) = (pos_of(sim, caster), pos_of(sim, target)) else { return };
+        if pos_of(sim, caster).is_none() || pos_of(sim, target).is_none() {
+            return;
+        }
         let key = (sim_of(sim, caster), caster);
         let now = sim.tick() as u64;
         let mut st = STATE.lock().unwrap_or_else(|e| e.into_inner());
         let s = st.entry(key).or_default();
-        let end = landing(me, s.from.take(), at, s.p.e_behind as f64);
-        s.throw = Some(Throw { target, start: at, end, at: now, ticks: s.p.e_pull_t.max(1) });
+        let at = now + s.p.e_fling;
+        s.due = Some((target, at));
         drop(st);
-        if let Some(n) = counted("fling") {
-            wlog(format!("{} FLING #{n} {} from ({:.0}, {:.0}) over him at ({:.0}, {:.0}) to ({:.0}, {:.0})", head(sim, caster),
-                         who(sim, target), at.0, at.1, me.0, me.1, end.0, end.1));
+        if let Some(n) = counted("catch") {
+            wlog(format!("{} CATCH #{n} {}: flung at t={at}", head(sim, caster), who(sim, target)));
         }
+    }
+}
+
+/// The throw's start the tick it is due: from where the caught one stands, over him to the side he dashed from.
+fn start_throw(sim: &StableSim<'_>, me: usize, s: &mut Legs, target: usize, now: u64) {
+    s.due = None;
+    let (Some(u), Some(at)) = (pos_of(sim, me), pos_of(sim, target)) else { return };
+    let end = landing(u, s.from.take(), at, s.p.e_behind as f64);
+    s.throw = Some(Throw { target, start: at, end, at: now, ticks: s.p.e_pull_t.max(1) });
+    if let Some(n) = counted("fling") {
+        wlog(format!("{} FLING #{n} {} from ({:.0}, {:.0}) over him at ({:.0}, {:.0}) to ({:.0}, {:.0})", head(sim, me),
+                     who(sim, target), at.0, at.1, u.0, u.1, end.0, end.1));
     }
 }
 
@@ -376,6 +400,15 @@ impl StablePassive for Passive {
 
     fn on_update(&mut self, sim: &mut StableSim<'_>, _: u64, _: usize, me: usize) {
         let key = (self.sim_no, me);
+        let now = sim.tick() as u64;
+        {
+            let mut st = STATE.lock().unwrap_or_else(|e| e.into_inner());
+            if let Some(s) = st.get_mut(&key) {
+                if let Some((target, _)) = s.due.filter(|&(_, at)| now >= at) {
+                    start_throw(sim, me, s, target, now);
+                }
+            }
+        }
         let throw = STATE.lock().unwrap_or_else(|e| e.into_inner()).get(&key).and_then(|s| s.throw);
         let Some(t) = throw else { return };
         let k = (sim.tick() as u64).saturating_sub(t.at) + 1;
@@ -461,7 +494,7 @@ mod tests {
 
     #[test]
     fn params_parse() {
-        let p = parse_params(r#"{"leg_t":180,"leg_t0":480,"r_ex":25,"e_behind":15000,"e_pull_t":3}"#);
+        let p = parse_params(r#"{"leg_t":180,"leg_t0":480,"r_ex":25,"e_behind":15000,"e_pull_t":3,"e_fling":15}"#);
         assert_eq!(p, Params::default());
     }
 
@@ -495,7 +528,8 @@ mod tests {
         let src = std::fs::read_to_string(path).expect("build_urgot.py");
         let d = Params::default();
         for (key, v) in [("leg_t0", d.leg_t0 as usize), ("leg_t", d.leg_t as usize), ("r_ex", d.r_ex),
-                         ("e_behind", d.e_behind as usize), ("e_pull_t", d.e_pull_t as usize)] {
+                         ("e_behind", d.e_behind as usize), ("e_pull_t", d.e_pull_t as usize),
+                         ("e_fling", d.e_fling as usize)] {
             assert!(src.contains(&format!("\"{key}\": {v}")), "{key} is not {v} in build_urgot.P");
         }
         assert_eq!(d.r_ex, EXECUTE, "the main pack's execute line is the add-on's");
