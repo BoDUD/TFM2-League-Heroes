@@ -853,7 +853,7 @@
     "league_gwen": {
       "face": {
         "x": 2,
-        "y": -38
+        "y": -33
       },
       "center": {
         "x": 0,
@@ -1563,7 +1563,7 @@
     "league_nasus": {
       "face": {
         "x": 7,
-        "y": -36
+        "y": -39
       },
       "center": {
         "x": 0,
@@ -1577,7 +1577,7 @@
     "league_anivia": {
       "face": {
         "x": 2,
-        "y": -20
+        "y": -23
       },
       "center": {
         "x": 0,
@@ -1591,7 +1591,7 @@
     "league_jarvaniv": {
       "face": {
         "x": 1,
-        "y": -32
+        "y": -37
       },
       "center": {
         "x": 0,
@@ -1605,7 +1605,7 @@
     "league_ziggs": {
       "face": {
         "x": 2,
-        "y": -26
+        "y": -27
       },
       "center": {
         "x": 0,
@@ -1615,7 +1615,7 @@
     "league_maokai": {
       "face": {
         "x": 8,
-        "y": -23
+        "y": -28
       },
       "center": {
         "x": 0,
