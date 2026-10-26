@@ -7,7 +7,8 @@
   tft_alune_effects.png   every effect animation, 3x
   tft_alune_skills.gif    each skill alone with its effects against Darius, timed like the kit (tools/kit/build_alune.py,
                           60 ticks a second), captioned in Chinese, 4x: the glide; the ring flung (and the add-on's ring
-                          flying back); Moonfall's three shards on three Dariuses (the eclipse mark); Moonlight on her;
+                          flying back); Moonfall's three shards on three enemies - Darius, Garen and Ashe (the eclipse
+                          mark); Moonlight on her;
                           the moon's phases over her head growing with Q / E / Q and the ult at full moon (the moon
                           wanes); Moon Descends alone (the shadow, the moon pressing down, the crash).
 """
@@ -34,6 +35,8 @@ TFT = os.path.join(ROOT, "tft")
 CHAMP = os.path.join(TFT, "champions", "tft_alune")
 FX = {n: os.path.join(TFT, "effects", n) for n in ("tft_alune_fx", "tft_alune_big")}
 DARIUS = os.path.join(ROOT, "league", "champions", "league_darius")
+# Moonfall's other two enemies (the user, 2026-10-26: 「怎么出现三个诺手」 - three copies of Darius read as a glitch)
+OTHERS = [os.path.join(ROOT, "league", "champions", f"league_{h}") for h in ("garen", "ashe")]
 REACH = 55                       # game px between her pivot and Darius's when she attacks (atk_range 55000)
 
 
@@ -43,7 +46,7 @@ def px_tick(speed):
 
 
 class Clip(Z.Clip):
-    """preview_zoe's clip with her own dense frames and more than one Darius."""
+    """preview_zoe's clip with her own dense frames and more than one enemy (Darius, `foes`)."""
 
     foes = ()
 
@@ -103,8 +106,8 @@ def scene(out, steps, gap, W=260, H=150, z=4, tail=900, x0=60):
     me = Me(x0, gy)
     c = Clip(load(CHAMP), d, me, small, big)
     c.z = z
-    if "q" in steps:                              # Moonfall's three: two more Dariuses near the first
-        c.foes = (Foe(load(DARIUS), far + 26, gy - 10), Foe(load(DARIUS), far + 20, gy + 12))
+    if "q" in steps:                              # Moonfall's three: Garen and Ashe near Darius
+        c.foes = (Foe(load(OTHERS[0]), far + 26, gy - 10), Foe(load(OTHERS[1]), far + 20, gy + 12))
     phase = [0]
     shown = []
 
@@ -141,7 +144,7 @@ def scene(out, steps, gap, W=260, H=150, z=4, tail=900, x0=60):
         c.wait(tick(P["atk_cd"] - P["atk_dur"]))
 
     def moonfall():
-        """Moonfall: the shards called on q_rel, each falling q_fall ticks on a Darius (q_drop), the splash and the
+        """Moonfall: the shards called on q_rel, each falling q_fall ticks on an enemy (q_drop), the splash and the
         eclipse mark."""
         t = c.t
         c.a("skill", tick(P["q_dur"]))
