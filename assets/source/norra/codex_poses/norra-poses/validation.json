@@ -1,0 +1,483 @@
+[
+  {
+    "name": "a_wind",
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_bbox": {
+      "l": 240,
+      "t": 113,
+      "r": 971,
+      "b": 1176,
+      "count": 472668
+    },
+    "output_size": [
+      1254,
+      1254
+    ],
+    "output_bbox": {
+      "l": 280,
+      "t": 168,
+      "r": 980,
+      "b": 1176,
+      "count": 428652
+    },
+    "alpha_values": [
+      0,
+      255
+    ],
+    "grid_px": 14,
+    "grid_errors": 0,
+    "target_bottom": 1176,
+    "logical_sprite_size": [
+      50,
+      72
+    ],
+    "note": "Image-generated art; hard-alpha/nearest-grid/framing normalization. Not a per-pixel approved-head or anatomical registration proof."
+  },
+  {
+    "name": "a_point",
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_bbox": {
+      "l": 227,
+      "t": 94,
+      "r": 1092,
+      "b": 1162,
+      "count": 536657
+    },
+    "output_size": [
+      1254,
+      1254
+    ],
+    "output_bbox": {
+      "l": 224,
+      "t": 168,
+      "r": 1036,
+      "b": 1176,
+      "count": 475692
+    },
+    "alpha_values": [
+      0,
+      255
+    ],
+    "grid_px": 14,
+    "grid_errors": 0,
+    "target_bottom": 1176,
+    "logical_sprite_size": [
+      58,
+      72
+    ],
+    "note": "Image-generated art; hard-alpha/nearest-grid/framing normalization. Not a per-pixel approved-head or anatomical registration proof."
+  },
+  {
+    "name": "q_swirl",
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_bbox": {
+      "l": 244,
+      "t": 45,
+      "r": 1039,
+      "b": 1212,
+      "count": 597863
+    },
+    "output_size": [
+      1254,
+      1254
+    ],
+    "output_bbox": {
+      "l": 294,
+      "t": 168,
+      "r": 980,
+      "b": 1176,
+      "count": 444332
+    },
+    "alpha_values": [
+      0,
+      255
+    ],
+    "grid_px": 14,
+    "grid_errors": 0,
+    "target_bottom": 1176,
+    "logical_sprite_size": [
+      49,
+      72
+    ],
+    "note": "Image-generated art; hard-alpha/nearest-grid/framing normalization. Not a per-pixel approved-head or anatomical registration proof."
+  },
+  {
+    "name": "q_throw",
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_bbox": {
+      "l": 279,
+      "t": 28,
+      "r": 1069,
+      "b": 1216,
+      "count": 543104
+    },
+    "output_size": [
+      1254,
+      1254
+    ],
+    "output_bbox": {
+      "l": 294,
+      "t": 168,
+      "r": 966,
+      "b": 1176,
+      "count": 391020
+    },
+    "alpha_values": [
+      0,
+      255
+    ],
+    "grid_px": 14,
+    "grid_errors": 0,
+    "target_bottom": 1176,
+    "logical_sprite_size": [
+      48,
+      72
+    ],
+    "note": "Image-generated art; hard-alpha/nearest-grid/framing normalization. Not a per-pixel approved-head or anatomical registration proof."
+  },
+  {
+    "name": "e_open",
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_bbox": {
+      "l": 181,
+      "t": 34,
+      "r": 1078,
+      "b": 1220,
+      "count": 613037
+    },
+    "output_size": [
+      1254,
+      1254
+    ],
+    "output_bbox": {
+      "l": 252,
+      "t": 168,
+      "r": 1008,
+      "b": 1176,
+      "count": 435904
+    },
+    "alpha_values": [
+      0,
+      255
+    ],
+    "grid_px": 14,
+    "grid_errors": 0,
+    "target_bottom": 1176,
+    "logical_sprite_size": [
+      54,
+      72
+    ],
+    "note": "Image-generated art; hard-alpha/nearest-grid/framing normalization. Not a per-pixel approved-head or anatomical registration proof."
+  },
+  {
+    "name": "r_raise",
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_bbox": {
+      "l": 176,
+      "t": 56,
+      "r": 1079,
+      "b": 1172,
+      "count": 575483
+    },
+    "output_size": [
+      1254,
+      1254
+    ],
+    "output_bbox": {
+      "l": 224,
+      "t": 126,
+      "r": 1036,
+      "b": 1134,
+      "count": 466872
+    },
+    "alpha_values": [
+      0,
+      255
+    ],
+    "grid_px": 14,
+    "grid_errors": 0,
+    "target_bottom": 1134,
+    "logical_sprite_size": [
+      58,
+      72
+    ],
+    "note": "Image-generated art; hard-alpha/nearest-grid/framing normalization. Not a per-pixel approved-head or anatomical registration proof."
+  },
+  {
+    "name": "r_cast",
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_bbox": {
+      "l": 267,
+      "t": 97,
+      "r": 1048,
+      "b": 1190,
+      "count": 552817
+    },
+    "output_size": [
+      1254,
+      1254
+    ],
+    "output_bbox": {
+      "l": 280,
+      "t": 168,
+      "r": 994,
+      "b": 1176,
+      "count": 468244
+    },
+    "alpha_values": [
+      0,
+      255
+    ],
+    "grid_px": 14,
+    "grid_errors": 0,
+    "target_bottom": 1176,
+    "logical_sprite_size": [
+      51,
+      72
+    ],
+    "note": "Image-generated art; hard-alpha/nearest-grid/framing normalization. Not a per-pixel approved-head or anatomical registration proof."
+  },
+  {
+    "name": "run1",
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_bbox": {
+      "l": 174,
+      "t": 100,
+      "r": 1153,
+      "b": 1187,
+      "count": 577129
+    },
+    "output_size": [
+      1254,
+      1254
+    ],
+    "output_bbox": {
+      "l": 196,
+      "t": 168,
+      "r": 1092,
+      "b": 1176,
+      "count": 499016
+    },
+    "alpha_values": [
+      0,
+      255
+    ],
+    "grid_px": 14,
+    "grid_errors": 0,
+    "target_bottom": 1176,
+    "logical_sprite_size": [
+      65,
+      72
+    ],
+    "note": "Image-generated art; hard-alpha/nearest-grid/framing normalization. Not a per-pixel approved-head or anatomical registration proof."
+  },
+  {
+    "name": "run2",
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_bbox": {
+      "l": 191,
+      "t": 36,
+      "r": 1088,
+      "b": 1203,
+      "count": 584876
+    },
+    "output_size": [
+      1254,
+      1254
+    ],
+    "output_bbox": {
+      "l": 238,
+      "t": 154,
+      "r": 1022,
+      "b": 1176,
+      "count": 442176
+    },
+    "alpha_values": [
+      0,
+      255
+    ],
+    "grid_px": 14,
+    "grid_errors": 0,
+    "target_bottom": 1176,
+    "logical_sprite_size": [
+      56,
+      73
+    ],
+    "note": "Image-generated art; hard-alpha/nearest-grid/framing normalization. Not a per-pixel approved-head or anatomical registration proof."
+  },
+  {
+    "name": "run3",
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_bbox": {
+      "l": 193,
+      "t": 89,
+      "r": 1132,
+      "b": 1189,
+      "count": 535053
+    },
+    "output_size": [
+      1254,
+      1254
+    ],
+    "output_bbox": {
+      "l": 210,
+      "t": 168,
+      "r": 1064,
+      "b": 1176,
+      "count": 450604
+    },
+    "alpha_values": [
+      0,
+      255
+    ],
+    "grid_px": 14,
+    "grid_errors": 0,
+    "target_bottom": 1176,
+    "logical_sprite_size": [
+      61,
+      72
+    ],
+    "note": "Image-generated art; hard-alpha/nearest-grid/framing normalization. Not a per-pixel approved-head or anatomical registration proof."
+  },
+  {
+    "name": "run4",
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_bbox": {
+      "l": 285,
+      "t": 100,
+      "r": 970,
+      "b": 1173,
+      "count": 464014
+    },
+    "output_size": [
+      1254,
+      1254
+    ],
+    "output_bbox": {
+      "l": 308,
+      "t": 154,
+      "r": 966,
+      "b": 1176,
+      "count": 426104
+    },
+    "alpha_values": [
+      0,
+      255
+    ],
+    "grid_px": 14,
+    "grid_errors": 0,
+    "target_bottom": 1176,
+    "logical_sprite_size": [
+      47,
+      73
+    ],
+    "note": "Image-generated art; hard-alpha/nearest-grid/framing normalization. Not a per-pixel approved-head or anatomical registration proof."
+  },
+  {
+    "name": "d_fall",
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_bbox": {
+      "l": 126,
+      "t": 185,
+      "r": 1079,
+      "b": 1177,
+      "count": 516943
+    },
+    "output_size": [
+      1254,
+      1254
+    ],
+    "output_bbox": {
+      "l": 168,
+      "t": 196,
+      "r": 1106,
+      "b": 1176,
+      "count": 499996
+    },
+    "alpha_values": [
+      0,
+      255
+    ],
+    "grid_px": 14,
+    "grid_errors": 0,
+    "target_bottom": 1176,
+    "logical_sprite_size": [
+      67,
+      70
+    ],
+    "note": "Image-generated art; hard-alpha/nearest-grid/framing normalization. Not a per-pixel approved-head or anatomical registration proof."
+  },
+  {
+    "name": "d_down",
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_bbox": {
+      "l": 167,
+      "t": 156,
+      "r": 1140,
+      "b": 1164,
+      "count": 534560
+    },
+    "output_size": [
+      1254,
+      1254
+    ],
+    "output_bbox": {
+      "l": 210,
+      "t": 308,
+      "r": 1050,
+      "b": 1176,
+      "count": 399056
+    },
+    "alpha_values": [
+      0,
+      255
+    ],
+    "grid_px": 14,
+    "grid_errors": 0,
+    "target_bottom": 1176,
+    "logical_sprite_size": [
+      60,
+      62
+    ],
+    "note": "Image-generated art; hard-alpha/nearest-grid/framing normalization. Not a per-pixel approved-head or anatomical registration proof."
+  }
+]

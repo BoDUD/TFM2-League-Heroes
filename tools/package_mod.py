@@ -57,7 +57,9 @@ Every other hero's files stay as they are.
 
 The main pack is a native mod (mod.mod_info contains_code / mod_type native, 2026-10-12: the dense PPU frames,
 addons/league_main): every package and every install also carries league.dll, built here with
-`cargo build --release -p league_main` in addons/ (cargo needed; --dll <path> to ship one built elsewhere).
+`cargo build --release -p league_main` in addons/ (cargo needed; --dll <path> to ship one built elsewhere). The tft pack
+is native too (2026-10-26, its heroes' rules in one tft.dll, addons/tft: 「tft的英雄都放一个mod里」): --src tft builds
+and ships tft.dll the same way.
 
 Needs Python 3.9+ with Pillow, numpy and soundfile (`pip install pillow numpy soundfile`; the libsndfile in
 soundfile's wheel brings the LAME encoder). The audio is Riot's: it is never committed.
@@ -105,20 +107,23 @@ UI_DIR = "ui_sheets"       # each hero's UI sheets (ui_sheets): league.dll's src
 UI_KINDS = {"idle": ("idle",), "bp": ("bp", "dead")}
 
 
-DLL = "league.dll"           # the main pack's own code (addons/league_main), next to mod.mod_info
+# each native pack's own code, next to its mod.mod_info: mod_id -> (the DLL, its crate in addons/) - the main pack's
+# league.dll (addons/league_main), the tft pack's tft.dll (addons/tft: its heroes' rules the data cannot play)
+DLLS = {"league": ("league.dll", "league_main"), "tft": ("tft.dll", "tft")}
 
 
-def build_dll(explicit):
-    """-> the bytes of league.dll: --dll's file, else a fresh `cargo build --release -p league_main`."""
+def build_dll(explicit, mod_id="league"):
+    """-> (the DLL's name, its bytes): --dll's file, else a fresh `cargo build --release -p <its crate>`."""
+    name, crate = DLLS[mod_id]
     if explicit:
-        return read(explicit)
+        return name, read(explicit)
     import subprocess
     addons = os.path.join(REPO, "addons")
-    r = subprocess.run(["cargo", "build", "--release", "-p", "league_main"], cwd=addons)
+    r = subprocess.run(["cargo", "build", "--release", "-p", crate], cwd=addons)
     if r.returncode:
-        sys.exit("cargo build of addons/league_main failed: the main pack needs its league.dll")
+        sys.exit(f"cargo build of addons/{crate} failed: the {mod_id} pack needs its {name}")
     # under the workspace's long path the linker needs a short CARGO_TARGET_DIR (e.g. C:/t/<xx>_target)
-    return read(os.path.join(addons, os.environ.get("CARGO_TARGET_DIR") or "target", "release", DLL))
+    return name, read(os.path.join(addons, os.environ.get("CARGO_TARGET_DIR") or "target", "release", name))
 
 
 def lp(path):
@@ -752,8 +757,9 @@ def version(v):
 
 def install(pkg, heroes, target, dry, mod_id="league"):
     wrote = removed = 0
-    if DLL in pkg and os.path.isfile(lp(os.path.join(target, DLL))) and read(os.path.join(target, DLL)) != pkg[DLL]:
-        print(f"{DLL}: replaced (the game must be closed: a loaded DLL cannot be overwritten)")
+    dll = DLLS.get(mod_id, DLLS["league"])[0]
+    if dll in pkg and os.path.isfile(lp(os.path.join(target, dll))) and read(os.path.join(target, dll)) != pkg[dll]:
+        print(f"{dll}: replaced (the game must be closed: a loaded DLL cannot be overwritten)")
     for rel, data in sorted(pkg.items()):
         if rel in SHARED or rel == "mod.mod_info":
             continue
@@ -817,7 +823,7 @@ def main():
     ap.add_argument("--target", help="install into this mod folder instead of <game>/mods/<mod_id>")
     ap.add_argument("--dry", action="store_true", help="with --install: report, write nothing")
     ap.add_argument("--workers", type=int, default=8)
-    ap.add_argument("--dll", help=f"ship this {DLL} instead of building addons/league_main")
+    ap.add_argument("--dll", help="ship this DLL (league.dll, tft.dll) instead of building it in addons/")
     a = ap.parse_args()
     t0 = time.time()
     # the pack's own id: league/ (league_<hero>) or another pack in this repo, tft/ (tft_<hero>: --src tft)
@@ -835,8 +841,9 @@ def main():
     pkg, report = build(a.src, heroes, everything=not a.hero, workers=a.workers)
     info = parse_json(read(os.path.join(a.src, "mod.mod_info")), "mod.mod_info")
     if info.get("contains_code"):
-        pkg[DLL] = build_dll(a.dll)
-        print(f"{DLL}: {len(pkg[DLL]) / 1e3:.0f} kB")
+        name, pkg_dll = build_dll(a.dll, mod_id)
+        pkg[name] = pkg_dll
+        print(f"{name}: {len(pkg_dll) / 1e3:.0f} kB")
     print_report(report, time.time() - t0)
     out = a.out or (None if a.install else os.path.join(REPO, "dist", mod_id))
     if out:

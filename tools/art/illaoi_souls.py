@@ -15,6 +15,8 @@ The ghost: the silhouette kept square for square; the outline (a square with an 
 the sprite's own light and shade mapped onto the ramp by brightness, its darkest two bands dithered half away (the
 spirit reads see-through over the ground) - the dither's phase steps each frame, so it shimmers. No colour of the
 champion survives: every spirit is the same ghost-teal, as League's.
+League champions of this repo's other packs have theirs too (OTHER: Wild Rift's Norra in tft/, the user 2026-10-26:
+「俄洛伊的幽灵图别忘了」).
 """
 import argparse
 import glob
@@ -35,6 +37,8 @@ SHEET = os.path.join(LEAGUE, "effects", "league_illaoi_souls")
 SOULS_RS = os.path.join(ROOT, "addons", "league_illaoi", "src", "souls.rs")
 GHOST = [tuple(int(h[i:i + 2], 16) for i in (1, 3, 5)) for h in ("#FFFFFF", "#E0FFF8", "#A8F0E4", "#5CC8C0", "#2A7A80")]
 FRAMES, MS = 3, 200
+# League champions in the repo's other packs (their sprite in <pack>/champions/, the pack = the id's prefix)
+OTHER = ("tft_norra",)
 
 
 def lp(path):
@@ -44,13 +48,14 @@ def lp(path):
 
 
 def champions():
-    """The League champions of the main pack (league/champion/league_*.data_champion), sorted."""
-    return sorted(os.path.basename(f).split(".")[0] for f in glob.glob(os.path.join(LEAGUE, "champion", "league_*.data_champion")))
+    """The League champions of the main pack (league/champion/league_*.data_champion) and OTHER, sorted."""
+    main = [os.path.basename(f).split(".")[0] for f in glob.glob(os.path.join(LEAGUE, "champion", "league_*.data_champion"))]
+    return sorted(main + list(OTHER))
 
 
 def idle_of(hero):
     """The first frame of its 1x idle_base (else idle), the frame centred on the unit's pivot."""
-    base = os.path.join(LEAGUE, "champions", hero)
+    base = os.path.join(ROOT, hero.split("_")[0], "champions", hero)
     a = json.load(open(lp(base + "#anim.fanim"), encoding="utf-8-sig"))["anims"]
     tag = "idle_base" if "idle_base" in a else "idle"
     d = a[tag]["frames"][0]["data"]
