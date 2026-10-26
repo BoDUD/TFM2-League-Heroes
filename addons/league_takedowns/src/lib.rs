@@ -11,6 +11,10 @@
 //! - **易 `league_takedowns:masteryi`**：每一次英雄击杀和助攻，阿尔法突袭和冥想（无极剑道）的剩余冷却减 `YI_CUT`%；
 //!   无极剑道开着时再延长 `YI_EXTEND` tick。他每次普攻，阿尔法突袭冷却减 `YI_ATTACK_CUT` tick。无极剑道期间身上的
 //!   减速都去掉（免疫减速）。副本的无极剑道去掉主包近似用的「冷却加快 40%」。
+//!   v0.3.2（用户 2026-10-26：「剑圣会无限Q？」）：「普攻」原来用 `on_attack` 数，可它连技能的每一下伤害都算（接口说明：
+//!   `on_attack` also fires for skills）——Q 的每一斩、E 的真实伤害、R 期间的每一下都在减 Q 的冷却，一次 Q 自己就把冷却
+//!   减没了。现在只认真正的普攻：每 tick 看普攻栏的冷却，冷却变长（刚打出一下普攻，`attack_went_out`）才减；
+//!   Q 在数据里是 BaseAttack 类型，也不算（它走的是技能栏的冷却）。每次减记一行 `YI ATTACK`（前 40 行）。
 //!
 //! - **图奇 `league_takedowns:twitch`**：英雄联盟里身上有毒的敌方英雄死了就刷新埋伏。主包只认他自己的击杀（击杀检查留着），
 //!   本包补上助攻：清掉 Q 的剩余冷却（`entity_reduce_cooldown`），播主包的刷新画面和声音（`TWITCH_RESET`）。
@@ -330,6 +334,14 @@ impl StablePassive for Twitch {
 #[derive(Clone, Default)]
 struct MasterYi {
     n: usize,
+    /// the attack slot's remaining cooldown last tick (None: not read yet)
+    atk_prev: Option<usize>,
+    cuts: usize,
+}
+
+/// A real auto attack went out this tick: the attack slot's cooldown grew (it only shrinks otherwise).
+pub fn attack_went_out(prev: Option<usize>, now: usize) -> bool {
+    prev.is_some_and(|p| now > p)
 }
 
 impl MasterYi {
@@ -373,12 +385,6 @@ impl StablePassive for MasterYi {
         wlog(format!("{} SPAWN: the add-on's Master Yi (player {player})", head(sim, me)));
     }
 
-    fn on_attack(&mut self, sim: &mut StableSim<'_>, _: usize, me: usize, _target: usize, _damage: &mut usize) {
-        if remaining(sim, me, SkillSlotV1::Skill) > 0 {
-            sim.entity_reduce_cooldown(me, SkillSlotV1::Skill, YI_ATTACK_CUT);
-        }
-    }
-
     fn on_kill(&mut self, sim: &mut StableSim<'_>, _: usize, me: usize, victim: usize) {
         if victim_is_champion(sim, victim) {
             self.takedown(sim, me, &format!("killed #{victim}"));
@@ -390,6 +396,19 @@ impl StablePassive for MasterYi {
     }
 
     fn on_update(&mut self, sim: &mut StableSim<'_>, _: u64, _: usize, me: usize) {
+        // every real auto attack: Alpha Strike's cooldown YI_ATTACK_CUT shorter (not his skills' hits, v0.3.2)
+        let atk = remaining(sim, me, SkillSlotV1::Attack);
+        if attack_went_out(self.atk_prev, atk) {
+            let q = remaining(sim, me, SkillSlotV1::Skill);
+            if q > 0 {
+                sim.entity_reduce_cooldown(me, SkillSlotV1::Skill, YI_ATTACK_CUT);
+                self.cuts += 1;
+                if self.cuts <= 40 {
+                    wlog(format!("{} YI ATTACK #{}: Q {q} -> {}", head(sim, me), self.cuts, q.saturating_sub(YI_ATTACK_CUT)));
+                }
+            }
+        }
+        self.atk_prev = Some(atk);
         if buff_left(sim, me, YI_HIGHLANDER).is_none() {
             return;
         }
@@ -457,6 +476,15 @@ mod tests {
     fn a_takedown_cuts_most_of_what_is_left() {
         assert_eq!(cut(400, YI_CUT), 280);
         assert_eq!(cut(0, YI_CUT), 0);
+    }
+
+    #[test]
+    fn only_a_real_auto_attack_cuts_alpha_strike() {
+        assert!(!attack_went_out(None, 48), "the first look only notes the cooldown");
+        assert!(attack_went_out(Some(0), 48), "ready, then swung");
+        assert!(attack_went_out(Some(3), 48), "swung again just before it was ready");
+        assert!(!attack_went_out(Some(48), 47), "cooling down");
+        assert!(!attack_went_out(Some(0), 0), "ready, no swing (his Q's and E's hits never touch the attack slot)");
     }
 
     #[test]
