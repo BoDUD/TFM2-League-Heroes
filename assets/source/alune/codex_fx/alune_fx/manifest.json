@@ -1,0 +1,1279 @@
+{
+  "count": 13,
+  "effects": 10,
+  "icons": 3,
+  "items": [
+    {
+      "file": "alune_fx_a_ring.png",
+      "frames": 4,
+      "cell_1x": [
+        14,
+        8
+      ],
+      "symmetry": "top-bottom",
+      "layout": "horizontal row; chronological left to right",
+      "preview_scale": 8,
+      "pixel_1x": "pixel_1x/alune_fx_a_ring.png",
+      "raw": "raw/alune_fx_a_ring.png",
+      "raw_layout": [
+        2,
+        2
+      ],
+      "raw_size": [
+        1659,
+        948
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "frame_checks": [
+        {
+          "size": [
+            14,
+            8
+          ],
+          "bbox": [
+            1,
+            1,
+            14,
+            7
+          ],
+          "alpha_values": [
+            0,
+            255
+          ],
+          "opaque_pixels": 44
+        },
+        {
+          "size": [
+            14,
+            8
+          ],
+          "bbox": [
+            1,
+            1,
+            14,
+            7
+          ],
+          "alpha_values": [
+            0,
+            255
+          ],
+          "opaque_pixels": 44
+        },
+        {
+          "size": [
+            14,
+            8
+          ],
+          "bbox": [
+            1,
+            1,
+            14,
+            7
+          ],
+          "alpha_values": [
+            0,
+            255
+          ],
+          "opaque_pixels": 42
+        },
+        {
+          "size": [
+            14,
+            8
+          ],
+          "bbox": [
+            1,
+            1,
+            14,
+            7
+          ],
+          "alpha_values": [
+            0,
+            255
+          ],
+          "opaque_pixels": 42
+        }
+      ],
+      "symmetry_pass": true,
+      "extraction": "per-cell majority occupancy and nearest approved palette modal color; corresponding mirror cells jointly vote"
+    },
+    {
+      "file": "alune_fx_a_hit.png",
+      "frames": 3,
+      "cell_1x": [
+        14,
+        14
+      ],
+      "symmetry": "left-right",
+      "layout": "horizontal row; chronological left to right",
+      "preview_scale": 8,
+      "pixel_1x": "pixel_1x/alune_fx_a_hit.png",
+      "raw": "raw/alune_fx_a_hit.png",
+      "raw_layout": [
+        3,
+        1
+      ],
+      "raw_size": [
+        2172,
+        724
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "frame_checks": [
+        {
+          "size": [
+            14,
+            14
+          ],
+          "bbox": [
+            4,
+            5,
+            10,
+            9
+          ],
+          "alpha_values": [
+            0,
+            255
+          ],
+          "opaque_pixels": 16
+        },
+        {
+          "size": [
+            14,
+            14
+          ],
+          "bbox": [
+            1,
+            2,
+            13,
+            12
+          ],
+          "alpha_values": [
+            0,
+            255
+          ],
+          "opaque_pixels": 32
+        },
+        {
+          "size": [
+            14,
+            14
+          ],
+          "bbox": [
+            2,
+            3,
+            12,
+            12
+          ],
+          "alpha_values": [
+            0,
+            255
+          ],
+          "opaque_pixels": 14
+        }
+      ],
+      "symmetry_pass": true,
+      "extraction": "per-cell majority occupancy and nearest approved palette modal color; corresponding mirror cells jointly vote"
+    },
+    {
+      "file": "alune_fx_q_drop.png",
+      "frames": 6,
+      "cell_1x": [
+        16,
+        56
+      ],
+      "symmetry": "left-right",
+      "layout": "horizontal row; chronological left to right",
+      "preview_scale": 8,
+      "pixel_1x": "pixel_1x/alune_fx_q_drop.png",
+      "raw": "raw/alune_fx_q_drop.png",
+      "raw_layout": [
+        6,
+        1
+      ],
+      "raw_size": [
+        1643,
+        957
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "frame_checks": [
+        {
+          "size": [
+            16,
+            56
+          ],
+          "bbox": [
+            6,
+            3,
+            10,
+            12
+          ],
+          "alpha_values": [
+            0,
+            255
+          ],
+          "opaque_pixels": 30
+        },
+        {
+          "size": [
+            16,
+            56
+          ],
+          "bbox": [
+            4,
+            8,
+            12,
+            29
+          ],
+          "alpha_values": [
+            0,
+            255
+          ],
+          "opaque_pixels": 58
+        },
+        {
+          "size": [
+            16,
+            56
+          ],
+          "bbox": [
+            5,
+            12,
+            11,
+            38
+          ],
+          "alpha_values": [
+            0,
+            255
+          ],
+          "opaque_pixels": 86
+        },
+        {
+          "size": [
+            16,
+            56
+          ],
+          "bbox": [
+            5,
+            10,
+            11,
+            45
+          ],
+          "alpha_values": [
+            0,
+            255
+          ],
+          "opaque_pixels": 128
+        },
+        {
+          "size": [
+            16,
+            56
+          ],
+          "bbox": [
+            4,
+            14,
+            12,
+            51
+          ],
+          "alpha_values": [
+            0,
+            255
+          ],
+          "opaque_pixels": 142
+        },
+        {
+          "size": [
+            16,
+            56
+          ],
+          "bbox": [
+            3,
+            26,
+            13,
+            54
+          ],
+          "alpha_values": [
+            0,
+            255
+          ],
+          "opaque_pixels": 90
+        }
+      ],
+      "symmetry_pass": true,
+      "extraction": "per-cell majority occupancy and nearest approved palette modal color; corresponding mirror cells jointly vote"
+    },
+    {
+      "file": "alune_fx_q_hit.png",
+      "frames": 5,
+      "cell_1x": [
+        30,
+        22
+      ],
+      "symmetry": "left-right",
+      "layout": "horizontal row; chronological left to right",
+      "preview_scale": 8,
+      "pixel_1x": "pixel_1x/alune_fx_q_hit.png",
+      "raw": "raw/alune_fx_q_hit.png",
+      "raw_layout": [
+        3,
+        2
+      ],
+      "raw_size": [
+        1796,
+        876
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "frame_checks": [
+        {
+          "size": [
+            30,
+            22
+          ],
+          "bbox": [
+            9,
+            13,
+            21,
+            20
+          ],
+          "alpha_values": [
+            0,
+            255
+          ],
+          "opaque_pixels": 36
+        },
+        {
+          "size": [
+            30,
+            22
+          ],
+          "bbox": [
+            3,
+            9,
+            27,
+            20
+          ],
+          "alpha_values": [
+            0,
+            255
+          ],
+          "opaque_pixels": 94
+        },
+        {
+          "size": [
+            30,
+            22
+          ],
+          "bbox": [
+            1,
+            6,
+            29,
+            20
+          ],
+          "alpha_values": [
+            0,
+            255
+          ],
+          "opaque_pixels": 138
+        },
+        {
+          "size": [
+            30,
+            22
+          ],
+          "bbox": [
+            2,
+            10,
+            28,
+            19
+          ],
+          "alpha_values": [
+            0,
+            255
+          ],
+          "opaque_pixels": 42
+        },
+        {
+          "size": [
+            30,
+            22
+          ],
+          "bbox": [
+            4,
+            11,
+            26,
+            17
+          ],
+          "alpha_values": [
+            0,
+            255
+          ],
+          "opaque_pixels": 10
+        }
+      ],
+      "symmetry_pass": true,
+      "extraction": "per-cell majority occupancy and nearest approved palette modal color; corresponding mirror cells jointly vote"
+    },
+    {
+      "file": "alune_fx_q_shred.png",
+      "frames": 6,
+      "cell_1x": [
+        16,
+        44
+      ],
+      "symmetry": "left-right",
+      "layout": "horizontal row; chronological left to right",
+      "preview_scale": 8,
+      "pixel_1x": "pixel_1x/alune_fx_q_shred.png",
+      "raw": "raw/alune_fx_q_shred.png",
+      "raw_layout": [
+        6,
+        1
+      ],
+      "raw_size": [
+        1855,
+        848
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "frame_checks": [
+        {
+          "size": [
+            16,
+            44
+          ],
+          "bbox": [
+            5,
+            1,
+            11,
+            7
+          ],
+          "alpha_values": [
+            0,
+            255
+          ],
+          "opaque_pixels": 32
+        },
+        {
+          "size": [
+            16,
+            44
+          ],
+          "bbox": [
+            5,
+            1,
+            11,
+            7
+          ],
+          "alpha_values": [
+            0,
+            255
+          ],
+          "opaque_pixels": 32
+        },
+        {
+          "size": [
+            16,
+            44
+          ],
+          "bbox": [
+            5,
+            1,
+            11,
+            7
+          ],
+          "alpha_values": [
+            0,
+            255
+          ],
+          "opaque_pixels": 32
+        },
+        {
+          "size": [
+            16,
+            44
+          ],
+          "bbox": [
+            5,
+            1,
+            11,
+            7
+          ],
+          "alpha_values": [
+            0,
+            255
+          ],
+          "opaque_pixels": 32
+        },
+        {
+          "size": [
+            16,
+            44
+          ],
+          "bbox": [
+            5,
+            1,
+            11,
+            7
+          ],
+          "alpha_values": [
+            0,
+            255
+          ],
+          "opaque_pixels": 32
+        },
+        {
+          "size": [
+            16,
+            44
+          ],
+          "bbox": [
+            5,
+            1,
+            11,
+            7
+          ],
+          "alpha_values": [
+            0,
+            255
+          ],
+          "opaque_pixels": 32
+        }
+      ],
+      "symmetry_pass": true,
+      "extraction": "per-cell majority occupancy and nearest approved palette modal color; corresponding mirror cells jointly vote"
+    },
+    {
+      "file": "alune_fx_e_glow.png",
+      "frames": 6,
+      "cell_1x": [
+        26,
+        42
+      ],
+      "symmetry": "left-right",
+      "layout": "horizontal row; chronological left to right",
+      "preview_scale": 8,
+      "pixel_1x": "pixel_1x/alune_fx_e_glow.png",
+      "raw": "raw/alune_fx_e_glow.png",
+      "raw_layout": [
+        3,
+        2
+      ],
+      "raw_size": [
+        1208,
+        1302
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "frame_checks": [
+        {
+          "size": [
+            26,
+            42
+          ],
+          "bbox": [
+            4,
+            23,
+            22,
+            41
+          ],
+          "alpha_values": [
+            0,
+            255
+          ],
+          "opaque_pixels": 54
+        },
+        {
+          "size": [
+            26,
+            42
+          ],
+          "bbox": [
+            3,
+            5,
+            23,
+            41
+          ],
+          "alpha_values": [
+            0,
+            255
+          ],
+          "opaque_pixels": 78
+        },
+        {
+          "size": [
+            26,
+            42
+          ],
+          "bbox": [
+            3,
+            21,
+            23,
+            41
+          ],
+          "alpha_values": [
+            0,
+            255
+          ],
+          "opaque_pixels": 66
+        },
+        {
+          "size": [
+            26,
+            42
+          ],
+          "bbox": [
+            3,
+            16,
+            23,
+            39
+          ],
+          "alpha_values": [
+            0,
+            255
+          ],
+          "opaque_pixels": 54
+        },
+        {
+          "size": [
+            26,
+            42
+          ],
+          "bbox": [
+            3,
+            3,
+            23,
+            39
+          ],
+          "alpha_values": [
+            0,
+            255
+          ],
+          "opaque_pixels": 72
+        },
+        {
+          "size": [
+            26,
+            42
+          ],
+          "bbox": [
+            3,
+            17,
+            23,
+            39
+          ],
+          "alpha_values": [
+            0,
+            255
+          ],
+          "opaque_pixels": 58
+        }
+      ],
+      "symmetry_pass": true,
+      "extraction": "per-cell majority occupancy and nearest approved palette modal color; corresponding mirror cells jointly vote"
+    },
+    {
+      "file": "alune_fx_p_moon.png",
+      "frames": 3,
+      "cell_1x": [
+        12,
+        12
+      ],
+      "symmetry": "left-right",
+      "layout": "horizontal row; chronological left to right",
+      "preview_scale": 8,
+      "pixel_1x": "pixel_1x/alune_fx_p_moon.png",
+      "raw": "raw/alune_fx_p_moon.png",
+      "raw_layout": [
+        3,
+        1
+      ],
+      "raw_size": [
+        2172,
+        724
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "frame_checks": [
+        {
+          "size": [
+            12,
+            12
+          ],
+          "bbox": [
+            2,
+            2,
+            10,
+            10
+          ],
+          "alpha_values": [
+            0,
+            255
+          ],
+          "opaque_pixels": 42
+        },
+        {
+          "size": [
+            12,
+            12
+          ],
+          "bbox": [
+            2,
+            2,
+            10,
+            10
+          ],
+          "alpha_values": [
+            0,
+            255
+          ],
+          "opaque_pixels": 42
+        },
+        {
+          "size": [
+            12,
+            12
+          ],
+          "bbox": [
+            2,
+            2,
+            10,
+            10
+          ],
+          "alpha_values": [
+            0,
+            255
+          ],
+          "opaque_pixels": 50
+        }
+      ],
+      "symmetry_pass": true,
+      "extraction": "per-cell majority occupancy and nearest approved palette modal color; corresponding mirror cells jointly vote"
+    },
+    {
+      "file": "alune_fx_r_warn.png",
+      "frames": 6,
+      "cell_1x": [
+        60,
+        22
+      ],
+      "symmetry": "left-right",
+      "layout": "horizontal row; chronological left to right",
+      "preview_scale": 8,
+      "pixel_1x": "pixel_1x/alune_fx_r_warn.png",
+      "raw": "raw/alune_fx_r_warn.png",
+      "raw_layout": [
+        2,
+        3
+      ],
+      "raw_size": [
+        1692,
+        930
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "frame_checks": [
+        {
+          "size": [
+            60,
+            22
+          ],
+          "bbox": [
+            15,
+            10,
+            45,
+            19
+          ],
+          "alpha_values": [
+            0,
+            255
+          ],
+          "opaque_pixels": 66
+        },
+        {
+          "size": [
+            60,
+            22
+          ],
+          "bbox": [
+            9,
+            9,
+            51,
+            20
+          ],
+          "alpha_values": [
+            0,
+            255
+          ],
+          "opaque_pixels": 324
+        },
+        {
+          "size": [
+            60,
+            22
+          ],
+          "bbox": [
+            5,
+            6,
+            55,
+            19
+          ],
+          "alpha_values": [
+            0,
+            255
+          ],
+          "opaque_pixels": 438
+        },
+        {
+          "size": [
+            60,
+            22
+          ],
+          "bbox": [
+            4,
+            4,
+            56,
+            20
+          ],
+          "alpha_values": [
+            0,
+            255
+          ],
+          "opaque_pixels": 490
+        },
+        {
+          "size": [
+            60,
+            22
+          ],
+          "bbox": [
+            4,
+            3,
+            56,
+            19
+          ],
+          "alpha_values": [
+            0,
+            255
+          ],
+          "opaque_pixels": 520
+        },
+        {
+          "size": [
+            60,
+            22
+          ],
+          "bbox": [
+            4,
+            2,
+            56,
+            19
+          ],
+          "alpha_values": [
+            0,
+            255
+          ],
+          "opaque_pixels": 522
+        }
+      ],
+      "symmetry_pass": true,
+      "extraction": "per-cell majority occupancy and nearest approved palette modal color; corresponding mirror cells jointly vote"
+    },
+    {
+      "file": "alune_fx_r_moon.png",
+      "frames": 10,
+      "cell_1x": [
+        72,
+        90
+      ],
+      "symmetry": "left-right",
+      "layout": "horizontal row; chronological left to right",
+      "preview_scale": 8,
+      "pixel_1x": "pixel_1x/alune_fx_r_moon.png",
+      "raw": "raw/alune_fx_r_moon.png",
+      "raw_layout": [
+        5,
+        2
+      ],
+      "raw_size": [
+        1774,
+        887
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "frame_checks": [
+        {
+          "size": [
+            72,
+            90
+          ],
+          "bbox": [
+            9,
+            14,
+            63,
+            33
+          ],
+          "alpha_values": [
+            0,
+            255
+          ],
+          "opaque_pixels": 776
+        },
+        {
+          "size": [
+            72,
+            90
+          ],
+          "bbox": [
+            3,
+            14,
+            69,
+            76
+          ],
+          "alpha_values": [
+            0,
+            255
+          ],
+          "opaque_pixels": 2384
+        },
+        {
+          "size": [
+            72,
+            90
+          ],
+          "bbox": [
+            3,
+            18,
+            69,
+            82
+          ],
+          "alpha_values": [
+            0,
+            255
+          ],
+          "opaque_pixels": 2902
+        },
+        {
+          "size": [
+            72,
+            90
+          ],
+          "bbox": [
+            3,
+            29,
+            69,
+            87
+          ],
+          "alpha_values": [
+            0,
+            255
+          ],
+          "opaque_pixels": 3002
+        },
+        {
+          "size": [
+            72,
+            90
+          ],
+          "bbox": [
+            3,
+            33,
+            69,
+            88
+          ],
+          "alpha_values": [
+            0,
+            255
+          ],
+          "opaque_pixels": 2978
+        },
+        {
+          "size": [
+            72,
+            90
+          ],
+          "bbox": [
+            2,
+            22,
+            70,
+            79
+          ],
+          "alpha_values": [
+            0,
+            255
+          ],
+          "opaque_pixels": 1798
+        },
+        {
+          "size": [
+            72,
+            90
+          ],
+          "bbox": [
+            1,
+            30,
+            71,
+            79
+          ],
+          "alpha_values": [
+            0,
+            255
+          ],
+          "opaque_pixels": 1568
+        },
+        {
+          "size": [
+            72,
+            90
+          ],
+          "bbox": [
+            0,
+            42,
+            72,
+            74
+          ],
+          "alpha_values": [
+            0,
+            255
+          ],
+          "opaque_pixels": 538
+        },
+        {
+          "size": [
+            72,
+            90
+          ],
+          "bbox": [
+            7,
+            45,
+            65,
+            76
+          ],
+          "alpha_values": [
+            0,
+            255
+          ],
+          "opaque_pixels": 92
+        },
+        {
+          "size": [
+            72,
+            90
+          ],
+          "bbox": [
+            18,
+            61,
+            54,
+            74
+          ],
+          "alpha_values": [
+            0,
+            255
+          ],
+          "opaque_pixels": 52
+        }
+      ],
+      "symmetry_pass": true,
+      "extraction": "per-cell majority occupancy and nearest approved palette modal color; corresponding mirror cells jointly vote"
+    },
+    {
+      "file": "alune_fx_r_hit.png",
+      "frames": 4,
+      "cell_1x": [
+        16,
+        16
+      ],
+      "symmetry": "left-right",
+      "layout": "horizontal row; chronological left to right",
+      "preview_scale": 8,
+      "pixel_1x": "pixel_1x/alune_fx_r_hit.png",
+      "raw": "raw/alune_fx_r_hit.png",
+      "raw_layout": [
+        2,
+        2
+      ],
+      "raw_size": [
+        1263,
+        1246
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "frame_checks": [
+        {
+          "size": [
+            16,
+            16
+          ],
+          "bbox": [
+            4,
+            6,
+            12,
+            13
+          ],
+          "alpha_values": [
+            0,
+            255
+          ],
+          "opaque_pixels": 28
+        },
+        {
+          "size": [
+            16,
+            16
+          ],
+          "bbox": [
+            2,
+            4,
+            14,
+            15
+          ],
+          "alpha_values": [
+            0,
+            255
+          ],
+          "opaque_pixels": 34
+        },
+        {
+          "size": [
+            16,
+            16
+          ],
+          "bbox": [
+            4,
+            4,
+            12,
+            9
+          ],
+          "alpha_values": [
+            0,
+            255
+          ],
+          "opaque_pixels": 6
+        },
+        {
+          "size": [
+            16,
+            16
+          ],
+          "bbox": [
+            4,
+            6,
+            12,
+            7
+          ],
+          "alpha_values": [
+            0,
+            255
+          ],
+          "opaque_pixels": 2
+        }
+      ],
+      "symmetry_pass": true,
+      "extraction": "per-cell majority occupancy and nearest approved palette modal color; corresponding mirror cells jointly vote"
+    },
+    {
+      "file": "alune_icon_skill.png",
+      "frames": 1,
+      "cell_1x": [
+        64,
+        64
+      ],
+      "logical_pixel_px": 2,
+      "symmetry": "none",
+      "check": {
+        "size": [
+          64,
+          64
+        ],
+        "bbox": [
+          0,
+          0,
+          64,
+          64
+        ],
+        "alpha_values": [
+          255
+        ],
+        "opaque_pixels": 4096
+      },
+      "raw": "raw/alune_icon_skill.png"
+    },
+    {
+      "file": "alune_icon_skill2.png",
+      "frames": 1,
+      "cell_1x": [
+        64,
+        64
+      ],
+      "logical_pixel_px": 2,
+      "symmetry": "none",
+      "check": {
+        "size": [
+          64,
+          64
+        ],
+        "bbox": [
+          0,
+          0,
+          64,
+          64
+        ],
+        "alpha_values": [
+          255
+        ],
+        "opaque_pixels": 4096
+      },
+      "raw": "raw/alune_icon_skill2.png"
+    },
+    {
+      "file": "alune_icon_ult.png",
+      "frames": 1,
+      "cell_1x": [
+        64,
+        64
+      ],
+      "logical_pixel_px": 2,
+      "symmetry": "none",
+      "check": {
+        "size": [
+          64,
+          64
+        ],
+        "bbox": [
+          0,
+          0,
+          64,
+          64
+        ],
+        "alpha_values": [
+          255
+        ],
+        "opaque_pixels": 4096
+      },
+      "raw": "raw/alune_icon_ult.png"
+    }
+  ]
+}
