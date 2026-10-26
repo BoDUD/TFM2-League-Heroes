@@ -177,4 +177,5 @@ pub const SOULS: &[&str] = &[
     "league_zyra",
     "tft_alune",
     "tft_norra",
+    "tft_silco",
 ];

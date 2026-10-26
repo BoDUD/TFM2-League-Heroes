@@ -279,6 +279,10 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // crescent's foot, PPU 2.0 (「A-1 46 PPU 2.0」), and Codex's key poses after her own TFT clips with the design's head,
     // posed by tools/art/rig_alune.py, so no SIZES row
     ("tft_alune", 2.0, include_str!("../../../tft/champions/tft_alune#anim.fanim")),
+    // Silco (tft_silco, the tft pack): leaning on his cane, step 0's A-1 at the user's 40 game px hair to soles, PPU 2.0
+    // (「A-1 40 PPU 2.0」), and Codex's key poses after his own TFT clips with the design's head, posed by
+    // tools/art/rig_silco.py, so no SIZES row
+    ("tft_silco", 2.0, include_str!("../../../tft/champions/tft_silco#anim.fanim")),
     // 2026-10-16 redo from Codex's pictures, the actions posed from the designs (tools/art/rig_<hero>_hd.py; Nami's after
     // League's own clips, tools/lol/league_joints.py), PPU 1.5 at their old heights, so no SIZES rows
     ("league_morgana", 1.5, include_str!("../../../league/champions/league_morgana#anim.fanim")),

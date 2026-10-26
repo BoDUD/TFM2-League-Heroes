@@ -57,7 +57,7 @@ ORIG_PPU = {"zeri": 3, "karma": 3, "braum": 2.881, "mordekaiser": 5, "corki": 5,
             "vladimir": 2, "yasuo": 3, "garen": 3, "gragas": 2, "irelia": 2, "soraka": 3, "nidalee": 3.8313,
             "nilah": 2.5, "kindred": 154 / 34, "malzahar": 1.38, "milio": 2.2, "jayce": 1.5, "elise": 1.8, "katarina": 1.5,
             "tahmkench": 1.2, "kalista": 1.4, "drmundo": 1.5, "pantheon": 1.5, "orianna": 2.25, "aphelios": 1.5, "rell": 1.5, "urgot": 1.2, "reksai": 1.58, "swain": 1.5, "nasus": 1.2, "renata": 1.5, "anivia": 1.2, "jarvaniv": 1.5, "ziggs": 1.5, "maokai": 1.5, "gangplank": 1.5, "wukong": 1.53, "cassiopeia": 1.3, "akshan": 1.61, "poppy": 1.3, "volibear": 1.2, "rammus": 1.2,
-            **{h: 1.5 for h in ('morgana', 'nami', 'janna', 'jax', 'xinzhao')}, "yunara": 1.5, "kaisa": 1.45, "camille": 1.5, "fiora": 1.5, "leblanc": 2.0, "darius": 1.45, "caitlyn": 1.45, "riven": 1.5, "zoe": 1.5, "quinn": 2.0, "yuumi": 1.5, "powder": 1.75, "chogath": 1.2, "karthus": 1.5, "vex": 1.5, "zyra": 1.7, "graves": 1.5, "warwick": 1.5, "gnar": 1.5, "sylas": 1.2, "mel": 1.5, "velkoz": 1.5, "shyvana": 1.5, "ornn": 1.5, "naafiri": 1.5, "xerath": 1.55, "heimerdinger": 1.5, "neeko": 2.5, "ksante": 1.5, "udyr": 1.5, "qiyana": 1.5, "hwei": 1.5, "ivern": 1.5, "illaoi": 1.5, "varus": 1.35, "aurora": 2.25, "nunu": 1.37, "azir": 1.5, "zac": 1.5, "jinx": 2.2, "lux": 2.2, "singed": 1.39, "belveth": 1.75, "taliyah": 1.75, "aurelionsol": 1.75, "sejuani": 2.0, "ahri": 2.2, "twitch": 2.2, "annie": 2.2, "kled": 2.0, "yorick": 1.75, "gwen": 2.84, "ambessa": 2.0, "rumble": 1.75, "trundle": 2.0, "samira": 2.84, "locke": 2.0, "draven": 2.2, "skarner": 1.75, "zaahen": 1.75, "alune": 2.0, "leesin": 2.1, "vayne": 2.55, "lucian": 2.02}
+            **{h: 1.5 for h in ('morgana', 'nami', 'janna', 'jax', 'xinzhao')}, "yunara": 1.5, "kaisa": 1.45, "camille": 1.5, "fiora": 1.5, "leblanc": 2.0, "darius": 1.45, "caitlyn": 1.45, "riven": 1.5, "zoe": 1.5, "quinn": 2.0, "yuumi": 1.5, "powder": 1.75, "chogath": 1.2, "karthus": 1.5, "vex": 1.5, "zyra": 1.7, "graves": 1.5, "warwick": 1.5, "gnar": 1.5, "sylas": 1.2, "mel": 1.5, "velkoz": 1.5, "shyvana": 1.5, "ornn": 1.5, "naafiri": 1.5, "xerath": 1.55, "heimerdinger": 1.5, "neeko": 2.5, "ksante": 1.5, "udyr": 1.5, "qiyana": 1.5, "hwei": 1.5, "ivern": 1.5, "illaoi": 1.5, "varus": 1.35, "aurora": 2.25, "nunu": 1.37, "azir": 1.5, "zac": 1.5, "jinx": 2.2, "lux": 2.2, "singed": 1.39, "belveth": 1.75, "taliyah": 1.75, "aurelionsol": 1.75, "sejuani": 2.0, "ahri": 2.2, "twitch": 2.2, "annie": 2.2, "kled": 2.0, "yorick": 1.75, "gwen": 2.84, "ambessa": 2.0, "rumble": 1.75, "trundle": 2.0, "samira": 2.84, "locke": 2.0, "draven": 2.2, "skarner": 1.75, "zaahen": 1.75, "alune": 2.0, "silco": 2.0, "leesin": 2.1, "vayne": 2.55, "lucian": 2.02}
 # face: (row0, row1, col0, col1) of the face to match in the idle's first dense frame; neck: (col, row) there
 RESTYLE = {
     "zeri": dict(face=(25, 41, 22, 42), neck=None, neck_row=35, head=1.3, wide=1.45, short=0.88, band=2, edge=1, face_to=(-1, -33)),
@@ -731,6 +731,16 @@ RESTYLE = {
     # tools/art/rig_alune.py, so no proportion or density change here; the outer outline grown a square like the others;
     # the face point between her eyes (2 game px ahead of her standing point, 37 over the ground)
     "alune": dict(ppu=2.0, edge=1, face_to=(2, -37)),
+    # tft_silco (the tft pack, mid): the design (Codex's step-0 A-1 leaning on his cane, 80 rows, 40 game px hair to
+    # soles at the user's picks 「A-1 40 PPU 2.0」, 3/4 only, the scarred eye put back) and Codex's key poses after his
+    # own TFT clips (the design's head put back, the bodies read at the design's build, gaps closed), posed by
+    # tools/art/rig_silco.py, so no proportion or density change here; the outer outline grown a square like the others,
+    # but not into the slits up to 3 squares wide where the cane passes a leg (open_slits: grown shut they turned into
+    # black wedges); no pinholes: the loops the cane closes with his hand and boot are see-through and would be filled
+    # whole (170+ squares); the one-square cracks in the outline and the gaps up to 15 squares the growth leaves between
+    # an arm and the body filled (gap-check); the face point between his eyes (2 game px ahead of his standing point, 33
+    # over the ground)
+    "silco": dict(ppu=2.0, edge=1, face_to=(2, -33), slits=3, cracks=True, fill_holes=15),
 }
 NIDALEE_COUGAR = {"c_idle": 6, "c_run": 8, "c_attack": 4, "c_skill": 5, "c_pounce": 6, "c_swipe": 4, "c_transform": 3,
                   "c_hit": 2, "c_dead": 6}
@@ -1063,6 +1073,29 @@ def grow_edge(a, n, colour):
     return a
 
 
+def open_slits(grown, before, n, w):
+    """The squares grow_edge(.., n, ..) laid in a narrow slit between two parts (clear in `before`, with a part of the
+    figure at most `w` squares away on both sides, left and right or above and below - tft_silco's cane passing a leg
+    two or three squares apart) cleared again: both sides keep their own outline and the slit stays open, where the
+    grown outline filled it shut into a black wedge."""
+    was = np.pad(before[..., 3] > 0, n)
+    p = np.pad(was, w)
+    H, W = was.shape
+    left = np.zeros_like(was)
+    right = np.zeros_like(was)
+    up = np.zeros_like(was)
+    down = np.zeros_like(was)
+    for k in range(1, w + 1):
+        left |= p[w:w + H, w - k:w - k + W]
+        right |= p[w:w + H, w + k:w + k + W]
+        up |= p[w - k:w - k + H, w:w + W]
+        down |= p[w + k:w + k + H, w:w + W]
+    slit = ~was & ((left & right) | (up & down)) & (grown[..., 3] > 0)
+    out = grown.copy()
+    out[slit] = 0
+    return out
+
+
 def fit(content, pivot, W, H, exact_w=None):
     """`content` (its pivot at `pivot`) on a frame of at least W x H grown alike at both ends, the pivot at the centre;
     exact_w: the width it must have. -> frame (None when it does not fit exact_w)."""
@@ -1347,6 +1380,8 @@ def restyle(hero, spec, write=True, only=None):
                                           pal=None if (tag, i) in skip else shared)
             before = content
             content = grow_edge(content, spec.get("edge", 0), outline)
+            if spec.get("slits"):                          # narrow slits between parts kept open
+                content = open_slits(content, before, spec.get("edge", 0), int(spec["slits"]))
             if spec.get("pinholes"):                       # the specks of ground the grown outline closed in
                 most = 2 if spec["pinholes"] is True else int(spec["pinholes"])
                 content = close_pinholes(content, spec.get("edge", 0), outline, most,

@@ -55,7 +55,7 @@
 
 ### 希瓦娜附加包
 
-[希瓦娜附加包](../../addons/league_shyvana/README.md)：`league_shyvana` v0.1.0
+[希瓦娜附加包](../../addons/league_shyvana/README.md)：`league_shyvana` v0.1.1
 
 |  | 主包（纯数据） | 附加包 |
 |---|---|---|
