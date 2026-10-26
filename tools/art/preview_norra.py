@@ -9,7 +9,7 @@
                           60 ticks a second), captioned in Chinese, 4x (the user, 2026-10-24: 「带技能的gif图呢？」): the
                           walk; the star bolt; Memory Surge (the gathering, the bolt flung and her recoil, the blast, the
                           Threads); Threads of Homecoming (the two portals, the threads crossing, the Threads); and the
-                          add-on's (addons/tft_norra): the trinkets scattered one by one and taken by whoever steps on
+                          tft.dll's (addons/tft/src/norra.rs): the trinkets scattered one by one and taken by whoever steps on
                           them, Journey to Nowhere on whoever comes close, Portalpalooza!'s yarn balls along their lines.
 """
 import argparse
@@ -38,7 +38,7 @@ FX = {n: os.path.join(TFT, "effects", n) for n in ("tft_norra_fx", "tft_norra_bi
 DARIUS = os.path.join(ROOT, "league", "champions", "league_darius")
 HAND = -16                     # her bolts leave her pointing hand at about her shoulder (game px over the pivot)
 TRINKET_DX = 40                # the add-on's trinkets: this many game px to each side of the landing point
-BALL_TICKS = 16                # the add-on's yarn ball crossing the rift (addons/tft_norra BALL_TICKS)
+BALL_TICKS = 16                # tft.dll's yarn ball crossing the rift (norra.rs BALL_TICKS)
 WALK = 0.06                    # Darius's walk, game px a ms
 
 
@@ -240,9 +240,9 @@ SCENES = [("移动：小碎步，耳朵往后飘", ["walk_in"], 150, 150),
           ("普攻：指尖射出星光弹", ["attack"], 70, 150),
           ("技能1 回忆涌现：蓄力后射出回忆魔法弹并后退一步——落点爆炸，打中的英雄挂上线缕（变大、减速）", ["q"], 80, 150),
           ("技能2 思乡线缕：目标两侧开两扇门，0.3秒后线缕穿过——伤害，挂上线缕", ["e"], 80, 150),
-          ("被动 寄情琐物（附加包）：技能落地撒下3个琐物，敌方英雄踩到哪个，哪个就飞到他身上炸开", ["trinkets"], 80, 150),
-          ("被动 奇异旅程（附加包）：敌方英雄一贴身就开门，放逐1.5秒，吐回来后减速", ["journey"], 70, 150),
-          ("大招 传送门欢腾！（附加包）：脚下展开大裂隙，4波毛线球从两头沿线对飞，每个球碰到的第一个英雄减速", ["r"], 80, 160)]
+          ("被动 寄情琐物：技能落地撒下3个琐物，敌方英雄踩到哪个，哪个就飞到他身上炸开", ["trinkets"], 80, 150),
+          ("被动 奇异旅程：敌方英雄一贴身就开门，放逐1.5秒，吐回来后减速", ["journey"], 70, 150),
+          ("大招 传送门欢腾！：脚下展开大裂隙，4波毛线球从两头沿线对飞，每个球碰到的第一个英雄减速", ["r"], 80, 160)]
 
 
 def skills(out, z=4):

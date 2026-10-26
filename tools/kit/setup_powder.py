@@ -28,12 +28,12 @@ REPO = os.path.normpath(os.path.join(HERE, "..", ".."))
 MOD = os.path.join(REPO, MOD_ID)
 VERSION = "0.1.0"
 NAME = "Teamfight Tactics Heroes"
-# the pack's description, shared with tools/kit/setup_norra.py (every hero of the pack in HEROES)
-DESC = ("Teamfight Tactics units that League of Legends does not have, for Teamfight Manager 2: {heroes}. Powder's kit is "
-        "our own design, drawn from TFT and Arcane; Norra's follows League of Legends: Wild Rift (with the tft_norra "
-        "add-on, the rules the data cannot play). Sharper frames when the League of Legends Heroes pack (league) is also "
-        "enabled. Non-commercial fan project; Teamfight Tactics, Wild Rift and Arcane (c) Riot Games.")
-HEROES = ["Powder", "Norra"]
+# the pack's description, shared with tools/kit/setup_norra.py and setup_alune.py (every hero of the pack in HEROES)
+DESC = ("Teamfight Tactics units that League of Legends does not have, for Teamfight Manager 2: {heroes}. Powder's and "
+        "Alune's kits are our own designs, drawn from TFT and Arcane; Norra's follows League of Legends: Wild Rift (what "
+        "the data cannot play is the pack's own code, tft.dll). Sharper frames when the League of Legends Heroes pack "
+        "(league) is also enabled. Non-commercial fan project; Teamfight Tactics, Wild Rift and Arcane (c) Riot Games.")
+HEROES = ["Powder", "Norra", "Alune"]
 ADi = "<i#asset/base/ui/banpick/champion_stat_icon:ad_0>"
 APi = "<i#asset/base/ui/banpick/champion_stat_icon:ap_0>"
 TOOLTIP_MAX = {"zh-hans": 130, "zh-hant": 130, "en": 334, "ja": 147, "ko": 185}

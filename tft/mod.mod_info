@@ -1,14 +1,16 @@
 {
   "author": "BoDUD",
+  "contains_code": true,
   "dependencies": [
     {
       "mod_id": "base",
       "version": ">=0.4.11"
     }
   ],
-  "description": "Teamfight Tactics units that League of Legends does not have, for Teamfight Manager 2: Powder, Norra. Powder's kit is our own design, drawn from TFT and Arcane; Norra's follows League of Legends: Wild Rift (with the tft_norra add-on, the rules the data cannot play). Sharper frames when the League of Legends Heroes pack (league) is also enabled. Non-commercial fan project; Teamfight Tactics, Wild Rift and Arcane (c) Riot Games.",
+  "description": "Teamfight Tactics units that League of Legends does not have, for Teamfight Manager 2: Powder, Norra, Alune. Powder's and Alune's kits are our own designs, drawn from TFT and Arcane; Norra's follows League of Legends: Wild Rift (what the data cannot play is the pack's own code, tft.dll). Sharper frames when the League of Legends Heroes pack (league) is also enabled. Non-commercial fan project; Teamfight Tactics, Wild Rift and Arcane (c) Riot Games.",
   "last_updated": "2026-10-26",
   "mod_id": "tft",
+  "mod_type": "native",
   "name": "Teamfight Tactics Heroes",
-  "version": "0.2.0"
+  "version": "0.4.0"
 }

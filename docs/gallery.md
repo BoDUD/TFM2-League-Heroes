@@ -8,10 +8,10 @@
 
 ![拉克丝演示：跑步、普攻、Q 光之束缚和护盾、被动引爆、E 透光奇点、R 终极闪光](preview/league_lux_showcase.gif?v=1023lx)
 
-![李青连招演示：Q 天音波、回音击、出一拳再天雷破（QQAE）；Q 还在冷却时放 R，回旋踢把德莱厄斯踢飞，飞踢追上去再打一下（QRQ）；第二段 Q 好着时放 R，正面踢把亚索踢进金克丝，紧接着出掌，天音波追上空中的亚索，再回音击冲过去（RQQ）](preview/league_leesin_combos.gif?v=1023jx)
-![李青演示：跑步、Q 天音波和回音击、疾风骤雨普攻、E 天雷破和金钟罩；R 猛龙摆尾：逃开的德莱厄斯身后没人，回旋踢把他踢回盖伦那边；第二段亚索身后站着金克丝，正面踢把他踢进金克丝，金龙撞飞她](preview/league_leesin_showcase.gif?v=1023jx)
+![李青连招演示：Q 天音波、回音击、出一拳再天雷破（QQAE）；Q 还在冷却时放 R，回旋踢把德莱厄斯踢飞，飞踢追上去再打一下（QRQ）；第二段 Q 好着时放 R，正面踢把亚索踢进金克丝，紧接着出掌，天音波追上空中的亚索，再回音击冲过去（RQQ）](preview/league_leesin_combos.gif?v=1026hd)
+![李青演示：跑步、Q 天音波和回音击、疾风骤雨普攻、E 天雷破和金钟罩；R 猛龙摆尾：逃开的德莱厄斯身后没人，回旋踢把他踢回盖伦那边；第二段亚索身后站着金克丝，正面踢把他踢进金克丝，金龙撞飞她](preview/league_leesin_showcase.gif?v=1026hd)
 
-![索拉卡演示：跑步、普攻、Q 流星坠落和星体结界、W 星之灌注、R 祈愿](preview/league_soraka_showcase.gif?v=1014g)
+![索拉卡演示：跑步、普攻、Q 流星坠落和星体结界、W 星之灌注、R 祈愿](preview/league_soraka_showcase.gif?v=1026hd)
 
 ![德莱厄斯演示：跑步、E 无情铁手拉人、W 致残打击、普攻叠出血、Q 大杀四方、诺克萨斯之力、R 诺克萨斯断头台](preview/league_darius_showcase.gif?v=1018dg)
 

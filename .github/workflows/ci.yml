@@ -9,7 +9,7 @@
 #             stealable or robbed by class, a soul with its sheets' hd_ / lo_ tags, its range for Kayn) and every add-on
 #             in the league_addons bundle.
 # package - league.dll and the add-on bundle built; one artifact with what can be copied into <game>/mods as it is:
-#           league/league.dll, league/ and tft/ ui_sheets, league_addons/ (tools/package_mod.py,
+#           league/league.dll, tft/tft.dll, league/ and tft/ ui_sheets, league_addons/ (tools/package_mod.py,
 #           addons/league_addons/assemble.py).
 #
 # Windows runners: the DLLs are Windows-only, and the generators compare against files checked out with CRLF line ends
@@ -80,15 +80,14 @@ jobs:
           python -I addons/league_teemo_shrooms/make_override.py --check
           python -I addons/league_yasuo_wall/make_override.py --check
           python -I addons/league_kayle/make_override.py --check
-          python -I addons/tft_norra/make_override.py --check
       - name: league.dll - PPU, UI sheets, run-time places
         run: cargo test --manifest-path addons/Cargo.toml -p league_main -p game_places
       - name: Sylas's steal table, Viego's possession, Neeko's disguise, Kayn's ranges
         run: cargo test --manifest-path addons/Cargo.toml -p league_sylas -p league_viego_soul -p league_neeko -p league_kayn_form
       - name: Every add-on (the league_addons bundle)
         run: cargo test --manifest-path addons/Cargo.toml -p league_addons
-      - name: Norra's add-on (tft_norra, a mod of its own)
-        run: cargo test --manifest-path addons/Cargo.toml -p tft_norra
+      - name: The tft pack's tft.dll (Norra's and Alune's rules)
+        run: cargo test --manifest-path addons/Cargo.toml -p tft
 
   package:
     name: Packages to install
@@ -123,6 +122,7 @@ jobs:
           cp build/league/league.dll dist/league/
           cp -r build/league/ui_sheets dist/league/
           cp -r build/tft/ui_sheets dist/tft/
+          cp build/tft/tft.dll dist/tft/
           python -I addons/league_addons/assemble.py dist/league_addons --dll addons/target/release/league_addons.dll
           v=$(python -I -c "import json; print(json.load(open('league/mod.mod_info', encoding='utf-8'))['version'])")
           echo "name=TFM2-League-Heroes-$v-${GITHUB_SHA::9}" >> "$GITHUB_OUTPUT"

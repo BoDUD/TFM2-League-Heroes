@@ -541,7 +541,9 @@ def page_top(h, avatar_ok):
     L += ["### 数值", "", "、".join(parts) + "。", ""]
     if h.addons:
         L += ["## 附加包", "",
-              "附加包是可选的原生代码 mod（都在附加包合集 `league_addons` 里），**不装主包里的英雄也是完整的**。", ""]
+              ("附加包是可选的原生代码 mod（tft 包的附加包单独安装，不在附加包合集 `league_addons` 里），**不装 tft 包里的英雄"
+               "也是完整的**。" if h.tft else
+               "附加包是可选的原生代码 mod（都在附加包合集 `league_addons` 里），**不装主包里的英雄也是完整的**。"), ""]
         for a in h.addons:
             link = "%s/README.md" % a["dir"]
             name = "[%s](%s)" % (a["name"], rel_link(link, PAGES)) if a["has_readme"] else a["name"]

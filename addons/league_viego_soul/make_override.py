@@ -10,8 +10,10 @@ league/champion/league_viego.data_champion byte for byte (so the copy never drif
     the possession's pictures and sounds played on the add-on's flags league_viego_p_go / p_off;
   * text/champion.i18n: description.league_viego_soul.attack - the passive as the add-on plays it;
   * src/souls.rs: champion id -> (soul category, the animation tags of its sheet) for every base champion (the game's
-    champion sheet asset/base/setting/champion_info and each sprite's #anim, bundle.game_data) and every hero of this
-    pack (league/champion + league/champions/*#anim.fanim). The view hook draws only champions in this table.
+    champion sheet asset/base/setting/champion_info and each sprite's #anim, bundle.game_data), every hero of this
+    pack (league/champion + league/champions/*#anim.fanim) and of the repo's tft pack (tft/champion + tft/champions:
+    the user, 2026-10-26: 「让佛耶戈和妮蔻也能变成 tft 英雄」). The view hook draws only champions in this table;
+    league_neeko reads the same file for the allies she can disguise as.
 Run it again whenever the main pack's Viego or his text changes, or when the pack gains heroes.
 """
 import argparse
@@ -90,12 +92,13 @@ def souls(game):
         tags = b.anim_tags(sprite)
         if tags and v.get("category") in CATS:
             out[cid] = (CATS[v["category"]], sorted(tags))
-    for path in sorted(glob.glob(os.path.join(ROOT, "league", "champion", "*.data_champion"))):
-        c = load(path)
-        anim = os.path.join(ROOT, "league", "champions", os.path.basename(c["sprite"]) + "#anim.fanim")
-        if not os.path.exists(lp(anim)) or c.get("category") not in CATS:
-            continue
-        out[c["id"]] = (CATS[c["category"]], sorted(load(anim).get("anims", {}).keys()))
+    for pack in ("league", "tft"):
+        for path in sorted(glob.glob(os.path.join(ROOT, pack, "champion", "*.data_champion"))):
+            c = load(path)
+            anim = os.path.join(ROOT, pack, "champions", os.path.basename(c["sprite"]) + "#anim.fanim")
+            if not os.path.exists(lp(anim)) or c.get("category") not in CATS:
+                continue
+            out[c["id"]] = (CATS[c["category"]], sorted(load(anim).get("anims", {}).keys()))
     return dict(sorted(out.items()))
 
 

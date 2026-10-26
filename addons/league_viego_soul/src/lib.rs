@@ -544,15 +544,19 @@ declare_stable_mod!(init, requires = 9);
 mod tests {
     use super::*;
 
-    /// The main pack's heroes (league/champion/*.data_champion).
+    /// The repo's heroes: the main pack's (league/champion/*.data_champion) and the tft pack's (tft/champion, 2026-10-26:
+    /// 「让佛耶戈和妮蔻也能变成 tft 英雄」).
     fn pack_heroes() -> Vec<String> {
-        let dir = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../../league/champion");
-        let mut v: Vec<String> = std::fs::read_dir(&dir)
-            .expect("league/champion")
-            .filter_map(|e| e.ok()?.file_name().into_string().ok()?.strip_suffix(".data_champion").map(str::to_string))
-            .collect();
+        let mut v = Vec::new();
+        for pack in ["league", "tft"] {
+            let dir = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join(format!("../../{pack}/champion"));
+            v.extend(std::fs::read_dir(&dir).expect("the pack's champion folder").filter_map(|e| {
+                e.ok()?.file_name().into_string().ok()?.strip_suffix(".data_champion").map(str::to_string)
+            }));
+        }
         v.sort();
-        assert!(v.len() > 100, "read only {} heroes from {}", v.len(), dir.display());
+        assert!(v.len() > 100, "read only {} heroes", v.len());
+        assert!(v.iter().any(|h| h.starts_with("tft_")), "no tft hero read");
         v
     }
 
@@ -600,14 +604,15 @@ mod tests {
         let root = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
         let mut wrong = Vec::new();
         for id in pack_heroes() {
-            let data = std::fs::read_to_string(root.join(format!("league/champion/{id}.data_champion"))).unwrap();
+            let pack = if id.starts_with("tft_") { "tft" } else { "league" };
+            let data = std::fs::read_to_string(root.join(format!("{pack}/champion/{id}.data_champion"))).unwrap();
             let sprite = data
                 .lines()
                 .find_map(|l| l.trim().strip_prefix("\"sprite\": \""))
                 .map(|r| r.trim_end_matches(',').trim_end_matches('"'))
                 .unwrap_or_else(|| panic!("no sprite in {id}"));
             let name = sprite.rsplit('/').next().unwrap();
-            let Ok(anim) = std::fs::read_to_string(root.join(format!("league/champions/{name}#anim.fanim"))) else {
+            let Ok(anim) = std::fs::read_to_string(root.join(format!("{pack}/champions/{name}#anim.fanim"))) else {
                 continue; // make_override.py leaves a hero without its own sheet out (every_pack_hero_has_a_soul says so)
             };
             let sheet = fanim_tags(&anim);
