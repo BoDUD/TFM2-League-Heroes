@@ -7,8 +7,9 @@
   league_skarner_effects.png   every effect animation, 3x
   league_skarner_showcase.gif  a scripted fight with Darius, timed like the kit, 3x: Ixtal's Impact from afar (the
                                charge, the carry, the slam, Seismic Bastion) gives the boulder at once (E -> Q); a
-                               splashing blow; Impale with the boulder up throws Upheaval first (R -> Upheaval) and
-                               sets Darius quaking at once (R -> Quaking); blows, Darius swings back and runs for it;
+                               splashing blows; Darius runs for it: Impale with the boulder up throws Upheaval first (R ->
+                               Upheaval), the stingers catch him down the line, drag him back and set him quaking at
+                               once (R -> Quaking); blows, Darius swings back and runs again;
                                the throw brought Ixtal's Impact back within 4 s (Q -> E): it catches him, he falls.
   league_skarner_skills.gif    each skill and combo alone with its effects against Darius, timed like the kit
                                (tools/kit/build_skarner.py, 60 ticks a second), captioned in Chinese, 4x: the scuttle;
@@ -204,26 +205,28 @@ def scene(out, steps, gap, W=260, H=150, z=4, tail=900, x0=70):
         c.on_foe("slow", q, until=q + tick(P["w_slow_t"]), under=True)
         c.on_him("w_shield", q, until=q + tick(P["w_sh_t"]))
 
+    def stop_run(when):
+        """Darius caught while running for it: his run (and the slide that carries it) cut at `when`."""
+        for k, (t0, t1) in enumerate(d.runs):
+            if t0 <= when < t1:
+                d.runs[k] = (t0, when)
+                for j, (s0, s1, dx) in enumerate(d.slides):
+                    if s0 == t0 and s1 == t1:
+                        d.slides[j] = (s0, when, dx * (when - s0) / (s1 - s0))
+
     def impale():
-        """Impale: the stingers down the line, the suppression and the drag toward him, his haste, Quaking full; with
-        the boulder up, Upheaval first."""
-        if st["rock"] is not None:
-            toss_t = c.t
-            rock_spent(toss_t)
-            land = toss_t + tick(P["q_travel"])
-            x, y = me.pos(toss_t)
-            c.lob("q_rock", toss_t, land, x + 10, d.pos(land)[0], y - 20)
-            c.at("q_land", land, d.pos(land)[0], gy)
-            c.on("q_hit", land)
-            d.flinches.append(land)
-            quake_hit(land)
-            st["thrown"] = land
+        """Impale: the stingers down the line (catching Darius where he is by then, running or not), the suppression
+        and the drag toward him, his haste, Quaking full; with the boulder up, Upheaval first."""
         t = c.t
+        rock_up = st["rock"] is not None
         c.a("ult", tick(P["r_dur"]))
         rel = t + tick(P["r_rel"] - 1)
         x, y = me.pos(rel)
         sp = px_tick(P["r_speed"])
-        hit = rel + (d.pos(rel)[0] - x - 8) / sp
+        hit = rel
+        while x + 8 + (hit - rel) * sp < d.pos(hit)[0] - 8:
+            hit += 5
+        stop_run(hit)
         stop = rel + P["r_len"] / 1000.0 / sp
         c.fly("r_spike", rel, stop, x + 8, x + 8 + P["r_len"] / 1000.0, y - 8, sheet=big)
         c.on("r_hit", hit)
@@ -233,6 +236,16 @@ def scene(out, steps, gap, W=260, H=150, z=4, tail=900, x0=70):
         pull = d.pos(hit)[0] - (me.pos(hit)[0] + REACH)
         if pull > 0:
             d.slides.append((hit, hit + pull / px_tick(P["r_grab"]) * (P["r_drag"] / 2.0), -pull))
+        if rock_up:                                     # Upheaval thrown first, as he starts the lash
+            rock_spent(t)
+            land = t + tick(P["q_travel"])
+            x0, y0 = me.pos(t)
+            c.lob("q_rock", t, land, x0 + 10, d.pos(land)[0], y0 - 20)
+            c.at("q_land", land, d.pos(land)[0], gy)
+            c.on("q_hit", land)
+            d.flinches.append(land)
+            quake_hit(land)
+            st["thrown"] = land
         quake_hit(hit, full=True)
         c.on_him("r_haste", hit, until=hit + tick(P["r_ms_t"]), under=True)
         return held
@@ -271,11 +284,17 @@ def scene(out, steps, gap, W=260, H=150, z=4, tail=900, x0=70):
             impact()                        # the engage from afar: charge, carry, slam, bastion
             pickup()                        # E -> Q: the boulder at once
             blow(1)
-            free = impale()                 # R with the boulder up: Upheaval first; Quaking full
+            blow(2)
+            t0 = c.t + 100                  # Darius runs for it
+            d.runs.append((t0, t0 + 1500))
+            d.slides.append((t0, t0 + 1500, 90))
+            c.wait(t0 + 450 - c.t)
+            free = impale()                 # R with the boulder up: Upheaval first; the stingers catch him, drag him
+            c.wait(max(0, free - c.t))      # back; Quaking full
             blow()
-            d.attacks.append(max(c.t, free) + 60)       # Darius free again: he swings back
+            d.attacks.append(c.t + 60)      # free again: he swings back
             blow()
-            t0 = c.t + 150                  # and runs for it
+            t0 = c.t + 150                  # and runs again
             d.runs.append((t0, t0 + 750))
             d.slides.append((t0, t0 + 750, 42))
             # the throw on a champion brought Ixtal's Impact back within e_cut ticks: it catches him
