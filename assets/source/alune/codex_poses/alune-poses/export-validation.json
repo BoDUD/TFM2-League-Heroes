@@ -1,0 +1,28 @@
+{
+  "pass": true,
+  "checks": [
+    "14/14 active poses",
+    "1254x1254 RGBA",
+    "12px cell uniformity and corner alignment",
+    "hard alpha0/255",
+    "baseline1176; run2=1164",
+    "raw files identical to image_gen output"
+  ],
+  "sha256": {
+    "alune-pose-a_wind.png": "eb03dff1d9d0a24a744456b44fb24ce3754df63ae4bb3e73a1f9955bee4334d7",
+    "alune-pose-a_throw.png": "2917c0110c57992f72e7e118e4cd63a5d8d69ceaa664fa23f77dbc845f14a920",
+    "alune-pose-a_catch.png": "9f76545d6b76669bcf3ae31509c1e3834f0e334ce0a01e04355c388555e13d99",
+    "alune-pose-q_raise.png": "523bd7893648d10241bf9965a7fb71708c0928e24959993c8ed6cee199e565ae",
+    "alune-pose-q_call.png": "88715c5cce2040c7f37c9c7fc0921db10ba8b050e947e9c81956da732dc51f05",
+    "alune-pose-e_bless.png": "2e54f2380ab567469922803476f1498856029b44cc0e6a05a8c3be7a086aa696",
+    "alune-pose-r_raise.png": "f9c8fc6b2b3bfa2f9996ba94109f930c4514f1686abddb1987de4f4c032fbebb",
+    "alune-pose-r_call.png": "b0a713ec178a8040490e0f711ce9c60a1cd2009c7033091631de266e1a3623c2",
+    "alune-pose-run1.png": "b267b8a5449dc6992b2ec487ff3956e13531031e1557e9b036439e0d6aa704da",
+    "alune-pose-run2.png": "152af4fb29d67702f039674a2e4806d49475a53a8b9b33efea84af00ea6ec9dd",
+    "alune-pose-run3.png": "926d90cdae805eeb1c315edc0752cc55f9ae2aa0a6570e345796d72a1f1bef98",
+    "alune-pose-run4.png": "98a383edc5612fda3d7c1782f2992880f2f718f8036abc66eb94107f1c7076d7",
+    "alune-pose-d_fall.png": "97bd43bcdaadba529426e55cae83a663039878c8049dc34454318ee97e69b5c9",
+    "alune-pose-d_down.png": "044f94ca87583e3864035e7422017603a1a4778884ac8000f891389d29aabdab"
+  },
+  "scope": "export technical validation only; visual deviations and untested runtime are documented in HANDOFF.md"
+}

@@ -218,7 +218,7 @@ def build(p):
     moon = [view("r_moon"), sfx("r_blast"),
             when("ph3", slam(3), when("ph2", slam(2), when("ph1", slam(1), slam(0)))), wane]
     ult = action("ult", p["r_dur"], p["r_cd"], 1, p["r_range"], "Targeting", "EnemyChampion",
-                 combine(sfx("r"), delayed(p["r_rel"] - 1,
+                 combine(sfx("r"), delayed(p["r_rel"] - 1, view("r_fall"),
                                            lob("r_fall", p["r_open"], moon, target="EnemyChampion", seen="r_warn"))))
 
     # ------------------------------------------------------------------ views
@@ -227,11 +227,12 @@ def build(p):
     B_ = lambda name, anim_=FX, z=2, tag=None: {"type": "Animated", "name": n(name), "anim": anim_, "tag": tag or name,
                                                 "repeat": True, "z": z}
     # a_ring (and the add-on's a_back) is a disc seen edge-on, the same turned with its flight; q_shard and r_fall fly
-    # hidden: the shard and the moon fall as upright pictures on the landing spot (q_drop, r_warn + r_moon: ViewEffects,
-    # never turned)
+    # hidden: the shard and the moon fall as upright pictures on the landing spot (ViewEffects, never turned): q_drop the
+    # shard's fall (the lob's range picture), r_fall the moon's descent over the champion's spot from the launch (over
+    # the units: z 3) while r_warn shadows the ground under it (z -2), r_moon the slam where it lands
     views_p = [B_("a_ring")] + ([B_("a_back", tag="a_ring")] if native else [])
     views_e = [E("a_hit"), E("q_drop", BIG, 3, False), E("q_hit", FX, 2, False),
-               E("r_warn", BIG, -2, False), E("r_moon", BIG, 3, False), E("r_hit")]
+               E("r_warn", BIG, -2, False), E("r_fall", BIG, 3, False), E("r_moon", BIG, 3, False), E("r_hit")]
     views_b = [B_("q_shred", FX, 3), B_("e_glow", FX, 3), B_("ph1", FX, 4, "p_moon1"), B_("ph2", FX, 4, "p_moon2"),
                B_("ph3", FX, 4, "p_moon3")]
     kit = {

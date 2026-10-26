@@ -518,6 +518,10 @@
           "tick": 24,
           "effects": [
             {
+              "type": "ViewEffect",
+              "name": "tft_alune_r_fall"
+            },
+            {
               "type": "ParabolicProjectile",
               "name": "tft_alune_r_fall",
               "travel_time": 45,
@@ -844,6 +848,14 @@
       "anim": "asset/tft/effects/tft_alune_big",
       "tag": "r_warn",
       "z": -2,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "tft_alune_r_fall",
+      "anim": "asset/tft/effects/tft_alune_big",
+      "tag": "r_fall",
+      "z": 3,
       "is_follow": false
     },
     {
