@@ -20,6 +20,14 @@
 
 数字：被动 `league_sylas:hijack` 的参数写在英雄数据的 `passive.params`，由 `make_override.py` 从 `tools/kit/build_sylas.py` 的参数表 `P` 写入；单元测试核对参数表。
 
+## tft 包的英雄（0.2.9）
+
+用户 2026-10-26：「塞拉斯不会偷拉露恩、诺拉、爆爆？」——以前 `make_override.py` 只扫 `league/champion`，类别表也是 tft 英雄加进来之前生成的，偷到她们时查不到类别、按近战放了跃起重砸。现在 tft 包的英雄（`tft/champion`）和英雄联盟英雄一样处理：
+
+- **爆爆**放她自己的大招（`sylas_steal_check.py tft_powder`：她自己的画面和弹道 100 个）。她的大招用到的两张特效图（`tft_powder_fx`、`tft_powder_big`）复制在本包的 `effects/` 里，副本指向这份复制：附加包合集在创意工坊上、tft 包不在，而英雄数据里列出的画面在**选英雄时**就要找得到图（2026-10-25 斯维因的崩溃），不能指向 tft 包。`make_override.py --check` 核对复制件和 tft 包的原图一样。
+- **拉露恩、诺拉**按类别（法师）：拉露恩的月亮要读她被动的月相，砸下来的伤害由她自己的被动代码结算（只认她敌人身上的标记）；诺拉的传送门是 tft.dll 的原生代码。
+- 生成脚本见到大招里有原生代码、或画面指向 `tft/effects` 以外的 tft 资源就报错停下，免得以后的新 tft 英雄悄悄把 tft 包的东西带进副本。
+
 ## 在游戏里测
 
 1. 主包（League of Legends Heroes 0.181 以上）要装着并启用。

@@ -3,6 +3,7 @@
 per champion (league_sylas 0.2.0's real Hijack, addons/league_sylas/make_override.py).
 
     python tools/kit/sylas_steal_check.py --sim C:/t/sy_sim2 [hero ...]      # default: every league_* but Sylas
+    python tools/kit/sylas_steal_check.py --sim C:/t/sy_sim2 tft_powder       # a TFT hero by its id
 
 --sim is a folder holding sim/trace.exe (tools/perf/trace.rs built with the classic SDK's build.sh, as for
 tools/perf/same_games.py) and sim/assets. For each champion a test copy of the add-on's Sylas
@@ -61,7 +62,10 @@ def check(sim, base, hero, seed=3):
     path = os.path.join(sim, f"steal_{hero}.data_champion")
     with open(path, "w", encoding="utf-8") as f:
         json.dump(test_copy(base, hero), f)
-    own = json.load(open(os.path.join(ROOT, "league", "champion", f"league_{hero}.data_champion"), encoding="utf-8-sig"))
+    # a League champion by its name without league_ (jinx), a TFT hero by its id (tft_powder, 2026-10-26)
+    src = (os.path.join(ROOT, "tft", "champion", f"{hero}.data_champion") if hero.startswith("tft_")
+           else os.path.join(ROOT, "league", "champion", f"league_{hero}.data_champion"))
+    own = json.load(open(src, encoding="utf-8-sig"))
     names = set()
     walk(own["ult"]["effect"], lambda d: names.add(d["name"]) if d.get("type") in PROJ and isinstance(d.get("name"), str)
          else None)

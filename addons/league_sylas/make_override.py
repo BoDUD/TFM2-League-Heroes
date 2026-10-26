@@ -17,8 +17,12 @@ league/champion/league_sylas.data_champion byte for byte (so the copy never drif
   * addons/league_sylas/text/champion.i18n: those two texts in five languages;
   * addons/league_sylas/src/classes.rs: champion id -> class for every base champion and every hero of this pack
     (league_viego_soul's table: the game's champion sheet's category, Melee / Range / Magician / Util / Assassin);
-  * addons/league_sylas/src/stealable.rs: the League champions whose own ult the copy carries.
-Every other champion stays untouched. Run it again whenever the main pack's Sylas changes or heroes are added.
+  * addons/league_sylas/src/stealable.rs: the champions whose own ult the copy carries;
+  * addons/league_sylas/effects/: the effect sheets a TFT hero's stolen ult draws (copies of tft/effects), so the copy
+    never points into the tft mod - the add-on bundle is on the Workshop and the tft mod is not, and a view whose
+    sheet is missing breaks the game when the champion is picked (league_swain, 2026-10-25), not when it is played.
+The TFT heroes (tft/champion, 2026-10-26: 「塞拉斯不会偷拉露恩、诺拉、爆爆？」) are robbed like the League ones: their own
+ult when it is plain data that works in his hands, else BY_CLASS. Every other champion stays untouched. Run it again whenever the main pack's Sylas changes or heroes are added.
 """
 import argparse
 import glob
@@ -98,6 +102,9 @@ BY_CLASS = {
     "wukong": "R arms a spin his attacks fire", "zilean": "R arms a rewind his watcher fires",
     "gnar": "R only in Mega form", "orianna": "R needs her ball", "mel": "R strikes only her own Overwhelm stacks",
     "velkoz": "R casts only while his passive researches a champion",
+    # the TFT heroes (tft/champion): their code is tft.dll's, not the add-on bundle's
+    "tft_alune": "R's moon reads her phases and her passive's code splits it",
+    "tft_norra": "R's rift is tft.dll's own code (a native the tft mod registers)",
     "shyvana": "R only at full Fury or in dragon form", "heimerdinger": "R arms an upgrade his next spell fires",
 }
 
@@ -137,31 +144,65 @@ def retag(o):
     return o
 
 
+# a TFT hero's effect sheets: tft/effects/<sheet> -> the add-on's own copy (asset/league_sylas/effects/<sheet>)
+TFT_FX = "asset/tft/effects/"
+OWN_FX = "asset/league_sylas/effects/"
+
+
+def key(cid):
+    """The hero's name in steal_<name>: a League champion without league_, a TFT hero as it is (tft_powder)."""
+    return cid[len("league_"):] if cid.startswith("league_") else cid
+
+
+def full(sid):
+    return sid if sid.startswith("tft_") else "league_" + sid
+
+
 def own_ults():
-    """[(hero without league_, ult effect retagged)] for every League champion of the main pack but Sylas, and the
-    views those trees use, copied from each champion's own lists (their names carry the champion's id)."""
+    """[(key, ult effect retagged)] for every League champion of the main pack and every TFT hero but Sylas and BY_CLASS,
+    the views those trees use, copied from each champion's own lists (their names carry the champion's id), and the
+    TFT effect sheets they draw (their views point at the add-on's copies)."""
     stolen, views = [], {"view_projectiles": [], "view_effects": [], "view_buffs": []}
-    seen = set()
-    for path in sorted(glob.glob(os.path.join(ROOT, "league", "champion", "league_*.data_champion"))):
+    seen, sheets = set(), set()
+    paths = sorted(glob.glob(os.path.join(ROOT, "league", "champion", "league_*.data_champion")))
+    paths += sorted(glob.glob(os.path.join(ROOT, "tft", "champion", "tft_*.data_champion")))
+    for path in paths:
         c = json.loads(open(lp(path), "rb").read().decode("utf-8-sig"))
-        if c["id"] == HERO or c["id"][len("league_"):] in BY_CLASS:
+        if c["id"] == HERO or key(c["id"]) in BY_CLASS:
             continue
         tree = retag(c["ult"]["effect"])
+        if '"Native"' in json.dumps(tree):
+            sys.exit(f"{c['id']}: its ult calls native code - put it in BY_CLASS or make the add-on carry it")
         used = names_in(tree, set())
         for kind in views:
             for v in c.get(kind, []):
                 if v["name"] in used and v["name"] not in seen:
                     seen.add(v["name"])
+                    anim = v.get("anim", "")
+                    if anim.startswith(TFT_FX):
+                        sheets.add(anim[len(TFT_FX):])
+                        v = {**v, "anim": OWN_FX + anim[len(TFT_FX):]}
+                    elif anim.startswith("asset/tft/"):
+                        sys.exit(f"{c['id']}: view {v['name']} draws {anim} - only tft/effects sheets are copied")
                     views[kind].append(v)
-        stolen.append((c["id"][len("league_"):], tree))
-    return stolen, views
+        stolen.append((key(c["id"]), tree))
+    return stolen, views, sheets
+
+
+def sheet_files(sheets):
+    """[(the add-on's copy, the tft mod's file)] for every TFT sheet the copy draws."""
+    out = []
+    for name in sorted(sheets):
+        for ext in ("#anim.fanim", "#sheet.png"):
+            out.append((os.path.join(ADDON, "effects", name + ext), os.path.join(ROOT, "tft", "effects", name + ext)))
+    return out
 
 
 def stealable_rs(stolen):
     lines = ["//! The League champions whose own ult the add-on's copy of Sylas carries (`league_sylas_steal_<hero>`), sorted.",
-             "//! Generated by make_override.py from league/champion/*.data_champion - do not edit by hand.", "",
+             "//! Generated by make_override.py from league/champion and tft/champion - do not edit by hand.", "",
              "pub const STEALABLE: &[&str] = &["]
-    lines += [f'    "league_{sid}",' for sid, _ in sorted(stolen)]
+    lines += [f'    "{cid}",' for cid in sorted(full(sid) for sid, _ in stolen)]
     lines.append("];")
     return chr(10).join(lines) + chr(10)
 
@@ -188,7 +229,7 @@ def main():
         shipped = f.read()
     if dumps_main(kit.build(p)) != shipped:
         sys.exit("the main pack's league_sylas differs from build_sylas.P: rebuild it first")
-    stolen, own_views = own_ults()
+    stolen, own_views, sheets = own_ults()
     champion = kit.build(p, native=True, own=stolen)
     for kind, vs in own_views.items():
         mine = {v["name"] for v in champion[kind]}
@@ -232,7 +273,13 @@ def main():
     i18n = {lang: {"description": {TEXT_ID: d}} for lang, d in texts.items()}
     tpath = os.path.join(ADDON, "text", "champion.i18n")
     spath = os.path.join(ADDON, "src", "stealable.rs")
+    copies = sheet_files(sheets)
     if a.check:
+        stale = [os.path.relpath(c, ROOT) for c, src in copies
+                 if not os.path.isfile(lp(c)) or open(lp(c), "rb").read() != open(lp(src), "rb").read()]
+        if stale:
+            sys.exit("league_sylas: the TFT effect copies are out of date - run make_override.py and commit: "
+                     + ", ".join(stale))
         generated.check("league_sylas", [(out, copy_text), (tpath, dumps_main(i18n)), (spath, stealable_rs(stolen))],
                         ["src/classes.rs"])
         return
@@ -249,6 +296,10 @@ def main():
         f.write(classes_rs(table))
     with open(lp(spath), "w", encoding="utf-8", newline="\n") as f:
         f.write(stealable_rs(stolen))
+    for c, src in copies:
+        os.makedirs(lp(os.path.dirname(c)), exist_ok=True)
+        with open(lp(c), "wb") as f:
+            f.write(open(lp(src), "rb").read())
     print(out)
     print(tpath)
     print("src/classes.rs -", len(table), "champions; src/stealable.rs -", len(stolen), "own ults;",
