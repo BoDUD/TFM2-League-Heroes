@@ -136,6 +136,37 @@ def hat_palette():
     return top - below
 
 
+def body_palette():
+    """The colours only her body carries (the robe's purples, the gold ring, the hands' lit skin): the design's below the
+    head (row 48 on) that the hat (the head's rows 0-27) never shows."""
+    d = design()
+    hm = head_mask(d)
+    hat = {tuple(int(v) for v in d[y, x, :3]) for y, x in zip(*np.nonzero(hm)) if y < 28}
+    below = {tuple(int(v) for v in p[:3]) for p in d[48:][d[48:, :, 3] > 0]}
+    return below - hat
+
+
+def clear_old_hat(fig, pasted, top, body_pal, ink, reach=5, rows=30):
+    """Codex's own hat round the paste where it drew the head bigger or tipped (q_swirl 15 px a square, r_cast 15.25,
+    run1 15, q_throw tipped 10 degrees: a second brim and a band outside the feathers showed round the design's hat -
+    the user, 2026-10-26: 「放技能的时候帽子有点重影 看起来像多出来了一点帽子」): within `reach` squares of the paste and
+    above the head wrap (`rows` rows down from the head box's top `top`), every square that is not her body's (a body-only
+    colour, or the outline touching one) goes clear; finish() closes the outline round the design's hat again."""
+    op = fig[..., 3] > 0
+    rgb = fig[..., :3]
+    body = np.zeros(op.shape, bool)
+    for c in body_pal:
+        body |= np.all(rgb == np.array(c, rgb.dtype), -1)
+    body &= op & ~pasted
+    line = op & np.all(rgb == np.array(ink, rgb.dtype), -1)
+    keep = body | (line & ndimage.binary_dilation(body, structure=np.ones((3, 3), bool)))
+    band = ndimage.binary_dilation(pasted, structure=np.ones((3, 3), bool), iterations=reach) & ~pasted
+    band[top + rows:] = False
+    out = fig.copy()
+    out[band & op & ~keep] = 0
+    return out
+
+
 def clear_leftovers(fig, pasted, box, pal):
     """Codex's own hat left round the pasted head (where it drew the hat bigger or elsewhere): every square of a hat-only
     colour in `box` (rows / columns, the head box grown) that the paste did not lay takes the most common colour round
@@ -187,6 +218,8 @@ def read(name, match, body=None):
         pasted = np.zeros(big_.shape[:2], bool)
         pasted[ys - r0 + cj + pad, xs - c0 + ci + pad] = True
         gy, gx = cj + pad, ci + pad
+        if abs(s - PK.PX) > 0.01 or ang:          # Codex's head drawn bigger or tipped: its hat shows round the paste
+            big_ = clear_old_hat(big_, pasted, gy, body_palette(), PD.edge_colour(d))
         big_ = clear_leftovers(big_, pasted, (max(0, gy - 6), gy + 36, max(0, gx - 6), gx + (c1 - c0) + 6),
                                hat_palette())
     big_ = finish(big_)
