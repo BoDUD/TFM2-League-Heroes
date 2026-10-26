@@ -1,15 +1,15 @@
-#!/usr/bin/env python3
-"""Vayne's dense design: Codex's picture (tools/art/pack_vayne_ppu.py's pack, traced from his sprite now - the guard
-stance) read back on its own squares, design_samira_hd's way.
+"""Vayne's dense design: the user's picture (「就用这个啊」, 2026-10-26: hd/raw/vayne-user.webp - Codex's first take
+re-pixelated coarser, ~10.4 x 10.85-px squares, soft alpha edge) read back on its own squares, design_samira_hd's way.
+Codex's own deliveries (hd/raw/vayne-A.png on ~8-px squares = PPU 3.5, vayne-B*.png with no steady grid) are kept for
+reference only.
 
     python tools/art/design_vayne_hd.py [--review DIR]
 
-Codex delivered (2026-10-26, Documents/Codex/2026-10-26/new-chat-7) hd/raw/vayne-A.png: asked for 11-px squares with
-true alpha, it came on ~11.9-px squares with a soft halo (its HANDOFF says so). The picture is read on its own squares
-(design_fiora_hd.grid, the halo under alpha 128 dropped), cut to colours by k-means, the outline closed where the read lost it, and kept as drawn: its rows from
-the braid's tip to the soles over his 1x sprite's 41 make the PPU (PPU, ~2.1 - the 2.2 asked for, within a row or two).
--> hd/design.png. With --review DIR: <dir>/vayne_ppu_size.png (the design beside this pack's PPU 2.2 heroes and Lee
-Sin now, as the game draws them, hd.rs SIZES applied) and <dir>/vayne_ppu_closeup.png (Codex's picture | the read).
+The picture is read on its own squares (design_fiora_hd.grid, the halo under alpha 128 dropped), cut to colours by
+k-means, the outline closed where the read lost it, and kept as drawn: its rows from the top to the soles over her 1x
+sprite's 40 make the PPU (~2.55). -> hd/design.png. With --review DIR: <dir>/vayne_ppu_size.png (the design beside
+this pack's PPU 2.2 heroes and Vayne now, as the game draws them, hd.rs SIZES applied) and <dir>/vayne_ppu_closeup.png
+(the picture | the read).
 """
 import argparse
 import os
@@ -27,7 +27,7 @@ import strips as G  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(HERE))
 AH.HD = os.path.join(ROOT, "assets", "source", "vayne", "hd")
-AH.RAW, AH.PITCH = "vayne-A.png", (7.4, 8.8)    # its own square (~8 px: asked for 11, drawn finer)
+AH.RAW, AH.PITCH = "vayne-user.webp", (9.5, 11.5)  # the user's picture (「就用这个啊」): ~10.4 x 10.85-px squares
 OLD = 40                        # her 1x idle, the top (ponytail / crossbow) to her soles
 PEERS = ["vayne", "draven", "jinx", "lux"]
 
@@ -71,7 +71,7 @@ def main():
     raw.putalpha(raw.getchannel("A").point(lambda v: 255 if v >= 128 else 0))
     raw = raw.crop(raw.getbbox())
     z = 700 / d.shape[0]
-    close = [("Codex's picture", raw.resize((round(raw.width * 700 / raw.height), 700), Image.LANCZOS)),
+    close = [("the picture", raw.resize((round(raw.width * 700 / raw.height), 700), Image.LANCZOS)),
              (f"design {d.shape[1]}x{d.shape[0]}", FD.shown(Image.fromarray(d).resize((round(d.shape[1] * z), 700),
                                                                                     Image.NEAREST), 1, 1))]
     FD.strip(close).convert("RGB").save(os.path.join(a.review, "vayne_ppu_closeup.png"))
