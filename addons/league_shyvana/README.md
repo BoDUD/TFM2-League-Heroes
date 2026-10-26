@@ -20,3 +20,7 @@
 
 - 在 `addons/` 下 `cargo test --release -p league_shyvana`：单元测试（换哪个名字、尸体的形态、她的图里有每个龙形动作、主包有这两个 buff）。
 - 在 `addons/` 下 `cargo build --release -p league_shyvana`（Windows）得到 `league_shyvana.dll`；`league_addons` 合集也会编进本包。
+
+## 0.1.1：被击飞时不变回人形
+
+用户 2026-10-27：「龙女变龙的时候 被击飞的时候会变回去」（落地后又变回龙：龙形没断，是画面）。被击飞时游戏播的动画名她图里没有、那一刻也可能读不到龙形 buff，画面就画回人形。现在一旦是龙就一直按龙画，直到游戏播出变回人形的动作（`revert`）或阵亡后复活；龙形时她图里没有的动画名画成挨打的龙（`d_hit`），日志记一行 `plays "<名字>" (not in her sheet) - drawn as d_hit`。
