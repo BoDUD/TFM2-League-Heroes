@@ -1,0 +1,42 @@
+[
+  {
+    "file": "maddie-A.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "transparent_pixels": 1362588,
+    "opaque_pixels": 1163,
+    "partial_alpha_pixels": 208765,
+    "visible_bbox_alpha128": [
+      277,
+      453,
+      862,
+      1253
+    ]
+  },
+  {
+    "file": "maddie-B.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "transparent_pixels": 1341542,
+    "opaque_pixels": 1681,
+    "partial_alpha_pixels": 229293,
+    "visible_bbox_alpha128": [
+      398,
+      434,
+      1135,
+      1215
+    ]
+  }
+]
