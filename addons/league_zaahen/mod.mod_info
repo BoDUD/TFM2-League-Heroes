@@ -1,0 +1,20 @@
+{
+  "author": "BoDUD",
+  "contains_code": true,
+  "dependencies": [
+    {
+      "mod_id": "base",
+      "version": ">=0.4.11"
+    },
+    {
+      "mod_id": "league",
+      "version": ">=0.227.0"
+    }
+  ],
+  "description": "Test build of Zaahen as in League (needs League of Legends Heroes): replaces the main pack's Zaahen so every damage instance on a champion stacks Determination (12 stacks, bonus attack each, doubled when full; the main pack: a coarser ladder), full Determination lets him revive from lethal damage (banished while he rises again, health coming back; the main pack: a shield), Aureate Rush has its own slot again - a dash and a spin whose outer edge hits harder and adds a share of maximum health (the main pack: a spin folded into Dreaded Return), and The Darkin Glaive heals a share of his maximum health (the main pack: a fixed heal). Other champions are untouched. Writes a log for testing.",
+  "last_updated": "2026-10-26",
+  "mod_id": "league_zaahen",
+  "mod_type": "native",
+  "name": "League Heroes: Zaahen's Determination, revive, Aureate Rush and glaive heal as in League (test)",
+  "version": "0.1.0"
+}

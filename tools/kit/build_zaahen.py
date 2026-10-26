@@ -375,8 +375,8 @@ def build(p):
         views_e.append(E("p_shield"))
     views_b = [B_("full", FX, -1, "p_aura"), B_("r_guard", FX, 3, "r_guard")]
     views_p = [P_("w_glaive", FX, "w_glaive")]
-    if native:   # the add-on's revive: the fallen pose's light while he rises again
-        views_b.append(B_("rv_on", BIG, 1, "rv_rise"))
+    if native:   # the add-on's revive: its banish plays rv_rise (him rising again in its light) and ends on p_full
+        views_e.append(E("rv_rise", BIG, 2, True))
     extra = {}
     if native:   # addons/league_zaahen: the League rules the data cannot read
         extra["passive"] = {"passive_ref": "league_zaahen:darkin",
