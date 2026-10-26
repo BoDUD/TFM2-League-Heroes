@@ -368,6 +368,12 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // 95 % (SIZES), back to 100 % = no SIZES row (「盲僧在游戏里和其他英雄有点格格不入 感觉太小了」: 38.6 game px
     // against the released heroes' median 41, Garen 41.6, Darius 43.4; the user picked 100 %)
     ("league_leesin", 1.5, include_str!("../../../league/champions/league_leesin#anim.fanim")),
+    // Vayne (2026-10-26): the user's own picture (「就用这个啊」) read on its own squares (85 x 102,
+    // tools/art/design_vayne_hd.py: 102 rows / 2.55 = her 40); every action Codex's whole-frame redraw of her old frame
+    // read onto it at the zoom her head gives (tools/art/casts_vayne_hd.py: the run on one head column, its second half
+    // the first); brought to 2.2 squares a game pixel (「通过，用 2.2」, ppu_restyle.py); 40 game px as her 1x sprite, so
+    // no SIZES row
+    ("league_vayne", 2.2, include_str!("../../../league/champions/league_vayne#anim.fanim")),
     // Locke (2026's new champion, the user's pick): posed by tools/art/rig_locke.py on Codex's step-0 take A-1 brought to
     // 88 rows (44 game px hair to soles) and its key poses after League's clips (the design's head put back, the bodies
     // Codex drew bigger read at the design's size) at the user's 2.0 squares a game pixel (3/4 only; his W look's w_*

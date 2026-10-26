@@ -55,7 +55,7 @@
 
 ### 塔莉垭附加包
 
-[塔莉垭附加包](../../addons/league_taliyah/README.md)：`league_taliyah` v0.1.0
+[塔莉垭附加包](../../addons/league_taliyah/README.md)：`league_taliyah` v0.2.0
 
 | 墙 | 主包（纯数据） | 附加包 |
 |---|---|---|

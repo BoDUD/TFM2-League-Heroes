@@ -55,7 +55,7 @@
 
 ### 阿兹尔附加包
 
-[阿兹尔附加包](../../addons/league_azir/README.md)：`league_azir` v0.1.2
+[阿兹尔附加包](../../addons/league_azir/README.md)：`league_azir` v0.1.3
 
 | 部分 | 主包（纯数据） | 附加包 |
 |---|---|---|
