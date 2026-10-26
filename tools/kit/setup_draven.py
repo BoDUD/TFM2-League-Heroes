@@ -35,7 +35,9 @@ R = "<#ef5350ff>"      # crowd control, shred
 T = "<#f5f5f5ff>"      # true damage
 E = "<>"
 # champion_view: set from the imported sprite (tfm2_ase.py face; banpick_center when the idle tops -28)
-VIEW = {"face": {"x": 6, "y": -32}, "center": {"x": 0, "y": -12}}  # placeholder until the sprite
+# 2026-10-26 the PPU 2.2 redo: face (0,-33) a square under his crown (tfm2_ase face PASS via the skin; ppu_restyle
+# RESTYLE face_to); no banpick_center (the idle tops -24.7)
+VIEW = {"face": {"x": 0, "y": -33}, "center": {"x": 0, "y": -12}}
 
 
 def phy(k):

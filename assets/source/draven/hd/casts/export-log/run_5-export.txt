@@ -1,0 +1,2 @@
+﻿cell=0;source={X=351,Y=190,Width=946,Height=782};target={X=437,Y=370,Width=647,Height=555};grid_origin=425,371;logical=96x79;scale=0.70972
+

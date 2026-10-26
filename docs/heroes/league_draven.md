@@ -10,7 +10,7 @@
 | 所属的包 | 主包（mod_id `league`） |
 | 分路 | ADC |
 | 分类 / 标签 | 射手（Range） · AD / Range |
-| 高清帧 | 1 倍像素（无高清帧） |
+| 高清帧 | PPU 2.2 |
 | 附加包 | 无 |
 
 ![德莱文演示](../preview/league_draven_showcase.gif)
@@ -75,6 +75,7 @@
 | 高手连招 | 用户：「完整还原 + 高手连招」。**接斧连击**：接住斧头刷新血性冲刺，下一下普攻又冲刺又转斧；**E 接 R**：开道利斧打中英雄后 150 tick 内放大招，巨斧飞得更快（9000）；**R 收割兑现**：大招击杀也算兑现崇拜。连招只用自己那个技能的冷却 |
 | 数值 | 攻击 104（+19）、生命 930（+90）、护甲 22（+7）、魔抗 15（+3）、移速 900（+9）。数值是自己设计的，用 SDK 对战模拟调：ADC，对 5 个原版射手，3 套阵容、两边各打，10 分钟。初稿种子 1–12 +2.18（同一批金克丝 +4.46、图奇 +1.79、克格莫 +1.67）、25–36 +1.70（图奇 +1.18、克格莫 +1.69）；按动作帧对齐出手时间后 +2.79 / +1.88；改成随机落点、跑过去接（每把都接住）和大招加宽加远后 +3.04 / +3.17（10 分钟伤害 12900 / 13300，原来 11500），仍低于金克丝，在已合并射手的范围里，没改数值 |
 | 精灵图 | 8 个动作 34 帧：待机 1（不做呼吸：呼吸要在小腿处删行，近手垂在腿旁的斧头被切得变形，用户：「上下摆动武器变形」）、移动 8、普攻 5、Q（`skill`）4、E（`skill2`）5、R（`ult`）6、受击 1、死亡 4。鸡冠头到脚底 36 行（用户：「模型可以适当缩小点」，对比图里选了 90%，原来 40 行、连举起的斧头 54 高），待机 36 × 48，23 色。头像截取点 (4, −35)；选人卡片用默认位置（头顶在站位点上方 24 格，不到 28 格不用设） |
+| 高清帧（PPU 2.2） | 2026-10-26 用 PPU 重做（用户：「下一个英雄重做德莱文」）。设计图是用户自己给的图（「就用这个就行」，按 PPU 2.2、11 像素一格画的），`design_draven_hd.py` 逐格读回 114 × 76 格（34.5 游戏像素高，和原来的 35 一样，不加 SIZES 行）。动作：用户「你照着旧动作做啊 又没什么新动作」，`pack_draven_actions.py` 把旧版每一帧做成浅色人影模板，Codex 整帧重画成新造型（31 张模板 32 帧，Q 第 4 帧就是待机）；`casts_draven_hd.py` 按每格自己的 7 像素格子原样读回，逐帧查过：头和设计图一样大（设计图的头轮廓按头箍宝石叠到每帧上，发顶到下巴差不到 1 格——莎弥拉「头一大一小」的教训），斧子和旧版同一帧在同一只手（普攻第 4–5 帧远手空，E 第 4–5 帧、R 第 5–6 帧双手空），每帧一整块；跑步照旧版的脚步（10-10 用户认可的那版）。`rig_draven_hd.py` 摆到画布上（待机就是设计图），没有画进帧里的特效。头像点 (0,-33)，选人卡不用设（头顶 -24.7）。俄洛伊的灵魂、佛耶戈附身用的帧表跟着更新 |
 | 特效 | Codex 生图的 19 张（游戏尺寸原稿直接读，`import_draven.py`）：`league_draven_fx` 普攻飞斧（用定稿手里那把斧整格旋转，Codex 那张太碎）、命中火花、火焰旋转斧和弹起、接斧落点圈和落下的斧头（放在落点上，0.38 秒）、接住闪光、没接住、头顶一把 / 两把旋转斧、血性冲刺光和脚下红光、开道利斧、命中、减速、大招命中、金币兑现、满层星光；`league_draven_big` 大招的两把火焰巨斧（飞出去和飞回来共用）。颜色照英雄联盟：血红到橙黄的火焰、斧头本身的钢色，兑现用金色 |
 | 音效 | 英雄联盟的音效和配音（`tools/lol/extract_draven.py`）：扔斧和命中、Q 转斧 / 火焰斧出手 / 命中 / 接住 / 掉落、W、E 出手 / 飞出 / 命中、R 出手 / 飞出 / 命中 / 折返、被动兑现；Q、W、E、R 的配音。版权属于 Riot Games，**不提交到仓库**，按下面的命令在本地生成 |
 | 图标 | 官方技能图标（Q 旋转飞斧 / E 开道利斧 / R 冷血追命），从本地客户端提取，缩到 64×64；W 自动，没有技能位 |
@@ -84,12 +85,18 @@
 ```bash
 python tools/lol/extract_draven.py --lol "D:\WeGameApps\lol" --vgmstream "<vgmstream-cli.exe 路径>"
 python tools/kit/build_draven.py        # 技能数据，数字都在脚本的参数表 P 里；--nodes 看每棵技能树的节点数
-python tools/kit/setup_draven.py --face 4,-35            # 五种语言的文字、音效配置、共享文件里他的键
+python tools/kit/setup_draven.py                         # 五种语言的文字、音效配置、共享文件里他的键（头像点 0,-33）
 python tools/art/design_draven.py --final     # 造型：Codex 原稿按格读回、删到 40 行（1_40h）
 python tools/art/fix_draven_strips.py   # 动作：Codex 逐帧重画的动作帧 + 修正（见下）
 python tools/art/import_native.py --hero draven
 python tools/art/import_draven.py       # 特效
-python tools/art/preview_draven.py      # 预览和演示 GIF
+python tools/art/preview_draven.py      # 逐帧预览（高清帧）、特效预览、演示 GIF
+# PPU 2.2 重做（2026-10-26）：
+python tools/art/pack_draven_ppu.py --out <文件夹>       # 给 Codex 的设计图包（最后用的是用户自己的图）
+python tools/art/design_draven_hd.py                   # 用户的图（hd/raw/draven-user.png）逐格读回 -> hd/design.png
+python tools/art/pack_draven_actions.py --out <文件夹>   # 给 Codex 的动作包（照旧版同一帧整帧重画）
+python tools/art/rig_draven_hd.py                      # Codex 的交付（hd/casts）读回到设计图上 -> 原始条和 1 倍图（PPU 2.2）
+python tools/art/ppu_restyle.py --hero draven && python tools/art/ppu_hd.py --hero draven && python tools/art/hero_reels.py --hero draven
 ```
 
 美术（造型、动作、跑步、特效的提示词见 [`assets/source/draven/`](../../assets/source/draven) 里的 `MODEL_STRIPS.md`、`RUN_REDO.md`、`PROMPTS_FX.md`；Codex 的交付在 `codex_model/`、`codex_strips/`、`codex_run/`、`codex_fx/`）：
@@ -101,4 +108,4 @@ python tools/art/preview_draven.py      # 预览和演示 GIF
 - 特效：Codex 第 3 步的 19 张都按要求的格子画好，直接读 1 倍图；普攻飞斧换成定稿自己的斧；接住闪光和血性冲刺光叠上自己的左右翻转（红色方不反）。
 - 缩小和换姿势：用户「模型可以适当缩小点」（选 90%）、「另外待机姿势能改成和英雄联盟一样吗 攻击姿势也是」（英雄联盟的待机两把斧都放低，原来的待机把远手的斧头举过头顶）。Codex 照英雄联盟的待机（远手的斧头横着伸在身后、近手的斧头垂在腿旁）和普攻 5 帧按 36 行重画（提示词 `POSE_REDO.md`，交付在 `codex_pose/`），每帧把定稿的头贴回它画的头上、清掉多出来的头发；收势那帧它说鞋底低了 2 行、高 38 行，整帧上移再删 2 行。Q 改成远手的斧头在拳头里转（整格 90° 旋转，画在身体后面）；受击是新待机往后退 2 格。跑步、E、R、死亡用整行整列删除缩到 90%（不重采样；每帧删自己高宽的一成，挑和相邻行最像的行列，头、鞋底两行、站位行列不删），每帧的头和原来逐像素一样。
 
-逐帧预览：[`docs/preview/league_draven_frames.png`](../preview/league_draven_frames.png?v=1014g)，特效：[`docs/preview/league_draven_effects.png`](../preview/league_draven_effects.png?v=1014g)。
+逐帧预览：[`docs/preview/league_draven_frames.png`](../preview/league_draven_frames.png?v=1026hd)，特效：[`docs/preview/league_draven_effects.png`](../preview/league_draven_effects.png?v=1014g)。
