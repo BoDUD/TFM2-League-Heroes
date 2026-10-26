@@ -1,0 +1,634 @@
+[
+  {
+    "file": "locke_fx_q_nail.png",
+    "frames": 4,
+    "cell_1x": [
+      16,
+      8
+    ],
+    "symmetry": "top-bottom",
+    "raw_size": [
+      1774,
+      887
+    ],
+    "raw_layout": [
+      2,
+      2
+    ],
+    "sheet_1x": [
+      64,
+      8
+    ],
+    "preview_scale": 8,
+    "hard_alpha": true,
+    "symmetry_pass": true,
+    "frame_nonempty": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "distinct_frames": 4
+  },
+  {
+    "file": "locke_fx_r_case.png",
+    "frames": 4,
+    "cell_1x": [
+      24,
+      12
+    ],
+    "symmetry": "top-bottom",
+    "raw_size": [
+      1774,
+      887
+    ],
+    "raw_layout": [
+      2,
+      2
+    ],
+    "sheet_1x": [
+      96,
+      12
+    ],
+    "preview_scale": 8,
+    "hard_alpha": true,
+    "symmetry_pass": true,
+    "frame_nonempty": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "distinct_frames": 4
+  },
+  {
+    "file": "locke_fx_a_hit.png",
+    "frames": 3,
+    "cell_1x": [
+      14,
+      14
+    ],
+    "symmetry": "left-right",
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "raw_layout": [
+      2,
+      2
+    ],
+    "sheet_1x": [
+      42,
+      14
+    ],
+    "preview_scale": 8,
+    "hard_alpha": true,
+    "symmetry_pass": true,
+    "frame_nonempty": [
+      true,
+      true,
+      true
+    ],
+    "distinct_frames": 3
+  },
+  {
+    "file": "locke_fx_q_hit.png",
+    "frames": 3,
+    "cell_1x": [
+      14,
+      14
+    ],
+    "symmetry": "left-right",
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "raw_layout": [
+      2,
+      2
+    ],
+    "sheet_1x": [
+      42,
+      14
+    ],
+    "preview_scale": 8,
+    "hard_alpha": true,
+    "symmetry_pass": true,
+    "frame_nonempty": [
+      true,
+      true,
+      true
+    ],
+    "distinct_frames": 3
+  },
+  {
+    "file": "locke_fx_q_mark.png",
+    "frames": 4,
+    "cell_1x": [
+      14,
+      10
+    ],
+    "symmetry": "left-right",
+    "raw_size": [
+      1484,
+      1060
+    ],
+    "raw_layout": [
+      2,
+      2
+    ],
+    "sheet_1x": [
+      56,
+      10
+    ],
+    "preview_scale": 8,
+    "hard_alpha": true,
+    "symmetry_pass": true,
+    "frame_nonempty": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "distinct_frames": 4
+  },
+  {
+    "file": "locke_fx_q_pop.png",
+    "frames": 4,
+    "cell_1x": [
+      22,
+      26
+    ],
+    "symmetry": "left-right",
+    "raw_size": [
+      1153,
+      1364
+    ],
+    "raw_layout": [
+      2,
+      2
+    ],
+    "sheet_1x": [
+      88,
+      26
+    ],
+    "preview_scale": 8,
+    "hard_alpha": true,
+    "symmetry_pass": true,
+    "frame_nonempty": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "distinct_frames": 4
+  },
+  {
+    "file": "locke_fx_slow.png",
+    "frames": 4,
+    "cell_1x": [
+      16,
+      8
+    ],
+    "symmetry": "left-right",
+    "raw_size": [
+      1774,
+      887
+    ],
+    "raw_layout": [
+      2,
+      2
+    ],
+    "sheet_1x": [
+      64,
+      8
+    ],
+    "preview_scale": 8,
+    "hard_alpha": true,
+    "symmetry_pass": true,
+    "frame_nonempty": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "distinct_frames": 4
+  },
+  {
+    "file": "locke_fx_e_out.png",
+    "frames": 5,
+    "cell_1x": [
+      30,
+      48
+    ],
+    "symmetry": "left-right",
+    "raw_size": [
+      1290,
+      1219
+    ],
+    "raw_layout": [
+      3,
+      2
+    ],
+    "sheet_1x": [
+      150,
+      48
+    ],
+    "preview_scale": 8,
+    "hard_alpha": true,
+    "symmetry_pass": true,
+    "frame_nonempty": [
+      true,
+      true,
+      true,
+      true,
+      true
+    ],
+    "distinct_frames": 5
+  },
+  {
+    "file": "locke_fx_e_in.png",
+    "frames": 5,
+    "cell_1x": [
+      30,
+      48
+    ],
+    "symmetry": "left-right",
+    "raw_size": [
+      1487,
+      1058
+    ],
+    "raw_layout": [
+      3,
+      2
+    ],
+    "sheet_1x": [
+      150,
+      48
+    ],
+    "preview_scale": 8,
+    "hard_alpha": true,
+    "symmetry_pass": true,
+    "frame_nonempty": [
+      true,
+      true,
+      true,
+      true,
+      true
+    ],
+    "distinct_frames": 5
+  },
+  {
+    "file": "locke_fx_e_hit.png",
+    "frames": 4,
+    "cell_1x": [
+      44,
+      18
+    ],
+    "symmetry": "left-right",
+    "raw_size": [
+      1964,
+      801
+    ],
+    "raw_layout": [
+      2,
+      2
+    ],
+    "sheet_1x": [
+      176,
+      18
+    ],
+    "preview_scale": 8,
+    "hard_alpha": true,
+    "symmetry_pass": true,
+    "frame_nonempty": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "distinct_frames": 4
+  },
+  {
+    "file": "locke_fx_e_dash.png",
+    "frames": 4,
+    "cell_1x": [
+      40,
+      20
+    ],
+    "symmetry": "left-right",
+    "raw_size": [
+      1774,
+      887
+    ],
+    "raw_layout": [
+      2,
+      2
+    ],
+    "sheet_1x": [
+      160,
+      20
+    ],
+    "preview_scale": 8,
+    "hard_alpha": true,
+    "symmetry_pass": true,
+    "frame_nonempty": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "distinct_frames": 4
+  },
+  {
+    "file": "locke_fx_p_reset.png",
+    "frames": 4,
+    "cell_1x": [
+      26,
+      16
+    ],
+    "symmetry": "left-right",
+    "raw_size": [
+      1599,
+      984
+    ],
+    "raw_layout": [
+      2,
+      2
+    ],
+    "sheet_1x": [
+      104,
+      16
+    ],
+    "preview_scale": 8,
+    "hard_alpha": true,
+    "symmetry_pass": true,
+    "frame_nonempty": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "distinct_frames": 4
+  },
+  {
+    "file": "locke_fx_w_ign.png",
+    "frames": 6,
+    "cell_1x": [
+      36,
+      52
+    ],
+    "symmetry": "left-right",
+    "raw_size": [
+      1280,
+      1229
+    ],
+    "raw_layout": [
+      3,
+      2
+    ],
+    "sheet_1x": [
+      216,
+      52
+    ],
+    "preview_scale": 8,
+    "hard_alpha": true,
+    "symmetry_pass": true,
+    "frame_nonempty": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
+    ],
+    "distinct_frames": 6
+  },
+  {
+    "file": "locke_fx_w_aura.png",
+    "frames": 6,
+    "cell_1x": [
+      34,
+      50
+    ],
+    "symmetry": "left-right",
+    "raw_size": [
+      1264,
+      1244
+    ],
+    "raw_layout": [
+      3,
+      2
+    ],
+    "sheet_1x": [
+      204,
+      50
+    ],
+    "preview_scale": 8,
+    "hard_alpha": true,
+    "symmetry_pass": true,
+    "frame_nonempty": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
+    ],
+    "distinct_frames": 6
+  },
+  {
+    "file": "locke_fx_w_end.png",
+    "frames": 5,
+    "cell_1x": [
+      30,
+      46
+    ],
+    "symmetry": "left-right",
+    "raw_size": [
+      1240,
+      1268
+    ],
+    "raw_layout": [
+      3,
+      2
+    ],
+    "sheet_1x": [
+      150,
+      46
+    ],
+    "preview_scale": 8,
+    "hard_alpha": true,
+    "symmetry_pass": true,
+    "frame_nonempty": [
+      true,
+      true,
+      true,
+      true,
+      true
+    ],
+    "distinct_frames": 5
+  },
+  {
+    "file": "locke_fx_r_land.png",
+    "frames": 8,
+    "cell_1x": [
+      60,
+      46
+    ],
+    "symmetry": "left-right",
+    "raw_size": [
+      2027,
+      776
+    ],
+    "raw_layout": [
+      4,
+      2
+    ],
+    "sheet_1x": [
+      480,
+      46
+    ],
+    "preview_scale": 8,
+    "hard_alpha": true,
+    "symmetry_pass": true,
+    "frame_nonempty": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
+    ],
+    "distinct_frames": 8
+  },
+  {
+    "file": "locke_fx_r_hit.png",
+    "frames": 4,
+    "cell_1x": [
+      18,
+      18
+    ],
+    "symmetry": "left-right",
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "raw_layout": [
+      2,
+      2
+    ],
+    "sheet_1x": [
+      72,
+      18
+    ],
+    "preview_scale": 8,
+    "hard_alpha": true,
+    "symmetry_pass": true,
+    "frame_nonempty": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "distinct_frames": 4
+  },
+  {
+    "file": "locke_fx_r_mark.png",
+    "frames": 6,
+    "cell_1x": [
+      24,
+      40
+    ],
+    "symmetry": "left-right",
+    "raw_size": [
+      1190,
+      1322
+    ],
+    "raw_layout": [
+      3,
+      2
+    ],
+    "sheet_1x": [
+      144,
+      40
+    ],
+    "preview_scale": 8,
+    "hard_alpha": true,
+    "symmetry_pass": true,
+    "frame_nonempty": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
+    ],
+    "distinct_frames": 6
+  },
+  {
+    "file": "locke_fx_r_tick.png",
+    "frames": 3,
+    "cell_1x": [
+      12,
+      12
+    ],
+    "symmetry": "left-right",
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "raw_layout": [
+      2,
+      2
+    ],
+    "sheet_1x": [
+      36,
+      12
+    ],
+    "preview_scale": 8,
+    "hard_alpha": true,
+    "symmetry_pass": true,
+    "frame_nonempty": [
+      true,
+      true,
+      true
+    ],
+    "distinct_frames": 3
+  },
+  {
+    "file": "locke_fx_r_seal.png",
+    "frames": 6,
+    "cell_1x": [
+      30,
+      48
+    ],
+    "symmetry": "left-right",
+    "raw_size": [
+      1214,
+      1295
+    ],
+    "raw_layout": [
+      3,
+      2
+    ],
+    "sheet_1x": [
+      180,
+      48
+    ],
+    "preview_scale": 8,
+    "hard_alpha": true,
+    "symmetry_pass": true,
+    "frame_nonempty": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
+    ],
+    "distinct_frames": 6
+  }
+]

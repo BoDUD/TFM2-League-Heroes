@@ -3,14 +3,14 @@
 
     python tools/art/preview_draven.py [--out docs/preview] [--only frames|effects|showcase]
 
-  league_draven_frames.png    every animation, frame by frame, 3x on the arena colour
+  league_draven_frames.png    every animation's dense frames (hd_, PPU 2.2, as league.dll shows them)
   league_draven_effects.png   every effect animation, 3x
   league_draven_showcase.gif  a scripted fight with Darius in front and Garen behind him, timed like the kit
                               (tools/kit/build_draven.py, 60 ticks a second): Q - an axe spins up (the icon over his
                               head); the spinning axe flies at Darius (Blood Rush: the burst, the glow at his feet),
                               bounces up, the catch circle and the axe falling into it on a spot ahead of him (q_far:
-                              toward an enemy), he runs in and catches it as it lands; again, the spot behind him
-                              (q_far2: toward an ally) - he runs back; a plain axe; E - the pair of axes through both,
+                              toward an enemy), he runs in and catches it as it lands; again (the kit since 2026-10-23
+                              throws every catch toward an enemy he can hit); a plain axe; E - the pair of axes through both,
                               the knock-back hits and the slows; R - the blades out to Darius and back; the cash-in
                               (gold) and the full Adoration twinkles; 3x
 """
@@ -25,6 +25,7 @@ sys.path.insert(0, HERE)
 sys.path.insert(0, os.path.join(os.path.dirname(HERE), "kit"))
 from preview_annie import Held  # noqa: E402
 from preview_ashe import Anim, tick  # noqa: E402
+from preview_dense import dense, dense_rows, put  # noqa: E402
 from preview_garen import ARENA, T, contact, frames_of, load  # noqa: E402
 from preview_pyke import Me, OnFoe, OnMe  # noqa: E402
 from build_draven import P  # noqa: E402
@@ -57,7 +58,7 @@ def showcase(out, z=3, step=40):
     def a(tag, dur=None, loop=False):
         nonlocal t
         x, y = me.pos(t)
-        an = Anim(frames_of(sp, tag), t, x, y, loop=loop, until=(t + dur) if dur else None)
+        an = Anim(dense(sp, tag, "draven", z), t, x, y, loop=loop, until=(t + dur) if dur else None)
         an.pos = me.pos
         body.append(an)
         t = an.until
@@ -85,7 +86,7 @@ def showcase(out, z=3, step=40):
         under.append(Anim(frames_of(small, "q_zone"), b, px, gy))
         over.append(Anim(frames_of(small, "q_fall"), b, px, gy))
         me.moves.append((b + tick(1), b + tick(1) + walk, x0_, px))
-        run = Anim(frames_of(sp, "run"), b, 0, 0, loop=True, until=b + tick(1) + walk, flip=step < 0)
+        run = Anim(dense(sp, "run", "draven", z), b, 0, 0, loop=True, until=b + tick(1) + walk, flip=step < 0)
         run.pos = me.pos
         body.insert(0, run)                          # over the attack's tail, like the forced run in game
         catch = b + tick(P["q_fly"] - 1)
@@ -106,7 +107,7 @@ def showcase(out, z=3, step=40):
     a("idle", max(120, catch - t + 60), loop=True)
     # caught: spinning again (the icon), thrown again
     q1 = catch
-    catch = spin_throw(q1, -(P["q_far2"] // 1000))
+    catch = spin_throw(q1, P["q_far"] // 1000)
     a("attack", tick(P["atk_dur"]))
     a("idle", max(120, catch - t + 60), loop=True)
     # a plain axe
@@ -141,11 +142,11 @@ def showcase(out, z=3, step=40):
     end = t
 
     def place(img, f, px, py):
-        img.alpha_composite(f, (px - f.width // 2, py - f.height // 2))
+        put(img, f, int(px), int(py), z)
 
     frames, tt = [], 0.0
     while tt < end:
-        img = Image.new("RGBA", (W, H), ARENA)
+        img = Image.new("RGBA", (W * z, H * z), ARENA)
         for an in under:
             f = an.frame(tt)
             if f is not None:
@@ -163,7 +164,7 @@ def showcase(out, z=3, step=40):
             f = an.frame(tt)
             if f is not None:
                 place(img, f, *an.pos(tt))
-        frames.append(img.resize((W * z, H * z), Image.NEAREST).convert("RGB"))
+        frames.append(img.convert("RGB"))
         tt += step
     sample = frames[::6]
     strip = Image.new("RGB", (W * z, H * z * len(sample)))
@@ -183,8 +184,7 @@ def main():
     os.makedirs(T.long_path(args.out), exist_ok=True)
     if args.only in (None, "frames"):
         s = load(CHAMP)
-        print("frames", contact([(s, t["name"], t["name"]) for t in s.tags],
-                                os.path.join(args.out, "league_draven_frames.png")))
+        print("frames", contact(dense_rows(s), os.path.join(args.out, "league_draven_frames.png"), z=1))
     if args.only in (None, "effects"):
         rows = []
         for name, path in FX.items():

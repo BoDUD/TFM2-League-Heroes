@@ -393,6 +393,8 @@ mod rumble;
 #[path = "../../league_trundle/src/lib.rs"]
 mod trundle;
 #[allow(dead_code)] // items public in the add-on's own crate
+#[path = "../../league_locke/src/lib.rs"]
+mod locke;
 #[path = "../../league_skarner/src/lib.rs"]
 mod skarner;
 
@@ -564,6 +566,7 @@ fn init(host: &StableHost) -> StableMod {
     ambessa::register(host, &mut module);
     rumble::register(host, &mut module);
     trundle::register(host, &mut module);
+    locke::register(host, &mut module);
     skarner::register(host, &mut module);
     module.set_map_customizer(MapReaders);
     module.set_extension(BundleClient);

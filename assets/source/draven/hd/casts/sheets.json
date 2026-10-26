@@ -1,0 +1,421 @@
+{
+ "square": 7,
+ "sheet": [
+  1536,
+  1024
+ ],
+ "ground": 924,
+ "same": {},
+ "same_as_design": {
+  "skill": [
+   4
+  ]
+ },
+ "sheets": [
+  {
+   "tag": "run",
+   "name": "run_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "action": "running (his move loop): a quick swaggering run, an axe in each hand held out at his sides, the LEGS SWAPPING every half cycle (left foot forward, then right foot forward) and the body bobbing with each stride",
+   "ms": [
+    100
+   ],
+   "weapons": "An axe in EACH hand all through, held out low at his sides as in image 1."
+  },
+  {
+   "tag": "run",
+   "name": "run_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "action": "running (his move loop): a quick swaggering run, an axe in each hand held out at his sides, the LEGS SWAPPING every half cycle (left foot forward, then right foot forward) and the body bobbing with each stride",
+   "ms": [
+    100
+   ],
+   "weapons": "An axe in EACH hand all through, held out low at his sides as in image 1."
+  },
+  {
+   "tag": "run",
+   "name": "run_3",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "action": "running (his move loop): a quick swaggering run, an axe in each hand held out at his sides, the LEGS SWAPPING every half cycle (left foot forward, then right foot forward) and the body bobbing with each stride",
+   "ms": [
+    100
+   ],
+   "weapons": "An axe in EACH hand all through, held out low at his sides as in image 1."
+  },
+  {
+   "tag": "run",
+   "name": "run_4",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "action": "running (his move loop): a quick swaggering run, an axe in each hand held out at his sides, the LEGS SWAPPING every half cycle (left foot forward, then right foot forward) and the body bobbing with each stride",
+   "ms": [
+    100
+   ],
+   "weapons": "An axe in EACH hand all through, held out low at his sides as in image 1."
+  },
+  {
+   "tag": "run",
+   "name": "run_5",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "action": "running (his move loop): a quick swaggering run, an axe in each hand held out at his sides, the LEGS SWAPPING every half cycle (left foot forward, then right foot forward) and the body bobbing with each stride",
+   "ms": [
+    100
+   ],
+   "weapons": "An axe in EACH hand all through, held out low at his sides as in image 1."
+  },
+  {
+   "tag": "run",
+   "name": "run_6",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "action": "running (his move loop): a quick swaggering run, an axe in each hand held out at his sides, the LEGS SWAPPING every half cycle (left foot forward, then right foot forward) and the body bobbing with each stride",
+   "ms": [
+    100
+   ],
+   "weapons": "An axe in EACH hand all through, held out low at his sides as in image 1."
+  },
+  {
+   "tag": "run",
+   "name": "run_7",
+   "frames": [
+    7
+   ],
+   "cells": 1,
+   "action": "running (his move loop): a quick swaggering run, an axe in each hand held out at his sides, the LEGS SWAPPING every half cycle (left foot forward, then right foot forward) and the body bobbing with each stride",
+   "ms": [
+    100
+   ],
+   "weapons": "An axe in EACH hand all through, held out low at his sides as in image 1."
+  },
+  {
+   "tag": "run",
+   "name": "run_8",
+   "frames": [
+    8
+   ],
+   "cells": 1,
+   "action": "running (his move loop): a quick swaggering run, an axe in each hand held out at his sides, the LEGS SWAPPING every half cycle (left foot forward, then right foot forward) and the body bobbing with each stride",
+   "ms": [
+    100
+   ],
+   "weapons": "An axe in EACH hand all through, held out low at his sides as in image 1."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "action": "attack: he swings an axe up over his shoulder and hurls it forward, then readies the next",
+   "ms": [
+    50
+   ],
+   "weapons": "Each axe exactly where the pale figure has it: an axe in a hand where the pale figure holds one, the hand EMPTY where the pale figure's hand is empty (the axe is in the air - do not draw it)."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "action": "attack: he swings an axe up over his shoulder and hurls it forward, then readies the next",
+   "ms": [
+    60
+   ],
+   "weapons": "Each axe exactly where the pale figure has it: an axe in a hand where the pale figure holds one, the hand EMPTY where the pale figure's hand is empty (the axe is in the air - do not draw it)."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_3",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "action": "attack: he swings an axe up over his shoulder and hurls it forward, then readies the next",
+   "ms": [
+    73
+   ],
+   "weapons": "Each axe exactly where the pale figure has it: an axe in a hand where the pale figure holds one, the hand EMPTY where the pale figure's hand is empty (the axe is in the air - do not draw it)."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_4",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "action": "attack: he swings an axe up over his shoulder and hurls it forward, then readies the next",
+   "ms": [
+    117
+   ],
+   "weapons": "Each axe exactly where the pale figure has it: an axe in a hand where the pale figure holds one, the hand EMPTY where the pale figure's hand is empty (the axe is in the air - do not draw it)."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_5",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "action": "attack: he swings an axe up over his shoulder and hurls it forward, then readies the next",
+   "ms": [
+    100
+   ],
+   "weapons": "Each axe exactly where the pale figure has it: an axe in a hand where the pale figure holds one, the hand EMPTY where the pale figure's hand is empty (the axe is in the air - do not draw it)."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "action": "Spinning Axe: he spins an axe in his near hand (image left) to catch it",
+   "ms": [
+    50,
+    50
+   ],
+   "weapons": "The spinning axe in his NEAR hand (image left), where the pale figure has it; the other axe low in his far hand."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_2",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "action": "Spinning Axe: he spins an axe in his near hand (image left) to catch it",
+   "ms": [
+    50
+   ],
+   "weapons": "The spinning axe in his NEAR hand (image left), where the pale figure has it; the other axe low in his far hand."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "action": "Stand Aside: he swings both axes up and hurls them forward, lunging after the throw",
+   "ms": [
+    60
+   ],
+   "weapons": "Each axe exactly where the pale figure has it; the hands EMPTY where the pale figure's are (the axes are thrown - do not draw them)."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "action": "Stand Aside: he swings both axes up and hurls them forward, lunging after the throw",
+   "ms": [
+    60
+   ],
+   "weapons": "Each axe exactly where the pale figure has it; the hands EMPTY where the pale figure's are (the axes are thrown - do not draw them)."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_3",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "action": "Stand Aside: he swings both axes up and hurls them forward, lunging after the throw",
+   "ms": [
+    60
+   ],
+   "weapons": "Each axe exactly where the pale figure has it; the hands EMPTY where the pale figure's are (the axes are thrown - do not draw them)."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_4",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "action": "Stand Aside: he swings both axes up and hurls them forward, lunging after the throw",
+   "ms": [
+    80
+   ],
+   "weapons": "Each axe exactly where the pale figure has it; the hands EMPTY where the pale figure's are (the axes are thrown - do not draw them)."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_5",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "action": "Stand Aside: he swings both axes up and hurls them forward, lunging after the throw",
+   "ms": [
+    140
+   ],
+   "weapons": "Each axe exactly where the pale figure has it; the hands EMPTY where the pale figure's are (the axes are thrown - do not draw them)."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "action": "Whirling Death: both axes raised high over his head, then hurled forward with a deep lunge",
+   "ms": [
+    60
+   ],
+   "weapons": "Each axe exactly where the pale figure has it; the hands EMPTY where the pale figure's are (the axes are thrown - do not draw them)."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "action": "Whirling Death: both axes raised high over his head, then hurled forward with a deep lunge",
+   "ms": [
+    70
+   ],
+   "weapons": "Each axe exactly where the pale figure has it; the hands EMPTY where the pale figure's are (the axes are thrown - do not draw them)."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_3",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "action": "Whirling Death: both axes raised high over his head, then hurled forward with a deep lunge",
+   "ms": [
+    70
+   ],
+   "weapons": "Each axe exactly where the pale figure has it; the hands EMPTY where the pale figure's are (the axes are thrown - do not draw them)."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_4",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "action": "Whirling Death: both axes raised high over his head, then hurled forward with a deep lunge",
+   "ms": [
+    70
+   ],
+   "weapons": "Each axe exactly where the pale figure has it; the hands EMPTY where the pale figure's are (the axes are thrown - do not draw them)."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_5",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "action": "Whirling Death: both axes raised high over his head, then hurled forward with a deep lunge",
+   "ms": [
+    80
+   ],
+   "weapons": "Each axe exactly where the pale figure has it; the hands EMPTY where the pale figure's are (the axes are thrown - do not draw them)."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_6",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "action": "Whirling Death: both axes raised high over his head, then hurled forward with a deep lunge",
+   "ms": [
+    150
+   ],
+   "weapons": "Each axe exactly where the pale figure has it; the hands EMPTY where the pale figure's are (the axes are thrown - do not draw them)."
+  },
+  {
+   "tag": "hit",
+   "name": "hit_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "action": "struck, flinching back",
+   "ms": [
+    100
+   ],
+   "weapons": "An axe in each hand as the pale figure."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "action": "death: he staggers back with his arms thrown up and falls, lying on the ground",
+   "ms": [
+    100
+   ],
+   "weapons": "The axes where the pale figure has them; when he lies on the ground they lie beside him, still."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "action": "death: he staggers back with his arms thrown up and falls, lying on the ground",
+   "ms": [
+    100
+   ],
+   "weapons": "The axes where the pale figure has them; when he lies on the ground they lie beside him, still."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_3",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "action": "death: he staggers back with his arms thrown up and falls, lying on the ground",
+   "ms": [
+    120
+   ],
+   "weapons": "The axes where the pale figure has them; when he lies on the ground they lie beside him, still."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_4",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "action": "death: he staggers back with his arms thrown up and falls, lying on the ground",
+   "ms": [
+    750
+   ],
+   "weapons": "The axes where the pale figure has them; when he lies on the ground they lie beside him, still."
+  }
+ ]
+}

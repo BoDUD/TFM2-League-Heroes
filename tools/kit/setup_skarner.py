@@ -30,7 +30,7 @@ from build_skarner import P, lp  # noqa: E402
 REPO = os.path.normpath(os.path.join(HERE, "..", ".."))
 MOD = os.path.join(REPO, "league")
 ID = "league_skarner"
-VERSION = "0.224.0"     # above main 0.223.1 (#544 Samira's PPU), no open PR, 2026-10-26
+VERSION = "0.227.0"     # above main 0.226.0 (#548 Locke 0.225.0, #549 Draven PPU), merged second, 2026-10-26
 ADi = "<i#asset/base/ui/banpick/champion_stat_icon:ad_0>"
 TOOLTIP_MAX = {"zh-hans": 130, "zh-hant": 130, "en": 334, "ja": 147, "ko": 185}
 O = "<#ff9028ff>"      # names, physical damage

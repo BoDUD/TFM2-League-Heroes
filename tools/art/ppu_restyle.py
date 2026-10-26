@@ -57,6 +57,7 @@ ORIG_PPU = {"zeri": 3, "karma": 3, "braum": 2.881, "mordekaiser": 5, "corki": 5,
             "vladimir": 2, "yasuo": 3, "garen": 3, "gragas": 2, "irelia": 2, "soraka": 3, "nidalee": 3.8313,
             "nilah": 2.5, "kindred": 154 / 34, "malzahar": 1.38, "milio": 2.2, "jayce": 1.5, "elise": 1.8, "katarina": 1.5,
             "tahmkench": 1.2, "kalista": 1.4, "drmundo": 1.5, "pantheon": 1.5, "orianna": 2.25, "aphelios": 1.5, "rell": 1.5, "urgot": 1.2, "reksai": 1.58, "swain": 1.5, "nasus": 1.2, "renata": 1.5, "anivia": 1.2, "jarvaniv": 1.5, "ziggs": 1.5, "maokai": 1.5, "gangplank": 1.5, "wukong": 1.53, "cassiopeia": 1.3, "akshan": 1.61, "poppy": 1.3, "volibear": 1.2, "rammus": 1.2,
+            **{h: 1.5 for h in ('morgana', 'nami', 'janna', 'jax', 'xinzhao')}, "yunara": 1.5, "kaisa": 1.45, "camille": 1.5, "fiora": 1.5, "leblanc": 2.0, "darius": 1.45, "caitlyn": 1.45, "riven": 1.5, "zoe": 1.5, "quinn": 2.0, "yuumi": 1.5, "powder": 1.75, "chogath": 1.2, "karthus": 1.5, "vex": 1.5, "zyra": 1.7, "graves": 1.5, "warwick": 1.5, "gnar": 1.5, "sylas": 1.2, "mel": 1.5, "velkoz": 1.5, "shyvana": 1.5, "ornn": 1.5, "naafiri": 1.5, "xerath": 1.55, "heimerdinger": 1.5, "neeko": 2.5, "ksante": 1.5, "udyr": 1.5, "qiyana": 1.5, "hwei": 1.5, "ivern": 1.5, "illaoi": 1.5, "varus": 1.35, "aurora": 2.25, "nunu": 1.37, "azir": 1.5, "zac": 1.5, "jinx": 2.2, "lux": 2.2, "singed": 1.39, "belveth": 1.75, "taliyah": 1.75, "aurelionsol": 1.75, "sejuani": 2.0, "ahri": 2.2, "twitch": 2.2, "annie": 2.2, "kled": 2.0, "yorick": 1.75, "gwen": 2.84, "ambessa": 2.0, "rumble": 1.75, "trundle": 2.0, "samira": 2.84, "locke": 2.0, "draven": 2.2}
             **{h: 1.5 for h in ('morgana', 'nami', 'janna', 'jax', 'xinzhao')}, "yunara": 1.5, "kaisa": 1.45, "camille": 1.5, "fiora": 1.5, "leblanc": 2.0, "darius": 1.45, "caitlyn": 1.45, "riven": 1.5, "zoe": 1.5, "quinn": 2.0, "yuumi": 1.5, "powder": 1.75, "chogath": 1.2, "karthus": 1.5, "vex": 1.5, "zyra": 1.7, "graves": 1.5, "warwick": 1.5, "gnar": 1.5, "sylas": 1.2, "mel": 1.5, "velkoz": 1.5, "shyvana": 1.5, "ornn": 1.5, "naafiri": 1.5, "xerath": 1.55, "heimerdinger": 1.5, "neeko": 2.5, "ksante": 1.5, "udyr": 1.5, "qiyana": 1.5, "hwei": 1.5, "ivern": 1.5, "illaoi": 1.5, "varus": 1.35, "aurora": 2.25, "nunu": 1.37, "azir": 1.5, "zac": 1.5, "jinx": 2.2, "lux": 2.2, "singed": 1.39, "belveth": 1.75, "taliyah": 1.75, "aurelionsol": 1.75, "sejuani": 2.0, "ahri": 2.2, "twitch": 2.2, "annie": 2.2, "kled": 2.0, "yorick": 1.75, "gwen": 2.84, "ambessa": 2.0, "rumble": 1.75, "trundle": 2.0, "samira": 2.84, "skarner": 1.75}
 # face: (row0, row1, col0, col1) of the face to match in the idle's first dense frame; neck: (col, row) there
 RESTYLE = {
@@ -361,6 +362,12 @@ RESTYLE = {
     # the frames stay on their 2.84 grid, everything laid back on it at 2.2 squares (look) but her face as drawn
     # (look_keep: tools/art/face_samira_hd.py) - the approved 2.84 face in a 2.2 body; the effects ride on as drawn
     "samira": dict(edge=0, face_to=(-4, -36), fx=True, look=2.2, look_holes=2, look_keep="face_samira_hd"),
+    # Draven (2026-10-26): the user's own picture (「就用这个就行」, drawn at PPU 2.2 on 11-px squares) read back exactly
+    # (114 x 76, design_draven_hd.py); every action Codex's whole-frame redraw of his old frame in its old pose
+    # (「你照着旧动作做啊」) read onto the design (tools/art/casts_draven_hd.py); drawn at 2.2, so no density change
+    # face (0,-33): a square under his crown as tfm2_ase face finds it from the skin (its crown search takes the raised
+    # axe for the head), the hair spikes above, headband, eyes and mouth under it
+    "draven": dict(ppu=2.2, edge=0, face_to=(0, -33)),
     # league_yunara (#119): posed from the design's own squares at the user's 1.5 squares a game pixel (「选 A，40 行」,
     # Codex's step-1 take 2 cut to 60 rows, her beads apart) by tools/art/rig_yunara.py, so no proportion or density
     # change here; the outer outline grown a square like the others; the face point at her ornaments' crown
@@ -637,6 +644,12 @@ RESTYLE = {
     # or density change here; the outer outline grown a square like the others; the face point between his eyes (5 game
     # px ahead of the standing point, 27 over the ground)
     "trundle": dict(ppu=2.0, edge=1, face_to=(5, -27)),
+    # league_locke (2026's new champion, mid): the design (Codex's step-0 A-1 brought to 88 rows, 44 game px hair to soles,
+    # at the user's picks 「A-1 44 PPU 2.0」, 3/4 only) with Codex's key poses after League's clips (his design head put
+    # back, the bodies Codex drew ~14% bigger read at the design's size), posed by tools/art/rig_locke.py, his W look in
+    # w_<tag> tags (the same frames recoloured), so no proportion or density change here; the outer outline grown a square
+    # like the others; the face point between his lenses (4 game px ahead of the standing point, 37 over the ground)
+    "locke": dict(ppu=2.0, edge=1, face_to=(4, -37)),
     "skarner": dict(ppu=1.75, edge=1, pinholes=True),
     # league_heimerdinger: the design (Codex's step-1 A-2 cut to the user's 54 rows at 1.5 squares a game pixel: 「36」
     # 「PPU 1.5」, 3/4 only) with Codex's whole-body poses (the design's head pasted back) and the backpack crane / R's gear

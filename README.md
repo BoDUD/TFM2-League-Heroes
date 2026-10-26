@@ -98,7 +98,7 @@ GitHub Actions（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)，Window
 <!-- HEROES:BEGIN -->
 <!-- 这一段由 tools/docs/gen_hero_docs.py 生成，请不要手改。 -->
 
-共 172 位：主包 171 位、tft 包 1 位。点名字看这位英雄现在的技能、附加包和开发记录；表格版见 [docs/heroes.xlsx](docs/heroes.xlsx)。
+共 173 位：主包 172 位、tft 包 1 位。点名字看这位英雄现在的技能、附加包和开发记录；表格版见 [docs/heroes.xlsx](docs/heroes.xlsx)。
 
 ### 上单（38）
 
@@ -188,7 +188,7 @@ GitHub Actions（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)，Window
 | <img src="docs/heroes/img/league_xinzhao.png" width="32"> | [赵信](docs/heroes/league_xinzhao.md)<br>Xin Zhao | 打野 | 被动 果决 · 无畏冲锋 · 风斩电刺 · 大招 新月护卫 | [赵信大招远程免伤附加包](addons/league_xinzhao_guard/README.md) | PPU 1.5 |
 | <img src="docs/heroes/img/league_zac.png" width="32"> | [扎克](docs/heroes/league_zac.md)<br>Zac | 打野 | 延伸打击 · 橡筋弹弓 · 大招 动感弹球 | [扎克附加包](addons/league_zac/README.md) | PPU 1.5 |
 
-### 中单（42）
+### 中单（43）
 
 | 头像 | 英雄 | 分路 | 技能 | 附加包 | 高清帧 |
 |---|---|---|---|---|---|
@@ -211,6 +211,7 @@ GitHub Actions（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)，Window
 | <img src="docs/heroes/img/league_katarina.png" width="32"> | [卡特琳娜](docs/heroes/league_katarina.md)<br>Katarina | 中单 | 弹射之刃 · 伺机待发 · 大招 死亡莲华 | [卡特琳娜附加包](addons/league_katarina/README.md) | PPU 1.5 |
 | <img src="docs/heroes/img/league_leblanc.png" width="32"> | [乐芙兰](docs/heroes/league_leblanc.md)<br>LeBlanc | 中单 | 被动 镜花水月 · 恶意魔印 · 魔影迷踪 · 大招 故技重施 | [低血量附加包：布里茨、乐芙兰、丽桑卓](addons/league_lowhp/README.md) | PPU 2 |
 | <img src="docs/heroes/img/league_lissandra.png" width="32"> | [丽桑卓](docs/heroes/league_lissandra.md)<br>Lissandra | 中单 | 被动 冰脉驱役 · 寒冰碎片 · 冰霜之环 · 大招 冰封陵墓 | [低血量附加包：布里茨、乐芙兰、丽桑卓](addons/league_lowhp/README.md) | — |
+| <img src="docs/heroes/img/league_locke.png" width="32"> | [洛克](docs/heroes/league_locke.md)<br>Locke | 中单 | 伏魔三钉 · 灰猎无影 · 大招 万魔狱 | [洛克附加包](addons/league_locke/README.md) | PPU 2 |
 | <img src="docs/heroes/img/league_lux.png" width="32"> | [拉克丝](docs/heroes/league_lux.md)<br>Lux | 中单 | 被动 光芒四射 · 光之束缚 · 透光奇点 · 大招 终极闪光 | [目标标记附加包](addons/league_marks/README.md) | PPU 2.2 |
 | <img src="docs/heroes/img/league_malzahar.png" width="32"> | [玛尔扎哈](docs/heroes/league_malzahar.md)<br>Malzahar | 中单 | 被动 虚空穿越 · 煞星幻象 / 虚空虫群 · 虚空召唤 · 大招 冥府之握 | [玛尔扎哈附加包](addons/league_malzahar/README.md) | PPU 1.38 |
 | <img src="docs/heroes/img/league_neeko.png" width="32"> | [妮蔻](docs/heroes/league_neeko.md)<br>Neeko | 中单 | 盛开花种 · 缠结倒刺 · 大招 怒放 | [妮蔻附加包](addons/league_neeko/README.md) | PPU 2.5 |
@@ -243,7 +244,7 @@ GitHub Actions（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)，Window
 | <img src="docs/heroes/img/league_aphelios.png" width="32"> | [厄斐琉斯](docs/heroes/league_aphelios.md)<br>Aphelios | ADC | 武器技能 · 月相轮转 · 大招 清辉夜凝 | [厄斐琉斯附加包](addons/league_aphelios/README.md) | PPU 1.5 |
 | <img src="docs/heroes/img/league_ashe.png" width="32"> | [艾希](docs/heroes/league_ashe.md)<br>Ashe | ADC | 被动 冰霜射击 · 射手的专注 · 万箭齐发 · 大招 魔法水晶箭 | — | PPU 2.2 |
 | <img src="docs/heroes/img/league_caitlyn.png" width="32"> | [凯特琳](docs/heroes/league_caitlyn.md)<br>Caitlyn | ADC | 被动 爆头 · 和平使者 · 约德尔诱捕器 · 大招 让子弹飞 | [凯特琳附加包](addons/league_caitlyn/README.md) | PPU 1.45 |
-| <img src="docs/heroes/img/league_draven.png" width="32"> | [德莱文](docs/heroes/league_draven.md)<br>Draven | ADC | 旋转飞斧 · 开道利斧 · 大招 冷血追命 | — | — |
+| <img src="docs/heroes/img/league_draven.png" width="32"> | [德莱文](docs/heroes/league_draven.md)<br>Draven | ADC | 旋转飞斧 · 开道利斧 · 大招 冷血追命 | — | PPU 2.2 |
 | <img src="docs/heroes/img/league_ezreal.png" width="32"> | [伊泽瑞尔](docs/heroes/league_ezreal.md)<br>Ezreal | ADC | 被动 咒能高涨 · 秘术射击 · 奥术跃迁 · 大招 精准弹幕 | — | — |
 | <img src="docs/heroes/img/league_jhin.png" width="32"> | [烬](docs/heroes/league_jhin.md)<br>Jhin | ADC | 被动 低语 · 曼舞手雷 · 致命华彩 · 大招 完美谢幕 | [烬低语附加包](addons/league_jhin_whisper/README.md) | — |
 | <img src="docs/heroes/img/league_jinx.png" width="32"> | [金克丝](docs/heroes/league_jinx.md)<br>Jinx | ADC | 震荡电磁波！ · 嚼火者手雷！ · 大招 超究极死神飞弹！ | [参与击杀附加包：金克丝、崔丝塔娜、易、图奇](addons/league_takedowns/README.md) | PPU 2.2 |
