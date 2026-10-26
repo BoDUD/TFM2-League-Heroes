@@ -10,7 +10,7 @@
 | 所属的包 | 主包（mod_id `league`） |
 | 分路 | 打野 |
 | 分类 / 标签 | 近战（Melee） · AP / Magic / Melee / Tank / CC |
-| 高清帧 | PPU 1.5 |
+| 高清帧 | PPU 1.5（画成 85%） |
 | 附加包 | [扎克附加包](#附加包)（`league_zac`） |
 
 ![扎克演示](../preview/league_zac_showcase.gif)

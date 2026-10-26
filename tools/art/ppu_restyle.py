@@ -664,8 +664,10 @@ RESTYLE = {
     # 95%」, hd.rs SIZES); the face point x 0.95 about the soles. Then 「ppu像素太高了 降低点」: picked 1.5 of 2.1 / 1.8 / 1.5
     # / 1.2 (tools/art/review_leesin_ppu.py, 「用 1.5」) - drawn at 2.1 (ORIG_PPU), brought to 1.5 squares a game pixel
     # like Riven, Jax and Darius; 11.5 x 1.5 x (1 / 0.95 - 1) = 0.9 -> 1 square lower at his 95 %
-    # 2026-10-26 face (1,-36): (-4,-29) framed his bare chest and white belt, not the blindfold
-    "leesin": dict(ppu=1.5, edge=0, lift_sq=-1, face_to=(1, -36)),
+    # 2026-10-26 face (1,-36): (-4,-29) framed his bare chest and white belt, not the blindfold. Then back to 100 %
+    # in game (「盲僧在游戏里和其他英雄有点格格不入 感觉太小了」, hd.rs SIZES row gone): no square lower, the face
+    # point / 0.95 about the soles -> (1,-38)
+    "leesin": dict(ppu=1.5, edge=0, lift_sq=0, face_to=(1, -38)),
     # league_heimerdinger: the design (Codex's step-1 A-2 cut to the user's 54 rows at 1.5 squares a game pixel: 「36」
     # 「PPU 1.5」, 3/4 only) with Codex's whole-body poses (the design's head pasted back) and the backpack crane / R's gear
     # props, posed by tools/art/rig_heimerdinger.py after League's clips, so no proportion change here; brought down to
