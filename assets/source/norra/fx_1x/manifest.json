@@ -196,7 +196,8 @@
      "body_clear_rect": null,
      "sha256": "b276c01409bbc66c28ad3e9fc5d1bbd02208e176296f2d5324149ce63f9eb2d9"
     }
-   ]
+   ],
+   "pack": "codex_fx/norra_fx"
   },
   {
    "id": "a_hit",
@@ -351,197 +352,8 @@
      "body_clear_rect": null,
      "sha256": "fe541298c02b575b0a88df9def5e63441a0b0adc73f86d9fff501a47dc6b8ad6"
     }
-   ]
-  },
-  {
-   "id": "p_heal",
-   "file": "norra_fx_p_heal.png",
-   "pixel_1x": "norra_fx_p_heal.png",
-   "raw": "raw/norra_fx_p_heal_raw.png",
-   "frames": 4,
-   "cell_1x": [
-    12,
-    16
    ],
-   "sheet_1x": [
-    48,
-    16
-   ],
-   "sheet_8x": [
-    384,
-    128
-   ],
-   "symmetry": "left-right",
-   "loop": false,
-   "binding": "view_effects `tft_norra_p_heal`（跟随被治疗的人，z 2；左右对称）",
-   "source_grid": [
-    2,
-    2
-   ],
-   "palette": [
-    "#FFFFFF",
-    "#FFF0C8",
-    "#C8F0A0",
-    "#7CD87A",
-    "#FF9CCB",
-    "#FFE8F4",
-    "#F05A9E",
-    "#B02A6E"
-   ],
-   "status": "source_reviewed",
-   "issues": [],
-   "normalization_profile": [
-    [
-     9,
-     4,
-     10
-    ],
-    [
-     10,
-     8,
-     5
-    ],
-    [
-     10,
-     8,
-     1
-    ],
-    [
-     10,
-     8,
-     0
-    ]
-   ],
-   "frame_details": [
-    {
-     "index": 0,
-     "source_cell": [
-      0,
-      0,
-      543,
-      723
-     ],
-     "source_visible_bbox": {
-      "x0": 134,
-      "y0": 477,
-      "x1": 421,
-      "y1": 598,
-      "opaque": 14388
-     },
-     "normalization_rect_1x": [
-      1,
-      10,
-      9,
-      4
-     ],
-     "output_bbox": {
-      "x0": 1,
-      "y0": 10,
-      "x1": 11,
-      "y1": 14,
-      "opaque": 26
-     },
-     "symmetry_mismatches": 0,
-     "body_clear_rect": null,
-     "sha256": "ca07bccd23f13f92159eeda31a48a94018569e2b483ff3e735f8631128acd216"
-    },
-    {
-     "index": 1,
-     "source_cell": [
-      543,
-      0,
-      544,
-      723
-     ],
-     "source_visible_bbox": {
-      "x0": 120,
-      "y0": 296,
-      "x1": 423,
-      "y1": 510,
-      "opaque": 16551
-     },
-     "normalization_rect_1x": [
-      1,
-      5,
-      10,
-      8
-     ],
-     "output_bbox": {
-      "x0": 1,
-      "y0": 5,
-      "x1": 11,
-      "y1": 13,
-      "opaque": 36
-     },
-     "symmetry_mismatches": 0,
-     "body_clear_rect": null,
-     "sha256": "36059f799ce55594896aaafb857ab52b2e573840545b2dbaaf6d753b77bcc096"
-    },
-    {
-     "index": 2,
-     "source_cell": [
-      0,
-      723,
-      543,
-      724
-     ],
-     "source_visible_bbox": {
-      "x0": 116,
-      "y0": 156,
-      "x1": 439,
-      "y1": 385,
-      "opaque": 14877
-     },
-     "normalization_rect_1x": [
-      1,
-      1,
-      10,
-      8
-     ],
-     "output_bbox": {
-      "x0": 1,
-      "y0": 1,
-      "x1": 11,
-      "y1": 9,
-      "opaque": 28
-     },
-     "symmetry_mismatches": 0,
-     "body_clear_rect": null,
-     "sha256": "aeae831ac6430c859fbfa0d9128bcae55e648d7ee8048ab0540f1c0b02c3b697"
-    },
-    {
-     "index": 3,
-     "source_cell": [
-      543,
-      723,
-      544,
-      724
-     ],
-     "source_visible_bbox": {
-      "x0": 153,
-      "y0": 240,
-      "x1": 393,
-      "y1": 436,
-      "opaque": 4691
-     },
-     "normalization_rect_1x": [
-      1,
-      0,
-      10,
-      8
-     ],
-     "output_bbox": {
-      "x0": 1,
-      "y0": 0,
-      "x1": 11,
-      "y1": 8,
-      "opaque": 14
-     },
-     "symmetry_mismatches": 0,
-     "body_clear_rect": null,
-     "sha256": "db5fdfbb0a5bd95412e7abb92cfba95df45d0a822057adc868b935967c594c26"
-    }
-   ]
+   "pack": "codex_fx/norra_fx"
   },
   {
    "id": "q_ball",
@@ -739,7 +551,8 @@
      "body_clear_rect": null,
      "sha256": "739b59087d337f70a2bb3213b2764fcece5891a5eb5355f21930157864251544"
     }
-   ]
+   ],
+   "pack": "codex_fx/norra_fx"
   },
   {
    "id": "q_blast",
@@ -1050,7 +863,8 @@
      "body_clear_rect": null,
      "sha256": "93e47923dc38c183002336d9e2ec10fef49674f943912216c955b8e4ec279aed"
     }
-   ]
+   ],
+   "pack": "codex_fx/norra_fx"
   },
   {
    "id": "q_hit",
@@ -1202,1285 +1016,1138 @@
      "body_clear_rect": null,
      "sha256": "7fd65ae5fa7a962fdea42d60724494330c87108d366afa3ab204960d84c8fe96"
     }
-   ]
+   ],
+   "pack": "codex_fx/norra_fx"
   },
   {
-   "id": "q_paint",
-   "file": "norra_fx_q_paint.png",
-   "pixel_1x": "norra_fx_q_paint.png",
-   "raw": "raw/norra_fx_q_paint_raw.png",
-   "frames": 6,
+   "id": "p_trinkets",
+   "file": "norra_fx_p_trinkets.png",
+   "pixel_1x": "norra_fx_p_trinkets.png",
+   "raw": "raw\\norra_fx_p_trinkets_raw.png",
+   "frames": 4,
    "cell_1x": [
-    64,
-    22
+    44,
+    20
    ],
    "sheet_1x": [
-    384,
-    22
+    176,
+    20
    ],
-   "sheet_8x": [
-    3072,
-    176
-   ],
-   "symmetry": "both",
+   "symmetry": "left-right",
    "loop": true,
-   "binding": "view_projectiles `tft_norra_q_paint` / `tft_norra_q2_paint`（大表，地面区域，z -2；左右、上下都对称）",
-   "source_grid": [
-    2,
-    3
-   ],
+   "binding": "view_effects `tft_norra_p_trinkets`（大表，落点，地面，z -1，不跟随；左右对称）",
    "palette": [
-    "#FFFDF4",
-    "#F2E6CC",
-    "#D8C6A0",
-    "#A8906A",
-    "#F05A9E",
-    "#44C8D2",
-    "#9A62F0",
-    "#FFD95A",
     "#FFFFFF",
+    "#F4E6FF",
+    "#C9A2FF",
+    "#9A62F0",
+    "#6A34D0",
+    "#FFF4C4",
+    "#FFD95A",
+    "#F2B12E",
+    "#C77A16",
+    "#7E4410",
+    "#FFE8F4",
+    "#FF9CCB",
+    "#F05A9E",
+    "#B02A6E",
+    "#100A16"
+   ],
+   "frame_details": [
+    {
+     "frame": 0,
+     "source_cell": [
+      0,
+      0,
+      929,
+      423
+     ],
+     "solid_source_bbox": [
+      207,
+      146,
+      745,
+      368
+     ],
+     "normalized_rect": [
+      4,
+      2,
+      36,
+      14
+     ],
+     "visible_bbox": [
+      4,
+      2,
+      40,
+      16
+     ],
+     "sha256": "dbfe69580c304a827ee1d722cbf49709c5e0f69df22766955019d301e4c48acb"
+    },
+    {
+     "frame": 1,
+     "source_cell": [
+      929,
+      0,
+      930,
+      423
+     ],
+     "solid_source_bbox": [
+      137,
+      144,
+      736,
+      368
+     ],
+     "normalized_rect": [
+      4,
+      2,
+      36,
+      14
+     ],
+     "visible_bbox": [
+      4,
+      2,
+      40,
+      16
+     ],
+     "sha256": "64724f2d81f413ef89378e9d0b62e3ac564c4a2a40aecf935cbe0218ef730dac"
+    },
+    {
+     "frame": 2,
+     "source_cell": [
+      0,
+      423,
+      929,
+      423
+     ],
+     "solid_source_bbox": [
+      173,
+      75,
+      798,
+      309
+     ],
+     "normalized_rect": [
+      4,
+      2,
+      36,
+      14
+     ],
+     "visible_bbox": [
+      4,
+      2,
+      40,
+      16
+     ],
+     "sha256": "e8db8171556cb3f423a7b5969fcb2074682d83b2c8d89810cfcfd063aa81f459"
+    },
+    {
+     "frame": 3,
+     "source_cell": [
+      929,
+      423,
+      930,
+      423
+     ],
+     "solid_source_bbox": [
+      154,
+      95,
+      735,
+      309
+     ],
+     "normalized_rect": [
+      4,
+      2,
+      36,
+      14
+     ],
+     "visible_bbox": [
+      4,
+      2,
+      40,
+      16
+     ],
+     "sha256": "26084a7dec9a7cecd7bfdc1b51dc1ccf4896d2b4d1310f74d40f70e7045f69dd"
+    }
+   ],
+   "pack": "codex_fx2/norra_fx2"
+  },
+  {
+   "id": "p_burst",
+   "file": "norra_fx_p_burst.png",
+   "pixel_1x": "norra_fx_p_burst.png",
+   "raw": "raw\\norra_fx_p_burst_raw.png",
+   "frames": 5,
+   "cell_1x": [
+    18,
+    24
+   ],
+   "sheet_1x": [
+    90,
+    24
+   ],
+   "symmetry": "left-right",
+   "loop": false,
+   "binding": "view_effects `tft_norra_p_burst`（跟随目标，z 2；左右对称）",
+   "palette": [
+    "#FFFFFF",
+    "#F4E6FF",
+    "#C9A2FF",
+    "#9A62F0",
+    "#6A34D0",
+    "#FFE8F4",
+    "#FF9CCB",
+    "#F05A9E",
+    "#B02A6E",
+    "#FFF4C4",
+    "#FFD95A",
+    "#F2B12E",
+    "#C77A16",
+    "#7E4410"
+   ],
+   "frame_details": [
+    {
+     "frame": 0,
+     "source_cell": [
+      0,
+      0,
+      380,
+      829
+     ],
+     "solid_source_bbox": [
+      175,
+      415,
+      237,
+      513
+     ],
+     "normalized_rect": [
+      7,
+      1,
+      4,
+      6
+     ],
+     "visible_bbox": [
+      7,
+      1,
+      11,
+      7
+     ],
+     "sha256": "504fc9898d22692cf9c9c76d689f08c53511cfae57a014c3cf43d496dc810430"
+    },
+    {
+     "frame": 1,
+     "source_cell": [
+      380,
+      0,
+      362,
+      829
+     ],
+     "solid_source_bbox": [
+      158,
+      214,
+      220,
+      515
+     ],
+     "normalized_rect": [
+      7,
+      2,
+      4,
+      12
+     ],
+     "visible_bbox": [
+      7,
+      2,
+      11,
+      14
+     ],
+     "sha256": "22afd04b2c103db8b49b7774eb254ce2c2d5fea9f211e533f1ce727c803e6017"
+    },
+    {
+     "frame": 2,
+     "source_cell": [
+      742,
+      0,
+      346,
+      829
+     ],
+     "solid_source_bbox": [
+      15,
+      350,
+      304,
+      603
+     ],
+     "normalized_rect": [
+      3,
+      8,
+      12,
+      12
+     ],
+     "visible_bbox": [
+      3,
+      8,
+      15,
+      20
+     ],
+     "sha256": "d27f71de270a8ff1e3563ca7389601b499153f79b8796573e406f6972786a8be"
+    },
+    {
+     "frame": 3,
+     "source_cell": [
+      1088,
+      0,
+      430,
+      829
+     ],
+     "solid_source_bbox": [
+      4,
+      287,
+      407,
+      631
+     ],
+     "normalized_rect": [
+      1,
+      7,
+      16,
+      14
+     ],
+     "visible_bbox": [
+      1,
+      7,
+      17,
+      21
+     ],
+     "sha256": "6786f06df056031a8bddcff197cd1a8bcbf2221eb7aa54ff57bde2257e5987bf"
+    },
+    {
+     "frame": 4,
+     "source_cell": [
+      1518,
+      0,
+      380,
+      829
+     ],
+     "solid_source_bbox": [
+      20,
+      323,
+      316,
+      643
+     ],
+     "normalized_rect": [
+      1,
+      9,
+      16,
+      12
+     ],
+     "visible_bbox": [
+      1,
+      9,
+      17,
+      21
+     ],
+     "sha256": "1e88e5c09d804e70c96f174e3e208814a58927358ba9b91f4e84a70ab688c6d7"
+    }
+   ],
+   "pack": "codex_fx2/norra_fx2"
+  },
+  {
+   "id": "w_in",
+   "file": "norra_fx_w_in.png",
+   "pixel_1x": "norra_fx_w_in.png",
+   "raw": "raw\\norra_fx_w_in_raw.png",
+   "frames": 5,
+   "cell_1x": [
+    30,
+    46
+   ],
+   "sheet_1x": [
+    150,
+    46
+   ],
+   "symmetry": "left-right",
+   "loop": false,
+   "binding": "view_effects `tft_norra_w_in`（目标脚下，z 2，不跟随；左右对称）",
+   "palette": [
+    "#F4E6FF",
+    "#C9A2FF",
+    "#9A62F0",
+    "#6A34D0",
+    "#3E1C8C",
+    "#22104E",
+    "#FFE8F4",
+    "#FF9CCB",
+    "#F05A9E",
+    "#B02A6E",
+    "#FFFFFF",
+    "#FFF4C4",
+    "#FFD95A",
+    "#F2B12E",
+    "#C77A16",
+    "#7E4410"
+   ],
+   "frame_details": [
+    {
+     "frame": 0,
+     "source_cell": [
+      0,
+      0,
+      434,
+      724
+     ],
+     "solid_source_bbox": [
+      91,
+      527,
+      393,
+      648
+     ],
+     "normalized_rect": [
+      6,
+      34,
+      18,
+      6
+     ],
+     "visible_bbox": [
+      6,
+      34,
+      24,
+      40
+     ],
+     "sha256": "af4e5c00c0f83e2b8c2aef8a71783ba0559aa20cb086ee2e41c57105393d277f"
+    },
+    {
+     "frame": 1,
+     "source_cell": [
+      434,
+      0,
+      434,
+      724
+     ],
+     "solid_source_bbox": [
+      50,
+      465,
+      406,
+      663
+     ],
+     "normalized_rect": [
+      2,
+      32,
+      26,
+      8
+     ],
+     "visible_bbox": [
+      2,
+      32,
+      28,
+      40
+     ],
+     "sha256": "c17521559e85c87c12a704be5778119450887d3e5c7631f58673138da16ad438"
+    },
+    {
+     "frame": 2,
+     "source_cell": [
+      868,
+      0,
+      435,
+      724
+     ],
+     "solid_source_bbox": [
+      47,
+      119,
+      392,
+      656
+     ],
+     "normalized_rect": [
+      2,
+      4,
+      26,
+      36
+     ],
+     "visible_bbox": [
+      2,
+      4,
+      28,
+      40
+     ],
+     "sha256": "b92aef079596843e15120b74d707da580081c47d6a9966dd37cb5e8a12566c87"
+    },
+    {
+     "frame": 3,
+     "source_cell": [
+      1303,
+      0,
+      434,
+      724
+     ],
+     "solid_source_bbox": [
+      37,
+      238,
+      393,
+      662
+     ],
+     "normalized_rect": [
+      2,
+      16,
+      26,
+      24
+     ],
+     "visible_bbox": [
+      2,
+      16,
+      28,
+      40
+     ],
+     "sha256": "dcfdd19cef323808ef4125490975b288b9178828986f0f642a2e6b946747c5d3"
+    },
+    {
+     "frame": 4,
+     "source_cell": [
+      1737,
+      0,
+      434,
+      724
+     ],
+     "solid_source_bbox": [
+      67,
+      499,
+      358,
+      664
+     ],
+     "normalized_rect": [
+      6,
+      32,
+      18,
+      8
+     ],
+     "visible_bbox": [
+      6,
+      32,
+      24,
+      40
+     ],
+     "sha256": "a5e3fb7030ef06d581f621deeada22d139afe32c5abd14a35a657996892e0665"
+    }
+   ],
+   "pack": "codex_fx2/norra_fx2"
+  },
+  {
+   "id": "w_lock",
+   "file": "norra_fx_w_lock.png",
+   "pixel_1x": "norra_fx_w_lock.png",
+   "raw": "raw\\norra_fx_w_lock_raw.png",
+   "frames": 4,
+   "cell_1x": [
+    24,
+    12
+   ],
+   "sheet_1x": [
+    96,
+    12
+   ],
+   "symmetry": "left-right",
+   "loop": true,
+   "binding": "view_effects `tft_norra_w_lock`（放逐的位置，z 2，不跟随；左右对称）",
+   "palette": [
+    "#F4E6FF",
+    "#C9A2FF",
+    "#9A62F0",
+    "#6A34D0",
+    "#3E1C8C",
+    "#22104E",
+    "#FFE8F4",
+    "#FF9CCB",
+    "#F05A9E",
+    "#B02A6E"
+   ],
+   "frame_details": [
+    {
+     "frame": 0,
+     "source_cell": [
+      0,
+      0,
+      887,
+      443
+     ],
+     "solid_source_bbox": [
+      118,
+      116,
+      769,
+      402
+     ],
+     "normalized_rect": [
+      1,
+      2,
+      22,
+      8
+     ],
+     "visible_bbox": [
+      1,
+      2,
+      23,
+      10
+     ],
+     "sha256": "646d37ddb983cab2e7529653e27e70e2ece1dde991afe91cea2bcbf01579c84f"
+    },
+    {
+     "frame": 1,
+     "source_cell": [
+      887,
+      0,
+      887,
+      443
+     ],
+     "solid_source_bbox": [
+      119,
+      116,
+      772,
+      402
+     ],
+     "normalized_rect": [
+      1,
+      2,
+      22,
+      8
+     ],
+     "visible_bbox": [
+      1,
+      2,
+      23,
+      10
+     ],
+     "sha256": "1a83c3392c4eb5cc06404e1b6def4bf4f2c77e95c13fc1035de7bb579e9b0fc5"
+    },
+    {
+     "frame": 2,
+     "source_cell": [
+      0,
+      443,
+      887,
+      444
+     ],
+     "solid_source_bbox": [
+      118,
+      77,
+      769,
+      365
+     ],
+     "normalized_rect": [
+      1,
+      2,
+      22,
+      8
+     ],
+     "visible_bbox": [
+      1,
+      2,
+      23,
+      10
+     ],
+     "sha256": "78eb984411a7941e191a69fcbf46e1417dc833522da4be47acbb1a3eabe0a0d2"
+    },
+    {
+     "frame": 3,
+     "source_cell": [
+      887,
+      443,
+      887,
+      444
+     ],
+     "solid_source_bbox": [
+      119,
+      77,
+      772,
+      365
+     ],
+     "normalized_rect": [
+      1,
+      2,
+      22,
+      8
+     ],
+     "visible_bbox": [
+      1,
+      2,
+      23,
+      10
+     ],
+     "sha256": "848e0a987a3ea605f5c20dcd9e1e514013d4f99b5b62561e1675d4ca581f6731"
+    }
+   ],
+   "pack": "codex_fx2/norra_fx2"
+  },
+  {
+   "id": "w_out",
+   "file": "norra_fx_w_out.png",
+   "pixel_1x": "norra_fx_w_out.png",
+   "raw": "raw\\norra_fx_w_out_raw.png",
+   "frames": 4,
+   "cell_1x": [
+    30,
+    46
+   ],
+   "sheet_1x": [
+    120,
+    46
+   ],
+   "symmetry": "left-right",
+   "loop": false,
+   "binding": "view_effects `tft_norra_w_out`（放逐的位置，z 2，不跟随；左右对称）",
+   "palette": [
+    "#F4E6FF",
+    "#C9A2FF",
+    "#9A62F0",
+    "#6A34D0",
+    "#3E1C8C",
+    "#22104E",
+    "#FFE8F4",
+    "#FF9CCB",
+    "#F05A9E",
+    "#B02A6E",
+    "#FFFFFF",
+    "#FFF4C4",
+    "#FFD95A",
+    "#F2B12E",
+    "#C77A16",
+    "#7E4410"
+   ],
+   "frame_details": [
+    {
+     "frame": 0,
+     "source_cell": [
+      0,
+      0,
+      505,
+      778
+     ],
+     "solid_source_bbox": [
+      34,
+      548,
+      474,
+      707
+     ],
+     "normalized_rect": [
+      3,
+      32,
+      24,
+      8
+     ],
+     "visible_bbox": [
+      3,
+      33,
+      27,
+      40
+     ],
+     "sha256": "954510a913dabf0522ed18a23fc7b42b589f03b19856052177f10c65767de73b"
+    },
+    {
+     "frame": 1,
+     "source_cell": [
+      505,
+      0,
+      505,
+      778
+     ],
+     "solid_source_bbox": [
+      61,
+      312,
+      468,
+      696
+     ],
+     "normalized_rect": [
+      2,
+      16,
+      26,
+      24
+     ],
+     "visible_bbox": [
+      2,
+      16,
+      28,
+      40
+     ],
+     "sha256": "fcca8464f0998346667634fbea9dba17d154188683879e5c6d969345a4d0b570"
+    },
+    {
+     "frame": 2,
+     "source_cell": [
+      1010,
+      0,
+      505,
+      778
+     ],
+     "solid_source_bbox": [
+      69,
+      152,
+      460,
+      686
+     ],
+     "normalized_rect": [
+      2,
+      4,
+      26,
+      36
+     ],
+     "visible_bbox": [
+      2,
+      5,
+      28,
+      40
+     ],
+     "sha256": "998d2680f86e60e35c3cee99d308a0758d18cd05df8c68f4c3727a131fbaf01f"
+    },
+    {
+     "frame": 3,
+     "source_cell": [
+      1515,
+      0,
+      505,
+      778
+     ],
+     "solid_source_bbox": [
+      107,
+      539,
+      436,
+      686
+     ],
+     "normalized_rect": [
+      9,
+      34,
+      12,
+      6
+     ],
+     "visible_bbox": [
+      11,
+      39,
+      19,
+      40
+     ],
+     "sha256": "f9817f5819cfacb6283ea8039a6083cfcc464e0161bf2b973913b9951a844ac1"
+    }
+   ],
+   "pack": "codex_fx2/norra_fx2"
+  },
+  {
+   "id": "e_threads",
+   "file": "norra_fx_e_threads.png",
+   "pixel_1x": "norra_fx_e_threads.png",
+   "raw": "raw\\norra_fx_e_threads_raw.png",
+   "frames": 6,
+   "cell_1x": [
+    76,
+    30
+   ],
+   "sheet_1x": [
+    456,
+    30
+   ],
+   "symmetry": "left-right",
+   "loop": false,
+   "binding": "view_effects `tft_norra_e_threads`（大表，目标位置，z 2，不跟随；左右对称）",
+   "palette": [
+    "#F4E6FF",
+    "#C9A2FF",
+    "#9A62F0",
+    "#6A34D0",
+    "#3E1C8C",
+    "#22104E",
+    "#FFFFFF",
+    "#FFE8F4",
+    "#FF9CCB",
+    "#F05A9E",
+    "#8FF0F0",
+    "#44C8D2",
+    "#FFD95A",
     "#FFF4C4",
     "#F2B12E",
     "#C77A16",
     "#7E4410"
    ],
-   "status": "source_reviewed",
-   "issues": [],
-   "normalization_profile": [
-    [
-     60,
-     20,
-     1
-    ],
-    [
-     60,
-     20,
-     1
-    ],
-    [
-     60,
-     20,
-     1
-    ],
-    [
-     60,
-     20,
-     1
-    ],
-    [
-     60,
-     20,
-     1
-    ],
-    [
-     60,
-     20,
-     1
-    ]
-   ],
    "frame_details": [
     {
-     "index": 0,
+     "frame": 0,
      "source_cell": [
       0,
       0,
-      873,
-      324
-     ],
-     "source_visible_bbox": {
-      "x0": 42,
-      "y0": 98,
-      "x1": 849,
-      "y1": 321,
-      "opaque": 128154
-     },
-     "normalization_rect_1x": [
-      2,
-      1,
-      60,
-      20
-     ],
-     "output_bbox": {
-      "x0": 2,
-      "y0": 1,
-      "x1": 62,
-      "y1": 21,
-      "opaque": 900
-     },
-     "symmetry_mismatches": 0,
-     "body_clear_rect": null,
-     "sha256": "b689a443411863c2b3cd6d9c9150b0dc24d683382b9a4ce06ec198caf8e611ba"
-    },
-    {
-     "index": 1,
-     "source_cell": [
-      873,
-      0,
-      874,
-      324
-     ],
-     "source_visible_bbox": {
-      "x0": 25,
-      "y0": 101,
-      "x1": 832,
-      "y1": 321,
-      "opaque": 128860
-     },
-     "normalization_rect_1x": [
-      2,
-      1,
-      60,
-      20
-     ],
-     "output_bbox": {
-      "x0": 2,
-      "y0": 1,
-      "x1": 62,
-      "y1": 21,
-      "opaque": 932
-     },
-     "symmetry_mismatches": 0,
-     "body_clear_rect": null,
-     "sha256": "4dc3f262b9e40e863818a141f13556227f1e1ce68fe596fa38ad2f1731f01590"
-    },
-    {
-     "index": 2,
-     "source_cell": [
-      0,
-      324,
-      873,
-      276
-     ],
-     "source_visible_bbox": {
-      "x0": 42,
-      "y0": 50,
-      "x1": 848,
-      "y1": 263,
-      "opaque": 125378
-     },
-     "normalization_rect_1x": [
-      2,
-      1,
-      60,
-      20
-     ],
-     "output_bbox": {
-      "x0": 2,
-      "y0": 1,
-      "x1": 62,
-      "y1": 21,
-      "opaque": 860
-     },
-     "symmetry_mismatches": 0,
-     "body_clear_rect": null,
-     "sha256": "efc37b90fc05db42ccc6d691677e055e5d7447876a2c9bd8499d517477ee9bfc"
-    },
-    {
-     "index": 3,
-     "source_cell": [
-      873,
-      324,
-      874,
-      276
-     ],
-     "source_visible_bbox": {
-      "x0": 25,
-      "y0": 50,
-      "x1": 832,
-      "y1": 263,
-      "opaque": 125706
-     },
-     "normalization_rect_1x": [
-      2,
-      1,
-      60,
-      20
-     ],
-     "output_bbox": {
-      "x0": 2,
-      "y0": 1,
-      "x1": 62,
-      "y1": 21,
-      "opaque": 884
-     },
-     "symmetry_mismatches": 0,
-     "body_clear_rect": null,
-     "sha256": "05b6f622d2c66cfa8d537177a217bc7d81682c1883dd4042d449733784dcba41"
-    },
-    {
-     "index": 4,
-     "source_cell": [
-      0,
-      600,
-      873,
-      300
-     ],
-     "source_visible_bbox": {
-      "x0": 42,
-      "y0": 48,
-      "x1": 849,
-      "y1": 248,
-      "opaque": 122250
-     },
-     "normalization_rect_1x": [
-      2,
-      1,
-      60,
-      20
-     ],
-     "output_bbox": {
-      "x0": 2,
-      "y0": 1,
-      "x1": 62,
-      "y1": 21,
-      "opaque": 948
-     },
-     "symmetry_mismatches": 0,
-     "body_clear_rect": null,
-     "sha256": "e90a295586ec16de5cfef901816f2b91381b6066331ee1ee15ddee677378d621"
-    },
-    {
-     "index": 5,
-     "source_cell": [
-      873,
-      600,
-      874,
-      300
-     ],
-     "source_visible_bbox": {
-      "x0": 25,
-      "y0": 48,
-      "x1": 832,
-      "y1": 248,
-      "opaque": 122224
-     },
-     "normalization_rect_1x": [
-      2,
-      1,
-      60,
-      20
-     ],
-     "output_bbox": {
-      "x0": 2,
-      "y0": 1,
-      "x1": 62,
-      "y1": 21,
-      "opaque": 936
-     },
-     "symmetry_mismatches": 0,
-     "body_clear_rect": null,
-     "sha256": "2a76f330a3277fad2bf42250d8a3f0f0bda9912ee2884a8bf6478e9ced9a6796"
-    }
-   ]
-  },
-  {
-   "id": "e_anvil_hit",
-   "file": "norra_fx_e_anvil_hit.png",
-   "pixel_1x": "norra_fx_e_anvil_hit.png",
-   "raw": "raw/norra_fx_e_anvil_hit_raw.png",
-   "frames": 8,
-   "cell_1x": [
-    36,
-    64
-   ],
-   "sheet_1x": [
-    288,
-    64
-   ],
-   "sheet_8x": [
-    2304,
-    512
-   ],
-   "symmetry": "left-right",
-   "loop": false,
-   "binding": "view_effects `tft_norra_e_anvil_hit`（大表，目标脚下，z 2，不跟随；左右对称）",
-   "source_grid": [
-    4,
-    2
-   ],
-   "palette": [
-    "#FFFFFF",
-    "#FFF4C4",
-    "#FFD95A",
-    "#F2B12E",
-    "#C77A16",
-    "#7E4410",
-    "#F4E6FF",
-    "#C9A2FF",
-    "#9A62F0",
-    "#6A34D0",
-    "#3E1C8C",
-    "#22104E",
-    "#E8EEF2",
-    "#A8B4BE",
-    "#6E7A86",
-    "#3E4650",
-    "#1E2228",
-    "#FFE8F4",
-    "#FF9CCB",
-    "#F05A9E",
-    "#B02A6E",
-    "#100A16"
-   ],
-   "status": "source_reviewed",
-   "issues": [],
-   "normalization_profile": [
-    [
-     16,
-     5,
-     3
-    ],
-    [
-     16,
-     15,
-     3
-    ],
-    [
-     16,
-     30,
-     3
-    ],
-    [
-     16,
-     45,
-     3
-    ],
-    [
-     24,
-     14,
-     44
-    ],
-    [
-     24,
-     18,
-     40
-    ],
-    [
-     24,
-     55,
-     3
-    ],
-    [
-     24,
-     12,
-     46
-    ]
-   ],
-   "frame_details": [
-    {
-     "index": 0,
-     "source_cell": [
-      0,
-      0,
-      339,
-      641
-     ],
-     "source_visible_bbox": {
-      "x0": 26,
-      "y0": 177,
-      "x1": 319,
-      "y1": 328,
-      "opaque": 27783
-     },
-     "normalization_rect_1x": [
-      10,
-      3,
-      16,
-      5
-     ],
-     "output_bbox": {
-      "x0": 10,
-      "y0": 3,
-      "x1": 26,
-      "y1": 8,
-      "opaque": 60
-     },
-     "symmetry_mismatches": 0,
-     "body_clear_rect": null,
-     "sha256": "23d5dfbc170b6eea8cc80279a70f3414d3ad357e2cc6b06f1ebd25856854e9c4"
-    },
-    {
-     "index": 1,
-     "source_cell": [
-      339,
-      0,
-      326,
-      641
-     ],
-     "source_visible_bbox": {
-      "x0": 16,
-      "y0": 177,
-      "x1": 311,
-      "y1": 403,
-      "opaque": 42028
-     },
-     "normalization_rect_1x": [
-      10,
-      3,
-      16,
-      15
-     ],
-     "output_bbox": {
-      "x0": 10,
-      "y0": 4,
-      "x1": 26,
-      "y1": 18,
-      "opaque": 160
-     },
-     "symmetry_mismatches": 0,
-     "body_clear_rect": null,
-     "sha256": "cfcd7b62f6df196d7b9e0c9aab2b923cec8cf0ef11bb21a091aa331df097b746"
-    },
-    {
-     "index": 2,
-     "source_cell": [
-      665,
-      0,
-      332,
-      641
-     ],
-     "source_visible_bbox": {
-      "x0": 28,
-      "y0": 195,
-      "x1": 307,
-      "y1": 560,
-      "opaque": 46370
-     },
-     "normalization_rect_1x": [
-      10,
-      3,
-      16,
-      30
-     ],
-     "output_bbox": {
-      "x0": 10,
-      "y0": 3,
-      "x1": 26,
-      "y1": 33,
-      "opaque": 284
-     },
-     "symmetry_mismatches": 0,
-     "body_clear_rect": null,
-     "sha256": "5d51953c920a2637bc0e44f4befca2a4c817bc45f02d0ad7c3063158a56395d0"
-    },
-    {
-     "index": 3,
-     "source_cell": [
       997,
-      0,
-      333,
-      641
+      263
      ],
-     "source_visible_bbox": {
-      "x0": 38,
-      "y0": 196,
-      "x1": 298,
-      "y1": 638,
-      "opaque": 42864
-     },
-     "normalization_rect_1x": [
-      10,
-      3,
-      16,
-      45
+     "solid_source_bbox": [
+      60,
+      152,
+      938,
+      228
      ],
-     "output_bbox": {
-      "x0": 10,
-      "y0": 3,
-      "x1": 26,
-      "y1": 48,
-      "opaque": 346
-     },
-     "symmetry_mismatches": 0,
-     "body_clear_rect": null,
-     "sha256": "ee49ea6e1b3f1de0d4c316db6da22b315ac567355482c74f148c86af74e3bb1f"
-    },
-    {
-     "index": 4,
-     "source_cell": [
-      0,
-      641,
-      339,
-      541
+     "normalized_rect": [
+      7,
+      19,
+      62,
+      6
      ],
-     "source_visible_bbox": {
-      "x0": 17,
-      "y0": 234,
-      "x1": 336,
-      "y1": 465,
-      "opaque": 41699
-     },
-     "normalization_rect_1x": [
-      6,
-      44,
-      24,
-      14
-     ],
-     "output_bbox": {
-      "x0": 6,
-      "y0": 44,
-      "x1": 30,
-      "y1": 58,
-      "opaque": 234
-     },
-     "symmetry_mismatches": 0,
-     "body_clear_rect": null,
-     "sha256": "0a6eb77dc37480d659ed942d8c2be3b45d2fe2fc53312d70eb0a478c8a616ddb"
-    },
-    {
-     "index": 5,
-     "source_cell": [
-      339,
-      641,
-      326,
-      541
-     ],
-     "source_visible_bbox": {
-      "x0": 18,
-      "y0": 210,
-      "x1": 306,
-      "y1": 453,
-      "opaque": 35029
-     },
-     "normalization_rect_1x": [
-      6,
-      40,
-      24,
-      18
-     ],
-     "output_bbox": {
-      "x0": 6,
-      "y0": 40,
-      "x1": 30,
-      "y1": 58,
-      "opaque": 270
-     },
-     "symmetry_mismatches": 0,
-     "body_clear_rect": null,
-     "sha256": "92ddfa55cdb773c71bbcc4ed6af9e8dc7b438fabb453f26cf76cf301f2248e9d"
-    },
-    {
-     "index": 6,
-     "source_cell": [
-      665,
-      641,
-      332,
-      541
-     ],
-     "source_visible_bbox": {
-      "x0": 27,
-      "y0": 142,
-      "x1": 303,
-      "y1": 454,
-      "opaque": 31528
-     },
-     "normalization_rect_1x": [
-      6,
-      3,
-      24,
-      55
-     ],
-     "output_bbox": {
-      "x0": 6,
-      "y0": 4,
-      "x1": 30,
-      "y1": 58,
-      "opaque": 598
-     },
-     "symmetry_mismatches": 0,
-     "body_clear_rect": null,
-     "sha256": "05bcbc22c74d624b3dc90c7f96211782ac990da592fea9709d34d30a5fadb359"
-    },
-    {
-     "index": 7,
-     "source_cell": [
-      997,
-      641,
-      333,
-      541
-     ],
-     "source_visible_bbox": {
-      "x0": 35,
-      "y0": 314,
-      "x1": 295,
-      "y1": 454,
-      "opaque": 19411
-     },
-     "normalization_rect_1x": [
-      6,
-      46,
-      24,
-      12
-     ],
-     "output_bbox": {
-      "x0": 6,
-      "y0": 46,
-      "x1": 30,
-      "y1": 58,
-      "opaque": 188
-     },
-     "symmetry_mismatches": 0,
-     "body_clear_rect": null,
-     "sha256": "cef918c6731c645f54f5c28a4850937a89dedb52d3655e9ebd0de934d7746d1d"
-    }
-   ]
-  },
-  {
-   "id": "e_book_hit",
-   "file": "norra_fx_e_book_hit.png",
-   "pixel_1x": "norra_fx_e_book_hit.png",
-   "raw": "raw/norra_fx_e_book_hit_raw.png",
-   "frames": 8,
-   "cell_1x": [
-    40,
-    64
-   ],
-   "sheet_1x": [
-    320,
-    64
-   ],
-   "sheet_8x": [
-    2560,
-    512
-   ],
-   "symmetry": "left-right",
-   "loop": false,
-   "binding": "view_effects `tft_norra_e_book_hit`（大表，目标脚下，z 2，不跟随；左右对称）",
-   "source_grid": [
-    4,
-    2
-   ],
-   "palette": [
-    "#FFFFFF",
-    "#FFF4C4",
-    "#FFD95A",
-    "#F2B12E",
-    "#C77A16",
-    "#7E4410",
-    "#F4E6FF",
-    "#C9A2FF",
-    "#9A62F0",
-    "#6A34D0",
-    "#3E1C8C",
-    "#22104E",
-    "#F2DCA8",
-    "#C4472E",
-    "#8A2A1C",
-    "#4E160E",
-    "#FFFDF4",
-    "#F2E6CC",
-    "#D8C6A0",
-    "#A8906A",
-    "#100A16"
-   ],
-   "status": "source_reviewed",
-   "issues": [],
-   "normalization_profile": [
-    [
-     16,
-     5,
-     3
-    ],
-    [
-     16,
-     25,
-     3
-    ],
-    [
-     16,
-     38,
-     3
-    ],
-    [
-     20,
-     50,
-     3
-    ],
-    [
-     30,
-     14,
-     44
-    ],
-    [
-     32,
-     28,
-     30
-    ],
-    [
-     32,
-     55,
-     3
-    ],
-    [
-     30,
-     14,
-     44
-    ]
-   ],
-   "frame_details": [
-    {
-     "index": 0,
-     "source_cell": [
-      0,
-      0,
-      363,
-      646
-     ],
-     "source_visible_bbox": {
-      "x0": 35,
-      "y0": 116,
-      "x1": 327,
-      "y1": 245,
-      "opaque": 17678
-     },
-     "normalization_rect_1x": [
-      12,
-      3,
-      16,
-      5
-     ],
-     "output_bbox": {
-      "x0": 12,
-      "y0": 3,
-      "x1": 28,
-      "y1": 8,
-      "opaque": 56
-     },
-     "symmetry_mismatches": 0,
-     "body_clear_rect": null,
-     "sha256": "c953d7739486b25468db2c2d5ee2afae37492aeeac877b6b7cd81c8e65c7a991"
-    },
-    {
-     "index": 1,
-     "source_cell": [
-      363,
-      0,
-      339,
-      646
-     ],
-     "source_visible_bbox": {
-      "x0": 24,
-      "y0": 107,
-      "x1": 311,
-      "y1": 513,
-      "opaque": 70266
-     },
-     "normalization_rect_1x": [
-      12,
-      3,
-      16,
+     "visible_bbox": [
+      7,
+      19,
+      69,
       25
      ],
-     "output_bbox": {
-      "x0": 12,
-      "y0": 3,
-      "x1": 28,
-      "y1": 28,
-      "opaque": 288
-     },
-     "symmetry_mismatches": 0,
-     "body_clear_rect": null,
-     "sha256": "77e388708500f0e52e472fd7769f76d80acb485fc87d7969d243603bc7aa4dde"
+     "sha256": "7b28623474a7176d082aa6552b6976cd99965a117c6eb603bb52ae5de6120f3f"
     },
     {
-     "index": 2,
+     "frame": 1,
      "source_cell": [
-      702,
+      997,
       0,
-      349,
-      646
+      997,
+      263
      ],
-     "source_visible_bbox": {
-      "x0": 56,
-      "y0": 201,
-      "x1": 299,
-      "y1": 560,
-      "opaque": 51321
-     },
-     "normalization_rect_1x": [
-      12,
-      3,
-      16,
-      38
+     "solid_source_bbox": [
+      105,
+      34,
+      904,
+      244
      ],
-     "output_bbox": {
-      "x0": 12,
-      "y0": 5,
-      "x1": 28,
-      "y1": 40,
-      "opaque": 438
-     },
-     "symmetry_mismatches": 0,
-     "body_clear_rect": null,
-     "sha256": "b6af57ec6932cf1c5ccf7d2c2142f817341ecde72e974b57e80d8acc280ae1d0"
+     "normalized_rect": [
+      7,
+      13,
+      62,
+      12
+     ],
+     "visible_bbox": [
+      7,
+      13,
+      69,
+      25
+     ],
+     "sha256": "392a0731252d84c4067a1fda8c5dda36e906bc87a293fcd5956c32a08f158145"
     },
     {
-     "index": 3,
-     "source_cell": [
-      1051,
-      0,
-      351,
-      646
-     ],
-     "source_visible_bbox": {
-      "x0": 29,
-      "y0": 271,
-      "x1": 325,
-      "y1": 643,
-      "opaque": 58818
-     },
-     "normalization_rect_1x": [
-      10,
-      3,
-      20,
-      50
-     ],
-     "output_bbox": {
-      "x0": 10,
-      "y0": 3,
-      "x1": 30,
-      "y1": 53,
-      "opaque": 682
-     },
-     "symmetry_mismatches": 0,
-     "body_clear_rect": null,
-     "sha256": "ae8767e52894e489f5322cab59773a7100daa05589367b22bc20fa72c3dfee1d"
-    },
-    {
-     "index": 4,
+     "frame": 2,
      "source_cell": [
       0,
-      646,
-      363,
-      476
+      263,
+      997,
+      263
      ],
-     "source_visible_bbox": {
-      "x0": 26,
-      "y0": 124,
-      "x1": 360,
-      "y1": 411,
-      "opaque": 48360
-     },
-     "normalization_rect_1x": [
-      5,
-      44,
-      30,
+     "solid_source_bbox": [
+      77,
+      32,
+      921,
+      242
+     ],
+     "normalized_rect": [
+      7,
+      11,
+      62,
       14
      ],
-     "output_bbox": {
-      "x0": 5,
-      "y0": 45,
-      "x1": 35,
-      "y1": 58,
-      "opaque": 272
-     },
-     "symmetry_mismatches": 0,
-     "body_clear_rect": null,
-     "sha256": "01267d41d5503baf0cd6431c8c88007f3456fe51fb25f1e2e4699782af338815"
+     "visible_bbox": [
+      7,
+      11,
+      69,
+      25
+     ],
+     "sha256": "f626c3ff2bb0909c45d6a4ba97cad0d8e106681c5197111c587eaccdeb8a154a"
     },
     {
-     "index": 5,
+     "frame": 3,
      "source_cell": [
-      363,
-      646,
-      339,
-      476
+      997,
+      263,
+      997,
+      263
      ],
-     "source_visible_bbox": {
-      "x0": 15,
-      "y0": 80,
-      "x1": 336,
-      "y1": 412,
-      "opaque": 46404
-     },
-     "normalization_rect_1x": [
-      4,
-      30,
+     "solid_source_bbox": [
+      78,
       32,
-      28
+      922,
+      244
      ],
-     "output_bbox": {
-      "x0": 4,
-      "y0": 31,
-      "x1": 36,
-      "y1": 58,
-      "opaque": 518
-     },
-     "symmetry_mismatches": 0,
-     "body_clear_rect": null,
-     "sha256": "f6ab6565f150d15d7e02e131ddd9df28fd03dc3f950ac80827f37d7376891ed5"
+     "normalized_rect": [
+      7,
+      9,
+      62,
+      16
+     ],
+     "visible_bbox": [
+      7,
+      9,
+      69,
+      25
+     ],
+     "sha256": "9a4b831f71ba54518c43a987cfdb73162a572fb91cb0721f5e290635a8aea583"
     },
     {
-     "index": 6,
+     "frame": 4,
      "source_cell": [
-      702,
-      646,
-      349,
-      476
+      0,
+      526,
+      997,
+      263
      ],
-     "source_visible_bbox": {
-      "x0": 20,
-      "y0": 43,
-      "x1": 328,
-      "y1": 411,
-      "opaque": 37128
-     },
-     "normalization_rect_1x": [
-      4,
-      3,
-      32,
-      55
+     "solid_source_bbox": [
+      62,
+      23,
+      938,
+      235
      ],
-     "output_bbox": {
-      "x0": 4,
-      "y0": 4,
-      "x1": 36,
-      "y1": 58,
-      "opaque": 692
-     },
-     "symmetry_mismatches": 0,
-     "body_clear_rect": null,
-     "sha256": "75f23c24c56ecf935ddc5ddd23adff11b3138d90f0a4ea10106fc26bd57ac8ee"
+     "normalized_rect": [
+      7,
+      7,
+      62,
+      18
+     ],
+     "visible_bbox": [
+      7,
+      7,
+      69,
+      25
+     ],
+     "sha256": "39a435ba3c2cc5b96ca2b8f5eec560da6d8afc4cd90d11df3ca05c99812caaa4"
     },
     {
-     "index": 7,
+     "frame": 5,
      "source_cell": [
-      1051,
-      646,
-      351,
-      476
+      997,
+      526,
+      997,
+      263
      ],
-     "source_visible_bbox": {
-      "x0": 30,
-      "y0": 178,
-      "x1": 320,
-      "y1": 412,
-      "opaque": 8040
-     },
-     "normalization_rect_1x": [
-      5,
-      44,
-      30,
-      14
+     "solid_source_bbox": [
+      95,
+      117,
+      906,
+      206
      ],
-     "output_bbox": {
-      "x0": 5,
-      "y0": 44,
-      "x1": 35,
-      "y1": 58,
-      "opaque": 94
-     },
-     "symmetry_mismatches": 0,
-     "body_clear_rect": null,
-     "sha256": "c991b00121cce5ac0cbf6febf9f16867e8c7714aa5fd353ec07cc992573f610c"
+     "normalized_rect": [
+      7,
+      15,
+      62,
+      10
+     ],
+     "visible_bbox": [
+      7,
+      15,
+      69,
+      25
+     ],
+     "sha256": "7d8da2828d251e13b3af2378f966a4e11d0d9d615bef8809a84959b222181ce1"
     }
-   ]
+   ],
+   "pack": "codex_fx2/norra_fx2"
   },
   {
-   "id": "e_potion",
-   "file": "norra_fx_e_potion.png",
-   "pixel_1x": "norra_fx_e_potion.png",
-   "raw": "raw/norra_fx_e_potion_raw.png",
-   "frames": 6,
+   "id": "t_hit",
+   "file": "norra_fx_t_hit.png",
+   "pixel_1x": "norra_fx_t_hit.png",
+   "raw": "raw\\norra_fx_t_hit_raw.png",
+   "frames": 3,
    "cell_1x": [
     14,
-    26
+    14
    ],
    "sheet_1x": [
-    84,
-    26
-   ],
-   "sheet_8x": [
-    672,
-    208
+    42,
+    14
    ],
    "symmetry": "left-right",
    "loop": false,
-   "binding": "view_effects `tft_norra_e_potion`（跟随每个被治疗的队友，z 2；左右对称）",
-   "source_grid": [
-    3,
-    2
-   ],
+   "binding": "view_effects `tft_norra_t_hit`（跟随目标，z 2；左右对称）",
    "palette": [
     "#FFFFFF",
-    "#FFF4C4",
-    "#FFD95A",
-    "#F2B12E",
-    "#C77A16",
-    "#7E4410",
     "#FFE8F4",
     "#FF9CCB",
     "#F05A9E",
-    "#B02A6E",
-    "#FFF0C8",
-    "#C8F0A0",
-    "#7CD87A",
-    "#100A16"
-   ],
-   "status": "source_reviewed",
-   "issues": [],
-   "normalization_profile": [
-    [
-     8,
-     3,
-     2
-    ],
-    [
-     8,
-     9,
-     2
-    ],
-    [
-     6,
-     8,
-     7
-    ],
-    [
-     12,
-     10,
-     8
-    ],
-    [
-     12,
-     16,
-     8
-    ],
-    [
-     10,
-     14,
-     10
-    ]
+    "#8FF0F0",
+    "#44C8D2",
+    "#FFD95A"
    ],
    "frame_details": [
     {
-     "index": 0,
+     "frame": 0,
      "source_cell": [
       0,
       0,
-      378,
-      698
+      724,
+      724
      ],
-     "source_visible_bbox": {
-      "x0": 105,
-      "y0": 123,
-      "x1": 328,
-      "y1": 248,
-      "opaque": 7533
-     },
-     "normalization_rect_1x": [
-      3,
-      2,
-      8,
-      3
+     "solid_source_bbox": [
+      247,
+      263,
+      485,
+      484
      ],
-     "output_bbox": {
-      "x0": 3,
-      "y0": 2,
-      "x1": 11,
-      "y1": 5,
-      "opaque": 14
-     },
-     "symmetry_mismatches": 0,
-     "body_clear_rect": [
+     "normalized_rect": [
+      5,
+      5,
       4,
-      13,
-      6,
-      13
+      4
      ],
-     "sha256": "ae6ecd797015a1477a18406f9c3bb01514a01aa80ae692caed748fcaf9da7f5f"
-    },
-    {
-     "index": 1,
-     "source_cell": [
-      378,
-      0,
-      373,
-      698
-     ],
-     "source_visible_bbox": {
-      "x0": 80,
-      "y0": 123,
-      "x1": 296,
-      "y1": 442,
-      "opaque": 16487
-     },
-     "normalization_rect_1x": [
-      3,
-      2,
-      8,
+     "visible_bbox": [
+      5,
+      5,
+      9,
       9
      ],
-     "output_bbox": {
-      "x0": 3,
-      "y0": 2,
-      "x1": 11,
-      "y1": 11,
-      "opaque": 34
-     },
-     "symmetry_mismatches": 0,
-     "body_clear_rect": [
-      4,
-      13,
-      6,
-      13
-     ],
-     "sha256": "fcc9e9f71735f7b3ae849047eb7c7450d0f4f02d7cac722c506a989cc67ce321"
+     "sha256": "ca8a6b9bd0fac24e6d0d838ea2c1f838ad67256d8b436482afc44885ff3a2523"
     },
     {
-     "index": 2,
+     "frame": 1,
      "source_cell": [
-      751,
+      724,
       0,
-      376,
-      698
+      724,
+      724
      ],
-     "source_visible_bbox": {
-      "x0": 156,
-      "y0": 302,
-      "x1": 265,
-      "y1": 535,
-      "opaque": 10539
-     },
-     "normalization_rect_1x": [
-      4,
-      7,
-      6,
+     "solid_source_bbox": [
+      43,
+      225,
+      681,
+      502
+     ],
+     "normalized_rect": [
+      1,
+      3,
+      12,
       8
      ],
-     "output_bbox": {
-      "x0": 4,
-      "y0": 8,
-      "x1": 10,
-      "y1": 13,
-      "opaque": 24
-     },
-     "symmetry_mismatches": 0,
-     "body_clear_rect": [
-      4,
+     "visible_bbox": [
+      1,
+      3,
       13,
-      6,
-      13
+      11
      ],
-     "sha256": "f65de4ec2aa0b52baa72301ca42dcea56620d1de62958a292ee57972e60e9ddc"
+     "sha256": "212dd9fdcef75c60e1ce9095b485386b8292e27a87fd402c2cb9c1c7565faf9a"
     },
     {
-     "index": 3,
+     "frame": 2,
      "source_cell": [
+      1448,
       0,
-      698,
-      378,
-      698
+      724,
+      724
      ],
-     "source_visible_bbox": {
-      "x0": 54,
-      "y0": 93,
-      "x1": 375,
-      "y1": 409,
-      "opaque": 32256
-     },
-     "normalization_rect_1x": [
+     "solid_source_bbox": [
+      100,
+      225,
+      626,
+      511
+     ],
+     "normalized_rect": [
       1,
-      8,
+      2,
       12,
       10
      ],
-     "output_bbox": {
-      "x0": 1,
-      "y0": 8,
-      "x1": 13,
-      "y1": 18,
-      "opaque": 52
-     },
-     "symmetry_mismatches": 0,
-     "body_clear_rect": [
-      4,
-      13,
-      6,
-      13
-     ],
-     "sha256": "1792dbf05407df4dc82ccd84bee2d826df9621a4e5e3330dbd573259fc4108c4"
-    },
-    {
-     "index": 4,
-     "source_cell": [
-      378,
-      698,
-      373,
-      698
-     ],
-     "source_visible_bbox": {
-      "x0": 59,
-      "y0": 98,
-      "x1": 328,
-      "y1": 479,
-      "opaque": 13436
-     },
-     "normalization_rect_1x": [
+     "visible_bbox": [
       1,
-      8,
-      12,
-      16
-     ],
-     "output_bbox": {
-      "x0": 1,
-      "y0": 8,
-      "x1": 13,
-      "y1": 24,
-      "opaque": 38
-     },
-     "symmetry_mismatches": 0,
-     "body_clear_rect": [
-      4,
-      13,
-      6,
-      13
-     ],
-     "sha256": "65eba8a8c33d2ff05fbcc8555a05f3a7faef52475f9ed78208eb618b3a5da0e8"
-    },
-    {
-     "index": 5,
-     "source_cell": [
-      751,
-      698,
-      376,
-      698
-     ],
-     "source_visible_bbox": {
-      "x0": 89,
-      "y0": 195,
-      "x1": 288,
-      "y1": 496,
-      "opaque": 2745
-     },
-     "normalization_rect_1x": [
       2,
-      10,
-      10,
-      14
-     ],
-     "output_bbox": {
-      "x0": 2,
-      "y0": 10,
-      "x1": 12,
-      "y1": 24,
-      "opaque": 14
-     },
-     "symmetry_mismatches": 0,
-     "body_clear_rect": [
-      4,
       13,
-      6,
-      13
+      12
      ],
-     "sha256": "c9b7b6ce0a8bf7328a6d5e2232d38feb526cbb5f18c442167ea7e536c81b2c53"
+     "sha256": "7e6119eab097e8f1bc0fd11cfae26cd4a61fed90da34655231696f8e5fe73e7c"
     }
-   ]
+   ],
+   "pack": "codex_fx2/norra_fx2"
   },
   {
-   "id": "e_guard",
-   "file": "norra_fx_e_guard.png",
-   "pixel_1x": "norra_fx_e_guard.png",
-   "raw": "raw/norra_fx_e_guard_raw.png",
+   "id": "t_mark",
+   "file": "norra_fx_t_mark.png",
+   "pixel_1x": "norra_fx_t_mark.png",
+   "raw": "raw\\norra_fx_t_mark_raw.png",
    "frames": 6,
    "cell_1x": [
     26,
@@ -2490,326 +2157,17 @@
     156,
     42
    ],
-   "sheet_8x": [
-    1248,
-    336
-   ],
    "symmetry": "left-right",
    "loop": true,
-   "binding": "view_buffs `tft_norra_e_guard`（跟随有护盾的人，z 3；左右对称）",
-   "source_grid": [
-    3,
-    2
-   ],
+   "binding": "view_buffs `tft_norra_t_mark`（跟随目标，z 3；左右对称）",
    "palette": [
     "#FFFFFF",
-    "#FFF4C4",
-    "#FFD95A",
-    "#F2B12E",
-    "#C77A16",
-    "#7E4410",
-    "#F4E6FF",
-    "#C9A2FF",
-    "#9A62F0",
-    "#6A34D0",
-    "#3E1C8C",
-    "#22104E",
     "#FFE8F4",
     "#FF9CCB",
     "#F05A9E",
-    "#B02A6E"
-   ],
-   "status": "source_reviewed",
-   "issues": [],
-   "normalization_profile": [
-    [
-     24,
-     40,
-     1
-    ],
-    [
-     24,
-     40,
-     1
-    ],
-    [
-     24,
-     40,
-     1
-    ],
-    [
-     24,
-     40,
-     1
-    ],
-    [
-     24,
-     40,
-     1
-    ],
-    [
-     24,
-     40,
-     1
-    ]
-   ],
-   "frame_details": [
-    {
-     "index": 0,
-     "source_cell": [
-      0,
-      0,
-      512,
-      512
-     ],
-     "source_visible_bbox": {
-      "x0": 154,
-      "y0": 23,
-      "x1": 457,
-      "y1": 474,
-      "opaque": 48847
-     },
-     "normalization_rect_1x": [
-      1,
-      1,
-      24,
-      40
-     ],
-     "output_bbox": {
-      "x0": 1,
-      "y0": 1,
-      "x1": 25,
-      "y1": 41,
-      "opaque": 360
-     },
-     "symmetry_mismatches": 0,
-     "body_clear_rect": [
-      5,
-      3,
-      16,
-      36
-     ],
-     "sha256": "06edb9cc9ddfea909e94dd3d8f68d03bd3ddd8b8bddd4ff0238fd04a70131d1e"
-    },
-    {
-     "index": 1,
-     "source_cell": [
-      512,
-      0,
-      512,
-      512
-     ],
-     "source_visible_bbox": {
-      "x0": 103,
-      "y0": 24,
-      "x1": 409,
-      "y1": 474,
-      "opaque": 49095
-     },
-     "normalization_rect_1x": [
-      1,
-      1,
-      24,
-      40
-     ],
-     "output_bbox": {
-      "x0": 1,
-      "y0": 1,
-      "x1": 25,
-      "y1": 41,
-      "opaque": 360
-     },
-     "symmetry_mismatches": 0,
-     "body_clear_rect": [
-      5,
-      3,
-      16,
-      36
-     ],
-     "sha256": "7d75a4348a383cab43b50d23d22f3573eaa85f0ea1bcb3907281965bf5b92e3c"
-    },
-    {
-     "index": 2,
-     "source_cell": [
-      1024,
-      0,
-      512,
-      512
-     ],
-     "source_visible_bbox": {
-      "x0": 56,
-      "y0": 23,
-      "x1": 359,
-      "y1": 474,
-      "opaque": 48534
-     },
-     "normalization_rect_1x": [
-      1,
-      1,
-      24,
-      40
-     ],
-     "output_bbox": {
-      "x0": 1,
-      "y0": 1,
-      "x1": 25,
-      "y1": 41,
-      "opaque": 360
-     },
-     "symmetry_mismatches": 0,
-     "body_clear_rect": [
-      5,
-      3,
-      16,
-      36
-     ],
-     "sha256": "5a0a3ebcbddd2f7bffcd7e251ebb257fc3edbe790bf878770a3428253891f0e1"
-    },
-    {
-     "index": 3,
-     "source_cell": [
-      0,
-      512,
-      512,
-      512
-     ],
-     "source_visible_bbox": {
-      "x0": 154,
-      "y0": 23,
-      "x1": 457,
-      "y1": 473,
-      "opaque": 49440
-     },
-     "normalization_rect_1x": [
-      1,
-      1,
-      24,
-      40
-     ],
-     "output_bbox": {
-      "x0": 1,
-      "y0": 1,
-      "x1": 25,
-      "y1": 41,
-      "opaque": 360
-     },
-     "symmetry_mismatches": 0,
-     "body_clear_rect": [
-      5,
-      3,
-      16,
-      36
-     ],
-     "sha256": "e90c6cd4c9c3ad6cfc2ef64bb37d41f06dd25e237003c8d2900c27d76e13b1f0"
-    },
-    {
-     "index": 4,
-     "source_cell": [
-      512,
-      512,
-      512,
-      512
-     ],
-     "source_visible_bbox": {
-      "x0": 103,
-      "y0": 24,
-      "x1": 409,
-      "y1": 473,
-      "opaque": 49693
-     },
-     "normalization_rect_1x": [
-      1,
-      1,
-      24,
-      40
-     ],
-     "output_bbox": {
-      "x0": 1,
-      "y0": 1,
-      "x1": 25,
-      "y1": 41,
-      "opaque": 360
-     },
-     "symmetry_mismatches": 0,
-     "body_clear_rect": [
-      5,
-      3,
-      16,
-      36
-     ],
-     "sha256": "7566fbdd7088f19e148e51fabb20dff3ea5ce408c59ae7da11fc4ac4c8ed398f"
-    },
-    {
-     "index": 5,
-     "source_cell": [
-      1024,
-      512,
-      512,
-      512
-     ],
-     "source_visible_bbox": {
-      "x0": 55,
-      "y0": 24,
-      "x1": 359,
-      "y1": 473,
-      "opaque": 49063
-     },
-     "normalization_rect_1x": [
-      1,
-      1,
-      24,
-      40
-     ],
-     "output_bbox": {
-      "x0": 1,
-      "y0": 1,
-      "x1": 25,
-      "y1": 41,
-      "opaque": 360
-     },
-     "symmetry_mismatches": 0,
-     "body_clear_rect": [
-      5,
-      3,
-      16,
-      36
-     ],
-     "sha256": "57b5b446c8c69a706c656ee4e6a2bd821b93e223d422299308feed3d77523b1a"
-    }
-   ]
-  },
-  {
-   "id": "r_warn",
-   "file": "norra_fx_r_warn.png",
-   "pixel_1x": "norra_fx_r_warn.png",
-   "raw": "raw/norra_fx_r_warn_raw.png",
-   "frames": 6,
-   "cell_1x": [
-    60,
-    22
-   ],
-   "sheet_1x": [
-    360,
-    22
-   ],
-   "sheet_8x": [
-    2880,
-    176
-   ],
-   "symmetry": "left-right",
-   "loop": false,
-   "binding": "view_effects `tft_norra_r_warn`（大表，落点，地面，z -2，不跟随；左右对称）",
-   "source_grid": [
-    2,
-    3
-   ],
-   "palette": [
-    "#FFFFFF",
-    "#FFF4C4",
+    "#8FF0F0",
+    "#44C8D2",
     "#FFD95A",
-    "#F2B12E",
-    "#C77A16",
-    "#7E4410",
     "#F4E6FF",
     "#C9A2FF",
     "#9A62F0",
@@ -2817,664 +2175,593 @@
     "#3E1C8C",
     "#22104E"
    ],
-   "status": "source_reviewed",
-   "issues": [],
-   "normalization_profile": [
-    [
-     20,
-     6,
-     8
-    ],
-    [
-     36,
-     12,
-     5
-    ],
-    [
-     54,
-     18,
-     2
-    ],
-    [
-     54,
-     18,
-     2
-    ],
-    [
-     54,
-     18,
-     2
-    ],
-    [
-     54,
-     18,
-     2
-    ]
-   ],
    "frame_details": [
     {
-     "index": 0,
+     "frame": 0,
      "source_cell": [
       0,
       0,
-      845,
-      310
+      568,
+      461
      ],
-     "source_visible_bbox": {
-      "x0": 134,
-      "y0": 101,
-      "x1": 712,
-      "y1": 259,
-      "opaque": 17767
-     },
-     "normalization_rect_1x": [
-      20,
-      8,
-      20,
-      6
+     "solid_source_bbox": [
+      83,
+      64,
+      516,
+      415
      ],
-     "output_bbox": {
-      "x0": 20,
-      "y0": 8,
-      "x1": 40,
-      "y1": 14,
-      "opaque": 50
-     },
-     "symmetry_mismatches": 0,
-     "body_clear_rect": null,
-     "sha256": "1ed8ef3ef670d939a53377092aaf3e1a7b498483702137ab2241330a1ee8c52c"
-    },
-    {
-     "index": 1,
-     "source_cell": [
-      845,
+     "normalized_rect": [
+      1,
       0,
-      846,
-      310
+      24,
+      42
      ],
-     "source_visible_bbox": {
-      "x0": 38,
-      "y0": 88,
-      "x1": 763,
-      "y1": 271,
-      "opaque": 39185
-     },
-     "normalization_rect_1x": [
-      12,
-      5,
-      36,
-      12
-     ],
-     "output_bbox": {
-      "x0": 12,
-      "y0": 5,
-      "x1": 48,
-      "y1": 17,
-      "opaque": 202
-     },
-     "symmetry_mismatches": 0,
-     "body_clear_rect": null,
-     "sha256": "38eaec7e3cd6bdf5928b99a024bcb6b066c7f530145fc0316c1d43a940057241"
-    },
-    {
-     "index": 2,
-     "source_cell": [
+     "visible_bbox": [
+      1,
       0,
-      310,
-      845,
-      310
+      25,
+      42
      ],
-     "source_visible_bbox": {
-      "x0": 76,
-      "y0": 51,
-      "x1": 769,
-      "y1": 285,
-      "opaque": 77523
-     },
-     "normalization_rect_1x": [
-      3,
-      2,
-      54,
-      18
-     ],
-     "output_bbox": {
-      "x0": 3,
-      "y0": 2,
-      "x1": 57,
-      "y1": 20,
-      "opaque": 576
-     },
-     "symmetry_mismatches": 0,
-     "body_clear_rect": null,
-     "sha256": "00e69b274785ad0acb850f002f187c92d1f2b170afad5b8e4b9ae6d47ab360c3"
+     "sha256": "cbf0b55f0cb0f6b2edbbfe21b21677a7362e62ee6fbdaecce437e4feb500894f"
     },
     {
-     "index": 3,
+     "frame": 1,
      "source_cell": [
-      845,
-      310,
-      846,
-      310
+      568,
+      0,
+      568,
+      461
      ],
-     "source_visible_bbox": {
-      "x0": 62,
-      "y0": 49,
-      "x1": 774,
-      "y1": 280,
-      "opaque": 104315
-     },
-     "normalization_rect_1x": [
-      3,
-      2,
-      54,
-      18
+     "solid_source_bbox": [
+      64,
+      64,
+      503,
+      417
      ],
-     "output_bbox": {
-      "x0": 3,
-      "y0": 2,
-      "x1": 57,
-      "y1": 20,
-      "opaque": 678
-     },
-     "symmetry_mismatches": 0,
-     "body_clear_rect": null,
-     "sha256": "6acf7ee6d7fda8858d52b8e6a6fa2cb65673b438b368dfbef28bc6a9497df7e7"
+     "normalized_rect": [
+      1,
+      0,
+      24,
+      42
+     ],
+     "visible_bbox": [
+      1,
+      0,
+      25,
+      42
+     ],
+     "sha256": "8ea9b83b556fc42944e16dfbfacbd26de051401fb86ce3ae12fbe6bd1a01d832"
     },
     {
-     "index": 4,
+     "frame": 2,
+     "source_cell": [
+      1136,
+      0,
+      568,
+      461
+     ],
+     "solid_source_bbox": [
+      61,
+      57,
+      493,
+      421
+     ],
+     "normalized_rect": [
+      1,
+      0,
+      24,
+      42
+     ],
+     "visible_bbox": [
+      1,
+      1,
+      25,
+      42
+     ],
+     "sha256": "ab449b514bf734b05f0023cecac09541393de7707b7ab093e61a3fb417bb9656"
+    },
+    {
+     "frame": 3,
      "source_cell": [
       0,
-      620,
-      845,
-      310
+      461,
+      568,
+      462
      ],
-     "source_visible_bbox": {
-      "x0": 76,
-      "y0": 30,
-      "x1": 772,
-      "y1": 272,
-      "opaque": 109314
-     },
-     "normalization_rect_1x": [
-      3,
-      2,
-      54,
-      18
+     "solid_source_bbox": [
+      79,
+      37,
+      517,
+      394
      ],
-     "output_bbox": {
-      "x0": 3,
-      "y0": 2,
-      "x1": 57,
-      "y1": 20,
-      "opaque": 692
-     },
-     "symmetry_mismatches": 0,
-     "body_clear_rect": null,
-     "sha256": "578562e411c4415e3637b803b49211dcb9066882d9a0ba09772b540640d3e026"
+     "normalized_rect": [
+      1,
+      0,
+      24,
+      42
+     ],
+     "visible_bbox": [
+      1,
+      0,
+      25,
+      42
+     ],
+     "sha256": "87e1a3e08d8002f32db2f429b6564d6928fc6ddff213f1420e6a7ee85cb6118d"
     },
     {
-     "index": 5,
+     "frame": 4,
      "source_cell": [
-      845,
-      620,
-      846,
-      310
+      568,
+      461,
+      568,
+      462
      ],
-     "source_visible_bbox": {
-      "x0": 35,
-      "y0": 9,
-      "x1": 775,
-      "y1": 278,
-      "opaque": 130289
-     },
-     "normalization_rect_1x": [
-      3,
-      2,
-      54,
-      18
+     "solid_source_bbox": [
+      64,
+      39,
+      505,
+      391
      ],
-     "output_bbox": {
-      "x0": 3,
-      "y0": 2,
-      "x1": 57,
-      "y1": 20,
-      "opaque": 656
-     },
-     "symmetry_mismatches": 0,
-     "body_clear_rect": null,
-     "sha256": "6ef006952b493a3c93d768b10b1c6b1795c20551febfe8940e9401a501c9b166"
+     "normalized_rect": [
+      1,
+      0,
+      24,
+      42
+     ],
+     "visible_bbox": [
+      1,
+      0,
+      25,
+      42
+     ],
+     "sha256": "9fa722e2229fccfcdcaf9e00421167354d193140787b51e487d1ee0180795f97"
+    },
+    {
+     "frame": 5,
+     "source_cell": [
+      1136,
+      461,
+      568,
+      462
+     ],
+     "solid_source_bbox": [
+      52,
+      47,
+      486,
+      391
+     ],
+     "normalized_rect": [
+      1,
+      0,
+      24,
+      42
+     ],
+     "visible_bbox": [
+      1,
+      1,
+      25,
+      42
+     ],
+     "sha256": "e2ef41c69fa09110797e45890b300a0b27b73ea5a59155909699bf2832d1add9"
     }
-   ]
+   ],
+   "pack": "codex_fx2/norra_fx2"
   },
   {
-   "id": "r_book",
-   "file": "norra_fx_r_book.png",
-   "pixel_1x": "norra_fx_r_book.png",
-   "raw": "raw/norra_fx_r_book_raw.png",
-   "frames": 10,
+   "id": "r_rift",
+   "file": "norra_fx_r_rift.png",
+   "pixel_1x": "norra_fx_r_rift.png",
+   "raw": "raw\\norra_fx_r_rift_raw.png",
+   "frames": 6,
    "cell_1x": [
-    92,
-    114
+    76,
+    28
    ],
    "sheet_1x": [
-    700,
-    84
-   ],
-   "sheet_8x": [
-    5600,
-    672
+    456,
+    28
    ],
    "symmetry": "left-right",
-   "loop": false,
-   "binding": "view_effects `tft_norra_r_book`（大表，落点，z 3，不跟随；左右对称）",
-   "source_grid": [
-    5,
-    2
-   ],
+   "loop": true,
+   "binding": "view_effects `tft_norra_r_rift`（大表，落点，地面，z -2，不跟随；左右对称）",
    "palette": [
-    "#FFFFFF",
-    "#FFF4C4",
-    "#FFD95A",
-    "#F2B12E",
-    "#C77A16",
-    "#7E4410",
     "#F4E6FF",
     "#C9A2FF",
     "#9A62F0",
     "#6A34D0",
     "#3E1C8C",
     "#22104E",
-    "#FFFDF4",
-    "#F2E6CC",
-    "#D8C6A0",
-    "#A8906A",
     "#FFE8F4",
     "#FF9CCB",
     "#F05A9E",
-    "#B02A6E"
-   ],
-   "status": "source_reviewed",
-   "issues": [],
-   "normalization_profile": [
-    [
-     24,
-     8,
-     10
-    ],
-    [
-     60,
-     20,
-     4
-    ],
-    [
-     60,
-     72,
-     4
-    ],
-    [
-     60,
-     72,
-     4
-    ],
-    [
-     60,
-     72,
-     4
-    ],
-    [
-     60,
-     72,
-     4
-    ],
-    [
-     64,
-     72,
-     4
-    ],
-    [
-     60,
-     72,
-     4
-    ],
-    [
-     22,
-     65,
-     11
-    ],
-    [
-     24,
-     30,
-     46
-    ]
+    "#B02A6E",
+    "#FFFFFF",
+    "#FFF4C4",
+    "#FFD95A",
+    "#F2B12E",
+    "#C77A16",
+    "#7E4410"
    ],
    "frame_details": [
     {
-     "index": 0,
+     "frame": 0,
      "source_cell": [
       0,
       0,
-      297,
-      530
+      1033,
+      254
      ],
-     "source_visible_bbox": {
-      "x0": 82,
-      "y0": 84,
-      "x1": 217,
-      "y1": 131,
-      "opaque": 4443
-     },
-     "normalization_rect_1x": [
-      23,
-      10,
-      24,
-      8
+     "solid_source_bbox": [
+      17,
+      13,
+      1016,
+      244
      ],
-     "output_bbox": {
-      "x0": 23,
-      "y0": 10,
-      "x1": 47,
-      "y1": 18,
-      "opaque": 144
-     },
-     "symmetry_mismatches": 0,
-     "body_clear_rect": null,
-     "sha256": "9e51f61994cdd33f739f55951f7200c5fb2b8a97479754968476c0de7f2d6a0d"
-    },
-    {
-     "index": 1,
-     "source_cell": [
-      297,
-      0,
-      297,
-      530
-     ],
-     "source_visible_bbox": {
-      "x0": 8,
-      "y0": 41,
-      "x1": 276,
-      "y1": 183,
-      "opaque": 15552
-     },
-     "normalization_rect_1x": [
-      5,
-      4,
-      60,
-      20
-     ],
-     "output_bbox": {
-      "x0": 5,
-      "y0": 4,
-      "x1": 65,
-      "y1": 24,
-      "opaque": 544
-     },
-     "symmetry_mismatches": 0,
-     "body_clear_rect": null,
-     "sha256": "014f2209d0a59cd062f408bd2f001dd0303cb0abf17eb8d6b57ae58c0e40182b"
-    },
-    {
-     "index": 2,
-     "source_cell": [
-      594,
-      0,
-      294,
-      530
-     ],
-     "source_visible_bbox": {
-      "x0": 16,
-      "y0": 38,
-      "x1": 280,
-      "y1": 314,
-      "opaque": 31843
-     },
-     "normalization_rect_1x": [
-      5,
-      4,
-      60,
-      72
-     ],
-     "output_bbox": {
-      "x0": 5,
-      "y0": 5,
-      "x1": 65,
-      "y1": 76,
-      "opaque": 2020
-     },
-     "symmetry_mismatches": 0,
-     "body_clear_rect": null,
-     "sha256": "86f1092f98547b9d8066214489aa869c5c63b0fbf1f3325e6ec03b02f86d52fc"
-    },
-    {
-     "index": 3,
-     "source_cell": [
-      888,
-      0,
-      299,
-      530
-     ],
-     "source_visible_bbox": {
-      "x0": 26,
-      "y0": 40,
-      "x1": 291,
-      "y1": 434,
-      "opaque": 41878
-     },
-     "normalization_rect_1x": [
-      5,
-      4,
-      60,
-      72
-     ],
-     "output_bbox": {
-      "x0": 5,
-      "y0": 4,
-      "x1": 65,
-      "y1": 76,
-      "opaque": 1862
-     },
-     "symmetry_mismatches": 0,
-     "body_clear_rect": null,
-     "sha256": "6e6fa1e566c2e824b1f3fd49971396013a2a565acd8d7c77b38e79a90c8f982e"
-    },
-    {
-     "index": 4,
-     "source_cell": [
-      1187,
-      0,
-      297,
-      530
-     ],
-     "source_visible_bbox": {
-      "x0": 33,
-      "y0": 43,
-      "x1": 269,
-      "y1": 512,
-      "opaque": 44916
-     },
-     "normalization_rect_1x": [
-      5,
-      4,
-      60,
-      72
-     ],
-     "output_bbox": {
-      "x0": 5,
-      "y0": 4,
-      "x1": 65,
-      "y1": 76,
-      "opaque": 1842
-     },
-     "symmetry_mismatches": 0,
-     "body_clear_rect": null,
-     "sha256": "4d416db1c684a5146f57ff4d457e8b8d90070c7c07d113e9a493f7e8c37b3f4c"
-    },
-    {
-     "index": 5,
-     "source_cell": [
-      0,
-      530,
-      297,
-      530
-     ],
-     "source_visible_bbox": {
-      "x0": 41,
-      "y0": 77,
-      "x1": 270,
-      "y1": 490,
-      "opaque": 33142
-     },
-     "normalization_rect_1x": [
-      5,
-      4,
-      60,
-      72
-     ],
-     "output_bbox": {
-      "x0": 5,
-      "y0": 7,
-      "x1": 65,
-      "y1": 76,
-      "opaque": 1674
-     },
-     "symmetry_mismatches": 0,
-     "body_clear_rect": null,
-     "sha256": "243ec3271b5d70ce378f06d71aa335efb02beac396bc15e04c251a6df028d7a0"
-    },
-    {
-     "index": 6,
-     "source_cell": [
-      297,
-      530,
-      297,
-      530
-     ],
-     "source_visible_bbox": {
-      "x0": 7,
-      "y0": 75,
-      "x1": 292,
-      "y1": 490,
-      "opaque": 29151
-     },
-     "normalization_rect_1x": [
+     "normalized_rect": [
       3,
-      4,
-      64,
-      72
+      2,
+      70,
+      24
      ],
-     "output_bbox": {
-      "x0": 3,
-      "y0": 4,
-      "x1": 67,
-      "y1": 76,
-      "opaque": 1276
-     },
-     "symmetry_mismatches": 0,
-     "body_clear_rect": null,
-     "sha256": "6df45ed5a86fde3de4a0390514b5d7b370e2c896a03dfc1d552f6108b9ad83b8"
+     "visible_bbox": [
+      3,
+      2,
+      73,
+      26
+     ],
+     "sha256": "d6478f69756ac5b1e6875c354820318dd17d7ffabed04bcad78409008c372574"
     },
     {
-     "index": 7,
+     "frame": 1,
      "source_cell": [
-      594,
-      530,
-      294,
-      530
+      1033,
+      0,
+      1034,
+      254
      ],
-     "source_visible_bbox": {
-      "x0": 15,
-      "y0": 46,
-      "x1": 291,
-      "y1": 495,
-      "opaque": 25260
-     },
-     "normalization_rect_1x": [
-      5,
-      4,
-      60,
-      72
+     "solid_source_bbox": [
+      18,
+      12,
+      1016,
+      244
      ],
-     "output_bbox": {
-      "x0": 5,
-      "y0": 6,
-      "x1": 65,
-      "y1": 76,
-      "opaque": 986
-     },
-     "symmetry_mismatches": 0,
-     "body_clear_rect": null,
-     "sha256": "d25058f19ac7ffab7bd6675942a09b03dec61fc5e79af7c195703e92e30ce701"
+     "normalized_rect": [
+      3,
+      2,
+      70,
+      24
+     ],
+     "visible_bbox": [
+      3,
+      2,
+      73,
+      26
+     ],
+     "sha256": "4e5b924c389bb25baae0a8529bfac4aff9eb0361e4e0b9c71b0c02dd9a890008"
     },
     {
-     "index": 8,
+     "frame": 2,
      "source_cell": [
-      888,
-      530,
-      299,
-      530
+      0,
+      254,
+      1033,
+      253
      ],
-     "source_visible_bbox": {
-      "x0": 3,
-      "y0": 43,
-      "x1": 232,
-      "y1": 491,
-      "opaque": 24524
-     },
-     "normalization_rect_1x": [
-      24,
+     "solid_source_bbox": [
+      17,
+      13,
+      1016,
+      243
+     ],
+     "normalized_rect": [
+      3,
+      2,
+      70,
+      24
+     ],
+     "visible_bbox": [
+      3,
+      2,
+      73,
+      26
+     ],
+     "sha256": "08e50398b5eada4f9227e9827fd3843c28978a6ed2c42627d2cdb5696ac5648a"
+    },
+    {
+     "frame": 3,
+     "source_cell": [
+      1033,
+      254,
+      1034,
+      253
+     ],
+     "solid_source_bbox": [
+      18,
       11,
-      22,
-      65
+      1016,
+      243
      ],
-     "output_bbox": {
-      "x0": 24,
-      "y0": 15,
-      "x1": 46,
-      "y1": 75,
-      "opaque": 30
-     },
-     "symmetry_mismatches": 0,
-     "body_clear_rect": null,
-     "sha256": "123e47d21ec24badf9e476bae70062a720cb67bae596a2ba35262782398da7af"
+     "normalized_rect": [
+      3,
+      2,
+      70,
+      24
+     ],
+     "visible_bbox": [
+      3,
+      2,
+      73,
+      26
+     ],
+     "sha256": "ea97f760300aaffd7d31567167ace5b1f0b5e0b3711dba290b305592c110d4c4"
     },
     {
-     "index": 9,
+     "frame": 4,
      "source_cell": [
-      1187,
-      530,
-      297,
-      530
+      0,
+      507,
+      1033,
+      254
      ],
-     "source_visible_bbox": {
-      "x0": 23,
-      "y0": 58,
-      "x1": 277,
-      "y1": 472,
-      "opaque": 8560
-     },
-     "normalization_rect_1x": [
-      23,
-      46,
-      24,
-      30
+     "solid_source_bbox": [
+      18,
+      10,
+      1016,
+      244
      ],
-     "output_bbox": {
-      "x0": 23,
-      "y0": 47,
-      "x1": 47,
-      "y1": 76,
-      "opaque": 102
-     },
-     "symmetry_mismatches": 0,
-     "body_clear_rect": null,
-     "sha256": "d70c826dc1f50a7f06219c5921041e6a91ef752d233d6341635b4ce70896ff7f"
+     "normalized_rect": [
+      3,
+      2,
+      70,
+      24
+     ],
+     "visible_bbox": [
+      3,
+      2,
+      73,
+      26
+     ],
+     "sha256": "f41117840811977f3b46d5ccad674aad4eba58002d59faddb5743059b900b674"
+    },
+    {
+     "frame": 5,
+     "source_cell": [
+      1033,
+      507,
+      1034,
+      254
+     ],
+     "solid_source_bbox": [
+      18,
+      11,
+      1017,
+      244
+     ],
+     "normalized_rect": [
+      3,
+      2,
+      70,
+      24
+     ],
+     "visible_bbox": [
+      3,
+      2,
+      73,
+      26
+     ],
+     "sha256": "af5e7188d52ca75a762e480a8e12166f2f032f024b8c17cef301c3a0e26b1604"
     }
-   ]
+   ],
+   "pack": "codex_fx2/norra_fx2"
+  },
+  {
+   "id": "r_yarn",
+   "file": "norra_fx_r_yarn.png",
+   "pixel_1x": "norra_fx_r_yarn.png",
+   "raw": "raw\\norra_fx_r_yarn_raw.png",
+   "frames": 6,
+   "cell_1x": [
+    76,
+    40
+   ],
+   "sheet_1x": [
+    456,
+    40
+   ],
+   "symmetry": "left-right",
+   "loop": false,
+   "binding": "view_effects `tft_norra_r_yarn`（大表，落点，z 2，不跟随；左右对称）",
+   "palette": [
+    "#FFFFFF",
+    "#FFE8F4",
+    "#FF9CCB",
+    "#F05A9E",
+    "#8FF0F0",
+    "#44C8D2",
+    "#FFD95A",
+    "#B02A6E",
+    "#FFF4C4",
+    "#F2B12E",
+    "#C77A16",
+    "#7E4410"
+   ],
+   "frame_details": [
+    {
+     "frame": 0,
+     "source_cell": [
+      0,
+      0,
+      768,
+      341
+     ],
+     "solid_source_bbox": [
+      41,
+      132,
+      727,
+      253
+     ],
+     "normalized_rect": [
+      2,
+      23,
+      72,
+      10
+     ],
+     "visible_bbox": [
+      0,
+      25,
+      76,
+      31
+     ],
+     "sha256": "07e78995ceeb40ffc3baf073d9056b593d6933a2c9b34344e4d48ae3e0d116da"
+    },
+    {
+     "frame": 1,
+     "source_cell": [
+      768,
+      0,
+      768,
+      341
+     ],
+     "solid_source_bbox": [
+      112,
+      132,
+      662,
+      253
+     ],
+     "normalized_rect": [
+      14,
+      23,
+      48,
+      10
+     ],
+     "visible_bbox": [
+      12,
+      25,
+      64,
+      31
+     ],
+     "sha256": "c9279221433d50419262f507f14aa9c247edb9daf2b3dca5d61d19a7437f4d5c"
+    },
+    {
+     "frame": 2,
+     "source_cell": [
+      0,
+      341,
+      768,
+      342
+     ],
+     "solid_source_bbox": [
+      175,
+      130,
+      593,
+      251
+     ],
+     "normalized_rect": [
+      24,
+      23,
+      28,
+      10
+     ],
+     "visible_bbox": [
+      24,
+      25,
+      52,
+      31
+     ],
+     "sha256": "cfb692473dc31834ba720f1bf48337bb8d0c810c00aca668f5183ef487979b8e"
+    },
+    {
+     "frame": 3,
+     "source_cell": [
+      768,
+      341,
+      768,
+      342
+     ],
+     "solid_source_bbox": [
+      209,
+      69,
+      550,
+      274
+     ],
+     "normalized_rect": [
+      32,
+      22,
+      12,
+      12
+     ],
+     "visible_bbox": [
+      32,
+      22,
+      44,
+      34
+     ],
+     "sha256": "5d6ff0fca64e2bcb810f2b59c8f3e52ca2fa31718925b3e2dfbb686053c485f1"
+    },
+    {
+     "frame": 4,
+     "source_cell": [
+      0,
+      683,
+      768,
+      341
+     ],
+     "solid_source_bbox": [
+      99,
+      46,
+      670,
+      303
+     ],
+     "normalized_rect": [
+      26,
+      19,
+      24,
+      18
+     ],
+     "visible_bbox": [
+      26,
+      19,
+      50,
+      37
+     ],
+     "sha256": "c51ab01c69028196cb0e8ee983df5bde85bd34bdeb5341cce2db98ec5f2193ee"
+    },
+    {
+     "frame": 5,
+     "source_cell": [
+      768,
+      683,
+      768,
+      341
+     ],
+     "solid_source_bbox": [
+      139,
+      38,
+      662,
+      299
+     ],
+     "normalized_rect": [
+      24,
+      23,
+      28,
+      14
+     ],
+     "visible_bbox": [
+      24,
+      23,
+      52,
+      37
+     ],
+     "sha256": "57b8a47f039ccfc99d6377ed50e33f26d48a35a987b3832b7ee340faa4dfddb9"
+    }
+   ],
+   "pack": "codex_fx2/norra_fx2"
   },
   {
    "id": "r_hit",
    "file": "norra_fx_r_hit.png",
    "pixel_1x": "norra_fx_r_hit.png",
-   "raw": "raw/norra_fx_r_hit_raw.png",
+   "raw": "raw\\norra_fx_r_hit_raw.png",
    "frames": 4,
    "cell_1x": [
     16,
@@ -3484,481 +2771,276 @@
     64,
     16
    ],
-   "sheet_8x": [
-    512,
-    128
-   ],
    "symmetry": "left-right",
    "loop": false,
    "binding": "view_effects `tft_norra_r_hit`（跟随目标，z 2；左右对称）",
-   "source_grid": [
-    2,
-    2
-   ],
    "palette": [
     "#FFFFFF",
-    "#FFF4C4",
-    "#FFD95A",
-    "#F2B12E",
-    "#C77A16",
-    "#7E4410",
-    "#FFFDF4",
-    "#F2E6CC",
-    "#D8C6A0",
-    "#A8906A",
     "#FFE8F4",
     "#FF9CCB",
     "#F05A9E",
+    "#8FF0F0",
+    "#44C8D2",
+    "#FFD95A",
     "#B02A6E"
-   ],
-   "status": "source_reviewed",
-   "issues": [],
-   "normalization_profile": [
-    [
-     8,
-     8,
-     4
-    ],
-    [
-     14,
-     14,
-     1
-    ],
-    [
-     16,
-     16,
-     0
-    ],
-    [
-     14,
-     14,
-     1
-    ]
    ],
    "frame_details": [
     {
-     "index": 0,
+     "frame": 0,
      "source_cell": [
       0,
       0,
-      627,
-      627
+      887,
+      443
      ],
-     "source_visible_bbox": {
-      "x0": 148,
-      "y0": 142,
-      "x1": 479,
-      "y1": 485,
-      "opaque": 28359
-     },
-     "normalization_rect_1x": [
-      4,
-      4,
-      8,
-      8
+     "solid_source_bbox": [
+      335,
+      146,
+      561,
+      370
      ],
-     "output_bbox": {
-      "x0": 5,
-      "y0": 5,
-      "x1": 11,
-      "y1": 11,
-      "opaque": 28
-     },
-     "symmetry_mismatches": 0,
-     "body_clear_rect": null,
-     "sha256": "4d1d7b492c7e69508d4c7fc63ed6ffd7e3de0de4d42326d4b750662d97f38fab"
+     "normalized_rect": [
+      5,
+      5,
+      6,
+      6
+     ],
+     "visible_bbox": [
+      5,
+      5,
+      11,
+      11
+     ],
+     "sha256": "769bb2aca071eee76eaee0516fbcd4ff729ce3612ce0847a9bd63b1db783c5ac"
     },
     {
-     "index": 1,
+     "frame": 1,
      "source_cell": [
-      627,
+      887,
       0,
-      627,
-      627
+      887,
+      443
      ],
-     "source_visible_bbox": {
-      "x0": 61,
-      "y0": 102,
-      "x1": 567,
-      "y1": 519,
-      "opaque": 67554
-     },
-     "normalization_rect_1x": [
-      1,
-      1,
+     "solid_source_bbox": [
+      117,
+      113,
+      765,
+      391
+     ],
+     "normalized_rect": [
+      2,
+      3,
+      12,
+      10
+     ],
+     "visible_bbox": [
+      2,
+      3,
       14,
+      13
+     ],
+     "sha256": "19ee0d863ad298a297b66e96b77ad2e058790666ec60c60b9194dad9f08a2d8b"
+    },
+    {
+     "frame": 2,
+     "source_cell": [
+      0,
+      443,
+      887,
+      444
+     ],
+     "solid_source_bbox": [
+      115,
+      75,
+      817,
+      364
+     ],
+     "normalized_rect": [
+      1,
+      2,
+      14,
+      12
+     ],
+     "visible_bbox": [
+      1,
+      2,
+      15,
       14
      ],
-     "output_bbox": {
-      "x0": 1,
-      "y0": 1,
-      "x1": 15,
-      "y1": 15,
-      "opaque": 112
-     },
-     "symmetry_mismatches": 0,
-     "body_clear_rect": null,
-     "sha256": "08ddc2006de3cee8cf4e29569affdc2e4be1e6192976fb79b7c4a9376b9c0c75"
+     "sha256": "05f2bc3e5b5bb286568660e575d92aedfe54b03f523dd538ceb88cc7aa959cb3"
     },
     {
-     "index": 2,
+     "frame": 3,
      "source_cell": [
-      0,
-      627,
-      627,
-      627
+      887,
+      443,
+      887,
+      444
      ],
-     "source_visible_bbox": {
-      "x0": 59,
-      "y0": 58,
-      "x1": 569,
-      "y1": 519,
-      "opaque": 52230
-     },
-     "normalization_rect_1x": [
-      0,
-      0,
-      16,
-      16
+     "solid_source_bbox": [
+      137,
+      111,
+      741,
+      336
      ],
-     "output_bbox": {
-      "x0": 0,
-      "y0": 0,
-      "x1": 16,
-      "y1": 16,
-      "opaque": 104
-     },
-     "symmetry_mismatches": 0,
-     "body_clear_rect": null,
-     "sha256": "227512eb957f0771f15cd849b760b89690404f1b3dcda80379c38487ea716fea"
-    },
-    {
-     "index": 3,
-     "source_cell": [
-      627,
-      627,
-      627,
-      627
-     ],
-     "source_visible_bbox": {
-      "x0": 62,
-      "y0": 110,
-      "x1": 566,
-      "y1": 499,
-      "opaque": 20166
-     },
-     "normalization_rect_1x": [
+     "normalized_rect": [
       1,
-      1,
+      2,
       14,
+      12
+     ],
+     "visible_bbox": [
+      1,
+      2,
+      15,
       14
      ],
-     "output_bbox": {
-      "x0": 1,
-      "y0": 1,
-      "x1": 15,
-      "y1": 15,
-      "opaque": 44
-     },
-     "symmetry_mismatches": 0,
-     "body_clear_rect": null,
-     "sha256": "e5b844e100e1938efd924eb023b7a11e98ce1a521454d702f4682bf4f9f4173d"
+     "sha256": "83253dcc6ec239a017f6a47867a424b1bbea9c07d8632190086821f08503183b"
     }
-   ]
+   ],
+   "pack": "codex_fx2/norra_fx2"
   },
   {
-   "id": "r_paper",
-   "file": "norra_fx_r_paper.png",
-   "pixel_1x": "norra_fx_r_paper.png",
-   "raw": "raw/norra_fx_r_paper_raw.png",
-   "frames": 6,
+   "id": "r_slow",
+   "file": "norra_fx_r_slow.png",
+   "pixel_1x": "norra_fx_r_slow.png",
+   "raw": "raw\\norra_fx_r_slow_raw.png",
+   "frames": 4,
    "cell_1x": [
-    24,
-    42
+    22,
+    10
    ],
    "sheet_1x": [
-    144,
-    42
-   ],
-   "sheet_8x": [
-    1152,
-    336
+    88,
+    10
    ],
    "symmetry": "left-right",
    "loop": true,
-   "binding": "view_buffs `tft_norra_r_paper`（跟随目标，z 3；左右对称）",
-   "source_grid": [
-    3,
-    2
-   ],
+   "binding": "view_buffs `tft_norra_r_slow`（跟随，脚下，z 3；左右对称）",
    "palette": [
-    "#FFFDF4",
-    "#F2E6CC",
-    "#D8C6A0",
-    "#A8906A",
+    "#FFFFFF",
+    "#FFE8F4",
+    "#FF9CCB",
     "#F05A9E",
+    "#8FF0F0",
     "#44C8D2",
-    "#9A62F0",
     "#FFD95A"
-   ],
-   "status": "source_reviewed",
-   "issues": [],
-   "normalization_profile": [
-    [
-     24,
-     42,
-     0
-    ],
-    [
-     24,
-     42,
-     0
-    ],
-    [
-     24,
-     42,
-     0
-    ],
-    [
-     24,
-     42,
-     0
-    ],
-    [
-     24,
-     42,
-     0
-    ],
-    [
-     24,
-     42,
-     0
-    ]
    ],
    "frame_details": [
     {
-     "index": 0,
+     "frame": 0,
      "source_cell": [
       0,
       0,
-      512,
-      512
+      930,
+      423
      ],
-     "source_visible_bbox": {
-      "x0": 160,
-      "y0": 11,
-      "x1": 475,
-      "y1": 496,
-      "opaque": 67408
-     },
-     "normalization_rect_1x": [
-      0,
-      0,
-      24,
-      42
+     "solid_source_bbox": [
+      97,
+      184,
+      834,
+      343
      ],
-     "output_bbox": {
-      "x0": 0,
-      "y0": 0,
-      "x1": 24,
-      "y1": 42,
-      "opaque": 398
-     },
-     "symmetry_mismatches": 0,
-     "body_clear_rect": [
-      4,
-      3,
-      16,
-      36
+     "normalized_rect": [
+      1,
+      2,
+      20,
+      6
      ],
-     "sha256": "a1ac2b49631e283da2fce0eefce5ac86885baa8e60376ccaafe68a890b8460f6"
+     "visible_bbox": [
+      1,
+      2,
+      21,
+      8
+     ],
+     "sha256": "3624aa9f47065321ab66e01e2087d048962d1bb4744f163b7748731bb7bd81e8"
     },
     {
-     "index": 1,
+     "frame": 1,
      "source_cell": [
-      512,
+      930,
       0,
-      512,
-      512
+      930,
+      423
      ],
-     "source_visible_bbox": {
-      "x0": 99,
-      "y0": 11,
-      "x1": 414,
-      "y1": 496,
-      "opaque": 67207
-     },
-     "normalization_rect_1x": [
-      0,
-      0,
-      24,
-      42
+     "solid_source_bbox": [
+      93,
+      192,
+      836,
+      349
      ],
-     "output_bbox": {
-      "x0": 0,
-      "y0": 0,
-      "x1": 24,
-      "y1": 42,
-      "opaque": 396
-     },
-     "symmetry_mismatches": 0,
-     "body_clear_rect": [
-      4,
-      3,
-      16,
-      36
+     "normalized_rect": [
+      1,
+      2,
+      20,
+      6
      ],
-     "sha256": "42f87c8fe546c7963fe4ba9497dba108f61a3a11a3d7e6ce3d4b8322f69bb98a"
+     "visible_bbox": [
+      1,
+      2,
+      21,
+      8
+     ],
+     "sha256": "252e1edced1b951cb83a1e5191da21550a558546ba92f71cefd723c578c37e1e"
     },
     {
-     "index": 2,
+     "frame": 2,
      "source_cell": [
-      1024,
       0,
-      512,
-      512
+      423,
+      930,
+      423
      ],
-     "source_visible_bbox": {
-      "x0": 38,
-      "y0": 11,
-      "x1": 353,
-      "y1": 496,
-      "opaque": 67561
-     },
-     "normalization_rect_1x": [
-      0,
-      0,
-      24,
-      42
+     "solid_source_bbox": [
+      125,
+      115,
+      807,
+      307
      ],
-     "output_bbox": {
-      "x0": 0,
-      "y0": 0,
-      "x1": 24,
-      "y1": 42,
-      "opaque": 396
-     },
-     "symmetry_mismatches": 0,
-     "body_clear_rect": [
-      4,
-      3,
-      16,
-      36
+     "normalized_rect": [
+      1,
+      2,
+      20,
+      6
      ],
-     "sha256": "883707f138c7f82968bc4f3a26d959ffd1414757d0777e7881c511f2c767dad5"
+     "visible_bbox": [
+      1,
+      2,
+      21,
+      8
+     ],
+     "sha256": "17ccce50a81ee3ae60bef40cad8bfe989d02e6a190af4e6441c37aa10622c832"
     },
     {
-     "index": 3,
+     "frame": 3,
      "source_cell": [
-      0,
-      512,
-      512,
-      512
+      930,
+      423,
+      930,
+      423
      ],
-     "source_visible_bbox": {
-      "x0": 160,
-      "y0": 15,
-      "x1": 475,
-      "y1": 498,
-      "opaque": 67045
-     },
-     "normalization_rect_1x": [
-      0,
-      0,
-      24,
-      42
+     "solid_source_bbox": [
+      99,
+      130,
+      829,
+      293
      ],
-     "output_bbox": {
-      "x0": 0,
-      "y0": 0,
-      "x1": 24,
-      "y1": 42,
-      "opaque": 398
-     },
-     "symmetry_mismatches": 0,
-     "body_clear_rect": [
-      4,
-      3,
-      16,
-      36
+     "normalized_rect": [
+      1,
+      2,
+      20,
+      6
      ],
-     "sha256": "2e3c49117de80cca363ed14e04e8b091ab093b9d6f13aebc48b7f477aea684ab"
-    },
-    {
-     "index": 4,
-     "source_cell": [
-      512,
-      512,
-      512,
-      512
+     "visible_bbox": [
+      1,
+      2,
+      21,
+      8
      ],
-     "source_visible_bbox": {
-      "x0": 99,
-      "y0": 15,
-      "x1": 414,
-      "y1": 498,
-      "opaque": 66946
-     },
-     "normalization_rect_1x": [
-      0,
-      0,
-      24,
-      42
-     ],
-     "output_bbox": {
-      "x0": 0,
-      "y0": 0,
-      "x1": 24,
-      "y1": 42,
-      "opaque": 396
-     },
-     "symmetry_mismatches": 0,
-     "body_clear_rect": [
-      4,
-      3,
-      16,
-      36
-     ],
-     "sha256": "5a70251e82a7289254afb41d44108b0dc6e198ffda37683480192e8794494a7e"
-    },
-    {
-     "index": 5,
-     "source_cell": [
-      1024,
-      512,
-      512,
-      512
-     ],
-     "source_visible_bbox": {
-      "x0": 38,
-      "y0": 15,
-      "x1": 353,
-      "y1": 498,
-      "opaque": 67340
-     },
-     "normalization_rect_1x": [
-      0,
-      0,
-      24,
-      42
-     ],
-     "output_bbox": {
-      "x0": 0,
-      "y0": 0,
-      "x1": 24,
-      "y1": 42,
-      "opaque": 398
-     },
-     "symmetry_mismatches": 0,
-     "body_clear_rect": [
-      4,
-      3,
-      16,
-      36
-     ],
-     "sha256": "4707098d8f000024a48f015f02ed5d65779049f84823db06266960d52da2dbb5"
+     "sha256": "f2cdfacc073ab9672773382c714e327da50abb1fcc87f81746316e913c1150d1"
     }
-   ]
+   ],
+   "pack": "codex_fx2/norra_fx2"
   }
  ]
 }

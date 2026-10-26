@@ -6,8 +6,9 @@ Norra has no voice and no sounds of her own outside TFT set 12, which the client
 自己找」). So every clip is borrowed from a League champion whose sound fits the move, read (never written) from
 Game/DATA/FINAL/Champions/<Champ>.wad.client, the base skin's Wwise events resolved to their media (the first variant),
 decoded with vgmstream and written as mono 16-bit WAVs to tft/sound/sfx/ (git-ignored: audio (c) Riot Games):
-Zoe's star magic for her bolt and her portal ball, Bard's portal door, health pack and stasis for her gate, potion and
-ult, Yuumi's (her cat's own) shield and heal, Ornn's forge hammer for the anvil.
+Zoe's star magic for her bolt and Memory Surge and her bubble popping for a trinket, Bard's chimes for the trinkets and
+his portal door for Journey to Nowhere and Threads of Homecoming, his Tempered Fate for the rift of Portalpalooza!, and
+Yuumi's (her cat's own) bolts for the threads and the yarn balls - the clips follow Wild Rift's kit (2026-10-26).
 """
 import argparse
 import os
@@ -26,17 +27,23 @@ C = "tft_norra_sfx_"
 CLIPS = {
     C + "a": ("Zoe", ["Play_sfx_Zoe_ZoeBasicAttack_OnMissileLaunch", "Play_sfx_Zoe_ZoeBasicAttack_OnCast"], 0.6, -10),
     C + "a_hit": ("Zoe", ["Play_sfx_Zoe_ZoeBasicAttack_OnHit"], 0.6, -9),
-    C + "q": ("Zoe", ["Play_sfx_Zoe_ZoeQMissile_OnMissileLaunch", "Play_sfx_Zoe_ZoeQ_OnCast"], 0.9, -8),
+    # Beloved Trinkets: the keepsakes laid down (Bard's chimes), one bursting on a champion (Zoe's bubble popping)
+    C + "p_drop": ("Bard", ["Play_sfx_Bard_BardPChimePickedUp_spin", "Play_sfx_Bard_BardPChimePickedUp"], 1.0, -10),
+    C + "p_burst": ("Zoe", ["Play_sfx_Zoe_ZoeEB_pop", "Play_sfx_Zoe_ZoeW_balloonpop"], 0.8, -8),
+    # Journey to Nowhere: the portal that swallows (Bard's door opening)
+    C + "w": ("Bard", ["Play_sfx_Bard_BardECreateDoor_OnBuffActivate", "Play_sfx_Bard_BardE_OnCast"], 1.2, -7),
+    # Memory Surge: the gathering, the bolt flung, its blast
+    C + "q": ("Zoe", ["Play_sfx_Zoe_ZoeQ_OnCast", "Play_sfx_Zoe_ZoeQMissile_OnMissileCast"], 0.9, -9),
+    C + "q_fire": ("Zoe", ["Play_sfx_Zoe_ZoeQMissile_OnMissileLaunch", "Play_sfx_Zoe_ZoeQ_OnCast"], 0.9, -8),
     C + "q_blast": ("Zoe", ["Play_sfx_Zoe_ZoeQMis2_big_hit", "Play_sfx_Zoe_ZoeQMis2_OnHit"], 1.2, -6),
-    C + "e": ("Bard", ["Play_sfx_Bard_BardECreateDoor_OnBuffActivate", "Play_sfx_Bard_BardE_OnCast"], 1.2, -7),
-    C + "e_shield": ("Yuumi", ["Play_sfx_Yuumi_YuumiEShield_buffactivate"], 1.0, -8),
-    C + "e_anvil": ("Ornn", ["Play_sfx_Ornn_OrnnBasicAttack2_OnHit", "Play_sfx_Ornn_OrnnBasicAttack_OnHit"], 1.0, -6),
-    C + "e_book": ("Yuumi", ["Play_sfx_Yuumi_YuumiRmissile_OnHit", "Play_sfx_Yuumi_YuumiRmissile_hitregular"], 1.0, -6),
-    C + "e_potion": ("Bard", ["Play_sfx_Bard_BardWHealthPack_destroy", "Play_sfx_Bard_BardWDirectHeal_OnCast"], 1.0, -8),
-    C + "p_heal": ("Yuumi", ["Play_sfx_Yuumi_YuumiPHealMark_OnBuffDeactivate", "Play_sfx_Yuumi_meow_01"], 0.8, -10),
+    # Threads of Homecoming: the two portals appearing (Bard's door exit), the threads lashing (Yuumi's projectile)
+    C + "e": ("Bard", ["Play_sfx_Bard_BardECreateDoor_exitappear", "Play_sfx_Bard_BardECreateDoor_OnBuffActivate"], 1.0, -8),
+    C + "e_hit": ("Yuumi", ["Play_sfx_Yuumi_YuumiQskillshot_OnMissileLaunch", "Play_sfx_Yuumi_YuumiQ_OnCast"], 0.8, -8),
+    # Portalpalooza!: the wind-up, the rift opening, each volley of yarn balls, a ball's hit (Yuumi's Final Chapter)
     C + "r": ("Bard", ["Play_sfx_Bard_BardR_windup_cast", "Play_sfx_Bard_BardR_OnCast"], 1.5, -7),
-    C + "r_blast": ("Bard", ["Play_sfx_Bard_BardR_explo", "Play_sfx_Bard_BardR_statisfull_hit"], 2.0, -5),
-    C + "r_hit": ("Bard", ["Play_sfx_Bard_BardR_statisfull_hit", "Play_sfx_Bard_BardR_statisquiet_hit"], 1.0, -8),
+    C + "r_open": ("Bard", ["Play_sfx_Bard_BardR_OnCast", "Play_sfx_Bard_BardR_explo"], 1.5, -6),
+    C + "r_ball": ("Yuumi", ["Play_sfx_Yuumi_YuumiRmissile_OnMissileCast"], 1.0, -8),
+    C + "r_hit": ("Yuumi", ["Play_sfx_Yuumi_YuumiRmissile_hitregular", "Play_sfx_Yuumi_YuumiRmissile_OnHit"], 0.8, -8),
 }
 
 

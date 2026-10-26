@@ -97,11 +97,11 @@ class Canvas:
 
 
 # ms per frame; the kit's ticks (tools/kit/build_norra.py) match these (a frame's start in ticks = ms x 0.06):
-# attack 400 ms = atk_dur 24, the bolt off her finger at the point's start (133 ms: a_rel 9 -> tick 8); Portalpalooza
-# 600 ms = q_dur 36, the ball flung at the throw's start (233 ms: q_rel 15 -> tick 14); Otherworld Delivery 433 ms =
-# e_dur 26, the portals at the ring raised (133 ms: e_rel 9); the Book of Thresholds 667 ms = r_dur 40, the gate sent
+# attack 400 ms = atk_dur 24, the bolt off her finger at the point's start (133 ms: a_rel 9 -> tick 8); Memory Surge
+# 767 ms = q_dur 46, gathered 400 ms, the bolt flung at the throw's start (q_rel 25 -> tick 24); Threads of Homecoming
+# 433 ms = e_dur 26, the portals at the ring raised (133 ms: e_rel 9); Portalpalooza! 667 ms = r_dur 40, the rift sent
 # as she pushes down (400 ms: r_rel 25)
-MS = {"idle": [1000], "run": [125] * 4, "attack": [133, 200, 67], "skill": [233, 267, 100], "skill2": [133, 200, 100],
+MS = {"idle": [1000], "run": [125] * 4, "attack": [133, 200, 67], "skill": [400, 267, 100], "skill2": [133, 200, 100],
       "ult": [400, 267], "hit": [100, 100], "dead": [140, 260, 300, 600]}
 
 
@@ -113,11 +113,11 @@ def actions(C):
     out["run"] = [f("run1"), f("run2"), f("run3"), f("run4")]
     # attack (TFT's: the hand drawn in, the finger pointed at the target - the bolt flies - back)
     out["attack"] = [f("a_wind"), f("a_point"), f("idle")]
-    # Portalpalooza (TFT's cast: gathered in the purple swirl, the ball flung, back)
+    # Memory Surge (TFT's cast: the memories gathered in the purple swirl - Wild Rift's charge - the bolt flung, back)
     out["skill"] = [f("q_swirl"), f("q_throw"), f("idle")]
-    # Otherworld Delivery (the ring raised: TFT's gold flash), held, back
+    # Threads of Homecoming (the ring raised for the two portals: TFT's gold flash), held, back
     out["skill2"] = [f("idle"), f("e_open"), f("idle")]
-    # the Book of Thresholds (Wild Rift's ult: rising, both arms up under the gate; pushing the page down)
+    # Portalpalooza! (Wild Rift's ult: rising, both arms up under the gold rings; pushing the rift down)
     out["ult"] = [f("r_raise"), f("r_cast")]
     out["hit"] = [f("idle", dx=-2, flash=True), f("idle", dx=-1)]
     # death (knocked back, the ring flying; sat down)

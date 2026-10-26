@@ -91,6 +91,18 @@
                 "name": "tft_norra_w"
               },
               {
+                "type": "AddBuff",
+                "buff_state": {
+                  "name": "tft_norra_w_slow",
+                  "duration": {
+                    "Time": {
+                      "tick": 135
+                    }
+                  },
+                  "move_speed_mult": -80
+                }
+              },
+              {
                 "type": "Banish",
                 "duration": 90,
                 "lock_effect_name": "tft_norra_w_lock",

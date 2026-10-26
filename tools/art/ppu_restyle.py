@@ -688,9 +688,11 @@ RESTYLE = {
     # tft_norra (the tft pack's second hero, mid): the design (Codex's step-0 A-1 brought to 72 rows, 36 game px hat top to
     # soles, at the user's picks 「A-1 36px PPU2.0」, 3/4 only, the gold ring drawn into her near hand) with Codex's key
     # poses after the videos (the design's head put back), posed by tools/art/rig_norra.py, so no proportion or density
-    # change here; the outer outline grown a square like the others; the face point on her glasses' bridge, under the
-    # head wrap (her hat fills the top half of her: 1 game px ahead of her standing point, 20 over the ground)
-    "norra": dict(ppu=2.0, edge=1, face_to=(1, -20)),
+    # change here; the outer outline grown a square like the others - the channels it closes off (between a sleeve and
+    # the robe, up to 12 squares) filled with the outline, the bigger gap it closed (her hand and head as she falls)
+    # opened again, the one-square slits left in the outline closed (gap-check); the face point on her glasses' bridge, under the head wrap (her hat fills the top half of her:
+    # 1 game px ahead of her standing point, 20 over the ground)
+    "norra": dict(ppu=2.0, edge=1, face_to=(1, -20), pinholes=12, reopen=True, cracks=True),
 }
 NIDALEE_COUGAR = {"c_idle": 6, "c_run": 8, "c_attack": 4, "c_skill": 5, "c_pounce": 6, "c_swipe": 4, "c_transform": 3,
                   "c_hit": 2, "c_dead": 6}
@@ -901,22 +903,78 @@ def scale_even(a, k):
 
 
 # ----------------------------------------------------------------------------------------------- colours
-def close_pinholes(grown, n, colour, most=2):
+def close_pinholes(grown, n, colour, most=2, before=None):
     """The enclosed holes of at most `most` squares in a frame grow_edge(.., n, ..) grew (a clear square the grown outline
     closed in at a diagonal notch: a speck of ground in the body) filled with the outline. The rigs' frames have no
-    enclosed holes of their own (rig_rumble closes them), so every one this small is the growth's."""
+    enclosed holes of their own (rig_rumble closes them), so every one this small is the growth's. With `before` (the
+    frame before the growth), a bigger hole the growth closed off - open to the outside before it: a see-through gap of
+    the pose, tft_norra's between her raised hand and her head as she falls - is opened again where the growth shut it:
+    the grown squares on the shortest way out through the growth taken off with their grown neighbours (a mouth two or
+    three squares wide, no one-square crack), the rest of the gap keeping its new outline. A bigger hole the growth did
+    not close, or one with no way out through grown squares, is filled with the outline too."""
     op = grown[..., 3] > 0
     lb, k = ndimage.label(ndimage.binary_fill_holes(op) & ~op)
     if not k:
         return grown
     out = grown.copy()
     sizes = ndimage.sum(np.ones_like(op), lb, range(1, k + 1))
+    if before is not None:
+        was = np.pad(before[..., 3] > 0, n)
+        free, _ = ndimage.label(~was)
+        open_before = free == free[0, 0]
+        ring = op & ~was
+        now, _ = ndimage.label(~op)
+        outside = now == now[0, 0]
     for j, sz in enumerate(sizes, 1):
         h = lb == j
-        if sz <= most:
-            out[h, :3] = colour
-            out[h, 3] = 255
+        if sz > most and before is not None and (h & open_before).any():
+            way = way_out(h, ring, outside)
+            if way is not None:
+                mouth = ndimage.binary_dilation(way, structure=CROSS) & ring
+                out[mouth] = 0
+                continue
+        out[h, :3] = colour
+        out[h, 3] = 255
     return out
+
+
+def close_cracks(a, colour):
+    """One-square cracks in the outline (a clear square between two outline squares, left and right or above and below:
+    ground showing through a slit between a held ring and the sleeve - gap-check) filled with the outline."""
+    line = (a[..., 3] > 0) & np.all(a[..., :3] == np.array(colour, a.dtype), -1)
+    p = np.pad(line, 1)
+    crack = (a[..., 3] == 0) & ((p[1:-1, :-2] & p[1:-1, 2:]) | (p[:-2, 1:-1] & p[2:, 1:-1]))
+    out = a.copy()
+    out[crack, :3] = colour
+    out[crack, 3] = 255
+    return out
+
+
+def way_out(h, ring, outside):
+    """The shortest 4-connected way from the hole `h` through `ring` squares to a square beside `outside`: its ring
+    squares as a mask, or None."""
+    from collections import deque
+    H, W = h.shape
+    prev = {p: None for p in zip(*np.nonzero(h))}
+    q = deque(prev)
+    while q:
+        y, x = q.popleft()
+        for dy, dx in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+            ny, nx = y + dy, x + dx
+            if not (0 <= ny < H and 0 <= nx < W) or (ny, nx) in prev:
+                continue
+            if outside[ny, nx]:
+                way = np.zeros_like(h)
+                p = (y, x)
+                while p is not None:
+                    if ring[p]:
+                        way[p] = True
+                    p = prev[p]
+                return way
+            if ring[ny, nx]:
+                prev[(ny, nx)] = (y, x)
+                q.append((ny, nx))
+    return None
 
 
 def fill_holes(a, most):
@@ -1249,9 +1307,14 @@ def restyle(hero, spec, write=True, only=None):
             if new_ppu != ppu:
                 content, pivot = pixelate(content, new_ppu / ppu, pivot, outline,
                                           pal=None if (tag, i) in skip else shared)
+            before = content
             content = grow_edge(content, spec.get("edge", 0), outline)
             if spec.get("pinholes"):                       # the specks of ground the grown outline closed in
-                content = close_pinholes(content, spec.get("edge", 0), outline)
+                most = 2 if spec["pinholes"] is True else int(spec["pinholes"])
+                content = close_pinholes(content, spec.get("edge", 0), outline, most,
+                                         before if spec.get("reopen") else None)
+            if spec.get("cracks"):                         # the one-square slits left in the outline
+                content = close_cracks(content, outline)
             if spec.get("fill_holes"):                    # specks of ground the coarser grid closed in
                 content = fill_holes(content, int(spec["fill_holes"]))
             if spec.get("look"):                          # coarser to the eye, on the frame's own grid

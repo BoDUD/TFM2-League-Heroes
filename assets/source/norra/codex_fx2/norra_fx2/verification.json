@@ -1,0 +1,78 @@
+{
+  "sheets": 12,
+  "frames": 57,
+  "checks": [
+    "native dimensions",
+    "binary alpha",
+    "palette",
+    "exact per-frame symmetry",
+    "nonempty distinct frames",
+    "8x pixel identity",
+    "body clearance",
+    "GIF dimensions and frame counts"
+  ],
+  "result": "pass",
+  "items": [
+    {
+      "id": "p_trinkets",
+      "frames": 4,
+      "result": "pass"
+    },
+    {
+      "id": "p_burst",
+      "frames": 5,
+      "result": "pass"
+    },
+    {
+      "id": "w_in",
+      "frames": 5,
+      "result": "pass"
+    },
+    {
+      "id": "w_lock",
+      "frames": 4,
+      "result": "pass"
+    },
+    {
+      "id": "w_out",
+      "frames": 4,
+      "result": "pass"
+    },
+    {
+      "id": "e_threads",
+      "frames": 6,
+      "result": "pass"
+    },
+    {
+      "id": "t_hit",
+      "frames": 3,
+      "result": "pass"
+    },
+    {
+      "id": "t_mark",
+      "frames": 6,
+      "result": "pass"
+    },
+    {
+      "id": "r_rift",
+      "frames": 6,
+      "result": "pass"
+    },
+    {
+      "id": "r_yarn",
+      "frames": 6,
+      "result": "pass"
+    },
+    {
+      "id": "r_hit",
+      "frames": 4,
+      "result": "pass"
+    },
+    {
+      "id": "r_slow",
+      "frames": 4,
+      "result": "pass"
+    }
+  ],
+  "scope": "File/format QA; not in-game runtime validation."
+}

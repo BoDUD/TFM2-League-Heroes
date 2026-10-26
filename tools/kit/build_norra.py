@@ -14,9 +14,10 @@ Nowhere (W) is folded into the passive with Beloved Trinkets (the user's pick: l
           p_live) a Q landing beside it primes it (Wild Rift: a full charge detonates every trinket): enemy champions within
           q_prime_r of the blast take the trinkets' hit.
           Journey to Nowhere (奇异旅程, folded): when she attacks with an enemy champion within w_r of her and w_cd is off,
-          a portal opens under it: w_dmg + w_ratio% AP and banished w_t ticks (Wild Rift 2.25 s: cast out of the fight,
-          nothing reaches it, it does nothing), the portal humming where it stood (Banish lock picture) and spitting it
-          out (end picture); w_cd ticks to the next.
+          a portal opens under it: w_dmg + w_ratio% AP and banished w_t ticks (cast out of the fight, nothing reaches
+          it, it does nothing), the portal humming where it stood (Banish lock picture) and spitting it out (end
+          picture), then slowed w_slow% for w_slow_t ticks (Wild Rift 7.2: banished 1.5 s, then slowed 80% 0.75 s);
+          w_cd ticks to the next.
   attack  a star bolt off her pointing finger (100% AD), homing on `Enemy` (towers too), released on a_rel.
   skill   Memory Surge (回忆涌现), `Targeting` on `EnemyWithoutTower` (q_range): she gathers her memories (the charge,
           q_rel ticks: she stands in the cast) and flings a bolt of them, recoiling a step (MoveBack q_hop); it lands where
@@ -64,11 +65,14 @@ P = {
     "atk_range": 55000, "atk_dur": 24, "atk_cd": 90, "a_rel": 9, "a_speed": 4000,
     # Beloved Trinkets (Wild Rift: cd 21-12 s, 20-90 + 20% AP, trinkets for 4 s)
     "p_cd": 600, "p_tr": 26000, "p_life": 240, "p_dmg": 30, "p_ratio": 20, "p_show": 60,
-    # Journey to Nowhere, folded (Wild Rift: cd 23-20 s, 65-185 + 40% AP, banished 2.25 s)
-    "w_cd": 1500, "w_r": 18000, "w_dmg": 40, "w_ratio": 30, "w_t": 90,
+    # Journey to Nowhere, folded (Wild Rift: cd 23-20 s, 65-185 + 40% AP, banished 1.5 s, then slowed 80% 0.75 s)
+    "w_cd": 1500, "w_r": 18000, "w_dmg": 40, "w_ratio": 30, "w_t": 90, "w_slow": 80, "w_slow_t": 45,
     # Memory Surge
     "q_cd": 330, "q_range": 90000, "q_dur": 46, "q_rel": 25, "q_travel": 20, "q_r": 18000,
     "q_dmg": 35, "q_ratio": 28, "q_hop": 2000, "q_hop_t": 12, "q_prime_r": 45000,
+    # the add-on's Memory Surge on a champion in the Threads: q_bonus tenths of a % of its maximum health more (Wild
+    # Rift: 1-2.5% by level)
+    "q_bonus": 20,
     # Threads of Homecoming (Wild Rift: cd 12-7.5 s, 70-220 + 60% AP after 0.3 s)
     "e_cd": 600, "e_range": 85000, "e_dur": 26, "e_rel": 9, "e_delay": 18, "e_r": 28000, "e_dmg": 35, "e_ratio": 26,
     # the Threads (Wild Rift: +100% hitbox 4 s, slowed 20% 2 s)
@@ -78,8 +82,9 @@ P = {
     "r_dmg": 30, "r_ratio": 15, "r_last": 40, "r_slow": 80, "r_slow_t": 30, "r_show": 30,
 }
 # what the add-on reads from passive.params (addons/tft_norra)
-NATIVE_KEYS = ("p_cd", "p_tr", "p_life", "p_dmg", "p_ratio", "q_prime_r", "t_t", "t_size", "t_amp", "t_slow",
-               "t_slow_t", "r_r", "r_gap", "r_dmg", "r_ratio", "r_last", "r_slow", "r_slow_t")
+NATIVE_KEYS = ("p_cd", "p_tr", "p_life", "p_dmg", "p_ratio", "p_show", "w_cd", "w_r", "w_dmg", "w_ratio", "w_t",
+               "w_slow", "w_slow_t", "q_prime_r", "q_bonus", "t_t", "t_size", "t_amp", "t_slow", "t_slow_t", "r_r", "r_gap", "r_dmg", "r_ratio",
+               "r_last", "r_slow", "r_slow_t")
 
 
 def lp(path):
@@ -135,6 +140,11 @@ def sfx(name):
 
 def tsfx(name):
     return {"type": "TargetSfx", "name": n(name)}
+
+
+def native(name):
+    """One of the add-on's effects (addons/tft_norra): on a projectile's landing point, or on the unit a hit is on."""
+    return {"type": "Native", "effect_ref": f"{ID}:{name}"}
 
 
 def circle(r):
@@ -198,31 +208,36 @@ def build(p, is_native=False):
     trinkets = combine(flag("p_cd", p["p_cd"]), refresh("p_live", p["p_life"]), sfx("p_drop"),
                        once("p_field", p["p_tr"], p["p_life"], burst), *shows)
     leave = when("p_cd", combine(), trinkets)
-    # the add-on scatters real trinkets instead (each one taken by the first enemy champion that steps on it): the copy
-    # only marks where and when (p_drop on her for 2 ticks)
+    # the add-on scatters real trinkets on the landing point instead (each taken by the first enemy champion that steps
+    # on it)
     if is_native:
-        leave = when("p_cd", combine(), combine(flag("p_cd", p["p_cd"]), flag("p_drop", 2)))
+        leave = when("p_cd", combine(), combine(flag("p_cd", p["p_cd"]), native("drop")))
 
-    # Journey to Nowhere, folded into her attack: a close enemy champion banished
+    # Journey to Nowhere, folded into her attack: a close enemy champion banished, then slowed (from the start: out of
+    # play while banished, the slow is felt the w_slow_t ticks after)
     banish = {"type": "Banish", "duration": p["w_t"], "lock_effect_name": n("w_lock"), "end_effect_name": n("w_out")}
     journey = pick(p["w_r"], "EnemyChampion", [flag("w_cd", p["w_cd"]), ap(p["w_dmg"], p["w_ratio"]), view("w_in"),
-                                               tsfx("w"), banish])
+                                               tsfx("w"), buff("w_slow", p["w_t"] + p["w_slow_t"],
+                                                               move_speed_mult=-p["w_slow"]), banish])
+    bolt_hit = [attack(0, 100), view("a_hit"), tsfx("a_hit")]
+    open_w = when("w_cd", combine(), journey)
+    if is_native:                             # the add-on opens the portal on whoever comes close, attacking or not
+        open_w = combine()
     attack_a = action("attack", p["atk_dur"], p["atk_cd"], 1, p["atk_range"], "Targeting", "Enemy",
-                      combine(when("w_cd", combine(), journey),
-                              delayed(p["a_rel"] - 1, sfx("a"),
-                                      homing("a_bolt", "Enemy", [attack(0, 100), view("a_hit"), tsfx("a_hit")],
-                                             p["a_speed"]))),
+                      combine(open_w, delayed(p["a_rel"] - 1, sfx("a"), homing("a_bolt", "Enemy", bolt_hit,
+                                                                                 p["a_speed"]))),
                       atype="BaseAttack", cancel=True)
 
     # ------------------------------------------------------------------ skill: Memory Surge
     prime = zone("q_prime", p["q_prime_r"], burst, target="EnemyChampion")
-    blast = [view("q_blast"), sfx("q_blast"),
-             zone("q_hit", p["q_r"], [ap(p["q_dmg"], p["q_ratio"]), view("q_hit")]),
-             zone("q_thread", p["q_r"], threads, target="EnemyChampion")]
-    if is_native:                             # the add-on detonates the real trinkets near the blast instead
-        blast.append(flag("q_prime", 2))
+    blast = [view("q_blast"), sfx("q_blast")]
+    if is_native:                             # the add-on on each champion hit: the max-health bonus on the Threads,
+        blast.append(zone("q_hit", p["q_r"], [ap(p["q_dmg"], p["q_ratio"]), view("q_hit"), native("surge")]))
+        # then the Threads, her trinkets primed and their cooldown cut
     else:
-        blast.append(when("p_live", prime, combine()))
+        blast += [zone("q_hit", p["q_r"], [ap(p["q_dmg"], p["q_ratio"]), view("q_hit")]),
+                  zone("q_thread", p["q_r"], threads, target="EnemyChampion"),
+                  when("p_live", prime, combine())]
     blast.append(leave)
     bolt = lob("q_bolt", p["q_travel"], blast)
     skill = action("skill", p["q_dur"], p["q_cd"], 1, p["q_range"], "Targeting", "EnemyWithoutTower",
@@ -230,10 +245,9 @@ def build(p, is_native=False):
                                              {"type": "MoveBack", "speed": p["q_hop"], "tick": p["q_hop_t"]})))
 
     # ------------------------------------------------------------------ skill2: Threads of Homecoming
-    weave = lob("e_gate", p["e_delay"], [sfx("e_hit"),
-                                         zone("e_hit", p["e_r"], [ap(p["e_dmg"], p["e_ratio"]), view("t_hit")] + threads),
-                                         leave],
-                seen="e_threads")
+    # the add-on: a champion hit cuts the trinkets' cooldown
+    weave_hit = [ap(p["e_dmg"], p["e_ratio"]), view("t_hit")] + threads + ([native("refund")] if is_native else [])
+    weave = lob("e_gate", p["e_delay"], [sfx("e_hit"), zone("e_hit", p["e_r"], weave_hit), leave], seen="e_threads")
     skill2 = action("skill2", p["e_dur"], p["e_cd"], 1, p["e_range"], "Targeting", "EnemyWithoutTower",
                     delayed(p["e_rel"] - 1, sfx("e"), weave))
 
@@ -247,7 +261,7 @@ def build(p, is_native=False):
     rift = [view("r_rift"), sfx("r_open")] + [delayed(k, view("r_rift")) for k in range(p["r_show"], gaps[-1] + 1,
                                                                                          p["r_show"])]
     if is_native:                             # the add-on sends the yarn balls along their paths instead
-        rift.append(flag("r_open", gaps[-1] + 2))
+        rift.append(native("rift"))
     else:
         rift += [volley(k, last=(i == 3)) for i, k in enumerate(gaps)]
     ult = action("ult", p["r_dur"], p["r_cd"], 1, p["r_range"], "Targeting", "EnemyChampion",
@@ -268,6 +282,10 @@ def build(p, is_native=False):
                E("e_threads", BIG, 2, False), E("t_hit"), E("r_rift", BIG, -2, False), E("r_yarn", BIG, 2, False),
                E("r_hit")]
     views_b = [B_("t_mark", FX, 3), B_("r_slow", FX, 3)]
+    if is_native:                             # the add-on's trinkets one by one (the field's three pieces) and its
+        views_p.append(Pj("r_ball"))          # flying yarn balls (no volley picture)
+        views_e = [v for v in views_e if v["tag"] not in ("p_trinkets", "r_yarn")]
+        views_e[1:1] = [E(f"p_trinket_{s}", FX, -1, False) for s in "lcr"]
     kit = {
         "id": ID, "category": "Magician", "tags": ["AP", "Magic", "Range", "CC"],
         "sprite": f"asset/{MOD_ID}/champions/{ID}", "anim_prefix": "",
@@ -282,8 +300,7 @@ def build(p, is_native=False):
         "view_projectiles": views_p, "view_effects": views_e, "view_buffs": views_b,
     }
     if is_native:
-        kit["passive"] = {"name": f"{ID}:trinkets", "params": json.dumps({k: p[k] for k in NATIVE_KEYS},
-                                                                       separators=(",", ":"))}
+        kit["passive"] = {"passive_ref": f"{ID}:trinkets", "params": {k: p[k] for k in NATIVE_KEYS}}
     return kit
 
 

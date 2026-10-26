@@ -4025,6 +4025,22 @@
       "tag": "league_zyra_l",
       "z": 3,
       "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_tft_norra",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "tft_norra",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_tft_norra_l",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "tft_norra_l",
+      "z": 3,
+      "is_follow": false
     }
   ],
   "view_buffs": [
