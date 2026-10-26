@@ -187,7 +187,7 @@ def action(name, dur, cd, st, rng, ctype, ctarget, effect, atype="Skill", cancel
 def build(p):
     # ------------------------------------------------------------------ attack + passive Best Friends
     ride = [heal(p["p_heal"], p["p_heal_r"]), buff("p_yuumi", p["p_ride"], magic_power=p["p_ap"], attack=p["p_ad"]),
-            tsfx("p_heal")]
+            view("p_heal"), tsfx("p_heal")]
     yuumi = combine(flag("p_cd", p["p_cd"]),
                     pick(p["p_r"], "AllyNotSelf", [flag("p_lock", 2)] + ride),
                     delayed(1, when("p_lock", combine(), around(1, "AllyOnlySelf", ride))))
@@ -231,7 +231,8 @@ def build(p):
     # ------------------------------------------------------------------ ult: The Book of Thresholds
     page = [view("r_book"), sfx("r_blast"),
             zone("r_hit", p["r_r"], [ap(p["r_dmg"], p["r_ratio"]), {"type": "Stun", "duration": p["r_stun"]},
-                                     buff("r_paper", p["r_paper_t"], damaged_amplify=p["r_amp"]), tsfx("r_hit")]),
+                                     buff("r_paper", p["r_paper_t"], damaged_amplify=p["r_amp"]), view("r_hit"),
+                                     tsfx("r_hit")]),
             zone("r_ward", p["r_r"], [shield(p["r_sh"], p["r_sh_r"], p["r_sh_t"]), buff("e_guard", p["r_sh_t"])],
                  target="AllyChampion")]
     ult = action("ult", p["r_dur"], p["r_cd"], 1, p["r_range"], "Targeting", "EnemyChampion",
@@ -243,15 +244,17 @@ def build(p):
                                                    "z": z, "is_follow": follow}
     B_ = lambda name, anim_=FX, z=2, tag=None: {"type": "Animated", "name": n(name), "anim": anim_, "tag": tag or name,
                                                 "repeat": True, "z": z}
-    Pj = lambda name, anim_=FX, z=2: {"type": "Animated", "name": n(name), "anim": anim_, "tag": name, "repeat": True,
-                                      "z": z}
-    # q_ball / e_anvil / e_book tumble (any turn reads); the paint is a splash under the pivot, the same turned half
-    # round; q_hop and r_gate fly hidden (the bounce shows as its blast, the gate as its warning ring)
-    views_p = [Pj("a_bolt"), Pj("q_ball"), Pj("e_anvil"), Pj("e_book"), Pj("q_paint", BIG, -2),
-               Pj("q2_paint", BIG, -2)]
-    views_e = [E("a_hit"), E("q_blast", BIG, 2, False), E("q2_blast", BIG, 2, False), E("q_hit"),
-               E("e_anvil_hit", BIG, 2, False), E("e_book_hit", BIG, 2, False), E("e_potion"),
-               E("r_warn", BIG, -2, False), E("r_book", BIG, 3, False)]
+    Pj = lambda name, anim_=FX, z=2, tag=None: {"type": "Animated", "name": n(name), "anim": anim_, "tag": tag or name,
+                                                "repeat": True, "z": z}
+    Ev = lambda name, tag, anim_=FX, z=2, follow=True: {**E(name, anim_, z, follow), "tag": tag}
+    # a_bolt and q_ball are turned with their flight (both symmetric top to bottom); the paint is a splash under the
+    # pivot, the same turned half round (the bounce's paint shares its picture); e_anvil, e_book, q_hop and r_gate fly
+    # hidden: the anvil and the book fall out of a portal over the target inside e_anvil_hit / e_book_hit (upright
+    # pictures: ViewEffects, never turned), the bounce shows as its blast, the gate as its warning ring
+    views_p = [Pj("a_bolt"), Pj("q_ball"), Pj("q_paint", BIG, -2), Pj("q2_paint", BIG, -2, "q_paint")]
+    views_e = [E("a_hit"), E("q_blast", BIG, 2, False), Ev("q2_blast", "q_blast", BIG, 2, False), E("q_hit"),
+               E("e_anvil_hit", BIG, 2, False), E("e_book_hit", BIG, 2, False), E("e_potion"), E("p_heal"),
+               E("r_warn", BIG, -2, False), E("r_book", BIG, 3, False), E("r_hit")]
     views_b = [B_("p_yuumi", RIDE, 4, "idle"), B_("e_guard", FX, 3), B_("r_paper", FX, 3)]
     return {
         "id": ID, "category": "Magician", "tags": ["AP", "Magic", "Range", "Heal", "Shield", "CC"],
