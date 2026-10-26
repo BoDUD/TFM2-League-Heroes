@@ -16,7 +16,7 @@
 //!   （最大生命高出这一级本来的部分，装备给的）涨 `e_bonus`‰。
 //! - **心脏电击器**：开启后受到的伤害存 `w_store`% 成灰色生命；结束时数据的电击打中英雄（`w_full`）全回，只打中小兵野怪
 //!   （`w_half`）回一半，没打中不回。
-//! - **极限剂量**（「看好时机」）：AI 要放 R 时，他生命低于 `r_low`%，或 1 秒内掉了 `r_burst`% 以上，并且身边有敌方英雄才放；
+//! - **极限剂量**（「看好时机」）：时机到了、R 好了就放（0.1.6 起 AI 没要放也替它按：它残血时不再要 R）；AI 要放 R 时，他生命低于 `r_low`%，或 1 秒内掉了 `r_burst`% 以上，并且身边有敌方英雄才放；
 //!   否则改成普攻。放出时回复已损生命的 `r_miss`%。0.1.3（用户 2026-10-19：「蒙多开大次数也挺少的」）：60% / 15%（原来
 //!   40% / 25%：日志里多数比赛一次都没放——打架时一直在 68–85% 留着，或者到 0% 才放）。
 //!
@@ -65,6 +65,17 @@ pub const LAND_WAIT: usize = 60;
 pub const CAN_TICKS: usize = 600;
 /// 灰色生命最多存最大生命的几成。
 pub const GREY_CAP_PCT: usize = 50;
+
+/// 放不了技能的控制（league_ult_press 的 NO_CAST）：这时不替 AI 按 R。施法动作（`Animation`）不算：R 是瞬发的。
+pub const NO_CAST: [CcKindV1; 7] = [
+    CcKindV1::Airborne,
+    CcKindV1::Stun,
+    CcKindV1::Bind,
+    CcKindV1::Taunt,
+    CcKindV1::Fear,
+    CcKindV1::Charm,
+    CcKindV1::BlockSkill,
+];
 
 /// 算「被控」的硬控（游戏 0.6.4 把施法动作也记成一种控制 Animation，不能用 cc_count() > 0）。
 pub const HARD_CC: [CcKindV1; 7] = [
@@ -201,6 +212,11 @@ pub fn dose_ok(hp_pct: usize, lost_pct: usize, foes_near: usize, r_low: usize, r
         return Some("BURST");
     }
     None
+}
+
+/// R 要不要由本包自己按（0.1.6）：AI 这次要放 R 就照放；没要，R 好了、他没在施法也没被控才替它按。
+pub fn press_r(asked: bool, ready: bool, free: bool) -> bool {
+    asked || (ready && free)
 }
 
 /// 灰色生命存多少（`store`%），不超过上限。
@@ -672,7 +688,7 @@ enum Plan {
 }
 
 impl Ai {
-    fn plan(&self, sim: &StableSim<'_>, me: usize, kind: InputKindV1, current: Option<usize>) -> Option<Plan> {
+    fn plan(&self, sim: &StableSim<'_>, me: usize, kind: Option<InputKindV1>, current: Option<usize>) -> Option<Plan> {
         let e = sim.get_entity(me)?;
         let team = e.team();
         let (hp, max) = e.hp();
@@ -680,22 +696,40 @@ impl Ai {
         let now = sim.tick() as usize;
         let enemies = foes(sim, team);
         let key = (sim_of(sim, me), me);
-        let ult = kind == InputKindV1::Ult;
+        let ult = kind == Some(InputKindV1::Ult);
         let peak = peak_hp(key, now, hp);
         let lost = if peak > hp { (peak - hp) * 100 / max.max(1) } else { 0 };
         let near = within(&enemies, at, R_NEAR);
         let p = params();
-        // R first: when it is time, cast it
-        if ult {
-            if let Some(why) = dose_ok(pct(hp, max), lost, near, p.r_low, p.r_burst) {
-                if let Some(n) = counted("dose_ok") {
-                    wlog(format!("{} R GO #{n} ({why}: {}% hp, {lost}% lost in 1 s, {near} enemy champions near)",
-                                 head(sim, me), pct(hp, max)));
-                }
+        // R first: when it is time, cast it - the AI's R as it is, else pressed here (0.1.6: the AI asks for R as a fight
+        // starts, at full health, and that one is held; low, it walks or hits and never asks again - 0.1.5's log: one R in
+        // 40000 ticks, two deaths without it; the user: 「Mundo is bugged, never pressed ult the entire game, even when under
+        // 30% multiple times」)
+        if let Some(why) = dose_ok(pct(hp, max), lost, near, p.r_low, p.r_burst) {
+            let ready = e.cooldown(SkillSlotV1::Ult).is_some_and(|c| c.unlocked && c.remaining == 0);
+            let free = !(0..e.cc_count()).any(|i| e.cc_at(i).is_some_and(|c| NO_CAST.iter().any(|k| k.code() == c.kind)));
+            let target = enemies
+                .iter()
+                .filter(|f| dist(f.1, at) <= R_RANGE)
+                .min_by(|a, b| dist(a.1, at).total_cmp(&dist(b.1, at)))
+                .map(|f| f.0);
+            if press_r(ult, ready, free) && (ult || target.is_some()) {
                 with_state(key, |s| s.walking = false);
-                return Some(Plan::Keep);
+                let what = format!("({why}: {}% hp, {lost}% lost in 1 s, {near} enemy champions near)", pct(hp, max));
+                if ult {
+                    if let Some(n) = counted("dose_ok") {
+                        wlog(format!("{} R GO #{n} {what}", head(sim, me)));
+                    }
+                    return Some(Plan::Keep);
+                }
+                let t = target?;
+                let asked = kind.map_or("nothing", kind_name);
+                let input = InputV1::action(InputKindV1::Ult, InputTargetV1::target(t));
+                return Some(Plan::Instead(input, Some(("pressed", format!("R PRESSED {what}, the AI asked for {asked}")))));
             }
         }
+        // the AI gave no order: nothing else to change
+        kind?;
         // the tank on the ground (landed, `can` on him), not full, nobody near: walk over it (the data picks it up)
         let can = with_state(key, |s| (s.can_seen && s.can_until > now).then_some(s.can_at));
         if let Some(c) = can.filter(|_| has(sim, me, &md("can"))) {
@@ -745,13 +779,18 @@ impl StablePlayerAi for Ai {
     }
 
     fn think(&mut self, ctx: &mut StableAiContext<'_>, base: Option<InputV1>) -> Option<InputV1> {
-        let b = base?;
-        let kind = InputKindV1::from_code(b.kind)?;
+        // no order this tick: still looked at, R may be due (0.1.6)
+        let kind = match base {
+            Some(b) => Some(InputKindV1::from_code(b.kind)?),
+            None => None,
+        };
         // a recall is the AI's call (game 0.6.5 decides when to go home and buy): no walk to the canister instead
-        if kind == InputKindV1::Return {
+        if kind == Some(InputKindV1::Return) {
             return None;
         }
-        let current = (InputTargetKindV1::from_code(b.target.kind) == Some(InputTargetKindV1::Target)).then_some(b.target.target_id);
+        let current = base
+            .filter(|b| InputTargetKindV1::from_code(b.target.kind) == Some(InputTargetKindV1::Target))
+            .map(|b| b.target.target_id);
         let player = ctx.player_id();
         let (plan, line) = {
             let sim = ctx.sim()?;
@@ -769,7 +808,7 @@ impl StablePlayerAi for Ai {
             let now = sim.tick() as usize;
             with_state(key, |s| {
                 s.ai_tick = now;
-                s.ai_base = kind_name(kind);
+                s.ai_base = kind.map_or("nothing", kind_name);
                 s.ai_did = did;
             });
             (plan?, head(&sim, me.id()))
@@ -777,7 +816,7 @@ impl StablePlayerAi for Ai {
         match plan {
             Plan::Keep => None,
             Plan::Instead(input, why) => {
-                if !ctx.is_valid_input(&input) && input.kind == InputKindV1::Attack.code() {
+                if !ctx.is_valid_input(&input) && input.kind != InputKindV1::Move.code() {
                     return None;
                 }
                 if let Some((kind, why)) = why {
@@ -882,6 +921,14 @@ mod tests {
         assert_eq!(dose_ok(30, 0, 0, 40, 25), None, "no enemy near: keep it");
         assert_eq!(dose_ok(70, 30, 2, 40, 25), Some("BURST"));
         assert_eq!(dose_ok(70, 10, 2, 40, 25), None);
+    }
+
+    #[test]
+    fn r_is_pressed_when_the_ai_does_not_ask() {
+        assert!(press_r(true, true, true), "the AI's own R");
+        assert!(press_r(false, true, true), "ready and free: pressed here");
+        assert!(!press_r(false, false, true), "cooling down");
+        assert!(!press_r(false, true, false), "stunned or silenced");
     }
 
     #[test]

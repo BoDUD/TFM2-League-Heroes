@@ -43,7 +43,7 @@
 
 `%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_drmundo.log`，每次启动游戏重写：`SHAKE`（挡下控制）、`SAW`（Q 按当前
 生命补的伤害）、`BONK`（E 按已损生命补的伤害）、`ZAP` / `ZAP END`（灰色生命存了多少、回了多少）、`R GO` / `R HELD`（大招放
-或不放的原因）、`DOSE`（大招回了多少）、`TANK LANDED`（药罐落地，离挣脱控制的地方多远）、`TANK:`（开始走去捡：几成血、
+或不放的原因）、`R PRESSED`（时机到了 AI 却没要放，本包替它按，0.1.6）、`DOSE`（大招回了多少）、`TANK LANDED`（药罐落地，离挣脱控制的地方多远）、`TANK:`（开始走去捡：几成血、
 离多远、为什么能去）、`TANK GONE`（药罐没了：捡起 / 碎了或过期 / 没落地，是不是走过去的）。R 和药罐的行各数各的（0.1.0 共用
 一个计数，R 每 tick 都在等，前 40 行以后只写第 50、100… 行，药罐的行写不进去）。`STUCK`（0.1.2 的诊断：他活着、
 30000 以内有敌方英雄，却 90 tick 既没挪过位置、也没有任何动作或控制——记下 AI 钩子最近一次的决定和他身上的 buff；正常对局里
@@ -58,6 +58,15 @@ cd addons && cargo test -p league_drmundo && cargo build --release -p league_drm
 
 单独装：`league_drmundo.dll` + `mod.mod_info` + `mod.override_info` + `override/` + `text/` 放进
 `<游戏>/mods/league_drmundo/`；一般随附加包合集（`league_addons`）一起装。
+
+## 0.1.6：时机到了自己按 R
+
+用户 2026-10-26：「Mundo is bugged, never pressed ult the entire game, even when under 30% multiple times」。0.1.5 只在
+AI 自己要放 R 的那一刻判断：AI 在团战一开始、他还满血时要放 R，被留着改成普攻；等他残血了，AI 在撤或在打人，不再要 R。
+日志：一局里放过两次以后，后面 40000 tick 只有一次 `R GO`（而且没放出去），死了两次都没开。0.1.6：时机到了（低于 60%，
+或 1 秒内掉 15%，身边有敌方英雄）、R 好了、他没被晕 / 沉默之类控住，就不管 AI 要什么（包括 AI 这一 tick 没下命令），
+对 50000 内最近的敌方英雄按 R（`R PRESSED`）；AI 自己要放 R 的照旧（`R GO`），时机没到照旧改成普攻（`R HELD`），
+回城照旧是 AI 的事。引擎不接的命令不下（`is_valid_input`）。
 
 ## 游戏 0.6.5（0.1.4）
 
