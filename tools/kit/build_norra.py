@@ -44,25 +44,33 @@ BIG = f"asset/{MOD_ID}/effects/{ID}_big"
 RIDE = f"asset/{MOD_ID}/effects/{ID}_yuumi"
 
 # Units: attack range 55000 like every mid; radii count the unit's collision radius (~15000) on top. Timings are a
-# draft until the strips exist (a_rel, q_rel, e_rel, r_rel then come from tools/art/rig_norra.py MS).
+# draft until the strips exist (a_rel, q_rel, e_rel, r_rel then come from tools/art/rig_norra.py MS). Numbers = the
+# 10-min classic-SDK simulations (C:/t/nr_sim, a copy of the balance sim: mid lane 2 against pyromancer, ice_mage,
+# lightning_mage, wind_mage and white_mage, three lineups, both sides; 2026-10-26): the draft (Q 40 + 30%, paint 6 + 5%,
+# E 50 + 35% with a 50-tick stun / 40-tick knock-up, R 150 + 60% with a 90-tick stun and +20% damage taken, Yuumi 30 +
+# 15% every 4 s with +15 AP / +8 AD) +4.51 (league_ziggs +1.38 on seeds 1-8); Q 32 + 24%, paint 4 + 3% +3.55; with E 40
+# + 30% and R 120 + 50% +3.80; with Yuumi 20 + 10%, +10 AP / +5 AD +2.90; with R's stun 60 ticks and +15%, E's stun 40 /
+# knock-up 30 +1.43 / +2.32 (seeds 9-16; league_ziggs +2.22) = P; smaller shields and potion on top +1.77, and Q 28 + 22%
+# with 820 health +1.03. Every mechanic fires in a traced game (the bounce, the anvil / potion / book turns, Yuumi's
+# rides, the paper).
 P = {
     # stats (Magician base: attack 80 +6, ap 40 +20, hp 900 +100, def 20 +7, mr 20 +4, move 900 +9); a small yordle
     "hp": 860, "hp_g": 95, "atk": 74, "atk_g": 6, "apw": 40, "apw_g": 20, "def": 18, "def_g": 7, "mr": 22, "mr_g": 4,
     "ms": 900, "ms_g": 9,
     "atk_range": 55000, "atk_dur": 24, "atk_cd": 90, "a_rel": 10, "a_speed": 4000,
     # passive Best Friends (TFT: Yuumi heals 100/150/200 every 4 s, shares 10% of Norra's AP)
-    "p_cd": 240, "p_r": 70000, "p_heal": 30, "p_heal_r": 15, "p_ap": 15, "p_ad": 8, "p_ride": 250,
+    "p_cd": 240, "p_r": 70000, "p_heal": 20, "p_heal_r": 10, "p_ap": 10, "p_ad": 5, "p_ride": 250,
     # Portalpalooza (TFT: 3 s paint)
     "q_cd": 270, "q_range": 70000, "q_dur": 30, "q_rel": 12, "q_travel": 26, "q_r": 30000,
-    "q_dmg": 40, "q_ratio": 30, "q_paint_t": 300, "q_paint_p": 30, "q_dot": 6, "q_dot_r": 5,
+    "q_dmg": 32, "q_ratio": 24, "q_paint_t": 300, "q_paint_p": 30, "q_dot": 4, "q_dot_r": 3,
     "q_b_r": 36000, "q_b_t": 14,
     # Otherworld Delivery
     "e_cd": 540, "e_range": 60000, "e_dur": 26, "e_rel": 10, "e_ally_r": 50000, "e_sh": 60, "e_sh_r": 35,
-    "e_sh_t": 180, "e_travel": 18, "e_r": 20000, "e_dmg": 50, "e_ratio": 35, "e_stun": 50, "e_up": 40,
+    "e_sh_t": 180, "e_travel": 18, "e_r": 20000, "e_dmg": 40, "e_ratio": 30, "e_stun": 40, "e_up": 30,
     "e_pot_r": 45000, "e_heal": 50, "e_heal_r": 30,
     # The Book of Thresholds
     "r_cd": 3000, "r_range": 75000, "r_dur": 40, "r_rel": 20, "r_open": 40, "r_r": 45000,
-    "r_dmg": 150, "r_ratio": 60, "r_stun": 90, "r_amp": 20, "r_paper_t": 240,
+    "r_dmg": 120, "r_ratio": 50, "r_stun": 60, "r_amp": 15, "r_paper_t": 240,
     "r_sh": 80, "r_sh_r": 40, "r_sh_t": 180,
 }
 
