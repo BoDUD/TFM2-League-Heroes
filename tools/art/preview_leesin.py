@@ -4,7 +4,7 @@ load).
 
     python tools/art/preview_leesin.py [--out docs/preview]
 
-  league_leesin_frames.png    every animation, frame by frame, 3x on the arena colour
+  league_leesin_frames.png    every animation's dense frames (hd_, PPU 2.1, as league.dll shows them)
   league_leesin_effects.png   every effect animation, 3x
   league_leesin_showcase.gif  a scripted fight, timed like the kit: an enemy Darius keeps hitting an
                               allied Garen; Lee Sin runs in and casts Q Sonic Wave, and at its end
@@ -29,6 +29,7 @@ from PIL import Image, ImageDraw, ImageFont
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 from preview_ashe import Anim, tick  # noqa: E402
+from preview_dense import dense, dense_rows, put  # noqa: E402
 from preview_garen import ARENA, T, contact, frames_of, load  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(HERE))
@@ -134,7 +135,7 @@ def showcase(out, z=3, step=40):
 
     def a(tag, dur=None, loop=False, x1=None, flip=False):
         nonlocal t, x
-        an = Anim(frames_of(lee, tag), t, x, gy, loop=loop, until=(t + dur) if dur else None, x1=x1, flip=flip)
+        an = Anim(dense(lee, tag, "leesin", z), t, x, gy, loop=loop, until=(t + dur) if dur else None, x1=x1, flip=flip)
         body.append(an)
         t = an.until
         if x1 is not None:
@@ -149,7 +150,7 @@ def showcase(out, z=3, step=40):
         foe.attacks.append(t0)
         ally.flinches.append(t0 + tick(12))
     # Lee Sin runs in (move_speed 1100 ~ 1.1 px a tick)
-    body.append(Anim(frames_of(lee, "run"), t, x - 50, gy, loop=True, until=t + 760, x1=x))
+    body.append(Anim(dense(lee, "run", "leesin", z), t, x - 50, gy, loop=True, until=t + 760, x1=x))
     t += 760
     a("idle", 200, loop=True)
     # Q: the wave leaves at tick 16 (4500/tick). Safeguard's check runs with Q: Garen has an enemy champion
@@ -169,7 +170,7 @@ def showcase(out, z=3, step=40):
     effects.append(Anim(shield, at, x, gy, until=land, x1=wdest, z=1))
     effects.append(Anim(skip(shield, land - at), land, wdest, gy, z=1))
     body[-1].until = at                               # the dash cuts Q's pose short
-    body.append(Anim(frames_of(lee, "q2"), at, x, gy, until=at + tick(20), x1=wdest))
+    body.append(Anim(dense(lee, "q2", "leesin", z), at, x, gy, until=at + tick(20), x1=wdest))
     body[-1].until_move = land
     t, x = at + tick(20), wdest
     # Resonating Strike: 12 ticks after the wave hits, the dash to the marked enemy
@@ -177,7 +178,7 @@ def showcase(out, z=3, step=40):
     if t < dash0:
         a("idle", dash0 - t, loop=True)
     dest = foe.x - 22                                 # melee range
-    body.append(Anim(frames_of(lee, "q2"), dash0, x, gy, until=dash0 + tick(31), x1=dest))
+    body.append(Anim(dense(lee, "q2", "leesin", z), dash0, x, gy, until=dash0 + tick(31), x1=dest))
     body[-1].until_move = dash0 + tick(max(1, (dest - x) / 5.0))
     fx_at("q2_hit", body[-1].until_move, foe.x)
     foe.flinches.append(body[-1].until_move)
@@ -204,9 +205,9 @@ def showcase(out, z=3, step=40):
     # later at 2500/tick for 35 px. Facing left from the rush on.
     start = t
     behind = fx_ + 15
-    body.append(Anim(frames_of(lee, "ult"), start, x, gy, until=start + tick(7)))
+    body.append(Anim(dense(lee, "ult", "leesin", z), start, x, gy, until=start + tick(7)))
     rush0, rush1 = start + tick(7), start + tick(7) + tick((behind - x) / 8.0)
-    ult = Anim(frames_of(lee, "ult"), start, x, gy, until=start + tick(44), x1=behind, flip=True)
+    ult = Anim(dense(lee, "ult", "leesin", z), start, x, gy, until=start + tick(44), x1=behind, flip=True)
     ult.until_move, ult.move0 = rush1, rush0
     body.append(ult)
     kick = start + tick(19)
@@ -234,8 +235,8 @@ def showcase(out, z=3, step=40):
     a("idle", 500, loop=True)
     start = t
     front = yasuo.x - 22
-    body.append(Anim(frames_of(lee, "ult"), start, x, gy, until=start + tick(7)))
-    ult = Anim(frames_of(lee, "ult"), start, x, gy, until=start + tick(44), x1=front)
+    body.append(Anim(dense(lee, "ult", "leesin", z), start, x, gy, until=start + tick(7)))
+    ult = Anim(dense(lee, "ult", "leesin", z), start, x, gy, until=start + tick(44), x1=front)
     ult.until_move, ult.move0 = start + tick(7) + tick((front - x) / 8.0), start + tick(7)
     body.append(ult)
     kick = start + tick(19)
@@ -267,7 +268,7 @@ def combos(out, z=3, step=40):
     dragon = frames_of(fx["league_leesin_r"], "dragon")
 
     def anim(tag, t0, x, dur=None, x1=None, move=None, flip=False, loop=False):
-        an = Anim(frames_of(lee, tag), t0, x, gy, loop=loop, until=None if dur is None else t0 + dur, x1=x1, flip=flip)
+        an = Anim(dense(lee, tag, "leesin", z), t0, x, gy, loop=loop, until=None if dur is None else t0 + dur, x1=x1, flip=flip)
         if move is not None:
             an.move0, an.until_move = move
         body.append(an)
@@ -318,8 +319,8 @@ def combos(out, z=3, step=40):
     r0 = t + tick(6)                                  # R, Q still on cooldown: QRQ
     anim("idle", t, x, dur=r0 - t, loop=True)
     behind = darius.x + 15                            # nobody behind him: the insec, rushing through at 8000
-    body.append(Anim(frames_of(lee, "ult"), r0, x, gy, until=r0 + tick(7)))
-    ult = Anim(frames_of(lee, "ult"), r0, x, gy, until=r0 + tick(27), x1=behind, flip=True)
+    body.append(Anim(dense(lee, "ult", "leesin", z), r0, x, gy, until=r0 + tick(7)))
+    ult = Anim(dense(lee, "ult", "leesin", z), r0, x, gy, until=r0 + tick(27), x1=behind, flip=True)
     ult.move0, ult.until_move = r0 + tick(7), r0 + tick(7) + tick((behind - x) / 8.0)
     body.append(ult)
     kick = r0 + tick(19)
@@ -348,8 +349,8 @@ def combos(out, z=3, step=40):
     x, t = 70, cut + 160
     r0 = anim("idle", t, x, dur=500, loop=True)
     front = yasuo.x - 22                              # Jinx behind him: the forward kick
-    body.append(Anim(frames_of(lee, "ult"), r0, x, gy, until=r0 + tick(7)))
-    ult = Anim(frames_of(lee, "ult"), r0, x, gy, until=r0 + tick(24), x1=front)
+    body.append(Anim(dense(lee, "ult", "leesin", z), r0, x, gy, until=r0 + tick(7)))
+    ult = Anim(dense(lee, "ult", "leesin", z), r0, x, gy, until=r0 + tick(24), x1=front)
     ult.move0, ult.until_move = r0 + tick(7), r0 + tick(7) + tick((front - x) / 8.0)
     body.append(ult)
     kick = r0 + tick(19)
@@ -385,8 +386,8 @@ def combos(out, z=3, step=40):
                 cut=(cut, cut + 160), labels=labels, z=z, step=step)
 
 
-def place(img, f, px, py):
-    img.alpha_composite(f, (px - f.width // 2, py - f.height // 2))
+def place(img, f, px, py, z=3):
+    put(img, f, int(px), int(py), z)
 
 
 def body_pos(an, tt):
@@ -403,27 +404,27 @@ def film(out, W, H, end, body, effects, shots, foes, cut=None, labels=(), z=3, s
     font = ImageFont.load_default(size=8 * z) if labels else None
     frames, tt = [], 0.0
     while tt < end:
-        img = Image.new("RGBA", (W, H), ARENA)
+        img = Image.new("RGBA", (W * z, H * z), ARENA)
         for an in effects:                            # ground effects under the units
             f = an.frame(tt)
             if f is not None and an.z < 0:
-                place(img, f, *an.pos(tt))
+                place(img, f, *an.pos(tt), z=z)
         if cut and cut[0] <= tt < cut[1]:             # the cut: an empty arena between the scenes
-            frames.append(img.resize((W * z, H * z), Image.NEAREST).convert("RGB"))
+            frames.append(img.convert("RGB"))
             tt += step
             continue
         for fo in foes(tt):
-            place(img, fo.frame(tt), *fo.pos(tt))
+            place(img, fo.frame(tt), *fo.pos(tt), z=z)
         for an in body:
             f = an.frame(tt)
             if f is not None:
-                place(img, f, *body_pos(an, tt))
+                place(img, f, *body_pos(an, tt), z=z)
                 break
         for an in effects + shots:
             f = an.frame(tt)
             if f is not None and an.z >= 0:
-                place(img, f, *an.pos(tt))
-        img = img.resize((W * z, H * z), Image.NEAREST).convert("RGB")
+                place(img, f, *an.pos(tt), z=z)
+        img = img.convert("RGB")
         for t0, t1, text in labels:
             if t0 <= tt < t1:
                 ImageDraw.Draw(img).text((4 * z, 2 * z), text, font=font, fill=(255, 236, 160),
@@ -446,7 +447,7 @@ def main():
     args = ap.parse_args()
     os.makedirs(T.long_path(args.out), exist_ok=True)
     s = load(CHAMP)
-    print("frames", contact([(s, t["name"], t["name"]) for t in s.tags], os.path.join(args.out, "league_leesin_frames.png")))
+    print("frames", contact(dense_rows(s), os.path.join(args.out, "league_leesin_frames.png"), z=1))
     rows = []
     for name, path in FX.items():
         sp = load(path)

@@ -10,7 +10,7 @@
 | 所属的包 | 主包（mod_id `league`） |
 | 分路 | 打野 |
 | 分类 / 标签 | 刺客（Assassin） · AD / Melee / CC |
-| 高清帧 | 1 倍像素（无高清帧） |
+| 高清帧 | PPU 2.1（画成 90%） |
 | 附加包 | [盲僧 W 位移附加包](#附加包)（`league_leesin_hop`） |
 
 ![李青演示](../preview/league_leesin_showcase.gif)
@@ -117,6 +117,7 @@
 | 附加包（站桩） | 可选的附加包 [`addons/league_ult_press`](../../addons/league_ult_press/README.md)（在附加包合集里，原生代码，主包不装它也完整）：游戏 0.6.4 的 AI 常让这位英雄在敌方英雄跟前站着不打——只读观察包里（72 局）身边 50000 内有敌方英雄时站着不动 22.6%，这些时候 AI 下令「走到自己脚下」占 4.9%、什么命令都没下占 85.3%（盖伦 2.8%，所有英雄的中位数 8.8%）。照卡蜜尔等十位的办法（用户：「李青、泰达米尔、塔里克照卡蜜尔的规则加进站桩名单，做完开 PR」）：原地站了 15 tick、普攻好了、AI 还让他原地站时，35000 内最近的敌方英雄——他生命不低于一半、目标离敌方塔 75000 以外、目标身边 60000 内的敌方英雄不多于他身边的我方英雄（含他）——就普攻他，打出一下或 1.5 秒后重新算。他自己的附加包 league_leesin_hop 只改写 AI 的 Q 命令，这条只在 AI 让他原地站时出手，两边不冲突 |
 | 连招 | 用户要求（0.42.5）：「盲僧我们加点绝招 比如QRQ 回旋踢 QQAE RQQ……因为现在不能摸眼瞬移」。AI 一次只放一个技能，所以每个连招由被用掉的那个技能自己打出来：**QQAE**——回音击落到敌方英雄身边后 2.5 秒内放 E，先出一拳（100% 攻击力）再捶地；**QRQ（回旋踢）**——Q 还在冷却（6 秒内扔过 Q）时放 R，踢中后摆出回音击的飞踢姿势追上被踢飞的人（每 tick 7000，对方每 tick 飞 3000），再打 30 + 60% 攻击力；**RQQ**——Q 好着时放 R，踢中后立刻出掌（新加的 `q_throw`：Q1 推掌的后 4 帧），天音波追着被踢飞的人，在空中命中（50 + 90%），8 tick 后回音击冲过去（50 + 100%）。所以每次大招后面都接 QRQ 或 RQQ，正面踢、回旋踢照旧按身后有没有人选。不锁技能栏：第一版让连招用掉的技能挂一个冷却标记、技能栏等标记结束，模拟里 AI 照样放被锁的 E 和 R（打团和打野时都有），空放一个动作还吃掉真冷却；现在连招不消耗别的技能的冷却，RQQ 的天音波也不让 Q 进冷却，E 3 级、R 5 级解锁照旧。模拟 12 局（每局 15 分钟）：QQAE 18 次、QRQ 48 次（追击全中，平均 7 tick 追上）、RQQ 15 次（13 次天音波在对方落地前命中，12 次冲过去打中）。打野对 5 个原版打野（两边、三套队友阵容，两批各 720 局）：旧版 +0.79 / +0.87，连招版 +0.58 / +1.21，造成的伤害多约 10%，强度在误差范围内不变。 |
 | 精灵图 | 10 个动作 62 帧：待机、跑步、普攻、Q1 推掌、Q2 飞踢、E 捶地、R 回旋踢、受击、死亡，加上连招用的出掌（`q_throw`：Q1 推掌的后 4 帧，`leesin_throw_tag.py` 从 Q1 的动作条里切出来，像素和时长都和 Q1 一样）。身高 31 px（光头头顶到脚底，辫子另算；腿缩短 3 行之前 34 px），16 色；红色蒙眼布横过脸，盲僧不画眼睛。全部正面 3/4 朝右，按英雄联盟原版动作的时间点画：战斗待机每 0.75 秒下沉弹跳一次，跑步是大步腾跃（双脚离地约一半时间），一圈 0.92 秒 |
+| 高清帧（PPU 2.1，游戏里 90 %） | 2026-10-26 用 PPU 重做（用户：「下一个英雄重做盲僧」）。设计图：Codex 照他现在的精灵描密的图（按原图约 11.9 像素一格读回，68 × 86 格；86 行 / 2.1 = 原来的 41 像素，`design_leesin_hd.py`）。动作：Codex 照旧版每一帧整帧重画（`pack_leesin_actions.py`，q_throw 仍是 Q1 第 4–7 帧、待机就是设计图），交回的是白底、带抗锯齿、每张放大倍数不同的成图，`casts_leesin_hd.py` 抠掉白底，每张图的放大倍数按他的头量（设计图的头对准蒙眼布宝石套上去比；倒地几帧按宝石面积），颜色换回设计图的色板，摆回旧版同一帧的位置，逐帧叠设计图的头轮廓查过：差不到 1 格。跑步第一版始终同一条腿在前、没有交错帧，E 最后一帧蹲着：用英雄联盟同一帧的腿（近侧洋红、远侧青色，`pack_leesin_run_redo.py`）让 Codex 重画，跑步按头摆（头在旧版那一列、高度往旧版靠）。用户：「模型有点太大了吧 缩小一点」「大小用 90%」——hd.rs 尺寸表 0.90，帧往下 3 格让脚踩地（11.5 × 2.1 × (1 / 0.9 − 1)），头像点 (-4,-28)，选人卡不再设偏移（头顶 -27.3）。俄洛伊的灵魂、佛耶戈附身用的帧表、索拉卡演示里的他跟着更新 |
 | 特效 | 普攻命中、音波、音波印记、回音击命中、天雷破震波、金钟罩护盾、猛龙摆尾踢击、金龙、撞击击飞 |
 | 图标 | 官方技能图标（Q / E / R），从本地客户端提取，64×64 |
 | 音频 | 从本地客户端提取的 11 条技能音效和 4 条中文语音（Q、Q2、E、R）。不提交到仓库，按下面的命令在本地生成 |
@@ -132,7 +133,15 @@ python tools/art/leesin_throw_tag.py              # 连招的出掌 q_throw：Q1
 python tools/art/import_native.py --hero leesin    # 角色图（套用 leesin_retouch.json）
 python tools/art/import_leesin.py                  # 特效
 python tools/kit/leesin_combos.py                  # 连招写进手写的技能数据（只跑一次，--check 查）
-python tools/art/preview_leesin.py                 # 逐帧图、特效图、演示和连招演示
+python tools/art/preview_leesin.py                 # 逐帧图（高清帧）、特效图、演示和连招演示
+# PPU 2.1 重做（2026-10-26）：
+python tools/art/pack_leesin_ppu.py --out <文件夹>        # 给 Codex 的设计图包（照他现在的精灵描密）
+python tools/art/design_leesin_hd.py                    # Codex 的图（hd/raw/leesin-A.png）按自己的格子读回 -> hd/design.png
+python tools/art/pack_leesin_actions.py --out <文件夹>    # 给 Codex 的动作包（照旧版同一帧整帧重画）
+python tools/art/pack_leesin_run_redo.py --out <文件夹>   # 跑步和 E 最后一帧的重画包（英雄联盟的腿分色）
+python tools/art/casts_leesin_hd.py --measure           # 每张图的放大倍数（按头量）
+python tools/art/rig_leesin_hd.py                       # 交付（hd/casts）读回到设计图上 -> 原始条和 1 倍图（PPU 2.1）
+python tools/art/ppu_restyle.py --hero leesin && python tools/art/ppu_hd.py --hero leesin && python tools/art/hero_reels.py --hero leesin
 ```
 
 李青没有先画高清的第一轮，而是一开始就按游戏原尺寸画（提示词见 [`assets/source/leesin/PROMPTS.md`](../../assets/source/leesin/PROMPTS.md)）：
@@ -147,4 +156,4 @@ python tools/art/preview_leesin.py                 # 逐帧图、特效图、演
 - 嘴前的黑线（2026-10-01，用户：「嘴巴前面还有黑线？」）：造型图的脸在棕色的嘴前面、描边里面多一格近黑色（`#030106`），下巴前缘再一格，和描边连成两格宽的斜黑线（旧造型去掉过的那条脸前缘深色线，Codex 的脸上又有了）。这两格改成皮肤色：嘴前是亮皮肤 `#F3B27C`，下面是皮肤阴影 `#D79260`，和旁边一样；露脸的 50 帧（待机、跑步、普攻、Q、E、R、受击、倒地前两帧）都改，每帧只动这 2 格。两项都写进 [`native/leesin_retouch.json`](../../assets/source/native/leesin_retouch.json)（共 311 格：跑步每帧 24–33 格，其他每帧 2 格），导入时套用，在呼吸和描边之前（下一条旧造型改嘴和鼻子的那份 retouch 在换成 Codex 动作条时删了，现在这个文件只有这两项）。
 - 进游戏看过后改了嘴和鼻子：造型图脸前缘那条深色竖线和下巴上的深色块去掉，换成蒙眼布下方两行处 2 格的嘴；头部直立的动作帧套用同一张下半脸。待机的头右侧原来是一条直边，在深色的英雄卡片上看起来像被切掉一半，改成了弧形轮廓（额头、蒙眼布、鼻尖外凸，嘴和下巴内收）。改动逐像素记在 [`native/leesin_retouch.json`](../../assets/source/native/leesin_retouch.json)，导入时套用。
 
-逐帧预览：[`docs/preview/league_leesin_frames.png`](../preview/league_leesin_frames.png?v=1014g)，特效：[`docs/preview/league_leesin_effects.png`](../preview/league_leesin_effects.png?v=1014g)。
+逐帧预览：[`docs/preview/league_leesin_frames.png`](../preview/league_leesin_frames.png?v=1026hd)，特效：[`docs/preview/league_leesin_effects.png`](../preview/league_leesin_effects.png?v=1014g)。
