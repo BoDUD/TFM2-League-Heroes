@@ -7,6 +7,26 @@
     "Range",
     "CC"
   ],
+  "passive": {
+    "passive_ref": "tft_alune:moon",
+    "params": {
+      "q_n": 3,
+      "q_range": 70000,
+      "q_fall": 20,
+      "q_r": 18000,
+      "q_dmg": 42,
+      "q_ratio": 32,
+      "q_shred": 20,
+      "q_shred_t": 360,
+      "r_dmg": 165,
+      "r_ratio": 72,
+      "r_ph": 20,
+      "r_split": 220,
+      "r_cap": 180,
+      "a_back_r": 30,
+      "a_speed": 4000
+    }
+  },
   "sprite": "asset/tft/champions/tft_alune",
   "anim_prefix": "",
   "skill_icons": [
@@ -86,6 +106,20 @@
                 "type": "TargetSfx",
                 "name": "tft_alune_a_hit"
               }
+            },
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "AddBuff",
+                "buff_state": {
+                  "name": "tft_alune_a_mark",
+                  "duration": {
+                    "Time": {
+                      "tick": 2
+                    }
+                  }
+                }
+              }
             }
           ]
         }
@@ -115,214 +149,16 @@
           "tick": 14,
           "effects": [
             {
-              "type": "Combine",
-              "effects": [
-                {
-                  "type": "ParabolicProjectile",
-                  "name": "tft_alune_q_shard",
-                  "travel_time": 20,
-                  "range": 400000,
-                  "range_effect_name": "tft_alune_q_drop",
-                  "shape": {
-                    "Circle": {
-                      "radius": 1
-                    }
-                  },
-                  "applied_target": "EnemyWithoutTower",
-                  "applied_effects": [],
-                  "end_effects": [
-                    {
-                      "type": "Sfx",
-                      "name": "tft_alune_q_hit"
-                    },
-                    {
-                      "type": "ViewEffect",
-                      "name": "tft_alune_q_hit"
-                    },
-                    {
-                      "type": "RangeProjectile",
-                      "name": "tft_alune_q_zone",
-                      "shape": {
-                        "Circle": {
-                          "radius": 18000
-                        }
-                      },
-                      "delay": 1,
-                      "apply": 1,
-                      "applied_target": "EnemyWithoutTower",
-                      "applied_effects": [
-                        {
-                          "casting_type": "Targeting",
-                          "effect": {
-                            "type": "ApAttack",
-                            "damage": 42,
-                            "attack_ratio": 32,
-                            "hp_ratio": 0,
-                            "can_crit": false
-                          }
-                        },
-                        {
-                          "casting_type": "Targeting",
-                          "effect": {
-                            "type": "AddBuff",
-                            "buff_state": {
-                              "name": "tft_alune_q_shred",
-                              "duration": {
-                                "Time": {
-                                  "tick": 360
-                                }
-                              },
-                              "magic_resistance_mult": -20
-                            }
-                          }
-                        }
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "type": "RandomTarget",
-                  "range": 70000,
-                  "casting_target": "EnemyWithoutTower",
-                  "from_projectile": false,
-                  "effects": [
-                    {
-                      "type": "ParabolicProjectile",
-                      "name": "tft_alune_q_shard",
-                      "travel_time": 20,
-                      "range": 400000,
-                      "range_effect_name": "tft_alune_q_drop",
-                      "shape": {
-                        "Circle": {
-                          "radius": 1
-                        }
-                      },
-                      "applied_target": "EnemyWithoutTower",
-                      "applied_effects": [],
-                      "end_effects": [
-                        {
-                          "type": "Sfx",
-                          "name": "tft_alune_q_hit"
-                        },
-                        {
-                          "type": "ViewEffect",
-                          "name": "tft_alune_q_hit"
-                        },
-                        {
-                          "type": "RangeProjectile",
-                          "name": "tft_alune_q_zone",
-                          "shape": {
-                            "Circle": {
-                              "radius": 18000
-                            }
-                          },
-                          "delay": 1,
-                          "apply": 1,
-                          "applied_target": "EnemyWithoutTower",
-                          "applied_effects": [
-                            {
-                              "casting_type": "Targeting",
-                              "effect": {
-                                "type": "ApAttack",
-                                "damage": 42,
-                                "attack_ratio": 32,
-                                "hp_ratio": 0,
-                                "can_crit": false
-                              }
-                            },
-                            {
-                              "casting_type": "Targeting",
-                              "effect": {
-                                "type": "AddBuff",
-                                "buff_state": {
-                                  "name": "tft_alune_q_shred",
-                                  "duration": {
-                                    "Time": {
-                                      "tick": 360
-                                    }
-                                  },
-                                  "magic_resistance_mult": -20
-                                }
-                              }
-                            }
-                          ]
-                        }
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "type": "RandomTarget",
-                  "range": 70000,
-                  "casting_target": "EnemyWithoutTower",
-                  "from_projectile": false,
-                  "effects": [
-                    {
-                      "type": "ParabolicProjectile",
-                      "name": "tft_alune_q_shard",
-                      "travel_time": 20,
-                      "range": 400000,
-                      "range_effect_name": "tft_alune_q_drop",
-                      "shape": {
-                        "Circle": {
-                          "radius": 1
-                        }
-                      },
-                      "applied_target": "EnemyWithoutTower",
-                      "applied_effects": [],
-                      "end_effects": [
-                        {
-                          "type": "Sfx",
-                          "name": "tft_alune_q_hit"
-                        },
-                        {
-                          "type": "ViewEffect",
-                          "name": "tft_alune_q_hit"
-                        },
-                        {
-                          "type": "RangeProjectile",
-                          "name": "tft_alune_q_zone",
-                          "shape": {
-                            "Circle": {
-                              "radius": 18000
-                            }
-                          },
-                          "delay": 1,
-                          "apply": 1,
-                          "applied_target": "EnemyWithoutTower",
-                          "applied_effects": [
-                            {
-                              "casting_type": "Targeting",
-                              "effect": {
-                                "type": "ApAttack",
-                                "damage": 42,
-                                "attack_ratio": 32,
-                                "hp_ratio": 0,
-                                "can_crit": false
-                              }
-                            },
-                            {
-                              "casting_type": "Targeting",
-                              "effect": {
-                                "type": "AddBuff",
-                                "buff_state": {
-                                  "name": "tft_alune_q_shred",
-                                  "duration": {
-                                    "Time": {
-                                      "tick": 360
-                                    }
-                                  },
-                                  "magic_resistance_mult": -20
-                                }
-                              }
-                            }
-                          ]
-                        }
-                      ]
-                    }
-                  ]
+              "type": "AddCasterBuff",
+              "buff_state": {
+                "name": "tft_alune_q_go",
+                "duration": {
+                  "Time": {
+                    "tick": 2
+                  }
                 }
-              ]
+              },
+              "only_to_enemy": false
             },
             {
               "type": "SwitchByBuff",
@@ -564,11 +400,15 @@
                           {
                             "casting_type": "Targeting",
                             "effect": {
-                              "type": "ApAttack",
-                              "damage": 264,
-                              "attack_ratio": 115,
-                              "hp_ratio": 0,
-                              "can_crit": false
+                              "type": "AddBuff",
+                              "buff_state": {
+                                "name": "tft_alune_r_mark3",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 2
+                                  }
+                                }
+                              }
                             }
                           },
                           {
@@ -624,11 +464,15 @@
                             {
                               "casting_type": "Targeting",
                               "effect": {
-                                "type": "ApAttack",
-                                "damage": 231,
-                                "attack_ratio": 100,
-                                "hp_ratio": 0,
-                                "can_crit": false
+                                "type": "AddBuff",
+                                "buff_state": {
+                                  "name": "tft_alune_r_mark2",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 2
+                                    }
+                                  }
+                                }
                               }
                             },
                             {
@@ -684,11 +528,15 @@
                               {
                                 "casting_type": "Targeting",
                                 "effect": {
-                                  "type": "ApAttack",
-                                  "damage": 198,
-                                  "attack_ratio": 86,
-                                  "hp_ratio": 0,
-                                  "can_crit": false
+                                  "type": "AddBuff",
+                                  "buff_state": {
+                                    "name": "tft_alune_r_mark1",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 2
+                                      }
+                                    }
+                                  }
                                 }
                               },
                               {
@@ -741,11 +589,15 @@
                               {
                                 "casting_type": "Targeting",
                                 "effect": {
-                                  "type": "ApAttack",
-                                  "damage": 165,
-                                  "attack_ratio": 72,
-                                  "hp_ratio": 0,
-                                  "can_crit": false
+                                  "type": "AddBuff",
+                                  "buff_state": {
+                                    "name": "tft_alune_r_mark0",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 2
+                                      }
+                                    }
+                                  }
                                 }
                               },
                               {
@@ -811,6 +663,14 @@
     {
       "type": "Animated",
       "name": "tft_alune_a_ring",
+      "anim": "asset/tft/effects/tft_alune_fx",
+      "tag": "a_ring",
+      "repeat": true,
+      "z": 2
+    },
+    {
+      "type": "Animated",
+      "name": "tft_alune_a_back",
       "anim": "asset/tft/effects/tft_alune_fx",
       "tag": "a_ring",
       "repeat": true,

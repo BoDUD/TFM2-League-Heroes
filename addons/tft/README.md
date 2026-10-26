@@ -6,6 +6,7 @@ tft 包（mod_id `tft`，源文件在 [`tft/`](../../tft/)）是原生 mod：英
 |---|---|---|
 | 爆爆 `tft_powder` | — | 纯数据 |
 | 诺拉 `tft_norra` | [`src/norra.rs`](src/norra.rs) | 照英雄联盟手游做的规则（下面） |
+| 拉露恩 `tft_alune` | [`src/alune.rs`](src/alune.rs) | 金铲铲的规则：最近的敌人、满月分摊、月环飞回来（下面） |
 
 ## 诺拉
 
@@ -21,8 +22,21 @@ tft 包（mod_id `tft`，源文件在 [`tft/`](../../tft/)）是原生 mod：英
 
 会变的东西都在模拟里（排着的效果、身上的状态），只有参数按诺拉的单位编号记一份给效果用（服务端预模拟和你看的那场是同一份数字）。图（`tools/art/import_norra_fx.py`）：琐物的三块 `p_trinket_l` / `_c` / `_r` 和飞的毛线球 `r_ball` 在 `tft_norra_fx` 里。
 
+## 拉露恩
+
+用户：「要做附加包的地方你就做附加包」（先是单独的附加包 `tft_alune`），后来「拉露恩要和诺拉 爆爆放一个mod里面」——并进这里。她的数据（[`tools/kit/build_alune.py`](../../tools/kit/build_alune.py)）的 `passive` 是 `tft_alune:moon`，参数来自参数表 P（`build_alune.NATIVE_KEYS`）。`build_alune.py --plain` 是不调用 DLL 的纯数据版（平衡模拟用），左边一栏是它的近似：
+
+| 机制 | 纯数据近似（`--plain`） | tft.dll |
+|---|---|---|
+| 月之降临（Q） | 一枚碎片落在目标身上，其余落在射程里**随机**的敌人身上 | 数据只给她挂 2 tick 的 `tft_alune_q_go`；被动挑离她**最近**的 `q_n` 个敌人（金铲铲的规则），各落一枚：`q_drop` 画面，`q_fall` tick 后砸地 `q_hit`，`q_dmg` + `q_ratio`% 法强、月蚀印记（魔抗 -`q_shred`%） |
+| 月曜降临（R） | 范围里每个敌人都挨满额的伤害 | 数据的满月只给砸中的人挂 2 tick 的 `tft_alune_r_mark<月相>` 和眩晕；被动同一 tick 收齐，整颗月亮的伤害（含月相加成）× `r_split`% 由**命中的敌人平分**，每人最多 `r_cap`%：只砸中一个人时最痛 |
+| 普攻 | 月环飞出去打中就没了 | 数据打中时挂 2 tick 的 `tft_alune_a_mark`；被动从那人那里往她身上发一枚穿透的月环 `a_back`（直线），路上每个敌人 `a_back_r`% 攻击力物理伤害（`tft_alune:ring_back`），打中的那个人回来时再挨一下 |
+
+计时都在被动自己身上（被动跟着单位、每局一份），不用全局变量；敌人身上的标记每拍一趟看完。月环回程的伤害比例用默认参数（效果在注册时定下）。
+
 ## 检查
 
-- 在 `addons/` 下 `cargo test -p tft`（CI 也跑）：诺拉的单元测试（参数、伤害和冷却的数、三个琐物的位置、琐物装进输入再取出来、自己那发 Q 不引爆自己的琐物、最近的英雄、毛线球的线、名字）。
-- `python tools/kit/build_norra.py` 每次都核对 `src/norra.rs` 的默认参数和 P 一致。
+- 在 `addons/` 下 `cargo test -p tft`（CI 也跑）：诺拉的单元测试（参数、伤害和冷却的数、三个琐物的位置、琐物装进输入再取出来、自己那发 Q 不引爆自己的琐物、最近的英雄、毛线球的线、名字），拉露恩的（参数、最近的 3 个、满月分摊）。
+- `python tools/kit/build_norra.py` 每次都核对 `src/norra.rs` 的默认参数和 P 一致；`python tools/kit/build_alune.py` 核对 `src/alune.rs` 的默认参数和 P 一致，以及代码读的标记、播的画面都在她的数据里。
 - 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\tft_norra.log`：`SPAWN`、撒琐物 `DROP`、琐物飞出 `TRINKET`、引爆 `PRIMED`、减冷却 `REFUND`、Q 的加伤 `SURGE`、开门 `JOURNEY`、裂隙 `RIFT`、每波 `VOLLEY`、毛线球命中 `YARN`。
+- 拉露恩的日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\tft_alune.log`：`SPAWN`、每次 `MOONFALL`、每颗 `MOON` 的分摊、`RING` 回程。

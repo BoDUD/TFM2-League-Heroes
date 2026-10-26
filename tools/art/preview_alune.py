@@ -6,9 +6,9 @@
   tft_alune_frames.png    every animation's dense frames (hd_, PPU 2.0, as league.dll shows them)
   tft_alune_effects.png   every effect animation, 3x
   tft_alune_skills.gif    each skill alone with its effects against Darius, timed like the kit (tools/kit/build_alune.py,
-                          60 ticks a second), captioned in Chinese, 4x: the glide; the ring flung (and the add-on's ring
-                          flying back); Moonfall's three shards on three enemies - Darius, Garen and Ashe (the eclipse
-                          mark); Moonlight on her;
+                          60 ticks a second), captioned in Chinese, 4x: the glide; the ring flung and flying back
+                          (tft.dll); Moonfall's three shards on the three enemies nearest her - Darius, Garen and Ashe (the
+                          eclipse mark); Moonlight on her;
                           the moon's phases over her head growing with Q / E / Q and the ult at full moon (the moon
                           wanes); Moon Descends alone (the shadow, the moon pressing down, the crash).
 """
@@ -128,19 +128,18 @@ def scene(out, steps, gap, W=260, H=150, z=4, tail=900, x0=60):
 
     c.wait(300)
 
-    def ring(back=False):
-        """The ring flung on a_rel at Darius (homing), its hit; with the add-on, flying back to her through him."""
+    def ring():
+        """The ring flung on a_rel at Darius (homing), its hit, and flying back to her through him (tft.dll)."""
         t = c.t
         rel = t + tick(P["a_rel"] - 1)
         hit = c.shot("a_ring", "a_hit", rel, P["a_speed"])
         c.a("attack", tick(P["atk_dur"]))
-        if back:
-            x1, x0_ = d.pos(hit)[0], me.pos(hit)[0] + 4
-            home = hit + (x1 - x0_) / px_tick(P["a_speed"])
-            c.over.append(Anim(mirrored(frames_of(small, "a_ring")), hit, int(x1), int(me.y - 14), loop=True,
-                               until=home, x1=int(x0_), y1=int(me.y - 14)))
-            c.on("a_hit", hit + 40)
-            d.flinches.append(hit + 40)
+        x1, x0_ = d.pos(hit)[0], me.pos(hit)[0] + 4
+        home = hit + (x1 - x0_) / px_tick(P["a_speed"])
+        c.over.append(Anim(mirrored(frames_of(small, "a_ring")), hit, int(x1), int(me.y - 14), loop=True,
+                           until=home, x1=int(x0_), y1=int(me.y - 14)))
+        c.on("a_hit", hit + 40)
+        d.flinches.append(hit + 40)
         c.wait(tick(P["atk_cd"] - P["atk_dur"]))
 
     def moonfall():
@@ -193,9 +192,6 @@ def scene(out, steps, gap, W=260, H=150, z=4, tail=900, x0=60):
         elif step == "attack":
             ring()
             ring()
-        elif step == "attack_back":
-            ring(back=True)
-            ring(back=True)
         elif step == "q":
             moonfall()
             c.wait(1600)
@@ -220,12 +216,11 @@ def scene(out, steps, gap, W=260, H=150, z=4, tail=900, x0=60):
 
 # each skill alone (the user, 2026-10-24: 「带技能的gif图呢？」): (caption, steps, Darius's distance, canvas height)
 SCENES = [("移动：坐在月牙法杖上滑行", ["walk_in"], 150, 170),
-          ("普攻：把螺旋月环像飞盘一样甩出去", ["attack"], REACH, 170),
-          ("附加包 普攻：月环打中后飞回来，回程路上的敌人再挨一下", ["attack_back"], REACH, 170),
-          ("技能1 月之降临：月光碎片落在三个敌人身上，魔法伤害、降魔抗（附加包：落在最近的三个）", ["q"], REACH, 190),
+          ("普攻：把螺旋月环像飞盘一样甩出去，打中后飞回她手里，回程路上的敌人再挨一下", ["attack"], REACH, 170),
+          ("技能1 月之降临：月光碎片落在离她最近的三个敌人身上，魔法伤害、降魔抗", ["q"], REACH, 190),
           ("技能2 月华：她和身边的队友攻速提高", ["e"], REACH, 170),
           ("被动 月相：每放一次技能头顶的月亮长一档，满月时大招最痛，砸完回到新月", ["phases"], REACH, 210),
-          ("大招 月曜降临：满月从天而降，中心眩晕（附加包：命中的人越少越痛）", ["r"], REACH, 210)]
+          ("大招 月曜降临：满月从天而降，伤害由命中的敌人平分（人越少越痛），中心眩晕", ["r"], REACH, 210)]
 
 
 def skills(out, z=4):

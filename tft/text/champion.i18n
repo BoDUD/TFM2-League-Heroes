@@ -17,10 +17,10 @@
       },
       "tft_alune": {
         "name": "拉露恩",
-        "attack": "把螺旋月环像飞盘一样甩出去，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>。<#ff9028ff>月相<>：每放一次技能月亮长一档，最多<#ffb900ff>3<>档；大招每档伤害+<#ffb900ff>20%<>，砸完回到新月。",
-        "skill": "月光碎片从天而降，落在<#ffb900ff>3<>个敌人身上（一个是目标），每枚造成<#a974ffff>42<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>32%<>魔法伤害，并使魔抗降低<#ffb900ff>20%<>，持续<#ffb900ff>6秒<>。",
+        "attack": "把螺旋月环像飞盘一样甩出去，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>，月环飞回她手里，回程路上的敌人受到<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<>物理伤害。<#ff9028ff>月相<>：每放一次技能月亮长一档，最多<#ffb900ff>3<>档；大招每档伤害+<#ffb900ff>20%<>，砸完回到新月。",
+        "skill": "月光碎片从天而降，落在离她最近的<#ffb900ff>3<>个敌人身上，每枚造成<#a974ffff>42<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>32%<>魔法伤害，并使魔抗降低<#ffb900ff>20%<>，持续<#ffb900ff>6秒<>。",
         "skill2": "月光洒在她和身边的友方英雄身上，攻击速度提高<#ffb900ff>36%<>，持续<#ffb900ff>5秒<>。",
-        "ult": "敌方英雄脚下浮现月影，<#ffb900ff>0.75秒<>后满月砸下：范围内的敌人受到<#a974ffff>165<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>72%<>魔法伤害，中心的敌人<#ef5350ff>眩晕<><#ffb900ff>0.83秒<>。"
+        "ult": "敌方英雄脚下浮现月影，<#ffb900ff>0.75秒<>后满月砸下：<#a974ffff>165<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>72%<>魔法伤害×<#ffb900ff>220%<>由范围内的敌人平分（每人最多<#ffb900ff>180%<>），中心的敌人<#ef5350ff>眩晕<><#ffb900ff>0.83秒<>。"
       }
     },
     "skill_name": {
@@ -59,10 +59,10 @@
       },
       "tft_alune": {
         "name": "亞盧妮",
-        "attack": "把螺旋月環像飛盤一樣甩出去，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>。<#ff9028ff>月相<>：每施放一次技能月亮長一階，最多<#ffb900ff>3<>階；大招每階傷害+<#ffb900ff>20%<>，砸完回到新月。",
-        "skill": "月華碎片從天而降，落在<#ffb900ff>3<>名敵人身上（一名是目標），每塊造成<#a974ffff>42<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>32%<>魔法傷害，並使魔抗降低<#ffb900ff>20%<>，持續<#ffb900ff>6秒<>。",
+        "attack": "把螺旋月環像飛盤一樣甩出去，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>，月環飛回她手裡，回程路上的敵人受到<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<>物理傷害。<#ff9028ff>月相<>：每施放一次技能月亮長一階，最多<#ffb900ff>3<>階；大招每階傷害+<#ffb900ff>20%<>，砸完回到新月。",
+        "skill": "月華碎片從天而降，落在離她最近的<#ffb900ff>3<>名敵人身上，每塊造成<#a974ffff>42<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>32%<>魔法傷害，並使魔抗降低<#ffb900ff>20%<>，持續<#ffb900ff>6秒<>。",
         "skill2": "月光灑在她和身邊的友方英雄身上，攻擊速度提高<#ffb900ff>36%<>，持續<#ffb900ff>5秒<>。",
-        "ult": "敵方英雄腳下浮現月影，<#ffb900ff>0.75秒<>後滿月砸下：範圍內的敵人受到<#a974ffff>165<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>72%<>魔法傷害，中心的敵人<#ef5350ff>暈眩<><#ffb900ff>0.83秒<>。"
+        "ult": "敵方英雄腳下浮現月影，<#ffb900ff>0.75秒<>後滿月砸下：<#a974ffff>165<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>72%<>魔法傷害×<#ffb900ff>220%<>由範圍內的敵人平分（每人最多<#ffb900ff>180%<>），中心的敵人<#ef5350ff>暈眩<><#ffb900ff>0.83秒<>。"
       }
     },
     "skill_name": {
@@ -101,10 +101,10 @@
       },
       "tft_alune": {
         "name": "Alune",
-        "attack": "Flings her spiral ring like a disc for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<>. <#ff9028ff>Moon Phase<>: each skill she casts grows the moon a phase, up to <#ffb900ff>3<>; her ultimate deals <#ffb900ff>20%<> more a phase, and the moon wanes to new.",
-        "skill": "Moonshards rain on <#ffb900ff>3<> enemies (one of them the target), each dealing <#a974ffff>42<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>32%<> <#a974ffff>magic damage<> and lowering magic resistance by <#ffb900ff>20%<> for <#ffb900ff>6s<>.",
+        "attack": "Flings her spiral ring like a disc for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<>; it flies back to her, dealing <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<> physical damage to enemies on the way. <#ff9028ff>Moon Phase<>: each skill she casts grows the moon a phase, up to <#ffb900ff>3<>; her ultimate deals <#ffb900ff>20%<> more a phase, and the moon wanes to new.",
+        "skill": "Moonshards rain on the <#ffb900ff>3<> enemies nearest her, each dealing <#a974ffff>42<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>32%<> <#a974ffff>magic damage<> and lowering magic resistance by <#ffb900ff>20%<> for <#ffb900ff>6s<>.",
         "skill2": "Moonlight falls on her and the allied champions near her: <#ffb900ff>36%<> attack speed for <#ffb900ff>5s<>.",
-        "ult": "The moon's shadow spreads under an enemy champion; <#ffb900ff>0.75s<> later the full moon crashes down: enemies in the area take <#a974ffff>165<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>72%<> <#a974ffff>magic damage<>, those in the middle are <#ef5350ff>stunned<> for <#ffb900ff>0.83s<>."
+        "ult": "The moon's shadow spreads under an enemy champion; <#ffb900ff>0.75s<> later the full moon crashes down: <#ffb900ff>220%<> of <#a974ffff>165<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>72%<> <#a974ffff>magic damage<> split among the enemies in the area (at most <#ffb900ff>180%<> each), those in the middle <#ef5350ff>stunned<> for <#ffb900ff>0.83s<>."
       }
     },
     "skill_name": {
@@ -143,10 +143,10 @@
       },
       "tft_alune": {
         "name": "알룬",
-        "attack": "나선 고리를 원반처럼 던져 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> 물리 피해. <#ff9028ff>달의 위상<>: 스킬을 쓸 때마다 달이 한 단계 차오른다(최대 <#ffb900ff>3<>단계). 궁극기는 단계마다 피해 +<#ffb900ff>20%<>, 쓴 뒤 다시 초승달.",
-        "skill": "달조각이 적 <#ffb900ff>3<>명(하나는 대상)에게 떨어져 각각 <#a974ffff>42<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>32%<> 마법 피해를 입히고 <#ffb900ff>6초<> 동안 마법 저항력을 <#ffb900ff>20%<> 낮춘다.",
+        "attack": "나선 고리를 원반처럼 던져 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> 물리 피해, 고리는 되돌아오며 길 위의 적에게 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<> 물리 피해. <#ff9028ff>달의 위상<>: 스킬을 쓸 때마다 달이 한 단계 차오른다(최대 <#ffb900ff>3<>단계). 궁극기는 단계마다 피해 +<#ffb900ff>20%<>, 쓴 뒤 다시 초승달.",
+        "skill": "가장 가까운 적 <#ffb900ff>3<>명에게 달조각이 떨어져 각각 <#a974ffff>42<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>32%<> 마법 피해를 입히고 <#ffb900ff>6초<> 동안 마법 저항력을 <#ffb900ff>20%<> 낮춘다.",
         "skill2": "자신과 주변 아군 챔피언에게 달빛이 내려 <#ffb900ff>5초<> 동안 공격 속도 +<#ffb900ff>36%<>.",
-        "ult": "적 챔피언의 발밑에 달그림자가 드리우고 <#ffb900ff>0.75초<> 뒤 보름달이 떨어진다: 범위의 적에게 <#a974ffff>165<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>72%<> 마법 피해, 중심의 적은 <#ffb900ff>0.83초<> <#ef5350ff>기절<>."
+        "ult": "적 챔피언의 발밑에 달그림자가 드리우고 <#ffb900ff>0.75초<> 뒤 보름달이 떨어진다: <#a974ffff>165<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>72%<> 마법 피해의 <#ffb900ff>220%<>를 범위의 적이 나누어 받고(1명당 최대 <#ffb900ff>180%<>), 중심의 적은 <#ffb900ff>0.83초<> <#ef5350ff>기절<>."
       }
     },
     "skill_name": {
@@ -185,10 +185,10 @@
       },
       "tft_alune": {
         "name": "アルーン",
-        "attack": "螺旋の輪を円盤のように投げ、<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の物理ダメージ。<#ff9028ff>月相<>：スキルを使うたびに月が満ちる（最大<#ffb900ff>3<>段階）。アルティメットは1段階ごとにダメージ+<#ffb900ff>20%<>、使うと新月に戻る。",
-        "skill": "月の破片が<#ffb900ff>3<>体の敵（うち1体は対象）に降り、それぞれ<#a974ffff>42<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>32%<>の魔法ダメージと<#ffb900ff>6秒<>の魔法防御-<#ffb900ff>20%<>。",
+        "attack": "螺旋の輪を円盤のように投げ、<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の物理ダメージ。輪は戻ってきて途中の敵に<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<>の物理ダメージ。<#ff9028ff>月相<>：スキルを使うたびに月が満ちる（最大<#ffb900ff>3<>段階）。アルティメットは1段階ごとにダメージ+<#ffb900ff>20%<>、使うと新月に戻る。",
+        "skill": "最も近い敵<#ffb900ff>3<>体に月の破片が降り、それぞれ<#a974ffff>42<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>32%<>の魔法ダメージと<#ffb900ff>6秒<>の魔法防御-<#ffb900ff>20%<>。",
         "skill2": "自分と周りの味方チャンピオンに月光が降り、<#ffb900ff>5秒<>間攻撃速度+<#ffb900ff>36%<>。",
-        "ult": "敵チャンピオンの足元に月の影が広がり、<#ffb900ff>0.75秒<>後に満月が落ちる：範囲の敵に<#a974ffff>165<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>72%<>の魔法ダメージ、中心の敵は<#ffb900ff>0.83秒<><#ef5350ff>スタン<>。"
+        "ult": "敵チャンピオンの足元に月の影が広がり、<#ffb900ff>0.75秒<>後に満月が落ちる：<#a974ffff>165<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>72%<>の魔法ダメージの<#ffb900ff>220%<>を範囲の敵で分け合い（1体あたり最大<#ffb900ff>180%<>）、中心の敵は<#ffb900ff>0.83秒<><#ef5350ff>スタン<>。"
       }
     },
     "skill_name": {

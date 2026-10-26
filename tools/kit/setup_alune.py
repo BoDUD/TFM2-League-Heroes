@@ -11,7 +11,9 @@ rule), style/champion_view (face, centre, banpick_center). Only her keys change 
 CRLF, UTF-8. --check only prints each text's shown length against lint_mod's TOOLTIP_MAX and the texts themselves.
 Names: TFT set 18's own (CommunityDragon latest cdragon/tft/<locale>.json, DA_18_Alune): zh_CN 拉露恩, zh_TW 亞盧妮, ja
 アルーン, ko 알룬, Moonfall = 月之降临 / 月隕 / 崩月 / 달빛 낙하. Moonlight (月华), Moon Descends (月曜降临) and the passive Moon
-Phase (月相, in the attack's text) are our own (TFT has one ability; the user's pick, plan A 「月相」).
+Phase (月相, in the attack's text) are our own (TFT has one ability; the user's pick, plan A 「月相」). The texts are the
+rules she plays with tft.dll (addons/tft/src/alune.rs): Moonfall on the nearest enemies, the full moon's damage shared,
+the ring's way back.
 Sounds: tools/lol/extract_alune.py's clips in tft/sound/sfx/tft_alune_sfx_*.wav (git-ignored) - her own set-11 TFT
 sounds (attack, Moonfall's cast and shards, her Chinese voice line on the ult) and Diana's Pale Cascade / Moonfall for
 Moonlight and the full moon. A clip name never equals an event name (vo-clip-names rule): event tft_alune_<x> plays
@@ -50,61 +52,69 @@ AD = ADi + O + "100%" + E
 TEXT = {
     "zh-hans": {
         "name": "拉露恩",
-        "attack": "把螺旋月环像飞盘一样甩出去，造成" + AD + O + "物理伤害" + E + "。" + O + "月相" + E + "：每放一次技能月亮长一档，最多" +
-                  A + "3" + E + "档；大招每档伤害+" + A + "{r_ph}%" + E + "，砸完回到新月。",
-        "skill": "月光碎片从天而降，落在" + A + "{q_n}" + E + "个敌人身上（一个是目标），每枚造成" + mag("q_dmg", "q_ratio") +
+        "attack": "把螺旋月环像飞盘一样甩出去，造成" + AD + O + "物理伤害" + E + "，月环飞回她手里，回程路上的敌人受到" + ADi + O +
+                  "{a_back_r}%" + E + "物理伤害。" + O + "月相" + E + "：每放一次技能月亮长一档，最多" + A + "3" + E + "档；大招每档伤害+" +
+                  A + "{r_ph}%" + E + "，砸完回到新月。",
+        "skill": "月光碎片从天而降，落在离她最近的" + A + "{q_n}" + E + "个敌人身上，每枚造成" + mag("q_dmg", "q_ratio") +
                  "魔法伤害，并使魔抗降低" + A + "{q_shred}%" + E + "，持续" + A + "{q_shred_t}秒" + E + "。",
         "skill2": "月光洒在她和身边的友方英雄身上，攻击速度提高" + A + "{e_as}%" + E + "，持续" + A + "{e_t}秒" + E + "。",
-        "ult": "敌方英雄脚下浮现月影，" + A + "{r_open}秒" + E + "后满月砸下：范围内的敌人受到" + mag("r_dmg", "r_ratio") +
-               "魔法伤害，中心的敌人" + R + "眩晕" + E + A + "{r_stun}秒" + E + "。",
+        "ult": "敌方英雄脚下浮现月影，" + A + "{r_open}秒" + E + "后满月砸下：" + mag("r_dmg", "r_ratio") + "魔法伤害×" + A + "{r_split}%" +
+               E + "由范围内的敌人平分（每人最多" + A + "{r_cap}%" + E + "），中心的敌人" + R + "眩晕" + E + A + "{r_stun}秒" + E + "。",
         "names": ("月之降临", "月华", "月曜降临"),
     },
     "zh-hant": {
         "name": "亞盧妮",
-        "attack": "把螺旋月環像飛盤一樣甩出去，造成" + AD + O + "物理傷害" + E + "。" + O + "月相" + E + "：每施放一次技能月亮長一階，最多" +
-                  A + "3" + E + "階；大招每階傷害+" + A + "{r_ph}%" + E + "，砸完回到新月。",
-        "skill": "月華碎片從天而降，落在" + A + "{q_n}" + E + "名敵人身上（一名是目標），每塊造成" + mag("q_dmg", "q_ratio") +
+        "attack": "把螺旋月環像飛盤一樣甩出去，造成" + AD + O + "物理傷害" + E + "，月環飛回她手裡，回程路上的敵人受到" + ADi + O +
+                  "{a_back_r}%" + E + "物理傷害。" + O + "月相" + E + "：每施放一次技能月亮長一階，最多" + A + "3" + E + "階；大招每階傷害+" +
+                  A + "{r_ph}%" + E + "，砸完回到新月。",
+        "skill": "月華碎片從天而降，落在離她最近的" + A + "{q_n}" + E + "名敵人身上，每塊造成" + mag("q_dmg", "q_ratio") +
                  "魔法傷害，並使魔抗降低" + A + "{q_shred}%" + E + "，持續" + A + "{q_shred_t}秒" + E + "。",
         "skill2": "月光灑在她和身邊的友方英雄身上，攻擊速度提高" + A + "{e_as}%" + E + "，持續" + A + "{e_t}秒" + E + "。",
-        "ult": "敵方英雄腳下浮現月影，" + A + "{r_open}秒" + E + "後滿月砸下：範圍內的敵人受到" + mag("r_dmg", "r_ratio") +
-               "魔法傷害，中心的敵人" + R + "暈眩" + E + A + "{r_stun}秒" + E + "。",
+        "ult": "敵方英雄腳下浮現月影，" + A + "{r_open}秒" + E + "後滿月砸下：" + mag("r_dmg", "r_ratio") + "魔法傷害×" + A + "{r_split}%" +
+               E + "由範圍內的敵人平分（每人最多" + A + "{r_cap}%" + E + "），中心的敵人" + R + "暈眩" + E + A + "{r_stun}秒" + E + "。",
         "names": ("月隕", "月華", "月曜降臨"),
     },
     "en": {
         "name": "Alune",
-        "attack": "Flings her spiral ring like a disc for " + AD + " " + O + "physical damage" + E + ". " + O + "Moon Phase" + E +
+        "attack": "Flings her spiral ring like a disc for " + AD + " " + O + "physical damage" + E + "; it flies back to her, "
+                  "dealing " + ADi + O + "{a_back_r}%" + E + " physical damage to enemies on the way. " + O + "Moon Phase" + E +
                   ": each skill she casts grows the moon a phase, up to " + A + "3" + E + "; her ultimate deals " + A + "{r_ph}%" +
                   E + " more a phase, and the moon wanes to new.",
-        "skill": "Moonshards rain on " + A + "{q_n}" + E + " enemies (one of them the target), each dealing " +
+        "skill": "Moonshards rain on the " + A + "{q_n}" + E + " enemies nearest her, each dealing " +
                  mag("q_dmg", "q_ratio") + " " + M + "magic damage" + E + " and lowering magic resistance by " + A + "{q_shred}%" +
                  E + " for " + A + "{q_shred_t}s" + E + ".",
         "skill2": "Moonlight falls on her and the allied champions near her: " + A + "{e_as}%" + E + " attack speed for " + A +
                   "{e_t}s" + E + ".",
-        "ult": "The moon's shadow spreads under an enemy champion; " + A + "{r_open}s" + E + " later the full moon crashes down: "
-               "enemies in the area take " + mag("r_dmg", "r_ratio") + " " + M + "magic damage" + E + ", those in the middle are " +
-               R + "stunned" + E + " for " + A + "{r_stun}s" + E + ".",
+        "ult": "The moon's shadow spreads under an enemy champion; " + A + "{r_open}s" + E + " later the full moon crashes down: " +
+               A + "{r_split}%" + E + " of " + mag("r_dmg", "r_ratio") + " " + M + "magic damage" + E + " split among the enemies in "
+               "the area (at most " + A + "{r_cap}%" + E + " each), those in the middle " + R + "stunned" + E + " for " + A +
+               "{r_stun}s" + E + ".",
         "names": ("Moonfall", "Moonlight", "Moon Descends"),
     },
     "ko": {
         "name": "알룬",
-        "attack": "나선 고리를 원반처럼 던져 " + AD + " 물리 피해. " + O + "달의 위상" + E + ": 스킬을 쓸 때마다 달이 한 단계 차오른다(최대 " + A +
-                  "3" + E + "단계). 궁극기는 단계마다 피해 +" + A + "{r_ph}%" + E + ", 쓴 뒤 다시 초승달.",
-        "skill": "달조각이 적 " + A + "{q_n}" + E + "명(하나는 대상)에게 떨어져 각각 " + mag("q_dmg", "q_ratio") + " 마법 피해를 입히고 " + A +
+        "attack": "나선 고리를 원반처럼 던져 " + AD + " 물리 피해, 고리는 되돌아오며 길 위의 적에게 " + ADi + O + "{a_back_r}%" + E +
+                  " 물리 피해. " + O + "달의 위상" + E + ": 스킬을 쓸 때마다 달이 한 단계 차오른다(최대 " + A + "3" + E + "단계). 궁극기는 단계마다 "
+                  "피해 +" + A + "{r_ph}%" + E + ", 쓴 뒤 다시 초승달.",
+        "skill": "가장 가까운 적 " + A + "{q_n}" + E + "명에게 달조각이 떨어져 각각 " + mag("q_dmg", "q_ratio") + " 마법 피해를 입히고 " + A +
                  "{q_shred_t}초" + E + " 동안 마법 저항력을 " + A + "{q_shred}%" + E + " 낮춘다.",
         "skill2": "자신과 주변 아군 챔피언에게 달빛이 내려 " + A + "{e_t}초" + E + " 동안 공격 속도 +" + A + "{e_as}%" + E + ".",
-        "ult": "적 챔피언의 발밑에 달그림자가 드리우고 " + A + "{r_open}초" + E + " 뒤 보름달이 떨어진다: 범위의 적에게 " +
-               mag("r_dmg", "r_ratio") + " 마법 피해, 중심의 적은 " + A + "{r_stun}초" + E + " " + R + "기절" + E + ".",
+        "ult": "적 챔피언의 발밑에 달그림자가 드리우고 " + A + "{r_open}초" + E + " 뒤 보름달이 떨어진다: " + mag("r_dmg", "r_ratio") +
+               " 마법 피해의 " + A + "{r_split}%" + E + "를 범위의 적이 나누어 받고(1명당 최대 " + A + "{r_cap}%" + E + "), 중심의 적은 " + A +
+               "{r_stun}초" + E + " " + R + "기절" + E + ".",
         "names": ("달빛 낙하", "달빛 가호", "보름달 강림"),
     },
     "ja": {
         "name": "アルーン",
-        "attack": "螺旋の輪を円盤のように投げ、" + AD + "の物理ダメージ。" + O + "月相" + E + "：スキルを使うたびに月が満ちる（最大" + A + "3" +
-                  E + "段階）。アルティメットは1段階ごとにダメージ+" + A + "{r_ph}%" + E + "、使うと新月に戻る。",
-        "skill": "月の破片が" + A + "{q_n}" + E + "体の敵（うち1体は対象）に降り、それぞれ" + mag("q_dmg", "q_ratio") +
+        "attack": "螺旋の輪を円盤のように投げ、" + AD + "の物理ダメージ。輪は戻ってきて途中の敵に" + ADi + O + "{a_back_r}%" + E +
+                  "の物理ダメージ。" + O + "月相" + E + "：スキルを使うたびに月が満ちる（最大" + A + "3" + E + "段階）。アルティメットは1段階ごとに"
+                  "ダメージ+" + A + "{r_ph}%" + E + "、使うと新月に戻る。",
+        "skill": "最も近い敵" + A + "{q_n}" + E + "体に月の破片が降り、それぞれ" + mag("q_dmg", "q_ratio") +
                  "の魔法ダメージと" + A + "{q_shred_t}秒" + E + "の魔法防御-" + A + "{q_shred}%" + E + "。",
         "skill2": "自分と周りの味方チャンピオンに月光が降り、" + A + "{e_t}秒" + E + "間攻撃速度+" + A + "{e_as}%" + E + "。",
-        "ult": "敵チャンピオンの足元に月の影が広がり、" + A + "{r_open}秒" + E + "後に満月が落ちる：範囲の敵に" + mag("r_dmg", "r_ratio") +
-               "の魔法ダメージ、中心の敵は" + A + "{r_stun}秒" + E + R + "スタン" + E + "。",
+        "ult": "敵チャンピオンの足元に月の影が広がり、" + A + "{r_open}秒" + E + "後に満月が落ちる：" + mag("r_dmg", "r_ratio") +
+               "の魔法ダメージの" + A + "{r_split}%" + E + "を範囲の敵で分け合い（1体あたり最大" + A + "{r_cap}%" + E + "）、中心の敵は" + A +
+               "{r_stun}秒" + E + R + "スタン" + E + "。",
         "names": ("崩月", "月光の加護", "満月降臨"),
     },
 }
@@ -120,6 +130,8 @@ SOUNDS = {
     f"{ID}_r": [(CLIP + "r", 0.5, 0.0), (CLIP + "r_vo", 0.6, 0.0)],
     f"{ID}_r_blast": [(CLIP + "r_blast", 0.55, 0.0)],
 }
+# the sounds tft.dll plays itself (addons/tft/src/alune.rs: a moonshard landing), not the kit's data
+DLL_SOUNDS = {f"{ID}_q_hit"}
 
 
 def secs(t):
@@ -127,7 +139,8 @@ def secs(t):
 
 
 def values(p):
-    v = {k: p[k] for k in ("q_n", "q_dmg", "q_ratio", "q_shred", "e_as", "r_dmg", "r_ratio", "r_ph")}
+    v = {k: p[k] for k in ("q_n", "q_dmg", "q_ratio", "q_shred", "e_as", "r_dmg", "r_ratio", "r_ph", "r_split", "r_cap",
+                           "a_back_r")}
     for k in ("q_shred_t", "e_t", "r_open", "r_stun"):
         v[k] = secs(p[k])
     return v
@@ -201,7 +214,7 @@ def main():
     if bad:
         sys.exit("a text is longer than TOOLTIP_MAX")
 
-    played = kit_sounds()
+    played = kit_sounds() | DLL_SOUNDS
     if played != set(SOUNDS):
         sys.exit(f"the kit plays {sorted(played - set(SOUNDS))} without a sound_info, SOUNDS has unused "
                  f"{sorted(set(SOUNDS) - played)}")
