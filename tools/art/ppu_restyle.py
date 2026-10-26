@@ -673,7 +673,8 @@ RESTYLE = {
     # the design at the zoom her head gives (tools/art/casts_vayne_hd.py); drawn at 2.55 (ORIG_PPU), brought to 2.2
     # squares a game pixel like Jinx, Lux and Draven (「通过，用 2.2」 of 2.55 / 2.2 / 1.8 / 1.5); the face point between
     # her glasses (over her shoes' middle, 32 game px over the soles)
-    "vayne": dict(ppu=2.2, edge=0, face_to=(0, -32)),
+    # 2026-10-26 face (1,-36): (0,-32) framed her chin, the red collar and chest - the red glasses above the box
+    "vayne": dict(ppu=2.2, edge=0, face_to=(1, -36)),
     # league_heimerdinger: the design (Codex's step-1 A-2 cut to the user's 54 rows at 1.5 squares a game pixel: 「36」
     # 「PPU 1.5」, 3/4 only) with Codex's whole-body poses (the design's head pasted back) and the backpack crane / R's gear
     # props, posed by tools/art/rig_heimerdinger.py after League's clips, so no proportion change here; brought down to
