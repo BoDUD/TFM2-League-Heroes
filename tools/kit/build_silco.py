@@ -266,6 +266,27 @@ def build(p, is_native=False):
     return kit
 
 
+def sylas_ult(p=None):
+    """Chem-Baron's Flood as plain data for league_sylas's copy (addons/league_sylas/make_override.py STOLEN): Sylas's
+    add-on bundle is on the Workshop and the tft mod is not, so his stolen Flood cannot call tft.dll - the user,
+    2026-10-27: 「塞拉斯的大招什么一定要能偷到特效版本的」. The giant canister lobbed over the warning, its blast and one
+    play of the fog, every enemy within r_r hit and slowed r_slow% for r_fog_t ticks (the slow's fog at their feet);
+    the monstrosities as a poison on the champion it was thrown at: m_n bites every m_gap ticks, each the r_n
+    monstrosities' bites together (and the fog's burn shared out), the gnawing grub drawn on him every bite. The views
+    are the kit's own (tft_silco_*); make_override copies them and their sheets."""
+    p = dict(P) if p is None else p
+    bites = p["m_n"] * p["m_gap"]
+    fog = p["r_fog_t"] // 60 * p["r_fog_dmg"], p["r_fog_t"] // 60 * p["r_fog_ratio"]
+    blast = [sfx("r_hit"), view("r_burst"), view("r_fog"),
+             zone("r_zone", p["r_r"], [ap(p["r_dmg"], p["r_ratio"]),
+                                       buff("r_slow", p["r_fog_t"], move_speed_mult=-p["r_slow"])])]
+    gnaw = poison(bites, p["m_gap"], [ap(p["m_dmg"] * p["r_n"] + fog[0] // p["m_n"],
+                                         p["m_ratio"] * p["r_n"] + fog[1] // p["m_n"]), view("m_bite_l"),
+                                      tsfx("m_bite")])
+    big = lob("r_can", p["r_fall"], blast, target="EnemyChampion", seen="r_warn", applied=[gnaw])
+    return combine(sfx("r"), delayed(p["r_rel"] - 1, big))
+
+
 def nodes(o):
     """Effect nodes in a tree (dicts with a `type`), the measure the game's per-tick clone cost follows."""
     if isinstance(o, dict):

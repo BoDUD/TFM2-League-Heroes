@@ -109,6 +109,12 @@ BY_CLASS = {
 }
 
 
+# TFT heroes whose own ult is tft.dll's code (a Native): their kit builds a plain-data version for Sylas (module,
+# function -> the ult's effect tree; its views are the hero's own lists), so his stolen ult still shows their effects
+# (the user, 2026-10-27: 「塞拉斯的大招什么一定要能偷到特效版本的」)
+STOLEN = {"tft_silco": ("build_silco", "sylas_ult")}
+
+
 # a robbed champion's own animation tags -> Sylas's (his sheet has none of theirs): a dash, a leap or a flight his leap,
 # anything else his stolen ult's cast
 DASH_WORDS = ("dash", "leap", "jump", "fly", "air", "hop")
@@ -170,7 +176,12 @@ def own_ults():
         c = json.loads(open(lp(path), "rb").read().decode("utf-8-sig"))
         if c["id"] == HERO or key(c["id"]) in BY_CLASS:
             continue
-        tree = retag(c["ult"]["effect"])
+        if c["id"] in STOLEN:
+            import importlib
+            mod, fn = STOLEN[c["id"]]
+            tree = retag(getattr(importlib.import_module(mod), fn)())
+        else:
+            tree = retag(c["ult"]["effect"])
         if '"Native"' in json.dumps(tree):
             sys.exit(f"{c['id']}: its ult calls native code - put it in BY_CLASS or make the add-on carry it")
         used = names_in(tree, set())

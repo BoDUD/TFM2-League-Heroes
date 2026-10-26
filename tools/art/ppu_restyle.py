@@ -734,11 +734,13 @@ RESTYLE = {
     # tft_silco (the tft pack, mid): the design (Codex's step-0 A-1 leaning on his cane, 80 rows, 40 game px hair to
     # soles at the user's picks 「A-1 40 PPU 2.0」, 3/4 only, the scarred eye put back) and Codex's key poses after his
     # own TFT clips (the design's head put back, the bodies read at the design's build, gaps closed), posed by
-    # tools/art/rig_silco.py, so no proportion or density change here; the outer outline grown a square like the others -
-    # the slits it nearly closes where the cane passes a boot or a leg (up to 15 squares) filled with the outline, the
-    # one-square slits left in the outline closed and the specks those closings sealed in filled (gap-check, norra's
-    # way); the face point between his eyes (2 game px ahead of his standing point, 33 over the ground)
-    "silco": dict(ppu=2.0, edge=1, face_to=(2, -33), pinholes=15, cracks=True, fill_holes=15),
+    # tools/art/rig_silco.py, so no proportion or density change here; the outer outline grown a square like the others,
+    # but not into the slits up to 3 squares wide where the cane passes a leg (open_slits: grown shut they turned into
+    # black wedges); no pinholes: the loops the cane closes with his hand and boot are see-through and would be filled
+    # whole (170+ squares); the one-square cracks in the outline and the gaps up to 15 squares the growth leaves between
+    # an arm and the body filled (gap-check); the face point between his eyes (2 game px ahead of his standing point, 33
+    # over the ground)
+    "silco": dict(ppu=2.0, edge=1, face_to=(2, -33), slits=3, cracks=True, fill_holes=15),
 }
 NIDALEE_COUGAR = {"c_idle": 6, "c_run": 8, "c_attack": 4, "c_skill": 5, "c_pounce": 6, "c_swipe": 4, "c_transform": 3,
                   "c_hit": 2, "c_dead": 6}
@@ -1071,6 +1073,29 @@ def grow_edge(a, n, colour):
     return a
 
 
+def open_slits(grown, before, n, w):
+    """The squares grow_edge(.., n, ..) laid in a narrow slit between two parts (clear in `before`, with a part of the
+    figure at most `w` squares away on both sides, left and right or above and below - tft_silco's cane passing a leg
+    two or three squares apart) cleared again: both sides keep their own outline and the slit stays open, where the
+    grown outline filled it shut into a black wedge."""
+    was = np.pad(before[..., 3] > 0, n)
+    p = np.pad(was, w)
+    H, W = was.shape
+    left = np.zeros_like(was)
+    right = np.zeros_like(was)
+    up = np.zeros_like(was)
+    down = np.zeros_like(was)
+    for k in range(1, w + 1):
+        left |= p[w:w + H, w - k:w - k + W]
+        right |= p[w:w + H, w + k:w + k + W]
+        up |= p[w - k:w - k + H, w:w + W]
+        down |= p[w + k:w + k + H, w:w + W]
+    slit = ~was & ((left & right) | (up & down)) & (grown[..., 3] > 0)
+    out = grown.copy()
+    out[slit] = 0
+    return out
+
+
 def fit(content, pivot, W, H, exact_w=None):
     """`content` (its pivot at `pivot`) on a frame of at least W x H grown alike at both ends, the pivot at the centre;
     exact_w: the width it must have. -> frame (None when it does not fit exact_w)."""
@@ -1355,6 +1380,8 @@ def restyle(hero, spec, write=True, only=None):
                                           pal=None if (tag, i) in skip else shared)
             before = content
             content = grow_edge(content, spec.get("edge", 0), outline)
+            if spec.get("slits"):                          # narrow slits between parts kept open
+                content = open_slits(content, before, spec.get("edge", 0), int(spec["slits"]))
             if spec.get("pinholes"):                       # the specks of ground the grown outline closed in
                 most = 2 if spec["pinholes"] is True else int(spec["pinholes"])
                 content = close_pinholes(content, spec.get("edge", 0), outline, most,

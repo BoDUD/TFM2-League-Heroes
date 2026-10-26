@@ -23,6 +23,10 @@ import os
 import subprocess
 
 ROOT = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."))
+import sys  # noqa: E402
+sys.path.insert(0, os.path.join(ROOT, "addons", "league_sylas"))
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from make_override import STOLEN  # noqa: E402
 PROJ = ("ViewEffect", "CasterViewEffect", "TargetProjectile", "LinearProjectile", "RangeProjectile", "RangePeriodProjectile",
         "ParabolicProjectile", "LineRangeProjectile", "ApplyInProjectile", "BackToCasterLinearProjectile",
         "AutoTargetProjectile", "TargetSplashProjectile")
@@ -66,8 +70,13 @@ def check(sim, base, hero, seed=3):
     src = (os.path.join(ROOT, "tft", "champion", f"{hero}.data_champion") if hero.startswith("tft_")
            else os.path.join(ROOT, "league", "champion", f"league_{hero}.data_champion"))
     own = json.load(open(src, encoding="utf-8-sig"))
+    tree = own["ult"]["effect"]
+    if own["id"] in STOLEN:          # a TFT hero whose own ult is tft.dll's: the plain version the copy carries
+        import importlib
+        mod, fn = STOLEN[own["id"]]
+        tree = getattr(importlib.import_module(mod), fn)()
     names = set()
-    walk(own["ult"]["effect"], lambda d: names.add(d["name"]) if d.get("type") in PROJ and isinstance(d.get("name"), str)
+    walk(tree, lambda d: names.add(d["name"]) if d.get("type") in PROJ and isinstance(d.get("name"), str)
          else None)
     team = ["base:fighter", "base:ninja", path, "base:archer", "base:priest"]
     foes = ["base:knight", "base:demon", "base:pyromancer", "base:gunner", "base:monk"]
