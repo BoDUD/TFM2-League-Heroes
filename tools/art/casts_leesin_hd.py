@@ -18,7 +18,10 @@ Each frame then: the white keyed off from the sheet's edges and the white it wal
 to the cell its centre of mass falls in, sampled at its sheet's zoom (each square the colour most of its pixels snap to
 in the design's palette, nearest in Lab), and placed where the old frame stood: its box's bottom on the old box's
 bottom, its box's middle on the old box's middle, both from the pivot (soles 11.5 old pixels under the frame's centre,
-on the design's soles' row).
+on the design's soles' row). The run is placed by his head (STEADY): the old run held the skull in one column and within 6
+squares of one height while the legs cycled; the redo's frames drawn on straighter legs stood the head up to 14 squares
+higher and swayed it 6 columns - so each run frame's skull goes on its old frame's column, and down to its old frame's
+height as far as its lowest foot can go (to the soles' row: the airborne frames whose front foot reaches down land on it).
 
     python tools/art/casts_leesin_hd.py --review DIR      # every tag placed, at 2x, the design first
     python tools/art/casts_leesin_hd.py --measure         # the ZOOM table again (slow: a few minutes)
@@ -40,12 +43,14 @@ HD = os.path.join(ROOT, "assets", "source", "leesin", "hd")
 SRC = os.path.join(HD, "casts")
 TAGS = ["run", "attack", "skill", "q2", "skill2", "ult", "hit", "dead"]
 OLD_SOLES = 11.5                # old frames: the soles this many pixels under the frame's centre (its pivot)
-# px of Codex's drawing a design square, a sheet (--measure)
-ZOOM = {"run_1": 9.11, "run_2": 9.56, "run_3": 9.35, "run_4": 9.52, "attack_1": 7.68, "attack_2": 8.84,
+# px of Codex's drawing a design square, a sheet: the first delivery's as measured 2026-10-26 (the frames the user
+# passed: 「其他动作通过」), the run's four sheets and E's last frame from the redo (RUN_REDO_PROMPT.md) by --measure
+ZOOM = {"run_1": 9.35, "run_2": 9.27, "run_3": 8.91, "run_4": 9.24, "attack_1": 7.68, "attack_2": 8.84,
         "attack_3": 7.89, "skill_1": 8.98, "skill_2": 7.96, "skill_3": 8.18, "skill_4": 9.61, "q2_1": 9.75,
         "q2_2": 11.04, "q2_3": 10.32, "q2_4": 9.38, "q2_5": 8.69, "skill2_1": 8.84, "skill2_2": 8.08, "skill2_3": 9.51,
-        "skill2_4": 10.62, "ult_1": 7.9, "ult_2": 8.7, "ult_3": 8.11, "ult_4": 8.56, "hit_1": 8.0, "dead_1": 7.21,
+        "skill2_4": 5.64, "ult_1": 7.9, "ult_2": 8.7, "ult_3": 8.11, "ult_4": 8.56, "hit_1": 8.0, "dead_1": 7.21,
         "dead_2": 10.94, "dead_3": 7.27, "dead_4": 7.5}
+STEADY = {"run"}                # placed by the skull: the old frame's column, its height as far as the feet allow
 HEAD = (11, 31, 25, 47)         # the design's head for the match: rows 11-30 (under the braid), columns 25-46
 GOOD = 100                      # a head match this good (mean colour distance) counts
 WHITE = 238                     # the background: every channel this light, grey (spread <= 12), reached from the edge
@@ -243,6 +248,19 @@ def read_all():
     return out
 
 
+def skull(p):
+    """(top row, middle column) of the shaved skull: the highest skin squares (hue 15-40, saturation .2-.6, value .6 up),
+    the middle of the skin on its top three rows."""
+    import colorsys
+    sk = np.zeros(p.shape[:2], bool)
+    for y, x in zip(*np.nonzero(p[..., 3])):
+        h, s_, v = colorsys.rgb_to_hsv(*(p[y, x, :3] / 255.0))
+        sk[y, x] = 15 <= h * 360 <= 40 and 0.2 <= s_ <= 0.6 and v >= 0.6
+    top = int(np.nonzero(sk.any(1))[0].min())
+    xs = np.nonzero(sk[top:top + 3].any(0))[0]
+    return top, (xs.min() + xs.max() + 1) / 2.0
+
+
 def placed():
     """{"<tag>_<frame>": (picture, x, y of its top-left on the design's grid)}: the box's middle on the old box's
     middle and its bottom on the old box's bottom, from the design's pivot (its shoes' middle on its soles' row)."""
@@ -253,8 +271,16 @@ def placed():
         ys, xs = np.nonzero(sq[..., 3] > 0)
         pic = sq[ys.min():ys.max() + 1, xs.min():xs.max() + 1]
         # (the old falls lay a pixel under the soles' line: nothing may hang under it - the health bar is there)
-        out[n] = (pic, int(round(px + mid - pic.shape[1] / 2)), min(int(round(GROUND + bottom - pic.shape[0])),
-                                                                   GROUND - pic.shape[0]))
+        x, y = int(round(px + mid - pic.shape[1] / 2)), min(int(round(GROUND + bottom - pic.shape[0])), GROUND - pic.shape[0])
+        if n.rsplit("_", 1)[0] in STEADY:
+            old = OLD[n.rsplit("_", 1)[0]][int(n.rsplit("_", 1)[1]) - 1]
+            ot, ox = skull(old)
+            want_x = px + (ox - old.shape[1] / 2) * PPU                 # the old skull's column on the design's grid
+            want_top = GROUND - (old.shape[0] / 2 + OLD_SOLES - ot) * PPU
+            nt, nx = skull(pic)
+            x = int(round(want_x - nx))
+            y = min(GROUND - pic.shape[0], max(y, int(round(want_top - nt))))
+        out[n] = (pic, x, y)
     return out
 
 

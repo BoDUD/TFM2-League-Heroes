@@ -1,0 +1,294 @@
+[
+  {
+    "name": "run_1",
+    "frames": [
+      1,
+      2
+    ],
+    "size": [
+      1536,
+      1024
+    ],
+    "size_ok": true,
+    "alpha_extrema": [
+      255,
+      255
+    ],
+    "partly_transparent_pixels": 0,
+    "off_palette_pixels": 1447452,
+    "unique_colors": 98051,
+    "corners": [
+      [
+        253,
+        253,
+        253,
+        255
+      ],
+      [
+        254,
+        255,
+        255,
+        255
+      ],
+      [
+        254,
+        253,
+        254,
+        255
+      ],
+      [
+        253,
+        253,
+        253,
+        255
+      ]
+    ],
+    "cell_art_bbox": [
+      [
+        66,
+        175,
+        724,
+        931
+      ],
+      [
+        111,
+        174,
+        711,
+        931
+      ]
+    ],
+    "upper_body_pixel_match_within_15_at_y100_549": 0.8059
+  },
+  {
+    "name": "run_2",
+    "frames": [
+      3,
+      4
+    ],
+    "size": [
+      1536,
+      1024
+    ],
+    "size_ok": true,
+    "alpha_extrema": [
+      255,
+      255
+    ],
+    "partly_transparent_pixels": 0,
+    "off_palette_pixels": 1458143,
+    "unique_colors": 103530,
+    "corners": [
+      [
+        253,
+        253,
+        255,
+        255
+      ],
+      [
+        255,
+        255,
+        255,
+        255
+      ],
+      [
+        254,
+        254,
+        254,
+        255
+      ],
+      [
+        253,
+        253,
+        253,
+        255
+      ]
+    ],
+    "cell_art_bbox": [
+      [
+        84,
+        144,
+        735,
+        948
+      ],
+      [
+        30,
+        149,
+        726,
+        953
+      ]
+    ],
+    "upper_body_pixel_match_within_15_at_y100_549": 0.8945
+  },
+  {
+    "name": "run_3",
+    "frames": [
+      5,
+      6
+    ],
+    "size": [
+      1536,
+      1024
+    ],
+    "size_ok": true,
+    "alpha_extrema": [
+      255,
+      255
+    ],
+    "partly_transparent_pixels": 0,
+    "off_palette_pixels": 1447491,
+    "unique_colors": 97359,
+    "corners": [
+      [
+        253,
+        253,
+        255,
+        255
+      ],
+      [
+        255,
+        255,
+        255,
+        255
+      ],
+      [
+        254,
+        254,
+        254,
+        255
+      ],
+      [
+        254,
+        253,
+        254,
+        255
+      ]
+    ],
+    "cell_art_bbox": [
+      [
+        95,
+        181,
+        737,
+        947
+      ],
+      [
+        102,
+        175,
+        732,
+        956
+      ]
+    ],
+    "upper_body_pixel_match_within_15_at_y100_549": 0.7757
+  },
+  {
+    "name": "run_4",
+    "frames": [
+      7,
+      8
+    ],
+    "size": [
+      1536,
+      1024
+    ],
+    "size_ok": true,
+    "alpha_extrema": [
+      255,
+      255
+    ],
+    "partly_transparent_pixels": 0,
+    "off_palette_pixels": 1452732,
+    "unique_colors": 95996,
+    "corners": [
+      [
+        253,
+        253,
+        255,
+        255
+      ],
+      [
+        254,
+        255,
+        255,
+        255
+      ],
+      [
+        254,
+        254,
+        254,
+        255
+      ],
+      [
+        253,
+        253,
+        253,
+        255
+      ]
+    ],
+    "cell_art_bbox": [
+      [
+        72,
+        166,
+        715,
+        918
+      ],
+      [
+        91,
+        166,
+        714,
+        917
+      ]
+    ],
+    "upper_body_pixel_match_within_15_at_y100_549": 0.2316
+  },
+  {
+    "name": "skill2_4",
+    "frames": [
+      7
+    ],
+    "size": [
+      1536,
+      1024
+    ],
+    "size_ok": true,
+    "alpha_extrema": [
+      255,
+      255
+    ],
+    "partly_transparent_pixels": 0,
+    "off_palette_pixels": 1380099,
+    "unique_colors": 54468,
+    "corners": [
+      [
+        253,
+        255,
+        255,
+        255
+      ],
+      [
+        254,
+        255,
+        255,
+        255
+      ],
+      [
+        254,
+        253,
+        254,
+        255
+      ],
+      [
+        254,
+        253,
+        254,
+        255
+      ]
+    ],
+    "cell_art_bbox": [
+      [
+        539,
+        353,
+        1010,
+        886
+      ]
+    ]
+  }
+]
