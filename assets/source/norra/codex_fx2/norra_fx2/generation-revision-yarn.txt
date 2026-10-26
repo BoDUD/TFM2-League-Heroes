@@ -1,0 +1,15 @@
+
+
+=== r_yarn revision (final) ===
+Pixel game VFX animation, exactly6 frames in2 columns x3 rows. Each equal cell76x40 logical square pixels, enlarged crisp. Real transparent background, NO gradients/soft glow/outlines/text/grid. Strict LEFT-RIGHT color symmetry. Draw ONLY two small PINK-AND-GOLD YARN BALLS moving TOWARD EACH OTHER, then colliding. Coarse6x6 pixel circular balls with winding stripes. SAME BALL SIZE in frames1,2,3. HEIGHT at cell row28, no ground ring.
+Frame1: left ball center x7, right ball center x69. Left ball's VERY SHORT LOOSE TAIL extends LEFT behind it toward x1, right ball tail extends RIGHT behind it toward x75. BALLS FACE TOWARD EMPTY CENTER, not outward.
+Frame2: ball centers x19 and57, still each6x6, tails trail OUTWARD LEFT for left ball, OUTWARD RIGHT for right ball.
+Frame3: centers x31 and45, each6x6, tails still OUTWARD.
+Frame4: both disappear into one small12wide white pink flash centered x38,row28, no big tails.
+Frame5:24wide fluffy looped pink/teal/gold yarn burst at center with tiny mirrored stars.
+Frame6:28wide sparse little yarn curls falling at center.
+Native chunky pixels1px lines,3flat shades per material #FFFFFF #FFE8F4 #FF9CCB #F05A9E #8FF0F0 #44C8D2 #FFD95A #F2B12E. Same pink/gold pattern both balls. Native76x40 grid shapes, not elaborate magic concept illustration. Source equal cells, no shape outside cell. TAILS MUST POINT AWAY FROM CENTER. No portal or background.
+
+Generated images are saved to C:\Users\OWNER\.codex\generated_images\01a175de-cbe0-73a1-ac55-d4ee1371b524 as C:\Users\OWNER\.codex\generated_images\01a175de-cbe0-73a1-ac55-d4ee1371b524\exec-c2c4da5b-1d2d-4ab9-b677-d16ebdb91712.png by default.
+If you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.
+The generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link.

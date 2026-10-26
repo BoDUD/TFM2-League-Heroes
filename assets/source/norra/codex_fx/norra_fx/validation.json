@@ -1,0 +1,227 @@
+[
+  {
+    "id": "a_bolt",
+    "frames": 4,
+    "nonempty_frames": 4,
+    "distinct_frames": 4,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "palette_colors": 10,
+    "palette_valid": true,
+    "symmetry_mismatches": 0,
+    "body_clearance": true,
+    "status": "source_reviewed"
+  },
+  {
+    "id": "a_hit",
+    "frames": 3,
+    "nonempty_frames": 3,
+    "distinct_frames": 3,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "palette_colors": 7,
+    "palette_valid": true,
+    "symmetry_mismatches": 0,
+    "body_clearance": true,
+    "status": "source_reviewed"
+  },
+  {
+    "id": "p_heal",
+    "frames": 4,
+    "nonempty_frames": 4,
+    "distinct_frames": 4,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "palette_colors": 6,
+    "palette_valid": true,
+    "symmetry_mismatches": 0,
+    "body_clearance": true,
+    "status": "source_reviewed"
+  },
+  {
+    "id": "q_ball",
+    "frames": 4,
+    "nonempty_frames": 4,
+    "distinct_frames": 4,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "palette_colors": 13,
+    "palette_valid": true,
+    "symmetry_mismatches": 0,
+    "body_clearance": true,
+    "status": "source_reviewed"
+  },
+  {
+    "id": "q_blast",
+    "frames": 7,
+    "nonempty_frames": 7,
+    "distinct_frames": 7,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "palette_colors": 16,
+    "palette_valid": true,
+    "symmetry_mismatches": 0,
+    "body_clearance": true,
+    "status": "source_reviewed"
+  },
+  {
+    "id": "q_hit",
+    "frames": 3,
+    "nonempty_frames": 3,
+    "distinct_frames": 3,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "palette_colors": 5,
+    "palette_valid": true,
+    "symmetry_mismatches": 0,
+    "body_clearance": true,
+    "status": "source_reviewed"
+  },
+  {
+    "id": "q_paint",
+    "frames": 6,
+    "nonempty_frames": 6,
+    "distinct_frames": 6,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "palette_colors": 11,
+    "palette_valid": true,
+    "symmetry_mismatches": 0,
+    "body_clearance": true,
+    "status": "source_reviewed"
+  },
+  {
+    "id": "e_anvil_hit",
+    "frames": 8,
+    "nonempty_frames": 8,
+    "distinct_frames": 8,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "palette_colors": 19,
+    "palette_valid": true,
+    "symmetry_mismatches": 0,
+    "body_clearance": true,
+    "status": "source_reviewed"
+  },
+  {
+    "id": "e_book_hit",
+    "frames": 8,
+    "nonempty_frames": 8,
+    "distinct_frames": 8,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "palette_colors": 19,
+    "palette_valid": true,
+    "symmetry_mismatches": 0,
+    "body_clearance": true,
+    "status": "source_reviewed"
+  },
+  {
+    "id": "e_potion",
+    "frames": 6,
+    "nonempty_frames": 6,
+    "distinct_frames": 6,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "palette_colors": 11,
+    "palette_valid": true,
+    "symmetry_mismatches": 0,
+    "body_clearance": true,
+    "status": "source_reviewed"
+  },
+  {
+    "id": "e_guard",
+    "frames": 6,
+    "nonempty_frames": 6,
+    "distinct_frames": 6,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "palette_colors": 15,
+    "palette_valid": true,
+    "symmetry_mismatches": 0,
+    "body_clearance": true,
+    "status": "source_reviewed"
+  },
+  {
+    "id": "r_warn",
+    "frames": 6,
+    "nonempty_frames": 6,
+    "distinct_frames": 6,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "palette_colors": 12,
+    "palette_valid": true,
+    "symmetry_mismatches": 0,
+    "body_clearance": true,
+    "status": "source_reviewed"
+  },
+  {
+    "id": "r_book",
+    "frames": 10,
+    "nonempty_frames": 10,
+    "distinct_frames": 10,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "palette_colors": 16,
+    "palette_valid": true,
+    "symmetry_mismatches": 0,
+    "body_clearance": true,
+    "status": "source_reviewed"
+  },
+  {
+    "id": "r_hit",
+    "frames": 4,
+    "nonempty_frames": 4,
+    "distinct_frames": 4,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "palette_colors": 10,
+    "palette_valid": true,
+    "symmetry_mismatches": 0,
+    "body_clearance": true,
+    "status": "source_reviewed"
+  },
+  {
+    "id": "r_paper",
+    "frames": 6,
+    "nonempty_frames": 6,
+    "distinct_frames": 6,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "palette_colors": 5,
+    "palette_valid": true,
+    "symmetry_mismatches": 0,
+    "body_clearance": true,
+    "status": "source_reviewed"
+  }
+]

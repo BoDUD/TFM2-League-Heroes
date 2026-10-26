@@ -1,0 +1,20 @@
+{
+  "author": "BoDUD",
+  "contains_code": true,
+  "dependencies": [
+    {
+      "mod_id": "base",
+      "version": ">=0.4.11"
+    },
+    {
+      "mod_id": "tft",
+      "version": ">=0.2.0"
+    }
+  ],
+  "description": "Norra as in League of Legends: Wild Rift (needs Teamfight Tactics Heroes): replaces the tft pack's Norra so her trinkets scatter one by one and fly to whoever steps on them (her ability hits on champions cut their cooldown), Memory Surge deals bonus max-health damage to champions in the Threads and primes her trinkets, Journey to Nowhere opens on any enemy champion coming close, and Portalpalooza!'s yarn balls fly along lines across the rift (the pack: one field of trinkets, a portal only when she attacks, every champion in the rift hit). Other champions are untouched. Writes a log for testing.",
+  "last_updated": "2026-10-26",
+  "mod_id": "tft_norra",
+  "mod_type": "native",
+  "name": "Teamfight Tactics Heroes: Norra as in Wild Rift",
+  "version": "0.1.0"
+}

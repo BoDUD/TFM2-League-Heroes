@@ -1,0 +1,10 @@
+{
+  "asset/tft/champion/tft_norra": {
+    "remapping": "asset/tft_norra/override/tft_norra",
+    "type": "override"
+  },
+  "asset/base/text/champion": {
+    "remapping": "asset/tft_norra/text/champion",
+    "type": "merge"
+  }
+}
