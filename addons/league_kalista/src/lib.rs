@@ -14,6 +14,9 @@
 //! - **撕裂斩杀**：记下她对每个敌方英雄的普攻（每根矛 `sp_t` tick），按 `e_dmg` + `e_ratio`% 攻击力、对方护甲算拔矛伤害，够杀就挂
 //!   `e_ok` 让数据立刻拔（数据本来要攒到 `e_need` 根）。数据拔矛（`e_pop`）后计数清零。
 //!   Q 击杀后把矛转到下一个目标做不了：矛是数据挂在目标身上的独立实例，原生代码挪不了。
+//!   0.1.2（2026-10-26，剑圣无限 Q 时查到：`on_attack` 连技能的每一下伤害都会触发）：一根矛打中时同一 tick 还会有
+//!   W 灵魂绑定的追加伤害等，原来每一下都记一根，计数比她身上真实的矛多，估出来的拔矛伤害偏高、打不死就提前拔了 E。
+//!   现在同一个目标同一个 tick 只记一根（`add_spear`）；E 拔矛那几下照旧在 `e_pop` 亮着时清掉。
 //!
 //! 只有单元测试（经典 SDK 跑不了原生代码），要在游戏里看日志：
 //! `%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_kalista.log`，每次启动游戏重写，上一次的留在 .prev.log：
@@ -275,6 +278,16 @@ pub fn clamp(p: Pt) -> Pt {
 }
 
 /// 拔 `n` 根矛的伤害（物理，护甲按 100 / (100 + 护甲) 算）。
+/// One spear on a target for this tick, once: her spear's own hit and the hits riding on it the same tick (W's
+/// Soul-Marked extra, the attack's spear-hanging twin) are one spear. False: already counted this tick.
+pub fn add_spear(ticks: &mut Vec<usize>, tick: usize) -> bool {
+    if ticks.last() == Some(&tick) {
+        return false;
+    }
+    ticks.push(tick);
+    true
+}
+
 pub fn rend_damage(n: usize, ad: usize, def: usize, p: &Params) -> usize {
     let raw = n * (p.e_dmg + p.e_ratio * ad / 100);
     raw * 100 / (100 + def)
@@ -567,7 +580,7 @@ impl StablePassive for Oath {
 
     fn on_attack(&mut self, sim: &mut StableSim<'_>, _player: usize, _entity: usize, target: usize, _damage: &mut usize) {
         if sim.get_entity(target).is_some_and(|e| e.is_champion()) {
-            self.spears.entry(target).or_default().push(sim.tick());
+            add_spear(self.spears.entry(target).or_default(), sim.tick());
         }
     }
 
@@ -699,6 +712,17 @@ declare_stable_mod!(init, requires = 10);
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn hits_of_one_tick_are_one_spear() {
+        let mut v = Vec::new();
+        assert!(add_spear(&mut v, 100));
+        assert!(!add_spear(&mut v, 100), "W's extra on the same spear");
+        assert!(!add_spear(&mut v, 100), "the attack's twin");
+        assert!(add_spear(&mut v, 146), "the next attack");
+        assert!(add_spear(&mut v, 150), "Q's spear a few ticks later");
+        assert_eq!(v, [100, 146, 150]);
+    }
 
     fn foe(id: usize, at: Pt, hp_pct: usize) -> Foe {
         Foe { id, at, hp_pct, gain: 0.0 }
