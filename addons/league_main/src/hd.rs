@@ -360,7 +360,8 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // Lee Sin (2026-10-26): Codex's picture traced from his sprite read on its own squares (68 x 86,
     // tools/art/design_leesin_hd.py: 86 rows / 2.1 = his 41); every action Codex's whole-frame redraw of his old frame
     // read onto it at the zoom his head gives (tools/art/casts_leesin_hd.py), the run drawn again on League's legs;
-    // drawn at 90 % (SIZES: 「模型有点太大了吧 缩小一点」「大小用 90%」)
+    // drawn at 95 % (SIZES: 「模型有点太大了吧 缩小一点」「大小用 90%」, then in the clips beside Garen and Darius
+    // 「怎么感觉gif图里面有点小啊」「改成 95%」)
     ("league_leesin", 2.1, include_str!("../../../league/champions/league_leesin#anim.fanim")),
     // Locke (2026's new champion, the user's pick): posed by tools/art/rig_locke.py on Codex's step-0 take A-1 brought to
     // 88 rows (44 game px hair to soles) and its key poses after League's clips (the design's head put back, the bodies
@@ -433,7 +434,7 @@ pub const SIZES: &[(&str, f32)] = &[("league_gragas", 0.90), ("league_zeri", 1.0
                                     ("league_poppy", 0.85), ("league_yuumi", 0.75), ("league_wukong", 1.15),
                                     ("tft_powder", 0.90), ("league_nami", 0.90), ("league_hwei", 0.85),
                                     ("league_ksante", 0.90), ("league_warwick", 0.90), ("league_caitlyn", 0.90),
-                                    ("league_ambessa", 0.85), ("league_leesin", 0.90)];
+                                    ("league_ambessa", 0.85), ("league_leesin", 0.95)];
 
 /// Heroes whose body grows with a stack: (id, the buff whose instances on him are the stacks, growth a stack). Cho'Gath's
 /// Feast (the user, 2026-10-19: 「变大可以无限 加生命」): every champion it eats is one more Permanent `league_chogath_r_stack`

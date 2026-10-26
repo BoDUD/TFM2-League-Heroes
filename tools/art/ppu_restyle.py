@@ -658,9 +658,9 @@ RESTYLE = {
     # design_leesin_hd.py: 86 rows / 2.1 = his 41); every action Codex's whole-frame redraw of his old frame read onto
     # the design at the zoom his head gives (tools/art/casts_leesin_hd.py), so no density change
     # face (-4,-31): on the blindfold as before (31 game px over the soles), over his head's middle now (tfm2_ase face:
-    # the head 5.9 px behind the standing point). Then 90 % in game (「模型有点太大了吧 缩小一点」「大小用 90%」, hd.rs
-    # SIZES): 11.5 x 2.1 x (1 / 0.9 - 1) = 2.7 -> 3 squares lower; the face point x 0.9 about the soles
-    "leesin": dict(ppu=2.1, edge=0, lift_sq=-3, face_to=(-4, -28)),
+    # the head 5.9 px behind the standing point). Then smaller in game (「模型有点太大了吧 缩小一点」: 90 %, then 「改成
+    # 95%」, hd.rs SIZES): 11.5 x 2.1 x (1 / 0.95 - 1) = 1.3 -> 1 square lower; the face point x 0.95 about the soles
+    "leesin": dict(ppu=2.1, edge=0, lift_sq=-1, face_to=(-4, -29)),
     # league_heimerdinger: the design (Codex's step-1 A-2 cut to the user's 54 rows at 1.5 squares a game pixel: 「36」
     # 「PPU 1.5」, 3/4 only) with Codex's whole-body poses (the design's head pasted back) and the backpack crane / R's gear
     # props, posed by tools/art/rig_heimerdinger.py after League's clips, so no proportion change here; brought down to
