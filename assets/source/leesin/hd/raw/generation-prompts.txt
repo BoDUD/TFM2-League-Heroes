@@ -1,0 +1,12 @@
+Tool: native image_gen; transparent_background=true.
+
+GENERATION 01
+Use case: stylized-concept. Generate one production pixel-art sprite design of Lee Sin, the blind monk, using these five references in the given order. Image 1 is THE existing sprite pose/proportion reference to trace. Image 2 is the earlier design for costume/colors. Image 3 is a head detail reference. Image 4 is the exact layout guide. Image 5 (Draven) is STYLE ONLY.
+Redraw image 1 at PPU 2.2 (about 90 pixel cells high), preserving its distinctive broad sturdy proportions and silhouette: three-quarter facing right, wide bent-leg martial guard, far hand on image RIGHT extended forward as upright open palm, near hand on image LEFT clenched fist held back by his side. Do not substitute the pose in the 3D references. Broad shoulders, thick muscular arms and thighs, compact chest and abdomen; never slim/elongated. Keep the head-to-body size ratio in image 1.
+1024x1536 vertical transparent PNG. Entire character inside frame. Top of upward braid at y=480, lowest soles at y=1471, around 992 pixels / 90 cells tall; both shoes share that baseline; no content below soles. Match the size/location and wide silhouette in image 4; do not reproduce guide lines or background.
+Uniform crisp axis-aligned pixel blocks, each 11x11 output pixels on a single aligned grid; near-black external outline two cells wide. Each material uses 3-4 flat coherent shades. No anti-alias, gradients, dithering, noise or random tiny pixels. In the same strong clean game-sprite style as image 5, with readable separate nose, mouth, chin and blindfold edge.
+Shaved head with BLACK long braid rising upward and curling backward, red and gold ties. RED eye-covering blindfold with gold-rimmed blue side gem, two long red tails flowing backward. No visible eyes. Calm face, defined nose/mouth/jaw. BARE powerful muscular torso, faint scars. RED AND WHITE bandages around forearms and hands. WHITE cloth belt with GOLD buckle; hanging red front panel. Loose DARK NAVY blue trousers, red-white shin wraps and dark cloth shoes. Image-left near limbs lighter, farther limbs darker. Use solid chunky clusters and clear readable contours, no black internal duplicate contour rings.
+Genuine transparent background: every alpha either 0 or 255. Transparent gaps between arms/body and legs; no halo/glow. No effects, ground, shadow, text, borders, guide lines, background or other characters.
+
+EDIT 02
+undefined
