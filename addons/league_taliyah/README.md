@@ -11,6 +11,8 @@
 
 英雄联盟里塔莉垭的被动「浮石冲」是贴着地形时加移速；两边都没做：引擎接口读不到地图上的墙。
 
+**脱战骑石头**（0.2.0，用户 2026-10-26：「塔利亚怎么是飞着走路的 不对吧」，选「像英雄联盟」）：主包的移动动画 `run` 是用脚跑（Codex 画的 4 帧，照英雄联盟的 Run1），踩石冲浪是另一套 `surf`。游戏按名字自动播 `run`，数据换不了；本包的 `src/view.rs`（照克烈的下马换动画）在她没在打架（身上没有 `league_taliyah_fight`）或刚放完墙幔（`league_taliyah_r_surf`）时把 `run` 换成 `surf`，打起来换回来。复活后从泉水出来也是骑石头。日志里每个塔莉垭状态一变就记一行 `SURFING` / `on foot`。需要主包 0.234.0 以上（图里有 `surf`）。
+
 ## 怎么接上的
 
 `mod.override_info` 把主包的塔莉垭换成 `override/` 里的副本（`make_override.py` 用 `tools/kit/build_taliyah.py` 的 `native=1` 生成）：
