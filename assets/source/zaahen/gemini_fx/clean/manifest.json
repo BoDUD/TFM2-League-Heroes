@@ -1,0 +1,146 @@
+[
+ {
+  "file": "zaahen_fx_a_hit.png",
+  "frames": 3,
+  "cell_1x": [
+   16,
+   16
+  ],
+  "symmetry": "left-right"
+ },
+ {
+  "file": "zaahen_fx_e_hit.png",
+  "frames": 3,
+  "cell_1x": [
+   16,
+   16
+  ],
+  "symmetry": "left-right"
+ },
+ {
+  "file": "zaahen_fx_e_spin.png",
+  "frames": 6,
+  "cell_1x": [
+   56,
+   30
+  ],
+  "symmetry": "left-right"
+ },
+ {
+  "file": "zaahen_fx_p_aura.png",
+  "frames": 6,
+  "cell_1x": [
+   44,
+   52
+  ],
+  "symmetry": "left-right"
+ },
+ {
+  "file": "zaahen_fx_p_full.png",
+  "frames": 6,
+  "cell_1x": [
+   44,
+   52
+  ],
+  "symmetry": "left-right"
+ },
+ {
+  "file": "zaahen_fx_p_shield.png",
+  "frames": 4,
+  "cell_1x": [
+   44,
+   52
+  ],
+  "symmetry": "left-right"
+ },
+ {
+  "file": "zaahen_fx_q_hit.png",
+  "frames": 3,
+  "cell_1x": [
+   20,
+   16
+  ],
+  "symmetry": "left-right"
+ },
+ {
+  "file": "zaahen_fx_q_hit2.png",
+  "frames": 3,
+  "cell_1x": [
+   20,
+   20
+  ],
+  "symmetry": "left-right"
+ },
+ {
+  "file": "zaahen_fx_q_uphit.png",
+  "frames": 5,
+  "cell_1x": [
+   20,
+   44
+  ],
+  "symmetry": "left-right"
+ },
+ {
+  "file": "zaahen_fx_r_guard.png",
+  "frames": 4,
+  "cell_1x": [
+   44,
+   50
+  ],
+  "symmetry": "left-right"
+ },
+ {
+  "file": "zaahen_fx_r_hit.png",
+  "frames": 3,
+  "cell_1x": [
+   18,
+   20
+  ],
+  "symmetry": "left-right"
+ },
+ {
+  "file": "zaahen_fx_r_rise.png",
+  "frames": 6,
+  "cell_1x": [
+   64,
+   56
+  ],
+  "symmetry": "left-right"
+ },
+ {
+  "file": "zaahen_fx_r_slam.png",
+  "frames": 7,
+  "cell_1x": [
+   64,
+   34
+  ],
+  "symmetry": "left-right"
+ },
+ {
+  "file": "zaahen_fx_rv_glow.png",
+  "frames": 8,
+  "cell_1x": [
+   56,
+   70
+  ],
+  "symmetry": "left-right"
+ },
+ {
+  "file": "zaahen_fx_w_glaive.png",
+  "frames": 4,
+  "cell_1x": [
+   32,
+   10
+  ],
+  "symmetry": "top-bottom"
+ },
+ {
+  "file": "zaahen_fx_w_hit.png",
+  "frames": 4,
+  "cell_1x": [
+   18,
+   18
+  ],
+  "symmetry": "left-right"
+ }
+]
