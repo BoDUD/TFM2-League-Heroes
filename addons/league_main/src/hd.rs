@@ -341,6 +341,10 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // 37 rows as her 1x sprite, so no SIZES row. In game she looked thin at 2.84 (「感觉降低像素就行了」): laid out
     // at 2.2 squares on her 2.84 grid with the face kept as drawn (ppu_restyle.py look, 「脸做好点啊」)
     ("league_samira", 2.84, include_str!("../../../league/champions/league_samira#anim.fanim")),
+    // Draven (2026-10-26): the user's own picture (「就用这个就行」) drawn at PPU 2.2 on 11-px squares, read back exactly
+    // (114 x 76, tools/art/design_draven_hd.py); every action Codex's whole-frame redraw of his old frame in its old
+    // pose read onto the design (tools/art/casts_draven_hd.py); 34.5 rows as his 1x sprite's 35, so no SIZES row
+    ("league_draven", 2.2, include_str!("../../../league/champions/league_draven#anim.fanim")),
     // Yunara: PPU 1.5 (the user's pick), posed from the design's own squares at that density by tools/art/rig_yunara.py
     // (40 game rows ornaments to soles), so no SIZES row
     ("league_yunara", 1.5, include_str!("../../../league/champions/league_yunara#anim.fanim")),

@@ -242,7 +242,7 @@ GitHub Actions（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)，Window
 | <img src="docs/heroes/img/league_aphelios.png" width="32"> | [厄斐琉斯](docs/heroes/league_aphelios.md)<br>Aphelios | ADC | 武器技能 · 月相轮转 · 大招 清辉夜凝 | [厄斐琉斯附加包](addons/league_aphelios/README.md) | PPU 1.5 |
 | <img src="docs/heroes/img/league_ashe.png" width="32"> | [艾希](docs/heroes/league_ashe.md)<br>Ashe | ADC | 被动 冰霜射击 · 射手的专注 · 万箭齐发 · 大招 魔法水晶箭 | — | PPU 2.2 |
 | <img src="docs/heroes/img/league_caitlyn.png" width="32"> | [凯特琳](docs/heroes/league_caitlyn.md)<br>Caitlyn | ADC | 被动 爆头 · 和平使者 · 约德尔诱捕器 · 大招 让子弹飞 | [凯特琳附加包](addons/league_caitlyn/README.md) | PPU 1.45 |
-| <img src="docs/heroes/img/league_draven.png" width="32"> | [德莱文](docs/heroes/league_draven.md)<br>Draven | ADC | 旋转飞斧 · 开道利斧 · 大招 冷血追命 | — | — |
+| <img src="docs/heroes/img/league_draven.png" width="32"> | [德莱文](docs/heroes/league_draven.md)<br>Draven | ADC | 旋转飞斧 · 开道利斧 · 大招 冷血追命 | — | PPU 2.2 |
 | <img src="docs/heroes/img/league_ezreal.png" width="32"> | [伊泽瑞尔](docs/heroes/league_ezreal.md)<br>Ezreal | ADC | 被动 咒能高涨 · 秘术射击 · 奥术跃迁 · 大招 精准弹幕 | — | — |
 | <img src="docs/heroes/img/league_jhin.png" width="32"> | [烬](docs/heroes/league_jhin.md)<br>Jhin | ADC | 被动 低语 · 曼舞手雷 · 致命华彩 · 大招 完美谢幕 | [烬低语附加包](addons/league_jhin_whisper/README.md) | — |
 | <img src="docs/heroes/img/league_jinx.png" width="32"> | [金克丝](docs/heroes/league_jinx.md)<br>Jinx | ADC | 震荡电磁波！ · 嚼火者手雷！ · 大招 超究极死神飞弹！ | [参与击杀附加包：金克丝、崔丝塔娜、易、图奇](addons/league_takedowns/README.md) | PPU 2.2 |
