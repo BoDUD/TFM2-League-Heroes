@@ -1,0 +1,12 @@
+Tool: native image_gen, transparent_background=false.
+dead_1 revision
+undefined
+
+ult_4 revision
+undefined
+
+attack_3 revision
+Edit this 1536x1024 TWO-FRAME sprite sheet, preserving the exact two poses, character identity, costume, face and head/body proportions. Fix layout only: the LEFT character's extended fist currently crosses the center at x=768. Scale and reposition BOTH complete figures to fit entirely inside their own 768x1024 cell with at least 40px horizontal margin: LEFT all art x=40..727, RIGHT all art x=808..1495. Keep one same scale for both characters: an upright full figure including braid should be 602 pixels high, not 750; keep sole baseline y=924, upright braid top y=322, crouched pose braid lower naturally. Absolutely no character pixels cross x=768 and no chopped fist. Preserve both complete figures and poses. Keep pixel art crisp uniform 7px squares, near-black outline and same flat colors. Background must be perfectly uniform pure white RGB255,255,255, without texture or gradients. No shadow, glow, effects, numbers, borders, marks or ground lines. Produce exactly 1536x1024.
+
+run_3 revision
+undefined

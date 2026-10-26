@@ -1,0 +1,435 @@
+{
+ "square": 7,
+ "sheet": [
+  1536,
+  1024
+ ],
+ "ground": 924,
+ "same": {},
+ "same_as_design": {},
+ "sheets": [
+  {
+   "tag": "run",
+   "name": "run_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "action": "running (his move loop): a light martial-artist's run, fists up, the LEGS SWAPPING every half cycle (left foot forward, then right foot forward) and the body bobbing with each stride",
+   "ms": [
+    115,
+    115
+   ],
+   "weapons": "No weapon: bare hands wrapped in red-and-white bandages. Each hand, fist or open palm exactly as the pale figure has it; the far hand stays the far hand."
+  },
+  {
+   "tag": "run",
+   "name": "run_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "action": "running (his move loop): a light martial-artist's run, fists up, the LEGS SWAPPING every half cycle (left foot forward, then right foot forward) and the body bobbing with each stride",
+   "ms": [
+    115,
+    115
+   ],
+   "weapons": "No weapon: bare hands wrapped in red-and-white bandages. Each hand, fist or open palm exactly as the pale figure has it; the far hand stays the far hand."
+  },
+  {
+   "tag": "run",
+   "name": "run_3",
+   "frames": [
+    5,
+    6
+   ],
+   "cells": 2,
+   "action": "running (his move loop): a light martial-artist's run, fists up, the LEGS SWAPPING every half cycle (left foot forward, then right foot forward) and the body bobbing with each stride",
+   "ms": [
+    115,
+    115
+   ],
+   "weapons": "No weapon: bare hands wrapped in red-and-white bandages. Each hand, fist or open palm exactly as the pale figure has it; the far hand stays the far hand."
+  },
+  {
+   "tag": "run",
+   "name": "run_4",
+   "frames": [
+    7,
+    8
+   ],
+   "cells": 2,
+   "action": "running (his move loop): a light martial-artist's run, fists up, the LEGS SWAPPING every half cycle (left foot forward, then right foot forward) and the body bobbing with each stride",
+   "ms": [
+    115,
+    115
+   ],
+   "weapons": "No weapon: bare hands wrapped in red-and-white bandages. Each hand, fist or open palm exactly as the pale figure has it; the far hand stays the far hand."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "action": "attack: a quick punch forward, then back to his guard",
+   "ms": [
+    60,
+    60
+   ],
+   "weapons": "No weapon: bare hands wrapped in red-and-white bandages. Each hand, fist or open palm exactly as the pale figure has it; the far hand stays the far hand."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "action": "attack: a quick punch forward, then back to his guard",
+   "ms": [
+    70,
+    80
+   ],
+   "weapons": "No weapon: bare hands wrapped in red-and-white bandages. Each hand, fist or open palm exactly as the pale figure has it; the far hand stays the far hand."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_3",
+   "frames": [
+    5,
+    6
+   ],
+   "cells": 2,
+   "action": "attack: a quick punch forward, then back to his guard",
+   "ms": [
+    50,
+    40
+   ],
+   "weapons": "No weapon: bare hands wrapped in red-and-white bandages. Each hand, fist or open palm exactly as the pale figure has it; the far hand stays the far hand."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "action": "Sonic Wave: he winds up and thrusts his far palm forward, sending a wave",
+   "ms": [
+    60,
+    70
+   ],
+   "weapons": "No weapon: bare hands wrapped in red-and-white bandages. Each hand, fist or open palm exactly as the pale figure has it; the far hand stays the far hand."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "action": "Sonic Wave: he winds up and thrusts his far palm forward, sending a wave",
+   "ms": [
+    80,
+    60
+   ],
+   "weapons": "No weapon: bare hands wrapped in red-and-white bandages. Each hand, fist or open palm exactly as the pale figure has it; the far hand stays the far hand."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_3",
+   "frames": [
+    5,
+    6
+   ],
+   "cells": 2,
+   "action": "Sonic Wave: he winds up and thrusts his far palm forward, sending a wave",
+   "ms": [
+    90,
+    180
+   ],
+   "weapons": "No weapon: bare hands wrapped in red-and-white bandages. Each hand, fist or open palm exactly as the pale figure has it; the far hand stays the far hand."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_4",
+   "frames": [
+    7
+   ],
+   "cells": 1,
+   "action": "Sonic Wave: he winds up and thrusts his far palm forward, sending a wave",
+   "ms": [
+    170
+   ],
+   "weapons": "No weapon: bare hands wrapped in red-and-white bandages. Each hand, fist or open palm exactly as the pale figure has it; the far hand stays the far hand."
+  },
+  {
+   "tag": "q2",
+   "name": "q2_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "action": "Resonating Strike: he leaps forward in a flying kick and lands on the target",
+   "ms": [
+    60,
+    60
+   ],
+   "weapons": "No weapon: bare hands wrapped in red-and-white bandages. Each hand, fist or open palm exactly as the pale figure has it; the far hand stays the far hand."
+  },
+  {
+   "tag": "q2",
+   "name": "q2_2",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "action": "Resonating Strike: he leaps forward in a flying kick and lands on the target",
+   "ms": [
+    70
+   ],
+   "weapons": "No weapon: bare hands wrapped in red-and-white bandages. Each hand, fist or open palm exactly as the pale figure has it; the far hand stays the far hand."
+  },
+  {
+   "tag": "q2",
+   "name": "q2_3",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "action": "Resonating Strike: he leaps forward in a flying kick and lands on the target",
+   "ms": [
+    90
+   ],
+   "weapons": "No weapon: bare hands wrapped in red-and-white bandages. Each hand, fist or open palm exactly as the pale figure has it; the far hand stays the far hand."
+  },
+  {
+   "tag": "q2",
+   "name": "q2_4",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "action": "Resonating Strike: he leaps forward in a flying kick and lands on the target",
+   "ms": [
+    80
+   ],
+   "weapons": "No weapon: bare hands wrapped in red-and-white bandages. Each hand, fist or open palm exactly as the pale figure has it; the far hand stays the far hand."
+  },
+  {
+   "tag": "q2",
+   "name": "q2_5",
+   "frames": [
+    6,
+    7
+   ],
+   "cells": 2,
+   "action": "Resonating Strike: he leaps forward in a flying kick and lands on the target",
+   "ms": [
+    80,
+    80
+   ],
+   "weapons": "No weapon: bare hands wrapped in red-and-white bandages. Each hand, fist or open palm exactly as the pale figure has it; the far hand stays the far hand."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "action": "Tempest: he jumps and slams both fists into the ground",
+   "ms": [
+    80,
+    100
+   ],
+   "weapons": "No weapon: bare hands wrapped in red-and-white bandages. Each hand, fist or open palm exactly as the pale figure has it; the far hand stays the far hand."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "action": "Tempest: he jumps and slams both fists into the ground",
+   "ms": [
+    110,
+    120
+   ],
+   "weapons": "No weapon: bare hands wrapped in red-and-white bandages. Each hand, fist or open palm exactly as the pale figure has it; the far hand stays the far hand."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_3",
+   "frames": [
+    5,
+    6
+   ],
+   "cells": 2,
+   "action": "Tempest: he jumps and slams both fists into the ground",
+   "ms": [
+    100,
+    80
+   ],
+   "weapons": "No weapon: bare hands wrapped in red-and-white bandages. Each hand, fist or open palm exactly as the pale figure has it; the far hand stays the far hand."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_4",
+   "frames": [
+    7
+   ],
+   "cells": 1,
+   "action": "Tempest: he jumps and slams both fists into the ground",
+   "ms": [
+    80
+   ],
+   "weapons": "No weapon: bare hands wrapped in red-and-white bandages. Each hand, fist or open palm exactly as the pale figure has it; the far hand stays the far hand."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "action": "Dragon's Rage: a spinning roundhouse kick, the kicking leg swung high",
+   "ms": [
+    70,
+    70
+   ],
+   "weapons": "No weapon: bare hands wrapped in red-and-white bandages. Each hand, fist or open palm exactly as the pale figure has it; the far hand stays the far hand."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "action": "Dragon's Rage: a spinning roundhouse kick, the kicking leg swung high",
+   "ms": [
+    70,
+    80
+   ],
+   "weapons": "No weapon: bare hands wrapped in red-and-white bandages. Each hand, fist or open palm exactly as the pale figure has it; the far hand stays the far hand."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_3",
+   "frames": [
+    5,
+    6
+   ],
+   "cells": 2,
+   "action": "Dragon's Rage: a spinning roundhouse kick, the kicking leg swung high",
+   "ms": [
+    130,
+    100
+   ],
+   "weapons": "No weapon: bare hands wrapped in red-and-white bandages. Each hand, fist or open palm exactly as the pale figure has it; the far hand stays the far hand."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_4",
+   "frames": [
+    7,
+    8
+   ],
+   "cells": 2,
+   "action": "Dragon's Rage: a spinning roundhouse kick, the kicking leg swung high",
+   "ms": [
+    100,
+    100
+   ],
+   "weapons": "No weapon: bare hands wrapped in red-and-white bandages. Each hand, fist or open palm exactly as the pale figure has it; the far hand stays the far hand."
+  },
+  {
+   "tag": "hit",
+   "name": "hit_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "action": "struck, flinching back",
+   "ms": [
+    120,
+    120
+   ],
+   "weapons": "No weapon: bare hands wrapped in red-and-white bandages. Each hand, fist or open palm exactly as the pale figure has it; the far hand stays the far hand."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "action": "death: he staggers back and falls, lying on the ground",
+   "ms": [
+    100,
+    100
+   ],
+   "weapons": "No weapon: bare hands wrapped in red-and-white bandages. Each hand, fist or open palm exactly as the pale figure has it; the far hand stays the far hand."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_2",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "action": "death: he staggers back and falls, lying on the ground",
+   "ms": [
+    100
+   ],
+   "weapons": "No weapon: bare hands wrapped in red-and-white bandages. Each hand, fist or open palm exactly as the pale figure has it; the far hand stays the far hand."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_3",
+   "frames": [
+    4,
+    5
+   ],
+   "cells": 2,
+   "action": "death: he staggers back and falls, lying on the ground",
+   "ms": [
+    120,
+    120
+   ],
+   "weapons": "No weapon: bare hands wrapped in red-and-white bandages. Each hand, fist or open palm exactly as the pale figure has it; the far hand stays the far hand."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_4",
+   "frames": [
+    6,
+    7
+   ],
+   "cells": 2,
+   "action": "death: he staggers back and falls, lying on the ground",
+   "ms": [
+    200,
+    400
+   ],
+   "weapons": "No weapon: bare hands wrapped in red-and-white bandages. Each hand, fist or open palm exactly as the pale figure has it; the far hand stays the far hand."
+  }
+ ]
+}
