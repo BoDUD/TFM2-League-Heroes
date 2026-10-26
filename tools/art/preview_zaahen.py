@@ -1,10 +1,16 @@
 #!/usr/bin/env python3
 """Preview images for Zaahen, built from the exported game sprites (so they also prove the sheets load).
 
-    python tools/art/preview_zaahen.py [--out docs/preview] [--only frames|effects|skills]
+    python tools/art/preview_zaahen.py [--out docs/preview] [--only frames|effects|showcase|skills]
 
   league_zaahen_frames.png    every animation's dense frames (hd_, PPU 1.75, as league.dll shows them)
   league_zaahen_effects.png   every effect animation, 3x
+  league_zaahen_showcase.gif  a scripted fight with Darius, the add-on's kit as installed, timed like the kit, 3x:
+                              Dreaded Return pulls him in (W -> Q: the glaive at once); a sweep, the recast's uppercut
+                              knocks him up (Q -> R: the dive while he is up), the slam (R -> Determination: full - the
+                              flash and the aura, Q and W ready); Darius backs off, Aureate Rush catches him on the
+                              outer edge, the glaive again; his swing would kill: the revive, banished and rising in the
+                              light (full again: Q ready), and the glaive fells him.
   league_zaahen_skills.gif    each skill and combo alone with its effects against Darius, timed like the kit
                               (tools/kit/build_zaahen.py, 60 ticks a second), captioned in Chinese, 4x: the run; glaive
                               sweeps; The Darkin Glaive (two cuts) and its recast (the uppercut knocking him up); Dreaded
@@ -104,14 +110,16 @@ def scene(out, steps, gap, W=260, H=150, z=4, tail=900, x0=70):
         c.a("run", t1 - t0, loop=True)
         me.moves.append((t0, t1, xa, x1))
 
-    def glaive():
-        """The Darkin Glaive: the glaive drawn back, two cuts on q_h1 / q_h2."""
+    def glaive(kill=False):
+        """The Darkin Glaive: the glaive drawn back, two cuts on q_h1 / q_h2 (the second felling Darius: kill)."""
         t = c.t
         c.a("skill", tick(P["q_dur"]))
         for hit, tag in ((P["q_h1"], "q_hit"), (P["q_h2"], "q_hit2")):
             b = t + tick(hit - 1)
             c.on(tag, b)
             d.flinches.append(b)
+        if kill:
+            d.death = b
 
     def uppercut():
         """Its recast: crouched, the uppercut on q3_hit knocking Darius up for q_air ticks."""
@@ -226,8 +234,31 @@ def scene(out, steps, gap, W=260, H=150, z=4, tail=900, x0=70):
             sweep(1)
             revive()
             c.wait(600)
+        elif step == "fight":               # the showcase: every combo in one fight, the add-on's kit as installed
+            dreaded(spin=False)             # the add-on's W (no spin): the pull and the stun
+            glaive()                        # W -> Q: the glaive ready at once
+            sweep(1)
+            uppercut()                      # the recast knocks him up
+            deliverance()                   # Q -> R: its cooldown cut, the dive while he is up (onto him)
+            full()                          # R -> Determination up a lot: full - the flash and the aura, Q and W ready
+            t0 = c.t + 100                  # Darius backs off, out of the glaive's reach
+            d.runs.append((t0, t0 + 470))
+            d.slides.append((t0, t0 + 470, 28))
+            c.wait(t0 + 470 + 50 - c.t)
+            rush()                          # the add-on's Aureate Rush (its whole e_dash): Darius on the outer edge
+            glaive()                        # Q again (ready from full)
+            t0 = c.t + 60                   # Darius swings back: lethal at full Determination
+            d.attacks.append(t0)
+            c.wait(t0 + sum(ms for _, ms in d.attack[:-1]) - c.t)
+            revive()                        # banished, rising in the light; full again: Q ready
+            glaive(kill=True)
     c.wait(tail)
     return c.render(out, W, H, c.t, z)
+
+
+def showcase(out):
+    """The scripted fight (every combo in play), 3x."""
+    return scene(out, ["fight"], 60, W=170, H=120, z=3, tail=1200, x0=55)
 
 
 # each skill alone (the user, 2026-10-24: 「带技能的gif图呢？」): (caption, steps, Darius's distance, canvas height)
@@ -276,7 +307,7 @@ def skills(out, z=4):
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--out", default=os.path.join(ROOT, "docs", "preview"))
-    ap.add_argument("--only", choices=["frames", "effects", "skills"])
+    ap.add_argument("--only", choices=["frames", "effects", "showcase", "skills"])
     args = ap.parse_args()
     os.makedirs(T.long_path(args.out), exist_ok=True)
     if args.only in (None, "frames"):
@@ -288,6 +319,8 @@ def main():
             sp = load(path)
             rows += [(sp, t["name"], f"{name[14:]}:{t['name']}") for t in sp.tags]
         print("effects", fx_contact(rows, os.path.join(args.out, "league_zaahen_effects.png")))
+    if args.only in (None, "showcase"):
+        print("showcase frames/seconds", showcase(os.path.join(args.out, "league_zaahen_showcase.gif")))
     if args.only in (None, "skills"):
         print("skills frames/seconds", skills(os.path.join(args.out, "league_zaahen_skills.gif")))
 

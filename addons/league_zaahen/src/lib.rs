@@ -401,6 +401,8 @@ impl Darkin {
         }
         self.rising = Some(now);
         self.revive_at = now + self.p.rv_cd;
+        sim.play_sfx(&sn("rv"), me, &InputTargetV1::target(me));       // League's revive and his line
+        sim.play_sfx(&sn("vo_rv"), me, &InputTargetV1::target(me));
         if let Some(k) = counted("revive") {
             wlog(format!("{} REVIVE #{k}: lethal damage caught at 1 hp, rising for {} ticks (next at t={})",
                          head(sim, me), self.p.rv_rise, self.revive_at));

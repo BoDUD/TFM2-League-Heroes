@@ -217,7 +217,8 @@ def rise_canvases(C):
 
 def write_rise(C):
     """league/effects/league_zaahen_rise: tags rise_r / rise_l (1x) and their hd_ twins (PPU), every frame centred on
-    the pivot like a hero's frame (ppu_rig.Rig.export's one_of / crop_dense), rise_l the mirror of rise_r."""
+    the pivot like a hero's frame (ppu_rig.Rig.export's one_of / crop_dense), rise_l the mirror of rise_r; idle / hd_idle
+    = rise_r (league.dll tells a dense effect sheet by its idle, rig_azir's way; shared frames, no room taken)."""
     rig = C.rig
     px = float(rig.CX)
     py = rig.GY - R.FEET * PPU
@@ -235,6 +236,7 @@ def write_rise(C):
         tags["hd_rise_r"].append((hd, float(ms)))
         tags["rise_l"].append((one[:, ::-1].copy(), float(ms)))
         tags["hd_rise_l"].append((hd[:, ::-1].copy(), float(ms)))
+    tags = {"idle": tags["rise_r"], "hd_idle": tags["hd_rise_r"], **tags}
     w, h = G.write_sheet(lp(RISE), tags, share=True)
     print(f"league/effects/league_zaahen_rise#sheet.png {w}x{h}: " + ", ".join(f"{t} {len(v)}" for t, v in tags.items()))
     return cans
