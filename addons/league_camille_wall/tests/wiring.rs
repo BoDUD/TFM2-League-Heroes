@@ -565,7 +565,8 @@ fn hookshot_from_cast_to_landing() {
         assert!(world.trace.iter().any(|p| p.0 < 25_000.0), "never reached the rocks");
         assert!(world.units[1].stunned && world.units[1].damage == 130);
 
-        // 11. R 场地（r_on）：中心是她第一次带 r_on 的位置；带场地标记的敌方英雄走出 HOLD_R 就被放回 HOLD_R 处，
+        // 11. R 场地（r_on）：中心是她第一次带 r_on 的位置；带场地标记的敌方英雄走出画面椭圆的 HOLD_E 就被放回那里
+        //     （横向 30600），
         //     没标记的不管；她走开了中心不跟着走；场地结束后不再管
         let r_world = || {
             let mut camille = unit(480_000.0, 480_000.0, 0, true);
@@ -576,14 +577,20 @@ fn hookshot_from_cast_to_landing() {
         };
         let mut world = r_world();
         run_with(&mut world, &fx, Some(&mine), 1);
-        assert_eq!((world.units[1].x, world.units[1].y), (507_000.0, 480_000.0), "the target stayed out");
+        assert_eq!((world.units[1].x, world.units[1].y), (510_600.0, 480_000.0), "the target stayed out");
         assert_eq!((world.units[2].x, world.units[2].y), (480_000.0, 530_000.0), "moved an unmarked one");
         (world.units[0].x, world.units[1].x) = (500_000.0, 515_000.0);
         run_with(&mut world, &fx, Some(&mine), 1);
-        assert_eq!(world.units[1].x, 507_000.0, "the centre moved with her");
+        assert_eq!(world.units[1].x, 510_600.0, "the centre moved with her");
         world.units[1].x = 506_000.0;
         run_with(&mut world, &fx, Some(&mine), 1);
         assert_eq!(world.units[1].x, 506_000.0, "moved one already inside");
+        // down the picture (25000): 24000 down is off it, back to 21250
+        world.units[1].y = 504_000.0;
+        world.units[1].x = 480_000.0;
+        run_with(&mut world, &fx, Some(&mine), 1);
+        assert_eq!((world.units[1].x, world.units[1].y), (480_000.0, 501_250.0), "left down the picture");
+        (world.units[1].x, world.units[1].y) = (506_000.0, 480_000.0);
         world.units[0].buffs.clear();
         world.units[1].x = 560_000.0;
         run_with(&mut world, &fx, Some(&mine), 1);
@@ -592,7 +599,7 @@ fn hookshot_from_cast_to_landing() {
         world.units[0].buffs.push((BuffV1::timed("league_camille_r_on", 240), 240));
         world.units[1].x = 600_000.0;
         run_with(&mut world, &fx, Some(&mine), 1);
-        assert_eq!(world.units[1].x, 527_000.0, "the new arena kept the old centre");
+        assert_eq!(world.units[1].x, 530_600.0, "the new arena kept the old centre");
         // 场地挨着路边的墙（x 96000-128000）：放回去的点在墙里，就往中心退到墙外
         let mut world = r_world();
         (world.units[0].x, world.units[0].y) = (80_000.0, 600_000.0);
@@ -622,11 +629,11 @@ fn hookshot_from_cast_to_landing() {
             "E stopped: her R started",
             "out of reach: dives after him",
             "ENGAGE map=Moba from (60000,360000) hook map edge -> (",
-            "ARENA: #1 at 40000 from the centre put back to 27000",
+            "ARENA: #1 at 1.11 of the picture (40000, 0 from the centre) put back to 0.85",
         ] {
             assert!(text.contains(line), "missing {line:?} in the log:\n{text}");
         }
-        assert!(text.starts_with("=== league_camille_wall v4.3"), "{text}");
+        assert!(text.starts_with("=== league_camille_wall v4.4"), "{text}");
         assert!(!text.contains("stays at the wall") || !text.contains("E2:"), "E2 waited on the wall:
 {text}");
         // 挂在墙上 CLING tick 再扑
