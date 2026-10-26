@@ -1,0 +1,345 @@
+{
+  "files": [
+    {
+      "file": "locke-pose-a_wind.png",
+      "exists": true,
+      "raw_exists": true,
+      "hard_alpha": true,
+      "nonempty": true,
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "dimensions_pass": true,
+      "grid_11_pass": true,
+      "bbox": [
+        55,
+        209,
+        1232,
+        1188
+      ],
+      "edge_clear": true,
+      "ground_anchor_pass": true
+    },
+    {
+      "file": "locke-pose-a_stab.png",
+      "exists": true,
+      "raw_exists": true,
+      "hard_alpha": true,
+      "nonempty": true,
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "dimensions_pass": true,
+      "grid_11_pass": true,
+      "bbox": [
+        44,
+        132,
+        1243,
+        1188
+      ],
+      "edge_clear": true,
+      "ground_anchor_pass": true
+    },
+    {
+      "file": "locke-pose-q_raise.png",
+      "exists": true,
+      "raw_exists": true,
+      "hard_alpha": true,
+      "nonempty": true,
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "dimensions_pass": true,
+      "grid_11_pass": true,
+      "bbox": [
+        220,
+        11,
+        1100,
+        1188
+      ],
+      "edge_clear": true,
+      "ground_anchor_pass": true
+    },
+    {
+      "file": "locke-pose-q_throw.png",
+      "exists": true,
+      "raw_exists": true,
+      "hard_alpha": true,
+      "nonempty": true,
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "dimensions_pass": true,
+      "grid_11_pass": true,
+      "bbox": [
+        44,
+        132,
+        1232,
+        1188
+      ],
+      "edge_clear": true,
+      "ground_anchor_pass": true
+    },
+    {
+      "file": "locke-pose-w_hunch.png",
+      "exists": true,
+      "raw_exists": true,
+      "hard_alpha": true,
+      "nonempty": true,
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "dimensions_pass": true,
+      "grid_11_pass": true,
+      "bbox": [
+        88,
+        154,
+        1133,
+        1188
+      ],
+      "edge_clear": true,
+      "ground_anchor_pass": true
+    },
+    {
+      "file": "locke-pose-w_spread.png",
+      "exists": true,
+      "raw_exists": true,
+      "hard_alpha": true,
+      "nonempty": true,
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "dimensions_pass": true,
+      "grid_11_pass": true,
+      "bbox": [
+        88,
+        44,
+        1188,
+        1155
+      ],
+      "edge_clear": true,
+      "ground_anchor_pass": true
+    },
+    {
+      "file": "locke-pose-e_blink.png",
+      "exists": true,
+      "raw_exists": true,
+      "hard_alpha": true,
+      "nonempty": true,
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "dimensions_pass": true,
+      "grid_11_pass": true,
+      "bbox": [
+        66,
+        308,
+        1221,
+        1188
+      ],
+      "edge_clear": true,
+      "ground_anchor_pass": true
+    },
+    {
+      "file": "locke-pose-e_dash.png",
+      "exists": true,
+      "raw_exists": true,
+      "hard_alpha": true,
+      "nonempty": true,
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "dimensions_pass": true,
+      "grid_11_pass": true,
+      "bbox": [
+        99,
+        462,
+        1243,
+        1122
+      ],
+      "edge_clear": true,
+      "ground_anchor_pass": true
+    },
+    {
+      "file": "locke-pose-r_swing.png",
+      "exists": true,
+      "raw_exists": true,
+      "hard_alpha": true,
+      "nonempty": true,
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "dimensions_pass": true,
+      "grid_11_pass": true,
+      "bbox": [
+        33,
+        55,
+        1232,
+        1188
+      ],
+      "edge_clear": true,
+      "ground_anchor_pass": true
+    },
+    {
+      "file": "locke-pose-r_throw.png",
+      "exists": true,
+      "raw_exists": true,
+      "hard_alpha": true,
+      "nonempty": true,
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "dimensions_pass": true,
+      "grid_11_pass": true,
+      "bbox": [
+        99,
+        11,
+        1210,
+        1188
+      ],
+      "edge_clear": true,
+      "ground_anchor_pass": true
+    },
+    {
+      "file": "locke-pose-run1.png",
+      "exists": true,
+      "raw_exists": true,
+      "hard_alpha": true,
+      "nonempty": true,
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "dimensions_pass": true,
+      "grid_11_pass": true,
+      "bbox": [
+        55,
+        187,
+        1221,
+        1188
+      ],
+      "edge_clear": true,
+      "ground_anchor_pass": true
+    },
+    {
+      "file": "locke-pose-run2.png",
+      "exists": true,
+      "raw_exists": true,
+      "hard_alpha": true,
+      "nonempty": true,
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "dimensions_pass": true,
+      "grid_11_pass": true,
+      "bbox": [
+        242,
+        77,
+        957,
+        1188
+      ],
+      "edge_clear": true,
+      "ground_anchor_pass": true
+    },
+    {
+      "file": "locke-pose-run3.png",
+      "exists": true,
+      "raw_exists": true,
+      "hard_alpha": true,
+      "nonempty": true,
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "dimensions_pass": true,
+      "grid_11_pass": true,
+      "bbox": [
+        132,
+        88,
+        1177,
+        1188
+      ],
+      "edge_clear": true,
+      "ground_anchor_pass": true
+    },
+    {
+      "file": "locke-pose-run4.png",
+      "exists": true,
+      "raw_exists": true,
+      "hard_alpha": true,
+      "nonempty": true,
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "dimensions_pass": true,
+      "grid_11_pass": true,
+      "bbox": [
+        209,
+        110,
+        979,
+        1188
+      ],
+      "edge_clear": true,
+      "ground_anchor_pass": true
+    },
+    {
+      "file": "locke-pose-d_fall.png",
+      "exists": true,
+      "raw_exists": true,
+      "hard_alpha": true,
+      "nonempty": true,
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "dimensions_pass": true,
+      "grid_11_pass": true,
+      "bbox": [
+        121,
+        88,
+        1133,
+        1188
+      ],
+      "edge_clear": true,
+      "ground_anchor_pass": true
+    },
+    {
+      "file": "locke-pose-d_down.png",
+      "exists": true,
+      "raw_exists": true,
+      "hard_alpha": true,
+      "nonempty": true,
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "dimensions_pass": true,
+      "grid_11_pass": true,
+      "bbox": [
+        55,
+        165,
+        1232,
+        1188
+      ],
+      "edge_clear": true,
+      "ground_anchor_pass": true
+    }
+  ],
+  "summary": {
+    "expected": 16,
+    "present": 16,
+    "failures": []
+  }
+}

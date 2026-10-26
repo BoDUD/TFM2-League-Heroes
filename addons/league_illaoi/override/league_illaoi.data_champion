@@ -2476,6 +2476,22 @@
     },
     {
       "type": "Animation",
+      "name": "league_illaoi_soul_league_locke",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_locke",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_league_locke_l",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "league_locke_l",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
       "name": "league_illaoi_soul_league_lucian",
       "anim": "asset/league/effects/league_illaoi_souls",
       "tag": "league_lucian",
