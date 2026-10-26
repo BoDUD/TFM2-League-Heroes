@@ -271,6 +271,10 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // frames when both packs are enabled): the idle design and Codex's skeleton poses with one clean head, posed by
     // tools/art/rig_powder.py at 1.75 squares a game pixel (61 rows: 「35」, then 「PPU像素好低啊 能调一下吗」), shown at 90 % (SIZES)
     ("tft_powder", 1.75, include_str!("../../../tft/champions/tft_powder#anim.fanim")),
+    // Alune (tft_alune, the tft pack): riding her crescent glaive, step 0's A-1 at the user's 46 game px horns to the
+    // crescent's foot, PPU 2.0 (「A-1 46 PPU 2.0」), and Codex's key poses after her own TFT clips with the design's head,
+    // posed by tools/art/rig_alune.py, so no SIZES row
+    ("tft_alune", 2.0, include_str!("../../../tft/champions/tft_alune#anim.fanim")),
     // 2026-10-16 redo from Codex's pictures, the actions posed from the designs (tools/art/rig_<hero>_hd.py; Nami's after
     // League's own clips, tools/lol/league_joints.py), PPU 1.5 at their old heights, so no SIZES rows
     ("league_morgana", 1.5, include_str!("../../../league/champions/league_morgana#anim.fanim")),
@@ -585,6 +589,9 @@ pub const UI_SIZES: &[(&str, f32)] = &[
     // glaive across him and the wings, the glaive raised high in his attack and Q; UI size and card value set with
     // bp_card_audit.py
     ("league_zaahen", 0.78),
+    // Alune (tft_alune): 46 game px from her horns to the crescent's foot at PPU 2.0 (the card's canvas is 40 tall); UI size
+    // and card value set with bp_card_audit.py's math (85 %: the horns a pixel under the canvas top, the foot on its bottom)
+    ("tft_alune", 0.85),
 ];
 
 /// The `"lo_..."` animation names of a .fanim.

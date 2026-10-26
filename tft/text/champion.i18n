@@ -7,6 +7,13 @@
         "skill": "把上了发条的猴子炸弹丢到目标脚下，范围内敌人受到<#a974ffff>36<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>28%<>魔法伤害，中心再受一次；被炸到的敌人<#ef5350ff>灼烧<><#ffb900ff>3秒<>，并<#ef5350ff>重伤<><#ffb900ff>4秒<>（受到治疗-40%）。",
         "skill2": "敌方英雄靠近时摔下闪光烟雾弹：周围敌人受到<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>魔法伤害并<#ef5350ff>致盲<><#ffb900ff>1秒<>（无法普攻），自己向后跳开。",
         "ult": "把装着海克斯水晶的包丢向敌方英雄，引线烧完<#ffb900ff>0.9秒<>后蓝光大爆炸：范围内敌人受到<#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<>魔法伤害并<#ef5350ff>击飞<><#ffb900ff>0.75秒<>。"
+      },
+      "tft_alune": {
+        "name": "拉露恩",
+        "attack": "把螺旋月环像飞盘一样甩出去，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>。<#ff9028ff>月相<>：每放一次技能月亮长一档，最多<#ffb900ff>3<>档；大招每档伤害+<#ffb900ff>20%<>，砸完回到新月。",
+        "skill": "月光碎片从天而降，落在<#ffb900ff>3<>个敌人身上（一个是目标），每枚造成<#a974ffff>42<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>32%<>魔法伤害，并使魔抗降低<#ffb900ff>20%<>，持续<#ffb900ff>6秒<>。",
+        "skill2": "月光洒在她和身边的友方英雄身上，攻击速度提高<#ffb900ff>36%<>，持续<#ffb900ff>5秒<>。",
+        "ult": "敌方英雄脚下浮现月影，<#ffb900ff>0.75秒<>后满月砸下：范围内的敌人受到<#a974ffff>165<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>72%<>魔法伤害，中心的敌人<#ef5350ff>眩晕<><#ffb900ff>0.83秒<>。"
       }
     },
     "skill_name": {
@@ -14,6 +21,11 @@
         "skill1": "猴子炸弹",
         "skill2": "快跑，爆爆！",
         "ult": "海克斯水晶炸弹"
+      },
+      "tft_alune": {
+        "skill1": "月之降临",
+        "skill2": "月华",
+        "ult": "月曜降临"
       }
     }
   },
@@ -25,6 +37,13 @@
         "skill": "把上了發條的猴子炸彈丟到目標腳下，範圍內敵人受到<#a974ffff>36<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>28%<>魔法傷害，中心再受一次；被炸到的敵人<#ef5350ff>燃燒<><#ffb900ff>3秒<>，並<#ef5350ff>重傷<><#ffb900ff>4秒<>（受到治療-40%）。",
         "skill2": "敵方英雄靠近時摔下閃光煙霧彈：周圍敵人受到<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>魔法傷害並<#ef5350ff>致盲<><#ffb900ff>1秒<>（無法普攻），自己向後跳開。",
         "ult": "把裝著海克斯水晶的包丟向敵方英雄，引線燒完<#ffb900ff>0.9秒<>後藍光大爆炸：範圍內敵人受到<#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<>魔法傷害並<#ef5350ff>擊飛<><#ffb900ff>0.75秒<>。"
+      },
+      "tft_alune": {
+        "name": "亞盧妮",
+        "attack": "把螺旋月環像飛盤一樣甩出去，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>。<#ff9028ff>月相<>：每施放一次技能月亮長一階，最多<#ffb900ff>3<>階；大招每階傷害+<#ffb900ff>20%<>，砸完回到新月。",
+        "skill": "月華碎片從天而降，落在<#ffb900ff>3<>名敵人身上（一名是目標），每塊造成<#a974ffff>42<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>32%<>魔法傷害，並使魔抗降低<#ffb900ff>20%<>，持續<#ffb900ff>6秒<>。",
+        "skill2": "月光灑在她和身邊的友方英雄身上，攻擊速度提高<#ffb900ff>36%<>，持續<#ffb900ff>5秒<>。",
+        "ult": "敵方英雄腳下浮現月影，<#ffb900ff>0.75秒<>後滿月砸下：範圍內的敵人受到<#a974ffff>165<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>72%<>魔法傷害，中心的敵人<#ef5350ff>暈眩<><#ffb900ff>0.83秒<>。"
       }
     },
     "skill_name": {
@@ -32,6 +51,11 @@
         "skill1": "猴子炸彈",
         "skill2": "快跑，爆爆！",
         "ult": "海克斯水晶炸彈"
+      },
+      "tft_alune": {
+        "skill1": "月隕",
+        "skill2": "月華",
+        "ult": "月曜降臨"
       }
     }
   },
@@ -43,6 +67,13 @@
         "skill": "Lobs her wind-up monkey bomb at the target's feet: enemies in the blast take <#a974ffff>36<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>28%<> <#a974ffff>magic damage<>, those in the middle take it twice. Everyone hit <#ef5350ff>burns<> for <#ffb900ff>3s<> and is <#ef5350ff>wounded<> for <#ffb900ff>4s<> (healing -40%).",
         "skill2": "When an enemy champion comes close, smashes a flash-smoke bomb: enemies around her take <#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> <#a974ffff>magic damage<> and are <#ef5350ff>blinded<> for <#ffb900ff>1s<> (no basic attacks), and she hops back.",
         "ult": "Lobs the bag with the hex crystal at an enemy champion. After a <#ffb900ff>0.9s<> fuse it bursts in blue: enemies in the blast take <#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<> <#a974ffff>magic damage<> and are <#ef5350ff>knocked up<> for <#ffb900ff>0.75s<>."
+      },
+      "tft_alune": {
+        "name": "Alune",
+        "attack": "Flings her spiral ring like a disc for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<>. <#ff9028ff>Moon Phase<>: each skill she casts grows the moon a phase, up to <#ffb900ff>3<>; her ultimate deals <#ffb900ff>20%<> more a phase, and the moon wanes to new.",
+        "skill": "Moonshards rain on <#ffb900ff>3<> enemies (one of them the target), each dealing <#a974ffff>42<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>32%<> <#a974ffff>magic damage<> and lowering magic resistance by <#ffb900ff>20%<> for <#ffb900ff>6s<>.",
+        "skill2": "Moonlight falls on her and the allied champions near her: <#ffb900ff>36%<> attack speed for <#ffb900ff>5s<>.",
+        "ult": "The moon's shadow spreads under an enemy champion; <#ffb900ff>0.75s<> later the full moon crashes down: enemies in the area take <#a974ffff>165<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>72%<> <#a974ffff>magic damage<>, those in the middle are <#ef5350ff>stunned<> for <#ffb900ff>0.83s<>."
       }
     },
     "skill_name": {
@@ -50,6 +81,11 @@
         "skill1": "Monkey Bomb",
         "skill2": "Run, Powder!",
         "ult": "Hex Crystal Bomb"
+      },
+      "tft_alune": {
+        "skill1": "Moonfall",
+        "skill2": "Moonlight",
+        "ult": "Moon Descends"
       }
     }
   },
@@ -61,6 +97,13 @@
         "skill": "태엽 원숭이 폭탄을 대상의 발밑에 던져 폭발 범위의 적에게 <#a974ffff>36<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>28%<> 마법 피해, 중심은 한 번 더. 맞은 적은 <#ffb900ff>3초<> <#ef5350ff>불태움<>, <#ffb900ff>4초<> <#ef5350ff>상처<>(받는 회복 -40%).",
         "skill2": "적 챔피언이 다가오면 섬광 연막탄을 터뜨려 주변 적에게 <#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> 마법 피해와 <#ffb900ff>1초<> <#ef5350ff>실명<>(기본 공격 불가), 자신은 뒤로 뛴다.",
         "ult": "마법공학 수정이 든 가방을 적 챔피언에게 던진다. <#ffb900ff>0.9초<> 뒤 푸른 폭발: 범위의 적에게 <#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<> 마법 피해와 <#ffb900ff>0.75초<> <#ef5350ff>공중에 띄움<>."
+      },
+      "tft_alune": {
+        "name": "알룬",
+        "attack": "나선 고리를 원반처럼 던져 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> 물리 피해. <#ff9028ff>달의 위상<>: 스킬을 쓸 때마다 달이 한 단계 차오른다(최대 <#ffb900ff>3<>단계). 궁극기는 단계마다 피해 +<#ffb900ff>20%<>, 쓴 뒤 다시 초승달.",
+        "skill": "달조각이 적 <#ffb900ff>3<>명(하나는 대상)에게 떨어져 각각 <#a974ffff>42<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>32%<> 마법 피해를 입히고 <#ffb900ff>6초<> 동안 마법 저항력을 <#ffb900ff>20%<> 낮춘다.",
+        "skill2": "자신과 주변 아군 챔피언에게 달빛이 내려 <#ffb900ff>5초<> 동안 공격 속도 +<#ffb900ff>36%<>.",
+        "ult": "적 챔피언의 발밑에 달그림자가 드리우고 <#ffb900ff>0.75초<> 뒤 보름달이 떨어진다: 범위의 적에게 <#a974ffff>165<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>72%<> 마법 피해, 중심의 적은 <#ffb900ff>0.83초<> <#ef5350ff>기절<>."
       }
     },
     "skill_name": {
@@ -68,6 +111,11 @@
         "skill1": "원숭이 폭탄",
         "skill2": "도망쳐, 파우더!",
         "ult": "마법공학 수정 폭탄"
+      },
+      "tft_alune": {
+        "skill1": "달빛 낙하",
+        "skill2": "달빛 가호",
+        "ult": "보름달 강림"
       }
     }
   },
@@ -79,6 +127,13 @@
         "skill": "ぜんまい仕掛けのモンキーボムを対象の足元に投げ、範囲の敵に<#a974ffff>36<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>28%<>の魔法ダメージ、中心はもう一度。当たった敵は<#ffb900ff>3秒<><#ef5350ff>炎上<>、<#ffb900ff>4秒<><#ef5350ff>重傷<>（回復-40%）。",
         "skill2": "敵チャンピオンが近づくと閃光煙幕弾を叩きつけ、周りの敵に<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>の魔法ダメージと<#ffb900ff>1秒<><#ef5350ff>ブラインド<>（通常攻撃不可）、自分は後ろへ跳ぶ。",
         "ult": "ヘクスクリスタル入りの鞄を敵チャンピオンへ投げる。<#ffb900ff>0.9秒<>後に青く大爆発：範囲の敵に<#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<>の魔法ダメージと<#ffb900ff>0.75秒<><#ef5350ff>ノックアップ<>。"
+      },
+      "tft_alune": {
+        "name": "アルーン",
+        "attack": "螺旋の輪を円盤のように投げ、<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の物理ダメージ。<#ff9028ff>月相<>：スキルを使うたびに月が満ちる（最大<#ffb900ff>3<>段階）。アルティメットは1段階ごとにダメージ+<#ffb900ff>20%<>、使うと新月に戻る。",
+        "skill": "月の破片が<#ffb900ff>3<>体の敵（うち1体は対象）に降り、それぞれ<#a974ffff>42<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>32%<>の魔法ダメージと<#ffb900ff>6秒<>の魔法防御-<#ffb900ff>20%<>。",
+        "skill2": "自分と周りの味方チャンピオンに月光が降り、<#ffb900ff>5秒<>間攻撃速度+<#ffb900ff>36%<>。",
+        "ult": "敵チャンピオンの足元に月の影が広がり、<#ffb900ff>0.75秒<>後に満月が落ちる：範囲の敵に<#a974ffff>165<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>72%<>の魔法ダメージ、中心の敵は<#ffb900ff>0.83秒<><#ef5350ff>スタン<>。"
       }
     },
     "skill_name": {
@@ -86,6 +141,11 @@
         "skill1": "モンキーボム",
         "skill2": "逃げて、パウダー！",
         "ult": "ヘクスクリスタル爆弾"
+      },
+      "tft_alune": {
+        "skill1": "崩月",
+        "skill2": "月光の加護",
+        "ult": "満月降臨"
       }
     }
   }

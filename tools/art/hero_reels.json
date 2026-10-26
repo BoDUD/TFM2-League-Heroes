@@ -173,5 +173,6 @@
   "league_zilean": {"idle": [["w", [0, 1, 2, 3]], ["skill", [0, 1, 2, 3]]]},
   "league_zoe": {"idle": [["skill2", [7, 8]], ["ult", [6, 7]]]},
   "league_zyra": {"idle": [["ult", [0, 1, 2, 3]], ["attack", [0, 1]]]},
-  "tft_powder": {"idle": [["skill", [2, 3, 4]], ["attack", [0, 1]]]}
+  "tft_powder": {"idle": [["skill", [2, 3, 4]], ["attack", [0, 1]]]},
+  "tft_alune": {"idle": [["skill2", [0]]], "bp": ["skill2", "attack", "skill", "ult"]}
 }
