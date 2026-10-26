@@ -21,6 +21,13 @@
         "skill": "月光碎片从天而降，落在离她最近的<#ffb900ff>3<>个敌人身上，每枚造成<#a974ffff>42<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>32%<>魔法伤害，并使魔抗降低<#ffb900ff>20%<>，持续<#ffb900ff>6秒<>。",
         "skill2": "月光洒在她和身边的友方英雄身上，攻击速度提高<#ffb900ff>36%<>，持续<#ffb900ff>5秒<>。",
         "ult": "敌方英雄脚下浮现月影，<#ffb900ff>0.75秒<>后满月砸下：<#a974ffff>165<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>72%<>魔法伤害×<#ffb900ff>220%<>由范围内的敌人平分（每人最多<#ffb900ff>180%<>），中心的敌人<#ef5350ff>眩晕<><#ffb900ff>0.83秒<>。"
+      },
+      "tft_silco": {
+        "name": "希尔科",
+        "attack": "甩出一支微光药剂，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>。<#ff9028ff>统领<>：每次出生获得<#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>护盾（<#ffb900ff>15秒<>）；每放一次技能法强+<#ffb900ff>10%<>，最多<#ffb900ff>5<>层，阵亡清空。",
+        "skill": "扔出储罐，造成<#a974ffff>65<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<>魔法伤害，放出<#ffb900ff>2<>只畸变体扑向附近的敌人，各咬<#ffb900ff>5<>口，每口<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>11%<>魔法伤害；被咬的人倒下就跳到下一个。",
+        "skill2": "把微光抛给身边攻击力最高的友方英雄（没有就自己）：攻速+<#ffb900ff>50%<>、移速+<#ffb900ff>20%<>，<#ffb900ff>4秒<>；药效过去扣当前生命的<#ffb900ff>8%<>。",
+        "ult": "向敌方英雄扔出巨型储罐，造成<#a974ffff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>魔法伤害，放出<#ffb900ff>4<>只畸变体，留下<#ffb900ff>4秒<>毒雾：敌人<#ef5350ff>减速<><#ffb900ff>30%<>，每秒受到<#a974ffff>6<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>4%<>魔法伤害。"
       }
     },
     "skill_name": {
@@ -38,6 +45,11 @@
         "skill1": "月之降临",
         "skill2": "月华",
         "ult": "月曜降临"
+      },
+      "tft_silco": {
+        "skill1": "罐装畸变体",
+        "skill2": "微光注射",
+        "ult": "炼金狂潮"
       }
     }
   },
@@ -63,6 +75,13 @@
         "skill": "月華碎片從天而降，落在離她最近的<#ffb900ff>3<>名敵人身上，每塊造成<#a974ffff>42<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>32%<>魔法傷害，並使魔抗降低<#ffb900ff>20%<>，持續<#ffb900ff>6秒<>。",
         "skill2": "月光灑在她和身邊的友方英雄身上，攻擊速度提高<#ffb900ff>36%<>，持續<#ffb900ff>5秒<>。",
         "ult": "敵方英雄腳下浮現月影，<#ffb900ff>0.75秒<>後滿月砸下：<#a974ffff>165<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>72%<>魔法傷害×<#ffb900ff>220%<>由範圍內的敵人平分（每人最多<#ffb900ff>180%<>），中心的敵人<#ef5350ff>暈眩<><#ffb900ff>0.83秒<>。"
+      },
+      "tft_silco": {
+        "name": "希爾科",
+        "attack": "甩出一支微光藥劑，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>。<#ff9028ff>霸主<>：每次出生獲得<#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>護盾（<#ffb900ff>15秒<>）；每施放一次技能法術強度+<#ffb900ff>10%<>，最多<#ffb900ff>5<>層，陣亡清空。",
+        "skill": "扔出儲罐，造成<#a974ffff>65<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<>魔法傷害，放出<#ffb900ff>2<>隻怪物撲向附近的敵人，各咬<#ffb900ff>5<>口，每口<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>11%<>魔法傷害；被咬的人倒下就跳到下一個。",
+        "skill2": "把微光拋給身邊攻擊力最高的友方英雄（沒有就自己）：攻速+<#ffb900ff>50%<>、移速+<#ffb900ff>20%<>，<#ffb900ff>4秒<>；藥效過去扣除目前生命的<#ffb900ff>8%<>。",
+        "ult": "向敵方英雄扔出巨型儲罐，造成<#a974ffff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>魔法傷害，放出<#ffb900ff>4<>隻怪物，留下<#ffb900ff>4秒<>毒霧：敵人<#ef5350ff>緩速<><#ffb900ff>30%<>，每秒受到<#a974ffff>6<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>4%<>魔法傷害。"
       }
     },
     "skill_name": {
@@ -80,6 +99,11 @@
         "skill1": "月隕",
         "skill2": "月華",
         "ult": "月曜降臨"
+      },
+      "tft_silco": {
+        "skill1": "罐裝怪物",
+        "skill2": "微光注射",
+        "ult": "鍊金狂潮"
       }
     }
   },
@@ -105,6 +129,13 @@
         "skill": "Moonshards rain on the <#ffb900ff>3<> enemies nearest her, each dealing <#a974ffff>42<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>32%<> <#a974ffff>magic damage<> and lowering magic resistance by <#ffb900ff>20%<> for <#ffb900ff>6s<>.",
         "skill2": "Moonlight falls on her and the allied champions near her: <#ffb900ff>36%<> attack speed for <#ffb900ff>5s<>.",
         "ult": "The moon's shadow spreads under an enemy champion; <#ffb900ff>0.75s<> later the full moon crashes down: <#ffb900ff>220%<> of <#a974ffff>165<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>72%<> <#a974ffff>magic damage<> split among the enemies in the area (at most <#ffb900ff>180%<> each), those in the middle <#ef5350ff>stunned<> for <#ffb900ff>0.83s<>."
+      },
+      "tft_silco": {
+        "name": "Silco",
+        "attack": "Flings a Shimmer vial for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<>. <#ff9028ff>Dominator<>: each time he spawns he gains a <#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<> shield for <#ffb900ff>15s<>; each skill he casts grants <#ffb900ff>10%<> ability power, up to <#ffb900ff>5<> times, lost on death.",
+        "skill": "Throws a canister for <#a974ffff>65<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<> <#a974ffff>magic damage<> and lets out <#ffb900ff>2<> monstrosities that pounce on nearby enemies and bite <#ffb900ff>5<> times each for <#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>11%<> <#a974ffff>magic damage<>; when their victim falls they leap to the next.",
+        "skill2": "Tosses Shimmer to the allied champion with the most attack near him (himself if none): <#ffb900ff>50%<> attack speed and <#ffb900ff>20%<> move speed for <#ffb900ff>4s<>; the comedown then takes <#ffb900ff>8%<> of their current health.",
+        "ult": "Throws a giant canister at an enemy champion for <#a974ffff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> <#a974ffff>magic damage<>, letting out <#ffb900ff>4<> monstrosities and leaving a Shimmer fog for <#ffb900ff>4s<>: enemies in it are <#ef5350ff>slowed<> by <#ffb900ff>30%<> and take <#a974ffff>6<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>4%<> <#a974ffff>magic damage<> a second."
       }
     },
     "skill_name": {
@@ -122,6 +153,11 @@
         "skill1": "Moonfall",
         "skill2": "Moonlight",
         "ult": "Moon Descends"
+      },
+      "tft_silco": {
+        "skill1": "Canned Monstrosity",
+        "skill2": "Shimmer Shot",
+        "ult": "Chem-Baron's Flood"
       }
     }
   },
@@ -147,6 +183,13 @@
         "skill": "가장 가까운 적 <#ffb900ff>3<>명에게 달조각이 떨어져 각각 <#a974ffff>42<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>32%<> 마법 피해를 입히고 <#ffb900ff>6초<> 동안 마법 저항력을 <#ffb900ff>20%<> 낮춘다.",
         "skill2": "자신과 주변 아군 챔피언에게 달빛이 내려 <#ffb900ff>5초<> 동안 공격 속도 +<#ffb900ff>36%<>.",
         "ult": "적 챔피언의 발밑에 달그림자가 드리우고 <#ffb900ff>0.75초<> 뒤 보름달이 떨어진다: <#a974ffff>165<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>72%<> 마법 피해의 <#ffb900ff>220%<>를 범위의 적이 나누어 받고(1명당 최대 <#ffb900ff>180%<>), 중심의 적은 <#ffb900ff>0.83초<> <#ef5350ff>기절<>."
+      },
+      "tft_silco": {
+        "name": "실코",
+        "attack": "시머 약병을 던져 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> 물리 피해. <#ff9028ff>지배자<>: 등장할 때마다 <#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<> 보호막(<#ffb900ff>15초<>). 스킬을 쓸 때마다 주문력 +<#ffb900ff>10%<>(최대 <#ffb900ff>5<>번, 죽으면 사라짐).",
+        "skill": "통을 던져 <#a974ffff>65<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<> 마법 피해를 입히고 괴수 <#ffb900ff>2<>마리를 풀어놓는다. 괴수는 주변 적에게 달려들어 <#ffb900ff>5<>번 물며 한 번에 <#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>11%<> 마법 피해, 물던 적이 쓰러지면 다음 적에게 뛰어간다.",
+        "skill2": "주변에서 공격력이 가장 높은 아군 챔피언(없으면 자신)에게 시머를 던진다: <#ffb900ff>4초<> 동안 공격 속도 +<#ffb900ff>50%<>, 이동 속도 +<#ffb900ff>20%<>. 약효가 끝나면 현재 체력의 <#ffb900ff>8%<>를 잃는다.",
+        "ult": "적 챔피언에게 거대한 통을 던져 <#a974ffff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> 마법 피해, 괴수 <#ffb900ff>4<>마리와 <#ffb900ff>4초<> 동안 시머 안개를 남긴다: 안의 적은 <#ffb900ff>30%<> <#ef5350ff>둔화<>, 초당 <#a974ffff>6<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>4%<> 마법 피해."
       }
     },
     "skill_name": {
@@ -164,6 +207,11 @@
         "skill1": "달빛 낙하",
         "skill2": "달빛 가호",
         "ult": "보름달 강림"
+      },
+      "tft_silco": {
+        "skill1": "통에 담긴 괴수",
+        "skill2": "시머 주사",
+        "ult": "화공 대범람"
       }
     }
   },
@@ -189,6 +237,13 @@
         "skill": "最も近い敵<#ffb900ff>3<>体に月の破片が降り、それぞれ<#a974ffff>42<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>32%<>の魔法ダメージと<#ffb900ff>6秒<>の魔法防御-<#ffb900ff>20%<>。",
         "skill2": "自分と周りの味方チャンピオンに月光が降り、<#ffb900ff>5秒<>間攻撃速度+<#ffb900ff>36%<>。",
         "ult": "敵チャンピオンの足元に月の影が広がり、<#ffb900ff>0.75秒<>後に満月が落ちる：<#a974ffff>165<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>72%<>の魔法ダメージの<#ffb900ff>220%<>を範囲の敵で分け合い（1体あたり最大<#ffb900ff>180%<>）、中心の敵は<#ffb900ff>0.83秒<><#ef5350ff>スタン<>。"
+      },
+      "tft_silco": {
+        "name": "シルコ",
+        "attack": "シマーの薬瓶を投げ、<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の物理ダメージ。<#ff9028ff>ドミネーター<>：出現するたびに<#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>のシールド（<#ffb900ff>15秒<>）。スキルを使うたびに魔力+<#ffb900ff>10%<>（最大<#ffb900ff>5<>回、倒れると消える）。",
+        "skill": "缶を投げて<#a974ffff>65<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<>の魔法ダメージ、怪物<#ffb900ff>2<>体を放つ。怪物は近くの敵に飛びかかり<#ffb900ff>5<>回噛みつき、1回<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>11%<>の魔法ダメージ。噛んだ敵が倒れると次の敵へ跳ぶ。",
+        "skill2": "近くで攻撃力が最も高い味方チャンピオン（いなければ自分）にシマーを投げる：<#ffb900ff>4秒<>間攻撃速度+<#ffb900ff>50%<>、移動速度+<#ffb900ff>20%<>。効き目が切れると現在体力の<#ffb900ff>8%<>を失う。",
+        "ult": "敵チャンピオンに巨大な缶を投げ、<#a974ffff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>の魔法ダメージ、怪物<#ffb900ff>4<>体と<#ffb900ff>4秒<>のシマーの霧を残す：霧の中の敵は<#ffb900ff>30%<><#ef5350ff>スロウ<>、毎秒<#a974ffff>6<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>4%<>の魔法ダメージ。"
       }
     },
     "skill_name": {
@@ -206,6 +261,11 @@
         "skill1": "崩月",
         "skill2": "月光の加護",
         "ult": "満月降臨"
+      },
+      "tft_silco": {
+        "skill1": "缶詰めの怪物",
+        "skill2": "シマー注射",
+        "ult": "化学の大洪水"
       }
     }
   }

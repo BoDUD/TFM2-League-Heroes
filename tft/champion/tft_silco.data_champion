@@ -17,12 +17,12 @@
       "m_n": 5,
       "m_gap": 45,
       "m_leap": 18,
-      "m_dmg": 8,
-      "m_ratio": 6,
+      "m_dmg": 15,
+      "m_ratio": 11,
       "m_reach": 45000,
       "m_life": 600,
       "e_r": 50000,
-      "e_as": 40,
+      "e_as": 50,
       "e_ms": 20,
       "e_t": 240,
       "e_cost": 8,
@@ -44,7 +44,7 @@
   "stat": {
     "attack": 72,
     "magic_power": 40,
-    "hp": 860,
+    "hp": 900,
     "defence": 18,
     "magic_resistance": 22,
     "move_speed": 900,
@@ -184,8 +184,8 @@
                       "casting_type": "Targeting",
                       "effect": {
                         "type": "ApAttack",
-                        "damage": 40,
-                        "attack_ratio": 30,
+                        "damage": 65,
+                        "attack_ratio": 45,
                         "hp_ratio": 0,
                         "can_crit": false
                       }
@@ -220,7 +220,7 @@
                       "buff_state": {
                         "name": "tft_silco_d5",
                         "duration": "Permanent",
-                        "magic_power_mult": 40
+                        "magic_power_mult": 50
                       },
                       "only_to_enemy": false
                     }
@@ -241,7 +241,7 @@
                         "buff_state": {
                           "name": "tft_silco_d4",
                           "duration": "Permanent",
-                          "magic_power_mult": 32
+                          "magic_power_mult": 40
                         },
                         "only_to_enemy": false
                       }
@@ -262,7 +262,7 @@
                           "buff_state": {
                             "name": "tft_silco_d3",
                             "duration": "Permanent",
-                            "magic_power_mult": 24
+                            "magic_power_mult": 30
                           },
                           "only_to_enemy": false
                         }
@@ -283,7 +283,7 @@
                             "buff_state": {
                               "name": "tft_silco_d2",
                               "duration": "Permanent",
-                              "magic_power_mult": 16
+                              "magic_power_mult": 20
                             },
                             "only_to_enemy": false
                           }
@@ -294,7 +294,7 @@
                         "buff_state": {
                           "name": "tft_silco_d1",
                           "duration": "Permanent",
-                          "magic_power_mult": 8
+                          "magic_power_mult": 10
                         },
                         "only_to_enemy": false
                       }
@@ -356,7 +356,7 @@
                       "buff_state": {
                         "name": "tft_silco_d5",
                         "duration": "Permanent",
-                        "magic_power_mult": 40
+                        "magic_power_mult": 50
                       },
                       "only_to_enemy": false
                     }
@@ -377,7 +377,7 @@
                         "buff_state": {
                           "name": "tft_silco_d4",
                           "duration": "Permanent",
-                          "magic_power_mult": 32
+                          "magic_power_mult": 40
                         },
                         "only_to_enemy": false
                       }
@@ -398,7 +398,7 @@
                           "buff_state": {
                             "name": "tft_silco_d3",
                             "duration": "Permanent",
-                            "magic_power_mult": 24
+                            "magic_power_mult": 30
                           },
                           "only_to_enemy": false
                         }
@@ -419,7 +419,7 @@
                             "buff_state": {
                               "name": "tft_silco_d2",
                               "duration": "Permanent",
-                              "magic_power_mult": 16
+                              "magic_power_mult": 20
                             },
                             "only_to_enemy": false
                           }
@@ -430,7 +430,7 @@
                         "buff_state": {
                           "name": "tft_silco_d1",
                           "duration": "Permanent",
-                          "magic_power_mult": 8
+                          "magic_power_mult": 10
                         },
                         "only_to_enemy": false
                       }
@@ -504,8 +504,8 @@
                       "casting_type": "Targeting",
                       "effect": {
                         "type": "ApAttack",
-                        "damage": 150,
-                        "attack_ratio": 65,
+                        "damage": 180,
+                        "attack_ratio": 80,
                         "hp_ratio": 0,
                         "can_crit": false
                       }
@@ -540,7 +540,7 @@
                       "buff_state": {
                         "name": "tft_silco_d5",
                         "duration": "Permanent",
-                        "magic_power_mult": 40
+                        "magic_power_mult": 50
                       },
                       "only_to_enemy": false
                     }
@@ -561,7 +561,7 @@
                         "buff_state": {
                           "name": "tft_silco_d4",
                           "duration": "Permanent",
-                          "magic_power_mult": 32
+                          "magic_power_mult": 40
                         },
                         "only_to_enemy": false
                       }
@@ -582,7 +582,7 @@
                           "buff_state": {
                             "name": "tft_silco_d3",
                             "duration": "Permanent",
-                            "magic_power_mult": 24
+                            "magic_power_mult": 30
                           },
                           "only_to_enemy": false
                         }
@@ -603,7 +603,7 @@
                             "buff_state": {
                               "name": "tft_silco_d2",
                               "duration": "Permanent",
-                              "magic_power_mult": 16
+                              "magic_power_mult": 20
                             },
                             "only_to_enemy": false
                           }
@@ -614,7 +614,7 @@
                         "buff_state": {
                           "name": "tft_silco_d1",
                           "duration": "Permanent",
-                          "magic_power_mult": 8
+                          "magic_power_mult": 10
                         },
                         "only_to_enemy": false
                       }

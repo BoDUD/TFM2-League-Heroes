@@ -46,25 +46,28 @@ BIG = f"asset/{MOD_ID}/effects/{ID}_big"
 # Units: attack range 55000 like every mid; radii count the unit's collision radius (~15000) on top. Timings are
 # placeholders until the strips exist (tools/art/rig_silco.py). Numbers = the 10-min classic-SDK simulations (C:/t/sc_sim,
 # Alune's copy of the balance sim: mid lane 2 against pyromancer, ice_mage, lightning_mage, wind_mage and white_mage,
-# three lineups, both sides), all --plain.
+# three lineups, both sides; 2026-10-27), all --plain: the draft (Q 40 + 30%, bites 8 + 6%, R 150 + 65%, E +40%, steps
+# 8%, hp 860) -2.40 on seeds 1-8 (league_ziggs +1.17); Q 55 + 40%, bites 12 + 9%, R 180 + 80%, steps 10%, hp 900 -0.30;
+# + bites 15 + 11%, E +50% +0.32; + Q 65 + 45% +1.25 / +1.22 (seeds 9-16; league_ziggs +2.22) = P; + shield 160 + 50%
+# +1.50. tft.dll's rules are not simulated: the monstrosities bite the canister's target there, the fog is a slow.
 P = {
     # stats (Magician base: attack 80 +6, ap 40 +20, hp 900 +100, def 20 +7, mr 20 +4, move 900 +9; TFT's Silco has
     # 800 health against Alune's 900)
-    "hp": 860, "hp_g": 94, "atk": 72, "atk_g": 6, "apw": 40, "apw_g": 20, "def": 18, "def_g": 7, "mr": 22, "mr_g": 4,
+    "hp": 900, "hp_g": 94, "atk": 72, "atk_g": 6, "apw": 40, "apw_g": 20, "def": 18, "def_g": 7, "mr": 22, "mr_g": 4,
     "ms": 900, "ms_g": 9,
     "atk_range": 55000, "atk_dur": 24, "atk_cd": 90, "a_rel": 10, "a_speed": 4000,
     # passive Dominator (TFT: a 350-800 shield for 15 s; 25-65% of the mana spent as stacking AP)
-    "s_amt": 120, "s_ap": 40, "s_t": 900, "d_ap": 8, "d_max": 5,
+    "s_amt": 120, "s_ap": 40, "s_t": 900, "d_ap": 10, "d_max": 5,
     # Canister of Monstrosities (TFT: 140 / 200 / 1000 damage, 4 / 4 / 8 monstrosities of 5 attacks, 30-100 each)
-    "q_cd": 300, "q_range": 65000, "q_dur": 36, "q_rel": 16, "q_fall": 24, "q_r": 20000, "q_dmg": 40, "q_ratio": 30,
+    "q_cd": 300, "q_range": 65000, "q_dur": 36, "q_rel": 16, "q_fall": 24, "q_r": 20000, "q_dmg": 65, "q_ratio": 45,
     "q_n": 2,
     # the monstrosities (tft.dll)
-    "m_n": 5, "m_gap": 45, "m_leap": 18, "m_dmg": 8, "m_ratio": 6, "m_reach": 45000, "m_life": 600,
+    "m_n": 5, "m_gap": 45, "m_leap": 18, "m_dmg": 15, "m_ratio": 11, "m_reach": 45000, "m_life": 600,
     # Shimmer Shot
-    "e_cd": 720, "e_range": 60000, "e_dur": 24, "e_rel": 10, "e_r": 50000, "e_as": 40, "e_ms": 20, "e_t": 240,
+    "e_cd": 720, "e_range": 60000, "e_dur": 24, "e_rel": 10, "e_r": 50000, "e_as": 50, "e_ms": 20, "e_t": 240,
     "e_cost": 8,
     # Chem-Baron's Flood
-    "r_cd": 3000, "r_range": 70000, "r_dur": 40, "r_rel": 24, "r_fall": 40, "r_r": 40000, "r_dmg": 150, "r_ratio": 65,
+    "r_cd": 3000, "r_range": 70000, "r_dur": 40, "r_rel": 24, "r_fall": 40, "r_r": 40000, "r_dmg": 180, "r_ratio": 80,
     "r_n": 4, "r_fog_r": 40000, "r_fog_t": 240, "r_slow": 30, "r_fog_dmg": 6, "r_fog_ratio": 4,
 }
 # what tft.dll reads from passive.params (addons/tft/src/silco.rs)

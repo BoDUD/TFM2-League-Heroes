@@ -147,12 +147,12 @@ impl Default for Params {
             m_n: 5,
             m_gap: 45,
             m_leap: 18,
-            m_dmg: 8,
-            m_ratio: 6,
+            m_dmg: 15,
+            m_ratio: 11,
             m_reach: 45000,
             m_life: 600,
             e_r: 50000,
-            e_as: 40,
+            e_as: 50,
             e_ms: 20,
             e_t: 240,
             e_cost: 8,
@@ -619,7 +619,7 @@ mod tests {
 
     #[test]
     fn params_from_the_kit() {
-        let json = r#"{"e_as":40,"e_cost":8,"e_ms":20,"e_r":50000,"e_t":240,"m_dmg":8,"m_gap":45,"m_leap":18,"m_life":600,"m_n":5,"m_ratio":6,"m_reach":45000,"q_n":2,"r_fog_dmg":6,"r_fog_r":40000,"r_fog_ratio":4,"r_fog_t":240,"r_n":4,"r_slow":30,"s_amt":120,"s_ap":40,"s_t":900}"#;
+        let json = r#"{"e_as":50,"e_cost":8,"e_ms":20,"e_r":50000,"e_t":240,"m_dmg":15,"m_gap":45,"m_leap":18,"m_life":600,"m_n":5,"m_ratio":11,"m_reach":45000,"q_n":2,"r_fog_dmg":6,"r_fog_r":40000,"r_fog_ratio":4,"r_fog_t":240,"r_n":4,"r_slow":30,"s_amt":120,"s_ap":40,"s_t":900}"#;
         assert_eq!(parse_params(json), Params::default());
     }
 
