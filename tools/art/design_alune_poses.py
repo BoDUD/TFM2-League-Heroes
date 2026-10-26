@@ -18,8 +18,9 @@ repeats about the head's middle (BODY: the read-back's head top to its lowest sq
 being her own clips projected at the design's scale, pack_alune_poses), every colour snapped to the design's own (Lab),
 the design's head pasted square for square on Codex's head's place (the polygon POLY; one face in all frames), Codex's
 own hair left round it and its own horns beside the pasted ones cleared, the outline closed. Each pose's json keeps where
-the head box went (its top-left square), for rig_alune to place the pose. Heads Codex drew tipped (TILTED) keep Codex's
-own.
+the head box went (its top-left square), for rig_alune to place the pose. Heads Codex drew tipped (TILTED) are found
+turned; those tipped only 10 degrees with the body (UPRIGHT) wear the design's upright head all the same, the one lying
+on her back (LYING) the design's head turned a quarter (crown to the left, face up) - one face in every frame.
 """
 import argparse
 import json
