@@ -1,0 +1,309 @@
+{
+  "id": "tft_maddie",
+  "category": "Range",
+  "tags": [
+    "AD",
+    "Range",
+    "Execute"
+  ],
+  "passive": {
+    "passive_ref": "tft_maddie:sniper",
+    "params": {
+      "p_max": 25,
+      "p_far": 100000,
+      "q_range": 80000,
+      "q_n": 6,
+      "q_gap": 8,
+      "q_dmg": 10,
+      "q_ratio": 40,
+      "q_speed": 9000,
+      "q_width": 4000,
+      "e_range": 90000,
+      "e_t": 480,
+      "e_amp": 15,
+      "w_as": 15,
+      "w_max": 4,
+      "r_range": 200000,
+      "r_dmg": 220,
+      "r_ratio": 140,
+      "r_exec": 60,
+      "r_speed": 16000,
+      "r_width": 6000
+    }
+  },
+  "sprite": "asset/tft/champions/tft_maddie",
+  "anim_prefix": "",
+  "skill_icons": [
+    "asset/tft/icons/tft_maddie_skill",
+    "asset/tft/icons/tft_maddie_skill2",
+    "asset/tft/icons/tft_maddie_ult"
+  ],
+  "stat": {
+    "attack": 104,
+    "magic_power": 0,
+    "hp": 880,
+    "defence": 18,
+    "magic_resistance": 15,
+    "move_speed": 900,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "growth": {
+    "attack": 20,
+    "magic_power": 0,
+    "hp": 88,
+    "defence": 7,
+    "magic_resistance": 3,
+    "move_speed": 9,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "attack": {
+    "action_name": "attack",
+    "description": "#asset/base/text/champion?description.tft_maddie.attack",
+    "duration": 24,
+    "cooltime": 66,
+    "start_timing": 1,
+    "cancelable": true,
+    "range": 68000,
+    "casting_type": "Targeting",
+    "casting_target": "Enemy",
+    "attack_type": "BaseAttack",
+    "effect": {
+      "type": "Delayed",
+      "tick": 9,
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "tft_maddie_a"
+        },
+        {
+          "type": "TargetProjectile",
+          "name": "tft_maddie_a_bullet",
+          "speed": 9000,
+          "y_offset": 0,
+          "applied_target": "Enemy",
+          "applied_effects": [
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "Attack",
+                "damage": 0,
+                "attack_ratio": 100,
+                "hp_ratio": 0,
+                "target_hp_ratio": 0,
+                "attack_effect_type": "Target"
+              }
+            },
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "ViewEffect",
+                "name": "tft_maddie_a_hit"
+              }
+            },
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "TargetSfx",
+                "name": "tft_maddie_a_hit"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill": {
+    "action_name": "skill",
+    "description": "#asset/base/text/champion?description.tft_maddie.skill",
+    "duration": 72,
+    "cooltime": 540,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 80000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "tft_maddie_q_cast"
+        },
+        {
+          "type": "Delayed",
+          "tick": 13,
+          "effects": [
+            {
+              "type": "Native",
+              "effect_ref": "tft_maddie:fan"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill2": {
+    "action_name": "skill2",
+    "description": "#asset/base/text/champion?description.tft_maddie.skill2",
+    "duration": 30,
+    "cooltime": 900,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 90000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Delayed",
+      "tick": 11,
+      "effects": [
+        {
+          "type": "Native",
+          "effect_ref": "tft_maddie:wanted"
+        }
+      ]
+    }
+  },
+  "ult": {
+    "action_name": "ult",
+    "description": "#asset/base/text/champion?description.tft_maddie.ult",
+    "duration": 90,
+    "cooltime": 3000,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 200000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "tft_maddie_r"
+        },
+        {
+          "type": "Sfx",
+          "name": "tft_maddie_r_aim"
+        },
+        {
+          "type": "ViewEffect",
+          "name": "tft_maddie_r_sight"
+        },
+        {
+          "type": "Delayed",
+          "tick": 65,
+          "effects": [
+            {
+              "type": "Sfx",
+              "name": "tft_maddie_r_shot"
+            },
+            {
+              "type": "Native",
+              "effect_ref": "tft_maddie:snipe"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "view_projectiles": [
+    {
+      "type": "Animated",
+      "name": "tft_maddie_a_bullet",
+      "anim": "asset/tft/effects/tft_maddie_fx",
+      "tag": "a_bullet",
+      "repeat": true,
+      "z": 2
+    },
+    {
+      "type": "Animated",
+      "name": "tft_maddie_q_bullet",
+      "anim": "asset/tft/effects/tft_maddie_fx",
+      "tag": "q_bullet",
+      "repeat": true,
+      "z": 2
+    },
+    {
+      "type": "Animated",
+      "name": "tft_maddie_r_round",
+      "anim": "asset/tft/effects/tft_maddie_big",
+      "tag": "r_round",
+      "repeat": true,
+      "z": 2
+    }
+  ],
+  "view_effects": [
+    {
+      "type": "Animation",
+      "name": "tft_maddie_a_hit",
+      "anim": "asset/tft/effects/tft_maddie_fx",
+      "tag": "a_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_maddie_q_hit",
+      "anim": "asset/tft/effects/tft_maddie_fx",
+      "tag": "q_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_maddie_e_mark",
+      "anim": "asset/tft/effects/tft_maddie_fx",
+      "tag": "e_mark",
+      "z": 4,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_maddie_r_sight",
+      "anim": "asset/tft/effects/tft_maddie_big",
+      "tag": "r_sight",
+      "z": 4,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_maddie_r_hit",
+      "anim": "asset/tft/effects/tft_maddie_big",
+      "tag": "r_hit",
+      "z": 3,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_maddie_p_bounty",
+      "anim": "asset/tft/effects/tft_maddie_fx",
+      "tag": "p_bounty",
+      "z": 4,
+      "is_follow": true
+    }
+  ],
+  "view_buffs": [
+    {
+      "type": "Animated",
+      "name": "tft_maddie_e_wanted",
+      "anim": "asset/tft/effects/tft_maddie_fx",
+      "tag": "e_wanted",
+      "repeat": true,
+      "z": 4
+    },
+    {
+      "type": "Animated",
+      "name": "tft_maddie_p_bounty",
+      "anim": "asset/tft/effects/tft_maddie_fx",
+      "tag": "p_bounty_loop",
+      "repeat": true,
+      "z": 3
+    }
+  ]
+}
