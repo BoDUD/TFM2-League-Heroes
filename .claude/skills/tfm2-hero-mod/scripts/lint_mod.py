@@ -810,7 +810,9 @@ def main(argv=None):
                              f"so it sounds twice - rename it (e.g. {cid}_attack_hit)")
 
         for t in found["types"]:
-            if t in BASE_ONLY_EFFECTS:
+            if t in BASE_ONLY_EFFECTS and t == "Native" and info.get("contains_code"):
+                pass                               # a native pack's own effects (league.dll, tft.dll)
+            elif t in BASE_ONLY_EFFECTS:
                 rep.error(W, f"effect type '{t}' is engine/base-only (Native effects need game code)")
             elif t not in KNOWN_EFFECTS:
                 rep.warn(W, f"unknown effect type '{t}' (not seen in base or shipped packs)")

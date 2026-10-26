@@ -1,33 +1,26 @@
-//! 诺拉附加包：数据做不到、和英雄联盟手游不一样的地方，这里照手游做（用户：「不一致的地方就做附加包」）。规则按手游
-//! 现在的诺拉（Wild Rift wiki 和 7.3 的改动记录，2026-10-26 查）。
+//! 诺拉（`tft_norra`）数据做不到的部分：照英雄联盟手游做（用户：「你要参照手游的技能啊」「不一致的地方就做附加包」，
+//! 后来「诺拉和爆爆合并在一个mod啊」——代码并进 tft 包本身，tft.dll）。规则按手游现在的诺拉（Wild Rift wiki 和 7.3 的
+//! 改动记录，2026-10-26 查）。她的数据（tools/kit/build_norra.py）的 `passive` 是 `tft_norra:trinkets`，在下面这些地方
+//! 调用这里的效果：
 //!
-//! `mod.override_info` 把金铲铲包（tft）的诺拉换成 `override/` 里的副本（tools/kit/build_norra.py --native，
-//! `make_override.py` 写），`passive` 换成本包的 `tft_norra:trinkets`，副本在下面这些地方调用本包的效果：
-//!
-//! - **寄情琐物一个一个撒、一个一个踩**（`tft_norra:drop`：琐物冷却好了的 Q / E 落地）：主包在落点放一片琐物（每个
-//!   敌方英雄走进去被打一次）。手游按等级撒 2/3/4 个，这里 3 个：落点一个茶杯、左右 `TRINKET_DX` 各一个水晶（主包那张
-//!   图切成三块，各在各的位置播），`p_life` 拍内哪个敌方英雄先走到哪个的 `p_tr` 以内，那个琐物就飞到他身上炸开：
-//!   `p_dmg` + 法强 `p_ratio`% 魔法伤害和线缕，那个琐物没了，别的还在。每个琐物是一个每拍重排一次的效果
-//!   （`tft_norra:trinket`），位置、到期的拍、哪一块、撒下的拍、引爆了没有都记在它的输入里。
-//! - **技能命中英雄缩短琐物冷却**：手游里技能（Q、W、E）命中敌方英雄，琐物冷却减少总冷却的 20%：诺拉身上
-//!   `tft_norra_p_cd` 剩下的拍数减去 `p_cd` 的 `REFUND`%（E 的命中调用 `tft_norra:refund`，Q 的 `tft_norra:surge`
-//!   和本包的奇异旅程自己减）。主包没有这一条。
-//! - **回忆涌现对线缕目标多打最大生命、引爆琐物**（`tft_norra:surge`：Q 的命中）：手游里 Q 对挂着线缕的敌人多打最大
-//!   生命的 1%–2.5%，蓄满的 Q 打中敌方英雄会把地上所有琐物变成「附近有人就炸」。打中的是英雄：身上已经有线缕（这一发
+//! - **寄情琐物一个一个撒、一个一个踩**（`tft_norra:drop`：琐物冷却好了的 Q / E 落地）：手游按等级撒 2/3/4 个，这里 3 个：
+//!   落点一个茶杯、左右 `TRINKET_DX` 各一个水晶（琐物那张图切成三块，各在各的位置播），`p_life` 拍内哪个敌方英雄先走到
+//!   哪个的 `p_tr` 以内，那个琐物就飞到他身上炸开：`p_dmg` + 法强 `p_ratio`% 魔法伤害和线缕，那个琐物没了，别的还在。
+//!   每个琐物是一个每拍重排一次的效果（`tft_norra:trinket`），位置、到期的拍、哪一块、撒下的拍、引爆了没有都记在它的输入里。
+//! - **技能命中英雄缩短琐物冷却**：技能（Q、W、E）命中敌方英雄，琐物冷却减少总冷却的 20%：诺拉身上 `tft_norra_p_cd`
+//!   剩下的拍数减去 `p_cd` 的 `REFUND`%（E 的命中调用 `tft_norra:refund`，Q 的 `tft_norra:surge` 和奇异旅程自己减）。
+//! - **回忆涌现对线缕目标多打最大生命、引爆琐物**（`tft_norra:surge`：Q 的命中）：打中的是英雄：身上已经有线缕（这一发
 //!   之前挂上的）就再打他最大生命的 `q_bonus`‰ 魔法伤害，然后挂上线缕，给诺拉挂 `PRIME_T` 拍 `tft_norra_q_prime`；她地上
-//!   的琐物（这一发 Q 撒的除外）看到它就引爆待发：从此敌方英雄走到 `q_prime_r` 以内它就飞过去。主包是 Q 落地时在落点
-//!   周围打一圈琐物的伤害。
-//! - **奇异旅程随时保命**（被动每拍）：主包只在她普攻、身边有敌方英雄时开门。副本的普攻不开门；本包每拍看：诺拉活着、
-//!   能被选中、不在控制里、没有 `tft_norra_w_cd`、`w_r` 以内有敌方英雄，就在离她最近的那个脚下开门：`w_dmg` + 法强
-//!   `w_ratio`% 魔法伤害，放逐 `w_t` 拍（放逐期间原地转的门 `w_lock`，结束吐回来 `w_out`），回来以后减速 `w_slow`%
-//!   `w_slow_t` 拍（手游 7.2：放逐 1.5 秒、之后减速 80% 0.75 秒），冷却 `w_cd` 拍。
-//! - **传送门欢腾！的毛线球走直线**（`tft_norra:rift`：裂隙落地）：主包每波打裂隙里所有敌方英雄。本包每 `r_gap` 拍放一波
-//!   （`tft_norra:volley`）：一条横穿裂隙、穿过裂隙里一个敌方英雄的线（每波轮到下一个），两个毛线球从裂隙两头沿线对飞，
-//!   穿过路上所有敌人（`tft_norra:yarn_l` / `_r`，第四波 `tft_norra:yarn4_l` / `_r`）：每个敌人每波挨一次 `r_dmg` + 法强
-//!   `r_ratio`%（两个球都碰到也只算一次），第四波多 `r_last`%；每个球碰到的第一个英雄减速 `r_slow`% `r_slow_t` 拍（手游：
-//!   玩家每次划一条路，两头各出一个球，各自碰到的第一个英雄减速）。
+//!   的琐物（这一发 Q 撒的除外）看到它就引爆待发：从此敌方英雄走到 `q_prime_r` 以内它就飞过去。
+//! - **奇异旅程随时保命**（被动每拍）：诺拉活着、能被选中、不在控制里、没有 `tft_norra_w_cd`、`w_r` 以内有敌方英雄，就在
+//!   离她最近的那个脚下开门：`w_dmg` + 法强 `w_ratio`% 魔法伤害，放逐 `w_t` 拍（放逐期间原地转的门 `w_lock`，结束吐回来
+//!   `w_out`），回来以后减速 `w_slow`% `w_slow_t` 拍（手游 7.2：放逐 1.5 秒、之后减速 80% 0.75 秒），冷却 `w_cd` 拍。
+//! - **传送门欢腾！的毛线球走直线**（`tft_norra:rift`：裂隙落地）：每 `r_gap` 拍放一波（`tft_norra:volley`）：一条横穿
+//!   裂隙、穿过裂隙里一个敌方英雄的线（每波轮到下一个），两个毛线球从裂隙两头沿线对飞，穿过路上所有敌人
+//!   （`tft_norra:yarn_l` / `_r`，第四波 `tft_norra:yarn4_l` / `_r`）：每个敌人每波挨一次 `r_dmg` + 法强 `r_ratio`%（两个球
+//!   都碰到也只算一次），第四波多 `r_last`%；每个球碰到的第一个英雄减速 `r_slow`% `r_slow_t` 拍。
 //!
-//! 数字从英雄数据的 `passive.params` 来（`make_override.py` 从参数表 P 写进去），按诺拉的单位编号记一份给效果用（服务端
+//! 数字从英雄数据的 `passive.params` 来（build_norra.py 从参数表 P 写进去），按诺拉的单位编号记一份给效果用（服务端
 //! 预模拟和你看的那场是同一份数字）；琐物、毛线球这些会变的东西都在模拟里（排着的效果、身上的状态），不用全局变量。
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\tft_norra.log`，每次启动游戏重写。
 
@@ -765,16 +758,8 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
             module.add_native_effect(name.to_string(), Yarn { fourth: fourth == 1, ball });
         }
     }
-    host.log(LogLevel::Info, "tft_norra loaded (Wild Rift's Norra: trinkets, Journey to Nowhere, yarn balls).");
+    host.log(LogLevel::Info, "tft.dll: Norra (Wild Rift's Norra: trinkets, Journey to Nowhere, yarn balls).");
 }
-
-fn init(host: &StableHost) -> StableMod {
-    let mut module = StableMod::new(ID);
-    register(host, &mut module);
-    module
-}
-
-declare_stable_mod!(init, requires = 9);
 
 #[cfg(test)]
 mod tests {
