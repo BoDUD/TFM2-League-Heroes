@@ -1,0 +1,789 @@
+{
+  "id": "tft_silco",
+  "category": "Magician",
+  "tags": [
+    "AP",
+    "Magic",
+    "Range",
+    "Shield"
+  ],
+  "passive": {
+    "passive_ref": "tft_silco:baron",
+    "params": {
+      "s_amt": 120,
+      "s_ap": 40,
+      "s_t": 900,
+      "q_n": 2,
+      "m_n": 5,
+      "m_gap": 45,
+      "m_leap": 18,
+      "m_dmg": 8,
+      "m_ratio": 6,
+      "m_reach": 45000,
+      "m_life": 600,
+      "e_r": 50000,
+      "e_as": 40,
+      "e_ms": 20,
+      "e_t": 240,
+      "e_cost": 8,
+      "r_n": 4,
+      "r_fog_r": 40000,
+      "r_fog_t": 240,
+      "r_slow": 30,
+      "r_fog_dmg": 6,
+      "r_fog_ratio": 4
+    }
+  },
+  "sprite": "asset/tft/champions/tft_silco",
+  "anim_prefix": "",
+  "skill_icons": [
+    "asset/tft/icons/tft_silco_skill",
+    "asset/tft/icons/tft_silco_skill2",
+    "asset/tft/icons/tft_silco_ult"
+  ],
+  "stat": {
+    "attack": 72,
+    "magic_power": 40,
+    "hp": 860,
+    "defence": 18,
+    "magic_resistance": 22,
+    "move_speed": 900,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "growth": {
+    "attack": 6,
+    "magic_power": 20,
+    "hp": 94,
+    "defence": 7,
+    "magic_resistance": 4,
+    "move_speed": 9,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "attack": {
+    "action_name": "attack",
+    "description": "#asset/base/text/champion?description.tft_silco.attack",
+    "duration": 24,
+    "cooltime": 90,
+    "start_timing": 1,
+    "cancelable": true,
+    "range": 55000,
+    "casting_type": "Targeting",
+    "casting_target": "Enemy",
+    "attack_type": "BaseAttack",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Delayed",
+          "tick": 9,
+          "effects": [
+            {
+              "type": "Sfx",
+              "name": "tft_silco_a"
+            },
+            {
+              "type": "TargetProjectile",
+              "name": "tft_silco_a_vial",
+              "speed": 4000,
+              "y_offset": 0,
+              "applied_target": "Enemy",
+              "applied_effects": [
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "Attack",
+                    "damage": 0,
+                    "attack_ratio": 100,
+                    "hp_ratio": 0,
+                    "target_hp_ratio": 0,
+                    "attack_effect_type": "Target"
+                  }
+                },
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "ViewEffect",
+                    "name": "tft_silco_a_hit"
+                  }
+                },
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "TargetSfx",
+                    "name": "tft_silco_a_hit"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill": {
+    "action_name": "skill",
+    "description": "#asset/base/text/champion?description.tft_silco.skill",
+    "duration": 36,
+    "cooltime": 300,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 65000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "tft_silco_q"
+        },
+        {
+          "type": "Delayed",
+          "tick": 15,
+          "effects": [
+            {
+              "type": "ParabolicProjectile",
+              "name": "tft_silco_q_can",
+              "travel_time": 24,
+              "range": 400000,
+              "range_effect_name": "tft_silco_q_warn",
+              "shape": {
+                "Circle": {
+                  "radius": 1
+                }
+              },
+              "applied_target": "EnemyWithoutTower",
+              "applied_effects": [],
+              "end_effects": [
+                {
+                  "type": "Sfx",
+                  "name": "tft_silco_q_hit"
+                },
+                {
+                  "type": "ViewEffect",
+                  "name": "tft_silco_q_burst"
+                },
+                {
+                  "type": "RangeProjectile",
+                  "name": "tft_silco_q_zone",
+                  "shape": {
+                    "Circle": {
+                      "radius": 20000
+                    }
+                  },
+                  "delay": 1,
+                  "apply": 1,
+                  "applied_target": "EnemyWithoutTower",
+                  "applied_effects": [
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "ApAttack",
+                        "damage": 40,
+                        "attack_ratio": 30,
+                        "hp_ratio": 0,
+                        "can_crit": false
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "Native",
+                  "effect_ref": "tft_silco:canister"
+                }
+              ]
+            },
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "tft_silco_d5",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": []
+              },
+              "effect_none": {
+                "type": "SwitchByBuff",
+                "buff_name": "tft_silco_d4",
+                "effect_buff": {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "tft_silco_d4"
+                    },
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "tft_silco_d5",
+                        "duration": "Permanent",
+                        "magic_power_mult": 40
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                "effect_none": {
+                  "type": "SwitchByBuff",
+                  "buff_name": "tft_silco_d3",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "tft_silco_d3"
+                      },
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "tft_silco_d4",
+                          "duration": "Permanent",
+                          "magic_power_mult": 32
+                        },
+                        "only_to_enemy": false
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "SwitchByBuff",
+                    "buff_name": "tft_silco_d2",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "tft_silco_d2"
+                        },
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "tft_silco_d3",
+                            "duration": "Permanent",
+                            "magic_power_mult": 24
+                          },
+                          "only_to_enemy": false
+                        }
+                      ]
+                    },
+                    "effect_none": {
+                      "type": "SwitchByBuff",
+                      "buff_name": "tft_silco_d1",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "tft_silco_d1"
+                          },
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "tft_silco_d2",
+                              "duration": "Permanent",
+                              "magic_power_mult": 16
+                            },
+                            "only_to_enemy": false
+                          }
+                        ]
+                      },
+                      "effect_none": {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "tft_silco_d1",
+                          "duration": "Permanent",
+                          "magic_power_mult": 8
+                        },
+                        "only_to_enemy": false
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill2": {
+    "action_name": "skill2",
+    "description": "#asset/base/text/champion?description.tft_silco.skill2",
+    "duration": 24,
+    "cooltime": 720,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 60000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Delayed",
+          "tick": 9,
+          "effects": [
+            {
+              "type": "Sfx",
+              "name": "tft_silco_e"
+            },
+            {
+              "type": "Native",
+              "effect_ref": "tft_silco:inject"
+            },
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "tft_silco_d5",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": []
+              },
+              "effect_none": {
+                "type": "SwitchByBuff",
+                "buff_name": "tft_silco_d4",
+                "effect_buff": {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "tft_silco_d4"
+                    },
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "tft_silco_d5",
+                        "duration": "Permanent",
+                        "magic_power_mult": 40
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                "effect_none": {
+                  "type": "SwitchByBuff",
+                  "buff_name": "tft_silco_d3",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "tft_silco_d3"
+                      },
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "tft_silco_d4",
+                          "duration": "Permanent",
+                          "magic_power_mult": 32
+                        },
+                        "only_to_enemy": false
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "SwitchByBuff",
+                    "buff_name": "tft_silco_d2",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "tft_silco_d2"
+                        },
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "tft_silco_d3",
+                            "duration": "Permanent",
+                            "magic_power_mult": 24
+                          },
+                          "only_to_enemy": false
+                        }
+                      ]
+                    },
+                    "effect_none": {
+                      "type": "SwitchByBuff",
+                      "buff_name": "tft_silco_d1",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "tft_silco_d1"
+                          },
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "tft_silco_d2",
+                              "duration": "Permanent",
+                              "magic_power_mult": 16
+                            },
+                            "only_to_enemy": false
+                          }
+                        ]
+                      },
+                      "effect_none": {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "tft_silco_d1",
+                          "duration": "Permanent",
+                          "magic_power_mult": 8
+                        },
+                        "only_to_enemy": false
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "ult": {
+    "action_name": "ult",
+    "description": "#asset/base/text/champion?description.tft_silco.ult",
+    "duration": 40,
+    "cooltime": 3000,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 70000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "tft_silco_r"
+        },
+        {
+          "type": "Delayed",
+          "tick": 23,
+          "effects": [
+            {
+              "type": "ParabolicProjectile",
+              "name": "tft_silco_r_can",
+              "travel_time": 40,
+              "range": 400000,
+              "range_effect_name": "tft_silco_r_warn",
+              "shape": {
+                "Circle": {
+                  "radius": 1
+                }
+              },
+              "applied_target": "EnemyChampion",
+              "applied_effects": [],
+              "end_effects": [
+                {
+                  "type": "Sfx",
+                  "name": "tft_silco_r_hit"
+                },
+                {
+                  "type": "ViewEffect",
+                  "name": "tft_silco_r_burst"
+                },
+                {
+                  "type": "RangeProjectile",
+                  "name": "tft_silco_r_zone",
+                  "shape": {
+                    "Circle": {
+                      "radius": 40000
+                    }
+                  },
+                  "delay": 1,
+                  "apply": 1,
+                  "applied_target": "EnemyWithoutTower",
+                  "applied_effects": [
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "ApAttack",
+                        "damage": 150,
+                        "attack_ratio": 65,
+                        "hp_ratio": 0,
+                        "can_crit": false
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "Native",
+                  "effect_ref": "tft_silco:flood"
+                }
+              ]
+            },
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "tft_silco_d5",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": []
+              },
+              "effect_none": {
+                "type": "SwitchByBuff",
+                "buff_name": "tft_silco_d4",
+                "effect_buff": {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "tft_silco_d4"
+                    },
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "tft_silco_d5",
+                        "duration": "Permanent",
+                        "magic_power_mult": 40
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                "effect_none": {
+                  "type": "SwitchByBuff",
+                  "buff_name": "tft_silco_d3",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "tft_silco_d3"
+                      },
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "tft_silco_d4",
+                          "duration": "Permanent",
+                          "magic_power_mult": 32
+                        },
+                        "only_to_enemy": false
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "SwitchByBuff",
+                    "buff_name": "tft_silco_d2",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "tft_silco_d2"
+                        },
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "tft_silco_d3",
+                            "duration": "Permanent",
+                            "magic_power_mult": 24
+                          },
+                          "only_to_enemy": false
+                        }
+                      ]
+                    },
+                    "effect_none": {
+                      "type": "SwitchByBuff",
+                      "buff_name": "tft_silco_d1",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "tft_silco_d1"
+                          },
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "tft_silco_d2",
+                              "duration": "Permanent",
+                              "magic_power_mult": 16
+                            },
+                            "only_to_enemy": false
+                          }
+                        ]
+                      },
+                      "effect_none": {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "tft_silco_d1",
+                          "duration": "Permanent",
+                          "magic_power_mult": 8
+                        },
+                        "only_to_enemy": false
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "view_projectiles": [
+    {
+      "type": "Animated",
+      "name": "tft_silco_a_vial",
+      "anim": "asset/tft/effects/tft_silco_fx",
+      "tag": "a_vial",
+      "repeat": true,
+      "z": 2
+    },
+    {
+      "type": "Animated",
+      "name": "tft_silco_q_can",
+      "anim": "asset/tft/effects/tft_silco_fx",
+      "tag": "q_can",
+      "repeat": true,
+      "z": 2
+    },
+    {
+      "type": "Animated",
+      "name": "tft_silco_r_can",
+      "anim": "asset/tft/effects/tft_silco_big",
+      "tag": "r_can",
+      "repeat": true,
+      "z": 2
+    }
+  ],
+  "view_effects": [
+    {
+      "type": "Animation",
+      "name": "tft_silco_a_hit",
+      "anim": "asset/tft/effects/tft_silco_fx",
+      "tag": "a_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_silco_q_warn",
+      "anim": "asset/tft/effects/tft_silco_fx",
+      "tag": "q_warn",
+      "z": -2,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "tft_silco_q_burst",
+      "anim": "asset/tft/effects/tft_silco_big",
+      "tag": "q_burst",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "tft_silco_r_warn",
+      "anim": "asset/tft/effects/tft_silco_big",
+      "tag": "r_warn",
+      "z": -2,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "tft_silco_r_burst",
+      "anim": "asset/tft/effects/tft_silco_big",
+      "tag": "r_burst",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "tft_silco_m_leap",
+      "anim": "asset/tft/effects/tft_silco_fx",
+      "tag": "m_leap",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_silco_m_bite_l",
+      "anim": "asset/tft/effects/tft_silco_fx",
+      "tag": "m_bite",
+      "z": 3,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_silco_m_bite_r",
+      "anim": "asset/tft/effects/tft_silco_fx",
+      "tag": "m_bite",
+      "z": 3,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_silco_m_die",
+      "anim": "asset/tft/effects/tft_silco_fx",
+      "tag": "m_die",
+      "z": 2,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "tft_silco_r_fog",
+      "anim": "asset/tft/effects/tft_silco_big",
+      "tag": "r_fog",
+      "z": -2,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "tft_silco_e_dose",
+      "anim": "asset/tft/effects/tft_silco_fx",
+      "tag": "e_dose",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_silco_e_crash",
+      "anim": "asset/tft/effects/tft_silco_fx",
+      "tag": "e_crash",
+      "z": 2,
+      "is_follow": true
+    }
+  ],
+  "view_buffs": [
+    {
+      "type": "Animated",
+      "name": "tft_silco_e_shimmer",
+      "anim": "asset/tft/effects/tft_silco_fx",
+      "tag": "e_shimmer",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "tft_silco_p_shield",
+      "anim": "asset/tft/effects/tft_silco_fx",
+      "tag": "p_shield",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "tft_silco_d5",
+      "anim": "asset/tft/effects/tft_silco_fx",
+      "tag": "p_dom",
+      "repeat": true,
+      "z": 4
+    },
+    {
+      "type": "Animated",
+      "name": "tft_silco_r_slow",
+      "anim": "asset/tft/effects/tft_silco_fx",
+      "tag": "r_slow",
+      "repeat": true,
+      "z": 3
+    }
+  ]
+}
