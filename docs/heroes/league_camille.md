@@ -55,7 +55,7 @@
 
 ### 青钢影钩墙附加包
 
-[青钢影钩墙附加包](../../addons/league_camille_wall/README.md)：`league_camille_wall` v0.4.4
+[青钢影钩墙附加包](../../addons/league_camille_wall/README.md)：`league_camille_wall` v0.4.5
 
 主包 `league` 保持纯数据、全平台可用；钩墙要读地图的墙，只能用原生代码，所以放在这个单独的附加包里。
 装上后，青钢影的 E「钩索」**钩墙、地图四边和防御塔**，不再钩小兵、野怪；英雄、树林、草丛也不钩（墙就在树林里）。
