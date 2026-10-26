@@ -2072,8 +2072,8 @@
     },
     "league_zac": {
       "face": {
-        "x": 11,
-        "y": -28
+        "x": 9,
+        "y": -24
       },
       "center": {
         "x": 0,
@@ -2081,7 +2081,7 @@
       },
       "banpick_center": {
         "x": 0,
-        "y": -10
+        "y": -11
       }
     },
     "league_singed": {

@@ -202,7 +202,7 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     ("league_azir", 1.5, include_str!("../../../league/champions/league_azir#anim.fanim")),
     // Zac: posed by tools/art/rig_zac.py on Codex's step-1 take A-1 and its key poses after League's clips (the design's
     // head and tendril put back on the eyes; the add-on's puddle in the split_* tags) at the user's 1.5 squares a game
-    // pixel (66 game rows tendril top to soles = 44 game px; 3/4 only), so no SIZES row
+    // pixel (66 game rows tendril top to soles = 44 game px; 3/4 only), shown at 85 % (SIZES)
     ("league_zac", 1.5, include_str!("../../../league/champions/league_zac#anim.fanim")),
     // Singed: posed by tools/art/rig_singed.py on Codex's step-1 take A-2 as drawn and its key poses after League's clips
     // (the design's head put back, the bodies brought to the design's size) at the user's 1.39 squares a game pixel (its
@@ -431,6 +431,10 @@ pub const HEROES: &[(&str, f32, &str)] = &[
 /// Ambessa: 85 % (the user, 2026-10-25: 「太大了安倍萨 整体模型缩小一点可以吗」 - 48 game px hair to soles with the two blades
 /// out to 59; 85 % = 41, Darius's / Garen's 42, from a true-scale sheet), her frames 4 squares lower (RESTYLE ambessa
 /// lift_sq: 11.5 x 2.0 x (1 / 0.85 - 1) = 4.1).
+/// Zac: 85 % (the user, 2026-10-26: 「扎克的体型在这游戏里异常的大」 - 59 x 45 game px standing, as wide as Cho'Gath and
+/// Sion, and 79 wide in his punch, 93 landing his E: the widest in the pack; 85 % picked from a true-scale sheet of 100 /
+/// 90 / 85 / 80 %: 50 x 39 standing, 67 / 79 in the punch / E), his frames 3 squares lower (RESTYLE zac lift_sq:
+/// 11.5 x 1.5 x (1 / 0.85 - 1) = 3.0).
 pub const SIZES: &[(&str, f32)] = &[("league_gragas", 0.90), ("league_zeri", 1.05), ("league_kassadin", 1.00),
                                     ("league_braum", 0.95), ("league_mordekaiser", 1.10),
                                     ("league_irelia", 1.05), ("league_soraka", 1.10), ("league_galio", 1.10), ("league_nilah", 0.90),
@@ -438,7 +442,8 @@ pub const SIZES: &[(&str, f32)] = &[("league_gragas", 0.90), ("league_zeri", 1.0
                                     ("league_poppy", 0.85), ("league_yuumi", 0.75), ("league_wukong", 1.15),
                                     ("tft_powder", 0.90), ("league_nami", 0.90), ("league_hwei", 0.85),
                                     ("league_ksante", 0.90), ("league_warwick", 0.90), ("league_caitlyn", 0.90),
-                                    ("league_ambessa", 0.85), ("league_leesin", 0.95)];
+                                    ("league_ambessa", 0.85), ("league_leesin", 0.95),
+                                    ("league_zac", 0.85)];
 
 /// Heroes whose body grows with a stack: (id, the buff whose instances on him are the stacks, growth a stack). Cho'Gath's
 /// Feast (the user, 2026-10-19: 「变大可以无限 加生命」): every champion it eats is one more Permanent `league_chogath_r_stack`
@@ -565,8 +570,9 @@ pub const UI_SIZES: &[(&str, f32)] = &[
     ("league_azir", 0.80),
     // Zac: 46.7 game px from his tendril tip to his soles over the idle reel (the punch's wind-up reaches higher) at PPU
     // 1.5 - at the placeholder -8 the card cut 6 px of the tendril and hid 4 px of his feet; 0.84 with the card value
-    // bp_card_audit.py gives: the tendril under the canvas top, the soles on its bottom
-    ("league_zac", 0.84),
+    // bp_card_audit.py gives: the tendril under the canvas top, the soles on its bottom; 0.99 since his frames are drawn at
+    // 85 % (SIZES, 2026-10-26): 0.84 / 0.85, the card as before
+    ("league_zac", 0.99),
     // Singed: 45 game px from the tank's cap to his soles at PPU 1.39, the idle reel's raised flask higher; UI size and
     // card value set with bp_card_audit.py (the tank under the canvas top, the soles on its bottom)
     ("league_singed", 0.80),

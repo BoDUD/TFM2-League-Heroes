@@ -578,7 +578,9 @@ RESTYLE = {
     # design's head and tendril put back on the eyes), posed by tools/art/rig_zac.py, so no proportion or density change
     # here; the outer outline grown a square like the others; the face point between his eyes (11 game px ahead of the
     # standing point - his head sits forward between the shoulders - 28 over the ground)
-    "zac": dict(ppu=1.5, edge=1, face_to=(11, -28)),
+    # 2026-10-26: 85 % in game (「扎克的体型在这游戏里异常的大」, hd.rs SIZES): 11.5 x 1.5 x (1 / 0.85 - 1) = 3.0 -> 3
+    # squares lower; the face point x 0.85 about the soles
+    "zac": dict(ppu=1.5, edge=1, lift_sq=-3, face_to=(9, -24)),
     # league_singed (group I top): the design (Codex's step-1 A-2 as drawn: 45 x 62, 36 game px head top to soles at the
     # user's pick, PPU 1.39 = its own squares, 3/4 only) with Codex's key poses after League's clips (the design's head put
     # back, the bodies brought to the design's size), posed by tools/art/rig_singed.py, so no proportion or density change
