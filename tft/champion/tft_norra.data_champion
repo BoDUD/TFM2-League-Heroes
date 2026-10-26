@@ -1,0 +1,1061 @@
+{
+  "id": "tft_norra",
+  "category": "Magician",
+  "tags": [
+    "AP",
+    "Magic",
+    "Range",
+    "Heal",
+    "Shield",
+    "CC"
+  ],
+  "sprite": "asset/tft/champions/tft_norra",
+  "anim_prefix": "",
+  "skill_icons": [
+    "asset/tft/icons/tft_norra_skill",
+    "asset/tft/icons/tft_norra_skill2",
+    "asset/tft/icons/tft_norra_ult"
+  ],
+  "stat": {
+    "attack": 74,
+    "magic_power": 40,
+    "hp": 860,
+    "defence": 18,
+    "magic_resistance": 22,
+    "move_speed": 900,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "growth": {
+    "attack": 6,
+    "magic_power": 20,
+    "hp": 95,
+    "defence": 7,
+    "magic_resistance": 4,
+    "move_speed": 9,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "attack": {
+    "action_name": "attack",
+    "description": "#asset/base/text/champion?description.tft_norra.attack",
+    "duration": 24,
+    "cooltime": 90,
+    "start_timing": 1,
+    "cancelable": true,
+    "range": 55000,
+    "casting_type": "Targeting",
+    "casting_target": "Enemy",
+    "attack_type": "BaseAttack",
+    "effect": {
+      "type": "Delayed",
+      "tick": 9,
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "tft_norra_a"
+        },
+        {
+          "type": "TargetProjectile",
+          "name": "tft_norra_a_bolt",
+          "speed": 4000,
+          "y_offset": 0,
+          "applied_target": "Enemy",
+          "applied_effects": [
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "Attack",
+                "damage": 0,
+                "attack_ratio": 100,
+                "hp_ratio": 0,
+                "target_hp_ratio": 0,
+                "attack_effect_type": "Target"
+              }
+            },
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "ViewEffect",
+                "name": "tft_norra_a_hit"
+              }
+            },
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "TargetSfx",
+                "name": "tft_norra_a_hit"
+              }
+            }
+          ]
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "tft_norra_p_cd",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": []
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "tft_norra_p_cd",
+                  "duration": {
+                    "Time": {
+                      "tick": 240
+                    }
+                  }
+                },
+                "only_to_enemy": false
+              },
+              {
+                "type": "RandomTarget",
+                "range": 70000,
+                "casting_target": "AllyNotSelf",
+                "from_projectile": false,
+                "effects": [
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "tft_norra_p_lock",
+                      "duration": {
+                        "Time": {
+                          "tick": 2
+                        }
+                      }
+                    },
+                    "only_to_enemy": false
+                  },
+                  {
+                    "type": "Heal",
+                    "amount": 20,
+                    "attack_ratio": 0,
+                    "ap_ratio": 10,
+                    "heal_type": "Ally"
+                  },
+                  {
+                    "type": "AddBuff",
+                    "buff_state": {
+                      "name": "tft_norra_p_yuumi",
+                      "duration": {
+                        "Time": {
+                          "tick": 250
+                        }
+                      },
+                      "magic_power": 10,
+                      "attack": 5
+                    }
+                  },
+                  {
+                    "type": "ViewEffect",
+                    "name": "tft_norra_p_heal"
+                  },
+                  {
+                    "type": "TargetSfx",
+                    "name": "tft_norra_p_heal"
+                  }
+                ]
+              },
+              {
+                "type": "Delayed",
+                "tick": 1,
+                "effects": [
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "tft_norra_p_lock",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": []
+                    },
+                    "effect_none": {
+                      "type": "RangeEffect",
+                      "shape": {
+                        "Circle": {
+                          "radius": 1
+                        }
+                      },
+                      "target": "AllyOnlySelf",
+                      "apply_type": "AroundCaster",
+                      "effects": [
+                        {
+                          "type": "Heal",
+                          "amount": 20,
+                          "attack_ratio": 0,
+                          "ap_ratio": 10,
+                          "heal_type": "Ally"
+                        },
+                        {
+                          "type": "AddBuff",
+                          "buff_state": {
+                            "name": "tft_norra_p_yuumi",
+                            "duration": {
+                              "Time": {
+                                "tick": 250
+                              }
+                            },
+                            "magic_power": 10,
+                            "attack": 5
+                          }
+                        },
+                        {
+                          "type": "ViewEffect",
+                          "name": "tft_norra_p_heal"
+                        },
+                        {
+                          "type": "TargetSfx",
+                          "name": "tft_norra_p_heal"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "skill": {
+    "action_name": "skill",
+    "description": "#asset/base/text/champion?description.tft_norra.skill",
+    "duration": 30,
+    "cooltime": 270,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 70000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "tft_norra_q"
+        },
+        {
+          "type": "Delayed",
+          "tick": 11,
+          "effects": [
+            {
+              "type": "ParabolicProjectile",
+              "name": "tft_norra_q_ball",
+              "travel_time": 26,
+              "range": 400000,
+              "range_effect_name": "",
+              "shape": {
+                "Circle": {
+                  "radius": 1
+                }
+              },
+              "applied_target": "EnemyWithoutTower",
+              "applied_effects": [],
+              "end_effects": [
+                {
+                  "type": "ViewEffect",
+                  "name": "tft_norra_q_blast"
+                },
+                {
+                  "type": "Sfx",
+                  "name": "tft_norra_q_blast"
+                },
+                {
+                  "type": "RangeProjectile",
+                  "name": "tft_norra_q_hit",
+                  "shape": {
+                    "Circle": {
+                      "radius": 30000
+                    }
+                  },
+                  "delay": 1,
+                  "apply": 1,
+                  "applied_target": "EnemyWithoutTower",
+                  "applied_effects": [
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "ApAttack",
+                        "damage": 32,
+                        "attack_ratio": 24,
+                        "hp_ratio": 0,
+                        "can_crit": false
+                      }
+                    },
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "ViewEffect",
+                        "name": "tft_norra_q_hit"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "RangePeriodProjectile",
+                  "name": "tft_norra_q_paint",
+                  "shape": {
+                    "Circle": {
+                      "radius": 30000
+                    }
+                  },
+                  "tick": 300,
+                  "period": 30,
+                  "first_delay": 30,
+                  "applied_target": "EnemyWithoutTower",
+                  "applied_effects": [
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "ApAttack",
+                        "damage": 4,
+                        "attack_ratio": 3,
+                        "hp_ratio": 0,
+                        "can_crit": false
+                      }
+                    }
+                  ],
+                  "end_effects": []
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "tft_norra_q_live",
+                  "effect_buff": {
+                    "type": "RandomTarget",
+                    "range": 36000,
+                    "casting_target": "EnemyWithoutTower",
+                    "from_projectile": true,
+                    "effects": [
+                      {
+                        "type": "Delayed",
+                        "tick": 1,
+                        "effects": [
+                          {
+                            "type": "ParabolicProjectile",
+                            "name": "tft_norra_q_hop",
+                            "travel_time": 14,
+                            "range": 400000,
+                            "range_effect_name": "",
+                            "shape": {
+                              "Circle": {
+                                "radius": 1
+                              }
+                            },
+                            "applied_target": "EnemyWithoutTower",
+                            "applied_effects": [],
+                            "end_effects": [
+                              {
+                                "type": "ViewEffect",
+                                "name": "tft_norra_q2_blast"
+                              },
+                              {
+                                "type": "Sfx",
+                                "name": "tft_norra_q_blast"
+                              },
+                              {
+                                "type": "RangeProjectile",
+                                "name": "tft_norra_q2_hit",
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 30000
+                                  }
+                                },
+                                "delay": 1,
+                                "apply": 1,
+                                "applied_target": "EnemyWithoutTower",
+                                "applied_effects": [
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "ApAttack",
+                                      "damage": 32,
+                                      "attack_ratio": 24,
+                                      "hp_ratio": 0,
+                                      "can_crit": false
+                                    }
+                                  },
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "ViewEffect",
+                                      "name": "tft_norra_q_hit"
+                                    }
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "RangePeriodProjectile",
+                                "name": "tft_norra_q2_paint",
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 30000
+                                  }
+                                },
+                                "tick": 300,
+                                "period": 30,
+                                "first_delay": 30,
+                                "applied_target": "EnemyWithoutTower",
+                                "applied_effects": [
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "ApAttack",
+                                      "damage": 4,
+                                      "attack_ratio": 3,
+                                      "hp_ratio": 0,
+                                      "can_crit": false
+                                    }
+                                  }
+                                ],
+                                "end_effects": []
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": []
+                  }
+                },
+                {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "tft_norra_q_live"
+                    },
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "tft_norra_q_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 300
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill2": {
+    "action_name": "skill2",
+    "description": "#asset/base/text/champion?description.tft_norra.skill2",
+    "duration": 26,
+    "cooltime": 540,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 60000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Delayed",
+      "tick": 9,
+      "effects": [
+        {
+          "type": "Combine",
+          "effects": [
+            {
+              "type": "Sfx",
+              "name": "tft_norra_e"
+            },
+            {
+              "type": "RandomTarget",
+              "range": 50000,
+              "casting_target": "AllyNotSelf",
+              "from_projectile": false,
+              "effects": [
+                {
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "tft_norra_e_lock",
+                    "duration": {
+                      "Time": {
+                        "tick": 2
+                      }
+                    }
+                  },
+                  "only_to_enemy": false
+                },
+                {
+                  "type": "Shield",
+                  "amount": 60,
+                  "attack_ratio": 0,
+                  "ap_ratio": 35,
+                  "tick": 180
+                },
+                {
+                  "type": "AddBuff",
+                  "buff_state": {
+                    "name": "tft_norra_e_guard",
+                    "duration": {
+                      "Time": {
+                        "tick": 180
+                      }
+                    }
+                  }
+                },
+                {
+                  "type": "TargetSfx",
+                  "name": "tft_norra_e_shield"
+                }
+              ]
+            },
+            {
+              "type": "Delayed",
+              "tick": 1,
+              "effects": [
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "tft_norra_e_lock",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": []
+                  },
+                  "effect_none": {
+                    "type": "RangeEffect",
+                    "shape": {
+                      "Circle": {
+                        "radius": 1
+                      }
+                    },
+                    "target": "AllyOnlySelf",
+                    "apply_type": "AroundCaster",
+                    "effects": [
+                      {
+                        "type": "Shield",
+                        "amount": 60,
+                        "attack_ratio": 0,
+                        "ap_ratio": 35,
+                        "tick": 180
+                      },
+                      {
+                        "type": "AddBuff",
+                        "buff_state": {
+                          "name": "tft_norra_e_guard",
+                          "duration": {
+                            "Time": {
+                              "tick": 180
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "type": "TargetSfx",
+                        "name": "tft_norra_e_shield"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "tft_norra_e_s1",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "RemoveCasterBuff",
+                "name": "tft_norra_e_s1"
+              },
+              {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "tft_norra_e_s2",
+                  "duration": "Permanent"
+                },
+                "only_to_enemy": false
+              },
+              {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "Sfx",
+                    "name": "tft_norra_e_potion"
+                  },
+                  {
+                    "type": "RangeEffect",
+                    "shape": {
+                      "Circle": {
+                        "radius": 45000
+                      }
+                    },
+                    "target": "AllyChampion",
+                    "apply_type": "AroundCaster",
+                    "effects": [
+                      {
+                        "type": "Heal",
+                        "amount": 50,
+                        "attack_ratio": 0,
+                        "ap_ratio": 30,
+                        "heal_type": "Ally"
+                      },
+                      {
+                        "type": "ViewEffect",
+                        "name": "tft_norra_e_potion"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "effect_none": {
+            "type": "SwitchByBuff",
+            "buff_name": "tft_norra_e_s2",
+            "effect_buff": {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "tft_norra_e_s2"
+                },
+                {
+                  "type": "ParabolicProjectile",
+                  "name": "tft_norra_e_book",
+                  "travel_time": 18,
+                  "range": 400000,
+                  "range_effect_name": "",
+                  "shape": {
+                    "Circle": {
+                      "radius": 1
+                    }
+                  },
+                  "applied_target": "EnemyChampion",
+                  "applied_effects": [],
+                  "end_effects": [
+                    {
+                      "type": "ViewEffect",
+                      "name": "tft_norra_e_book_hit"
+                    },
+                    {
+                      "type": "Sfx",
+                      "name": "tft_norra_e_book"
+                    },
+                    {
+                      "type": "RangeProjectile",
+                      "name": "tft_norra_e_book_zone",
+                      "shape": {
+                        "Circle": {
+                          "radius": 20000
+                        }
+                      },
+                      "delay": 1,
+                      "apply": 1,
+                      "applied_target": "EnemyWithoutTower",
+                      "applied_effects": [
+                        {
+                          "casting_type": "Targeting",
+                          "effect": {
+                            "type": "ApAttack",
+                            "damage": 40,
+                            "attack_ratio": 30,
+                            "hp_ratio": 0,
+                            "can_crit": false
+                          }
+                        },
+                        {
+                          "casting_type": "Targeting",
+                          "effect": {
+                            "type": "Airborne",
+                            "duration": 30
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "effect_none": {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "tft_norra_e_s1",
+                    "duration": "Permanent"
+                  },
+                  "only_to_enemy": false
+                },
+                {
+                  "type": "ParabolicProjectile",
+                  "name": "tft_norra_e_anvil",
+                  "travel_time": 18,
+                  "range": 400000,
+                  "range_effect_name": "",
+                  "shape": {
+                    "Circle": {
+                      "radius": 1
+                    }
+                  },
+                  "applied_target": "EnemyChampion",
+                  "applied_effects": [],
+                  "end_effects": [
+                    {
+                      "type": "ViewEffect",
+                      "name": "tft_norra_e_anvil_hit"
+                    },
+                    {
+                      "type": "Sfx",
+                      "name": "tft_norra_e_anvil"
+                    },
+                    {
+                      "type": "RangeProjectile",
+                      "name": "tft_norra_e_anvil_zone",
+                      "shape": {
+                        "Circle": {
+                          "radius": 20000
+                        }
+                      },
+                      "delay": 1,
+                      "apply": 1,
+                      "applied_target": "EnemyWithoutTower",
+                      "applied_effects": [
+                        {
+                          "casting_type": "Targeting",
+                          "effect": {
+                            "type": "ApAttack",
+                            "damage": 40,
+                            "attack_ratio": 30,
+                            "hp_ratio": 0,
+                            "can_crit": false
+                          }
+                        },
+                        {
+                          "casting_type": "Targeting",
+                          "effect": {
+                            "type": "Stun",
+                            "duration": 40
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  },
+  "ult": {
+    "action_name": "ult",
+    "description": "#asset/base/text/champion?description.tft_norra.ult",
+    "duration": 40,
+    "cooltime": 3000,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 75000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "tft_norra_r"
+        },
+        {
+          "type": "Delayed",
+          "tick": 19,
+          "effects": [
+            {
+              "type": "ParabolicProjectile",
+              "name": "tft_norra_r_gate",
+              "travel_time": 40,
+              "range": 400000,
+              "range_effect_name": "tft_norra_r_warn",
+              "shape": {
+                "Circle": {
+                  "radius": 1
+                }
+              },
+              "applied_target": "EnemyChampion",
+              "applied_effects": [],
+              "end_effects": [
+                {
+                  "type": "ViewEffect",
+                  "name": "tft_norra_r_book"
+                },
+                {
+                  "type": "Sfx",
+                  "name": "tft_norra_r_blast"
+                },
+                {
+                  "type": "RangeProjectile",
+                  "name": "tft_norra_r_hit",
+                  "shape": {
+                    "Circle": {
+                      "radius": 45000
+                    }
+                  },
+                  "delay": 1,
+                  "apply": 1,
+                  "applied_target": "EnemyWithoutTower",
+                  "applied_effects": [
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "ApAttack",
+                        "damage": 120,
+                        "attack_ratio": 50,
+                        "hp_ratio": 0,
+                        "can_crit": false
+                      }
+                    },
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "Stun",
+                        "duration": 60
+                      }
+                    },
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "AddBuff",
+                        "buff_state": {
+                          "name": "tft_norra_r_paper",
+                          "duration": {
+                            "Time": {
+                              "tick": 240
+                            }
+                          },
+                          "damaged_amplify": 15
+                        }
+                      }
+                    },
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "ViewEffect",
+                        "name": "tft_norra_r_hit"
+                      }
+                    },
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "TargetSfx",
+                        "name": "tft_norra_r_hit"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "RangeProjectile",
+                  "name": "tft_norra_r_ward",
+                  "shape": {
+                    "Circle": {
+                      "radius": 45000
+                    }
+                  },
+                  "delay": 1,
+                  "apply": 1,
+                  "applied_target": "AllyChampion",
+                  "applied_effects": [
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "Shield",
+                        "amount": 80,
+                        "attack_ratio": 0,
+                        "ap_ratio": 40,
+                        "tick": 180
+                      }
+                    },
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "AddBuff",
+                        "buff_state": {
+                          "name": "tft_norra_e_guard",
+                          "duration": {
+                            "Time": {
+                              "tick": 180
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "view_projectiles": [
+    {
+      "type": "Animated",
+      "name": "tft_norra_a_bolt",
+      "anim": "asset/tft/effects/tft_norra_fx",
+      "tag": "a_bolt",
+      "repeat": true,
+      "z": 2
+    },
+    {
+      "type": "Animated",
+      "name": "tft_norra_q_ball",
+      "anim": "asset/tft/effects/tft_norra_fx",
+      "tag": "q_ball",
+      "repeat": true,
+      "z": 2
+    },
+    {
+      "type": "Animated",
+      "name": "tft_norra_q_paint",
+      "anim": "asset/tft/effects/tft_norra_big",
+      "tag": "q_paint",
+      "repeat": true,
+      "z": -2
+    },
+    {
+      "type": "Animated",
+      "name": "tft_norra_q2_paint",
+      "anim": "asset/tft/effects/tft_norra_big",
+      "tag": "q_paint",
+      "repeat": true,
+      "z": -2
+    }
+  ],
+  "view_effects": [
+    {
+      "type": "Animation",
+      "name": "tft_norra_a_hit",
+      "anim": "asset/tft/effects/tft_norra_fx",
+      "tag": "a_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_norra_q_blast",
+      "anim": "asset/tft/effects/tft_norra_big",
+      "tag": "q_blast",
+      "z": 2,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "tft_norra_q2_blast",
+      "anim": "asset/tft/effects/tft_norra_big",
+      "tag": "q_blast",
+      "z": 2,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "tft_norra_q_hit",
+      "anim": "asset/tft/effects/tft_norra_fx",
+      "tag": "q_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_norra_e_anvil_hit",
+      "anim": "asset/tft/effects/tft_norra_big",
+      "tag": "e_anvil_hit",
+      "z": 2,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "tft_norra_e_book_hit",
+      "anim": "asset/tft/effects/tft_norra_big",
+      "tag": "e_book_hit",
+      "z": 2,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "tft_norra_e_potion",
+      "anim": "asset/tft/effects/tft_norra_fx",
+      "tag": "e_potion",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_norra_p_heal",
+      "anim": "asset/tft/effects/tft_norra_fx",
+      "tag": "p_heal",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_norra_r_warn",
+      "anim": "asset/tft/effects/tft_norra_big",
+      "tag": "r_warn",
+      "z": -2,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "tft_norra_r_book",
+      "anim": "asset/tft/effects/tft_norra_big",
+      "tag": "r_book",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "tft_norra_r_hit",
+      "anim": "asset/tft/effects/tft_norra_fx",
+      "tag": "r_hit",
+      "z": 2,
+      "is_follow": true
+    }
+  ],
+  "view_buffs": [
+    {
+      "type": "Animated",
+      "name": "tft_norra_p_yuumi",
+      "anim": "asset/tft/effects/tft_norra_yuumi",
+      "tag": "idle",
+      "repeat": true,
+      "z": 4
+    },
+    {
+      "type": "Animated",
+      "name": "tft_norra_e_guard",
+      "anim": "asset/tft/effects/tft_norra_fx",
+      "tag": "e_guard",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "tft_norra_r_paper",
+      "anim": "asset/tft/effects/tft_norra_fx",
+      "tag": "r_paper",
+      "repeat": true,
+      "z": 3
+    }
+  ]
+}
