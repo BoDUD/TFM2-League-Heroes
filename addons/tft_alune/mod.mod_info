@@ -1,0 +1,20 @@
+{
+  "author": "BoDUD",
+  "contains_code": true,
+  "dependencies": [
+    {
+      "mod_id": "base",
+      "version": ">=0.4.11"
+    },
+    {
+      "mod_id": "tft",
+      "version": ">=0.2.0"
+    }
+  ],
+  "description": "Test build of Alune as in Teamfight Tactics (needs Teamfight Tactics Heroes): replaces the tft pack's Alune so Moonfall's moonshards fall on the nearest enemies, the full moon's damage is shared between the enemies it hits (the fewer, the harder each is hit) and her spiral ring flies back to her through the enemies on its way. Other champions are untouched. Writes a log for testing.",
+  "last_updated": "2026-10-26",
+  "mod_id": "tft_alune",
+  "mod_type": "native",
+  "name": "TFT Heroes: Alune as in Teamfight Tactics (test)",
+  "version": "0.1.0"
+}

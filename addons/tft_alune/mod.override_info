@@ -1,0 +1,6 @@
+{
+  "asset/tft/champion/tft_alune": {
+    "remapping": "asset/tft_alune/override/tft_alune",
+    "type": "override"
+  }
+}
