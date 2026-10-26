@@ -1,0 +1,496 @@
+{
+ "square": 7,
+ "sheet": [
+  1536,
+  1024
+ ],
+ "ground": 924,
+ "same": {
+  "skill2_back": {
+   "5": "skill2_5",
+   "6": "skill2_6",
+   "7": "skill2_7"
+  }
+ },
+ "same_as_design": {
+  "attack": [
+   1,
+   6
+  ],
+  "passive": [
+   1,
+   7
+  ],
+  "skill": [
+   1,
+   7
+  ],
+  "skill2": [
+   8
+  ],
+  "skill2_back": [
+   8
+  ],
+  "hit": [
+   2
+  ],
+  "dead": [
+   1
+  ]
+ },
+ "sheets": [
+  {
+   "tag": "run",
+   "name": "run_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "action": "running (his move loop): a gunslinger's run, the LEGS SWAPPING every half cycle (left foot forward, then right foot forward), the body bobbing with each stride, the coat tails flowing back",
+   "ms": [
+    117,
+    117
+   ],
+   "weapons": "Two pistols as in the design, one in EACH hand in every frame: the NEAR hand (image left in the design, the one held upright) keeps its pistol, the FAR hand (pointing forward in the design) keeps its own - never both in one hand, never swapped, never dropped; the pistols' shape, size and colours as in the design. Each pistol pointed exactly as the pale figure's hand holds it."
+  },
+  {
+   "tag": "run",
+   "name": "run_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "action": "running (his move loop): a gunslinger's run, the LEGS SWAPPING every half cycle (left foot forward, then right foot forward), the body bobbing with each stride, the coat tails flowing back",
+   "ms": [
+    117,
+    117
+   ],
+   "weapons": "Two pistols as in the design, one in EACH hand in every frame: the NEAR hand (image left in the design, the one held upright) keeps its pistol, the FAR hand (pointing forward in the design) keeps its own - never both in one hand, never swapped, never dropped; the pistols' shape, size and colours as in the design. Each pistol pointed exactly as the pale figure's hand holds it."
+  },
+  {
+   "tag": "run",
+   "name": "run_3",
+   "frames": [
+    5,
+    6
+   ],
+   "cells": 2,
+   "action": "running (his move loop): a gunslinger's run, the LEGS SWAPPING every half cycle (left foot forward, then right foot forward), the body bobbing with each stride, the coat tails flowing back",
+   "ms": [
+    117,
+    117
+   ],
+   "weapons": "Two pistols as in the design, one in EACH hand in every frame: the NEAR hand (image left in the design, the one held upright) keeps its pistol, the FAR hand (pointing forward in the design) keeps its own - never both in one hand, never swapped, never dropped; the pistols' shape, size and colours as in the design. Each pistol pointed exactly as the pale figure's hand holds it."
+  },
+  {
+   "tag": "run",
+   "name": "run_4",
+   "frames": [
+    7,
+    8
+   ],
+   "cells": 2,
+   "action": "running (his move loop): a gunslinger's run, the LEGS SWAPPING every half cycle (left foot forward, then right foot forward), the body bobbing with each stride, the coat tails flowing back",
+   "ms": [
+    117,
+    117
+   ],
+   "weapons": "Two pistols as in the design, one in EACH hand in every frame: the NEAR hand (image left in the design, the one held upright) keeps its pistol, the FAR hand (pointing forward in the design) keeps its own - never both in one hand, never swapped, never dropped; the pistols' shape, size and colours as in the design. Each pistol pointed exactly as the pale figure's hand holds it."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_1",
+   "frames": [
+    2,
+    3
+   ],
+   "cells": 2,
+   "action": "attack: he fires the pistols at the target and returns to his stance",
+   "ms": [
+    60,
+    70
+   ],
+   "weapons": "Two pistols as in the design, one in EACH hand in every frame: the NEAR hand (image left in the design, the one held upright) keeps its pistol, the FAR hand (pointing forward in the design) keeps its own - never both in one hand, never swapped, never dropped; the pistols' shape, size and colours as in the design. Each pistol pointed exactly as the pale figure's hand holds it."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_2",
+   "frames": [
+    4,
+    5
+   ],
+   "cells": 2,
+   "action": "attack: he fires the pistols at the target and returns to his stance",
+   "ms": [
+    70,
+    80
+   ],
+   "weapons": "Two pistols as in the design, one in EACH hand in every frame: the NEAR hand (image left in the design, the one held upright) keeps its pistol, the FAR hand (pointing forward in the design) keeps its own - never both in one hand, never swapped, never dropped; the pistols' shape, size and colours as in the design. Each pistol pointed exactly as the pale figure's hand holds it."
+  },
+  {
+   "tag": "passive",
+   "name": "passive_1",
+   "frames": [
+    2,
+    3
+   ],
+   "cells": 2,
+   "action": "Lightslinger: a quick double shot, both pistols fired forward one after the other",
+   "ms": [
+    50,
+    60
+   ],
+   "weapons": "Two pistols as in the design, one in EACH hand in every frame: the NEAR hand (image left in the design, the one held upright) keeps its pistol, the FAR hand (pointing forward in the design) keeps its own - never both in one hand, never swapped, never dropped; the pistols' shape, size and colours as in the design. Each pistol pointed exactly as the pale figure's hand holds it."
+  },
+  {
+   "tag": "passive",
+   "name": "passive_2",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "action": "Lightslinger: a quick double shot, both pistols fired forward one after the other",
+   "ms": [
+    60
+   ],
+   "weapons": "Two pistols as in the design, one in EACH hand in every frame: the NEAR hand (image left in the design, the one held upright) keeps its pistol, the FAR hand (pointing forward in the design) keeps its own - never both in one hand, never swapped, never dropped; the pistols' shape, size and colours as in the design. Each pistol pointed exactly as the pale figure's hand holds it."
+  },
+  {
+   "tag": "passive",
+   "name": "passive_3",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "action": "Lightslinger: a quick double shot, both pistols fired forward one after the other",
+   "ms": [
+    60
+   ],
+   "weapons": "Two pistols as in the design, one in EACH hand in every frame: the NEAR hand (image left in the design, the one held upright) keeps its pistol, the FAR hand (pointing forward in the design) keeps its own - never both in one hand, never swapped, never dropped; the pistols' shape, size and colours as in the design. Each pistol pointed exactly as the pale figure's hand holds it."
+  },
+  {
+   "tag": "passive",
+   "name": "passive_4",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "action": "Lightslinger: a quick double shot, both pistols fired forward one after the other",
+   "ms": [
+    70
+   ],
+   "weapons": "Two pistols as in the design, one in EACH hand in every frame: the NEAR hand (image left in the design, the one held upright) keeps its pistol, the FAR hand (pointing forward in the design) keeps its own - never both in one hand, never swapped, never dropped; the pistols' shape, size and colours as in the design. Each pistol pointed exactly as the pale figure's hand holds it."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_1",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "action": "Piercing Light: he braces and fires a long beam straight ahead from his pistols",
+   "ms": [
+    60
+   ],
+   "weapons": "Two pistols as in the design, one in EACH hand in every frame: the NEAR hand (image left in the design, the one held upright) keeps its pistol, the FAR hand (pointing forward in the design) keeps its own - never both in one hand, never swapped, never dropped; the pistols' shape, size and colours as in the design. Each pistol pointed exactly as the pale figure's hand holds it."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_2",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "action": "Piercing Light: he braces and fires a long beam straight ahead from his pistols",
+   "ms": [
+    70
+   ],
+   "weapons": "Two pistols as in the design, one in EACH hand in every frame: the NEAR hand (image left in the design, the one held upright) keeps its pistol, the FAR hand (pointing forward in the design) keeps its own - never both in one hand, never swapped, never dropped; the pistols' shape, size and colours as in the design. Each pistol pointed exactly as the pale figure's hand holds it."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_3",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "action": "Piercing Light: he braces and fires a long beam straight ahead from his pistols",
+   "ms": [
+    70
+   ],
+   "weapons": "Two pistols as in the design, one in EACH hand in every frame: the NEAR hand (image left in the design, the one held upright) keeps its pistol, the FAR hand (pointing forward in the design) keeps its own - never both in one hand, never swapped, never dropped; the pistols' shape, size and colours as in the design. Each pistol pointed exactly as the pale figure's hand holds it."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_4",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "action": "Piercing Light: he braces and fires a long beam straight ahead from his pistols",
+   "ms": [
+    80
+   ],
+   "weapons": "Two pistols as in the design, one in EACH hand in every frame: the NEAR hand (image left in the design, the one held upright) keeps its pistol, the FAR hand (pointing forward in the design) keeps its own - never both in one hand, never swapped, never dropped; the pistols' shape, size and colours as in the design. Each pistol pointed exactly as the pale figure's hand holds it."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_5",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "action": "Piercing Light: he braces and fires a long beam straight ahead from his pistols",
+   "ms": [
+    80
+   ],
+   "weapons": "Two pistols as in the design, one in EACH hand in every frame: the NEAR hand (image left in the design, the one held upright) keeps its pistol, the FAR hand (pointing forward in the design) keeps its own - never both in one hand, never swapped, never dropped; the pistols' shape, size and colours as in the design. Each pistol pointed exactly as the pale figure's hand holds it."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "action": "Relentless Pursuit: a fast low dash forward (body stretched out, nearly flat), then he stands and fires",
+   "ms": [
+    50
+   ],
+   "weapons": "Two pistols as in the design, one in EACH hand in every frame: the NEAR hand (image left in the design, the one held upright) keeps its pistol, the FAR hand (pointing forward in the design) keeps its own - never both in one hand, never swapped, never dropped; the pistols' shape, size and colours as in the design. In the flat dash both pistols tucked forward with his hands, as the pale figure."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "action": "Relentless Pursuit: a fast low dash forward (body stretched out, nearly flat), then he stands and fires",
+   "ms": [
+    50
+   ],
+   "weapons": "Two pistols as in the design, one in EACH hand in every frame: the NEAR hand (image left in the design, the one held upright) keeps its pistol, the FAR hand (pointing forward in the design) keeps its own - never both in one hand, never swapped, never dropped; the pistols' shape, size and colours as in the design. In the flat dash both pistols tucked forward with his hands, as the pale figure."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_3",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "action": "Relentless Pursuit: a fast low dash forward (body stretched out, nearly flat), then he stands and fires",
+   "ms": [
+    50
+   ],
+   "weapons": "Two pistols as in the design, one in EACH hand in every frame: the NEAR hand (image left in the design, the one held upright) keeps its pistol, the FAR hand (pointing forward in the design) keeps its own - never both in one hand, never swapped, never dropped; the pistols' shape, size and colours as in the design. In the flat dash both pistols tucked forward with his hands, as the pale figure."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_4",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "action": "Relentless Pursuit: a fast low dash forward (body stretched out, nearly flat), then he stands and fires",
+   "ms": [
+    60
+   ],
+   "weapons": "Two pistols as in the design, one in EACH hand in every frame: the NEAR hand (image left in the design, the one held upright) keeps its pistol, the FAR hand (pointing forward in the design) keeps its own - never both in one hand, never swapped, never dropped; the pistols' shape, size and colours as in the design. In the flat dash both pistols tucked forward with his hands, as the pale figure."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_5",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "action": "Relentless Pursuit: a fast low dash forward (body stretched out, nearly flat), then he stands and fires",
+   "ms": [
+    60
+   ],
+   "weapons": "Two pistols as in the design, one in EACH hand in every frame: the NEAR hand (image left in the design, the one held upright) keeps its pistol, the FAR hand (pointing forward in the design) keeps its own - never both in one hand, never swapped, never dropped; the pistols' shape, size and colours as in the design. In the flat dash both pistols tucked forward with his hands, as the pale figure."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_6",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "action": "Relentless Pursuit: a fast low dash forward (body stretched out, nearly flat), then he stands and fires",
+   "ms": [
+    70
+   ],
+   "weapons": "Two pistols as in the design, one in EACH hand in every frame: the NEAR hand (image left in the design, the one held upright) keeps its pistol, the FAR hand (pointing forward in the design) keeps its own - never both in one hand, never swapped, never dropped; the pistols' shape, size and colours as in the design. In the flat dash both pistols tucked forward with his hands, as the pale figure."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_7",
+   "frames": [
+    7
+   ],
+   "cells": 1,
+   "action": "Relentless Pursuit: a fast low dash forward (body stretched out, nearly flat), then he stands and fires",
+   "ms": [
+    80
+   ],
+   "weapons": "Two pistols as in the design, one in EACH hand in every frame: the NEAR hand (image left in the design, the one held upright) keeps its pistol, the FAR hand (pointing forward in the design) keeps its own - never both in one hand, never swapped, never dropped; the pistols' shape, size and colours as in the design. In the flat dash both pistols tucked forward with his hands, as the pale figure."
+  },
+  {
+   "tag": "skill2_back",
+   "name": "skill2_back_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "action": "Relentless Pursuit backward: he tumbles back away from the enemy, then stands and fires",
+   "ms": [
+    50,
+    50
+   ],
+   "weapons": "Two pistols as in the design, one in EACH hand in every frame: the NEAR hand (image left in the design, the one held upright) keeps its pistol, the FAR hand (pointing forward in the design) keeps its own - never both in one hand, never swapped, never dropped; the pistols' shape, size and colours as in the design. In the tumble both pistols kept close to his body, as the pale figure."
+  },
+  {
+   "tag": "skill2_back",
+   "name": "skill2_back_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "action": "Relentless Pursuit backward: he tumbles back away from the enemy, then stands and fires",
+   "ms": [
+    50,
+    60
+   ],
+   "weapons": "Two pistols as in the design, one in EACH hand in every frame: the NEAR hand (image left in the design, the one held upright) keeps its pistol, the FAR hand (pointing forward in the design) keeps its own - never both in one hand, never swapped, never dropped; the pistols' shape, size and colours as in the design. In the tumble both pistols kept close to his body, as the pale figure."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "action": "The Culling: he stands firm and fires a stream of shots straight ahead with both pistols",
+   "ms": [
+    75,
+    75
+   ],
+   "weapons": "Two pistols as in the design, one in EACH hand in every frame: the NEAR hand (image left in the design, the one held upright) keeps its pistol, the FAR hand (pointing forward in the design) keeps its own - never both in one hand, never swapped, never dropped; the pistols' shape, size and colours as in the design. Each pistol pointed exactly as the pale figure's hand holds it."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "action": "The Culling: he stands firm and fires a stream of shots straight ahead with both pistols",
+   "ms": [
+    75,
+    75
+   ],
+   "weapons": "Two pistols as in the design, one in EACH hand in every frame: the NEAR hand (image left in the design, the one held upright) keeps its pistol, the FAR hand (pointing forward in the design) keeps its own - never both in one hand, never swapped, never dropped; the pistols' shape, size and colours as in the design. Each pistol pointed exactly as the pale figure's hand holds it."
+  },
+  {
+   "tag": "hit",
+   "name": "hit_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "action": "struck, flinching back",
+   "ms": [
+    100
+   ],
+   "weapons": "Two pistols as in the design, one in EACH hand in every frame: the NEAR hand (image left in the design, the one held upright) keeps its pistol, the FAR hand (pointing forward in the design) keeps its own - never both in one hand, never swapped, never dropped; the pistols' shape, size and colours as in the design. Each pistol pointed exactly as the pale figure's hand holds it."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_1",
+   "frames": [
+    2,
+    3
+   ],
+   "cells": 2,
+   "action": "death: he staggers, falls and lies on the ground",
+   "ms": [
+    100,
+    100
+   ],
+   "weapons": "Two pistols as in the design, one in EACH hand in every frame: the NEAR hand (image left in the design, the one held upright) keeps its pistol, the FAR hand (pointing forward in the design) keeps its own - never both in one hand, never swapped, never dropped; the pistols' shape, size and colours as in the design. Falling and lying, the pistols still in his hands or just under them, as the pale figure."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_2",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "action": "death: he staggers, falls and lies on the ground",
+   "ms": [
+    100
+   ],
+   "weapons": "Two pistols as in the design, one in EACH hand in every frame: the NEAR hand (image left in the design, the one held upright) keeps its pistol, the FAR hand (pointing forward in the design) keeps its own - never both in one hand, never swapped, never dropped; the pistols' shape, size and colours as in the design. Falling and lying, the pistols still in his hands or just under them, as the pale figure."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_3",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "action": "death: he staggers, falls and lies on the ground",
+   "ms": [
+    120
+   ],
+   "weapons": "Two pistols as in the design, one in EACH hand in every frame: the NEAR hand (image left in the design, the one held upright) keeps its pistol, the FAR hand (pointing forward in the design) keeps its own - never both in one hand, never swapped, never dropped; the pistols' shape, size and colours as in the design. Falling and lying, the pistols still in his hands or just under them, as the pale figure."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_4",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "action": "death: he staggers, falls and lies on the ground",
+   "ms": [
+    150
+   ],
+   "weapons": "Two pistols as in the design, one in EACH hand in every frame: the NEAR hand (image left in the design, the one held upright) keeps its pistol, the FAR hand (pointing forward in the design) keeps its own - never both in one hand, never swapped, never dropped; the pistols' shape, size and colours as in the design. Falling and lying, the pistols still in his hands or just under them, as the pale figure."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_5",
+   "frames": [
+    7
+   ],
+   "cells": 1,
+   "action": "death: he staggers, falls and lies on the ground",
+   "ms": [
+    150
+   ],
+   "weapons": "Two pistols as in the design, one in EACH hand in every frame: the NEAR hand (image left in the design, the one held upright) keeps its pistol, the FAR hand (pointing forward in the design) keeps its own - never both in one hand, never swapped, never dropped; the pistols' shape, size and colours as in the design. Falling and lying, the pistols still in his hands or just under them, as the pale figure."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_6",
+   "frames": [
+    8
+   ],
+   "cells": 1,
+   "action": "death: he staggers, falls and lies on the ground",
+   "ms": [
+    400
+   ],
+   "weapons": "Two pistols as in the design, one in EACH hand in every frame: the NEAR hand (image left in the design, the one held upright) keeps its pistol, the FAR hand (pointing forward in the design) keeps its own - never both in one hand, never swapped, never dropped; the pistols' shape, size and colours as in the design. Falling and lying, the pistols still in his hands or just under them, as the pale figure."
+  }
+ ]
+}

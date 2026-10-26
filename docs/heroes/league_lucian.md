@@ -10,7 +10,7 @@
 | 所属的包 | 主包（mod_id `league`） |
 | 分路 | ADC |
 | 分类 / 标签 | 射手（Range） · AD / Range |
-| 高清帧 | 1 倍像素（无高清帧） |
+| 高清帧 | PPU 2.02 |
 | 附加包 | 无 |
 
 ![卢锡安演示](../preview/league_lucian_showcase.gif)
@@ -71,6 +71,7 @@
 | 数值 | 攻击 100（+20）、生命 900（+90）、护甲 20（+7）、魔抗 15（+3）、移速 900（+9），攻击间隔 1 秒，和原版射手一样。数值是自己设计的，用 SDK 对战模拟调：打下路，对 4 个原版射手（`gunner`、`soldier`、`archer`、`gambler`），两边、三套队友阵容各 24 局。初版（射程 50000，Q 60 + 120%、W 50 + 50%、R 每枪 10 + 25%）+0.01；射程 55000、Q 施放距离 70000、各技能伤害提高约 25% 后两批种子 +2.67 / +2.77；R 的子弹从 8000 提到 12000（打中的比例从 58% 升到 85%）+2.66 / +2.40；按美术定下的出手帧和动作长度（普攻第 7 tick，连开两枪第 6、13 tick，Q 第 12 tick，烈弹第 14 tick；普攻和连开两枪 26 tick、Q 30 tick、E 后撤 31 tick）重跑 +2.60 / +2.15，在本包射手之间（艾希 +2.40 / +1.58、伊泽瑞尔 +2.96 / +2.47、厄运小姐 +2.77 / +3.09、金克丝 +2.99 / +2.92）。之后为了让 Q 的光束从枪口水平射出，Q 改成对目标施放（见美术），AI 对英雄放 Q 多了（每局约 16 次），75 + 150% 两批 +3.14 / +3.16，高于本包射手；Q 降到 65 + 130%：+2.89 / +1.97，和改之前一样强，就用这一版。之后被动两发子弹改从各自的枪射出（追踪投射物的 `y_offset` 在模拟里会让子弹早 1 tick 命中，整局走向跟着变），重跑 +2.15 / +2.12；模型按新立绘重做后，子弹和光束的画面跟着新枪口抬高（26 / 12 / 13 px），重跑 +2.37 / +2.14，仍在本包射手之间。卢锡安每局放 Q 约 42 次（对英雄约 16 次）、E 约 22 次（往前追约 8 次、后跳约 13 次、贴身后撤不到 1 次）、R 约 5 次 |
 | 亚索联动 | 他没有控制（警惕只读控制，不施加），亚索不用调 |
 | 精灵图 | 10 个动作 64 帧：待机、移动、普攻、连开两枪、Q、E 往前冲 + 烈弹、E 后撤 + 烈弹、R、受击、死亡。按用户给的新立绘重做：白色高领长外套（金边、紫色内衬）、深色背心和护甲、两把白色圣物手枪，一把举在头边、一把平指向前；头顶到鞋底约 41 px（举起的枪再高约 5 px），19 色。Codex 画造型和动作，每帧的时机和站位照英雄联盟原版动画渲染的参考帧 |
+| 高清帧（PPU 2.02） | 2026-10-26 用 PPU 重做（用户：「下一个英雄重做卢锡安 模型要和英雄联盟像一点」）。设计图：Codex 按英雄联盟的样子（银白长外套、金边银护肩、黑色胸甲、白色长衣摆配淡紫衬里、编辫短发、绿眼睛、两把带青蓝符文的大手枪）、照他旧精灵的姿势和 Q 版比例画（`pack_lucian_ppu.py`：英雄联盟的 Q 版头和原比例渲染作样子，旧精灵只作姿势；横画布、每格 9 像素）；它的导出图把原图重采样到 101 行（重复行列、3000 多色），所以按原图自己约 9.6 × 10.2 像素一格读回（`design_lucian_hd.py`，111 × 93 格：93 行 / 46 = 2.02），用户选了原样密度（「通过，用 2.02 原样」）。动作：Codex 照旧版每一帧整帧重画（`pack_lucian_actions.py`，33 张 45 帧；和待机一模一样的 10 帧直接用设计图，E 后翻第 5–7 帧就是前冲第 5–7 帧；两把枪每帧一只手一把；旧版烤在帧里的枪口火光不再画，子弹、Q 的光束、R 的子弹本来就是特效）。Codex 的导出把每帧的头单独绕下巴缩放、身体不动，不用；`casts_lucian_hd.py` 读它的原始生成图：抠白底，每张图的放大倍数按他的头量（设计图的头按 5–14 倍逐档缩放后在整帧上滑着比；匹配很好的直接采信，旧版跑步的外框随腿变，不作参考；冲刺、翻滚、倒地用同一动作的中位数），颜色换回设计图的色板，摆回旧版同一帧的位置。跑步：头左右晃 13 格、上下 10 格（旧版不到 1 像素），后 4 帧把身体画矮了、第 7 帧又落一次前脚——每帧按头对齐到同一列，后半圈用前半圈的 4 帧（落地、后滑、交错、蹬地正好半圈）。出箭帧的枪口和旧版差 2–5 像素，子弹的出手设置不用改。头像点 (−3,−37)（头顶下 1 像素，照薇恩修正的规则：9×9 头像框要框住头顶到下巴），选人卡 −12（头顶在卡片上沿下 1 像素，竖举的枪尖被裁掉）；身高 46 像素和原来一样，没有尺寸表行。俄洛伊的灵魂、佛耶戈附身用的帧表、娜美 / 瑞兹 / 娑娜 / 基兰演示里的他跟着更新 |
 | 特效 | 普攻子弹和命中、连开两枪的蓝色和金色曳光弹、警惕的手上电光和命中、Q 光束和命中、E 冲刺的尘土、烈弹、星形十字爆炸、标记、加速线、R 的曳光弹和命中 |
 | 图标 | 官方技能图标（Q / E / R），64×64 |
 | 音频 | 从本地客户端提取的 11 条技能音效和 2 条中文语音（E、R）。不提交到仓库，按下面的命令在本地生成 |
@@ -83,7 +84,14 @@ python tools/art/lucian_shoulder.py <Codex 的补肩交付文件夹>   # Q、R�
 python tools/art/fix_lucian_collar.py                       # 后肩和下巴之间补上衣领 → lucian_retouch.json（动作条变了才要重跑）
 python tools/art/import_native.py --hero lucian    # 角色图（套用 lucian_retouch.json）
 python tools/art/import_lucian.py      # 特效；--raw <Codex 的交付文件夹> 先把原始图转成原尺寸条
-python tools/art/preview_lucian.py
+python tools/art/preview_lucian.py                 # 逐帧图（高清帧）、特效图、演示
+# PPU 2.02 重做（2026-10-26）：
+python tools/art/pack_lucian_ppu.py --out <文件夹>        # 给 Codex 的设计图包（英雄联盟的样子、旧精灵的姿势）
+python tools/art/design_lucian_hd.py                    # Codex 的原图（hd/raw/lucian-generation-02.png）按自己的格子读回 -> hd/design.png
+python tools/art/pack_lucian_actions.py --out <文件夹>    # 给 Codex 的动作包（照旧版同一帧整帧重画）
+python tools/art/casts_lucian_hd.py --measure           # 每张图的放大倍数（按头量）
+python tools/art/rig_lucian_hd.py                       # 交付（hd/casts，Codex 的原始生成图）读回到设计图上 -> 原始条和 1 倍图
+python tools/art/ppu_restyle.py --hero lucian && python tools/art/ppu_hd.py --hero lucian && python tools/art/hero_reels.py --hero lucian
 ```
 
 美术（重做的造型的提示词见 [`assets/source/lucian/MODEL_REDESIGN.md`](../../assets/source/lucian/MODEL_REDESIGN.md)，10 条动作的见 [`MODEL_REDESIGN_STRIPS.md`](../../assets/source/lucian/MODEL_REDESIGN_STRIPS.md)，第一版模型的见 [`MODEL_PROMPTS.md`](../../assets/source/lucian/MODEL_PROMPTS.md)，特效的见 [`PROMPTS.md`](../../assets/source/lucian/PROMPTS.md)）：
@@ -102,4 +110,4 @@ python tools/art/preview_lucian.py
 - 出手时刻和动画对齐：普攻第 3 帧开枪（第 7 tick），连开两枪第 3、5 帧（第 6、13 tick），Q 第 4 帧放光束（第 12 tick），烈弹第 6 帧射出（第 14 tick），R 每两帧开一枪（每 9 tick）。E 的两种后撤由 `CasterAnimation` 播 31 tick 的 `skill2_back`，往前冲播技能本身的 `skill2`。
 - 结果：19 色，和右边像素同色的比例 36%（原版英雄 18%–46%）。头像截取点 (−3, −41)，在头顶。待机每帧 983 个不透明像素，比第一版（460–566）和原版英雄（剑士 472）大，是新立绘的比例。
 
-逐帧预览：[`docs/preview/league_lucian_frames.png`](../preview/league_lucian_frames.png?v=1014g)，特效：[`docs/preview/league_lucian_effects.png`](../preview/league_lucian_effects.png?v=1014g)。
+逐帧预览：[`docs/preview/league_lucian_frames.png`](../preview/league_lucian_frames.png?v=1027hd)，特效：[`docs/preview/league_lucian_effects.png`](../preview/league_lucian_effects.png?v=1014g)。
