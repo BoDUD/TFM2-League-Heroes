@@ -1,7 +1,7 @@
 """Build the step-0 pack for Codex (assets/source/zaahen/PICTURE_PROMPT.md): League references of Zaahen, layout
 guides and style pictures.
 
-    python tools/art/pack_zaahen_picture.py --out C:/t/za_work/zaahen_pack0 [--lol D:\WeGameApps\lol]
+    python tools/art/pack_zaahen_picture.py --out C:/t/za_work/zaahen_pack0 [--lol D:\\WeGameApps\\lol]
 
 Writes <out>/PICTURE_PROMPT.md, <out>/refs/1..8 (League renders, the loading-screen art), <out>/refs/9a..9b (layout
 guides: Riot's, kept local, never committed) and <out>/style/10..13 (this pack's Ambessa, Pantheon, Xin Zhao and
