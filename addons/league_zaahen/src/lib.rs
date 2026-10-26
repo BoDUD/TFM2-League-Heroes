@@ -148,7 +148,7 @@ pub struct Params {
 
 impl Default for Params {
     fn default() -> Self {
-        Self { det_n: 12, det_pct: 1, det_t: 300, rv_rise: 240, rv_hp: 50, rv_cd: 3600, e_cd: 540, e_reach: 48000, e_dash: 22000, e_r0: 11000, e_r: 20000, e_out: 50, e_pct: 5, e_dmg: 50, e_ratio: 50, e_hit: 14, q_hp: 6, atk_range: 25000 }
+        Self { det_n: 12, det_pct: 1, det_t: 300, rv_rise: 240, rv_hp: 50, rv_cd: 3600, e_cd: 540, e_reach: 48000, e_dash: 22000, e_r0: 11000, e_r: 20000, e_out: 50, e_pct: 5, e_dmg: 70, e_ratio: 70, e_hit: 14, q_hp: 6, atk_range: 25000 }
     }
 }
 
@@ -631,7 +631,7 @@ mod tests {
 
     #[test]
     fn params_from_the_kit() {
-        let kit = r#"{"atk_range":25000,"det_n":12,"det_pct":1,"det_t":300,"e_cd":540,"e_dash":22000,"e_dmg":50,"e_hit":14,"e_out":50,"e_pct":5,"e_r":20000,"e_r0":11000,"e_ratio":50,"e_reach":48000,"q_hp":6,"rv_cd":3600,"rv_hp":50,"rv_rise":240}"#;
+        let kit = r#"{"atk_range":25000,"det_n":12,"det_pct":1,"det_t":300,"e_cd":540,"e_dash":22000,"e_dmg":70,"e_hit":14,"e_out":50,"e_pct":5,"e_r":20000,"e_r0":11000,"e_ratio":70,"e_reach":48000,"q_hp":6,"rv_cd":3600,"rv_hp":50,"rv_rise":240}"#;
         assert_eq!(parse_params(kit), Params::default());
         assert_eq!(parse_params(r#"{"det_n":8}"#).det_n, 8);
     }
@@ -677,8 +677,8 @@ mod tests {
     #[test]
     fn the_outer_edge_hits_harder() {
         let p = Params::default();
-        assert_eq!(spin_damage(&p, 100, 5000.0, 6000.0, 2000), (100, 0));
-        assert_eq!(spin_damage(&p, 100, 18000.0, 6000.0, 2000), (150, 100));
+        assert_eq!(spin_damage(&p, 100, 5000.0, 6000.0, 2000), (140, 0));
+        assert_eq!(spin_damage(&p, 100, 18000.0, 6000.0, 2000), (210, 100));
     }
 
     #[test]

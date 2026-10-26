@@ -46,7 +46,13 @@ slash on a champion, half on other units: the data marks `q_mark`, its flat heal
 defence penetration on his `own` flag; R's heal per champion hit is League's (fixed + AD, not a share of the damage);
 W's stun and pull are data (`Grab`), its two damage instances one.
 Timings: drafts until the frames exist (tools/art/rig_zaahen.py retimes them).
-Numbers: League 16.21 read into the top fighter range (league_darius, league_aatrox, league_ambessa); not balanced yet.
+Numbers: League 16.21 read into the top fighter range (league_darius, league_aatrox, league_ambessa), balanced on the
+classic-SDK simulations (kd.py --lane 0 against fighter, executioner, knight, berserker, lancer and pole_warrior,
+C:/t/za_sim, 2026-10-26; base:fighter the control +1.33, league_ambessa shipped at +0.59 / +0.42): the draft (attack 88,
+Q 20 + 70% a slash, W 70 + 60%, E 50 + 50%, R 160 + 150%) -1.72 (1-8); attack 94 and Q 30 + 85% +0.27; with W 90 + 80%,
+E 70 + 70%, R 200 + 180% (P) +0.76 / +0.47 (1-8 / 9-16; mean +0.62); P with hp 1150, defence 38 and Determination 3% / 40%
++1.68; P a step down (attack 92, W 80 + 70%, E 60 + 60%, R 180 + 160%) +0.27 (1-16). The add-on's rules cannot run in that
+engine (Native effects dropped).
 """
 import argparse
 import json
@@ -68,7 +74,7 @@ BIG = "asset/league/effects/league_zaahen_big"
 # bonus AD per champion, cc immune + 50% less damage while casting, cd 110-80; passive 10-30% armour penetration.
 P = {
     # stats (base fighters: attack 90 +12, hp 1000 +100, defence 35 +8; league_darius, league_aatrox)
-    "hp": 1080, "hp_g": 110, "atk": 88, "atk_g": 13, "apw": 10, "apw_g": 5, "def": 34, "def_g": 9, "mr": 30, "mr_g": 4,
+    "hp": 1080, "hp_g": 110, "atk": 94, "atk_g": 13, "apw": 10, "apw_g": 5, "def": 34, "def_g": 9, "mr": 30, "mr_g": 4,
     "ms": 1000, "ms_g": 11, "regen": 2, "regen_g": 1,
     "atk_range": 25000, "atk_dur": 30, "atk_cd": 72, "a_hit": 12,
     # the controller
@@ -77,16 +83,16 @@ P = {
     "det_n": 12, "det_ad": 2, "det_t": 300, "det_r": 4, "full_ad": 30, "full_t": 300,
     "rv_sh": 120, "rv_sh_r": 100, "rv_t": 180, "rv_cd": 3600,
     # skill: Q The Darkin Glaive
-    "q_cd": 420, "q_range": 27000, "q_dur": 34, "q_h1": 12, "q_h2": 22, "q_dmg": 20, "q_ratio": 70,
+    "q_cd": 420, "q_range": 27000, "q_dur": 34, "q_h1": 12, "q_h2": 22, "q_dmg": 30, "q_ratio": 85,
     "q_heal": 30, "q_heal_r": 15, "q_gap": 90, "q_win": 330,
     "q3_dur": 30, "q3_hit": 14, "q3_dmg": 60, "q3_ratio": 60, "q_air": 45, "q_go_t": 120,
     # skill2: W Dreaded Return (+ E Aureate Rush folded in)
     "w_cd": 780, "w_range": 52000, "w_dur": 30, "w_rel": 14, "w_len": 56000, "w_wid": 6000, "w_speed": 5000,
-    "w_dmg": 70, "w_ratio": 60, "w_stun": 15, "w_grab": 3500,
-    "w_e": 34, "w_e_dur": 56, "e_r": 20000, "e_dmg": 50, "e_ratio": 50,
+    "w_dmg": 90, "w_ratio": 80, "w_stun": 15, "w_grab": 3500,
+    "w_e": 34, "w_e_dur": 56, "e_r": 20000, "e_dmg": 70, "e_ratio": 70,
     # ult: R Grim Deliverance
     "r_cd": 4800, "r_range": 40000, "r_dur": 60, "r_dr": 50, "r_jump": 26, "r_speed": 4000, "r_slam": 40,
-    "r_r": 22000, "r_dmg": 160, "r_ratio": 150, "r_heal": 60, "r_heal_r": 40, "r_cut": 100,
+    "r_r": 22000, "r_dmg": 200, "r_ratio": 180, "r_heal": 60, "r_heal_r": 40, "r_cut": 100,
     # his spoken lines, at most one every vo_gap ticks
     "vo_gap": 600,
     # 1 = the copy for addons/league_zaahen (League's rules the data cannot read, see the docstring); its parameters
