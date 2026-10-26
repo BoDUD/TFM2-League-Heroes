@@ -1,0 +1,344 @@
+[
+  {
+    "file": "skarner-pose-a_strike.png",
+    "width": 1254,
+    "height": 1254,
+    "mode": "RGBA",
+    "size_pass": true,
+    "transparent_pixels": 1193586,
+    "partial_alpha_pixels": 376753,
+    "hard_alpha_pass": false,
+    "visible_bbox_alpha128": [
+      196,
+      480,
+      1176,
+      1207
+    ],
+    "grid9_pass": false,
+    "uniform_active_grid9_fraction": 0.0,
+    "sha256": "7d249ebeca976f7d7fec4072fe6f63ab0194bd8f511e9d888a729ed310aa74bc"
+  },
+  {
+    "file": "skarner-pose-a_wind.png",
+    "width": 1254,
+    "height": 1254,
+    "mode": "RGBA",
+    "size_pass": true,
+    "transparent_pixels": 1186755,
+    "partial_alpha_pixels": 383393,
+    "hard_alpha_pass": false,
+    "visible_bbox_alpha128": [
+      212,
+      296,
+      1148,
+      1192
+    ],
+    "grid9_pass": false,
+    "uniform_active_grid9_fraction": 0.00073,
+    "sha256": "c805c8844551cffeae033d866033fce07261620e2e4f231e987247caa8ab3103"
+  },
+  {
+    "file": "skarner-pose-d_down.png",
+    "width": 1254,
+    "height": 1254,
+    "mode": "RGBA",
+    "size_pass": true,
+    "transparent_pixels": 1359811,
+    "partial_alpha_pixels": 211779,
+    "hard_alpha_pass": false,
+    "visible_bbox_alpha128": [
+      20,
+      947,
+      1212,
+      1212
+    ],
+    "grid9_pass": false,
+    "uniform_active_grid9_fraction": 0.0,
+    "sha256": "6a9b7effcdf953e0db513af126b4e8fd5fe47b7566a2da1737f4c3bd2ca7924a"
+  },
+  {
+    "file": "skarner-pose-d_rear.png",
+    "width": 1254,
+    "height": 1254,
+    "mode": "RGBA",
+    "size_pass": true,
+    "transparent_pixels": 1127108,
+    "partial_alpha_pixels": 443621,
+    "hard_alpha_pass": false,
+    "visible_bbox_alpha128": [
+      218,
+      91,
+      1108,
+      1145
+    ],
+    "grid9_pass": false,
+    "uniform_active_grid9_fraction": 0.00064,
+    "sha256": "85f5a0765e041be34031cc5d235597b74bc2f45435bb65d52b8270d7ffc410f7"
+  },
+  {
+    "file": "skarner-pose-e_charge.png",
+    "width": 1388,
+    "height": 1133,
+    "mode": "RGBA",
+    "size_pass": false,
+    "transparent_pixels": 1080668,
+    "partial_alpha_pixels": 490883,
+    "hard_alpha_pass": false,
+    "visible_bbox_alpha128": [
+      43,
+      227,
+      1347,
+      1060
+    ],
+    "grid9_pass": false,
+    "uniform_active_grid9_fraction": 0.00096,
+    "sha256": "2b12f02cd028c2fa0d8b9a220b46596ed6e8c030331a15908c7c132f9cd5f726"
+  },
+  {
+    "file": "skarner-pose-e_grab.png",
+    "width": 1254,
+    "height": 1254,
+    "mode": "RGBA",
+    "size_pass": true,
+    "transparent_pixels": 1039957,
+    "partial_alpha_pixels": 530550,
+    "hard_alpha_pass": false,
+    "visible_bbox_alpha128": [
+      181,
+      96,
+      1112,
+      1189
+    ],
+    "grid9_pass": false,
+    "uniform_active_grid9_fraction": 0.00013,
+    "sha256": "0a66f0ddc4abf504a922898bf6bd1f032a1a37b55821bdd4b189ea408aa23ab9"
+  },
+  {
+    "file": "skarner-pose-q_dig.png",
+    "width": 1254,
+    "height": 1254,
+    "mode": "RGBA",
+    "size_pass": true,
+    "transparent_pixels": 1124612,
+    "partial_alpha_pixels": 447017,
+    "hard_alpha_pass": false,
+    "visible_bbox_alpha128": [
+      79,
+      559,
+      1189,
+      1196
+    ],
+    "grid9_pass": false,
+    "uniform_active_grid9_fraction": 0.00064,
+    "sha256": "cac932d3a01c8be1f473d2b848bfe5e66ee97c6c7a9a7dcdefc21f7ad1a8274c"
+  },
+  {
+    "file": "skarner-pose-q_lift.png",
+    "width": 1254,
+    "height": 1254,
+    "mode": "RGBA",
+    "size_pass": true,
+    "transparent_pixels": 923743,
+    "partial_alpha_pixels": 645479,
+    "hard_alpha_pass": false,
+    "visible_bbox_alpha128": [
+      137,
+      174,
+      1177,
+      1156
+    ],
+    "grid9_pass": false,
+    "uniform_active_grid9_fraction": 0.00021,
+    "sha256": "0c9a890486dfbf28bd16180bec257659f688d168df2d42cea722cf8ae1f08c5a"
+  },
+  {
+    "file": "skarner-pose-r_hold.png",
+    "width": 1254,
+    "height": 1254,
+    "mode": "RGBA",
+    "size_pass": true,
+    "transparent_pixels": 1075381,
+    "partial_alpha_pixels": 495177,
+    "hard_alpha_pass": false,
+    "visible_bbox_alpha128": [
+      106,
+      438,
+      1176,
+      1195
+    ],
+    "grid9_pass": false,
+    "uniform_active_grid9_fraction": 0.00029,
+    "sha256": "e69d2d13cb2510114f44fb1158eb53e037678aa6ccb675fe8732687b8a550b36"
+  },
+  {
+    "file": "skarner-pose-r_lash.png",
+    "width": 1388,
+    "height": 1133,
+    "mode": "RGBA",
+    "size_pass": false,
+    "transparent_pixels": 1040897,
+    "partial_alpha_pixels": 529015,
+    "hard_alpha_pass": false,
+    "visible_bbox_alpha128": [
+      129,
+      313,
+      1357,
+      1087
+    ],
+    "grid9_pass": false,
+    "uniform_active_grid9_fraction": 0.00025,
+    "sha256": "421457004dcce3c6bd9a496a740217c7c4c713c7584657248c13838b77aea7d8"
+  },
+  {
+    "file": "skarner-pose-run1.png",
+    "width": 1254,
+    "height": 1254,
+    "mode": "RGBA",
+    "size_pass": true,
+    "transparent_pixels": 1160411,
+    "partial_alpha_pixels": 409741,
+    "hard_alpha_pass": false,
+    "visible_bbox_alpha128": [
+      134,
+      473,
+      1177,
+      1177
+    ],
+    "grid9_pass": false,
+    "uniform_active_grid9_fraction": 0.0,
+    "sha256": "50887ce73bef41da862bcee02f8c7c4a390ec0b0d40727dd67cd61f04beac8f7"
+  },
+  {
+    "file": "skarner-pose-run2.png",
+    "width": 1263,
+    "height": 1246,
+    "mode": "RGBA",
+    "size_pass": false,
+    "transparent_pixels": 1143598,
+    "partial_alpha_pixels": 427766,
+    "hard_alpha_pass": false,
+    "visible_bbox_alpha128": [
+      160,
+      459,
+      1236,
+      1180
+    ],
+    "grid9_pass": false,
+    "uniform_active_grid9_fraction": 0.0,
+    "sha256": "df46e62025968a71b67935096aa14d381157d0b77ff974f7d52cae9c1b8b708a"
+  },
+  {
+    "file": "skarner-pose-run3.png",
+    "width": 1254,
+    "height": 1254,
+    "mode": "RGBA",
+    "size_pass": true,
+    "transparent_pixels": 1173549,
+    "partial_alpha_pixels": 396466,
+    "hard_alpha_pass": false,
+    "visible_bbox_alpha128": [
+      166,
+      473,
+      1188,
+      1175
+    ],
+    "grid9_pass": false,
+    "uniform_active_grid9_fraction": 0.00017,
+    "sha256": "945bd762d8ce7058d7d8384c3ce97f03fa2cb24a95bd734324df0d53ec8b37f1"
+  },
+  {
+    "file": "skarner-pose-run4.png",
+    "width": 1254,
+    "height": 1254,
+    "mode": "RGBA",
+    "size_pass": true,
+    "transparent_pixels": 1190810,
+    "partial_alpha_pixels": 379557,
+    "hard_alpha_pass": false,
+    "visible_bbox_alpha128": [
+      169,
+      477,
+      1180,
+      1172
+    ],
+    "grid9_pass": false,
+    "uniform_active_grid9_fraction": 0.0,
+    "sha256": "0e08318060ae523ac452e713967cb1048a14d3a7ebc30c3cf590f9f88bfb0bc5"
+  },
+  {
+    "file": "skarner-pose-t_throw.png",
+    "width": 1254,
+    "height": 1254,
+    "mode": "RGBA",
+    "size_pass": true,
+    "transparent_pixels": 1154424,
+    "partial_alpha_pixels": 417166,
+    "hard_alpha_pass": false,
+    "visible_bbox_alpha128": [
+      208,
+      605,
+      1238,
+      1193
+    ],
+    "grid9_pass": false,
+    "uniform_active_grid9_fraction": 0.00075,
+    "sha256": "1ab7addd4a8717cc0f02517dbffc071813188980edec5d9b351ed2d260a0a330"
+  },
+  {
+    "file": "skarner-pose-t_wind.png",
+    "width": 1254,
+    "height": 1254,
+    "mode": "RGBA",
+    "size_pass": true,
+    "transparent_pixels": 972503,
+    "partial_alpha_pixels": 598637,
+    "hard_alpha_pass": false,
+    "visible_bbox_alpha128": [
+      47,
+      145,
+      1200,
+      1175
+    ],
+    "grid9_pass": false,
+    "uniform_active_grid9_fraction": 0.00011,
+    "sha256": "3156632f3cf37985bb13887102b8546e1877aedb5fcfe03bd119096aa6e537ed"
+  },
+  {
+    "file": "skarner-pose-w_rear.png",
+    "width": 1254,
+    "height": 1254,
+    "mode": "RGBA",
+    "size_pass": true,
+    "transparent_pixels": 1174506,
+    "partial_alpha_pixels": 396073,
+    "hard_alpha_pass": false,
+    "visible_bbox_alpha128": [
+      182,
+      375,
+      1166,
+      1163
+    ],
+    "grid9_pass": false,
+    "uniform_active_grid9_fraction": 0.00036,
+    "sha256": "2de915794b58104a45daa83d1e1e20bd31abed346ffaffa6a86f12c1a1a5244b"
+  },
+  {
+    "file": "skarner-pose-w_slam.png",
+    "width": 1388,
+    "height": 1133,
+    "mode": "RGBA",
+    "size_pass": false,
+    "transparent_pixels": 1109255,
+    "partial_alpha_pixels": 462360,
+    "hard_alpha_pass": false,
+    "visible_bbox_alpha128": [
+      100,
+      383,
+      1295,
+      1057
+    ],
+    "grid9_pass": false,
+    "uniform_active_grid9_fraction": 0.00015,
+    "sha256": "4821d641280e9d3d87c1b100a8596e641b43562faca69d079182d343d95f47e4"
+  }
+]
