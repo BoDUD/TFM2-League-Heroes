@@ -1,0 +1,764 @@
+{
+  "generator": "built-in image_gen",
+  "processing": "generated-art extraction, palette majority sampling, binary alpha, anchor placement, half mirroring; no procedural effect drawing",
+  "assets": [
+    {
+      "file": "silco_fx_a_vial.png",
+      "frames": 4,
+      "cell_1x": [
+        12,
+        6
+      ],
+      "layout": "horizontal",
+      "sheet_1x": [
+        48,
+        6
+      ],
+      "preview_scale": 8,
+      "symmetry": "top-bottom",
+      "symmetry_verified": true,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "raw_size": [
+        2048,
+        768
+      ],
+      "raw_layout": [
+        4,
+        1
+      ],
+      "raw_frame_bounds_fractions": null,
+      "binding": "view_projectiles `tft_silco_a_vial`（弹道，z 2；朝右、上下对称）",
+      "occupied_pixels_per_frame": [
+        42,
+        42,
+        42,
+        42
+      ],
+      "unique_frame_count": 4
+    },
+    {
+      "file": "silco_fx_a_hit.png",
+      "frames": 4,
+      "cell_1x": [
+        16,
+        16
+      ],
+      "layout": "horizontal",
+      "sheet_1x": [
+        64,
+        16
+      ],
+      "preview_scale": 8,
+      "symmetry": "left-right",
+      "symmetry_verified": true,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "raw_size": [
+        2172,
+        724
+      ],
+      "raw_layout": [
+        4,
+        1
+      ],
+      "raw_frame_bounds_fractions": null,
+      "binding": "view_effects `tft_silco_a_hit`（跟随目标，z 2；左右对称）",
+      "occupied_pixels_per_frame": [
+        92,
+        88,
+        102,
+        66
+      ],
+      "unique_frame_count": 4
+    },
+    {
+      "file": "silco_fx_q_can.png",
+      "frames": 4,
+      "cell_1x": [
+        12,
+        10
+      ],
+      "layout": "horizontal",
+      "sheet_1x": [
+        48,
+        10
+      ],
+      "preview_scale": 8,
+      "symmetry": "top-bottom",
+      "symmetry_verified": true,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "raw_size": [
+        2172,
+        724
+      ],
+      "raw_layout": [
+        4,
+        1
+      ],
+      "raw_frame_bounds_fractions": null,
+      "binding": "view_projectiles `tft_silco_q_can`（抛物线弹道，z 2；朝右、上下对称）",
+      "occupied_pixels_per_frame": [
+        74,
+        80,
+        78,
+        76
+      ],
+      "unique_frame_count": 4
+    },
+    {
+      "file": "silco_fx_q_warn.png",
+      "frames": 4,
+      "cell_1x": [
+        26,
+        10
+      ],
+      "layout": "horizontal",
+      "sheet_1x": [
+        104,
+        10
+      ],
+      "preview_scale": 8,
+      "symmetry": "left-right",
+      "symmetry_verified": true,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "raw_size": [
+        2020,
+        778
+      ],
+      "raw_layout": [
+        4,
+        1
+      ],
+      "raw_frame_bounds_fractions": null,
+      "binding": "view_effects `tft_silco_q_warn`（落点，地面，z -2，不跟随；左右对称）",
+      "occupied_pixels_per_frame": [
+        76,
+        60,
+        68,
+        60
+      ],
+      "unique_frame_count": 4
+    },
+    {
+      "file": "silco_fx_q_burst.png",
+      "frames": 7,
+      "cell_1x": [
+        40,
+        34
+      ],
+      "layout": "horizontal",
+      "sheet_1x": [
+        280,
+        34
+      ],
+      "preview_scale": 8,
+      "symmetry": "left-right",
+      "symmetry_verified": true,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "raw_size": [
+        1701,
+        925
+      ],
+      "raw_layout": [
+        4,
+        2
+      ],
+      "raw_frame_bounds_fractions": null,
+      "binding": "view_effects `tft_silco_q_burst`（大表，落点，z 3，不跟随；左右对称）",
+      "occupied_pixels_per_frame": [
+        120,
+        318,
+        530,
+        620,
+        398,
+        240,
+        136
+      ],
+      "unique_frame_count": 7
+    },
+    {
+      "file": "silco_fx_m_leap.png",
+      "frames": 5,
+      "cell_1x": [
+        22,
+        46
+      ],
+      "layout": "horizontal",
+      "sheet_1x": [
+        110,
+        46
+      ],
+      "preview_scale": 8,
+      "symmetry": "left-right",
+      "symmetry_verified": true,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "raw_size": [
+        1983,
+        793
+      ],
+      "raw_layout": [
+        5,
+        1
+      ],
+      "raw_frame_bounds_fractions": null,
+      "binding": "view_effects `tft_silco_m_leap`（跟随被扑的人，z 3；左右对称）",
+      "occupied_pixels_per_frame": [
+        36,
+        54,
+        86,
+        52,
+        36
+      ],
+      "unique_frame_count": 5
+    },
+    {
+      "file": "silco_fx_m_bite.png",
+      "frames": 4,
+      "cell_1x": [
+        24,
+        38
+      ],
+      "layout": "horizontal",
+      "sheet_1x": [
+        96,
+        38
+      ],
+      "preview_scale": 8,
+      "symmetry": "none",
+      "symmetry_verified": true,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "raw_size": [
+        1983,
+        793
+      ],
+      "raw_layout": [
+        4,
+        1
+      ],
+      "raw_frame_bounds_fractions": null,
+      "binding": "view_effects `tft_silco_m_bite_l`（跟随被咬的人，z 3）；导入时左右翻转一份给 `tft_silco_m_bite_r`（咬在右边的那只）",
+      "occupied_pixels_per_frame": [
+        79,
+        61,
+        48,
+        78
+      ],
+      "unique_frame_count": 4
+    },
+    {
+      "file": "silco_fx_m_die.png",
+      "frames": 5,
+      "cell_1x": [
+        18,
+        12
+      ],
+      "layout": "horizontal",
+      "sheet_1x": [
+        90,
+        12
+      ],
+      "preview_scale": 8,
+      "symmetry": "left-right",
+      "symmetry_verified": true,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "raw_size": [
+        2172,
+        724
+      ],
+      "raw_layout": [
+        5,
+        1
+      ],
+      "raw_frame_bounds_fractions": [
+        0,
+        0.15,
+        0.365,
+        0.64,
+        0.84,
+        1
+      ],
+      "binding": "view_effects `tft_silco_m_die`（地面，z 2，不跟随；左右对称）",
+      "occupied_pixels_per_frame": [
+        44,
+        52,
+        106,
+        74,
+        38
+      ],
+      "unique_frame_count": 5
+    },
+    {
+      "file": "silco_fx_e_dose.png",
+      "frames": 5,
+      "cell_1x": [
+        20,
+        44
+      ],
+      "layout": "horizontal",
+      "sheet_1x": [
+        100,
+        44
+      ],
+      "preview_scale": 8,
+      "symmetry": "left-right",
+      "symmetry_verified": true,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "raw_size": [
+        1891,
+        832
+      ],
+      "raw_layout": [
+        5,
+        1
+      ],
+      "raw_frame_bounds_fractions": null,
+      "binding": "view_effects `tft_silco_e_dose`（跟随队友，z 3；左右对称）",
+      "occupied_pixels_per_frame": [
+        34,
+        90,
+        134,
+        180,
+        108
+      ],
+      "unique_frame_count": 5
+    },
+    {
+      "file": "silco_fx_e_shimmer.png",
+      "frames": 6,
+      "cell_1x": [
+        26,
+        42
+      ],
+      "layout": "horizontal",
+      "sheet_1x": [
+        156,
+        42
+      ],
+      "preview_scale": 8,
+      "symmetry": "left-right",
+      "symmetry_verified": true,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "raw_size": [
+        1975,
+        796
+      ],
+      "raw_layout": [
+        6,
+        1
+      ],
+      "raw_frame_bounds_fractions": null,
+      "binding": "view_buffs `tft_silco_e_shimmer`（跟随队友，z 3；左右对称）",
+      "occupied_pixels_per_frame": [
+        140,
+        180,
+        126,
+        190,
+        178,
+        176
+      ],
+      "unique_frame_count": 6
+    },
+    {
+      "file": "silco_fx_e_crash.png",
+      "frames": 5,
+      "cell_1x": [
+        22,
+        30
+      ],
+      "layout": "horizontal",
+      "sheet_1x": [
+        110,
+        30
+      ],
+      "preview_scale": 8,
+      "symmetry": "left-right",
+      "symmetry_verified": true,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "raw_size": [
+        1896,
+        830
+      ],
+      "raw_layout": [
+        5,
+        1
+      ],
+      "raw_frame_bounds_fractions": null,
+      "binding": "view_effects `tft_silco_e_crash`（跟随队友，z 3；左右对称）",
+      "occupied_pixels_per_frame": [
+        50,
+        144,
+        132,
+        88,
+        44
+      ],
+      "unique_frame_count": 5
+    },
+    {
+      "file": "silco_fx_r_can.png",
+      "frames": 4,
+      "cell_1x": [
+        22,
+        18
+      ],
+      "layout": "horizontal",
+      "sheet_1x": [
+        88,
+        18
+      ],
+      "preview_scale": 8,
+      "symmetry": "top-bottom",
+      "symmetry_verified": true,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "raw_size": [
+        2079,
+        756
+      ],
+      "raw_layout": [
+        4,
+        1
+      ],
+      "raw_frame_bounds_fractions": null,
+      "binding": "view_projectiles `tft_silco_r_can`（大表，抛物线弹道，z 2；朝右、上下对称）",
+      "occupied_pixels_per_frame": [
+        222,
+        232,
+        250,
+        214
+      ],
+      "unique_frame_count": 4
+    },
+    {
+      "file": "silco_fx_r_warn.png",
+      "frames": 6,
+      "cell_1x": [
+        60,
+        22
+      ],
+      "layout": "horizontal",
+      "sheet_1x": [
+        360,
+        22
+      ],
+      "preview_scale": 8,
+      "symmetry": "left-right",
+      "symmetry_verified": true,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "raw_size": [
+        2071,
+        759
+      ],
+      "raw_layout": [
+        6,
+        1
+      ],
+      "raw_frame_bounds_fractions": [
+        0,
+        0.15,
+        0.31,
+        0.5,
+        0.67,
+        0.84,
+        1
+      ],
+      "binding": "view_effects `tft_silco_r_warn`（大表，落点，地面，z -2，不跟随；左右对称）",
+      "occupied_pixels_per_frame": [
+        112,
+        216,
+        558,
+        564,
+        550,
+        544
+      ],
+      "unique_frame_count": 6
+    },
+    {
+      "file": "silco_fx_r_burst.png",
+      "frames": 10,
+      "cell_1x": [
+        72,
+        60
+      ],
+      "layout": "horizontal",
+      "sheet_1x": [
+        720,
+        60
+      ],
+      "preview_scale": 8,
+      "symmetry": "left-right",
+      "symmetry_verified": true,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "raw_size": [
+        1995,
+        788
+      ],
+      "raw_layout": [
+        5,
+        2
+      ],
+      "raw_frame_bounds_fractions": null,
+      "binding": "view_effects `tft_silco_r_burst`（大表，落点，z 3，不跟随；左右对称）",
+      "occupied_pixels_per_frame": [
+        314,
+        822,
+        1368,
+        2396,
+        1280,
+        1690,
+        1352,
+        900,
+        540,
+        334
+      ],
+      "unique_frame_count": 10
+    },
+    {
+      "file": "silco_fx_r_fog.png",
+      "frames": 6,
+      "cell_1x": [
+        84,
+        32
+      ],
+      "layout": "horizontal",
+      "sheet_1x": [
+        504,
+        32
+      ],
+      "preview_scale": 8,
+      "symmetry": "left-right",
+      "symmetry_verified": true,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "raw_size": [
+        2155,
+        730
+      ],
+      "raw_layout": [
+        6,
+        1
+      ],
+      "raw_frame_bounds_fractions": null,
+      "binding": "view_effects `tft_silco_r_fog`（大表，落点，地面，z -2，不跟随，每秒重播一次；左右对称）",
+      "occupied_pixels_per_frame": [
+        1062,
+        1176,
+        1050,
+        1106,
+        1188,
+        1086
+      ],
+      "unique_frame_count": 6
+    },
+    {
+      "file": "silco_fx_r_slow.png",
+      "frames": 4,
+      "cell_1x": [
+        20,
+        14
+      ],
+      "layout": "horizontal",
+      "sheet_1x": [
+        80,
+        14
+      ],
+      "preview_scale": 8,
+      "symmetry": "left-right",
+      "symmetry_verified": true,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "raw_size": [
+        2115,
+        743
+      ],
+      "raw_layout": [
+        4,
+        1
+      ],
+      "raw_frame_bounds_fractions": null,
+      "binding": "view_buffs `tft_silco_r_slow`（跟随被减速的人，z 3；左右对称）",
+      "occupied_pixels_per_frame": [
+        80,
+        82,
+        100,
+        90
+      ],
+      "unique_frame_count": 4
+    },
+    {
+      "file": "silco_fx_p_shield.png",
+      "frames": 6,
+      "cell_1x": [
+        28,
+        46
+      ],
+      "layout": "horizontal",
+      "sheet_1x": [
+        168,
+        46
+      ],
+      "preview_scale": 8,
+      "symmetry": "left-right",
+      "symmetry_verified": true,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "raw_size": [
+        2014,
+        780
+      ],
+      "raw_layout": [
+        6,
+        1
+      ],
+      "raw_frame_bounds_fractions": null,
+      "binding": "view_buffs `tft_silco_p_shield`（跟随他，护盾在就一直在，z 3；左右对称）",
+      "occupied_pixels_per_frame": [
+        212,
+        236,
+        150,
+        256,
+        210,
+        204
+      ],
+      "unique_frame_count": 6
+    },
+    {
+      "file": "silco_fx_p_dom.png",
+      "frames": 6,
+      "cell_1x": [
+        16,
+        48
+      ],
+      "layout": "horizontal",
+      "sheet_1x": [
+        96,
+        48
+      ],
+      "preview_scale": 8,
+      "symmetry": "left-right",
+      "symmetry_verified": true,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "raw_size": [
+        1774,
+        887
+      ],
+      "raw_layout": [
+        6,
+        1
+      ],
+      "raw_frame_bounds_fractions": null,
+      "binding": "view_buffs `tft_silco_d5`（tag p_dom，跟随他，z 4；左右对称）",
+      "occupied_pixels_per_frame": [
+        48,
+        54,
+        74,
+        84,
+        68,
+        46
+      ],
+      "unique_frame_count": 6
+    },
+    {
+      "file": "silco_icon_skill.png",
+      "frames": 1,
+      "cell_1x": [
+        64,
+        64
+      ],
+      "logical_grid": [
+        32,
+        32
+      ],
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "binding": "skill_icons[0] `asset/tft/icons/tft_silco_skill`",
+      "symmetry": "none"
+    },
+    {
+      "file": "silco_icon_skill2.png",
+      "frames": 1,
+      "cell_1x": [
+        64,
+        64
+      ],
+      "logical_grid": [
+        32,
+        32
+      ],
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "binding": "skill_icons[1] `asset/tft/icons/tft_silco_skill2`",
+      "symmetry": "none"
+    },
+    {
+      "file": "silco_icon_ult.png",
+      "frames": 1,
+      "cell_1x": [
+        64,
+        64
+      ],
+      "logical_grid": [
+        32,
+        32
+      ],
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "binding": "skill_icons[2] `asset/tft/icons/tft_silco_ult`",
+      "symmetry": "none"
+    }
+  ]
+}
