@@ -1,0 +1,102 @@
+[
+  {
+    "id": "a_wind",
+    "sourcePath": "C:\\Users\\OWNER\\.codex\\generated_images\\01a175dd-f8b7-70d0-8d86-63ff14676b26\\exec-247a8346-16f7-4cd8-a6d2-dcbf2f4b0346.png",
+    "rejectedOriginalPath": null
+  },
+  {
+    "id": "a_sweep",
+    "sourcePath": "C:\\Users\\OWNER\\.codex\\generated_images\\01a175dd-f8b7-70d0-8d86-63ff14676b26\\exec-6ab46263-ae53-4432-9837-f3726589ff3e.png",
+    "rejectedOriginalPath": null
+  },
+  {
+    "id": "q_cut1",
+    "sourcePath": "C:\\Users\\OWNER\\.codex\\generated_images\\01a175dd-f8b7-70d0-8d86-63ff14676b26\\exec-a945d39a-79e2-40e1-aa3e-353aa4b1b2c1.png",
+    "rejectedOriginalPath": null
+  },
+  {
+    "id": "q_cut2",
+    "sourcePath": "C:\\Users\\OWNER\\.codex\\generated_images\\01a175dd-f8b7-70d0-8d86-63ff14676b26\\exec-cbce7592-9d75-4e73-ac36-077a0ab4d744.png",
+    "rejectedOriginalPath": null
+  },
+  {
+    "id": "q_crouch",
+    "sourcePath": "C:\\Users\\OWNER\\.codex\\generated_images\\01a175dd-f8b7-70d0-8d86-63ff14676b26\\exec-27983976-6795-4d24-bcdf-a8f300fb8b75.png",
+    "rejectedOriginalPath": null
+  },
+  {
+    "id": "q_up",
+    "sourcePath": "C:\\Users\\OWNER\\.codex\\generated_images\\01a175dd-f8b7-70d0-8d86-63ff14676b26\\exec-d9ac31ed-e607-4237-bcaa-5f558235eec0.png",
+    "rejectedOriginalPath": null
+  },
+  {
+    "id": "w_thrust",
+    "sourcePath": "C:\\Users\\OWNER\\.codex\\generated_images\\01a175dd-f8b7-70d0-8d86-63ff14676b26\\exec-91f5d537-1fef-41f1-82a9-9e29e6c00af3.png",
+    "rejectedOriginalPath": null
+  },
+  {
+    "id": "w_pull",
+    "sourcePath": "C:\\Users\\OWNER\\.codex\\generated_images\\01a175dd-f8b7-70d0-8d86-63ff14676b26\\exec-c7e2c988-df10-4d76-b0d3-d69a5a02a4fd.png",
+    "rejectedOriginalPath": "C:\\Users\\OWNER\\.codex\\generated_images\\01a175dd-f8b7-70d0-8d86-63ff14676b26\\exec-22f80ee2-7626-4f8c-9faa-7a9a25367473.png"
+  },
+  {
+    "id": "e_dash",
+    "sourcePath": "C:\\Users\\OWNER\\.codex\\generated_images\\01a175dd-f8b7-70d0-8d86-63ff14676b26\\exec-0b3496cd-335d-4b83-bf67-b37da494454c.png",
+    "rejectedOriginalPath": "C:\\Users\\OWNER\\.codex\\generated_images\\01a175dd-f8b7-70d0-8d86-63ff14676b26\\exec-ad644172-3c51-4c8c-a597-0e3974246455.png"
+  },
+  {
+    "id": "e_spin",
+    "sourcePath": "C:\\Users\\OWNER\\.codex\\generated_images\\01a175dd-f8b7-70d0-8d86-63ff14676b26\\exec-6bfa20c4-9722-4a92-9fec-a89a3c50af06.png",
+    "rejectedOriginalPath": null
+  },
+  {
+    "id": "r_crouch",
+    "sourcePath": "C:\\Users\\OWNER\\.codex\\generated_images\\01a175dd-f8b7-70d0-8d86-63ff14676b26\\exec-28daf684-a191-4d6e-b458-2e428344ae24.png",
+    "rejectedOriginalPath": null
+  },
+  {
+    "id": "r_rise",
+    "sourcePath": "C:\\Users\\OWNER\\.codex\\generated_images\\01a175dd-f8b7-70d0-8d86-63ff14676b26\\exec-40787838-3374-4b4d-b9b9-6ff9caa81a66.png",
+    "rejectedOriginalPath": null
+  },
+  {
+    "id": "r_stab",
+    "sourcePath": "C:\\Users\\OWNER\\.codex\\generated_images\\01a175dd-f8b7-70d0-8d86-63ff14676b26\\exec-493a1303-65f4-4cd6-b3f0-7cd25194094c.png",
+    "rejectedOriginalPath": "C:\\Users\\OWNER\\.codex\\generated_images\\01a175dd-f8b7-70d0-8d86-63ff14676b26\\exec-a3ad7dfb-6b66-474f-9268-96cfaa9f48ca.png"
+  },
+  {
+    "id": "run1",
+    "sourcePath": "C:\\Users\\OWNER\\.codex\\generated_images\\01a175dd-f8b7-70d0-8d86-63ff14676b26\\exec-95519a04-ef56-47c4-b174-08362936e1c6.png",
+    "rejectedOriginalPath": "C:\\Users\\OWNER\\.codex\\generated_images\\01a175dd-f8b7-70d0-8d86-63ff14676b26\\exec-fa540fdf-9334-48f8-bb5f-eb495b62bb8c.png"
+  },
+  {
+    "id": "run2",
+    "sourcePath": "C:\\Users\\OWNER\\.codex\\generated_images\\01a175dd-f8b7-70d0-8d86-63ff14676b26\\exec-a3a4fc1b-6be0-4fa3-8260-bd05504df752.png",
+    "rejectedOriginalPath": "C:\\Users\\OWNER\\.codex\\generated_images\\01a175dd-f8b7-70d0-8d86-63ff14676b26\\exec-75709c32-2d62-4b24-a878-cb4898f704a4.png"
+  },
+  {
+    "id": "run3",
+    "sourcePath": "C:\\Users\\OWNER\\.codex\\generated_images\\01a175dd-f8b7-70d0-8d86-63ff14676b26\\exec-f604eaad-ba44-4a58-ba2c-ea5ad07005a3.png",
+    "rejectedOriginalPath": null
+  },
+  {
+    "id": "run4",
+    "sourcePath": "C:\\Users\\OWNER\\.codex\\generated_images\\01a175dd-f8b7-70d0-8d86-63ff14676b26\\exec-ba9a0707-2aea-4717-9688-e5ee72976503.png",
+    "rejectedOriginalPath": null
+  },
+  {
+    "id": "d_fall",
+    "sourcePath": "C:\\Users\\OWNER\\.codex\\generated_images\\01a175dd-f8b7-70d0-8d86-63ff14676b26\\exec-00723a08-6bc1-4aca-b714-6fa4ecb32d07.png",
+    "rejectedOriginalPath": null
+  },
+  {
+    "id": "d_down",
+    "sourcePath": "C:\\Users\\OWNER\\.codex\\generated_images\\01a175dd-f8b7-70d0-8d86-63ff14676b26\\exec-fed3700b-7322-4524-a3b1-9cd41c88f7d6.png",
+    "rejectedOriginalPath": null
+  },
+  {
+    "id": "rv_kneel",
+    "sourcePath": "C:\\Users\\OWNER\\.codex\\generated_images\\01a175dd-f8b7-70d0-8d86-63ff14676b26\\exec-a07f8f53-7552-4b4e-8485-1e2d99d462e1.png",
+    "rejectedOriginalPath": null
+  }
+]

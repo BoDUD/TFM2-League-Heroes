@@ -89,7 +89,7 @@ GitHub Actions（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)，Window
 
 ## 金铲铲之战系列（tft 包）
 
-第二个 mod，mod_id `tft`，名字「Teamfight Tactics Heroes」，源文件在 [`tft/`](tft/)：金铲铲之战（云顶之弈）里英雄联盟没有的棋子，第一个是爆爆（[`tft_powder`](docs/heroes/tft_powder.md)）。tft 包本身是纯数据，不带代码、也不带音频文件（音效是游戏本体自带的音频片段，在她自己的 `.sound_info` 里叠起来播）；高清帧借 `league.dll`（两个包都开着时它也画 `tft_` 开头的英雄的 `hd_` 帧，只开 tft 包时退回 1 倍帧）。工具链共用：`python tools/package_mod.py --src tft --hero powder --install` 装进 `<游戏>/mods/tft`，`ppu_hd.PACKS` 把她的图写进 `tft/champions/`，`lint_mod.py tft` 检查。
+第二个 mod，mod_id `tft`，名字「Teamfight Tactics Heroes」，源文件在 [`tft/`](tft/)：金铲铲之战（云顶之弈）里英雄联盟没有的棋子——爆爆（[`tft_powder`](docs/heroes/tft_powder.md)）和诺拉（[`tft_norra`](docs/heroes/tft_norra.md)，技能照英雄联盟手游）。tft 包本身是纯数据，不带代码：爆爆的音效是游戏本体自带的音频片段（在她自己的 `.sound_info` 里叠起来播），诺拉的是从英雄联盟客户端借的片段（和主包一样不进仓库，`tools/lol/extract_norra.py` 提取、打包时带上）；诺拉的手游规则在单独的原生附加包 [`tft_norra`](addons/tft_norra/README.md) 里（`tft_norra.dll`，依赖 tft 包）。高清帧借 `league.dll`（两个包都开着时它也画 `tft_` 开头的英雄的 `hd_` 帧，只开 tft 包时退回 1 倍帧）。工具链共用：`python tools/package_mod.py --src tft --hero powder --install` 装进 `<游戏>/mods/tft`，`ppu_hd.PACKS` 把她们的图写进 `tft/champions/`，`lint_mod.py tft` 检查。
 
 ## 英雄一览
 
@@ -98,9 +98,9 @@ GitHub Actions（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)，Window
 <!-- HEROES:BEGIN -->
 <!-- 这一段由 tools/docs/gen_hero_docs.py 生成，请不要手改。 -->
 
-共 172 位：主包 171 位、tft 包 1 位。点名字看这位英雄现在的技能、附加包和开发记录；表格版见 [docs/heroes.xlsx](docs/heroes.xlsx)。
+共 175 位：主包 173 位、tft 包 2 位。点名字看这位英雄现在的技能、附加包和开发记录；表格版见 [docs/heroes.xlsx](docs/heroes.xlsx)。
 
-### 上单（38）
+### 上单（39）
 
 | 头像 | 英雄 | 分路 | 技能 | 附加包 | 高清帧 |
 |---|---|---|---|---|---|
@@ -142,8 +142,9 @@ GitHub Actions（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)，Window
 | <img src="docs/heroes/img/league_vladimir.png" width="32"> | [弗拉基米尔](docs/heroes/league_vladimir.md)<br>Vladimir | 上单 | 被动 血色契约 · 鲜血转换 · 血之潮汐 · 大招 血之瘟疫 | [弗拉基米尔残血血池附加包](addons/league_vladimir_pool/README.md) | PPU 1.8 |
 | <img src="docs/heroes/img/league_volibear.png" width="32"> | [沃利贝尔](docs/heroes/league_volibear.md)<br>Volibear | 上单 | 擂首一击 · 霹天雳地 · 大招 天声震落 | [沃利贝尔附加包](addons/league_volibear/README.md) | PPU 1.2 |
 | <img src="docs/heroes/img/league_yorick.png" width="32"> | [约里克](docs/heroes/league_yorick.md)<br>Yorick | 上单 | 临终仪式 · 哀伤之雾 · 大招 海屿悼词 | [约里克附加包](addons/league_yorick/README.md) | PPU 1.75 |
+| <img src="docs/heroes/img/league_zaahen.png" width="32"> | [亚恒](docs/heroes/league_zaahen.md)<br>Zaahen | 上单 | 暗裔长刀 · 厄影回锋 · 大招 大赦 | [亚恒附加包](addons/league_zaahen/README.md) | PPU 1.75 |
 
-### 打野（39）
+### 打野（40）
 
 | 头像 | 英雄 | 分路 | 技能 | 附加包 | 高清帧 |
 |---|---|---|---|---|---|
@@ -178,6 +179,7 @@ GitHub Actions（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)，Window
 | <img src="docs/heroes/img/league_sejuani.png" width="32"> | [瑟庄妮](docs/heroes/league_sejuani.md)<br>Sejuani | 打野 | 极寒突袭 · 凛冬之怒 · 大招 极冰寒狱 | [瑟庄妮附加包](addons/league_sejuani/README.md) | PPU 2 |
 | <img src="docs/heroes/img/league_shaco.png" width="32"> | [萨科](docs/heroes/league_shaco.md)<br>Shaco | 打野 | 被动 背刺 · 欺诈魔术 · 惊吓魔盒 · 大招 幻像 | [萨科背刺附加包](addons/league_shaco_backstab/README.md) | — |
 | <img src="docs/heroes/img/league_shyvana.png" width="32"> | [希瓦娜](docs/heroes/league_shyvana.md)<br>Shyvana | 打野 | 焚焰打击 · 爆炎吐息 · 大招 魔龙降世 | [希瓦娜附加包](addons/league_shyvana/README.md) | PPU 1.5 |
+| <img src="docs/heroes/img/league_skarner.png" width="32"> | [斯卡纳](docs/heroes/league_skarner.md)<br>Skarner | 打野 | 撼地 · 以绪塔尔冲击 · 大招 毒刺贯体 | [斯卡纳附加包](addons/league_skarner/README.md) | PPU 1.75 |
 | <img src="docs/heroes/img/league_trundle.png" width="32"> | [特朗德尔](docs/heroes/league_trundle.md)<br>Trundle | 打野 | 利齿撕咬 · 寒冰之柱 · 大招 强权至上 | [特朗德尔附加包](addons/league_trundle/README.md) | PPU 2 |
 | <img src="docs/heroes/img/league_udyr.png" width="32"> | [乌迪尔](docs/heroes/league_udyr.md)<br>Udyr | 打野 | 狂暴爪击 · 踏火蛮冲 · 大招 极凌飓风 | [乌迪尔附加包](addons/league_udyr/README.md) | PPU 1.5 |
 | <img src="docs/heroes/img/league_vi.png" width="32"> | [蔚](docs/heroes/league_vi.md)<br>Vi | 打野 | 强能冲拳 · 透体之劲 · 大招 天霸横空烈轰 | — | — |
@@ -187,7 +189,7 @@ GitHub Actions（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)，Window
 | <img src="docs/heroes/img/league_xinzhao.png" width="32"> | [赵信](docs/heroes/league_xinzhao.md)<br>Xin Zhao | 打野 | 被动 果决 · 无畏冲锋 · 风斩电刺 · 大招 新月护卫 | [赵信大招远程免伤附加包](addons/league_xinzhao_guard/README.md) | PPU 1.5 |
 | <img src="docs/heroes/img/league_zac.png" width="32"> | [扎克](docs/heroes/league_zac.md)<br>Zac | 打野 | 延伸打击 · 橡筋弹弓 · 大招 动感弹球 | [扎克附加包](addons/league_zac/README.md) | PPU 1.5 |
 
-### 中单（43）
+### 中单（44）
 
 | 头像 | 英雄 | 分路 | 技能 | 附加包 | 高清帧 |
 |---|---|---|---|---|---|
@@ -233,6 +235,7 @@ GitHub Actions（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)，Window
 | <img src="docs/heroes/img/league_ziggs.png" width="32"> | [吉格斯](docs/heroes/league_ziggs.md)<br>Ziggs | 中单 | 弹跳炸弹 · 海克斯爆破雷区 · 大招 科学的地狱火炮 | [吉格斯附加包](addons/league_ziggs/README.md) | PPU 1.2 |
 | <img src="docs/heroes/img/league_zoe.png" width="32"> | [佐伊](docs/heroes/league_zoe.md)<br>Zoe | 中单 | 飞星乱入！ · 催眠气泡 · 大招 折返跃迁 | [佐伊附加包](addons/league_zoe/README.md) | PPU 1.5 |
 | <img src="docs/heroes/img/league_zyra.png" width="32"> | [婕拉](docs/heroes/league_zyra.md)<br>Zyra | 中单 | 致命棘刺 · 缠绕之根 · 大招 绞杀之藤 | [婕拉附加包](addons/league_zyra/README.md) | PPU 1.7 |
+| <img src="docs/heroes/img/tft_norra.png" width="32"> | [诺拉](docs/heroes/tft_norra.md)<br>Norra（tft 包） | 中单 | 回忆涌现 · 思乡线缕 · 大招 传送门欢腾！ | [诺拉附加包](addons/tft_norra/README.md) | PPU 2 |
 | <img src="docs/heroes/img/tft_powder.png" width="32"> | [爆爆](docs/heroes/tft_powder.md)<br>Powder（tft 包） | 中单 | 猴子炸弹 · 快跑，爆爆！ · 大招 海克斯水晶炸弹 | — | PPU 1.75 |
 
 ### ADC（25）

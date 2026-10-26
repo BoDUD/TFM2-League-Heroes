@@ -1,6 +1,6 @@
 [package]
 name = "league_illaoi"
-version = "0.2.10"
+version = "0.2.13"
 edition = "2021"
 publish = false
 
