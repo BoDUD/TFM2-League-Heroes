@@ -341,6 +341,11 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // 37 rows as her 1x sprite, so no SIZES row. In game she looked thin at 2.84 (「感觉降低像素就行了」): laid out
     // at 2.2 squares on her 2.84 grid with the face kept as drawn (ppu_restyle.py look, 「脸做好点啊」)
     ("league_samira", 2.84, include_str!("../../../league/champions/league_samira#anim.fanim")),
+    // Locke (2026's new champion, the user's pick): posed by tools/art/rig_locke.py on Codex's step-0 take A-1 brought to
+    // 88 rows (44 game px hair to soles) and its key poses after League's clips (the design's head put back, the bodies
+    // Codex drew bigger read at the design's size) at the user's 2.0 squares a game pixel (3/4 only; his W look's w_*
+    // tags league_locke's view hook swaps in), so no SIZES row
+    ("league_locke", 2.0, include_str!("../../../league/champions/league_locke#anim.fanim")),
     // Yunara: PPU 1.5 (the user's pick), posed from the design's own squares at that density by tools/art/rig_yunara.py
     // (40 game rows ornaments to soles), so no SIZES row
     ("league_yunara", 1.5, include_str!("../../../league/champions/league_yunara#anim.fanim")),
@@ -557,6 +562,9 @@ pub const UI_SIZES: &[(&str, f32)] = &[
     // Trundle: 42.5 game px from his mane to his feet at PPU 2.0 but 52 wide with the ice club (the card's canvas is 59.5):
     // at 1.0 the club and his feet ran off the card; UI size and card value set with bp_card_audit.py
     ("league_trundle", 0.82),
+    // Locke: 44 game px from his hair to his soles at PPU 2.0 (the card's canvas is 40 tall), the case swung out in his
+    // ult; UI size and card value set with bp_card_audit.py
+    ("league_locke", 0.85),
 ];
 
 /// The `"lo_..."` animation names of a .fanim.

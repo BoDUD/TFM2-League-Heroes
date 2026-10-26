@@ -1,0 +1,10 @@
+{
+  "asset/league/champion/league_locke": {
+    "remapping": "asset/league_locke/override/league_locke",
+    "type": "override"
+  },
+  "asset/base/text/champion": {
+    "remapping": "asset/league_locke/text/champion",
+    "type": "merge"
+  }
+}
