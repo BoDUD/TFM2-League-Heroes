@@ -1,0 +1,317 @@
+[
+  {
+    "file": "silco-pose-a_wind.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "alpha": [
+      0,
+      255
+    ],
+    "translation_y": 0,
+    "bbox": [
+      216,
+      51,
+      1127,
+      1177
+    ],
+    "grid_px_requested": 13,
+    "grid_exact_verified": false,
+    "head_pixel_identity_verified": false
+  },
+  {
+    "file": "silco-pose-a_throw.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "alpha": [
+      0,
+      255
+    ],
+    "translation_y": 0,
+    "bbox": [
+      73,
+      133,
+      1220,
+      1177
+    ],
+    "grid_px_requested": 13,
+    "grid_exact_verified": false,
+    "head_pixel_identity_verified": false
+  },
+  {
+    "file": "silco-pose-a_back.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "alpha": [
+      0,
+      255
+    ],
+    "translation_y": 0,
+    "bbox": [
+      401,
+      86,
+      906,
+      1177
+    ],
+    "grid_px_requested": 13,
+    "grid_exact_verified": false,
+    "head_pixel_identity_verified": false
+  },
+  {
+    "file": "silco-pose-q_wind.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "alpha": [
+      0,
+      255
+    ],
+    "translation_y": 0,
+    "bbox": [
+      343,
+      139,
+      980,
+      1177
+    ],
+    "grid_px_requested": 13,
+    "grid_exact_verified": false,
+    "head_pixel_identity_verified": false
+  },
+  {
+    "file": "silco-pose-q_throw.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "alpha": [
+      0,
+      255
+    ],
+    "translation_y": -18,
+    "bbox": [
+      334,
+      87,
+      976,
+      1177
+    ],
+    "grid_px_requested": 13,
+    "grid_exact_verified": false,
+    "head_pixel_identity_verified": false
+  },
+  {
+    "file": "silco-pose-e_show.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "alpha": [
+      0,
+      255
+    ],
+    "translation_y": 0,
+    "bbox": [
+      353,
+      74,
+      863,
+      1177
+    ],
+    "grid_px_requested": 13,
+    "grid_exact_verified": false,
+    "head_pixel_identity_verified": false
+  },
+  {
+    "file": "silco-pose-e_toss.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "alpha": [
+      0,
+      255
+    ],
+    "translation_y": 0,
+    "bbox": [
+      126,
+      167,
+      1057,
+      1177
+    ],
+    "grid_px_requested": 13,
+    "grid_exact_verified": false,
+    "head_pixel_identity_verified": false
+  },
+  {
+    "file": "silco-pose-r_raise.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "alpha": [
+      0,
+      255
+    ],
+    "translation_y": 0,
+    "bbox": [
+      205,
+      0,
+      1176,
+      1177
+    ],
+    "grid_px_requested": 13,
+    "grid_exact_verified": false,
+    "head_pixel_identity_verified": false
+  },
+  {
+    "file": "silco-pose-r_throw.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "alpha": [
+      0,
+      255
+    ],
+    "translation_y": 0,
+    "bbox": [
+      375,
+      87,
+      976,
+      1177
+    ],
+    "grid_px_requested": 13,
+    "grid_exact_verified": false,
+    "head_pixel_identity_verified": false
+  },
+  {
+    "file": "silco-pose-run1.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "alpha": [
+      0,
+      255
+    ],
+    "translation_y": 0,
+    "bbox": [
+      375,
+      112,
+      914,
+      1177
+    ],
+    "grid_px_requested": 13,
+    "grid_exact_verified": false,
+    "head_pixel_identity_verified": false
+  },
+  {
+    "file": "silco-pose-run2.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "alpha": [
+      0,
+      255
+    ],
+    "translation_y": 0,
+    "bbox": [
+      397,
+      111,
+      923,
+      1177
+    ],
+    "grid_px_requested": 13,
+    "grid_exact_verified": false,
+    "head_pixel_identity_verified": false
+  },
+  {
+    "file": "silco-pose-run3.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "alpha": [
+      0,
+      255
+    ],
+    "translation_y": 0,
+    "bbox": [
+      335,
+      85,
+      955,
+      1177
+    ],
+    "grid_px_requested": 13,
+    "grid_exact_verified": false,
+    "head_pixel_identity_verified": false
+  },
+  {
+    "file": "silco-pose-run4.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "alpha": [
+      0,
+      255
+    ],
+    "translation_y": 0,
+    "bbox": [
+      367,
+      80,
+      1043,
+      1177
+    ],
+    "grid_px_requested": 13,
+    "grid_exact_verified": false,
+    "head_pixel_identity_verified": false
+  },
+  {
+    "file": "silco-pose-d_fall.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "alpha": [
+      0,
+      255
+    ],
+    "translation_y": 0,
+    "bbox": [
+      220,
+      175,
+      1129,
+      1177
+    ],
+    "grid_px_requested": 13,
+    "grid_exact_verified": false,
+    "head_pixel_identity_verified": false
+  },
+  {
+    "file": "silco-pose-d_down.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "alpha": [
+      0,
+      255
+    ],
+    "translation_y": 0,
+    "bbox": [
+      216,
+      544,
+      1225,
+      1177
+    ],
+    "grid_px_requested": 13,
+    "grid_exact_verified": false,
+    "head_pixel_identity_verified": false
+  }
+]

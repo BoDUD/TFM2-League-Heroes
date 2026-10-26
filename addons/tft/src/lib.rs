@@ -5,6 +5,7 @@
 pub mod alune;
 pub mod maddie;
 pub mod norra;
+pub mod silco;
 
 use mod_api_stable::*;
 
@@ -13,6 +14,7 @@ fn init(host: &StableHost) -> StableMod {
     alune::register(host, &mut module);
     maddie::register(host, &mut module);
     norra::register(host, &mut module);
+    silco::register(host, &mut module);
     module
 }
 
