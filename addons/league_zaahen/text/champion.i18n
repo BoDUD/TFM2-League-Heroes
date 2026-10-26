@@ -1,0 +1,52 @@
+{
+  "zh-hans": {
+    "description": {
+      "league_zaahen": {
+        "attack": "【附加包】长刀横扫。<#ff9028ff>不落之志<>：每次伤害打中英雄叠1层果决（攻击力+1%，最多12层，叠满翻倍）；叠满时受到致命伤害就倒下：<#ffb900ff>4秒<>无敌、选不中，回到最大生命50%再展翼站起，果决叠满（每<#ffb900ff>60秒<>一次）。",
+        "skill": "【附加包】两连斩，每斩<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>85%<>物理伤害、打中英雄回复最大生命6%（别的单位一半）。<#ffb900ff>5.5秒<>内再按：上挑造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>并<#ef5350ff>击飞<><#ffb900ff>0.75秒<>。",
+        "skill2": "【附加包】刺出长刀：<#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>物理伤害、<#ef5350ff>晕眩<><#ffb900ff>0.25秒<>并拽回身边。<#ff9028ff>赤金突袭<>（每<#ffb900ff>9秒<>）：冲向英雄绕身斩<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<>，外圈+50%并加最大生命5%魔法伤害。",
+        "ult": "【附加包】展翼升空（免控、受到伤害-50%），冲向敌方英雄插刀落地：周围敌人受到<#ff9028ff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>180%<>物理伤害，每打中一个英雄回复<#7ae582ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7ae582ff>40%<>。被动：攻击无视20%护甲。"
+      }
+    }
+  },
+  "zh-hant": {
+    "description": {
+      "league_zaahen": {
+        "attack": "【附加包】長刀橫掃。<#ff9028ff>邪心修真<>：每次傷害打中英雄疊1層決心（攻擊力+1%，最多12層，疊滿翻倍）；疊滿時受到致命傷害就倒下：<#ffb900ff>4秒<>無敵、選不中，回到最大生命50%再展翼站起，決心疊滿（每<#ffb900ff>60秒<>一次）。",
+        "skill": "【附加包】兩連斬，每斬<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>85%<>物理傷害、打中英雄回復最大生命6%（其他單位一半）。<#ffb900ff>5.5秒<>內再按：上挑造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>並<#ef5350ff>擊飛<><#ffb900ff>0.75秒<>。",
+        "skill2": "【附加包】刺出長刀：<#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>物理傷害、<#ef5350ff>暈眩<><#ffb900ff>0.25秒<>並拽回身邊。<#ff9028ff>偃月天衝<>（每<#ffb900ff>9秒<>）：衝向英雄繞身斬<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<>，外圈+50%並加最大生命5%魔法傷害。",
+        "ult": "【附加包】展翼升空（免控、受到傷害-50%），衝向敵方英雄插刀落地：周圍敵人受到<#ff9028ff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>180%<>物理傷害，每打中一個英雄回復<#7ae582ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7ae582ff>40%<>。被動：攻擊無視20%護甲。"
+      }
+    }
+  },
+  "en": {
+    "description": {
+      "league_zaahen": {
+        "attack": "[Add-on] Glaive sweeps. <#ff9028ff>Cultivation of War<>: every damage instance on a champion stacks Determination (+1% attack each, up to 12, doubled when full); full, lethal damage fells him instead: <#ffb900ff>4s<> invulnerable and untargetable, back to 50% max health, he rises on his wings with Determination full (once every <#ffb900ff>60s<>).",
+        "skill": "[Add-on] Slashes twice, <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>85%<> physical damage each, healing 6% max health per slash on a champion (half on other units). Recast within <#ffb900ff>5.5s<>: an uppercut for <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> that <#ef5350ff>knocks up<> for <#ffb900ff>0.75s<>.",
+        "skill2": "[Add-on] Stabs the glaive forward: <#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> physical damage, <#ef5350ff>stuns<> for <#ffb900ff>0.25s<> and pulls to him. <#ff9028ff>Aureate Rush<> (every <#ffb900ff>9s<>): he dashes at a champion and spins for <#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<>, the outer edge 50% more and 5% max health magic damage.",
+        "ult": "[Add-on] Rises on his wings (crowd-control immune, 50% less damage taken) and dives on an enemy champion, driving the glaive into the ground: enemies around take <#ff9028ff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>180%<> physical damage; he heals <#7ae582ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7ae582ff>40%<> per champion hit. Passive: his hits ignore 20% armour."
+      }
+    }
+  },
+  "ko": {
+    "description": {
+      "league_zaahen": {
+        "attack": "[확장] 글레이브 휩쓸기. <#ff9028ff>전쟁 단련<>: 챔피언에게 피해를 줄 때마다 결의 1중첩(공격력 +1%, 최대 12, 최대면 2배); 최대일 때 치명적인 피해를 받으면 쓰러져 <#ffb900ff>4초<> 무적·대상 지정 불가, 최대 체력 50%로 날개를 펴고 일어나 결의 최대(<#ffb900ff>60초<>마다).",
+        "skill": "[확장] 두 번 벰: 한 번에 <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>85%<> 물리 피해, 챔피언 적중 시 최대 체력 6% 회복(다른 유닛은 절반). <#ffb900ff>5.5초<> 안에 재사용: 올려 베기로 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> 피해와 <#ffb900ff>0.75초<> <#ef5350ff>에어본<>.",
+        "skill2": "[확장] 글레이브로 찌름: <#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> 물리 피해, <#ffb900ff>0.25초<> <#ef5350ff>기절<>, 끌어당김. <#ff9028ff>찬란한 쇄도<>(<#ffb900ff>9초<>마다): 챔피언에게 돌진해 <#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> 회전 베기, 바깥 가장자리 50% 추가와 최대 체력 5% 마법 피해.",
+        "ult": "[확장] 날개를 펴고 솟아올라(군중 제어 면역, 받는 피해 -50%) 적 챔피언에게 내리꽂음: 주변 적에게 <#ff9028ff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>180%<> 물리 피해, 챔피언 적중마다 <#7ae582ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7ae582ff>40%<> 회복. 기본 지속 효과: 방어구 20% 관통."
+      }
+    }
+  },
+  "ja": {
+    "description": {
+      "league_zaahen": {
+        "attack": "【拡張】グレイヴで薙ぎ払う。<#ff9028ff>戦威修養<>：チャンピオンへのダメージ毎に決意1スタック（攻撃力+1%、最大12、最大で2倍）；最大時に致命傷を受けると倒れ<#ffb900ff>4秒<>無敵・対象不可、最大体力50%で翼を広げ立ち上がり決意最大（<#ffb900ff>60秒<>毎）。",
+        "skill": "【拡張】2回斬る：1回<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>85%<>の物理ダメージ、チャンピオン命中で最大体力6%回復（他は半分）。<#ffb900ff>5.5秒<>内に再使用：斬り上げで<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>と<#ffb900ff>0.75秒<><#ef5350ff>ノックアップ<>。",
+        "skill2": "【拡張】グレイヴを突き出す：<#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>の物理ダメージ、<#ffb900ff>0.25秒<><#ef5350ff>スタン<>して引き寄せる。<#ff9028ff>絢爛たる進撃<>（<#ffb900ff>9秒<>毎）：チャンピオンへ突進し回転斬り<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<>、外縁は50%増と最大体力5%の魔法ダメージ。",
+        "ult": "【拡張】翼を広げて舞い上がり（CC無効、被ダメージ-50%）、敵チャンピオンへ降下して突き立てる：周囲の敵に<#ff9028ff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>180%<>の物理ダメージ、チャンピオン1体ごとに<#7ae582ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7ae582ff>40%<>回復。自動効果：物理防御20%貫通。"
+      }
+    }
+  }
+}

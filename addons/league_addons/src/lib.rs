@@ -397,6 +397,9 @@ mod trundle;
 mod locke;
 #[path = "../../league_skarner/src/lib.rs"]
 mod skarner;
+#[allow(dead_code)] // items public in the add-on's own crate
+#[path = "../../league_zaahen/src/lib.rs"]
+mod zaahen;
 
 pub const ID: &str = "league_addons";
 
@@ -568,6 +571,7 @@ fn init(host: &StableHost) -> StableMod {
     trundle::register(host, &mut module);
     locke::register(host, &mut module);
     skarner::register(host, &mut module);
+    zaahen::register(host, &mut module);
     module.set_map_customizer(MapReaders);
     module.set_extension(BundleClient);
     host.log(
