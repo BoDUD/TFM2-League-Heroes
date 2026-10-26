@@ -448,18 +448,22 @@ pub const SIZES: &[(&str, f32)] = &[("league_gragas", 0.90), ("league_zeri", 1.0
 
 /// Heroes whose body grows with a stack: (id, the buff whose instances on him are the stacks, growth a stack). Cho'Gath's
 /// Feast (the user, 2026-10-19: 「变大可以无限 加生命」): every champion it eats is one more Permanent `league_chogath_r_stack`
-/// on him (+health, tools/kit/build_chogath.py r_stack_hp) and his body is drawn r_grow % bigger a stack, no cap, about
-/// his soles (src/view.rs: only the body's own commands, so his shadow and rings stay). The main pack loses the stacks
-/// at his death (Permanent buffs end with it); the add-on league_chogath puts them back. 15 % a stack (was 5 %: one bite
-/// put 2 game pixels on his 38, the user 2026-10-23: 「大虫子身体不变大」); one bite is now 6 more, five 1.75 times his size.
-pub const GROWTH: &[(&str, &str, f32)] = &[("league_chogath", "league_chogath_r_stack", 0.15)];
+/// on him (+health, tools/kit/build_chogath.py r_stack_hp) and his body is drawn r_grow % bigger a stack, up to GROW_CAP,
+/// about his soles (src/view.rs: only the body's own commands, so his shadow and rings stay). The main pack loses the
+/// stacks at his death (Permanent buffs end with it); the add-on league_chogath puts them back. 15 % a stack (was 5 %:
+/// one bite put 2 game pixels on his 38, the user 2026-10-23: 「大虫子身体不变大」), then 30 % a stack and at most twice his
+/// size (the user 2026-10-26 after a game with one bite, x1.15: 「大虫子体型不变大？」「隔壁oppi的大虫子就会变大的」, picked
+/// 30 % / 2x): one bite x1.3, four x2.
+pub const GROWTH: &[(&str, &str, f32)] = &[("league_chogath", "league_chogath_r_stack", 0.30)];
+/// The most a GROWTH body is drawn: twice its size.
+pub const GROW_CAP: f32 = 2.0;
 
 /// Game pixels from a frame's centre (the unit's position) down to its soles (tools/art/ppu_rig.py FEET).
 pub const FEET: f32 = 11.5;
 
-/// The body's growth for `stacks` stacks of a GROWTH row (1.0 for none).
+/// The body's growth for `stacks` stacks of a GROWTH row (1.0 for none, GROW_CAP at most).
 pub fn grown(per: f32, stacks: usize) -> f32 {
-    1.0 + per * stacks as f32
+    (1.0 + per * stacks as f32).min(GROW_CAP)
 }
 
 /// Effect sheets drawn dense like a hero's sheet (`idle` / `hd_idle` and any more tags, each with its hd_ twin; PPU squares

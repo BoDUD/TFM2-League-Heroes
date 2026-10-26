@@ -29,24 +29,24 @@ O, A, M, E, APi = setup.O, setup.A, setup.M, setup.E, setup.APi
 TEXT = {
     "zh-hans": {
         "ult": "【扩展包】只在一口吃得死时吞噬敌方英雄：" + O + "{r_dmg}" + E + " + 自身{r_hp}%最大生命的真实伤害和" + APi + M + "{r_ap}%" +
-               E + "无视魔抗的魔法伤害；吃掉则叠一层：最大生命+{r_stack_hp}、体型变大（不封顶，死后保留）。",
+               E + "无视魔抗的魔法伤害；吃掉则叠一层：最大生命+{r_stack_hp}、体型变大（最多 2 倍，死后保留）。",
     },
     "zh-hant": {
         "ult": "【擴充包】只在一口吃得死時吞噬敵方英雄：" + O + "{r_dmg}" + E + " + 自身{r_hp}%最大生命的真實傷害和" + APi + M + "{r_ap}%" +
-               E + "無視魔抗的魔法傷害；吃掉則疊一層：最大生命+{r_stack_hp}、體型變大（不封頂，死後保留）。",
+               E + "無視魔抗的魔法傷害；吃掉則疊一層：最大生命+{r_stack_hp}、體型變大（最多 2 倍，死後保留）。",
     },
     "en": {
         "ult": "[Add-on] Devours an enemy champion only when one bite kills: " + O + "{r_dmg}" + E + " + {r_hp}% of his max "
                "health as true damage and " + APi + M + "{r_ap}%" + E + " magic damage through all magic resist. A kill is a "
-               "stack: +{r_stack_hp} max health and a bigger body (no cap; kept through death).",
+               "stack: +{r_stack_hp} max health and a bigger body (up to 2x; kept through death).",
     },
     "ko": {
         "ult": "[확장] 한 번에 처치할 수 있을 때만 적 챔피언을 삼켜 " + O + "{r_dmg}" + E + " + 최대 체력 {r_hp}% 고정 피해와 " + APi + M +
-               "{r_ap}%" + E + " 마법 피해(마법 저항 무시). 처치하면 중첩: 최대 체력 +{r_stack_hp}, 몸집 증가(제한 없음, 사망해도 유지).",
+               "{r_ap}%" + E + " 마법 피해(마법 저항 무시). 처치하면 중첩: 최대 체력 +{r_stack_hp}, 몸집 증가(최대 2배, 사망해도 유지).",
     },
     "ja": {
         "ult": "【拡張】一撃で倒せる時だけ敵チャンピオンを捕食し" + O + "{r_dmg}" + E + "+最大体力{r_hp}%の確定ダメージと" + APi + M + "{r_ap}%" +
-               E + "の魔法ダメージ（魔法防御無視）。倒すとスタック：最大体力+{r_stack_hp}、体が大きくなる（上限なし、死亡後も残る）。",
+               E + "の魔法ダメージ（魔法防御無視）。倒すとスタック：最大体力+{r_stack_hp}、体が大きくなる（最大2倍、死亡後も残る）。",
     },
 }
 CONSTS = {"r_dmg": "R_DMG", "r_hp": "R_HP", "r_ap": "R_AP", "r_range": "R_RANGE"}
