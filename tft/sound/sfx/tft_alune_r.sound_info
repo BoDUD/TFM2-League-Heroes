@@ -1,0 +1,14 @@
+{
+  "plays": [
+    {
+      "delay": 0.0,
+      "clip": "tft_alune_sfx_r",
+      "volume": 0.5
+    },
+    {
+      "delay": 0.0,
+      "clip": "tft_alune_sfx_r_vo",
+      "volume": 0.6
+    }
+  ]
+}
