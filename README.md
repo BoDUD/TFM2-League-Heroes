@@ -98,7 +98,7 @@ GitHub Actions（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)，Window
 <!-- HEROES:BEGIN -->
 <!-- 这一段由 tools/docs/gen_hero_docs.py 生成，请不要手改。 -->
 
-共 176 位：主包 173 位、tft 包 3 位。点名字看这位英雄现在的技能、附加包和开发记录；表格版见 [docs/heroes.xlsx](docs/heroes.xlsx)。
+共 177 位：主包 173 位、tft 包 4 位。点名字看这位英雄现在的技能、附加包和开发记录；表格版见 [docs/heroes.xlsx](docs/heroes.xlsx)。
 
 ### 上单（39）
 
@@ -189,7 +189,7 @@ GitHub Actions（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)，Window
 | <img src="docs/heroes/img/league_xinzhao.png" width="32"> | [赵信](docs/heroes/league_xinzhao.md)<br>Xin Zhao | 打野 | 被动 果决 · 无畏冲锋 · 风斩电刺 · 大招 新月护卫 | [赵信大招远程免伤附加包](addons/league_xinzhao_guard/README.md) | PPU 1.5 |
 | <img src="docs/heroes/img/league_zac.png" width="32"> | [扎克](docs/heroes/league_zac.md)<br>Zac | 打野 | 延伸打击 · 橡筋弹弓 · 大招 动感弹球 | [扎克附加包](addons/league_zac/README.md) | PPU 1.5 |
 
-### 中单（45）
+### 中单（46）
 
 | 头像 | 英雄 | 分路 | 技能 | 附加包 | 高清帧 |
 |---|---|---|---|---|---|
@@ -238,6 +238,7 @@ GitHub Actions（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)，Window
 | <img src="docs/heroes/img/tft_alune.png" width="32"> | [拉露恩](docs/heroes/tft_alune.md)<br>Alune（tft 包） | 中单 | 月之降临 · 月华 · 大招 月曜降临 | — | PPU 2 |
 | <img src="docs/heroes/img/tft_norra.png" width="32"> | [诺拉](docs/heroes/tft_norra.md)<br>Norra（tft 包） | 中单 | 回忆涌现 · 思乡线缕 · 大招 传送门欢腾！ | — | PPU 2 |
 | <img src="docs/heroes/img/tft_powder.png" width="32"> | [爆爆](docs/heroes/tft_powder.md)<br>Powder（tft 包） | 中单 | 猴子炸弹 · 快跑，爆爆！ · 大招 海克斯水晶炸弹 | — | PPU 1.75 |
+| <img src="docs/heroes/img/tft_silco.png" width="32"> | [希尔科](docs/heroes/tft_silco.md)<br>Silco（tft 包） | 中单 | 罐装畸变体 · 微光注射 · 大招 炼金狂潮 | — | PPU 2 |
 
 ### ADC（25）
 
