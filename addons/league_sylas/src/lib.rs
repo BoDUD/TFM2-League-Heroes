@@ -183,9 +183,15 @@ pub fn kingslayer_heal(ap: usize, share: f64, p: &Params) -> usize {
     (base * (1.0 + p.w_miss as f64 / 100.0 * missing)).round() as usize
 }
 
-/// 偷到这名英雄时放他自己的大招吗（本包的英雄联盟英雄，`stealable.rs`），放的话是 `steal_<英雄>` 里的英雄名。
+/// 偷到这名英雄时放他自己的大招吗（`stealable.rs`：英雄联盟英雄和 tft 包的英雄），放的话是 `steal_<英雄>` 里的英雄名：
+/// 英雄联盟英雄去掉 `league_`（`jinx`），tft 英雄原样（`tft_powder`）。
 pub fn own_ult(name: &str) -> Option<&str> {
-    stealable::STEALABLE.binary_search(&name).ok().and_then(|_| name.strip_prefix("league_"))
+    stealable::STEALABLE.binary_search(&name).ok().map(|_| steal_key(name))
+}
+
+/// `steal_<英雄>` 里的英雄名（make_override.py 的 key）。
+pub fn steal_key(name: &str) -> &str {
+    name.strip_prefix("league_").unwrap_or(name)
 }
 
 /// 夺来的大招放的时候加多少攻击：法强的 `r2_ad`%（英雄联盟把偷来的大招的攻击力系数换成塞拉斯的法强）。
@@ -387,9 +393,12 @@ mod tests {
         assert_eq!(own_ult("league_sylas"), None);
         assert_eq!(own_ult("league_mel"), None);        // BY_CLASS: her R strikes only her own stacks
         assert_eq!(own_ult("fighter"), None);
-        assert_eq!(own_ult("tft_powder"), None);
+        // the TFT heroes (2026-10-26): Powder's ult is plain data; Alune's needs her phases, Norra's is tft.dll's code
+        assert_eq!(own_ult("tft_powder"), Some("tft_powder"));
+        assert_eq!(own_ult("tft_alune"), None);
+        assert_eq!(own_ult("tft_norra"), None);
         assert!(stealable::STEALABLE.windows(2).all(|w| w[0] < w[1]));
-        assert!(stealable::STEALABLE.iter().all(|n| sn(&format!("steal_{}", &n[7..])).len() <= BUFF_NAME_CAP));
+        assert!(stealable::STEALABLE.iter().all(|n| sn(&format!("steal_{}", steal_key(n))).len() <= BUFF_NAME_CAP));
     }
 
     #[test]
@@ -404,12 +413,16 @@ mod tests {
         // classes.rs and stealable.rs are generated (make_override.py); a new hero's ult is checked with
         // tools/kit/sylas_steal_check.py and lands in stealable.rs or in make_override.py's BY_CLASS (2026-10-21: Ornn's
         // works in his hands, Shyvana's needs her Fury - both were missing until then)
-        let dir = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../../league/champion");
-        let heroes: Vec<String> = std::fs::read_dir(&dir)
-            .expect("league/champion")
-            .filter_map(|e| e.ok()?.file_name().into_string().ok()?.strip_suffix(".data_champion").map(str::to_string))
-            .collect();
-        assert!(heroes.len() > 100, "read only {} heroes from {}", heroes.len(), dir.display());
+        let root = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
+        let mut heroes: Vec<String> = Vec::new();
+        for (dir, least) in [("league/champion", 100), ("tft/champion", 3)] {
+            let found: Vec<String> = std::fs::read_dir(root.join(dir))
+                .expect(dir)
+                .filter_map(|e| e.ok()?.file_name().into_string().ok()?.strip_suffix(".data_champion").map(str::to_string))
+                .collect();
+            assert!(found.len() >= least, "read only {} heroes from {dir}", found.len());
+            heroes.extend(found);
+        }
         let src = std::fs::read_to_string(concat!(env!("CARGO_MANIFEST_DIR"), "/../../addons/league_sylas/make_override.py"))
             .unwrap();
         let start = src.find("BY_CLASS = {").expect("BY_CLASS in make_override.py");
