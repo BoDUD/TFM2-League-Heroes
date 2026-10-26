@@ -1,11 +1,14 @@
 """Build tft_norra.data_champion (the tft pack's second hero: Norra, mid, Magician) from the parameters P.
 
-    python tools/kit/build_norra.py [--set key=value ...] [--out file] [--params json] [--nodes] [--native]
+    python tools/kit/build_norra.py [--set key=value ...] [--out file] [--params json] [--nodes] [--plain]
 
 Norra is the yordle portal mage of Bandle City - in Teamfight Tactics set 12 the unit "Norra & Yuumi", and since
 2026-02 a champion of League of Legends: Wild Rift (英雄联盟手游), its first one of its own. Her kit follows Wild Rift's
 (the user, 2026-10-26: 「你要参照手游的技能啊」「参照金铲铲的干嘛」 - TFT's ability and Yuumi dropped), what the data
-cannot do in the add-on (「不一致的地方就做附加包」: addons/tft_norra, the copy built with --native). TFM2 has three
+cannot do in the tft pack's own code (「不一致的地方就做附加包」, then 「诺拉和爆爆合并在一个mod啊」: tft.dll,
+addons/tft/src/norra.rs - the kit calls its effects, its passive is tft_norra:trinkets; --plain builds the data alone,
+the field / attack-portal / volley approximations below, for the classic-engine balance sims, which run no DLL code;
+the descriptions below are --plain's, norra.rs says what the DLL does instead). TFM2 has three
 active slots: Memory Surge (Q) is `skill`, Threads of Homecoming (E) `skill2`, Portalpalooza! (R) the `ult`; Journey to
 Nowhere (W) is folded into the passive with Beloved Trinkets (the user's pick: layout A - W as her lifeline).
   passive Beloved Trinkets (寄情琐物): every p_cd ticks her next Q or E leaves trinkets where it lands (Wild Rift: 2-4
@@ -81,7 +84,7 @@ P = {
     "r_cd": 3000, "r_range": 100000, "r_dur": 40, "r_rel": 25, "r_travel": 10, "r_r": 35000, "r_gap": 30,
     "r_dmg": 30, "r_ratio": 15, "r_last": 40, "r_slow": 80, "r_slow_t": 30, "r_show": 30,
 }
-# what the add-on reads from passive.params (addons/tft_norra)
+# what tft.dll reads from passive.params (addons/tft/src/norra.rs)
 NATIVE_KEYS = ("p_cd", "p_tr", "p_life", "p_dmg", "p_ratio", "p_show", "w_cd", "w_r", "w_dmg", "w_ratio", "w_t",
                "w_slow", "w_slow_t", "q_prime_r", "q_bonus", "t_t", "t_size", "t_amp", "t_slow", "t_slow_t", "r_r", "r_gap", "r_dmg", "r_ratio",
                "r_last", "r_slow", "r_slow_t")
@@ -143,7 +146,7 @@ def tsfx(name):
 
 
 def native(name):
-    """One of the add-on's effects (addons/tft_norra): on a projectile's landing point, or on the unit a hit is on."""
+    """One of tft.dll's effects (addons/tft/src/norra.rs): on a projectile's landing point, or on the unit a hit is on."""
     return {"type": "Native", "effect_ref": f"{ID}:{name}"}
 
 
@@ -313,13 +316,26 @@ def nodes(o):
     return 0
 
 
+def check_dll_defaults(p):
+    """addons/tft/src/norra.rs's Params::default() holds P's numbers (tft.dll reads passive.params; the defaults are its
+    fallback)."""
+    import re
+    src = open(lp(os.path.join(REPO, "addons", "tft", "src", "norra.rs")), encoding="utf-8").read()
+    m = re.search(r"impl Default for Params \{.*?Self \{(.*?)\}", src, re.S)
+    got = {k: int(v.replace("_", "")) for k, v in re.findall(r"(\w+): ([\d_]+),", m.group(1))}
+    bad = {k: (got.get(k), p[k]) for k in NATIVE_KEYS if got.get(k) != p[k]}
+    if bad or set(got) != set(NATIVE_KEYS):
+        raise SystemExit(f"norra.rs Params::default() differs from P (norra.rs, P): {bad}, keys "
+                         f"{sorted(set(got) ^ set(NATIVE_KEYS))}")
+
+
 def main():
     ap_ = argparse.ArgumentParser()
     ap_.add_argument("--set", nargs="*", default=[], help="every key=value after ONE --set (a second --set replaces it)")
     ap_.add_argument("--params", help="json file with overrides")
     ap_.add_argument("--out", default=OUT)
     ap_.add_argument("--nodes", action="store_true")
-    ap_.add_argument("--native", action="store_true", help="the add-on's copy (addons/tft_norra)")
+    ap_.add_argument("--plain", action="store_true", help="the data alone, no tft.dll calls (for the balance sims)")
     a = ap_.parse_args()
     p = dict(P)
     if a.params:
@@ -329,7 +345,9 @@ def main():
         if k not in p:
             raise SystemExit(f"unknown parameter {k}")
         p[k] = type(p[k])(float(v)) if isinstance(p[k], int) else float(v)
-    kit = build(p, a.native)
+    if not a.set and not a.params:
+        check_dll_defaults(p)
+    kit = build(p, not a.plain)
     if a.nodes:
         for s in ("attack", "skill", "skill2", "ult"):
             print(f"{s:7s} {nodes(kit[s]['effect']):4d} nodes")

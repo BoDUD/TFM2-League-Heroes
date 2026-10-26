@@ -10,10 +10,10 @@
       },
       "tft_norra": {
         "name": "诺拉",
-        "attack": "星光弹造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>。<#ff9028ff>寄情琐物<>：每<#ffb900ff>10秒<>，下个技能落点留下琐物<#ffb900ff>4秒<>，走进的敌方英雄受到<#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>魔法伤害并挂<#ff9028ff>线缕<>。<#ff9028ff>奇异旅程<>：普攻时敌方英雄贴身，开门造成<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>魔法伤害，<#ef5350ff>放逐<><#ffb900ff>1.5秒<>后<#ef5350ff>减速<>80%<#ffb900ff>0.75秒<>（每<#ffb900ff>25秒<>）。",
-        "skill": "蓄力后射出回忆魔法弹，自己后退一步：落点周围敌人受到<#a974ffff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>28%<>魔法伤害，英雄挂上<#ff9028ff>线缕<>；那里有琐物时一并引爆，附近的敌方英雄再受琐物伤害。",
+        "attack": "普攻<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>。<#ff9028ff>寄情琐物<>：每<#ffb900ff>10秒<>技能落点撒3个琐物<#ffb900ff>4秒<>，飞向踩到的敌方英雄：<#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>魔法伤害并挂<#ff9028ff>线缕<>；技能命中英雄冷却-20%。<#ff9028ff>奇异旅程<>：贴身的敌人受<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>魔法伤害，<#ef5350ff>放逐<><#ffb900ff>1.5秒<>后<#ef5350ff>减速<>80%<#ffb900ff>0.75秒<>。",
+        "skill": "蓄力后射出回忆魔法弹，自己后退一步：落点周围敌人受到<#a974ffff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>28%<>魔法伤害，已有<#ff9028ff>线缕<>的英雄再受最大生命2%，随后挂上线缕；打中英雄时地上的琐物待爆：敌方英雄靠近就飞向他。",
         "skill2": "在目标两侧打开两扇门，<#ffb900ff>0.3秒<>后线缕穿过：范围内敌人受到<#a974ffff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>26%<>魔法伤害并挂上<#ff9028ff>线缕<>：<#ffb900ff>4秒<>内体型变大15%（更容易被命中），<#ef5350ff>减速<>20%<#ffb900ff>2秒<>。",
-        "ult": "在敌方英雄脚下展开大裂隙，每<#ffb900ff>0.5秒<>一波毛线球横穿，共4波：裂隙里的敌方英雄每波受到<#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<>魔法伤害并<#ef5350ff>减速<>80%<#ffb900ff>0.5秒<>，第4波伤害+40%。"
+        "ult": "在敌方英雄脚下展开大裂隙，每<#ffb900ff>0.5秒<>一波共4波：两个毛线球沿一条穿过敌方英雄的线从两头对飞，路上敌人各受<#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<>魔法伤害，每个球碰到的第一个英雄<#ef5350ff>减速<>80%<#ffb900ff>0.5秒<>；第4波+40%。"
       }
     },
     "skill_name": {
@@ -40,10 +40,10 @@
       },
       "tft_norra": {
         "name": "諾拉",
-        "attack": "星光彈造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>。<#ff9028ff>心愛飾品<>：每<#ffb900ff>10秒<>，下個技能落點留下飾品<#ffb900ff>4秒<>，走進的敵方英雄受到<#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>魔法傷害並掛<#ff9028ff>絲線<>。<#ff9028ff>茫然旅程<>：普攻時敵方英雄貼身，開門造成<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>魔法傷害，<#ef5350ff>放逐<><#ffb900ff>1.5秒<>後<#ef5350ff>緩速<>80%<#ffb900ff>0.75秒<>（每<#ffb900ff>25秒<>）。",
-        "skill": "蓄力後射出記憶魔法彈，自己後退一步：落點周圍敵人受到<#a974ffff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>28%<>魔法傷害，英雄掛上<#ff9028ff>絲線<>；那裡有飾品時一併引爆，附近的敵方英雄再受飾品傷害。",
+        "attack": "普攻<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>。<#ff9028ff>心愛飾品<>：每<#ffb900ff>10秒<>技能落點撒3個飾品<#ffb900ff>4秒<>，飛向踩到的敵方英雄：<#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>魔法傷害並掛<#ff9028ff>絲線<>；技能命中英雄冷卻-20%。<#ff9028ff>茫然旅程<>：貼身的敵人受<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>魔法傷害，<#ef5350ff>放逐<><#ffb900ff>1.5秒<>後<#ef5350ff>緩速<>80%<#ffb900ff>0.75秒<>。",
+        "skill": "蓄力後射出記憶魔法彈，自己後退一步：落點周圍敵人受到<#a974ffff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>28%<>魔法傷害，已有<#ff9028ff>絲線<>的英雄再受最大生命2%，隨後掛上絲線；打中英雄時地上的飾品待爆：敵方英雄靠近就飛向他。",
         "skill2": "在目標兩側打開兩扇門，<#ffb900ff>0.3秒<>後絲線穿過：範圍內敵人受到<#a974ffff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>26%<>魔法傷害並掛上<#ff9028ff>絲線<>：<#ffb900ff>4秒<>內體型變大15%（更容易被命中），<#ef5350ff>緩速<>20%<#ffb900ff>2秒<>。",
-        "ult": "在敵方英雄腳下展開大裂隙，每<#ffb900ff>0.5秒<>一波毛線球橫穿，共4波：裂隙裡的敵方英雄每波受到<#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<>魔法傷害並<#ef5350ff>緩速<>80%<#ffb900ff>0.5秒<>，第4波傷害+40%。"
+        "ult": "在敵方英雄腳下展開大裂隙，每<#ffb900ff>0.5秒<>一波共4波：兩個毛線球沿一條穿過敵方英雄的線從兩頭對飛，路上敵人各受<#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<>魔法傷害，每個球碰到的第一個英雄<#ef5350ff>緩速<>80%<#ffb900ff>0.5秒<>；第4波+40%。"
       }
     },
     "skill_name": {
@@ -70,10 +70,10 @@
       },
       "tft_norra": {
         "name": "Norra",
-        "attack": "Star bolt: <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<>. <#ff9028ff>Beloved Trinkets<>: every <#ffb900ff>10s<> her next ability leaves trinkets where it lands (<#ffb900ff>4s<>): enemy champions walking in take <#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<> <#a974ffff>magic damage<> and the <#ff9028ff>Threads<>. <#ff9028ff>Journey to Nowhere<>: an enemy champion close as she attacks takes <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> <#a974ffff>magic damage<>, <#ef5350ff>banished<> <#ffb900ff>1.5s<>, then <#ef5350ff>slowed<> 80% <#ffb900ff>0.75s<> (every <#ffb900ff>25s<>).",
-        "skill": "Charges, then flings a bolt of memories and hops back: enemies around where it lands take <#a974ffff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>28%<> <#a974ffff>magic damage<>, champions get the <#ff9028ff>Threads<>. Trinkets lying there burst too: enemy champions near the blast take their damage.",
+        "attack": "Star bolt: <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<>. <#ff9028ff>Beloved Trinkets<>: every <#ffb900ff>10s<> the next ability drops 3 trinkets (<#ffb900ff>4s<>), each flying to the champion stepping on it: <#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<> <#a974ffff>magic damage<> + <#ff9028ff>Threads<>; ability hits on champions cut it 20%. <#ff9028ff>Journey to Nowhere<>: a close enemy champion takes <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>, is <#ef5350ff>banished<> <#ffb900ff>1.5s<>, then <#ef5350ff>slowed<> 80% <#ffb900ff>0.75s<>.",
+        "skill": "Charges, then flings a bolt of memories and hops back: enemies around where it lands take <#a974ffff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>28%<> <#a974ffff>magic damage<>, champions already in the <#ff9028ff>Threads<> 2% of their max health more, then get them. Hitting a champion primes her trinkets: they fly to any enemy champion coming near.",
         "skill2": "Opens two portals beside the target; <#ffb900ff>0.3s<> later threads shoot between them: enemies there take <#a974ffff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>26%<> <#a974ffff>magic damage<> and get the <#ff9028ff>Threads<>: 15% bigger (easier to hit) for <#ffb900ff>4s<> and <#ef5350ff>slowed<> 20% for <#ffb900ff>2s<>.",
-        "ult": "Opens a great rift under an enemy champion: 4 volleys of yarn balls cross it <#ffb900ff>0.5s<> apart, each hitting the enemy champions inside for <#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<> <#a974ffff>magic damage<> and <#ef5350ff>slowing<> them 80% for <#ffb900ff>0.5s<>; the 4th deals 40% more."
+        "ult": "Opens a great rift under an enemy champion: 4 recasts <#ffb900ff>0.5s<> apart, each sending a yarn ball from both ends along a line through an enemy champion: <#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<> <#a974ffff>magic damage<> to every enemy on it, the first champion each ball meets <#ef5350ff>slowed<> 80% for <#ffb900ff>0.5s<>; the 4th deals 40% more."
       }
     },
     "skill_name": {
@@ -100,10 +100,10 @@
       },
       "tft_norra": {
         "name": "노라",
-        "attack": "별빛 탄환으로 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> 물리 피해. <#ff9028ff>소중한 장신구<>: <#ffb900ff>10초<>마다 다음 스킬이 떨어진 곳에 장신구를 <#ffb900ff>4초<> 남김: 들어온 적 챔피언은 <#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<> 마법 피해와 <#ff9028ff>실타래<>. <#ff9028ff>미지로의 여정<>: 공격 시 적 챔피언이 붙어 있으면 차원문: <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> 마법 피해, <#ffb900ff>1.5초<> <#ef5350ff>추방<> 뒤 <#ffb900ff>0.75초<> 80% <#ef5350ff>둔화<>(<#ffb900ff>25초<>마다).",
-        "skill": "충전 후 기억의 탄환을 날리고 뒤로 물러난다: 떨어진 곳 주변 적에게 <#a974ffff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>28%<> 마법 피해, 챔피언에게 <#ff9028ff>실타래<>. 그곳의 장신구도 터져 근처 적 챔피언이 장신구 피해를 받는다.",
+        "attack": "별빛 탄환 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> 물리 피해. <#ff9028ff>소중한 장신구<>: <#ffb900ff>10초<>마다 스킬 착지점에 장신구 3개(<#ffb900ff>4초<>), 밟은 적에게 날아가 <#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<> 마법 피해와 <#ff9028ff>실타래<>. 스킬이 챔피언 적중 시 대기시간 -20%. <#ff9028ff>미지로의 여정<>: 붙은 적 챔피언에게 <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> 마법 피해, <#ffb900ff>1.5초<> <#ef5350ff>추방<> 뒤 <#ffb900ff>0.75초<> 80% <#ef5350ff>둔화<>.",
+        "skill": "충전 후 기억의 탄환을 날리고 뒤로 물러난다: 떨어진 곳 주변 적에게 <#a974ffff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>28%<> 마법 피해, <#ff9028ff>실타래<>가 있던 챔피언은 최대 체력 2% 추가 후 실타래. 챔피언에게 맞으면 장신구가 가까이 온 적 챔피언에게 날아간다.",
         "skill2": "대상 양옆에 차원문 두 개를 열고 <#ffb900ff>0.3초<> 뒤 실타래가 지나간다: 범위의 적에게 <#a974ffff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>26%<> 마법 피해와 <#ff9028ff>실타래<>: <#ffb900ff>4초<> 동안 15% 커지고(맞히기 쉬움) <#ffb900ff>2초<> 동안 20% <#ef5350ff>둔화<>.",
-        "ult": "적 챔피언 발밑에 큰 균열을 열고 <#ffb900ff>0.5초<>마다 털실 뭉치가 4번 가로지른다: 매번 안의 적 챔피언에게 <#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<> 마법 피해와 <#ffb900ff>0.5초<> 80% <#ef5350ff>둔화<>, 4번째는 피해 +40%."
+        "ult": "적 챔피언 발밑에 큰 균열을 열고 <#ffb900ff>0.5초<>마다 4번: 양 끝에서 털실 뭉치가 적 챔피언을 지나는 선을 따라 날아가 선 위의 적에게 <#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<> 마법 피해, 각 뭉치에 처음 맞은 챔피언은 <#ffb900ff>0.5초<> 80% <#ef5350ff>둔화<>, 4번째는 +40%."
       }
     },
     "skill_name": {
@@ -130,10 +130,10 @@
       },
       "tft_norra": {
         "name": "ノラ",
-        "attack": "星の弾で<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の物理ダメージ。<#ff9028ff>愛用のトリンケット<>：<#ffb900ff>10秒<>毎、次スキルの着弾点に<#ffb900ff>4秒<>残り、入った敵チャンピオンに<#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>魔法ダメージと<#ff9028ff>スレッド<>。<#ff9028ff>どこでもない場所へ<>：攻撃時に密着した敵に<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>魔法ダメージ、<#ffb900ff>1.5秒<><#ef5350ff>追放<>後<#ffb900ff>0.75秒<>80%<#ef5350ff>スロウ<>（<#ffb900ff>25秒<>毎）。",
-        "skill": "溜めてから記憶の弾を放ち、後ろへ跳ぶ：着弾点の周りの敵に<#a974ffff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>28%<>の魔法ダメージ、チャンピオンに<#ff9028ff>スレッド<>。そこのトリンケットも弾け、近くの敵チャンピオンにそのダメージ。",
+        "attack": "星の弾で<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>物理ダメージ。<#ff9028ff>愛用のトリンケット<>：<#ffb900ff>10秒<>毎、スキル着弾点に3つ<#ffb900ff>4秒<>、踏んだ敵チャンピオンへ飛び<#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>魔法ダメージと<#ff9028ff>スレッド<>。スキル命中でCD-20%。<#ff9028ff>どこでもない場所へ<>：密着した敵に<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>、<#ffb900ff>1.5秒<><#ef5350ff>追放<>後<#ffb900ff>0.75秒<>80%<#ef5350ff>スロウ<>。",
+        "skill": "溜めてから記憶の弾を放ち、後ろへ跳ぶ：着弾点の周りの敵に<#a974ffff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>28%<>魔法ダメージ、<#ff9028ff>スレッド<>付きのチャンピオンには最大体力2%追加、その後スレッド。チャンピオンに当たるとトリンケットが近づく敵へ飛ぶ。",
         "skill2": "対象の両脇に2つのポータルを開き、<#ffb900ff>0.3秒<>後にスレッドが走る：範囲の敵に<#a974ffff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>26%<>の魔法ダメージと<#ff9028ff>スレッド<>：<#ffb900ff>4秒<>間15%大きく（当たりやすい）、<#ffb900ff>2秒<>間20%<#ef5350ff>スロウ<>。",
-        "ult": "敵チャンピオンの足元に大きな裂け目を開き、<#ffb900ff>0.5秒<>毎に毛糸玉が4回横切る：毎回中の敵チャンピオンに<#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<>の魔法ダメージと<#ffb900ff>0.5秒<>80%<#ef5350ff>スロウ<>、4回目は+40%。"
+        "ult": "敵チャンピオンの足元に大きな裂け目を開き、<#ffb900ff>0.5秒<>毎に4回、両端から毛糸玉が敵チャンピオンを通る線を飛ぶ：線上の敵に<#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<>魔法ダメージ、各玉が最初に当たったチャンピオンに<#ffb900ff>0.5秒<>80%<#ef5350ff>スロウ<>、4回目は+40%。"
       }
     },
     "skill_name": {

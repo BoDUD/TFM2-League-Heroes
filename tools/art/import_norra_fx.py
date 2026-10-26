@@ -14,7 +14,7 @@ drawn row of all the picture's frames), (0, k) (the row k over the cell's last).
 Timings follow the kit: the trinkets' field and the rift are played again every p_show / r_show ticks (one loop each);
 Journey to Nowhere's portal turns where the unit stood for the whole banish (the Banish plays w_lock once, w_t ticks);
 Threads of Homecoming's portals open while the hidden lob flies (e_delay 18 ticks: the threads cross at 300 ms).
-The add-on's copy (addons/tft_norra) plays two pictures cut from these: each trinket on its own (p_trinket_l / _c / _r:
+Her kit (tft.dll: addons/tft/src/norra.rs) plays two pictures cut from these: each trinket on its own (p_trinket_l / _c / _r:
 the field's left crystal, teacup and right crystal, each with its bottom middle on its trinket's spot) and one yarn ball
 in flight (r_ball: the left ball of r_yarn's first three frames, going right, its ball - not its tail - on the
 projectile's point).
