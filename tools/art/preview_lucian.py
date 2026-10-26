@@ -3,7 +3,7 @@
 
     python tools/art/preview_lucian.py [--out docs/preview]
 
-  league_lucian_frames.png    every animation, frame by frame, 3x on the arena colour
+  league_lucian_frames.png    every animation's dense frames (hd_, PPU 2.02, as league.dll shows them)
   league_lucian_effects.png   every effect animation, 3x
   league_lucian_showcase.gif  a scripted fight against Darius and Garen, timed like the kit (cooldowns kept): he
                               runs in and Darius, still out of his reach, gets Relentless Pursuit forward (the dust
@@ -26,6 +26,7 @@ from PIL import Image
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 from preview_ashe import Anim, tick  # noqa: E402
+from preview_dense import dense, dense_rows, put  # noqa: E402
 from preview_ezreal import Hop  # noqa: E402
 from preview_garen import ARENA, T, contact, frames_of, load  # noqa: E402
 from preview_jinx import Follow, Walker  # noqa: E402
@@ -84,7 +85,7 @@ def showcase(out, z=3, step=40):
 
     def a(tag, dur=None, loop=False):
         nonlocal t
-        an = Anim(frames_of(lu, tag), t, lx, gy, loop=loop, until=(t + dur) if dur else None)
+        an = Anim(dense(lu, tag, "lucian", z), t, lx, gy, loop=loop, until=(t + dur) if dur else None)
         body.append(an)
         t = an.until
 
@@ -135,13 +136,13 @@ def showcase(out, z=3, step=40):
         return boom
 
     # he runs in; Darius comes on, Garen walks up far behind him
-    body.append(Anim(frames_of(lu, "run"), 0.0, 16, gy, loop=True, until=1000.0, x1=lx))
+    body.append(Anim(dense(lu, "run", "lucian", z), 0.0, 16, gy, loop=True, until=1000.0, x1=lx))
     t = 1000.0
     # Relentless Pursuit forward: nothing in his reach, so the invisible path runs 6 px a tick at Darius and he lands
     # where it stops (its full 30 px here, on tick 5; 47 px from Darius); the dust stays where he left
     e1 = t
     fx_at("e_dash", e1 + tick(1), lx, gy, z_under=True)
-    body.append(Hop(frames_of(lu, "skill2"), e1, lx, gy, x1=lx + 30, m=e1 + tick(6)))
+    body.append(Hop(dense(lu, "skill2", "lucian", z), e1, lx, gy, x1=lx + 30, m=e1 + tick(6)))
     lx += 30
     t = body[-1].until
     boom = blaze(e1, d)
@@ -197,7 +198,7 @@ def showcase(out, z=3, step=40):
     idle_to(e1 + 9000)
     e2 = t
     fx_at("e_dash", e2 + tick(1), lx, gy, z_under=True)
-    body.append(Slide(frames_of(lu, "skill2_back"), e2, lx, gy, x1=lx - 30, m0=e2 + tick(1), m1=e2 + tick(6)))
+    body.append(Slide(dense(lu, "skill2_back", "lucian", z), e2, lx, gy, x1=lx - 30, m0=e2 + tick(1), m1=e2 + tick(6)))
     lx -= 30
     t = body[-1].until
     g.walks.append((e2 + 300, e2 + 1000, -22))
@@ -223,12 +224,12 @@ def showcase(out, z=3, step=40):
         under.append(Follow(frames_of(fx, "w_haste"), h0, lx, gy, loop=True, until=min(h1, end), on=body))
 
     def place(img, f, px, py):
-        img.alpha_composite(f, (px - f.width // 2, py - f.height // 2))
+        put(img, f, int(px), int(py), z)
 
     frames, tt = [], 0.0
     order = sorted((d, g), key=lambda f: f.y)         # the one further back first
     while tt < end:
-        img = Image.new("RGBA", (W, H), ARENA)
+        img = Image.new("RGBA", (W * z, H * z), ARENA)
         for an in under:
             f = an.frame(tt)
             if f is not None:
@@ -244,7 +245,7 @@ def showcase(out, z=3, step=40):
             f = an.frame(tt)
             if f is not None:
                 place(img, f, *an.pos(tt))
-        frames.append(img.resize((W * z, H * z), Image.NEAREST).convert("RGB"))
+        frames.append(img.convert("RGB"))
         tt += step
     sample = frames[::6]                              # one palette for the whole clip
     strip = Image.new("RGB", (W * z, H * z * len(sample)))
@@ -262,8 +263,7 @@ def main():
     args = ap.parse_args()
     os.makedirs(T.long_path(args.out), exist_ok=True)
     s = load(CHAMP)
-    print("frames", contact([(s, t["name"], t["name"]) for t in s.tags],
-                            os.path.join(args.out, "league_lucian_frames.png")))
+    print("frames", contact(dense_rows(s), os.path.join(args.out, "league_lucian_frames.png"), z=1))
     sp = load(FX)
     print("effects", contact([(sp, t["name"], t["name"]) for t in sp.tags],
                              os.path.join(args.out, "league_lucian_effects.png")))
