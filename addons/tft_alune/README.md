@@ -26,4 +26,4 @@
 - 在 `addons/` 下 `cargo test --release -p tft_alune`：单元测试（参数、最近的 3 个、满月分摊）。
 - 金铲铲包的拉露恩改了以后重新跑 `python addons/tft_alune/make_override.py`（它先核对 `tft/champion/tft_alune.data_champion` 和参数表一致，`src/lib.rs` 的默认参数和 P 一致）。
 - 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\tft_alune.log`（`SPAWN`、每次 `MOONFALL`、每颗 `MOON` 的分摊、`RING` 回程）。
-- 依赖的 `tft` 版本（mod.mod_info）在合并时按金铲铲包实际的版本号改。
+- 依赖金铲铲包 `tft` 0.2.0 起（拉露恩是在 0.2.0 加进去的；mod.mod_info）。附加包自己的说明文字在 `text/champion.i18n`（`make_override.py` 写，和金铲铲包同样的键，合并后游戏里看说明就知道副本有没有生效：每段开头是【附加包】）。
