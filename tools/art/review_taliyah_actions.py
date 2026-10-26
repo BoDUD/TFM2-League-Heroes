@@ -8,7 +8,8 @@ renders stay in DIR, never committed), one beside each of ours, next to the rig'
 both at the tag's own frame times. Writes <out>/taliyah_<tag>_vs_lol.gif and .png, and <out>/taliyah_all_vs_lol.gif:
 every tag in turn (each action played twice, the idle and card reels once, last preview_taliyah.py's fight with the
 effects in play when it has been written), one picture to review (memory one-gif-review). 3/4 view (yaw 35) for every
-tag (the user's pick: 3/4 only); League's run is her rock surf (Run_Passive, the SurfRock prop shown), as ours.
+tag (the user's pick: 3/4 only); the run is League's foot run (Run1, the frames run1-run4 were drawn after), the surf
+her rock surf (Run_Passive, the SurfRock prop shown).
 --sheet: the exported sheet's hd_ frames (league/champions/league_taliyah#sheet.png, what the game draws: after
 ppu_restyle's outline and ppu_hd), each laid on its frame centre, instead of the rig's frames - the idle as hero_reels'
 reel and the ban/pick card's reel (bp) too.
@@ -33,7 +34,8 @@ import pack_taliyah_poses as PK  # noqa: E402
 # 4 steps; the ult's crouch is League's taliyah_spell4 start
 P = {k: v[0] for k, v in PK.POSES.items()}
 IDLE = "taliyah_idle1@0"
-CLIPS = {"idle": [IDLE], "run": [f"taliyah_run_passive@{t}" for t in range(0, 480, 120)],
+CLIPS = {"idle": [IDLE], "run": [P["run1"], P["run2"], P["run3"], P["run4"]],
+         "surf": [f"taliyah_run_passive@{t}" for t in range(0, 480, 120)],
          "attack": [P["a_wind"], P["a_throw"], IDLE],
          "skill": [P["q_raise"], P["q_cast"]],
          "skill2": [P["e_raise"], P["e_sweep"], P["w_crouch"], P["w_push"]],
@@ -43,7 +45,7 @@ CLIPS = {"idle": [IDLE], "run": [f"taliyah_run_passive@{t}" for t in range(0, 48
          "bp": [IDLE]}           # the ban/pick card's reel (hero_reels; --sheet only)
 BG = (96, 112, 96)
 # the labels are Chinese (the user reads everything in Chinese): the tags' names and a CJK font
-ZH = {"idle": "待机", "run": "移动（踩石冲浪）", "attack": "普攻", "skill": "技能1 石穿", "skill2": "技能2 撒石阵+岩突",
+ZH = {"idle": "待机", "run": "移动（打架时：用脚跑）", "surf": "移动（脱战：踩石冲浪）", "attack": "普攻", "skill": "技能1 石穿", "skill2": "技能2 撒石阵+岩突",
       "ult": "大招 墙幔（近：竖墙）", "ult_ride": "大招 墙幔（远：骑墙）", "hit": "受击", "dead": "死亡", "bp": "BP 卡片"}
 FONT = "C:/Windows/Fonts/msyh.ttc"
 SHOWCASE = os.path.join(os.path.dirname(os.path.dirname(HERE)), "docs", "preview", "league_taliyah_showcase.gif")
@@ -55,7 +57,7 @@ def lol_frames(lol, tag, n, out):
     for i in range(n):
         frames += ["--frame", want[min(i, len(want) - 1)]]
     name = f"lol_{tag}"
-    props = (["--hide-submesh", "TauntRock", "--hide-submesh", "RecallRock"] if tag in ("run", "ult_ride")
+    props = (["--hide-submesh", "TauntRock", "--hide-submesh", "RecallRock"] if tag in ("surf", "ult_ride")
              else ["--hide-submeshes"])
     cmd = [sys.executable, os.path.join(R.ROOT, "tools", "lol", "pose_ref.py"), "--lol", lol, "--champ", "Taliyah",
            "--hq", "--yaw", "35", "--mirror", "--size", "300", "--width", "1.6", "--fit", "0.5", "--no-labels", "--name",

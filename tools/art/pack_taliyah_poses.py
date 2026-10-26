@@ -142,6 +142,40 @@ POSES = {
               "stretched back.",
               dict(pelvis=(17.0, 59.0), lift=ROCK_H, rock=True, shift=0, spine=168, far_arm=(120, 115, 110),
                    near_arm=(-80, -85, -90), **SURF_LEGS)),
+    # the run on her feet (2026-10-26, the user: 「塔利亚怎么是飞着走路的 不对吧」 - League runs her on foot in a fight
+    # and surfs only out of it): one stride of League's Run1 (a 1 s cycle, two steps), leaning forward, both arms
+    # thrown out back and down, the coat streaming behind. One foot on the ground in each (the contact frames plant it
+    # under her, the passing frames push off it).
+    "run1": ("taliyah_run1@250",
+             "跑步 1（远侧脚着地）：身子明显往前（画面右边）倾，远侧腿在身子下面踩地、膝盖微弯，近侧腿往后上方踢起、小腿收到身后，"
+             "两只手臂往身体两侧后下方张开，红外套和垂带往后飘（用脚跑）",
+             "RUN 1 (far foot down) - leaning well forward to the image right, the FAR leg planted under her with the knee a "
+             "little bent, the NEAR leg kicked up behind her with the shin folded back, both arms thrown out back and down at "
+             "her sides, the red coat and panels streaming behind.",
+             dict(pelvis=(19.0, 53.0), lift=None, shift=0, spine=160, far_arm=(70, 60, 55),
+                  near_arm=(-50, -40, -35), near_leg=((12.0, 59.0), -1, -100), far_leg=((21.5, 67.0), -1, 85))),
+    "run2": ("taliyah_run1@500",
+             "跑步 2（交错）：身子往前倾，远侧腿往后蹬地（脚尖还踩着地），近侧腿往前提起、膝盖朝前弯，两只手臂往两侧后方张开，外套往后飘（用脚跑）",
+             "RUN 2 (passing) - leaning forward, the FAR leg pushing off behind her (its toes still on the ground), the NEAR "
+             "leg swinging forward with the knee raised and bent forward, both arms out back at her sides, the coat "
+             "streaming behind.",
+             dict(pelvis=(19.0, 52.0), lift=None, shift=0, spine=162, far_arm=(80, 70, 65),
+                  near_arm=(-60, -50, -45), near_leg=((21.0, 61.0), -1, 70), far_leg=((15.0, 66.0), -1, 60))),
+    "run3": ("taliyah_run1@750",
+             "跑步 3（近侧脚着地）：身子明显往前倾，近侧腿在身子下面踩地、膝盖微弯，远侧腿往后上方踢起、小腿收到身后，"
+             "两只手臂往身体两侧后下方张开，外套往后飘（用脚跑）",
+             "RUN 3 (near foot down) - leaning well forward, the NEAR leg planted under her with the knee a little bent, the "
+             "FAR leg kicked up behind her with the shin folded back, both arms thrown out back and down at her sides, the "
+             "coat streaming behind.",
+             dict(pelvis=(19.0, 53.0), lift=None, shift=0, spine=160, far_arm=(95, 85, 80),
+                  near_arm=(-40, -30, -25), near_leg=((18.5, 67.0), -1, 85), far_leg=((16.0, 59.0), -1, -100))),
+    "run4": ("taliyah_run1@0",
+             "跑步 4（交错）：身子往前倾，近侧腿往后蹬地（脚尖还踩着地），远侧腿往前提起、膝盖朝前弯，两只手臂往两侧后方张开，外套往后飘（用脚跑）",
+             "RUN 4 (passing) - leaning forward, the NEAR leg pushing off behind her (its toes still on the ground), the FAR "
+             "leg swinging forward with the knee raised and bent forward, both arms out back at her sides, the coat "
+             "streaming behind.",
+             dict(pelvis=(19.0, 52.0), lift=None, shift=0, spine=162, far_arm=(85, 75, 70),
+                  near_arm=(-55, -45, -40), near_leg=((12.0, 66.0), -1, 60), far_leg=((26.0, 61.0), -1, 70))),
     "d_stagger": ("taliyah_death@300",
                   "踉跄：身子往后（画面左边）倒，膝盖弯下去，两只手臂往两边甩开（死亡第一下）",
                   "STAGGER - reeling back to the image left, the knees buckling, both arms flung out to the sides.",
@@ -350,7 +384,8 @@ def main():
     ap.add_argument("--out", default="C:/t/ta_work/taliyah_pose_pack")
     ap.add_argument("--lol", default=r"D:\WeGameApps\lol")
     ap.add_argument("--check")
-    ap.add_argument("--only", help="comma-separated poses (with --check)")
+    ap.add_argument("--only", help="comma-separated poses: with --check the ones checked, else the ones packed")
+    ap.add_argument("--prompts", default="POSE_PROMPTS.md", help="the prompt file in assets/source/taliyah/ the pack carries")
     a = ap.parse_args()
     idle = np.asarray(Image.open(lp(os.path.join(SRC, "hd", "idle.png"))).convert("RGBA"))
     poses = poses_built()
@@ -406,20 +441,22 @@ def main():
     skeleton(base, rest, "0: the approved design with its own skeleton (what each coloured line stands for)", idle, 200)
     base.convert("RGB").save(os.path.join(out, "0_design_skeleton.png"))
     clean.convert("RGB").save(os.path.join(out, "2_design.png"))
-    surf = Image.open(lp(os.path.join(SRC, "codex_picture", "taliyah-picture", "raw", "taliyah-B-raw.png"))).convert("RGBA")
-    pic = Image.new("RGBA", surf.size, GREY + (255,))   # step 0's B: the boulder she surfs on
-    pic.alpha_composite(surf)
-    pic.convert("RGB").save(os.path.join(out, "2b_surf_picture.png"))
+    packed = [n for n in poses if not a.only or n in a.only.split(",")]
+    if any(POSES[n][3].get("rock") for n in packed):   # step 0's B: the boulder she surfs on (surf poses only)
+        surf = Image.open(lp(os.path.join(SRC, "codex_picture", "taliyah-picture", "raw", "taliyah-B-raw.png"))).convert("RGBA")
+        pic = Image.new("RGBA", surf.size, GREY + (255,))
+        pic.alpha_composite(surf)
+        pic.convert("RGB").save(os.path.join(out, "2b_surf_picture.png"))
     r0, r1, c0, c1 = HEAD
     big(idle[r0:r1, c0:c1]).save(os.path.join(out, "1_head.png"))
-    for k, (name, (s, frame, zh, en)) in enumerate(poses.items(), 3):
+    for k, (name, (s, frame, zh, en)) in enumerate(((n, poses[n]) for n in packed), 3):
         can = canvas_grid()
         skeleton(can, s, f"{k}: {name} - skeleton on the {PX} px grid, red line = the ground (soles on y {SOLE_Y})", idle)
         can.convert("RGB").save(os.path.join(out, f"{k}_{name}_skeleton.png"))
         lol_frame(a.lol, frame, out + "_work").save(os.path.join(out, f"{k}_{name}_league.png"))
         print(name, frame)
     shutil.rmtree(out + "_work", ignore_errors=True)
-    shutil.copyfile(lp(os.path.join(SRC, "POSE_PROMPTS.md")), os.path.join(out, "POSE_PROMPTS.md"))
+    shutil.copyfile(lp(os.path.join(SRC, a.prompts)), os.path.join(out, a.prompts))
     zp = shutil.make_archive(out, "zip", out)
     print(zp)
 
