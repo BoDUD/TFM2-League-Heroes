@@ -14,6 +14,13 @@
         "skill": "蓄力后射出回忆魔法弹，自己后退一步：落点周围敌人受到<#a974ffff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>28%<>魔法伤害，已有<#ff9028ff>线缕<>的英雄再受最大生命2%，随后挂上线缕；打中英雄时地上的琐物待爆：敌方英雄靠近就飞向他。",
         "skill2": "在目标两侧打开两扇门，<#ffb900ff>0.3秒<>后线缕穿过：范围内敌人受到<#a974ffff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>26%<>魔法伤害并挂上<#ff9028ff>线缕<>：<#ffb900ff>4秒<>内体型变大15%（更容易被命中），<#ef5350ff>减速<>20%<#ffb900ff>2秒<>。",
         "ult": "在敌方英雄脚下展开大裂隙，每<#ffb900ff>0.5秒<>一波共4波：两个毛线球沿一条穿过敌方英雄的线从两头对飞，路上敌人各受<#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<>魔法伤害，每个球碰到的第一个英雄<#ef5350ff>减速<>80%<#ffb900ff>0.5秒<>；第4波+40%。"
+      },
+      "tft_alune": {
+        "name": "拉露恩",
+        "attack": "把螺旋月环像飞盘一样甩出去，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>，月环飞回她手里，回程路上的敌人受到<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<>物理伤害。<#ff9028ff>月相<>：每放一次技能月亮长一档，最多<#ffb900ff>3<>档；大招每档伤害+<#ffb900ff>20%<>，砸完回到新月。",
+        "skill": "月光碎片从天而降，落在离她最近的<#ffb900ff>3<>个敌人身上，每枚造成<#a974ffff>42<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>32%<>魔法伤害，并使魔抗降低<#ffb900ff>20%<>，持续<#ffb900ff>6秒<>。",
+        "skill2": "月光洒在她和身边的友方英雄身上，攻击速度提高<#ffb900ff>36%<>，持续<#ffb900ff>5秒<>。",
+        "ult": "敌方英雄脚下浮现月影，<#ffb900ff>0.75秒<>后满月砸下：<#a974ffff>165<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>72%<>魔法伤害×<#ffb900ff>220%<>由范围内的敌人平分（每人最多<#ffb900ff>180%<>），中心的敌人<#ef5350ff>眩晕<><#ffb900ff>0.83秒<>。"
       }
     },
     "skill_name": {
@@ -26,6 +33,11 @@
         "skill1": "回忆涌现",
         "skill2": "思乡线缕",
         "ult": "传送门欢腾！"
+      },
+      "tft_alune": {
+        "skill1": "月之降临",
+        "skill2": "月华",
+        "ult": "月曜降临"
       }
     }
   },
@@ -44,6 +56,13 @@
         "skill": "蓄力後射出記憶魔法彈，自己後退一步：落點周圍敵人受到<#a974ffff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>28%<>魔法傷害，已有<#ff9028ff>絲線<>的英雄再受最大生命2%，隨後掛上絲線；打中英雄時地上的飾品待爆：敵方英雄靠近就飛向他。",
         "skill2": "在目標兩側打開兩扇門，<#ffb900ff>0.3秒<>後絲線穿過：範圍內敵人受到<#a974ffff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>26%<>魔法傷害並掛上<#ff9028ff>絲線<>：<#ffb900ff>4秒<>內體型變大15%（更容易被命中），<#ef5350ff>緩速<>20%<#ffb900ff>2秒<>。",
         "ult": "在敵方英雄腳下展開大裂隙，每<#ffb900ff>0.5秒<>一波共4波：兩個毛線球沿一條穿過敵方英雄的線從兩頭對飛，路上敵人各受<#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<>魔法傷害，每個球碰到的第一個英雄<#ef5350ff>緩速<>80%<#ffb900ff>0.5秒<>；第4波+40%。"
+      },
+      "tft_alune": {
+        "name": "亞盧妮",
+        "attack": "把螺旋月環像飛盤一樣甩出去，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>，月環飛回她手裡，回程路上的敵人受到<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<>物理傷害。<#ff9028ff>月相<>：每施放一次技能月亮長一階，最多<#ffb900ff>3<>階；大招每階傷害+<#ffb900ff>20%<>，砸完回到新月。",
+        "skill": "月華碎片從天而降，落在離她最近的<#ffb900ff>3<>名敵人身上，每塊造成<#a974ffff>42<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>32%<>魔法傷害，並使魔抗降低<#ffb900ff>20%<>，持續<#ffb900ff>6秒<>。",
+        "skill2": "月光灑在她和身邊的友方英雄身上，攻擊速度提高<#ffb900ff>36%<>，持續<#ffb900ff>5秒<>。",
+        "ult": "敵方英雄腳下浮現月影，<#ffb900ff>0.75秒<>後滿月砸下：<#a974ffff>165<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>72%<>魔法傷害×<#ffb900ff>220%<>由範圍內的敵人平分（每人最多<#ffb900ff>180%<>），中心的敵人<#ef5350ff>暈眩<><#ffb900ff>0.83秒<>。"
       }
     },
     "skill_name": {
@@ -56,6 +75,11 @@
         "skill1": "記憶湧現",
         "skill2": "返家絲線",
         "ult": "傳送門嘉年華！"
+      },
+      "tft_alune": {
+        "skill1": "月隕",
+        "skill2": "月華",
+        "ult": "月曜降臨"
       }
     }
   },
@@ -74,6 +98,13 @@
         "skill": "Charges, then flings a bolt of memories and hops back: enemies around where it lands take <#a974ffff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>28%<> <#a974ffff>magic damage<>, champions already in the <#ff9028ff>Threads<> 2% of their max health more, then get them. Hitting a champion primes her trinkets: they fly to any enemy champion coming near.",
         "skill2": "Opens two portals beside the target; <#ffb900ff>0.3s<> later threads shoot between them: enemies there take <#a974ffff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>26%<> <#a974ffff>magic damage<> and get the <#ff9028ff>Threads<>: 15% bigger (easier to hit) for <#ffb900ff>4s<> and <#ef5350ff>slowed<> 20% for <#ffb900ff>2s<>.",
         "ult": "Opens a great rift under an enemy champion: 4 recasts <#ffb900ff>0.5s<> apart, each sending a yarn ball from both ends along a line through an enemy champion: <#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<> <#a974ffff>magic damage<> to every enemy on it, the first champion each ball meets <#ef5350ff>slowed<> 80% for <#ffb900ff>0.5s<>; the 4th deals 40% more."
+      },
+      "tft_alune": {
+        "name": "Alune",
+        "attack": "Flings her spiral ring like a disc for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<>; it flies back to her, dealing <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<> physical damage to enemies on the way. <#ff9028ff>Moon Phase<>: each skill she casts grows the moon a phase, up to <#ffb900ff>3<>; her ultimate deals <#ffb900ff>20%<> more a phase, and the moon wanes to new.",
+        "skill": "Moonshards rain on the <#ffb900ff>3<> enemies nearest her, each dealing <#a974ffff>42<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>32%<> <#a974ffff>magic damage<> and lowering magic resistance by <#ffb900ff>20%<> for <#ffb900ff>6s<>.",
+        "skill2": "Moonlight falls on her and the allied champions near her: <#ffb900ff>36%<> attack speed for <#ffb900ff>5s<>.",
+        "ult": "The moon's shadow spreads under an enemy champion; <#ffb900ff>0.75s<> later the full moon crashes down: <#ffb900ff>220%<> of <#a974ffff>165<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>72%<> <#a974ffff>magic damage<> split among the enemies in the area (at most <#ffb900ff>180%<> each), those in the middle <#ef5350ff>stunned<> for <#ffb900ff>0.83s<>."
       }
     },
     "skill_name": {
@@ -86,6 +117,11 @@
         "skill1": "Memory Surge",
         "skill2": "Threads of Homecoming",
         "ult": "Portalpalooza!"
+      },
+      "tft_alune": {
+        "skill1": "Moonfall",
+        "skill2": "Moonlight",
+        "ult": "Moon Descends"
       }
     }
   },
@@ -104,6 +140,13 @@
         "skill": "충전 후 기억의 탄환을 날리고 뒤로 물러난다: 떨어진 곳 주변 적에게 <#a974ffff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>28%<> 마법 피해, <#ff9028ff>실타래<>가 있던 챔피언은 최대 체력 2% 추가 후 실타래. 챔피언에게 맞으면 장신구가 가까이 온 적 챔피언에게 날아간다.",
         "skill2": "대상 양옆에 차원문 두 개를 열고 <#ffb900ff>0.3초<> 뒤 실타래가 지나간다: 범위의 적에게 <#a974ffff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>26%<> 마법 피해와 <#ff9028ff>실타래<>: <#ffb900ff>4초<> 동안 15% 커지고(맞히기 쉬움) <#ffb900ff>2초<> 동안 20% <#ef5350ff>둔화<>.",
         "ult": "적 챔피언 발밑에 큰 균열을 열고 <#ffb900ff>0.5초<>마다 4번: 양 끝에서 털실 뭉치가 적 챔피언을 지나는 선을 따라 날아가 선 위의 적에게 <#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<> 마법 피해, 각 뭉치에 처음 맞은 챔피언은 <#ffb900ff>0.5초<> 80% <#ef5350ff>둔화<>, 4번째는 +40%."
+      },
+      "tft_alune": {
+        "name": "알룬",
+        "attack": "나선 고리를 원반처럼 던져 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> 물리 피해, 고리는 되돌아오며 길 위의 적에게 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<> 물리 피해. <#ff9028ff>달의 위상<>: 스킬을 쓸 때마다 달이 한 단계 차오른다(최대 <#ffb900ff>3<>단계). 궁극기는 단계마다 피해 +<#ffb900ff>20%<>, 쓴 뒤 다시 초승달.",
+        "skill": "가장 가까운 적 <#ffb900ff>3<>명에게 달조각이 떨어져 각각 <#a974ffff>42<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>32%<> 마법 피해를 입히고 <#ffb900ff>6초<> 동안 마법 저항력을 <#ffb900ff>20%<> 낮춘다.",
+        "skill2": "자신과 주변 아군 챔피언에게 달빛이 내려 <#ffb900ff>5초<> 동안 공격 속도 +<#ffb900ff>36%<>.",
+        "ult": "적 챔피언의 발밑에 달그림자가 드리우고 <#ffb900ff>0.75초<> 뒤 보름달이 떨어진다: <#a974ffff>165<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>72%<> 마법 피해의 <#ffb900ff>220%<>를 범위의 적이 나누어 받고(1명당 최대 <#ffb900ff>180%<>), 중심의 적은 <#ffb900ff>0.83초<> <#ef5350ff>기절<>."
       }
     },
     "skill_name": {
@@ -116,6 +159,11 @@
         "skill1": "밀려드는 기억",
         "skill2": "귀향의 실타래",
         "ult": "차원문 대소동!"
+      },
+      "tft_alune": {
+        "skill1": "달빛 낙하",
+        "skill2": "달빛 가호",
+        "ult": "보름달 강림"
       }
     }
   },
@@ -134,6 +182,13 @@
         "skill": "溜めてから記憶の弾を放ち、後ろへ跳ぶ：着弾点の周りの敵に<#a974ffff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>28%<>魔法ダメージ、<#ff9028ff>スレッド<>付きのチャンピオンには最大体力2%追加、その後スレッド。チャンピオンに当たるとトリンケットが近づく敵へ飛ぶ。",
         "skill2": "対象の両脇に2つのポータルを開き、<#ffb900ff>0.3秒<>後にスレッドが走る：範囲の敵に<#a974ffff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>26%<>の魔法ダメージと<#ff9028ff>スレッド<>：<#ffb900ff>4秒<>間15%大きく（当たりやすい）、<#ffb900ff>2秒<>間20%<#ef5350ff>スロウ<>。",
         "ult": "敵チャンピオンの足元に大きな裂け目を開き、<#ffb900ff>0.5秒<>毎に4回、両端から毛糸玉が敵チャンピオンを通る線を飛ぶ：線上の敵に<#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<>魔法ダメージ、各玉が最初に当たったチャンピオンに<#ffb900ff>0.5秒<>80%<#ef5350ff>スロウ<>、4回目は+40%。"
+      },
+      "tft_alune": {
+        "name": "アルーン",
+        "attack": "螺旋の輪を円盤のように投げ、<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の物理ダメージ。輪は戻ってきて途中の敵に<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<>の物理ダメージ。<#ff9028ff>月相<>：スキルを使うたびに月が満ちる（最大<#ffb900ff>3<>段階）。アルティメットは1段階ごとにダメージ+<#ffb900ff>20%<>、使うと新月に戻る。",
+        "skill": "最も近い敵<#ffb900ff>3<>体に月の破片が降り、それぞれ<#a974ffff>42<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>32%<>の魔法ダメージと<#ffb900ff>6秒<>の魔法防御-<#ffb900ff>20%<>。",
+        "skill2": "自分と周りの味方チャンピオンに月光が降り、<#ffb900ff>5秒<>間攻撃速度+<#ffb900ff>36%<>。",
+        "ult": "敵チャンピオンの足元に月の影が広がり、<#ffb900ff>0.75秒<>後に満月が落ちる：<#a974ffff>165<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>72%<>の魔法ダメージの<#ffb900ff>220%<>を範囲の敵で分け合い（1体あたり最大<#ffb900ff>180%<>）、中心の敵は<#ffb900ff>0.83秒<><#ef5350ff>スタン<>。"
       }
     },
     "skill_name": {
@@ -146,6 +201,11 @@
         "skill1": "記憶の波動",
         "skill2": "帰郷のスレッド",
         "ult": "ポータルパルーザ！"
+      },
+      "tft_alune": {
+        "skill1": "崩月",
+        "skill2": "月光の加護",
+        "ult": "満月降臨"
       }
     }
   }

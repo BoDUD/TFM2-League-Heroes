@@ -166,5 +166,73 @@
   "asset/base/sound/sfx/tft_norra_sfx_w": {
     "remapping": "asset/tft/sound/sfx/tft_norra_sfx_w",
     "type": "override"
+  },
+  "asset/base/sound/sfx/tft_alune_a": {
+    "remapping": "asset/tft/sound/sfx/tft_alune_a",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_alune_a_hit": {
+    "remapping": "asset/tft/sound/sfx/tft_alune_a_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_alune_q": {
+    "remapping": "asset/tft/sound/sfx/tft_alune_q",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_alune_q_hit": {
+    "remapping": "asset/tft/sound/sfx/tft_alune_q_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_alune_e_cast": {
+    "remapping": "asset/tft/sound/sfx/tft_alune_e_cast",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_alune_e": {
+    "remapping": "asset/tft/sound/sfx/tft_alune_e",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_alune_r": {
+    "remapping": "asset/tft/sound/sfx/tft_alune_r",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_alune_r_blast": {
+    "remapping": "asset/tft/sound/sfx/tft_alune_r_blast",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_alune_sfx_a": {
+    "remapping": "asset/tft/sound/sfx/tft_alune_sfx_a",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_alune_sfx_a_hit": {
+    "remapping": "asset/tft/sound/sfx/tft_alune_sfx_a_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_alune_sfx_e": {
+    "remapping": "asset/tft/sound/sfx/tft_alune_sfx_e",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_alune_sfx_e_cast": {
+    "remapping": "asset/tft/sound/sfx/tft_alune_sfx_e_cast",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_alune_sfx_q": {
+    "remapping": "asset/tft/sound/sfx/tft_alune_sfx_q",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_alune_sfx_q_hit": {
+    "remapping": "asset/tft/sound/sfx/tft_alune_sfx_q_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_alune_sfx_r": {
+    "remapping": "asset/tft/sound/sfx/tft_alune_sfx_r",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_alune_sfx_r_blast": {
+    "remapping": "asset/tft/sound/sfx/tft_alune_sfx_r_blast",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_alune_sfx_r_vo": {
+    "remapping": "asset/tft/sound/sfx/tft_alune_sfx_r_vo",
+    "type": "override"
   }
 }

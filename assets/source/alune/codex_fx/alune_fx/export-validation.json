@@ -1,0 +1,29 @@
+{
+  "pass": true,
+  "checks": [
+    "10/10 effect strips and3/3 icons",
+    "53/53 nonempty frames/states",
+    "all effect cell sizes match spec",
+    "exact required symmetry per frame",
+    "hard effect alpha0/255",
+    "8x images exactly nearest-neighbor from1x",
+    "3 icons64x64 with2px logical blocks",
+    "raw files identical to image_gen output"
+  ],
+  "sha256": {
+    "alune_fx_a_ring.png": "4d3beb5ce651d77a7160c148268703f2351b763c91557f6f0d07ba9fbf87e183",
+    "alune_fx_a_hit.png": "a37d7a7cf73936a06bbef6021dad2032717af62161b0733609fe8c840ab3bc1e",
+    "alune_fx_q_drop.png": "750860f99c53a4ff8c7ba318e00b5304e0859dd782d24f7dbf5d23749bfb0a74",
+    "alune_fx_q_hit.png": "96e694a2fed24ec30489027fd3a0fec4bd56a604218f584d2154c42fa51a2ddc",
+    "alune_fx_q_shred.png": "8eb5c08a78b5bebf9886e16b00935ba2269e348cc41687c96de21eddc9cfe526",
+    "alune_fx_e_glow.png": "93bd58d651a102e070fa12160c584f5ad14058146803eca3c3dac97afa46468d",
+    "alune_fx_p_moon.png": "c2f039cbe9d8c7ad8290a266a4006cc8a214c618b471254e8c2136d4fa8bb2db",
+    "alune_fx_r_warn.png": "2d589d118483eead6e05bcc1d31e30c0a3905fee8a54c735dfad7e4b8a7796f2",
+    "alune_fx_r_moon.png": "b1694bdcd92cb002b7867675aa0f4a60dd1ecb11a796017846e9a4abfe2df0d4",
+    "alune_fx_r_hit.png": "e2e2ac297a9d91916d874076e1c97b43d92679dae34bb2e146343aa8b70a196c",
+    "alune_icon_skill.png": "dc1a8243ab0e1de0b4cd157acdcf9d918a48c35001627b519f85b265cdbf428c",
+    "alune_icon_skill2.png": "8603e366fd3e8ccb6ad2eac7f9bf79bec5ba86c898e0aacf9035ea52e51e5c50",
+    "alune_icon_ult.png": "5fba297dfd3693dcbe8b54d5504d6b268045dad8f92f4f199642c4c3c08f3a09"
+  },
+  "scope": "export technical validation only; visual deviations and untested runtime are documented in HANDOFF.md"
+}
