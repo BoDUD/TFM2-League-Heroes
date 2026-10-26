@@ -57,7 +57,6 @@ SPECS = {
     "r_rise": (6, (64, 56), dict(patches=True)),
     "r_slam": (8, (64, 34), dict(grid=(4, 2), stretch=True)),
     "r_hit": (4, (18, 20), {}),
-    "r_guard": (4, (44, 50), dict(stretch=True)),
     "p_full": (6, (44, 52), {}),
     "p_aura": (6, (44, 52), dict(bg="white")),
     "p_shield": (4, (44, 52), dict(stretch=True)),
@@ -141,7 +140,8 @@ def compose_rv(cw, ch, n):
     """rv_glow drawn from its parts (Gemini's pale light on white cannot be told from the white): the ring of gold
     and crimson runes on the ground (its runes stepping round frame by frame), the column of light rising from it
     (white edges, gold glow outside, the palest gold inside: he is drawn over it), crimson petals drifting up inside,
-    mirrored left to right. Frames 1-3 the column rising, 4-8 its loop."""
+    mirrored left to right. Frames 1-3 the column rising, 4-8 its loop. Inside the column every third column of squares
+    is a streak of pale gold, the others clear but for glints running up (a solid pale slab behind him read flat)."""
     gold, crim = hexes(PF.GOLD), hexes(PF.CRIMSON)
     cx, gy = cw / 2, ch - 8                      # the ring's middle on the ground
     rx, ry = 22.0, 6.0
@@ -159,9 +159,11 @@ def compose_rv(cw, ch, n):
         for y in range(top, int(gy) + 1):
             for x in range(c0 - 1, int(cx)):
                 d = x - c0
+                if d > 2 and d % 3 != 0:          # inside: streaks of light, not a solid slab (he stands in front)
+                    if (y + k * 2 + d) % 11 == 0:
+                        put(x, y, gold[0])        # a glint running up between the streaks
+                    continue
                 col = gold[3] if d == -1 else gold[0] if d in (0, 1) else gold[2] if d == 2 else gold[1]
-                if d > 2 and (y + k) % 9 == 0 and d % 4 == 1:
-                    col = gold[0]                 # a shimmer running up the column
                 put(x, y, col)
         # the ring: an ellipse band, runes (crimson) every 6 degrees-steps moving round with the frames
         for t in range(0, 360, 3):

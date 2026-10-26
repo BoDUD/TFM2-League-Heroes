@@ -38,9 +38,9 @@ counts Determination itself (League's 12 stacks from every damage instance on a 
 and twice that at full, the decay after det_t ticks: 1 more stack every 30 ticks), revives him once filled (lethal
 damage held at 1 health, rv_rise ticks invulnerable and unable to act while rv_hp% of his maximum health comes back,
 then up with Determination full again; rv_cd ticks between revives; banished meanwhile, the revive drawn by its
-picture `rv_rise`); gives Aureate
-Rush its own slot back (every e_cd ticks, an enemy champion within e_reach and out of his reach: he dashes e_dash
-toward it and the data spins on `e_go` - inner e_r0 / outer e_r ring, the outer edge e_out% more and e_pct% of the
+picture rv_rise_r / rv_rise_l, the side facing the nearest enemy champion); gives Aureate
+Rush its own slot back (every e_cd ticks, an enemy champion within e_reach: he dashes up to e_dash toward it, the
+data playing the rush on `e_rush` (e_rush_t ticks), and spins on `e_go` - inner e_r0 / outer e_r ring, the outer edge e_out% more and e_pct% of the
 unit's maximum health, all dealt by the add-on); and heals Q by League's share of his maximum health (q_hp% of it a
 slash on a champion, half on other units: the data marks `q_mark`, its flat heal goes). Both packs: R's passive r_pen%
 defence penetration on his `own` flag; R's heal per champion hit is League's (fixed + AD, not a share of the damage);
@@ -64,6 +64,7 @@ OUT = os.path.join(REPO, "league", "champion", "league_zaahen.data_champion")
 ID = "league_zaahen"
 FX = "asset/league/effects/league_zaahen_fx"
 BIG = "asset/league/effects/league_zaahen_big"
+RISE = "asset/league/effects/league_zaahen_rise"   # the revive's dense sheet (tools/art/rig_zaahen.py --rise)
 
 # League's Zaahen (16.21): 640 +114 hp, 63 AD +4, 36 armour +5, 32 mr +2.05, 345 move, 175 range, 0.625 attack speed.
 # Passive: 12 Determination from damage on champions (5 s), 1.5-2.95% bonus AD each, doubled at full; full: lethal damage
@@ -87,7 +88,7 @@ P = {
     "q_heal": 30, "q_heal_r": 15, "q_gap": 90, "q_win": 330,
     "q3_dur": 30, "q3_hit": 14, "q3_dmg": 60, "q3_ratio": 60, "q_air": 45, "q_go_t": 120,
     # skill2: W Dreaded Return (+ E Aureate Rush folded in)
-    "w_cd": 780, "w_range": 52000, "w_dur": 30, "w_rel": 14, "w_len": 56000, "w_wid": 6000, "w_speed": 5000,
+    "w_cd": 780, "w_range": 52000, "w_dur": 30, "w_rel": 7, "w_len": 56000, "w_wid": 6000, "w_speed": 5000,
     "w_dmg": 90, "w_ratio": 80, "w_stun": 15, "w_grab": 3500,
     "w_e": 34, "w_e_dur": 56, "e_r": 20000, "e_dmg": 70, "e_ratio": 70,
     # ult: R Grim Deliverance
@@ -97,7 +98,7 @@ P = {
     "vo_gap": 600,
     # 1 = the copy for addons/league_zaahen (League's rules the data cannot read, see the docstring); its parameters
     "native": 0, "det_pct": 1, "rv_rise": 240, "rv_hp": 50, "e_cd": 540, "e_reach": 48000, "e_dash": 22000,
-    "e_r0": 11000, "e_out": 50, "e_pct": 5, "e_dur": 26, "e_hit": 14, "q_hp": 6,
+    "e_r0": 11000, "e_out": 50, "e_pct": 5, "e_dur": 26, "e_hit": 14, "e_rush_t": 10, "q_hp": 6,
     # R's passive armour penetration (League 10-30%; on his `own` flag, both packs)
     "r_pen": 20,
 }
@@ -314,7 +315,8 @@ def build(p):
                 p["e_r"], "EnemyWithoutTower", attack(p["e_dmg"], p["e_ratio"]), view("e_hit"), tsfx("e_hit")),
                 around(p["e_r"], "EnemyChampion", dh)))
         return combine(refresh("w_cd", p["w_cd"]), refresh("busy", p["w_e_dur"] if not native else p["w_dur"]),
-                       anim("skill2", p["w_e_dur"] if not native else p["w_dur"]), sfx("w"), voice("vo_w", p),
+                       anim("skill2" if native else "skill2e", p["w_dur"] if native else p["w_e_dur"]), sfx("w"),
+                       voice("vo_w", p),
                        delayed(p["w_rel"] - 1, alive(stab, stab_c)), spin)
 
     # ------------------------------------------------------------------ E Aureate Rush (the add-on's own slot)
@@ -337,6 +339,7 @@ def build(p):
     ctl = combine(refresh("polling", ctl_p + 2), sw("own", combine(
         det,
         sw("e_go", sw("busy", NONE, e_spin())) if native else None,
+        sw("e_rush", combine(*rm("e_rush"), anim("dash", p["e_rush_t"]))) if native else None,
         sw("q_go", sw("busy", NONE, sw("q_cd", NONE, pick(p["q_range"], "EnemyChampion", q_first())))))))
     hang = on_me(sw("polling", NONE, combine(refresh("polling", ctl_p + 2), casted(p["ctl_t"], ctl_p, ctl))))
 
@@ -379,10 +382,15 @@ def build(p):
                E("e_hit"), E("r_rise", BIG, 1, True), E("r_slam", BIG, -1, False), E("r_hit"), E("p_full")]
     if not native:
         views_e.append(E("p_shield"))
-    views_b = [B_("full", FX, -1, "p_aura"), B_("r_guard", FX, 3, "r_guard")]
+    # (R's guard has no picture: his frames rise off the ground, a ring round his body's place on the ground circled his
+    # legs; the wings of light mark the cast)
+    views_b = [B_("full", FX, -1, "p_aura")]
     views_p = [P_("w_glaive", FX, "w_glaive")]
-    if native:   # the add-on's revive: its banish plays rv_rise (him rising again in its light) and ends on p_full
-        views_e.append(E("rv_rise", BIG, 2, True))
+    if native:   # the add-on's revive: its banish plays him rising again in its light, facing the nearest enemy champion
+        # (an effect picture is never mirrored: one each way, the dense sheet league_zaahen_rise) and ends on p_full
+        for side in ("r", "l"):
+            views_e.append({"type": "Animation", "name": n(f"rv_rise_{side}"), "anim": RISE, "tag": f"rise_{side}",
+                            "z": 2, "is_follow": True})
     extra = {}
     if native:   # addons/league_zaahen: the League rules the data cannot read
         extra["passive"] = {"passive_ref": "league_zaahen:darkin",

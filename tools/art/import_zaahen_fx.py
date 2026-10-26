@@ -57,7 +57,6 @@ FX = {
     "r_rise": ("r_rise", "bottom", [60, 80, 100, 120, 120, 140], [GROUND]),
     "r_slam": ("r_slam", "core", [40, 50, 60, 70, 90, 110, 130, 150], [FEETRING]),
     "r_hit": ("r_hit", "core", [40, 60, 80, 100], [HIT]),
-    "r_guard": ("r_guard", "core", 100, [BODY]),
     "p_full": ("p_full", "bottom", [50, 60, 70, 80, 100, 120], [GROUND]),
     "p_aura": ("p_aura", "bottom", 110, [GROUND]),
     "p_shield": ("p_shield", "core", [60, 80, 100, 120], [BODY]),

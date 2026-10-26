@@ -81,15 +81,6 @@
   "symmetry": "left-right"
  },
  {
-  "file": "zaahen_fx_r_guard.png",
-  "frames": 4,
-  "cell_1x": [
-   44,
-   50
-  ],
-  "symmetry": "left-right"
- },
- {
   "file": "zaahen_fx_r_hit.png",
   "frames": 3,
   "cell_1x": [

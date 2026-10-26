@@ -497,6 +497,28 @@
                                 },
                                 {
                                   "type": "SwitchByBuff",
+                                  "buff_name": "league_zaahen_e_rush",
+                                  "effect_buff": {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "RemoveCasterBuff",
+                                        "name": "league_zaahen_e_rush"
+                                      },
+                                      {
+                                        "type": "CasterAnimation",
+                                        "name": "dash",
+                                        "tick": 10
+                                      }
+                                    ]
+                                  },
+                                  "effect_none": {
+                                    "type": "Combine",
+                                    "effects": []
+                                  }
+                                },
+                                {
+                                  "type": "SwitchByBuff",
                                   "buff_name": "league_zaahen_q_go",
                                   "effect_buff": {
                                     "type": "SwitchByBuff",
@@ -1778,7 +1800,7 @@
               },
               {
                 "type": "Delayed",
-                "tick": 13,
+                "tick": 6,
                 "effects": [
                   {
                     "type": "Combine",
@@ -2379,6 +2401,28 @@
                                         }
                                       ]
                                     }
+                                  },
+                                  "effect_none": {
+                                    "type": "Combine",
+                                    "effects": []
+                                  }
+                                },
+                                {
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "league_zaahen_e_rush",
+                                  "effect_buff": {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "RemoveCasterBuff",
+                                        "name": "league_zaahen_e_rush"
+                                      },
+                                      {
+                                        "type": "CasterAnimation",
+                                        "name": "dash",
+                                        "tick": 10
+                                      }
+                                    ]
                                   },
                                   "effect_none": {
                                     "type": "Combine",
@@ -3155,9 +3199,17 @@
     },
     {
       "type": "Animation",
-      "name": "league_zaahen_rv_rise",
-      "anim": "asset/league/effects/league_zaahen_big",
-      "tag": "rv_rise",
+      "name": "league_zaahen_rv_rise_r",
+      "anim": "asset/league/effects/league_zaahen_rise",
+      "tag": "rise_r",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_zaahen_rv_rise_l",
+      "anim": "asset/league/effects/league_zaahen_rise",
+      "tag": "rise_l",
       "z": 2,
       "is_follow": true
     }
@@ -3170,14 +3222,6 @@
       "tag": "p_aura",
       "repeat": true,
       "z": -1
-    },
-    {
-      "type": "Animated",
-      "name": "league_zaahen_r_guard",
-      "anim": "asset/league/effects/league_zaahen_fx",
-      "tag": "r_guard",
-      "repeat": true,
-      "z": 3
     }
   ]
 }

@@ -8,10 +8,12 @@
 //!   之后 `det_t` 拍没再打中英雄，就每 30 拍掉一层。叠满时攻击力翻倍（`league_zaahen_full`：主包数据用它播身后的暗裔气焰），并挂
 //!   `league_zaahen_fill` 让数据播叠满的画面、刷新 Q 和 W（连招）。
 //! - **叠满就能复活**：主包数据看不到致命伤害，只能叠满时给一个护盾。本包在他叠满、复活冷却好了的时候一直给他挂「不死」，生命停在
-//!   1 时不倒下：放逐他 `rv_rise` 拍（无敌、选不中、不能行动；画面是数据的 `league_zaahen_rv_rise`：他跪起、展翼站起来），这段时间
+//!   1 时不倒下：放逐他 `rv_rise` 拍（无敌、选不中、不能行动；画面是数据的 `league_zaahen_rv_rise_r` / `_l`：他跪起、展翼站起来，
+//!   朝着最近的敌方英雄——特效图不会镜像，所以左右各画一份），这段时间
 //!   里慢慢回到最大生命的 `rv_hp`%，起来后果决重新叠满；下一次要等 `rv_cd` 拍。别人给的「不死」在身上时不触发。
 //! - **赤金突袭有自己的技能位**：主包三个技能位放不下第四个技能，只能把 E 并进 W（拽完人原地绕身一斩）。本包每 `e_cd` 拍一次：
-//!   `e_reach` 内有敌方英雄、他能行动时，朝最近的那个冲过去（最多 `e_dash`，停在让对方正好落在外圈的地方），落地挂
+//!   `e_reach` 内有敌方英雄、他能行动时，朝最近的那个冲过去（最多 `e_dash`，停在让对方正好落在外圈的地方；冲的时候挂
+//!   `league_zaahen_e_rush`，数据播冲刺的动作），落地挂
 //!   `league_zaahen_e_go`，数据播绕身斩（skill3），`e_hit` 拍后本包按英雄联盟结算：内圈 `e_r0`、外圈 `e_r` 里的敌人受到
 //!   `e_dmg` + `e_ratio`% 攻击力的物理伤害，外圈多 `e_out`%，外圈再加最大生命 `e_pct`% 的魔法伤害。
 //! - **暗裔长刀按最大生命回血**：主包回固定的血。副本给每一斩打中的单位挂 3 拍 `league_zaahen_q_mark`；本包看到就给他回最大生命的
@@ -257,6 +259,25 @@ fn dist(a: (f64, f64), b: (f64, f64)) -> f64 {
     ((a.0 - b.0).powi(2) + (a.1 - b.1).powi(2)).sqrt()
 }
 
+/// "l" when the nearest enemy champion stands to his left, else "r" (the revive's picture faces it).
+fn facing(sim: &StableSim<'_>, me: usize) -> &'static str {
+    let Some(e) = sim.get_entity(me) else { return "r" };
+    let (team, at) = (e.team(), fpos(e.pos()));
+    let near = (0..sim.champion_count())
+        .map(|i| sim.champion_id_at(i))
+        .filter_map(|id| sim.get_entity(id).filter(|c| c.team() != team && c.is_alive()).map(|c| fpos(c.pos())))
+        .min_by(|a, b| dist(at, *a).total_cmp(&dist(at, *b)));
+    side_of(at, near)
+}
+
+/// The side a picture of him faces: toward `near` (none: right).
+pub fn side_of(at: (f64, f64), near: Option<(f64, f64)>) -> &'static str {
+    match near {
+        Some(p) if p.0 < at.0 => "l",
+        _ => "r",
+    }
+}
+
 fn is_unit(kind: Option<EntityKindV1>) -> bool {
     matches!(kind, Some(EntityKindV1::Champion | EntityKindV1::Minion | EntityKindV1::Jungle | EntityKindV1::Epic
                         | EntityKindV1::Summon))
@@ -370,7 +391,9 @@ impl Darkin {
         self.unguard(sim, me);
         self.dash = None;
         self.strike_at = None;
-        if !sim.entity_banish(me, me, self.p.rv_rise, &sn("rv_rise"), &sn("p_full")) {
+        // his rising faces the nearest enemy champion: an effect picture is never mirrored (one drawn each way)
+        let side = facing(sim, me);
+        if !sim.entity_banish(me, me, self.p.rv_rise, &sn(&format!("rv_rise_{side}")), &sn("p_full")) {
             if let Some(k) = counted("refused") {
                 wlog(format!("{} REVIVE #{k} refused (banish) - he falls", head(sim, me)));
             }
@@ -423,6 +446,8 @@ impl Darkin {
         self.e_at = now + self.p.e_cd;
         self.dash = Some(Dash { from: at, to, start: now, target });
         let t = DASH_T as u64;
+        sim.entity_remove_buff(me, &sn("e_rush"));
+        sim.add_buff(me, &BuffV1::timed(&sn("e_rush"), FLAG_T));   // the data plays the rush (`dash`)
         sim.apply_cc(me, &CcV1::of_kind(CcKindV1::Bind, t));
         sim.apply_cc(me, &CcV1::of_kind(CcKindV1::BlockAttack, t));
         sim.apply_cc(me, &CcV1::of_kind(CcKindV1::BlockSkill, t));
@@ -682,6 +707,13 @@ mod tests {
     }
 
     #[test]
+    fn the_revive_faces_the_nearest_enemy() {
+        assert_eq!(side_of((100.0, 0.0), Some((50.0, 9.0))), "l");
+        assert_eq!(side_of((100.0, 0.0), Some((150.0, 9.0))), "r");
+        assert_eq!(side_of((100.0, 0.0), None), "r");
+    }
+
+    #[test]
     fn only_someone_elses_undying_holds_the_revive_back() {
         assert!(!other_undying(&[("league_zaahen_rv_guard".to_string(), true)]));
         assert!(other_undying(&[("league_zilean_r_rune".to_string(), true)]));
@@ -690,7 +722,8 @@ mod tests {
     #[test]
     fn the_kit_names_what_this_add_on_reads_and_writes() {
         let kit = include_str!("../../../tools/kit/build_zaahen.py");
-        for flag in ["\"e_go\"", "\"fill\"", "\"q_mark\"", "\"busy\"", "\"r_guard\"", "\"full\"", "\"rv_rise\""] {
+        for flag in ["\"e_go\"", "\"e_rush\"", "\"fill\"", "\"q_mark\"", "\"busy\"", "\"r_guard\"", "\"full\"",
+                     "rv_rise_{side}"] {
             assert!(kit.contains(flag), "build_zaahen.py no longer names {flag}");
         }
     }
