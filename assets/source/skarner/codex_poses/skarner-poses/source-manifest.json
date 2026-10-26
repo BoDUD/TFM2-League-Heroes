@@ -1,0 +1,192 @@
+{
+  "selected": [
+    {
+      "id": "a_wind",
+      "selected": "a_wind-final",
+      "path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a173bb-8227-7bf0-88a8-0afd2e790106\\exec-77d22a59-af99-447e-8a15-29c920749f5a.png"
+    },
+    {
+      "id": "a_strike",
+      "selected": "a_strike",
+      "path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a173bb-8227-7bf0-88a8-0afd2e790106\\exec-9db691a6-63b6-4757-8b57-461f42951f48.png"
+    },
+    {
+      "id": "q_dig",
+      "selected": "q_dig-final",
+      "path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a173bb-8227-7bf0-88a8-0afd2e790106\\exec-f878f63a-4b40-4e81-a347-99a01eb37537.png"
+    },
+    {
+      "id": "q_lift",
+      "selected": "q_lift",
+      "path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a173bb-8227-7bf0-88a8-0afd2e790106\\exec-f84c72fd-ef80-4d3c-8035-a15e6abe5b94.png"
+    },
+    {
+      "id": "t_wind",
+      "selected": "t_wind",
+      "path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a173bb-8227-7bf0-88a8-0afd2e790106\\exec-69e3dbc3-3352-432f-aa4d-4a8418a6a8b0.png"
+    },
+    {
+      "id": "t_throw",
+      "selected": "t_throw",
+      "path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a173bb-8227-7bf0-88a8-0afd2e790106\\exec-42976872-b3ef-48fb-b9c0-da56e53a2842.png"
+    },
+    {
+      "id": "w_rear",
+      "selected": "w_rear-final",
+      "path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a173bb-8227-7bf0-88a8-0afd2e790106\\exec-a66983c2-dcb0-4c53-9543-04b7bb17c31f.png"
+    },
+    {
+      "id": "w_slam",
+      "selected": "w_slam",
+      "path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a173bb-8227-7bf0-88a8-0afd2e790106\\exec-985501ce-ee75-4b2b-a943-3b7eb9118da8.png"
+    },
+    {
+      "id": "e_charge",
+      "selected": "e_charge",
+      "path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a173bb-8227-7bf0-88a8-0afd2e790106\\exec-afe62226-6471-4947-a455-57c9d5200ac1.png"
+    },
+    {
+      "id": "e_grab",
+      "selected": "e_grab",
+      "path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a173bb-8227-7bf0-88a8-0afd2e790106\\exec-af92c76a-70c2-4367-a16f-82de045ffb3f.png"
+    },
+    {
+      "id": "r_lash",
+      "selected": "r_lash",
+      "path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a173bb-8227-7bf0-88a8-0afd2e790106\\exec-f926abda-0c0b-44ef-ba29-0759e59dcd18.png"
+    },
+    {
+      "id": "r_hold",
+      "selected": "r_hold",
+      "path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a173bb-8227-7bf0-88a8-0afd2e790106\\exec-3a358619-829c-4bf4-a454-4261e20f3949.png"
+    },
+    {
+      "id": "run1",
+      "selected": "run1",
+      "path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a173bb-8227-7bf0-88a8-0afd2e790106\\exec-2520bd2e-eb04-49b9-9050-83d0c05de678.png"
+    },
+    {
+      "id": "run2",
+      "selected": "run2",
+      "path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a173bb-8227-7bf0-88a8-0afd2e790106\\exec-485ea482-dfbe-46b8-b8b3-01171fcb01d2.png"
+    },
+    {
+      "id": "run3",
+      "selected": "run3",
+      "path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a173bb-8227-7bf0-88a8-0afd2e790106\\exec-977b54e6-e0ef-4d06-a8f1-b46fe3cc3af7.png"
+    },
+    {
+      "id": "run4",
+      "selected": "run4",
+      "path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a173bb-8227-7bf0-88a8-0afd2e790106\\exec-62512ce0-0977-4657-8eb8-afa34f2cf473.png"
+    },
+    {
+      "id": "d_rear",
+      "selected": "d_rear",
+      "path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a173bb-8227-7bf0-88a8-0afd2e790106\\exec-a745e6f9-9365-44f6-84f3-c22e7db5d94f.png"
+    },
+    {
+      "id": "d_down",
+      "selected": "d_down",
+      "path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a173bb-8227-7bf0-88a8-0afd2e790106\\exec-ec982bbe-a563-455c-bb86-62fc799b8e00.png"
+    }
+  ],
+  "raw": [
+    {
+      "id": "a_wind",
+      "path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a173bb-8227-7bf0-88a8-0afd2e790106\\exec-453f6a81-335b-42f7-b5fe-8bce7458ad88.png"
+    },
+    {
+      "id": "a_strike",
+      "path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a173bb-8227-7bf0-88a8-0afd2e790106\\exec-9db691a6-63b6-4757-8b57-461f42951f48.png"
+    },
+    {
+      "id": "q_dig",
+      "path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a173bb-8227-7bf0-88a8-0afd2e790106\\exec-be1d2e01-1ed9-4deb-ae45-83b53a633313.png"
+    },
+    {
+      "id": "q_lift",
+      "path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a173bb-8227-7bf0-88a8-0afd2e790106\\exec-f84c72fd-ef80-4d3c-8035-a15e6abe5b94.png"
+    },
+    {
+      "id": "t_wind",
+      "path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a173bb-8227-7bf0-88a8-0afd2e790106\\exec-69e3dbc3-3352-432f-aa4d-4a8418a6a8b0.png"
+    },
+    {
+      "id": "t_throw",
+      "path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a173bb-8227-7bf0-88a8-0afd2e790106\\exec-42976872-b3ef-48fb-b9c0-da56e53a2842.png"
+    },
+    {
+      "id": "w_rear",
+      "path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a173bb-8227-7bf0-88a8-0afd2e790106\\exec-2224a2bd-8f4c-45de-8852-94161058605b.png"
+    },
+    {
+      "id": "w_slam",
+      "path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a173bb-8227-7bf0-88a8-0afd2e790106\\exec-985501ce-ee75-4b2b-a943-3b7eb9118da8.png"
+    },
+    {
+      "id": "e_charge",
+      "path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a173bb-8227-7bf0-88a8-0afd2e790106\\exec-afe62226-6471-4947-a455-57c9d5200ac1.png"
+    },
+    {
+      "id": "e_grab",
+      "path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a173bb-8227-7bf0-88a8-0afd2e790106\\exec-af92c76a-70c2-4367-a16f-82de045ffb3f.png"
+    },
+    {
+      "id": "r_lash",
+      "path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a173bb-8227-7bf0-88a8-0afd2e790106\\exec-f926abda-0c0b-44ef-ba29-0759e59dcd18.png"
+    },
+    {
+      "id": "r_hold",
+      "path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a173bb-8227-7bf0-88a8-0afd2e790106\\exec-3a358619-829c-4bf4-a454-4261e20f3949.png"
+    },
+    {
+      "id": "run1",
+      "path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a173bb-8227-7bf0-88a8-0afd2e790106\\exec-2520bd2e-eb04-49b9-9050-83d0c05de678.png"
+    },
+    {
+      "id": "run2",
+      "path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a173bb-8227-7bf0-88a8-0afd2e790106\\exec-485ea482-dfbe-46b8-b8b3-01171fcb01d2.png"
+    },
+    {
+      "id": "run3",
+      "path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a173bb-8227-7bf0-88a8-0afd2e790106\\exec-977b54e6-e0ef-4d06-a8f1-b46fe3cc3af7.png"
+    },
+    {
+      "id": "run4",
+      "path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a173bb-8227-7bf0-88a8-0afd2e790106\\exec-62512ce0-0977-4657-8eb8-afa34f2cf473.png"
+    },
+    {
+      "id": "d_rear",
+      "path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a173bb-8227-7bf0-88a8-0afd2e790106\\exec-a745e6f9-9365-44f6-84f3-c22e7db5d94f.png"
+    },
+    {
+      "id": "d_down",
+      "path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a173bb-8227-7bf0-88a8-0afd2e790106\\exec-ec982bbe-a563-455c-bb86-62fc799b8e00.png"
+    },
+    {
+      "id": "a_wind-revision",
+      "path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a173bb-8227-7bf0-88a8-0afd2e790106\\exec-213dc662-8d73-4fbe-a5e9-09a15b65f602.png"
+    },
+    {
+      "id": "a_wind-final",
+      "path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a173bb-8227-7bf0-88a8-0afd2e790106\\exec-77d22a59-af99-447e-8a15-29c920749f5a.png"
+    },
+    {
+      "id": "q_dig-final",
+      "path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a173bb-8227-7bf0-88a8-0afd2e790106\\exec-f878f63a-4b40-4e81-a347-99a01eb37537.png"
+    },
+    {
+      "id": "w_rear-final",
+      "path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a173bb-8227-7bf0-88a8-0afd2e790106\\exec-a66983c2-dcb0-4c53-9543-04b7bb17c31f.png"
+    },
+    {
+      "id": "a_strike-final",
+      "path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a173bb-8227-7bf0-88a8-0afd2e790106\\exec-5b2fef6c-0798-4785-984d-f637564e87d3.png"
+    },
+    {
+      "id": "a_strike-final2",
+      "path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a173bb-8227-7bf0-88a8-0afd2e790106\\exec-21c50074-3a25-4c6b-b52b-fc03491f82a2.png"
+    }
+  ]
+}

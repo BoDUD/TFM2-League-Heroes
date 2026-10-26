@@ -1,0 +1,52 @@
+{
+  "zh-hans": {
+    "description": {
+      "league_skarner": {
+        "attack": "【附加包】毒刺扎击。<#ff9028ff>战栗<>：普攻、巨石、毒刺在敌方英雄身上叠层，满3层它<#ffb900ff>4秒<>内每秒受到最大生命1%魔法伤害。<#ff9028ff>震地壁垒<>：冲锋停下时得<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>20%<>护盾<#ffb900ff>3秒<>，震伤周围<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<>、<#ef5350ff>减速<>30%。",
+        "skill": "【附加包】掘起巨石<#ffb900ff>6秒<>，攻速+20%；3次普攻溅射<#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>20%<>，第3次加最大生命3%、<#ef5350ff>减速<>40%。举满<#ffb900ff>3秒<>就扔出<#ff9028ff>擎天<>：<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>+最大生命3%。",
+        "skill2": "【附加包】冲锋时穿过地形，撞上敌方英雄后拖着走；拖到墙上才造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>+最大生命6%物理伤害并<#ef5350ff>晕眩<><#ffb900ff>0.67秒<>。",
+        "ult": "【附加包】三根毒刺往前扎：最先碰到的3个敌方英雄受到<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>魔法伤害，被<#ef5350ff>压制<><#ffb900ff>0.75秒<>并拖到身边跟着走；扎中后移速+30%<#ffb900ff>2.5秒<>。"
+      }
+    }
+  },
+  "zh-hant": {
+    "description": {
+      "league_skarner": {
+        "attack": "【附加包】毒刺扎擊。<#ff9028ff>震動餘波<>：普攻、巨石、毒刺在敵方英雄身上疊層，滿3層它<#ffb900ff>4秒<>內每秒受到最大生命1%魔法傷害。<#ff9028ff>壁壘波動<>：衝鋒停下時得<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>20%<>護盾<#ffb900ff>3秒<>，震傷周圍<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<>、<#ef5350ff>緩速<>30%。",
+        "skill": "【附加包】掘起巨石<#ffb900ff>6秒<>，攻速+20%；3次普攻濺射<#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>20%<>，第3次加最大生命3%、<#ef5350ff>緩速<>40%。舉滿<#ffb900ff>3秒<>就扔出<#ff9028ff>尖岩飛彈<>：<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>+最大生命3%。",
+        "skill2": "【附加包】衝鋒時穿過地形，撞上敵方英雄後拖著走；拖到牆上才造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>+最大生命6%物理傷害並<#ef5350ff>暈眩<><#ffb900ff>0.67秒<>。",
+        "ult": "【附加包】三根毒刺往前扎：最先碰到的3個敵方英雄受到<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>魔法傷害，被<#ef5350ff>壓制<><#ffb900ff>0.75秒<>並拖到身邊跟著走；扎中後移速+30%<#ffb900ff>2.5秒<>。"
+      }
+    }
+  },
+  "en": {
+    "description": {
+      "league_skarner": {
+        "attack": "[Add-on] Stinger strikes. <#ff9028ff>Threads of Vibration<>: his attacks, the boulder and Impale stack Quaking on each enemy champion; at 3 it takes 1% max health as magic damage a second for <#ffb900ff>4s<>. <#ff9028ff>Seismic Bastion<>: when his charge stops he gains a <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>20%<> shield for <#ffb900ff>3s<> and quakes the ground for <#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<>, <#ef5350ff>slowing<> 30%.",
+        "skill": "[Add-on] Rips up a boulder for <#ffb900ff>6s<>: +20% attack speed, his next 3 attacks splash <#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>20%<>, the third 3% max health more and <#ef5350ff>slows<> 40%. Held <#ffb900ff>3s<>, it is thrown (<#ff9028ff>Upheaval<>): <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> + 3% max health.",
+        "skill2": "[Add-on] Charges through terrain at an enemy champion and carries it along; only slammed into a wall it takes <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> + 6% max health physical damage and is <#ef5350ff>stunned<> for <#ffb900ff>0.67s<>.",
+        "ult": "[Add-on] His three tails lash forward: the first 3 enemy champions hit take <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<> magic damage, are <#ef5350ff>suppressed<> for <#ffb900ff>0.75s<> and dragged along beside him; on a hit he gains 30% move speed for <#ffb900ff>2.5s<>."
+      }
+    }
+  },
+  "ko": {
+    "description": {
+      "league_skarner": {
+        "attack": "[확장] 독침 공격. <#ff9028ff>진동의 가닥<>: 기본 공격, 바위, 꿰뚫기가 적 챔피언마다 진동 중첩, 3중첩이면 <#ffb900ff>4초<> 동안 매초 최대 체력 1% 마법 피해. <#ff9028ff>대지의 수호자<>: 돌진이 멈추면 <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>20%<> 보호막 <#ffb900ff>3초<>, 주변에 <#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<> 피해, 30% <#ef5350ff>둔화<>.",
+        "skill": "[확장] 바위를 <#ffb900ff>6초<> 들어 올림: 공격 속도 +20%, 다음 기본 공격 3회가 <#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>20%<> 범위 피해, 3번째는 최대 체력 3% 추가와 40% <#ef5350ff>둔화<>. <#ffb900ff>3초<> 들고 있으면 던짐(<#ff9028ff>지반 돌출<>): <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> + 최대 체력 3%.",
+        "skill2": "[확장] 지형을 통과해 적 챔피언에게 돌진해 끌고 감; 벽에 부딪혀야 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> + 최대 체력 6% 물리 피해와 <#ffb900ff>0.67초<> <#ef5350ff>기절<>.",
+        "ult": "[확장] 세 꼬리로 앞을 꿰뚫음: 처음 맞은 적 챔피언 3명에게 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<> 마법 피해, <#ffb900ff>0.75초<> <#ef5350ff>제압<>하고 곁으로 끌고 다님; 적중하면 이동 속도 +30% <#ffb900ff>2.5초<>."
+      }
+    }
+  },
+  "ja": {
+    "description": {
+      "league_skarner": {
+        "attack": "【拡張】毒針で攻撃。<#ff9028ff>響振動<>：通常攻撃・岩・インペイルが敵チャンピオンごとに振動を付与、3スタックで<#ffb900ff>4秒<>間毎秒最大体力1%の魔法ダメージ。<#ff9028ff>激震の砦<>：突進が止まるとシールド<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>20%<>を<#ffb900ff>3秒<>得て周囲に<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<>、30%<#ef5350ff>スロウ<>。",
+        "skill": "【拡張】岩を<#ffb900ff>6秒<>掲げる：攻撃速度+20%、次の通常攻撃3回が<#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>20%<>の範囲ダメージ、3回目は最大体力3%追加と40%<#ef5350ff>スロウ<>。<#ffb900ff>3秒<>持つと投げる（<#ff9028ff>大地の怒り<>）：<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>+最大体力3%。",
+        "skill2": "【拡張】地形を抜けて敵チャンピオンに突進して引きずる；壁にぶつけた時だけ<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>+最大体力6%の物理ダメージと<#ffb900ff>0.67秒<><#ef5350ff>スタン<>。",
+        "ult": "【拡張】三本の尾で前方を貫く：最初の3体の敵チャンピオンに<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>の魔法ダメージ、<#ffb900ff>0.75秒<><#ef5350ff>サプレッション<>して引きずる；命中すると移動速度+30%を<#ffb900ff>2.5秒<>。"
+      }
+    }
+  }
+}
