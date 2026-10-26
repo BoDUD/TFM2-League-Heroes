@@ -1,0 +1,362 @@
+[
+  {
+    "id": "a_wind",
+    "width": 1254,
+    "height": 1254,
+    "transparent_pixels": 1126164,
+    "opaque_pixels": 3089,
+    "partial_alpha_pixels": 443263,
+    "hard_alpha_pass": false,
+    "bbox_alpha128": [
+      235,
+      12,
+      1186,
+      1225
+    ],
+    "margin_min": 12,
+    "sha256": "568600492A4AB1212233AC135BC60FCA7551749442A4ADDFA5127F4992E5654D",
+    "raw_sha256_match": true
+  },
+  {
+    "id": "a_sweep",
+    "width": 1254,
+    "height": 1254,
+    "transparent_pixels": 1219442,
+    "opaque_pixels": 1803,
+    "partial_alpha_pixels": 351271,
+    "hard_alpha_pass": false,
+    "bbox_alpha128": [
+      35,
+      418,
+      1230,
+      1190
+    ],
+    "margin_min": 24,
+    "sha256": "16171EE3B6B02118CC39BDBF9ADED3B705EC8666F8DBB42BBFF9F1EED8A88AC6",
+    "raw_sha256_match": true
+  },
+  {
+    "id": "q_cut1",
+    "width": 1254,
+    "height": 1254,
+    "transparent_pixels": 1220500,
+    "opaque_pixels": 2331,
+    "partial_alpha_pixels": 349685,
+    "hard_alpha_pass": false,
+    "bbox_alpha128": [
+      10,
+      323,
+      1245,
+      1107
+    ],
+    "margin_min": 9,
+    "sha256": "DF2C1022D47DCB5C22F50F7E75399326975B7C46BCF4BD7E588AD51CAF397453",
+    "raw_sha256_match": true
+  },
+  {
+    "id": "q_cut2",
+    "width": 1254,
+    "height": 1254,
+    "transparent_pixels": 1000355,
+    "opaque_pixels": 2554,
+    "partial_alpha_pixels": 569607,
+    "hard_alpha_pass": false,
+    "bbox_alpha128": [
+      42,
+      17,
+      1244,
+      1221
+    ],
+    "margin_min": 10,
+    "sha256": "5B69D0C62E24F59E161EE7CA49CFEFE0C95737766ED20326CE3F6C3E1CFE4062",
+    "raw_sha256_match": true
+  },
+  {
+    "id": "q_crouch",
+    "width": 1254,
+    "height": 1254,
+    "transparent_pixels": 1192329,
+    "opaque_pixels": 1421,
+    "partial_alpha_pixels": 378766,
+    "hard_alpha_pass": false,
+    "bbox_alpha128": [
+      45,
+      508,
+      1239,
+      1228
+    ],
+    "margin_min": 15,
+    "sha256": "BAF5ECCE4A4FE8CA42DA1F31CAD658B96FC7AA5A5CF533DD2E52128257587D33",
+    "raw_sha256_match": true
+  },
+  {
+    "id": "q_up",
+    "width": 1254,
+    "height": 1254,
+    "transparent_pixels": 1123986,
+    "opaque_pixels": 1868,
+    "partial_alpha_pixels": 446662,
+    "hard_alpha_pass": false,
+    "bbox_alpha128": [
+      240,
+      47,
+      1039,
+      1225
+    ],
+    "margin_min": 29,
+    "sha256": "FC23D52FB911AAD7504205AE71AFCFA2D96426FF86073832646575B17755E9C2",
+    "raw_sha256_match": true
+  },
+  {
+    "id": "w_thrust",
+    "width": 1254,
+    "height": 1254,
+    "transparent_pixels": 1249630,
+    "opaque_pixels": 1417,
+    "partial_alpha_pixels": 321469,
+    "hard_alpha_pass": false,
+    "bbox_alpha128": [
+      89,
+      428,
+      1243,
+      1139
+    ],
+    "margin_min": 11,
+    "sha256": "A2E077168516397EC3F7A9B69BE8FC98D13D13D7947E9F623102A8D60B424023",
+    "raw_sha256_match": true
+  },
+  {
+    "id": "w_pull",
+    "width": 1254,
+    "height": 1254,
+    "transparent_pixels": 1093767,
+    "opaque_pixels": 1841,
+    "partial_alpha_pixels": 476908,
+    "hard_alpha_pass": false,
+    "bbox_alpha128": [
+      30,
+      244,
+      1224,
+      1145
+    ],
+    "margin_min": 30,
+    "sha256": "E5865EDA6B7A73E34F538D8EFFA10BA9BA997CA7282829B2812DAF084DF4386D",
+    "raw_sha256_match": true
+  },
+  {
+    "id": "e_dash",
+    "width": 1254,
+    "height": 1254,
+    "transparent_pixels": 1181660,
+    "opaque_pixels": 1897,
+    "partial_alpha_pixels": 388959,
+    "hard_alpha_pass": false,
+    "bbox_alpha128": [
+      20,
+      428,
+      1225,
+      1184
+    ],
+    "margin_min": 20,
+    "sha256": "CE346F90482742030DA6F6190FDBAC500919FA160B0CCA24AD3DC73DE5ACF240",
+    "raw_sha256_match": true
+  },
+  {
+    "id": "e_spin",
+    "width": 1254,
+    "height": 1254,
+    "transparent_pixels": 985316,
+    "opaque_pixels": 1701,
+    "partial_alpha_pixels": 585499,
+    "hard_alpha_pass": false,
+    "bbox_alpha128": [
+      20,
+      236,
+      1246,
+      1193
+    ],
+    "margin_min": 8,
+    "sha256": "18B6E47500B887253D90EDF55B8BDBD26EBE8223F14A3921676CD3C6813244FA",
+    "raw_sha256_match": true
+  },
+  {
+    "id": "r_crouch",
+    "width": 1254,
+    "height": 1254,
+    "transparent_pixels": 929091,
+    "opaque_pixels": 1460,
+    "partial_alpha_pixels": 641965,
+    "hard_alpha_pass": false,
+    "bbox_alpha128": [
+      10,
+      143,
+      1239,
+      1221
+    ],
+    "margin_min": 10,
+    "sha256": "DD5369D592860A8C77B423F3A59C19C4E332E980AA08D020D242EFDBD162ADC9",
+    "raw_sha256_match": true
+  },
+  {
+    "id": "r_rise",
+    "width": 1254,
+    "height": 1254,
+    "transparent_pixels": 1035637,
+    "opaque_pixels": 2361,
+    "partial_alpha_pixels": 534518,
+    "hard_alpha_pass": false,
+    "bbox_alpha128": [
+      117,
+      21,
+      1132,
+      1193
+    ],
+    "margin_min": 21,
+    "sha256": "C68C47D5080415DFC2FAA63CA749000BFFD3DEE3785FF004479430A01A4FCF87",
+    "raw_sha256_match": true
+  },
+  {
+    "id": "r_stab",
+    "width": 1254,
+    "height": 1254,
+    "transparent_pixels": 1044063,
+    "opaque_pixels": 2212,
+    "partial_alpha_pixels": 526241,
+    "hard_alpha_pass": false,
+    "bbox_alpha128": [
+      117,
+      294,
+      1246,
+      1226
+    ],
+    "margin_min": 8,
+    "sha256": "DDEE86737A7796A659AF166808C9897F0186DDEBD8AE9F607BA987076770AA72",
+    "raw_sha256_match": true
+  },
+  {
+    "id": "run1",
+    "width": 1254,
+    "height": 1254,
+    "transparent_pixels": 1076499,
+    "opaque_pixels": 2475,
+    "partial_alpha_pixels": 493542,
+    "hard_alpha_pass": false,
+    "bbox_alpha128": [
+      22,
+      283,
+      1245,
+      1165
+    ],
+    "margin_min": 9,
+    "sha256": "2E621ECA4F6C5D978CA76DD387BC10967223DBB7AD9F720636C3DB876A276C17",
+    "raw_sha256_match": true
+  },
+  {
+    "id": "run2",
+    "width": 1254,
+    "height": 1254,
+    "transparent_pixels": 1192382,
+    "opaque_pixels": 2399,
+    "partial_alpha_pixels": 377735,
+    "hard_alpha_pass": false,
+    "bbox_alpha128": [
+      88,
+      315,
+      1137,
+      1186
+    ],
+    "margin_min": 68,
+    "sha256": "F671342D55A8B37C957C83FCE3EB64A1E69D1EE1AF4DA0471B09BC55F85F0710",
+    "raw_sha256_match": true
+  },
+  {
+    "id": "run3",
+    "width": 1254,
+    "height": 1254,
+    "transparent_pixels": 1125654,
+    "opaque_pixels": 987,
+    "partial_alpha_pixels": 445875,
+    "hard_alpha_pass": false,
+    "bbox_alpha128": [
+      17,
+      294,
+      1236,
+      1148
+    ],
+    "margin_min": 17,
+    "sha256": "35E1B9219E54C14EB3616F8BF7DF03400CD96DA7DBAABEC7CF112B3611226DEA",
+    "raw_sha256_match": true
+  },
+  {
+    "id": "run4",
+    "width": 1254,
+    "height": 1254,
+    "transparent_pixels": 1023357,
+    "opaque_pixels": 3563,
+    "partial_alpha_pixels": 545596,
+    "hard_alpha_pass": false,
+    "bbox_alpha128": [
+      10,
+      167,
+      1243,
+      1176
+    ],
+    "margin_min": 10,
+    "sha256": "C7CD8E0126810A9AA2637D3AB8034B77AFCD6165B7D696290098A3BE666D4ED4",
+    "raw_sha256_match": true
+  },
+  {
+    "id": "d_fall",
+    "width": 1254,
+    "height": 1254,
+    "transparent_pixels": 1098356,
+    "opaque_pixels": 1948,
+    "partial_alpha_pixels": 472212,
+    "hard_alpha_pass": false,
+    "bbox_alpha128": [
+      52,
+      16,
+      1244,
+      1210
+    ],
+    "margin_min": 10,
+    "sha256": "08D60870EB0B41CF9417625F0BE2165F7BBC5907D8EF4A435CDB76D6B1D4007E",
+    "raw_sha256_match": true
+  },
+  {
+    "id": "d_down",
+    "width": 1254,
+    "height": 1254,
+    "transparent_pixels": 1208573,
+    "opaque_pixels": 1092,
+    "partial_alpha_pixels": 362851,
+    "hard_alpha_pass": false,
+    "bbox_alpha128": [
+      31,
+      516,
+      1228,
+      1210
+    ],
+    "margin_min": 26,
+    "sha256": "7640820D209BC7F9EAD853B1B092DE93E3AAF07B62A106887BACEDA6CBAA86B9",
+    "raw_sha256_match": true
+  },
+  {
+    "id": "rv_kneel",
+    "width": 1254,
+    "height": 1254,
+    "transparent_pixels": 1170393,
+    "opaque_pixels": 1275,
+    "partial_alpha_pixels": 400848,
+    "hard_alpha_pass": false,
+    "bbox_alpha128": [
+      212,
+      30,
+      1043,
+      1211
+    ],
+    "margin_min": 30,
+    "sha256": "9E07964C094BDB131FF751A1536E4625DAA59368C8BD617CBF351098BC6E439B",
+    "raw_sha256_match": true
+  }
+]

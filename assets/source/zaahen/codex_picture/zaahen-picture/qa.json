@@ -1,0 +1,44 @@
+[
+  {
+    "name": "A",
+    "raw_width": 1254,
+    "raw_height": 1254,
+    "raw_bbox": [
+      356,
+      676,
+      934,
+      1236
+    ],
+    "raw_partial_alpha_pixels": 157024,
+    "output_width": 1536,
+    "output_height": 1536,
+    "placed_bbox": [
+      484,
+      840,
+      1052,
+      1390
+    ],
+    "processing": "transparent-canvas layout, uniform nearest-neighbor scale; no repaint, grid quantization or alpha threshold"
+  },
+  {
+    "name": "B",
+    "raw_width": 1254,
+    "raw_height": 1254,
+    "raw_bbox": [
+      393,
+      534,
+      961,
+      1229
+    ],
+    "raw_partial_alpha_pixels": 197763,
+    "output_width": 1536,
+    "output_height": 1536,
+    "placed_bbox": [
+      482,
+      690,
+      1054,
+      1390
+    ],
+    "processing": "transparent-canvas layout, uniform nearest-neighbor scale; no repaint, grid quantization or alpha threshold"
+  }
+]

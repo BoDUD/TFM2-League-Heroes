@@ -249,6 +249,10 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // game px, 80 squares = 46 px wide) and Codex's key poses after League's clips (read back at the body's size, the
     // design's head put back) at the user's 1.75 squares a game pixel (3/4 only), so no SIZES row
     ("league_skarner", 1.75, include_str!("../../../league/champions/league_skarner#anim.fanim")),
+    // Zaahen: posed by tools/art/rig_zaahen.py on Codex's step-0 take A-2 brought to 84 rows (48 game px horn tips to
+    // soles, the glaive and the wings out to 50) and Codex's key poses after League's clips (read back at the design's
+    // size, the design's head put back) at the user's 1.75 squares a game pixel (3/4 only), so no SIZES row
+    ("league_zaahen", 1.75, include_str!("../../../league/champions/league_zaahen#anim.fanim")),
     // Neeko: posed by tools/art/rig_neeko.py on Codex's step-1 take A-1 and its key poses at the user's 2.5 squares a
     // game pixel (100 game rows quill tips to soles: 「40」, then 「1.5也挺糊的 还得往上调整吧」; 3/4 only; league_neeko's
     // view hook draws her as an ally while she is disguised), so no SIZES row
@@ -488,6 +492,10 @@ pub const EFFECTS: &[(&str, f32, &str)] = &[
     // every one with its hd_ twin
     ("league_zoe_spells", 2.0, include_str!("../../../league/effects/league_zoe_spells#anim.fanim")),
     ("league_zoe_spell_icons", 3.0, include_str!("../../../league/effects/league_zoe_spell_icons#anim.fanim")),
+    // league_zaahen's revive (the add-on banishes him while he rises again, so his rising is an effect picture): his
+    // frames over the light column at his own 1.75, facing right and left (tools/art/rig_zaahen.py --rise; the add-on
+    // plays the side facing the nearest enemy champion: an effect picture is never mirrored)
+    ("league_zaahen_rise", 1.75, include_str!("../../../league/effects/league_zaahen_rise#anim.fanim")),
 ];
 
 pub const PREFIX: &str = "hd_";
@@ -573,6 +581,10 @@ pub const UI_SIZES: &[(&str, f32)] = &[
     // Locke: 44 game px from his hair to his soles at PPU 2.0 (the card's canvas is 40 tall), the case swung out in his
     // ult; UI size and card value set with bp_card_audit.py
     ("league_locke", 0.85),
+    // Zaahen: 48 game px from his horn tips to his soles at PPU 1.75 (the card's canvas is 40 tall), 50 wide with the
+    // glaive across him and the wings, the glaive raised high in his attack and Q; UI size and card value set with
+    // bp_card_audit.py
+    ("league_zaahen", 0.78),
 ];
 
 /// The `"lo_..."` animation names of a .fanim.
