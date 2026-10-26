@@ -3,8 +3,7 @@
   "category": "Range",
   "tags": [
     "AD",
-    "Range",
-    "Execute"
+    "Range"
   ],
   "passive": {
     "passive_ref": "tft_maddie:sniper",

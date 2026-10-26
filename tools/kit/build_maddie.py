@@ -177,7 +177,7 @@ def build(p, is_native=False):
         views_e.append(E("p_bounty", FX, 4))
     views_b = [B_("e_wanted", FX, 4), B_("p_bounty", FX, 3, "p_bounty_loop")]
     kit = {
-        "id": ID, "category": "Range", "tags": ["AD", "Range", "Execute"],
+        "id": ID, "category": "Range", "tags": ["AD", "Range"],
         "sprite": f"asset/{MOD_ID}/champions/{ID}", "anim_prefix": "",
         "skill_icons": [f"asset/{MOD_ID}/icons/{ID}_skill", f"asset/{MOD_ID}/icons/{ID}_skill2",
                         f"asset/{MOD_ID}/icons/{ID}_ult"],
