@@ -615,7 +615,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v1.1 (the Sun Disc on a fallen tower, the guards facing the charge, soldiers redrawn, the R's timing) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v1.3 (the Sun Disc on a fallen tower, the guards facing the charge, soldiers redrawn, the R's timing, E only when it dashes) loaded: game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
         v.patch,
