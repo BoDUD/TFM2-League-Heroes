@@ -41,6 +41,8 @@ from design_taliyah_hd import lp  # noqa: E402
 import pack_taliyah_poses as PK  # noqa: E402
 
 SRC = os.path.join(ROOT, "assets", "source", "taliyah", "codex_poses", "taliyah-poses", "raw")
+# the run on her feet (2026-10-26, RUN_POSE_PROMPTS.md; Codex new-chat-8): run1-run4, its own delivery
+SRC_RUN = os.path.join(ROOT, "assets", "source", "taliyah", "codex_run", "taliyah-run")
 OUT = os.path.join(ROOT, "assets", "source", "taliyah", "hd")
 # the gold ornament (rows 6-12, columns 15-24), the hair's middle above the face, the brows (row 19), the eyes (rows
 # 20-23: the near one columns 16-20, the far one 24-25), the mouth (row 26) and the chin (row 29) - square edges on
@@ -78,7 +80,8 @@ def design(name="idle.png"):
 
 
 def raw(name):
-    return np.asarray(Image.open(lp(os.path.join(SRC, f"taliyah-pose-{name}.png"))).convert("RGBA"))
+    src = SRC_RUN if name.startswith("run") else SRC
+    return np.asarray(Image.open(lp(os.path.join(src, f"taliyah-pose-{name}.png"))).convert("RGBA"))
 
 
 def head_mask(d):

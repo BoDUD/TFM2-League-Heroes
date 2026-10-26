@@ -173,6 +173,13 @@ class Form:
         """A Codex pose standing where the design stands (left_of), moved dx squares, `lift` rows over the ground."""
         return self.place(load(f"pose_{name}.png"), self.left_of(name) + dx, lift)
 
+    def running(self, name):
+        """A run pose (run1-run4): the head box on the same column in every frame (RUN_DX squares ahead of the design's
+        head: she leans into the run), so the body does not sway sideways as the planted foot changes; its lowest row
+        (the foot on the ground) on the ground line."""
+        left = self.rig.ox + PK_HEAD_C0 + RUN_DX - head_at(name)[0]
+        return self.place(load(f"pose_{name}.png"), left)
+
     def surf(self, sunk, lift, up=0):
         """A surf frame (the run), its boulder `up` rows over the ground (the ride on top of her wall)."""
         left = self.rig.ox + int(round((DESIGN_FEET[0] + DESIGN_FEET[1]) / 2 - BOULDER_FOOT))
@@ -194,8 +201,10 @@ def head_at(name):
 # 233 ms), the press on the ground and W's warning crack (w_rel 21 = 350 ms), the shove;
 # R near (ult, r_dur 40 = 667 ms): the crouch, the upright wall called up (r_rel 16 = 267 ms); R far (ult_ride): the
 # wall called, then she rides her boulder along it (the surf);
-# the run: the surf, 4 frames.
-MS = {"idle": [1000], "run": [120] * 4,
+# the run: on her feet, run1-run4 (one stride of League's Run1, two steps in RUN_MS x 4); the surf (out of fights,
+# league_taliyah's view.rs swaps run -> surf): the boulder, 4 frames.
+RUN_MS = 125
+MS = {"idle": [1000], "run": [RUN_MS] * 4, "surf": [120] * 4,
       "attack": [167, 183, 100],
       "skill": [133, 134],
       "skill2": [100, 133, 117, 250],
@@ -208,6 +217,10 @@ MS = {"idle": [1000], "run": [120] * 4,
 # design's (9 and 27); d_down (sitting, the legs out to the right) keeps the stagger's head column moved HEAD_BACK
 # squares back.
 DESIGN_FEET = (9, 27)
+# the run poses line up on their heads: the design's head box starts at column PK_HEAD_C0 (pack_taliyah_poses.HEAD), the
+# runner's RUN_DX squares further on
+PK_HEAD_C0 = 2
+RUN_DX = 1
 FEET = {"a_wind": (10, 30), "a_throw": (19, 54), "q_raise": (23, 27), "q_cast": (14, 61), "e_raise": (13, 18),
         "e_sweep": (7, 44), "w_crouch": (26, 33), "w_push": (8, 33), "r_call": (10, 35), "d_stagger": (23, 52)}
 HEAD_BACK = {"d_down": ("d_stagger", -3)}
@@ -223,8 +236,10 @@ def actions(F):
         return F.posed(name, dx + ddx, lift + dlift)
     out = {}
     out["idle"] = [p()]
-    # run: the passive's rock surf (League's taliyah_run_passive), surf1 looped
-    out["run"] = [F.surf(s, k) for s, k in SURF]
+    # run: on her feet (League's taliyah_run1; the user, 2026-10-26: 「塔利亚怎么是飞着走路的 不对吧」)
+    out["run"] = [F.running(f"run{k}") for k in range(1, 5)]
+    # surf: the passive's rock surf (League's taliyah_run_passive), surf1 looped - out of fights (league_taliyah)
+    out["surf"] = [F.surf(s, k) for s, k in SURF]
     # auto attack (League's taliyah_attack1: a stone called up over the far hand, flicked forward)
     out["attack"] = [at("a_wind"), at("a_throw"), p()]
     # Q Threaded Volley (taliyah_spell1_0: the far arm up calling the rocks, then pushed forward with the volley)
