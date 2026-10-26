@@ -1,0 +1,3046 @@
+{
+ "items": [
+  {
+   "id": "a_bolt",
+   "file": "norra_fx_a_bolt.png",
+   "pixel_1x": "norra_fx_a_bolt.png",
+   "raw": "raw/norra_fx_a_bolt_raw.png",
+   "frames": 4,
+   "cell_1x": [
+    12,
+    8
+   ],
+   "sheet_1x": [
+    48,
+    8
+   ],
+   "sheet_8x": [
+    384,
+    64
+   ],
+   "symmetry": "top-bottom",
+   "loop": true,
+   "binding": "view_projectiles `tft_norra_a_bolt`（弹道，z 2；朝右、上下对称）",
+   "source_grid": [
+    2,
+    2
+   ],
+   "palette": [
+    "#FFFFFF",
+    "#FFF4C4",
+    "#FFD95A",
+    "#F2B12E",
+    "#C77A16",
+    "#7E4410",
+    "#F4E6FF",
+    "#C9A2FF",
+    "#9A62F0",
+    "#6A34D0",
+    "#3E1C8C",
+    "#22104E",
+    "#FFE8F4",
+    "#FF9CCB",
+    "#F05A9E",
+    "#B02A6E"
+   ],
+   "status": "source_reviewed",
+   "issues": [],
+   "normalization_profile": [
+    [
+     12,
+     8,
+     0
+    ],
+    [
+     12,
+     8,
+     0
+    ],
+    [
+     12,
+     8,
+     0
+    ],
+    [
+     12,
+     8,
+     0
+    ]
+   ],
+   "frame_details": [
+    {
+     "index": 0,
+     "source_cell": [
+      0,
+      0,
+      768,
+      512
+     ],
+     "source_visible_bbox": {
+      "x0": 91,
+      "y0": 137,
+      "x1": 703,
+      "y1": 443,
+      "opaque": 76004
+     },
+     "normalization_rect_1x": [
+      0,
+      0,
+      12,
+      8
+     ],
+     "output_bbox": {
+      "x0": 1,
+      "y0": 0,
+      "x1": 11,
+      "y1": 8,
+      "opaque": 44
+     },
+     "symmetry_mismatches": 0,
+     "body_clear_rect": null,
+     "sha256": "8091ebef11a461126d89d3c8302e8cce6d97d112d52f7e64889bf47e997fa1db"
+    },
+    {
+     "index": 1,
+     "source_cell": [
+      768,
+      0,
+      768,
+      512
+     ],
+     "source_visible_bbox": {
+      "x0": 51,
+      "y0": 105,
+      "x1": 678,
+      "y1": 475,
+      "opaque": 74347
+     },
+     "normalization_rect_1x": [
+      0,
+      0,
+      12,
+      8
+     ],
+     "output_bbox": {
+      "x0": 1,
+      "y0": 0,
+      "x1": 11,
+      "y1": 8,
+      "opaque": 40
+     },
+     "symmetry_mismatches": 0,
+     "body_clear_rect": null,
+     "sha256": "87f1cf03f148270801f52fb33d6bbdea782e085700d9c46929b583778447bab9"
+    },
+    {
+     "index": 2,
+     "source_cell": [
+      0,
+      512,
+      768,
+      512
+     ],
+     "source_visible_bbox": {
+      "x0": 91,
+      "y0": 98,
+      "x1": 674,
+      "y1": 375,
+      "opaque": 74607
+     },
+     "normalization_rect_1x": [
+      0,
+      0,
+      12,
+      8
+     ],
+     "output_bbox": {
+      "x0": 0,
+      "y0": 0,
+      "x1": 12,
+      "y1": 8,
+      "opaque": 60
+     },
+     "symmetry_mismatches": 0,
+     "body_clear_rect": null,
+     "sha256": "083f08da8b7b7e84f5fb415aa16803ffbb7083c35d8f2019aeab1dd5aafc1686"
+    },
+    {
+     "index": 3,
+     "source_cell": [
+      768,
+      512,
+      768,
+      512
+     ],
+     "source_visible_bbox": {
+      "x0": 50,
+      "y0": 56,
+      "x1": 678,
+      "y1": 425,
+      "opaque": 78693
+     },
+     "normalization_rect_1x": [
+      0,
+      0,
+      12,
+      8
+     ],
+     "output_bbox": {
+      "x0": 0,
+      "y0": 0,
+      "x1": 11,
+      "y1": 8,
+      "opaque": 42
+     },
+     "symmetry_mismatches": 0,
+     "body_clear_rect": null,
+     "sha256": "b276c01409bbc66c28ad3e9fc5d1bbd02208e176296f2d5324149ce63f9eb2d9"
+    }
+   ],
+   "pack": "codex_fx/norra_fx"
+  },
+  {
+   "id": "a_hit",
+   "file": "norra_fx_a_hit.png",
+   "pixel_1x": "norra_fx_a_hit.png",
+   "raw": "raw/norra_fx_a_hit_raw.png",
+   "frames": 3,
+   "cell_1x": [
+    14,
+    14
+   ],
+   "sheet_1x": [
+    42,
+    14
+   ],
+   "sheet_8x": [
+    336,
+    112
+   ],
+   "symmetry": "left-right",
+   "loop": false,
+   "binding": "view_effects `tft_norra_a_hit`（跟随目标，z 2；左右对称）",
+   "source_grid": [
+    3,
+    1
+   ],
+   "palette": [
+    "#FFFFFF",
+    "#FFF4C4",
+    "#FFD95A",
+    "#F2B12E",
+    "#C77A16",
+    "#7E4410",
+    "#FFE8F4",
+    "#FF9CCB",
+    "#F05A9E",
+    "#B02A6E"
+   ],
+   "status": "source_reviewed",
+   "issues": [],
+   "normalization_profile": [
+    [
+     6,
+     6,
+     4
+    ],
+    [
+     12,
+     12,
+     1
+    ],
+    [
+     14,
+     14,
+     0
+    ]
+   ],
+   "frame_details": [
+    {
+     "index": 0,
+     "source_cell": [
+      0,
+      0,
+      724,
+      724
+     ],
+     "source_visible_bbox": {
+      "x0": 143,
+      "y0": 144,
+      "x1": 583,
+      "y1": 579,
+      "opaque": 48797
+     },
+     "normalization_rect_1x": [
+      4,
+      4,
+      6,
+      6
+     ],
+     "output_bbox": {
+      "x0": 5,
+      "y0": 5,
+      "x1": 9,
+      "y1": 9,
+      "opaque": 16
+     },
+     "symmetry_mismatches": 0,
+     "body_clear_rect": null,
+     "sha256": "e6344e2bc617e8747ed5692344343d2e09eeead58a437caf6248ee4e4799fe3f"
+    },
+    {
+     "index": 1,
+     "source_cell": [
+      724,
+      0,
+      724,
+      724
+     ],
+     "source_visible_bbox": {
+      "x0": 67,
+      "y0": 68,
+      "x1": 658,
+      "y1": 654,
+      "opaque": 68510
+     },
+     "normalization_rect_1x": [
+      1,
+      1,
+      12,
+      12
+     ],
+     "output_bbox": {
+      "x0": 1,
+      "y0": 1,
+      "x1": 13,
+      "y1": 13,
+      "opaque": 64
+     },
+     "symmetry_mismatches": 0,
+     "body_clear_rect": null,
+     "sha256": "61067cdc355b12089af1dc16e1427f2a75d79df97dbbc99d94414947a0b6ec22"
+    },
+    {
+     "index": 2,
+     "source_cell": [
+      1448,
+      0,
+      724,
+      724
+     ],
+     "source_visible_bbox": {
+      "x0": 170,
+      "y0": 159,
+      "x1": 582,
+      "y1": 566,
+      "opaque": 13767
+     },
+     "normalization_rect_1x": [
+      0,
+      0,
+      14,
+      14
+     ],
+     "output_bbox": {
+      "x0": 0,
+      "y0": 0,
+      "x1": 14,
+      "y1": 14,
+      "opaque": 50
+     },
+     "symmetry_mismatches": 0,
+     "body_clear_rect": null,
+     "sha256": "fe541298c02b575b0a88df9def5e63441a0b0adc73f86d9fff501a47dc6b8ad6"
+    }
+   ],
+   "pack": "codex_fx/norra_fx"
+  },
+  {
+   "id": "q_ball",
+   "file": "norra_fx_q_ball.png",
+   "pixel_1x": "norra_fx_q_ball.png",
+   "raw": "raw/norra_fx_q_ball_raw.png",
+   "frames": 4,
+   "cell_1x": [
+    16,
+    16
+   ],
+   "sheet_1x": [
+    64,
+    16
+   ],
+   "sheet_8x": [
+    512,
+    128
+   ],
+   "symmetry": "top-bottom",
+   "loop": true,
+   "binding": "view_projectiles `tft_norra_q_ball`（抛物线弹道，z 2；朝右、上下对称）",
+   "source_grid": [
+    2,
+    2
+   ],
+   "palette": [
+    "#F4E6FF",
+    "#C9A2FF",
+    "#9A62F0",
+    "#6A34D0",
+    "#3E1C8C",
+    "#22104E",
+    "#FFFFFF",
+    "#FFF4C4",
+    "#FFD95A",
+    "#F2B12E",
+    "#C77A16",
+    "#7E4410",
+    "#FFE8F4",
+    "#FF9CCB",
+    "#F05A9E",
+    "#B02A6E"
+   ],
+   "status": "source_reviewed",
+   "issues": [],
+   "normalization_profile": [
+    [
+     14,
+     14,
+     1
+    ],
+    [
+     14,
+     14,
+     1
+    ],
+    [
+     14,
+     14,
+     1
+    ],
+    [
+     14,
+     14,
+     1
+    ]
+   ],
+   "frame_details": [
+    {
+     "index": 0,
+     "source_cell": [
+      0,
+      0,
+      631,
+      623
+     ],
+     "source_visible_bbox": {
+      "x0": 69,
+      "y0": 55,
+      "x1": 603,
+      "y1": 610,
+      "opaque": 165582
+     },
+     "normalization_rect_1x": [
+      1,
+      1,
+      14,
+      14
+     ],
+     "output_bbox": {
+      "x0": 1,
+      "y0": 1,
+      "x1": 15,
+      "y1": 15,
+      "opaque": 134
+     },
+     "symmetry_mismatches": 0,
+     "body_clear_rect": null,
+     "sha256": "5018c0732aafe3c495dd3e3dd3ef8d2f2d1ea0be6c4df92ccd8a3dcfb54d08e2"
+    },
+    {
+     "index": 1,
+     "source_cell": [
+      631,
+      0,
+      631,
+      623
+     ],
+     "source_visible_bbox": {
+      "x0": 41,
+      "y0": 55,
+      "x1": 557,
+      "y1": 610,
+      "opaque": 165220
+     },
+     "normalization_rect_1x": [
+      1,
+      1,
+      14,
+      14
+     ],
+     "output_bbox": {
+      "x0": 1,
+      "y0": 1,
+      "x1": 15,
+      "y1": 15,
+      "opaque": 136
+     },
+     "symmetry_mismatches": 0,
+     "body_clear_rect": null,
+     "sha256": "7249fe929c6a299dfd2b49612f0e39d3d53628d27e93a0ebfbf7d2906bd5ba8d"
+    },
+    {
+     "index": 2,
+     "source_cell": [
+      0,
+      623,
+      631,
+      623
+     ],
+     "source_visible_bbox": {
+      "x0": 59,
+      "y0": 27,
+      "x1": 583,
+      "y1": 596,
+      "opaque": 171368
+     },
+     "normalization_rect_1x": [
+      1,
+      1,
+      14,
+      14
+     ],
+     "output_bbox": {
+      "x0": 1,
+      "y0": 1,
+      "x1": 15,
+      "y1": 15,
+      "opaque": 132
+     },
+     "symmetry_mismatches": 0,
+     "body_clear_rect": null,
+     "sha256": "34b73537e20cf913b5432558f9e0e2bf7f2cea5983c404d279cbf734831841e5"
+    },
+    {
+     "index": 3,
+     "source_cell": [
+      631,
+      623,
+      631,
+      623
+     ],
+     "source_visible_bbox": {
+      "x0": 39,
+      "y0": 27,
+      "x1": 582,
+      "y1": 594,
+      "opaque": 172753
+     },
+     "normalization_rect_1x": [
+      1,
+      1,
+      14,
+      14
+     ],
+     "output_bbox": {
+      "x0": 1,
+      "y0": 1,
+      "x1": 15,
+      "y1": 15,
+      "opaque": 132
+     },
+     "symmetry_mismatches": 0,
+     "body_clear_rect": null,
+     "sha256": "739b59087d337f70a2bb3213b2764fcece5891a5eb5355f21930157864251544"
+    }
+   ],
+   "pack": "codex_fx/norra_fx"
+  },
+  {
+   "id": "q_blast",
+   "file": "norra_fx_q_blast.png",
+   "pixel_1x": "norra_fx_q_blast.png",
+   "raw": "raw/norra_fx_q_blast_raw.png",
+   "frames": 7,
+   "cell_1x": [
+    48,
+    40
+   ],
+   "sheet_1x": [
+    336,
+    40
+   ],
+   "sheet_8x": [
+    2688,
+    320
+   ],
+   "symmetry": "left-right",
+   "loop": false,
+   "binding": "view_effects `tft_norra_q_blast`（大表，落点，z 2，不跟随；左右对称）",
+   "source_grid": [
+    4,
+    2
+   ],
+   "palette": [
+    "#F4E6FF",
+    "#C9A2FF",
+    "#9A62F0",
+    "#6A34D0",
+    "#3E1C8C",
+    "#22104E",
+    "#FFFFFF",
+    "#FFF4C4",
+    "#FFD95A",
+    "#F2B12E",
+    "#C77A16",
+    "#7E4410",
+    "#F05A9E",
+    "#44C8D2",
+    "#FFFDF4",
+    "#F2E6CC",
+    "#D8C6A0",
+    "#A8906A"
+   ],
+   "status": "source_reviewed",
+   "issues": [],
+   "normalization_profile": [
+    [
+     10,
+     8,
+     26
+    ],
+    [
+     22,
+     22,
+     12
+    ],
+    [
+     34,
+     30,
+     4
+    ],
+    [
+     44,
+     30,
+     4
+    ],
+    [
+     44,
+     16,
+     20
+    ],
+    [
+     36,
+     12,
+     23
+    ],
+    [
+     20,
+     8,
+     26
+    ]
+   ],
+   "frame_details": [
+    {
+     "index": 0,
+     "source_cell": [
+      0,
+      0,
+      485,
+      422
+     ],
+     "source_visible_bbox": {
+      "x0": 122,
+      "y0": 273,
+      "x1": 370,
+      "y1": 419,
+      "opaque": 12471
+     },
+     "normalization_rect_1x": [
+      19,
+      26,
+      10,
+      8
+     ],
+     "output_bbox": {
+      "x0": 19,
+      "y0": 27,
+      "x1": 29,
+      "y1": 34,
+      "opaque": 40
+     },
+     "symmetry_mismatches": 0,
+     "body_clear_rect": null,
+     "sha256": "21949c9f1c113696569b1e5ef9da6a71bf0e5055dc2a0c91f54efe8c83ad11e4"
+    },
+    {
+     "index": 1,
+     "source_cell": [
+      485,
+      0,
+      486,
+      422
+     ],
+     "source_visible_bbox": {
+      "x0": 67,
+      "y0": 194,
+      "x1": 432,
+      "y1": 419,
+      "opaque": 45006
+     },
+     "normalization_rect_1x": [
+      13,
+      12,
+      22,
+      22
+     ],
+     "output_bbox": {
+      "x0": 13,
+      "y0": 12,
+      "x1": 35,
+      "y1": 34,
+      "opaque": 306
+     },
+     "symmetry_mismatches": 0,
+     "body_clear_rect": null,
+     "sha256": "d199e48c6d03a6a121b2e4de69864a9e0231060367ca83e3f21d86db1772a16f"
+    },
+    {
+     "index": 2,
+     "source_cell": [
+      971,
+      0,
+      485,
+      422
+     ],
+     "source_visible_bbox": {
+      "x0": 12,
+      "y0": 115,
+      "x1": 466,
+      "y1": 419,
+      "opaque": 82008
+     },
+     "normalization_rect_1x": [
+      7,
+      4,
+      34,
+      30
+     ],
+     "output_bbox": {
+      "x0": 7,
+      "y0": 4,
+      "x1": 41,
+      "y1": 34,
+      "opaque": 696
+     },
+     "symmetry_mismatches": 0,
+     "body_clear_rect": null,
+     "sha256": "ff3fe366a8eac93c4b0560950b06ddd12b1f9e57be973858d561e710c48bc353"
+    },
+    {
+     "index": 3,
+     "source_cell": [
+      1456,
+      0,
+      486,
+      422
+     ],
+     "source_visible_bbox": {
+      "x0": 20,
+      "y0": 150,
+      "x1": 474,
+      "y1": 419,
+      "opaque": 49178
+     },
+     "normalization_rect_1x": [
+      2,
+      4,
+      44,
+      30
+     ],
+     "output_bbox": {
+      "x0": 2,
+      "y0": 4,
+      "x1": 46,
+      "y1": 34,
+      "opaque": 692
+     },
+     "symmetry_mismatches": 0,
+     "body_clear_rect": null,
+     "sha256": "7a5339503dd7f9fba403b8385a4797975861387aecdd62edbcf671ca2753620e"
+    },
+    {
+     "index": 4,
+     "source_cell": [
+      0,
+      422,
+      485,
+      387
+     ],
+     "source_visible_bbox": {
+      "x0": 41,
+      "y0": 96,
+      "x1": 468,
+      "y1": 337,
+      "opaque": 23138
+     },
+     "normalization_rect_1x": [
+      2,
+      20,
+      44,
+      16
+     ],
+     "output_bbox": {
+      "x0": 2,
+      "y0": 20,
+      "x1": 46,
+      "y1": 36,
+      "opaque": 236
+     },
+     "symmetry_mismatches": 0,
+     "body_clear_rect": null,
+     "sha256": "28e657ec797aca4684474c8d3adaa62c837c504cec8917ad764ec6879d5b87bc"
+    },
+    {
+     "index": 5,
+     "source_cell": [
+      485,
+      422,
+      486,
+      387
+     ],
+     "source_visible_bbox": {
+      "x0": 50,
+      "y0": 138,
+      "x1": 449,
+      "y1": 341,
+      "opaque": 14590
+     },
+     "normalization_rect_1x": [
+      6,
+      23,
+      36,
+      12
+     ],
+     "output_bbox": {
+      "x0": 6,
+      "y0": 23,
+      "x1": 42,
+      "y1": 35,
+      "opaque": 142
+     },
+     "symmetry_mismatches": 0,
+     "body_clear_rect": null,
+     "sha256": "d6e517442bb92875e162361f46d52b399bda1e1ba9b02aa89dad7b588586d4c0"
+    },
+    {
+     "index": 6,
+     "source_cell": [
+      971,
+      422,
+      485,
+      387
+     ],
+     "source_visible_bbox": {
+      "x0": 46,
+      "y0": 202,
+      "x1": 431,
+      "y1": 337,
+      "opaque": 4934
+     },
+     "normalization_rect_1x": [
+      14,
+      26,
+      20,
+      8
+     ],
+     "output_bbox": {
+      "x0": 14,
+      "y0": 26,
+      "x1": 34,
+      "y1": 34,
+      "opaque": 28
+     },
+     "symmetry_mismatches": 0,
+     "body_clear_rect": null,
+     "sha256": "93e47923dc38c183002336d9e2ec10fef49674f943912216c955b8e4ec279aed"
+    }
+   ],
+   "pack": "codex_fx/norra_fx"
+  },
+  {
+   "id": "q_hit",
+   "file": "norra_fx_q_hit.png",
+   "pixel_1x": "norra_fx_q_hit.png",
+   "raw": "raw/norra_fx_q_hit_raw.png",
+   "frames": 3,
+   "cell_1x": [
+    14,
+    14
+   ],
+   "sheet_1x": [
+    42,
+    14
+   ],
+   "sheet_8x": [
+    336,
+    112
+   ],
+   "symmetry": "left-right",
+   "loop": false,
+   "binding": "view_effects `tft_norra_q_hit`（跟随目标，z 2；左右对称）",
+   "source_grid": [
+    3,
+    1
+   ],
+   "palette": [
+    "#F05A9E",
+    "#44C8D2",
+    "#9A62F0",
+    "#FFD95A",
+    "#FFE8F4",
+    "#FF9CCB",
+    "#B02A6E"
+   ],
+   "status": "source_reviewed",
+   "issues": [],
+   "normalization_profile": [
+    [
+     6,
+     6,
+     4
+    ],
+    [
+     12,
+     12,
+     1
+    ],
+    [
+     14,
+     8,
+     4
+    ]
+   ],
+   "frame_details": [
+    {
+     "index": 0,
+     "source_cell": [
+      0,
+      0,
+      724,
+      724
+     ],
+     "source_visible_bbox": {
+      "x0": 164,
+      "y0": 211,
+      "x1": 559,
+      "y1": 552,
+      "opaque": 43217
+     },
+     "normalization_rect_1x": [
+      4,
+      4,
+      6,
+      6
+     ],
+     "output_bbox": {
+      "x0": 4,
+      "y0": 4,
+      "x1": 10,
+      "y1": 10,
+      "opaque": 22
+     },
+     "symmetry_mismatches": 0,
+     "body_clear_rect": null,
+     "sha256": "10baa476d3107e9c9daab1589788fa8e7021a372c1faa2cf84bae9b9d28af38c"
+    },
+    {
+     "index": 1,
+     "source_cell": [
+      724,
+      0,
+      724,
+      724
+     ],
+     "source_visible_bbox": {
+      "x0": 63,
+      "y0": 52,
+      "x1": 661,
+      "y1": 658,
+      "opaque": 111656
+     },
+     "normalization_rect_1x": [
+      1,
+      1,
+      12,
+      12
+     ],
+     "output_bbox": {
+      "x0": 1,
+      "y0": 1,
+      "x1": 13,
+      "y1": 13,
+      "opaque": 82
+     },
+     "symmetry_mismatches": 0,
+     "body_clear_rect": null,
+     "sha256": "51834f04974603d87d745b34e36086845c6ed9f06382083b30d8b22c8c2b7a6c"
+    },
+    {
+     "index": 2,
+     "source_cell": [
+      1448,
+      0,
+      724,
+      724
+     ],
+     "source_visible_bbox": {
+      "x0": 130,
+      "y0": 110,
+      "x1": 600,
+      "y1": 629,
+      "opaque": 23111
+     },
+     "normalization_rect_1x": [
+      0,
+      4,
+      14,
+      8
+     ],
+     "output_bbox": {
+      "x0": 0,
+      "y0": 4,
+      "x1": 14,
+      "y1": 12,
+      "opaque": 26
+     },
+     "symmetry_mismatches": 0,
+     "body_clear_rect": null,
+     "sha256": "7fd65ae5fa7a962fdea42d60724494330c87108d366afa3ab204960d84c8fe96"
+    }
+   ],
+   "pack": "codex_fx/norra_fx"
+  },
+  {
+   "id": "p_trinkets",
+   "file": "norra_fx_p_trinkets.png",
+   "pixel_1x": "norra_fx_p_trinkets.png",
+   "raw": "raw\\norra_fx_p_trinkets_raw.png",
+   "frames": 4,
+   "cell_1x": [
+    44,
+    20
+   ],
+   "sheet_1x": [
+    176,
+    20
+   ],
+   "symmetry": "left-right",
+   "loop": true,
+   "binding": "view_effects `tft_norra_p_trinkets`（大表，落点，地面，z -1，不跟随；左右对称）",
+   "palette": [
+    "#FFFFFF",
+    "#F4E6FF",
+    "#C9A2FF",
+    "#9A62F0",
+    "#6A34D0",
+    "#FFF4C4",
+    "#FFD95A",
+    "#F2B12E",
+    "#C77A16",
+    "#7E4410",
+    "#FFE8F4",
+    "#FF9CCB",
+    "#F05A9E",
+    "#B02A6E",
+    "#100A16"
+   ],
+   "frame_details": [
+    {
+     "frame": 0,
+     "source_cell": [
+      0,
+      0,
+      929,
+      423
+     ],
+     "solid_source_bbox": [
+      207,
+      146,
+      745,
+      368
+     ],
+     "normalized_rect": [
+      4,
+      2,
+      36,
+      14
+     ],
+     "visible_bbox": [
+      4,
+      2,
+      40,
+      16
+     ],
+     "sha256": "dbfe69580c304a827ee1d722cbf49709c5e0f69df22766955019d301e4c48acb"
+    },
+    {
+     "frame": 1,
+     "source_cell": [
+      929,
+      0,
+      930,
+      423
+     ],
+     "solid_source_bbox": [
+      137,
+      144,
+      736,
+      368
+     ],
+     "normalized_rect": [
+      4,
+      2,
+      36,
+      14
+     ],
+     "visible_bbox": [
+      4,
+      2,
+      40,
+      16
+     ],
+     "sha256": "64724f2d81f413ef89378e9d0b62e3ac564c4a2a40aecf935cbe0218ef730dac"
+    },
+    {
+     "frame": 2,
+     "source_cell": [
+      0,
+      423,
+      929,
+      423
+     ],
+     "solid_source_bbox": [
+      173,
+      75,
+      798,
+      309
+     ],
+     "normalized_rect": [
+      4,
+      2,
+      36,
+      14
+     ],
+     "visible_bbox": [
+      4,
+      2,
+      40,
+      16
+     ],
+     "sha256": "e8db8171556cb3f423a7b5969fcb2074682d83b2c8d89810cfcfd063aa81f459"
+    },
+    {
+     "frame": 3,
+     "source_cell": [
+      929,
+      423,
+      930,
+      423
+     ],
+     "solid_source_bbox": [
+      154,
+      95,
+      735,
+      309
+     ],
+     "normalized_rect": [
+      4,
+      2,
+      36,
+      14
+     ],
+     "visible_bbox": [
+      4,
+      2,
+      40,
+      16
+     ],
+     "sha256": "26084a7dec9a7cecd7bfdc1b51dc1ccf4896d2b4d1310f74d40f70e7045f69dd"
+    }
+   ],
+   "pack": "codex_fx2/norra_fx2"
+  },
+  {
+   "id": "p_burst",
+   "file": "norra_fx_p_burst.png",
+   "pixel_1x": "norra_fx_p_burst.png",
+   "raw": "raw\\norra_fx_p_burst_raw.png",
+   "frames": 5,
+   "cell_1x": [
+    18,
+    24
+   ],
+   "sheet_1x": [
+    90,
+    24
+   ],
+   "symmetry": "left-right",
+   "loop": false,
+   "binding": "view_effects `tft_norra_p_burst`（跟随目标，z 2；左右对称）",
+   "palette": [
+    "#FFFFFF",
+    "#F4E6FF",
+    "#C9A2FF",
+    "#9A62F0",
+    "#6A34D0",
+    "#FFE8F4",
+    "#FF9CCB",
+    "#F05A9E",
+    "#B02A6E",
+    "#FFF4C4",
+    "#FFD95A",
+    "#F2B12E",
+    "#C77A16",
+    "#7E4410"
+   ],
+   "frame_details": [
+    {
+     "frame": 0,
+     "source_cell": [
+      0,
+      0,
+      380,
+      829
+     ],
+     "solid_source_bbox": [
+      175,
+      415,
+      237,
+      513
+     ],
+     "normalized_rect": [
+      7,
+      1,
+      4,
+      6
+     ],
+     "visible_bbox": [
+      7,
+      1,
+      11,
+      7
+     ],
+     "sha256": "504fc9898d22692cf9c9c76d689f08c53511cfae57a014c3cf43d496dc810430"
+    },
+    {
+     "frame": 1,
+     "source_cell": [
+      380,
+      0,
+      362,
+      829
+     ],
+     "solid_source_bbox": [
+      158,
+      214,
+      220,
+      515
+     ],
+     "normalized_rect": [
+      7,
+      2,
+      4,
+      12
+     ],
+     "visible_bbox": [
+      7,
+      2,
+      11,
+      14
+     ],
+     "sha256": "22afd04b2c103db8b49b7774eb254ce2c2d5fea9f211e533f1ce727c803e6017"
+    },
+    {
+     "frame": 2,
+     "source_cell": [
+      742,
+      0,
+      346,
+      829
+     ],
+     "solid_source_bbox": [
+      15,
+      350,
+      304,
+      603
+     ],
+     "normalized_rect": [
+      3,
+      8,
+      12,
+      12
+     ],
+     "visible_bbox": [
+      3,
+      8,
+      15,
+      20
+     ],
+     "sha256": "d27f71de270a8ff1e3563ca7389601b499153f79b8796573e406f6972786a8be"
+    },
+    {
+     "frame": 3,
+     "source_cell": [
+      1088,
+      0,
+      430,
+      829
+     ],
+     "solid_source_bbox": [
+      4,
+      287,
+      407,
+      631
+     ],
+     "normalized_rect": [
+      1,
+      7,
+      16,
+      14
+     ],
+     "visible_bbox": [
+      1,
+      7,
+      17,
+      21
+     ],
+     "sha256": "6786f06df056031a8bddcff197cd1a8bcbf2221eb7aa54ff57bde2257e5987bf"
+    },
+    {
+     "frame": 4,
+     "source_cell": [
+      1518,
+      0,
+      380,
+      829
+     ],
+     "solid_source_bbox": [
+      20,
+      323,
+      316,
+      643
+     ],
+     "normalized_rect": [
+      1,
+      9,
+      16,
+      12
+     ],
+     "visible_bbox": [
+      1,
+      9,
+      17,
+      21
+     ],
+     "sha256": "1e88e5c09d804e70c96f174e3e208814a58927358ba9b91f4e84a70ab688c6d7"
+    }
+   ],
+   "pack": "codex_fx2/norra_fx2"
+  },
+  {
+   "id": "w_in",
+   "file": "norra_fx_w_in.png",
+   "pixel_1x": "norra_fx_w_in.png",
+   "raw": "raw\\norra_fx_w_in_raw.png",
+   "frames": 5,
+   "cell_1x": [
+    30,
+    46
+   ],
+   "sheet_1x": [
+    150,
+    46
+   ],
+   "symmetry": "left-right",
+   "loop": false,
+   "binding": "view_effects `tft_norra_w_in`（目标脚下，z 2，不跟随；左右对称）",
+   "palette": [
+    "#F4E6FF",
+    "#C9A2FF",
+    "#9A62F0",
+    "#6A34D0",
+    "#3E1C8C",
+    "#22104E",
+    "#FFE8F4",
+    "#FF9CCB",
+    "#F05A9E",
+    "#B02A6E",
+    "#FFFFFF",
+    "#FFF4C4",
+    "#FFD95A",
+    "#F2B12E",
+    "#C77A16",
+    "#7E4410"
+   ],
+   "frame_details": [
+    {
+     "frame": 0,
+     "source_cell": [
+      0,
+      0,
+      434,
+      724
+     ],
+     "solid_source_bbox": [
+      91,
+      527,
+      393,
+      648
+     ],
+     "normalized_rect": [
+      6,
+      34,
+      18,
+      6
+     ],
+     "visible_bbox": [
+      6,
+      34,
+      24,
+      40
+     ],
+     "sha256": "af4e5c00c0f83e2b8c2aef8a71783ba0559aa20cb086ee2e41c57105393d277f"
+    },
+    {
+     "frame": 1,
+     "source_cell": [
+      434,
+      0,
+      434,
+      724
+     ],
+     "solid_source_bbox": [
+      50,
+      465,
+      406,
+      663
+     ],
+     "normalized_rect": [
+      2,
+      32,
+      26,
+      8
+     ],
+     "visible_bbox": [
+      2,
+      32,
+      28,
+      40
+     ],
+     "sha256": "c17521559e85c87c12a704be5778119450887d3e5c7631f58673138da16ad438"
+    },
+    {
+     "frame": 2,
+     "source_cell": [
+      868,
+      0,
+      435,
+      724
+     ],
+     "solid_source_bbox": [
+      47,
+      119,
+      392,
+      656
+     ],
+     "normalized_rect": [
+      2,
+      4,
+      26,
+      36
+     ],
+     "visible_bbox": [
+      2,
+      4,
+      28,
+      40
+     ],
+     "sha256": "b92aef079596843e15120b74d707da580081c47d6a9966dd37cb5e8a12566c87"
+    },
+    {
+     "frame": 3,
+     "source_cell": [
+      1303,
+      0,
+      434,
+      724
+     ],
+     "solid_source_bbox": [
+      37,
+      238,
+      393,
+      662
+     ],
+     "normalized_rect": [
+      2,
+      16,
+      26,
+      24
+     ],
+     "visible_bbox": [
+      2,
+      16,
+      28,
+      40
+     ],
+     "sha256": "dcfdd19cef323808ef4125490975b288b9178828986f0f642a2e6b946747c5d3"
+    },
+    {
+     "frame": 4,
+     "source_cell": [
+      1737,
+      0,
+      434,
+      724
+     ],
+     "solid_source_bbox": [
+      67,
+      499,
+      358,
+      664
+     ],
+     "normalized_rect": [
+      6,
+      32,
+      18,
+      8
+     ],
+     "visible_bbox": [
+      6,
+      32,
+      24,
+      40
+     ],
+     "sha256": "a5e3fb7030ef06d581f621deeada22d139afe32c5abd14a35a657996892e0665"
+    }
+   ],
+   "pack": "codex_fx2/norra_fx2"
+  },
+  {
+   "id": "w_lock",
+   "file": "norra_fx_w_lock.png",
+   "pixel_1x": "norra_fx_w_lock.png",
+   "raw": "raw\\norra_fx_w_lock_raw.png",
+   "frames": 4,
+   "cell_1x": [
+    24,
+    12
+   ],
+   "sheet_1x": [
+    96,
+    12
+   ],
+   "symmetry": "left-right",
+   "loop": true,
+   "binding": "view_effects `tft_norra_w_lock`（放逐的位置，z 2，不跟随；左右对称）",
+   "palette": [
+    "#F4E6FF",
+    "#C9A2FF",
+    "#9A62F0",
+    "#6A34D0",
+    "#3E1C8C",
+    "#22104E",
+    "#FFE8F4",
+    "#FF9CCB",
+    "#F05A9E",
+    "#B02A6E"
+   ],
+   "frame_details": [
+    {
+     "frame": 0,
+     "source_cell": [
+      0,
+      0,
+      887,
+      443
+     ],
+     "solid_source_bbox": [
+      118,
+      116,
+      769,
+      402
+     ],
+     "normalized_rect": [
+      1,
+      2,
+      22,
+      8
+     ],
+     "visible_bbox": [
+      1,
+      2,
+      23,
+      10
+     ],
+     "sha256": "646d37ddb983cab2e7529653e27e70e2ece1dde991afe91cea2bcbf01579c84f"
+    },
+    {
+     "frame": 1,
+     "source_cell": [
+      887,
+      0,
+      887,
+      443
+     ],
+     "solid_source_bbox": [
+      119,
+      116,
+      772,
+      402
+     ],
+     "normalized_rect": [
+      1,
+      2,
+      22,
+      8
+     ],
+     "visible_bbox": [
+      1,
+      2,
+      23,
+      10
+     ],
+     "sha256": "1a83c3392c4eb5cc06404e1b6def4bf4f2c77e95c13fc1035de7bb579e9b0fc5"
+    },
+    {
+     "frame": 2,
+     "source_cell": [
+      0,
+      443,
+      887,
+      444
+     ],
+     "solid_source_bbox": [
+      118,
+      77,
+      769,
+      365
+     ],
+     "normalized_rect": [
+      1,
+      2,
+      22,
+      8
+     ],
+     "visible_bbox": [
+      1,
+      2,
+      23,
+      10
+     ],
+     "sha256": "78eb984411a7941e191a69fcbf46e1417dc833522da4be47acbb1a3eabe0a0d2"
+    },
+    {
+     "frame": 3,
+     "source_cell": [
+      887,
+      443,
+      887,
+      444
+     ],
+     "solid_source_bbox": [
+      119,
+      77,
+      772,
+      365
+     ],
+     "normalized_rect": [
+      1,
+      2,
+      22,
+      8
+     ],
+     "visible_bbox": [
+      1,
+      2,
+      23,
+      10
+     ],
+     "sha256": "848e0a987a3ea605f5c20dcd9e1e514013d4f99b5b62561e1675d4ca581f6731"
+    }
+   ],
+   "pack": "codex_fx2/norra_fx2"
+  },
+  {
+   "id": "w_out",
+   "file": "norra_fx_w_out.png",
+   "pixel_1x": "norra_fx_w_out.png",
+   "raw": "raw\\norra_fx_w_out_raw.png",
+   "frames": 4,
+   "cell_1x": [
+    30,
+    46
+   ],
+   "sheet_1x": [
+    120,
+    46
+   ],
+   "symmetry": "left-right",
+   "loop": false,
+   "binding": "view_effects `tft_norra_w_out`（放逐的位置，z 2，不跟随；左右对称）",
+   "palette": [
+    "#F4E6FF",
+    "#C9A2FF",
+    "#9A62F0",
+    "#6A34D0",
+    "#3E1C8C",
+    "#22104E",
+    "#FFE8F4",
+    "#FF9CCB",
+    "#F05A9E",
+    "#B02A6E",
+    "#FFFFFF",
+    "#FFF4C4",
+    "#FFD95A",
+    "#F2B12E",
+    "#C77A16",
+    "#7E4410"
+   ],
+   "frame_details": [
+    {
+     "frame": 0,
+     "source_cell": [
+      0,
+      0,
+      505,
+      778
+     ],
+     "solid_source_bbox": [
+      34,
+      548,
+      474,
+      707
+     ],
+     "normalized_rect": [
+      3,
+      32,
+      24,
+      8
+     ],
+     "visible_bbox": [
+      3,
+      33,
+      27,
+      40
+     ],
+     "sha256": "954510a913dabf0522ed18a23fc7b42b589f03b19856052177f10c65767de73b"
+    },
+    {
+     "frame": 1,
+     "source_cell": [
+      505,
+      0,
+      505,
+      778
+     ],
+     "solid_source_bbox": [
+      61,
+      312,
+      468,
+      696
+     ],
+     "normalized_rect": [
+      2,
+      16,
+      26,
+      24
+     ],
+     "visible_bbox": [
+      2,
+      16,
+      28,
+      40
+     ],
+     "sha256": "fcca8464f0998346667634fbea9dba17d154188683879e5c6d969345a4d0b570"
+    },
+    {
+     "frame": 2,
+     "source_cell": [
+      1010,
+      0,
+      505,
+      778
+     ],
+     "solid_source_bbox": [
+      69,
+      152,
+      460,
+      686
+     ],
+     "normalized_rect": [
+      2,
+      4,
+      26,
+      36
+     ],
+     "visible_bbox": [
+      2,
+      5,
+      28,
+      40
+     ],
+     "sha256": "998d2680f86e60e35c3cee99d308a0758d18cd05df8c68f4c3727a131fbaf01f"
+    },
+    {
+     "frame": 3,
+     "source_cell": [
+      1515,
+      0,
+      505,
+      778
+     ],
+     "solid_source_bbox": [
+      107,
+      539,
+      436,
+      686
+     ],
+     "normalized_rect": [
+      9,
+      34,
+      12,
+      6
+     ],
+     "visible_bbox": [
+      11,
+      39,
+      19,
+      40
+     ],
+     "sha256": "f9817f5819cfacb6283ea8039a6083cfcc464e0161bf2b973913b9951a844ac1"
+    }
+   ],
+   "pack": "codex_fx2/norra_fx2"
+  },
+  {
+   "id": "e_threads",
+   "file": "norra_fx_e_threads.png",
+   "pixel_1x": "norra_fx_e_threads.png",
+   "raw": "raw\\norra_fx_e_threads_raw.png",
+   "frames": 6,
+   "cell_1x": [
+    76,
+    30
+   ],
+   "sheet_1x": [
+    456,
+    30
+   ],
+   "symmetry": "left-right",
+   "loop": false,
+   "binding": "view_effects `tft_norra_e_threads`（大表，目标位置，z 2，不跟随；左右对称）",
+   "palette": [
+    "#F4E6FF",
+    "#C9A2FF",
+    "#9A62F0",
+    "#6A34D0",
+    "#3E1C8C",
+    "#22104E",
+    "#FFFFFF",
+    "#FFE8F4",
+    "#FF9CCB",
+    "#F05A9E",
+    "#8FF0F0",
+    "#44C8D2",
+    "#FFD95A",
+    "#FFF4C4",
+    "#F2B12E",
+    "#C77A16",
+    "#7E4410"
+   ],
+   "frame_details": [
+    {
+     "frame": 0,
+     "source_cell": [
+      0,
+      0,
+      997,
+      263
+     ],
+     "solid_source_bbox": [
+      60,
+      152,
+      938,
+      228
+     ],
+     "normalized_rect": [
+      7,
+      19,
+      62,
+      6
+     ],
+     "visible_bbox": [
+      7,
+      19,
+      69,
+      25
+     ],
+     "sha256": "7b28623474a7176d082aa6552b6976cd99965a117c6eb603bb52ae5de6120f3f"
+    },
+    {
+     "frame": 1,
+     "source_cell": [
+      997,
+      0,
+      997,
+      263
+     ],
+     "solid_source_bbox": [
+      105,
+      34,
+      904,
+      244
+     ],
+     "normalized_rect": [
+      7,
+      13,
+      62,
+      12
+     ],
+     "visible_bbox": [
+      7,
+      13,
+      69,
+      25
+     ],
+     "sha256": "392a0731252d84c4067a1fda8c5dda36e906bc87a293fcd5956c32a08f158145"
+    },
+    {
+     "frame": 2,
+     "source_cell": [
+      0,
+      263,
+      997,
+      263
+     ],
+     "solid_source_bbox": [
+      77,
+      32,
+      921,
+      242
+     ],
+     "normalized_rect": [
+      7,
+      11,
+      62,
+      14
+     ],
+     "visible_bbox": [
+      7,
+      11,
+      69,
+      25
+     ],
+     "sha256": "f626c3ff2bb0909c45d6a4ba97cad0d8e106681c5197111c587eaccdeb8a154a"
+    },
+    {
+     "frame": 3,
+     "source_cell": [
+      997,
+      263,
+      997,
+      263
+     ],
+     "solid_source_bbox": [
+      78,
+      32,
+      922,
+      244
+     ],
+     "normalized_rect": [
+      7,
+      9,
+      62,
+      16
+     ],
+     "visible_bbox": [
+      7,
+      9,
+      69,
+      25
+     ],
+     "sha256": "9a4b831f71ba54518c43a987cfdb73162a572fb91cb0721f5e290635a8aea583"
+    },
+    {
+     "frame": 4,
+     "source_cell": [
+      0,
+      526,
+      997,
+      263
+     ],
+     "solid_source_bbox": [
+      62,
+      23,
+      938,
+      235
+     ],
+     "normalized_rect": [
+      7,
+      7,
+      62,
+      18
+     ],
+     "visible_bbox": [
+      7,
+      7,
+      69,
+      25
+     ],
+     "sha256": "39a435ba3c2cc5b96ca2b8f5eec560da6d8afc4cd90d11df3ca05c99812caaa4"
+    },
+    {
+     "frame": 5,
+     "source_cell": [
+      997,
+      526,
+      997,
+      263
+     ],
+     "solid_source_bbox": [
+      95,
+      117,
+      906,
+      206
+     ],
+     "normalized_rect": [
+      7,
+      15,
+      62,
+      10
+     ],
+     "visible_bbox": [
+      7,
+      15,
+      69,
+      25
+     ],
+     "sha256": "7d8da2828d251e13b3af2378f966a4e11d0d9d615bef8809a84959b222181ce1"
+    }
+   ],
+   "pack": "codex_fx2/norra_fx2"
+  },
+  {
+   "id": "t_hit",
+   "file": "norra_fx_t_hit.png",
+   "pixel_1x": "norra_fx_t_hit.png",
+   "raw": "raw\\norra_fx_t_hit_raw.png",
+   "frames": 3,
+   "cell_1x": [
+    14,
+    14
+   ],
+   "sheet_1x": [
+    42,
+    14
+   ],
+   "symmetry": "left-right",
+   "loop": false,
+   "binding": "view_effects `tft_norra_t_hit`（跟随目标，z 2；左右对称）",
+   "palette": [
+    "#FFFFFF",
+    "#FFE8F4",
+    "#FF9CCB",
+    "#F05A9E",
+    "#8FF0F0",
+    "#44C8D2",
+    "#FFD95A"
+   ],
+   "frame_details": [
+    {
+     "frame": 0,
+     "source_cell": [
+      0,
+      0,
+      724,
+      724
+     ],
+     "solid_source_bbox": [
+      247,
+      263,
+      485,
+      484
+     ],
+     "normalized_rect": [
+      5,
+      5,
+      4,
+      4
+     ],
+     "visible_bbox": [
+      5,
+      5,
+      9,
+      9
+     ],
+     "sha256": "ca8a6b9bd0fac24e6d0d838ea2c1f838ad67256d8b436482afc44885ff3a2523"
+    },
+    {
+     "frame": 1,
+     "source_cell": [
+      724,
+      0,
+      724,
+      724
+     ],
+     "solid_source_bbox": [
+      43,
+      225,
+      681,
+      502
+     ],
+     "normalized_rect": [
+      1,
+      3,
+      12,
+      8
+     ],
+     "visible_bbox": [
+      1,
+      3,
+      13,
+      11
+     ],
+     "sha256": "212dd9fdcef75c60e1ce9095b485386b8292e27a87fd402c2cb9c1c7565faf9a"
+    },
+    {
+     "frame": 2,
+     "source_cell": [
+      1448,
+      0,
+      724,
+      724
+     ],
+     "solid_source_bbox": [
+      100,
+      225,
+      626,
+      511
+     ],
+     "normalized_rect": [
+      1,
+      2,
+      12,
+      10
+     ],
+     "visible_bbox": [
+      1,
+      2,
+      13,
+      12
+     ],
+     "sha256": "7e6119eab097e8f1bc0fd11cfae26cd4a61fed90da34655231696f8e5fe73e7c"
+    }
+   ],
+   "pack": "codex_fx2/norra_fx2"
+  },
+  {
+   "id": "t_mark",
+   "file": "norra_fx_t_mark.png",
+   "pixel_1x": "norra_fx_t_mark.png",
+   "raw": "raw\\norra_fx_t_mark_raw.png",
+   "frames": 6,
+   "cell_1x": [
+    26,
+    42
+   ],
+   "sheet_1x": [
+    156,
+    42
+   ],
+   "symmetry": "left-right",
+   "loop": true,
+   "binding": "view_buffs `tft_norra_t_mark`（跟随目标，z 3；左右对称）",
+   "palette": [
+    "#FFFFFF",
+    "#FFE8F4",
+    "#FF9CCB",
+    "#F05A9E",
+    "#8FF0F0",
+    "#44C8D2",
+    "#FFD95A",
+    "#F4E6FF",
+    "#C9A2FF",
+    "#9A62F0",
+    "#6A34D0",
+    "#3E1C8C",
+    "#22104E"
+   ],
+   "frame_details": [
+    {
+     "frame": 0,
+     "source_cell": [
+      0,
+      0,
+      568,
+      461
+     ],
+     "solid_source_bbox": [
+      83,
+      64,
+      516,
+      415
+     ],
+     "normalized_rect": [
+      1,
+      0,
+      24,
+      42
+     ],
+     "visible_bbox": [
+      1,
+      0,
+      25,
+      42
+     ],
+     "sha256": "cbf0b55f0cb0f6b2edbbfe21b21677a7362e62ee6fbdaecce437e4feb500894f"
+    },
+    {
+     "frame": 1,
+     "source_cell": [
+      568,
+      0,
+      568,
+      461
+     ],
+     "solid_source_bbox": [
+      64,
+      64,
+      503,
+      417
+     ],
+     "normalized_rect": [
+      1,
+      0,
+      24,
+      42
+     ],
+     "visible_bbox": [
+      1,
+      0,
+      25,
+      42
+     ],
+     "sha256": "8ea9b83b556fc42944e16dfbfacbd26de051401fb86ce3ae12fbe6bd1a01d832"
+    },
+    {
+     "frame": 2,
+     "source_cell": [
+      1136,
+      0,
+      568,
+      461
+     ],
+     "solid_source_bbox": [
+      61,
+      57,
+      493,
+      421
+     ],
+     "normalized_rect": [
+      1,
+      0,
+      24,
+      42
+     ],
+     "visible_bbox": [
+      1,
+      1,
+      25,
+      42
+     ],
+     "sha256": "ab449b514bf734b05f0023cecac09541393de7707b7ab093e61a3fb417bb9656"
+    },
+    {
+     "frame": 3,
+     "source_cell": [
+      0,
+      461,
+      568,
+      462
+     ],
+     "solid_source_bbox": [
+      79,
+      37,
+      517,
+      394
+     ],
+     "normalized_rect": [
+      1,
+      0,
+      24,
+      42
+     ],
+     "visible_bbox": [
+      1,
+      0,
+      25,
+      42
+     ],
+     "sha256": "87e1a3e08d8002f32db2f429b6564d6928fc6ddff213f1420e6a7ee85cb6118d"
+    },
+    {
+     "frame": 4,
+     "source_cell": [
+      568,
+      461,
+      568,
+      462
+     ],
+     "solid_source_bbox": [
+      64,
+      39,
+      505,
+      391
+     ],
+     "normalized_rect": [
+      1,
+      0,
+      24,
+      42
+     ],
+     "visible_bbox": [
+      1,
+      0,
+      25,
+      42
+     ],
+     "sha256": "9fa722e2229fccfcdcaf9e00421167354d193140787b51e487d1ee0180795f97"
+    },
+    {
+     "frame": 5,
+     "source_cell": [
+      1136,
+      461,
+      568,
+      462
+     ],
+     "solid_source_bbox": [
+      52,
+      47,
+      486,
+      391
+     ],
+     "normalized_rect": [
+      1,
+      0,
+      24,
+      42
+     ],
+     "visible_bbox": [
+      1,
+      1,
+      25,
+      42
+     ],
+     "sha256": "e2ef41c69fa09110797e45890b300a0b27b73ea5a59155909699bf2832d1add9"
+    }
+   ],
+   "pack": "codex_fx2/norra_fx2"
+  },
+  {
+   "id": "r_rift",
+   "file": "norra_fx_r_rift.png",
+   "pixel_1x": "norra_fx_r_rift.png",
+   "raw": "raw\\norra_fx_r_rift_raw.png",
+   "frames": 6,
+   "cell_1x": [
+    76,
+    28
+   ],
+   "sheet_1x": [
+    456,
+    28
+   ],
+   "symmetry": "left-right",
+   "loop": true,
+   "binding": "view_effects `tft_norra_r_rift`（大表，落点，地面，z -2，不跟随；左右对称）",
+   "palette": [
+    "#F4E6FF",
+    "#C9A2FF",
+    "#9A62F0",
+    "#6A34D0",
+    "#3E1C8C",
+    "#22104E",
+    "#FFE8F4",
+    "#FF9CCB",
+    "#F05A9E",
+    "#B02A6E",
+    "#FFFFFF",
+    "#FFF4C4",
+    "#FFD95A",
+    "#F2B12E",
+    "#C77A16",
+    "#7E4410"
+   ],
+   "frame_details": [
+    {
+     "frame": 0,
+     "source_cell": [
+      0,
+      0,
+      1033,
+      254
+     ],
+     "solid_source_bbox": [
+      17,
+      13,
+      1016,
+      244
+     ],
+     "normalized_rect": [
+      3,
+      2,
+      70,
+      24
+     ],
+     "visible_bbox": [
+      3,
+      2,
+      73,
+      26
+     ],
+     "sha256": "d6478f69756ac5b1e6875c354820318dd17d7ffabed04bcad78409008c372574"
+    },
+    {
+     "frame": 1,
+     "source_cell": [
+      1033,
+      0,
+      1034,
+      254
+     ],
+     "solid_source_bbox": [
+      18,
+      12,
+      1016,
+      244
+     ],
+     "normalized_rect": [
+      3,
+      2,
+      70,
+      24
+     ],
+     "visible_bbox": [
+      3,
+      2,
+      73,
+      26
+     ],
+     "sha256": "4e5b924c389bb25baae0a8529bfac4aff9eb0361e4e0b9c71b0c02dd9a890008"
+    },
+    {
+     "frame": 2,
+     "source_cell": [
+      0,
+      254,
+      1033,
+      253
+     ],
+     "solid_source_bbox": [
+      17,
+      13,
+      1016,
+      243
+     ],
+     "normalized_rect": [
+      3,
+      2,
+      70,
+      24
+     ],
+     "visible_bbox": [
+      3,
+      2,
+      73,
+      26
+     ],
+     "sha256": "08e50398b5eada4f9227e9827fd3843c28978a6ed2c42627d2cdb5696ac5648a"
+    },
+    {
+     "frame": 3,
+     "source_cell": [
+      1033,
+      254,
+      1034,
+      253
+     ],
+     "solid_source_bbox": [
+      18,
+      11,
+      1016,
+      243
+     ],
+     "normalized_rect": [
+      3,
+      2,
+      70,
+      24
+     ],
+     "visible_bbox": [
+      3,
+      2,
+      73,
+      26
+     ],
+     "sha256": "ea97f760300aaffd7d31567167ace5b1f0b5e0b3711dba290b305592c110d4c4"
+    },
+    {
+     "frame": 4,
+     "source_cell": [
+      0,
+      507,
+      1033,
+      254
+     ],
+     "solid_source_bbox": [
+      18,
+      10,
+      1016,
+      244
+     ],
+     "normalized_rect": [
+      3,
+      2,
+      70,
+      24
+     ],
+     "visible_bbox": [
+      3,
+      2,
+      73,
+      26
+     ],
+     "sha256": "f41117840811977f3b46d5ccad674aad4eba58002d59faddb5743059b900b674"
+    },
+    {
+     "frame": 5,
+     "source_cell": [
+      1033,
+      507,
+      1034,
+      254
+     ],
+     "solid_source_bbox": [
+      18,
+      11,
+      1017,
+      244
+     ],
+     "normalized_rect": [
+      3,
+      2,
+      70,
+      24
+     ],
+     "visible_bbox": [
+      3,
+      2,
+      73,
+      26
+     ],
+     "sha256": "af5e7188d52ca75a762e480a8e12166f2f032f024b8c17cef301c3a0e26b1604"
+    }
+   ],
+   "pack": "codex_fx2/norra_fx2"
+  },
+  {
+   "id": "r_yarn",
+   "file": "norra_fx_r_yarn.png",
+   "pixel_1x": "norra_fx_r_yarn.png",
+   "raw": "raw\\norra_fx_r_yarn_raw.png",
+   "frames": 6,
+   "cell_1x": [
+    76,
+    40
+   ],
+   "sheet_1x": [
+    456,
+    40
+   ],
+   "symmetry": "left-right",
+   "loop": false,
+   "binding": "view_effects `tft_norra_r_yarn`（大表，落点，z 2，不跟随；左右对称）",
+   "palette": [
+    "#FFFFFF",
+    "#FFE8F4",
+    "#FF9CCB",
+    "#F05A9E",
+    "#8FF0F0",
+    "#44C8D2",
+    "#FFD95A",
+    "#B02A6E",
+    "#FFF4C4",
+    "#F2B12E",
+    "#C77A16",
+    "#7E4410"
+   ],
+   "frame_details": [
+    {
+     "frame": 0,
+     "source_cell": [
+      0,
+      0,
+      768,
+      341
+     ],
+     "solid_source_bbox": [
+      41,
+      132,
+      727,
+      253
+     ],
+     "normalized_rect": [
+      2,
+      23,
+      72,
+      10
+     ],
+     "visible_bbox": [
+      0,
+      25,
+      76,
+      31
+     ],
+     "sha256": "07e78995ceeb40ffc3baf073d9056b593d6933a2c9b34344e4d48ae3e0d116da"
+    },
+    {
+     "frame": 1,
+     "source_cell": [
+      768,
+      0,
+      768,
+      341
+     ],
+     "solid_source_bbox": [
+      112,
+      132,
+      662,
+      253
+     ],
+     "normalized_rect": [
+      14,
+      23,
+      48,
+      10
+     ],
+     "visible_bbox": [
+      12,
+      25,
+      64,
+      31
+     ],
+     "sha256": "c9279221433d50419262f507f14aa9c247edb9daf2b3dca5d61d19a7437f4d5c"
+    },
+    {
+     "frame": 2,
+     "source_cell": [
+      0,
+      341,
+      768,
+      342
+     ],
+     "solid_source_bbox": [
+      175,
+      130,
+      593,
+      251
+     ],
+     "normalized_rect": [
+      24,
+      23,
+      28,
+      10
+     ],
+     "visible_bbox": [
+      24,
+      25,
+      52,
+      31
+     ],
+     "sha256": "cfb692473dc31834ba720f1bf48337bb8d0c810c00aca668f5183ef487979b8e"
+    },
+    {
+     "frame": 3,
+     "source_cell": [
+      768,
+      341,
+      768,
+      342
+     ],
+     "solid_source_bbox": [
+      209,
+      69,
+      550,
+      274
+     ],
+     "normalized_rect": [
+      32,
+      22,
+      12,
+      12
+     ],
+     "visible_bbox": [
+      32,
+      22,
+      44,
+      34
+     ],
+     "sha256": "5d6ff0fca64e2bcb810f2b59c8f3e52ca2fa31718925b3e2dfbb686053c485f1"
+    },
+    {
+     "frame": 4,
+     "source_cell": [
+      0,
+      683,
+      768,
+      341
+     ],
+     "solid_source_bbox": [
+      99,
+      46,
+      670,
+      303
+     ],
+     "normalized_rect": [
+      26,
+      19,
+      24,
+      18
+     ],
+     "visible_bbox": [
+      26,
+      19,
+      50,
+      37
+     ],
+     "sha256": "c51ab01c69028196cb0e8ee983df5bde85bd34bdeb5341cce2db98ec5f2193ee"
+    },
+    {
+     "frame": 5,
+     "source_cell": [
+      768,
+      683,
+      768,
+      341
+     ],
+     "solid_source_bbox": [
+      139,
+      38,
+      662,
+      299
+     ],
+     "normalized_rect": [
+      24,
+      23,
+      28,
+      14
+     ],
+     "visible_bbox": [
+      24,
+      23,
+      52,
+      37
+     ],
+     "sha256": "57b8a47f039ccfc99d6377ed50e33f26d48a35a987b3832b7ee340faa4dfddb9"
+    }
+   ],
+   "pack": "codex_fx2/norra_fx2"
+  },
+  {
+   "id": "r_hit",
+   "file": "norra_fx_r_hit.png",
+   "pixel_1x": "norra_fx_r_hit.png",
+   "raw": "raw\\norra_fx_r_hit_raw.png",
+   "frames": 4,
+   "cell_1x": [
+    16,
+    16
+   ],
+   "sheet_1x": [
+    64,
+    16
+   ],
+   "symmetry": "left-right",
+   "loop": false,
+   "binding": "view_effects `tft_norra_r_hit`（跟随目标，z 2；左右对称）",
+   "palette": [
+    "#FFFFFF",
+    "#FFE8F4",
+    "#FF9CCB",
+    "#F05A9E",
+    "#8FF0F0",
+    "#44C8D2",
+    "#FFD95A",
+    "#B02A6E"
+   ],
+   "frame_details": [
+    {
+     "frame": 0,
+     "source_cell": [
+      0,
+      0,
+      887,
+      443
+     ],
+     "solid_source_bbox": [
+      335,
+      146,
+      561,
+      370
+     ],
+     "normalized_rect": [
+      5,
+      5,
+      6,
+      6
+     ],
+     "visible_bbox": [
+      5,
+      5,
+      11,
+      11
+     ],
+     "sha256": "769bb2aca071eee76eaee0516fbcd4ff729ce3612ce0847a9bd63b1db783c5ac"
+    },
+    {
+     "frame": 1,
+     "source_cell": [
+      887,
+      0,
+      887,
+      443
+     ],
+     "solid_source_bbox": [
+      117,
+      113,
+      765,
+      391
+     ],
+     "normalized_rect": [
+      2,
+      3,
+      12,
+      10
+     ],
+     "visible_bbox": [
+      2,
+      3,
+      14,
+      13
+     ],
+     "sha256": "19ee0d863ad298a297b66e96b77ad2e058790666ec60c60b9194dad9f08a2d8b"
+    },
+    {
+     "frame": 2,
+     "source_cell": [
+      0,
+      443,
+      887,
+      444
+     ],
+     "solid_source_bbox": [
+      115,
+      75,
+      817,
+      364
+     ],
+     "normalized_rect": [
+      1,
+      2,
+      14,
+      12
+     ],
+     "visible_bbox": [
+      1,
+      2,
+      15,
+      14
+     ],
+     "sha256": "05f2bc3e5b5bb286568660e575d92aedfe54b03f523dd538ceb88cc7aa959cb3"
+    },
+    {
+     "frame": 3,
+     "source_cell": [
+      887,
+      443,
+      887,
+      444
+     ],
+     "solid_source_bbox": [
+      137,
+      111,
+      741,
+      336
+     ],
+     "normalized_rect": [
+      1,
+      2,
+      14,
+      12
+     ],
+     "visible_bbox": [
+      1,
+      2,
+      15,
+      14
+     ],
+     "sha256": "83253dcc6ec239a017f6a47867a424b1bbea9c07d8632190086821f08503183b"
+    }
+   ],
+   "pack": "codex_fx2/norra_fx2"
+  },
+  {
+   "id": "r_slow",
+   "file": "norra_fx_r_slow.png",
+   "pixel_1x": "norra_fx_r_slow.png",
+   "raw": "raw\\norra_fx_r_slow_raw.png",
+   "frames": 4,
+   "cell_1x": [
+    22,
+    10
+   ],
+   "sheet_1x": [
+    88,
+    10
+   ],
+   "symmetry": "left-right",
+   "loop": true,
+   "binding": "view_buffs `tft_norra_r_slow`（跟随，脚下，z 3；左右对称）",
+   "palette": [
+    "#FFFFFF",
+    "#FFE8F4",
+    "#FF9CCB",
+    "#F05A9E",
+    "#8FF0F0",
+    "#44C8D2",
+    "#FFD95A"
+   ],
+   "frame_details": [
+    {
+     "frame": 0,
+     "source_cell": [
+      0,
+      0,
+      930,
+      423
+     ],
+     "solid_source_bbox": [
+      97,
+      184,
+      834,
+      343
+     ],
+     "normalized_rect": [
+      1,
+      2,
+      20,
+      6
+     ],
+     "visible_bbox": [
+      1,
+      2,
+      21,
+      8
+     ],
+     "sha256": "3624aa9f47065321ab66e01e2087d048962d1bb4744f163b7748731bb7bd81e8"
+    },
+    {
+     "frame": 1,
+     "source_cell": [
+      930,
+      0,
+      930,
+      423
+     ],
+     "solid_source_bbox": [
+      93,
+      192,
+      836,
+      349
+     ],
+     "normalized_rect": [
+      1,
+      2,
+      20,
+      6
+     ],
+     "visible_bbox": [
+      1,
+      2,
+      21,
+      8
+     ],
+     "sha256": "252e1edced1b951cb83a1e5191da21550a558546ba92f71cefd723c578c37e1e"
+    },
+    {
+     "frame": 2,
+     "source_cell": [
+      0,
+      423,
+      930,
+      423
+     ],
+     "solid_source_bbox": [
+      125,
+      115,
+      807,
+      307
+     ],
+     "normalized_rect": [
+      1,
+      2,
+      20,
+      6
+     ],
+     "visible_bbox": [
+      1,
+      2,
+      21,
+      8
+     ],
+     "sha256": "17ccce50a81ee3ae60bef40cad8bfe989d02e6a190af4e6441c37aa10622c832"
+    },
+    {
+     "frame": 3,
+     "source_cell": [
+      930,
+      423,
+      930,
+      423
+     ],
+     "solid_source_bbox": [
+      99,
+      130,
+      829,
+      293
+     ],
+     "normalized_rect": [
+      1,
+      2,
+      20,
+      6
+     ],
+     "visible_bbox": [
+      1,
+      2,
+      21,
+      8
+     ],
+     "sha256": "f2cdfacc073ab9672773382c714e327da50abb1fcc87f81746316e913c1150d1"
+    }
+   ],
+   "pack": "codex_fx2/norra_fx2"
+  }
+ ]
+}

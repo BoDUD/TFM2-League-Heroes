@@ -1,0 +1,93 @@
+{
+  "sheets": 15,
+  "frames": 85,
+  "checks": [
+    "native dimensions",
+    "binary alpha",
+    "palette",
+    "exact per-frame symmetry",
+    "nonempty distinct frames",
+    "8x pixel identity",
+    "body clearance",
+    "GIF dimensions and frame counts"
+  ],
+  "result": "pass",
+  "items": [
+    {
+      "id": "a_bolt",
+      "frames": 4,
+      "result": "pass"
+    },
+    {
+      "id": "a_hit",
+      "frames": 3,
+      "result": "pass"
+    },
+    {
+      "id": "p_heal",
+      "frames": 4,
+      "result": "pass"
+    },
+    {
+      "id": "q_ball",
+      "frames": 4,
+      "result": "pass"
+    },
+    {
+      "id": "q_blast",
+      "frames": 7,
+      "result": "pass"
+    },
+    {
+      "id": "q_hit",
+      "frames": 3,
+      "result": "pass"
+    },
+    {
+      "id": "q_paint",
+      "frames": 6,
+      "result": "pass"
+    },
+    {
+      "id": "e_anvil_hit",
+      "frames": 8,
+      "result": "pass"
+    },
+    {
+      "id": "e_book_hit",
+      "frames": 8,
+      "result": "pass"
+    },
+    {
+      "id": "e_potion",
+      "frames": 6,
+      "result": "pass"
+    },
+    {
+      "id": "e_guard",
+      "frames": 6,
+      "result": "pass"
+    },
+    {
+      "id": "r_warn",
+      "frames": 6,
+      "result": "pass"
+    },
+    {
+      "id": "r_book",
+      "frames": 10,
+      "result": "pass"
+    },
+    {
+      "id": "r_hit",
+      "frames": 4,
+      "result": "pass"
+    },
+    {
+      "id": "r_paper",
+      "frames": 6,
+      "result": "pass"
+    }
+  ],
+  "scope": "File/format QA; not in-game runtime validation."
+}

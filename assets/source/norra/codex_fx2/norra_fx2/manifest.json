@@ -1,0 +1,2111 @@
+{
+  "version": 1,
+  "scope": "Wild Rift supplementary art, 12 effects and 3 icons. Reuse previous a_bolt/q_ball/q_blast separately.",
+  "format": "single horizontal strip; RGBA binary alpha; exact left-right color symmetry",
+  "readback": "image_gen source; measure solid alpha>=240 with component-noise filtering; render source alpha>=160 within measured bbox; most frequent foreground palette color per logical cell with >=12% ink coverage; mirror left to right. R-yarn first3 frames: generated left ball+tail normalized to12x6 and placed at x0/12/24, y25, then mirrored. Per-frame sizing profiles documented. No code-drawn effect shapes.",
+  "items": [
+    {
+      "id": "p_trinkets",
+      "file": "norra_fx_p_trinkets.png",
+      "pixel_1x": "pixel_1x/norra_fx_p_trinkets.png",
+      "raw": "raw\\norra_fx_p_trinkets_raw.png",
+      "frames": 4,
+      "cell_1x": [
+        44,
+        20
+      ],
+      "sheet_1x": [
+        176,
+        20
+      ],
+      "symmetry": "left-right",
+      "loop": true,
+      "binding": "view_effects `tft_norra_p_trinkets`（大表，落点，地面，z -1，不跟随；左右对称）",
+      "palette": [
+        "#FFFFFF",
+        "#F4E6FF",
+        "#C9A2FF",
+        "#9A62F0",
+        "#6A34D0",
+        "#FFF4C4",
+        "#FFD95A",
+        "#F2B12E",
+        "#C77A16",
+        "#7E4410",
+        "#FFE8F4",
+        "#FF9CCB",
+        "#F05A9E",
+        "#B02A6E",
+        "#100A16"
+      ],
+      "frame_details": [
+        {
+          "frame": 0,
+          "source_cell": [
+            0,
+            0,
+            929,
+            423
+          ],
+          "solid_source_bbox": [
+            207,
+            146,
+            745,
+            368
+          ],
+          "normalized_rect": [
+            4,
+            2,
+            36,
+            14
+          ],
+          "visible_bbox": [
+            4,
+            2,
+            40,
+            16
+          ],
+          "sha256": "dbfe69580c304a827ee1d722cbf49709c5e0f69df22766955019d301e4c48acb"
+        },
+        {
+          "frame": 1,
+          "source_cell": [
+            929,
+            0,
+            930,
+            423
+          ],
+          "solid_source_bbox": [
+            137,
+            144,
+            736,
+            368
+          ],
+          "normalized_rect": [
+            4,
+            2,
+            36,
+            14
+          ],
+          "visible_bbox": [
+            4,
+            2,
+            40,
+            16
+          ],
+          "sha256": "64724f2d81f413ef89378e9d0b62e3ac564c4a2a40aecf935cbe0218ef730dac"
+        },
+        {
+          "frame": 2,
+          "source_cell": [
+            0,
+            423,
+            929,
+            423
+          ],
+          "solid_source_bbox": [
+            173,
+            75,
+            798,
+            309
+          ],
+          "normalized_rect": [
+            4,
+            2,
+            36,
+            14
+          ],
+          "visible_bbox": [
+            4,
+            2,
+            40,
+            16
+          ],
+          "sha256": "e8db8171556cb3f423a7b5969fcb2074682d83b2c8d89810cfcfd063aa81f459"
+        },
+        {
+          "frame": 3,
+          "source_cell": [
+            929,
+            423,
+            930,
+            423
+          ],
+          "solid_source_bbox": [
+            154,
+            95,
+            735,
+            309
+          ],
+          "normalized_rect": [
+            4,
+            2,
+            36,
+            14
+          ],
+          "visible_bbox": [
+            4,
+            2,
+            40,
+            16
+          ],
+          "sha256": "26084a7dec9a7cecd7bfdc1b51dc1ccf4896d2b4d1310f74d40f70e7045f69dd"
+        }
+      ]
+    },
+    {
+      "id": "p_burst",
+      "file": "norra_fx_p_burst.png",
+      "pixel_1x": "pixel_1x/norra_fx_p_burst.png",
+      "raw": "raw\\norra_fx_p_burst_raw.png",
+      "frames": 5,
+      "cell_1x": [
+        18,
+        24
+      ],
+      "sheet_1x": [
+        90,
+        24
+      ],
+      "symmetry": "left-right",
+      "loop": false,
+      "binding": "view_effects `tft_norra_p_burst`（跟随目标，z 2；左右对称）",
+      "palette": [
+        "#FFFFFF",
+        "#F4E6FF",
+        "#C9A2FF",
+        "#9A62F0",
+        "#6A34D0",
+        "#FFE8F4",
+        "#FF9CCB",
+        "#F05A9E",
+        "#B02A6E",
+        "#FFF4C4",
+        "#FFD95A",
+        "#F2B12E",
+        "#C77A16",
+        "#7E4410"
+      ],
+      "frame_details": [
+        {
+          "frame": 0,
+          "source_cell": [
+            0,
+            0,
+            380,
+            829
+          ],
+          "solid_source_bbox": [
+            175,
+            415,
+            237,
+            513
+          ],
+          "normalized_rect": [
+            7,
+            1,
+            4,
+            6
+          ],
+          "visible_bbox": [
+            7,
+            1,
+            11,
+            7
+          ],
+          "sha256": "504fc9898d22692cf9c9c76d689f08c53511cfae57a014c3cf43d496dc810430"
+        },
+        {
+          "frame": 1,
+          "source_cell": [
+            380,
+            0,
+            362,
+            829
+          ],
+          "solid_source_bbox": [
+            158,
+            214,
+            220,
+            515
+          ],
+          "normalized_rect": [
+            7,
+            2,
+            4,
+            12
+          ],
+          "visible_bbox": [
+            7,
+            2,
+            11,
+            14
+          ],
+          "sha256": "22afd04b2c103db8b49b7774eb254ce2c2d5fea9f211e533f1ce727c803e6017"
+        },
+        {
+          "frame": 2,
+          "source_cell": [
+            742,
+            0,
+            346,
+            829
+          ],
+          "solid_source_bbox": [
+            15,
+            350,
+            304,
+            603
+          ],
+          "normalized_rect": [
+            3,
+            8,
+            12,
+            12
+          ],
+          "visible_bbox": [
+            3,
+            8,
+            15,
+            20
+          ],
+          "sha256": "d27f71de270a8ff1e3563ca7389601b499153f79b8796573e406f6972786a8be"
+        },
+        {
+          "frame": 3,
+          "source_cell": [
+            1088,
+            0,
+            430,
+            829
+          ],
+          "solid_source_bbox": [
+            4,
+            287,
+            407,
+            631
+          ],
+          "normalized_rect": [
+            1,
+            7,
+            16,
+            14
+          ],
+          "visible_bbox": [
+            1,
+            7,
+            17,
+            21
+          ],
+          "sha256": "6786f06df056031a8bddcff197cd1a8bcbf2221eb7aa54ff57bde2257e5987bf"
+        },
+        {
+          "frame": 4,
+          "source_cell": [
+            1518,
+            0,
+            380,
+            829
+          ],
+          "solid_source_bbox": [
+            20,
+            323,
+            316,
+            643
+          ],
+          "normalized_rect": [
+            1,
+            9,
+            16,
+            12
+          ],
+          "visible_bbox": [
+            1,
+            9,
+            17,
+            21
+          ],
+          "sha256": "1e88e5c09d804e70c96f174e3e208814a58927358ba9b91f4e84a70ab688c6d7"
+        }
+      ]
+    },
+    {
+      "id": "w_in",
+      "file": "norra_fx_w_in.png",
+      "pixel_1x": "pixel_1x/norra_fx_w_in.png",
+      "raw": "raw\\norra_fx_w_in_raw.png",
+      "frames": 5,
+      "cell_1x": [
+        30,
+        46
+      ],
+      "sheet_1x": [
+        150,
+        46
+      ],
+      "symmetry": "left-right",
+      "loop": false,
+      "binding": "view_effects `tft_norra_w_in`（目标脚下，z 2，不跟随；左右对称）",
+      "palette": [
+        "#F4E6FF",
+        "#C9A2FF",
+        "#9A62F0",
+        "#6A34D0",
+        "#3E1C8C",
+        "#22104E",
+        "#FFE8F4",
+        "#FF9CCB",
+        "#F05A9E",
+        "#B02A6E",
+        "#FFFFFF",
+        "#FFF4C4",
+        "#FFD95A",
+        "#F2B12E",
+        "#C77A16",
+        "#7E4410"
+      ],
+      "frame_details": [
+        {
+          "frame": 0,
+          "source_cell": [
+            0,
+            0,
+            434,
+            724
+          ],
+          "solid_source_bbox": [
+            91,
+            527,
+            393,
+            648
+          ],
+          "normalized_rect": [
+            6,
+            34,
+            18,
+            6
+          ],
+          "visible_bbox": [
+            6,
+            34,
+            24,
+            40
+          ],
+          "sha256": "af4e5c00c0f83e2b8c2aef8a71783ba0559aa20cb086ee2e41c57105393d277f"
+        },
+        {
+          "frame": 1,
+          "source_cell": [
+            434,
+            0,
+            434,
+            724
+          ],
+          "solid_source_bbox": [
+            50,
+            465,
+            406,
+            663
+          ],
+          "normalized_rect": [
+            2,
+            32,
+            26,
+            8
+          ],
+          "visible_bbox": [
+            2,
+            32,
+            28,
+            40
+          ],
+          "sha256": "c17521559e85c87c12a704be5778119450887d3e5c7631f58673138da16ad438"
+        },
+        {
+          "frame": 2,
+          "source_cell": [
+            868,
+            0,
+            435,
+            724
+          ],
+          "solid_source_bbox": [
+            47,
+            119,
+            392,
+            656
+          ],
+          "normalized_rect": [
+            2,
+            4,
+            26,
+            36
+          ],
+          "visible_bbox": [
+            2,
+            4,
+            28,
+            40
+          ],
+          "sha256": "b92aef079596843e15120b74d707da580081c47d6a9966dd37cb5e8a12566c87"
+        },
+        {
+          "frame": 3,
+          "source_cell": [
+            1303,
+            0,
+            434,
+            724
+          ],
+          "solid_source_bbox": [
+            37,
+            238,
+            393,
+            662
+          ],
+          "normalized_rect": [
+            2,
+            16,
+            26,
+            24
+          ],
+          "visible_bbox": [
+            2,
+            16,
+            28,
+            40
+          ],
+          "sha256": "dcfdd19cef323808ef4125490975b288b9178828986f0f642a2e6b946747c5d3"
+        },
+        {
+          "frame": 4,
+          "source_cell": [
+            1737,
+            0,
+            434,
+            724
+          ],
+          "solid_source_bbox": [
+            67,
+            499,
+            358,
+            664
+          ],
+          "normalized_rect": [
+            6,
+            32,
+            18,
+            8
+          ],
+          "visible_bbox": [
+            6,
+            32,
+            24,
+            40
+          ],
+          "sha256": "a5e3fb7030ef06d581f621deeada22d139afe32c5abd14a35a657996892e0665"
+        }
+      ]
+    },
+    {
+      "id": "w_lock",
+      "file": "norra_fx_w_lock.png",
+      "pixel_1x": "pixel_1x/norra_fx_w_lock.png",
+      "raw": "raw\\norra_fx_w_lock_raw.png",
+      "frames": 4,
+      "cell_1x": [
+        24,
+        12
+      ],
+      "sheet_1x": [
+        96,
+        12
+      ],
+      "symmetry": "left-right",
+      "loop": true,
+      "binding": "view_effects `tft_norra_w_lock`（放逐的位置，z 2，不跟随；左右对称）",
+      "palette": [
+        "#F4E6FF",
+        "#C9A2FF",
+        "#9A62F0",
+        "#6A34D0",
+        "#3E1C8C",
+        "#22104E",
+        "#FFE8F4",
+        "#FF9CCB",
+        "#F05A9E",
+        "#B02A6E"
+      ],
+      "frame_details": [
+        {
+          "frame": 0,
+          "source_cell": [
+            0,
+            0,
+            887,
+            443
+          ],
+          "solid_source_bbox": [
+            118,
+            116,
+            769,
+            402
+          ],
+          "normalized_rect": [
+            1,
+            2,
+            22,
+            8
+          ],
+          "visible_bbox": [
+            1,
+            2,
+            23,
+            10
+          ],
+          "sha256": "646d37ddb983cab2e7529653e27e70e2ece1dde991afe91cea2bcbf01579c84f"
+        },
+        {
+          "frame": 1,
+          "source_cell": [
+            887,
+            0,
+            887,
+            443
+          ],
+          "solid_source_bbox": [
+            119,
+            116,
+            772,
+            402
+          ],
+          "normalized_rect": [
+            1,
+            2,
+            22,
+            8
+          ],
+          "visible_bbox": [
+            1,
+            2,
+            23,
+            10
+          ],
+          "sha256": "1a83c3392c4eb5cc06404e1b6def4bf4f2c77e95c13fc1035de7bb579e9b0fc5"
+        },
+        {
+          "frame": 2,
+          "source_cell": [
+            0,
+            443,
+            887,
+            444
+          ],
+          "solid_source_bbox": [
+            118,
+            77,
+            769,
+            365
+          ],
+          "normalized_rect": [
+            1,
+            2,
+            22,
+            8
+          ],
+          "visible_bbox": [
+            1,
+            2,
+            23,
+            10
+          ],
+          "sha256": "78eb984411a7941e191a69fcbf46e1417dc833522da4be47acbb1a3eabe0a0d2"
+        },
+        {
+          "frame": 3,
+          "source_cell": [
+            887,
+            443,
+            887,
+            444
+          ],
+          "solid_source_bbox": [
+            119,
+            77,
+            772,
+            365
+          ],
+          "normalized_rect": [
+            1,
+            2,
+            22,
+            8
+          ],
+          "visible_bbox": [
+            1,
+            2,
+            23,
+            10
+          ],
+          "sha256": "848e0a987a3ea605f5c20dcd9e1e514013d4f99b5b62561e1675d4ca581f6731"
+        }
+      ]
+    },
+    {
+      "id": "w_out",
+      "file": "norra_fx_w_out.png",
+      "pixel_1x": "pixel_1x/norra_fx_w_out.png",
+      "raw": "raw\\norra_fx_w_out_raw.png",
+      "frames": 4,
+      "cell_1x": [
+        30,
+        46
+      ],
+      "sheet_1x": [
+        120,
+        46
+      ],
+      "symmetry": "left-right",
+      "loop": false,
+      "binding": "view_effects `tft_norra_w_out`（放逐的位置，z 2，不跟随；左右对称）",
+      "palette": [
+        "#F4E6FF",
+        "#C9A2FF",
+        "#9A62F0",
+        "#6A34D0",
+        "#3E1C8C",
+        "#22104E",
+        "#FFE8F4",
+        "#FF9CCB",
+        "#F05A9E",
+        "#B02A6E",
+        "#FFFFFF",
+        "#FFF4C4",
+        "#FFD95A",
+        "#F2B12E",
+        "#C77A16",
+        "#7E4410"
+      ],
+      "frame_details": [
+        {
+          "frame": 0,
+          "source_cell": [
+            0,
+            0,
+            505,
+            778
+          ],
+          "solid_source_bbox": [
+            34,
+            548,
+            474,
+            707
+          ],
+          "normalized_rect": [
+            3,
+            32,
+            24,
+            8
+          ],
+          "visible_bbox": [
+            3,
+            33,
+            27,
+            40
+          ],
+          "sha256": "954510a913dabf0522ed18a23fc7b42b589f03b19856052177f10c65767de73b"
+        },
+        {
+          "frame": 1,
+          "source_cell": [
+            505,
+            0,
+            505,
+            778
+          ],
+          "solid_source_bbox": [
+            61,
+            312,
+            468,
+            696
+          ],
+          "normalized_rect": [
+            2,
+            16,
+            26,
+            24
+          ],
+          "visible_bbox": [
+            2,
+            16,
+            28,
+            40
+          ],
+          "sha256": "fcca8464f0998346667634fbea9dba17d154188683879e5c6d969345a4d0b570"
+        },
+        {
+          "frame": 2,
+          "source_cell": [
+            1010,
+            0,
+            505,
+            778
+          ],
+          "solid_source_bbox": [
+            69,
+            152,
+            460,
+            686
+          ],
+          "normalized_rect": [
+            2,
+            4,
+            26,
+            36
+          ],
+          "visible_bbox": [
+            2,
+            5,
+            28,
+            40
+          ],
+          "sha256": "998d2680f86e60e35c3cee99d308a0758d18cd05df8c68f4c3727a131fbaf01f"
+        },
+        {
+          "frame": 3,
+          "source_cell": [
+            1515,
+            0,
+            505,
+            778
+          ],
+          "solid_source_bbox": [
+            107,
+            539,
+            436,
+            686
+          ],
+          "normalized_rect": [
+            9,
+            34,
+            12,
+            6
+          ],
+          "visible_bbox": [
+            11,
+            39,
+            19,
+            40
+          ],
+          "sha256": "f9817f5819cfacb6283ea8039a6083cfcc464e0161bf2b973913b9951a844ac1"
+        }
+      ]
+    },
+    {
+      "id": "e_threads",
+      "file": "norra_fx_e_threads.png",
+      "pixel_1x": "pixel_1x/norra_fx_e_threads.png",
+      "raw": "raw\\norra_fx_e_threads_raw.png",
+      "frames": 6,
+      "cell_1x": [
+        76,
+        30
+      ],
+      "sheet_1x": [
+        456,
+        30
+      ],
+      "symmetry": "left-right",
+      "loop": false,
+      "binding": "view_effects `tft_norra_e_threads`（大表，目标位置，z 2，不跟随；左右对称）",
+      "palette": [
+        "#F4E6FF",
+        "#C9A2FF",
+        "#9A62F0",
+        "#6A34D0",
+        "#3E1C8C",
+        "#22104E",
+        "#FFFFFF",
+        "#FFE8F4",
+        "#FF9CCB",
+        "#F05A9E",
+        "#8FF0F0",
+        "#44C8D2",
+        "#FFD95A",
+        "#FFF4C4",
+        "#F2B12E",
+        "#C77A16",
+        "#7E4410"
+      ],
+      "frame_details": [
+        {
+          "frame": 0,
+          "source_cell": [
+            0,
+            0,
+            997,
+            263
+          ],
+          "solid_source_bbox": [
+            60,
+            152,
+            938,
+            228
+          ],
+          "normalized_rect": [
+            7,
+            19,
+            62,
+            6
+          ],
+          "visible_bbox": [
+            7,
+            19,
+            69,
+            25
+          ],
+          "sha256": "7b28623474a7176d082aa6552b6976cd99965a117c6eb603bb52ae5de6120f3f"
+        },
+        {
+          "frame": 1,
+          "source_cell": [
+            997,
+            0,
+            997,
+            263
+          ],
+          "solid_source_bbox": [
+            105,
+            34,
+            904,
+            244
+          ],
+          "normalized_rect": [
+            7,
+            13,
+            62,
+            12
+          ],
+          "visible_bbox": [
+            7,
+            13,
+            69,
+            25
+          ],
+          "sha256": "392a0731252d84c4067a1fda8c5dda36e906bc87a293fcd5956c32a08f158145"
+        },
+        {
+          "frame": 2,
+          "source_cell": [
+            0,
+            263,
+            997,
+            263
+          ],
+          "solid_source_bbox": [
+            77,
+            32,
+            921,
+            242
+          ],
+          "normalized_rect": [
+            7,
+            11,
+            62,
+            14
+          ],
+          "visible_bbox": [
+            7,
+            11,
+            69,
+            25
+          ],
+          "sha256": "f626c3ff2bb0909c45d6a4ba97cad0d8e106681c5197111c587eaccdeb8a154a"
+        },
+        {
+          "frame": 3,
+          "source_cell": [
+            997,
+            263,
+            997,
+            263
+          ],
+          "solid_source_bbox": [
+            78,
+            32,
+            922,
+            244
+          ],
+          "normalized_rect": [
+            7,
+            9,
+            62,
+            16
+          ],
+          "visible_bbox": [
+            7,
+            9,
+            69,
+            25
+          ],
+          "sha256": "9a4b831f71ba54518c43a987cfdb73162a572fb91cb0721f5e290635a8aea583"
+        },
+        {
+          "frame": 4,
+          "source_cell": [
+            0,
+            526,
+            997,
+            263
+          ],
+          "solid_source_bbox": [
+            62,
+            23,
+            938,
+            235
+          ],
+          "normalized_rect": [
+            7,
+            7,
+            62,
+            18
+          ],
+          "visible_bbox": [
+            7,
+            7,
+            69,
+            25
+          ],
+          "sha256": "39a435ba3c2cc5b96ca2b8f5eec560da6d8afc4cd90d11df3ca05c99812caaa4"
+        },
+        {
+          "frame": 5,
+          "source_cell": [
+            997,
+            526,
+            997,
+            263
+          ],
+          "solid_source_bbox": [
+            95,
+            117,
+            906,
+            206
+          ],
+          "normalized_rect": [
+            7,
+            15,
+            62,
+            10
+          ],
+          "visible_bbox": [
+            7,
+            15,
+            69,
+            25
+          ],
+          "sha256": "7d8da2828d251e13b3af2378f966a4e11d0d9d615bef8809a84959b222181ce1"
+        }
+      ]
+    },
+    {
+      "id": "t_hit",
+      "file": "norra_fx_t_hit.png",
+      "pixel_1x": "pixel_1x/norra_fx_t_hit.png",
+      "raw": "raw\\norra_fx_t_hit_raw.png",
+      "frames": 3,
+      "cell_1x": [
+        14,
+        14
+      ],
+      "sheet_1x": [
+        42,
+        14
+      ],
+      "symmetry": "left-right",
+      "loop": false,
+      "binding": "view_effects `tft_norra_t_hit`（跟随目标，z 2；左右对称）",
+      "palette": [
+        "#FFFFFF",
+        "#FFE8F4",
+        "#FF9CCB",
+        "#F05A9E",
+        "#8FF0F0",
+        "#44C8D2",
+        "#FFD95A"
+      ],
+      "frame_details": [
+        {
+          "frame": 0,
+          "source_cell": [
+            0,
+            0,
+            724,
+            724
+          ],
+          "solid_source_bbox": [
+            247,
+            263,
+            485,
+            484
+          ],
+          "normalized_rect": [
+            5,
+            5,
+            4,
+            4
+          ],
+          "visible_bbox": [
+            5,
+            5,
+            9,
+            9
+          ],
+          "sha256": "ca8a6b9bd0fac24e6d0d838ea2c1f838ad67256d8b436482afc44885ff3a2523"
+        },
+        {
+          "frame": 1,
+          "source_cell": [
+            724,
+            0,
+            724,
+            724
+          ],
+          "solid_source_bbox": [
+            43,
+            225,
+            681,
+            502
+          ],
+          "normalized_rect": [
+            1,
+            3,
+            12,
+            8
+          ],
+          "visible_bbox": [
+            1,
+            3,
+            13,
+            11
+          ],
+          "sha256": "212dd9fdcef75c60e1ce9095b485386b8292e27a87fd402c2cb9c1c7565faf9a"
+        },
+        {
+          "frame": 2,
+          "source_cell": [
+            1448,
+            0,
+            724,
+            724
+          ],
+          "solid_source_bbox": [
+            100,
+            225,
+            626,
+            511
+          ],
+          "normalized_rect": [
+            1,
+            2,
+            12,
+            10
+          ],
+          "visible_bbox": [
+            1,
+            2,
+            13,
+            12
+          ],
+          "sha256": "7e6119eab097e8f1bc0fd11cfae26cd4a61fed90da34655231696f8e5fe73e7c"
+        }
+      ]
+    },
+    {
+      "id": "t_mark",
+      "file": "norra_fx_t_mark.png",
+      "pixel_1x": "pixel_1x/norra_fx_t_mark.png",
+      "raw": "raw\\norra_fx_t_mark_raw.png",
+      "frames": 6,
+      "cell_1x": [
+        26,
+        42
+      ],
+      "sheet_1x": [
+        156,
+        42
+      ],
+      "symmetry": "left-right",
+      "loop": true,
+      "binding": "view_buffs `tft_norra_t_mark`（跟随目标，z 3；左右对称）",
+      "palette": [
+        "#FFFFFF",
+        "#FFE8F4",
+        "#FF9CCB",
+        "#F05A9E",
+        "#8FF0F0",
+        "#44C8D2",
+        "#FFD95A",
+        "#F4E6FF",
+        "#C9A2FF",
+        "#9A62F0",
+        "#6A34D0",
+        "#3E1C8C",
+        "#22104E"
+      ],
+      "frame_details": [
+        {
+          "frame": 0,
+          "source_cell": [
+            0,
+            0,
+            568,
+            461
+          ],
+          "solid_source_bbox": [
+            83,
+            64,
+            516,
+            415
+          ],
+          "normalized_rect": [
+            1,
+            0,
+            24,
+            42
+          ],
+          "visible_bbox": [
+            1,
+            0,
+            25,
+            42
+          ],
+          "sha256": "cbf0b55f0cb0f6b2edbbfe21b21677a7362e62ee6fbdaecce437e4feb500894f"
+        },
+        {
+          "frame": 1,
+          "source_cell": [
+            568,
+            0,
+            568,
+            461
+          ],
+          "solid_source_bbox": [
+            64,
+            64,
+            503,
+            417
+          ],
+          "normalized_rect": [
+            1,
+            0,
+            24,
+            42
+          ],
+          "visible_bbox": [
+            1,
+            0,
+            25,
+            42
+          ],
+          "sha256": "8ea9b83b556fc42944e16dfbfacbd26de051401fb86ce3ae12fbe6bd1a01d832"
+        },
+        {
+          "frame": 2,
+          "source_cell": [
+            1136,
+            0,
+            568,
+            461
+          ],
+          "solid_source_bbox": [
+            61,
+            57,
+            493,
+            421
+          ],
+          "normalized_rect": [
+            1,
+            0,
+            24,
+            42
+          ],
+          "visible_bbox": [
+            1,
+            1,
+            25,
+            42
+          ],
+          "sha256": "ab449b514bf734b05f0023cecac09541393de7707b7ab093e61a3fb417bb9656"
+        },
+        {
+          "frame": 3,
+          "source_cell": [
+            0,
+            461,
+            568,
+            462
+          ],
+          "solid_source_bbox": [
+            79,
+            37,
+            517,
+            394
+          ],
+          "normalized_rect": [
+            1,
+            0,
+            24,
+            42
+          ],
+          "visible_bbox": [
+            1,
+            0,
+            25,
+            42
+          ],
+          "sha256": "87e1a3e08d8002f32db2f429b6564d6928fc6ddff213f1420e6a7ee85cb6118d"
+        },
+        {
+          "frame": 4,
+          "source_cell": [
+            568,
+            461,
+            568,
+            462
+          ],
+          "solid_source_bbox": [
+            64,
+            39,
+            505,
+            391
+          ],
+          "normalized_rect": [
+            1,
+            0,
+            24,
+            42
+          ],
+          "visible_bbox": [
+            1,
+            0,
+            25,
+            42
+          ],
+          "sha256": "9fa722e2229fccfcdcaf9e00421167354d193140787b51e487d1ee0180795f97"
+        },
+        {
+          "frame": 5,
+          "source_cell": [
+            1136,
+            461,
+            568,
+            462
+          ],
+          "solid_source_bbox": [
+            52,
+            47,
+            486,
+            391
+          ],
+          "normalized_rect": [
+            1,
+            0,
+            24,
+            42
+          ],
+          "visible_bbox": [
+            1,
+            1,
+            25,
+            42
+          ],
+          "sha256": "e2ef41c69fa09110797e45890b300a0b27b73ea5a59155909699bf2832d1add9"
+        }
+      ]
+    },
+    {
+      "id": "r_rift",
+      "file": "norra_fx_r_rift.png",
+      "pixel_1x": "pixel_1x/norra_fx_r_rift.png",
+      "raw": "raw\\norra_fx_r_rift_raw.png",
+      "frames": 6,
+      "cell_1x": [
+        76,
+        28
+      ],
+      "sheet_1x": [
+        456,
+        28
+      ],
+      "symmetry": "left-right",
+      "loop": true,
+      "binding": "view_effects `tft_norra_r_rift`（大表，落点，地面，z -2，不跟随；左右对称）",
+      "palette": [
+        "#F4E6FF",
+        "#C9A2FF",
+        "#9A62F0",
+        "#6A34D0",
+        "#3E1C8C",
+        "#22104E",
+        "#FFE8F4",
+        "#FF9CCB",
+        "#F05A9E",
+        "#B02A6E",
+        "#FFFFFF",
+        "#FFF4C4",
+        "#FFD95A",
+        "#F2B12E",
+        "#C77A16",
+        "#7E4410"
+      ],
+      "frame_details": [
+        {
+          "frame": 0,
+          "source_cell": [
+            0,
+            0,
+            1033,
+            254
+          ],
+          "solid_source_bbox": [
+            17,
+            13,
+            1016,
+            244
+          ],
+          "normalized_rect": [
+            3,
+            2,
+            70,
+            24
+          ],
+          "visible_bbox": [
+            3,
+            2,
+            73,
+            26
+          ],
+          "sha256": "d6478f69756ac5b1e6875c354820318dd17d7ffabed04bcad78409008c372574"
+        },
+        {
+          "frame": 1,
+          "source_cell": [
+            1033,
+            0,
+            1034,
+            254
+          ],
+          "solid_source_bbox": [
+            18,
+            12,
+            1016,
+            244
+          ],
+          "normalized_rect": [
+            3,
+            2,
+            70,
+            24
+          ],
+          "visible_bbox": [
+            3,
+            2,
+            73,
+            26
+          ],
+          "sha256": "4e5b924c389bb25baae0a8529bfac4aff9eb0361e4e0b9c71b0c02dd9a890008"
+        },
+        {
+          "frame": 2,
+          "source_cell": [
+            0,
+            254,
+            1033,
+            253
+          ],
+          "solid_source_bbox": [
+            17,
+            13,
+            1016,
+            243
+          ],
+          "normalized_rect": [
+            3,
+            2,
+            70,
+            24
+          ],
+          "visible_bbox": [
+            3,
+            2,
+            73,
+            26
+          ],
+          "sha256": "08e50398b5eada4f9227e9827fd3843c28978a6ed2c42627d2cdb5696ac5648a"
+        },
+        {
+          "frame": 3,
+          "source_cell": [
+            1033,
+            254,
+            1034,
+            253
+          ],
+          "solid_source_bbox": [
+            18,
+            11,
+            1016,
+            243
+          ],
+          "normalized_rect": [
+            3,
+            2,
+            70,
+            24
+          ],
+          "visible_bbox": [
+            3,
+            2,
+            73,
+            26
+          ],
+          "sha256": "ea97f760300aaffd7d31567167ace5b1f0b5e0b3711dba290b305592c110d4c4"
+        },
+        {
+          "frame": 4,
+          "source_cell": [
+            0,
+            507,
+            1033,
+            254
+          ],
+          "solid_source_bbox": [
+            18,
+            10,
+            1016,
+            244
+          ],
+          "normalized_rect": [
+            3,
+            2,
+            70,
+            24
+          ],
+          "visible_bbox": [
+            3,
+            2,
+            73,
+            26
+          ],
+          "sha256": "f41117840811977f3b46d5ccad674aad4eba58002d59faddb5743059b900b674"
+        },
+        {
+          "frame": 5,
+          "source_cell": [
+            1033,
+            507,
+            1034,
+            254
+          ],
+          "solid_source_bbox": [
+            18,
+            11,
+            1017,
+            244
+          ],
+          "normalized_rect": [
+            3,
+            2,
+            70,
+            24
+          ],
+          "visible_bbox": [
+            3,
+            2,
+            73,
+            26
+          ],
+          "sha256": "af5e7188d52ca75a762e480a8e12166f2f032f024b8c17cef301c3a0e26b1604"
+        }
+      ]
+    },
+    {
+      "id": "r_yarn",
+      "file": "norra_fx_r_yarn.png",
+      "pixel_1x": "pixel_1x/norra_fx_r_yarn.png",
+      "raw": "raw\\norra_fx_r_yarn_raw.png",
+      "frames": 6,
+      "cell_1x": [
+        76,
+        40
+      ],
+      "sheet_1x": [
+        456,
+        40
+      ],
+      "symmetry": "left-right",
+      "loop": false,
+      "binding": "view_effects `tft_norra_r_yarn`（大表，落点，z 2，不跟随；左右对称）",
+      "palette": [
+        "#FFFFFF",
+        "#FFE8F4",
+        "#FF9CCB",
+        "#F05A9E",
+        "#8FF0F0",
+        "#44C8D2",
+        "#FFD95A",
+        "#B02A6E",
+        "#FFF4C4",
+        "#F2B12E",
+        "#C77A16",
+        "#7E4410"
+      ],
+      "frame_details": [
+        {
+          "frame": 0,
+          "source_cell": [
+            0,
+            0,
+            768,
+            341
+          ],
+          "solid_source_bbox": [
+            41,
+            132,
+            727,
+            253
+          ],
+          "normalized_rect": [
+            2,
+            23,
+            72,
+            10
+          ],
+          "visible_bbox": [
+            0,
+            25,
+            76,
+            31
+          ],
+          "sha256": "07e78995ceeb40ffc3baf073d9056b593d6933a2c9b34344e4d48ae3e0d116da"
+        },
+        {
+          "frame": 1,
+          "source_cell": [
+            768,
+            0,
+            768,
+            341
+          ],
+          "solid_source_bbox": [
+            112,
+            132,
+            662,
+            253
+          ],
+          "normalized_rect": [
+            14,
+            23,
+            48,
+            10
+          ],
+          "visible_bbox": [
+            12,
+            25,
+            64,
+            31
+          ],
+          "sha256": "c9279221433d50419262f507f14aa9c247edb9daf2b3dca5d61d19a7437f4d5c"
+        },
+        {
+          "frame": 2,
+          "source_cell": [
+            0,
+            341,
+            768,
+            342
+          ],
+          "solid_source_bbox": [
+            175,
+            130,
+            593,
+            251
+          ],
+          "normalized_rect": [
+            24,
+            23,
+            28,
+            10
+          ],
+          "visible_bbox": [
+            24,
+            25,
+            52,
+            31
+          ],
+          "sha256": "cfb692473dc31834ba720f1bf48337bb8d0c810c00aca668f5183ef487979b8e"
+        },
+        {
+          "frame": 3,
+          "source_cell": [
+            768,
+            341,
+            768,
+            342
+          ],
+          "solid_source_bbox": [
+            209,
+            69,
+            550,
+            274
+          ],
+          "normalized_rect": [
+            32,
+            22,
+            12,
+            12
+          ],
+          "visible_bbox": [
+            32,
+            22,
+            44,
+            34
+          ],
+          "sha256": "5d6ff0fca64e2bcb810f2b59c8f3e52ca2fa31718925b3e2dfbb686053c485f1"
+        },
+        {
+          "frame": 4,
+          "source_cell": [
+            0,
+            683,
+            768,
+            341
+          ],
+          "solid_source_bbox": [
+            99,
+            46,
+            670,
+            303
+          ],
+          "normalized_rect": [
+            26,
+            19,
+            24,
+            18
+          ],
+          "visible_bbox": [
+            26,
+            19,
+            50,
+            37
+          ],
+          "sha256": "c51ab01c69028196cb0e8ee983df5bde85bd34bdeb5341cce2db98ec5f2193ee"
+        },
+        {
+          "frame": 5,
+          "source_cell": [
+            768,
+            683,
+            768,
+            341
+          ],
+          "solid_source_bbox": [
+            139,
+            38,
+            662,
+            299
+          ],
+          "normalized_rect": [
+            24,
+            23,
+            28,
+            14
+          ],
+          "visible_bbox": [
+            24,
+            23,
+            52,
+            37
+          ],
+          "sha256": "57b8a47f039ccfc99d6377ed50e33f26d48a35a987b3832b7ee340faa4dfddb9"
+        }
+      ]
+    },
+    {
+      "id": "r_hit",
+      "file": "norra_fx_r_hit.png",
+      "pixel_1x": "pixel_1x/norra_fx_r_hit.png",
+      "raw": "raw\\norra_fx_r_hit_raw.png",
+      "frames": 4,
+      "cell_1x": [
+        16,
+        16
+      ],
+      "sheet_1x": [
+        64,
+        16
+      ],
+      "symmetry": "left-right",
+      "loop": false,
+      "binding": "view_effects `tft_norra_r_hit`（跟随目标，z 2；左右对称）",
+      "palette": [
+        "#FFFFFF",
+        "#FFE8F4",
+        "#FF9CCB",
+        "#F05A9E",
+        "#8FF0F0",
+        "#44C8D2",
+        "#FFD95A",
+        "#B02A6E"
+      ],
+      "frame_details": [
+        {
+          "frame": 0,
+          "source_cell": [
+            0,
+            0,
+            887,
+            443
+          ],
+          "solid_source_bbox": [
+            335,
+            146,
+            561,
+            370
+          ],
+          "normalized_rect": [
+            5,
+            5,
+            6,
+            6
+          ],
+          "visible_bbox": [
+            5,
+            5,
+            11,
+            11
+          ],
+          "sha256": "769bb2aca071eee76eaee0516fbcd4ff729ce3612ce0847a9bd63b1db783c5ac"
+        },
+        {
+          "frame": 1,
+          "source_cell": [
+            887,
+            0,
+            887,
+            443
+          ],
+          "solid_source_bbox": [
+            117,
+            113,
+            765,
+            391
+          ],
+          "normalized_rect": [
+            2,
+            3,
+            12,
+            10
+          ],
+          "visible_bbox": [
+            2,
+            3,
+            14,
+            13
+          ],
+          "sha256": "19ee0d863ad298a297b66e96b77ad2e058790666ec60c60b9194dad9f08a2d8b"
+        },
+        {
+          "frame": 2,
+          "source_cell": [
+            0,
+            443,
+            887,
+            444
+          ],
+          "solid_source_bbox": [
+            115,
+            75,
+            817,
+            364
+          ],
+          "normalized_rect": [
+            1,
+            2,
+            14,
+            12
+          ],
+          "visible_bbox": [
+            1,
+            2,
+            15,
+            14
+          ],
+          "sha256": "05f2bc3e5b5bb286568660e575d92aedfe54b03f523dd538ceb88cc7aa959cb3"
+        },
+        {
+          "frame": 3,
+          "source_cell": [
+            887,
+            443,
+            887,
+            444
+          ],
+          "solid_source_bbox": [
+            137,
+            111,
+            741,
+            336
+          ],
+          "normalized_rect": [
+            1,
+            2,
+            14,
+            12
+          ],
+          "visible_bbox": [
+            1,
+            2,
+            15,
+            14
+          ],
+          "sha256": "83253dcc6ec239a017f6a47867a424b1bbea9c07d8632190086821f08503183b"
+        }
+      ]
+    },
+    {
+      "id": "r_slow",
+      "file": "norra_fx_r_slow.png",
+      "pixel_1x": "pixel_1x/norra_fx_r_slow.png",
+      "raw": "raw\\norra_fx_r_slow_raw.png",
+      "frames": 4,
+      "cell_1x": [
+        22,
+        10
+      ],
+      "sheet_1x": [
+        88,
+        10
+      ],
+      "symmetry": "left-right",
+      "loop": true,
+      "binding": "view_buffs `tft_norra_r_slow`（跟随，脚下，z 3；左右对称）",
+      "palette": [
+        "#FFFFFF",
+        "#FFE8F4",
+        "#FF9CCB",
+        "#F05A9E",
+        "#8FF0F0",
+        "#44C8D2",
+        "#FFD95A"
+      ],
+      "frame_details": [
+        {
+          "frame": 0,
+          "source_cell": [
+            0,
+            0,
+            930,
+            423
+          ],
+          "solid_source_bbox": [
+            97,
+            184,
+            834,
+            343
+          ],
+          "normalized_rect": [
+            1,
+            2,
+            20,
+            6
+          ],
+          "visible_bbox": [
+            1,
+            2,
+            21,
+            8
+          ],
+          "sha256": "3624aa9f47065321ab66e01e2087d048962d1bb4744f163b7748731bb7bd81e8"
+        },
+        {
+          "frame": 1,
+          "source_cell": [
+            930,
+            0,
+            930,
+            423
+          ],
+          "solid_source_bbox": [
+            93,
+            192,
+            836,
+            349
+          ],
+          "normalized_rect": [
+            1,
+            2,
+            20,
+            6
+          ],
+          "visible_bbox": [
+            1,
+            2,
+            21,
+            8
+          ],
+          "sha256": "252e1edced1b951cb83a1e5191da21550a558546ba92f71cefd723c578c37e1e"
+        },
+        {
+          "frame": 2,
+          "source_cell": [
+            0,
+            423,
+            930,
+            423
+          ],
+          "solid_source_bbox": [
+            125,
+            115,
+            807,
+            307
+          ],
+          "normalized_rect": [
+            1,
+            2,
+            20,
+            6
+          ],
+          "visible_bbox": [
+            1,
+            2,
+            21,
+            8
+          ],
+          "sha256": "17ccce50a81ee3ae60bef40cad8bfe989d02e6a190af4e6441c37aa10622c832"
+        },
+        {
+          "frame": 3,
+          "source_cell": [
+            930,
+            423,
+            930,
+            423
+          ],
+          "solid_source_bbox": [
+            99,
+            130,
+            829,
+            293
+          ],
+          "normalized_rect": [
+            1,
+            2,
+            20,
+            6
+          ],
+          "visible_bbox": [
+            1,
+            2,
+            21,
+            8
+          ],
+          "sha256": "f2cdfacc073ab9672773382c714e327da50abb1fcc87f81746316e913c1150d1"
+        }
+      ]
+    }
+  ],
+  "icons": [
+    {
+      "id": "skill",
+      "file": "icons/norra_icon_skill.png",
+      "size": [
+        64,
+        64
+      ],
+      "raw": "raw\\norra_icon_skill_raw.png",
+      "palette": [
+        "#100A20",
+        "#22104E",
+        "#3E1C8C",
+        "#6A34D0",
+        "#9A62F0",
+        "#C9A2FF",
+        "#F4E6FF",
+        "#FFFFFF",
+        "#FFF4C4",
+        "#FFD95A",
+        "#F2B12E",
+        "#C77A16",
+        "#7E4410",
+        "#FFE8F4",
+        "#FF9CCB",
+        "#F05A9E",
+        "#B02A6E",
+        "#8FF0F0",
+        "#44C8D2"
+      ]
+    },
+    {
+      "id": "skill2",
+      "file": "icons/norra_icon_skill2.png",
+      "size": [
+        64,
+        64
+      ],
+      "raw": "raw\\norra_icon_skill2_raw.png",
+      "palette": [
+        "#100A20",
+        "#22104E",
+        "#3E1C8C",
+        "#6A34D0",
+        "#9A62F0",
+        "#C9A2FF",
+        "#F4E6FF",
+        "#FFFFFF",
+        "#FFF4C4",
+        "#FFD95A",
+        "#F2B12E",
+        "#C77A16",
+        "#7E4410",
+        "#FFE8F4",
+        "#FF9CCB",
+        "#F05A9E",
+        "#B02A6E",
+        "#8FF0F0",
+        "#44C8D2"
+      ]
+    },
+    {
+      "id": "ult",
+      "file": "icons/norra_icon_ult.png",
+      "size": [
+        64,
+        64
+      ],
+      "raw": "raw\\norra_icon_ult_raw.png",
+      "palette": [
+        "#100A20",
+        "#22104E",
+        "#3E1C8C",
+        "#6A34D0",
+        "#9A62F0",
+        "#C9A2FF",
+        "#F4E6FF",
+        "#FFFFFF",
+        "#FFF4C4",
+        "#FFD95A",
+        "#F2B12E",
+        "#C77A16",
+        "#7E4410",
+        "#FFE8F4",
+        "#FF9CCB",
+        "#F05A9E",
+        "#B02A6E",
+        "#8FF0F0",
+        "#44C8D2"
+      ]
+    }
+  ]
+}

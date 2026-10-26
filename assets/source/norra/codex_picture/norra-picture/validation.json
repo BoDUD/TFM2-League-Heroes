@@ -1,0 +1,48 @@
+[
+  {
+    "file": "norra-A.png",
+    "canvas": [
+      1536,
+      1536
+    ],
+    "grid": 11,
+    "logical_size": [
+      35,
+      56
+    ],
+    "bbox": [
+      572,
+      770,
+      957,
+      1386
+    ],
+    "alpha": [
+      0,
+      255
+    ],
+    "method": "threshold raw alpha at 128; crop visible subject; nearest-neighbor sampling onto declared logical grid; integer 11x expansion; transparent canvas"
+  },
+  {
+    "file": "norra-B.png",
+    "canvas": [
+      1536,
+      1536
+    ],
+    "grid": 11,
+    "logical_size": [
+      30,
+      24
+    ],
+    "bbox": [
+      605,
+      1122,
+      935,
+      1386
+    ],
+    "alpha": [
+      0,
+      255
+    ],
+    "method": "threshold raw alpha at 128; crop visible subject; nearest-neighbor sampling onto declared logical grid; integer 11x expansion; transparent canvas"
+  }
+]
