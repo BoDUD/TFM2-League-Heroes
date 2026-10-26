@@ -715,7 +715,7 @@
       "type": "Animation",
       "name": "tft_silco_m_bite_r",
       "anim": "asset/tft/effects/tft_silco_fx",
-      "tag": "m_bite",
+      "tag": "m_bite_r",
       "z": 3,
       "is_follow": true
     },

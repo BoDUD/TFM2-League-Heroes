@@ -242,7 +242,7 @@ def build(p, is_native=False):
     views_e = [E("a_hit"), E("q_warn", FX, -2, False), E("q_burst", BIG, 3, False), E("r_warn", BIG, -2, False),
                E("r_burst", BIG, 3, False)]
     if is_native:
-        views_e += [E("m_leap"), E("m_bite_l", FX, 3, True, "m_bite"), E("m_bite_r", FX, 3, True, "m_bite"),
+        views_e += [E("m_leap"), E("m_bite_l", FX, 3, True, "m_bite"), E("m_bite_r", FX, 3, True),
                     E("m_die", FX, 2, False), E("r_fog", BIG, -2, False), E("e_dose"), E("e_crash")]
     views_b = [B_("e_shimmer", FX, 3), B_("p_shield", FX, 3), B_(f"d{p['d_max']}", FX, 4, "p_dom"),
                B_("r_slow", FX, 3)]

@@ -40,9 +40,10 @@ VERSION = "0.5.0"      # Powder 0.1, Norra 0.2, tft.dll 0.3, Alune 0.4, Silco 0.
 ADi, APi, TOOLTIP_MAX = pack.ADi, pack.APi, pack.TOOLTIP_MAX
 M, O, A, R, E = pack.M, pack.O, pack.A, pack.R, pack.E
 # champion_view (game px from his soles' point, up negative): the face point between his eyes (the design's eye row 14 of
-# 80 at PPU 2: 33 over the ground, 2 ahead of his standing column); the centre in his body; the ban/pick card (checked
-# with tools/art/bp_card_audit.py)
-VIEW = {"face": {"x": 2, "y": -33}, "center": {"x": 0, "y": -20}, "banpick_center": {"x": 0, "y": -8}}
+# 80 at PPU 2: 33 over the ground, 2 ahead of his standing column); the centre in his body; the ban/pick card by
+# bp_card_audit.py's rule (y = -39 - top: his lo_idle reaches 29.3 over its centre -> -10, the hair a pixel under the
+# canvas top; 41 px tall on the 40-px canvas, the soles 2 px under its bottom, no UI size)
+VIEW = {"face": {"x": 2, "y": -33}, "center": {"x": 0, "y": -20}, "banpick_center": {"x": 0, "y": -10}}
 
 
 def mag(d, r):

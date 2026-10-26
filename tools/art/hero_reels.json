@@ -175,5 +175,6 @@
   "league_zyra": {"idle": [["ult", [0, 1, 2, 3]], ["attack", [0, 1]]]},
   "tft_norra": {"idle": [["skill2", [1]], ["attack", [0]]]},
   "tft_powder": {"idle": [["skill", [2, 3, 4]], ["attack", [0, 1]]]},
-  "tft_alune": {"idle": [["skill2", [0]]], "bp": ["skill2", "attack", "skill", "ult"]}
+  "tft_alune": {"idle": [["skill2", [0]]], "bp": ["skill2", "attack", "skill", "ult"]},
+  "tft_silco": {"idle": [["skill2", [0]]], "bp": ["skill", "attack", "skill2", "ult"]}
 }
