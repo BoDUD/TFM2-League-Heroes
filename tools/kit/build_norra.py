@@ -1,34 +1,38 @@
-"""Build tft_norra.data_champion (the tft pack's second hero: Norra & Yuumi, mid, Magician) from the parameters P.
+"""Build tft_norra.data_champion (the tft pack's second hero: Norra, mid, Magician) from the parameters P.
 
-    python tools/kit/build_norra.py [--set key=value ...] [--out file] [--params json] [--nodes]
+    python tools/kit/build_norra.py [--set key=value ...] [--out file] [--params json] [--nodes] [--native]
 
-Norra is the yordle portal mage of Teamfight Tactics set 12 (Magic n' Mayhem): the 5-cost unit "Norra & Yuumi"
-(Portal / Best Friends / Mage). TFT gives her one ability (Portalpalooza: a ball at her target explodes and paints the
-ground, the paint burns; a ball landing on paint bounces to a new spot within two hexes first) and a trait (Best
-Friends: Yuumi rides an ally, heals it and shares Norra's ability power). The rest is our own design (the user's pick,
-2026-10-26: mid lane, plan A 「次元门」):
-  passive Best Friends (最佳好友): every p_cd ticks her attack also sends Yuumi to an ally within p_r (a random one,
-          `RandomTarget AllyNotSelf`): it heals p_heal + p_heal_r% AP and gains p_ap ability power and p_ad attack while
-          she rides it (p_ride ticks, the cat on her book over its head: `view_buffs` p_yuumi); with nobody there she
-          rides Norra herself (a lock flag, league_janna E's way). The attack is no skill slot: the game copies skill
-          and skill2 every tick, so the passive lives here.
-  attack  a bolt out of a small portal at her hand (100% AD), homing on `Enemy` (towers too), released on a_rel.
-  skill   Portalpalooza (次元门狂欢, TFT's ability), `Targeting` on `EnemyWithoutTower` (q_range): a portal ball is lobbed
-          onto the spot the target stood on (q_travel): q_dmg + q_ratio% AP within q_r, and the ground there is painted
-          for q_paint_t ticks (a field burning q_dot + q_dot_r% AP every q_paint_p, its picture the splash of paint). Data
-          cannot ask whether a spot is painted, so "the ball lands on paint" is "her last paint still lasts" (the flag
-          q_live, laid with each paint): then the ball bounces - a search round the landing spot (q_b_r, about two TFT
-          hexes) picks another enemy and q_b_t ticks later a second blast and a second paint go off where it stands.
-  skill2  Otherworld Delivery (异界来物), `Targeting` on `EnemyChampion` (e_range, only in fights): a portal opens by an
-          ally within e_ally_r (else by herself) and shields it (e_sh + e_sh_r% AP for e_sh_t ticks); out of a portal
-          over the enemy champion falls what comes next of three (permanent flags e_s1 / e_s2 count the casts):
-          an anvil (e_dmg + e_ratio% AP within e_r, stunned e_stun ticks), a potion (instead: Norra and every allied
-          champion within e_pot_r heal e_heal + e_heal_r% AP), a giant book (e_dmg + e_ratio% AP within e_r, knocked up
-          e_up ticks).
-  ult     The Book of Thresholds (门槛之书), `Targeting` on `EnemyChampion` (r_range): a great portal opens over the
-          champion's spot (a warning ring for r_open ticks) and the book's page falls through it: every enemy within
-          r_r takes r_dmg + r_ratio% AP, is stunned r_stun ticks and stays "paper" (damaged_amplify r_amp% for
-          r_paper_t ticks); every allied champion there is shielded r_sh + r_sh_r% AP for r_sh_t ticks.
+Norra is the yordle portal mage of Bandle City - in Teamfight Tactics set 12 the unit "Norra & Yuumi", and since
+2026-02 a champion of League of Legends: Wild Rift (英雄联盟手游), its first one of its own. Her kit follows Wild Rift's
+(the user, 2026-10-26: 「你要参照手游的技能啊」「参照金铲铲的干嘛」 - TFT's ability and Yuumi dropped), what the data
+cannot do in the add-on (「不一致的地方就做附加包」: addons/tft_norra, the copy built with --native). TFM2 has three
+active slots: Memory Surge (Q) is `skill`, Threads of Homecoming (E) `skill2`, Portalpalooza! (R) the `ult`; Journey to
+Nowhere (W) is folded into the passive with Beloved Trinkets (the user's pick: layout A - W as her lifeline).
+  passive Beloved Trinkets (寄情琐物): every p_cd ticks her next Q or E leaves trinkets where it lands (Wild Rift: 2-4
+          scattered, 4 s): here one field of them, p_tr wide, for p_life ticks (`ApplyInProjectile`: each enemy champion
+          that walks in is hit once): p_dmg + p_ratio% AP magic damage and the Threads. While a field lies there (flag
+          p_live) a Q landing beside it primes it (Wild Rift: a full charge detonates every trinket): enemy champions within
+          q_prime_r of the blast take the trinkets' hit.
+          Journey to Nowhere (奇异旅程, folded): when she attacks with an enemy champion within w_r of her and w_cd is off,
+          a portal opens under it: w_dmg + w_ratio% AP and banished w_t ticks (Wild Rift 2.25 s: cast out of the fight,
+          nothing reaches it, it does nothing), the portal humming where it stood (Banish lock picture) and spitting it
+          out (end picture); w_cd ticks to the next.
+  attack  a star bolt off her pointing finger (100% AD), homing on `Enemy` (towers too), released on a_rel.
+  skill   Memory Surge (回忆涌现), `Targeting` on `EnemyWithoutTower` (q_range): she gathers her memories (the charge,
+          q_rel ticks: she stands in the cast) and flings a bolt of them, recoiling a step (MoveBack q_hop); it lands where
+          the target stood (q_travel): q_dmg + q_ratio% AP within q_r, the Threads on champions; the trinkets primed when
+          a field lies there; this Q leaves a field when the passive is ready. Wild Rift charges for range and damage
+          (55-220 + 60% to 77-308 + 84%) and stops on the first champion: the AI's cast is one full charge.
+  skill2  Threads of Homecoming (思乡线缕), `Targeting` on `EnemyWithoutTower` (e_range): two portals open at the target's
+          sides and e_delay ticks later threads shoot between them: e_dmg + e_ratio% AP within e_r (Wild Rift: a 700 x
+          200 band between the portals; here a circle) and the Threads on every enemy hit; leaves trinkets when ready.
+  ult     Portalpalooza! (传送门欢腾！), `Targeting` on `EnemyChampion` (r_range): a rift opens on the champion's spot
+          (r_r) and four volleys of yarn balls cross it, r_gap ticks apart: each enemy champion inside takes r_dmg +
+          r_ratio% AP and is slowed r_slow% for r_slow_t ticks; the fourth volley hits r_last% more (Wild Rift: 140%).
+          Wild Rift sends each ball along a path the player swipes, the first champion it meets slowed: the add-on's.
+  Threads (线缕): bigger (radius_mult t_size%: Wild Rift +100% hitbox, easier to hit) and damaged_amplify t_amp% for
+          t_t ticks (Wild Rift: Memory Surge deals 1-2.5% max health more to them - the data reads no max health of the
+          target), slowed t_slow% for t_slow_t ticks.
 """
 import argparse
 import json
@@ -41,38 +45,41 @@ ID = "tft_norra"
 OUT = os.path.join(REPO, MOD_ID, "champion", f"{ID}.data_champion")
 FX = f"asset/{MOD_ID}/effects/{ID}_fx"
 BIG = f"asset/{MOD_ID}/effects/{ID}_big"
-RIDE = f"asset/{MOD_ID}/effects/{ID}_yuumi"
 
-# Units: attack range 55000 like every mid; radii count the unit's collision radius (~15000) on top. Timings are a
-# draft until the strips exist (a_rel, q_rel, e_rel, r_rel then come from tools/art/rig_norra.py MS). Numbers = the
-# 10-min classic-SDK simulations (C:/t/nr_sim, a copy of the balance sim: mid lane 2 against pyromancer, ice_mage,
-# lightning_mage, wind_mage and white_mage, three lineups, both sides; 2026-10-26): the draft (Q 40 + 30%, paint 6 + 5%,
-# E 50 + 35% with a 50-tick stun / 40-tick knock-up, R 150 + 60% with a 90-tick stun and +20% damage taken, Yuumi 30 +
-# 15% every 4 s with +15 AP / +8 AD) +4.51 (league_ziggs +1.38 on seeds 1-8); Q 32 + 24%, paint 4 + 3% +3.55; with E 40
-# + 30% and R 120 + 50% +3.80; with Yuumi 20 + 10%, +10 AP / +5 AD +2.90; with R's stun 60 ticks and +15%, E's stun 40 /
-# knock-up 30 +1.43 / +2.32 (seeds 9-16; league_ziggs +2.22) = P; smaller shields and potion on top +1.77, and Q 28 + 22%
-# with 820 health +1.03. Every mechanic fires in a traced game (the bounce, the anvil / potion / book turns, Yuumi's
-# rides, the paper).
+# Units: attack range 55000 like every mid (Wild Rift 550); radii count the unit's collision radius (~15000) on top.
+# Timings are the strips' (tools/art/rig_norra.py MS): the attack 400 ms, the bolt off her pointing finger at 133 ms
+# (a_rel 9 -> tick 8); Memory Surge 767 ms, gathered 400 ms, the bolt flung at its end (q_rel 25 -> tick 24); Threads of
+# Homecoming 433 ms, the portals as the ring goes up at 133 ms (e_rel 9); Portalpalooza! 667 ms, the rift sent as she
+# pushes down at 400 ms (r_rel 25). Numbers = the 10-min classic-SDK simulations (C:/t/nr_sim, a copy of the balance
+# sim: mid lane 2 against pyromancer, ice_mage, lightning_mage, wind_mage and white_mage, three lineups, both sides;
+# league_ziggs +1.38 / +2.22 on seeds 1-8 / 9-16, 2026-10-26): the Wild Rift draft (Q 50 + 40%, E 45 + 35%, the Threads
+# +50% size and +8% damage taken, R 50 + 25% a volley on r 45000, W banishing 135 ticks every 1200 within 22000) +7.07;
+# R 30 + 15% on 35000 +5.86 and W 90 ticks every 1500 within 18000 +5.82 (neither moved it); Q 38 + 30%, E 35 + 26%,
+# the Threads +30% size and no damage taken +2.02; the same without the size +1.47; +15% size and Q 35 + 28% +1.30 /
+# +1.98 = P (the Threads' size is what she leans on: every Q and E lands surer on them).
 P = {
     # stats (Magician base: attack 80 +6, ap 40 +20, hp 900 +100, def 20 +7, mr 20 +4, move 900 +9); a small yordle
-    "hp": 860, "hp_g": 95, "atk": 74, "atk_g": 6, "apw": 40, "apw_g": 20, "def": 18, "def_g": 7, "mr": 22, "mr_g": 4,
+    "hp": 860, "hp_g": 95, "atk": 74, "atk_g": 6, "apw": 40, "apw_g": 20, "def": 20, "def_g": 7, "mr": 22, "mr_g": 4,
     "ms": 900, "ms_g": 9,
-    "atk_range": 55000, "atk_dur": 24, "atk_cd": 90, "a_rel": 10, "a_speed": 4000,
-    # passive Best Friends (TFT: Yuumi heals 100/150/200 every 4 s, shares 10% of Norra's AP)
-    "p_cd": 240, "p_r": 70000, "p_heal": 20, "p_heal_r": 10, "p_ap": 10, "p_ad": 5, "p_ride": 250,
-    # Portalpalooza (TFT: 3 s paint)
-    "q_cd": 270, "q_range": 70000, "q_dur": 30, "q_rel": 12, "q_travel": 26, "q_r": 30000,
-    "q_dmg": 32, "q_ratio": 24, "q_paint_t": 300, "q_paint_p": 30, "q_dot": 4, "q_dot_r": 3,
-    "q_b_r": 36000, "q_b_t": 14,
-    # Otherworld Delivery
-    "e_cd": 540, "e_range": 60000, "e_dur": 26, "e_rel": 10, "e_ally_r": 50000, "e_sh": 60, "e_sh_r": 35,
-    "e_sh_t": 180, "e_travel": 18, "e_r": 20000, "e_dmg": 40, "e_ratio": 30, "e_stun": 40, "e_up": 30,
-    "e_pot_r": 45000, "e_heal": 50, "e_heal_r": 30,
-    # The Book of Thresholds
-    "r_cd": 3000, "r_range": 75000, "r_dur": 40, "r_rel": 20, "r_open": 40, "r_r": 45000,
-    "r_dmg": 120, "r_ratio": 50, "r_stun": 60, "r_amp": 15, "r_paper_t": 240,
-    "r_sh": 80, "r_sh_r": 40, "r_sh_t": 180,
+    "atk_range": 55000, "atk_dur": 24, "atk_cd": 90, "a_rel": 9, "a_speed": 4000,
+    # Beloved Trinkets (Wild Rift: cd 21-12 s, 20-90 + 20% AP, trinkets for 4 s)
+    "p_cd": 600, "p_tr": 26000, "p_life": 240, "p_dmg": 30, "p_ratio": 20, "p_show": 60,
+    # Journey to Nowhere, folded (Wild Rift: cd 23-20 s, 65-185 + 40% AP, banished 2.25 s)
+    "w_cd": 1500, "w_r": 18000, "w_dmg": 40, "w_ratio": 30, "w_t": 90,
+    # Memory Surge
+    "q_cd": 330, "q_range": 90000, "q_dur": 46, "q_rel": 25, "q_travel": 20, "q_r": 18000,
+    "q_dmg": 35, "q_ratio": 28, "q_hop": 2000, "q_hop_t": 12, "q_prime_r": 45000,
+    # Threads of Homecoming (Wild Rift: cd 12-7.5 s, 70-220 + 60% AP after 0.3 s)
+    "e_cd": 600, "e_range": 85000, "e_dur": 26, "e_rel": 9, "e_delay": 18, "e_r": 28000, "e_dmg": 35, "e_ratio": 26,
+    # the Threads (Wild Rift: +100% hitbox 4 s, slowed 20% 2 s)
+    "t_t": 240, "t_size": 15, "t_amp": 0, "t_slow": 20, "t_slow_t": 120,
+    # Portalpalooza! (Wild Rift: cd 105-85 s, 4 balls of 100-180 + 55% AP, the 4th 140%, 1st champion slowed 80% 0.5 s)
+    "r_cd": 3000, "r_range": 100000, "r_dur": 40, "r_rel": 25, "r_travel": 10, "r_r": 35000, "r_gap": 30,
+    "r_dmg": 30, "r_ratio": 15, "r_last": 40, "r_slow": 80, "r_slow_t": 30, "r_show": 30,
 }
+# what the add-on reads from passive.params (addons/tft_norra)
+NATIVE_KEYS = ("p_cd", "p_tr", "p_life", "p_dmg", "p_ratio", "q_prime_r", "t_t", "t_size", "t_amp", "t_slow",
+               "t_slow_t", "r_r", "r_gap", "r_dmg", "r_ratio", "r_last", "r_slow", "r_slow_t")
 
 
 def lp(path):
@@ -143,21 +150,8 @@ def ap(dmg, ratio):
     return {"type": "ApAttack", "damage": dmg, "attack_ratio": ratio, "hp_ratio": 0, "can_crit": False}
 
 
-def heal(amount, ratio):
-    return {"type": "Heal", "amount": amount, "attack_ratio": 0, "ap_ratio": ratio, "heal_type": "Ally"}
-
-
-def shield(amount, ratio, tick):
-    return {"type": "Shield", "amount": amount, "attack_ratio": 0, "ap_ratio": ratio, "tick": tick}
-
-
 def pick(rng, target, effects, fp=False):
     return {"type": "RandomTarget", "range": rng, "casting_target": target, "from_projectile": fp,
-            "effects": list(effects)}
-
-
-def around(radius, target, effects):
-    return {"type": "RangeEffect", "shape": circle(radius), "target": target, "apply_type": "AroundCaster",
             "effects": list(effects)}
 
 
@@ -168,7 +162,7 @@ def homing(name, target, effects, speed):
 
 def lob(name, travel, end, target="EnemyWithoutTower", seen=""):
     """A ParabolicProjectile: lands where its target stood when it left; end_effects run on that point (a `Delayed`
-    there keeps it); `seen` = the telegraph played on the landing point the whole flight."""
+    there keeps it); `seen` = the picture played on the landing point the tick it is fired."""
     return {"type": "ParabolicProjectile", "name": n(name), "travel_time": travel, "range": 400000,
             "range_effect_name": n(seen) if seen else "", "shape": circle(1), "applied_target": target,
             "applied_effects": [], "end_effects": list(end)}
@@ -180,10 +174,10 @@ def zone(name, radius, effects, target="EnemyWithoutTower"):
             "applied_target": target, "applied_effects": [T(e) for e in effects]}
 
 
-def field(name, radius, tick, period, effects, target="EnemyWithoutTower"):
-    return {"type": "RangePeriodProjectile", "name": n(name), "shape": circle(radius), "tick": tick, "period": period,
-            "first_delay": period, "applied_target": target, "applied_effects": [T(e) for e in effects],
-            "end_effects": []}
+def once(name, radius, tick, effects, target="EnemyChampion"):
+    """Each unit hit once over the zone's whole life, on the tick it first touches it (league_thresh R)."""
+    return {"type": "ApplyInProjectile", "name": n(name), "shape": circle(radius), "tick": tick,
+            "follow_caster": False, "applied_target": target, "applied_effects": [T(e) for e in effects]}
 
 
 def action(name, dur, cd, st, rng, ctype, ctarget, effect, atype="Skill", cancel=False, key=None):
@@ -192,80 +186,90 @@ def action(name, dur, cd, st, rng, ctype, ctarget, effect, atype="Skill", cancel
             "casting_type": ctype, "casting_target": ctarget, "attack_type": atype, "effect": effect}
 
 
-def build(p):
-    # ------------------------------------------------------------------ attack + passive Best Friends
-    ride = [heal(p["p_heal"], p["p_heal_r"]), buff("p_yuumi", p["p_ride"], magic_power=p["p_ap"], attack=p["p_ad"]),
-            view("p_heal"), tsfx("p_heal")]
-    yuumi = combine(flag("p_cd", p["p_cd"]),
-                    pick(p["p_r"], "AllyNotSelf", [flag("p_lock", 2)] + ride),
-                    delayed(1, when("p_lock", combine(), around(1, "AllyOnlySelf", ride))))
+def build(p, is_native=False):
+    # ------------------------------------------------------------------ the Threads (E, the trinkets, Q)
+    threads = [buff("t_mark", p["t_t"], radius_mult=p["t_size"], damaged_amplify=p["t_amp"]),
+               buff("t_slow", p["t_slow_t"], move_speed_mult=-p["t_slow"])]
+
+    # ------------------------------------------------------------------ passive: Beloved Trinkets
+    burst = [ap(p["p_dmg"], p["p_ratio"]), view("p_burst"), tsfx("p_burst")] + threads
+    # the field of trinkets where a ready Q / E lands: seen every p_show ticks (an upright picture, never turned)
+    shows = [view("p_trinkets")] + [delayed(k, view("p_trinkets")) for k in range(p["p_show"], p["p_life"], p["p_show"])]
+    trinkets = combine(flag("p_cd", p["p_cd"]), refresh("p_live", p["p_life"]), sfx("p_drop"),
+                       once("p_field", p["p_tr"], p["p_life"], burst), *shows)
+    leave = when("p_cd", combine(), trinkets)
+    # the add-on scatters real trinkets instead (each one taken by the first enemy champion that steps on it): the copy
+    # only marks where and when (p_drop on her for 2 ticks)
+    if is_native:
+        leave = when("p_cd", combine(), combine(flag("p_cd", p["p_cd"]), flag("p_drop", 2)))
+
+    # Journey to Nowhere, folded into her attack: a close enemy champion banished
+    banish = {"type": "Banish", "duration": p["w_t"], "lock_effect_name": n("w_lock"), "end_effect_name": n("w_out")}
+    journey = pick(p["w_r"], "EnemyChampion", [flag("w_cd", p["w_cd"]), ap(p["w_dmg"], p["w_ratio"]), view("w_in"),
+                                               tsfx("w"), banish])
     attack_a = action("attack", p["atk_dur"], p["atk_cd"], 1, p["atk_range"], "Targeting", "Enemy",
-                      delayed(p["a_rel"] - 1, sfx("a"),
-                              homing("a_bolt", "Enemy", [attack(0, 100), view("a_hit"), tsfx("a_hit")], p["a_speed"]),
-                              when("p_cd", combine(), yuumi)),
+                      combine(when("w_cd", combine(), journey),
+                              delayed(p["a_rel"] - 1, sfx("a"),
+                                      homing("a_bolt", "Enemy", [attack(0, 100), view("a_hit"), tsfx("a_hit")],
+                                             p["a_speed"]))),
                       atype="BaseAttack", cancel=True)
 
-    # ------------------------------------------------------------------ skill: Portalpalooza
-    def burst(name):
-        return [view(f"{name}_blast"), sfx("q_blast"),
-                zone(f"{name}_hit", p["q_r"], [ap(p["q_dmg"], p["q_ratio"]), view("q_hit")]),
-                field(f"{name}_paint", p["q_r"], p["q_paint_t"], p["q_paint_p"], [ap(p["q_dot"], p["q_dot_r"])])]
-    bounce = pick(p["q_b_r"], "EnemyWithoutTower",
-                  [delayed(1, lob("q_hop", p["q_b_t"], burst("q2")))], fp=True)
-    ball = lob("q_ball", p["q_travel"],
-               burst("q") + [when("q_live", bounce, combine()), refresh("q_live", p["q_paint_t"])])
+    # ------------------------------------------------------------------ skill: Memory Surge
+    prime = zone("q_prime", p["q_prime_r"], burst, target="EnemyChampion")
+    blast = [view("q_blast"), sfx("q_blast"),
+             zone("q_hit", p["q_r"], [ap(p["q_dmg"], p["q_ratio"]), view("q_hit")]),
+             zone("q_thread", p["q_r"], threads, target="EnemyChampion")]
+    if is_native:                             # the add-on detonates the real trinkets near the blast instead
+        blast.append(flag("q_prime", 2))
+    else:
+        blast.append(when("p_live", prime, combine()))
+    blast.append(leave)
+    bolt = lob("q_bolt", p["q_travel"], blast)
     skill = action("skill", p["q_dur"], p["q_cd"], 1, p["q_range"], "Targeting", "EnemyWithoutTower",
-                   combine(sfx("q"), delayed(p["q_rel"] - 1, ball)))
+                   combine(sfx("q"), delayed(p["q_rel"] - 1, sfx("q_fire"), bolt,
+                                             {"type": "MoveBack", "speed": p["q_hop"], "tick": p["q_hop_t"]})))
 
-    # ------------------------------------------------------------------ skill2: Otherworld Delivery
-    guard = [shield(p["e_sh"], p["e_sh_r"], p["e_sh_t"]), buff("e_guard", p["e_sh_t"]), tsfx("e_shield")]
-    portal = combine(sfx("e"), pick(p["e_ally_r"], "AllyNotSelf", [flag("e_lock", 2)] + guard),
-                     delayed(1, when("e_lock", combine(), around(1, "AllyOnlySelf", guard))))
-    anvil = lob("e_anvil", p["e_travel"], [view("e_anvil_hit"), sfx("e_anvil"),
-                                           zone("e_anvil_zone", p["e_r"], [ap(p["e_dmg"], p["e_ratio"]),
-                                                                          {"type": "Stun", "duration": p["e_stun"]}])],
-                target="EnemyChampion")
-    book = lob("e_book", p["e_travel"], [view("e_book_hit"), sfx("e_book"),
-                                         zone("e_book_zone", p["e_r"], [ap(p["e_dmg"], p["e_ratio"]),
-                                                                       {"type": "Airborne", "duration": p["e_up"]}])],
-               target="EnemyChampion")
-    potion = combine(sfx("e_potion"), around(p["e_pot_r"], "AllyChampion",
-                                             [heal(p["e_heal"], p["e_heal_r"]), view("e_potion")]))
-    cycle = when("e_s1", combine(unflag("e_s1"), flag("e_s2", None), potion),
-                 when("e_s2", combine(unflag("e_s2"), book), combine(flag("e_s1", None), anvil)))
-    skill2 = action("skill2", p["e_dur"], p["e_cd"], 1, p["e_range"], "Targeting", "EnemyChampion",
-                    delayed(p["e_rel"] - 1, portal, cycle))
+    # ------------------------------------------------------------------ skill2: Threads of Homecoming
+    weave = lob("e_gate", p["e_delay"], [sfx("e_hit"),
+                                         zone("e_hit", p["e_r"], [ap(p["e_dmg"], p["e_ratio"]), view("t_hit")] + threads),
+                                         leave],
+                seen="e_threads")
+    skill2 = action("skill2", p["e_dur"], p["e_cd"], 1, p["e_range"], "Targeting", "EnemyWithoutTower",
+                    delayed(p["e_rel"] - 1, sfx("e"), weave))
 
-    # ------------------------------------------------------------------ ult: The Book of Thresholds
-    page = [view("r_book"), sfx("r_blast"),
-            zone("r_hit", p["r_r"], [ap(p["r_dmg"], p["r_ratio"]), {"type": "Stun", "duration": p["r_stun"]},
-                                     buff("r_paper", p["r_paper_t"], damaged_amplify=p["r_amp"]), view("r_hit"),
-                                     tsfx("r_hit")]),
-            zone("r_ward", p["r_r"], [shield(p["r_sh"], p["r_sh_r"], p["r_sh_t"]), buff("e_guard", p["r_sh_t"])],
-                 target="AllyChampion")]
+    # ------------------------------------------------------------------ ult: Portalpalooza!
+    def volley(k, last=False):
+        bonus = 100 + (p["r_last"] if last else 0)
+        hit = [ap(p["r_dmg"] * bonus // 100, p["r_ratio"] * bonus // 100),
+               buff("r_slow", p["r_slow_t"], move_speed_mult=-p["r_slow"]), view("r_hit"), tsfx("r_hit")]
+        return delayed(k, view("r_yarn"), sfx("r_ball"), zone(f"r_v{k}", p["r_r"], hit, target="EnemyChampion"))
+    gaps = [p["r_gap"] * (i + 1) for i in range(4)]
+    rift = [view("r_rift"), sfx("r_open")] + [delayed(k, view("r_rift")) for k in range(p["r_show"], gaps[-1] + 1,
+                                                                                         p["r_show"])]
+    if is_native:                             # the add-on sends the yarn balls along their paths instead
+        rift.append(flag("r_open", gaps[-1] + 2))
+    else:
+        rift += [volley(k, last=(i == 3)) for i, k in enumerate(gaps)]
     ult = action("ult", p["r_dur"], p["r_cd"], 1, p["r_range"], "Targeting", "EnemyChampion",
-                 combine(sfx("r"), delayed(p["r_rel"] - 1, lob("r_gate", p["r_open"], page, target="EnemyChampion",
-                                                               seen="r_warn"))))
+                 combine(sfx("r"), delayed(p["r_rel"] - 1, lob("r_gate", p["r_travel"], rift, target="EnemyChampion"))))
 
     # ------------------------------------------------------------------ views
     E = lambda name, anim_=FX, z=2, follow=True: {"type": "Animation", "name": n(name), "anim": anim_, "tag": name,
                                                    "z": z, "is_follow": follow}
-    B_ = lambda name, anim_=FX, z=2, tag=None: {"type": "Animated", "name": n(name), "anim": anim_, "tag": tag or name,
-                                                "repeat": True, "z": z}
-    Pj = lambda name, anim_=FX, z=2, tag=None: {"type": "Animated", "name": n(name), "anim": anim_, "tag": tag or name,
-                                                "repeat": True, "z": z}
-    Ev = lambda name, tag, anim_=FX, z=2, follow=True: {**E(name, anim_, z, follow), "tag": tag}
-    # a_bolt and q_ball are turned with their flight (both symmetric top to bottom); the paint is a splash under the
-    # pivot, the same turned half round (the bounce's paint shares its picture); e_anvil, e_book, q_hop and r_gate fly
-    # hidden: the anvil and the book fall out of a portal over the target inside e_anvil_hit / e_book_hit (upright
-    # pictures: ViewEffects, never turned), the bounce shows as its blast, the gate as its warning ring
-    views_p = [Pj("a_bolt"), Pj("q_ball"), Pj("q_paint", BIG, -2), Pj("q2_paint", BIG, -2, "q_paint")]
-    views_e = [E("a_hit"), E("q_blast", BIG, 2, False), Ev("q2_blast", "q_blast", BIG, 2, False), E("q_hit"),
-               E("e_anvil_hit", BIG, 2, False), E("e_book_hit", BIG, 2, False), E("e_potion"), E("p_heal"),
-               E("r_warn", BIG, -2, False), E("r_book", BIG, 3, False), E("r_hit")]
-    views_b = [B_("p_yuumi", RIDE, 4, "idle"), B_("e_guard", FX, 3), B_("r_paper", FX, 3)]
-    return {
-        "id": ID, "category": "Magician", "tags": ["AP", "Magic", "Range", "Heal", "Shield", "CC"],
+    B_ = lambda name, anim_=FX, z=2: {"type": "Animated", "name": n(name), "anim": anim_, "tag": name, "repeat": True,
+                                      "z": z}
+    Pj = lambda name, anim_=FX, z=2: {"type": "Animated", "name": n(name), "anim": anim_, "tag": name, "repeat": True,
+                                      "z": z}
+    # a_bolt and q_bolt (the memory ball) are turned with their flight, both symmetric top to bottom; e_gate, r_gate
+    # and the zones fly / lie hidden: their pictures are upright ViewEffects on the spot (never turned)
+    views_p = [Pj("a_bolt"), Pj("q_bolt")]
+    views_e = [E("a_hit"), E("p_trinkets", BIG, -1, False), E("p_burst"), E("w_in", FX, 2, False),
+               E("w_lock", FX, 2, False), E("w_out", FX, 2, False), E("q_blast", BIG, 2, False), E("q_hit"),
+               E("e_threads", BIG, 2, False), E("t_hit"), E("r_rift", BIG, -2, False), E("r_yarn", BIG, 2, False),
+               E("r_hit")]
+    views_b = [B_("t_mark", FX, 3), B_("r_slow", FX, 3)]
+    kit = {
+        "id": ID, "category": "Magician", "tags": ["AP", "Magic", "Range", "CC"],
         "sprite": f"asset/{MOD_ID}/champions/{ID}", "anim_prefix": "",
         "skill_icons": [f"asset/{MOD_ID}/icons/{ID}_skill", f"asset/{MOD_ID}/icons/{ID}_skill2",
                         f"asset/{MOD_ID}/icons/{ID}_ult"],
@@ -277,6 +281,10 @@ def build(p):
         "attack": attack_a, "skill": skill, "skill2": skill2, "ult": ult,
         "view_projectiles": views_p, "view_effects": views_e, "view_buffs": views_b,
     }
+    if is_native:
+        kit["passive"] = {"name": f"{ID}:trinkets", "params": json.dumps({k: p[k] for k in NATIVE_KEYS},
+                                                                       separators=(",", ":"))}
+    return kit
 
 
 def nodes(o):
@@ -294,6 +302,7 @@ def main():
     ap_.add_argument("--params", help="json file with overrides")
     ap_.add_argument("--out", default=OUT)
     ap_.add_argument("--nodes", action="store_true")
+    ap_.add_argument("--native", action="store_true", help="the add-on's copy (addons/tft_norra)")
     a = ap_.parse_args()
     p = dict(P)
     if a.params:
@@ -303,7 +312,7 @@ def main():
         if k not in p:
             raise SystemExit(f"unknown parameter {k}")
         p[k] = type(p[k])(float(v)) if isinstance(p[k], int) else float(v)
-    kit = build(p)
+    kit = build(p, a.native)
     if a.nodes:
         for s in ("attack", "skill", "skill2", "ult"):
             print(f"{s:7s} {nodes(kit[s]['effect']):4d} nodes")

@@ -1,0 +1,3972 @@
+{
+  "version": 2,
+  "created_date": "2026-10-26",
+  "tool": "image_gen.imagegen",
+  "overall_status": "art_delivery_complete_runtime_not_tested",
+  "frame_layout": "one horizontal row, no gutters",
+  "pixel_format": "RGBA8, alpha 0 or 255",
+  "preview_scale": 8,
+  "readback": "Source row/column boundaries detected near regular division using low-alpha gaps -> alpha threshold 192 -> visible bounding crop (main connected shape for body-border effects) -> nearest allowed palette color -> most frequent opaque color in each target logical cell; cells below 15% foreground coverage cleared -> exact per-frame mirror -> native single-row strip. Body-border samples preserve any source ink covering at least 3% of a target cell. Body clearance masked. Size and vertical anchors normalized per documented profile. No new effect shapes are drawn by code.",
+  "items": [
+    {
+      "id": "a_bolt",
+      "file": "norra_fx_a_bolt.png",
+      "pixel_1x": "pixel_1x/norra_fx_a_bolt.png",
+      "raw": "raw/norra_fx_a_bolt_raw.png",
+      "frames": 4,
+      "cell_1x": [
+        12,
+        8
+      ],
+      "sheet_1x": [
+        48,
+        8
+      ],
+      "sheet_8x": [
+        384,
+        64
+      ],
+      "symmetry": "top-bottom",
+      "loop": true,
+      "binding": "view_projectiles `tft_norra_a_bolt`（弹道，z 2；朝右、上下对称）",
+      "source_grid": [
+        2,
+        2
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#FFF4C4",
+        "#FFD95A",
+        "#F2B12E",
+        "#C77A16",
+        "#7E4410",
+        "#F4E6FF",
+        "#C9A2FF",
+        "#9A62F0",
+        "#6A34D0",
+        "#3E1C8C",
+        "#22104E",
+        "#FFE8F4",
+        "#FF9CCB",
+        "#F05A9E",
+        "#B02A6E"
+      ],
+      "status": "source_reviewed",
+      "issues": [],
+      "normalization_profile": [
+        [
+          12,
+          8,
+          0
+        ],
+        [
+          12,
+          8,
+          0
+        ],
+        [
+          12,
+          8,
+          0
+        ],
+        [
+          12,
+          8,
+          0
+        ]
+      ],
+      "frame_details": [
+        {
+          "index": 0,
+          "source_cell": [
+            0,
+            0,
+            768,
+            512
+          ],
+          "source_visible_bbox": {
+            "x0": 91,
+            "y0": 137,
+            "x1": 703,
+            "y1": 443,
+            "opaque": 76004
+          },
+          "normalization_rect_1x": [
+            0,
+            0,
+            12,
+            8
+          ],
+          "output_bbox": {
+            "x0": 1,
+            "y0": 0,
+            "x1": 11,
+            "y1": 8,
+            "opaque": 44
+          },
+          "symmetry_mismatches": 0,
+          "body_clear_rect": null,
+          "sha256": "8091ebef11a461126d89d3c8302e8cce6d97d112d52f7e64889bf47e997fa1db"
+        },
+        {
+          "index": 1,
+          "source_cell": [
+            768,
+            0,
+            768,
+            512
+          ],
+          "source_visible_bbox": {
+            "x0": 51,
+            "y0": 105,
+            "x1": 678,
+            "y1": 475,
+            "opaque": 74347
+          },
+          "normalization_rect_1x": [
+            0,
+            0,
+            12,
+            8
+          ],
+          "output_bbox": {
+            "x0": 1,
+            "y0": 0,
+            "x1": 11,
+            "y1": 8,
+            "opaque": 40
+          },
+          "symmetry_mismatches": 0,
+          "body_clear_rect": null,
+          "sha256": "87f1cf03f148270801f52fb33d6bbdea782e085700d9c46929b583778447bab9"
+        },
+        {
+          "index": 2,
+          "source_cell": [
+            0,
+            512,
+            768,
+            512
+          ],
+          "source_visible_bbox": {
+            "x0": 91,
+            "y0": 98,
+            "x1": 674,
+            "y1": 375,
+            "opaque": 74607
+          },
+          "normalization_rect_1x": [
+            0,
+            0,
+            12,
+            8
+          ],
+          "output_bbox": {
+            "x0": 0,
+            "y0": 0,
+            "x1": 12,
+            "y1": 8,
+            "opaque": 60
+          },
+          "symmetry_mismatches": 0,
+          "body_clear_rect": null,
+          "sha256": "083f08da8b7b7e84f5fb415aa16803ffbb7083c35d8f2019aeab1dd5aafc1686"
+        },
+        {
+          "index": 3,
+          "source_cell": [
+            768,
+            512,
+            768,
+            512
+          ],
+          "source_visible_bbox": {
+            "x0": 50,
+            "y0": 56,
+            "x1": 678,
+            "y1": 425,
+            "opaque": 78693
+          },
+          "normalization_rect_1x": [
+            0,
+            0,
+            12,
+            8
+          ],
+          "output_bbox": {
+            "x0": 0,
+            "y0": 0,
+            "x1": 11,
+            "y1": 8,
+            "opaque": 42
+          },
+          "symmetry_mismatches": 0,
+          "body_clear_rect": null,
+          "sha256": "b276c01409bbc66c28ad3e9fc5d1bbd02208e176296f2d5324149ce63f9eb2d9"
+        }
+      ]
+    },
+    {
+      "id": "a_hit",
+      "file": "norra_fx_a_hit.png",
+      "pixel_1x": "pixel_1x/norra_fx_a_hit.png",
+      "raw": "raw/norra_fx_a_hit_raw.png",
+      "frames": 3,
+      "cell_1x": [
+        14,
+        14
+      ],
+      "sheet_1x": [
+        42,
+        14
+      ],
+      "sheet_8x": [
+        336,
+        112
+      ],
+      "symmetry": "left-right",
+      "loop": false,
+      "binding": "view_effects `tft_norra_a_hit`（跟随目标，z 2；左右对称）",
+      "source_grid": [
+        3,
+        1
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#FFF4C4",
+        "#FFD95A",
+        "#F2B12E",
+        "#C77A16",
+        "#7E4410",
+        "#FFE8F4",
+        "#FF9CCB",
+        "#F05A9E",
+        "#B02A6E"
+      ],
+      "status": "source_reviewed",
+      "issues": [],
+      "normalization_profile": [
+        [
+          6,
+          6,
+          4
+        ],
+        [
+          12,
+          12,
+          1
+        ],
+        [
+          14,
+          14,
+          0
+        ]
+      ],
+      "frame_details": [
+        {
+          "index": 0,
+          "source_cell": [
+            0,
+            0,
+            724,
+            724
+          ],
+          "source_visible_bbox": {
+            "x0": 143,
+            "y0": 144,
+            "x1": 583,
+            "y1": 579,
+            "opaque": 48797
+          },
+          "normalization_rect_1x": [
+            4,
+            4,
+            6,
+            6
+          ],
+          "output_bbox": {
+            "x0": 5,
+            "y0": 5,
+            "x1": 9,
+            "y1": 9,
+            "opaque": 16
+          },
+          "symmetry_mismatches": 0,
+          "body_clear_rect": null,
+          "sha256": "e6344e2bc617e8747ed5692344343d2e09eeead58a437caf6248ee4e4799fe3f"
+        },
+        {
+          "index": 1,
+          "source_cell": [
+            724,
+            0,
+            724,
+            724
+          ],
+          "source_visible_bbox": {
+            "x0": 67,
+            "y0": 68,
+            "x1": 658,
+            "y1": 654,
+            "opaque": 68510
+          },
+          "normalization_rect_1x": [
+            1,
+            1,
+            12,
+            12
+          ],
+          "output_bbox": {
+            "x0": 1,
+            "y0": 1,
+            "x1": 13,
+            "y1": 13,
+            "opaque": 64
+          },
+          "symmetry_mismatches": 0,
+          "body_clear_rect": null,
+          "sha256": "61067cdc355b12089af1dc16e1427f2a75d79df97dbbc99d94414947a0b6ec22"
+        },
+        {
+          "index": 2,
+          "source_cell": [
+            1448,
+            0,
+            724,
+            724
+          ],
+          "source_visible_bbox": {
+            "x0": 170,
+            "y0": 159,
+            "x1": 582,
+            "y1": 566,
+            "opaque": 13767
+          },
+          "normalization_rect_1x": [
+            0,
+            0,
+            14,
+            14
+          ],
+          "output_bbox": {
+            "x0": 0,
+            "y0": 0,
+            "x1": 14,
+            "y1": 14,
+            "opaque": 50
+          },
+          "symmetry_mismatches": 0,
+          "body_clear_rect": null,
+          "sha256": "fe541298c02b575b0a88df9def5e63441a0b0adc73f86d9fff501a47dc6b8ad6"
+        }
+      ]
+    },
+    {
+      "id": "p_heal",
+      "file": "norra_fx_p_heal.png",
+      "pixel_1x": "pixel_1x/norra_fx_p_heal.png",
+      "raw": "raw/norra_fx_p_heal_raw.png",
+      "frames": 4,
+      "cell_1x": [
+        12,
+        16
+      ],
+      "sheet_1x": [
+        48,
+        16
+      ],
+      "sheet_8x": [
+        384,
+        128
+      ],
+      "symmetry": "left-right",
+      "loop": false,
+      "binding": "view_effects `tft_norra_p_heal`（跟随被治疗的人，z 2；左右对称）",
+      "source_grid": [
+        2,
+        2
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#FFF0C8",
+        "#C8F0A0",
+        "#7CD87A",
+        "#FF9CCB",
+        "#FFE8F4",
+        "#F05A9E",
+        "#B02A6E"
+      ],
+      "status": "source_reviewed",
+      "issues": [],
+      "normalization_profile": [
+        [
+          9,
+          4,
+          10
+        ],
+        [
+          10,
+          8,
+          5
+        ],
+        [
+          10,
+          8,
+          1
+        ],
+        [
+          10,
+          8,
+          0
+        ]
+      ],
+      "frame_details": [
+        {
+          "index": 0,
+          "source_cell": [
+            0,
+            0,
+            543,
+            723
+          ],
+          "source_visible_bbox": {
+            "x0": 134,
+            "y0": 477,
+            "x1": 421,
+            "y1": 598,
+            "opaque": 14388
+          },
+          "normalization_rect_1x": [
+            1,
+            10,
+            9,
+            4
+          ],
+          "output_bbox": {
+            "x0": 1,
+            "y0": 10,
+            "x1": 11,
+            "y1": 14,
+            "opaque": 26
+          },
+          "symmetry_mismatches": 0,
+          "body_clear_rect": null,
+          "sha256": "ca07bccd23f13f92159eeda31a48a94018569e2b483ff3e735f8631128acd216"
+        },
+        {
+          "index": 1,
+          "source_cell": [
+            543,
+            0,
+            544,
+            723
+          ],
+          "source_visible_bbox": {
+            "x0": 120,
+            "y0": 296,
+            "x1": 423,
+            "y1": 510,
+            "opaque": 16551
+          },
+          "normalization_rect_1x": [
+            1,
+            5,
+            10,
+            8
+          ],
+          "output_bbox": {
+            "x0": 1,
+            "y0": 5,
+            "x1": 11,
+            "y1": 13,
+            "opaque": 36
+          },
+          "symmetry_mismatches": 0,
+          "body_clear_rect": null,
+          "sha256": "36059f799ce55594896aaafb857ab52b2e573840545b2dbaaf6d753b77bcc096"
+        },
+        {
+          "index": 2,
+          "source_cell": [
+            0,
+            723,
+            543,
+            724
+          ],
+          "source_visible_bbox": {
+            "x0": 116,
+            "y0": 156,
+            "x1": 439,
+            "y1": 385,
+            "opaque": 14877
+          },
+          "normalization_rect_1x": [
+            1,
+            1,
+            10,
+            8
+          ],
+          "output_bbox": {
+            "x0": 1,
+            "y0": 1,
+            "x1": 11,
+            "y1": 9,
+            "opaque": 28
+          },
+          "symmetry_mismatches": 0,
+          "body_clear_rect": null,
+          "sha256": "aeae831ac6430c859fbfa0d9128bcae55e648d7ee8048ab0540f1c0b02c3b697"
+        },
+        {
+          "index": 3,
+          "source_cell": [
+            543,
+            723,
+            544,
+            724
+          ],
+          "source_visible_bbox": {
+            "x0": 153,
+            "y0": 240,
+            "x1": 393,
+            "y1": 436,
+            "opaque": 4691
+          },
+          "normalization_rect_1x": [
+            1,
+            0,
+            10,
+            8
+          ],
+          "output_bbox": {
+            "x0": 1,
+            "y0": 0,
+            "x1": 11,
+            "y1": 8,
+            "opaque": 14
+          },
+          "symmetry_mismatches": 0,
+          "body_clear_rect": null,
+          "sha256": "db5fdfbb0a5bd95412e7abb92cfba95df45d0a822057adc868b935967c594c26"
+        }
+      ]
+    },
+    {
+      "id": "q_ball",
+      "file": "norra_fx_q_ball.png",
+      "pixel_1x": "pixel_1x/norra_fx_q_ball.png",
+      "raw": "raw/norra_fx_q_ball_raw.png",
+      "frames": 4,
+      "cell_1x": [
+        16,
+        16
+      ],
+      "sheet_1x": [
+        64,
+        16
+      ],
+      "sheet_8x": [
+        512,
+        128
+      ],
+      "symmetry": "top-bottom",
+      "loop": true,
+      "binding": "view_projectiles `tft_norra_q_ball`（抛物线弹道，z 2；朝右、上下对称）",
+      "source_grid": [
+        2,
+        2
+      ],
+      "palette": [
+        "#F4E6FF",
+        "#C9A2FF",
+        "#9A62F0",
+        "#6A34D0",
+        "#3E1C8C",
+        "#22104E",
+        "#FFFFFF",
+        "#FFF4C4",
+        "#FFD95A",
+        "#F2B12E",
+        "#C77A16",
+        "#7E4410",
+        "#FFE8F4",
+        "#FF9CCB",
+        "#F05A9E",
+        "#B02A6E"
+      ],
+      "status": "source_reviewed",
+      "issues": [],
+      "normalization_profile": [
+        [
+          14,
+          14,
+          1
+        ],
+        [
+          14,
+          14,
+          1
+        ],
+        [
+          14,
+          14,
+          1
+        ],
+        [
+          14,
+          14,
+          1
+        ]
+      ],
+      "frame_details": [
+        {
+          "index": 0,
+          "source_cell": [
+            0,
+            0,
+            631,
+            623
+          ],
+          "source_visible_bbox": {
+            "x0": 69,
+            "y0": 55,
+            "x1": 603,
+            "y1": 610,
+            "opaque": 165582
+          },
+          "normalization_rect_1x": [
+            1,
+            1,
+            14,
+            14
+          ],
+          "output_bbox": {
+            "x0": 1,
+            "y0": 1,
+            "x1": 15,
+            "y1": 15,
+            "opaque": 134
+          },
+          "symmetry_mismatches": 0,
+          "body_clear_rect": null,
+          "sha256": "5018c0732aafe3c495dd3e3dd3ef8d2f2d1ea0be6c4df92ccd8a3dcfb54d08e2"
+        },
+        {
+          "index": 1,
+          "source_cell": [
+            631,
+            0,
+            631,
+            623
+          ],
+          "source_visible_bbox": {
+            "x0": 41,
+            "y0": 55,
+            "x1": 557,
+            "y1": 610,
+            "opaque": 165220
+          },
+          "normalization_rect_1x": [
+            1,
+            1,
+            14,
+            14
+          ],
+          "output_bbox": {
+            "x0": 1,
+            "y0": 1,
+            "x1": 15,
+            "y1": 15,
+            "opaque": 136
+          },
+          "symmetry_mismatches": 0,
+          "body_clear_rect": null,
+          "sha256": "7249fe929c6a299dfd2b49612f0e39d3d53628d27e93a0ebfbf7d2906bd5ba8d"
+        },
+        {
+          "index": 2,
+          "source_cell": [
+            0,
+            623,
+            631,
+            623
+          ],
+          "source_visible_bbox": {
+            "x0": 59,
+            "y0": 27,
+            "x1": 583,
+            "y1": 596,
+            "opaque": 171368
+          },
+          "normalization_rect_1x": [
+            1,
+            1,
+            14,
+            14
+          ],
+          "output_bbox": {
+            "x0": 1,
+            "y0": 1,
+            "x1": 15,
+            "y1": 15,
+            "opaque": 132
+          },
+          "symmetry_mismatches": 0,
+          "body_clear_rect": null,
+          "sha256": "34b73537e20cf913b5432558f9e0e2bf7f2cea5983c404d279cbf734831841e5"
+        },
+        {
+          "index": 3,
+          "source_cell": [
+            631,
+            623,
+            631,
+            623
+          ],
+          "source_visible_bbox": {
+            "x0": 39,
+            "y0": 27,
+            "x1": 582,
+            "y1": 594,
+            "opaque": 172753
+          },
+          "normalization_rect_1x": [
+            1,
+            1,
+            14,
+            14
+          ],
+          "output_bbox": {
+            "x0": 1,
+            "y0": 1,
+            "x1": 15,
+            "y1": 15,
+            "opaque": 132
+          },
+          "symmetry_mismatches": 0,
+          "body_clear_rect": null,
+          "sha256": "739b59087d337f70a2bb3213b2764fcece5891a5eb5355f21930157864251544"
+        }
+      ]
+    },
+    {
+      "id": "q_blast",
+      "file": "norra_fx_q_blast.png",
+      "pixel_1x": "pixel_1x/norra_fx_q_blast.png",
+      "raw": "raw/norra_fx_q_blast_raw.png",
+      "frames": 7,
+      "cell_1x": [
+        48,
+        40
+      ],
+      "sheet_1x": [
+        336,
+        40
+      ],
+      "sheet_8x": [
+        2688,
+        320
+      ],
+      "symmetry": "left-right",
+      "loop": false,
+      "binding": "view_effects `tft_norra_q_blast`（大表，落点，z 2，不跟随；左右对称）",
+      "source_grid": [
+        4,
+        2
+      ],
+      "palette": [
+        "#F4E6FF",
+        "#C9A2FF",
+        "#9A62F0",
+        "#6A34D0",
+        "#3E1C8C",
+        "#22104E",
+        "#FFFFFF",
+        "#FFF4C4",
+        "#FFD95A",
+        "#F2B12E",
+        "#C77A16",
+        "#7E4410",
+        "#F05A9E",
+        "#44C8D2",
+        "#FFFDF4",
+        "#F2E6CC",
+        "#D8C6A0",
+        "#A8906A"
+      ],
+      "status": "source_reviewed",
+      "issues": [],
+      "normalization_profile": [
+        [
+          10,
+          8,
+          26
+        ],
+        [
+          22,
+          22,
+          12
+        ],
+        [
+          34,
+          30,
+          4
+        ],
+        [
+          44,
+          30,
+          4
+        ],
+        [
+          44,
+          16,
+          20
+        ],
+        [
+          36,
+          12,
+          23
+        ],
+        [
+          20,
+          8,
+          26
+        ]
+      ],
+      "frame_details": [
+        {
+          "index": 0,
+          "source_cell": [
+            0,
+            0,
+            485,
+            422
+          ],
+          "source_visible_bbox": {
+            "x0": 122,
+            "y0": 273,
+            "x1": 370,
+            "y1": 419,
+            "opaque": 12471
+          },
+          "normalization_rect_1x": [
+            19,
+            26,
+            10,
+            8
+          ],
+          "output_bbox": {
+            "x0": 19,
+            "y0": 27,
+            "x1": 29,
+            "y1": 34,
+            "opaque": 40
+          },
+          "symmetry_mismatches": 0,
+          "body_clear_rect": null,
+          "sha256": "21949c9f1c113696569b1e5ef9da6a71bf0e5055dc2a0c91f54efe8c83ad11e4"
+        },
+        {
+          "index": 1,
+          "source_cell": [
+            485,
+            0,
+            486,
+            422
+          ],
+          "source_visible_bbox": {
+            "x0": 67,
+            "y0": 194,
+            "x1": 432,
+            "y1": 419,
+            "opaque": 45006
+          },
+          "normalization_rect_1x": [
+            13,
+            12,
+            22,
+            22
+          ],
+          "output_bbox": {
+            "x0": 13,
+            "y0": 12,
+            "x1": 35,
+            "y1": 34,
+            "opaque": 306
+          },
+          "symmetry_mismatches": 0,
+          "body_clear_rect": null,
+          "sha256": "d199e48c6d03a6a121b2e4de69864a9e0231060367ca83e3f21d86db1772a16f"
+        },
+        {
+          "index": 2,
+          "source_cell": [
+            971,
+            0,
+            485,
+            422
+          ],
+          "source_visible_bbox": {
+            "x0": 12,
+            "y0": 115,
+            "x1": 466,
+            "y1": 419,
+            "opaque": 82008
+          },
+          "normalization_rect_1x": [
+            7,
+            4,
+            34,
+            30
+          ],
+          "output_bbox": {
+            "x0": 7,
+            "y0": 4,
+            "x1": 41,
+            "y1": 34,
+            "opaque": 696
+          },
+          "symmetry_mismatches": 0,
+          "body_clear_rect": null,
+          "sha256": "ff3fe366a8eac93c4b0560950b06ddd12b1f9e57be973858d561e710c48bc353"
+        },
+        {
+          "index": 3,
+          "source_cell": [
+            1456,
+            0,
+            486,
+            422
+          ],
+          "source_visible_bbox": {
+            "x0": 20,
+            "y0": 150,
+            "x1": 474,
+            "y1": 419,
+            "opaque": 49178
+          },
+          "normalization_rect_1x": [
+            2,
+            4,
+            44,
+            30
+          ],
+          "output_bbox": {
+            "x0": 2,
+            "y0": 4,
+            "x1": 46,
+            "y1": 34,
+            "opaque": 692
+          },
+          "symmetry_mismatches": 0,
+          "body_clear_rect": null,
+          "sha256": "7a5339503dd7f9fba403b8385a4797975861387aecdd62edbcf671ca2753620e"
+        },
+        {
+          "index": 4,
+          "source_cell": [
+            0,
+            422,
+            485,
+            387
+          ],
+          "source_visible_bbox": {
+            "x0": 41,
+            "y0": 96,
+            "x1": 468,
+            "y1": 337,
+            "opaque": 23138
+          },
+          "normalization_rect_1x": [
+            2,
+            20,
+            44,
+            16
+          ],
+          "output_bbox": {
+            "x0": 2,
+            "y0": 20,
+            "x1": 46,
+            "y1": 36,
+            "opaque": 236
+          },
+          "symmetry_mismatches": 0,
+          "body_clear_rect": null,
+          "sha256": "28e657ec797aca4684474c8d3adaa62c837c504cec8917ad764ec6879d5b87bc"
+        },
+        {
+          "index": 5,
+          "source_cell": [
+            485,
+            422,
+            486,
+            387
+          ],
+          "source_visible_bbox": {
+            "x0": 50,
+            "y0": 138,
+            "x1": 449,
+            "y1": 341,
+            "opaque": 14590
+          },
+          "normalization_rect_1x": [
+            6,
+            23,
+            36,
+            12
+          ],
+          "output_bbox": {
+            "x0": 6,
+            "y0": 23,
+            "x1": 42,
+            "y1": 35,
+            "opaque": 142
+          },
+          "symmetry_mismatches": 0,
+          "body_clear_rect": null,
+          "sha256": "d6e517442bb92875e162361f46d52b399bda1e1ba9b02aa89dad7b588586d4c0"
+        },
+        {
+          "index": 6,
+          "source_cell": [
+            971,
+            422,
+            485,
+            387
+          ],
+          "source_visible_bbox": {
+            "x0": 46,
+            "y0": 202,
+            "x1": 431,
+            "y1": 337,
+            "opaque": 4934
+          },
+          "normalization_rect_1x": [
+            14,
+            26,
+            20,
+            8
+          ],
+          "output_bbox": {
+            "x0": 14,
+            "y0": 26,
+            "x1": 34,
+            "y1": 34,
+            "opaque": 28
+          },
+          "symmetry_mismatches": 0,
+          "body_clear_rect": null,
+          "sha256": "93e47923dc38c183002336d9e2ec10fef49674f943912216c955b8e4ec279aed"
+        }
+      ]
+    },
+    {
+      "id": "q_hit",
+      "file": "norra_fx_q_hit.png",
+      "pixel_1x": "pixel_1x/norra_fx_q_hit.png",
+      "raw": "raw/norra_fx_q_hit_raw.png",
+      "frames": 3,
+      "cell_1x": [
+        14,
+        14
+      ],
+      "sheet_1x": [
+        42,
+        14
+      ],
+      "sheet_8x": [
+        336,
+        112
+      ],
+      "symmetry": "left-right",
+      "loop": false,
+      "binding": "view_effects `tft_norra_q_hit`（跟随目标，z 2；左右对称）",
+      "source_grid": [
+        3,
+        1
+      ],
+      "palette": [
+        "#F05A9E",
+        "#44C8D2",
+        "#9A62F0",
+        "#FFD95A",
+        "#FFE8F4",
+        "#FF9CCB",
+        "#B02A6E"
+      ],
+      "status": "source_reviewed",
+      "issues": [],
+      "normalization_profile": [
+        [
+          6,
+          6,
+          4
+        ],
+        [
+          12,
+          12,
+          1
+        ],
+        [
+          14,
+          8,
+          4
+        ]
+      ],
+      "frame_details": [
+        {
+          "index": 0,
+          "source_cell": [
+            0,
+            0,
+            724,
+            724
+          ],
+          "source_visible_bbox": {
+            "x0": 164,
+            "y0": 211,
+            "x1": 559,
+            "y1": 552,
+            "opaque": 43217
+          },
+          "normalization_rect_1x": [
+            4,
+            4,
+            6,
+            6
+          ],
+          "output_bbox": {
+            "x0": 4,
+            "y0": 4,
+            "x1": 10,
+            "y1": 10,
+            "opaque": 22
+          },
+          "symmetry_mismatches": 0,
+          "body_clear_rect": null,
+          "sha256": "10baa476d3107e9c9daab1589788fa8e7021a372c1faa2cf84bae9b9d28af38c"
+        },
+        {
+          "index": 1,
+          "source_cell": [
+            724,
+            0,
+            724,
+            724
+          ],
+          "source_visible_bbox": {
+            "x0": 63,
+            "y0": 52,
+            "x1": 661,
+            "y1": 658,
+            "opaque": 111656
+          },
+          "normalization_rect_1x": [
+            1,
+            1,
+            12,
+            12
+          ],
+          "output_bbox": {
+            "x0": 1,
+            "y0": 1,
+            "x1": 13,
+            "y1": 13,
+            "opaque": 82
+          },
+          "symmetry_mismatches": 0,
+          "body_clear_rect": null,
+          "sha256": "51834f04974603d87d745b34e36086845c6ed9f06382083b30d8b22c8c2b7a6c"
+        },
+        {
+          "index": 2,
+          "source_cell": [
+            1448,
+            0,
+            724,
+            724
+          ],
+          "source_visible_bbox": {
+            "x0": 130,
+            "y0": 110,
+            "x1": 600,
+            "y1": 629,
+            "opaque": 23111
+          },
+          "normalization_rect_1x": [
+            0,
+            4,
+            14,
+            8
+          ],
+          "output_bbox": {
+            "x0": 0,
+            "y0": 4,
+            "x1": 14,
+            "y1": 12,
+            "opaque": 26
+          },
+          "symmetry_mismatches": 0,
+          "body_clear_rect": null,
+          "sha256": "7fd65ae5fa7a962fdea42d60724494330c87108d366afa3ab204960d84c8fe96"
+        }
+      ]
+    },
+    {
+      "id": "q_paint",
+      "file": "norra_fx_q_paint.png",
+      "pixel_1x": "pixel_1x/norra_fx_q_paint.png",
+      "raw": "raw/norra_fx_q_paint_raw.png",
+      "frames": 6,
+      "cell_1x": [
+        64,
+        22
+      ],
+      "sheet_1x": [
+        384,
+        22
+      ],
+      "sheet_8x": [
+        3072,
+        176
+      ],
+      "symmetry": "both",
+      "loop": true,
+      "binding": "view_projectiles `tft_norra_q_paint` / `tft_norra_q2_paint`（大表，地面区域，z -2；左右、上下都对称）",
+      "source_grid": [
+        2,
+        3
+      ],
+      "palette": [
+        "#FFFDF4",
+        "#F2E6CC",
+        "#D8C6A0",
+        "#A8906A",
+        "#F05A9E",
+        "#44C8D2",
+        "#9A62F0",
+        "#FFD95A",
+        "#FFFFFF",
+        "#FFF4C4",
+        "#F2B12E",
+        "#C77A16",
+        "#7E4410"
+      ],
+      "status": "source_reviewed",
+      "issues": [],
+      "normalization_profile": [
+        [
+          60,
+          20,
+          1
+        ],
+        [
+          60,
+          20,
+          1
+        ],
+        [
+          60,
+          20,
+          1
+        ],
+        [
+          60,
+          20,
+          1
+        ],
+        [
+          60,
+          20,
+          1
+        ],
+        [
+          60,
+          20,
+          1
+        ]
+      ],
+      "frame_details": [
+        {
+          "index": 0,
+          "source_cell": [
+            0,
+            0,
+            873,
+            324
+          ],
+          "source_visible_bbox": {
+            "x0": 42,
+            "y0": 98,
+            "x1": 849,
+            "y1": 321,
+            "opaque": 128154
+          },
+          "normalization_rect_1x": [
+            2,
+            1,
+            60,
+            20
+          ],
+          "output_bbox": {
+            "x0": 2,
+            "y0": 1,
+            "x1": 62,
+            "y1": 21,
+            "opaque": 900
+          },
+          "symmetry_mismatches": 0,
+          "body_clear_rect": null,
+          "sha256": "b689a443411863c2b3cd6d9c9150b0dc24d683382b9a4ce06ec198caf8e611ba"
+        },
+        {
+          "index": 1,
+          "source_cell": [
+            873,
+            0,
+            874,
+            324
+          ],
+          "source_visible_bbox": {
+            "x0": 25,
+            "y0": 101,
+            "x1": 832,
+            "y1": 321,
+            "opaque": 128860
+          },
+          "normalization_rect_1x": [
+            2,
+            1,
+            60,
+            20
+          ],
+          "output_bbox": {
+            "x0": 2,
+            "y0": 1,
+            "x1": 62,
+            "y1": 21,
+            "opaque": 932
+          },
+          "symmetry_mismatches": 0,
+          "body_clear_rect": null,
+          "sha256": "4dc3f262b9e40e863818a141f13556227f1e1ce68fe596fa38ad2f1731f01590"
+        },
+        {
+          "index": 2,
+          "source_cell": [
+            0,
+            324,
+            873,
+            276
+          ],
+          "source_visible_bbox": {
+            "x0": 42,
+            "y0": 50,
+            "x1": 848,
+            "y1": 263,
+            "opaque": 125378
+          },
+          "normalization_rect_1x": [
+            2,
+            1,
+            60,
+            20
+          ],
+          "output_bbox": {
+            "x0": 2,
+            "y0": 1,
+            "x1": 62,
+            "y1": 21,
+            "opaque": 860
+          },
+          "symmetry_mismatches": 0,
+          "body_clear_rect": null,
+          "sha256": "efc37b90fc05db42ccc6d691677e055e5d7447876a2c9bd8499d517477ee9bfc"
+        },
+        {
+          "index": 3,
+          "source_cell": [
+            873,
+            324,
+            874,
+            276
+          ],
+          "source_visible_bbox": {
+            "x0": 25,
+            "y0": 50,
+            "x1": 832,
+            "y1": 263,
+            "opaque": 125706
+          },
+          "normalization_rect_1x": [
+            2,
+            1,
+            60,
+            20
+          ],
+          "output_bbox": {
+            "x0": 2,
+            "y0": 1,
+            "x1": 62,
+            "y1": 21,
+            "opaque": 884
+          },
+          "symmetry_mismatches": 0,
+          "body_clear_rect": null,
+          "sha256": "05b6f622d2c66cfa8d537177a217bc7d81682c1883dd4042d449733784dcba41"
+        },
+        {
+          "index": 4,
+          "source_cell": [
+            0,
+            600,
+            873,
+            300
+          ],
+          "source_visible_bbox": {
+            "x0": 42,
+            "y0": 48,
+            "x1": 849,
+            "y1": 248,
+            "opaque": 122250
+          },
+          "normalization_rect_1x": [
+            2,
+            1,
+            60,
+            20
+          ],
+          "output_bbox": {
+            "x0": 2,
+            "y0": 1,
+            "x1": 62,
+            "y1": 21,
+            "opaque": 948
+          },
+          "symmetry_mismatches": 0,
+          "body_clear_rect": null,
+          "sha256": "e90a295586ec16de5cfef901816f2b91381b6066331ee1ee15ddee677378d621"
+        },
+        {
+          "index": 5,
+          "source_cell": [
+            873,
+            600,
+            874,
+            300
+          ],
+          "source_visible_bbox": {
+            "x0": 25,
+            "y0": 48,
+            "x1": 832,
+            "y1": 248,
+            "opaque": 122224
+          },
+          "normalization_rect_1x": [
+            2,
+            1,
+            60,
+            20
+          ],
+          "output_bbox": {
+            "x0": 2,
+            "y0": 1,
+            "x1": 62,
+            "y1": 21,
+            "opaque": 936
+          },
+          "symmetry_mismatches": 0,
+          "body_clear_rect": null,
+          "sha256": "2a76f330a3277fad2bf42250d8a3f0f0bda9912ee2884a8bf6478e9ced9a6796"
+        }
+      ]
+    },
+    {
+      "id": "e_anvil_hit",
+      "file": "norra_fx_e_anvil_hit.png",
+      "pixel_1x": "pixel_1x/norra_fx_e_anvil_hit.png",
+      "raw": "raw/norra_fx_e_anvil_hit_raw.png",
+      "frames": 8,
+      "cell_1x": [
+        36,
+        64
+      ],
+      "sheet_1x": [
+        288,
+        64
+      ],
+      "sheet_8x": [
+        2304,
+        512
+      ],
+      "symmetry": "left-right",
+      "loop": false,
+      "binding": "view_effects `tft_norra_e_anvil_hit`（大表，目标脚下，z 2，不跟随；左右对称）",
+      "source_grid": [
+        4,
+        2
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#FFF4C4",
+        "#FFD95A",
+        "#F2B12E",
+        "#C77A16",
+        "#7E4410",
+        "#F4E6FF",
+        "#C9A2FF",
+        "#9A62F0",
+        "#6A34D0",
+        "#3E1C8C",
+        "#22104E",
+        "#E8EEF2",
+        "#A8B4BE",
+        "#6E7A86",
+        "#3E4650",
+        "#1E2228",
+        "#FFE8F4",
+        "#FF9CCB",
+        "#F05A9E",
+        "#B02A6E",
+        "#100A16"
+      ],
+      "status": "source_reviewed",
+      "issues": [],
+      "normalization_profile": [
+        [
+          16,
+          5,
+          3
+        ],
+        [
+          16,
+          15,
+          3
+        ],
+        [
+          16,
+          30,
+          3
+        ],
+        [
+          16,
+          45,
+          3
+        ],
+        [
+          24,
+          14,
+          44
+        ],
+        [
+          24,
+          18,
+          40
+        ],
+        [
+          24,
+          55,
+          3
+        ],
+        [
+          24,
+          12,
+          46
+        ]
+      ],
+      "frame_details": [
+        {
+          "index": 0,
+          "source_cell": [
+            0,
+            0,
+            339,
+            641
+          ],
+          "source_visible_bbox": {
+            "x0": 26,
+            "y0": 177,
+            "x1": 319,
+            "y1": 328,
+            "opaque": 27783
+          },
+          "normalization_rect_1x": [
+            10,
+            3,
+            16,
+            5
+          ],
+          "output_bbox": {
+            "x0": 10,
+            "y0": 3,
+            "x1": 26,
+            "y1": 8,
+            "opaque": 60
+          },
+          "symmetry_mismatches": 0,
+          "body_clear_rect": null,
+          "sha256": "23d5dfbc170b6eea8cc80279a70f3414d3ad357e2cc6b06f1ebd25856854e9c4"
+        },
+        {
+          "index": 1,
+          "source_cell": [
+            339,
+            0,
+            326,
+            641
+          ],
+          "source_visible_bbox": {
+            "x0": 16,
+            "y0": 177,
+            "x1": 311,
+            "y1": 403,
+            "opaque": 42028
+          },
+          "normalization_rect_1x": [
+            10,
+            3,
+            16,
+            15
+          ],
+          "output_bbox": {
+            "x0": 10,
+            "y0": 4,
+            "x1": 26,
+            "y1": 18,
+            "opaque": 160
+          },
+          "symmetry_mismatches": 0,
+          "body_clear_rect": null,
+          "sha256": "cfcd7b62f6df196d7b9e0c9aab2b923cec8cf0ef11bb21a091aa331df097b746"
+        },
+        {
+          "index": 2,
+          "source_cell": [
+            665,
+            0,
+            332,
+            641
+          ],
+          "source_visible_bbox": {
+            "x0": 28,
+            "y0": 195,
+            "x1": 307,
+            "y1": 560,
+            "opaque": 46370
+          },
+          "normalization_rect_1x": [
+            10,
+            3,
+            16,
+            30
+          ],
+          "output_bbox": {
+            "x0": 10,
+            "y0": 3,
+            "x1": 26,
+            "y1": 33,
+            "opaque": 284
+          },
+          "symmetry_mismatches": 0,
+          "body_clear_rect": null,
+          "sha256": "5d51953c920a2637bc0e44f4befca2a4c817bc45f02d0ad7c3063158a56395d0"
+        },
+        {
+          "index": 3,
+          "source_cell": [
+            997,
+            0,
+            333,
+            641
+          ],
+          "source_visible_bbox": {
+            "x0": 38,
+            "y0": 196,
+            "x1": 298,
+            "y1": 638,
+            "opaque": 42864
+          },
+          "normalization_rect_1x": [
+            10,
+            3,
+            16,
+            45
+          ],
+          "output_bbox": {
+            "x0": 10,
+            "y0": 3,
+            "x1": 26,
+            "y1": 48,
+            "opaque": 346
+          },
+          "symmetry_mismatches": 0,
+          "body_clear_rect": null,
+          "sha256": "ee49ea6e1b3f1de0d4c316db6da22b315ac567355482c74f148c86af74e3bb1f"
+        },
+        {
+          "index": 4,
+          "source_cell": [
+            0,
+            641,
+            339,
+            541
+          ],
+          "source_visible_bbox": {
+            "x0": 17,
+            "y0": 234,
+            "x1": 336,
+            "y1": 465,
+            "opaque": 41699
+          },
+          "normalization_rect_1x": [
+            6,
+            44,
+            24,
+            14
+          ],
+          "output_bbox": {
+            "x0": 6,
+            "y0": 44,
+            "x1": 30,
+            "y1": 58,
+            "opaque": 234
+          },
+          "symmetry_mismatches": 0,
+          "body_clear_rect": null,
+          "sha256": "0a6eb77dc37480d659ed942d8c2be3b45d2fe2fc53312d70eb0a478c8a616ddb"
+        },
+        {
+          "index": 5,
+          "source_cell": [
+            339,
+            641,
+            326,
+            541
+          ],
+          "source_visible_bbox": {
+            "x0": 18,
+            "y0": 210,
+            "x1": 306,
+            "y1": 453,
+            "opaque": 35029
+          },
+          "normalization_rect_1x": [
+            6,
+            40,
+            24,
+            18
+          ],
+          "output_bbox": {
+            "x0": 6,
+            "y0": 40,
+            "x1": 30,
+            "y1": 58,
+            "opaque": 270
+          },
+          "symmetry_mismatches": 0,
+          "body_clear_rect": null,
+          "sha256": "92ddfa55cdb773c71bbcc4ed6af9e8dc7b438fabb453f26cf76cf301f2248e9d"
+        },
+        {
+          "index": 6,
+          "source_cell": [
+            665,
+            641,
+            332,
+            541
+          ],
+          "source_visible_bbox": {
+            "x0": 27,
+            "y0": 142,
+            "x1": 303,
+            "y1": 454,
+            "opaque": 31528
+          },
+          "normalization_rect_1x": [
+            6,
+            3,
+            24,
+            55
+          ],
+          "output_bbox": {
+            "x0": 6,
+            "y0": 4,
+            "x1": 30,
+            "y1": 58,
+            "opaque": 598
+          },
+          "symmetry_mismatches": 0,
+          "body_clear_rect": null,
+          "sha256": "05bcbc22c74d624b3dc90c7f96211782ac990da592fea9709d34d30a5fadb359"
+        },
+        {
+          "index": 7,
+          "source_cell": [
+            997,
+            641,
+            333,
+            541
+          ],
+          "source_visible_bbox": {
+            "x0": 35,
+            "y0": 314,
+            "x1": 295,
+            "y1": 454,
+            "opaque": 19411
+          },
+          "normalization_rect_1x": [
+            6,
+            46,
+            24,
+            12
+          ],
+          "output_bbox": {
+            "x0": 6,
+            "y0": 46,
+            "x1": 30,
+            "y1": 58,
+            "opaque": 188
+          },
+          "symmetry_mismatches": 0,
+          "body_clear_rect": null,
+          "sha256": "cef918c6731c645f54f5c28a4850937a89dedb52d3655e9ebd0de934d7746d1d"
+        }
+      ]
+    },
+    {
+      "id": "e_book_hit",
+      "file": "norra_fx_e_book_hit.png",
+      "pixel_1x": "pixel_1x/norra_fx_e_book_hit.png",
+      "raw": "raw/norra_fx_e_book_hit_raw.png",
+      "frames": 8,
+      "cell_1x": [
+        40,
+        64
+      ],
+      "sheet_1x": [
+        320,
+        64
+      ],
+      "sheet_8x": [
+        2560,
+        512
+      ],
+      "symmetry": "left-right",
+      "loop": false,
+      "binding": "view_effects `tft_norra_e_book_hit`（大表，目标脚下，z 2，不跟随；左右对称）",
+      "source_grid": [
+        4,
+        2
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#FFF4C4",
+        "#FFD95A",
+        "#F2B12E",
+        "#C77A16",
+        "#7E4410",
+        "#F4E6FF",
+        "#C9A2FF",
+        "#9A62F0",
+        "#6A34D0",
+        "#3E1C8C",
+        "#22104E",
+        "#F2DCA8",
+        "#C4472E",
+        "#8A2A1C",
+        "#4E160E",
+        "#FFFDF4",
+        "#F2E6CC",
+        "#D8C6A0",
+        "#A8906A",
+        "#100A16"
+      ],
+      "status": "source_reviewed",
+      "issues": [],
+      "normalization_profile": [
+        [
+          16,
+          5,
+          3
+        ],
+        [
+          16,
+          25,
+          3
+        ],
+        [
+          16,
+          38,
+          3
+        ],
+        [
+          20,
+          50,
+          3
+        ],
+        [
+          30,
+          14,
+          44
+        ],
+        [
+          32,
+          28,
+          30
+        ],
+        [
+          32,
+          55,
+          3
+        ],
+        [
+          30,
+          14,
+          44
+        ]
+      ],
+      "frame_details": [
+        {
+          "index": 0,
+          "source_cell": [
+            0,
+            0,
+            363,
+            646
+          ],
+          "source_visible_bbox": {
+            "x0": 35,
+            "y0": 116,
+            "x1": 327,
+            "y1": 245,
+            "opaque": 17678
+          },
+          "normalization_rect_1x": [
+            12,
+            3,
+            16,
+            5
+          ],
+          "output_bbox": {
+            "x0": 12,
+            "y0": 3,
+            "x1": 28,
+            "y1": 8,
+            "opaque": 56
+          },
+          "symmetry_mismatches": 0,
+          "body_clear_rect": null,
+          "sha256": "c953d7739486b25468db2c2d5ee2afae37492aeeac877b6b7cd81c8e65c7a991"
+        },
+        {
+          "index": 1,
+          "source_cell": [
+            363,
+            0,
+            339,
+            646
+          ],
+          "source_visible_bbox": {
+            "x0": 24,
+            "y0": 107,
+            "x1": 311,
+            "y1": 513,
+            "opaque": 70266
+          },
+          "normalization_rect_1x": [
+            12,
+            3,
+            16,
+            25
+          ],
+          "output_bbox": {
+            "x0": 12,
+            "y0": 3,
+            "x1": 28,
+            "y1": 28,
+            "opaque": 288
+          },
+          "symmetry_mismatches": 0,
+          "body_clear_rect": null,
+          "sha256": "77e388708500f0e52e472fd7769f76d80acb485fc87d7969d243603bc7aa4dde"
+        },
+        {
+          "index": 2,
+          "source_cell": [
+            702,
+            0,
+            349,
+            646
+          ],
+          "source_visible_bbox": {
+            "x0": 56,
+            "y0": 201,
+            "x1": 299,
+            "y1": 560,
+            "opaque": 51321
+          },
+          "normalization_rect_1x": [
+            12,
+            3,
+            16,
+            38
+          ],
+          "output_bbox": {
+            "x0": 12,
+            "y0": 5,
+            "x1": 28,
+            "y1": 40,
+            "opaque": 438
+          },
+          "symmetry_mismatches": 0,
+          "body_clear_rect": null,
+          "sha256": "b6af57ec6932cf1c5ccf7d2c2142f817341ecde72e974b57e80d8acc280ae1d0"
+        },
+        {
+          "index": 3,
+          "source_cell": [
+            1051,
+            0,
+            351,
+            646
+          ],
+          "source_visible_bbox": {
+            "x0": 29,
+            "y0": 271,
+            "x1": 325,
+            "y1": 643,
+            "opaque": 58818
+          },
+          "normalization_rect_1x": [
+            10,
+            3,
+            20,
+            50
+          ],
+          "output_bbox": {
+            "x0": 10,
+            "y0": 3,
+            "x1": 30,
+            "y1": 53,
+            "opaque": 682
+          },
+          "symmetry_mismatches": 0,
+          "body_clear_rect": null,
+          "sha256": "ae8767e52894e489f5322cab59773a7100daa05589367b22bc20fa72c3dfee1d"
+        },
+        {
+          "index": 4,
+          "source_cell": [
+            0,
+            646,
+            363,
+            476
+          ],
+          "source_visible_bbox": {
+            "x0": 26,
+            "y0": 124,
+            "x1": 360,
+            "y1": 411,
+            "opaque": 48360
+          },
+          "normalization_rect_1x": [
+            5,
+            44,
+            30,
+            14
+          ],
+          "output_bbox": {
+            "x0": 5,
+            "y0": 45,
+            "x1": 35,
+            "y1": 58,
+            "opaque": 272
+          },
+          "symmetry_mismatches": 0,
+          "body_clear_rect": null,
+          "sha256": "01267d41d5503baf0cd6431c8c88007f3456fe51fb25f1e2e4699782af338815"
+        },
+        {
+          "index": 5,
+          "source_cell": [
+            363,
+            646,
+            339,
+            476
+          ],
+          "source_visible_bbox": {
+            "x0": 15,
+            "y0": 80,
+            "x1": 336,
+            "y1": 412,
+            "opaque": 46404
+          },
+          "normalization_rect_1x": [
+            4,
+            30,
+            32,
+            28
+          ],
+          "output_bbox": {
+            "x0": 4,
+            "y0": 31,
+            "x1": 36,
+            "y1": 58,
+            "opaque": 518
+          },
+          "symmetry_mismatches": 0,
+          "body_clear_rect": null,
+          "sha256": "f6ab6565f150d15d7e02e131ddd9df28fd03dc3f950ac80827f37d7376891ed5"
+        },
+        {
+          "index": 6,
+          "source_cell": [
+            702,
+            646,
+            349,
+            476
+          ],
+          "source_visible_bbox": {
+            "x0": 20,
+            "y0": 43,
+            "x1": 328,
+            "y1": 411,
+            "opaque": 37128
+          },
+          "normalization_rect_1x": [
+            4,
+            3,
+            32,
+            55
+          ],
+          "output_bbox": {
+            "x0": 4,
+            "y0": 4,
+            "x1": 36,
+            "y1": 58,
+            "opaque": 692
+          },
+          "symmetry_mismatches": 0,
+          "body_clear_rect": null,
+          "sha256": "75f23c24c56ecf935ddc5ddd23adff11b3138d90f0a4ea10106fc26bd57ac8ee"
+        },
+        {
+          "index": 7,
+          "source_cell": [
+            1051,
+            646,
+            351,
+            476
+          ],
+          "source_visible_bbox": {
+            "x0": 30,
+            "y0": 178,
+            "x1": 320,
+            "y1": 412,
+            "opaque": 8040
+          },
+          "normalization_rect_1x": [
+            5,
+            44,
+            30,
+            14
+          ],
+          "output_bbox": {
+            "x0": 5,
+            "y0": 44,
+            "x1": 35,
+            "y1": 58,
+            "opaque": 94
+          },
+          "symmetry_mismatches": 0,
+          "body_clear_rect": null,
+          "sha256": "c991b00121cce5ac0cbf6febf9f16867e8c7714aa5fd353ec07cc992573f610c"
+        }
+      ]
+    },
+    {
+      "id": "e_potion",
+      "file": "norra_fx_e_potion.png",
+      "pixel_1x": "pixel_1x/norra_fx_e_potion.png",
+      "raw": "raw/norra_fx_e_potion_raw.png",
+      "frames": 6,
+      "cell_1x": [
+        14,
+        26
+      ],
+      "sheet_1x": [
+        84,
+        26
+      ],
+      "sheet_8x": [
+        672,
+        208
+      ],
+      "symmetry": "left-right",
+      "loop": false,
+      "binding": "view_effects `tft_norra_e_potion`（跟随每个被治疗的队友，z 2；左右对称）",
+      "source_grid": [
+        3,
+        2
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#FFF4C4",
+        "#FFD95A",
+        "#F2B12E",
+        "#C77A16",
+        "#7E4410",
+        "#FFE8F4",
+        "#FF9CCB",
+        "#F05A9E",
+        "#B02A6E",
+        "#FFF0C8",
+        "#C8F0A0",
+        "#7CD87A",
+        "#100A16"
+      ],
+      "status": "source_reviewed",
+      "issues": [],
+      "normalization_profile": [
+        [
+          8,
+          3,
+          2
+        ],
+        [
+          8,
+          9,
+          2
+        ],
+        [
+          6,
+          8,
+          7
+        ],
+        [
+          12,
+          10,
+          8
+        ],
+        [
+          12,
+          16,
+          8
+        ],
+        [
+          10,
+          14,
+          10
+        ]
+      ],
+      "frame_details": [
+        {
+          "index": 0,
+          "source_cell": [
+            0,
+            0,
+            378,
+            698
+          ],
+          "source_visible_bbox": {
+            "x0": 105,
+            "y0": 123,
+            "x1": 328,
+            "y1": 248,
+            "opaque": 7533
+          },
+          "normalization_rect_1x": [
+            3,
+            2,
+            8,
+            3
+          ],
+          "output_bbox": {
+            "x0": 3,
+            "y0": 2,
+            "x1": 11,
+            "y1": 5,
+            "opaque": 14
+          },
+          "symmetry_mismatches": 0,
+          "body_clear_rect": [
+            4,
+            13,
+            6,
+            13
+          ],
+          "sha256": "ae6ecd797015a1477a18406f9c3bb01514a01aa80ae692caed748fcaf9da7f5f"
+        },
+        {
+          "index": 1,
+          "source_cell": [
+            378,
+            0,
+            373,
+            698
+          ],
+          "source_visible_bbox": {
+            "x0": 80,
+            "y0": 123,
+            "x1": 296,
+            "y1": 442,
+            "opaque": 16487
+          },
+          "normalization_rect_1x": [
+            3,
+            2,
+            8,
+            9
+          ],
+          "output_bbox": {
+            "x0": 3,
+            "y0": 2,
+            "x1": 11,
+            "y1": 11,
+            "opaque": 34
+          },
+          "symmetry_mismatches": 0,
+          "body_clear_rect": [
+            4,
+            13,
+            6,
+            13
+          ],
+          "sha256": "fcc9e9f71735f7b3ae849047eb7c7450d0f4f02d7cac722c506a989cc67ce321"
+        },
+        {
+          "index": 2,
+          "source_cell": [
+            751,
+            0,
+            376,
+            698
+          ],
+          "source_visible_bbox": {
+            "x0": 156,
+            "y0": 302,
+            "x1": 265,
+            "y1": 535,
+            "opaque": 10539
+          },
+          "normalization_rect_1x": [
+            4,
+            7,
+            6,
+            8
+          ],
+          "output_bbox": {
+            "x0": 4,
+            "y0": 8,
+            "x1": 10,
+            "y1": 13,
+            "opaque": 24
+          },
+          "symmetry_mismatches": 0,
+          "body_clear_rect": [
+            4,
+            13,
+            6,
+            13
+          ],
+          "sha256": "f65de4ec2aa0b52baa72301ca42dcea56620d1de62958a292ee57972e60e9ddc"
+        },
+        {
+          "index": 3,
+          "source_cell": [
+            0,
+            698,
+            378,
+            698
+          ],
+          "source_visible_bbox": {
+            "x0": 54,
+            "y0": 93,
+            "x1": 375,
+            "y1": 409,
+            "opaque": 32256
+          },
+          "normalization_rect_1x": [
+            1,
+            8,
+            12,
+            10
+          ],
+          "output_bbox": {
+            "x0": 1,
+            "y0": 8,
+            "x1": 13,
+            "y1": 18,
+            "opaque": 52
+          },
+          "symmetry_mismatches": 0,
+          "body_clear_rect": [
+            4,
+            13,
+            6,
+            13
+          ],
+          "sha256": "1792dbf05407df4dc82ccd84bee2d826df9621a4e5e3330dbd573259fc4108c4"
+        },
+        {
+          "index": 4,
+          "source_cell": [
+            378,
+            698,
+            373,
+            698
+          ],
+          "source_visible_bbox": {
+            "x0": 59,
+            "y0": 98,
+            "x1": 328,
+            "y1": 479,
+            "opaque": 13436
+          },
+          "normalization_rect_1x": [
+            1,
+            8,
+            12,
+            16
+          ],
+          "output_bbox": {
+            "x0": 1,
+            "y0": 8,
+            "x1": 13,
+            "y1": 24,
+            "opaque": 38
+          },
+          "symmetry_mismatches": 0,
+          "body_clear_rect": [
+            4,
+            13,
+            6,
+            13
+          ],
+          "sha256": "65eba8a8c33d2ff05fbcc8555a05f3a7faef52475f9ed78208eb618b3a5da0e8"
+        },
+        {
+          "index": 5,
+          "source_cell": [
+            751,
+            698,
+            376,
+            698
+          ],
+          "source_visible_bbox": {
+            "x0": 89,
+            "y0": 195,
+            "x1": 288,
+            "y1": 496,
+            "opaque": 2745
+          },
+          "normalization_rect_1x": [
+            2,
+            10,
+            10,
+            14
+          ],
+          "output_bbox": {
+            "x0": 2,
+            "y0": 10,
+            "x1": 12,
+            "y1": 24,
+            "opaque": 14
+          },
+          "symmetry_mismatches": 0,
+          "body_clear_rect": [
+            4,
+            13,
+            6,
+            13
+          ],
+          "sha256": "c9b7b6ce0a8bf7328a6d5e2232d38feb526cbb5f18c442167ea7e536c81b2c53"
+        }
+      ]
+    },
+    {
+      "id": "e_guard",
+      "file": "norra_fx_e_guard.png",
+      "pixel_1x": "pixel_1x/norra_fx_e_guard.png",
+      "raw": "raw/norra_fx_e_guard_raw.png",
+      "frames": 6,
+      "cell_1x": [
+        26,
+        42
+      ],
+      "sheet_1x": [
+        156,
+        42
+      ],
+      "sheet_8x": [
+        1248,
+        336
+      ],
+      "symmetry": "left-right",
+      "loop": true,
+      "binding": "view_buffs `tft_norra_e_guard`（跟随有护盾的人，z 3；左右对称）",
+      "source_grid": [
+        3,
+        2
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#FFF4C4",
+        "#FFD95A",
+        "#F2B12E",
+        "#C77A16",
+        "#7E4410",
+        "#F4E6FF",
+        "#C9A2FF",
+        "#9A62F0",
+        "#6A34D0",
+        "#3E1C8C",
+        "#22104E",
+        "#FFE8F4",
+        "#FF9CCB",
+        "#F05A9E",
+        "#B02A6E"
+      ],
+      "status": "source_reviewed",
+      "issues": [],
+      "normalization_profile": [
+        [
+          24,
+          40,
+          1
+        ],
+        [
+          24,
+          40,
+          1
+        ],
+        [
+          24,
+          40,
+          1
+        ],
+        [
+          24,
+          40,
+          1
+        ],
+        [
+          24,
+          40,
+          1
+        ],
+        [
+          24,
+          40,
+          1
+        ]
+      ],
+      "frame_details": [
+        {
+          "index": 0,
+          "source_cell": [
+            0,
+            0,
+            512,
+            512
+          ],
+          "source_visible_bbox": {
+            "x0": 154,
+            "y0": 23,
+            "x1": 457,
+            "y1": 474,
+            "opaque": 48847
+          },
+          "normalization_rect_1x": [
+            1,
+            1,
+            24,
+            40
+          ],
+          "output_bbox": {
+            "x0": 1,
+            "y0": 1,
+            "x1": 25,
+            "y1": 41,
+            "opaque": 360
+          },
+          "symmetry_mismatches": 0,
+          "body_clear_rect": [
+            5,
+            3,
+            16,
+            36
+          ],
+          "sha256": "06edb9cc9ddfea909e94dd3d8f68d03bd3ddd8b8bddd4ff0238fd04a70131d1e"
+        },
+        {
+          "index": 1,
+          "source_cell": [
+            512,
+            0,
+            512,
+            512
+          ],
+          "source_visible_bbox": {
+            "x0": 103,
+            "y0": 24,
+            "x1": 409,
+            "y1": 474,
+            "opaque": 49095
+          },
+          "normalization_rect_1x": [
+            1,
+            1,
+            24,
+            40
+          ],
+          "output_bbox": {
+            "x0": 1,
+            "y0": 1,
+            "x1": 25,
+            "y1": 41,
+            "opaque": 360
+          },
+          "symmetry_mismatches": 0,
+          "body_clear_rect": [
+            5,
+            3,
+            16,
+            36
+          ],
+          "sha256": "7d75a4348a383cab43b50d23d22f3573eaa85f0ea1bcb3907281965bf5b92e3c"
+        },
+        {
+          "index": 2,
+          "source_cell": [
+            1024,
+            0,
+            512,
+            512
+          ],
+          "source_visible_bbox": {
+            "x0": 56,
+            "y0": 23,
+            "x1": 359,
+            "y1": 474,
+            "opaque": 48534
+          },
+          "normalization_rect_1x": [
+            1,
+            1,
+            24,
+            40
+          ],
+          "output_bbox": {
+            "x0": 1,
+            "y0": 1,
+            "x1": 25,
+            "y1": 41,
+            "opaque": 360
+          },
+          "symmetry_mismatches": 0,
+          "body_clear_rect": [
+            5,
+            3,
+            16,
+            36
+          ],
+          "sha256": "5a0a3ebcbddd2f7bffcd7e251ebb257fc3edbe790bf878770a3428253891f0e1"
+        },
+        {
+          "index": 3,
+          "source_cell": [
+            0,
+            512,
+            512,
+            512
+          ],
+          "source_visible_bbox": {
+            "x0": 154,
+            "y0": 23,
+            "x1": 457,
+            "y1": 473,
+            "opaque": 49440
+          },
+          "normalization_rect_1x": [
+            1,
+            1,
+            24,
+            40
+          ],
+          "output_bbox": {
+            "x0": 1,
+            "y0": 1,
+            "x1": 25,
+            "y1": 41,
+            "opaque": 360
+          },
+          "symmetry_mismatches": 0,
+          "body_clear_rect": [
+            5,
+            3,
+            16,
+            36
+          ],
+          "sha256": "e90c6cd4c9c3ad6cfc2ef64bb37d41f06dd25e237003c8d2900c27d76e13b1f0"
+        },
+        {
+          "index": 4,
+          "source_cell": [
+            512,
+            512,
+            512,
+            512
+          ],
+          "source_visible_bbox": {
+            "x0": 103,
+            "y0": 24,
+            "x1": 409,
+            "y1": 473,
+            "opaque": 49693
+          },
+          "normalization_rect_1x": [
+            1,
+            1,
+            24,
+            40
+          ],
+          "output_bbox": {
+            "x0": 1,
+            "y0": 1,
+            "x1": 25,
+            "y1": 41,
+            "opaque": 360
+          },
+          "symmetry_mismatches": 0,
+          "body_clear_rect": [
+            5,
+            3,
+            16,
+            36
+          ],
+          "sha256": "7566fbdd7088f19e148e51fabb20dff3ea5ce408c59ae7da11fc4ac4c8ed398f"
+        },
+        {
+          "index": 5,
+          "source_cell": [
+            1024,
+            512,
+            512,
+            512
+          ],
+          "source_visible_bbox": {
+            "x0": 55,
+            "y0": 24,
+            "x1": 359,
+            "y1": 473,
+            "opaque": 49063
+          },
+          "normalization_rect_1x": [
+            1,
+            1,
+            24,
+            40
+          ],
+          "output_bbox": {
+            "x0": 1,
+            "y0": 1,
+            "x1": 25,
+            "y1": 41,
+            "opaque": 360
+          },
+          "symmetry_mismatches": 0,
+          "body_clear_rect": [
+            5,
+            3,
+            16,
+            36
+          ],
+          "sha256": "57b5b446c8c69a706c656ee4e6a2bd821b93e223d422299308feed3d77523b1a"
+        }
+      ]
+    },
+    {
+      "id": "r_warn",
+      "file": "norra_fx_r_warn.png",
+      "pixel_1x": "pixel_1x/norra_fx_r_warn.png",
+      "raw": "raw/norra_fx_r_warn_raw.png",
+      "frames": 6,
+      "cell_1x": [
+        60,
+        22
+      ],
+      "sheet_1x": [
+        360,
+        22
+      ],
+      "sheet_8x": [
+        2880,
+        176
+      ],
+      "symmetry": "left-right",
+      "loop": false,
+      "binding": "view_effects `tft_norra_r_warn`（大表，落点，地面，z -2，不跟随；左右对称）",
+      "source_grid": [
+        2,
+        3
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#FFF4C4",
+        "#FFD95A",
+        "#F2B12E",
+        "#C77A16",
+        "#7E4410",
+        "#F4E6FF",
+        "#C9A2FF",
+        "#9A62F0",
+        "#6A34D0",
+        "#3E1C8C",
+        "#22104E"
+      ],
+      "status": "source_reviewed",
+      "issues": [],
+      "normalization_profile": [
+        [
+          20,
+          6,
+          8
+        ],
+        [
+          36,
+          12,
+          5
+        ],
+        [
+          54,
+          18,
+          2
+        ],
+        [
+          54,
+          18,
+          2
+        ],
+        [
+          54,
+          18,
+          2
+        ],
+        [
+          54,
+          18,
+          2
+        ]
+      ],
+      "frame_details": [
+        {
+          "index": 0,
+          "source_cell": [
+            0,
+            0,
+            845,
+            310
+          ],
+          "source_visible_bbox": {
+            "x0": 134,
+            "y0": 101,
+            "x1": 712,
+            "y1": 259,
+            "opaque": 17767
+          },
+          "normalization_rect_1x": [
+            20,
+            8,
+            20,
+            6
+          ],
+          "output_bbox": {
+            "x0": 20,
+            "y0": 8,
+            "x1": 40,
+            "y1": 14,
+            "opaque": 50
+          },
+          "symmetry_mismatches": 0,
+          "body_clear_rect": null,
+          "sha256": "1ed8ef3ef670d939a53377092aaf3e1a7b498483702137ab2241330a1ee8c52c"
+        },
+        {
+          "index": 1,
+          "source_cell": [
+            845,
+            0,
+            846,
+            310
+          ],
+          "source_visible_bbox": {
+            "x0": 38,
+            "y0": 88,
+            "x1": 763,
+            "y1": 271,
+            "opaque": 39185
+          },
+          "normalization_rect_1x": [
+            12,
+            5,
+            36,
+            12
+          ],
+          "output_bbox": {
+            "x0": 12,
+            "y0": 5,
+            "x1": 48,
+            "y1": 17,
+            "opaque": 202
+          },
+          "symmetry_mismatches": 0,
+          "body_clear_rect": null,
+          "sha256": "38eaec7e3cd6bdf5928b99a024bcb6b066c7f530145fc0316c1d43a940057241"
+        },
+        {
+          "index": 2,
+          "source_cell": [
+            0,
+            310,
+            845,
+            310
+          ],
+          "source_visible_bbox": {
+            "x0": 76,
+            "y0": 51,
+            "x1": 769,
+            "y1": 285,
+            "opaque": 77523
+          },
+          "normalization_rect_1x": [
+            3,
+            2,
+            54,
+            18
+          ],
+          "output_bbox": {
+            "x0": 3,
+            "y0": 2,
+            "x1": 57,
+            "y1": 20,
+            "opaque": 576
+          },
+          "symmetry_mismatches": 0,
+          "body_clear_rect": null,
+          "sha256": "00e69b274785ad0acb850f002f187c92d1f2b170afad5b8e4b9ae6d47ab360c3"
+        },
+        {
+          "index": 3,
+          "source_cell": [
+            845,
+            310,
+            846,
+            310
+          ],
+          "source_visible_bbox": {
+            "x0": 62,
+            "y0": 49,
+            "x1": 774,
+            "y1": 280,
+            "opaque": 104315
+          },
+          "normalization_rect_1x": [
+            3,
+            2,
+            54,
+            18
+          ],
+          "output_bbox": {
+            "x0": 3,
+            "y0": 2,
+            "x1": 57,
+            "y1": 20,
+            "opaque": 678
+          },
+          "symmetry_mismatches": 0,
+          "body_clear_rect": null,
+          "sha256": "6acf7ee6d7fda8858d52b8e6a6fa2cb65673b438b368dfbef28bc6a9497df7e7"
+        },
+        {
+          "index": 4,
+          "source_cell": [
+            0,
+            620,
+            845,
+            310
+          ],
+          "source_visible_bbox": {
+            "x0": 76,
+            "y0": 30,
+            "x1": 772,
+            "y1": 272,
+            "opaque": 109314
+          },
+          "normalization_rect_1x": [
+            3,
+            2,
+            54,
+            18
+          ],
+          "output_bbox": {
+            "x0": 3,
+            "y0": 2,
+            "x1": 57,
+            "y1": 20,
+            "opaque": 692
+          },
+          "symmetry_mismatches": 0,
+          "body_clear_rect": null,
+          "sha256": "578562e411c4415e3637b803b49211dcb9066882d9a0ba09772b540640d3e026"
+        },
+        {
+          "index": 5,
+          "source_cell": [
+            845,
+            620,
+            846,
+            310
+          ],
+          "source_visible_bbox": {
+            "x0": 35,
+            "y0": 9,
+            "x1": 775,
+            "y1": 278,
+            "opaque": 130289
+          },
+          "normalization_rect_1x": [
+            3,
+            2,
+            54,
+            18
+          ],
+          "output_bbox": {
+            "x0": 3,
+            "y0": 2,
+            "x1": 57,
+            "y1": 20,
+            "opaque": 656
+          },
+          "symmetry_mismatches": 0,
+          "body_clear_rect": null,
+          "sha256": "6ef006952b493a3c93d768b10b1c6b1795c20551febfe8940e9401a501c9b166"
+        }
+      ]
+    },
+    {
+      "id": "r_book",
+      "file": "norra_fx_r_book.png",
+      "pixel_1x": "pixel_1x/norra_fx_r_book.png",
+      "raw": "raw/norra_fx_r_book_raw.png",
+      "frames": 10,
+      "cell_1x": [
+        70,
+        84
+      ],
+      "sheet_1x": [
+        700,
+        84
+      ],
+      "sheet_8x": [
+        5600,
+        672
+      ],
+      "symmetry": "left-right",
+      "loop": false,
+      "binding": "view_effects `tft_norra_r_book`（大表，落点，z 3，不跟随；左右对称）",
+      "source_grid": [
+        5,
+        2
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#FFF4C4",
+        "#FFD95A",
+        "#F2B12E",
+        "#C77A16",
+        "#7E4410",
+        "#F4E6FF",
+        "#C9A2FF",
+        "#9A62F0",
+        "#6A34D0",
+        "#3E1C8C",
+        "#22104E",
+        "#FFFDF4",
+        "#F2E6CC",
+        "#D8C6A0",
+        "#A8906A",
+        "#FFE8F4",
+        "#FF9CCB",
+        "#F05A9E",
+        "#B02A6E"
+      ],
+      "status": "source_reviewed",
+      "issues": [],
+      "normalization_profile": [
+        [
+          24,
+          8,
+          10
+        ],
+        [
+          60,
+          20,
+          4
+        ],
+        [
+          60,
+          72,
+          4
+        ],
+        [
+          60,
+          72,
+          4
+        ],
+        [
+          60,
+          72,
+          4
+        ],
+        [
+          60,
+          72,
+          4
+        ],
+        [
+          64,
+          72,
+          4
+        ],
+        [
+          60,
+          72,
+          4
+        ],
+        [
+          22,
+          65,
+          11
+        ],
+        [
+          24,
+          30,
+          46
+        ]
+      ],
+      "frame_details": [
+        {
+          "index": 0,
+          "source_cell": [
+            0,
+            0,
+            297,
+            530
+          ],
+          "source_visible_bbox": {
+            "x0": 82,
+            "y0": 84,
+            "x1": 217,
+            "y1": 131,
+            "opaque": 4443
+          },
+          "normalization_rect_1x": [
+            23,
+            10,
+            24,
+            8
+          ],
+          "output_bbox": {
+            "x0": 23,
+            "y0": 10,
+            "x1": 47,
+            "y1": 18,
+            "opaque": 144
+          },
+          "symmetry_mismatches": 0,
+          "body_clear_rect": null,
+          "sha256": "9e51f61994cdd33f739f55951f7200c5fb2b8a97479754968476c0de7f2d6a0d"
+        },
+        {
+          "index": 1,
+          "source_cell": [
+            297,
+            0,
+            297,
+            530
+          ],
+          "source_visible_bbox": {
+            "x0": 8,
+            "y0": 41,
+            "x1": 276,
+            "y1": 183,
+            "opaque": 15552
+          },
+          "normalization_rect_1x": [
+            5,
+            4,
+            60,
+            20
+          ],
+          "output_bbox": {
+            "x0": 5,
+            "y0": 4,
+            "x1": 65,
+            "y1": 24,
+            "opaque": 544
+          },
+          "symmetry_mismatches": 0,
+          "body_clear_rect": null,
+          "sha256": "014f2209d0a59cd062f408bd2f001dd0303cb0abf17eb8d6b57ae58c0e40182b"
+        },
+        {
+          "index": 2,
+          "source_cell": [
+            594,
+            0,
+            294,
+            530
+          ],
+          "source_visible_bbox": {
+            "x0": 16,
+            "y0": 38,
+            "x1": 280,
+            "y1": 314,
+            "opaque": 31843
+          },
+          "normalization_rect_1x": [
+            5,
+            4,
+            60,
+            72
+          ],
+          "output_bbox": {
+            "x0": 5,
+            "y0": 5,
+            "x1": 65,
+            "y1": 76,
+            "opaque": 2020
+          },
+          "symmetry_mismatches": 0,
+          "body_clear_rect": null,
+          "sha256": "86f1092f98547b9d8066214489aa869c5c63b0fbf1f3325e6ec03b02f86d52fc"
+        },
+        {
+          "index": 3,
+          "source_cell": [
+            888,
+            0,
+            299,
+            530
+          ],
+          "source_visible_bbox": {
+            "x0": 26,
+            "y0": 40,
+            "x1": 291,
+            "y1": 434,
+            "opaque": 41878
+          },
+          "normalization_rect_1x": [
+            5,
+            4,
+            60,
+            72
+          ],
+          "output_bbox": {
+            "x0": 5,
+            "y0": 4,
+            "x1": 65,
+            "y1": 76,
+            "opaque": 1862
+          },
+          "symmetry_mismatches": 0,
+          "body_clear_rect": null,
+          "sha256": "6e6fa1e566c2e824b1f3fd49971396013a2a565acd8d7c77b38e79a90c8f982e"
+        },
+        {
+          "index": 4,
+          "source_cell": [
+            1187,
+            0,
+            297,
+            530
+          ],
+          "source_visible_bbox": {
+            "x0": 33,
+            "y0": 43,
+            "x1": 269,
+            "y1": 512,
+            "opaque": 44916
+          },
+          "normalization_rect_1x": [
+            5,
+            4,
+            60,
+            72
+          ],
+          "output_bbox": {
+            "x0": 5,
+            "y0": 4,
+            "x1": 65,
+            "y1": 76,
+            "opaque": 1842
+          },
+          "symmetry_mismatches": 0,
+          "body_clear_rect": null,
+          "sha256": "4d416db1c684a5146f57ff4d457e8b8d90070c7c07d113e9a493f7e8c37b3f4c"
+        },
+        {
+          "index": 5,
+          "source_cell": [
+            0,
+            530,
+            297,
+            530
+          ],
+          "source_visible_bbox": {
+            "x0": 41,
+            "y0": 77,
+            "x1": 270,
+            "y1": 490,
+            "opaque": 33142
+          },
+          "normalization_rect_1x": [
+            5,
+            4,
+            60,
+            72
+          ],
+          "output_bbox": {
+            "x0": 5,
+            "y0": 7,
+            "x1": 65,
+            "y1": 76,
+            "opaque": 1674
+          },
+          "symmetry_mismatches": 0,
+          "body_clear_rect": null,
+          "sha256": "243ec3271b5d70ce378f06d71aa335efb02beac396bc15e04c251a6df028d7a0"
+        },
+        {
+          "index": 6,
+          "source_cell": [
+            297,
+            530,
+            297,
+            530
+          ],
+          "source_visible_bbox": {
+            "x0": 7,
+            "y0": 75,
+            "x1": 292,
+            "y1": 490,
+            "opaque": 29151
+          },
+          "normalization_rect_1x": [
+            3,
+            4,
+            64,
+            72
+          ],
+          "output_bbox": {
+            "x0": 3,
+            "y0": 4,
+            "x1": 67,
+            "y1": 76,
+            "opaque": 1276
+          },
+          "symmetry_mismatches": 0,
+          "body_clear_rect": null,
+          "sha256": "6df45ed5a86fde3de4a0390514b5d7b370e2c896a03dfc1d552f6108b9ad83b8"
+        },
+        {
+          "index": 7,
+          "source_cell": [
+            594,
+            530,
+            294,
+            530
+          ],
+          "source_visible_bbox": {
+            "x0": 15,
+            "y0": 46,
+            "x1": 291,
+            "y1": 495,
+            "opaque": 25260
+          },
+          "normalization_rect_1x": [
+            5,
+            4,
+            60,
+            72
+          ],
+          "output_bbox": {
+            "x0": 5,
+            "y0": 6,
+            "x1": 65,
+            "y1": 76,
+            "opaque": 986
+          },
+          "symmetry_mismatches": 0,
+          "body_clear_rect": null,
+          "sha256": "d25058f19ac7ffab7bd6675942a09b03dec61fc5e79af7c195703e92e30ce701"
+        },
+        {
+          "index": 8,
+          "source_cell": [
+            888,
+            530,
+            299,
+            530
+          ],
+          "source_visible_bbox": {
+            "x0": 3,
+            "y0": 43,
+            "x1": 232,
+            "y1": 491,
+            "opaque": 24524
+          },
+          "normalization_rect_1x": [
+            24,
+            11,
+            22,
+            65
+          ],
+          "output_bbox": {
+            "x0": 24,
+            "y0": 15,
+            "x1": 46,
+            "y1": 75,
+            "opaque": 30
+          },
+          "symmetry_mismatches": 0,
+          "body_clear_rect": null,
+          "sha256": "123e47d21ec24badf9e476bae70062a720cb67bae596a2ba35262782398da7af"
+        },
+        {
+          "index": 9,
+          "source_cell": [
+            1187,
+            530,
+            297,
+            530
+          ],
+          "source_visible_bbox": {
+            "x0": 23,
+            "y0": 58,
+            "x1": 277,
+            "y1": 472,
+            "opaque": 8560
+          },
+          "normalization_rect_1x": [
+            23,
+            46,
+            24,
+            30
+          ],
+          "output_bbox": {
+            "x0": 23,
+            "y0": 47,
+            "x1": 47,
+            "y1": 76,
+            "opaque": 102
+          },
+          "symmetry_mismatches": 0,
+          "body_clear_rect": null,
+          "sha256": "d70c826dc1f50a7f06219c5921041e6a91ef752d233d6341635b4ce70896ff7f"
+        }
+      ]
+    },
+    {
+      "id": "r_hit",
+      "file": "norra_fx_r_hit.png",
+      "pixel_1x": "pixel_1x/norra_fx_r_hit.png",
+      "raw": "raw/norra_fx_r_hit_raw.png",
+      "frames": 4,
+      "cell_1x": [
+        16,
+        16
+      ],
+      "sheet_1x": [
+        64,
+        16
+      ],
+      "sheet_8x": [
+        512,
+        128
+      ],
+      "symmetry": "left-right",
+      "loop": false,
+      "binding": "view_effects `tft_norra_r_hit`（跟随目标，z 2；左右对称）",
+      "source_grid": [
+        2,
+        2
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#FFF4C4",
+        "#FFD95A",
+        "#F2B12E",
+        "#C77A16",
+        "#7E4410",
+        "#FFFDF4",
+        "#F2E6CC",
+        "#D8C6A0",
+        "#A8906A",
+        "#FFE8F4",
+        "#FF9CCB",
+        "#F05A9E",
+        "#B02A6E"
+      ],
+      "status": "source_reviewed",
+      "issues": [],
+      "normalization_profile": [
+        [
+          8,
+          8,
+          4
+        ],
+        [
+          14,
+          14,
+          1
+        ],
+        [
+          16,
+          16,
+          0
+        ],
+        [
+          14,
+          14,
+          1
+        ]
+      ],
+      "frame_details": [
+        {
+          "index": 0,
+          "source_cell": [
+            0,
+            0,
+            627,
+            627
+          ],
+          "source_visible_bbox": {
+            "x0": 148,
+            "y0": 142,
+            "x1": 479,
+            "y1": 485,
+            "opaque": 28359
+          },
+          "normalization_rect_1x": [
+            4,
+            4,
+            8,
+            8
+          ],
+          "output_bbox": {
+            "x0": 5,
+            "y0": 5,
+            "x1": 11,
+            "y1": 11,
+            "opaque": 28
+          },
+          "symmetry_mismatches": 0,
+          "body_clear_rect": null,
+          "sha256": "4d1d7b492c7e69508d4c7fc63ed6ffd7e3de0de4d42326d4b750662d97f38fab"
+        },
+        {
+          "index": 1,
+          "source_cell": [
+            627,
+            0,
+            627,
+            627
+          ],
+          "source_visible_bbox": {
+            "x0": 61,
+            "y0": 102,
+            "x1": 567,
+            "y1": 519,
+            "opaque": 67554
+          },
+          "normalization_rect_1x": [
+            1,
+            1,
+            14,
+            14
+          ],
+          "output_bbox": {
+            "x0": 1,
+            "y0": 1,
+            "x1": 15,
+            "y1": 15,
+            "opaque": 112
+          },
+          "symmetry_mismatches": 0,
+          "body_clear_rect": null,
+          "sha256": "08ddc2006de3cee8cf4e29569affdc2e4be1e6192976fb79b7c4a9376b9c0c75"
+        },
+        {
+          "index": 2,
+          "source_cell": [
+            0,
+            627,
+            627,
+            627
+          ],
+          "source_visible_bbox": {
+            "x0": 59,
+            "y0": 58,
+            "x1": 569,
+            "y1": 519,
+            "opaque": 52230
+          },
+          "normalization_rect_1x": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "output_bbox": {
+            "x0": 0,
+            "y0": 0,
+            "x1": 16,
+            "y1": 16,
+            "opaque": 104
+          },
+          "symmetry_mismatches": 0,
+          "body_clear_rect": null,
+          "sha256": "227512eb957f0771f15cd849b760b89690404f1b3dcda80379c38487ea716fea"
+        },
+        {
+          "index": 3,
+          "source_cell": [
+            627,
+            627,
+            627,
+            627
+          ],
+          "source_visible_bbox": {
+            "x0": 62,
+            "y0": 110,
+            "x1": 566,
+            "y1": 499,
+            "opaque": 20166
+          },
+          "normalization_rect_1x": [
+            1,
+            1,
+            14,
+            14
+          ],
+          "output_bbox": {
+            "x0": 1,
+            "y0": 1,
+            "x1": 15,
+            "y1": 15,
+            "opaque": 44
+          },
+          "symmetry_mismatches": 0,
+          "body_clear_rect": null,
+          "sha256": "e5b844e100e1938efd924eb023b7a11e98ce1a521454d702f4682bf4f9f4173d"
+        }
+      ]
+    },
+    {
+      "id": "r_paper",
+      "file": "norra_fx_r_paper.png",
+      "pixel_1x": "pixel_1x/norra_fx_r_paper.png",
+      "raw": "raw/norra_fx_r_paper_raw.png",
+      "frames": 6,
+      "cell_1x": [
+        24,
+        42
+      ],
+      "sheet_1x": [
+        144,
+        42
+      ],
+      "sheet_8x": [
+        1152,
+        336
+      ],
+      "symmetry": "left-right",
+      "loop": true,
+      "binding": "view_buffs `tft_norra_r_paper`（跟随目标，z 3；左右对称）",
+      "source_grid": [
+        3,
+        2
+      ],
+      "palette": [
+        "#FFFDF4",
+        "#F2E6CC",
+        "#D8C6A0",
+        "#A8906A",
+        "#F05A9E",
+        "#44C8D2",
+        "#9A62F0",
+        "#FFD95A"
+      ],
+      "status": "source_reviewed",
+      "issues": [],
+      "normalization_profile": [
+        [
+          24,
+          42,
+          0
+        ],
+        [
+          24,
+          42,
+          0
+        ],
+        [
+          24,
+          42,
+          0
+        ],
+        [
+          24,
+          42,
+          0
+        ],
+        [
+          24,
+          42,
+          0
+        ],
+        [
+          24,
+          42,
+          0
+        ]
+      ],
+      "frame_details": [
+        {
+          "index": 0,
+          "source_cell": [
+            0,
+            0,
+            512,
+            512
+          ],
+          "source_visible_bbox": {
+            "x0": 160,
+            "y0": 11,
+            "x1": 475,
+            "y1": 496,
+            "opaque": 67408
+          },
+          "normalization_rect_1x": [
+            0,
+            0,
+            24,
+            42
+          ],
+          "output_bbox": {
+            "x0": 0,
+            "y0": 0,
+            "x1": 24,
+            "y1": 42,
+            "opaque": 398
+          },
+          "symmetry_mismatches": 0,
+          "body_clear_rect": [
+            4,
+            3,
+            16,
+            36
+          ],
+          "sha256": "a1ac2b49631e283da2fce0eefce5ac86885baa8e60376ccaafe68a890b8460f6"
+        },
+        {
+          "index": 1,
+          "source_cell": [
+            512,
+            0,
+            512,
+            512
+          ],
+          "source_visible_bbox": {
+            "x0": 99,
+            "y0": 11,
+            "x1": 414,
+            "y1": 496,
+            "opaque": 67207
+          },
+          "normalization_rect_1x": [
+            0,
+            0,
+            24,
+            42
+          ],
+          "output_bbox": {
+            "x0": 0,
+            "y0": 0,
+            "x1": 24,
+            "y1": 42,
+            "opaque": 396
+          },
+          "symmetry_mismatches": 0,
+          "body_clear_rect": [
+            4,
+            3,
+            16,
+            36
+          ],
+          "sha256": "42f87c8fe546c7963fe4ba9497dba108f61a3a11a3d7e6ce3d4b8322f69bb98a"
+        },
+        {
+          "index": 2,
+          "source_cell": [
+            1024,
+            0,
+            512,
+            512
+          ],
+          "source_visible_bbox": {
+            "x0": 38,
+            "y0": 11,
+            "x1": 353,
+            "y1": 496,
+            "opaque": 67561
+          },
+          "normalization_rect_1x": [
+            0,
+            0,
+            24,
+            42
+          ],
+          "output_bbox": {
+            "x0": 0,
+            "y0": 0,
+            "x1": 24,
+            "y1": 42,
+            "opaque": 396
+          },
+          "symmetry_mismatches": 0,
+          "body_clear_rect": [
+            4,
+            3,
+            16,
+            36
+          ],
+          "sha256": "883707f138c7f82968bc4f3a26d959ffd1414757d0777e7881c511f2c767dad5"
+        },
+        {
+          "index": 3,
+          "source_cell": [
+            0,
+            512,
+            512,
+            512
+          ],
+          "source_visible_bbox": {
+            "x0": 160,
+            "y0": 15,
+            "x1": 475,
+            "y1": 498,
+            "opaque": 67045
+          },
+          "normalization_rect_1x": [
+            0,
+            0,
+            24,
+            42
+          ],
+          "output_bbox": {
+            "x0": 0,
+            "y0": 0,
+            "x1": 24,
+            "y1": 42,
+            "opaque": 398
+          },
+          "symmetry_mismatches": 0,
+          "body_clear_rect": [
+            4,
+            3,
+            16,
+            36
+          ],
+          "sha256": "2e3c49117de80cca363ed14e04e8b091ab093b9d6f13aebc48b7f477aea684ab"
+        },
+        {
+          "index": 4,
+          "source_cell": [
+            512,
+            512,
+            512,
+            512
+          ],
+          "source_visible_bbox": {
+            "x0": 99,
+            "y0": 15,
+            "x1": 414,
+            "y1": 498,
+            "opaque": 66946
+          },
+          "normalization_rect_1x": [
+            0,
+            0,
+            24,
+            42
+          ],
+          "output_bbox": {
+            "x0": 0,
+            "y0": 0,
+            "x1": 24,
+            "y1": 42,
+            "opaque": 396
+          },
+          "symmetry_mismatches": 0,
+          "body_clear_rect": [
+            4,
+            3,
+            16,
+            36
+          ],
+          "sha256": "5a70251e82a7289254afb41d44108b0dc6e198ffda37683480192e8794494a7e"
+        },
+        {
+          "index": 5,
+          "source_cell": [
+            1024,
+            512,
+            512,
+            512
+          ],
+          "source_visible_bbox": {
+            "x0": 38,
+            "y0": 15,
+            "x1": 353,
+            "y1": 498,
+            "opaque": 67340
+          },
+          "normalization_rect_1x": [
+            0,
+            0,
+            24,
+            42
+          ],
+          "output_bbox": {
+            "x0": 0,
+            "y0": 0,
+            "x1": 24,
+            "y1": 42,
+            "opaque": 398
+          },
+          "symmetry_mismatches": 0,
+          "body_clear_rect": [
+            4,
+            3,
+            16,
+            36
+          ],
+          "sha256": "4707098d8f000024a48f015f02ed5d65779049f84823db06266960d52da2dbb5"
+        }
+      ]
+    }
+  ]
+}

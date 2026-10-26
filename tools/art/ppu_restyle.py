@@ -685,6 +685,12 @@ RESTYLE = {
     # 「人物模型太大 缩小一点」, league_main hd.rs SIZES), so the frames sit 2 squares lower (Poppy's way) to keep the
     # soles on the ground; the face point between her eyes
     "powder": dict(ppu=1.75, edge=1, lift_sq=-2, face_to=(0, -25)),
+    # tft_norra (the tft pack's second hero, mid): the design (Codex's step-0 A-1 brought to 72 rows, 36 game px hat top to
+    # soles, at the user's picks 「A-1 36px PPU2.0」, 3/4 only, the gold ring drawn into her near hand) with Codex's key
+    # poses after the videos (the design's head put back), posed by tools/art/rig_norra.py, so no proportion or density
+    # change here; the outer outline grown a square like the others; the face point on her glasses' bridge, under the
+    # head wrap (her hat fills the top half of her: 1 game px ahead of her standing point, 20 over the ground)
+    "norra": dict(ppu=2.0, edge=1, face_to=(1, -20)),
 }
 NIDALEE_COUGAR = {"c_idle": 6, "c_run": 8, "c_attack": 4, "c_skill": 5, "c_pounce": 6, "c_swipe": 4, "c_transform": 3,
                   "c_hit": 2, "c_dead": 6}

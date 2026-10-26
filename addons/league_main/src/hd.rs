@@ -263,6 +263,10 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // frames when both packs are enabled): the idle design and Codex's skeleton poses with one clean head, posed by
     // tools/art/rig_powder.py at 1.75 squares a game pixel (61 rows: 「35」, then 「PPU像素好低啊 能调一下吗」), shown at 90 % (SIZES)
     ("tft_powder", 1.75, include_str!("../../../tft/champions/tft_powder#anim.fanim")),
+    // Norra (tft_norra, the tft pack's second hero): the design (Codex's step-0 A-1 at 72 rows, 36 game px hat top to
+    // soles: 「A-1 36px PPU2.0」, the gold ring in her near hand) and Codex's key poses after the videos with the design's
+    // head, posed by tools/art/rig_norra.py at 2.0 squares a game pixel, so no SIZES row
+    ("tft_norra", 2.0, include_str!("../../../tft/champions/tft_norra#anim.fanim")),
     // 2026-10-16 redo from Codex's pictures, the actions posed from the designs (tools/art/rig_<hero>_hd.py; Nami's after
     // League's own clips, tools/lol/league_joints.py), PPU 1.5 at their old heights, so no SIZES rows
     ("league_morgana", 1.5, include_str!("../../../league/champions/league_morgana#anim.fanim")),
