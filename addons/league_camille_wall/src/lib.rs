@@ -29,9 +29,14 @@
 //! 位移用引擎自己的强制位移（`ForceMove`，冲刺技能走的就是它，撞墙会停）；之后每 tick
 //! 看一次，她身上没有强制位移却还没到时改为逐 tick 直接设位置，保证一定能到。
 //!
+//! 大招场地里谁也不出去（v4.3，[`arena`]）：场地开着时 AI 要她走出场地或回城，改成普攻被锁的目标、打不了就走回中心——
+//! 她一走出去场地就结束；被锁的目标每 tick 看一次，出了场地边就放回去（用户 2026-10-26：「卡密尔的R三秒有点太短了 而且现在
+//! 有时候都没3秒」「你要确保英雄走不出去」）。
+//!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_camille_wall.log`
 //! （游戏自己的 log.log 旁边），找不到时写在游戏目录。每次启动游戏重写，上一次的留在 .prev.log。
 
+pub mod arena;
 pub mod maps;
 
 use std::collections::HashMap;
@@ -1277,6 +1282,8 @@ const MAX_WALK: f64 = 2_500.0;
 #[derive(Clone, Default)]
 struct AutoE {
     seen: HashMap<usize, (f64, f64, usize)>,
+    /// the R arena's centre while it is up ([`arena::hold`])
+    arena: arena::Slot,
 }
 
 impl StablePassive for AutoE {
@@ -1285,6 +1292,7 @@ impl StablePassive for AutoE {
     }
 
     fn on_update(&mut self, sim: &mut StableSim<'_>, _: u64, _: usize, entity: usize) {
+        arena::hold(sim, entity, &mut self.arena);
         let tick = sim.tick();
         if tick % AUTO_EVERY != 0 {
             return;
@@ -1402,7 +1410,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v4.2 (wall + map edge + tower Hookshot) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v4.3 (wall + map edge + tower Hookshot, R arena kept) loaded: game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
         v.patch,
@@ -1413,6 +1421,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
         module.add_native_effect(format!("{ID}:{name}"), stage(name));
     }
     module.add_native_passive(format!("{ID}:e"), AutoE::default());
+    module.add_player_input_ai(arena::Arena::default());
     module.set_map_customizer(WallReader);
     host.log(LogLevel::Info, "league_camille_wall v4 loaded (Camille's E hooks walls, the map edge and towers).");
 }
