@@ -8,6 +8,13 @@
         "skill2": "敌方英雄靠近时摔下闪光烟雾弹：周围敌人受到<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>魔法伤害并<#ef5350ff>致盲<><#ffb900ff>1秒<>（无法普攻），自己向后跳开。",
         "ult": "把装着海克斯水晶的包丢向敌方英雄，引线烧完<#ffb900ff>0.9秒<>后蓝光大爆炸：范围内敌人受到<#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<>魔法伤害并<#ef5350ff>击飞<><#ffb900ff>0.75秒<>。"
       },
+      "tft_norra": {
+        "name": "诺拉",
+        "attack": "普攻<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>。<#ff9028ff>寄情琐物<>：每<#ffb900ff>10秒<>技能落点撒3个琐物<#ffb900ff>4秒<>，飞向踩到的敌方英雄：<#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>魔法伤害并挂<#ff9028ff>线缕<>；技能命中英雄冷却-20%。<#ff9028ff>奇异旅程<>：贴身的敌人受<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>魔法伤害，<#ef5350ff>放逐<><#ffb900ff>1.5秒<>后<#ef5350ff>减速<>80%<#ffb900ff>0.75秒<>。",
+        "skill": "蓄力后射出回忆魔法弹，自己后退一步：落点周围敌人受到<#a974ffff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>28%<>魔法伤害，已有<#ff9028ff>线缕<>的英雄再受最大生命2%，随后挂上线缕；打中英雄时地上的琐物待爆：敌方英雄靠近就飞向他。",
+        "skill2": "在目标两侧打开两扇门，<#ffb900ff>0.3秒<>后线缕穿过：范围内敌人受到<#a974ffff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>26%<>魔法伤害并挂上<#ff9028ff>线缕<>：<#ffb900ff>4秒<>内体型变大15%（更容易被命中），<#ef5350ff>减速<>20%<#ffb900ff>2秒<>。",
+        "ult": "在敌方英雄脚下展开大裂隙，每<#ffb900ff>0.5秒<>一波共4波：两个毛线球沿一条穿过敌方英雄的线从两头对飞，路上敌人各受<#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<>魔法伤害，每个球碰到的第一个英雄<#ef5350ff>减速<>80%<#ffb900ff>0.5秒<>；第4波+40%。"
+      },
       "tft_alune": {
         "name": "拉露恩",
         "attack": "把螺旋月环像飞盘一样甩出去，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>。<#ff9028ff>月相<>：每放一次技能月亮长一档，最多<#ffb900ff>3<>档；大招每档伤害+<#ffb900ff>20%<>，砸完回到新月。",
@@ -21,6 +28,11 @@
         "skill1": "猴子炸弹",
         "skill2": "快跑，爆爆！",
         "ult": "海克斯水晶炸弹"
+      },
+      "tft_norra": {
+        "skill1": "回忆涌现",
+        "skill2": "思乡线缕",
+        "ult": "传送门欢腾！"
       },
       "tft_alune": {
         "skill1": "月之降临",
@@ -38,6 +50,13 @@
         "skill2": "敵方英雄靠近時摔下閃光煙霧彈：周圍敵人受到<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>魔法傷害並<#ef5350ff>致盲<><#ffb900ff>1秒<>（無法普攻），自己向後跳開。",
         "ult": "把裝著海克斯水晶的包丟向敵方英雄，引線燒完<#ffb900ff>0.9秒<>後藍光大爆炸：範圍內敵人受到<#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<>魔法傷害並<#ef5350ff>擊飛<><#ffb900ff>0.75秒<>。"
       },
+      "tft_norra": {
+        "name": "諾拉",
+        "attack": "普攻<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>。<#ff9028ff>心愛飾品<>：每<#ffb900ff>10秒<>技能落點撒3個飾品<#ffb900ff>4秒<>，飛向踩到的敵方英雄：<#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>魔法傷害並掛<#ff9028ff>絲線<>；技能命中英雄冷卻-20%。<#ff9028ff>茫然旅程<>：貼身的敵人受<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>魔法傷害，<#ef5350ff>放逐<><#ffb900ff>1.5秒<>後<#ef5350ff>緩速<>80%<#ffb900ff>0.75秒<>。",
+        "skill": "蓄力後射出記憶魔法彈，自己後退一步：落點周圍敵人受到<#a974ffff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>28%<>魔法傷害，已有<#ff9028ff>絲線<>的英雄再受最大生命2%，隨後掛上絲線；打中英雄時地上的飾品待爆：敵方英雄靠近就飛向他。",
+        "skill2": "在目標兩側打開兩扇門，<#ffb900ff>0.3秒<>後絲線穿過：範圍內敵人受到<#a974ffff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>26%<>魔法傷害並掛上<#ff9028ff>絲線<>：<#ffb900ff>4秒<>內體型變大15%（更容易被命中），<#ef5350ff>緩速<>20%<#ffb900ff>2秒<>。",
+        "ult": "在敵方英雄腳下展開大裂隙，每<#ffb900ff>0.5秒<>一波共4波：兩個毛線球沿一條穿過敵方英雄的線從兩頭對飛，路上敵人各受<#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<>魔法傷害，每個球碰到的第一個英雄<#ef5350ff>緩速<>80%<#ffb900ff>0.5秒<>；第4波+40%。"
+      },
       "tft_alune": {
         "name": "亞盧妮",
         "attack": "把螺旋月環像飛盤一樣甩出去，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>。<#ff9028ff>月相<>：每施放一次技能月亮長一階，最多<#ffb900ff>3<>階；大招每階傷害+<#ffb900ff>20%<>，砸完回到新月。",
@@ -51,6 +70,11 @@
         "skill1": "猴子炸彈",
         "skill2": "快跑，爆爆！",
         "ult": "海克斯水晶炸彈"
+      },
+      "tft_norra": {
+        "skill1": "記憶湧現",
+        "skill2": "返家絲線",
+        "ult": "傳送門嘉年華！"
       },
       "tft_alune": {
         "skill1": "月隕",
@@ -68,6 +92,13 @@
         "skill2": "When an enemy champion comes close, smashes a flash-smoke bomb: enemies around her take <#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> <#a974ffff>magic damage<> and are <#ef5350ff>blinded<> for <#ffb900ff>1s<> (no basic attacks), and she hops back.",
         "ult": "Lobs the bag with the hex crystal at an enemy champion. After a <#ffb900ff>0.9s<> fuse it bursts in blue: enemies in the blast take <#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<> <#a974ffff>magic damage<> and are <#ef5350ff>knocked up<> for <#ffb900ff>0.75s<>."
       },
+      "tft_norra": {
+        "name": "Norra",
+        "attack": "Star bolt: <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<>. <#ff9028ff>Beloved Trinkets<>: every <#ffb900ff>10s<> the next ability drops 3 trinkets (<#ffb900ff>4s<>), each flying to the champion stepping on it: <#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<> <#a974ffff>magic damage<> + <#ff9028ff>Threads<>; ability hits on champions cut it 20%. <#ff9028ff>Journey to Nowhere<>: a close enemy champion takes <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>, is <#ef5350ff>banished<> <#ffb900ff>1.5s<>, then <#ef5350ff>slowed<> 80% <#ffb900ff>0.75s<>.",
+        "skill": "Charges, then flings a bolt of memories and hops back: enemies around where it lands take <#a974ffff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>28%<> <#a974ffff>magic damage<>, champions already in the <#ff9028ff>Threads<> 2% of their max health more, then get them. Hitting a champion primes her trinkets: they fly to any enemy champion coming near.",
+        "skill2": "Opens two portals beside the target; <#ffb900ff>0.3s<> later threads shoot between them: enemies there take <#a974ffff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>26%<> <#a974ffff>magic damage<> and get the <#ff9028ff>Threads<>: 15% bigger (easier to hit) for <#ffb900ff>4s<> and <#ef5350ff>slowed<> 20% for <#ffb900ff>2s<>.",
+        "ult": "Opens a great rift under an enemy champion: 4 recasts <#ffb900ff>0.5s<> apart, each sending a yarn ball from both ends along a line through an enemy champion: <#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<> <#a974ffff>magic damage<> to every enemy on it, the first champion each ball meets <#ef5350ff>slowed<> 80% for <#ffb900ff>0.5s<>; the 4th deals 40% more."
+      },
       "tft_alune": {
         "name": "Alune",
         "attack": "Flings her spiral ring like a disc for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<>. <#ff9028ff>Moon Phase<>: each skill she casts grows the moon a phase, up to <#ffb900ff>3<>; her ultimate deals <#ffb900ff>20%<> more a phase, and the moon wanes to new.",
@@ -81,6 +112,11 @@
         "skill1": "Monkey Bomb",
         "skill2": "Run, Powder!",
         "ult": "Hex Crystal Bomb"
+      },
+      "tft_norra": {
+        "skill1": "Memory Surge",
+        "skill2": "Threads of Homecoming",
+        "ult": "Portalpalooza!"
       },
       "tft_alune": {
         "skill1": "Moonfall",
@@ -98,6 +134,13 @@
         "skill2": "적 챔피언이 다가오면 섬광 연막탄을 터뜨려 주변 적에게 <#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> 마법 피해와 <#ffb900ff>1초<> <#ef5350ff>실명<>(기본 공격 불가), 자신은 뒤로 뛴다.",
         "ult": "마법공학 수정이 든 가방을 적 챔피언에게 던진다. <#ffb900ff>0.9초<> 뒤 푸른 폭발: 범위의 적에게 <#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<> 마법 피해와 <#ffb900ff>0.75초<> <#ef5350ff>공중에 띄움<>."
       },
+      "tft_norra": {
+        "name": "노라",
+        "attack": "별빛 탄환 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> 물리 피해. <#ff9028ff>소중한 장신구<>: <#ffb900ff>10초<>마다 스킬 착지점에 장신구 3개(<#ffb900ff>4초<>), 밟은 적에게 날아가 <#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<> 마법 피해와 <#ff9028ff>실타래<>. 스킬이 챔피언 적중 시 대기시간 -20%. <#ff9028ff>미지로의 여정<>: 붙은 적 챔피언에게 <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> 마법 피해, <#ffb900ff>1.5초<> <#ef5350ff>추방<> 뒤 <#ffb900ff>0.75초<> 80% <#ef5350ff>둔화<>.",
+        "skill": "충전 후 기억의 탄환을 날리고 뒤로 물러난다: 떨어진 곳 주변 적에게 <#a974ffff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>28%<> 마법 피해, <#ff9028ff>실타래<>가 있던 챔피언은 최대 체력 2% 추가 후 실타래. 챔피언에게 맞으면 장신구가 가까이 온 적 챔피언에게 날아간다.",
+        "skill2": "대상 양옆에 차원문 두 개를 열고 <#ffb900ff>0.3초<> 뒤 실타래가 지나간다: 범위의 적에게 <#a974ffff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>26%<> 마법 피해와 <#ff9028ff>실타래<>: <#ffb900ff>4초<> 동안 15% 커지고(맞히기 쉬움) <#ffb900ff>2초<> 동안 20% <#ef5350ff>둔화<>.",
+        "ult": "적 챔피언 발밑에 큰 균열을 열고 <#ffb900ff>0.5초<>마다 4번: 양 끝에서 털실 뭉치가 적 챔피언을 지나는 선을 따라 날아가 선 위의 적에게 <#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<> 마법 피해, 각 뭉치에 처음 맞은 챔피언은 <#ffb900ff>0.5초<> 80% <#ef5350ff>둔화<>, 4번째는 +40%."
+      },
       "tft_alune": {
         "name": "알룬",
         "attack": "나선 고리를 원반처럼 던져 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> 물리 피해. <#ff9028ff>달의 위상<>: 스킬을 쓸 때마다 달이 한 단계 차오른다(최대 <#ffb900ff>3<>단계). 궁극기는 단계마다 피해 +<#ffb900ff>20%<>, 쓴 뒤 다시 초승달.",
@@ -111,6 +154,11 @@
         "skill1": "원숭이 폭탄",
         "skill2": "도망쳐, 파우더!",
         "ult": "마법공학 수정 폭탄"
+      },
+      "tft_norra": {
+        "skill1": "밀려드는 기억",
+        "skill2": "귀향의 실타래",
+        "ult": "차원문 대소동!"
       },
       "tft_alune": {
         "skill1": "달빛 낙하",
@@ -128,6 +176,13 @@
         "skill2": "敵チャンピオンが近づくと閃光煙幕弾を叩きつけ、周りの敵に<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>の魔法ダメージと<#ffb900ff>1秒<><#ef5350ff>ブラインド<>（通常攻撃不可）、自分は後ろへ跳ぶ。",
         "ult": "ヘクスクリスタル入りの鞄を敵チャンピオンへ投げる。<#ffb900ff>0.9秒<>後に青く大爆発：範囲の敵に<#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<>の魔法ダメージと<#ffb900ff>0.75秒<><#ef5350ff>ノックアップ<>。"
       },
+      "tft_norra": {
+        "name": "ノラ",
+        "attack": "星の弾で<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>物理ダメージ。<#ff9028ff>愛用のトリンケット<>：<#ffb900ff>10秒<>毎、スキル着弾点に3つ<#ffb900ff>4秒<>、踏んだ敵チャンピオンへ飛び<#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>魔法ダメージと<#ff9028ff>スレッド<>。スキル命中でCD-20%。<#ff9028ff>どこでもない場所へ<>：密着した敵に<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>、<#ffb900ff>1.5秒<><#ef5350ff>追放<>後<#ffb900ff>0.75秒<>80%<#ef5350ff>スロウ<>。",
+        "skill": "溜めてから記憶の弾を放ち、後ろへ跳ぶ：着弾点の周りの敵に<#a974ffff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>28%<>魔法ダメージ、<#ff9028ff>スレッド<>付きのチャンピオンには最大体力2%追加、その後スレッド。チャンピオンに当たるとトリンケットが近づく敵へ飛ぶ。",
+        "skill2": "対象の両脇に2つのポータルを開き、<#ffb900ff>0.3秒<>後にスレッドが走る：範囲の敵に<#a974ffff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>26%<>の魔法ダメージと<#ff9028ff>スレッド<>：<#ffb900ff>4秒<>間15%大きく（当たりやすい）、<#ffb900ff>2秒<>間20%<#ef5350ff>スロウ<>。",
+        "ult": "敵チャンピオンの足元に大きな裂け目を開き、<#ffb900ff>0.5秒<>毎に4回、両端から毛糸玉が敵チャンピオンを通る線を飛ぶ：線上の敵に<#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<>魔法ダメージ、各玉が最初に当たったチャンピオンに<#ffb900ff>0.5秒<>80%<#ef5350ff>スロウ<>、4回目は+40%。"
+      },
       "tft_alune": {
         "name": "アルーン",
         "attack": "螺旋の輪を円盤のように投げ、<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の物理ダメージ。<#ff9028ff>月相<>：スキルを使うたびに月が満ちる（最大<#ffb900ff>3<>段階）。アルティメットは1段階ごとにダメージ+<#ffb900ff>20%<>、使うと新月に戻る。",
@@ -141,6 +196,11 @@
         "skill1": "モンキーボム",
         "skill2": "逃げて、パウダー！",
         "ult": "ヘクスクリスタル爆弾"
+      },
+      "tft_norra": {
+        "skill1": "記憶の波動",
+        "skill2": "帰郷のスレッド",
+        "ult": "ポータルパルーザ！"
       },
       "tft_alune": {
         "skill1": "崩月",

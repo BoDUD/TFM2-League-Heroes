@@ -1,0 +1,203 @@
+[
+  {
+    "id": "p_trinkets",
+    "frames": 4,
+    "distinct": 4,
+    "alpha": [
+      0,
+      255
+    ],
+    "symmetry_mismatches": 0,
+    "visible_widths": [
+      36,
+      36,
+      36,
+      36
+    ]
+  },
+  {
+    "id": "p_burst",
+    "frames": 5,
+    "distinct": 5,
+    "alpha": [
+      0,
+      255
+    ],
+    "symmetry_mismatches": 0,
+    "visible_widths": [
+      4,
+      4,
+      12,
+      16,
+      16
+    ]
+  },
+  {
+    "id": "w_in",
+    "frames": 5,
+    "distinct": 5,
+    "alpha": [
+      0,
+      255
+    ],
+    "symmetry_mismatches": 0,
+    "visible_widths": [
+      18,
+      26,
+      26,
+      26,
+      18
+    ]
+  },
+  {
+    "id": "w_lock",
+    "frames": 4,
+    "distinct": 4,
+    "alpha": [
+      0,
+      255
+    ],
+    "symmetry_mismatches": 0,
+    "visible_widths": [
+      22,
+      22,
+      22,
+      22
+    ]
+  },
+  {
+    "id": "w_out",
+    "frames": 4,
+    "distinct": 4,
+    "alpha": [
+      0,
+      255
+    ],
+    "symmetry_mismatches": 0,
+    "visible_widths": [
+      24,
+      26,
+      26,
+      8
+    ]
+  },
+  {
+    "id": "e_threads",
+    "frames": 6,
+    "distinct": 6,
+    "alpha": [
+      0,
+      255
+    ],
+    "symmetry_mismatches": 0,
+    "visible_widths": [
+      62,
+      62,
+      62,
+      62,
+      62,
+      62
+    ]
+  },
+  {
+    "id": "t_hit",
+    "frames": 3,
+    "distinct": 3,
+    "alpha": [
+      0,
+      255
+    ],
+    "symmetry_mismatches": 0,
+    "visible_widths": [
+      4,
+      12,
+      12
+    ]
+  },
+  {
+    "id": "t_mark",
+    "frames": 6,
+    "distinct": 6,
+    "alpha": [
+      0,
+      255
+    ],
+    "symmetry_mismatches": 0,
+    "visible_widths": [
+      24,
+      24,
+      24,
+      24,
+      24,
+      24
+    ]
+  },
+  {
+    "id": "r_rift",
+    "frames": 6,
+    "distinct": 6,
+    "alpha": [
+      0,
+      255
+    ],
+    "symmetry_mismatches": 0,
+    "visible_widths": [
+      70,
+      70,
+      70,
+      70,
+      70,
+      70
+    ]
+  },
+  {
+    "id": "r_yarn",
+    "frames": 6,
+    "distinct": 6,
+    "alpha": [
+      0,
+      255
+    ],
+    "symmetry_mismatches": 0,
+    "visible_widths": [
+      76,
+      52,
+      28,
+      12,
+      24,
+      28
+    ]
+  },
+  {
+    "id": "r_hit",
+    "frames": 4,
+    "distinct": 4,
+    "alpha": [
+      0,
+      255
+    ],
+    "symmetry_mismatches": 0,
+    "visible_widths": [
+      6,
+      12,
+      14,
+      14
+    ]
+  },
+  {
+    "id": "r_slow",
+    "frames": 4,
+    "distinct": 4,
+    "alpha": [
+      0,
+      255
+    ],
+    "symmetry_mismatches": 0,
+    "visible_widths": [
+      20,
+      20,
+      20,
+      20
+    ]
+  }
+]

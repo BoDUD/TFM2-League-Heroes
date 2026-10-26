@@ -2,7 +2,9 @@
 
     python tools/kit/setup_alune.py [--check]
 
-Writes (in tft/, the Teamfight Tactics pack, mod_id tft): mod.mod_info (VERSION, Alune named), text/champion.i18n
+Writes (in tft/, the Teamfight Tactics pack, mod_id tft): mod.mod_info (VERSION, the pack's description:
+setup_powder.DESC with every hero of HEROES, contains_code / mod_type native for tft.dll, the keys sorted,
+setup_norra.py's way), text/champion.i18n
 (tft_alune in every language, description + skill_name), sound/sfx/tft_alune_*.sound_info, mod.override_info (the text and
 champion_view merges and two entries a sound: its event -> our .sound_info, its clip -> our audio, the custom-sound
 rule), style/champion_view (face, centre, banpick_center). Only her keys change in the shared files. JSON: indent 2,
@@ -24,24 +26,14 @@ import sys
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 from build_alune import P, lp, MOD_ID, ID  # noqa: E402
+import setup_powder as pack  # noqa: E402  the tft pack's name and description (shared with setup_norra.py)
 
 REPO = os.path.normpath(os.path.join(HERE, "..", ".."))
 MOD = os.path.join(REPO, MOD_ID)
 CLIP = f"{ID}_sfx_"
-VERSION = "0.2.0"
-NAME = "Teamfight Tactics Heroes"
-DESC = ("Teamfight Tactics units that League of Legends does not have, for Teamfight Manager 2: {heroes}. Kits are our "
-        "own designs, drawn from TFT and Arcane. Sharper frames when the League of Legends Heroes pack (league) is also "
-        "enabled. Non-commercial fan project; Teamfight Tactics and Arcane (c) Riot Games.")
-HEROES = ["Powder", "Alune"]
-ADi = "<i#asset/base/ui/banpick/champion_stat_icon:ad_0>"
-APi = "<i#asset/base/ui/banpick/champion_stat_icon:ap_0>"
-TOOLTIP_MAX = {"zh-hans": 130, "zh-hant": 130, "en": 334, "ja": 147, "ko": 185}
-M = "<#a974ffff>"      # magic damage / AP
-O = "<#ff9028ff>"      # names, physical damage
-A = "<#ffb900ff>"      # durations, counts
-R = "<#ef5350ff>"      # crowd control
-E = "<>"
+VERSION = "0.4.0"      # Powder 0.1, Norra 0.2, the pack's own code (tft.dll) 0.3, Alune 0.4: the next free one at merge
+ADi, APi, TOOLTIP_MAX = pack.ADi, pack.APi, pack.TOOLTIP_MAX
+M, O, A, R, E = pack.M, pack.O, pack.A, pack.R, pack.E
 # champion_view (game px from her soles' point, up negative): the face point between her eyes (the design's eye rows 15-16
 # of 90 at PPU 2: 37 over the ground, 2 ahead of her standing column 34); the centre in her body (she sits high on the
 # crescent: league_aurora / league_nunu's -18); the ban/pick card at 85 % (league.dll UI_SIZES): her horns a game pixel
@@ -248,10 +240,10 @@ def main():
     mi = load(os.path.join(MOD, "mod.mod_info"))
     if tuple(int(x) for x in mi["version"].split(".")) < tuple(int(x) for x in VERSION.split(".")):
         mi["version"] = VERSION
-    mi["description"] = DESC.format(heroes=" and ".join([", ".join(HEROES[:-1]), HEROES[-1]]) if len(HEROES) > 1
-                                    else HEROES[0])
+    mi["description"] = pack.DESC.format(heroes=", ".join(pack.HEROES))
+    mi["contains_code"], mi["mod_type"] = True, "native"     # tft.dll (addons/tft): her rules the data cannot play
     mi["last_updated"] = "2026-10-26"
-    save(os.path.join(MOD, "mod.mod_info"), mi)
+    save(os.path.join(MOD, "mod.mod_info"), dict(sorted(mi.items())))
     print(len(SOUNDS), "sounds,", len(clips), "clips; texts, champion_view and mod_info written")
 
 
