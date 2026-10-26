@@ -13,6 +13,8 @@
 | 高清帧 | PPU 1.75 |
 | 附加包 | [斯卡纳附加包](#附加包)（`league_skarner`） |
 
+![斯卡纳演示](../preview/league_skarner_showcase.gif)
+
 其他预览：[skills](../preview/league_skarner_skills.gif)、[逐帧预览](../preview/league_skarner_frames.png)、[特效表](../preview/league_skarner_effects.png)
 
 ## 现在的技能

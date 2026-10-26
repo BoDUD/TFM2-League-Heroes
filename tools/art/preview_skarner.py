@@ -1,10 +1,15 @@
 #!/usr/bin/env python3
 """Preview images for Skarner, built from the exported game sprites (so they also prove the sheets load).
 
-    python tools/art/preview_skarner.py [--out docs/preview] [--only frames|effects|skills]
+    python tools/art/preview_skarner.py [--out docs/preview] [--only frames|effects|showcase|skills]
 
   league_skarner_frames.png    every animation's dense frames (hd_, PPU 1.75, as league.dll shows them)
   league_skarner_effects.png   every effect animation, 3x
+  league_skarner_showcase.gif  a scripted fight with Darius, timed like the kit, 3x: Ixtal's Impact from afar (the
+                               charge, the carry, the slam, Seismic Bastion) gives the boulder at once (E -> Q); a
+                               splashing blow; Impale with the boulder up throws Upheaval first (R -> Upheaval) and
+                               sets Darius quaking at once (R -> Quaking); blows, Darius swings back and runs for it;
+                               the throw brought Ixtal's Impact back within 4 s (Q -> E): it catches him, he falls.
   league_skarner_skills.gif    each skill and combo alone with its effects against Darius, timed like the kit
                                (tools/kit/build_skarner.py, 60 ticks a second), captioned in Chinese, 4x: the scuttle;
                                stinger blows; Shattered Earth (the boulder dug up and held over his back, three blows
@@ -91,18 +96,17 @@ class Skarner(Clip):
         self.over.append(Arc(frames_of(sheet or self.small, tag), t0, x0, y, x1, t1))
 
 
-def scene(out, steps, gap, W=260, H=150, z=4, tail=900):
+def scene(out, steps, gap, W=260, H=150, z=4, tail=900, x0=70):
     """One scene (a list of steps) written to `out`."""
     fx = {k: load(v) for k, v in FX.items()}
     small, big = fx["league_skarner_fx"], fx["league_skarner_big"]
     gy = H - 30
-    x0 = 70
     far = x0 + gap
     d = Foe(load(DARIUS), far, gy)
     me = Me(x0, gy)
     c = Skarner(load(CHAMP), d, me, small, big)
     c.z = z
-    st = {"qk": 0, "quaking": -1.0, "rock": None}
+    st = {"qk": 0, "quaking": -1.0, "rock": None, "thrown": 0}
     c.wait(300)
 
     def quake_hit(when, full=False):
@@ -170,9 +174,9 @@ def scene(out, steps, gap, W=260, H=150, z=4, tail=900):
         c.a("run", t1 - t0, loop=True)
         me.moves.append((t0, t1, xa, x1))
 
-    def impact():
-        """Ixtal's Impact: the charge while he runs in, the grab and the carry from the contact, the slam and stun;
-        Seismic Bastion's bounce, quake and shield at the carry's end."""
+    def impact(kill=False):
+        """Ixtal's Impact: the charge while he runs in, the grab and the carry from the contact, the slam and stun (or
+        Darius falling: kill); Seismic Bastion's bounce, quake and shield at the carry's end."""
         t = c.t
         xa = me.pos(t)[0]
         xc = d.pos(t)[0] - REACH
@@ -186,8 +190,11 @@ def scene(out, steps, gap, W=260, H=150, z=4, tail=900):
         d.slides.append((reach_t, end, carry))
         me.moves.append((reach_t, end, xc, xc + carry))
         c.on("e_slam", end)
-        d.flinches.append(end)
-        c.on_foe("stun", end, until=end + tick(P["e_stun"]))
+        if kill:
+            d.death = end
+        else:
+            d.flinches.append(end)
+            c.on_foe("stun", end, until=end + tick(P["e_stun"]))
         t = c.t
         c.a("w", tick(P["w_dur"]))
         q = t + tick(P["w_rel"] - 1)
@@ -210,6 +217,7 @@ def scene(out, steps, gap, W=260, H=150, z=4, tail=900):
             c.on("q_hit", land)
             d.flinches.append(land)
             quake_hit(land)
+            st["thrown"] = land
         t = c.t
         c.a("ult", tick(P["r_dur"]))
         rel = t + tick(P["r_rel"] - 1)
@@ -227,6 +235,7 @@ def scene(out, steps, gap, W=260, H=150, z=4, tail=900):
             d.slides.append((hit, hit + pull / px_tick(P["r_grab"]) * (P["r_drag"] / 2.0), -pull))
         quake_hit(hit, full=True)
         c.on_him("r_haste", hit, until=hit + tick(P["r_ms_t"]), under=True)
+        return held
 
     for step in steps:
         if step == "walk_in":
@@ -258,6 +267,21 @@ def scene(out, steps, gap, W=260, H=150, z=4, tail=900):
             c.wait(200)
             impale()
             c.wait(800)
+        elif step == "fight":               # the showcase: every combo in one fight
+            impact()                        # the engage from afar: charge, carry, slam, bastion
+            pickup()                        # E -> Q: the boulder at once
+            blow(1)
+            free = impale()                 # R with the boulder up: Upheaval first; Quaking full
+            blow()
+            d.attacks.append(max(c.t, free) + 60)       # Darius free again: he swings back
+            blow()
+            t0 = c.t + 150                  # and runs for it
+            d.runs.append((t0, t0 + 750))
+            d.slides.append((t0, t0 + 750, 42))
+            # the throw on a champion brought Ixtal's Impact back within e_cut ticks: it catches him
+            c.wait(max(t0 + 750, st["thrown"] + tick(P["e_cut"])) - c.t)
+            impact(kill=True)
+            print("fight: E again", round(c.t / 1000, 2), "s; ready from", round((st["thrown"] + tick(P["e_cut"])) / 1000, 2))
         elif step == "quake":               # three blows: the third sets him quaking
             for _ in range(3):
                 blow()
@@ -265,6 +289,11 @@ def scene(out, steps, gap, W=260, H=150, z=4, tail=900):
     rock_spent(c.t + tail)
     c.wait(tail)
     return c.render(out, W, H, c.t, z)
+
+
+def showcase(out):
+    """The scripted fight (every combo in play), 3x."""
+    return scene(out, ["fight"], 90, W=320, H=160, z=3, tail=1500, x0=30)
 
 
 # each skill alone (the user, 2026-10-24: 「带技能的gif图呢？」): (caption, steps, Darius's distance, canvas height)
@@ -311,7 +340,7 @@ def skills(out, z=4):
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--out", default=os.path.join(ROOT, "docs", "preview"))
-    ap.add_argument("--only", choices=["frames", "effects", "skills"])
+    ap.add_argument("--only", choices=["frames", "effects", "showcase", "skills"])
     args = ap.parse_args()
     os.makedirs(T.long_path(args.out), exist_ok=True)
     if args.only in (None, "frames"):
@@ -323,6 +352,8 @@ def main():
             sp = load(path)
             rows += [(sp, t["name"], f"{name[15:]}:{t['name']}") for t in sp.tags]
         print("effects", fx_contact(rows, os.path.join(args.out, "league_skarner_effects.png")))
+    if args.only in (None, "showcase"):
+        print("showcase frames/seconds", showcase(os.path.join(args.out, "league_skarner_showcase.gif")))
     if args.only in (None, "skills"):
         print("skills frames/seconds", skills(os.path.join(args.out, "league_skarner_skills.gif")))
 
