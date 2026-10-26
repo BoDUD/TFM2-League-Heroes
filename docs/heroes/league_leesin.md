@@ -10,7 +10,7 @@
 | 所属的包 | 主包（mod_id `league`） |
 | 分路 | 打野 |
 | 分类 / 标签 | 刺客（Assassin） · AD / Melee / CC |
-| 高清帧 | PPU 1.5（画成 95%） |
+| 高清帧 | PPU 1.5 |
 | 附加包 | [盲僧 W 位移附加包](#附加包)（`league_leesin_hop`） |
 
 ![李青演示](../preview/league_leesin_showcase.gif)

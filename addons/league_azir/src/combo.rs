@@ -11,6 +11,12 @@
 //!    选生命比例最低的，按 E 冲过去；数据随即打开 `r_win`，下一刻第 1 条接 R。
 //! 4. **R HELD**：AI 自己想按 R，以上都不成立：不放（改成普攻它的目标，打不到就走过去）。
 //!
+//! 0.1.3（用户 2026-10-26：「沙皇也不会那套把敌人推回来的连招 从不R人回来 没盲僧丝滑」）：日志里第 3 条按了 E，E 也放了，
+//! 反推窗口却没开——主包的 E 只要他 `e_self` 以内有**任何一个**敌方英雄就是后跳（不冲、不开 `r_win`），本钩子原来只看目标
+//! 离他够不够远。现在：他 `e_self` + `HOP_MARGIN` 以内有敌方英雄就不按 E（第 2 条的贴脸正推照旧）；目标先挑 E 射程里的
+//! （不用走过去，路上不会又有人贴上来）；推回去有人接也算我方的塔（`ALLY_R` 内的队友或我方防御塔）。按了 E 之后记一行
+//! 结果：`E LANDED`（窗口开了）或 `E MISSED`（`E_WATCH` tick 内没开）。
+//!
 //! 回城时（游戏 0.6.5 的 AI 自己决定回城）、被控住或正在放技能时不管。
 
 use mod_api_stable::*;
@@ -37,6 +43,10 @@ pub const E_SELF: f64 = 25_000.0;
 pub const R_RANGE: f64 = 40_000.0;
 /// 两个单位的身体（射程算到身体边上，大约）。
 pub const BODIES: f64 = 12_000.0;
+/// E 后跳的判断（主包：他 `e_self` 以内有敌方英雄）再留这么多余量：按下到出手之间人还会走。
+pub const HOP_MARGIN: f64 = 5_000.0;
+/// 按了 E 以后这么多 tick 内反推窗口没开，就记一行 E MISSED。
+pub const E_WATCH: usize = 60;
 
 pub type Pt = (f64, f64);
 
@@ -48,6 +58,8 @@ pub struct Me {
     pub e_ready: bool,
     pub soldier: bool,
     pub r_win: bool,
+    /// a tower of his within `ALLY_R` (the kick back lands under it)
+    pub own_tower: bool,
 }
 
 #[derive(Clone, Copy, Debug, PartialEq)]
@@ -87,16 +99,20 @@ pub fn call(me: &Me, foes: &[Unit], allies: &[Unit], towers: &[Pt], ai_wants_r: 
             }
         }
         // 3. dash onto one with a friend behind him: E now, R next
-        if me.e_ready && me.soldier && me.hp >= INSEC_HP && allies.iter().any(|a| dist(me.at, a.at) <= ALLY_R) {
+        let backup = me.own_tower || allies.iter().any(|a| dist(me.at, a.at) <= ALLY_R);
+        // E hops back (no dash, no window) with ANY enemy champion within e_self of him
+        let hop = foes.iter().any(|u| dist(me.at, u.at) <= E_SELF + HOP_MARGIN);
+        if me.e_ready && me.soldier && me.hp >= INSEC_HP && backup && !hop {
             let t = foes
                 .iter()
-                .filter(|u| {
-                    let d = dist(me.at, u.at);
-                    d > E_SELF && d <= E_RANGE + BODIES
-                })
+                .filter(|u| dist(me.at, u.at) <= E_RANGE + BODIES)
                 .filter(|u| !towers.iter().any(|&w| dist(w, u.at) <= TOWER_REACH))
                 .filter(|u| foes.iter().filter(|v| dist(u.at, v.at) <= CROWD_R).count() <= 2)
-                .min_by(|a, b| a.hp.total_cmp(&b.hp));
+                // in E's reach first (no walk on the way, nobody steps up to him meanwhile), then the weakest
+                .min_by(|a, b| {
+                    let far = |u: &Unit| dist(me.at, u.at) > E_RANGE;
+                    far(a).cmp(&far(b)).then(a.hp.total_cmp(&b.hp))
+                });
             if let Some(t) = t {
                 return Some(Call::E(t.id));
             }
@@ -131,6 +147,8 @@ fn pt(e: &StableEntity<'_, '_>) -> Pt {
 #[derive(Clone, Default)]
 pub struct Shurima {
     recalling: bool,
+    /// the E INSEC pressed: (tick, target), until the window opens or `E_WATCH` ticks pass
+    e_pressed: Option<(usize, usize)>,
 }
 
 impl StablePlayerAi for Shurima {
@@ -166,14 +184,27 @@ impl StablePlayerAi for Shurima {
                 return None;
             }
             let (id, team) = (e.id(), e.team());
-            let me = Me {
+            let mut me = Me {
                 at: pt(&e),
                 hp: share(e.hp()),
                 r_ready: ready(&e, SkillSlotV1::Ult) && !has(&e, &az("r_cd")),
                 e_ready: ready(&e, SkillSlotV1::Skill2) && !has(&e, &az("e_cd")),
                 soldier: ["ba", "bb", "bc"].iter().any(|s| has(&e, &az(s))),
                 r_win: has(&e, &az("r_win")),
+                own_tower: false,
             };
+            let tick = sim.tick();
+            if let Some((t0, tg)) = self.e_pressed {
+                if me.r_win || tick >= t0 + E_WATCH || tick < t0 {
+                    let what = if me.r_win { "LANDED: the window is open, the R next" } else {
+                        "MISSED: no window (hopped back, or never cast)"
+                    };
+                    if let Some(n) = counted(if me.r_win { "e landed" } else { "e missed" }) {
+                        wlog(format!("{} E {what} - on #{tg}, {} ticks after the press #{n}", head(&sim, id), tick.saturating_sub(t0)));
+                    }
+                    self.e_pressed = None;
+                }
+            }
             let (mut foes, mut allies, mut towers) = (Vec::new(), Vec::new(), Vec::new());
             for i in 0..sim.entity_count() {
                 let Some(u) = sim.entity_at(i) else { continue };
@@ -183,6 +214,8 @@ impl StablePlayerAi for Shurima {
                 if u.is_tower() {
                     if u.team() != team {
                         towers.push(pt(&u));
+                    } else if dist(me.at, pt(&u)) <= ALLY_R {
+                        me.own_tower = true;
                     }
                     continue;
                 }
@@ -232,6 +265,11 @@ impl StablePlayerAi for Shurima {
         if !ctx.is_valid_input(&input) {
             return None;
         }
+        if let Call::E(t) = c {
+            if self.e_pressed.is_none_or(|(_, tg)| tg != t) {
+                self.e_pressed = Some((ctx.tick(), t));
+            }
+        }
         if let Some(n) = counted(kind) {
             wlog(format!("{line} {why} #{n}"));
         }
@@ -244,7 +282,7 @@ mod tests {
     use super::*;
 
     fn me(hp: f64) -> Me {
-        Me { at: (0.0, 0.0), hp, r_ready: true, e_ready: true, soldier: true, r_win: false }
+        Me { at: (0.0, 0.0), hp, r_ready: true, e_ready: true, soldier: true, r_win: false, own_tower: false }
     }
 
     fn u(id: usize, x: f64, hp: f64) -> Unit {
@@ -278,6 +316,32 @@ mod tests {
         // no soldier standing: E cannot dash
         let m = Me { soldier: false, ..me(0.9) };
         assert_eq!(call(&m, &foes, &allies, &[], None), None);
+    }
+
+    #[test]
+    fn no_e_with_anyone_close_enough_to_make_it_a_hop() {
+        // 2026-10-26: the target far enough, but another enemy within e_self - the data hops back, no window
+        let allies = [u(10, -30_000.0, 1.0)];
+        let foes = [u(1, 45_000.0, 0.4), u(2, 22_000.0, 0.9)];
+        assert_ne!(call(&me(0.9), &foes, &allies, &[], None), Some(Call::E(1)));
+        // just outside the margin: the dash is fine
+        let foes = [u(1, 45_000.0, 0.4), u(2, E_SELF + HOP_MARGIN + 1_000.0, 0.9)];
+        assert_eq!(call(&me(0.9), &foes, &allies, &[], None), Some(Call::E(1)));
+    }
+
+    #[test]
+    fn a_target_in_reach_comes_before_a_weaker_one_further_off() {
+        let allies = [u(10, -30_000.0, 1.0)];
+        let foes = [u(1, 50_000.0, 0.8), u(2, 62_000.0, 0.3)];
+        assert_eq!(call(&me(0.9), &foes, &allies, &[], None), Some(Call::E(1)));
+    }
+
+    #[test]
+    fn his_own_tower_is_backup_enough() {
+        let foes = [u(1, 45_000.0, 0.6)];
+        assert_eq!(call(&me(0.9), &foes, &[], &[], None), None);
+        let m = Me { own_tower: true, ..me(0.9) };
+        assert_eq!(call(&m, &foes, &[], &[], None), Some(Call::E(1)));
     }
 
     #[test]
