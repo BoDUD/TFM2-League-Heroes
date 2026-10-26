@@ -17,6 +17,8 @@
 //!   （`league_taliyah_riding`）时不挡她：她站在墙顶上；跳下来那一 tick 她还在墙上，就推到近的一侧。
 //!
 //! 数字从英雄数据的 `passive.params` 来（`make_override.py` 从参数表 P 写进去）。状态都在被动自己身上（每局一份）。
+//! - **脱战骑石头**（0.2.0，[`view`]）：没在打架时把移动动画 `run`（用脚跑）换成 `surf`（冲浪），打起来换回来。
+//!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_taliyah.log`，每次启动游戏重写。
 
 use std::collections::HashMap;
@@ -27,9 +29,11 @@ use std::sync::{LazyLock, Mutex};
 
 use mod_api_stable::*;
 
+pub mod view;
+
 const ID: &str = "league_taliyah";
 /// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是 league_addons 的。
-const VERSION: &str = "0.1.0";
+const VERSION: &str = "0.2.0";
 
 /// 单位半径读不到时用的值。
 pub const BODY: u64 = 6000;
@@ -475,7 +479,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v{VERSION} (Taliyah: Weaver's Wall as real terrain) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v{VERSION} (Taliyah: Weaver's Wall as real terrain, the surf out of fights) loaded: game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
         v.patch,
@@ -483,6 +487,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
         LOG_PATH.display()
     ));
     module.add_native_passive(format!("{ID}:wall"), Weave::default());
+    view::install_once();
     host.log(LogLevel::Info, "league_taliyah loaded (Weaver's Wall as real terrain).");
 }
 
