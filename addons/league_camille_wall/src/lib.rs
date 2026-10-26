@@ -1410,7 +1410,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v4.3 (wall + map edge + tower Hookshot, R arena kept) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v4.4 (wall + map edge + tower Hookshot, R arena kept on its picture) loaded: game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
         v.patch,

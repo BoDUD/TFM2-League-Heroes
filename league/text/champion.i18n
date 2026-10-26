@@ -951,7 +951,7 @@
         "attack": "<#ff9028ff>肉食者<>：攻击击杀单位时回复<#66bb6aff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>15%<>生命。<#ff9028ff>恐惧之刺<>：每<#ffb900ff>6秒<>接下来3次攻击射出一排尖刺，直线上的敌人受<#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>魔法伤害并<#ef5350ff>减速35%<>，英雄另受2%最大生命真实伤害。",
         "skill": "地面破裂，<#ffb900ff>0.6秒<>后尖刺冲出，造成<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>魔法伤害，<#ef5350ff>击飞0.75秒<>并<#ef5350ff>减速60%<>。",
         "skill2": "向前方锥形区域尖叫，造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>魔法伤害并<#ef5350ff>沉默1.8秒<>。",
-        "ult": "吞噬受伤的敌方英雄，造成<#ff9028ff>300<> + 自身5%最大生命的真实伤害和<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>无视魔抗的魔法伤害；吃掉则叠一层：最大生命+70、体型变大（不封顶，死亡清空）。"
+        "ult": "吞噬受伤的敌方英雄，造成<#ff9028ff>300<> + 自身5%最大生命的真实伤害和<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>无视魔抗的魔法伤害；吃掉则叠一层：最大生命+70、体型变大（最多 2 倍，死亡清空）。"
       },
       "league_karthus": {
         "name": "卡尔萨斯",
@@ -3033,7 +3033,7 @@
         "attack": "<#ff9028ff>肉食者<>：攻擊擊殺單位時回復<#66bb6aff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>15%<>生命。<#ff9028ff>恐懼尖刺<>：每<#ffb900ff>6秒<>接下來3次攻擊射出一排尖刺，直線上的敵人受<#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>魔法傷害並<#ef5350ff>緩速35%<>，英雄另受2%最大生命真實傷害。",
         "skill": "地面破裂，<#ffb900ff>0.6秒<>後尖刺衝出，造成<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>魔法傷害，<#ef5350ff>擊飛0.75秒<>並<#ef5350ff>緩速60%<>。",
         "skill2": "向前方錐形區域尖嘯，造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>魔法傷害並<#ef5350ff>沉默1.8秒<>。",
-        "ult": "吞噬受傷的敵方英雄，造成<#ff9028ff>300<> + 自身5%最大生命的真實傷害和<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>無視魔抗的魔法傷害；吃掉則疊一層：最大生命+70、體型變大（不封頂，死亡清空）。"
+        "ult": "吞噬受傷的敵方英雄，造成<#ff9028ff>300<> + 自身5%最大生命的真實傷害和<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>無視魔抗的魔法傷害；吃掉則疊一層：最大生命+70、體型變大（最多 2 倍，死亡清空）。"
       },
       "league_karthus": {
         "name": "卡爾瑟斯",
@@ -5115,7 +5115,7 @@
         "attack": "<#ff9028ff>Carnivore<>: a unit his attack kills heals him <#66bb6aff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>15%<>. <#ff9028ff>Vorpal Spikes<>: every <#ffb900ff>6s<> his next 3 attacks fire a line of spikes: <#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<> <#a974ffff>magic damage<> and a <#ef5350ff>35% slow<> to enemies in it, champions also taking 2% max health true damage.",
         "skill": "Ruptures the ground: after <#ffb900ff>0.6s<> spikes burst out for <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> magic damage, <#ef5350ff>knocking up 0.75s<> and <#ef5350ff>slowing 60%<>.",
         "skill2": "Screams in a cone ahead: <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> magic damage and <#ef5350ff>silence 1.8s<>.",
-        "ult": "Devours a wounded enemy champion: <#ff9028ff>300<> + 5% of his max health as true damage and <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> magic damage through all magic resist. A kill is a stack: +70 max health and a bigger body (no cap; lost on death)."
+        "ult": "Devours a wounded enemy champion: <#ff9028ff>300<> + 5% of his max health as true damage and <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> magic damage through all magic resist. A kill is a stack: +70 max health and a bigger body (up to 2x; lost on death)."
       },
       "league_karthus": {
         "name": "Karthus",
@@ -7197,7 +7197,7 @@
         "attack": "<#ff9028ff>육식<>: 기본 공격으로 처치하면 <#66bb6aff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>15%<> 회복. <#ff9028ff>날카로운 가시<>: <#ffb900ff>6초<>마다 다음 3회 공격이 가시를 일직선으로 쏘아 <#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<> 마법 피해와 <#ef5350ff>35% 둔화<>, 챔피언은 최대 체력 2% 고정 피해 추가.",
         "skill": "땅을 갈라 <#ffb900ff>0.6초<> 뒤 가시가 솟아 <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> 마법 피해, <#ef5350ff>0.75초 에어본<>, <#ef5350ff>60% 둔화<>.",
         "skill2": "전방 원뿔에 울부짖어 <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> 마법 피해와 <#ef5350ff>1.8초 침묵<>.",
-        "ult": "부상당한 적 챔피언을 삼켜 <#ff9028ff>300<> + 5% (자신의 최대 체력) 고정 피해와 <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> 마법 피해(마법 저항 무시). 처치하면 중첩: 최대 체력 +70, 몸집 증가(제한 없음, 사망 시 초기화)."
+        "ult": "부상당한 적 챔피언을 삼켜 <#ff9028ff>300<> + 5% (자신의 최대 체력) 고정 피해와 <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> 마법 피해(마법 저항 무시). 처치하면 중첩: 최대 체력 +70, 몸집 증가(최대 2배, 사망 시 초기화)."
       },
       "league_karthus": {
         "name": "카서스",
@@ -9279,7 +9279,7 @@
         "attack": "<#ff9028ff>暴食<>：通常攻撃でユニットを倒すと<#66bb6aff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>15%<>回復。<#ff9028ff>ヴォーパルスパイク<>：<#ffb900ff>6秒<>ごとに次の3回の攻撃が棘を直線に放ち<#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>の魔法ダメージと<#ef5350ff>35%スロウ<>、チャンピオンは最大体力の2%確定ダメージ追加。",
         "skill": "地面を割り<#ffb900ff>0.6秒<>後に棘が突き出て<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>の魔法ダメージ、<#ef5350ff>0.75秒打ち上げ<>と<#ef5350ff>60%スロウ<>。",
         "skill2": "前方の扇状範囲に叫び<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>の魔法ダメージと<#ef5350ff>1.8秒サイレンス<>。",
-        "ult": "傷ついた敵チャンピオンを捕食し<#ff9028ff>300<> + 5%（自身の最大体力）の確定ダメージと<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>の魔法ダメージ（魔法防御無視）。倒すとスタック：最大体力+70、体が大きくなる（上限なし、死亡で消える）。"
+        "ult": "傷ついた敵チャンピオンを捕食し<#ff9028ff>300<> + 5%（自身の最大体力）の確定ダメージと<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>の魔法ダメージ（魔法防御無視）。倒すとスタック：最大体力+70、体が大きくなる（最大2倍、死亡で消える）。"
       },
       "league_karthus": {
         "name": "カーサス",

@@ -1590,7 +1590,7 @@
                       "name": "league_camille_r_area",
                       "shape": {
                         "Circle": {
-                          "radius": 30000
+                          "radius": 36000
                         }
                       },
                       "tick": 240,

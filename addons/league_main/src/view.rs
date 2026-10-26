@@ -599,6 +599,11 @@ mod tests {
         assert_eq!(soles(100.0, 50.0, 1.2), (100.0, 50.0 + 11.5 * 1.2));
         assert_eq!(hd::grown(0.05, 0), 1.0);
         assert!((hd::grown(0.05, 6) - 1.3).abs() < 1e-6);
+        // Cho'Gath (2026-10-26): 30 % a bite, twice his size at most
+        assert!((hd::grown(0.30, 1) - 1.3).abs() < 1e-6);
+        assert!((hd::grown(0.30, 3) - 1.9).abs() < 1e-6);
+        assert_eq!(hd::grown(0.30, 4), hd::GROW_CAP);
+        assert_eq!(hd::grown(0.30, 12), hd::GROW_CAP);
         assert!(hd::GROWTH.iter().any(|g| g.0 == "league_chogath" && g.1 == "league_chogath_r_stack"));
     }
 

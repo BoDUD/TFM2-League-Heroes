@@ -11,6 +11,12 @@
 //! 场地里站着别的敌人时目标走出去也不拉（经典模拟：一次 140 tick 的场地里目标只被拉了 4 下，走到离中心 35000）；
 //! 本包认场地的标记（`league_camille_r_mark`），目标离中心超过 `HOLD_R` 就把他放回 `HOLD_R` 处。
 //!
+//! 0.4.5（用户 2026-10-26 打了一局：「青钢影的大招还是没修好吧」——场地还是太短、敌人还能走出去）：场地的画面
+//! （`league_camille_big` 的 `r_zone`）是横 72、纵 50 游戏像素的椭圆（1 像素 1000），判断却是半径 30000 的圆：她站在
+//! 画面左右两边（30000–36000）场地就结束了，目标被放回的 27000 在画面上下两边（25000）的外面。现在都照画面的椭圆
+//! （`SEMI_X` x `SEMI_Y`）：主包的 `r_area` 半径改成 `SEMI_X`（她在画面里场地就不结束），本包让她待在椭圆的 `KEEP_E`
+//! 以内、把目标放回椭圆的 `HOLD_E` 处（[`reach`]：到中心的距离按椭圆折算，1 = 画面的边）。
+//!
 //! 判断在 [`call`]、[`clamp`]（纯计算、单元测试）。
 
 use mod_api_stable::*;
@@ -21,10 +27,13 @@ use super::{head, wlog, ID};
 
 /// 排在 league_ult_press（100）之后。
 pub const PRIORITY: i32 = 120;
-/// 主包场地的半径（`league_camille_r_area`）。
-pub const ARENA_R: f64 = 30_000.0;
-/// 她的走路目的地离中心超过这么远就算要走出去（留出身体和一步的余量）。
-pub const KEEP: f64 = 22_000.0;
+/// 场地画面的椭圆（`r_zone` 不透明的部分：横 72、纵 50 游戏像素，测试核对图）：横、纵半径。
+pub const SEMI_X: f64 = 36_000.0;
+pub const SEMI_Y: f64 = 25_000.0;
+/// 主包场地的半径（`league_camille_r_area`，她在里面场地才不结束）：画面最宽处。
+pub const ARENA_R: f64 = SEMI_X;
+/// 她的走路目的地在椭圆的这么多以外就算要走出去（留出身体和一步的余量）。
+pub const KEEP_E: f64 = 0.7;
 
 const R_ON: &str = "league_camille_r_on";
 const R_MARK: &str = "league_camille_r_mark";
@@ -52,6 +61,11 @@ pub fn dist(a: Pt, b: Pt) -> f64 {
     ((a.0 - b.0).powi(2) + (a.1 - b.1).powi(2)).sqrt()
 }
 
+/// How far `p` is from the centre on the arena's picture: 1 on the ellipse's edge, 0.5 halfway, past 1 outside.
+pub fn reach(centre: Pt, p: Pt) -> f64 {
+    (((p.0 - centre.0) / SEMI_X).powi(2) + ((p.1 - centre.1) / SEMI_Y).powi(2)).sqrt()
+}
+
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub enum Want {
     /// a walk to this point
@@ -77,13 +91,13 @@ pub enum Call {
 pub fn call(me: Pt, centre: Pt, want: Want, foes: &[Foe]) -> Option<Call> {
     let leaving = match want {
         Want::Return => true,
-        Want::Move(to) => dist(to, centre) > KEEP && dist(to, centre) > dist(me, centre),
+        Want::Move(to) => reach(centre, to) > KEEP_E && reach(centre, to) > reach(centre, me),
         Want::Other => false,
     };
     if !leaving {
         return None;
     }
-    let inside = |f: &&Foe| dist(f.at, centre) <= ARENA_R;
+    let inside = |f: &&Foe| reach(centre, f.at) <= 1.0;
     let target = foes
         .iter()
         .filter(|f| f.marked)
@@ -92,13 +106,14 @@ pub fn call(me: Pt, centre: Pt, want: Want, foes: &[Foe]) -> Option<Call> {
     Some(target.map_or(Call::Centre, |f| Call::Attack(f.id)))
 }
 
-/// The marked target is kept this far from the centre at most (inside the arena's picture, a body short of its edge).
-pub const HOLD_R: f64 = 27_000.0;
+/// The marked target is kept this far on the picture at most ([`reach`]): inside the ellipse, a body short of its edge
+/// (30600 across, 21250 up and down).
+pub const HOLD_E: f64 = 0.85;
 
-/// Where the target goes back to when it is past `r` from the centre: the point at `r` on the line to it.
-pub fn clamp(centre: Pt, at: Pt, r: f64) -> Option<Pt> {
-    let d = dist(centre, at);
-    (d > r && d > 0.0).then(|| (centre.0 + (at.0 - centre.0) * r / d, centre.1 + (at.1 - centre.1) * r / d))
+/// Where the target goes back to when it is past `e` on the picture ([`reach`]): the point at `e` on the line to it.
+pub fn clamp(centre: Pt, at: Pt, e: f64) -> Option<Pt> {
+    let r = reach(centre, at);
+    (r > e && r > 0.0).then(|| (centre.0 + (at.0 - centre.0) * e / r, centre.1 + (at.1 - centre.1) * e / r))
 }
 
 /// `to` or, when that is in a wall or past the map's edge (the arena runs into terrain), the first open point on the way
@@ -115,7 +130,7 @@ pub fn open_ground(centre: Pt, to: Pt, solid: impl Fn(Pt) -> bool) -> Option<Pt>
 }
 
 /// Every tick while the arena is up (Camille's passive): the arena's centre is where she stood the first tick `r_on` was
-/// on her (she lands on it), and the champion carrying the arena's mark is put back inside `HOLD_R` whenever it is past it -
+/// on her (she lands on it), and the champion carrying the arena's mark is put back to `HOLD_E` whenever it is past it -
 /// the main pack's pull asks "is an enemy champion inside" (any one), so with two of them inside the target walked out.
 pub fn hold(sim: &mut StableSim<'_>, me: usize, centre: &mut Slot) {
     let Some(e) = sim.get_entity(me) else { return };
@@ -133,7 +148,7 @@ pub fn hold(sim: &mut StableSim<'_>, me: usize, centre: &mut Slot) {
             continue;
         }
         let (ux, uy) = u.pos();
-        if let Some(to) = clamp(c, (ux as f64, uy as f64), HOLD_R) {
+        if let Some(to) = clamp(c, (ux as f64, uy as f64), HOLD_E) {
             moves.push((u.id(), (ux as f64, uy as f64), to));
         }
     }
@@ -146,7 +161,8 @@ pub fn hold(sim: &mut StableSim<'_>, me: usize, centre: &mut Slot) {
         let Some(to) = open_ground(c, to, solid) else { continue };
         sim.entity_set_pos(id, to.0.round().max(0.0) as u64, to.1.round().max(0.0) as u64);
         if let Some(n) = counted() {
-            wlog(format!("{} ARENA: #{id} at {:.0} from the centre put back to {HOLD_R:.0} #{n}", head(sim, me), dist(c, from)));
+            wlog(format!("{} ARENA: #{id} at {:.2} of the picture ({:.0}, {:.0} from the centre) put back to {HOLD_E} #{n}",
+                         head(sim, me), reach(c, from), from.0 - c.0, from.1 - c.1));
         }
     }
 }
@@ -262,8 +278,10 @@ mod tests {
     fn walks_inside_the_arena_and_back_in_are_left_alone() {
         let foes = [foe(2, 10_000.0, true)];
         assert_eq!(call((0.0, 0.0), (0.0, 0.0), Want::Move((15_000.0, 0.0)), &foes), None);
-        // already out at 26000, walking back towards the centre
-        assert_eq!(call((26_000.0, 0.0), (0.0, 0.0), Want::Move((24_000.0, 0.0)), &foes), None);
+        // already out at 30000 across, walking back towards the centre
+        assert_eq!(call((30_000.0, 0.0), (0.0, 0.0), Want::Move((28_000.0, 0.0)), &foes), None);
+        // up and down the picture is narrower: 20000 down is past KEEP_E
+        assert_eq!(call((0.0, 0.0), (0.0, 0.0), Want::Move((0.0, 20_000.0)), &foes), Some(Call::Attack(2)));
         assert_eq!(call((0.0, 0.0), (0.0, 0.0), Want::Other, &foes), None);
     }
 
@@ -279,9 +297,13 @@ mod tests {
 
     #[test]
     fn a_target_past_the_edge_goes_back_on_the_line_to_it() {
-        assert_eq!(clamp((0.0, 0.0), (30_000.0, 40_000.0), 25_000.0), Some((15_000.0, 20_000.0)));
-        assert_eq!(clamp((0.0, 0.0), (10_000.0, 0.0), 25_000.0), None);
-        assert!(HOLD_R < ARENA_R);
+        let near = |a: Option<Pt>, b: Pt| a.is_some_and(|a| dist(a, b) < 1.0);
+        // across: the picture is 36000 wide, the target goes back to 0.85 of it
+        assert!(near(clamp((0.0, 0.0), (40_000.0, 0.0), HOLD_E), (30_600.0, 0.0)));
+        // up and down: 25000 - 27000 down (inside the old 27000 circle) was off the picture, now 21250
+        assert!(near(clamp((0.0, 0.0), (0.0, 27_000.0), HOLD_E), (0.0, 21_250.0)));
+        assert_eq!(clamp((0.0, 0.0), (20_000.0, 10_000.0), HOLD_E), None);
+        assert!(HOLD_E < 1.0 && KEEP_E < HOLD_E);
     }
 
     #[test]
@@ -306,6 +328,18 @@ mod tests {
         assert_eq!(centre_of(&mut slot, (5.0, 0.0), 101 + 2 * ARENA_TICKS), (5.0, 0.0));
         // the clock went back: another match
         assert_eq!(centre_of(&mut slot, (7.0, 0.0), 3), (7.0, 0.0));
+    }
+
+    #[test]
+    fn the_ellipse_is_the_arenas_picture() {
+        // r_zone's frames (league_camille_big): 73 x 55 px, the opaque ellipse 72 x 50 (1 px = 1000) - the frame is the
+        // ellipse plus a pixel across and a shadow row band below
+        let fanim = include_str!("../../../league/effects/league_camille_big#anim.fanim");
+        let at = fanim.find("\"r_zone\"").expect("r_zone");
+        let w: f64 = fanim[at..].split("\"w\":").nth(1).and_then(|v| v.split([',', '}']).next()).and_then(|v| v.trim().parse().ok()).unwrap();
+        let h: f64 = fanim[at..].split("\"h\":").nth(1).and_then(|v| v.split([',', '}']).next()).and_then(|v| v.trim().parse().ok()).unwrap();
+        assert!((w * 1000.0 / 2.0 - SEMI_X).abs() <= 1_000.0, "r_zone {w} px wide, SEMI_X {SEMI_X}");
+        assert!(SEMI_Y < h * 1000.0 / 2.0, "r_zone {h} px tall, SEMI_Y {SEMI_Y}");
     }
 
     #[test]
