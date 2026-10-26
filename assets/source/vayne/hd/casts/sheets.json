@@ -1,0 +1,551 @@
+{
+ "square": 7,
+ "sheet": [
+  1536,
+  1024
+ ],
+ "ground": 924,
+ "same": {},
+ "same_as_design": {
+  "attack": [
+   5,
+   6
+  ],
+  "attack_q": [
+   6
+  ],
+  "skill": [
+   7
+  ],
+  "skill_back": [
+   7
+  ],
+  "skill2": [
+   7
+  ],
+  "ult": [
+   6
+  ],
+  "hit": [
+   2
+  ]
+ },
+ "sheets": [
+  {
+   "tag": "run",
+   "name": "run_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "action": "running (her move loop): a light huntress's run, the LEGS SWAPPING every half cycle (left foot forward, then right foot forward), the body bobbing with each stride, the cape flowing back",
+   "ms": [
+    125,
+    125
+   ],
+   "weapons": "The silver WRIST CROSSBOW (red gem) stays strapped on her NEAR forearm (image left in the design) in every frame - never on the far arm. The BIG crossbow stays on her back, over the near shoulder, rising above her head as in the design. Her arms swing as the pale figure's do."
+  },
+  {
+   "tag": "run",
+   "name": "run_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "action": "running (her move loop): a light huntress's run, the LEGS SWAPPING every half cycle (left foot forward, then right foot forward), the body bobbing with each stride, the cape flowing back",
+   "ms": [
+    125,
+    125
+   ],
+   "weapons": "The silver WRIST CROSSBOW (red gem) stays strapped on her NEAR forearm (image left in the design) in every frame - never on the far arm. The BIG crossbow stays on her back, over the near shoulder, rising above her head as in the design. Her arms swing as the pale figure's do."
+  },
+  {
+   "tag": "run",
+   "name": "run_3",
+   "frames": [
+    5,
+    6
+   ],
+   "cells": 2,
+   "action": "running (her move loop): a light huntress's run, the LEGS SWAPPING every half cycle (left foot forward, then right foot forward), the body bobbing with each stride, the cape flowing back",
+   "ms": [
+    125,
+    125
+   ],
+   "weapons": "The silver WRIST CROSSBOW (red gem) stays strapped on her NEAR forearm (image left in the design) in every frame - never on the far arm. The BIG crossbow stays on her back, over the near shoulder, rising above her head as in the design. Her arms swing as the pale figure's do."
+  },
+  {
+   "tag": "run",
+   "name": "run_4",
+   "frames": [
+    7,
+    8
+   ],
+   "cells": 2,
+   "action": "running (her move loop): a light huntress's run, the LEGS SWAPPING every half cycle (left foot forward, then right foot forward), the body bobbing with each stride, the cape flowing back",
+   "ms": [
+    125,
+    125
+   ],
+   "weapons": "The silver WRIST CROSSBOW (red gem) stays strapped on her NEAR forearm (image left in the design) in every frame - never on the far arm. The BIG crossbow stays on her back, over the near shoulder, rising above her head as in the design. Her arms swing as the pale figure's do."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "action": "attack: she aims her NEAR forearm's wrist crossbow at the target and shoots, then lowers it",
+   "ms": [
+    60
+   ],
+   "weapons": "The silver WRIST CROSSBOW (red gem) stays strapped on her NEAR forearm (image left in the design) in every frame - never on the far arm. The BIG crossbow stays on her back, over the near shoulder, rising above her head as in the design. The arm the pale figure stretches toward the target is the NEAR arm with the wrist crossbow, drawn in front of her body; the far arm stays back."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "action": "attack: she aims her NEAR forearm's wrist crossbow at the target and shoots, then lowers it",
+   "ms": [
+    60
+   ],
+   "weapons": "The silver WRIST CROSSBOW (red gem) stays strapped on her NEAR forearm (image left in the design) in every frame - never on the far arm. The BIG crossbow stays on her back, over the near shoulder, rising above her head as in the design. The arm the pale figure stretches toward the target is the NEAR arm with the wrist crossbow, drawn in front of her body; the far arm stays back."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_3",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "action": "attack: she aims her NEAR forearm's wrist crossbow at the target and shoots, then lowers it",
+   "ms": [
+    70
+   ],
+   "weapons": "The silver WRIST CROSSBOW (red gem) stays strapped on her NEAR forearm (image left in the design) in every frame - never on the far arm. The BIG crossbow stays on her back, over the near shoulder, rising above her head as in the design. The arm the pale figure stretches toward the target is the NEAR arm with the wrist crossbow, drawn in front of her body; the far arm stays back."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_4",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "action": "attack: she aims her NEAR forearm's wrist crossbow at the target and shoots, then lowers it",
+   "ms": [
+    70
+   ],
+   "weapons": "The silver WRIST CROSSBOW (red gem) stays strapped on her NEAR forearm (image left in the design) in every frame - never on the far arm. The BIG crossbow stays on her back, over the near shoulder, rising above her head as in the design. The arm the pale figure stretches toward the target is the NEAR arm with the wrist crossbow, drawn in front of her body; the far arm stays back."
+  },
+  {
+   "tag": "attack_q",
+   "name": "attack_q_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "action": "empowered attack (after a tumble): a low, braced stance, the near forearm's wrist crossbow aimed forward and shooting, then she rises",
+   "ms": [
+    60
+   ],
+   "weapons": "The silver WRIST CROSSBOW (red gem) stays strapped on her NEAR forearm (image left in the design) in every frame - never on the far arm. The BIG crossbow stays on her back, over the near shoulder, rising above her head as in the design. The arm the pale figure stretches toward the target is the NEAR arm with the wrist crossbow, drawn in front of her body; the far arm stays back."
+  },
+  {
+   "tag": "attack_q",
+   "name": "attack_q_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "action": "empowered attack (after a tumble): a low, braced stance, the near forearm's wrist crossbow aimed forward and shooting, then she rises",
+   "ms": [
+    60
+   ],
+   "weapons": "The silver WRIST CROSSBOW (red gem) stays strapped on her NEAR forearm (image left in the design) in every frame - never on the far arm. The BIG crossbow stays on her back, over the near shoulder, rising above her head as in the design. The arm the pale figure stretches toward the target is the NEAR arm with the wrist crossbow, drawn in front of her body; the far arm stays back."
+  },
+  {
+   "tag": "attack_q",
+   "name": "attack_q_3",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "action": "empowered attack (after a tumble): a low, braced stance, the near forearm's wrist crossbow aimed forward and shooting, then she rises",
+   "ms": [
+    70
+   ],
+   "weapons": "The silver WRIST CROSSBOW (red gem) stays strapped on her NEAR forearm (image left in the design) in every frame - never on the far arm. The BIG crossbow stays on her back, over the near shoulder, rising above her head as in the design. The arm the pale figure stretches toward the target is the NEAR arm with the wrist crossbow, drawn in front of her body; the far arm stays back."
+  },
+  {
+   "tag": "attack_q",
+   "name": "attack_q_4",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "action": "empowered attack (after a tumble): a low, braced stance, the near forearm's wrist crossbow aimed forward and shooting, then she rises",
+   "ms": [
+    70
+   ],
+   "weapons": "The silver WRIST CROSSBOW (red gem) stays strapped on her NEAR forearm (image left in the design) in every frame - never on the far arm. The BIG crossbow stays on her back, over the near shoulder, rising above her head as in the design. The arm the pale figure stretches toward the target is the NEAR arm with the wrist crossbow, drawn in front of her body; the far arm stays back."
+  },
+  {
+   "tag": "attack_q",
+   "name": "attack_q_5",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "action": "empowered attack (after a tumble): a low, braced stance, the near forearm's wrist crossbow aimed forward and shooting, then she rises",
+   "ms": [
+    80
+   ],
+   "weapons": "The silver WRIST CROSSBOW (red gem) stays strapped on her NEAR forearm (image left in the design) in every frame - never on the far arm. The BIG crossbow stays on her back, over the near shoulder, rising above her head as in the design. The arm the pale figure stretches toward the target is the NEAR arm with the wrist crossbow, drawn in front of her body; the far arm stays back."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "action": "Tumble: she rolls forward in a tight somersault (curled into a ball) and comes up in a crouch",
+   "ms": [
+    50,
+    50
+   ],
+   "weapons": "The silver WRIST CROSSBOW (red gem) stays strapped on her NEAR forearm (image left in the design) in every frame - never on the far arm. The BIG crossbow stays on her back, over the near shoulder, rising above her head as in the design. Curled up in the roll, the crossbows tucked in with her."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "action": "Tumble: she rolls forward in a tight somersault (curled into a ball) and comes up in a crouch",
+   "ms": [
+    50,
+    60
+   ],
+   "weapons": "The silver WRIST CROSSBOW (red gem) stays strapped on her NEAR forearm (image left in the design) in every frame - never on the far arm. The BIG crossbow stays on her back, over the near shoulder, rising above her head as in the design. Curled up in the roll, the crossbows tucked in with her."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_3",
+   "frames": [
+    5,
+    6
+   ],
+   "cells": 2,
+   "action": "Tumble: she rolls forward in a tight somersault (curled into a ball) and comes up in a crouch",
+   "ms": [
+    60,
+    70
+   ],
+   "weapons": "The silver WRIST CROSSBOW (red gem) stays strapped on her NEAR forearm (image left in the design) in every frame - never on the far arm. The BIG crossbow stays on her back, over the near shoulder, rising above her head as in the design. Curled up in the roll, the crossbows tucked in with her."
+  },
+  {
+   "tag": "skill_back",
+   "name": "skill_back_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "action": "Tumble back: she drops and rolls backward along the ground, then springs up",
+   "ms": [
+    50
+   ],
+   "weapons": "The silver WRIST CROSSBOW (red gem) stays strapped on her NEAR forearm (image left in the design) in every frame - never on the far arm. The BIG crossbow stays on her back, over the near shoulder, rising above her head as in the design. Rolling on the ground, the crossbows tucked in with her."
+  },
+  {
+   "tag": "skill_back",
+   "name": "skill_back_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "action": "Tumble back: she drops and rolls backward along the ground, then springs up",
+   "ms": [
+    50
+   ],
+   "weapons": "The silver WRIST CROSSBOW (red gem) stays strapped on her NEAR forearm (image left in the design) in every frame - never on the far arm. The BIG crossbow stays on her back, over the near shoulder, rising above her head as in the design. Rolling on the ground, the crossbows tucked in with her."
+  },
+  {
+   "tag": "skill_back",
+   "name": "skill_back_3",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "action": "Tumble back: she drops and rolls backward along the ground, then springs up",
+   "ms": [
+    50
+   ],
+   "weapons": "The silver WRIST CROSSBOW (red gem) stays strapped on her NEAR forearm (image left in the design) in every frame - never on the far arm. The BIG crossbow stays on her back, over the near shoulder, rising above her head as in the design. Rolling on the ground, the crossbows tucked in with her."
+  },
+  {
+   "tag": "skill_back",
+   "name": "skill_back_4",
+   "frames": [
+    4,
+    5
+   ],
+   "cells": 2,
+   "action": "Tumble back: she drops and rolls backward along the ground, then springs up",
+   "ms": [
+    60,
+    60
+   ],
+   "weapons": "The silver WRIST CROSSBOW (red gem) stays strapped on her NEAR forearm (image left in the design) in every frame - never on the far arm. The BIG crossbow stays on her back, over the near shoulder, rising above her head as in the design. Rolling on the ground, the crossbows tucked in with her."
+  },
+  {
+   "tag": "skill_back",
+   "name": "skill_back_5",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "action": "Tumble back: she drops and rolls backward along the ground, then springs up",
+   "ms": [
+    70
+   ],
+   "weapons": "The silver WRIST CROSSBOW (red gem) stays strapped on her NEAR forearm (image left in the design) in every frame - never on the far arm. The BIG crossbow stays on her back, over the near shoulder, rising above her head as in the design. Rolling on the ground, the crossbows tucked in with her."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "action": "Condemn: she takes the BIG crossbow off her back, aims it forward with both hands and shoots, then swings it back over her shoulder",
+   "ms": [
+    60,
+    70
+   ],
+   "weapons": "The silver WRIST CROSSBOW (red gem) stays strapped on her NEAR forearm (image left in the design) in every frame - never on the far arm. The BIG crossbow (silver limbs, brown stock) is in BOTH HANDS wherever the pale figure holds a long crossbow, off her back (nothing left on her back then); where the pale figure has it on her back, it is on her back as in the design."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_2",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "action": "Condemn: she takes the BIG crossbow off her back, aims it forward with both hands and shoots, then swings it back over her shoulder",
+   "ms": [
+    70
+   ],
+   "weapons": "The silver WRIST CROSSBOW (red gem) stays strapped on her NEAR forearm (image left in the design) in every frame - never on the far arm. The BIG crossbow (silver limbs, brown stock) is in BOTH HANDS wherever the pale figure holds a long crossbow, off her back (nothing left on her back then); where the pale figure has it on her back, it is on her back as in the design."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_3",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "action": "Condemn: she takes the BIG crossbow off her back, aims it forward with both hands and shoots, then swings it back over her shoulder",
+   "ms": [
+    70
+   ],
+   "weapons": "The silver WRIST CROSSBOW (red gem) stays strapped on her NEAR forearm (image left in the design) in every frame - never on the far arm. The BIG crossbow (silver limbs, brown stock) is in BOTH HANDS wherever the pale figure holds a long crossbow, off her back (nothing left on her back then); where the pale figure has it on her back, it is on her back as in the design."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_4",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "action": "Condemn: she takes the BIG crossbow off her back, aims it forward with both hands and shoots, then swings it back over her shoulder",
+   "ms": [
+    80
+   ],
+   "weapons": "The silver WRIST CROSSBOW (red gem) stays strapped on her NEAR forearm (image left in the design) in every frame - never on the far arm. The BIG crossbow (silver limbs, brown stock) is in BOTH HANDS wherever the pale figure holds a long crossbow, off her back (nothing left on her back then); where the pale figure has it on her back, it is on her back as in the design."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_5",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "action": "Condemn: she takes the BIG crossbow off her back, aims it forward with both hands and shoots, then swings it back over her shoulder",
+   "ms": [
+    80
+   ],
+   "weapons": "The silver WRIST CROSSBOW (red gem) stays strapped on her NEAR forearm (image left in the design) in every frame - never on the far arm. The BIG crossbow (silver limbs, brown stock) is in BOTH HANDS wherever the pale figure holds a long crossbow, off her back (nothing left on her back then); where the pale figure has it on her back, it is on her back as in the design."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "action": "Final Hour: she takes the BIG crossbow off her back and holds it levelled forward with both hands, ready to hunt",
+   "ms": [
+    70
+   ],
+   "weapons": "The silver WRIST CROSSBOW (red gem) stays strapped on her NEAR forearm (image left in the design) in every frame - never on the far arm. The BIG crossbow (silver limbs, brown stock) is in BOTH HANDS wherever the pale figure holds a long crossbow, off her back (nothing left on her back then); where the pale figure has it on her back, it is on her back as in the design."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "action": "Final Hour: she takes the BIG crossbow off her back and holds it levelled forward with both hands, ready to hunt",
+   "ms": [
+    70
+   ],
+   "weapons": "The silver WRIST CROSSBOW (red gem) stays strapped on her NEAR forearm (image left in the design) in every frame - never on the far arm. The BIG crossbow (silver limbs, brown stock) is in BOTH HANDS wherever the pale figure holds a long crossbow, off her back (nothing left on her back then); where the pale figure has it on her back, it is on her back as in the design."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_3",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "action": "Final Hour: she takes the BIG crossbow off her back and holds it levelled forward with both hands, ready to hunt",
+   "ms": [
+    90
+   ],
+   "weapons": "The silver WRIST CROSSBOW (red gem) stays strapped on her NEAR forearm (image left in the design) in every frame - never on the far arm. The BIG crossbow (silver limbs, brown stock) is in BOTH HANDS wherever the pale figure holds a long crossbow, off her back (nothing left on her back then); where the pale figure has it on her back, it is on her back as in the design."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_4",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "action": "Final Hour: she takes the BIG crossbow off her back and holds it levelled forward with both hands, ready to hunt",
+   "ms": [
+    120
+   ],
+   "weapons": "The silver WRIST CROSSBOW (red gem) stays strapped on her NEAR forearm (image left in the design) in every frame - never on the far arm. The BIG crossbow (silver limbs, brown stock) is in BOTH HANDS wherever the pale figure holds a long crossbow, off her back (nothing left on her back then); where the pale figure has it on her back, it is on her back as in the design."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_5",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "action": "Final Hour: she takes the BIG crossbow off her back and holds it levelled forward with both hands, ready to hunt",
+   "ms": [
+    120
+   ],
+   "weapons": "The silver WRIST CROSSBOW (red gem) stays strapped on her NEAR forearm (image left in the design) in every frame - never on the far arm. The BIG crossbow (silver limbs, brown stock) is in BOTH HANDS wherever the pale figure holds a long crossbow, off her back (nothing left on her back then); where the pale figure has it on her back, it is on her back as in the design."
+  },
+  {
+   "tag": "hit",
+   "name": "hit_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "action": "struck, flinching back",
+   "ms": [
+    100
+   ],
+   "weapons": "The silver WRIST CROSSBOW (red gem) stays strapped on her NEAR forearm (image left in the design) in every frame - never on the far arm. The BIG crossbow stays on her back, over the near shoulder, rising above her head as in the design. Her arms as the pale figure's."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "action": "death: she staggers, falls and lies on the ground",
+   "ms": [
+    100,
+    100
+   ],
+   "weapons": "The silver WRIST CROSSBOW (red gem) stays strapped on her NEAR forearm (image left in the design) in every frame - never on the far arm. The BIG crossbow stays on her back, over the near shoulder, rising above her head as in the design. Her arms as the pale figure's; lying, the crossbows lie with her."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "action": "death: she staggers, falls and lies on the ground",
+   "ms": [
+    100,
+    100
+   ],
+   "weapons": "The silver WRIST CROSSBOW (red gem) stays strapped on her NEAR forearm (image left in the design) in every frame - never on the far arm. The BIG crossbow stays on her back, over the near shoulder, rising above her head as in the design. Her arms as the pale figure's; lying, the crossbows lie with her."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_3",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "action": "death: she staggers, falls and lies on the ground",
+   "ms": [
+    120
+   ],
+   "weapons": "The silver WRIST CROSSBOW (red gem) stays strapped on her NEAR forearm (image left in the design) in every frame - never on the far arm. The BIG crossbow stays on her back, over the near shoulder, rising above her head as in the design. Her arms as the pale figure's; lying, the crossbows lie with her."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_4",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "action": "death: she staggers, falls and lies on the ground",
+   "ms": [
+    150
+   ],
+   "weapons": "The silver WRIST CROSSBOW (red gem) stays strapped on her NEAR forearm (image left in the design) in every frame - never on the far arm. The BIG crossbow stays on her back, over the near shoulder, rising above her head as in the design. Her arms as the pale figure's; lying, the crossbows lie with her."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_5",
+   "frames": [
+    7
+   ],
+   "cells": 1,
+   "action": "death: she staggers, falls and lies on the ground",
+   "ms": [
+    150
+   ],
+   "weapons": "The silver WRIST CROSSBOW (red gem) stays strapped on her NEAR forearm (image left in the design) in every frame - never on the far arm. The BIG crossbow stays on her back, over the near shoulder, rising above her head as in the design. Her arms as the pale figure's; lying, the crossbows lie with her."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_6",
+   "frames": [
+    8
+   ],
+   "cells": 1,
+   "action": "death: she staggers, falls and lies on the ground",
+   "ms": [
+    400
+   ],
+   "weapons": "The silver WRIST CROSSBOW (red gem) stays strapped on her NEAR forearm (image left in the design) in every frame - never on the far arm. The BIG crossbow stays on her back, over the near shoulder, rising above her head as in the design. Her arms as the pale figure's; lying, the crossbows lie with her."
+  }
+ ]
+}

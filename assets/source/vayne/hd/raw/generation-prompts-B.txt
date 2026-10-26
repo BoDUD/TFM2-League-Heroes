@@ -1,0 +1,26 @@
+Mode: built-in image_gen; transparent_background=true
+
+GENERATION 1 REFERENCES:
+C:/Users/OWNER/Documents/Codex/2026-10-26/new-chat-9/work/vayne-redo/refs/6_vayne_now.png
+C:/Users/OWNER/Documents/Codex/2026-10-26/new-chat-9/work/vayne-redo/refs/7_layout.png
+C:/Users/OWNER/Documents/Codex/2026-10-26/new-chat-9/work/vayne-redo/refs/5_vayne_first_take.png
+C:/Users/OWNER/Documents/Codex/2026-10-26/new-chat-9/work/vayne-redo/refs/2_vayne_head.png
+C:/Users/OWNER/Documents/Codex/2026-10-26/new-chat-9/work/vayne-redo/style/8_style_riven.png
+
+GENERATION 1 PROMPT:
+Create ONE Vayne chibi game pixel sprite using these FIVE references.
+REFERENCE PRIORITY: Image 1 is THE source to trace for the EXACT standing stance, compact stout chibi proportions, and large head. Image 2 is exact placement silhouette: figure top y512, chin y896, soles y1472 in a 1024x1536 canvas. Image 3 is previous failed attempt: use ONLY clothing details and colours; do NOT copy its small head, long body, wide legs, or fine pixels. Image 4 head anatomy ONLY, not gold or blue colours. Image 5 Riven is coarse pixel-art STYLE ONLY.
+PRIMARY CHANGE: BIG CHIBI HEAD, crown-to-chin about 24 squares / 384px, over one third (40%) of 60-square total sprite height. Compact torso and short substantial legs, like image1. Copy image1 stance, NOT wide leg spread of image3. Do not draw an adult human proportioned figure.
+PIXEL ART: uniform 16x16 pixel square cells, grid starts canvas origin (0,0). 64 columns x96 rows canvas; sprite spans approximately rows32 through91 (60 squares total). Actual coarse low-res game sprite, only 2-3 flat shades per material, ONE cell near-black outline. No small subpixel detail, no gradients, dithering, antialiasing, noise, glow or semitransparency. Eyes/lenses and mouth must be readable pixel clusters. Copy the coarse economical pixel clusters of image5. Do not produce finely detailed illustration with a pixel effect.
+CHARACTER: black-purple hair with high ponytail and red-white hair band, pale skin, two RED sunglasses lenses on same row joined by dark frame, not obscured by fringe. DEEP RED lips two grid rows below lens row, clean pale chin. Red high collar; dark navy slate suit; silver shoulder/chest and knee armour; brown straps and belt. Silver wrist crossbow with dark red gem on near arm IMAGE LEFT hanging backward at her side. Big back crossbow with silver limbs and brown stock rises behind near shoulder on IMAGE LEFT above head. Dark tall high heel boots. Torn long crimson cape flows to IMAGE LEFT down beside feet, all points above sole baseline. Keep stout limbs and shoulders. Three-quarter view face/chest toward front RIGHT, near left arm/leg lighter, far ones darker.
+CANVAS: 1024x1536 portrait, highest point y512, soles baseline y1472, chin y896, center horizontally like image2. All weapons and cape inside. Large EMPTY TRANSPARENT SPACE above is deliberate. NO text, layout lines, shadow, ground, frame, effects, other figures.
+OUTPUT: true RGBA transparent PNG. All outside sprite including holes between arms, legs and crossbows must be alpha zero. Character pixels fully opaque alpha255, hard edges. No faint specks or coloured halo. Background colour data should also be zero in transparent areas.
+
+GENERATION 2 REFERENCES:
+C:/Users/OWNER/Documents/Codex/2026-10-26/new-chat-9/work/vayne-redo/refs/6_vayne_now.png
+C:/Users/OWNER/Documents/Codex/2026-10-26/new-chat-9/work/vayne-redo/refs/7_layout.png
+C:/Users/OWNER/Documents/Codex/2026-10-26/new-chat-9/work/vayne-redo/style/8_style_riven.png
+
+GENERATION 2 PROMPT:
+Redraw image 1 with 1.5 times as many square pixels, preserving its exact chibi silhouette and pose. This is a COARSE TINY GAME SPRITE, not detailed concept art. Image 1 is Vayne's current game sprite: trace its large head, very compact body, legs stance, crossbows, cape. Image 2 is its silhouette enlarged to exact target placement. Image 3 is pixel style only (Riven), do not draw Riven. Use only these three attached images.
+Final image transparent PNG 1024x1536, pixel grid 16x16, origin0,0; figure only in rows32-91 (y512 to1472), with transparent top third. HEAD EXTREMELY LARGE: highest point to chin384px, chin at y896. Total figure height960px. Body short and stout, short legs. Head and hair broad, face turned three-quarter RIGHT. Keep stance from image1 exactly. Face pale, clear two red sunglasses lenses, dark frame, deep red lips two square rows below lenses, clean chin. Black-purple high ponytail with red-white hair tie. Dark navy-grey suit with silver shoulder/chest/knee armour, brown crossing straps. Near forearm IMAGE LEFT holds small silver wrist crossbow with red gem. Back silver crossbow brown stock rises over shoulder IMAGE LEFT above head. Long dark crimson cape trails down on IMAGE LEFT, jagged torn tips above feet. Dark chunky tall high heel boots. One square black outline; only2-3 flat shades per material. Use approximately60 pixel squares total height; no fine details, no gradients, no antialiasing, no halo, no glows, no shadows, no text, no lines, no floor. Background genuinely transparent alpha0, sprite fully opaque alpha255. Transparent holes between arms/body and legs. Do not recreate image2 guide lines or background. Do not create a realistic proportioned long-body woman. This is a 60px tall chibi character rendered at16x.

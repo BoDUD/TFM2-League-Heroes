@@ -3,7 +3,7 @@
 
     python tools/art/preview_vayne.py [--out docs/preview]
 
-  league_vayne_frames.png    every animation, frame by frame, 3x on the arena colour
+  league_vayne_frames.png    every animation's dense frames (hd_, PPU 2.2, as league.dll shows them)
   league_vayne_effects.png   every effect animation, 3x
   league_vayne_showcase.gif  a scripted fight against Darius and Garen, timed like the kit: she runs in and her
                              wrist crossbow's bolt puts Silver Bolts' first ring on Darius; Tumble, with him in her
@@ -24,6 +24,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 from preview_annie import Held, OnFoe  # noqa: E402
 from preview_ashe import Anim, tick  # noqa: E402
+from preview_dense import dense, dense_rows, put  # noqa: E402
 from preview_garen import ARENA, T, contact, frames_of, load  # noqa: E402
 from preview_jinx import Follow  # noqa: E402
 
@@ -63,7 +64,7 @@ def showcase(out, z=3, step=40):
 
     def a(tag, dur=None, loop=False, to=None):
         nonlocal t, vx
-        an = Anim(frames_of(va, tag), t, vx, gy, loop=loop, until=(t + dur) if dur else None, x1=to)
+        an = Anim(dense(va, tag, "vayne", z), t, vx, gy, loop=loop, until=(t + dur) if dur else None, x1=to)
         body.append(an)
         t = an.until
         if to is not None:
@@ -110,7 +111,7 @@ def showcase(out, z=3, step=40):
         nonlocal t, vx
         start = t
         under.append(Anim(frames_of(fx, "q_roll"), start + tick(1), vx, gy))
-        body.append(Slide(frames_of(va, "skill_back"), start, vx, gy, x1=vx - px, m0=start + tick(1),
+        body.append(Slide(dense(va, "skill_back", "vayne", z), start, vx, gy, x1=vx - px, m0=start + tick(1),
                           m1=start + tick(1 + ticks)))
         vx -= px
         t = body[-1].until
@@ -171,12 +172,12 @@ def showcase(out, z=3, step=40):
         if alpha < 1.0:
             f = f.copy()
             f.putalpha(f.getchannel("A").point(lambda v: int(v * alpha)))
-        img.alpha_composite(f, (px - f.width // 2, py - f.height // 2))
+        put(img, f, int(px), int(py), z)
 
     frames, tt = [], 0.0
     order = sorted((d, g), key=lambda f: f.y)          # the one further back first
     while tt < end:
-        img = Image.new("RGBA", (W, H), ARENA)
+        img = Image.new("RGBA", (W * z, H * z), ARENA)
         for an in under:
             f = an.frame(tt)
             if f is not None:
@@ -193,7 +194,7 @@ def showcase(out, z=3, step=40):
             f = an.frame(tt)
             if f is not None:
                 place(img, f, *an.pos(tt))
-        frames.append(img.resize((W * z, H * z), Image.NEAREST).convert("RGB"))
+        frames.append(img.convert("RGB"))
         tt += step
     sample = frames[::6]                               # one palette for the whole clip
     strip = Image.new("RGB", (W * z, H * z * len(sample)))
@@ -211,8 +212,7 @@ def main():
     args = ap.parse_args()
     os.makedirs(T.long_path(args.out), exist_ok=True)
     s = load(CHAMP)
-    print("frames", contact([(s, t["name"], t["name"]) for t in s.tags],
-                            os.path.join(args.out, "league_vayne_frames.png")))
+    print("frames", contact(dense_rows(s), os.path.join(args.out, "league_vayne_frames.png"), z=1))
     sp = load(FX)
     print("effects", contact([(sp, t["name"], t["name"]) for t in sp.tags],
                              os.path.join(args.out, "league_vayne_effects.png")))
