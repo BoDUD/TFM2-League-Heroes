@@ -115,10 +115,6 @@
           "tick": 14,
           "effects": [
             {
-              "type": "ViewEffect",
-              "name": "tft_alune_q_cast"
-            },
-            {
               "type": "Combine",
               "effects": [
                 {
@@ -522,10 +518,6 @@
           "tick": 24,
           "effects": [
             {
-              "type": "ViewEffect",
-              "name": "tft_alune_r_raise"
-            },
-            {
               "type": "ParabolicProjectile",
               "name": "tft_alune_r_fall",
               "travel_time": 45,
@@ -832,14 +824,6 @@
     },
     {
       "type": "Animation",
-      "name": "tft_alune_q_cast",
-      "anim": "asset/tft/effects/tft_alune_fx",
-      "tag": "q_cast",
-      "z": 2,
-      "is_follow": true
-    },
-    {
-      "type": "Animation",
       "name": "tft_alune_q_drop",
       "anim": "asset/tft/effects/tft_alune_big",
       "tag": "q_drop",
@@ -853,14 +837,6 @@
       "tag": "q_hit",
       "z": 2,
       "is_follow": false
-    },
-    {
-      "type": "Animation",
-      "name": "tft_alune_r_raise",
-      "anim": "asset/tft/effects/tft_alune_fx",
-      "tag": "r_raise",
-      "z": 2,
-      "is_follow": true
     },
     {
       "type": "Animation",

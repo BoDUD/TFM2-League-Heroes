@@ -201,7 +201,7 @@ def build(p):
     else:        # one on the target, the rest on random enemies within reach
         fall = combine(shard, *[pick(p["q_range"], "EnemyWithoutTower", [shard]) for _ in range(p["q_n"] - 1)])
     skill = action("skill", p["q_dur"], p["q_cd"], 1, p["q_range"], "Targeting", "EnemyWithoutTower",
-                   combine(sfx("q"), delayed(p["q_rel"] - 1, view("q_cast"), fall, phase_up)))
+                   combine(sfx("q"), delayed(p["q_rel"] - 1, fall, phase_up)))
 
     # ------------------------------------------------------------------ skill2: Moonlight
     glow = [buff("e_glow", p["e_t"], attack_speed_mult=p["e_as"]), tsfx("e")]
@@ -218,7 +218,7 @@ def build(p):
     moon = [view("r_moon"), sfx("r_blast"),
             when("ph3", slam(3), when("ph2", slam(2), when("ph1", slam(1), slam(0)))), wane]
     ult = action("ult", p["r_dur"], p["r_cd"], 1, p["r_range"], "Targeting", "EnemyChampion",
-                 combine(sfx("r"), delayed(p["r_rel"] - 1, view("r_raise"),
+                 combine(sfx("r"), delayed(p["r_rel"] - 1,
                                            lob("r_fall", p["r_open"], moon, target="EnemyChampion", seen="r_warn"))))
 
     # ------------------------------------------------------------------ views
@@ -230,7 +230,7 @@ def build(p):
     # hidden: the shard and the moon fall as upright pictures on the landing spot (q_drop, r_warn + r_moon: ViewEffects,
     # never turned)
     views_p = [B_("a_ring")] + ([B_("a_back", tag="a_ring")] if native else [])
-    views_e = [E("a_hit"), E("q_cast"), E("q_drop", BIG, 3, False), E("q_hit", FX, 2, False), E("r_raise"),
+    views_e = [E("a_hit"), E("q_drop", BIG, 3, False), E("q_hit", FX, 2, False),
                E("r_warn", BIG, -2, False), E("r_moon", BIG, 3, False), E("r_hit")]
     views_b = [B_("q_shred", FX, 3), B_("e_glow", FX, 3), B_("ph1", FX, 4, "p_moon1"), B_("ph2", FX, 4, "p_moon2"),
                B_("ph3", FX, 4, "p_moon3")]
