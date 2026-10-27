@@ -30,6 +30,7 @@ import casts_rengar_hd as CS  # noqa: E402
 import design_rengar_hd as DH  # noqa: E402
 import ppu_rig as R  # noqa: E402
 import rig_xinzhao_hd as XZ  # noqa: E402
+import rigkit as K  # noqa: E402
 
 HERO = "rengar"
 PPU = CS.PPU
@@ -44,10 +45,20 @@ SAME_DESIGN = {"attack": [6], "leap": [8], "skill": [8], "skill2": [6], "skill_w
 # the old sheet's sinks in 1x pixels: idle_base its breath, ult its crouch (= idle_base's sunk frames)
 BREATH = [0, 0, 1, 2, 2, 2, 1, 0]
 ULT = [1, 2, 2, 1]
-# the run: Codex drew frames 3-4 on straighter legs, the head 5-6 squares over frames 5-8 (one hop a cycle; the old run
-# bobbed a pixel) - whole rows cut out of the legs (RUN_LEGS: squares over the soles), evenly, the feet where they stand
-RUN_CUT = {1: 1, 2: 1, 3: 3, 4: 4}
-RUN_LEGS = (17, 5)
+# The run (「走路两个腿不交换的 怎么看起来」): Codex's eight run frames all kept the far leg planted in front and the near
+# leg lifted behind - the legs never took turns. Rebuilt as his old run, the trot the user picked (「不对选A 不用交叉步」,
+# tools/art/rig_rengar.py): the design's lower legs swung about the knees in turn (rigkit.swing_leg: whole rows; the
+# feet stand 12 columns apart, so front and back swap without crossing), each foot lifted while it swings forward, the
+# body dipping as a foot lands, the arms swinging against the legs, the tail's end swaying - the old rig's numbers x PPU.
+TROT_STRIDE = [4, 3, 0, -3, -4, -3, 0, 3]
+TROT_LIFT = ([0, 3, 4, 3, 0, 0, 0, 0], [0, 0, 0, 0, 0, 3, 4, 3])      # the near (image-left) foot, the far one
+TROT_DROP = [1, 0, 0, 0, 1, 0, 0, 0]
+TROT_ARM = [-3, -1, 0, 1, 3, 1, 0, -1]
+TROT_TAIL = [-2, 0, 2, 0, -2, 0, 2, 0]
+LEGS = ((49, 18, 41), (50, 41, 63))     # the lower legs: (knee row, first column, column past) near, far
+ANKLE = 55                              # the feet: this row down
+ARMS = ((27, 0, 22, 53), (27, 57, 999, 57))  # the claw arm, the blade arm: (elbow row, columns, lowest row)
+BLADE_LOW = (46, 63)                    # from row 46 the blade arm is the blade only (columns 63 up): the far foot is not
 FEET = (52, 18, 63)             # the design's feet: rows 52 down between columns 18 and 62 (the claw and the blade out)
 # The tail (design_rengar_hd: Codex drew it in front of him, the user: 「怎么尾巴在手上？」「尾巴还是不对」). On the frames that
 # copied the design's front tail it is taken off (FRONT_TAILS: the box round it on the cast picture, design_rengar_hd.
@@ -56,8 +67,6 @@ FEET = (52, 18, 63)             # the design's feet: rows 52 down between column
 # gold ring and the tuft - the design's shape (tail_path); in the air it hangs as far under his hip as when he stands.
 # Frames Codex already drew with the tail behind him (the leap's 2nd, 4th and 5th, the fall) keep theirs.
 FRONT_TAILS = {
-    "run_1": (21, 38, 66, 78), "run_2": (19, 37, 64, 75), "run_3": (20, 40, 71, 83), "run_4": (24, 41, 70, 80),
-    "run_5": (19, 37, 69, 80), "run_6": (19, 36, 67, 79), "run_7": (22, 39, 68, 81), "run_8": (22, 39, 67, 80),
     "attack_1": (30, 50, 69, 82), "attack_2": (35, 55, 61, 75), "attack_3": (36, 56, 63, 77),
     "attack_4": (33, 54, 60, 73), "attack_5": (34, 48, 56, 69),
     "leap_1": (27, 44, 70, 82), "leap_3": (38, 56, 64, 82), "leap_6": (32, 46, 60, 73), "leap_7": (21, 40, 74, 92),
@@ -70,9 +79,8 @@ FRONT_TAILS = {
     "hit_1": (23, 41, 68, 80), "hit_2": (23, 39, 69, 82), "dead_1": (48, 60, 49, 66),
 }
 HIPS = {
-    "run_1": (40, 24), "run_2": (40, 23), "run_3": (41, 25), "run_4": (43, 24), "run_5": (38, 26), "run_6": (40, 27),
-    "run_7": (41, 22), "run_8": (41, 22), "attack_1": (45, 24), "attack_2": (42, 20), "attack_3": (48, 25),
-    "attack_4": (46, 24), "attack_5": (44, 25), "leap_1": (46, 27), "leap_3": (43, 32), "leap_6": (40, 24),
+    "attack_1": (45, 24), "attack_2": (42, 20), "attack_3": (48, 25), "attack_4": (46, 24), "attack_5": (44, 25),
+    "leap_1": (46, 27), "leap_3": (43, 32), "leap_6": (40, 24),
     "leap_7": (44, 26), "skill_1": (46, 26), "skill_2": (60, 24), "skill_3": (60, 24), "skill_4": (60, 28),
     "skill_5": (44, 25), "skill_6": (51, 22), "skill_7": (57, 26), "skill2_1": (45, 23), "skill2_2": (44, 26),
     "skill2_3": (51, 20), "skill2_4": (49, 30), "skill2_5": (50, 25), "skill_w_1": (52, 27), "skill_w_3": (51, 22),
@@ -192,17 +200,27 @@ def sunk(D, rows):
     return DH.tail(out, back, ground=h)
 
 
-def cut_legs(rig, can, n):
-    """n whole rows cut out of the band RUN_LEGS over the soles (evenly spread), what is over them lowered n rows."""
-    if not n:
-        return can
-    hi, lo = rig.GY - RUN_LEGS[0], rig.GY - RUN_LEGS[1]
-    cut = set(int(round(v)) for v in np.linspace(hi, lo - 1, n + 2)[1:-1])
-    keep = [r for r in range(rig.GY) if r not in cut]
-    out = rig.canvas()
-    out[rig.GY - len(keep):rig.GY] = can[keep]
-    out[rig.GY:] = can[rig.GY:]
-    return out
+def trot(D, k):
+    """Run frame k: the tail-less design's lower legs swung and lifted (TROT_*), the arms swung, the rest dipped, the
+    tail drawn behind it (its root with him, its end swaying)."""
+    b = D.bare
+    h, w = b.shape[:2]
+    op = b[..., 3] > 0
+    R_, C_ = np.mgrid[0:h, 0:w]
+    legs = [op & (R_ >= kr) & (C_ >= c0) & (C_ < c1) for kr, c0, c1 in LEGS]
+    arms = [op & (R_ >= er) & (C_ >= c0) & (C_ < c1) for er, c0, c1, _ in ARMS]
+    arms[1] &= ~((R_ >= BLADE_LOW[0]) & (C_ < BLADE_LOW[1]))
+    top = b.copy()
+    top[legs[0] | legs[1] | arms[0] | arms[1]] = 0
+    for m, (er, _, _, low), sign in zip(arms, ARMS, (-1, 1)):
+        K.put(top, K.swing_leg(b, m, er, low, sign * TROT_ARM[k]), 0, 0)
+    feet = np.zeros_like(b)
+    for m, (kr, _, _), sign, lift in zip(legs, LEGS, (-1, 1), TROT_LIFT):
+        K.put(feet, K.swing_leg(b, m, kr, ANKLE, sign * TROT_STRIDE[k], lift[k]), 0, 0)
+    c = K.put(K.shifted(top, 0, TROT_DROP[k]), feet, 0, 0, under=True)
+    c[h:] = 0
+    back = [(r + TROT_DROP[k], c_) if i < 2 else (r, c_ + TROT_TAIL[k] * (i - 1) / 4) for i, (r, c_) in enumerate(DH.BACK)]
+    return DH.tail(c, back, ground=h)
 
 
 def frames(rig, casts):
@@ -217,6 +235,8 @@ def frames(rig, casts):
             fr = [on_grid(rig, sunk(rig.D, round(s * PPU)), 0, 0) for s in BREATH]
         elif tag == "ult":
             fr = [on_grid(rig, sunk(rig.D, round(s * PPU)), 0, 0) for s in ULT]
+        elif tag == "run":
+            fr = [on_grid(rig, trot(rig.D, k), 0, 0) for k in range(n)]
         else:
             fr = []
             for k in range(1, n + 1):
@@ -224,8 +244,6 @@ def frames(rig, casts):
                     fr.append(on_grid(rig, d0, 0, 0))
                 else:
                     fr.append(on_grid(rig, *casts[f"{tag}_{SAME.get(tag, {}).get(k, k)}"]))
-            if tag == "run":
-                fr = [cut_legs(rig, f, RUN_CUT.get(k + 1, 0)) for k, f in enumerate(fr)]
             if tag == "hit":
                 fr[0] = R.flash(rig.finish(fr[0]))      # (the struck frame flashes, as every rig's)
         if len(fr) != n:
