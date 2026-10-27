@@ -35,32 +35,15 @@ OLD = 40                        # her 1x idle, the ponytail's top to her soles
 PEERS = ["akali", "leesin", "riven", "qiyana"]
 
 
-SNAP = 5                        # px a grid line may move to the strongest colour edge near it
 GRID = (16.02, 6.0, 4.0)        # her squares: pitch and the first column's / row's line, px
 FACE = None                     # rows / columns of the read (the eyes): read by the uniform grid, if the lines miss
 CORE = 0.2                      # each square's colour is read from its middle (this much of it off each side)
 
 
-def lines(e, pitch, phase, n):
-    """The square boundaries along one axis: the fitted grid (pitch, phase), each line moved to the strongest colour
-    edge within SNAP px of it - Codex's squares drift up to half a square off one grid across the picture."""
-    out = []
-    for x in np.arange(phase, n, pitch):
-        c = int(round(x))
-        lo, hi = max(0, c - SNAP), min(n, c + SNAP + 1)
-        w = e[lo:hi]
-        best = lo + int(np.argmax(w - 0.01 * np.abs(np.arange(lo, hi) - c))) if w.size and w.max() > 0 else c
-        if out and best - out[-1] < pitch * 0.6:
-            best = c                    # (two lines on one edge: this one stays where the grid puts it)
-        if not out or best - out[-1] >= pitch * 0.4:
-            out.append(best)
-    return out
-
-
 def native():
     """The picture on its own squares: the palette (48 colours) from a first read on the fitted grid
-    (design_ahri_hd.native), every raw pixel snapped to it (Lab), then each square - between the snapped lines - the
-    palette colour most of its middle pixels have (one of the drawing's colours, never a blend of two squares)."""
+    (design_ahri_hd.native), every raw pixel snapped to it (Lab), then each square of GRID the palette colour most of
+    its middle pixels have (one of the drawing's colours, never a blend of two squares)."""
     first, pal, _ = AH.native()
     a = np.asarray(Image.open(AH.lp(os.path.join(AH.HD, "raw", AH.RAW))).convert("RGBA")).copy()
     a[..., 3] = np.where(a[..., 3] >= 128, 255, 0)
