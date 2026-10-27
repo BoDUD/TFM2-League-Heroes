@@ -10,6 +10,7 @@
     "params": {
       "p_max": 25,
       "p_far": 100000,
+      "q_lift": 14000,
       "q_range": 80000,
       "q_n": 6,
       "q_gap": 8,
@@ -85,7 +86,7 @@
               "type": "TargetProjectile",
               "name": "tft_maddie_a_bullet",
               "speed": 9000,
-              "y_offset": 0,
+              "y_offset": -12000,
               "applied_target": "Enemy",
               "applied_effects": [
                 {

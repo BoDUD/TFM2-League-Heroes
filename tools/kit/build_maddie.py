@@ -52,7 +52,10 @@ P = {
     # with 500 health and a slow 0.70 attack speed against the longest range)
     "hp": 880, "hp_g": 88, "atk": 104, "atk_g": 20, "apw": 0, "apw_g": 0, "def": 18, "def_g": 7, "mr": 15, "mr_g": 3,
     "ms": 900, "ms_g": 9,
-    "atk_range": 68000, "atk_dur": 24, "atk_cd": 66, "a_rel": 7, "a_reload": 13, "a_speed": 9000,
+    # a_lift: the standing shot's muzzle 17 game px over her pivot (28 over the soles: a_fire's rifle row); q_lift: the
+    # crouched shots' (q_fire, r_aim: 25 over the soles), tft.dll's bullets too (maddie.rs `q_lift`)
+    "atk_range": 68000, "atk_dur": 24, "atk_cd": 66, "a_rel": 7, "a_reload": 13, "a_speed": 9000, "a_lift": 17000,
+    "q_lift": 14000,
     # passive Sniper (TFT: 5-20% a hex, 5-75% base)
     "p_max": 25, "p_far": 100000, "p_avg": 15,
     # Fan the Hammer (TFT: 6 shots of 135% AD at the farthest enemy, 1.15 s)
@@ -65,7 +68,7 @@ P = {
     "r_speed": 16000, "r_width": 6000,
 }
 # what tft.dll reads from passive.params (addons/tft/src/maddie.rs)
-NATIVE_KEYS = ("p_max", "p_far", "q_range", "q_n", "q_gap", "q_dmg", "q_ratio", "q_speed", "q_width", "e_range", "e_t",
+NATIVE_KEYS = ("p_max", "p_far", "q_lift", "q_range", "q_n", "q_gap", "q_dmg", "q_ratio", "q_speed", "q_width", "e_range", "e_t",
                "e_amp", "w_as", "w_max", "r_range", "r_dmg", "r_ratio", "r_exec", "r_speed", "r_width")
 
 
@@ -116,9 +119,11 @@ def attack(dmg, ratio):
             "attack_effect_type": "Target"}
 
 
-def homing(name, target, effects, speed):
-    return {"type": "TargetProjectile", "name": n(name), "speed": speed, "y_offset": 0, "applied_target": target,
-            "applied_effects": [T(e) for e in effects]}
+def homing(name, target, effects, speed, lift=0):
+    """A TargetProjectile: the engine starts it 5000 - y_offset over her pivot (champion-data "a TargetProjectile ...
+    is lifted"), so `lift` (in units) puts it at her muzzle."""
+    return {"type": "TargetProjectile", "name": n(name), "speed": speed, "y_offset": 5000 - lift,
+            "applied_target": target, "applied_effects": [T(e) for e in effects]}
 
 
 def action(name, dur, cd, st, rng, ctype, ctarget, effect, atype="Skill", cancel=False):
@@ -134,7 +139,7 @@ def build(p, is_native=False):
     # ------------------------------------------------------------------ attack: a rifle shot
     hit = [attack(0, up(100)), view("a_hit"), tsfx("a_hit")]
     attack_a = action("attack", p["atk_dur"], p["atk_cd"], 1, p["atk_range"], "Targeting", "Enemy",
-                      combine(delayed(p["a_rel"] - 1, sfx("a"), homing("a_bullet", "Enemy", hit, p["a_speed"])),
+                      combine(delayed(p["a_rel"] - 1, sfx("a"), homing("a_bullet", "Enemy", hit, p["a_speed"], p["a_lift"])),
                               delayed(p["a_reload"] - 1, sfx("a_reload"))),
                       atype="BaseAttack", cancel=True)
 
@@ -143,7 +148,7 @@ def build(p, is_native=False):
         fan = combine(sfx("q_cast"), delayed(p["q_rel"] - 1, native("fan")))
     else:           # q_n homing bullets at the AI's target
         shot = homing("q_bullet", "EnemyWithoutTower", [attack(p["q_dmg"], up(p["q_ratio"])), view("q_hit"),
-                                                        tsfx("q_hit")], p["q_speed"])
+                                                        tsfx("q_hit")], p["q_speed"], p["q_lift"])
         fan = combine(sfx("q_cast"), *[delayed(p["q_rel"] - 1 + k * p["q_gap"], sfx("q"), shot)
                                        for k in range(p["q_n"])])
     skill = action("skill", p["q_dur"], p["q_cd"], 1, p["q_range"], "Targeting", "EnemyWithoutTower", fan)
@@ -162,7 +167,7 @@ def build(p, is_native=False):
     else:   # one round at the AI's target, the execute at half health
         dmg = p["r_dmg"] * (200 + p["r_exec"]) // 200
         snipe = homing("r_round", "EnemyChampion", [attack(dmg, up(p["r_ratio"]) * (200 + p["r_exec"]) // 200),
-                                                    view("r_hit"), tsfx("r_hit")], p["r_speed"])
+                                                    view("r_hit"), tsfx("r_hit")], p["r_speed"], p["q_lift"])
     ult = action("ult", p["r_dur"], p["r_cd"], 1, p["r_range"], "Targeting", "EnemyChampion",
                  combine(sfx("r"), sfx("r_aim"), view("r_sight"), delayed(p["r_rel"] - 1, sfx("r_shot"), snipe)))
 

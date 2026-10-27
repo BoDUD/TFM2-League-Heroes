@@ -744,10 +744,11 @@ RESTYLE = {
     # tft_maddie (the tft pack, bot): the design (Codex's step-0 A-1 with the rifle on her shoulder, 57 rows, 38 game px
     # beret to soles at the user's picks 「A-1 38 PPU 1.5」, the far eye and mouth redrawn) and Codex's key poses after
     # her own TFT clips (drawn on the design's grid in its colours, the design's head put in, gaps closed), posed by
-    # tools/art/rig_maddie.py with the muzzle flashes as over layers, so no proportion or density change here; the outer
+    # tools/art/rig_maddie.py with the muzzle flashes as over layers (orig/maddie_<tag>.over.png, laid on after the
+    # outline: fx), so no proportion or density change here; the outer
     # outline grown a square like the others, its one-square cracks closed and the small holes filled (gap-check); the
     # face point between her eyes (1 game px ahead of her standing point, 31 over the ground)
-    "maddie": dict(ppu=1.5, edge=1, face_to=(1, -31), cracks=True, fill_holes=15),
+    "maddie": dict(ppu=1.5, edge=1, face_to=(1, -31), cracks=True, fill_holes=15, fx=True),
 }
 NIDALEE_COUGAR = {"c_idle": 6, "c_run": 8, "c_attack": 4, "c_skill": 5, "c_pounce": 6, "c_swipe": 4, "c_transform": 3,
                   "c_hit": 2, "c_dead": 6}

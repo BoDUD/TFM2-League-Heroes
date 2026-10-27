@@ -109,6 +109,8 @@ pub struct Params {
     /// 狙神：p_far 以内离得越远加得越多，最多 +p_max%。
     pub p_max: usize,
     pub p_far: u64,
+    /// 子弹从她的枪口出去：起点比她的站位点高 q_lift（半蹲开枪的枪口），飞向目标那条线。
+    pub q_lift: u64,
     /// 连拨击锤：找人的距离、几枪、隔几拍一枪、每枪 q_dmg + q_ratio% 攻击力、子弹的速度和宽度。
     pub q_range: u64,
     pub q_n: usize,
@@ -137,6 +139,7 @@ impl Default for Params {
         Self {
             p_max: 25,
             p_far: 100000,
+            q_lift: 14000,
             q_range: 80000,
             q_n: 6,
             q_gap: 8,
@@ -170,6 +173,7 @@ pub fn parse_params(json: &str) -> Params {
         match k {
             "p_max" => p.p_max = u,
             "p_far" => p.p_far = (u as u64).max(1),
+            "q_lift" => p.q_lift = u as u64,
             "q_range" => p.q_range = u as u64,
             "q_n" => p.q_n = u,
             "q_gap" => p.q_gap = u.max(1),
@@ -317,9 +321,10 @@ fn put(sim: &mut StableSim<'_>, id: usize, buff: &BuffV1) {
     sim.add_buff(id, buff);
 }
 
-/// A bullet from her along the line through `to`, running `effect` on what it hits.
+/// A bullet from her muzzle (`lift` over her pivot, as the engine lifts a TargetProjectile) to the end of the line from
+/// her pivot through `to`, running `effect` on what it hits: the line still meets the target at its own height.
 fn fire(sim: &mut StableSim<'_>, me: usize, to: (u64, u64), picture: &str, effect: &str, width: u64, speed: u64,
-        reach: u64, penetrate: bool) -> bool {
+        reach: u64, penetrate: bool, lift: u64) -> bool {
     let Some((team, at)) = sim.get_entity(me).map(|e| (e.team(), e.pos())) else { return false };
     let len = isqrt(dist_sq(at, to)).saturating_add(OVERSHOOT).min(reach.saturating_add(OVERSHOOT));
     let end = line_end(at, to, len);
@@ -327,7 +332,7 @@ fn fire(sim: &mut StableSim<'_>, me: usize, to: (u64, u64), picture: &str, effec
         caster_id: me,
         team,
         x: at.0,
-        y: at.1,
+        y: at.1.saturating_sub(lift),
         radius: width,
         speed,
         move_kind: ProjectileMoveKindV1::Linear.code(),
@@ -373,7 +378,7 @@ impl StableEffectType for Shot {
         let p = params_of(me);
         let target = unit(&input).filter(|&id| shootable(sim, id)).or_else(|| farthest(&foes(sim, me), at, p.q_range));
         let Some(to) = target.and_then(|id| sim.get_entity(id)).map(|e| e.pos()) else { return };
-        let ok = fire(sim, me, to, &md("q_bullet"), BULLET_FX, p.q_width, p.q_speed, p.q_range, false);
+        let ok = fire(sim, me, to, &md("q_bullet"), BULLET_FX, p.q_width, p.q_speed, p.q_range, false, p.q_lift);
         sim.play_sfx(SFX_SHOT, me, &InputTargetV1::target(me));
         if !ok {
             if let Some(k) = counted("shot refused") {
@@ -440,7 +445,7 @@ impl StableEffectType for Snipe {
         // the weakest; the AI's own target when nobody is in reach (it chose one in range)
         let target = weakest(&foes(sim, me), at, p.r_range).or_else(|| unit(&input).filter(|&id| shootable(sim, id)));
         let Some(to) = target.and_then(|id| sim.get_entity(id)).map(|e| e.pos()) else { return };
-        let ok = fire(sim, me, to, &md("r_round"), ROUND_FX, p.r_width, p.r_speed, p.r_range, true);
+        let ok = fire(sim, me, to, &md("r_round"), ROUND_FX, p.r_width, p.r_speed, p.r_range, true, p.q_lift);
         if let Some(k) = counted("snipe") {
             let id = target.unwrap_or(0);
             let (hp, max) = sim.get_entity(id).map_or((0, 0), |e| e.hp());
@@ -586,7 +591,7 @@ mod tests {
 
     #[test]
     fn params_from_the_kit() {
-        let json = r#"{"e_amp":15,"e_range":90000,"e_t":480,"p_far":100000,"p_max":25,"q_dmg":10,"q_gap":8,"q_n":6,"q_range":80000,"q_ratio":40,"q_speed":9000,"q_width":4000,"r_dmg":220,"r_exec":60,"r_range":200000,"r_ratio":140,"r_speed":16000,"r_width":6000,"w_as":15,"w_max":4}"#;
+        let json = r#"{"e_amp":15,"e_range":90000,"e_t":480,"p_far":100000,"p_max":25,"q_lift":14000,"q_dmg":10,"q_gap":8,"q_n":6,"q_range":80000,"q_ratio":40,"q_speed":9000,"q_width":4000,"r_dmg":220,"r_exec":60,"r_range":200000,"r_ratio":140,"r_speed":16000,"r_width":6000,"w_as":15,"w_max":4}"#;
         assert_eq!(parse_params(json), Params::default());
     }
 
