@@ -1,0 +1,399 @@
+{
+ "square": 8,
+ "sheet": [
+  1536,
+  1024
+ ],
+ "ground": 924,
+ "same": {
+  "dead": {
+   "7": 6,
+   "8": 6
+  }
+ },
+ "same_as_design": {
+  "attack": [
+   6
+  ],
+  "leap": [
+   8
+  ],
+  "skill": [
+   8
+  ],
+  "skill2": [
+   6
+  ],
+  "skill_w": [
+   2,
+   7
+  ]
+ },
+ "sheets": [
+  {
+   "tag": "run",
+   "name": "run_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "action": "running (his move loop): a hunched beast's trot, the lower legs stepping in turn in place (never crossing), the body bobbing with each step, the claw and the blade carried as the pale figure has them",
+   "ms": [
+    120,
+    120
+   ],
+   "weapons": "The near hand (image left) is the big cream CLAW, the far hand (image right) grips the curved bone BLADE with the dark red tip. Each arm raised, swung back, thrust or hanging exactly as the pale figure has it; the claw stays the near hand, the blade stays in the far hand. The tail curls as the pale figure's."
+  },
+  {
+   "tag": "run",
+   "name": "run_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "action": "running (his move loop): a hunched beast's trot, the lower legs stepping in turn in place (never crossing), the body bobbing with each step, the claw and the blade carried as the pale figure has them",
+   "ms": [
+    120,
+    120
+   ],
+   "weapons": "The near hand (image left) is the big cream CLAW, the far hand (image right) grips the curved bone BLADE with the dark red tip. Each arm raised, swung back, thrust or hanging exactly as the pale figure has it; the claw stays the near hand, the blade stays in the far hand. The tail curls as the pale figure's."
+  },
+  {
+   "tag": "run",
+   "name": "run_3",
+   "frames": [
+    5,
+    6
+   ],
+   "cells": 2,
+   "action": "running (his move loop): a hunched beast's trot, the lower legs stepping in turn in place (never crossing), the body bobbing with each step, the claw and the blade carried as the pale figure has them",
+   "ms": [
+    120,
+    120
+   ],
+   "weapons": "The near hand (image left) is the big cream CLAW, the far hand (image right) grips the curved bone BLADE with the dark red tip. Each arm raised, swung back, thrust or hanging exactly as the pale figure has it; the claw stays the near hand, the blade stays in the far hand. The tail curls as the pale figure's."
+  },
+  {
+   "tag": "run",
+   "name": "run_4",
+   "frames": [
+    7,
+    8
+   ],
+   "cells": 2,
+   "action": "running (his move loop): a hunched beast's trot, the lower legs stepping in turn in place (never crossing), the body bobbing with each step, the claw and the blade carried as the pale figure has them",
+   "ms": [
+    120,
+    120
+   ],
+   "weapons": "The near hand (image left) is the big cream CLAW, the far hand (image right) grips the curved bone BLADE with the dark red tip. Each arm raised, swung back, thrust or hanging exactly as the pale figure has it; the claw stays the near hand, the blade stays in the far hand. The tail curls as the pale figure's."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "action": "attack: he raises the claw, then swings it back and slashes the curved blade forward, then back to his crouch",
+   "ms": [
+    60,
+    60
+   ],
+   "weapons": "The near hand (image left) is the big cream CLAW, the far hand (image right) grips the curved bone BLADE with the dark red tip. Each arm raised, swung back, thrust or hanging exactly as the pale figure has it; the claw stays the near hand, the blade stays in the far hand. The tail curls as the pale figure's."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "action": "attack: he raises the claw, then swings it back and slashes the curved blade forward, then back to his crouch",
+   "ms": [
+    60,
+    70
+   ],
+   "weapons": "The near hand (image left) is the big cream CLAW, the far hand (image right) grips the curved bone BLADE with the dark red tip. Each arm raised, swung back, thrust or hanging exactly as the pale figure has it; the claw stays the near hand, the blade stays in the far hand. The tail curls as the pale figure's."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_3",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "action": "attack: he raises the claw, then swings it back and slashes the curved blade forward, then back to his crouch",
+   "ms": [
+    80
+   ],
+   "weapons": "The near hand (image left) is the big cream CLAW, the far hand (image right) grips the curved bone BLADE with the dark red tip. Each arm raised, swung back, thrust or hanging exactly as the pale figure has it; the claw stays the near hand, the blade stays in the far hand. The tail curls as the pale figure's."
+  },
+  {
+   "tag": "leap",
+   "name": "leap_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "action": "Unseen Predator leap: he springs at the target, the claw flung back and the blade thrust forward, and lands crouched",
+   "ms": [
+    50,
+    50
+   ],
+   "weapons": "The near hand (image left) is the big cream CLAW, the far hand (image right) grips the curved bone BLADE with the dark red tip. Each arm raised, swung back, thrust or hanging exactly as the pale figure has it; the claw stays the near hand, the blade stays in the far hand. The tail curls as the pale figure's."
+  },
+  {
+   "tag": "leap",
+   "name": "leap_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "action": "Unseen Predator leap: he springs at the target, the claw flung back and the blade thrust forward, and lands crouched",
+   "ms": [
+    60,
+    60
+   ],
+   "weapons": "The near hand (image left) is the big cream CLAW, the far hand (image right) grips the curved bone BLADE with the dark red tip. Each arm raised, swung back, thrust or hanging exactly as the pale figure has it; the claw stays the near hand, the blade stays in the far hand. The tail curls as the pale figure's."
+  },
+  {
+   "tag": "leap",
+   "name": "leap_3",
+   "frames": [
+    5,
+    6
+   ],
+   "cells": 2,
+   "action": "Unseen Predator leap: he springs at the target, the claw flung back and the blade thrust forward, and lands crouched",
+   "ms": [
+    60,
+    70
+   ],
+   "weapons": "The near hand (image left) is the big cream CLAW, the far hand (image right) grips the curved bone BLADE with the dark red tip. Each arm raised, swung back, thrust or hanging exactly as the pale figure has it; the claw stays the near hand, the blade stays in the far hand. The tail curls as the pale figure's."
+  },
+  {
+   "tag": "leap",
+   "name": "leap_4",
+   "frames": [
+    7
+   ],
+   "cells": 1,
+   "action": "Unseen Predator leap: he springs at the target, the claw flung back and the blade thrust forward, and lands crouched",
+   "ms": [
+    80
+   ],
+   "weapons": "The near hand (image left) is the big cream CLAW, the far hand (image right) grips the curved bone BLADE with the dark red tip. Each arm raised, swung back, thrust or hanging exactly as the pale figure has it; the claw stays the near hand, the blade stays in the far hand. The tail curls as the pale figure's."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "action": "Savagery: he rears up, the blade raised over his head, then rips it forward and down",
+   "ms": [
+    50,
+    50
+   ],
+   "weapons": "The near hand (image left) is the big cream CLAW, the far hand (image right) grips the curved bone BLADE with the dark red tip. Each arm raised, swung back, thrust or hanging exactly as the pale figure has it; the claw stays the near hand, the blade stays in the far hand. The tail curls as the pale figure's."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "action": "Savagery: he rears up, the blade raised over his head, then rips it forward and down",
+   "ms": [
+    60,
+    50
+   ],
+   "weapons": "The near hand (image left) is the big cream CLAW, the far hand (image right) grips the curved bone BLADE with the dark red tip. Each arm raised, swung back, thrust or hanging exactly as the pale figure has it; the claw stays the near hand, the blade stays in the far hand. The tail curls as the pale figure's."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_3",
+   "frames": [
+    5,
+    6
+   ],
+   "cells": 2,
+   "action": "Savagery: he rears up, the blade raised over his head, then rips it forward and down",
+   "ms": [
+    50,
+    70
+   ],
+   "weapons": "The near hand (image left) is the big cream CLAW, the far hand (image right) grips the curved bone BLADE with the dark red tip. Each arm raised, swung back, thrust or hanging exactly as the pale figure has it; the claw stays the near hand, the blade stays in the far hand. The tail curls as the pale figure's."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_4",
+   "frames": [
+    7
+   ],
+   "cells": 1,
+   "action": "Savagery: he rears up, the blade raised over his head, then rips it forward and down",
+   "ms": [
+    70
+   ],
+   "weapons": "The near hand (image left) is the big cream CLAW, the far hand (image right) grips the curved bone BLADE with the dark red tip. Each arm raised, swung back, thrust or hanging exactly as the pale figure has it; the claw stays the near hand, the blade stays in the far hand. The tail curls as the pale figure's."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "action": "Bola Strike: he raises the claw and throws the bola forward with it",
+   "ms": [
+    70,
+    70
+   ],
+   "weapons": "The near hand (image left) is the big cream CLAW, the far hand (image right) grips the curved bone BLADE with the dark red tip. Each arm raised, swung back, thrust or hanging exactly as the pale figure has it; the claw stays the near hand, the blade stays in the far hand. The tail curls as the pale figure's. Do not draw the bola itself (it is an effect)."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "action": "Bola Strike: he raises the claw and throws the bola forward with it",
+   "ms": [
+    80,
+    70
+   ],
+   "weapons": "The near hand (image left) is the big cream CLAW, the far hand (image right) grips the curved bone BLADE with the dark red tip. Each arm raised, swung back, thrust or hanging exactly as the pale figure has it; the claw stays the near hand, the blade stays in the far hand. The tail curls as the pale figure's. Do not draw the bola itself (it is an effect)."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_3",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "action": "Bola Strike: he raises the claw and throws the bola forward with it",
+   "ms": [
+    80
+   ],
+   "weapons": "The near hand (image left) is the big cream CLAW, the far hand (image right) grips the curved bone BLADE with the dark red tip. Each arm raised, swung back, thrust or hanging exactly as the pale figure has it; the claw stays the near hand, the blade stays in the far hand. The tail curls as the pale figure's. Do not draw the bola itself (it is an effect)."
+  },
+  {
+   "tag": "skill_w",
+   "name": "skill_w_1",
+   "frames": [
+    1,
+    3
+   ],
+   "cells": 2,
+   "action": "Battle Roar: he throws his arms wide - the claw back, the blade forward - and roars, mouth open",
+   "ms": [
+    60,
+    80
+   ],
+   "weapons": "The near hand (image left) is the big cream CLAW, the far hand (image right) grips the curved bone BLADE with the dark red tip. Each arm raised, swung back, thrust or hanging exactly as the pale figure has it; the claw stays the near hand, the blade stays in the far hand. The tail curls as the pale figure's."
+  },
+  {
+   "tag": "skill_w",
+   "name": "skill_w_2",
+   "frames": [
+    4,
+    5
+   ],
+   "cells": 2,
+   "action": "Battle Roar: he throws his arms wide - the claw back, the blade forward - and roars, mouth open",
+   "ms": [
+    120,
+    120
+   ],
+   "weapons": "The near hand (image left) is the big cream CLAW, the far hand (image right) grips the curved bone BLADE with the dark red tip. Each arm raised, swung back, thrust or hanging exactly as the pale figure has it; the claw stays the near hand, the blade stays in the far hand. The tail curls as the pale figure's."
+  },
+  {
+   "tag": "skill_w",
+   "name": "skill_w_3",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "action": "Battle Roar: he throws his arms wide - the claw back, the blade forward - and roars, mouth open",
+   "ms": [
+    90
+   ],
+   "weapons": "The near hand (image left) is the big cream CLAW, the far hand (image right) grips the curved bone BLADE with the dark red tip. Each arm raised, swung back, thrust or hanging exactly as the pale figure has it; the claw stays the near hand, the blade stays in the far hand. The tail curls as the pale figure's."
+  },
+  {
+   "tag": "hit",
+   "name": "hit_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "action": "struck, flinching back",
+   "ms": [
+    120,
+    120
+   ],
+   "weapons": "The near hand (image left) is the big cream CLAW, the far hand (image right) grips the curved bone BLADE with the dark red tip. Each arm raised, swung back, thrust or hanging exactly as the pale figure has it; the claw stays the near hand, the blade stays in the far hand. The tail curls as the pale figure's."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "action": "death: he staggers, falls on his back and lies on the ground, the blade dropped beside him",
+   "ms": [
+    100,
+    100
+   ],
+   "weapons": "Lying on the ground as the pale figure: the claw and the blade where the pale figure has them (the blade dropped on the ground in the last frames). The tail lies as the pale figure's."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "action": "death: he staggers, falls on his back and lies on the ground, the blade dropped beside him",
+   "ms": [
+    100,
+    120
+   ],
+   "weapons": "Lying on the ground as the pale figure: the claw and the blade where the pale figure has them (the blade dropped on the ground in the last frames). The tail lies as the pale figure's."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_3",
+   "frames": [
+    5,
+    6
+   ],
+   "cells": 2,
+   "action": "death: he staggers, falls on his back and lies on the ground, the blade dropped beside him",
+   "ms": [
+    120,
+    150
+   ],
+   "weapons": "Lying on the ground as the pale figure: the claw and the blade where the pale figure has them (the blade dropped on the ground in the last frames). The tail lies as the pale figure's."
+  }
+ ]
+}

@@ -1,0 +1,245 @@
+Tool: built-in image_gen. transparent_background=false (white-background fallback).
+No output sheets resized, cropped, or re-laid out.
+To reconstruct exact prompt: for entries marked BASE + SUFFIX, concatenate BASE and SUFFIX verbatim. Other entries contain their complete prompt.
+
+===== BASE =====
+Four supplied references in this order: 1 APPROVED DESIGN (6x pixel display); 2 FRAME TEMPLATE; 3 OLD POSE REFERENCE, costume obsolete; 4 APPROVED COLOR PALETTE.
+Create ONE landscape 1536x1024 PNG, matching TEMPLATE coordinates and cells exactly, no subsequent resizing. Preserve the enormous EMPTY TOP HALF of the template! Actors occupy the lower area, NOT centered vertically, NOT filling the whole canvas. Ground line y=924. In a two-cell sheet each cell is 768 wide and the actor stand anchors are x=384 and 1152; in a one-cell sheet actor anchor is x=768. Reference height bar spans y=452 to924: crouched actor total 59 logical squares at 8 px/square =472 px. HEAD from mane top to beard bottom is exactly 33 logical squares =264 px, horn adds a little above. Keep this SAME head size across every pose, do not shrink head when arms spread. Draw each body at the position/pose of the pale figure, NOT design's idle pose except when template is idle. Standing feet on y=924; airborne/falling positions follow template. Do not enlarge to fill blank top margin. Do not stretch anatomy. Each pixel-art square 8x8 px, flat clustered colors ONLY from image4, crisp near-black outline. No antialiasing/dithering/gradients.
+The model MUST be exactly image1: huge grey white chunky braided mane, TWO cream curved horns, grey feline face, ONE gold eye, scar over other eye, pink nose, cream fangs and white beard; broad hunched stocky beast, brown leather armour and gold riveted big pauldron, blue grey furry arms, NEAR image-left cream claw, FAR image-right cream bone curved knife with dark-red tip, gold square buckle and brown kilt, thick short beast legs and claw feet, ONE blue grey gold-ringed tail curling right. No third hand, no extra tail. All limbs same lengths/thickness as approved, bend joints only. Three-quarter front-right face. Entire actor redrawn for each requested pose, not old costume.
+NO effects: no slashes, bola, roar waves, smoke, lines, dust. NO template marks, labels, grey bars, lines, cell borders, shadows or ground. Background flat PURE WHITE #FFFFFF (explicit acceptable production fallback), completely uniform white outside actor and in gaps; opaque pixels only; no background pattern. Do not paint checkerboard. The two actors must not overlap cell boundary. Do not add any extra frame.
+===== END BASE =====
+
+===== run_1 =====
+BASE + SUFFIX:
+
+THIS SHEET run_1: 2 cells, frames 1,2. ACTION: running (his move loop): a hunched beast's trot, the lower legs stepping in turn in place (never crossing), the body bobbing with each step, the claw and the blade carried as the pale figure has them. HANDS: The near hand (image left) is the big cream CLAW, the far hand (image right) grips the curved bone BLADE with the dark red tip. Each arm raised, swung back, thrust or hanging exactly as the pale figure has it; the claw stays the near hand, the blade stays in the far hand. The tail curls as the pale figure's.. Running: these are two different phases, lower legs alternate in place, never crossover, hips/head bob slightly while same head size. Match the two distinct template poses exactly.
+
+===== run_2 =====
+BASE + SUFFIX:
+
+THIS SHEET run_2: 2 cells, frames 3,4. ACTION: running (his move loop): a hunched beast's trot, the lower legs stepping in turn in place (never crossing), the body bobbing with each step, the claw and the blade carried as the pale figure has them. HANDS: The near hand (image left) is the big cream CLAW, the far hand (image right) grips the curved bone BLADE with the dark red tip. Each arm raised, swung back, thrust or hanging exactly as the pale figure has it; the claw stays the near hand, the blade stays in the far hand. The tail curls as the pale figure's.. Distinct running phases: use EXACT lower leg alternation and bob from corresponding template and old frame; no crossover stride. Each actor about 608 wide and 472 high. Head 264 high. Feet bottom y=924, not950, preserve blank space below. Background MUST flat #FFFFFF pixel value everywhere outside actors, not tinted white or paper texture.
+
+===== run_3 =====
+BASE + SUFFIX:
+
+THIS SHEET run_3: 2 cells, frames 5,6. ACTION: running (his move loop): a hunched beast's trot, the lower legs stepping in turn in place (never crossing), the body bobbing with each step, the claw and the blade carried as the pale figure has them. HANDS: The near hand (image left) is the big cream CLAW, the far hand (image right) grips the curved bone BLADE with the dark red tip. Each arm raised, swung back, thrust or hanging exactly as the pale figure has it; the claw stays the near hand, the blade stays in the far hand. The tail curls as the pale figure's.. Distinct running phases: use EXACT lower leg alternation and bob from corresponding template and old frame; no crossover stride. Each actor about 608 wide and 472 high. Head 264 high. Feet bottom y=924, not950, preserve blank space below. Background MUST flat #FFFFFF pixel value everywhere outside actors, not tinted white or paper texture.
+
+===== run_4 =====
+BASE + SUFFIX:
+
+THIS SHEET run_4: 2 cells, frames 7,8. ACTION: running (his move loop): a hunched beast's trot, the lower legs stepping in turn in place (never crossing), the body bobbing with each step, the claw and the blade carried as the pale figure has them. HANDS: The near hand (image left) is the big cream CLAW, the far hand (image right) grips the curved bone BLADE with the dark red tip. Each arm raised, swung back, thrust or hanging exactly as the pale figure has it; the claw stays the near hand, the blade stays in the far hand. The tail curls as the pale figure's.. Distinct running phases: use EXACT lower leg alternation and bob from corresponding template and old frame; no crossover stride. Each actor about 608 wide and 472 high. Head 264 high. Feet bottom y=924, not950, preserve blank space below. Background MUST flat #FFFFFF pixel value everywhere outside actors, not tinted white or paper texture.
+
+===== attack_1 =====
+BASE + SUFFIX:
+
+THIS SHEET attack_1: 2 cells, frame(s) 1,2. ACTION: attack: he raises the claw, then swings it back and slashes the curved blade forward, then back to his crouch. HANDS: The near hand (image left) is the big cream CLAW, the far hand (image right) grips the curved bone BLADE with the dark red tip. Each arm raised, swung back, thrust or hanging exactly as the pale figure has it; the claw stays the near hand, the blade stays in the far hand. The tail curls as the pale figure's.. Keep the approved huge mane/head; do not miniaturize head. Exact template pose silhouette including lifted/spread hands. Background MUST flat #FFFFFF, not paper.
+
+===== attack_2 =====
+BASE + SUFFIX:
+
+THIS SHEET attack_2: 2 cells, frame(s) 3,4. ACTION: attack: he raises the claw, then swings it back and slashes the curved blade forward, then back to his crouch. HANDS: The near hand (image left) is the big cream CLAW, the far hand (image right) grips the curved bone BLADE with the dark red tip. Each arm raised, swung back, thrust or hanging exactly as the pale figure has it; the claw stays the near hand, the blade stays in the far hand. The tail curls as the pale figure's.. Keep the approved huge mane/head; do not miniaturize head. Exact template pose silhouette including lifted/spread hands. Background MUST flat #FFFFFF, not paper.
+
+===== attack_3 =====
+BASE + SUFFIX:
+
+THIS SHEET attack_3: 1 cells, frame(s) 5. ACTION: attack: he raises the claw, then swings it back and slashes the curved blade forward, then back to his crouch. HANDS: The near hand (image left) is the big cream CLAW, the far hand (image right) grips the curved bone BLADE with the dark red tip. Each arm raised, swung back, thrust or hanging exactly as the pale figure has it; the claw stays the near hand, the blade stays in the far hand. The tail curls as the pale figure's.. Keep the approved huge mane/head; do not miniaturize head. Exact template pose silhouette including lifted/spread hands. Background MUST flat #FFFFFF, not paper.
+
+===== leap_1 =====
+BASE + SUFFIX:
+
+THIS SHEET leap_1: 2 cells, frame(s) 1,2. ACTION: Unseen Predator leap: he springs at the target, the claw flung back and the blade thrust forward, and lands crouched. HANDS: The near hand (image left) is the big cream CLAW, the far hand (image right) grips the curved bone BLADE with the dark red tip. Each arm raised, swung back, thrust or hanging exactly as the pale figure has it; the claw stays the near hand, the blade stays in the far hand. The tail curls as the pale figure's.. Frame-specific PALE pose and its airborne elevation are mandatory. Claw swept BACK on left, bone knife thrust FORWARD on right during flight. Tail curls RIGHT. Do not copy the idle pose into both cells. No speed effects. Keep HUGE 33-square head.
+
+===== leap_2 =====
+BASE + SUFFIX:
+
+THIS SHEET leap_2: 2 cells, frame(s) 3,4. ACTION: Unseen Predator leap: he springs at the target, the claw flung back and the blade thrust forward, and lands crouched. HANDS: The near hand (image left) is the big cream CLAW, the far hand (image right) grips the curved bone BLADE with the dark red tip. Each arm raised, swung back, thrust or hanging exactly as the pale figure has it; the claw stays the near hand, the blade stays in the far hand. The tail curls as the pale figure's.. Frame-specific PALE pose and its airborne elevation are mandatory. Claw swept BACK on left, bone knife thrust FORWARD on right during flight. Tail curls RIGHT. Do not copy the idle pose into both cells. No speed effects. Keep HUGE 33-square head.
+
+===== leap_3 =====
+BASE + SUFFIX:
+
+THIS SHEET leap_3: 2 cells, frame(s) 5,6. ACTION: Unseen Predator leap: he springs at the target, the claw flung back and the blade thrust forward, and lands crouched. HANDS: The near hand (image left) is the big cream CLAW, the far hand (image right) grips the curved bone BLADE with the dark red tip. Each arm raised, swung back, thrust or hanging exactly as the pale figure has it; the claw stays the near hand, the blade stays in the far hand. The tail curls as the pale figure's.. Frame-specific PALE pose and its airborne elevation are mandatory. Claw swept BACK on left, bone knife thrust FORWARD on right during flight. Tail curls RIGHT. Do not copy the idle pose into both cells. No speed effects. Keep HUGE 33-square head.
+
+===== leap_4 =====
+BASE + SUFFIX:
+
+THIS SHEET leap_4: 1 cells, frame(s) 7. ACTION: Unseen Predator leap: he springs at the target, the claw flung back and the blade thrust forward, and lands crouched. HANDS: The near hand (image left) is the big cream CLAW, the far hand (image right) grips the curved bone BLADE with the dark red tip. Each arm raised, swung back, thrust or hanging exactly as the pale figure has it; the claw stays the near hand, the blade stays in the far hand. The tail curls as the pale figure's.. Frame-specific PALE pose and its airborne elevation are mandatory. Claw swept BACK on left, bone knife thrust FORWARD on right during flight. Tail curls RIGHT. Do not copy the idle pose into both cells. No speed effects. Keep HUGE 33-square head.
+
+===== skill_1 =====
+BASE + SUFFIX:
+
+THIS SHEET skill_1: 2 cells, frame(s) 1,2. ACTION: Savagery: he rears up, the blade raised over his head, then rips it forward and down. HANDS: The near hand (image left) is the big cream CLAW, the far hand (image right) grips the curved bone BLADE with the dark red tip. Each arm raised, swung back, thrust or hanging exactly as the pale figure has it; the claw stays the near hand, the blade stays in the far hand. The tail curls as the pale figure's.. This is Q SAVAGERY. Read individual template arm gestures: lift FAR knife hand overhead, then sweeping downward-forward strike, then crouched recovery, following EXACT corresponding pale pose. Near claw remains separate on LEFT, NEVER swap weapon hands. Keep 33-square huge mane/head. NO slash VFX.
+
+===== skill_2 =====
+BASE + SUFFIX:
+
+THIS SHEET skill_2: 2 cells, frame(s) 3,4. ACTION: Savagery: he rears up, the blade raised over his head, then rips it forward and down. HANDS: The near hand (image left) is the big cream CLAW, the far hand (image right) grips the curved bone BLADE with the dark red tip. Each arm raised, swung back, thrust or hanging exactly as the pale figure has it; the claw stays the near hand, the blade stays in the far hand. The tail curls as the pale figure's.. This is Q SAVAGERY. Read individual template arm gestures: lift FAR knife hand overhead, then sweeping downward-forward strike, then crouched recovery, following EXACT corresponding pale pose. Near claw remains separate on LEFT, NEVER swap weapon hands. Keep 33-square huge mane/head. NO slash VFX.
+
+===== skill_3 =====
+BASE + SUFFIX:
+
+THIS SHEET skill_3: 2 cells, frame(s) 5,6. ACTION: Savagery: he rears up, the blade raised over his head, then rips it forward and down. HANDS: The near hand (image left) is the big cream CLAW, the far hand (image right) grips the curved bone BLADE with the dark red tip. Each arm raised, swung back, thrust or hanging exactly as the pale figure has it; the claw stays the near hand, the blade stays in the far hand. The tail curls as the pale figure's.. This is Q SAVAGERY. Read individual template arm gestures: lift FAR knife hand overhead, then sweeping downward-forward strike, then crouched recovery, following EXACT corresponding pale pose. Near claw remains separate on LEFT, NEVER swap weapon hands. Keep 33-square huge mane/head. NO slash VFX.
+
+===== skill_4 =====
+BASE + SUFFIX:
+
+THIS SHEET skill_4: 1 cells, frame(s) 7. ACTION: Savagery: he rears up, the blade raised over his head, then rips it forward and down. HANDS: The near hand (image left) is the big cream CLAW, the far hand (image right) grips the curved bone BLADE with the dark red tip. Each arm raised, swung back, thrust or hanging exactly as the pale figure has it; the claw stays the near hand, the blade stays in the far hand. The tail curls as the pale figure's.. This is Q SAVAGERY. Read individual template arm gestures: lift FAR knife hand overhead, then sweeping downward-forward strike, then crouched recovery, following EXACT corresponding pale pose. Near claw remains separate on LEFT, NEVER swap weapon hands. Keep 33-square huge mane/head. NO slash VFX.
+
+===== skill2_1 =====
+BASE + SUFFIX:
+
+THIS SHEET skill2_1: 2 cells, frame(s) 1,2. ACTION: Bola Strike: he raises the claw and throws the bola forward with it. HANDS: The near hand (image left) is the big cream CLAW, the far hand (image right) grips the curved bone BLADE with the dark red tip. Each arm raised, swung back, thrust or hanging exactly as the pale figure has it; the claw stays the near hand, the blade stays in the far hand. The tail curls as the pale figure's. Do not draw the bola itself (it is an effect).. E BOLA THROW: near LEFT claw gestures raised then forward release following pale frame, FAR right hand still holds knife. Do not render bola. Tail curls RIGHT. Keep 33-square approved mane/head identical in size.
+
+===== skill2_2 =====
+BASE + SUFFIX:
+
+THIS SHEET skill2_2: 2 cells, frame(s) 3,4. ACTION: Bola Strike: he raises the claw and throws the bola forward with it. HANDS: The near hand (image left) is the big cream CLAW, the far hand (image right) grips the curved bone BLADE with the dark red tip. Each arm raised, swung back, thrust or hanging exactly as the pale figure has it; the claw stays the near hand, the blade stays in the far hand. The tail curls as the pale figure's. Do not draw the bola itself (it is an effect).. E BOLA THROW: near LEFT claw gestures raised then forward release following pale frame, FAR right hand still holds knife. Do not render bola. Tail curls RIGHT. Keep 33-square approved mane/head identical in size.
+
+===== skill2_3 =====
+BASE + SUFFIX:
+
+THIS SHEET skill2_3: 1 cells, frame(s) 5. ACTION: Bola Strike: he raises the claw and throws the bola forward with it. HANDS: The near hand (image left) is the big cream CLAW, the far hand (image right) grips the curved bone BLADE with the dark red tip. Each arm raised, swung back, thrust or hanging exactly as the pale figure has it; the claw stays the near hand, the blade stays in the far hand. The tail curls as the pale figure's. Do not draw the bola itself (it is an effect).. E BOLA THROW: near LEFT claw gestures raised then forward release following pale frame, FAR right hand still holds knife. Do not render bola. Tail curls RIGHT. Keep 33-square approved mane/head identical in size.
+
+===== skill_w_1 =====
+BASE + SUFFIX:
+
+THIS SHEET skill_w_1: 2 cells, frame(s) 1,3. ACTION: Battle Roar: he throws his arms wide - the claw back, the blade forward - and roars, mouth open. HANDS: The near hand (image left) is the big cream CLAW, the far hand (image right) grips the curved bone BLADE with the dark red tip. Each arm raised, swung back, thrust or hanging exactly as the pale figure has it; the claw stays the near hand, the blade stays in the far hand. The tail curls as the pale figure's.. W BATTLE ROAR: spread claw LEFT backwards, knife hand RIGHT forwards and open mouth on roar frames; recovery on frame6. Match individual template not idle for every frame. Tail curls RIGHT. Keep 33-square approved mane/head identical in size.
+
+===== skill_w_2 =====
+BASE + SUFFIX:
+
+THIS SHEET skill_w_2: 2 cells, frame(s) 4,5. ACTION: Battle Roar: he throws his arms wide - the claw back, the blade forward - and roars, mouth open. HANDS: The near hand (image left) is the big cream CLAW, the far hand (image right) grips the curved bone BLADE with the dark red tip. Each arm raised, swung back, thrust or hanging exactly as the pale figure has it; the claw stays the near hand, the blade stays in the far hand. The tail curls as the pale figure's.. W BATTLE ROAR: spread claw LEFT backwards, knife hand RIGHT forwards and open mouth on roar frames; recovery on frame6. Match individual template not idle for every frame. Tail curls RIGHT. Keep 33-square approved mane/head identical in size.
+
+===== skill_w_3 =====
+BASE + SUFFIX:
+
+THIS SHEET skill_w_3: 1 cells, frame(s) 6. ACTION: Battle Roar: he throws his arms wide - the claw back, the blade forward - and roars, mouth open. HANDS: The near hand (image left) is the big cream CLAW, the far hand (image right) grips the curved bone BLADE with the dark red tip. Each arm raised, swung back, thrust or hanging exactly as the pale figure has it; the claw stays the near hand, the blade stays in the far hand. The tail curls as the pale figure's.. W BATTLE ROAR: spread claw LEFT backwards, knife hand RIGHT forwards and open mouth on roar frames; recovery on frame6. Match individual template not idle for every frame. Tail curls RIGHT. Keep 33-square approved mane/head identical in size.
+
+===== hit_1 =====
+BASE + SUFFIX:
+
+THIS SHEET hit_1: 2 cells, frame(s) 1,2. ACTION: struck, flinching back. HANDS: The near hand (image left) is the big cream CLAW, the far hand (image right) grips the curved bone BLADE with the dark red tip. Each arm raised, swung back, thrust or hanging exactly as the pale figure has it; the claw stays the near hand, the blade stays in the far hand. The tail curls as the pale figure's.. HIT RECOIL: follow individual template, pulled BACK slightly, near claw back and far knife remains in hand. No damage effects. Never add labels, ground or shadows.
+
+===== dead_1 =====
+BASE + SUFFIX:
+
+THIS SHEET dead_1: 2 cells, frame(s) 1,2. ACTION: death: he staggers, falls on his back and lies on the ground, the blade dropped beside him. HANDS: Lying on the ground as the pale figure: the claw and the blade where the pale figure has them (the blade dropped on the ground in the last frames). The tail lies as the pale figure's.. DEATH sequence: follow EXACT each template orientation, early stagger frames upright, frame4 toppling sideways, frames5 and6 lying on back on ground with detached bone knife beside him. Lying down body height much lower, rotate body pose naturally but NEVER shrink head (same 264 px mane-beard size). Do not replace fallen frames with standing poses. Never add labels, ground or shadows.
+
+===== dead_2 =====
+BASE + SUFFIX:
+
+THIS SHEET dead_2: 2 cells, frame(s) 3,4. ACTION: death: he staggers, falls on his back and lies on the ground, the blade dropped beside him. HANDS: Lying on the ground as the pale figure: the claw and the blade where the pale figure has them (the blade dropped on the ground in the last frames). The tail lies as the pale figure's.. DEATH sequence: follow EXACT each template orientation, early stagger frames upright, frame4 toppling sideways, frames5 and6 lying on back on ground with detached bone knife beside him. Lying down body height much lower, rotate body pose naturally but NEVER shrink head (same 264 px mane-beard size). Do not replace fallen frames with standing poses. Never add labels, ground or shadows.
+
+===== dead_3 =====
+BASE + SUFFIX:
+
+THIS SHEET dead_3: 2 cells, frame(s) 5,6. ACTION: death: he staggers, falls on his back and lies on the ground, the blade dropped beside him. HANDS: Lying on the ground as the pale figure: the claw and the blade where the pale figure has them (the blade dropped on the ground in the last frames). The tail lies as the pale figure's.. DEATH sequence: follow EXACT each template orientation, early stagger frames upright, frame4 toppling sideways, frames5 and6 lying on back on ground with detached bone knife beside him. Lying down body height much lower, rotate body pose naturally but NEVER shrink head (same 264 px mane-beard size). Do not replace fallen frames with standing poses. Never add labels, ground or shadows.
+
+===== leap_1 revision1 =====
+BASE + SUFFIX:
+
+FIFTH IMAGE is the CURRENT GENERATED SHEET TO CORRECT. Images1-4 retain their roles. Make a targeted correction, preserve the approved model style. The frame template image2 and old-pose image3 OVERRIDE any wrong current-sheet pose.
+SHEET leap_1, 2 cell(s), frame(s) 1,2. REQUIRED FIX (highest priority): Frame1 LEFT must be grounded crouched anticipation, both feet on y924, arms hanging. Frame2 RIGHT must be airborne launch, arms spread claw back and blade forward. Current generated sheet reversed the ground/air phases: correct ordering to exactly template.
+Keep the canvas 1536x1024, do not crop, rescale or re-layout. No frame labels. Correct pose order is more important than a dramatic action. Background exactly solid white.
+
+===== leap_4 revision1 =====
+BASE + SUFFIX:
+
+FIFTH IMAGE is the CURRENT GENERATED SHEET TO CORRECT. Images1-4 retain their roles. Make a targeted correction, preserve the approved model style. The frame template image2 and old-pose image3 OVERRIDE any wrong current-sheet pose.
+SHEET leap_4, 1 cell(s), frame(s) 7. REQUIRED FIX (highest priority): Only ONE frame, frame7 is LANDING grounded LOW CROUCH, both feet on ground y924, near claw hanging low and bone knife down at right, like template. Current generated character is still airborne: replace with landed crouch. No jumping pose.
+Keep the canvas 1536x1024, do not crop, rescale or re-layout. No frame labels. Correct pose order is more important than a dramatic action. Background exactly solid white.
+
+===== run_4 revision1 =====
+BASE + SUFFIX:
+
+FIFTH IMAGE is the CURRENT GENERATED SHEET TO CORRECT. Images1-4 retain their roles. Make a targeted correction, preserve the approved model style. The frame template image2 and old-pose image3 OVERRIDE any wrong current-sheet pose.
+SHEET run_4, 2 cell(s), frame(s) 7,8. REQUIRED FIX (highest priority): ONE tail only curling on image RIGHT like approved design, not image LEFT. Keep run leg alternation. Both heads same design size. Fix tail direction only.
+Keep the canvas 1536x1024, do not crop, rescale or re-layout. No frame labels. Correct pose order is more important than a dramatic action. Background exactly solid white.
+
+===== skill_1 revision1 =====
+BASE + SUFFIX:
+
+FIFTH IMAGE is the CURRENT GENERATED SHEET TO CORRECT. Images1-4 retain their roles. Make a targeted correction, preserve the approved model style. The frame template image2 and old-pose image3 OVERRIDE any wrong current-sheet pose.
+SHEET skill_1, 2 cell(s), frame(s) 1,2. REQUIRED FIX (highest priority): LEFT frame1 is GROUNDED IDLE CROUCH, near claw hanging down left and far knife hanging down right. RIGHT frame2 lifts LEFT claw hand UP and FAR RIGHT knife hand OVERHEAD while slightly straightening up. The last generated sheet reversed these two poses: correct ordering to template.
+Keep the canvas 1536x1024, do not crop, rescale or re-layout. No frame labels. Correct pose order is more important than a dramatic action. Background exactly solid white.
+
+===== skill_3 revision1 =====
+BASE + SUFFIX:
+
+FIFTH IMAGE is the CURRENT GENERATED SHEET TO CORRECT. Images1-4 retain their roles. Make a targeted correction, preserve the approved model style. The frame template image2 and old-pose image3 OVERRIDE any wrong current-sheet pose.
+SHEET skill_3, 2 cell(s), frame(s) 5,6. REQUIRED FIX (highest priority): LEFT frame5: near LEFT claw extended BACK/LEFT nearly horizontal, far RIGHT knife arm extended FORWARD/RIGHT nearly horizontal for downward strike follow-through. Knife NOT overhead in left cell. RIGHT frame6: near LEFT claw hangs DOWN, far RIGHT knife hand raised OVERHEAD behind horns. Knife NOT hanging down in right cell. Match each exact pale pose, no swapped frames.
+Keep the canvas 1536x1024, do not crop, rescale or re-layout. No frame labels. Correct pose order is more important than a dramatic action. Background exactly solid white.
+
+===== skill_2 revision1 =====
+BASE + SUFFIX:
+
+FIFTH IMAGE is the CURRENT GENERATED SHEET TO CORRECT. Images1-4 retain their roles. Make a targeted correction, preserve the approved model style. The frame template image2 and old-pose image3 OVERRIDE any wrong current-sheet pose.
+SHEET skill_2, 2 cell(s), frame(s) 3,4. REQUIRED FIX (highest priority): LEFT frame3: near claw UP at upper-left, far knife OVERHEAD at upper-right. RIGHT frame4: near claw extended BACK to LEFT horizontally; far knife STILL RAISED OVERHEAD at upper-right, NOT down or extended forward yet. RIGHT tail curls to image RIGHT, not left. Match template frame3 and4 precisely.
+Keep the canvas 1536x1024, do not crop, rescale or re-layout. No frame labels. Correct pose order is more important than a dramatic action. Background exactly solid white.
+
+===== skill2_3 revision1 =====
+BASE + SUFFIX:
+
+FIFTH IMAGE is the CURRENT GENERATED SHEET TO CORRECT. Images1-4 retain their roles. Make a targeted correction, preserve the approved model style. The frame template image2 and old-pose image3 OVERRIDE any wrong current-sheet pose.
+SHEET skill2_3, 1 cell(s), frame(s) 5. REQUIRED FIX (highest priority): ONE SINGLE FRAME5. This is E RECOVERY, NOT THROW: near image-LEFT claw lowered and hanging by his left knee, far image-RIGHT bone knife lowered at right. Grounded hunched idle recovery, identical arm angles to pale template. Do not extend claw backward horizontally.
+Keep the canvas 1536x1024, do not crop, rescale or re-layout. No frame labels. Correct pose order is more important than a dramatic action. Background exactly solid white.
+
+===== skill_w_3 revision1 =====
+BASE + SUFFIX:
+
+FIFTH IMAGE is the CURRENT GENERATED SHEET TO CORRECT. Images1-4 retain their roles. Make a targeted correction, preserve the approved model style. The frame template image2 and old-pose image3 OVERRIDE any wrong current-sheet pose.
+SHEET skill_w_3, 1 cell(s), frame(s) 6. REQUIRED FIX (highest priority): ONE SINGLE FRAME6. This is W RECOVERY: near LEFT claw hangs DOWN at knee, far RIGHT knife points DOWN beside right leg. Crouched and mouth relaxed after roar. NOT arms-out roar pose, NOT knife held upward. Match the pale template exactly.
+Keep the canvas 1536x1024, do not crop, rescale or re-layout. No frame labels. Correct pose order is more important than a dramatic action. Background exactly solid white.
+
+===== dead_2 revision1 =====
+BASE + SUFFIX:
+
+FIFTH IMAGE is the CURRENT GENERATED SHEET TO CORRECT. Images1-4 retain their roles. Make a targeted correction, preserve the approved model style. The frame template image2 and old-pose image3 OVERRIDE any wrong current-sheet pose.
+SHEET dead_2, 2 cell(s), frame(s) 3,4. REQUIRED FIX (highest priority): LEFT frame3 is STAGGERING UPRIGHT, near LEFT hand big claw swept back, far RIGHT hand must still grip cream curved BONE KNIFE with red tip (current sheet incorrectly has TWO claw hands and no knife). Restore the far right held bone knife. RIGHT frame4 toppling onto back with knife fallen BESIDE him; retain pose. Exactly two arms, no extra hand, same head size.
+Keep the canvas 1536x1024, do not crop, rescale or re-layout. No frame labels. Correct pose order is more important than a dramatic action. Background exactly solid white.
+
+===== skill_3 revision2 =====
+FULL PROMPT:
+Correct ONLY the left actor's arm reach in this 1536x1024 two-frame sheet. The current left actor's bone knife extends past the middle x=768 into the right frame. Every pixel of LEFT actor must stay within x=16..750. Every pixel of RIGHT actor must stay within x=790..1520. Keep a clean white gap x=751..789. Do not crop the weapon or claws: compact the pose by slightly bending elbows and bringing blade tip inward to end before x=750. Do NOT scale either character or change the head size, head, face, model, legs, costume or right pose. Left pose still near claw extended back to left and far bone knife forward to right. Right pose still near claw down and far knife overhead. Keep feet ground y=924. Same pixel art, flat pure white background, no effects, text, ground or shadows. Preserve 1536x1024 and two cells.
+
+===== attack_1 boundary revision =====
+FULL PROMPT:
+Edit supplied IMAGE1 (current attack_1, frames 1,2) to correct ONLY cell-boundary overflow. IMAGE2 is approved character identity; IMAGE3 is pose template. Landscape canvas EXACTLY 1536x1024, TWO side-by-side cells 768 wide. Preserve current respective frame gestures, grounded/airborne positions, costumes, faces and head size (mane to beard 264 px), near LEFT claw and far RIGHT cream bone knife with red tip. Preserve no effects.
+MANDATORY COORDINATES: ALL parts of LEFT character (including claw tips, knife tip and tail) must be within x=16..744. ALL parts of RIGHT character must be within x=792..1520. Leave the central x=745..791 COMPLETELY WHITE and empty from top to bottom. There must be no character crossing x=768. Do NOT crop arms or weapons. If necessary, slightly bend elbows or knees more, or reposition whole actor a few pixels inside its own cell, to achieve clean bounds; do not shrink heads, stretch limbs, scale down sprites or remove any equipment. Preserve poses from template where possible. Preserve y=924 ground for standing frames. 
+Solid pure white background #FFFFFF, crisp chunky pixel art. No cell border, line, number, ground, shadow, or glow. No re-layout or rescaling.
+
+===== leap_2 boundary revision =====
+FULL PROMPT:
+Edit supplied IMAGE1 (current leap_2, frames 3,4) to correct ONLY cell-boundary overflow. IMAGE2 is approved character identity; IMAGE3 is pose template. Landscape canvas EXACTLY 1536x1024, TWO side-by-side cells 768 wide. Preserve current respective frame gestures, grounded/airborne positions, costumes, faces and head size (mane to beard 264 px), near LEFT claw and far RIGHT cream bone knife with red tip. Preserve no effects.
+MANDATORY COORDINATES: ALL parts of LEFT character (including claw tips, knife tip and tail) must be within x=16..744. ALL parts of RIGHT character must be within x=792..1520. Leave the central x=745..791 COMPLETELY WHITE and empty from top to bottom. There must be no character crossing x=768. Do NOT crop arms or weapons. If necessary, slightly bend elbows or knees more, or reposition whole actor a few pixels inside its own cell, to achieve clean bounds; do not shrink heads, stretch limbs, scale down sprites or remove any equipment. Preserve poses from template where possible. Preserve y=924 ground for standing frames. 
+Solid pure white background #FFFFFF, crisp chunky pixel art. No cell border, line, number, ground, shadow, or glow. No re-layout or rescaling.
+
+===== leap_3 boundary revision =====
+FULL PROMPT:
+Edit supplied IMAGE1 (current leap_3, frames 5,6) to correct ONLY cell-boundary overflow. IMAGE2 is approved character identity; IMAGE3 is pose template. Landscape canvas EXACTLY 1536x1024, TWO side-by-side cells 768 wide. Preserve current respective frame gestures, grounded/airborne positions, costumes, faces and head size (mane to beard 264 px), near LEFT claw and far RIGHT cream bone knife with red tip. Preserve no effects.
+MANDATORY COORDINATES: ALL parts of LEFT character (including claw tips, knife tip and tail) must be within x=16..744. ALL parts of RIGHT character must be within x=792..1520. Leave the central x=745..791 COMPLETELY WHITE and empty from top to bottom. There must be no character crossing x=768. Do NOT crop arms or weapons. If necessary, slightly bend elbows or knees more, or reposition whole actor a few pixels inside its own cell, to achieve clean bounds; do not shrink heads, stretch limbs, scale down sprites or remove any equipment. Preserve poses from template where possible. Preserve y=924 ground for standing frames. 
+Solid pure white background #FFFFFF, crisp chunky pixel art. No cell border, line, number, ground, shadow, or glow. No re-layout or rescaling.
+
+===== skill_2 boundary revision =====
+FULL PROMPT:
+Edit supplied IMAGE1 (current skill_2, frames 3,4) to correct ONLY cell-boundary overflow. IMAGE2 is approved character identity; IMAGE3 is pose template. Landscape canvas EXACTLY 1536x1024, TWO side-by-side cells 768 wide. Preserve current respective frame gestures, grounded/airborne positions, costumes, faces and head size (mane to beard 264 px), near LEFT claw and far RIGHT cream bone knife with red tip. Preserve no effects.
+MANDATORY COORDINATES: ALL parts of LEFT character (including claw tips, knife tip and tail) must be within x=16..744. ALL parts of RIGHT character must be within x=792..1520. Leave the central x=745..791 COMPLETELY WHITE and empty from top to bottom. There must be no character crossing x=768. Do NOT crop arms or weapons. If necessary, slightly bend elbows or knees more, or reposition whole actor a few pixels inside its own cell, to achieve clean bounds; do not shrink heads, stretch limbs, scale down sprites or remove any equipment. Preserve poses from template where possible. Preserve y=924 ground for standing frames. 
+Solid pure white background #FFFFFF, crisp chunky pixel art. No cell border, line, number, ground, shadow, or glow. No re-layout or rescaling.
+
+===== skill2_2 boundary revision =====
+FULL PROMPT:
+Edit supplied IMAGE1 (current skill2_2, frames 3,4) to correct ONLY cell-boundary overflow. IMAGE2 is approved character identity; IMAGE3 is pose template. Landscape canvas EXACTLY 1536x1024, TWO side-by-side cells 768 wide. Preserve current respective frame gestures, grounded/airborne positions, costumes, faces and head size (mane to beard 264 px), near LEFT claw and far RIGHT cream bone knife with red tip. Preserve no effects.
+MANDATORY COORDINATES: ALL parts of LEFT character (including claw tips, knife tip and tail) must be within x=16..744. ALL parts of RIGHT character must be within x=792..1520. Leave the central x=745..791 COMPLETELY WHITE and empty from top to bottom. There must be no character crossing x=768. Do NOT crop arms or weapons. If necessary, slightly bend elbows or knees more, or reposition whole actor a few pixels inside its own cell, to achieve clean bounds; do not shrink heads, stretch limbs, scale down sprites or remove any equipment. Preserve poses from template where possible. Preserve y=924 ground for standing frames. 
+Solid pure white background #FFFFFF, crisp chunky pixel art. No cell border, line, number, ground, shadow, or glow. No re-layout or rescaling.
+
+===== skill_w_1 boundary revision =====
+FULL PROMPT:
+Edit supplied IMAGE1 (current skill_w_1, frames 1,3) to correct ONLY cell-boundary overflow. IMAGE2 is approved character identity; IMAGE3 is pose template. Landscape canvas EXACTLY 1536x1024, TWO side-by-side cells 768 wide. Preserve current respective frame gestures, grounded/airborne positions, costumes, faces and head size (mane to beard 264 px), near LEFT claw and far RIGHT cream bone knife with red tip. Preserve no effects.
+MANDATORY COORDINATES: ALL parts of LEFT character (including claw tips, knife tip and tail) must be within x=16..744. ALL parts of RIGHT character must be within x=792..1520. Leave the central x=745..791 COMPLETELY WHITE and empty from top to bottom. There must be no character crossing x=768. Do NOT crop arms or weapons. If necessary, slightly bend elbows or knees more, or reposition whole actor a few pixels inside its own cell, to achieve clean bounds; do not shrink heads, stretch limbs, scale down sprites or remove any equipment. Preserve poses from template where possible. Preserve y=924 ground for standing frames. 
+Solid pure white background #FFFFFF, crisp chunky pixel art. No cell border, line, number, ground, shadow, or glow. No re-layout or rescaling.
+
+===== dead_2 boundary revision =====
+FULL PROMPT:
+Edit supplied IMAGE1 (current dead_2, frames 3,4) to correct ONLY cell-boundary overflow. IMAGE2 is approved character identity; IMAGE3 is pose template. Landscape canvas EXACTLY 1536x1024, TWO side-by-side cells 768 wide. Preserve current respective frame gestures, grounded/airborne positions, costumes, faces and head size (mane to beard 264 px), near LEFT claw and far RIGHT cream bone knife with red tip. Preserve no effects.
+MANDATORY COORDINATES: ALL parts of LEFT character (including claw tips, knife tip and tail) must be within x=16..744. ALL parts of RIGHT character must be within x=792..1520. Leave the central x=745..791 COMPLETELY WHITE and empty from top to bottom. There must be no character crossing x=768. Do NOT crop arms or weapons. If necessary, slightly bend elbows or knees more, or reposition whole actor a few pixels inside its own cell, to achieve clean bounds; do not shrink heads, stretch limbs, scale down sprites or remove any equipment. Preserve poses from template where possible. Preserve y=924 ground for standing frames. Left frame3 staggering upright WITH knife in far right hand. Right frame4 falling backwards with knife dropped beside him, both entirely in right cell.
+Solid pure white background #FFFFFF, crisp chunky pixel art. No cell border, line, number, ground, shadow, or glow. No re-layout or rescaling.
+
