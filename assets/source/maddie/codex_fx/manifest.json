@@ -1,0 +1,450 @@
+[
+  {
+    "file": "maddie_fx_a_bullet.png",
+    "frames": 4,
+    "cell_1x": [
+      12,
+      4
+    ],
+    "symmetry": "top-bottom",
+    "layout": "single horizontal row",
+    "scale": 8,
+    "pixel_1x": "pixel_1x/maddie_fx_a_bullet.png",
+    "raw": "raw/maddie_fx_a_bullet.png",
+    "source_layout": [
+      1,
+      4
+    ],
+    "binding": "view_projectiles `tft_maddie_a_bullet`（弹道，z 2；朝右、上下对称）",
+    "palette": [
+      "F2FFFF",
+      "AEF2FF",
+      "50CCF4",
+      "1E7ACC",
+      "0C3A7A",
+      "FFF2B8",
+      "F2C858",
+      "C8902C",
+      "8A5A14",
+      "4A2C08"
+    ]
+  },
+  {
+    "file": "maddie_fx_a_hit.png",
+    "frames": 4,
+    "cell_1x": [
+      14,
+      14
+    ],
+    "symmetry": "left-right",
+    "layout": "single horizontal row",
+    "scale": 8,
+    "pixel_1x": "pixel_1x/maddie_fx_a_hit.png",
+    "raw": "raw/maddie_fx_a_hit.png",
+    "source_layout": [
+      2,
+      2
+    ],
+    "binding": "view_effects `tft_maddie_a_hit`（跟随目标，z 2；左右对称）",
+    "palette": [
+      "F2FFFF",
+      "AEF2FF",
+      "50CCF4",
+      "1E7ACC",
+      "0C3A7A",
+      "FFF2B8",
+      "F2C858",
+      "C8902C",
+      "8A5A14",
+      "4A2C08",
+      "EEEEF0",
+      "BCBCC6",
+      "868694",
+      "545462"
+    ]
+  },
+  {
+    "file": "maddie_fx_a_flash.png",
+    "frames": 3,
+    "cell_1x": [
+      14,
+      10
+    ],
+    "symmetry": "top-bottom",
+    "layout": "single horizontal row",
+    "scale": 8,
+    "pixel_1x": "pixel_1x/maddie_fx_a_flash.png",
+    "raw": "raw/maddie_fx_a_flash.png",
+    "source_layout": [
+      1,
+      3
+    ],
+    "binding": "画进她的动作帧（a_fire、q_fire：枪口那一点）；不做单独的画面",
+    "palette": [
+      "FFFFF4",
+      "FFF2A0",
+      "FFC444",
+      "E8762A",
+      "8A3812",
+      "F2FFFF",
+      "AEF2FF",
+      "50CCF4",
+      "1E7ACC",
+      "0C3A7A",
+      "EEEEF0",
+      "BCBCC6",
+      "868694",
+      "545462"
+    ]
+  },
+  {
+    "file": "maddie_fx_q_bullet.png",
+    "frames": 4,
+    "cell_1x": [
+      14,
+      4
+    ],
+    "symmetry": "top-bottom",
+    "layout": "single horizontal row",
+    "scale": 8,
+    "pixel_1x": "pixel_1x/maddie_fx_q_bullet.png",
+    "raw": "raw/maddie_fx_q_bullet.png",
+    "source_layout": [
+      1,
+      4
+    ],
+    "binding": "view_projectiles `tft_maddie_q_bullet`（弹道，z 2；朝右、上下对称）",
+    "palette": [
+      "FFF2B8",
+      "F2C858",
+      "C8902C",
+      "8A5A14",
+      "4A2C08",
+      "FFFFF4",
+      "FFF2A0",
+      "FFC444",
+      "E8762A",
+      "8A3812",
+      "F2FFFF",
+      "AEF2FF",
+      "50CCF4",
+      "1E7ACC",
+      "0C3A7A"
+    ]
+  },
+  {
+    "file": "maddie_fx_q_hit.png",
+    "frames": 4,
+    "cell_1x": [
+      16,
+      16
+    ],
+    "symmetry": "left-right",
+    "layout": "single horizontal row",
+    "scale": 8,
+    "pixel_1x": "pixel_1x/maddie_fx_q_hit.png",
+    "raw": "raw/maddie_fx_q_hit.png",
+    "source_layout": [
+      2,
+      2
+    ],
+    "binding": "view_effects `tft_maddie_q_hit`（跟随被打中的人，z 2；左右对称）",
+    "palette": [
+      "FFF2B8",
+      "F2C858",
+      "C8902C",
+      "8A5A14",
+      "4A2C08",
+      "FFFFF4",
+      "FFF2A0",
+      "FFC444",
+      "E8762A",
+      "8A3812",
+      "EEEEF0",
+      "BCBCC6",
+      "868694",
+      "545462"
+    ]
+  },
+  {
+    "file": "maddie_fx_e_mark.png",
+    "frames": 6,
+    "cell_1x": [
+      22,
+      48
+    ],
+    "symmetry": "left-right",
+    "layout": "single horizontal row",
+    "scale": 8,
+    "pixel_1x": "pixel_1x/maddie_fx_e_mark.png",
+    "raw": "raw/maddie_fx_e_mark.png",
+    "source_layout": [
+      3,
+      2
+    ],
+    "binding": "view_effects `tft_maddie_e_mark`（跟随被通缉的人，z 4；左右对称）",
+    "palette": [
+      "FFF2B8",
+      "F2C858",
+      "C8902C",
+      "8A5A14",
+      "4A2C08",
+      "FFE0D8",
+      "FF7A60",
+      "E0302C",
+      "9A1420",
+      "4A0A12",
+      "F2FFFF",
+      "AEF2FF",
+      "50CCF4",
+      "1E7ACC",
+      "0C3A7A"
+    ]
+  },
+  {
+    "file": "maddie_fx_e_wanted.png",
+    "frames": 6,
+    "cell_1x": [
+      16,
+      46
+    ],
+    "symmetry": "left-right",
+    "layout": "single horizontal row",
+    "scale": 8,
+    "pixel_1x": "pixel_1x/maddie_fx_e_wanted.png",
+    "raw": "raw/maddie_fx_e_wanted.png",
+    "source_layout": [
+      3,
+      2
+    ],
+    "binding": "view_buffs `tft_maddie_e_wanted`（跟随被通缉的人，z 4；左右对称）",
+    "palette": [
+      "FFE0D8",
+      "FF7A60",
+      "E0302C",
+      "9A1420",
+      "4A0A12",
+      "FFF2B8",
+      "F2C858",
+      "C8902C",
+      "8A5A14",
+      "4A2C08"
+    ]
+  },
+  {
+    "file": "maddie_fx_p_bounty.png",
+    "frames": 6,
+    "cell_1x": [
+      24,
+      46
+    ],
+    "symmetry": "left-right",
+    "layout": "single horizontal row",
+    "scale": 8,
+    "pixel_1x": "pixel_1x/maddie_fx_p_bounty.png",
+    "raw": "raw/maddie_fx_p_bounty.png",
+    "source_layout": [
+      3,
+      2
+    ],
+    "binding": "view_effects `tft_maddie_p_bounty`（跟随她，z 4；左右对称）",
+    "palette": [
+      "FFF2B8",
+      "F2C858",
+      "C8902C",
+      "8A5A14",
+      "4A2C08",
+      "F2FFFF",
+      "AEF2FF",
+      "50CCF4",
+      "1E7ACC",
+      "0C3A7A"
+    ]
+  },
+  {
+    "file": "maddie_fx_p_bounty_loop.png",
+    "frames": 6,
+    "cell_1x": [
+      22,
+      10
+    ],
+    "symmetry": "left-right",
+    "layout": "single horizontal row",
+    "scale": 8,
+    "pixel_1x": "pixel_1x/maddie_fx_p_bounty_loop.png",
+    "raw": "raw/maddie_fx_p_bounty_loop.png",
+    "source_layout": [
+      3,
+      2
+    ],
+    "binding": "view_buffs `tft_maddie_p_bounty`（tag p_bounty_loop，跟随她，z 3；左右对称）",
+    "palette": [
+      "FFF2B8",
+      "F2C858",
+      "C8902C",
+      "8A5A14",
+      "4A2C08"
+    ]
+  },
+  {
+    "file": "maddie_fx_r_sight.png",
+    "frames": 8,
+    "cell_1x": [
+      36,
+      48
+    ],
+    "symmetry": "left-right",
+    "layout": "single horizontal row",
+    "scale": 8,
+    "pixel_1x": "pixel_1x/maddie_fx_r_sight.png",
+    "raw": "raw/maddie_fx_r_sight.png",
+    "source_layout": [
+      4,
+      2
+    ],
+    "binding": "view_effects `tft_maddie_r_sight`（大表，跟随大招的目标，z 4；左右对称）",
+    "palette": [
+      "FFE0D8",
+      "FF7A60",
+      "E0302C",
+      "9A1420",
+      "4A0A12",
+      "FFF2B8",
+      "F2C858",
+      "C8902C",
+      "8A5A14",
+      "4A2C08"
+    ]
+  },
+  {
+    "file": "maddie_fx_r_flash.png",
+    "frames": 5,
+    "cell_1x": [
+      30,
+      20
+    ],
+    "symmetry": "top-bottom",
+    "layout": "single horizontal row",
+    "scale": 8,
+    "pixel_1x": "pixel_1x/maddie_fx_r_flash.png",
+    "raw": "raw/maddie_fx_r_flash.png",
+    "source_layout": [
+      2,
+      3
+    ],
+    "binding": "画进她的动作帧（r_fire：枪口那一点）；不做单独的画面",
+    "palette": [
+      "FFFFF4",
+      "FFF2A0",
+      "FFC444",
+      "E8762A",
+      "8A3812",
+      "F2FFFF",
+      "AEF2FF",
+      "50CCF4",
+      "1E7ACC",
+      "0C3A7A",
+      "EEEEF0",
+      "BCBCC6",
+      "868694",
+      "545462"
+    ]
+  },
+  {
+    "file": "maddie_fx_r_round.png",
+    "frames": 4,
+    "cell_1x": [
+      34,
+      8
+    ],
+    "symmetry": "top-bottom",
+    "layout": "single horizontal row",
+    "scale": 8,
+    "pixel_1x": "pixel_1x/maddie_fx_r_round.png",
+    "raw": "raw/maddie_fx_r_round.png",
+    "source_layout": [
+      1,
+      4
+    ],
+    "binding": "view_projectiles `tft_maddie_r_round`（大表，弹道，z 2；朝右、上下对称）",
+    "palette": [
+      "F2FFFF",
+      "AEF2FF",
+      "50CCF4",
+      "1E7ACC",
+      "0C3A7A",
+      "FFF2B8",
+      "F2C858",
+      "C8902C",
+      "8A5A14",
+      "4A2C08"
+    ]
+  },
+  {
+    "file": "maddie_fx_r_hit.png",
+    "frames": 7,
+    "cell_1x": [
+      40,
+      40
+    ],
+    "symmetry": "left-right",
+    "layout": "single horizontal row",
+    "scale": 8,
+    "pixel_1x": "pixel_1x/maddie_fx_r_hit.png",
+    "raw": "raw/maddie_fx_r_hit.png",
+    "source_layout": [
+      4,
+      2
+    ],
+    "binding": "view_effects `tft_maddie_r_hit`（大表，跟随被打中的人，z 3；左右对称）",
+    "palette": [
+      "F2FFFF",
+      "AEF2FF",
+      "50CCF4",
+      "1E7ACC",
+      "0C3A7A",
+      "FFF2B8",
+      "F2C858",
+      "C8902C",
+      "8A5A14",
+      "4A2C08",
+      "EEEEF0",
+      "BCBCC6",
+      "868694",
+      "545462"
+    ]
+  },
+  {
+    "file": "maddie_icon_skill.png",
+    "frames": 1,
+    "cell_1x": [
+      64,
+      64
+    ],
+    "symmetry": "none",
+    "raw": "raw/maddie_icon_skill.png",
+    "kind": "icon"
+  },
+  {
+    "file": "maddie_icon_skill2.png",
+    "frames": 1,
+    "cell_1x": [
+      64,
+      64
+    ],
+    "symmetry": "none",
+    "raw": "raw/maddie_icon_skill2.png",
+    "kind": "icon"
+  },
+  {
+    "file": "maddie_icon_ult.png",
+    "frames": 1,
+    "cell_1x": [
+      64,
+      64
+    ],
+    "symmetry": "none",
+    "raw": "raw/maddie_icon_ult.png",
+    "kind": "icon"
+  }
+]

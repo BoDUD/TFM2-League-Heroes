@@ -71,44 +71,59 @@
     "casting_target": "Enemy",
     "attack_type": "BaseAttack",
     "effect": {
-      "type": "Delayed",
-      "tick": 9,
+      "type": "Combine",
       "effects": [
         {
-          "type": "Sfx",
-          "name": "tft_maddie_a"
+          "type": "Delayed",
+          "tick": 6,
+          "effects": [
+            {
+              "type": "Sfx",
+              "name": "tft_maddie_a"
+            },
+            {
+              "type": "TargetProjectile",
+              "name": "tft_maddie_a_bullet",
+              "speed": 9000,
+              "y_offset": 0,
+              "applied_target": "Enemy",
+              "applied_effects": [
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "Attack",
+                    "damage": 0,
+                    "attack_ratio": 100,
+                    "hp_ratio": 0,
+                    "target_hp_ratio": 0,
+                    "attack_effect_type": "Target"
+                  }
+                },
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "ViewEffect",
+                    "name": "tft_maddie_a_hit"
+                  }
+                },
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "TargetSfx",
+                    "name": "tft_maddie_a_hit"
+                  }
+                }
+              ]
+            }
+          ]
         },
         {
-          "type": "TargetProjectile",
-          "name": "tft_maddie_a_bullet",
-          "speed": 9000,
-          "y_offset": 0,
-          "applied_target": "Enemy",
-          "applied_effects": [
+          "type": "Delayed",
+          "tick": 12,
+          "effects": [
             {
-              "casting_type": "Targeting",
-              "effect": {
-                "type": "Attack",
-                "damage": 0,
-                "attack_ratio": 100,
-                "hp_ratio": 0,
-                "target_hp_ratio": 0,
-                "attack_effect_type": "Target"
-              }
-            },
-            {
-              "casting_type": "Targeting",
-              "effect": {
-                "type": "ViewEffect",
-                "name": "tft_maddie_a_hit"
-              }
-            },
-            {
-              "casting_type": "Targeting",
-              "effect": {
-                "type": "TargetSfx",
-                "name": "tft_maddie_a_hit"
-              }
+              "type": "Sfx",
+              "name": "tft_maddie_a_reload"
             }
           ]
         }
@@ -118,7 +133,7 @@
   "skill": {
     "action_name": "skill",
     "description": "#asset/base/text/champion?description.tft_maddie.skill",
-    "duration": 72,
+    "duration": 66,
     "cooltime": 540,
     "start_timing": 1,
     "cancelable": false,
@@ -135,7 +150,7 @@
         },
         {
           "type": "Delayed",
-          "tick": 13,
+          "tick": 9,
           "effects": [
             {
               "type": "Native",
@@ -159,7 +174,7 @@
     "attack_type": "Skill",
     "effect": {
       "type": "Delayed",
-      "tick": 11,
+      "tick": 6,
       "effects": [
         {
           "type": "Native",

@@ -10,7 +10,8 @@ own design (the user's pick, 2026-10-27: bot lane, plan A 「狙神·通缉」):
   passive Sniper (狙神): her attack, the bullets and the snipe deal p_max% more the farther the unit hit stands
           from her, rising evenly up to p_far (tft.dll's passive raises every hit of hers as it lands, on_attack: the
           data cannot measure a distance; --plain adds p_avg% to each ratio, the bonus at about her attack range).
-  attack  a rifle shot at `Enemy` (towers too): 100% AD, a fast homing bullet released on a_rel.
+  attack  a rifle shot at `Enemy` (towers too): 100% AD, a fast homing bullet released on a_rel; her TFT reload click
+          on a_reload (the kick's frame).
   skill   Fan the Hammer (连拨击锤, TFT's ability), `Targeting` on `EnemyWithoutTower` (q_range): she crouches and fans q_n
           shots, q_gap ticks apart, at the FARTHEST enemy within q_range (champions first); each bullet flies in a line
           and hits the first enemy in its way for q_dmg + q_ratio% AD (tft.dll; --plain: q_n homing bullets at the
@@ -42,7 +43,8 @@ FX = f"asset/{MOD_ID}/effects/{ID}_fx"
 BIG = f"asset/{MOD_ID}/effects/{ID}_big"
 
 # Units: attack range 68000 (Caitlyn 65000: TFT's range 6 is the longest there is); radii count the unit's collision
-# radius (~15000) on top. Timings are placeholders until the strips exist (tools/art/rig_maddie.py). Numbers = the
+# radius (~15000) on top. Timings = the frames (tools/art/rig_maddie.py MS: the bullet on the shot's flash, the six shots
+# on the six flashes, the mark on the arm thrust out, the snipe on the blast). Numbers = the
 # 10-min classic-SDK simulations (C:/t/md_sim, Silco's copy of the balance sim: bot lane 3 against archer, gunner,
 # boomerang_hunter and poison_dart_hunter, three lineups, both sides), all --plain.
 P = {
@@ -50,14 +52,14 @@ P = {
     # with 500 health and a slow 0.70 attack speed against the longest range)
     "hp": 880, "hp_g": 88, "atk": 104, "atk_g": 20, "apw": 0, "apw_g": 0, "def": 18, "def_g": 7, "mr": 15, "mr_g": 3,
     "ms": 900, "ms_g": 9,
-    "atk_range": 68000, "atk_dur": 24, "atk_cd": 66, "a_rel": 10, "a_speed": 9000,
+    "atk_range": 68000, "atk_dur": 24, "atk_cd": 66, "a_rel": 7, "a_reload": 13, "a_speed": 9000,
     # passive Sniper (TFT: 5-20% a hex, 5-75% base)
     "p_max": 25, "p_far": 100000, "p_avg": 15,
     # Fan the Hammer (TFT: 6 shots of 135% AD at the farthest enemy, 1.15 s)
-    "q_cd": 540, "q_range": 80000, "q_dur": 72, "q_rel": 14, "q_n": 6, "q_gap": 8, "q_dmg": 10, "q_ratio": 40,
+    "q_cd": 540, "q_range": 80000, "q_dur": 66, "q_rel": 10, "q_n": 6, "q_gap": 8, "q_dmg": 10, "q_ratio": 40,
     "q_speed": 9000, "q_width": 4000,
     # Wanted (TFT Enforcer: the most health; +30% attack speed a Wanted kill)
-    "e_cd": 900, "e_range": 90000, "e_dur": 30, "e_rel": 12, "e_t": 480, "e_amp": 15, "w_as": 15, "w_max": 4,
+    "e_cd": 900, "e_range": 90000, "e_dur": 30, "e_rel": 7, "e_t": 480, "e_amp": 15, "w_as": 15, "w_max": 4,
     # Enforcer's Snipe
     "r_cd": 3000, "r_range": 200000, "r_dur": 90, "r_rel": 66, "r_dmg": 220, "r_ratio": 140, "r_exec": 60,
     "r_speed": 16000, "r_width": 6000,
@@ -132,7 +134,8 @@ def build(p, is_native=False):
     # ------------------------------------------------------------------ attack: a rifle shot
     hit = [attack(0, up(100)), view("a_hit"), tsfx("a_hit")]
     attack_a = action("attack", p["atk_dur"], p["atk_cd"], 1, p["atk_range"], "Targeting", "Enemy",
-                      delayed(p["a_rel"] - 1, sfx("a"), homing("a_bullet", "Enemy", hit, p["a_speed"])),
+                      combine(delayed(p["a_rel"] - 1, sfx("a"), homing("a_bullet", "Enemy", hit, p["a_speed"])),
+                              delayed(p["a_reload"] - 1, sfx("a_reload"))),
                       atype="BaseAttack", cancel=True)
 
     # ------------------------------------------------------------------ skill: Fan the Hammer
