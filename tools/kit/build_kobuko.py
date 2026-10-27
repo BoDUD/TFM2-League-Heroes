@@ -40,22 +40,29 @@ BIG = f"asset/{MOD_ID}/effects/{ID}_big"
 # Units: melee range 25000 like the pack's top fighters; radii count the unit's collision radius (~15000) on top.
 # Timings are placeholders until the strips exist (tools/art/rig_kobuko.py). Stats start from the pack's top tanks and
 # fighters (league_ornn, league_sett, league_volibear: hp 1100 +105..115, def 32-38, atk 80-90).
+# Numbers = the 10-min classic-SDK simulations (C:/t/kb_sim, Alune's copy of the balance sim: top lane against the base
+# fighter, executioner, knight, berserker, lancer and pole warrior, three lineups, both sides; 2026-10-27), all --plain
+# (the rage from his first ult): the draft (Q every 7 s, 140% AD + 4% health, stun 1.5 s; E every 9 s up 0.6 s; R 120 +
+# 100% on the target) +5.64 on seeds 1-8 against league_sett's +2.07 - the stun and the knock-ups kept the lane locked
+# and the untouchable leap saved him (0.74 deaths a game). Q every 10 s, stun 1 s, 110% + 3%, E every 10 s up 0.4 s,
+# R 80 on the target +2.83; with less damage and hp 1080 / atk 78 +1.61; lower still (rage 30% / 12%) -0.44. Between
+# the first two = P: +2.01 / +1.84 (seeds 9-16; league_sett +2.58). tft.dll's rage at half health is not simulated.
 P = {
     # stats (Melee, a top bruiser that tanks)
-    "hp": 1150, "hp_g": 110, "atk": 82, "atk_g": 13, "apw": 20, "apw_g": 10, "def": 36, "def_g": 8, "mr": 28, "mr_g": 4,
+    "hp": 1110, "hp_g": 110, "atk": 80, "atk_g": 13, "apw": 20, "apw_g": 10, "def": 36, "def_g": 8, "mr": 28, "mr_g": 4,
     "ms": 1000, "ms_g": 10,
     "atk_range": 25000, "atk_dur": 30, "atk_cd": 72, "atk_st": 14,
     # passive Second Phase (TFT set 14: at 50%, 40-60% attack speed, 20-35% omnivamp)
     "p_hi": 50, "p_as": 40, "p_vamp": 20,
     # Golden Claw Mantra (TFT set 15: a 250-400 shield (+AP) 4 s; the next attack 150-225% AD + 4-6% health, stun 1.5 s)
-    "q_cd": 420, "q_dur": 24, "q_sh": 80, "q_sh_ap": 60, "q_sh_t": 240, "q_t": 240,
-    "q_dmg": 40, "q_ratio": 140, "q_hp": 4, "q_stun": 90,
+    "q_cd": 570, "q_dur": 24, "q_sh": 70, "q_sh_ap": 50, "q_sh_t": 240, "q_t": 240,
+    "q_dmg": 40, "q_ratio": 105, "q_hp": 2, "q_stun": 60,
     # Tiger Pounce
-    "e_cd": 540, "e_range": 45000, "e_dur": 24, "e_speed": 3500, "e_r": 28000,
-    "e_dmg": 40, "e_ratio": 80, "e_hp": 2, "e_up": 36,
+    "e_cd": 630, "e_range": 45000, "e_dur": 24, "e_speed": 3500, "e_r": 28000,
+    "e_dmg": 40, "e_ratio": 70, "e_hp": 2, "e_up": 24,
     # Game Over! (TFT set 14: 2-hex knock-up 1-1.5 s, the slam on the picked one)
     "r_cd": 3000, "r_range": 50000, "r_dur": 60, "r_at": 36, "r_r": 36000,
-    "r_main": 120, "r_main_ratio": 100, "r_main_hp": 6, "r_dmg": 80, "r_ratio": 60, "r_hp": 3, "r_up": 60,
+    "r_main": 70, "r_main_ratio": 100, "r_main_hp": 6, "r_dmg": 70, "r_ratio": 60, "r_hp": 3, "r_up": 50,
 }
 # what tft.dll reads from passive.params (addons/tft/src/kobuko.rs)
 NATIVE_KEYS = ("p_hi", "p_as", "p_vamp")

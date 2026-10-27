@@ -24,9 +24,9 @@
     "asset/tft/icons/tft_kobuko_ult"
   ],
   "stat": {
-    "attack": 82,
+    "attack": 80,
     "magic_power": 20,
-    "hp": 1150,
+    "hp": 1110,
     "defence": 36,
     "magic_resistance": 28,
     "move_speed": 1000,
@@ -80,14 +80,14 @@
                   {
                     "type": "Attack",
                     "damage": 40,
-                    "attack_ratio": 140,
-                    "hp_ratio": 4,
+                    "attack_ratio": 105,
+                    "hp_ratio": 2,
                     "target_hp_ratio": 0,
                     "attack_effect_type": "Target"
                   },
                   {
                     "type": "Stun",
-                    "duration": 90
+                    "duration": 60
                   },
                   {
                     "type": "AddBuff",
@@ -95,7 +95,7 @@
                       "name": "tft_kobuko_q_stun",
                       "duration": {
                         "Time": {
-                          "tick": 90
+                          "tick": 60
                         }
                       }
                     }
@@ -145,7 +145,7 @@
     "action_name": "skill",
     "description": "#asset/base/text/champion?description.tft_kobuko.skill",
     "duration": 24,
-    "cooltime": 420,
+    "cooltime": 570,
     "start_timing": 1,
     "cancelable": false,
     "range": 25000,
@@ -171,9 +171,9 @@
           "effects": [
             {
               "type": "Shield",
-              "amount": 80,
+              "amount": 70,
               "attack_ratio": 0,
-              "ap_ratio": 60,
+              "ap_ratio": 50,
               "tick": 240
             }
           ]
@@ -201,7 +201,7 @@
     "action_name": "skill2",
     "description": "#asset/base/text/champion?description.tft_kobuko.skill2",
     "duration": 24,
-    "cooltime": 540,
+    "cooltime": 630,
     "start_timing": 1,
     "cancelable": false,
     "range": 45000,
@@ -241,14 +241,14 @@
                 {
                   "type": "Attack",
                   "damage": 40,
-                  "attack_ratio": 80,
+                  "attack_ratio": 70,
                   "hp_ratio": 2,
                   "target_hp_ratio": 0,
                   "attack_effect_type": "Target"
                 },
                 {
                   "type": "Airborne",
-                  "duration": 36
+                  "duration": 24
                 },
                 {
                   "type": "ViewEffect",
@@ -325,7 +325,7 @@
                 },
                 {
                   "type": "Attack",
-                  "damage": 120,
+                  "damage": 70,
                   "attack_ratio": 100,
                   "hp_ratio": 6,
                   "target_hp_ratio": 0,
@@ -343,7 +343,7 @@
                   "effects": [
                     {
                       "type": "Attack",
-                      "damage": 80,
+                      "damage": 70,
                       "attack_ratio": 60,
                       "hp_ratio": 3,
                       "target_hp_ratio": 0,
@@ -351,7 +351,7 @@
                     },
                     {
                       "type": "Airborne",
-                      "duration": 60
+                      "duration": 50
                     },
                     {
                       "type": "ViewEffect",
