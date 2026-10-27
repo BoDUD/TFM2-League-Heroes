@@ -46,7 +46,9 @@ BIG = f"asset/{MOD_ID}/effects/{ID}_big"
 # radius (~15000) on top. Timings = the frames (tools/art/rig_maddie.py MS: the bullet on the shot's flash, the six shots
 # on the six flashes, the mark on the arm thrust out, the snipe on the blast). Numbers = the
 # 10-min classic-SDK simulations (C:/t/md_sim, Silco's copy of the balance sim: bot lane 3 against archer, gunner,
-# boomerang_hunter and poison_dart_hunter, three lineups, both sides), all --plain.
+# boomerang_hunter and poison_dart_hunter, three lineups, both sides), all --plain: the draft +2.01 (seeds 1-8); P with
+# the frames' timings +2.19 / +2.81 (seeds 1-8 / 9-16) against league_caitlyn +2.27 / +2.47 = P. tft.dll's rules are
+# not simulated (the farthest target, the bounties, the weakest target of the snipe, the distance bonus as p_avg).
 P = {
     # stats (Range base: attack 100 +20, hp 900 +90, def 20 +7, mr 15 +3, move 900 +9; TFT's Maddie is a 1-cost
     # with 500 health and a slow 0.70 attack speed against the longest range)
