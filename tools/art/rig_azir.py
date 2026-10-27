@@ -61,7 +61,8 @@ S_PPU = 1.5                    # the summons' sheets (the user's picks: soldier 
 # the sand soldiers (front and the add-on's side view) shown at 70 % (the user, 2026-10-25: 「沙皇的沙兵游戏里这么大？得缩小
 # 一点吧」 - drawn 36 game px against Azir's 30 crest to soles at his SIZES 0.80): the same pixels at a denser 1.5 / 0.7, so
 # league.dll draws them smaller (hd.rs rows), their feet laid FEET game px under the pivot at that density
-SOLDIER_PPU = 2.143
+SOLDIER_PPU = 1.429            # 2026-10-27: 70 % of the 54 game px league.dll drew them at (a square a pixel) until its
+                               # effect draw shrank them (hd.rs DRAWN_EFFECTS); their 1x frames at this size too
 FEET = R.FEET
 
 
