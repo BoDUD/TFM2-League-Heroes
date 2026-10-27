@@ -7,6 +7,7 @@ pub mod loris;
 pub mod maddie;
 pub mod norra;
 pub mod silco;
+pub mod vander;
 
 use mod_api_stable::*;
 
@@ -17,6 +18,7 @@ fn init(host: &StableHost) -> StableMod {
     maddie::register(host, &mut module);
     norra::register(host, &mut module);
     silco::register(host, &mut module);
+    vander::register(host, &mut module);
     module
 }
 

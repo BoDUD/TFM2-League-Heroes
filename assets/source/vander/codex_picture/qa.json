@@ -1,0 +1,38 @@
+{
+  "vander-A.png": {
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "visible_bbox_alpha128": [
+      363,
+      358,
+      918,
+      1240
+    ],
+    "transparent_pixels": 1255428,
+    "partial_alpha_pixels": 316482,
+    "matches_1536": false,
+    "hard_alpha": false,
+    "uniform_11px_grid": "not passed"
+  },
+  "vander-B.png": {
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "visible_bbox_alpha128": [
+      244,
+      407,
+      1032,
+      1217
+    ],
+    "transparent_pixels": 1191923,
+    "partial_alpha_pixels": 379121,
+    "matches_1536": false,
+    "hard_alpha": false,
+    "uniform_11px_grid": "not passed"
+  }
+}
