@@ -1,4 +1,4 @@
-"""Build tft_loris.data_champion (the tft pack's sixth hero: Loris, support, Tank) from the parameters P.
+"""Build tft_loris.data_champion (the tft pack's sixth hero: Loris, support, Util) from the parameters P.
 
     python tools/kit/build_loris.py [--set key=value ...] [--out file] [--params json] [--nodes] [--plain]
 
@@ -44,21 +44,28 @@ BIG = f"asset/{MOD_ID}/effects/{ID}_big"
 # Units: melee range 25000 like the pack's tank supports (league_braum, league_alistar); radii count the unit's collision
 # radius (~15000) on top. Timings are placeholders until the strips exist (tools/art/rig_loris.py). Stats start from
 # league_braum's (hp 1300 +120, def 44, mr 28, atk 78); TFT's Loris: 950 health, 50 armour / 50 magic resistance.
+# Numbers = the 10-min classic-SDK simulations (C:/t/lo_sim, Maddie's copy of the balance sim: support lane against the
+# base priest, monk, bard, enchanter and taoist, three lineups, both sides; 2026-10-27), all --plain: the draft (Q 70 +
+# 60%, knock-back 2500 x 6, charge 5000 x 8 at 45000, R 150 + 60%) -1.15 on seeds 1-8 (league_braum +1.52); more damage
+# alone stayed at -1.2..-1.7: the knock-back pushed the enemies he charged out of his team's reach. Without it (and a
+# charge as long as the cast range, stun 75) +0.33; a 2-square knock-back kept to show the hit (800 x 3) +0.22; + Q every
+# 7 s, stun 1.5 s +0.45; + R every 50 s, r_r 36000, thrown up 1 s +1.40 / +0.86 (seeds 9-16; league_braum +1.25) = P.
+# Taunt off: -1.85 (it is worth keeping). tft.dll's Warden shields and the Bulwark guard are not simulated.
 P = {
-    # stats (Tank)
+    # stats (Util, the tank supports)
     "hp": 1250, "hp_g": 115, "atk": 74, "atk_g": 6, "apw": 30, "apw_g": 15, "def": 42, "def_g": 8, "mr": 30, "mr_g": 4,
     "ms": 980, "ms_g": 10,
     "atk_range": 25000, "atk_dur": 28, "atk_cd": 84, "atk_st": 14,
     # passive Warden (TFT: 16-33% of max health at 75% and at 25%)
     "p_hi": 75, "p_lo": 25, "p_pct": 12, "p_t": 240, "p_plain": 150,
     # Piltover Brawl (TFT: a 700-1200 shield 4 s; 150-495 magic, stun 1.25 s)
-    "q_cd": 540, "q_range": 45000, "q_dur": 30, "q_go": 8, "q_speed": 5000, "q_t": 8, "q_sh": 70, "q_sh_ap": 50,
-    "q_sh_t": 240, "q_dmg": 70, "q_ap": 60, "q_kb_speed": 2500, "q_kb_t": 6, "q_stun": 60,
+    "q_cd": 420, "q_range": 42000, "q_dur": 30, "q_go": 8, "q_speed": 5000, "q_t": 10, "q_sh": 70, "q_sh_ap": 50,
+    "q_sh_t": 240, "q_dmg": 110, "q_ap": 70, "q_kb_speed": 800, "q_kb_t": 3, "q_stun": 90,
     # Bulwark
-    "e_cd": 720, "e_range": 50000, "e_dur": 24, "e_r": 70000, "e_speed": 4500, "e_sh": 70, "e_sh_ap": 45, "e_t": 240,
+    "e_cd": 600, "e_range": 50000, "e_dur": 24, "e_r": 70000, "e_speed": 4500, "e_sh": 70, "e_sh_ap": 45, "e_t": 240,
     "e_share": 30,
     # Iron Line (TFT's taunt after the charge)
-    "r_cd": 3600, "r_range": 30000, "r_dur": 40, "r_at": 22, "r_r": 32000, "r_dmg": 150, "r_ap": 60, "r_up": 45,
+    "r_cd": 3000, "r_range": 30000, "r_dur": 40, "r_at": 22, "r_r": 36000, "r_dmg": 220, "r_ap": 80, "r_up": 60,
     "r_taunt": 120, "r_red": 50, "r_t": 240,
 }
 # what tft.dll reads from passive.params (addons/tft/src/loris.rs)
@@ -222,7 +229,7 @@ def build(p, is_native=False):
     views_b = [B_("q_stun", FX, 3), B_("e_guard", FX, 3), B_("r_taunt", FX, 4), B_("r_wall", FX, 3),
                B_("p_shield", FX, 3)]
     kit = {
-        "id": ID, "category": "Tank", "tags": ["Tank", "CC", "Shield", "Magic", "Melee"],
+        "id": ID, "category": "Util", "tags": ["AP", "Magic", "Melee", "Tank", "CC", "Shield"],
         "sprite": f"asset/{MOD_ID}/champions/{ID}", "anim_prefix": "",
         "skill_icons": [f"asset/{MOD_ID}/icons/{ID}_skill", f"asset/{MOD_ID}/icons/{ID}_skill2",
                         f"asset/{MOD_ID}/icons/{ID}_ult"],
