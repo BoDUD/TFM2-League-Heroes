@@ -1,0 +1,151 @@
+{
+  "status": "pass",
+  "assets": [
+    {
+      "file": "kobuko_fx_a_hit.png",
+      "frames": 4,
+      "dimensions_ok": true,
+      "hard_alpha": true,
+      "symmetry_ok": true,
+      "eight_x_matches_one_x": true,
+      "distinct_nonempty_frames": true,
+      "hash_ok": true
+    },
+    {
+      "file": "kobuko_fx_q_shield.png",
+      "frames": 6,
+      "dimensions_ok": true,
+      "hard_alpha": true,
+      "symmetry_ok": true,
+      "eight_x_matches_one_x": true,
+      "distinct_nonempty_frames": true,
+      "hash_ok": true
+    },
+    {
+      "file": "kobuko_fx_q_on.png",
+      "frames": 6,
+      "dimensions_ok": true,
+      "hard_alpha": true,
+      "symmetry_ok": true,
+      "eight_x_matches_one_x": true,
+      "distinct_nonempty_frames": true,
+      "hash_ok": true
+    },
+    {
+      "file": "kobuko_fx_q_hit.png",
+      "frames": 5,
+      "dimensions_ok": true,
+      "hard_alpha": true,
+      "symmetry_ok": true,
+      "eight_x_matches_one_x": true,
+      "distinct_nonempty_frames": true,
+      "hash_ok": true
+    },
+    {
+      "file": "kobuko_fx_q_stun.png",
+      "frames": 6,
+      "dimensions_ok": true,
+      "hard_alpha": true,
+      "symmetry_ok": true,
+      "eight_x_matches_one_x": true,
+      "distinct_nonempty_frames": true,
+      "hash_ok": true
+    },
+    {
+      "file": "kobuko_fx_e_land.png",
+      "frames": 6,
+      "dimensions_ok": true,
+      "hard_alpha": true,
+      "symmetry_ok": true,
+      "eight_x_matches_one_x": true,
+      "distinct_nonempty_frames": true,
+      "hash_ok": true
+    },
+    {
+      "file": "kobuko_fx_e_hit.png",
+      "frames": 4,
+      "dimensions_ok": true,
+      "hard_alpha": true,
+      "symmetry_ok": true,
+      "eight_x_matches_one_x": true,
+      "distinct_nonempty_frames": true,
+      "hash_ok": true
+    },
+    {
+      "file": "kobuko_fx_r_jump.png",
+      "frames": 5,
+      "dimensions_ok": true,
+      "hard_alpha": true,
+      "symmetry_ok": true,
+      "eight_x_matches_one_x": true,
+      "distinct_nonempty_frames": true,
+      "hash_ok": true
+    },
+    {
+      "file": "kobuko_fx_r_mark.png",
+      "frames": 6,
+      "dimensions_ok": true,
+      "hard_alpha": true,
+      "symmetry_ok": true,
+      "eight_x_matches_one_x": true,
+      "distinct_nonempty_frames": true,
+      "hash_ok": true
+    },
+    {
+      "file": "kobuko_fx_r_slam.png",
+      "frames": 8,
+      "dimensions_ok": true,
+      "hard_alpha": true,
+      "symmetry_ok": true,
+      "eight_x_matches_one_x": true,
+      "distinct_nonempty_frames": true,
+      "hash_ok": true
+    },
+    {
+      "file": "kobuko_fx_r_hit.png",
+      "frames": 4,
+      "dimensions_ok": true,
+      "hard_alpha": true,
+      "symmetry_ok": true,
+      "eight_x_matches_one_x": true,
+      "distinct_nonempty_frames": true,
+      "hash_ok": true
+    },
+    {
+      "file": "kobuko_fx_p_burst.png",
+      "frames": 6,
+      "dimensions_ok": true,
+      "hard_alpha": true,
+      "symmetry_ok": true,
+      "eight_x_matches_one_x": true,
+      "distinct_nonempty_frames": true,
+      "hash_ok": true
+    },
+    {
+      "file": "kobuko_fx_p_rage.png",
+      "frames": 6,
+      "dimensions_ok": true,
+      "hard_alpha": true,
+      "symmetry_ok": true,
+      "eight_x_matches_one_x": true,
+      "distinct_nonempty_frames": true,
+      "hash_ok": true
+    },
+    {
+      "file": "kobuko_icon_skill.png",
+      "size_ok": true,
+      "grid_2px": true
+    },
+    {
+      "file": "kobuko_icon_skill2.png",
+      "size_ok": true,
+      "grid_2px": true
+    },
+    {
+      "file": "kobuko_icon_ult.png",
+      "size_ok": true,
+      "grid_2px": true
+    }
+  ],
+  "scope": "File/frame/pixel checks; not runtime"
+}

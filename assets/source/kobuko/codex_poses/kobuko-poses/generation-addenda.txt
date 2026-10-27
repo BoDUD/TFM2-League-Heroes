@@ -1,0 +1,12 @@
+The following exact suffixes were appended to the initial prompts recorded in generation-prompts.txt.
+
+kobuko-pose-q_claw:
+FRAME SAFETY: All limbs, claws, ears and hair entirely inside canvas with at least 36px clear transparent margin on left/right/top. Do not crop a hand even in extended poses.
+
+kobuko-pose-e_crouch:
+Leave clear transparent margins, keep complete hands inside the picture.
+
+kobuko-pose-run4:
+This is the SECOND PASSING phase, different from run2: the image-left leg supports under the pelvis, the image-right knee lifted and folded, foot tucked backward, arms swing with the image-left arm forward and the image-right arm back. Do not repeat a long forward kick.
+
+The exact subsequent q_spread and run3 repair prompts are recorded in repair-prompts.txt. Their repair raw files are the selected source for the final art.
