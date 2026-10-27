@@ -1955,7 +1955,7 @@
       },
       "banpick_center": {
         "x": 0,
-        "y": -6
+        "y": -10
       }
     },
     "league_udyr": {
@@ -2193,7 +2193,7 @@
       },
       "banpick_center": {
         "x": 0,
-        "y": -4
+        "y": -10
       }
     },
     "league_rumble": {

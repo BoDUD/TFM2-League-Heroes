@@ -284,6 +284,10 @@ const CMD: usize = 0xd0;
 const CMD_SPRITE: u64 = 0x8000_0000_0000_0003;
 const CMD_SCALE: u64 = 0x8000_0000_0000_0011;
 const CMD_RESTORE: u64 = 0x8000_0000_0000_0012;
+/// The mark on a scale / restore command this pack puts round an effect's sprite: the last 8 bytes (+0xc8), which a
+/// scale or restore command leaves unread ([`cmd_kind`]).
+const OURS_AT: usize = 0xc8;
+const OURS: u64 = 0x5846_4555_4741_454c; // "LEAGUEFX"
 /// The entity's position (x at +0x17c, y at +0x180 less +0x18c): the point the game scales its commands round.
 const POS_X: usize = 0x17c;
 const POS_Y: usize = 0x180;
@@ -422,11 +426,7 @@ unsafe fn unshrink_extras(out: usize, ent: usize, sc: Scale, hero: &Hero) {
     let kinds: Vec<u8> = (0..len)
         .map(|i| {
             let c = ptr + i * CMD;
-            match q(c) as u64 {
-                CMD_SCALE | CMD_RESTORE => 2,
-                _ if sprite_name(c).is_some_and(|n| is_body(n, hero.id)) => 1,
-                _ => 0,
-            }
+            cmd_kind(q(c) as u64, q(c + OURS_AT) as u64, sprite_name(c).is_some_and(|n| is_body(n, hero.id)))
         })
         .collect();
     let runs = extra_runs(&kinds);
@@ -452,14 +452,8 @@ unsafe fn unshrink_extras(out: usize, ent: usize, sc: Scale, hero: &Hero) {
     let px = std::ptr::read_unaligned((ent + POS_X) as *const f32);
     let py = std::ptr::read_unaligned((ent + POS_Y) as *const f32)
         - std::ptr::read_unaligned((ent + POS_LIFT) as *const f32);
-    let mut grow = [0u8; CMD];
-    grow[..8].copy_from_slice(&CMD_SCALE.to_le_bytes());
-    grow[8..12].copy_from_slice(&((1.0 - k) * px).to_le_bytes());
-    grow[12..16].copy_from_slice(&((1.0 - k) * py).to_le_bytes());
-    grow[0x24..0x28].copy_from_slice(&k.to_le_bytes());
-    grow[0x28..0x2c].copy_from_slice(&k.to_le_bytes());
-    let mut back = [0u8; CMD];
-    back[..8].copy_from_slice(&CMD_RESTORE.to_le_bytes());
+    let grow = scale_cmd(k, px, py, false);
+    let back = restore_cmd(false);
     for &(a, b) in runs.iter().rev() {
         insert(out, b + 1, &back);
         insert(out, a, &grow);
@@ -481,12 +475,7 @@ unsafe fn unshrink_extras(out: usize, ent: usize, sc: Scale, hero: &Hero) {
         return;
     }
     let (sx, sy) = soles(px, py, hero.ppu);
-    let mut up = [0u8; CMD];
-    up[..8].copy_from_slice(&CMD_SCALE.to_le_bytes());
-    up[8..12].copy_from_slice(&((1.0 - g) * sx).to_le_bytes());
-    up[12..16].copy_from_slice(&((1.0 - g) * sy).to_le_bytes());
-    up[0x24..0x28].copy_from_slice(&g.to_le_bytes());
-    up[0x28..0x2c].copy_from_slice(&g.to_le_bytes());
+    let up = scale_cmd(g, sx, sy, false);
     let (ptr, len) = (q(out + 8), q(out + 0x10));
     let body: Vec<u8> = (0..len)
         .map(|i| u8::from(sprite_name(ptr + i * CMD).is_some_and(|nm| is_body(nm, hero.id))))
@@ -494,6 +483,86 @@ unsafe fn unshrink_extras(out: usize, ent: usize, sc: Scale, hero: &Hero) {
     for (a, b) in body_runs(&body).into_iter().rev() {
         insert(out, b + 1, &back);
         insert(out, a, &up);
+    }
+}
+
+/// What a command is to the body draw's extras: 2 a game scale / restore, 1 the body's own sheet, 0 anything else - a
+/// scale / restore pair this pack put round an effect's sprite (`mark` == [`OURS`]) too: it belongs to that effect, so
+/// the extras' own "back to the game's size" pair goes round it, and the effect is shrunk from the game's size.
+pub fn cmd_kind(tag: u64, mark: u64, body: bool) -> u8 {
+    match tag {
+        CMD_SCALE | CMD_RESTORE if mark != OURS => 2,
+        _ if body => 1,
+        _ => 0,
+    }
+}
+
+/// A scale command: x and y times `k` about (`px`, `py`) - the game's own layout (translation (1 - k) x the point at
+/// +8 / +0xc, the factors at +0x24 / +0x28); `ours` marks it ([`cmd_kind`]).
+pub fn scale_cmd(k: f32, px: f32, py: f32, ours: bool) -> [u8; CMD] {
+    let mut c = restore_cmd(ours);
+    c[..8].copy_from_slice(&CMD_SCALE.to_le_bytes());
+    c[8..12].copy_from_slice(&((1.0 - k) * px).to_le_bytes());
+    c[12..16].copy_from_slice(&((1.0 - k) * py).to_le_bytes());
+    c[0x24..0x28].copy_from_slice(&k.to_le_bytes());
+    c[0x28..0x2c].copy_from_slice(&k.to_le_bytes());
+    c
+}
+
+pub fn restore_cmd(ours: bool) -> [u8; CMD] {
+    let mut c = [0u8; CMD];
+    c[..8].copy_from_slice(&CMD_RESTORE.to_le_bytes());
+    if ours {
+        c[OURS_AT..OURS_AT + 8].copy_from_slice(&OURS.to_le_bytes());
+    }
+    c
+}
+
+static ORIG_EFFECT: AtomicUsize = AtomicUsize::new(0);
+static EFFECTS_SEEN: Mutex<Vec<&'static str>> = Mutex::new(Vec::new());
+
+type EffectDraw = unsafe extern "system" fn(usize, usize, usize, usize) -> usize;
+
+/// The view node draw (Build::effect_draw: the command Vec it returns in rcx, the node in rdx, r8 / r9 its own): as the
+/// game draws it, then every sprite command of a [`hd::DRAWN_EFFECTS`] sheet wrapped in a 1 / PPU scale about the
+/// sprite's top-left corner (+0x78 / +0x7c). The game places that corner with the frame's size divided by PPU (the
+/// anim table, src/lookup.rs) but draws the picture UV x the texture's real pixels - a square a game pixel, PPU times
+/// too big, hanging right and down from the corner; shrunk about the corner it covers its frame at 1 / PPU.
+unsafe extern "system" fn effect_detour(out: usize, node: usize, a3: usize, a4: usize) -> usize {
+    let f: EffectDraw = std::mem::transmute(ORIG_EFFECT.load(Ordering::Acquire));
+    let r = f(out, node, a3, a4);
+    let _ = std::panic::catch_unwind(|| unsafe { shrink_effects(out) });
+    r
+}
+
+unsafe fn shrink_effects(out: usize) {
+    if !plausible(out) {
+        return;
+    }
+    let (cap, len) = (q(out), q(out + 0x10));
+    // cap usize::MAX: the caller's None (0x1b2c388 checks it)
+    if cap == usize::MAX || len == 0 || len > 256 || cap < len || !plausible(q(out + 8)) {
+        return;
+    }
+    let mut i = 0;
+    while i < q(out + 0x10) {
+        let c = q(out + 8) + i * CMD;
+        let hero = sprite_name(c).and_then(|n| HEROES.of_name(n)).filter(|h| hd::DRAWN_EFFECTS.contains(&h.id));
+        let Some(hero) = hero else {
+            i += 1;
+            continue;
+        };
+        let (x, y) = (std::ptr::read_unaligned((c + 0x78) as *const f32), std::ptr::read_unaligned((c + 0x7c) as *const f32));
+        let k = 1.0 / hero.ppu;
+        insert(out, i + 1, &restore_cmd(true));
+        insert(out, i, &scale_cmd(k, x, y, true));
+        i += 3;
+        if let Ok(mut seen) = EFFECTS_SEEN.try_lock() {
+            if !seen.contains(&hero.id) {
+                seen.push(hero.id);
+                wlog(format!("{}: effect picture drawn x{k:.3} about its corner ({x:.1}, {y:.1})", hero.id));
+            }
+        }
     }
 }
 
@@ -564,6 +633,13 @@ pub fn install_once(b: &'static Build) {
                     as usize, &ORIG_BODY)
         };
         wlog(format!("body draw hooked ({r:?}): shadows, rings and marks round a dense hero at the game's size"));
+        if b.effect_draw != 0 {
+            let r = unsafe {
+                super::lookup::hook_keeping_r9(module + b.effect_draw,
+                    effect_detour as EffectDraw as usize, &ORIG_EFFECT)
+            };
+            wlog(format!("effect draw hooked ({r:?}): {} at 1 / PPU", hd::DRAWN_EFFECTS.join(", ")));
+        }
     });
 }
 
@@ -581,6 +657,26 @@ mod tests {
         assert_eq!(s.base, 1.0);
         let s = next_scale(Some(s), 1.5, 3.0); // a new base (a growth effect)
         assert_eq!(s, Scale { base: 1.5, wrote: 0.5 });
+    }
+
+    #[test]
+    fn an_effects_own_scale_pair_is_part_of_the_extras() {
+        let ours = scale_cmd(0.75, 10.0, -20.0, true);
+        let mark = u64::from_le_bytes(ours[OURS_AT..].try_into().unwrap());
+        assert_eq!(cmd_kind(CMD_SCALE, mark, false), 0);
+        let back = restore_cmd(true);
+        assert_eq!(cmd_kind(CMD_RESTORE, u64::from_le_bytes(back[OURS_AT..].try_into().unwrap()), false), 0);
+        // the game's own scale commands and the body's sheet as before
+        assert_eq!(cmd_kind(CMD_SCALE, 0, false), 2);
+        assert_eq!(cmd_kind(CMD_RESTORE, 0, false), 2);
+        assert_eq!(cmd_kind(CMD_SPRITE, 0, true), 1);
+        assert_eq!(cmd_kind(CMD_SPRITE, 0, false), 0);
+        // body, [ours: scale, effect, restore], shadow: one run of extras round the effect and its pair
+        assert_eq!(extra_runs(&[1, 0, 0, 0, 0]), vec![(1, 4)]);
+        // x' = k x + (1 - k) p: the corner stays where it is
+        let f = |at: usize| f32::from_le_bytes(ours[at..at + 4].try_into().unwrap());
+        assert_eq!((f(8), f(12), f(0x24), f(0x28)), (2.5, -5.0, 0.75, 0.75));
+        assert_eq!(&scale_cmd(2.0, 1.0, 1.0, false)[OURS_AT..], &[0u8; 8]);
     }
 
     #[test]

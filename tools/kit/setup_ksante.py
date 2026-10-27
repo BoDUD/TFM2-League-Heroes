@@ -35,9 +35,9 @@ R = "<#ef5350ff>"      # crowd control
 G = "<#66bb6aff>"      # shields, lifesteal
 E = "<>"
 # champion_view: the face between his eyes (ppu_restyle's face_to: 36 game px over his soles, on his standing point); the
-# ban/pick card at base's rule for his head (tools/art/bp_card_audit.py: -39 - the head's top -31.8, a game px under the
-# canvas top; the ntofo tips over it are clipped, the table's CLIPPED on purpose)
-VIEW = {"face": {"x": 0, "y": -36}, "center": {"x": 0, "y": -14}, "banpick_center": {"x": 0, "y": -6}}
+# ban/pick card for league.dll's UI_SIZES 0.82 (tools/art/bp_card_audit.py: hair to soles on the card, 2026-10-27; was
+# -6 at 1.0, base's rule for his head)
+VIEW = {"face": {"x": 0, "y": -36}, "center": {"x": 0, "y": -14}, "banpick_center": {"x": 0, "y": -10}}
 
 
 def phys(d, r, hp=None):

@@ -36,8 +36,9 @@ A = "<#ffb900ff>"      # durations, counts
 R = "<#ef5350ff>"      # crowd control
 E = "<>"
 # champion_view: the face point between her eyes (ppu_restyle.py RESTYLE face_to) and the ban/pick card
-# (bp_card_audit.py with hd.rs UI_SIZES)
-VIEW = {"face": {"x": 2, "y": -35}, "center": {"x": 0, "y": -15}, "banpick_center": {"x": 0, "y": -4}}
+# (bp_card_audit.py with hd.rs UI_SIZES; -10 her soles on the canvas bottom, 2026-10-27 - -4 had fitted the raised
+# blades and hid 6 px of her legs under the name)
+VIEW = {"face": {"x": 2, "y": -35}, "center": {"x": 0, "y": -15}, "banpick_center": {"x": 0, "y": -10}}
 
 
 def lp(path):

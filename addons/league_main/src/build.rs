@@ -68,6 +68,10 @@ pub struct Build {
     pub body_draw: usize,
     /// RawVec<draw command>::grow_one (0xd0-byte commands)
     pub cmd_grow: usize,
+    /// the view node draw (rcx = the command Vec it returns, rdx = the node, r8 / r9 its own; the battlefield body draw
+    /// and the world's effects call it): an effect picture's sprite command, UV x the texture's real pixels from a
+    /// corner placed with its frame's size (src/view.rs effect_detour). 0: not known (dense effects drawn PPU times big).
+    pub effect_draw: usize,
     /// (rva, the bytes there)
     pub sigs: &'static [(usize, &'static [u8])],
 }
@@ -93,6 +97,7 @@ pub static BUILDS: &[Build] = &[Build {
     node_image: 0x2172320,
     body_draw: 0x2557a00,
     cmd_grow: 0x3822010,
+    effect_draw: 0x1c32c50,
     sigs: &[
     // the anim-table lookup
     (0x20f5f0, &[
@@ -126,6 +131,11 @@ pub static BUILDS: &[Build] = &[Build {
         0x56, 0x57, 0x48, 0x83, 0xec, 0x48, 0x48, 0x89, 0xce, 0x48, 0x8b, 0x11, 0x48, 0x8d, 0x04, 0x12,
         0x48, 0x83, 0xf8, 0x05, 0xbf, 0x04, 0x00, 0x00, 0x00, 0x48, 0x0f, 0x43, 0xf8, 0x4c, 0x8b, 0x41,
         0x08, 0x48, 0xc7, 0x44, 0x24, 0x28, 0xd0, 0x00, 0x00, 0x00, 0x48, 0xc7, 0x44, 0x24, 0x20, 0x08,
+    ]),
+    // the view node draw (found 2026-10-27 from the size asks of league_ivern_daisy_drop's texture at 0x1c3416e)
+    (0x1c32c50, &[
+        0x55, 0x41, 0x57, 0x41, 0x56, 0x41, 0x55, 0x41, 0x54, 0x56, 0x57, 0x53, 0x48, 0x81, 0xec, 0x58,
+        0x03, 0x00, 0x00, 0x48, 0x8d, 0xac, 0x24, 0x80,
     ]),
     // the entity render's call of the body draw, and its scale command (+0x1b4 round the body draw's commands)
     (0x2565f7d, &[0xe8, 0x7e, 0x1a, 0xff, 0xff]),
@@ -211,6 +221,7 @@ pub fn from_places(p: game_places::Places, name: String) -> &'static Build {
         node_image: p.node_image,
         body_draw: p.body_draw,
         cmd_grow: p.cmd_grow,
+        effect_draw: 0,
         sigs: &[],
     }))
 }
