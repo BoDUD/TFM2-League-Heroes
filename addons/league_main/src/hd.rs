@@ -399,7 +399,8 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // 原样」); every action Codex's whole-frame redraw of his old frame read onto it at the zoom his head gives
     // (tools/art/casts_lucian_hd.py: the run on one head column, its second half the first); 46 game px as his 1x
     // sprite, so no SIZES row
-    ("league_lucian", 2.02, include_str!("../../../league/champions/league_lucian#anim.fanim")),
+    // brought to 1.5 squares a game pixel (「卢锡安的像素太高了调低一点 新模型」「卢锡安用 1.5」, ppu_restyle.py)
+    ("league_lucian", 1.5, include_str!("../../../league/champions/league_lucian#anim.fanim")),
     // Locke (2026's new champion, the user's pick): posed by tools/art/rig_locke.py on Codex's step-0 take A-1 brought to
     // 88 rows (44 game px hair to soles) and its key poses after League's clips (the design's head put back, the bodies
     // Codex drew bigger read at the design's size) at the user's 2.0 squares a game pixel (3/4 only; his W look's w_*
@@ -420,6 +421,12 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // arm from Codex's pose pictures (tools/art/casts_syndra_hd.py, rig_syndra_hd.py); 42 game px as her 1x sprite, so
     // no SIZES row
     ("league_syndra", 1.857, include_str!("../../../league/champions/league_syndra#anim.fanim")),
+    // Akali (2026-10-27, 「下一个英雄重做阿卡丽」, 「设计图通过，就用 1.8」): Codex's fourth take read as drawn on its own
+    // 16-px squares (71 x 72, tools/art/design_akali_hd.py: 72 rows / 40 = 1.8; the hook in the near hand, the blade in
+    // the far one - 「不用照旧精灵的手」); every action Codex's whole-frame redraw of her old frame read onto it at the zoom
+    // her head gives (tools/art/casts_akali_hd.py, rig_akali_hd.py; the dashes baked as before); 40 game px as her 1x
+    // sprite, so no SIZES row
+    ("league_akali", 1.8, include_str!("../../../league/champions/league_akali#anim.fanim")),
 ];
 
 /// Champion id, its size everywhere the dense frames are drawn (1.0 = the 1x frames' size): the anim tables' rects and

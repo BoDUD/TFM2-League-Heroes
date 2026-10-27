@@ -10,7 +10,7 @@
 | 所属的包 | 主包（mod_id `league`） |
 | 分路 | 中单 |
 | 分类 / 标签 | 刺客（Assassin） · AP / Magic / Melee |
-| 高清帧 | 1 倍像素（无高清帧） |
+| 高清帧 | PPU 1.8 |
 | 附加包 | [斩杀附加包：伊芙琳、阿卡丽、锐雯](#附加包)（`league_executes`） |
 
 ![阿卡丽演示](../preview/league_akali_showcase.gif)
@@ -89,6 +89,7 @@
 | 精灵图 | 11 个动作 64 帧：待机、移动、普攻、强化普攻、Q、E 后翻掷出、E 突进、R 第一段、R 第二段、受击、死亡。重做后的造型（用户选的“A40”）：深蓝长发扎高马尾、系青柠色蝴蝶结，青绿面罩贴着脸，琥珀色眼睛，短上衣露腰、淡紫纹身，红色挎包，蓝色灯笼裤配青柠绑带；近侧手拿苦无，远侧手拿镰刀。马尾顶到脚底 40 px、37 px 宽、18 色。每帧的时机和站位照英雄联盟原版动画渲染的参考帧 |
 | 特效 | 普攻斩痕，强化普攻的翡翠新月斩，刺客印记圆环（敌人脚下），印记在身上时绕着她的光点，Q 的苦无扇和命中星闪，E 落地时霞阵的烟雾（2 秒），E 旋转的手里剑、命中环和头顶的手里剑标记，E 突进的残影和斩击，R 两段的突进残影、第一段的横斩和第二段的 X 形斩杀 |
 | 图标 | 官方技能图标（Q / E / R），64×64 |
+| 高清帧（PPU 1.8） | 2026-10-27 用 PPU 重做（用户：「下一个英雄重做阿卡丽」「设计图通过，就用 1.8」）。设计图：Codex 照她的旧精灵描密的第四稿，按原图自己的 16 像素格子逐格读回（71 × 72 格；72 行 / 1.8 = 原来的 40 像素，`design_akali_hd.py`）；武器照这张图：近侧手拿弯钩镰刀、远侧手拿长直刀（用户：「就用这张，不用照旧精灵的手」），手臂上有英雄联盟的纹身。动作：Codex 照旧版同一帧用设计图整帧重画（`pack_akali_actions.py`），每张按头的大小读回到设计图的格子上（`casts_akali_hd.py`：设计图的头按原大小在每帧上找最合适的缩放），和别的帧一模一样的旧帧只画一次；跑步第一版两腿一直分开、不换步，按旧版逐帧写清腿怎么摆后重画（`RUN_REDO_PROMPT_PPU.md`）；待机呼吸由设计图下沉 0–2 行（脚不动）；E 二段和 R 的冲刺特效照旧烤进动作帧（`rig_akali_hd.py`）。高 40 像素和原来一样，没有 SIZES 行；头像点、选人卡片值不变 |
 | 音频 | 从本地客户端提取的 15 条技能音效和 4 条中文语音（Q、E、R、R 第二段）。不提交到仓库，按下面的命令在本地生成 |
 
 ```bash
@@ -100,6 +101,15 @@ python tools/art/import_native.py --hero akali
 python tools/art/import_akali.py      # 特效；--raw <Codex 的特效交付文件夹> 先把整理图转成原尺寸条
 python tools/kit/akali_combos.py     # 连招写进技能数据（只跑一次，--check 查）
 python tools/art/preview_akali.py    # 逐帧图、特效图、演示和连招演示
+# PPU 1.8 重做（2026-10-27）：
+python tools/art/pack_akali_ppu.py --out <文件夹>          # 给 Codex 的设计图包（照她的旧精灵描密）
+python tools/art/design_akali_hd.py                      # Codex 的图（hd/raw/akali-A.png）按自己的格子读回 -> hd/design.png
+python tools/art/pack_akali_actions.py --out <文件夹>      # 给 Codex 的动作包（照旧版同一帧整帧重画；--only run 只重画跑步）
+python tools/art/casts_akali_hd.py --measure             # 每帧按头量的放大倍数
+python tools/art/rig_akali_hd.py                         # 读回、呼吸、烤特效 -> 原始条和 1 倍图
+python tools/art/ppu_restyle.py --hero akali && python tools/art/ppu_hd.py --hero akali
+python tools/art/ppu_one.py --hero akali && python tools/art/rig_akali_hd.py --one-ground && python tools/art/hero_reels.py --hero akali
+python tools/art/review_akali_actions.py --out <文件夹>    # 旧版 / 新版对照动图
 ```
 
 美术（重做的图片提示词见 [`assets/source/akali/PICTURE_PROMPT_REDO.md`](../../assets/source/akali/PICTURE_PROMPT_REDO.md)，造型的见 [`MODEL_PROMPTS_REDO.md`](../../assets/source/akali/MODEL_PROMPTS_REDO.md)，10 条动作的见 [`MODEL_STRIPS_REDO.md`](../../assets/source/akali/MODEL_STRIPS_REDO.md)，特效的见 [`PROMPTS.md`](../../assets/source/akali/PROMPTS.md)）：
@@ -112,4 +122,4 @@ python tools/art/preview_akali.py    # 逐帧图、特效图、演示和连招�
 - 出手时刻和动画对齐：普攻第 3 帧（第 7 tick），强化普攻由 `CasterAnimation` 播 `attack_p`、第 3 帧（第 8 tick），Q 第 4 帧（第 10 tick），E 第 5 帧（第 14 tick 掷出），E 突进播 19 tick 的 `skill2_dash`，R 第一段第 2 帧冲出，第二段播 19 tick 的 `ult2`。
 - 结果：18 色，和右边像素同色的比例 39%（原版英雄 18%–46%）。待机每帧 711 个不透明像素（第一版 787），在竞技场地面上能看清脸和眼睛。
 
-逐帧预览：[`docs/preview/league_akali_frames.png`](../preview/league_akali_frames.png?v=1014g)，特效：[`docs/preview/league_akali_effects.png`](../preview/league_akali_effects.png?v=1014g)。
+逐帧预览：[`docs/preview/league_akali_frames.png`](../preview/league_akali_frames.png?v=1027hd)，特效：[`docs/preview/league_akali_effects.png`](../preview/league_akali_effects.png?v=1014g)。

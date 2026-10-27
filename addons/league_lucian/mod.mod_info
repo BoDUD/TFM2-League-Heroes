@@ -1,0 +1,20 @@
+{
+  "author": "BoDUD",
+  "contains_code": true,
+  "dependencies": [
+    {
+      "mod_id": "base",
+      "version": ">=0.4.11"
+    },
+    {
+      "mod_id": "league",
+      "version": ">=0.243.3"
+    }
+  ],
+  "description": "Lucian walks firing The Culling (needs League of Legends Heroes): while his ult fires, his walk is drawn with both pistols levelled forward instead of his plain run. Picture only; his kit is the main pack's. Writes a log for testing.",
+  "last_updated": "2026-10-27",
+  "mod_id": "league_lucian",
+  "mod_type": "native",
+  "name": "League Heroes: Lucian walks firing his ult",
+  "version": "0.1.0"
+}

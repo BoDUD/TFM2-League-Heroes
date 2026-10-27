@@ -1376,7 +1376,7 @@
                             "type": "TargetProjectile",
                             "name": "league_lucian_r_bullet",
                             "speed": 12000,
-                            "y_offset": -3000,
+                            "y_offset": -18000,
                             "applied_target": "EnemyChampion",
                             "applied_effects": []
                           }
@@ -1445,7 +1445,7 @@
                                   "type": "TargetProjectile",
                                   "name": "league_lucian_r_bullet",
                                   "speed": 12000,
-                                  "y_offset": -3000,
+                                  "y_offset": -18000,
                                   "applied_target": "EnemyChampion",
                                   "applied_effects": []
                                 }
@@ -1499,7 +1499,7 @@
                                     "type": "TargetProjectile",
                                     "name": "league_lucian_r_bullet",
                                     "speed": 12000,
-                                    "y_offset": -3000,
+                                    "y_offset": -18000,
                                     "applied_target": "EnemyChampion",
                                     "applied_effects": []
                                   }
@@ -1601,7 +1601,7 @@
                             "type": "TargetProjectile",
                             "name": "league_lucian_r_bullet",
                             "speed": 12000,
-                            "y_offset": -3000,
+                            "y_offset": -18000,
                             "applied_target": "EnemyChampion",
                             "applied_effects": []
                           }
@@ -1670,7 +1670,7 @@
                                   "type": "TargetProjectile",
                                   "name": "league_lucian_r_bullet",
                                   "speed": 12000,
-                                  "y_offset": -3000,
+                                  "y_offset": -18000,
                                   "applied_target": "EnemyChampion",
                                   "applied_effects": []
                                 }
@@ -1724,7 +1724,7 @@
                                     "type": "TargetProjectile",
                                     "name": "league_lucian_r_bullet",
                                     "speed": 12000,
-                                    "y_offset": -3000,
+                                    "y_offset": -18000,
                                     "applied_target": "EnemyChampion",
                                     "applied_effects": []
                                   }
@@ -1826,7 +1826,7 @@
                             "type": "TargetProjectile",
                             "name": "league_lucian_r_bullet",
                             "speed": 12000,
-                            "y_offset": -3000,
+                            "y_offset": -18000,
                             "applied_target": "EnemyChampion",
                             "applied_effects": []
                           }
@@ -1895,7 +1895,7 @@
                                   "type": "TargetProjectile",
                                   "name": "league_lucian_r_bullet",
                                   "speed": 12000,
-                                  "y_offset": -3000,
+                                  "y_offset": -18000,
                                   "applied_target": "EnemyChampion",
                                   "applied_effects": []
                                 }
@@ -1949,7 +1949,7 @@
                                     "type": "TargetProjectile",
                                     "name": "league_lucian_r_bullet",
                                     "speed": 12000,
-                                    "y_offset": -3000,
+                                    "y_offset": -18000,
                                     "applied_target": "EnemyChampion",
                                     "applied_effects": []
                                   }
@@ -2051,7 +2051,7 @@
                             "type": "TargetProjectile",
                             "name": "league_lucian_r_bullet",
                             "speed": 12000,
-                            "y_offset": -3000,
+                            "y_offset": -18000,
                             "applied_target": "EnemyChampion",
                             "applied_effects": []
                           }
@@ -2120,7 +2120,7 @@
                                   "type": "TargetProjectile",
                                   "name": "league_lucian_r_bullet",
                                   "speed": 12000,
-                                  "y_offset": -3000,
+                                  "y_offset": -18000,
                                   "applied_target": "EnemyChampion",
                                   "applied_effects": []
                                 }
@@ -2174,7 +2174,7 @@
                                     "type": "TargetProjectile",
                                     "name": "league_lucian_r_bullet",
                                     "speed": 12000,
-                                    "y_offset": -3000,
+                                    "y_offset": -18000,
                                     "applied_target": "EnemyChampion",
                                     "applied_effects": []
                                   }
@@ -2276,7 +2276,7 @@
                             "type": "TargetProjectile",
                             "name": "league_lucian_r_bullet",
                             "speed": 12000,
-                            "y_offset": -3000,
+                            "y_offset": -18000,
                             "applied_target": "EnemyChampion",
                             "applied_effects": []
                           }
@@ -2345,7 +2345,7 @@
                                   "type": "TargetProjectile",
                                   "name": "league_lucian_r_bullet",
                                   "speed": 12000,
-                                  "y_offset": -3000,
+                                  "y_offset": -18000,
                                   "applied_target": "EnemyChampion",
                                   "applied_effects": []
                                 }
@@ -2399,7 +2399,7 @@
                                     "type": "TargetProjectile",
                                     "name": "league_lucian_r_bullet",
                                     "speed": 12000,
-                                    "y_offset": -3000,
+                                    "y_offset": -18000,
                                     "applied_target": "EnemyChampion",
                                     "applied_effects": []
                                   }
@@ -2501,7 +2501,7 @@
                             "type": "TargetProjectile",
                             "name": "league_lucian_r_bullet",
                             "speed": 12000,
-                            "y_offset": -3000,
+                            "y_offset": -18000,
                             "applied_target": "EnemyChampion",
                             "applied_effects": []
                           }
@@ -2570,7 +2570,7 @@
                                   "type": "TargetProjectile",
                                   "name": "league_lucian_r_bullet",
                                   "speed": 12000,
-                                  "y_offset": -3000,
+                                  "y_offset": -18000,
                                   "applied_target": "EnemyChampion",
                                   "applied_effects": []
                                 }
@@ -2624,7 +2624,7 @@
                                     "type": "TargetProjectile",
                                     "name": "league_lucian_r_bullet",
                                     "speed": 12000,
-                                    "y_offset": -3000,
+                                    "y_offset": -18000,
                                     "applied_target": "EnemyChampion",
                                     "applied_effects": []
                                   }
@@ -2726,7 +2726,7 @@
                             "type": "TargetProjectile",
                             "name": "league_lucian_r_bullet",
                             "speed": 12000,
-                            "y_offset": -3000,
+                            "y_offset": -18000,
                             "applied_target": "EnemyChampion",
                             "applied_effects": []
                           }
@@ -2795,7 +2795,7 @@
                                   "type": "TargetProjectile",
                                   "name": "league_lucian_r_bullet",
                                   "speed": 12000,
-                                  "y_offset": -3000,
+                                  "y_offset": -18000,
                                   "applied_target": "EnemyChampion",
                                   "applied_effects": []
                                 }
@@ -2849,7 +2849,7 @@
                                     "type": "TargetProjectile",
                                     "name": "league_lucian_r_bullet",
                                     "speed": 12000,
-                                    "y_offset": -3000,
+                                    "y_offset": -18000,
                                     "applied_target": "EnemyChampion",
                                     "applied_effects": []
                                   }
@@ -2951,7 +2951,7 @@
                             "type": "TargetProjectile",
                             "name": "league_lucian_r_bullet",
                             "speed": 12000,
-                            "y_offset": -3000,
+                            "y_offset": -18000,
                             "applied_target": "EnemyChampion",
                             "applied_effects": []
                           }
@@ -3020,7 +3020,7 @@
                                   "type": "TargetProjectile",
                                   "name": "league_lucian_r_bullet",
                                   "speed": 12000,
-                                  "y_offset": -3000,
+                                  "y_offset": -18000,
                                   "applied_target": "EnemyChampion",
                                   "applied_effects": []
                                 }
@@ -3074,7 +3074,7 @@
                                     "type": "TargetProjectile",
                                     "name": "league_lucian_r_bullet",
                                     "speed": 12000,
-                                    "y_offset": -3000,
+                                    "y_offset": -18000,
                                     "applied_target": "EnemyChampion",
                                     "applied_effects": []
                                   }
@@ -3176,7 +3176,7 @@
                             "type": "TargetProjectile",
                             "name": "league_lucian_r_bullet",
                             "speed": 12000,
-                            "y_offset": -3000,
+                            "y_offset": -18000,
                             "applied_target": "EnemyChampion",
                             "applied_effects": []
                           }
@@ -3245,7 +3245,7 @@
                                   "type": "TargetProjectile",
                                   "name": "league_lucian_r_bullet",
                                   "speed": 12000,
-                                  "y_offset": -3000,
+                                  "y_offset": -18000,
                                   "applied_target": "EnemyChampion",
                                   "applied_effects": []
                                 }
@@ -3299,7 +3299,7 @@
                                     "type": "TargetProjectile",
                                     "name": "league_lucian_r_bullet",
                                     "speed": 12000,
-                                    "y_offset": -3000,
+                                    "y_offset": -18000,
                                     "applied_target": "EnemyChampion",
                                     "applied_effects": []
                                   }
@@ -3401,7 +3401,7 @@
                             "type": "TargetProjectile",
                             "name": "league_lucian_r_bullet",
                             "speed": 12000,
-                            "y_offset": -3000,
+                            "y_offset": -18000,
                             "applied_target": "EnemyChampion",
                             "applied_effects": []
                           }
@@ -3470,7 +3470,7 @@
                                   "type": "TargetProjectile",
                                   "name": "league_lucian_r_bullet",
                                   "speed": 12000,
-                                  "y_offset": -3000,
+                                  "y_offset": -18000,
                                   "applied_target": "EnemyChampion",
                                   "applied_effects": []
                                 }
@@ -3524,7 +3524,7 @@
                                     "type": "TargetProjectile",
                                     "name": "league_lucian_r_bullet",
                                     "speed": 12000,
-                                    "y_offset": -3000,
+                                    "y_offset": -18000,
                                     "applied_target": "EnemyChampion",
                                     "applied_effects": []
                                   }
@@ -3626,7 +3626,7 @@
                             "type": "TargetProjectile",
                             "name": "league_lucian_r_bullet",
                             "speed": 12000,
-                            "y_offset": -3000,
+                            "y_offset": -18000,
                             "applied_target": "EnemyChampion",
                             "applied_effects": []
                           }
@@ -3695,7 +3695,7 @@
                                   "type": "TargetProjectile",
                                   "name": "league_lucian_r_bullet",
                                   "speed": 12000,
-                                  "y_offset": -3000,
+                                  "y_offset": -18000,
                                   "applied_target": "EnemyChampion",
                                   "applied_effects": []
                                 }
@@ -3749,7 +3749,7 @@
                                     "type": "TargetProjectile",
                                     "name": "league_lucian_r_bullet",
                                     "speed": 12000,
-                                    "y_offset": -3000,
+                                    "y_offset": -18000,
                                     "applied_target": "EnemyChampion",
                                     "applied_effects": []
                                   }
@@ -3851,7 +3851,7 @@
                             "type": "TargetProjectile",
                             "name": "league_lucian_r_bullet",
                             "speed": 12000,
-                            "y_offset": -3000,
+                            "y_offset": -18000,
                             "applied_target": "EnemyChampion",
                             "applied_effects": []
                           }
@@ -3920,7 +3920,7 @@
                                   "type": "TargetProjectile",
                                   "name": "league_lucian_r_bullet",
                                   "speed": 12000,
-                                  "y_offset": -3000,
+                                  "y_offset": -18000,
                                   "applied_target": "EnemyChampion",
                                   "applied_effects": []
                                 }
@@ -3974,7 +3974,7 @@
                                     "type": "TargetProjectile",
                                     "name": "league_lucian_r_bullet",
                                     "speed": 12000,
-                                    "y_offset": -3000,
+                                    "y_offset": -18000,
                                     "applied_target": "EnemyChampion",
                                     "applied_effects": []
                                   }
@@ -4076,7 +4076,7 @@
                             "type": "TargetProjectile",
                             "name": "league_lucian_r_bullet",
                             "speed": 12000,
-                            "y_offset": -3000,
+                            "y_offset": -18000,
                             "applied_target": "EnemyChampion",
                             "applied_effects": []
                           }
@@ -4145,7 +4145,7 @@
                                   "type": "TargetProjectile",
                                   "name": "league_lucian_r_bullet",
                                   "speed": 12000,
-                                  "y_offset": -3000,
+                                  "y_offset": -18000,
                                   "applied_target": "EnemyChampion",
                                   "applied_effects": []
                                 }
@@ -4199,7 +4199,7 @@
                                     "type": "TargetProjectile",
                                     "name": "league_lucian_r_bullet",
                                     "speed": 12000,
-                                    "y_offset": -3000,
+                                    "y_offset": -18000,
                                     "applied_target": "EnemyChampion",
                                     "applied_effects": []
                                   }
@@ -4301,7 +4301,7 @@
                             "type": "TargetProjectile",
                             "name": "league_lucian_r_bullet",
                             "speed": 12000,
-                            "y_offset": -3000,
+                            "y_offset": -18000,
                             "applied_target": "EnemyChampion",
                             "applied_effects": []
                           }
@@ -4370,7 +4370,7 @@
                                   "type": "TargetProjectile",
                                   "name": "league_lucian_r_bullet",
                                   "speed": 12000,
-                                  "y_offset": -3000,
+                                  "y_offset": -18000,
                                   "applied_target": "EnemyChampion",
                                   "applied_effects": []
                                 }
@@ -4424,7 +4424,7 @@
                                     "type": "TargetProjectile",
                                     "name": "league_lucian_r_bullet",
                                     "speed": 12000,
-                                    "y_offset": -3000,
+                                    "y_offset": -18000,
                                     "applied_target": "EnemyChampion",
                                     "applied_effects": []
                                   }
@@ -4526,7 +4526,7 @@
                             "type": "TargetProjectile",
                             "name": "league_lucian_r_bullet",
                             "speed": 12000,
-                            "y_offset": -3000,
+                            "y_offset": -18000,
                             "applied_target": "EnemyChampion",
                             "applied_effects": []
                           }
@@ -4595,7 +4595,7 @@
                                   "type": "TargetProjectile",
                                   "name": "league_lucian_r_bullet",
                                   "speed": 12000,
-                                  "y_offset": -3000,
+                                  "y_offset": -18000,
                                   "applied_target": "EnemyChampion",
                                   "applied_effects": []
                                 }
@@ -4649,7 +4649,7 @@
                                     "type": "TargetProjectile",
                                     "name": "league_lucian_r_bullet",
                                     "speed": 12000,
-                                    "y_offset": -3000,
+                                    "y_offset": -18000,
                                     "applied_target": "EnemyChampion",
                                     "applied_effects": []
                                   }
@@ -4751,7 +4751,7 @@
                             "type": "TargetProjectile",
                             "name": "league_lucian_r_bullet",
                             "speed": 12000,
-                            "y_offset": -3000,
+                            "y_offset": -18000,
                             "applied_target": "EnemyChampion",
                             "applied_effects": []
                           }
@@ -4820,7 +4820,7 @@
                                   "type": "TargetProjectile",
                                   "name": "league_lucian_r_bullet",
                                   "speed": 12000,
-                                  "y_offset": -3000,
+                                  "y_offset": -18000,
                                   "applied_target": "EnemyChampion",
                                   "applied_effects": []
                                 }
@@ -4874,7 +4874,7 @@
                                     "type": "TargetProjectile",
                                     "name": "league_lucian_r_bullet",
                                     "speed": 12000,
-                                    "y_offset": -3000,
+                                    "y_offset": -18000,
                                     "applied_target": "EnemyChampion",
                                     "applied_effects": []
                                   }
@@ -4976,7 +4976,7 @@
                             "type": "TargetProjectile",
                             "name": "league_lucian_r_bullet",
                             "speed": 12000,
-                            "y_offset": -3000,
+                            "y_offset": -18000,
                             "applied_target": "EnemyChampion",
                             "applied_effects": []
                           }
@@ -5045,7 +5045,7 @@
                                   "type": "TargetProjectile",
                                   "name": "league_lucian_r_bullet",
                                   "speed": 12000,
-                                  "y_offset": -3000,
+                                  "y_offset": -18000,
                                   "applied_target": "EnemyChampion",
                                   "applied_effects": []
                                 }
@@ -5099,7 +5099,7 @@
                                     "type": "TargetProjectile",
                                     "name": "league_lucian_r_bullet",
                                     "speed": 12000,
-                                    "y_offset": -3000,
+                                    "y_offset": -18000,
                                     "applied_target": "EnemyChampion",
                                     "applied_effects": []
                                   }
@@ -5201,7 +5201,7 @@
                             "type": "TargetProjectile",
                             "name": "league_lucian_r_bullet",
                             "speed": 12000,
-                            "y_offset": -3000,
+                            "y_offset": -18000,
                             "applied_target": "EnemyChampion",
                             "applied_effects": []
                           }
@@ -5270,7 +5270,7 @@
                                   "type": "TargetProjectile",
                                   "name": "league_lucian_r_bullet",
                                   "speed": 12000,
-                                  "y_offset": -3000,
+                                  "y_offset": -18000,
                                   "applied_target": "EnemyChampion",
                                   "applied_effects": []
                                 }
@@ -5324,7 +5324,7 @@
                                     "type": "TargetProjectile",
                                     "name": "league_lucian_r_bullet",
                                     "speed": 12000,
-                                    "y_offset": -3000,
+                                    "y_offset": -18000,
                                     "applied_target": "EnemyChampion",
                                     "applied_effects": []
                                   }
@@ -5426,7 +5426,7 @@
                             "type": "TargetProjectile",
                             "name": "league_lucian_r_bullet",
                             "speed": 12000,
-                            "y_offset": -3000,
+                            "y_offset": -18000,
                             "applied_target": "EnemyChampion",
                             "applied_effects": []
                           }
@@ -5495,7 +5495,7 @@
                                   "type": "TargetProjectile",
                                   "name": "league_lucian_r_bullet",
                                   "speed": 12000,
-                                  "y_offset": -3000,
+                                  "y_offset": -18000,
                                   "applied_target": "EnemyChampion",
                                   "applied_effects": []
                                 }
@@ -5549,7 +5549,7 @@
                                     "type": "TargetProjectile",
                                     "name": "league_lucian_r_bullet",
                                     "speed": 12000,
-                                    "y_offset": -3000,
+                                    "y_offset": -18000,
                                     "applied_target": "EnemyChampion",
                                     "applied_effects": []
                                   }
@@ -5651,7 +5651,7 @@
                             "type": "TargetProjectile",
                             "name": "league_lucian_r_bullet",
                             "speed": 12000,
-                            "y_offset": -3000,
+                            "y_offset": -18000,
                             "applied_target": "EnemyChampion",
                             "applied_effects": []
                           }
@@ -5720,7 +5720,7 @@
                                   "type": "TargetProjectile",
                                   "name": "league_lucian_r_bullet",
                                   "speed": 12000,
-                                  "y_offset": -3000,
+                                  "y_offset": -18000,
                                   "applied_target": "EnemyChampion",
                                   "applied_effects": []
                                 }
@@ -5774,7 +5774,7 @@
                                     "type": "TargetProjectile",
                                     "name": "league_lucian_r_bullet",
                                     "speed": 12000,
-                                    "y_offset": -3000,
+                                    "y_offset": -18000,
                                     "applied_target": "EnemyChampion",
                                     "applied_effects": []
                                   }
@@ -5952,6 +5952,13 @@
       "anim": "asset/league/effects/league_lucian_fx",
       "tag": "w_haste",
       "z": -1
+    },
+    {
+      "type": "Animated",
+      "name": "league_lucian_r_ch",
+      "anim": "asset/league/effects/league_lucian_fx",
+      "tag": "hit",
+      "z": 2
     }
   ]
 }
