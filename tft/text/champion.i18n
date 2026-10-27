@@ -28,6 +28,13 @@
         "skill": "扔出储罐，造成<#a974ffff>65<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<>魔法伤害，放出<#ffb900ff>2<>只畸变体扑向附近的敌人，各咬<#ffb900ff>5<>口，每口<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>11%<>魔法伤害；被咬的人倒下就跳到下一个。",
         "skill2": "把微光抛给身边攻击力最高的友方英雄（没有就自己）：攻速+<#ffb900ff>50%<>、移速+<#ffb900ff>20%<>，<#ffb900ff>4秒<>；药效过去扣当前生命的<#ffb900ff>8%<>。",
         "ult": "向敌方英雄扔出巨型储罐，造成<#a974ffff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>魔法伤害，放出<#ffb900ff>4<>只畸变体，留下<#ffb900ff>4秒<>毒雾：敌人<#ef5350ff>减速<><#ffb900ff>30%<>，每秒受到<#a974ffff>6<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>4%<>魔法伤害。"
+      },
+      "tft_maddie": {
+        "name": "麦迪",
+        "attack": "步枪射击，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>。<#ff9028ff>狙神<>：目标离得越远，她造成的伤害越高，最多+<#ffb900ff>25%<>；被通缉的敌人阵亡时她领一份赏金：攻速+<#ffb900ff>15%<>，最多<#ffb900ff>4<>份。",
+        "skill": "半蹲朝范围内最远的敌人连开<#ffb900ff>6<>枪（先打英雄），每枪打中路上第一个敌人，造成<#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<><#ff9028ff>物理伤害<>。",
+        "skill2": "通缉附近当前生命最高的敌方英雄<#ffb900ff>8秒<>：它受到的伤害+<#ffb900ff>15%<>。",
+        "ult": "瞄准后向生命比例最低的敌方英雄射出一发穿透子弹，路上每个敌人受到<#ff9028ff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<><#ff9028ff>物理伤害<>，按其已损失生命比例最多再加<#ffb900ff>60%<>。"
       }
     },
     "skill_name": {
@@ -50,6 +57,11 @@
         "skill1": "罐装畸变体",
         "skill2": "微光注射",
         "ult": "炼金狂潮"
+      },
+      "tft_maddie": {
+        "skill1": "连拨击锤",
+        "skill2": "通缉令",
+        "ult": "执法狙杀"
       }
     }
   },
@@ -82,6 +94,13 @@
         "skill": "扔出儲罐，造成<#a974ffff>65<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<>魔法傷害，放出<#ffb900ff>2<>隻怪物撲向附近的敵人，各咬<#ffb900ff>5<>口，每口<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>11%<>魔法傷害；被咬的人倒下就跳到下一個。",
         "skill2": "把微光拋給身邊攻擊力最高的友方英雄（沒有就自己）：攻速+<#ffb900ff>50%<>、移速+<#ffb900ff>20%<>，<#ffb900ff>4秒<>；藥效過去扣除目前生命的<#ffb900ff>8%<>。",
         "ult": "向敵方英雄扔出巨型儲罐，造成<#a974ffff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>魔法傷害，放出<#ffb900ff>4<>隻怪物，留下<#ffb900ff>4秒<>毒霧：敵人<#ef5350ff>緩速<><#ffb900ff>30%<>，每秒受到<#a974ffff>6<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>4%<>魔法傷害。"
+      },
+      "tft_maddie": {
+        "name": "梅狄",
+        "attack": "步槍射擊，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>。<#ff9028ff>狙擊專家<>：目標離得越遠，她造成的傷害越高，最多+<#ffb900ff>25%<>；被通緝的敵人陣亡時她領一份賞金：攻速+<#ffb900ff>15%<>，最多<#ffb900ff>4<>份。",
+        "skill": "半蹲朝範圍內最遠的敵人連開<#ffb900ff>6<>槍（優先英雄），每槍擊中路上第一個敵人，造成<#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<><#ff9028ff>物理傷害<>。",
+        "skill2": "通緝附近目前生命最高的敵方英雄<#ffb900ff>8秒<>：它受到的傷害+<#ffb900ff>15%<>。",
+        "ult": "瞄準後向生命比例最低的敵方英雄射出一發穿透子彈，路上每個敵人受到<#ff9028ff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<><#ff9028ff>物理傷害<>，依其已損失生命比例最多再加<#ffb900ff>60%<>。"
       }
     },
     "skill_name": {
@@ -104,6 +123,11 @@
         "skill1": "罐裝怪物",
         "skill2": "微光注射",
         "ult": "鍊金狂潮"
+      },
+      "tft_maddie": {
+        "skill1": "旋風鎚",
+        "skill2": "通緝令",
+        "ult": "執法狙殺"
       }
     }
   },
@@ -136,6 +160,13 @@
         "skill": "Throws a canister for <#a974ffff>65<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<> <#a974ffff>magic damage<> and lets out <#ffb900ff>2<> monstrosities that pounce on nearby enemies and bite <#ffb900ff>5<> times each for <#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>11%<> <#a974ffff>magic damage<>; when their victim falls they leap to the next.",
         "skill2": "Tosses Shimmer to the allied champion with the most attack near him (himself if none): <#ffb900ff>50%<> attack speed and <#ffb900ff>20%<> move speed for <#ffb900ff>4s<>; the comedown then takes <#ffb900ff>8%<> of their current health.",
         "ult": "Throws a giant canister at an enemy champion for <#a974ffff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> <#a974ffff>magic damage<>, letting out <#ffb900ff>4<> monstrosities and leaving a Shimmer fog for <#ffb900ff>4s<>: enemies in it are <#ef5350ff>slowed<> by <#ffb900ff>30%<> and take <#a974ffff>6<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>4%<> <#a974ffff>magic damage<> a second."
+      },
+      "tft_maddie": {
+        "name": "Maddie",
+        "attack": "Fires her rifle for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<>. <#ff9028ff>Sniper<>: she deals more damage the farther the target, up to <#ffb900ff>25%<>; when a Wanted enemy dies she collects a bounty: <#ffb900ff>15%<> attack speed, up to <#ffb900ff>4<> bounties.",
+        "skill": "Crouches and fires <#ffb900ff>6<> shots at the farthest enemy in range (champions first); each hits the first enemy in its way for <#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<> <#ff9028ff>physical damage<>.",
+        "skill2": "Marks the nearby enemy champion with the most health as Wanted for <#ffb900ff>8s<>: it takes <#ffb900ff>15%<> more damage.",
+        "ult": "Takes aim, then fires a piercing round at the enemy champion with the lowest share of health: every enemy in its line takes <#ff9028ff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<> <#ff9028ff>physical damage<>, up to <#ffb900ff>60%<> more by the share of health it is missing."
       }
     },
     "skill_name": {
@@ -158,6 +189,11 @@
         "skill1": "Canned Monstrosity",
         "skill2": "Shimmer Shot",
         "ult": "Chem-Baron's Flood"
+      },
+      "tft_maddie": {
+        "skill1": "Fan the Hammer",
+        "skill2": "Wanted",
+        "ult": "Enforcer's Snipe"
       }
     }
   },
@@ -190,6 +226,13 @@
         "skill": "통을 던져 <#a974ffff>65<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<> 마법 피해를 입히고 괴수 <#ffb900ff>2<>마리를 풀어놓는다. 괴수는 주변 적에게 달려들어 <#ffb900ff>5<>번 물며 한 번에 <#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>11%<> 마법 피해, 물던 적이 쓰러지면 다음 적에게 뛰어간다.",
         "skill2": "주변에서 공격력이 가장 높은 아군 챔피언(없으면 자신)에게 시머를 던진다: <#ffb900ff>4초<> 동안 공격 속도 +<#ffb900ff>50%<>, 이동 속도 +<#ffb900ff>20%<>. 약효가 끝나면 현재 체력의 <#ffb900ff>8%<>를 잃는다.",
         "ult": "적 챔피언에게 거대한 통을 던져 <#a974ffff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> 마법 피해, 괴수 <#ffb900ff>4<>마리와 <#ffb900ff>4초<> 동안 시머 안개를 남긴다: 안의 적은 <#ffb900ff>30%<> <#ef5350ff>둔화<>, 초당 <#a974ffff>6<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>4%<> 마법 피해."
+      },
+      "tft_maddie": {
+        "name": "매디",
+        "attack": "소총을 쏴 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> 물리 피해. <#ff9028ff>저격수<>: 대상이 멀수록 피해가 커진다(최대 +<#ffb900ff>25%<>). 현상수배된 적이 죽으면 현상금: 공격 속도 +<#ffb900ff>15%<>(최대 <#ffb900ff>4<>번).",
+        "skill": "몸을 낮추고 사거리 안에서 가장 먼 적(챔피언 우선)에게 <#ffb900ff>6<>발을 쏜다. 한 발마다 경로의 첫 적에게 <#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<> 물리 피해.",
+        "skill2": "주변에서 현재 체력이 가장 높은 적 챔피언을 <#ffb900ff>8초<> 동안 현상수배: 받는 피해 +<#ffb900ff>15%<>.",
+        "ult": "조준한 뒤 체력 비율이 가장 낮은 적 챔피언에게 관통탄을 쏜다: 경로의 모든 적에게 <#ff9028ff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<> 물리 피해, 잃은 체력 비율에 따라 최대 <#ffb900ff>60%<> 추가."
       }
     },
     "skill_name": {
@@ -212,6 +255,11 @@
         "skill1": "통에 담긴 괴수",
         "skill2": "시머 주사",
         "ult": "화공 대범람"
+      },
+      "tft_maddie": {
+        "skill1": "탄환 세례",
+        "skill2": "현상수배",
+        "ult": "집행자의 저격"
       }
     }
   },
@@ -244,6 +292,13 @@
         "skill": "缶を投げて<#a974ffff>65<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<>の魔法ダメージ、怪物<#ffb900ff>2<>体を放つ。怪物は近くの敵に飛びかかり<#ffb900ff>5<>回噛みつき、1回<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>11%<>の魔法ダメージ。噛んだ敵が倒れると次の敵へ跳ぶ。",
         "skill2": "近くで攻撃力が最も高い味方チャンピオン（いなければ自分）にシマーを投げる：<#ffb900ff>4秒<>間攻撃速度+<#ffb900ff>50%<>、移動速度+<#ffb900ff>20%<>。効き目が切れると現在体力の<#ffb900ff>8%<>を失う。",
         "ult": "敵チャンピオンに巨大な缶を投げ、<#a974ffff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>の魔法ダメージ、怪物<#ffb900ff>4<>体と<#ffb900ff>4秒<>のシマーの霧を残す：霧の中の敵は<#ffb900ff>30%<><#ef5350ff>スロウ<>、毎秒<#a974ffff>6<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>4%<>の魔法ダメージ。"
+      },
+      "tft_maddie": {
+        "name": "マディー",
+        "attack": "ライフルを撃ち、<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の物理ダメージ。<#ff9028ff>スナイパー<>：対象が遠いほどダメージが増える（最大+<#ffb900ff>25%<>）。指名手配の敵が倒れると賞金：攻撃速度+<#ffb900ff>15%<>（最大<#ffb900ff>4<>回）。",
+        "skill": "身をかがめ、射程内で最も遠い敵（チャンピオン優先）に<#ffb900ff>6<>発撃つ。1発ごとに射線上の最初の敵に<#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>の物理ダメージ。",
+        "skill2": "近くで現在体力が最も高い敵チャンピオンを<#ffb900ff>8秒<>間指名手配：受けるダメージ+<#ffb900ff>15%<>。",
+        "ult": "狙いを定め、体力の割合が最も低い敵チャンピオンに貫通弾を撃つ：射線上の全ての敵に<#ff9028ff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<>の物理ダメージ、失った体力の割合に応じて最大<#ffb900ff>60%<>増加。"
       }
     },
     "skill_name": {
@@ -266,6 +321,11 @@
         "skill1": "缶詰めの怪物",
         "skill2": "シマー注射",
         "ult": "化学の大洪水"
+      },
+      "tft_maddie": {
+        "skill1": "ファニングショット",
+        "skill2": "指名手配",
+        "ult": "執行官の狙撃"
       }
     }
   }

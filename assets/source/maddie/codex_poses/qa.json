@@ -1,0 +1,167 @@
+[
+  {
+    "file": "maddie-pose-a_aim.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "hard_alpha": true,
+    "grid18": true,
+    "baseline": 1170,
+    "nonempty": true
+  },
+  {
+    "file": "maddie-pose-a_fire.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "hard_alpha": true,
+    "grid18": true,
+    "baseline": 1170,
+    "nonempty": true
+  },
+  {
+    "file": "maddie-pose-a_kick.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "hard_alpha": true,
+    "grid18": true,
+    "baseline": 1170,
+    "nonempty": true
+  },
+  {
+    "file": "maddie-pose-a_back.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "hard_alpha": true,
+    "grid18": true,
+    "baseline": 1170,
+    "nonempty": true
+  },
+  {
+    "file": "maddie-pose-q_crouch.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "hard_alpha": true,
+    "grid18": true,
+    "baseline": 1170,
+    "nonempty": true
+  },
+  {
+    "file": "maddie-pose-q_fire.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "hard_alpha": true,
+    "grid18": true,
+    "baseline": 1170,
+    "nonempty": true
+  },
+  {
+    "file": "maddie-pose-e_point.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "hard_alpha": true,
+    "grid18": true,
+    "baseline": 1170,
+    "nonempty": true
+  },
+  {
+    "file": "maddie-pose-r_aim.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "hard_alpha": true,
+    "grid18": true,
+    "baseline": 1170,
+    "nonempty": true
+  },
+  {
+    "file": "maddie-pose-r_fire.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "hard_alpha": true,
+    "grid18": true,
+    "baseline": 1170,
+    "nonempty": true
+  },
+  {
+    "file": "maddie-pose-run1.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "hard_alpha": true,
+    "grid18": true,
+    "baseline": 1170,
+    "nonempty": true
+  },
+  {
+    "file": "maddie-pose-run2.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "hard_alpha": true,
+    "grid18": true,
+    "baseline": 1170,
+    "nonempty": true
+  },
+  {
+    "file": "maddie-pose-run3.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "hard_alpha": true,
+    "grid18": true,
+    "baseline": 1170,
+    "nonempty": true
+  },
+  {
+    "file": "maddie-pose-run4.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "hard_alpha": true,
+    "grid18": true,
+    "baseline": 1170,
+    "nonempty": true
+  },
+  {
+    "file": "maddie-pose-d_fall.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "hard_alpha": true,
+    "grid18": true,
+    "baseline": 1170,
+    "nonempty": true
+  },
+  {
+    "file": "maddie-pose-d_down.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "hard_alpha": true,
+    "grid18": true,
+    "baseline": 1170,
+    "nonempty": true
+  }
+]

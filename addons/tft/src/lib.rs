@@ -4,6 +4,7 @@
 
 pub mod alune;
 pub mod loris;
+pub mod maddie;
 pub mod norra;
 pub mod silco;
 
@@ -13,6 +14,7 @@ fn init(host: &StableHost) -> StableMod {
     let mut module = StableMod::new("tft");
     alune::register(host, &mut module);
     loris::register(host, &mut module);
+    maddie::register(host, &mut module);
     norra::register(host, &mut module);
     silco::register(host, &mut module);
     module
