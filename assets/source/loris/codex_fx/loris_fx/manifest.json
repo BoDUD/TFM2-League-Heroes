@@ -1,0 +1,367 @@
+{
+  "generator": "built-in image_gen",
+  "postprocess": "technical majority grid export; binary alpha; FX per-frame exact reflection",
+  "assets": [
+    {
+      "file": "loris_fx_a_hit.png",
+      "raw_file": "raw\\loris_fx_a_hit.png",
+      "frames": 4,
+      "cell_1x": [
+        16,
+        16
+      ],
+      "layout": "one horizontal row",
+      "preview_scale": 8,
+      "loop": false,
+      "symmetry": "exact left-right within each frame",
+      "source_layout": [
+        2,
+        2
+      ],
+      "nonempty_per_frame": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "unique_frames": 4
+    },
+    {
+      "file": "loris_fx_q_shield.png",
+      "raw_file": "raw\\loris_fx_q_shield.png",
+      "frames": 6,
+      "cell_1x": [
+        32,
+        52
+      ],
+      "layout": "one horizontal row",
+      "preview_scale": 8,
+      "loop": false,
+      "symmetry": "exact left-right within each frame",
+      "source_layout": [
+        3,
+        2
+      ],
+      "nonempty_per_frame": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "unique_frames": 6
+    },
+    {
+      "file": "loris_fx_q_dash.png",
+      "raw_file": "raw\\loris_fx_q_dash.png",
+      "frames": 5,
+      "cell_1x": [
+        32,
+        14
+      ],
+      "layout": "one horizontal row",
+      "preview_scale": 8,
+      "loop": false,
+      "symmetry": "exact left-right within each frame",
+      "source_layout": [
+        2,
+        3
+      ],
+      "nonempty_per_frame": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "unique_frames": 5
+    },
+    {
+      "file": "loris_fx_q_hit.png",
+      "raw_file": "raw\\loris_fx_q_hit.png",
+      "frames": 5,
+      "cell_1x": [
+        24,
+        24
+      ],
+      "layout": "one horizontal row",
+      "preview_scale": 8,
+      "loop": false,
+      "symmetry": "exact left-right within each frame",
+      "source_layout": [
+        3,
+        2
+      ],
+      "nonempty_per_frame": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "unique_frames": 5
+    },
+    {
+      "file": "loris_fx_q_stun.png",
+      "raw_file": "raw\\loris_fx_q_stun.png",
+      "frames": 6,
+      "cell_1x": [
+        18,
+        44
+      ],
+      "layout": "one horizontal row",
+      "preview_scale": 8,
+      "loop": true,
+      "symmetry": "exact left-right within each frame",
+      "source_layout": [
+        3,
+        2
+      ],
+      "nonempty_per_frame": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "unique_frames": 6
+    },
+    {
+      "file": "loris_fx_e_land.png",
+      "raw_file": "raw\\loris_fx_e_land.png",
+      "frames": 6,
+      "cell_1x": [
+        34,
+        46
+      ],
+      "layout": "one horizontal row",
+      "preview_scale": 8,
+      "loop": false,
+      "symmetry": "exact left-right within each frame",
+      "source_layout": [
+        3,
+        2
+      ],
+      "nonempty_per_frame": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "unique_frames": 6
+    },
+    {
+      "file": "loris_fx_e_guard.png",
+      "raw_file": "raw\\loris_fx_e_guard.png",
+      "frames": 6,
+      "cell_1x": [
+        20,
+        44
+      ],
+      "layout": "one horizontal row",
+      "preview_scale": 8,
+      "loop": true,
+      "symmetry": "exact left-right within each frame",
+      "source_layout": [
+        3,
+        2
+      ],
+      "nonempty_per_frame": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "unique_frames": 6
+    },
+    {
+      "file": "loris_fx_r_slam.png",
+      "raw_file": "raw\\loris_fx_r_slam.png",
+      "frames": 8,
+      "cell_1x": [
+        84,
+        30
+      ],
+      "layout": "one horizontal row",
+      "preview_scale": 8,
+      "loop": false,
+      "symmetry": "exact left-right within each frame",
+      "source_layout": [
+        2,
+        4
+      ],
+      "nonempty_per_frame": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "unique_frames": 8
+    },
+    {
+      "file": "loris_fx_r_hit.png",
+      "raw_file": "raw\\loris_fx_r_hit.png",
+      "frames": 4,
+      "cell_1x": [
+        18,
+        20
+      ],
+      "layout": "one horizontal row",
+      "preview_scale": 8,
+      "loop": false,
+      "symmetry": "exact left-right within each frame",
+      "source_layout": [
+        2,
+        2
+      ],
+      "nonempty_per_frame": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "unique_frames": 4
+    },
+    {
+      "file": "loris_fx_r_taunt.png",
+      "raw_file": "raw\\loris_fx_r_taunt.png",
+      "frames": 6,
+      "cell_1x": [
+        16,
+        44
+      ],
+      "layout": "one horizontal row",
+      "preview_scale": 8,
+      "loop": true,
+      "symmetry": "exact left-right within each frame",
+      "source_layout": [
+        3,
+        2
+      ],
+      "nonempty_per_frame": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "unique_frames": 6
+    },
+    {
+      "file": "loris_fx_r_wall.png",
+      "raw_file": "raw\\loris_fx_r_wall.png",
+      "frames": 6,
+      "cell_1x": [
+        34,
+        50
+      ],
+      "layout": "one horizontal row",
+      "preview_scale": 8,
+      "loop": true,
+      "symmetry": "exact left-right within each frame",
+      "source_layout": [
+        3,
+        2
+      ],
+      "nonempty_per_frame": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "unique_frames": 6
+    },
+    {
+      "file": "loris_fx_p_shield.png",
+      "raw_file": "raw\\loris_fx_p_shield.png",
+      "frames": 6,
+      "cell_1x": [
+        30,
+        50
+      ],
+      "layout": "one horizontal row",
+      "preview_scale": 8,
+      "loop": true,
+      "symmetry": "exact left-right within each frame",
+      "source_layout": [
+        3,
+        2
+      ],
+      "nonempty_per_frame": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "unique_frames": 6
+    },
+    {
+      "file": "loris_fx_p_burst.png",
+      "raw_file": "raw\\loris_fx_p_burst.png",
+      "frames": 6,
+      "cell_1x": [
+        34,
+        52
+      ],
+      "layout": "one horizontal row",
+      "preview_scale": 8,
+      "loop": false,
+      "symmetry": "exact left-right within each frame",
+      "source_layout": [
+        3,
+        2
+      ],
+      "nonempty_per_frame": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "unique_frames": 6
+    },
+    {
+      "file": "loris_icon_skill.png",
+      "size": [
+        64,
+        64
+      ],
+      "pixel_block": 2,
+      "symmetry": "none; directional icon"
+    },
+    {
+      "file": "loris_icon_skill2.png",
+      "size": [
+        64,
+        64
+      ],
+      "pixel_block": 2,
+      "symmetry": "none; directional icon"
+    },
+    {
+      "file": "loris_icon_ult.png",
+      "size": [
+        64,
+        64
+      ],
+      "pixel_block": 2,
+      "symmetry": "none; directional icon"
+    }
+  ]
+}

@@ -1,0 +1,374 @@
+{
+  "generator": "built-in image_gen",
+  "postprocess": "technical majority grid export; binary alpha; FX per-frame exact reflection",
+  "assets": [
+    {
+      "file": "loris-pose-a_wind.png",
+      "raw_file": "raw\\loris-pose-a_wind.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "grid_px": 12,
+      "grid_origin": [
+        0,
+        0
+      ],
+      "bbox": [
+        156,
+        156,
+        1116,
+        1176
+      ],
+      "alpha": [
+        0,
+        255
+      ]
+    },
+    {
+      "file": "loris-pose-a_bash.png",
+      "raw_file": "raw\\loris-pose-a_bash.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "grid_px": 12,
+      "grid_origin": [
+        0,
+        0
+      ],
+      "bbox": [
+        36,
+        264,
+        1236,
+        1176
+      ],
+      "alpha": [
+        0,
+        255
+      ]
+    },
+    {
+      "file": "loris-pose-a_back.png",
+      "raw_file": "raw\\loris-pose-a_back.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "grid_px": 12,
+      "grid_origin": [
+        0,
+        0
+      ],
+      "bbox": [
+        288,
+        132,
+        996,
+        1176
+      ],
+      "alpha": [
+        0,
+        255
+      ]
+    },
+    {
+      "file": "loris-pose-q_raise.png",
+      "raw_file": "raw\\loris-pose-q_raise.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "grid_px": 12,
+      "grid_origin": [
+        0,
+        0
+      ],
+      "bbox": [
+        192,
+        156,
+        1212,
+        1176
+      ],
+      "alpha": [
+        0,
+        255
+      ]
+    },
+    {
+      "file": "loris-pose-q_charge1.png",
+      "raw_file": "raw\\loris-pose-q_charge1.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "grid_px": 12,
+      "grid_origin": [
+        0,
+        0
+      ],
+      "bbox": [
+        84,
+        192,
+        1224,
+        1176
+      ],
+      "alpha": [
+        0,
+        255
+      ]
+    },
+    {
+      "file": "loris-pose-q_charge2.png",
+      "raw_file": "raw\\loris-pose-q_charge2.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "grid_px": 12,
+      "grid_origin": [
+        0,
+        0
+      ],
+      "bbox": [
+        168,
+        180,
+        1236,
+        1176
+      ],
+      "alpha": [
+        0,
+        255
+      ]
+    },
+    {
+      "file": "loris-pose-e_plant.png",
+      "raw_file": "raw\\loris-pose-e_plant.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "grid_px": 12,
+      "grid_origin": [
+        0,
+        0
+      ],
+      "bbox": [
+        324,
+        84,
+        960,
+        1176
+      ],
+      "alpha": [
+        0,
+        255
+      ]
+    },
+    {
+      "file": "loris-pose-r_lift.png",
+      "raw_file": "raw\\loris-pose-r_lift.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "grid_px": 12,
+      "grid_origin": [
+        0,
+        0
+      ],
+      "bbox": [
+        264,
+        24,
+        984,
+        1176
+      ],
+      "alpha": [
+        0,
+        255
+      ]
+    },
+    {
+      "file": "loris-pose-r_slam.png",
+      "raw_file": "raw\\loris-pose-r_slam.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "grid_px": 12,
+      "grid_origin": [
+        0,
+        0
+      ],
+      "bbox": [
+        240,
+        240,
+        1188,
+        1176
+      ],
+      "alpha": [
+        0,
+        255
+      ]
+    },
+    {
+      "file": "loris-pose-run1.png",
+      "raw_file": "raw\\loris-pose-run1.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "grid_px": 12,
+      "grid_origin": [
+        0,
+        0
+      ],
+      "bbox": [
+        276,
+        144,
+        1020,
+        1176
+      ],
+      "alpha": [
+        0,
+        255
+      ]
+    },
+    {
+      "file": "loris-pose-run2.png",
+      "raw_file": "raw\\loris-pose-run2.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "grid_px": 12,
+      "grid_origin": [
+        0,
+        0
+      ],
+      "bbox": [
+        300,
+        192,
+        1020,
+        1176
+      ],
+      "alpha": [
+        0,
+        255
+      ]
+    },
+    {
+      "file": "loris-pose-run3.png",
+      "raw_file": "raw\\loris-pose-run3.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "grid_px": 12,
+      "grid_origin": [
+        0,
+        0
+      ],
+      "bbox": [
+        288,
+        108,
+        1008,
+        1176
+      ],
+      "alpha": [
+        0,
+        255
+      ]
+    },
+    {
+      "file": "loris-pose-run4.png",
+      "raw_file": "raw\\loris-pose-run4.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "grid_px": 12,
+      "grid_origin": [
+        0,
+        0
+      ],
+      "bbox": [
+        252,
+        84,
+        1044,
+        1176
+      ],
+      "alpha": [
+        0,
+        255
+      ]
+    },
+    {
+      "file": "loris-pose-d_fall.png",
+      "raw_file": "raw\\loris-pose-d_fall.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "grid_px": 12,
+      "grid_origin": [
+        0,
+        0
+      ],
+      "bbox": [
+        156,
+        156,
+        1176,
+        1176
+      ],
+      "alpha": [
+        0,
+        255
+      ]
+    },
+    {
+      "file": "loris-pose-d_kneel.png",
+      "raw_file": "raw\\loris-pose-d_kneel.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "grid_px": 12,
+      "grid_origin": [
+        0,
+        0
+      ],
+      "bbox": [
+        48,
+        420,
+        1068,
+        1176
+      ],
+      "alpha": [
+        0,
+        255
+      ]
+    },
+    {
+      "file": "loris-pose-d_down.png",
+      "raw_file": "raw\\loris-pose-d_down.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "grid_px": 12,
+      "grid_origin": [
+        0,
+        0
+      ],
+      "bbox": [
+        60,
+        780,
+        1188,
+        1176
+      ],
+      "alpha": [
+        0,
+        255
+      ]
+    }
+  ]
+}

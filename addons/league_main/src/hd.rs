@@ -287,6 +287,10 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // PPU 1.5 (「A-1 38 PPU 1.5」), and Codex's key poses after her own TFT clips with the design's head, posed by
     // tools/art/rig_maddie.py, so no SIZES row
     ("tft_maddie", 1.5, include_str!("../../../tft/champions/tft_maddie#anim.fanim")),
+    // Loris (tft_loris, the tft pack): the tower shield upright at his side, step 0's B-1 at the user's 42 game px hair
+    // to soles, PPU 2.0 (「B-1 42 PPU 2.0」), and Codex's key poses after his own TFT clips with the design's head, posed
+    // by tools/art/rig_loris.py, so no SIZES row
+    ("tft_loris", 2.0, include_str!("../../../tft/champions/tft_loris#anim.fanim")),
     // 2026-10-16 redo from Codex's pictures, the actions posed from the designs (tools/art/rig_<hero>_hd.py; Nami's after
     // League's own clips, tools/lol/league_joints.py), PPU 1.5 at their old heights, so no SIZES rows
     ("league_morgana", 1.5, include_str!("../../../league/champions/league_morgana#anim.fanim")),
