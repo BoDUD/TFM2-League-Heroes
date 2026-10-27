@@ -414,6 +414,12 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // (tools/art/casts_rengar_hd.py), the run his old trot rebuilt from the design (tools/art/rig_rengar_hd.py); 40 game
     // px as his 1x sprite, so no SIZES row
     ("league_rengar", 1.475, include_str!("../../../league/champions/league_rengar#anim.fanim")),
+    // Syndra (2026-10-27, 「接下来可以重做辛德拉」, 「就用原样 1.86」): Codex's picture traced from her old sprite read on its
+    // raw's own squares (54 x 78, tools/art/design_syndra_hd.py: 78 rows / 42 = 1.857); her old sheet was her idle frame
+    // moved whole with the far hand or the legs redrawn, so every frame is the design moved as the old one moved, the far
+    // arm from Codex's pose pictures (tools/art/casts_syndra_hd.py, rig_syndra_hd.py); 42 game px as her 1x sprite, so
+    // no SIZES row
+    ("league_syndra", 1.857, include_str!("../../../league/champions/league_syndra#anim.fanim")),
 ];
 
 /// Champion id, its size everywhere the dense frames are drawn (1.0 = the 1x frames' size): the anim tables' rects and
