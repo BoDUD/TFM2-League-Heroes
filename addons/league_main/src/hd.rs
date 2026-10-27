@@ -291,6 +291,10 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // to soles, PPU 2.0 (「B-1 42 PPU 2.0」), and Codex's key poses after his own TFT clips with the design's head, posed
     // by tools/art/rig_loris.py, so no SIZES row
     ("tft_loris", 2.0, include_str!("../../../tft/champions/tft_loris#anim.fanim")),
+    // Kobuko (tft_kobuko, the tft pack): stroking his beard, step 0's A-1 at the user's 40 game px topknot to soles,
+    // PPU 2.0 (「A-1 40 PPU 2.0」), and Codex's key poses after his own TFT clips with the design's head, posed by
+    // tools/art/rig_kobuko.py, so no SIZES row
+    ("tft_kobuko", 2.0, include_str!("../../../tft/champions/tft_kobuko#anim.fanim")),
     // Vander (tft_vander, the tft pack): the low fighting stance, step 0's B-2 at the user's 40 game px hair to soles,
     // PPU 2.0 (「B-2 40 PPU 2.0」), and Codex's key poses after his own TFT clips with the design's head, posed by
     // tools/art/rig_vander.py, so no SIZES row

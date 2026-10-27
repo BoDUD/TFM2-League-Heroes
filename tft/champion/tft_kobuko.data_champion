@@ -1,0 +1,497 @@
+{
+  "id": "tft_kobuko",
+  "category": "Melee",
+  "tags": [
+    "AD",
+    "Melee",
+    "Tank",
+    "CC",
+    "Shield"
+  ],
+  "passive": {
+    "passive_ref": "tft_kobuko:rage",
+    "params": {
+      "p_hi": 50,
+      "p_as": 40,
+      "p_vamp": 20
+    }
+  },
+  "sprite": "asset/tft/champions/tft_kobuko",
+  "anim_prefix": "",
+  "skill_icons": [
+    "asset/tft/icons/tft_kobuko_skill",
+    "asset/tft/icons/tft_kobuko_skill2",
+    "asset/tft/icons/tft_kobuko_ult"
+  ],
+  "stat": {
+    "attack": 80,
+    "magic_power": 20,
+    "hp": 1110,
+    "defence": 36,
+    "magic_resistance": 28,
+    "move_speed": 1000,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "growth": {
+    "attack": 13,
+    "magic_power": 10,
+    "hp": 110,
+    "defence": 8,
+    "magic_resistance": 4,
+    "move_speed": 10,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "attack": {
+    "action_name": "attack",
+    "description": "#asset/base/text/champion?description.tft_kobuko.attack",
+    "duration": 30,
+    "cooltime": 72,
+    "start_timing": 1,
+    "cancelable": true,
+    "range": 25000,
+    "casting_type": "Targeting",
+    "casting_target": "Enemy",
+    "attack_type": "BaseAttack",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "tft_kobuko_a"
+        },
+        {
+          "type": "Delayed",
+          "tick": 13,
+          "effects": [
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "tft_kobuko_q_on",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "tft_kobuko_q_on"
+                  },
+                  {
+                    "type": "CasterAnimation",
+                    "name": "claw",
+                    "tick": 21
+                  },
+                  {
+                    "type": "Attack",
+                    "damage": 40,
+                    "attack_ratio": 105,
+                    "hp_ratio": 2,
+                    "target_hp_ratio": 0,
+                    "attack_effect_type": "Target"
+                  },
+                  {
+                    "type": "Stun",
+                    "duration": 60
+                  },
+                  {
+                    "type": "AddBuff",
+                    "buff_state": {
+                      "name": "tft_kobuko_q_stun",
+                      "duration": {
+                        "Time": {
+                          "tick": 60
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "type": "ViewEffect",
+                    "name": "tft_kobuko_q_hit"
+                  },
+                  {
+                    "type": "TargetSfx",
+                    "name": "tft_kobuko_q_hit"
+                  },
+                  {
+                    "type": "TargetSfx",
+                    "name": "tft_kobuko_q_stun"
+                  }
+                ]
+              },
+              "effect_none": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "Attack",
+                    "damage": 0,
+                    "attack_ratio": 100,
+                    "hp_ratio": 0,
+                    "target_hp_ratio": 0,
+                    "attack_effect_type": "Target"
+                  },
+                  {
+                    "type": "ViewEffect",
+                    "name": "tft_kobuko_a_hit"
+                  },
+                  {
+                    "type": "TargetSfx",
+                    "name": "tft_kobuko_a_hit"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill": {
+    "action_name": "skill",
+    "description": "#asset/base/text/champion?description.tft_kobuko.skill",
+    "duration": 24,
+    "cooltime": 570,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 25000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "tft_kobuko_q"
+        },
+        {
+          "type": "RangeEffect",
+          "shape": {
+            "Circle": {
+              "radius": 1000
+            }
+          },
+          "target": "AllyOnlySelf",
+          "apply_type": "AroundCaster",
+          "effects": [
+            {
+              "type": "Shield",
+              "amount": 70,
+              "attack_ratio": 0,
+              "ap_ratio": 50,
+              "tick": 240
+            }
+          ]
+        },
+        {
+          "type": "CasterViewEffect",
+          "name": "tft_kobuko_q_shield"
+        },
+        {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "tft_kobuko_q_on",
+            "duration": {
+              "Time": {
+                "tick": 240
+              }
+            }
+          },
+          "only_to_enemy": false
+        }
+      ]
+    }
+  },
+  "skill2": {
+    "action_name": "skill2",
+    "description": "#asset/base/text/champion?description.tft_kobuko.skill2",
+    "duration": 24,
+    "cooltime": 630,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 45000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "tft_kobuko_e"
+        },
+        {
+          "type": "MoveToTarget",
+          "speed": 3500,
+          "range": 65000,
+          "end_effects": [
+            {
+              "type": "Sfx",
+              "name": "tft_kobuko_e_hit"
+            },
+            {
+              "type": "CasterViewEffect",
+              "name": "tft_kobuko_e_land"
+            },
+            {
+              "type": "RangeEffect",
+              "shape": {
+                "Circle": {
+                  "radius": 28000
+                }
+              },
+              "target": "EnemyWithoutTower",
+              "apply_type": "AroundCaster",
+              "effects": [
+                {
+                  "type": "Attack",
+                  "damage": 40,
+                  "attack_ratio": 70,
+                  "hp_ratio": 2,
+                  "target_hp_ratio": 0,
+                  "attack_effect_type": "Target"
+                },
+                {
+                  "type": "Airborne",
+                  "duration": 24
+                },
+                {
+                  "type": "ViewEffect",
+                  "name": "tft_kobuko_e_hit"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "ult": {
+    "action_name": "ult",
+    "description": "#asset/base/text/champion?description.tft_kobuko.ult",
+    "duration": 60,
+    "cooltime": 3000,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 50000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "tft_kobuko_r"
+        },
+        {
+          "type": "Sfx",
+          "name": "tft_kobuko_vo"
+        },
+        {
+          "type": "ViewEffect",
+          "name": "tft_kobuko_r_mark"
+        },
+        {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "tft_kobuko_r_air",
+            "duration": {
+              "Time": {
+                "tick": 36
+              }
+            },
+            "damaged_reduce": 100,
+            "cc_immune": true
+          },
+          "only_to_enemy": false
+        },
+        {
+          "type": "Delayed",
+          "tick": 14,
+          "effects": [
+            {
+              "type": "CasterViewEffect",
+              "name": "tft_kobuko_r_jump"
+            },
+            {
+              "type": "CasterInvisible",
+              "tick": 21
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 35,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "Teleport"
+                },
+                {
+                  "type": "Sfx",
+                  "name": "tft_kobuko_r_slam"
+                },
+                {
+                  "type": "Sfx",
+                  "name": "tft_kobuko_r_hit"
+                },
+                {
+                  "type": "CasterViewEffect",
+                  "name": "tft_kobuko_r_slam"
+                },
+                {
+                  "type": "Attack",
+                  "damage": 70,
+                  "attack_ratio": 100,
+                  "hp_ratio": 6,
+                  "target_hp_ratio": 0,
+                  "attack_effect_type": "Target"
+                },
+                {
+                  "type": "RangeEffect",
+                  "shape": {
+                    "Circle": {
+                      "radius": 36000
+                    }
+                  },
+                  "target": "EnemyWithoutTower",
+                  "apply_type": "AroundCaster",
+                  "effects": [
+                    {
+                      "type": "Attack",
+                      "damage": 70,
+                      "attack_ratio": 60,
+                      "hp_ratio": 3,
+                      "target_hp_ratio": 0,
+                      "attack_effect_type": "Target"
+                    },
+                    {
+                      "type": "Airborne",
+                      "duration": 48
+                    },
+                    {
+                      "type": "ViewEffect",
+                      "name": "tft_kobuko_r_hit"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "view_projectiles": [],
+  "view_effects": [
+    {
+      "type": "Animation",
+      "name": "tft_kobuko_a_hit",
+      "anim": "asset/tft/effects/tft_kobuko_fx",
+      "tag": "a_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_kobuko_q_shield",
+      "anim": "asset/tft/effects/tft_kobuko_fx",
+      "tag": "q_shield",
+      "z": 3,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_kobuko_q_hit",
+      "anim": "asset/tft/effects/tft_kobuko_fx",
+      "tag": "q_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_kobuko_e_land",
+      "anim": "asset/tft/effects/tft_kobuko_fx",
+      "tag": "e_land",
+      "z": -1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "tft_kobuko_e_hit",
+      "anim": "asset/tft/effects/tft_kobuko_fx",
+      "tag": "e_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_kobuko_r_jump",
+      "anim": "asset/tft/effects/tft_kobuko_fx",
+      "tag": "r_jump",
+      "z": 1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "tft_kobuko_r_mark",
+      "anim": "asset/tft/effects/tft_kobuko_fx",
+      "tag": "r_mark",
+      "z": -1,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_kobuko_r_slam",
+      "anim": "asset/tft/effects/tft_kobuko_big",
+      "tag": "r_slam",
+      "z": -1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "tft_kobuko_r_hit",
+      "anim": "asset/tft/effects/tft_kobuko_fx",
+      "tag": "r_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_kobuko_p_burst",
+      "anim": "asset/tft/effects/tft_kobuko_fx",
+      "tag": "p_burst",
+      "z": 3,
+      "is_follow": true
+    }
+  ],
+  "view_buffs": [
+    {
+      "type": "Animated",
+      "name": "tft_kobuko_q_stun",
+      "anim": "asset/tft/effects/tft_kobuko_fx",
+      "tag": "q_stun",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "tft_kobuko_q_on",
+      "anim": "asset/tft/effects/tft_kobuko_fx",
+      "tag": "q_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "tft_kobuko_p_rage",
+      "anim": "asset/tft/effects/tft_kobuko_fx",
+      "tag": "p_rage",
+      "repeat": true,
+      "z": -1
+    }
+  ]
+}

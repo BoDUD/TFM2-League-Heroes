@@ -43,6 +43,13 @@
         "skill2": "冲到附近生命比例最低的友方英雄身边，两人各获得<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<>的护盾（<#ffb900ff>4秒<>），期间替他承受<#ffb900ff>30%<>的伤害。",
         "ult": "把巨盾砸进地里，周围的敌人受到<#a974ffff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>魔法伤害、被<#ef5350ff>击飞1秒<>并<#ef5350ff>嘲讽2秒<>；自己受到的伤害降低<#ffb900ff>50%<>（<#ffb900ff>4秒<>）。"
       },
+      "tft_kobuko": {
+        "name": "可酷伯",
+        "attack": "猫爪掌，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>。<#ff9028ff>第二阶段<>：每条命第一次生命低于<#ffb900ff>50%<>时进入狂怒，直到阵亡：攻击速度<#ffb900ff>+40%<>、生命偷取<#ffb900ff>20%<>。",
+        "skill": "获得<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>的护盾（<#ffb900ff>4秒<>）；<#ffb900ff>4秒<>内下一次普攻变为金爪重掌，造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>105%<> + <#ff9028ff>2%<>最大生命<#ff9028ff>物理伤害<>并<#ef5350ff>晕眩1秒<>。",
+        "skill2": "扑向目标，落地时周围的敌人受到<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> + <#ff9028ff>2%<>最大生命<#ff9028ff>物理伤害<>并被<#ef5350ff>击飞0.4秒<>。",
+        "ult": "一跃冲天（期间不可选中、免疫控制），砸落在敌方英雄身上：目标受到<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> + <#ff9028ff>6%<>最大生命<#ff9028ff>物理伤害<>，周围的敌人（含目标）再受到<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> + <#ff9028ff>3%<>最大生命<#ff9028ff>物理伤害<>并被<#ef5350ff>击飞0.8秒<>。"
+      },
       "tft_vander": {
         "name": "范德尔",
         "attack": "挥拳造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>。<#ff9028ff>监察<>：受到的伤害降低<#ffb900ff>10%<>，生命高于<#ffb900ff>50%<>时降低<#ffb900ff>20%<>。",
@@ -81,6 +88,11 @@
         "skill1": "皮城争斗",
         "skill2": "盾卫",
         "ult": "钢铁防线"
+      },
+      "tft_kobuko": {
+        "skill1": "金爪真言",
+        "skill2": "猛虎扑",
+        "ult": "游戏结束！"
       },
       "tft_vander": {
         "skill1": "地下猎犬",
@@ -133,6 +145,13 @@
         "skill2": "衝到附近生命比例最低的友方英雄身邊，兩人各獲得<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<>的護盾（<#ffb900ff>4秒<>），期間替他承受<#ffb900ff>30%<>的傷害。",
         "ult": "把巨盾砸進地裡，周圍的敵人受到<#a974ffff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>魔法傷害、被<#ef5350ff>擊飛1秒<>並<#ef5350ff>嘲諷2秒<>；自己受到的傷害降低<#ffb900ff>50%<>（<#ffb900ff>4秒<>）。"
       },
+      "tft_kobuko": {
+        "name": "可酷伯",
+        "attack": "貓爪掌，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>。<#ff9028ff>第二階段<>：每條命第一次生命低於<#ffb900ff>50%<>時進入狂怒，直到陣亡：攻擊速度<#ffb900ff>+40%<>、生命偷取<#ffb900ff>20%<>。",
+        "skill": "獲得<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>的護盾（<#ffb900ff>4秒<>）；<#ffb900ff>4秒<>內下一次普攻變為金爪重掌，造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>105%<> + <#ff9028ff>2%<>最大生命<#ff9028ff>物理傷害<>並<#ef5350ff>暈眩1秒<>。",
+        "skill2": "撲向目標，落地時周圍的敵人受到<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> + <#ff9028ff>2%<>最大生命<#ff9028ff>物理傷害<>並被<#ef5350ff>擊飛0.4秒<>。",
+        "ult": "一躍沖天（期間無法被選取、免疫控制），砸落在敵方英雄身上：目標受到<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> + <#ff9028ff>6%<>最大生命<#ff9028ff>物理傷害<>，周圍的敵人（含目標）再受到<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> + <#ff9028ff>3%<>最大生命<#ff9028ff>物理傷害<>並被<#ef5350ff>擊飛0.8秒<>。"
+      },
       "tft_vander": {
         "name": "范德爾",
         "attack": "揮拳造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>。<#ff9028ff>守望者<>：受到的傷害降低<#ffb900ff>10%<>，生命高於<#ffb900ff>50%<>時降低<#ffb900ff>20%<>。",
@@ -171,6 +190,11 @@
         "skill1": "皮爾托福的決鬥",
         "skill2": "盾衛",
         "ult": "鋼鐵防線"
+      },
+      "tft_kobuko": {
+        "skill1": "金爪真言",
+        "skill2": "猛虎撲",
+        "ult": "遊戲結束！"
       },
       "tft_vander": {
         "skill1": "底城獵犬",
@@ -223,6 +247,13 @@
         "skill2": "Leaps to the nearby allied champion with the lowest share of health: both gain a <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<> shield (<#ffb900ff>4s<>) and he takes <#ffb900ff>30%<> of the damage meant for it.",
         "ult": "Slams his shield into the ground: nearby enemies take <#a974ffff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> magic damage, are <#ef5350ff>knocked up for 1s<> and <#ef5350ff>taunted for 2s<>; he takes <#ffb900ff>50%<> less damage (<#ffb900ff>4s<>)."
       },
+      "tft_kobuko": {
+        "name": "Kobuko",
+        "attack": "A paw strike for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<>. <#ff9028ff>Second Phase<>: the first time each life his health falls under <#ffb900ff>50%<> he is enraged until he dies: <#ffb900ff>+40%<> attack speed and <#ffb900ff>20%<> life steal.",
+        "skill": "Gains a <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> shield (<#ffb900ff>4s<>); within <#ffb900ff>4s<> his next attack is a Golden Claw: <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>105%<> + <#ff9028ff>2%<> max health <#ff9028ff>physical damage<> and a <#ef5350ff>1s stun<>.",
+        "skill2": "Pounces on the target: on landing, nearby enemies take <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> + <#ff9028ff>2%<> max health <#ff9028ff>physical damage<> and are <#ef5350ff>knocked up for 0.4s<>.",
+        "ult": "Springs out of sight (untargetable, unstoppable) and crashes down on an enemy champion: it takes <#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> + <#ff9028ff>6%<> max health <#ff9028ff>physical damage<>, and nearby enemies (it too) <#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> + <#ff9028ff>3%<> max health and are <#ef5350ff>knocked up for 0.8s<>."
+      },
       "tft_vander": {
         "name": "Vander",
         "attack": "Punches for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<>. <#ff9028ff>Watcher<>: takes <#ffb900ff>10%<> less damage, <#ffb900ff>20%<> while his health is above <#ffb900ff>50%<>.",
@@ -261,6 +292,11 @@
         "skill1": "Piltover Tussle",
         "skill2": "Bulwark",
         "ult": "Iron Line"
+      },
+      "tft_kobuko": {
+        "skill1": "Golden Claw Mantra",
+        "skill2": "Tiger Pounce",
+        "ult": "Game Over!"
       },
       "tft_vander": {
         "skill1": "Hound of the Underground",
@@ -313,6 +349,13 @@
         "skill2": "주변에서 체력 비율이 가장 낮은 아군 챔피언에게 도약: 둘 다 <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<> 보호막(<#ffb900ff>4초<>), 그 동안 그 아군이 받을 피해의 <#ffb900ff>30%<>를 대신 받는다.",
         "ult": "방패를 땅에 내리꽂는다: 주변 적에게 <#a974ffff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> 마법 피해, <#ef5350ff>1초 에어본<>, <#ef5350ff>2초 도발<>. 자신은 받는 피해 <#ffb900ff>50%<> 감소(<#ffb900ff>4초<>)."
       },
+      "tft_kobuko": {
+        "name": "코부코",
+        "attack": "고양이 발바닥 치기: <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> 물리 피해. <#ff9028ff>2페이즈<>: 목숨마다 처음으로 체력이 <#ffb900ff>50%<> 아래로 떨어지면 죽을 때까지 격노: 공격 속도 <#ffb900ff>+40%<>, 생명력 흡수 <#ffb900ff>20%<>.",
+        "skill": "<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> 보호막(<#ffb900ff>4초<>). <#ffb900ff>4초<> 안에 다음 기본 공격이 황금 발톱: <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>105%<> + <#ff9028ff>2%<> 최대 체력 물리 피해, <#ef5350ff>1초 기절<>.",
+        "skill2": "대상에게 덮쳐 착지할 때 주변 적에게 <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> + <#ff9028ff>2%<> 최대 체력 물리 피해, <#ef5350ff>0.4초 에어본<>.",
+        "ult": "하늘 높이 뛰어올라(대상 지정 불가, 저지 불가) 적 챔피언 위로 떨어진다: 대상에게 <#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> + <#ff9028ff>6%<> 최대 체력 물리 피해, 주변 적(대상 포함)에게 <#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> + <#ff9028ff>3%<> 최대 체력 물리 피해, <#ef5350ff>0.8초 에어본<>."
+      },
       "tft_vander": {
         "name": "밴더",
         "attack": "주먹으로 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> 물리 피해. <#ff9028ff>주시자<>: 받는 피해 <#ffb900ff>10%<> 감소, 체력이 <#ffb900ff>50%<> 이상이면 <#ffb900ff>20%<> 감소.",
@@ -351,6 +394,11 @@
         "skill1": "필트오버 난투",
         "skill2": "방패 수호",
         "ult": "강철 방어선"
+      },
+      "tft_kobuko": {
+        "skill1": "황금 발톱 진언",
+        "skill2": "맹호 도약",
+        "ult": "게임 오버!"
       },
       "tft_vander": {
         "skill1": "지하의 사냥개",
@@ -403,6 +451,13 @@
         "skill2": "近くで体力の割合が最も低い味方チャンピオンへ跳び、2人とも<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<>のシールド（<#ffb900ff>4秒<>）。その間、その味方が受けるダメージの<#ffb900ff>30%<>を肩代わりする。",
         "ult": "盾を地面に叩きつける：周囲の敵に<#a974ffff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>の魔法ダメージ、<#ef5350ff>1秒のノックアップ<>と<#ef5350ff>2秒の挑発<>。自身の被ダメージ<#ffb900ff>50%<>軽減（<#ffb900ff>4秒<>）。"
       },
+      "tft_kobuko": {
+        "name": "コブコ",
+        "attack": "猫パンチで<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の物理ダメージ。<#ff9028ff>第二形態<>：ライフごとに初めて体力が<#ffb900ff>50%<>を下回ると、倒れるまで激昂：攻撃速度<#ffb900ff>+40%<>、ライフスティール<#ffb900ff>20%<>。",
+        "skill": "<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>のシールド（<#ffb900ff>4秒<>）。<#ffb900ff>4秒<>以内の次の通常攻撃が金爪の一撃に：<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>105%<> + <#ff9028ff>2%<>最大体力の物理ダメージと<#ef5350ff>1秒のスタン<>。",
+        "skill2": "対象に飛びかかり、着地時に周囲の敵へ<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> + <#ff9028ff>2%<>最大体力の物理ダメージと<#ef5350ff>0.4秒のノックアップ<>。",
+        "ult": "空高く跳び（対象指定不可・CC無効）、敵チャンピオンの上に落下：対象に<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> + <#ff9028ff>6%<>最大体力の物理ダメージ、周囲の敵（対象も）に<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> + <#ff9028ff>3%<>最大体力の物理ダメージと<#ef5350ff>0.8秒のノックアップ<>。"
+      },
       "tft_vander": {
         "name": "ヴァンダー",
         "attack": "拳で殴り、<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の物理ダメージ。<#ff9028ff>ウォッチャー<>：被ダメージ<#ffb900ff>10%<>軽減、体力が<#ffb900ff>50%<>より多いと<#ffb900ff>20%<>軽減。",
@@ -441,6 +496,11 @@
         "skill1": "ピルトーヴァーの闘争",
         "skill2": "ブルワーク",
         "ult": "鉄の防衛線"
+      },
+      "tft_kobuko": {
+        "skill1": "金爪の真言",
+        "skill2": "猛虎の跳躍",
+        "ult": "ゲームオーバー！"
       },
       "tft_vander": {
         "skill1": "地下都市の猟犬",
