@@ -142,7 +142,8 @@ def bezier(ctrl, n=400):
 def tail(a, ctrl, ground=None, r0=1.5, r1=1.15, ring=(0.70, 0.77), tuft=0.80, tuft_w=1.9):
     """a with the tail along the Bezier ctrl [(row, column) ...] drawn where a is empty: r0 -> r1 squares from its
     middle line, a gold ring over `ring` (of its length), a white tuft from `tuft` to its end (a teardrop, tuft_w at its
-    widest), its upper side lit, outlined; nothing on rows from `ground` down (the soles' line)."""
+    widest), its upper side lit, outlined; nothing on rows from `ground` down (under the soles), only outline on the row
+    over it (the soles' row)."""
     q = a.copy()
     pts = bezier(ctrl)
     seg = np.hypot(*np.diff(pts, axis=0).T)
@@ -167,7 +168,9 @@ def tail(a, ctrl, ground=None, r0=1.5, r1=1.15, ring=(0.70, 0.77), tuft=0.80, tu
                 r = max(0.4, tuft_w * max(0.0, np.sin(np.pi * (0.25 + 0.75 * s))) ** 0.8)
             if d[i] > r + 1.0:
                 continue
-            if d[i] > r:
+            # (on the soles' row only its outline: a light square there got an outline square closed under it, a
+            # stray pixel under the soles - 「尾巴下面怎么有个残留的像素」)
+            if d[i] > r or (ground is not None and y == ground - 1):
                 q[y, x] = (*OUTLINE, 255)
                 continue
             side = (c - pts[i]) @ nrm[i] / r                    # +1 its top edge, -1 its bottom edge

@@ -13,6 +13,7 @@ the slashes and the leap dust are effects of their own.
     python tools/art/rig_rengar_hd.py --review DIR     # every tag at 3x + GIFs
     python tools/art/rig_rengar_hd.py                  # orig strips + the 1x sheet
     python tools/art/ppu_restyle.py --hero rengar && python tools/art/ppu_hd.py --hero rengar
+    python tools/art/ppu_one.py --hero rengar && python tools/art/rig_rengar_hd.py --one-ground   # the 1x frames
     python tools/art/hero_reels.py --hero rengar       # then: the idle / ban-pick reels from idle_base
 """
 import argparse
@@ -65,11 +66,12 @@ FEET = (52, 18, 63)             # the design's feet: rows 52 down between column
 # untail) and every one of those frames gets the tail behind him: out of his hip (HIPS: a square inside his body at the
 # back of the hip, read off each frame), down behind the near leg to the ground behind his back foot, along it to the
 # gold ring and the tuft - the design's shape (tail_path); in the air it hangs as far under his hip as when he stands.
-# Frames Codex already drew with the tail behind him (the leap's 2nd, 4th and 5th, the fall) keep theirs.
+# Frames Codex already drew with the tail behind him (the leap's 4th and 5th, the fall) keep theirs; the leap's 2nd too
+# had it behind him, but its white tip was keyed off with the background (its outline open) - it gets the drawn tail.
 FRONT_TAILS = {
     "attack_1": (30, 50, 69, 82), "attack_2": (35, 55, 61, 75), "attack_3": (36, 56, 63, 77),
     "attack_4": (33, 54, 60, 73), "attack_5": (34, 48, 56, 69),
-    "leap_1": (27, 44, 70, 82), "leap_3": (38, 56, 64, 82), "leap_6": (32, 46, 60, 73), "leap_7": (21, 40, 74, 92),
+    "leap_1": (27, 44, 70, 82), "leap_2": (22, 41, 2, 22), "leap_3": (38, 56, 64, 82), "leap_6": (32, 46, 60, 73), "leap_7": (21, 40, 74, 92),
     "skill_1": (27, 44, 72, 85), "skill_2": (44, 66, 62, 77), "skill_3": (45, 63, 61, 76), "skill_4": (47, 64, 73, 87),
     "skill_5": (31, 47, 63, 81), "skill_6": (38, 56, 57, 73), "skill_7": (43, 56, 63, 77),
     "skill2_1": (25, 39, 64, 77), "skill2_2": (27, 42, 70, 83), "skill2_3": (29, 46, 63, 76),
@@ -80,7 +82,7 @@ FRONT_TAILS = {
 }
 HIPS = {
     "attack_1": (45, 24), "attack_2": (42, 20), "attack_3": (48, 25), "attack_4": (46, 24), "attack_5": (44, 25),
-    "leap_1": (46, 27), "leap_3": (43, 32), "leap_6": (40, 24),
+    "leap_1": (46, 27), "leap_2": (38, 26), "leap_3": (43, 32), "leap_6": (40, 24),
     "leap_7": (44, 26), "skill_1": (46, 26), "skill_2": (60, 24), "skill_3": (60, 24), "skill_4": (60, 28),
     "skill_5": (44, 25), "skill_6": (51, 22), "skill_7": (57, 26), "skill2_1": (45, 23), "skill2_2": (44, 26),
     "skill2_3": (51, 20), "skill2_4": (49, 30), "skill2_5": (50, 25), "skill_w_1": (52, 27), "skill_w_3": (51, 22),
@@ -156,9 +158,25 @@ def drop_specks(can, most=4):
     return out
 
 
+def trim_nubs(can, outline):
+    """Outline squares hanging off the figure - one side touching it, no fill round them: the end of a line past a
+    blade's, a claw's or the mane's tip, read off Codex's anti-aliased edge - trimmed until none is left (each one a stray
+    dark pixel in game: 「尾巴下面怎么有个残留的像素」)."""
+    out = can.copy()
+    four = np.array([[0, 1, 0], [1, 0, 1], [0, 1, 0]])
+    while True:
+        op = out[..., 3] > 0
+        line = op & (out[..., :3] == outline).all(-1)
+        near_fill = ndimage.binary_dilation(op & ~line, structure=np.ones((3, 3)))
+        nub = line & ~near_fill & (ndimage.convolve(op.astype(int), four, mode="constant") <= 1)
+        if not nub.any():
+            return out
+        out[nub] = 0
+
+
 class RengarRig(R.Rig):
     def finish(self, can):
-        return drop_specks(super().finish(can))
+        return trim_nubs(drop_specks(super().finish(can)), tuple(int(v) for v in self.D.outline))
 
 
 def pad_for(D, casts):
@@ -253,10 +271,46 @@ def frames(rig, casts):
     return {t: out[t] for t in sheet if t in out}
 
 
+ONE_GROUND = 2.5                # 1x frames: rows this far over the soles and down are the ground band
+
+
+def one_ground(outline=(11, 0, 9)):
+    """After tools/art/ppu_one.py: the 1x frames' outline left hanging along the ground (the tail's tuft lying there
+    came down from the hd frames as a little cross of outline under it, run 4 and 6) trimmed - trim_nubs on the rows at
+    the soles only (higher up a lone outline square is the 1-pixel point of a horn, a claw or the blade: kept)."""
+    import json
+    import ppu_hd
+    stem = ppu_hd.stem_of(HERO)
+    px = np.array(Image.open(lp(stem + "#sheet.png")).convert("RGBA"))
+    with open(lp(stem + "#anim.fanim"), encoding="utf-8-sig") as f:
+        anims = json.load(f)["anims"]
+    done, n = set(), 0
+    for tag, a in anims.items():
+        if tag.startswith(("hd_", "lo_")):
+            continue
+        for f_ in a["frames"]:
+            d = f_["data"]
+            x, y, w, h = (int(d[k]) for k in ("x", "y", "w", "h"))
+            if (x, y) in done:
+                continue
+            done.add((x, y))
+            fr = px[y:y + h, x:x + w]
+            band = int(np.floor(h / 2 + CS.OLD_SOLES - ONE_GROUND))
+            low = trim_nubs(fr[band:], outline)
+            n += int(((fr[band:, :, 3] > 0) & (low[..., 3] == 0)).sum())
+            fr[band:] = low
+    Image.fromarray(px).save(lp(stem + "#sheet.png"))
+    print(f"1x frames: {n} outline squares hanging along the ground trimmed")
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--review")
+    ap.add_argument("--one-ground", action="store_true", help="after ppu_one.py: trim the 1x frames along the ground")
     a = ap.parse_args()
+    if a.one_ground:
+        one_ground()
+        return
     D = design()
     cs = casts()
     rig = RengarRig(D, pad=pad_for(D, cs))
