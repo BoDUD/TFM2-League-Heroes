@@ -116,6 +116,29 @@ ALIAS = {"q_blast_w": "q_blast"}
 # the pictures that must last as long as something in the kit: tag -> (frames counted, ticks)
 LASTS = {"q_blast": (5, P["q_fuse"]), "w_smoke": (None, P["w_cloud"])}
 STRAY = {}
+# cells whose embers are put out (0-based): the bomb's sparks fly out with the fireball (cell 6) and are gone in the
+# smoke - cell 7 had a few back between the pillars, at the sides and in the smoke (the user, 2026-10-27: 「男枪Q的特效
+# 好像有点问题？最后爆的那一下 火星乱弹」)
+EMBERS_OUT = {("q_blast", 7)}
+
+
+def warm(p):
+    return int(p[0]) > int(p[1]) + 40
+
+
+def put_out(c):
+    """The warm pixels (red over green by 40) of a cell: one with 3 or 4 opaque cool neighbours takes their commonest
+    colour (an ember in the smoke), the others are cleared."""
+    h, w = c.shape[:2]
+    out = c.copy()
+    for y in range(h):
+        for x in range(w):
+            if not c[y, x, 3] or not warm(c[y, x]):
+                continue
+            near = [tuple(c[v, u]) for v, u in ((y - 1, x), (y + 1, x), (y, x - 1), (y, x + 1))
+                    if 0 <= v < h and 0 <= u < w and c[v, u, 3] and not warm(c[v, u])]
+            out[y, x] = max(set(near), key=near.count) if len(near) >= 3 else 0
+    return out
 
 
 def cells(name, meta, src):
@@ -129,6 +152,9 @@ def cells(name, meta, src):
     for (nm, k), (r0, r1) in STRAY.items():
         if nm == name:
             out[k][r0:r1] = 0
+    for nm, k in EMBERS_OUT:
+        if nm == name:
+            out[k] = put_out(out[k])
     for k, c in enumerate(out):
         if not c[..., 3].any():
             sys.exit(f"{name} frame {k + 1} is empty")
