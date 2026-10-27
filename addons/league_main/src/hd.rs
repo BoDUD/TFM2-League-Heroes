@@ -421,6 +421,12 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // arm from Codex's pose pictures (tools/art/casts_syndra_hd.py, rig_syndra_hd.py); 42 game px as her 1x sprite, so
     // no SIZES row
     ("league_syndra", 1.857, include_str!("../../../league/champions/league_syndra#anim.fanim")),
+    // Akali (2026-10-27, 「下一个英雄重做阿卡丽」, 「设计图通过，就用 1.8」): Codex's fourth take read as drawn on its own
+    // 16-px squares (71 x 72, tools/art/design_akali_hd.py: 72 rows / 40 = 1.8; the hook in the near hand, the blade in
+    // the far one - 「不用照旧精灵的手」); every action Codex's whole-frame redraw of her old frame read onto it at the zoom
+    // her head gives (tools/art/casts_akali_hd.py, rig_akali_hd.py; the dashes baked as before); 40 game px as her 1x
+    // sprite, so no SIZES row
+    ("league_akali", 1.8, include_str!("../../../league/champions/league_akali#anim.fanim")),
 ];
 
 /// Champion id, its size everywhere the dense frames are drawn (1.0 = the 1x frames' size): the anim tables' rects and
