@@ -12,7 +12,7 @@ health). The rest is our own design (the user's pick, 2026-10-27: jungle, plan A
           no health; --plain lays a flat p_plain% on at his first action).
   attack  a gauntlet punch on `Enemy` (towers too): 100% AD on atk_st. With `q_ready` on (Q's strike waiting) the
           punch is the heavy strike instead: q_dmg + q_ad% AD, and tft.dll adds q_fam% AD for each Family ally on his
-          team (tft_powder, league_vi, league_jinx: TFT's bonus per cheap ally, made his family's).
+          team (tft_powder, league_vi, league_jinx, tft_violet: TFT's bonus per cheap ally, made his family's).
   skill   The Hound of the Underground (地下猎犬), `Targeting` on `EnemyWithoutTower` (q_range, camps too): he drops into
           the guard: every enemy within q_r is taunted q_taunt ticks, he gets q_def armour and q_mr magic resist for
           q_t ticks, and his next punch within q_wait ticks is the heavy strike.

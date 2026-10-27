@@ -110,7 +110,7 @@ impl Default for Params {
             p_heal: 15,
             p_t: 120,
             r_as: 40,
-            r_vamp: 10,
+            r_vamp: 5,
             r_fam: 10,
             r_t: 300,
         }
@@ -285,7 +285,7 @@ mod tests {
 
     #[test]
     fn params_from_the_kit() {
-        let json = r#"{"p_heal":15,"p_line":50,"p_t":120,"r_as":40,"r_fam":10,"r_t":300,"r_vamp":10}"#;
+        let json = r#"{"p_heal":15,"p_line":50,"p_t":120,"r_as":40,"r_fam":10,"r_t":300,"r_vamp":5}"#;
         assert_eq!(parse_params(json), Params::default());
     }
 
@@ -320,7 +320,7 @@ mod tests {
     #[test]
     fn the_fury_grows_with_the_family() {
         let p = Params::default();
-        assert_eq!((fury_buff(0, &p).attack_speed_mult, fury_buff(0, &p).vamp), (40, 10));
+        assert_eq!((fury_buff(0, &p).attack_speed_mult, fury_buff(0, &p).vamp), (40, 5));
         assert_eq!(fury_buff(2, &p).attack_speed_mult, 60);
         assert_eq!(fury_buff(0, &p).duration_tick, 300);
     }

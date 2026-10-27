@@ -44,13 +44,17 @@ BIG = f"asset/{MOD_ID}/effects/{ID}_big"
 # collision radius (~15000) on top. Timings are placeholders until the strips exist (tools/art/rig_violet.py).
 # Stats start from league_vi's (hp 1000 +100, atk 95 +20, def 30, mr 22); TFT's Violet: 650 health, 46 attack, 0.8
 # attack speed, 40 armour / magic resist - a 1-cost fighter, lighter than Vi, quicker hands.
+# Numbers = the 10-min classic-SDK simulations (C:/t/vo_sim, Alune's copy of the balance sim: jungle lane against the
+# base ninja, demon, hunter, werewolf and vampire, three lineups, both sides; 2026-10-28), all --plain (no second wind):
+# the draft (hp 980, atk 84, true 8%, fury vamp 10) +2.71 on seeds 1-8 against league_vi +2.08 and tft_vander +0.06;
+# true 6% +2.55; + hp 940, fury vamp 5 +2.24; + true 5%, atk 82 = P: +2.06 / +0.93 (seeds 9-16; league_vi +1.99).
 P = {
     # stats (Melee, jungle)
-    "hp": 980, "hp_g": 100, "atk": 84, "atk_g": 17, "apw": 0, "apw_g": 0, "def": 30, "def_g": 8, "mr": 24, "mr_g": 4,
+    "hp": 940, "hp_g": 100, "atk": 82, "atk_g": 17, "apw": 0, "apw_g": 0, "def": 30, "def_g": 8, "mr": 24, "mr_g": 4,
     "ms": 1050, "ms_g": 11,
     "atk_range": 24000, "atk_dur": 22, "atk_cd": 56, "atk_st": 10,
     # passive Pit Fighter (TFT 2 Pit Fighters: 15% omnivamp, 6% true damage, 10% max health over 2 s at half health)
-    "p_true": 8, "p_vamp": 10, "p_line": 50, "p_heal": 15, "p_t": 120,
+    "p_true": 5, "p_vamp": 10, "p_line": 50, "p_heal": 15, "p_t": 120,
     # 1-2-3 Combo (TFT: 2 x 135% AD, uppercut 330% AD, knock-up 0.25 s)
     "q_cd": 480, "q_range": 30000, "q_dur": 54, "q_j1": 8, "q_j2": 20, "q_j3": 36, "q_jab": 50, "q_dmg": 40,
     "q_ad": 120, "q_air": 30,
@@ -59,7 +63,7 @@ P = {
     "e_kb_t": 4, "e_hit_t": 16,
     # Undercity Fist
     "r_cd": 3000, "r_range": 50000, "r_dur": 40, "r_speed": 4000, "r_r": 32000, "r_dmg": 120, "r_ad": 130, "r_up": 50,
-    "r_as": 40, "r_vamp": 10, "r_fam": 10, "r_t": 300, "r_slam_t": 18,
+    "r_as": 40, "r_vamp": 5, "r_fam": 10, "r_t": 300, "r_slam_t": 18,
 }
 # what tft.dll reads from passive.params (addons/tft/src/violet.rs)
 NATIVE_KEYS = ("p_line", "p_heal", "p_t", "r_as", "r_vamp", "r_fam", "r_t")
