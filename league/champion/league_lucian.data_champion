@@ -5952,6 +5952,13 @@
       "anim": "asset/league/effects/league_lucian_fx",
       "tag": "w_haste",
       "z": -1
+    },
+    {
+      "type": "Animated",
+      "name": "league_lucian_r_ch",
+      "anim": "asset/league/effects/league_lucian_fx",
+      "tag": "hit",
+      "z": 2
     }
   ]
 }
