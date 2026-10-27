@@ -807,6 +807,27 @@ mod tests {
         assert!(h.of_name("").is_none());
     }
 
+    /// The first frame's width of tag `t` in a .fanim (`"t": {"frames": [{... "w": <here>`).
+    fn first_w(fanim: &str, t: &str) -> Option<f32> {
+        let at = fanim.find(&format!("\"{t}\""))?;
+        let w = at + fanim[at..].find("\"w\"")?;
+        let num = fanim[w + 3..].trim_start().strip_prefix(':')?.trim_start();
+        num[..num.find(|c: char| !(c.is_ascii_digit() || c == '.'))?].parse().ok()
+    }
+
+    /// src/lookup.rs takes a table only when hd_idle is PPU times as wide as idle (within half a square), else it
+    /// leaves it alone and the texture's size, divided all the same, cuts the wrong part of the sheet: Daisy at PPU
+    /// 1.333 on her 2.533 sheets drew nothing (the user, 2026-10-27: 「你改了小菊后 我怎么在游戏里看不到了」).
+    #[test]
+    fn every_registered_sheet_is_ppu_times_as_wide() {
+        for &(id, ppu, fanim) in HEROES.iter().chain(EFFECTS.iter()) {
+            let (Some(wi), Some(wh)) = (first_w(fanim, "idle"), first_w(fanim, "hd_idle")) else {
+                panic!("{id}: no idle / hd_idle frame");
+            };
+            assert!((wh - wi * ppu).abs() <= 0.5, "{id}: hd_idle {wh} wide, idle {wi}: not PPU {ppu} times");
+        }
+    }
+
     #[test]
     fn every_registered_sheet_has_hd_tags_for_all_its_tags() {
         for &(id, ppu, fanim) in HEROES {

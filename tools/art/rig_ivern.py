@@ -46,8 +46,10 @@ SRC = os.path.join(ROOT, "assets", "source", "ivern", "hd")
 MOD = os.path.join(ROOT, "league")
 STAND = 34                     # the idle's standing column: under his middle, between his root feet
 HEAD = (PK.HEAD[2], PK.HEAD[0])            # the design's head box top-left (column, row) in hd/idle.png
-D_PPU = 2.533                  # Daisy's sheets: 76 rows for 30 game px (uncut at 1.9 = 40 px until 2026-10-23, the user:
-                               # 「翠神召唤出来的东西游戏里太大了吧」 -> 75 %; league_main hd.rs EFFECTS the same)
+D_PPU = 1.333                  # Daisy's sheets: 76 rows for 57 game px - league.dll drew her a square a game pixel (76 px)
+                               # until its effect draw shrank her (hd.rs DRAWN_EFFECTS, 2026-10-27: 「大小按我看到的再缩一点」
+                               # -> 75 % of 76); her 1x frames at this size too, or league.dll leaves her table alone
+                               # (「我怎么在游戏里看不到了」); league_main hd.rs EFFECTS the same
 D_HEAD = (27, 0)               # her head box top-left in hd/daisy.png (design_ivern_poses FIG["daisy"])
 DAISY_BACK = 9                 # game px her feet stand behind (over) the champion's soles (league_annie's Tibbers: 9; the
                                # user tried her beside him on 2026-10-23 and kept her behind: 「还是放在后面吧」)
