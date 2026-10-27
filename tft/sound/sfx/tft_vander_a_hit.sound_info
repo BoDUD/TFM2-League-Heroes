@@ -1,0 +1,9 @@
+{
+  "plays": [
+    {
+      "delay": 0.0,
+      "clip": "tft_vander_sfx_a_hit",
+      "volume": 0.4
+    }
+  ]
+}

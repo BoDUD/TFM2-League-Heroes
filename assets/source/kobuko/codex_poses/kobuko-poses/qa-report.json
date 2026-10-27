@@ -1,0 +1,134 @@
+{
+  "status": "pass",
+  "assets": [
+    {
+      "file": "kobuko-pose-a_wind.png",
+      "size_ok": true,
+      "hard_alpha": true,
+      "grid_12px": true,
+      "ground_y_1176": true,
+      "hash_ok": true
+    },
+    {
+      "file": "kobuko-pose-a_strike.png",
+      "size_ok": true,
+      "hard_alpha": true,
+      "grid_12px": true,
+      "ground_y_1176": true,
+      "hash_ok": true
+    },
+    {
+      "file": "kobuko-pose-a_back.png",
+      "size_ok": true,
+      "hard_alpha": true,
+      "grid_12px": true,
+      "ground_y_1176": true,
+      "hash_ok": true
+    },
+    {
+      "file": "kobuko-pose-q_raise.png",
+      "size_ok": true,
+      "hard_alpha": true,
+      "grid_12px": true,
+      "ground_y_1176": true,
+      "hash_ok": true
+    },
+    {
+      "file": "kobuko-pose-q_spread.png",
+      "size_ok": true,
+      "hard_alpha": true,
+      "grid_12px": true,
+      "ground_y_1176": true,
+      "hash_ok": true
+    },
+    {
+      "file": "kobuko-pose-q_claw.png",
+      "size_ok": true,
+      "hard_alpha": true,
+      "grid_12px": true,
+      "ground_y_1176": true,
+      "hash_ok": true
+    },
+    {
+      "file": "kobuko-pose-e_crouch.png",
+      "size_ok": true,
+      "hard_alpha": true,
+      "grid_12px": true,
+      "ground_y_1176": true,
+      "hash_ok": true
+    },
+    {
+      "file": "kobuko-pose-e_leap.png",
+      "size_ok": true,
+      "hard_alpha": true,
+      "grid_12px": true,
+      "ground_y_1176": true,
+      "hash_ok": true
+    },
+    {
+      "file": "kobuko-pose-e_land.png",
+      "size_ok": true,
+      "hard_alpha": true,
+      "grid_12px": true,
+      "ground_y_1176": true,
+      "hash_ok": true
+    },
+    {
+      "file": "kobuko-pose-run1.png",
+      "size_ok": true,
+      "hard_alpha": true,
+      "grid_12px": true,
+      "ground_y_1176": true,
+      "hash_ok": true
+    },
+    {
+      "file": "kobuko-pose-run2.png",
+      "size_ok": true,
+      "hard_alpha": true,
+      "grid_12px": true,
+      "ground_y_1176": true,
+      "hash_ok": true
+    },
+    {
+      "file": "kobuko-pose-run3.png",
+      "size_ok": true,
+      "hard_alpha": true,
+      "grid_12px": true,
+      "ground_y_1176": true,
+      "hash_ok": true
+    },
+    {
+      "file": "kobuko-pose-run4.png",
+      "size_ok": true,
+      "hard_alpha": true,
+      "grid_12px": true,
+      "ground_y_1176": true,
+      "hash_ok": true
+    },
+    {
+      "file": "kobuko-pose-d_hit.png",
+      "size_ok": true,
+      "hard_alpha": true,
+      "grid_12px": true,
+      "ground_y_1176": true,
+      "hash_ok": true
+    },
+    {
+      "file": "kobuko-pose-d_fall.png",
+      "size_ok": true,
+      "hard_alpha": true,
+      "grid_12px": true,
+      "ground_y_1176": true,
+      "hash_ok": true
+    },
+    {
+      "file": "kobuko-pose-d_down.png",
+      "size_ok": true,
+      "hard_alpha": true,
+      "grid_12px": true,
+      "ground_y_1176": true,
+      "hash_ok": true
+    }
+  ],
+  "scope": "File/grid/alpha checks; not runtime or exact skeleton/head parity"
+}

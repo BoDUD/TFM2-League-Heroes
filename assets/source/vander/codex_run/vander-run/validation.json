@@ -1,0 +1,524 @@
+{
+  "status": "review_required_coordinate_gate_failed",
+  "coordinate_pass": false,
+  "frame_count": 8,
+  "grid_ground_note": "1176 is not divisible by9. Hard-grid output uses y1179 (131 cells), a3px ground-line offset.",
+  "measurement_note": "Visible boot-silhouette toe tips are measured, not substituted with supplied bone coordinates. Run8 leg attribution is uncertain because feet overlap.",
+  "frames": [
+    {
+      "frame": "run1",
+      "technical": {
+        "canvas": true,
+        "hard_alpha": true,
+        "nonempty": true,
+        "sole_y": 1179
+      },
+      "toe_landmarks": {
+        "red": {
+          "target_toe_cell": [
+            48,
+            106
+          ],
+          "actual_visible_toe_cell": [
+            46,
+            102
+          ],
+          "delta_cells": [
+            -2,
+            -4
+          ],
+          "within_2_cells": false,
+          "method": "foremost opaque silhouette pixel along reference heel-to-toe vector in manually inspected boot ROI",
+          "boot_roi_cells": [
+            44,
+            83,
+            63,
+            106
+          ],
+          "anatomical_mapping": "reference leg assignment"
+        },
+        "blue": {
+          "target_toe_cell": [
+            73,
+            127
+          ],
+          "actual_visible_toe_cell": [
+            84,
+            130
+          ],
+          "delta_cells": [
+            11,
+            3
+          ],
+          "within_2_cells": false,
+          "method": "foremost opaque silhouette pixel along reference heel-to-toe vector in manually inspected boot ROI",
+          "boot_roi_cells": [
+            66,
+            105,
+            88,
+            131
+          ],
+          "anatomical_mapping": "reference leg assignment"
+        }
+      },
+      "coordinate_pass": false,
+      "height_cells": 125,
+      "target_height_cells": 117
+    },
+    {
+      "frame": "run2",
+      "technical": {
+        "canvas": true,
+        "hard_alpha": true,
+        "nonempty": true,
+        "sole_y": 1179
+      },
+      "toe_landmarks": {
+        "red": {
+          "target_toe_cell": [
+            49,
+            96
+          ],
+          "actual_visible_toe_cell": [
+            43,
+            96
+          ],
+          "delta_cells": [
+            -6,
+            0
+          ],
+          "within_2_cells": false,
+          "method": "foremost opaque silhouette pixel along reference heel-to-toe vector in manually inspected boot ROI",
+          "boot_roi_cells": [
+            41,
+            76,
+            62,
+            100
+          ],
+          "anatomical_mapping": "reference leg assignment"
+        },
+        "blue": {
+          "target_toe_cell": [
+            78,
+            126
+          ],
+          "actual_visible_toe_cell": [
+            99,
+            126
+          ],
+          "delta_cells": [
+            21,
+            0
+          ],
+          "within_2_cells": false,
+          "method": "foremost opaque silhouette pixel along reference heel-to-toe vector in manually inspected boot ROI",
+          "boot_roi_cells": [
+            71,
+            104,
+            100,
+            132
+          ],
+          "anatomical_mapping": "reference leg assignment"
+        }
+      },
+      "coordinate_pass": false,
+      "height_cells": 128,
+      "target_height_cells": 115
+    },
+    {
+      "frame": "run3",
+      "technical": {
+        "canvas": true,
+        "hard_alpha": true,
+        "nonempty": true,
+        "sole_y": 1179
+      },
+      "toe_landmarks": {
+        "red": {
+          "target_toe_cell": [
+            56,
+            102
+          ],
+          "actual_visible_toe_cell": [
+            44,
+            96
+          ],
+          "delta_cells": [
+            -12,
+            -6
+          ],
+          "within_2_cells": false,
+          "method": "foremost opaque silhouette pixel along reference heel-to-toe vector in manually inspected boot ROI",
+          "boot_roi_cells": [
+            42,
+            78,
+            61,
+            100
+          ],
+          "anatomical_mapping": "reference leg assignment"
+        },
+        "blue": {
+          "target_toe_cell": [
+            66,
+            128
+          ],
+          "actual_visible_toe_cell": [
+            84,
+            130
+          ],
+          "delta_cells": [
+            18,
+            2
+          ],
+          "within_2_cells": false,
+          "method": "foremost opaque silhouette pixel along reference heel-to-toe vector in manually inspected boot ROI",
+          "boot_roi_cells": [
+            60,
+            102,
+            88,
+            132
+          ],
+          "anatomical_mapping": "reference leg assignment"
+        }
+      },
+      "coordinate_pass": false,
+      "height_cells": 116,
+      "target_height_cells": 101
+    },
+    {
+      "frame": "run4",
+      "technical": {
+        "canvas": true,
+        "hard_alpha": true,
+        "nonempty": true,
+        "sole_y": 1179
+      },
+      "toe_landmarks": {
+        "red": {
+          "target_toe_cell": [
+            76,
+            126
+          ],
+          "actual_visible_toe_cell": [
+            106,
+            130
+          ],
+          "delta_cells": [
+            30,
+            4
+          ],
+          "within_2_cells": false,
+          "method": "foremost opaque silhouette pixel along reference heel-to-toe vector in manually inspected boot ROI",
+          "boot_roi_cells": [
+            76,
+            102,
+            110,
+            133
+          ],
+          "anatomical_mapping": "reference leg assignment"
+        },
+        "blue": {
+          "target_toe_cell": [
+            46,
+            125
+          ],
+          "actual_visible_toe_cell": [
+            53,
+            130
+          ],
+          "delta_cells": [
+            7,
+            5
+          ],
+          "within_2_cells": false,
+          "method": "foremost opaque silhouette pixel along reference heel-to-toe vector in manually inspected boot ROI",
+          "boot_roi_cells": [
+            34,
+            102,
+            55,
+            133
+          ],
+          "anatomical_mapping": "reference leg assignment"
+        }
+      },
+      "coordinate_pass": false,
+      "height_cells": 123,
+      "target_height_cells": 110
+    },
+    {
+      "frame": "run5",
+      "technical": {
+        "canvas": true,
+        "hard_alpha": true,
+        "nonempty": true,
+        "sole_y": 1179
+      },
+      "toe_landmarks": {
+        "red": {
+          "target_toe_cell": [
+            85,
+            128
+          ],
+          "actual_visible_toe_cell": [
+            104,
+            130
+          ],
+          "delta_cells": [
+            19,
+            2
+          ],
+          "within_2_cells": false,
+          "method": "foremost opaque silhouette pixel along reference heel-to-toe vector in manually inspected boot ROI",
+          "boot_roi_cells": [
+            76,
+            105,
+            109,
+            131
+          ],
+          "anatomical_mapping": "reference leg assignment"
+        },
+        "blue": {
+          "target_toe_cell": [
+            37,
+            114
+          ],
+          "actual_visible_toe_cell": [
+            33,
+            106
+          ],
+          "delta_cells": [
+            -4,
+            -8
+          ],
+          "within_2_cells": false,
+          "method": "foremost opaque silhouette pixel along reference heel-to-toe vector in manually inspected boot ROI",
+          "boot_roi_cells": [
+            27,
+            79,
+            52,
+            108
+          ],
+          "anatomical_mapping": "reference leg assignment"
+        }
+      },
+      "coordinate_pass": false,
+      "height_cells": 124,
+      "target_height_cells": 114
+    },
+    {
+      "frame": "run6",
+      "technical": {
+        "canvas": true,
+        "hard_alpha": true,
+        "nonempty": true,
+        "sole_y": 1179
+      },
+      "toe_landmarks": {
+        "red": {
+          "target_toe_cell": [
+            89,
+            123
+          ],
+          "actual_visible_toe_cell": [
+            108,
+            129
+          ],
+          "delta_cells": [
+            19,
+            6
+          ],
+          "within_2_cells": false,
+          "method": "foremost opaque silhouette pixel along reference heel-to-toe vector in manually inspected boot ROI",
+          "boot_roi_cells": [
+            81,
+            104,
+            112,
+            132
+          ],
+          "anatomical_mapping": "reference leg assignment"
+        },
+        "blue": {
+          "target_toe_cell": [
+            37,
+            104
+          ],
+          "actual_visible_toe_cell": [
+            30,
+            103
+          ],
+          "delta_cells": [
+            -7,
+            -1
+          ],
+          "within_2_cells": false,
+          "method": "foremost opaque silhouette pixel along reference heel-to-toe vector in manually inspected boot ROI",
+          "boot_roi_cells": [
+            25,
+            77,
+            48,
+            105
+          ],
+          "anatomical_mapping": "reference leg assignment"
+        }
+      },
+      "coordinate_pass": false,
+      "height_cells": 126,
+      "target_height_cells": 116
+    },
+    {
+      "frame": "run7",
+      "technical": {
+        "canvas": true,
+        "hard_alpha": true,
+        "nonempty": true,
+        "sole_y": 1179
+      },
+      "toe_landmarks": {
+        "red": {
+          "target_toe_cell": [
+            72,
+            128
+          ],
+          "actual_visible_toe_cell": [
+            96,
+            130
+          ],
+          "delta_cells": [
+            24,
+            2
+          ],
+          "within_2_cells": false,
+          "method": "foremost opaque silhouette pixel along reference heel-to-toe vector in manually inspected boot ROI",
+          "boot_roi_cells": [
+            68,
+            107,
+            100,
+            132
+          ],
+          "anatomical_mapping": "reference leg assignment"
+        },
+        "blue": {
+          "target_toe_cell": [
+            45,
+            109
+          ],
+          "actual_visible_toe_cell": [
+            38,
+            106
+          ],
+          "delta_cells": [
+            -7,
+            -3
+          ],
+          "within_2_cells": false,
+          "method": "foremost opaque silhouette pixel along reference heel-to-toe vector in manually inspected boot ROI",
+          "boot_roi_cells": [
+            33,
+            80,
+            55,
+            109
+          ],
+          "anatomical_mapping": "reference leg assignment"
+        }
+      },
+      "coordinate_pass": false,
+      "height_cells": 125,
+      "target_height_cells": 98
+    },
+    {
+      "frame": "run8",
+      "technical": {
+        "canvas": true,
+        "hard_alpha": true,
+        "nonempty": true,
+        "sole_y": 1179
+      },
+      "toe_landmarks": {
+        "red": {
+          "target_toe_cell": [
+            59,
+            122
+          ],
+          "actual_visible_toe_cell": [
+            78,
+            130
+          ],
+          "delta_cells": [
+            19,
+            8
+          ],
+          "within_2_cells": false,
+          "method": "foremost opaque silhouette pixel along reference heel-to-toe vector in manually inspected boot ROI",
+          "boot_roi_cells": [
+            71,
+            109,
+            87,
+            132
+          ],
+          "anatomical_mapping": "image-left/image-right assignment from reference; overlap in run8 remains visually uncertain"
+        },
+        "blue": {
+          "target_toe_cell": [
+            57,
+            123
+          ],
+          "actual_visible_toe_cell": [
+            60,
+            129
+          ],
+          "delta_cells": [
+            3,
+            6
+          ],
+          "within_2_cells": false,
+          "method": "foremost opaque silhouette pixel along reference heel-to-toe vector in manually inspected boot ROI",
+          "boot_roi_cells": [
+            58,
+            109,
+            71,
+            132
+          ],
+          "anatomical_mapping": "image-left/image-right assignment from reference; overlap in run8 remains visually uncertain"
+        }
+      },
+      "coordinate_pass": false,
+      "height_cells": 128,
+      "target_height_cells": 110
+    }
+  ],
+  "technical_checks": [
+    {
+      "frame": "run1",
+      "size_alpha_grid_nonempty_pass": true
+    },
+    {
+      "frame": "run2",
+      "size_alpha_grid_nonempty_pass": true
+    },
+    {
+      "frame": "run3",
+      "size_alpha_grid_nonempty_pass": true
+    },
+    {
+      "frame": "run4",
+      "size_alpha_grid_nonempty_pass": true
+    },
+    {
+      "frame": "run5",
+      "size_alpha_grid_nonempty_pass": true
+    },
+    {
+      "frame": "run6",
+      "size_alpha_grid_nonempty_pass": true
+    },
+    {
+      "frame": "run7",
+      "size_alpha_grid_nonempty_pass": true
+    },
+    {
+      "frame": "run8",
+      "size_alpha_grid_nonempty_pass": true
+    }
+  ],
+  "technical_pass": true
+}

@@ -155,8 +155,10 @@ pub const STEALABLE: &[&str] = &[
     "league_ziggs",
     "league_zoe",
     "league_zyra",
+    "tft_kobuko",
     "tft_loris",
     "tft_maddie",
     "tft_powder",
     "tft_silco",
+    "tft_vander",
 ];

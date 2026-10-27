@@ -4076,6 +4076,22 @@
     },
     {
       "type": "Animation",
+      "name": "league_illaoi_soul_tft_kobuko",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "tft_kobuko",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_tft_kobuko_l",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "tft_kobuko_l",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
       "name": "league_illaoi_soul_tft_loris",
       "anim": "asset/league/effects/league_illaoi_souls",
       "tag": "tft_loris",
@@ -4124,6 +4140,22 @@
     },
     {
       "type": "Animation",
+      "name": "league_illaoi_soul_tft_powder",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "tft_powder",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_tft_powder_l",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "tft_powder_l",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
       "name": "league_illaoi_soul_tft_silco",
       "anim": "asset/league/effects/league_illaoi_souls",
       "tag": "tft_silco",
@@ -4135,6 +4167,22 @@
       "name": "league_illaoi_soul_tft_silco_l",
       "anim": "asset/league/effects/league_illaoi_souls",
       "tag": "tft_silco_l",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_tft_vander",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "tft_vander",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_tft_vander_l",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "tft_vander_l",
       "z": 3,
       "is_follow": false
     }

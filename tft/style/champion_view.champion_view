@@ -75,6 +75,34 @@
         "x": 0,
         "y": -4
       }
+    },
+    "tft_kobuko": {
+      "face": {
+        "x": -1,
+        "y": -33
+      },
+      "center": {
+        "x": 0,
+        "y": -20
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -6
+      }
+    },
+    "tft_vander": {
+      "face": {
+        "x": 8,
+        "y": -34
+      },
+      "center": {
+        "x": 0,
+        "y": -20
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -6
+      }
     }
   }
 }

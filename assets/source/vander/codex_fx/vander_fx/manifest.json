@@ -1,0 +1,494 @@
+{
+  "generation": "built-in image_gen",
+  "processing": "palette majority readback of raw art; paired horizontal samples enforce symmetry; no procedural art",
+  "entries": [
+    {
+      "file": "vander_fx_a_hit.png",
+      "frames": 4,
+      "cell_1x": [
+        16,
+        16
+      ],
+      "layout": "one horizontal row",
+      "symmetry": "per-frame-left-right-paired-majority",
+      "raw_grid": [
+        2,
+        2
+      ],
+      "raw_row_boundaries": [
+        0,
+        492,
+        887
+      ],
+      "raw": "raw/vander_fx_a_hit.png",
+      "raw_sha256": "b4390fe8782c4205bd8d7133ac5d71a846c64119c422ccc08ac342a08a313bf7",
+      "pixel_1x": "pixel_1x/vander_fx_a_hit.png",
+      "preview_scale": 8,
+      "frame_nontransparent_pixels": [
+        20,
+        66,
+        70,
+        44
+      ],
+      "hard_alpha": true,
+      "exact_symmetry": true,
+      "empty_frames": []
+    },
+    {
+      "file": "vander_fx_q_guard_in.png",
+      "frames": 5,
+      "cell_1x": [
+        44,
+        48
+      ],
+      "layout": "one horizontal row",
+      "symmetry": "per-frame-left-right-paired-majority",
+      "raw_grid": [
+        2,
+        3
+      ],
+      "raw_row_boundaries": [
+        0,
+        417,
+        642,
+        1070
+      ],
+      "raw": "raw/vander_fx_q_guard_in.png",
+      "raw_sha256": "56e869e6c175ddc79e96779f32a815ea1e0a6c5544304d98419c5d77675f351b",
+      "pixel_1x": "pixel_1x/vander_fx_q_guard_in.png",
+      "preview_scale": 8,
+      "frame_nontransparent_pixels": [
+        168,
+        428,
+        648,
+        306,
+        434
+      ],
+      "hard_alpha": true,
+      "exact_symmetry": true,
+      "empty_frames": []
+    },
+    {
+      "file": "vander_fx_q_guard.png",
+      "frames": 6,
+      "cell_1x": [
+        44,
+        48
+      ],
+      "layout": "one horizontal row",
+      "symmetry": "per-frame-left-right-paired-majority",
+      "raw_grid": [
+        3,
+        2
+      ],
+      "raw_row_boundaries": [
+        0,
+        582,
+        1070
+      ],
+      "raw": "raw/vander_fx_q_guard.png",
+      "raw_sha256": "a075a6ed9a7fd0bf7b6b526566738344da771f07726dad507d62331dbe8fc153",
+      "pixel_1x": "pixel_1x/vander_fx_q_guard.png",
+      "preview_scale": 8,
+      "frame_nontransparent_pixels": [
+        306,
+        352,
+        416,
+        504,
+        408,
+        344
+      ],
+      "hard_alpha": true,
+      "exact_symmetry": true,
+      "empty_frames": []
+    },
+    {
+      "file": "vander_fx_q_ready.png",
+      "frames": 6,
+      "cell_1x": [
+        20,
+        48
+      ],
+      "layout": "one horizontal row",
+      "symmetry": "per-frame-left-right-paired-majority",
+      "raw_grid": [
+        3,
+        2
+      ],
+      "raw_row_boundaries": [
+        0,
+        626,
+        1122
+      ],
+      "raw": "raw/vander_fx_q_ready.png",
+      "raw_sha256": "61b0430046d7cdb138c16922cdfaee5130efc3a016863205647e889bfd3105f4",
+      "pixel_1x": "pixel_1x/vander_fx_q_ready.png",
+      "preview_scale": 8,
+      "frame_nontransparent_pixels": [
+        20,
+        28,
+        32,
+        62,
+        40,
+        22
+      ],
+      "hard_alpha": true,
+      "exact_symmetry": true,
+      "empty_frames": []
+    },
+    {
+      "file": "vander_fx_q_hit.png",
+      "frames": 6,
+      "cell_1x": [
+        30,
+        30
+      ],
+      "layout": "one horizontal row",
+      "symmetry": "per-frame-left-right-paired-majority",
+      "raw_grid": [
+        3,
+        2
+      ],
+      "raw_row_boundaries": [
+        0,
+        604,
+        1024
+      ],
+      "raw": "raw/vander_fx_q_hit.png",
+      "raw_sha256": "7412019130b719c7b7b2abe24dff86f66481dcf839b0bdf049a86b0ae1d3c1ec",
+      "pixel_1x": "pixel_1x/vander_fx_q_hit.png",
+      "preview_scale": 8,
+      "frame_nontransparent_pixels": [
+        122,
+        250,
+        206,
+        234,
+        262,
+        84
+      ],
+      "hard_alpha": true,
+      "exact_symmetry": true,
+      "empty_frames": []
+    },
+    {
+      "file": "vander_fx_q_taunt.png",
+      "frames": 6,
+      "cell_1x": [
+        16,
+        44
+      ],
+      "layout": "one horizontal row",
+      "symmetry": "per-frame-left-right-paired-majority",
+      "raw_grid": [
+        3,
+        2
+      ],
+      "raw_row_boundaries": [
+        0,
+        689,
+        1199
+      ],
+      "raw": "raw/vander_fx_q_taunt.png",
+      "raw_sha256": "bc863668a7c46ea45c93bf887d74d71351631c919b2770d6cb5c45b7cbd53ded",
+      "pixel_1x": "pixel_1x/vander_fx_q_taunt.png",
+      "preview_scale": 8,
+      "frame_nontransparent_pixels": [
+        40,
+        48,
+        50,
+        58,
+        30,
+        36
+      ],
+      "hard_alpha": true,
+      "exact_symmetry": true,
+      "empty_frames": []
+    },
+    {
+      "file": "vander_fx_e_dash.png",
+      "frames": 5,
+      "cell_1x": [
+        32,
+        14
+      ],
+      "layout": "one horizontal row",
+      "symmetry": "per-frame-left-right-paired-majority",
+      "raw_grid": [
+        2,
+        3
+      ],
+      "raw_row_boundaries": [
+        0,
+        551,
+        829,
+        1024
+      ],
+      "raw": "raw/vander_fx_e_dash.png",
+      "raw_sha256": "73654b2a265716d6fc8df1258de3e3ab2a141193ba429dbfc0c298bc7f0d0339",
+      "pixel_1x": "pixel_1x/vander_fx_e_dash.png",
+      "preview_scale": 8,
+      "frame_nontransparent_pixels": [
+        28,
+        88,
+        208,
+        86,
+        74
+      ],
+      "hard_alpha": true,
+      "exact_symmetry": true,
+      "empty_frames": []
+    },
+    {
+      "file": "vander_fx_e_hit.png",
+      "frames": 5,
+      "cell_1x": [
+        22,
+        32
+      ],
+      "layout": "one horizontal row",
+      "symmetry": "per-frame-left-right-paired-majority",
+      "raw_grid": [
+        3,
+        2
+      ],
+      "raw_row_boundaries": [
+        0,
+        636,
+        1071
+      ],
+      "raw": "raw/vander_fx_e_hit.png",
+      "raw_sha256": "64cd49d3281909a4427531f13d3cf8a8a7f1067b150f7c88342de8a8a44b227a",
+      "pixel_1x": "pixel_1x/vander_fx_e_hit.png",
+      "preview_scale": 8,
+      "frame_nontransparent_pixels": [
+        60,
+        202,
+        96,
+        164,
+        104
+      ],
+      "hard_alpha": true,
+      "exact_symmetry": true,
+      "empty_frames": []
+    },
+    {
+      "file": "vander_fx_e_stun.png",
+      "frames": 6,
+      "cell_1x": [
+        18,
+        44
+      ],
+      "layout": "one horizontal row",
+      "symmetry": "per-frame-left-right-paired-majority",
+      "raw_grid": [
+        3,
+        2
+      ],
+      "raw_row_boundaries": [
+        0,
+        574,
+        1132
+      ],
+      "raw": "raw/vander_fx_e_stun.png",
+      "raw_sha256": "fe7d95bde6ce70a126593b522c527d259e96249ac8eca5c0e309cb559504aef7",
+      "pixel_1x": "pixel_1x/vander_fx_e_stun.png",
+      "preview_scale": 8,
+      "frame_nontransparent_pixels": [
+        34,
+        28,
+        44,
+        32,
+        36,
+        40
+      ],
+      "hard_alpha": true,
+      "exact_symmetry": true,
+      "empty_frames": []
+    },
+    {
+      "file": "vander_fx_r_slam.png",
+      "frames": 8,
+      "cell_1x": [
+        88,
+        30
+      ],
+      "layout": "one horizontal row",
+      "symmetry": "per-frame-left-right-paired-majority",
+      "raw_grid": [
+        2,
+        4
+      ],
+      "raw_row_boundaries": [
+        0,
+        249,
+        479,
+        699,
+        887
+      ],
+      "raw": "raw/vander_fx_r_slam.png",
+      "raw_sha256": "7f702d490e52acf2f4f7396a789241fab917873af6cdb37078afd90c1b2783ef",
+      "pixel_1x": "pixel_1x/vander_fx_r_slam.png",
+      "preview_scale": 8,
+      "frame_nontransparent_pixels": [
+        90,
+        542,
+        1254,
+        1138,
+        1210,
+        896,
+        664,
+        374
+      ],
+      "hard_alpha": true,
+      "exact_symmetry": true,
+      "empty_frames": []
+    },
+    {
+      "file": "vander_fx_r_hit.png",
+      "frames": 4,
+      "cell_1x": [
+        18,
+        20
+      ],
+      "layout": "one horizontal row",
+      "symmetry": "per-frame-left-right-paired-majority",
+      "raw_grid": [
+        2,
+        2
+      ],
+      "raw_row_boundaries": [
+        0,
+        562,
+        935
+      ],
+      "raw": "raw/vander_fx_r_hit.png",
+      "raw_sha256": "170e2f65845492b9bd856c66a14c5e97af1f92f3f9d41f35bc5067466c6bdbc3",
+      "pixel_1x": "pixel_1x/vander_fx_r_hit.png",
+      "preview_scale": 8,
+      "frame_nontransparent_pixels": [
+        38,
+        114,
+        188,
+        76
+      ],
+      "hard_alpha": true,
+      "exact_symmetry": true,
+      "empty_frames": []
+    },
+    {
+      "file": "vander_fx_r_hold.png",
+      "frames": 6,
+      "cell_1x": [
+        44,
+        50
+      ],
+      "layout": "one horizontal row",
+      "symmetry": "per-frame-left-right-paired-majority",
+      "raw_grid": [
+        3,
+        2
+      ],
+      "raw_row_boundaries": [
+        0,
+        674,
+        1091
+      ],
+      "raw": "raw/vander_fx_r_hold.png",
+      "raw_sha256": "9dae9bfb0179ffb65154f90abf82954aad3615a5b43c1fdd7f08c074ec8cfa65",
+      "pixel_1x": "pixel_1x/vander_fx_r_hold.png",
+      "preview_scale": 8,
+      "frame_nontransparent_pixels": [
+        130,
+        230,
+        296,
+        376,
+        228,
+        228
+      ],
+      "hard_alpha": true,
+      "exact_symmetry": true,
+      "empty_frames": []
+    },
+    {
+      "file": "vander_fx_p_watch.png",
+      "frames": 6,
+      "cell_1x": [
+        40,
+        12
+      ],
+      "layout": "one horizontal row",
+      "symmetry": "per-frame-left-right-paired-majority",
+      "raw_grid": [
+        2,
+        3
+      ],
+      "raw_row_boundaries": [
+        0,
+        443,
+        780,
+        1086
+      ],
+      "raw": "raw/vander_fx_p_watch.png",
+      "raw_sha256": "0e8ddf13aa318442dfb4245d7d20528d083d86851f58aaedb5b2ce5d5ba0b620",
+      "pixel_1x": "pixel_1x/vander_fx_p_watch.png",
+      "preview_scale": 8,
+      "frame_nontransparent_pixels": [
+        68,
+        52,
+        66,
+        68,
+        66,
+        70
+      ],
+      "hard_alpha": true,
+      "exact_symmetry": true,
+      "empty_frames": []
+    },
+    {
+      "file": "vander_icon_skill.png",
+      "frames": 1,
+      "cell_1x": [
+        64,
+        64
+      ],
+      "symmetry": "not-required",
+      "raw": "raw/vander_icon_skill.png",
+      "raw_sha256": "24ecefb532fddf503718bc0714e2be5e1472c0b8833c3633c6e8a3269b005401"
+    },
+    {
+      "file": "vander_icon_skill2.png",
+      "frames": 1,
+      "cell_1x": [
+        64,
+        64
+      ],
+      "symmetry": "not-required",
+      "raw": "raw/vander_icon_skill2.png",
+      "raw_sha256": "c686073a1c944a2e74f7309aca344db78c025b5dac315e9045eafdf962b79e48"
+    },
+    {
+      "file": "vander_icon_ult.png",
+      "frames": 1,
+      "cell_1x": [
+        64,
+        64
+      ],
+      "symmetry": "not-required",
+      "raw": "raw/vander_icon_ult.png",
+      "raw_sha256": "d00efbd75cecb04e7a9ef3e36578015dd6bd91f8dc242810d46e7f39f6771c9a"
+    }
+  ],
+  "readback": {
+    "source": "image_gen raw PNGs",
+    "palette": "approved actor colours for poses; prompt ramps for FX",
+    "colour_vote": "most frequent foreground palette colour in each sampled cell",
+    "input_alpha_cutoff": 128,
+    "minimum_foreground_coverage": 0.35,
+    "output_alpha": [
+      0,
+      255
+    ],
+    "symmetry": "FX only: paired left/right samples per frame",
+    "notes": "No procedural replacement artwork. Reference-layout crops and whole-figure placement are recorded; raw source files remain unchanged."
+  }
+}

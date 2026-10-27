@@ -1,0 +1,490 @@
+{
+  "id": "tft_vander",
+  "category": "Melee",
+  "tags": [
+    "AD",
+    "Melee",
+    "Tank",
+    "CC"
+  ],
+  "passive": {
+    "passive_ref": "tft_vander:watcher",
+    "params": {
+      "p_lo": 10,
+      "p_hi": 20,
+      "p_line": 50,
+      "q_fam": 40,
+      "r_r": 34000,
+      "r_red": 15,
+      "r_per": 8,
+      "r_cap": 4,
+      "r_t": 240
+    }
+  },
+  "sprite": "asset/tft/champions/tft_vander",
+  "anim_prefix": "",
+  "skill_icons": [
+    "asset/tft/icons/tft_vander_skill",
+    "asset/tft/icons/tft_vander_skill2",
+    "asset/tft/icons/tft_vander_ult"
+  ],
+  "stat": {
+    "attack": 78,
+    "magic_power": 0,
+    "hp": 1080,
+    "defence": 34,
+    "magic_resistance": 26,
+    "move_speed": 1030,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "growth": {
+    "attack": 14,
+    "magic_power": 0,
+    "hp": 105,
+    "defence": 8,
+    "magic_resistance": 4,
+    "move_speed": 11,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "attack": {
+    "action_name": "attack",
+    "description": "#asset/base/text/champion?description.tft_vander.attack",
+    "duration": 26,
+    "cooltime": 64,
+    "start_timing": 1,
+    "cancelable": true,
+    "range": 25000,
+    "casting_type": "Targeting",
+    "casting_target": "Enemy",
+    "attack_type": "BaseAttack",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "tft_vander_a"
+        },
+        {
+          "type": "Delayed",
+          "tick": 11,
+          "effects": [
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "tft_vander_q_ready",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "tft_vander_q_ready"
+                  },
+                  {
+                    "type": "Sfx",
+                    "name": "tft_vander_q_hit"
+                  },
+                  {
+                    "type": "Attack",
+                    "damage": 40,
+                    "attack_ratio": 140,
+                    "hp_ratio": 0,
+                    "target_hp_ratio": 0,
+                    "attack_effect_type": "Target"
+                  },
+                  {
+                    "type": "Native",
+                    "effect_ref": "tft_vander:family"
+                  },
+                  {
+                    "type": "ViewEffect",
+                    "name": "tft_vander_q_hit"
+                  }
+                ]
+              },
+              "effect_none": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "Attack",
+                    "damage": 0,
+                    "attack_ratio": 100,
+                    "hp_ratio": 0,
+                    "target_hp_ratio": 0,
+                    "attack_effect_type": "Target"
+                  },
+                  {
+                    "type": "ViewEffect",
+                    "name": "tft_vander_a_hit"
+                  },
+                  {
+                    "type": "TargetSfx",
+                    "name": "tft_vander_a_hit"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill": {
+    "action_name": "skill",
+    "description": "#asset/base/text/champion?description.tft_vander.skill",
+    "duration": 30,
+    "cooltime": 600,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 30000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "tft_vander_q"
+        },
+        {
+          "type": "Sfx",
+          "name": "tft_vander_q_buff"
+        },
+        {
+          "type": "CasterViewEffect",
+          "name": "tft_vander_q_guard_in"
+        },
+        {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "tft_vander_q_guard",
+            "duration": {
+              "Time": {
+                "tick": 150
+              }
+            },
+            "defence": 40,
+            "magic_resistance": 30
+          },
+          "only_to_enemy": false
+        },
+        {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "tft_vander_q_ready",
+            "duration": {
+              "Time": {
+                "tick": 300
+              }
+            }
+          },
+          "only_to_enemy": false
+        },
+        {
+          "type": "RangeEffect",
+          "shape": {
+            "Circle": {
+              "radius": 26000
+            }
+          },
+          "target": "EnemyWithoutTower",
+          "apply_type": "AroundCaster",
+          "effects": [
+            {
+              "type": "Taunt",
+              "duration": 45
+            },
+            {
+              "type": "AddBuff",
+              "buff_state": {
+                "name": "tft_vander_q_taunt",
+                "duration": {
+                  "Time": {
+                    "tick": 45
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill2": {
+    "action_name": "skill2",
+    "description": "#asset/base/text/champion?description.tft_vander.skill2",
+    "duration": 26,
+    "cooltime": 600,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 45000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "tft_vander_e"
+        },
+        {
+          "type": "CasterViewEffect",
+          "name": "tft_vander_e_dash"
+        },
+        {
+          "type": "MoveToTarget",
+          "speed": 5000,
+          "range": 85000,
+          "end_effects": [
+            {
+              "type": "CasterAnimation",
+              "name": "upper",
+              "tick": 18
+            },
+            {
+              "type": "Sfx",
+              "name": "tft_vander_e_hit"
+            },
+            {
+              "type": "Attack",
+              "damage": 50,
+              "attack_ratio": 90,
+              "hp_ratio": 0,
+              "target_hp_ratio": 0,
+              "attack_effect_type": "Target"
+            },
+            {
+              "type": "Stun",
+              "duration": 30
+            },
+            {
+              "type": "AddBuff",
+              "buff_state": {
+                "name": "tft_vander_e_stun",
+                "duration": {
+                  "Time": {
+                    "tick": 30
+                  }
+                }
+              }
+            },
+            {
+              "type": "ViewEffect",
+              "name": "tft_vander_e_hit"
+            },
+            {
+              "type": "RangeEffect",
+              "shape": {
+                "Circle": {
+                  "radius": 22000
+                }
+              },
+              "target": "EnemyWithoutTower",
+              "apply_type": "AroundCaster",
+              "effects": [
+                {
+                  "type": "Attack",
+                  "damage": 17,
+                  "attack_ratio": 31,
+                  "hp_ratio": 0,
+                  "target_hp_ratio": 0,
+                  "attack_effect_type": "Target"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "ult": {
+    "action_name": "ult",
+    "description": "#asset/base/text/champion?description.tft_vander.ult",
+    "duration": 40,
+    "cooltime": 3000,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 50000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "tft_vander_r"
+        },
+        {
+          "type": "Sfx",
+          "name": "tft_vander_r_jump"
+        },
+        {
+          "type": "MoveToTarget",
+          "speed": 4000,
+          "range": 90000,
+          "end_effects": [
+            {
+              "type": "CasterAnimation",
+              "name": "slam",
+              "tick": 18
+            },
+            {
+              "type": "Sfx",
+              "name": "tft_vander_r_slam"
+            },
+            {
+              "type": "CasterViewEffect",
+              "name": "tft_vander_r_slam"
+            },
+            {
+              "type": "RangeEffect",
+              "shape": {
+                "Circle": {
+                  "radius": 34000
+                }
+              },
+              "target": "EnemyWithoutTower",
+              "apply_type": "AroundCaster",
+              "effects": [
+                {
+                  "type": "Attack",
+                  "damage": 150,
+                  "attack_ratio": 150,
+                  "hp_ratio": 0,
+                  "target_hp_ratio": 0,
+                  "attack_effect_type": "Target"
+                },
+                {
+                  "type": "Airborne",
+                  "duration": 60
+                },
+                {
+                  "type": "ViewEffect",
+                  "name": "tft_vander_r_hit"
+                }
+              ]
+            },
+            {
+              "type": "Native",
+              "effect_ref": "tft_vander:stand"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "view_projectiles": [],
+  "view_effects": [
+    {
+      "type": "Animation",
+      "name": "tft_vander_a_hit",
+      "anim": "asset/tft/effects/tft_vander_fx",
+      "tag": "a_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_vander_q_guard_in",
+      "anim": "asset/tft/effects/tft_vander_fx",
+      "tag": "q_guard_in",
+      "z": 3,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_vander_q_hit",
+      "anim": "asset/tft/effects/tft_vander_fx",
+      "tag": "q_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_vander_e_dash",
+      "anim": "asset/tft/effects/tft_vander_fx",
+      "tag": "e_dash",
+      "z": 1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "tft_vander_e_hit",
+      "anim": "asset/tft/effects/tft_vander_fx",
+      "tag": "e_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_vander_r_slam",
+      "anim": "asset/tft/effects/tft_vander_big",
+      "tag": "r_slam",
+      "z": -1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "tft_vander_r_hit",
+      "anim": "asset/tft/effects/tft_vander_fx",
+      "tag": "r_hit",
+      "z": 2,
+      "is_follow": true
+    }
+  ],
+  "view_buffs": [
+    {
+      "type": "Animated",
+      "name": "tft_vander_q_guard",
+      "anim": "asset/tft/effects/tft_vander_fx",
+      "tag": "q_guard",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "tft_vander_q_ready",
+      "anim": "asset/tft/effects/tft_vander_fx",
+      "tag": "q_ready",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "tft_vander_q_taunt",
+      "anim": "asset/tft/effects/tft_vander_fx",
+      "tag": "q_taunt",
+      "repeat": true,
+      "z": 4
+    },
+    {
+      "type": "Animated",
+      "name": "tft_vander_e_stun",
+      "anim": "asset/tft/effects/tft_vander_fx",
+      "tag": "e_stun",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "tft_vander_r_hold",
+      "anim": "asset/tft/effects/tft_vander_fx",
+      "tag": "r_hold",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "tft_vander_p_watch",
+      "anim": "asset/tft/effects/tft_vander_fx",
+      "tag": "p_watch",
+      "repeat": true,
+      "z": 1
+    }
+  ]
+}

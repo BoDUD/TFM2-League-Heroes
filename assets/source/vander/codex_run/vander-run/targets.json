@@ -1,0 +1,226 @@
+{
+ "run1": {
+  "rows": 117,
+  "red": {
+   "heel": [
+    54,
+    100
+   ],
+   "toe": [
+    48,
+    106
+   ],
+   "lift": 24.0
+  },
+  "blue": {
+   "heel": [
+    70,
+    117
+   ],
+   "toe": [
+    73,
+    127
+   ],
+   "lift": 2.9
+  },
+  "near_leg": "blue",
+  "near_arm": "CYAN (the bandaged arm)",
+  "clip": "run@0"
+ },
+ "run2": {
+  "rows": 115,
+  "red": {
+   "heel": [
+    56,
+    90
+   ],
+   "toe": [
+    49,
+    96
+   ],
+   "lift": 34.1
+  },
+  "blue": {
+   "heel": [
+    74,
+    121
+   ],
+   "toe": [
+    78,
+    126
+   ],
+   "lift": 4.0
+  },
+  "near_leg": "blue",
+  "near_arm": "CYAN (the bandaged arm)",
+  "clip": "run@133"
+ },
+ "run3": {
+  "rows": 101,
+  "red": {
+   "heel": [
+    63,
+    94
+   ],
+   "toe": [
+    56,
+    102
+   ],
+   "lift": 28.6
+  },
+  "blue": {
+   "heel": [
+    62,
+    119
+   ],
+   "toe": [
+    66,
+    128
+   ],
+   "lift": 1.9
+  },
+  "near_leg": "blue",
+  "near_arm": "CYAN (the bandaged arm)",
+  "clip": "run@266"
+ },
+ "run4": {
+  "rows": 110,
+  "red": {
+   "heel": [
+    73,
+    114
+   ],
+   "toe": [
+    76,
+    126
+   ],
+   "lift": 4.3
+  },
+  "blue": {
+   "heel": [
+    45,
+    113
+   ],
+   "toe": [
+    46,
+    125
+   ],
+   "lift": 5.0
+  },
+  "near_leg": "red",
+  "near_arm": "ORANGE (the gauntlet arm)",
+  "clip": "run@400"
+ },
+ "run5": {
+  "rows": 114,
+  "red": {
+   "heel": [
+    78,
+    121
+   ],
+   "toe": [
+    85,
+    128
+   ],
+   "lift": 2.4
+  },
+  "blue": {
+   "heel": [
+    40,
+    104
+   ],
+   "toe": [
+    37,
+    114
+   ],
+   "lift": 16.1
+  },
+  "near_leg": "red",
+  "near_arm": "ORANGE (the gauntlet arm)",
+  "clip": "run@533"
+ },
+ "run6": {
+  "rows": 116,
+  "red": {
+   "heel": [
+    82,
+    120
+   ],
+   "toe": [
+    89,
+    123
+   ],
+   "lift": 7.0
+  },
+  "blue": {
+   "heel": [
+    40,
+    96
+   ],
+   "toe": [
+    37,
+    104
+   ],
+   "lift": 26.1
+  },
+  "near_leg": "red",
+  "near_arm": "ORANGE (the gauntlet arm)",
+  "clip": "run@666"
+ },
+ "run7": {
+  "rows": 98,
+  "red": {
+   "heel": [
+    65,
+    119
+   ],
+   "toe": [
+    72,
+    128
+   ],
+   "lift": 1.9
+  },
+  "blue": {
+   "heel": [
+    46,
+    101
+   ],
+   "toe": [
+    45,
+    109
+   ],
+   "lift": 21.0
+  },
+  "near_leg": "red",
+  "near_arm": "ORANGE (the gauntlet arm)",
+  "clip": "run@800"
+ },
+ "run8": {
+  "rows": 110,
+  "red": {
+   "heel": [
+    59,
+    110
+   ],
+   "toe": [
+    59,
+    122
+   ],
+   "lift": 7.8
+  },
+  "blue": {
+   "heel": [
+    58,
+    111
+   ],
+   "toe": [
+    57,
+    123
+   ],
+   "lift": 7.5
+  },
+  "near_leg": "blue",
+  "near_arm": "CYAN (the bandaged arm)",
+  "clip": "run@933"
+ }
+}

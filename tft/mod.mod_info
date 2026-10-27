@@ -7,10 +7,10 @@
       "version": ">=0.4.11"
     }
   ],
-  "description": "Teamfight Tactics units that League of Legends does not have, for Teamfight Manager 2: Powder, Norra, Alune, Silco, Maddie, Loris. Powder's, Alune's and Silco's kits are our own designs, drawn from TFT and Arcane; Norra's follows League of Legends: Wild Rift (what the data cannot play is the pack's own code, tft.dll). Sharper frames when the League of Legends Heroes pack (league) is also enabled. Non-commercial fan project; Teamfight Tactics, Wild Rift and Arcane (c) Riot Games.",
+  "description": "Teamfight Tactics units that League of Legends does not have, for Teamfight Manager 2: Powder, Norra, Alune, Silco, Maddie, Loris, Kobuko, Vander. Powder's, Alune's and Silco's kits are our own designs, drawn from TFT and Arcane; Norra's follows League of Legends: Wild Rift (what the data cannot play is the pack's own code, tft.dll). Sharper frames when the League of Legends Heroes pack (league) is also enabled. Non-commercial fan project; Teamfight Tactics, Wild Rift and Arcane (c) Riot Games.",
   "last_updated": "2026-10-27",
   "mod_id": "tft",
   "mod_type": "native",
   "name": "Teamfight Tactics Heroes",
-  "version": "0.7.0"
+  "version": "0.9.0"
 }
