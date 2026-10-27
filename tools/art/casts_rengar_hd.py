@@ -292,7 +292,8 @@ def placed():
     """{"<tag>_<frame>": (picture, x, y of its top-left on the design's grid)}: the box's middle on the old box's
     middle and its bottom on the old box's bottom, from the design's pivot (its feet's middle on its soles' row)."""
     import casts_draven_hd as CD
-    px = CD.shoes_mid(D0)
+    import design_rengar_hd as DH
+    px = CD.shoes_mid(DH.bare())                   # (between his feet: the design's tail lies on the ground behind them)
     out = {}
     for n, (sq, mid, bottom, zoom) in read_all().items():
         ys, xs = np.nonzero(sq[..., 3] > 0)

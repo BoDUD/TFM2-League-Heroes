@@ -48,21 +48,66 @@ ULT = [1, 2, 2, 1]
 # bobbed a pixel) - whole rows cut out of the legs (RUN_LEGS: squares over the soles), evenly, the feet where they stand
 RUN_CUT = {1: 1, 2: 1, 3: 3, 4: 4}
 RUN_LEGS = (17, 5)
-FEET = (52, 18, 63)
-# the tail's root (design_rengar_hd.root) on Codex's frames that drew the tail as the design had it - curled up right of
-# the far hand and gone behind the blade there, so it read as growing out of the hand (「怎么尾巴在手上？」): from behind
-# the blade, under the hand, into his far thigh. (row, column) pairs on the cast pictures (casts_rengar_hd.placed);
-# the frames whose tail already comes out from behind his body (attack 2-5, the leap's flight, Q 2-7, W 3-5, the
-# fall) are left as drawn
-TAIL_ROOTS = {
-    "run_1": ((40, 64), (47, 51)), "run_2": ((40, 62), (48, 49)), "run_3": ((44, 70), (48, 55)),
-    "run_4": ((42, 69), (49, 48)), "run_5": ((40, 69), (45, 53)), "run_6": ((41, 69), (45, 51)),
-    "run_7": ((41, 68), (46, 47)), "run_8": ((41, 68), (46, 49)), "attack_1": ((50, 71), (54, 57)),
-    "leap_1": ((45, 71), (49, 60)), "leap_7": ((47, 81), (49, 68)), "skill_1": ((48, 71), (51, 64)),
-    "skill2_1": ((41, 64), (45, 54)), "skill2_2": ((41, 71), (44, 59)), "skill2_3": ((48, 68), (52, 58)),
-    "skill2_4": ((45, 75), (49, 64)), "skill2_5": ((50, 64), (53, 56)), "skill_w_1": ((51, 70), (54, 61)),
-    "skill_w_6": ((44, 62), (47, 54)), "hit_1": ((43, 68), (47, 60)), "hit_2": ((42, 71), (47, 57)),
-}             # the design's feet: rows 52 down between columns 18 and 62 (the claw and the blade out)
+FEET = (52, 18, 63)             # the design's feet: rows 52 down between columns 18 and 62 (the claw and the blade out)
+# The tail (design_rengar_hd: Codex drew it in front of him, the user: 「怎么尾巴在手上？」「尾巴还是不对」). On the frames that
+# copied the design's front tail it is taken off (FRONT_TAILS: the box round it on the cast picture, design_rengar_hd.
+# untail) and every one of those frames gets the tail behind him: out of his hip (HIPS: a square inside his body at the
+# back of the hip, read off each frame), down behind the near leg to the ground behind his back foot, along it to the
+# gold ring and the tuft - the design's shape (tail_path); in the air it hangs as far under his hip as when he stands.
+# Frames Codex already drew with the tail behind him (the leap's 2nd, 4th and 5th, the fall) keep theirs.
+FRONT_TAILS = {
+    "run_1": (21, 38, 66, 78), "run_2": (19, 37, 64, 75), "run_3": (20, 40, 71, 83), "run_4": (24, 41, 70, 80),
+    "run_5": (19, 37, 69, 80), "run_6": (19, 36, 67, 79), "run_7": (22, 39, 68, 81), "run_8": (22, 39, 67, 80),
+    "attack_1": (30, 50, 69, 82), "attack_2": (35, 55, 61, 75), "attack_3": (36, 56, 63, 77),
+    "attack_4": (33, 54, 60, 73), "attack_5": (34, 48, 56, 69),
+    "leap_1": (27, 44, 70, 82), "leap_3": (38, 56, 64, 82), "leap_6": (32, 46, 60, 73), "leap_7": (21, 40, 74, 92),
+    "skill_1": (27, 44, 72, 85), "skill_2": (44, 66, 62, 77), "skill_3": (45, 63, 61, 76), "skill_4": (47, 64, 73, 87),
+    "skill_5": (31, 47, 63, 81), "skill_6": (38, 56, 57, 73), "skill_7": (43, 56, 63, 77),
+    "skill2_1": (25, 39, 64, 77), "skill2_2": (27, 42, 70, 83), "skill2_3": (29, 46, 63, 76),
+    "skill2_4": (26, 42, 77, 91), "skill2_5": (29, 46, 64, 77),
+    "skill_w_1": (30, 47, 71, 85), "skill_w_3": (39, 58, 65, 80), "skill_w_4": (40, 60, 70, 87),
+    "skill_w_5": (40, 59, 64, 80), "skill_w_6": (27, 42, 60, 71),
+    "hit_1": (23, 41, 68, 80), "hit_2": (23, 39, 69, 82), "dead_1": (48, 60, 49, 66),
+}
+HIPS = {
+    "run_1": (40, 24), "run_2": (40, 23), "run_3": (41, 25), "run_4": (43, 24), "run_5": (38, 26), "run_6": (40, 27),
+    "run_7": (41, 22), "run_8": (41, 22), "attack_1": (45, 24), "attack_2": (42, 20), "attack_3": (48, 25),
+    "attack_4": (46, 24), "attack_5": (44, 25), "leap_1": (46, 27), "leap_3": (43, 32), "leap_6": (40, 24),
+    "leap_7": (44, 26), "skill_1": (46, 26), "skill_2": (60, 24), "skill_3": (60, 24), "skill_4": (60, 28),
+    "skill_5": (44, 25), "skill_6": (51, 22), "skill_7": (57, 26), "skill2_1": (45, 23), "skill2_2": (44, 26),
+    "skill2_3": (51, 20), "skill2_4": (49, 30), "skill2_5": (50, 25), "skill_w_1": (52, 27), "skill_w_3": (51, 22),
+    "skill_w_4": (52, 26), "skill_w_5": (52, 23), "skill_w_6": (43, 22), "hit_1": (45, 26), "hit_2": (44, 25),
+    "dead_1": (47, 22),
+}
+HANG = 16                       # rows from his hip down to the ground the tail lies on (the design's: 43 -> 59)
+
+
+def tail_path(hip, ground):
+    """The design's tail from hip (row, column) to the ground row: down behind the near leg, then along the ground."""
+    r, c = hip
+    return [(r, c), (r + 5, c - 5), (ground - 6, c - 8), (ground - 3, c - 10), (ground - 2.4, c - 16),
+            (ground - 2.8, c - 22)]
+
+
+def casts():
+    """casts_rengar_hd's frames, the tail behind him (retail)."""
+    return {n: retail(n, *c) for n, c in CS.placed().items()}
+
+
+def retail(n, pic, x, y):
+    """A cast (picture, x, y on the design's grid) with its front tail off and the tail drawn behind him."""
+    if n not in HIPS:
+        return pic, x, y
+    q = DH.untail(pic, FRONT_TAILS[n]) if n in FRONT_TAILS else pic
+    P = 30
+    big = np.zeros((q.shape[0] + 2 * P, q.shape[1] + 2 * P, 4), np.uint8)
+    big[P:P + q.shape[0], P:P + q.shape[1]] = q
+    soles = CS.GROUND - y                                   # the soles' row on the picture
+    r, c = HIPS[n]
+    ground = soles if y + pic.shape[0] >= CS.GROUND else min(soles, r + HANG)
+    big = DH.tail(big, [(a + P, b + P) for a, b in tail_path((r, c), ground)], ground=soles + P)
+    ys, xs = np.nonzero(big[..., 3] > 0)
+    return big[ys.min():ys.max() + 1, xs.min():xs.max() + 1], x + int(xs.min()) - P, y + int(ys.min()) - P
 
 
 def lp(path):
@@ -82,8 +127,11 @@ def design():
     D = XZ.Design(HERO, PPU, ROWS, regrid=SQUARE)
     if D.d.shape != d.shape or (D.d != d).any():
         sys.exit("hd/picture.png does not read back as hd/design.png")
-    D.px = int(round(CD.shoes_mid(d)))              # between his feet
     D.d0 = D.d.copy()
+    D.bare = DH.bare()                              # no tail: the sunk frames draw it, the root sinking with him
+    D.px = int(round(CD.shoes_mid(D.bare)))         # between his feet (the tail's end lies on the ground behind them)
+    if (DH.tail(D.bare, DH.BACK, ground=d.shape[0]) != d).any():
+        sys.exit("design_rengar_hd's bare design + tail is not hd/design.png")
     return D
 
 
@@ -127,10 +175,12 @@ def on_grid(rig, d, x, y):
     return can
 
 
-def sunk(d, rows):
-    """The design's body `rows` squares lower with the feet where they stand (drawn over it), nothing under the soles."""
+def sunk(D, rows):
+    """The design's body `rows` squares lower with the feet where they stand (drawn over it), nothing under the soles;
+    the tail drawn on it, its root sunk with him, its end where it lay."""
     if rows == 0:
-        return d.copy()
+        return D.d0.copy()
+    d = D.bare
     h = d.shape[0]
     out = np.zeros_like(d)
     out[rows:] = d[:h - rows]
@@ -138,7 +188,8 @@ def sunk(d, rows):
     feet = np.zeros(d.shape[:2], bool)
     feet[r0:, c0:c1] = d[r0:, c0:c1, 3] > 0
     out[feet] = d[feet]
-    return out
+    back = [(r + rows, c) if i < 2 else (r + rows / 2, c) if i == 2 else (r, c) for i, (r, c) in enumerate(DH.BACK)]
+    return DH.tail(out, back, ground=h)
 
 
 def cut_legs(rig, can, n):
@@ -155,8 +206,6 @@ def cut_legs(rig, can, n):
 
 
 def frames(rig, casts):
-    casts = {n: ((DH.root(p, TAIL_ROOTS[n], rig.D.outline), x, y) if n in TAIL_ROOTS else (p, x, y))
-             for n, (p, x, y) in casts.items()}
     sheet = R.sheet_of(HERO)
     d0 = rig.D.d0
     out = {}
@@ -165,9 +214,9 @@ def frames(rig, casts):
             continue
         n = len(sheet[tag])
         if tag == "idle_base":
-            fr = [on_grid(rig, sunk(d0, round(s * PPU)), 0, 0) for s in BREATH]
+            fr = [on_grid(rig, sunk(rig.D, round(s * PPU)), 0, 0) for s in BREATH]
         elif tag == "ult":
-            fr = [on_grid(rig, sunk(d0, round(s * PPU)), 0, 0) for s in ULT]
+            fr = [on_grid(rig, sunk(rig.D, round(s * PPU)), 0, 0) for s in ULT]
         else:
             fr = []
             for k in range(1, n + 1):
@@ -191,9 +240,9 @@ def main():
     ap.add_argument("--review")
     a = ap.parse_args()
     D = design()
-    casts = CS.placed()
-    rig = RengarRig(D, pad=pad_for(D, casts))
-    acts = frames(rig, casts)
+    cs = casts()
+    rig = RengarRig(D, pad=pad_for(D, cs))
+    acts = frames(rig, cs)
     if a.review:
         rig.review(acts, a.review)
         return

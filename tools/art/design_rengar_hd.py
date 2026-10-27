@@ -34,7 +34,8 @@ OLD = 40                        # his 1x idle, the horn's tip to his soles
 PEERS = ["rengar", "leesin", "udyr", "xinzhao", "khazix"]
 
 
-def design():
+def read():
+    """Codex's picture on its own squares, cut to colours, its outline closed, cropped - his tail as Codex drew it."""
     q, pal, _ = AH.native()
     # where the read lost Codex's outline: closed again in the outline colour (strips.complete_outline)
     out = AH.outline_of(pal)
@@ -44,44 +45,144 @@ def design():
     rim = op & ~ndimage.binary_erosion(op, structure=np.array([[0, 1, 0], [1, 1, 1], [0, 1, 0]]), border_value=0)
     q[rim & (q[..., :3].astype(int).sum(-1) < 170), :3] = out
     ys, xs = np.nonzero(q[..., 3])
-    q = q[ys.min():ys.max() + 1, xs.min():xs.max() + 1]
-    return tail_root(q, out), q.shape[0] / OLD
+    return q[ys.min():ys.max() + 1, xs.min():xs.max() + 1]
 
 
-# Codex's tail curls up right of his far hand and ends behind it - in game it read as growing out of the hand (「怎么
-# 尾巴在手上？」). Its root drawn on from there: down-left behind the blade and the hand, seen under the hand as a short
-# piece that goes in behind his far thigh. TAIL_PATH: the root's middle line (row, column) on the read; drawn only
-# where the picture is empty (behind everything), its upper side lit like the rest of the tail.
-TAIL_PATH = ((43.5, 63.0), (49.5, 55.5))
-TAIL = ((0x7d, 0x86, 0xb1), (0x67, 0x71, 0x9d), (0x52, 0x5b, 0x85))      # lit / mid / shade: the tail's own blues
+def box(full):
+    ys, xs = np.nonzero(full[..., 3])
+    return slice(ys.min(), ys.max() + 1), slice(xs.min(), xs.max() + 1)
 
 
-def tail_root(q, out):
-    return root(q, TAIL_PATH, out)
+def bare():
+    """The design without a tail, cut as the design is (the rig draws the tail on its sunk frames: the root sinks with
+    him, the end stays on the ground; and the point between his feet is measured on it - the tail's end lies there)."""
+    q = read()
+    return untail(q, FRONT)[box(retail(q))]
 
 
-def root(q, path, out):
-    """The tail's root along path ((row, column), (row, column)) on q: 2.7 squares thick in the tail's blues (its side
-    towards the top-right lit) inside an outline, drawn only where q is empty (so it passes behind what is there)."""
-    q = q.copy()
-    (y0, x0), (y1, x1) = path
-    d = np.array([y1 - y0, x1 - x0])
-    n = np.array([-d[1], d[0]]) / np.hypot(*d)            # the side towards the top-right: lit
-    for y in range(max(0, int(min(y0, y1)) - 3), min(q.shape[0], int(max(y0, y1)) + 4)):
-        for x in range(max(0, int(min(x0, x1)) - 3), min(q.shape[1], int(max(x0, x1)) + 4)):
+def design():
+    q = read()
+    full = retail(q)
+    return full[box(full)], q.shape[0] / OLD
+
+
+# The tail. Codex drew it in front of him - curled up right of his far hand, its end behind the hand - after the design
+# prompt misread his old sprite (「尾巴从身后卷到右下」); in game it read as growing out of the hand (「怎么尾巴在手上？」, then
+# 「尾巴还是不对」 once a root had been drawn on from the hand). League's Rengar and his old sprite have it behind him: a
+# thin tail out of his rump hanging to the ground behind his back foot (the old sprite showed only its white end on the
+# ground there). So the front tail is taken off (untail) and one drawn behind him (tail): out of his rump, down behind
+# the near leg and the claw, along the ground behind his back foot to a gold ring and a white tuft - painted only where
+# the picture is empty, so the leg and the claw stay in front of it.
+H = lambda h: tuple(int(h[i:i + 2], 16) for i in (0, 2, 4))  # noqa: E731
+OUTLINE = H("0b0009")
+BLUES = tuple(H(c) for c in ("9ea5c8", "7d86b1", "67719d", "525b85"))     # the tail's blues, lit -> shade
+GOLDS = tuple(H(c) for c in ("fccf20", "fcbf07", "dd7410"))              # its ring
+WHITES = (H("f6f6f6"), H("c3c7de"))                                         # its tuft
+# what Codex drew the front tail in: its blues, the tuft's whites, the ring's golds
+TAIL_COLS = tuple(H(c) for c in ("9ea5c8", "7d86b1", "67719d", "525b85", "3b4165", "c3c7de", "f6f6f6", "fcbf07",
+                                 "f89f06", "fccf20", "dd7410", "fbaf06", "ed880b"))
+FRONT = (20, 43, 63, 76)        # the design's front tail: rows 20-42, columns 63-75 (right of the far hand)
+BACK = ((43, 25), (48, 20), (53, 17), (56, 15), (57, 9), (56.6, 3))      # its new tail (row, column) Bezier points
+
+
+def colour_in(a, cols):
+    m = np.zeros(a.shape[:2], bool)
+    for c in cols:
+        m |= (a[..., :3] == c).all(-1)
+    return m & (a[..., 3] > 0)
+
+
+def untail(a, box, grow=6):
+    """a without the tail drawn in box (r0, r1, c0, c1): the tail-coloured pieces reaching into the box, followed up to
+    `grow` squares out of it, and the outline round them that rings nothing else; then, round what was taken off, the
+    outline left hanging (no fill next to it) trimmed and the bits cut loose from the body (inside the grown box)
+    dropped."""
+    r0, r1, c0, c1 = box
+    ok = colour_in(a, TAIL_COLS)
+    inbox, near = np.zeros_like(ok), np.zeros_like(ok)
+    inbox[max(0, r0):r1, max(0, c0):c1] = True
+    near[max(0, r0 - grow):r1 + grow, max(0, c0 - grow):c1 + grow] = True
+    lbl, _ = ndimage.label(ok & near)
+    m = np.isin(lbl, list(set(np.unique(lbl[ok & inbox])) - {0}))
+    four = np.array([[0, 1, 0], [1, 1, 1], [0, 1, 0]])
+    line = colour_in(a, [OUTLINE])
+    other = (a[..., 3] > 0) & ~m & ~line
+    ring = ndimage.binary_dilation(m, structure=np.ones((3, 3))) & line & ~ndimage.binary_dilation(other, structure=four)
+    q = a.copy()
+    q[m | ring] = 0
+    zone = ndimage.binary_dilation(m | ring, structure=np.ones((3, 3)), iterations=2)
+    while True:
+        line = colour_in(q, [OUTLINE])
+        fill = (q[..., 3] > 0) & ~line
+        hang = zone & line & ~ndimage.binary_dilation(fill, structure=np.ones((3, 3)))
+        if not hang.any():
+            break
+        q[hang] = 0
+    op = q[..., 3] > 0
+    lbl, n = ndimage.label(op, structure=np.ones((3, 3)))
+    if n > 1:
+        main = int(np.argmax(ndimage.sum(op, lbl, range(1, n + 1)))) + 1
+        for k in range(1, n + 1):
+            if k != main and not ((lbl == k) & ~near).any():
+                q[lbl == k] = 0
+    return q
+
+
+def bezier(ctrl, n=400):
+    P = [np.array(c, float) for c in ctrl]
+    out = []
+    for t in np.linspace(0, 1, n):
+        Q = P
+        while len(Q) > 1:
+            Q = [Q[i] * (1 - t) + Q[i + 1] * t for i in range(len(Q) - 1)]
+        out.append(Q[0])
+    return np.array(out)
+
+
+def tail(a, ctrl, ground=None, r0=1.5, r1=1.15, ring=(0.70, 0.77), tuft=0.80, tuft_w=1.9):
+    """a with the tail along the Bezier ctrl [(row, column) ...] drawn where a is empty: r0 -> r1 squares from its
+    middle line, a gold ring over `ring` (of its length), a white tuft from `tuft` to its end (a teardrop, tuft_w at its
+    widest), its upper side lit, outlined; nothing on rows from `ground` down (the soles' line)."""
+    q = a.copy()
+    pts = bezier(ctrl)
+    seg = np.hypot(*np.diff(pts, axis=0).T)
+    T = np.r_[0, np.cumsum(seg)] / seg.sum()
+    tan = np.gradient(pts, axis=0)
+    nrm = np.stack([-tan[:, 1], tan[:, 0]], 1) / np.maximum(1e-9, np.hypot(*tan.T))[:, None]
+    nrm[nrm[:, 0] > 0] *= -1                                   # each normal pointing up the picture: the lit side
+    for y in range(max(0, int(pts[:, 0].min()) - 4), min(q.shape[0], int(pts[:, 0].max()) + 5)):
+        if ground is not None and y >= ground:
+            continue
+        for x in range(max(0, int(pts[:, 1].min()) - 4), min(q.shape[1], int(pts[:, 1].max()) + 5)):
             if q[y, x, 3]:
                 continue
-            p = np.array([y + 0.5 - y0, x + 0.5 - x0])
-            t = np.clip(p @ d / (d @ d), 0, 1)
-            off = p - t * d
-            r = np.hypot(*off)
-            if r <= 1.35:
-                side = off @ n
-                c = TAIL[0] if side > 0.45 else TAIL[1] if side > -0.45 else TAIL[2]
-                q[y, x] = (*c, 255)
-            elif r <= 2.4:
-                q[y, x] = (*out, 255)
+            c = np.array([y + 0.5, x + 0.5])
+            d = np.hypot(*(pts - c).T)
+            i = int(np.argmin(d))
+            t = T[i]
+            if t < tuft:
+                r = r0 + (r1 - r0) * t / tuft
+            else:
+                s = (t - tuft) / (1 - tuft)
+                r = max(0.4, tuft_w * max(0.0, np.sin(np.pi * (0.25 + 0.75 * s))) ** 0.8)
+            if d[i] > r + 1.0:
+                continue
+            if d[i] > r:
+                q[y, x] = (*OUTLINE, 255)
+                continue
+            side = (c - pts[i]) @ nrm[i] / r                    # +1 its top edge, -1 its bottom edge
+            if t >= tuft:
+                col = WHITES[0] if side > -0.35 else WHITES[1]
+            elif ring[0] <= t <= ring[1]:
+                col = GOLDS[0] if side > 0.3 else GOLDS[1] if side > -0.4 else GOLDS[2]
+            else:
+                col = BLUES[0] if side > 0.55 else BLUES[1] if side > 0.0 else BLUES[2] if side > -0.55 else BLUES[3]
+            q[y, x] = (*col, 255)
     return q
+
+
+def retail(q):
+    return tail(untail(q, FRONT), BACK, ground=q.shape[0])
 
 
 def main():
