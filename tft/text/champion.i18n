@@ -35,6 +35,13 @@
         "skill": "半蹲朝范围内最远的敌人连开<#ffb900ff>6<>枪（先打英雄），每枪打中路上第一个敌人，造成<#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<><#ff9028ff>物理伤害<>。",
         "skill2": "通缉附近当前生命最高的敌方英雄<#ffb900ff>8秒<>：它受到的伤害+<#ffb900ff>15%<>。",
         "ult": "瞄准后向生命比例最低的敌方英雄射出一发穿透子弹，路上每个敌人受到<#ff9028ff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<><#ff9028ff>物理伤害<>，按其已损失生命比例最多再加<#ffb900ff>60%<>。"
+      },
+      "tft_loris": {
+        "name": "洛里斯",
+        "attack": "举盾猛砸，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>。<#ff9028ff>神盾使<>：每条命第一次生命低于<#ffb900ff>75%<>和<#ffb900ff>25%<>时，各获得最大生命<#ffb900ff>12%<>的护盾（<#ffb900ff>4秒<>）。",
+        "skill": "获得<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>的护盾（<#ffb900ff>4秒<>），举盾冲锋，撞到的敌人受到<#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>魔法伤害并<#ef5350ff>晕眩1.5秒<>。",
+        "skill2": "冲到附近生命比例最低的友方英雄身边，两人各获得<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<>的护盾（<#ffb900ff>4秒<>），期间替他承受<#ffb900ff>30%<>的伤害。",
+        "ult": "把巨盾砸进地里，周围的敌人受到<#a974ffff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>魔法伤害、被<#ef5350ff>击飞1秒<>并<#ef5350ff>嘲讽2秒<>；自己受到的伤害降低<#ffb900ff>50%<>（<#ffb900ff>4秒<>）。"
       }
     },
     "skill_name": {
@@ -62,6 +69,11 @@
         "skill1": "连拨击锤",
         "skill2": "通缉令",
         "ult": "执法狙杀"
+      },
+      "tft_loris": {
+        "skill1": "皮城争斗",
+        "skill2": "盾卫",
+        "ult": "钢铁防线"
       }
     }
   },
@@ -101,6 +113,13 @@
         "skill": "半蹲朝範圍內最遠的敵人連開<#ffb900ff>6<>槍（優先英雄），每槍擊中路上第一個敵人，造成<#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<><#ff9028ff>物理傷害<>。",
         "skill2": "通緝附近目前生命最高的敵方英雄<#ffb900ff>8秒<>：它受到的傷害+<#ffb900ff>15%<>。",
         "ult": "瞄準後向生命比例最低的敵方英雄射出一發穿透子彈，路上每個敵人受到<#ff9028ff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<><#ff9028ff>物理傷害<>，依其已損失生命比例最多再加<#ffb900ff>60%<>。"
+      },
+      "tft_loris": {
+        "name": "洛里斯",
+        "attack": "舉盾猛砸，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>。<#ff9028ff>守護者<>：每條命第一次生命低於<#ffb900ff>75%<>和<#ffb900ff>25%<>時，各獲得最大生命<#ffb900ff>12%<>的護盾（<#ffb900ff>4秒<>）。",
+        "skill": "獲得<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>的護盾（<#ffb900ff>4秒<>），舉盾衝鋒，撞到的敵人受到<#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>魔法傷害並<#ef5350ff>暈眩1.5秒<>。",
+        "skill2": "衝到附近生命比例最低的友方英雄身邊，兩人各獲得<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<>的護盾（<#ffb900ff>4秒<>），期間替他承受<#ffb900ff>30%<>的傷害。",
+        "ult": "把巨盾砸進地裡，周圍的敵人受到<#a974ffff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>魔法傷害、被<#ef5350ff>擊飛1秒<>並<#ef5350ff>嘲諷2秒<>；自己受到的傷害降低<#ffb900ff>50%<>（<#ffb900ff>4秒<>）。"
       }
     },
     "skill_name": {
@@ -128,6 +147,11 @@
         "skill1": "旋風鎚",
         "skill2": "通緝令",
         "ult": "執法狙殺"
+      },
+      "tft_loris": {
+        "skill1": "皮爾托福的決鬥",
+        "skill2": "盾衛",
+        "ult": "鋼鐵防線"
       }
     }
   },
@@ -167,6 +191,13 @@
         "skill": "Crouches and fires <#ffb900ff>6<> shots at the farthest enemy in range (champions first); each hits the first enemy in its way for <#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<> <#ff9028ff>physical damage<>.",
         "skill2": "Marks the nearby enemy champion with the most health as Wanted for <#ffb900ff>8s<>: it takes <#ffb900ff>15%<> more damage.",
         "ult": "Takes aim, then fires a piercing round at the enemy champion with the lowest share of health: every enemy in its line takes <#ff9028ff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<> <#ff9028ff>physical damage<>, up to <#ffb900ff>60%<> more by the share of health it is missing."
+      },
+      "tft_loris": {
+        "name": "Loris",
+        "attack": "Bashes with his shield for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<>. <#ff9028ff>Warden<>: the first time each life his health falls under <#ffb900ff>75%<> and under <#ffb900ff>25%<> he gains a shield of <#ffb900ff>12%<> of his maximum health (<#ffb900ff>4s<>).",
+        "skill": "Gains a <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> shield (<#ffb900ff>4s<>) and charges behind his shield: enemies he runs into take <#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> magic damage and are <#ef5350ff>stunned for 1.5s<>.",
+        "skill2": "Leaps to the nearby allied champion with the lowest share of health: both gain a <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<> shield (<#ffb900ff>4s<>) and he takes <#ffb900ff>30%<> of the damage meant for it.",
+        "ult": "Slams his shield into the ground: nearby enemies take <#a974ffff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> magic damage, are <#ef5350ff>knocked up for 1s<> and <#ef5350ff>taunted for 2s<>; he takes <#ffb900ff>50%<> less damage (<#ffb900ff>4s<>)."
       }
     },
     "skill_name": {
@@ -194,6 +225,11 @@
         "skill1": "Fan the Hammer",
         "skill2": "Wanted",
         "ult": "Enforcer's Snipe"
+      },
+      "tft_loris": {
+        "skill1": "Piltover Tussle",
+        "skill2": "Bulwark",
+        "ult": "Iron Line"
       }
     }
   },
@@ -233,6 +269,13 @@
         "skill": "몸을 낮추고 사거리 안에서 가장 먼 적(챔피언 우선)에게 <#ffb900ff>6<>발을 쏜다. 한 발마다 경로의 첫 적에게 <#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<> 물리 피해.",
         "skill2": "주변에서 현재 체력이 가장 높은 적 챔피언을 <#ffb900ff>8초<> 동안 현상수배: 받는 피해 +<#ffb900ff>15%<>.",
         "ult": "조준한 뒤 체력 비율이 가장 낮은 적 챔피언에게 관통탄을 쏜다: 경로의 모든 적에게 <#ff9028ff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<> 물리 피해, 잃은 체력 비율에 따라 최대 <#ffb900ff>60%<> 추가."
+      },
+      "tft_loris": {
+        "name": "로리스",
+        "attack": "방패로 내리쳐 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> 물리 피해. <#ff9028ff>파수꾼<>: 목숨마다 처음으로 체력이 <#ffb900ff>75%<>, <#ffb900ff>25%<> 아래로 떨어지면 각각 최대 체력의 <#ffb900ff>12%<> 보호막(<#ffb900ff>4초<>).",
+        "skill": "<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> 보호막(<#ffb900ff>4초<>)을 얻고 방패를 들고 돌진: 부딪힌 적에게 <#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> 마법 피해, <#ef5350ff>1.5초 기절<>.",
+        "skill2": "주변에서 체력 비율이 가장 낮은 아군 챔피언에게 도약: 둘 다 <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<> 보호막(<#ffb900ff>4초<>), 그 동안 그 아군이 받을 피해의 <#ffb900ff>30%<>를 대신 받는다.",
+        "ult": "방패를 땅에 내리꽂는다: 주변 적에게 <#a974ffff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> 마법 피해, <#ef5350ff>1초 에어본<>, <#ef5350ff>2초 도발<>. 자신은 받는 피해 <#ffb900ff>50%<> 감소(<#ffb900ff>4초<>)."
       }
     },
     "skill_name": {
@@ -260,6 +303,11 @@
         "skill1": "탄환 세례",
         "skill2": "현상수배",
         "ult": "집행자의 저격"
+      },
+      "tft_loris": {
+        "skill1": "필트오버 난투",
+        "skill2": "방패 수호",
+        "ult": "강철 방어선"
       }
     }
   },
@@ -299,6 +347,13 @@
         "skill": "身をかがめ、射程内で最も遠い敵（チャンピオン優先）に<#ffb900ff>6<>発撃つ。1発ごとに射線上の最初の敵に<#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>の物理ダメージ。",
         "skill2": "近くで現在体力が最も高い敵チャンピオンを<#ffb900ff>8秒<>間指名手配：受けるダメージ+<#ffb900ff>15%<>。",
         "ult": "狙いを定め、体力の割合が最も低い敵チャンピオンに貫通弾を撃つ：射線上の全ての敵に<#ff9028ff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<>の物理ダメージ、失った体力の割合に応じて最大<#ffb900ff>60%<>増加。"
+      },
+      "tft_loris": {
+        "name": "ロリス",
+        "attack": "盾で殴り、<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の物理ダメージ。<#ff9028ff>ワーデン<>：ライフごとに初めて体力が<#ffb900ff>75%<>と<#ffb900ff>25%<>を下回ると、それぞれ最大体力の<#ffb900ff>12%<>のシールド（<#ffb900ff>4秒<>）。",
+        "skill": "<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>のシールド（<#ffb900ff>4秒<>）を得て盾を構えて突進：ぶつかった敵に<#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>の魔法ダメージと<#ef5350ff>1.5秒のスタン<>。",
+        "skill2": "近くで体力の割合が最も低い味方チャンピオンへ跳び、2人とも<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<>のシールド（<#ffb900ff>4秒<>）。その間、その味方が受けるダメージの<#ffb900ff>30%<>を肩代わりする。",
+        "ult": "盾を地面に叩きつける：周囲の敵に<#a974ffff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>の魔法ダメージ、<#ef5350ff>1秒のノックアップ<>と<#ef5350ff>2秒の挑発<>。自身の被ダメージ<#ffb900ff>50%<>軽減（<#ffb900ff>4秒<>）。"
       }
     },
     "skill_name": {
@@ -326,6 +381,11 @@
         "skill1": "ファニングショット",
         "skill2": "指名手配",
         "ult": "執行官の狙撃"
+      },
+      "tft_loris": {
+        "skill1": "ピルトーヴァーの闘争",
+        "skill2": "ブルワーク",
+        "ult": "鉄の防衛線"
       }
     }
   }
