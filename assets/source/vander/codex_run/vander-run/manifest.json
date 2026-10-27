@@ -1,0 +1,188 @@
+{
+  "frames": [
+    {
+      "file": "vander-run-run1.png",
+      "raw": "raw/vander-run-run1.png",
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "raw_sha256": "3e97fdc3e84d257d1cec159f2fb007c9f622b06732b7c0e245f7826b08783b99",
+      "canvas_uniform_scale": 1.0,
+      "canvas_offset_px": [
+        0,
+        0
+      ],
+      "grid": 9,
+      "whole_frame_y_shift_cells": -2,
+      "bbox_px": [
+        279,
+        54,
+        999,
+        1179
+      ],
+      "processing": "foreground palette-mode readback;35% alpha coverage; uniform canvas fit and whole-frame vertical alignment only; no anatomical edits"
+    },
+    {
+      "file": "vander-run-run2.png",
+      "raw": "raw/vander-run-run2.png",
+      "raw_size": [
+        1133,
+        1388
+      ],
+      "raw_sha256": "e854c99dbd657927fb75877fee527345d65302f348b055daa024980325b62465",
+      "canvas_uniform_scale": 0.9034582132564841,
+      "canvas_offset_px": [
+        115,
+        0
+      ],
+      "grid": 9,
+      "whole_frame_y_shift_cells": -4,
+      "bbox_px": [
+        315,
+        27,
+        1035,
+        1179
+      ],
+      "processing": "foreground palette-mode readback;35% alpha coverage; uniform canvas fit and whole-frame vertical alignment only; no anatomical edits"
+    },
+    {
+      "file": "vander-run-run3.png",
+      "raw": "raw/vander-run-run3.png",
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "raw_sha256": "a83f91e4034e7d874c66ccbc8d520479f7cde29dd07aec691dfa8a3900ab4fb5",
+      "canvas_uniform_scale": 1.0,
+      "canvas_offset_px": [
+        0,
+        0
+      ],
+      "grid": 9,
+      "whole_frame_y_shift_cells": -3,
+      "bbox_px": [
+        342,
+        135,
+        1017,
+        1179
+      ],
+      "processing": "foreground palette-mode readback;35% alpha coverage; uniform canvas fit and whole-frame vertical alignment only; no anatomical edits"
+    },
+    {
+      "file": "vander-run-run4.png",
+      "raw": "raw/vander-run-run4.png",
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "raw_sha256": "c0f04137432b3566cf0638b03493ba0e2f3abb3303bf0903feaa26c8019fe51c",
+      "canvas_uniform_scale": 1.0,
+      "canvas_offset_px": [
+        0,
+        0
+      ],
+      "grid": 9,
+      "whole_frame_y_shift_cells": -1,
+      "bbox_px": [
+        315,
+        72,
+        1017,
+        1179
+      ],
+      "processing": "foreground palette-mode readback;35% alpha coverage; uniform canvas fit and whole-frame vertical alignment only; no anatomical edits"
+    },
+    {
+      "file": "vander-run-run5.png",
+      "raw": "raw/vander-run-run5.png",
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "raw_sha256": "94f460fbba1f6f17897850452ffab15de5180d6aa868c1b0f41afce810860209",
+      "canvas_uniform_scale": 1.0,
+      "canvas_offset_px": [
+        0,
+        0
+      ],
+      "grid": 9,
+      "whole_frame_y_shift_cells": -5,
+      "bbox_px": [
+        261,
+        63,
+        1098,
+        1179
+      ],
+      "processing": "foreground palette-mode readback;35% alpha coverage; uniform canvas fit and whole-frame vertical alignment only; no anatomical edits"
+    },
+    {
+      "file": "vander-run-run6.png",
+      "raw": "raw/vander-run-run6.png",
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "raw_sha256": "b41ab90ba2509946fc20c7a7a5dad06b098801b7f57d164c7ed0424932e517e2",
+      "canvas_uniform_scale": 1.0,
+      "canvas_offset_px": [
+        0,
+        0
+      ],
+      "grid": 9,
+      "whole_frame_y_shift_cells": -4,
+      "bbox_px": [
+        243,
+        45,
+        1098,
+        1179
+      ],
+      "processing": "foreground palette-mode readback;35% alpha coverage; uniform canvas fit and whole-frame vertical alignment only; no anatomical edits"
+    },
+    {
+      "file": "vander-run-run7.png",
+      "raw": "raw/vander-run-run7.png",
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "raw_sha256": "557fe7a90cd820140acb4f736d175f2b0e09d1dc992296e1cb26119cfc2807ae",
+      "canvas_uniform_scale": 1.0,
+      "canvas_offset_px": [
+        0,
+        0
+      ],
+      "grid": 9,
+      "whole_frame_y_shift_cells": -4,
+      "bbox_px": [
+        252,
+        54,
+        1089,
+        1179
+      ],
+      "processing": "foreground palette-mode readback;35% alpha coverage; uniform canvas fit and whole-frame vertical alignment only; no anatomical edits"
+    },
+    {
+      "file": "vander-run-run8.png",
+      "raw": "raw/vander-run-run8.png",
+      "raw_size": [
+        1241,
+        1268
+      ],
+      "raw_sha256": "c132b733cc5ec07a88f28feee71e3003951c465aa3577d2a5f64eaab9598afce",
+      "canvas_uniform_scale": 0.9889589905362776,
+      "canvas_offset_px": [
+        13,
+        0
+      ],
+      "grid": 9,
+      "whole_frame_y_shift_cells": -4,
+      "bbox_px": [
+        252,
+        27,
+        1008,
+        1179
+      ],
+      "processing": "foreground palette-mode readback;35% alpha coverage; uniform canvas fit and whole-frame vertical alignment only; no anatomical edits"
+    }
+  ]
+}

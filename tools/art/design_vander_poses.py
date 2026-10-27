@@ -31,9 +31,20 @@ sys.path.insert(0, HERE)
 from design_vander_hd import lp  # noqa: E402
 from design_silco_poses import close_gaps  # noqa: E402
 from design_varus import srgb2lab  # noqa: E402
+sys.path.insert(0, os.path.join(ROOT, ".claude", "skills", "tfm2-hero-mod", "scripts"))
+import pixel_down as PD  # noqa: E402
 import pack_vander_poses as PK  # noqa: E402
 
 SRC = os.path.join(ROOT, "assets", "source", "vander", "codex_poses", "vander-poses")
+# the run redrawn (RUN_PROMPTS.md, after the review's 「跑步姿势不像啊」): 8 frames of his TFT run on 9 px squares
+RUN_SRC = os.path.join(ROOT, "assets", "source", "vander", "codex_run", "vander-run")
+RUN_SQ = 9
+RUN_NAMES = [f"run{k}" for k in range(1, 9)]
+SKIN = [(249, 193, 144), (250, 173, 122), (204, 105, 80), (158, 107, 93)]      # the design face's skin
+FACE_SIDE = 8                    # columns beside the pasted head where a run frame's own face is looked for
+HAIR = [(64, 32, 34), (87, 76, 78), (39, 18, 28), (131, 131, 136), (148, 148, 182)]   # the design's hair (rows 0-6)
+HAIR_BACK = 14                   # columns behind the pasted head where a run frame's own hair is looked for
+FACE_LOW = 6                     # the head's lowest rows, where the jacket's collar and shoulder meet the beard
 OUT = os.path.join(ROOT, "assets", "source", "vander", "hd")
 SQ = 12
 # the hair, the face and the beard in hd/idle.png (x, y) - not the jacket's collar under the beard
@@ -42,14 +53,13 @@ POLY = [(47.0, 0.0), (55.0, 0.0), (61.0, 2.0), (62.5, 5.0), (62.0, 7.0), (62.0, 
         (42.0, 3.0), (44.0, 1.0)]
 SCALES = [1.0]
 # a head-match scale search (0.80-1.05) put most bodies at 1.0 (Codex's heads as big as the design's), q_guard at 0.90
-# (drawn 14 % over its reference) and run3 at 0.95; the run drawn 85-95 rows (a 10-row bob): brought to 90 / 88 / 90 /
-# 88 (a 1 px bob at PPU 2)
-STAND = {"run1": 90, "run2": 88, "run3": 90, "run4": 88}
+# (drawn 14 % over its reference)
+STAND = {}
 SCALE = {"q_guard": 0.90}
 DEFAULT = 1.0
 TURN = {}
 SPECK = 6                                        # parts apart from the figure smaller than this are dropped
-NAMES = list(PK.POSES)
+NAMES = [n for n in PK.POSES if not n.startswith("run")] + RUN_NAMES
 
 
 def design(name="idle.png"):
@@ -64,8 +74,12 @@ def palette(d):
 def pose(name, d):
     """The pose one pixel a square, every colour the nearest of the design's, cropped -> (figure, its top-left square
     on Codex's grid)."""
-    a = np.asarray(Image.open(lp(os.path.join(SRC, f"vander-pose-{name}.png"))).convert("RGBA"))
-    g = a[SQ // 2::SQ, SQ // 2::SQ].copy()
+    if name in RUN_NAMES:
+        a = np.asarray(Image.open(lp(os.path.join(RUN_SRC, f"vander-run-{name}.png"))).convert("RGBA"))
+        g = a[RUN_SQ // 2::RUN_SQ, RUN_SQ // 2::RUN_SQ].copy()
+    else:
+        a = np.asarray(Image.open(lp(os.path.join(SRC, f"vander-pose-{name}.png"))).convert("RGBA"))
+        g = a[SQ // 2::SQ, SQ // 2::SQ].copy()
     op = g[..., 3] > 0
     cols, lab = palette(d)
     src = g[op][:, :3]
@@ -157,6 +171,8 @@ def read(name, scale=None):
         for x in range(max(0, x0), min(big.shape[1], x1)):
             if not pasted[y, x] and big[y, x, 3] and tuple(big[y, x, :3]) in only:
                 big[y, x] = 0
+    if name in RUN_NAMES:
+        drop_old_face(big, pasted, d)
     big[py, px] = head[hy, hx]
     big = close_gaps(big, d)
     op = big[..., 3] > 0
@@ -170,6 +186,51 @@ def read(name, scale=None):
     at = (int(xs.min() + dx + pad - ox), int(ys.min() + dy + pad - oy))
     grid = (round(float(gx + ox - pad), 1), round(float(gy + oy - pad), 1))
     return big[oy:ys2.max() + 1, ox:xs2.max() + 1], at, k, share, grid
+
+
+def drop_old_face(big, pasted, d):
+    """A run frame's own face where the pasted head does not cover it (Codex drew the run's heads off the paste's
+    place: a second nose and cheek showed beside the design's, and its own hair round the pasted one - the user:
+    「头发不干净吧？」): its skin squares round the pasted head go, everything in front of the face and over the head,
+    the hair's colours behind it, then the outline squares left hanging there (no opaque square but outline beside
+    them), in place."""
+    ys, xs = np.nonzero(pasted)
+    y0, y1, x0, x1 = ys.min() - 3, ys.max() - 1, xs.min() - FACE_SIDE, xs.max() + FACE_SIDE + 1
+    win = np.zeros(pasted.shape, bool)
+    win[max(0, y0):y1, max(0, x0):x1] = True
+    loose_win = np.zeros(pasted.shape, bool)
+    loose_win[:ys.max() + 1 - FACE_LOW, max(0, xs.min() - HAIR_BACK):x1] = True
+    rgb = big[..., :3]
+    skin = np.zeros(pasted.shape, bool)
+    for c in SKIN:
+        skin |= np.all(rgb == c, axis=-1)
+    big[win & ~pasted & skin & (big[..., 3] > 0)] = 0
+    # in front of the face, over the jacket's shoulder (the head's rows but its lowest FACE_LOW): nothing but the head
+    for y in range(max(0, y0), ys.max() + 1 - FACE_LOW):
+        row = xs[ys == y]
+        edge = row.max() if row.size else xs.max()
+        big[y, edge + 1:x1] = 0
+    # its own hair: over the pasted head nothing; behind it (image left, the same rows) the hair's colours
+    big[:ys.min()] = 0
+    hair = np.zeros(pasted.shape, bool)
+    for c in HAIR:
+        hair |= np.all(rgb == c, axis=-1)
+    for y in range(ys.min(), ys.max() + 1 - FACE_LOW):
+        row = xs[ys == y]
+        edge = row.min() if row.size else xs.min()
+        lo = max(0, edge - HAIR_BACK)
+        cut = hair[y, lo:edge] & ~pasted[y, lo:edge]
+        big[y, lo:edge][cut] = 0
+    ink = tuple(PD.edge_colour(d))
+    for _ in range(4):
+        op = big[..., 3] > 0
+        line = op & np.all(rgb == ink, axis=-1)
+        solid = np.pad(op & ~line, 1)
+        near = solid[:-2, 1:-1] | solid[2:, 1:-1] | solid[1:-1, :-2] | solid[1:-1, 2:]
+        loose = loose_win & ~pasted & line & ~near
+        if not loose.any():
+            break
+        big[loose] = 0
 
 
 def big4(a, z):

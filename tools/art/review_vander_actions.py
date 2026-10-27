@@ -7,7 +7,7 @@
 For each tag: his TFT frames named in CLIPS - the very frames the poses were drawn after (pack_vander_poses.POSES, his
 model from the Riot client's TFTSet13.wad.client, his own map, mirrored to face right; the renders stay in DIR, never
 committed), one beside each of ours, next to the rig's frame at z screen px a design square, both at the tag's own
-frame times; the run beside his TFT run clip at eight even times (ours is the walk on the design). Writes
+frame times; the run beside his TFT run clip at eight even times (the times its eight frames were drawn after). Writes
 <out>/vander_<tag>_vs_tft.gif and .png, and <out>/vander_all_vs_tft.gif: every tag in turn (each action played twice,
 the idle once), one picture to review (memory one-gif-review).
 --sheet: the exported sheet's hd_ frames (tft/champions/tft_vander#sheet.png, what the game draws: after ppu_restyle's

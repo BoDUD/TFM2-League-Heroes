@@ -1,0 +1,315 @@
+[
+  {
+    "name": "run1",
+    "file": "vander-run-run1.png",
+    "prompt": "PRIMARY TASK: RUN 1 of 8 - the RED leg's boot LIFTED high behind him, its toe at square (48, 106), the BLUE leg's boot ON THE GROUND, its toe at square (73, 127); the BLUE leg nearer; about 117 squares tall.\nThis is a full UPRIGHT RUNNING STRIDE, not the approved crouching idle. Follow reference C/D for all joint positions.\nAttached images: A the APPROVED pixel-art character, 3/4 view facing right, on a 1254x1254 canvas with 9 px squares (his soles on y 1176) - a big, burly middle-aged BRAWLER: swept-back dark hair, thick black brows, a short grey-brown beard; a burnt-orange leather jacket, a cream striped waistcoat, a teal collar, a dark red belt with brass buckles, dark navy jeans, black work boots; on the image-left hand a big IRON GAUNTLET (an octagonal brass frame, two red panels, gold hexagonal bolts) joined to a purple bracer, the other hand a fist wrapped in grey-white bandages. Image A is crouched in a fighting stance - DO NOT copy that crouch, copy only his look. B his HEAD shown 8x (about 26 squares wide, 22 tall). C a 3D RENDER of this same character's own game model in THIS FRAME OF HIS RUN, on the same 1254 canvas and grid, already scaled and placed where the picture must be. D the SKELETON of that frame, exactly over C: green = the spine, ORANGE = the GAUNTLET arm, CYAN = the BANDAGED arm (the big dot = the hand), RED and BLUE = his two legs, GOLD ring = the gauntlet, GREY BOX = where the head goes, the red line = the ground. E his whole run cycle, 8 frames in a row.\nDraw with the image generator ONE clean pixel-art picture of the character of image A in the POSE of images C and D: a 1254x1254 PNG with a real transparent background (alpha only 0 or 255), every square exactly 9 px, aligned on one straight grid from the canvas corner; his lowest point on y 1176.\nHE IS RUNNING UPRIGHT: the back straight and leaning slightly forward, the legs long and striding, as tall as C (not crouched, not hunched). Copy C's pose exactly: where the hips are, where each knee and each boot is, which boot is on the ground and which is lifted high behind him, where the gauntlet and the bandaged fist are.\nTHE BOOTS: the RED leg's boot and the BLUE leg's boot exactly where C and D put them (the frame's line below gives each toe's square). One boot on the ground, the other lifted off it unless the line says both are down. The nearer leg in full tone drawn over the other, the far leg a step darker.\nCOUNT THE SQUARES: the head with the hair about 26 x 22, the gauntlet about 12 x 12, each arm about 16 squares from the shoulder to the fist, the boots as big as in A; a broad, strong body. The gauntlet always on the ORANGE arm's hand; the CYAN arm's hand always the bandaged fist.\nTHE HEAD: copy image B SQUARE FOR SQUARE into the grey box - the same head in every frame, only moved, never turned, never a profile. No fist or gauntlet covers the face.\nThe same colours as image A; one continuous 1-square near-black outline; no stray single squares, no dithering, no gradients, no glow, no blur, no anti-aliasing. No effects, no dust, no motion lines, no background, no ground, no shadow, no text, no grid lines, no skeleton lines.\nTHIS FRAME: RUN 1 of 8 - the RED leg's boot LIFTED high behind him, its toe at square (48, 106), the BLUE leg's boot ON THE GROUND, its toe at square (73, 127); the BLUE leg nearer; about 117 squares tall.\n\nPRECISE LANDMARKS ON THE 1254px CANVAS: the RED-leg boot visible toe tip at (432,954) pixels; the BLUE-leg boot visible toe tip at (657,1143) pixels. Accuracy within18px. The entire figure top around y=123px, lowest sole y1176. Do not make both boots touch ground in a single-support frame. Keep head 234x198px, gauntlet about108x108px, not enlarged. Exactly TWO ARMS and TWO HANDS and TWO LEGS and TWO BOOTS. ONLY the gauntlet forearm has a purple bracer; no extra orange sleeve behind the shoulder. Flat coarse pixel art, no finer texture or gradients. Whole body safely inside the canvas.",
+    "refs": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-27\\new-chat-5\\work\\vander_run_pack\\0_design.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-27\\new-chat-5\\work\\vander_run_pack\\0_head.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-27\\new-chat-5\\work\\vander_run_pack\\1_run1_ref.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-27\\new-chat-5\\work\\vander_run_pack\\1_run1_skeleton.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-27\\new-chat-5\\work\\vander_run_pack\\0_run_cycle.png"
+    ],
+    "targets": {
+      "rows": 117,
+      "red": {
+        "heel": [
+          54,
+          100
+        ],
+        "toe": [
+          48,
+          106
+        ],
+        "lift": 24
+      },
+      "blue": {
+        "heel": [
+          70,
+          117
+        ],
+        "toe": [
+          73,
+          127
+        ],
+        "lift": 2.9
+      },
+      "near_leg": "blue",
+      "near_arm": "CYAN (the bandaged arm)",
+      "clip": "run@0"
+    }
+  },
+  {
+    "name": "run2",
+    "file": "vander-run-run2.png",
+    "prompt": "EDIT IMAGE 1 IN PLACE: convert this 3D running pose render to the chunky flat PIXEL ART style of image2. KEEP IMAGE1'S EXACT COMPOSITION AND JOINT LOCATIONS. Image3 is the approved face to reproduce; image4 is the exact pose skeleton. Never copy image2's crouched idle stance.\nRUN 2 of 8 - the RED leg's boot LIFTED high behind him, its toe at square (49, 96), the BLUE leg's boot ON THE GROUND, its toe at square (78, 126); the BLUE leg nearer; about 115 squares tall.\nUPRIGHT boxer jog: back straight, slight forward lean, hips high, support leg under the torso; the lifted boot bends HIGH behind him. The feet must alternate support and lift, not stay pinned at one point.\n1254x1254 transparent canvas, 9px blocks aligned from top-left. RED leg toe tip (441,864)px; BLUE leg toe tip (702,1134)px, tolerance18px. Hair top approximately y141, height 115 logical9px squares. Keep the body's position and proportions from image1, including each knee and foot. Do not spread feet farther apart or enlarge boots. Head about234x198px, gauntlet108x108px; no body part cropped.\nExact approved appearance: swept-back dark hair, thick brows, both eyes visible facing front-right, short grey-brown beard; burnt-orange leather jacket, cream striped waistcoat, teal collar, dark-red belt brass buckles, navy pants, black brass-buckled boots. ONE purple bracer with red/brass gauntlet raised near imageLEFT shoulder; ONE grey-white bandaged fist in front at imageRIGHT. Exactly TWO arms, TWO hands, TWO legs and TWO boots. No third sleeve, extra forearm, second purple bracer or floating hand.\nNear leg blue brighter and over the other leg; near arm CYAN (the bandaged arm). Use coarse flat pixels, only3-4 shades each material, 1-block near-black outline. No 3D rendering, fine texture, gradients, glow, dust, motion trails, grid, skeleton or guide lines. Genuine transparent background.",
+    "refs": [
+      "C:/Users/OWNER/Documents/Codex/2026-10-27/new-chat-5/work/vander_run_pack/2_run2_ref.png",
+      "C:/Users/OWNER/Documents/Codex/2026-10-27/new-chat-5/work/vander_run_pack/0_design.png",
+      "C:/Users/OWNER/Documents/Codex/2026-10-27/new-chat-5/work/vander_run_pack/0_head.png",
+      "C:/Users/OWNER/Documents/Codex/2026-10-27/new-chat-5/work/vander_run_pack/2_run2_skeleton.png"
+    ],
+    "targets": {
+      "rows": 115,
+      "red": {
+        "heel": [
+          56,
+          90
+        ],
+        "toe": [
+          49,
+          96
+        ],
+        "lift": 34.1
+      },
+      "blue": {
+        "heel": [
+          74,
+          121
+        ],
+        "toe": [
+          78,
+          126
+        ],
+        "lift": 4
+      },
+      "near_leg": "blue",
+      "near_arm": "CYAN (the bandaged arm)",
+      "clip": "run@133"
+    }
+  },
+  {
+    "name": "run3",
+    "file": "vander-run-run3.png",
+    "prompt": "EDIT IMAGE 1 IN PLACE: convert this 3D running pose render to the chunky flat PIXEL ART style of image2. KEEP IMAGE1'S EXACT COMPOSITION AND JOINT LOCATIONS. Image3 is the approved face to reproduce; image4 is the exact pose skeleton. Never copy image2's crouched idle stance.\nRUN 3 of 8 - the RED leg's boot LIFTED high behind him, its toe at square (56, 102), the BLUE leg's boot ON THE GROUND, its toe at square (66, 128); the BLUE leg nearer; about 101 squares tall.\nUPRIGHT boxer jog: back straight, slight forward lean, hips high, support leg under the torso; the lifted boot bends HIGH behind him. The feet must alternate support and lift, not stay pinned at one point.\n1254x1254 transparent canvas, 9px blocks aligned from top-left. RED leg toe tip (504,918)px; BLUE leg toe tip (594,1152)px, tolerance18px. Hair top approximately y267, height 101 logical9px squares. Keep the body's position and proportions from image1, including each knee and foot. Do not spread feet farther apart or enlarge boots. Head about234x198px, gauntlet108x108px; no body part cropped.\nExact approved appearance: swept-back dark hair, thick brows, both eyes visible facing front-right, short grey-brown beard; burnt-orange leather jacket, cream striped waistcoat, teal collar, dark-red belt brass buckles, navy pants, black brass-buckled boots. ONE purple bracer with red/brass gauntlet raised near imageLEFT shoulder; ONE grey-white bandaged fist in front at imageRIGHT. Exactly TWO arms, TWO hands, TWO legs and TWO boots. No third sleeve, extra forearm, second purple bracer or floating hand.\nNear leg blue brighter and over the other leg; near arm CYAN (the bandaged arm). Use coarse flat pixels, only3-4 shades each material, 1-block near-black outline. No 3D rendering, fine texture, gradients, glow, dust, motion trails, grid, skeleton or guide lines. Genuine transparent background.",
+    "refs": [
+      "C:/Users/OWNER/Documents/Codex/2026-10-27/new-chat-5/work/vander_run_pack/3_run3_ref.png",
+      "C:/Users/OWNER/Documents/Codex/2026-10-27/new-chat-5/work/vander_run_pack/0_design.png",
+      "C:/Users/OWNER/Documents/Codex/2026-10-27/new-chat-5/work/vander_run_pack/0_head.png",
+      "C:/Users/OWNER/Documents/Codex/2026-10-27/new-chat-5/work/vander_run_pack/3_run3_skeleton.png"
+    ],
+    "targets": {
+      "rows": 101,
+      "red": {
+        "heel": [
+          63,
+          94
+        ],
+        "toe": [
+          56,
+          102
+        ],
+        "lift": 28.6
+      },
+      "blue": {
+        "heel": [
+          62,
+          119
+        ],
+        "toe": [
+          66,
+          128
+        ],
+        "lift": 1.9
+      },
+      "near_leg": "blue",
+      "near_arm": "CYAN (the bandaged arm)",
+      "clip": "run@266"
+    }
+  },
+  {
+    "name": "run4",
+    "file": "vander-run-run4.png",
+    "prompt": "EDIT IMAGE 1 IN PLACE: convert this 3D running pose render to the chunky flat PIXEL ART style of image2. KEEP IMAGE1'S EXACT COMPOSITION AND JOINT LOCATIONS. Image3 is the approved face to reproduce; image4 is the exact pose skeleton. Never copy image2's crouched idle stance.\nRUN 4 of 8 - the RED leg's boot ON THE GROUND, its toe at square (76, 126), the BLUE leg's boot ON THE GROUND, its toe at square (46, 125); the RED leg nearer; about 110 squares tall.\nUPRIGHT boxer jog: back straight, slight forward lean, hips high, support leg under the torso; the lifted boot bends HIGH behind him. The feet must alternate support and lift, not stay pinned at one point.\n1254x1254 transparent canvas, 9px blocks aligned from top-left. RED leg toe tip (684,1134)px; BLUE leg toe tip (414,1125)px, tolerance18px. Hair top approximately y186, height 110 logical9px squares. Keep the body's position and proportions from image1, including each knee and foot. Do not spread feet farther apart or enlarge boots. Head about234x198px, gauntlet108x108px; no body part cropped.\nExact approved appearance: swept-back dark hair, thick brows, both eyes visible facing front-right, short grey-brown beard; burnt-orange leather jacket, cream striped waistcoat, teal collar, dark-red belt brass buckles, navy pants, black brass-buckled boots. ONE purple bracer with red/brass gauntlet raised near imageLEFT shoulder; ONE grey-white bandaged fist in front at imageRIGHT. Exactly TWO arms, TWO hands, TWO legs and TWO boots. No third sleeve, extra forearm, second purple bracer or floating hand.\nNear leg red brighter and over the other leg; near arm ORANGE (the gauntlet arm). Use coarse flat pixels, only3-4 shades each material, 1-block near-black outline. No 3D rendering, fine texture, gradients, glow, dust, motion trails, grid, skeleton or guide lines. Genuine transparent background.",
+    "refs": [
+      "C:/Users/OWNER/Documents/Codex/2026-10-27/new-chat-5/work/vander_run_pack/4_run4_ref.png",
+      "C:/Users/OWNER/Documents/Codex/2026-10-27/new-chat-5/work/vander_run_pack/0_design.png",
+      "C:/Users/OWNER/Documents/Codex/2026-10-27/new-chat-5/work/vander_run_pack/0_head.png",
+      "C:/Users/OWNER/Documents/Codex/2026-10-27/new-chat-5/work/vander_run_pack/4_run4_skeleton.png"
+    ],
+    "targets": {
+      "rows": 110,
+      "red": {
+        "heel": [
+          73,
+          114
+        ],
+        "toe": [
+          76,
+          126
+        ],
+        "lift": 4.3
+      },
+      "blue": {
+        "heel": [
+          45,
+          113
+        ],
+        "toe": [
+          46,
+          125
+        ],
+        "lift": 5
+      },
+      "near_leg": "red",
+      "near_arm": "ORANGE (the gauntlet arm)",
+      "clip": "run@400"
+    }
+  },
+  {
+    "name": "run5",
+    "file": "vander-run-run5.png",
+    "prompt": "EDIT IMAGE 1 IN PLACE: convert this 3D running pose render to the chunky flat PIXEL ART style of image2. KEEP IMAGE1'S EXACT COMPOSITION AND JOINT LOCATIONS. Image3 is the approved face to reproduce; image4 is the exact pose skeleton. Never copy image2's crouched idle stance.\nRUN 5 of 8 - the RED leg's boot ON THE GROUND, its toe at square (85, 128), the BLUE leg's boot LIFTED high behind him, its toe at square (37, 114); the RED leg nearer; about 114 squares tall.\nUPRIGHT boxer jog: back straight, slight forward lean, hips high, support leg under the torso; the lifted boot bends HIGH behind him. The feet must alternate support and lift, not stay pinned at one point.\n1254x1254 transparent canvas, 9px blocks aligned from top-left. RED leg toe tip (765,1152)px; BLUE leg toe tip (333,1026)px, tolerance18px. Hair top approximately y150, height 114 logical9px squares. Keep the body's position and proportions from image1, including each knee and foot. Do not spread feet farther apart or enlarge boots. Head about234x198px, gauntlet108x108px; no body part cropped.\nExact approved appearance: swept-back dark hair, thick brows, both eyes visible facing front-right, short grey-brown beard; burnt-orange leather jacket, cream striped waistcoat, teal collar, dark-red belt brass buckles, navy pants, black brass-buckled boots. ONE purple bracer with red/brass gauntlet raised near imageLEFT shoulder; ONE grey-white bandaged fist in front at imageRIGHT. Exactly TWO arms, TWO hands, TWO legs and TWO boots. No third sleeve, extra forearm, second purple bracer or floating hand.\nNear leg red brighter and over the other leg; near arm ORANGE (the gauntlet arm). Use coarse flat pixels, only3-4 shades each material, 1-block near-black outline. No 3D rendering, fine texture, gradients, glow, dust, motion trails, grid, skeleton or guide lines. Genuine transparent background.",
+    "refs": [
+      "C:/Users/OWNER/Documents/Codex/2026-10-27/new-chat-5/work/vander_run_pack/5_run5_ref.png",
+      "C:/Users/OWNER/Documents/Codex/2026-10-27/new-chat-5/work/vander_run_pack/0_design.png",
+      "C:/Users/OWNER/Documents/Codex/2026-10-27/new-chat-5/work/vander_run_pack/0_head.png",
+      "C:/Users/OWNER/Documents/Codex/2026-10-27/new-chat-5/work/vander_run_pack/5_run5_skeleton.png"
+    ],
+    "targets": {
+      "rows": 114,
+      "red": {
+        "heel": [
+          78,
+          121
+        ],
+        "toe": [
+          85,
+          128
+        ],
+        "lift": 2.4
+      },
+      "blue": {
+        "heel": [
+          40,
+          104
+        ],
+        "toe": [
+          37,
+          114
+        ],
+        "lift": 16.1
+      },
+      "near_leg": "red",
+      "near_arm": "ORANGE (the gauntlet arm)",
+      "clip": "run@533"
+    }
+  },
+  {
+    "name": "run6",
+    "file": "vander-run-run6.png",
+    "prompt": "EDIT IMAGE 1 IN PLACE: convert this 3D running pose render to the chunky flat PIXEL ART style of image2. KEEP IMAGE1'S EXACT COMPOSITION AND JOINT LOCATIONS. Image3 is the approved face to reproduce; image4 is the exact pose skeleton. Never copy image2's crouched idle stance.\nRUN 6 of 8 - the RED leg's boot ON THE GROUND, its toe at square (89, 123), the BLUE leg's boot LIFTED high behind him, its toe at square (37, 104); the RED leg nearer; about 116 squares tall.\nUPRIGHT boxer jog: back straight, slight forward lean, hips high, support leg under the torso; the lifted boot bends HIGH behind him. The feet must alternate support and lift, not stay pinned at one point.\n1254x1254 transparent canvas, 9px blocks aligned from top-left. RED leg toe tip (801,1107)px; BLUE leg toe tip (333,936)px, tolerance18px. Hair top approximately y132, height 116 logical9px squares. Keep the body's position and proportions from image1, including each knee and foot. Do not spread feet farther apart or enlarge boots. Head about234x198px, gauntlet108x108px; no body part cropped.\nExact approved appearance: swept-back dark hair, thick brows, both eyes visible facing front-right, short grey-brown beard; burnt-orange leather jacket, cream striped waistcoat, teal collar, dark-red belt brass buckles, navy pants, black brass-buckled boots. ONE purple bracer with red/brass gauntlet raised near imageLEFT shoulder; ONE grey-white bandaged fist in front at imageRIGHT. Exactly TWO arms, TWO hands, TWO legs and TWO boots. No third sleeve, extra forearm, second purple bracer or floating hand.\nNear leg red brighter and over the other leg; near arm ORANGE (the gauntlet arm). Use coarse flat pixels, only3-4 shades each material, 1-block near-black outline. No 3D rendering, fine texture, gradients, glow, dust, motion trails, grid, skeleton or guide lines. Genuine transparent background.",
+    "refs": [
+      "C:/Users/OWNER/Documents/Codex/2026-10-27/new-chat-5/work/vander_run_pack/6_run6_ref.png",
+      "C:/Users/OWNER/Documents/Codex/2026-10-27/new-chat-5/work/vander_run_pack/0_design.png",
+      "C:/Users/OWNER/Documents/Codex/2026-10-27/new-chat-5/work/vander_run_pack/0_head.png",
+      "C:/Users/OWNER/Documents/Codex/2026-10-27/new-chat-5/work/vander_run_pack/6_run6_skeleton.png"
+    ],
+    "targets": {
+      "rows": 116,
+      "red": {
+        "heel": [
+          82,
+          120
+        ],
+        "toe": [
+          89,
+          123
+        ],
+        "lift": 7
+      },
+      "blue": {
+        "heel": [
+          40,
+          96
+        ],
+        "toe": [
+          37,
+          104
+        ],
+        "lift": 26.1
+      },
+      "near_leg": "red",
+      "near_arm": "ORANGE (the gauntlet arm)",
+      "clip": "run@666"
+    }
+  },
+  {
+    "name": "run7",
+    "file": "vander-run-run7.png",
+    "prompt": "EDIT IMAGE 1 IN PLACE: convert this 3D running pose render to the chunky flat PIXEL ART style of image2. KEEP IMAGE1'S EXACT COMPOSITION AND JOINT LOCATIONS. Image3 is the approved face to reproduce; image4 is the exact pose skeleton. Never copy image2's crouched idle stance.\nRUN 7 of 8 - the RED leg's boot ON THE GROUND, its toe at square (72, 128), the BLUE leg's boot LIFTED high behind him, its toe at square (45, 109); the RED leg nearer; about 98 squares tall.\nUPRIGHT boxer jog: back straight, slight forward lean, hips high, support leg under the torso; the lifted boot bends HIGH behind him. The feet must alternate support and lift, not stay pinned at one point.\n1254x1254 transparent canvas, 9px blocks aligned from top-left. RED leg toe tip (648,1152)px; BLUE leg toe tip (405,981)px, tolerance18px. Hair top approximately y294, height 98 logical9px squares. Keep the body's position and proportions from image1, including each knee and foot. Do not spread feet farther apart or enlarge boots. Head about234x198px, gauntlet108x108px; no body part cropped.\nExact approved appearance: swept-back dark hair, thick brows, both eyes visible facing front-right, short grey-brown beard; burnt-orange leather jacket, cream striped waistcoat, teal collar, dark-red belt brass buckles, navy pants, black brass-buckled boots. ONE purple bracer with red/brass gauntlet raised near imageLEFT shoulder; ONE grey-white bandaged fist in front at imageRIGHT. Exactly TWO arms, TWO hands, TWO legs and TWO boots. No third sleeve, extra forearm, second purple bracer or floating hand.\nNear leg red brighter and over the other leg; near arm ORANGE (the gauntlet arm). Use coarse flat pixels, only3-4 shades each material, 1-block near-black outline. No 3D rendering, fine texture, gradients, glow, dust, motion trails, grid, skeleton or guide lines. Genuine transparent background.",
+    "refs": [
+      "C:/Users/OWNER/Documents/Codex/2026-10-27/new-chat-5/work/vander_run_pack/7_run7_ref.png",
+      "C:/Users/OWNER/Documents/Codex/2026-10-27/new-chat-5/work/vander_run_pack/0_design.png",
+      "C:/Users/OWNER/Documents/Codex/2026-10-27/new-chat-5/work/vander_run_pack/0_head.png",
+      "C:/Users/OWNER/Documents/Codex/2026-10-27/new-chat-5/work/vander_run_pack/7_run7_skeleton.png"
+    ],
+    "targets": {
+      "rows": 98,
+      "red": {
+        "heel": [
+          65,
+          119
+        ],
+        "toe": [
+          72,
+          128
+        ],
+        "lift": 1.9
+      },
+      "blue": {
+        "heel": [
+          46,
+          101
+        ],
+        "toe": [
+          45,
+          109
+        ],
+        "lift": 21
+      },
+      "near_leg": "red",
+      "near_arm": "ORANGE (the gauntlet arm)",
+      "clip": "run@800"
+    }
+  },
+  {
+    "name": "run8",
+    "file": "vander-run-run8.png",
+    "prompt": "EDIT IMAGE 1 IN PLACE: convert this 3D running pose render to the chunky flat PIXEL ART style of image2. KEEP IMAGE1'S EXACT COMPOSITION AND JOINT LOCATIONS. Image3 is the approved face to reproduce; image4 is the exact pose skeleton. Never copy image2's crouched idle stance.\nRUN 8 of 8 - the RED leg's boot ON THE GROUND, its toe at square (59, 122), the BLUE leg's boot ON THE GROUND, its toe at square (57, 123); the BLUE leg nearer; about 110 squares tall.\nUPRIGHT boxer jog: back straight, slight forward lean, hips high, support leg under the torso; the lifted boot bends HIGH behind him. The feet must alternate support and lift, not stay pinned at one point.\n1254x1254 transparent canvas, 9px blocks aligned from top-left. RED leg toe tip (531,1098)px; BLUE leg toe tip (513,1107)px, tolerance18px. Hair top approximately y186, height 110 logical9px squares. Keep the body's position and proportions from image1, including each knee and foot. Do not spread feet farther apart or enlarge boots. Head about234x198px, gauntlet108x108px; no body part cropped.\nExact approved appearance: swept-back dark hair, thick brows, both eyes visible facing front-right, short grey-brown beard; burnt-orange leather jacket, cream striped waistcoat, teal collar, dark-red belt brass buckles, navy pants, black brass-buckled boots. ONE purple bracer with red/brass gauntlet raised near imageLEFT shoulder; ONE grey-white bandaged fist in front at imageRIGHT. Exactly TWO arms, TWO hands, TWO legs and TWO boots. No third sleeve, extra forearm, second purple bracer or floating hand.\nNear leg blue brighter and over the other leg; near arm CYAN (the bandaged arm). Use coarse flat pixels, only3-4 shades each material, 1-block near-black outline. No 3D rendering, fine texture, gradients, glow, dust, motion trails, grid, skeleton or guide lines. Genuine transparent background.",
+    "refs": [
+      "C:/Users/OWNER/Documents/Codex/2026-10-27/new-chat-5/work/vander_run_pack/8_run8_ref.png",
+      "C:/Users/OWNER/Documents/Codex/2026-10-27/new-chat-5/work/vander_run_pack/0_design.png",
+      "C:/Users/OWNER/Documents/Codex/2026-10-27/new-chat-5/work/vander_run_pack/0_head.png",
+      "C:/Users/OWNER/Documents/Codex/2026-10-27/new-chat-5/work/vander_run_pack/8_run8_skeleton.png"
+    ],
+    "targets": {
+      "rows": 110,
+      "red": {
+        "heel": [
+          59,
+          110
+        ],
+        "toe": [
+          59,
+          122
+        ],
+        "lift": 7.8
+      },
+      "blue": {
+        "heel": [
+          58,
+          111
+        ],
+        "toe": [
+          57,
+          123
+        ],
+        "lift": 7.5
+      },
+      "near_leg": "blue",
+      "near_arm": "CYAN (the bandaged arm)",
+      "clip": "run@933"
+    }
+  }
+]
