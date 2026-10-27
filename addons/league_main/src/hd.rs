@@ -630,7 +630,9 @@ pub const UI_SIZES: &[(&str, f32)] = &[
     // (the user, 2026-10-25: 「约里克BP界面位置不对」): 0.76 / -11 - hood to boots on the card, the thin tip over the top
     ("league_yorick", 0.76),
     // Ambessa: 48 game px from her hair to her soles at PPU 2.0 (39 / 48; the blades out to 59 px wide); UI size and card
-    // value set with bp_card_audit.py
+    // value set with bp_card_audit.py. The card's -4 fitted the idle's raised blades and, with her 85 % (SIZES) in the
+    // lo_ frames, hid 6 px of her legs under the name (the user, 2026-10-27, after K'Sante's: 「安倍萨也有这问题？」):
+    // -10 - hair to soles on the card, the raised blades' tips over the top
     ("league_ambessa", 0.81),
     // Trundle: 42.5 game px from his mane to his feet at PPU 2.0 but 52 wide with the ice club (the card's canvas is 59.5):
     // at 1.0 the club and his feet ran off the card; UI size and card value set with bp_card_audit.py
@@ -642,6 +644,11 @@ pub const UI_SIZES: &[(&str, f32)] = &[
     // glaive across him and the wings, the glaive raised high in his attack and Q; UI size and card value set with
     // bp_card_audit.py
     ("league_zaahen", 0.78),
+    // K'Sante: 45 game px from his hair and the two Ntofos' heads to his soles (lo_idle, his 90 % SIZES in it), 46 wide
+    // with the Ntofos on both sides - at 1.0 / -6 he filled the card and 7 px of his legs hid under the name (the user,
+    // 2026-10-27: 「奎桑提在BP格太大了吧 学学其他英雄怎么缩放的」); 0.82 with -10 as Ambessa's / Trundle's / Bel'Veth's:
+    // hair to soles on the card with 4 px over him, only the raised Ntofo of the reel's attack snippet over the top
+    ("league_ksante", 0.82),
     // Alune (tft_alune): 46 game px from her horns to the crescent's foot at PPU 2.0 (the card's canvas is 40 tall); UI size
     // and card value set with bp_card_audit.py's math (85 %: the horns a pixel under the canvas top, the foot on its bottom)
     ("tft_alune", 0.85),
