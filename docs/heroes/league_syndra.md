@@ -10,7 +10,7 @@
 | 所属的包 | 主包（mod_id `league`） |
 | 分路 | 中单 |
 | 分类 / 标签 | 法师（Magician） · AP / Magic / CC / Range |
-| 高清帧 | 1 倍像素（无高清帧） |
+| 高清帧 | PPU 1.86 |
 | 附加包 | [辛德拉举小兵附加包](#附加包)（`league_syndra`）、[游戏 AI 不按的技能替它按](#附加包)（`league_ult_press`） |
 
 ![辛德拉演示](../preview/league_syndra_showcase.gif)
@@ -112,6 +112,7 @@
 | 特效 | Codex 画的 17 张，按游戏尺寸交付，两张表 `league_syndra_fx` / `league_syndra_big`：普攻的暗黑小光弹和命中，Q 落点的凝聚、砸下的爆发、命中、留在地上的法球（12 帧 6 秒），W 掷出的法球、落地冲击、命中、减速，E 往前推的锥形冲击波（画在格子右半边，从她身上往外）、命中、法球撞人后的晕眩，R 聚在她身边的七颗法球、飞出的法球、命中，被动升级的暗紫光。颜色照英雄联盟：法球是近黑的深紫球体、外圈亮紫、洋红边光 |
 | 音效 | 英雄联盟的音效和配音（`tools/lol/extract_syndra.py`）：光弹、命中，Q 凝聚、砸下，W 抓取、掷出、落地，E 施放、推球、晕眩，R 施放、发射、命中，被动升级；Q、W、E、R 的中文配音（Q、W、E 在英雄联盟里共用一组台词，取了三句；片段名 `league_syndra_sfx_vo_*`，和声音名不同）。版权属于 Riot Games，**不提交到仓库**，按下面的命令在本地生成 |
 | 图标 | 官方技能图标（Q / E / R），从本地客户端提取，缩到 64×64 |
+| 高清帧（PPU 1.857） | 2026-10-27 用 PPU 重做（用户：「接下来可以重做辛德拉」「就用原样 1.86」）。设计图：Codex 照她的旧精灵描密的图（第三稿，按原图约 16 像素一格读回，54 × 78 格；78 行 / 1.857 = 原来的 42 像素，`design_syndra_hd.py`）。动作：旧版每一帧都是待机图整体平移（悬浮上下、R 升起、受击后退、死亡下沉），只重画了远侧的手或腿，所以新版也这样拼（`rig_syndra_hd.py`）：每帧是设计图按旧帧的平移 × 1.857，远侧的手（抬到肩、过肩、腰间推出、悬浮最高点）取自 Codex 画的姿势图（`casts_syndra_hd.py` 读回到设计图的格子上），跑步时下面那只长靴往后摆、死亡时身体沉下压在靴子上用设计图自己的腿（Codex 画的腿连裙摆一起改了，拼不上）。脸、头发、身体每帧和设计图一格不差，不会闪。高 42 像素和原来一样，没有 SIZES 行；头像点、选人卡片值不变 |
 
 重新生成（素材来自本机的英雄联盟客户端，音频不进仓库）：
 
@@ -125,6 +126,15 @@ python tools/art/rig_syndra.py              # 动作：用定稿自己的部件�
 python tools/art/import_native.py --hero syndra   # 精灵
 python tools/art/import_syndra.py           # 特效
 python tools/art/preview_syndra.py          # 逐帧预览、特效预览、演示 GIF
+# PPU 1.857 重做（2026-10-27）：
+python tools/art/pack_syndra_ppu.py --out <文件夹>        # 给 Codex 的设计图包（照她的旧精灵描密）
+python tools/art/design_syndra_hd.py                    # Codex 的图（hd/raw/syndra-A.png）按自己的格子读回 -> hd/design.png
+python tools/art/pack_syndra_actions.py --out <文件夹>    # 给 Codex 的动作包（9 个姿势：远侧的手 / 腿）
+python tools/art/casts_syndra_hd.py --measure           # 每个姿势的放大倍数（按头量）
+python tools/art/rig_syndra_hd.py                       # 设计图按旧帧平移、远侧的手取自姿势图 -> 原始条和 1 倍图
+python tools/art/ppu_restyle.py --hero syndra && python tools/art/ppu_hd.py --hero syndra
+python tools/art/ppu_one.py --hero syndra && python tools/art/rig_syndra_hd.py --one-ground && python tools/art/hero_reels.py --hero syndra
+python tools/art/review_syndra_actions.py --out <文件夹>  # 旧版 / 新版对照动图
 python addons/league_syndra/make_override.py   # 举小兵附加包的副本（主包的辛德拉改了就重跑）
 ```
 
@@ -135,4 +145,4 @@ python addons/league_syndra/make_override.py   # 举小兵附加包的副本（�
 - 动作：Codex 用定稿部件拼的帧，手臂按任意角度转（像素变形），左臂挪开后露出的头发被平涂成一块浅灰，六帧左手藏到身体后面，死亡第 3 帧整个人斜转 45°，跑动帧有说不清的改动。用户：「有问题的帮我修复 做到完美了喊我review」。`rig_syndra.py` 按蛮王、霞的刚体部件规则重摆：左臂盖在长发上，一挪开就要凭空补头发，所以不动；右臂（Codex 切好的 26 格）只用 5 个无损姿势（下垂、转置的陡垂、整转 90° 上举、上下翻转的斜上、整列平移的平伸）；其余靠整个人前后挪、上下浮；待机是悬浮（`import_native` 的自动呼吸会删腿部的行，对她关掉）；跑动是飘行；死亡照英雄联盟坠落跪坐（垂下那条靴子删掉 4 行，脚尖不动）。每帧审计：一整块、没有洞、头和定稿逐像素一致。
 - 特效：17 张按要求的格子画好，直接读回、逐格检查对称。掷出的法球和 R 的法球，Codex 为了上下对称把第 1、2 格拼成了上下两个半球，只用干净的第 3、4 格交替播放。
 
-逐帧预览：[`docs/preview/league_syndra_frames.png`](../preview/league_syndra_frames.png?v=1014g)，特效：[`docs/preview/league_syndra_effects.png`](../preview/league_syndra_effects.png?v=1014g)。
+逐帧预览：[`docs/preview/league_syndra_frames.png`](../preview/league_syndra_frames.png?v=1027hd)，特效：[`docs/preview/league_syndra_effects.png`](../preview/league_syndra_effects.png?v=1014g)。

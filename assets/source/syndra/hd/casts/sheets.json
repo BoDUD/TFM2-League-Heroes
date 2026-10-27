@@ -1,0 +1,85 @@
+{
+ "square": 8,
+ "sheet": [
+  1536,
+  1024
+ ],
+ "ground": 924,
+ "sheets": [
+  {
+   "name": "pose_1",
+   "cells": 2,
+   "poses": [
+    {
+     "pose": "A",
+     "old": "idle_base 4",
+     "change": "her far hand (image right) a little lower and turned, the hover's top"
+    },
+    {
+     "pose": "B",
+     "old": "attack 2",
+     "change": "her far hand (image right) raised to her shoulder, the palm out"
+    }
+   ]
+  },
+  {
+   "name": "pose_2",
+   "cells": 2,
+   "poses": [
+    {
+     "pose": "C",
+     "old": "attack 3",
+     "change": "her far hand (image right) pushed out to the right at waist height"
+    },
+    {
+     "pose": "D",
+     "old": "skill 1",
+     "change": "her far hand (image right) raised higher, over her shoulder"
+    }
+   ]
+  },
+  {
+   "name": "pose_3",
+   "cells": 2,
+   "poses": [
+    {
+     "pose": "E",
+     "old": "run 2",
+     "change": "gliding: her lower leg bent back a little"
+    },
+    {
+     "pose": "F",
+     "old": "run 3",
+     "change": "gliding: her lower leg swung, her far hand out"
+    }
+   ]
+  },
+  {
+   "name": "pose_4",
+   "cells": 2,
+   "poses": [
+    {
+     "pose": "G",
+     "old": "run 4",
+     "change": "gliding: her legs coming back, her far hand out"
+    },
+    {
+     "pose": "H",
+     "old": "dead 4",
+     "change": "dying: her legs giving way, she sinks a little"
+    }
+   ]
+  },
+  {
+   "name": "pose_5",
+   "cells": 1,
+   "poses": [
+    {
+     "pose": "I",
+     "old": "dead 5",
+     "change": "dying: she sinks onto her bent legs, slumped"
+    }
+   ]
+  }
+ ]
+}
