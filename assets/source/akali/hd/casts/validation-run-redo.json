@@ -1,0 +1,202 @@
+[
+  {
+    "name": "run_1.png",
+    "size": [
+      1536,
+      1024
+    ],
+    "size_pass": true,
+    "mode": "RGB",
+    "corners": [
+      [
+        253,
+        253,
+        254
+      ],
+      [
+        254,
+        255,
+        255
+      ],
+      [
+        254,
+        254,
+        254
+      ],
+      [
+        254,
+        253,
+        254
+      ]
+    ],
+    "pure_white_corners": false,
+    "unique_rgb": 89298,
+    "off_palette_unique_rgb": 89282,
+    "raw_identical": true,
+    "cell_bboxes_threshold230": [
+      [
+        14,
+        312,
+        686,
+        955
+      ],
+      [
+        832,
+        319,
+        1479,
+        960
+      ]
+    ],
+    "sha256": "850fcd9db1e5cb4a5ccda2bff57d7de855ad6a721165b89844d4c321483b121f"
+  },
+  {
+    "name": "run_2.png",
+    "size": [
+      1536,
+      1024
+    ],
+    "size_pass": true,
+    "mode": "RGB",
+    "corners": [
+      [
+        253,
+        255,
+        255
+      ],
+      [
+        254,
+        255,
+        254
+      ],
+      [
+        254,
+        254,
+        254
+      ],
+      [
+        253,
+        253,
+        253
+      ]
+    ],
+    "pure_white_corners": false,
+    "unique_rgb": 85642,
+    "off_palette_unique_rgb": 85623,
+    "raw_identical": true,
+    "cell_bboxes_threshold230": [
+      [
+        39,
+        341,
+        633,
+        978
+      ],
+      [
+        785,
+        341,
+        1471,
+        978
+      ]
+    ],
+    "sha256": "a4afb3b5c398f90154956f630685b322a1e44d44458ebc02e6ba7a856161c232"
+  },
+  {
+    "name": "run_3.png",
+    "size": [
+      1536,
+      1024
+    ],
+    "size_pass": true,
+    "mode": "RGB",
+    "corners": [
+      [
+        253,
+        253,
+        255
+      ],
+      [
+        254,
+        255,
+        255
+      ],
+      [
+        254,
+        254,
+        254
+      ],
+      [
+        253,
+        253,
+        254
+      ]
+    ],
+    "pure_white_corners": false,
+    "unique_rgb": 88481,
+    "off_palette_unique_rgb": 88473,
+    "raw_identical": true,
+    "cell_bboxes_threshold230": [
+      [
+        41,
+        312,
+        673,
+        968
+      ],
+      [
+        800,
+        312,
+        1457,
+        950
+      ]
+    ],
+    "sha256": "8ebc007c8609596dd7e61a0cc7c83bbf8c6a94ce0bb7a693786c073219a7ccf6"
+  },
+  {
+    "name": "run_4.png",
+    "size": [
+      1536,
+      1024
+    ],
+    "size_pass": true,
+    "mode": "RGB",
+    "corners": [
+      [
+        253,
+        255,
+        255
+      ],
+      [
+        255,
+        254,
+        254
+      ],
+      [
+        254,
+        253,
+        253
+      ],
+      [
+        254,
+        253,
+        254
+      ]
+    ],
+    "pure_white_corners": false,
+    "unique_rgb": 86119,
+    "off_palette_unique_rgb": 86107,
+    "raw_identical": true,
+    "cell_bboxes_threshold230": [
+      [
+        45,
+        355,
+        615,
+        955
+      ],
+      [
+        852,
+        355,
+        1416,
+        955
+      ]
+    ],
+    "sha256": "7127c848893b85438cfc14ca493e7e6a288872f7683f7a4e395e2ea21dba3f9c"
+  }
+]

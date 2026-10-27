@@ -47,7 +47,9 @@ HEAD = (9, 31, 31, 52)          # the design's head: rows 9-30 (the top of the h
 # tall as the old poses but not always with the design's proportions: read at that height (the box zoom) the heads came
 # 10-25 % bigger than the design's in the attacks, R's recast and the death - the head must stay the design's size in
 # every frame (Rengar's rule). dead_5 (lying, no head fit): its length over dead_4's (936 / 965 px, both laid flat).
-ZOOM = {"run_1": 10.62, "run_2": 9.62, "run_3": 10.62, "run_4": 10.0, "attack_1": 10.25, "attack_2": 10.12,
+# The run is Codex's redraw (pack_akali_actions --only run: its first run never passed a leg under her; hd/casts
+# HANDOFF-run-redo.md), measured the same way.
+ZOOM = {"run_1": 9.88, "run_2": 9.25, "run_3": 9.12, "run_4": 9.25, "attack_1": 10.25, "attack_2": 10.12,
         "attack_3": 10.12, "attack_p_1": 8.5, "attack_p_2": 9.75, "attack_p_3": 9.75, "attack_p_4": 9.75,
         "skill_1": 9.75, "skill_2": 9.75, "skill2_1": 9.25, "skill2_2": 10.25, "skill2_dash_1": 9.25, "ult_1": 11.5,
         "ult2_1": 10.0, "ult2_2": 9.0, "hit_1": 9.75, "dead_1": 9.75, "dead_2": 9.25, "dead_3": 9.25, "dead_4": 10.0,
