@@ -16,7 +16,8 @@ the sprite's own light and shade mapped onto the ramp by brightness, its darkest
 spirit reads see-through over the ground) - the dither's phase steps each frame, so it shimmers. No colour of the
 champion survives: every spirit is the same ghost-teal, as League's.
 League champions of this repo's other packs have theirs too (OTHER: Wild Rift's Norra in tft/, the user 2026-10-26:
-「俄洛伊的幽灵图别忘了」; Alune, Aphelios's sister of TFT set 18: 「俄洛伊的幽灵图做了吧」).
+「俄洛伊的幽灵图别忘了」; Alune, Aphelios's sister of TFT set 18: 「俄洛伊的幽灵图做了吧」); every hero of the tft pack
+(2026-10-27, the user: 「tft里面 俄洛伊的幽灵图全的吧？」 - Powder, built before the spirits, had been left out).
 """
 import argparse
 import glob
@@ -38,7 +39,7 @@ SOULS_RS = os.path.join(ROOT, "addons", "league_illaoi", "src", "souls.rs")
 GHOST = [tuple(int(h[i:i + 2], 16) for i in (1, 3, 5)) for h in ("#FFFFFF", "#E0FFF8", "#A8F0E4", "#5CC8C0", "#2A7A80")]
 FRAMES, MS = 3, 200
 # League champions in the repo's other packs (their sprite in <pack>/champions/, the pack = the id's prefix)
-OTHER = ("tft_alune", "tft_norra", "tft_silco", "tft_maddie", "tft_loris", "tft_kobuko")
+OTHER = ("tft_powder", "tft_alune", "tft_norra", "tft_silco", "tft_maddie", "tft_loris", "tft_kobuko")
 
 
 def lp(path):

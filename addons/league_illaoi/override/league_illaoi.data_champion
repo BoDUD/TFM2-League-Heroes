@@ -4140,6 +4140,22 @@
     },
     {
       "type": "Animation",
+      "name": "league_illaoi_soul_tft_powder",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "tft_powder",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_tft_powder_l",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "tft_powder_l",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
       "name": "league_illaoi_soul_tft_silco",
       "anim": "asset/league/effects/league_illaoi_souls",
       "tag": "tft_silco",
