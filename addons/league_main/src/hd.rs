@@ -526,11 +526,12 @@ pub const EFFECTS: &[(&str, f32, &str)] = &[
     // at her PPU 2.0 like her body (the user: 「妖姬有点bug吧 分身怎么不是高清帧啊 被动的」; tools/fix/leblanc_clone_hd.py)
     // league_ivern's Daisy (R): her rise, punch, slam and goodbye, each its own dense sheet (one life a sheet, the
     // turrets' way), drawn from her step-1 design uncut at PPU 1.9 (the user: 「小菊用不裁的原样（D-full，PPU 1.9）」;
-    // tools/art/rig_ivern.py)
-    ("league_ivern_daisy_drop", 2.533, include_str!("../../../league/effects/league_ivern_daisy_drop#anim.fanim")),
-    ("league_ivern_daisy_punch", 2.533, include_str!("../../../league/effects/league_ivern_daisy_punch#anim.fanim")),
-    ("league_ivern_daisy_slam", 2.533, include_str!("../../../league/effects/league_ivern_daisy_slam#anim.fanim")),
-    ("league_ivern_daisy_bye", 2.533, include_str!("../../../league/effects/league_ivern_daisy_bye#anim.fanim")),
+    // tools/art/rig_ivern.py). Drawn at 1 / PPU only since the effect draw shrinks her (DRAWN_EFFECTS, 2026-10-27): at 1.9
+    // and then 2.533 she stood 76 game px, a square a pixel (「这是修复了？」); 1.333 = 75 % of that
+    ("league_ivern_daisy_drop", 1.333, include_str!("../../../league/effects/league_ivern_daisy_drop#anim.fanim")),
+    ("league_ivern_daisy_punch", 1.333, include_str!("../../../league/effects/league_ivern_daisy_punch#anim.fanim")),
+    ("league_ivern_daisy_slam", 1.333, include_str!("../../../league/effects/league_ivern_daisy_slam#anim.fanim")),
+    ("league_ivern_daisy_bye", 1.333, include_str!("../../../league/effects/league_ivern_daisy_bye#anim.fanim")),
     // league_illaoi's tentacle (her passive, W, R): one life on the spot it grew (rising, swaying, sinking back) and the
     // lash slamming down on the unit it strikes, each its own dense sheet, drawn from its step-1 design at PPU 1.5 (the
     // user: 「触手 44」; tools/art/rig_illaoi.py)
@@ -540,14 +541,15 @@ pub const EFFECTS: &[(&str, f32, &str)] = &[
     // slot's standing stamp and its rise out of the sand), the Imperial Guards' wall from the side (right-facing and the
     // mirrored left-facing tags: the add-on picks one by the wall's direction) and the Sun Disc (its rise and its stamp),
     // drawn from their step-1 designs at his 1.5
-    ("league_azir_soldier", 2.143, include_str!("../../../league/effects/league_azir_soldier#anim.fanim")),
+    ("league_azir_soldier", 1.429, include_str!("../../../league/effects/league_azir_soldier#anim.fanim")),
     ("league_azir_guard", 1.5, include_str!("../../../league/effects/league_azir_guard#anim.fanim")),
     ("league_azir_disc", 1.5, include_str!("../../../league/effects/league_azir_disc#anim.fanim")),
-    // the sand soldiers (front and side) at 2.143 = 1.5 / 0.7: drawn at 70 % (the user, 2026-10-25: 「沙皇的沙兵游戏里这么大？
-    // 得缩小一点吧」; tools/art/rig_azir.py SOLDIER_PPU)
+    // the sand soldiers (front and side) at 1.429 = 1 / 0.7: 70 % of the 54 game px they stood at a square a pixel, before
+    // the effect draw shrank them (DRAWN_EFFECTS; the user, 2026-10-25: 「沙皇的沙兵游戏里这么大？得缩小一点吧」 - 2.143 =
+    // 1.5 / 0.7 changed nothing on screen, 2026-10-27: 「沙皇同理和没修复之前没区别」)
     // the add-on's sand soldier from the side (the user: 「沙兵没攻击动作 ... 还有不面向敌人」; tools/art/
     // design_azir_side_soldier.py, from League's model): standing, rising and stabbing, right and left
-    ("league_azir_soldier_side", 2.143, include_str!("../../../league/effects/league_azir_soldier_side#anim.fanim")),
+    ("league_azir_soldier_side", 1.429, include_str!("../../../league/effects/league_azir_soldier_side#anim.fanim")),
     ("league_leblanc_clone", 2.0, include_str!("../../../league/effects/league_leblanc_clone#anim.fanim")),
     // league_zoe's stolen summoner spells (the add-on plays them; tools/art/draw_zoe_spells.py): their own pictures at
     // PPU 2 and League's icons at 3 (32 squares of the client's 64-px icon still read, 22 did not) - many tags each,
@@ -559,6 +561,13 @@ pub const EFFECTS: &[(&str, f32, &str)] = &[
     // plays the side facing the nearest enemy champion: an effect picture is never mirrored)
     ("league_zaahen_rise", 1.75, include_str!("../../../league/effects/league_zaahen_rise#anim.fanim")),
 ];
+
+/// Effects whose pictures the view node draw (src/view.rs effect_detour) shrinks to 1 / PPU about their top-left corner.
+/// Every other EFFECTS sheet is still drawn a square a game pixel (its frames' corners placed at 1 / PPU) - the way the
+/// user has seen them; Daisy and the sand soldiers were 76 / 54 game px that way (the user, 2026-10-27: 「给召唤物做真正的
+/// 缩放，保留高清，大小按我看到的再缩一点」).
+pub const DRAWN_EFFECTS: &[&str] = &["league_ivern_daisy_drop", "league_ivern_daisy_punch", "league_ivern_daisy_slam",
+                                     "league_ivern_daisy_bye", "league_azir_soldier", "league_azir_soldier_side"];
 
 pub const PREFIX: &str = "hd_";
 
@@ -636,7 +645,9 @@ pub const UI_SIZES: &[(&str, f32)] = &[
     // (the user, 2026-10-25: 「约里克BP界面位置不对」): 0.76 / -11 - hood to boots on the card, the thin tip over the top
     ("league_yorick", 0.76),
     // Ambessa: 48 game px from her hair to her soles at PPU 2.0 (39 / 48; the blades out to 59 px wide); UI size and card
-    // value set with bp_card_audit.py
+    // value set with bp_card_audit.py. The card's -4 fitted the idle's raised blades and, with her 85 % (SIZES) in the
+    // lo_ frames, hid 6 px of her legs under the name (the user, 2026-10-27, after K'Sante's: 「安倍萨也有这问题？」):
+    // -10 - hair to soles on the card, the raised blades' tips over the top
     ("league_ambessa", 0.81),
     // Trundle: 42.5 game px from his mane to his feet at PPU 2.0 but 52 wide with the ice club (the card's canvas is 59.5):
     // at 1.0 the club and his feet ran off the card; UI size and card value set with bp_card_audit.py
@@ -648,6 +659,11 @@ pub const UI_SIZES: &[(&str, f32)] = &[
     // glaive across him and the wings, the glaive raised high in his attack and Q; UI size and card value set with
     // bp_card_audit.py
     ("league_zaahen", 0.78),
+    // K'Sante: 45 game px from his hair and the two Ntofos' heads to his soles (lo_idle, his 90 % SIZES in it), 46 wide
+    // with the Ntofos on both sides - at 1.0 / -6 he filled the card and 7 px of his legs hid under the name (the user,
+    // 2026-10-27: 「奎桑提在BP格太大了吧 学学其他英雄怎么缩放的」); 0.82 with -10 as Ambessa's / Trundle's / Bel'Veth's:
+    // hair to soles on the card with 4 px over him, only the raised Ntofo of the reel's attack snippet over the top
+    ("league_ksante", 0.82),
     // Alune (tft_alune): 46 game px from her horns to the crescent's foot at PPU 2.0 (the card's canvas is 40 tall); UI size
     // and card value set with bp_card_audit.py's math (85 %: the horns a pixel under the canvas top, the foot on its bottom)
     ("tft_alune", 0.85),

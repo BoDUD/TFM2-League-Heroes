@@ -709,11 +709,14 @@ unsafe fn size_stubs() -> Option<(usize, usize)> {
     Some(p)
 }
 
-/// At `page`: the entry stub (`mov r9, rsp; mov rax, detour; jmp rax`) and the original (12 bytes + jmp back).
-fn stubs(page: usize, func: usize, detour: usize) -> (Vec<u8>, usize, usize) {
+/// At `page`: the entry stub (`mov r9, rsp; mov rax, detour; jmp rax`; without the `mov r9, rsp` when `keep_r9`: a
+/// function that reads its 4th argument) and the original (12 bytes + jmp back).
+fn stubs(page: usize, func: usize, detour: usize, keep_r9: bool) -> (Vec<u8>, usize, usize) {
     let mut c = Vec::new();
     let entry = page;
-    c.extend_from_slice(&[0x49, 0x89, 0xe1]); // mov r9, rsp
+    if !keep_r9 {
+        c.extend_from_slice(&[0x49, 0x89, 0xe1]); // mov r9, rsp
+    }
     c.extend_from_slice(&[0x48, 0xb8]);
     c.extend_from_slice(&detour.to_le_bytes());
     c.extend_from_slice(&[0xff, 0xe0]); // jmp rax
@@ -731,6 +734,15 @@ fn stubs(page: usize, func: usize, detour: usize) -> (Vec<u8>, usize, usize) {
 }
 
 pub(crate) unsafe fn hook(func: usize, detour: usize, orig_slot: &AtomicUsize) -> Result<(), String> {
+    hook_with(func, detour, orig_slot, false)
+}
+
+/// [`hook`] for a function whose 4th argument (r9) is its own: the detour gets the four registers as they came.
+pub(crate) unsafe fn hook_keeping_r9(func: usize, detour: usize, orig_slot: &AtomicUsize) -> Result<(), String> {
+    hook_with(func, detour, orig_slot, true)
+}
+
+unsafe fn hook_with(func: usize, detour: usize, orig_slot: &AtomicUsize, keep_r9: bool) -> Result<(), String> {
     if read(func, PROLOGUE.len()).as_deref() != Some(&PROLOGUE[..]) {
         return Err(format!("{func:#x}: not the game's own prologue"));
     }
@@ -738,7 +750,7 @@ pub(crate) unsafe fn hook(func: usize, detour: usize, orig_slot: &AtomicUsize) -
     if page == 0 {
         return Err("VirtualAlloc failed".into());
     }
-    let (code, entry, orig) = stubs(page, func, detour);
+    let (code, entry, orig) = stubs(page, func, detour, keep_r9);
     std::ptr::copy_nonoverlapping(code.as_ptr(), page as *mut u8, code.len());
     orig_slot.store(orig, Ordering::Release);
     let mut jump = vec![0x48, 0xb8];
@@ -780,10 +792,13 @@ pub fn install_once(b: &'static Build) {
 mod tests {
     #[test]
     fn stubs_dump() {
-        let (code, entry, orig) = super::stubs(0x20000, 0x140000000 + 0x20fb50, 0x7ff6_0000_1234);
+        let (code, entry, orig) = super::stubs(0x20000, 0x140000000 + 0x20fb50, 0x7ff6_0000_1234, false);
         assert_eq!(entry, 0x20000);
         let hex: String = code.iter().map(|b| format!("{b:02x}")).collect();
         println!("STUBS {hex} {:#x}", orig - entry);
+        // keeping r9: the entry is just mov rax, detour; jmp rax
+        let (code, ..) = super::stubs(0x20000, 0x140000000 + 0x20fb50, 0x7ff6_0000_1234, true);
+        assert_eq!(&code[..2], &[0x48, 0xb8]);
     }
 
     fn frames(v: &[[f32; 5]]) -> Vec<u8> {
