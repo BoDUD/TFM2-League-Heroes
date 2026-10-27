@@ -3,6 +3,7 @@
 //! A new hero: its module here, its `register` called from `init`.
 
 pub mod alune;
+pub mod kobuko;
 pub mod loris;
 pub mod maddie;
 pub mod norra;
@@ -13,6 +14,7 @@ use mod_api_stable::*;
 fn init(host: &StableHost) -> StableMod {
     let mut module = StableMod::new("tft");
     alune::register(host, &mut module);
+    kobuko::register(host, &mut module);
     loris::register(host, &mut module);
     maddie::register(host, &mut module);
     norra::register(host, &mut module);
