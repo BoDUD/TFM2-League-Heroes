@@ -206,6 +206,16 @@ def build(p, is_native=False):
     return kit
 
 
+def sylas_ult(p=None):
+    """Enforcer's Snipe as plain data for league_sylas's copy (addons/league_sylas/make_override.py STOLEN): Sylas's
+    add-on bundle is on the Workshop and the tft mod is not, so his stolen snipe cannot call tft.dll (the user,
+    2026-10-27, for Silco: 「塞拉斯的大招什么一定要能偷到特效版本的」). The kit's --plain ult: the scope on the champion he
+    casts at, the aim, one round at that champion (r_exec counted at half health), its hit. The views are the kit's own
+    (tft_maddie_*); make_override copies them and their sheets."""
+    p = dict(P) if p is None else p
+    return build(p, False)["ult"]["effect"]
+
+
 def nodes(o):
     """Effect nodes in a tree (dicts with a `type`), the measure the game's per-tick clone cost follows."""
     if isinstance(o, dict):
