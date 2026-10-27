@@ -12,7 +12,8 @@ unit's soles are 11 under it, a point's ground too. Times from the kit (build_yu
 The ride picture (assets/source/yuumi/hd/ride.png, the ride pack's pick, 21 rows at 1.5 squares a game px) gets a sheet
 of its own, league_yuumi_ride, when it is there: tag idle = it brought to 14 game px by pixel_down, tag hd_idle = the 21
 rows themselves on a frame exactly 1.5 times as big (league.dll's hd.rs registers the sheet like a hero's and hands the
-battlefield the dense frame), its book's bottom on the host's crown in both.
+battlefield the dense frame), its book's bottom on the host's crown in both; and the same lifted by each of build_yuumi's
+RIDE_LIFTS (tags u2 .. u16, d2 .. d6 and their hd_ twins) for hosts taller or shorter than 36 px.
 """
 import argparse
 import json
@@ -29,7 +30,7 @@ sys.path.insert(0, os.path.join(ROOT, "tools", "kit"))
 sys.path.insert(0, HERE)
 import strips as G  # noqa: E402
 import import_jhin as J  # noqa: E402
-from build_yuumi import P  # noqa: E402
+from build_yuumi import P, RIDE_LIFTS, ride_tag  # noqa: E402
 
 SRC = os.path.join(ROOT, "assets", "source", "yuumi", "codex_fx", "yuumi_fx")
 RIDE = os.path.join(ROOT, "assets", "source", "yuumi", "hd", "ride.png")
@@ -140,7 +141,21 @@ def ride_frames():
         for x in range(d.shape[1]):
             if d[y, x, 3] and 0 <= top + y < H and 0 <= left + x < W:
                 dense[top + y, left + x] = d[y, x]
-    return {"idle": [(one, 1000)], "hd_idle": [(dense, 1000)]}
+    out = {}
+    for lift in RIDE_LIFTS:
+        # lifted `lift` game px: rows added under it (over it for a negative lift), the pivot staying in the middle
+        t = ride_tag(lift)
+        out[t] = [(pad(one, 2 * lift), 1000)]
+        out["hd_" + t] = [(pad(dense, round(2 * lift * RIDE_PPU)), 1000)]
+    return out
+
+
+def pad(a, rows):
+    """a with rows transparent rows added under it (rows < 0: over it)."""
+    if rows == 0:
+        return a
+    z = np.zeros((abs(rows),) + a.shape[1:], a.dtype)
+    return np.concatenate([a, z] if rows > 0 else [z, a])
 
 
 def main():
