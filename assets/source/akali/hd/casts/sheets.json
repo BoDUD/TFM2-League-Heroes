@@ -1,0 +1,404 @@
+{
+ "square": 8,
+ "sheet": [
+  1536,
+  1024
+ ],
+ "ground": 924,
+ "same": {
+  "attack_p": {
+   "6": "attack 6"
+  },
+  "skill": {
+   "3": "skill 2",
+   "5": "skill 4",
+   "6": "attack 6"
+  },
+  "skill2": {
+   "3": "skill2 1",
+   "5": "skill 4",
+   "6": "attack 6"
+  },
+  "skill2_dash": {
+   "3": "skill2_dash 1",
+   "4": "skill 2",
+   "5": "attack 6"
+  },
+  "ult": {
+   "1": "skill2 1",
+   "2": "skill2_dash 2",
+   "4": "attack_p 1",
+   "5": "skill2_dash 1",
+   "6": "attack 6"
+  },
+  "ult2": {
+   "5": "attack 6"
+  },
+  "hit": {
+   "2": "attack 6"
+  }
+ },
+ "baked_body_frames": [
+  "skill2_dash",
+  "ult"
+ ],
+ "sheets": [
+  {
+   "tag": "run",
+   "name": "run_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "action": "running (her move loop): a fast, low run, the LEGS SWAPPING every half cycle (left foot forward, then right foot forward), the body bobbing with each stride, the arms swinging as the pale figure's",
+   "ms": [
+    105,
+    105
+   ],
+   "weapons": "Her NEAR hand (image left) always holds the HOOKED kama and her FAR hand (image right) the long STRAIGHT blade, as in image 1. The old frames hold them the other way round: follow the pale figure's ARMS - where each hand is, raised, swung, thrust or lowered - but put image 1's weapon in each hand."
+  },
+  {
+   "tag": "run",
+   "name": "run_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "action": "running (her move loop): a fast, low run, the LEGS SWAPPING every half cycle (left foot forward, then right foot forward), the body bobbing with each stride, the arms swinging as the pale figure's",
+   "ms": [
+    105,
+    105
+   ],
+   "weapons": "Her NEAR hand (image left) always holds the HOOKED kama and her FAR hand (image right) the long STRAIGHT blade, as in image 1. The old frames hold them the other way round: follow the pale figure's ARMS - where each hand is, raised, swung, thrust or lowered - but put image 1's weapon in each hand."
+  },
+  {
+   "tag": "run",
+   "name": "run_3",
+   "frames": [
+    5,
+    6
+   ],
+   "cells": 2,
+   "action": "running (her move loop): a fast, low run, the LEGS SWAPPING every half cycle (left foot forward, then right foot forward), the body bobbing with each stride, the arms swinging as the pale figure's",
+   "ms": [
+    105,
+    105
+   ],
+   "weapons": "Her NEAR hand (image left) always holds the HOOKED kama and her FAR hand (image right) the long STRAIGHT blade, as in image 1. The old frames hold them the other way round: follow the pale figure's ARMS - where each hand is, raised, swung, thrust or lowered - but put image 1's weapon in each hand."
+  },
+  {
+   "tag": "run",
+   "name": "run_4",
+   "frames": [
+    7,
+    8
+   ],
+   "cells": 2,
+   "action": "running (her move loop): a fast, low run, the LEGS SWAPPING every half cycle (left foot forward, then right foot forward), the body bobbing with each stride, the arms swinging as the pale figure's",
+   "ms": [
+    105,
+    105
+   ],
+   "weapons": "Her NEAR hand (image left) always holds the HOOKED kama and her FAR hand (image right) the long STRAIGHT blade, as in image 1. The old frames hold them the other way round: follow the pale figure's ARMS - where each hand is, raised, swung, thrust or lowered - but put image 1's weapon in each hand."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "action": "attack: a quick slash forward, then back to her stance",
+   "ms": [
+    60,
+    60
+   ],
+   "weapons": "Her NEAR hand (image left) always holds the HOOKED kama and her FAR hand (image right) the long STRAIGHT blade, as in image 1. The old frames hold them the other way round: follow the pale figure's ARMS - where each hand is, raised, swung, thrust or lowered - but put image 1's weapon in each hand."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "action": "attack: a quick slash forward, then back to her stance",
+   "ms": [
+    70,
+    70
+   ],
+   "weapons": "Her NEAR hand (image left) always holds the HOOKED kama and her FAR hand (image right) the long STRAIGHT blade, as in image 1. The old frames hold them the other way round: follow the pale figure's ARMS - where each hand is, raised, swung, thrust or lowered - but put image 1's weapon in each hand."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_3",
+   "frames": [
+    5,
+    6
+   ],
+   "cells": 2,
+   "action": "attack: a quick slash forward, then back to her stance",
+   "ms": [
+    80,
+    80
+   ],
+   "weapons": "Her NEAR hand (image left) always holds the HOOKED kama and her FAR hand (image right) the long STRAIGHT blade, as in image 1. The old frames hold them the other way round: follow the pale figure's ARMS - where each hand is, raised, swung, thrust or lowered - but put image 1's weapon in each hand."
+  },
+  {
+   "tag": "attack_p",
+   "name": "attack_p_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "action": "empowered attack: a long lunging slash, reaching far forward, then back to her stance",
+   "ms": [
+    60,
+    70
+   ],
+   "weapons": "Her NEAR hand (image left) always holds the HOOKED kama and her FAR hand (image right) the long STRAIGHT blade, as in image 1. The old frames hold them the other way round: follow the pale figure's ARMS - where each hand is, raised, swung, thrust or lowered - but put image 1's weapon in each hand."
+  },
+  {
+   "tag": "attack_p",
+   "name": "attack_p_2",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "action": "empowered attack: a long lunging slash, reaching far forward, then back to her stance",
+   "ms": [
+    80
+   ],
+   "weapons": "Her NEAR hand (image left) always holds the HOOKED kama and her FAR hand (image right) the long STRAIGHT blade, as in image 1. The old frames hold them the other way round: follow the pale figure's ARMS - where each hand is, raised, swung, thrust or lowered - but put image 1's weapon in each hand."
+  },
+  {
+   "tag": "attack_p",
+   "name": "attack_p_3",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "action": "empowered attack: a long lunging slash, reaching far forward, then back to her stance",
+   "ms": [
+    80
+   ],
+   "weapons": "Her NEAR hand (image left) always holds the HOOKED kama and her FAR hand (image right) the long STRAIGHT blade, as in image 1. The old frames hold them the other way round: follow the pale figure's ARMS - where each hand is, raised, swung, thrust or lowered - but put image 1's weapon in each hand."
+  },
+  {
+   "tag": "attack_p",
+   "name": "attack_p_4",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "action": "empowered attack: a long lunging slash, reaching far forward, then back to her stance",
+   "ms": [
+    90
+   ],
+   "weapons": "Her NEAR hand (image left) always holds the HOOKED kama and her FAR hand (image right) the long STRAIGHT blade, as in image 1. The old frames hold them the other way round: follow the pale figure's ARMS - where each hand is, raised, swung, thrust or lowered - but put image 1's weapon in each hand."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "action": "Five Point Strike (Q): a sweep of her arm flinging a fan of kunai forward, then back to her stance",
+   "ms": [
+    50,
+    50
+   ],
+   "weapons": "Her NEAR hand (image left) always holds the HOOKED kama and her FAR hand (image right) the long STRAIGHT blade, as in image 1. The old frames hold them the other way round: follow the pale figure's ARMS - where each hand is, raised, swung, thrust or lowered - but put image 1's weapon in each hand. Do not draw the kunai (they are an effect)."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_2",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "action": "Five Point Strike (Q): a sweep of her arm flinging a fan of kunai forward, then back to her stance",
+   "ms": [
+    70
+   ],
+   "weapons": "Her NEAR hand (image left) always holds the HOOKED kama and her FAR hand (image right) the long STRAIGHT blade, as in image 1. The old frames hold them the other way round: follow the pale figure's ARMS - where each hand is, raised, swung, thrust or lowered - but put image 1's weapon in each hand. Do not draw the kunai (they are an effect)."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "action": "Shuriken Flip (E): she flips back and hurls a shuriken forward, then lands in her stance",
+   "ms": [
+    50,
+    60
+   ],
+   "weapons": "Her NEAR hand (image left) always holds the HOOKED kama and her FAR hand (image right) the long STRAIGHT blade, as in image 1. The old frames hold them the other way round: follow the pale figure's ARMS - where each hand is, raised, swung, thrust or lowered - but put image 1's weapon in each hand. Do not draw the shuriken (it is an effect)."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_2",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "action": "Shuriken Flip (E): she flips back and hurls a shuriken forward, then lands in her stance",
+   "ms": [
+    60
+   ],
+   "weapons": "Her NEAR hand (image left) always holds the HOOKED kama and her FAR hand (image right) the long STRAIGHT blade, as in image 1. The old frames hold them the other way round: follow the pale figure's ARMS - where each hand is, raised, swung, thrust or lowered - but put image 1's weapon in each hand. Do not draw the shuriken (it is an effect)."
+  },
+  {
+   "tag": "skill2_dash",
+   "name": "skill2_dash_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "action": "Shuriken Flip recast: she dashes forward low and strikes, then stands",
+   "ms": [
+    50,
+    50
+   ],
+   "weapons": "Her NEAR hand (image left) always holds the HOOKED kama and her FAR hand (image right) the long STRAIGHT blade, as in image 1. The old frames hold them the other way round: follow the pale figure's ARMS - where each hand is, raised, swung, thrust or lowered - but put image 1's weapon in each hand."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_1",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "action": "Perfect Execution (R): she dashes forward through her target, blades out, and turns to stand",
+   "ms": [
+    50
+   ],
+   "weapons": "Her NEAR hand (image left) always holds the HOOKED kama and her FAR hand (image right) the long STRAIGHT blade, as in image 1. The old frames hold them the other way round: follow the pale figure's ARMS - where each hand is, raised, swung, thrust or lowered - but put image 1's weapon in each hand."
+  },
+  {
+   "tag": "ult2",
+   "name": "ult2_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "action": "Perfect Execution recast: a second dash, low and fast, then back to her stance",
+   "ms": [
+    50,
+    50
+   ],
+   "weapons": "Her NEAR hand (image left) always holds the HOOKED kama and her FAR hand (image right) the long STRAIGHT blade, as in image 1. The old frames hold them the other way round: follow the pale figure's ARMS - where each hand is, raised, swung, thrust or lowered - but put image 1's weapon in each hand."
+  },
+  {
+   "tag": "ult2",
+   "name": "ult2_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "action": "Perfect Execution recast: a second dash, low and fast, then back to her stance",
+   "ms": [
+    50,
+    70
+   ],
+   "weapons": "Her NEAR hand (image left) always holds the HOOKED kama and her FAR hand (image right) the long STRAIGHT blade, as in image 1. The old frames hold them the other way round: follow the pale figure's ARMS - where each hand is, raised, swung, thrust or lowered - but put image 1's weapon in each hand."
+  },
+  {
+   "tag": "hit",
+   "name": "hit_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "action": "struck, flinching back",
+   "ms": [
+    120
+   ],
+   "weapons": "Her NEAR hand (image left) always holds the HOOKED kama and her FAR hand (image right) the long STRAIGHT blade, as in image 1. The old frames hold them the other way round: follow the pale figure's ARMS - where each hand is, raised, swung, thrust or lowered - but put image 1's weapon in each hand."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "action": "death: she staggers, falls and lies on the ground",
+   "ms": [
+    100,
+    100
+   ],
+   "weapons": "Lying on the ground as the pale figure: the hooked kama and the straight blade where the pale figure's hands have them (dropped beside her in the last frames)."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "action": "death: she staggers, falls and lies on the ground",
+   "ms": [
+    120,
+    120
+   ],
+   "weapons": "Lying on the ground as the pale figure: the hooked kama and the straight blade where the pale figure's hands have them (dropped beside her in the last frames)."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_3",
+   "frames": [
+    5,
+    6
+   ],
+   "cells": 2,
+   "action": "death: she staggers, falls and lies on the ground",
+   "ms": [
+    120,
+    150
+   ],
+   "weapons": "Lying on the ground as the pale figure: the hooked kama and the straight blade where the pale figure's hands have them (dropped beside her in the last frames)."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_4",
+   "frames": [
+    7
+   ],
+   "cells": 1,
+   "action": "death: she staggers, falls and lies on the ground",
+   "ms": [
+    150
+   ],
+   "weapons": "Lying on the ground as the pale figure: the hooked kama and the straight blade where the pale figure's hands have them (dropped beside her in the last frames)."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_5",
+   "frames": [
+    8
+   ],
+   "cells": 1,
+   "action": "death: she staggers, falls and lies on the ground",
+   "ms": [
+    500
+   ],
+   "weapons": "Lying on the ground as the pale figure: the hooked kama and the straight blade where the pale figure's hands have them (dropped beside her in the last frames)."
+  }
+ ]
+}

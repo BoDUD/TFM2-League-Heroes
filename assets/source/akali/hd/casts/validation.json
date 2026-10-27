@@ -1,0 +1,1364 @@
+[
+  {
+    "name": "run_1",
+    "frames": [
+      1,
+      2
+    ],
+    "cells": 2,
+    "size": [
+      1536,
+      1024
+    ],
+    "size_pass": true,
+    "mode": "RGB",
+    "corners": [
+      [
+        253,
+        255,
+        254
+      ],
+      [
+        254,
+        255,
+        254
+      ],
+      [
+        254,
+        254,
+        254
+      ],
+      [
+        254,
+        253,
+        254
+      ]
+    ],
+    "exact_white_corners": false,
+    "unique_rgb": 105131,
+    "off_palette_unique_rgb": 105120,
+    "palette_pass": false,
+    "cell_bboxes_threshold235": [
+      [
+        74,
+        257,
+        742,
+        927
+      ],
+      [
+        908,
+        266,
+        1494,
+        927
+      ]
+    ],
+    "raw_identical": true,
+    "active_raw": "run_1.png",
+    "sha256": "3e77855957b9cd039a4a80f6282e578bbc4dd600c5cf12d402e67a2d7186283d"
+  },
+  {
+    "name": "run_2",
+    "frames": [
+      3,
+      4
+    ],
+    "cells": 2,
+    "size": [
+      1536,
+      1024
+    ],
+    "size_pass": true,
+    "mode": "RGB",
+    "corners": [
+      [
+        253,
+        253,
+        254
+      ],
+      [
+        254,
+        255,
+        254
+      ],
+      [
+        254,
+        254,
+        254
+      ],
+      [
+        253,
+        253,
+        254
+      ]
+    ],
+    "exact_white_corners": false,
+    "unique_rgb": 94463,
+    "off_palette_unique_rgb": 94445,
+    "palette_pass": false,
+    "cell_bboxes_threshold235": [
+      [
+        44,
+        299,
+        726,
+        942
+      ],
+      [
+        840,
+        300,
+        1494,
+        943
+      ]
+    ],
+    "raw_identical": true,
+    "active_raw": "run_2-repair.png",
+    "sha256": "afdac5b428193c0709ee3b52d7ec55cb3875cbfcb316601ce09f4ee3c5dbccb3"
+  },
+  {
+    "name": "run_3",
+    "frames": [
+      5,
+      6
+    ],
+    "cells": 2,
+    "size": [
+      1536,
+      1024
+    ],
+    "size_pass": true,
+    "mode": "RGB",
+    "corners": [
+      [
+        253,
+        253,
+        255
+      ],
+      [
+        254,
+        255,
+        254
+      ],
+      [
+        254,
+        254,
+        254
+      ],
+      [
+        254,
+        253,
+        254
+      ]
+    ],
+    "exact_white_corners": false,
+    "unique_rgb": 107321,
+    "off_palette_unique_rgb": 107313,
+    "palette_pass": false,
+    "cell_bboxes_threshold235": [
+      [
+        63,
+        296,
+        734,
+        942
+      ],
+      [
+        840,
+        296,
+        1505,
+        921
+      ]
+    ],
+    "raw_identical": true,
+    "active_raw": "run_3-stride-repair.png",
+    "sha256": "d958ff0bff7ca063d72637e1f9755ef882b19577a5ce7034ababc2a10726ff3f"
+  },
+  {
+    "name": "run_4",
+    "frames": [
+      7,
+      8
+    ],
+    "cells": 2,
+    "size": [
+      1536,
+      1024
+    ],
+    "size_pass": true,
+    "mode": "RGB",
+    "corners": [
+      [
+        253,
+        253,
+        255
+      ],
+      [
+        255,
+        255,
+        255
+      ],
+      [
+        254,
+        254,
+        254
+      ],
+      [
+        253,
+        253,
+        253
+      ]
+    ],
+    "exact_white_corners": false,
+    "unique_rgb": 98085,
+    "off_palette_unique_rgb": 98076,
+    "palette_pass": false,
+    "cell_bboxes_threshold235": [
+      [
+        58,
+        284,
+        740,
+        897
+      ],
+      [
+        837,
+        284,
+        1507,
+        919
+      ]
+    ],
+    "raw_identical": true,
+    "active_raw": "run_4-stride-repair.png",
+    "sha256": "36bc312f0174df31e17f001872e78977ba8faa74efbb91e5b02f0a8c1fc4d5a4"
+  },
+  {
+    "name": "attack_1",
+    "frames": [
+      1,
+      2
+    ],
+    "cells": 2,
+    "size": [
+      1536,
+      1024
+    ],
+    "size_pass": true,
+    "mode": "RGB",
+    "corners": [
+      [
+        254,
+        253,
+        254
+      ],
+      [
+        254,
+        255,
+        254
+      ],
+      [
+        253,
+        253,
+        253
+      ],
+      [
+        253,
+        253,
+        254
+      ]
+    ],
+    "exact_white_corners": false,
+    "unique_rgb": 91313,
+    "off_palette_unique_rgb": 91302,
+    "palette_pass": false,
+    "cell_bboxes_threshold235": [
+      [
+        47,
+        295,
+        685,
+        940
+      ],
+      [
+        891,
+        295,
+        1485,
+        940
+      ]
+    ],
+    "raw_identical": true,
+    "active_raw": "attack_1-repair.png",
+    "sha256": "aea3739cb396655d4a14a0fe18197fa9a13de4c802a4ba02ccbb4c3e8f123ca3"
+  },
+  {
+    "name": "attack_2",
+    "frames": [
+      3,
+      4
+    ],
+    "cells": 2,
+    "size": [
+      1536,
+      1024
+    ],
+    "size_pass": true,
+    "mode": "RGB",
+    "corners": [
+      [
+        253,
+        255,
+        254
+      ],
+      [
+        254,
+        255,
+        254
+      ],
+      [
+        254,
+        254,
+        254
+      ],
+      [
+        254,
+        253,
+        254
+      ]
+    ],
+    "exact_white_corners": false,
+    "unique_rgb": 92634,
+    "off_palette_unique_rgb": 92622,
+    "palette_pass": false,
+    "cell_bboxes_threshold235": [
+      [
+        35,
+        368,
+        761,
+        950
+      ],
+      [
+        837,
+        405,
+        1520,
+        948
+      ]
+    ],
+    "raw_identical": true,
+    "active_raw": "attack_2.png",
+    "sha256": "833d7a5cb7d415196e792b0b289d0fe46a9d75338a8f9797a0e1c31b8e96455e"
+  },
+  {
+    "name": "attack_3",
+    "frames": [
+      5,
+      6
+    ],
+    "cells": 2,
+    "size": [
+      1536,
+      1024
+    ],
+    "size_pass": true,
+    "mode": "RGB",
+    "corners": [
+      [
+        253,
+        253,
+        253
+      ],
+      [
+        255,
+        254,
+        254
+      ],
+      [
+        253,
+        253,
+        253
+      ],
+      [
+        252,
+        251,
+        252
+      ]
+    ],
+    "exact_white_corners": false,
+    "unique_rgb": 101172,
+    "off_palette_unique_rgb": 101159,
+    "palette_pass": false,
+    "cell_bboxes_threshold235": [
+      [
+        64,
+        279,
+        736,
+        977
+      ],
+      [
+        847,
+        276,
+        1466,
+        980
+      ]
+    ],
+    "raw_identical": true,
+    "active_raw": "attack_3-repair.png",
+    "sha256": "6e69ad1c02f10627ca9154609ca3f83a6527f97c8f00be360c7c30d5a1969ff0"
+  },
+  {
+    "name": "attack_p_1",
+    "frames": [
+      1,
+      2
+    ],
+    "cells": 2,
+    "size": [
+      1536,
+      1024
+    ],
+    "size_pass": true,
+    "mode": "RGB",
+    "corners": [
+      [
+        253,
+        255,
+        255
+      ],
+      [
+        255,
+        255,
+        254
+      ],
+      [
+        254,
+        254,
+        254
+      ],
+      [
+        254,
+        253,
+        253
+      ]
+    ],
+    "exact_white_corners": false,
+    "unique_rgb": 104541,
+    "off_palette_unique_rgb": 104528,
+    "palette_pass": false,
+    "cell_bboxes_threshold235": [
+      [
+        47,
+        316,
+        676,
+        946
+      ],
+      [
+        839,
+        359,
+        1479,
+        946
+      ]
+    ],
+    "raw_identical": true,
+    "active_raw": "attack_p_1-repair.png",
+    "sha256": "ff8a1224d8eb8011e1735ce031e0b65ae9dc81475960e3e0c07b4263c4d5d7d7"
+  },
+  {
+    "name": "attack_p_2",
+    "frames": [
+      3
+    ],
+    "cells": 1,
+    "size": [
+      1536,
+      1024
+    ],
+    "size_pass": true,
+    "mode": "RGB",
+    "corners": [
+      [
+        255,
+        255,
+        255
+      ],
+      [
+        255,
+        255,
+        254
+      ],
+      [
+        254,
+        253,
+        253
+      ],
+      [
+        254,
+        253,
+        254
+      ]
+    ],
+    "exact_white_corners": false,
+    "unique_rgb": 65040,
+    "off_palette_unique_rgb": 65023,
+    "palette_pass": false,
+    "cell_bboxes_threshold235": [
+      [
+        365,
+        399,
+        1412,
+        962
+      ]
+    ],
+    "raw_identical": true,
+    "active_raw": "attack_p_2.png",
+    "sha256": "0f39f3c8107535a5cb1e862a268c2311bc55249bc3b07d171e9a5ff15b36dd33"
+  },
+  {
+    "name": "attack_p_3",
+    "frames": [
+      4
+    ],
+    "cells": 1,
+    "size": [
+      1536,
+      1024
+    ],
+    "size_pass": true,
+    "mode": "RGB",
+    "corners": [
+      [
+        255,
+        255,
+        255
+      ],
+      [
+        254,
+        255,
+        255
+      ],
+      [
+        254,
+        254,
+        253
+      ],
+      [
+        254,
+        253,
+        254
+      ]
+    ],
+    "exact_white_corners": false,
+    "unique_rgb": 67210,
+    "off_palette_unique_rgb": 67201,
+    "palette_pass": false,
+    "cell_bboxes_threshold235": [
+      [
+        317,
+        358,
+        1449,
+        964
+      ]
+    ],
+    "raw_identical": true,
+    "active_raw": "attack_p_3.png",
+    "sha256": "5aa14ac5401d7066bd855d37797a70ab3cf6e07de1d49a752146fd81daa01439"
+  },
+  {
+    "name": "attack_p_4",
+    "frames": [
+      5
+    ],
+    "cells": 1,
+    "size": [
+      1536,
+      1024
+    ],
+    "size_pass": true,
+    "mode": "RGB",
+    "corners": [
+      [
+        253,
+        255,
+        255
+      ],
+      [
+        255,
+        255,
+        255
+      ],
+      [
+        254,
+        254,
+        254
+      ],
+      [
+        254,
+        253,
+        254
+      ]
+    ],
+    "exact_white_corners": false,
+    "unique_rgb": 61830,
+    "off_palette_unique_rgb": 61819,
+    "palette_pass": false,
+    "cell_bboxes_threshold235": [
+      [
+        384,
+        386,
+        1223,
+        977
+      ]
+    ],
+    "raw_identical": true,
+    "active_raw": "attack_p_4.png",
+    "sha256": "42c59586e899633911818a979b1e142f83185cfea61034e4e1f80b00da25c5f5"
+  },
+  {
+    "name": "skill_1",
+    "frames": [
+      1,
+      2
+    ],
+    "cells": 2,
+    "size": [
+      1536,
+      1024
+    ],
+    "size_pass": true,
+    "mode": "RGB",
+    "corners": [
+      [
+        253,
+        255,
+        254
+      ],
+      [
+        255,
+        254,
+        254
+      ],
+      [
+        254,
+        254,
+        254
+      ],
+      [
+        254,
+        253,
+        254
+      ]
+    ],
+    "exact_white_corners": false,
+    "unique_rgb": 82526,
+    "off_palette_unique_rgb": 82517,
+    "palette_pass": false,
+    "cell_bboxes_threshold235": [
+      [
+        48,
+        292,
+        729,
+        941
+      ],
+      [
+        775,
+        260,
+        1450,
+        941
+      ]
+    ],
+    "raw_identical": true,
+    "active_raw": "skill_1.png",
+    "sha256": "4561d72a5e09204caefe3847227c4bebc7ef7f7cec8bf5b5bac6c25b92dfbf2c"
+  },
+  {
+    "name": "skill_2",
+    "frames": [
+      4
+    ],
+    "cells": 1,
+    "size": [
+      1536,
+      1024
+    ],
+    "size_pass": true,
+    "mode": "RGB",
+    "corners": [
+      [
+        253,
+        255,
+        254
+      ],
+      [
+        255,
+        255,
+        255
+      ],
+      [
+        254,
+        254,
+        254
+      ],
+      [
+        254,
+        254,
+        254
+      ]
+    ],
+    "exact_white_corners": false,
+    "unique_rgb": 62570,
+    "off_palette_unique_rgb": 62562,
+    "palette_pass": false,
+    "cell_bboxes_threshold235": [
+      [
+        241,
+        368,
+        1233,
+        947
+      ]
+    ],
+    "raw_identical": true,
+    "active_raw": "skill_2.png",
+    "sha256": "1b73043c87bbe0a6097f6dfb609fab78e55f4d81305aab0bbbd0cd6a78512467"
+  },
+  {
+    "name": "skill2_1",
+    "frames": [
+      1,
+      2
+    ],
+    "cells": 2,
+    "size": [
+      1536,
+      1024
+    ],
+    "size_pass": true,
+    "mode": "RGB",
+    "corners": [
+      [
+        253,
+        255,
+        254
+      ],
+      [
+        255,
+        255,
+        254
+      ],
+      [
+        254,
+        253,
+        253
+      ],
+      [
+        253,
+        253,
+        253
+      ]
+    ],
+    "exact_white_corners": false,
+    "unique_rgb": 95213,
+    "off_palette_unique_rgb": 95201,
+    "palette_pass": false,
+    "cell_bboxes_threshold235": [
+      [
+        50,
+        384,
+        722,
+        988
+      ],
+      [
+        790,
+        302,
+        1517,
+        951
+      ]
+    ],
+    "raw_identical": true,
+    "active_raw": "skill2_1.png",
+    "sha256": "68035552a8b05c199b0622bc03eba08d6f8c50d3a1131eb463650083b4be60fd"
+  },
+  {
+    "name": "skill2_2",
+    "frames": [
+      4
+    ],
+    "cells": 1,
+    "size": [
+      1536,
+      1024
+    ],
+    "size_pass": true,
+    "mode": "RGB",
+    "corners": [
+      [
+        253,
+        255,
+        255
+      ],
+      [
+        255,
+        255,
+        255
+      ],
+      [
+        254,
+        254,
+        254
+      ],
+      [
+        254,
+        253,
+        254
+      ]
+    ],
+    "exact_white_corners": false,
+    "unique_rgb": 60982,
+    "off_palette_unique_rgb": 60972,
+    "palette_pass": false,
+    "cell_bboxes_threshold235": [
+      [
+        430,
+        401,
+        1105,
+        992
+      ]
+    ],
+    "raw_identical": true,
+    "active_raw": "skill2_2.png",
+    "sha256": "f51e22a12d4691d26a6a553f3a91afe583a6e916669a937eb63410d59f6d0244"
+  },
+  {
+    "name": "skill2_dash_1",
+    "frames": [
+      1,
+      2
+    ],
+    "cells": 2,
+    "size": [
+      1536,
+      1024
+    ],
+    "size_pass": true,
+    "mode": "RGB",
+    "corners": [
+      [
+        254,
+        253,
+        254
+      ],
+      [
+        254,
+        255,
+        255
+      ],
+      [
+        255,
+        253,
+        253
+      ],
+      [
+        254,
+        253,
+        254
+      ]
+    ],
+    "exact_white_corners": false,
+    "unique_rgb": 90611,
+    "off_palette_unique_rgb": 90595,
+    "palette_pass": false,
+    "cell_bboxes_threshold235": [
+      [
+        47,
+        391,
+        737,
+        913
+      ],
+      [
+        777,
+        420,
+        1513,
+        913
+      ]
+    ],
+    "raw_identical": true,
+    "active_raw": "skill2_dash_1.png",
+    "sha256": "bdf8b256bae1473b0c8b905244d4e7f2df1b00995cb9c1d85b2fdff21ccac35e"
+  },
+  {
+    "name": "ult_1",
+    "frames": [
+      3
+    ],
+    "cells": 1,
+    "size": [
+      1536,
+      1024
+    ],
+    "size_pass": true,
+    "mode": "RGB",
+    "corners": [
+      [
+        253,
+        255,
+        254
+      ],
+      [
+        255,
+        255,
+        254
+      ],
+      [
+        254,
+        254,
+        254
+      ],
+      [
+        254,
+        253,
+        254
+      ]
+    ],
+    "exact_white_corners": false,
+    "unique_rgb": 63570,
+    "off_palette_unique_rgb": 63556,
+    "palette_pass": false,
+    "cell_bboxes_threshold235": [
+      [
+        304,
+        338,
+        1182,
+        967
+      ]
+    ],
+    "raw_identical": true,
+    "active_raw": "ult_1.png",
+    "sha256": "56b963b314a2fa7776a2a605982a1b25c9d5f81691804c8d50b67700d25ab533"
+  },
+  {
+    "name": "ult2_1",
+    "frames": [
+      1,
+      2
+    ],
+    "cells": 2,
+    "size": [
+      1536,
+      1024
+    ],
+    "size_pass": true,
+    "mode": "RGB",
+    "corners": [
+      [
+        254,
+        253,
+        254
+      ],
+      [
+        254,
+        255,
+        254
+      ],
+      [
+        254,
+        253,
+        254
+      ],
+      [
+        254,
+        253,
+        254
+      ]
+    ],
+    "exact_white_corners": false,
+    "unique_rgb": 93362,
+    "off_palette_unique_rgb": 93353,
+    "palette_pass": false,
+    "cell_bboxes_threshold235": [
+      [
+        23,
+        400,
+        735,
+        923
+      ],
+      [
+        799,
+        445,
+        1523,
+        922
+      ]
+    ],
+    "raw_identical": true,
+    "active_raw": "ult2_1.png",
+    "sha256": "b32b48bb2d433b7ffaf90b9c37f3f17f9cc7297ba044b0511b8de87b5445e6cd"
+  },
+  {
+    "name": "ult2_2",
+    "frames": [
+      3,
+      4
+    ],
+    "cells": 2,
+    "size": [
+      1536,
+      1024
+    ],
+    "size_pass": true,
+    "mode": "RGB",
+    "corners": [
+      [
+        253,
+        253,
+        255
+      ],
+      [
+        254,
+        255,
+        254
+      ],
+      [
+        254,
+        254,
+        254
+      ],
+      [
+        253,
+        253,
+        253
+      ]
+    ],
+    "exact_white_corners": false,
+    "unique_rgb": 93207,
+    "off_palette_unique_rgb": 93189,
+    "palette_pass": false,
+    "cell_bboxes_threshold235": [
+      [
+        35,
+        438,
+        725,
+        921
+      ],
+      [
+        771,
+        437,
+        1508,
+        940
+      ]
+    ],
+    "raw_identical": true,
+    "active_raw": "ult2_2.png",
+    "sha256": "d7721bd8ee16bc53e3a0a7bb01088c4a69faba897eef1f5f2942d7e4edaca7a7"
+  },
+  {
+    "name": "hit_1",
+    "frames": [
+      1
+    ],
+    "cells": 1,
+    "size": [
+      1536,
+      1024
+    ],
+    "size_pass": true,
+    "mode": "RGB",
+    "corners": [
+      [
+        253,
+        253,
+        254
+      ],
+      [
+        255,
+        255,
+        254
+      ],
+      [
+        253,
+        254,
+        254
+      ],
+      [
+        254,
+        253,
+        254
+      ]
+    ],
+    "exact_white_corners": false,
+    "unique_rgb": 65370,
+    "off_palette_unique_rgb": 65361,
+    "palette_pass": false,
+    "cell_bboxes_threshold235": [
+      [
+        514,
+        322,
+        1299,
+        942
+      ]
+    ],
+    "raw_identical": true,
+    "active_raw": "hit_1.png",
+    "sha256": "b4a15f8f147eb4c37538b91e710132da326d968b0d44dede51d5b8def7386ac0"
+  },
+  {
+    "name": "dead_1",
+    "frames": [
+      1,
+      2
+    ],
+    "cells": 2,
+    "size": [
+      1536,
+      1024
+    ],
+    "size_pass": true,
+    "mode": "RGB",
+    "corners": [
+      [
+        253,
+        255,
+        254
+      ],
+      [
+        254,
+        254,
+        254
+      ],
+      [
+        254,
+        254,
+        254
+      ],
+      [
+        253,
+        253,
+        253
+      ]
+    ],
+    "exact_white_corners": false,
+    "unique_rgb": 95607,
+    "off_palette_unique_rgb": 95590,
+    "palette_pass": false,
+    "cell_bboxes_threshold235": [
+      [
+        63,
+        344,
+        768,
+        940
+      ],
+      [
+        768,
+        334,
+        1488,
+        968
+      ]
+    ],
+    "raw_identical": true,
+    "active_raw": "dead_1.png",
+    "sha256": "f3f10fda9de92783272bace50a44eb79911148d90e149efbd52a739fe608e835"
+  },
+  {
+    "name": "dead_2",
+    "frames": [
+      3,
+      4
+    ],
+    "cells": 2,
+    "size": [
+      1536,
+      1024
+    ],
+    "size_pass": true,
+    "mode": "RGB",
+    "corners": [
+      [
+        254,
+        253,
+        254
+      ],
+      [
+        254,
+        255,
+        254
+      ],
+      [
+        254,
+        253,
+        254
+      ],
+      [
+        254,
+        253,
+        254
+      ]
+    ],
+    "exact_white_corners": false,
+    "unique_rgb": 88255,
+    "off_palette_unique_rgb": 88243,
+    "palette_pass": false,
+    "cell_bboxes_threshold235": [
+      [
+        87,
+        398,
+        704,
+        948
+      ],
+      [
+        881,
+        442,
+        1472,
+        948
+      ]
+    ],
+    "raw_identical": true,
+    "active_raw": "dead_2.png",
+    "sha256": "bc1497736b67abba259b7504a4af131574a17f2849e5e17bc9a31fe4711d5253"
+  },
+  {
+    "name": "dead_3",
+    "frames": [
+      5,
+      6
+    ],
+    "cells": 2,
+    "size": [
+      1536,
+      1024
+    ],
+    "size_pass": true,
+    "mode": "RGB",
+    "corners": [
+      [
+        253,
+        253,
+        254
+      ],
+      [
+        255,
+        255,
+        254
+      ],
+      [
+        254,
+        254,
+        254
+      ],
+      [
+        254,
+        253,
+        254
+      ]
+    ],
+    "exact_white_corners": false,
+    "unique_rgb": 92171,
+    "off_palette_unique_rgb": 92157,
+    "palette_pass": false,
+    "cell_bboxes_threshold235": [
+      [
+        27,
+        397,
+        768,
+        928
+      ],
+      [
+        768,
+        583,
+        1510,
+        987
+      ]
+    ],
+    "raw_identical": true,
+    "active_raw": "dead_3.png",
+    "sha256": "66ab26e85d9ecca13bbf92c7abf21aa37bda2fef902f8043f3f7dbe3278c445c"
+  },
+  {
+    "name": "dead_4",
+    "frames": [
+      7
+    ],
+    "cells": 1,
+    "size": [
+      1536,
+      1024
+    ],
+    "size_pass": true,
+    "mode": "RGB",
+    "corners": [
+      [
+        253,
+        253,
+        254
+      ],
+      [
+        254,
+        255,
+        254
+      ],
+      [
+        254,
+        253,
+        254
+      ],
+      [
+        254,
+        254,
+        254
+      ]
+    ],
+    "exact_white_corners": false,
+    "unique_rgb": 51313,
+    "off_palette_unique_rgb": 51303,
+    "palette_pass": false,
+    "cell_bboxes_threshold235": [
+      [
+        301,
+        592,
+        1266,
+        992
+      ]
+    ],
+    "raw_identical": true,
+    "active_raw": "dead_4.png",
+    "sha256": "9eaf764eb86767a77a794c7e540f14d515c4761ded30ed193e9941c63bb42191"
+  },
+  {
+    "name": "dead_5",
+    "frames": [
+      8
+    ],
+    "cells": 1,
+    "size": [
+      1536,
+      1024
+    ],
+    "size_pass": true,
+    "mode": "RGB",
+    "corners": [
+      [
+        253,
+        255,
+        255
+      ],
+      [
+        255,
+        255,
+        255
+      ],
+      [
+        254,
+        254,
+        254
+      ],
+      [
+        254,
+        253,
+        254
+      ]
+    ],
+    "exact_white_corners": false,
+    "unique_rgb": 52288,
+    "off_palette_unique_rgb": 52273,
+    "palette_pass": false,
+    "cell_bboxes_threshold235": [
+      [
+        315,
+        593,
+        1251,
+        953
+      ]
+    ],
+    "raw_identical": true,
+    "active_raw": "dead_5.png",
+    "sha256": "292e91d2008be9f5b871a852fa4646c08cdb404e93c16f50580c0fccaa429325"
+  }
+]
