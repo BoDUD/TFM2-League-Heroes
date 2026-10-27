@@ -33,7 +33,7 @@ pub mod view;
 
 const ID: &str = "league_yuumi";
 /// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是 league_addons 的。
-const VERSION: &str = "0.1.1";
+const VERSION: &str = "0.1.2";
 const HERO: &str = "league_yuumi";
 /// 她身上的附身 buff（view.rs 照它把她的动作换成空白的 a_*）。
 pub const RIDING: &str = "league_yuumi_w_on";
@@ -272,8 +272,15 @@ fn champions(sim: &StableSim<'_>, team: usize, mates: bool) -> Vec<(usize, (u64,
 
 fn ready_of(sim: &StableSim<'_>, me: usize) -> [usize; 3] {
     let Some(e) = sim.get_entity(me) else { return [usize::MAX; 3] };
-    let cd = |s| e.cooldown(s).map_or(usize::MAX, |c| c.remaining);
+    let cd = |s| left(e.cooldown(s));
     [cd(SkillSlotV1::Skill), cd(SkillSlotV1::Skill2), cd(SkillSlotV1::Ult)]
+}
+
+/// 一格还要冷却几 tick；等级没到、还锁着的格子（W 3 级前、R 5 级前）永远不算好了：不然她 5 级前每次都为 R 解除放逐，
+/// R 按不出来（league_unlock_guard 把它换成普攻或站着），Q 和旺盛精力也轮不上（2026-10-27 的日志：附身 80 秒开了 34 次窗、
+/// 一招没出）。
+pub fn left(c: Option<CooldownV1>) -> usize {
+    c.filter(|c| c.unlocked).map_or(usize::MAX, |c| c.remaining)
 }
 
 // ===================== 附身表（AI 钩子读） =====================
@@ -743,6 +750,17 @@ mod tests {
         assert!(!cast_seen(0, 0));
         assert!(!cast_seen(0, 10)); // a refund, not a cast
         assert!(!cast_seen(300, 420)); // still on cooldown
+    }
+
+    #[test]
+    fn a_locked_slot_is_never_ready() {
+        let cd = |remaining, unlocked| Some(CooldownV1 { remaining, unlocked, ..Default::default() });
+        assert_eq!(left(cd(0, true)), 0);
+        assert_eq!(left(cd(120, true)), 120);
+        assert_eq!(left(cd(0, false)), usize::MAX); // R before level 5: cooldown 0 but it cannot be cast
+        assert_eq!(left(None), usize::MAX);
+        // the slot unlocking is not taken for a cast
+        assert!(!cast_seen(left(cd(0, false)), left(cd(0, true))));
     }
 
     #[test]
