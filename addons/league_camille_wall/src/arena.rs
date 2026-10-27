@@ -236,6 +236,7 @@ impl StablePlayerAi for Arena {
                 foes.push(Foe { id: u.id(), at: (ux as f64, uy as f64), marked: has(&u, R_MARK) });
             }
             let c = call(me, centre, want, &foes)?;
+            super::haste::note_arena(&sim, id, c == Call::Centre);
             (c, format!("{} ARENA: the AI wanted {want:?} ({:.0} from the centre) - {c:?}", head(&sim, id),
                         dist(me, centre)), centre)
         };

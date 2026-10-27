@@ -37,6 +37,7 @@
 //! （游戏自己的 log.log 旁边），找不到时写在游戏目录。每次启动游戏重写，上一次的留在 .prev.log。
 
 pub mod arena;
+pub mod haste;
 pub mod maps;
 
 use std::collections::HashMap;
@@ -1284,6 +1285,8 @@ struct AutoE {
     seen: HashMap<usize, (f64, f64, usize)>,
     /// the R arena's centre while it is up ([`arena::hold`])
     arena: arena::Slot,
+    /// what she does while the Hookshot's attack speed is on her, and after ([`haste`], the log only)
+    haste: haste::Watch,
 }
 
 impl StablePassive for AutoE {
@@ -1291,8 +1294,13 @@ impl StablePassive for AutoE {
         Box::new(self.clone())
     }
 
+    fn on_attack(&mut self, sim: &mut StableSim<'_>, _: usize, _: usize, target: usize, _: &mut usize) {
+        self.haste.hit(sim, target);
+    }
+
     fn on_update(&mut self, sim: &mut StableSim<'_>, _: u64, _: usize, entity: usize) {
         arena::hold(sim, entity, &mut self.arena);
+        self.haste.tick(sim, entity);
         let tick = sim.tick();
         if tick % AUTO_EVERY != 0 {
             return;
@@ -1410,7 +1418,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v4.4 (wall + map edge + tower Hookshot, R arena kept on its picture) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v4.5 (wall + map edge + tower Hookshot, R arena kept on its picture) loaded: game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
         v.patch,

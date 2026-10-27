@@ -633,7 +633,7 @@ fn hookshot_from_cast_to_landing() {
         ] {
             assert!(text.contains(line), "missing {line:?} in the log:\n{text}");
         }
-        assert!(text.starts_with("=== league_camille_wall v4.4"), "{text}");
+        assert!(text.starts_with("=== league_camille_wall v4.5"), "{text}");
         assert!(!text.contains("stays at the wall") || !text.contains("E2:"), "E2 waited on the wall:
 {text}");
         // 挂在墙上 CLING tick 再扑
