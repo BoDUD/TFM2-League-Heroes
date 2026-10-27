@@ -49,6 +49,13 @@
         "skill": "获得<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>的护盾（<#ffb900ff>4秒<>）；<#ffb900ff>4秒<>内下一次普攻变为金爪重掌，造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>105%<> + <#ff9028ff>2%<>最大生命<#ff9028ff>物理伤害<>并<#ef5350ff>晕眩1秒<>。",
         "skill2": "扑向目标，落地时周围的敌人受到<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> + <#ff9028ff>2%<>最大生命<#ff9028ff>物理伤害<>并被<#ef5350ff>击飞0.4秒<>。",
         "ult": "一跃冲天（期间不可选中、免疫控制），砸落在敌方英雄身上：目标受到<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> + <#ff9028ff>6%<>最大生命<#ff9028ff>物理伤害<>，周围的敌人（含目标）再受到<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> + <#ff9028ff>3%<>最大生命<#ff9028ff>物理伤害<>并被<#ef5350ff>击飞0.8秒<>。"
+      },
+      "tft_vander": {
+        "name": "范德尔",
+        "attack": "挥拳造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>。<#ff9028ff>监察<>：受到的伤害降低<#ffb900ff>10%<>，生命高于<#ffb900ff>50%<>时降低<#ffb900ff>20%<>。",
+        "skill": "摆出防御姿态，<#ef5350ff>嘲讽<>周围的敌人<#ef5350ff>0.75秒<>，获得<#ffb900ff>40<>护甲和<#ffb900ff>30<>魔抗（<#ffb900ff>2.5秒<>）；下一拳造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<>物理伤害，队里每有一个<#ff9028ff>家人<>再加<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>。",
+        "skill2": "冲向敌人打出上勾拳，造成<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<>物理伤害并<#ef5350ff>晕眩0.5秒<>，身边的敌人受到<#ffb900ff>35%<>的伤害。",
+        "ult": "跳进敌群砸地，周围的敌人受到<#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150%<>物理伤害并被<#ef5350ff>击飞1秒<>；之后<#ffb900ff>4秒<>内受到的伤害降低<#ffb900ff>15%<>，身边每个敌方英雄再降低<#ffb900ff>8%<>（最多<#ffb900ff>4<>个）。"
       }
     },
     "skill_name": {
@@ -86,6 +93,11 @@
         "skill1": "金爪真言",
         "skill2": "猛虎扑",
         "ult": "游戏结束！"
+      },
+      "tft_vander": {
+        "skill1": "地下猎犬",
+        "skill2": "铁拳突进",
+        "ult": "桥头死守"
       }
     }
   },
@@ -139,6 +151,13 @@
         "skill": "獲得<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>的護盾（<#ffb900ff>4秒<>）；<#ffb900ff>4秒<>內下一次普攻變為金爪重掌，造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>105%<> + <#ff9028ff>2%<>最大生命<#ff9028ff>物理傷害<>並<#ef5350ff>暈眩1秒<>。",
         "skill2": "撲向目標，落地時周圍的敵人受到<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> + <#ff9028ff>2%<>最大生命<#ff9028ff>物理傷害<>並被<#ef5350ff>擊飛0.4秒<>。",
         "ult": "一躍沖天（期間無法被選取、免疫控制），砸落在敵方英雄身上：目標受到<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> + <#ff9028ff>6%<>最大生命<#ff9028ff>物理傷害<>，周圍的敵人（含目標）再受到<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> + <#ff9028ff>3%<>最大生命<#ff9028ff>物理傷害<>並被<#ef5350ff>擊飛0.8秒<>。"
+      },
+      "tft_vander": {
+        "name": "范德爾",
+        "attack": "揮拳造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>。<#ff9028ff>守望者<>：受到的傷害降低<#ffb900ff>10%<>，生命高於<#ffb900ff>50%<>時降低<#ffb900ff>20%<>。",
+        "skill": "擺出防禦姿態，<#ef5350ff>嘲諷<>周圍的敵人<#ef5350ff>0.75秒<>，獲得<#ffb900ff>40<>護甲和<#ffb900ff>30<>魔抗（<#ffb900ff>2.5秒<>）；下一拳造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<>物理傷害，隊裡每有一個<#ff9028ff>家族<>成員再加<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>。",
+        "skill2": "衝向敵人打出上勾拳，造成<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<>物理傷害並<#ef5350ff>暈眩0.5秒<>，身邊的敵人受到<#ffb900ff>35%<>的傷害。",
+        "ult": "跳進敵群砸地，周圍的敵人受到<#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150%<>物理傷害並被<#ef5350ff>擊飛1秒<>；之後<#ffb900ff>4秒<>內受到的傷害降低<#ffb900ff>15%<>，身邊每個敵方英雄再降低<#ffb900ff>8%<>（最多<#ffb900ff>4<>個）。"
       }
     },
     "skill_name": {
@@ -176,6 +195,11 @@
         "skill1": "金爪真言",
         "skill2": "猛虎撲",
         "ult": "遊戲結束！"
+      },
+      "tft_vander": {
+        "skill1": "底城獵犬",
+        "skill2": "鐵拳突進",
+        "ult": "橋頭死守"
       }
     }
   },
@@ -229,6 +253,13 @@
         "skill": "Gains a <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> shield (<#ffb900ff>4s<>); within <#ffb900ff>4s<> his next attack is a Golden Claw: <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>105%<> + <#ff9028ff>2%<> max health <#ff9028ff>physical damage<> and a <#ef5350ff>1s stun<>.",
         "skill2": "Pounces on the target: on landing, nearby enemies take <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> + <#ff9028ff>2%<> max health <#ff9028ff>physical damage<> and are <#ef5350ff>knocked up for 0.4s<>.",
         "ult": "Springs out of sight (untargetable, unstoppable) and crashes down on an enemy champion: it takes <#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> + <#ff9028ff>6%<> max health <#ff9028ff>physical damage<>, and nearby enemies (it too) <#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> + <#ff9028ff>3%<> max health and are <#ef5350ff>knocked up for 0.8s<>."
+      },
+      "tft_vander": {
+        "name": "Vander",
+        "attack": "Punches for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<>. <#ff9028ff>Watcher<>: takes <#ffb900ff>10%<> less damage, <#ffb900ff>20%<> while his health is above <#ffb900ff>50%<>.",
+        "skill": "Drops into a guard: nearby enemies are <#ef5350ff>taunted for 0.75s<>, he gains <#ffb900ff>40<> armour and <#ffb900ff>30<> magic resist (<#ffb900ff>2.5s<>). His next punch deals <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<> physical damage, <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<> more for each <#ff9028ff>Family<> ally on his team.",
+        "skill2": "Rushes an enemy and uppercuts it for <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<> physical damage, <#ef5350ff>stunning it for 0.5s<>; enemies next to him take <#ffb900ff>35%<> of the blow.",
+        "ult": "Leaps into the enemies and slams the ground: nearby enemies take <#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150%<> physical damage and are <#ef5350ff>knocked up for 1s<>. For <#ffb900ff>4s<> he takes <#ffb900ff>15%<> less damage, <#ffb900ff>8%<> more for each enemy champion near him (up to <#ffb900ff>4<>)."
       }
     },
     "skill_name": {
@@ -266,6 +297,11 @@
         "skill1": "Golden Claw Mantra",
         "skill2": "Tiger Pounce",
         "ult": "Game Over!"
+      },
+      "tft_vander": {
+        "skill1": "Hound of the Underground",
+        "skill2": "Iron Fist",
+        "ult": "Last Stand on the Bridge"
       }
     }
   },
@@ -319,6 +355,13 @@
         "skill": "<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> 보호막(<#ffb900ff>4초<>). <#ffb900ff>4초<> 안에 다음 기본 공격이 황금 발톱: <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>105%<> + <#ff9028ff>2%<> 최대 체력 물리 피해, <#ef5350ff>1초 기절<>.",
         "skill2": "대상에게 덮쳐 착지할 때 주변 적에게 <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> + <#ff9028ff>2%<> 최대 체력 물리 피해, <#ef5350ff>0.4초 에어본<>.",
         "ult": "하늘 높이 뛰어올라(대상 지정 불가, 저지 불가) 적 챔피언 위로 떨어진다: 대상에게 <#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> + <#ff9028ff>6%<> 최대 체력 물리 피해, 주변 적(대상 포함)에게 <#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> + <#ff9028ff>3%<> 최대 체력 물리 피해, <#ef5350ff>0.8초 에어본<>."
+      },
+      "tft_vander": {
+        "name": "밴더",
+        "attack": "주먹으로 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> 물리 피해. <#ff9028ff>주시자<>: 받는 피해 <#ffb900ff>10%<> 감소, 체력이 <#ffb900ff>50%<> 이상이면 <#ffb900ff>20%<> 감소.",
+        "skill": "방어 자세: 주변 적을 <#ef5350ff>0.75초 도발<>하고 방어력 <#ffb900ff>40<>, 마법 저항력 <#ffb900ff>30<>(<#ffb900ff>2.5초<>). 다음 주먹은 <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<> 물리 피해, 팀의 <#ff9028ff>가족<>마다 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<> 추가.",
+        "skill2": "적에게 돌진해 어퍼컷: <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<> 물리 피해와 <#ef5350ff>0.5초 기절<>, 주변 적은 <#ffb900ff>35%<>의 피해.",
+        "ult": "적진으로 뛰어들어 땅을 내리친다: 주변 적에게 <#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150%<> 물리 피해와 <#ef5350ff>1초 에어본<>. <#ffb900ff>4초<> 동안 받는 피해 <#ffb900ff>15%<> 감소, 주변 적 챔피언마다 <#ffb900ff>8%<> 추가(최대 <#ffb900ff>4<>명)."
       }
     },
     "skill_name": {
@@ -356,6 +399,11 @@
         "skill1": "황금 발톱 진언",
         "skill2": "맹호 도약",
         "ult": "게임 오버!"
+      },
+      "tft_vander": {
+        "skill1": "지하의 사냥개",
+        "skill2": "철권 돌진",
+        "ult": "다리 위의 사수"
       }
     }
   },
@@ -409,6 +457,13 @@
         "skill": "<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>のシールド（<#ffb900ff>4秒<>）。<#ffb900ff>4秒<>以内の次の通常攻撃が金爪の一撃に：<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>105%<> + <#ff9028ff>2%<>最大体力の物理ダメージと<#ef5350ff>1秒のスタン<>。",
         "skill2": "対象に飛びかかり、着地時に周囲の敵へ<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> + <#ff9028ff>2%<>最大体力の物理ダメージと<#ef5350ff>0.4秒のノックアップ<>。",
         "ult": "空高く跳び（対象指定不可・CC無効）、敵チャンピオンの上に落下：対象に<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> + <#ff9028ff>6%<>最大体力の物理ダメージ、周囲の敵（対象も）に<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> + <#ff9028ff>3%<>最大体力の物理ダメージと<#ef5350ff>0.8秒のノックアップ<>。"
+      },
+      "tft_vander": {
+        "name": "ヴァンダー",
+        "attack": "拳で殴り、<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の物理ダメージ。<#ff9028ff>ウォッチャー<>：被ダメージ<#ffb900ff>10%<>軽減、体力が<#ffb900ff>50%<>より多いと<#ffb900ff>20%<>軽減。",
+        "skill": "防御の構え：周囲の敵を<#ef5350ff>0.75秒挑発<>し、物理防御<#ffb900ff>40<>と魔法防御<#ffb900ff>30<>（<#ffb900ff>2.5秒<>）。次の拳は<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<>の物理ダメージ、味方の<#ff9028ff>ファミリー<>1人ごとに<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>追加。",
+        "skill2": "敵に突進してアッパー：<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<>の物理ダメージと<#ef5350ff>0.5秒のスタン<>、近くの敵には<#ffb900ff>35%<>のダメージ。",
+        "ult": "敵の中へ跳び込み地面を殴る：周囲の敵に<#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150%<>の物理ダメージと<#ef5350ff>1秒のノックアップ<>。<#ffb900ff>4秒<>間、被ダメージ<#ffb900ff>15%<>軽減、近くの敵チャンピオン1体ごとに<#ffb900ff>8%<>追加（最大<#ffb900ff>4<>体）。"
       }
     },
     "skill_name": {
@@ -446,6 +501,11 @@
         "skill1": "金爪の真言",
         "skill2": "猛虎の跳躍",
         "ult": "ゲームオーバー！"
+      },
+      "tft_vander": {
+        "skill1": "地下都市の猟犬",
+        "skill2": "鉄拳突進",
+        "ult": "橋の上の死守"
       }
     }
   }

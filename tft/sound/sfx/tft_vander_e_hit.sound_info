@@ -1,0 +1,14 @@
+{
+  "plays": [
+    {
+      "delay": 0.0,
+      "clip": "tft_vander_sfx_e_hit",
+      "volume": 0.45
+    },
+    {
+      "delay": 0.0,
+      "clip": "tft_vander_sfx_a2_hit",
+      "volume": 0.4
+    }
+  ]
+}

@@ -1,0 +1,392 @@
+{
+  "entries": [
+    {
+      "file": "vander-pose-a_wind.png",
+      "raw": "raw/vander-pose-a_wind.png",
+      "raw_sha256": "68d6185b462ecd8ed07326a0636bd041cd38588ac119d68244598116f25f74c6",
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "size": [
+        1254,
+        1254
+      ],
+      "grid_px": 12,
+      "hard_alpha": true,
+      "bbox": [
+        120,
+        24,
+        1116,
+        1176
+      ],
+      "sole_y": 1176,
+      "artwork": "image_gen",
+      "processing": "palette-majority readback, nearest-neighbor grid alignment and whole-body placement only; no painted anatomy",
+      "face_pixel_identity": "not pixel-for-pixel guaranteed by generation"
+    },
+    {
+      "file": "vander-pose-a_punch.png",
+      "raw": "raw/vander-pose-a_punch.png",
+      "raw_sha256": "37f5cd5625fdad8c7abcf6440c113c6913601c9a92bdf8813c639a3a455f7ef2",
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "size": [
+        1254,
+        1254
+      ],
+      "grid_px": 12,
+      "hard_alpha": true,
+      "bbox": [
+        24,
+        228,
+        1224,
+        1176
+      ],
+      "sole_y": 1176,
+      "artwork": "image_gen",
+      "processing": "palette-majority readback, nearest-neighbor grid alignment and whole-body placement only; no painted anatomy",
+      "face_pixel_identity": "not pixel-for-pixel guaranteed by generation"
+    },
+    {
+      "file": "vander-pose-a_back.png",
+      "raw": "raw/vander-pose-a_back.png",
+      "raw_sha256": "9dfb578257f680e416f0b9a1624c52c7babe3506e616f6b3d9c5349f7ab8f3f2",
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "size": [
+        1254,
+        1254
+      ],
+      "grid_px": 12,
+      "hard_alpha": true,
+      "bbox": [
+        120,
+        156,
+        1128,
+        1176
+      ],
+      "sole_y": 1176,
+      "artwork": "image_gen",
+      "processing": "palette-majority readback, nearest-neighbor grid alignment and whole-body placement only; no painted anatomy",
+      "face_pixel_identity": "not pixel-for-pixel guaranteed by generation"
+    },
+    {
+      "file": "vander-pose-q_guard.png",
+      "raw": "raw/vander-pose-q_guard.png",
+      "raw_sha256": "e5ad38435baf556297168e17e74fd3158905abaa38b88b46f97e3ca5d8b652b3",
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "size": [
+        1254,
+        1254
+      ],
+      "grid_px": 12,
+      "hard_alpha": true,
+      "bbox": [
+        60,
+        120,
+        1188,
+        1176
+      ],
+      "sole_y": 1176,
+      "artwork": "image_gen",
+      "processing": "palette-majority readback, nearest-neighbor grid alignment and whole-body placement only; no painted anatomy",
+      "face_pixel_identity": "not pixel-for-pixel guaranteed by generation"
+    },
+    {
+      "file": "vander-pose-e_crouch.png",
+      "raw": "raw/vander-pose-e_crouch.png",
+      "raw_sha256": "800768a6e81bfb5604912dab899ef68893d48640b77ea9484eeb8248def45578",
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "size": [
+        1254,
+        1254
+      ],
+      "grid_px": 12,
+      "hard_alpha": true,
+      "bbox": [
+        108,
+        228,
+        1140,
+        1176
+      ],
+      "sole_y": 1176,
+      "artwork": "image_gen",
+      "processing": "palette-majority readback, nearest-neighbor grid alignment and whole-body placement only; no painted anatomy",
+      "face_pixel_identity": "not pixel-for-pixel guaranteed by generation"
+    },
+    {
+      "file": "vander-pose-e_upper.png",
+      "raw": "raw/vander-pose-e_upper.png",
+      "raw_sha256": "04760f99ddbfe3c9bc5033e617e3ec236b19aa06af08e0c09923208e795f8582",
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "size": [
+        1254,
+        1254
+      ],
+      "grid_px": 12,
+      "hard_alpha": true,
+      "bbox": [
+        228,
+        24,
+        1008,
+        1176
+      ],
+      "sole_y": 1176,
+      "artwork": "image_gen",
+      "processing": "palette-majority readback, nearest-neighbor grid alignment and whole-body placement only; no painted anatomy",
+      "face_pixel_identity": "not pixel-for-pixel guaranteed by generation"
+    },
+    {
+      "file": "vander-pose-r_air.png",
+      "raw": "raw/vander-pose-r_air.png",
+      "raw_sha256": "8bd1278b0c7c9906504476d62b1991b8214952435c9e518b3dfa5f3792e2c629",
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "size": [
+        1254,
+        1254
+      ],
+      "grid_px": 12,
+      "hard_alpha": true,
+      "bbox": [
+        24,
+        24,
+        1212,
+        1176
+      ],
+      "sole_y": 1176,
+      "artwork": "image_gen",
+      "processing": "palette-majority readback, nearest-neighbor grid alignment and whole-body placement only; no painted anatomy",
+      "face_pixel_identity": "not pixel-for-pixel guaranteed by generation"
+    },
+    {
+      "file": "vander-pose-r_land.png",
+      "raw": "raw/vander-pose-r_land.png",
+      "raw_sha256": "2413100e26b6b350e2e2c7693adc792f99724d66ead4284d13115e3ee5ab0a34",
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "size": [
+        1254,
+        1254
+      ],
+      "grid_px": 12,
+      "hard_alpha": true,
+      "bbox": [
+        144,
+        60,
+        1104,
+        1176
+      ],
+      "sole_y": 1176,
+      "artwork": "image_gen",
+      "processing": "palette-majority readback, nearest-neighbor grid alignment and whole-body placement only; no painted anatomy",
+      "face_pixel_identity": "not pixel-for-pixel guaranteed by generation"
+    },
+    {
+      "file": "vander-pose-r_slam.png",
+      "raw": "raw/vander-pose-r_slam.png",
+      "raw_sha256": "ccb705261294761ff188584b387a0ce3f96e1881c06ab022c9a23bc5adcb4983",
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "size": [
+        1254,
+        1254
+      ],
+      "grid_px": 12,
+      "hard_alpha": true,
+      "bbox": [
+        48,
+        312,
+        1188,
+        1176
+      ],
+      "sole_y": 1176,
+      "artwork": "image_gen",
+      "processing": "palette-majority readback, nearest-neighbor grid alignment and whole-body placement only; no painted anatomy",
+      "face_pixel_identity": "not pixel-for-pixel guaranteed by generation"
+    },
+    {
+      "file": "vander-pose-run1.png",
+      "raw": "raw/vander-pose-run1.png",
+      "raw_sha256": "d5eedd68194ec87b5a7c21adfdcee243faa91ae58b045995f7c44a41271b6c19",
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "size": [
+        1254,
+        1254
+      ],
+      "grid_px": 12,
+      "hard_alpha": true,
+      "bbox": [
+        132,
+        60,
+        1104,
+        1176
+      ],
+      "sole_y": 1176,
+      "artwork": "image_gen",
+      "processing": "palette-majority readback, nearest-neighbor grid alignment and whole-body placement only; no painted anatomy",
+      "face_pixel_identity": "not pixel-for-pixel guaranteed by generation"
+    },
+    {
+      "file": "vander-pose-run2.png",
+      "raw": "raw/vander-pose-run2.png",
+      "raw_sha256": "f86f6a1aeffff488cf16ec6c369a8ce899e164b3206f97ab110bbfbc849f5829",
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "size": [
+        1254,
+        1254
+      ],
+      "grid_px": 12,
+      "hard_alpha": true,
+      "bbox": [
+        168,
+        132,
+        1080,
+        1176
+      ],
+      "sole_y": 1176,
+      "artwork": "image_gen",
+      "processing": "palette-majority readback, nearest-neighbor grid alignment and whole-body placement only; no painted anatomy",
+      "face_pixel_identity": "not pixel-for-pixel guaranteed by generation"
+    },
+    {
+      "file": "vander-pose-run3.png",
+      "raw": "raw/vander-pose-run3.png",
+      "raw_sha256": "18cf2256cd5b469398df1487c5fe12bfb63c2abb23829c4bc6e10d2fb8184bbf",
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "size": [
+        1254,
+        1254
+      ],
+      "grid_px": 12,
+      "hard_alpha": true,
+      "bbox": [
+        96,
+        36,
+        1152,
+        1176
+      ],
+      "sole_y": 1176,
+      "artwork": "image_gen",
+      "processing": "palette-majority readback, nearest-neighbor grid alignment and whole-body placement only; no painted anatomy",
+      "face_pixel_identity": "not pixel-for-pixel guaranteed by generation"
+    },
+    {
+      "file": "vander-pose-run4.png",
+      "raw": "raw/vander-pose-run4.png",
+      "raw_sha256": "18f82b2669a4c221d40eed76897c9fdf263b670e778f1560bc483a0584027364",
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "size": [
+        1254,
+        1254
+      ],
+      "grid_px": 12,
+      "hard_alpha": true,
+      "bbox": [
+        108,
+        156,
+        1140,
+        1176
+      ],
+      "sole_y": 1176,
+      "artwork": "image_gen",
+      "processing": "palette-majority readback, nearest-neighbor grid alignment and whole-body placement only; no painted anatomy",
+      "face_pixel_identity": "not pixel-for-pixel guaranteed by generation"
+    },
+    {
+      "file": "vander-pose-d_fall.png",
+      "raw": "raw/vander-pose-d_fall.png",
+      "raw_sha256": "ce69f1a20747cdba52aba9b41f3e476d481d207ddb0ce349a829cda50575d682",
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "size": [
+        1254,
+        1254
+      ],
+      "grid_px": 12,
+      "hard_alpha": true,
+      "bbox": [
+        60,
+        252,
+        1188,
+        1176
+      ],
+      "sole_y": 1176,
+      "artwork": "image_gen",
+      "processing": "palette-majority readback, nearest-neighbor grid alignment and whole-body placement only; no painted anatomy",
+      "face_pixel_identity": "not pixel-for-pixel guaranteed by generation"
+    },
+    {
+      "file": "vander-pose-d_down.png",
+      "raw": "raw/vander-pose-d_down.png",
+      "raw_sha256": "7fa9f1bf964120075a632d7bab6277084137c406e5cbe2dbfd22347248dbbfd9",
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "size": [
+        1254,
+        1254
+      ],
+      "grid_px": 12,
+      "hard_alpha": true,
+      "bbox": [
+        24,
+        696,
+        1224,
+        1176
+      ],
+      "sole_y": 1176,
+      "artwork": "image_gen",
+      "processing": "palette-majority readback, nearest-neighbor grid alignment and whole-body placement only; no painted anatomy",
+      "face_pixel_identity": "not pixel-for-pixel guaranteed by generation"
+    }
+  ],
+  "readback": {
+    "source": "image_gen raw PNGs",
+    "palette": "approved actor colours for poses; prompt ramps for FX",
+    "colour_vote": "most frequent foreground palette colour in each sampled cell",
+    "input_alpha_cutoff": 128,
+    "minimum_foreground_coverage": 0.35,
+    "output_alpha": [
+      0,
+      255
+    ],
+    "symmetry": "FX only: paired left/right samples per frame",
+    "notes": "No procedural replacement artwork. Reference-layout crops and whole-figure placement are recorded; raw source files remain unchanged."
+  }
+}
