@@ -408,6 +408,12 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // Yunara: PPU 1.5 (the user's pick), posed from the design's own squares at that density by tools/art/rig_yunara.py
     // (40 game rows ornaments to soles), so no SIZES row
     ("league_yunara", 1.5, include_str!("../../../league/champions/league_yunara#anim.fanim")),
+    // Rengar (2026-10-27, 「利用PPU1.5重做一下狮子狗模型」): Codex's picture traced from his old sprite read on its raw's own
+    // squares (74 x 59, tools/art/design_rengar_hd.py: 59 rows / 40 = 1.475), his tail behind him (drawn, the picture had
+    // it in front); every action Codex's whole-frame redraw of his old frame read onto it at the zoom his head gives
+    // (tools/art/casts_rengar_hd.py), the run his old trot rebuilt from the design (tools/art/rig_rengar_hd.py); 40 game
+    // px as his 1x sprite, so no SIZES row
+    ("league_rengar", 1.475, include_str!("../../../league/champions/league_rengar#anim.fanim")),
 ];
 
 /// Champion id, its size everywhere the dense frames are drawn (1.0 = the 1x frames' size): the anim tables' rects and

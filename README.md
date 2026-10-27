@@ -176,7 +176,7 @@ GitHub Actions（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)，Window
 | <img src="docs/heroes/img/league_qiyana.png" width="32"> | [奇亚娜](docs/heroes/league_qiyana.md)<br>Qiyana | 打野 | 以绪塔尔之锋 · 天纵之勇 · 大招 惊才绝景 | [奇亚娜附加包](addons/league_qiyana/README.md) | PPU 1.5 |
 | <img src="docs/heroes/img/league_rammus.png" width="32"> | [拉莫斯](docs/heroes/league_rammus.md)<br>Rammus | 打野 | 动力冲刺 · 狂乱嘲讽 · 大招 冲天猛撞 | [拉莫斯附加包](addons/league_rammus/README.md) | PPU 1.2 |
 | <img src="docs/heroes/img/league_reksai.png" width="32"> | [雷克塞](docs/heroes/league_reksai.md)<br>Rek'Sai | 打野 | 女王之怒 · 遁地 · 大招 虚空猛冲 | [雷克塞附加包](addons/league_reksai/README.md) | PPU 1.2 |
-| <img src="docs/heroes/img/league_rengar.png" width="32"> | [雷恩加尔](docs/heroes/league_rengar.md)<br>Rengar | 打野 | 战争咆哮 · 套索打击 · 大招 狩猎律动 | [雷恩加尔草丛附加包](addons/league_rengar_bush/README.md) | — |
+| <img src="docs/heroes/img/league_rengar.png" width="32"> | [雷恩加尔](docs/heroes/league_rengar.md)<br>Rengar | 打野 | 战争咆哮 · 套索打击 · 大招 狩猎律动 | [雷恩加尔草丛附加包](addons/league_rengar_bush/README.md) | PPU 1.48 |
 | <img src="docs/heroes/img/league_sejuani.png" width="32"> | [瑟庄妮](docs/heroes/league_sejuani.md)<br>Sejuani | 打野 | 极寒突袭 · 凛冬之怒 · 大招 极冰寒狱 | [瑟庄妮附加包](addons/league_sejuani/README.md) | PPU 2 |
 | <img src="docs/heroes/img/league_shaco.png" width="32"> | [萨科](docs/heroes/league_shaco.md)<br>Shaco | 打野 | 被动 背刺 · 欺诈魔术 · 惊吓魔盒 · 大招 幻像 | [萨科背刺附加包](addons/league_shaco_backstab/README.md) | — |
 | <img src="docs/heroes/img/league_shyvana.png" width="32"> | [希瓦娜](docs/heroes/league_shyvana.md)<br>Shyvana | 打野 | 焚焰打击 · 爆炎吐息 · 大招 魔龙降世 | [希瓦娜附加包](addons/league_shyvana/README.md) | PPU 1.5 |

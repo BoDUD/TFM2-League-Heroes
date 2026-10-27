@@ -10,7 +10,7 @@
 | 所属的包 | 主包（mod_id `league`） |
 | 分路 | 打野 |
 | 分类 / 标签 | 刺客（Assassin） · AD / Melee / CC |
-| 高清帧 | 1 倍像素（无高清帧） |
+| 高清帧 | PPU 1.48 |
 | 附加包 | [雷恩加尔草丛附加包](#附加包)（`league_rengar_bush`） |
 
 ![雷恩加尔演示](../preview/league_rengar_showcase.gif)
@@ -97,6 +97,7 @@
 | 数值 | 攻击 100（+16）、生命 950（+88）、护甲 28（+8）、魔抗 18（+4）、移速 1100（+13）。数值是自己设计的，用 SDK 对战模拟调：打野，对 3 个原版打野（`ninja`、`hunter`、`demon`），3 套阵容、两边各打，10 分钟。初稿 −1.43（同一批卡兹克 +1.60、伊芙琳 +1.55）；攻击 90 → 100、生命 900 → 950，Q 上挑 60% → 90%（强化 100% → 140%）、砸地 20% → 30%，飞扑 120% → 150%，W 回复 35% → 50%：种子 1–12 +1.35、25–36 +1.92（同一批卡兹克 +1.30）。Q 冷却 4 秒那组 +3.11，偏强 |
 | 亚索联动 | 强化 E 的定身是硬控。重跑亚索的模拟（亚索上单，候选打野，24 个种子两边各打）：雷恩加尔同队时亚索大招每局 1.17 次，原版忍者 0.58、卡兹克 0.35（凯隐 1.00、李青 1.67）。不用调 |
 | 精灵图 | 10 个动作 65 帧：待机 8、移动 8、普攻 6、飞扑（`leap`）8、Q（`skill`）8、E（`skill2`）6、W（`skill_w`）7、R（`ult`）4、受击 2、死亡 8。高 40 px，25 色。头像截取点 (4, −36)；待机最高到 −29（角尖），`banpick_center` −10 |
+| 高清帧（PPU 1.475） | 2026-10-27 用 PPU 重做（用户：「可以参考另外一个账号 利用PPU1.5重做一下狮子狗模型」）。设计图：Codex 照他的旧精灵描密的图（按原图约 15 像素一格读回，74 × 59 格；59 行 / 1.475 = 原来的 40 像素，`design_rengar_hd.py`；Codex 自己压成 62 × 62 的导出图变形了，不用）。动作：Codex 照旧版每一帧整帧重画（`pack_rengar_actions.py`），交回的是白底、带抗锯齿、每张放大倍数不同的成图；`casts_rengar_hd.py` 抠掉白底（鬃毛画成和底色一样的白：被围住的白块只有四周是描边时才当背景，用户：「怎么还变黑了？」），每张的放大倍数按他的头量（设计图的头在整帧里搜着套），颜色换回设计图的色板，摆回旧版同一帧的位置。尾巴：设计图提示词把旧精灵看错，Codex 把尾巴画在了身前拿刀的手旁边（「怎么尾巴在手上？」「尾巴还是不对」）；改成英雄联盟和旧精灵那样在身后：去掉身前的尾巴（`untail`），从屁股后面画一条垂到后脚后面地上的尾巴（`tail`，金环、白尾尖），36 帧换掉，Codex 本来就画在身后的（扑跳 4、5，倒地）保留。死亡第 2 帧 Codex 画成已经躺下，用第 3 帧代替。跑步：Codex 的 8 帧远侧腿一直在前、近侧腿一直抬在后（「走路两个腿不交换的」），改成旧版用户选的小跑（`rig_rengar_hd.py` 的 TROT：小腿以膝为轴轮流前后摆、往前时抬脚，不交叉步，落地身体沉 1 格，手臂反向摆）。待机呼吸和 R 下蹲由设计图压低（尾巴根跟着沉、尾尖不动）。残留像素（「尾巴下面怎么有个残留的像素」）：尾巴在脚底那行只画描边，描边多出的悬空点全部修掉，1 倍帧由高清帧重做（`ppu_one.py`）。高 40 像素和旧版一样，所以没有尺寸表行，头像点 (4, −36)、选人卡 −10 不变。俄洛伊的灵魂、佛耶戈附身 / 妮蔻假扮用的帧表跟着更新 |
 | 特效 | Codex 生图的 20 张（`import_rengar.py` 缩成游戏像素）：`league_rengar_fx` 普攻划痕、飞扑的尘土和三道爪痕、被动的金眼、凶残值的四个状态、Q 的砸地和上挑、Q 攻速的刀光圈、W 回血、套索（朝飞行方向转，上下对称）、减速和定身的绳圈、猎人红眼、战利品、怒气符号；`league_rengar_big` W 的冲击波、强化 Q / W 的火光、R 的烟雾和暴击爪痕 |
 | 音效 | 英雄联盟的音效和配音（`tools/lol/extract_rengar.py`）：普攻挥砍和命中、飞扑和落地、Q 出手 / 命中 / 强化命中、W / 强化 W、E 出手 / 命中 / 定身、R 出手和暴击；Q、W、E、R、满凶残值和初遇卡兹克的中文配音（卡兹克那边的彩蛋台词在 `tools/lol/extract_khazix.py`）。版权属于 Riot Games，**不提交到仓库**，按下面的命令在本地生成 |
 | 图标 | 官方技能图标（W / E / R），从本地客户端提取，缩到 64×64；Q 自动，没有技能位 |
@@ -112,6 +113,15 @@ python tools/art/design_rengar.py --rebuild   # 造型：41 行的字母格子 -
 python tools/art/rig_rengar.py          # 动作：造型自己的零件无损摆姿势（整格平移、90° 旋转、翻转、整行移动、叠放）
 python tools/art/import_native.py --hero rengar
 python tools/art/import_rengar.py       # 特效；--raw assets/source/rengar/codex_fx 先把生图原稿缩成游戏尺寸的原尺寸条
+# PPU 1.475 重做（2026-10-27）：
+python tools/art/pack_rengar_ppu.py --out <文件夹>        # 给 Codex 的设计图包（照他的旧精灵描密）
+python tools/art/design_rengar_hd.py                    # Codex 的图（hd/raw/rengar-A.png）按自己的格子读回、尾巴改到身后 -> hd/design.png
+python tools/art/pack_rengar_actions.py --out <文件夹>    # 给 Codex 的动作包（照旧版同一帧整帧重画）
+python tools/art/casts_rengar_hd.py --measure           # 每张图的放大倍数（按头量）
+python tools/art/rig_rengar_hd.py                       # 交付（hd/casts）读回到设计图上、尾巴、小跑 -> 原始条和 1 倍图
+python tools/art/ppu_restyle.py --hero rengar && python tools/art/ppu_hd.py --hero rengar
+python tools/art/ppu_one.py --hero rengar && python tools/art/rig_rengar_hd.py --one-ground && python tools/art/hero_reels.py --hero rengar
+python tools/art/review_rengar_actions.py --out <文件夹>  # 旧版 / 新版对照动图
 ```
 
 美术（动作的提示词见 [`assets/source/rengar/MODEL_STRIPS.md`](../../assets/source/rengar/MODEL_STRIPS.md)，特效的见 [`PROMPTS_FX.md`](../../assets/source/rengar/PROMPTS_FX.md)；Codex 的交付在 [`codex_model/`](../../assets/source/rengar/codex_model)、[`codex_strips/`](../../assets/source/rengar/codex_strips)、[`codex_fx/`](../../assets/source/rengar/codex_fx)）：
@@ -124,4 +134,4 @@ python tools/art/import_rengar.py       # 特效；--raw assets/source/rengar/co
 - 特效：Codex 第 3 步的 20 张（`import_rengar.py --raw`：按交付的 `manifest.json` 切帧，颜色归到包里给每张的色阶：金、凶残红橙、骨色、尘土、烟雾、猎眼红、治疗绿、虚空紫）。
 - 红色方：飞行的套索严格上下对称；其余命中、地面圈、头顶标记、烟雾严格左右对称，不需要画进动作帧。
 
-逐帧预览：[`docs/preview/league_rengar_frames.png`](../preview/league_rengar_frames.png?v=1014g)，特效：[`docs/preview/league_rengar_effects.png`](../preview/league_rengar_effects.png?v=1014g)。
+逐帧预览：[`docs/preview/league_rengar_frames.png`](../preview/league_rengar_frames.png?v=1027hd)，特效：[`docs/preview/league_rengar_effects.png`](../preview/league_rengar_effects.png?v=1014g)。
