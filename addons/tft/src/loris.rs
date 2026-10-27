@@ -173,6 +173,16 @@ pub struct Guard {
 
 static GUARDS: LazyLock<Mutex<HashMap<usize, Guard>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
 
+/// 盾卫冲到哪一拍为止：(这场模拟的种子、来历、比赛、第几局, 他) -> 那一拍。原来塞在排队效果输入的 dir_y 里，可指向单位的输入
+/// 排一拍后只剩目标编号，dir_y 成了 0：每次第一拍就「LEAP SHORT」原地落下（2026-10-27 的日志：40 次盾卫 30 次只给了自己）。
+type LeapKey = (u64, u32, u64, u64, usize);
+static LEAPS: LazyLock<Mutex<HashMap<LeapKey, usize>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
+
+fn leap_key(sim: &StableSim<'_>, me: usize) -> LeapKey {
+    let o = sim.sim_origin().unwrap_or_default();
+    (sim.seed(), o.kind, o.match_id, o.set_index, me)
+}
+
 // ===================== 规则（单元测试用） =====================
 
 /// base + ratio% of the ability power.
@@ -301,8 +311,9 @@ impl StableEffectType for Bulwark {
                     let (hp, max) = sim.get_entity(ally).map_or((0, 0), |e| e.hp());
                     wlog(format!("{} BULWARK #{k}: to {} ({hp}/{max})", head(sim, me), name_of(sim, ally)));
                 }
-                let input = InputTargetV1 { dir_y: (sim.tick() + LEAP_MAX) as i64, ..InputTargetV1::target(ally) };
-                sim.queue_effect(LEAP_FX, AttackTypeV1::Skill, me, &input, 1);
+                let key = leap_key(sim, me);
+                LEAPS.lock().unwrap_or_else(|e| e.into_inner()).insert(key, sim.tick() + LEAP_MAX);
+                sim.queue_effect(LEAP_FX, AttackTypeV1::Skill, me, &InputTargetV1::target(ally), 1);
             }
             None => land(sim, me, None),
         }
@@ -318,20 +329,29 @@ impl StableEffectType for Bulwark {
 struct Leap;
 impl StableEffectType for Leap {
     fn apply(&self, sim: &mut StableSim<'_>, _: u64, me: usize, input: InputTargetV1) {
-        if input.kind != InputTargetKindV1::Target.code() || input.dir_y < 0 {
+        if input.kind != InputTargetKindV1::Target.code() {
             return;
         }
-        let Some(from) = sim.get_entity(me).filter(|e| e.is_alive()).map(|e| e.pos()) else { return };
+        let key = leap_key(sim, me);
+        let Some(from) = sim.get_entity(me).filter(|e| e.is_alive()).map(|e| e.pos()) else {
+            LEAPS.lock().unwrap_or_else(|e| e.into_inner()).remove(&key);
+            return;
+        };
         let ally = input.target_id;
-        let until = input.dir_y as usize;
+        // no leap on record (none started in this simulation): land at once, as the old deadline in the past did
+        let until = LEAPS.lock().unwrap_or_else(|e| e.into_inner()).get(&key).copied().unwrap_or(0);
+        let done = |sim: &mut StableSim<'_>, with: Option<usize>| {
+            LEAPS.lock().unwrap_or_else(|e| e.into_inner()).remove(&key);
+            land(sim, me, with);
+        };
         if !reachable(sim, ally) {
-            land(sim, me, None);
+            done(sim, None);
             return;
         }
         let to = sim.get_entity(ally).map_or(from, |e| e.pos());
         let p = params_of(me);
         if dist_sq(from, to) <= (TOUCH as u128) * (TOUCH as u128) {
-            land(sim, me, Some(ally));
+            done(sim, Some(ally));
             return;
         }
         // stop TOUCH short of the ally's centre, not on it
@@ -343,7 +363,7 @@ impl StableEffectType for Leap {
             if let Some(k) = counted("leap_short") {
                 wlog(format!("{} LEAP SHORT #{k}: {} not reached", head(sim, me), name_of(sim, ally)));
             }
-            land(sim, me, None);
+            done(sim, None);
             return;
         }
         sim.queue_effect(LEAP_FX, AttackTypeV1::Skill, me, &input, 1);
@@ -494,6 +514,19 @@ mod tests {
         assert_eq!(step((0, 0), (10_000, 0), 4500), (4500, 0));
         assert_eq!(step((0, 0), (3000, 4000), 4500), (2700, 3600));
         assert_eq!(step((0, 0), (1000, 0), 4500), (1000, 0));
+    }
+
+    #[test]
+    fn the_leap_reaches_the_edge_of_its_range_in_time() {
+        // an ally standing still at e_r: touched well inside LEAP_MAX ticks of e_speed steps
+        let p = Params::default();
+        let (mut at, to) = ((0u64, 0u64), (p.e_r, 0u64));
+        let mut ticks = 0;
+        while dist_sq(at, to) > (TOUCH as u128) * (TOUCH as u128) {
+            at = step(at, to, p.e_speed);
+            ticks += 1;
+        }
+        assert!(ticks < LEAP_MAX / 2, "{ticks} ticks");
     }
 
     #[test]
