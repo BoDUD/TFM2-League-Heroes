@@ -50,6 +50,19 @@ BIG = "asset/league/effects/league_yuumi_big"
 # the ride picture's own sheet: tags idle (14 game px) and hd_idle (the same at 1.5 squares a game px), registered in
 # league.dll's hd.rs like a hero's so the battlefield draws the dense frame (the user's 「1.5 倍（21 格）」)
 RIDE = "asset/league/effects/league_yuumi_ride"
+# The ride picture's lifts in game px (2026-10-28, the user: 「附身在烬身上 烬的头部都被挡住了」): drawn as it is (0) the
+# picture's lowest row is 23 px over the host's pivot, made for a 36-px champion whose crown is 25 px up - a taller host
+# (Jhin's crown 29, Hwei's 39) had his head under the cat. Each lift is a tag of league_yuumi_ride (ride_tag) and a buff
+# of its own (ride_buff) with that tag; the add-on puts the one that sits the picture on his crown (src/lifts.rs).
+RIDE_LIFTS = (-6, -4, -2, 0, 2, 4, 6, 8, 10, 12, 14, 16)
+
+
+def ride_tag(lift):
+    return "idle" if lift == 0 else (f"u{lift}" if lift > 0 else f"d{-lift}")
+
+
+def ride_buff(lift):
+    return "w_ride" if lift == 0 else f"w_ride_{ride_tag(lift)}"
 
 # League units x 100 = ours (attack range 425 -> 50000, a step under the pack's 53000-60000 supports); radii count
 # the unit's collision radius (~15000) on top. Timings from the strips (tools/art/rig_yuumi.py MS): the attack's reach
@@ -374,9 +387,9 @@ def build(p):
     views_p = [B_("a_bolt"), B_("q_missile"), B_("r_wave", BIG)]
     views_e = [E("a_hit"), E("p_hit"), E("p_heal"), E("q_hit"), E("q_ehit"), E("e_hit"), E("w_heal"),
                E("w_jump", FX, 2, False), E("w_land", FX, 2, False), E("r_cast", BIG, -1), E("r_hit"), E("r_heal")]
-    # w_ride: the cat lying on her open book, drawn over the host's head (a buff picture is never mirrored)
-    views_b = [dict(B_("w_ride", RIDE, 4), tag="idle"), B_("e_haste", FX, -1), B_("q_slow", FX, 1), B_("q_eslow", FX, 1),
-               B_("r_root", FX, 1)]
+    # w_ride: the cat lying on her open book, drawn over the host's head (a buff picture is never mirrored), one per lift
+    views_b = [dict(B_(ride_buff(k), RIDE, 4), tag=ride_tag(k)) for k in RIDE_LIFTS] + [
+        B_("e_haste", FX, -1), B_("q_slow", FX, 1), B_("q_eslow", FX, 1), B_("r_root", FX, 1)]
     extra = {}
     if native:
         extra["passive"] = {"passive_ref": "league_yuumi:bond", "params": {

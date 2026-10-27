@@ -26,6 +26,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 import casts_gwen_hd as CG  # noqa: E402
 import gwen_twin_tails as TT  # noqa: E402
+import gwen_right_tail as RT  # noqa: E402
 import design_gwen_hd as DG  # noqa: E402
 import ppu_rig as R  # noqa: E402
 import rig_xinzhao_hd as XZ  # noqa: E402
@@ -135,7 +136,8 @@ def run_frames(rig):
 
 def frames(rig):
     sheet = R.sheet_of(HERO)
-    casts = TT.cut_casts(CG.placed())             # without the back tail (gwen_twin_tails.py)
+    # without the back tail (gwen_twin_tails.py), the near drill's strand merged (gwen_right_tail.py)
+    casts = RT.merge_casts(TT.cut_casts(CG.placed()))
     out = {}
     for tag in sheet:
         if tag in ("idle", "bp"):

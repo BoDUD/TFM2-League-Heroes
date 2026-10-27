@@ -29,11 +29,12 @@ use std::sync::{LazyLock, Mutex};
 
 use mod_api_stable::*;
 
+pub mod lifts;
 pub mod view;
 
 const ID: &str = "league_yuumi";
 /// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是 league_addons 的。
-const VERSION: &str = "0.1.2";
+const VERSION: &str = "0.1.3";
 const HERO: &str = "league_yuumi";
 /// 她身上的附身 buff（view.rs 照它把她的动作换成空白的 a_*）。
 pub const RIDING: &str = "league_yuumi_w_on";
@@ -55,6 +56,34 @@ const NEXUS: [(f64, f64); 2] = [(96000.0, 864000.0), (864000.0, 96000.0)];
 /// 主包悠米的名字（buff、声音、画面都以它开头）。
 fn yu(x: &str) -> String {
     format!("league_yuumi_{x}")
+}
+
+/// How far over the host's pivot the ride picture reaches down as drawn (its tail tuft; tools/art/import_yuumi_fx.py puts
+/// the book on a 36-px champion's crown, 25 px up).
+pub const RIDE_BOTTOM: i32 = 23;
+/// How deep the picture sits in the host's hair.
+pub const RIDE_SINK: i32 = 2;
+
+/// The lift (`lifts::LIFTS`, game px) that sits the ride picture on a crown `crown` px over the host's pivot: its bottom
+/// `RIDE_SINK` into his hair, the nearest lift there is, the higher one on a tie (2026-10-28, the user: 「附身在烬身上
+/// 烬的头部都被挡住了」 - Jhin's crown is 29 px up, the picture covered his head from 23).
+pub fn lift_for(crown: i32) -> i32 {
+    let want = crown - RIDE_SINK - RIDE_BOTTOM;
+    lifts::LIFTS.iter().copied().min_by_key(|&k| ((k - want).abs(), -k)).unwrap_or(0)
+}
+
+/// The host's ride buff for a lift (tools/kit/build_yuumi.py ride_buff: each has its view with that lift's tag).
+pub fn ride_buff(lift: i32) -> String {
+    match lift {
+        0 => yu("w_ride"),
+        k if k > 0 => yu(&format!("w_ride_u{k}")),
+        k => yu(&format!("w_ride_d{}", -k)),
+    }
+}
+
+/// The lift for a host by his champion name (0: a champion this repo does not draw - the picture as it was).
+pub fn lift_of(name: &str) -> i32 {
+    lifts::CROWNS.iter().find(|(n, _)| *n == name).map_or(0, |&(_, c)| lift_for(c))
 }
 
 // ===================== 日志 =====================
@@ -324,6 +353,8 @@ struct Bond {
     p: Params,
     sim_no: u64,
     host: Option<usize>,
+    /// the ride picture's buff on him (`ride_buff` of his lift)
+    ride: String,
     since: usize,
     /// 她这一段放逐到哪一 tick。
     banished_until: usize,
@@ -391,8 +422,10 @@ impl Bond {
         self.attaches += 1;
         sim.entity_remove_buff(me, RIDING);
         sim.add_buff(me, &BuffV1::named(RIDING));
-        sim.entity_remove_buff(host, &yu("w_ride"));
-        sim.add_buff(host, &BuffV1::named(&yu("w_ride")));
+        let lift = sim.get_entity(host).and_then(|e| e.name()).map_or(0, |n| lift_of(&n));
+        self.ride = ride_buff(lift);
+        sim.entity_remove_buff(host, &self.ride);
+        sim.add_buff(host, &BuffV1::named(&self.ride));
         if let Some(at) = sim.get_entity(host).map(|e| e.pos()) {
             let team = sim.get_entity(me).map_or(0, |e| e.team());
             let spot = beside(at, team);
@@ -402,7 +435,8 @@ impl Bond {
         self.record(me, None);
         if let Some(k) = counted("attach") {
             let (hp, max) = sim.get_entity(host).map_or((0, 0), |e| e.hp());
-            wlog(format!("{} ATTACH #{k} on {} ({hp}/{max} hp)", head(sim, me), who(sim, host)));
+            wlog(format!("{} ATTACH #{k} on {} ({hp}/{max} hp), the ride picture {}", head(sim, me), who(sim, host),
+                         self.ride));
         }
     }
 
@@ -412,7 +446,7 @@ impl Bond {
         sim.entity_remove_buff(me, &yu("w_safe"));
         self.host_at = None;
         if sim.get_entity(host).is_some() {
-            sim.entity_remove_buff(host, &yu("w_ride"));
+            sim.entity_remove_buff(host, &self.ride);
         }
         self.window = None;
         // she shows again when the banish she is in runs out: the landing then
@@ -770,6 +804,42 @@ mod tests {
         assert_eq!(wanted([false, true, true], [true, true, false]), Some(InputKindV1::Skill2));
         assert_eq!(wanted([true, false, false], [false, true, true]), None); // Q ready but nobody in its range
         assert_eq!(wanted([false, false, false], [true, true, true]), None);
+    }
+
+    #[test]
+    fn the_ride_picture_sits_on_the_hosts_crown() {
+        // a 36-px champion (crown 25 up): as drawn
+        assert_eq!(lift_for(25), 0);
+        // Jhin (29 up) 4 higher, Hwei (39) as high as it goes, a small one (20) lower
+        assert_eq!(lift_for(29), 4);
+        assert_eq!(lift_for(60), 16);
+        assert_eq!(lift_for(20), -4);
+        assert_eq!(lift_for(0), -6);
+        // a tie goes up
+        assert_eq!(lift_for(26), 2);
+        assert_eq!(lift_for(28), 4);
+        assert_eq!(lift_of("league_jhin"), 4);
+        assert_eq!(lift_of("some_other_mod_champion"), 0);
+        assert_eq!(ride_buff(0), "league_yuumi_w_ride");
+        assert_eq!(ride_buff(4), "league_yuumi_w_ride_u4");
+        assert_eq!(ride_buff(-2), "league_yuumi_w_ride_d2");
+    }
+
+    #[test]
+    fn every_lift_has_its_view_and_tag() {
+        let main = include_str!("../../../league/champion/league_yuumi.data_champion");
+        let copy = include_str!("../override/league_yuumi.data_champion");
+        let fanim = include_str!("../../../league/effects/league_yuumi_ride#anim.fanim");
+        for &k in lifts::LIFTS {
+            let name = ride_buff(k);
+            assert!(name.len() <= BUFF_NAME_CAP);
+            let tag = if k == 0 { "idle".to_string() } else { name.trim_start_matches("league_yuumi_w_ride_").to_string() };
+            for text in [main, copy] {
+                assert!(text.contains(&format!("\"name\": \"{name}\"")), "no view for {name}");
+                assert!(text.contains(&format!("\"tag\": \"{tag}\"")), "no tag {tag}");
+            }
+            assert!(fanim.contains(&format!("\"{tag}\"")) && fanim.contains(&format!("\"hd_{tag}\"")), "no tag {tag} in the sheet");
+        }
     }
 
     #[test]
