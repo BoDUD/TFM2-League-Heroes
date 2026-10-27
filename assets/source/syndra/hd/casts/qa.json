@@ -1,0 +1,148 @@
+{
+  "design_size": [
+    54,
+    78
+  ],
+  "design_palette_colors": 26,
+  "sheets": [
+    {
+      "file": "pose_1.png",
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "canvas_pass": true,
+      "approx_actor_boxes_dark_threshold_220": [
+        [
+          146,
+          203,
+          681,
+          963
+        ],
+        [
+          852,
+          203,
+          1300,
+          963
+        ]
+      ],
+      "unique_rgb_colors": 83613,
+      "pure_white_pixels": 110915,
+      "exact_design_palette_pixels": 709,
+      "other_pixels_including_antialias_and_background": 1461240,
+      "raw_identical": true,
+      "production_status": "generated_pose_source_requires_registration_palette_and_invariant_pixel_repair"
+    },
+    {
+      "file": "pose_2.png",
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "canvas_pass": true,
+      "approx_actor_boxes_dark_threshold_220": [
+        [
+          119,
+          268,
+          677,
+          993
+        ],
+        [
+          870,
+          267,
+          1366,
+          993
+        ]
+      ],
+      "unique_rgb_colors": 87635,
+      "pure_white_pixels": 122863,
+      "exact_design_palette_pixels": 449,
+      "other_pixels_including_antialias_and_background": 1449552,
+      "raw_identical": true,
+      "production_status": "generated_pose_source_requires_registration_palette_and_invariant_pixel_repair"
+    },
+    {
+      "file": "pose_3.png",
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "canvas_pass": true,
+      "approx_actor_boxes_dark_threshold_220": [
+        [
+          150,
+          175,
+          619,
+          921
+        ],
+        [
+          822,
+          175,
+          1410,
+          954
+        ]
+      ],
+      "unique_rgb_colors": 88221,
+      "pure_white_pixels": 123479,
+      "exact_design_palette_pixels": 517,
+      "other_pixels_including_antialias_and_background": 1448868,
+      "raw_identical": true,
+      "production_status": "generated_pose_source_requires_registration_palette_and_invariant_pixel_repair"
+    },
+    {
+      "file": "pose_4.png",
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "canvas_pass": true,
+      "approx_actor_boxes_dark_threshold_220": [
+        [
+          106,
+          241,
+          681,
+          960
+        ],
+        [
+          838,
+          325,
+          1386,
+          960
+        ]
+      ],
+      "unique_rgb_colors": 95980,
+      "pure_white_pixels": 143882,
+      "exact_design_palette_pixels": 777,
+      "other_pixels_including_antialias_and_background": 1428205,
+      "raw_identical": true,
+      "production_status": "generated_pose_source_requires_registration_palette_and_invariant_pixel_repair"
+    },
+    {
+      "file": "pose_5.png",
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "canvas_pass": true,
+      "approx_actor_boxes_dark_threshold_220": [
+        [
+          520,
+          384,
+          1016,
+          938
+        ]
+      ],
+      "unique_rgb_colors": 51781,
+      "pure_white_pixels": 240131,
+      "exact_design_palette_pixels": 350,
+      "other_pixels_including_antialias_and_background": 1332383,
+      "raw_identical": true,
+      "production_status": "generated_pose_source_requires_registration_palette_and_invariant_pixel_repair"
+    }
+  ]
+}
