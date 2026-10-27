@@ -17,8 +17,8 @@ it: "Game over!"). The kit is our own design from those (the user's pick, 2026-1
   skill2  Tiger Pounce (猛虎扑), `Targeting` on `EnemyWithoutTower` (e_range): he pounces onto the target (MoveToTarget,
           e_speed) and on landing every enemy within e_r takes e_dmg + e_ratio% AD + e_hp% of his maximum health and is
           thrown up e_up ticks.
-  ult     Game Over! (游戏结束！), `Targeting` on `EnemyChampion` (r_range): he springs out of sight (r_at ticks, unseen,
-          untouchable and unstoppable) and crashes down on the target: it takes r_main + r_main_ratio% AD + r_main_hp% of
+  ult     Game Over! (游戏结束！), `Targeting` on `EnemyChampion` (r_range): he springs out of sight (dust where he
+          sprang, a mark under the target; r_at ticks unseen, untouchable and unstoppable) and crashes down on the target: it takes r_main + r_main_ratio% AD + r_main_hp% of
           his maximum health, and every enemy within r_r (the target too) r_dmg + r_ratio% AD + r_hp% and is thrown up
           r_up ticks.
 
@@ -179,7 +179,8 @@ def build(p, is_native=False):
     crash = combine({"type": "Teleport"}, sfx("r_slam"), sfx("r_hit"), cview("r_slam"),
                     attack(p["r_main"], p["r_main_ratio"], p["r_main_hp"]), around(p["r_r"], "EnemyWithoutTower", hit))
     ult = action("ult", p["r_dur"], p["r_cd"], 1, p["r_range"], "Targeting", "EnemyChampion",
-                 combine(None if is_native else rage(p), sfx("r"), sfx("vo"), {"type": "CasterInvisible", "tick": p["r_at"]},
+                 combine(None if is_native else rage(p), sfx("r"), sfx("vo"), cview("r_jump"), view("r_mark"),
+                         {"type": "CasterInvisible", "tick": p["r_at"]},
                          flag("r_air", p["r_at"], damaged_reduce=100, cc_immune=True),
                          delayed(p["r_at"] - 1, crash)))
 
@@ -189,9 +190,10 @@ def build(p, is_native=False):
     B_ = lambda name, anim_=FX, z=2, tag=None: {"type": "Animated", "name": n(name), "anim": anim_, "tag": tag or name,
                                                 "repeat": True, "z": z}
     # the crash's shockwave and the pounce's landing ring lie on the ground round him (z -1), drawn round so they read
-    # the same on both sides. tft.dll plays the Second Phase's flash (p_burst) itself
+    # the same on both sides; the leap's dust stays where he sprang from, the landing mark rides the target while he is
+    # up. tft.dll plays the Second Phase's flash (p_burst) itself
     views_e = [E("a_hit"), E("q_shield", FX, 3), E("q_hit"), E("e_land", FX, -1, False), E("e_hit"),
-               E("r_slam", BIG, -1, False), E("r_hit")]
+               E("r_jump", FX, 1, False), E("r_mark", FX, -1), E("r_slam", BIG, -1, False), E("r_hit")]
     if is_native:
         views_e += [E("p_burst", FX, 3)]
     views_b = [B_("q_stun", FX, 3), B_("q_on", FX, 3), B_("p_rage", FX, 3)]

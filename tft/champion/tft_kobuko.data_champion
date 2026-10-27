@@ -284,6 +284,14 @@
           "name": "tft_kobuko_vo"
         },
         {
+          "type": "CasterViewEffect",
+          "name": "tft_kobuko_r_jump"
+        },
+        {
+          "type": "ViewEffect",
+          "name": "tft_kobuko_r_mark"
+        },
+        {
           "type": "CasterInvisible",
           "tick": 36
         },
@@ -406,6 +414,22 @@
       "anim": "asset/tft/effects/tft_kobuko_fx",
       "tag": "e_hit",
       "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_kobuko_r_jump",
+      "anim": "asset/tft/effects/tft_kobuko_fx",
+      "tag": "r_jump",
+      "z": 1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "tft_kobuko_r_mark",
+      "anim": "asset/tft/effects/tft_kobuko_fx",
+      "tag": "r_mark",
+      "z": -1,
       "is_follow": true
     },
     {
