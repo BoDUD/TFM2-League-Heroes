@@ -1,0 +1,302 @@
+[
+  {
+    "file": "maddie-pose-a_aim.png",
+    "canvas": [
+      1254,
+      1254
+    ],
+    "grid_px": 18,
+    "grid_origin": [
+      0,
+      0
+    ],
+    "baseline": 1170,
+    "raw": "raw/pose_a_aim.png",
+    "bbox": [
+      198,
+      126,
+      1242,
+      1170
+    ]
+  },
+  {
+    "file": "maddie-pose-a_fire.png",
+    "canvas": [
+      1254,
+      1254
+    ],
+    "grid_px": 18,
+    "grid_origin": [
+      0,
+      0
+    ],
+    "baseline": 1170,
+    "raw": "raw/pose_a_fire.png",
+    "bbox": [
+      216,
+      72,
+      1242,
+      1170
+    ]
+  },
+  {
+    "file": "maddie-pose-a_kick.png",
+    "canvas": [
+      1254,
+      1254
+    ],
+    "grid_px": 18,
+    "grid_origin": [
+      0,
+      0
+    ],
+    "baseline": 1170,
+    "raw": "raw/pose_a_kick.png",
+    "bbox": [
+      324,
+      18,
+      1134,
+      1170
+    ]
+  },
+  {
+    "file": "maddie-pose-a_back.png",
+    "canvas": [
+      1254,
+      1254
+    ],
+    "grid_px": 18,
+    "grid_origin": [
+      0,
+      0
+    ],
+    "baseline": 1170,
+    "raw": "raw/pose_a_back.png",
+    "bbox": [
+      342,
+      108,
+      1224,
+      1170
+    ]
+  },
+  {
+    "file": "maddie-pose-q_crouch.png",
+    "canvas": [
+      1254,
+      1254
+    ],
+    "grid_px": 18,
+    "grid_origin": [
+      0,
+      0
+    ],
+    "baseline": 1170,
+    "raw": "raw/pose_q_crouch.png",
+    "bbox": [
+      180,
+      234,
+      1224,
+      1170
+    ]
+  },
+  {
+    "file": "maddie-pose-q_fire.png",
+    "canvas": [
+      1254,
+      1254
+    ],
+    "grid_px": 18,
+    "grid_origin": [
+      0,
+      0
+    ],
+    "baseline": 1170,
+    "raw": "raw/pose_q_fire.png",
+    "bbox": [
+      234,
+      306,
+      1242,
+      1170
+    ]
+  },
+  {
+    "file": "maddie-pose-e_point.png",
+    "canvas": [
+      1254,
+      1254
+    ],
+    "grid_px": 18,
+    "grid_origin": [
+      0,
+      0
+    ],
+    "baseline": 1170,
+    "raw": "raw/pose_e_point.png",
+    "bbox": [
+      108,
+      126,
+      1206,
+      1170
+    ]
+  },
+  {
+    "file": "maddie-pose-r_aim.png",
+    "canvas": [
+      1254,
+      1254
+    ],
+    "grid_px": 18,
+    "grid_origin": [
+      0,
+      0
+    ],
+    "baseline": 1170,
+    "raw": "raw/pose_r_aim.png",
+    "bbox": [
+      234,
+      306,
+      1242,
+      1170
+    ]
+  },
+  {
+    "file": "maddie-pose-r_fire.png",
+    "canvas": [
+      1254,
+      1254
+    ],
+    "grid_px": 18,
+    "grid_origin": [
+      0,
+      0
+    ],
+    "baseline": 1170,
+    "raw": "raw/pose_r_fire.png",
+    "bbox": [
+      270,
+      54,
+      1134,
+      1170
+    ]
+  },
+  {
+    "file": "maddie-pose-run1.png",
+    "canvas": [
+      1254,
+      1254
+    ],
+    "grid_px": 18,
+    "grid_origin": [
+      0,
+      0
+    ],
+    "baseline": 1170,
+    "raw": "raw/pose_run1.png",
+    "bbox": [
+      288,
+      162,
+      1206,
+      1170
+    ]
+  },
+  {
+    "file": "maddie-pose-run2.png",
+    "canvas": [
+      1254,
+      1254
+    ],
+    "grid_px": 18,
+    "grid_origin": [
+      0,
+      0
+    ],
+    "baseline": 1170,
+    "raw": "raw/pose_run2.png",
+    "bbox": [
+      378,
+      108,
+      1188,
+      1170
+    ]
+  },
+  {
+    "file": "maddie-pose-run3.png",
+    "canvas": [
+      1254,
+      1254
+    ],
+    "grid_px": 18,
+    "grid_origin": [
+      0,
+      0
+    ],
+    "baseline": 1170,
+    "raw": "raw/pose_run3.png",
+    "bbox": [
+      198,
+      126,
+      1224,
+      1170
+    ]
+  },
+  {
+    "file": "maddie-pose-run4.png",
+    "canvas": [
+      1254,
+      1254
+    ],
+    "grid_px": 18,
+    "grid_origin": [
+      0,
+      0
+    ],
+    "baseline": 1170,
+    "raw": "raw/pose_run4.png",
+    "bbox": [
+      180,
+      162,
+      1242,
+      1170
+    ]
+  },
+  {
+    "file": "maddie-pose-d_fall.png",
+    "canvas": [
+      1254,
+      1254
+    ],
+    "grid_px": 18,
+    "grid_origin": [
+      0,
+      0
+    ],
+    "baseline": 1170,
+    "raw": "raw/pose_d_fall.png",
+    "bbox": [
+      126,
+      234,
+      1242,
+      1170
+    ]
+  },
+  {
+    "file": "maddie-pose-d_down.png",
+    "canvas": [
+      1254,
+      1254
+    ],
+    "grid_px": 18,
+    "grid_origin": [
+      0,
+      0
+    ],
+    "baseline": 1170,
+    "raw": "raw/pose_d_down.png",
+    "bbox": [
+      18,
+      648,
+      1242,
+      1170
+    ]
+  }
+]

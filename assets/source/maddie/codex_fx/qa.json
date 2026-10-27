@@ -1,0 +1,247 @@
+[
+  {
+    "file": "maddie_fx_a_bullet.png",
+    "frames": 4,
+    "cell_1x": [
+      12,
+      4
+    ],
+    "size1x": [
+      48,
+      4
+    ],
+    "exact_size": true,
+    "hard_alpha": true,
+    "symmetry": true,
+    "all_frames_nonempty": true,
+    "scale8": true
+  },
+  {
+    "file": "maddie_fx_a_hit.png",
+    "frames": 4,
+    "cell_1x": [
+      14,
+      14
+    ],
+    "size1x": [
+      56,
+      14
+    ],
+    "exact_size": true,
+    "hard_alpha": true,
+    "symmetry": true,
+    "all_frames_nonempty": true,
+    "scale8": true
+  },
+  {
+    "file": "maddie_fx_a_flash.png",
+    "frames": 3,
+    "cell_1x": [
+      14,
+      10
+    ],
+    "size1x": [
+      42,
+      10
+    ],
+    "exact_size": true,
+    "hard_alpha": true,
+    "symmetry": true,
+    "all_frames_nonempty": true,
+    "scale8": true
+  },
+  {
+    "file": "maddie_fx_q_bullet.png",
+    "frames": 4,
+    "cell_1x": [
+      14,
+      4
+    ],
+    "size1x": [
+      56,
+      4
+    ],
+    "exact_size": true,
+    "hard_alpha": true,
+    "symmetry": true,
+    "all_frames_nonempty": true,
+    "scale8": true
+  },
+  {
+    "file": "maddie_fx_q_hit.png",
+    "frames": 4,
+    "cell_1x": [
+      16,
+      16
+    ],
+    "size1x": [
+      64,
+      16
+    ],
+    "exact_size": true,
+    "hard_alpha": true,
+    "symmetry": true,
+    "all_frames_nonempty": true,
+    "scale8": true
+  },
+  {
+    "file": "maddie_fx_e_mark.png",
+    "frames": 6,
+    "cell_1x": [
+      22,
+      48
+    ],
+    "size1x": [
+      132,
+      48
+    ],
+    "exact_size": true,
+    "hard_alpha": true,
+    "symmetry": true,
+    "all_frames_nonempty": true,
+    "scale8": true
+  },
+  {
+    "file": "maddie_fx_e_wanted.png",
+    "frames": 6,
+    "cell_1x": [
+      16,
+      46
+    ],
+    "size1x": [
+      96,
+      46
+    ],
+    "exact_size": true,
+    "hard_alpha": true,
+    "symmetry": true,
+    "all_frames_nonempty": true,
+    "scale8": true
+  },
+  {
+    "file": "maddie_fx_p_bounty.png",
+    "frames": 6,
+    "cell_1x": [
+      24,
+      46
+    ],
+    "size1x": [
+      144,
+      46
+    ],
+    "exact_size": true,
+    "hard_alpha": true,
+    "symmetry": true,
+    "all_frames_nonempty": true,
+    "scale8": true
+  },
+  {
+    "file": "maddie_fx_p_bounty_loop.png",
+    "frames": 6,
+    "cell_1x": [
+      22,
+      10
+    ],
+    "size1x": [
+      132,
+      10
+    ],
+    "exact_size": true,
+    "hard_alpha": true,
+    "symmetry": true,
+    "all_frames_nonempty": true,
+    "scale8": true
+  },
+  {
+    "file": "maddie_fx_r_sight.png",
+    "frames": 8,
+    "cell_1x": [
+      36,
+      48
+    ],
+    "size1x": [
+      288,
+      48
+    ],
+    "exact_size": true,
+    "hard_alpha": true,
+    "symmetry": true,
+    "all_frames_nonempty": true,
+    "scale8": true
+  },
+  {
+    "file": "maddie_fx_r_flash.png",
+    "frames": 5,
+    "cell_1x": [
+      30,
+      20
+    ],
+    "size1x": [
+      150,
+      20
+    ],
+    "exact_size": true,
+    "hard_alpha": true,
+    "symmetry": true,
+    "all_frames_nonempty": true,
+    "scale8": true
+  },
+  {
+    "file": "maddie_fx_r_round.png",
+    "frames": 4,
+    "cell_1x": [
+      34,
+      8
+    ],
+    "size1x": [
+      136,
+      8
+    ],
+    "exact_size": true,
+    "hard_alpha": true,
+    "symmetry": true,
+    "all_frames_nonempty": true,
+    "scale8": true
+  },
+  {
+    "file": "maddie_fx_r_hit.png",
+    "frames": 7,
+    "cell_1x": [
+      40,
+      40
+    ],
+    "size1x": [
+      280,
+      40
+    ],
+    "exact_size": true,
+    "hard_alpha": true,
+    "symmetry": true,
+    "all_frames_nonempty": true,
+    "scale8": true
+  },
+  {
+    "file": "maddie_icon_skill.png",
+    "size": [
+      64,
+      64
+    ],
+    "size64": true
+  },
+  {
+    "file": "maddie_icon_skill2.png",
+    "size": [
+      64,
+      64
+    ],
+    "size64": true
+  },
+  {
+    "file": "maddie_icon_ult.png",
+    "size": [
+      64,
+      64
+    ],
+    "size64": true
+  }
+]
