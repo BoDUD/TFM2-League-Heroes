@@ -399,7 +399,8 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // 原样」); every action Codex's whole-frame redraw of his old frame read onto it at the zoom his head gives
     // (tools/art/casts_lucian_hd.py: the run on one head column, its second half the first); 46 game px as his 1x
     // sprite, so no SIZES row
-    ("league_lucian", 2.02, include_str!("../../../league/champions/league_lucian#anim.fanim")),
+    // brought to 1.5 squares a game pixel (「卢锡安的像素太高了调低一点 新模型」「卢锡安用 1.5」, ppu_restyle.py)
+    ("league_lucian", 1.5, include_str!("../../../league/champions/league_lucian#anim.fanim")),
     // Locke (2026's new champion, the user's pick): posed by tools/art/rig_locke.py on Codex's step-0 take A-1 brought to
     // 88 rows (44 game px hair to soles) and its key poses after League's clips (the design's head put back, the bodies
     // Codex drew bigger read at the design's size) at the user's 2.0 squares a game pixel (3/4 only; his W look's w_*
