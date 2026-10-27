@@ -1,0 +1,408 @@
+{
+  "assets": [
+    {
+      "file": "kobuko-pose-a_wind.png",
+      "raw": "raw\\kobuko-pose-a_wind.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "grid_px": 12,
+      "grid_origin": [
+        0,
+        0
+      ],
+      "lowest_visible_y_exclusive": 1176,
+      "bbox": [
+        84,
+        180,
+        1164,
+        1176
+      ],
+      "grid_scale": 1.0344827586206897,
+      "source_head_mane_width": 58,
+      "sha256": "cc6149a8d5192d00f5607c1f5b425b4cda520dc1a11707a77ff5b6b9d93ebea2",
+      "head_identity": "generated from approved reference; not bit-identical copy",
+      "game_runtime_tested": false
+    },
+    {
+      "file": "kobuko-pose-a_strike.png",
+      "raw": "raw\\kobuko-pose-a_strike.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "grid_px": 12,
+      "grid_origin": [
+        0,
+        0
+      ],
+      "lowest_visible_y_exclusive": 1176,
+      "bbox": [
+        72,
+        264,
+        1176,
+        1176
+      ],
+      "grid_scale": 0.9375,
+      "source_head_mane_width": 64,
+      "sha256": "2673351a4deaa23335c411de48197747b89e57afd4ba30f02926e999a4661cc2",
+      "head_identity": "generated from approved reference; not bit-identical copy",
+      "game_runtime_tested": false
+    },
+    {
+      "file": "kobuko-pose-a_back.png",
+      "raw": "raw\\kobuko-pose-a_back.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "grid_px": 12,
+      "grid_origin": [
+        0,
+        0
+      ],
+      "lowest_visible_y_exclusive": 1176,
+      "bbox": [
+        132,
+        264,
+        1104,
+        1176
+      ],
+      "grid_scale": 0.8571428571428571,
+      "source_head_mane_width": 70,
+      "sha256": "3359540d35b1116f73575e11d9ef0b7f2f93b0a05001b9f57ded083fedd59b14",
+      "head_identity": "generated from approved reference; not bit-identical copy",
+      "game_runtime_tested": false
+    },
+    {
+      "file": "kobuko-pose-q_raise.png",
+      "raw": "raw\\kobuko-pose-q_raise.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "grid_px": 12,
+      "grid_origin": [
+        0,
+        0
+      ],
+      "lowest_visible_y_exclusive": 1176,
+      "bbox": [
+        60,
+        180,
+        1176,
+        1176
+      ],
+      "grid_scale": 0.967741935483871,
+      "source_head_mane_width": 62,
+      "sha256": "ad1f98b3a7c6b7e093e282787b3567aa0efacefa561016773e0bdb67a388403f",
+      "head_identity": "generated from approved reference; not bit-identical copy",
+      "game_runtime_tested": false
+    },
+    {
+      "file": "kobuko-pose-q_spread.png",
+      "raw": "raw\\kobuko-pose-q_spread-repair.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "grid_px": 12,
+      "grid_origin": [
+        0,
+        0
+      ],
+      "lowest_visible_y_exclusive": 1176,
+      "bbox": [
+        12,
+        240,
+        1236,
+        1176
+      ],
+      "grid_scale": 1.02,
+      "source_head_mane_width": 58,
+      "sha256": "f7b1f1f8989a4c3441210f43a786e0fca35b6f9456801d1772c3a95e36aca7d4",
+      "head_identity": "generated from approved reference; not bit-identical copy",
+      "game_runtime_tested": false
+    },
+    {
+      "file": "kobuko-pose-q_claw.png",
+      "raw": "raw\\kobuko-pose-q_claw.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "grid_px": 12,
+      "grid_origin": [
+        0,
+        0
+      ],
+      "lowest_visible_y_exclusive": 1176,
+      "bbox": [
+        60,
+        228,
+        1176,
+        1176
+      ],
+      "grid_scale": 0.9375,
+      "source_head_mane_width": 64,
+      "sha256": "f0209c5865ac7e4317d2454f2988530ba4f41bec63956ccd09c58ab25c2be35b",
+      "head_identity": "generated from approved reference; not bit-identical copy",
+      "game_runtime_tested": false
+    },
+    {
+      "file": "kobuko-pose-e_crouch.png",
+      "raw": "raw\\kobuko-pose-e_crouch.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "grid_px": 12,
+      "grid_origin": [
+        0,
+        0
+      ],
+      "lowest_visible_y_exclusive": 1176,
+      "bbox": [
+        36,
+        240,
+        1200,
+        1176
+      ],
+      "grid_scale": 0.967741935483871,
+      "source_head_mane_width": 62,
+      "sha256": "5bf818c2d1262468b140526e87d197f99ca91e0e1c061fc2a26906d07b691f63",
+      "head_identity": "generated from approved reference; not bit-identical copy",
+      "game_runtime_tested": false
+    },
+    {
+      "file": "kobuko-pose-e_leap.png",
+      "raw": "raw\\kobuko-pose-e_leap.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "grid_px": 12,
+      "grid_origin": [
+        0,
+        0
+      ],
+      "lowest_visible_y_exclusive": 1176,
+      "bbox": [
+        36,
+        24,
+        1212,
+        1176
+      ],
+      "grid_scale": 0.9795918367346939,
+      "source_head_mane_width": 56,
+      "sha256": "a2c1da5102c6511006151b7dac4ca91a40d9371108ee2db70d9efa65f3000c10",
+      "head_identity": "generated from approved reference; not bit-identical copy",
+      "game_runtime_tested": false
+    },
+    {
+      "file": "kobuko-pose-e_land.png",
+      "raw": "raw\\kobuko-pose-e_land.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "grid_px": 12,
+      "grid_origin": [
+        0,
+        0
+      ],
+      "lowest_visible_y_exclusive": 1176,
+      "bbox": [
+        24,
+        204,
+        1212,
+        1176
+      ],
+      "grid_scale": 0.967741935483871,
+      "source_head_mane_width": 62,
+      "sha256": "6a0aee3ebef82d81412416aa8bafcd1fd5c5b40067aee01d64c24265af133e74",
+      "head_identity": "generated from approved reference; not bit-identical copy",
+      "game_runtime_tested": false
+    },
+    {
+      "file": "kobuko-pose-run1.png",
+      "raw": "raw\\kobuko-pose-run1.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "grid_px": 12,
+      "grid_origin": [
+        0,
+        0
+      ],
+      "lowest_visible_y_exclusive": 1176,
+      "bbox": [
+        108,
+        180,
+        1128,
+        1176
+      ],
+      "grid_scale": 0.8955223880597015,
+      "source_head_mane_width": 67,
+      "sha256": "9f2f69586f72735109a0fdcde136b4e23749cff7abd46e869f705ef1cb30a451",
+      "head_identity": "generated from approved reference; not bit-identical copy",
+      "game_runtime_tested": false
+    },
+    {
+      "file": "kobuko-pose-run2.png",
+      "raw": "raw\\kobuko-pose-run2.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "grid_px": 12,
+      "grid_origin": [
+        0,
+        0
+      ],
+      "lowest_visible_y_exclusive": 1176,
+      "bbox": [
+        144,
+        228,
+        1092,
+        1176
+      ],
+      "grid_scale": 0.8450704225352113,
+      "source_head_mane_width": 71,
+      "sha256": "e404cbcd661e9ce3534b20bb2ba1bd49d7c5b852b8b4ab0845300f7332c30a93",
+      "head_identity": "generated from approved reference; not bit-identical copy",
+      "game_runtime_tested": false
+    },
+    {
+      "file": "kobuko-pose-run3.png",
+      "raw": "raw\\kobuko-pose-run3-repair.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "grid_px": 12,
+      "grid_origin": [
+        0,
+        0
+      ],
+      "lowest_visible_y_exclusive": 1176,
+      "bbox": [
+        84,
+        252,
+        1164,
+        1176
+      ],
+      "grid_scale": 0.967741935483871,
+      "source_head_mane_width": 62,
+      "sha256": "e2ad2b9ac9b94b0f73dc97e77d134ddfe8c64925f9ed3e95471397dc8483826c",
+      "head_identity": "generated from approved reference; not bit-identical copy",
+      "game_runtime_tested": false
+    },
+    {
+      "file": "kobuko-pose-run4.png",
+      "raw": "raw\\kobuko-pose-run4.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "grid_px": 12,
+      "grid_origin": [
+        0,
+        0
+      ],
+      "lowest_visible_y_exclusive": 1176,
+      "bbox": [
+        72,
+        240,
+        1164,
+        1176
+      ],
+      "grid_scale": 0.9230769230769231,
+      "source_head_mane_width": 65,
+      "sha256": "2fe7f02c0d077fadd45995f00fbf9025ef7a4454321b435d84c0be4623b37ebc",
+      "head_identity": "generated from approved reference; not bit-identical copy",
+      "game_runtime_tested": false
+    },
+    {
+      "file": "kobuko-pose-d_hit.png",
+      "raw": "raw\\kobuko-pose-d_hit.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "grid_px": 12,
+      "grid_origin": [
+        0,
+        0
+      ],
+      "lowest_visible_y_exclusive": 1176,
+      "bbox": [
+        12,
+        36,
+        1236,
+        1176
+      ],
+      "grid_scale": 1.00990099009901,
+      "source_head_mane_width": 48,
+      "sha256": "c58715e8e0e84a99be538129f221b69b6459050b1d530958e420b8a75ed2f9c9",
+      "head_identity": "generated from approved reference; not bit-identical copy",
+      "game_runtime_tested": false
+    },
+    {
+      "file": "kobuko-pose-d_fall.png",
+      "raw": "raw\\kobuko-pose-d_fall.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "grid_px": 12,
+      "grid_origin": [
+        0,
+        0
+      ],
+      "lowest_visible_y_exclusive": 1176,
+      "bbox": [
+        48,
+        312,
+        1188,
+        1176
+      ],
+      "grid_scale": 1.0,
+      "source_head_mane_width": null,
+      "sha256": "07ed2df7f473138bcc777012704eb1df070bf2702b7659cd9862b239e22c3538",
+      "head_identity": "generated from approved reference; not bit-identical copy",
+      "game_runtime_tested": false
+    },
+    {
+      "file": "kobuko-pose-d_down.png",
+      "raw": "raw\\kobuko-pose-d_down.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "grid_px": 12,
+      "grid_origin": [
+        0,
+        0
+      ],
+      "lowest_visible_y_exclusive": 1176,
+      "bbox": [
+        24,
+        540,
+        1224,
+        1176
+      ],
+      "grid_scale": 1.0,
+      "source_head_mane_width": null,
+      "sha256": "0809192c1e70b1be7e953f9753946b77eda3fa4cfcb172dd9f8092d930b6e797",
+      "head_identity": "generated from approved reference; not bit-identical copy",
+      "game_runtime_tested": false
+    }
+  ],
+  "notes": [
+    "Images generated with image_gen, then majority-color grid decoding, hard-alpha and whole-actor placement only.",
+    "Source joint layout and exact head copying remain approximate; compare raw references before final in-engine import."
+  ]
+}

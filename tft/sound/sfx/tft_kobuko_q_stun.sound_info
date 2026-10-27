@@ -1,0 +1,9 @@
+{
+  "plays": [
+    {
+      "delay": 0.0,
+      "clip": "tft_kobuko_sfx_q_stun",
+      "volume": 0.35
+    }
+  ]
+}

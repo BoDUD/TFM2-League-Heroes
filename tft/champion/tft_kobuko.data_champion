@@ -78,6 +78,11 @@
                     "name": "tft_kobuko_q_on"
                   },
                   {
+                    "type": "CasterAnimation",
+                    "name": "claw",
+                    "tick": 21
+                  },
+                  {
                     "type": "Attack",
                     "damage": 40,
                     "attack_ratio": 105,
@@ -284,16 +289,8 @@
           "name": "tft_kobuko_vo"
         },
         {
-          "type": "CasterViewEffect",
-          "name": "tft_kobuko_r_jump"
-        },
-        {
           "type": "ViewEffect",
           "name": "tft_kobuko_r_mark"
-        },
-        {
-          "type": "CasterInvisible",
-          "tick": 36
         },
         {
           "type": "AddCasterBuff",
@@ -308,6 +305,20 @@
             "cc_immune": true
           },
           "only_to_enemy": false
+        },
+        {
+          "type": "Delayed",
+          "tick": 14,
+          "effects": [
+            {
+              "type": "CasterViewEffect",
+              "name": "tft_kobuko_r_jump"
+            },
+            {
+              "type": "CasterInvisible",
+              "tick": 21
+            }
+          ]
         },
         {
           "type": "Delayed",
@@ -359,7 +370,7 @@
                     },
                     {
                       "type": "Airborne",
-                      "duration": 50
+                      "duration": 48
                     },
                     {
                       "type": "ViewEffect",
@@ -480,7 +491,7 @@
       "anim": "asset/tft/effects/tft_kobuko_fx",
       "tag": "p_rage",
       "repeat": true,
-      "z": 3
+      "z": -1
     }
   ]
 }
