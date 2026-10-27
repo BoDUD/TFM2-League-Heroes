@@ -56,6 +56,10 @@ SCALES = [1.0]
 # (drawn 14 % over its reference)
 STAND = {}
 SCALE = {"q_guard": 0.90}
+# the run drawn as tall as his model running (~125 rows to the design's 80: 「怎么体型现在这么大啊 跑步的时候」): 0.75,
+# ~90 rows, the pasted head the design's own size
+RUN_SCALE = 0.75
+SCALE.update({n: RUN_SCALE for n in RUN_NAMES})
 DEFAULT = 1.0
 TURN = {}
 SPECK = 6                                        # parts apart from the figure smaller than this are dropped
@@ -199,7 +203,7 @@ def drop_old_face(big, pasted, d):
     win = np.zeros(pasted.shape, bool)
     win[max(0, y0):y1, max(0, x0):x1] = True
     loose_win = np.zeros(pasted.shape, bool)
-    loose_win[:ys.max() + 1 - FACE_LOW, max(0, xs.min() - HAIR_BACK):x1] = True
+    loose_win[:ys.max() + 1, max(0, xs.min() - HAIR_BACK):x1] = True
     rgb = big[..., :3]
     skin = np.zeros(pasted.shape, bool)
     for c in SKIN:
@@ -221,6 +225,12 @@ def drop_old_face(big, pasted, d):
         lo = max(0, edge - HAIR_BACK)
         cut = hair[y, lo:edge] & ~pasted[y, lo:edge]
         big[y, lo:edge][cut] = 0
+    # beside the beard (the head's lowest FACE_LOW rows, where the jacket meets it): the hair's (and beard's) colours
+    for y in range(ys.max() + 1 - FACE_LOW, ys.max() + 1):
+        row = xs[ys == y]
+        edge = row.max() if row.size else xs.max()
+        cut = hair[y, edge + 1:x1] & ~pasted[y, edge + 1:x1]
+        big[y, edge + 1:x1][cut] = 0
     ink = tuple(PD.edge_colour(d))
     for _ in range(4):
         op = big[..., 3] > 0

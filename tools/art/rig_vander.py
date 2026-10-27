@@ -11,7 +11,8 @@ The pictures (tools/art/design_vander_model.py, design_vander_poses.py):
                       facing right, 81 x 80 at PPU 2.0 (40 game px, the hair to the soles): the idle and the hit;
   hd/pose_<name>.png  Codex's key poses with the design's head put in (assets/source/vander/POSE_PROMPTS.md): a_wind
                       a_punch a_back q_guard e_crouch e_upper r_air r_land r_slam d_fall d_down; and run1-8, his TFT
-                      run redrawn (RUN_PROMPTS.md), upright, as tall as his model running (~125 rows to the design's 80).
+                      run redrawn (RUN_PROMPTS.md), upright, brought to ~90 rows (his model running is ~125 to the
+                      design's 80).
 Placing a pose (rig_loris's way): Codex drew every pose on the pack's 1254 canvas where its reference put it (the
 references were placed by tools/art/pack_vander_poses.py: the design pose's pelvis on one column, the soles on y 1176,
 the design itself at square (11, 18) of the 12 px grid), so each pose goes where Codex drew it: its grid_at
@@ -46,8 +47,9 @@ POSES = ("a_wind", "a_punch", "a_back", "q_guard", "e_crouch", "e_upper", "r_air
 
 
 RUN = [f"run{k}" for k in range(1, 9)]
-# the boot on the ground, its sole's middle from the head box (columns): run1-3 11.5 19 7.5, run4-8 22 19.5 24.5 15.5 10
-RUN_DX = {"run2": -5, "run6": -5}
+# the boot on the ground, its sole's middle from the head box (columns, at design_vander_poses.RUN_SCALE): run1-3
+# 10.5 18 5, run4-8 18.5 17 19 14.5 9.5
+RUN_DX = {"run2": -6, "run6": -2}
 RUN_MS = 133                             # his TFT run: 1066 ms the cycle
 
 
