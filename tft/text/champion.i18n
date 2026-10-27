@@ -42,6 +42,13 @@
         "skill": "获得<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>的护盾（<#ffb900ff>4秒<>），举盾冲锋，撞到的敌人受到<#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>魔法伤害并<#ef5350ff>晕眩1.5秒<>。",
         "skill2": "冲到附近生命比例最低的友方英雄身边，两人各获得<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<>的护盾（<#ffb900ff>4秒<>），期间替他承受<#ffb900ff>30%<>的伤害。",
         "ult": "把巨盾砸进地里，周围的敌人受到<#a974ffff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>魔法伤害、被<#ef5350ff>击飞1秒<>并<#ef5350ff>嘲讽2秒<>；自己受到的伤害降低<#ffb900ff>50%<>（<#ffb900ff>4秒<>）。"
+      },
+      "tft_vander": {
+        "name": "范德尔",
+        "attack": "挥拳造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>。<#ff9028ff>监察<>：受到的伤害降低<#ffb900ff>10%<>，生命高于<#ffb900ff>50%<>时降低<#ffb900ff>20%<>。",
+        "skill": "摆出防御姿态，<#ef5350ff>嘲讽<>周围的敌人<#ef5350ff>0.75秒<>，获得<#ffb900ff>40<>护甲和<#ffb900ff>30<>魔抗（<#ffb900ff>2.5秒<>）；下一拳造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<>物理伤害，队里每有一个<#ff9028ff>家人<>再加<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>。",
+        "skill2": "冲向敌人打出上勾拳，造成<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<>物理伤害并<#ef5350ff>晕眩0.5秒<>，身边的敌人受到<#ffb900ff>35%<>的伤害。",
+        "ult": "跳进敌群砸地，周围的敌人受到<#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150%<>物理伤害并被<#ef5350ff>击飞1秒<>；之后<#ffb900ff>4秒<>内受到的伤害降低<#ffb900ff>15%<>，身边每个敌方英雄再降低<#ffb900ff>8%<>（最多<#ffb900ff>4<>个）。"
       }
     },
     "skill_name": {
@@ -74,6 +81,11 @@
         "skill1": "皮城争斗",
         "skill2": "盾卫",
         "ult": "钢铁防线"
+      },
+      "tft_vander": {
+        "skill1": "地下猎犬",
+        "skill2": "铁拳突进",
+        "ult": "桥头死守"
       }
     }
   },
@@ -120,6 +132,13 @@
         "skill": "獲得<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>的護盾（<#ffb900ff>4秒<>），舉盾衝鋒，撞到的敵人受到<#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>魔法傷害並<#ef5350ff>暈眩1.5秒<>。",
         "skill2": "衝到附近生命比例最低的友方英雄身邊，兩人各獲得<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<>的護盾（<#ffb900ff>4秒<>），期間替他承受<#ffb900ff>30%<>的傷害。",
         "ult": "把巨盾砸進地裡，周圍的敵人受到<#a974ffff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>魔法傷害、被<#ef5350ff>擊飛1秒<>並<#ef5350ff>嘲諷2秒<>；自己受到的傷害降低<#ffb900ff>50%<>（<#ffb900ff>4秒<>）。"
+      },
+      "tft_vander": {
+        "name": "范德爾",
+        "attack": "揮拳造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>。<#ff9028ff>守望者<>：受到的傷害降低<#ffb900ff>10%<>，生命高於<#ffb900ff>50%<>時降低<#ffb900ff>20%<>。",
+        "skill": "擺出防禦姿態，<#ef5350ff>嘲諷<>周圍的敵人<#ef5350ff>0.75秒<>，獲得<#ffb900ff>40<>護甲和<#ffb900ff>30<>魔抗（<#ffb900ff>2.5秒<>）；下一拳造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<>物理傷害，隊裡每有一個<#ff9028ff>家族<>成員再加<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>。",
+        "skill2": "衝向敵人打出上勾拳，造成<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<>物理傷害並<#ef5350ff>暈眩0.5秒<>，身邊的敵人受到<#ffb900ff>35%<>的傷害。",
+        "ult": "跳進敵群砸地，周圍的敵人受到<#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150%<>物理傷害並被<#ef5350ff>擊飛1秒<>；之後<#ffb900ff>4秒<>內受到的傷害降低<#ffb900ff>15%<>，身邊每個敵方英雄再降低<#ffb900ff>8%<>（最多<#ffb900ff>4<>個）。"
       }
     },
     "skill_name": {
@@ -152,6 +171,11 @@
         "skill1": "皮爾托福的決鬥",
         "skill2": "盾衛",
         "ult": "鋼鐵防線"
+      },
+      "tft_vander": {
+        "skill1": "底城獵犬",
+        "skill2": "鐵拳突進",
+        "ult": "橋頭死守"
       }
     }
   },
@@ -198,6 +222,13 @@
         "skill": "Gains a <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> shield (<#ffb900ff>4s<>) and charges behind his shield: enemies he runs into take <#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> magic damage and are <#ef5350ff>stunned for 1.5s<>.",
         "skill2": "Leaps to the nearby allied champion with the lowest share of health: both gain a <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<> shield (<#ffb900ff>4s<>) and he takes <#ffb900ff>30%<> of the damage meant for it.",
         "ult": "Slams his shield into the ground: nearby enemies take <#a974ffff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> magic damage, are <#ef5350ff>knocked up for 1s<> and <#ef5350ff>taunted for 2s<>; he takes <#ffb900ff>50%<> less damage (<#ffb900ff>4s<>)."
+      },
+      "tft_vander": {
+        "name": "Vander",
+        "attack": "Punches for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<>. <#ff9028ff>Watcher<>: takes <#ffb900ff>10%<> less damage, <#ffb900ff>20%<> while his health is above <#ffb900ff>50%<>.",
+        "skill": "Drops into a guard: nearby enemies are <#ef5350ff>taunted for 0.75s<>, he gains <#ffb900ff>40<> armour and <#ffb900ff>30<> magic resist (<#ffb900ff>2.5s<>). His next punch deals <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<> physical damage, <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<> more for each <#ff9028ff>Family<> ally on his team.",
+        "skill2": "Rushes an enemy and uppercuts it for <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<> physical damage, <#ef5350ff>stunning it for 0.5s<>; enemies next to him take <#ffb900ff>35%<> of the blow.",
+        "ult": "Leaps into the enemies and slams the ground: nearby enemies take <#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150%<> physical damage and are <#ef5350ff>knocked up for 1s<>. For <#ffb900ff>4s<> he takes <#ffb900ff>15%<> less damage, <#ffb900ff>8%<> more for each enemy champion near him (up to <#ffb900ff>4<>)."
       }
     },
     "skill_name": {
@@ -230,6 +261,11 @@
         "skill1": "Piltover Tussle",
         "skill2": "Bulwark",
         "ult": "Iron Line"
+      },
+      "tft_vander": {
+        "skill1": "Hound of the Underground",
+        "skill2": "Iron Fist",
+        "ult": "Last Stand on the Bridge"
       }
     }
   },
@@ -276,6 +312,13 @@
         "skill": "<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> 보호막(<#ffb900ff>4초<>)을 얻고 방패를 들고 돌진: 부딪힌 적에게 <#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> 마법 피해, <#ef5350ff>1.5초 기절<>.",
         "skill2": "주변에서 체력 비율이 가장 낮은 아군 챔피언에게 도약: 둘 다 <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<> 보호막(<#ffb900ff>4초<>), 그 동안 그 아군이 받을 피해의 <#ffb900ff>30%<>를 대신 받는다.",
         "ult": "방패를 땅에 내리꽂는다: 주변 적에게 <#a974ffff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> 마법 피해, <#ef5350ff>1초 에어본<>, <#ef5350ff>2초 도발<>. 자신은 받는 피해 <#ffb900ff>50%<> 감소(<#ffb900ff>4초<>)."
+      },
+      "tft_vander": {
+        "name": "밴더",
+        "attack": "주먹으로 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> 물리 피해. <#ff9028ff>주시자<>: 받는 피해 <#ffb900ff>10%<> 감소, 체력이 <#ffb900ff>50%<> 이상이면 <#ffb900ff>20%<> 감소.",
+        "skill": "방어 자세: 주변 적을 <#ef5350ff>0.75초 도발<>하고 방어력 <#ffb900ff>40<>, 마법 저항력 <#ffb900ff>30<>(<#ffb900ff>2.5초<>). 다음 주먹은 <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<> 물리 피해, 팀의 <#ff9028ff>가족<>마다 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<> 추가.",
+        "skill2": "적에게 돌진해 어퍼컷: <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<> 물리 피해와 <#ef5350ff>0.5초 기절<>, 주변 적은 <#ffb900ff>35%<>의 피해.",
+        "ult": "적진으로 뛰어들어 땅을 내리친다: 주변 적에게 <#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150%<> 물리 피해와 <#ef5350ff>1초 에어본<>. <#ffb900ff>4초<> 동안 받는 피해 <#ffb900ff>15%<> 감소, 주변 적 챔피언마다 <#ffb900ff>8%<> 추가(최대 <#ffb900ff>4<>명)."
       }
     },
     "skill_name": {
@@ -308,6 +351,11 @@
         "skill1": "필트오버 난투",
         "skill2": "방패 수호",
         "ult": "강철 방어선"
+      },
+      "tft_vander": {
+        "skill1": "지하의 사냥개",
+        "skill2": "철권 돌진",
+        "ult": "다리 위의 사수"
       }
     }
   },
@@ -354,6 +402,13 @@
         "skill": "<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>のシールド（<#ffb900ff>4秒<>）を得て盾を構えて突進：ぶつかった敵に<#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>の魔法ダメージと<#ef5350ff>1.5秒のスタン<>。",
         "skill2": "近くで体力の割合が最も低い味方チャンピオンへ跳び、2人とも<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<>のシールド（<#ffb900ff>4秒<>）。その間、その味方が受けるダメージの<#ffb900ff>30%<>を肩代わりする。",
         "ult": "盾を地面に叩きつける：周囲の敵に<#a974ffff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>の魔法ダメージ、<#ef5350ff>1秒のノックアップ<>と<#ef5350ff>2秒の挑発<>。自身の被ダメージ<#ffb900ff>50%<>軽減（<#ffb900ff>4秒<>）。"
+      },
+      "tft_vander": {
+        "name": "ヴァンダー",
+        "attack": "拳で殴り、<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の物理ダメージ。<#ff9028ff>ウォッチャー<>：被ダメージ<#ffb900ff>10%<>軽減、体力が<#ffb900ff>50%<>より多いと<#ffb900ff>20%<>軽減。",
+        "skill": "防御の構え：周囲の敵を<#ef5350ff>0.75秒挑発<>し、物理防御<#ffb900ff>40<>と魔法防御<#ffb900ff>30<>（<#ffb900ff>2.5秒<>）。次の拳は<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<>の物理ダメージ、味方の<#ff9028ff>ファミリー<>1人ごとに<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>追加。",
+        "skill2": "敵に突進してアッパー：<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<>の物理ダメージと<#ef5350ff>0.5秒のスタン<>、近くの敵には<#ffb900ff>35%<>のダメージ。",
+        "ult": "敵の中へ跳び込み地面を殴る：周囲の敵に<#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150%<>の物理ダメージと<#ef5350ff>1秒のノックアップ<>。<#ffb900ff>4秒<>間、被ダメージ<#ffb900ff>15%<>軽減、近くの敵チャンピオン1体ごとに<#ffb900ff>8%<>追加（最大<#ffb900ff>4<>体）。"
       }
     },
     "skill_name": {
@@ -386,6 +441,11 @@
         "skill1": "ピルトーヴァーの闘争",
         "skill2": "ブルワーク",
         "ult": "鉄の防衛線"
+      },
+      "tft_vander": {
+        "skill1": "地下都市の猟犬",
+        "skill2": "鉄拳突進",
+        "ult": "橋の上の死守"
       }
     }
   }

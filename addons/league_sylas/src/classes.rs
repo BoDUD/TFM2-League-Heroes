@@ -243,6 +243,7 @@ pub const CLASSES_OF: &[(&str, &str)] = &[
     ("tft_norra", "mage"),
     ("tft_powder", "mage"),
     ("tft_silco", "mage"),
+    ("tft_vander", "melee"),
     ("vampire", "mage"),
     ("voodoo_shaman", "mage"),
     ("werewolf", "assassin"),

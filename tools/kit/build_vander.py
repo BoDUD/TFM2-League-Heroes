@@ -17,10 +17,12 @@ health). The rest is our own design (the user's pick, 2026-10-27: jungle, plan A
           the guard: every enemy within q_r is taunted q_taunt ticks, he gets q_def armour and q_mr magic resist for
           q_t ticks, and his next punch within q_wait ticks is the heavy strike.
   skill2  Iron Fist (铁拳突进), `Targeting` on `EnemyWithoutTower` (e_range): he rushes onto the target
-          (`MoveToTarget` e_speed) and uppercuts it: e_dmg + e_ad% AD and an e_stun-tick stun; every enemy
-          within e_sr round him (the target too) takes e_splash% of the blow (a RangeEffect centres on the caster only).
+          (`MoveToTarget` e_speed, coiled) and on arrival uppercuts it (`CasterAnimation` upper, e_up_t ticks):
+          e_dmg + e_ad% AD and an e_stun-tick stun; every enemy within e_sr round him (the target too) takes
+          e_splash% of the blow (a RangeEffect centres on the caster only).
   ult     Last Stand on the Bridge (桥头死守), `Targeting` on `EnemyChampion` (r_range): he springs at the target
-          (`MoveToTarget` r_speed) and on landing slams the gauntlet into the ground: every enemy within r_r takes
+          (`MoveToTarget` r_speed, in the air) and on landing slams the gauntlet into the ground
+          (`CasterAnimation` slam, r_slam_t ticks): every enemy within r_r takes
           r_dmg + r_ad% AD and is thrown up r_up ticks; for r_t ticks he takes r_red% less damage, and tft.dll adds
           r_per% for each enemy champion within r_r at the slam (up to r_cap of them).
 
@@ -63,10 +65,10 @@ P = {
     "q_wait": 300, "q_dmg": 40, "q_ad": 140, "q_fam": 40,
     # Iron Fist (TFT HERO: stun 0.75 s, 35% splash)
     "e_cd": 600, "e_range": 45000, "e_dur": 26, "e_speed": 5000, "e_dmg": 50, "e_ad": 90, "e_stun": 30,
-    "e_sr": 22000, "e_splash": 35,
+    "e_sr": 22000, "e_splash": 35, "e_up_t": 18,
     # Last Stand on the Bridge
     "r_cd": 3000, "r_range": 50000, "r_dur": 40, "r_speed": 4000, "r_r": 34000, "r_dmg": 150, "r_ad": 150, "r_up": 60,
-    "r_red": 15, "r_per": 8, "r_cap": 4, "r_t": 240,
+    "r_red": 15, "r_per": 8, "r_cap": 4, "r_t": 240, "r_slam_t": 18,
 }
 # what tft.dll reads from passive.params (addons/tft/src/vander.rs)
 NATIVE_KEYS = ("p_lo", "p_hi", "p_line", "q_fam", "r_r", "r_red", "r_per", "r_cap", "r_t")
@@ -117,6 +119,10 @@ def view(name):
 
 def cview(name):
     return {"type": "CasterViewEffect", "name": n(name)}
+
+
+def anim(name, tick):
+    return {"type": "CasterAnimation", "name": name, "tick": tick}
 
 
 def sfx(name):
@@ -180,7 +186,7 @@ def build(p, is_native=False):
     # ------------------------------------------------------------------ skill2: Iron Fist
     splash = around(p["e_sr"], "EnemyWithoutTower",
                     [attack(p["e_dmg"] * p["e_splash"] // 100, p["e_ad"] * p["e_splash"] // 100)])
-    uppercut = [sfx("e_hit"), attack(p["e_dmg"], p["e_ad"]), {"type": "Stun", "duration": p["e_stun"]},
+    uppercut = [anim("upper", p["e_up_t"]), sfx("e_hit"), attack(p["e_dmg"], p["e_ad"]), {"type": "Stun", "duration": p["e_stun"]},
                 buff("e_stun", p["e_stun"]), view("e_hit"), splash]
     skill2 = action("skill2", p["e_dur"], p["e_cd"], 1, p["e_range"], "Targeting", "EnemyWithoutTower",
                     combine(first, sfx("e"), cview("e_dash"),
@@ -190,7 +196,7 @@ def build(p, is_native=False):
     # ------------------------------------------------------------------ ult: Last Stand on the Bridge
     struck = [attack(p["r_dmg"], p["r_ad"]), {"type": "Airborne", "duration": p["r_up"]}, view("r_hit")]
     hold = native("stand") if is_native else on_me(flag("r_hold", p["r_t"], damaged_reduce=p["r_red"]))
-    slam = [sfx("r_slam"), cview("r_slam"), around(p["r_r"], "EnemyWithoutTower", struck), hold]
+    slam = [anim("slam", p["r_slam_t"]), sfx("r_slam"), cview("r_slam"), around(p["r_r"], "EnemyWithoutTower", struck), hold]
     ult = action("ult", p["r_dur"], p["r_cd"], 1, p["r_range"], "Targeting", "EnemyChampion",
                  combine(first, sfx("r"), sfx("r_jump"),
                          {"type": "MoveToTarget", "speed": p["r_speed"], "range": p["r_range"] + 40000,
@@ -225,6 +231,18 @@ def build(p, is_native=False):
                "passive": {"passive_ref": f"{ID}:watcher", "params": {k: p[k] for k in NATIVE_KEYS}},
                **{k: v for k, v in kit.items() if k not in ("id", "category", "tags")}}
     return kit
+
+
+def sylas_ult(p=None):
+    """Last Stand as plain data for league_sylas's copy (addons/league_sylas/make_override.py STOLEN): Sylas's add-on
+    bundle is on the Workshop and the tft mod is not, so his stolen stand cannot call tft.dll (Silco's and Maddie's
+    way). The kit's --plain ult - the leap, the slam's shockwave and knock-up, the flat r_red% stand - without the
+    Watcher flag the plain kit lays on at a first action (that is Vander's passive, not the ult's). The views are the
+    kit's own (tft_vander_*); make_override copies them and their sheets."""
+    p = dict(P) if p is None else p
+    eff = build(p, False)["ult"]["effect"]
+    eff["effects"] = [e for e in eff["effects"] if not (e.get("type") == "SwitchByBuff" and e.get("buff_name") == n("p_on"))]
+    return eff
 
 
 def nodes(o):

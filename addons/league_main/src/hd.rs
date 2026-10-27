@@ -291,6 +291,10 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // to soles, PPU 2.0 (「B-1 42 PPU 2.0」), and Codex's key poses after his own TFT clips with the design's head, posed
     // by tools/art/rig_loris.py, so no SIZES row
     ("tft_loris", 2.0, include_str!("../../../tft/champions/tft_loris#anim.fanim")),
+    // Vander (tft_vander, the tft pack): the low fighting stance, step 0's B-2 at the user's 40 game px hair to soles,
+    // PPU 2.0 (「B-2 40 PPU 2.0」), and Codex's key poses after his own TFT clips with the design's head, posed by
+    // tools/art/rig_vander.py, so no SIZES row
+    ("tft_vander", 2.0, include_str!("../../../tft/champions/tft_vander#anim.fanim")),
     // 2026-10-16 redo from Codex's pictures, the actions posed from the designs (tools/art/rig_<hero>_hd.py; Nami's after
     // League's own clips, tools/lol/league_joints.py), PPU 1.5 at their old heights, so no SIZES rows
     ("league_morgana", 1.5, include_str!("../../../league/champions/league_morgana#anim.fanim")),
