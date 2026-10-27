@@ -1,4 +1,4 @@
-"""Build tft_vander.data_champion (the tft pack's seventh hero: Vander, jungle, Melee) from the parameters P.
+"""Build tft_vander.data_champion (the tft pack's eighth hero: Vander, jungle, Melee) from the parameters P.
 
     python tools/kit/build_vander.py [--set key=value ...] [--out file] [--params json] [--nodes] [--plain]
 

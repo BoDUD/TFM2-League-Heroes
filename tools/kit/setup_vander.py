@@ -36,7 +36,7 @@ from setup_alune import load, save, secs, shown_length  # noqa: E402
 REPO = os.path.normpath(os.path.join(HERE, "..", ".."))
 MOD = os.path.join(REPO, MOD_ID)
 CLIP = f"{ID}_sfx_"
-VERSION = "0.8.0"      # Powder 0.1, Norra 0.2, tft.dll 0.3, Alune 0.4, Silco 0.5, Maddie 0.6, Loris 0.7: the next free one
+VERSION = "0.9.0"      # Powder 0.1, Norra 0.2, tft.dll 0.3, Alune 0.4, Silco 0.5, Maddie 0.6, Loris 0.7, Kobuko 0.8: the next free one
 ADi, TOOLTIP_MAX = pack.ADi, pack.TOOLTIP_MAX
 M, O, A, R, E = pack.M, pack.O, pack.A, pack.R, pack.E
 # champion_view (game px from his soles' point, up negative): the face point between his eyes (the design's eye row 12

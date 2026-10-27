@@ -6,7 +6,7 @@ style pictures.
 Writes <out>/PICTURE_PROMPT.md, <out>/refs/1..10 (renders of TFT's own model posed by its own clips, the unit art and
 the layout guides: Riot's, kept local, never committed) and <out>/style/11..14 (this repo's Warwick, Braum, Silco and
 Powder, 8x, cut from their sheets), then <out>.zip.
-Vander (the tft pack's seventh hero, 2026-10-27) is the old Zaun brawler from Arcane, Vi and Powder's adoptive father,
+Vander (the tft pack's eighth hero, 2026-10-27) is the old Zaun brawler from Arcane, Vi and Powder's adoptive father,
 with the great red-and-brass gauntlet on his far hand, a 2-cost of Teamfight Tactics set 13 (TFT13_Prime, 家人 /
 监察). His model is in the Riot client's TFTSet13.wad.client: tft13_prime.skn + .skl, one submesh (Valder_MAT), one
 colour map. His animation bin links its clips by path hash only: CLIPS below names them by what they show (rendered
