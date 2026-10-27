@@ -180,5 +180,6 @@
   "tft_maddie": {"idle": [["skill2", [1]], ["attack", [0]]], "bp": ["attack", "skill", "skill2", "ult"]},
   "tft_loris": {"idle": [["skill2", [2]], ["attack", [0]]], "bp": ["skill", "attack", "ult", "skill2"]},
   "tft_kobuko": {"idle": [["attack", [2]], ["skill", [0]]], "bp": ["skill", "attack", "skill2", "ult"]},
-  "tft_vander": {"idle": [["skill", [1]], ["attack", [2]]], "bp": ["attack", "skill", "slam", "upper"]}
+  "tft_vander": {"idle": [["skill", [1]], ["attack", [2]]], "bp": ["attack", "skill", "slam", "upper"]},
+  "tft_violet": {"idle": [["skill", [1]], ["attack", [2]]], "bp": ["attack", "skill", "punch", "slam"]}
 }

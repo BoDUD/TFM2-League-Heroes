@@ -62,7 +62,7 @@ P = {
     "e_cd": 600, "e_range": 45000, "e_dur": 24, "e_speed": 5000, "e_dmg": 40, "e_ad": 100, "e_kb_speed": 1200,
     "e_kb_t": 4, "e_hit_t": 16,
     # Undercity Fist
-    "r_cd": 3000, "r_range": 50000, "r_dur": 40, "r_speed": 4000, "r_r": 32000, "r_dmg": 120, "r_ad": 130, "r_up": 50,
+    "r_cd": 3000, "r_range": 50000, "r_dur": 40, "r_speed": 4000, "r_r": 32000, "r_dmg": 120, "r_ad": 130, "r_up": 48,
     "r_as": 40, "r_vamp": 5, "r_fam": 10, "r_t": 300, "r_slam_t": 18,
 }
 # what tft.dll reads from passive.params (addons/tft/src/violet.rs)
