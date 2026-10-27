@@ -1,0 +1,70 @@
+{
+ "square": 7,
+ "sheet": [
+  1536,
+  1024
+ ],
+ "ground": 924,
+ "sheets": [
+  {
+   "tag": "r_run",
+   "name": "r_run_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "action": "walking while firing The Culling: his RUN's legs and stride (the legs swapping every half cycle, the body bobbing), the coat tails flowing back, but the upper body squared to the front with BOTH pistols held straight forward at shoulder height, as in his ult - he keeps shooting forward while he walks",
+   "ms": [
+    117,
+    117
+   ],
+   "weapons": "Two pistols as in the design, one in EACH hand in every frame, BOTH arms extended forward and BOTH pistols pointed straight ahead (to the right), one a little above the other, as the pale figure - never one raised by the shoulder, never both in one hand, never dropped; the pistols' shape, size and colours as in the design."
+  },
+  {
+   "tag": "r_run",
+   "name": "r_run_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "action": "walking while firing The Culling: his RUN's legs and stride (the legs swapping every half cycle, the body bobbing), the coat tails flowing back, but the upper body squared to the front with BOTH pistols held straight forward at shoulder height, as in his ult - he keeps shooting forward while he walks",
+   "ms": [
+    117,
+    117
+   ],
+   "weapons": "Two pistols as in the design, one in EACH hand in every frame, BOTH arms extended forward and BOTH pistols pointed straight ahead (to the right), one a little above the other, as the pale figure - never one raised by the shoulder, never both in one hand, never dropped; the pistols' shape, size and colours as in the design."
+  },
+  {
+   "tag": "r_run",
+   "name": "r_run_3",
+   "frames": [
+    5,
+    6
+   ],
+   "cells": 2,
+   "action": "walking while firing The Culling: his RUN's legs and stride (the legs swapping every half cycle, the body bobbing), the coat tails flowing back, but the upper body squared to the front with BOTH pistols held straight forward at shoulder height, as in his ult - he keeps shooting forward while he walks",
+   "ms": [
+    117,
+    117
+   ],
+   "weapons": "Two pistols as in the design, one in EACH hand in every frame, BOTH arms extended forward and BOTH pistols pointed straight ahead (to the right), one a little above the other, as the pale figure - never one raised by the shoulder, never both in one hand, never dropped; the pistols' shape, size and colours as in the design."
+  },
+  {
+   "tag": "r_run",
+   "name": "r_run_4",
+   "frames": [
+    7,
+    8
+   ],
+   "cells": 2,
+   "action": "walking while firing The Culling: his RUN's legs and stride (the legs swapping every half cycle, the body bobbing), the coat tails flowing back, but the upper body squared to the front with BOTH pistols held straight forward at shoulder height, as in his ult - he keeps shooting forward while he walks",
+   "ms": [
+    117,
+    117
+   ],
+   "weapons": "Two pistols as in the design, one in EACH hand in every frame, BOTH arms extended forward and BOTH pistols pointed straight ahead (to the right), one a little above the other, as the pale figure - never one raised by the shoulder, never both in one hand, never dropped; the pistols' shape, size and colours as in the design."
+  }
+ ]
+}

@@ -694,8 +694,10 @@ RESTYLE = {
     # sprite's pose, read on its raw's own squares (111 x 93, design_lucian_hd.py: 93 rows / 46 = 2.02); every action
     # Codex's whole-frame redraw of his old frame read onto it at the zoom his head gives (tools/art/casts_lucian_hd.py);
     # kept at the density drawn (「通过，用 2.02 原样」), so no density change; the face point the portrait box's middle
-    # as Vayne's fix (1,-36) taught: a game px under his crown (38 over the soles), a px ahead of his head's middle
-    "lucian": dict(ppu=2.02, edge=0, face_to=(-3, -37)),
+    # as Vayne's fix (1,-36) taught: a game px under his crown (38 over the soles), a px ahead of his head's middle.
+    # Then 「卢锡安的像素太高了调低一点 新模型」: picked 1.5 of 2.02 / 1.75 / 1.5 / 1.2 (tools/art/review_lucian_ppu.py,
+    # 「卢锡安用 1.5」) - drawn at 2.02 (ORIG_PPU), brought to 1.5 squares a game pixel like Lee Sin, Riven and Jax
+    "lucian": dict(ppu=1.5, edge=0, face_to=(-3, -37)),
     # league_heimerdinger: the design (Codex's step-1 A-2 cut to the user's 54 rows at 1.5 squares a game pixel: 「36」
     # 「PPU 1.5」, 3/4 only) with Codex's whole-body poses (the design's head pasted back) and the backpack crane / R's gear
     # props, posed by tools/art/rig_heimerdinger.py after League's clips, so no proportion change here; brought down to

@@ -1,0 +1,88 @@
+#!/usr/bin/env python3
+"""Lucian at several densities (the user, 2026-10-27, on the PPU 2.02 redo: 「卢锡安的像素太高了调低一点 新模型」, Lee Sin's way -
+tools/art/review_lucian_ppu.py): his frames (assets/source/ppu/orig, PPU 2.02) brought to each PPU by ppu_restyle.restyle
+(nothing written), shown at one game size - his size (hd.rs SIZES) - next to heroes of other densities as the
+battlefield draws them (their SIZES too).
+
+    python tools/art/review_lucian_ppu.py --out DIR [--ppus 2.02,1.75,1.5,1.2] [--scale 4]
+
+Writes <out>/lucian_ppu_choices.png: per PPU the idle's first frame, a shot and a run frame, then Vayne, Jinx, Caitlyn,
+Draven and Kai'Sa, feet on one line; and <out>/lucian_ppu_closeup.png: the idle frames at 3x their own pixels next to each
+other (how coarse each grid is).
+"""
+import argparse
+import glob
+import os
+import sys
+
+from PIL import Image, ImageDraw, ImageFont
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, HERE)
+import ppu_restyle as R  # noqa: E402
+from preview_dense import SIZES  # noqa: E402
+from review_reksai_ppu import frame0, shown  # noqa: E402
+
+PEERS = ["vayne", "jinx", "caitlyn", "draven", "kaisa"]
+BG = (96, 112, 96)
+FONT = "C:/Windows/Fonts/msyh.ttc"
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--out", required=True)
+    ap.add_argument("--ppus", default="2.02,1.75,1.5,1.2")
+    ap.add_argument("--scale", type=int, default=4)
+    a = ap.parse_args()
+    ppus = [float(x) for x in a.ppus.split(",")]
+    font = ImageFont.truetype(FONT, 16) if os.path.exists(FONT) else None
+    before = set(glob.glob(os.path.join(R.ORIG, "lucian_*")))
+    size = SIZES.get("lucian", 1.0)
+    rows, close = {"待机": [], "开枪": [], "跑步": []}, []
+    for p in ppus:
+        spec = dict(R.RESTYLE["lucian"], ppu=p)
+        out = R.restyle("lucian", spec, write=False, only=["idle", "attack", "run"])[0]
+        now = "（现在）" if p == R.RESTYLE["lucian"]["ppu"] else ""
+        for tag, k, lab in (("idle", 0, "待机"), ("attack", 1, "开枪"), ("run", 2, "跑步")):
+            rows[lab].append((f"PPU {p}{now}", shown(Image.fromarray(out[tag][k][0]), p / size, a.scale)))
+        close.append((f"PPU {p}{now}", Image.fromarray(out["idle"][0][0])))
+    for f in set(glob.glob(os.path.join(R.ORIG, "lucian_*"))) - before:      # (read_orig saves tags it lacks: not ours)
+        os.remove(f)
+    peers = []
+    for h in PEERS:
+        im, p = frame0(h)
+        peers.append((f"{h}（PPU {p}）", shown(im, p / SIZES.get(h, 1.0), a.scale)))
+    gap, top = 18, 26
+    lines = list(rows.values()) + [peers]
+    cw = max(im.width for line in lines for _, im in line)
+    rh = [max(im.height for _, im in line) for line in lines]
+    W = max(len(line) for line in lines) * (cw + gap) + gap
+    H = sum(h + top + gap for h in rh) + gap
+    can = Image.new("RGB", (W, H), BG)
+    d = ImageDraw.Draw(can)
+    y = gap
+    for line, h in zip(lines, rh):
+        for j, (lab, im) in enumerate(line):
+            x = gap + j * (cw + gap)
+            can.paste(im, (x + (cw - im.width) // 2, y + top + (h - im.height)), im)
+            d.text((x, y), lab, fill=(240, 240, 240), font=font)
+        y += h + top + gap
+    os.makedirs(a.out, exist_ok=True)
+    can.save(os.path.join(a.out, "lucian_ppu_choices.png"))
+    Z = 3
+    W = sum(im.width * Z + gap for _, im in close) + gap
+    H = max(im.height * Z for _, im in close) + top + gap
+    can = Image.new("RGB", (W, H), BG)
+    d = ImageDraw.Draw(can)
+    x = gap
+    for lab, im in close:
+        big = im.resize((im.width * Z, im.height * Z), Image.NEAREST)
+        can.paste(big, (x, top), big)
+        d.text((x, 4), lab, fill=(240, 240, 240), font=font)
+        x += big.width + gap
+    can.save(os.path.join(a.out, "lucian_ppu_closeup.png"))
+    print("written", a.out)
+
+
+if __name__ == "__main__":
+    main()
