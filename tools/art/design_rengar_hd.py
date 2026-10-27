@@ -45,7 +45,43 @@ def design():
     q[rim & (q[..., :3].astype(int).sum(-1) < 170), :3] = out
     ys, xs = np.nonzero(q[..., 3])
     q = q[ys.min():ys.max() + 1, xs.min():xs.max() + 1]
-    return q, q.shape[0] / OLD
+    return tail_root(q, out), q.shape[0] / OLD
+
+
+# Codex's tail curls up right of his far hand and ends behind it - in game it read as growing out of the hand (「怎么
+# 尾巴在手上？」). Its root drawn on from there: down-left behind the blade and the hand, seen under the hand as a short
+# piece that goes in behind his far thigh. TAIL_PATH: the root's middle line (row, column) on the read; drawn only
+# where the picture is empty (behind everything), its upper side lit like the rest of the tail.
+TAIL_PATH = ((43.5, 63.0), (49.5, 55.5))
+TAIL = ((0x7d, 0x86, 0xb1), (0x67, 0x71, 0x9d), (0x52, 0x5b, 0x85))      # lit / mid / shade: the tail's own blues
+
+
+def tail_root(q, out):
+    return root(q, TAIL_PATH, out)
+
+
+def root(q, path, out):
+    """The tail's root along path ((row, column), (row, column)) on q: 2.7 squares thick in the tail's blues (its side
+    towards the top-right lit) inside an outline, drawn only where q is empty (so it passes behind what is there)."""
+    q = q.copy()
+    (y0, x0), (y1, x1) = path
+    d = np.array([y1 - y0, x1 - x0])
+    n = np.array([-d[1], d[0]]) / np.hypot(*d)            # the side towards the top-right: lit
+    for y in range(max(0, int(min(y0, y1)) - 3), min(q.shape[0], int(max(y0, y1)) + 4)):
+        for x in range(max(0, int(min(x0, x1)) - 3), min(q.shape[1], int(max(x0, x1)) + 4)):
+            if q[y, x, 3]:
+                continue
+            p = np.array([y + 0.5 - y0, x + 0.5 - x0])
+            t = np.clip(p @ d / (d @ d), 0, 1)
+            off = p - t * d
+            r = np.hypot(*off)
+            if r <= 1.35:
+                side = off @ n
+                c = TAIL[0] if side > 0.45 else TAIL[1] if side > -0.45 else TAIL[2]
+                q[y, x] = (*c, 255)
+            elif r <= 2.4:
+                q[y, x] = (*out, 255)
+    return q
 
 
 def main():

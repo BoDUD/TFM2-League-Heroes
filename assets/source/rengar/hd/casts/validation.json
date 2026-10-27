@@ -1,0 +1,1432 @@
+[
+  {
+    "sheet": "run_1",
+    "size": [
+      1536,
+      1024
+    ],
+    "size_pass": true,
+    "raw_identical": false,
+    "alpha_values": [
+      255
+    ],
+    "corner_rgba": [
+      [
+        255,
+        255,
+        255,
+        255
+      ],
+      [
+        255,
+        255,
+        255,
+        255
+      ],
+      [
+        255,
+        255,
+        255,
+        255
+      ],
+      [
+        255,
+        255,
+        255,
+        255
+      ]
+    ],
+    "pure_white_corners": true,
+    "cells": [
+      {
+        "frame": 1,
+        "strong_nonwhite_bbox_cell_xyxy": [
+          58,
+          424,
+          730,
+          949
+        ]
+      },
+      {
+        "frame": 2,
+        "strong_nonwhite_bbox_cell_xyxy": [
+          29,
+          424,
+          677,
+          949
+        ]
+      }
+    ]
+  },
+  {
+    "sheet": "run_2",
+    "size": [
+      1536,
+      1024
+    ],
+    "size_pass": true,
+    "raw_identical": false,
+    "alpha_values": [
+      255
+    ],
+    "corner_rgba": [
+      [
+        255,
+        255,
+        255,
+        255
+      ],
+      [
+        255,
+        255,
+        255,
+        255
+      ],
+      [
+        255,
+        255,
+        255,
+        255
+      ],
+      [
+        255,
+        255,
+        255,
+        255
+      ]
+    ],
+    "pure_white_corners": true,
+    "cells": [
+      {
+        "frame": 3,
+        "strong_nonwhite_bbox_cell_xyxy": [
+          46,
+          358,
+          755,
+          900
+        ]
+      },
+      {
+        "frame": 4,
+        "strong_nonwhite_bbox_cell_xyxy": [
+          57,
+          349,
+          746,
+          900
+        ]
+      }
+    ]
+  },
+  {
+    "sheet": "run_3",
+    "size": [
+      1536,
+      1024
+    ],
+    "size_pass": true,
+    "raw_identical": false,
+    "alpha_values": [
+      255
+    ],
+    "corner_rgba": [
+      [
+        255,
+        255,
+        255,
+        255
+      ],
+      [
+        255,
+        255,
+        255,
+        255
+      ],
+      [
+        255,
+        255,
+        255,
+        255
+      ],
+      [
+        255,
+        255,
+        255,
+        255
+      ]
+    ],
+    "pure_white_corners": true,
+    "cells": [
+      {
+        "frame": 5,
+        "strong_nonwhite_bbox_cell_xyxy": [
+          60,
+          427,
+          737,
+          921
+        ]
+      },
+      {
+        "frame": 6,
+        "strong_nonwhite_bbox_cell_xyxy": [
+          31,
+          427,
+          699,
+          921
+        ]
+      }
+    ]
+  },
+  {
+    "sheet": "run_4",
+    "size": [
+      1536,
+      1024
+    ],
+    "size_pass": true,
+    "raw_identical": false,
+    "alpha_values": [
+      255
+    ],
+    "corner_rgba": [
+      [
+        255,
+        255,
+        255,
+        255
+      ],
+      [
+        255,
+        255,
+        255,
+        255
+      ],
+      [
+        255,
+        255,
+        255,
+        255
+      ],
+      [
+        255,
+        255,
+        255,
+        255
+      ]
+    ],
+    "pure_white_corners": true,
+    "cells": [
+      {
+        "frame": 7,
+        "strong_nonwhite_bbox_cell_xyxy": [
+          24,
+          363,
+          750,
+          889
+        ]
+      },
+      {
+        "frame": 8,
+        "strong_nonwhite_bbox_cell_xyxy": [
+          41,
+          364,
+          750,
+          888
+        ]
+      }
+    ]
+  },
+  {
+    "sheet": "attack_1",
+    "size": [
+      1536,
+      1024
+    ],
+    "size_pass": true,
+    "raw_identical": false,
+    "alpha_values": [
+      255
+    ],
+    "corner_rgba": [
+      [
+        255,
+        255,
+        255,
+        255
+      ],
+      [
+        255,
+        255,
+        255,
+        255
+      ],
+      [
+        255,
+        255,
+        255,
+        255
+      ],
+      [
+        255,
+        255,
+        255,
+        255
+      ]
+    ],
+    "pure_white_corners": true,
+    "cells": [
+      {
+        "frame": 1,
+        "strong_nonwhite_bbox_cell_xyxy": [
+          31,
+          398,
+          768,
+          899
+        ]
+      },
+      {
+        "frame": 2,
+        "strong_nonwhite_bbox_cell_xyxy": [
+          0,
+          431,
+          751,
+          899
+        ]
+      }
+    ]
+  },
+  {
+    "sheet": "attack_2",
+    "size": [
+      1536,
+      1024
+    ],
+    "size_pass": true,
+    "raw_identical": false,
+    "alpha_values": [
+      255
+    ],
+    "corner_rgba": [
+      [
+        255,
+        255,
+        255,
+        255
+      ],
+      [
+        255,
+        255,
+        255,
+        255
+      ],
+      [
+        255,
+        255,
+        255,
+        255
+      ],
+      [
+        255,
+        255,
+        255,
+        255
+      ]
+    ],
+    "pure_white_corners": true,
+    "cells": [
+      {
+        "frame": 3,
+        "strong_nonwhite_bbox_cell_xyxy": [
+          36,
+          399,
+          672,
+          914
+        ]
+      },
+      {
+        "frame": 4,
+        "strong_nonwhite_bbox_cell_xyxy": [
+          16,
+          456,
+          754,
+          914
+        ]
+      }
+    ]
+  },
+  {
+    "sheet": "attack_3",
+    "size": [
+      1536,
+      1024
+    ],
+    "size_pass": true,
+    "raw_identical": false,
+    "alpha_values": [
+      255
+    ],
+    "corner_rgba": [
+      [
+        255,
+        255,
+        255,
+        255
+      ],
+      [
+        255,
+        255,
+        255,
+        255
+      ],
+      [
+        255,
+        255,
+        255,
+        255
+      ],
+      [
+        255,
+        255,
+        255,
+        255
+      ]
+    ],
+    "pure_white_corners": true,
+    "cells": [
+      {
+        "frame": 5,
+        "strong_nonwhite_bbox_cell_xyxy": [
+          438,
+          449,
+          1194,
+          920
+        ]
+      }
+    ]
+  },
+  {
+    "sheet": "leap_1",
+    "size": [
+      1536,
+      1024
+    ],
+    "size_pass": true,
+    "raw_identical": false,
+    "alpha_values": [
+      255
+    ],
+    "corner_rgba": [
+      [
+        255,
+        255,
+        255,
+        255
+      ],
+      [
+        255,
+        255,
+        255,
+        255
+      ],
+      [
+        255,
+        255,
+        255,
+        255
+      ],
+      [
+        255,
+        255,
+        255,
+        255
+      ]
+    ],
+    "pure_white_corners": true,
+    "cells": [
+      {
+        "frame": 1,
+        "strong_nonwhite_bbox_cell_xyxy": [
+          36,
+          488,
+          660,
+          943
+        ]
+      },
+      {
+        "frame": 2,
+        "strong_nonwhite_bbox_cell_xyxy": [
+          13,
+          367,
+          739,
+          817
+        ]
+      }
+    ]
+  },
+  {
+    "sheet": "leap_2",
+    "size": [
+      1536,
+      1024
+    ],
+    "size_pass": true,
+    "raw_identical": false,
+    "alpha_values": [
+      255
+    ],
+    "corner_rgba": [
+      [
+        255,
+        255,
+        255,
+        255
+      ],
+      [
+        255,
+        255,
+        255,
+        255
+      ],
+      [
+        255,
+        255,
+        255,
+        255
+      ],
+      [
+        255,
+        255,
+        255,
+        255
+      ]
+    ],
+    "pure_white_corners": true,
+    "cells": [
+      {
+        "frame": 3,
+        "strong_nonwhite_bbox_cell_xyxy": [
+          24,
+          357,
+          765,
+          856
+        ]
+      },
+      {
+        "frame": 4,
+        "strong_nonwhite_bbox_cell_xyxy": [
+          42,
+          356,
+          757,
+          853
+        ]
+      }
+    ]
+  },
+  {
+    "sheet": "leap_3",
+    "size": [
+      1536,
+      1024
+    ],
+    "size_pass": true,
+    "raw_identical": false,
+    "alpha_values": [
+      255
+    ],
+    "corner_rgba": [
+      [
+        255,
+        255,
+        255,
+        255
+      ],
+      [
+        255,
+        255,
+        255,
+        255
+      ],
+      [
+        255,
+        255,
+        255,
+        255
+      ],
+      [
+        255,
+        255,
+        255,
+        255
+      ]
+    ],
+    "pure_white_corners": true,
+    "cells": [
+      {
+        "frame": 5,
+        "strong_nonwhite_bbox_cell_xyxy": [
+          20,
+          358,
+          763,
+          865
+        ]
+      },
+      {
+        "frame": 6,
+        "strong_nonwhite_bbox_cell_xyxy": [
+          24,
+          511,
+          750,
+          910
+        ]
+      }
+    ]
+  },
+  {
+    "sheet": "leap_4",
+    "size": [
+      1536,
+      1024
+    ],
+    "size_pass": true,
+    "raw_identical": false,
+    "alpha_values": [
+      255
+    ],
+    "corner_rgba": [
+      [
+        255,
+        255,
+        255,
+        255
+      ],
+      [
+        255,
+        255,
+        255,
+        255
+      ],
+      [
+        255,
+        255,
+        255,
+        255
+      ],
+      [
+        255,
+        255,
+        255,
+        255
+      ]
+    ],
+    "pure_white_corners": true,
+    "cells": [
+      {
+        "frame": 7,
+        "strong_nonwhite_bbox_cell_xyxy": [
+          431,
+          469,
+          1160,
+          923
+        ]
+      }
+    ]
+  },
+  {
+    "sheet": "skill_1",
+    "size": [
+      1536,
+      1024
+    ],
+    "size_pass": true,
+    "raw_identical": false,
+    "alpha_values": [
+      255
+    ],
+    "corner_rgba": [
+      [
+        255,
+        255,
+        255,
+        255
+      ],
+      [
+        255,
+        255,
+        255,
+        255
+      ],
+      [
+        255,
+        255,
+        255,
+        255
+      ],
+      [
+        255,
+        255,
+        255,
+        255
+      ]
+    ],
+    "pure_white_corners": true,
+    "cells": [
+      {
+        "frame": 1,
+        "strong_nonwhite_bbox_cell_xyxy": [
+          21,
+          456,
+          653,
+          924
+        ]
+      },
+      {
+        "frame": 2,
+        "strong_nonwhite_bbox_cell_xyxy": [
+          103,
+          328,
+          677,
+          923
+        ]
+      }
+    ]
+  },
+  {
+    "sheet": "skill_2",
+    "size": [
+      1536,
+      1024
+    ],
+    "size_pass": true,
+    "raw_identical": false,
+    "alpha_values": [
+      255
+    ],
+    "corner_rgba": [
+      [
+        255,
+        255,
+        255,
+        255
+      ],
+      [
+        255,
+        255,
+        255,
+        255
+      ],
+      [
+        255,
+        255,
+        255,
+        255
+      ],
+      [
+        255,
+        255,
+        255,
+        255
+      ]
+    ],
+    "pure_white_corners": true,
+    "cells": [
+      {
+        "frame": 3,
+        "strong_nonwhite_bbox_cell_xyxy": [
+          32,
+          317,
+          768,
+          953
+        ]
+      },
+      {
+        "frame": 4,
+        "strong_nonwhite_bbox_cell_xyxy": [
+          0,
+          318,
+          730,
+          953
+        ]
+      }
+    ]
+  },
+  {
+    "sheet": "skill_3",
+    "size": [
+      1536,
+      1024
+    ],
+    "size_pass": true,
+    "raw_identical": false,
+    "alpha_values": [
+      255
+    ],
+    "corner_rgba": [
+      [
+        255,
+        255,
+        255,
+        255
+      ],
+      [
+        255,
+        255,
+        255,
+        255
+      ],
+      [
+        255,
+        255,
+        255,
+        255
+      ],
+      [
+        255,
+        255,
+        255,
+        255
+      ]
+    ],
+    "pure_white_corners": true,
+    "cells": [
+      {
+        "frame": 5,
+        "strong_nonwhite_bbox_cell_xyxy": [
+          30,
+          457,
+          720,
+          928
+        ]
+      },
+      {
+        "frame": 6,
+        "strong_nonwhite_bbox_cell_xyxy": [
+          72,
+          404,
+          747,
+          928
+        ]
+      }
+    ]
+  },
+  {
+    "sheet": "skill_4",
+    "size": [
+      1536,
+      1024
+    ],
+    "size_pass": true,
+    "raw_identical": false,
+    "alpha_values": [
+      255
+    ],
+    "corner_rgba": [
+      [
+        255,
+        255,
+        255,
+        255
+      ],
+      [
+        255,
+        255,
+        255,
+        255
+      ],
+      [
+        255,
+        255,
+        255,
+        255
+      ],
+      [
+        255,
+        255,
+        255,
+        255
+      ]
+    ],
+    "pure_white_corners": true,
+    "cells": [
+      {
+        "frame": 7,
+        "strong_nonwhite_bbox_cell_xyxy": [
+          394,
+          351,
+          1161,
+          927
+        ]
+      }
+    ]
+  },
+  {
+    "sheet": "skill2_1",
+    "size": [
+      1536,
+      1024
+    ],
+    "size_pass": true,
+    "raw_identical": false,
+    "alpha_values": [
+      255
+    ],
+    "corner_rgba": [
+      [
+        255,
+        255,
+        255,
+        255
+      ],
+      [
+        255,
+        255,
+        255,
+        255
+      ],
+      [
+        255,
+        255,
+        255,
+        255
+      ],
+      [
+        255,
+        255,
+        255,
+        255
+      ]
+    ],
+    "pure_white_corners": true,
+    "cells": [
+      {
+        "frame": 1,
+        "strong_nonwhite_bbox_cell_xyxy": [
+          28,
+          415,
+          682,
+          909
+        ]
+      },
+      {
+        "frame": 2,
+        "strong_nonwhite_bbox_cell_xyxy": [
+          21,
+          415,
+          728,
+          909
+        ]
+      }
+    ]
+  },
+  {
+    "sheet": "skill2_2",
+    "size": [
+      1536,
+      1024
+    ],
+    "size_pass": true,
+    "raw_identical": false,
+    "alpha_values": [
+      255
+    ],
+    "corner_rgba": [
+      [
+        255,
+        255,
+        255,
+        255
+      ],
+      [
+        255,
+        255,
+        255,
+        255
+      ],
+      [
+        255,
+        255,
+        255,
+        255
+      ],
+      [
+        255,
+        255,
+        255,
+        255
+      ]
+    ],
+    "pure_white_corners": true,
+    "cells": [
+      {
+        "frame": 3,
+        "strong_nonwhite_bbox_cell_xyxy": [
+          63,
+          396,
+          658,
+          921
+        ]
+      },
+      {
+        "frame": 4,
+        "strong_nonwhite_bbox_cell_xyxy": [
+          11,
+          426,
+          726,
+          921
+        ]
+      }
+    ]
+  },
+  {
+    "sheet": "skill2_3",
+    "size": [
+      1536,
+      1024
+    ],
+    "size_pass": true,
+    "raw_identical": false,
+    "alpha_values": [
+      255
+    ],
+    "corner_rgba": [
+      [
+        255,
+        255,
+        255,
+        255
+      ],
+      [
+        255,
+        255,
+        255,
+        255
+      ],
+      [
+        255,
+        255,
+        255,
+        255
+      ],
+      [
+        255,
+        255,
+        255,
+        255
+      ]
+    ],
+    "pure_white_corners": true,
+    "cells": [
+      {
+        "frame": 5,
+        "strong_nonwhite_bbox_cell_xyxy": [
+          481,
+          434,
+          1061,
+          920
+        ]
+      }
+    ]
+  },
+  {
+    "sheet": "skill_w_1",
+    "size": [
+      1536,
+      1024
+    ],
+    "size_pass": true,
+    "raw_identical": false,
+    "alpha_values": [
+      255
+    ],
+    "corner_rgba": [
+      [
+        255,
+        255,
+        255,
+        255
+      ],
+      [
+        255,
+        255,
+        255,
+        255
+      ],
+      [
+        255,
+        255,
+        255,
+        255
+      ],
+      [
+        255,
+        255,
+        255,
+        255
+      ]
+    ],
+    "pure_white_corners": true,
+    "cells": [
+      {
+        "frame": 1,
+        "strong_nonwhite_bbox_cell_xyxy": [
+          25,
+          432,
+          768,
+          951
+        ]
+      },
+      {
+        "frame": 3,
+        "strong_nonwhite_bbox_cell_xyxy": [
+          0,
+          432,
+          743,
+          951
+        ]
+      }
+    ]
+  },
+  {
+    "sheet": "skill_w_2",
+    "size": [
+      1536,
+      1024
+    ],
+    "size_pass": true,
+    "raw_identical": false,
+    "alpha_values": [
+      255
+    ],
+    "corner_rgba": [
+      [
+        255,
+        255,
+        255,
+        255
+      ],
+      [
+        255,
+        255,
+        255,
+        255
+      ],
+      [
+        255,
+        255,
+        255,
+        255
+      ],
+      [
+        255,
+        255,
+        255,
+        255
+      ]
+    ],
+    "pure_white_corners": true,
+    "cells": [
+      {
+        "frame": 4,
+        "strong_nonwhite_bbox_cell_xyxy": [
+          19,
+          425,
+          756,
+          906
+        ]
+      },
+      {
+        "frame": 5,
+        "strong_nonwhite_bbox_cell_xyxy": [
+          19,
+          425,
+          756,
+          906
+        ]
+      }
+    ]
+  },
+  {
+    "sheet": "skill_w_3",
+    "size": [
+      1536,
+      1024
+    ],
+    "size_pass": true,
+    "raw_identical": false,
+    "alpha_values": [
+      255
+    ],
+    "corner_rgba": [
+      [
+        255,
+        255,
+        255,
+        255
+      ],
+      [
+        255,
+        255,
+        255,
+        255
+      ],
+      [
+        255,
+        255,
+        255,
+        255
+      ],
+      [
+        255,
+        255,
+        255,
+        255
+      ]
+    ],
+    "pure_white_corners": true,
+    "cells": [
+      {
+        "frame": 6,
+        "strong_nonwhite_bbox_cell_xyxy": [
+          479,
+          429,
+          1073,
+          919
+        ]
+      }
+    ]
+  },
+  {
+    "sheet": "hit_1",
+    "size": [
+      1536,
+      1024
+    ],
+    "size_pass": true,
+    "raw_identical": false,
+    "alpha_values": [
+      255
+    ],
+    "corner_rgba": [
+      [
+        255,
+        255,
+        255,
+        255
+      ],
+      [
+        255,
+        255,
+        255,
+        255
+      ],
+      [
+        255,
+        255,
+        255,
+        255
+      ],
+      [
+        255,
+        255,
+        255,
+        255
+      ]
+    ],
+    "pure_white_corners": true,
+    "cells": [
+      {
+        "frame": 1,
+        "strong_nonwhite_bbox_cell_xyxy": [
+          26,
+          419,
+          700,
+          944
+        ]
+      },
+      {
+        "frame": 2,
+        "strong_nonwhite_bbox_cell_xyxy": [
+          35,
+          449,
+          724,
+          944
+        ]
+      }
+    ]
+  },
+  {
+    "sheet": "dead_1",
+    "size": [
+      1536,
+      1024
+    ],
+    "size_pass": true,
+    "raw_identical": false,
+    "alpha_values": [
+      255
+    ],
+    "corner_rgba": [
+      [
+        255,
+        255,
+        255,
+        255
+      ],
+      [
+        255,
+        255,
+        255,
+        255
+      ],
+      [
+        255,
+        255,
+        255,
+        255
+      ],
+      [
+        255,
+        255,
+        255,
+        255
+      ]
+    ],
+    "pure_white_corners": true,
+    "cells": [
+      {
+        "frame": 1,
+        "strong_nonwhite_bbox_cell_xyxy": [
+          51,
+          432,
+          617,
+          913
+        ]
+      },
+      {
+        "frame": 2,
+        "strong_nonwhite_bbox_cell_xyxy": [
+          25,
+          560,
+          728,
+          1004
+        ]
+      }
+    ]
+  },
+  {
+    "sheet": "dead_2",
+    "size": [
+      1536,
+      1024
+    ],
+    "size_pass": true,
+    "raw_identical": false,
+    "alpha_values": [
+      255
+    ],
+    "corner_rgba": [
+      [
+        255,
+        255,
+        255,
+        255
+      ],
+      [
+        255,
+        255,
+        255,
+        255
+      ],
+      [
+        255,
+        255,
+        255,
+        255
+      ],
+      [
+        255,
+        255,
+        255,
+        255
+      ]
+    ],
+    "pure_white_corners": true,
+    "cells": [
+      {
+        "frame": 3,
+        "strong_nonwhite_bbox_cell_xyxy": [
+          31,
+          338,
+          768,
+          877
+        ]
+      },
+      {
+        "frame": 4,
+        "strong_nonwhite_bbox_cell_xyxy": [
+          0,
+          539,
+          762,
+          894
+        ]
+      }
+    ]
+  },
+  {
+    "sheet": "dead_3",
+    "size": [
+      1536,
+      1024
+    ],
+    "size_pass": true,
+    "raw_identical": false,
+    "alpha_values": [
+      255
+    ],
+    "corner_rgba": [
+      [
+        255,
+        255,
+        255,
+        255
+      ],
+      [
+        255,
+        255,
+        255,
+        255
+      ],
+      [
+        255,
+        255,
+        255,
+        255
+      ],
+      [
+        255,
+        255,
+        255,
+        255
+      ]
+    ],
+    "pure_white_corners": true,
+    "cells": [
+      {
+        "frame": 5,
+        "strong_nonwhite_bbox_cell_xyxy": [
+          44,
+          524,
+          746,
+          899
+        ]
+      },
+      {
+        "frame": 6,
+        "strong_nonwhite_bbox_cell_xyxy": [
+          34,
+          558,
+          746,
+          899
+        ]
+      }
+    ]
+  }
+]

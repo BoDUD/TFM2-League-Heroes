@@ -1,0 +1,59 @@
+{
+  "poseRepairs": [
+    {
+      "name": "leap_1",
+      "issue": "Frame1 LEFT must be grounded crouched anticipation, both feet on y924, arms hanging. Frame2 RIGHT must be airborne launch, arms spread claw back and blade forward. Current generated sheet reversed the ground/air phases: correct ordering to exactly template.",
+      "copyExit": 0
+    },
+    {
+      "name": "leap_4",
+      "issue": "Only ONE frame, frame7 is LANDING grounded LOW CROUCH, both feet on ground y924, near claw hanging low and bone knife down at right, like template. Current generated character is still airborne: replace with landed crouch. No jumping pose.",
+      "copyExit": 0
+    },
+    {
+      "name": "run_4",
+      "issue": "ONE tail only curling on image RIGHT like approved design, not image LEFT. Keep run leg alternation. Both heads same design size. Fix tail direction only.",
+      "copyExit": 0
+    },
+    {
+      "name": "skill_1",
+      "issue": "LEFT frame1 is GROUNDED IDLE CROUCH, near claw hanging down left and far knife hanging down right. RIGHT frame2 lifts LEFT claw hand UP and FAR RIGHT knife hand OVERHEAD while slightly straightening up. The last generated sheet reversed these two poses: correct ordering to template.",
+      "copyExit": 0
+    },
+    {
+      "name": "skill_3",
+      "issue": "LEFT frame5: near LEFT claw extended BACK/LEFT nearly horizontal, far RIGHT knife arm extended FORWARD/RIGHT nearly horizontal for downward strike follow-through. Knife NOT overhead in left cell. RIGHT frame6: near LEFT claw hangs DOWN, far RIGHT knife hand raised OVERHEAD behind horns. Knife NOT hanging down in right cell. Match each exact pale pose, no swapped frames.",
+      "copyExit": 0
+    },
+    {
+      "name": "skill_2",
+      "issue": "LEFT frame3: near claw UP at upper-left, far knife OVERHEAD at upper-right. RIGHT frame4: near claw extended BACK to LEFT horizontally; far knife STILL RAISED OVERHEAD at upper-right, NOT down or extended forward yet. RIGHT tail curls to image RIGHT, not left. Match template frame3 and4 precisely.",
+      "copyExit": 0
+    },
+    {
+      "name": "skill2_3",
+      "issue": "ONE SINGLE FRAME5. This is E RECOVERY, NOT THROW: near image-LEFT claw lowered and hanging by his left knee, far image-RIGHT bone knife lowered at right. Grounded hunched idle recovery, identical arm angles to pale template. Do not extend claw backward horizontally.",
+      "copyExit": 0
+    },
+    {
+      "name": "skill_w_3",
+      "issue": "ONE SINGLE FRAME6. This is W RECOVERY: near LEFT claw hangs DOWN at knee, far RIGHT knife points DOWN beside right leg. Crouched and mouth relaxed after roar. NOT arms-out roar pose, NOT knife held upward. Match the pale template exactly.",
+      "copyExit": 0
+    },
+    {
+      "name": "dead_2",
+      "issue": "LEFT frame3 is STAGGERING UPRIGHT, near LEFT hand big claw swept back, far RIGHT hand must still grip cream curved BONE KNIFE with red tip (current sheet incorrectly has TWO claw hands and no knife). Restore the far right held bone knife. RIGHT frame4 toppling onto back with knife fallen BESIDE him; retain pose. Exactly two arms, no extra hand, same head size.",
+      "copyExit": 0
+    }
+  ],
+  "boundaryRepairs": [
+    "skill_3",
+    "attack_1",
+    "leap_2",
+    "leap_3",
+    "skill_2",
+    "skill2_2",
+    "skill_w_1",
+    "dead_2"
+  ]
+}
