@@ -62,6 +62,19 @@ HEAD_CENTRE = {"d_down": (88, 18)}
 # d_fall: Codex's own head, thrown back with the body, reads (two eyes, the mouth); the upright paste did not
 NO_PASTE = {"d_fall"}
 SPECK = 6                                        # parts apart from the figure smaller than this are dropped
+# The run's legs (the user, 2026-10-28: 「走路腿没有前后交换啊 codex做错你也做错」): Codex drew every frame's leading leg as
+# the near one (in full tone, over the other), so they never seemed to swap. In the design the near leg has the navy
+# thigh patch and light wraps, the far leg the dark trousers and dark wraps. Each frame's legs are told apart below the
+# crotch (SPLIT: from that row down, columns left of x are the trailing leg; the latest row that applies wins), and the
+# FAR one is darkened (light trousers and the navy -> the dark trouser shade, light wraps -> dark); NEAR_THIGH gives the
+# near trailing thigh its navy where Codex left it purple. run2 / run3 lead with the near leg, run1 / run4 with the far
+# one, and rig_violet plays them run1 run4 run2 run3.
+SPLIT = {"run2": [(41, 16), (46, 29)], "run3": [(51, 33)], "run1": [(42, 22), (51, 26)], "run4": [(40, 12), (48, 22)]}
+FAR = {"run2": "back", "run3": "back", "run1": "front", "run4": "front"}
+NEAR_THIGH = {"run4": (10, 48, 22, 57)}                  # x0, y0, x1, y1 (exclusive)
+TROUSER, TROUSER_DK, NAVY = (0x62, 0x39, 0x47), (0x3d, 0x20, 0x2e), (0x1e, 0x1c, 0x39)
+WRAP, WRAP_DK = (0x98, 0x9b, 0x4d), (0x69, 0x6b, 0x37)
+DARKEN = {TROUSER: TROUSER_DK, NAVY: TROUSER_DK, WRAP: WRAP_DK}
 NAMES = list(PK.POSES)
 
 
@@ -195,9 +208,33 @@ def read(name, scale=None):
             big[lb == j] = 0
     ys2, xs2 = np.nonzero(big[..., 3] > 0)
     oy, ox = ys2.min(), xs2.min()
+    if name in SPLIT:
+        legs(name, big, oy, ox)
     at = (int(xs.min() + dx + pad - ox), int(ys.min() + dy + pad - oy))
     grid = (round(float(gx + ox - pad), 1), round(float(gy + oy - pad), 1))
     return big[oy:ys2.max() + 1, ox:xs2.max() + 1], at, k, share, grid
+
+
+def legs(name, big, oy, ox):
+    """The far leg darkened, the near trailing thigh made navy (SPLIT / FAR / NEAR_THIGH, in the cropped figure's
+    squares: (oy, ox) is the crop's corner in `big`)."""
+    rules = sorted(SPLIT[name])
+    rgb = big[..., :3]
+    for y in range(rules[0][0], big.shape[0] - oy):
+        split = [x for r, x in rules if y >= r][-1]
+        for x in range(big.shape[1] - ox):
+            Y, X = y + oy, x + ox
+            if not big[Y, X, 3]:
+                continue
+            side = "back" if x < split else "front"
+            c = tuple(int(v) for v in rgb[Y, X])
+            if side == FAR[name] and c in DARKEN:
+                rgb[Y, X] = DARKEN[c]
+    if name in NEAR_THIGH:
+        x0, y0, x1, y1 = NEAR_THIGH[name]
+        win = rgb[oy + y0:oy + y1, ox + x0:ox + x1]
+        m = np.all(win == TROUSER, axis=-1) | np.all(win == TROUSER_DK, axis=-1)
+        win[m] = NAVY
 
 
 def big4(a, z):
