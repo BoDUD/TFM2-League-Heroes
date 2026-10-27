@@ -115,7 +115,13 @@ def frames(rig):
                 fr[0] = R.flash(rig.finish(fr[0]))      # (the struck frame flashes, as every rig's)
         out[tag] = list(zip(fr, [m for _, m in sheet[tag]]))
     out["idle"] = list(out["idle_base"])
-    return {t: out[t] for t in sheet if t in out}
+    # his walk while The Culling fires (tools/art/casts_lucian_runshoot.py; an add-on plays it for `run` while
+    # league_lucian_r_ch is on): the run's timing
+    import casts_lucian_runshoot as RS
+    walk = RS.placed()
+    runs = [m for _, m in sheet["run"]]
+    out["r_run"] = [(on_grid(rig, *walk[f"r_run_{k + 1}"]), runs[k % len(runs)]) for k in range(len(walk))]
+    return {**{t: out[t] for t in sheet if t in out}, "r_run": out["r_run"]}
 
 
 def main():
