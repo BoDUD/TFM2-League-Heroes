@@ -4185,6 +4185,22 @@
       "tag": "tft_vander_l",
       "z": 3,
       "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_tft_violet",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "tft_violet",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_tft_violet_l",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "tft_violet_l",
+      "z": 3,
+      "is_follow": false
     }
   ],
   "view_buffs": [
