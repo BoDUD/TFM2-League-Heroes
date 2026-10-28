@@ -1,0 +1,1381 @@
+{
+  "effects": [
+    {
+      "file": "scar_fx_a_hit.png",
+      "frames": 4,
+      "cell_1x": [
+        16,
+        16
+      ],
+      "layout": "horizontal",
+      "scale": 8,
+      "symmetry": "left-right",
+      "loop": false,
+      "source": "scar_fx_a_hit-generated.png",
+      "frame_details": [
+        {
+          "index": 0,
+          "source_box": [
+            0,
+            0,
+            627,
+            627
+          ],
+          "source_art_bbox": [
+            186,
+            185,
+            473,
+            499
+          ],
+          "logical_footprint": [
+            8,
+            8
+          ],
+          "opaque_pixels": 24
+        },
+        {
+          "index": 1,
+          "source_box": [
+            627,
+            0,
+            1254,
+            627
+          ],
+          "source_art_bbox": [
+            40,
+            201,
+            576,
+            493
+          ],
+          "logical_footprint": [
+            12,
+            8
+          ],
+          "opaque_pixels": 54
+        },
+        {
+          "index": 2,
+          "source_box": [
+            0,
+            627,
+            627,
+            1254
+          ],
+          "source_art_bbox": [
+            40,
+            183,
+            620,
+            431
+          ],
+          "logical_footprint": [
+            14,
+            7
+          ],
+          "opaque_pixels": 54
+        },
+        {
+          "index": 3,
+          "source_box": [
+            627,
+            627,
+            1254,
+            1254
+          ],
+          "source_art_bbox": [
+            118,
+            210,
+            498,
+            399
+          ],
+          "logical_footprint": [
+            10,
+            6
+          ],
+          "opaque_pixels": 16
+        }
+      ]
+    },
+    {
+      "file": "scar_fx_p_hit.png",
+      "frames": 5,
+      "cell_1x": [
+        24,
+        24
+      ],
+      "layout": "horizontal",
+      "scale": 8,
+      "symmetry": "left-right",
+      "loop": false,
+      "source": "scar_fx_p_hit-generated.png",
+      "frame_details": [
+        {
+          "index": 0,
+          "source_box": [
+            0,
+            0,
+            512,
+            512
+          ],
+          "source_art_bbox": [
+            92,
+            111,
+            423,
+            450
+          ],
+          "logical_footprint": [
+            10,
+            10
+          ],
+          "opaque_pixels": 54
+        },
+        {
+          "index": 1,
+          "source_box": [
+            512,
+            0,
+            1024,
+            512
+          ],
+          "source_art_bbox": [
+            20,
+            118,
+            492,
+            441
+          ],
+          "logical_footprint": [
+            20,
+            16
+          ],
+          "opaque_pixels": 190
+        },
+        {
+          "index": 2,
+          "source_box": [
+            1024,
+            0,
+            1536,
+            512
+          ],
+          "source_art_bbox": [
+            17,
+            180,
+            496,
+            423
+          ],
+          "logical_footprint": [
+            22,
+            20
+          ],
+          "opaque_pixels": 222
+        },
+        {
+          "index": 3,
+          "source_box": [
+            0,
+            512,
+            512,
+            1024
+          ],
+          "source_art_bbox": [
+            40,
+            144,
+            482,
+            427
+          ],
+          "logical_footprint": [
+            20,
+            22
+          ],
+          "opaque_pixels": 186
+        },
+        {
+          "index": 4,
+          "source_box": [
+            512,
+            512,
+            1024,
+            1024
+          ],
+          "source_art_bbox": [
+            40,
+            232,
+            477,
+            411
+          ],
+          "logical_footprint": [
+            16,
+            20
+          ],
+          "opaque_pixels": 64
+        }
+      ]
+    },
+    {
+      "file": "scar_fx_p_heal.png",
+      "frames": 5,
+      "cell_1x": [
+        36,
+        42
+      ],
+      "layout": "horizontal",
+      "scale": 8,
+      "symmetry": "left-right",
+      "loop": false,
+      "source": "scar_fx_p_heal-generated.png",
+      "frame_details": [
+        {
+          "index": 0,
+          "source_box": [
+            0,
+            0,
+            474,
+            553
+          ],
+          "source_art_bbox": [
+            100,
+            372,
+            386,
+            527
+          ],
+          "logical_footprint": [
+            14,
+            5
+          ],
+          "opaque_pixels": 32
+        },
+        {
+          "index": 1,
+          "source_box": [
+            474,
+            0,
+            948,
+            553
+          ],
+          "source_art_bbox": [
+            15,
+            133,
+            457,
+            529
+          ],
+          "logical_footprint": [
+            32,
+            38
+          ],
+          "opaque_pixels": 88
+        },
+        {
+          "index": 2,
+          "source_box": [
+            948,
+            0,
+            1422,
+            553
+          ],
+          "source_art_bbox": [
+            47,
+            58,
+            426,
+            529
+          ],
+          "logical_footprint": [
+            32,
+            40
+          ],
+          "opaque_pixels": 84
+        },
+        {
+          "index": 3,
+          "source_box": [
+            0,
+            553,
+            474,
+            1106
+          ],
+          "source_art_bbox": [
+            54,
+            85,
+            454,
+            489
+          ],
+          "logical_footprint": [
+            30,
+            40
+          ],
+          "opaque_pixels": 32
+        },
+        {
+          "index": 4,
+          "source_box": [
+            474,
+            553,
+            948,
+            1106
+          ],
+          "source_art_bbox": [
+            76,
+            53,
+            398,
+            471
+          ],
+          "logical_footprint": [
+            28,
+            38
+          ],
+          "opaque_pixels": 4
+        }
+      ]
+    },
+    {
+      "file": "scar_fx_q_bomb.png",
+      "frames": 4,
+      "cell_1x": [
+        10,
+        10
+      ],
+      "layout": "horizontal",
+      "scale": 8,
+      "symmetry": "left-right + 180-degree",
+      "loop": true,
+      "source": "scar_fx_q_bomb-generated.png",
+      "frame_details": [
+        {
+          "index": 0,
+          "source_box": [
+            0,
+            0,
+            627,
+            627
+          ],
+          "source_art_bbox": [
+            172,
+            112,
+            483,
+            550
+          ],
+          "logical_footprint": [
+            8,
+            8
+          ],
+          "opaque_pixels": 32
+        },
+        {
+          "index": 1,
+          "source_box": [
+            627,
+            0,
+            1254,
+            627
+          ],
+          "source_art_bbox": [
+            174,
+            111,
+            483,
+            551
+          ],
+          "logical_footprint": [
+            8,
+            8
+          ],
+          "opaque_pixels": 40
+        },
+        {
+          "index": 2,
+          "source_box": [
+            0,
+            627,
+            627,
+            1254
+          ],
+          "source_art_bbox": [
+            165,
+            80,
+            494,
+            523
+          ],
+          "logical_footprint": [
+            8,
+            8
+          ],
+          "opaque_pixels": 36
+        },
+        {
+          "index": 3,
+          "source_box": [
+            627,
+            627,
+            1254,
+            1254
+          ],
+          "source_art_bbox": [
+            193,
+            80,
+            497,
+            517
+          ],
+          "logical_footprint": [
+            8,
+            8
+          ],
+          "opaque_pixels": 36
+        }
+      ]
+    },
+    {
+      "file": "scar_fx_q_hit.png",
+      "frames": 6,
+      "cell_1x": [
+        34,
+        34
+      ],
+      "layout": "horizontal",
+      "scale": 8,
+      "symmetry": "left-right",
+      "loop": false,
+      "source": "scar_fx_q_hit-generated.png",
+      "frame_details": [
+        {
+          "index": 0,
+          "source_box": [
+            0,
+            0,
+            512,
+            512
+          ],
+          "source_art_bbox": [
+            141,
+            206,
+            362,
+            429
+          ],
+          "logical_footprint": [
+            10,
+            10
+          ],
+          "opaque_pixels": 40
+        },
+        {
+          "index": 1,
+          "source_box": [
+            512,
+            0,
+            1024,
+            512
+          ],
+          "source_art_bbox": [
+            0,
+            105,
+            512,
+            501
+          ],
+          "logical_footprint": [
+            22,
+            22
+          ],
+          "opaque_pixels": 306
+        },
+        {
+          "index": 2,
+          "source_box": [
+            1024,
+            0,
+            1536,
+            512
+          ],
+          "source_art_bbox": [
+            0,
+            55,
+            489,
+            512
+          ],
+          "logical_footprint": [
+            30,
+            30
+          ],
+          "opaque_pixels": 634
+        },
+        {
+          "index": 3,
+          "source_box": [
+            0,
+            512,
+            512,
+            1024
+          ],
+          "source_art_bbox": [
+            44,
+            63,
+            500,
+            459
+          ],
+          "logical_footprint": [
+            30,
+            30
+          ],
+          "opaque_pixels": 530
+        },
+        {
+          "index": 4,
+          "source_box": [
+            512,
+            512,
+            1024,
+            1024
+          ],
+          "source_art_bbox": [
+            50,
+            89,
+            492,
+            455
+          ],
+          "logical_footprint": [
+            28,
+            30
+          ],
+          "opaque_pixels": 484
+        },
+        {
+          "index": 5,
+          "source_box": [
+            1024,
+            512,
+            1536,
+            1024
+          ],
+          "source_art_bbox": [
+            63,
+            0,
+            463,
+            452
+          ],
+          "logical_footprint": [
+            22,
+            28
+          ],
+          "opaque_pixels": 168
+        }
+      ]
+    },
+    {
+      "file": "scar_fx_q_stun.png",
+      "frames": 6,
+      "cell_1x": [
+        20,
+        10
+      ],
+      "layout": "horizontal",
+      "scale": 8,
+      "symmetry": "left-right",
+      "loop": true,
+      "source": "scar_fx_q_stun-generated.png",
+      "frame_details": [
+        {
+          "index": 0,
+          "source_box": [
+            0,
+            0,
+            591,
+            444
+          ],
+          "source_art_bbox": [
+            80,
+            138,
+            546,
+            370
+          ],
+          "logical_footprint": [
+            18,
+            6
+          ],
+          "opaque_pixels": 60
+        },
+        {
+          "index": 1,
+          "source_box": [
+            591,
+            0,
+            1183,
+            444
+          ],
+          "source_art_bbox": [
+            73,
+            147,
+            535,
+            396
+          ],
+          "logical_footprint": [
+            18,
+            6
+          ],
+          "opaque_pixels": 58
+        },
+        {
+          "index": 2,
+          "source_box": [
+            1183,
+            0,
+            1774,
+            444
+          ],
+          "source_art_bbox": [
+            58,
+            175,
+            534,
+            410
+          ],
+          "logical_footprint": [
+            18,
+            6
+          ],
+          "opaque_pixels": 66
+        },
+        {
+          "index": 3,
+          "source_box": [
+            0,
+            444,
+            591,
+            887
+          ],
+          "source_art_bbox": [
+            67,
+            97,
+            547,
+            362
+          ],
+          "logical_footprint": [
+            18,
+            6
+          ],
+          "opaque_pixels": 48
+        },
+        {
+          "index": 4,
+          "source_box": [
+            591,
+            444,
+            1183,
+            887
+          ],
+          "source_art_bbox": [
+            68,
+            124,
+            531,
+            358
+          ],
+          "logical_footprint": [
+            18,
+            6
+          ],
+          "opaque_pixels": 56
+        },
+        {
+          "index": 5,
+          "source_box": [
+            1183,
+            444,
+            1774,
+            887
+          ],
+          "source_art_bbox": [
+            74,
+            118,
+            518,
+            370
+          ],
+          "logical_footprint": [
+            18,
+            6
+          ],
+          "opaque_pixels": 62
+        }
+      ]
+    },
+    {
+      "file": "scar_fx_e_hit.png",
+      "frames": 4,
+      "cell_1x": [
+        22,
+        22
+      ],
+      "layout": "horizontal",
+      "scale": 8,
+      "symmetry": "left-right",
+      "loop": false,
+      "source": "scar_fx_e_hit-generated.png",
+      "frame_details": [
+        {
+          "index": 0,
+          "source_box": [
+            0,
+            0,
+            627,
+            627
+          ],
+          "source_art_bbox": [
+            50,
+            286,
+            577,
+            510
+          ],
+          "logical_footprint": [
+            18,
+            5
+          ],
+          "opaque_pixels": 54
+        },
+        {
+          "index": 1,
+          "source_box": [
+            627,
+            0,
+            1254,
+            627
+          ],
+          "source_art_bbox": [
+            9,
+            231,
+            618,
+            509
+          ],
+          "logical_footprint": [
+            20,
+            8
+          ],
+          "opaque_pixels": 86
+        },
+        {
+          "index": 2,
+          "source_box": [
+            0,
+            627,
+            627,
+            1254
+          ],
+          "source_art_bbox": [
+            39,
+            188,
+            587,
+            459
+          ],
+          "logical_footprint": [
+            18,
+            12
+          ],
+          "opaque_pixels": 142
+        },
+        {
+          "index": 3,
+          "source_box": [
+            627,
+            627,
+            1254,
+            1254
+          ],
+          "source_art_bbox": [
+            30,
+            254,
+            598,
+            470
+          ],
+          "logical_footprint": [
+            14,
+            10
+          ],
+          "opaque_pixels": 78
+        }
+      ]
+    },
+    {
+      "file": "scar_fx_r_bomb.png",
+      "frames": 6,
+      "cell_1x": [
+        40,
+        24
+      ],
+      "layout": "horizontal",
+      "scale": 8,
+      "symmetry": "left-right",
+      "loop": false,
+      "source": "scar_fx_r_bomb-generated.png",
+      "frame_details": [
+        {
+          "index": 0,
+          "source_box": [
+            0,
+            0,
+            540,
+            486
+          ],
+          "source_art_bbox": [
+            76,
+            311,
+            494,
+            486
+          ],
+          "logical_footprint": [
+            10,
+            6
+          ],
+          "opaque_pixels": 36
+        },
+        {
+          "index": 1,
+          "source_box": [
+            540,
+            0,
+            1079,
+            486
+          ],
+          "source_art_bbox": [
+            32,
+            115,
+            539,
+            486
+          ],
+          "logical_footprint": [
+            24,
+            16
+          ],
+          "opaque_pixels": 238
+        },
+        {
+          "index": 2,
+          "source_box": [
+            1079,
+            0,
+            1619,
+            486
+          ],
+          "source_art_bbox": [
+            0,
+            163,
+            518,
+            486
+          ],
+          "logical_footprint": [
+            34,
+            20
+          ],
+          "opaque_pixels": 414
+        },
+        {
+          "index": 3,
+          "source_box": [
+            0,
+            486,
+            540,
+            971
+          ],
+          "source_art_bbox": [
+            35,
+            0,
+            537,
+            412
+          ],
+          "logical_footprint": [
+            34,
+            18
+          ],
+          "opaque_pixels": 206
+        },
+        {
+          "index": 4,
+          "source_box": [
+            540,
+            486,
+            1079,
+            971
+          ],
+          "source_art_bbox": [
+            42,
+            0,
+            496,
+            402
+          ],
+          "logical_footprint": [
+            28,
+            16
+          ],
+          "opaque_pixels": 158
+        },
+        {
+          "index": 5,
+          "source_box": [
+            1079,
+            486,
+            1619,
+            971
+          ],
+          "source_art_bbox": [
+            19,
+            0,
+            495,
+            419
+          ],
+          "logical_footprint": [
+            24,
+            8
+          ],
+          "opaque_pixels": 46
+        }
+      ]
+    },
+    {
+      "file": "scar_fx_r_land.png",
+      "frames": 8,
+      "cell_1x": [
+        84,
+        34
+      ],
+      "layout": "horizontal",
+      "scale": 8,
+      "symmetry": "left-right",
+      "loop": false,
+      "source": "scar_fx_r_land-generated.png",
+      "frame_details": [
+        {
+          "index": 0,
+          "source_box": [
+            0,
+            0,
+            444,
+            444
+          ],
+          "source_art_bbox": [
+            77,
+            305,
+            387,
+            391
+          ],
+          "logical_footprint": [
+            16,
+            6
+          ],
+          "opaque_pixels": 44
+        },
+        {
+          "index": 1,
+          "source_box": [
+            444,
+            0,
+            887,
+            444
+          ],
+          "source_art_bbox": [
+            48,
+            247,
+            399,
+            391
+          ],
+          "logical_footprint": [
+            34,
+            12
+          ],
+          "opaque_pixels": 276
+        },
+        {
+          "index": 2,
+          "source_box": [
+            887,
+            0,
+            1330,
+            444
+          ],
+          "source_art_bbox": [
+            11,
+            199,
+            430,
+            396
+          ],
+          "logical_footprint": [
+            54,
+            22
+          ],
+          "opaque_pixels": 692
+        },
+        {
+          "index": 3,
+          "source_box": [
+            1330,
+            0,
+            1774,
+            444
+          ],
+          "source_art_bbox": [
+            8,
+            155,
+            444,
+            401
+          ],
+          "logical_footprint": [
+            76,
+            30
+          ],
+          "opaque_pixels": 1022
+        },
+        {
+          "index": 4,
+          "source_box": [
+            0,
+            444,
+            444,
+            887
+          ],
+          "source_art_bbox": [
+            12,
+            125,
+            444,
+            345
+          ],
+          "logical_footprint": [
+            80,
+            30
+          ],
+          "opaque_pixels": 718
+        },
+        {
+          "index": 5,
+          "source_box": [
+            444,
+            444,
+            887,
+            887
+          ],
+          "source_art_bbox": [
+            0,
+            183,
+            426,
+            336
+          ],
+          "logical_footprint": [
+            72,
+            26
+          ],
+          "opaque_pixels": 690
+        },
+        {
+          "index": 6,
+          "source_box": [
+            887,
+            444,
+            1330,
+            887
+          ],
+          "source_art_bbox": [
+            32,
+            216,
+            409,
+            336
+          ],
+          "logical_footprint": [
+            56,
+            20
+          ],
+          "opaque_pixels": 316
+        },
+        {
+          "index": 7,
+          "source_box": [
+            1330,
+            444,
+            1774,
+            887
+          ],
+          "source_art_bbox": [
+            40,
+            268,
+            414,
+            328
+          ],
+          "logical_footprint": [
+            42,
+            12
+          ],
+          "opaque_pixels": 114
+        }
+      ]
+    },
+    {
+      "file": "scar_fx_r_hit.png",
+      "frames": 4,
+      "cell_1x": [
+        18,
+        20
+      ],
+      "layout": "horizontal",
+      "scale": 8,
+      "symmetry": "left-right",
+      "loop": false,
+      "source": "scar_fx_r_hit-generated.png",
+      "frame_details": [
+        {
+          "index": 0,
+          "source_box": [
+            0,
+            0,
+            595,
+            661
+          ],
+          "source_art_bbox": [
+            65,
+            373,
+            554,
+            648
+          ],
+          "logical_footprint": [
+            10,
+            6
+          ],
+          "opaque_pixels": 30
+        },
+        {
+          "index": 1,
+          "source_box": [
+            595,
+            0,
+            1190,
+            661
+          ],
+          "source_art_bbox": [
+            31,
+            53,
+            533,
+            648
+          ],
+          "logical_footprint": [
+            16,
+            16
+          ],
+          "opaque_pixels": 136
+        },
+        {
+          "index": 2,
+          "source_box": [
+            0,
+            661,
+            595,
+            1322
+          ],
+          "source_art_bbox": [
+            55,
+            62,
+            570,
+            590
+          ],
+          "logical_footprint": [
+            16,
+            18
+          ],
+          "opaque_pixels": 196
+        },
+        {
+          "index": 3,
+          "source_box": [
+            595,
+            661,
+            1190,
+            1322
+          ],
+          "source_art_bbox": [
+            54,
+            118,
+            538,
+            591
+          ],
+          "logical_footprint": [
+            12,
+            14
+          ],
+          "opaque_pixels": 90
+        }
+      ]
+    },
+    {
+      "file": "scar_fx_r_guard.png",
+      "frames": 6,
+      "cell_1x": [
+        40,
+        44
+      ],
+      "layout": "horizontal",
+      "scale": 8,
+      "symmetry": "left-right",
+      "loop": true,
+      "source": "scar_fx_r_guard-generated.png",
+      "frame_details": [
+        {
+          "index": 0,
+          "source_box": [
+            0,
+            0,
+            488,
+            537
+          ],
+          "source_art_bbox": [
+            51,
+            69,
+            439,
+            497
+          ],
+          "logical_footprint": [
+            36,
+            40
+          ],
+          "opaque_pixels": 144
+        },
+        {
+          "index": 1,
+          "source_box": [
+            488,
+            0,
+            976,
+            537
+          ],
+          "source_art_bbox": [
+            51,
+            91,
+            438,
+            497
+          ],
+          "logical_footprint": [
+            36,
+            40
+          ],
+          "opaque_pixels": 154
+        },
+        {
+          "index": 2,
+          "source_box": [
+            976,
+            0,
+            1464,
+            537
+          ],
+          "source_art_bbox": [
+            51,
+            78,
+            440,
+            497
+          ],
+          "logical_footprint": [
+            36,
+            40
+          ],
+          "opaque_pixels": 142
+        },
+        {
+          "index": 3,
+          "source_box": [
+            0,
+            537,
+            488,
+            1074
+          ],
+          "source_art_bbox": [
+            51,
+            46,
+            438,
+            483
+          ],
+          "logical_footprint": [
+            36,
+            40
+          ],
+          "opaque_pixels": 128
+        },
+        {
+          "index": 4,
+          "source_box": [
+            488,
+            537,
+            976,
+            1074
+          ],
+          "source_art_bbox": [
+            33,
+            51,
+            456,
+            483
+          ],
+          "logical_footprint": [
+            36,
+            40
+          ],
+          "opaque_pixels": 120
+        },
+        {
+          "index": 5,
+          "source_box": [
+            976,
+            537,
+            1464,
+            1074
+          ],
+          "source_art_bbox": [
+            51,
+            65,
+            440,
+            483
+          ],
+          "logical_footprint": [
+            36,
+            40
+          ],
+          "opaque_pixels": 134
+        }
+      ]
+    }
+  ],
+  "icons": [
+    {
+      "file": "scar_icon_skill.png",
+      "size": [
+        64,
+        64
+      ],
+      "block_px": 2,
+      "source": "scar_icon_skill-generated.png"
+    },
+    {
+      "file": "scar_icon_skill2.png",
+      "size": [
+        64,
+        64
+      ],
+      "block_px": 2,
+      "source": "scar_icon_skill2-generated.png"
+    },
+    {
+      "file": "scar_icon_ult.png",
+      "size": [
+        64,
+        64
+      ],
+      "block_px": 2,
+      "source": "scar_icon_ult-generated.png"
+    }
+  ],
+  "schema_version": 1,
+  "generation": "native image_gen; generated source art retained unchanged in raw/",
+  "normalization": "source-only palette sampling, hard alpha, grid registration; no code-drawn bodies or VFX shapes",
+  "accepted_raw_sha256": {
+    "scar_fx_a_hit-generated.png": "3aa78800adfd1f185728e70407e741d970bda0727ae304dc7460e9ab57b9f7b7",
+    "scar_fx_e_hit-generated.png": "154d9ece4c15b71fab82e17099817005806c85533d9a1111f92ae592916985e9",
+    "scar_fx_p_heal-generated.png": "346512fa596a2d01fdbec82d2c455a4a47368a340db784142c941ecfdbcef63f",
+    "scar_fx_p_hit-generated.png": "1d1ff33fb6e99ab239372c0d65be54b41d4f7453fea2ef1153451ff735c3028f",
+    "scar_fx_q_bomb-generated.png": "1ab1294f361641bc6154c1699faaf1d7279455ca2e3bbbd47ba1a1d79a888282",
+    "scar_fx_q_hit-generated.png": "b1e42cfd731d818301fd256cb50a5c5be11cce0e5da1336f572d1fb07d087d0b",
+    "scar_fx_q_stun-generated.png": "6b8aaf0f301d24e3ab21504d6b1ea02ceedb7d0b4b4d46658220028412840f7d",
+    "scar_fx_r_bomb-generated.png": "969be5af26af59af394c12034cf1126f6ca6edfe811410e9b641dc1769836b41",
+    "scar_fx_r_guard-generated.png": "881ef010fe3a1400bfe431304f0deab92fe07f72351bdb5153ace4eaa8523e1a",
+    "scar_fx_r_hit-generated.png": "42b1947cdf292db1b21d3858758e6c18d90d118a91f9a508b0a34975de291fe4",
+    "scar_fx_r_land-generated.png": "b5412551ab59e6abab0304a2834d6b6f263d5aaf38a8b2079c99ccdbbb4d23dc",
+    "scar_icon_skill-generated.png": "16bb7d9cb6441607ef3717a1770167448b1bbe40d021c710f6f3a51c7d9b779a",
+    "scar_icon_skill2-generated.png": "5139af7c5975234f9d0e6157a96e6627b695d3cb2459037caaa9386a5cd3249d",
+    "scar_icon_ult-generated.png": "b6869446c2d5c8cb33710b6ded74062c0c47901fa13109bfe059d2a875352fcf"
+  },
+  "effect_count": 11,
+  "effect_frames": 58,
+  "icon_count": 3,
+  "preview_frame_ms": 100
+}

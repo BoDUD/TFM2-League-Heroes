@@ -77,6 +77,13 @@
         "skill": "喷出一道雷息，直线上的敌人受到<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<><#a974ffff>魔法伤害<>并被<#ef5350ff>沉默0.67秒<>。",
         "skill2": "驾云飞离附近的敌方英雄，获得<#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>的风暴护盾（<#ffb900ff>3秒<>）。",
         "ult": "召来雷暴：<#ffb900ff>12<>道闪电接连劈向周围随机的敌方英雄，每道造成<#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>32%<><#a974ffff>魔法伤害<>并<#ef5350ff>沉默0.3秒<>。"
+      },
+      "tft_scar": {
+        "name": "刀疤",
+        "attack": "长矛刺击造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>。<#ff9028ff>野火冲刺<>：每<#ffb900ff>6秒<>下一击踩滑板冲刺，造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>伤害，回复上次冲刺以来所受伤害的<#ffb900ff>25%<>。<#ff9028ff>监察<>：生命不低于<#ffb900ff>50%<>时减伤<#ffb900ff>20%<>，否则<#ffb900ff>10%<>。",
+        "skill": "向最近的<#ffb900ff>3<>名敌人各扔一颗炸弹，造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<><#a974ffff>魔法伤害<>并<#ef5350ff>晕眩1秒<>；自己回复<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>生命。",
+        "skill2": "长矛横扫前方，造成<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>+<i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>2%<>物理伤害并<#ef5350ff>击退<>敌人。",
+        "ult": "踩滑板冲向敌人，途中丢下两颗燃烧弹（各<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>魔法伤害）；落地爆炸，周围敌人受到<#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<>魔法伤害并被<#ef5350ff>击飞0.5秒<>，之后<#ffb900ff>4秒<>内减伤<#ffb900ff>40%<>。"
       }
     },
     "skill_name": {
@@ -134,6 +141,11 @@
         "skill1": "雷息",
         "skill2": "腾云",
         "ult": "闪电暴雨"
+      },
+      "tft_scar": {
+        "skill1": "水坑狙击惊喜",
+        "skill2": "长矛横扫",
+        "ult": "野火突袭"
       }
     }
   },
@@ -215,6 +227,13 @@
         "skill": "噴出一道雷息，直線上的敵人受到<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<><#a974ffff>魔法傷害<>並被<#ef5350ff>沉默0.67秒<>。",
         "skill2": "駕雲飛離附近的敵方英雄，獲得<#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>的風暴護盾（<#ffb900ff>3秒<>）。",
         "ult": "召來雷暴：<#ffb900ff>12<>道閃電接連劈向周圍隨機的敵方英雄，每道造成<#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>32%<><#a974ffff>魔法傷害<>並<#ef5350ff>沉默0.3秒<>。"
+      },
+      "tft_scar": {
+        "name": "斯卡",
+        "attack": "長矛刺擊造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>。<#ff9028ff>野火衝刺<>：每<#ffb900ff>6秒<>下一擊踩滑板衝刺，造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>傷害，回復上次衝刺以來所受傷害的<#ffb900ff>25%<>。<#ff9028ff>守望者<>：生命不低於<#ffb900ff>50%<>時減傷<#ffb900ff>20%<>，否則<#ffb900ff>10%<>。",
+        "skill": "向最近的<#ffb900ff>3<>名敵人各扔一顆炸彈，造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<><#a974ffff>魔法傷害<>並<#ef5350ff>暈眩1秒<>；自己回復<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>生命。",
+        "skill2": "長矛橫掃前方，造成<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>+<i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>2%<>物理傷害並<#ef5350ff>擊退<>敵人。",
+        "ult": "踩滑板衝向敵人，途中丟下兩顆燃燒彈（各<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>魔法傷害）；落地爆炸，周圍敵人受到<#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<>魔法傷害並被<#ef5350ff>擊飛0.5秒<>，之後<#ffb900ff>4秒<>內減傷<#ffb900ff>40%<>。"
       }
     },
     "skill_name": {
@@ -272,6 +291,11 @@
         "skill1": "雷息",
         "skill2": "騰雲",
         "ult": "雷霆暴雨"
+      },
+      "tft_scar": {
+        "skill1": "汙水坑驚喜",
+        "skill2": "長矛橫掃",
+        "ult": "野火突襲"
       }
     }
   },
@@ -353,6 +377,13 @@
         "skill": "Breathes a bolt of lightning: enemies in the line take <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> <#a974ffff>magic damage<> and are <#ef5350ff>silenced for 0.67s<>.",
         "skill2": "Rides a cloud away from a nearby enemy champion and gains a <#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<> storm shield for <#ffb900ff>3s<>.",
         "ult": "Calls the storm: <#ffb900ff>12<> bolts strike random nearby enemy champions one after another, each for <#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>32%<> <#a974ffff>magic damage<> and a <#ef5350ff>0.3s silence<>."
+      },
+      "tft_scar": {
+        "name": "Scar",
+        "attack": "Thrusts his spear for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<>. <#ff9028ff>Firelight Dash<>: every <#ffb900ff>6s<> his next hit is a hoverboard dash for <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>, healing <#ffb900ff>25%<> of the damage taken since the last dash. <#ff9028ff>Watcher<>: <#ffb900ff>20%<> damage reduction at <#ffb900ff>50%<> health or more, <#ffb900ff>10%<> below.",
+        "skill": "Throws a bomb at each of the <#ffb900ff>3<> nearest enemies for <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> <#a974ffff>magic damage<>, <#ef5350ff>stunning for 1s<>. Heals himself <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>.",
+        "skill2": "Sweeps his spear in front of him for <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>2%<> physical damage, <#ef5350ff>knocking enemies back<>.",
+        "ult": "Rides his hoverboard at an enemy, dropping two fire bombs (<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<> magic damage each); landing, a blast deals <#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<> magic damage around him and <#ef5350ff>knocks up for 0.5s<>, then he takes <#ffb900ff>40%<> less damage for <#ffb900ff>4s<>."
       }
     },
     "skill_name": {
@@ -410,6 +441,11 @@
         "skill1": "Thunder Breath",
         "skill2": "Cloud Ride",
         "ult": "Lightning Rain"
+      },
+      "tft_scar": {
+        "skill1": "Sumpsnipe Surprise",
+        "skill2": "Spear Sweep",
+        "ult": "Firelight Raid"
       }
     }
   },
@@ -491,6 +527,13 @@
         "skill": "번개 숨결을 내뿜는다: 직선 위의 적에게 <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> 마법 피해, <#ef5350ff>0.67초 침묵<>.",
         "skill2": "구름을 타고 근처 적 챔피언에게서 멀어지며 <#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<> 폭풍 보호막(<#ffb900ff>3초<>)을 얻는다.",
         "ult": "폭풍을 부른다: 번개 <#ffb900ff>12<>줄기가 주변 무작위 적 챔피언에게 연이어 떨어져 각각 <#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>32%<> 마법 피해, <#ef5350ff>0.3초 침묵<>."
+      },
+      "tft_scar": {
+        "name": "스카",
+        "attack": "창으로 찔러 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> 물리 피해. <#ff9028ff>점화단 돌진<>: <#ffb900ff>6초<>마다 다음 공격이 호버보드 돌진, <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> 피해, 지난 돌진 이후 받은 피해의 <#ffb900ff>25%<> 회복. <#ff9028ff>주시자<>: 체력 <#ffb900ff>50%<> 이상이면 피해 감소 <#ffb900ff>20%<>, 아니면 <#ffb900ff>10%<>.",
+        "skill": "가장 가까운 적 <#ffb900ff>3<>명에게 폭탄을 던져 <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> <#a974ffff>마법 피해<>와 <#ef5350ff>1초 기절<>; 자신은 <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> 회복.",
+        "skill2": "앞쪽을 창으로 휩쓸어 <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>2%<> 물리 피해와 <#ef5350ff>밀쳐내기<>.",
+        "ult": "호버보드로 적에게 돌진하며 화염 폭탄 두 개(각 <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<> 마법 피해); 착지 폭발로 주변 적에게 <#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<> 마법 피해와 <#ef5350ff>0.5초 에어본<>, 이후 <#ffb900ff>4초<> 동안 피해 감소 <#ffb900ff>40%<>."
       }
     },
     "skill_name": {
@@ -548,6 +591,11 @@
         "skill1": "번개 숨결",
         "skill2": "구름 타기",
         "ult": "번개 비"
+      },
+      "tft_scar": {
+        "skill1": "지하동굴 깜짝선물",
+        "skill2": "창 휩쓸기",
+        "ult": "점화단 습격"
       }
     }
   },
@@ -629,6 +677,13 @@
         "skill": "雷の息吹を吐く：直線上の敵に<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>の魔法ダメージと<#ef5350ff>0.67秒サイレンス<>。",
         "skill2": "雲に乗って近くの敵チャンピオンから離れ、<#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>の嵐のシールド（<#ffb900ff>3秒<>）を得る。",
         "ult": "嵐を呼ぶ：雷が<#ffb900ff>12<>回、周囲のランダムな敵チャンピオンに次々と落ち、それぞれ<#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>32%<>の魔法ダメージと<#ef5350ff>0.3秒サイレンス<>。"
+      },
+      "tft_scar": {
+        "name": "スカー",
+        "attack": "槍で突き、<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>。<#ff9028ff>ファイヤーライトダッシュ<>：<#ffb900ff>6秒<>ごとに次の攻撃がホバーボード突進、<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>のダメージ、前回の突進以降に受けたダメージの<#ffb900ff>25%<>回復。<#ff9028ff>ウォッチャー<>：体力<#ffb900ff>50%<>以上で被ダメージ<#ffb900ff>20%<>軽減、未満で<#ffb900ff>10%<>。",
+        "skill": "最も近い敵<#ffb900ff>3<>体に爆弾を投げ、<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>の<#a974ffff>魔法ダメージ<>と<#ef5350ff>1秒スタン<>。自身は<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>回復。",
+        "skill2": "前方を槍で薙ぎ払い、<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>+<i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>2%<>の物理ダメージと<#ef5350ff>ノックバック<>。",
+        "ult": "ホバーボードで敵へ突進し、焼夷弾を2つ落とす（各<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>の魔法ダメージ）。着地の爆発で周囲の敵に<#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<>の魔法ダメージと<#ef5350ff>0.5秒のノックアップ<>、その後<#ffb900ff>4秒<>間被ダメージ<#ffb900ff>40%<>軽減。"
       }
     },
     "skill_name": {
@@ -686,6 +741,11 @@
         "skill1": "雷の息吹",
         "skill2": "雲乗り",
         "ult": "雷撃雨"
+      },
+      "tft_scar": {
+        "skill1": "最下層の奇襲",
+        "skill2": "スピアスイープ",
+        "ult": "ファイヤーライト強襲"
       }
     }
   }

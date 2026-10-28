@@ -1,0 +1,402 @@
+{
+  "checked": 22,
+  "problems": [],
+  "files": [
+    {
+      "file": "scar-pose-a_wind.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "nonempty": 335088,
+      "bbox": [
+        120,
+        252,
+        1068,
+        1176
+      ]
+    },
+    {
+      "file": "scar-pose-a_thrust.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "nonempty": 323280,
+      "bbox": [
+        12,
+        336,
+        1212,
+        1176
+      ]
+    },
+    {
+      "file": "scar-pose-a_back.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "nonempty": 354672,
+      "bbox": [
+        60,
+        264,
+        1116,
+        1176
+      ]
+    },
+    {
+      "file": "scar-pose-surf.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "nonempty": 191952,
+      "bbox": [
+        96,
+        564,
+        924,
+        1140
+      ]
+    },
+    {
+      "file": "scar-pose-surf_hit.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "nonempty": 211248,
+      "bbox": [
+        72,
+        552,
+        948,
+        1140
+      ]
+    },
+    {
+      "file": "scar-pose-q_wind.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "nonempty": 323424,
+      "bbox": [
+        180,
+        252,
+        1128,
+        1176
+      ]
+    },
+    {
+      "file": "scar-pose-q_throw.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "nonempty": 321552,
+      "bbox": [
+        84,
+        300,
+        1068,
+        1176
+      ]
+    },
+    {
+      "file": "scar-pose-q_hold.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "nonempty": 280800,
+      "bbox": [
+        60,
+        300,
+        1032,
+        1176
+      ]
+    },
+    {
+      "file": "scar-pose-e_wind.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "nonempty": 335376,
+      "bbox": [
+        48,
+        264,
+        1164,
+        1176
+      ]
+    },
+    {
+      "file": "scar-pose-e_sweep.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "nonempty": 230832,
+      "bbox": [
+        12,
+        552,
+        1020,
+        1176
+      ]
+    },
+    {
+      "file": "scar-pose-r_jump.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "nonempty": 170784,
+      "bbox": [
+        228,
+        408,
+        876,
+        1176
+      ]
+    },
+    {
+      "file": "scar-pose-r_land.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "nonempty": 210384,
+      "bbox": [
+        72,
+        576,
+        936,
+        1176
+      ]
+    },
+    {
+      "file": "scar-pose-run1.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "nonempty": 240768,
+      "bbox": [
+        336,
+        240,
+        804,
+        1176
+      ]
+    },
+    {
+      "file": "scar-pose-run2.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "nonempty": 212976,
+      "bbox": [
+        348,
+        216,
+        804,
+        1176
+      ]
+    },
+    {
+      "file": "scar-pose-run3.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "nonempty": 218880,
+      "bbox": [
+        336,
+        228,
+        768,
+        1176
+      ]
+    },
+    {
+      "file": "scar-pose-run4.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "nonempty": 239760,
+      "bbox": [
+        324,
+        228,
+        768,
+        1176
+      ]
+    },
+    {
+      "file": "scar-pose-run5.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "nonempty": 242064,
+      "bbox": [
+        336,
+        240,
+        828,
+        1176
+      ]
+    },
+    {
+      "file": "scar-pose-run6.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "nonempty": 229248,
+      "bbox": [
+        336,
+        252,
+        792,
+        1176
+      ]
+    },
+    {
+      "file": "scar-pose-run7.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "nonempty": 217584,
+      "bbox": [
+        324,
+        252,
+        768,
+        1176
+      ]
+    },
+    {
+      "file": "scar-pose-run8.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "nonempty": 231984,
+      "bbox": [
+        360,
+        216,
+        804,
+        1176
+      ]
+    },
+    {
+      "file": "scar-pose-d_fall.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "nonempty": 297072,
+      "bbox": [
+        72,
+        24,
+        1140,
+        1176
+      ]
+    },
+    {
+      "file": "scar-pose-d_down.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "nonempty": 222048,
+      "bbox": [
+        36,
+        840,
+        1236,
+        1176
+      ]
+    }
+  ]
+}
