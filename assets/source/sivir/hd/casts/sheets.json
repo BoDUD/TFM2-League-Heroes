@@ -1,0 +1,355 @@
+{
+ "square": 6,
+ "sheet": [
+  1536,
+  1024
+ ],
+ "ground": 924,
+ "same": {
+  "dead": {
+   "6": "dead 5",
+   "7": "dead 5",
+   "8": "dead 5"
+  }
+ },
+ "baked_body_frames": [
+  "skill_wait"
+ ],
+ "sheets": [
+  {
+   "tag": "run",
+   "name": "run_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "action": "running (her move loop): a quick run, the Chakram carried in her near hand, the LEGS SWAPPING every half cycle, the body bobbing with each stride, the far arm swinging as the pale figure's",
+   "ms": [
+    125,
+    125
+   ],
+   "weapons": "THE CHAKRAM goes where the pale figure has it, frame by frame (image 3 shows it in colour): normally upright in her NEAR hand (image left) by her hip; raised over her head, swung forward or caught in a hand when the pale figure does it; and NOT DRAWN AT ALL when the pale figure's hands are empty (it is flying - an effect). Only ONE Chakram, never two. Her FAR hand (image right) keeps its brown glove.",
+   "legs": "Frame 1: PASSING: both feet together under her hips, one planted, the other just lifting off. Frame 2: STRIDE: the front foot planted ahead (right), the back leg bent behind her, its foot lifting off the ground. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) is the one that ends in front, in frames 5-8 the FAR leg (the darker one). Follow the pale figure's LEGS exactly - frames 1 and 5 have both feet under her; never both legs stretched apart in every frame."
+  },
+  {
+   "tag": "run",
+   "name": "run_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "action": "running (her move loop): a quick run, the Chakram carried in her near hand, the LEGS SWAPPING every half cycle, the body bobbing with each stride, the far arm swinging as the pale figure's",
+   "ms": [
+    125,
+    125
+   ],
+   "weapons": "THE CHAKRAM goes where the pale figure has it, frame by frame (image 3 shows it in colour): normally upright in her NEAR hand (image left) by her hip; raised over her head, swung forward or caught in a hand when the pale figure does it; and NOT DRAWN AT ALL when the pale figure's hands are empty (it is flying - an effect). Only ONE Chakram, never two. Her FAR hand (image right) keeps its brown glove.",
+   "legs": "Frame 3: KICK-BACK: the back leg swung up high behind her, almost level, its foot well off the ground; the front foot planted under her. Frame 4: RECOVERY: the back leg coming through, knee bent, its foot low behind; the front foot under her hips. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) is the one that ends in front, in frames 5-8 the FAR leg (the darker one). Follow the pale figure's LEGS exactly - frames 1 and 5 have both feet under her; never both legs stretched apart in every frame."
+  },
+  {
+   "tag": "run",
+   "name": "run_3",
+   "frames": [
+    5,
+    6
+   ],
+   "cells": 2,
+   "action": "running (her move loop): a quick run, the Chakram carried in her near hand, the LEGS SWAPPING every half cycle, the body bobbing with each stride, the far arm swinging as the pale figure's",
+   "ms": [
+    125,
+    125
+   ],
+   "weapons": "THE CHAKRAM goes where the pale figure has it, frame by frame (image 3 shows it in colour): normally upright in her NEAR hand (image left) by her hip; raised over her head, swung forward or caught in a hand when the pale figure does it; and NOT DRAWN AT ALL when the pale figure's hands are empty (it is flying - an effect). Only ONE Chakram, never two. Her FAR hand (image right) keeps its brown glove.",
+   "legs": "Frame 5: PASSING, THE OTHER LEG: both feet together under her hips again, the other foot planted. Frame 6: STRIDE, THE OTHER LEG: the other foot planted ahead, the first leg bent behind her, lifting off. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) is the one that ends in front, in frames 5-8 the FAR leg (the darker one). Follow the pale figure's LEGS exactly - frames 1 and 5 have both feet under her; never both legs stretched apart in every frame."
+  },
+  {
+   "tag": "run",
+   "name": "run_4",
+   "frames": [
+    7,
+    8
+   ],
+   "cells": 2,
+   "action": "running (her move loop): a quick run, the Chakram carried in her near hand, the LEGS SWAPPING every half cycle, the body bobbing with each stride, the far arm swinging as the pale figure's",
+   "ms": [
+    125,
+    125
+   ],
+   "weapons": "THE CHAKRAM goes where the pale figure has it, frame by frame (image 3 shows it in colour): normally upright in her NEAR hand (image left) by her hip; raised over her head, swung forward or caught in a hand when the pale figure does it; and NOT DRAWN AT ALL when the pale figure's hands are empty (it is flying - an effect). Only ONE Chakram, never two. Her FAR hand (image right) keeps its brown glove.",
+   "legs": "Frame 7: KICK-BACK, THE OTHER LEG: that leg swung up high behind her, the other foot planted under her. Frame 8: RECOVERY, THE OTHER LEG: it comes through, knee bent, foot low behind; the other foot under her hips. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) is the one that ends in front, in frames 5-8 the FAR leg (the darker one). Follow the pale figure's LEGS exactly - frames 1 and 5 have both feet under her; never both legs stretched apart in every frame."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "action": "attack: she swings her arm and hurls the Chakram forward, it flies off, then it is back in her hand",
+   "ms": [
+    50,
+    50
+   ],
+   "weapons": "THE CHAKRAM goes where the pale figure has it, frame by frame (image 3 shows it in colour): normally upright in her NEAR hand (image left) by her hip; raised over her head, swung forward or caught in a hand when the pale figure does it; and NOT DRAWN AT ALL when the pale figure's hands are empty (it is flying - an effect). Only ONE Chakram, never two. Her FAR hand (image right) keeps its brown glove."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_2",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "action": "attack: she swings her arm and hurls the Chakram forward, it flies off, then it is back in her hand",
+   "ms": [
+    70
+   ],
+   "weapons": "THE CHAKRAM goes where the pale figure has it, frame by frame (image 3 shows it in colour): normally upright in her NEAR hand (image left) by her hip; raised over her head, swung forward or caught in a hand when the pale figure does it; and NOT DRAWN AT ALL when the pale figure's hands are empty (it is flying - an effect). Only ONE Chakram, never two. Her FAR hand (image right) keeps its brown glove."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_3",
+   "frames": [
+    4,
+    5
+   ],
+   "cells": 2,
+   "action": "attack: she swings her arm and hurls the Chakram forward, it flies off, then it is back in her hand",
+   "ms": [
+    70,
+    80
+   ],
+   "weapons": "THE CHAKRAM goes where the pale figure has it, frame by frame (image 3 shows it in colour): normally upright in her NEAR hand (image left) by her hip; raised over her head, swung forward or caught in a hand when the pale figure does it; and NOT DRAWN AT ALL when the pale figure's hands are empty (it is flying - an effect). Only ONE Chakram, never two. Her FAR hand (image right) keeps its brown glove."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_4",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "action": "attack: she swings her arm and hurls the Chakram forward, it flies off, then it is back in her hand",
+   "ms": [
+    80
+   ],
+   "weapons": "THE CHAKRAM goes where the pale figure has it, frame by frame (image 3 shows it in colour): normally upright in her NEAR hand (image left) by her hip; raised over her head, swung forward or caught in a hand when the pale figure does it; and NOT DRAWN AT ALL when the pale figure's hands are empty (it is flying - an effect). Only ONE Chakram, never two. Her FAR hand (image right) keeps its brown glove."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "action": "Boomerang Blade (Q): she raises the Chakram over her head and hurls it forward",
+   "ms": [
+    50,
+    50
+   ],
+   "weapons": "THE CHAKRAM goes where the pale figure has it, frame by frame (image 3 shows it in colour): normally upright in her NEAR hand (image left) by her hip; raised over her head, swung forward or caught in a hand when the pale figure does it; and NOT DRAWN AT ALL when the pale figure's hands are empty (it is flying - an effect). Only ONE Chakram, never two. Her FAR hand (image right) keeps its brown glove."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "action": "Boomerang Blade (Q): she raises the Chakram over her head and hurls it forward",
+   "ms": [
+    50,
+    60
+   ],
+   "weapons": "THE CHAKRAM goes where the pale figure has it, frame by frame (image 3 shows it in colour): normally upright in her NEAR hand (image left) by her hip; raised over her head, swung forward or caught in a hand when the pale figure does it; and NOT DRAWN AT ALL when the pale figure's hands are empty (it is flying - an effect). Only ONE Chakram, never two. Her FAR hand (image right) keeps its brown glove."
+  },
+  {
+   "tag": "skill_wait",
+   "name": "skill_wait_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "action": "Boomerang Blade in flight: she waits in her stance, the far hand out, ready to catch it",
+   "ms": [
+    150,
+    150
+   ],
+   "weapons": "The Chakram is AWAY (thrown): her hands are empty, the far hand open and out in its brown glove, as the pale figure. Do not draw the Chakram or any light."
+  },
+  {
+   "tag": "skill_catch",
+   "name": "skill_catch_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "action": "Boomerang Blade returning: she catches the Chakram with her far hand and brings it back to her near hand",
+   "ms": [
+    60,
+    60
+   ],
+   "weapons": "THE CHAKRAM goes where the pale figure has it, frame by frame (image 3 shows it in colour): normally upright in her NEAR hand (image left) by her hip; raised over her head, swung forward or caught in a hand when the pale figure does it; and NOT DRAWN AT ALL when the pale figure's hands are empty (it is flying - an effect). Only ONE Chakram, never two. Her FAR hand (image right) keeps its brown glove."
+  },
+  {
+   "tag": "skill_catch",
+   "name": "skill_catch_2",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "action": "Boomerang Blade returning: she catches the Chakram with her far hand and brings it back to her near hand",
+   "ms": [
+    60
+   ],
+   "weapons": "THE CHAKRAM goes where the pale figure has it, frame by frame (image 3 shows it in colour): normally upright in her NEAR hand (image left) by her hip; raised over her head, swung forward or caught in a hand when the pale figure does it; and NOT DRAWN AT ALL when the pale figure's hands are empty (it is flying - an effect). Only ONE Chakram, never two. Her FAR hand (image right) keeps its brown glove."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "action": "Ricochet (W): she raises the Chakram behind her head, ready to throw",
+   "ms": [
+    60,
+    80
+   ],
+   "weapons": "THE CHAKRAM goes where the pale figure has it, frame by frame (image 3 shows it in colour): normally upright in her NEAR hand (image left) by her hip; raised over her head, swung forward or caught in a hand when the pale figure does it; and NOT DRAWN AT ALL when the pale figure's hands are empty (it is flying - an effect). Only ONE Chakram, never two. Her FAR hand (image right) keeps its brown glove."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "action": "Ricochet (W): she raises the Chakram behind her head, ready to throw",
+   "ms": [
+    100,
+    100
+   ],
+   "weapons": "THE CHAKRAM goes where the pale figure has it, frame by frame (image 3 shows it in colour): normally upright in her NEAR hand (image left) by her hip; raised over her head, swung forward or caught in a hand when the pale figure does it; and NOT DRAWN AT ALL when the pale figure's hands are empty (it is flying - an effect). Only ONE Chakram, never two. Her FAR hand (image right) keeps its brown glove."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "action": "On The Hunt (R): she raises the Chakram high over her head, rallying her team",
+   "ms": [
+    80,
+    80
+   ],
+   "weapons": "THE CHAKRAM goes where the pale figure has it, frame by frame (image 3 shows it in colour): normally upright in her NEAR hand (image left) by her hip; raised over her head, swung forward or caught in a hand when the pale figure does it; and NOT DRAWN AT ALL when the pale figure's hands are empty (it is flying - an effect). Only ONE Chakram, never two. Her FAR hand (image right) keeps its brown glove."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "action": "On The Hunt (R): she raises the Chakram high over her head, rallying her team",
+   "ms": [
+    100,
+    120
+   ],
+   "weapons": "THE CHAKRAM goes where the pale figure has it, frame by frame (image 3 shows it in colour): normally upright in her NEAR hand (image left) by her hip; raised over her head, swung forward or caught in a hand when the pale figure does it; and NOT DRAWN AT ALL when the pale figure's hands are empty (it is flying - an effect). Only ONE Chakram, never two. Her FAR hand (image right) keeps its brown glove."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_3",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "action": "On The Hunt (R): she raises the Chakram high over her head, rallying her team",
+   "ms": [
+    120
+   ],
+   "weapons": "THE CHAKRAM goes where the pale figure has it, frame by frame (image 3 shows it in colour): normally upright in her NEAR hand (image left) by her hip; raised over her head, swung forward or caught in a hand when the pale figure does it; and NOT DRAWN AT ALL when the pale figure's hands are empty (it is flying - an effect). Only ONE Chakram, never two. Her FAR hand (image right) keeps its brown glove."
+  },
+  {
+   "tag": "hit",
+   "name": "hit_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "action": "struck, flinching back",
+   "ms": [
+    100,
+    100
+   ],
+   "weapons": "THE CHAKRAM goes where the pale figure has it, frame by frame (image 3 shows it in colour): normally upright in her NEAR hand (image left) by her hip; raised over her head, swung forward or caught in a hand when the pale figure does it; and NOT DRAWN AT ALL when the pale figure's hands are empty (it is flying - an effect). Only ONE Chakram, never two. Her FAR hand (image right) keeps its brown glove."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "action": "death: she staggers, falls and lies on the ground, the Chakram dropped beside her",
+   "ms": [
+    100,
+    100
+   ],
+   "weapons": "Lying on the ground as the pale figure; the Chakram where the pale figure has it (dropped on the ground beside her in the last frames)."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_2",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "action": "death: she staggers, falls and lies on the ground, the Chakram dropped beside her",
+   "ms": [
+    110
+   ],
+   "weapons": "Lying on the ground as the pale figure; the Chakram where the pale figure has it (dropped on the ground beside her in the last frames)."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_3",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "action": "death: she staggers, falls and lies on the ground, the Chakram dropped beside her",
+   "ms": [
+    110
+   ],
+   "weapons": "Lying on the ground as the pale figure; the Chakram where the pale figure has it (dropped on the ground beside her in the last frames)."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_4",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "action": "death: she staggers, falls and lies on the ground, the Chakram dropped beside her",
+   "ms": [
+    120
+   ],
+   "weapons": "Lying on the ground as the pale figure; the Chakram where the pale figure has it (dropped on the ground beside her in the last frames)."
+  }
+ ]
+}

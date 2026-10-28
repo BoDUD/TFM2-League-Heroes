@@ -688,6 +688,10 @@
       "center": {
         "x": 0,
         "y": -11
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -6
       }
     },
     "league_twistedfate": {
