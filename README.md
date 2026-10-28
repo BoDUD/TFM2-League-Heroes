@@ -98,9 +98,9 @@ GitHub Actions（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)，Window
 <!-- HEROES:BEGIN -->
 <!-- 这一段由 tools/docs/gen_hero_docs.py 生成，请不要手改。 -->
 
-共 184 位：主包 173 位、tft 包 11 位。点名字看这位英雄现在的技能、附加包和开发记录；表格版见 [docs/heroes.xlsx](docs/heroes.xlsx)。
+共 185 位：主包 173 位、tft 包 12 位。点名字看这位英雄现在的技能、附加包和开发记录；表格版见 [docs/heroes.xlsx](docs/heroes.xlsx)。
 
-### 上单（40）
+### 上单（41）
 
 | 头像 | 英雄 | 分路 | 技能 | 附加包 | 高清帧 |
 |---|---|---|---|---|---|
@@ -144,6 +144,7 @@ GitHub Actions（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)，Window
 | <img src="docs/heroes/img/league_yorick.png" width="32"> | [约里克](docs/heroes/league_yorick.md)<br>Yorick | 上单 | 临终仪式 · 哀伤之雾 · 大招 海屿悼词 | [约里克附加包](addons/league_yorick/README.md) | PPU 1.75 |
 | <img src="docs/heroes/img/league_zaahen.png" width="32"> | [亚恒](docs/heroes/league_zaahen.md)<br>Zaahen | 上单 | 暗裔长刀 · 厄影回锋 · 大招 大赦 | [亚恒附加包](addons/league_zaahen/README.md) | PPU 1.75 |
 | <img src="docs/heroes/img/tft_kobuko.png" width="32"> | [可酷伯](docs/heroes/tft_kobuko.md)<br>Kobuko（tft 包） | 上单 | 金爪真言 · 猛虎扑 · 大招 游戏结束！ | — | PPU 2 |
+| <img src="docs/heroes/img/tft_scar.png" width="32"> | [刀疤](docs/heroes/tft_scar.md)<br>Scar（tft 包） | 上单 | 水坑狙击惊喜 · 长矛横扫 · 大招 野火突袭 | — | PPU 2 |
 
 ### 打野（43）
 
