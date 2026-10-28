@@ -268,7 +268,7 @@ GitHub Actions（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)，Window
 | <img src="docs/heroes/img/league_samira.png" width="32"> | [莎弥拉](docs/heroes/league_samira.md)<br>Samira | ADC | 被动 悍勇本色 · 交火 · 狂飙 · 大招 炼狱扳机 | [莎弥拉边走边射附加包](addons/league_samira_r/README.md) | PPU 2.84 |
 | <img src="docs/heroes/img/league_sivir.png" width="32"> | [希维尔](docs/heroes/league_sivir.md)<br>Sivir | ADC | 被动 敏锐疾行 · 回旋之刃 · 法术护盾 · 大招 狩猎 | — | PPU 2.25 |
 | <img src="docs/heroes/img/league_smolder.png" width="32"> | [斯莫德](docs/heroes/league_smolder.md)<br>Smolder | ADC | 被动 龙之研习 · 超级灼热龙息 · 阿嚏！ / 扑棱，扑棱，扑棱！ · 大招 妈----！ | [斯莫德附加包](addons/league_smolder/README.md) | PPU 1.5 |
-| <img src="docs/heroes/img/league_tristana.png" width="32"> | [崔丝塔娜](docs/heroes/league_tristana.md)<br>Tristana | ADC | 被动 瞄准 · 爆炸火花 · 火箭跳跃 · 大招 毁灭射击 | [参与击杀附加包：金克丝、崔丝塔娜、易、图奇](addons/league_takedowns/README.md) | — |
+| <img src="docs/heroes/img/league_tristana.png" width="32"> | [崔丝塔娜](docs/heroes/league_tristana.md)<br>Tristana | ADC | 被动 瞄准 · 爆炸火花 · 火箭跳跃 · 大招 毁灭射击 | [参与击杀附加包：金克丝、崔丝塔娜、易、图奇](addons/league_takedowns/README.md) | PPU 2.56 |
 | <img src="docs/heroes/img/league_twitch.png" width="32"> | [图奇](docs/heroes/league_twitch.md)<br>Twitch | ADC | 被动 死亡毒液 · 埋伏 · 剧毒之桶 · 大招 火力全开 | [参与击杀附加包：金克丝、崔丝塔娜、易、图奇](addons/league_takedowns/README.md) | PPU 2.2 |
 | <img src="docs/heroes/img/league_varus.png" width="32"> | [韦鲁斯](docs/heroes/league_varus.md)<br>Varus | ADC | 被动 复仇之欲 · 穿刺之箭 · 恶灵箭雨 · 大招 腐败锁链 | [韦鲁斯枯萎附加包](addons/league_varus_blight/README.md) | PPU 1.35 |
 | <img src="docs/heroes/img/league_vayne.png" width="32"> | [薇恩](docs/heroes/league_vayne.md)<br>Vayne | ADC | 被动 暗夜猎手 · 闪避突袭 · 恶魔审判 · 大招 终极时刻 | [薇恩圣银弩箭附加包](addons/league_vayne_bolts/README.md) | PPU 2.2 |

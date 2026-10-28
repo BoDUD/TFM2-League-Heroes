@@ -448,6 +448,11 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // old frame read onto it at the zoom her head gives (tools/art/casts_sivir_hd.py, rig_sivir_hd.py; the Q throw and
     // the W / catch pictures baked as before); 36 game px as her 1x sprite, so no SIZES row
     ("league_sivir", 2.25, include_str!("../../../league/champions/league_sivir#anim.fanim")),
+    // Tristana (2026-10-28, 「下一个英雄重做崔丝塔娜」, 「通过，用 2.56」): Codex's raw read as drawn on its own drifting
+    // squares (103 x 87, tools/art/design_tristana_hd.py: 87 rows / 34 = 2.56); every action Codex's whole-frame redraw of
+    // her old frame read onto it at the zoom her head gives (tools/art/casts_tristana_hd.py, rig_tristana_hd.py; the
+    // muzzle pictures baked as before); 34 game px as her 1x sprite, so no SIZES row
+    ("league_tristana", 2.559, include_str!("../../../league/champions/league_tristana#anim.fanim")),
 ];
 
 /// Champion id, its size everywhere the dense frames are drawn (1.0 = the 1x frames' size): the anim tables' rects and
