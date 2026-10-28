@@ -1,5 +1,5 @@
-"""Build the add-on's copy of Zoe from the main pack (a sleep broken by damage, Paddle Star by the real distance, Spell
-Thief's shards).
+"""Build the add-on's copy of Zoe from the main pack (Paddle Star by the real distance, Spell Thief's shards, the Zz while
+the game's sleep holds).
 
     python addons/league_zoe/make_override.py
 
@@ -10,8 +10,8 @@ addons/league_zoe/override/league_zoe.data_champion and .../text/champion.i18n: 
   * passive = the add-on's league_zoe:sparkles with the numbers of P it uses (passive.params);
   * Paddle Star deals the near share and marks what it hits (q_hit), her throw lights q_go: the add-on adds the rest by
     the distance flown;
-  * the bubble marks the champion (e_mark) instead of the data's stun: the add-on puts him to sleep and wakes him on
-    any damage; the data's doubled star on a sleeper is left out (the add-on doubles any first hit);
+  * the bubble marks the champion (e_mark), and the game's own sleep (0.7.0, as in the main pack) lasts e_sleep_n: the
+    add-on shows the Zz while it holds;
   * the skill, skill2 and ult tooltips point to description.league_zoe.<slot> with the add-on's wording.
 Every other champion stays untouched. Run it again whenever the main pack's Zoe changes.
 """
@@ -36,7 +36,8 @@ TEXT = {
         "skill": "【扩展包】掷出一颗飞星，打中第一个敌人造成" + mag("q_dmg", "q_ratio") + "魔法伤害；按真实飞行距离越远越高，最远" + A +
                  "{q_far}%" + E + "。",
         "skill2": "【扩展包】踢出气泡，打中敌方英雄造成" + mag("e_dmg", "e_ratio") + "魔法伤害，" + R + "困倦" + E + "（减速{e_slow}%）" + A +
-                  "{e_drowsy}秒" + E + "后" + R + "昏睡" + E + A + "{e_sleep_n}秒" + E + "；受到任何伤害就醒，那一下多受一次真实伤害（有封顶）。",
+                  "{e_drowsy}秒" + E + "后" + R + "睡眠" + E + A + "{e_sleep_n}秒" + E + "；受到任何伤害就醒，打醒的那一下伤害提高" + A + "{e_amp}%" +
+                  E + "。",
         "ult": "【扩展包】跳进传送门闪向敌方英雄，掷出飞星造成" + mag("r_dmg", "r_ratio") + "魔法伤害，再射{w_n}颗飞弹。" + O + "窃法巧手" + E +
                "：每次先按局面放一个召唤师技能（闪现、点燃、虚弱、治疗、屏障、疾步、净化），飞弹每颗" + mag("w_dmg", "w_ratio") +
                "，加速{w_ms}%；敌方放大招掉碎片，捡起再来一次。",
@@ -45,7 +46,8 @@ TEXT = {
         "skill": "【擴充包】擲出一顆飛星，打中第一個敵人造成" + mag("q_dmg", "q_ratio") + "魔法傷害；按真實飛行距離越遠越高，最遠" + A +
                  "{q_far}%" + E + "。",
         "skill2": "【擴充包】踢出泡泡，打中敵方英雄造成" + mag("e_dmg", "e_ratio") + "魔法傷害，" + R + "睏倦" + E + "（緩速{e_slow}%）" + A +
-                  "{e_drowsy}秒" + E + "後" + R + "沉睡" + E + A + "{e_sleep_n}秒" + E + "；受到任何傷害就醒，那一下多受一次真實傷害（有上限）。",
+                  "{e_drowsy}秒" + E + "後" + R + "睡眠" + E + A + "{e_sleep_n}秒" + E + "；受到任何傷害就醒，喚醒的那一下傷害提高" + A + "{e_amp}%" +
+                  E + "。",
         "ult": "【擴充包】跳進傳送門閃向敵方英雄，擲出飛星造成" + mag("r_dmg", "r_ratio") + "魔法傷害，再射{w_n}顆飛彈。" + O + "法術竊盜" + E +
                "：每次先按局面放一個召喚師技能（閃現、點燃、虛弱、治療、屏障、疾步、淨化），飛彈每顆" + mag("w_dmg", "w_ratio") +
                "，加速{w_ms}%；敵方放大招掉碎片，撿起再來一次。",
@@ -55,7 +57,7 @@ TEXT = {
                  ", more the farther it really flew, up to " + A + "{q_far}%" + E + ".",
         "skill2": "[Add-on] Kicks a bubble: the enemy champion hit takes " + mag("e_dmg", "e_ratio") + " " + M + "magic damage" + E +
                   ", turns " + R + "drowsy" + E + " (slowed {e_slow}%) for " + A + "{e_drowsy}s" + E + ", then falls " + R + "asleep" +
-                  E + " for " + A + "{e_sleep_n}s" + E + ". Any damage wakes him, and that hit lands again as true damage (capped).",
+                  E + " for " + A + "{e_sleep_n}s" + E + ". Any damage wakes him, and that hit deals " + A + "{e_amp}%" + E + " more.",
         "ult": "[Add-on] Jumps through a portal toward an enemy champion, throws a star for " + mag("r_dmg", "r_ratio") + " " + M +
                "magic damage" + E + " and {w_n} missiles. " + O + "Spell Thief" + E + ": first a summoner spell picked by the fight "
                "(Flash, Ignite, Exhaust, Heal, Barrier, Ghost, Cleanse), missiles " + mag("w_dmg", "w_ratio") + " each, "
@@ -65,8 +67,8 @@ TEXT = {
         "skill": "[확장] 별을 던져 처음 맞힌 적에게 " + mag("q_dmg", "q_ratio") + " 마법 피해. 실제로 멀리 날아갈수록 피해가 커져 최대 " + A +
                  "{q_far}%" + E + ".",
         "skill2": "[확장] 방울을 차서 맞힌 적 챔피언에게 " + mag("e_dmg", "e_ratio") + " 마법 피해, " + A + "{e_drowsy}초" + E + " " + R +
-                  "졸음" + E + "({e_slow}% 둔화) 뒤 " + A + "{e_sleep_n}초" + E + " " + R + "수면" + E + ". 어떤 피해든 맞으면 깨어나고 그 피해를 "
-                  "고정 피해로 한 번 더(상한 있음).",
+                  "졸음" + E + "({e_slow}% 둔화) 뒤 " + A + "{e_sleep_n}초" + E + " " + R + "수면" + E + ". 어떤 피해든 맞으면 깨어나고 그 피해가 " +
+                  A + "{e_amp}%" + E + " 증가.",
         "ult": "[확장] 차원문을 넘어 적 챔피언 쪽으로 이동해 별을 던져 " + mag("r_dmg", "r_ratio") + " 마법 피해, 투사체 {w_n}개. " + O + "주문도둑" +
                E + ": 먼저 상황에 맞는 소환사 주문(점멸·점화·탈진·회복·방어막·유체화·정화), 투사체 개당 " + mag("w_dmg", "w_ratio") +
                ", 이동 속도 +{w_ms}%. 적 궁극기는 파편을 떨구고, 주우면 한 번 더.",
@@ -75,8 +77,8 @@ TEXT = {
         "skill": "【拡張】星を投げ、最初に当たった敵に" + mag("q_dmg", "q_ratio") + "の魔法ダメージ。実際に遠くまで飛ぶほど強く、最大" + A +
                  "{q_far}%" + E + "。",
         "skill2": "【拡張】泡を蹴り、当たった敵チャンピオンに" + mag("e_dmg", "e_ratio") + "の魔法ダメージ、" + A + "{e_drowsy}秒" + E + R +
-                  "まどろみ" + E + "（{e_slow}%スロウ）の後" + A + "{e_sleep_n}秒" + E + R + "睡眠" + E + "。どんなダメージでも目覚め、その一撃を"
-                  "確定ダメージでもう一度（上限あり）。",
+                  "まどろみ" + E + "（{e_slow}%スロウ）の後" + A + "{e_sleep_n}秒" + E + R + "睡眠" + E + "。どんなダメージでも目覚め、その一撃は" +
+                  A + "{e_amp}%" + E + "増加。",
         "ult": "【拡張】ポータルを抜けて敵チャンピオンの方へ跳び、星を投げて" + mag("r_dmg", "r_ratio") + "の魔法ダメージ、弾{w_n}発。" + O +
                "スペルシーフ" + E + "：まず状況に合うサモナースペルを1つ、弾1発" +
                mag("w_dmg", "w_ratio") + "、移動速度+{w_ms}%。敵のアルティメットで欠片が落ち、拾うともう一度。",

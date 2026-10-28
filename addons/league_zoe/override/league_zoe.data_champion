@@ -17,8 +17,6 @@
       "q_n1d": 85000,
       "e_drowsy": 84,
       "e_sleep_n": 135,
-      "e_cap": 100,
-      "e_cap_ratio": 60,
       "w_dmg": 45,
       "w_ratio": 15,
       "w_ms": 40,
@@ -754,6 +752,23 @@
                           {
                             "casting_type": "Targeting",
                             "effect": {
+                              "type": "Delayed",
+                              "tick": 84,
+                              "effects": [
+                                {
+                                  "type": "Native",
+                                  "effect_ref": "hypnotist_skill2",
+                                  "radius": 3000,
+                                  "delay": 1,
+                                  "buff_duration": 135,
+                                  "amplify": 100
+                                }
+                              ]
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
                               "type": "ViewEffect",
                               "name": "league_zoe_e_hit"
                             }
@@ -869,6 +884,20 @@
                                                   }
                                                 }
                                               }
+                                            },
+                                            {
+                                              "type": "Delayed",
+                                              "tick": 84,
+                                              "effects": [
+                                                {
+                                                  "type": "Native",
+                                                  "effect_ref": "hypnotist_skill2",
+                                                  "radius": 3000,
+                                                  "delay": 1,
+                                                  "buff_duration": 135,
+                                                  "amplify": 100
+                                                }
+                                              ]
                                             },
                                             {
                                               "type": "ViewEffect",
@@ -1759,13 +1788,6 @@
                                               "effect": {
                                                 "type": "TargetSfx",
                                                 "name": "league_zoe_q_hit"
-                                              }
-                                            },
-                                            {
-                                              "casting_type": "Targeting",
-                                              "effect": {
-                                                "type": "Combine",
-                                                "effects": []
                                               }
                                             }
                                           ],

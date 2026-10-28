@@ -3,7 +3,7 @@
     "description": {
       "league_zoe": {
         "skill": "【扩展包】掷出一颗飞星，打中第一个敌人造成<#a974ffff>105<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>魔法伤害；按真实飞行距离越远越高，最远<#ffb900ff>250%<>。",
-        "skill2": "【扩展包】踢出气泡，打中敌方英雄造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>魔法伤害，<#ef5350ff>困倦<>（减速30%）<#ffb900ff>1.4秒<>后<#ef5350ff>昏睡<><#ffb900ff>2.25秒<>；受到任何伤害就醒，那一下多受一次真实伤害（有封顶）。",
+        "skill2": "【扩展包】踢出气泡，打中敌方英雄造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>魔法伤害，<#ef5350ff>困倦<>（减速30%）<#ffb900ff>1.4秒<>后<#ef5350ff>睡眠<><#ffb900ff>2.25秒<>；受到任何伤害就醒，打醒的那一下伤害提高<#ffb900ff>100%<>。",
         "ult": "【扩展包】跳进传送门闪向敌方英雄，掷出飞星造成<#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<>魔法伤害，再射3颗飞弹。<#ff9028ff>窃法巧手<>：每次先按局面放一个召唤师技能（闪现、点燃、虚弱、治疗、屏障、疾步、净化），飞弹每颗<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<>，加速40%；敌方放大招掉碎片，捡起再来一次。"
       }
     }
@@ -12,7 +12,7 @@
     "description": {
       "league_zoe": {
         "skill": "【擴充包】擲出一顆飛星，打中第一個敵人造成<#a974ffff>105<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>魔法傷害；按真實飛行距離越遠越高，最遠<#ffb900ff>250%<>。",
-        "skill2": "【擴充包】踢出泡泡，打中敵方英雄造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>魔法傷害，<#ef5350ff>睏倦<>（緩速30%）<#ffb900ff>1.4秒<>後<#ef5350ff>沉睡<><#ffb900ff>2.25秒<>；受到任何傷害就醒，那一下多受一次真實傷害（有上限）。",
+        "skill2": "【擴充包】踢出泡泡，打中敵方英雄造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>魔法傷害，<#ef5350ff>睏倦<>（緩速30%）<#ffb900ff>1.4秒<>後<#ef5350ff>睡眠<><#ffb900ff>2.25秒<>；受到任何傷害就醒，喚醒的那一下傷害提高<#ffb900ff>100%<>。",
         "ult": "【擴充包】跳進傳送門閃向敵方英雄，擲出飛星造成<#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<>魔法傷害，再射3顆飛彈。<#ff9028ff>法術竊盜<>：每次先按局面放一個召喚師技能（閃現、點燃、虛弱、治療、屏障、疾步、淨化），飛彈每顆<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<>，加速40%；敵方放大招掉碎片，撿起再來一次。"
       }
     }
@@ -21,7 +21,7 @@
     "description": {
       "league_zoe": {
         "skill": "[Add-on] Throws a star at the first enemy hit for <#a974ffff>105<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> <#a974ffff>magic damage<>, more the farther it really flew, up to <#ffb900ff>250%<>.",
-        "skill2": "[Add-on] Kicks a bubble: the enemy champion hit takes <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<> <#a974ffff>magic damage<>, turns <#ef5350ff>drowsy<> (slowed 30%) for <#ffb900ff>1.4s<>, then falls <#ef5350ff>asleep<> for <#ffb900ff>2.25s<>. Any damage wakes him, and that hit lands again as true damage (capped).",
+        "skill2": "[Add-on] Kicks a bubble: the enemy champion hit takes <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<> <#a974ffff>magic damage<>, turns <#ef5350ff>drowsy<> (slowed 30%) for <#ffb900ff>1.4s<>, then falls <#ef5350ff>asleep<> for <#ffb900ff>2.25s<>. Any damage wakes him, and that hit deals <#ffb900ff>100%<> more.",
         "ult": "[Add-on] Jumps through a portal toward an enemy champion, throws a star for <#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<> <#a974ffff>magic damage<> and 3 missiles. <#ff9028ff>Spell Thief<>: first a summoner spell picked by the fight (Flash, Ignite, Exhaust, Heal, Barrier, Ghost, Cleanse), missiles <#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<> each, +40% move speed; an enemy ult drops a shard: picked up, again."
       }
     }
@@ -30,7 +30,7 @@
     "description": {
       "league_zoe": {
         "skill": "[확장] 별을 던져 처음 맞힌 적에게 <#a974ffff>105<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> 마법 피해. 실제로 멀리 날아갈수록 피해가 커져 최대 <#ffb900ff>250%<>.",
-        "skill2": "[확장] 방울을 차서 맞힌 적 챔피언에게 <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<> 마법 피해, <#ffb900ff>1.4초<> <#ef5350ff>졸음<>(30% 둔화) 뒤 <#ffb900ff>2.25초<> <#ef5350ff>수면<>. 어떤 피해든 맞으면 깨어나고 그 피해를 고정 피해로 한 번 더(상한 있음).",
+        "skill2": "[확장] 방울을 차서 맞힌 적 챔피언에게 <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<> 마법 피해, <#ffb900ff>1.4초<> <#ef5350ff>졸음<>(30% 둔화) 뒤 <#ffb900ff>2.25초<> <#ef5350ff>수면<>. 어떤 피해든 맞으면 깨어나고 그 피해가 <#ffb900ff>100%<> 증가.",
         "ult": "[확장] 차원문을 넘어 적 챔피언 쪽으로 이동해 별을 던져 <#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<> 마법 피해, 투사체 3개. <#ff9028ff>주문도둑<>: 먼저 상황에 맞는 소환사 주문(점멸·점화·탈진·회복·방어막·유체화·정화), 투사체 개당 <#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<>, 이동 속도 +40%. 적 궁극기는 파편을 떨구고, 주우면 한 번 더."
       }
     }
@@ -39,7 +39,7 @@
     "description": {
       "league_zoe": {
         "skill": "【拡張】星を投げ、最初に当たった敵に<#a974ffff>105<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>の魔法ダメージ。実際に遠くまで飛ぶほど強く、最大<#ffb900ff>250%<>。",
-        "skill2": "【拡張】泡を蹴り、当たった敵チャンピオンに<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>の魔法ダメージ、<#ffb900ff>1.4秒<><#ef5350ff>まどろみ<>（30%スロウ）の後<#ffb900ff>2.25秒<><#ef5350ff>睡眠<>。どんなダメージでも目覚め、その一撃を確定ダメージでもう一度（上限あり）。",
+        "skill2": "【拡張】泡を蹴り、当たった敵チャンピオンに<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>の魔法ダメージ、<#ffb900ff>1.4秒<><#ef5350ff>まどろみ<>（30%スロウ）の後<#ffb900ff>2.25秒<><#ef5350ff>睡眠<>。どんなダメージでも目覚め、その一撃は<#ffb900ff>100%<>増加。",
         "ult": "【拡張】ポータルを抜けて敵チャンピオンの方へ跳び、星を投げて<#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<>の魔法ダメージ、弾3発。<#ff9028ff>スペルシーフ<>：まず状況に合うサモナースペルを1つ、弾1発<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<>、移動速度+40%。敵のアルティメットで欠片が落ち、拾うともう一度。"
       }
     }
