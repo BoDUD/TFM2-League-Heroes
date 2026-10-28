@@ -13,7 +13,16 @@
       "e_r": 30000,
       "e_link": 10,
       "p_ms": 20,
-      "p_ms_t": 120
+      "p_ms_t": 120,
+      "e_stock": 3,
+      "e_gap": 60,
+      "e_range": 70000,
+      "e_dmg": 40,
+      "e_ratio": 100,
+      "e_champ": 60,
+      "e_pen": 40,
+      "e_slow": 40,
+      "e_slow_t": 120
     }
   },
   "sprite": "asset/league/champions/league_gangplank",
@@ -2448,13 +2457,2987 @@
                             "type": "SwitchByBuff",
                             "buff_name": "league_gangplank_k2_busy",
                             "effect_buff": {
-                              "type": "Combine",
-                              "effects": [
-                                {
-                                  "type": "RemoveCasterBuff",
-                                  "name": "league_gangplank_e_go"
-                                }
-                              ]
+                              "type": "SwitchByBuff",
+                              "buff_name": "league_gangplank_k3_busy",
+                              "effect_buff": {
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "RemoveCasterBuff",
+                                    "name": "league_gangplank_e_go"
+                                  }
+                                ]
+                              },
+                              "effect_none": {
+                                "type": "RandomTarget",
+                                "range": 90000,
+                                "casting_target": "EnemyChampion",
+                                "from_projectile": false,
+                                "effects": [
+                                  {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "RemoveCasterBuff",
+                                        "name": "league_gangplank_e_go"
+                                      },
+                                      {
+                                        "type": "Combine",
+                                        "effects": [
+                                          {
+                                            "type": "RemoveCasterBuff",
+                                            "name": "league_gangplank_k3_busy"
+                                          },
+                                          {
+                                            "type": "AddCasterBuff",
+                                            "buff_state": {
+                                              "name": "league_gangplank_k3_busy",
+                                              "duration": {
+                                                "Time": {
+                                                  "tick": 506
+                                                }
+                                              }
+                                            },
+                                            "only_to_enemy": false
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "ParabolicProjectile",
+                                    "name": "league_gangplank_e_throw3",
+                                    "travel_time": 16,
+                                    "range": 400000,
+                                    "range_effect_name": "",
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 1
+                                      }
+                                    },
+                                    "applied_target": "EnemyWithoutTower",
+                                    "applied_effects": [],
+                                    "end_effects": [
+                                      {
+                                        "type": "Sfx",
+                                        "name": "league_gangplank_e_land"
+                                      },
+                                      {
+                                        "type": "ViewEffect",
+                                        "name": "league_gangplank_e_land"
+                                      },
+                                      {
+                                        "type": "Combine",
+                                        "effects": [
+                                          {
+                                            "type": "RemoveCasterBuff",
+                                            "name": "league_gangplank_k3_live"
+                                          },
+                                          {
+                                            "type": "AddCasterBuff",
+                                            "buff_state": {
+                                              "name": "league_gangplank_k3_live",
+                                              "duration": {
+                                                "Time": {
+                                                  "tick": 480
+                                                }
+                                              }
+                                            },
+                                            "only_to_enemy": false
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "Delayed",
+                                        "tick": 60,
+                                        "effects": [
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_gangplank_k3_live",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_gangplank_k3_ripe"
+                                                },
+                                                {
+                                                  "type": "AddCasterBuff",
+                                                  "buff_state": {
+                                                    "name": "league_gangplank_k3_ripe",
+                                                    "duration": {
+                                                      "Time": {
+                                                        "tick": 480
+                                                      }
+                                                    }
+                                                  },
+                                                  "only_to_enemy": false
+                                                }
+                                              ]
+                                            },
+                                            "effect_none": {
+                                              "type": "Combine",
+                                              "effects": []
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "RangePeriodProjectile",
+                                        "name": "league_gangplank_k3_champ",
+                                        "shape": {
+                                          "Circle": {
+                                            "radius": 30000
+                                          }
+                                        },
+                                        "tick": 480,
+                                        "period": 1,
+                                        "first_delay": 1,
+                                        "applied_target": "EnemyChampion",
+                                        "applied_effects": [
+                                          {
+                                            "casting_type": "Targeting",
+                                            "effect": {
+                                              "type": "SwitchByBuff",
+                                              "buff_name": "league_gangplank_k3_ripe",
+                                              "effect_buff": {
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_gangplank_q_fire",
+                                                "effect_buff": {
+                                                  "type": "Combine",
+                                                  "effects": [
+                                                    {
+                                                      "type": "AddCasterBuff",
+                                                      "buff_state": {
+                                                        "name": "league_gangplank_e_pen",
+                                                        "duration": {
+                                                          "Time": {
+                                                            "tick": 1
+                                                          }
+                                                        },
+                                                        "defence_penetration": 40
+                                                      },
+                                                      "only_to_enemy": false
+                                                    },
+                                                    {
+                                                      "type": "Attack",
+                                                      "damage": 60,
+                                                      "attack_ratio": 0,
+                                                      "hp_ratio": 0,
+                                                      "target_hp_ratio": 0,
+                                                      "attack_effect_type": "Target"
+                                                    }
+                                                  ]
+                                                },
+                                                "effect_none": {
+                                                  "type": "SwitchByBuff",
+                                                  "buff_name": "league_gangplank_k3_cn",
+                                                  "effect_buff": {
+                                                    "type": "Combine",
+                                                    "effects": [
+                                                      {
+                                                        "type": "AddCasterBuff",
+                                                        "buff_state": {
+                                                          "name": "league_gangplank_e_pen",
+                                                          "duration": {
+                                                            "Time": {
+                                                              "tick": 1
+                                                            }
+                                                          },
+                                                          "defence_penetration": 40
+                                                        },
+                                                        "only_to_enemy": false
+                                                      },
+                                                      {
+                                                        "type": "Attack",
+                                                        "damage": 60,
+                                                        "attack_ratio": 0,
+                                                        "hp_ratio": 0,
+                                                        "target_hp_ratio": 0,
+                                                        "attack_effect_type": "Target"
+                                                      }
+                                                    ]
+                                                  },
+                                                  "effect_none": {
+                                                    "type": "SwitchByBuff",
+                                                    "buff_name": "league_gangplank_a_fire",
+                                                    "effect_buff": {
+                                                      "type": "RandomTarget",
+                                                      "range": 30000,
+                                                      "casting_target": "AllyOnlySelf",
+                                                      "from_projectile": true,
+                                                      "effects": [
+                                                        {
+                                                          "type": "Combine",
+                                                          "effects": [
+                                                            {
+                                                              "type": "AddCasterBuff",
+                                                              "buff_state": {
+                                                                "name": "league_gangplank_e_pen",
+                                                                "duration": {
+                                                                  "Time": {
+                                                                    "tick": 1
+                                                                  }
+                                                                },
+                                                                "defence_penetration": 40
+                                                              },
+                                                              "only_to_enemy": false
+                                                            },
+                                                            {
+                                                              "type": "Attack",
+                                                              "damage": 60,
+                                                              "attack_ratio": 0,
+                                                              "hp_ratio": 0,
+                                                              "target_hp_ratio": 0,
+                                                              "attack_effect_type": "Target"
+                                                            }
+                                                          ]
+                                                        }
+                                                      ]
+                                                    },
+                                                    "effect_none": {
+                                                      "type": "Combine",
+                                                      "effects": []
+                                                    }
+                                                  }
+                                                }
+                                              },
+                                              "effect_none": {
+                                                "type": "Combine",
+                                                "effects": []
+                                              }
+                                            }
+                                          }
+                                        ],
+                                        "end_effects": []
+                                      },
+                                      {
+                                        "type": "RangePeriodProjectile",
+                                        "name": "league_gangplank_k3_trig",
+                                        "shape": {
+                                          "Circle": {
+                                            "radius": 30000
+                                          }
+                                        },
+                                        "tick": 480,
+                                        "period": 1,
+                                        "first_delay": 1,
+                                        "applied_target": "EnemyWithoutTower",
+                                        "applied_effects": [
+                                          {
+                                            "casting_type": "Targeting",
+                                            "effect": {
+                                              "type": "SwitchByBuff",
+                                              "buff_name": "league_gangplank_k3_ripe",
+                                              "effect_buff": {
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_gangplank_q_fire",
+                                                "effect_buff": {
+                                                  "type": "Combine",
+                                                  "effects": [
+                                                    {
+                                                      "type": "AddCasterBuff",
+                                                      "buff_state": {
+                                                        "name": "league_gangplank_e_pen",
+                                                        "duration": {
+                                                          "Time": {
+                                                            "tick": 1
+                                                          }
+                                                        },
+                                                        "defence_penetration": 40
+                                                      },
+                                                      "only_to_enemy": false
+                                                    },
+                                                    {
+                                                      "type": "Attack",
+                                                      "damage": 40,
+                                                      "attack_ratio": 100,
+                                                      "hp_ratio": 0,
+                                                      "target_hp_ratio": 0,
+                                                      "attack_effect_type": "Target"
+                                                    },
+                                                    {
+                                                      "type": "AddBuff",
+                                                      "buff_state": {
+                                                        "name": "league_gangplank_e_slow",
+                                                        "duration": {
+                                                          "Time": {
+                                                            "tick": 120
+                                                          }
+                                                        },
+                                                        "move_speed_mult": -40
+                                                      }
+                                                    },
+                                                    {
+                                                      "type": "ViewEffect",
+                                                      "name": "league_gangplank_e_hit"
+                                                    },
+                                                    {
+                                                      "type": "TargetSfx",
+                                                      "name": "league_gangplank_e_hit"
+                                                    },
+                                                    {
+                                                      "type": "Combine",
+                                                      "effects": [
+                                                        {
+                                                          "type": "RemoveCasterBuff",
+                                                          "name": "league_gangplank_k3_blew"
+                                                        },
+                                                        {
+                                                          "type": "AddCasterBuff",
+                                                          "buff_state": {
+                                                            "name": "league_gangplank_k3_blew",
+                                                            "duration": {
+                                                              "Time": {
+                                                                "tick": 11
+                                                              }
+                                                            }
+                                                          },
+                                                          "only_to_enemy": false
+                                                        }
+                                                      ]
+                                                    },
+                                                    {
+                                                      "type": "Delayed",
+                                                      "tick": 1,
+                                                      "effects": [
+                                                        {
+                                                          "type": "RemoveCasterBuff",
+                                                          "name": "league_gangplank_k3_live"
+                                                        },
+                                                        {
+                                                          "type": "RemoveCasterBuff",
+                                                          "name": "league_gangplank_k3_ripe"
+                                                        },
+                                                        {
+                                                          "type": "RemoveCasterBuff",
+                                                          "name": "league_gangplank_p_cd"
+                                                        },
+                                                        {
+                                                          "type": "Combine",
+                                                          "effects": [
+                                                            {
+                                                              "type": "RemoveCasterBuff",
+                                                              "name": "league_gangplank_p_ms"
+                                                            },
+                                                            {
+                                                              "type": "AddCasterBuff",
+                                                              "buff_state": {
+                                                                "name": "league_gangplank_p_ms",
+                                                                "duration": {
+                                                                  "Time": {
+                                                                    "tick": 120
+                                                                  }
+                                                                },
+                                                                "move_speed_mult": 20
+                                                              },
+                                                              "only_to_enemy": false
+                                                            }
+                                                          ]
+                                                        },
+                                                        {
+                                                          "type": "Combine",
+                                                          "effects": [
+                                                            {
+                                                              "type": "RemoveCasterBuff",
+                                                              "name": "league_gangplank_k3_now"
+                                                            },
+                                                            {
+                                                              "type": "AddCasterBuff",
+                                                              "buff_state": {
+                                                                "name": "league_gangplank_k3_now",
+                                                                "duration": {
+                                                                  "Time": {
+                                                                    "tick": 2
+                                                                  }
+                                                                }
+                                                              },
+                                                              "only_to_enemy": false
+                                                            }
+                                                          ]
+                                                        }
+                                                      ]
+                                                    }
+                                                  ]
+                                                },
+                                                "effect_none": {
+                                                  "type": "SwitchByBuff",
+                                                  "buff_name": "league_gangplank_k3_cn",
+                                                  "effect_buff": {
+                                                    "type": "Combine",
+                                                    "effects": [
+                                                      {
+                                                        "type": "AddCasterBuff",
+                                                        "buff_state": {
+                                                          "name": "league_gangplank_e_pen",
+                                                          "duration": {
+                                                            "Time": {
+                                                              "tick": 1
+                                                            }
+                                                          },
+                                                          "defence_penetration": 40
+                                                        },
+                                                        "only_to_enemy": false
+                                                      },
+                                                      {
+                                                        "type": "Attack",
+                                                        "damage": 40,
+                                                        "attack_ratio": 100,
+                                                        "hp_ratio": 0,
+                                                        "target_hp_ratio": 0,
+                                                        "attack_effect_type": "Target"
+                                                      },
+                                                      {
+                                                        "type": "AddBuff",
+                                                        "buff_state": {
+                                                          "name": "league_gangplank_e_slow",
+                                                          "duration": {
+                                                            "Time": {
+                                                              "tick": 120
+                                                            }
+                                                          },
+                                                          "move_speed_mult": -40
+                                                        }
+                                                      },
+                                                      {
+                                                        "type": "ViewEffect",
+                                                        "name": "league_gangplank_e_hit"
+                                                      },
+                                                      {
+                                                        "type": "TargetSfx",
+                                                        "name": "league_gangplank_e_hit"
+                                                      },
+                                                      {
+                                                        "type": "Combine",
+                                                        "effects": [
+                                                          {
+                                                            "type": "RemoveCasterBuff",
+                                                            "name": "league_gangplank_k3_blew"
+                                                          },
+                                                          {
+                                                            "type": "AddCasterBuff",
+                                                            "buff_state": {
+                                                              "name": "league_gangplank_k3_blew",
+                                                              "duration": {
+                                                                "Time": {
+                                                                  "tick": 11
+                                                                }
+                                                              }
+                                                            },
+                                                            "only_to_enemy": false
+                                                          }
+                                                        ]
+                                                      },
+                                                      {
+                                                        "type": "Delayed",
+                                                        "tick": 1,
+                                                        "effects": [
+                                                          {
+                                                            "type": "RemoveCasterBuff",
+                                                            "name": "league_gangplank_k3_live"
+                                                          },
+                                                          {
+                                                            "type": "RemoveCasterBuff",
+                                                            "name": "league_gangplank_k3_ripe"
+                                                          },
+                                                          {
+                                                            "type": "RemoveCasterBuff",
+                                                            "name": "league_gangplank_p_cd"
+                                                          },
+                                                          {
+                                                            "type": "Combine",
+                                                            "effects": [
+                                                              {
+                                                                "type": "RemoveCasterBuff",
+                                                                "name": "league_gangplank_p_ms"
+                                                              },
+                                                              {
+                                                                "type": "AddCasterBuff",
+                                                                "buff_state": {
+                                                                  "name": "league_gangplank_p_ms",
+                                                                  "duration": {
+                                                                    "Time": {
+                                                                      "tick": 120
+                                                                    }
+                                                                  },
+                                                                  "move_speed_mult": 20
+                                                                },
+                                                                "only_to_enemy": false
+                                                              }
+                                                            ]
+                                                          },
+                                                          {
+                                                            "type": "Combine",
+                                                            "effects": [
+                                                              {
+                                                                "type": "RemoveCasterBuff",
+                                                                "name": "league_gangplank_k3_now"
+                                                              },
+                                                              {
+                                                                "type": "AddCasterBuff",
+                                                                "buff_state": {
+                                                                  "name": "league_gangplank_k3_now",
+                                                                  "duration": {
+                                                                    "Time": {
+                                                                      "tick": 2
+                                                                    }
+                                                                  }
+                                                                },
+                                                                "only_to_enemy": false
+                                                              }
+                                                            ]
+                                                          }
+                                                        ]
+                                                      }
+                                                    ]
+                                                  },
+                                                  "effect_none": {
+                                                    "type": "SwitchByBuff",
+                                                    "buff_name": "league_gangplank_a_fire",
+                                                    "effect_buff": {
+                                                      "type": "RandomTarget",
+                                                      "range": 30000,
+                                                      "casting_target": "AllyOnlySelf",
+                                                      "from_projectile": true,
+                                                      "effects": [
+                                                        {
+                                                          "type": "AddCasterBuff",
+                                                          "buff_state": {
+                                                            "name": "league_gangplank_k3_near",
+                                                            "duration": {
+                                                              "Time": {
+                                                                "tick": 1
+                                                              }
+                                                            }
+                                                          },
+                                                          "only_to_enemy": false
+                                                        }
+                                                      ]
+                                                    },
+                                                    "effect_none": {
+                                                      "type": "Combine",
+                                                      "effects": []
+                                                    }
+                                                  }
+                                                }
+                                              },
+                                              "effect_none": {
+                                                "type": "Combine",
+                                                "effects": []
+                                              }
+                                            }
+                                          },
+                                          {
+                                            "casting_type": "Targeting",
+                                            "effect": {
+                                              "type": "SwitchByBuff",
+                                              "buff_name": "league_gangplank_k3_near",
+                                              "effect_buff": {
+                                                "type": "Combine",
+                                                "effects": [
+                                                  {
+                                                    "type": "RemoveCasterBuff",
+                                                    "name": "league_gangplank_k3_near"
+                                                  },
+                                                  {
+                                                    "type": "Combine",
+                                                    "effects": [
+                                                      {
+                                                        "type": "AddCasterBuff",
+                                                        "buff_state": {
+                                                          "name": "league_gangplank_e_pen",
+                                                          "duration": {
+                                                            "Time": {
+                                                              "tick": 1
+                                                            }
+                                                          },
+                                                          "defence_penetration": 40
+                                                        },
+                                                        "only_to_enemy": false
+                                                      },
+                                                      {
+                                                        "type": "Attack",
+                                                        "damage": 40,
+                                                        "attack_ratio": 100,
+                                                        "hp_ratio": 0,
+                                                        "target_hp_ratio": 0,
+                                                        "attack_effect_type": "Target"
+                                                      },
+                                                      {
+                                                        "type": "AddBuff",
+                                                        "buff_state": {
+                                                          "name": "league_gangplank_e_slow",
+                                                          "duration": {
+                                                            "Time": {
+                                                              "tick": 120
+                                                            }
+                                                          },
+                                                          "move_speed_mult": -40
+                                                        }
+                                                      },
+                                                      {
+                                                        "type": "ViewEffect",
+                                                        "name": "league_gangplank_e_hit"
+                                                      },
+                                                      {
+                                                        "type": "TargetSfx",
+                                                        "name": "league_gangplank_e_hit"
+                                                      },
+                                                      {
+                                                        "type": "Combine",
+                                                        "effects": [
+                                                          {
+                                                            "type": "RemoveCasterBuff",
+                                                            "name": "league_gangplank_k3_blew"
+                                                          },
+                                                          {
+                                                            "type": "AddCasterBuff",
+                                                            "buff_state": {
+                                                              "name": "league_gangplank_k3_blew",
+                                                              "duration": {
+                                                                "Time": {
+                                                                  "tick": 11
+                                                                }
+                                                              }
+                                                            },
+                                                            "only_to_enemy": false
+                                                          }
+                                                        ]
+                                                      },
+                                                      {
+                                                        "type": "Delayed",
+                                                        "tick": 1,
+                                                        "effects": [
+                                                          {
+                                                            "type": "RemoveCasterBuff",
+                                                            "name": "league_gangplank_k3_live"
+                                                          },
+                                                          {
+                                                            "type": "RemoveCasterBuff",
+                                                            "name": "league_gangplank_k3_ripe"
+                                                          },
+                                                          {
+                                                            "type": "RemoveCasterBuff",
+                                                            "name": "league_gangplank_p_cd"
+                                                          },
+                                                          {
+                                                            "type": "Combine",
+                                                            "effects": [
+                                                              {
+                                                                "type": "RemoveCasterBuff",
+                                                                "name": "league_gangplank_p_ms"
+                                                              },
+                                                              {
+                                                                "type": "AddCasterBuff",
+                                                                "buff_state": {
+                                                                  "name": "league_gangplank_p_ms",
+                                                                  "duration": {
+                                                                    "Time": {
+                                                                      "tick": 120
+                                                                    }
+                                                                  },
+                                                                  "move_speed_mult": 20
+                                                                },
+                                                                "only_to_enemy": false
+                                                              }
+                                                            ]
+                                                          },
+                                                          {
+                                                            "type": "Combine",
+                                                            "effects": [
+                                                              {
+                                                                "type": "RemoveCasterBuff",
+                                                                "name": "league_gangplank_k3_now"
+                                                              },
+                                                              {
+                                                                "type": "AddCasterBuff",
+                                                                "buff_state": {
+                                                                  "name": "league_gangplank_k3_now",
+                                                                  "duration": {
+                                                                    "Time": {
+                                                                      "tick": 2
+                                                                    }
+                                                                  }
+                                                                },
+                                                                "only_to_enemy": false
+                                                              }
+                                                            ]
+                                                          }
+                                                        ]
+                                                      }
+                                                    ]
+                                                  }
+                                                ]
+                                              },
+                                              "effect_none": {
+                                                "type": "Combine",
+                                                "effects": []
+                                              }
+                                            }
+                                          }
+                                        ],
+                                        "end_effects": []
+                                      },
+                                      {
+                                        "type": "Delayed",
+                                        "tick": 0,
+                                        "effects": [
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_gangplank_k3_blew",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_gangplank_k3_blew"
+                                                },
+                                                {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_gangplank_e_boom"
+                                                },
+                                                {
+                                                  "type": "Sfx",
+                                                  "name": "league_gangplank_e_boom"
+                                                }
+                                              ]
+                                            },
+                                            "effect_none": {
+                                              "type": "SwitchByBuff",
+                                              "buff_name": "league_gangplank_k3_ripe",
+                                              "effect_buff": {
+                                                "type": "ViewEffect",
+                                                "name": "league_gangplank_e_keg_lit"
+                                              },
+                                              "effect_none": {
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_gangplank_k3_live",
+                                                "effect_buff": {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_gangplank_e_keg"
+                                                },
+                                                "effect_none": {
+                                                  "type": "Combine",
+                                                  "effects": []
+                                                }
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "Delayed",
+                                        "tick": 10,
+                                        "effects": [
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_gangplank_k3_blew",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_gangplank_k3_blew"
+                                                },
+                                                {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_gangplank_e_boom"
+                                                },
+                                                {
+                                                  "type": "Sfx",
+                                                  "name": "league_gangplank_e_boom"
+                                                }
+                                              ]
+                                            },
+                                            "effect_none": {
+                                              "type": "SwitchByBuff",
+                                              "buff_name": "league_gangplank_k3_ripe",
+                                              "effect_buff": {
+                                                "type": "ViewEffect",
+                                                "name": "league_gangplank_e_keg_lit"
+                                              },
+                                              "effect_none": {
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_gangplank_k3_live",
+                                                "effect_buff": {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_gangplank_e_keg"
+                                                },
+                                                "effect_none": {
+                                                  "type": "Combine",
+                                                  "effects": []
+                                                }
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "Delayed",
+                                        "tick": 20,
+                                        "effects": [
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_gangplank_k3_blew",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_gangplank_k3_blew"
+                                                },
+                                                {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_gangplank_e_boom"
+                                                },
+                                                {
+                                                  "type": "Sfx",
+                                                  "name": "league_gangplank_e_boom"
+                                                }
+                                              ]
+                                            },
+                                            "effect_none": {
+                                              "type": "SwitchByBuff",
+                                              "buff_name": "league_gangplank_k3_ripe",
+                                              "effect_buff": {
+                                                "type": "ViewEffect",
+                                                "name": "league_gangplank_e_keg_lit"
+                                              },
+                                              "effect_none": {
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_gangplank_k3_live",
+                                                "effect_buff": {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_gangplank_e_keg"
+                                                },
+                                                "effect_none": {
+                                                  "type": "Combine",
+                                                  "effects": []
+                                                }
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "Delayed",
+                                        "tick": 30,
+                                        "effects": [
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_gangplank_k3_blew",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_gangplank_k3_blew"
+                                                },
+                                                {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_gangplank_e_boom"
+                                                },
+                                                {
+                                                  "type": "Sfx",
+                                                  "name": "league_gangplank_e_boom"
+                                                }
+                                              ]
+                                            },
+                                            "effect_none": {
+                                              "type": "SwitchByBuff",
+                                              "buff_name": "league_gangplank_k3_ripe",
+                                              "effect_buff": {
+                                                "type": "ViewEffect",
+                                                "name": "league_gangplank_e_keg_lit"
+                                              },
+                                              "effect_none": {
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_gangplank_k3_live",
+                                                "effect_buff": {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_gangplank_e_keg"
+                                                },
+                                                "effect_none": {
+                                                  "type": "Combine",
+                                                  "effects": []
+                                                }
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "Delayed",
+                                        "tick": 40,
+                                        "effects": [
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_gangplank_k3_blew",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_gangplank_k3_blew"
+                                                },
+                                                {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_gangplank_e_boom"
+                                                },
+                                                {
+                                                  "type": "Sfx",
+                                                  "name": "league_gangplank_e_boom"
+                                                }
+                                              ]
+                                            },
+                                            "effect_none": {
+                                              "type": "SwitchByBuff",
+                                              "buff_name": "league_gangplank_k3_ripe",
+                                              "effect_buff": {
+                                                "type": "ViewEffect",
+                                                "name": "league_gangplank_e_keg_lit"
+                                              },
+                                              "effect_none": {
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_gangplank_k3_live",
+                                                "effect_buff": {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_gangplank_e_keg"
+                                                },
+                                                "effect_none": {
+                                                  "type": "Combine",
+                                                  "effects": []
+                                                }
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "Delayed",
+                                        "tick": 50,
+                                        "effects": [
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_gangplank_k3_blew",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_gangplank_k3_blew"
+                                                },
+                                                {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_gangplank_e_boom"
+                                                },
+                                                {
+                                                  "type": "Sfx",
+                                                  "name": "league_gangplank_e_boom"
+                                                }
+                                              ]
+                                            },
+                                            "effect_none": {
+                                              "type": "SwitchByBuff",
+                                              "buff_name": "league_gangplank_k3_ripe",
+                                              "effect_buff": {
+                                                "type": "ViewEffect",
+                                                "name": "league_gangplank_e_keg_lit"
+                                              },
+                                              "effect_none": {
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_gangplank_k3_live",
+                                                "effect_buff": {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_gangplank_e_keg"
+                                                },
+                                                "effect_none": {
+                                                  "type": "Combine",
+                                                  "effects": []
+                                                }
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "Delayed",
+                                        "tick": 60,
+                                        "effects": [
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_gangplank_k3_blew",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_gangplank_k3_blew"
+                                                },
+                                                {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_gangplank_e_boom"
+                                                },
+                                                {
+                                                  "type": "Sfx",
+                                                  "name": "league_gangplank_e_boom"
+                                                }
+                                              ]
+                                            },
+                                            "effect_none": {
+                                              "type": "SwitchByBuff",
+                                              "buff_name": "league_gangplank_k3_ripe",
+                                              "effect_buff": {
+                                                "type": "ViewEffect",
+                                                "name": "league_gangplank_e_keg_lit"
+                                              },
+                                              "effect_none": {
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_gangplank_k3_live",
+                                                "effect_buff": {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_gangplank_e_keg"
+                                                },
+                                                "effect_none": {
+                                                  "type": "Combine",
+                                                  "effects": []
+                                                }
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "Delayed",
+                                        "tick": 70,
+                                        "effects": [
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_gangplank_k3_blew",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_gangplank_k3_blew"
+                                                },
+                                                {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_gangplank_e_boom"
+                                                },
+                                                {
+                                                  "type": "Sfx",
+                                                  "name": "league_gangplank_e_boom"
+                                                }
+                                              ]
+                                            },
+                                            "effect_none": {
+                                              "type": "SwitchByBuff",
+                                              "buff_name": "league_gangplank_k3_ripe",
+                                              "effect_buff": {
+                                                "type": "ViewEffect",
+                                                "name": "league_gangplank_e_keg_lit"
+                                              },
+                                              "effect_none": {
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_gangplank_k3_live",
+                                                "effect_buff": {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_gangplank_e_keg"
+                                                },
+                                                "effect_none": {
+                                                  "type": "Combine",
+                                                  "effects": []
+                                                }
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "Delayed",
+                                        "tick": 80,
+                                        "effects": [
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_gangplank_k3_blew",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_gangplank_k3_blew"
+                                                },
+                                                {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_gangplank_e_boom"
+                                                },
+                                                {
+                                                  "type": "Sfx",
+                                                  "name": "league_gangplank_e_boom"
+                                                }
+                                              ]
+                                            },
+                                            "effect_none": {
+                                              "type": "SwitchByBuff",
+                                              "buff_name": "league_gangplank_k3_ripe",
+                                              "effect_buff": {
+                                                "type": "ViewEffect",
+                                                "name": "league_gangplank_e_keg_lit"
+                                              },
+                                              "effect_none": {
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_gangplank_k3_live",
+                                                "effect_buff": {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_gangplank_e_keg"
+                                                },
+                                                "effect_none": {
+                                                  "type": "Combine",
+                                                  "effects": []
+                                                }
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "Delayed",
+                                        "tick": 90,
+                                        "effects": [
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_gangplank_k3_blew",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_gangplank_k3_blew"
+                                                },
+                                                {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_gangplank_e_boom"
+                                                },
+                                                {
+                                                  "type": "Sfx",
+                                                  "name": "league_gangplank_e_boom"
+                                                }
+                                              ]
+                                            },
+                                            "effect_none": {
+                                              "type": "SwitchByBuff",
+                                              "buff_name": "league_gangplank_k3_ripe",
+                                              "effect_buff": {
+                                                "type": "ViewEffect",
+                                                "name": "league_gangplank_e_keg_lit"
+                                              },
+                                              "effect_none": {
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_gangplank_k3_live",
+                                                "effect_buff": {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_gangplank_e_keg"
+                                                },
+                                                "effect_none": {
+                                                  "type": "Combine",
+                                                  "effects": []
+                                                }
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "Delayed",
+                                        "tick": 100,
+                                        "effects": [
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_gangplank_k3_blew",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_gangplank_k3_blew"
+                                                },
+                                                {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_gangplank_e_boom"
+                                                },
+                                                {
+                                                  "type": "Sfx",
+                                                  "name": "league_gangplank_e_boom"
+                                                }
+                                              ]
+                                            },
+                                            "effect_none": {
+                                              "type": "SwitchByBuff",
+                                              "buff_name": "league_gangplank_k3_ripe",
+                                              "effect_buff": {
+                                                "type": "ViewEffect",
+                                                "name": "league_gangplank_e_keg_lit"
+                                              },
+                                              "effect_none": {
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_gangplank_k3_live",
+                                                "effect_buff": {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_gangplank_e_keg"
+                                                },
+                                                "effect_none": {
+                                                  "type": "Combine",
+                                                  "effects": []
+                                                }
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "Delayed",
+                                        "tick": 110,
+                                        "effects": [
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_gangplank_k3_blew",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_gangplank_k3_blew"
+                                                },
+                                                {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_gangplank_e_boom"
+                                                },
+                                                {
+                                                  "type": "Sfx",
+                                                  "name": "league_gangplank_e_boom"
+                                                }
+                                              ]
+                                            },
+                                            "effect_none": {
+                                              "type": "SwitchByBuff",
+                                              "buff_name": "league_gangplank_k3_ripe",
+                                              "effect_buff": {
+                                                "type": "ViewEffect",
+                                                "name": "league_gangplank_e_keg_lit"
+                                              },
+                                              "effect_none": {
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_gangplank_k3_live",
+                                                "effect_buff": {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_gangplank_e_keg"
+                                                },
+                                                "effect_none": {
+                                                  "type": "Combine",
+                                                  "effects": []
+                                                }
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "Delayed",
+                                        "tick": 120,
+                                        "effects": [
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_gangplank_k3_blew",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_gangplank_k3_blew"
+                                                },
+                                                {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_gangplank_e_boom"
+                                                },
+                                                {
+                                                  "type": "Sfx",
+                                                  "name": "league_gangplank_e_boom"
+                                                }
+                                              ]
+                                            },
+                                            "effect_none": {
+                                              "type": "SwitchByBuff",
+                                              "buff_name": "league_gangplank_k3_ripe",
+                                              "effect_buff": {
+                                                "type": "ViewEffect",
+                                                "name": "league_gangplank_e_keg_lit"
+                                              },
+                                              "effect_none": {
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_gangplank_k3_live",
+                                                "effect_buff": {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_gangplank_e_keg"
+                                                },
+                                                "effect_none": {
+                                                  "type": "Combine",
+                                                  "effects": []
+                                                }
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "Delayed",
+                                        "tick": 130,
+                                        "effects": [
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_gangplank_k3_blew",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_gangplank_k3_blew"
+                                                },
+                                                {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_gangplank_e_boom"
+                                                },
+                                                {
+                                                  "type": "Sfx",
+                                                  "name": "league_gangplank_e_boom"
+                                                }
+                                              ]
+                                            },
+                                            "effect_none": {
+                                              "type": "SwitchByBuff",
+                                              "buff_name": "league_gangplank_k3_ripe",
+                                              "effect_buff": {
+                                                "type": "ViewEffect",
+                                                "name": "league_gangplank_e_keg_lit"
+                                              },
+                                              "effect_none": {
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_gangplank_k3_live",
+                                                "effect_buff": {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_gangplank_e_keg"
+                                                },
+                                                "effect_none": {
+                                                  "type": "Combine",
+                                                  "effects": []
+                                                }
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "Delayed",
+                                        "tick": 140,
+                                        "effects": [
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_gangplank_k3_blew",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_gangplank_k3_blew"
+                                                },
+                                                {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_gangplank_e_boom"
+                                                },
+                                                {
+                                                  "type": "Sfx",
+                                                  "name": "league_gangplank_e_boom"
+                                                }
+                                              ]
+                                            },
+                                            "effect_none": {
+                                              "type": "SwitchByBuff",
+                                              "buff_name": "league_gangplank_k3_ripe",
+                                              "effect_buff": {
+                                                "type": "ViewEffect",
+                                                "name": "league_gangplank_e_keg_lit"
+                                              },
+                                              "effect_none": {
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_gangplank_k3_live",
+                                                "effect_buff": {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_gangplank_e_keg"
+                                                },
+                                                "effect_none": {
+                                                  "type": "Combine",
+                                                  "effects": []
+                                                }
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "Delayed",
+                                        "tick": 150,
+                                        "effects": [
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_gangplank_k3_blew",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_gangplank_k3_blew"
+                                                },
+                                                {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_gangplank_e_boom"
+                                                },
+                                                {
+                                                  "type": "Sfx",
+                                                  "name": "league_gangplank_e_boom"
+                                                }
+                                              ]
+                                            },
+                                            "effect_none": {
+                                              "type": "SwitchByBuff",
+                                              "buff_name": "league_gangplank_k3_ripe",
+                                              "effect_buff": {
+                                                "type": "ViewEffect",
+                                                "name": "league_gangplank_e_keg_lit"
+                                              },
+                                              "effect_none": {
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_gangplank_k3_live",
+                                                "effect_buff": {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_gangplank_e_keg"
+                                                },
+                                                "effect_none": {
+                                                  "type": "Combine",
+                                                  "effects": []
+                                                }
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "Delayed",
+                                        "tick": 160,
+                                        "effects": [
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_gangplank_k3_blew",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_gangplank_k3_blew"
+                                                },
+                                                {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_gangplank_e_boom"
+                                                },
+                                                {
+                                                  "type": "Sfx",
+                                                  "name": "league_gangplank_e_boom"
+                                                }
+                                              ]
+                                            },
+                                            "effect_none": {
+                                              "type": "SwitchByBuff",
+                                              "buff_name": "league_gangplank_k3_ripe",
+                                              "effect_buff": {
+                                                "type": "ViewEffect",
+                                                "name": "league_gangplank_e_keg_lit"
+                                              },
+                                              "effect_none": {
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_gangplank_k3_live",
+                                                "effect_buff": {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_gangplank_e_keg"
+                                                },
+                                                "effect_none": {
+                                                  "type": "Combine",
+                                                  "effects": []
+                                                }
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "Delayed",
+                                        "tick": 170,
+                                        "effects": [
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_gangplank_k3_blew",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_gangplank_k3_blew"
+                                                },
+                                                {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_gangplank_e_boom"
+                                                },
+                                                {
+                                                  "type": "Sfx",
+                                                  "name": "league_gangplank_e_boom"
+                                                }
+                                              ]
+                                            },
+                                            "effect_none": {
+                                              "type": "SwitchByBuff",
+                                              "buff_name": "league_gangplank_k3_ripe",
+                                              "effect_buff": {
+                                                "type": "ViewEffect",
+                                                "name": "league_gangplank_e_keg_lit"
+                                              },
+                                              "effect_none": {
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_gangplank_k3_live",
+                                                "effect_buff": {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_gangplank_e_keg"
+                                                },
+                                                "effect_none": {
+                                                  "type": "Combine",
+                                                  "effects": []
+                                                }
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "Delayed",
+                                        "tick": 180,
+                                        "effects": [
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_gangplank_k3_blew",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_gangplank_k3_blew"
+                                                },
+                                                {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_gangplank_e_boom"
+                                                },
+                                                {
+                                                  "type": "Sfx",
+                                                  "name": "league_gangplank_e_boom"
+                                                }
+                                              ]
+                                            },
+                                            "effect_none": {
+                                              "type": "SwitchByBuff",
+                                              "buff_name": "league_gangplank_k3_ripe",
+                                              "effect_buff": {
+                                                "type": "ViewEffect",
+                                                "name": "league_gangplank_e_keg_lit"
+                                              },
+                                              "effect_none": {
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_gangplank_k3_live",
+                                                "effect_buff": {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_gangplank_e_keg"
+                                                },
+                                                "effect_none": {
+                                                  "type": "Combine",
+                                                  "effects": []
+                                                }
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "Delayed",
+                                        "tick": 190,
+                                        "effects": [
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_gangplank_k3_blew",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_gangplank_k3_blew"
+                                                },
+                                                {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_gangplank_e_boom"
+                                                },
+                                                {
+                                                  "type": "Sfx",
+                                                  "name": "league_gangplank_e_boom"
+                                                }
+                                              ]
+                                            },
+                                            "effect_none": {
+                                              "type": "SwitchByBuff",
+                                              "buff_name": "league_gangplank_k3_ripe",
+                                              "effect_buff": {
+                                                "type": "ViewEffect",
+                                                "name": "league_gangplank_e_keg_lit"
+                                              },
+                                              "effect_none": {
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_gangplank_k3_live",
+                                                "effect_buff": {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_gangplank_e_keg"
+                                                },
+                                                "effect_none": {
+                                                  "type": "Combine",
+                                                  "effects": []
+                                                }
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "Delayed",
+                                        "tick": 200,
+                                        "effects": [
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_gangplank_k3_blew",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_gangplank_k3_blew"
+                                                },
+                                                {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_gangplank_e_boom"
+                                                },
+                                                {
+                                                  "type": "Sfx",
+                                                  "name": "league_gangplank_e_boom"
+                                                }
+                                              ]
+                                            },
+                                            "effect_none": {
+                                              "type": "SwitchByBuff",
+                                              "buff_name": "league_gangplank_k3_ripe",
+                                              "effect_buff": {
+                                                "type": "ViewEffect",
+                                                "name": "league_gangplank_e_keg_lit"
+                                              },
+                                              "effect_none": {
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_gangplank_k3_live",
+                                                "effect_buff": {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_gangplank_e_keg"
+                                                },
+                                                "effect_none": {
+                                                  "type": "Combine",
+                                                  "effects": []
+                                                }
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "Delayed",
+                                        "tick": 210,
+                                        "effects": [
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_gangplank_k3_blew",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_gangplank_k3_blew"
+                                                },
+                                                {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_gangplank_e_boom"
+                                                },
+                                                {
+                                                  "type": "Sfx",
+                                                  "name": "league_gangplank_e_boom"
+                                                }
+                                              ]
+                                            },
+                                            "effect_none": {
+                                              "type": "SwitchByBuff",
+                                              "buff_name": "league_gangplank_k3_ripe",
+                                              "effect_buff": {
+                                                "type": "ViewEffect",
+                                                "name": "league_gangplank_e_keg_lit"
+                                              },
+                                              "effect_none": {
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_gangplank_k3_live",
+                                                "effect_buff": {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_gangplank_e_keg"
+                                                },
+                                                "effect_none": {
+                                                  "type": "Combine",
+                                                  "effects": []
+                                                }
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "Delayed",
+                                        "tick": 220,
+                                        "effects": [
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_gangplank_k3_blew",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_gangplank_k3_blew"
+                                                },
+                                                {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_gangplank_e_boom"
+                                                },
+                                                {
+                                                  "type": "Sfx",
+                                                  "name": "league_gangplank_e_boom"
+                                                }
+                                              ]
+                                            },
+                                            "effect_none": {
+                                              "type": "SwitchByBuff",
+                                              "buff_name": "league_gangplank_k3_ripe",
+                                              "effect_buff": {
+                                                "type": "ViewEffect",
+                                                "name": "league_gangplank_e_keg_lit"
+                                              },
+                                              "effect_none": {
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_gangplank_k3_live",
+                                                "effect_buff": {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_gangplank_e_keg"
+                                                },
+                                                "effect_none": {
+                                                  "type": "Combine",
+                                                  "effects": []
+                                                }
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "Delayed",
+                                        "tick": 230,
+                                        "effects": [
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_gangplank_k3_blew",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_gangplank_k3_blew"
+                                                },
+                                                {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_gangplank_e_boom"
+                                                },
+                                                {
+                                                  "type": "Sfx",
+                                                  "name": "league_gangplank_e_boom"
+                                                }
+                                              ]
+                                            },
+                                            "effect_none": {
+                                              "type": "SwitchByBuff",
+                                              "buff_name": "league_gangplank_k3_ripe",
+                                              "effect_buff": {
+                                                "type": "ViewEffect",
+                                                "name": "league_gangplank_e_keg_lit"
+                                              },
+                                              "effect_none": {
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_gangplank_k3_live",
+                                                "effect_buff": {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_gangplank_e_keg"
+                                                },
+                                                "effect_none": {
+                                                  "type": "Combine",
+                                                  "effects": []
+                                                }
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "Delayed",
+                                        "tick": 240,
+                                        "effects": [
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_gangplank_k3_blew",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_gangplank_k3_blew"
+                                                },
+                                                {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_gangplank_e_boom"
+                                                },
+                                                {
+                                                  "type": "Sfx",
+                                                  "name": "league_gangplank_e_boom"
+                                                }
+                                              ]
+                                            },
+                                            "effect_none": {
+                                              "type": "SwitchByBuff",
+                                              "buff_name": "league_gangplank_k3_ripe",
+                                              "effect_buff": {
+                                                "type": "ViewEffect",
+                                                "name": "league_gangplank_e_keg_lit"
+                                              },
+                                              "effect_none": {
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_gangplank_k3_live",
+                                                "effect_buff": {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_gangplank_e_keg"
+                                                },
+                                                "effect_none": {
+                                                  "type": "Combine",
+                                                  "effects": []
+                                                }
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "Delayed",
+                                        "tick": 250,
+                                        "effects": [
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_gangplank_k3_blew",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_gangplank_k3_blew"
+                                                },
+                                                {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_gangplank_e_boom"
+                                                },
+                                                {
+                                                  "type": "Sfx",
+                                                  "name": "league_gangplank_e_boom"
+                                                }
+                                              ]
+                                            },
+                                            "effect_none": {
+                                              "type": "SwitchByBuff",
+                                              "buff_name": "league_gangplank_k3_ripe",
+                                              "effect_buff": {
+                                                "type": "ViewEffect",
+                                                "name": "league_gangplank_e_keg_lit"
+                                              },
+                                              "effect_none": {
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_gangplank_k3_live",
+                                                "effect_buff": {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_gangplank_e_keg"
+                                                },
+                                                "effect_none": {
+                                                  "type": "Combine",
+                                                  "effects": []
+                                                }
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "Delayed",
+                                        "tick": 260,
+                                        "effects": [
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_gangplank_k3_blew",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_gangplank_k3_blew"
+                                                },
+                                                {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_gangplank_e_boom"
+                                                },
+                                                {
+                                                  "type": "Sfx",
+                                                  "name": "league_gangplank_e_boom"
+                                                }
+                                              ]
+                                            },
+                                            "effect_none": {
+                                              "type": "SwitchByBuff",
+                                              "buff_name": "league_gangplank_k3_ripe",
+                                              "effect_buff": {
+                                                "type": "ViewEffect",
+                                                "name": "league_gangplank_e_keg_lit"
+                                              },
+                                              "effect_none": {
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_gangplank_k3_live",
+                                                "effect_buff": {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_gangplank_e_keg"
+                                                },
+                                                "effect_none": {
+                                                  "type": "Combine",
+                                                  "effects": []
+                                                }
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "Delayed",
+                                        "tick": 270,
+                                        "effects": [
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_gangplank_k3_blew",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_gangplank_k3_blew"
+                                                },
+                                                {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_gangplank_e_boom"
+                                                },
+                                                {
+                                                  "type": "Sfx",
+                                                  "name": "league_gangplank_e_boom"
+                                                }
+                                              ]
+                                            },
+                                            "effect_none": {
+                                              "type": "SwitchByBuff",
+                                              "buff_name": "league_gangplank_k3_ripe",
+                                              "effect_buff": {
+                                                "type": "ViewEffect",
+                                                "name": "league_gangplank_e_keg_lit"
+                                              },
+                                              "effect_none": {
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_gangplank_k3_live",
+                                                "effect_buff": {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_gangplank_e_keg"
+                                                },
+                                                "effect_none": {
+                                                  "type": "Combine",
+                                                  "effects": []
+                                                }
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "Delayed",
+                                        "tick": 280,
+                                        "effects": [
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_gangplank_k3_blew",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_gangplank_k3_blew"
+                                                },
+                                                {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_gangplank_e_boom"
+                                                },
+                                                {
+                                                  "type": "Sfx",
+                                                  "name": "league_gangplank_e_boom"
+                                                }
+                                              ]
+                                            },
+                                            "effect_none": {
+                                              "type": "SwitchByBuff",
+                                              "buff_name": "league_gangplank_k3_ripe",
+                                              "effect_buff": {
+                                                "type": "ViewEffect",
+                                                "name": "league_gangplank_e_keg_lit"
+                                              },
+                                              "effect_none": {
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_gangplank_k3_live",
+                                                "effect_buff": {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_gangplank_e_keg"
+                                                },
+                                                "effect_none": {
+                                                  "type": "Combine",
+                                                  "effects": []
+                                                }
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "Delayed",
+                                        "tick": 290,
+                                        "effects": [
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_gangplank_k3_blew",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_gangplank_k3_blew"
+                                                },
+                                                {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_gangplank_e_boom"
+                                                },
+                                                {
+                                                  "type": "Sfx",
+                                                  "name": "league_gangplank_e_boom"
+                                                }
+                                              ]
+                                            },
+                                            "effect_none": {
+                                              "type": "SwitchByBuff",
+                                              "buff_name": "league_gangplank_k3_ripe",
+                                              "effect_buff": {
+                                                "type": "ViewEffect",
+                                                "name": "league_gangplank_e_keg_lit"
+                                              },
+                                              "effect_none": {
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_gangplank_k3_live",
+                                                "effect_buff": {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_gangplank_e_keg"
+                                                },
+                                                "effect_none": {
+                                                  "type": "Combine",
+                                                  "effects": []
+                                                }
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "Delayed",
+                                        "tick": 300,
+                                        "effects": [
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_gangplank_k3_blew",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_gangplank_k3_blew"
+                                                },
+                                                {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_gangplank_e_boom"
+                                                },
+                                                {
+                                                  "type": "Sfx",
+                                                  "name": "league_gangplank_e_boom"
+                                                }
+                                              ]
+                                            },
+                                            "effect_none": {
+                                              "type": "SwitchByBuff",
+                                              "buff_name": "league_gangplank_k3_ripe",
+                                              "effect_buff": {
+                                                "type": "ViewEffect",
+                                                "name": "league_gangplank_e_keg_lit"
+                                              },
+                                              "effect_none": {
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_gangplank_k3_live",
+                                                "effect_buff": {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_gangplank_e_keg"
+                                                },
+                                                "effect_none": {
+                                                  "type": "Combine",
+                                                  "effects": []
+                                                }
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "Delayed",
+                                        "tick": 310,
+                                        "effects": [
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_gangplank_k3_blew",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_gangplank_k3_blew"
+                                                },
+                                                {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_gangplank_e_boom"
+                                                },
+                                                {
+                                                  "type": "Sfx",
+                                                  "name": "league_gangplank_e_boom"
+                                                }
+                                              ]
+                                            },
+                                            "effect_none": {
+                                              "type": "SwitchByBuff",
+                                              "buff_name": "league_gangplank_k3_ripe",
+                                              "effect_buff": {
+                                                "type": "ViewEffect",
+                                                "name": "league_gangplank_e_keg_lit"
+                                              },
+                                              "effect_none": {
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_gangplank_k3_live",
+                                                "effect_buff": {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_gangplank_e_keg"
+                                                },
+                                                "effect_none": {
+                                                  "type": "Combine",
+                                                  "effects": []
+                                                }
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "Delayed",
+                                        "tick": 320,
+                                        "effects": [
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_gangplank_k3_blew",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_gangplank_k3_blew"
+                                                },
+                                                {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_gangplank_e_boom"
+                                                },
+                                                {
+                                                  "type": "Sfx",
+                                                  "name": "league_gangplank_e_boom"
+                                                }
+                                              ]
+                                            },
+                                            "effect_none": {
+                                              "type": "SwitchByBuff",
+                                              "buff_name": "league_gangplank_k3_ripe",
+                                              "effect_buff": {
+                                                "type": "ViewEffect",
+                                                "name": "league_gangplank_e_keg_lit"
+                                              },
+                                              "effect_none": {
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_gangplank_k3_live",
+                                                "effect_buff": {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_gangplank_e_keg"
+                                                },
+                                                "effect_none": {
+                                                  "type": "Combine",
+                                                  "effects": []
+                                                }
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "Delayed",
+                                        "tick": 330,
+                                        "effects": [
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_gangplank_k3_blew",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_gangplank_k3_blew"
+                                                },
+                                                {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_gangplank_e_boom"
+                                                },
+                                                {
+                                                  "type": "Sfx",
+                                                  "name": "league_gangplank_e_boom"
+                                                }
+                                              ]
+                                            },
+                                            "effect_none": {
+                                              "type": "SwitchByBuff",
+                                              "buff_name": "league_gangplank_k3_ripe",
+                                              "effect_buff": {
+                                                "type": "ViewEffect",
+                                                "name": "league_gangplank_e_keg_lit"
+                                              },
+                                              "effect_none": {
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_gangplank_k3_live",
+                                                "effect_buff": {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_gangplank_e_keg"
+                                                },
+                                                "effect_none": {
+                                                  "type": "Combine",
+                                                  "effects": []
+                                                }
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "Delayed",
+                                        "tick": 340,
+                                        "effects": [
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_gangplank_k3_blew",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_gangplank_k3_blew"
+                                                },
+                                                {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_gangplank_e_boom"
+                                                },
+                                                {
+                                                  "type": "Sfx",
+                                                  "name": "league_gangplank_e_boom"
+                                                }
+                                              ]
+                                            },
+                                            "effect_none": {
+                                              "type": "SwitchByBuff",
+                                              "buff_name": "league_gangplank_k3_ripe",
+                                              "effect_buff": {
+                                                "type": "ViewEffect",
+                                                "name": "league_gangplank_e_keg_lit"
+                                              },
+                                              "effect_none": {
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_gangplank_k3_live",
+                                                "effect_buff": {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_gangplank_e_keg"
+                                                },
+                                                "effect_none": {
+                                                  "type": "Combine",
+                                                  "effects": []
+                                                }
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "Delayed",
+                                        "tick": 350,
+                                        "effects": [
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_gangplank_k3_blew",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_gangplank_k3_blew"
+                                                },
+                                                {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_gangplank_e_boom"
+                                                },
+                                                {
+                                                  "type": "Sfx",
+                                                  "name": "league_gangplank_e_boom"
+                                                }
+                                              ]
+                                            },
+                                            "effect_none": {
+                                              "type": "SwitchByBuff",
+                                              "buff_name": "league_gangplank_k3_ripe",
+                                              "effect_buff": {
+                                                "type": "ViewEffect",
+                                                "name": "league_gangplank_e_keg_lit"
+                                              },
+                                              "effect_none": {
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_gangplank_k3_live",
+                                                "effect_buff": {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_gangplank_e_keg"
+                                                },
+                                                "effect_none": {
+                                                  "type": "Combine",
+                                                  "effects": []
+                                                }
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "Delayed",
+                                        "tick": 360,
+                                        "effects": [
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_gangplank_k3_blew",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_gangplank_k3_blew"
+                                                },
+                                                {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_gangplank_e_boom"
+                                                },
+                                                {
+                                                  "type": "Sfx",
+                                                  "name": "league_gangplank_e_boom"
+                                                }
+                                              ]
+                                            },
+                                            "effect_none": {
+                                              "type": "SwitchByBuff",
+                                              "buff_name": "league_gangplank_k3_ripe",
+                                              "effect_buff": {
+                                                "type": "ViewEffect",
+                                                "name": "league_gangplank_e_keg_lit"
+                                              },
+                                              "effect_none": {
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_gangplank_k3_live",
+                                                "effect_buff": {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_gangplank_e_keg"
+                                                },
+                                                "effect_none": {
+                                                  "type": "Combine",
+                                                  "effects": []
+                                                }
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "Delayed",
+                                        "tick": 370,
+                                        "effects": [
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_gangplank_k3_blew",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_gangplank_k3_blew"
+                                                },
+                                                {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_gangplank_e_boom"
+                                                },
+                                                {
+                                                  "type": "Sfx",
+                                                  "name": "league_gangplank_e_boom"
+                                                }
+                                              ]
+                                            },
+                                            "effect_none": {
+                                              "type": "SwitchByBuff",
+                                              "buff_name": "league_gangplank_k3_ripe",
+                                              "effect_buff": {
+                                                "type": "ViewEffect",
+                                                "name": "league_gangplank_e_keg_lit"
+                                              },
+                                              "effect_none": {
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_gangplank_k3_live",
+                                                "effect_buff": {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_gangplank_e_keg"
+                                                },
+                                                "effect_none": {
+                                                  "type": "Combine",
+                                                  "effects": []
+                                                }
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "Delayed",
+                                        "tick": 380,
+                                        "effects": [
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_gangplank_k3_blew",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_gangplank_k3_blew"
+                                                },
+                                                {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_gangplank_e_boom"
+                                                },
+                                                {
+                                                  "type": "Sfx",
+                                                  "name": "league_gangplank_e_boom"
+                                                }
+                                              ]
+                                            },
+                                            "effect_none": {
+                                              "type": "SwitchByBuff",
+                                              "buff_name": "league_gangplank_k3_ripe",
+                                              "effect_buff": {
+                                                "type": "ViewEffect",
+                                                "name": "league_gangplank_e_keg_lit"
+                                              },
+                                              "effect_none": {
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_gangplank_k3_live",
+                                                "effect_buff": {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_gangplank_e_keg"
+                                                },
+                                                "effect_none": {
+                                                  "type": "Combine",
+                                                  "effects": []
+                                                }
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "Delayed",
+                                        "tick": 390,
+                                        "effects": [
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_gangplank_k3_blew",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_gangplank_k3_blew"
+                                                },
+                                                {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_gangplank_e_boom"
+                                                },
+                                                {
+                                                  "type": "Sfx",
+                                                  "name": "league_gangplank_e_boom"
+                                                }
+                                              ]
+                                            },
+                                            "effect_none": {
+                                              "type": "SwitchByBuff",
+                                              "buff_name": "league_gangplank_k3_ripe",
+                                              "effect_buff": {
+                                                "type": "ViewEffect",
+                                                "name": "league_gangplank_e_keg_lit"
+                                              },
+                                              "effect_none": {
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_gangplank_k3_live",
+                                                "effect_buff": {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_gangplank_e_keg"
+                                                },
+                                                "effect_none": {
+                                                  "type": "Combine",
+                                                  "effects": []
+                                                }
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "Delayed",
+                                        "tick": 400,
+                                        "effects": [
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_gangplank_k3_blew",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_gangplank_k3_blew"
+                                                },
+                                                {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_gangplank_e_boom"
+                                                },
+                                                {
+                                                  "type": "Sfx",
+                                                  "name": "league_gangplank_e_boom"
+                                                }
+                                              ]
+                                            },
+                                            "effect_none": {
+                                              "type": "SwitchByBuff",
+                                              "buff_name": "league_gangplank_k3_ripe",
+                                              "effect_buff": {
+                                                "type": "ViewEffect",
+                                                "name": "league_gangplank_e_keg_lit"
+                                              },
+                                              "effect_none": {
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_gangplank_k3_live",
+                                                "effect_buff": {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_gangplank_e_keg"
+                                                },
+                                                "effect_none": {
+                                                  "type": "Combine",
+                                                  "effects": []
+                                                }
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "Delayed",
+                                        "tick": 410,
+                                        "effects": [
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_gangplank_k3_blew",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_gangplank_k3_blew"
+                                                },
+                                                {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_gangplank_e_boom"
+                                                },
+                                                {
+                                                  "type": "Sfx",
+                                                  "name": "league_gangplank_e_boom"
+                                                }
+                                              ]
+                                            },
+                                            "effect_none": {
+                                              "type": "SwitchByBuff",
+                                              "buff_name": "league_gangplank_k3_ripe",
+                                              "effect_buff": {
+                                                "type": "ViewEffect",
+                                                "name": "league_gangplank_e_keg_lit"
+                                              },
+                                              "effect_none": {
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_gangplank_k3_live",
+                                                "effect_buff": {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_gangplank_e_keg"
+                                                },
+                                                "effect_none": {
+                                                  "type": "Combine",
+                                                  "effects": []
+                                                }
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "Delayed",
+                                        "tick": 420,
+                                        "effects": [
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_gangplank_k3_blew",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_gangplank_k3_blew"
+                                                },
+                                                {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_gangplank_e_boom"
+                                                },
+                                                {
+                                                  "type": "Sfx",
+                                                  "name": "league_gangplank_e_boom"
+                                                }
+                                              ]
+                                            },
+                                            "effect_none": {
+                                              "type": "SwitchByBuff",
+                                              "buff_name": "league_gangplank_k3_ripe",
+                                              "effect_buff": {
+                                                "type": "ViewEffect",
+                                                "name": "league_gangplank_e_keg_lit"
+                                              },
+                                              "effect_none": {
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_gangplank_k3_live",
+                                                "effect_buff": {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_gangplank_e_keg"
+                                                },
+                                                "effect_none": {
+                                                  "type": "Combine",
+                                                  "effects": []
+                                                }
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "Delayed",
+                                        "tick": 430,
+                                        "effects": [
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_gangplank_k3_blew",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_gangplank_k3_blew"
+                                                },
+                                                {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_gangplank_e_boom"
+                                                },
+                                                {
+                                                  "type": "Sfx",
+                                                  "name": "league_gangplank_e_boom"
+                                                }
+                                              ]
+                                            },
+                                            "effect_none": {
+                                              "type": "SwitchByBuff",
+                                              "buff_name": "league_gangplank_k3_ripe",
+                                              "effect_buff": {
+                                                "type": "ViewEffect",
+                                                "name": "league_gangplank_e_keg_lit"
+                                              },
+                                              "effect_none": {
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_gangplank_k3_live",
+                                                "effect_buff": {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_gangplank_e_keg"
+                                                },
+                                                "effect_none": {
+                                                  "type": "Combine",
+                                                  "effects": []
+                                                }
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "Delayed",
+                                        "tick": 440,
+                                        "effects": [
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_gangplank_k3_blew",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_gangplank_k3_blew"
+                                                },
+                                                {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_gangplank_e_boom"
+                                                },
+                                                {
+                                                  "type": "Sfx",
+                                                  "name": "league_gangplank_e_boom"
+                                                }
+                                              ]
+                                            },
+                                            "effect_none": {
+                                              "type": "SwitchByBuff",
+                                              "buff_name": "league_gangplank_k3_ripe",
+                                              "effect_buff": {
+                                                "type": "ViewEffect",
+                                                "name": "league_gangplank_e_keg_lit"
+                                              },
+                                              "effect_none": {
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_gangplank_k3_live",
+                                                "effect_buff": {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_gangplank_e_keg"
+                                                },
+                                                "effect_none": {
+                                                  "type": "Combine",
+                                                  "effects": []
+                                                }
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "Delayed",
+                                        "tick": 450,
+                                        "effects": [
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_gangplank_k3_blew",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_gangplank_k3_blew"
+                                                },
+                                                {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_gangplank_e_boom"
+                                                },
+                                                {
+                                                  "type": "Sfx",
+                                                  "name": "league_gangplank_e_boom"
+                                                }
+                                              ]
+                                            },
+                                            "effect_none": {
+                                              "type": "SwitchByBuff",
+                                              "buff_name": "league_gangplank_k3_ripe",
+                                              "effect_buff": {
+                                                "type": "ViewEffect",
+                                                "name": "league_gangplank_e_keg_lit"
+                                              },
+                                              "effect_none": {
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_gangplank_k3_live",
+                                                "effect_buff": {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_gangplank_e_keg"
+                                                },
+                                                "effect_none": {
+                                                  "type": "Combine",
+                                                  "effects": []
+                                                }
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "Delayed",
+                                        "tick": 460,
+                                        "effects": [
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_gangplank_k3_blew",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_gangplank_k3_blew"
+                                                },
+                                                {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_gangplank_e_boom"
+                                                },
+                                                {
+                                                  "type": "Sfx",
+                                                  "name": "league_gangplank_e_boom"
+                                                }
+                                              ]
+                                            },
+                                            "effect_none": {
+                                              "type": "SwitchByBuff",
+                                              "buff_name": "league_gangplank_k3_ripe",
+                                              "effect_buff": {
+                                                "type": "ViewEffect",
+                                                "name": "league_gangplank_e_keg_lit"
+                                              },
+                                              "effect_none": {
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_gangplank_k3_live",
+                                                "effect_buff": {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_gangplank_e_keg"
+                                                },
+                                                "effect_none": {
+                                                  "type": "Combine",
+                                                  "effects": []
+                                                }
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "Delayed",
+                                        "tick": 470,
+                                        "effects": [
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_gangplank_k3_blew",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_gangplank_k3_blew"
+                                                },
+                                                {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_gangplank_e_boom"
+                                                },
+                                                {
+                                                  "type": "Sfx",
+                                                  "name": "league_gangplank_e_boom"
+                                                }
+                                              ]
+                                            },
+                                            "effect_none": {
+                                              "type": "SwitchByBuff",
+                                              "buff_name": "league_gangplank_k3_ripe",
+                                              "effect_buff": {
+                                                "type": "ViewEffect",
+                                                "name": "league_gangplank_e_keg_lit"
+                                              },
+                                              "effect_none": {
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_gangplank_k3_live",
+                                                "effect_buff": {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_gangplank_e_keg"
+                                                },
+                                                "effect_none": {
+                                                  "type": "Combine",
+                                                  "effects": []
+                                                }
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
                             },
                             "effect_none": {
                               "type": "RandomTarget",

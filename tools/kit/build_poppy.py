@@ -27,10 +27,10 @@ League's four buttons, so Steadfast Presence's active rides in her other casts (
           changes, Q always lands).
   ult     R Keeper's Verdict (持卫的裁决), `Direction` on `EnemyChampion` (r_range): League's hold-to-charge as a
           smart choice (league_varus Q): two or more enemy champions within r_tap_r -> the quick slam (r_tap_dmg,
-          a ring round her, airborne r_up); else she charges r_ch ticks (slowed, aim locked) and the swing sends a
-          shockwave down the line (r_len): every enemy champion hit takes r_dmg + r_ratio% AD and flies far away, in
-          the air (the main pack: Airborne r_air + Knockback r_kb_speed x r_kb_t, away from her; the add-on: toward his
-          own fountain).
+          a ring round her, airborne r_up); else she charges r_ch ticks (slowed) and the swing sends a shockwave
+          (r_len) at the nearest enemy champion then (the first ring of r_aim with one in it; none: the line she
+          aimed): every enemy champion hit takes r_dmg + r_ratio% AD and flies far away, in the air (the main
+          pack: Airborne r_air + Knockback r_kb_speed x r_kb_t, away from her; the add-on: toward his own fountain).
 The add-on copy (--native, addons/league_poppy): the passive league_poppy:steadfast doubles W's armour / MR under
 40% health and interrupts dashes inside the aura; E's contact is league_poppy:charge (the wall check); R's hit is
 league_poppy:verdict (the fountain-ward flight).
@@ -54,6 +54,9 @@ BIG = "asset/league/effects/league_poppy_big"
 # + W 24% and a 160 shield +1.07 / +0.93 (not taken: League's 16% kept). Then R as League's (flying 150000 in the air,
 # the user: 「大招能把人弹飞吗」) +0.82 / +0.92; r_dmg 190 +80% +0.58 / +0.68; hp 1155 +1.33 / +1.35, 1160 +1.24 / +1.36,
 # 1165 +1.40 / +1.14, 1175 +1.21 / +1.39 - within the batches' noise (~0.3), about +1.2 pooled: hp kept at 1150.
+# 2026-10-28 (the user: 「波比确定能把敌人击飞很远吗 我好像没见过」): a hit flies ~150000, but only 13 of 24 swings hit anyone
+# (6 games): the line was locked when the 40-tick charge began and was 9000 wide. Re-aimed at the swing 16 / 23, plus
+# r_w 9000 -> 14000 18 / 22; kd.py support seeds 1-8 +2.02 -> +1.79 (s.e. 0.45, noise): numbers kept.
 P = {
     "hp": 1150, "hp_g": 115, "atk": 86, "atk_g": 6, "mp": 20, "mp_g": 10, "def": 38, "def_g": 8, "mr": 28, "mr_g": 4,
     "ms": 1000, "ms_g": 10,
@@ -81,7 +84,9 @@ P = {
     # R Keeper's Verdict (League: tap 100-200 +45% knock-up 1 s r 180; charged 200-400 +90%, 850-1200 range,
     # knock-back up to 3400 toward their fountain; channel up to 4 s, 15% slow; cd 140-100)
     "r_cd": 3600, "r_range": 55000, "r_tap_r": 28000, "r_tap_dmg": 80, "r_tap_ratio": 40, "r_up": 60, "r_tap_t": 20,
-    "r_tap_rel": 8, "r_ch": 40, "r_rel": 8, "r_rec": 14, "r_len": 70000, "r_speed": 7000, "r_w": 9000,
+    "r_tap_rel": 8, "r_ch": 40, "r_rel": 8, "r_rec": 14, "r_len": 70000, "r_speed": 7000, "r_w": 14000,
+    # the swing aims at the nearest enemy champion again (the first of these rings with one in it; none: the locked line)
+    "r_aim": [25000, 45000, 70000],
     "r_dmg": 150, "r_ratio": 70, "r_kb_speed": 6000, "r_kb_t": 25, "r_air": 25,
     # the add-on's flight toward his own fountain (League: up to 3400 units, a quarter of the map)
     "r_far": 150000, "r_far_speed": 6000,
@@ -309,10 +314,14 @@ def build(p):
         fly = [{"type": "Airborne", "duration": p["r_air"]}, {"type": "Knockback", "speed": p["r_kb_speed"], "tick": p["r_kb_t"]}]
     struck = [attack(p["r_dmg"], p["r_ratio"]), view("r_hit"), tsfx("r_hit"), *fly]
     wave = line("r_wave", p["r_speed"], p["r_len"], p["r_w"], "EnemyChampion", True, struck)
+    # the line was locked when she began charging: at the swing it goes at the nearest enemy champion (the first ring of
+    # r_aim with one in it - league_bard E's way), else down the locked line
+    aimed = [*rm("r_aim"), *[sw("r_aim", NONE, pick(r, "EnemyChampion", flag("r_aim", 1), wave)) for r in p["r_aim"]],
+             sw("r_aim", NONE, wave), *rm("r_aim")]
     full = combine(anim("ult_charge", p["r_ch"]), refresh("r_slow", p["r_ch"], move_speed_mult=-15),
                    cview("r_charge"), sfx("r_charge"), voice("vo_r", p),
                    delayed(p["r_ch"], anim("ult", p["r_rel"] + p["r_rec"]), sfx("r_swing")),
-                   delayed(p["r_ch"] + p["r_rel"] - 1, alive(wave)))
+                   delayed(p["r_ch"] + p["r_rel"] - 1, alive(*aimed)))
     tap = combine(anim("ult_tap", p["r_tap_t"]), sfx("r_tap"), voice("vo_r", p),
                   delayed(p["r_tap_rel"] - 1, alive(cview("r_tap"), around(p["r_tap_r"], "EnemyWithoutTower", [
                       attack(p["r_tap_dmg"], p["r_tap_ratio"]), {"type": "Airborne", "duration": p["r_up"]},

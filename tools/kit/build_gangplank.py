@@ -20,9 +20,9 @@ slot - the watch eats the orange (league_jarvaniv's / league_ziggs's W the same 
           itself is thrown by the fast watch (2 ticks) at an enemy champion within e_range + 20000, landing e_travel
           ticks later where it stood (champions only: a second throw for minions would copy the whole keg again). Every keg - its pictures, zones and e_t / e_link
           links - lives in the ATTACK tree that way, not in skill2: the game copies skill / skill2 every tick
-          (docs/perf.md), the attack it does not. Two slots (k1 / k2, the first free one), each keg e_t ticks, ripe
-          e_arm ticks after it lands. A ripe keg blows when, with an enemy within e_r of it, `q_fire` is on, or
-          `a_fire` with him within e_near of the keg (a melee hit beside it), or the other keg just blew (chain, data
+          (docs/perf.md), the attack it does not. e_slots slots (k1 .. k3, the first free one), each keg e_t ticks,
+          ripe e_arm ticks after it lands. A ripe keg blows when, with an enemy within e_r of it, `q_fire` is on, or
+          `a_fire` with him within e_near of the keg (a melee hit beside it), or another keg just blew (chain, data
           version: only a keg with an enemy in it). The blast (the next link, <= e_link ticks): e_dmg + e_ratio% AD
           to every enemy within e_r, e_champ more on champions, e_pen% armour ignored (a 1-tick caster
           `defence_penetration`), e_slow% slower for e_slow_t; `p_cd` off.
@@ -43,11 +43,19 @@ The add-on copy (--native, addons/league_gangplank), one native passive league_g
           (sim.entity_clear_cc - League's cleanse); the orange's animation, sound and heal start 2 ticks after the
           decision in both copies, as clearing would end a playing cast animation too (game 0.6.4 keeps it as a crowd
           control entry). Below w_low% health the passive keeps `w_low` on him, so the watch eats it then too.
-  chain   when a keg blows (`k{s}_now`, a tick after its blast) and the other one is ripe within e_chain of it, the
+  chain   when a keg blows (`k{s}_now`, a tick after its blast) and another one is ripe within e_chain of it, the
           passive raises `k{o}_cn` (the data's trigger blows it on the next tick with an enemy inside - this copy reads
           `k{o}_cn` in place of the plain copy's `k{s}_chain`, which has no distance), or with no enemy unit within
           e_r + 20000 of it blows it empty: `k{o}_blew` (its next link draws the boom), the keg gone, `p_cd` off and the
-          passive's speed, as the data's blast. Keg positions: his two new zones at one point the tick `k{s}_live` rises.
+          passive's speed, as the data's blast; an empty blast chains on. Keg positions: his two new zones at one point
+          the tick `k{s}_live` rises.
+  charges E holds e_stock kegs (League: 3-5 charges), one back per E cycle: a throw with kegs left cuts E's cooldown
+          to e_gap (entity_reduce_cooldown).
+  triple  League's triple barrel: the tick Parrrley's hit lights `q_fire`, with two ripe kegs linked (within e_chain)
+          and an enemy champion within e_chain of one and in no keg's blast, a keg in hand goes: the third lands at
+          his feet (its pictures and sound), the keg nearest him blows (empty: the passive's; else the data's on
+          `q_fire`), the chain takes the other, and THIRD_FUSE ticks later the third blows at his feet (the data's
+          keg damage, armour cut, slow, `p_cd` off and speed).
 The add-on presses no key.
 Balance (sim/kd.py 600 8, top lane against the six base top laners, 2026-10-18): +1.89 (league_darius +1.99,
 league_nasus +1.55 on the same seeds); per 10 minutes about 20 kegs landed and 11 blown, the orange eaten 9 times,
@@ -84,7 +92,9 @@ P = {
     # +75-155 to champions, 40% armour ignored)
     "e_cd": 480, "e_range": 70000, "e_dur": 22, "e_rel": 9, "e_travel": 16, "e_t": 480, "e_arm": 60, "e_link": 10,
     "e_r": 30000, "e_near": 30000, "e_dmg": 40, "e_ratio": 100, "e_champ": 60, "e_pen": 40, "e_slow": 40,
-    "e_slow_t": 120, "e_chain": 70000,
+    "e_slow_t": 120, "e_chain": 70000, "e_slots": 3,
+    # the add-on's charges (League: 3-5) and the least time between two throws
+    "e_stock": 3, "e_gap": 60,
     # W Remove Scurvy (League: 45-145 +13% missing health, cleanse, cd 22-14)
     "w_cd": 900, "w_dur": 20, "w_rel": 10, "w_heal": 80, "w_ratio": 60, "w_imm": 60, "w_crowd": 35000, "w_low": 40,
     # R Cannon Barrage (League: global, r 580 (inner 170), 12 waves 40-100 + 10% AP, slow 30% 0.5 s, cd 160-120)
@@ -254,7 +264,7 @@ def keg(p, s, native, ms):
     """Slot s's keg: everything at the landing point of the throw (its end_effects keep the point). The trigger zone
     is the blast: with the keg ripe and a reason to blow, every enemy inside is hit on that one application and the
     keg goes out a tick later; the links only draw it (the keg, the lit keg, the explosion - at most e_link late)."""
-    o = 3 - s
+    others = [o for o in range(1, p["e_slots"] + 1) if o != s]
     live, ripe, blew, chain, busy = f"k{s}_live", f"k{s}_ripe", f"k{s}_blew", f"k{s}_chain", f"k{s}_busy"
     life = p["e_t"]
     slow = buff("e_slow", p["e_slow_t"], move_speed_mult=-p["e_slow"])
@@ -262,16 +272,22 @@ def keg(p, s, native, ms):
     out = delayed(1, *rm(live, ripe, "p_cd"), ms, *([refresh(f"k{s}_now", 2)] if native else []))
     hit = combine(pen, attack(p["e_dmg"], p["e_ratio"]), slow, view("e_hit"), tsfx("e_hit"),
                   refresh(blew, p["e_link"] + 1), *([] if native else [refresh(chain, 3)]), out)
-    chained = f"k{s}_cn" if native else f"k{o}_chain"   # the add-on: the other keg blew within e_chain
     bonus = combine(pen, attack(p["e_champ"], 0))
 
-    def why(blow):   # a shot, a hit beside it or the other keg's blast
-        return sw(ripe, sw("q_fire", blow, sw(chained, blow, sw("a_fire", pick(
+    def chained(blow, no):   # the add-on: a keg within e_chain blew (`k{s}_cn`); the plain copy: any other keg blew
+        if native:
+            return sw(f"k{s}_cn", blow, no)
+        for o in reversed(others):
+            no = sw(f"k{o}_chain", blow, no)
+        return no
+
+    def why(blow):   # a shot, a hit beside it or another keg's blast
+        return sw(ripe, sw("q_fire", blow, chained(blow, sw("a_fire", pick(
             p["e_near"], "AllyOnlySelf", flag(f"k{s}_near", 1), here=True)))))
 
     near_blow = lambda blow: sw(f"k{s}_near", combine(*rm(f"k{s}_near"), blow))
     trigger = field(f"k{s}_trig", p["e_r"], life, 1, [why(hit), near_blow(hit)], first=1)
-    champ = field(f"k{s}_champ", p["e_r"], life, 1, [sw(ripe, sw("q_fire", bonus, sw(chained, bonus, sw(
+    champ = field(f"k{s}_champ", p["e_r"], life, 1, [sw(ripe, sw("q_fire", bonus, chained(bonus, sw(
         "a_fire", pick(p["e_near"], "AllyOnlySelf", bonus, here=True)))))], target="EnemyChampion", first=1)
     links = [delayed(t, sw(blew, combine(*rm(blew), view("e_boom"), sfx("e_boom")),
                            sw(ripe, view("e_keg_lit"), sw(live, view("e_keg")))))
@@ -325,7 +341,10 @@ def build(p):
                                                                                   call))))))
 
     # ------------------------------------------------------------------ E: the kegs (thrown by the fast watch)
-    kegs = sw("e_go", sw("k1_busy", sw("k2_busy", combine(*rm("e_go")), keg(p, 2, native, ms)), keg(p, 1, native, ms)))
+    kegs = combine(*rm("e_go"))   # the first free slot takes the throw; none free: the throw is lost
+    for s in reversed(range(1, p["e_slots"] + 1)):
+        kegs = sw(f"k{s}_busy", kegs, keg(p, s, native, ms))
+    kegs = sw("e_go", kegs)
 
     watch = on_me(casted(1000000, p["watch_p"], fire_r, delayed(2, cast_w)), casted(1000000, 2, kegs))
     life = sw("init", NONE, combine(flag("init", None), watch))
@@ -384,7 +403,8 @@ def build(p):
     extra = {}
     if native:
         extra["passive"] = {"passive_ref": "league_gangplank:scurvy", "params": {
-            k: p[k] for k in ("w_low", "e_chain", "e_r", "e_link", "p_ms", "p_ms_t")}}
+            k: p[k] for k in ("w_low", "e_chain", "e_r", "e_link", "p_ms", "p_ms_t", "e_stock", "e_gap", "e_range",
+                              "e_dmg", "e_ratio", "e_champ", "e_pen", "e_slow", "e_slow_t")}}
     return {
         "id": ID, "category": "Melee", "tags": ["AD", "Melee"], **extra,
         "sprite": f"asset/league/champions/{ID}", "anim_prefix": "",
