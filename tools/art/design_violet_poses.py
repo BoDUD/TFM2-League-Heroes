@@ -47,20 +47,20 @@ POLY = [(30.0, 0.0), (38.0, 0.0), (44.0, 3.0), (46.0, 6.0), (46.0, 16.0), (45.0,
         (30.0, 25.0), (22.0, 25.0), (21.0, 20.0), (19.0, 16.0), (18.5, 10.0), (20.0, 6.0), (23.0, 2.5), (27.0, 0.5)]
 SCALES = [1.0]
 # the run redrawn (RUN_PROMPTS.md, after the review's 「走路腿没有前后交换啊」 and 「你让codex重画吧」): 8 frames of her
-# TFT run, on 10-11 px squares (regrid) with a soft alpha, drawn ~81 rows tall at 12 px against her model running's
-# ~72 (pack_violet_run's feet.json): one factor for all eight, so the cycle keeps one size and the pasted head fits
+# TFT run, on 10-11 px squares (regrid) with a soft alpha, ~81 rows tall at 12 px: read at Codex's own size, one
+# factor for all eight (RUN_SCALE, see SKIN below), so the cycle keeps one size
 RUN_SRC = os.path.join(ROOT, "assets", "source", "violet", "codex_run", "violet-run")
 # then (the user: 「怎么走路看起来没有明显的交叉步」 - every frame a wide split, no passing) run1 and run5-8 drawn again
 # with the legs passing (pack_violet_run_cross.py, RUN_CROSS_PROMPTS.md); run2-4 kept
 CROSS_SRC = os.path.join(ROOT, "assets", "source", "violet", "codex_run_cross", "violet-run-cross")
 CROSS = {"run1", "run5", "run6", "run7", "run8"}
 RUN_NAMES = [f"run{k}" for k in range(1, 9)]
-RUN_SCALE = 0.89
+RUN_SCALE = 1.0
 # a pose drawn bigger than the rest: its own factor on top of square / 12 (2026-10-28: the poses' heights against
-# their references' ran 1.2-1.3 for most, 1.37-1.48 for these; the run, as Vander's (「怎么体型现在这么大啊 跑步的时候」),
-# drew ~15% over its references: 0.88 for all four frames, so the cycle keeps one size)
+# their references' ran 1.2-1.3 for most, 1.37-1.48 for these)
 SCALE = {"a_wind": 0.87, "q_coil": 0.89, "e_punch": 0.90, "q_land": 0.94, "r_slam": 0.95, "d_down": 0.90}
 SCALE.update({n: RUN_SCALE for n in RUN_NAMES})
+SCALE["run5"] = 0.95 * RUN_SCALE     # its head drawn the smallest: the pasted one grew 7 rows over it, 4 over its neighbours
 DEFAULT = 1.0
 # d_down: Codex's own head lying there read muddy at 8x and the upright paste stood up off the lying body; the design's
 # head turned to lie face up (the top of the head to the image right), centred where Codex's lay
@@ -69,6 +69,17 @@ HEAD_CENTRE = {"d_down": (88, 18)}
 # d_fall: Codex's own head, thrown back with the body, reads (two eyes, the mouth); the upright paste did not
 NO_PASTE = {"d_fall"}
 SPECK = 6                                        # parts apart from the figure smaller than this are dropped
+# The run's head (the user, 2026-10-28: 「头和身体不协调啊 头都和手绑在一起了」): Codex drew the run in its own
+# proportions, a head ~1/4.5 of her height and the gauntlets up at the chest just under the chin; the design's head is
+# bigger (chibi), and the colour match, which may not put it above the figure's top, left its chin 3-7 rows under
+# Codex's - down on the gauntlets. So a run frame's head goes where its chin meets Codex's (the lowest row of the face's
+# skin, SKIN, in the head's columns of the figure's upper part), the extra height growing above, and the run is read at
+# Codex's own size (RUN_SCALE 1.0: its heads are about the design's, 20-24 squares of hair against 23).
+SKIN = [(245, 221, 191), (247, 172, 137)]
+CHIN_ROW = 25                                    # the design's lowest face row (hd/idle.png, the head box)
+# the poses whose head match stopped at the figure's top with its chin 3-5 rows under Codex's (the same fault; the
+# others matched lower down, where their heads are: a_wind, q_coil, q_upper, q_jab2, and d_fall / d_down)
+CHIN = set(RUN_NAMES) | {"a_punch", "a_back", "q_jab1", "q_land", "e_dash", "e_punch", "r_air", "r_land", "r_slam"}
 NAMES = [n for n in PK.POSES if not n.startswith("run")] + RUN_NAMES
 
 
@@ -129,6 +140,20 @@ def match(fig, d, hm):
     return best
 
 
+def chin(fig, d, hm, dx):
+    """Codex's chin in a figure: the lowest row of the biggest patch of face skin in the head box's columns (put at
+    dx), in the figure's top 45%."""
+    sk = np.zeros(fig.shape[:2], bool)
+    for c in SKIN:
+        sk |= np.all(fig[..., :3] == c, axis=-1) & (fig[..., 3] > 0)
+    xs = np.nonzero(hm)[1]
+    region = np.zeros_like(sk)
+    region[:int(fig.shape[0] * 0.45), max(0, xs.min() + dx):xs.max() + dx + 1] = True
+    lb, n = ndimage.label(sk & region)
+    sizes = ndimage.sum(sk & region, lb, range(1, n + 1))
+    return int(np.nonzero(lb == int(np.argmax(sizes)) + 1)[0].max())
+
+
 def head_colours(d, hm):
     """The colours only the head uses: not shared with the body, the gauntlet or the outline."""
     head = {tuple(c) for c in d[hm][:, :3]}
@@ -161,6 +186,9 @@ def read(name, scale=None):
         scale = SCALE.get(name, DEFAULT)
     fig, k, dx, dy, share, (gx, gy) = fit(name, d, hm, scale)
     pad = 6
+    if name in CHIN:   # the design's chin on Codex's: the bigger head grows up, not down onto the gauntlets
+        dy = chin(fig, d, hm, dx) - CHIN_ROW
+        pad = max(pad, 2 - dy)
     big = np.pad(fig, ((pad, pad), (pad, pad), (0, 0)))
     ys, xs = np.nonzero(hm)
     head = np.zeros_like(d)
