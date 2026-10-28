@@ -59,6 +59,8 @@ SKULL = (10, 9, 23, 22)          # the design head's skull (bone squares) in app
 # the drafts lean it -11 to +8 degrees and it ran 72 to 78 squares): SPEAR_FROM's (the cleanest point) turned upright
 SPEAR_FROM = "run2"
 INK = (6, 1, 14)                 # the design's outline
+NECK_ROW = 17                    # approved-head-1x.png's rows from here down: the ear's tip over, then his shoulder
+SKULL_COLOURS = ((252, 248, 229), (207, 202, 176), (197, 179, 177), (175, 175, 147), (125, 125, 107), (149, 138, 157))
 VIOLET = ((70, 5, 136), (110, 4, 191))      # the shaft's and the point's violets: nothing else of his wears them
 BANDAGE = ((252, 248, 229), (207, 202, 176), (175, 175, 147), (197, 179, 177), (125, 125, 107), (149, 138, 157))
 # his own colours where the spear runs (the bandaged arm, the cloth, the ear, the hair); not the skin's purples: his
@@ -253,6 +255,22 @@ def walk_frame(name, d, spear):
     return out, (int(round(left - (SKULL[0] + SKULL[2]) / 2)), jaw_row - SKULL[3])
 
 
+def head_only(h):
+    """The approved head without the design's own body round its jaw: from NECK_ROW down only the skull's colours and
+    the ink by them (the box also took the design's shoulder pad, studs and collar, left of the jaw, which sat over the
+    walk's own shoulder: 「这一部分连接处又看起来变形了」)."""
+    h = h.copy()
+    bone = np.isin(h[..., :3].reshape(-1, 3).view([("", h.dtype)] * 3).ravel(),
+                   np.array(SKULL_COLOURS, h.dtype).view([("", h.dtype)] * 3).ravel()).reshape(h.shape[:2])
+    bone &= h[..., 3] > 0
+    ink = (h[..., 3] > 0) & np.all(h[..., :3] == INK, -1)
+    by = ndimage.binary_dilation(bone, structure=np.ones((3, 3), bool))
+    low = np.zeros(h.shape[:2], bool)
+    low[NECK_ROW:] = True
+    h[low & ~bone & ~(ink & by)] = 0
+    return h
+
+
 def read(name, d, h, only, spear=None):
     """The pose -> (figure, the head box's top-left in it, the figure's top-left square on the pack's grid)."""
     if name in WALK:
@@ -263,6 +281,7 @@ def read(name, d, h, only, spear=None):
     pad = 20
     big = np.pad(a, ((pad, pad), (pad, pad), (0, 0)))
     if name in WALK:                                              # the design head where the raw head was
+        h = head_only(h)
         hy, hx = np.nonzero(h[..., 3] > 0)
         py, px = hy + head_box[1] + pad, hx + head_box[0] + pad
         pasted = np.zeros(big.shape[:2], bool)
