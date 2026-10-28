@@ -21,8 +21,15 @@ of its call sites - and finds every place again in the new EXE, the way 0.6.4 wa
 5. the UI drawers (encyclopedia, pick slot, BP grid, pick moment, scoreboard portraits): every caller of the anim
    lookup scored by how close its four following size asks sit to the old drawer's spacing - this step is a
    heuristic, the table it prints (best and second best) is for a human to confirm;
-6. the hooks' assumptions asserted on the new EXE (the 12-byte prologue the hooks replace, the slot pointing at
+6. the UI sheets' places (src/ui.rs): each drawer's own sheet lookup, the draw command made from a name, the image
+   node's setter; 7. the view node draw (src/view.rs effect_detour) among the body draw's callees;
+8. the hooks' assumptions asserted on the new EXE (the 12-byte prologue the hooks replace, the slot pointing at
    the handler, the 0x1b4 scale read, 0xd0-byte commands).
+
+0.6.5 -> 0.7.0 (2026-10-28) was the first update built by another compiler: no lookup head in common (step 1 then takes
+the lookups by their shape), the body draw's size asks through other registers (step 3 by their spacing alone), the
+scale read through r12 (a SIB form), the scale / restore command tags moved by one (read from the entity render), the
+draw command made from a name pushing one register more (its prologue is decoded, not compared).
 
 Then a match in game confirms it: league.log `game build: <name>`, the "lookup anim from rva" / "texture width
 asked from rva" lines of every screen. The structures (display world table, entity value fields, draw command
@@ -72,7 +79,7 @@ def old_build(path=BUILD_RS):
     for m in re.finditer(r"\((0x[0-9a-f]+),\s*&\[([^\]]*)\]\)", body[body.index("sigs: &["):]):
         sigs.append((int(m.group(1), 16), bytes(int(x, 16) for x in re.findall(r"0x([0-9a-f]{2})", m.group(2)))))
     b = {k: num(k) for k in ("anim", "sheet", "hash", "display_fn", "display_slot", "body_draw", "cmd_grow",
-                               "cmd_by_name", "node_image")}
+                               "cmd_by_name", "node_image", "effect_draw")}
     b.update({k: nums(k) for k in ("battle_anim_ret", "battle_size_ret", "ui_anim_ret", "ui_size_ret")})
     b["name"] = re.search(r'name: "([^"]*)"', body).group(1)
     b["sigs"] = dict(sigs)
@@ -153,19 +160,75 @@ def one(what, cands):
     return cands[0]
 
 
+def call_targets(e, f, n):
+    """The `call rel32` targets in the first `n` bytes of `f`, in order (a byte scan: only for short heads)."""
+    out, a = [], f
+    while a < f + n:
+        t = e.call_target(a)
+        if t is not None and e.func_of(t) and e.func_of(t)[0] == t:
+            out.append(t)
+            a += 5
+        else:
+            a += 1
+    return out
+
+
+def shaped_lookups(e, hashes):
+    """The HashMap<String, _>::get heads by their shape alone (0.7.0, a newer compiler: the listed head's bytes are
+    gone): the 12-byte prologue and `sub rsp, imm32`, a call building the key, then a call of one of `hashes`, both in
+    the first 0x90 bytes."""
+    out = []
+    for f, _ in e.funcs:
+        if e.read(f, 15) != PROLOGUE + b"\x48\x81\xec":
+            continue
+        calls = call_targets(e, f, 0x90)
+        if len(calls) >= 2 and calls[1] in hashes:
+            out.append(f)
+    return out
+
+
+def is_call_reg(e, rva):
+    """`call r64` (ff d0..d7 but d4, or 41 ff d0..d7) at `rva`: a size ask through a register holding a vtable entry."""
+    b = e.read(rva, 3) or b""
+    return (len(b) >= 2 and b[0] == 0xFF and 0xD0 <= b[1] <= 0xD7 and b[1] != 0xD4) or \
+        (len(b) == 3 and b[0] == 0x41 and b[1] == 0xFF and 0xD0 <= b[2] <= 0xD7)
+
+
+def prologue_len(code):
+    """The length of a push / `sub rsp` prologue at the start of `code` once it covers the 12 bytes a hook overwrites
+    (push r64: 50..57 or 41 50..57; sub rsp, imm8 / imm32: 48 83 ec ib / 48 81 ec id), else None - src/ui.rs runs those
+    whole instructions from its trampoline."""
+    i = 0
+    while i < 12:
+        if 0x50 <= code[i] <= 0x57:
+            i += 1
+        elif code[i] == 0x41 and 0x50 <= code[i + 1] <= 0x57:
+            i += 2
+        elif code[i:i + 3] == b"\x48\x83\xec":
+            i += 4
+        elif code[i:i + 3] == b"\x48\x81\xec":
+            i += 7
+        else:
+            return None
+    return i
+
+
 # ---- the search --------------------------------------------------------------------------------------------------
 
 def search(e, b):
     sig = b["sigs"]
     found, notes = {}, []
-    # 1. hash and lookups
+    # 1. hash and lookups: the listed build's lookup head first, else the lookups' shape (0.6.5 -> 0.7.0)
     hashes = set(e.find(wildcard(sig[b["hash"]], b["hash"])))
     anim_sig = sig[b["anim"]]
     hash_call = next(i.address - b["anim"] for i in e.md.disasm(anim_sig, b["anim"])
                      if i.mnemonic == "call" and i.operands[0].imm == b["hash"])
     lookups = [f for f in e.find(wildcard(anim_sig, b["anim"])) if e.call_target(f + hash_call) in hashes]
-    found["hash"] = one("hash called by the lookups", sorted({e.call_target(f + hash_call) for f in lookups}))
-    notes.append(f"{len(lookups)} HashMap<String, _>::get candidates, all calling the hash {found['hash']:#x}")
+    if lookups:
+        found["hash"] = one("hash called by the lookups", sorted({e.call_target(f + hash_call) for f in lookups}))
+    else:
+        lookups = shaped_lookups(e, hashes)
+        notes.append(f"the listed build's lookup head is not in this EXE: {len(lookups)} lookups found by their shape")
     # 2. the battlefield frame lookup -> anim and sheet
     old_call = b["battle_anim_ret"][0] - 5
     asks = [(r, sig[r - n]) for r in b["battle_size_ret"][:2] for n in (2, 3) if r - n in sig]
@@ -176,6 +239,10 @@ def search(e, b):
                 hits.append((f, c))
     anim, frame_call = one("the battlefield frame lookup's call", hits)
     found["anim"] = anim
+    if "hash" not in found:
+        found["hash"] = call_targets(e, anim, 0x90)[1]
+        lookups = [f for f in lookups if call_targets(e, f, 0x90)[1] == found["hash"]]
+    notes.append(f"{len(lookups)} HashMap<String, _>::get candidates, all calling the hash {found['hash']:#x}")
     frame_fn = e.func_of(frame_call)
     sheet_calls = []
     for i in e.md.disasm(e.read(frame_fn[0], frame_fn[1] - frame_fn[0]), frame_fn[0]):
@@ -190,6 +257,7 @@ def search(e, b):
     body_asks_old = [(r, next(sig[r - n] for n in (2, 3) if r - n in sig)) for r in b["battle_size_ret"][2:]]
     first = body_asks_old[0][0] - len(body_asks_old[0][1])
     bodies = []
+    offs = [(r - len(x)) - first for r, x in body_asks_old]
     for c in e.calls_to(frame_fn[0]):
         f = e.func_of(c)
         code = e.read(f[0], f[1] - f[0])
@@ -197,17 +265,36 @@ def search(e, b):
             p = f[0] + m.start()
             if all(e.read(p + (r - len(x)) - first, len(x)) == x for r, x in body_asks_old):
                 bodies.append((f[0], p))
+    if not bodies:
+        # 0.7.0: the same spacing, other registers (call r13 -> call r15)
+        for c in e.calls_to(frame_fn[0]):
+            f = e.func_of(c)
+            bodies += [(f[0], p) for p in range(f[0], f[1] - offs[-1]) if all(is_call_reg(e, p + o) for o in offs)]
+        notes.append("the body draw's size asks matched by their spacing alone (their registers changed)")
     body, body_ask0 = one("the body draw (four size asks at the old spacing)", sorted(set(bodies)))
     found["body_draw"] = body
-    battle_asks += [body_ask0 + (r - len(x)) - first for r, x in body_asks_old]
+    battle_asks += [body_ask0 + o for o in offs]
+    # the entity render: the caller of the body draw that reads its scale, [reg+0x1b4] (0.7.0: [r12+0x1b4], a SIB form),
+    # soon after - not a local of its frame
     renders = []
     for c in e.calls_to(body):
         for i in e.md.disasm(e.read(c, 0x200), c):
-            if i.mnemonic == "movss" and i.operands[1].type == X86.X86_OP_MEM and i.operands[1].mem.disp == 0x1B4:
+            if i.mnemonic == "movss" and i.operands[1].type == X86.X86_OP_MEM and i.operands[1].mem.disp == 0x1B4 \
+                    and i.operands[1].mem.base not in (X86.X86_REG_RSP, X86.X86_REG_RBP, X86.X86_REG_RIP):
                 renders.append((c, i.address))
                 break
     found["render_call"], found["render_scale"] = one("the entity render (movss [reg+0x1b4] after the body draw)",
                                                        renders)
+    # the scale and restore commands it wraps the body draw's commands in: their tags are the first two niche values it
+    # writes after that read (0.6.5: 0x8000000000000011 / ...12; 0.7.0 ...12 / ...13 - a variant was added before them)
+    tags = []
+    for i in e.md.disasm(e.read(found["render_scale"], 0x200), found["render_scale"]):
+        if i.mnemonic == "movabs" and i.operands[1].type == X86.X86_OP_IMM and \
+                0x8000000000000000 <= i.operands[1].imm & 0xFFFFFFFFFFFFFFFF <= 0x80000000000000FF:
+            tags.append((i.address, i.operands[1].imm & 0xFFFFFFFFFFFFFFFF))
+    if len(tags) < 2 or tags[1][1] != tags[0][1] + 1:
+        sys.exit(f"the entity render's scale / restore command tags: not found after {found['render_scale']:#x} ({tags})")
+    found["cmd_tags"] = tags[:2]
     grows = set()
     for i in e.md.disasm(e.read(body, e.func_of(body)[1] - body), body):
         if i.mnemonic == "call" and i.operands[0].type == X86.X86_OP_IMM:
@@ -273,6 +360,39 @@ def search(e, b):
         ui_rows.append(f"  {name:26s} call {c:#x} in {e.func_of(c)[0]:#x}: spacing {d}, {how}{second}")
     found["ui"] = ui
     found["battle_asks"] = battle_asks
+    # 6. src/ui.rs (the UI sheets): each drawer's own call of the sheet lookup between its anim call and its first size
+    # ask, and the two functions they hand the sheet's name to - the draw command made from a name (called by the BP
+    # grid and the scoreboard portraits after their sheet lookup; `mov rdi, r8; test r8, r8` in its head: 0.6.5 and
+    # 0.7.0) and the image node's setter (called by the encyclopedia and the pick slot; the listed build's head)
+    sheet_calls, after = [], []
+    for c, w in ui:
+        s = next((a for a in range(c + 5, w[0]) if e.call_target(a) == found["sheet"]), None)
+        if s is None:
+            sys.exit(f"UI drawer at {c:#x}: no call of the sheet lookup before its size asks")
+        sheet_calls.append(s)
+        f = e.func_of(c)
+        after.append({i.operands[0].imm for i in e.md.disasm(e.read(s + 5, f[1] - s - 5), s + 5)
+                      if i.mnemonic == "call" and i.operands[0].type == X86.X86_OP_IMM})
+    found["ui_sheet_calls"] = sheet_calls
+    mark = b"\x4c\x89\xc7\x4d\x85\xc0"
+    found["cmd_by_name"] = one("the draw command made from a sheet's name",
+                               sorted(t for t in after[2] & after[4] if mark in (e.read(t, 0x60) or b"")))
+    node_heads = set(e.find(wildcard(sig[b["node_image"]], b["node_image"])))
+    found["node_image"] = one("the image node's setter", sorted(after[0] & after[1] & node_heads))
+    for k in ("cmd_by_name", "node_image"):
+        if prologue_len(e.read(found[k], 24)) is None:
+            sys.exit(f"{k} {found[k]:#x}: not a push / sub rsp prologue src/ui.rs can run from its trampoline")
+    # 7. the view node draw (src/view.rs effect_detour): a function with the listed head (prologue, sub rsp, lea rbp -
+    # 38 in 0.7.0) that the body draw calls (it and the world's effects do; 0.7.0 0x245f150), else not known (0: dense
+    # effects drawn PPU times big)
+    eff = []
+    if b.get("effect_draw") in sig:
+        called = {i.operands[0].imm for i in e.md.disasm(e.read(body, e.func_of(body)[1] - body), body)
+                  if i.mnemonic == "call" and i.operands[0].type == X86.X86_OP_IMM}
+        eff = [f for f in e.find(wildcard(sig[b["effect_draw"]], b["effect_draw"])) if f in called]
+    found["effect_draw"] = eff[0] if len(eff) == 1 else 0
+    if not found["effect_draw"]:
+        notes.append(f"the view node draw: {len(eff)} candidates called by the body draw - effect_draw 0 (not hooked)")
     return found, notes, ui_rows
 
 
@@ -298,6 +418,11 @@ def rust(e, f):
     ui_ret = [c + 5 for c, _ in f["ui"]]
     ui_size = [a + e.ins(a).size for _, w in f["ui"] for a in w]
     asks = f["battle_asks"]
+
+    def rets(v, ind):
+        return (",\n" + " " * ind).join(", ".join(f"{r:#x}" for r in v[k:k + 8]) for k in range(0, len(v), 8))
+
+    sized = [1, 2, 3]  # the pick slot, the BP grid, the pick moment draw the whole body
     out = ["pub static BUILDS: &[Build] = &[Build {",
            f'    name: "<version> (Steam, EXE sha256 {sha[:8]}...)",',
            f"    anim: {f['anim']:#x},", f"    sheet: {f['sheet']:#x},", f"    hash: {f['hash']:#x},",
@@ -305,21 +430,36 @@ def rust(e, f):
            f"    battle_anim_ret: &[{f['battle_anim_ret'][0]:#x}],",
            "    battle_size_ret: &[" + ", ".join(f"{a + e.ins(a).size:#x}" for a in asks) + "],",
            "    ui_anim_ret: &[" + ", ".join(f"{r:#x}" for r in ui_ret) + "],",
-           "    ui_size_ret: &[" + ",\n                   ".join(", ".join(f"{r:#x}" for r in ui_size[k:k + 8])
-                                                              for k in range(0, len(ui_size), 8)) + "],",
-           f"    body_draw: {f['body_draw']:#x},", f"    cmd_grow: {f['cmd_grow']:#x},", "    sigs: &[",
+           "    ui_size_ret: &[" + rets(ui_size, 19) + "],",
+           "    ui_sized_anim_ret: &[" + ", ".join(f"{ui_ret[k]:#x}" for k in sized) + "],",
+           "    ui_sized_size_ret: &[" + rets([r for k in sized for r in ui_size[4 * k:4 * k + 4]], 25) + "],",
+           "    ui_sheet_ret: &[" + ", ".join(f"{s + 5:#x}" for s in f["ui_sheet_calls"]) + "],",
+           f"    cmd_by_name: {f['cmd_by_name']:#x},", f"    node_image: {f['node_image']:#x},",
+           f"    body_draw: {f['body_draw']:#x},", f"    cmd_grow: {f['cmd_grow']:#x},",
+           f"    effect_draw: {f['effect_draw']:#x},",
+           f"    cmd_scale: {f['cmd_tags'][0][1]:#x},", f"    cmd_restore: {f['cmd_tags'][1][1]:#x},", "    sigs: &[",
            "    // the anim-table lookup", f"    ({f['anim']:#x}, &[\n{hexes(e.read(f['anim'], 128))}\n    ]),",
            "    // the sheet (texture) lookup", f"    ({f['sheet']:#x}, &[\n{hexes(e.read(f['sheet'], 128))}\n    ]),",
            "    // the battlefield body draw", f"    ({f['body_draw']:#x}, &[\n{hexes(e.read(f['body_draw'], 24))}\n    ]),",
            "    // the draw commands' grow_one (new capacity max(4, 2 x cap), 0xd0 bytes, align 8)",
-           f"    ({f['cmd_grow']:#x}, &[\n{hexes(e.read(f['cmd_grow'], 48))}\n    ]),",
-           "    // the entity render's call of the body draw, and its scale command (+0x1b4 round the body draw's commands)",
-           f"    {at(f['render_call'])},", f"    {at(f['render_scale'])},",
-           "    // the UI's calls of the anim lookup (encyclopedia, pick slot, BP grid, pick moment, scoreboard portraits) and",
-           "    // their size asks"]
+           f"    ({f['cmd_grow']:#x}, &[\n{hexes(e.read(f['cmd_grow'], 48))}\n    ]),"]
+    if f["effect_draw"]:
+        out += ["    // the view node draw", f"    ({f['effect_draw']:#x}, &[\n{hexes(e.read(f['effect_draw'], 24))}\n    ]),"]
+    out += ["    // the entity render's call of the body draw, its read of the scale (+0x1b4 round the body draw's commands)",
+            "    // and the tags of the scale / restore commands it wraps them in",
+            f"    {at(f['render_call'])},", f"    {at(f['render_scale'])},",
+            f"    {at(f['cmd_tags'][0][0])}, {at(f['cmd_tags'][1][0])},",
+            "    // the UI's calls of the anim lookup (encyclopedia, pick slot, BP grid, pick moment, scoreboard portraits) and",
+            "    // their size asks"]
     for k, (c, w) in enumerate(f["ui"]):
         out.append(f"    {at(c)}, // {UI_NAMES[k] if k < len(UI_NAMES) else k}")
         out.append("    " + ", ".join(at(a) for a in w) + ",")
+    out += ["    // the same drawers' own calls of the sheet lookup (src/ui.rs)",
+            "    " + ", ".join(at(s) for s in f["ui_sheet_calls"]) + ",",
+            "    // the draw command made from a sheet's name (src/ui.rs hooks its prologue)",
+            f"    ({f['cmd_by_name']:#x}, &[\n{hexes(e.read(f['cmd_by_name'], 48))}\n    ]),",
+            "    // the image node's setter (src/ui.rs hooks its prologue)",
+            f"    ({f['node_image']:#x}, &[\n{hexes(e.read(f['node_image'], 48))}\n    ]),"]
     out += ["    // the anim tables' hash", f"    ({f['hash']:#x}, &[\n{hexes(e.read(f['hash'], 48))}\n    ]),",
             "    // the display-update handler",
             f"    ({f['display_fn']:#x}, &[\n{hexes(e.read(f['display_fn'], 48))}\n    ]),",
@@ -348,6 +488,8 @@ def main():
           f"{found['battle_frame']:#x}, body draw {found['body_draw']:#x}, entity render call "
           f"{found['render_call']:#x} / scale {found['render_scale']:#x}, grow_one {found['cmd_grow']:#x}, display "
           f"{found['display_fn']:#x} / slot {found['display_slot']:#x}")
+    print(f"scale / restore command tags {found['cmd_tags'][0][1]:#x} / {found['cmd_tags'][1][1]:#x}; UI sheet sinks: draw "
+          f"command {found['cmd_by_name']:#x}, image node {found['node_image']:#x}; view node draw {found['effect_draw']:#x}")
     print("UI drawers (confirm by eye: the lower the score the closer to the old layout):")
     print("\n".join(ui_rows))
     print(f"whole-body add-ons (view.rs): FN_RVA {found['display_fn']:#x}, SLOT_RVA {found['display_slot']:#x}")

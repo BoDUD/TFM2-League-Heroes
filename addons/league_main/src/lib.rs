@@ -4,7 +4,7 @@
 //! 身体 1 倍图整 3 倍，Codex 画的头每格 2×2）在战场、卡牌、图鉴、头像上都画自己图里 PPU 倍密的 `hd_` 帧，大小不变、
 //! 像素更细。src/lookup.rs：游戏按名字取动画表和贴图的两个函数上挂钩——动画表就地改成每个动作都是高清帧（矩形 ÷ PPU），
 //! 贴图的宽高报 ÷ PPU，界面按帧大小画、UV 落在高清那块；战场按「UV × 图的真实像素」画，所以战场拿到真实的高清帧和真实
-//! 宽高，src/view.rs 把实体的绘制缩放写成 ÷ PPU。只在 src/build.rs 认得的游戏版本上挂钩（每处要改要调的代码逐字节核对指纹，现在认得 0.6.5；认不得的版本由 game_places 在运行时找）；找不到的版本、
+//! 宽高，src/view.rs 把实体的绘制缩放写成 ÷ PPU。只在 src/build.rs 认得的游戏版本上挂钩（每处要改要调的代码逐字节核对指纹，现在认得 0.7.0；认不得的版本由 game_places 在运行时找）；找不到的版本、
 //! Mac / Linux（没有 DLL）什么都不改，英雄照旧画 1 倍的帧。
 //!
 //! src/ui.rs（0.7.140）：BP 格子、图鉴 / 头像、选人位、选中特写、记分板头像改画每个英雄自己的小图集（打包时生成，
@@ -34,7 +34,7 @@ mod view;
 mod warm;
 
 pub const ID: &str = "league";
-const VERSION: &str = "0.7.192";
+const VERSION: &str = "0.8.0";
 
 static LOG_LOCK: Mutex<()> = Mutex::new(());
 static LOG_FILE: Mutex<Option<std::fs::File>> = Mutex::new(None);

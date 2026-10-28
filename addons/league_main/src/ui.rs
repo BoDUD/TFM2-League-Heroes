@@ -36,11 +36,24 @@ const KINDS: [&str; 2] = ["idle", "bp"];
 const IDLE: usize = 0;
 const REEL: usize = 1;
 
-/// The sinks' first instructions in 0.6.5, whole ones without a rip-relative operand: the trampoline runs them and jumps
-/// back (push rbp / r14 / rsi / rdi / rbx, sub rsp 0xc0; push r15 / r14 / r12 / rsi / rdi / rbx, sub rsp 0x28). A build
-/// whose sinks start otherwise gets no UI sheets.
-const CMD_PROLOGUE: [u8; 13] = [0x55, 0x41, 0x56, 0x56, 0x57, 0x53, 0x48, 0x81, 0xec, 0xc0, 0x00, 0x00, 0x00];
-const NODE_PROLOGUE: [u8; 13] = [0x41, 0x57, 0x41, 0x56, 0x41, 0x54, 0x56, 0x57, 0x53, 0x48, 0x83, 0xec, 0x28];
+/// The length of the sinks' first whole instructions the trampoline runs before it jumps back: pushes and `sub rsp`
+/// (no rip-relative operand) until the 12 bytes the jump overwrites are covered - push r64 (50..57, 41 50..57), sub
+/// rsp imm8 / imm32 (48 83 ec ib / 48 81 ec id). 0.6.5's draw command: push rbp / r14 / rsi / rdi / rbx, sub rsp 0xc0
+/// (13 bytes); 0.7.0's pushes r15 too, sub rsp 0xc8 (15); the image node's: push r15 / r14 / r12 / rsi / rdi / rbx,
+/// sub rsp 0x28 (13) in both. A sink starting otherwise gets no hook (and the UI no UI sheets).
+pub fn prologue_len(code: &[u8]) -> Option<usize> {
+    let mut i = 0;
+    while i < 12 {
+        match code.get(i..)? {
+            [0x50..=0x57, ..] => i += 1,
+            [0x41, 0x50..=0x57, ..] => i += 2,
+            [0x48, 0x83, 0xec, _, ..] => i += 4,
+            [0x48, 0x81, 0xec, _, _, _, _, ..] => i += 7,
+            _ => return None,
+        }
+    }
+    Some(i)
+}
 /// which sink called [`swap`]: the draw command (name ptr in rdx, len in r8), the image node (&String in rdx)
 const CMD: u32 = 0;
 const NODE: u32 = 1;
@@ -372,10 +385,12 @@ fn sink_stub(kind: u32, detour: usize, orig: usize) -> Vec<u8> {
 
 /// `func`'s first instructions (`prologue`, at least 12 bytes) replaced by `mov rax, stub; jmp rax`; the stub
 /// ([`sink_stub`]) calls [`swap`] and then the trampoline: the prologue and a jump back after it.
-unsafe fn hook_sink(func: usize, prologue: &[u8], sink: u32) -> Result<(), String> {
-    if lookup::read(func, prologue.len()).as_deref() != Some(prologue) {
-        return Err(format!("{func:#x}: not the prologue this hook replaces"));
-    }
+unsafe fn hook_sink(func: usize, sink: u32) -> Result<(), String> {
+    let head = lookup::read(func, 24).ok_or(format!("{func:#x}: unreadable"))?;
+    let Some(n) = prologue_len(&head) else {
+        return Err(format!("{func:#x}: not a push / sub rsp prologue this hook can run ({:02x?})", &head[..12]));
+    };
+    let prologue = &head[..n];
     let page = VirtualAlloc(std::ptr::null_mut(), 0x1000, 0x3000, 0x40) as usize;
     if page == 0 {
         return Err("VirtualAlloc failed".into());
@@ -410,7 +425,7 @@ pub fn install(b: &Build, module: usize) {
         return;
     }
     let (c, n) = unsafe {
-        (hook_sink(module + b.cmd_by_name, &CMD_PROLOGUE, CMD), hook_sink(module + b.node_image, &NODE_PROLOGUE, NODE))
+        (hook_sink(module + b.cmd_by_name, CMD), hook_sink(module + b.node_image, NODE))
     };
     if c.is_ok() && n.is_ok() {
         ON.store(true, Ordering::Release);
@@ -445,10 +460,15 @@ mod tests {
     #[test]
     fn the_hooked_prologues_are_the_listed_builds() {
         for b in crate::build::BUILDS {
-            let head = |rva: usize| b.sigs.iter().find(|s| s.0 == rva).map(|s| &s.1[..13]);
-            assert_eq!(head(b.cmd_by_name), Some(&CMD_PROLOGUE[..]), "{}", b.name);
-            assert_eq!(head(b.node_image), Some(&NODE_PROLOGUE[..]), "{}", b.name);
+            let head = |rva: usize| b.sigs.iter().find(|s| s.0 == rva).map(|s| s.1).unwrap();
+            // 0.7.0: push rbp / r15 / r14 / rsi / rdi / rbx, sub rsp 0xc8; push r15 / r14 / r12 / rsi / rdi / rbx, sub rsp 0x28
+            assert_eq!(prologue_len(head(b.cmd_by_name)), Some(15), "{}", b.name);
+            assert_eq!(prologue_len(head(b.node_image)), Some(13), "{}", b.name);
         }
+        // 0.6.5's draw command (push rbp / r14 / rsi / rdi / rbx, sub rsp 0xc0) and what the hook must not take
+        assert_eq!(prologue_len(&[0x55, 0x41, 0x56, 0x56, 0x57, 0x53, 0x48, 0x81, 0xec, 0xc0, 0, 0, 0, 0x48]), Some(13));
+        assert_eq!(prologue_len(&[0x55, 0x48, 0x8b, 0x05, 1, 2, 3, 4, 0x41, 0x56, 0x56, 0x57, 0x53]), None); // a rip load
+        assert_eq!(prologue_len(&[0x55, 0x41, 0x56]), None); // cut short
     }
 
     fn frames(v: &[[f32; 5]]) -> Vec<u8> {
