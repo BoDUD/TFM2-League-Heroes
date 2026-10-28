@@ -1,0 +1,282 @@
+[
+  {
+    "sheet": "run_1.png",
+    "tag": "run",
+    "frames": [
+      1,
+      2
+    ],
+    "cells": 2,
+    "sha256": "eed48219b17908d113ca9dbd2d48fc7d3aea8818bf8e40a395c2eaa71760542b",
+    "raw_sources": [
+      "raw/run_1-white.png"
+    ]
+  },
+  {
+    "sheet": "run_2.png",
+    "tag": "run",
+    "frames": [
+      3,
+      4
+    ],
+    "cells": 2,
+    "sha256": "caafa805fe17ee7c01f4f23a6f493e744840cb2bc7dd535eb0310f48c5d6d3cf",
+    "raw_sources": [
+      "raw/run_2-white.png"
+    ]
+  },
+  {
+    "sheet": "run_3.png",
+    "tag": "run",
+    "frames": [
+      5,
+      6
+    ],
+    "cells": 2,
+    "sha256": "f865615193297fc4505525fe0260cbc2d182153a24c764f0ce5a4ef566daccf7",
+    "raw_sources": [
+      "raw/run_3-white.png"
+    ]
+  },
+  {
+    "sheet": "run_4.png",
+    "tag": "run",
+    "frames": [
+      7,
+      8
+    ],
+    "cells": 2,
+    "sha256": "5edef289be02bcc72e587fd2640666291a707c6be98200c520a80b14da2ade2d",
+    "raw_sources": [
+      "raw/run_4-white.png"
+    ]
+  },
+  {
+    "sheet": "attack_1.png",
+    "tag": "attack",
+    "frames": [
+      1,
+      2
+    ],
+    "cells": 2,
+    "sha256": "260fe9e4113b7d1ec14e636100e7725f91930eeb05b046ab890b1b230b685e89",
+    "raw_sources": [
+      "raw/attack_1-windup-revision.png"
+    ]
+  },
+  {
+    "sheet": "attack_2.png",
+    "tag": "attack",
+    "frames": [
+      3,
+      4
+    ],
+    "cells": 2,
+    "sha256": "ab5c047d48c949328f0844f5f15ce92a034f87291e1677183929eff88ac65c94",
+    "raw_sources": [
+      "raw/attack_2.png"
+    ]
+  },
+  {
+    "sheet": "attack_3.png",
+    "tag": "attack",
+    "frames": [
+      5,
+      6
+    ],
+    "cells": 2,
+    "sha256": "3e9298830df475f68c9764e5f75d807b2f4d6255faabb77e57a7d3ba14533d69",
+    "raw_sources": [
+      "raw/attack_3.png"
+    ]
+  },
+  {
+    "sheet": "skill_1.png",
+    "tag": "skill",
+    "frames": [
+      1,
+      2
+    ],
+    "cells": 2,
+    "sha256": "d26522f15e5d32b61d608b1a6fa0cd693ca824cc4c4665636d3de65fe1269670",
+    "raw_sources": [
+      "raw/skill_1.png"
+    ]
+  },
+  {
+    "sheet": "skill_2.png",
+    "tag": "skill",
+    "frames": [
+      3
+    ],
+    "cells": 1,
+    "sha256": "43f2daca16e4ef983b8f0a2b60ca8dfe1a4984c3d5be58cf69401a403ef695a0",
+    "raw_sources": [
+      "raw/skill_2.png"
+    ]
+  },
+  {
+    "sheet": "skill2_1.png",
+    "tag": "skill2",
+    "frames": [
+      1,
+      2
+    ],
+    "cells": 2,
+    "sha256": "2f4d4a165e38359967dec4c5c24298121ae1fc258f5f2f2690d5f57f1027875b",
+    "raw_sources": [
+      "raw/skill2_1-turn-revision.png"
+    ]
+  },
+  {
+    "sheet": "skill2_2.png",
+    "tag": "skill2",
+    "frames": [
+      3,
+      4
+    ],
+    "cells": 2,
+    "sha256": "441fa37c28a48db6eb347e667faffb21f4de0b028b4df00411f7acf3450de4f8",
+    "raw_sources": [
+      "raw/skill2_2-turn-revision.png"
+    ]
+  },
+  {
+    "sheet": "skill2_3.png",
+    "tag": "skill2",
+    "frames": [
+      5
+    ],
+    "cells": 1,
+    "sha256": "689cbac9b1145b7f9c70a794833f26cb2648efe744f92a71752e6a0a0e27d790",
+    "raw_sources": [
+      "raw/skill2_3-pose-revision.png"
+    ]
+  },
+  {
+    "sheet": "skill_e_1.png",
+    "tag": "skill_e",
+    "frames": [
+      1,
+      2
+    ],
+    "cells": 2,
+    "sha256": "e4656a6a37b522ac6af8d816cb25f9a4408bad5448b23eda9720ee4434201bb6",
+    "raw_sources": [
+      "raw/skill_e_1-pose-revision.png"
+    ]
+  },
+  {
+    "sheet": "skill_e_2.png",
+    "tag": "skill_e",
+    "frames": [
+      3,
+      4
+    ],
+    "cells": 2,
+    "sha256": "abb326343e620ed4e7c79da3117fa7a0fdd763b43f7c6f7f494c902c81945ce4",
+    "raw_sources": [
+      "raw/skill_e_2.png"
+    ]
+  },
+  {
+    "sheet": "skill_e_3.png",
+    "tag": "skill_e",
+    "frames": [
+      6
+    ],
+    "cells": 1,
+    "sha256": "1c2b2751a6607cdba17defacc04afdd175e1584d89c0d6071c8f8f36e60c5bb8",
+    "raw_sources": [
+      "raw/skill_e_3.png"
+    ]
+  },
+  {
+    "sheet": "ult_1.png",
+    "tag": "ult",
+    "frames": [
+      1,
+      3
+    ],
+    "cells": 2,
+    "sha256": "8c9e4a0185a468d6ba30df24f814cc984acf750e16192497d06810906ea8ed28",
+    "raw_sources": [
+      "raw/ult_1.png"
+    ]
+  },
+  {
+    "sheet": "ult_2.png",
+    "tag": "ult",
+    "frames": [
+      5,
+      6
+    ],
+    "cells": 2,
+    "sha256": "9b20202b102638f10462bda83f47abfe1485d933a303c86daa2d616978223b94",
+    "raw_sources": [
+      "raw/ult_2.png"
+    ]
+  },
+  {
+    "sheet": "ult_3.png",
+    "tag": "ult",
+    "frames": [
+      7
+    ],
+    "cells": 1,
+    "sha256": "ad228228f0d766ff36fd20be7ae3d181f412c5bd2866d4b59f837b4b94e60ee1",
+    "raw_sources": [
+      "raw/ult_3.png"
+    ]
+  },
+  {
+    "sheet": "hit_1.png",
+    "tag": "hit",
+    "frames": [
+      1
+    ],
+    "cells": 1,
+    "sha256": "653b65420824db85f34ee42d976058204e4de451797a175560b8257de804d5bb",
+    "raw_sources": [
+      "raw/hit_1.png"
+    ]
+  },
+  {
+    "sheet": "dead_1.png",
+    "tag": "dead",
+    "frames": [
+      1,
+      2
+    ],
+    "cells": 2,
+    "sha256": "eb20fb1468ad48c5bd61317f64abcd7680a778f73e16950677f7350a4cccb62e",
+    "raw_sources": [
+      "raw/dead_1.png"
+    ]
+  },
+  {
+    "sheet": "dead_2.png",
+    "tag": "dead",
+    "frames": [
+      3,
+      4
+    ],
+    "cells": 2,
+    "sha256": "0904326c3cc093ed8009ada5f4bcc0e9d0bf7b72ebd57a3fda6e5946f8e91895",
+    "raw_sources": [
+      "raw/dead_2-pose-revision.png"
+    ]
+  },
+  {
+    "sheet": "dead_3.png",
+    "tag": "dead",
+    "frames": [
+      6
+    ],
+    "cells": 1,
+    "sha256": "57969a6755eb73875a6c14e62b56a45f5366388d0a075f3877e727fef05e6309",
+    "raw_sources": [
+      "raw/dead_3.png"
+    ]
+  }
+]
