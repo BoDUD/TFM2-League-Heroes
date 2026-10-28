@@ -490,7 +490,7 @@
               "name": "tft_renni_r_slam"
             },
             {
-              "type": "CasterViewEffect",
+              "type": "ViewEffect",
               "name": "tft_renni_r_slam"
             },
             {

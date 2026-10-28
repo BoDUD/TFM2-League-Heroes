@@ -189,7 +189,9 @@ def build(p, is_native=False):
     held = flag("r_hold", p["r_up"]) if is_native else on_me(heal(p["r_flat"], 0))
     lift = delayed(p["r_st"] - 1, sfx("r_lift"), attack(p["r_dmg"], p["r_ad"]),
                    {"type": "Airborne", "duration": p["r_up"]}, buff("r_up", p["r_up"]), view("r_hit"), held)
-    slam = delayed(p["r_slam"] - 1, anim("slam", p["r_slam_t"]), sfx("r_hit"), sfx("r_slam"), cview("r_slam"),
+    # the crack plays on the target (in front of her, where the saw lands): a picture placed ahead of her would stay on
+    # her right when she faces left (the client never mirrors an effect picture)
+    slam = delayed(p["r_slam"] - 1, anim("slam", p["r_slam_t"]), sfx("r_hit"), sfx("r_slam"), view("r_slam"),
                    around(p["r_r"], "EnemyWithoutTower", [attack(p["r_s"], p["r_s_ad"]), view("r_hit")],
                           {"Forward": {"offset": p["atk_range"]}}))
     ult = action("ult", p["r_dur"], p["r_cd"], 1, p["r_range"], "Targeting", "EnemyChampion",
@@ -201,7 +203,7 @@ def build(p, is_native=False):
     B_ = lambda name, anim_=FX, z=2, tag=None: {"type": "Animated", "name": n(name), "anim": anim_, "tag": tag or name,
                                                 "repeat": True, "z": z}
     # the bites, the grind and the lift spark on what they hit; the shot of shimmer and the raised saw's glint play on
-    # her; the slam's crack lies on the ground in front of her (z -1, not following); the saw itself is in her frames
+    # her; the slam's crack lies on the ground under the target she slams (z -1, not following); the saw itself is in her frames
     views_e = [E("a_hit"), E("q_hit"), E("p", FX, 3), E("e", FX, 3), E("r_hit"), E("r_slam", BIG, -1, False)]
     views_b = [B_("q_slow", FX, 3), B_("p_rush", FX, 3), B_("e_guard", FX, 3), B_("r_up", FX, 3)]
     kit = {
