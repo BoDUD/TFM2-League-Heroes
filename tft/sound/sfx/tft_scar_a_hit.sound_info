@@ -1,0 +1,9 @@
+{
+  "plays": [
+    {
+      "delay": 0.0,
+      "clip": "tft_scar_sfx_a_hit",
+      "volume": 0.4
+    }
+  ]
+}

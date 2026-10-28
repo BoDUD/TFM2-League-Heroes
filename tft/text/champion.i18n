@@ -63,6 +63,13 @@
         "skill": "两记刺拳各造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<><#ff9028ff>物理伤害<>，再一记上勾拳造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<>物理伤害并<#ef5350ff>击飞0.5秒<>。",
         "skill2": "冲向敌人一拳打退，造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>物理伤害。",
         "ult": "跳进敌群双拳砸地，周围的敌人受到<#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<>物理伤害并被<#ef5350ff>击飞0.8秒<>；之后<#ffb900ff>5秒<>内攻速+<#ffb900ff>40%<>、吸血+<#ffb900ff>5%<>，队里每有一个<#ff9028ff>家人<>攻速再+<#ffb900ff>10%<>。"
+      },
+      "tft_scar": {
+        "name": "刀疤",
+        "attack": "长矛刺击造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>。<#ff9028ff>野火冲刺<>：每<#ffb900ff>6秒<>下一击踩滑板冲刺，造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>伤害，回复上次冲刺以来所受伤害的<#ffb900ff>25%<>。<#ff9028ff>监察<>：生命不低于<#ffb900ff>50%<>时减伤<#ffb900ff>20%<>，否则<#ffb900ff>10%<>。",
+        "skill": "向最近的<#ffb900ff>3<>名敌人各扔一颗炸弹，造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<><#a974ffff>魔法伤害<>并<#ef5350ff>晕眩1秒<>；自己回复<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>生命。",
+        "skill2": "长矛横扫前方，造成<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>+<i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>2%<>物理伤害并<#ef5350ff>击退<>敌人。",
+        "ult": "踩滑板冲向敌人，途中丢下两颗燃烧弹（各<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>魔法伤害）；落地爆炸，周围敌人受到<#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<>魔法伤害并被<#ef5350ff>击飞0.5秒<>，之后<#ffb900ff>4秒<>内减伤<#ffb900ff>40%<>。"
       }
     },
     "skill_name": {
@@ -110,6 +117,11 @@
         "skill1": "1-2-3连招",
         "skill2": "冲拳",
         "ult": "底城怒拳"
+      },
+      "tft_scar": {
+        "skill1": "水坑狙击惊喜",
+        "skill2": "长矛横扫",
+        "ult": "野火突袭"
       }
     }
   },
@@ -177,6 +189,13 @@
         "skill": "兩記刺拳各造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<><#ff9028ff>物理傷害<>，再一記上勾拳造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<>物理傷害並<#ef5350ff>擊飛0.5秒<>。",
         "skill2": "衝向敵人一拳打退，造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>物理傷害。",
         "ult": "跳進敵群雙拳砸地，周圍的敵人受到<#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<>物理傷害並被<#ef5350ff>擊飛0.8秒<>；之後<#ffb900ff>5秒<>內攻速+<#ffb900ff>40%<>、吸血+<#ffb900ff>5%<>，隊裡每有一個<#ff9028ff>家族<>成員攻速再+<#ffb900ff>10%<>。"
+      },
+      "tft_scar": {
+        "name": "斯卡",
+        "attack": "長矛刺擊造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>。<#ff9028ff>野火衝刺<>：每<#ffb900ff>6秒<>下一擊踩滑板衝刺，造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>傷害，回復上次衝刺以來所受傷害的<#ffb900ff>25%<>。<#ff9028ff>守望者<>：生命不低於<#ffb900ff>50%<>時減傷<#ffb900ff>20%<>，否則<#ffb900ff>10%<>。",
+        "skill": "向最近的<#ffb900ff>3<>名敵人各扔一顆炸彈，造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<><#a974ffff>魔法傷害<>並<#ef5350ff>暈眩1秒<>；自己回復<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>生命。",
+        "skill2": "長矛橫掃前方，造成<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>+<i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>2%<>物理傷害並<#ef5350ff>擊退<>敵人。",
+        "ult": "踩滑板衝向敵人，途中丟下兩顆燃燒彈（各<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>魔法傷害）；落地爆炸，周圍敵人受到<#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<>魔法傷害並被<#ef5350ff>擊飛0.5秒<>，之後<#ffb900ff>4秒<>內減傷<#ffb900ff>40%<>。"
       }
     },
     "skill_name": {
@@ -224,6 +243,11 @@
         "skill1": "連擊組合技",
         "skill2": "衝拳",
         "ult": "底城怒拳"
+      },
+      "tft_scar": {
+        "skill1": "汙水坑驚喜",
+        "skill2": "長矛橫掃",
+        "ult": "野火突襲"
       }
     }
   },
@@ -291,6 +315,13 @@
         "skill": "Two jabs of <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<> <#ff9028ff>physical damage<>, then an uppercut for <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<> physical damage that <#ef5350ff>knocks the target up for 0.5s<>.",
         "skill2": "Rushes an enemy and punches it back for <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> physical damage.",
         "ult": "Leaps into the enemies and smashes the ground: nearby enemies take <#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<> physical damage and are <#ef5350ff>knocked up for 0.8s<>. For <#ffb900ff>5s<> she gains <#ffb900ff>40%<> attack speed and <#ffb900ff>5%<> omnivamp, <#ffb900ff>10%<> more attack speed for each <#ff9028ff>Family<> ally."
+      },
+      "tft_scar": {
+        "name": "Scar",
+        "attack": "Thrusts his spear for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<>. <#ff9028ff>Firelight Dash<>: every <#ffb900ff>6s<> his next hit is a hoverboard dash for <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>, healing <#ffb900ff>25%<> of the damage taken since the last dash. <#ff9028ff>Watcher<>: <#ffb900ff>20%<> damage reduction at <#ffb900ff>50%<> health or more, <#ffb900ff>10%<> below.",
+        "skill": "Throws a bomb at each of the <#ffb900ff>3<> nearest enemies for <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> <#a974ffff>magic damage<>, <#ef5350ff>stunning for 1s<>. Heals himself <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>.",
+        "skill2": "Sweeps his spear in front of him for <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>2%<> physical damage, <#ef5350ff>knocking enemies back<>.",
+        "ult": "Rides his hoverboard at an enemy, dropping two fire bombs (<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<> magic damage each); landing, a blast deals <#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<> magic damage around him and <#ef5350ff>knocks up for 0.5s<>, then he takes <#ffb900ff>40%<> less damage for <#ffb900ff>4s<>."
       }
     },
     "skill_name": {
@@ -338,6 +369,11 @@
         "skill1": "1-2-3 Combo",
         "skill2": "Gauntlet Rush",
         "ult": "Undercity Fist"
+      },
+      "tft_scar": {
+        "skill1": "Sumpsnipe Surprise",
+        "skill2": "Spear Sweep",
+        "ult": "Firelight Raid"
       }
     }
   },
@@ -405,6 +441,13 @@
         "skill": "잽 두 번에 각각 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<> <#ff9028ff>물리 피해<>, 이어서 어퍼컷으로 <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<> 물리 피해와 <#ef5350ff>0.5초 에어본<>.",
         "skill2": "적에게 돌진해 주먹으로 밀쳐내며 <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> 물리 피해.",
         "ult": "적진으로 뛰어들어 두 주먹으로 땅을 내리친다: 주변 적에게 <#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<> 물리 피해와 <#ef5350ff>0.8초 에어본<>. <#ffb900ff>5초<> 동안 공격 속도 +<#ffb900ff>40%<>, 흡혈 +<#ffb900ff>5%<>, 팀의 <#ff9028ff>가족<>마다 공격 속도 +<#ffb900ff>10%<>."
+      },
+      "tft_scar": {
+        "name": "스카",
+        "attack": "창으로 찔러 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> 물리 피해. <#ff9028ff>점화단 돌진<>: <#ffb900ff>6초<>마다 다음 공격이 호버보드 돌진, <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> 피해, 지난 돌진 이후 받은 피해의 <#ffb900ff>25%<> 회복. <#ff9028ff>주시자<>: 체력 <#ffb900ff>50%<> 이상이면 피해 감소 <#ffb900ff>20%<>, 아니면 <#ffb900ff>10%<>.",
+        "skill": "가장 가까운 적 <#ffb900ff>3<>명에게 폭탄을 던져 <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> <#a974ffff>마법 피해<>와 <#ef5350ff>1초 기절<>; 자신은 <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> 회복.",
+        "skill2": "앞쪽을 창으로 휩쓸어 <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>2%<> 물리 피해와 <#ef5350ff>밀쳐내기<>.",
+        "ult": "호버보드로 적에게 돌진하며 화염 폭탄 두 개(각 <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<> 마법 피해); 착지 폭발로 주변 적에게 <#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<> 마법 피해와 <#ef5350ff>0.5초 에어본<>, 이후 <#ffb900ff>4초<> 동안 피해 감소 <#ffb900ff>40%<>."
       }
     },
     "skill_name": {
@@ -452,6 +495,11 @@
         "skill1": "3단 연계기",
         "skill2": "건틀릿 돌진",
         "ult": "지하도시의 주먹"
+      },
+      "tft_scar": {
+        "skill1": "지하동굴 깜짝선물",
+        "skill2": "창 휩쓸기",
+        "ult": "점화단 습격"
       }
     }
   },
@@ -519,6 +567,13 @@
         "skill": "ジャブ2発でそれぞれ<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>の<#ff9028ff>物理ダメージ<>、続くアッパーで<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<>の物理ダメージと<#ef5350ff>0.5秒のノックアップ<>。",
         "skill2": "敵に突進して殴り飛ばし、<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の物理ダメージ。",
         "ult": "敵の中へ跳び込み両拳で地面を殴る：周囲の敵に<#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<>の物理ダメージと<#ef5350ff>0.8秒のノックアップ<>。<#ffb900ff>5秒<>間、攻撃速度+<#ffb900ff>40%<>、吸血+<#ffb900ff>5%<>、味方の<#ff9028ff>ファミリー<>1人ごとに攻撃速度+<#ffb900ff>10%<>。"
+      },
+      "tft_scar": {
+        "name": "スカー",
+        "attack": "槍で突き、<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>。<#ff9028ff>ファイヤーライトダッシュ<>：<#ffb900ff>6秒<>ごとに次の攻撃がホバーボード突進、<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>のダメージ、前回の突進以降に受けたダメージの<#ffb900ff>25%<>回復。<#ff9028ff>ウォッチャー<>：体力<#ffb900ff>50%<>以上で被ダメージ<#ffb900ff>20%<>軽減、未満で<#ffb900ff>10%<>。",
+        "skill": "最も近い敵<#ffb900ff>3<>体に爆弾を投げ、<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>の<#a974ffff>魔法ダメージ<>と<#ef5350ff>1秒スタン<>。自身は<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>回復。",
+        "skill2": "前方を槍で薙ぎ払い、<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>+<i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>2%<>の物理ダメージと<#ef5350ff>ノックバック<>。",
+        "ult": "ホバーボードで敵へ突進し、焼夷弾を2つ落とす（各<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>の魔法ダメージ）。着地の爆発で周囲の敵に<#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<>の魔法ダメージと<#ef5350ff>0.5秒のノックアップ<>、その後<#ffb900ff>4秒<>間被ダメージ<#ffb900ff>40%<>軽減。"
       }
     },
     "skill_name": {
@@ -566,6 +621,11 @@
         "skill1": "1-2-3 コンボ",
         "skill2": "ガントレットラッシュ",
         "ult": "地下街の怒拳"
+      },
+      "tft_scar": {
+        "skill1": "最下層の奇襲",
+        "skill2": "スピアスイープ",
+        "ult": "ファイヤーライト強襲"
       }
     }
   }

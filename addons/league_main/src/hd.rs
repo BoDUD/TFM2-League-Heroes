@@ -303,6 +303,10 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // hair to soles, PPU 2.0 (「B-1 38 PPU 2.0」), and Codex's key poses after her own TFT clips with the design's head,
     // posed by tools/art/rig_violet.py, so no SIZES row
     ("tft_violet", 2.0, include_str!("../../../tft/champions/tft_violet#anim.fanim")),
+    // Scar (tft_scar, the tft pack): the spear guard, the point forward, step 0's B-1 at the user's 38 game px mohawk to
+    // soles, PPU 2.0 (「B-1、38 游戏像素、PPU 2.0」), and Codex's key poses after his own TFT clips with the design's head,
+    // posed by tools/art/rig_scar.py, so no SIZES row
+    ("tft_scar", 2.0, include_str!("../../../tft/champions/tft_scar#anim.fanim")),
     // 2026-10-16 redo from Codex's pictures, the actions posed from the designs (tools/art/rig_<hero>_hd.py; Nami's after
     // League's own clips, tools/lol/league_joints.py), PPU 1.5 at their old heights, so no SIZES rows
     ("league_morgana", 1.5, include_str!("../../../league/champions/league_morgana#anim.fanim")),

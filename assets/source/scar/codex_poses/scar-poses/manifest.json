@@ -1,0 +1,850 @@
+{
+  "poses": [
+    {
+      "file": "scar-pose-a_wind.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "block_px": 12,
+      "bbox": [
+        120,
+        252,
+        1068,
+        1176
+      ],
+      "registration": [
+        120,
+        264
+      ],
+      "grid_size": [
+        79,
+        76
+      ],
+      "head": {
+        "source": "approved 1_head.png",
+        "origin": [
+          34,
+          21
+        ],
+        "match_score": 0.684,
+        "size": [
+          27,
+          29
+        ]
+      },
+      "source": "scar-pose-a_wind-generated.png"
+    },
+    {
+      "file": "scar-pose-a_thrust.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "block_px": 12,
+      "bbox": [
+        12,
+        336,
+        1212,
+        1176
+      ],
+      "registration": [
+        12,
+        360
+      ],
+      "grid_size": [
+        100,
+        68
+      ],
+      "head": {
+        "source": "approved 1_head.png",
+        "origin": [
+          38,
+          28
+        ],
+        "match_score": 0.5,
+        "size": [
+          27,
+          29
+        ]
+      },
+      "source": "scar-pose-a_thrust-generated.png"
+    },
+    {
+      "file": "scar-pose-a_back.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "block_px": 12,
+      "bbox": [
+        60,
+        264,
+        1116,
+        1176
+      ],
+      "registration": [
+        60,
+        276
+      ],
+      "grid_size": [
+        89,
+        75
+      ],
+      "head": {
+        "source": "approved 1_head.png",
+        "origin": [
+          35,
+          22
+        ],
+        "match_score": 0.845,
+        "size": [
+          27,
+          29
+        ]
+      },
+      "source": "scar-pose-a_back-generated.png"
+    },
+    {
+      "file": "scar-pose-surf.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "block_px": 12,
+      "bbox": [
+        96,
+        564,
+        924,
+        1140
+      ],
+      "registration": [
+        96,
+        588
+      ],
+      "grid_size": [
+        69,
+        46
+      ],
+      "head": {
+        "source": "approved 1_head.png",
+        "origin": [
+          35,
+          47
+        ],
+        "match_score": 0.38,
+        "size": [
+          27,
+          29
+        ]
+      },
+      "source": "scar-pose-surf-generated.png"
+    },
+    {
+      "file": "scar-pose-surf_hit.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "block_px": 12,
+      "bbox": [
+        72,
+        552,
+        948,
+        1140
+      ],
+      "registration": [
+        72,
+        588
+      ],
+      "grid_size": [
+        73,
+        46
+      ],
+      "head": {
+        "source": "approved 1_head.png",
+        "origin": [
+          25,
+          46
+        ],
+        "match_score": 0.361,
+        "size": [
+          27,
+          29
+        ]
+      },
+      "source": "scar-pose-surf_hit-generated.png"
+    },
+    {
+      "file": "scar-pose-q_wind.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "block_px": 12,
+      "bbox": [
+        180,
+        252,
+        1128,
+        1176
+      ],
+      "registration": [
+        180,
+        252
+      ],
+      "grid_size": [
+        79,
+        77
+      ],
+      "head": {
+        "source": "approved 1_head.png",
+        "origin": [
+          49,
+          21
+        ],
+        "match_score": 0.682,
+        "size": [
+          27,
+          29
+        ]
+      },
+      "source": "scar-pose-q_wind-generated.png"
+    },
+    {
+      "file": "scar-pose-q_throw.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "block_px": 12,
+      "bbox": [
+        84,
+        300,
+        1068,
+        1176
+      ],
+      "registration": [
+        84,
+        300
+      ],
+      "grid_size": [
+        82,
+        73
+      ],
+      "head": {
+        "source": "approved 1_head.png",
+        "origin": [
+          36,
+          25
+        ],
+        "match_score": 0.536,
+        "size": [
+          27,
+          29
+        ]
+      },
+      "source": "scar-pose-q_throw-generated.png"
+    },
+    {
+      "file": "scar-pose-q_hold.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "block_px": 12,
+      "bbox": [
+        60,
+        300,
+        1032,
+        1176
+      ],
+      "registration": [
+        60,
+        312
+      ],
+      "grid_size": [
+        81,
+        72
+      ],
+      "head": {
+        "source": "approved 1_head.png",
+        "origin": [
+          42,
+          25
+        ],
+        "match_score": 0.47,
+        "size": [
+          27,
+          29
+        ]
+      },
+      "source": "scar-pose-q_hold-generated.png"
+    },
+    {
+      "file": "scar-pose-e_wind.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "block_px": 12,
+      "bbox": [
+        48,
+        264,
+        1164,
+        1176
+      ],
+      "registration": [
+        48,
+        276
+      ],
+      "grid_size": [
+        93,
+        75
+      ],
+      "head": {
+        "source": "approved 1_head.png",
+        "origin": [
+          46,
+          22
+        ],
+        "match_score": 0.568,
+        "size": [
+          27,
+          29
+        ]
+      },
+      "source": "scar-pose-e_wind-generated.png"
+    },
+    {
+      "file": "scar-pose-e_sweep.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "block_px": 12,
+      "bbox": [
+        12,
+        552,
+        1020,
+        1176
+      ],
+      "registration": [
+        12,
+        588
+      ],
+      "grid_size": [
+        84,
+        49
+      ],
+      "head": {
+        "source": "approved 1_head.png",
+        "origin": [
+          28,
+          46
+        ],
+        "match_score": 0.414,
+        "size": [
+          27,
+          29
+        ]
+      },
+      "source": "scar-pose-e_sweep-generated.png"
+    },
+    {
+      "file": "scar-pose-r_jump.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "block_px": 12,
+      "bbox": [
+        228,
+        408,
+        876,
+        1176
+      ],
+      "registration": [
+        228,
+        408
+      ],
+      "grid_size": [
+        54,
+        64
+      ],
+      "head": {
+        "source": "approved 1_head.png",
+        "origin": [
+          41,
+          40
+        ],
+        "match_score": 0.338,
+        "size": [
+          27,
+          29
+        ]
+      },
+      "source": "scar-pose-r_jump-generated.png"
+    },
+    {
+      "file": "scar-pose-r_land.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "block_px": 12,
+      "bbox": [
+        72,
+        576,
+        936,
+        1176
+      ],
+      "registration": [
+        72,
+        576
+      ],
+      "grid_size": [
+        72,
+        50
+      ],
+      "head": {
+        "source": "approved 1_head.png",
+        "origin": [
+          31,
+          49
+        ],
+        "match_score": 0.365,
+        "size": [
+          27,
+          29
+        ]
+      },
+      "source": "scar-pose-r_land-generated.png"
+    },
+    {
+      "file": "scar-pose-run1.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "block_px": 12,
+      "bbox": [
+        336,
+        240,
+        804,
+        1176
+      ],
+      "registration": [
+        336,
+        288
+      ],
+      "grid_size": [
+        39,
+        74
+      ],
+      "head": {
+        "source": "approved 1_head.png",
+        "origin": [
+          39,
+          22
+        ],
+        "match_score": 0.418,
+        "size": [
+          27,
+          29
+        ]
+      },
+      "source": "scar-pose-run1-generated.png",
+      "walk_registration": {
+        "head_anchor": [
+          39,
+          22
+        ],
+        "sole_row": 98,
+        "method": "nearest-neighbour source row registration around fixed head and sole anchors"
+      }
+    },
+    {
+      "file": "scar-pose-run2.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "block_px": 12,
+      "bbox": [
+        348,
+        216,
+        804,
+        1176
+      ],
+      "registration": [
+        288,
+        312
+      ],
+      "grid_size": [
+        38,
+        72
+      ],
+      "head": {
+        "source": "approved 1_head.png",
+        "origin": [
+          39,
+          23
+        ],
+        "match_score": 0.353,
+        "size": [
+          27,
+          29
+        ]
+      },
+      "source": "scar-pose-run2-generated.png",
+      "walk_registration": {
+        "head_anchor": [
+          39,
+          23
+        ],
+        "sole_row": 98,
+        "method": "nearest-neighbour source row registration around fixed head and sole anchors"
+      }
+    },
+    {
+      "file": "scar-pose-run3.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "block_px": 12,
+      "bbox": [
+        336,
+        228,
+        768,
+        1176
+      ],
+      "registration": [
+        372,
+        288
+      ],
+      "grid_size": [
+        31,
+        74
+      ],
+      "head": {
+        "source": "approved 1_head.png",
+        "origin": [
+          39,
+          22
+        ],
+        "match_score": 0.358,
+        "size": [
+          27,
+          29
+        ]
+      },
+      "source": "scar-pose-run3-generated.png",
+      "walk_registration": {
+        "head_anchor": [
+          39,
+          22
+        ],
+        "sole_row": 98,
+        "method": "nearest-neighbour source row registration around fixed head and sole anchors"
+      }
+    },
+    {
+      "file": "scar-pose-run4.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "block_px": 12,
+      "bbox": [
+        324,
+        228,
+        768,
+        1176
+      ],
+      "registration": [
+        348,
+        288
+      ],
+      "grid_size": [
+        36,
+        74
+      ],
+      "head": {
+        "source": "approved 1_head.png",
+        "origin": [
+          39,
+          21
+        ],
+        "match_score": 0.42,
+        "size": [
+          27,
+          29
+        ]
+      },
+      "source": "scar-pose-run4-generated.png",
+      "walk_registration": {
+        "head_anchor": [
+          39,
+          21
+        ],
+        "sole_row": 98,
+        "method": "nearest-neighbour source row registration around fixed head and sole anchors"
+      }
+    },
+    {
+      "file": "scar-pose-run5.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "block_px": 12,
+      "bbox": [
+        336,
+        240,
+        828,
+        1176
+      ],
+      "registration": [
+        324,
+        288
+      ],
+      "grid_size": [
+        41,
+        74
+      ],
+      "head": {
+        "source": "approved 1_head.png",
+        "origin": [
+          39,
+          22
+        ],
+        "match_score": 0.431,
+        "size": [
+          27,
+          29
+        ]
+      },
+      "source": "scar-pose-run5-generated.png",
+      "walk_registration": {
+        "head_anchor": [
+          39,
+          22
+        ],
+        "sole_row": 98,
+        "method": "nearest-neighbour source row registration around fixed head and sole anchors"
+      }
+    },
+    {
+      "file": "scar-pose-run6.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "block_px": 12,
+      "bbox": [
+        336,
+        252,
+        792,
+        1176
+      ],
+      "registration": [
+        348,
+        324
+      ],
+      "grid_size": [
+        38,
+        71
+      ],
+      "head": {
+        "source": "approved 1_head.png",
+        "origin": [
+          39,
+          23
+        ],
+        "match_score": 0.418,
+        "size": [
+          27,
+          29
+        ]
+      },
+      "source": "scar-pose-run6-generated.png",
+      "walk_registration": {
+        "head_anchor": [
+          39,
+          23
+        ],
+        "sole_row": 98,
+        "method": "nearest-neighbour source row registration around fixed head and sole anchors"
+      }
+    },
+    {
+      "file": "scar-pose-run7.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "block_px": 12,
+      "bbox": [
+        324,
+        252,
+        768,
+        1176
+      ],
+      "registration": [
+        336,
+        252
+      ],
+      "grid_size": [
+        34,
+        77
+      ],
+      "head": {
+        "source": "approved 1_head.png",
+        "origin": [
+          39,
+          22
+        ],
+        "match_score": 0.39,
+        "size": [
+          27,
+          29
+        ]
+      },
+      "source": "scar-pose-run7-generated.png",
+      "walk_registration": {
+        "head_anchor": [
+          39,
+          22
+        ],
+        "sole_row": 98,
+        "method": "nearest-neighbour source row registration around fixed head and sole anchors"
+      }
+    },
+    {
+      "file": "scar-pose-run8.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "block_px": 12,
+      "bbox": [
+        360,
+        216,
+        804,
+        1176
+      ],
+      "registration": [
+        312,
+        276
+      ],
+      "grid_size": [
+        38,
+        75
+      ],
+      "head": {
+        "source": "approved 1_head.png",
+        "origin": [
+          39,
+          21
+        ],
+        "match_score": 0.37,
+        "size": [
+          27,
+          29
+        ]
+      },
+      "source": "scar-pose-run8-generated.png",
+      "walk_registration": {
+        "head_anchor": [
+          39,
+          21
+        ],
+        "sole_row": 98,
+        "method": "nearest-neighbour source row registration around fixed head and sole anchors"
+      }
+    },
+    {
+      "file": "scar-pose-d_fall.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "block_px": 12,
+      "bbox": [
+        72,
+        24,
+        1140,
+        1176
+      ],
+      "registration": [
+        72,
+        24
+      ],
+      "grid_size": [
+        89,
+        96
+      ],
+      "head": null,
+      "source": "scar-pose-d_fall-generated.png"
+    },
+    {
+      "file": "scar-pose-d_down.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "block_px": 12,
+      "bbox": [
+        36,
+        840,
+        1236,
+        1176
+      ],
+      "registration": [
+        36,
+        840
+      ],
+      "grid_size": [
+        100,
+        28
+      ],
+      "head": null,
+      "source": "scar-pose-d_down-generated.png"
+    }
+  ],
+  "schema_version": 1,
+  "generation": "native image_gen; generated source art retained unchanged in raw/",
+  "normalization": "source-only palette sampling, hard alpha, grid registration; no code-drawn bodies or VFX shapes",
+  "accepted_raw_sha256": {
+    "scar-pose-a_back-generated.png": "3b33d01e5329e18bda38f89eb24a2bd7f74c7c6d9d10343043bf612d426ce2e2",
+    "scar-pose-a_thrust-generated.png": "a0990f6b551052d617f6da6e47f4903d9317a07f01001e31acd46a626378fe6b",
+    "scar-pose-a_wind-generated.png": "a89dd19dd89ff2ab352c5b296632d6cc9fa53608b8394e94d9bde321b8ac807d",
+    "scar-pose-d_down-generated.png": "daa42446f5f6b7c9460519de9e256291d8c6d5c67cf0308ef6511503fe010cde",
+    "scar-pose-d_fall-generated.png": "f4480d46887066958696761d2f717354c7caa1753bcacf3abc7c31496ea73141",
+    "scar-pose-e_sweep-generated.png": "d06be854a41e9875fe9ecbdde85407dd8d9732145e3dd76849ab827e1aaeff45",
+    "scar-pose-e_wind-generated.png": "030ac27c68281f82da9ce2b8ee41c6a96f035f9194e535dfeeb81f36d6114600",
+    "scar-pose-q_hold-generated.png": "1f61a2b4dbfcb9f95c6d5c7b8a7fad8d074989df87e7769aee4d53f133c4a094",
+    "scar-pose-q_throw-generated.png": "c94d8378ffb26e4df7428130345cc3729c4de625b3210fe42374ab872a11581d",
+    "scar-pose-q_wind-generated.png": "2c96c7469335bade771ac55f1beba97fb5e8845852465e60cbf77a5aec592ae1",
+    "scar-pose-r_jump-generated.png": "7b2e2d30ae314bf9d4c9d79edfdd62e70dc47889865d7626b2f9628afe5f8c2b",
+    "scar-pose-r_land-generated.png": "a3a7e8a8e1671a77e824f28e92bba04e34d2410edce34f59377b6acfce7ee6b2",
+    "scar-pose-run1-generated.png": "5396b937af3e808275e91da0900458f8287553d4c9577d84cffdc5fd07df9ecd",
+    "scar-pose-run2-generated.png": "d64fb7b54add6335fc0c8607e6ab4c505f0b70798cd44409c31f4b5d73c1a12f",
+    "scar-pose-run3-generated.png": "8bf0b956fefd8982c32088fa22093095501889e1e4d78e78dc5b27f7b5574ec3",
+    "scar-pose-run4-generated.png": "5af6d9882663d8b6ea2f3d33874f89e48190c4bf2e74d408f032ae2261cff759",
+    "scar-pose-run5-generated.png": "91e15778b7f345940750905e012e11cda0f8cfd3ec35cd5857eeb705b05175f6",
+    "scar-pose-run6-generated.png": "7a1530dea3c559b6e94a7ebfdf25c73c4b8013c811ca34c6be0f5814074ef387",
+    "scar-pose-run7-generated.png": "da293fc1c9769b084314e758dd9f24a0f1c50af57e510865e064c717a08fd2d9",
+    "scar-pose-run8-generated.png": "ae801340fd4f6ae2a845d08bbf163d9455492d055422ac8886c41ed4cba399c8",
+    "scar-pose-surf-generated.png": "f1992f3721f0b2189a3754907d8fa75c5c835acd10fc20cbce794c78f0d234eb",
+    "scar-pose-surf_hit-generated.png": "bf3aaffa6d28f3ba4cf079a5e8ace3216c061ac1d05913490419c4f4f0feddd9"
+  },
+  "count": 22,
+  "canvas": [
+    1254,
+    1254
+  ],
+  "block_px": 12,
+  "head_reference": "approved-head-1x.png"
+}

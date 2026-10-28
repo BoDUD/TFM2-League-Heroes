@@ -24,8 +24,9 @@ reduction, 30-50% above half health). The rest is our own design (the user's pic
           (e_kb_speed x e_kb_t).
   ult     Firelight Raid (野火突袭), `Targeting` on `EnemyChampion` (r_range): he jumps on his hoverboard and rides at
           the target (`MoveToTarget` r_speed, his `ride` frames, unstoppable), dropping fire bombs at r_b1 and r_b2
-          (r_bomb + r_bomb_ap% AP to every enemy within r_bomb_r of him); on arrival a last blast, r_dmg + r_ap% AP to
-          every enemy within r_r, thrown up r_up ticks, and he guards r_t ticks with r_dr% damage reduction.
+          (r_bomb + r_bomb_ap% AP to every enemy within r_bomb_r of him); on arrival (his `land` frames) a last blast,
+          r_dmg + r_ap% AP to every enemy within r_r, thrown up r_up ticks, and he guards r_t ticks with r_dr% damage
+          reduction.
 
 tft.dll (addons/tft/src/scar.rs): the dash's heal by damage taken and Watcher by health (passive tft_scar:firelight),
 the bombs at the nearest enemies (tft_scar:bombs, each tft_scar:bomb). A build of P checks scar.rs's
@@ -44,7 +45,10 @@ FX = f"asset/{MOD_ID}/effects/{ID}_fx"
 BIG = f"asset/{MOD_ID}/effects/{ID}_big"
 
 # Units: melee range 25000 like the pack's top fighters; radii count the unit's collision radius (~15000) on top.
-# Timings are placeholders until the strips exist (tools/art/rig_scar.py). Stats start from the pack's top tanks
+# Timings follow the strips (tools/art/rig_scar.py MS): the thrust lands at 233 ms (atk_st 14, in a_thrust from
+# 133 ms), the bombs fly at 300 ms (q_rel 18, in q_throw from 250 ms), the sweep at 200 ms (e_st 12, in e_sweep from
+# 150 ms); the dash plays `surf` (p_surf_t, 400 ms), the raid `ride` for the cast (r_dur, 833 ms: the hop and the board)
+# and `land` on arrival (r_land_t, 300 ms). Stats start from the pack's top tanks
 # (tft_kobuko hp 1110 +110, def 36, mr 28; league_ornn, league_malphite) with ability power for the bombs and the raid.
 # Numbers = the 10-min classic-SDK simulations (C:/t/sc_sim, Alune's copy of the balance sim: top lane against the base
 # fighter, executioner, knight, berserker, lancer and pole warrior, three lineups, both sides; 2026-10-28), all --plain
@@ -68,7 +72,7 @@ P = {
     "e_hp": 2, "e_kb_speed": 1500, "e_kb_t": 6,
     # Firelight Raid
     "r_cd": 3000, "r_range": 50000, "r_dur": 50, "r_speed": 3200, "r_b1": 8, "r_b2": 16, "r_bomb_r": 22000,
-    "r_bomb": 40, "r_bomb_ap": 40, "r_r": 32000, "r_dmg": 120, "r_ap": 100, "r_up": 30, "r_dr": 40, "r_t": 240,
+    "r_bomb": 40, "r_bomb_ap": 40, "r_r": 32000, "r_dmg": 120, "r_ap": 100, "r_up": 30, "r_dr": 40, "r_t": 240, "r_land_t": 18,
 }
 # what tft.dll reads from passive.params (addons/tft/src/scar.rs), and the names only it puts on (no view: Watcher's
 # reduction has no picture)
@@ -215,7 +219,7 @@ def build(p, is_native=False):
     fire = lambda: delayed(0, sfx("r_bomb"), cview("r_bomb"),
                            around(p["r_bomb_r"], "EnemyWithoutTower", [ap_attack(p["r_bomb"], p["r_bomb_ap"]),
                                                                        view("r_hit")]))
-    land = [sfx("r_mines"), sfx("r_guard"), cview("r_land"),
+    land = [anim("land", p["r_land_t"]), sfx("r_mines"), sfx("r_guard"), cview("r_land"),
             around(p["r_r"], "EnemyWithoutTower", [ap_attack(p["r_dmg"], p["r_ap"]),
                                                    {"type": "Airborne", "duration": p["r_up"]}, view("r_hit")]),
             flag("r_guard", p["r_t"], damaged_reduce=p["r_dr"])]
