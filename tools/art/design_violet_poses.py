@@ -50,6 +50,10 @@ SCALES = [1.0]
 # TFT run, on 10-11 px squares (regrid) with a soft alpha, drawn ~81 rows tall at 12 px against her model running's
 # ~72 (pack_violet_run's feet.json): one factor for all eight, so the cycle keeps one size and the pasted head fits
 RUN_SRC = os.path.join(ROOT, "assets", "source", "violet", "codex_run", "violet-run")
+# then (the user: 「怎么走路看起来没有明显的交叉步」 - every frame a wide split, no passing) run1 and run5-8 drawn again
+# with the legs passing (pack_violet_run_cross.py, RUN_CROSS_PROMPTS.md); run2-4 kept
+CROSS_SRC = os.path.join(ROOT, "assets", "source", "violet", "codex_run_cross", "violet-run-cross")
+CROSS = {"run1", "run5", "run6", "run7", "run8"}
 RUN_NAMES = [f"run{k}" for k in range(1, 9)]
 RUN_SCALE = 0.89
 # a pose drawn bigger than the rest: its own factor on top of square / 12 (2026-10-28: the poses' heights against
@@ -80,7 +84,7 @@ def palette(d):
 def pose(name, d):
     """The pose one pixel a square of Codex's own grid, every colour the nearest of the design's, cropped -> (figure,
     its top-left on the design's 12 px grid, Codex's square in px)."""
-    path = os.path.join(RUN_SRC, f"violet-run-{name}.png") if name in RUN_NAMES else \
+    path = os.path.join(CROSS_SRC if name in CROSS else RUN_SRC, f"violet-run-{name}.png") if name in RUN_NAMES else \
         os.path.join(SRC, f"violet-pose-{name}.png")
     a = np.asarray(Image.open(lp(path)).convert("RGBA")).copy()
     a[..., 3] = np.where(a[..., 3] >= 128, 255, 0)
