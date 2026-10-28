@@ -11,7 +11,8 @@ The pictures (tools/art/design_violet_model.py, design_violet_poses.py):
                       2.0 (38 game px, the hair to the soles): the idle and the hit;
   hd/pose_<name>.png  Codex's key poses with the design's head put in (assets/source/violet/POSE_PROMPTS.md): a_wind
                       a_punch a_back q_jab1 q_jab2 q_coil q_upper q_land e_dash e_punch r_air r_land r_slam d_fall d_down,
-                      and run1-4, her TFT jog.
+                      and run1-8, her TFT jog
+                      redrawn (assets/source/violet/RUN_PROMPTS.md).
 Placing a pose: Codex drew every pose on the pack's 1254 canvas about where its reference put it (the references were
 placed by tools/art/pack_violet_poses.py: the design pose's pelvis on one column, the soles on y 1176, the design itself
 at square (18, 22) of the 12 px grid), so each pose goes across where Codex drew it (its grid_at, design_violet_poses.py's
@@ -44,13 +45,11 @@ POSES = ("a_wind", "a_punch", "a_back", "q_jab1", "q_jab2", "q_coil", "q_upper",
          "r_air", "r_land", "r_slam", "d_fall", "d_down")
 LIFT = {"q_upper": 6, "r_air": 14}      # rows off the ground: the uppercut's hop, the leap
 DX = {}                                 # a pose moved across (rows) where Codex's place broke the sequence
-RUN = [f"run{k}" for k in range(1, 5)]
-# played run1, run4, run2, run3: by the navy patch on her near thigh the FAR leg leads in run1 and run4, the near leg
-# in run2 and run3, and the leading boot on the ground (design columns 46, 39 | 43, 42) then only goes back while it
-# stands; in Codex's order the far leg's boot came forward 39 -> 46 across the loop (a slide)
-RUN_ORDER = ["run1", "run4", "run2", "run3"]
+RUN = [f"run{k}" for k in range(1, 9)]
+# the run redrawn by Codex (design_violet_poses.RUN_SRC): her TFT run at eight even times, played in order; the near
+# (navy) leg leads in run1-5, the far one in run6-8
 RUN_DX = {}
-RUN_MS = 233                            # her TFT run: 933 ms the cycle
+RUN_MS = 117                            # her TFT run: 933 ms the cycle, 8 frames
 
 
 def lp(path):
@@ -136,7 +135,7 @@ def actions(C):
     f = C.frame
     out = {}
     out["idle"] = [f("idle")]
-    out["run"] = [f(n) for n in RUN_ORDER]
+    out["run"] = [f(n) for n in RUN]
     # attack (her TFT attack: wound up, the lunging straight punch, back toward the stance)
     out["attack"] = [f("a_wind"), f("a_punch"), f("a_back")]
     # 1-2-3 Combo (TFT's spell: a jab, the other jab, the coil, the jumping uppercut, landing)

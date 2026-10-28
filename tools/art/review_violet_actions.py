@@ -7,7 +7,7 @@
 For each tag: her TFT frames named in CLIPS - the very frames the poses were drawn after (pack_violet_poses.POSES, her
 model from the Riot client's TFTSet13.wad.client, her own map, mirrored to face right; the renders stay in DIR, never
 committed), one beside each of ours, next to the rig's frame at z screen px a design square, both at the tag's own
-frame times; the run beside her TFT run clip at the times its four frames were drawn after, in the rig's order. Writes
+frame times; the run beside her TFT run clip at the eight times its frames were drawn after (pack_violet_run.RUN). Writes
 <out>/violet_<tag>_vs_tft.gif and .png, and <out>/violet_all_vs_tft.gif: every tag in turn (each action played twice,
 the idle once), one picture to review (memory one-gif-review).
 --sheet: the exported sheet's hd_ frames (tft/champions/tft_violet#sheet.png, what the game draws: after ppu_restyle's
@@ -27,12 +27,13 @@ sys.path.insert(0, os.path.join(os.path.dirname(HERE), "lol"))
 import ppu_rig as R  # noqa: E402
 import pose_ref  # noqa: E402
 import rig_violet as A  # noqa: E402
-import pack_violet_poses as PK  # noqa: E402
+import pack_violet_poses as PK
+import pack_violet_run as RUN  # noqa: E402
 from pack_violet_picture import Model  # noqa: E402
 
 P = {k: (v[0], v[1]) for k, v in PK.POSES.items()}
 IDLE = (PK.DESIGN, PK.YAW)
-CLIPS = {"idle": [IDLE], "run": [P[n] for n in A.RUN_ORDER],
+CLIPS = {"idle": [IDLE], "run": [(clip, PK.YAW) for _, clip in RUN.RUN],
          "attack": [P["a_wind"], P["a_punch"], P["a_back"]],
          "skill": [P["q_jab1"], P["q_jab2"], P["q_coil"], P["q_upper"], P["q_land"]], "skill2": [P["e_dash"]],
          "punch": [P["e_punch"]], "ult": [P["q_land"], P["r_air"]], "slam": [P["r_land"], P["r_slam"]],

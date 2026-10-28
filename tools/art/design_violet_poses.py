@@ -46,14 +46,17 @@ SQ = 12                          # the design's square on the pose pack's canvas
 POLY = [(30.0, 0.0), (38.0, 0.0), (44.0, 3.0), (46.0, 6.0), (46.0, 16.0), (45.0, 20.0), (44.0, 26.0), (35.0, 26.0),
         (30.0, 25.0), (22.0, 25.0), (21.0, 20.0), (19.0, 16.0), (18.5, 10.0), (20.0, 6.0), (23.0, 2.5), (27.0, 0.5)]
 SCALES = [1.0]
-# the run's four frames to one height (Codex drew run1 / run3 on bigger squares: 80 / 75 rows against run2's 73 at the
-# same factor, a head bob of 7 rows): upright, a little taller than the crouched design's 76
-STAND = {f"run{k}": 77 for k in range(1, 5)}
+# the run redrawn (RUN_PROMPTS.md, after the review's 「走路腿没有前后交换啊」 and 「你让codex重画吧」): 8 frames of her
+# TFT run, on 10-11 px squares (regrid) with a soft alpha, drawn ~81 rows tall at 12 px against her model running's
+# ~72 (pack_violet_run's feet.json): one factor for all eight, so the cycle keeps one size and the pasted head fits
+RUN_SRC = os.path.join(ROOT, "assets", "source", "violet", "codex_run", "violet-run")
+RUN_NAMES = [f"run{k}" for k in range(1, 9)]
+RUN_SCALE = 0.89
 # a pose drawn bigger than the rest: its own factor on top of square / 12 (2026-10-28: the poses' heights against
 # their references' ran 1.2-1.3 for most, 1.37-1.48 for these; the run, as Vander's (「怎么体型现在这么大啊 跑步的时候」),
 # drew ~15% over its references: 0.88 for all four frames, so the cycle keeps one size)
-SCALE = {"a_wind": 0.87, "q_coil": 0.89, "e_punch": 0.90, "q_land": 0.94, "r_slam": 0.95, "d_down": 0.90,
-}
+SCALE = {"a_wind": 0.87, "q_coil": 0.89, "e_punch": 0.90, "q_land": 0.94, "r_slam": 0.95, "d_down": 0.90}
+SCALE.update({n: RUN_SCALE for n in RUN_NAMES})
 DEFAULT = 1.0
 # d_down: Codex's own head lying there read muddy at 8x and the upright paste stood up off the lying body; the design's
 # head turned to lie face up (the top of the head to the image right), centred where Codex's lay
@@ -62,20 +65,7 @@ HEAD_CENTRE = {"d_down": (88, 18)}
 # d_fall: Codex's own head, thrown back with the body, reads (two eyes, the mouth); the upright paste did not
 NO_PASTE = {"d_fall"}
 SPECK = 6                                        # parts apart from the figure smaller than this are dropped
-# The run's legs (the user, 2026-10-28: 「走路腿没有前后交换啊 codex做错你也做错」): Codex drew every frame's leading leg as
-# the near one (in full tone, over the other), so they never seemed to swap. In the design the near leg has the navy
-# thigh patch and light wraps, the far leg the dark trousers and dark wraps. Each frame's legs are told apart below the
-# crotch (SPLIT: from that row down, columns left of x are the trailing leg; the latest row that applies wins), and the
-# FAR one is darkened (light trousers and the navy -> the dark trouser shade, light wraps -> dark); NEAR_THIGH gives the
-# near trailing thigh its navy where Codex left it purple. run2 / run3 lead with the near leg, run1 / run4 with the far
-# one, and rig_violet plays them run1 run4 run2 run3.
-SPLIT = {"run2": [(41, 16), (46, 29)], "run3": [(51, 33)], "run1": [(42, 22), (51, 26)], "run4": [(40, 12), (48, 22)]}
-FAR = {"run2": "back", "run3": "back", "run1": "front", "run4": "front"}
-NEAR_THIGH = {"run4": (10, 48, 22, 57)}                  # x0, y0, x1, y1 (exclusive)
-TROUSER, TROUSER_DK, NAVY = (0x62, 0x39, 0x47), (0x3d, 0x20, 0x2e), (0x1e, 0x1c, 0x39)
-WRAP, WRAP_DK = (0x98, 0x9b, 0x4d), (0x69, 0x6b, 0x37)
-DARKEN = {TROUSER: TROUSER_DK, NAVY: TROUSER_DK, WRAP: WRAP_DK}
-NAMES = list(PK.POSES)
+NAMES = [n for n in PK.POSES if not n.startswith("run")] + RUN_NAMES
 
 
 def design(name="idle.png"):
@@ -90,7 +80,9 @@ def palette(d):
 def pose(name, d):
     """The pose one pixel a square of Codex's own grid, every colour the nearest of the design's, cropped -> (figure,
     its top-left on the design's 12 px grid, Codex's square in px)."""
-    a = np.asarray(Image.open(lp(os.path.join(SRC, f"violet-pose-{name}.png"))).convert("RGBA")).copy()
+    path = os.path.join(RUN_SRC, f"violet-run-{name}.png") if name in RUN_NAMES else \
+        os.path.join(SRC, f"violet-pose-{name}.png")
+    a = np.asarray(Image.open(lp(path)).convert("RGBA")).copy()
     a[..., 3] = np.where(a[..., 3] >= 128, 255, 0)
     g, sq, (cb, rb) = RG.regrid(a)
     op = g[..., 3] >= 128
@@ -162,11 +154,7 @@ def read(name, scale=None):
     d = design()
     hm = head_mask(d)
     if scale is None:
-        if name in STAND:
-            raw, _, sq = pose(name, d)
-            scale = STAND[name] / (raw.shape[0] * sq / SQ)
-        else:
-            scale = SCALE.get(name, DEFAULT)
+        scale = SCALE.get(name, DEFAULT)
     fig, k, dx, dy, share, (gx, gy) = fit(name, d, hm, scale)
     pad = 6
     big = np.pad(fig, ((pad, pad), (pad, pad), (0, 0)))
@@ -208,33 +196,9 @@ def read(name, scale=None):
             big[lb == j] = 0
     ys2, xs2 = np.nonzero(big[..., 3] > 0)
     oy, ox = ys2.min(), xs2.min()
-    if name in SPLIT:
-        legs(name, big, oy, ox)
     at = (int(xs.min() + dx + pad - ox), int(ys.min() + dy + pad - oy))
     grid = (round(float(gx + ox - pad), 1), round(float(gy + oy - pad), 1))
     return big[oy:ys2.max() + 1, ox:xs2.max() + 1], at, k, share, grid
-
-
-def legs(name, big, oy, ox):
-    """The far leg darkened, the near trailing thigh made navy (SPLIT / FAR / NEAR_THIGH, in the cropped figure's
-    squares: (oy, ox) is the crop's corner in `big`)."""
-    rules = sorted(SPLIT[name])
-    rgb = big[..., :3]
-    for y in range(rules[0][0], big.shape[0] - oy):
-        split = [x for r, x in rules if y >= r][-1]
-        for x in range(big.shape[1] - ox):
-            Y, X = y + oy, x + ox
-            if not big[Y, X, 3]:
-                continue
-            side = "back" if x < split else "front"
-            c = tuple(int(v) for v in rgb[Y, X])
-            if side == FAR[name] and c in DARKEN:
-                rgb[Y, X] = DARKEN[c]
-    if name in NEAR_THIGH:
-        x0, y0, x1, y1 = NEAR_THIGH[name]
-        win = rgb[oy + y0:oy + y1, ox + x0:ox + x1]
-        m = np.all(win == TROUSER, axis=-1) | np.all(win == TROUSER_DK, axis=-1)
-        win[m] = NAVY
 
 
 def big4(a, z):
