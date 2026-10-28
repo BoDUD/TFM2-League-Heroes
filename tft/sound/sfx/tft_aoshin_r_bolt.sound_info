@@ -1,0 +1,14 @@
+{
+  "plays": [
+    {
+      "delay": 0.0,
+      "clip": "tft_aoshin_sfx_r_bolt",
+      "volume": 0.4
+    },
+    {
+      "delay": 0.05,
+      "clip": "tft_aoshin_sfx_r_hit",
+      "volume": 0.3
+    }
+  ]
+}

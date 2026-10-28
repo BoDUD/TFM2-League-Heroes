@@ -238,6 +238,7 @@ pub const CLASSES_OF: &[(&str, &str)] = &[
     ("swordman", "melee"),
     ("taoist", "util"),
     ("tft_alune", "mage"),
+    ("tft_aoshin", "mage"),
     ("tft_kobuko", "melee"),
     ("tft_krug", "melee"),
     ("tft_loris", "util"),

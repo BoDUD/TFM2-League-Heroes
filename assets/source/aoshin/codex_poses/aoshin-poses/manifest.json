@@ -1,0 +1,377 @@
+[
+  {
+    "file": "aoshin-pose-a_coil.png",
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "size": [
+      1254,
+      1254
+    ],
+    "pixel_grid": 12,
+    "grid_origin": [
+      0,
+      0
+    ],
+    "bottom_exclusive": 1176,
+    "bbox": [
+      108,
+      360,
+      1152,
+      1176
+    ],
+    "source_ref": "2_a_coil_ref.png",
+    "art_status": "generated pose; exact head-pixel identity and rig registration require importer review"
+  },
+  {
+    "file": "aoshin-pose-a_lunge.png",
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "size": [
+      1254,
+      1254
+    ],
+    "pixel_grid": 12,
+    "grid_origin": [
+      0,
+      0
+    ],
+    "bottom_exclusive": 1176,
+    "bbox": [
+      36,
+      528,
+      1224,
+      1176
+    ],
+    "source_ref": "3_a_lunge_ref.png",
+    "art_status": "generated pose; exact head-pixel identity and rig registration require importer review"
+  },
+  {
+    "file": "aoshin-pose-a_back.png",
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "size": [
+      1254,
+      1254
+    ],
+    "pixel_grid": 12,
+    "grid_origin": [
+      0,
+      0
+    ],
+    "bottom_exclusive": 1176,
+    "bbox": [
+      36,
+      372,
+      1224,
+      1176
+    ],
+    "source_ref": "4_a_back_ref.png",
+    "art_status": "generated pose; exact head-pixel identity and rig registration require importer review"
+  },
+  {
+    "file": "aoshin-pose-q_rear.png",
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "size": [
+      1254,
+      1254
+    ],
+    "pixel_grid": 12,
+    "grid_origin": [
+      0,
+      0
+    ],
+    "bottom_exclusive": 1176,
+    "bbox": [
+      96,
+      132,
+      1152,
+      1176
+    ],
+    "source_ref": "5_q_rear_ref.png",
+    "art_status": "generated pose; exact head-pixel identity and rig registration require importer review"
+  },
+  {
+    "file": "aoshin-pose-q_breath.png",
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "size": [
+      1254,
+      1254
+    ],
+    "pixel_grid": 12,
+    "grid_origin": [
+      0,
+      0
+    ],
+    "bottom_exclusive": 1176,
+    "bbox": [
+      48,
+      504,
+      1212,
+      1176
+    ],
+    "source_ref": "6_q_breath_ref.png",
+    "art_status": "generated pose; exact head-pixel identity and rig registration require importer review"
+  },
+  {
+    "file": "aoshin-pose-e_rise.png",
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "size": [
+      1254,
+      1254
+    ],
+    "pixel_grid": 12,
+    "grid_origin": [
+      0,
+      0
+    ],
+    "bottom_exclusive": 1176,
+    "bbox": [
+      204,
+      408,
+      1056,
+      1176
+    ],
+    "source_ref": "7_e_rise_ref.png",
+    "art_status": "generated pose; exact head-pixel identity and rig registration require importer review"
+  },
+  {
+    "file": "aoshin-pose-r_call.png",
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "size": [
+      1254,
+      1254
+    ],
+    "pixel_grid": 12,
+    "grid_origin": [
+      0,
+      0
+    ],
+    "bottom_exclusive": 1176,
+    "bbox": [
+      204,
+      24,
+      1044,
+      1176
+    ],
+    "source_ref": "8_r_call_ref.png",
+    "art_status": "generated pose; exact head-pixel identity and rig registration require importer review"
+  },
+  {
+    "file": "aoshin-pose-r_storm.png",
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "size": [
+      1254,
+      1254
+    ],
+    "pixel_grid": 12,
+    "grid_origin": [
+      0,
+      0
+    ],
+    "bottom_exclusive": 1176,
+    "bbox": [
+      84,
+      72,
+      1176,
+      1176
+    ],
+    "source_ref": "9_r_storm_ref.png",
+    "art_status": "generated pose; exact head-pixel identity and rig registration require importer review"
+  },
+  {
+    "file": "aoshin-pose-run1.png",
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "size": [
+      1254,
+      1254
+    ],
+    "pixel_grid": 12,
+    "grid_origin": [
+      0,
+      0
+    ],
+    "bottom_exclusive": 1176,
+    "bbox": [
+      108,
+      420,
+      1140,
+      1176
+    ],
+    "source_ref": "10_run1_ref.png",
+    "art_status": "generated pose; exact head-pixel identity and rig registration require importer review"
+  },
+  {
+    "file": "aoshin-pose-run2.png",
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "size": [
+      1254,
+      1254
+    ],
+    "pixel_grid": 12,
+    "grid_origin": [
+      0,
+      0
+    ],
+    "bottom_exclusive": 1176,
+    "bbox": [
+      96,
+      492,
+      1152,
+      1176
+    ],
+    "source_ref": "11_run2_ref.png",
+    "art_status": "generated pose; exact head-pixel identity and rig registration require importer review"
+  },
+  {
+    "file": "aoshin-pose-run3.png",
+    "raw_size": [
+      1388,
+      1133
+    ],
+    "size": [
+      1254,
+      1254
+    ],
+    "pixel_grid": 12,
+    "grid_origin": [
+      0,
+      0
+    ],
+    "bottom_exclusive": 1176,
+    "bbox": [
+      60,
+      588,
+      1200,
+      1176
+    ],
+    "source_ref": "12_run3_ref.png",
+    "art_status": "generated pose; exact head-pixel identity and rig registration require importer review"
+  },
+  {
+    "file": "aoshin-pose-run4.png",
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "size": [
+      1254,
+      1254
+    ],
+    "pixel_grid": 12,
+    "grid_origin": [
+      0,
+      0
+    ],
+    "bottom_exclusive": 1176,
+    "bbox": [
+      180,
+      612,
+      1068,
+      1176
+    ],
+    "source_ref": "13_run4_ref.png",
+    "art_status": "generated pose; exact head-pixel identity and rig registration require importer review"
+  },
+  {
+    "file": "aoshin-pose-d_hit.png",
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "size": [
+      1254,
+      1254
+    ],
+    "pixel_grid": 12,
+    "grid_origin": [
+      0,
+      0
+    ],
+    "bottom_exclusive": 1176,
+    "bbox": [
+      156,
+      24,
+      1104,
+      1176
+    ],
+    "source_ref": "14_d_hit_ref.png",
+    "art_status": "generated pose; exact head-pixel identity and rig registration require importer review"
+  },
+  {
+    "file": "aoshin-pose-d_back.png",
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "size": [
+      1254,
+      1254
+    ],
+    "pixel_grid": 12,
+    "grid_origin": [
+      0,
+      0
+    ],
+    "bottom_exclusive": 1176,
+    "bbox": [
+      24,
+      204,
+      1224,
+      1176
+    ],
+    "source_ref": "15_d_back_ref.png",
+    "art_status": "generated pose; exact head-pixel identity and rig registration require importer review"
+  },
+  {
+    "file": "aoshin-pose-d_away.png",
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "size": [
+      1254,
+      1254
+    ],
+    "pixel_grid": 12,
+    "grid_origin": [
+      0,
+      0
+    ],
+    "bottom_exclusive": 1176,
+    "bbox": [
+      300,
+      144,
+      948,
+      1176
+    ],
+    "source_ref": "16_d_away_ref.png",
+    "art_status": "generated pose; exact head-pixel identity and rig registration require importer review"
+  }
+]
