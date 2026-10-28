@@ -10,6 +10,12 @@
 //! - 大招的禁军墙出墙那一刻调本包的 `league_azir:r_wall`（拿到大招的目标）：数据看不到墙往哪边冲，主包的禁军永远朝右；
 //!   本包按阿兹尔到目标的方向算出墙的路线，在数据那道墙每一跳停下的地方、停下的那个 tick（`r_len` 分 `r_stamps` 跳，速度
 //!   `r_speed`）盖上朝冲锋方向的禁军（朝右 `r_guards_a/b`，朝左 `r_guards_la/lb`，两步轮流）和脚下的沙尘。伤害和击退还是数据那道墙的。
+//! - v1.4（用户 2026-10-28：「沙皇推开别人后 别人马上就回到那位置」「反推也推不回去」「退完后沙兵秒消失和lol不一样 不卡住位置」）：
+//!   **墙立住**：数据那道墙冲到头就没了，被推开的人 0.3 秒就走回来。本包让墙在最后一跳停下的地方再立 `r_hold` tick（英雄联盟
+//!   3 秒），横向 `r_half` 宽，禁军一直站着；敌方英雄走不过去（走进墙里就放回他那一边的墙面外，`entity_set_pos`），正在被推、
+//!   在冲刺的不挡。**反推绕对方向**：数据的 RushMoveToBack 是冲到目标「背对他自己」的那边，E 冲过了头或从侧面冲上去时墙就推歪、
+//!   推反（日志：21 次反推 7 次推向敌方）；副本改调本包的 `league_azir:r_behind`：冲到目标背对他的队伍（`HOME_R` 内的我方英雄，
+//!   没有就最近的我方塔）`r_behind` 远的地方，墙从那里把人推回他的队伍。
 //! - **沙兵从侧面画，朝敌人，出手时刺**：数据分不出左右，主包的沙兵正面朝镜头、刺的时候不动。副本里每个槽位的沙兵升起、
 //!   每个检查点、每次刺都调本包的 `rise_<槽>` / `sold_<槽>` / `stab_<槽>`（拿到沙兵站的地方、被刺的单位）；本包自己画：
 //!   升起放侧面的 `ss_rise`，之后每 `ss_stand` tick 盖一次站着的 `ss_stand`，朝它 `FACE_R` 内最近的敌人（先英雄）；
@@ -125,12 +131,19 @@ pub struct Params {
     pub ss_stand: usize,
     pub ss_rise: usize,
     pub ss_stab: usize,
+    /// 反推：冲刺速度、冲到目标身后多远。
+    pub r_rush: usize,
+    pub r_behind: usize,
+    /// 墙立住多少 tick、横向半宽。
+    pub r_hold: usize,
+    pub r_half: usize,
 }
 
 impl Default for Params {
     fn default() -> Self {
         Self { d_life: 2700, d_per: 60, d_range: 45000, d_dmg: 50, d_ap: 35, d_near: 60000, r_speed: 3000, r_len: 60000,
-               r_stamps: 5, s_step: 40, ss_stand: 4, ss_rise: 20, ss_stab: 16 }
+               r_stamps: 5, s_step: 40, ss_stand: 4, ss_rise: 20, ss_stab: 16, r_rush: 8000, r_behind: 15000,
+               r_hold: 180, r_half: 30000 }
     }
 }
 
@@ -156,6 +169,10 @@ pub fn parse_params(json: &str) -> Params {
             "ss_stand" => p.ss_stand = v.max(1),
             "ss_rise" => p.ss_rise = v.max(1),
             "ss_stab" => p.ss_stab = v.max(1),
+            "r_rush" => p.r_rush = v.max(1),
+            "r_behind" => p.r_behind = v,
+            "r_hold" => p.r_hold = v,
+            "r_half" => p.r_half = v,
             _ => {}
         }
     }
@@ -319,6 +336,7 @@ impl StablePassive for Disc {
         let here = at_of(&e);
         let alive = e.is_alive();
         let ap = e.stat().magic_power;
+        walls_tick(sim, me, team, tick, &self.p);
         if self.towers.is_empty() && tick < 600 {
             self.snapshot(sim, team);
         }
@@ -389,6 +407,9 @@ impl StableEffectType for Wall {
         let p = params_of(me);
         let right = faces_right(from, to, team);
         let stops = wall_stops(&p, from, to);
+        let up = standing(&p, from, to, sim.tick(), right);
+        let key = wall_key(sim, me);
+        WALLS.lock().unwrap_or_else(|e| e.into_inner()).entry(key).or_default().push(up);
         for (i, (at, delay)) in stops.iter().enumerate() {
             let name = format!("{ID}:stamp_{}{}", if right { "r" } else { "l" }, if (i + 1) % 2 == 1 { "b" } else { "a" });
             if !sim.queue_effect(&name, AttackTypeV1::Skill, me, &pos_input(*at), *delay) {
@@ -398,6 +419,181 @@ impl StableEffectType for Wall {
         if let Some(k) = counted("wall") {
             wlog(format!("{} WALL #{k} from {} toward {}: facing {}, {} stops", head(sim, me), pt(from), pt(to),
                          if right { "right" } else { "left" }, stops.len()));
+        }
+    }
+}
+
+// ===================== 大招：禁军墙立住、挡人；反推绕到身后 =====================
+
+/// 墙的厚度的一半：敌方英雄离墙这么近（沿冲锋方向）就算走进墙里，放回他原来那一边的墙面外。
+pub const WALL_THICK: f64 = 6_000.0;
+/// 立着的墙隔多少 tick 重新盖一次禁军（一跳的画面长度：r_len / r_stamps / r_speed）。
+pub const STAND_STEP: usize = 4;
+/// 立着的墙除了中间那一组禁军，两边各再盖一组，离中间这么远（横向）。
+pub const STAND_SPREAD: f64 = 18_000.0;
+/// 反推找「他的队伍」：这么近的我方英雄（不算他自己），没有就最近的我方防御塔。
+pub const HOME_R: f64 = 90_000.0;
+
+pub type Pt = (f64, f64);
+
+fn unit(v: Pt) -> Option<Pt> {
+    let d = (v.0 * v.0 + v.1 * v.1).sqrt();
+    (d > 1.0).then(|| (v.0 / d, v.1 / d))
+}
+
+/// 一道立住的墙：中点、冲锋方向（单位向量）、从哪个 tick 立到哪个 tick、禁军朝哪边、每个敌方英雄在墙的哪一边（+1 冲锋
+/// 方向那边、-1 阿兹尔这边）、下一次盖禁军的 tick、挡回来几次。
+#[derive(Clone, Debug)]
+pub struct Standing {
+    pub mid: Pt,
+    pub dir: Pt,
+    pub from: usize,
+    pub until: usize,
+    pub right: bool,
+    pub sides: HashMap<usize, f64>,
+    pub next_stamp: usize,
+    pub held: usize,
+}
+
+/// 墙立在哪：数据那道墙最后一跳停下的地方（从他站的地方朝目标 r_len），r_len / r_speed tick 后立住，再立 r_hold tick。
+pub fn standing(p: &Params, from: Pt, to: Pt, tick: usize, right: bool) -> Standing {
+    let dir = unit((to.0 - from.0, to.1 - from.1)).unwrap_or((1.0, 0.0));
+    let len = p.r_len as f64;
+    let up = tick + (p.r_len / p.r_speed.max(1)).max(1);
+    Standing { mid: (from.0 + dir.0 * len, from.1 + dir.1 * len), dir, from: up, until: up + p.r_hold, right,
+               sides: HashMap::new(), next_stamp: up, held: 0 }
+}
+
+/// 一个敌方英雄在 `pos`，原来在墙的 `side` 边（没记过就按现在的位置算）：返回他这一边，和他走进墙里、穿过墙时要放回的
+/// 位置（他那一边的墙面外，横向不动）。墙两头 `half` 以外绕过去不管，那时按他现在在哪边重新记。
+pub fn hold(mid: Pt, dir: Pt, half: f64, pos: Pt, side: Option<f64>) -> (f64, Option<Pt>) {
+    let (rx, ry) = (pos.0 - mid.0, pos.1 - mid.1);
+    let along = rx * dir.0 + ry * dir.1;
+    let n = (-dir.1, dir.0);
+    let across = rx * n.0 + ry * n.1;
+    let now = if along >= 0.0 { 1.0 } else { -1.0 };
+    if across.abs() > half {
+        return (now, None);
+    }
+    let s = side.unwrap_or(now);
+    if along * s >= WALL_THICK {
+        return (s, None);
+    }
+    let back = (mid.0 + dir.0 * s * WALL_THICK + n.0 * across, mid.1 + dir.1 * s * WALL_THICK + n.1 * across);
+    (s, Some(back))
+}
+
+/// 反推时他绕到哪：目标身后、背对他的队伍 r_behind 远（`home` 是他的队伍那边的一点；没有就背对他自己，同数据的
+/// RushMoveToBack）。
+pub fn behind(p: &Params, me: Pt, target: Pt, home: Option<Pt>) -> Pt {
+    let away = home.and_then(|h| unit((target.0 - h.0, target.1 - h.1)))
+        .or_else(|| unit((target.0 - me.0, target.1 - me.1)))
+        .unwrap_or((1.0, 0.0));
+    let b = p.r_behind as f64;
+    (target.0 + away.0 * b, target.1 + away.1 * b)
+}
+
+type WallKey = (u64, u32, u64, u64, usize);
+
+/// 立着的墙，按（种子、哪一种模拟、比赛、局、阿兹尔）分开：服务器的预演和屏幕上的比赛同时在跑。
+static WALLS: LazyLock<Mutex<HashMap<WallKey, Vec<Standing>>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
+
+fn wall_key(sim: &StableSim<'_>, me: usize) -> WallKey {
+    let o = sim.sim_origin().unwrap_or_default();
+    (sim.seed(), o.kind, o.match_id, o.set_index, me)
+}
+
+/// 正在被推、在冲刺的人不挡（被墙推过去的那一下、闪现和突进都能过墙，同英雄联盟）。
+fn flying(u: &StableEntity<'_, '_>) -> bool {
+    (0..u.cc_count()).any(|i| u.cc_at(i).is_some_and(|c| c.kind == CcKindV1::ForceMove.code() || c.kind == CcKindV1::Airborne.code()))
+}
+
+/// 每 tick（他的被动里）：立着的墙盖禁军、挡敌方英雄，到时候撤掉。
+fn walls_tick(sim: &mut StableSim<'_>, me: usize, team: usize, tick: usize, p: &Params) {
+    let key = wall_key(sim, me);
+    let Some(mut walls) = WALLS.lock().unwrap_or_else(|e| e.into_inner()).remove(&key) else { return };
+    let half = p.r_half as f64;
+    for w in walls.iter_mut().filter(|w| tick >= w.from) {
+        if tick >= w.next_stamp {
+            let n = (-w.dir.1, w.dir.0);
+            let view = az(if w.right { "r_guards_a" } else { "r_guards_la" });
+            for k in [-1.0, 0.0, 1.0] {
+                let at = (w.mid.0 + n.0 * STAND_SPREAD * k, w.mid.1 + n.1 * STAND_SPREAD * k);
+                sim.play_view_effect(&view, me, &pos_input(at), 0, 0, 0);
+            }
+            w.next_stamp = tick + STAND_STEP;
+        }
+        let foes: Vec<(usize, Pt, bool)> = (0..sim.entity_count()).filter_map(|i| sim.entity_at(i))
+            .filter(|u| u.is_champion() && u.is_alive() && u.team() != team)
+            .map(|u| (u.id(), at_of(&u), flying(&u)))
+            .collect();
+        for (id, at, fly) in foes {
+            if fly {
+                w.sides.remove(&id); // landed: its side is wherever it lands
+                continue;
+            }
+            let (side, back) = hold(w.mid, w.dir, half, at, w.sides.get(&id).copied());
+            w.sides.insert(id, side);
+            if let Some(b) = back {
+                sim.entity_set_pos(id, ux(b.0), ux(b.1));
+                w.held += 1;
+            }
+        }
+    }
+    let (gone, left): (Vec<Standing>, Vec<Standing>) = walls.into_iter().partition(|w| tick >= w.until);
+    for w in gone {
+        if let Some(k) = counted("wall_down") {
+            wlog(format!("{} WALL DOWN #{k} at {}: held enemy champions back {} time(s)", head(sim, me), pt(w.mid), w.held));
+        }
+    }
+    if !left.is_empty() {
+        WALLS.lock().unwrap_or_else(|e| e.into_inner()).insert(key, left);
+    }
+}
+
+/// 反推（数据：E 冲到英雄身上后 R，`r_win` 开着）出墙前调本包的 `league_azir:r_behind`（大招的目标）：他冲到目标身后、
+/// 背对他的队伍那一边（我方英雄，没有就最近的我方塔），墙就从那边把人推回他的队伍。数据原来的 RushMoveToBack 只是
+/// 「冲到目标背后」——背对的是他自己冲来的方向，E 冲过了头或者从侧面冲上去时就推歪、推反（日志：21 次反推 7 次推向
+/// 敌方那边）。
+struct Behind;
+
+impl StableEffectType for Behind {
+    fn apply(&self, sim: &mut StableSim<'_>, _: u64, me: usize, input: InputTargetV1) {
+        let Some(e) = sim.get_entity(me) else { return };
+        let (here, team) = (at_of(&e), e.team());
+        let Some(target) = (match InputTargetKindV1::from_code(input.kind) {
+            Some(InputTargetKindV1::Target) => sim.get_entity(input.target_id).map(|t| at_of(&t)),
+            Some(InputTargetKindV1::Pos) => Some((input.x as f64, input.y as f64)),
+            _ => None,
+        }) else { return };
+        let p = params_of(me);
+        let friends: Vec<Pt> = (0..sim.entity_count()).filter_map(|i| sim.entity_at(i))
+            .filter(|u| u.is_champion() && u.is_alive() && u.team() == team && u.id() != me)
+            .map(|u| at_of(&u))
+            .filter(|at| dist(*at, here) <= HOME_R)
+            .collect();
+        let home = if friends.is_empty() {
+            (0..sim.tower_count()).filter_map(|k| sim.get_entity(sim.tower_id_at(k)))
+                .filter(|t| t.team() == team && t.is_alive())
+                .map(|t| at_of(&t))
+                .min_by(|a, b| dist(*a, here).total_cmp(&dist(*b, here)))
+        } else {
+            let n = friends.len() as f64;
+            Some((friends.iter().map(|f| f.0).sum::<f64>() / n, friends.iter().map(|f| f.1).sum::<f64>() / n))
+        };
+        let spot = behind(&p, here, target, home);
+        let (dx, dy) = (spot.0 - here.0, spot.1 - here.1);
+        let len = (dx * dx + dy * dy).sqrt();
+        let ticks = ((len / p.r_rush.max(1) as f64).ceil() as u64).max(1);
+        let mut cc = CcV1::of_kind(CcKindV1::ForceMove, ticks);
+        cc.dx = dx.round() as i64;
+        cc.dy = dy.round() as i64;
+        cc.speed = p.r_rush as u64;
+        sim.apply_cc(me, &cc);
+        if let Some(k) = counted("behind") {
+            wlog(format!("{} BEHIND #{k}: from {} round the target at {} to {} ({:.0} in {ticks} ticks), his team {}",
+                         head(sim, me), pt(here), pt(target), pt(spot), len,
+                         home.map_or("unknown (away from him)".to_string(), |h| format!("at {}", pt(h)))));
         }
     }
 }
@@ -615,7 +811,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v1.3 (the Sun Disc on a fallen tower, the guards facing the charge, soldiers redrawn, the R's timing, E only when it dashes) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v1.4 (the Sun Disc on a fallen tower, the guards facing the charge, soldiers redrawn, the R's timing, E only when it dashes, the wall stands and the insec kicks home) loaded: game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
         v.patch,
@@ -626,6 +822,8 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     // 0.1.1: the R's timing for the AI (insec / peel / held), src/combo.rs
     module.add_player_input_ai(combo::Shurima::default());
     module.add_native_effect(format!("{ID}:r_wall"), Wall);
+    // v1.4: the insec's rush round the target to the side away from his team
+    module.add_native_effect(format!("{ID}:r_behind"), Behind);
     // the data's stamps alternate the guards' two steps: an odd hop b, an even one a (build_azir.py: "ab"[i % 2])
     for (suffix, view) in [("ra", "r_guards_a"), ("rb", "r_guards_b"), ("la", "r_guards_la"), ("lb", "r_guards_lb")] {
         module.add_native_effect(format!("{ID}:stamp_{suffix}"), Stamp { view });
@@ -684,6 +882,39 @@ mod tests {
         assert!(!faces_right((10_000.0, 0.0), (0.0, 0.0), 0));
         assert!(faces_right((0.0, 0.0), (100.0, 9_000.0), 0));
         assert!(!faces_right((0.0, 0.0), (100.0, 9_000.0), 1));
+    }
+
+    #[test]
+    fn the_wall_stands_where_it_stops_for_r_hold() {
+        let p = Params::default();
+        let w = standing(&p, (100_000.0, 100_000.0), (130_000.0, 100_000.0), 1000, true);
+        assert_eq!(w.mid, (160_000.0, 100_000.0));
+        assert_eq!((w.from, w.until), (1020, 1020 + p.r_hold));
+    }
+
+    #[test]
+    fn the_wall_holds_them_on_their_side() {
+        let (mid, dir, half) = ((0.0, 0.0), (1.0, 0.0), 30_000.0);
+        // pushed past it: on the far side, left alone
+        assert_eq!(hold(mid, dir, half, (20_000.0, 5_000.0), None), (1.0, None));
+        // walking back into it: put back on the far face, the same height
+        assert_eq!(hold(mid, dir, half, (2_000.0, 5_000.0), Some(1.0)), (1.0, Some((WALL_THICK, 5_000.0))));
+        // through it in one step: back too
+        assert_eq!(hold(mid, dir, half, (-9_000.0, -4_000.0), Some(1.0)), (1.0, Some((WALL_THICK, -4_000.0))));
+        // round the end: free, and on the other side from now on
+        assert_eq!(hold(mid, dir, half, (-9_000.0, 40_000.0), Some(1.0)), (-1.0, None));
+        // Azir's side stays Azir's side
+        assert_eq!(hold(mid, dir, half, (3_000.0, 0.0), Some(-1.0)), (-1.0, Some((-WALL_THICK, 0.0))));
+    }
+
+    #[test]
+    fn the_insec_rushes_round_to_the_side_away_from_his_team() {
+        let p = Params::default();
+        // his team to the west: he ends east of the target, whichever side he dashed in from
+        assert_eq!(behind(&p, (110_000.0, 0.0), (100_000.0, 0.0), Some((0.0, 0.0))), (115_000.0, 0.0));
+        assert_eq!(behind(&p, (90_000.0, 0.0), (100_000.0, 0.0), Some((0.0, 0.0))), (115_000.0, 0.0));
+        // no team to find: away from him (the data's RushMoveToBack)
+        assert_eq!(behind(&p, (100_000.0, 10_000.0), (100_000.0, 0.0), None), (100_000.0, -15_000.0));
     }
 
     #[test]

@@ -16,7 +16,11 @@
       "s_step": 40,
       "ss_stand": 4,
       "ss_rise": 20,
-      "ss_stab": 16
+      "ss_stab": 16,
+      "r_rush": 8000,
+      "r_behind": 15000,
+      "r_hold": 180,
+      "r_half": 30000
     }
   },
   "tags": [
@@ -15973,9 +15977,8 @@
                               "name": "league_azir_lives"
                             },
                             {
-                              "type": "RushMoveToBack",
-                              "speed": 8000,
-                              "applied_effects": []
+                              "type": "Native",
+                              "effect_ref": "league_azir:r_behind"
                             }
                           ]
                         },

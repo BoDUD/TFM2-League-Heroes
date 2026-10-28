@@ -44,6 +44,11 @@ Shifting Sands (E) `skill2`, Emperor's Divide (R) the `ult`.
           wall meets refunds Q (`q_ref`, skill_cooldown_mult q_refund for 2 ticks: R -> Q; ult_cooldown_mult -q_refund keeps
           R's own cooldown - without it the cap cut R's 40 s to 4, 2026-10-25).
 The add-on copy (--native, addons/league_azir): the passive league_azir:disc raises the Sun Disc on a fallen tower of his;
+the wall stands r_hold ticks where it stops (r_half either side) and enemy champions cannot walk through it (League's
+Emperor's Divide; the data's wall is gone the tick it stops and they walk straight back); the insec's rush is
+league_azir:r_behind - round the target to the side away from his team (his champions within reach, else his nearest
+tower), r_behind past it - in place of RushMoveToBack (away from where he came from: E overshooting or coming from the
+side kicked them sideways or away, 7 of 21 insecs in the user's games of 2026-10-28);
 the soldiers' rise, checkpoints and stabs call league_azir:rise_<s> / sold_<s> / stab_<s> instead of the front pictures,
 and the add-on draws each soldier from the side, facing the nearest enemy and stabbing when it strikes (the user:
 「沙兵没攻击动作 ... 还有不面向敌人」; data cannot tell left from right, so the main pack keeps them facing the camera).
@@ -99,7 +104,7 @@ P = {
     "win_r": 90,
     # ult: R Emperor's Divide
     "r_cd": 1800, "r_range": 40000, "r_dur": 36, "r_at": 16, "r_rush_at": 6, "r_rush": 8000, "r_speed": 3000,
-    "r_len": 60000, "r_w": 20000, "r_dmg": 260, "r_ratio": 90, "r_kb_speed": 3000, "r_kb": 18, "r_stamps": 5,
+    "r_len": 60000, "r_w": 20000, "r_behind": 15000, "r_hold": 180, "r_half": 30000, "r_dmg": 260, "r_ratio": 90, "r_kb_speed": 3000, "r_kb": 18, "r_stamps": 5,
     "q_refund": 900,
     "vo_gap": 600,
     # the Sun Disc (the add-on's passive league_azir:disc; League: Shurima's Legacy on a turret's ruins): once a game, with
@@ -112,7 +117,7 @@ P = {
 SLOTS = "abc"
 GENS = "ABC"
 NATIVE_KEYS = ("d_life", "d_per", "d_range", "d_dmg", "d_ap", "d_near", "r_speed", "r_len", "r_stamps", "s_step",
-               "ss_stand", "ss_rise", "ss_stab")
+               "ss_stand", "ss_rise", "ss_stab", "r_rush", "r_behind", "r_hold", "r_half")
 
 
 def lp(path):
@@ -405,7 +410,11 @@ def build(p):
                    line("r_wall_ch", p["r_speed"], p["r_len"], p["r_w"], "EnemyChampion",
                         [refresh("q_ref", 2, skill_cooldown_mult=p["q_refund"], ult_cooldown_mult=-p["q_refund"])]),
                    *stamps)
-    behind = delayed(p["r_rush_at"] - 1, alive({"type": "RushMoveToBack", "speed": p["r_rush"], "applied_effects": []}))
+    # the add-on's copy rushes round the target to the side away from his team (league_azir:r_behind); RushMoveToBack goes
+    # to the side away from where he came from, which kicks them sideways or away when E overshot or came from the side
+    rush = {"type": "Native", "effect_ref": f"{ID}:r_behind"} if p["native"] else \
+        {"type": "RushMoveToBack", "speed": p["r_rush"], "applied_effects": []}
+    behind = delayed(p["r_rush_at"] - 1, alive(rush))
     ult = action("ult", p["r_dur"], p["r_cd"], 1, p["r_range"], "Targeting", "EnemyChampion",
                  combine(decoy(p["r_dmg"], p["r_ratio"], ap), refresh("r_cd", p["r_cd"]), sfx("r"), voice("vo_r", p),
                          sw("r_win", combine(*rm("r_win"), behind)),
