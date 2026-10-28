@@ -14,11 +14,11 @@
       "p_delay": 180,
       "p_quiet": 120,
       "p_r": 85000,
-      "p_hp": 8,
+      "p_hp": 12,
       "p_stun": 50,
-      "p_amp": 20,
+      "p_amp": 30,
       "p_t": 360,
-      "p_cd": 1500
+      "p_cd": 1200
     }
   },
   "sprite": "asset/tft/champions/tft_aoshin",
@@ -29,9 +29,9 @@
     "asset/tft/icons/tft_aoshin_ult"
   ],
   "stat": {
-    "attack": 72,
+    "attack": 80,
     "magic_power": 40,
-    "hp": 860,
+    "hp": 920,
     "defence": 18,
     "magic_resistance": 22,
     "move_speed": 900,
@@ -110,7 +110,7 @@
     "action_name": "skill",
     "description": "#asset/base/text/champion?description.tft_aoshin.skill",
     "duration": 30,
-    "cooltime": 300,
+    "cooltime": 240,
     "start_timing": 1,
     "cancelable": false,
     "range": 60000,
@@ -141,8 +141,8 @@
                   "casting_type": "Targeting",
                   "effect": {
                     "type": "ApAttack",
-                    "damage": 40,
-                    "attack_ratio": 34,
+                    "damage": 60,
+                    "attack_ratio": 50,
                     "hp_ratio": 0,
                     "can_crit": false
                   }
@@ -193,10 +193,10 @@
     "action_name": "skill2",
     "description": "#asset/base/text/champion?description.tft_aoshin.skill2",
     "duration": 18,
-    "cooltime": 660,
+    "cooltime": 480,
     "start_timing": 1,
     "cancelable": false,
-    "range": 32000,
+    "range": 42000,
     "casting_type": "Targeting",
     "casting_target": "EnemyChampion",
     "attack_type": "Skill",
@@ -232,7 +232,7 @@
               "effects": [
                 {
                   "type": "Shield",
-                  "amount": 70,
+                  "amount": 110,
                   "attack_ratio": 0,
                   "ap_ratio": 40,
                   "tick": 180
@@ -263,7 +263,7 @@
   "ult": {
     "action_name": "ult",
     "description": "#asset/base/text/champion?description.tft_aoshin.ult",
-    "duration": 90,
+    "duration": 102,
     "cooltime": 3000,
     "start_timing": 1,
     "cancelable": false,
@@ -288,7 +288,7 @@
             "name": "tft_aoshin_r_cloud",
             "duration": {
               "Time": {
-                "tick": 90
+                "tick": 102
               }
             }
           },
@@ -318,8 +318,8 @@
                     },
                     {
                       "type": "ApAttack",
-                      "damage": 34,
-                      "attack_ratio": 20,
+                      "damage": 55,
+                      "attack_ratio": 32,
                       "hp_ratio": 0,
                       "can_crit": false
                     },
@@ -362,8 +362,8 @@
                     },
                     {
                       "type": "ApAttack",
-                      "damage": 34,
-                      "attack_ratio": 20,
+                      "damage": 55,
+                      "attack_ratio": 32,
                       "hp_ratio": 0,
                       "can_crit": false
                     },
@@ -406,8 +406,8 @@
                     },
                     {
                       "type": "ApAttack",
-                      "damage": 34,
-                      "attack_ratio": 20,
+                      "damage": 55,
+                      "attack_ratio": 32,
                       "hp_ratio": 0,
                       "can_crit": false
                     },
@@ -450,8 +450,8 @@
                     },
                     {
                       "type": "ApAttack",
-                      "damage": 34,
-                      "attack_ratio": 20,
+                      "damage": 55,
+                      "attack_ratio": 32,
                       "hp_ratio": 0,
                       "can_crit": false
                     },
@@ -494,8 +494,8 @@
                     },
                     {
                       "type": "ApAttack",
-                      "damage": 34,
-                      "attack_ratio": 20,
+                      "damage": 55,
+                      "attack_ratio": 32,
                       "hp_ratio": 0,
                       "can_crit": false
                     },
@@ -538,8 +538,8 @@
                     },
                     {
                       "type": "ApAttack",
-                      "damage": 34,
-                      "attack_ratio": 20,
+                      "damage": 55,
+                      "attack_ratio": 32,
                       "hp_ratio": 0,
                       "can_crit": false
                     },
@@ -582,8 +582,8 @@
                     },
                     {
                       "type": "ApAttack",
-                      "damage": 34,
-                      "attack_ratio": 20,
+                      "damage": 55,
+                      "attack_ratio": 32,
                       "hp_ratio": 0,
                       "can_crit": false
                     },
@@ -626,8 +626,8 @@
                     },
                     {
                       "type": "ApAttack",
-                      "damage": 34,
-                      "attack_ratio": 20,
+                      "damage": 55,
+                      "attack_ratio": 32,
                       "hp_ratio": 0,
                       "can_crit": false
                     },
@@ -670,8 +670,8 @@
                     },
                     {
                       "type": "ApAttack",
-                      "damage": 34,
-                      "attack_ratio": 20,
+                      "damage": 55,
+                      "attack_ratio": 32,
                       "hp_ratio": 0,
                       "can_crit": false
                     },
@@ -714,8 +714,96 @@
                     },
                     {
                       "type": "ApAttack",
-                      "damage": 34,
-                      "attack_ratio": 20,
+                      "damage": 55,
+                      "attack_ratio": 32,
+                      "hp_ratio": 0,
+                      "can_crit": false
+                    },
+                    {
+                      "type": "BlockSkill",
+                      "tick": 18
+                    },
+                    {
+                      "type": "AddBuff",
+                      "buff_state": {
+                        "name": "tft_aoshin_r_sil",
+                        "duration": {
+                          "Time": {
+                            "tick": 18
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "Delayed",
+              "tick": 60,
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 75000,
+                  "casting_target": "EnemyChampion",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "ViewEffect",
+                      "name": "tft_aoshin_r_bolt"
+                    },
+                    {
+                      "type": "TargetSfx",
+                      "name": "tft_aoshin_r_bolt"
+                    },
+                    {
+                      "type": "ApAttack",
+                      "damage": 55,
+                      "attack_ratio": 32,
+                      "hp_ratio": 0,
+                      "can_crit": false
+                    },
+                    {
+                      "type": "BlockSkill",
+                      "tick": 18
+                    },
+                    {
+                      "type": "AddBuff",
+                      "buff_state": {
+                        "name": "tft_aoshin_r_sil",
+                        "duration": {
+                          "Time": {
+                            "tick": 18
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "Delayed",
+              "tick": 66,
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 75000,
+                  "casting_target": "EnemyChampion",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "ViewEffect",
+                      "name": "tft_aoshin_r_bolt"
+                    },
+                    {
+                      "type": "TargetSfx",
+                      "name": "tft_aoshin_r_bolt"
+                    },
+                    {
+                      "type": "ApAttack",
+                      "damage": 55,
+                      "attack_ratio": 32,
                       "hp_ratio": 0,
                       "can_crit": false
                     },

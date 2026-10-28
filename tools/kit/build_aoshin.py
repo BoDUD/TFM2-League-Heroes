@@ -44,24 +44,28 @@ BIG = f"asset/{MOD_ID}/effects/{ID}_big"
 
 # Units: attack range 55000 like every mid; radii count the unit's collision radius (~15000) on top. Timings are
 # placeholders until the strips exist (tools/art/rig_aoshin.py). Numbers = the 10-min classic-SDK simulations (C:/t/ao_sim,
-# mid lane 2 against pyromancer, ice_mage, lightning_mage, wind_mage and white_mage, three lineups, both sides), --plain.
+# mid lane 2 against pyromancer, ice_mage, lightning_mage, wind_mage and white_mage, three lineups, both sides; 2026-10-28),
+# all --plain: the draft (hp 860, Q 40 + 34% every 300, R 10 x 34 + 20%, E shield 70 every 660 within 32000, storm 8%
+# every 1500, +20% ap) -2.96 on seeds 1-8 (tft_alune +1.20, league_ziggs +1.38); Q 55 + 45%, R 45 + 28% -2.07; + hp 920,
+# E 110 every 480, storm 12% every 1200 +30% -1.95; + Q every 240 at 60 + 50%, E within 42000 -0.34; + R 12 x 55 + 32%,
+# attack 80 +1.40 / +1.14 (seeds 9-16) = P.
 P = {
     # stats (Magician base: attack 80 +6, ap 40 +20, hp 900 +100, def 20 +7, mr 20 +4, move 900 +9)
-    "hp": 860, "hp_g": 96, "atk": 72, "atk_g": 6, "apw": 40, "apw_g": 20, "def": 18, "def_g": 7, "mr": 22, "mr_g": 4,
+    "hp": 920, "hp_g": 96, "atk": 80, "atk_g": 6, "apw": 40, "apw_g": 20, "def": 18, "def_g": 7, "mr": 22, "mr_g": 4,
     "ms": 900, "ms_g": 9,
     "atk_range": 55000, "atk_dur": 24, "atk_cd": 90, "a_rel": 9, "a_speed": 4000,
     # passive Tempest Might (TFT: 8 s, 10-30% max health true damage, 1 s stun, 10-60% damage amp)
-    "p_sense": 70000, "p_delay": 180, "p_quiet": 120, "p_r": 85000, "p_hp": 8, "p_stun": 50, "p_amp": 20, "p_t": 360,
-    "p_cd": 1500,
+    "p_sense": 70000, "p_delay": 180, "p_quiet": 120, "p_r": 85000, "p_hp": 12, "p_stun": 50, "p_amp": 30, "p_t": 360,
+    "p_cd": 1200,
     # Thunder Breath
-    "q_cd": 300, "q_range": 60000, "q_dur": 30, "q_rel": 12, "q_len": 75000, "q_w": 12000,
-    "q_dmg": 40, "q_ratio": 34, "q_sil": 40,
+    "q_cd": 240, "q_range": 60000, "q_dur": 30, "q_rel": 12, "q_len": 75000, "q_w": 12000,
+    "q_dmg": 60, "q_ratio": 50, "q_sil": 40,
     # Cloud Ride
-    "e_cd": 660, "e_range": 32000, "e_dur": 18, "e_rel": 4, "e_back": 3000, "e_back_t": 8,
-    "e_sh": 70, "e_ratio": 40, "e_sh_t": 180,
+    "e_cd": 480, "e_range": 42000, "e_dur": 18, "e_rel": 4, "e_back": 3000, "e_back_t": 8,
+    "e_sh": 110, "e_ratio": 40, "e_sh_t": 180,
     # Lightning Storm (TFT: 20 bolts of 160 / 235 / 666 at 1-3 stars, 10 mana drained each)
-    "r_cd": 3000, "r_range": 70000, "r_rel": 24, "r_n": 10, "r_gap": 6, "r_rng": 75000,
-    "r_dmg": 34, "r_ratio": 20, "r_sil": 18,
+    "r_cd": 3000, "r_range": 70000, "r_rel": 24, "r_n": 12, "r_gap": 6, "r_rng": 75000,
+    "r_dmg": 55, "r_ratio": 32, "r_sil": 18,
 }
 # what tft.dll reads from passive.params (addons/tft/src/aoshin.rs)
 NATIVE_KEYS = ("p_sense", "p_delay", "p_quiet", "p_r", "p_hp", "p_stun", "p_amp", "p_t", "p_cd")

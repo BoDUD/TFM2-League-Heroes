@@ -113,11 +113,11 @@ impl Default for Params {
             p_delay: 180,
             p_quiet: 120,
             p_r: 85000,
-            p_hp: 8,
+            p_hp: 12,
             p_stun: 50,
-            p_amp: 20,
+            p_amp: 30,
             p_t: 360,
-            p_cd: 1500,
+            p_cd: 1200,
         }
     }
 }
@@ -313,7 +313,7 @@ mod tests {
 
     #[test]
     fn params_from_the_kit() {
-        let json = r#"{"p_amp":20,"p_cd":1500,"p_delay":180,"p_hp":8,"p_quiet":120,"p_r":85000,"p_sense":70000,"p_stun":50,"p_t":360}"#;
+        let json = r#"{"p_amp":30,"p_cd":1200,"p_delay":180,"p_hp":12,"p_quiet":120,"p_r":85000,"p_sense":70000,"p_stun":50,"p_t":360}"#;
         assert_eq!(parse_params(json), Params::default());
     }
 
@@ -354,13 +354,13 @@ mod tests {
     #[test]
     fn a_bolt_takes_part_of_the_max_health() {
         let p = Params::default();
-        assert_eq!(bolt_damage(2000, &p), 160);
+        assert_eq!(bolt_damage(2000, &p), 240);
         assert_eq!(bolt_damage(5, &p), 1);
     }
 
     #[test]
     fn the_storm_buff() {
         let b = storm_buff(&Params::default());
-        assert_eq!((b.name(), b.magic_power_mult, b.duration_tick), ("tft_aoshin_p_storm", 20, 360));
+        assert_eq!((b.name(), b.magic_power_mult, b.duration_tick), ("tft_aoshin_p_storm", 30, 360));
     }
 }
