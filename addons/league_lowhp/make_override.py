@@ -47,11 +47,16 @@ HEROES = {
 # hero -> (slot, lang -> (main words, add-on words)): more tooltips changed
 EXTRA = {
     "league_lissandra": ("attack", {
-        "zh-hans": ("她击杀的敌方英雄化为冰仆", "她身边阵亡的敌方英雄化为冰仆"),
-        "zh-hant": ("她擊殺的敵方英雄化為冰僕", "她身邊陣亡的敵方英雄化為冰僕"),
-        "en": ("an enemy champion she kills becomes", "an enemy champion dying near her becomes"),
-        "ko": ("리산드라가 처치한 적 챔피언은", "리산드라 근처에서 죽은 적 챔피언은"),
-        "ja": ("倒した敵チャンピオンは", "近くで倒れた敵チャンピオンは")}),
+        "zh-hans": ("她击杀的敌方英雄化为冰仆，" + Y + "1.5秒" + E + "后碎裂",
+                    "她身边阵亡的敌方英雄化为冰仆，" + Y + "1.5秒" + E + "后扑向附近的敌人碎裂"),
+        "zh-hant": ("她擊殺的敵方英雄化為冰僕，" + Y + "1.5秒" + E + "後碎裂",
+                    "她身邊陣亡的敵方英雄化為冰僕，" + Y + "1.5秒" + E + "後撲向附近的敵人碎裂"),
+        "en": ("an enemy champion she kills becomes a frozen thrall that shatters",
+               "an enemy champion dying near her becomes a frozen thrall that lunges at a nearby enemy and shatters"),
+        "ko": ("리산드라가 처치한 적 챔피언은 얼음 종이 되어 " + Y + "1.5초" + E + " 후 부서지며",
+               "리산드라 근처에서 죽은 적 챔피언은 얼음 종이 되어 " + Y + "1.5초" + E + " 후 근처 적에게 달려들어 부서지며"),
+        "ja": ("倒した敵チャンピオンは氷の従者となり、" + Y + "1.5秒" + E + "後に砕けて",
+               "近くで倒れた敵チャンピオンは氷の従者となり、" + Y + "1.5秒" + E + "後に近くの敵へ飛びかかって砕け、")}),
 }
 
 

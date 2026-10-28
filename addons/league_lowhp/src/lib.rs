@@ -14,7 +14,9 @@
 //! 丽桑卓的被动「冰脉驱役」（v0.2.0）也在这里（她的副本只能有一份）：主包只认她自己打死的英雄（击杀检查）。英雄联盟里她身边
 //! 任何敌方英雄阵亡都化成冰仆。副本去掉数据里的那 7 处冰仆；被动每 tick 记下敌方英雄的位置和死活，有人在她 `THRALL_REACH`
 //! 内由活变死，就在他倒下的地方播主包的冰仆画面，`THRALL_TICKS` 后碎裂：播主包的碎裂画面和声音，`THRALL_R` 内的敌人（英雄、
-//! 小兵、野怪）受到 150 + 70% 法强的魔法伤害、减速 25% 1.5 秒（同主包）。冰仆不会走（画面是挂在地上的，走了画面跟不上）。
+//! 小兵、野怪）受到 150 + 70% 法强的魔法伤害、减速 25% 1.5 秒（同主包）。冰仆不会走（画面是挂在地上的，走了画面跟不上）；
+//! v0.2.1 起碎裂时扑向 `THRALL_LUNGE` 内最近的敌方英雄（没有英雄就最近的小兵、野怪），在他身上碎裂：原地碎裂 22 次只有 4 次
+//! 炸到人（1.5 秒后尸体边上没人了）。
 //!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_lowhp.log`。
 
@@ -35,9 +37,10 @@ pub const HEROES: [(&str, &str, &str, usize); 3] = [
     ("league_leblanc", "leblanc", "league_leblanc_low", 40),
     ("league_lissandra", "lissandra", "league_lissandra_low", 35),
 ];
-/// 丽桑卓的冰仆：多远内的阵亡算、多久碎裂、碎裂的半径和伤害（同主包）、减速。
+/// 丽桑卓的冰仆：多远内的阵亡算、多久碎裂、碎裂时扑多远（英雄联盟的冰仆会走向敌人）、碎裂的半径和伤害（同主包）、减速。
 pub const THRALL_REACH: f64 = 90_000.0;
 pub const THRALL_TICKS: usize = 90;
+pub const THRALL_LUNGE: f64 = 45_000.0;
 pub const THRALL_R: f64 = 25_000.0;
 pub const THRALL_BASE: usize = 150;
 pub const THRALL_AP: usize = 70;
@@ -116,6 +119,14 @@ pub fn fallen(before: &HashMap<usize, (bool, Pt)>, now: &[(usize, bool, Pt)], me
         .collect()
 }
 
+/// Where a thrall at `p` shatters: on the nearest enemy champion within `reach`, else the nearest other enemy there, else
+/// where it stands. `foes`: (champion, where) of the enemies it can hit.
+pub fn lunge(p: Pt, foes: &[(bool, Pt)], reach: f64) -> Pt {
+    let near = |champ: bool| foes.iter().filter(|f| f.0 == champ).map(|f| f.1).filter(|q| dist(*q, p) <= reach)
+        .min_by(|a, b| dist(*a, p).total_cmp(&dist(*b, p)));
+    near(true).or_else(|| near(false)).unwrap_or(p)
+}
+
 /// 丽桑卓的冰仆：上一 tick 敌方英雄的死活和位置，等着碎裂的冰仆（碎裂的 tick、位置）。
 #[derive(Clone, Default)]
 struct Thralls {
@@ -144,14 +155,16 @@ impl Thralls {
         self.seen = now.iter().map(|(id, a, p)| (*id, (*a, *p))).collect();
         let due: Vec<Pt> = self.rising.iter().filter(|r| r.0 <= tick).map(|r| r.1).collect();
         self.rising.retain(|r| r.0 > tick);
-        for p in due {
+        for at in due {
+            let foes: Vec<(usize, bool, Pt)> = (0..sim.entity_count()).filter_map(|i| sim.entity_at(i))
+                .filter(|u| u.team() != team && u.is_alive() && !u.is_tower() && u.is_targetable())
+                .map(|u| (u.id(), u.is_champion(), (u.pos().0 as f64, u.pos().1 as f64)))
+                .collect();
+            let p = lunge(at, &foes.iter().map(|f| (f.1, f.2)).collect::<Vec<_>>(), THRALL_LUNGE);
             let input = InputTargetV1::pos(p.0.round() as u64, p.1.round() as u64);
             sim.play_view_effect(THRALL_BURST, me, &input, 0, 0, 0);
             sim.play_sfx(THRALL_BURST, me, &input);
-            let hit: Vec<usize> = (0..sim.entity_count()).filter_map(|i| sim.entity_at(i))
-                .filter(|u| u.team() != team && u.is_alive() && !u.is_tower() && u.is_targetable()
-                    && dist((u.pos().0 as f64, u.pos().1 as f64), p) <= THRALL_R)
-                .map(|u| u.id()).collect();
+            let hit: Vec<usize> = foes.iter().filter(|f| dist(f.2, p) <= THRALL_R).map(|f| f.0).collect();
             let damage = THRALL_BASE + power * THRALL_AP / 100;
             for id in &hit {
                 sim.deal_damage_typed(me, *id, damage, DamageTypeV1::Ap, AttackTypeV1::Skill);
@@ -162,8 +175,8 @@ impl Thralls {
             }
             self.n += 1;
             if self.n <= 80 {
-                wlog(format!("{} THRALL #{} shattered at ({:.0}, {:.0}): {} enemies hit for {damage}", head(sim, me), self.n,
-                             p.0, p.1, hit.len()));
+                wlog(format!("{} THRALL #{} rose at ({:.0}, {:.0}), lunged {:.0}, shattered: {} enemies hit for {damage}",
+                             head(sim, me), self.n, at.0, at.1, dist(at, p), hit.len()));
             }
         }
     }
@@ -270,6 +283,16 @@ mod tests {
             [(1, (true, (10_000.0, 0.0))), (2, (true, (200_000.0, 0.0))), (3, (false, (0.0, 0.0)))].into();
         let now = [(1, false, (0.0, 0.0)), (2, false, (0.0, 0.0)), (3, false, (0.0, 0.0)), (4, false, (0.0, 0.0))];
         assert_eq!(fallen(&before, &now, (0.0, 0.0), THRALL_REACH), vec![(10_000.0, 0.0)]);
+    }
+
+    #[test]
+    fn thralls_lunge_at_the_nearest_champion_first() {
+        let p = (0.0, 0.0);
+        let foes = [(false, (5_000.0, 0.0)), (true, (40_000.0, 0.0)), (true, (30_000.0, 0.0)), (true, (-50_000.0, 0.0))];
+        assert_eq!(lunge(p, &foes, THRALL_LUNGE), (30_000.0, 0.0));
+        assert_eq!(lunge(p, &foes[..1], THRALL_LUNGE), (5_000.0, 0.0));
+        assert_eq!(lunge(p, &foes[3..], THRALL_LUNGE), p);
+        assert_eq!(lunge(p, &[], THRALL_LUNGE), p);
     }
 
     #[test]
