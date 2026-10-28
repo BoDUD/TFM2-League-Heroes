@@ -1,0 +1,273 @@
+{
+  "checked": 14,
+  "problems": [],
+  "files": [
+    {
+      "file": "scar_fx_a_hit.png",
+      "size": [
+        512,
+        128
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "nonempty": 9472,
+      "frames": 4,
+      "unique_frames": 4,
+      "frame_coverage": [
+        24,
+        54,
+        54,
+        16
+      ]
+    },
+    {
+      "file": "scar_fx_p_hit.png",
+      "size": [
+        960,
+        192
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "nonempty": 45824,
+      "frames": 5,
+      "unique_frames": 5,
+      "frame_coverage": [
+        54,
+        190,
+        222,
+        186,
+        64
+      ]
+    },
+    {
+      "file": "scar_fx_p_heal.png",
+      "size": [
+        1440,
+        336
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "nonempty": 15360,
+      "frames": 5,
+      "unique_frames": 5,
+      "frame_coverage": [
+        32,
+        88,
+        84,
+        32,
+        4
+      ]
+    },
+    {
+      "file": "scar_fx_q_bomb.png",
+      "size": [
+        320,
+        80
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "nonempty": 9216,
+      "frames": 4,
+      "unique_frames": 4,
+      "frame_coverage": [
+        32,
+        40,
+        36,
+        36
+      ]
+    },
+    {
+      "file": "scar_fx_q_hit.png",
+      "size": [
+        1632,
+        272
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "nonempty": 138368,
+      "frames": 6,
+      "unique_frames": 6,
+      "frame_coverage": [
+        40,
+        306,
+        634,
+        530,
+        484,
+        168
+      ]
+    },
+    {
+      "file": "scar_fx_q_stun.png",
+      "size": [
+        960,
+        80
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "nonempty": 22400,
+      "frames": 6,
+      "unique_frames": 6,
+      "frame_coverage": [
+        60,
+        58,
+        66,
+        48,
+        56,
+        62
+      ]
+    },
+    {
+      "file": "scar_fx_e_hit.png",
+      "size": [
+        704,
+        176
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "nonempty": 23040,
+      "frames": 4,
+      "unique_frames": 4,
+      "frame_coverage": [
+        54,
+        86,
+        142,
+        78
+      ]
+    },
+    {
+      "file": "scar_fx_r_bomb.png",
+      "size": [
+        1920,
+        192
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "nonempty": 70272,
+      "frames": 6,
+      "unique_frames": 6,
+      "frame_coverage": [
+        36,
+        238,
+        414,
+        206,
+        158,
+        46
+      ]
+    },
+    {
+      "file": "scar_fx_r_land.png",
+      "size": [
+        5376,
+        272
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "nonempty": 247808,
+      "frames": 8,
+      "unique_frames": 8,
+      "frame_coverage": [
+        44,
+        276,
+        692,
+        1022,
+        718,
+        690,
+        316,
+        114
+      ]
+    },
+    {
+      "file": "scar_fx_r_hit.png",
+      "size": [
+        576,
+        160
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "nonempty": 28928,
+      "frames": 4,
+      "unique_frames": 4,
+      "frame_coverage": [
+        30,
+        136,
+        196,
+        90
+      ]
+    },
+    {
+      "file": "scar_fx_r_guard.png",
+      "size": [
+        1920,
+        352
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "nonempty": 52608,
+      "frames": 6,
+      "unique_frames": 6,
+      "frame_coverage": [
+        144,
+        154,
+        142,
+        128,
+        120,
+        134
+      ]
+    },
+    {
+      "file": "scar_icon_skill.png",
+      "size": [
+        64,
+        64
+      ],
+      "alpha": [
+        255
+      ],
+      "nonempty": 4096
+    },
+    {
+      "file": "scar_icon_skill2.png",
+      "size": [
+        64,
+        64
+      ],
+      "alpha": [
+        255
+      ],
+      "nonempty": 4096
+    },
+    {
+      "file": "scar_icon_ult.png",
+      "size": [
+        64,
+        64
+      ],
+      "alpha": [
+        255
+      ],
+      "nonempty": 4096
+    }
+  ]
+}

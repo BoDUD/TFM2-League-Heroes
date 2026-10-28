@@ -1,0 +1,6 @@
+q_wind correction
+Correct this ONE pixel-art character action frame. First image is the flawed frame to edit; image2 approved character, image3 exact skull head, image4 correct body pose, image5 correct skeleton. Preserve approved costume and head, SAME pixel-art style. Three mandatory corrections:
+1. REMOVE THE BOMB completely. BOTH hands empty except the hand gripping the spear. No bomb or orb anywhere.
+2. Swap what the arms do: the OFF-WHITE BANDAGED ARM on image LEFT must bend DOWN across his body to GRIP THE SPEAR near waist level. The BARE PURPLE ARM with brown bracer must be RAISED AND DRAWN BACK behind his head, empty fist preparing to throw. Only one of each arm. Match orange BANDAGED arm and cyan BARE arm exactly in skeleton.
+3. The spear's broad PURPLE/GOLD ARROWHEAD is at the LOWER LEFT end, pointing DOWN as the skeleton's gold triangle. The dark/gold BUTT is at UPPER RIGHT. Reverse the present blade and butt. ONE continuous long navy-purple shaft around80 blocks long; preserve copper bands. No blade near upper-right.
+Body leaning back, one knee lifted a little, not a wide guard lunge. Mask remains FRONT-RIGHT with both white pupils, never obscured. One single transparent square1254x1254 PNG, 12px aligned coarse pixel blocks, soles y1176. No background, shadow, guides, effects, text.

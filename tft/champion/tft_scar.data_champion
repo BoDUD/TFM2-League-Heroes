@@ -1,0 +1,576 @@
+{
+  "id": "tft_scar",
+  "category": "Melee",
+  "tags": [
+    "AP",
+    "Melee",
+    "Tank",
+    "CC",
+    "Heal"
+  ],
+  "passive": {
+    "passive_ref": "tft_scar:firelight",
+    "params": {
+      "p_heal": 25,
+      "w_line": 50,
+      "w_lo": 10,
+      "w_hi": 20,
+      "q_range": 45000,
+      "q_n": 3,
+      "q_speed": 2400,
+      "q_dmg": 70,
+      "q_ap": 80,
+      "q_stun": 60
+    }
+  },
+  "sprite": "asset/tft/champions/tft_scar",
+  "anim_prefix": "",
+  "skill_icons": [
+    "asset/tft/icons/tft_scar_skill",
+    "asset/tft/icons/tft_scar_skill2",
+    "asset/tft/icons/tft_scar_ult"
+  ],
+  "stat": {
+    "attack": 80,
+    "magic_power": 40,
+    "hp": 1120,
+    "defence": 36,
+    "magic_resistance": 32,
+    "move_speed": 1000,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "growth": {
+    "attack": 11,
+    "magic_power": 12,
+    "hp": 110,
+    "defence": 8,
+    "magic_resistance": 5,
+    "move_speed": 10,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "attack": {
+    "action_name": "attack",
+    "description": "#asset/base/text/champion?description.tft_scar.attack",
+    "duration": 30,
+    "cooltime": 72,
+    "start_timing": 1,
+    "cancelable": true,
+    "range": 25000,
+    "casting_type": "Targeting",
+    "casting_target": "Enemy",
+    "attack_type": "BaseAttack",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "tft_scar_a"
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "tft_scar_p_cool",
+          "effect_buff": {
+            "type": "Delayed",
+            "tick": 13,
+            "effects": [
+              {
+                "type": "Attack",
+                "damage": 0,
+                "attack_ratio": 100,
+                "hp_ratio": 0,
+                "target_hp_ratio": 0,
+                "attack_effect_type": "Target"
+              },
+              {
+                "type": "ViewEffect",
+                "name": "tft_scar_a_hit"
+              },
+              {
+                "type": "TargetSfx",
+                "name": "tft_scar_a_hit"
+              }
+            ]
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "tft_scar_p_cool",
+                  "duration": {
+                    "Time": {
+                      "tick": 360
+                    }
+                  }
+                },
+                "only_to_enemy": false
+              },
+              {
+                "type": "Sfx",
+                "name": "tft_scar_p"
+              },
+              {
+                "type": "CasterAnimation",
+                "name": "surf",
+                "tick": 24
+              },
+              {
+                "type": "MoveToTarget",
+                "speed": 4000,
+                "range": 65000,
+                "end_effects": [
+                  {
+                    "type": "Sfx",
+                    "name": "tft_scar_p_hit"
+                  },
+                  {
+                    "type": "Attack",
+                    "damage": 40,
+                    "attack_ratio": 110,
+                    "hp_ratio": 0,
+                    "target_hp_ratio": 0,
+                    "attack_effect_type": "Target"
+                  },
+                  {
+                    "type": "ApAttack",
+                    "damage": 0,
+                    "attack_ratio": 30,
+                    "hp_ratio": 0,
+                    "can_crit": false
+                  },
+                  {
+                    "type": "ViewEffect",
+                    "name": "tft_scar_p_hit"
+                  },
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "tft_scar_p_surf",
+                      "duration": {
+                        "Time": {
+                          "tick": 2
+                        }
+                      }
+                    },
+                    "only_to_enemy": false
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "skill": {
+    "action_name": "skill",
+    "description": "#asset/base/text/champion?description.tft_scar.skill",
+    "duration": 40,
+    "cooltime": 600,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 45000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "tft_scar_q"
+        },
+        {
+          "type": "Sfx",
+          "name": "tft_scar_q_vo"
+        },
+        {
+          "type": "Delayed",
+          "tick": 17,
+          "effects": [
+            {
+              "type": "Native",
+              "effect_ref": "tft_scar:bombs"
+            },
+            {
+              "type": "RangeEffect",
+              "shape": {
+                "Circle": {
+                  "radius": 1000
+                }
+              },
+              "target": "AllyOnlySelf",
+              "apply_type": "AroundCaster",
+              "effects": [
+                {
+                  "type": "Heal",
+                  "amount": 60,
+                  "attack_ratio": 0,
+                  "ap_ratio": 60,
+                  "heal_type": "Caster"
+                }
+              ]
+            },
+            {
+              "type": "Sfx",
+              "name": "tft_scar_p_heal"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill2": {
+    "action_name": "skill2",
+    "description": "#asset/base/text/champion?description.tft_scar.skill2",
+    "duration": 26,
+    "cooltime": 540,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 30000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "tft_scar_e"
+        },
+        {
+          "type": "Delayed",
+          "tick": 11,
+          "effects": [
+            {
+              "type": "RangeEffect",
+              "shape": {
+                "DirDot": {
+                  "radius": 40000,
+                  "range": 600
+                }
+              },
+              "target": "EnemyWithoutTower",
+              "apply_type": {
+                "Forward": {
+                  "offset": 1000
+                }
+              },
+              "effects": [
+                {
+                  "type": "Attack",
+                  "damage": 50,
+                  "attack_ratio": 80,
+                  "hp_ratio": 2,
+                  "target_hp_ratio": 0,
+                  "attack_effect_type": "Target"
+                },
+                {
+                  "type": "Knockback",
+                  "speed": 1500,
+                  "tick": 6
+                },
+                {
+                  "type": "ViewEffect",
+                  "name": "tft_scar_e_hit"
+                },
+                {
+                  "type": "TargetSfx",
+                  "name": "tft_scar_e_hit"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "ult": {
+    "action_name": "ult",
+    "description": "#asset/base/text/champion?description.tft_scar.ult",
+    "duration": 50,
+    "cooltime": 3000,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 50000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "tft_scar_r"
+        },
+        {
+          "type": "CasterAnimation",
+          "name": "ride",
+          "tick": 50
+        },
+        {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "tft_scar_r_air",
+            "duration": {
+              "Time": {
+                "tick": 50
+              }
+            },
+            "cc_immune": true
+          },
+          "only_to_enemy": false
+        },
+        {
+          "type": "MoveToTarget",
+          "speed": 3200,
+          "range": 90000,
+          "end_effects": [
+            {
+              "type": "CasterAnimation",
+              "name": "land",
+              "tick": 18
+            },
+            {
+              "type": "Sfx",
+              "name": "tft_scar_r_mines"
+            },
+            {
+              "type": "Sfx",
+              "name": "tft_scar_r_guard"
+            },
+            {
+              "type": "CasterViewEffect",
+              "name": "tft_scar_r_land"
+            },
+            {
+              "type": "RangeEffect",
+              "shape": {
+                "Circle": {
+                  "radius": 32000
+                }
+              },
+              "target": "EnemyWithoutTower",
+              "apply_type": "AroundCaster",
+              "effects": [
+                {
+                  "type": "ApAttack",
+                  "damage": 120,
+                  "attack_ratio": 100,
+                  "hp_ratio": 0,
+                  "can_crit": false
+                },
+                {
+                  "type": "Airborne",
+                  "duration": 30
+                },
+                {
+                  "type": "ViewEffect",
+                  "name": "tft_scar_r_hit"
+                }
+              ]
+            },
+            {
+              "type": "AddCasterBuff",
+              "buff_state": {
+                "name": "tft_scar_r_guard",
+                "duration": {
+                  "Time": {
+                    "tick": 240
+                  }
+                },
+                "damaged_reduce": 40
+              },
+              "only_to_enemy": false
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 7,
+          "effects": [
+            {
+              "type": "Delayed",
+              "tick": 0,
+              "effects": [
+                {
+                  "type": "Sfx",
+                  "name": "tft_scar_r_bomb"
+                },
+                {
+                  "type": "CasterViewEffect",
+                  "name": "tft_scar_r_bomb"
+                },
+                {
+                  "type": "RangeEffect",
+                  "shape": {
+                    "Circle": {
+                      "radius": 22000
+                    }
+                  },
+                  "target": "EnemyWithoutTower",
+                  "apply_type": "AroundCaster",
+                  "effects": [
+                    {
+                      "type": "ApAttack",
+                      "damage": 40,
+                      "attack_ratio": 40,
+                      "hp_ratio": 0,
+                      "can_crit": false
+                    },
+                    {
+                      "type": "ViewEffect",
+                      "name": "tft_scar_r_hit"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 15,
+          "effects": [
+            {
+              "type": "Delayed",
+              "tick": 0,
+              "effects": [
+                {
+                  "type": "Sfx",
+                  "name": "tft_scar_r_bomb"
+                },
+                {
+                  "type": "CasterViewEffect",
+                  "name": "tft_scar_r_bomb"
+                },
+                {
+                  "type": "RangeEffect",
+                  "shape": {
+                    "Circle": {
+                      "radius": 22000
+                    }
+                  },
+                  "target": "EnemyWithoutTower",
+                  "apply_type": "AroundCaster",
+                  "effects": [
+                    {
+                      "type": "ApAttack",
+                      "damage": 40,
+                      "attack_ratio": 40,
+                      "hp_ratio": 0,
+                      "can_crit": false
+                    },
+                    {
+                      "type": "ViewEffect",
+                      "name": "tft_scar_r_hit"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "view_projectiles": [
+    {
+      "type": "Animated",
+      "name": "tft_scar_q_bomb",
+      "anim": "asset/tft/effects/tft_scar_fx",
+      "tag": "q_bomb",
+      "repeat": true,
+      "z": 2
+    }
+  ],
+  "view_effects": [
+    {
+      "type": "Animation",
+      "name": "tft_scar_a_hit",
+      "anim": "asset/tft/effects/tft_scar_fx",
+      "tag": "a_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_scar_p_hit",
+      "anim": "asset/tft/effects/tft_scar_fx",
+      "tag": "p_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_scar_q_hit",
+      "anim": "asset/tft/effects/tft_scar_fx",
+      "tag": "q_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_scar_e_hit",
+      "anim": "asset/tft/effects/tft_scar_fx",
+      "tag": "e_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_scar_r_bomb",
+      "anim": "asset/tft/effects/tft_scar_fx",
+      "tag": "r_bomb",
+      "z": -1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "tft_scar_r_land",
+      "anim": "asset/tft/effects/tft_scar_big",
+      "tag": "r_land",
+      "z": -1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "tft_scar_r_hit",
+      "anim": "asset/tft/effects/tft_scar_fx",
+      "tag": "r_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_scar_p_heal",
+      "anim": "asset/tft/effects/tft_scar_fx",
+      "tag": "p_heal",
+      "z": 3,
+      "is_follow": true
+    }
+  ],
+  "view_buffs": [
+    {
+      "type": "Animated",
+      "name": "tft_scar_q_stun",
+      "anim": "asset/tft/effects/tft_scar_fx",
+      "tag": "q_stun",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "tft_scar_r_guard",
+      "anim": "asset/tft/effects/tft_scar_fx",
+      "tag": "r_guard",
+      "repeat": true,
+      "z": 3
+    }
+  ]
+}
