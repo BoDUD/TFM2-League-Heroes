@@ -299,6 +299,10 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // PPU 2.0 (「B-2 40 PPU 2.0」), and Codex's key poses after his own TFT clips with the design's head, posed by
     // tools/art/rig_vander.py, so no SIZES row
     ("tft_vander", 2.0, include_str!("../../../tft/champions/tft_vander#anim.fanim")),
+    // Violet (tft_violet, the tft pack): the fighting stance, both gauntlets up, step 0's B-1 at the user's 38 game px
+    // hair to soles, PPU 2.0 (「B-1 38 PPU 2.0」), and Codex's key poses after her own TFT clips with the design's head,
+    // posed by tools/art/rig_violet.py, so no SIZES row
+    ("tft_violet", 2.0, include_str!("../../../tft/champions/tft_violet#anim.fanim")),
     // The Ancient Krug (tft_krug, the tft pack): hunched on all fours, step 0's A-1 at the user's 38 game px boulder to
     // soles, PPU 2.0 (「A-1 38 PPU 2.0」), and Codex's key poses after his own TFT clips, posed by tools/art/rig_krug.py,
     // so no SIZES row

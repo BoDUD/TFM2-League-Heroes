@@ -1,0 +1,574 @@
+{
+  "id": "tft_violet",
+  "category": "Melee",
+  "tags": [
+    "AD",
+    "Melee",
+    "CC"
+  ],
+  "passive": {
+    "passive_ref": "tft_violet:pugilist",
+    "params": {
+      "p_line": 50,
+      "p_heal": 15,
+      "p_t": 120,
+      "r_as": 40,
+      "r_vamp": 5,
+      "r_fam": 10,
+      "r_t": 300
+    }
+  },
+  "sprite": "asset/tft/champions/tft_violet",
+  "anim_prefix": "",
+  "skill_icons": [
+    "asset/tft/icons/tft_violet_skill",
+    "asset/tft/icons/tft_violet_skill2",
+    "asset/tft/icons/tft_violet_ult"
+  ],
+  "stat": {
+    "attack": 82,
+    "magic_power": 0,
+    "hp": 940,
+    "defence": 30,
+    "magic_resistance": 24,
+    "move_speed": 1050,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "growth": {
+    "attack": 17,
+    "magic_power": 0,
+    "hp": 100,
+    "defence": 8,
+    "magic_resistance": 4,
+    "move_speed": 11,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "attack": {
+    "action_name": "attack",
+    "description": "#asset/base/text/champion?description.tft_violet.attack",
+    "duration": 22,
+    "cooltime": 56,
+    "start_timing": 1,
+    "cancelable": true,
+    "range": 24000,
+    "casting_type": "Targeting",
+    "casting_target": "Enemy",
+    "attack_type": "BaseAttack",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "tft_violet_p_on",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": []
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "tft_violet_p_on",
+                  "duration": "Permanent"
+                },
+                "only_to_enemy": false
+              },
+              {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "tft_violet_p_vamp",
+                  "duration": "Permanent",
+                  "vamp": 10
+                },
+                "only_to_enemy": false
+              }
+            ]
+          }
+        },
+        {
+          "type": "Sfx",
+          "name": "tft_violet_a"
+        },
+        {
+          "type": "Delayed",
+          "tick": 9,
+          "effects": [
+            {
+              "type": "Attack",
+              "damage": 0,
+              "attack_ratio": 100,
+              "hp_ratio": 0,
+              "target_hp_ratio": 0,
+              "attack_effect_type": "Target"
+            },
+            {
+              "type": "FixedAttack",
+              "damage": 0,
+              "attack_ratio": 5,
+              "hp_ratio": 0,
+              "target_hp_ratio": 0
+            },
+            {
+              "type": "ViewEffect",
+              "name": "tft_violet_a_hit"
+            },
+            {
+              "type": "TargetSfx",
+              "name": "tft_violet_a_hit"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill": {
+    "action_name": "skill",
+    "description": "#asset/base/text/champion?description.tft_violet.skill",
+    "duration": 54,
+    "cooltime": 480,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 30000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "tft_violet_p_on",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": []
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "tft_violet_p_on",
+                  "duration": "Permanent"
+                },
+                "only_to_enemy": false
+              },
+              {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "tft_violet_p_vamp",
+                  "duration": "Permanent",
+                  "vamp": 10
+                },
+                "only_to_enemy": false
+              }
+            ]
+          }
+        },
+        {
+          "type": "Sfx",
+          "name": "tft_violet_q"
+        },
+        {
+          "type": "Delayed",
+          "tick": 7,
+          "effects": [
+            {
+              "type": "Attack",
+              "damage": 0,
+              "attack_ratio": 50,
+              "hp_ratio": 0,
+              "target_hp_ratio": 0,
+              "attack_effect_type": "Target"
+            },
+            {
+              "type": "FixedAttack",
+              "damage": 0,
+              "attack_ratio": 5,
+              "hp_ratio": 0,
+              "target_hp_ratio": 0
+            },
+            {
+              "type": "ViewEffect",
+              "name": "tft_violet_q_jab"
+            },
+            {
+              "type": "TargetSfx",
+              "name": "tft_violet_q_hit"
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 19,
+          "effects": [
+            {
+              "type": "Sfx",
+              "name": "tft_violet_q"
+            },
+            {
+              "type": "Attack",
+              "damage": 0,
+              "attack_ratio": 50,
+              "hp_ratio": 0,
+              "target_hp_ratio": 0,
+              "attack_effect_type": "Target"
+            },
+            {
+              "type": "FixedAttack",
+              "damage": 0,
+              "attack_ratio": 5,
+              "hp_ratio": 0,
+              "target_hp_ratio": 0
+            },
+            {
+              "type": "ViewEffect",
+              "name": "tft_violet_q_jab"
+            },
+            {
+              "type": "TargetSfx",
+              "name": "tft_violet_q_hit"
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 35,
+          "effects": [
+            {
+              "type": "Attack",
+              "damage": 40,
+              "attack_ratio": 120,
+              "hp_ratio": 0,
+              "target_hp_ratio": 0,
+              "attack_effect_type": "Target"
+            },
+            {
+              "type": "FixedAttack",
+              "damage": 0,
+              "attack_ratio": 5,
+              "hp_ratio": 0,
+              "target_hp_ratio": 0
+            },
+            {
+              "type": "Airborne",
+              "duration": 30
+            },
+            {
+              "type": "ViewEffect",
+              "name": "tft_violet_q_up"
+            },
+            {
+              "type": "TargetSfx",
+              "name": "tft_violet_q_up"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill2": {
+    "action_name": "skill2",
+    "description": "#asset/base/text/champion?description.tft_violet.skill2",
+    "duration": 24,
+    "cooltime": 600,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 45000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "tft_violet_p_on",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": []
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "tft_violet_p_on",
+                  "duration": "Permanent"
+                },
+                "only_to_enemy": false
+              },
+              {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "tft_violet_p_vamp",
+                  "duration": "Permanent",
+                  "vamp": 10
+                },
+                "only_to_enemy": false
+              }
+            ]
+          }
+        },
+        {
+          "type": "Sfx",
+          "name": "tft_violet_e"
+        },
+        {
+          "type": "CasterViewEffect",
+          "name": "tft_violet_e_dash"
+        },
+        {
+          "type": "MoveToTarget",
+          "speed": 5000,
+          "range": 85000,
+          "end_effects": [
+            {
+              "type": "CasterAnimation",
+              "name": "punch",
+              "tick": 16
+            },
+            {
+              "type": "Sfx",
+              "name": "tft_violet_e_hit"
+            },
+            {
+              "type": "Attack",
+              "damage": 40,
+              "attack_ratio": 100,
+              "hp_ratio": 0,
+              "target_hp_ratio": 0,
+              "attack_effect_type": "Target"
+            },
+            {
+              "type": "FixedAttack",
+              "damage": 0,
+              "attack_ratio": 5,
+              "hp_ratio": 0,
+              "target_hp_ratio": 0
+            },
+            {
+              "type": "Knockback",
+              "speed": 1200,
+              "tick": 4
+            },
+            {
+              "type": "ViewEffect",
+              "name": "tft_violet_e_hit"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "ult": {
+    "action_name": "ult",
+    "description": "#asset/base/text/champion?description.tft_violet.ult",
+    "duration": 40,
+    "cooltime": 3000,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 50000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "tft_violet_p_on",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": []
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "tft_violet_p_on",
+                  "duration": "Permanent"
+                },
+                "only_to_enemy": false
+              },
+              {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "tft_violet_p_vamp",
+                  "duration": "Permanent",
+                  "vamp": 10
+                },
+                "only_to_enemy": false
+              }
+            ]
+          }
+        },
+        {
+          "type": "Sfx",
+          "name": "tft_violet_r"
+        },
+        {
+          "type": "Sfx",
+          "name": "tft_violet_r_jump"
+        },
+        {
+          "type": "MoveToTarget",
+          "speed": 4000,
+          "range": 90000,
+          "end_effects": [
+            {
+              "type": "CasterAnimation",
+              "name": "slam",
+              "tick": 18
+            },
+            {
+              "type": "Sfx",
+              "name": "tft_violet_r_slam"
+            },
+            {
+              "type": "Sfx",
+              "name": "tft_violet_r_buff"
+            },
+            {
+              "type": "CasterViewEffect",
+              "name": "tft_violet_r_slam"
+            },
+            {
+              "type": "RangeEffect",
+              "shape": {
+                "Circle": {
+                  "radius": 32000
+                }
+              },
+              "target": "EnemyWithoutTower",
+              "apply_type": "AroundCaster",
+              "effects": [
+                {
+                  "type": "Attack",
+                  "damage": 120,
+                  "attack_ratio": 130,
+                  "hp_ratio": 0,
+                  "target_hp_ratio": 0,
+                  "attack_effect_type": "Target"
+                },
+                {
+                  "type": "FixedAttack",
+                  "damage": 0,
+                  "attack_ratio": 5,
+                  "hp_ratio": 0,
+                  "target_hp_ratio": 0
+                },
+                {
+                  "type": "Airborne",
+                  "duration": 48
+                },
+                {
+                  "type": "ViewEffect",
+                  "name": "tft_violet_r_hit"
+                }
+              ]
+            },
+            {
+              "type": "Native",
+              "effect_ref": "tft_violet:fury"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "view_projectiles": [],
+  "view_effects": [
+    {
+      "type": "Animation",
+      "name": "tft_violet_a_hit",
+      "anim": "asset/tft/effects/tft_violet_fx",
+      "tag": "a_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_violet_q_jab",
+      "anim": "asset/tft/effects/tft_violet_fx",
+      "tag": "q_jab",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_violet_q_up",
+      "anim": "asset/tft/effects/tft_violet_fx",
+      "tag": "q_up",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_violet_e_dash",
+      "anim": "asset/tft/effects/tft_violet_fx",
+      "tag": "e_dash",
+      "z": 1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "tft_violet_e_hit",
+      "anim": "asset/tft/effects/tft_violet_fx",
+      "tag": "e_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_violet_r_slam",
+      "anim": "asset/tft/effects/tft_violet_big",
+      "tag": "r_slam",
+      "z": -1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "tft_violet_r_hit",
+      "anim": "asset/tft/effects/tft_violet_fx",
+      "tag": "r_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_violet_p_burst",
+      "anim": "asset/tft/effects/tft_violet_fx",
+      "tag": "p_burst",
+      "z": 3,
+      "is_follow": true
+    }
+  ],
+  "view_buffs": [
+    {
+      "type": "Animated",
+      "name": "tft_violet_r_fury",
+      "anim": "asset/tft/effects/tft_violet_fx",
+      "tag": "r_fury",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "tft_violet_p_wind",
+      "anim": "asset/tft/effects/tft_violet_fx",
+      "tag": "p_wind",
+      "repeat": true,
+      "z": 3
+    }
+  ]
+}

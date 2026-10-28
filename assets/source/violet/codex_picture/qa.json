@@ -1,0 +1,48 @@
+[
+  {
+    "file": "violet-A.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_nonzero_bbox": [
+      0,
+      19,
+      1240,
+      1254
+    ],
+    "alpha128_bbox": [
+      153,
+      281,
+      1132,
+      1237
+    ],
+    "alpha_values": 256,
+    "opaque_pixels": 1666,
+    "partial_alpha_pixels": 488048
+  },
+  {
+    "file": "violet-B.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_nonzero_bbox": [
+      53,
+      19,
+      1186,
+      1254
+    ],
+    "alpha128_bbox": [
+      356,
+      542,
+      961,
+      1218
+    ],
+    "alpha_values": 256,
+    "opaque_pixels": 532,
+    "partial_alpha_pixels": 233553
+  }
+]
