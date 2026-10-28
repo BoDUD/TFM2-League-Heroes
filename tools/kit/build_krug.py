@@ -193,15 +193,14 @@ def build(p, is_native=False):
                                                 "repeat": True, "z": z}
     # the crash's shockwave and the falling rocks lie round him on the ground (z -1), drawn round so they read the same
     # on both sides; the leap's dust stays where he sprang from, the landing mark rides the target while he is up.
-    # tft.dll plays the rebirth's shatter (p_burst) and reforming (p_up) itself
-    views_e = [E("a_hit"), E("q_shield", FX, 3), E("q_hit"), E("e_cast", FX, 3), E("r_jump", FX, 1, False),
+    # the shell stomp's ring lies on the ground (z -1) where he stomped; tft.dll puts the rebirth's shatter (p_burst),
+    # reforming (p_up) and the Mini Krug's ring (p_mini) on him as buffs
+    views_e = [E("a_hit"), E("q_shield", FX, 3), E("q_hit"), E("e_cast", FX, -1, False), E("r_jump", FX, 1, False),
                E("r_mark", FX, -1), E("r_slam", BIG, -1, False), E("r_hit"), E("r_rocks", BIG, 3, False),
                E("r_rock_hit")]
-    if is_native:
-        views_e += [E("p_burst", FX, 3, False), E("p_up", FX, 3)]
     views_b = [B_("e_shell", FX, 3), B_("e_taunt", FX, 4)]
-    if is_native:
-        views_b += [B_("p_mini", FX, -1)]
+    if is_native:   # tft.dll's rebirth: its shatter, its reforming and the Mini Krug's ring, as buffs
+        views_b += [B_("p_burst", FX, 3), B_("p_up", FX, 3), B_("p_mini", FX, -1)]
     kit = {
         "id": ID, "category": "Melee", "tags": ["AD", "Melee", "Tank", "CC", "Shield"],
         "sprite": f"asset/{MOD_ID}/champions/{ID}", "anim_prefix": "",

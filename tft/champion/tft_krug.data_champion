@@ -1,0 +1,515 @@
+{
+  "id": "tft_krug",
+  "category": "Melee",
+  "tags": [
+    "AD",
+    "Melee",
+    "Tank",
+    "CC",
+    "Shield"
+  ],
+  "passive": {
+    "passive_ref": "tft_krug:split",
+    "params": {
+      "p_hp": 35,
+      "p_cd": 3600,
+      "p_t": 45,
+      "p_as": 30,
+      "p_r": 40000,
+      "p_taunt": 60
+    }
+  },
+  "sprite": "asset/tft/champions/tft_krug",
+  "anim_prefix": "",
+  "skill_icons": [
+    "asset/tft/icons/tft_krug_skill",
+    "asset/tft/icons/tft_krug_skill2",
+    "asset/tft/icons/tft_krug_ult"
+  ],
+  "stat": {
+    "attack": 80,
+    "magic_power": 20,
+    "hp": 1200,
+    "defence": 38,
+    "magic_resistance": 28,
+    "move_speed": 960,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "growth": {
+    "attack": 14,
+    "magic_power": 10,
+    "hp": 118,
+    "defence": 8,
+    "magic_resistance": 4,
+    "move_speed": 10,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "attack": {
+    "action_name": "attack",
+    "description": "#asset/base/text/champion?description.tft_krug.attack",
+    "duration": 32,
+    "cooltime": 72,
+    "start_timing": 1,
+    "cancelable": true,
+    "range": 25000,
+    "casting_type": "Targeting",
+    "casting_target": "Enemy",
+    "attack_type": "BaseAttack",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "tft_krug_a"
+        },
+        {
+          "type": "Delayed",
+          "tick": 15,
+          "effects": [
+            {
+              "type": "Attack",
+              "damage": 0,
+              "attack_ratio": 100,
+              "hp_ratio": 0,
+              "target_hp_ratio": 0,
+              "attack_effect_type": "Target"
+            },
+            {
+              "type": "ViewEffect",
+              "name": "tft_krug_a_hit"
+            },
+            {
+              "type": "TargetSfx",
+              "name": "tft_krug_a_hit"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill": {
+    "action_name": "skill",
+    "description": "#asset/base/text/champion?description.tft_krug.skill",
+    "duration": 30,
+    "cooltime": 480,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 45000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "tft_krug_q"
+        },
+        {
+          "type": "Sfx",
+          "name": "tft_krug_q_shield"
+        },
+        {
+          "type": "RangeEffect",
+          "shape": {
+            "Circle": {
+              "radius": 1000
+            }
+          },
+          "target": "AllyOnlySelf",
+          "apply_type": "AroundCaster",
+          "effects": [
+            {
+              "type": "Shield",
+              "amount": 80,
+              "attack_ratio": 0,
+              "ap_ratio": 60,
+              "tick": 240
+            }
+          ]
+        },
+        {
+          "type": "CasterViewEffect",
+          "name": "tft_krug_q_shield"
+        },
+        {
+          "type": "MoveToTarget",
+          "speed": 3200,
+          "range": 65000,
+          "end_effects": [
+            {
+              "type": "Sfx",
+              "name": "tft_krug_q_hit"
+            },
+            {
+              "type": "Attack",
+              "damage": 40,
+              "attack_ratio": 140,
+              "hp_ratio": 6,
+              "target_hp_ratio": 0,
+              "attack_effect_type": "Target"
+            },
+            {
+              "type": "Knockback",
+              "speed": 2500,
+              "tick": 12
+            },
+            {
+              "type": "ViewEffect",
+              "name": "tft_krug_q_hit"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill2": {
+    "action_name": "skill2",
+    "description": "#asset/base/text/champion?description.tft_krug.skill2",
+    "duration": 24,
+    "cooltime": 600,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 30000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "tft_krug_e"
+        },
+        {
+          "type": "Sfx",
+          "name": "tft_krug_e_taunt"
+        },
+        {
+          "type": "CasterViewEffect",
+          "name": "tft_krug_e_cast"
+        },
+        {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "tft_krug_e_shell",
+            "duration": {
+              "Time": {
+                "tick": 150
+              }
+            },
+            "defence": 40,
+            "magic_resistance": 30
+          },
+          "only_to_enemy": false
+        },
+        {
+          "type": "RangeEffect",
+          "shape": {
+            "Circle": {
+              "radius": 28000
+            }
+          },
+          "target": "EnemyWithoutTower",
+          "apply_type": "AroundCaster",
+          "effects": [
+            {
+              "type": "Taunt",
+              "duration": 45
+            },
+            {
+              "type": "AddBuff",
+              "buff_state": {
+                "name": "tft_krug_e_taunt",
+                "duration": {
+                  "Time": {
+                    "tick": 45
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "ult": {
+    "action_name": "ult",
+    "description": "#asset/base/text/champion?description.tft_krug.ult",
+    "duration": 60,
+    "cooltime": 3000,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 50000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "tft_krug_r"
+        },
+        {
+          "type": "ViewEffect",
+          "name": "tft_krug_r_mark"
+        },
+        {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "tft_krug_r_air",
+            "duration": {
+              "Time": {
+                "tick": 36
+              }
+            },
+            "damaged_reduce": 100,
+            "cc_immune": true
+          },
+          "only_to_enemy": false
+        },
+        {
+          "type": "Delayed",
+          "tick": 14,
+          "effects": [
+            {
+              "type": "CasterViewEffect",
+              "name": "tft_krug_r_jump"
+            },
+            {
+              "type": "CasterInvisible",
+              "tick": 21
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 35,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "Teleport"
+                },
+                {
+                  "type": "Sfx",
+                  "name": "tft_krug_r_slam"
+                },
+                {
+                  "type": "Sfx",
+                  "name": "tft_krug_r_hit"
+                },
+                {
+                  "type": "CasterViewEffect",
+                  "name": "tft_krug_r_slam"
+                },
+                {
+                  "type": "RangeEffect",
+                  "shape": {
+                    "Circle": {
+                      "radius": 36000
+                    }
+                  },
+                  "target": "EnemyWithoutTower",
+                  "apply_type": "AroundCaster",
+                  "effects": [
+                    {
+                      "type": "Attack",
+                      "damage": 70,
+                      "attack_ratio": 100,
+                      "hp_ratio": 6,
+                      "target_hp_ratio": 0,
+                      "attack_effect_type": "Target"
+                    },
+                    {
+                      "type": "Airborne",
+                      "duration": 48
+                    },
+                    {
+                      "type": "ViewEffect",
+                      "name": "tft_krug_r_hit"
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 30,
+                  "effects": [
+                    {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "Sfx",
+                          "name": "tft_krug_r_rocks"
+                        },
+                        {
+                          "type": "CasterViewEffect",
+                          "name": "tft_krug_r_rocks"
+                        },
+                        {
+                          "type": "RangeEffect",
+                          "shape": {
+                            "Circle": {
+                              "radius": 40000
+                            }
+                          },
+                          "target": "EnemyWithoutTower",
+                          "apply_type": "AroundCaster",
+                          "effects": [
+                            {
+                              "type": "Attack",
+                              "damage": 40,
+                              "attack_ratio": 0,
+                              "hp_ratio": 4,
+                              "target_hp_ratio": 0,
+                              "attack_effect_type": "Target"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "tft_krug_r_rock_hit"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "view_projectiles": [],
+  "view_effects": [
+    {
+      "type": "Animation",
+      "name": "tft_krug_a_hit",
+      "anim": "asset/tft/effects/tft_krug_fx",
+      "tag": "a_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_krug_q_shield",
+      "anim": "asset/tft/effects/tft_krug_fx",
+      "tag": "q_shield",
+      "z": 3,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_krug_q_hit",
+      "anim": "asset/tft/effects/tft_krug_fx",
+      "tag": "q_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_krug_e_cast",
+      "anim": "asset/tft/effects/tft_krug_fx",
+      "tag": "e_cast",
+      "z": -1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "tft_krug_r_jump",
+      "anim": "asset/tft/effects/tft_krug_fx",
+      "tag": "r_jump",
+      "z": 1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "tft_krug_r_mark",
+      "anim": "asset/tft/effects/tft_krug_fx",
+      "tag": "r_mark",
+      "z": -1,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_krug_r_slam",
+      "anim": "asset/tft/effects/tft_krug_big",
+      "tag": "r_slam",
+      "z": -1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "tft_krug_r_hit",
+      "anim": "asset/tft/effects/tft_krug_fx",
+      "tag": "r_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_krug_r_rocks",
+      "anim": "asset/tft/effects/tft_krug_big",
+      "tag": "r_rocks",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "tft_krug_r_rock_hit",
+      "anim": "asset/tft/effects/tft_krug_fx",
+      "tag": "r_rock_hit",
+      "z": 2,
+      "is_follow": true
+    }
+  ],
+  "view_buffs": [
+    {
+      "type": "Animated",
+      "name": "tft_krug_e_shell",
+      "anim": "asset/tft/effects/tft_krug_fx",
+      "tag": "e_shell",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "tft_krug_e_taunt",
+      "anim": "asset/tft/effects/tft_krug_fx",
+      "tag": "e_taunt",
+      "repeat": true,
+      "z": 4
+    },
+    {
+      "type": "Animated",
+      "name": "tft_krug_p_burst",
+      "anim": "asset/tft/effects/tft_krug_fx",
+      "tag": "p_burst",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "tft_krug_p_up",
+      "anim": "asset/tft/effects/tft_krug_fx",
+      "tag": "p_up",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "tft_krug_p_mini",
+      "anim": "asset/tft/effects/tft_krug_fx",
+      "tag": "p_mini",
+      "repeat": true,
+      "z": -1
+    }
+  ]
+}

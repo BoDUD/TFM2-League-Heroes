@@ -4,9 +4,11 @@
 //!
 //! - **碎岩重生**：金铲铲里他阵亡时分裂成两只会嘲讽的小石甲虫；召唤物在数据里不能走路，所以做成重生。数据读不到生命：
 //!   本被动在他能重生时一直挂着「不死」`tft_krug_p_guard`（艾尼维亚冰蛋的做法，生命停在 1 就触发），每条命第一次
-//!   受到致命伤害、且离上次重生过了 `p_cd` tick 时，他碎成一堆石头 `p_t` tick（晕住自己、`tft_krug_p_shatter` 免伤），
-//!   亮 `p_burst`、碎裂声；然后以小石甲虫站起来：生命 `p_hp`%，这条命剩下的时间攻速 +`p_as`%（`tft_krug_p_mini`），
-//!   中心 `p_r` 内的敌人（英雄、小兵、野怪）被嘲讽 `p_taunt` tick，亮 `p_up`、吼一声。别人给的「不死」在身上时不触发。
+//!   受到致命伤害、且离上次重生过了 `p_cd` tick 时，他碎成一堆石头 `p_t` tick（动作控制 `shatter`：图里倒成石堆的三帧，
+//!   动不了；`tft_krug_p_shatter` 免伤），挂 `p_burst`（碎裂的画面）、碎裂声；然后以小石甲虫站起来：生命 `p_hp`%，动作控制
+//!   `reform`（石块聚回来）`REFORM` tick，这条命剩下的时间攻速 +`p_as`%（`tft_krug_p_mini`，脚下一圈裂纹光），中心 `p_r`
+//!   内的敌人（英雄、小兵、野怪）被嘲讽 `p_taunt` tick，挂 `p_up`（重聚的画面）、吼一声。别人给的「不死」在身上时不触发。
+//!   画面都挂成 buff（tft.dll 直接播的画面游戏里看不到：league_bard 的门的教训，buff 画面是看得到的）。
 //!
 //! 岩之摇滚（护盾、滚向目标、击退）、坚岩外壳（双抗、嘲讽）和远古崩落（跃起、砸落、击飞、落石）是数据自己的。
 //! 只有单元测试（经典 SDK 跑不了原生代码），要在游戏里看日志。
@@ -28,6 +30,11 @@ const SFX_UP: &str = "tft_krug_p_up";
 /// How long the guard lasts and how often it is renewed.
 pub const GUARD_T: usize = 30;
 pub const GUARD_EVERY: usize = 10;
+/// The reforming animation (tft/champions/tft_krug's `reform`: 400 ms) and the two pictures' lengths (import_krug_fx:
+/// p_burst 400 ms, p_up 420 ms), in ticks.
+pub const REFORM: usize = 24;
+pub const BURST_T: usize = 24;
+pub const UP_T: usize = 26;
 
 fn kr(x: &str) -> String {
     format!("{ID}_{x}")
@@ -187,7 +194,19 @@ pub fn shatter_buff(p: &Params) -> BuffV1 {
     b
 }
 
+/// An Animation CC: `tag` of his sheet played for `ticks`, he does nothing else meanwhile (league_bard's door).
+pub fn animation(tag: &str, ticks: usize) -> CcV1 {
+    let mut cc = CcV1::of_kind(CcKindV1::Animation, ticks as u64);
+    cc.set_name(tag);
+    cc
+}
+
 // ===================== 被动 =====================
+
+fn put(sim: &mut StableSim<'_>, id: usize, buff: &BuffV1) {
+    sim.entity_remove_buff(id, buff.name());
+    sim.add_buff(id, buff);
+}
 
 fn buffs(sim: &StableSim<'_>, id: usize) -> Vec<BuffV1> {
     sim.get_entity(id).map_or_else(Vec::new, |e| (0..e.buff_count()).filter_map(|i| e.buff_at(i)).collect())
@@ -223,12 +242,10 @@ impl Split {
         self.reborn = true;
         self.ready_at = now + self.p.p_cd;
         sim.entity_remove_buff(me, &kr("p_guard"));
-        sim.apply_cc(me, &CcV1::stun(self.p.p_t as u64));
-        sim.entity_remove_buff(me, &kr("p_shatter"));
-        sim.add_buff(me, &shatter_buff(&self.p));
-        let on = InputTargetV1::target(me);
-        sim.play_view_effect(&kr("p_burst"), me, &on, 0, 0, 0);
-        sim.play_sfx(SFX_SHATTER, me, &on);
+        sim.apply_cc(me, &animation("shatter", self.p.p_t));
+        put(sim, me, &shatter_buff(&self.p));
+        put(sim, me, &BuffV1::timed(&kr("p_burst"), BURST_T));
+        sim.play_sfx(SFX_SHATTER, me, &InputTargetV1::target(me));
         if let Some(k) = counted("shatter") {
             wlog(format!("{} SHATTER #{k}: a lethal blow caught at 1 hp, in pieces for {} ticks", head(sim, me),
                          self.p.p_t));
@@ -241,11 +258,10 @@ impl Split {
         let hp = reborn_hp(max, &self.p);
         sim.entity_set_hp(me, hp);
         sim.entity_remove_buff(me, &kr("p_shatter"));
-        sim.entity_remove_buff(me, &kr("p_mini"));
-        sim.add_buff(me, &mini_buff(&self.p));
-        let on = InputTargetV1::target(me);
-        sim.play_view_effect(&kr("p_up"), me, &on, 0, 0, 0);
-        sim.play_sfx(SFX_UP, me, &on);
+        sim.apply_cc(me, &animation("reform", REFORM));
+        put(sim, me, &mini_buff(&self.p));
+        put(sim, me, &BuffV1::timed(&kr("p_up"), UP_T));
+        sim.play_sfx(SFX_UP, me, &InputTargetV1::target(me));
         let reach = (self.p.p_r as u128) * (self.p.p_r as u128);
         let near: Vec<usize> = (0..sim.entity_count())
             .filter_map(|i| sim.entity_at(i))
@@ -257,8 +273,7 @@ impl Split {
         taunt.target = me;
         for &id in &near {
             sim.apply_cc(id, &taunt);
-            sim.entity_remove_buff(id, &kr("e_taunt"));
-            sim.add_buff(id, &BuffV1::timed(&kr("e_taunt"), self.p.p_taunt));
+            put(sim, id, &BuffV1::timed(&kr("e_taunt"), self.p.p_taunt));
         }
         if let Some(k) = counted("stand") {
             wlog(format!("{} REBORN #{k}: a Mini Krug with {hp}/{max} hp, +{}% attack speed, {} enemies taunted {} ticks",
@@ -394,5 +409,11 @@ mod tests {
         assert_eq!(m.duration_kind, BuffDurationV1::Permanent.code());
         let s = shatter_buff(&p);
         assert_eq!((s.damaged_reduce, s.undying, s.duration_tick), (100, true, 47));
+    }
+
+    #[test]
+    fn the_animations() {
+        let c = animation("shatter", 45);
+        assert_eq!((c.kind, c.tick, c.name()), (CcKindV1::Animation.code(), 45, "shatter"));
     }
 }
