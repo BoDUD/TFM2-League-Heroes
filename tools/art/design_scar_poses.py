@@ -45,8 +45,16 @@ SRC = os.path.join(ROOT, "assets", "source", "scar", "codex_poses", "scar-poses"
 OUT = os.path.join(ROOT, "assets", "source", "scar", "hd")
 NAMES = list(PK.POSES)
 # the falls: where the design's head goes (its box's middle, on pixel_1x's grid) and how it is turned
-HEAD_CENTRE = {"d_fall": (25, 41), "d_down": (9, 80)}
 TURN = {"d_down": 1}             # quarter turns left (np.rot90): the top of the head to the image left, the mask up
+# the falls read from Codex's raw drafts too (the user, 2026-10-28: 「死亡时候身体这么长？」): it drew them with a
+# grown man's build (the body ten of its skulls long lying down, the walk's five) and pixel_1x kept it, his legs 1.45
+# times the walk's. Read again: d_fall at 16 raw px a square (his legs the walk's 34 squares, the boots its size);
+# d_down at 18.6 across (his jaw at x 235 to his soles at 1220 = the walk's WALK_JAW 53 squares) and 12.5 down (as
+# pixel_1x read it: as thick as he was). The design's head on the raw skull nearest `skull` (raw px), its skull's middle
+# on that skull's middle, turned TURN.
+DEATH = {"d_fall": dict(b=16.0, by=16.0, skull=(380, 560), spear=True),
+         "d_down": dict(b=18.6, by=12.5, skull=(196, 980), spear=False)}
+SPEAR_LEN = 76                   # squares: the walk's spear (upright_spear), so the one flying in d_fall is as long
 SPECK = 6                        # parts apart from the figure smaller than this are dropped
 WALK_SPECK = 20                  # the walk's: bits of the drafts' own spear left beside it
 WALK = [f"run{k}" for k in range(1, 9)]
@@ -151,16 +159,18 @@ def erase(a, lab, spear):
     return lab
 
 
-def squares(lab, pal, b, top, bottom, mid, left, right):
-    """lab on squares of b raw px: the rows up from `bottom`, the column `left` centred on x = mid, `right` columns
-    after it; every square the commonest design colour in its block's middle, drawn where most of that middle is."""
-    H = int(np.ceil((bottom - top) / b)) + 1
+def squares(lab, pal, b, top, bottom, mid, left, right, by=None):
+    """lab on squares of b raw px (by px high, b unless given): the rows up from `bottom`, the column `left` centred on
+    x = mid, `right` columns after it; every square the commonest design colour in its block's middle, drawn where most
+    of that middle is."""
+    by = by or b
+    H = int(np.ceil((bottom - top) / by)) + 1
     W = left + right
     out = np.zeros((H, W, 4), np.uint8)
     for r in range(H):
-        y1 = bottom - (H - 1 - r) * b
-        y0 = int(round(y1 - b * 0.8))
-        y1 = int(round(y1 - b * 0.2))
+        y1 = bottom - (H - 1 - r) * by
+        y0 = int(round(y1 - by * 0.8))
+        y1 = int(round(y1 - by * 0.2))
         for c in range(W):
             x0 = mid + (c - left - 0.5) * b
             win = lab[max(0, y0):max(0, y1), max(0, int(round(x0 + b * 0.2))):max(0, int(round(x0 + b * 0.8)))].ravel()
@@ -255,6 +265,54 @@ def walk_frame(name, d, spear):
     return out, (int(round(left - (SKULL[0] + SKULL[2]) / 2)), jaw_row - SKULL[3])
 
 
+def death_frame(name, d):
+    """A fall read from its raw draft (DEATH) -> (squares, the raw skull's middle square (column, row), the figure's
+    middle column on the pack's grid as pixel_1x had it)."""
+    pal = palette(d)
+    _, lab = raw_walk(name, pal)
+    k = DEATH[name]
+    bone = [i for i, c in enumerate(pal) if c.min() > 150 and c.max() - c.min() < 70]
+    m = np.isin(lab, bone)
+    lb, n = ndimage.label(m, structure=np.ones((3, 3), bool))
+    sizes = ndimage.sum(m, lb, range(1, n + 1))
+    blobs = [j + 1 for j in range(n) if sizes[j] > 800]
+    j = min(blobs, key=lambda j: np.hypot(*(np.array(ndimage.center_of_mass(m, lb, j))[::-1] - k["skull"])))
+    sy, sx = np.nonzero(lb == j)
+    cx, cy = (sx.min() + sx.max()) / 2, (sy.min() + sy.max()) / 2
+    flying = None
+    if k["spear"]:                            # the spear flying free of him (the largest part not his): on its own
+        parts, n = ndimage.label(lab >= 0, structure=np.ones((3, 3), bool))
+        his = parts[int(cy), int(cx)]
+        sizes = ndimage.sum(lab >= 0, parts, range(1, n + 1))
+        sp = parts == max((j for j in range(1, n + 1) if j != his), key=lambda j: sizes[j - 1])
+        flying = np.where(sp, lab, -1)
+        lab = np.where(sp, -1, lab)
+    ys, xs = np.nonzero(lab >= 0)
+    left = int(np.ceil((cx - xs.min()) / k["b"])) + 1
+    right = int(np.ceil((xs.max() - cx) / k["b"])) + 1
+    out = squares(lab, pal, k["b"], ys.min(), ys.max() + 1, cx, left, right, k["by"])
+    row = out.shape[0] - 1 - int((ys.max() + 1 - cy) / k["by"])
+    if flying is not None:                    # its middle where the body's scale puts it, from the skull
+        fy, fx = np.nonzero(flying >= 0)
+        bs = np.hypot(fx.max() - fx.min(), fy.max() - fy.min()) / SPEAR_LEN
+        mx, my = (fx.min() + fx.max()) / 2, (fy.min() + fy.max()) / 2
+        t = squares(flying, pal, bs, fy.min(), fy.max() + 1, mx, int(np.ceil((mx - fx.min()) / bs)) + 1,
+                    int(np.ceil((fx.max() - mx) / bs)) + 1)
+        tc = int(np.ceil((mx - fx.min()) / bs)) + 1
+        tr = t.shape[0] - 1 - int((fy.max() + 1 - my) / bs)
+        at_x = left + int(round((mx - cx) / k["b"])) - tc
+        at_y = row + int(round((my - cy) / k["by"])) - tr
+        pad = max(0, -at_x, -at_y, at_x + t.shape[1] - out.shape[1], at_y + t.shape[0] - out.shape[0])
+        out = np.pad(out, ((pad, pad), (pad, pad), (0, 0)))
+        left, row, at_x, at_y = left + pad, row + pad, at_x + pad, at_y + pad
+        reg = out[at_y:at_y + t.shape[0], at_x:at_x + t.shape[1]]
+        on = (t[..., 3] > 0) & (reg[..., 3] == 0)
+        reg[on] = t[on]
+    old = np.asarray(Image.open(lp(os.path.join(SRC, "pixel_1x", f"scar-pose-{name}.png"))).convert("RGBA"))
+    oxs = np.nonzero(old[..., 3].max(0) >= 128)[0]
+    return out, (left, row), (oxs.min() + oxs.max()) / 2
+
+
 def head_only(h):
     """The approved head without the design's own body round its jaw: from NECK_ROW down only the skull's colours and
     the ink by them (the box also took the design's shoulder pad, studs and collar, left of the jaw, which sat over the
@@ -275,6 +333,8 @@ def read(name, d, h, only, spear=None):
     """The pose -> (figure, the head box's top-left in it, the figure's top-left square on the pack's grid)."""
     if name in WALK:
         a, head_box = walk_frame(name, d, spear)
+    elif name in DEATH:
+        a, skull_at, mid = death_frame(name, d)
     else:
         a = np.asarray(Image.open(lp(os.path.join(SRC, "pixel_1x", f"scar-pose-{name}.png"))).convert("RGBA")).copy()
         a[..., 3] = np.where(a[..., 3] >= 128, 255, 0)
@@ -292,11 +352,13 @@ def read(name, d, h, only, spear=None):
                     big[y, x] = 0
         big[py, px] = h[hy, hx]
         head_at = (head_box[0] + pad, head_box[1] + pad)
-    elif name in HEAD_CENTRE:
-        hd = np.rot90(h, TURN.get(name, 0)).copy()
-        cx, cy = HEAD_CENTRE[name]
-        hx0 = int(round(cx - (hd.shape[1] - 1) / 2)) + pad
-        hy0 = int(round(cy - (hd.shape[0] - 1) / 2)) + pad
+    elif name in DEATH:
+        mark = np.zeros(h.shape[:2], bool)
+        mark[(SKULL[1] + SKULL[3]) // 2, (SKULL[0] + SKULL[2]) // 2] = True
+        hd = np.rot90(head_only(h), TURN.get(name, 0)).copy()
+        my, mx = np.argwhere(np.rot90(mark, TURN.get(name, 0)))[0]
+        hx0 = skull_at[0] - mx + pad
+        hy0 = skull_at[1] - my + pad
         hy, hx = np.nonzero(hd[..., 3] > 0)
         py, px = hy + hy0, hx + hx0
         pasted = np.zeros(big.shape[:2], bool)
@@ -319,8 +381,10 @@ def read(name, d, h, only, spear=None):
             big[lb == j] = 0
     ys, xs = np.nonzero(big[..., 3] > 0)
     oy, ox = ys.min(), xs.min()
-    return (big[oy:ys.max() + 1, ox:xs.max() + 1], (int(head_at[0] - ox), int(head_at[1] - oy)),
-            (int(ox - pad), int(oy - pad)))
+    grid = (int(ox - pad), int(oy - pad))
+    if name in DEATH:                         # across where pixel_1x had him: the figure's middle on its middle
+        grid = (int(round(mid - (xs.max() - ox) / 2)), grid[1])
+    return big[oy:ys.max() + 1, ox:xs.max() + 1], (int(head_at[0] - ox), int(head_at[1] - oy)), grid
 
 
 def big4(a, z):
