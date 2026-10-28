@@ -130,7 +130,7 @@
             },
             {
               "type": "LineRangeProjectile",
-              "name": "tft_aoshin_q_beam",
+              "name": "tft_aoshin_q_line",
               "width": 12000,
               "length": 75000,
               "delay": 2,
@@ -183,6 +183,22 @@
                   }
                 }
               ]
+            },
+            {
+              "type": "LinearProjectile",
+              "name": "tft_aoshin_q_beam",
+              "penetrate": true,
+              "applied_target": "EnemyWithoutTower",
+              "applied_effects": [],
+              "end_effects": [],
+              "speed": 6000,
+              "range": 75000,
+              "shape": {
+                "Circle": {
+                  "radius": 1000
+                }
+              },
+              "y_offset": -18000
             }
           ]
         }
@@ -843,7 +859,7 @@
     {
       "type": "Animated",
       "name": "tft_aoshin_q_beam",
-      "anim": "asset/tft/effects/tft_aoshin_big",
+      "anim": "asset/tft/effects/tft_aoshin_fx",
       "tag": "q_beam",
       "repeat": true,
       "z": 2
