@@ -11,10 +11,10 @@ Tempest units deal more damage). The rest is our own design (the user's pick, 20
           through short lulls) lightning falls on every enemy champion within p_r: true damage p_hp% of their maximum
           health and a stun of p_stun ticks (the bolt picture p_bolt on each); then he deals more (magic_power_mult
           +p_amp% for p_t ticks: p_storm, crackling round him). Once every p_cd ticks. tft.dll (below).
-  attack  ball lightning (100% AD), homing on `Enemy` (towers too), released on a_rel.
+  attack  ball lightning (100% AD), homing on `Enemy` (towers too), released on a_rel from his jaw (a_y).
   skill   Thunder Breath (雷息), `Targeting` on `EnemyWithoutTower` (q_range): a straight bolt q_len long
           from him through the target (a `LineRangeProjectile` q_w wide: a band about q_w + 15000 to either side, the
-          picture a view-only bolt from his jaw, q_speed a tick, q_y up): q_dmg + q_ratio% AP magic damage and the static
+          picture a view-only bolt from his jaw, q_speed a tick, q_y): q_dmg + q_ratio% AP magic damage and the static
           (BlockSkill q_sil ticks: TFT drains mana, and the engine can only shorten a cooldown, never lengthen one -
           `skill_cooldown_mult` caps, `entity_reduce_cooldown` cuts - so the drain is a short silence, the same "no
           spell for a while").
@@ -50,18 +50,23 @@ BIG = f"asset/{MOD_ID}/effects/{ID}_big"
 # every 1500, +20% ap) -2.96 on seeds 1-8 (tft_alune +1.20, league_ziggs +1.38); Q 55 + 45%, R 45 + 28% -2.07; + hp 920,
 # E 110 every 480, storm 12% every 1200 +30% -1.95; + Q every 240 at 60 + 50%, E within 42000 -0.34; + R 12 x 55 + 32%,
 # attack 80 +1.40 / +1.14 (seeds 9-16); the breath's picture moved to a view-only bolt from his jaw (a bolt that hit as
-# it flew, 6000 a tick, scored -0.02: the line's band is wider) +1.31 / +1.34 = P.
+# it flew, 6000 a tick, scored -0.02: the line's band is wider) +1.31 / +1.34 = P. Timings and heights then set on the
+# strips (rig_aoshin.MS): a projectile leaves 5000 - y_offset over his pivot, his snout 8 px over the ground in the lunge
+# and the breath frames (3 under the pivot): a_y = q_y = 8000 (the -18000 first set put the breath 34 px up); the line
+# strikes q_at - 1 ticks after it appears, when the bolt (6 px a tick) reaches a target 48 px off (it struck at once):
+# seeds 1-24 +0.97 / +1.43 / +1.52 striking at once, +0.68 / +0.90 (1-16) at q_at 9, + Q 70 +0.44 / +1.49 / +0.85,
+# + Q 80 +0.64 / +1.23 / +1.17 (mean +1.01, tft_alune +1.20) = P.
 P = {
     # stats (Magician base: attack 80 +6, ap 40 +20, hp 900 +100, def 20 +7, mr 20 +4, move 900 +9)
     "hp": 920, "hp_g": 96, "atk": 80, "atk_g": 6, "apw": 40, "apw_g": 20, "def": 18, "def_g": 7, "mr": 22, "mr_g": 4,
     "ms": 900, "ms_g": 9,
-    "atk_range": 55000, "atk_dur": 24, "atk_cd": 90, "a_rel": 9, "a_speed": 4000,
+    "atk_range": 55000, "atk_dur": 24, "atk_cd": 90, "a_rel": 9, "a_speed": 4000, "a_y": 8000,
     # passive Tempest Might (TFT: 8 s, 10-30% max health true damage, 1 s stun, 10-60% damage amp)
     "p_sense": 70000, "p_delay": 180, "p_quiet": 120, "p_r": 85000, "p_hp": 12, "p_stun": 50, "p_amp": 30, "p_t": 360,
     "p_cd": 1200,
     # Thunder Breath
-    "q_cd": 240, "q_range": 60000, "q_dur": 30, "q_rel": 12, "q_len": 75000, "q_w": 12000, "q_speed": 6000, "q_y": -18000,
-    "q_dmg": 60, "q_ratio": 50, "q_sil": 40,
+    "q_cd": 240, "q_range": 60000, "q_dur": 30, "q_rel": 12, "q_len": 75000, "q_w": 12000, "q_speed": 6000, "q_y": 8000, "q_at": 9,
+    "q_dmg": 80, "q_ratio": 50, "q_sil": 40,
     # Cloud Ride
     "e_cd": 480, "e_range": 42000, "e_dur": 18, "e_rel": 4, "e_back": 3000, "e_back_t": 8,
     "e_sh": 110, "e_ratio": 40, "e_sh_t": 180,
@@ -156,20 +161,20 @@ def on_me(*effects):
     return around(1000, "AllyOnlySelf", effects)
 
 
-def homing(name, target, effects, speed):
-    return {"type": "TargetProjectile", "name": n(name), "speed": speed, "y_offset": 0, "applied_target": target,
+def homing(name, target, effects, speed, y=0):
+    return {"type": "TargetProjectile", "name": n(name), "speed": speed, "y_offset": y, "applied_target": target,
             "applied_effects": [T(e) for e in effects]}
 
 
-def line(name, length, width, target, effects, delay=2):
+def line(name, length, width, target, effects, apply=1):
     """A line from him through the action's target (a `LineRangeProjectile` in a `Targeting` cast points at it),
-    hitting once a tick after it appears (league_chogath's); no picture of its own."""
-    return {"type": "LineRangeProjectile", "name": n(name), "width": width, "length": length, "delay": delay,
-            "apply": 1, "applied_target": target, "applied_effects": [T(e) for e in effects]}
+    hitting once `apply - 1` ticks after it appears (league_chogath's); no picture of its own."""
+    return {"type": "LineRangeProjectile", "name": n(name), "width": width, "length": length, "delay": apply + 1,
+            "apply": apply, "applied_target": target, "applied_effects": [T(e) for e in effects]}
 
 
 def bolt(name, speed, rng, y):
-    """The breath's picture: a fast view-only bolt from his jaw (y up) along the line (league_aurelionsol's breath; a
+    """The breath's picture: a fast view-only bolt from his jaw (leaving 5000 - y over his pivot) along the line (league_aurelionsol's breath; a
     LineRangeProjectile's own picture is drawn at his feet' height and stands still)."""
     return {"type": "LinearProjectile", "name": n(name), "penetrate": True, "applied_target": "EnemyWithoutTower",
             "applied_effects": [], "end_effects": [], "speed": speed, "range": rng, "shape": circle(1000),
@@ -194,12 +199,12 @@ def build(p, is_native=False):
     # ------------------------------------------------------------------ attack: ball lightning
     hit = [attack(0, 100), view("a_hit"), tsfx("a_hit")]
     attack_a = action("attack", p["atk_dur"], p["atk_cd"], 1, p["atk_range"], "Targeting", "Enemy",
-                      delayed(p["a_rel"] - 1, sfx("a"), homing("a_ball", "Enemy", hit, p["a_speed"])),
+                      delayed(p["a_rel"] - 1, sfx("a"), homing("a_ball", "Enemy", hit, p["a_speed"], p["a_y"])),
                       atype="BaseAttack", cancel=True)
 
     # ------------------------------------------------------------------ skill: Thunder Breath (+ the plain storm)
     zap = [ap(p["q_dmg"], p["q_ratio"]), silence(p["q_sil"]), buff("q_sil", p["q_sil"]), view("q_hit"), tsfx("q_hit")]
-    breath = combine(sfx("q"), line("q_line", p["q_len"], p["q_w"], "EnemyWithoutTower", zap),
+    breath = combine(sfx("q"), line("q_line", p["q_len"], p["q_w"], "EnemyWithoutTower", zap, p["q_at"]),
                      bolt("q_beam", p["q_speed"], p["q_len"], p["q_y"]))
     plain_storm = None
     if not is_native:   # tft.dll counts the fight; the sims let a breath near a champion start the storm's clock

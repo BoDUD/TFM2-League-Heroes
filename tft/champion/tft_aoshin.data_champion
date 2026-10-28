@@ -73,7 +73,7 @@
           "type": "TargetProjectile",
           "name": "tft_aoshin_a_ball",
           "speed": 4000,
-          "y_offset": 0,
+          "y_offset": 8000,
           "applied_target": "Enemy",
           "applied_effects": [
             {
@@ -133,15 +133,15 @@
               "name": "tft_aoshin_q_line",
               "width": 12000,
               "length": 75000,
-              "delay": 2,
-              "apply": 1,
+              "delay": 10,
+              "apply": 9,
               "applied_target": "EnemyWithoutTower",
               "applied_effects": [
                 {
                   "casting_type": "Targeting",
                   "effect": {
                     "type": "ApAttack",
-                    "damage": 60,
+                    "damage": 80,
                     "attack_ratio": 50,
                     "hp_ratio": 0,
                     "can_crit": false
@@ -198,7 +198,7 @@
                   "radius": 1000
                 }
               },
-              "y_offset": -18000
+              "y_offset": 8000
             }
           ]
         }
