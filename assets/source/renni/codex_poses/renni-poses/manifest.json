@@ -1,0 +1,515 @@
+[
+  {
+    "name": "a_push",
+    "kind": "pose",
+    "processing_version": 5,
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "raw_sha256": "b0bf9eb5c9955a3170247ecf022e079b15a471167062be029120d139b1e955d1",
+    "size": [
+      1254,
+      1254
+    ],
+    "grid_px": 12,
+    "hard_alpha": true,
+    "bbox": [
+      120,
+      252,
+      1200,
+      1176
+    ],
+    "baseline": 1176,
+    "baseline_shift_y": 0,
+    "fit_scale": 1.0,
+    "file": "renni-pose-a_push.png",
+    "raw": "raw/renni-pose-a_push.png"
+  },
+  {
+    "name": "a_grind",
+    "kind": "pose",
+    "processing_version": 5,
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "raw_sha256": "40617fc8fe831648b858508282eda97a8af8ad62ca26d1b22a6ccf466f96b6df",
+    "size": [
+      1254,
+      1254
+    ],
+    "grid_px": 12,
+    "hard_alpha": true,
+    "bbox": [
+      84,
+      240,
+      1212,
+      1176
+    ],
+    "baseline": 1176,
+    "baseline_shift_y": -12,
+    "fit_scale": 1.0,
+    "file": "renni-pose-a_grind.png",
+    "raw": "raw/renni-pose-a_grind.png"
+  },
+  {
+    "name": "q_charge",
+    "kind": "pose",
+    "processing_version": 5,
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "raw_sha256": "3bb399ae1e3cc44d6400a3e368c2f00fce5222d649e7e51a2f827c9b8b6f7c49",
+    "size": [
+      1254,
+      1254
+    ],
+    "grid_px": 12,
+    "hard_alpha": true,
+    "bbox": [
+      84,
+      432,
+      1200,
+      1176
+    ],
+    "baseline": 1176,
+    "baseline_shift_y": -12,
+    "fit_scale": 1.0,
+    "file": "renni-pose-q_charge.png",
+    "raw": "raw/renni-pose-q_charge.png"
+  },
+  {
+    "name": "e_guard",
+    "kind": "pose",
+    "processing_version": 5,
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "raw_sha256": "f0cedbb0bcfbc5ff33df30501aedca4f69c2b13617efa13cb1b0b64970c536cf",
+    "size": [
+      1254,
+      1254
+    ],
+    "grid_px": 12,
+    "hard_alpha": true,
+    "bbox": [
+      192,
+      24,
+      1056,
+      1176
+    ],
+    "baseline": 1176,
+    "baseline_shift_y": 0,
+    "fit_scale": 0.9696969696969697,
+    "file": "renni-pose-e_guard.png",
+    "raw": "raw/renni-pose-e_guard.png"
+  },
+  {
+    "name": "r_ram",
+    "kind": "pose",
+    "processing_version": 5,
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "raw_sha256": "14d7421eb26c1d72a6d1c1693ec9ec3178dab8ff1d0061cd8d7f08fb8adb2cd3",
+    "size": [
+      1254,
+      1254
+    ],
+    "grid_px": 12,
+    "hard_alpha": true,
+    "bbox": [
+      84,
+      348,
+      1248,
+      1176
+    ],
+    "baseline": 1176,
+    "baseline_shift_y": -12,
+    "fit_scale": 1.0,
+    "file": "renni-pose-r_ram.png",
+    "raw": "raw/renni-pose-r_ram.png"
+  },
+  {
+    "name": "r_heave",
+    "kind": "pose",
+    "processing_version": 5,
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "raw_sha256": "7fe711e6c2a64a934c4c3721b2d0207f210d18fea9124832f553e7e4c9caa688",
+    "size": [
+      1254,
+      1254
+    ],
+    "grid_px": 12,
+    "hard_alpha": true,
+    "bbox": [
+      252,
+      24,
+      1008,
+      1176
+    ],
+    "baseline": 1176,
+    "baseline_shift_y": 0,
+    "fit_scale": 0.96,
+    "file": "renni-pose-r_heave.png",
+    "raw": "raw/renni-pose-r_heave.png"
+  },
+  {
+    "name": "r_hold",
+    "kind": "pose",
+    "processing_version": 5,
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "raw_sha256": "c0c38ae666c9b629cf98c80b4809d0481829b8bfe5a63596a48de81a77c6553c",
+    "size": [
+      1254,
+      1254
+    ],
+    "grid_px": 12,
+    "hard_alpha": true,
+    "bbox": [
+      396,
+      24,
+      864,
+      1176
+    ],
+    "baseline": 1176,
+    "baseline_shift_y": 0,
+    "fit_scale": 0.9411764705882353,
+    "file": "renni-pose-r_hold.png",
+    "raw": "raw/renni-pose-r_hold.png"
+  },
+  {
+    "name": "r_slam",
+    "kind": "pose",
+    "processing_version": 5,
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "raw_sha256": "183f53f63af6c721a3afdf3c77e799739e90352ee1191e31294860255adf8923",
+    "size": [
+      1254,
+      1254
+    ],
+    "grid_px": 12,
+    "hard_alpha": true,
+    "bbox": [
+      84,
+      312,
+      1236,
+      1176
+    ],
+    "baseline": 1176,
+    "baseline_shift_y": -84,
+    "fit_scale": 1.0,
+    "file": "renni-pose-r_slam.png",
+    "raw": "raw/renni-pose-r_slam.png"
+  },
+  {
+    "name": "r_after",
+    "kind": "pose",
+    "processing_version": 5,
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "raw_sha256": "1aa04257b0913ef28c9c259f253260a955c769ea688c59fdb2e8ab7a4ba8f7f3",
+    "size": [
+      1254,
+      1254
+    ],
+    "grid_px": 12,
+    "hard_alpha": true,
+    "bbox": [
+      72,
+      228,
+      1224,
+      1176
+    ],
+    "baseline": 1176,
+    "baseline_shift_y": -60,
+    "fit_scale": 1.0,
+    "file": "renni-pose-r_after.png",
+    "raw": "raw/renni-pose-r_after.png"
+  },
+  {
+    "name": "run1",
+    "kind": "pose",
+    "processing_version": 5,
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "raw_sha256": "962624b80d733d94fc37bc3042c54587c3d33b674335518f446045831977fb50",
+    "size": [
+      1254,
+      1254
+    ],
+    "grid_px": 12,
+    "hard_alpha": true,
+    "bbox": [
+      180,
+      144,
+      1200,
+      1176
+    ],
+    "baseline": 1176,
+    "baseline_shift_y": -24,
+    "fit_scale": 1.0,
+    "file": "renni-pose-run1.png",
+    "raw": "raw/renni-pose-run1.png"
+  },
+  {
+    "name": "run2",
+    "kind": "pose",
+    "processing_version": 5,
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "raw_sha256": "340b6614e30bbaaae70814e9cb0dd00b349d86e7e4da1f54cd88ec4c828b6a80",
+    "size": [
+      1254,
+      1254
+    ],
+    "grid_px": 12,
+    "hard_alpha": true,
+    "bbox": [
+      192,
+      156,
+      1128,
+      1176
+    ],
+    "baseline": 1176,
+    "baseline_shift_y": -12,
+    "fit_scale": 1.0,
+    "file": "renni-pose-run2.png",
+    "raw": "raw/renni-pose-run2.png"
+  },
+  {
+    "name": "run3",
+    "kind": "pose",
+    "processing_version": 5,
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "raw_sha256": "55582223142ce2059b58e3962423e6d199a4cac4c580858fae8ecb16e7d8d4f4",
+    "size": [
+      1254,
+      1254
+    ],
+    "grid_px": 12,
+    "hard_alpha": true,
+    "bbox": [
+      132,
+      60,
+      1128,
+      1176
+    ],
+    "baseline": 1176,
+    "baseline_shift_y": -12,
+    "fit_scale": 1.0,
+    "file": "renni-pose-run3.png",
+    "raw": "raw/renni-pose-run3.png"
+  },
+  {
+    "name": "run4",
+    "kind": "pose",
+    "processing_version": 5,
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "raw_sha256": "8d68b4aa28fced12f8fa58ef54e4bf6b62689b44cea3bac433dcc016f85f051f",
+    "size": [
+      1254,
+      1254
+    ],
+    "grid_px": 12,
+    "hard_alpha": true,
+    "bbox": [
+      144,
+      180,
+      1212,
+      1176
+    ],
+    "baseline": 1176,
+    "baseline_shift_y": 0,
+    "fit_scale": 1.0,
+    "file": "renni-pose-run4.png",
+    "raw": "raw/renni-pose-run4.png"
+  },
+  {
+    "name": "run5",
+    "kind": "pose",
+    "processing_version": 5,
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "raw_sha256": "a403efa3ea5326fb43f141360837a0f8a1106ae40cba3acb566921d6e8ebf68c",
+    "size": [
+      1254,
+      1254
+    ],
+    "grid_px": 12,
+    "hard_alpha": true,
+    "bbox": [
+      240,
+      96,
+      1188,
+      1176
+    ],
+    "baseline": 1176,
+    "baseline_shift_y": -36,
+    "fit_scale": 1.0,
+    "file": "renni-pose-run5.png",
+    "raw": "raw/renni-pose-run5.png"
+  },
+  {
+    "name": "run6",
+    "kind": "pose",
+    "processing_version": 5,
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "raw_sha256": "920e5783161ff2e78a2d85271922fc4417fcf1c5fc2ad901f1dc318546ebf01b",
+    "size": [
+      1254,
+      1254
+    ],
+    "grid_px": 12,
+    "hard_alpha": true,
+    "bbox": [
+      228,
+      144,
+      1164,
+      1176
+    ],
+    "baseline": 1176,
+    "baseline_shift_y": -12,
+    "fit_scale": 1.0,
+    "file": "renni-pose-run6.png",
+    "raw": "raw/renni-pose-run6.png"
+  },
+  {
+    "name": "run7",
+    "kind": "pose",
+    "processing_version": 5,
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "raw_sha256": "396acb574a58ca91a1df38227459ca814533116a5d86cce7ec14e9eb2a2cb360",
+    "size": [
+      1254,
+      1254
+    ],
+    "grid_px": 12,
+    "hard_alpha": true,
+    "bbox": [
+      204,
+      72,
+      1164,
+      1176
+    ],
+    "baseline": 1176,
+    "baseline_shift_y": -24,
+    "fit_scale": 1.0,
+    "file": "renni-pose-run7.png",
+    "raw": "raw/renni-pose-run7.png"
+  },
+  {
+    "name": "run8",
+    "kind": "pose",
+    "processing_version": 5,
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "raw_sha256": "b670de5fe33737b1b1730ead475dc11a51eb634b56f6e79c577eee1bb076f223",
+    "size": [
+      1254,
+      1254
+    ],
+    "grid_px": 12,
+    "hard_alpha": true,
+    "bbox": [
+      180,
+      168,
+      1200,
+      1176
+    ],
+    "baseline": 1176,
+    "baseline_shift_y": 0,
+    "fit_scale": 1.0,
+    "file": "renni-pose-run8.png",
+    "raw": "raw/renni-pose-run8.png"
+  },
+  {
+    "name": "d_fall",
+    "kind": "pose",
+    "processing_version": 5,
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "raw_sha256": "518b02167e188476b1efbd79d27504397ee40cb4f93688744bc8baa877f60d3d",
+    "size": [
+      1254,
+      1254
+    ],
+    "grid_px": 12,
+    "hard_alpha": true,
+    "bbox": [
+      60,
+      36,
+      1248,
+      1176
+    ],
+    "baseline": 1176,
+    "baseline_shift_y": -36,
+    "fit_scale": 1.0,
+    "file": "renni-pose-d_fall.png",
+    "raw": "raw/renni-pose-d_fall.png"
+  },
+  {
+    "name": "d_down",
+    "kind": "pose",
+    "processing_version": 5,
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "raw_sha256": "6cd3cc0ccca1e60b40a5b0ffcf57edf13baa2f216dcde0c10e60de7fb7a467b1",
+    "size": [
+      1254,
+      1254
+    ],
+    "grid_px": 12,
+    "hard_alpha": true,
+    "bbox": [
+      48,
+      504,
+      1224,
+      1176
+    ],
+    "baseline": 1176,
+    "baseline_shift_y": -60,
+    "fit_scale": 1.0,
+    "file": "renni-pose-d_down.png",
+    "raw": "raw/renni-pose-d_down.png"
+  }
+]

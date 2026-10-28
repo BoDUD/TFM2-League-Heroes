@@ -1,0 +1,16 @@
+{
+  "name": "skill2",
+  "kind": "icon",
+  "processing_version": 5,
+  "raw_size": [
+    1254,
+    1254
+  ],
+  "raw_sha256": "57bd4fdbb5865b295759487f69407a6f4a0d1e3237c9c262929bbe5abf704fbd",
+  "size": [
+    64,
+    64
+  ],
+  "grid_px": 2,
+  "hard_alpha": true
+}

@@ -1,0 +1,25 @@
+{
+  "name": "d_fall",
+  "kind": "pose",
+  "processing_version": 5,
+  "raw_size": [
+    1254,
+    1254
+  ],
+  "raw_sha256": "518b02167e188476b1efbd79d27504397ee40cb4f93688744bc8baa877f60d3d",
+  "size": [
+    1254,
+    1254
+  ],
+  "grid_px": 12,
+  "hard_alpha": true,
+  "bbox": [
+    60,
+    36,
+    1248,
+    1176
+  ],
+  "baseline": 1176,
+  "baseline_shift_y": -36,
+  "fit_scale": 1.0
+}

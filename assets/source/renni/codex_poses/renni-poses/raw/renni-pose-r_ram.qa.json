@@ -1,0 +1,25 @@
+{
+  "name": "r_ram",
+  "kind": "pose",
+  "processing_version": 5,
+  "raw_size": [
+    1254,
+    1254
+  ],
+  "raw_sha256": "14d7421eb26c1d72a6d1c1693ec9ec3178dab8ff1d0061cd8d7f08fb8adb2cd3",
+  "size": [
+    1254,
+    1254
+  ],
+  "grid_px": 12,
+  "hard_alpha": true,
+  "bbox": [
+    84,
+    348,
+    1248,
+    1176
+  ],
+  "baseline": 1176,
+  "baseline_shift_y": -12,
+  "fit_scale": 1.0
+}

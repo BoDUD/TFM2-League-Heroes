@@ -1,0 +1,59 @@
+{
+  "name": "p",
+  "kind": "fx",
+  "processing_version": 5,
+  "raw_size": [
+    1437,
+    1095
+  ],
+  "raw_sha256": "68853be68137b89079edd9f94b1dccb5087f545f1a7ea1b1a576eea7cc7beb70",
+  "frames": 6,
+  "cell_1x": [
+    36,
+    44
+  ],
+  "size": [
+    216,
+    44
+  ],
+  "preview_scale": 8,
+  "symmetry": "left-right per frame",
+  "symmetry_pass": true,
+  "hard_alpha": true,
+  "alpha_coverage_threshold": 0.18,
+  "color_vote": "majority among visible source pixels after palette mapping",
+  "loop": false,
+  "mirror_source_side": [
+    "left",
+    "left",
+    "left",
+    "right",
+    "right",
+    "right"
+  ],
+  "nonempty_frames": [
+    true,
+    true,
+    true,
+    true,
+    true,
+    true
+  ],
+  "distinct_frames": 6,
+  "source_layout": [
+    3,
+    2
+  ],
+  "palette": [
+    "#FFE6FF",
+    "#F4A8FF",
+    "#C858F0",
+    "#7C24B8",
+    "#3C0E66",
+    "#F0FFE0",
+    "#B8FF7A",
+    "#6EE830",
+    "#2FA818",
+    "#145A10"
+  ]
+}
