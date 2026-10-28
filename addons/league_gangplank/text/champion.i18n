@@ -3,7 +3,7 @@
     "description": {
       "league_gangplank_addon": {
         "attack": "【附加包】弯刀砍击。<#ff9028ff>烈火审讯<>：每<#ffb900ff>12秒<>下次攻击或枪火谈判点燃目标，<#ffb900ff>2.5秒<>内造成<#f5f5f5ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#f5f5f5ff>60%<><#f5f5f5ff>真实伤害<>，自己加速20%；火药桶爆炸时刷新。<#ff9028ff>坏血病疗法<>：3级起被控、被围或生命低于40%时吃橘子解控，回<#7dd87dff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7dd87dff>60%<>生命，<#ef5350ff>免控<><#ffb900ff>1秒<>。",
-        "skill2": "【附加包】向敌方英雄扔火药桶（最多<#ffb900ff>2个<>，留<#ffb900ff>8秒<>），<#ffb900ff>1秒<>后引线点燃。被枪火谈判、贴身攻击或相连的桶爆炸引爆（桶边没人也炸）：范围内敌人受到<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>（英雄再加60），无视40%护甲，<#ef5350ff>减速40%<><#ffb900ff>2秒<>。"
+        "skill2": "【附加包】向敌方英雄扔火药桶（可存<#ffb900ff>3个<>，留<#ffb900ff>8秒<>），<#ffb900ff>1秒<>后点燃；开枪时给相连桶外的敌人补第三桶。被枪火谈判、贴身攻击或相连的桶爆炸引爆：范围内敌人受到<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>（英雄再加60），无视40%护甲，<#ef5350ff>减速40%<><#ffb900ff>2秒<>。"
       }
     }
   },
@@ -11,7 +11,7 @@
     "description": {
       "league_gangplank_addon": {
         "attack": "【附加包】彎刀砍擊。<#ff9028ff>烈火審判<>：每<#ffb900ff>12秒<>下次攻擊或槍火談判點燃目標，<#ffb900ff>2.5秒<>內造成<#f5f5f5ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#f5f5f5ff>60%<><#f5f5f5ff>真實傷害<>，自己加速20%；火藥桶爆炸時刷新。<#ff9028ff>壞血症療法<>：3級起被控、被圍或生命低於40%時吃橘子解控，回<#7dd87dff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7dd87dff>60%<>生命，<#ef5350ff>免控<><#ffb900ff>1秒<>。",
-        "skill2": "【附加包】向敵方英雄扔火藥桶（最多<#ffb900ff>2個<>，留<#ffb900ff>8秒<>），<#ffb900ff>1秒<>後引線點燃。被槍火談判、貼身攻擊或相連的桶爆炸引爆（桶邊沒人也炸）：範圍內敵人受到<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>（英雄再加60），無視40%護甲，<#ef5350ff>緩速40%<><#ffb900ff>2秒<>。"
+        "skill2": "【附加包】向敵方英雄扔火藥桶（可存<#ffb900ff>3個<>，留<#ffb900ff>8秒<>），<#ffb900ff>1秒<>後點燃；開槍時給相連桶外的敵人補第三桶。被槍火談判、貼身攻擊或相連的桶爆炸引爆：範圍內敵人受到<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>（英雄再加60），無視40%護甲，<#ef5350ff>緩速40%<><#ffb900ff>2秒<>。"
       }
     }
   },
@@ -19,7 +19,7 @@
     "description": {
       "league_gangplank_addon": {
         "attack": "[Add-on] Cutlass slashes. <#ff9028ff>Trial by Fire<>: every <#ffb900ff>12s<> his next attack or Parrrley burns the target for <#f5f5f5ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#f5f5f5ff>60%<> <#f5f5f5ff>true damage<> over <#ffb900ff>2.5s<> and speeds him 20%; a keg blast resets it. <#ff9028ff>Remove Scurvy<>: from level 3, when controlled, crowded or below 40% health he eats an orange: cleanses, heals <#7dd87dff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7dd87dff>60%<> and is <#ef5350ff>CC-immune<> for <#ffb900ff>1s<>.",
-        "skill2": "[Add-on] Lobs a keg at an enemy champion (up to <#ffb900ff>2<>, lasting <#ffb900ff>8s<>); its fuse is lit after <#ffb900ff>1s<>. A lit keg blows up on Parrrley, his attack next to it or a linked keg's blast (even with no one beside it): <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<> around it (60 more to champions), ignoring 40% armour, <#ef5350ff>slowing 40%<> for <#ffb900ff>2s<>."
+        "skill2": "[Add-on] Lobs a keg at an enemy champion (holds <#ffb900ff>3<>, lasting <#ffb900ff>8s<>), lit after <#ffb900ff>1s<>. Parrrley throws a third keg at a foe past two linked ones. A lit keg blows up on Parrrley, his attack next to it or a linked keg's blast: <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<> around it (60 more to champions), ignoring 40% armour, <#ef5350ff>slowing 40%<> for <#ffb900ff>2s<>."
       }
     }
   },
@@ -27,7 +27,7 @@
     "description": {
       "league_gangplank_addon": {
         "attack": "[애드온] 칼로 벤다. <#ff9028ff>불의 심판<>: <#ffb900ff>12초<>마다 다음 공격이나 혀어어어업상이 대상을 불태워 <#ffb900ff>2.5초<>간 <#f5f5f5ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#f5f5f5ff>60%<>의 <#f5f5f5ff>고정 피해<>, 자신은 20% 가속, 화약통 폭발 시 초기화. <#ff9028ff>괴혈병 치료<>: 3레벨부터 군중 제어, 포위, 체력 40% 미만 시 오렌지로 정화, <#7dd87dff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7dd87dff>60%<> 회복, <#ffb900ff>1초<> <#ef5350ff>군중 제어 면역<>.",
-        "skill2": "[애드온] 적 챔피언에게 화약통을 던진다(최대 <#ffb900ff>2개<>, <#ffb900ff>8초<>), <#ffb900ff>1초<> 후 심지 점화. 혀어어어업상, 곁에서의 공격, 연결된 통의 폭발로(곁에 적이 없어도) 터져 주변 적에게 <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>의 <#ff9028ff>물리 피해<>(챔피언 +60), 방어력 40% 무시, <#ffb900ff>2초<> <#ef5350ff>40% 둔화<>."
+        "skill2": "[애드온] 적 챔피언에게 화약통을 던진다(충전 <#ffb900ff>3개<>, <#ffb900ff>8초<>), <#ffb900ff>1초<> 후 점화. 혀어어어업상 때 연결된 통 밖의 적에게 셋째 통(삼연통). 혀어어어업상, 곁에서의 공격, 연결된 통의 폭발로 터져 주변 적에게 <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>의 <#ff9028ff>물리 피해<>(챔피언 +60), 방어력 40% 무시, <#ffb900ff>2초<> <#ef5350ff>40% 둔화<>."
       }
     }
   },
@@ -35,7 +35,7 @@
     "description": {
       "league_gangplank_addon": {
         "attack": "【アドオン】カトラスで斬る。<#ff9028ff>背水の銃剣<>：<#ffb900ff>12秒<>毎に次の通常攻撃か偽りの発砲が対象を燃やし<#ffb900ff>2.5秒<>で<#f5f5f5ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#f5f5f5ff>60%<>の<#f5f5f5ff>確定ダメージ<>、20%加速、樽の爆発で再使用可。<#ff9028ff>壊血病治癒<>：Lv3から妨害・包囲・体力40%未満でオレンジを食べ解除、<#7dd87dff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7dd87dff>60%<>回復、<#ffb900ff>1秒<><#ef5350ff>行動妨害無効<>。",
-        "skill2": "【アドオン】敵チャンピオンへ火薬樽を投げる（最大<#ffb900ff>2個<>、<#ffb900ff>8秒<>）、<#ffb900ff>1秒<>後に点火。偽りの発砲・そばでの通常攻撃・連結した樽の爆発（無人でも）で爆発し周囲に<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>（チャンピオン+60）、物理防御40%無視、<#ffb900ff>2秒<><#ef5350ff>スロウ40%<>。"
+        "skill2": "【アドオン】敵チャンピオンへ火薬樽を投げる（ストック<#ffb900ff>3個<>、<#ffb900ff>8秒<>）、<#ffb900ff>1秒<>後に点火、発砲時は連結樽の外の敵へ3個目。偽りの発砲・そばでの通常攻撃・連結した樽の爆発で爆発し周囲に<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>（チャンピオン+60）、物理防御40%無視、<#ffb900ff>2秒<><#ef5350ff>スロウ40%<>。"
       }
     }
   }

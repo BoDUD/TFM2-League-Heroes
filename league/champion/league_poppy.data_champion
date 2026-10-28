@@ -2226,61 +2226,332 @@
                               "type": "Combine",
                               "effects": [
                                 {
-                                  "type": "LinearProjectile",
-                                  "name": "league_poppy_r_wave",
-                                  "penetrate": true,
-                                  "applied_target": "EnemyChampion",
-                                  "applied_effects": [
-                                    {
-                                      "casting_type": "Targeting",
-                                      "effect": {
-                                        "type": "Attack",
-                                        "damage": 150,
-                                        "attack_ratio": 70,
-                                        "hp_ratio": 0,
-                                        "target_hp_ratio": 0,
-                                        "attack_effect_type": "Target"
-                                      }
-                                    },
-                                    {
-                                      "casting_type": "Targeting",
-                                      "effect": {
-                                        "type": "ViewEffect",
-                                        "name": "league_poppy_r_hit"
-                                      }
-                                    },
-                                    {
-                                      "casting_type": "Targeting",
-                                      "effect": {
-                                        "type": "TargetSfx",
-                                        "name": "league_poppy_r_hit"
-                                      }
-                                    },
-                                    {
-                                      "casting_type": "Targeting",
-                                      "effect": {
-                                        "type": "Airborne",
-                                        "duration": 25
-                                      }
-                                    },
-                                    {
-                                      "casting_type": "Targeting",
-                                      "effect": {
-                                        "type": "Knockback",
-                                        "speed": 6000,
-                                        "tick": 25
-                                      }
-                                    }
-                                  ],
-                                  "end_effects": [],
-                                  "speed": 7000,
-                                  "range": 70000,
-                                  "shape": {
-                                    "Circle": {
-                                      "radius": 9000
-                                    }
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_poppy_r_aim"
+                                },
+                                {
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "league_poppy_r_aim",
+                                  "effect_buff": {
+                                    "type": "Combine",
+                                    "effects": []
                                   },
-                                  "y_offset": 5000
+                                  "effect_none": {
+                                    "type": "RandomTarget",
+                                    "range": 25000,
+                                    "casting_target": "EnemyChampion",
+                                    "from_projectile": false,
+                                    "effects": [
+                                      {
+                                        "type": "AddCasterBuff",
+                                        "buff_state": {
+                                          "name": "league_poppy_r_aim",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 1
+                                            }
+                                          }
+                                        },
+                                        "only_to_enemy": false
+                                      },
+                                      {
+                                        "type": "LinearProjectile",
+                                        "name": "league_poppy_r_wave",
+                                        "penetrate": true,
+                                        "applied_target": "EnemyChampion",
+                                        "applied_effects": [
+                                          {
+                                            "casting_type": "Targeting",
+                                            "effect": {
+                                              "type": "Attack",
+                                              "damage": 150,
+                                              "attack_ratio": 70,
+                                              "hp_ratio": 0,
+                                              "target_hp_ratio": 0,
+                                              "attack_effect_type": "Target"
+                                            }
+                                          },
+                                          {
+                                            "casting_type": "Targeting",
+                                            "effect": {
+                                              "type": "ViewEffect",
+                                              "name": "league_poppy_r_hit"
+                                            }
+                                          },
+                                          {
+                                            "casting_type": "Targeting",
+                                            "effect": {
+                                              "type": "TargetSfx",
+                                              "name": "league_poppy_r_hit"
+                                            }
+                                          },
+                                          {
+                                            "casting_type": "Targeting",
+                                            "effect": {
+                                              "type": "Airborne",
+                                              "duration": 25
+                                            }
+                                          },
+                                          {
+                                            "casting_type": "Targeting",
+                                            "effect": {
+                                              "type": "Knockback",
+                                              "speed": 6000,
+                                              "tick": 25
+                                            }
+                                          }
+                                        ],
+                                        "end_effects": [],
+                                        "speed": 7000,
+                                        "range": 70000,
+                                        "shape": {
+                                          "Circle": {
+                                            "radius": 14000
+                                          }
+                                        },
+                                        "y_offset": 5000
+                                      }
+                                    ]
+                                  }
+                                },
+                                {
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "league_poppy_r_aim",
+                                  "effect_buff": {
+                                    "type": "Combine",
+                                    "effects": []
+                                  },
+                                  "effect_none": {
+                                    "type": "RandomTarget",
+                                    "range": 45000,
+                                    "casting_target": "EnemyChampion",
+                                    "from_projectile": false,
+                                    "effects": [
+                                      {
+                                        "type": "AddCasterBuff",
+                                        "buff_state": {
+                                          "name": "league_poppy_r_aim",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 1
+                                            }
+                                          }
+                                        },
+                                        "only_to_enemy": false
+                                      },
+                                      {
+                                        "type": "LinearProjectile",
+                                        "name": "league_poppy_r_wave",
+                                        "penetrate": true,
+                                        "applied_target": "EnemyChampion",
+                                        "applied_effects": [
+                                          {
+                                            "casting_type": "Targeting",
+                                            "effect": {
+                                              "type": "Attack",
+                                              "damage": 150,
+                                              "attack_ratio": 70,
+                                              "hp_ratio": 0,
+                                              "target_hp_ratio": 0,
+                                              "attack_effect_type": "Target"
+                                            }
+                                          },
+                                          {
+                                            "casting_type": "Targeting",
+                                            "effect": {
+                                              "type": "ViewEffect",
+                                              "name": "league_poppy_r_hit"
+                                            }
+                                          },
+                                          {
+                                            "casting_type": "Targeting",
+                                            "effect": {
+                                              "type": "TargetSfx",
+                                              "name": "league_poppy_r_hit"
+                                            }
+                                          },
+                                          {
+                                            "casting_type": "Targeting",
+                                            "effect": {
+                                              "type": "Airborne",
+                                              "duration": 25
+                                            }
+                                          },
+                                          {
+                                            "casting_type": "Targeting",
+                                            "effect": {
+                                              "type": "Knockback",
+                                              "speed": 6000,
+                                              "tick": 25
+                                            }
+                                          }
+                                        ],
+                                        "end_effects": [],
+                                        "speed": 7000,
+                                        "range": 70000,
+                                        "shape": {
+                                          "Circle": {
+                                            "radius": 14000
+                                          }
+                                        },
+                                        "y_offset": 5000
+                                      }
+                                    ]
+                                  }
+                                },
+                                {
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "league_poppy_r_aim",
+                                  "effect_buff": {
+                                    "type": "Combine",
+                                    "effects": []
+                                  },
+                                  "effect_none": {
+                                    "type": "RandomTarget",
+                                    "range": 70000,
+                                    "casting_target": "EnemyChampion",
+                                    "from_projectile": false,
+                                    "effects": [
+                                      {
+                                        "type": "AddCasterBuff",
+                                        "buff_state": {
+                                          "name": "league_poppy_r_aim",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 1
+                                            }
+                                          }
+                                        },
+                                        "only_to_enemy": false
+                                      },
+                                      {
+                                        "type": "LinearProjectile",
+                                        "name": "league_poppy_r_wave",
+                                        "penetrate": true,
+                                        "applied_target": "EnemyChampion",
+                                        "applied_effects": [
+                                          {
+                                            "casting_type": "Targeting",
+                                            "effect": {
+                                              "type": "Attack",
+                                              "damage": 150,
+                                              "attack_ratio": 70,
+                                              "hp_ratio": 0,
+                                              "target_hp_ratio": 0,
+                                              "attack_effect_type": "Target"
+                                            }
+                                          },
+                                          {
+                                            "casting_type": "Targeting",
+                                            "effect": {
+                                              "type": "ViewEffect",
+                                              "name": "league_poppy_r_hit"
+                                            }
+                                          },
+                                          {
+                                            "casting_type": "Targeting",
+                                            "effect": {
+                                              "type": "TargetSfx",
+                                              "name": "league_poppy_r_hit"
+                                            }
+                                          },
+                                          {
+                                            "casting_type": "Targeting",
+                                            "effect": {
+                                              "type": "Airborne",
+                                              "duration": 25
+                                            }
+                                          },
+                                          {
+                                            "casting_type": "Targeting",
+                                            "effect": {
+                                              "type": "Knockback",
+                                              "speed": 6000,
+                                              "tick": 25
+                                            }
+                                          }
+                                        ],
+                                        "end_effects": [],
+                                        "speed": 7000,
+                                        "range": 70000,
+                                        "shape": {
+                                          "Circle": {
+                                            "radius": 14000
+                                          }
+                                        },
+                                        "y_offset": 5000
+                                      }
+                                    ]
+                                  }
+                                },
+                                {
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "league_poppy_r_aim",
+                                  "effect_buff": {
+                                    "type": "Combine",
+                                    "effects": []
+                                  },
+                                  "effect_none": {
+                                    "type": "LinearProjectile",
+                                    "name": "league_poppy_r_wave",
+                                    "penetrate": true,
+                                    "applied_target": "EnemyChampion",
+                                    "applied_effects": [
+                                      {
+                                        "casting_type": "Targeting",
+                                        "effect": {
+                                          "type": "Attack",
+                                          "damage": 150,
+                                          "attack_ratio": 70,
+                                          "hp_ratio": 0,
+                                          "target_hp_ratio": 0,
+                                          "attack_effect_type": "Target"
+                                        }
+                                      },
+                                      {
+                                        "casting_type": "Targeting",
+                                        "effect": {
+                                          "type": "ViewEffect",
+                                          "name": "league_poppy_r_hit"
+                                        }
+                                      },
+                                      {
+                                        "casting_type": "Targeting",
+                                        "effect": {
+                                          "type": "TargetSfx",
+                                          "name": "league_poppy_r_hit"
+                                        }
+                                      },
+                                      {
+                                        "casting_type": "Targeting",
+                                        "effect": {
+                                          "type": "Airborne",
+                                          "duration": 25
+                                        }
+                                      },
+                                      {
+                                        "casting_type": "Targeting",
+                                        "effect": {
+                                          "type": "Knockback",
+                                          "speed": 6000,
+                                          "tick": 25
+                                        }
+                                      }
+                                    ],
+                                    "end_effects": [],
+                                    "speed": 7000,
+                                    "range": 70000,
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 14000
+                                      }
+                                    },
+                                    "y_offset": 5000
+                                  }
+                                },
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_poppy_r_aim"
                                 }
                               ]
                             },

@@ -31,11 +31,15 @@ LEAD = {"zh-hans": "【附加包】", "zh-hant": "【附加包】", "en": "[Add-
 SWAP = {
     "zh-hans": {
         "attack": [("：3级起被控制或被围攻时吃橘子，回复", "：3级起被控、被围或生命低于{w_low}%时吃橘子解控，回")],
-        "skill2": [("或另一个桶的爆炸引爆", "或相连的桶爆炸引爆（桶边没人也炸）")],
+        "skill2": [("扔火药桶（最多", "扔火药桶（可存"),
+                   ("后引线点燃。", "后点燃；开枪时给相连桶外的敌人补第三桶。"),
+                   ("或另一个桶的爆炸引爆", "或相连的桶爆炸引爆")],
     },
     "zh-hant": {
         "attack": [("：3級起被控制或被圍攻時吃橘子，回復", "：3級起被控、被圍或生命低於{w_low}%時吃橘子解控，回")],
-        "skill2": [("或另一個桶的爆炸引爆", "或相連的桶爆炸引爆（桶邊沒人也炸）")],
+        "skill2": [("扔火藥桶（最多", "扔火藥桶（可存"),
+                   ("後引線點燃。", "後點燃；開槍時給相連桶外的敵人補第三桶。"),
+                   ("或另一個桶的爆炸引爆", "或相連的桶爆炸引爆")],
     },
     "en": {
         "attack": [("sets the target ablaze for", "burns the target for"),
@@ -43,16 +47,21 @@ SWAP = {
                    ("when crowd-controlled or crowded he eats an orange: heals",
                     "when controlled, crowded or below {w_low}% health he eats an orange: cleanses, heals"),
                    (" and is " + setup.R + "immune to crowd control" + setup.E, " and is " + setup.R + "CC-immune" + setup.E)],
-        "skill2": [("or the other keg's blast", "or a linked keg's blast (even with no one beside it)")],
+        "skill2": [("(up to ", "(holds "), ("; its fuse is lit after", ", lit after"),
+                   (". A lit keg blows up on Parrrley,", ". Parrrley throws a third keg at a foe past two linked ones. "
+                    "A lit keg blows up on Parrrley,"),
+                   ("or the other keg's blast", "or a linked keg's blast")],
     },
     "ko": {
         "attack": [("군중 제어나 포위 시 오렌지를 먹어", "군중 제어, 포위, 체력 {w_low}% 미만 시 오렌지로 정화,")],
-        "skill2": [("다른 통의 폭발로", "연결된 통의 폭발로(곁에 적이 없어도)")],
+        "skill2": [("(최대 ", "(충전 "), (" 후 심지 점화. ", " 후 점화. 혀어어어업상 때 연결된 통 밖의 적에게 셋째 통(삼연통). "),
+                   ("다른 통의 폭발로", "연결된 통의 폭발로")],
     },
     "ja": {
         "attack": [("、自身{p_ms}%加速、火薬樽の爆発で再使用可能", "、{p_ms}%加速、樽の爆発で再使用可"),
                    ("行動妨害や包囲時にオレンジを食べ", "妨害・包囲・体力{w_low}%未満でオレンジを食べ解除、")],
-        "skill2": [("別の樽の爆発で", "連結した樽の爆発（無人でも）で")],
+        "skill2": [("（最大", "（ストック"), ("後に点火。", "後に点火、発砲時は連結樽の外の敵へ3個目。"),
+                   ("別の樽の爆発で", "連結した樽の爆発で")],
     },
 }
 

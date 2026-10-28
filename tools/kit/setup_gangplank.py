@@ -57,7 +57,7 @@ TEXT = {
                   "：3级起被控制或被围攻时吃橘子，回复" + HEAL + "生命，" + R + "免控" + E + A + "{w_imm}秒" + E + "。",
         "skill": "开枪射击：造成" + phy("q_dmg", "q_ratio") + O + "物理伤害" + E + "，可暴击，会触发烈火审讯。打中后" + A + "{e_arm}秒" + E +
                  "内，引线已点燃、桶边有敌人的火药桶都会被引爆。",
-        "skill2": "向敌方英雄扔火药桶（最多" + A + "2个" + E + "，留" + A + "{e_t}秒" + E + "），" + A + "{e_arm}秒" + E + "后引线点燃。被枪火谈判、贴身攻击"
+        "skill2": "向敌方英雄扔火药桶（最多" + A + "{e_slots}个" + E + "，留" + A + "{e_t}秒" + E + "），" + A + "{e_arm}秒" + E + "后引线点燃。被枪火谈判、贴身攻击"
                   "或另一个桶的爆炸引爆：范围内敌人受到" + phy("e_dmg", "e_ratio") + O + "物理伤害" + E + "（英雄再加{e_champ}），无视{e_pen}%护甲，" +
                   R + "减速{e_slow}%" + E + A + "{e_slow_t}秒" + E + "。",
         "ult": "朝天打出信号：" + A + "{r_call}秒" + E + "后炮弹砸向敌方英雄所在区域，共" + A + "{r_waves}波" + E + "，每" + A + "{r_p}秒" + E +
@@ -71,7 +71,7 @@ TEXT = {
                   "：3級起被控制或被圍攻時吃橘子，回復" + HEAL + "生命，" + R + "免控" + E + A + "{w_imm}秒" + E + "。",
         "skill": "開槍射擊：造成" + phy("q_dmg", "q_ratio") + O + "物理傷害" + E + "，可暴擊，會觸發烈火審判。打中後" + A + "{e_arm}秒" + E +
                  "內，引線已點燃、桶邊有敵人的火藥桶都會被引爆。",
-        "skill2": "向敵方英雄扔火藥桶（最多" + A + "2個" + E + "，留" + A + "{e_t}秒" + E + "），" + A + "{e_arm}秒" + E + "後引線點燃。被槍火談判、貼身攻擊"
+        "skill2": "向敵方英雄扔火藥桶（最多" + A + "{e_slots}個" + E + "，留" + A + "{e_t}秒" + E + "），" + A + "{e_arm}秒" + E + "後引線點燃。被槍火談判、貼身攻擊"
                   "或另一個桶的爆炸引爆：範圍內敵人受到" + phy("e_dmg", "e_ratio") + O + "物理傷害" + E + "（英雄再加{e_champ}），無視{e_pen}%護甲，" +
                   R + "緩速{e_slow}%" + E + A + "{e_slow_t}秒" + E + "。",
         "ult": "朝天打出信號：" + A + "{r_call}秒" + E + "後砲彈砸向敵方英雄所在區域，共" + A + "{r_waves}波" + E + "，每" + A + "{r_p}秒" + E +
@@ -86,7 +86,7 @@ TEXT = {
                   "crowded he eats an orange: heals " + HEAL + " and is " + R + "immune to crowd control" + E + " for " + A + "{w_imm}s" + E + ".",
         "skill": "Fires his pistol: " + phy("q_dmg", "q_ratio") + " " + O + "physical damage" + E + ", can critically strike, applies Trial by "
                  "Fire. For " + A + "{e_arm}s" + E + " after the hit, every lit Powder Keg with an enemy beside it blows up.",
-        "skill2": "Lobs a keg at an enemy champion (up to " + A + "2" + E + ", lasting " + A + "{e_t}s" + E + "); its fuse is lit after " + A +
+        "skill2": "Lobs a keg at an enemy champion (up to " + A + "{e_slots}" + E + ", lasting " + A + "{e_t}s" + E + "); its fuse is lit after " + A +
                   "{e_arm}s" + E + ". A lit keg blows up on Parrrley, his attack next to it or the other keg's blast: " + phy("e_dmg", "e_ratio") +
                   " " + O + "physical damage" + E + " around it ({e_champ} more to champions), ignoring {e_pen}% armour, " + R + "slowing "
                   "{e_slow}%" + E + " for " + A + "{e_slow_t}s" + E + ".",
@@ -102,7 +102,7 @@ TEXT = {
                   ": 3레벨부터 군중 제어나 포위 시 오렌지를 먹어 " + HEAL + " 회복, " + A + "{w_imm}초" + E + " " + R + "군중 제어 면역" + E + ".",
         "skill": "총을 쏜다: " + phy("q_dmg", "q_ratio") + "의 " + O + "물리 피해" + E + ", 치명타 가능, 불의 심판 적용. 적중 후 " + A + "{e_arm}초" + E +
                  " 안에 심지가 타는 화약통 중 적이 곁에 있는 것은 모두 폭발.",
-        "skill2": "적 챔피언에게 화약통을 던진다(최대 " + A + "2개" + E + ", " + A + "{e_t}초" + E + "), " + A + "{e_arm}초" + E + " 후 심지 점화. 혀어어어업상, "
+        "skill2": "적 챔피언에게 화약통을 던진다(최대 " + A + "{e_slots}개" + E + ", " + A + "{e_t}초" + E + "), " + A + "{e_arm}초" + E + " 후 심지 점화. 혀어어어업상, "
                   "곁에서의 공격, 다른 통의 폭발로 터져 주변 적에게 " + phy("e_dmg", "e_ratio") + "의 " + O + "물리 피해" + E + "(챔피언 +{e_champ}), 방어력 "
                   "{e_pen}% 무시, " + A + "{e_slow_t}초" + E + " " + R + "{e_slow}% 둔화" + E + ".",
         "ult": "배에 신호를 보낸다: " + A + "{r_call}초" + E + " 후 적 챔피언이 있는 지역에 포탄 " + A + "{r_waves}번" + E + "(" + A + "{r_p}초" + E +
@@ -116,7 +116,7 @@ TEXT = {
                   "：Lv3から行動妨害や包囲時にオレンジを食べ" + HEAL + "回復、" + A + "{w_imm}秒" + E + R + "行動妨害無効" + E + "。",
         "skill": "銃を撃つ：" + phy("q_dmg", "q_ratio") + "の" + O + "物理ダメージ" + E + "、クリティカル可、背水の銃剣が発動。命中から" + A + "{e_arm}秒" + E +
                  "以内、導火線に火が付き敵がそばにいる火薬樽はすべて爆発。",
-        "skill2": "敵チャンピオンへ火薬樽を投げる（最大" + A + "2個" + E + "、" + A + "{e_t}秒" + E + "）、" + A + "{e_arm}秒" + E + "後に点火。偽りの発砲・"
+        "skill2": "敵チャンピオンへ火薬樽を投げる（最大" + A + "{e_slots}個" + E + "、" + A + "{e_t}秒" + E + "）、" + A + "{e_arm}秒" + E + "後に点火。偽りの発砲・"
                   "そばでの通常攻撃・別の樽の爆発で爆発し周囲に" + phy("e_dmg", "e_ratio") + "の" + O + "物理ダメージ" + E + "（チャンピオン+{e_champ}）、"
                   "物理防御{e_pen}%無視、" + A + "{e_slow_t}秒" + E + R + "スロウ{e_slow}%" + E + "。",
         "ult": "船に合図：" + A + "{r_call}秒" + E + "後に敵チャンピオンのいる範囲へ砲弾" + A + "{r_waves}波" + E + "（" + A + "{r_p}秒" + E + "毎）、毎回" +
@@ -156,7 +156,7 @@ def secs(t):
 
 def values(p):
     v = {k: p[k] for k in ("p_dmg", "p_ratio", "p_ms", "w_heal", "w_ratio", "q_dmg", "q_ratio", "e_dmg", "e_ratio", "e_champ",
-                           "e_pen", "e_slow", "r_waves", "r_dmg", "r_ratio", "r_slow")}
+                           "e_pen", "e_slow", "e_slots", "r_waves", "r_dmg", "r_ratio", "r_slow")}
     for k in ("p_t", "p_burn", "w_imm", "e_t", "e_arm", "e_slow_t", "r_call", "r_p"):
         v[k] = secs(p[k])
     return v
