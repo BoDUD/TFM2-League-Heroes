@@ -2519,7 +2519,7 @@
           "tick": 12,
           "range": 1000,
           "casting_target": "EnemyChampion",
-          "penetrate": true,
+          "penetrate": false,
           "applied_effects": []
         },
         {

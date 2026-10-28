@@ -414,7 +414,10 @@ def build(p):
                          buff("r_slow", p["r_slow_t"], move_speed_mult=-p["r_slow"], cc_immune=True),
                          # RushTime like W (2026-10-28: players still found him standing still the whole match after the
                          # W fix; R's MoveToTarget was the last dash that runs until it reaches the target, however far)
-                         rush(p["r_speed"], -(-p["r_reach"] // p["r_speed"])),
+                         # not piercing: he stops on the first enemy champion in his way (a piercing one overshot a
+                         # target 10000 away by 50000 in the classic sim; this one lands 10000-15000 from it, the old
+                         # MoveToTarget 4000-10500)
+                         dict(rush(p["r_speed"], -(-p["r_reach"] // p["r_speed"])), penetrate=False),
                          delayed(p["r_hit"] - 1, *land)))
 
     # ------------------------------------------------------------------ views
