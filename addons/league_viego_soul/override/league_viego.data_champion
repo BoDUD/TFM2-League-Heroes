@@ -2514,10 +2514,13 @@
           }
         },
         {
-          "type": "MoveToTarget",
+          "type": "RushTime",
           "speed": 5000,
-          "range": 60000,
-          "end_effects": []
+          "tick": 12,
+          "range": 1000,
+          "casting_target": "EnemyChampion",
+          "penetrate": false,
+          "applied_effects": []
         },
         {
           "type": "Delayed",

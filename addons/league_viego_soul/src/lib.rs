@@ -32,6 +32,7 @@ use std::sync::{LazyLock, Mutex};
 use mod_api_stable::*;
 
 mod souls;
+pub mod stuck;
 pub mod view;
 
 const ID: &str = "league_viego_soul";
@@ -247,6 +248,9 @@ pub struct Possess {
     /// The mist may rise again from this tick (0.2.0), and how many times it rose.
     pub mist_at: usize,
     pub mists: usize,
+    /// The stuck-dash guard (0.2.13, [`stuck`]) and his attack / Q / W / R cooldowns last tick (a rise = he acted).
+    pub stuck: stuck::Watch,
+    pub cds: [usize; 4],
 }
 
 /// 破败之雾升不升：没在附身、冷却过了、最近的看得见的敌方英雄在 `trig` 以内（`nearest` = 距离）。
@@ -367,6 +371,36 @@ impl Possess {
     }
 }
 
+impl Possess {
+    /// Frees him when a dash or a cast never ends, or he stands by an enemy doing nothing ([`stuck`]): his crowd control
+    /// cleared, a [`stuck::KICK`]-tick knock-up (what the players saw free him), and a `STUCK` line.
+    fn unstick(&mut self, sim: &mut StableSim<'_>, me: usize) {
+        let Some(e) = sim.get_entity(me) else { return };
+        let has = |k: CcKindV1| (0..e.cc_count()).any(|i| e.cc_at(i).is_some_and(|c| c.kind == k.code()));
+        let cds = [SkillSlotV1::Attack, SkillSlotV1::Skill, SkillSlotV1::Skill2, SkillSlotV1::Ult]
+            .map(|s| e.cooldown(s).map_or(0, |c| c.remaining));
+        let acted = cds.iter().zip(self.cds.iter()).any(|(now, was)| now > was);
+        self.cds = cds;
+        let (team, pos, alive) = (e.team(), e.pos(), e.is_alive());
+        let (force, anim) = (has(CcKindV1::ForceMove), has(CcKindV1::Animation));
+        let ccs: Vec<String> = (0..e.cc_count())
+            .filter_map(|i| e.cc_at(i))
+            .map(|c| format!("{:?} {}", CcKindV1::from_code(c.kind), c.tick))
+            .collect();
+        let foe_near = (0..sim.champion_count()).filter_map(|i| sim.get_entity(sim.champion_id_at(i))).any(|c| {
+            c.team() != team && c.is_alive() && c.is_targetable() && dist(c.pos(), pos) as f64 <= stuck::NEAR
+        });
+        let obs = stuck::Obs { alive, pos, force, anim, acted, foe_near };
+        let Some(why) = self.stuck.step(obs) else { return };
+        let cleared = sim.entity_clear_cc(me);
+        sim.apply_cc(me, &CcV1::of_kind(CcKindV1::Airborne, stuck::KICK));
+        wlog(format!(
+            "{} STUCK {why:?} at {pos:?}: crowd control [{}] - {cleared} cleared, knocked up {} ticks; cooldowns {cds:?};              buffs [{}]",
+            head(sim, me), ccs.join(", "), stuck::KICK, buff_names(sim, me).join(", ")
+        ));
+    }
+}
+
 impl StablePassive for Possess {
     fn clone_box(&self) -> Box<dyn StablePassive> {
         Box::new(self.clone())
@@ -400,6 +434,7 @@ impl StablePassive for Possess {
     }
 
     fn on_update(&mut self, sim: &mut StableSim<'_>, _: u64, _player: usize, me: usize) {
+        self.unstick(sim, me);
         let now = sim.tick();
         let Some(e) = sim.get_entity(me) else { return };
         let (alive, team, mpos) = (e.is_alive(), e.team(), e.pos());
