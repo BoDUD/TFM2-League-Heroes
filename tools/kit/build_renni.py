@@ -44,21 +44,26 @@ BIG = f"asset/{MOD_ID}/effects/{ID}_big"
 # Timings are provisional until her frames are rigged (tools/art/rig_renni.py): TFT's grind bites three times in its
 # loop, the lift is up at ~600 ms of its 1.4 s clip, the slam lands at ~310 ms of its 1.1 s clip. Stats start from the
 # pack's top tanks (tft_scar hp 1120 +110, def 36, mr 32; tft_kobuko; league_sett) with attack instead of ability power.
+# Numbers = the 10-min classic-SDK simulations (C:/t/al_sim/kd.py, top lane against the base fighter, executioner,
+# knight, berserker, lancer and pole warrior, three lineups, both sides; 2026-10-29), all --plain (the shimmer shot on
+# her guard, flat heals): the draft (atk 78, bites 40%, Q 30 + 50%, R 100 + 180% / slam 60 + 100%) -0.06 on seeds 1-8
+# against tft_scar --plain +2.87; atk 85, bites 45%, Q 50 + 70%, R 140 + 200% / 80 + 120% +4.10 (more health and
+# shield on top: +4.38 / +4.40); between = P: +2.03 / +2.05 (seeds 9-16; tft_scar +1.85, league_sett +2.07).
 P = {
     # stats (Melee, a top tank with attack damage)
-    "hp": 1150, "hp_g": 115, "atk": 78, "atk_g": 11, "apw": 0, "apw_g": 0, "def": 38, "def_g": 8, "mr": 30, "mr_g": 5,
+    "hp": 1150, "hp_g": 115, "atk": 82, "atk_g": 11, "apw": 0, "apw_g": 0, "def": 38, "def_g": 8, "mr": 30, "mr_g": 5,
     "ms": 1000, "ms_g": 10,
-    "atk_range": 25000, "atk_dur": 30, "atk_cd": 72, "atk_st": 12, "a_gap": 6, "a_pct": 40,
+    "atk_range": 25000, "atk_dur": 30, "atk_cd": 72, "atk_st": 12, "a_gap": 6, "a_pct": 42,
     # passive Shimmer Frenzy (Chem-Baron's shimmer)
     "p_line": 40, "p_cd": 1800, "p_t": 240, "p_as": 40, "p_heal": 20, "p_flat": 160,
     # Chainsaw Charge
     "q_cd": 540, "q_range": 40000, "q_dur": 50, "q_speed": 3600, "q_n": 3, "q_gap": 10, "q_r": 38000, "q_cone": 600,
-    "q_dmg": 30, "q_ad": 50, "q_slow": 30, "q_slow_t": 90, "q_grind_t": 30,
+    "q_dmg": 40, "q_ad": 60, "q_slow": 30, "q_slow_t": 90, "q_grind_t": 30,
     # Saw Guard
     "e_cd": 600, "e_range": 30000, "e_dur": 20, "e_sh": 100, "e_sh_ad": 80, "e_t": 150, "e_dr": 20,
     # Mudrunner Slam (TFT: 1.5 s up, 500% AD, slam 200% AD to the adjacent, heal 15% max hp)
     "r_cd": 3000, "r_range": 30000, "r_dur": 90, "r_st": 14, "r_up": 66, "r_slam": 74, "r_slam_t": 16,
-    "r_dmg": 100, "r_ad": 180, "r_heal": 15, "r_flat": 150, "r_r": 30000, "r_s": 60, "r_s_ad": 100,
+    "r_dmg": 120, "r_ad": 190, "r_heal": 15, "r_flat": 150, "r_r": 30000, "r_s": 70, "r_s_ad": 110,
 }
 # what tft.dll reads from passive.params (addons/tft/src/renni.rs), and the names only it puts on
 NATIVE_ONLY = ()

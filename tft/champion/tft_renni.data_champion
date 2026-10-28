@@ -28,7 +28,7 @@
     "asset/tft/icons/tft_renni_ult"
   ],
   "stat": {
-    "attack": 78,
+    "attack": 82,
     "magic_power": 0,
     "hp": 1150,
     "defence": 38,
@@ -74,7 +74,7 @@
             {
               "type": "Attack",
               "damage": 0,
-              "attack_ratio": 40,
+              "attack_ratio": 42,
               "hp_ratio": 0,
               "target_hp_ratio": 0,
               "attack_effect_type": "Target"
@@ -96,7 +96,7 @@
             {
               "type": "Attack",
               "damage": 0,
-              "attack_ratio": 40,
+              "attack_ratio": 42,
               "hp_ratio": 0,
               "target_hp_ratio": 0,
               "attack_effect_type": "Target"
@@ -118,7 +118,7 @@
             {
               "type": "Attack",
               "damage": 0,
-              "attack_ratio": 40,
+              "attack_ratio": 42,
               "hp_ratio": 0,
               "target_hp_ratio": 0,
               "attack_effect_type": "Target"
@@ -194,8 +194,8 @@
                   "effects": [
                     {
                       "type": "Attack",
-                      "damage": 30,
-                      "attack_ratio": 50,
+                      "damage": 40,
+                      "attack_ratio": 60,
                       "hp_ratio": 0,
                       "target_hp_ratio": 0,
                       "attack_effect_type": "Target"
@@ -245,8 +245,8 @@
                   "effects": [
                     {
                       "type": "Attack",
-                      "damage": 30,
-                      "attack_ratio": 50,
+                      "damage": 40,
+                      "attack_ratio": 60,
                       "hp_ratio": 0,
                       "target_hp_ratio": 0,
                       "attack_effect_type": "Target"
@@ -296,8 +296,8 @@
                   "effects": [
                     {
                       "type": "Attack",
-                      "damage": 30,
-                      "attack_ratio": 50,
+                      "damage": 40,
+                      "attack_ratio": 60,
                       "hp_ratio": 0,
                       "target_hp_ratio": 0,
                       "attack_effect_type": "Target"
@@ -433,8 +433,8 @@
             },
             {
               "type": "Attack",
-              "damage": 100,
-              "attack_ratio": 180,
+              "damage": 120,
+              "attack_ratio": 190,
               "hp_ratio": 0,
               "target_hp_ratio": 0,
               "attack_effect_type": "Target"
@@ -509,8 +509,8 @@
               "effects": [
                 {
                   "type": "Attack",
-                  "damage": 60,
-                  "attack_ratio": 100,
+                  "damage": 70,
+                  "attack_ratio": 110,
                   "hp_ratio": 0,
                   "target_hp_ratio": 0,
                   "attack_effect_type": "Target"
