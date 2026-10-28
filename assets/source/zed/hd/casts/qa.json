@@ -1,0 +1,942 @@
+[
+  {
+    "name": "run_1",
+    "frames": [
+      1,
+      2
+    ],
+    "cells": 2,
+    "size": [
+      1536,
+      1024
+    ],
+    "size_pass": true,
+    "alpha_levels": 1,
+    "partial_alpha_pixels": 0,
+    "white_pixels": 161164,
+    "nearwhite_pixels": 1327143,
+    "transparent_pixels": 0,
+    "nonwhite_visible_pixels": 241397,
+    "off_palette_pixels": 241392,
+    "exact_palette_pass": false,
+    "binary_alpha_pass": true,
+    "cell_bounds": [
+      {
+        "frame": 1,
+        "bbox": [
+          195,
+          412,
+          652,
+          947
+        ],
+        "height": 535,
+        "foot_y": 947
+      },
+      {
+        "frame": 2,
+        "bbox": [
+          935,
+          412,
+          1355,
+          958
+        ],
+        "height": 546,
+        "foot_y": 958
+      }
+    ]
+  },
+  {
+    "name": "run_2",
+    "frames": [
+      3,
+      4
+    ],
+    "cells": 2,
+    "size": [
+      1536,
+      1024
+    ],
+    "size_pass": true,
+    "alpha_levels": 1,
+    "partial_alpha_pixels": 0,
+    "white_pixels": 134240,
+    "nearwhite_pixels": 1308322,
+    "transparent_pixels": 0,
+    "nonwhite_visible_pixels": 259627,
+    "off_palette_pixels": 259624,
+    "exact_palette_pass": false,
+    "binary_alpha_pass": true,
+    "cell_bounds": [
+      {
+        "frame": 3,
+        "bbox": [
+          203,
+          407,
+          628,
+          975
+        ],
+        "height": 568,
+        "foot_y": 975
+      },
+      {
+        "frame": 4,
+        "bbox": [
+          969,
+          407,
+          1392,
+          974
+        ],
+        "height": 567,
+        "foot_y": 974
+      }
+    ]
+  },
+  {
+    "name": "run_3",
+    "frames": [
+      5,
+      6
+    ],
+    "cells": 2,
+    "size": [
+      1536,
+      1024
+    ],
+    "size_pass": true,
+    "alpha_levels": 1,
+    "partial_alpha_pixels": 0,
+    "white_pixels": 151414,
+    "nearwhite_pixels": 1302526,
+    "transparent_pixels": 0,
+    "nonwhite_visible_pixels": 264240,
+    "off_palette_pixels": 264150,
+    "exact_palette_pass": false,
+    "binary_alpha_pass": true,
+    "cell_bounds": [
+      {
+        "frame": 5,
+        "bbox": [
+          188,
+          418,
+          638,
+          961
+        ],
+        "height": 543,
+        "foot_y": 961
+      },
+      {
+        "frame": 6,
+        "bbox": [
+          929,
+          418,
+          1371,
+          977
+        ],
+        "height": 559,
+        "foot_y": 977
+      }
+    ]
+  },
+  {
+    "name": "run_4",
+    "frames": [
+      7,
+      8
+    ],
+    "cells": 2,
+    "size": [
+      1536,
+      1024
+    ],
+    "size_pass": true,
+    "alpha_levels": 1,
+    "partial_alpha_pixels": 0,
+    "white_pixels": 137822,
+    "nearwhite_pixels": 1322860,
+    "transparent_pixels": 0,
+    "nonwhite_visible_pixels": 245884,
+    "off_palette_pixels": 245854,
+    "exact_palette_pass": false,
+    "binary_alpha_pass": true,
+    "cell_bounds": [
+      {
+        "frame": 7,
+        "bbox": [
+          205,
+          399,
+          636,
+          956
+        ],
+        "height": 557,
+        "foot_y": 956
+      },
+      {
+        "frame": 8,
+        "bbox": [
+          931,
+          399,
+          1404,
+          956
+        ],
+        "height": 557,
+        "foot_y": 956
+      }
+    ]
+  },
+  {
+    "name": "attack_1",
+    "frames": [
+      1,
+      2
+    ],
+    "cells": 2,
+    "size": [
+      1536,
+      1024
+    ],
+    "size_pass": true,
+    "alpha_levels": 1,
+    "partial_alpha_pixels": 0,
+    "white_pixels": 118428,
+    "nearwhite_pixels": 1235977,
+    "transparent_pixels": 0,
+    "nonwhite_visible_pixels": 330377,
+    "off_palette_pixels": 330246,
+    "exact_palette_pass": false,
+    "binary_alpha_pass": true,
+    "cell_bounds": [
+      {
+        "frame": 1,
+        "bbox": [
+          152,
+          363,
+          597,
+          958
+        ],
+        "height": 595,
+        "foot_y": 958
+      },
+      {
+        "frame": 2,
+        "bbox": [
+          874,
+          377,
+          1332,
+          960
+        ],
+        "height": 583,
+        "foot_y": 960
+      }
+    ]
+  },
+  {
+    "name": "attack_2",
+    "frames": [
+      3,
+      4
+    ],
+    "cells": 2,
+    "size": [
+      1536,
+      1024
+    ],
+    "size_pass": true,
+    "alpha_levels": 1,
+    "partial_alpha_pixels": 0,
+    "white_pixels": 125854,
+    "nearwhite_pixels": 1235414,
+    "transparent_pixels": 0,
+    "nonwhite_visible_pixels": 327243,
+    "off_palette_pixels": 327231,
+    "exact_palette_pass": false,
+    "binary_alpha_pass": true,
+    "cell_bounds": [
+      {
+        "frame": 3,
+        "bbox": [
+          117,
+          367,
+          726,
+          992
+        ],
+        "height": 625,
+        "foot_y": 992
+      },
+      {
+        "frame": 4,
+        "bbox": [
+          924,
+          410,
+          1494,
+          992
+        ],
+        "height": 582,
+        "foot_y": 992
+      }
+    ]
+  },
+  {
+    "name": "attack_3",
+    "frames": [
+      5,
+      6
+    ],
+    "cells": 2,
+    "size": [
+      1536,
+      1024
+    ],
+    "size_pass": true,
+    "alpha_levels": 1,
+    "partial_alpha_pixels": 0,
+    "white_pixels": 134816,
+    "nearwhite_pixels": 1259939,
+    "transparent_pixels": 0,
+    "nonwhite_visible_pixels": 306545,
+    "off_palette_pixels": 306490,
+    "exact_palette_pass": false,
+    "binary_alpha_pass": true,
+    "cell_bounds": [
+      {
+        "frame": 5,
+        "bbox": [
+          164,
+          392,
+          758,
+          984
+        ],
+        "height": 592,
+        "foot_y": 984
+      },
+      {
+        "frame": 6,
+        "bbox": [
+          932,
+          392,
+          1329,
+          984
+        ],
+        "height": 592,
+        "foot_y": 984
+      }
+    ]
+  },
+  {
+    "name": "skill_1",
+    "frames": [
+      1,
+      2
+    ],
+    "cells": 2,
+    "size": [
+      1536,
+      1024
+    ],
+    "size_pass": true,
+    "alpha_levels": 1,
+    "partial_alpha_pixels": 0,
+    "white_pixels": 143992,
+    "nearwhite_pixels": 1265142,
+    "transparent_pixels": 0,
+    "nonwhite_visible_pixels": 298651,
+    "off_palette_pixels": 298551,
+    "exact_palette_pass": false,
+    "binary_alpha_pass": true,
+    "cell_bounds": [
+      {
+        "frame": 1,
+        "bbox": [
+          172,
+          347,
+          566,
+          961
+        ],
+        "height": 614,
+        "foot_y": 961
+      },
+      {
+        "frame": 2,
+        "bbox": [
+          905,
+          348,
+          1480,
+          961
+        ],
+        "height": 613,
+        "foot_y": 961
+      }
+    ]
+  },
+  {
+    "name": "skill_2",
+    "frames": [
+      3
+    ],
+    "cells": 1,
+    "size": [
+      1536,
+      1024
+    ],
+    "size_pass": true,
+    "alpha_levels": 1,
+    "partial_alpha_pixels": 0,
+    "white_pixels": 231030,
+    "nearwhite_pixels": 1448923,
+    "transparent_pixels": 0,
+    "nonwhite_visible_pixels": 119658,
+    "off_palette_pixels": 119603,
+    "exact_palette_pass": false,
+    "binary_alpha_pass": true,
+    "cell_bounds": [
+      {
+        "frame": 3,
+        "bbox": [
+          544,
+          433,
+          1079,
+          952
+        ],
+        "height": 519,
+        "foot_y": 952
+      }
+    ]
+  },
+  {
+    "name": "skill2_1",
+    "frames": [
+      1,
+      2
+    ],
+    "cells": 2,
+    "size": [
+      1536,
+      1024
+    ],
+    "size_pass": true,
+    "alpha_levels": 1,
+    "partial_alpha_pixels": 0,
+    "white_pixels": 15974,
+    "nearwhite_pixels": 1157624,
+    "transparent_pixels": 0,
+    "nonwhite_visible_pixels": 404993,
+    "off_palette_pixels": 404940,
+    "exact_palette_pass": false,
+    "binary_alpha_pass": true,
+    "cell_bounds": [
+      {
+        "frame": 1,
+        "bbox": [
+          128,
+          284,
+          606,
+          958
+        ],
+        "height": 674,
+        "foot_y": 958
+      },
+      {
+        "frame": 2,
+        "bbox": [
+          874,
+          284,
+          1387,
+          958
+        ],
+        "height": 674,
+        "foot_y": 958
+      }
+    ]
+  },
+  {
+    "name": "skill2_2",
+    "frames": [
+      3,
+      4
+    ],
+    "cells": 2,
+    "size": [
+      1536,
+      1024
+    ],
+    "size_pass": true,
+    "alpha_levels": 1,
+    "partial_alpha_pixels": 0,
+    "white_pixels": 28479,
+    "nearwhite_pixels": 1237853,
+    "transparent_pixels": 0,
+    "nonwhite_visible_pixels": 330089,
+    "off_palette_pixels": 330049,
+    "exact_palette_pass": false,
+    "binary_alpha_pass": true,
+    "cell_bounds": [
+      {
+        "frame": 3,
+        "bbox": [
+          210,
+          305,
+          628,
+          954
+        ],
+        "height": 649,
+        "foot_y": 954
+      },
+      {
+        "frame": 4,
+        "bbox": [
+          802,
+          401,
+          1505,
+          954
+        ],
+        "height": 553,
+        "foot_y": 954
+      }
+    ]
+  },
+  {
+    "name": "skill2_3",
+    "frames": [
+      5
+    ],
+    "cells": 1,
+    "size": [
+      1536,
+      1024
+    ],
+    "size_pass": true,
+    "alpha_levels": 1,
+    "partial_alpha_pixels": 0,
+    "white_pixels": 266456,
+    "nearwhite_pixels": 1452037,
+    "transparent_pixels": 0,
+    "nonwhite_visible_pixels": 118112,
+    "off_palette_pixels": 118076,
+    "exact_palette_pass": false,
+    "binary_alpha_pass": true,
+    "cell_bounds": [
+      {
+        "frame": 5,
+        "bbox": [
+          581,
+          424,
+          1075,
+          927
+        ],
+        "height": 503,
+        "foot_y": 927
+      }
+    ]
+  },
+  {
+    "name": "skill_e_1",
+    "frames": [
+      1,
+      2
+    ],
+    "cells": 2,
+    "size": [
+      1536,
+      1024
+    ],
+    "size_pass": true,
+    "alpha_levels": 1,
+    "partial_alpha_pixels": 0,
+    "white_pixels": 117219,
+    "nearwhite_pixels": 1250660,
+    "transparent_pixels": 0,
+    "nonwhite_visible_pixels": 313808,
+    "off_palette_pixels": 313180,
+    "exact_palette_pass": false,
+    "binary_alpha_pass": true,
+    "cell_bounds": [
+      {
+        "frame": 1,
+        "bbox": [
+          183,
+          358,
+          585,
+          971
+        ],
+        "height": 613,
+        "foot_y": 971
+      },
+      {
+        "frame": 2,
+        "bbox": [
+          919,
+          358,
+          1319,
+          971
+        ],
+        "height": 613,
+        "foot_y": 971
+      }
+    ]
+  },
+  {
+    "name": "skill_e_2",
+    "frames": [
+      3,
+      4
+    ],
+    "cells": 2,
+    "size": [
+      1536,
+      1024
+    ],
+    "size_pass": true,
+    "alpha_levels": 1,
+    "partial_alpha_pixels": 0,
+    "white_pixels": 128376,
+    "nearwhite_pixels": 1266545,
+    "transparent_pixels": 0,
+    "nonwhite_visible_pixels": 297590,
+    "off_palette_pixels": 297437,
+    "exact_palette_pass": false,
+    "binary_alpha_pass": true,
+    "cell_bounds": [
+      {
+        "frame": 3,
+        "bbox": [
+          63,
+          364,
+          709,
+          936
+        ],
+        "height": 572,
+        "foot_y": 936
+      },
+      {
+        "frame": 4,
+        "bbox": [
+          799,
+          359,
+          1496,
+          936
+        ],
+        "height": 577,
+        "foot_y": 936
+      }
+    ]
+  },
+  {
+    "name": "skill_e_3",
+    "frames": [
+      6
+    ],
+    "cells": 1,
+    "size": [
+      1536,
+      1024
+    ],
+    "size_pass": true,
+    "alpha_levels": 1,
+    "partial_alpha_pixels": 0,
+    "white_pixels": 236844,
+    "nearwhite_pixels": 1442428,
+    "transparent_pixels": 0,
+    "nonwhite_visible_pixels": 127595,
+    "off_palette_pixels": 127561,
+    "exact_palette_pass": false,
+    "binary_alpha_pass": true,
+    "cell_bounds": [
+      {
+        "frame": 6,
+        "bbox": [
+          532,
+          427,
+          1106,
+          945
+        ],
+        "height": 518,
+        "foot_y": 945
+      }
+    ]
+  },
+  {
+    "name": "ult_1",
+    "frames": [
+      1,
+      3
+    ],
+    "cells": 2,
+    "size": [
+      1536,
+      1024
+    ],
+    "size_pass": true,
+    "alpha_levels": 1,
+    "partial_alpha_pixels": 0,
+    "white_pixels": 123299,
+    "nearwhite_pixels": 1229052,
+    "transparent_pixels": 0,
+    "nonwhite_visible_pixels": 333451,
+    "off_palette_pixels": 333203,
+    "exact_palette_pass": false,
+    "binary_alpha_pass": true,
+    "cell_bounds": [
+      {
+        "frame": 1,
+        "bbox": [
+          142,
+          382,
+          620,
+          959
+        ],
+        "height": 577,
+        "foot_y": 959
+      },
+      {
+        "frame": 3,
+        "bbox": [
+          782,
+          418,
+          1526,
+          959
+        ],
+        "height": 541,
+        "foot_y": 959
+      }
+    ]
+  },
+  {
+    "name": "ult_2",
+    "frames": [
+      5,
+      6
+    ],
+    "cells": 2,
+    "size": [
+      1536,
+      1024
+    ],
+    "size_pass": true,
+    "alpha_levels": 1,
+    "partial_alpha_pixels": 0,
+    "white_pixels": 123930,
+    "nearwhite_pixels": 1246810,
+    "transparent_pixels": 0,
+    "nonwhite_visible_pixels": 316208,
+    "off_palette_pixels": 316009,
+    "exact_palette_pass": false,
+    "binary_alpha_pass": true,
+    "cell_bounds": [
+      {
+        "frame": 5,
+        "bbox": [
+          71,
+          399,
+          754,
+          936
+        ],
+        "height": 537,
+        "foot_y": 936
+      },
+      {
+        "frame": 6,
+        "bbox": [
+          782,
+          398,
+          1507,
+          936
+        ],
+        "height": 538,
+        "foot_y": 936
+      }
+    ]
+  },
+  {
+    "name": "ult_3",
+    "frames": [
+      7
+    ],
+    "cells": 1,
+    "size": [
+      1536,
+      1024
+    ],
+    "size_pass": true,
+    "alpha_levels": 1,
+    "partial_alpha_pixels": 0,
+    "white_pixels": 221399,
+    "nearwhite_pixels": 1441883,
+    "transparent_pixels": 0,
+    "nonwhite_visible_pixels": 128409,
+    "off_palette_pixels": 128375,
+    "exact_palette_pass": false,
+    "binary_alpha_pass": true,
+    "cell_bounds": [
+      {
+        "frame": 7,
+        "bbox": [
+          438,
+          438,
+          1099,
+          922
+        ],
+        "height": 484,
+        "foot_y": 922
+      }
+    ]
+  },
+  {
+    "name": "hit_1",
+    "frames": [
+      1
+    ],
+    "cells": 1,
+    "size": [
+      1536,
+      1024
+    ],
+    "size_pass": true,
+    "alpha_levels": 1,
+    "partial_alpha_pixels": 0,
+    "white_pixels": 231387,
+    "nearwhite_pixels": 1441396,
+    "transparent_pixels": 0,
+    "nonwhite_visible_pixels": 127625,
+    "off_palette_pixels": 127529,
+    "exact_palette_pass": false,
+    "binary_alpha_pass": true,
+    "cell_bounds": [
+      {
+        "frame": 1,
+        "bbox": [
+          416,
+          350,
+          904,
+          928
+        ],
+        "height": 578,
+        "foot_y": 928
+      }
+    ]
+  },
+  {
+    "name": "dead_1",
+    "frames": [
+      1,
+      2
+    ],
+    "cells": 2,
+    "size": [
+      1536,
+      1024
+    ],
+    "size_pass": true,
+    "alpha_levels": 1,
+    "partial_alpha_pixels": 0,
+    "white_pixels": 119638,
+    "nearwhite_pixels": 1242324,
+    "transparent_pixels": 0,
+    "nonwhite_visible_pixels": 323241,
+    "off_palette_pixels": 322594,
+    "exact_palette_pass": false,
+    "binary_alpha_pass": true,
+    "cell_bounds": [
+      {
+        "frame": 1,
+        "bbox": [
+          47,
+          333,
+          629,
+          974
+        ],
+        "height": 641,
+        "foot_y": 974
+      },
+      {
+        "frame": 2,
+        "bbox": [
+          914,
+          450,
+          1373,
+          973
+        ],
+        "height": 523,
+        "foot_y": 973
+      }
+    ]
+  },
+  {
+    "name": "dead_2",
+    "frames": [
+      3,
+      4
+    ],
+    "cells": 2,
+    "size": [
+      1536,
+      1024
+    ],
+    "size_pass": true,
+    "alpha_levels": 1,
+    "partial_alpha_pixels": 0,
+    "white_pixels": 168193,
+    "nearwhite_pixels": 1308762,
+    "transparent_pixels": 0,
+    "nonwhite_visible_pixels": 256944,
+    "off_palette_pixels": 256657,
+    "exact_palette_pass": false,
+    "binary_alpha_pass": true,
+    "cell_bounds": [
+      {
+        "frame": 3,
+        "bbox": [
+          224,
+          427,
+          600,
+          914
+        ],
+        "height": 487,
+        "foot_y": 914
+      },
+      {
+        "frame": 4,
+        "bbox": [
+          949,
+          444,
+          1495,
+          914
+        ],
+        "height": 470,
+        "foot_y": 914
+      }
+    ]
+  },
+  {
+    "name": "dead_3",
+    "frames": [
+      6
+    ],
+    "cells": 1,
+    "size": [
+      1536,
+      1024
+    ],
+    "size_pass": true,
+    "alpha_levels": 1,
+    "partial_alpha_pixels": 0,
+    "white_pixels": 206408,
+    "nearwhite_pixels": 1443869,
+    "transparent_pixels": 0,
+    "nonwhite_visible_pixels": 126027,
+    "off_palette_pixels": 126015,
+    "exact_palette_pass": false,
+    "binary_alpha_pass": true,
+    "cell_bounds": [
+      {
+        "frame": 6,
+        "bbox": [
+          586,
+          621,
+          1436,
+          906
+        ],
+        "height": 285,
+        "foot_y": 906
+      }
+    ]
+  }
+]

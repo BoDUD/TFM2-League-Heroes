@@ -138,6 +138,7 @@ def main():
     AH.RAW, AH.PITCH = a.raw, PITCHES[a.raw]
     d, ppu = design()
     stem = "design" if a.raw == "zed-A.png" else "design_" + a.raw[:-4]
+    tail = "" if stem == "design" else "_" + a.raw[:-4]
     Image.fromarray(d).save(AH.lp(os.path.join(AH.HD, stem + ".png")))
     print(f"design {d.shape[1]}x{d.shape[0]} = PPU {ppu:.3f} at {OLD} rows, "
           f"{len(np.unique(d[d[..., 3] > 0][:, :3], axis=0))} colours")
@@ -151,7 +152,7 @@ def main():
         k = SIZES.get(h, 1.0)
         cells.append((("now" if h == "zed" else h) + (f" {p}" if p != 1 else " 1x") + (f" x{k}" if k != 1 else ""),
                       FD.shown(f, p / k, 3)))
-    FD.strip(cells).convert("RGB").save(os.path.join(a.review, f"zed_ppu_size{'' if stem == 'design' else '_' + a.raw[:-4]}.png"))
+    FD.strip(cells).convert("RGB").save(os.path.join(a.review, f"zed_ppu_size{tail}.png"))
     raw = Image.open(AH.lp(os.path.join(AH.HD, "raw", AH.RAW))).convert("RGBA")
     raw.putalpha(raw.getchannel("A").point(lambda v: 255 if v >= 128 else 0))
     raw = raw.crop(raw.getbbox())
@@ -159,7 +160,7 @@ def main():
     close = [("Codex's picture", raw.resize((round(raw.width * 700 / raw.height), 700), Image.LANCZOS)),
              (f"design {d.shape[1]}x{d.shape[0]}", FD.shown(Image.fromarray(d).resize((round(d.shape[1] * z), 700),
                                                                                     Image.NEAREST), 1, 1))]
-    FD.strip(close).convert("RGB").save(os.path.join(a.review, f"zed_ppu_closeup{'' if stem == 'design' else '_' + a.raw[:-4]}.png"))
+    FD.strip(close).convert("RGB").save(os.path.join(a.review, f"zed_ppu_closeup{tail}.png"))
     print("review written to", a.review)
 
 
