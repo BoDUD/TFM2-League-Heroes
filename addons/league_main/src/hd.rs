@@ -303,6 +303,14 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // hair to soles, PPU 2.0 (「B-1 38 PPU 2.0」), and Codex's key poses after her own TFT clips with the design's head,
     // posed by tools/art/rig_violet.py, so no SIZES row
     ("tft_violet", 2.0, include_str!("../../../tft/champions/tft_violet#anim.fanim")),
+    // The Ancient Krug (tft_krug, the tft pack): hunched on all fours, step 0's A-1 at the user's 38 game px boulder to
+    // soles, PPU 2.0 (「A-1 38 PPU 2.0」), and Codex's key poses after his own TFT clips, posed by tools/art/rig_krug.py,
+    // so no SIZES row
+    ("tft_krug", 2.0, include_str!("../../../tft/champions/tft_krug#anim.fanim")),
+    // Ao Shin (tft_aoshin, the tft pack): the storm dragon hovering upright, step 0's A-1 at the user's 38 game px horns
+    // to the tail's lowest curl, PPU 2.0 (「A-1 38 PPU 2.0」), and Codex's key poses after his own TFT clips, posed by
+    // tools/art/rig_aoshin.py, so no SIZES row
+    ("tft_aoshin", 2.0, include_str!("../../../tft/champions/tft_aoshin#anim.fanim")),
     // Scar (tft_scar, the tft pack): the spear guard, the point forward, step 0's B-1 at the user's 38 game px mohawk to
     // soles, PPU 2.0 (「B-1、38 游戏像素、PPU 2.0」), and Codex's key poses after his own TFT clips with the design's head,
     // posed by tools/art/rig_scar.py, so no SIZES row

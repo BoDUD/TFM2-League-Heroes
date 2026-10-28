@@ -1,0 +1,330 @@
+[
+  {
+    "file": "aoshin_fx_a_ball.png",
+    "kind": "fx",
+    "frames": 4,
+    "cell_1x": [
+      12,
+      12
+    ],
+    "symmetry": "round (both ways)",
+    "layout": "horizontal",
+    "scale": 8,
+    "pixel_1x": "pixel_1x/aoshin_fx_a_ball.png",
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "source_frame_boundaries": [
+      0.0,
+      0.25,
+      0.5,
+      0.75,
+      1.0
+    ],
+    "normalization": "majority palette sample; alpha threshold; symmetry copy; empty body mask where required"
+  },
+  {
+    "file": "aoshin_fx_a_hit.png",
+    "kind": "fx",
+    "frames": 4,
+    "cell_1x": [
+      16,
+      16
+    ],
+    "symmetry": "left-right",
+    "layout": "horizontal",
+    "scale": 8,
+    "pixel_1x": "pixel_1x/aoshin_fx_a_hit.png",
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "source_frame_boundaries": [
+      0.0,
+      0.25,
+      0.5,
+      0.75,
+      1.0
+    ],
+    "normalization": "majority palette sample; alpha threshold; symmetry copy; empty body mask where required"
+  },
+  {
+    "file": "aoshin_fx_q_beam.png",
+    "kind": "fx",
+    "frames": 3,
+    "cell_1x": [
+      40,
+      10
+    ],
+    "symmetry": "top-bottom",
+    "layout": "horizontal",
+    "scale": 8,
+    "pixel_1x": "pixel_1x/aoshin_fx_q_beam.png",
+    "raw_size": [
+      1448,
+      1086
+    ],
+    "source_frame_boundaries": [
+      0.0,
+      0.3333333333333333,
+      0.6666666666666666,
+      1.0
+    ],
+    "normalization": "majority palette sample; alpha threshold; symmetry copy; empty body mask where required"
+  },
+  {
+    "file": "aoshin_fx_q_hit.png",
+    "kind": "fx",
+    "frames": 4,
+    "cell_1x": [
+      20,
+      24
+    ],
+    "symmetry": "left-right",
+    "layout": "horizontal",
+    "scale": 8,
+    "pixel_1x": "pixel_1x/aoshin_fx_q_hit.png",
+    "raw_size": [
+      2172,
+      724
+    ],
+    "source_frame_boundaries": [
+      0.0,
+      0.25,
+      0.5,
+      0.75,
+      1.0
+    ],
+    "normalization": "majority palette sample; alpha threshold; symmetry copy; empty body mask where required"
+  },
+  {
+    "file": "aoshin_fx_q_sil.png",
+    "kind": "fx",
+    "frames": 6,
+    "cell_1x": [
+      18,
+      44
+    ],
+    "symmetry": "left-right",
+    "layout": "horizontal",
+    "scale": 8,
+    "pixel_1x": "pixel_1x/aoshin_fx_q_sil.png",
+    "raw_size": [
+      1964,
+      801
+    ],
+    "source_frame_boundaries": [
+      0.0,
+      0.16666666666666666,
+      0.3333333333333333,
+      0.5,
+      0.6666666666666666,
+      0.8333333333333334,
+      1.0
+    ],
+    "normalization": "majority palette sample; alpha threshold; symmetry copy; empty body mask where required"
+  },
+  {
+    "file": "aoshin_fx_e_cast.png",
+    "kind": "fx",
+    "frames": 5,
+    "cell_1x": [
+      40,
+      26
+    ],
+    "symmetry": "left-right",
+    "layout": "horizontal",
+    "scale": 8,
+    "pixel_1x": "pixel_1x/aoshin_fx_e_cast.png",
+    "raw_size": [
+      1983,
+      793
+    ],
+    "source_frame_boundaries": [
+      0.0,
+      0.2,
+      0.4,
+      0.6,
+      0.8,
+      1.0
+    ],
+    "normalization": "majority palette sample; alpha threshold; symmetry copy; empty body mask where required"
+  },
+  {
+    "file": "aoshin_fx_e_shield.png",
+    "kind": "fx",
+    "frames": 6,
+    "cell_1x": [
+      46,
+      44
+    ],
+    "symmetry": "left-right",
+    "layout": "horizontal",
+    "scale": 8,
+    "pixel_1x": "pixel_1x/aoshin_fx_e_shield.png",
+    "raw_size": [
+      2079,
+      756
+    ],
+    "source_frame_boundaries": [
+      0.0,
+      0.16666666666666666,
+      0.3333333333333333,
+      0.5,
+      0.6666666666666666,
+      0.8333333333333334,
+      1.0
+    ],
+    "normalization": "majority palette sample; alpha threshold; symmetry copy; empty body mask where required"
+  },
+  {
+    "file": "aoshin_fx_p_bolt.png",
+    "kind": "fx",
+    "frames": 5,
+    "cell_1x": [
+      26,
+      90
+    ],
+    "symmetry": "none (a bolt from the sky)",
+    "layout": "horizontal",
+    "scale": 8,
+    "pixel_1x": "pixel_1x/aoshin_fx_p_bolt.png",
+    "raw_size": [
+      1787,
+      880
+    ],
+    "source_frame_boundaries": [
+      0,
+      0.17,
+      0.445,
+      0.61,
+      0.81,
+      1
+    ],
+    "normalization": "majority palette sample; alpha threshold; symmetry copy; empty body mask where required"
+  },
+  {
+    "file": "aoshin_fx_p_storm.png",
+    "kind": "fx",
+    "frames": 6,
+    "cell_1x": [
+      46,
+      44
+    ],
+    "symmetry": "left-right",
+    "layout": "horizontal",
+    "scale": 8,
+    "pixel_1x": "pixel_1x/aoshin_fx_p_storm.png",
+    "raw_size": [
+      2193,
+      717
+    ],
+    "source_frame_boundaries": [
+      0.0,
+      0.16666666666666666,
+      0.3333333333333333,
+      0.5,
+      0.6666666666666666,
+      0.8333333333333334,
+      1.0
+    ],
+    "normalization": "majority palette sample; alpha threshold; symmetry copy; empty body mask where required"
+  },
+  {
+    "file": "aoshin_fx_r_cloud.png",
+    "kind": "fx",
+    "frames": 6,
+    "cell_1x": [
+      70,
+      64
+    ],
+    "symmetry": "left-right",
+    "layout": "horizontal",
+    "scale": 8,
+    "pixel_1x": "pixel_1x/aoshin_fx_r_cloud.png",
+    "raw_size": [
+      2172,
+      724
+    ],
+    "source_frame_boundaries": [
+      0.0,
+      0.16666666666666666,
+      0.3333333333333333,
+      0.5,
+      0.6666666666666666,
+      0.8333333333333334,
+      1.0
+    ],
+    "normalization": "majority palette sample; alpha threshold; symmetry copy; empty body mask where required"
+  },
+  {
+    "file": "aoshin_fx_r_bolt.png",
+    "kind": "fx",
+    "frames": 6,
+    "cell_1x": [
+      24,
+      90
+    ],
+    "symmetry": "none (a bolt from the sky)",
+    "layout": "horizontal",
+    "scale": 8,
+    "pixel_1x": "pixel_1x/aoshin_fx_r_bolt.png",
+    "raw_size": [
+      1881,
+      836
+    ],
+    "source_frame_boundaries": [
+      0.0,
+      0.16666666666666666,
+      0.3333333333333333,
+      0.5,
+      0.6666666666666666,
+      0.8333333333333334,
+      1.0
+    ],
+    "normalization": "majority palette sample; alpha threshold; symmetry copy; empty body mask where required"
+  },
+  {
+    "file": "aoshin_icon_skill.png",
+    "kind": "icon",
+    "frames": 1,
+    "cell_1x": [
+      64,
+      64
+    ],
+    "logical_grid": 2,
+    "raw_size": [
+      1254,
+      1254
+    ]
+  },
+  {
+    "file": "aoshin_icon_skill2.png",
+    "kind": "icon",
+    "frames": 1,
+    "cell_1x": [
+      64,
+      64
+    ],
+    "logical_grid": 2,
+    "raw_size": [
+      1254,
+      1254
+    ]
+  },
+  {
+    "file": "aoshin_icon_ult.png",
+    "kind": "icon",
+    "frames": 1,
+    "cell_1x": [
+      64,
+      64
+    ],
+    "logical_grid": 2,
+    "raw_size": [
+      1254,
+      1254
+    ]
+  }
+]

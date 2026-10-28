@@ -1,0 +1,167 @@
+{
+  "format_checks": "PASS",
+  "art_review": "See HANDOFF.md; game import and exact head/pose parity not certified",
+  "files": [
+    {
+      "file": "aoshin_fx_a_ball.png",
+      "exists": true,
+      "hard_alpha": true,
+      "sha256": "7dd713a87b33569867d2ebc3133f2b6696b07304f15c0d34aee6fc790e48a3b4",
+      "size_ok": true,
+      "scale_8_exact": true,
+      "hard_alpha_1x": true,
+      "all_frames_nonempty": true,
+      "frame_count": 4,
+      "symmetry_ok": true
+    },
+    {
+      "file": "aoshin_fx_a_hit.png",
+      "exists": true,
+      "hard_alpha": true,
+      "sha256": "b4962d202295562670c1de0bb9e010c2cd451ca9c6a826212f27ae45eb6c6683",
+      "size_ok": true,
+      "scale_8_exact": true,
+      "hard_alpha_1x": true,
+      "all_frames_nonempty": true,
+      "frame_count": 4,
+      "symmetry_ok": true
+    },
+    {
+      "file": "aoshin_fx_q_beam.png",
+      "exists": true,
+      "hard_alpha": true,
+      "sha256": "871e6f744ca9c39c038e5e33d901bfaeaee55e90764cdbc571e49b900867e31a",
+      "size_ok": true,
+      "scale_8_exact": true,
+      "hard_alpha_1x": true,
+      "all_frames_nonempty": true,
+      "frame_count": 3,
+      "symmetry_ok": true,
+      "continuous_bright_core": true
+    },
+    {
+      "file": "aoshin_fx_q_hit.png",
+      "exists": true,
+      "hard_alpha": true,
+      "sha256": "fc644b957b621a21f53efd25e49ce2c14e2bcf3901707c6473631689435f43ae",
+      "size_ok": true,
+      "scale_8_exact": true,
+      "hard_alpha_1x": true,
+      "all_frames_nonempty": true,
+      "frame_count": 4,
+      "symmetry_ok": true
+    },
+    {
+      "file": "aoshin_fx_q_sil.png",
+      "exists": true,
+      "hard_alpha": true,
+      "sha256": "dfbd1a3fbb26df6ee5fbb143fda72d7fe46bdb597f1e3138f9f33a05410e4190",
+      "size_ok": true,
+      "scale_8_exact": true,
+      "hard_alpha_1x": true,
+      "all_frames_nonempty": true,
+      "frame_count": 6,
+      "symmetry_ok": true,
+      "body_space_empty": true
+    },
+    {
+      "file": "aoshin_fx_e_cast.png",
+      "exists": true,
+      "hard_alpha": true,
+      "sha256": "2acdf80cf1523f5f8471c5328f39e5ff346ac59edd53f04325a34222af72ea8d",
+      "size_ok": true,
+      "scale_8_exact": true,
+      "hard_alpha_1x": true,
+      "all_frames_nonempty": true,
+      "frame_count": 5,
+      "symmetry_ok": true
+    },
+    {
+      "file": "aoshin_fx_e_shield.png",
+      "exists": true,
+      "hard_alpha": true,
+      "sha256": "6eb7bbc8caaae2bae64de5c3bde5a731feea4c361168b592cd7b0d18b4e17c7a",
+      "size_ok": true,
+      "scale_8_exact": true,
+      "hard_alpha_1x": true,
+      "all_frames_nonempty": true,
+      "frame_count": 6,
+      "symmetry_ok": true,
+      "body_space_empty": true
+    },
+    {
+      "file": "aoshin_fx_p_bolt.png",
+      "exists": true,
+      "hard_alpha": true,
+      "sha256": "718463784560251e2f6d5315bca5078fb0a2dbbbf9a786340367e5546cf43a97",
+      "size_ok": true,
+      "scale_8_exact": true,
+      "hard_alpha_1x": true,
+      "all_frames_nonempty": true,
+      "frame_count": 5,
+      "symmetry_ok": true
+    },
+    {
+      "file": "aoshin_fx_p_storm.png",
+      "exists": true,
+      "hard_alpha": true,
+      "sha256": "c80864b489f3c16bcac7d8e116ec4dd204e51729b76cb6921d51d6a67d938842",
+      "size_ok": true,
+      "scale_8_exact": true,
+      "hard_alpha_1x": true,
+      "all_frames_nonempty": true,
+      "frame_count": 6,
+      "symmetry_ok": true,
+      "body_space_empty": true
+    },
+    {
+      "file": "aoshin_fx_r_cloud.png",
+      "exists": true,
+      "hard_alpha": true,
+      "sha256": "51d08ef5596ada436c8fc4ed7db95397b3f6a83b866014f7b380f649b5501937",
+      "size_ok": true,
+      "scale_8_exact": true,
+      "hard_alpha_1x": true,
+      "all_frames_nonempty": true,
+      "frame_count": 6,
+      "symmetry_ok": true,
+      "body_space_empty": true
+    },
+    {
+      "file": "aoshin_fx_r_bolt.png",
+      "exists": true,
+      "hard_alpha": true,
+      "sha256": "81f11d8f94e5ab13175a022ba0d905ae59aa15194f39c296882330b8eb78d12e",
+      "size_ok": true,
+      "scale_8_exact": true,
+      "hard_alpha_1x": true,
+      "all_frames_nonempty": true,
+      "frame_count": 6,
+      "symmetry_ok": true
+    },
+    {
+      "file": "aoshin_icon_skill.png",
+      "exists": true,
+      "hard_alpha": true,
+      "sha256": "f03f55b5e00c7b61345b5485a873149bc84b8760de72c58dd21a3bf65af4f054",
+      "size_ok": true,
+      "opaque": true
+    },
+    {
+      "file": "aoshin_icon_skill2.png",
+      "exists": true,
+      "hard_alpha": true,
+      "sha256": "27ffc30e7c96090288553c46a989e81297d8a2e40900dadf56260903121e4111",
+      "size_ok": true,
+      "opaque": true
+    },
+    {
+      "file": "aoshin_icon_ult.png",
+      "exists": true,
+      "hard_alpha": true,
+      "sha256": "16db983dd2e0e749b3631a05483c67db9214ac6a3d7a93e16e411ff6e87b904d",
+      "size_ok": true,
+      "opaque": true
+    }
+  ]
+}

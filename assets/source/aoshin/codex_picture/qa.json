@@ -1,0 +1,30 @@
+{
+  "aoshin-A.png": {
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_levels": 256,
+    "bbox_alpha_gt127": [
+      249,
+      467,
+      1038,
+      1231
+    ]
+  },
+  "aoshin-B.png": {
+    "size": [
+      1717,
+      916
+    ],
+    "mode": "RGBA",
+    "alpha_levels": 256,
+    "bbox_alpha_gt127": [
+      115,
+      447,
+      1600,
+      841
+    ]
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "krug-A.png": {
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_levels": 256,
+    "transparent_pixels": 1223718,
+    "opaque_pixels": 1137,
+    "partial_alpha_pixels": 347661,
+    "visible_bbox_alpha_ge_128": [
+      295,
+      510,
+      1067,
+      1223
+    ],
+    "meets_1536_canvas": false,
+    "meets_hard_alpha": false,
+    "exact_11px_grid": "not certified"
+  },
+  "krug-B.png": {
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_levels": 256,
+    "transparent_pixels": 1211960,
+    "opaque_pixels": 833,
+    "partial_alpha_pixels": 359723,
+    "visible_bbox_alpha_ge_128": [
+      322,
+      455,
+      1099,
+      1215
+    ],
+    "meets_1536_canvas": false,
+    "meets_hard_alpha": false,
+    "exact_11px_grid": "not certified"
+  }
+}

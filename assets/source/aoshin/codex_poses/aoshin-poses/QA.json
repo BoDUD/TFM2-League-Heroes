@@ -1,0 +1,156 @@
+{
+  "format_checks": "PASS",
+  "art_review": "See HANDOFF.md; game import and exact head/pose parity not certified",
+  "files": [
+    {
+      "file": "aoshin-pose-a_coil.png",
+      "exists": true,
+      "hard_alpha": true,
+      "sha256": "072aca1ffaf0326e70e9cee51e43268b56f20f42ff7eb6ac107651e949aa92d6",
+      "size_ok": true,
+      "grid_12_ok": true,
+      "bottom_margin_ok": true,
+      "nonempty": true
+    },
+    {
+      "file": "aoshin-pose-a_lunge.png",
+      "exists": true,
+      "hard_alpha": true,
+      "sha256": "96ebf4d1945ffc9ba8616dd0ed74809cc8256a0ff2619bf63ba5849fd0155420",
+      "size_ok": true,
+      "grid_12_ok": true,
+      "bottom_margin_ok": true,
+      "nonempty": true
+    },
+    {
+      "file": "aoshin-pose-a_back.png",
+      "exists": true,
+      "hard_alpha": true,
+      "sha256": "9670e2248f465d284ae9126f7db987467985cb44e8caaf9dd239460beff450a0",
+      "size_ok": true,
+      "grid_12_ok": true,
+      "bottom_margin_ok": true,
+      "nonempty": true
+    },
+    {
+      "file": "aoshin-pose-q_rear.png",
+      "exists": true,
+      "hard_alpha": true,
+      "sha256": "c16681449f3057d0ace5cf78a76e3a0f98ebb9ff99ca3aa6f5e954e2ed9a9ce0",
+      "size_ok": true,
+      "grid_12_ok": true,
+      "bottom_margin_ok": true,
+      "nonempty": true
+    },
+    {
+      "file": "aoshin-pose-q_breath.png",
+      "exists": true,
+      "hard_alpha": true,
+      "sha256": "2c8b24f267c7c0ea21a22dda5c76e2f927c8c68f186c5de7944667b874955d15",
+      "size_ok": true,
+      "grid_12_ok": true,
+      "bottom_margin_ok": true,
+      "nonempty": true
+    },
+    {
+      "file": "aoshin-pose-e_rise.png",
+      "exists": true,
+      "hard_alpha": true,
+      "sha256": "c142a23387624c272a5378452592c1af902ac763297e268438373559bd4e95b0",
+      "size_ok": true,
+      "grid_12_ok": true,
+      "bottom_margin_ok": true,
+      "nonempty": true
+    },
+    {
+      "file": "aoshin-pose-r_call.png",
+      "exists": true,
+      "hard_alpha": true,
+      "sha256": "95e6f066f6192716795aa9364ad6be6a553ee9f8a4d17df1899762948e1d9e87",
+      "size_ok": true,
+      "grid_12_ok": true,
+      "bottom_margin_ok": true,
+      "nonempty": true
+    },
+    {
+      "file": "aoshin-pose-r_storm.png",
+      "exists": true,
+      "hard_alpha": true,
+      "sha256": "b89b5973600cbe62f5eaf0c73b38fca240974571d1f0a154d3464224f272402c",
+      "size_ok": true,
+      "grid_12_ok": true,
+      "bottom_margin_ok": true,
+      "nonempty": true
+    },
+    {
+      "file": "aoshin-pose-run1.png",
+      "exists": true,
+      "hard_alpha": true,
+      "sha256": "3678761d7fbed54c1dea7903010f3c871aad184d421e105a5c1b6e2a175d62f9",
+      "size_ok": true,
+      "grid_12_ok": true,
+      "bottom_margin_ok": true,
+      "nonempty": true
+    },
+    {
+      "file": "aoshin-pose-run2.png",
+      "exists": true,
+      "hard_alpha": true,
+      "sha256": "ec480221857cd3985754ce17b9e33bffffb824eb874adce3203e53301a735058",
+      "size_ok": true,
+      "grid_12_ok": true,
+      "bottom_margin_ok": true,
+      "nonempty": true
+    },
+    {
+      "file": "aoshin-pose-run3.png",
+      "exists": true,
+      "hard_alpha": true,
+      "sha256": "f9d3f9faa25e860ace4cefa6731f8c96260dd1a237a689153f3d06e56db9a2ff",
+      "size_ok": true,
+      "grid_12_ok": true,
+      "bottom_margin_ok": true,
+      "nonempty": true
+    },
+    {
+      "file": "aoshin-pose-run4.png",
+      "exists": true,
+      "hard_alpha": true,
+      "sha256": "b7a708589822f46c629184a7d4d6a28cf075b8ac69e07fbb79491634ff61539b",
+      "size_ok": true,
+      "grid_12_ok": true,
+      "bottom_margin_ok": true,
+      "nonempty": true
+    },
+    {
+      "file": "aoshin-pose-d_hit.png",
+      "exists": true,
+      "hard_alpha": true,
+      "sha256": "aefc61cac80ea0225d9316351cc87df3278c7ee40b77f9e8a982fa24c4680f2d",
+      "size_ok": true,
+      "grid_12_ok": true,
+      "bottom_margin_ok": true,
+      "nonempty": true
+    },
+    {
+      "file": "aoshin-pose-d_back.png",
+      "exists": true,
+      "hard_alpha": true,
+      "sha256": "bc929a44f3e1f7732b6f0db66e3fea2463764e4dab88a5ac2478694e71175534",
+      "size_ok": true,
+      "grid_12_ok": true,
+      "bottom_margin_ok": true,
+      "nonempty": true
+    },
+    {
+      "file": "aoshin-pose-d_away.png",
+      "exists": true,
+      "hard_alpha": true,
+      "sha256": "651ddea101c60f8ce4f851a95635db05593503f94dc0b7cc17e5adb22a1d7f59",
+      "size_ok": true,
+      "grid_12_ok": true,
+      "bottom_margin_ok": true,
+      "nonempty": true
+    }
+  ]
+}

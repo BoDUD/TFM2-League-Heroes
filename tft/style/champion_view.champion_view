@@ -118,6 +118,34 @@
         "y": -6
       }
     },
+    "tft_krug": {
+      "face": {
+        "x": 7,
+        "y": -15
+      },
+      "center": {
+        "x": 0,
+        "y": -19
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -8
+      }
+    },
+    "tft_aoshin": {
+      "face": {
+        "x": 4,
+        "y": -27
+      },
+      "center": {
+        "x": 0,
+        "y": -19
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -11
+      }
+    },
     "tft_scar": {
       "face": {
         "x": 9,

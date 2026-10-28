@@ -64,6 +64,20 @@
         "skill2": "冲向敌人一拳打退，造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>物理伤害。",
         "ult": "跳进敌群双拳砸地，周围的敌人受到<#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<>物理伤害并被<#ef5350ff>击飞0.8秒<>；之后<#ffb900ff>5秒<>内攻速+<#ffb900ff>40%<>、吸血+<#ffb900ff>5%<>，队里每有一个<#ff9028ff>家人<>攻速再+<#ffb900ff>10%<>。"
       },
+      "tft_krug": {
+        "name": "远古石甲虫",
+        "attack": "岩拳砸地，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>。<#ff9028ff>碎岩重生<>：每条命第一次受到致命伤害时碎成石堆<#ffb900ff>0.75秒<>，再以小石甲虫站起：生命<#ffb900ff>35%<>、攻速<#ffb900ff>+30%<>，<#ef5350ff>嘲讽<>周围敌人<#ffb900ff>1秒<>（至少隔<#ffb900ff>60秒<>）。",
+        "skill": "获得<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>的护盾（<#ffb900ff>4秒<>），缩成石球滚向目标，造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<> + <#ff9028ff>6%<>最大生命<#ff9028ff>物理伤害<>并<#ef5350ff>击退<>。",
+        "skill2": "缩进巨石<#ffb900ff>2.5秒<>：护甲<#ffb900ff>+40<>、魔抗<#ffb900ff>+30<>；周围的敌人被<#ef5350ff>嘲讽0.75秒<>。",
+        "ult": "一跃而起（不可选中、免疫控制），砸进敌方英雄身边：周围敌人受到<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> + <#ff9028ff>6%<>最大生命<#ff9028ff>物理伤害<>并被<#ef5350ff>击飞0.8秒<>；随后落石再造成<#ff9028ff>40<> + <#ff9028ff>4%<>最大生命<#ff9028ff>物理伤害<>。"
+      },
+      "tft_aoshin": {
+        "name": "敖兴",
+        "attack": "吐出球状闪电，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>。<#ff9028ff>风暴龙威<>：交战<#ffb900ff>3秒<>后天雷劈中周围所有敌方英雄，造成<#f5f5f5ff>12%最大生命真实伤害<>并<#ef5350ff>眩晕0.83秒<>；随后自身法术强度<#ffb900ff>+30%<>（<#ffb900ff>6秒<>，每<#ffb900ff>20秒<>一次）。",
+        "skill": "喷出一道雷息，直线上的敌人受到<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<><#a974ffff>魔法伤害<>并被<#ef5350ff>沉默0.67秒<>。",
+        "skill2": "驾云飞离附近的敌方英雄，获得<#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>的风暴护盾（<#ffb900ff>3秒<>）。",
+        "ult": "召来雷暴：<#ffb900ff>12<>道闪电接连劈向周围随机的敌方英雄，每道造成<#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>32%<><#a974ffff>魔法伤害<>并<#ef5350ff>沉默0.3秒<>。"
+      },
       "tft_scar": {
         "name": "刀疤",
         "attack": "长矛刺击造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>。<#ff9028ff>野火冲刺<>：每<#ffb900ff>6秒<>下一击踩滑板冲刺，造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>伤害，回复上次冲刺以来所受伤害的<#ffb900ff>25%<>。<#ff9028ff>监察<>：生命不低于<#ffb900ff>50%<>时减伤<#ffb900ff>20%<>，否则<#ffb900ff>10%<>。",
@@ -117,6 +131,16 @@
         "skill1": "1-2-3连招",
         "skill2": "冲拳",
         "ult": "底城怒拳"
+      },
+      "tft_krug": {
+        "skill1": "岩之摇滚",
+        "skill2": "坚岩外壳",
+        "ult": "远古崩落"
+      },
+      "tft_aoshin": {
+        "skill1": "雷息",
+        "skill2": "腾云",
+        "ult": "闪电暴雨"
       },
       "tft_scar": {
         "skill1": "水坑狙击惊喜",
@@ -190,6 +214,20 @@
         "skill2": "衝向敵人一拳打退，造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>物理傷害。",
         "ult": "跳進敵群雙拳砸地，周圍的敵人受到<#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<>物理傷害並被<#ef5350ff>擊飛0.8秒<>；之後<#ffb900ff>5秒<>內攻速+<#ffb900ff>40%<>、吸血+<#ffb900ff>5%<>，隊裡每有一個<#ff9028ff>家族<>成員攻速再+<#ffb900ff>10%<>。"
       },
+      "tft_krug": {
+        "name": "石怪",
+        "attack": "岩拳砸地，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>。<#ff9028ff>碎岩重生<>：每條命第一次受到致命傷害時碎成石堆<#ffb900ff>0.75秒<>，再以小石怪站起：生命<#ffb900ff>35%<>、攻速<#ffb900ff>+30%<>，<#ef5350ff>嘲諷<>周圍敵人<#ffb900ff>1秒<>（至少隔<#ffb900ff>60秒<>）。",
+        "skill": "獲得<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>的護盾（<#ffb900ff>4秒<>），縮成石球滾向目標，造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<> + <#ff9028ff>6%<>最大生命<#ff9028ff>物理傷害<>並<#ef5350ff>擊退<>。",
+        "skill2": "縮進巨石<#ffb900ff>2.5秒<>：護甲<#ffb900ff>+40<>、魔抗<#ffb900ff>+30<>；周圍的敵人被<#ef5350ff>嘲諷0.75秒<>。",
+        "ult": "一躍而起（無法被選取、免疫控制），砸進敵方英雄身邊：周圍敵人受到<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> + <#ff9028ff>6%<>最大生命<#ff9028ff>物理傷害<>並被<#ef5350ff>擊飛0.8秒<>；隨後落石再造成<#ff9028ff>40<> + <#ff9028ff>4%<>最大生命<#ff9028ff>物理傷害<>。"
+      },
+      "tft_aoshin": {
+        "name": "敖興",
+        "attack": "吐出球狀閃電，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>。<#ff9028ff>風暴龍威<>：交戰<#ffb900ff>3秒<>後天雷劈中周圍所有敵方英雄，造成<#f5f5f5ff>12%最大生命真實傷害<>並<#ef5350ff>暈眩0.83秒<>；隨後自身法術強度<#ffb900ff>+30%<>（<#ffb900ff>6秒<>，每<#ffb900ff>20秒<>一次）。",
+        "skill": "噴出一道雷息，直線上的敵人受到<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<><#a974ffff>魔法傷害<>並被<#ef5350ff>沉默0.67秒<>。",
+        "skill2": "駕雲飛離附近的敵方英雄，獲得<#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>的風暴護盾（<#ffb900ff>3秒<>）。",
+        "ult": "召來雷暴：<#ffb900ff>12<>道閃電接連劈向周圍隨機的敵方英雄，每道造成<#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>32%<><#a974ffff>魔法傷害<>並<#ef5350ff>沉默0.3秒<>。"
+      },
       "tft_scar": {
         "name": "斯卡",
         "attack": "長矛刺擊造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>。<#ff9028ff>野火衝刺<>：每<#ffb900ff>6秒<>下一擊踩滑板衝刺，造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>傷害，回復上次衝刺以來所受傷害的<#ffb900ff>25%<>。<#ff9028ff>守望者<>：生命不低於<#ffb900ff>50%<>時減傷<#ffb900ff>20%<>，否則<#ffb900ff>10%<>。",
@@ -243,6 +281,16 @@
         "skill1": "連擊組合技",
         "skill2": "衝拳",
         "ult": "底城怒拳"
+      },
+      "tft_krug": {
+        "skill1": "撼地之石",
+        "skill2": "堅岩外殼",
+        "ult": "遠古崩落"
+      },
+      "tft_aoshin": {
+        "skill1": "雷息",
+        "skill2": "騰雲",
+        "ult": "雷霆暴雨"
       },
       "tft_scar": {
         "skill1": "汙水坑驚喜",
@@ -316,6 +364,20 @@
         "skill2": "Rushes an enemy and punches it back for <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> physical damage.",
         "ult": "Leaps into the enemies and smashes the ground: nearby enemies take <#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<> physical damage and are <#ef5350ff>knocked up for 0.8s<>. For <#ffb900ff>5s<> she gains <#ffb900ff>40%<> attack speed and <#ffb900ff>5%<> omnivamp, <#ffb900ff>10%<> more attack speed for each <#ff9028ff>Family<> ally."
       },
+      "tft_krug": {
+        "name": "Krug",
+        "attack": "A rock-fist slam for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<>. <#ff9028ff>Shattered Rebirth<>: the first lethal blow each life shatters him to rubble for <#ffb900ff>0.75s<>; he stands up again as a Mini Krug with <#ffb900ff>35%<> health and <#ffb900ff>+30%<> attack speed, <#ef5350ff>taunting<> nearby enemies for <#ffb900ff>1s<> (at most every <#ffb900ff>60s<>).",
+        "skill": "Gains a <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> shield (<#ffb900ff>4s<>), curls into a boulder and rolls into the target: <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<> + <#ff9028ff>6%<> max health <#ff9028ff>physical damage<> and a <#ef5350ff>knock-back<>.",
+        "skill2": "Pulls into his boulder for <#ffb900ff>2.5s<>: <#ffb900ff>+40<> armor, <#ffb900ff>+30<> magic resist; nearby enemies are <#ef5350ff>taunted for 0.75s<>.",
+        "ult": "Springs up (untargetable, unstoppable) and crashes down by an enemy champion: nearby enemies take <#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> + <#ff9028ff>6%<> max health <#ff9028ff>physical damage<> and are <#ef5350ff>knocked up for 0.8s<>; then falling rocks deal <#ff9028ff>40<> + <#ff9028ff>4%<> max health <#ff9028ff>physical damage<>."
+      },
+      "tft_aoshin": {
+        "name": "Ao Shin",
+        "attack": "Spits ball lightning for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<>. <#ff9028ff>Tempest Might<>: <#ffb900ff>3s<> into a fight, lightning strikes every nearby enemy champion for <#f5f5f5ff>12% max health true damage<> and <#ef5350ff>stuns for 0.83s<>; then he deals <#ffb900ff>+30%<> ability power for <#ffb900ff>6s<> (every <#ffb900ff>20s<>).",
+        "skill": "Breathes a bolt of lightning: enemies in the line take <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> <#a974ffff>magic damage<> and are <#ef5350ff>silenced for 0.67s<>.",
+        "skill2": "Rides a cloud away from a nearby enemy champion and gains a <#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<> storm shield for <#ffb900ff>3s<>.",
+        "ult": "Calls the storm: <#ffb900ff>12<> bolts strike random nearby enemy champions one after another, each for <#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>32%<> <#a974ffff>magic damage<> and a <#ef5350ff>0.3s silence<>."
+      },
       "tft_scar": {
         "name": "Scar",
         "attack": "Thrusts his spear for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<>. <#ff9028ff>Firelight Dash<>: every <#ffb900ff>6s<> his next hit is a hoverboard dash for <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>, healing <#ffb900ff>25%<> of the damage taken since the last dash. <#ff9028ff>Watcher<>: <#ffb900ff>20%<> damage reduction at <#ffb900ff>50%<> health or more, <#ffb900ff>10%<> below.",
@@ -369,6 +431,16 @@
         "skill1": "1-2-3 Combo",
         "skill2": "Gauntlet Rush",
         "ult": "Undercity Fist"
+      },
+      "tft_krug": {
+        "skill1": "Rock and Roll",
+        "skill2": "Stone Shell",
+        "ult": "Ancient Landslide"
+      },
+      "tft_aoshin": {
+        "skill1": "Thunder Breath",
+        "skill2": "Cloud Ride",
+        "ult": "Lightning Rain"
       },
       "tft_scar": {
         "skill1": "Sumpsnipe Surprise",
@@ -442,6 +514,20 @@
         "skill2": "적에게 돌진해 주먹으로 밀쳐내며 <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> 물리 피해.",
         "ult": "적진으로 뛰어들어 두 주먹으로 땅을 내리친다: 주변 적에게 <#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<> 물리 피해와 <#ef5350ff>0.8초 에어본<>. <#ffb900ff>5초<> 동안 공격 속도 +<#ffb900ff>40%<>, 흡혈 +<#ffb900ff>5%<>, 팀의 <#ff9028ff>가족<>마다 공격 속도 +<#ffb900ff>10%<>."
       },
+      "tft_krug": {
+        "name": "돌거북",
+        "attack": "바위 주먹 내려치기: <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> 물리 피해. <#ff9028ff>부서진 부활<>: 목숨마다 처음 치명적인 피해를 받으면 <#ffb900ff>0.75초<> 동안 돌무더기가 되었다가 작은 돌거북으로 일어선다: 체력 <#ffb900ff>35%<>, 공격 속도 <#ffb900ff>+30%<>, 주변 적 <#ef5350ff>1초 도발<> (최소 <#ffb900ff>60초<> 간격).",
+        "skill": "<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> 보호막(<#ffb900ff>4초<>)을 얻고 바위로 몸을 말아 대상에게 굴러간다: <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<> + <#ff9028ff>6%<> 최대 체력 물리 피해, <#ef5350ff>밀쳐내기<>.",
+        "skill2": "<#ffb900ff>2.5초<> 동안 바위 속에 웅크린다: 방어력 <#ffb900ff>+40<>, 마법 저항력 <#ffb900ff>+30<>; 주변 적 <#ef5350ff>0.75초 도발<>.",
+        "ult": "뛰어올라(대상 지정 불가, 저지 불가) 적 챔피언 곁으로 떨어진다: 주변 적에게 <#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> + <#ff9028ff>6%<> 최대 체력 물리 피해, <#ef5350ff>0.8초 에어본<>; 이어서 낙석이 <#ff9028ff>40<> + <#ff9028ff>4%<> 최대 체력 물리 피해."
+      },
+      "tft_aoshin": {
+        "name": "아오 신",
+        "attack": "구체 번개를 뱉어 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> 물리 피해. <#ff9028ff>폭풍룡의 위엄<>: 교전 <#ffb900ff>3초<> 후 주변 모든 적 챔피언에게 번개가 떨어져 <#f5f5f5ff>최대 체력의 12% 고정 피해<>, <#ef5350ff>0.83초 기절<>; 이후 <#ffb900ff>6초<> 동안 주문력 <#ffb900ff>+30%<> (<#ffb900ff>20초<>마다).",
+        "skill": "번개 숨결을 내뿜는다: 직선 위의 적에게 <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> 마법 피해, <#ef5350ff>0.67초 침묵<>.",
+        "skill2": "구름을 타고 근처 적 챔피언에게서 멀어지며 <#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<> 폭풍 보호막(<#ffb900ff>3초<>)을 얻는다.",
+        "ult": "폭풍을 부른다: 번개 <#ffb900ff>12<>줄기가 주변 무작위 적 챔피언에게 연이어 떨어져 각각 <#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>32%<> 마법 피해, <#ef5350ff>0.3초 침묵<>."
+      },
       "tft_scar": {
         "name": "스카",
         "attack": "창으로 찔러 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> 물리 피해. <#ff9028ff>점화단 돌진<>: <#ffb900ff>6초<>마다 다음 공격이 호버보드 돌진, <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> 피해, 지난 돌진 이후 받은 피해의 <#ffb900ff>25%<> 회복. <#ff9028ff>주시자<>: 체력 <#ffb900ff>50%<> 이상이면 피해 감소 <#ffb900ff>20%<>, 아니면 <#ffb900ff>10%<>.",
@@ -495,6 +581,16 @@
         "skill1": "3단 연계기",
         "skill2": "건틀릿 돌진",
         "ult": "지하도시의 주먹"
+      },
+      "tft_krug": {
+        "skill1": "로큰롤",
+        "skill2": "단단한 바위 껍질",
+        "ult": "고대의 산사태"
+      },
+      "tft_aoshin": {
+        "skill1": "번개 숨결",
+        "skill2": "구름 타기",
+        "ult": "번개 비"
       },
       "tft_scar": {
         "skill1": "지하동굴 깜짝선물",
@@ -568,6 +664,20 @@
         "skill2": "敵に突進して殴り飛ばし、<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の物理ダメージ。",
         "ult": "敵の中へ跳び込み両拳で地面を殴る：周囲の敵に<#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<>の物理ダメージと<#ef5350ff>0.8秒のノックアップ<>。<#ffb900ff>5秒<>間、攻撃速度+<#ffb900ff>40%<>、吸血+<#ffb900ff>5%<>、味方の<#ff9028ff>ファミリー<>1人ごとに攻撃速度+<#ffb900ff>10%<>。"
       },
+      "tft_krug": {
+        "name": "クルーグ",
+        "attack": "岩の拳で叩きつけ<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の物理ダメージ。<#ff9028ff>砕岩の再生<>：ライフごとに初めて致命傷を受けると<#ffb900ff>0.75秒<>瓦礫になり、小さなクルーグとして立ち上がる：体力<#ffb900ff>35%<>、攻撃速度<#ffb900ff>+30%<>、周囲の敵を<#ef5350ff>1秒挑発<>（最短<#ffb900ff>60秒<>ごと）。",
+        "skill": "<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>のシールド（<#ffb900ff>4秒<>）を得て岩に丸まり対象へ転がる：<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<> + <#ff9028ff>6%<>最大体力の物理ダメージと<#ef5350ff>ノックバック<>。",
+        "skill2": "<#ffb900ff>2.5秒<>岩に身を潜める：物理防御<#ffb900ff>+40<>、魔法防御<#ffb900ff>+30<>。周囲の敵を<#ef5350ff>0.75秒挑発<>。",
+        "ult": "跳び上がり（対象指定不可・CC無効）敵チャンピオンのそばへ落下：周囲の敵に<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> + <#ff9028ff>6%<>最大体力の物理ダメージと<#ef5350ff>0.8秒のノックアップ<>。続いて落石が<#ff9028ff>40<> + <#ff9028ff>4%<>最大体力の物理ダメージ。"
+      },
+      "tft_aoshin": {
+        "name": "アオ・シン",
+        "attack": "球電を吐き<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の物理ダメージ。<#ff9028ff>嵐竜の威光<>：戦闘<#ffb900ff>3秒<>後、周囲の敵チャンピオン全員に雷が落ち<#f5f5f5ff>最大体力の12%の確定ダメージ<>と<#ef5350ff>0.83秒スタン<>。その後<#ffb900ff>6秒<>魔力<#ffb900ff>+30%<>（<#ffb900ff>20秒<>ごと）。",
+        "skill": "雷の息吹を吐く：直線上の敵に<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>の魔法ダメージと<#ef5350ff>0.67秒サイレンス<>。",
+        "skill2": "雲に乗って近くの敵チャンピオンから離れ、<#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>の嵐のシールド（<#ffb900ff>3秒<>）を得る。",
+        "ult": "嵐を呼ぶ：雷が<#ffb900ff>12<>回、周囲のランダムな敵チャンピオンに次々と落ち、それぞれ<#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>32%<>の魔法ダメージと<#ef5350ff>0.3秒サイレンス<>。"
+      },
       "tft_scar": {
         "name": "スカー",
         "attack": "槍で突き、<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>。<#ff9028ff>ファイヤーライトダッシュ<>：<#ffb900ff>6秒<>ごとに次の攻撃がホバーボード突進、<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>のダメージ、前回の突進以降に受けたダメージの<#ffb900ff>25%<>回復。<#ff9028ff>ウォッチャー<>：体力<#ffb900ff>50%<>以上で被ダメージ<#ffb900ff>20%<>軽減、未満で<#ffb900ff>10%<>。",
@@ -621,6 +731,16 @@
         "skill1": "1-2-3 コンボ",
         "skill2": "ガントレットラッシュ",
         "ult": "地下街の怒拳"
+      },
+      "tft_krug": {
+        "skill1": "ロック＆リロール",
+        "skill2": "堅岩の殻",
+        "ult": "太古の地崩れ"
+      },
+      "tft_aoshin": {
+        "skill1": "雷の息吹",
+        "skill2": "雲乗り",
+        "ult": "雷撃雨"
       },
       "tft_scar": {
         "skill1": "最下層の奇襲",

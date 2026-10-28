@@ -4076,6 +4076,22 @@
     },
     {
       "type": "Animation",
+      "name": "league_illaoi_soul_tft_aoshin",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "tft_aoshin",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_tft_aoshin_l",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "tft_aoshin_l",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
       "name": "league_illaoi_soul_tft_kobuko",
       "anim": "asset/league/effects/league_illaoi_souls",
       "tag": "tft_kobuko",
@@ -4087,6 +4103,22 @@
       "name": "league_illaoi_soul_tft_kobuko_l",
       "anim": "asset/league/effects/league_illaoi_souls",
       "tag": "tft_kobuko_l",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_tft_krug",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "tft_krug",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_tft_krug_l",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "tft_krug_l",
       "z": 3,
       "is_follow": false
     },
