@@ -42,3 +42,7 @@ python tools/kit/build_zoe.py                 # 主包的佐伊（参数表 P）
 python addons/league_zoe/make_override.py     # 本包的副本和说明
 cargo test -p league_zoe --release            # 在 addons/ 下
 ```
+
+## 游戏 0.7.0（0.3.1）
+
+醒的时候只解除她自己的昏睡：稳定接口只能一次清掉全部控制（`entity_clear_cc`），以前叫醒会把和那一下一起落下的队友眩晕、击飞也一并清掉；现在清掉后把别的控制按剩余时长原样加回（`kept_after_wake`）。0.7.0 的原生控制会显示游戏自己的眩晕标记，昏睡中头上会同时有眩晕星星和睡泡；要不要改用游戏的官方睡眠（催眠师的原生效果）待定。

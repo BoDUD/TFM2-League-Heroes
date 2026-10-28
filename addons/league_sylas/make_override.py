@@ -151,6 +151,24 @@ def retag(o):
     return o
 
 
+def no_lasting_reach(o):
+    """The tree with the attack range taken off every Permanent buff it lays (game 0.7.0 audit): a form's or a state's
+    reach belongs to its owner's kit, which takes it off again (league_jayce's cannon `cn` +25000 when he turns back,
+    league_rengar's `ready` +25000, league_khazix's evolved `s1` +6000) - in Sylas's hands nothing ever did, so a stolen
+    Jayce / Rengar / Kha'Zix R left him that reach until he died. 0.6.x's AI stood him off at it; 0.7.0 fixed the
+    engine's stretched reach ("a champion whose attacks were changed by a mod ... moved back and forth"), so he would
+    really chain from it. Timed range buffs (Twitch R, Akali, Seraphine's notes ...) end with the steal and are kept."""
+    if isinstance(o, dict):
+        o = {k: no_lasting_reach(v) for k, v in o.items()}
+        st = o.get("buff_state")
+        if o.get("type") in ("AddBuff", "AddCasterBuff") and isinstance(st, dict) and st.get("duration") == "Permanent"                 and (st.get("range") or 0) > 0:
+            o["buff_state"] = {k: v for k, v in st.items() if k != "range"}
+        return o
+    if isinstance(o, list):
+        return [no_lasting_reach(v) for v in o]
+    return o
+
+
 # a TFT hero's effect sheets: tft/effects/<sheet> -> the add-on's own copy (asset/league_sylas/effects/<sheet>)
 TFT_FX = "asset/tft/effects/"
 OWN_FX = "asset/league_sylas/effects/"
@@ -180,9 +198,9 @@ def own_ults():
         if c["id"] in STOLEN:
             import importlib
             mod, fn = STOLEN[c["id"]]
-            tree = retag(getattr(importlib.import_module(mod), fn)())
+            tree = no_lasting_reach(retag(getattr(importlib.import_module(mod), fn)()))
         else:
-            tree = retag(c["ult"]["effect"])
+            tree = no_lasting_reach(retag(c["ult"]["effect"]))
         if '"Native"' in json.dumps(tree):
             sys.exit(f"{c['id']}: its ult calls native code - put it in BY_CLASS or make the add-on carry it")
         used = names_in(tree, set())
