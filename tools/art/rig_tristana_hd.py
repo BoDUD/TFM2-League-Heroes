@@ -5,8 +5,9 @@ old frame read onto it at the zoom her head gives (tools/art/casts_tristana_hd.p
 
 What Codex did not draw (tools/art/pack_tristana_actions.py): a frame that is another frame of the old sheet (SAME)
 takes that frame's drawing, and the old frames that are her idle pose itself (SAME -> DESIGN) are the design;
-idle_base breathes as the old sheet did - the design's body sunk over its lower legs (BREATH: the old sheet's sinks
-in 1x pixels, x PPU). The muzzle pictures are baked as before (assets/source/native/tristana_bake.json, Rig.bake):
+idle_base is the design held still (her old one sank a pixel in frames 3-5, but the bob is no longer played: the idle
+is hero_reels' reel of action snippets - the user, 「上下摆动全不要了」, 「现在不是随机动画吗 你还在上下晃动？」).
+The muzzle pictures are baked as before (assets/source/native/tristana_bake.json, Rig.bake):
 attack's, skill's and ult's body frames (their native cells' timing) get the shot, E, Q and R pictures and are sliced
 to their frames. The idle and the ban/pick card are cut from the actions by tools/art/hero_reels.py.
 
@@ -40,8 +41,6 @@ DESIGN_ROWS = 87
 ROWS = DESIGN_ROWS / PPU
 SQUARE = XZ.SQUARE
 HD = os.path.join(R.ROOT, "assets", "source", HERO, "hd")
-BREATH = [0, 0, 1, 1, 1, 0]             # idle_base: the old sheet's sink in 1x pixels (its feet kept where they stand)
-SHINS = 76                              # the design's lower legs (under the cannon: the wraps, the bare feet)
 
 
 def picture(d):
@@ -60,21 +59,6 @@ def design():
     D.d0 = D.d.copy()
     D.px = CA.PIVOT
     return D
-
-
-def sunk(d, rows):
-    """The design's body `rows` squares lower over its lower legs (SHINS down: kept where they stand, under it);
-    nothing under the soles."""
-    if rows == 0:
-        return d.copy()
-    h = d.shape[0]
-    body = d.copy()
-    body[SHINS:] = 0
-    out = np.zeros_like(d)
-    out[rows:] = body[:h - rows]
-    shins = np.zeros_like(d)
-    shins[SHINS:] = d[SHINS:]
-    return K.put(out, shins, 0, 0, under=True)
 
 
 def sealed(can, outline):
@@ -125,7 +109,7 @@ def frames(rig, casts):
             continue
         ms = body_timing(tag, sheet)
         if tag == "idle_base":
-            fr = [RG.on_grid(rig, sunk(rig.D.d0, round(s * PPU)), 0, 0) for s in BREATH]
+            fr = [RG.on_grid(rig, rig.D.d0, 0, 0) for _ in ms]             # (held still: the design)
         else:
             fr = []
             for k in range(1, len(ms) + 1):

@@ -10,7 +10,7 @@
 | 所属的包 | 主包（mod_id `league`） |
 | 分路 | ADC |
 | 分类 / 标签 | 射手（Range） · AD / Range / CC |
-| 高清帧 | 1 倍像素（无高清帧） |
+| 高清帧 | PPU 2.56 |
 | 附加包 | [参与击杀附加包：金克丝、崔丝塔娜、易、图奇](#附加包)（`league_takedowns`） |
 
 ![崔丝塔娜演示](../preview/league_tristana_showcase.gif)
@@ -86,6 +86,7 @@
 | 精灵图 | 8 个动作 49 帧：待机、移动、普攻、E+Q、W、R、受击、死亡。造型按 Codex 画的原画（用户选的 B：炮身朝右）由 Codex 直接按游戏尺寸画（用户选的 A：护目镜的镜筒高）：淡紫色皮肤的约德尔人，白发，粉色的大耳朵，头顶推着一副护目镜（红铜框、浅蓝镜片），琥珀色眼睛，橄榄绿的上衣和短裤、棕色皮带，红色护手，腰间抱着一门短粗的铜炮（X 形铜箍，钢蓝色的炮口和炮尾）。护目镜顶到脚底 34 px，连炮 46 px 宽，26 色（定稿 41 行、56 宽，比盖伦还高，按用户的意见缩小，见下）。每帧的时机和站位照英雄联盟原版动画渲染的参考帧 |
 | 特效 | 普攻的铁炮弹、炮口火光和命中火花；E 炮口朝下的火光、飞出去的炸弹、粘在目标身上的炸弹（0～3 盏红灯，亮边随红灯闪）、加层的红白火花、4 秒的爆炸和满层的大爆炸；急速射击开始时炮口的火星和蒸汽、之后每秒一缕蒸汽；W 落地的火环和刷新时头顶的小火箭；R 的炮口爆风、裹着火焰的大炮弹、命中的火光、地面冲击波和头顶的眩晕星；普攻击杀的爆炸 |
 | 图标 | 官方技能图标（E / W / R），64×64 |
+| 高清帧（PPU 2.56） | 2026-10-28 用 PPU 重做（用户：「下一个英雄重做崔丝塔娜」「通过，用 2.56」）。设计图：Codex 照她的旧精灵描密、「更像英雄联盟」的原图（它自己缩到 11 像素一格的导出图糊了，不用），按原图的格子读回：格子有漂移，用辛德拉的读法，格线吸附到颜色边界（103 × 87 格；87 行 / 2.56 = 原来的 34 像素，`design_tristana_hd.py`）。动作：Codex 照旧版同一帧用设计图整帧重画（`pack_tristana_actions.py`，38 帧；大炮跟着旧版那一帧走，跑步一开始就逐帧写清腿怎么摆），每张按设计图的头原大小找缩放读回（`casts_tristana_hd.py`；头歪着、倒着、躺着的帧对着设计图的头并排定缩放）；和待机一模一样的旧帧直接用设计图；待机不再上下起伏（待机是从动作里剪的随机片段）；普攻、E/Q、R 的炮口特效照旧烤进动作帧（`rig_tristana_hd.py`）。高 34 像素和原来一样，没有 SIZES 行；头像点、选人卡片（不用设值）不变 |
 | 音频 | 从本地客户端提取的 13 条技能音效和 4 条中文语音（Q、E、W、R）。不提交到仓库，按下面的命令在本地生成 |
 
 ```bash
@@ -96,6 +97,15 @@ python tools/art/fix_tristana_dead.py <Codex 的动作交付文件夹>   # 死�
 python tools/art/shrink_tristana.py   # 缩到 34 行：整行整列删，头不动（从 assets/source/tristana/native41/ 开始）；普攻由待机整块按原版的头部轨迹生成
 python tools/art/import_tristana.py   # 特效；--raw <Codex 的特效交付文件夹> 先把生图原稿转成原尺寸条
 python tools/art/preview_tristana.py
+# PPU 2.56 重做（2026-10-28）：
+python tools/art/pack_tristana_ppu.py --out <文件夹>          # 给 Codex 的设计图包（照她的旧精灵描密）
+python tools/art/design_tristana_hd.py                      # Codex 的原图（hd/raw/tristana-A.png）按自己的格子读回 -> hd/design.png
+python tools/art/pack_tristana_actions.py --out <文件夹>      # 给 Codex 的动作包（照旧版同一帧整帧重画）
+python tools/art/casts_tristana_hd.py --measure             # 每帧按头量的放大倍数
+python tools/art/rig_tristana_hd.py                         # 读回、烤特效 -> 原始条和 1 倍图
+python tools/art/ppu_restyle.py --hero tristana && python tools/art/ppu_hd.py --hero tristana
+python tools/art/ppu_one.py --hero tristana && python tools/art/rig_tristana_hd.py --one-ground && python tools/art/hero_reels.py --hero tristana
+python tools/art/review_tristana_actions.py --out <文件夹>    # 旧版 / 新版对照动图
 ```
 
 美术（原画的提示词见 [`assets/source/tristana/PICTURE_PROMPT.md`](../../assets/source/tristana/PICTURE_PROMPT.md)，造型的见 [`MODEL_PROMPTS.md`](../../assets/source/tristana/MODEL_PROMPTS.md)，8 条动作的见 [`MODEL_STRIPS.md`](../../assets/source/tristana/MODEL_STRIPS.md)，特效的见 [`PROMPTS.md`](../../assets/source/tristana/PROMPTS.md)；Codex 的交接说明在 [`codex_model/`](../../assets/source/tristana/codex_model)、[`codex_strips/`](../../assets/source/tristana/codex_strips)、[`codex_fx/`](../../assets/source/tristana/codex_fx)）：
@@ -116,4 +126,4 @@ python tools/art/preview_tristana.py
 
 **等级探测（「瞄准」的 6、9、12 级）。** 凯尔的做法（给自己一个 3 tick 的护盾，再用 `FixedAttack` 按最大生命的比例打自己，护盾被打破就说明到级了）用在射手身上有三个问题：普攻（`BaseAttack`）里的 `FixedAttack` 会按她的暴击率暴击，暴击时任何等级都能打破护盾（出了暴击装后 4 级就加了 12 级的射程），所以探测只放在 E 和 W 按钮里，普攻只加 3 级那一段；探测那 2 tick 里挨到敌人的攻击也会打破护盾，所以探测期间她受到的伤害减少 99%，打自己的那一下放大 100 倍；塔的攻击不吃这个减伤，所以打架时要连续两次通过（60 秒内）才加射程，复活后的第一个动作（在泉水边、没人打她）一次就够。凯尔防伤害加深的 99 对 100 检查去掉了：打架时敌人的攻击老是打破它，射程要晚好几分钟才加。模拟的四局里没有一段提前加：3 级那段一秒内加上，6 级晚 10–36 秒，9 级晚 18–43 秒，12 级（只有一局打到）晚 18 秒。自测不扣血（2026-10-05，用户：「小炮和天使一起修」，卡莎的同一个问题）：打破护盾时多出来的伤害原来落到血上，现在护盾后面紧跟一层 1 tick 的吸收盾吃掉它；自测的一击缩到最大生命的 2%（护盾 27 / 32 / 37），每 15 秒最多一次（原来 5 秒）。两局 18 分钟模拟：自测掉血 0 次（原来 7 次、4 次），头上的自测数字从 216–360 降到 21–36，加射程的等级不变。
 
-逐帧预览：[`docs/preview/league_tristana_frames.png`](../preview/league_tristana_frames.png?v=1014g)，特效：[`docs/preview/league_tristana_effects.png`](../preview/league_tristana_effects.png?v=1014g)。
+逐帧预览：[`docs/preview/league_tristana_frames.png`](../preview/league_tristana_frames.png?v=1028hd)，特效：[`docs/preview/league_tristana_effects.png`](../preview/league_tristana_effects.png?v=1014g)。
