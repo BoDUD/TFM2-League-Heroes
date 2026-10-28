@@ -3,7 +3,7 @@
 
     python tools/art/preview_zed.py [--out docs/preview] [--only frames|effects|showcase|combos]
 
-  league_zed_frames.png    every animation, frame by frame, 3x on the arena colour
+  league_zed_frames.png    every animation's dense frames (hd_, PPU 1.62, as league.dll shows them)
   league_zed_effects.png   every effect animation, 3x
   league_zed_showcase.gif  a scripted gank on Darius with Garen behind him, timed like the kit
                            (tools/kit/build_zed.py, 60 ticks a second): W-E-Q - the shadow flung onto Darius, the two
@@ -27,6 +27,7 @@ from preview_annie import Held  # noqa: E402
 from preview_ashe import Anim, tick  # noqa: E402
 from preview_garen import ARENA, T, contact, frames_of, load  # noqa: E402
 from preview_pyke import Me, OnFoe, OnMe, mirrored  # noqa: E402
+from preview_dense import dense, dense_rows, put  # noqa: E402
 from build_zed import P  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(HERE))
@@ -55,7 +56,7 @@ def showcase(out, z=3, step=40):
     def a(tag, dur=None, loop=False):
         nonlocal t
         x, y = me.pos(t)
-        an = Anim(frames_of(sp, tag), t, x, y, loop=loop, until=(t + dur) if dur else None, flip=face[0])
+        an = Anim(dense(sp, tag, "zed", z), t, x, y, loop=loop, until=(t + dur) if dur else None, flip=face[0])
         an.pos = me.pos
         body.append(an)
         t = an.until
@@ -191,7 +192,7 @@ def combos(out, z=3, step=40):
     def a(tag, dur=None, loop=False):
         nonlocal t
         x, y = me.pos(t)
-        an = Anim(frames_of(sp, tag), t, x, y, loop=loop, until=(t + dur) if dur else None, flip=face[0])
+        an = Anim(dense(sp, tag, "zed", z), t, x, y, loop=loop, until=(t + dur) if dur else None, flip=face[0])
         an.pos = me.pos
         body.append(an)
         t = an.until
@@ -305,11 +306,11 @@ def film(out, W, H, end, units, body, under, over, labels=(), z=3, step=40):
     font = ImageFont.load_default(size=8 * z) if labels else None
 
     def place(img, f, px, py):
-        img.alpha_composite(f, (px - f.width // 2, py - f.height // 2))
+        put(img, f, int(px), int(py), z)
 
     frames, tt = [], 0.0
     while tt < end:
-        img = Image.new("RGBA", (W, H), ARENA)
+        img = Image.new("RGBA", (W * z, H * z), ARENA)
         for an in under:
             f = an.frame(tt)
             if f is not None:
@@ -327,7 +328,7 @@ def film(out, W, H, end, units, body, under, over, labels=(), z=3, step=40):
             f = an.frame(tt)
             if f is not None:
                 place(img, f, *an.pos(tt))
-        img = img.resize((W * z, H * z), Image.NEAREST).convert("RGB")
+        img = img.convert("RGB")
         for t0, t1, text in labels:
             if t0 <= tt < t1:
                 ImageDraw.Draw(img).text((4 * z, 2 * z), text, font=font, fill=(255, 236, 160),
@@ -352,8 +353,7 @@ def main():
     os.makedirs(T.long_path(args.out), exist_ok=True)
     if args.only in (None, "frames"):
         s = load(CHAMP)
-        print("frames", contact([(s, t["name"], t["name"]) for t in s.tags],
-                                os.path.join(args.out, "league_zed_frames.png")))
+        print("frames", contact(dense_rows(s), os.path.join(args.out, "league_zed_frames.png"), z=1))
     if args.only in (None, "effects"):
         rows = []
         for name, path in FX.items():
