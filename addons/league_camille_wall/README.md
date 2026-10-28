@@ -85,3 +85,7 @@ v0.4 → v0.4.1：打大力士（strongman）时「一直反向放技能」—�
 - 在 `addons/` 下 `cargo build --release -p league_camille_wall`（Windows）得到 `target/release/league_camille_wall.dll`。
 - 在 `addons/` 下 `cargo run --release -p league_camille_wall --example replay -- <日志> [行首，如 "[view m=589 s=1]"]`：
   拿游戏日志里的 `ENGAGE` 情形用现在的规则重选钩点（不含塔），统计还出不出 E、拉 → 扑的拐角。
+
+## 游戏 0.7.0（0.4.8）
+
+钩索拉过去、从墙上扑出去的途中，宿主没挪他时本包自己一步步挪（不然会被墙挡住、停在半路）。0.7.0 修了「定身后还能移动」，原生施加的禁锢、眩晕、击飞也真的让人停下——以前这时宿主也停，本包会当成「被墙挡住」继续挪，等于定身中还在走。现在被禁锢、眩晕（睡眠对附加包也是眩晕）、击飞、嘲讽、恐惧、魅惑时不挪（`HELD`），钩索 / 扑击就此结束（她被控住才从墙上落下）。

@@ -864,6 +864,12 @@ fn stop_e(sim: &mut StableSim<'_>, caster: usize) -> bool {
     true
 }
 
+/// Crowd control that holds a unit in place - from game 0.7.0 also when laid by native code ("movement continuing while
+/// rooted" fixed): root, stun (a Sleep reaches add-ons as a Stun), knock-up, taunt, fear, charm; not a dash's own
+/// ForceMove nor a cast's Animation. A step of our own while one of these is on would move him through it.
+const HELD: [CcKindV1; 6] =
+    [CcKindV1::Bind, CcKindV1::Stun, CcKindV1::Airborne, CcKindV1::Taunt, CcKindV1::Fear, CcKindV1::Charm];
+
 fn has_cc(sim: &StableSim<'_>, id: usize, kinds: &[CcKindV1]) -> bool {
     sim.get_entity(id).is_some_and(|e| {
         (0..e.cc_count()).any(|i| e.cc_at(i).is_some_and(|c| kinds.iter().any(|k| k.code() == c.kind)))
@@ -912,8 +918,12 @@ fn force_move(sim: &mut StableSim<'_>, id: usize, from: (f64, f64), to: (f64, f6
     ticks as usize
 }
 
-/// 宿主没挪她时自己走一步（不进碰撞墙）；走不动返回 false。
+/// 宿主没挪她时自己走一步（不进碰撞墙）；走不动返回 false。被禁锢、眩晕（含睡眠）、击飞……（[`HELD`]，游戏 0.7.0 起原生
+/// 施加的控制也真的让人停下）也返回 false：钩索 / 扑击就此结束，不替宿主拖着她走。
 fn step_toward(sim: &mut StableSim<'_>, id: usize, here: (f64, f64), to: (f64, f64), speed: f64, stop: f64) -> bool {
+    if has_cc(sim, id, &HELD) {
+        return false;
+    }
     let d = dist(here, to);
     if d <= stop + 1.0 {
         return false;

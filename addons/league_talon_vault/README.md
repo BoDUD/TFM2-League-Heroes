@@ -45,3 +45,7 @@ python addons/league_talon_vault/make_override.py      # 副本和文字（主�
 cd addons && cargo test -p league_talon_vault          # 墙、撤离、追击、认图的单元测试
 cd addons && cargo build --release -p league_talon_vault
 ```
+
+## 游戏 0.7.0（0.1.3）
+
+翻墙途中，宿主没挪他时本包自己一步步挪（不然会被墙挡住、停在半路）。0.7.0 修了「定身后还能移动」，原生施加的禁锢、眩晕、击飞也真的让人停下——以前这时宿主也停，本包会当成「被墙挡住」继续挪，等于定身中还在走。现在被禁锢、眩晕（睡眠对附加包也是眩晕）、击飞、嘲讽、恐惧、魅惑时不挪（`HELD`），目标留着、截止时间顺延，控制结束再走完，不会把人留在墙里。

@@ -55,3 +55,7 @@
 - 在 `addons/` 下 `cargo test --release -p league_smolder`：单元测试（层数补回、梯子、撤 / 追的落点、5v5 地图上每个落点不在墙里）。
 - 在 `addons/` 下 `cargo build --release -p league_smolder`（Windows）得到 `target/release/league_smolder.dll`；`league_addons` 合集也会编进本包。
 - 工作区路径太长时链接会失败（LNK1104），用短的 `CARGO_TARGET_DIR`（如 `C:\t\sm`）。
+
+## 游戏 0.7.0（0.1.2）
+
+飞行途中，宿主没挪他时本包自己一步步挪（不然会被墙挡住、停在半路）。0.7.0 修了「定身后还能移动」，原生施加的禁锢、眩晕、击飞也真的让人停下——以前这时宿主也停，本包会当成「被墙挡住」继续挪，等于定身中还在走。现在被禁锢、眩晕（睡眠对附加包也是眩晕）、击飞、嘲讽、恐惧、魅惑时不挪（`HELD`），目标留着、截止时间顺延，控制结束再走完，不会把人留在墙里。

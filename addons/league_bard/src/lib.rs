@@ -541,6 +541,12 @@ fn pos(sim: &StableSim<'_>, id: usize) -> Option<(f64, f64)> {
 
 // ===================== 被动 =====================
 
+/// Crowd control that holds a unit in place - from game 0.7.0 also when laid by native code ("movement continuing while
+/// rooted" fixed): root, stun (a Sleep reaches add-ons as a Stun), knock-up, taunt, fear, charm; not a dash's own
+/// ForceMove nor a cast's Animation. A step of our own while one of these is on would move him through it.
+const HELD: [CcKindV1; 6] =
+    [CcKindV1::Bind, CcKindV1::Stun, CcKindV1::Airborne, CcKindV1::Taunt, CcKindV1::Fear, CcKindV1::Charm];
+
 fn has_cc(sim: &StableSim<'_>, id: usize, kinds: &[CcKindV1]) -> bool {
     sim.get_entity(id).is_some_and(|e| {
         (0..e.cc_count()).any(|i| e.cc_at(i).is_some_and(|c| kinds.iter().any(|k| k.code() == c.kind)))
@@ -799,9 +805,10 @@ impl Door {
             if d < t.step.max(500.0) {
                 continue;
             }
-            // 被放逐（巴德自己的 R 之类，不可选中）：游戏 0.6.4 起放逐中的单位不移动，宿主的强制位移也停下——这里也不挪他，
-            // 行程等着（截止时间顺延），放逐结束再走完，不会把人留在墙里。
-            if sim.get_entity(t.id).is_some_and(|e| !e.is_targetable()) {
+            // 被放逐（巴德自己的 R 之类，不可选中）：游戏 0.6.4 起放逐中的单位不移动，宿主的强制位移也停下；被禁锢、眩晕
+            // （含睡眠）、击飞、嘲讽、恐惧、魅惑：游戏 0.7.0 起原生施加的控制也真的让人停下（[`HELD`]）——这里也不挪他，
+            // 行程等着（截止时间顺延），结束再走完，不会把人留在墙里。
+            if sim.get_entity(t.id).is_some_and(|e| !e.is_targetable()) || has_cc(sim, t.id, &HELD) {
                 t.until += 1;
                 t.last = here;
                 keep.push(t);
