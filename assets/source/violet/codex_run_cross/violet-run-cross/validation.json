@@ -1,0 +1,188 @@
+{
+  "status": "toe_gap_pass_with_remaining_asset_constraints",
+  "measurement_note": "Visually annotated boot toe tips. Measurements are approximate; dividing source pixels by 12 does not establish an exact logical pixel grid.",
+  "frames": [
+    {
+      "frame": "run1",
+      "toe_pixels": {
+        "red": [
+          776,
+          1005
+        ],
+        "blue": [
+          665,
+          1154
+        ]
+      },
+      "toe_grid12": {
+        "red": [
+          64.67,
+          83.75
+        ],
+        "blue": [
+          55.42,
+          96.17
+        ]
+      },
+      "horizontal_gap_grid12": 9.25,
+      "target_gap": 8,
+      "tolerance": 3,
+      "gap_pass": true,
+      "lead_observed": "red",
+      "measurement": "Visual toe-tip annotation; approximate pixel position, nominal units = pixels / 12",
+      "hard_alpha": false,
+      "canvas": [
+        1254,
+        1254
+      ],
+      "grid12_exact": false
+    },
+    {
+      "frame": "run5",
+      "toe_pixels": {
+        "red": [
+          832,
+          1165
+        ],
+        "blue": [
+          625,
+          1035
+        ]
+      },
+      "toe_grid12": {
+        "red": [
+          69.33,
+          97.08
+        ],
+        "blue": [
+          52.08,
+          86.25
+        ]
+      },
+      "horizontal_gap_grid12": 17.25,
+      "target_gap": 16,
+      "tolerance": 3,
+      "gap_pass": true,
+      "lead_observed": "red",
+      "measurement": "Visual toe-tip annotation; approximate pixel position, nominal units = pixels / 12",
+      "hard_alpha": false,
+      "canvas": [
+        1254,
+        1254
+      ],
+      "grid12_exact": false
+    },
+    {
+      "frame": "run6",
+      "toe_pixels": {
+        "red": [
+          686,
+          1155
+        ],
+        "blue": [
+          783,
+          1158
+        ]
+      },
+      "toe_grid12": {
+        "red": [
+          57.17,
+          96.25
+        ],
+        "blue": [
+          65.25,
+          96.5
+        ]
+      },
+      "horizontal_gap_grid12": 8.08,
+      "target_gap": 6,
+      "tolerance": 3,
+      "gap_pass": true,
+      "lead_observed": "blue",
+      "measurement": "Visual toe-tip annotation; approximate pixel position, nominal units = pixels / 12",
+      "hard_alpha": false,
+      "canvas": [
+        1254,
+        1254
+      ],
+      "grid12_exact": false
+    },
+    {
+      "frame": "run7",
+      "toe_pixels": {
+        "red": [
+          628,
+          920
+        ],
+        "blue": [
+          854,
+          1132
+        ]
+      },
+      "toe_grid12": {
+        "red": [
+          52.33,
+          76.67
+        ],
+        "blue": [
+          71.17,
+          94.33
+        ]
+      },
+      "horizontal_gap_grid12": 18.83,
+      "target_gap": 17,
+      "tolerance": 3,
+      "gap_pass": true,
+      "lead_observed": "blue",
+      "measurement": "Visual toe-tip annotation; approximate pixel position, nominal units = pixels / 12",
+      "hard_alpha": false,
+      "canvas": [
+        1254,
+        1254
+      ],
+      "grid12_exact": false
+    },
+    {
+      "frame": "run8",
+      "toe_pixels": {
+        "red": [
+          628,
+          935
+        ],
+        "blue": [
+          759,
+          1161
+        ]
+      },
+      "toe_grid12": {
+        "red": [
+          52.33,
+          77.92
+        ],
+        "blue": [
+          63.25,
+          96.75
+        ]
+      },
+      "horizontal_gap_grid12": 10.92,
+      "target_gap": 9,
+      "tolerance": 3,
+      "gap_pass": true,
+      "lead_observed": "blue",
+      "measurement": "Visual toe-tip annotation; approximate pixel position, nominal units = pixels / 12",
+      "hard_alpha": false,
+      "canvas": [
+        1254,
+        1254
+      ],
+      "grid12_exact": false
+    }
+  ],
+  "all_gap_pass": true,
+  "production_ready": false,
+  "remaining_constraints": [
+    "Generated edges include intermediate alpha values.",
+    "Exact 12px grid and exact head-template identity are not established.",
+    "No game import or animation QA performed."
+  ]
+}

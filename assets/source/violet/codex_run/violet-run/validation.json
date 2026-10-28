@@ -1,0 +1,448 @@
+{
+  "status": "redrawn_8_frames_with_known_spec_deviations",
+  "frames": [
+    {
+      "file": "violet-run-run1.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "lead_observed": "red",
+      "lead_expected": "red",
+      "navy_patch_leg": "near; forward in frames 1-5, backward in frames 6-8",
+      "toe_observations_pixels": {
+        "red": [
+          795,
+          1035
+        ],
+        "blue": [
+          450,
+          1175
+        ]
+      },
+      "toe_observations_grid12": {
+        "red": [
+          66.2,
+          86.2
+        ],
+        "blue": [
+          37.5,
+          97.9
+        ]
+      },
+      "toe_expected_grid12": {
+        "red": [
+          50,
+          76
+        ],
+        "blue": [
+          42,
+          96
+        ]
+      },
+      "error_grid12": {
+        "red": [
+          16.2,
+          10.2
+        ],
+        "blue": [
+          -4.5,
+          1.9
+        ]
+      },
+      "toe_within_2_cells": false,
+      "measurement": "manual visual estimate; +/- 12 px",
+      "hard_alpha": false,
+      "grid12_pass": false,
+      "head_pixel_identity_pass": false
+    },
+    {
+      "file": "violet-run-run2.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "lead_observed": "red",
+      "lead_expected": "red",
+      "navy_patch_leg": "near; forward in frames 1-5, backward in frames 6-8",
+      "toe_observations_pixels": {
+        "red": [
+          960,
+          1175
+        ],
+        "blue": [
+          407,
+          1175
+        ]
+      },
+      "toe_observations_grid12": {
+        "red": [
+          80.0,
+          97.9
+        ],
+        "blue": [
+          33.9,
+          97.9
+        ]
+      },
+      "toe_expected_grid12": {
+        "red": [
+          60,
+          93
+        ],
+        "blue": [
+          32,
+          94
+        ]
+      },
+      "error_grid12": {
+        "red": [
+          20.0,
+          4.9
+        ],
+        "blue": [
+          1.9,
+          3.9
+        ]
+      },
+      "toe_within_2_cells": false,
+      "measurement": "manual visual estimate; +/- 12 px",
+      "hard_alpha": false,
+      "grid12_pass": false,
+      "head_pixel_identity_pass": false
+    },
+    {
+      "file": "violet-run-run3.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "lead_observed": "red",
+      "lead_expected": "red",
+      "navy_patch_leg": "near; forward in frames 1-5, backward in frames 6-8",
+      "toe_observations_pixels": {
+        "red": [
+          959,
+          1185
+        ],
+        "blue": [
+          310,
+          938
+        ]
+      },
+      "toe_observations_grid12": {
+        "red": [
+          79.9,
+          98.8
+        ],
+        "blue": [
+          25.8,
+          78.2
+        ]
+      },
+      "toe_expected_grid12": {
+        "red": [
+          68,
+          95
+        ],
+        "blue": [
+          30,
+          70
+        ]
+      },
+      "error_grid12": {
+        "red": [
+          11.9,
+          3.8
+        ],
+        "blue": [
+          -4.2,
+          8.2
+        ]
+      },
+      "toe_within_2_cells": false,
+      "measurement": "manual visual estimate; +/- 12 px",
+      "hard_alpha": false,
+      "grid12_pass": false,
+      "head_pixel_identity_pass": false
+    },
+    {
+      "file": "violet-run-run4.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "lead_observed": "red",
+      "lead_expected": "red",
+      "navy_patch_leg": "near; forward in frames 1-5, backward in frames 6-8",
+      "toe_observations_pixels": {
+        "red": [
+          882,
+          1164
+        ],
+        "blue": [
+          268,
+          929
+        ]
+      },
+      "toe_observations_grid12": {
+        "red": [
+          73.5,
+          97.0
+        ],
+        "blue": [
+          22.3,
+          77.4
+        ]
+      },
+      "toe_expected_grid12": {
+        "red": [
+          64,
+          96
+        ],
+        "blue": [
+          31,
+          71
+        ]
+      },
+      "error_grid12": {
+        "red": [
+          9.5,
+          1.0
+        ],
+        "blue": [
+          -8.7,
+          6.4
+        ]
+      },
+      "toe_within_2_cells": false,
+      "measurement": "manual visual estimate; +/- 12 px",
+      "hard_alpha": false,
+      "grid12_pass": false,
+      "head_pixel_identity_pass": false
+    },
+    {
+      "file": "violet-run-run5.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "lead_observed": "red",
+      "lead_expected": "red",
+      "navy_patch_leg": "near; forward in frames 1-5, backward in frames 6-8",
+      "toe_observations_pixels": {
+        "red": [
+          878,
+          1178
+        ],
+        "blue": [
+          294,
+          954
+        ]
+      },
+      "toe_observations_grid12": {
+        "red": [
+          73.2,
+          98.2
+        ],
+        "blue": [
+          24.5,
+          79.5
+        ]
+      },
+      "toe_expected_grid12": {
+        "red": [
+          53,
+          96
+        ],
+        "blue": [
+          37,
+          77
+        ]
+      },
+      "error_grid12": {
+        "red": [
+          20.2,
+          2.2
+        ],
+        "blue": [
+          -12.5,
+          2.5
+        ]
+      },
+      "toe_within_2_cells": false,
+      "measurement": "manual visual estimate; +/- 12 px",
+      "hard_alpha": false,
+      "grid12_pass": false,
+      "head_pixel_identity_pass": false
+    },
+    {
+      "file": "violet-run-run6.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "lead_observed": "blue",
+      "lead_expected": "blue",
+      "navy_patch_leg": "near; forward in frames 1-5, backward in frames 6-8",
+      "toe_observations_pixels": {
+        "red": [
+          499,
+          1127
+        ],
+        "blue": [
+          891,
+          1134
+        ]
+      },
+      "toe_observations_grid12": {
+        "red": [
+          41.6,
+          93.9
+        ],
+        "blue": [
+          74.2,
+          94.5
+        ]
+      },
+      "toe_expected_grid12": {
+        "red": [
+          41,
+          94
+        ],
+        "blue": [
+          47,
+          93
+        ]
+      },
+      "error_grid12": {
+        "red": [
+          0.6,
+          -0.1
+        ],
+        "blue": [
+          27.2,
+          1.5
+        ]
+      },
+      "toe_within_2_cells": false,
+      "measurement": "manual visual estimate; +/- 12 px",
+      "hard_alpha": false,
+      "grid12_pass": false,
+      "head_pixel_identity_pass": false
+    },
+    {
+      "file": "violet-run-run7.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "lead_observed": "blue",
+      "lead_expected": "blue",
+      "navy_patch_leg": "near; forward in frames 1-5, backward in frames 6-8",
+      "toe_observations_pixels": {
+        "red": [
+          296,
+          927
+        ],
+        "blue": [
+          952,
+          1178
+        ]
+      },
+      "toe_observations_grid12": {
+        "red": [
+          24.7,
+          77.2
+        ],
+        "blue": [
+          79.3,
+          98.2
+        ]
+      },
+      "toe_expected_grid12": {
+        "red": [
+          38,
+          73
+        ],
+        "blue": [
+          55,
+          96
+        ]
+      },
+      "error_grid12": {
+        "red": [
+          -13.3,
+          4.2
+        ],
+        "blue": [
+          24.3,
+          2.2
+        ]
+      },
+      "toe_within_2_cells": false,
+      "measurement": "manual visual estimate; +/- 12 px",
+      "hard_alpha": false,
+      "grid12_pass": false,
+      "head_pixel_identity_pass": false
+    },
+    {
+      "file": "violet-run-run8.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "lead_observed": "blue",
+      "lead_expected": "blue",
+      "navy_patch_leg": "near; forward in frames 1-5, backward in frames 6-8",
+      "toe_observations_pixels": {
+        "red": [
+          340,
+          896
+        ],
+        "blue": [
+          914,
+          1163
+        ]
+      },
+      "toe_observations_grid12": {
+        "red": [
+          28.3,
+          74.7
+        ],
+        "blue": [
+          76.2,
+          96.9
+        ]
+      },
+      "toe_expected_grid12": {
+        "red": [
+          42,
+          68
+        ],
+        "blue": [
+          51,
+          96
+        ]
+      },
+      "error_grid12": {
+        "red": [
+          -13.7,
+          6.7
+        ],
+        "blue": [
+          25.2,
+          0.9
+        ]
+      },
+      "toe_within_2_cells": false,
+      "measurement": "manual visual estimate; +/- 12 px",
+      "hard_alpha": false,
+      "grid12_pass": false,
+      "head_pixel_identity_pass": false
+    }
+  ],
+  "lead_phase_pass": true,
+  "toe_position_pass": false,
+  "production_ready": false
+}

@@ -4,7 +4,7 @@
 //!
 //! - **监察**：数据读不到生命。被动每拍看他的生命：高于 `p_line`% 时挂 `tft_vander_p_watch`（受到的伤害少 `p_hi`%），
 //!   不高于时换成少 `p_lo`% 的那一档；死了就摘掉。
-//! - **地下猎犬的重击**（`tft_vander:family`：重击打中时）：他队里每有一个家人（爆爆 `tft_powder`、蔚 `league_vi`、
+//! - **地下猎犬的重击**（`tft_vander:family`：重击打中时）：他队里每有一个家人（爆爆 `tft_powder`、蔚 `league_vi`、蔚奥莱 `tft_violet`、
 //!   金克丝 `league_jinx`），对那个目标多打攻击力 `q_fam`% 的物理伤害（金铲铲里是每个一二费队友加 100% 攻击力）。
 //! - **桥头死守**（`tft_vander:stand`：砸地时）：`r_r` 以内每有一个敌方英雄（最多 `r_cap` 个），减伤在 `r_red`% 上再加
 //!   `r_per`%，挂 `tft_vander_r_hold` `r_t` 拍。
@@ -23,8 +23,8 @@ use mod_api_stable::*;
 
 const ID: &str = "tft_vander";
 const VERSION: &str = env!("CARGO_PKG_VERSION");
-/// 家人：金铲铲第 13 赛季的【家人】是爆爆、蔚、范德尔（金克丝是长大的爆爆）。
-const FAMILY: [&str; 3] = ["tft_powder", "league_vi", "league_jinx"];
+/// 家人：金铲铲第 13 赛季的【家人】是爆爆、蔚奥莱、范德尔（金克丝是长大的爆爆，蔚是长大的蔚奥莱）。
+const FAMILY: [&str; 4] = ["tft_powder", "league_vi", "league_jinx", "tft_violet"];
 
 fn va(x: &str) -> String {
     format!("{ID}_{x}")
@@ -345,6 +345,7 @@ mod tests {
     fn his_family_only() {
         assert_eq!(family_count(["tft_powder", "league_vi", "league_garen"]), 2);
         assert_eq!(family_count(["league_jinx"]), 1);
+        assert_eq!(family_count(["tft_violet", "tft_powder"]), 2);
         assert_eq!(family_count(["tft_silco", "league_warwick"]), 0);
     }
 

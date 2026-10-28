@@ -9,6 +9,7 @@ pub mod maddie;
 pub mod norra;
 pub mod silco;
 pub mod vander;
+pub mod violet;
 
 use mod_api_stable::*;
 
@@ -21,6 +22,7 @@ fn init(host: &StableHost) -> StableMod {
     norra::register(host, &mut module);
     silco::register(host, &mut module);
     vander::register(host, &mut module);
+    violet::register(host, &mut module);
     module
 }
 
