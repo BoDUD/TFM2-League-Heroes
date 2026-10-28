@@ -10,8 +10,8 @@
 | 所属的包 | 主包（mod_id `league`） |
 | 分路 | ADC |
 | 分类 / 标签 | 射手（Range） · AD / Range |
-| 高清帧 | PPU 2.02 |
-| 附加包 | 无 |
+| 高清帧 | PPU 1.5 |
+| 附加包 | [卢锡安附加包](#附加包)（`league_lucian`） |
 
 ![卢锡安演示](../preview/league_lucian_showcase.gif)
 
@@ -48,6 +48,18 @@
 ### 数值
 
 攻击力 100（每级 +20）、生命 900（每级 +90）、护甲 20（每级 +7）、魔抗 15（每级 +3）、移速 900（每级 +9）。
+
+## 附加包
+
+附加包是可选的原生代码 mod（都在附加包合集 `league_addons` 里），**不装主包里的英雄也是完整的**。
+
+### 卢锡安附加包
+
+卢锡安附加包：`league_lucian` v0.1.0
+
+（这个附加包没有 README，下面是它 `mod.mod_info` 里的英文说明）
+
+> Lucian walks firing The Culling (needs League of Legends Heroes): while his ult fires, his walk is drawn with both pistols levelled forward instead of his plain run. Picture only; his kit is the main pack's. Writes a log for testing.
 
 ## 相关脚本和素材
 
