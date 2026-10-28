@@ -331,6 +331,1616 @@
                         "only_to_enemy": false
                       },
                       {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_wukong_w_live",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": []
+                        },
+                        "effect_none": {
+                          "type": "SwitchByBuff",
+                          "buff_name": "league_wukong_w_rc",
+                          "effect_buff": {
+                            "type": "Combine",
+                            "effects": []
+                          },
+                          "effect_none": {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_wukong_w_rc",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 900
+                                    }
+                                  }
+                                },
+                                "only_to_enemy": false
+                              },
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "league_wukong_w_live"
+                              },
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_wukong_w_live",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 240
+                                    }
+                                  }
+                                },
+                                "only_to_enemy": false
+                              },
+                              {
+                                "type": "CasterViewEffect",
+                                "name": "league_wukong_w_poof"
+                              },
+                              {
+                                "type": "Sfx",
+                                "name": "league_wukong_w_cast"
+                              },
+                              {
+                                "type": "LinearProjectile",
+                                "name": "league_wukong_w_anchor",
+                                "speed": 1,
+                                "range": 1,
+                                "y_offset": 5000,
+                                "penetrate": true,
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 1000
+                                  }
+                                },
+                                "applied_target": "EnemyChampion",
+                                "applied_effects": [],
+                                "end_effects": [
+                                  {
+                                    "type": "RangePeriodProjectile",
+                                    "name": "league_wukong_w_zone",
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 30000
+                                      }
+                                    },
+                                    "tick": 240,
+                                    "period": 60,
+                                    "first_delay": 1,
+                                    "applied_target": "EnemyWithoutTower",
+                                    "applied_effects": [
+                                      {
+                                        "casting_type": "Targeting",
+                                        "effect": {
+                                          "type": "SwitchByBuff",
+                                          "buff_name": "league_wukong_w_one",
+                                          "effect_buff": {
+                                            "type": "Combine",
+                                            "effects": []
+                                          },
+                                          "effect_none": {
+                                            "type": "Combine",
+                                            "effects": [
+                                              {
+                                                "type": "AddCasterBuff",
+                                                "buff_state": {
+                                                  "name": "league_wukong_w_one",
+                                                  "duration": {
+                                                    "Time": {
+                                                      "tick": 2
+                                                    }
+                                                  }
+                                                },
+                                                "only_to_enemy": false
+                                              },
+                                              {
+                                                "type": "Attack",
+                                                "damage": 0,
+                                                "attack_ratio": 50,
+                                                "hp_ratio": 0,
+                                                "target_hp_ratio": 0,
+                                                "attack_effect_type": "Target"
+                                              },
+                                              {
+                                                "type": "ViewEffect",
+                                                "name": "league_wukong_w_hit"
+                                              },
+                                              {
+                                                "type": "TargetSfx",
+                                                "name": "league_wukong_w_hit"
+                                              }
+                                            ]
+                                          }
+                                        }
+                                      }
+                                    ],
+                                    "end_effects": []
+                                  },
+                                  {
+                                    "type": "Delayed",
+                                    "tick": 1,
+                                    "effects": [
+                                      {
+                                        "type": "SwitchByBuff",
+                                        "buff_name": "league_wukong_w_live",
+                                        "effect_buff": {
+                                          "type": "SwitchByBuff",
+                                          "buff_name": "league_wukong_r_on",
+                                          "effect_buff": {
+                                            "type": "Combine",
+                                            "effects": [
+                                              {
+                                                "type": "ViewEffect",
+                                                "name": "league_wukong_w_clone_spin"
+                                              },
+                                              {
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_wukong_r_ck",
+                                                "effect_buff": {
+                                                  "type": "RangeProjectile",
+                                                  "name": "league_wukong_w_spin",
+                                                  "shape": {
+                                                    "Circle": {
+                                                      "radius": 28000
+                                                    }
+                                                  },
+                                                  "delay": 1,
+                                                  "apply": 1,
+                                                  "applied_target": "EnemyWithoutTower",
+                                                  "applied_effects": [
+                                                    {
+                                                      "casting_type": "Targeting",
+                                                      "effect": {
+                                                        "type": "Attack",
+                                                        "damage": 2,
+                                                        "attack_ratio": 7,
+                                                        "hp_ratio": 0,
+                                                        "target_hp_ratio": 0,
+                                                        "attack_effect_type": "Target"
+                                                      }
+                                                    },
+                                                    {
+                                                      "casting_type": "Targeting",
+                                                      "effect": {
+                                                        "type": "ViewEffect",
+                                                        "name": "league_wukong_r_hit"
+                                                      }
+                                                    }
+                                                  ]
+                                                },
+                                                "effect_none": {
+                                                  "type": "Combine",
+                                                  "effects": [
+                                                    {
+                                                      "type": "AddCasterBuff",
+                                                      "buff_state": {
+                                                        "name": "league_wukong_r_ck",
+                                                        "duration": {
+                                                          "Time": {
+                                                            "tick": 120
+                                                          }
+                                                        }
+                                                      },
+                                                      "only_to_enemy": false
+                                                    },
+                                                    {
+                                                      "type": "RangeProjectile",
+                                                      "name": "league_wukong_w_spin_up",
+                                                      "shape": {
+                                                        "Circle": {
+                                                          "radius": 28000
+                                                        }
+                                                      },
+                                                      "delay": 1,
+                                                      "apply": 1,
+                                                      "applied_target": "EnemyWithoutTower",
+                                                      "applied_effects": [
+                                                        {
+                                                          "casting_type": "Targeting",
+                                                          "effect": {
+                                                            "type": "Attack",
+                                                            "damage": 2,
+                                                            "attack_ratio": 7,
+                                                            "hp_ratio": 0,
+                                                            "target_hp_ratio": 0,
+                                                            "attack_effect_type": "Target"
+                                                          }
+                                                        },
+                                                        {
+                                                          "casting_type": "Targeting",
+                                                          "effect": {
+                                                            "type": "ViewEffect",
+                                                            "name": "league_wukong_r_hit"
+                                                          }
+                                                        },
+                                                        {
+                                                          "casting_type": "Targeting",
+                                                          "effect": {
+                                                            "type": "Airborne",
+                                                            "duration": 36
+                                                          }
+                                                        }
+                                                      ]
+                                                    }
+                                                  ]
+                                                }
+                                              }
+                                            ]
+                                          },
+                                          "effect_none": {
+                                            "type": "ViewEffect",
+                                            "name": "league_wukong_w_clone_atk"
+                                          }
+                                        },
+                                        "effect_none": {
+                                          "type": "Combine",
+                                          "effects": []
+                                        }
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "Delayed",
+                                    "tick": 21,
+                                    "effects": [
+                                      {
+                                        "type": "SwitchByBuff",
+                                        "buff_name": "league_wukong_w_live",
+                                        "effect_buff": {
+                                          "type": "SwitchByBuff",
+                                          "buff_name": "league_wukong_r_on",
+                                          "effect_buff": {
+                                            "type": "Combine",
+                                            "effects": [
+                                              {
+                                                "type": "ViewEffect",
+                                                "name": "league_wukong_w_clone_spin"
+                                              },
+                                              {
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_wukong_r_ck",
+                                                "effect_buff": {
+                                                  "type": "RangeProjectile",
+                                                  "name": "league_wukong_w_spin",
+                                                  "shape": {
+                                                    "Circle": {
+                                                      "radius": 28000
+                                                    }
+                                                  },
+                                                  "delay": 1,
+                                                  "apply": 1,
+                                                  "applied_target": "EnemyWithoutTower",
+                                                  "applied_effects": [
+                                                    {
+                                                      "casting_type": "Targeting",
+                                                      "effect": {
+                                                        "type": "Attack",
+                                                        "damage": 2,
+                                                        "attack_ratio": 7,
+                                                        "hp_ratio": 0,
+                                                        "target_hp_ratio": 0,
+                                                        "attack_effect_type": "Target"
+                                                      }
+                                                    },
+                                                    {
+                                                      "casting_type": "Targeting",
+                                                      "effect": {
+                                                        "type": "ViewEffect",
+                                                        "name": "league_wukong_r_hit"
+                                                      }
+                                                    }
+                                                  ]
+                                                },
+                                                "effect_none": {
+                                                  "type": "Combine",
+                                                  "effects": [
+                                                    {
+                                                      "type": "AddCasterBuff",
+                                                      "buff_state": {
+                                                        "name": "league_wukong_r_ck",
+                                                        "duration": {
+                                                          "Time": {
+                                                            "tick": 120
+                                                          }
+                                                        }
+                                                      },
+                                                      "only_to_enemy": false
+                                                    },
+                                                    {
+                                                      "type": "RangeProjectile",
+                                                      "name": "league_wukong_w_spin_up",
+                                                      "shape": {
+                                                        "Circle": {
+                                                          "radius": 28000
+                                                        }
+                                                      },
+                                                      "delay": 1,
+                                                      "apply": 1,
+                                                      "applied_target": "EnemyWithoutTower",
+                                                      "applied_effects": [
+                                                        {
+                                                          "casting_type": "Targeting",
+                                                          "effect": {
+                                                            "type": "Attack",
+                                                            "damage": 2,
+                                                            "attack_ratio": 7,
+                                                            "hp_ratio": 0,
+                                                            "target_hp_ratio": 0,
+                                                            "attack_effect_type": "Target"
+                                                          }
+                                                        },
+                                                        {
+                                                          "casting_type": "Targeting",
+                                                          "effect": {
+                                                            "type": "ViewEffect",
+                                                            "name": "league_wukong_r_hit"
+                                                          }
+                                                        },
+                                                        {
+                                                          "casting_type": "Targeting",
+                                                          "effect": {
+                                                            "type": "Airborne",
+                                                            "duration": 36
+                                                          }
+                                                        }
+                                                      ]
+                                                    }
+                                                  ]
+                                                }
+                                              }
+                                            ]
+                                          },
+                                          "effect_none": {
+                                            "type": "ViewEffect",
+                                            "name": "league_wukong_w_clone"
+                                          }
+                                        },
+                                        "effect_none": {
+                                          "type": "Combine",
+                                          "effects": []
+                                        }
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "Delayed",
+                                    "tick": 41,
+                                    "effects": [
+                                      {
+                                        "type": "SwitchByBuff",
+                                        "buff_name": "league_wukong_w_live",
+                                        "effect_buff": {
+                                          "type": "SwitchByBuff",
+                                          "buff_name": "league_wukong_r_on",
+                                          "effect_buff": {
+                                            "type": "Combine",
+                                            "effects": [
+                                              {
+                                                "type": "ViewEffect",
+                                                "name": "league_wukong_w_clone_spin"
+                                              },
+                                              {
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_wukong_r_ck",
+                                                "effect_buff": {
+                                                  "type": "RangeProjectile",
+                                                  "name": "league_wukong_w_spin",
+                                                  "shape": {
+                                                    "Circle": {
+                                                      "radius": 28000
+                                                    }
+                                                  },
+                                                  "delay": 1,
+                                                  "apply": 1,
+                                                  "applied_target": "EnemyWithoutTower",
+                                                  "applied_effects": [
+                                                    {
+                                                      "casting_type": "Targeting",
+                                                      "effect": {
+                                                        "type": "Attack",
+                                                        "damage": 2,
+                                                        "attack_ratio": 7,
+                                                        "hp_ratio": 0,
+                                                        "target_hp_ratio": 0,
+                                                        "attack_effect_type": "Target"
+                                                      }
+                                                    },
+                                                    {
+                                                      "casting_type": "Targeting",
+                                                      "effect": {
+                                                        "type": "ViewEffect",
+                                                        "name": "league_wukong_r_hit"
+                                                      }
+                                                    }
+                                                  ]
+                                                },
+                                                "effect_none": {
+                                                  "type": "Combine",
+                                                  "effects": [
+                                                    {
+                                                      "type": "AddCasterBuff",
+                                                      "buff_state": {
+                                                        "name": "league_wukong_r_ck",
+                                                        "duration": {
+                                                          "Time": {
+                                                            "tick": 120
+                                                          }
+                                                        }
+                                                      },
+                                                      "only_to_enemy": false
+                                                    },
+                                                    {
+                                                      "type": "RangeProjectile",
+                                                      "name": "league_wukong_w_spin_up",
+                                                      "shape": {
+                                                        "Circle": {
+                                                          "radius": 28000
+                                                        }
+                                                      },
+                                                      "delay": 1,
+                                                      "apply": 1,
+                                                      "applied_target": "EnemyWithoutTower",
+                                                      "applied_effects": [
+                                                        {
+                                                          "casting_type": "Targeting",
+                                                          "effect": {
+                                                            "type": "Attack",
+                                                            "damage": 2,
+                                                            "attack_ratio": 7,
+                                                            "hp_ratio": 0,
+                                                            "target_hp_ratio": 0,
+                                                            "attack_effect_type": "Target"
+                                                          }
+                                                        },
+                                                        {
+                                                          "casting_type": "Targeting",
+                                                          "effect": {
+                                                            "type": "ViewEffect",
+                                                            "name": "league_wukong_r_hit"
+                                                          }
+                                                        },
+                                                        {
+                                                          "casting_type": "Targeting",
+                                                          "effect": {
+                                                            "type": "Airborne",
+                                                            "duration": 36
+                                                          }
+                                                        }
+                                                      ]
+                                                    }
+                                                  ]
+                                                }
+                                              }
+                                            ]
+                                          },
+                                          "effect_none": {
+                                            "type": "ViewEffect",
+                                            "name": "league_wukong_w_clone"
+                                          }
+                                        },
+                                        "effect_none": {
+                                          "type": "Combine",
+                                          "effects": []
+                                        }
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "Delayed",
+                                    "tick": 61,
+                                    "effects": [
+                                      {
+                                        "type": "SwitchByBuff",
+                                        "buff_name": "league_wukong_w_live",
+                                        "effect_buff": {
+                                          "type": "SwitchByBuff",
+                                          "buff_name": "league_wukong_r_on",
+                                          "effect_buff": {
+                                            "type": "Combine",
+                                            "effects": [
+                                              {
+                                                "type": "ViewEffect",
+                                                "name": "league_wukong_w_clone_spin"
+                                              },
+                                              {
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_wukong_r_ck",
+                                                "effect_buff": {
+                                                  "type": "RangeProjectile",
+                                                  "name": "league_wukong_w_spin",
+                                                  "shape": {
+                                                    "Circle": {
+                                                      "radius": 28000
+                                                    }
+                                                  },
+                                                  "delay": 1,
+                                                  "apply": 1,
+                                                  "applied_target": "EnemyWithoutTower",
+                                                  "applied_effects": [
+                                                    {
+                                                      "casting_type": "Targeting",
+                                                      "effect": {
+                                                        "type": "Attack",
+                                                        "damage": 2,
+                                                        "attack_ratio": 7,
+                                                        "hp_ratio": 0,
+                                                        "target_hp_ratio": 0,
+                                                        "attack_effect_type": "Target"
+                                                      }
+                                                    },
+                                                    {
+                                                      "casting_type": "Targeting",
+                                                      "effect": {
+                                                        "type": "ViewEffect",
+                                                        "name": "league_wukong_r_hit"
+                                                      }
+                                                    }
+                                                  ]
+                                                },
+                                                "effect_none": {
+                                                  "type": "Combine",
+                                                  "effects": [
+                                                    {
+                                                      "type": "AddCasterBuff",
+                                                      "buff_state": {
+                                                        "name": "league_wukong_r_ck",
+                                                        "duration": {
+                                                          "Time": {
+                                                            "tick": 120
+                                                          }
+                                                        }
+                                                      },
+                                                      "only_to_enemy": false
+                                                    },
+                                                    {
+                                                      "type": "RangeProjectile",
+                                                      "name": "league_wukong_w_spin_up",
+                                                      "shape": {
+                                                        "Circle": {
+                                                          "radius": 28000
+                                                        }
+                                                      },
+                                                      "delay": 1,
+                                                      "apply": 1,
+                                                      "applied_target": "EnemyWithoutTower",
+                                                      "applied_effects": [
+                                                        {
+                                                          "casting_type": "Targeting",
+                                                          "effect": {
+                                                            "type": "Attack",
+                                                            "damage": 2,
+                                                            "attack_ratio": 7,
+                                                            "hp_ratio": 0,
+                                                            "target_hp_ratio": 0,
+                                                            "attack_effect_type": "Target"
+                                                          }
+                                                        },
+                                                        {
+                                                          "casting_type": "Targeting",
+                                                          "effect": {
+                                                            "type": "ViewEffect",
+                                                            "name": "league_wukong_r_hit"
+                                                          }
+                                                        },
+                                                        {
+                                                          "casting_type": "Targeting",
+                                                          "effect": {
+                                                            "type": "Airborne",
+                                                            "duration": 36
+                                                          }
+                                                        }
+                                                      ]
+                                                    }
+                                                  ]
+                                                }
+                                              }
+                                            ]
+                                          },
+                                          "effect_none": {
+                                            "type": "ViewEffect",
+                                            "name": "league_wukong_w_clone_atk"
+                                          }
+                                        },
+                                        "effect_none": {
+                                          "type": "Combine",
+                                          "effects": []
+                                        }
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "Delayed",
+                                    "tick": 81,
+                                    "effects": [
+                                      {
+                                        "type": "SwitchByBuff",
+                                        "buff_name": "league_wukong_w_live",
+                                        "effect_buff": {
+                                          "type": "SwitchByBuff",
+                                          "buff_name": "league_wukong_r_on",
+                                          "effect_buff": {
+                                            "type": "Combine",
+                                            "effects": [
+                                              {
+                                                "type": "ViewEffect",
+                                                "name": "league_wukong_w_clone_spin"
+                                              },
+                                              {
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_wukong_r_ck",
+                                                "effect_buff": {
+                                                  "type": "RangeProjectile",
+                                                  "name": "league_wukong_w_spin",
+                                                  "shape": {
+                                                    "Circle": {
+                                                      "radius": 28000
+                                                    }
+                                                  },
+                                                  "delay": 1,
+                                                  "apply": 1,
+                                                  "applied_target": "EnemyWithoutTower",
+                                                  "applied_effects": [
+                                                    {
+                                                      "casting_type": "Targeting",
+                                                      "effect": {
+                                                        "type": "Attack",
+                                                        "damage": 2,
+                                                        "attack_ratio": 7,
+                                                        "hp_ratio": 0,
+                                                        "target_hp_ratio": 0,
+                                                        "attack_effect_type": "Target"
+                                                      }
+                                                    },
+                                                    {
+                                                      "casting_type": "Targeting",
+                                                      "effect": {
+                                                        "type": "ViewEffect",
+                                                        "name": "league_wukong_r_hit"
+                                                      }
+                                                    }
+                                                  ]
+                                                },
+                                                "effect_none": {
+                                                  "type": "Combine",
+                                                  "effects": [
+                                                    {
+                                                      "type": "AddCasterBuff",
+                                                      "buff_state": {
+                                                        "name": "league_wukong_r_ck",
+                                                        "duration": {
+                                                          "Time": {
+                                                            "tick": 120
+                                                          }
+                                                        }
+                                                      },
+                                                      "only_to_enemy": false
+                                                    },
+                                                    {
+                                                      "type": "RangeProjectile",
+                                                      "name": "league_wukong_w_spin_up",
+                                                      "shape": {
+                                                        "Circle": {
+                                                          "radius": 28000
+                                                        }
+                                                      },
+                                                      "delay": 1,
+                                                      "apply": 1,
+                                                      "applied_target": "EnemyWithoutTower",
+                                                      "applied_effects": [
+                                                        {
+                                                          "casting_type": "Targeting",
+                                                          "effect": {
+                                                            "type": "Attack",
+                                                            "damage": 2,
+                                                            "attack_ratio": 7,
+                                                            "hp_ratio": 0,
+                                                            "target_hp_ratio": 0,
+                                                            "attack_effect_type": "Target"
+                                                          }
+                                                        },
+                                                        {
+                                                          "casting_type": "Targeting",
+                                                          "effect": {
+                                                            "type": "ViewEffect",
+                                                            "name": "league_wukong_r_hit"
+                                                          }
+                                                        },
+                                                        {
+                                                          "casting_type": "Targeting",
+                                                          "effect": {
+                                                            "type": "Airborne",
+                                                            "duration": 36
+                                                          }
+                                                        }
+                                                      ]
+                                                    }
+                                                  ]
+                                                }
+                                              }
+                                            ]
+                                          },
+                                          "effect_none": {
+                                            "type": "ViewEffect",
+                                            "name": "league_wukong_w_clone"
+                                          }
+                                        },
+                                        "effect_none": {
+                                          "type": "Combine",
+                                          "effects": []
+                                        }
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "Delayed",
+                                    "tick": 101,
+                                    "effects": [
+                                      {
+                                        "type": "SwitchByBuff",
+                                        "buff_name": "league_wukong_w_live",
+                                        "effect_buff": {
+                                          "type": "SwitchByBuff",
+                                          "buff_name": "league_wukong_r_on",
+                                          "effect_buff": {
+                                            "type": "Combine",
+                                            "effects": [
+                                              {
+                                                "type": "ViewEffect",
+                                                "name": "league_wukong_w_clone_spin"
+                                              },
+                                              {
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_wukong_r_ck",
+                                                "effect_buff": {
+                                                  "type": "RangeProjectile",
+                                                  "name": "league_wukong_w_spin",
+                                                  "shape": {
+                                                    "Circle": {
+                                                      "radius": 28000
+                                                    }
+                                                  },
+                                                  "delay": 1,
+                                                  "apply": 1,
+                                                  "applied_target": "EnemyWithoutTower",
+                                                  "applied_effects": [
+                                                    {
+                                                      "casting_type": "Targeting",
+                                                      "effect": {
+                                                        "type": "Attack",
+                                                        "damage": 2,
+                                                        "attack_ratio": 7,
+                                                        "hp_ratio": 0,
+                                                        "target_hp_ratio": 0,
+                                                        "attack_effect_type": "Target"
+                                                      }
+                                                    },
+                                                    {
+                                                      "casting_type": "Targeting",
+                                                      "effect": {
+                                                        "type": "ViewEffect",
+                                                        "name": "league_wukong_r_hit"
+                                                      }
+                                                    }
+                                                  ]
+                                                },
+                                                "effect_none": {
+                                                  "type": "Combine",
+                                                  "effects": [
+                                                    {
+                                                      "type": "AddCasterBuff",
+                                                      "buff_state": {
+                                                        "name": "league_wukong_r_ck",
+                                                        "duration": {
+                                                          "Time": {
+                                                            "tick": 120
+                                                          }
+                                                        }
+                                                      },
+                                                      "only_to_enemy": false
+                                                    },
+                                                    {
+                                                      "type": "RangeProjectile",
+                                                      "name": "league_wukong_w_spin_up",
+                                                      "shape": {
+                                                        "Circle": {
+                                                          "radius": 28000
+                                                        }
+                                                      },
+                                                      "delay": 1,
+                                                      "apply": 1,
+                                                      "applied_target": "EnemyWithoutTower",
+                                                      "applied_effects": [
+                                                        {
+                                                          "casting_type": "Targeting",
+                                                          "effect": {
+                                                            "type": "Attack",
+                                                            "damage": 2,
+                                                            "attack_ratio": 7,
+                                                            "hp_ratio": 0,
+                                                            "target_hp_ratio": 0,
+                                                            "attack_effect_type": "Target"
+                                                          }
+                                                        },
+                                                        {
+                                                          "casting_type": "Targeting",
+                                                          "effect": {
+                                                            "type": "ViewEffect",
+                                                            "name": "league_wukong_r_hit"
+                                                          }
+                                                        },
+                                                        {
+                                                          "casting_type": "Targeting",
+                                                          "effect": {
+                                                            "type": "Airborne",
+                                                            "duration": 36
+                                                          }
+                                                        }
+                                                      ]
+                                                    }
+                                                  ]
+                                                }
+                                              }
+                                            ]
+                                          },
+                                          "effect_none": {
+                                            "type": "ViewEffect",
+                                            "name": "league_wukong_w_clone"
+                                          }
+                                        },
+                                        "effect_none": {
+                                          "type": "Combine",
+                                          "effects": []
+                                        }
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "Delayed",
+                                    "tick": 121,
+                                    "effects": [
+                                      {
+                                        "type": "SwitchByBuff",
+                                        "buff_name": "league_wukong_w_live",
+                                        "effect_buff": {
+                                          "type": "SwitchByBuff",
+                                          "buff_name": "league_wukong_r_on",
+                                          "effect_buff": {
+                                            "type": "Combine",
+                                            "effects": [
+                                              {
+                                                "type": "ViewEffect",
+                                                "name": "league_wukong_w_clone_spin"
+                                              },
+                                              {
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_wukong_r_ck",
+                                                "effect_buff": {
+                                                  "type": "RangeProjectile",
+                                                  "name": "league_wukong_w_spin",
+                                                  "shape": {
+                                                    "Circle": {
+                                                      "radius": 28000
+                                                    }
+                                                  },
+                                                  "delay": 1,
+                                                  "apply": 1,
+                                                  "applied_target": "EnemyWithoutTower",
+                                                  "applied_effects": [
+                                                    {
+                                                      "casting_type": "Targeting",
+                                                      "effect": {
+                                                        "type": "Attack",
+                                                        "damage": 2,
+                                                        "attack_ratio": 7,
+                                                        "hp_ratio": 0,
+                                                        "target_hp_ratio": 0,
+                                                        "attack_effect_type": "Target"
+                                                      }
+                                                    },
+                                                    {
+                                                      "casting_type": "Targeting",
+                                                      "effect": {
+                                                        "type": "ViewEffect",
+                                                        "name": "league_wukong_r_hit"
+                                                      }
+                                                    }
+                                                  ]
+                                                },
+                                                "effect_none": {
+                                                  "type": "Combine",
+                                                  "effects": [
+                                                    {
+                                                      "type": "AddCasterBuff",
+                                                      "buff_state": {
+                                                        "name": "league_wukong_r_ck",
+                                                        "duration": {
+                                                          "Time": {
+                                                            "tick": 120
+                                                          }
+                                                        }
+                                                      },
+                                                      "only_to_enemy": false
+                                                    },
+                                                    {
+                                                      "type": "RangeProjectile",
+                                                      "name": "league_wukong_w_spin_up",
+                                                      "shape": {
+                                                        "Circle": {
+                                                          "radius": 28000
+                                                        }
+                                                      },
+                                                      "delay": 1,
+                                                      "apply": 1,
+                                                      "applied_target": "EnemyWithoutTower",
+                                                      "applied_effects": [
+                                                        {
+                                                          "casting_type": "Targeting",
+                                                          "effect": {
+                                                            "type": "Attack",
+                                                            "damage": 2,
+                                                            "attack_ratio": 7,
+                                                            "hp_ratio": 0,
+                                                            "target_hp_ratio": 0,
+                                                            "attack_effect_type": "Target"
+                                                          }
+                                                        },
+                                                        {
+                                                          "casting_type": "Targeting",
+                                                          "effect": {
+                                                            "type": "ViewEffect",
+                                                            "name": "league_wukong_r_hit"
+                                                          }
+                                                        },
+                                                        {
+                                                          "casting_type": "Targeting",
+                                                          "effect": {
+                                                            "type": "Airborne",
+                                                            "duration": 36
+                                                          }
+                                                        }
+                                                      ]
+                                                    }
+                                                  ]
+                                                }
+                                              }
+                                            ]
+                                          },
+                                          "effect_none": {
+                                            "type": "ViewEffect",
+                                            "name": "league_wukong_w_clone_atk"
+                                          }
+                                        },
+                                        "effect_none": {
+                                          "type": "Combine",
+                                          "effects": []
+                                        }
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "Delayed",
+                                    "tick": 141,
+                                    "effects": [
+                                      {
+                                        "type": "SwitchByBuff",
+                                        "buff_name": "league_wukong_w_live",
+                                        "effect_buff": {
+                                          "type": "SwitchByBuff",
+                                          "buff_name": "league_wukong_r_on",
+                                          "effect_buff": {
+                                            "type": "Combine",
+                                            "effects": [
+                                              {
+                                                "type": "ViewEffect",
+                                                "name": "league_wukong_w_clone_spin"
+                                              },
+                                              {
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_wukong_r_ck",
+                                                "effect_buff": {
+                                                  "type": "RangeProjectile",
+                                                  "name": "league_wukong_w_spin",
+                                                  "shape": {
+                                                    "Circle": {
+                                                      "radius": 28000
+                                                    }
+                                                  },
+                                                  "delay": 1,
+                                                  "apply": 1,
+                                                  "applied_target": "EnemyWithoutTower",
+                                                  "applied_effects": [
+                                                    {
+                                                      "casting_type": "Targeting",
+                                                      "effect": {
+                                                        "type": "Attack",
+                                                        "damage": 2,
+                                                        "attack_ratio": 7,
+                                                        "hp_ratio": 0,
+                                                        "target_hp_ratio": 0,
+                                                        "attack_effect_type": "Target"
+                                                      }
+                                                    },
+                                                    {
+                                                      "casting_type": "Targeting",
+                                                      "effect": {
+                                                        "type": "ViewEffect",
+                                                        "name": "league_wukong_r_hit"
+                                                      }
+                                                    }
+                                                  ]
+                                                },
+                                                "effect_none": {
+                                                  "type": "Combine",
+                                                  "effects": [
+                                                    {
+                                                      "type": "AddCasterBuff",
+                                                      "buff_state": {
+                                                        "name": "league_wukong_r_ck",
+                                                        "duration": {
+                                                          "Time": {
+                                                            "tick": 120
+                                                          }
+                                                        }
+                                                      },
+                                                      "only_to_enemy": false
+                                                    },
+                                                    {
+                                                      "type": "RangeProjectile",
+                                                      "name": "league_wukong_w_spin_up",
+                                                      "shape": {
+                                                        "Circle": {
+                                                          "radius": 28000
+                                                        }
+                                                      },
+                                                      "delay": 1,
+                                                      "apply": 1,
+                                                      "applied_target": "EnemyWithoutTower",
+                                                      "applied_effects": [
+                                                        {
+                                                          "casting_type": "Targeting",
+                                                          "effect": {
+                                                            "type": "Attack",
+                                                            "damage": 2,
+                                                            "attack_ratio": 7,
+                                                            "hp_ratio": 0,
+                                                            "target_hp_ratio": 0,
+                                                            "attack_effect_type": "Target"
+                                                          }
+                                                        },
+                                                        {
+                                                          "casting_type": "Targeting",
+                                                          "effect": {
+                                                            "type": "ViewEffect",
+                                                            "name": "league_wukong_r_hit"
+                                                          }
+                                                        },
+                                                        {
+                                                          "casting_type": "Targeting",
+                                                          "effect": {
+                                                            "type": "Airborne",
+                                                            "duration": 36
+                                                          }
+                                                        }
+                                                      ]
+                                                    }
+                                                  ]
+                                                }
+                                              }
+                                            ]
+                                          },
+                                          "effect_none": {
+                                            "type": "ViewEffect",
+                                            "name": "league_wukong_w_clone"
+                                          }
+                                        },
+                                        "effect_none": {
+                                          "type": "Combine",
+                                          "effects": []
+                                        }
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "Delayed",
+                                    "tick": 161,
+                                    "effects": [
+                                      {
+                                        "type": "SwitchByBuff",
+                                        "buff_name": "league_wukong_w_live",
+                                        "effect_buff": {
+                                          "type": "SwitchByBuff",
+                                          "buff_name": "league_wukong_r_on",
+                                          "effect_buff": {
+                                            "type": "Combine",
+                                            "effects": [
+                                              {
+                                                "type": "ViewEffect",
+                                                "name": "league_wukong_w_clone_spin"
+                                              },
+                                              {
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_wukong_r_ck",
+                                                "effect_buff": {
+                                                  "type": "RangeProjectile",
+                                                  "name": "league_wukong_w_spin",
+                                                  "shape": {
+                                                    "Circle": {
+                                                      "radius": 28000
+                                                    }
+                                                  },
+                                                  "delay": 1,
+                                                  "apply": 1,
+                                                  "applied_target": "EnemyWithoutTower",
+                                                  "applied_effects": [
+                                                    {
+                                                      "casting_type": "Targeting",
+                                                      "effect": {
+                                                        "type": "Attack",
+                                                        "damage": 2,
+                                                        "attack_ratio": 7,
+                                                        "hp_ratio": 0,
+                                                        "target_hp_ratio": 0,
+                                                        "attack_effect_type": "Target"
+                                                      }
+                                                    },
+                                                    {
+                                                      "casting_type": "Targeting",
+                                                      "effect": {
+                                                        "type": "ViewEffect",
+                                                        "name": "league_wukong_r_hit"
+                                                      }
+                                                    }
+                                                  ]
+                                                },
+                                                "effect_none": {
+                                                  "type": "Combine",
+                                                  "effects": [
+                                                    {
+                                                      "type": "AddCasterBuff",
+                                                      "buff_state": {
+                                                        "name": "league_wukong_r_ck",
+                                                        "duration": {
+                                                          "Time": {
+                                                            "tick": 120
+                                                          }
+                                                        }
+                                                      },
+                                                      "only_to_enemy": false
+                                                    },
+                                                    {
+                                                      "type": "RangeProjectile",
+                                                      "name": "league_wukong_w_spin_up",
+                                                      "shape": {
+                                                        "Circle": {
+                                                          "radius": 28000
+                                                        }
+                                                      },
+                                                      "delay": 1,
+                                                      "apply": 1,
+                                                      "applied_target": "EnemyWithoutTower",
+                                                      "applied_effects": [
+                                                        {
+                                                          "casting_type": "Targeting",
+                                                          "effect": {
+                                                            "type": "Attack",
+                                                            "damage": 2,
+                                                            "attack_ratio": 7,
+                                                            "hp_ratio": 0,
+                                                            "target_hp_ratio": 0,
+                                                            "attack_effect_type": "Target"
+                                                          }
+                                                        },
+                                                        {
+                                                          "casting_type": "Targeting",
+                                                          "effect": {
+                                                            "type": "ViewEffect",
+                                                            "name": "league_wukong_r_hit"
+                                                          }
+                                                        },
+                                                        {
+                                                          "casting_type": "Targeting",
+                                                          "effect": {
+                                                            "type": "Airborne",
+                                                            "duration": 36
+                                                          }
+                                                        }
+                                                      ]
+                                                    }
+                                                  ]
+                                                }
+                                              }
+                                            ]
+                                          },
+                                          "effect_none": {
+                                            "type": "ViewEffect",
+                                            "name": "league_wukong_w_clone"
+                                          }
+                                        },
+                                        "effect_none": {
+                                          "type": "Combine",
+                                          "effects": []
+                                        }
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "Delayed",
+                                    "tick": 181,
+                                    "effects": [
+                                      {
+                                        "type": "SwitchByBuff",
+                                        "buff_name": "league_wukong_w_live",
+                                        "effect_buff": {
+                                          "type": "SwitchByBuff",
+                                          "buff_name": "league_wukong_r_on",
+                                          "effect_buff": {
+                                            "type": "Combine",
+                                            "effects": [
+                                              {
+                                                "type": "ViewEffect",
+                                                "name": "league_wukong_w_clone_spin"
+                                              },
+                                              {
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_wukong_r_ck",
+                                                "effect_buff": {
+                                                  "type": "RangeProjectile",
+                                                  "name": "league_wukong_w_spin",
+                                                  "shape": {
+                                                    "Circle": {
+                                                      "radius": 28000
+                                                    }
+                                                  },
+                                                  "delay": 1,
+                                                  "apply": 1,
+                                                  "applied_target": "EnemyWithoutTower",
+                                                  "applied_effects": [
+                                                    {
+                                                      "casting_type": "Targeting",
+                                                      "effect": {
+                                                        "type": "Attack",
+                                                        "damage": 2,
+                                                        "attack_ratio": 7,
+                                                        "hp_ratio": 0,
+                                                        "target_hp_ratio": 0,
+                                                        "attack_effect_type": "Target"
+                                                      }
+                                                    },
+                                                    {
+                                                      "casting_type": "Targeting",
+                                                      "effect": {
+                                                        "type": "ViewEffect",
+                                                        "name": "league_wukong_r_hit"
+                                                      }
+                                                    }
+                                                  ]
+                                                },
+                                                "effect_none": {
+                                                  "type": "Combine",
+                                                  "effects": [
+                                                    {
+                                                      "type": "AddCasterBuff",
+                                                      "buff_state": {
+                                                        "name": "league_wukong_r_ck",
+                                                        "duration": {
+                                                          "Time": {
+                                                            "tick": 120
+                                                          }
+                                                        }
+                                                      },
+                                                      "only_to_enemy": false
+                                                    },
+                                                    {
+                                                      "type": "RangeProjectile",
+                                                      "name": "league_wukong_w_spin_up",
+                                                      "shape": {
+                                                        "Circle": {
+                                                          "radius": 28000
+                                                        }
+                                                      },
+                                                      "delay": 1,
+                                                      "apply": 1,
+                                                      "applied_target": "EnemyWithoutTower",
+                                                      "applied_effects": [
+                                                        {
+                                                          "casting_type": "Targeting",
+                                                          "effect": {
+                                                            "type": "Attack",
+                                                            "damage": 2,
+                                                            "attack_ratio": 7,
+                                                            "hp_ratio": 0,
+                                                            "target_hp_ratio": 0,
+                                                            "attack_effect_type": "Target"
+                                                          }
+                                                        },
+                                                        {
+                                                          "casting_type": "Targeting",
+                                                          "effect": {
+                                                            "type": "ViewEffect",
+                                                            "name": "league_wukong_r_hit"
+                                                          }
+                                                        },
+                                                        {
+                                                          "casting_type": "Targeting",
+                                                          "effect": {
+                                                            "type": "Airborne",
+                                                            "duration": 36
+                                                          }
+                                                        }
+                                                      ]
+                                                    }
+                                                  ]
+                                                }
+                                              }
+                                            ]
+                                          },
+                                          "effect_none": {
+                                            "type": "ViewEffect",
+                                            "name": "league_wukong_w_clone_atk"
+                                          }
+                                        },
+                                        "effect_none": {
+                                          "type": "Combine",
+                                          "effects": []
+                                        }
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "Delayed",
+                                    "tick": 201,
+                                    "effects": [
+                                      {
+                                        "type": "SwitchByBuff",
+                                        "buff_name": "league_wukong_w_live",
+                                        "effect_buff": {
+                                          "type": "SwitchByBuff",
+                                          "buff_name": "league_wukong_r_on",
+                                          "effect_buff": {
+                                            "type": "Combine",
+                                            "effects": [
+                                              {
+                                                "type": "ViewEffect",
+                                                "name": "league_wukong_w_clone_spin"
+                                              },
+                                              {
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_wukong_r_ck",
+                                                "effect_buff": {
+                                                  "type": "RangeProjectile",
+                                                  "name": "league_wukong_w_spin",
+                                                  "shape": {
+                                                    "Circle": {
+                                                      "radius": 28000
+                                                    }
+                                                  },
+                                                  "delay": 1,
+                                                  "apply": 1,
+                                                  "applied_target": "EnemyWithoutTower",
+                                                  "applied_effects": [
+                                                    {
+                                                      "casting_type": "Targeting",
+                                                      "effect": {
+                                                        "type": "Attack",
+                                                        "damage": 2,
+                                                        "attack_ratio": 7,
+                                                        "hp_ratio": 0,
+                                                        "target_hp_ratio": 0,
+                                                        "attack_effect_type": "Target"
+                                                      }
+                                                    },
+                                                    {
+                                                      "casting_type": "Targeting",
+                                                      "effect": {
+                                                        "type": "ViewEffect",
+                                                        "name": "league_wukong_r_hit"
+                                                      }
+                                                    }
+                                                  ]
+                                                },
+                                                "effect_none": {
+                                                  "type": "Combine",
+                                                  "effects": [
+                                                    {
+                                                      "type": "AddCasterBuff",
+                                                      "buff_state": {
+                                                        "name": "league_wukong_r_ck",
+                                                        "duration": {
+                                                          "Time": {
+                                                            "tick": 120
+                                                          }
+                                                        }
+                                                      },
+                                                      "only_to_enemy": false
+                                                    },
+                                                    {
+                                                      "type": "RangeProjectile",
+                                                      "name": "league_wukong_w_spin_up",
+                                                      "shape": {
+                                                        "Circle": {
+                                                          "radius": 28000
+                                                        }
+                                                      },
+                                                      "delay": 1,
+                                                      "apply": 1,
+                                                      "applied_target": "EnemyWithoutTower",
+                                                      "applied_effects": [
+                                                        {
+                                                          "casting_type": "Targeting",
+                                                          "effect": {
+                                                            "type": "Attack",
+                                                            "damage": 2,
+                                                            "attack_ratio": 7,
+                                                            "hp_ratio": 0,
+                                                            "target_hp_ratio": 0,
+                                                            "attack_effect_type": "Target"
+                                                          }
+                                                        },
+                                                        {
+                                                          "casting_type": "Targeting",
+                                                          "effect": {
+                                                            "type": "ViewEffect",
+                                                            "name": "league_wukong_r_hit"
+                                                          }
+                                                        },
+                                                        {
+                                                          "casting_type": "Targeting",
+                                                          "effect": {
+                                                            "type": "Airborne",
+                                                            "duration": 36
+                                                          }
+                                                        }
+                                                      ]
+                                                    }
+                                                  ]
+                                                }
+                                              }
+                                            ]
+                                          },
+                                          "effect_none": {
+                                            "type": "ViewEffect",
+                                            "name": "league_wukong_w_clone"
+                                          }
+                                        },
+                                        "effect_none": {
+                                          "type": "Combine",
+                                          "effects": []
+                                        }
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "Delayed",
+                                    "tick": 221,
+                                    "effects": [
+                                      {
+                                        "type": "SwitchByBuff",
+                                        "buff_name": "league_wukong_w_live",
+                                        "effect_buff": {
+                                          "type": "SwitchByBuff",
+                                          "buff_name": "league_wukong_r_on",
+                                          "effect_buff": {
+                                            "type": "Combine",
+                                            "effects": [
+                                              {
+                                                "type": "ViewEffect",
+                                                "name": "league_wukong_w_clone_spin"
+                                              },
+                                              {
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_wukong_r_ck",
+                                                "effect_buff": {
+                                                  "type": "RangeProjectile",
+                                                  "name": "league_wukong_w_spin",
+                                                  "shape": {
+                                                    "Circle": {
+                                                      "radius": 28000
+                                                    }
+                                                  },
+                                                  "delay": 1,
+                                                  "apply": 1,
+                                                  "applied_target": "EnemyWithoutTower",
+                                                  "applied_effects": [
+                                                    {
+                                                      "casting_type": "Targeting",
+                                                      "effect": {
+                                                        "type": "Attack",
+                                                        "damage": 2,
+                                                        "attack_ratio": 7,
+                                                        "hp_ratio": 0,
+                                                        "target_hp_ratio": 0,
+                                                        "attack_effect_type": "Target"
+                                                      }
+                                                    },
+                                                    {
+                                                      "casting_type": "Targeting",
+                                                      "effect": {
+                                                        "type": "ViewEffect",
+                                                        "name": "league_wukong_r_hit"
+                                                      }
+                                                    }
+                                                  ]
+                                                },
+                                                "effect_none": {
+                                                  "type": "Combine",
+                                                  "effects": [
+                                                    {
+                                                      "type": "AddCasterBuff",
+                                                      "buff_state": {
+                                                        "name": "league_wukong_r_ck",
+                                                        "duration": {
+                                                          "Time": {
+                                                            "tick": 120
+                                                          }
+                                                        }
+                                                      },
+                                                      "only_to_enemy": false
+                                                    },
+                                                    {
+                                                      "type": "RangeProjectile",
+                                                      "name": "league_wukong_w_spin_up",
+                                                      "shape": {
+                                                        "Circle": {
+                                                          "radius": 28000
+                                                        }
+                                                      },
+                                                      "delay": 1,
+                                                      "apply": 1,
+                                                      "applied_target": "EnemyWithoutTower",
+                                                      "applied_effects": [
+                                                        {
+                                                          "casting_type": "Targeting",
+                                                          "effect": {
+                                                            "type": "Attack",
+                                                            "damage": 2,
+                                                            "attack_ratio": 7,
+                                                            "hp_ratio": 0,
+                                                            "target_hp_ratio": 0,
+                                                            "attack_effect_type": "Target"
+                                                          }
+                                                        },
+                                                        {
+                                                          "casting_type": "Targeting",
+                                                          "effect": {
+                                                            "type": "ViewEffect",
+                                                            "name": "league_wukong_r_hit"
+                                                          }
+                                                        },
+                                                        {
+                                                          "casting_type": "Targeting",
+                                                          "effect": {
+                                                            "type": "Airborne",
+                                                            "duration": 36
+                                                          }
+                                                        }
+                                                      ]
+                                                    }
+                                                  ]
+                                                }
+                                              }
+                                            ]
+                                          },
+                                          "effect_none": {
+                                            "type": "ViewEffect",
+                                            "name": "league_wukong_w_clone"
+                                          }
+                                        },
+                                        "effect_none": {
+                                          "type": "Combine",
+                                          "effects": []
+                                        }
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        }
+                      },
+                      {
                         "type": "CasterAnimation",
                         "name": "spin",
                         "tick": 120
@@ -5273,7 +6883,7 @@
     "cooltime": 1200,
     "start_timing": 1,
     "cancelable": false,
-    "range": 30000,
+    "range": 45000,
     "casting_type": "Targeting",
     "casting_target": "EnemyChampion",
     "attack_type": "Skill",
@@ -5419,8 +7029,8 @@
                                 "casting_type": "Targeting",
                                 "effect": {
                                   "type": "Attack",
-                                  "damage": 5,
-                                  "attack_ratio": 17,
+                                  "damage": 2,
+                                  "attack_ratio": 7,
                                   "hp_ratio": 0,
                                   "target_hp_ratio": 0,
                                   "attack_effect_type": "Target"
@@ -5466,8 +7076,8 @@
                                     "casting_type": "Targeting",
                                     "effect": {
                                       "type": "Attack",
-                                      "damage": 5,
-                                      "attack_ratio": 17,
+                                      "damage": 2,
+                                      "attack_ratio": 7,
                                       "hp_ratio": 0,
                                       "target_hp_ratio": 0,
                                       "attack_effect_type": "Target"
@@ -5542,8 +7152,8 @@
                                 "casting_type": "Targeting",
                                 "effect": {
                                   "type": "Attack",
-                                  "damage": 5,
-                                  "attack_ratio": 17,
+                                  "damage": 2,
+                                  "attack_ratio": 7,
                                   "hp_ratio": 0,
                                   "target_hp_ratio": 0,
                                   "attack_effect_type": "Target"
@@ -5589,8 +7199,8 @@
                                     "casting_type": "Targeting",
                                     "effect": {
                                       "type": "Attack",
-                                      "damage": 5,
-                                      "attack_ratio": 17,
+                                      "damage": 2,
+                                      "attack_ratio": 7,
                                       "hp_ratio": 0,
                                       "target_hp_ratio": 0,
                                       "attack_effect_type": "Target"
@@ -5665,8 +7275,8 @@
                                 "casting_type": "Targeting",
                                 "effect": {
                                   "type": "Attack",
-                                  "damage": 5,
-                                  "attack_ratio": 17,
+                                  "damage": 2,
+                                  "attack_ratio": 7,
                                   "hp_ratio": 0,
                                   "target_hp_ratio": 0,
                                   "attack_effect_type": "Target"
@@ -5712,8 +7322,8 @@
                                     "casting_type": "Targeting",
                                     "effect": {
                                       "type": "Attack",
-                                      "damage": 5,
-                                      "attack_ratio": 17,
+                                      "damage": 2,
+                                      "attack_ratio": 7,
                                       "hp_ratio": 0,
                                       "target_hp_ratio": 0,
                                       "attack_effect_type": "Target"
@@ -5788,8 +7398,8 @@
                                 "casting_type": "Targeting",
                                 "effect": {
                                   "type": "Attack",
-                                  "damage": 5,
-                                  "attack_ratio": 17,
+                                  "damage": 2,
+                                  "attack_ratio": 7,
                                   "hp_ratio": 0,
                                   "target_hp_ratio": 0,
                                   "attack_effect_type": "Target"
@@ -5835,8 +7445,8 @@
                                     "casting_type": "Targeting",
                                     "effect": {
                                       "type": "Attack",
-                                      "damage": 5,
-                                      "attack_ratio": 17,
+                                      "damage": 2,
+                                      "attack_ratio": 7,
                                       "hp_ratio": 0,
                                       "target_hp_ratio": 0,
                                       "attack_effect_type": "Target"
@@ -5911,8 +7521,8 @@
                                 "casting_type": "Targeting",
                                 "effect": {
                                   "type": "Attack",
-                                  "damage": 5,
-                                  "attack_ratio": 17,
+                                  "damage": 2,
+                                  "attack_ratio": 7,
                                   "hp_ratio": 0,
                                   "target_hp_ratio": 0,
                                   "attack_effect_type": "Target"
@@ -5958,8 +7568,8 @@
                                     "casting_type": "Targeting",
                                     "effect": {
                                       "type": "Attack",
-                                      "damage": 5,
-                                      "attack_ratio": 17,
+                                      "damage": 2,
+                                      "attack_ratio": 7,
                                       "hp_ratio": 0,
                                       "target_hp_ratio": 0,
                                       "attack_effect_type": "Target"
@@ -6034,8 +7644,8 @@
                                 "casting_type": "Targeting",
                                 "effect": {
                                   "type": "Attack",
-                                  "damage": 5,
-                                  "attack_ratio": 17,
+                                  "damage": 2,
+                                  "attack_ratio": 7,
                                   "hp_ratio": 0,
                                   "target_hp_ratio": 0,
                                   "attack_effect_type": "Target"
@@ -6081,8 +7691,8 @@
                                     "casting_type": "Targeting",
                                     "effect": {
                                       "type": "Attack",
-                                      "damage": 5,
-                                      "attack_ratio": 17,
+                                      "damage": 2,
+                                      "attack_ratio": 7,
                                       "hp_ratio": 0,
                                       "target_hp_ratio": 0,
                                       "attack_effect_type": "Target"
@@ -6157,8 +7767,8 @@
                                 "casting_type": "Targeting",
                                 "effect": {
                                   "type": "Attack",
-                                  "damage": 5,
-                                  "attack_ratio": 17,
+                                  "damage": 2,
+                                  "attack_ratio": 7,
                                   "hp_ratio": 0,
                                   "target_hp_ratio": 0,
                                   "attack_effect_type": "Target"
@@ -6204,8 +7814,8 @@
                                     "casting_type": "Targeting",
                                     "effect": {
                                       "type": "Attack",
-                                      "damage": 5,
-                                      "attack_ratio": 17,
+                                      "damage": 2,
+                                      "attack_ratio": 7,
                                       "hp_ratio": 0,
                                       "target_hp_ratio": 0,
                                       "attack_effect_type": "Target"
@@ -6280,8 +7890,8 @@
                                 "casting_type": "Targeting",
                                 "effect": {
                                   "type": "Attack",
-                                  "damage": 5,
-                                  "attack_ratio": 17,
+                                  "damage": 2,
+                                  "attack_ratio": 7,
                                   "hp_ratio": 0,
                                   "target_hp_ratio": 0,
                                   "attack_effect_type": "Target"
@@ -6327,8 +7937,8 @@
                                     "casting_type": "Targeting",
                                     "effect": {
                                       "type": "Attack",
-                                      "damage": 5,
-                                      "attack_ratio": 17,
+                                      "damage": 2,
+                                      "attack_ratio": 7,
                                       "hp_ratio": 0,
                                       "target_hp_ratio": 0,
                                       "attack_effect_type": "Target"
@@ -6403,8 +8013,8 @@
                                 "casting_type": "Targeting",
                                 "effect": {
                                   "type": "Attack",
-                                  "damage": 5,
-                                  "attack_ratio": 17,
+                                  "damage": 2,
+                                  "attack_ratio": 7,
                                   "hp_ratio": 0,
                                   "target_hp_ratio": 0,
                                   "attack_effect_type": "Target"
@@ -6450,8 +8060,8 @@
                                     "casting_type": "Targeting",
                                     "effect": {
                                       "type": "Attack",
-                                      "damage": 5,
-                                      "attack_ratio": 17,
+                                      "damage": 2,
+                                      "attack_ratio": 7,
                                       "hp_ratio": 0,
                                       "target_hp_ratio": 0,
                                       "attack_effect_type": "Target"
@@ -6526,8 +8136,8 @@
                                 "casting_type": "Targeting",
                                 "effect": {
                                   "type": "Attack",
-                                  "damage": 5,
-                                  "attack_ratio": 17,
+                                  "damage": 2,
+                                  "attack_ratio": 7,
                                   "hp_ratio": 0,
                                   "target_hp_ratio": 0,
                                   "attack_effect_type": "Target"
@@ -6573,8 +8183,8 @@
                                     "casting_type": "Targeting",
                                     "effect": {
                                       "type": "Attack",
-                                      "damage": 5,
-                                      "attack_ratio": 17,
+                                      "damage": 2,
+                                      "attack_ratio": 7,
                                       "hp_ratio": 0,
                                       "target_hp_ratio": 0,
                                       "attack_effect_type": "Target"
@@ -6649,8 +8259,8 @@
                                 "casting_type": "Targeting",
                                 "effect": {
                                   "type": "Attack",
-                                  "damage": 5,
-                                  "attack_ratio": 17,
+                                  "damage": 2,
+                                  "attack_ratio": 7,
                                   "hp_ratio": 0,
                                   "target_hp_ratio": 0,
                                   "attack_effect_type": "Target"
@@ -6696,8 +8306,8 @@
                                     "casting_type": "Targeting",
                                     "effect": {
                                       "type": "Attack",
-                                      "damage": 5,
-                                      "attack_ratio": 17,
+                                      "damage": 2,
+                                      "attack_ratio": 7,
                                       "hp_ratio": 0,
                                       "target_hp_ratio": 0,
                                       "attack_effect_type": "Target"
@@ -6772,8 +8382,8 @@
                                 "casting_type": "Targeting",
                                 "effect": {
                                   "type": "Attack",
-                                  "damage": 5,
-                                  "attack_ratio": 17,
+                                  "damage": 2,
+                                  "attack_ratio": 7,
                                   "hp_ratio": 0,
                                   "target_hp_ratio": 0,
                                   "attack_effect_type": "Target"
@@ -6819,8 +8429,8 @@
                                     "casting_type": "Targeting",
                                     "effect": {
                                       "type": "Attack",
-                                      "damage": 5,
-                                      "attack_ratio": 17,
+                                      "damage": 2,
+                                      "attack_ratio": 7,
                                       "hp_ratio": 0,
                                       "target_hp_ratio": 0,
                                       "attack_effect_type": "Target"
