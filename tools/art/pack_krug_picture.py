@@ -41,10 +41,11 @@ CLIPS = {
     "attack": 517940498216468385,        # 1.63 s: rears up on the hind legs, both forearms high, slams them down
     "attack2": 17236224866499112347,     # 1.63 s: a low lunge forward, the boulder back first
     "attack3": 13876342866451377775,     # 1.63 s: the rear-up slam again
-    "run": 5008545310143145245,          # 0.63 s: a heavy bounding gallop on all fours
+    "idle": 5008545310143145245,         # 0.63 s: hunched on all fours, breathing
     "spawn": 15313678053125843736,       # 1.33 s: rolls in curled up as a boulder, unfolds, stands
     "death": 9175045367771708377,        # 3.97 s: sinks, the back boulder cracks and falls apart
-    "idle": 11006277501740147080,        # 0.60 s: hunched on all fours, breathing
+    "run": 11006277501740147080,         # 0.60 s: a heavy bounding gallop, dipping low and up again (its frame 0 = the
+                                         # hunched stand step 0 drew from; the labels were swapped until 2026-10-28)
 }
 SQ = 11
 SOLE = 1390
@@ -52,13 +53,13 @@ A_SQUARES = 50   # A: the top of his boulder back to his soles (about as wide as
 B_SQUARES = 54   # B: the same body scale reared up (the model stands 185 high reared, 172 in the idle)
 # name -> (yaw, crop "box" / "head", clip@ms)
 RENDERS = {
-    "1_krug_34": (35, "box", "idle@0"),
-    "2_krug_front": (0, "box", "idle@0"),
+    "1_krug_34": (35, "box", "run@0"),
+    "2_krug_front": (0, "box", "run@0"),
     "3_krug_head": (55, "head", "attack@950"),       # the face, reared up so the boulder does not hide it: eyes, pincers
     "4_krug_rear": (35, "box", "attack@950"),         # B: reared up, the forearms raised
-    "5_krug_back": (180, "box", "idle@0"),
+    "5_krug_back": (180, "box", "run@0"),
     "6_krug_head_front": (0, "head", "attack@950"),   # reared, from the front: the face, the pincers, the belly plates
-    "7_krug_side": (90, "box", "idle@0"),             # side view: how far the boulder overhangs, the four limbs
+    "7_krug_side": (90, "box", "run@0"),             # side view: how far the boulder overhangs, the four limbs
     "8_krug_belly": (0, "box", "attack@950"),         # reared, the front: belly plates and the orange seams
 }
 HEAD_JOINTS = ("Head", "L_Pincer", "R_Pincer", "L_Pincer2", "R_Pincer2")
