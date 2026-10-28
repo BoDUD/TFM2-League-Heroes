@@ -15,6 +15,15 @@ the design's head upright, centred where Codex's was; d_down (on his back, the h
 head turned a quarter left so the mask looks up and the neck meets the body, its right edge on the shoulder. Codex's
 own head squares round a pasted head that it does not cover are cleared where they are head-only colours; loose specks
 dropped, small holes closed (design_silco_poses.close_gaps).
+
+The walk is read from Codex's raw drafts instead (raw/scar-pose-run<k>-generated.png): to hold the head on one column
+with the soles fixed Codex resampled the body's rows in pixel_1x, so the waist sat 36 to 40 rows under the head and 3 to
+7 squares across from frame to frame (the user, 2026-10-28: 「走路的时候身体和头不协调 导致身体看起来变形」). Each
+raw frame is read whole at one scale (the drafts were drawn 7.5 to 10.5 px a square, so the scale is the frame's own):
+its jaw (the bottom of its skull, the largest bone-coloured blob in the top part) to its soles = WALK_JAW rows plus the
+TFT walk's bob (WALK_NECK: his model's neck over the soles, pack_scar_poses' skeletons, less their mean); every square
+the commonest design colour in its block's middle; the design's head on it, its skull's middle on the raw skull's middle
+and its jaw on the raw jaw.
 """
 import argparse
 import json
@@ -39,6 +48,12 @@ NAMES = list(PK.POSES)
 HEAD_CENTRE = {"d_fall": (25, 41), "d_down": (9, 80)}
 TURN = {"d_down": 1}             # quarter turns left (np.rot90): the top of the head to the image left, the mask up
 SPECK = 6                        # parts apart from the figure smaller than this are dropped
+WALK = [f"run{k}" for k in range(1, 9)]
+WALK_JAW = 53                    # rows from the jaw to the soles: pixel_1x's walk on average (its head at 21-23 + 22, soles 97)
+# his TFT walk (pack_scar_poses' skeletons, 12 px squares): the neck's height over the soles
+WALK_NECK = {"run1": 57.4, "run2": 55.6, "run3": 58.3, "run4": 57.3, "run5": 57.7, "run6": 55.5, "run7": 58.6,
+             "run8": 57.6}
+SKULL = (10, 9, 23, 22)          # the design head's skull (bone squares) in approved-head-1x.png: x0, y0, x1, y1
 
 
 def design(name="idle.png"):
@@ -62,13 +77,61 @@ def manifest():
         return {p["file"][len("scar-pose-"):-4]: p for p in json.load(f)["poses"]}
 
 
+def walk_frame(name, d):
+    """A walk frame read from its raw draft at one scale -> (squares, where the design head's top-left goes)."""
+    a = np.asarray(Image.open(lp(os.path.join(SRC, "raw", f"scar-pose-{name}-generated.png"))).convert("RGBA")).astype(int)
+    pal = np.unique(d[d[..., 3] > 0][:, :3], axis=0).astype(int)
+    bone = [i for i, c in enumerate(pal) if c.min() > 150 and c.max() - c.min() < 70]
+    op = a[..., 3] >= 128
+    lab = np.full(op.shape, -1)
+    lab[op] = np.argmin(((a[op][:, None, :3] - pal[None]) ** 2).sum(-1), 1)
+    ys, xs = np.nonzero(op)
+    m = np.isin(lab, bone)
+    m[int(ys.min() + 0.45 * (ys.max() - ys.min())):] = False      # the skull, not the bandaged arm
+    lb, n = ndimage.label(m, structure=np.ones((3, 3), bool))
+    sky, skx = np.nonzero(lb == np.argmax(ndimage.sum(m, lb, range(1, n + 1))) + 1)
+    jaw, mid, sole = sky.max(), (skx.min() + skx.max()) / 2, ys.max()
+    rows = WALK_JAW + WALK_NECK[name] - np.mean(list(WALK_NECK.values()))
+    b = (sole + 1 - jaw) / rows                                   # raw px a square
+    H = int(np.ceil((sole + 1 - ys.min()) / b)) + 1
+    left = int(np.ceil((mid - xs.min()) / b)) + 1                 # the skull's middle square
+    W = left + int(np.ceil((xs.max() - mid) / b)) + 1
+    out = np.zeros((H, W, 4), np.uint8)
+    for r in range(H):
+        y1 = sole + 1 - (H - 1 - r) * b
+        y0 = int(round(y1 - b * 0.8))
+        y1 = int(round(y1 - b * 0.2))
+        for c in range(W):
+            x0 = mid + (c - left - 0.5) * b
+            win = lab[max(0, y0):max(0, y1), max(0, int(round(x0 + b * 0.2))):max(0, int(round(x0 + b * 0.8)))].ravel()
+            if len(win) and (win >= 0).sum() * 2 > len(win):
+                out[r, c, :3] = pal[np.bincount(win[win >= 0]).argmax()]
+                out[r, c, 3] = 255
+    jaw_row = H - 1 - int(round((sole + 1 - jaw) / b))
+    return out, (int(round(left - (SKULL[0] + SKULL[2]) / 2)), jaw_row - SKULL[3])
+
+
 def read(name, d, h, only):
     """The pose -> (figure, the head box's top-left in it, the figure's top-left square on the pack's grid)."""
-    a = np.asarray(Image.open(lp(os.path.join(SRC, "pixel_1x", f"scar-pose-{name}.png"))).convert("RGBA")).copy()
-    a[..., 3] = np.where(a[..., 3] >= 128, 255, 0)
+    if name in WALK:
+        a, head_box = walk_frame(name, d)
+    else:
+        a = np.asarray(Image.open(lp(os.path.join(SRC, "pixel_1x", f"scar-pose-{name}.png"))).convert("RGBA")).copy()
+        a[..., 3] = np.where(a[..., 3] >= 128, 255, 0)
     pad = 20
     big = np.pad(a, ((pad, pad), (pad, pad), (0, 0)))
-    if name in HEAD_CENTRE:
+    if name in WALK:                                              # the design head where the raw head was
+        hy, hx = np.nonzero(h[..., 3] > 0)
+        py, px = hy + head_box[1] + pad, hx + head_box[0] + pad
+        pasted = np.zeros(big.shape[:2], bool)
+        pasted[py, px] = True
+        for y in range(py.min() - 4, py.max() + 5):
+            for x in range(px.min() - 4, px.max() + 5):
+                if not pasted[y, x] and big[y, x, 3] and tuple(big[y, x, :3]) in only:
+                    big[y, x] = 0
+        big[py, px] = h[hy, hx]
+        head_at = (head_box[0] + pad, head_box[1] + pad)
+    elif name in HEAD_CENTRE:
         hd = np.rot90(h, TURN.get(name, 0)).copy()
         cx, cy = HEAD_CENTRE[name]
         hx0 = int(round(cx - (hd.shape[1] - 1) / 2)) + pad

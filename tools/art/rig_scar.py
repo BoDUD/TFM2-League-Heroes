@@ -17,7 +17,7 @@ the design pose's pelvis on one column, the soles on y 1176, the design itself a
 across where Codex drew it (its grid_at, less the design's square) and stands on the ground; the hop and the two board
 frames are lifted by LIFT (the board floats 3 squares up, as Codex drew it). The pivot (the line he stands on) is the
 middle of the design's stance (PIVOT). The walk: every frame on the ground, its head on one column (the frames' middles
-on the pivot on average).
+on the pivot on average), less the sway his TFT walk has (RUN_DX).
 """
 import argparse
 import json
@@ -44,7 +44,9 @@ POSES = ("a_wind", "a_thrust", "a_back", "surf", "surf_hit", "q_wind", "q_throw"
 LIFT = {"r_jump": 10, "surf": 3, "surf_hit": 3}   # rows off the ground: the hop onto the board, the board's float
 DX = {}                                 # a pose moved across (rows) where Codex's place broke the sequence
 RUN = [f"run{k}" for k in range(1, 9)]
-RUN_DX = {}
+# the head's sway over the hips in his TFT walk (pack_scar_poses' skeletons: the neck less the pelvis, 1.6 to 3.8
+# squares, less their mean 2.75)
+RUN_DX = {"run3": -1, "run4": -1, "run5": -1, "run6": 1, "run7": 1, "run8": 1}
 RUN_MS = 133                            # his TFT walk: 1067 ms the cycle, 8 frames
 
 
