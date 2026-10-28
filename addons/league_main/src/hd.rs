@@ -453,6 +453,11 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // her old frame read onto it at the zoom her head gives (tools/art/casts_tristana_hd.py, rig_tristana_hd.py; the
     // muzzle pictures baked as before); 34 game px as her 1x sprite, so no SIZES row
     ("league_tristana", 2.559, include_str!("../../../league/champions/league_tristana#anim.fanim")),
+    // Zed (2026-10-28, 「下一个英雄重做劫」, 「通过，用 1.62」): Codex's zed-A read as drawn (40 x 65,
+    // tools/art/design_zed_hd.py: 65 rows / 40 = 1.625); every action Codex's whole-frame redraw of his old frame read
+    // onto it at the zoom his figure and head give (tools/art/casts_zed_hd.py, rig_zed_hd.py; nothing baked - his
+    // shadows, shurikens and slashes are effect strips); 40 game px as his 1x sprite, so no SIZES row
+    ("league_zed", 1.625, include_str!("../../../league/champions/league_zed#anim.fanim")),
 ];
 
 /// Champion id, its size everywhere the dense frames are drawn (1.0 = the 1x frames' size): the anim tables' rects and
