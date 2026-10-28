@@ -55,7 +55,7 @@
 
 ### 凯隐「暗裔魔镰」附加包
 
-[凯隐「暗裔魔镰」附加包](../../addons/league_kayn_form/README.md)：`league_kayn_form` v0.3.3
+[凯隐「暗裔魔镰」附加包](../../addons/league_kayn_form/README.md)：`league_kayn_form` v0.3.5
 
 |  | 主包（纯数据） | 装了附加包（照英雄联盟） |
 |---|---|---|
