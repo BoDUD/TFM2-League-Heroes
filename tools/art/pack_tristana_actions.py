@@ -1,7 +1,7 @@
 """The Codex pack for league_tristana's actions drawn whole at PPU 2.56 (assets/source/tristana/ACTIONS_PROMPT_PPU.md):
-every frame of her run, attack, E / Q (skill), W rocket jump (skill2), R (ult), hit and death a new drawing of the approved
-design (hd/design.png: Codex's raw read as drawn, 103 x 87 squares - the user, 2026-10-28: 「通过，用 2.56」) in the pose
-of her OLD sheet's same frame, tools/art/pack_sivir_actions.py's way.
+every frame of her run, attack, E / Q (skill), W rocket jump (skill2), R (ult), hit and death a new drawing of the
+approved design (hd/design.png: Codex's raw read as drawn, 103 x 87 squares - the user, 2026-10-28: 「通过，用 2.56」)
+in the pose of her OLD sheet's same frame, tools/art/pack_sivir_actions.py's way.
 
     python tools/art/pack_tristana_actions.py --out C:/t/tr_actions
 
@@ -36,8 +36,8 @@ SRC = os.path.join(REPO, "assets", "source", "tristana")
 NATIVE = os.path.join(REPO, "assets", "source", "native")
 TAGS = ["run", "attack", "skill", "skill2", "ult", "hit", "dead"]
 BAKED = ["attack", "skill", "ult"]      # the old frames carry the muzzle pictures: the native body cells are drawn
-NAMES = {"run": "running (her move loop): a quick yordle run, the cannon held level at her hip, the LEGS SWAPPING every "
-                "half cycle, the body bobbing with each step",
+NAMES = {"run": "running (her move loop): a quick yordle run, the cannon held level at her hip, the LEGS SWAPPING "
+                "every half cycle, the body bobbing with each step",
          "attack": "attack: she fires the cannon to the right - the recoil jolts it back - then holds it level again",
          "skill": "Explosive Charge (E) / Rapid Fire (Q): she tips the cannon down to the right and fires it, then "
                   "brings it level again",
@@ -47,9 +47,9 @@ NAMES = {"run": "running (her move loop): a quick yordle run, the cannon held le
                 "it up - then levels it again",
          "hit": "struck, flinching back",
          "dead": "death: she drops the cannon on the ground, staggers back and falls over"}
-HANDS = ("THE CANNON goes where the pale figure has it, frame by frame (image 3 shows it in colour): held in BOTH hands, "
-         "LEVEL at her hip with the MUZZLE to the RIGHT unless the pale figure tips it down, swings it up or rides it. "
-         "Only ONE cannon, the design's (brass and wood, the flared blue-grey muzzle).")
+HANDS = ("THE CANNON goes where the pale figure has it, frame by frame (image 3 shows it in colour): held in BOTH "
+         "hands, LEVEL at her hip with the MUZZLE to the RIGHT unless the pale figure tips it down, swings it up or "
+         "rides it. Only ONE cannon, the design's (brass and wood, the flared blue-grey muzzle).")
 WEAPONS = {t: HANDS for t in NAMES}
 WEAPONS["dead"] = ("As the pale figure: the cannon dropped on the ground where the pale figure has it, she falls away "
                    "from it.")
@@ -68,8 +68,8 @@ RUN_LEGS = {
     8: "PASSING, THE OTHER LEG: the front foot planted under her, the back leg coming through",
 }
 RUN_SWAP = ("The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) is the one that kicks back, in "
-            "frames 5-8 the FAR leg (the darker one). Follow the pale figure's LEGS exactly - frames 1, 4, 5 and 8 have "
-            "a foot off the ground; never the same leg pose in every frame.")
+            "frames 5-8 the FAR leg (the darker one). Follow the pale figure's LEGS exactly - frames 1, 4, 5 and 8 "
+            "have a foot off the ground; never the same leg pose in every frame.")
 # old frames that are another frame pixel for pixel (checked on the old sheet / the native cells, cropped to the
 # figure): drawn once, here (tag, frame), 1-based; DESIGN: her idle pose itself (the old idle_base 1 / idle cell 1)
 DESIGN = ("design", 0)

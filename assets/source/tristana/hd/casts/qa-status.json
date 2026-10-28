@@ -1,0 +1,362 @@
+{
+  "status": "all_source_sheets_generated_not_production_accepted",
+  "sheets_required": 24,
+  "sheets_generated": 24,
+  "frames_required": 38,
+  "frames_generated": 38,
+  "accepted": false,
+  "size_pass": true,
+  "missing": [],
+  "sheets": [
+    {
+      "name": "run_1",
+      "frames": [
+        1,
+        2
+      ],
+      "status": "generated_needs_pixel_and_pose_cleanup",
+      "size": [
+        1536,
+        1024
+      ],
+      "raw_unchanged": true,
+      "nonpalette_colors": 111379,
+      "sha256": "03bcab182ef2dbf70289791587c88d70c9acbb8f75e3b45676246d40c19b0687"
+    },
+    {
+      "name": "run_2",
+      "frames": [
+        3,
+        4
+      ],
+      "status": "generated_needs_pixel_and_pose_cleanup",
+      "size": [
+        1536,
+        1024
+      ],
+      "raw_unchanged": true,
+      "nonpalette_colors": 120582,
+      "sha256": "c3ee07fd0d5f56fad2adf293cc3ede992cfb39c06188e30c12a0257b42b7a2e2"
+    },
+    {
+      "name": "run_3",
+      "frames": [
+        5,
+        6
+      ],
+      "status": "generated_needs_pixel_and_pose_cleanup",
+      "size": [
+        1536,
+        1024
+      ],
+      "raw_unchanged": true,
+      "nonpalette_colors": 116265,
+      "sha256": "20daf137a46160dffc27304c01d03d992ed9bc0cf6a38b8fbf39796aa3e19d23"
+    },
+    {
+      "name": "run_4",
+      "frames": [
+        7,
+        8
+      ],
+      "status": "generated_needs_pixel_and_pose_cleanup",
+      "size": [
+        1536,
+        1024
+      ],
+      "raw_unchanged": true,
+      "nonpalette_colors": 112626,
+      "sha256": "4bdc8e3093925734c47f744f0b7a355e59a543daf7239986c646b338b16cfdbd"
+    },
+    {
+      "name": "attack_1",
+      "frames": [
+        2,
+        3
+      ],
+      "status": "generated_needs_pixel_and_pose_cleanup",
+      "size": [
+        1536,
+        1024
+      ],
+      "raw_unchanged": true,
+      "nonpalette_colors": 116009,
+      "sha256": "7b498bf413f274338ff5fed649cf81da1c8179895c8e19745f01316f73680f0b"
+    },
+    {
+      "name": "attack_2",
+      "frames": [
+        4,
+        5
+      ],
+      "status": "generated_needs_pixel_and_pose_cleanup",
+      "size": [
+        1536,
+        1024
+      ],
+      "raw_unchanged": true,
+      "nonpalette_colors": 118669,
+      "sha256": "7b61a5103284c993b789dba353e3b528996b61b8a052cd9b019d08006b32ecaf"
+    },
+    {
+      "name": "attack_3",
+      "frames": [
+        6
+      ],
+      "status": "generated_needs_pixel_and_pose_cleanup",
+      "size": [
+        1536,
+        1024
+      ],
+      "raw_unchanged": true,
+      "nonpalette_colors": 71889,
+      "sha256": "19ad60c2ef05f5419871a542b886b4580a7b5ca7be952a4fe7ba931ff9bd776a"
+    },
+    {
+      "name": "skill_1",
+      "frames": [
+        1,
+        2
+      ],
+      "status": "generated_needs_pixel_and_pose_cleanup",
+      "size": [
+        1536,
+        1024
+      ],
+      "raw_unchanged": true,
+      "nonpalette_colors": 118376,
+      "sha256": "bfea412834c4f882869c04206deda56ce5768b34498b8c5534938147a536fd52"
+    },
+    {
+      "name": "skill_2",
+      "frames": [
+        3,
+        4
+      ],
+      "status": "generated_needs_pixel_and_pose_cleanup",
+      "size": [
+        1536,
+        1024
+      ],
+      "raw_unchanged": true,
+      "nonpalette_colors": 120110,
+      "sha256": "ea6d8b33b7ea894afeee82c822355db250679b1a6b4a59e8a182eaa3206385d6"
+    },
+    {
+      "name": "skill2_1",
+      "frames": [
+        1,
+        2
+      ],
+      "status": "generated_needs_pixel_and_pose_cleanup",
+      "size": [
+        1536,
+        1024
+      ],
+      "raw_unchanged": true,
+      "nonpalette_colors": 130861,
+      "sha256": "9b4cd42544d1e272836220e96050d2e8a7f8f8322493a30c4f28b97c7eae26e9"
+    },
+    {
+      "name": "skill2_2",
+      "frames": [
+        3,
+        4
+      ],
+      "status": "generated_needs_pixel_and_pose_cleanup",
+      "size": [
+        1536,
+        1024
+      ],
+      "raw_unchanged": true,
+      "nonpalette_colors": 120256,
+      "sha256": "3272ea06dd99496cb4de8c0a3b1f1aab0bf2f85f3f5a49db57eb608411e177f5"
+    },
+    {
+      "name": "skill2_3",
+      "frames": [
+        5,
+        6
+      ],
+      "status": "generated_needs_pixel_and_pose_cleanup",
+      "size": [
+        1536,
+        1024
+      ],
+      "raw_unchanged": true,
+      "nonpalette_colors": 101014,
+      "sha256": "bbf597fa454b47f8ee64069469f0377412d5c8fb11d009bfa52c27342401a681"
+    },
+    {
+      "name": "ult_1",
+      "frames": [
+        1,
+        2
+      ],
+      "status": "generated_needs_pixel_and_pose_cleanup",
+      "size": [
+        1536,
+        1024
+      ],
+      "raw_unchanged": true,
+      "nonpalette_colors": 117274,
+      "sha256": "bcb63ec83fed1ca76443f77dc57ab4996e1921ef840c5cc0308e25f1ce50baef"
+    },
+    {
+      "name": "ult_2",
+      "frames": [
+        3,
+        4
+      ],
+      "status": "generated_needs_pixel_and_pose_cleanup",
+      "size": [
+        1536,
+        1024
+      ],
+      "raw_unchanged": true,
+      "nonpalette_colors": 128611,
+      "sha256": "e33c7abb324dc0b4d3959e7216c3665c42b11233b392d34edc7db9f1a70d2f80"
+    },
+    {
+      "name": "ult_3",
+      "frames": [
+        5,
+        6
+      ],
+      "status": "generated_needs_pixel_and_pose_cleanup",
+      "size": [
+        1536,
+        1024
+      ],
+      "raw_unchanged": true,
+      "nonpalette_colors": 130161,
+      "sha256": "40c666c23f8df4250bccd8d2221a2c0c411e1dff126169c478876bc95c7ac893"
+    },
+    {
+      "name": "hit_1",
+      "frames": [
+        1
+      ],
+      "status": "generated_needs_pixel_and_pose_cleanup",
+      "size": [
+        1536,
+        1024
+      ],
+      "raw_unchanged": true,
+      "nonpalette_colors": 79644,
+      "sha256": "de54d9a4ccaf42c8d3915ad4f9800ba04d17376d388287aeb759a41ff8229b7a"
+    },
+    {
+      "name": "dead_1",
+      "frames": [
+        1
+      ],
+      "status": "generated_needs_pixel_and_pose_cleanup",
+      "size": [
+        1536,
+        1024
+      ],
+      "raw_unchanged": true,
+      "nonpalette_colors": 93401,
+      "sha256": "8ca7913df07d1a25117b36be1e49ec0ebe96f46491cd0ee8aa9b2648e3570ffc"
+    },
+    {
+      "name": "dead_2",
+      "frames": [
+        2
+      ],
+      "status": "generated_needs_pixel_and_pose_cleanup",
+      "size": [
+        1536,
+        1024
+      ],
+      "raw_unchanged": true,
+      "nonpalette_colors": 86775,
+      "sha256": "bd4038480571f7d88804d0a402bad48b6e19f37d6267a99ab4374b5ba814b843"
+    },
+    {
+      "name": "dead_3",
+      "frames": [
+        3
+      ],
+      "status": "generated_needs_pixel_and_pose_cleanup",
+      "size": [
+        1536,
+        1024
+      ],
+      "raw_unchanged": true,
+      "nonpalette_colors": 84750,
+      "sha256": "0bc0e09c1c14f3f1a3e5bd699e69da0665232ebee6074cf855cfc27fd25652b5"
+    },
+    {
+      "name": "dead_4",
+      "frames": [
+        4
+      ],
+      "status": "generated_needs_pixel_and_pose_cleanup",
+      "size": [
+        1536,
+        1024
+      ],
+      "raw_unchanged": true,
+      "nonpalette_colors": 90839,
+      "sha256": "b34f55af6916a6d6093c19ac458ceba9b0fffdf33b3cfd661b03cbb228db7570"
+    },
+    {
+      "name": "dead_5",
+      "frames": [
+        5
+      ],
+      "status": "generated_needs_pixel_and_pose_cleanup",
+      "size": [
+        1536,
+        1024
+      ],
+      "raw_unchanged": true,
+      "nonpalette_colors": 86924,
+      "sha256": "ce495db81c7cb4f0e06102860f171433cebc15367451f8608360de0ebc31a8c4"
+    },
+    {
+      "name": "dead_6",
+      "frames": [
+        6
+      ],
+      "status": "generated_needs_pixel_and_pose_cleanup",
+      "size": [
+        1536,
+        1024
+      ],
+      "raw_unchanged": true,
+      "nonpalette_colors": 90783,
+      "sha256": "47a5eaf915b805ed09772a0ba57cd3d2d30ad2f5c1f65adeb1c666fa056434bd"
+    },
+    {
+      "name": "dead_7",
+      "frames": [
+        7
+      ],
+      "status": "generated_needs_pixel_and_pose_cleanup",
+      "size": [
+        1536,
+        1024
+      ],
+      "raw_unchanged": true,
+      "nonpalette_colors": 89595,
+      "sha256": "e8d99d992831fd5d8a97403908bbcbdf2b9634cf3246d4dfa5375a2d2eac8eaf"
+    },
+    {
+      "name": "dead_8",
+      "frames": [
+        8
+      ],
+      "status": "generated_needs_pixel_and_pose_cleanup",
+      "size": [
+        1536,
+        1024
+      ],
+      "raw_unchanged": true,
+      "nonpalette_colors": 83700,
+      "sha256": "65590527eb7e7e8ef33707e47fabb5a5972e659aca9af14fbc75ea9d29c1630c"
+    }
+  ]
+}

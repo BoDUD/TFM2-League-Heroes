@@ -1,7 +1,7 @@
 """The Codex pack for league_tristana's PPU redo (assets/source/tristana/PICTURE_PROMPT_PPU.md): one design picture on
 the 11-px grid at PPU 1.5, TRACED from her game sprite now (the wide stance, the cannon held level at her hip pointing
-right, the goggles on her head, the big ears out to both sides), only denser - Sivir's way (tools/art/pack_sivir_ppu.py).
-The user, 2026-10-28: 「下一个英雄重做崔丝塔娜」.
+right, the goggles on her head, the big ears out to both sides), only denser - Sivir's way
+(tools/art/pack_sivir_ppu.py). The user, 2026-10-28: 「下一个英雄重做崔丝塔娜」.
 
     python tools/art/pack_tristana_ppu.py --out C:/t/tr_pack [--lol D:/WeGameApps/lol]
 
@@ -113,12 +113,14 @@ def main():
     pad.alpha_composite(first, (16, 16))
     pad.convert("RGB").save(os.path.join(refs, "5_tristana_first_design.png"))
     now = SP.sheet_frame(os.path.join(CHAMPS, "league_tristana"), "idle_base")
-    SP.sheet_frame(os.path.join(CHAMPS, "league_tristana"), "idle_base", 8).save(os.path.join(refs, "6_tristana_now.png"))
+    SP.sheet_frame(os.path.join(CHAMPS, "league_tristana"), "idle_base", 8).save(
+        os.path.join(refs, "6_tristana_now.png"))
     guide(refs, now)
     for n, hero in (("8_style_gnar", "league_gnar"), ("9_style_vex", "league_vex"),
                     ("10_style_riven", "league_riven")):
         SP.sheet_frame(os.path.join(CHAMPS, hero), "hd_idle", 8).save(os.path.join(style, n + ".png"))
-    shutil.copyfile(SP.lp(os.path.join(SRC, "tristana", "PICTURE_PROMPT_PPU.md")), os.path.join(a.out, "PICTURE_PROMPT.md"))
+    shutil.copyfile(SP.lp(os.path.join(SRC, "tristana", "PICTURE_PROMPT_PPU.md")),
+                    os.path.join(a.out, "PICTURE_PROMPT.md"))
     zp = shutil.make_archive(a.out, "zip", a.out)
     print("written", zp, "| her sprite now", now.size)
 
