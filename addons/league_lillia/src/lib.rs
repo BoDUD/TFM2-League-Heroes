@@ -31,7 +31,7 @@ use mod_api_stable::*;
 
 const ID: &str = "league_lillia";
 /// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是 league_addons 的（0.1.1 的日志写着 v0.1.0）。
-const VERSION: &str = "0.1.2";
+const VERSION: &str = "0.1.3";
 
 /// 主包莉莉娅的名字（buff、声音、画面都以它开头）。
 fn ll(x: &str) -> String {
@@ -239,6 +239,32 @@ fn guard_of(sim: &StableSim<'_>, id: usize) -> usize {
     sim.get_entity(id).map_or(0, |e| e.hp().0 + e.shield())
 }
 
+/// The crowd control to put back after waking `target` from this add-on's sleep: every entry but the one Stun whose
+/// ticks left are nearest the sleep's own `left` (ours). The stable API can only clear every control at once
+/// (`entity_clear_cc`), so waking used to wipe an ally's stun or knock-up landing with the waking hit as well (game 0.7.0
+/// audit); an enemy Hypnotist's Sleep reaches add-ons as a Stun and is broken by the same hit, as the game's own rule.
+pub fn kept_after_wake(ccs: &[CcV1], left: u64) -> Vec<CcV1> {
+    let ours = ccs
+        .iter()
+        .enumerate()
+        .filter(|(_, c)| c.kind == CcKindV1::Stun.code())
+        .min_by_key(|(_, c)| c.tick.abs_diff(left))
+        .map(|(i, _)| i);
+    ccs.iter().enumerate().filter(|(i, _)| Some(*i) != ours).map(|(_, c)| *c).collect()
+}
+
+/// Wakes `target`: clears its crowd control and puts back everything but this add-on's sleep ([`kept_after_wake`]).
+fn wake_from_sleep(sim: &mut StableSim<'_>, target: usize, left: u64) {
+    let ccs: Vec<CcV1> = sim
+        .get_entity(target)
+        .map(|e| (0..e.cc_count()).filter_map(|i| e.cc_at(i)).collect())
+        .unwrap_or_default();
+    sim.entity_clear_cc(target);
+    for c in kept_after_wake(&ccs, left) {
+        sim.apply_cc(target, &c);
+    }
+}
+
 impl Dream {
     /// 梦尘：每个身上有 `league_lillia_dust` 的活着的敌方英雄按时跳伤害。返回这一 tick 打给每个目标的（减免前）：
     /// 只是排进了效果队列，下一次 on_update 之前才扣血。
@@ -328,7 +354,7 @@ impl Dream {
             let data = data_dust(&self.p, ap);
             let own = own_dust(landed, s.target, data);
             if was_hit(s.guard, now, own) {
-                sim.entity_clear_cc(s.target);
+                wake_from_sleep(sim, s.target, s.until.saturating_sub(tick) as u64);
                 sim.entity_remove_buff(s.target, &ll("sleep"));
                 let at = InputTargetV1::target(s.target);
                 sim.play_view_effect(&ll("wake"), me, &at, 0, 0, 0);
@@ -450,6 +476,20 @@ declare_stable_mod!(init, requires = 9);
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn waking_keeps_every_other_control() {
+        let stun = |t: u64| CcV1::stun(t);
+        let mut up = CcV1::of_kind(CcKindV1::Airborne, 40);
+        up.tick = 40;
+        // our sleep has 90 ticks left; an ally's stun (30) and a knock-up (40) landed with the waking hit
+        let kept = kept_after_wake(&[stun(30), stun(90), up], 90);
+        assert_eq!(kept.iter().map(|c| (c.kind, c.tick)).collect::<Vec<_>>(),
+                   vec![(CcKindV1::Stun.code(), 30), (CcKindV1::Airborne.code(), 40)]);
+        // nothing but ours: nothing to put back; no Stun at all (already gone): everything back
+        assert!(kept_after_wake(&[stun(89)], 90).is_empty());
+        assert_eq!(kept_after_wake(&[up], 90).len(), 1);
+    }
 
     #[test]
     fn params_come_from_the_champion_data() {

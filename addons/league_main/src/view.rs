@@ -29,7 +29,7 @@
 //! 原来的大小；身体照旧 ÷ PPU。别处读 +0x1b4 的画法不受影响。
 
 use std::ffi::c_void;
-use std::sync::atomic::{AtomicUsize, Ordering};
+use std::sync::atomic::{AtomicU64, AtomicUsize, Ordering};
 use std::sync::{LazyLock, Mutex, Once};
 
 use super::build::Build;
@@ -279,11 +279,27 @@ unsafe fn shrink(world: usize) {
     }
 }
 
-/// Draw command tags (the enum's niche values at +0) and layout (0xd0 bytes each).
+/// Draw command tags (the enum's niche values at +0) and layout (0xd0 bytes each). The sprite's tag stayed 0x…03; the
+/// scale / restore ones are the build's ([`Build::cmd_scale`]: 0.6.5 0x…11 / 0x…12, 0.7.0 0x…12 / 0x…13), set by
+/// [`install_once`] - 0 until then: the listed build's (the tests).
 const CMD: usize = 0xd0;
 const CMD_SPRITE: u64 = 0x8000_0000_0000_0003;
-const CMD_SCALE: u64 = 0x8000_0000_0000_0011;
-const CMD_RESTORE: u64 = 0x8000_0000_0000_0012;
+static CMD_SCALE: AtomicU64 = AtomicU64::new(0);
+static CMD_RESTORE: AtomicU64 = AtomicU64::new(0);
+
+fn scale_tag() -> u64 {
+    match CMD_SCALE.load(Ordering::Relaxed) {
+        0 => super::build::BUILDS[0].cmd_scale,
+        t => t,
+    }
+}
+
+fn restore_tag() -> u64 {
+    match CMD_RESTORE.load(Ordering::Relaxed) {
+        0 => super::build::BUILDS[0].cmd_restore,
+        t => t,
+    }
+}
 /// The mark on a scale / restore command this pack puts round an effect's sprite: the last 8 bytes (+0xc8), which a
 /// scale or restore command leaves unread ([`cmd_kind`]).
 const OURS_AT: usize = 0xc8;
@@ -491,7 +507,7 @@ unsafe fn unshrink_extras(out: usize, ent: usize, sc: Scale, hero: &Hero) {
 /// the extras' own "back to the game's size" pair goes round it, and the effect is shrunk from the game's size.
 pub fn cmd_kind(tag: u64, mark: u64, body: bool) -> u8 {
     match tag {
-        CMD_SCALE | CMD_RESTORE if mark != OURS => 2,
+        t if (t == scale_tag() || t == restore_tag()) && mark != OURS => 2,
         _ if body => 1,
         _ => 0,
     }
@@ -501,7 +517,7 @@ pub fn cmd_kind(tag: u64, mark: u64, body: bool) -> u8 {
 /// +8 / +0xc, the factors at +0x24 / +0x28); `ours` marks it ([`cmd_kind`]).
 pub fn scale_cmd(k: f32, px: f32, py: f32, ours: bool) -> [u8; CMD] {
     let mut c = restore_cmd(ours);
-    c[..8].copy_from_slice(&CMD_SCALE.to_le_bytes());
+    c[..8].copy_from_slice(&scale_tag().to_le_bytes());
     c[8..12].copy_from_slice(&((1.0 - k) * px).to_le_bytes());
     c[12..16].copy_from_slice(&((1.0 - k) * py).to_le_bytes());
     c[0x24..0x28].copy_from_slice(&k.to_le_bytes());
@@ -511,7 +527,7 @@ pub fn scale_cmd(k: f32, px: f32, py: f32, ours: bool) -> [u8; CMD] {
 
 pub fn restore_cmd(ours: bool) -> [u8; CMD] {
     let mut c = [0u8; CMD];
-    c[..8].copy_from_slice(&CMD_RESTORE.to_le_bytes());
+    c[..8].copy_from_slice(&restore_tag().to_le_bytes());
     if ours {
         c[OURS_AT..OURS_AT + 8].copy_from_slice(&OURS.to_le_bytes());
     }
@@ -627,6 +643,8 @@ pub fn install_once(b: &'static Build) {
             Err(e) => wlog(format!("battlefield scale off ({e})")),
         }
         GROW.store(module + b.cmd_grow, Ordering::Release);
+        CMD_SCALE.store(b.cmd_scale, Ordering::Relaxed);
+        CMD_RESTORE.store(b.cmd_restore, Ordering::Relaxed);
         let r = unsafe {
             super::lookup::hook(module + b.body_draw,
                 body_detour as unsafe extern "system" fn(usize, usize, usize, usize, usize, usize, usize, usize) -> usize
@@ -663,12 +681,12 @@ mod tests {
     fn an_effects_own_scale_pair_is_part_of_the_extras() {
         let ours = scale_cmd(0.75, 10.0, -20.0, true);
         let mark = u64::from_le_bytes(ours[OURS_AT..].try_into().unwrap());
-        assert_eq!(cmd_kind(CMD_SCALE, mark, false), 0);
+        assert_eq!(cmd_kind(scale_tag(), mark, false), 0);
         let back = restore_cmd(true);
-        assert_eq!(cmd_kind(CMD_RESTORE, u64::from_le_bytes(back[OURS_AT..].try_into().unwrap()), false), 0);
+        assert_eq!(cmd_kind(restore_tag(), u64::from_le_bytes(back[OURS_AT..].try_into().unwrap()), false), 0);
         // the game's own scale commands and the body's sheet as before
-        assert_eq!(cmd_kind(CMD_SCALE, 0, false), 2);
-        assert_eq!(cmd_kind(CMD_RESTORE, 0, false), 2);
+        assert_eq!(cmd_kind(scale_tag(), 0, false), 2);
+        assert_eq!(cmd_kind(restore_tag(), 0, false), 2);
         assert_eq!(cmd_kind(CMD_SPRITE, 0, true), 1);
         assert_eq!(cmd_kind(CMD_SPRITE, 0, false), 0);
         // body, [ours: scale, effect, restore], shadow: one run of extras round the effect and its pair

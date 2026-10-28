@@ -169,11 +169,14 @@ pub fn charges(name: &str, dist_from_kayn: f64) -> Form {
 
 // ===================== 两份模拟对齐 =====================
 
-/// 服务器那一侧（presim）定下的形态：(对局, 凯隐的单位 id) → (形态, 定下的 tick)。画面那一侧（实况、观战、回放）
-/// 走到那个 tick 就照着变身——2026-10-06 门槛 40 时两局都只有 presim 攒满，画面那一侧的计数中途丢了（日志里没有
-/// `[view] … ready`），凯隐打到 12 级画面也没变身。
-static DECIDED: LazyLock<Mutex<std::collections::HashMap<(u64, usize), (Form, usize)>>> =
-    LazyLock::new(|| Mutex::new(std::collections::HashMap::new()));
+/// 服务器那一侧（presim）定下的形态：(随机种子, 凯隐的单位 id) → (形态, 定下的 tick)，另记每个 (对局, 凯隐) 第一次定下的。
+/// 画面那一侧（实况、观战、回放）走到那个 tick 就照着变身——2026-10-06 门槛 40 时两局都只有 presim 攒满，画面那一侧的
+/// 计数中途丢了（日志里没有 `[view] … ready`），凯隐打到 12 级画面也没变身。按种子认是 2026-10-28（游戏 0.7.0 排查）：
+/// 三局两胜的每一局对局号一样、凯隐的单位 id 也一样，只按对局认时第二局的画面照着第一局定下的形态变；同一局的 presim 和
+/// 画面种子相同（0.6.5 的日志），presim 没有局号（s=-）。种子对不上（别的版本）才退回按对局认的那一条，和以前一样。
+type Decided = std::collections::HashMap<(u64, usize), (Form, usize)>;
+static DECIDED: LazyLock<Mutex<(Decided, Decided)>> =
+    LazyLock::new(|| Mutex::new((std::collections::HashMap::new(), std::collections::HashMap::new())));
 
 #[derive(Clone, Copy, PartialEq, Eq, Debug)]
 pub enum Side {
@@ -192,16 +195,19 @@ fn side(sim: &StableSim<'_>) -> (Side, u64) {
     (s, o.match_id)
 }
 
-fn decided_at(match_id: u64, me: usize) -> Option<(Form, usize)> {
-    DECIDED.lock().unwrap_or_else(|e| e.into_inner()).get(&(match_id, me)).copied()
+fn decided_at(seed: u64, match_id: u64, me: usize) -> Option<(Form, usize)> {
+    let d = DECIDED.lock().unwrap_or_else(|e| e.into_inner());
+    d.0.get(&(seed, me)).or_else(|| d.1.get(&(match_id, me))).copied()
 }
 
-fn decide(match_id: u64, me: usize, f: Form, tick: usize) {
+fn decide(seed: u64, match_id: u64, me: usize, f: Form, tick: usize) {
     let mut d = DECIDED.lock().unwrap_or_else(|e| e.into_inner());
-    if d.len() > 256 {
-        d.clear(); // old matches
+    if d.0.len() > 256 || d.1.len() > 256 {
+        d.0.clear(); // old matches
+        d.1.clear();
     }
-    d.entry((match_id, me)).or_insert((f, tick));
+    d.0.entry((seed, me)).or_insert((f, tick));
+    d.1.entry((match_id, me)).or_insert((f, tick));
 }
 
 // ===================== 被动 =====================
@@ -343,7 +349,7 @@ impl StablePassive for Orbs {
         let (side, match_id) = side(sim);
         // the shown side follows the server's decision when it gets to that tick (its own count may have been lost)
         if side == Side::Shown && self.form.is_none() {
-            if let Some((f, tick)) = decided_at(match_id, me) {
+            if let Some((f, tick)) = decided_at(sim.seed(), match_id, me) {
                 if sim.tick() >= tick {
                     self.form = Some(f);
                     sim.add_buff(me, &BuffV1::timed(f.ready(), READY_T));
@@ -363,7 +369,7 @@ impl StablePassive for Orbs {
             for _ in 0..n {
                 if let Some(form) = self.count(f) {
                     if side == Side::Server {
-                        decide(match_id, me, form, sim.tick());
+                        decide(sim.seed(), match_id, me, form, sim.tick());
                     }
                     sim.add_buff(me, &BuffV1::timed(form.ready(), READY_T));
                     wlog(format!(
@@ -426,6 +432,18 @@ declare_stable_mod!(init, requires = 9);
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn each_set_follows_its_own_presim() {
+        // a Bo3 (match 7, Kayn #3 every set): set 1's server sim decides Darkin at 900, set 2's Shadow at 700
+        decide(111, 7, 3, Form::Darkin, 900);
+        decide(222, 7, 3, Form::Shadow, 700);
+        assert_eq!(decided_at(111, 7, 3), Some((Form::Darkin, 900)));
+        assert_eq!(decided_at(222, 7, 3), Some((Form::Shadow, 700))); // was set 1's Darkin
+        // a shown sim whose seed was never decided: the match's first decision, as before
+        assert_eq!(decided_at(333, 7, 3), Some((Form::Darkin, 900)));
+        assert_eq!(decided_at(333, 8, 3), None);
+    }
 
     #[test]
     fn every_pack_hero_has_its_range() {

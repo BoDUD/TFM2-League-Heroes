@@ -8,10 +8,14 @@
 //!   rip 相对位移由 capstone 判定后挖空）在加载时按字节搜 `.text`；调用点靠扫 `E8 rel32`；函数边界用 EXE 自己的
 //!   `.pdata`；界面画英雄的五处按「四次取尺寸的间距」打分（同 find_build.py 第 5 步）。不需要反汇编器。
 //! - [`resolve`]：找全 league.dll 要的每个地址（[`Places`]），找不到或不唯一就报错（league.dll 照旧退回 1x 帧）。
+//!   列出的版本的特征码找不到时按形状兜底（0.6.5 → 0.7.0 实测：旧特征码 + 兜底在 0.7.0 上找全，与 build.rs 一致）：取表函数按
+//!   「开头 + 拼键调用 + 哈希调用」，身体绘制的四次取尺寸按间距不管寄存器，缩放读取认 r12 的 SIB 写法，缩放 / 恢复命令的标签从
+//!   实体渲染的代码里读，按名字出命令的函数按调用者和长度检查认。
 //! - [`display`]：显示更新函数和它的槽，所有挂这个槽的 DLL 共用；第一个找到的写进进程环境变量
 //!   `LEAGUE_DISPLAY_PLACES`（在任何钩子改槽之前），后来的直接读——槽被改过以后就搜不到原指针了。
 //!
-//! 结构体里的偏移（显示世界 +0x138 表、实体值 +0x40 / +0x68 / +0xb8 / +0x1b4 等）没有改成动态：0.6.3 → 0.6.4 → 0.6.5 一个都没变；
+//! 结构体里的偏移（显示世界 +0x138 表、实体值 +0x40 / +0x68 / +0xb8 / +0x1b4 等）没有改成动态：0.6.3 → 0.6.4 → 0.6.5 → 0.7.0
+//! 一个都没变（0.7.0 换了新版编译器，代码全变，逐条指令核对过：league_main/src/build.rs 开头）；
 //! 变了的话钩子在日志里看得出（「Kayn seen 0 times」之类），到时再查。
 //! 文件版 [`Image::from_file`] 给测试和离线检查用：`cargo test -p league_main` 拿游戏目录里的 EXE 跑一遍 [`resolve`]，
 //! 必须和 build.rs 列的地址完全一致。
@@ -269,6 +273,11 @@ pub struct Places {
     pub node_image: usize,
     pub body_draw: usize,
     pub cmd_grow: usize,
+    /// the view node draw (league.dll's dense effects: optional - 0 when not found)
+    pub effect_draw: usize,
+    /// the tags of the scale / restore commands the entity render wraps the body draw's commands in
+    pub cmd_scale: u64,
+    pub cmd_restore: u64,
     /// how each UI drawer was told apart (for the log)
     pub notes: Vec<String>,
 }
@@ -288,14 +297,47 @@ fn indirect_call(code: &[u8], i: usize) -> Option<usize> {
     }
 }
 
-/// `movss xmm, [reg+0x1b4]` (mod 10, no SIB) at the start of `w`, with or without a REX prefix (0.6.4 read it through
-/// rdi, 0.6.5 through r13: `f3 41 0f 10 8d b4 01 00 00`).
+/// `movss xmm, [reg+0x1b4]` (mod 10) at the start of `w`, with or without a REX prefix (0.6.4 read it through rdi,
+/// 0.6.5 through r13: `f3 41 0f 10 8d b4 01 00 00`), or through r12 (0.7.0: `f3 41 0f 10 8c 24 b4 01 00 00` - the SIB
+/// form r12 needs; without REX.B the same bytes read [rsp+0x1b4], a local).
 fn reads_scale(w: &[u8]) -> bool {
-    let k = if w.get(1).is_some_and(|r| (0x40..=0x4f).contains(r)) { 2 } else { 1 };
-    w.first() == Some(&0xf3)
-        && w.get(k..k + 7).is_some_and(|x| {
-            x[0] == 0x0f && x[1] == 0x10 && (0x80..0xc0).contains(&x[2]) && x[2] & 7 != 4 && x[3..] == [0xb4, 0x01, 0x00, 0x00]
-        })
+    let rex = w.get(1).copied().filter(|r| (0x40..=0x4f).contains(r));
+    let k = if rex.is_some() { 2 } else { 1 };
+    if w.first() != Some(&0xf3) || w.get(k..k + 3).is_none_or(|x| x[0] != 0x0f || x[1] != 0x10 || !(0x80..0xc0).contains(&x[2]))
+    {
+        return false;
+    }
+    let disp = |at: usize| w.get(at..at + 4) == Some(&[0xb4, 0x01, 0x00, 0x00][..]);
+    let rex_b = rex.is_some_and(|r| r & 1 == 1);
+    match w[k + 2] & 7 {
+        5 if !rex_b => false, // [rbp+0x1b4]: a local of the frame
+        4 => rex_b && w.get(k + 3) == Some(&0x24) && disp(k + 4),
+        _ => disp(k + 3),
+    }
+}
+
+/// `call r64` at the start of `w` (ff d0..d7 but d4, 41 ff d0..d7): the size asks through registers holding a vtable's
+/// entries.
+fn calls_reg(w: &[u8]) -> bool {
+    matches!(w, [0xff, 0xd0..=0xd3 | 0xd5..=0xd7, ..] | [0x41, 0xff, 0xd0..=0xd7, ..])
+}
+
+/// The first two `movabs r64, 0x80000000000000xx` (a draw command's niche tag) in `w`, if the second is the first + 1:
+/// the entity render's scale and restore commands, written right after its read of the scale.
+fn command_tags(w: &[u8]) -> Option<(u64, u64)> {
+    let mut tags = Vec::new();
+    for i in 0..(w.len() + 1).saturating_sub(10) {
+        if (w[i] == 0x48 || w[i] == 0x49) && (0xb8..=0xbf).contains(&w[i + 1]) && w[i + 3..i + 10] == [0, 0, 0, 0, 0, 0, 0x80] {
+            tags.push(0x8000_0000_0000_0000 | w[i + 2] as u64);
+            if tags.len() == 2 {
+                break;
+            }
+        }
+    }
+    match tags[..] {
+        [s, r] if r == s + 1 => Some((s, r)),
+        _ => None,
+    }
 }
 
 /// Finds every place of [`Places`] in `img` by the patterns of [`sigs`] (find_build.py's steps without a disassembler).
@@ -307,20 +349,37 @@ pub fn resolve(img: &Image) -> Result<Places, String> {
 /// [`display`] (another DLL may have swapped the slot already, and then it can no longer be found by its pointer).
 pub fn resolve_with(img: &Image, display: Option<(usize, usize)>) -> Result<Places, String> {
     use sigs::*;
-    // 1. the hash and the 33 HashMap<String, _>::get heads calling it
+    // 1. the hash and the 33 HashMap<String, _>::get heads calling it - by the listed build's head, else by their shape
+    // (0.6.5 -> 0.7.0, a newer compiler: no head in common): the prologue and `sub rsp`, a call building the key, then a
+    // call of the hash, both in the first 0x90 bytes
     let hashes: HashSet<usize> = img.find(&HASH).into_iter().collect();
-    let lookups: Vec<usize> = img
+    let mut lookups: Vec<(usize, usize)> = img
         .find(&ANIM)
         .into_iter()
-        .filter(|f| img.call_target(f + HASH_CALL).is_some_and(|t| hashes.contains(&t)))
+        .filter_map(|f| img.call_target(f + HASH_CALL).filter(|t| hashes.contains(t)).map(|t| (f, t)))
         .collect();
+    let mut shaped = false;
+    if lookups.is_empty() {
+        shaped = true;
+        lookups = img
+            .funcs
+            .iter()
+            .filter(|f| img.read(f.0, PROLOGUE.len()) == Some(PROLOGUE))
+            .filter_map(|f| match img.calls_in(f.0, f.0 + 0x90)[..] {
+                [_, t, ..] if hashes.contains(&t) => Some((f.0, t)),
+                _ => None,
+            })
+            .collect();
+    }
     let hash_t: Vec<usize> = {
-        let mut v: Vec<usize> = lookups.iter().filter_map(|f| img.call_target(f + HASH_CALL)).collect();
+        let mut v: Vec<usize> = lookups.iter().map(|l| l.1).collect();
         v.sort_unstable();
         v.dedup();
         v
     };
-    let hash = one("the hash the lookups call", &hash_t)?;
+    // by its shape a lookup may call another of the hash's look-alikes: the anim lookup's own decides (step 2)
+    let hash = if shaped { 0 } else { one("the hash the lookups call", &hash_t)? };
+    let lookups: Vec<usize> = lookups.iter().filter(|l| hash == 0 || l.1 == hash).map(|l| l.0).collect();
     // 2. the battlefield frame lookup: a caller of a lookup with its two size asks at the old offsets
     let set: HashSet<usize> = lookups.iter().copied().collect();
     let callers = img.calls_to(&set);
@@ -337,9 +396,17 @@ pub fn resolve_with(img: &Image, display: Option<(usize, usize)>) -> Result<Plac
         [] => return Err("the battlefield frame lookup's call: not found".into()),
         _ => return Err(format!("the battlefield frame lookup's call: {} candidates", hits.len())),
     };
+    let hash = match hash {
+        0 => img.calls_in(anim, anim + 0x90).get(1).copied().ok_or("the anim lookup's call of the hash: not found")?,
+        h => h,
+    };
+    let same_hash = |f: usize| img.calls_in(f, f + 0x90).get(1) == Some(&hash);
     let frame_fn = img.func_of(frame_call).ok_or("the frame lookup has no .pdata entry")?;
-    let mut sheets: Vec<usize> =
-        img.calls_in(frame_fn.0, frame_fn.1).into_iter().filter(|t| set.contains(t) && *t != anim).collect();
+    let mut sheets: Vec<usize> = img
+        .calls_in(frame_fn.0, frame_fn.1)
+        .into_iter()
+        .filter(|t| set.contains(t) && *t != anim && same_hash(*t))
+        .collect();
     sheets.sort_unstable();
     sheets.dedup();
     let sheet = one("the sheet lookup in the frame lookup", &sheets)?;
@@ -360,6 +427,20 @@ pub fn resolve_with(img: &Image, display: Option<(usize, usize)>) -> Result<Plac
             i += off + 1;
         }
     }
+    let mut notes = Vec::new();
+    if bodies.is_empty() {
+        // the same spacing through other registers (0.6.5 -> 0.7.0: call r13 -> call r15)
+        for c in img.calls_to(&fset).remove(&frame_fn.0).unwrap_or_default() {
+            let Some(f) = img.func_of(c) else { continue };
+            let Some(code) = img.read(f.0, f.1 - f.0) else { continue };
+            for i in 0..code.len() {
+                if BODY_ASKS.iter().all(|(d, _)| code.get(i + d..).is_some_and(calls_reg)) {
+                    bodies.push((f.0, f.0 + i));
+                }
+            }
+        }
+        notes.push("the body draw's size asks found by their spacing (other registers than the listed build's)".into());
+    }
     bodies.sort_unstable();
     bodies.dedup();
     let (body_draw, ask0) = match bodies.as_slice() {
@@ -367,17 +448,29 @@ pub fn resolve_with(img: &Image, display: Option<(usize, usize)>) -> Result<Plac
         [] => return Err("the body draw (four size asks at the old spacing): not found".into()),
         _ => return Err(format!("the body draw: {} candidates", bodies.len())),
     };
-    battle_size_ret.extend(BODY_ASKS.iter().map(|(d, x)| ask0 + d + x.len()));
-    // the entity render reads `movss xmm, [reg+0x1b4]` soon after its call of the body draw (the hooks rely on it)
+    for (d, _) in BODY_ASKS {
+        let n = if img.read(ask0 + d, 1) == Some(&[0x41][..]) { 3 } else { 2 };
+        battle_size_ret.push(ask0 + d + n);
+    }
+    // the entity render reads `movss xmm, [reg+0x1b4]` soon after its call of the body draw (the hooks rely on it), and
+    // right after that writes the tags of the scale / restore commands it wraps the body draw's commands in
     let bset: HashSet<usize> = [body_draw].into_iter().collect();
-    let renders: Vec<usize> = img
+    let renders: Vec<(usize, usize)> = img
         .calls_to(&bset)
         .remove(&body_draw)
         .unwrap_or_default()
         .into_iter()
-        .filter(|c| img.read(*c, 0x200).is_some_and(|w| (0..w.len()).any(|i| reads_scale(&w[i..]))))
+        .filter_map(|c| img.read(c, 0x200).and_then(|w| (0..w.len()).find(|i| reads_scale(&w[*i..]))).map(|i| (c, c + i)))
         .collect();
-    let render_call = one("the entity render (movss [reg+0x1b4] after the body draw)", &renders)?;
+    let (render_call, scale_read) = match renders[..] {
+        [r] => r,
+        [] => return Err("the entity render (movss [reg+0x1b4] after the body draw): not found".into()),
+        _ => return Err(format!("the entity render: {} candidates", renders.len())),
+    };
+    let (cmd_scale, cmd_restore) = img
+        .read(scale_read, 0x200)
+        .and_then(command_tags)
+        .ok_or("the entity render's scale / restore command tags: not found after its read of the scale")?;
     let render_fn = img.func_of(render_call).ok_or("the entity render has no .pdata entry")?;
     let body_fn = img.func_of(body_draw).ok_or("the body draw has no .pdata entry")?;
     let mut grows: Vec<usize> = img
@@ -479,7 +572,6 @@ pub fn resolve_with(img: &Image, display: Option<(usize, usize)>) -> Result<Plac
     }
     let mut ui_anim_ret = Vec::new();
     let mut ui_size_ret = Vec::new();
-    let mut notes = Vec::new();
     for k in 0..sites.len() {
         let ((d, c, w), how) = &chosen[&k];
         ui_anim_ret.push(c + 5);
@@ -514,8 +606,39 @@ pub fn resolve_with(img: &Image, display: Option<(usize, usize)>) -> Result<Plac
             0
         })
     };
-    let cmd_by_name = sink("the draw command by a sheet's name", &CMD_BY_NAME, ui_anim_ret[2], &mut notes);
+    let mut cmd_by_name = sink("the draw command by a sheet's name", &CMD_BY_NAME, ui_anim_ret[2], &mut notes);
+    if cmd_by_name == 0 {
+        // its head changed (0.6.5 -> 0.7.0: one push more): the function both the BP grid and the scoreboard portraits
+        // call with `mov rdi, r8; test r8, r8` (the name's length) in its first 0x60 bytes
+        let callees = |drawer: usize| -> HashSet<usize> {
+            img.func_of(drawer).map(|f| img.calls_in(f.0, f.1)).unwrap_or_default().into_iter().collect()
+        };
+        let mark: &[u8] = &[0x4c, 0x89, 0xc7, 0x4d, 0x85, 0xc0];
+        let mut both: Vec<usize> = callees(ui_anim_ret[2])
+            .intersection(&callees(ui_anim_ret[4]))
+            .copied()
+            .filter(|f| img.read(*f, 0x60).is_some_and(|h| h.windows(mark.len()).any(|w| w == mark)))
+            .collect();
+        both.sort_unstable();
+        if let [f] = both[..] {
+            cmd_by_name = f;
+            notes.retain(|n| !n.starts_with("the draw command by a sheet's name"));
+            notes.push(format!("the draw command by a sheet's name: {f:#x}, by its callers and its length check"));
+        }
+    }
     let node_image = sink("the image node's setter", &NODE_IMAGE, ui_anim_ret[0], &mut notes);
+    if cmd_by_name == 0 || node_image == 0 {
+        ui_sheet_ret.clear();
+    }
+    // 7. the view node draw (league.dll's dense effects, optional): the function with its head the body draw calls
+    let effect_draw = {
+        let inside: HashSet<usize> = img.calls_in(body_fn.0, body_fn.1).into_iter().collect();
+        let found: Vec<usize> = img.find(&EFFECT).into_iter().filter(|f| inside.contains(f)).collect();
+        one("the view node draw", &found).unwrap_or_else(|e| {
+            notes.push(format!("{e} (dense effects not shrunk)"));
+            0
+        })
+    };
     // the hooks replace a 12-byte prologue + `sub rsp`
     for (name, f) in [("anim", anim), ("sheet", sheet), ("body draw", body_draw)] {
         if img.read(f, PROLOGUE.len()) != Some(PROLOGUE) {
@@ -539,6 +662,9 @@ pub fn resolve_with(img: &Image, display: Option<(usize, usize)>) -> Result<Plac
         node_image,
         body_draw,
         cmd_grow,
+        effect_draw,
+        cmd_scale,
+        cmd_restore,
         notes,
     })
 }
@@ -618,5 +744,25 @@ mod tests {
         assert!(!reads_scale(&[0xf3, 0x0f, 0x10, 0x8c, 0x24, 0xb4, 0x01, 0x00])); // a SIB form
         assert!(!reads_scale(&[0xf3, 0x41, 0x0f, 0x10, 0x8d, 0xb8, 0x01, 0x00, 0x00])); // another field
         assert!(!reads_scale(&[0xf3, 0x41, 0x0f, 0x10]));
+        assert!(reads_scale(&[0xf3, 0x41, 0x0f, 0x10, 0x8c, 0x24, 0xb4, 0x01, 0x00, 0x00])); // 0.7.0: [r12+0x1b4]
+        assert!(!reads_scale(&[0xf3, 0x44, 0x0f, 0x10, 0x95, 0xb4, 0x01, 0x00, 0x00])); // [rbp+0x1b4]: a local
+        assert!(!reads_scale(&[0xf3, 0x41, 0x0f, 0x10, 0x8c, 0x04, 0xb4, 0x01, 0x00, 0x00])); // [r12+rax+0x1b4]
+    }
+
+    #[test]
+    fn size_asks_through_registers_are_told_by_their_bytes() {
+        assert!(calls_reg(&[0xff, 0xd7]) && calls_reg(&[0x41, 0xff, 0xd5]) && calls_reg(&[0x41, 0xff, 0xd7, 0x90]));
+        assert!(!calls_reg(&[0xff, 0xd4]) && !calls_reg(&[0xff, 0x53, 0x28]) && !calls_reg(&[0x41, 0xff]));
+    }
+
+    #[test]
+    fn the_command_tags_are_the_first_two_after_the_scale() {
+        // 0.7.0's entity render: movabs rax, 0x8000000000000012 ... movabs rax, 0x8000000000000013
+        let mut w = vec![0x90; 8];
+        w.extend_from_slice(&[0x48, 0xb8, 0x12, 0, 0, 0, 0, 0, 0, 0x80, 0x90, 0x48, 0xb8, 0x13, 0, 0, 0, 0, 0, 0, 0x80]);
+        assert_eq!(command_tags(&w), Some((0x8000_0000_0000_0012, 0x8000_0000_0000_0013)));
+        w[21] = 0x15; // not a pair
+        assert_eq!(command_tags(&w), None);
+        assert_eq!(command_tags(&[0x90; 30]), None);
     }
 }

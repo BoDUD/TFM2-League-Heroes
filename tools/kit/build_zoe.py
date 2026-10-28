@@ -14,12 +14,12 @@ Spell Thief (W) has no slot - its missiles fly with every R (her "summoner spell
           worth of flight, and the hit deals the near (100%), middle (q_mid%) or far (q_far%) share of q_dmg +
           q_ratio% AP by which of them is still on. Its picture is a round star (symmetric every way).
   skill2  E Sleepy Trouble Bubble (催眠气泡), `Targeting` on `EnemyChampion` (e_range): a bubble flies at the target
-          (champions only, non-penetrating): e_dmg + e_ratio% AP, drowsy (e_slow% for e_drowsy ticks), then asleep
-          (a `Stun` of e_sleep ticks, the Zz picture). A bubble that reaches its end without a hit stays there as a trap
-          for e_trap ticks (League's bubble lands and waits): the first enemy champion stepping in gets the same.
-          Waking: while the target sleeps (caster flags `e_wait` off, `e_win` on), her first Q or R star on a champion
-          deals its damage again (League doubles the first hit, capped) and ends the window. Damage breaking the sleep
-          is the add-on's (League: any damage wakes).
+          (champions only, non-penetrating): e_dmg + e_ratio% AP, drowsy (e_slow% for e_drowsy ticks), then asleep:
+          the game's own Sleep (game 0.7.0), the base Hypnotist's E as a `Native` effect on the champion hit (`sleep`:
+          radius e_sleep_r around him, after 1 tick, e_sleep ticks) - any damage wakes him and that hit deals e_amp%
+          more, the game's rule (League: any damage wakes, the first hit doubled). A bubble that reaches its end without
+          a hit stays there as a trap for e_trap ticks (League's bubble lands and waits): the first enemy champion
+          stepping in gets the same. Until 0.7.0 the sleep was a `Stun` with a Zz picture, waking on her first star.
   ult     R Portal Jump (折返跃迁), `Targeting` on `EnemyChampion` (r_range): an anchor holds the spot she stood on
           (league_ekko R's anchor), she jumps through a portal up to r_jump toward the target (a hidden line that stops
           about r_stop short of the first champion, `end_effects: [Teleport]`, league_ezreal E's blink), throws a
@@ -27,9 +27,9 @@ Spell Thief (W) has no slot - its missiles fly with every R (her "summoner spell
           missiles follow (her toss `skill_w`, w_dmg + w_ratio% AP each, at the nearest enemies) and she gets w_ms% move
           speed for w_ms_t; r_back ticks after the jump she springs up out of the far end (`ult_exit`, r_exit ticks)
           and the anchor pulls her back (`ult_back`; death cancels it).
-The add-on copy (--native, addons/league_zoe): the passive league_zoe:sparkles reads the hits - any damage wakes the
-sleeper and its first hit is doubled (capped), Paddle Star scales with the real distance flown, and Spell Thief's
-shards: an enemy champion's ult drops one where he stood; when she walks over it she fires the three missiles.
+The add-on copy (--native, addons/league_zoe): the same sleep for e_sleep_n ticks, and the passive league_zoe:sparkles
+shows the Zz while it holds; Paddle Star scales with the real distance flown, and Spell Thief's shards: an enemy
+champion's ult drops one where he stood; when she walks over it she fires the three missiles.
 """
 import argparse
 import json
@@ -74,6 +74,9 @@ P = {
     # 5 s, cd 18-14)
     "e_cd": 900, "e_range": 75000, "e_dur": 27, "e_rel": 13, "e_speed": 3500, "e_len": 85000, "e_w": 7000,
     "e_dmg": 60, "e_ratio": 40, "e_slow": 30, "e_drowsy": 84, "e_sleep": 120, "e_trap": 300, "e_trap_r": 12000,
+    # the game's own Sleep (0.7.0): the waking hit's bonus (League doubles it), the reach around the champion hit (his
+    # own spot: under his body, no one else's)
+    "e_amp": 100, "e_sleep_r": 3000,
     "e_show": 15,
     # R Portal Jump (League: blink 575 for 1 s, cd 11-5) + the portal's Paddle Star (far share) + W Spell Thief's
     # missiles (League: 3 x 25-95 +33% AP, move speed 30-80% for 2-3.25 s)
@@ -84,10 +87,9 @@ P = {
     "w_ms_t": 150,
     "vo_gap": 600,
     # the add-on (addons/league_zoe): Paddle Star from x1 at q_n0 to q_far% at q_n1d flown (League: up to +150% from
-    # about 1.5 s of flight); the sleep (League 2.25 s) broken by any damage, which is dealt again as true damage up to
-    # e_cap + e_cap_ratio% AP; Spell Thief's shards: an enemy champion's ult drops one where he stands for s_t ticks,
-    # she picks it up within s_r and throws w_n missiles at the nearest enemy champion within w_r
-    "q_n0": 20000, "q_n1d": 85000, "e_sleep_n": 135, "e_cap": 100, "e_cap_ratio": 60, "w_r": 70000, "s_t": 1200,
+    # about 1.5 s of flight); the sleep League's 2.25 s; Spell Thief's shards: an enemy champion's ult drops one where
+    # he stands for s_t ticks, she picks it up within s_r and throws w_n missiles at the nearest enemy champion within w_r
+    "q_n0": 20000, "q_n1d": 85000, "e_sleep_n": 135, "w_r": 70000, "s_t": 1200,
     "s_r": 18000,
     "native": 0,
 }
@@ -231,11 +233,11 @@ def build(p):
                       combine(decoy(0, 100), delayed(p["a_rel"] - 1, alive(sw("p_on", sparkly, plain)))),
                       atype="BaseAttack", cancel=True)
 
-    # waking: her first Q / R star on a champion while the target sleeps deals the hit again
-    def wake(dmg, ratio):
-        if native:          # the add-on wakes the sleeper on any damage and doubles that hit
-            return NONE
-        return sw("e_wait", NONE, sw("e_win", combine(*rm("e_win"), ap(dmg, ratio), view("e_wake"), tsfx("e_wake"))))
+    def sleep(ticks):
+        """The game's own Sleep (0.7.0): the base Hypnotist's E on the champion hit - any damage wakes him, that hit e_amp%
+        more."""
+        return {"type": "Native", "effect_ref": "hypnotist_skill2", "radius": p["e_sleep_r"], "delay": 1,
+                "buff_duration": ticks, "amplify": p["e_amp"]}
 
     # ------------------------------------------------------------------ skill: Q Paddle Star
     def share(pct):
@@ -249,10 +251,8 @@ def build(p):
     if native:          # the near share; the add-on adds the rest by the distance from her throw (q_go) to the hit (q_hit)
         hit_q = combine(ap(*share(100)), buff("q_hit", 2), view("q_hit"), tsfx("q_hit"))
     star = line("q_star", p["q_speed"], p["q_len"], p["q_w"], "EnemyWithoutTower", [hit_q])
-    # the wake on a champion rides a hidden twin (a minion taking the star does not wake anyone)
-    twin = line("q_twin", p["q_speed"], p["q_len"], p["q_w"], "EnemyChampion", [by_distance(wake)], y=5000)
     throw_q = combine(flag("q_n1", max(1, p["q_d1"] // p["q_speed"])), flag("q_n2", max(1, p["q_d2"] // p["q_speed"])),
-                      star, sw("e_win", twin))
+                      star)
     if native:
         throw_q = combine(refresh("q_go", 2), star)
     skill = action("skill", p["q_dur"], p["q_cd"], 1, p["q_range"], "Targeting", "EnemyWithoutTower",
@@ -261,13 +261,12 @@ def build(p):
 
     # ------------------------------------------------------------------ skill2: E Sleepy Trouble Bubble
     slow = buff("e_drowsy", p["e_drowsy"], move_speed_mult=-p["e_slow"])
-    asleep = delayed(p["e_drowsy"], {"type": "Stun", "duration": p["e_sleep"]}, buff("e_zz", p["e_sleep"]),
-                     tsfx("e_sleep"))
-    bubble_hit = [refresh("e_got", 2), refresh("e_wait", p["e_drowsy"]), refresh("e_win", p["e_drowsy"] + p["e_sleep"]),
-                  ap(p["e_dmg"], p["e_ratio"]), slow, asleep, view("e_hit"), tsfx("e_hit")]
-    if native:          # the add-on sees the mark, puts them to sleep at its end and wakes them on any damage
+    # asleep when the drowsiness ends (the game's sleep plays its own pictures and sounds)
+    bubble_hit = [refresh("e_got", 2), ap(p["e_dmg"], p["e_ratio"]), slow, delayed(p["e_drowsy"], sleep(p["e_sleep"])),
+                  view("e_hit"), tsfx("e_hit")]
+    if native:          # the add-on sees the mark and shows the Zz while the sleep holds
         bubble_hit = [refresh("e_got", 2), ap(p["e_dmg"], p["e_ratio"]), slow, buff("e_mark", p["e_drowsy"]),
-                      view("e_hit"), tsfx("e_hit")]
+                      delayed(p["e_drowsy"], sleep(p["e_sleep_n"])), view("e_hit"), tsfx("e_hit")]
     caught = [sw("e_tdone", NONE, combine(flag("e_tdone", p["e_trap"]), *bubble_hit, sfx("e_pop")))]
     lying = [delayed(k, sw("e_tdone", NONE, view("e_trap"))) for k in range(0, p["e_trap"], p["e_show"])]
     left = sw("e_got", combine(*rm("e_got")), combine(trap("e_field", p["e_trap_r"], p["e_trap"], caught), *lying))
@@ -278,7 +277,7 @@ def build(p):
 
     # ------------------------------------------------------------------ ult: R Portal Jump + the portal's star + W
     star_r = line("r_star", p["r_speed"], p["r_len"], p["q_w"], "EnemyChampion",
-                  [ap(p["r_dmg"], p["r_ratio"]), view("q_hit"), tsfx("q_hit"), wake(p["r_dmg"], p["r_ratio"])])
+                  [ap(p["r_dmg"], p["r_ratio"]), view("q_hit"), tsfx("q_hit")])
     if p["r_throw"] + p["r_w"] + p["w_dur"] > p["r_back"] - p["r_exit"]:
         raise SystemExit("the W toss must end before the exit leap")
     missiles = [delayed(p["w_rel"] - 1 + p["w_gap"] * k, alive(sfx("w_shot"), homing(
@@ -327,7 +326,7 @@ def build(p):
     extra = {}
     if native:
         extra["passive"] = {"passive_ref": "league_zoe:sparkles", "params": {
-            k: p[k] for k in ("q_dmg", "q_ratio", "q_far", "q_n0", "q_n1d", "e_drowsy", "e_sleep_n", "e_cap", "e_cap_ratio",
+            k: p[k] for k in ("q_dmg", "q_ratio", "q_far", "q_n0", "q_n1d", "e_drowsy", "e_sleep_n",
                               "w_dmg", "w_ratio", "w_ms", "w_ms_t", "w_n", "w_gap", "w_r", "s_t", "s_r")}}
     return {
         "id": ID, "category": "Magician", "tags": ["AP", "Magic", "Range", "CC"], **extra,

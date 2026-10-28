@@ -504,6 +504,12 @@ fn hp_pct(sim: &StableSim<'_>, id: usize) -> usize {
     })
 }
 
+/// Crowd control that holds a unit in place - from game 0.7.0 also when laid by native code ("movement continuing while
+/// rooted" fixed): root, stun (a Sleep reaches add-ons as a Stun), knock-up, taunt, fear, charm; not a dash's own
+/// ForceMove nor a cast's Animation. A step of our own while one of these is on would move him through it.
+const HELD: [CcKindV1; 6] =
+    [CcKindV1::Bind, CcKindV1::Stun, CcKindV1::Airborne, CcKindV1::Taunt, CcKindV1::Fear, CcKindV1::Charm];
+
 fn has_cc(sim: &StableSim<'_>, id: usize, kinds: &[CcKindV1]) -> bool {
     sim.get_entity(id).is_some_and(|e| {
         (0..e.cc_count()).any(|i| e.cc_at(i).is_some_and(|c| kinds.iter().any(|k| k.code() == c.kind)))
@@ -703,8 +709,9 @@ impl Dragon {
             f.until = 0;
             return;
         }
-        // 被放逐（不可选中）时不挪他，截止时间顺延（巴德附加包：放逐中的单位不移动）
-        if sim.get_entity(me).is_some_and(|e| !e.is_targetable()) {
+        // 被放逐（不可选中）时不挪他，截止时间顺延（巴德附加包：放逐中的单位不移动）；被禁锢、眩晕（含睡眠）、击飞、嘲讽、
+        // 恐惧、魅惑时也不挪（[`HELD`]：游戏 0.7.0 起原生施加的控制也真的让人停下）
+        if sim.get_entity(me).is_some_and(|e| !e.is_targetable()) || has_cc(sim, me, &HELD) {
             f.until += 1;
             f.last = here;
             return;

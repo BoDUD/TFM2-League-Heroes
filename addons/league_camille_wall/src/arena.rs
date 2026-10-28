@@ -5,7 +5,8 @@
 //! 她在外面时把目标拉向她会把目标拉出场地）。游戏的 AI 常让她追出去、撤出去，场地于是不到时间就没了。本钩子在她身上有
 //! 主包的 `league_camille_r_on` 时，第一次看到就把她的位置记成场地中心（场地落在她落地的地方）；之后 AI 要她**走到**离中心
 //! `KEEP` 以外的地方、或**回城**，就改成普攻被锁的目标（身上有 `league_camille_r_mark` 的敌方英雄，没有就场地里最近的
-//! 敌方英雄），打不了就走回中心。被击退、拉走出场地照旧结束（那是对面的本事）。
+//! 敌方英雄）。场地里没有能打的敌方英雄就不管 AI（0.4.9，用户 2026-10-28「这两个顺带一起改了」：以前是走回中心，
+//! 目标死了、跑了以后她在空场地里来回走，E 的攻速期间也不去打别人）。被击退、拉走出场地照旧结束（那是对面的本事）。
 //!
 //! 被锁的目标也出不去（[`hold`]，她的被动每 tick 跑）：主包把人拉回来的判断问的是「场地里有没有敌方英雄」（哪个都算），
 //! 场地里站着别的敌人时目标走出去也不拉（经典模拟：一次 140 tick 的场地里目标只被拉了 4 下，走到离中心 35000）；
@@ -81,14 +82,8 @@ pub struct Foe {
     pub marked: bool,
 }
 
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub enum Call {
-    Attack(usize),
-    Centre,
-}
-
-/// What to do instead of the AI's order (None: leave it).
-pub fn call(me: Pt, centre: Pt, want: Want, foes: &[Foe]) -> Option<Call> {
+/// The enemy champion to attack instead of the AI's order (None: leave the order - nothing to attack, or not leaving).
+pub fn call(me: Pt, centre: Pt, want: Want, foes: &[Foe]) -> Option<usize> {
     let leaving = match want {
         Want::Return => true,
         Want::Move(to) => reach(centre, to) > KEEP_E && reach(centre, to) > reach(centre, me),
@@ -103,7 +98,7 @@ pub fn call(me: Pt, centre: Pt, want: Want, foes: &[Foe]) -> Option<Call> {
         .filter(|f| f.marked)
         .chain(foes.iter().filter(inside).filter(|f| !f.marked))
         .min_by(|a, b| (!a.marked).cmp(&!b.marked).then(dist(me, a.at).total_cmp(&dist(me, b.at))));
-    Some(target.map_or(Call::Centre, |f| Call::Attack(f.id)))
+    target.map(|f| f.id)
 }
 
 /// The marked target is kept this far on the picture at most ([`reach`]): inside the ellipse, a body short of its edge
@@ -211,7 +206,7 @@ impl StablePlayerAi for Arena {
 
     fn think(&mut self, ctx: &mut StableAiContext<'_>, base: Option<InputV1>) -> Option<InputV1> {
         let player = ctx.player_id();
-        let (c, line, centre) = {
+        let (t, line) = {
             let sim = ctx.sim()?;
             let e = sim.get_player(player)?.champion()?;
             if !e.is_alive() || !has(&e, R_ON) {
@@ -235,22 +230,14 @@ impl StablePlayerAi for Arena {
                 let (ux, uy) = u.pos();
                 foes.push(Foe { id: u.id(), at: (ux as f64, uy as f64), marked: has(&u, R_MARK) });
             }
-            let c = call(me, centre, want, &foes)?;
-            (c, format!("{} ARENA: the AI wanted {want:?} ({:.0} from the centre) - {c:?}", head(&sim, id),
-                        dist(me, centre)), centre)
+            let t = call(me, centre, want, &foes)?;
+            (t, format!("{} ARENA: the AI wanted {want:?} ({:.0} from the centre) - attack #{t}", head(&sim, id),
+                        dist(me, centre)))
         };
-        let back = InputV1::move_to(centre.0.max(0.0) as u64, centre.1.max(0.0) as u64);
-        let input = match c {
-            Call::Attack(t) => InputV1::action(InputKindV1::Attack, InputTargetV1::target(t)),
-            Call::Centre => back,
-        };
-        let input = if ctx.is_valid_input(&input) {
-            input
-        } else if ctx.is_valid_input(&back) {
-            back
-        } else {
+        let input = InputV1::action(InputKindV1::Attack, InputTargetV1::target(t));
+        if !ctx.is_valid_input(&input) {
             return None;
-        };
+        }
         if let Some(n) = counted() {
             wlog(format!("{line} #{n}"));
         }
@@ -269,9 +256,9 @@ mod tests {
     #[test]
     fn a_walk_out_of_the_arena_turns_into_an_attack_on_the_marked_target() {
         let foes = [foe(1, 10_000.0, false), foe(2, 25_000.0, true)];
-        assert_eq!(call((0.0, 0.0), (0.0, 0.0), Want::Move((60_000.0, 0.0)), &foes), Some(Call::Attack(2)));
+        assert_eq!(call((0.0, 0.0), (0.0, 0.0), Want::Move((60_000.0, 0.0)), &foes), Some(2));
         // a recall too
-        assert_eq!(call((0.0, 0.0), (0.0, 0.0), Want::Return, &foes), Some(Call::Attack(2)));
+        assert_eq!(call((0.0, 0.0), (0.0, 0.0), Want::Return, &foes), Some(2));
     }
 
     #[test]
@@ -281,18 +268,19 @@ mod tests {
         // already out at 30000 across, walking back towards the centre
         assert_eq!(call((30_000.0, 0.0), (0.0, 0.0), Want::Move((28_000.0, 0.0)), &foes), None);
         // up and down the picture is narrower: 20000 down is past KEEP_E
-        assert_eq!(call((0.0, 0.0), (0.0, 0.0), Want::Move((0.0, 20_000.0)), &foes), Some(Call::Attack(2)));
+        assert_eq!(call((0.0, 0.0), (0.0, 0.0), Want::Move((0.0, 20_000.0)), &foes), Some(2));
         assert_eq!(call((0.0, 0.0), (0.0, 0.0), Want::Other, &foes), None);
     }
 
     #[test]
-    fn no_target_left_means_back_to_the_centre() {
-        // the only enemy is far outside and not marked
+    fn no_target_left_lets_the_ai_go() {
+        // the only enemy is far outside and not marked: the AI's walk stands (it used to be a walk back to the centre)
         let foes = [foe(1, 80_000.0, false)];
-        assert_eq!(call((20_000.0, 0.0), (0.0, 0.0), Want::Move((50_000.0, 0.0)), &foes), Some(Call::Centre));
+        assert_eq!(call((20_000.0, 0.0), (0.0, 0.0), Want::Move((50_000.0, 0.0)), &foes), None);
+        assert_eq!(call((20_000.0, 0.0), (0.0, 0.0), Want::Return, &[]), None, "a recall with nobody left");
         // an unmarked one inside is attacked
         let foes = [foe(1, 12_000.0, false)];
-        assert_eq!(call((20_000.0, 0.0), (0.0, 0.0), Want::Move((50_000.0, 0.0)), &foes), Some(Call::Attack(1)));
+        assert_eq!(call((20_000.0, 0.0), (0.0, 0.0), Want::Move((50_000.0, 0.0)), &foes), Some(1));
     }
 
     #[test]

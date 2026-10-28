@@ -111,6 +111,8 @@ def main():
                       "BP grid calls (league.dll's UI sheets).", sig[b["cmd_by_name"]], b["cmd_by_name"]),
            rs_pattern("NODE_IMAGE", "The image node's setter (node, &String name, &uv): its head - the one the encyclopedia "
                       "calls (league.dll's UI sheets).", sig[b["node_image"]], b["node_image"]),
+           rs_pattern("EFFECT", "The view node draw (out Option<Vec>, node, ctx, -): its head - shared with other functions, the "
+                      "one the body draw calls (league.dll's dense effects).", sig[b["effect_draw"]], b["effect_draw"]),
            "/// The battlefield frame lookup: its two size asks after its call of the anim lookup (offset from the call, bytes).",
            "pub const BATTLE_ASKS: &[(usize, &[u8])] = &[" + ", ".join(
                f"({d:#x}, &[{', '.join(f'0x{c:02x}' for c in x)}])" for d, x in battle_asks) + "];",
@@ -136,7 +138,7 @@ def main():
         f.write(text)
     # each pattern finds exactly its place in this EXE
     for name, rva in (("anim", b["anim"]), ("hash", b["hash"]), ("display_fn", b["display_fn"]),
-                      ("cmd_by_name", b["cmd_by_name"]), ("node_image", b["node_image"])):
+                      ("cmd_by_name", b["cmd_by_name"]), ("node_image", b["node_image"]), ("effect_draw", b["effect_draw"])):
         hits = e.find(fb.wildcard(sig[rva], rva))
         print(f"{name}: {len(hits)} hits, the listed one among them: {rva in hits}")
     print("wrote", OUT)

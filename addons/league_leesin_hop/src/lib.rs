@@ -377,6 +377,12 @@ fn has_buff(sim: &StableSim<'_>, id: usize, name: &str) -> bool {
     sim.get_entity(id).is_some_and(|e| (0..e.buff_count()).any(|i| e.buff_at(i).is_some_and(|b| b.name() == name)))
 }
 
+/// Crowd control that holds a unit in place - from game 0.7.0 also when laid by native code ("movement continuing while
+/// rooted" fixed): root, stun (a Sleep reaches add-ons as a Stun), knock-up, taunt, fear, charm; not a dash's own
+/// ForceMove nor a cast's Animation. A step of our own while one of these is on would move him through it.
+const HELD: [CcKindV1; 6] =
+    [CcKindV1::Bind, CcKindV1::Stun, CcKindV1::Airborne, CcKindV1::Taunt, CcKindV1::Fear, CcKindV1::Charm];
+
 fn has_cc(sim: &StableSim<'_>, id: usize, kinds: &[CcKindV1]) -> bool {
     sim.get_entity(id)
         .is_some_and(|e| (0..e.cc_count()).any(|i| e.cc_at(i).is_some_and(|c| kinds.iter().any(|k| k.code() == c.kind))))
@@ -535,6 +541,9 @@ fn dash(sim: &mut StableSim<'_>, lee: usize, input: InputTargetV1) {
     if off <= 1_500.0 {
         sim.entity_remove_buff(lee, DASH);
         return;
+    }
+    if has_cc(sim, lee, &HELD) {
+        return; // held (root, stun, knock-up ...: [`HELD`]): the host's stop is the game's, no step or placing of ours
     }
     if !has_buff(sim, lee, DASH) {
         if off > 3_000.0 {

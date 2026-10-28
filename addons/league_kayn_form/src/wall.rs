@@ -88,6 +88,16 @@ pub fn through(grid: &Grid, me: (f64, f64), foe: (f64, f64)) -> Option<(f64, f64
     (!grid.is_wall(to.0, to.1)).then_some(to)
 }
 
+/// Crowd control that holds a unit in place - from game 0.7.0 also when laid by native code ("movement continuing while
+/// rooted" fixed): root, stun (a Sleep reaches add-ons as a Stun), knock-up, taunt, fear, charm; not a dash's own
+/// ForceMove nor a cast's Animation. A step of our own while one of these is on would move him through it.
+const HELD: [CcKindV1; 6] =
+    [CcKindV1::Bind, CcKindV1::Stun, CcKindV1::Airborne, CcKindV1::Taunt, CcKindV1::Fear, CcKindV1::Charm];
+
+fn held(e: &StableEntity<'_, '_>) -> bool {
+    (0..e.cc_count()).filter_map(|i| e.cc_at(i)).any(|c| HELD.iter().any(|k| k.code() == c.kind))
+}
+
 fn pos(sim: &StableSim<'_>, id: usize) -> Option<(f64, f64)> {
     sim.get_entity(id).map(|e| {
         let (x, y) = e.pos();
@@ -155,10 +165,11 @@ impl Walker {
             if d < speed {
                 self.goal = None;
             } else if self.last.is_some_and(|l| dist(l, here) < 1.0)
-                && sim.get_entity(me).is_some_and(|e| e.is_targetable())
+                && sim.get_entity(me).is_some_and(|e| e.is_targetable() && !held(&e))
             {
                 // the host did not move him (stopped at the wall): a step of his own - not while banished (game 0.6.4:
-                // a banished unit does not move; the goal stays and the steps go on once it is over)
+                // a banished unit does not move) nor held by crowd control ([`HELD`], game 0.7.0: native roots and stuns
+                // stop a unit too); the goal stays and the steps go on once it is over
                 let next = (here.0 + (to.0 - here.0) / d * speed, here.1 + (to.1 - here.1) / d * speed);
                 sim.entity_set_pos(me, next.0.round().max(0.0) as u64, next.1.round().max(0.0) as u64);
             }

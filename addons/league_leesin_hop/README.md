@@ -62,3 +62,7 @@
 - `python addons/league_leesin_hop/make_override.py`：从主包重新生成 `override/` 和 `text/`。主包的李青改了以后要重跑。
 - 在 `addons/` 下 `cargo test --release -p league_leesin_hop`：单元测试和 `tests/wiring.rs`（迷你模拟）。
 - 在 `addons/` 下 `cargo build --release -p league_leesin_hop`（Windows）得到 `target/release/league_leesin_hop.dll`。
+
+## 游戏 0.7.0（0.1.10）
+
+跳跃 / 回旋踢落点途中，宿主没挪他时本包自己一步步挪（不然会被墙挡住、停在半路）。0.7.0 修了「定身后还能移动」，原生施加的禁锢、眩晕、击飞也真的让人停下——以前这时宿主也停，本包会当成「被墙挡住」继续挪，等于定身中还在走。现在被禁锢、眩晕（睡眠对附加包也是眩晕）、击飞、嘲讽、恐惧、魅惑时不挪（`HELD`），目标留着、截止时间顺延，控制结束再走完，不会把人留在墙里。

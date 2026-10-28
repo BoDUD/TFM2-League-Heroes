@@ -87,8 +87,10 @@ P = {
     "s_bolt_speed": 5000, "s_y": 4000, "s_a_dmg": 20, "s_q_dmg": 70, "s_q_ratio": 80, "s_e_dmg": 90, "s_e_ratio": 80,
     "s_rush": 30000, "s_e_at": 10, "s_stun": 50, "s_slow": 30, "s_slow_t": 120, "s_ring_r": 20000, "s_line_len": 50000, "s_heal": 60,
     "s_heal_ratio": 40,
-    # the add-on's soul: picked up within soul_r of the body, kept soul_t ticks; ranged souls lengthen his attack
-    "soul_r": 35000, "soul_t": 480, "s_range": 0,
+    # the add-on's soul: picked up within soul_r of the body, kept soul_t ticks; ranged souls lengthen his attack by
+    # s_range (0 from 2026-10-21 to game 0.7.0: 0.6.x's AI stood him at the stretched reach and never attacked; 0.7.0
+    # fixed a champion whose attack a mod changed "moving back and forth instead of attacking from the modified range")
+    "soul_r": 35000, "soul_t": 480, "s_range": 25000,
     # his spoken lines, at most one every vo_gap ticks
     "vo_gap": 600,
     # 1 = the copy for addons/league_viego_soul: its native passive reads deaths and sets p_go on him

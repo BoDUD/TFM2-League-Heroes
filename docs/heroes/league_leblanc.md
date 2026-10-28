@@ -55,7 +55,7 @@
 
 ### 低血量附加包：布里茨、乐芙兰、丽桑卓
 
-[低血量附加包：布里茨、乐芙兰、丽桑卓](../../addons/league_lowhp/README.md)：`league_lowhp` v0.2.0
+[低血量附加包：布里茨、乐芙兰、丽桑卓](../../addons/league_lowhp/README.md)：`league_lowhp` v0.2.1
 
 | 英雄 | 主包（纯数据） | 装了附加包（英雄联盟） |
 |---|---|---|
