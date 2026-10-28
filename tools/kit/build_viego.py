@@ -29,7 +29,7 @@ Heartbreaker the `ult`; Sovereign's Domination runs on its own.
           W -> Q: the maw stunning a champion with Q ready thrusts Q at it as soon as he lands.
   ult     R Heartbreaker (痛贯天灵): a `Targeting` cast on `EnemyChampionRecentlyAttacked` (league_darius R: the
           closest thing to "the lowest health" the data has): the target is slowed r_slow% while he leaps onto it
-          (MoveToTarget), on tick r_hit it takes r_dmg + r_ratio% AD + r_hp% of its maximum health (League: of its
+          (RushTime, r_reach at r_speed: a dash that ends), on tick r_hit it takes r_dmg + r_ratio% AD + r_hp% of its maximum health (League: of its
           missing health), every other enemy round the landing is knocked back. Ends a possession.
 """
 import argparse
@@ -412,7 +412,9 @@ def build(p):
                  combine(anim("ult", p["r_dur"]), take, sw("p_on", end()), *(rm("shape") if native else ()), sfx("r"),
                          voice("vo_r", p), cview("r_cast"),
                          buff("r_slow", p["r_slow_t"], move_speed_mult=-p["r_slow"], cc_immune=True),
-                         {"type": "MoveToTarget", "speed": p["r_speed"], "range": p["r_reach"], "end_effects": []},
+                         # RushTime like W (2026-10-28: players still found him standing still the whole match after the
+                         # W fix; R's MoveToTarget was the last dash that runs until it reaches the target, however far)
+                         rush(p["r_speed"], -(-p["r_reach"] // p["r_speed"])),
                          delayed(p["r_hit"] - 1, *land)))
 
     # ------------------------------------------------------------------ views
