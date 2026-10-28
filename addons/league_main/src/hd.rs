@@ -303,6 +303,10 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // hair to soles, PPU 2.0 (「B-1 38 PPU 2.0」), and Codex's key poses after her own TFT clips with the design's head,
     // posed by tools/art/rig_violet.py, so no SIZES row
     ("tft_violet", 2.0, include_str!("../../../tft/champions/tft_violet#anim.fanim")),
+    // The Ancient Krug (tft_krug, the tft pack): hunched on all fours, step 0's A-1 at the user's 38 game px boulder to
+    // soles, PPU 2.0 (「A-1 38 PPU 2.0」), and Codex's key poses after his own TFT clips, posed by tools/art/rig_krug.py,
+    // so no SIZES row
+    ("tft_krug", 2.0, include_str!("../../../tft/champions/tft_krug#anim.fanim")),
     // 2026-10-16 redo from Codex's pictures, the actions posed from the designs (tools/art/rig_<hero>_hd.py; Nami's after
     // League's own clips, tools/lol/league_joints.py), PPU 1.5 at their old heights, so no SIZES rows
     ("league_morgana", 1.5, include_str!("../../../league/champions/league_morgana#anim.fanim")),

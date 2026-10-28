@@ -1,0 +1,347 @@
+[
+  {
+    "file": "krug-pose-a_rear.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_levels": 256,
+    "partial_alpha_pixels": 848800,
+    "transparent_pixels": 721806,
+    "bbox_alpha_ge_128": [
+      33,
+      148,
+      1237,
+      1218
+    ],
+    "canvas_pass": true,
+    "hard_alpha_pass": false,
+    "nonuniform_visible_12px_cells": 6479,
+    "grid_12px_pass": false,
+    "lowest_visible_y_alpha_ge_128": 1217,
+    "sha256": "45881b36c6d0fb8a635c0200c3c2a1d301cd284a41b28da3bcab538ff601ecee"
+  },
+  {
+    "file": "krug-pose-a_slam.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_levels": 256,
+    "partial_alpha_pixels": 716794,
+    "transparent_pixels": 853797,
+    "bbox_alpha_ge_128": [
+      30,
+      236,
+      1225,
+      1185
+    ],
+    "canvas_pass": true,
+    "hard_alpha_pass": false,
+    "nonuniform_visible_12px_cells": 5321,
+    "grid_12px_pass": false,
+    "lowest_visible_y_alpha_ge_128": 1184,
+    "sha256": "acb36f16ab7813f4f154f807731a8ab6111d41953d0f6d12b586ba409beafed8"
+  },
+  {
+    "file": "krug-pose-a_back.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_levels": 256,
+    "partial_alpha_pixels": 700798,
+    "transparent_pixels": 869063,
+    "bbox_alpha_ge_128": [
+      78,
+      166,
+      1176,
+      1186
+    ],
+    "canvas_pass": true,
+    "hard_alpha_pass": false,
+    "nonuniform_visible_12px_cells": 5182,
+    "grid_12px_pass": false,
+    "lowest_visible_y_alpha_ge_128": 1185,
+    "sha256": "5dfc151abbb5ee4cff9488f54c965296d4b7457a9f252dbe797e7dee8c9f3770"
+  },
+  {
+    "file": "krug-pose-q_ball.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_levels": 256,
+    "partial_alpha_pixels": 756547,
+    "transparent_pixels": 814150,
+    "bbox_alpha_ge_128": [
+      117,
+      206,
+      1193,
+      1195
+    ],
+    "canvas_pass": true,
+    "hard_alpha_pass": false,
+    "nonuniform_visible_12px_cells": 5527,
+    "grid_12px_pass": false,
+    "lowest_visible_y_alpha_ge_128": 1194,
+    "sha256": "0917c9864ab42b36c4dd4debdca36bc59d8653f886f6b2cfd9faf14ccf94697d"
+  },
+  {
+    "file": "krug-pose-q_unfold.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_levels": 256,
+    "partial_alpha_pixels": 738358,
+    "transparent_pixels": 831640,
+    "bbox_alpha_ge_128": [
+      62,
+      91,
+      1210,
+      1203
+    ],
+    "canvas_pass": true,
+    "hard_alpha_pass": false,
+    "nonuniform_visible_12px_cells": 5466,
+    "grid_12px_pass": false,
+    "lowest_visible_y_alpha_ge_128": 1202,
+    "sha256": "a84c201a8bf316c444f18555695b652ea456b5ebbb6c0c67c8d0bd4cf7edd602"
+  },
+  {
+    "file": "krug-pose-q_ram.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_levels": 256,
+    "partial_alpha_pixels": 693278,
+    "transparent_pixels": 877331,
+    "bbox_alpha_ge_128": [
+      30,
+      213,
+      1235,
+      1186
+    ],
+    "canvas_pass": true,
+    "hard_alpha_pass": false,
+    "nonuniform_visible_12px_cells": 5248,
+    "grid_12px_pass": false,
+    "lowest_visible_y_alpha_ge_128": 1185,
+    "sha256": "21e840e93659edd16fa537c56e8fb91fb53df6fc5074d3e9ccfbe07a013a2aa2"
+  },
+  {
+    "file": "krug-pose-e_shell.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_levels": 256,
+    "partial_alpha_pixels": 587729,
+    "transparent_pixels": 983721,
+    "bbox_alpha_ge_128": [
+      26,
+      407,
+      1228,
+      1170
+    ],
+    "canvas_pass": true,
+    "hard_alpha_pass": false,
+    "nonuniform_visible_12px_cells": 4308,
+    "grid_12px_pass": false,
+    "lowest_visible_y_alpha_ge_128": 1169,
+    "sha256": "66668d59c2955ab2a114c0733c8e2c421e1106f632e3e603873796cfc986a345"
+  },
+  {
+    "file": "krug-pose-r_crouch.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_levels": 256,
+    "partial_alpha_pixels": 630778,
+    "transparent_pixels": 939115,
+    "bbox_alpha_ge_128": [
+      69,
+      388,
+      1187,
+      1179
+    ],
+    "canvas_pass": true,
+    "hard_alpha_pass": false,
+    "nonuniform_visible_12px_cells": 4692,
+    "grid_12px_pass": false,
+    "lowest_visible_y_alpha_ge_128": 1178,
+    "sha256": "6b5cf51f10abce93f13fc073a02ba1ddc227acf957e599599dd52a134e9f3b00"
+  },
+  {
+    "file": "krug-pose-run1.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_levels": 256,
+    "partial_alpha_pixels": 641883,
+    "transparent_pixels": 928345,
+    "bbox_alpha_ge_128": [
+      27,
+      239,
+      1227,
+      1183
+    ],
+    "canvas_pass": true,
+    "hard_alpha_pass": false,
+    "nonuniform_visible_12px_cells": 4949,
+    "grid_12px_pass": false,
+    "lowest_visible_y_alpha_ge_128": 1182,
+    "sha256": "5abfb65cd79848e960eb712f38a3a582789ee02f7ccd19ff2f9f6f65c6504da8"
+  },
+  {
+    "file": "krug-pose-run2.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_levels": 256,
+    "partial_alpha_pixels": 548778,
+    "transparent_pixels": 1021672,
+    "bbox_alpha_ge_128": [
+      69,
+      274,
+      1235,
+      1176
+    ],
+    "canvas_pass": true,
+    "hard_alpha_pass": false,
+    "nonuniform_visible_12px_cells": 4347,
+    "grid_12px_pass": false,
+    "lowest_visible_y_alpha_ge_128": 1175,
+    "sha256": "f9048113573a3ff8cf27eadc03548d16ad892c10057667160a8bcd593761a657"
+  },
+  {
+    "file": "krug-pose-run3.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_levels": 256,
+    "partial_alpha_pixels": 649154,
+    "transparent_pixels": 920808,
+    "bbox_alpha_ge_128": [
+      48,
+      339,
+      1233,
+      1177
+    ],
+    "canvas_pass": true,
+    "hard_alpha_pass": false,
+    "nonuniform_visible_12px_cells": 5019,
+    "grid_12px_pass": false,
+    "lowest_visible_y_alpha_ge_128": 1176,
+    "sha256": "afc393f5781bae2ebbd606e061c2b544ad8ea53b1cb26aeda311f771f347abe5"
+  },
+  {
+    "file": "krug-pose-run4.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_levels": 256,
+    "partial_alpha_pixels": 711422,
+    "transparent_pixels": 858287,
+    "bbox_alpha_ge_128": [
+      59,
+      234,
+      1225,
+      1137
+    ],
+    "canvas_pass": true,
+    "hard_alpha_pass": false,
+    "nonuniform_visible_12px_cells": 5502,
+    "grid_12px_pass": false,
+    "lowest_visible_y_alpha_ge_128": 1136,
+    "sha256": "2806fa8b985778e0dff5d890406f85984b8693fd1356ee9bb30e3b3b8d366e08"
+  },
+  {
+    "file": "krug-pose-d_sink.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_levels": 256,
+    "partial_alpha_pixels": 573207,
+    "transparent_pixels": 997024,
+    "bbox_alpha_ge_128": [
+      49,
+      400,
+      1225,
+      1176
+    ],
+    "canvas_pass": true,
+    "hard_alpha_pass": false,
+    "nonuniform_visible_12px_cells": 4278,
+    "grid_12px_pass": false,
+    "lowest_visible_y_alpha_ge_128": 1175,
+    "sha256": "6ece8ee6f3e8e47e7258699cad4db40c7c0c7e3b0efdf02fb46beec7f5e09859"
+  },
+  {
+    "file": "krug-pose-d_crack.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_levels": 256,
+    "partial_alpha_pixels": 624643,
+    "transparent_pixels": 946071,
+    "bbox_alpha_ge_128": [
+      11,
+      318,
+      1244,
+      1156
+    ],
+    "canvas_pass": true,
+    "hard_alpha_pass": false,
+    "nonuniform_visible_12px_cells": 4647,
+    "grid_12px_pass": false,
+    "lowest_visible_y_alpha_ge_128": 1155,
+    "sha256": "79325626d12a2ba81e645b0429a5a5caf8211334c2428b4cd4f5ee6a2f6f91cf"
+  },
+  {
+    "file": "krug-pose-d_down.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_levels": 256,
+    "partial_alpha_pixels": 648376,
+    "transparent_pixels": 921672,
+    "bbox_alpha_ge_128": [
+      31,
+      165,
+      1206,
+      1166
+    ],
+    "canvas_pass": true,
+    "hard_alpha_pass": false,
+    "nonuniform_visible_12px_cells": 5078,
+    "grid_12px_pass": false,
+    "lowest_visible_y_alpha_ge_128": 1165,
+    "sha256": "9967450aa5f2573d581cdbf4d2b8fe025fc33917e3ad40d7c9a39186931fe741"
+  }
+]
