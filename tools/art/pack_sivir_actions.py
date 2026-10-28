@@ -1,5 +1,5 @@
 """The Codex pack for league_sivir's actions drawn whole at PPU 2.25 (assets/source/sivir/ACTIONS_PROMPT_PPU.md): every
-frame of her run, attack, Q throw (skill), Q in flight (skill_wait), Q catch (skill_catch), W (skill2), R (ult), hit
+frame of her run, attack, Q throw (skill), Q in flight (skill_wait), Q catch (skill_catch), E (skill2), R (ult), hit
 and death a new drawing of the approved design (hd/design.png: Codex's picture read as drawn, 98 x 81 squares - the
 user, 2026-10-28: 「通过，用 2.25」) in the pose of her OLD sheet's same frame, tools/art/pack_akali_actions.py's way.
 
@@ -11,7 +11,7 @@ flies (the attack's 4-5, Q in flight: an effect). The run's legs are named frame
 Akali's first run never passed a leg under her).
 
 Not drawn: idle_base (one still frame: the design itself), idle and bp (tools/art/hero_reels.json cuts them from
-skill_catch and attack), attack_fx1 / skill_catch_fx1 (copies with the W cast and Q catch pictures:
+skill_catch and attack), attack_fx1 / skill_catch_fx1 (copies with W's ricochet cast and the Q catch pictures:
 assets/source/native/sivir_bake.json lays them on again). A frame that is another frame pixel for pixel (SAME) takes
 that frame's drawing. skill_wait carries the Q throw's picture baked in, sliced to its timing (11 frames); its BODY
 frames (2, the native cells assets/source/native/sivir_skill_wait.png at 1x, on their own pivots) are the poses to
@@ -44,7 +44,7 @@ NAMES = {"run": "running (her move loop): a quick run, the Chakram carried in he
          "skill_wait": "Boomerang Blade in flight: she waits in her stance, the far hand out, ready to catch it",
          "skill_catch": "Boomerang Blade returning: she catches the Chakram with her far hand and brings it back to her "
                         "near hand",
-         "skill2": "Ricochet (W): she raises the Chakram behind her head, ready to throw",
+         "skill2": "Spell Shield (E): she raises the Chakram behind her head as the shield goes up",
          "ult": "On The Hunt (R): she raises the Chakram high over her head, rallying her team",
          "hit": "struck, flinching back",
          "dead": "death: she staggers, falls and lies on the ground, the Chakram dropped beside her"}

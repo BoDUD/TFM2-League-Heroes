@@ -3,7 +3,7 @@
 
     python tools/art/preview_sivir.py [--out docs/preview]
 
-  league_sivir_frames.png    every animation, frame by frame, 3x on the arena colour
+  league_sivir_frames.png    every animation's dense frames (hd_, PPU 2.25, as league.dll shows them)
   league_sivir_effects.png   every effect animation, 3x
   league_sivir_showcase.gif  a scripted fight against Darius with Garen behind him, timed like the kit: Sivir runs in
                              and her first attack starts Ricochet (teal light on the blade at her hip, teal motes
@@ -25,6 +25,7 @@ from preview_annie import Held, OnFoe  # noqa: E402
 from preview_ashe import Anim, tick  # noqa: E402
 from preview_garen import ARENA, T, contact, frames_of, load  # noqa: E402
 from preview_jhin import Me  # noqa: E402
+from preview_dense import dense, dense_rows, put  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(HERE))
 LEAGUE = os.path.join(ROOT, "league")
@@ -48,7 +49,7 @@ def showcase(out, z=3, step=40):
 
     def a(tag, dur=None, loop=False):
         nonlocal t
-        an = Anim(frames_of(sivir, tag), t, x, gy, loop=loop, until=(t + dur) if dur else None)
+        an = Anim(dense(sivir, tag, "sivir", z), t, x, gy, loop=loop, until=(t + dur) if dur else None)
         body.append(an)
         t = an.until
 
@@ -74,7 +75,7 @@ def showcase(out, z=3, step=40):
         return arrive
 
     # she runs in; Darius and Garen wait
-    run_in = Anim(frames_of(sivir, "run"), 0.0, x - 44, gy, loop=True, until=1100, x1=x)
+    run_in = Anim(dense(sivir, "run", "sivir", z), 0.0, x - 44, gy, loop=True, until=1100, x1=x)
     body.append(run_in)
     t = run_in.until
     a("idle", 300, loop=True)
@@ -136,11 +137,11 @@ def showcase(out, z=3, step=40):
     end = t
 
     def place(img, f, px, py):
-        img.alpha_composite(f, (px - f.width // 2, py - f.height // 2))
+        put(img, f, int(px), int(py), z)
 
     frames, tt = [], 0.0
     while tt < end:
-        img = Image.new("RGBA", (W, H), ARENA)
+        img = Image.new("RGBA", (W * z, H * z), ARENA)
         for an in under:
             f = an.frame(tt)
             if f is not None:
@@ -158,7 +159,7 @@ def showcase(out, z=3, step=40):
             f = an.frame(tt)
             if f is not None:
                 place(img, f, *an.pos(tt))
-        frames.append(img.resize((W * z, H * z), Image.NEAREST).convert("RGB"))
+        frames.append(img.convert("RGB"))
         tt += step
     sample = frames[::6]                              # one palette for the whole clip
     strip = Image.new("RGB", (W * z, H * z * len(sample)))
@@ -176,7 +177,7 @@ def main():
     args = ap.parse_args()
     os.makedirs(T.long_path(args.out), exist_ok=True)
     s = load(CHAMP)
-    print("frames", contact([(s, t["name"], t["name"]) for t in s.tags], os.path.join(args.out, "league_sivir_frames.png")))
+    print("frames", contact(dense_rows(s), os.path.join(args.out, "league_sivir_frames.png"), z=1))
     rows = []
     for name, path in FX.items():
         sp = load(path)

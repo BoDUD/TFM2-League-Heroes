@@ -24,7 +24,7 @@ import casts_sivir_hd as CS  # noqa: E402
 
 TAGS = ["idle_base", "run", "attack", "skill", "skill_wait", "skill_catch", "skill2", "ult", "hit", "dead"]
 NAMES = {"idle_base": "idle", "run": "run", "attack": "attack", "skill": "Q throw", "skill_wait": "Q in flight",
-         "skill_catch": "Q catch", "skill2": "W", "ult": "R", "hit": "hit", "dead": "death"}
+         "skill_catch": "Q catch", "skill2": "E", "ult": "R", "hit": "hit", "dead": "death"}
 STEM = os.path.join(ROOT, "league", "champions", "league_sivir")
 BG = (96, 112, 96)
 
