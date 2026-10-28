@@ -443,6 +443,11 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // her head gives (tools/art/casts_akali_hd.py, rig_akali_hd.py; the dashes baked as before); 40 game px as her 1x
     // sprite, so no SIZES row
     ("league_akali", 1.8, include_str!("../../../league/champions/league_akali#anim.fanim")),
+    // Sivir (2026-10-28, 「下一个英雄重做希维尔吧」, 「通过，用 2.25」): Codex's picture read as drawn on its own 11.6-px
+    // squares (98 x 81, tools/art/design_sivir_hd.py: 81 rows / 36 = 2.25); every action Codex's whole-frame redraw of her
+    // old frame read onto it at the zoom her head gives (tools/art/casts_sivir_hd.py, rig_sivir_hd.py; the Q throw and
+    // the W / catch pictures baked as before); 36 game px as her 1x sprite, so no SIZES row
+    ("league_sivir", 2.25, include_str!("../../../league/champions/league_sivir#anim.fanim")),
 ];
 
 /// Champion id, its size everywhere the dense frames are drawn (1.0 = the 1x frames' size): the anim tables' rects and

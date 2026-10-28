@@ -10,7 +10,7 @@
 | 所属的包 | 主包（mod_id `league`） |
 | 分路 | ADC |
 | 分类 / 标签 | 射手（Range） · AD / Range |
-| 高清帧 | 1 倍像素（无高清帧） |
+| 高清帧 | PPU 2.25 |
 | 附加包 | [游戏 AI 不按的技能替它按](#附加包)（`league_ult_press`） |
 
 ![希维尔演示](../preview/league_sivir_showcase.gif)
@@ -85,6 +85,7 @@
 | 数值 | 攻击 110（+23）、生命 900（+90）、护甲 20（+7）、魔抗 15（+3）、移速 900（+9）。数值是自己设计的，用 SDK 对战模拟调：下路，对 4 个原版射手（`gunner`、`soldier`、`archer`、`gambler`），每批两边各 12 局。旧 mod 的套路 −2.7 / −2.4（没有 W、Q 出手不锁定、E 只是减伤）；补上 W、真正的 E 和 R 的冷却缩减后 −1.05 / −0.77；Q 先锁定射程内的英雄、射程 100000（往返 110000）+1.01 / +1.14；攻击 110（+22）+2.02 / +1.60；接刃的停顿加上后再调到攻击成长 23、弹射 60%、W 攻速 +45%：+2.50 / +1.83，和包里的 ADC 持平（同一批烬 +1.43 / +2.08、卡莎 +2.07 / +2.85、凯特琳 +2.68 / +1.46），定下这版 |
 | 精灵图 | 10 个动作 48 帧：待机、移动、普攻、Q 掷出、Q 等刃飞回（空手）、Q 接刃、E、R、受击、死亡。造型按用户在 Codex 里挑的原画 A（英雄联盟的待机：低重心宽站姿，展开的十字刃在后腰），Codex 第二轮的生图草稿 2 按自己的格子读回、删到 40 行（`design_sivir.py`，用户：「好的完美」）；每个动作都用造型自己的部件摆出（`rig_sivir.py`，移动的腿在 `rig_sivir_run.py`），十字刃缩到约 70%（「另外希维尔感觉模型偏大？」）。48 × 40 px，23 色；待机 6 帧同一张（不呼吸）；待机最高点 −28，`banpick_center` 不设；头像截取点 (0, −37) |
 | 音效 | 英雄联盟的音效（`tools/lol/extract_sivir.py`）：普攻掷刃和命中、Q 掷出 / 回旋 / 命中、E 张开 / 挡下、R 施放 |
+| 高清帧（PPU 2.25） | 2026-10-28 用 PPU 重做（用户：「下一个英雄重做希维尔吧」「通过，用 2.25」）。设计图：Codex 照她的旧精灵描密、「更像英雄联盟一点」的图，按原图自己的 11.6 像素格子逐格读回（98 × 81 格；81 行 / 2.25 = 原来的 36 像素，`design_sivir_hd.py`）。动作：Codex 照旧版同一帧用设计图整帧重画（`pack_sivir_actions.py`，39 帧；回旋刃跟着旧版那一帧走，飞出去的帧手里是空的；跑步一开始就逐帧写清腿怎么摆：第 1、5 帧收腿换步），每张按设计图的头原大小找缩放读回（`casts_sivir_hd.py`）；待机就是设计图（旧版一帧不动）；Q 掷出、W 弹射、接回的特效照旧烤进动作帧（`rig_sivir_hd.py`）。高 36 像素和原来一样，没有 SIZES 行；头像点不变，选人卡片值设为 -6（举起的回旋刃不再伸出卡片顶） |
 
 重新生成（素材来自本机的英雄联盟客户端，音频不进仓库）：
 
@@ -95,6 +96,15 @@ python tools/art/rig_sivir.py             # 动作：全部用造型的部件摆
 python tools/art/import_native.py --hero sivir
 python tools/art/import_sivir.py          # 特效；--raw <Codex 的特效交付文件夹> 先把整理版缩成游戏尺寸的原尺寸条
 python tools/art/preview_sivir.py
+# PPU 2.25 重做（2026-10-28）：
+python tools/art/pack_sivir_ppu.py --out <文件夹>          # 给 Codex 的设计图包（照她的旧精灵描密）
+python tools/art/design_sivir_hd.py                      # Codex 的图（hd/raw/sivir-A.png）按自己的格子读回 -> hd/design.png
+python tools/art/pack_sivir_actions.py --out <文件夹>      # 给 Codex 的动作包（照旧版同一帧整帧重画）
+python tools/art/casts_sivir_hd.py --measure             # 每帧按头量的放大倍数
+python tools/art/rig_sivir_hd.py                         # 读回、烤特效 -> 原始条和 1 倍图
+python tools/art/ppu_restyle.py --hero sivir && python tools/art/ppu_hd.py --hero sivir
+python tools/art/ppu_one.py --hero sivir && python tools/art/rig_sivir_hd.py --one-ground && python tools/art/hero_reels.py --hero sivir
+python tools/art/review_sivir_actions.py --out <文件夹>    # 旧版 / 新版对照动图
 ```
 
 美术（原画的提示词见 [`assets/source/sivir/PICTURE_PROMPT.md`](../../assets/source/sivir/PICTURE_PROMPT.md)，造型的见 [`MODEL_PROMPTS.md`](../../assets/source/sivir/MODEL_PROMPTS.md)，动作的见 [`MODEL_STRIPS.md`](../../assets/source/sivir/MODEL_STRIPS.md)，特效的见 [`PROMPTS_FX.md`](../../assets/source/sivir/PROMPTS_FX.md)；Codex 的交接说明在 [`codex_picture/`](../../assets/source/sivir/codex_picture)、[`codex_model/`](../../assets/source/sivir/codex_model)、[`codex_fx/`](../../assets/source/sivir/codex_fx)）：
@@ -107,4 +117,4 @@ python tools/art/preview_sivir.py
 - 导入：待机 6 帧是同一张，不呼吸：之前第 3–5 帧从围巾下面往下沉一格，接缝每次切过十字刃和前肩，选人卡片跟着上下摇（用户：「BP界面还是会上下摇动」），用户选了不呼吸；按眼睛的薄荷色定头的位置（`EYES`）；描边补齐（`COMPLETE`）。
 - 特效用 Codex 画的 16 张（86 帧，生图后整理成 8 倍方格，`import_sivir.py --raw` 同烬：每个游戏像素取覆盖的原稿像素里最多的颜色，颜色归到包里给每张的色阶——金、青绿、护盾的蓝紫、R 的青蓝——光效外圈最暗的一档去掉，飞行的十字刃保留描边）。飞行的刃比包里写的大一号（普攻 13、W 15 格：10 格转起来糊成一团；Q 16 格，和她手里的十字刃一样大）。位置：W 开启的光在后腰的刃上 (−17, −8)，Q 出手的闪光在前手 (23, −12)，接刃的闪光在举起的刃上 (22, −22)，挡下技能和刷新的闪光在胸口 (3, −10)，护盾的球心 (2, −9)，冲击波和加速的风环在脚底。飞行的刃第一帧前空 4 tick（刃飞过手之前不画），普攻和 W 的刃从 −8 的高度出发；Q 的回程弹道没有高度参数，去程也留在 −2，转身时不跳。
 
-逐帧预览：[`docs/preview/league_sivir_frames.png`](../preview/league_sivir_frames.png?v=1014g)，特效：[`docs/preview/league_sivir_effects.png`](../preview/league_sivir_effects.png?v=1014g)。
+逐帧预览：[`docs/preview/league_sivir_frames.png`](../preview/league_sivir_frames.png?v=1028hd)，特效：[`docs/preview/league_sivir_effects.png`](../preview/league_sivir_effects.png?v=1014g)。
