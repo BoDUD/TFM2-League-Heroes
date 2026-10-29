@@ -1,0 +1,509 @@
+{
+ "square": 7,
+ "square_of": {
+  "ult": 4
+ },
+ "sheet": [
+  1536,
+  1024
+ ],
+ "ground": 924,
+ "same": {},
+ "baked_body_frames": [],
+ "sheets": [
+  {
+   "tag": "run",
+   "name": "run_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 7,
+   "action": "flying (her move loop): she flies forward leaning in, never touching the ground, her legs trailing bent behind her, her WINGS BEATING, the sword held low behind her in her far hand, her hair streaming back",
+   "ms": [
+    267,
+    267
+   ],
+   "weapons": "THE SWORD goes where the pale figure has it, frame by frame (image 3 shows it in colour): held in her FAR hand (image right) by its gold hilt, the cyan flame blade pointing where the pale figure's does - low down to the right unless she swings, raises or thrusts it. Only ONE sword, the design's. Both WINGS as the pale figure: spread, raised or swept back.",
+   "wings": "Frame 1: wings swept back level. Frame 2: wings swept back and down. She FLIES the whole loop: no foot ever touches the ground, the legs trailing bent behind her as the pale figure; the body bobs up and down with the beats. Follow the pale figure's WINGS exactly - never the same wing pose in every frame."
+  },
+  {
+   "tag": "run",
+   "name": "run_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "square": 7,
+   "action": "flying (her move loop): she flies forward leaning in, never touching the ground, her legs trailing bent behind her, her WINGS BEATING, the sword held low behind her in her far hand, her hair streaming back",
+   "ms": [
+    267,
+    267
+   ],
+   "weapons": "THE SWORD goes where the pale figure has it, frame by frame (image 3 shows it in colour): held in her FAR hand (image right) by its gold hilt, the cyan flame blade pointing where the pale figure's does - low down to the right unless she swings, raises or thrusts it. Only ONE sword, the design's. Both WINGS as the pale figure: spread, raised or swept back.",
+   "wings": "Frame 3: wings raised. Frame 4: wings raised high. She FLIES the whole loop: no foot ever touches the ground, the legs trailing bent behind her as the pale figure; the body bobs up and down with the beats. Follow the pale figure's WINGS exactly - never the same wing pose in every frame."
+  },
+  {
+   "tag": "run",
+   "name": "run_3",
+   "frames": [
+    5,
+    6
+   ],
+   "cells": 2,
+   "square": 7,
+   "action": "flying (her move loop): she flies forward leaning in, never touching the ground, her legs trailing bent behind her, her WINGS BEATING, the sword held low behind her in her far hand, her hair streaming back",
+   "ms": [
+    267,
+    267
+   ],
+   "weapons": "THE SWORD goes where the pale figure has it, frame by frame (image 3 shows it in colour): held in her FAR hand (image right) by its gold hilt, the cyan flame blade pointing where the pale figure's does - low down to the right unless she swings, raises or thrusts it. Only ONE sword, the design's. Both WINGS as the pale figure: spread, raised or swept back.",
+   "wings": "Frame 5: wings raised. Frame 6: wings raised high (the top of the beat), her body lifting. She FLIES the whole loop: no foot ever touches the ground, the legs trailing bent behind her as the pale figure; the body bobs up and down with the beats. Follow the pale figure's WINGS exactly - never the same wing pose in every frame."
+  },
+  {
+   "tag": "run",
+   "name": "run_4",
+   "frames": [
+    7,
+    8
+   ],
+   "cells": 2,
+   "square": 7,
+   "action": "flying (her move loop): she flies forward leaning in, never touching the ground, her legs trailing bent behind her, her WINGS BEATING, the sword held low behind her in her far hand, her hair streaming back",
+   "ms": [
+    267,
+    267
+   ],
+   "weapons": "THE SWORD goes where the pale figure has it, frame by frame (image 3 shows it in colour): held in her FAR hand (image right) by its gold hilt, the cyan flame blade pointing where the pale figure's does - low down to the right unless she swings, raises or thrusts it. Only ONE sword, the design's. Both WINGS as the pale figure: spread, raised or swept back.",
+   "wings": "Frame 7: wings swept back level. Frame 8: wings swept back. She FLIES the whole loop: no foot ever touches the ground, the legs trailing bent behind her as the pale figure; the body bobs up and down with the beats. Follow the pale figure's WINGS exactly - never the same wing pose in every frame."
+  },
+  {
+   "tag": "run",
+   "name": "run_5",
+   "frames": [
+    9,
+    10
+   ],
+   "cells": 2,
+   "square": 7,
+   "action": "flying (her move loop): she flies forward leaning in, never touching the ground, her legs trailing bent behind her, her WINGS BEATING, the sword held low behind her in her far hand, her hair streaming back",
+   "ms": [
+    267,
+    267
+   ],
+   "weapons": "THE SWORD goes where the pale figure has it, frame by frame (image 3 shows it in colour): held in her FAR hand (image right) by its gold hilt, the cyan flame blade pointing where the pale figure's does - low down to the right unless she swings, raises or thrusts it. Only ONE sword, the design's. Both WINGS as the pale figure: spread, raised or swept back.",
+   "wings": "Frame 9: wings swept back and down. Frame 10: wings swept back level. She FLIES the whole loop: no foot ever touches the ground, the legs trailing bent behind her as the pale figure; the body bobs up and down with the beats. Follow the pale figure's WINGS exactly - never the same wing pose in every frame."
+  },
+  {
+   "tag": "run",
+   "name": "run_6",
+   "frames": [
+    11,
+    12
+   ],
+   "cells": 2,
+   "square": 7,
+   "action": "flying (her move loop): she flies forward leaning in, never touching the ground, her legs trailing bent behind her, her WINGS BEATING, the sword held low behind her in her far hand, her hair streaming back",
+   "ms": [
+    267,
+    267
+   ],
+   "weapons": "THE SWORD goes where the pale figure has it, frame by frame (image 3 shows it in colour): held in her FAR hand (image right) by its gold hilt, the cyan flame blade pointing where the pale figure's does - low down to the right unless she swings, raises or thrusts it. Only ONE sword, the design's. Both WINGS as the pale figure: spread, raised or swept back.",
+   "wings": "Frame 11: wings raised. Frame 12: wings raised. She FLIES the whole loop: no foot ever touches the ground, the legs trailing bent behind her as the pale figure; the body bobs up and down with the beats. Follow the pale figure's WINGS exactly - never the same wing pose in every frame."
+  },
+  {
+   "tag": "run",
+   "name": "run_7",
+   "frames": [
+    13,
+    14
+   ],
+   "cells": 2,
+   "square": 7,
+   "action": "flying (her move loop): she flies forward leaning in, never touching the ground, her legs trailing bent behind her, her WINGS BEATING, the sword held low behind her in her far hand, her hair streaming back",
+   "ms": [
+    267,
+    267
+   ],
+   "weapons": "THE SWORD goes where the pale figure has it, frame by frame (image 3 shows it in colour): held in her FAR hand (image right) by its gold hilt, the cyan flame blade pointing where the pale figure's does - low down to the right unless she swings, raises or thrusts it. Only ONE sword, the design's. Both WINGS as the pale figure: spread, raised or swept back.",
+   "wings": "Frame 13: wings raised high. Frame 14: wings swept back, spread. She FLIES the whole loop: no foot ever touches the ground, the legs trailing bent behind her as the pale figure; the body bobs up and down with the beats. Follow the pale figure's WINGS exactly - never the same wing pose in every frame."
+  },
+  {
+   "tag": "run",
+   "name": "run_8",
+   "frames": [
+    15,
+    16
+   ],
+   "cells": 2,
+   "square": 7,
+   "action": "flying (her move loop): she flies forward leaning in, never touching the ground, her legs trailing bent behind her, her WINGS BEATING, the sword held low behind her in her far hand, her hair streaming back",
+   "ms": [
+    267,
+    267
+   ],
+   "weapons": "THE SWORD goes where the pale figure has it, frame by frame (image 3 shows it in colour): held in her FAR hand (image right) by its gold hilt, the cyan flame blade pointing where the pale figure's does - low down to the right unless she swings, raises or thrusts it. Only ONE sword, the design's. Both WINGS as the pale figure: spread, raised or swept back.",
+   "wings": "Frame 15: wings swept back, spread. Frame 16: wings swept back level. She FLIES the whole loop: no foot ever touches the ground, the legs trailing bent behind her as the pale figure; the body bobs up and down with the beats. Follow the pale figure's WINGS exactly - never the same wing pose in every frame."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 7,
+   "action": "ranged attack (after she ascends): she swings the sword back over her shoulder, swoops forward and thrusts it out ahead of her to the right, rising, and settles",
+   "ms": [
+    50,
+    50
+   ],
+   "weapons": "THE SWORD goes where the pale figure has it, frame by frame (image 3 shows it in colour): held in her FAR hand (image right) by its gold hilt, the cyan flame blade pointing where the pale figure's does - low down to the right unless she swings, raises or thrusts it. Only ONE sword, the design's. Both WINGS as the pale figure: spread, raised or swept back."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "square": 7,
+   "action": "ranged attack (after she ascends): she swings the sword back over her shoulder, swoops forward and thrusts it out ahead of her to the right, rising, and settles",
+   "ms": [
+    60,
+    60
+   ],
+   "weapons": "THE SWORD goes where the pale figure has it, frame by frame (image 3 shows it in colour): held in her FAR hand (image right) by its gold hilt, the cyan flame blade pointing where the pale figure's does - low down to the right unless she swings, raises or thrusts it. Only ONE sword, the design's. Both WINGS as the pale figure: spread, raised or swept back."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_3",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "ranged attack (after she ascends): she swings the sword back over her shoulder, swoops forward and thrusts it out ahead of her to the right, rising, and settles",
+   "ms": [
+    70
+   ],
+   "weapons": "THE SWORD goes where the pale figure has it, frame by frame (image 3 shows it in colour): held in her FAR hand (image right) by its gold hilt, the cyan flame blade pointing where the pale figure's does - low down to the right unless she swings, raises or thrusts it. Only ONE sword, the design's. Both WINGS as the pale figure: spread, raised or swept back."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_4",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "ranged attack (after she ascends): she swings the sword back over her shoulder, swoops forward and thrusts it out ahead of her to the right, rising, and settles",
+   "ms": [
+    77
+   ],
+   "weapons": "THE SWORD goes where the pale figure has it, frame by frame (image 3 shows it in colour): held in her FAR hand (image right) by its gold hilt, the cyan flame blade pointing where the pale figure's does - low down to the right unless she swings, raises or thrusts it. Only ONE sword, the design's. Both WINGS as the pale figure: spread, raised or swept back."
+  },
+  {
+   "tag": "attack_melee",
+   "name": "attack_melee_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 7,
+   "action": "melee attack (before she ascends): she thrusts the sword straight out ahead, raises it high over her head, lunges and slashes it out ahead of her at chest height, and settles",
+   "ms": [
+    50,
+    50
+   ],
+   "weapons": "THE SWORD goes where the pale figure has it, frame by frame (image 3 shows it in colour): held in her FAR hand (image right) by its gold hilt, the cyan flame blade pointing where the pale figure's does - low down to the right unless she swings, raises or thrusts it. Only ONE sword, the design's. Both WINGS as the pale figure: spread, raised or swept back."
+  },
+  {
+   "tag": "attack_melee",
+   "name": "attack_melee_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "square": 7,
+   "action": "melee attack (before she ascends): she thrusts the sword straight out ahead, raises it high over her head, lunges and slashes it out ahead of her at chest height, and settles",
+   "ms": [
+    60,
+    60
+   ],
+   "weapons": "THE SWORD goes where the pale figure has it, frame by frame (image 3 shows it in colour): held in her FAR hand (image right) by its gold hilt, the cyan flame blade pointing where the pale figure's does - low down to the right unless she swings, raises or thrusts it. Only ONE sword, the design's. Both WINGS as the pale figure: spread, raised or swept back."
+  },
+  {
+   "tag": "attack_melee",
+   "name": "attack_melee_3",
+   "frames": [
+    5,
+    6
+   ],
+   "cells": 2,
+   "square": 7,
+   "action": "melee attack (before she ascends): she thrusts the sword straight out ahead, raises it high over her head, lunges and slashes it out ahead of her at chest height, and settles",
+   "ms": [
+    70,
+    77
+   ],
+   "weapons": "THE SWORD goes where the pale figure has it, frame by frame (image 3 shows it in colour): held in her FAR hand (image right) by its gold hilt, the cyan flame blade pointing where the pale figure's does - low down to the right unless she swings, raises or thrusts it. Only ONE sword, the design's. Both WINGS as the pale figure: spread, raised or swept back."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 7,
+   "action": "Radiant Blast (Q): she spreads her wings, dives forward almost level, curls round and turns back, the sword low, and settles",
+   "ms": [
+    60,
+    60
+   ],
+   "weapons": "THE SWORD goes where the pale figure has it, frame by frame (image 3 shows it in colour): held in her FAR hand (image right) by its gold hilt, the cyan flame blade pointing where the pale figure's does - low down to the right unless she swings, raises or thrusts it. Only ONE sword, the design's. Both WINGS as the pale figure: spread, raised or swept back."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "square": 7,
+   "action": "Radiant Blast (Q): she spreads her wings, dives forward almost level, curls round and turns back, the sword low, and settles",
+   "ms": [
+    60,
+    70
+   ],
+   "weapons": "THE SWORD goes where the pale figure has it, frame by frame (image 3 shows it in colour): held in her FAR hand (image right) by its gold hilt, the cyan flame blade pointing where the pale figure's does - low down to the right unless she swings, raises or thrusts it. Only ONE sword, the design's. Both WINGS as the pale figure: spread, raised or swept back."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_3",
+   "frames": [
+    5,
+    6
+   ],
+   "cells": 2,
+   "square": 7,
+   "action": "Radiant Blast (Q): she spreads her wings, dives forward almost level, curls round and turns back, the sword low, and settles",
+   "ms": [
+    70,
+    80
+   ],
+   "weapons": "THE SWORD goes where the pale figure has it, frame by frame (image 3 shows it in colour): held in her FAR hand (image right) by its gold hilt, the cyan flame blade pointing where the pale figure's does - low down to the right unless she swings, raises or thrusts it. Only ONE sword, the design's. Both WINGS as the pale figure: spread, raised or swept back."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 7,
+   "action": "Starfire Spellblade (E): she draws the sword back over her shoulder, then slashes it down ahead of her to the right and settles",
+   "ms": [
+    50,
+    60
+   ],
+   "weapons": "THE SWORD goes where the pale figure has it, frame by frame (image 3 shows it in colour): held in her FAR hand (image right) by its gold hilt, the cyan flame blade pointing where the pale figure's does - low down to the right unless she swings, raises or thrusts it. Only ONE sword, the design's. Both WINGS as the pale figure: spread, raised or swept back."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "square": 7,
+   "action": "Starfire Spellblade (E): she draws the sword back over her shoulder, then slashes it down ahead of her to the right and settles",
+   "ms": [
+    60,
+    70
+   ],
+   "weapons": "THE SWORD goes where the pale figure has it, frame by frame (image 3 shows it in colour): held in her FAR hand (image right) by its gold hilt, the cyan flame blade pointing where the pale figure's does - low down to the right unless she swings, raises or thrusts it. Only ONE sword, the design's. Both WINGS as the pale figure: spread, raised or swept back."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_3",
+   "frames": [
+    5,
+    6
+   ],
+   "cells": 2,
+   "square": 7,
+   "action": "Starfire Spellblade (E): she draws the sword back over her shoulder, then slashes it down ahead of her to the right and settles",
+   "ms": [
+    70,
+    90
+   ],
+   "weapons": "THE SWORD goes where the pale figure has it, frame by frame (image 3 shows it in colour): held in her FAR hand (image right) by its gold hilt, the cyan flame blade pointing where the pale figure's does - low down to the right unless she swings, raises or thrusts it. Only ONE sword, the design's. Both WINGS as the pale figure: spread, raised or swept back."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 4,
+   "action": "Divine Judgment (R): she crouches with her wings spread, rises high into the air raising the sword straight up over her head, flings it up far above her (frame 6), comes down empty-handed (frame 7) and lands with the sword back in her hand (frame 8)",
+   "ms": [
+    70,
+    70
+   ],
+   "weapons": "As the pale figure: the sword in her far hand, raised straight up over her head in frames 3-5; in frame 6 it FLIES UP ON ITS OWN far above her (draw it there, point up, separate from her, her hands empty); in frame 7 NO sword at all, her hands empty; in frame 8 back in her far hand, low. Only one sword. Both WINGS as the pale figure."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "square": 4,
+   "action": "Divine Judgment (R): she crouches with her wings spread, rises high into the air raising the sword straight up over her head, flings it up far above her (frame 6), comes down empty-handed (frame 7) and lands with the sword back in her hand (frame 8)",
+   "ms": [
+    80,
+    90
+   ],
+   "weapons": "As the pale figure: the sword in her far hand, raised straight up over her head in frames 3-5; in frame 6 it FLIES UP ON ITS OWN far above her (draw it there, point up, separate from her, her hands empty); in frame 7 NO sword at all, her hands empty; in frame 8 back in her far hand, low. Only one sword. Both WINGS as the pale figure."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_3",
+   "frames": [
+    5,
+    6
+   ],
+   "cells": 2,
+   "square": 4,
+   "action": "Divine Judgment (R): she crouches with her wings spread, rises high into the air raising the sword straight up over her head, flings it up far above her (frame 6), comes down empty-handed (frame 7) and lands with the sword back in her hand (frame 8)",
+   "ms": [
+    100,
+    100
+   ],
+   "weapons": "As the pale figure: the sword in her far hand, raised straight up over her head in frames 3-5; in frame 6 it FLIES UP ON ITS OWN far above her (draw it there, point up, separate from her, her hands empty); in frame 7 NO sword at all, her hands empty; in frame 8 back in her far hand, low. Only one sword. Both WINGS as the pale figure."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_4",
+   "frames": [
+    7,
+    8
+   ],
+   "cells": 2,
+   "square": 4,
+   "action": "Divine Judgment (R): she crouches with her wings spread, rises high into the air raising the sword straight up over her head, flings it up far above her (frame 6), comes down empty-handed (frame 7) and lands with the sword back in her hand (frame 8)",
+   "ms": [
+    110,
+    120
+   ],
+   "weapons": "As the pale figure: the sword in her far hand, raised straight up over her head in frames 3-5; in frame 6 it FLIES UP ON ITS OWN far above her (draw it there, point up, separate from her, her hands empty); in frame 7 NO sword at all, her hands empty; in frame 8 back in her far hand, low. Only one sword. Both WINGS as the pale figure."
+  },
+  {
+   "tag": "hit",
+   "name": "hit_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 7,
+   "action": "struck: jolted back in the air",
+   "ms": [
+    120,
+    120
+   ],
+   "weapons": "THE SWORD goes where the pale figure has it, frame by frame (image 3 shows it in colour): held in her FAR hand (image right) by its gold hilt, the cyan flame blade pointing where the pale figure's does - low down to the right unless she swings, raises or thrusts it. Only ONE sword, the design's. Both WINGS as the pale figure: spread, raised or swept back."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 7,
+   "action": "death: struck back, she loses the sword, sinks to her knees and falls forward, lying face down on the ground with her wings over her",
+   "ms": [
+    100,
+    100
+   ],
+   "weapons": "As the pale figure: the sword in her far hand in frame 1 only; from frame 2 on there is NO sword at all (she has lost it). Both WINGS as the pale figure, lying over her in the last frames."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "square": 7,
+   "action": "death: struck back, she loses the sword, sinks to her knees and falls forward, lying face down on the ground with her wings over her",
+   "ms": [
+    150,
+    150
+   ],
+   "weapons": "As the pale figure: the sword in her far hand in frame 1 only; from frame 2 on there is NO sword at all (she has lost it). Both WINGS as the pale figure, lying over her in the last frames."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_3",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "death: struck back, she loses the sword, sinks to her knees and falls forward, lying face down on the ground with her wings over her",
+   "ms": [
+    100
+   ],
+   "weapons": "As the pale figure: the sword in her far hand in frame 1 only; from frame 2 on there is NO sword at all (she has lost it). Both WINGS as the pale figure, lying over her in the last frames."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_4",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "death: struck back, she loses the sword, sinks to her knees and falls forward, lying face down on the ground with her wings over her",
+   "ms": [
+    100
+   ],
+   "weapons": "As the pale figure: the sword in her far hand in frame 1 only; from frame 2 on there is NO sword at all (she has lost it). Both WINGS as the pale figure, lying over her in the last frames."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_5",
+   "frames": [
+    7
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "death: struck back, she loses the sword, sinks to her knees and falls forward, lying face down on the ground with her wings over her",
+   "ms": [
+    500
+   ],
+   "weapons": "As the pale figure: the sword in her far hand in frame 1 only; from frame 2 on there is NO sword at all (she has lost it). Both WINGS as the pale figure, lying over her in the last frames."
+  }
+ ]
+}

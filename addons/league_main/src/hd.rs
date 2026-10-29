@@ -486,6 +486,12 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // parts, turned whole - rigged again and posed on his old frames (tools/art/casts_taric_hd.py, rig_taric_hd.py;
     // nothing baked - his starlight, beams and shields are effect strips); 40 game px as his 1x sprite, so no SIZES row
     ("league_taric", 1.55, include_str!("../../../league/champions/league_taric#anim.fanim")),
+    // Kayle (2026-10-29, 「下一个英雄重做天使」, 「通过，用 2.29」): Codex's kayle-A read as drawn (66 x 112,
+    // tools/art/design_kayle_hd.py: 112 rows / 49 = 2.286, wing tips to sword tip); every action Codex's whole-frame
+    // redraw of her old frame read onto it at the zoom her figure and head give (tools/art/casts_kayle_hd.py,
+    // rig_kayle_hd.py; nothing baked - her fire, waves and blades are effect strips); 49 game px as her 1x sprite and
+    // hovering 2 px as before, so no SIZES row
+    ("league_kayle", 2.286, include_str!("../../../league/champions/league_kayle#anim.fanim")),
 ];
 
 /// Champion id, its size everywhere the dense frames are drawn (1.0 = the 1x frames' size): the anim tables' rects and
