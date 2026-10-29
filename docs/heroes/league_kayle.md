@@ -10,7 +10,7 @@
 | 所属的包 | 主包（mod_id `league`） |
 | 分路 | 上单 |
 | 分类 / 标签 | 法师（Magician） · AP / Magic / Range / Heal |
-| 高清帧 | 1 倍像素（无高清帧） |
+| 高清帧 | PPU 2.29 |
 | 附加包 | [凯尔升阶附加包：按真实等级升阶、死后不掉](#附加包)（`league_kayle`）、[游戏 AI 不按的技能替它按](#附加包)（`league_ult_press`） |
 
 ![凯尔演示](../preview/league_kayle_showcase.gif)
@@ -94,6 +94,7 @@
 | 特效 | 近战刀光、火焰弹和命中、炽诚焰浪、昂扬圣火、升阶金翼（5 / 8 / 12 级各一次）、Q 星体之剑和爆开、E 星火、命中和爆炸、星界恩典的治疗光、R 无敌金罩、天降圣剑 |
 | 图标 | 官方技能图标（Q / E / R），64×64 |
 | 音频 | 从本地客户端提取的 17 条技能音效和 7 条中文语音（Q、W、E、R、三次升阶）。不提交到仓库，按下面的命令在本地生成 |
+| 高清帧（PPU 2.29） | 2026-10-29 用 PPU 重做（用户：「下一个英雄重做天使」「通过，用 2.29」「动作通过」）。设计图：Codex 照她的旧精灵描密的原图（两版几乎一样，用 A 版），按原图约 9.8 像素一格读回（66 × 112 格；翅膀尖到剑尖 112 行 / 2.29 = 原来的 49 像素；调色板 64 色，48 色会把白发并进翅膀的冰蓝，`design_kayle_hd.py`）。头比旧版的 Q 版大头小一号，是设计图本来的比例。动作：Codex 照旧版同一帧用设计图整帧重画（`pack_kayle_actions.py`，57 帧，没有和别的帧重复的；飞行逐帧写了翅膀怎么扇，R 的模板缩小，因为她飞到离地 89 像素）。读回（`casts_kayle_hd.py`）：每张的缩放先按整个人的面积量，但设计图翅膀全张开、剑伸得长，动作里翅膀常收拢，按面积读出来每帧都大 10–20%；再乘头的大小（头发和脸各自最大一块的面积，和设计图比）定下来，57 帧的头平均是设计图的 1.01 倍。她悬浮：旧待机最低的剑尖离脚底线 2 像素，新的地面也放在设计图底边下 5 格；对齐点按设计图和旧待机的剪影重叠最多的那列（第 30 列）。R 第 6 帧抛起的剑，Codex 画得只比头高 30 格，整块挪到旧版的高度（头顶上方约 85 格）。待机不上下起伏（待机和选人卡是从动作里剪的随机片段）；没有烤进动作的特效；升阶的光翼、圣火翼、光环挂在她身后，和新身体对得上（`rig_kayle_hd.py`）。高 49 像素和原来一样，没有 SIZES 行；头像点不变；选人卡片 −5 会切掉翅膀尖，改成 0 |
 
 ```bash
 python tools/lol/extract_kayle.py --lol "D:\WeGameApps\lol" --vgmstream "<vgmstream-cli.exe 路径>"
@@ -104,6 +105,16 @@ python tools/art/native_frames.py join --hero kayle --src <上一步的文件夹
 python tools/art/import_native.py --hero kayle
 python tools/art/import_kayle.py      # 特效；--raw <Codex 的交付文件夹> 先把原始图转成原尺寸条
 python tools/art/preview_kayle.py
+# PPU 2.29 重做（2026-10-29）：
+python tools/art/pack_kayle_ppu.py --out <文件夹>          # 给 Codex 的设计图包（照她的旧精灵描密）
+python tools/art/design_kayle_hd.py                      # Codex 的原图（hd/raw/kayle-A.png）按自己的格子读回 -> hd/design.png
+python tools/art/pack_kayle_actions.py --out <文件夹>      # 给 Codex 的动作包（照旧版同一帧整帧重画）
+python tools/art/casts_kayle_hd.py --area                # 每张按面积的缩放；--heads 每帧头的大小（定 ZOOM）
+python tools/art/rig_kayle_hd.py                         # 读回 -> 原始条和 1 倍图
+python tools/art/ppu_restyle.py --hero kayle && python tools/art/ppu_hd.py --hero kayle
+python tools/art/ppu_one.py --hero kayle && python tools/art/rig_kayle_hd.py --one-ground && python tools/art/hero_reels.py --hero kayle
+python tools/art/preview_kayle.py && python tools/art/preview_kayle_ascend.py
+python tools/art/review_kayle_actions.py --out <文件夹>    # 旧版 / 新版对照动图
 ```
 
 美术（提示词见 [`assets/source/kayle/PROMPTS.md`](../../assets/source/kayle/PROMPTS.md)）：
@@ -121,8 +132,8 @@ python tools/art/preview_kayle.py
 - 重画的整理（用户："Codex不合格的地方学稻草人会话的处理方式 麻烦你兜底处理"）：Codex 先交造型图（生图原稿 948×1659、像素块宽 14–16 px 不等），Claude 按它自己的像素边缘逐格取色、整理成 21 色，用户通过（[`kayle_model_design.png`](../../assets/source/kayle/kayle_model_design.png)）。63 帧里待机 6 帧就是造型图，另外 57 帧仍是生图原稿：半透明边缘、每张两三万种颜色、像素块 11–16 px 宽且各帧不同，头的细节、人的位置也每帧不一样（Codex 的交接说明见 [`codex_model/`](../../assets/source/kayle/codex_model)）。`tools/art/tidy_kayle.py` 在游戏像素上整理：每个像素取原稿里它中心的颜色（整格合并会在块宽对不上时重复出一列描边，移动第 11 帧中间多了一条黑线），映射到 21 色；受击和倒地以外的 48 帧擦掉画的头、贴上造型图的头（两只眼睛对上画的眼睛，找不到时按头顶和脸的位置），每帧同一张脸，循环时头不"沸腾"；琥珀色只留在眼睛上；竖直方向按身体最低一行对齐原来那一帧，移动恢复了原版的上下浮动（原稿里低了 3–13 行）；横向保持 Codex 画的位置，待机和移动按眼睛对齐（`import_native.py` 的 `EYES`，和费德提克一样，凯尔从 `PASTED` 移过去）。
 - 重画后的结果：21 色，和右边像素同色的比例 37%，头像截取点 (−2, −40)（去掉翅膀量的头顶）。选人卡片：她从翅膀尖到脚 50 px，不设 `banpick_center` 时翅膀冒出卡片上沿（用户在游戏里看到），设 −9 时翅膀尖被卡片上沿切掉；照原版高个英雄的做法设 (0, 0)：翅膀完整，小腿以下藏在名字栏后面（见「选人卡片位置」一节）。Q 第 4 帧 Codex 画得小一圈，没有改。
 
-- 升阶变身（2026-10-08，用户：「天使可不可以在到达特定的等级变身呢？还有特效强化」，选了只改数据的做法）：待机、移动、受击、死亡的动画由引擎挑，换不了，所以变身画成跟着她的翅膀（`view_buffs`，z −1 画在她身后），每升一阶多一对，三对叠起来：5 级（`rank5`）腰下一对金色光翼，8 级（`rank8`）肩旁一对圣火翼，12 级（新加的 `form3`，和 `rank12` 一起加，`rank12` 本身还是圣火 `exalted`）头顶两侧一对白金火焰大翼加光环。12 级起普攻火焰弹、焰浪、Q 圣剑、E 星火和它们的命中、爆炸都换成更大更亮的超凡版（每个弹道和画面外包一层 `SwitchByBuff rank12`，换成 `*_x`，四个技能树各多 2–30 个节点）。Codex 画的 11 张（提示词 [`assets/source/kayle/PROMPTS_ASCEND.md`](../../assets/source/kayle/PROMPTS_ASCEND.md)，交付 [`codex_ascend/`](../../assets/source/kayle/codex_ascend)）按 `pixel_1x` 原尺寸切格、断言对称（翅膀和命中左右对称，飞行的上下对称，Q 地面爆炸两个方向都对称，红色方不镜像特效），`python tools/art/import_kayle_ascend.py` 导入、`python tools/fix/kayle_ascend.py` 改数据（只跑一次）。25 分钟模拟里 12 级后八种超凡特效都出现了。预览：[`league_kayle_ascend.gif`](../preview/league_kayle_ascend.gif?v=1014g)（1 / 5 / 8 / 12 级并排）、[`league_kayle_ascend.png`](../preview/league_kayle_ascend.png?v=1014g)（左原版、右 12 级）。
+- 升阶变身（2026-10-08，用户：「天使可不可以在到达特定的等级变身呢？还有特效强化」，选了只改数据的做法）：待机、移动、受击、死亡的动画由引擎挑，换不了，所以变身画成跟着她的翅膀（`view_buffs`，z −1 画在她身后），每升一阶多一对，三对叠起来：5 级（`rank5`）腰下一对金色光翼，8 级（`rank8`）肩旁一对圣火翼，12 级（新加的 `form3`，和 `rank12` 一起加，`rank12` 本身还是圣火 `exalted`）头顶两侧一对白金火焰大翼加光环。12 级起普攻火焰弹、焰浪、Q 圣剑、E 星火和它们的命中、爆炸都换成更大更亮的超凡版（每个弹道和画面外包一层 `SwitchByBuff rank12`，换成 `*_x`，四个技能树各多 2–30 个节点）。Codex 画的 11 张（提示词 [`assets/source/kayle/PROMPTS_ASCEND.md`](../../assets/source/kayle/PROMPTS_ASCEND.md)，交付 [`codex_ascend/`](../../assets/source/kayle/codex_ascend)）按 `pixel_1x` 原尺寸切格、断言对称（翅膀和命中左右对称，飞行的上下对称，Q 地面爆炸两个方向都对称，红色方不镜像特效），`python tools/art/import_kayle_ascend.py` 导入、`python tools/fix/kayle_ascend.py` 改数据（只跑一次）。25 分钟模拟里 12 级后八种超凡特效都出现了。预览：[`league_kayle_ascend.gif`](../preview/league_kayle_ascend.gif?v=1029hd)（1 / 5 / 8 / 12 级并排）、[`league_kayle_ascend.png`](../preview/league_kayle_ascend.png?v=1014g)（左原版、右 12 级）。
 - 升阶死后不掉（用户：「能一直保持吗 死后不掉」）：引擎在她死亡时清掉身上全部 buff，数据也没有「复活时」这个时机，主包里从倒下到复活后第一次出手之间没有翅膀（射程也回到近战）。附加包 [`addons/league_kayle`](../../addons/league_kayle/README.md)（在附加包合集里）用原生代码记下她升过的阶，死着、复活时缺了就原样补上（数值和主包一样），并挂上这条命的补读标记，主包不再补读（补读不看已有的阶，同名 buff 会叠两层）。新的一阶仍由主包认出、照旧播仪式。主包不装附加包也完整可玩；附加包只做了单元测试，倒下时翅膀在不在要在游戏里看。
  0.2.0 起也按真实等级升阶（用户要修的日志：升阶比等级早）：副本里的生命探测全换成读附加包按她真实等级（原生代码读得到）挂的 `lv5` / `lv8` / `lv12` 标记，仪式、语音和数值照旧，阶到 5 / 8 / 12 级才来。
 
-逐帧预览：[`docs/preview/league_kayle_frames.png`](../preview/league_kayle_frames.png?v=1014g)，特效：[`docs/preview/league_kayle_effects.png`](../preview/league_kayle_effects.png?v=1014g)。
+逐帧预览：[`docs/preview/league_kayle_frames.png`](../preview/league_kayle_frames.png?v=1029hd)，特效：[`docs/preview/league_kayle_effects.png`](../preview/league_kayle_effects.png?v=1014g)。

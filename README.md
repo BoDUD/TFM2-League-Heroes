@@ -120,7 +120,7 @@ GitHub Actions（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)，Window
 | <img src="docs/heroes/img/league_jax.png" width="32"> | [贾克斯](docs/heroes/league_jax.md)<br>Jax | 上单 | 被动 无情连打 · 跳斩 · 反击风暴 · 大招 武器大师 | — | PPU 1.5 |
 | <img src="docs/heroes/img/league_jayce.png" width="32"> | [杰斯](docs/heroes/league_jayce.md)<br>Jayce | 上单 | 苍穹之跃 / 电能震荡 · 雷霆一击 / 超能电荷 · 大招 加速之门 | [杰斯附加包](addons/league_jayce/README.md) | PPU 1.5 |
 | <img src="docs/heroes/img/league_ksante.png" width="32"> | [奎桑提](docs/heroes/league_ksante.md)<br>K'Sante | 上单 | 无双陀斧 · 辟路先锋 · 大招 傲岸雄姿 | [奎桑提附加包](addons/league_ksante/README.md) | PPU 1.2 |
-| <img src="docs/heroes/img/league_kayle.png" width="32"> | [凯尔](docs/heroes/league_kayle.md)<br>Kayle | 上单 | 耀焰冲击 · 星火符刃 · 大招 圣裁之刻 | [凯尔升阶附加包：按真实等级升阶、死后不掉](addons/league_kayle/README.md) | — |
+| <img src="docs/heroes/img/league_kayle.png" width="32"> | [凯尔](docs/heroes/league_kayle.md)<br>Kayle | 上单 | 耀焰冲击 · 星火符刃 · 大招 圣裁之刻 | [凯尔升阶附加包：按真实等级升阶、死后不掉](addons/league_kayle/README.md) | PPU 2.29 |
 | <img src="docs/heroes/img/league_kennen.png" width="32"> | [凯南](docs/heroes/league_kennen.md)<br>Kennen | 上单 | 被动 雷缚印 · 奥义！千鸟 · 奥义！雷铠 · 大招 秘奥义！万雷天牢引 | [目标标记附加包](addons/league_marks/README.md) | — |
 | <img src="docs/heroes/img/league_kled.png" width="32"> | [克烈](docs/heroes/league_kled.md)<br>Kled | 上单 | 飞索捕熊器 · 比武 · 大招 冲啊——！！ | [克烈附加包](addons/league_kled/README.md) | PPU 2 |
 | <img src="docs/heroes/img/league_malphite.png" width="32"> | [墨菲特](docs/heroes/league_malphite.md)<br>Malphite | 上单 | 被动 花岗岩护盾 · 地震碎片 · 大地震颤 · 大招 势不可挡 | — | — |
