@@ -1,0 +1,389 @@
+{
+ "square": 8,
+ "sheet": [
+  1536,
+  1024
+ ],
+ "ground": 924,
+ "same": {},
+ "baked_body_frames": [],
+ "sheets": [
+  {
+   "tag": "run",
+   "name": "run_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "action": "running (his move loop): a strong upright stride, the hammer trailing low behind him in his near hand, the bare far arm swinging, the LEGS STEPPING IN TURN, the cape and the hair swaying",
+   "ms": [
+    150,
+    150
+   ],
+   "weapons": "THE HAMMER goes where the pale figure has it, frame by frame (image 3 shows it in colour): held in his NEAR hand (the gauntleted one), hanging head DOWN by his feet unless the pale figure swings, raises or thrusts it - then its head goes where the pale figure's does. Only ONE hammer, the design's (two curved silver-white blades with a violet-blue gem between them). His FAR arm stays BARE in every frame.",
+   "legs": "Frame 1: the NEAR foot (the lighter leg) planted on the ground AHEAD of his hips (right); the FAR leg (the darker one) kicked up BEHIND him (left), its foot off the ground. Frame 2: PASSING: the near foot planted right under his hips; the far leg comes through in front of it, its knee lifted, its foot off the ground. The two legs TAKE TURNS: the near (lighter) foot is on the ground in frames 1-3 and 8, the far (darker) foot in frames 4-7. Follow the pale figure's LEGS exactly - every frame has one foot off the ground; never the same leg pose in every frame."
+  },
+  {
+   "tag": "run",
+   "name": "run_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "action": "running (his move loop): a strong upright stride, the hammer trailing low behind him in his near hand, the bare far arm swinging, the LEGS STEPPING IN TURN, the cape and the hair swaying",
+   "ms": [
+    150,
+    150
+   ],
+   "weapons": "THE HAMMER goes where the pale figure has it, frame by frame (image 3 shows it in colour): held in his NEAR hand (the gauntleted one), hanging head DOWN by his feet unless the pale figure swings, raises or thrusts it - then its head goes where the pale figure's does. Only ONE hammer, the design's (two curved silver-white blades with a violet-blue gem between them). His FAR arm stays BARE in every frame.",
+   "legs": "Frame 3: the near foot now BEHIND his hips (left); the far leg reaching forward (right), its foot just off the ground. Frame 4: the FAR foot planted AHEAD (right); the NEAR leg kicked up behind him (left), its foot off the ground. The two legs TAKE TURNS: the near (lighter) foot is on the ground in frames 1-3 and 8, the far (darker) foot in frames 4-7. Follow the pale figure's LEGS exactly - every frame has one foot off the ground; never the same leg pose in every frame."
+  },
+  {
+   "tag": "run",
+   "name": "run_3",
+   "frames": [
+    5,
+    6
+   ],
+   "cells": 2,
+   "action": "running (his move loop): a strong upright stride, the hammer trailing low behind him in his near hand, the bare far arm swinging, the LEGS STEPPING IN TURN, the cape and the hair swaying",
+   "ms": [
+    150,
+    150
+   ],
+   "weapons": "THE HAMMER goes where the pale figure has it, frame by frame (image 3 shows it in colour): held in his NEAR hand (the gauntleted one), hanging head DOWN by his feet unless the pale figure swings, raises or thrusts it - then its head goes where the pale figure's does. Only ONE hammer, the design's (two curved silver-white blades with a violet-blue gem between them). His FAR arm stays BARE in every frame.",
+   "legs": "Frame 5: PASSING: the far foot planted under his hips; the near leg comes through in front of it, its knee lifted, its foot off the ground. Frame 6: PASSING: the same, the near knee a little further forward, its foot off the ground. The two legs TAKE TURNS: the near (lighter) foot is on the ground in frames 1-3 and 8, the far (darker) foot in frames 4-7. Follow the pale figure's LEGS exactly - every frame has one foot off the ground; never the same leg pose in every frame."
+  },
+  {
+   "tag": "run",
+   "name": "run_4",
+   "frames": [
+    7,
+    8
+   ],
+   "cells": 2,
+   "action": "running (his move loop): a strong upright stride, the hammer trailing low behind him in his near hand, the bare far arm swinging, the LEGS STEPPING IN TURN, the cape and the hair swaying",
+   "ms": [
+    150,
+    150
+   ],
+   "weapons": "THE HAMMER goes where the pale figure has it, frame by frame (image 3 shows it in colour): held in his NEAR hand (the gauntleted one), hanging head DOWN by his feet unless the pale figure swings, raises or thrusts it - then its head goes where the pale figure's does. Only ONE hammer, the design's (two curved silver-white blades with a violet-blue gem between them). His FAR arm stays BARE in every frame.",
+   "legs": "Frame 7: the far foot now BEHIND his hips (left); the near leg reaching forward (right), its foot just off the ground. Frame 8: the NEAR foot planted AHEAD again (right); the far leg kicked up behind him (left), its foot off the ground - flowing into frame 1. The two legs TAKE TURNS: the near (lighter) foot is on the ground in frames 1-3 and 8, the far (darker) foot in frames 4-7. Follow the pale figure's LEGS exactly - every frame has one foot off the ground; never the same leg pose in every frame."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "action": "attack: he draws the hammer back, then sweeps it out in front of him to the right at chest height, carries it across his body and settles",
+   "ms": [
+    60,
+    60
+   ],
+   "weapons": "THE HAMMER goes where the pale figure has it, frame by frame (image 3 shows it in colour): held in his NEAR hand (the gauntleted one), hanging head DOWN by his feet unless the pale figure swings, raises or thrusts it - then its head goes where the pale figure's does. Only ONE hammer, the design's (two curved silver-white blades with a violet-blue gem between them). His FAR arm stays BARE in every frame."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "action": "attack: he draws the hammer back, then sweeps it out in front of him to the right at chest height, carries it across his body and settles",
+   "ms": [
+    70,
+    70
+   ],
+   "weapons": "THE HAMMER goes where the pale figure has it, frame by frame (image 3 shows it in colour): held in his NEAR hand (the gauntleted one), hanging head DOWN by his feet unless the pale figure swings, raises or thrusts it - then its head goes where the pale figure's does. Only ONE hammer, the design's (two curved silver-white blades with a violet-blue gem between them). His FAR arm stays BARE in every frame."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_3",
+   "frames": [
+    5,
+    6
+   ],
+   "cells": 2,
+   "action": "attack: he draws the hammer back, then sweeps it out in front of him to the right at chest height, carries it across his body and settles",
+   "ms": [
+    80,
+    90
+   ],
+   "weapons": "THE HAMMER goes where the pale figure has it, frame by frame (image 3 shows it in colour): held in his NEAR hand (the gauntleted one), hanging head DOWN by his feet unless the pale figure swings, raises or thrusts it - then its head goes where the pale figure's does. Only ONE hammer, the design's (two curved silver-white blades with a violet-blue gem between them). His FAR arm stays BARE in every frame."
+  },
+  {
+   "tag": "attack_p",
+   "name": "attack_p_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "action": "Bravado strike (the empowered attack): he lifts the hammer behind his shoulder, raises it high over his head, lunges low and smashes it down in front of him to the right, then rises",
+   "ms": [
+    50,
+    50
+   ],
+   "weapons": "THE HAMMER goes where the pale figure has it, frame by frame (image 3 shows it in colour): held in his NEAR hand (the gauntleted one), hanging head DOWN by his feet unless the pale figure swings, raises or thrusts it - then its head goes where the pale figure's does. Only ONE hammer, the design's (two curved silver-white blades with a violet-blue gem between them). His FAR arm stays BARE in every frame."
+  },
+  {
+   "tag": "attack_p",
+   "name": "attack_p_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "action": "Bravado strike (the empowered attack): he lifts the hammer behind his shoulder, raises it high over his head, lunges low and smashes it down in front of him to the right, then rises",
+   "ms": [
+    60,
+    70
+   ],
+   "weapons": "THE HAMMER goes where the pale figure has it, frame by frame (image 3 shows it in colour): held in his NEAR hand (the gauntleted one), hanging head DOWN by his feet unless the pale figure swings, raises or thrusts it - then its head goes where the pale figure's does. Only ONE hammer, the design's (two curved silver-white blades with a violet-blue gem between them). His FAR arm stays BARE in every frame."
+  },
+  {
+   "tag": "attack_p",
+   "name": "attack_p_3",
+   "frames": [
+    5,
+    6
+   ],
+   "cells": 2,
+   "action": "Bravado strike (the empowered attack): he lifts the hammer behind his shoulder, raises it high over his head, lunges low and smashes it down in front of him to the right, then rises",
+   "ms": [
+    80,
+    90
+   ],
+   "weapons": "THE HAMMER goes where the pale figure has it, frame by frame (image 3 shows it in colour): held in his NEAR hand (the gauntleted one), hanging head DOWN by his feet unless the pale figure swings, raises or thrusts it - then its head goes where the pale figure's does. Only ONE hammer, the design's (two curved silver-white blades with a violet-blue gem between them). His FAR arm stays BARE in every frame."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "action": "Dazzle (E): he draws the hammer back, then thrusts it out straight in front of him to the right, the bare far hand raised up behind him, and settles",
+   "ms": [
+    60,
+    70
+   ],
+   "weapons": "THE HAMMER goes where the pale figure has it, frame by frame (image 3 shows it in colour): held in his NEAR hand (the gauntleted one), hanging head DOWN by his feet unless the pale figure swings, raises or thrusts it - then its head goes where the pale figure's does. Only ONE hammer, the design's (two curved silver-white blades with a violet-blue gem between them). His FAR arm stays BARE in every frame."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "action": "Dazzle (E): he draws the hammer back, then thrusts it out straight in front of him to the right, the bare far hand raised up behind him, and settles",
+   "ms": [
+    80,
+    90
+   ],
+   "weapons": "THE HAMMER goes where the pale figure has it, frame by frame (image 3 shows it in colour): held in his NEAR hand (the gauntleted one), hanging head DOWN by his feet unless the pale figure swings, raises or thrusts it - then its head goes where the pale figure's does. Only ONE hammer, the design's (two curved silver-white blades with a violet-blue gem between them). His FAR arm stays BARE in every frame."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_3",
+   "frames": [
+    5,
+    6
+   ],
+   "cells": 2,
+   "action": "Dazzle (E): he draws the hammer back, then thrusts it out straight in front of him to the right, the bare far hand raised up behind him, and settles",
+   "ms": [
+    100,
+    100
+   ],
+   "weapons": "THE HAMMER goes where the pale figure has it, frame by frame (image 3 shows it in colour): held in his NEAR hand (the gauntleted one), hanging head DOWN by his feet unless the pale figure swings, raises or thrusts it - then its head goes where the pale figure's does. Only ONE hammer, the design's (two curved silver-white blades with a violet-blue gem between them). His FAR arm stays BARE in every frame."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "action": "Starlight's Touch (Q): he raises the bare far hand high above his head, palm open, then lowers it; the hammer stays low in his near hand",
+   "ms": [
+    60,
+    70
+   ],
+   "weapons": "THE HAMMER goes where the pale figure has it, frame by frame (image 3 shows it in colour): held in his NEAR hand (the gauntleted one), hanging head DOWN by his feet unless the pale figure swings, raises or thrusts it - then its head goes where the pale figure's does. Only ONE hammer, the design's (two curved silver-white blades with a violet-blue gem between them). His FAR arm stays BARE in every frame."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "action": "Starlight's Touch (Q): he raises the bare far hand high above his head, palm open, then lowers it; the hammer stays low in his near hand",
+   "ms": [
+    80,
+    90
+   ],
+   "weapons": "THE HAMMER goes where the pale figure has it, frame by frame (image 3 shows it in colour): held in his NEAR hand (the gauntleted one), hanging head DOWN by his feet unless the pale figure swings, raises or thrusts it - then its head goes where the pale figure's does. Only ONE hammer, the design's (two curved silver-white blades with a violet-blue gem between them). His FAR arm stays BARE in every frame."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_3",
+   "frames": [
+    5,
+    6
+   ],
+   "cells": 2,
+   "action": "Starlight's Touch (Q): he raises the bare far hand high above his head, palm open, then lowers it; the hammer stays low in his near hand",
+   "ms": [
+    100,
+    100
+   ],
+   "weapons": "THE HAMMER goes where the pale figure has it, frame by frame (image 3 shows it in colour): held in his NEAR hand (the gauntleted one), hanging head DOWN by his feet unless the pale figure swings, raises or thrusts it - then its head goes where the pale figure's does. Only ONE hammer, the design's (two curved silver-white blades with a violet-blue gem between them). His FAR arm stays BARE in every frame."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "action": "Cosmic Radiance (R): he raises the hammer high over his head in his near hand, the bare far hand open in front of him, holds it, and settles",
+   "ms": [
+    80,
+    90
+   ],
+   "weapons": "THE HAMMER goes where the pale figure has it, frame by frame (image 3 shows it in colour): held in his NEAR hand (the gauntleted one), hanging head DOWN by his feet unless the pale figure swings, raises or thrusts it - then its head goes where the pale figure's does. Only ONE hammer, the design's (two curved silver-white blades with a violet-blue gem between them). His FAR arm stays BARE in every frame."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "action": "Cosmic Radiance (R): he raises the hammer high over his head in his near hand, the bare far hand open in front of him, holds it, and settles",
+   "ms": [
+    100,
+    100
+   ],
+   "weapons": "THE HAMMER goes where the pale figure has it, frame by frame (image 3 shows it in colour): held in his NEAR hand (the gauntleted one), hanging head DOWN by his feet unless the pale figure swings, raises or thrusts it - then its head goes where the pale figure's does. Only ONE hammer, the design's (two curved silver-white blades with a violet-blue gem between them). His FAR arm stays BARE in every frame."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_3",
+   "frames": [
+    5,
+    6
+   ],
+   "cells": 2,
+   "action": "Cosmic Radiance (R): he raises the hammer high over his head in his near hand, the bare far hand open in front of him, holds it, and settles",
+   "ms": [
+    100,
+    100
+   ],
+   "weapons": "THE HAMMER goes where the pale figure has it, frame by frame (image 3 shows it in colour): held in his NEAR hand (the gauntleted one), hanging head DOWN by his feet unless the pale figure swings, raises or thrusts it - then its head goes where the pale figure's does. Only ONE hammer, the design's (two curved silver-white blades with a violet-blue gem between them). His FAR arm stays BARE in every frame."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_4",
+   "frames": [
+    7
+   ],
+   "cells": 1,
+   "action": "Cosmic Radiance (R): he raises the hammer high over his head in his near hand, the bare far hand open in front of him, holds it, and settles",
+   "ms": [
+    97
+   ],
+   "weapons": "THE HAMMER goes where the pale figure has it, frame by frame (image 3 shows it in colour): held in his NEAR hand (the gauntleted one), hanging head DOWN by his feet unless the pale figure swings, raises or thrusts it - then its head goes where the pale figure's does. Only ONE hammer, the design's (two curved silver-white blades with a violet-blue gem between them). His FAR arm stays BARE in every frame."
+  },
+  {
+   "tag": "hit",
+   "name": "hit_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "action": "struck: jolted back, the far arm flung out",
+   "ms": [
+    100,
+    100
+   ],
+   "weapons": "THE HAMMER goes where the pale figure has it, frame by frame (image 3 shows it in colour): held in his NEAR hand (the gauntleted one), hanging head DOWN by his feet unless the pale figure swings, raises or thrusts it - then its head goes where the pale figure's does. Only ONE hammer, the design's (two curved silver-white blades with a violet-blue gem between them). His FAR arm stays BARE in every frame."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "action": "death: struck back, he flings the hammer away, sinks to his knees and slumps forward on the ground, the hammer lying on the ground in front of him",
+   "ms": [
+    100,
+    100
+   ],
+   "weapons": "As the pale figure: in frames 2-4 the hammer flies away from his hand through the air, in frames 5-8 it lies on the ground in front of him - drawn where the pale figure has it, only one hammer. His FAR arm stays BARE."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "action": "death: struck back, he flings the hammer away, sinks to his knees and slumps forward on the ground, the hammer lying on the ground in front of him",
+   "ms": [
+    100,
+    120
+   ],
+   "weapons": "As the pale figure: in frames 2-4 the hammer flies away from his hand through the air, in frames 5-8 it lies on the ground in front of him - drawn where the pale figure has it, only one hammer. His FAR arm stays BARE."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_3",
+   "frames": [
+    5,
+    6
+   ],
+   "cells": 2,
+   "action": "death: struck back, he flings the hammer away, sinks to his knees and slumps forward on the ground, the hammer lying on the ground in front of him",
+   "ms": [
+    120,
+    120
+   ],
+   "weapons": "As the pale figure: in frames 2-4 the hammer flies away from his hand through the air, in frames 5-8 it lies on the ground in front of him - drawn where the pale figure has it, only one hammer. His FAR arm stays BARE."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_4",
+   "frames": [
+    7,
+    8
+   ],
+   "cells": 2,
+   "action": "death: struck back, he flings the hammer away, sinks to his knees and slumps forward on the ground, the hammer lying on the ground in front of him",
+   "ms": [
+    150,
+    400
+   ],
+   "weapons": "As the pale figure: in frames 2-4 the hammer flies away from his hand through the air, in frames 5-8 it lies on the ground in front of him - drawn where the pale figure has it, only one hammer. His FAR arm stays BARE."
+  }
+ ]
+}
