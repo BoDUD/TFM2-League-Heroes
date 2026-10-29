@@ -360,7 +360,13 @@ def build(p):
         # add-on records it (league_tahmkench:devour: the stacks eaten, where he spits the unit out)
         devour = {"type": "Native", "effect_ref": "league_tahmkench:devour"}
         ally_nat = combine(on_me(gulp("vo_r", "r_ally", p["r_ally_t"]), refresh("r_full", p["r_ally_t"])), *ally_in, devour)
-        enemy_nat = combine(on_me(gulp("vo_r", "r_enemy", p["r_t"]), refresh("r_full", p["r_t"])), *enemy_in, devour)
+        # an enemy immune to crowd control as the probe lands (league_sivir's spell shield, the user 2026-10-29: 「希维尔开盾时
+        # 塔姆可以吞」) is not eaten: league_tahmkench:guard raises the 1-tick flag r_blocked on him first (the cast is spent,
+        # as a spell shield blocks it in League)
+        guard = {"type": "Native", "effect_ref": "league_tahmkench:guard"}
+        enemy_nat = combine(guard, sw("r_blocked", combine(*rm("r_blocked")),
+                                      combine(on_me(gulp("vo_r", "r_enemy", p["r_t"]), refresh("r_full", p["r_t"])),
+                                              *enemy_in, devour)))
         ult = action("idle", 3, p["r_cd"], 1, p["r_range"], "Targeting", "BothChampion",
                      combine(life, homing("r_ally_go", 100000, "AllyNotSelf", [ally_nat]),
                              homing("r_enemy_go", 100000, "EnemyChampion", [enemy_nat])), key="ult")
