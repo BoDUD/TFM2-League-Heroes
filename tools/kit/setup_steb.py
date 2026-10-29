@@ -43,8 +43,9 @@ ADi, APi, TOOLTIP_MAX = pack.ADi, pack.APi, pack.TOOLTIP_MAX
 M, O, A, R, E = pack.M, pack.O, pack.A, pack.R, pack.E
 # champion_view (game px from his soles' point, up negative): the face point between his eyes (the design's eye row 18
 # of 106 at PPU 2.6: 34 over the ground; 3 ahead of his standing column, ppu_restyle's face_to); the centre in his body;
-# the ban/pick card by bp_card_audit.py's rule
-VIEW = {"face": {"x": 3, "y": -34}, "center": {"x": 2, "y": -19}, "banpick_center": {"x": 2, "y": -12}}
+# the ban/pick card by bp_card_audit.py's rule (-39 less the idle's top -30.0, its frames()/reach() on tft/: his head 1
+# game px under the card's top)
+VIEW = {"face": {"x": 3, "y": -34}, "center": {"x": 2, "y": -19}, "banpick_center": {"x": 2, "y": -9}}
 
 
 def mag(d, r):
