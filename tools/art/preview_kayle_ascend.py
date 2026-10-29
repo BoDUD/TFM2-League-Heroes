@@ -18,6 +18,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(os.path.dirname(HERE))
 sys.path.insert(0, HERE)
 from preview_garen import ARENA, T, frames_of, load  # noqa: E402
+from preview_dense import dense, put  # noqa: E402
 
 LEAGUE = os.path.join(ROOT, "league")
 STAGES = [("Lv1", []), ("Lv5", ["wings1"]), ("Lv8", ["wings1", "wings2"]), ("Lv12", ["wings1", "wings2", "wings3"])]
@@ -40,24 +41,22 @@ def stages_gif(out, z=3, step=50):
     me = load(os.path.join(LEAGUE, "champions", "league_kayle"))
     asc = load(os.path.join(LEAGUE, "effects", "league_kayle_ascend"))
     wings = {w: frames_of(asc, w) for w in ("wings1", "wings2", "wings3")}
-    idle, run = frames_of(me, "idle"), frames_of(me, "run")
+    idle, run = dense(me, "idle", "kayle", z), dense(me, "run", "kayle", z)
     cw, H = 100, 104
     gy = 74
     frames = []
     for k in range(int(4400 / step)):
         t = k * step
         body = idle if t < 2000 else run
-        img = Image.new("RGBA", (cw * len(STAGES), H), ARENA)
+        img = Image.new("RGBA", (cw * len(STAGES) * z, H * z), ARENA)
         d = ImageDraw.Draw(img)
         for i, (label, layers) in enumerate(STAGES):
             cx = i * cw + cw // 2
             for w in layers:
-                f = at(wings[w], t)
-                img.alpha_composite(f, (cx - f.width // 2, gy - f.height // 2))
-            f = at(body, t)
-            img.alpha_composite(f, (cx - f.width // 2, gy - f.height // 2))
-            d.text((i * cw + 4, 2), label, fill=(255, 255, 255, 255))
-        frames.append(img.resize((img.width * z, img.height * z), Image.NEAREST).convert("RGB"))
+                put(img, at(wings[w], t), cx, gy, z)
+            put(img, at(body, t), cx, gy, z)
+            d.text(((i * cw + 4) * z, 2 * z), label, fill=(255, 255, 255, 255))
+        frames.append(img.convert("RGB"))
     strip = Image.new("RGB", (frames[0].width, frames[0].height * 8))
     for i, f in enumerate(frames[::max(1, len(frames) // 8)][:8]):
         strip.paste(f, (0, i * frames[0].height))
