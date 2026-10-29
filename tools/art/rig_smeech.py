@@ -107,7 +107,9 @@ class Canvas:
             left = self.run_head - meta(name)["head_at"][0]
         else:
             left = round(meta(name)["grid_at"][0] - DESIGN_AT[0])
-        foot = p.shape[0] if name in FALLS else soles(p)
+        # a fall lies on its lowest square; a walk frame stands on it too (its planted sole: the far leg is shaded a step
+        # darker, so its shoe is not in SHOES' purples)
+        foot = p.shape[0] if name in FALLS or name in RUN else soles(p)
         top = self.sole - foot - LIFT.get(name, 0)
         # nothing lower than the design's claw tips: a_rake lunges on a raised back foot, its soles would sink him
         return p, (left, min(top, self.d.shape[0] - p.shape[0]))

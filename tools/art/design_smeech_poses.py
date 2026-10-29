@@ -300,6 +300,8 @@ def main():
         print(path, sheet.size)
         return
     for n, (fig, meta) in figs.items():
+        if n in WALK:      # the walk's frames are design_smeech_walk.py's (one body; run5's read is its base)
+            continue
         Image.fromarray(fig).save(lp(os.path.join(OUT, f"pose_{n}.png")))
         with open(lp(os.path.join(OUT, f"pose_{n}.json")), "w", encoding="utf-8") as fh:
             json.dump(meta, fh)
