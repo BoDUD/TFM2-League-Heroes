@@ -12,9 +12,9 @@
     }
   ],
   "description": "Test build of Kled as in League (needs League of Legends Heroes): replaces the main pack's Kled so Skaarl keeps his own health (the main pack's stand-in is a shield, so Chaaaaaaaarge!!!'s shield kept Skaarl on too), Bear Trap on a Rope's rope snaps when the champion caught walks too far (no yank), and on foot his whole body is the dismounted Kled (standing, running, hit), not only his casts. Other champions are untouched. Writes a log for testing.",
-  "last_updated": "2026-10-25",
+  "last_updated": "2026-10-29",
   "mod_id": "league_kled",
   "mod_type": "native",
   "name": "League Heroes: Kled's Skaarl, rope and dismounted body as in League (test)",
-  "version": "0.1.0"
+  "version": "0.1.1"
 }

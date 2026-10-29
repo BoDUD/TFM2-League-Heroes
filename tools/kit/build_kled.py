@@ -50,6 +50,8 @@ C:/t/kl_sim, 2026-10-24; league_gnar --native +0.01 / +0.59 on seeds 1-8 / 9-16)
 360 + 120%, on foot -20%, Q 40 / 60 + 120%, E 40 + 65%, W 30, R 60) -3.36; hp 920, attack 94, on foot -10%, Skaarl 420,
 Q 50 / 80, E 55, W 40, R 90 -1.44; hp 1000 +90, attack 98 +17, defence 32, Skaarl 480 + 140%, Q 60 / 90 + 140% every
 480, E 60 + 80% every 540, W 50 + 6%, R 110 -0.22 / +0.08; with hp 1040, attack 100, Skaarl 500 = P +0.48 / +0.09 (mean +0.29; Gnar +0.30).
+2026-10-29: the first mount of a life gave Skaarl's shield to the action's target (an enemy), so each life began on
+foot (the copy rode with no shield): the mount is on him now (on_me); P unchanged, +0.32 / -0.05 -> +0.46 / +0.37.
 """
 import argparse
 import json
@@ -242,7 +244,7 @@ def build(p):
     # the add-on keeps Skaarl's health itself: its copy's `sk` is a plain flag it takes off when his health is gone
     sk = flag("sk", None if p["native"] else "shield")
     mount = combine(flag("on", None), shield(p["sk_hp"], p["sk_ad"], p["sk_t"]), sk)
-    life = sw("on", NONE, mount)   # the first action of a life mounts him
+    life = sw("on", NONE, on_me(mount))   # the first action of a life mounts him (on him: the actions target enemies)
     steps = [f"c{k}" for k in range(1, int(p["c_n"]))]
     remount = combine(*rm("ft", *steps), shield(p["re_hp"], p["re_ad"], p["sk_t"]), sk,
                       on_me(haste("re_ms", p["re_ms_t"], p["re_ms"])), *rm("w_cd"), cview("remount"), sfx("remount"),
