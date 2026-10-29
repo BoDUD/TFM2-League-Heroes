@@ -57,10 +57,14 @@ CHAINS = {"spine": ["Root", "Spine", "chest", "neck", "Neck_b", "head"],
           "tail": ["hip", "Tail_a", "Tail_b", "Tail_c", "Tail_d", "Tail_e", "Tail_f", "Tail_g"],
           "L_wing": ["l_hand", "l_wing"], "R_wing": ["R_hand", "R_Wing"]}
 HEAD_JOINTS = ("head", "jaw", "EYE")
-# TFT's glide and her fall stretch the tail out to two bodies: shortened in those poses (the design's tail, step 0's B,
+# The lunge and her fall stretch the tail out to two bodies: shortened in those poses (the design's tail, step 0's B,
 # is a body long), so the whole pose fits the canvas
 TAIL_SCALE = 0.7
-LONG_TAIL = tuple(f"run@{ms}" for ms in (0, 83, 166, 250, 333, 416, 500, 583)) + ("death@2500", "attack1@500")
+LONG_TAIL = ("death@2500", "attack1@500")
+# her walk (Poser.walk_mats): WALK_N frames a cycle, the thighs swing +-WALK_SWING degrees, the swinging knee bends
+# WALK_LIFT more
+WALK_N, WALK_SWING, WALK_LIFT = 8, 24, 50
+LEG_PAIRS = (("l_thigh", "R_Thigh"), ("l_knee", "R_Knee"), ("l_foot", "R_Foot"), ("l_toe", "R_Toe"), ("l_tip", "R_Tip"))
 
 # name -> (clip@ms, yaw, what it is for (Chinese), the pose line (English))
 POSES = {
@@ -85,15 +89,6 @@ POSES = {
                "SHELL - crouched, the wings held in front of her face like a golden shield."),
     "r_burst": ("celebration@2488", 80, "黄金龙鳞（展开）：猛地站起来，双翼往两边展开，仰头一吼",
                 "BURST - standing up at once, both wings thrown open to the sides, the head up in a roar."),
-    "run1": ("run@0", 80, "移动 1：张开翅膀贴着地面往前滑翔（金铲铲原样）",
-             "GLIDE 1 - gliding low over the ground, the wings open."),
-    "run2": ("run@83", 80, "移动 2", "GLIDE 2."),
-    "run3": ("run@166", 80, "移动 3", "GLIDE 3."),
-    "run4": ("run@250", 80, "移动 4", "GLIDE 4."),
-    "run5": ("run@333", 80, "移动 5", "GLIDE 5."),
-    "run6": ("run@416", 80, "移动 6", "GLIDE 6."),
-    "run7": ("run@500", 80, "移动 7", "GLIDE 7."),
-    "run8": ("run@583", 80, "移动 8", "GLIDE 8."),
     "d_fall": ("death@300", 80, "被打倒：被打得往后一仰、身子立起来、两只翅膀手臂乱抓",
                "KNOCKED BACK - thrown back, the body upright, the wing-arms flailing."),
     "d_down": ("death@2500", 80, "倒地：侧着倒在地上，翅膀摊开（金铲铲原样）",
@@ -110,15 +105,63 @@ class Poser:
         self.tris = self.m.tris
 
     def pose(self, clip):
+        """A clip's frame ("idle@0"), or "walk@<k>": frame k of WALK_N of her own walk (walk_mats)."""
         name, ms = clip.split("@")
-        anim = pose_ref.read_anim(self.m.w.read(CLIPS[name]))
-        local = pose_ref.local_pose(self.m.joints, anim, float(ms) / 1000.0)
-        local = pose_ref.chibi(self.m.joints, local, HEAD_SCALE,
-                               scale={"Tail_a": TAIL_SCALE} if clip in LONG_TAIL else None)
-        glob = pose_ref.globals_(self.m.joints, [pose_ref.trs(*p) for p in local])
+        walking = name == "walk"
+        anim = pose_ref.read_anim(self.m.w.read(CLIPS["idle" if walking else name]))
+        local = pose_ref.local_pose(self.m.joints, anim, 0.0 if walking else float(ms) / 1000.0)
+        long_tail = clip in LONG_TAIL
+        local = pose_ref.chibi(self.m.joints, local, HEAD_SCALE, scale={"Tail_a": TAIL_SCALE} if long_tail else None)
+        mats = [pose_ref.trs(*p) for p in local]
+        if walking:
+            mats = self.walk_mats(mats, 2 * np.pi * int(ms) / WALK_N)
+        glob = pose_ref.globals_(self.m.joints, mats)
         verts = pose_ref.skin(self.m.v, self.m.infl, self.m.bind_inv, glob)
         joints = np.array([g[:3, 3] for g in glob])
         return verts, joints
+
+    def walk_mats(self, mats, phase):
+        """Her walk on her idle: TFT's run is a four-legged bound (the wing-claws on the ground, the legs hidden under
+        the body), so the legs are swung on her own rig instead (the user, 2026-10-30: 「走路要有明显的腿部交换啊」).
+        Each thigh swings about the body's side axis (world x) by WALK_SWING degrees (sin: positive swings it back, the
+        legs half a cycle apart: her right leg at `phase`, the left at phase + pi); while a leg swings from the back to
+        the front (-cos > 0) its knee bends a further WALK_LIFT degrees (most at the passing: the foot lifted over the
+        ground), the other leg standing; the toes turn back by the sum so the planted foot stays flat (the signs
+        measured on her rig 2026-10-30: this bend lifts the toe)."""
+        J = self.m.joints
+
+        def about(p, ang):
+            c, s = np.cos(ang), np.sin(ang)
+            m = np.eye(4)
+            m[:3, :3] = [[1, 0, 0], [0, c, -s], [0, s, c]]
+            m[:3, 3] = p - m[:3, :3] @ p
+            return m
+
+        # the legs made mirror images of each other first (her idle stands with the left foot well ahead: swung as it
+        # is, that leg led almost the whole cycle): each left joint's world matrix = her right one's mirrored across
+        # her middle (x = the root's x), corrected by the bind pose's own left / right difference
+        if not hasattr(self, "bind"):
+            self.bind = [np.linalg.inv(m) for m in self.m.bind_inv]
+        g = pose_ref.globals_(J, mats)
+        mx = g[self.names["Root"]][0, 3]
+        S = np.diag([-1.0, 1.0, 1.0, 1.0])
+        S[0, 3] = 2 * mx
+        Sb = np.diag([-1.0, 1.0, 1.0, 1.0])
+        for left, right in LEG_PAIRS:
+            li, ri = self.names[left], self.names[right]
+            fix = np.linalg.inv(Sb @ self.bind[ri] @ Sb) @ self.bind[li]
+            g = pose_ref.globals_(J, mats)
+            want = S @ g[ri] @ Sb @ fix
+            mats[li] = np.linalg.inv(g[J[li]["parent"]]) @ want
+        for thigh, knee, toe, off in (("R_Thigh", "R_Knee", "R_Toe", 0.0), ("l_thigh", "l_knee", "l_toe", np.pi)):
+            a = np.radians(WALK_SWING) * np.sin(phase + off)
+            b = np.radians(WALK_LIFT) * max(0.0, -np.cos(phase + off))
+            for j, ang in ((thigh, a), (knee, b), (toe, -(a + b))):
+                i = self.names[j]
+                g = pose_ref.globals_(J, mats)
+                par = J[i]["parent"]
+                mats[i] = np.linalg.inv(g[par]) @ about(g[i][:3, 3], ang) @ g[par] @ mats[i]
+        return mats
 
     @staticmethod
     def project(p, yaw, scale, ground, x0):
