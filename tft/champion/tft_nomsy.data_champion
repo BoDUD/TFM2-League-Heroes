@@ -14,7 +14,7 @@
       "p_every": 60,
       "p_pct": 3,
       "q_dmg": 90,
-      "q_ratio": 65,
+      "q_ratio": 63,
       "q_r": 22000,
       "q_n": 2,
       "q_k": 55,
@@ -168,7 +168,7 @@
                       "effect": {
                         "type": "ApAttack",
                         "damage": 90,
-                        "attack_ratio": 65,
+                        "attack_ratio": 63,
                         "hp_ratio": 0,
                         "can_crit": false
                       }
@@ -246,8 +246,8 @@
               "effects": [
                 {
                   "type": "ApAttack",
-                  "damage": 70,
-                  "attack_ratio": 45,
+                  "damage": 55,
+                  "attack_ratio": 36,
                   "hp_ratio": 0,
                   "can_crit": false
                 },
@@ -903,7 +903,7 @@
       "anim": "asset/tft/effects/tft_nomsy_fx",
       "tag": "r_up",
       "repeat": true,
-      "z": 3
+      "z": -1
     }
   ]
 }

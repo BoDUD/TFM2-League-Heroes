@@ -47,7 +47,9 @@ BIG = f"asset/{MOD_ID}/effects/{ID}_big"
 # sides; 2026-10-29), all --plain: the draft (hp 980, atk 76, Q 70 + 55% every 300 r 18000 bounces 50%, E 50 + 35%,
 # R 8 x 50 + 30%) -2.73 on seeds 1-8 (tft_aoshin +0.64 / +1.23 on seeds 9-16); Q every 240 at 90 + 65%, E 70 + 45%,
 # R 60 + 35%, atk 80 +0.13; + hp 1020, E within 45000, R 10 falls +0.06; + bounces 60%, blast 22000, R 70 + 40% +1.06
-# / +2.50; bounces 55%, R 60 + 35% +0.59 / +1.82 = P.
+# / +2.50; bounces 55%, R 60 + 35% +0.59 / +1.82. Then the breath's cone set to its picture (e_r 46000 -> 62000:
+# the flame reaches 74 px ahead, tools/art/import_nomsy_fx.py) +1.66 / +1.75; E 55 + 36% +1.54 / +1.43; E 50 + 32%, Q
+# 60% +0.38 / +0.30; E 52 + 34%, Q 62% +0.66 / +0.27; E 55 + 36%, Q 63% +1.12 / +1.16 = P.
 P = {
     # stats (Magician base: attack 80 +6, ap 40 +20, hp 900 +100, def 20 +7, mr 20 +4, move 900 +9); a dragon's health
     "hp": 1020, "hp_g": 104, "atk": 80, "atk_g": 6, "apw": 40, "apw_g": 20, "def": 18, "def_g": 7, "mr": 20, "mr_g": 4,
@@ -57,10 +59,10 @@ P = {
     "p_low": 40, "p_every": 60, "p_pct": 3, "p_regen": 10,
     # Fireballs! (TFT: 1-hex blast, bouncing fireballs)
     "q_cd": 240, "q_range": 60000, "q_dur": 36, "q_rel": 18, "q_fall": 24, "q_r": 22000,
-    "q_dmg": 90, "q_ratio": 65, "q_n": 2, "q_k": 55, "q_br": 45000, "q_speed": 3000,
+    "q_dmg": 90, "q_ratio": 63, "q_n": 2, "q_k": 55, "q_br": 45000, "q_speed": 3000,
     # Dragon Breath
     "e_cd": 420, "e_range": 45000, "e_dur": 30, "e_rel": 12, "e_r": 62000, "e_cone": 600, "e_len": 100000, "e_w": 12000,
-    "e_dmg": 70, "e_ratio": 45, "e_burn": 10, "e_burn_r": 6, "e_burn_t": 120, "e_mr": 20, "e_mr_t": 240,
+    "e_dmg": 55, "e_ratio": 36, "e_burn": 10, "e_burn_r": 6, "e_burn_t": 120, "e_mr": 20, "e_mr_t": 240,
     # Dragon Ascension
     "r_cd": 3000, "r_range": 70000, "r_rel": 24, "r_n": 10, "r_gap": 12, "r_rng": 70000, "r_fall_t": 18,
     "r_dmg": 60, "r_ratio": 35, "r_dr": 50, "r_land": 12, "r_as": 30, "r_ap": 25, "r_up_t": 300,
