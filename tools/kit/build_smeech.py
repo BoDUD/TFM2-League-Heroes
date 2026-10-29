@@ -226,6 +226,16 @@ def build(p, is_native=False):
     return kit
 
 
+def sylas_ult(p=None):
+    """Scrap Frenzy as plain data for league_sylas's copy (addons/league_sylas/make_override.py STOLEN): Sylas's add-on
+    bundle is on the Workshop and the tft mod is not, so the hops cannot be tft.dll's (tft_smeech:hop would do nothing
+    on him): the kit's --plain ult - each hop a RandomTarget champion in reach, Teleport and the strike at its expected
+    crit size, the crit stack a caster flag. The views are the kit's own (tft_smeech_*); make_override copies them and
+    their sheet."""
+    p = dict(P) if p is None else p
+    return build(p, False)["ult"]["effect"]
+
+
 def nodes(o):
     """Effect nodes in a tree (dicts with a `type`), the measure the game's per-tick clone cost follows."""
     if isinstance(o, dict):

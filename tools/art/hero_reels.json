@@ -182,5 +182,6 @@
   "tft_kobuko": {"idle": [["attack", [2]], ["skill", [0]]], "bp": ["skill", "attack", "skill2", "ult"]},
   "tft_vander": {"idle": [["skill", [1]], ["attack", [2]]], "bp": ["attack", "skill", "slam", "upper"]},
   "tft_violet": {"idle": [["skill", [1]], ["attack", [2]]], "bp": ["attack", "skill", "punch", "slam"]},
-  "tft_scar": {"idle": [["skill", [1]], ["attack", [1]]], "bp": ["attack", "skill", "skill2", "land"]}
+  "tft_scar": {"idle": [["skill", [1]], ["attack", [1]]], "bp": ["attack", "skill", "skill2", "land"]},
+  "tft_smeech": {"idle": [["attack", [1]], ["attack2", [1]]], "bp": ["attack", "skill2", "stabs", "ult"]}
 }

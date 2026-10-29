@@ -113,7 +113,8 @@ BY_CLASS = {
 # function -> the ult's effect tree; its views are the hero's own lists), so his stolen ult still shows their effects
 # (the user, 2026-10-27: 「塞拉斯的大招什么一定要能偷到特效版本的」)
 STOLEN = {"tft_silco": ("build_silco", "sylas_ult"), "tft_maddie": ("build_maddie", "sylas_ult"),
-          "tft_vander": ("build_vander", "sylas_ult"), "tft_violet": ("build_violet", "sylas_ult")}
+          "tft_vander": ("build_vander", "sylas_ult"), "tft_violet": ("build_violet", "sylas_ult"),
+          "tft_smeech": ("build_smeech", "sylas_ult")}
 
 
 # a robbed champion's own animation tags -> Sylas's (his sheet has none of theirs): a dash, a leap or a flight his leap,
