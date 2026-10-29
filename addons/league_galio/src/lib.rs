@@ -352,6 +352,10 @@ fn pick_for(sim: &StableSim<'_>, me: usize) -> Option<usize> {
     id
 }
 
+/// The ally each Galio is flying to and where that ally last stood (kept while the channel lasts): the flight lands
+/// there when the ally died or is gone (League: the landing spot stays). Keyed like PICKS.
+static AIM: LazyLock<Mutex<HashMap<(u64, usize), (usize, (u64, u64))>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
+
 struct Entrance;
 
 impl StableEffectType for Entrance {
@@ -361,6 +365,40 @@ impl StableEffectType for Entrance {
         }
         if pick_for(sim, caster) == Some(input.target_id) {
             sim.add_buff(caster, &BuffV1::timed(&gl("r_this"), 1));
+            if let Some(at) = sim.get_entity(input.target_id).map(|e| e.pos()) {
+                let mut aim = AIM.lock().unwrap_or_else(|e| e.into_inner());
+                if aim.len() > 4096 {
+                    aim.clear();
+                }
+                aim.insert((sim_of(sim, caster), caster), (input.target_id, at));
+            }
+        }
+    }
+}
+
+/// The flight at the channel's end (the copy's R, in place of the game's Teleport): onto the ally when he is alive,
+/// else where he was last seen; logged.
+struct Fly;
+
+impl StableEffectType for Fly {
+    fn apply(&self, sim: &mut StableSim<'_>, _: u64, caster: usize, input: InputTargetV1) {
+        let ally = (InputTargetKindV1::from_code(input.kind) == Some(InputTargetKindV1::Target)).then_some(input.target_id);
+        let live = ally.and_then(|id| sim.get_entity(id).filter(|e| e.is_alive()).map(|e| e.pos()));
+        let key = (sim_of(sim, caster), caster);
+        let kept = AIM.lock().unwrap_or_else(|e| e.into_inner()).remove(&key);
+        let spot = live.or_else(|| kept.filter(|&(id, _)| ally.is_none_or(|a| a == id)).map(|(_, at)| at));
+        let Some((x, y)) = spot else {
+            if let Some(k) = counted("fly_none") {
+                wlog(format!("{} FLY #{k}: no ally and no spot - he stays", head(sim, caster)));
+            }
+            return;
+        };
+        sim.entity_set_pos(caster, x, y);
+        if live.is_none() {
+            if let Some(k) = counted("fly_spot") {
+                wlog(format!("{} FLY #{k}: {} is dead or gone - landing where he was ({x}, {y})", head(sim, caster),
+                             ally.map_or("-".to_string(), |id| who(sim, id))));
+            }
         }
     }
 }
@@ -397,6 +435,16 @@ impl Colossus {
         let held = hard_cc(&e);
         let kinds = cc_kinds(&e);
         drop(e);
+        if on {
+            // where the ally stands now (the spot the flight keeps if he dies before it)
+            let key = (sim_of(sim, me), me);
+            let ally = AIM.lock().unwrap_or_else(|e| e.into_inner()).get(&key).map(|&(id, _)| id);
+            if let Some(id) = ally {
+                if let Some(p) = sim.get_entity(id).filter(|e| e.is_alive()).map(|e| e.pos()) {
+                    AIM.lock().unwrap_or_else(|e| e.into_inner()).insert(key, (id, p));
+                }
+            }
+        }
         match (self.chan, on) {
             (None, true) => {
                 self.chan = Some((now, at));
@@ -500,6 +548,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     module.add_native_passive(format!("{ID}:colossus"), Colossus::default());
     module.add_native_effect(format!("{ID}:taunt"), Taunt);
     module.add_native_effect(format!("{ID}:entrance"), Entrance);
+    module.add_native_effect(format!("{ID}:fly"), Fly);
     host.log(LogLevel::Info, "league_galio loaded (Shield of Durand untouched, taunt by champions near, Hero's Entrance by health).");
 }
 
@@ -517,6 +566,13 @@ declare_stable_mod!(init, requires = 9);
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn the_copy_flies_by_the_add_on() {
+        let copy = include_str!("../override/league_galio.data_champion");
+        assert!(copy.contains("\"effect_ref\": \"league_galio:fly\""), "the copy's R does not fly by the add-on");
+        assert!(!copy.contains("\"type\": \"Teleport\""), "the copy still flies by the game's Teleport");
+    }
 
     #[test]
     fn a_cast_animation_is_not_hard_cc() {

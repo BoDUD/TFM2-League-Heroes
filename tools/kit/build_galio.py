@@ -303,13 +303,17 @@ def build(p):
                                                      buff("r_shield", p["r_sh_t"])]),
                    w_try))
 
+    # with native=1 the flight is the add-on's (league_galio:fly): onto the ally, or where the ally was if he died or is
+    # gone - the game's Teleport finds no ally then and Galio stayed put (10-29 games: ~10 % of his Rs, 「加里奥的确有问题」)
+    FLY = {"type": "Native", "effect_ref": "league_galio:fly"}
+
     def save():
         """On the ally (the probe's hit): the shield now, the channel on him, the flight onto it at the end."""
         return combine(*rm("r_arm", "r_seen"), refresh("r_ch", p["r_ch"] + 2),
                        shield(p["r_sh"], p["r_sh_ap"], p["r_sh_t"]), buff("r_shield", p["r_sh_t"]), sfx("r_ally"),
                        on_me(anim("ult", p["r_wind"]), delayed(p["r_wind"], anim("ult_loop", p["r_ch"] - p["r_wind"])),
                              cview("r_cast"), sfx("r"), voice("vo_r", p), *breaks),
-                       delayed(p["r_ch"], sw("r_ch", combine(*rm("r_ch"), {"type": "Teleport"},
+                       delayed(p["r_ch"], sw("r_ch", combine(*rm("r_ch"), FLY if native else {"type": "Teleport"},
                                                               on_me(delayed(1, land))))))
 
     def probe(cc):

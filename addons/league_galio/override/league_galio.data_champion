@@ -1148,7 +1148,8 @@
                                               "name": "league_galio_r_ch"
                                             },
                                             {
-                                              "type": "Teleport"
+                                              "type": "Native",
+                                              "effect_ref": "league_galio:fly"
                                             },
                                             {
                                               "type": "RangeEffect",

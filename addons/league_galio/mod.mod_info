@@ -12,9 +12,9 @@
     }
   ],
   "description": "Test build of Galio as in League (needs League of Legends Heroes): replaces the main pack's Galio so Shield of Durand's passive shield comes after 12 s without damage, Shield of Durand taunts longer the more enemy champions stand near, and Hero's Entrance lands beside the ally in the worst fight (crowd control, then the lowest health, more enemies where he lands first). Other champions are untouched. Writes a log for testing.",
-  "last_updated": "2026-10-29",
+  "last_updated": "2026-10-30",
   "mod_id": "league_galio",
   "mod_type": "native",
   "name": "League Heroes: Galio's Shield of Durand and Hero's Entrance (test)",
-  "version": "0.1.2"
+  "version": "0.1.3"
 }
