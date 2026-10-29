@@ -10,6 +10,9 @@
 - **英雄登场选人**：主包读不到血量，只能挑「被控的」或「身边连续两次有敌人的」友军。附加包的 `league_galio:entrance` 在每次轮询时
   看所有友方英雄：离他够远、身边有敌方英雄、确实在苦战（被控 / 血量 80% 以下 / 身边两个以上敌人）的里面，**被控的优先，再挑血量比例最低的**，
   落点周围敌方英雄多的优先（每多一个当作血量少 10%）。选中谁，数据就给谁护盾、引导、飞过去。
+- **引导只被硬控打断**（0.1.2）：主包每 15 tick 用 `AllyChampionInCC` 查他自己有没有被控，被控就打断引导。游戏 0.7.0 起玩家说加里奥
+  不开大；游戏的控制列表里也有他自己正在播的施法动作，那个查法可能把引导动作本身当成被控、每次都打断。副本去掉数据的这个查法，
+  改由附加包每 tick 看他有没有被硬控（击飞、眩晕、定身、嘲讽、恐惧、魅惑、强制位移），有才打断；自己被硬控时也不选人。
 
 数字：被动的参数写在英雄数据的 `passive.params`（`{"ps": 90, "ps_ap": 30, "ps_t": 300, "w_r": 26000, "w_taunt": 70, "r_far": 60000, "r_sur": 25000, "r_r": 22000}`），
 由 `make_override.py` 从 `tools/kit/build_galio.py` 的参数表 `P` 写入；`PS_IDLE`、`TAUNT_ONE`、`TAUNT_MANY`、`CALM_HP` 写在 `src/lib.rs`，单元测试核对参数表。
@@ -24,7 +27,10 @@
 5. 日志在 `%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_galio.log`，每次启动游戏重写（上一次的留在 `.prev.log`）：
    - `WARD #3: 132 shield after 731 ticks untouched`：被动护盾；
    - `TAUNT #5 Jinx#12: 90 ticks (3 enemy champions near)`：嘲讽；
-   - `ENTRANCE #2 -> Ashe#7: hp 34% in cc, 2 enemy champions near, 2 where he lands, 84000 away`：大招选人。
+   - `ENTRANCE #2 -> Ashe#7: hp 34% in cc, 2 enemy champions near, 2 where he lands, 84000 away`：大招选人；
+   - `CHANNEL #2: R channels (crowd control on him [11])`：开始引导（方括号里是他身上的控制种类）；
+   - `BROKEN #1: hard crowd control [0] 40 ticks into the channel`：引导被硬控打断；
+   - `LANDED #2: the channel ended after 120 ticks, moved 84000`：飞过去落地；`NO FLIGHT`：引导结束却没飞（要查）。
 
 ## 开发
 

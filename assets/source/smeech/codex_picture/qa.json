@@ -1,0 +1,40 @@
+{
+  "smeech-A.png": {
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "bbox_alpha128": [
+      480,
+      530,
+      777,
+      1199
+    ],
+    "transparent_pixels": 1458690,
+    "opaque_pixels": 739,
+    "partial_alpha_pixels": 113087,
+    "requested_size_pass": false,
+    "hard_alpha_pass": false,
+    "uniform_11px_grid_pass": false
+  },
+  "smeech-B.png": {
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "bbox_alpha128": [
+      298,
+      714,
+      992,
+      1218
+    ],
+    "transparent_pixels": 1421773,
+    "opaque_pixels": 670,
+    "partial_alpha_pixels": 150073,
+    "requested_size_pass": false,
+    "hard_alpha_pass": false,
+    "uniform_11px_grid_pass": false
+  }
+}

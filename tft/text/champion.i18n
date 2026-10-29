@@ -92,6 +92,13 @@
         "skill2": "竖起链锯格挡：获得<#ff9028ff>100<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>护盾，持续<#ffb900ff>2.5秒<>，期间减伤<#ffb900ff>20%<>。",
         "ult": "把目标挑起举过头顶，造成<#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>190%<><#ff9028ff>物理伤害<>并<#ef5350ff>击飞1.1秒<>，期间回复<i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>15%<>最大生命；再狠狠砸下，对前方周围敌人造成<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<><#ff9028ff>物理伤害<>。"
       },
+      "tft_smeech": {
+        "name": "史密奇",
+        "attack": "双爪轮流挥抓，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>。<#ff9028ff>伏击专家<>：暴击率<#ffb900ff>25%<>；技能也能暴击，技能暴击造成<#ffb900ff>220%<>伤害。",
+        "skill": "跳向范围内<#ffb900ff>生命最低<>的敌人，连斩<#ffb900ff>3<>次，每次造成<#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<><#ff9028ff>物理伤害<>；目标阵亡则再跳一次，伤害为<#ffb900ff>70%<>。",
+        "skill2": "双爪撕扯目标，造成<#ff9028ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<><#ff9028ff>物理伤害<>，并使其<#ef5350ff>护甲降低30%<>，持续<#ffb900ff>4秒<>。",
+        "ult": "<#ffb900ff>1.2秒<>内<#ef5350ff>不受控制<>、减伤<#ffb900ff>30%<>，接连跳斩最多<#ffb900ff>5<>名未被斩过的敌人，每次造成<#ff9028ff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>并获得<#ffb900ff>10%<>暴击率（<#ffb900ff>5秒<>）。"
+      },
       "tft_sevika": {
         "name": "塞薇卡",
         "attack": "铁拳造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>，每第<#ffb900ff>3<>下钳击造成<#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150%<>。<#ff9028ff>百变铁手<>：每次施放技能随机一个改件：火箭、护盾、<#ffb900ff>35%<>攻速，<#ffb900ff>12%<>中头奖强化本次技能。",
@@ -165,6 +172,11 @@
         "skill1": "链锯冲撞",
         "skill2": "锯刃格挡",
         "ult": "泥奔者重击"
+      },
+      "tft_smeech": {
+        "skill1": "废铁黑客",
+        "skill2": "拆解",
+        "ult": "废铁狂潮"
       },
       "tft_sevika": {
         "skill1": "喷火器",
@@ -266,6 +278,13 @@
         "skill2": "豎起鏈鋸格擋：獲得<#ff9028ff>100<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>護盾，持續<#ffb900ff>2.5秒<>，期間減傷<#ffb900ff>20%<>。",
         "ult": "把目標挑起舉過頭頂，造成<#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>190%<><#ff9028ff>物理傷害<>並<#ef5350ff>擊飛1.1秒<>，期間回復<i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>15%<>最大生命；再狠狠砸下，對前方周圍敵人造成<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<><#ff9028ff>物理傷害<>。"
       },
+      "tft_smeech": {
+        "name": "斯米奇",
+        "attack": "雙爪輪流揮抓，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>。<#ff9028ff>潛伏者<>：暴擊率<#ffb900ff>25%<>；技能也能暴擊，技能暴擊造成<#ffb900ff>220%<>傷害。",
+        "skill": "跳向範圍內<#ffb900ff>生命最低<>的敵人，連斬<#ffb900ff>3<>次，每次造成<#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<><#ff9028ff>物理傷害<>；目標陣亡則再跳一次，傷害為<#ffb900ff>70%<>。",
+        "skill2": "雙爪撕扯目標，造成<#ff9028ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<><#ff9028ff>物理傷害<>，並使其<#ef5350ff>護甲降低30%<>，持續<#ffb900ff>4秒<>。",
+        "ult": "<#ffb900ff>1.2秒<>內<#ef5350ff>不受控制<>、減傷<#ffb900ff>30%<>，接連跳斬最多<#ffb900ff>5<>名未被斬過的敵人，每次造成<#ff9028ff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>並獲得<#ffb900ff>10%<>暴擊率（<#ffb900ff>5秒<>）。"
+      },
       "tft_sevika": {
         "name": "塞薇卡",
         "attack": "鐵拳造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>，每第<#ffb900ff>3<>下鉗擊造成<#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150%<>。<#ff9028ff>豪氣賭客<>：每次施放技能隨機一個改件：火箭、護盾、<#ffb900ff>35%<>攻速，<#ffb900ff>12%<>中大獎強化本次技能。",
@@ -339,6 +358,11 @@
         "skill1": "鏈鋸衝撞",
         "skill2": "鋸刃格擋",
         "ult": "泥奔者猛擊"
+      },
+      "tft_smeech": {
+        "skill1": "拼裝駭客",
+        "skill2": "拆解",
+        "ult": "廢鐵狂潮"
       },
       "tft_sevika": {
         "skill1": "火焰噴射器",
@@ -440,6 +464,13 @@
         "skill2": "Raises her saw as a guard: a <#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> shield for <#ffb900ff>2.5s<> and <#ffb900ff>20%<> less damage taken meanwhile.",
         "ult": "Hooks the target up overhead for <#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>190%<> <#ff9028ff>physical damage<>, <#ef5350ff>airborne for 1.1s<>, healing <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>15%<> max health; then slams it down for <#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<> <#ff9028ff>physical damage<> to the enemies there."
       },
+      "tft_smeech": {
+        "name": "Smeech",
+        "attack": "Rakes with each claw in turn for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<>. <#ff9028ff>Ambusher<>: <#ffb900ff>25%<> crit chance; his abilities can crit too, for <#ffb900ff>220%<> damage.",
+        "skill": "Leaps at the <#ffb900ff>lowest-health<> enemy in range and slashes it <#ffb900ff>3<> times for <#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> <#ff9028ff>physical damage<> each. If it dies, he leaps again for <#ffb900ff>70%<> damage.",
+        "skill2": "Rips the target with both claws for <#ff9028ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<> <#ff9028ff>physical damage<>, <#ef5350ff>shredding 30% of its armor<> for <#ffb900ff>4s<>.",
+        "ult": "For <#ffb900ff>1.2s<> he is <#ef5350ff>unstoppable<> and takes <#ffb900ff>30%<> less damage, leaping at up to <#ffb900ff>5<> enemies he has not yet hit, each for <#ff9028ff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<>, gaining <#ffb900ff>10%<> crit chance for <#ffb900ff>5s<> per leap."
+      },
       "tft_sevika": {
         "name": "Sevika",
         "attack": "Punches for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<>; every <#ffb900ff>3rd<> the claws clamp for <#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150%<>. <#ff9028ff>High Roller<>: each skill rolls one of Jinx's mods - rockets, a shield or <#ffb900ff>35%<> attack speed; a <#ffb900ff>12%<> jackpot empowers the cast.",
@@ -513,6 +544,11 @@
         "skill1": "Chainsaw Charge",
         "skill2": "Saw Guard",
         "ult": "Sludgerunner's Smash"
+      },
+      "tft_smeech": {
+        "skill1": "Scrap Hacker",
+        "skill2": "Scrap Rip",
+        "ult": "Scrap Frenzy"
       },
       "tft_sevika": {
         "skill1": "Flamethrower",
@@ -614,6 +650,13 @@
         "skill2": "전기톱을 세워 막기: <#ffb900ff>2.5초<> 동안 <#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> 보호막, 그동안 받는 피해 <#ffb900ff>20%<> 감소.",
         "ult": "대상을 머리 위로 들어 올려 <#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>190%<> <#ff9028ff>물리 피해<>와 <#ef5350ff>1.1초 에어본<>, 그동안 최대 체력의 <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>15%<> 회복; 이어 내리찍어 그 주변 적에게 <#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<> <#ff9028ff>물리 피해<>."
       },
+      "tft_smeech": {
+        "name": "스미치",
+        "attack": "양 발톱으로 번갈아 할퀴어 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>물리 피해<>. <#ff9028ff>매복자<>: 치명타 확률 <#ffb900ff>25%<>; 스킬도 치명타 가능, 스킬 치명타는 <#ffb900ff>220%<> 피해.",
+        "skill": "범위 내 <#ffb900ff>체력이 가장 낮은<> 적에게 도약해 <#ffb900ff>3<>회 베어 각각 <#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> <#ff9028ff>물리 피해<>; 대상이 죽으면 <#ffb900ff>70%<> 피해로 다시 도약.",
+        "skill2": "양 발톱으로 대상을 찢어 <#ff9028ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<> <#ff9028ff>물리 피해<>와 <#ffb900ff>4초<> 동안 <#ef5350ff>방어력 30% 감소<>.",
+        "ult": "<#ffb900ff>1.2초<> 동안 <#ef5350ff>저지 불가<>, 피해 <#ffb900ff>30%<> 감소, 아직 베지 않은 적에게 최대 <#ffb900ff>5<>회 도약해 각각 <#ff9028ff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>물리 피해<>, 도약마다 치명타 확률 <#ffb900ff>10%<>(<#ffb900ff>5초<>)."
+      },
       "tft_sevika": {
         "name": "세비카",
         "attack": "주먹으로 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>물리 피해<>, <#ffb900ff>3<>번째마다 집게로 <#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150%<>. <#ff9028ff>도박꾼<>: 스킬마다 개조 하나를 무작위로: 로켓, 보호막, 공격 속도 <#ffb900ff>35%<>; <#ffb900ff>12%<> 대박이면 이번 스킬 강화.",
@@ -687,6 +730,11 @@
         "skill1": "전기톱 돌진",
         "skill2": "톱날 방어",
         "ult": "진창 주자의 강타"
+      },
+      "tft_smeech": {
+        "skill1": "고물상 해커",
+        "skill2": "분해",
+        "ult": "고물 광란"
       },
       "tft_sevika": {
         "skill1": "화염 방사기",
@@ -788,6 +836,13 @@
         "skill2": "チェーンソーを立てて防御：<#ffb900ff>2.5秒<>間<#ff9028ff>100<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>のシールド、その間被ダメージ<#ffb900ff>20%<>軽減。",
         "ult": "対象を頭上に持ち上げ、<#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>190%<>の<#ff9028ff>物理ダメージ<>と<#ef5350ff>1.1秒のノックアップ<>、その間最大体力の<i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>15%<>回復。その後叩きつけ、周囲の敵に<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<>の<#ff9028ff>物理ダメージ<>。"
       },
+      "tft_smeech": {
+        "name": "スミーチ",
+        "attack": "左右の爪で交互に引っかき、<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>。<#ff9028ff>伏兵<>：クリティカル率<#ffb900ff>25%<>。スキルもクリティカルし、<#ffb900ff>220%<>のダメージ。",
+        "skill": "範囲内で<#ffb900ff>体力が最も低い<>敵に跳びかかり<#ffb900ff>3<>回斬りつけ、各<#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<>の<#ff9028ff>物理ダメージ<>。倒すと<#ffb900ff>70%<>のダメージで再跳躍。",
+        "skill2": "両爪で対象を引き裂き、<#ff9028ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<>の<#ff9028ff>物理ダメージ<>と<#ffb900ff>4秒<>間<#ef5350ff>物理防御30%低下<>。",
+        "ult": "<#ffb900ff>1.2秒<>間<#ef5350ff>阻止不能<>、被ダメージ<#ffb900ff>30%<>軽減。まだ斬っていない敵に最大<#ffb900ff>5<>回跳びかかり、各<#ff9028ff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>、跳躍ごとにクリティカル率<#ffb900ff>10%<>（<#ffb900ff>5秒<>）。"
+      },
       "tft_sevika": {
         "name": "セヴィカ",
         "attack": "鉄拳で<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>、<#ffb900ff>3<>回ごとに鉤爪で<#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150%<>。<#ff9028ff>ギャンブラー<>：スキルごとに改造を1つ：ロケット、シールド、攻撃速度<#ffb900ff>35%<>；<#ffb900ff>12%<>の大当たりでそのスキル強化。",
@@ -861,6 +916,11 @@
         "skill1": "チェーンソーチャージ",
         "skill2": "ソーガード",
         "ult": "スラッジランナーの襲撃"
+      },
+      "tft_smeech": {
+        "skill1": "スクラップハッカー",
+        "skill2": "解体",
+        "ult": "スクラップフレンジー"
       },
       "tft_sevika": {
         "skill1": "火炎放射器",

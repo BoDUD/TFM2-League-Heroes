@@ -981,86 +981,166 @@
               "period": 10,
               "effects": [
                 {
-                  "type": "Combine",
-                  "effects": [
-                    {
-                      "type": "RandomTarget",
-                      "range": 1,
-                      "casting_target": "AllyChampionInCC",
-                      "from_projectile": false,
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_galio_r_arm",
+                  "effect_buff": {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_galio_r_ch",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": []
+                    },
+                    "effect_none": {
+                      "type": "RangeEffect",
+                      "shape": {
+                        "Circle": {
+                          "radius": 960000
+                        }
+                      },
+                      "target": "AllyNotSelf",
+                      "apply_type": "AroundCaster",
                       "effects": [
                         {
-                          "type": "AddCasterBuff",
-                          "buff_state": {
-                            "name": "league_galio_r_me",
-                            "duration": {
-                              "Time": {
-                                "tick": 1
-                              }
-                            }
-                          },
-                          "only_to_enemy": false
-                        }
-                      ]
-                    },
-                    {
-                      "type": "SwitchByBuff",
-                      "buff_name": "league_galio_r_me",
-                      "effect_buff": {
-                        "type": "Combine",
-                        "effects": [
-                          {
-                            "type": "RemoveCasterBuff",
-                            "name": "league_galio_r_me"
-                          }
-                        ]
-                      },
-                      "effect_none": {
-                        "type": "SwitchByBuff",
-                        "buff_name": "league_galio_r_arm",
-                        "effect_buff": {
+                          "type": "Native",
+                          "effect_ref": "league_galio:entrance"
+                        },
+                        {
                           "type": "SwitchByBuff",
-                          "buff_name": "league_galio_r_ch",
+                          "buff_name": "league_galio_r_this",
                           "effect_buff": {
                             "type": "Combine",
-                            "effects": []
-                          },
-                          "effect_none": {
-                            "type": "RangeEffect",
-                            "shape": {
-                              "Circle": {
-                                "radius": 960000
-                              }
-                            },
-                            "target": "AllyNotSelf",
-                            "apply_type": "AroundCaster",
                             "effects": [
                               {
-                                "type": "Native",
-                                "effect_ref": "league_galio:entrance"
+                                "type": "RemoveCasterBuff",
+                                "name": "league_galio_r_this"
                               },
                               {
-                                "type": "SwitchByBuff",
-                                "buff_name": "league_galio_r_this",
-                                "effect_buff": {
-                                  "type": "Combine",
-                                  "effects": [
-                                    {
-                                      "type": "RemoveCasterBuff",
-                                      "name": "league_galio_r_this"
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "RemoveCasterBuff",
+                                    "name": "league_galio_r_arm"
+                                  },
+                                  {
+                                    "type": "RemoveCasterBuff",
+                                    "name": "league_galio_r_seen"
+                                  },
+                                  {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "RemoveCasterBuff",
+                                        "name": "league_galio_r_ch"
+                                      },
+                                      {
+                                        "type": "AddCasterBuff",
+                                        "buff_state": {
+                                          "name": "league_galio_r_ch",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 122
+                                            }
+                                          }
+                                        },
+                                        "only_to_enemy": false
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "Shield",
+                                    "amount": 150,
+                                    "attack_ratio": 0,
+                                    "ap_ratio": 50,
+                                    "tick": 300
+                                  },
+                                  {
+                                    "type": "AddBuff",
+                                    "buff_state": {
+                                      "name": "league_galio_r_shield",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 300
+                                        }
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "type": "Sfx",
+                                    "name": "league_galio_r_ally"
+                                  },
+                                  {
+                                    "type": "RangeEffect",
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 1000
+                                      }
                                     },
-                                    {
-                                      "type": "Combine",
-                                      "effects": [
-                                        {
-                                          "type": "RemoveCasterBuff",
-                                          "name": "league_galio_r_arm"
+                                    "target": "AllyOnlySelf",
+                                    "apply_type": "AroundCaster",
+                                    "effects": [
+                                      {
+                                        "type": "CasterAnimation",
+                                        "name": "ult",
+                                        "tick": 16
+                                      },
+                                      {
+                                        "type": "Delayed",
+                                        "tick": 16,
+                                        "effects": [
+                                          {
+                                            "type": "CasterAnimation",
+                                            "name": "ult_loop",
+                                            "tick": 104
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "CasterViewEffect",
+                                        "name": "league_galio_r_cast"
+                                      },
+                                      {
+                                        "type": "Sfx",
+                                        "name": "league_galio_r"
+                                      },
+                                      {
+                                        "type": "SwitchByBuff",
+                                        "buff_name": "league_galio_vo_cd",
+                                        "effect_buff": {
+                                          "type": "Combine",
+                                          "effects": []
                                         },
-                                        {
-                                          "type": "RemoveCasterBuff",
-                                          "name": "league_galio_r_seen"
-                                        },
-                                        {
+                                        "effect_none": {
+                                          "type": "Combine",
+                                          "effects": [
+                                            {
+                                              "type": "AddCasterBuff",
+                                              "buff_state": {
+                                                "name": "league_galio_vo_cd",
+                                                "duration": {
+                                                  "Time": {
+                                                    "tick": 600
+                                                  }
+                                                }
+                                              },
+                                              "only_to_enemy": false
+                                            },
+                                            {
+                                              "type": "Sfx",
+                                              "name": "league_galio_vo_r"
+                                            }
+                                          ]
+                                        }
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "Delayed",
+                                    "tick": 120,
+                                    "effects": [
+                                      {
+                                        "type": "SwitchByBuff",
+                                        "buff_name": "league_galio_r_ch",
+                                        "effect_buff": {
                                           "type": "Combine",
                                           "effects": [
                                             {
@@ -1068,654 +1148,410 @@
                                               "name": "league_galio_r_ch"
                                             },
                                             {
-                                              "type": "AddCasterBuff",
-                                              "buff_state": {
-                                                "name": "league_galio_r_ch",
-                                                "duration": {
-                                                  "Time": {
-                                                    "tick": 122
-                                                  }
+                                              "type": "Teleport"
+                                            },
+                                            {
+                                              "type": "RangeEffect",
+                                              "shape": {
+                                                "Circle": {
+                                                  "radius": 1000
                                                 }
                                               },
-                                              "only_to_enemy": false
-                                            }
-                                          ]
-                                        },
-                                        {
-                                          "type": "Shield",
-                                          "amount": 150,
-                                          "attack_ratio": 0,
-                                          "ap_ratio": 50,
-                                          "tick": 300
-                                        },
-                                        {
-                                          "type": "AddBuff",
-                                          "buff_state": {
-                                            "name": "league_galio_r_shield",
-                                            "duration": {
-                                              "Time": {
-                                                "tick": 300
-                                              }
-                                            }
-                                          }
-                                        },
-                                        {
-                                          "type": "Sfx",
-                                          "name": "league_galio_r_ally"
-                                        },
-                                        {
-                                          "type": "RangeEffect",
-                                          "shape": {
-                                            "Circle": {
-                                              "radius": 1000
-                                            }
-                                          },
-                                          "target": "AllyOnlySelf",
-                                          "apply_type": "AroundCaster",
-                                          "effects": [
-                                            {
-                                              "type": "CasterAnimation",
-                                              "name": "ult",
-                                              "tick": 16
-                                            },
-                                            {
-                                              "type": "Delayed",
-                                              "tick": 16,
+                                              "target": "AllyOnlySelf",
+                                              "apply_type": "AroundCaster",
                                               "effects": [
                                                 {
-                                                  "type": "CasterAnimation",
-                                                  "name": "ult_loop",
-                                                  "tick": 104
-                                                }
-                                              ]
-                                            },
-                                            {
-                                              "type": "CasterViewEffect",
-                                              "name": "league_galio_r_cast"
-                                            },
-                                            {
-                                              "type": "Sfx",
-                                              "name": "league_galio_r"
-                                            },
-                                            {
-                                              "type": "SwitchByBuff",
-                                              "buff_name": "league_galio_vo_cd",
-                                              "effect_buff": {
-                                                "type": "Combine",
-                                                "effects": []
-                                              },
-                                              "effect_none": {
-                                                "type": "Combine",
-                                                "effects": [
-                                                  {
-                                                    "type": "AddCasterBuff",
-                                                    "buff_state": {
-                                                      "name": "league_galio_vo_cd",
-                                                      "duration": {
-                                                        "Time": {
-                                                          "tick": 600
-                                                        }
-                                                      }
-                                                    },
-                                                    "only_to_enemy": false
-                                                  },
-                                                  {
-                                                    "type": "Sfx",
-                                                    "name": "league_galio_vo_r"
-                                                  }
-                                                ]
-                                              }
-                                            },
-                                            {
-                                              "type": "Delayed",
-                                              "tick": 15,
-                                              "effects": [
-                                                {
-                                                  "type": "RandomTarget",
-                                                  "range": 1,
-                                                  "casting_target": "AllyChampionInCC",
-                                                  "from_projectile": false,
+                                                  "type": "Delayed",
+                                                  "tick": 1,
                                                   "effects": [
                                                     {
-                                                      "type": "RemoveCasterBuff",
-                                                      "name": "league_galio_r_ch"
-                                                    }
-                                                  ]
-                                                }
-                                              ]
-                                            },
-                                            {
-                                              "type": "Delayed",
-                                              "tick": 30,
-                                              "effects": [
-                                                {
-                                                  "type": "RandomTarget",
-                                                  "range": 1,
-                                                  "casting_target": "AllyChampionInCC",
-                                                  "from_projectile": false,
-                                                  "effects": [
-                                                    {
-                                                      "type": "RemoveCasterBuff",
-                                                      "name": "league_galio_r_ch"
-                                                    }
-                                                  ]
-                                                }
-                                              ]
-                                            },
-                                            {
-                                              "type": "Delayed",
-                                              "tick": 45,
-                                              "effects": [
-                                                {
-                                                  "type": "RandomTarget",
-                                                  "range": 1,
-                                                  "casting_target": "AllyChampionInCC",
-                                                  "from_projectile": false,
-                                                  "effects": [
-                                                    {
-                                                      "type": "RemoveCasterBuff",
-                                                      "name": "league_galio_r_ch"
-                                                    }
-                                                  ]
-                                                }
-                                              ]
-                                            },
-                                            {
-                                              "type": "Delayed",
-                                              "tick": 60,
-                                              "effects": [
-                                                {
-                                                  "type": "RandomTarget",
-                                                  "range": 1,
-                                                  "casting_target": "AllyChampionInCC",
-                                                  "from_projectile": false,
-                                                  "effects": [
-                                                    {
-                                                      "type": "RemoveCasterBuff",
-                                                      "name": "league_galio_r_ch"
-                                                    }
-                                                  ]
-                                                }
-                                              ]
-                                            },
-                                            {
-                                              "type": "Delayed",
-                                              "tick": 75,
-                                              "effects": [
-                                                {
-                                                  "type": "RandomTarget",
-                                                  "range": 1,
-                                                  "casting_target": "AllyChampionInCC",
-                                                  "from_projectile": false,
-                                                  "effects": [
-                                                    {
-                                                      "type": "RemoveCasterBuff",
-                                                      "name": "league_galio_r_ch"
-                                                    }
-                                                  ]
-                                                }
-                                              ]
-                                            },
-                                            {
-                                              "type": "Delayed",
-                                              "tick": 90,
-                                              "effects": [
-                                                {
-                                                  "type": "RandomTarget",
-                                                  "range": 1,
-                                                  "casting_target": "AllyChampionInCC",
-                                                  "from_projectile": false,
-                                                  "effects": [
-                                                    {
-                                                      "type": "RemoveCasterBuff",
-                                                      "name": "league_galio_r_ch"
-                                                    }
-                                                  ]
-                                                }
-                                              ]
-                                            },
-                                            {
-                                              "type": "Delayed",
-                                              "tick": 105,
-                                              "effects": [
-                                                {
-                                                  "type": "RandomTarget",
-                                                  "range": 1,
-                                                  "casting_target": "AllyChampionInCC",
-                                                  "from_projectile": false,
-                                                  "effects": [
-                                                    {
-                                                      "type": "RemoveCasterBuff",
-                                                      "name": "league_galio_r_ch"
-                                                    }
-                                                  ]
-                                                }
-                                              ]
-                                            }
-                                          ]
-                                        },
-                                        {
-                                          "type": "Delayed",
-                                          "tick": 120,
-                                          "effects": [
-                                            {
-                                              "type": "SwitchByBuff",
-                                              "buff_name": "league_galio_r_ch",
-                                              "effect_buff": {
-                                                "type": "Combine",
-                                                "effects": [
-                                                  {
-                                                    "type": "RemoveCasterBuff",
-                                                    "name": "league_galio_r_ch"
-                                                  },
-                                                  {
-                                                    "type": "Teleport"
-                                                  },
-                                                  {
-                                                    "type": "RangeEffect",
-                                                    "shape": {
-                                                      "Circle": {
-                                                        "radius": 1000
-                                                      }
-                                                    },
-                                                    "target": "AllyOnlySelf",
-                                                    "apply_type": "AroundCaster",
-                                                    "effects": [
-                                                      {
-                                                        "type": "Delayed",
-                                                        "tick": 1,
-                                                        "effects": [
-                                                          {
-                                                            "type": "Combine",
-                                                            "effects": [
-                                                              {
-                                                                "type": "CasterAnimation",
-                                                                "name": "ult_land",
-                                                                "tick": 26
+                                                      "type": "Combine",
+                                                      "effects": [
+                                                        {
+                                                          "type": "CasterAnimation",
+                                                          "name": "ult_land",
+                                                          "tick": 26
+                                                        },
+                                                        {
+                                                          "type": "Delayed",
+                                                          "tick": 4,
+                                                          "effects": [
+                                                            {
+                                                              "type": "ViewEffect",
+                                                              "name": "league_galio_r_land"
+                                                            },
+                                                            {
+                                                              "type": "Sfx",
+                                                              "name": "league_galio_r_land"
+                                                            },
+                                                            {
+                                                              "type": "RangeEffect",
+                                                              "shape": {
+                                                                "Circle": {
+                                                                  "radius": 22000
+                                                                }
                                                               },
-                                                              {
-                                                                "type": "Delayed",
-                                                                "tick": 4,
+                                                              "target": "EnemyWithoutTower",
+                                                              "apply_type": "AroundCaster",
+                                                              "effects": [
+                                                                {
+                                                                  "type": "ApAttack",
+                                                                  "damage": 220,
+                                                                  "attack_ratio": 90,
+                                                                  "hp_ratio": 0,
+                                                                  "can_crit": false,
+                                                                  "attack_effect_type": "Target"
+                                                                },
+                                                                {
+                                                                  "type": "Airborne",
+                                                                  "duration": 45
+                                                                },
+                                                                {
+                                                                  "type": "ViewEffect",
+                                                                  "name": "league_galio_r_hit"
+                                                                }
+                                                              ]
+                                                            },
+                                                            {
+                                                              "type": "RangeEffect",
+                                                              "shape": {
+                                                                "Circle": {
+                                                                  "radius": 10000
+                                                                }
+                                                              },
+                                                              "target": "EnemyWithoutTower",
+                                                              "apply_type": "AroundCaster",
+                                                              "effects": [
+                                                                {
+                                                                  "type": "Airborne",
+                                                                  "duration": 70
+                                                                }
+                                                              ]
+                                                            },
+                                                            {
+                                                              "type": "RangeEffect",
+                                                              "shape": {
+                                                                "Circle": {
+                                                                  "radius": 22000
+                                                                }
+                                                              },
+                                                              "target": "AllyChampion",
+                                                              "apply_type": "AroundCaster",
+                                                              "effects": [
+                                                                {
+                                                                  "type": "Shield",
+                                                                  "amount": 150,
+                                                                  "attack_ratio": 0,
+                                                                  "ap_ratio": 50,
+                                                                  "tick": 300
+                                                                },
+                                                                {
+                                                                  "type": "AddBuff",
+                                                                  "buff_state": {
+                                                                    "name": "league_galio_r_shield",
+                                                                    "duration": {
+                                                                      "Time": {
+                                                                        "tick": 300
+                                                                      }
+                                                                    }
+                                                                  }
+                                                                }
+                                                              ]
+                                                            },
+                                                            {
+                                                              "type": "SwitchByBuff",
+                                                              "buff_name": "league_galio_w_cd",
+                                                              "effect_buff": {
+                                                                "type": "Combine",
+                                                                "effects": []
+                                                              },
+                                                              "effect_none": {
+                                                                "type": "Combine",
                                                                 "effects": [
                                                                   {
-                                                                    "type": "ViewEffect",
-                                                                    "name": "league_galio_r_land"
-                                                                  },
-                                                                  {
-                                                                    "type": "Sfx",
-                                                                    "name": "league_galio_r_land"
-                                                                  },
-                                                                  {
-                                                                    "type": "RangeEffect",
-                                                                    "shape": {
-                                                                      "Circle": {
-                                                                        "radius": 22000
-                                                                      }
-                                                                    },
-                                                                    "target": "EnemyWithoutTower",
-                                                                    "apply_type": "AroundCaster",
+                                                                    "type": "Combine",
                                                                     "effects": [
                                                                       {
-                                                                        "type": "ApAttack",
-                                                                        "damage": 220,
-                                                                        "attack_ratio": 90,
-                                                                        "hp_ratio": 0,
-                                                                        "can_crit": false,
-                                                                        "attack_effect_type": "Target"
+                                                                        "type": "RemoveCasterBuff",
+                                                                        "name": "league_galio_w_near"
                                                                       },
                                                                       {
-                                                                        "type": "Airborne",
-                                                                        "duration": 45
-                                                                      },
-                                                                      {
-                                                                        "type": "ViewEffect",
-                                                                        "name": "league_galio_r_hit"
-                                                                      }
-                                                                    ]
-                                                                  },
-                                                                  {
-                                                                    "type": "RangeEffect",
-                                                                    "shape": {
-                                                                      "Circle": {
-                                                                        "radius": 10000
-                                                                      }
-                                                                    },
-                                                                    "target": "EnemyWithoutTower",
-                                                                    "apply_type": "AroundCaster",
-                                                                    "effects": [
-                                                                      {
-                                                                        "type": "Airborne",
-                                                                        "duration": 70
-                                                                      }
-                                                                    ]
-                                                                  },
-                                                                  {
-                                                                    "type": "RangeEffect",
-                                                                    "shape": {
-                                                                      "Circle": {
-                                                                        "radius": 22000
-                                                                      }
-                                                                    },
-                                                                    "target": "AllyChampion",
-                                                                    "apply_type": "AroundCaster",
-                                                                    "effects": [
-                                                                      {
-                                                                        "type": "Shield",
-                                                                        "amount": 150,
-                                                                        "attack_ratio": 0,
-                                                                        "ap_ratio": 50,
-                                                                        "tick": 300
-                                                                      },
-                                                                      {
-                                                                        "type": "AddBuff",
-                                                                        "buff_state": {
-                                                                          "name": "league_galio_r_shield",
-                                                                          "duration": {
-                                                                            "Time": {
-                                                                              "tick": 300
-                                                                            }
+                                                                        "type": "RandomTarget",
+                                                                        "range": 24000,
+                                                                        "casting_target": "EnemyChampion",
+                                                                        "from_projectile": false,
+                                                                        "effects": [
+                                                                          {
+                                                                            "type": "AddCasterBuff",
+                                                                            "buff_state": {
+                                                                              "name": "league_galio_w_near",
+                                                                              "duration": {
+                                                                                "Time": {
+                                                                                  "tick": 1
+                                                                                }
+                                                                              }
+                                                                            },
+                                                                            "only_to_enemy": false
                                                                           }
-                                                                        }
+                                                                        ]
                                                                       }
                                                                     ]
                                                                   },
                                                                   {
                                                                     "type": "SwitchByBuff",
-                                                                    "buff_name": "league_galio_w_cd",
+                                                                    "buff_name": "league_galio_w_near",
                                                                     "effect_buff": {
                                                                       "type": "Combine",
-                                                                      "effects": []
-                                                                    },
-                                                                    "effect_none": {
-                                                                      "type": "Combine",
                                                                       "effects": [
+                                                                        {
+                                                                          "type": "RemoveCasterBuff",
+                                                                          "name": "league_galio_w_near"
+                                                                        },
                                                                         {
                                                                           "type": "Combine",
                                                                           "effects": [
                                                                             {
-                                                                              "type": "RemoveCasterBuff",
-                                                                              "name": "league_galio_w_near"
+                                                                              "type": "AddCasterBuff",
+                                                                              "buff_state": {
+                                                                                "name": "league_galio_w_cd",
+                                                                                "duration": {
+                                                                                  "Time": {
+                                                                                    "tick": 900
+                                                                                  }
+                                                                                }
+                                                                              },
+                                                                              "only_to_enemy": false
                                                                             },
                                                                             {
-                                                                              "type": "RandomTarget",
-                                                                              "range": 24000,
-                                                                              "casting_target": "EnemyChampion",
-                                                                              "from_projectile": false,
-                                                                              "effects": [
-                                                                                {
-                                                                                  "type": "AddCasterBuff",
-                                                                                  "buff_state": {
-                                                                                    "name": "league_galio_w_near",
-                                                                                    "duration": {
-                                                                                      "Time": {
-                                                                                        "tick": 1
-                                                                                      }
-                                                                                    }
-                                                                                  },
-                                                                                  "only_to_enemy": false
-                                                                                }
-                                                                              ]
-                                                                            }
-                                                                          ]
-                                                                        },
-                                                                        {
-                                                                          "type": "SwitchByBuff",
-                                                                          "buff_name": "league_galio_w_near",
-                                                                          "effect_buff": {
-                                                                            "type": "Combine",
-                                                                            "effects": [
-                                                                              {
-                                                                                "type": "RemoveCasterBuff",
-                                                                                "name": "league_galio_w_near"
+                                                                              "type": "CasterAnimation",
+                                                                              "name": "w_charge",
+                                                                              "tick": 50
+                                                                            },
+                                                                            {
+                                                                              "type": "CasterViewEffect",
+                                                                              "name": "league_galio_w_charge"
+                                                                            },
+                                                                            {
+                                                                              "type": "Sfx",
+                                                                              "name": "league_galio_w"
+                                                                            },
+                                                                            {
+                                                                              "type": "SwitchByBuff",
+                                                                              "buff_name": "league_galio_vo_cd",
+                                                                              "effect_buff": {
+                                                                                "type": "Combine",
+                                                                                "effects": []
                                                                               },
-                                                                              {
+                                                                              "effect_none": {
                                                                                 "type": "Combine",
                                                                                 "effects": [
                                                                                   {
                                                                                     "type": "AddCasterBuff",
                                                                                     "buff_state": {
-                                                                                      "name": "league_galio_w_cd",
+                                                                                      "name": "league_galio_vo_cd",
                                                                                       "duration": {
                                                                                         "Time": {
-                                                                                          "tick": 900
+                                                                                          "tick": 600
                                                                                         }
                                                                                       }
                                                                                     },
                                                                                     "only_to_enemy": false
                                                                                   },
                                                                                   {
-                                                                                    "type": "CasterAnimation",
-                                                                                    "name": "w_charge",
-                                                                                    "tick": 50
-                                                                                  },
-                                                                                  {
-                                                                                    "type": "CasterViewEffect",
-                                                                                    "name": "league_galio_w_charge"
-                                                                                  },
-                                                                                  {
                                                                                     "type": "Sfx",
-                                                                                    "name": "league_galio_w"
-                                                                                  },
-                                                                                  {
-                                                                                    "type": "SwitchByBuff",
-                                                                                    "buff_name": "league_galio_vo_cd",
-                                                                                    "effect_buff": {
-                                                                                      "type": "Combine",
-                                                                                      "effects": []
-                                                                                    },
-                                                                                    "effect_none": {
-                                                                                      "type": "Combine",
-                                                                                      "effects": [
-                                                                                        {
-                                                                                          "type": "AddCasterBuff",
-                                                                                          "buff_state": {
-                                                                                            "name": "league_galio_vo_cd",
-                                                                                            "duration": {
-                                                                                              "Time": {
-                                                                                                "tick": 600
-                                                                                              }
-                                                                                            }
-                                                                                          },
-                                                                                          "only_to_enemy": false
-                                                                                        },
-                                                                                        {
-                                                                                          "type": "Sfx",
-                                                                                          "name": "league_galio_vo_w"
-                                                                                        }
-                                                                                      ]
-                                                                                    }
-                                                                                  },
-                                                                                  {
-                                                                                    "type": "Combine",
-                                                                                    "effects": [
-                                                                                      {
-                                                                                        "type": "RemoveCasterBuff",
-                                                                                        "name": "league_galio_w_dr"
-                                                                                      },
-                                                                                      {
-                                                                                        "type": "AddCasterBuff",
-                                                                                        "buff_state": {
-                                                                                          "name": "league_galio_w_dr",
-                                                                                          "duration": {
-                                                                                            "Time": {
-                                                                                              "tick": 110
-                                                                                            }
-                                                                                          },
-                                                                                          "damaged_reduce": 40
-                                                                                        },
-                                                                                        "only_to_enemy": false
-                                                                                      }
-                                                                                    ]
-                                                                                  },
-                                                                                  {
-                                                                                    "type": "Combine",
-                                                                                    "effects": [
-                                                                                      {
-                                                                                        "type": "RemoveCasterBuff",
-                                                                                        "name": "league_galio_w_slow"
-                                                                                      },
-                                                                                      {
-                                                                                        "type": "AddCasterBuff",
-                                                                                        "buff_state": {
-                                                                                          "name": "league_galio_w_slow",
-                                                                                          "duration": {
-                                                                                            "Time": {
-                                                                                              "tick": 50
-                                                                                            }
-                                                                                          },
-                                                                                          "move_speed_mult": -15
-                                                                                        },
-                                                                                        "only_to_enemy": false
-                                                                                      }
-                                                                                    ]
-                                                                                  },
-                                                                                  {
-                                                                                    "type": "Delayed",
-                                                                                    "tick": 50,
-                                                                                    "effects": [
-                                                                                      {
-                                                                                        "type": "Combine",
-                                                                                        "effects": [
-                                                                                          {
-                                                                                            "type": "CasterAnimation",
-                                                                                            "name": "w_burst",
-                                                                                            "tick": 20
-                                                                                          },
-                                                                                          {
-                                                                                            "type": "Delayed",
-                                                                                            "tick": 7,
-                                                                                            "effects": [
-                                                                                              {
-                                                                                                "type": "CasterViewEffect",
-                                                                                                "name": "league_galio_w_burst"
-                                                                                              },
-                                                                                              {
-                                                                                                "type": "Sfx",
-                                                                                                "name": "league_galio_w_hit"
-                                                                                              },
-                                                                                              {
-                                                                                                "type": "RangeEffect",
-                                                                                                "shape": {
-                                                                                                  "Circle": {
-                                                                                                    "radius": 26000
-                                                                                                  }
-                                                                                                },
-                                                                                                "target": "EnemyWithoutTower",
-                                                                                                "apply_type": "AroundCaster",
-                                                                                                "effects": [
-                                                                                                  {
-                                                                                                    "type": "ApAttack",
-                                                                                                    "damage": 90,
-                                                                                                    "attack_ratio": 70,
-                                                                                                    "hp_ratio": 0,
-                                                                                                    "can_crit": false,
-                                                                                                    "attack_effect_type": "Target"
-                                                                                                  },
-                                                                                                  {
-                                                                                                    "type": "Native",
-                                                                                                    "effect_ref": "league_galio:taunt"
-                                                                                                  }
-                                                                                                ]
-                                                                                              },
-                                                                                              {
-                                                                                                "type": "RangeEffect",
-                                                                                                "shape": {
-                                                                                                  "Circle": {
-                                                                                                    "radius": 26000
-                                                                                                  }
-                                                                                                },
-                                                                                                "target": "EnemyChampion",
-                                                                                                "apply_type": "AroundCaster",
-                                                                                                "effects": [
-                                                                                                  {
-                                                                                                    "type": "RangeEffect",
-                                                                                                    "shape": {
-                                                                                                      "Circle": {
-                                                                                                        "radius": 1000
-                                                                                                      }
-                                                                                                    },
-                                                                                                    "target": "AllyOnlySelf",
-                                                                                                    "apply_type": "AroundCaster",
-                                                                                                    "effects": [
-                                                                                                      {
-                                                                                                        "type": "Combine",
-                                                                                                        "effects": [
-                                                                                                          {
-                                                                                                            "type": "RemoveCasterBuff",
-                                                                                                            "name": "league_galio_q_fast"
-                                                                                                          },
-                                                                                                          {
-                                                                                                            "type": "AddCasterBuff",
-                                                                                                            "buff_state": {
-                                                                                                              "name": "league_galio_q_fast",
-                                                                                                              "duration": {
-                                                                                                                "Time": {
-                                                                                                                  "tick": 120
-                                                                                                                }
-                                                                                                              }
-                                                                                                            },
-                                                                                                            "only_to_enemy": false
-                                                                                                          }
-                                                                                                        ]
-                                                                                                      }
-                                                                                                    ]
-                                                                                                  }
-                                                                                                ]
-                                                                                              }
-                                                                                            ]
-                                                                                          }
-                                                                                        ]
-                                                                                      }
-                                                                                    ]
+                                                                                    "name": "league_galio_vo_w"
                                                                                   }
                                                                                 ]
                                                                               }
-                                                                            ]
-                                                                          },
-                                                                          "effect_none": {
-                                                                            "type": "Combine",
-                                                                            "effects": []
-                                                                          }
+                                                                            },
+                                                                            {
+                                                                              "type": "Combine",
+                                                                              "effects": [
+                                                                                {
+                                                                                  "type": "RemoveCasterBuff",
+                                                                                  "name": "league_galio_w_dr"
+                                                                                },
+                                                                                {
+                                                                                  "type": "AddCasterBuff",
+                                                                                  "buff_state": {
+                                                                                    "name": "league_galio_w_dr",
+                                                                                    "duration": {
+                                                                                      "Time": {
+                                                                                        "tick": 110
+                                                                                      }
+                                                                                    },
+                                                                                    "damaged_reduce": 40
+                                                                                  },
+                                                                                  "only_to_enemy": false
+                                                                                }
+                                                                              ]
+                                                                            },
+                                                                            {
+                                                                              "type": "Combine",
+                                                                              "effects": [
+                                                                                {
+                                                                                  "type": "RemoveCasterBuff",
+                                                                                  "name": "league_galio_w_slow"
+                                                                                },
+                                                                                {
+                                                                                  "type": "AddCasterBuff",
+                                                                                  "buff_state": {
+                                                                                    "name": "league_galio_w_slow",
+                                                                                    "duration": {
+                                                                                      "Time": {
+                                                                                        "tick": 50
+                                                                                      }
+                                                                                    },
+                                                                                    "move_speed_mult": -15
+                                                                                  },
+                                                                                  "only_to_enemy": false
+                                                                                }
+                                                                              ]
+                                                                            },
+                                                                            {
+                                                                              "type": "Delayed",
+                                                                              "tick": 50,
+                                                                              "effects": [
+                                                                                {
+                                                                                  "type": "Combine",
+                                                                                  "effects": [
+                                                                                    {
+                                                                                      "type": "CasterAnimation",
+                                                                                      "name": "w_burst",
+                                                                                      "tick": 20
+                                                                                    },
+                                                                                    {
+                                                                                      "type": "Delayed",
+                                                                                      "tick": 7,
+                                                                                      "effects": [
+                                                                                        {
+                                                                                          "type": "CasterViewEffect",
+                                                                                          "name": "league_galio_w_burst"
+                                                                                        },
+                                                                                        {
+                                                                                          "type": "Sfx",
+                                                                                          "name": "league_galio_w_hit"
+                                                                                        },
+                                                                                        {
+                                                                                          "type": "RangeEffect",
+                                                                                          "shape": {
+                                                                                            "Circle": {
+                                                                                              "radius": 26000
+                                                                                            }
+                                                                                          },
+                                                                                          "target": "EnemyWithoutTower",
+                                                                                          "apply_type": "AroundCaster",
+                                                                                          "effects": [
+                                                                                            {
+                                                                                              "type": "ApAttack",
+                                                                                              "damage": 90,
+                                                                                              "attack_ratio": 70,
+                                                                                              "hp_ratio": 0,
+                                                                                              "can_crit": false,
+                                                                                              "attack_effect_type": "Target"
+                                                                                            },
+                                                                                            {
+                                                                                              "type": "Native",
+                                                                                              "effect_ref": "league_galio:taunt"
+                                                                                            }
+                                                                                          ]
+                                                                                        },
+                                                                                        {
+                                                                                          "type": "RangeEffect",
+                                                                                          "shape": {
+                                                                                            "Circle": {
+                                                                                              "radius": 26000
+                                                                                            }
+                                                                                          },
+                                                                                          "target": "EnemyChampion",
+                                                                                          "apply_type": "AroundCaster",
+                                                                                          "effects": [
+                                                                                            {
+                                                                                              "type": "RangeEffect",
+                                                                                              "shape": {
+                                                                                                "Circle": {
+                                                                                                  "radius": 1000
+                                                                                                }
+                                                                                              },
+                                                                                              "target": "AllyOnlySelf",
+                                                                                              "apply_type": "AroundCaster",
+                                                                                              "effects": [
+                                                                                                {
+                                                                                                  "type": "Combine",
+                                                                                                  "effects": [
+                                                                                                    {
+                                                                                                      "type": "RemoveCasterBuff",
+                                                                                                      "name": "league_galio_q_fast"
+                                                                                                    },
+                                                                                                    {
+                                                                                                      "type": "AddCasterBuff",
+                                                                                                      "buff_state": {
+                                                                                                        "name": "league_galio_q_fast",
+                                                                                                        "duration": {
+                                                                                                          "Time": {
+                                                                                                            "tick": 120
+                                                                                                          }
+                                                                                                        }
+                                                                                                      },
+                                                                                                      "only_to_enemy": false
+                                                                                                    }
+                                                                                                  ]
+                                                                                                }
+                                                                                              ]
+                                                                                            }
+                                                                                          ]
+                                                                                        }
+                                                                                      ]
+                                                                                    }
+                                                                                  ]
+                                                                                }
+                                                                              ]
+                                                                            }
+                                                                          ]
                                                                         }
                                                                       ]
+                                                                    },
+                                                                    "effect_none": {
+                                                                      "type": "Combine",
+                                                                      "effects": []
                                                                     }
                                                                   }
                                                                 ]
                                                               }
-                                                            ]
-                                                          }
-                                                        ]
-                                                      }
-                                                    ]
-                                                  }
-                                                ]
-                                              },
-                                              "effect_none": {
-                                                "type": "Combine",
-                                                "effects": []
-                                              }
+                                                            }
+                                                          ]
+                                                        }
+                                                      ]
+                                                    }
+                                                  ]
+                                                }
+                                              ]
                                             }
                                           ]
+                                        },
+                                        "effect_none": {
+                                          "type": "Combine",
+                                          "effects": []
                                         }
-                                      ]
-                                    }
-                                  ]
-                                },
-                                "effect_none": {
-                                  "type": "Combine",
-                                  "effects": []
-                                }
+                                      }
+                                    ]
+                                  }
+                                ]
                               }
                             ]
+                          },
+                          "effect_none": {
+                            "type": "Combine",
+                            "effects": []
                           }
-                        },
-                        "effect_none": {
-                          "type": "Combine",
-                          "effects": []
                         }
-                      }
+                      ]
                     }
-                  ]
+                  },
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": []
+                  }
                 }
               ]
             },

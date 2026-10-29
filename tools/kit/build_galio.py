@@ -36,7 +36,9 @@ addons/league_galio, the pros' combos):
           takes r_dmg + r_ap% AP and is knocked up r_up ticks (r_up_c within r_rc, the centre), allied champions round
           him get the shield too. The pros' R -> W: W ready, he braces on landing. Unused, the window ends with the
           cooldown capped. With native=1 every ally is asked and league_galio:entrance picks the one to land on: the
-          lowest share of health among those far enough with an enemy champion near, more enemies round it first.
+          lowest share of health among those far enough with an enemy champion near, more enemies round it first;
+          the add-on also breaks the channel, on hard crowd control on him only (from game 0.7.0 on players saw
+          no R; the game's crowd-control list also holds his own cast animation, which `AllyChampionInCC` may count).
 """
 import argparse
 import json
@@ -289,7 +291,10 @@ def build(p):
                     sw("e_cd", w_try, punch_e), key="skill2")
 
     # ------------------------------------------------------------------ ult: R Hero's Entrance
-    breaks = [delayed(t, pick(1, "AllyChampionInCC", *rm("r_ch"))) for t in range(p["r_brk"], p["r_ch"], p["r_brk"])]
+    # crowd control on him breaks the channel; with native=1 the add-on does it, on hard crowd control only (from game
+    # 0.7.0 on players saw no R; the game's crowd-control list also holds his own cast animation)
+    breaks = [] if native else [delayed(t, pick(1, "AllyChampionInCC", *rm("r_ch")))
+                                for t in range(p["r_brk"], p["r_ch"], p["r_brk"])]
     land = combine(anim("ult_land", p["r_land"]), delayed(p["r_lt"], view("r_land"), sfx("r_land"),
                    around(p["r_r"], "EnemyWithoutTower", [magic(p["r_dmg"], p["r_ap"]),
                                                          {"type": "Airborne", "duration": p["r_up"]}, view("r_hit")]),
@@ -325,8 +330,9 @@ def build(p):
         look = combine(pick(960000, "AllyChampionInCC", flag("r_cc", 1)),
                        sw("r_cc", combine(*rm("r_cc"), pick(960000, "AllyChampionInCC", probe(True))),
                           pick(960000, "AllyNotSelf", probe(False))))
-    poll = combine(pick(1, "AllyChampionInCC", flag("r_me", 1)),
-                   sw("r_me", combine(*rm("r_me")), sw("r_arm", sw("r_ch", NONE, look))))
+    poll = sw("r_arm", sw("r_ch", NONE, look))
+    if not native:  # not while he is held himself (native=1: league_galio:entrance checks it)
+        poll = combine(pick(1, "AllyChampionInCC", flag("r_me", 1)), sw("r_me", combine(*rm("r_me")), poll))
     reset = sw("r_arm", combine(*rm("r_arm"), flag("r_reset", 3, ult_cooldown_mult=p["r_reset"])))
     ult = action("idle", 3, p["r_cd"], 1, 960000, "None", "EnemyChampion",
                  combine(refresh("r_arm", p["r_arm"]),
