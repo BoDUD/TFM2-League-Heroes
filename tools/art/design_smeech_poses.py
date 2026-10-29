@@ -39,6 +39,10 @@ SRC = os.path.join(ROOT, "assets", "source", "smeech", "codex_poses", "smeech-po
 OUT = os.path.join(ROOT, "assets", "source", "smeech", "hd")
 NAMES = list(PK.POSES)
 FALLS = ("d_fall", "d_down")
+WALK = tuple(f"run{k}" for k in range(1, 9))
+# the walk's heads go on Codex's chins (the user, 2026-10-29: 「走路时身体和头有点不协调」): by the hat they sat 1 to 7
+# squares off the neck Codex drew, a different way each frame (its walk hats lean), so the body slid under the head
+FUR = ((243, 206, 188), (192, 145, 127), (131, 91, 84))   # the face's fur: its chin is the largest part's bottom
 # the design's head on hd/idle.png (x, y): the hat, the hair's right spike, the right ear, the chin, the left ear's
 # underside over the arm's ring, the left ear's tip
 HEAD_POLY = [(62, 0), (96, 0), (96, 17), (106, 17), (112, 22), (112, 42), (101, 47), (70, 47), (66, 45), (59, 41),
@@ -56,8 +60,10 @@ CHIN = 46                        # the head box's rows down to the chin
 HANG = 8                         # squares round the head a part may reach and still be a leftover of Codex's head
 # Codex's head left round the pasted one where it hangs on a claw or the coat (head-box squares x0, y0, x1, y1, read
 # at 10-12x; only squares off the pasted head): q_crouch's own right ear, its goggles' rim over the hat, its chin;
-# run2's ear tip under the left ear
-HEAD_CUT = {"q_crouch": [(52, 20, 66, 38), (29, 6, 40, 18), (45, 40, 54, 49)], "run2": [(-4, 40, 9, 46)]}
+# run2's hat patch and third goggle left of the pasted hat and its old ear tip under the left ear, run8's patch (the
+# walk's heads on the chins)
+HEAD_CUT = {"q_crouch": [(52, 20, 66, 38), (29, 6, 40, 18), (45, 40, 54, 49)], "run2": [(8, 5, 17, 24), (-8, 36, 8, 46)],
+            "run8": [(10, 14, 20, 22)]}
 # squares recoloured on the cropped picture (box, colour, new colour): d_down's cheek carried a smear of the arm's
 # olive (Codex's own head, kept in the falls) - the fur's middle shade
 RECOLOUR = {"d_down": [((28, 18, 40, 27), (140, 146, 106), (131, 91, 84))]}
@@ -170,15 +176,29 @@ def clear_strays(g, keep, ears, ink, zone, chin=None):
     return g
 
 
-def lay_head(name, g, t, tm, place, only, hats, ears, ink):
-    """The design's head on g: placed by the hat, nudged to the best match; Codex's own hat and head-only squares
-    round it cleared, then its stray ears and orphaned outline. Returns (g, the head box's top-left on g, the match)."""
+def chin(g, upper=0.5):
+    """(x, y) of a face's chin: the bottom middle (its last 3 rows) of the largest part in FUR's colours within the
+    figure's top `upper`."""
+    m = np.zeros(g.shape[:2], bool)
+    for c in FUR:
+        m |= np.all(g[..., :3] == c, axis=-1) & (g[..., 3] > 0)
+    oy = np.nonzero(g[..., 3].any(1))[0]
+    m[int(oy.min() + (oy.max() - oy.min()) * upper) + 1:] = False
+    lb, n = ndimage.label(m, np.ones((3, 3)))
+    ys, xs = np.nonzero(lb == np.argmax(ndimage.sum(m, lb, range(1, n + 1))) + 1)
+    return float(xs[ys >= ys.max() - 2].mean()), int(ys.max())
+
+
+def lay_head(name, g, t, tm, place, only, hats, ears, ink, search=SEARCH):
+    """The design's head on g: placed by the hat, nudged to the best match (within `search`); Codex's own hat and
+    head-only squares round it cleared, then its stray ears and orphaned outline. Returns (g, the head box's top-left
+    on g, the match)."""
     px, py = place
     old_hat = hat_mask(g, hats)
     best, at = -1, (px, py)
     H, W = tm.shape
-    for dy in range(-SEARCH, SEARCH + 1):
-        for dx in range(-SEARCH, SEARCH + 1):
+    for dy in range(-search, search + 1):
+        for dx in range(-search, search + 1):
             x, y = px + dx, py + dy
             if x < 0 or y < 0 or x + W > g.shape[1] or y + H > g.shape[0]:
                 continue
@@ -224,10 +244,15 @@ def pose(name, d, t, tm, at, hats, only):
     g = cut(read(name), name)
     head = None
     if name not in FALLS:
-        hx, hy = hat_of(g, hats)
-        place = (hx - (HAT_AT[0] - at[0]), hy - (HAT_AT[1] - at[1]))
         ink = tuple(int(v) for v in PD.edge_colour(d)[:3])
-        g, head, fit = lay_head(name, g, t, tm, place, only, hats, ear_colours(t, tm, only), ink)
+        if name in WALK:   # the chin on Codex's chin, where its head meets the body (no nudge)
+            (cx, cy), (tx, ty) = chin(g), chin(np.where(tm[..., None], t, 0).astype(np.uint8), upper=1.0)
+            g, head, fit = lay_head(name, g, t, tm, (round(cx - tx), cy - ty), only, hats, ear_colours(t, tm, only),
+                                    ink, search=0)
+        else:
+            hx, hy = hat_of(g, hats)
+            place = (hx - (HAT_AT[0] - at[0]), hy - (HAT_AT[1] - at[1]))
+            g, head, fit = lay_head(name, g, t, tm, place, only, hats, ear_colours(t, tm, only), ink)
         print(f"{name:9s} head at {head} (matched {fit:.0%} of Codex's own head)")
     g = close_gaps(drop_specks(g), d)
     ys, xs = np.nonzero(g[..., 3] > 0)
