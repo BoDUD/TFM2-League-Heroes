@@ -1,0 +1,95 @@
+[
+ {
+  "file": "steb_fx_a_hit.png",
+  "binding": "view_effects `tft_steb_a_hit`（跟随目标，z 2；左右对称）",
+  "size": "16 × 16",
+  "symmetry": "left-right"
+ },
+ {
+  "file": "steb_fx_q_heal.png",
+  "binding": "view_effects `tft_steb_q_heal`（跟随他，z 3；左右对称）",
+  "size": "36 × 44",
+  "symmetry": "left-right"
+ },
+ {
+  "file": "steb_fx_q_hit.png",
+  "binding": "view_effects `tft_steb_q_hit`（跟随目标，z 2；左右对称）",
+  "size": "24 × 24",
+  "symmetry": "left-right"
+ },
+ {
+  "file": "steb_fx_q_stun.png",
+  "binding": "view_buffs `tft_steb_q_stun`（跟随被晕的人，头顶，z 3；左右对称）",
+  "size": "20 × 10",
+  "symmetry": "left-right"
+ },
+ {
+  "file": "steb_fx_e_mark.png",
+  "binding": "view_effects `tft_steb_e_mark`（跟随目标，头顶，z 4；左右对称）",
+  "size": "22 × 22",
+  "symmetry": "left-right"
+ },
+ {
+  "file": "steb_fx_e_wanted.png",
+  "binding": "view_buffs `tft_steb_e_wanted`（跟随被通缉的人，头顶，z 4；左右对称）",
+  "size": "14 × 14",
+  "symmetry": "left-right"
+ },
+ {
+  "file": "steb_fx_e_kill.png",
+  "binding": "view_effects `tft_steb_e_kill`（跟随他，z 3；左右对称）",
+  "size": "40 × 44",
+  "symmetry": "left-right"
+ },
+ {
+  "file": "steb_fx_e_rush.png",
+  "binding": "view_buffs `tft_steb_e_rush`（跟随队友，身上，z 3；左右对称）",
+  "size": "30 × 40",
+  "symmetry": "left-right"
+ },
+ {
+  "file": "steb_fx_p_heal.png",
+  "binding": "view_effects `tft_steb_p_heal`（跟随队友，z 3；左右对称）",
+  "size": "24 × 32",
+  "symmetry": "left-right"
+ },
+ {
+  "file": "steb_fx_r_pack.png",
+  "binding": "view_effects `tft_steb_r_pack`（大表，在他脚下的地上，z -1；左右对称）",
+  "size": "84 × 30",
+  "symmetry": "left-right"
+ },
+ {
+  "file": "steb_fx_r_heal.png",
+  "binding": "view_effects `tft_steb_r_heal`（跟随他和每个队友，z 3；左右对称）",
+  "size": "30 × 40",
+  "symmetry": "left-right"
+ },
+ {
+  "file": "steb_fx_r_guard.png",
+  "binding": "view_buffs `tft_steb_r_guard`（跟随他，z 3；左右对称）",
+  "size": "40 × 44",
+  "symmetry": "left-right"
+ },
+ {
+  "file": "steb_fx_r_shield.png",
+  "binding": "view_buffs `tft_steb_r_shield`（跟随队友，z 3；左右对称）",
+  "size": "30 × 40",
+  "symmetry": "left-right"
+ },
+ {
+  "file": "steb_icon_skill.png",
+  "binding": "skill_icons[0] `asset/tft/icons/tft_steb_skill`",
+  "size": "64 x 64"
+ },
+ {
+  "file": "steb_icon_skill2.png",
+  "binding": "skill_icons[1] `asset/tft/icons/tft_steb_skill2`",
+  "size": "64 x 64"
+ },
+ {
+  "file": "steb_icon_ult.png",
+  "binding": "skill_icons[2] `asset/tft/icons/tft_steb_ult`",
+  "size": "64 x 64"
+ }
+]

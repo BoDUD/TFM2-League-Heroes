@@ -34,7 +34,7 @@ pub mod view;
 
 const ID: &str = "league_yuumi";
 /// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是 league_addons 的。
-const VERSION: &str = "0.1.9";
+const VERSION: &str = "0.1.10";
 const HERO: &str = "league_yuumi";
 /// 她身上的附身 buff（view.rs 照它把她的动作换成空白的 a_*）。
 pub const RIDING: &str = "league_yuumi_w_on";
