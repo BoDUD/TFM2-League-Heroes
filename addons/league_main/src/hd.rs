@@ -319,6 +319,10 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // to soles, PPU 2.0 (「B-1、38 像素、PPU 2.0」), and Codex's key poses after her own TFT clips with the design's head,
     // posed by tools/art/rig_renni.py, so no SIZES row
     ("tft_renni", 2.0, include_str!("../../../tft/champions/tft_renni#anim.fanim")),
+    // Smeech (tft_smeech, the tft pack): the ambush crouch, claws spread, step 0's B-1 at the user's 36 game px hat to
+    // claw tips, PPU 2.4 (「B-1 36像素 PPU2.4」, the picture one square a pixel), and Codex's key poses after his own TFT
+    // clips with the design's head, posed by tools/art/rig_smeech.py, so no SIZES row
+    ("tft_smeech", 2.4, include_str!("../../../tft/champions/tft_smeech#anim.fanim")),
     // 2026-10-16 redo from Codex's pictures, the actions posed from the designs (tools/art/rig_<hero>_hd.py; Nami's after
     // League's own clips, tools/lol/league_joints.py), PPU 1.5 at their old heights, so no SIZES rows
     ("league_morgana", 1.5, include_str!("../../../league/champions/league_morgana#anim.fanim")),

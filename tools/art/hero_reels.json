@@ -183,5 +183,6 @@
   "tft_vander": {"idle": [["skill", [1]], ["attack", [2]]], "bp": ["attack", "skill", "slam", "upper"]},
   "tft_violet": {"idle": [["skill", [1]], ["attack", [2]]], "bp": ["attack", "skill", "punch", "slam"]},
   "tft_scar": {"idle": [["skill", [1]], ["attack", [1]]], "bp": ["attack", "skill", "skill2", "land"]},
-  "tft_renni": {"idle": [["attack", [1]]], "bp": ["attack", "skill2", "slam", "ult"]}
+  "tft_renni": {"idle": [["attack", [1]]], "bp": ["attack", "skill2", "slam", "ult"]},
+  "tft_smeech": {"idle": [["attack", [1]], ["attack2", [1]]], "bp": ["attack", "skill2", "stabs", "ult"]}
 }

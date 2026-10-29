@@ -55,7 +55,7 @@
 
 ### 克烈附加包
 
-[克烈附加包](../../addons/league_kled/README.md)：`league_kled` v0.1.0
+[克烈附加包](../../addons/league_kled/README.md)：`league_kled` v0.1.1
 
 | 机制 | 主包（纯数据） | 附加包 |
 |---|---|---|
