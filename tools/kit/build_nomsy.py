@@ -52,14 +52,14 @@ P = {
     # stats (Magician base: attack 80 +6, ap 40 +20, hp 900 +100, def 20 +7, mr 20 +4, move 900 +9); a dragon's health
     "hp": 1020, "hp_g": 104, "atk": 80, "atk_g": 6, "apw": 40, "apw_g": 20, "def": 18, "def_g": 7, "mr": 20, "mr_g": 4,
     "ms": 880, "ms_g": 9,
-    "atk_range": 55000, "atk_dur": 24, "atk_cd": 90, "a_rel": 9, "a_speed": 4000, "a_y": 6000,
+    "atk_range": 55000, "atk_dur": 24, "atk_cd": 90, "a_rel": 9, "a_speed": 4000, "a_y": 2000,
     # passive Dragon Body (TFT's Dragon: healing each second); p_regen = the plain sims' steady stand-in
     "p_low": 40, "p_every": 60, "p_pct": 3, "p_regen": 10,
     # Fireballs! (TFT: 1-hex blast, bouncing fireballs)
     "q_cd": 240, "q_range": 60000, "q_dur": 36, "q_rel": 18, "q_fall": 24, "q_r": 22000,
     "q_dmg": 90, "q_ratio": 65, "q_n": 2, "q_k": 55, "q_br": 45000, "q_speed": 3000,
     # Dragon Breath
-    "e_cd": 420, "e_range": 45000, "e_dur": 30, "e_rel": 12, "e_r": 46000, "e_cone": 600, "e_len": 46000, "e_w": 12000,
+    "e_cd": 420, "e_range": 45000, "e_dur": 30, "e_rel": 12, "e_r": 62000, "e_cone": 600, "e_len": 100000, "e_w": 12000,
     "e_dmg": 70, "e_ratio": 45, "e_burn": 10, "e_burn_r": 6, "e_burn_t": 120, "e_mr": 20, "e_mr_t": 240,
     # Dragon Ascension
     "r_cd": 3000, "r_range": 70000, "r_rel": 24, "r_n": 10, "r_gap": 12, "r_rng": 70000, "r_fall_t": 18,
@@ -276,9 +276,9 @@ def names(o):
     return set()
 
 
-# names only tft.dll gives (the heal's buff and sound, the small fireballs' flight: the native kit's data never sets or
+# names only tft.dll gives (the heal's buff and sound, the small fireballs' flight, her death cry: the native kit's data never sets or
 # plays them; the views and the sound files still exist)
-NATIVE_ONLY = {"p", "p_heal", "q_bounce", "q_bounce_hit"}
+NATIVE_ONLY = {"p", "p_heal", "q_bounce", "q_bounce_hit", "d"}
 
 
 def check_dll(p, kit):

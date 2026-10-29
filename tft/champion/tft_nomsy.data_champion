@@ -74,7 +74,7 @@
           "type": "TargetProjectile",
           "name": "tft_nomsy_a_bolt",
           "speed": 4000,
-          "y_offset": 6000,
+          "y_offset": 2000,
           "applied_target": "Enemy",
           "applied_effects": [
             {
@@ -223,7 +223,7 @@
               "type": "LineRangeProjectile",
               "name": "tft_nomsy_e_flame",
               "width": 12000,
-              "length": 46000,
+              "length": 100000,
               "delay": 18,
               "apply": 1,
               "applied_target": "Ally",
@@ -233,7 +233,7 @@
               "type": "RangeEffect",
               "shape": {
                 "DirDot": {
-                  "radius": 46000,
+                  "radius": 62000,
                   "range": 600
                 }
               },

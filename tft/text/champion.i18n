@@ -105,6 +105,13 @@
         "skill": "喷火<#ffb900ff>1.2秒<>，对前方扇形造成<#ffb900ff>5<>次<#ff9028ff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>32%<><#ff9028ff>物理伤害<>，期间减伤<#ffb900ff>30%<>。",
         "skill2": "射出铁拳，造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<><#ff9028ff>物理伤害<>并击退；撞到身后的敌人则两人<#ef5350ff>眩晕1.2秒<>。",
         "ult": "冲向目标连咬<#ffb900ff>2<>口，每口<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>135%<><#ff9028ff>物理伤害<>，<#ef5350ff>眩晕1.1秒<>并流血；目标生命低于<#ffb900ff>15%<>时直接咬死，再冲向下一个英雄。"
+      },
+      "tft_nomsy": {
+        "name": "诺姆希",
+        "attack": "吐出小火团，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>。<#ff9028ff>龙神之躯<>：生命值低于<#ffb900ff>40%<>时每秒回复<#ffb900ff>3%<>最大生命值。",
+        "skill": "抛出大火球，爆炸造成<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<><#a974ffff>魔法伤害<>，再弹出<#ffb900ff>2<>颗小火球打附近的敌人，各造成<#ffb900ff>55%<>伤害。",
+        "skill2": "向前喷出扇形龙息，造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<><#a974ffff>魔法伤害<>并灼烧<#ffb900ff>2秒<>，魔抗降低<#ffb900ff>20%<>（<#ffb900ff>4秒<>）。",
+        "ult": "飞上天空（减伤<#ffb900ff>50%<>、免疫控制），降下<#ffb900ff>10<>颗火球，各造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<><#a974ffff>魔法伤害<>；落地后攻速<#ffb900ff>+30%<>、法强<#ffb900ff>+25%<>（<#ffb900ff>5秒<>）。"
       }
     },
     "skill_name": {
@@ -182,6 +189,11 @@
         "skill1": "喷火器",
         "skill2": "伸缩拳",
         "ult": "嚼一嚼"
+      },
+      "tft_nomsy": {
+        "skill1": "火球！",
+        "skill2": "龙息",
+        "ult": "龙神飞升"
       }
     }
   },
@@ -291,6 +303,13 @@
         "skill": "噴火<#ffb900ff>1.2秒<>，對前方扇形造成<#ffb900ff>5<>次<#ff9028ff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>32%<><#ff9028ff>物理傷害<>，期間減傷<#ffb900ff>30%<>。",
         "skill2": "射出鐵拳，造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<><#ff9028ff>物理傷害<>並擊退；撞到身後的敵人則兩人<#ef5350ff>暈眩1.2秒<>。",
         "ult": "衝向目標連咬<#ffb900ff>2<>口，每口<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>135%<><#ff9028ff>物理傷害<>，<#ef5350ff>暈眩1.1秒<>並流血；目標生命低於<#ffb900ff>15%<>時直接咬死，再衝向下一個英雄。"
+      },
+      "tft_nomsy": {
+        "name": "嚼嚼",
+        "attack": "吐出小火團，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>。<#ff9028ff>龍神之軀<>：生命值低於<#ffb900ff>40%<>時每秒回復<#ffb900ff>3%<>最大生命值。",
+        "skill": "拋出大火球，爆炸造成<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<><#a974ffff>魔法傷害<>，再彈出<#ffb900ff>2<>顆小火球打附近的敵人，各造成<#ffb900ff>55%<>傷害。",
+        "skill2": "向前噴出扇形龍息，造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<><#a974ffff>魔法傷害<>並灼燒<#ffb900ff>2秒<>，魔抗降低<#ffb900ff>20%<>（<#ffb900ff>4秒<>）。",
+        "ult": "飛上天空（減傷<#ffb900ff>50%<>、免疫控制），降下<#ffb900ff>10<>顆火球，各造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<><#a974ffff>魔法傷害<>；落地後攻速<#ffb900ff>+30%<>、法強<#ffb900ff>+25%<>（<#ffb900ff>5秒<>）。"
       }
     },
     "skill_name": {
@@ -368,6 +387,11 @@
         "skill1": "火焰噴射器",
         "skill2": "延伸重拳",
         "ult": "撕咬"
+      },
+      "tft_nomsy": {
+        "skill1": "噴火球！",
+        "skill2": "龍息",
+        "ult": "龍神飛升"
       }
     }
   },
@@ -477,6 +501,13 @@
         "skill": "Flames for <#ffb900ff>1.2s<>: <#ffb900ff>5<> waves into the cone ahead, each <#ff9028ff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>32%<> <#ff9028ff>physical damage<>; she takes <#ffb900ff>30%<> less damage meanwhile.",
         "skill2": "Fires her fist for <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<> <#ff9028ff>physical damage<>, knocking the target back; knocked into an enemy, both are <#ef5350ff>stunned for 1.2s<>.",
         "ult": "Dashes in and bites <#ffb900ff>2<> times, each <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>135%<> <#ff9028ff>physical damage<>, <#ef5350ff>stunning for 1.1s<> and bleeding; under <#ffb900ff>15%<> health the target is executed and she dashes to the next champion."
+      },
+      "tft_nomsy": {
+        "name": "Nomsy",
+        "attack": "Spits a fire bolt for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<>. <#ff9028ff>Dragon Body<>: under <#ffb900ff>40%<> health she heals <#ffb900ff>3%<> of her max health each second.",
+        "skill": "Lobs a fireball that explodes for <#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<> <#a974ffff>magic damage<> and bounces <#ffb900ff>2<> small fireballs on to nearby enemies for <#ffb900ff>55%<> of it each.",
+        "skill2": "Breathes a cone of fire for <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<> <#a974ffff>magic damage<>, burning for <#ffb900ff>2s<> and cutting magic resist by <#ffb900ff>20%<> for <#ffb900ff>4s<>.",
+        "ult": "Flies up (<#ffb900ff>50%<> less damage, immune to crowd control) and rains <#ffb900ff>10<> fireballs, each <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<> <#a974ffff>magic damage<>; landing, she gains <#ffb900ff>30%<> attack speed and <#ffb900ff>25%<> ability power for <#ffb900ff>5s<>."
       }
     },
     "skill_name": {
@@ -554,6 +585,11 @@
         "skill1": "Flamethrower",
         "skill2": "Extendo-Punch",
         "ult": "Chomp"
+      },
+      "tft_nomsy": {
+        "skill1": "Fireballs!",
+        "skill2": "Dragon Breath",
+        "ult": "Dragon Ascension"
       }
     }
   },
@@ -663,6 +699,13 @@
         "skill": "<#ffb900ff>1.2초<> 동안 화염 방사: 앞쪽 부채꼴에 <#ffb900ff>5<>번 각각 <#ff9028ff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>32%<> <#ff9028ff>물리 피해<>, 그동안 받는 피해 <#ffb900ff>30%<> 감소.",
         "skill2": "주먹을 날려 <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<> <#ff9028ff>물리 피해<>와 넉백; 뒤의 적과 부딪히면 둘 다 <#ef5350ff>1.2초 기절<>.",
         "ult": "돌진해 <#ffb900ff>2<>번 물어 각각 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>135%<> <#ff9028ff>물리 피해<>, <#ef5350ff>1.1초 기절<>과 출혈; 체력 <#ffb900ff>15%<> 미만이면 처형하고 다음 챔피언에게 돌진."
+      },
+      "tft_nomsy": {
+        "name": "뇸뇸이",
+        "attack": "작은 불덩이를 뱉어 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>물리 피해<>. <#ff9028ff>용신의 몸<>: 체력 <#ffb900ff>40%<> 미만이면 매초 최대 체력의 <#ffb900ff>3%<> 회복.",
+        "skill": "불덩이를 던져 폭발로 <#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<> <#a974ffff>마법 피해<>, 작은 불덩이 <#ffb900ff>2<>개가 근처 적에게 튀어 각각 <#ffb900ff>55%<> 피해.",
+        "skill2": "부채꼴로 불을 뿜어 <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<> <#a974ffff>마법 피해<>, <#ffb900ff>2초<> 화상, 마법 저항력 <#ffb900ff>20%<> 감소(<#ffb900ff>4초<>).",
+        "ult": "하늘로 날아올라(받는 피해 <#ffb900ff>50%<> 감소, 군중 제어 면역) 불덩이 <#ffb900ff>10<>개를 떨어뜨려 각각 <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<> <#a974ffff>마법 피해<>; 착지 후 공격 속도 <#ffb900ff>+30%<>, 주문력 <#ffb900ff>+25%<>(<#ffb900ff>5초<>)."
       }
     },
     "skill_name": {
@@ -740,6 +783,11 @@
         "skill1": "화염 방사기",
         "skill2": "늘어나는 펀치",
         "ult": "깨물기"
+      },
+      "tft_nomsy": {
+        "skill1": "불덩이!",
+        "skill2": "용의 숨결",
+        "ult": "용신 승천"
       }
     }
   },
@@ -849,6 +897,13 @@
         "skill": "<#ffb900ff>1.2秒<>間火炎放射：前方の扇形に<#ffb900ff>5<>回、それぞれ<#ff9028ff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>32%<>の<#ff9028ff>物理ダメージ<>、その間被ダメージ<#ffb900ff>30%<>軽減。",
         "skill2": "拳を飛ばし<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<>の<#ff9028ff>物理ダメージ<>とノックバック；後ろの敵にぶつかると2人とも<#ef5350ff>1.2秒スタン<>。",
         "ult": "突進して<#ffb900ff>2<>回噛みつき、それぞれ<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>135%<>の<#ff9028ff>物理ダメージ<>、<#ef5350ff>1.1秒スタン<>と出血；体力<#ffb900ff>15%<>未満なら処刑し、次のチャンピオンへ突進。"
+      },
+      "tft_nomsy": {
+        "name": "ノムジー",
+        "attack": "小さな火の玉を吐き<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>。<#ff9028ff>龍神の体<>：体力<#ffb900ff>40%<>未満の間、毎秒最大体力の<#ffb900ff>3%<>回復。",
+        "skill": "火の玉を投げ、爆発で<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<>の<#a974ffff>魔法ダメージ<>、小さな火の玉<#ffb900ff>2<>個が近くの敵に跳ね、それぞれ<#ffb900ff>55%<>のダメージ。",
+        "skill2": "扇形に炎を吐き<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<>の<#a974ffff>魔法ダメージ<>、<#ffb900ff>2秒<>炎上、魔法防御<#ffb900ff>20%<>低下（<#ffb900ff>4秒<>）。",
+        "ult": "空へ舞い上がり（被ダメージ<#ffb900ff>50%<>軽減、行動妨害無効）、火の玉<#ffb900ff>10<>個を降らせそれぞれ<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<>の<#a974ffff>魔法ダメージ<>；着地後、攻撃速度<#ffb900ff>+30%<>・魔力<#ffb900ff>+25%<>（<#ffb900ff>5秒<>）。"
       }
     },
     "skill_name": {
@@ -926,6 +981,11 @@
         "skill1": "火炎放射器",
         "skill2": "エクステンドパンチ",
         "ult": "咬み砕き"
+      },
+      "tft_nomsy": {
+        "skill1": "ファイヤーボール！",
+        "skill2": "ドラゴンブレス",
+        "ult": "龍神昇天"
       }
     }
   }

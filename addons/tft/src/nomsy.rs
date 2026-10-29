@@ -4,6 +4,7 @@
 //!
 //! - **龙神之躯**：金铲铲的龙神每秒回血。数据读不到生命值，所以由本被动来看：她活着、生命值低于最大值的 `p_low`% 时，
 //!   每 `p_every` tick 回复最大生命值的 `p_pct`%，挂 `tft_nomsy_p_heal`（身上的回血画面），播 `tft_nomsy_p`。
+//! - **死亡**：倒下时播 `tft_nomsy_d`（数据没有死亡的时机）。
 //! - **火球！的弹射**：数据里的投射物只能从施法者身上飞出去，金铲铲的小火球却是从爆炸的地方弹出去的。所以大火球落地时
 //!   （`end_effects` 里的 `tft_nomsy:bounce`）由这里在落点生成 `q_n` 颗小火球（`tft_nomsy_q_bounce`），飞向落点 `q_br`
 //!   以内最近的、不在爆炸范围 `q_r` 里的敌人（不够时才轮到爆炸范围里的），每颗命中（`tft_nomsy:ember`）造成大火球伤害
@@ -339,8 +340,10 @@ impl StablePassive for Dragon {
         }
     }
 
-    fn on_dead(&mut self, _sim: &mut StableSim<'_>, _me: usize) {
+    fn on_dead(&mut self, sim: &mut StableSim<'_>, me: usize) {
         self.next_at = 0;
+        // her death cry (the data has no moment for it)
+        sim.play_sfx(&nm("d"), me, &InputTargetV1::target(me));
     }
 }
 
