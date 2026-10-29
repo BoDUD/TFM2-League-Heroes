@@ -98,9 +98,9 @@ GitHub Actions（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)，Window
 <!-- HEROES:BEGIN -->
 <!-- 这一段由 tools/docs/gen_hero_docs.py 生成，请不要手改。 -->
 
-共 187 位：主包 173 位、tft 包 14 位。点名字看这位英雄现在的技能、附加包和开发记录；表格版见 [docs/heroes.xlsx](docs/heroes.xlsx)。
+共 188 位：主包 173 位、tft 包 15 位。点名字看这位英雄现在的技能、附加包和开发记录；表格版见 [docs/heroes.xlsx](docs/heroes.xlsx)。
 
-### 上单（42）
+### 上单（43）
 
 | 头像 | 英雄 | 分路 | 技能 | 附加包 | 高清帧 |
 |---|---|---|---|---|---|
@@ -146,6 +146,7 @@ GitHub Actions（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)，Window
 | <img src="docs/heroes/img/tft_kobuko.png" width="32"> | [可酷伯](docs/heroes/tft_kobuko.md)<br>Kobuko（tft 包） | 上单 | 金爪真言 · 猛虎扑 · 大招 游戏结束！ | — | PPU 2 |
 | <img src="docs/heroes/img/tft_renni.png" width="32"> | [荏妮](docs/heroes/tft_renni.md)<br>Renni（tft 包） | 上单 | 链锯冲撞 · 锯刃格挡 · 大招 泥奔者重击 | — | PPU 2 |
 | <img src="docs/heroes/img/tft_scar.png" width="32"> | [刀疤](docs/heroes/tft_scar.md)<br>Scar（tft 包） | 上单 | 水坑狙击惊喜 · 长矛横扫 · 大招 野火突袭 | — | PPU 2 |
+| <img src="docs/heroes/img/tft_sevika.png" width="32"> | [塞薇卡](docs/heroes/tft_sevika.md)<br>Sevika（tft 包） | 上单 | 喷火器 · 伸缩拳 · 大招 嚼一嚼 | — | PPU 1.8 |
 
 ### 打野（44）
 

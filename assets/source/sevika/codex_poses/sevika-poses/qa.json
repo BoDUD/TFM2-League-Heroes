@@ -1,0 +1,301 @@
+[
+  {
+    "id": "pose_a_wind",
+    "file": "sevika-pose-a_wind.png",
+    "alpha_hard": true,
+    "nonempty": true,
+    "size": [
+      1254,
+      1254
+    ],
+    "size_ok": true,
+    "baseline_ok": true,
+    "grid_exact": true
+  },
+  {
+    "id": "pose_a_punch",
+    "file": "sevika-pose-a_punch.png",
+    "alpha_hard": true,
+    "nonempty": true,
+    "size": [
+      1254,
+      1254
+    ],
+    "size_ok": true,
+    "baseline_ok": true,
+    "grid_exact": true
+  },
+  {
+    "id": "pose_a2_raise",
+    "file": "sevika-pose-a2_raise.png",
+    "alpha_hard": true,
+    "nonempty": true,
+    "size": [
+      1254,
+      1254
+    ],
+    "size_ok": true,
+    "baseline_ok": true,
+    "grid_exact": true
+  },
+  {
+    "id": "pose_a2_clamp",
+    "file": "sevika-pose-a2_clamp.png",
+    "alpha_hard": true,
+    "nonempty": true,
+    "size": [
+      1254,
+      1254
+    ],
+    "size_ok": true,
+    "baseline_ok": true,
+    "grid_exact": true
+  },
+  {
+    "id": "pose_q_flame",
+    "file": "sevika-pose-q_flame.png",
+    "alpha_hard": true,
+    "nonempty": true,
+    "size": [
+      1254,
+      1254
+    ],
+    "size_ok": true,
+    "baseline_ok": true,
+    "grid_exact": true
+  },
+  {
+    "id": "pose_q_flame2",
+    "file": "sevika-pose-q_flame2.png",
+    "alpha_hard": true,
+    "nonempty": true,
+    "size": [
+      1254,
+      1254
+    ],
+    "size_ok": true,
+    "baseline_ok": true,
+    "grid_exact": true
+  },
+  {
+    "id": "pose_e_wind",
+    "file": "sevika-pose-e_wind.png",
+    "alpha_hard": true,
+    "nonempty": true,
+    "size": [
+      1254,
+      1254
+    ],
+    "size_ok": true,
+    "baseline_ok": true,
+    "grid_exact": true
+  },
+  {
+    "id": "pose_e_punch",
+    "file": "sevika-pose-e_punch.png",
+    "alpha_hard": true,
+    "nonempty": true,
+    "size": [
+      1254,
+      1254
+    ],
+    "size_ok": true,
+    "baseline_ok": true,
+    "grid_exact": true
+  },
+  {
+    "id": "pose_e_back",
+    "file": "sevika-pose-e_back.png",
+    "alpha_hard": true,
+    "nonempty": true,
+    "size": [
+      1254,
+      1254
+    ],
+    "size_ok": true,
+    "baseline_ok": true,
+    "grid_exact": true
+  },
+  {
+    "id": "pose_r_dash",
+    "file": "sevika-pose-r_dash.png",
+    "alpha_hard": true,
+    "nonempty": true,
+    "size": [
+      1254,
+      1254
+    ],
+    "size_ok": true,
+    "baseline_ok": true,
+    "grid_exact": true
+  },
+  {
+    "id": "pose_r_raise",
+    "file": "sevika-pose-r_raise.png",
+    "alpha_hard": true,
+    "nonempty": true,
+    "size": [
+      1254,
+      1254
+    ],
+    "size_ok": true,
+    "baseline_ok": true,
+    "grid_exact": true
+  },
+  {
+    "id": "pose_r_bite",
+    "file": "sevika-pose-r_bite.png",
+    "alpha_hard": true,
+    "nonempty": true,
+    "size": [
+      1254,
+      1254
+    ],
+    "size_ok": true,
+    "baseline_ok": true,
+    "grid_exact": true
+  },
+  {
+    "id": "pose_r_lift",
+    "file": "sevika-pose-r_lift.png",
+    "alpha_hard": true,
+    "nonempty": true,
+    "size": [
+      1254,
+      1254
+    ],
+    "size_ok": true,
+    "baseline_ok": true,
+    "grid_exact": true
+  },
+  {
+    "id": "pose_run1",
+    "file": "sevika-pose-run1.png",
+    "alpha_hard": true,
+    "nonempty": true,
+    "size": [
+      1254,
+      1254
+    ],
+    "size_ok": true,
+    "baseline_ok": true,
+    "grid_exact": true
+  },
+  {
+    "id": "pose_run2",
+    "file": "sevika-pose-run2.png",
+    "alpha_hard": true,
+    "nonempty": true,
+    "size": [
+      1254,
+      1254
+    ],
+    "size_ok": true,
+    "baseline_ok": true,
+    "grid_exact": true
+  },
+  {
+    "id": "pose_run3",
+    "file": "sevika-pose-run3.png",
+    "alpha_hard": true,
+    "nonempty": true,
+    "size": [
+      1254,
+      1254
+    ],
+    "size_ok": true,
+    "baseline_ok": true,
+    "grid_exact": true
+  },
+  {
+    "id": "pose_run4",
+    "file": "sevika-pose-run4.png",
+    "alpha_hard": true,
+    "nonempty": true,
+    "size": [
+      1254,
+      1254
+    ],
+    "size_ok": true,
+    "baseline_ok": true,
+    "grid_exact": true
+  },
+  {
+    "id": "pose_run5",
+    "file": "sevika-pose-run5.png",
+    "alpha_hard": true,
+    "nonempty": true,
+    "size": [
+      1254,
+      1254
+    ],
+    "size_ok": true,
+    "baseline_ok": true,
+    "grid_exact": true
+  },
+  {
+    "id": "pose_run6",
+    "file": "sevika-pose-run6.png",
+    "alpha_hard": true,
+    "nonempty": true,
+    "size": [
+      1254,
+      1254
+    ],
+    "size_ok": true,
+    "baseline_ok": true,
+    "grid_exact": true
+  },
+  {
+    "id": "pose_run7",
+    "file": "sevika-pose-run7.png",
+    "alpha_hard": true,
+    "nonempty": true,
+    "size": [
+      1254,
+      1254
+    ],
+    "size_ok": true,
+    "baseline_ok": true,
+    "grid_exact": true
+  },
+  {
+    "id": "pose_run8",
+    "file": "sevika-pose-run8.png",
+    "alpha_hard": true,
+    "nonempty": true,
+    "size": [
+      1254,
+      1254
+    ],
+    "size_ok": true,
+    "baseline_ok": true,
+    "grid_exact": true
+  },
+  {
+    "id": "pose_d_fall",
+    "file": "sevika-pose-d_fall.png",
+    "alpha_hard": true,
+    "nonempty": true,
+    "size": [
+      1254,
+      1254
+    ],
+    "size_ok": true,
+    "baseline_ok": true,
+    "grid_exact": true
+  },
+  {
+    "id": "pose_d_down",
+    "file": "sevika-pose-d_down.png",
+    "alpha_hard": true,
+    "nonempty": true,
+    "size": [
+      1254,
+      1254
+    ],
+    "size_ok": true,
+    "baseline_ok": true,
+    "grid_exact": true
+  }
+]

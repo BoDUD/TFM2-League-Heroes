@@ -1,0 +1,76 @@
+{
+  "A": {
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_bbox": [
+      159,
+      79,
+      1100,
+      1243
+    ],
+    "logical_size": [
+      44,
+      54
+    ],
+    "pixel_block": 11,
+    "canvas": [
+      1536,
+      1536
+    ],
+    "bbox": [
+      528,
+      796,
+      1012,
+      1390
+    ],
+    "alpha_values": [
+      0,
+      255
+    ],
+    "palette_limit": 48,
+    "grid_origin": [
+      0,
+      4
+    ],
+    "feet_baseline": 1390
+  },
+  "B": {
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_bbox": [
+      135,
+      143,
+      1235,
+      1186
+    ],
+    "logical_size": [
+      51,
+      48
+    ],
+    "pixel_block": 11,
+    "canvas": [
+      1536,
+      1536
+    ],
+    "bbox": [
+      484,
+      862,
+      1045,
+      1390
+    ],
+    "alpha_values": [
+      0,
+      255
+    ],
+    "palette_limit": 48,
+    "grid_origin": [
+      0,
+      4
+    ],
+    "feet_baseline": 1390
+  }
+}

@@ -1,0 +1,1013 @@
+{
+  "id": "tft_sevika",
+  "category": "Melee",
+  "tags": [
+    "AD",
+    "Melee",
+    "CC",
+    "Shield",
+    "Dot"
+  ],
+  "passive": {
+    "passive_ref": "tft_sevika:roll",
+    "params": {
+      "p_tri": 12,
+      "p_tri_t": 150,
+      "p_rk_n": 4,
+      "p_rk_gap": 6,
+      "p_rk_r": 60000,
+      "p_rk_dmg": 15,
+      "p_rk_ad": 30,
+      "p_rk_speed": 5000,
+      "p_sh": 60,
+      "p_sh_ad": 100,
+      "p_sh_t": 180,
+      "p_as": 35,
+      "p_as_t": 180,
+      "e_range": 55000,
+      "e_w": 8000,
+      "e_speed": 4000,
+      "e_dmg": 40,
+      "e_ad": 120,
+      "e_kb_speed": 2500,
+      "e_kb_t": 10,
+      "e_behind": 30000,
+      "e_stun": 72,
+      "e_dmg2": 50,
+      "e_tri": 50,
+      "r_n": 2,
+      "r_tri_n": 4,
+      "r_first": 8,
+      "r_gap": 18,
+      "r_dmg": 60,
+      "r_ad": 135,
+      "r_stun": 66,
+      "r_bleed": 300,
+      "r_bl_ad": 60,
+      "r_exec": 15,
+      "r_exec_tri": 25,
+      "r_reset": 30000,
+      "r_resets": 2,
+      "r_fall": 80
+    }
+  },
+  "sprite": "asset/tft/champions/tft_sevika",
+  "anim_prefix": "",
+  "skill_icons": [
+    "asset/tft/icons/tft_sevika_skill",
+    "asset/tft/icons/tft_sevika_skill2",
+    "asset/tft/icons/tft_sevika_ult"
+  ],
+  "stat": {
+    "attack": 82,
+    "magic_power": 0,
+    "hp": 1200,
+    "defence": 36,
+    "magic_resistance": 30,
+    "move_speed": 1000,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "growth": {
+    "attack": 11,
+    "magic_power": 0,
+    "hp": 118,
+    "defence": 7,
+    "magic_resistance": 5,
+    "move_speed": 10,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "attack": {
+    "action_name": "attack",
+    "description": "#asset/base/text/champion?description.tft_sevika.attack",
+    "duration": 30,
+    "cooltime": 66,
+    "start_timing": 12,
+    "cancelable": true,
+    "range": 25000,
+    "casting_type": "Targeting",
+    "casting_target": "Enemy",
+    "attack_type": "BaseAttack",
+    "effect": {
+      "type": "SwitchByBuff",
+      "buff_name": "tft_sevika_a_2",
+      "effect_buff": {
+        "type": "Combine",
+        "effects": [
+          {
+            "type": "RemoveCasterBuff",
+            "name": "tft_sevika_a_2"
+          },
+          {
+            "type": "CasterAnimation",
+            "name": "attack2",
+            "tick": 30
+          },
+          {
+            "type": "Sfx",
+            "name": "tft_sevika_a2"
+          },
+          {
+            "type": "Attack",
+            "damage": 25,
+            "attack_ratio": 150,
+            "hp_ratio": 0,
+            "target_hp_ratio": 0,
+            "attack_effect_type": "Target"
+          },
+          {
+            "type": "ViewEffect",
+            "name": "tft_sevika_a2_hit"
+          },
+          {
+            "type": "TargetSfx",
+            "name": "tft_sevika_a2_hit"
+          }
+        ]
+      },
+      "effect_none": {
+        "type": "SwitchByBuff",
+        "buff_name": "tft_sevika_a_1",
+        "effect_buff": {
+          "type": "Combine",
+          "effects": [
+            {
+              "type": "RemoveCasterBuff",
+              "name": "tft_sevika_a_1"
+            },
+            {
+              "type": "AddCasterBuff",
+              "buff_state": {
+                "name": "tft_sevika_a_2",
+                "duration": {
+                  "Time": {
+                    "tick": 240
+                  }
+                }
+              },
+              "only_to_enemy": false
+            },
+            {
+              "type": "Sfx",
+              "name": "tft_sevika_a"
+            },
+            {
+              "type": "Attack",
+              "damage": 0,
+              "attack_ratio": 100,
+              "hp_ratio": 0,
+              "target_hp_ratio": 0,
+              "attack_effect_type": "Target"
+            },
+            {
+              "type": "ViewEffect",
+              "name": "tft_sevika_a_hit"
+            },
+            {
+              "type": "TargetSfx",
+              "name": "tft_sevika_a_hit"
+            }
+          ]
+        },
+        "effect_none": {
+          "type": "Combine",
+          "effects": [
+            {
+              "type": "AddCasterBuff",
+              "buff_state": {
+                "name": "tft_sevika_a_1",
+                "duration": {
+                  "Time": {
+                    "tick": 240
+                  }
+                }
+              },
+              "only_to_enemy": false
+            },
+            {
+              "type": "Sfx",
+              "name": "tft_sevika_a"
+            },
+            {
+              "type": "Attack",
+              "damage": 0,
+              "attack_ratio": 100,
+              "hp_ratio": 0,
+              "target_hp_ratio": 0,
+              "attack_effect_type": "Target"
+            },
+            {
+              "type": "ViewEffect",
+              "name": "tft_sevika_a_hit"
+            },
+            {
+              "type": "TargetSfx",
+              "name": "tft_sevika_a_hit"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "skill": {
+    "action_name": "skill",
+    "description": "#asset/base/text/champion?description.tft_sevika.skill",
+    "duration": 72,
+    "cooltime": 480,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 32000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Combine",
+          "effects": [
+            {
+              "type": "Sfx",
+              "name": "tft_sevika_p"
+            },
+            {
+              "type": "CasterViewEffect",
+              "name": "tft_sevika_p"
+            },
+            {
+              "type": "Native",
+              "effect_ref": "tft_sevika:roll"
+            }
+          ]
+        },
+        {
+          "type": "Sfx",
+          "name": "tft_sevika_q"
+        },
+        {
+          "type": "Sfx",
+          "name": "tft_sevika_q_loop"
+        },
+        {
+          "type": "CasterAnimation",
+          "name": "flame",
+          "tick": 72
+        },
+        {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "tft_sevika_q_guard",
+            "duration": {
+              "Time": {
+                "tick": 72
+              }
+            },
+            "damaged_reduce": 30
+          },
+          "only_to_enemy": false
+        },
+        {
+          "type": "Delayed",
+          "tick": 9,
+          "effects": [
+            {
+              "type": "Sfx",
+              "name": "tft_sevika_q_fire"
+            },
+            {
+              "type": "LineRangeProjectile",
+              "name": "tft_sevika_q_flame",
+              "width": 22000,
+              "length": 108000,
+              "delay": 12,
+              "apply": 1,
+              "applied_target": "Ally",
+              "applied_effects": []
+            },
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "tft_sevika_p_triple",
+              "effect_buff": {
+                "type": "RangeEffect",
+                "shape": {
+                  "DirDot": {
+                    "radius": 40000,
+                    "range": 700
+                  }
+                },
+                "target": "EnemyWithoutTower",
+                "apply_type": {
+                  "Forward": {
+                    "offset": 1000
+                  }
+                },
+                "effects": [
+                  {
+                    "type": "Attack",
+                    "damage": 19,
+                    "attack_ratio": 51,
+                    "hp_ratio": 0,
+                    "target_hp_ratio": 0,
+                    "attack_effect_type": "Target"
+                  },
+                  {
+                    "type": "AddBuff",
+                    "buff_state": {
+                      "name": "tft_sevika_q_burn",
+                      "duration": {
+                        "Time": {
+                          "tick": 60
+                        }
+                      }
+                    }
+                  }
+                ]
+              },
+              "effect_none": {
+                "type": "RangeEffect",
+                "shape": {
+                  "DirDot": {
+                    "radius": 40000,
+                    "range": 700
+                  }
+                },
+                "target": "EnemyWithoutTower",
+                "apply_type": {
+                  "Forward": {
+                    "offset": 1000
+                  }
+                },
+                "effects": [
+                  {
+                    "type": "Attack",
+                    "damage": 12,
+                    "attack_ratio": 32,
+                    "hp_ratio": 0,
+                    "target_hp_ratio": 0,
+                    "attack_effect_type": "Target"
+                  },
+                  {
+                    "type": "AddBuff",
+                    "buff_state": {
+                      "name": "tft_sevika_q_burn",
+                      "duration": {
+                        "Time": {
+                          "tick": 60
+                        }
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 21,
+          "effects": [
+            {
+              "type": "LineRangeProjectile",
+              "name": "tft_sevika_q_flame",
+              "width": 22000,
+              "length": 108000,
+              "delay": 12,
+              "apply": 1,
+              "applied_target": "Ally",
+              "applied_effects": []
+            },
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "tft_sevika_p_triple",
+              "effect_buff": {
+                "type": "RangeEffect",
+                "shape": {
+                  "DirDot": {
+                    "radius": 40000,
+                    "range": 700
+                  }
+                },
+                "target": "EnemyWithoutTower",
+                "apply_type": {
+                  "Forward": {
+                    "offset": 1000
+                  }
+                },
+                "effects": [
+                  {
+                    "type": "Attack",
+                    "damage": 19,
+                    "attack_ratio": 51,
+                    "hp_ratio": 0,
+                    "target_hp_ratio": 0,
+                    "attack_effect_type": "Target"
+                  },
+                  {
+                    "type": "AddBuff",
+                    "buff_state": {
+                      "name": "tft_sevika_q_burn",
+                      "duration": {
+                        "Time": {
+                          "tick": 60
+                        }
+                      }
+                    }
+                  }
+                ]
+              },
+              "effect_none": {
+                "type": "RangeEffect",
+                "shape": {
+                  "DirDot": {
+                    "radius": 40000,
+                    "range": 700
+                  }
+                },
+                "target": "EnemyWithoutTower",
+                "apply_type": {
+                  "Forward": {
+                    "offset": 1000
+                  }
+                },
+                "effects": [
+                  {
+                    "type": "Attack",
+                    "damage": 12,
+                    "attack_ratio": 32,
+                    "hp_ratio": 0,
+                    "target_hp_ratio": 0,
+                    "attack_effect_type": "Target"
+                  },
+                  {
+                    "type": "AddBuff",
+                    "buff_state": {
+                      "name": "tft_sevika_q_burn",
+                      "duration": {
+                        "Time": {
+                          "tick": 60
+                        }
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 33,
+          "effects": [
+            {
+              "type": "LineRangeProjectile",
+              "name": "tft_sevika_q_flame",
+              "width": 22000,
+              "length": 108000,
+              "delay": 12,
+              "apply": 1,
+              "applied_target": "Ally",
+              "applied_effects": []
+            },
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "tft_sevika_p_triple",
+              "effect_buff": {
+                "type": "RangeEffect",
+                "shape": {
+                  "DirDot": {
+                    "radius": 40000,
+                    "range": 700
+                  }
+                },
+                "target": "EnemyWithoutTower",
+                "apply_type": {
+                  "Forward": {
+                    "offset": 1000
+                  }
+                },
+                "effects": [
+                  {
+                    "type": "Attack",
+                    "damage": 19,
+                    "attack_ratio": 51,
+                    "hp_ratio": 0,
+                    "target_hp_ratio": 0,
+                    "attack_effect_type": "Target"
+                  },
+                  {
+                    "type": "AddBuff",
+                    "buff_state": {
+                      "name": "tft_sevika_q_burn",
+                      "duration": {
+                        "Time": {
+                          "tick": 60
+                        }
+                      }
+                    }
+                  }
+                ]
+              },
+              "effect_none": {
+                "type": "RangeEffect",
+                "shape": {
+                  "DirDot": {
+                    "radius": 40000,
+                    "range": 700
+                  }
+                },
+                "target": "EnemyWithoutTower",
+                "apply_type": {
+                  "Forward": {
+                    "offset": 1000
+                  }
+                },
+                "effects": [
+                  {
+                    "type": "Attack",
+                    "damage": 12,
+                    "attack_ratio": 32,
+                    "hp_ratio": 0,
+                    "target_hp_ratio": 0,
+                    "attack_effect_type": "Target"
+                  },
+                  {
+                    "type": "AddBuff",
+                    "buff_state": {
+                      "name": "tft_sevika_q_burn",
+                      "duration": {
+                        "Time": {
+                          "tick": 60
+                        }
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 45,
+          "effects": [
+            {
+              "type": "LineRangeProjectile",
+              "name": "tft_sevika_q_flame",
+              "width": 22000,
+              "length": 108000,
+              "delay": 12,
+              "apply": 1,
+              "applied_target": "Ally",
+              "applied_effects": []
+            },
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "tft_sevika_p_triple",
+              "effect_buff": {
+                "type": "RangeEffect",
+                "shape": {
+                  "DirDot": {
+                    "radius": 40000,
+                    "range": 700
+                  }
+                },
+                "target": "EnemyWithoutTower",
+                "apply_type": {
+                  "Forward": {
+                    "offset": 1000
+                  }
+                },
+                "effects": [
+                  {
+                    "type": "Attack",
+                    "damage": 19,
+                    "attack_ratio": 51,
+                    "hp_ratio": 0,
+                    "target_hp_ratio": 0,
+                    "attack_effect_type": "Target"
+                  },
+                  {
+                    "type": "AddBuff",
+                    "buff_state": {
+                      "name": "tft_sevika_q_burn",
+                      "duration": {
+                        "Time": {
+                          "tick": 60
+                        }
+                      }
+                    }
+                  }
+                ]
+              },
+              "effect_none": {
+                "type": "RangeEffect",
+                "shape": {
+                  "DirDot": {
+                    "radius": 40000,
+                    "range": 700
+                  }
+                },
+                "target": "EnemyWithoutTower",
+                "apply_type": {
+                  "Forward": {
+                    "offset": 1000
+                  }
+                },
+                "effects": [
+                  {
+                    "type": "Attack",
+                    "damage": 12,
+                    "attack_ratio": 32,
+                    "hp_ratio": 0,
+                    "target_hp_ratio": 0,
+                    "attack_effect_type": "Target"
+                  },
+                  {
+                    "type": "AddBuff",
+                    "buff_state": {
+                      "name": "tft_sevika_q_burn",
+                      "duration": {
+                        "Time": {
+                          "tick": 60
+                        }
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 57,
+          "effects": [
+            {
+              "type": "LineRangeProjectile",
+              "name": "tft_sevika_q_flame",
+              "width": 22000,
+              "length": 108000,
+              "delay": 12,
+              "apply": 1,
+              "applied_target": "Ally",
+              "applied_effects": []
+            },
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "tft_sevika_p_triple",
+              "effect_buff": {
+                "type": "RangeEffect",
+                "shape": {
+                  "DirDot": {
+                    "radius": 40000,
+                    "range": 700
+                  }
+                },
+                "target": "EnemyWithoutTower",
+                "apply_type": {
+                  "Forward": {
+                    "offset": 1000
+                  }
+                },
+                "effects": [
+                  {
+                    "type": "Attack",
+                    "damage": 19,
+                    "attack_ratio": 51,
+                    "hp_ratio": 0,
+                    "target_hp_ratio": 0,
+                    "attack_effect_type": "Target"
+                  },
+                  {
+                    "type": "AddBuff",
+                    "buff_state": {
+                      "name": "tft_sevika_q_burn",
+                      "duration": {
+                        "Time": {
+                          "tick": 60
+                        }
+                      }
+                    }
+                  }
+                ]
+              },
+              "effect_none": {
+                "type": "RangeEffect",
+                "shape": {
+                  "DirDot": {
+                    "radius": 40000,
+                    "range": 700
+                  }
+                },
+                "target": "EnemyWithoutTower",
+                "apply_type": {
+                  "Forward": {
+                    "offset": 1000
+                  }
+                },
+                "effects": [
+                  {
+                    "type": "Attack",
+                    "damage": 12,
+                    "attack_ratio": 32,
+                    "hp_ratio": 0,
+                    "target_hp_ratio": 0,
+                    "attack_effect_type": "Target"
+                  },
+                  {
+                    "type": "AddBuff",
+                    "buff_state": {
+                      "name": "tft_sevika_q_burn",
+                      "duration": {
+                        "Time": {
+                          "tick": 60
+                        }
+                      }
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "type": "RemoveCasterBuff",
+              "name": "tft_sevika_p_triple"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill2": {
+    "action_name": "skill2",
+    "description": "#asset/base/text/champion?description.tft_sevika.skill2",
+    "duration": 40,
+    "cooltime": 600,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 55000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Combine",
+          "effects": [
+            {
+              "type": "Sfx",
+              "name": "tft_sevika_p"
+            },
+            {
+              "type": "CasterViewEffect",
+              "name": "tft_sevika_p"
+            },
+            {
+              "type": "Native",
+              "effect_ref": "tft_sevika:roll"
+            }
+          ]
+        },
+        {
+          "type": "Sfx",
+          "name": "tft_sevika_e"
+        },
+        {
+          "type": "Delayed",
+          "tick": 13,
+          "effects": [
+            {
+              "type": "Native",
+              "effect_ref": "tft_sevika:punch"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "ult": {
+    "action_name": "ult",
+    "description": "#asset/base/text/champion?description.tft_sevika.ult",
+    "duration": 70,
+    "cooltime": 2700,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 40000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Combine",
+          "effects": [
+            {
+              "type": "Sfx",
+              "name": "tft_sevika_p"
+            },
+            {
+              "type": "CasterViewEffect",
+              "name": "tft_sevika_p"
+            },
+            {
+              "type": "Native",
+              "effect_ref": "tft_sevika:roll"
+            }
+          ]
+        },
+        {
+          "type": "Sfx",
+          "name": "tft_sevika_r"
+        },
+        {
+          "type": "CasterAnimation",
+          "name": "dash",
+          "tick": 70
+        },
+        {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "tft_sevika_r_rush",
+            "duration": {
+              "Time": {
+                "tick": 70
+              }
+            },
+            "cc_immune": true
+          },
+          "only_to_enemy": false
+        },
+        {
+          "type": "MoveToTarget",
+          "speed": 4000,
+          "range": 80000,
+          "end_effects": [
+            {
+              "type": "Sfx",
+              "name": "tft_sevika_r_dash"
+            },
+            {
+              "type": "CasterAnimation",
+              "name": "chomp",
+              "tick": 40
+            },
+            {
+              "type": "Sfx",
+              "name": "tft_sevika_r_vo"
+            },
+            {
+              "type": "Native",
+              "effect_ref": "tft_sevika:chomp"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "view_projectiles": [
+    {
+      "type": "Animated",
+      "name": "tft_sevika_q_flame",
+      "anim": "asset/tft/effects/tft_sevika_big",
+      "tag": "q_flame",
+      "repeat": true,
+      "z": 2
+    },
+    {
+      "type": "Animated",
+      "name": "tft_sevika_p_rocket",
+      "anim": "asset/tft/effects/tft_sevika_fx",
+      "tag": "p_rocket",
+      "repeat": true,
+      "z": 2
+    },
+    {
+      "type": "Animated",
+      "name": "tft_sevika_e_fist",
+      "anim": "asset/tft/effects/tft_sevika_fx",
+      "tag": "e_fist",
+      "repeat": true,
+      "z": 2
+    }
+  ],
+  "view_effects": [
+    {
+      "type": "Animation",
+      "name": "tft_sevika_a_hit",
+      "anim": "asset/tft/effects/tft_sevika_fx",
+      "tag": "a_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_sevika_a2_hit",
+      "anim": "asset/tft/effects/tft_sevika_fx",
+      "tag": "a2_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_sevika_p",
+      "anim": "asset/tft/effects/tft_sevika_fx",
+      "tag": "p",
+      "z": 4,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_sevika_p_rocket_hit",
+      "anim": "asset/tft/effects/tft_sevika_fx",
+      "tag": "p_rocket_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_sevika_e_hit",
+      "anim": "asset/tft/effects/tft_sevika_fx",
+      "tag": "e_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_sevika_r_hit",
+      "anim": "asset/tft/effects/tft_sevika_fx",
+      "tag": "r_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_sevika_r_kill",
+      "anim": "asset/tft/effects/tft_sevika_big",
+      "tag": "r_kill",
+      "z": 3,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_sevika_p_jackpot",
+      "anim": "asset/tft/effects/tft_sevika_big",
+      "tag": "p_jackpot",
+      "z": 4,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_sevika_p_shield",
+      "anim": "asset/tft/effects/tft_sevika_fx",
+      "tag": "p_shield",
+      "z": 3,
+      "is_follow": true
+    }
+  ],
+  "view_buffs": [
+    {
+      "type": "Animated",
+      "name": "tft_sevika_q_burn",
+      "anim": "asset/tft/effects/tft_sevika_fx",
+      "tag": "q_burn",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "tft_sevika_p_shimmer",
+      "anim": "asset/tft/effects/tft_sevika_fx",
+      "tag": "p_shimmer",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "tft_sevika_p_triple",
+      "anim": "asset/tft/effects/tft_sevika_fx",
+      "tag": "p_triple",
+      "repeat": true,
+      "z": 4
+    },
+    {
+      "type": "Animated",
+      "name": "tft_sevika_e_stun",
+      "anim": "asset/tft/effects/tft_sevika_fx",
+      "tag": "e_stun",
+      "repeat": true,
+      "z": 4
+    },
+    {
+      "type": "Animated",
+      "name": "tft_sevika_r_bleed",
+      "anim": "asset/tft/effects/tft_sevika_fx",
+      "tag": "r_bleed",
+      "repeat": true,
+      "z": 3
+    }
+  ]
+}

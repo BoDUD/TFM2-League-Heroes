@@ -1,0 +1,360 @@
+{
+  "status": "NOT_ACCEPTED",
+  "generator": "built-in image_gen",
+  "scope": "redraw review; not an accepted game animation",
+  "measurement_method": "manual visual reading of outer boot tips on 104x104 grid after dominant-color sampling; uncertainty about 1 cell",
+  "frames": [
+    {
+      "frame": "run1",
+      "observed_toe_near": [
+        24,
+        78
+      ],
+      "observed_toe_far": [
+        78,
+        96
+      ],
+      "target_toe_near": [
+        28,
+        85
+      ],
+      "target_toe_far": [
+        64,
+        94
+      ],
+      "deviation_cells": {
+        "near": [
+          -4,
+          -7
+        ],
+        "far": [
+          14,
+          2
+        ]
+      },
+      "toe_tolerance_pass": false,
+      "anatomy_two_legs_two_boots": true,
+      "observed_lead": "far",
+      "target_phase": "red",
+      "duration_ms": 117,
+      "bbox": [
+        228,
+        180,
+        1032,
+        1164
+      ],
+      "dimensions_ok": true,
+      "hard_alpha": true,
+      "upper_body_scale_consistency": "not passed; source varies",
+      "far_leg_uniform_dark_palette": "not fully passed"
+    },
+    {
+      "frame": "run2",
+      "observed_toe_near": [
+        34,
+        86
+      ],
+      "observed_toe_far": [
+        69,
+        97
+      ],
+      "target_toe_near": [
+        32,
+        85
+      ],
+      "target_toe_far": [
+        57,
+        96
+      ],
+      "deviation_cells": {
+        "near": [
+          2,
+          1
+        ],
+        "far": [
+          12,
+          1
+        ]
+      },
+      "toe_tolerance_pass": false,
+      "anatomy_two_legs_two_boots": true,
+      "observed_lead": "far",
+      "target_phase": "red",
+      "duration_ms": 117,
+      "bbox": [
+        336,
+        252,
+        1032,
+        1164
+      ],
+      "dimensions_ok": true,
+      "hard_alpha": true,
+      "upper_body_scale_consistency": "not passed; source varies",
+      "far_leg_uniform_dark_palette": "not fully passed"
+    },
+    {
+      "frame": "run3",
+      "observed_toe_near": [
+        45,
+        96
+      ],
+      "observed_toe_far": [
+        69,
+        97
+      ],
+      "target_toe_near": [
+        39,
+        93
+      ],
+      "target_toe_far": [
+        51,
+        95
+      ],
+      "deviation_cells": {
+        "near": [
+          6,
+          3
+        ],
+        "far": [
+          18,
+          2
+        ]
+      },
+      "toe_tolerance_pass": false,
+      "anatomy_two_legs_two_boots": true,
+      "observed_lead": "far",
+      "target_phase": "red",
+      "duration_ms": 117,
+      "bbox": [
+        336,
+        324,
+        996,
+        1176
+      ],
+      "dimensions_ok": true,
+      "hard_alpha": true,
+      "upper_body_scale_consistency": "not passed; source varies",
+      "far_leg_uniform_dark_palette": "not fully passed"
+    },
+    {
+      "frame": "run4",
+      "observed_toe_near": [
+        63,
+        99
+      ],
+      "observed_toe_far": [
+        53,
+        96
+      ],
+      "target_toe_near": [
+        46,
+        95
+      ],
+      "target_toe_far": [
+        45,
+        93
+      ],
+      "deviation_cells": {
+        "near": [
+          17,
+          4
+        ],
+        "far": [
+          8,
+          3
+        ]
+      },
+      "toe_tolerance_pass": false,
+      "anatomy_two_legs_two_boots": true,
+      "observed_lead": "near",
+      "target_phase": "blue",
+      "duration_ms": 117,
+      "bbox": [
+        372,
+        300,
+        1056,
+        1188
+      ],
+      "dimensions_ok": true,
+      "hard_alpha": true,
+      "upper_body_scale_consistency": "not passed; source varies",
+      "far_leg_uniform_dark_palette": "not fully passed"
+    },
+    {
+      "frame": "run5",
+      "observed_toe_near": [
+        70,
+        97
+      ],
+      "observed_toe_far": [
+        39,
+        80
+      ],
+      "target_toe_near": [
+        53,
+        95
+      ],
+      "target_toe_far": [
+        41,
+        86
+      ],
+      "deviation_cells": {
+        "near": [
+          17,
+          2
+        ],
+        "far": [
+          -2,
+          -6
+        ]
+      },
+      "toe_tolerance_pass": false,
+      "anatomy_two_legs_two_boots": true,
+      "observed_lead": "near",
+      "target_phase": "blue",
+      "duration_ms": 78,
+      "bbox": [
+        348,
+        240,
+        1032,
+        1176
+      ],
+      "dimensions_ok": true,
+      "hard_alpha": true,
+      "upper_body_scale_consistency": "not passed; source varies",
+      "far_leg_uniform_dark_palette": "not fully passed"
+    },
+    {
+      "frame": "run6",
+      "observed_toe_near": [
+        66,
+        98
+      ],
+      "observed_toe_far": [
+        32,
+        82
+      ],
+      "target_toe_near": [
+        53,
+        95
+      ],
+      "target_toe_far": [
+        43,
+        84
+      ],
+      "deviation_cells": {
+        "near": [
+          13,
+          3
+        ],
+        "far": [
+          -11,
+          -2
+        ]
+      },
+      "toe_tolerance_pass": false,
+      "anatomy_two_legs_two_boots": true,
+      "observed_lead": "near",
+      "target_phase": "blue",
+      "duration_ms": 78,
+      "bbox": [
+        348,
+        348,
+        984,
+        1188
+      ],
+      "dimensions_ok": true,
+      "hard_alpha": true,
+      "upper_body_scale_consistency": "not passed; source varies",
+      "far_leg_uniform_dark_palette": "not fully passed"
+    },
+    {
+      "frame": "run7",
+      "observed_toe_near": [
+        60,
+        97
+      ],
+      "observed_toe_far": [
+        53,
+        89
+      ],
+      "target_toe_near": [
+        49,
+        95
+      ],
+      "target_toe_far": [
+        49,
+        88
+      ],
+      "deviation_cells": {
+        "near": [
+          11,
+          2
+        ],
+        "far": [
+          4,
+          1
+        ]
+      },
+      "toe_tolerance_pass": false,
+      "anatomy_two_legs_two_boots": true,
+      "observed_lead": "near",
+      "target_phase": "blue",
+      "duration_ms": 156,
+      "bbox": [
+        300,
+        240,
+        996,
+        1164
+      ],
+      "dimensions_ok": true,
+      "hard_alpha": true,
+      "upper_body_scale_consistency": "not passed; source varies",
+      "far_leg_uniform_dark_palette": "not fully passed"
+    },
+    {
+      "frame": "run8",
+      "observed_toe_near": [
+        39,
+        96
+      ],
+      "observed_toe_far": [
+        82,
+        96
+      ],
+      "target_toe_near": [
+        38,
+        94
+      ],
+      "target_toe_far": [
+        56,
+        94
+      ],
+      "deviation_cells": {
+        "near": [
+          1,
+          2
+        ],
+        "far": [
+          26,
+          2
+        ]
+      },
+      "toe_tolerance_pass": false,
+      "anatomy_two_legs_two_boots": true,
+      "observed_lead": "far",
+      "target_phase": "red",
+      "duration_ms": 155,
+      "bbox": [
+        300,
+        264,
+        1044,
+        1152
+      ],
+      "dimensions_ok": true,
+      "hard_alpha": true,
+      "upper_body_scale_consistency": "not passed; source varies",
+      "far_leg_uniform_dark_palette": "not fully passed"
+    }
+  ]
+}

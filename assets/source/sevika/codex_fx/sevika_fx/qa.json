@@ -1,0 +1,313 @@
+[
+  {
+    "id": "fx_a_hit",
+    "file": "sevika_fx_a_hit.png",
+    "alpha_hard": true,
+    "nonempty": true,
+    "size": [
+      512,
+      128
+    ],
+    "size_ok": true,
+    "frames_nonempty": 4,
+    "unique_frames": 4,
+    "symmetry_ok": true,
+    "grid_exact": true,
+    "palette_ok": true
+  },
+  {
+    "id": "fx_a2_hit",
+    "file": "sevika_fx_a2_hit.png",
+    "alpha_hard": true,
+    "nonempty": true,
+    "size": [
+      800,
+      160
+    ],
+    "size_ok": true,
+    "frames_nonempty": 5,
+    "unique_frames": 5,
+    "symmetry_ok": true,
+    "grid_exact": true,
+    "palette_ok": true
+  },
+  {
+    "id": "fx_p",
+    "file": "sevika_fx_p.png",
+    "alpha_hard": true,
+    "nonempty": true,
+    "size": [
+      1920,
+      128
+    ],
+    "size_ok": true,
+    "frames_nonempty": 8,
+    "unique_frames": 8,
+    "symmetry_ok": true,
+    "grid_exact": true,
+    "palette_ok": true
+  },
+  {
+    "id": "fx_p_rocket",
+    "file": "sevika_fx_p_rocket.png",
+    "alpha_hard": true,
+    "nonempty": true,
+    "size": [
+      448,
+      64
+    ],
+    "size_ok": true,
+    "frames_nonempty": 4,
+    "unique_frames": 4,
+    "symmetry_ok": true,
+    "grid_exact": true,
+    "palette_ok": true
+  },
+  {
+    "id": "fx_p_rocket_hit",
+    "file": "sevika_fx_p_rocket_hit.png",
+    "alpha_hard": true,
+    "nonempty": true,
+    "size": [
+      720,
+      144
+    ],
+    "size_ok": true,
+    "frames_nonempty": 5,
+    "unique_frames": 5,
+    "symmetry_ok": true,
+    "grid_exact": true,
+    "palette_ok": true
+  },
+  {
+    "id": "fx_p_shield",
+    "file": "sevika_fx_p_shield.png",
+    "alpha_hard": true,
+    "nonempty": true,
+    "size": [
+      1920,
+      352
+    ],
+    "size_ok": true,
+    "frames_nonempty": 6,
+    "unique_frames": 6,
+    "symmetry_ok": true,
+    "grid_exact": true,
+    "palette_ok": true,
+    "body_space_ok": true
+  },
+  {
+    "id": "fx_p_jackpot",
+    "file": "sevika_fx_p_jackpot.png",
+    "alpha_hard": true,
+    "nonempty": true,
+    "size": [
+      3584,
+      480
+    ],
+    "size_ok": true,
+    "frames_nonempty": 8,
+    "unique_frames": 8,
+    "symmetry_ok": true,
+    "grid_exact": true,
+    "palette_ok": true,
+    "body_space_ok": true
+  },
+  {
+    "id": "fx_p_shimmer",
+    "file": "sevika_fx_p_shimmer.png",
+    "alpha_hard": true,
+    "nonempty": true,
+    "size": [
+      1728,
+      352
+    ],
+    "size_ok": true,
+    "frames_nonempty": 6,
+    "unique_frames": 6,
+    "symmetry_ok": true,
+    "grid_exact": true,
+    "palette_ok": true,
+    "body_space_ok": true
+  },
+  {
+    "id": "fx_p_triple",
+    "file": "sevika_fx_p_triple.png",
+    "alpha_hard": true,
+    "nonempty": true,
+    "size": [
+      1152,
+      80
+    ],
+    "size_ok": true,
+    "frames_nonempty": 6,
+    "unique_frames": 6,
+    "symmetry_ok": true,
+    "grid_exact": true,
+    "palette_ok": true
+  },
+  {
+    "id": "fx_q_flame",
+    "file": "sevika_fx_q_flame.png",
+    "alpha_hard": true,
+    "nonempty": true,
+    "size": [
+      2304,
+      176
+    ],
+    "size_ok": true,
+    "frames_nonempty": 6,
+    "unique_frames": 6,
+    "symmetry_ok": true,
+    "grid_exact": true,
+    "palette_ok": true
+  },
+  {
+    "id": "fx_q_burn",
+    "file": "sevika_fx_q_burn.png",
+    "alpha_hard": true,
+    "nonempty": true,
+    "size": [
+      768,
+      160
+    ],
+    "size_ok": true,
+    "frames_nonempty": 6,
+    "unique_frames": 6,
+    "symmetry_ok": true,
+    "grid_exact": true,
+    "palette_ok": true
+  },
+  {
+    "id": "fx_e_fist",
+    "file": "sevika_fx_e_fist.png",
+    "alpha_hard": true,
+    "nonempty": true,
+    "size": [
+      960,
+      112
+    ],
+    "size_ok": true,
+    "frames_nonempty": 4,
+    "unique_frames": 4,
+    "symmetry_ok": true,
+    "grid_exact": true,
+    "palette_ok": true
+  },
+  {
+    "id": "fx_e_hit",
+    "file": "sevika_fx_e_hit.png",
+    "alpha_hard": true,
+    "nonempty": true,
+    "size": [
+      1152,
+      192
+    ],
+    "size_ok": true,
+    "frames_nonempty": 6,
+    "unique_frames": 6,
+    "symmetry_ok": true,
+    "grid_exact": true,
+    "palette_ok": true
+  },
+  {
+    "id": "fx_e_stun",
+    "file": "sevika_fx_e_stun.png",
+    "alpha_hard": true,
+    "nonempty": true,
+    "size": [
+      960,
+      80
+    ],
+    "size_ok": true,
+    "frames_nonempty": 6,
+    "unique_frames": 6,
+    "symmetry_ok": true,
+    "grid_exact": true,
+    "palette_ok": true
+  },
+  {
+    "id": "fx_r_hit",
+    "file": "sevika_fx_r_hit.png",
+    "alpha_hard": true,
+    "nonempty": true,
+    "size": [
+      1040,
+      208
+    ],
+    "size_ok": true,
+    "frames_nonempty": 5,
+    "unique_frames": 5,
+    "symmetry_ok": true,
+    "grid_exact": true,
+    "palette_ok": true
+  },
+  {
+    "id": "fx_r_bleed",
+    "file": "sevika_fx_r_bleed.png",
+    "alpha_hard": true,
+    "nonempty": true,
+    "size": [
+      672,
+      128
+    ],
+    "size_ok": true,
+    "frames_nonempty": 6,
+    "unique_frames": 6,
+    "symmetry_ok": true,
+    "grid_exact": true,
+    "palette_ok": true
+  },
+  {
+    "id": "fx_r_kill",
+    "file": "sevika_fx_r_kill.png",
+    "alpha_hard": true,
+    "nonempty": true,
+    "size": [
+      2816,
+      352
+    ],
+    "size_ok": true,
+    "frames_nonempty": 8,
+    "unique_frames": 8,
+    "symmetry_ok": true,
+    "grid_exact": true,
+    "palette_ok": true
+  },
+  {
+    "id": "icon_skill",
+    "file": "sevika_icon_skill.png",
+    "alpha_hard": true,
+    "nonempty": true,
+    "size": [
+      64,
+      64
+    ],
+    "size_ok": true,
+    "grid_exact": true
+  },
+  {
+    "id": "icon_skill2",
+    "file": "sevika_icon_skill2.png",
+    "alpha_hard": true,
+    "nonempty": true,
+    "size": [
+      64,
+      64
+    ],
+    "size_ok": true,
+    "grid_exact": true
+  },
+  {
+    "id": "icon_ult",
+    "file": "sevika_icon_ult.png",
+    "alpha_hard": true,
+    "nonempty": true,
+    "size": [
+      64,
+      64
+    ],
+    "size_ok": true,
+    "grid_exact": true
+  }
+]
