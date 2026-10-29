@@ -37,6 +37,7 @@
       "e_tri": 50,
       "r_n": 2,
       "r_tri_n": 4,
+      "r_first": 8,
       "r_gap": 18,
       "r_dmg": 60,
       "r_ad": 135,
@@ -99,6 +100,11 @@
           {
             "type": "RemoveCasterBuff",
             "name": "tft_sevika_a_2"
+          },
+          {
+            "type": "CasterAnimation",
+            "name": "attack2",
+            "tick": 30
           },
           {
             "type": "Sfx",

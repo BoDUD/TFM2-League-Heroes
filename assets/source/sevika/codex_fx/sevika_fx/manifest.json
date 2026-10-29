@@ -1,0 +1,1367 @@
+{
+  "generator": "built-in image_gen",
+  "scope": "art deliverables only; no game integration",
+  "assets": [
+    {
+      "id": "fx_a_hit",
+      "file": "sevika_fx_a_hit.png",
+      "frames": 4,
+      "cell_1x": [
+        16,
+        16
+      ],
+      "symmetry": "left-right",
+      "binding": "view_effects `tft_sevika_a_hit`（跟随目标，z 2；左右对称）",
+      "source_grid": [
+        2,
+        2
+      ],
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "frame_bboxes": [
+        [
+          4,
+          5,
+          12,
+          12
+        ],
+        [
+          0,
+          4,
+          16,
+          14
+        ],
+        [
+          0,
+          2,
+          16,
+          13
+        ],
+        [
+          0,
+          3,
+          16,
+          12
+        ]
+      ],
+      "unique_frames": 4,
+      "source_sha256": "0ab2493966857e30ea3ec079a9e60d45865cc848fd66aefb2da93e65c22cfb71",
+      "qa": {
+        "id": "fx_a_hit",
+        "file": "sevika_fx_a_hit.png",
+        "alpha_hard": true,
+        "nonempty": true,
+        "size": [
+          512,
+          128
+        ],
+        "size_ok": true,
+        "frames_nonempty": 4,
+        "unique_frames": 4,
+        "symmetry_ok": true,
+        "grid_exact": true,
+        "palette_ok": true
+      },
+      "sha256": "5a33c37c5a77f3119c02bf00dfc47d8f8bc9dfab43e0ea5aff52c5065e0c44ca"
+    },
+    {
+      "id": "fx_a2_hit",
+      "file": "sevika_fx_a2_hit.png",
+      "frames": 5,
+      "cell_1x": [
+        20,
+        20
+      ],
+      "symmetry": "left-right",
+      "binding": "view_effects `tft_sevika_a2_hit`（跟随目标，z 2；左右对称）",
+      "source_grid": [
+        3,
+        2
+      ],
+      "raw_size": [
+        1536,
+        1024
+      ],
+      "frame_bboxes": [
+        [
+          1,
+          2,
+          19,
+          20
+        ],
+        [
+          2,
+          3,
+          18,
+          19
+        ],
+        [
+          1,
+          5,
+          19,
+          18
+        ],
+        [
+          1,
+          0,
+          19,
+          16
+        ],
+        [
+          2,
+          6,
+          18,
+          16
+        ]
+      ],
+      "unique_frames": 5,
+      "source_sha256": "267413afdbe2f519c2d3de3939b04babba818bd02b4ab1534a5d7a19a807e4ca",
+      "qa": {
+        "id": "fx_a2_hit",
+        "file": "sevika_fx_a2_hit.png",
+        "alpha_hard": true,
+        "nonempty": true,
+        "size": [
+          800,
+          160
+        ],
+        "size_ok": true,
+        "frames_nonempty": 5,
+        "unique_frames": 5,
+        "symmetry_ok": true,
+        "grid_exact": true,
+        "palette_ok": true
+      },
+      "sha256": "d816dd847c105b26e95729f67e6e603c454a9673641deedf79e0c3ba46b5a6df"
+    },
+    {
+      "id": "fx_p",
+      "file": "sevika_fx_p.png",
+      "frames": 8,
+      "cell_1x": [
+        30,
+        16
+      ],
+      "symmetry": "left-right",
+      "binding": "view_effects `tft_sevika_p`（跟随她，在她头顶，z 4；左右对称）",
+      "source_grid": [
+        4,
+        2
+      ],
+      "raw_size": [
+        1983,
+        793
+      ],
+      "frame_bboxes": [
+        [
+          2,
+          2,
+          28,
+          14
+        ],
+        [
+          2,
+          2,
+          28,
+          14
+        ],
+        [
+          2,
+          2,
+          28,
+          14
+        ],
+        [
+          2,
+          2,
+          28,
+          14
+        ],
+        [
+          2,
+          2,
+          28,
+          14
+        ],
+        [
+          2,
+          2,
+          28,
+          14
+        ],
+        [
+          2,
+          2,
+          28,
+          14
+        ],
+        [
+          2,
+          2,
+          28,
+          14
+        ]
+      ],
+      "unique_frames": 8,
+      "source_sha256": "6b28dd9d09e309d00bf5859110ed92462c6299e96fecc1bdea9a787af852bc93",
+      "qa": {
+        "id": "fx_p",
+        "file": "sevika_fx_p.png",
+        "alpha_hard": true,
+        "nonempty": true,
+        "size": [
+          1920,
+          128
+        ],
+        "size_ok": true,
+        "frames_nonempty": 8,
+        "unique_frames": 8,
+        "symmetry_ok": true,
+        "grid_exact": true,
+        "palette_ok": true
+      },
+      "sha256": "2e10626361b630d22d454e168a0b7afc5cf6fe3371a832be8f169b446ebeca28"
+    },
+    {
+      "id": "fx_p_rocket",
+      "file": "sevika_fx_p_rocket.png",
+      "frames": 4,
+      "cell_1x": [
+        14,
+        8
+      ],
+      "symmetry": "top-bottom (pointing right)",
+      "binding": "view_projectiles `tft_sevika_p_rocket`（飞向目标，随飞行方向旋转；上下对称、朝右）",
+      "source_grid": [
+        2,
+        2
+      ],
+      "raw_size": [
+        1659,
+        948
+      ],
+      "frame_bboxes": [
+        [
+          3,
+          2,
+          12,
+          6
+        ],
+        [
+          3,
+          2,
+          12,
+          6
+        ],
+        [
+          1,
+          1,
+          13,
+          7
+        ],
+        [
+          1,
+          1,
+          13,
+          7
+        ]
+      ],
+      "unique_frames": 4,
+      "source_sha256": "e360b7f536535c2b7f7ed3e8f59eb45d1bef3e107f2812cea9ad61e71d80b340",
+      "qa": {
+        "id": "fx_p_rocket",
+        "file": "sevika_fx_p_rocket.png",
+        "alpha_hard": true,
+        "nonempty": true,
+        "size": [
+          448,
+          64
+        ],
+        "size_ok": true,
+        "frames_nonempty": 4,
+        "unique_frames": 4,
+        "symmetry_ok": true,
+        "grid_exact": true,
+        "palette_ok": true
+      },
+      "sha256": "e0fdc08715d3cd2f1470b358de17ff98a879d812f2fbc32b0aa8203193e44bd6"
+    },
+    {
+      "id": "fx_p_rocket_hit",
+      "file": "sevika_fx_p_rocket_hit.png",
+      "frames": 5,
+      "cell_1x": [
+        18,
+        18
+      ],
+      "symmetry": "left-right",
+      "binding": "view_effects `tft_sevika_p_rocket_hit`（跟随目标，z 2；左右对称）",
+      "source_grid": [
+        3,
+        2
+      ],
+      "raw_size": [
+        1536,
+        1024
+      ],
+      "frame_bboxes": [
+        [
+          5,
+          6,
+          13,
+          13
+        ],
+        [
+          0,
+          3,
+          18,
+          16
+        ],
+        [
+          1,
+          3,
+          17,
+          17
+        ],
+        [
+          1,
+          2,
+          17,
+          16
+        ],
+        [
+          1,
+          3,
+          17,
+          16
+        ]
+      ],
+      "unique_frames": 5,
+      "source_sha256": "fa82b49650be38e00bd98cff1319db1f5e4829609821d2bd363ece0a222d65b9",
+      "qa": {
+        "id": "fx_p_rocket_hit",
+        "file": "sevika_fx_p_rocket_hit.png",
+        "alpha_hard": true,
+        "nonempty": true,
+        "size": [
+          720,
+          144
+        ],
+        "size_ok": true,
+        "frames_nonempty": 5,
+        "unique_frames": 5,
+        "symmetry_ok": true,
+        "grid_exact": true,
+        "palette_ok": true
+      },
+      "sha256": "546f0419afbfcd7486cc1e654bba348561a3fc73c00c20df095e1ef80b042536"
+    },
+    {
+      "id": "fx_p_shield",
+      "file": "sevika_fx_p_shield.png",
+      "frames": 6,
+      "cell_1x": [
+        40,
+        44
+      ],
+      "symmetry": "left-right",
+      "binding": "view_effects `tft_sevika_p_shield`（跟随她，z 3；左右对称）",
+      "source_grid": [
+        3,
+        2
+      ],
+      "raw_size": [
+        1464,
+        1074
+      ],
+      "frame_bboxes": [
+        [
+          0,
+          15,
+          40,
+          35
+        ],
+        [
+          0,
+          5,
+          40,
+          37
+        ],
+        [
+          0,
+          6,
+          40,
+          37
+        ],
+        [
+          0,
+          5,
+          40,
+          37
+        ],
+        [
+          0,
+          6,
+          40,
+          37
+        ],
+        [
+          0,
+          5,
+          40,
+          36
+        ]
+      ],
+      "unique_frames": 6,
+      "source_sha256": "34c53439a52ea134240e9d1839c84e0badaaa9e2db9c3bb8a2619458e233812c",
+      "qa": {
+        "id": "fx_p_shield",
+        "file": "sevika_fx_p_shield.png",
+        "alpha_hard": true,
+        "nonempty": true,
+        "size": [
+          1920,
+          352
+        ],
+        "size_ok": true,
+        "frames_nonempty": 6,
+        "unique_frames": 6,
+        "symmetry_ok": true,
+        "grid_exact": true,
+        "palette_ok": true,
+        "body_space_ok": true
+      },
+      "sha256": "9883619c26cbb3d624f3e23eac8908b8efa330d7058a2140ae36eea80ed25ab2"
+    },
+    {
+      "id": "fx_p_jackpot",
+      "file": "sevika_fx_p_jackpot.png",
+      "frames": 8,
+      "cell_1x": [
+        56,
+        60
+      ],
+      "symmetry": "left-right",
+      "binding": "view_effects `tft_sevika_p_jackpot`（大表，跟随她，z 4；左右对称）",
+      "source_grid": [
+        4,
+        2
+      ],
+      "raw_size": [
+        1715,
+        917
+      ],
+      "frame_bboxes": [
+        [
+          14,
+          3,
+          42,
+          17
+        ],
+        [
+          19,
+          0,
+          37,
+          19
+        ],
+        [
+          0,
+          6,
+          56,
+          53
+        ],
+        [
+          2,
+          18,
+          54,
+          60
+        ],
+        [
+          2,
+          3,
+          54,
+          54
+        ],
+        [
+          3,
+          12,
+          53,
+          55
+        ],
+        [
+          2,
+          23,
+          54,
+          56
+        ],
+        [
+          1,
+          0,
+          55,
+          56
+        ]
+      ],
+      "unique_frames": 8,
+      "source_sha256": "49cf7e44abd87f3c6adef042d6174d486b4e0d39aa78f7994b64a012439afe7b",
+      "qa": {
+        "id": "fx_p_jackpot",
+        "file": "sevika_fx_p_jackpot.png",
+        "alpha_hard": true,
+        "nonempty": true,
+        "size": [
+          3584,
+          480
+        ],
+        "size_ok": true,
+        "frames_nonempty": 8,
+        "unique_frames": 8,
+        "symmetry_ok": true,
+        "grid_exact": true,
+        "palette_ok": true,
+        "body_space_ok": true
+      },
+      "sha256": "b378eb9403311d33971a0b45640bf9b231b63bd8f7c3eb0aadbd2887912cd9ba"
+    },
+    {
+      "id": "fx_p_shimmer",
+      "file": "sevika_fx_p_shimmer.png",
+      "frames": 6,
+      "cell_1x": [
+        36,
+        44
+      ],
+      "symmetry": "left-right",
+      "binding": "view_buffs `tft_sevika_p_shimmer`（跟随她，z 3；左右对称）",
+      "source_grid": [
+        3,
+        2
+      ],
+      "raw_size": [
+        1390,
+        1132
+      ],
+      "frame_bboxes": [
+        [
+          0,
+          16,
+          36,
+          41
+        ],
+        [
+          0,
+          15,
+          36,
+          42
+        ],
+        [
+          0,
+          15,
+          36,
+          43
+        ],
+        [
+          0,
+          16,
+          36,
+          41
+        ],
+        [
+          0,
+          15,
+          36,
+          41
+        ],
+        [
+          0,
+          18,
+          36,
+          41
+        ]
+      ],
+      "unique_frames": 6,
+      "source_sha256": "2ca04eae5ffe0418b80266b3b2d79c312cf406c56bcf03a07e78f2849464cd71",
+      "qa": {
+        "id": "fx_p_shimmer",
+        "file": "sevika_fx_p_shimmer.png",
+        "alpha_hard": true,
+        "nonempty": true,
+        "size": [
+          1728,
+          352
+        ],
+        "size_ok": true,
+        "frames_nonempty": 6,
+        "unique_frames": 6,
+        "symmetry_ok": true,
+        "grid_exact": true,
+        "palette_ok": true,
+        "body_space_ok": true
+      },
+      "sha256": "b5276c9b875b63438dc5c7668889a0987a85880a10113803205ef8266ae748aa"
+    },
+    {
+      "id": "fx_p_triple",
+      "file": "sevika_fx_p_triple.png",
+      "frames": 6,
+      "cell_1x": [
+        24,
+        10
+      ],
+      "symmetry": "left-right",
+      "binding": "view_buffs `tft_sevika_p_triple`（跟随她，头顶，z 4；左右对称）",
+      "source_grid": [
+        3,
+        2
+      ],
+      "raw_size": [
+        2061,
+        763
+      ],
+      "frame_bboxes": [
+        [
+          0,
+          2,
+          24,
+          9
+        ],
+        [
+          1,
+          3,
+          23,
+          9
+        ],
+        [
+          0,
+          2,
+          24,
+          9
+        ],
+        [
+          1,
+          1,
+          23,
+          8
+        ],
+        [
+          1,
+          2,
+          23,
+          8
+        ],
+        [
+          0,
+          1,
+          24,
+          8
+        ]
+      ],
+      "unique_frames": 6,
+      "source_sha256": "3b4a17f9ca568d1d799501fd2398359b62007d4c496be8db74aeb5264b46f4a5",
+      "qa": {
+        "id": "fx_p_triple",
+        "file": "sevika_fx_p_triple.png",
+        "alpha_hard": true,
+        "nonempty": true,
+        "size": [
+          1152,
+          80
+        ],
+        "size_ok": true,
+        "frames_nonempty": 6,
+        "unique_frames": 6,
+        "symmetry_ok": true,
+        "grid_exact": true,
+        "palette_ok": true
+      },
+      "sha256": "45e2fff986942a84eee6149ac7368633c67299ae893f0fccc5fc1c38d0bd1dae"
+    },
+    {
+      "id": "fx_q_flame",
+      "file": "sevika_fx_q_flame.png",
+      "frames": 6,
+      "cell_1x": [
+        48,
+        22
+      ],
+      "symmetry": "top-bottom (pointing right)",
+      "binding": "view_projectiles `tft_sevika_q_flame`（大表，一道从她指向目标的线，随方向旋转；上下对称、朝右）",
+      "source_grid": [
+        3,
+        2
+      ],
+      "raw_size": [
+        2172,
+        724
+      ],
+      "frame_bboxes": [
+        [
+          4,
+          3,
+          47,
+          19
+        ],
+        [
+          3,
+          2,
+          47,
+          20
+        ],
+        [
+          1,
+          1,
+          47,
+          21
+        ],
+        [
+          4,
+          1,
+          48,
+          21
+        ],
+        [
+          2,
+          0,
+          47,
+          22
+        ],
+        [
+          1,
+          0,
+          46,
+          22
+        ]
+      ],
+      "unique_frames": 6,
+      "source_sha256": "cb32faee0813b91377aebd8c8c2031cbc7b1b90324fca4b135f2fe38591af3c3",
+      "qa": {
+        "id": "fx_q_flame",
+        "file": "sevika_fx_q_flame.png",
+        "alpha_hard": true,
+        "nonempty": true,
+        "size": [
+          2304,
+          176
+        ],
+        "size_ok": true,
+        "frames_nonempty": 6,
+        "unique_frames": 6,
+        "symmetry_ok": true,
+        "grid_exact": true,
+        "palette_ok": true
+      },
+      "sha256": "95fa2c856372fe809e178459e1e92f59cfd8d58860c3bed736efe9add705025f"
+    },
+    {
+      "id": "fx_q_burn",
+      "file": "sevika_fx_q_burn.png",
+      "frames": 6,
+      "cell_1x": [
+        16,
+        20
+      ],
+      "symmetry": "left-right",
+      "binding": "view_buffs `tft_sevika_q_burn`（跟随被烧的人，身上，z 3；左右对称）",
+      "source_grid": [
+        3,
+        2
+      ],
+      "raw_size": [
+        1374,
+        1145
+      ],
+      "frame_bboxes": [
+        [
+          1,
+          3,
+          15,
+          20
+        ],
+        [
+          1,
+          1,
+          15,
+          20
+        ],
+        [
+          1,
+          5,
+          15,
+          20
+        ],
+        [
+          2,
+          1,
+          14,
+          18
+        ],
+        [
+          2,
+          2,
+          14,
+          18
+        ],
+        [
+          2,
+          5,
+          14,
+          18
+        ]
+      ],
+      "unique_frames": 6,
+      "source_sha256": "7901daabe693305a4d8f7ce03028addd83b8bb73c9efc6df978cb0fd9ac47d00",
+      "qa": {
+        "id": "fx_q_burn",
+        "file": "sevika_fx_q_burn.png",
+        "alpha_hard": true,
+        "nonempty": true,
+        "size": [
+          768,
+          160
+        ],
+        "size_ok": true,
+        "frames_nonempty": 6,
+        "unique_frames": 6,
+        "symmetry_ok": true,
+        "grid_exact": true,
+        "palette_ok": true
+      },
+      "sha256": "0842d4dfb92481c07ce702474957d8b8dba323a0661205e6abc4ea3a033ffa55"
+    },
+    {
+      "id": "fx_e_fist",
+      "file": "sevika_fx_e_fist.png",
+      "frames": 4,
+      "cell_1x": [
+        30,
+        14
+      ],
+      "symmetry": "top-bottom (pointing right)",
+      "binding": "view_projectiles `tft_sevika_e_fist`（飞向目标，随飞行方向旋转；上下对称、朝右）",
+      "source_grid": [
+        2,
+        2
+      ],
+      "raw_size": [
+        1836,
+        857
+      ],
+      "frame_bboxes": [
+        [
+          6,
+          3,
+          28,
+          11
+        ],
+        [
+          5,
+          3,
+          28,
+          11
+        ],
+        [
+          2,
+          2,
+          30,
+          12
+        ],
+        [
+          0,
+          2,
+          28,
+          12
+        ]
+      ],
+      "unique_frames": 4,
+      "source_sha256": "848d157641026aec6fac029338d02908c5670b9766a10dfe40a372c2834542b3",
+      "qa": {
+        "id": "fx_e_fist",
+        "file": "sevika_fx_e_fist.png",
+        "alpha_hard": true,
+        "nonempty": true,
+        "size": [
+          960,
+          112
+        ],
+        "size_ok": true,
+        "frames_nonempty": 4,
+        "unique_frames": 4,
+        "symmetry_ok": true,
+        "grid_exact": true,
+        "palette_ok": true
+      },
+      "sha256": "35b6bde78e55e3502c8173328d3cafb462ad8b172ed7c3450a11d8ff76c7e0b2"
+    },
+    {
+      "id": "fx_e_hit",
+      "file": "sevika_fx_e_hit.png",
+      "frames": 6,
+      "cell_1x": [
+        24,
+        24
+      ],
+      "symmetry": "left-right",
+      "binding": "view_effects `tft_sevika_e_hit`（跟随目标，z 2；左右对称）",
+      "source_grid": [
+        3,
+        2
+      ],
+      "raw_size": [
+        1536,
+        1024
+      ],
+      "frame_bboxes": [
+        [
+          1,
+          4,
+          23,
+          20
+        ],
+        [
+          1,
+          4,
+          23,
+          21
+        ],
+        [
+          0,
+          5,
+          24,
+          22
+        ],
+        [
+          1,
+          3,
+          23,
+          23
+        ],
+        [
+          1,
+          6,
+          23,
+          20
+        ],
+        [
+          1,
+          9,
+          23,
+          20
+        ]
+      ],
+      "unique_frames": 6,
+      "source_sha256": "965b28e22f36f4875f7f3b3ac184d04d390f32555bfc8c20f441165663c61fbf",
+      "qa": {
+        "id": "fx_e_hit",
+        "file": "sevika_fx_e_hit.png",
+        "alpha_hard": true,
+        "nonempty": true,
+        "size": [
+          1152,
+          192
+        ],
+        "size_ok": true,
+        "frames_nonempty": 6,
+        "unique_frames": 6,
+        "symmetry_ok": true,
+        "grid_exact": true,
+        "palette_ok": true
+      },
+      "sha256": "d4432843d5a028098a53f6d21afe78ab209ccdd3cbccc206e7f9396ec4a59f33"
+    },
+    {
+      "id": "fx_e_stun",
+      "file": "sevika_fx_e_stun.png",
+      "frames": 6,
+      "cell_1x": [
+        20,
+        10
+      ],
+      "symmetry": "left-right",
+      "binding": "view_buffs `tft_sevika_e_stun`（跟随被晕的人，头顶，z 4；左右对称）",
+      "source_grid": [
+        3,
+        2
+      ],
+      "raw_size": [
+        2172,
+        724
+      ],
+      "frame_bboxes": [
+        [
+          2,
+          2,
+          18,
+          8
+        ],
+        [
+          2,
+          3,
+          18,
+          9
+        ],
+        [
+          2,
+          2,
+          18,
+          9
+        ],
+        [
+          2,
+          2,
+          18,
+          8
+        ],
+        [
+          2,
+          1,
+          18,
+          8
+        ],
+        [
+          2,
+          2,
+          18,
+          8
+        ]
+      ],
+      "unique_frames": 6,
+      "source_sha256": "8495d2d1f293c1c0df22251992f31278db5b18a8ab379356ab309512b2f15e8e",
+      "qa": {
+        "id": "fx_e_stun",
+        "file": "sevika_fx_e_stun.png",
+        "alpha_hard": true,
+        "nonempty": true,
+        "size": [
+          960,
+          80
+        ],
+        "size_ok": true,
+        "frames_nonempty": 6,
+        "unique_frames": 6,
+        "symmetry_ok": true,
+        "grid_exact": true,
+        "palette_ok": true
+      },
+      "sha256": "3959ae5f2c8339f65e777ed8f29cbd3ddcad686212741631fbaee3a88ef86919"
+    },
+    {
+      "id": "fx_r_hit",
+      "file": "sevika_fx_r_hit.png",
+      "frames": 5,
+      "cell_1x": [
+        26,
+        26
+      ],
+      "symmetry": "left-right",
+      "binding": "view_effects `tft_sevika_r_hit`（跟随目标，z 2；左右对称）",
+      "source_grid": [
+        3,
+        2
+      ],
+      "raw_size": [
+        1536,
+        1024
+      ],
+      "frame_bboxes": [
+        [
+          1,
+          2,
+          25,
+          26
+        ],
+        [
+          1,
+          4,
+          25,
+          25
+        ],
+        [
+          0,
+          7,
+          26,
+          26
+        ],
+        [
+          0,
+          2,
+          26,
+          25
+        ],
+        [
+          1,
+          10,
+          25,
+          24
+        ]
+      ],
+      "unique_frames": 5,
+      "source_sha256": "6d946177c475ae8d0e2dec041aaf85ee6839d2a5f83bb1d24075d192fe8d8d32",
+      "qa": {
+        "id": "fx_r_hit",
+        "file": "sevika_fx_r_hit.png",
+        "alpha_hard": true,
+        "nonempty": true,
+        "size": [
+          1040,
+          208
+        ],
+        "size_ok": true,
+        "frames_nonempty": 5,
+        "unique_frames": 5,
+        "symmetry_ok": true,
+        "grid_exact": true,
+        "palette_ok": true
+      },
+      "sha256": "e71a019597df24d3e6544a06e8f0b0f3ba19315b50700bad55f66a8871af0f37"
+    },
+    {
+      "id": "fx_r_bleed",
+      "file": "sevika_fx_r_bleed.png",
+      "frames": 6,
+      "cell_1x": [
+        14,
+        16
+      ],
+      "symmetry": "left-right",
+      "binding": "view_buffs `tft_sevika_r_bleed`（跟随被咬的人，身上，z 3；左右对称）",
+      "source_grid": [
+        3,
+        2
+      ],
+      "raw_size": [
+        1437,
+        1095
+      ],
+      "frame_bboxes": [
+        [
+          2,
+          3,
+          12,
+          12
+        ],
+        [
+          2,
+          3,
+          12,
+          12
+        ],
+        [
+          2,
+          3,
+          12,
+          13
+        ],
+        [
+          3,
+          2,
+          11,
+          12
+        ],
+        [
+          2,
+          2,
+          12,
+          13
+        ],
+        [
+          3,
+          2,
+          11,
+          12
+        ]
+      ],
+      "unique_frames": 6,
+      "source_sha256": "9e93b5fca64eebe3defb4654058c78dd3cced0476fdbc520c3c582cc7bfde319",
+      "qa": {
+        "id": "fx_r_bleed",
+        "file": "sevika_fx_r_bleed.png",
+        "alpha_hard": true,
+        "nonempty": true,
+        "size": [
+          672,
+          128
+        ],
+        "size_ok": true,
+        "frames_nonempty": 6,
+        "unique_frames": 6,
+        "symmetry_ok": true,
+        "grid_exact": true,
+        "palette_ok": true
+      },
+      "sha256": "3eda1a1e590b407b16ffb1254e62b16b309a24257f36d372a834a3a59aac7327"
+    },
+    {
+      "id": "fx_r_kill",
+      "file": "sevika_fx_r_kill.png",
+      "frames": 8,
+      "cell_1x": [
+        44,
+        44
+      ],
+      "symmetry": "left-right",
+      "binding": "view_effects `tft_sevika_r_kill`（大表，跟随目标，z 3；左右对称）",
+      "source_grid": [
+        4,
+        2
+      ],
+      "raw_size": [
+        1774,
+        887
+      ],
+      "frame_bboxes": [
+        [
+          1,
+          5,
+          43,
+          44
+        ],
+        [
+          1,
+          13,
+          43,
+          40
+        ],
+        [
+          1,
+          13,
+          43,
+          39
+        ],
+        [
+          1,
+          10,
+          43,
+          40
+        ],
+        [
+          1,
+          8,
+          43,
+          41
+        ],
+        [
+          1,
+          9,
+          43,
+          39
+        ],
+        [
+          7,
+          12,
+          37,
+          39
+        ],
+        [
+          11,
+          14,
+          33,
+          35
+        ]
+      ],
+      "unique_frames": 8,
+      "source_sha256": "27e5d5c31ee47c44e32bfc19c6f4b844b6b15ac0d7eb1a82915b71c9b8d71969",
+      "qa": {
+        "id": "fx_r_kill",
+        "file": "sevika_fx_r_kill.png",
+        "alpha_hard": true,
+        "nonempty": true,
+        "size": [
+          2816,
+          352
+        ],
+        "size_ok": true,
+        "frames_nonempty": 8,
+        "unique_frames": 8,
+        "symmetry_ok": true,
+        "grid_exact": true,
+        "palette_ok": true
+      },
+      "sha256": "fcfe24e63b2b39f0e772ca30b6ef9532ac5eb434dc8d0f572331943ac44a2cbb"
+    },
+    {
+      "id": "icon_skill",
+      "file": "sevika_icon_skill.png",
+      "frames": 1,
+      "cell_1x": [
+        64,
+        64
+      ],
+      "symmetry": null,
+      "qa": {
+        "id": "icon_skill",
+        "file": "sevika_icon_skill.png",
+        "alpha_hard": true,
+        "nonempty": true,
+        "size": [
+          64,
+          64
+        ],
+        "size_ok": true,
+        "grid_exact": true
+      },
+      "sha256": "ce51e788df459ff1280eebd49432022222312ba8e78437509395a9eeb4c79b79"
+    },
+    {
+      "id": "icon_skill2",
+      "file": "sevika_icon_skill2.png",
+      "frames": 1,
+      "cell_1x": [
+        64,
+        64
+      ],
+      "symmetry": null,
+      "qa": {
+        "id": "icon_skill2",
+        "file": "sevika_icon_skill2.png",
+        "alpha_hard": true,
+        "nonempty": true,
+        "size": [
+          64,
+          64
+        ],
+        "size_ok": true,
+        "grid_exact": true
+      },
+      "sha256": "b9d493d31e6ff9de5277dcbf1642d0a4bb93478b0243e1acbb814a02efbece7a"
+    },
+    {
+      "id": "icon_ult",
+      "file": "sevika_icon_ult.png",
+      "frames": 1,
+      "cell_1x": [
+        64,
+        64
+      ],
+      "symmetry": null,
+      "qa": {
+        "id": "icon_ult",
+        "file": "sevika_icon_ult.png",
+        "alpha_hard": true,
+        "nonempty": true,
+        "size": [
+          64,
+          64
+        ],
+        "size_ok": true,
+        "grid_exact": true
+      },
+      "sha256": "e480b1e21b109f2f3b10e894f16732b50bee83b6c40f43c4a89a3830424e7753"
+    }
+  ],
+  "effect_sheets": 17,
+  "effect_frames": 99,
+  "icons": 3,
+  "layout": "horizontal strip, no gutters",
+  "display_scale": 8,
+  "pixel_import": "pixel_1x",
+  "symmetry_method": "copy left half for left-right; copy upper half for top-bottom",
+  "pixel_readback": "dominant visible color per cell; binary alpha at 128; sparse-particle coverage floor 8%; snap to specified color ramps",
+  "source_layout": "2x2 / 3x2 / 4x2 source sheets repacked to horizontal strips",
+  "placement_repacking": {
+    "p": "panel crop, 26x12 inside 30x16",
+    "p_shield": "4px side plates, middle 32px clear",
+    "p_shimmer": "3px side flames plus 28x7 foot ring",
+    "p_jackpot": "first two frames above head, middle body region clear afterwards"
+  }
+}

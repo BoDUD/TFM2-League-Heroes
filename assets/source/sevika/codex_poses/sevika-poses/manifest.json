@@ -1,0 +1,828 @@
+{
+  "generator": "built-in image_gen",
+  "scope": "art deliverables only; no game integration",
+  "assets": [
+    {
+      "id": "pose_a_wind",
+      "file": "sevika-pose-a_wind.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "grid": 12,
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "bbox": [
+        120,
+        24,
+        1068,
+        1176
+      ],
+      "baseline": 1176,
+      "source_sha256": "94e395b436d03d793344eaacfc752294754681a27329d58410d3eda39442cac2",
+      "qa": {
+        "id": "pose_a_wind",
+        "file": "sevika-pose-a_wind.png",
+        "alpha_hard": true,
+        "nonempty": true,
+        "size": [
+          1254,
+          1254
+        ],
+        "size_ok": true,
+        "baseline_ok": true,
+        "grid_exact": true
+      },
+      "sha256": "988ba2a105145e4069c36d9032cc40f9ebb6d8572ae695fd03511180c223a973"
+    },
+    {
+      "id": "pose_a_punch",
+      "file": "sevika-pose-a_punch.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "grid": 12,
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "bbox": [
+        60,
+        240,
+        1236,
+        1176
+      ],
+      "baseline": 1176,
+      "source_sha256": "761faddffb70c648d52d711411b90ab81f0068314c0def55dfc780aff545f5ef",
+      "qa": {
+        "id": "pose_a_punch",
+        "file": "sevika-pose-a_punch.png",
+        "alpha_hard": true,
+        "nonempty": true,
+        "size": [
+          1254,
+          1254
+        ],
+        "size_ok": true,
+        "baseline_ok": true,
+        "grid_exact": true
+      },
+      "sha256": "cbf7259d7ab1128293f37513492d4a7860d91c9070359a77ab7f3ee486f28b97"
+    },
+    {
+      "id": "pose_a2_raise",
+      "file": "sevika-pose-a2_raise.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "grid": 12,
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "bbox": [
+        264,
+        36,
+        1092,
+        1176
+      ],
+      "baseline": 1176,
+      "source_sha256": "d0c0d620e95d6314868c73779994c641b665ea4a8f48667da5203ff8041ba49a",
+      "qa": {
+        "id": "pose_a2_raise",
+        "file": "sevika-pose-a2_raise.png",
+        "alpha_hard": true,
+        "nonempty": true,
+        "size": [
+          1254,
+          1254
+        ],
+        "size_ok": true,
+        "baseline_ok": true,
+        "grid_exact": true
+      },
+      "sha256": "2c9607dfb4d22b281e97e4e269ccc9df7fa97026c91315986b2bc4fa53f0e1bc"
+    },
+    {
+      "id": "pose_a2_clamp",
+      "file": "sevika-pose-a2_clamp.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "grid": 12,
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "bbox": [
+        252,
+        324,
+        1176,
+        1176
+      ],
+      "baseline": 1176,
+      "source_sha256": "5de492ee42c070719df2c25edb82166aedd8219779b27b082a1e2ca8f397674b",
+      "qa": {
+        "id": "pose_a2_clamp",
+        "file": "sevika-pose-a2_clamp.png",
+        "alpha_hard": true,
+        "nonempty": true,
+        "size": [
+          1254,
+          1254
+        ],
+        "size_ok": true,
+        "baseline_ok": true,
+        "grid_exact": true
+      },
+      "sha256": "ffbbc149359353a8d56a17a513a348e48159267625ed865a164e3063ad9d2377"
+    },
+    {
+      "id": "pose_q_flame",
+      "file": "sevika-pose-q_flame.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "grid": 12,
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "bbox": [
+        156,
+        348,
+        1224,
+        1176
+      ],
+      "baseline": 1176,
+      "source_sha256": "414c1651cb1d5baddf883712237ef6a408817d64ace7887881a51eda4dc5c67a",
+      "qa": {
+        "id": "pose_q_flame",
+        "file": "sevika-pose-q_flame.png",
+        "alpha_hard": true,
+        "nonempty": true,
+        "size": [
+          1254,
+          1254
+        ],
+        "size_ok": true,
+        "baseline_ok": true,
+        "grid_exact": true
+      },
+      "sha256": "8fece781c8ea78ae9cfdb02736dcf7c0cc563a6ce9d052a48f9a03c84715ba42"
+    },
+    {
+      "id": "pose_q_flame2",
+      "file": "sevika-pose-q_flame2.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "grid": 12,
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "bbox": [
+        192,
+        312,
+        1200,
+        1176
+      ],
+      "baseline": 1176,
+      "source_sha256": "cb067a0c81573bded2092201b546dc0353f71adb21e0906980a7e10e9fe4c1ad",
+      "qa": {
+        "id": "pose_q_flame2",
+        "file": "sevika-pose-q_flame2.png",
+        "alpha_hard": true,
+        "nonempty": true,
+        "size": [
+          1254,
+          1254
+        ],
+        "size_ok": true,
+        "baseline_ok": true,
+        "grid_exact": true
+      },
+      "sha256": "20924d9541442797e1a92df29fae479ed7a083d2443b6e3fd587fa07f12d5c4c"
+    },
+    {
+      "id": "pose_e_wind",
+      "file": "sevika-pose-e_wind.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "grid": 12,
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "bbox": [
+        192,
+        204,
+        1056,
+        1176
+      ],
+      "baseline": 1176,
+      "source_sha256": "97ae152bcaae7c76dd2a1a8a20c7f19f835da2ad4bff6ffe5d6f79dcff1e0de9",
+      "qa": {
+        "id": "pose_e_wind",
+        "file": "sevika-pose-e_wind.png",
+        "alpha_hard": true,
+        "nonempty": true,
+        "size": [
+          1254,
+          1254
+        ],
+        "size_ok": true,
+        "baseline_ok": true,
+        "grid_exact": true
+      },
+      "sha256": "18af67a51a911b66b01ed86fc4109050238497bedee942a745459b966318a35b"
+    },
+    {
+      "id": "pose_e_punch",
+      "file": "sevika-pose-e_punch.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "grid": 12,
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "bbox": [
+        132,
+        300,
+        1200,
+        1176
+      ],
+      "baseline": 1176,
+      "source_sha256": "f60c936bed1644fa4b70644a6130c6adefaafb9ab96cbafa3118077793a89d7c",
+      "qa": {
+        "id": "pose_e_punch",
+        "file": "sevika-pose-e_punch.png",
+        "alpha_hard": true,
+        "nonempty": true,
+        "size": [
+          1254,
+          1254
+        ],
+        "size_ok": true,
+        "baseline_ok": true,
+        "grid_exact": true
+      },
+      "sha256": "2adfb3e6467048631fca044e83ba33dba592f59036d1db7709fb4cfe68b595c5"
+    },
+    {
+      "id": "pose_e_back",
+      "file": "sevika-pose-e_back.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "grid": 12,
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "bbox": [
+        312,
+        180,
+        1140,
+        1176
+      ],
+      "baseline": 1176,
+      "source_sha256": "cc8281a9b4c9f59960b90224b82607cd7d66f8758d93ae202692eda69cb9e119",
+      "qa": {
+        "id": "pose_e_back",
+        "file": "sevika-pose-e_back.png",
+        "alpha_hard": true,
+        "nonempty": true,
+        "size": [
+          1254,
+          1254
+        ],
+        "size_ok": true,
+        "baseline_ok": true,
+        "grid_exact": true
+      },
+      "sha256": "634776f31e9ea693641bacd68ef312bec634df248c927d6de3fac515a91e0a45"
+    },
+    {
+      "id": "pose_r_dash",
+      "file": "sevika-pose-r_dash.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "grid": 12,
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "bbox": [
+        96,
+        492,
+        1212,
+        1176
+      ],
+      "baseline": 1176,
+      "source_sha256": "3f145e5dd693bc635cd717cf1d963f098757650da948955c2d276717ed59639d",
+      "qa": {
+        "id": "pose_r_dash",
+        "file": "sevika-pose-r_dash.png",
+        "alpha_hard": true,
+        "nonempty": true,
+        "size": [
+          1254,
+          1254
+        ],
+        "size_ok": true,
+        "baseline_ok": true,
+        "grid_exact": true
+      },
+      "sha256": "823fed9123fcbc0dee56986185327ff76ba07e0f859b83bbe209f12e5379cb25"
+    },
+    {
+      "id": "pose_r_raise",
+      "file": "sevika-pose-r_raise.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "grid": 12,
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "bbox": [
+        228,
+        12,
+        1164,
+        1176
+      ],
+      "baseline": 1176,
+      "source_sha256": "b3a8c59eab23d9ada31a9daf7b6da843f90a8213a19e4b829a3d35423ef1f46e",
+      "qa": {
+        "id": "pose_r_raise",
+        "file": "sevika-pose-r_raise.png",
+        "alpha_hard": true,
+        "nonempty": true,
+        "size": [
+          1254,
+          1254
+        ],
+        "size_ok": true,
+        "baseline_ok": true,
+        "grid_exact": true
+      },
+      "sha256": "18f3bdf998df0fd595de92c7179c1ec0caed12269caeab6085e82c403d5a148d"
+    },
+    {
+      "id": "pose_r_bite",
+      "file": "sevika-pose-r_bite.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "grid": 12,
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "bbox": [
+        168,
+        228,
+        1200,
+        1176
+      ],
+      "baseline": 1176,
+      "source_sha256": "ae86849ba0ee87bc96965d7f8ec266e0be85a552f584fdd463d4cd736f0ca139",
+      "qa": {
+        "id": "pose_r_bite",
+        "file": "sevika-pose-r_bite.png",
+        "alpha_hard": true,
+        "nonempty": true,
+        "size": [
+          1254,
+          1254
+        ],
+        "size_ok": true,
+        "baseline_ok": true,
+        "grid_exact": true
+      },
+      "sha256": "02e560f6b8558f863238b66243b029cdd1de5d197302a53c221239088a83703e"
+    },
+    {
+      "id": "pose_r_lift",
+      "file": "sevika-pose-r_lift.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "grid": 12,
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "bbox": [
+        144,
+        120,
+        1200,
+        1176
+      ],
+      "baseline": 1176,
+      "source_sha256": "1eaa0805e01532a849e8f25c135326d790c259d79c392c0e78367a2de3107b1c",
+      "qa": {
+        "id": "pose_r_lift",
+        "file": "sevika-pose-r_lift.png",
+        "alpha_hard": true,
+        "nonempty": true,
+        "size": [
+          1254,
+          1254
+        ],
+        "size_ok": true,
+        "baseline_ok": true,
+        "grid_exact": true
+      },
+      "sha256": "fd207131afce12f5734f0e7725ffe536bdbbb0c9067dbb20fb97e28a43d14b1e"
+    },
+    {
+      "id": "pose_run1",
+      "file": "sevika-pose-run1.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "grid": 12,
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "bbox": [
+        228,
+        264,
+        1008,
+        1176
+      ],
+      "baseline": 1176,
+      "source_sha256": "0090dd61ecc538752b081d3084bbe076aa4f1e160441d2a8587363834dd828be",
+      "qa": {
+        "id": "pose_run1",
+        "file": "sevika-pose-run1.png",
+        "alpha_hard": true,
+        "nonempty": true,
+        "size": [
+          1254,
+          1254
+        ],
+        "size_ok": true,
+        "baseline_ok": true,
+        "grid_exact": true
+      },
+      "sha256": "2747f216f74dcbee6818a98725cd11d1768b4b846478c4605695a0637f71e754"
+    },
+    {
+      "id": "pose_run2",
+      "file": "sevika-pose-run2.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "grid": 12,
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "bbox": [
+        192,
+        264,
+        1056,
+        1176
+      ],
+      "baseline": 1176,
+      "source_sha256": "a02c331aeae33739245719f50be14ad160f0a0cb6d4c4446042b0693233df213",
+      "qa": {
+        "id": "pose_run2",
+        "file": "sevika-pose-run2.png",
+        "alpha_hard": true,
+        "nonempty": true,
+        "size": [
+          1254,
+          1254
+        ],
+        "size_ok": true,
+        "baseline_ok": true,
+        "grid_exact": true
+      },
+      "sha256": "a2dcb56c6e5561650369f6542b781737c740b8e71c801f9712cf4320d3e9ff89"
+    },
+    {
+      "id": "pose_run3",
+      "file": "sevika-pose-run3.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "grid": 12,
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "bbox": [
+        192,
+        264,
+        1044,
+        1176
+      ],
+      "baseline": 1176,
+      "source_sha256": "d63e4747c4d3c7e0c4d13dee21c0aa48c2f29de7d29736384d2849c1415c907b",
+      "qa": {
+        "id": "pose_run3",
+        "file": "sevika-pose-run3.png",
+        "alpha_hard": true,
+        "nonempty": true,
+        "size": [
+          1254,
+          1254
+        ],
+        "size_ok": true,
+        "baseline_ok": true,
+        "grid_exact": true
+      },
+      "sha256": "f227478c88ba1b78903ba338dca0a0422a902307d6572a67425ba43cf22236dd"
+    },
+    {
+      "id": "pose_run4",
+      "file": "sevika-pose-run4.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "grid": 12,
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "bbox": [
+        264,
+        264,
+        984,
+        1176
+      ],
+      "baseline": 1176,
+      "source_sha256": "3869deab345561070a6de39e08968a3ccfaef1001d2b92aa36a76ff5b9a59198",
+      "qa": {
+        "id": "pose_run4",
+        "file": "sevika-pose-run4.png",
+        "alpha_hard": true,
+        "nonempty": true,
+        "size": [
+          1254,
+          1254
+        ],
+        "size_ok": true,
+        "baseline_ok": true,
+        "grid_exact": true
+      },
+      "sha256": "9dbdaad6a13893c5185894ef3d8eb431ec61c811504a135ac65480e231798c50"
+    },
+    {
+      "id": "pose_run5",
+      "file": "sevika-pose-run5.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "grid": 12,
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "bbox": [
+        264,
+        264,
+        972,
+        1176
+      ],
+      "baseline": 1176,
+      "source_sha256": "a4b12f1a19a7d7190b9a16f1783cbf49eb81fbf5895697893203d22cd37af8ef",
+      "qa": {
+        "id": "pose_run5",
+        "file": "sevika-pose-run5.png",
+        "alpha_hard": true,
+        "nonempty": true,
+        "size": [
+          1254,
+          1254
+        ],
+        "size_ok": true,
+        "baseline_ok": true,
+        "grid_exact": true
+      },
+      "sha256": "a3baeba62c2405af0a1d6a813272bd120718d7c0dc9b3c3c3f3ce26402ac484f"
+    },
+    {
+      "id": "pose_run6",
+      "file": "sevika-pose-run6.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "grid": 12,
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "bbox": [
+        288,
+        264,
+        960,
+        1176
+      ],
+      "baseline": 1176,
+      "source_sha256": "6342eaa85c9b2d5daa68e3883b39c484f02b963bae577e1566de3f25cd680a19",
+      "qa": {
+        "id": "pose_run6",
+        "file": "sevika-pose-run6.png",
+        "alpha_hard": true,
+        "nonempty": true,
+        "size": [
+          1254,
+          1254
+        ],
+        "size_ok": true,
+        "baseline_ok": true,
+        "grid_exact": true
+      },
+      "sha256": "e23ef5c38cf71db845b6cb590c8ea83020fddcc436b102d341137478f5f0a427"
+    },
+    {
+      "id": "pose_run7",
+      "file": "sevika-pose-run7.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "grid": 12,
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "bbox": [
+        204,
+        264,
+        1032,
+        1176
+      ],
+      "baseline": 1176,
+      "source_sha256": "68faf9999870b8266d5941e7f9884c41ab7f064adffe3292705b29f9f3151ee3",
+      "qa": {
+        "id": "pose_run7",
+        "file": "sevika-pose-run7.png",
+        "alpha_hard": true,
+        "nonempty": true,
+        "size": [
+          1254,
+          1254
+        ],
+        "size_ok": true,
+        "baseline_ok": true,
+        "grid_exact": true
+      },
+      "sha256": "5e48217d75b36069d25894f4a5289a348824f8be75dfeda1ef009bd2945e5fc5"
+    },
+    {
+      "id": "pose_run8",
+      "file": "sevika-pose-run8.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "grid": 12,
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "bbox": [
+        180,
+        264,
+        1056,
+        1176
+      ],
+      "baseline": 1176,
+      "source_sha256": "09c174c37c7de4d43bc8f256f1dcfea460efc2f60aca4ea50e1e8f73c728d148",
+      "qa": {
+        "id": "pose_run8",
+        "file": "sevika-pose-run8.png",
+        "alpha_hard": true,
+        "nonempty": true,
+        "size": [
+          1254,
+          1254
+        ],
+        "size_ok": true,
+        "baseline_ok": true,
+        "grid_exact": true
+      },
+      "sha256": "901720a24b6601a7fd001b8d2d5c0fac69e93ebad7bf6192eefc54327b1d0c0a"
+    },
+    {
+      "id": "pose_d_fall",
+      "file": "sevika-pose-d_fall.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "grid": 12,
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "bbox": [
+        132,
+        204,
+        1200,
+        1176
+      ],
+      "baseline": 1176,
+      "source_sha256": "b37420034cbbab8c210a1e8afedbaeb9ed5b07eae845efc6c576e1b366b1a43b",
+      "qa": {
+        "id": "pose_d_fall",
+        "file": "sevika-pose-d_fall.png",
+        "alpha_hard": true,
+        "nonempty": true,
+        "size": [
+          1254,
+          1254
+        ],
+        "size_ok": true,
+        "baseline_ok": true,
+        "grid_exact": true
+      },
+      "sha256": "ccea70ab087ed01346f172f8cd3ec50b5a943266347e32b426066af327f192cc"
+    },
+    {
+      "id": "pose_d_down",
+      "file": "sevika-pose-d_down.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "grid": 12,
+      "raw_size": [
+        1388,
+        1133
+      ],
+      "bbox": [
+        96,
+        588,
+        1212,
+        1176
+      ],
+      "baseline": 1176,
+      "source_sha256": "0f4f030cee04b9058a56ba312bad971453b2588de89ee5a250c659125f881407",
+      "qa": {
+        "id": "pose_d_down",
+        "file": "sevika-pose-d_down.png",
+        "alpha_hard": true,
+        "nonempty": true,
+        "size": [
+          1254,
+          1254
+        ],
+        "size_ok": true,
+        "baseline_ok": true,
+        "grid_exact": true
+      },
+      "sha256": "d9e1c8d29bfbe9196a547e92ebc806b55ab36f12b7f67898e81499ef2e51d844"
+    }
+  ],
+  "poses": 23,
+  "canvas": [
+    1254,
+    1254
+  ],
+  "grid": 12,
+  "grid_origin": [
+    0,
+    0
+  ],
+  "ground_baseline": 1176,
+  "logical_canvas": [
+    104,
+    104
+  ],
+  "run_scale": "all eight phases normalized to 76 logical pixels high, centered horizontally",
+  "canvas_remainder": "right and bottom 6px transparent"
+}

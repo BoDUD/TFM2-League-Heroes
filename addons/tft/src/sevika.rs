@@ -9,7 +9,7 @@
 //! - **伸缩拳**（`tft_sevika:punch`）：拳头沿她到目标的直线射出（`e_w` 宽、`e_speed`），打中的第一个敌人受 `e_dmg` +
 //!   攻击 `e_ad`% 并被击退 `e_kb_speed` × `e_kb_t`；它落点 `e_behind` 以内另有敌人，那人受这一拳的 `e_dmg2`%，两人都
 //!   眩晕 `e_stun` 拍；头奖时目标不撞人也眩晕，伤害 +`e_tri`%。
-//! - **嚼一嚼**（`tft_sevika:chomp`：数据冲到目标后调用）：咬 `r_n` 口（头奖 `r_tri_n` 口），每 `r_gap` 拍一口，每口
+//! - **嚼一嚼**（`tft_sevika:chomp`：数据冲到目标后调用）：咬 `r_n` 口（头奖 `r_tri_n` 口），第 `r_first` 拍起每 `r_gap` 拍一口，每口
 //!   `r_dmg` + 攻击 `r_ad`%，第一口眩晕 `r_stun` 拍，每口给目标挂 `r_bleed` 拍的流血（被动每 10 拍结算，共攻击
 //!   `r_bl_ad`%）；最后一口后目标生命低于 `r_exec`%（头奖 `r_exec_tri`%）直接咬死；目标死了就冲向她 `r_reset` 以内
 //!   最近的敌方英雄再咬一轮（每次施法最多 `r_resets` 次，每次伤害乘 `r_fall`%）。
@@ -158,6 +158,7 @@ pub struct Params {
     /// 嚼一嚼。
     pub r_n: usize,
     pub r_tri_n: usize,
+    pub r_first: usize,
     pub r_gap: usize,
     pub r_dmg: usize,
     pub r_ad: usize,
@@ -200,6 +201,7 @@ impl Default for Params {
             e_tri: 50,
             r_n: 2,
             r_tri_n: 4,
+            r_first: 8,
             r_gap: 18,
             r_dmg: 60,
             r_ad: 135,
@@ -250,6 +252,7 @@ pub fn parse_params(json: &str) -> Params {
             "e_tri" => p.e_tri = u,
             "r_n" => p.r_n = u.clamp(1, MAX_BITES),
             "r_tri_n" => p.r_tri_n = u.clamp(1, MAX_BITES),
+            "r_first" => p.r_first = u.max(1),
             "r_gap" => p.r_gap = u.max(1),
             "r_dmg" => p.r_dmg = u,
             "r_ad" => p.r_ad = u,
@@ -604,7 +607,7 @@ fn bites(sim: &StableSim<'_>, me: usize, p: &Params) -> usize {
 fn chomp_on(sim: &mut StableSim<'_>, me: usize, target: usize, p: &Params) {
     let on = InputTargetV1::target(target);
     for k in 0..bites(sim, me, p) {
-        sim.queue_effect(BITE_FX[k], AttackTypeV1::Skill, me, &on, (k * p.r_gap).max(1));
+        sim.queue_effect(BITE_FX[k], AttackTypeV1::Skill, me, &on, p.r_first + k * p.r_gap);
     }
 }
 
@@ -754,7 +757,7 @@ mod tests {
         let json = r#"{"p_tri":12,"p_tri_t":150,"p_rk_n":4,"p_rk_gap":6,"p_rk_r":60000,"p_rk_dmg":15,"p_rk_ad":30,
             "p_rk_speed":5000,"p_sh":60,"p_sh_ad":100,"p_sh_t":180,"p_as":35,"p_as_t":180,"e_range":55000,"e_w":8000,
             "e_speed":4000,"e_dmg":40,"e_ad":120,"e_kb_speed":2500,"e_kb_t":10,"e_behind":30000,"e_stun":72,
-            "e_dmg2":50,"e_tri":50,"r_n":2,"r_tri_n":4,"r_gap":18,"r_dmg":60,"r_ad":135,"r_stun":66,"r_bleed":300,
+            "e_dmg2":50,"e_tri":50,"r_n":2,"r_tri_n":4,"r_first":8,"r_gap":18,"r_dmg":60,"r_ad":135,"r_stun":66,"r_bleed":300,
             "r_bl_ad":60,"r_exec":15,"r_exec_tri":25,"r_reset":30000,"r_resets":2,"r_fall":80}"#;
         assert_eq!(parse_params(json), Params::default());
     }

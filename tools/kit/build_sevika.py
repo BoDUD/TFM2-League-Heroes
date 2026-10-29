@@ -16,7 +16,7 @@ plan A 「百变铁手」) takes the three spells apart into her three slots:
           (--plain: every cast a third of each mod - a third of the rockets on the target, a third of the shield and
           of the shimmer; never the jackpot.)
   attack  Mechanical Fist (机械铁拳) on `Enemy` (towers too): a punch, a_pct% AD; every third one (a_t ticks to land the
-          next) the claws clamp: a2_dmg + a2_ad% AD.
+          next) the claws clamp (her `attack2` frames): a2_dmg + a2_ad% AD.
   skill   Flamethrower (喷火器), `Targeting` on `EnemyWithoutTower` (q_range): the arm levelled, q_n waves of flame
           q_gap apart into the cone in front of her (`DirDot` q_r, q_cone): q_dmg + q_ad% AD each (x q_tri_k% on the
           jackpot) and a burn picture; q_dr% less damage taken while she flames.
@@ -26,7 +26,8 @@ plan A 「百变铁手」) takes the three spells apart into her three slots:
           e_stun ticks; on the jackpot the target is stunned anyway and takes e_tri% more). (--plain: a homing fist:
           the damage, the knockback and a stun of e_stun / 2.)
   ult     Chomp (嚼一嚼), `Targeting` on `EnemyChampion` (r_range): she dashes to the target (`MoveToTarget` r_speed, her
-          `dash` frames) and the claws bite (tft.dll `tft_sevika:chomp`, her `chomp` frames): r_n bites r_gap apart
+          `dash` frames) and the claws bite (tft.dll `tft_sevika:chomp`, her `chomp` frames): r_n bites r_gap apart from
+          r_first
           (r_tri_n on the jackpot), r_dmg + r_ad% AD each, the first stuns r_stun ticks, each a bleed (r_bl_ad% AD over
           r_bleed ticks, the passive's); a target under r_exec% (r_exec_tri% on the jackpot) health after the last
           bite is executed; a kill re-dashes to the nearest enemy champion within r_reset (r_resets times a cast) at
@@ -76,7 +77,7 @@ P = {
     "e_tri": 50,
     # Chomp (TFT: 2 slams 320% AD, stun 1.25 s, bleed 75% AD over 5 s, execute 15%, re-dash 2 hexes at 80%)
     "r_cd": 2700, "r_range": 40000, "r_dur": 70, "r_speed": 4000, "r_chomp_t": 40,
-    "r_n": 2, "r_tri_n": 4, "r_gap": 18, "r_dmg": 60, "r_ad": 135, "r_stun": 66, "r_bleed": 300, "r_bl_ad": 60,
+    "r_n": 2, "r_tri_n": 4, "r_first": 8, "r_gap": 18, "r_dmg": 60, "r_ad": 135, "r_stun": 66, "r_bleed": 300, "r_bl_ad": 60,
     "r_exec": 15, "r_exec_tri": 25, "r_reset": 30000, "r_resets": 2, "r_fall": 80,
 }
 # what tft.dll reads from passive.params (addons/tft/src/sevika.rs), and the names only it puts on or plays
@@ -86,7 +87,7 @@ NATIVE_KEYS = ("p_tri", "p_tri_t", "p_rk_n", "p_rk_gap", "p_rk_r", "p_rk_dmg", "
                "p_sh", "p_sh_ad", "p_sh_t", "p_as", "p_as_t",
                "e_range", "e_w", "e_speed", "e_dmg", "e_ad", "e_kb_speed", "e_kb_t", "e_behind", "e_stun", "e_dmg2",
                "e_tri",
-               "r_n", "r_tri_n", "r_gap", "r_dmg", "r_ad", "r_stun", "r_bleed", "r_bl_ad", "r_exec", "r_exec_tri",
+               "r_n", "r_tri_n", "r_first", "r_gap", "r_dmg", "r_ad", "r_stun", "r_bleed", "r_bl_ad", "r_exec", "r_exec_tri",
                "r_reset", "r_resets", "r_fall")
 
 
@@ -206,7 +207,7 @@ def build(p, is_native=False):
     # ------------------------------------------------------------------ attack: a punch, every third the claws clamp
     hit = lambda: [attack(0, p["a_pct"]), view("a_hit"), tsfx("a_hit")]
     clamp = [attack(p["a2_dmg"], p["a2_ad"]), view("a2_hit"), tsfx("a2_hit")]
-    count = when("a_2", combine(unflag("a_2"), sfx("a2"), *clamp),
+    count = when("a_2", combine(unflag("a_2"), anim("attack2", p["atk_dur"]), sfx("a2"), *clamp),
                  when("a_1", combine(unflag("a_1"), flag("a_2", p["a_t"]), sfx("a"), *hit()),
                       combine(flag("a_1", p["a_t"]), sfx("a"), *hit())))
     attack_a = action("attack", p["atk_dur"], p["atk_cd"], p["atk_st"], p["atk_range"], "Targeting", "Enemy",
@@ -247,7 +248,7 @@ def build(p, is_native=False):
         bite = [anim("chomp", p["r_chomp_t"]), sfx("r_vo"),
                 around(p["atk_range"] + 10000, "EnemyChampion", [
                     {"type": "Stun", "duration": p["r_stun"]},
-                    *[delayed(k * p["r_gap"] + 1, attack(p["r_dmg"], p["r_ad"]), view("r_hit"))
+                    *[delayed(p["r_first"] + k * p["r_gap"], attack(p["r_dmg"], p["r_ad"]), view("r_hit"))
                       for k in range(p["r_n"])],
                     *[delayed(k * bl + bl, attack(0, p["r_bl_ad"] // 5)) for k in range(5)]])]
     ult = action("ult", p["r_dur"], p["r_cd"], 1, p["r_range"], "Targeting", "EnemyChampion",
