@@ -115,7 +115,8 @@ BY_CLASS = {
 STOLEN = {"tft_silco": ("build_silco", "sylas_ult"), "tft_maddie": ("build_maddie", "sylas_ult"),
           "tft_vander": ("build_vander", "sylas_ult"), "tft_violet": ("build_violet", "sylas_ult"),
           "tft_renni": ("build_renni", "sylas_ult"),
-          "tft_smeech": ("build_smeech", "sylas_ult")}
+          "tft_smeech": ("build_smeech", "sylas_ult"),
+          "tft_sevika": ("build_sevika", "sylas_ult")}
 
 
 # a robbed champion's own animation tags -> Sylas's (his sheet has none of theirs): a dash, a leap or a flight his leap,

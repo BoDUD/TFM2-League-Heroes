@@ -1,0 +1,15 @@
+
+
+A — final simplified source redraw
+Redraw Sevika as a TRUE VERY LOW RESOLUTION GAME SPRITE matching style reference 2 EXACTLY. Image 1 is character/design reference ONLY, NOT its rendering style. Image 2 Vi is the required low resolution flat sprite technique. Image 3 original face identity. Produce one standing Sevika sprite, transparent background.
+EXTREMELY IMPORTANT: this sprite should consist of ONLY ABOUT 42 COLUMNS BY 54 ROWS of LARGE SOLID COLOR SQUARES. Show it enlarged with each logical pixel a LARGE 16x16 square. NO details smaller than a logical square, NO soft high resolution illustration subsequently pixelated. Each material ONLY THREE well-separated flat colors; palette about 28 colors total. Crisp bold silhouette with TWO SQUARES thick near-black outside outline. Flat clean clustered pixel art as in Vi style reference, NOT mosaic and NOT gradients. Deliberately simplify detail.
+Composition: whole sprite centered, ample transparent margins, no scenery, shadow or effects, no text. 1536x1536 image.
+Chibi adult WOMAN with broad sturdy shoulders. Her HEAD including hair should be 18 logical pixels tall, one third of the 54 pixel height, face broad and very clear. Two GREY EYES with WHITE parts, EACH 2x2 squares at SAME LEVEL; ONE straight dark square thick brow above each; no dark eye mask, no makeup, short straight closed mouth. Three WARM SKIN flat colors. Deep brown center-part swept-back hair with side locks and small rear ponytail. Not a man, not a teen.
+Exact character: dark navy short sleeves gold diamond shoulder, brown CROPPED leather vest with TWO simple gold fasteners and bare midriff, brown belt gold buckle, grey hip pouch, brown trousers dark knee pads, short dark boots with gold toe caps. FLESH right hand on image LEFT open with 3 clear finger blocks and brown cuff with 2 gold studs.
+Anatomical LEFT mechanical arm on image RIGHT, hanging DOWN in front of body, cyan claw reaches KNEE height. Jointed BRASS arm, TEAL forearm, MAGENTA spike accents, CYAN claws. Shoulder has red-brown SLOT MACHINE rectangle AT LEAST 9 pixels WIDE and 6 HIGH, with THREE CLEAR CREAM WINDOWS each 2 squares wide separated by one dark square, a few pink/cyan light squares, TWO yellow brass pipes above. Arm huge and eye catching but not larger than her whole body.
+POSE: 3/4 facing RIGHT, firm legs apart standing, slight knee bend, both feet planted level, flesh right open hand at side, mechanical left arm hangs down claw pointing DOWN. Head/face/feet and arm complete and distinct.
+Favor simple readable chunky shapes over decorative details. No tiny texture, no dithering, no extra shades, no blurring, no antialiasing, no glow. Genuine transparent background, not checkerboard. Every logical pixel opaque.
+
+B — final matching simplified source redraw
+undefined
+
