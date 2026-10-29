@@ -1,0 +1,764 @@
+{
+  "assets": [
+    {
+      "name": "a_rear",
+      "file": "nomsy-pose-a_rear.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "grid": 7,
+      "logical_sprite": [
+        132,
+        120
+      ],
+      "position": [
+        84,
+        336
+      ],
+      "feet_exclusive": 1176,
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "raw_bbox": [
+        94,
+        153,
+        1232,
+        1182
+      ],
+      "reference_bbox": [
+        363,
+        244,
+        975,
+        1174
+      ],
+      "alpha_values": [
+        0,
+        255
+      ]
+    },
+    {
+      "name": "a_spit",
+      "file": "nomsy-pose-a_spit.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "grid": 7,
+      "logical_sprite": [
+        149,
+        101
+      ],
+      "position": [
+        189,
+        469
+      ],
+      "feet_exclusive": 1176,
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "raw_bbox": [
+        41,
+        399,
+        1203,
+        1184
+      ],
+      "reference_bbox": [
+        288,
+        399,
+        1176,
+        1174
+      ],
+      "alpha_values": [
+        0,
+        255
+      ]
+    },
+    {
+      "name": "q_rise",
+      "file": "nomsy-pose-q_rise.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "grid": 7,
+      "logical_sprite": [
+        107,
+        114
+      ],
+      "position": [
+        245,
+        378
+      ],
+      "feet_exclusive": 1176,
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "raw_bbox": [
+        116,
+        74,
+        1179,
+        1201
+      ],
+      "reference_bbox": [
+        273,
+        32,
+        1006,
+        1174
+      ],
+      "alpha_values": [
+        0,
+        255
+      ]
+    },
+    {
+      "name": "q_roar",
+      "file": "nomsy-pose-q_roar.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "grid": 7,
+      "logical_sprite": [
+        138,
+        121
+      ],
+      "position": [
+        56,
+        329
+      ],
+      "feet_exclusive": 1176,
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "raw_bbox": [
+        56,
+        159,
+        1218,
+        1175
+      ],
+      "reference_bbox": [
+        263,
+        61,
+        961,
+        1174
+      ],
+      "alpha_values": [
+        0,
+        255
+      ]
+    },
+    {
+      "name": "e_back",
+      "file": "nomsy-pose-e_back.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "grid": 7,
+      "logical_sprite": [
+        116,
+        99
+      ],
+      "position": [
+        42,
+        483
+      ],
+      "feet_exclusive": 1176,
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "raw_bbox": [
+        49,
+        157,
+        1233,
+        1161
+      ],
+      "reference_bbox": [
+        404,
+        338,
+        938,
+        1174
+      ],
+      "alpha_values": [
+        0,
+        255
+      ]
+    },
+    {
+      "name": "e_breath",
+      "file": "nomsy-pose-e_breath.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "grid": 7,
+      "logical_sprite": [
+        141,
+        96
+      ],
+      "position": [
+        217,
+        504
+      ],
+      "feet_exclusive": 1176,
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "raw_bbox": [
+        50,
+        393,
+        1228,
+        1192
+      ],
+      "reference_bbox": [
+        284,
+        410,
+        1166,
+        1174
+      ],
+      "alpha_values": [
+        0,
+        255
+      ]
+    },
+    {
+      "name": "r_up",
+      "file": "nomsy-pose-r_up.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "grid": 7,
+      "logical_sprite": [
+        141,
+        118
+      ],
+      "position": [
+        140,
+        350
+      ],
+      "feet_exclusive": 1176,
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "raw_bbox": [
+        45,
+        195,
+        1214,
+        1175
+      ],
+      "reference_bbox": [
+        328,
+        469,
+        1118,
+        1174
+      ],
+      "alpha_values": [
+        0,
+        255
+      ]
+    },
+    {
+      "name": "r_fly1",
+      "file": "nomsy-pose-r_fly1.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "grid": 7,
+      "logical_sprite": [
+        149,
+        91
+      ],
+      "position": [
+        112,
+        539
+      ],
+      "feet_exclusive": 1176,
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "raw_bbox": [
+        16,
+        422,
+        1252,
+        1175
+      ],
+      "reference_bbox": [
+        347,
+        540,
+        1155,
+        1174
+      ],
+      "alpha_values": [
+        0,
+        255
+      ]
+    },
+    {
+      "name": "r_fly2",
+      "file": "nomsy-pose-r_fly2.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "grid": 7,
+      "logical_sprite": [
+        134,
+        93
+      ],
+      "position": [
+        217,
+        525
+      ],
+      "feet_exclusive": 1176,
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "raw_bbox": [
+        136,
+        409,
+        1246,
+        1176
+      ],
+      "reference_bbox": [
+        416,
+        457,
+        1098,
+        1174
+      ],
+      "alpha_values": [
+        0,
+        255
+      ]
+    },
+    {
+      "name": "r_land",
+      "file": "nomsy-pose-r_land.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "grid": 7,
+      "logical_sprite": [
+        137,
+        90
+      ],
+      "position": [
+        133,
+        546
+      ],
+      "feet_exclusive": 1176,
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "raw_bbox": [
+        147,
+        492,
+        1205,
+        1184
+      ],
+      "reference_bbox": [
+        258,
+        492,
+        1001,
+        1174
+      ],
+      "alpha_values": [
+        0,
+        255
+      ]
+    },
+    {
+      "name": "run1",
+      "file": "nomsy-pose-run1.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "grid": 7,
+      "logical_sprite": [
+        137,
+        104
+      ],
+      "position": [
+        161,
+        448
+      ],
+      "feet_exclusive": 1176,
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "raw_bbox": [
+        91,
+        360,
+        1188,
+        1190
+      ],
+      "reference_bbox": [
+        218,
+        522,
+        1079,
+        1174
+      ],
+      "alpha_values": [
+        0,
+        255
+      ]
+    },
+    {
+      "name": "run2",
+      "file": "nomsy-pose-run2.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "grid": 7,
+      "logical_sprite": [
+        133,
+        95
+      ],
+      "position": [
+        84,
+        511
+      ],
+      "feet_exclusive": 1176,
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "raw_bbox": [
+        57,
+        368,
+        1194,
+        1183
+      ],
+      "reference_bbox": [
+        102,
+        334,
+        1001,
+        1174
+      ],
+      "alpha_values": [
+        0,
+        255
+      ]
+    },
+    {
+      "name": "run3",
+      "file": "nomsy-pose-run3.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "grid": 7,
+      "logical_sprite": [
+        124,
+        101
+      ],
+      "position": [
+        140,
+        469
+      ],
+      "feet_exclusive": 1176,
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "raw_bbox": [
+        31,
+        167,
+        1231,
+        1146
+      ],
+      "reference_bbox": [
+        51,
+        284,
+        1004,
+        1174
+      ],
+      "alpha_values": [
+        0,
+        255
+      ]
+    },
+    {
+      "name": "run4",
+      "file": "nomsy-pose-run4.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "grid": 7,
+      "logical_sprite": [
+        131,
+        98
+      ],
+      "position": [
+        196,
+        490
+      ],
+      "feet_exclusive": 1176,
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "raw_bbox": [
+        41,
+        281,
+        1244,
+        1183
+      ],
+      "reference_bbox": [
+        53,
+        273,
+        1094,
+        1174
+      ],
+      "alpha_values": [
+        0,
+        255
+      ]
+    },
+    {
+      "name": "run5",
+      "file": "nomsy-pose-run5.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "grid": 7,
+      "logical_sprite": [
+        129,
+        98
+      ],
+      "position": [
+        217,
+        490
+      ],
+      "feet_exclusive": 1176,
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "raw_bbox": [
+        124,
+        370,
+        1163,
+        1163
+      ],
+      "reference_bbox": [
+        127,
+        347,
+        1097,
+        1174
+      ],
+      "alpha_values": [
+        0,
+        255
+      ]
+    },
+    {
+      "name": "run6",
+      "file": "nomsy-pose-run6.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "grid": 7,
+      "logical_sprite": [
+        137,
+        109
+      ],
+      "position": [
+        210,
+        413
+      ],
+      "feet_exclusive": 1176,
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "raw_bbox": [
+        58,
+        209,
+        1238,
+        1145
+      ],
+      "reference_bbox": [
+        256,
+        242,
+        1152,
+        1174
+      ],
+      "alpha_values": [
+        0,
+        255
+      ]
+    },
+    {
+      "name": "run7",
+      "file": "nomsy-pose-run7.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "grid": 7,
+      "logical_sprite": [
+        148,
+        105
+      ],
+      "position": [
+        154,
+        441
+      ],
+      "feet_exclusive": 1176,
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "raw_bbox": [
+        89,
+        382,
+        1199,
+        1173
+      ],
+      "reference_bbox": [
+        261,
+        372,
+        1135,
+        1174
+      ],
+      "alpha_values": [
+        0,
+        255
+      ]
+    },
+    {
+      "name": "run8",
+      "file": "nomsy-pose-run8.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "grid": 7,
+      "logical_sprite": [
+        137,
+        95
+      ],
+      "position": [
+        189,
+        511
+      ],
+      "feet_exclusive": 1176,
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "raw_bbox": [
+        42,
+        379,
+        1215,
+        1195
+      ],
+      "reference_bbox": [
+        219,
+        470,
+        1108,
+        1174
+      ],
+      "alpha_values": [
+        0,
+        255
+      ]
+    },
+    {
+      "name": "d_fall",
+      "file": "nomsy-pose-d_fall.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "grid": 7,
+      "logical_sprite": [
+        129,
+        102
+      ],
+      "position": [
+        0,
+        462
+      ],
+      "feet_exclusive": 1176,
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "raw_bbox": [
+        74,
+        236,
+        1190,
+        1121
+      ],
+      "reference_bbox": [
+        314,
+        351,
+        949,
+        1174
+      ],
+      "alpha_values": [
+        0,
+        255
+      ]
+    },
+    {
+      "name": "d_down",
+      "file": "nomsy-pose-d_down.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "grid": 7,
+      "logical_sprite": [
+        174,
+        90
+      ],
+      "position": [
+        0,
+        546
+      ],
+      "feet_exclusive": 1176,
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "raw_bbox": [
+        45,
+        558,
+        1228,
+        1170
+      ],
+      "reference_bbox": [
+        18,
+        393,
+        985,
+        1174
+      ],
+      "alpha_values": [
+        0,
+        255
+      ]
+    }
+  ]
+}

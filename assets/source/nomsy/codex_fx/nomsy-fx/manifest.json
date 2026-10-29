@@ -1,0 +1,425 @@
+{
+  "assets": [
+    {
+      "file": "nomsy_fx_a_bolt.png",
+      "kind": "fx",
+      "frames": 4,
+      "cell_1x": [
+        12,
+        8
+      ],
+      "sheet_1x": [
+        48,
+        8
+      ],
+      "preview_scale": 8,
+      "symmetry": "top-bottom (pointing right)",
+      "source_layout": [
+        2,
+        2
+      ],
+      "raw_size": [
+        2172,
+        724
+      ],
+      "binding": "view_projectiles `tft_nomsy_a_bolt`（飞向目标，随飞行方向旋转；上下对称、朝右）",
+      "alpha_values": [
+        0,
+        255
+      ]
+    },
+    {
+      "file": "nomsy_fx_a_hit.png",
+      "kind": "fx",
+      "frames": 4,
+      "cell_1x": [
+        14,
+        14
+      ],
+      "sheet_1x": [
+        56,
+        14
+      ],
+      "preview_scale": 8,
+      "symmetry": "left-right",
+      "source_layout": [
+        2,
+        2
+      ],
+      "raw_size": [
+        1774,
+        887
+      ],
+      "binding": "view_effects `tft_nomsy_a_hit`（跟随目标，z 2；左右对称）",
+      "alpha_values": [
+        0,
+        255
+      ]
+    },
+    {
+      "file": "nomsy_fx_q_ball.png",
+      "kind": "fx",
+      "frames": 6,
+      "cell_1x": [
+        22,
+        16
+      ],
+      "sheet_1x": [
+        132,
+        16
+      ],
+      "preview_scale": 8,
+      "symmetry": "top-bottom (pointing right)",
+      "source_layout": [
+        3,
+        2
+      ],
+      "raw_size": [
+        1470,
+        1070
+      ],
+      "binding": "view_projectiles `tft_nomsy_q_ball`（大表，抛物线飞向目标，随飞行方向旋转；上下对称、朝右）",
+      "alpha_values": [
+        0,
+        255
+      ]
+    },
+    {
+      "file": "nomsy_fx_q_hit.png",
+      "kind": "fx",
+      "frames": 7,
+      "cell_1x": [
+        44,
+        34
+      ],
+      "sheet_1x": [
+        308,
+        34
+      ],
+      "preview_scale": 8,
+      "symmetry": "left-right",
+      "source_layout": [
+        4,
+        2
+      ],
+      "raw_size": [
+        1672,
+        941
+      ],
+      "binding": "view_effects `tft_nomsy_q_hit`（大表，在被炸到的人身上，z 3；左右对称）",
+      "alpha_values": [
+        0,
+        255
+      ]
+    },
+    {
+      "file": "nomsy_fx_q_bounce.png",
+      "kind": "fx",
+      "frames": 4,
+      "cell_1x": [
+        12,
+        8
+      ],
+      "sheet_1x": [
+        48,
+        8
+      ],
+      "preview_scale": 8,
+      "symmetry": "top-bottom (pointing right)",
+      "source_layout": [
+        2,
+        2
+      ],
+      "raw_size": [
+        2172,
+        724
+      ],
+      "binding": "view_projectiles `tft_nomsy_q_bounce`（tft.dll 从爆炸处飞向别的敌人，随方向旋转；上下对称、朝右）",
+      "alpha_values": [
+        0,
+        255
+      ]
+    },
+    {
+      "file": "nomsy_fx_q_bounce_hit.png",
+      "kind": "fx",
+      "frames": 4,
+      "cell_1x": [
+        16,
+        16
+      ],
+      "sheet_1x": [
+        64,
+        16
+      ],
+      "preview_scale": 8,
+      "symmetry": "left-right",
+      "source_layout": [
+        2,
+        2
+      ],
+      "raw_size": [
+        1774,
+        887
+      ],
+      "binding": "view_effects `tft_nomsy_q_bounce_hit`（tft.dll 播，跟随目标，z 2；左右对称）",
+      "alpha_values": [
+        0,
+        255
+      ]
+    },
+    {
+      "file": "nomsy_fx_e_flame.png",
+      "kind": "fx",
+      "frames": 6,
+      "cell_1x": [
+        48,
+        20
+      ],
+      "sheet_1x": [
+        288,
+        20
+      ],
+      "preview_scale": 8,
+      "symmetry": "top-bottom (pointing right)",
+      "source_layout": [
+        3,
+        2
+      ],
+      "raw_size": [
+        1942,
+        809
+      ],
+      "binding": "view_projectiles `tft_nomsy_e_flame`（大表，一道从她嘴边指向目标的线，随方向旋转；上下对称、朝右）",
+      "alpha_values": [
+        0,
+        255
+      ]
+    },
+    {
+      "file": "nomsy_fx_e_burn.png",
+      "kind": "fx",
+      "frames": 6,
+      "cell_1x": [
+        16,
+        24
+      ],
+      "sheet_1x": [
+        96,
+        24
+      ],
+      "preview_scale": 8,
+      "symmetry": "left-right",
+      "source_layout": [
+        3,
+        2
+      ],
+      "raw_size": [
+        1448,
+        1086
+      ],
+      "binding": "view_buffs `tft_nomsy_e_burn`（跟随被烧的人，身上，z 3；左右对称）",
+      "alpha_values": [
+        0,
+        255
+      ]
+    },
+    {
+      "file": "nomsy_fx_r_fall.png",
+      "kind": "fx",
+      "frames": 7,
+      "cell_1x": [
+        18,
+        56
+      ],
+      "sheet_1x": [
+        126,
+        56
+      ],
+      "preview_scale": 8,
+      "symmetry": "left-right",
+      "source_layout": [
+        4,
+        2
+      ],
+      "raw_size": [
+        1422,
+        1106
+      ],
+      "binding": "view_effects `tft_nomsy_r_fall`（大表，在被砸的人身上，不旋转，z 3；左右对称）",
+      "alpha_values": [
+        0,
+        255
+      ]
+    },
+    {
+      "file": "nomsy_fx_r_hit.png",
+      "kind": "fx",
+      "frames": 6,
+      "cell_1x": [
+        34,
+        26
+      ],
+      "sheet_1x": [
+        204,
+        26
+      ],
+      "preview_scale": 8,
+      "symmetry": "left-right",
+      "source_layout": [
+        3,
+        2
+      ],
+      "raw_size": [
+        1435,
+        1096
+      ],
+      "binding": "view_effects `tft_nomsy_r_hit`（大表，在被砸的人身上，z 3；左右对称）",
+      "alpha_values": [
+        0,
+        255
+      ]
+    },
+    {
+      "file": "nomsy_fx_r_fly.png",
+      "kind": "fx",
+      "frames": 6,
+      "cell_1x": [
+        52,
+        16
+      ],
+      "sheet_1x": [
+        312,
+        16
+      ],
+      "preview_scale": 8,
+      "symmetry": "left-right",
+      "source_layout": [
+        3,
+        2
+      ],
+      "raw_size": [
+        2172,
+        724
+      ],
+      "binding": "view_buffs `tft_nomsy_r_fly`（跟随她，脚下地面，z -1；左右对称）",
+      "alpha_values": [
+        0,
+        255
+      ]
+    },
+    {
+      "file": "nomsy_fx_r_up.png",
+      "kind": "fx",
+      "frames": 6,
+      "cell_1x": [
+        56,
+        44
+      ],
+      "sheet_1x": [
+        336,
+        44
+      ],
+      "preview_scale": 8,
+      "symmetry": "left-right",
+      "source_layout": [
+        3,
+        2
+      ],
+      "raw_size": [
+        1918,
+        820
+      ],
+      "binding": "view_buffs `tft_nomsy_r_up`（跟随她，z 3；左右对称）",
+      "alpha_values": [
+        0,
+        255
+      ]
+    },
+    {
+      "file": "nomsy_fx_p_heal.png",
+      "kind": "fx",
+      "frames": 6,
+      "cell_1x": [
+        52,
+        44
+      ],
+      "sheet_1x": [
+        312,
+        44
+      ],
+      "preview_scale": 8,
+      "symmetry": "left-right",
+      "source_layout": [
+        3,
+        2
+      ],
+      "raw_size": [
+        1672,
+        941
+      ],
+      "binding": "view_buffs `tft_nomsy_p_heal`（tft.dll 挂，跟随她，z 3；左右对称）",
+      "alpha_values": [
+        0,
+        255
+      ]
+    },
+    {
+      "file": "nomsy_icon_skill.png",
+      "kind": "icon",
+      "frames": 1,
+      "cell_1x": [
+        64,
+        64
+      ],
+      "size": [
+        64,
+        64
+      ],
+      "symmetry": "none",
+      "binding": "skill_icons[0] `asset/tft/icons/tft_nomsy_skill`",
+      "raw_size": [
+        1254,
+        1254
+      ]
+    },
+    {
+      "file": "nomsy_icon_skill2.png",
+      "kind": "icon",
+      "frames": 1,
+      "cell_1x": [
+        64,
+        64
+      ],
+      "size": [
+        64,
+        64
+      ],
+      "symmetry": "none",
+      "binding": "skill_icons[1] `asset/tft/icons/tft_nomsy_skill2`",
+      "raw_size": [
+        1254,
+        1254
+      ]
+    },
+    {
+      "file": "nomsy_icon_ult.png",
+      "kind": "icon",
+      "frames": 1,
+      "cell_1x": [
+        64,
+        64
+      ],
+      "size": [
+        64,
+        64
+      ],
+      "symmetry": "none",
+      "binding": "skill_icons[2] `asset/tft/icons/tft_nomsy_ult`",
+      "raw_size": [
+        1254,
+        1254
+      ]
+    }
+  ]
+}

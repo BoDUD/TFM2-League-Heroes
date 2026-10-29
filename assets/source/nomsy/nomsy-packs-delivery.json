@@ -1,0 +1,21 @@
+{
+  "archives": [
+    {
+      "file": "nomsy_poses_done.zip",
+      "bytes": 17604560,
+      "entries": 75,
+      "sha256": "21edd4c86044b0e8935c90f9fb729fe3c02d77ab84dc834c19bd5d2a540fd4ce"
+    },
+    {
+      "file": "nomsy_fx_pack_done.zip",
+      "bytes": 17754616,
+      "entries": 64,
+      "sha256": "6faa04fe26022982b19d6e3ebc6ee7429c99faa78d6cd74abd8f51bc0acd3a33"
+    }
+  ],
+  "poses": 20,
+  "fx_groups": 13,
+  "fx_frames": 72,
+  "icons": 3,
+  "game_installed": false
+}
