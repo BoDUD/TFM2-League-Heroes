@@ -13,6 +13,7 @@ pub mod renni;
 pub mod scar;
 pub mod silco;
 pub mod smeech;
+pub mod steb;
 pub mod vander;
 pub mod violet;
 
@@ -31,6 +32,7 @@ fn init(host: &StableHost) -> StableMod {
     scar::register(host, &mut module);
     silco::register(host, &mut module);
     smeech::register(host, &mut module);
+    steb::register(host, &mut module);
     vander::register(host, &mut module);
     violet::register(host, &mut module);
     module

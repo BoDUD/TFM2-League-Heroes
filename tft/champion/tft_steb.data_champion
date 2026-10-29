@@ -1,0 +1,872 @@
+{
+  "id": "tft_steb",
+  "category": "Util",
+  "tags": [
+    "AP",
+    "Magic",
+    "Melee",
+    "Tank",
+    "Heal",
+    "Shield"
+  ],
+  "passive": {
+    "passive_ref": "tft_steb:medic",
+    "params": {
+      "p_n": 2,
+      "p_share": 25,
+      "p_r": 60000,
+      "e_r": 80000,
+      "e_amp": 25,
+      "e_t": 300,
+      "e_kr": 70000,
+      "e_as": 30,
+      "e_as_t": 300
+    }
+  },
+  "sprite": "asset/tft/champions/tft_steb",
+  "anim_prefix": "",
+  "skill_icons": [
+    "asset/tft/icons/tft_steb_skill",
+    "asset/tft/icons/tft_steb_skill2",
+    "asset/tft/icons/tft_steb_ult"
+  ],
+  "stat": {
+    "attack": 68,
+    "magic_power": 45,
+    "hp": 1150,
+    "defence": 38,
+    "magic_resistance": 30,
+    "move_speed": 980,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "growth": {
+    "attack": 6,
+    "magic_power": 16,
+    "hp": 110,
+    "defence": 7,
+    "magic_resistance": 4,
+    "move_speed": 10,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "attack": {
+    "action_name": "attack",
+    "description": "#asset/base/text/champion?description.tft_steb.attack",
+    "duration": 30,
+    "cooltime": 90,
+    "start_timing": 1,
+    "cancelable": true,
+    "range": 25000,
+    "casting_type": "Targeting",
+    "casting_target": "Enemy",
+    "attack_type": "BaseAttack",
+    "effect": {
+      "type": "SwitchByBuff",
+      "buff_name": "tft_steb_a2",
+      "effect_buff": {
+        "type": "Combine",
+        "effects": [
+          {
+            "type": "RemoveCasterBuff",
+            "name": "tft_steb_a2"
+          },
+          {
+            "type": "CasterAnimation",
+            "name": "attack2",
+            "tick": 30
+          },
+          {
+            "type": "Sfx",
+            "name": "tft_steb_a2"
+          },
+          {
+            "type": "Delayed",
+            "tick": 13,
+            "effects": [
+              {
+                "type": "Attack",
+                "damage": 0,
+                "attack_ratio": 100,
+                "hp_ratio": 0,
+                "target_hp_ratio": 0,
+                "attack_effect_type": "Target"
+              },
+              {
+                "type": "ViewEffect",
+                "name": "tft_steb_a_hit"
+              }
+            ]
+          },
+          {
+            "type": "TargetSfx",
+            "name": "tft_steb_a2_hit"
+          }
+        ]
+      },
+      "effect_none": {
+        "type": "Combine",
+        "effects": [
+          {
+            "type": "AddCasterBuff",
+            "buff_state": {
+              "name": "tft_steb_a2",
+              "duration": "Permanent"
+            },
+            "only_to_enemy": false
+          },
+          {
+            "type": "Sfx",
+            "name": "tft_steb_a"
+          },
+          {
+            "type": "Delayed",
+            "tick": 13,
+            "effects": [
+              {
+                "type": "Attack",
+                "damage": 0,
+                "attack_ratio": 100,
+                "hp_ratio": 0,
+                "target_hp_ratio": 0,
+                "attack_effect_type": "Target"
+              },
+              {
+                "type": "ViewEffect",
+                "name": "tft_steb_a_hit"
+              }
+            ]
+          },
+          {
+            "type": "TargetSfx",
+            "name": "tft_steb_a_hit"
+          }
+        ]
+      }
+    }
+  },
+  "skill": {
+    "action_name": "skill",
+    "description": "#asset/base/text/champion?description.tft_steb.skill",
+    "duration": 36,
+    "cooltime": 330,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 30000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "tft_steb_q"
+        },
+        {
+          "type": "Sfx",
+          "name": "tft_steb_q_vo"
+        },
+        {
+          "type": "Delayed",
+          "tick": 7,
+          "effects": [
+            {
+              "type": "Sfx",
+              "name": "tft_steb_q_heal"
+            },
+            {
+              "type": "CasterViewEffect",
+              "name": "tft_steb_q_heal"
+            },
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RangeEffect",
+                  "shape": {
+                    "Circle": {
+                      "radius": 1000
+                    }
+                  },
+                  "target": "AllyOnlySelf",
+                  "apply_type": "AroundCaster",
+                  "effects": [
+                    {
+                      "type": "Heal",
+                      "amount": 120,
+                      "attack_ratio": 0,
+                      "ap_ratio": 60,
+                      "heal_type": "Caster"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 21,
+          "effects": [
+            {
+              "type": "ApAttack",
+              "damage": 170,
+              "attack_ratio": 120,
+              "hp_ratio": 0,
+              "can_crit": false,
+              "attack_effect_type": "Target"
+            },
+            {
+              "type": "ViewEffect",
+              "name": "tft_steb_q_hit"
+            },
+            {
+              "type": "TargetSfx",
+              "name": "tft_steb_q_hit"
+            },
+            {
+              "type": "Stun",
+              "duration": 45
+            },
+            {
+              "type": "AddBuff",
+              "buff_state": {
+                "name": "tft_steb_q_stun",
+                "duration": {
+                  "Time": {
+                    "tick": 45
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill2": {
+    "action_name": "skill2",
+    "description": "#asset/base/text/champion?description.tft_steb.skill2",
+    "duration": 24,
+    "cooltime": 600,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 60000,
+    "casting_type": "None",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "tft_steb_e"
+        },
+        {
+          "type": "Delayed",
+          "tick": 9,
+          "effects": [
+            {
+              "type": "Sfx",
+              "name": "tft_steb_e_mark"
+            },
+            {
+              "type": "Native",
+              "effect_ref": "tft_steb:wanted"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "ult": {
+    "action_name": "ult",
+    "description": "#asset/base/text/champion?description.tft_steb.ult",
+    "duration": 42,
+    "cooltime": 2400,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 50000,
+    "casting_type": "None",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "tft_steb_r"
+        },
+        {
+          "type": "Delayed",
+          "tick": 23,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "Sfx",
+                  "name": "tft_steb_r_shield"
+                },
+                {
+                  "type": "CasterViewEffect",
+                  "name": "tft_steb_r_pack"
+                },
+                {
+                  "type": "RangeEffect",
+                  "shape": {
+                    "Circle": {
+                      "radius": 1000
+                    }
+                  },
+                  "target": "AllyOnlySelf",
+                  "apply_type": "AroundCaster",
+                  "effects": [
+                    {
+                      "type": "Shield",
+                      "amount": 120,
+                      "attack_ratio": 0,
+                      "ap_ratio": 50,
+                      "tick": 240
+                    },
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "tft_steb_r_guard",
+                        "duration": {
+                          "Time": {
+                            "tick": 240
+                          }
+                        },
+                        "damaged_reduce": 30
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "RangeEffect",
+                  "shape": {
+                    "Circle": {
+                      "radius": 40000
+                    }
+                  },
+                  "target": "AllyNotSelf",
+                  "apply_type": "AroundCaster",
+                  "effects": [
+                    {
+                      "type": "Shield",
+                      "amount": 120,
+                      "attack_ratio": 0,
+                      "ap_ratio": 50,
+                      "tick": 240
+                    },
+                    {
+                      "type": "AddBuff",
+                      "buff_state": {
+                        "name": "tft_steb_r_shield",
+                        "duration": {
+                          "Time": {
+                            "tick": 240
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 23,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "RangeEffect",
+                      "shape": {
+                        "Circle": {
+                          "radius": 1000
+                        }
+                      },
+                      "target": "AllyOnlySelf",
+                      "apply_type": "AroundCaster",
+                      "effects": [
+                        {
+                          "type": "Heal",
+                          "amount": 25,
+                          "attack_ratio": 0,
+                          "ap_ratio": 12,
+                          "heal_type": "Caster"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "RangeEffect",
+                  "shape": {
+                    "Circle": {
+                      "radius": 40000
+                    }
+                  },
+                  "target": "AllyNotSelf",
+                  "apply_type": "AroundCaster",
+                  "effects": [
+                    {
+                      "type": "Heal",
+                      "amount": 25,
+                      "attack_ratio": 0,
+                      "ap_ratio": 12,
+                      "heal_type": "Ally"
+                    },
+                    {
+                      "type": "ViewEffect",
+                      "name": "tft_steb_r_heal"
+                    }
+                  ]
+                },
+                {
+                  "type": "CasterViewEffect",
+                  "name": "tft_steb_r_heal"
+                }
+              ]
+            },
+            {
+              "type": "Sfx",
+              "name": "tft_steb_r_heal"
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 53,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "RangeEffect",
+                      "shape": {
+                        "Circle": {
+                          "radius": 1000
+                        }
+                      },
+                      "target": "AllyOnlySelf",
+                      "apply_type": "AroundCaster",
+                      "effects": [
+                        {
+                          "type": "Heal",
+                          "amount": 25,
+                          "attack_ratio": 0,
+                          "ap_ratio": 12,
+                          "heal_type": "Caster"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "RangeEffect",
+                  "shape": {
+                    "Circle": {
+                      "radius": 40000
+                    }
+                  },
+                  "target": "AllyNotSelf",
+                  "apply_type": "AroundCaster",
+                  "effects": [
+                    {
+                      "type": "Heal",
+                      "amount": 25,
+                      "attack_ratio": 0,
+                      "ap_ratio": 12,
+                      "heal_type": "Ally"
+                    },
+                    {
+                      "type": "ViewEffect",
+                      "name": "tft_steb_r_heal"
+                    }
+                  ]
+                },
+                {
+                  "type": "CasterViewEffect",
+                  "name": "tft_steb_r_heal"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 83,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "RangeEffect",
+                      "shape": {
+                        "Circle": {
+                          "radius": 1000
+                        }
+                      },
+                      "target": "AllyOnlySelf",
+                      "apply_type": "AroundCaster",
+                      "effects": [
+                        {
+                          "type": "Heal",
+                          "amount": 25,
+                          "attack_ratio": 0,
+                          "ap_ratio": 12,
+                          "heal_type": "Caster"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "RangeEffect",
+                  "shape": {
+                    "Circle": {
+                      "radius": 40000
+                    }
+                  },
+                  "target": "AllyNotSelf",
+                  "apply_type": "AroundCaster",
+                  "effects": [
+                    {
+                      "type": "Heal",
+                      "amount": 25,
+                      "attack_ratio": 0,
+                      "ap_ratio": 12,
+                      "heal_type": "Ally"
+                    },
+                    {
+                      "type": "ViewEffect",
+                      "name": "tft_steb_r_heal"
+                    }
+                  ]
+                },
+                {
+                  "type": "CasterViewEffect",
+                  "name": "tft_steb_r_heal"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 113,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "RangeEffect",
+                      "shape": {
+                        "Circle": {
+                          "radius": 1000
+                        }
+                      },
+                      "target": "AllyOnlySelf",
+                      "apply_type": "AroundCaster",
+                      "effects": [
+                        {
+                          "type": "Heal",
+                          "amount": 25,
+                          "attack_ratio": 0,
+                          "ap_ratio": 12,
+                          "heal_type": "Caster"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "RangeEffect",
+                  "shape": {
+                    "Circle": {
+                      "radius": 40000
+                    }
+                  },
+                  "target": "AllyNotSelf",
+                  "apply_type": "AroundCaster",
+                  "effects": [
+                    {
+                      "type": "Heal",
+                      "amount": 25,
+                      "attack_ratio": 0,
+                      "ap_ratio": 12,
+                      "heal_type": "Ally"
+                    },
+                    {
+                      "type": "ViewEffect",
+                      "name": "tft_steb_r_heal"
+                    }
+                  ]
+                },
+                {
+                  "type": "CasterViewEffect",
+                  "name": "tft_steb_r_heal"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 143,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "RangeEffect",
+                      "shape": {
+                        "Circle": {
+                          "radius": 1000
+                        }
+                      },
+                      "target": "AllyOnlySelf",
+                      "apply_type": "AroundCaster",
+                      "effects": [
+                        {
+                          "type": "Heal",
+                          "amount": 25,
+                          "attack_ratio": 0,
+                          "ap_ratio": 12,
+                          "heal_type": "Caster"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "RangeEffect",
+                  "shape": {
+                    "Circle": {
+                      "radius": 40000
+                    }
+                  },
+                  "target": "AllyNotSelf",
+                  "apply_type": "AroundCaster",
+                  "effects": [
+                    {
+                      "type": "Heal",
+                      "amount": 25,
+                      "attack_ratio": 0,
+                      "ap_ratio": 12,
+                      "heal_type": "Ally"
+                    },
+                    {
+                      "type": "ViewEffect",
+                      "name": "tft_steb_r_heal"
+                    }
+                  ]
+                },
+                {
+                  "type": "CasterViewEffect",
+                  "name": "tft_steb_r_heal"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 173,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "RangeEffect",
+                      "shape": {
+                        "Circle": {
+                          "radius": 1000
+                        }
+                      },
+                      "target": "AllyOnlySelf",
+                      "apply_type": "AroundCaster",
+                      "effects": [
+                        {
+                          "type": "Heal",
+                          "amount": 25,
+                          "attack_ratio": 0,
+                          "ap_ratio": 12,
+                          "heal_type": "Caster"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "RangeEffect",
+                  "shape": {
+                    "Circle": {
+                      "radius": 40000
+                    }
+                  },
+                  "target": "AllyNotSelf",
+                  "apply_type": "AroundCaster",
+                  "effects": [
+                    {
+                      "type": "Heal",
+                      "amount": 25,
+                      "attack_ratio": 0,
+                      "ap_ratio": 12,
+                      "heal_type": "Ally"
+                    },
+                    {
+                      "type": "ViewEffect",
+                      "name": "tft_steb_r_heal"
+                    }
+                  ]
+                },
+                {
+                  "type": "CasterViewEffect",
+                  "name": "tft_steb_r_heal"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "view_projectiles": [],
+  "view_effects": [
+    {
+      "type": "Animation",
+      "name": "tft_steb_a_hit",
+      "anim": "asset/tft/effects/tft_steb_fx",
+      "tag": "a_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_steb_q_heal",
+      "anim": "asset/tft/effects/tft_steb_fx",
+      "tag": "q_heal",
+      "z": 3,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_steb_q_hit",
+      "anim": "asset/tft/effects/tft_steb_fx",
+      "tag": "q_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_steb_e_mark",
+      "anim": "asset/tft/effects/tft_steb_fx",
+      "tag": "e_mark",
+      "z": 4,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_steb_r_pack",
+      "anim": "asset/tft/effects/tft_steb_big",
+      "tag": "r_pack",
+      "z": -1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "tft_steb_r_heal",
+      "anim": "asset/tft/effects/tft_steb_fx",
+      "tag": "r_heal",
+      "z": 3,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_steb_p_heal",
+      "anim": "asset/tft/effects/tft_steb_fx",
+      "tag": "p_heal",
+      "z": 3,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_steb_e_kill",
+      "anim": "asset/tft/effects/tft_steb_fx",
+      "tag": "e_kill",
+      "z": 3,
+      "is_follow": true
+    }
+  ],
+  "view_buffs": [
+    {
+      "type": "Animated",
+      "name": "tft_steb_q_stun",
+      "anim": "asset/tft/effects/tft_steb_fx",
+      "tag": "q_stun",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "tft_steb_e_wanted",
+      "anim": "asset/tft/effects/tft_steb_fx",
+      "tag": "e_wanted",
+      "repeat": true,
+      "z": 4
+    },
+    {
+      "type": "Animated",
+      "name": "tft_steb_r_guard",
+      "anim": "asset/tft/effects/tft_steb_fx",
+      "tag": "r_guard",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "tft_steb_r_shield",
+      "anim": "asset/tft/effects/tft_steb_fx",
+      "tag": "r_shield",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "tft_steb_e_rush",
+      "anim": "asset/tft/effects/tft_steb_fx",
+      "tag": "e_rush",
+      "repeat": true,
+      "z": 3
+    }
+  ]
+}
