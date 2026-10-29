@@ -24,7 +24,10 @@ Kit (the user's pick, 2026-10-18: layout A with the add-on league_wukong - 「�
           (`RushMoveToBack`). The clone stands at the anchor for w_t ticks (League's clone does not walk): its
           pictures play in w_slot-tick slots there, and a zone (w_rad, period w_period) strikes one enemy a period
           (champions first) for w_ratio% AD. While R spins (`r_on`) the clone spins too: each slot is a spin pulse
-          round it (r_dmg/r_ratio/r_hp at w_spin%), the first one knocking up (`r_ck`).
+          round it (r_dmg/r_ratio/r_hp at w_spin%), the first one knocking up (`r_ck`). A spin with no clone out
+          brings one at his feet that spins with him (League's W -> R: the clone casts R too; not again within w_rc
+          ticks, W's own cooldown untouched) - the user, 2026-10-29: 「猴子现在分身能开大吗 怎么感觉没分身这个技能」:
+          W was cast ~6 times a 10-minute game and the clone was out in 1 spin of 8.
   ult     R Cyclone: the slot only arms it (league_kayle R: the AI casts an `EnemyChampion` ult on the approach) - a
           3-tick action adds `r_armed` (r_arm ticks; unused, a 3-tick ult_cooldown_mult refunds it). While armed every
           attack looks for an enemy champion within r_rad: one is enough (League spins in a duel too) -> the spin. The spin: `CasterAnimation spin` for r_t, a pulse every
@@ -51,6 +54,8 @@ BIG = "asset/league/effects/league_wukong_big"
 # lineups, both sides, 8 seeds a batch, 2026-10-18, placeholder timings): the draft (attack 84, Q 40%, E 60%, R 1% max
 # health a pulse) +0.07; R 2% alone -0.16, attack 90 / Q 60% / E 80% alone +0.45, both +1.94 / +1.92; attack 88, Q 50%,
 # E 70%, R 2% +1.12 / +1.15 (league_xinzhao +1.10 / +1.29, league_kayn +1.12 / +1.72).
+# 2026-10-29: the spin's own clone (w_rc) and W from 45000: clone out in 27 of 28 spins (was 7 of 17); with the clone's
+# spin at 50% +0.79 -> +1.74 (seeds 1-8), 30% +1.52, 20% +0.95 (seeds 9-16 +0.65 -> +1.27): w_spin 20.
 P = {
     # stats (Melee base: attack 95 +19, hp 1000 +100, defence 30 +8, mr 25 +4, move 1000 +11); League's Wukong:
     # 66 AD +3.5, 610 +99 hp, 31 +4.7 armour (+6-10 innate from Stone Skin), 28 mr, 340 move, attack speed 0.69 +3%
@@ -71,8 +76,10 @@ P = {
     "e_cd": 480, "e_range": 50000, "e_dur": 18, "e_anim": 18, "e_speed": 3500, "e_rad": 22000, "e_n": 3,
     "e_dmg": 40, "e_ratio": 70, "e_as": 40, "e_as_t": 300,
     # skill2: W Warrior Trickster (League: invisible 1 s, dash 300, clone 4 s at 40-60% damage, range 275, cd 22-18 s)
-    "w_cd": 1200, "w_range": 30000, "w_dur": 12, "w_inv": 60, "w_dash": 6000, "w_t": 240, "w_slot": 20,
-    "w_rad": 30000, "w_period": 60, "w_ratio": 50, "w_spin": 50,
+    "w_cd": 1200, "w_range": 45000, "w_dur": 12, "w_inv": 60, "w_dash": 6000, "w_t": 240, "w_slot": 20,
+    "w_rad": 30000, "w_period": 60, "w_ratio": 50, "w_spin": 20,
+    # the spin brings a clone when none is out (League's W -> R: the clone casts R too); not again within w_rc ticks
+    "w_rc": 900,
     # ult: R Cyclone (League: r 315, 2 s, +20% ms, 8-16% max hp +275% AD a cast (ticks every 0.25 s), knock-up 0.6 s
     # once, second cast within 8 s after 1 s, cd 130-90 s)
     "r_cd": 3600, "r_range": 60000, "r_arm": 900, "r_rad": 28000, "r_t": 120, "r_every": 15, "r_speed": 1200,
@@ -206,6 +213,29 @@ def build(p, native=False):
     stone = on_me(stacks())
     twin = homing("a_twin", 1000000, "EnemyChampion", [stone])
 
+    # ------------------------------------------------------------------ the clone (W, and the spin's own)
+    nslot = p["w_t"] // p["w_slot"]
+    spin_c = [attack(p["r_dmg"] * p["w_spin"] // 100, p["r_ratio"] * p["w_spin"] // 100), view("r_hit")]
+    slots = []
+    for k in range(nslot):
+        idle_pic = view("w_clone_atk" if k % (p["w_period"] // p["w_slot"]) == 0 else "w_clone")
+        spin_slot = combine(view("w_clone_spin"),
+                            sw("r_ck", burst("w_spin", p["r_rad"], "EnemyWithoutTower", spin_c),
+                               combine(flag("r_ck", p["r_t"]),
+                                       burst("w_spin_up", p["r_rad"], "EnemyWithoutTower",
+                                             spin_c + [{"type": "Airborne", "duration": p["r_up"]}]))))
+        slots.append(delayed(k * p["w_slot"] + 1, sw("w_live", sw("r_on", spin_slot, idle_pic))))
+    strike = field("w_zone", p["w_rad"], p["w_t"], p["w_period"],
+                   [sw("w_one", NONE, combine(flag("w_one", 2), attack(0, p["w_ratio"]), view("w_hit"),
+                                             tsfx("w_hit")))], first=1)
+    anchor = {"type": "LinearProjectile", "name": n("w_anchor"), "speed": 1, "range": 1, "y_offset": 5000,
+              "penetrate": True, "shape": circle(1000), "applied_target": "EnemyChampion", "applied_effects": [],
+              "end_effects": [strike, *slots]}
+    # the spin's clone (no clone out, none from a spin within w_rc): at his feet, spinning with him from its first slot;
+    # W's own cooldown is the game's and stays as it is
+    summon = combine(flag("w_rc", p["w_rc"]), *rm("w_live"), flag("w_live", p["w_t"]), cview("w_poof"), sfx("w_cast"),
+                     anchor)
+
     # ------------------------------------------------------------------ R Cyclone: the spin (one copy, in the attack)
     def rings(end):
         """league_garen E: a champion he is on, else the units round him, else the next group - one dash a pulse."""
@@ -229,6 +259,7 @@ def build(p, native=False):
     spin = combine(
         sw("r_two", combine(*rm("r_two")), combine(*rm("r_armed"), flag("r_two", p["r_two_t"]))),
         *rm("r_on", "r_gap", "r_ck"), flag("r_on", p["r_t"]), flag("r_gap", p["r_gap"]),
+        sw("w_live", NONE, sw("w_rc", NONE, summon)),
         anim("spin", p["r_t"]), sfx("r_cast"), *pulses)
 
     # ------------------------------------------------------------------ attack: swing / Crushing Blow / the spin
@@ -264,24 +295,6 @@ def build(p, native=False):
     skill = action("skill", p["e_dur"], p["e_cd"], 1, p["e_range"], "Targeting", "EnemyWithoutTower",
                    combine(anim("skill", p["e_anim"]), cview("e_cloud"), sfx("e_cast"), charge))
 
-    # ------------------------------------------------------------------ skill2: W Warrior Trickster (the clone)
-    nslot = p["w_t"] // p["w_slot"]
-    spin_c = [attack(p["r_dmg"] * p["w_spin"] // 100, p["r_ratio"] * p["w_spin"] // 100), view("r_hit")]
-    slots = []
-    for k in range(nslot):
-        idle_pic = view("w_clone_atk" if k % (p["w_period"] // p["w_slot"]) == 0 else "w_clone")
-        spin_slot = combine(view("w_clone_spin"),
-                            sw("r_ck", burst("w_spin", p["r_rad"], "EnemyWithoutTower", spin_c),
-                               combine(flag("r_ck", p["r_t"]),
-                                       burst("w_spin_up", p["r_rad"], "EnemyWithoutTower",
-                                             spin_c + [{"type": "Airborne", "duration": p["r_up"]}]))))
-        slots.append(delayed(k * p["w_slot"] + 1, sw("w_live", sw("r_on", spin_slot, idle_pic))))
-    strike = field("w_zone", p["w_rad"], p["w_t"], p["w_period"],
-                   [sw("w_one", NONE, combine(flag("w_one", 2), attack(0, p["w_ratio"]), view("w_hit"),
-                                             tsfx("w_hit")))], first=1)
-    anchor = {"type": "LinearProjectile", "name": n("w_anchor"), "speed": 1, "range": 1, "y_offset": 5000,
-              "penetrate": True, "shape": circle(1000), "applied_target": "EnemyChampion", "applied_effects": [],
-              "end_effects": [strike, *slots]}
     skill2 = action("skill2", p["w_dur"], p["w_cd"], 1, p["w_range"], "Targeting", "EnemyChampion",
                     combine(*rm("w_live"), flag("w_live", p["w_t"]), {"type": "CasterInvisible", "tick": p["w_inv"]},
                             cview("w_poof"), sfx("w_cast"), anchor,
