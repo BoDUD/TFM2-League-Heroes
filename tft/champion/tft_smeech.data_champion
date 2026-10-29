@@ -1,0 +1,471 @@
+{
+  "id": "tft_smeech",
+  "category": "Assassin",
+  "tags": [
+    "AD",
+    "Melee"
+  ],
+  "passive": {
+    "passive_ref": "tft_smeech:ambush",
+    "params": {
+      "p_cdmg": 20,
+      "q_range": 45000,
+      "q_gap": 14000,
+      "q_s1": 8,
+      "q_s2": 16,
+      "q_s3": 24,
+      "q_dmg": 20,
+      "q_ad": 55,
+      "q_again": 70,
+      "e_dmg": 40,
+      "e_ad": 90,
+      "r_dur": 72,
+      "r_reach": 45000,
+      "r_dmg": 50,
+      "r_ad": 80,
+      "r_crit": 10,
+      "r_t": 300
+    }
+  },
+  "sprite": "asset/tft/champions/tft_smeech",
+  "anim_prefix": "",
+  "skill_icons": [
+    "asset/tft/icons/tft_smeech_skill",
+    "asset/tft/icons/tft_smeech_skill2",
+    "asset/tft/icons/tft_smeech_ult"
+  ],
+  "stat": {
+    "attack": 84,
+    "magic_power": 0,
+    "hp": 900,
+    "defence": 28,
+    "magic_resistance": 22,
+    "move_speed": 1100,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 25
+  },
+  "growth": {
+    "attack": 16,
+    "magic_power": 0,
+    "hp": 90,
+    "defence": 8,
+    "magic_resistance": 4,
+    "move_speed": 12,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "attack": {
+    "action_name": "attack",
+    "description": "#asset/base/text/champion?description.tft_smeech.attack",
+    "duration": 22,
+    "cooltime": 54,
+    "start_timing": 1,
+    "cancelable": true,
+    "range": 23000,
+    "casting_type": "Targeting",
+    "casting_target": "Enemy",
+    "attack_type": "BaseAttack",
+    "effect": {
+      "type": "SwitchByBuff",
+      "buff_name": "tft_smeech_a2",
+      "effect_buff": {
+        "type": "Combine",
+        "effects": [
+          {
+            "type": "RemoveCasterBuff",
+            "name": "tft_smeech_a2"
+          },
+          {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "Sfx",
+                "name": "tft_smeech_a2"
+              },
+              {
+                "type": "CasterAnimation",
+                "name": "attack2",
+                "tick": 22
+              },
+              {
+                "type": "Delayed",
+                "tick": 9,
+                "effects": [
+                  {
+                    "type": "Attack",
+                    "damage": 0,
+                    "attack_ratio": 100,
+                    "hp_ratio": 0,
+                    "target_hp_ratio": 0,
+                    "attack_effect_type": "Target"
+                  },
+                  {
+                    "type": "ViewEffect",
+                    "name": "tft_smeech_a_hit"
+                  },
+                  {
+                    "type": "TargetSfx",
+                    "name": "tft_smeech_a2_hit"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "effect_none": {
+        "type": "Combine",
+        "effects": [
+          {
+            "type": "AddCasterBuff",
+            "buff_state": {
+              "name": "tft_smeech_a2",
+              "duration": "Permanent"
+            },
+            "only_to_enemy": false
+          },
+          {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "Sfx",
+                "name": "tft_smeech_a"
+              },
+              {
+                "type": "CasterAnimation",
+                "name": "attack",
+                "tick": 22
+              },
+              {
+                "type": "Delayed",
+                "tick": 9,
+                "effects": [
+                  {
+                    "type": "Attack",
+                    "damage": 0,
+                    "attack_ratio": 100,
+                    "hp_ratio": 0,
+                    "target_hp_ratio": 0,
+                    "attack_effect_type": "Target"
+                  },
+                  {
+                    "type": "ViewEffect",
+                    "name": "tft_smeech_a_hit"
+                  },
+                  {
+                    "type": "TargetSfx",
+                    "name": "tft_smeech_a_hit"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "skill": {
+    "action_name": "skill",
+    "description": "#asset/base/text/champion?description.tft_smeech.skill",
+    "duration": 54,
+    "cooltime": 420,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 45000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "tft_smeech_q"
+        },
+        {
+          "type": "Sfx",
+          "name": "tft_smeech_q_vo"
+        },
+        {
+          "type": "CasterAnimation",
+          "name": "leap",
+          "tick": 14
+        },
+        {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "tft_smeech_q_air",
+            "duration": {
+              "Time": {
+                "tick": 14
+              }
+            },
+            "cc_immune": true
+          },
+          "only_to_enemy": false
+        },
+        {
+          "type": "Delayed",
+          "tick": 13,
+          "effects": [
+            {
+              "type": "Native",
+              "effect_ref": "tft_smeech:hack"
+            },
+            {
+              "type": "CasterAnimation",
+              "name": "stabs",
+              "tick": 40
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill2": {
+    "action_name": "skill2",
+    "description": "#asset/base/text/champion?description.tft_smeech.skill2",
+    "duration": 24,
+    "cooltime": 480,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 26000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "tft_smeech_e"
+        },
+        {
+          "type": "Delayed",
+          "tick": 9,
+          "effects": [
+            {
+              "type": "Native",
+              "effect_ref": "tft_smeech:rip"
+            },
+            {
+              "type": "AddBuff",
+              "buff_state": {
+                "name": "tft_smeech_e_shred",
+                "duration": {
+                  "Time": {
+                    "tick": 240
+                  }
+                },
+                "defence_mult": -30
+              }
+            },
+            {
+              "type": "ViewEffect",
+              "name": "tft_smeech_e_hit"
+            },
+            {
+              "type": "TargetSfx",
+              "name": "tft_smeech_e_hit"
+            },
+            {
+              "type": "TargetSfx",
+              "name": "tft_smeech_e_shred"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "ult": {
+    "action_name": "ult",
+    "description": "#asset/base/text/champion?description.tft_smeech.ult",
+    "duration": 72,
+    "cooltime": 3000,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 50000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "tft_smeech_r"
+        },
+        {
+          "type": "CasterAnimation",
+          "name": "ult",
+          "tick": 72
+        },
+        {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "tft_smeech_r_frenzy",
+            "duration": {
+              "Time": {
+                "tick": 72
+              }
+            },
+            "cc_immune": true,
+            "damaged_reduce": 30
+          },
+          "only_to_enemy": false
+        },
+        {
+          "type": "Delayed",
+          "tick": 5,
+          "effects": [
+            {
+              "type": "Sfx",
+              "name": "tft_smeech_r_leap"
+            },
+            {
+              "type": "Native",
+              "effect_ref": "tft_smeech:hop"
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 17,
+          "effects": [
+            {
+              "type": "Sfx",
+              "name": "tft_smeech_r_leap"
+            },
+            {
+              "type": "Native",
+              "effect_ref": "tft_smeech:hop"
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 29,
+          "effects": [
+            {
+              "type": "Sfx",
+              "name": "tft_smeech_r_leap"
+            },
+            {
+              "type": "Native",
+              "effect_ref": "tft_smeech:hop"
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 41,
+          "effects": [
+            {
+              "type": "Sfx",
+              "name": "tft_smeech_r_leap"
+            },
+            {
+              "type": "Native",
+              "effect_ref": "tft_smeech:hop"
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 53,
+          "effects": [
+            {
+              "type": "Sfx",
+              "name": "tft_smeech_r_leap"
+            },
+            {
+              "type": "Native",
+              "effect_ref": "tft_smeech:hop"
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 70,
+          "effects": [
+            {
+              "type": "Sfx",
+              "name": "tft_smeech_r_end"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "view_projectiles": [],
+  "view_effects": [
+    {
+      "type": "Animation",
+      "name": "tft_smeech_a_hit",
+      "anim": "asset/tft/effects/tft_smeech_fx",
+      "tag": "a_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_smeech_q_land",
+      "anim": "asset/tft/effects/tft_smeech_fx",
+      "tag": "q_land",
+      "z": -1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "tft_smeech_q_hit",
+      "anim": "asset/tft/effects/tft_smeech_fx",
+      "tag": "q_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_smeech_e_hit",
+      "anim": "asset/tft/effects/tft_smeech_fx",
+      "tag": "e_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_smeech_r_hit",
+      "anim": "asset/tft/effects/tft_smeech_fx",
+      "tag": "r_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_smeech_p_hit",
+      "anim": "asset/tft/effects/tft_smeech_fx",
+      "tag": "p_hit",
+      "z": 3,
+      "is_follow": true
+    }
+  ],
+  "view_buffs": [
+    {
+      "type": "Animated",
+      "name": "tft_smeech_e_shred",
+      "anim": "asset/tft/effects/tft_smeech_fx",
+      "tag": "e_shred",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "tft_smeech_r_frenzy",
+      "anim": "asset/tft/effects/tft_smeech_fx",
+      "tag": "r_frenzy",
+      "repeat": true,
+      "z": 3
+    }
+  ]
+}
