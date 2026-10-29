@@ -11,10 +11,10 @@
       "version": ">=0.146.0"
     }
   ],
-  "description": "Test build of Wukong as in League (needs League of Legends Heroes): replaces the main pack's Wukong so Stone Skin regenerates a share of his max health (0.35% every 5 seconds, plus as much again per stack: 2.1% at five stacks) instead of the main pack's flat amount. Other champions are untouched. Writes a log for testing.",
+  "description": "Test build of Wukong as in League (needs League of Legends Heroes): replaces the main pack's Wukong so Stone Skin regenerates a share of his max health (0.35% every 5 seconds, plus as much again per stack: 2.1% at five stacks) instead of the main pack's flat amount, and draws Warrior Trickster's clone where it stands (spinning with him when he casts Cyclone) - the main pack's clone pictures never show in game. Other champions are untouched. Writes a log for testing.",
   "last_updated": "2026-10-29",
   "mod_id": "league_wukong",
   "mod_type": "native",
   "name": "League Heroes: Wukong's % max-health Stone Skin (test)",
-  "version": "0.1.1"
+  "version": "0.1.2"
 }

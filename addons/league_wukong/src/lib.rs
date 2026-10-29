@@ -1,13 +1,22 @@
 //! 悟空附加包（用户 2026-10-18：「技能方案按 A 做（带扩展包 league_wukong）」）。主包保持纯数据；`mod.override_info` 把主包的
 //! 悟空换成 `override/` 里的副本（`make_override.py` 用 tools/kit/build_wukong.py 的 `native=1` 生成：技能一字不改，被动换成本包的
-//! `league_wukong:stone`，金刚不坏的五层不再带数据里的固定回血），本包补数据做不到的一件事：
+//! `league_wukong:stone`，金刚不坏的五层不再带数据里的固定回血），本包补数据做不到的三件事：
 //!
 //! - **按最大生命回血**（英雄联盟的金刚不坏）：数据读不到生命，主包每层每秒回固定值；本包每 `every` tick 按他身上金刚不坏的层数
 //!   （主包的 `league_wukong_s_1` ~ `s_5`）回复最大生命：每 5 秒 `pct`/100 %（英雄联盟 0.35%）×（1 + 层数），叠满 5 层是 2.1%。
 //!   零头攒着下次一起回，不会因为取整丢掉。
+//! - **分身画出来**（0.1.2，用户 2026-10-29：「猴子开大还是没分身啊」「现在分身都看不见」）：主包的分身是锚点（射程 1 的
+//!   弹道）`end_effects` 里一格一格放的画面，这种画面游戏里从来不显示（锤石 R 的箱子、永恩留下的身体同一个毛病），所以玩家
+//!   从没见过分身。副本里 W 施放那一刻调 `league_wukong:clone`，把分身站的地方写成他身上的一个 buff（`league_wukong_clone:…`），
+//!   被动下一拍读走（每份模拟各记各的，不用全局表，两份预模拟同时跑时不会串）；伤害照旧是数据锚点的，画面由本包每 `w_slot`
+//!   tick 在那里放一次：他在转（`r_on`，英雄联盟里有分身时分身也开大）放 `w_clone_spin`，每 `w_period` 一次出手的那格放
+//!   `w_clone_atk`，其余 `w_clone`。他死了、`w_live` 没了（数据的分身散了）、`w_t` 到了，就不再画。
+//! - **替 AI 按 W**（0.1.2，「你确定会放分身吗现在 我怎么一次没见过」→「加上」，src/trickster.rs）：游戏的 AI 几乎总先按 E，
+//!   W 一局只放几次；W 好了、射程内有敌方英雄时替他按（英雄联盟里 W 开团、接大招）。
 //!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_wukong.log`，每次启动游戏重写，上一次的留在 .prev.log：`REGEN`
-//! （回了多少、几层），限了条数。
+//! （回了多少、几层）、`W PRESS`（替他按的 W）、`CLONE`（分身站在哪）、`CLONE SPINS`（他开大时分身跟着转）、`CLONE GONE`；
+//! 预模拟限了条数，你看的那场每条都记。
 
 use std::collections::HashMap;
 use std::fs::OpenOptions;
@@ -16,6 +25,8 @@ use std::path::PathBuf;
 use std::sync::{LazyLock, Mutex};
 
 use mod_api_stable::*;
+
+pub mod trickster;
 
 const ID: &str = "league_wukong";
 const VERSION: &str = env!("CARGO_PKG_VERSION");
@@ -63,11 +74,33 @@ const LOG_EVERY: usize = 200;
 
 static COUNTS: LazyLock<Mutex<HashMap<&'static str, usize>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
 
-pub(crate) fn counted(kind: &'static str) -> Option<usize> {
+fn bump(kind: &'static str) -> usize {
     let mut c = COUNTS.lock().unwrap_or_else(|e| e.into_inner());
     let n = c.entry(kind).or_insert(0);
     *n += 1;
-    (*n <= LOG_FIRST || *n % LOG_EVERY == 0).then_some(*n)
+    *n
+}
+
+pub(crate) fn counted(kind: &'static str) -> Option<usize> {
+    let n = bump(kind);
+    (n <= LOG_FIRST || n % LOG_EVERY == 0).then_some(n)
+}
+
+/// The match you watch (the view, a spectated match, a replay), not a server presim.
+fn on_screen(sim: &StableSim<'_>) -> bool {
+    sim.sim_origin().and_then(|o| SimOriginKindV1::from_code(o.kind)).is_some_and(|k| {
+        matches!(k, SimOriginKindV1::ClientMatchView | SimOriginKindV1::ClientSpectate | SimOriginKindV1::ClientReplay)
+    })
+}
+
+/// Like `counted`, but every one when `shown` (the match you watch): the presims stay capped.
+fn noted(kind: &'static str, shown: bool) -> Option<usize> {
+    let n = bump(kind);
+    (shown || n <= LOG_FIRST || n % LOG_EVERY == 0).then_some(n)
+}
+
+fn tally(sim: &StableSim<'_>, kind: &'static str) -> Option<usize> {
+    noted(kind, on_screen(sim))
 }
 
 fn head(sim: &StableSim<'_>, id: usize) -> String {
@@ -93,11 +126,15 @@ pub struct Params {
     pub pct: usize,
     /// 每多少 tick 回一次（30 = 半秒，英雄联盟的回血节奏）。
     pub every: usize,
+    /// 分身：活多久、一格画面多少 tick、多久出手一次（主包的 w_t、w_slot、w_period）。
+    pub w_t: usize,
+    pub w_slot: usize,
+    pub w_period: usize,
 }
 
 impl Default for Params {
     fn default() -> Self {
-        Self { pct: 35, every: 30 }
+        Self { pct: 35, every: 30, w_t: 240, w_slot: 20, w_period: 60 }
     }
 }
 
@@ -112,6 +149,9 @@ pub fn parse_params(json: &str) -> Params {
         match k {
             "pct" => p.pct = v,
             "every" => p.every = v.max(1),
+            "w_t" => p.w_t = v,
+            "w_slot" => p.w_slot = v.max(1),
+            "w_period" => p.w_period = v.max(1),
             _ => {}
         }
     }
@@ -136,6 +176,78 @@ fn stacks(sim: &StableSim<'_>, id: usize) -> usize {
     (0..STACKS.len()).rev().find(|&k| has_buff(sim, id, STACKS[k])).map_or(0, |k| k + 1)
 }
 
+// ===================== 分身（W）：本包画 =====================
+
+/// 交接 buff 的前缀：`league_wukong_clone:<x>:<y>:<tick>`（W 施放那一刻他站的地方、那一拍）。
+const MARK: &str = "league_wukong_clone:";
+/// 数据的分身还在（W 施放时挂上，`w_t` tick；他死了就没了）、他在转大招。
+const W_LIVE: &str = "league_wukong_w_live";
+const R_ON: &str = "league_wukong_r_on";
+/// 数据锚点下一拍落下、第 k 格再过 k * w_slot + 1 tick：第一格在施放后 2 tick（SDK 模拟里量的）。
+pub const FIRST_SLOT: usize = 2;
+
+pub type Pt = (f64, f64);
+
+pub fn dist(a: Pt, b: Pt) -> f64 {
+    ((a.0 - b.0).powi(2) + (a.1 - b.1).powi(2)).sqrt()
+}
+
+/// 一个分身：站哪、哪拍散、下一格画面在哪拍、第几格、上一格在不在转（日志用）。
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct Decoy {
+    pub at: Pt,
+    pub until: usize,
+    pub next_slot: usize,
+    pub slot: usize,
+    pub spinning: bool,
+}
+
+impl Decoy {
+    pub fn new(at: Pt, cast: usize, p: &Params) -> Decoy {
+        Decoy { at, until: cast + p.w_t, next_slot: cast + FIRST_SLOT, slot: 0, spinning: false }
+    }
+}
+
+/// 交接 buff 的名字。
+pub fn mark(at: Pt, tick: usize) -> String {
+    format!("{MARK}{:.0}:{:.0}:{tick}", at.0, at.1)
+}
+
+/// 交接 buff -> (位置, 施放的那拍)。
+pub fn read_mark(name: &str) -> Option<(Pt, usize)> {
+    let mut it = name.strip_prefix(MARK)?.split(':');
+    let x = it.next()?.parse::<f64>().ok()?;
+    let y = it.next()?.parse::<f64>().ok()?;
+    let t = it.next()?.parse::<usize>().ok()?;
+    Some(((x, y), t))
+}
+
+/// 第 k 格放哪张（主包的排法）：他在转就是转的；每 `w_period` 一次出手的那格是出手的；其余站着的。
+pub fn slot_pic(p: &Params, k: usize, spinning: bool) -> &'static str {
+    if spinning {
+        "w_clone_spin"
+    } else if k % (p.w_period / p.w_slot).max(1) == 0 {
+        "w_clone_atk"
+    } else {
+        "w_clone"
+    }
+}
+
+fn pos_input(p: Pt) -> InputTargetV1 {
+    InputTargetV1::pos(p.0.round().max(0.0) as u64, p.1.round().max(0.0) as u64)
+}
+
+/// W 施放（`league_wukong:clone`，在他冲出去之前）：把他站的地方写在他身上，被动下一拍读走。
+struct CloneMark;
+
+impl StableEffectType for CloneMark {
+    fn apply(&self, sim: &mut StableSim<'_>, _: u64, me: usize, _input: InputTargetV1) {
+        let Some(at) = sim.get_entity(me).map(|e| (e.pos().0 as f64, e.pos().1 as f64)) else { return };
+        let name = mark(at, sim.tick());
+        sim.add_buff(me, &BuffV1::named(&name));
+    }
+}
+
 // ===================== 被动：金刚不坏 =====================
 
 #[derive(Clone, Default)]
@@ -143,6 +255,53 @@ struct StoneSkin {
     p: Params,
     /// 回血的零头（百万分之一点生命）。
     carry: u64,
+    /// 本包在画的分身。
+    decoy: Option<Decoy>,
+}
+
+impl StoneSkin {
+    /// 每 tick：读走 W 刚写的位置，在分身站的地方按格放画面；他死了、数据的分身散了、时间到了就停。
+    fn draw_clone(&mut self, sim: &mut StableSim<'_>, me: usize) {
+        let now = sim.tick();
+        let (names, alive) = {
+            let Some(e) = sim.get_entity(me) else { return };
+            ((0..e.buff_count()).filter_map(|i| e.buff_at(i)).map(|b| b.name().to_string()).collect::<Vec<_>>(),
+             e.is_alive())
+        };
+        for name in names.iter().filter(|n| n.starts_with(MARK)) {
+            sim.entity_remove_buff(me, name);
+            if let Some((at, cast)) = read_mark(name) {
+                self.decoy = Some(Decoy::new(at, cast, &self.p));
+                if let Some(k) = tally(sim, "clone") {
+                    wlog(format!("{} CLONE #{k} at ({:.0}, {:.0}) for {} ticks", head(sim, me), at.0, at.1, self.p.w_t));
+                }
+            }
+        }
+        let Some(mut d) = self.decoy else { return };
+        let live = names.iter().any(|n| n == W_LIVE);
+        if !alive || !live || now >= d.until {
+            self.decoy = None;
+            if let Some(k) = tally(sim, "clone gone") {
+                let why = if !alive { "he died" } else if !live { "the data's clone is gone" } else { "its time is up" };
+                wlog(format!("{} CLONE GONE #{k} after {} slots: {why}", head(sim, me), d.slot));
+            }
+            return;
+        }
+        if now >= d.next_slot {
+            let spinning = names.iter().any(|n| n == R_ON);
+            let pic = slot_pic(&self.p, d.slot, spinning);
+            sim.play_view_effect(&format!("{ID}_{pic}"), me, &pos_input(d.at), 0, 0, 0);
+            if spinning && !d.spinning {
+                if let Some(k) = tally(sim, "clone spins") {
+                    wlog(format!("{} CLONE SPINS #{k}: his R with the clone out, slot {}", head(sim, me), d.slot));
+                }
+            }
+            d.spinning = spinning;
+            d.slot += 1;
+            d.next_slot += self.p.w_slot;
+        }
+        self.decoy = Some(d);
+    }
 }
 
 impl StablePassive for StoneSkin {
@@ -156,9 +315,11 @@ impl StablePassive for StoneSkin {
 
     fn on_spawn(&mut self, _sim: &mut StableSim<'_>, _player: usize, _entity: usize) {
         self.carry = 0;
+        self.decoy = None;
     }
 
     fn on_update(&mut self, sim: &mut StableSim<'_>, _: u64, _player: usize, me: usize) {
+        self.draw_clone(sim, me);
         if sim.tick() % self.p.every != 0 {
             return;
         }
@@ -188,7 +349,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v{VERSION} (Wukong: Stone Skin regenerates % max health) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v{VERSION} (Wukong: Stone Skin regenerates % max health, the clone drawn where it stands) loaded: game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
         v.patch,
@@ -196,7 +357,11 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
         LOG_PATH.display()
     ));
     module.add_native_passive(format!("{ID}:stone"), StoneSkin::default());
-    host.log(LogLevel::Info, "league_wukong loaded (Stone Skin % max-health regeneration).");
+    // 0.1.2: W's clone drawn by the add-on (the data's pictures in its anchor never show in game), and W pressed for the
+    // AI with an enemy champion in reach (src/trickster.rs: the game's AI cast it 4 times a game)
+    module.add_native_effect(format!("{ID}:clone"), CloneMark);
+    module.add_player_input_ai(trickster::Trickster::default());
+    host.log(LogLevel::Info, "league_wukong loaded (Stone Skin % max-health regeneration, the clone drawn).");
 }
 
 #[cfg_attr(league_bundle, allow(dead_code))]
@@ -228,13 +393,47 @@ mod tests {
         let at = copy.find("\"passive_ref\": \"league_wukong:stone\"").expect("no league_wukong:stone passive in the copy");
         let params = &copy[at..];
         let d = Params::default();
-        for (k, v) in [("pct", d.pct), ("every", d.every)] {
+        for (k, v) in [("pct", d.pct), ("every", d.every), ("w_t", d.w_t), ("w_slot", d.w_slot), ("w_period", d.w_period)] {
             assert!(params.contains(&format!("\"{k}\": {v}")), "{k} is not {v} in the copy's passive params");
         }
         for name in STACKS {
             assert!(copy.contains(&format!("\"name\": \"{name}\"")), "the copy never lays {name}");
         }
         assert!(copy.contains("\"hp_regen\": 0"), "the copy's stacks still regenerate in data");
+    }
+
+    #[test]
+    fn the_copy_leaves_the_clone_s_pictures_to_the_add_on() {
+        let copy = include_str!("../override/league_wukong.data_champion").replace('\r', "");
+        let main = include_str!("../../../league/champion/league_wukong.data_champion").replace('\r', "");
+        assert!(copy.contains("\"effect_ref\": \"league_wukong:clone\""), "W does not mark the clone's spot");
+        for pic in ["w_clone", "w_clone_atk", "w_clone_spin"] {
+            // a ViewEffect's name is its last key (no comma after it); the view_effects entry goes on with "anim"
+            let call = format!("\"name\": \"league_wukong_{pic}\"\n");
+            assert!(main.matches(&call).count() > 1, "the main pack never plays {pic}");
+            assert_eq!(copy.matches(&call).count(), 0, "the copy still plays {pic} in data");
+            assert!(copy.contains(&format!("\"name\": \"league_wukong_{pic}\",\n")), "the copy lost the {pic} view");
+        }
+        // no clone of the spin's own (League's: the clone spins only when W left one)
+        assert!(!main.contains("league_wukong_w_rc"), "the spin still brings a clone of its own");
+    }
+
+    #[test]
+    fn the_mark_carries_the_spot_and_the_tick() {
+        assert_eq!(read_mark(&mark((314_040.0, 367_255.0), 15_653)), Some(((314_040.0, 367_255.0), 15_653)));
+        assert_eq!(read_mark("league_wukong_w_live"), None);
+        assert_eq!(read_mark("league_wukong_clone:1:2"), None);
+    }
+
+    #[test]
+    fn the_slots_follow_the_data() {
+        let p = Params::default();
+        // the SDK simulation: W at 15652 (its effect 15653), pictures at 15655 then every 20 ticks, 12 of them
+        let d = Decoy::new((0.0, 0.0), 15_653, &p);
+        assert_eq!((d.next_slot, d.until), (15_655, 15_893));
+        let pics: Vec<_> = (0..6).map(|k| slot_pic(&p, k, false)).collect();
+        assert_eq!(pics, ["w_clone_atk", "w_clone", "w_clone", "w_clone_atk", "w_clone", "w_clone"]);
+        assert_eq!(slot_pic(&p, 4, true), "w_clone_spin");
     }
 
     #[test]
