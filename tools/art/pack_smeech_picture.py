@@ -49,6 +49,8 @@ CLIPS = {
     "pounce": 2480727939088304345,       # 0.50 s: a high leap that lands crouched, raking
     "stabs": 13338079495139900480,       # 1.73 s: lands and rakes, crouched, a claw thrust forward
     "death": 3593627491999115244,        # 1.17 s: stiffens, the hat flies off, falls on his back
+    "spread": 3480799096908570845,       # 1.73 s: drops in from above to a crouch, claws torn wide to the sides
+    "arms": 2057711140677436400,         # 1.00 s: both claws thrown up wide over his head (a cheer)
 }
 SQ = 11
 SOLE = 1390
