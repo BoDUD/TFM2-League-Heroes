@@ -24,6 +24,12 @@
 //!   墙立住时刚好到，之后墙挡着他回不来（正推：推离阿兹尔；反推：推进阿兹尔的队伍里）；免疫控制的不带。**反推的冲刺不再冲过头**：
 //!   强制位移走的是「速度 x tick」，原来要冲 10770 实际冲了 16000，现在按距离算速度。日志：屏幕上那场的 `WALL` / `CARRY` /
 //!   `WALL DOWN` / `BEHIND` 每条都记（预模拟照旧限条数），`WALL DOWN` 写出被带走的英雄最后在墙的哪边。
+//! - v1.6（用户 2026-10-29：「沙皇的大还是有问题啊 看日志」）：v1.5 装进游戏后两场 104 道墙，日志里 `CARRY` 一条都没有、
+//!   `WALL DOWN` 全是 `carried []`：`r_carry` 一次都没被调到，而击退已经换掉了，墙就一个人都没推动。v1.5 还把 `r_wall`
+//!   挪到了墙的最前面（之前一直在最后，那时墙打人、推人都是好的），这两处哪一处让它没调到，日志分不出来。现在不靠它：
+//!   **本包自己扫墙的路线**（他的被动每 tick 算一遍：圆心和数据那道墙一样从他站的地方每 tick `r_speed` 走，半径 `r_w`），
+//!   扫到的敌方单位 `SWEEP_LAG`（2）tick 后带到墙外（`sweep`；先让数据那道墙打中他，伤害在它身上）；`r_wall` 放回最后；`r_carry` 还留着当第二条路，一道墙只带一次（`take`）。
+//!   日志的 `CARRY` 写出是哪条路带的（`by the sweep` / `by the wall's hit`），`WALL DOWN` 写出带走了几个单位。
 //! - **沙兵从侧面画，朝敌人，出手时刺**：数据分不出左右，主包的沙兵正面朝镜头、刺的时候不动。副本里每个槽位的沙兵升起、
 //!   每个检查点、每次刺都调本包的 `rise_<槽>` / `sold_<槽>` / `stab_<槽>`（拿到沙兵站的地方、被刺的单位）；本包自己画：
 //!   升起放侧面的 `ss_rise`，之后每 `ss_stand` tick 盖一次站着的 `ss_stand`，朝它 `FACE_R` 内最近的敌人（先英雄）；
@@ -161,13 +167,15 @@ pub struct Params {
     /// 墙立住多少 tick、横向半宽。
     pub r_hold: usize,
     pub r_half: usize,
+    /// 冲锋的墙（数据那道线）的半径：本包扫墙的路线时用（v1.6）。
+    pub r_w: usize,
 }
 
 impl Default for Params {
     fn default() -> Self {
         Self { d_life: 2700, d_per: 60, d_range: 45000, d_dmg: 50, d_ap: 35, d_near: 60000, r_speed: 3000, r_len: 60000,
                r_stamps: 5, s_step: 40, ss_stand: 4, ss_rise: 20, ss_stab: 16, r_rush: 8000, r_behind: 15000,
-               r_hold: 180, r_half: 30000 }
+               r_hold: 180, r_half: 30000, r_w: 20000 }
     }
 }
 
@@ -197,6 +205,7 @@ pub fn parse_params(json: &str) -> Params {
             "r_behind" => p.r_behind = v,
             "r_hold" => p.r_hold = v,
             "r_half" => p.r_half = v,
+            "r_w" => p.r_w = v,
             _ => {}
         }
     }
@@ -462,6 +471,9 @@ pub const HOME_R: f64 = 90_000.0;
 pub const CARRY_PAST: f64 = 4_000.0;
 /// 带人最快每 tick 这么远（墙快到头时才打中的，赶不上墙立住也不瞬移过去）。
 pub const CARRY_MAX_SPEED: usize = 12_000;
+/// 本包扫到一个单位后等这么多 tick 再带走：数据那道墙（伤害在它身上）先打中他，带走以后它追不上（它的圆心还比本包算的
+/// 偏一点：经典模拟器里飞行物从他身上 5000 外出发）。
+pub const SWEEP_LAG: usize = 2;
 
 pub type Pt = (f64, f64);
 
@@ -470,10 +482,15 @@ fn unit(v: Pt) -> Option<Pt> {
     (d > 1.0).then(|| (v.0 / d, v.1 / d))
 }
 
-/// 一道立住的墙：中点、冲锋方向（单位向量）、从哪个 tick 立到哪个 tick、禁军朝哪边、每个敌方英雄在墙的哪一边（+1 冲锋
-/// 方向那边、-1 阿兹尔这边）、下一次盖禁军的 tick、挡回来几次、正被墙带着走的（到哪个 tick 落地）、被带走的英雄（日志用）。
+/// 一道墙：冲锋时（从 `start`、`launch` 那个 tick 起，每 tick `speed`，半径 `reach`）和立住时（中点、冲锋方向的单位向量、
+/// 从哪个 tick 立到哪个 tick、禁军朝哪边、每个敌方英雄在墙的哪一边：+1 冲锋方向那边、-1 阿兹尔这边、下一次盖禁军的 tick、
+/// 挡回来几次）；被墙带着走的单位（到哪个 tick 落地）、被带走的英雄和没带走的英雄（日志用）。
 #[derive(Clone, Debug)]
 pub struct Standing {
+    pub start: Pt,
+    pub launch: usize,
+    pub speed: usize,
+    pub reach: f64,
     pub mid: Pt,
     pub dir: Pt,
     pub from: usize,
@@ -483,7 +500,10 @@ pub struct Standing {
     pub next_stamp: usize,
     pub held: usize,
     pub carried: HashMap<usize, usize>,
+    pub pending: HashMap<usize, usize>,
+    pub moved: usize,
     pub took: Vec<usize>,
+    pub skipped: Vec<usize>,
 }
 
 /// 墙立在哪：数据那道墙最后一跳停下的地方（从他站的地方朝目标 r_len），r_len / r_speed tick 后立住，再立 r_hold tick。
@@ -491,8 +511,38 @@ pub fn standing(p: &Params, from: Pt, to: Pt, tick: usize, right: bool) -> Stand
     let dir = unit((to.0 - from.0, to.1 - from.1)).unwrap_or((1.0, 0.0));
     let len = p.r_len as f64;
     let up = tick + (p.r_len / p.r_speed.max(1)).max(1);
-    Standing { mid: (from.0 + dir.0 * len, from.1 + dir.1 * len), dir, from: up, until: up + p.r_hold, right,
-               sides: HashMap::new(), next_stamp: up, held: 0, carried: HashMap::new(), took: Vec::new() }
+    Standing { start: from, launch: tick, speed: p.r_speed.max(1), reach: p.r_w as f64,
+               mid: (from.0 + dir.0 * len, from.1 + dir.1 * len), dir, from: up, until: up + p.r_hold, right,
+               sides: HashMap::new(), next_stamp: up, held: 0, carried: HashMap::new(), pending: HashMap::new(), moved: 0,
+               took: Vec::new(), skipped: Vec::new() }
+}
+
+/// 冲锋的墙在 `tick` 的圆心：和数据那道墙一样从 `start` 每 tick `speed` 朝冲锋方向走，冲到立住的地方停下。
+pub fn wall_center(w: &Standing, tick: usize) -> Pt {
+    let len = dist(w.start, w.mid);
+    let gone = (tick.saturating_sub(w.launch) as f64 * w.speed as f64).min(len);
+    (w.start.0 + w.dir.0 * gone, w.start.1 + w.dir.1 * gone)
+}
+
+/// 冲锋的墙在 `tick` 扫到了站在 `at`、身体半径 `body` 的单位（墙冲锋的那几 tick：`launch` 到立住的 `from`）。
+pub fn swept(w: &Standing, tick: usize, at: Pt, body: f64) -> bool {
+    tick >= w.launch && tick <= w.from && dist(wall_center(w, tick), at) <= w.reach + body
+}
+
+/// 墙带走一个在 `at` 的单位：一道墙只带一次（本包扫到的、数据那道墙打中的，谁先算谁）；记下他到哪个 tick 落地，英雄再记
+/// 「在墙那一边」和被带走（日志用）。返回强制位移的计划（`carry_plan`）；带过了、已经在墙外面就是 None。
+pub fn take(w: &mut Standing, id: usize, at: Pt, champ: bool, now: usize) -> Option<(Pt, f64, usize, usize)> {
+    if w.carried.contains_key(&id) {
+        return None;
+    }
+    let plan = carry_plan(w, at, now, w.speed)?;
+    w.carried.insert(id, now + plan.2 + 2);
+    w.moved += 1;
+    if champ {
+        w.sides.insert(id, 1.0);
+        w.took.push(id);
+    }
+    Some(plan)
 }
 
 /// 离墙多远（沿冲锋方向；正数在墙的那一边，负数在阿兹尔这边）。
@@ -566,12 +616,79 @@ fn flying(u: &StableEntity<'_, '_>) -> bool {
     (0..u.cc_count()).any(|i| u.cc_at(i).is_some_and(|c| c.kind == CcKindV1::ForceMove.code() || c.kind == CcKindV1::Airborne.code()))
 }
 
-/// 每 tick（他的被动里）：立着的墙盖禁军、挡敌方英雄，到时候撤掉。
+fn immune(u: &StableEntity<'_, '_>) -> bool {
+    (0..u.buff_count()).filter_map(|i| u.buff_at(i)).any(|b| b.cc_immune)
+}
+
+/// 用强制位移把 `id` 带到计划的落点（`carry_plan`：速度 x tick 就是那段距离）。
+fn shove(sim: &mut StableSim<'_>, id: usize, at: Pt, (dest, _, ticks, speed): (Pt, f64, usize, usize)) {
+    let mut cc = CcV1::of_kind(CcKindV1::ForceMove, ticks as u64);
+    cc.dx = (dest.0 - at.0).round() as i64;
+    cc.dy = (dest.1 - at.1).round() as i64;
+    cc.speed = speed as u64;
+    sim.apply_cc(id, &cc);
+}
+
+/// 墙冲锋的那几 tick（每 tick，他的被动里）：本包自己扫墙的路线（`swept`，和数据那道墙一样的圆心、半径、速度），扫到的
+/// 敌方单位（英雄、小兵、野怪，不算塔）`SWEEP_LAG` tick 后带到墙外（`take`；先让数据那道墙打中他，伤害在它身上）；免疫控制的
+/// 不带。不靠数据那道墙打中时调 `r_carry`：0.1.5 只有那一条路，用户 2026-10-29 的两场里一次都没调到（日志 0 条 CARRY），墙就
+/// 一个人都没推动。
+fn sweep(sim: &mut StableSim<'_>, me: usize, team: usize, tick: usize, w: &mut Standing) {
+    let units: Vec<(usize, Pt, bool, bool, f64)> = (0..sim.entity_count()).filter_map(|i| sim.entity_at(i))
+        .filter(|u| u.team() != team && u.is_alive() && u.is_targetable() && !u.is_tower())
+        .filter(|u| !matches!(u.kind(), Some(EntityKindV1::Nexus | EntityKindV1::Tower)))
+        .map(|u| (u.id(), at_of(&u), u.is_champion(), immune(&u), u.radius() as f64))
+        .collect();
+    for (id, at, champ, immune, body) in units {
+        if w.carried.contains_key(&id) || w.skipped.contains(&id) {
+            continue;
+        }
+        match w.pending.get(&id) {
+            None => {
+                if swept(w, tick, at, body) {
+                    w.pending.insert(id, tick + SWEEP_LAG);
+                }
+                continue;
+            }
+            Some(&due) if tick < due => continue,
+            Some(_) => {
+                w.pending.remove(&id);
+            }
+        }
+        if immune {
+            w.skipped.push(id);
+            if champ {
+                if let Some(k) = tally(sim, "carry") {
+                    wlog(format!("{} CARRY #{k} #{id} at {}: immune to crowd control, not carried (by the sweep)",
+                                 head(sim, me), pt(at)));
+                }
+            }
+            continue;
+        }
+        let from_wall = along(w, at);
+        let Some(plan) = take(w, id, at, champ, tick) else { continue };
+        shove(sim, id, at, plan);
+        if champ {
+            if let Some(k) = tally(sim, "carry") {
+                wlog(format!("{} CARRY #{k} #{id} at {} ({from_wall:+.0} from the wall) -> {}: {:.0} in {} ticks (by the sweep)",
+                             head(sim, me), pt(at), pt(plan.0), plan.1, plan.2));
+            }
+        }
+    }
+}
+
+/// 每 tick（他的被动里）：冲锋的墙扫人、带到墙外（`sweep`）；立着的墙盖禁军、挡敌方英雄，到时候撤掉。
 fn walls_tick(sim: &mut StableSim<'_>, me: usize, team: usize, tick: usize, p: &Params) {
     let key = wall_key(sim, me);
     let Some(mut walls) = WALLS.lock().unwrap_or_else(|e| e.into_inner()).remove(&key) else { return };
     let half = p.r_half as f64;
-    for w in walls.iter_mut().filter(|w| tick >= w.from) {
+    for w in walls.iter_mut() {
+        if tick <= w.from + SWEEP_LAG {
+            sweep(sim, me, team, tick, w);
+        }
+        if tick < w.from {
+            continue;
+        }
         if tick >= w.next_stamp {
             let n = (-w.dir.1, w.dir.0);
             let view = az(if w.right { "r_guards_a" } else { "r_guards_la" });
@@ -615,8 +732,8 @@ fn walls_tick(sim: &mut StableSim<'_>, me: usize, team: usize, tick: usize, p: &
                     None => format!("#{id} dead"),
                 })
                 .collect();
-            wlog(format!("{} WALL DOWN #{k} at {}: held enemy champions back {} time(s); carried [{}]", head(sim, me),
-                         pt(w.mid), w.held, took.join(", ")));
+            wlog(format!("{} WALL DOWN #{k} at {}: held enemy champions back {} time(s); carried {} unit(s), champions [{}]",
+                         head(sim, me), pt(w.mid), w.held, w.moved, took.join(", ")));
         }
     }
     if !left.is_empty() {
@@ -673,14 +790,17 @@ impl StableEffectType for Behind {
     }
 }
 
-/// 墙打中一个敌方单位（副本把数据的击退换成了 `league_azir:r_carry`，墙打中的每个敌方单位一次，墙自己的
-/// `league_azir:r_wall` 在它前面）：用强制位移把他带到这道墙停下的地方再往外（`carry_plan`），英雄记下「在墙那一边」、
-/// 带到哪个 tick（`walls_tick` 带着的时候不挡，落地后墙挡着他回不来）。免疫控制的不带（墙照样立着）。
+/// 墙打中一个敌方单位（副本把数据的击退换成了 `league_azir:r_carry`，墙打中的每个敌方单位一次）：和本包自己扫墙的路线
+/// （`sweep`）是两条路，谁先算谁（`take`：一道墙只带一次）。0.1.5 只有这一条，游戏里一次都没调到；它调到了、拿到的输入
+/// 不是被打中的单位，日志都记一行（`CARRY ... by the wall's hit` / `r_carry got input kind`），看是哪一环断的。
 struct Carry;
 
 impl StableEffectType for Carry {
     fn apply(&self, sim: &mut StableSim<'_>, _: u64, me: usize, input: InputTargetV1) {
         if InputTargetKindV1::from_code(input.kind) != Some(InputTargetKindV1::Target) {
+            if let Some(k) = tally(sim, "carry input") {
+                wlog(format!("{} r_carry got input kind {} (not a unit hit): left to the sweep #{k}", head(sim, me), input.kind));
+            }
             return;
         }
         let id = input.target_id;
@@ -689,47 +809,41 @@ impl StableEffectType for Carry {
             if !u.is_alive() || u.is_tower() || matches!(u.kind(), Some(EntityKindV1::Nexus | EntityKindV1::Tower)) {
                 return;
             }
-            (at_of(&u), u.is_champion(), (0..u.buff_count()).filter_map(|i| u.buff_at(i)).any(|b| b.cc_immune))
+            (at_of(&u), u.is_champion(), immune(&u))
         };
         let now = sim.tick();
-        let p = params_of(me);
         let key = wall_key(sim, me);
         let plan = {
             let mut walls = WALLS.lock().unwrap_or_else(|e| e.into_inner());
             match walls.get_mut(&key).and_then(|v| v.last_mut()) {
-                None => Err("no wall of his standing: not carried"),
-                Some(_) if immune => Err("immune to crowd control: not carried (the wall stands all the same)"),
-                Some(w) => match carry_plan(w, at, now, p.r_speed) {
-                    None => Err("already past where the wall stops"),
-                    Some(plan) => {
-                        if champ {
-                            w.carried.insert(id, now + plan.2 + 2);
-                            w.sides.insert(id, 1.0);
-                            w.took.push(id);
-                        }
-                        Ok((plan, along(w, at)))
+                None => Err("no wall of his recorded yet: left to the sweep"),
+                Some(w) if w.carried.contains_key(&id) => Err("already carried by the sweep"),
+                Some(w) if immune => {
+                    if !w.skipped.contains(&id) {
+                        w.skipped.push(id);
                     }
-                },
+                    Err("immune to crowd control: not carried (the wall stands all the same)")
+                }
+                Some(w) => {
+                    let from_wall = along(w, at);
+                    take(w, id, at, champ, now).map(|plan| (plan, from_wall)).ok_or("already past where the wall stops")
+                }
             }
         };
         match plan {
-            Ok(((dest, len, ticks, speed), from_wall)) => {
-                let mut cc = CcV1::of_kind(CcKindV1::ForceMove, ticks as u64);
-                cc.dx = (dest.0 - at.0).round() as i64;
-                cc.dy = (dest.1 - at.1).round() as i64;
-                cc.speed = speed as u64;
-                sim.apply_cc(id, &cc);
+            Ok((plan, from_wall)) => {
+                shove(sim, id, at, plan);
                 if champ {
                     if let Some(k) = tally(sim, "carry") {
-                        wlog(format!("{} CARRY #{k} #{id} at {} ({from_wall:+.0} from the wall) -> {}: {len:.0} in {ticks} ticks",
-                                     head(sim, me), pt(at), pt(dest)));
+                        wlog(format!("{} CARRY #{k} #{id} at {} ({from_wall:+.0} from the wall) -> {}: {:.0} in {} ticks (by the wall's hit)",
+                                     head(sim, me), pt(at), pt(plan.0), plan.1, plan.2));
                     }
                 }
             }
             Err(why) => {
                 if champ {
                     if let Some(k) = tally(sim, "carry") {
-                        wlog(format!("{} CARRY #{k} #{id} at {}: {why}", head(sim, me), pt(at)));
+                        wlog(format!("{} CARRY #{k} #{id} at {}: {why} (the wall's hit)", head(sim, me), pt(at)));
                     }
                 }
             }
@@ -950,7 +1064,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v1.5 (the Sun Disc on a fallen tower, the guards facing the charge, soldiers redrawn, the R's timing, E only when it dashes, the wall stands and the insec kicks home, the wall carries them past it) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v1.6 (the Sun Disc on a fallen tower, the guards facing the charge, soldiers redrawn, the R's timing, E only when it dashes, the wall stands and the insec kicks home, the wall sweeps its path and carries them past it) loaded: game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
         v.patch,
@@ -963,7 +1077,8 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     module.add_native_effect(format!("{ID}:r_wall"), Wall);
     // v1.4: the insec's rush round the target to the side away from his team
     module.add_native_effect(format!("{ID}:r_behind"), Behind);
-    // v1.5: the wall carries everyone it hits past where it stops (the data's Knockback left half of them short)
+    // v1.5: the wall carries everyone it hits past where it stops (the data's Knockback left half of them short); from v1.6
+    // the passive's sweep does it too (walls_tick), this is the second way in
     module.add_native_effect(format!("{ID}:r_carry"), Carry);
     // the data's stamps alternate the guards' two steps: an odd hop b, an even one a (build_azir.py: "ab"[i % 2])
     for (suffix, view) in [("ra", "r_guards_a"), ("rb", "r_guards_b"), ("la", "r_guards_la"), ("lb", "r_guards_lb")] {
@@ -1096,6 +1211,45 @@ mod tests {
         assert_eq!(hold(w.mid, w.dir, half, (57_000.0, 0.0), Some(side)), (1.0, Some((60_000.0 + WALL_THICK, 0.0))));
         // stopped well short (a wall of the map in the way): his side, not pulled through
         assert_eq!(side_after_carry(&w, (30_000.0, 0.0)), -1.0);
+    }
+
+    #[test]
+    fn the_sweep_follows_the_data_wall() {
+        let p = Params::default();
+        // launched at tick 1000 from (100000, 100000) eastward: the centre 3000 a tick, radius 20000, stands at
+        // (160000, 100000) from tick 1020
+        let w = standing(&p, (100_000.0, 100_000.0), (130_000.0, 100_000.0), 1000, true);
+        assert_eq!(wall_center(&w, 1000), (100_000.0, 100_000.0));
+        assert_eq!(wall_center(&w, 1004), (112_000.0, 100_000.0));
+        assert_eq!(wall_center(&w, 1030), (160_000.0, 100_000.0), "it stops where it stands");
+        let body = 2_000.0;
+        // 40000 ahead: reached once the centre is within 22000 of it - tick 1006 (118000), not 1005 (115000)
+        assert!(!swept(&w, 1005, (140_000.0, 100_000.0), body));
+        assert!(swept(&w, 1006, (140_000.0, 100_000.0), body));
+        // beside its path, out of its reach
+        assert!(!swept(&w, 1010, (130_000.0, 125_000.0), body));
+        // at his feet, behind him: swept on the launch
+        assert!(swept(&w, 1000, (90_000.0, 100_000.0), body));
+        // past where it stops and out of reach: never; and nothing once it stands
+        assert!(!swept(&w, 1020, (185_000.0, 100_000.0), body));
+        assert!(!swept(&w, 1021, (160_000.0, 100_000.0), body));
+    }
+
+    #[test]
+    fn a_wall_carries_each_unit_once() {
+        let p = Params::default();
+        let mut w = standing(&p, (100_000.0, 100_000.0), (130_000.0, 100_000.0), 1000, true);
+        let first = take(&mut w, 7, (130_000.0, 100_000.0), true, 1005).expect("short of the wall: carried");
+        assert_eq!(first.0, (160_000.0 + WALL_THICK + CARRY_PAST, 100_000.0));
+        assert_eq!(w.sides.get(&7), Some(&1.0));
+        assert_eq!((w.took.clone(), w.moved), (vec![7], 1));
+        // the wall's hit after the sweep (or the other way round): not twice
+        assert_eq!(take(&mut w, 7, (140_000.0, 100_000.0), true, 1007), None);
+        // a minion: carried, no side kept (the wall holds champions only)
+        assert!(take(&mut w, 900, (120_000.0, 95_000.0), false, 1004).is_some());
+        assert_eq!((w.sides.get(&900), w.moved), (None, 2));
+        // past it already: left alone
+        assert_eq!(take(&mut w, 8, (175_000.0, 100_000.0), true, 1005), None);
     }
 
     #[test]

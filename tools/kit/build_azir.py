@@ -46,9 +46,10 @@ Shifting Sands (E) `skill2`, Emperor's Divide (R) the `ult`.
 The add-on copy (--native, addons/league_azir): the passive league_azir:disc raises the Sun Disc on a fallen tower of his;
 the wall stands r_hold ticks where it stops (r_half either side) and enemy champions cannot walk through it (League's
 Emperor's Divide; the data's wall is gone the tick it stops and they walk straight back), and every enemy the wall hits
-is carried past where it stops (league_azir:r_carry in place of the Knockback, which goes r_kb_speed x r_kb from where it
-hits: 12 of 24 champion hits in the classic sim ended short of the standing wall, on his side - the user, 2026-10-29:
-「压根推不走人也推不回来人」); the insec's rush is
+is carried past where it stops (no Knockback, which goes r_kb_speed x r_kb from where it hits: 12 of 24 champion hits in
+the classic sim ended short of the standing wall, on his side - the user, 2026-10-29: 「压根推不走人也推不回来人」): the
+passive sweeps the wall's path (r_w round its centre, r_speed a tick, as the data's wall flies) and league_azir:r_carry
+on the wall's hit is a second way in (0.1.5 had only that one, and it never ran in game); the insec's rush is
 league_azir:r_behind - round the target to the side away from his team (his champions within reach, else his nearest
 tower), r_behind past it - in place of RushMoveToBack (away from where he came from: E overshooting or coming from the
 side kicked them sideways or away, 7 of 21 insecs in the user's games of 2026-10-28);
@@ -120,7 +121,7 @@ P = {
 SLOTS = "abc"
 GENS = "ABC"
 NATIVE_KEYS = ("d_life", "d_per", "d_range", "d_dmg", "d_ap", "d_near", "r_speed", "r_len", "r_stamps", "s_step",
-               "ss_stand", "ss_rise", "ss_stab", "r_rush", "r_behind", "r_hold", "r_half")
+               "ss_stand", "ss_rise", "ss_stab", "r_rush", "r_behind", "r_hold", "r_half", "r_w")
 
 
 def lp(path):
@@ -407,16 +408,18 @@ def build(p):
     if p["native"]:
         stamps = [{"type": "Native", "effect_ref": f"{ID}:r_wall"}]
     # the push: the main pack's Knockback goes r_kb_speed x r_kb from where it hits (half the champions it hits end short
-    # of where the wall stops); the add-on's copy carries every enemy it hits past where its wall stops and stands
-    # (league_azir:r_carry), and its wall (league_azir:r_wall) goes first so that each carry finds it
+    # of where the wall stops); the add-on's copy carries every enemy it hits past where its wall stops and stands: its
+    # passive sweeps the wall's path itself every tick (league_azir:r_wall records it), and league_azir:r_carry on the
+    # wall's hit is the second way in. The wall's native goes last, as before 0.1.5 (0.1.5 put it first: no carry at all
+    # in the user's games of 2026-10-29)
     push = {"type": "Native", "effect_ref": f"{ID}:r_carry"} if p["native"] else \
         {"type": "Knockback", "speed": p["r_kb_speed"], "tick": p["r_kb"]}
-    lines = [line("r_wall", p["r_speed"], p["r_len"], p["r_w"], "EnemyWithoutTower",
-                  [ap(p["r_dmg"], p["r_ratio"]), push, view("r_hit"), tsfx("r_hit")]),
-             line("r_wall_ch", p["r_speed"], p["r_len"], p["r_w"], "EnemyChampion",
-                  [refresh("q_ref", 2, skill_cooldown_mult=p["q_refund"], ult_cooldown_mult=-p["q_refund"])])]
-    wall = combine(*stamps, sfx("r_wall"), cview("r_rise"), *lines) if p["native"] else \
-        combine(sfx("r_wall"), cview("r_rise"), *lines, *stamps)
+    wall = combine(sfx("r_wall"), cview("r_rise"),
+                   line("r_wall", p["r_speed"], p["r_len"], p["r_w"], "EnemyWithoutTower",
+                        [ap(p["r_dmg"], p["r_ratio"]), push, view("r_hit"), tsfx("r_hit")]),
+                   line("r_wall_ch", p["r_speed"], p["r_len"], p["r_w"], "EnemyChampion",
+                        [refresh("q_ref", 2, skill_cooldown_mult=p["q_refund"], ult_cooldown_mult=-p["q_refund"])]),
+                   *stamps)
     # the add-on's copy rushes round the target to the side away from his team (league_azir:r_behind); RushMoveToBack goes
     # to the side away from where he came from, which kicks them sideways or away when E overshot or came from the side
     rush = {"type": "Native", "effect_ref": f"{ID}:r_behind"} if p["native"] else \
