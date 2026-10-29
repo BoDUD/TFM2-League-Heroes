@@ -1,0 +1,712 @@
+{
+  "processing": "9px-cell majority sampling against approved design palette. No limbs, bodies or faces drawn procedurally. Raw unmodified images preserved.",
+  "frames": [
+    {
+      "file": "smeech-pose-a_rake.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "source_size": [
+        1254,
+        1254
+      ],
+      "format_scale": 0.94,
+      "grid": 9,
+      "grid_origin": [
+        0,
+        0
+      ],
+      "hard_alpha_pass": true,
+      "visible_bbox": [
+        81,
+        369,
+        1197,
+        1179
+      ],
+      "ground_delta_px": 3,
+      "format_alignment_y": 0,
+      "source_sha256": "78fefce16fde32cae75a92140116bc463bdcbc70fb2019eea99e07fc4bbb19d4"
+    },
+    {
+      "file": "smeech-pose-a_back.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "source_size": [
+        1254,
+        1254
+      ],
+      "format_scale": 0.94,
+      "grid": 9,
+      "grid_origin": [
+        0,
+        0
+      ],
+      "hard_alpha_pass": true,
+      "visible_bbox": [
+        117,
+        405,
+        1179,
+        1179
+      ],
+      "ground_delta_px": 3,
+      "format_alignment_y": 0,
+      "source_sha256": "51ab01baa9c5c4aaa815c483237e39c6eda3a02ac4d8953f9f03aa4da035c1bf"
+    },
+    {
+      "file": "smeech-pose-a_wind2.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "source_size": [
+        1254,
+        1254
+      ],
+      "format_scale": 0.94,
+      "grid": 9,
+      "grid_origin": [
+        0,
+        0
+      ],
+      "hard_alpha_pass": true,
+      "visible_bbox": [
+        90,
+        378,
+        1179,
+        1179
+      ],
+      "ground_delta_px": 3,
+      "format_alignment_y": 0,
+      "source_sha256": "0683e32070d3a96ccc29c6b8aac12062867aeed25cfd77d7c224c64cfa98eb5b"
+    },
+    {
+      "file": "smeech-pose-a_thrust.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "source_size": [
+        1254,
+        1254
+      ],
+      "format_scale": 0.94,
+      "grid": 9,
+      "grid_origin": [
+        0,
+        0
+      ],
+      "hard_alpha_pass": true,
+      "visible_bbox": [
+        108,
+        378,
+        1197,
+        1179
+      ],
+      "ground_delta_px": 3,
+      "format_alignment_y": 0,
+      "source_sha256": "9750f52e16620ddc458cd7e997102e88e7c5c5352c0dc5c04989342522d37a95"
+    },
+    {
+      "file": "smeech-pose-q_crouch.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "source_size": [
+        1254,
+        1254
+      ],
+      "format_scale": 0.94,
+      "grid": 9,
+      "grid_origin": [
+        0,
+        0
+      ],
+      "hard_alpha_pass": true,
+      "visible_bbox": [
+        117,
+        279,
+        1206,
+        1179
+      ],
+      "ground_delta_px": 3,
+      "format_alignment_y": 0,
+      "source_sha256": "46ea68130f5ddb3194e5e6dc1c56c3eaabce0d2fdc9ff498d4f97ad2e7472d6d"
+    },
+    {
+      "file": "smeech-pose-q_air.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "source_size": [
+        1254,
+        1254
+      ],
+      "format_scale": 0.94,
+      "grid": 9,
+      "grid_origin": [
+        0,
+        0
+      ],
+      "hard_alpha_pass": true,
+      "visible_bbox": [
+        144,
+        108,
+        1170,
+        1179
+      ],
+      "ground_delta_px": 3,
+      "format_alignment_y": 0,
+      "source_sha256": "dfc67b15e0349f842bb7a56504e357fa3c21840e39b3522d13fa97805757571a"
+    },
+    {
+      "file": "smeech-pose-q_dive.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "source_size": [
+        1254,
+        1254
+      ],
+      "format_scale": 0.94,
+      "grid": 9,
+      "grid_origin": [
+        0,
+        0
+      ],
+      "hard_alpha_pass": true,
+      "visible_bbox": [
+        252,
+        207,
+        1197,
+        1179
+      ],
+      "ground_delta_px": 3,
+      "format_alignment_y": 0,
+      "source_sha256": "7f164bb9e9fa2ab70399ddeb0f77bae207b5202f0cff115f1806916ce14b6c7c"
+    },
+    {
+      "file": "smeech-pose-q_land.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "source_size": [
+        1254,
+        1254
+      ],
+      "format_scale": 0.94,
+      "grid": 9,
+      "grid_origin": [
+        0,
+        0
+      ],
+      "hard_alpha_pass": true,
+      "visible_bbox": [
+        153,
+        270,
+        1197,
+        1179
+      ],
+      "ground_delta_px": 3,
+      "format_alignment_y": 0,
+      "source_sha256": "ae1f06fce8a6e6b5b372ecb9035c5ea630b9a64138381a1bed0741a54b4681bc"
+    },
+    {
+      "file": "smeech-pose-e_wind.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "source_size": [
+        1254,
+        1254
+      ],
+      "format_scale": 0.94,
+      "grid": 9,
+      "grid_origin": [
+        0,
+        0
+      ],
+      "hard_alpha_pass": true,
+      "visible_bbox": [
+        90,
+        108,
+        1206,
+        1179
+      ],
+      "ground_delta_px": 3,
+      "format_alignment_y": 0,
+      "source_sha256": "7e98d994986317a95eeee8e1894019f4c13d3a246090d3e79cdfdee149064278"
+    },
+    {
+      "file": "smeech-pose-e_rip.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "source_size": [
+        1254,
+        1254
+      ],
+      "format_scale": 0.94,
+      "grid": 9,
+      "grid_origin": [
+        0,
+        0
+      ],
+      "hard_alpha_pass": true,
+      "visible_bbox": [
+        99,
+        387,
+        1188,
+        1179
+      ],
+      "ground_delta_px": 3,
+      "format_alignment_y": 0,
+      "source_sha256": "b24ab844eeda65fd2388f09aa023b36f9227a58ae99a6bf1f50f6ee9e3e6d13f"
+    },
+    {
+      "file": "smeech-pose-run1.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "source_size": [
+        1254,
+        1254
+      ],
+      "format_scale": 0.94,
+      "grid": 9,
+      "grid_origin": [
+        0,
+        0
+      ],
+      "hard_alpha_pass": true,
+      "visible_bbox": [
+        234,
+        36,
+        981,
+        1179
+      ],
+      "ground_delta_px": 3,
+      "format_alignment_y": 0,
+      "source_sha256": "8dad89cbddd0baf9b5e3f0ce9d00e685557fc77ee41e857a2d46e9e81998d1bd"
+    },
+    {
+      "file": "smeech-pose-run2.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "source_size": [
+        1254,
+        1254
+      ],
+      "format_scale": 0.9262560777957861,
+      "grid": 9,
+      "grid_origin": [
+        0,
+        0
+      ],
+      "hard_alpha_pass": true,
+      "visible_bbox": [
+        297,
+        36,
+        936,
+        1179
+      ],
+      "ground_delta_px": 3,
+      "format_alignment_y": 0,
+      "source_sha256": "5529fc98c17c5e20e50ec6329290530a10292a272c2e8d7a1a0e2bd538d217e9"
+    },
+    {
+      "file": "smeech-pose-run3.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "source_size": [
+        1254,
+        1254
+      ],
+      "format_scale": 0.94,
+      "grid": 9,
+      "grid_origin": [
+        0,
+        0
+      ],
+      "hard_alpha_pass": true,
+      "visible_bbox": [
+        369,
+        63,
+        819,
+        1179
+      ],
+      "ground_delta_px": 3,
+      "format_alignment_y": 0,
+      "source_sha256": "63ac6444d92631170d010dfc76143c10ea152f6f62edb2645296eca5b5039ed3"
+    },
+    {
+      "file": "smeech-pose-run4.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "source_size": [
+        1254,
+        1254
+      ],
+      "format_scale": 0.94,
+      "grid": 9,
+      "grid_origin": [
+        0,
+        0
+      ],
+      "hard_alpha_pass": true,
+      "visible_bbox": [
+        270,
+        36,
+        846,
+        1179
+      ],
+      "ground_delta_px": 3,
+      "format_alignment_y": 0,
+      "source_sha256": "988bb3aca91b5518ae39acf3911d2dd7e7530fdbeb134074655b5527f35b8159"
+    },
+    {
+      "file": "smeech-pose-run5.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "source_size": [
+        1254,
+        1254
+      ],
+      "format_scale": 0.9330612244897959,
+      "grid": 9,
+      "grid_origin": [
+        0,
+        0
+      ],
+      "hard_alpha_pass": true,
+      "visible_bbox": [
+        306,
+        36,
+        963,
+        1179
+      ],
+      "ground_delta_px": 3,
+      "format_alignment_y": 0,
+      "source_sha256": "0fd6890b5271c7c3adf80211b0fd133f2c286b85fd8a637fa552bcdb3aaebb36"
+    },
+    {
+      "file": "smeech-pose-run6.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "source_size": [
+        1254,
+        1254
+      ],
+      "format_scale": 0.94,
+      "grid": 9,
+      "grid_origin": [
+        0,
+        0
+      ],
+      "hard_alpha_pass": true,
+      "visible_bbox": [
+        216,
+        126,
+        918,
+        1179
+      ],
+      "ground_delta_px": 3,
+      "format_alignment_y": 0,
+      "source_sha256": "700e35dc41ad2f867f2dfe4e89cefd414f8995c204b88838ad425d8e792a4085"
+    },
+    {
+      "file": "smeech-pose-run7.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "source_size": [
+        1254,
+        1254
+      ],
+      "format_scale": 0.9368852459016394,
+      "grid": 9,
+      "grid_origin": [
+        0,
+        0
+      ],
+      "hard_alpha_pass": true,
+      "visible_bbox": [
+        288,
+        36,
+        864,
+        1179
+      ],
+      "ground_delta_px": 3,
+      "format_alignment_y": 0,
+      "source_sha256": "a71ace2eb8185d04c852488983e0f8ab229f52e7620fd933a186dad595bbf469"
+    },
+    {
+      "file": "smeech-pose-run8.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "source_size": [
+        1254,
+        1254
+      ],
+      "format_scale": 0.94,
+      "grid": 9,
+      "grid_origin": [
+        0,
+        0
+      ],
+      "hard_alpha_pass": true,
+      "visible_bbox": [
+        351,
+        63,
+        864,
+        1179
+      ],
+      "ground_delta_px": 3,
+      "format_alignment_y": 0,
+      "source_sha256": "804b8312b5c3068c98d3174a9162918e06287556c943d022efd0832ec68baddb"
+    },
+    {
+      "file": "smeech-pose-d_fall.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "source_size": [
+        1254,
+        1254
+      ],
+      "format_scale": 0.94,
+      "grid": 9,
+      "grid_origin": [
+        0,
+        0
+      ],
+      "hard_alpha_pass": true,
+      "visible_bbox": [
+        135,
+        306,
+        1143,
+        1179
+      ],
+      "ground_delta_px": 3,
+      "format_alignment_y": 0,
+      "source_sha256": "9ed46a63286679d6a3c3a8c8d8d119cb5d21f473ae39344c23dd27fbd79ac984"
+    },
+    {
+      "file": "smeech-pose-d_down.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "source_size": [
+        1254,
+        1254
+      ],
+      "format_scale": 0.94,
+      "grid": 9,
+      "grid_origin": [
+        0,
+        0
+      ],
+      "hard_alpha_pass": true,
+      "visible_bbox": [
+        63,
+        837,
+        1197,
+        1179
+      ],
+      "ground_delta_px": 3,
+      "format_alignment_y": 0,
+      "source_sha256": "20799d6ab9d0b19a1e21b3fe1b71c61c286737967d1270077a496f4acc1cf1d3"
+    }
+  ],
+  "technical_validation": [
+    {
+      "file": "smeech-pose-a_rake.png",
+      "size_pass": true,
+      "alpha_pass": true,
+      "uniform_grid_9_pass": true,
+      "baseline_variant_y": 1176,
+      "sha256": "4d74fb05d43cf8248b3251dd740a97044aec53247cb92b951637d885b993ab4f"
+    },
+    {
+      "file": "smeech-pose-a_back.png",
+      "size_pass": true,
+      "alpha_pass": true,
+      "uniform_grid_9_pass": true,
+      "baseline_variant_y": 1176,
+      "sha256": "94cbd94119f002646b6e456b4406bd82a82286cd9adfde3465ec7e3e8fd7f7de"
+    },
+    {
+      "file": "smeech-pose-a_wind2.png",
+      "size_pass": true,
+      "alpha_pass": true,
+      "uniform_grid_9_pass": true,
+      "baseline_variant_y": 1176,
+      "sha256": "5e66a604ec9b4f9c3fd5a918d45992306be690f1b63c17a7d5c74533524832dc"
+    },
+    {
+      "file": "smeech-pose-a_thrust.png",
+      "size_pass": true,
+      "alpha_pass": true,
+      "uniform_grid_9_pass": true,
+      "baseline_variant_y": 1176,
+      "sha256": "cbc726354613ceeb9ab35de4543877642fe5a724611d3a468fa432ead4bccb68"
+    },
+    {
+      "file": "smeech-pose-q_crouch.png",
+      "size_pass": true,
+      "alpha_pass": true,
+      "uniform_grid_9_pass": true,
+      "baseline_variant_y": 1176,
+      "sha256": "fcc4c857843c17745b6260dee1ae265994e5a74e293e2504bd330309834ca581"
+    },
+    {
+      "file": "smeech-pose-q_air.png",
+      "size_pass": true,
+      "alpha_pass": true,
+      "uniform_grid_9_pass": true,
+      "baseline_variant_y": 1176,
+      "sha256": "de1f06804a3e12f2cb219a5df35b3f27697a36fd559abfa29b6e47c4b2b11b6b"
+    },
+    {
+      "file": "smeech-pose-q_dive.png",
+      "size_pass": true,
+      "alpha_pass": true,
+      "uniform_grid_9_pass": true,
+      "baseline_variant_y": 1176,
+      "sha256": "a2c507cf5967926a1b44cd85fa07557a82f6ecce496205dfa91c6e6c95089201"
+    },
+    {
+      "file": "smeech-pose-q_land.png",
+      "size_pass": true,
+      "alpha_pass": true,
+      "uniform_grid_9_pass": true,
+      "baseline_variant_y": 1176,
+      "sha256": "916ce7b2fc3aab25699a8fc664e42975646bf5e71a385599f4b0da19fe97dc23"
+    },
+    {
+      "file": "smeech-pose-e_wind.png",
+      "size_pass": true,
+      "alpha_pass": true,
+      "uniform_grid_9_pass": true,
+      "baseline_variant_y": 1176,
+      "sha256": "ab6cec406f7930201998cdc7ed518428f9ca6509d592335ea026aba0f70ae2bf"
+    },
+    {
+      "file": "smeech-pose-e_rip.png",
+      "size_pass": true,
+      "alpha_pass": true,
+      "uniform_grid_9_pass": true,
+      "baseline_variant_y": 1176,
+      "sha256": "9f1867168698894c18a0f8e20594c1a144a1f620a50cdfaa97aede228c7e6d2d"
+    },
+    {
+      "file": "smeech-pose-run1.png",
+      "size_pass": true,
+      "alpha_pass": true,
+      "uniform_grid_9_pass": true,
+      "baseline_variant_y": 1176,
+      "sha256": "f8d97141607005612bad1b23ffd4e3566f438fb0cc52ca697fbd15400729da2f"
+    },
+    {
+      "file": "smeech-pose-run2.png",
+      "size_pass": true,
+      "alpha_pass": true,
+      "uniform_grid_9_pass": true,
+      "baseline_variant_y": 1176,
+      "sha256": "aa06f6c289d80cadbf70245f03e28c5dcd79b8dab013cbb9517c97dc80afa6b5"
+    },
+    {
+      "file": "smeech-pose-run3.png",
+      "size_pass": true,
+      "alpha_pass": true,
+      "uniform_grid_9_pass": true,
+      "baseline_variant_y": 1176,
+      "sha256": "dd42c4e01540073e34e44494392d37ddfb3d915165204bc87982774c6e8b8b59"
+    },
+    {
+      "file": "smeech-pose-run4.png",
+      "size_pass": true,
+      "alpha_pass": true,
+      "uniform_grid_9_pass": true,
+      "baseline_variant_y": 1176,
+      "sha256": "cc795a6e52441c8f68512fbb4589e83e067e0465a8d516f0226a3e130f147395"
+    },
+    {
+      "file": "smeech-pose-run5.png",
+      "size_pass": true,
+      "alpha_pass": true,
+      "uniform_grid_9_pass": true,
+      "baseline_variant_y": 1176,
+      "sha256": "e030b5ffa66579961c72eddc9bc8ea6d484a4893d1ba707c08a9c57f53f9dfe6"
+    },
+    {
+      "file": "smeech-pose-run6.png",
+      "size_pass": true,
+      "alpha_pass": true,
+      "uniform_grid_9_pass": true,
+      "baseline_variant_y": 1176,
+      "sha256": "abe4c5aed1d9694434d2322f2613d6ed16f36011b29da3a1c9007d1d13ada5c7"
+    },
+    {
+      "file": "smeech-pose-run7.png",
+      "size_pass": true,
+      "alpha_pass": true,
+      "uniform_grid_9_pass": true,
+      "baseline_variant_y": 1176,
+      "sha256": "dcc375361f54e4bc9bdab55fecfb755a24dd56eef53f083bf72b6aceb28b5ff0"
+    },
+    {
+      "file": "smeech-pose-run8.png",
+      "size_pass": true,
+      "alpha_pass": true,
+      "uniform_grid_9_pass": true,
+      "baseline_variant_y": 1176,
+      "sha256": "ce7476a0faa58fa8937ef491124689c133562f332f8330de15c39ce50f7ebe43"
+    },
+    {
+      "file": "smeech-pose-d_fall.png",
+      "size_pass": true,
+      "alpha_pass": true,
+      "uniform_grid_9_pass": true,
+      "baseline_variant_y": 1176,
+      "sha256": "e708a461e1c5418faae059091598d767ad83891cb7d12487622ba9c26d9e50ac"
+    },
+    {
+      "file": "smeech-pose-d_down.png",
+      "size_pass": true,
+      "alpha_pass": true,
+      "uniform_grid_9_pass": true,
+      "baseline_variant_y": 1176,
+      "sha256": "d88873b369553c1e83c31acc1f41ba6c9c26d8c77cccdd616839a0fd141aa47b"
+    }
+  ],
+  "artistic_review": {
+    "head_pixel_identical_to_approved": false,
+    "note": "Generation preserves character identity but heads and arm/leg details vary between frames. Pixel-identical fixed-head reuse and exact skeletal registration are not certified. Review contact sheets and raw before final rig import.",
+    "in_game_validation": false
+  }
+}

@@ -1,0 +1,594 @@
+{
+  "generation": "image_gen; no procedural art drawing",
+  "processing": "Source segmentation, majority palette sampling of covered pixels, alpha coverage threshold 18% at source alpha>=96, pairwise mirror unification, nearest-neighbor enlargement. No effects or character bodies drawn in code.",
+  "entries": [
+    {
+      "file": "smeech_fx_a_hit.png",
+      "frames": 4,
+      "cell_1x": [
+        18,
+        18
+      ],
+      "sheet_1x": [
+        72,
+        18
+      ],
+      "preview_scale": 8,
+      "loop": false,
+      "symmetry": "left-right exact, per frame",
+      "alpha": "binary 0/255",
+      "source_size": [
+        2172,
+        724
+      ],
+      "source_x_boundaries": [
+        0,
+        543,
+        1086,
+        1629,
+        2172
+      ],
+      "sample_rects": [
+        [
+          4.3125,
+          90.3125,
+          538.6875,
+          624.6875
+        ],
+        [
+          548.8125,
+          89.8125,
+          1083.1875,
+          624.1875
+        ],
+        [
+          1086.3125,
+          90.3125,
+          1620.6875,
+          624.6875
+        ],
+        [
+          1634.8125,
+          94.8125,
+          2169.1875,
+          629.1875
+        ]
+      ],
+      "distinct_frames": 4,
+      "nonempty_frames": 4,
+      "symmetry_pass": true,
+      "hard_alpha_pass": true,
+      "binding": "view_effects `tft_smeech_a_hit`（跟随目标，z 2；左右对称）",
+      "validation_pass": true,
+      "sha256": "e513d49bcfa52b476bdcf2c6e76aaa736afee566529b1f7be7f781a8c3b173f1"
+    },
+    {
+      "file": "smeech_fx_p_hit.png",
+      "frames": 5,
+      "cell_1x": [
+        26,
+        26
+      ],
+      "sheet_1x": [
+        130,
+        26
+      ],
+      "preview_scale": 8,
+      "loop": false,
+      "symmetry": "left-right exact, per frame",
+      "alpha": "binary 0/255",
+      "source_size": [
+        2197,
+        716
+      ],
+      "source_x_boundaries": [
+        0,
+        420,
+        853,
+        1347,
+        1782,
+        2197
+      ],
+      "sample_rects": [
+        [
+          -87.83333333333331,
+          77.66666666666669,
+          466.8333333333333,
+          632.3333333333333
+        ],
+        [
+          341.1666666666667,
+          75.16666666666669,
+          895.8333333333333,
+          629.8333333333333
+        ],
+        [
+          823.1666666666667,
+          75.66666666666669,
+          1377.8333333333333,
+          630.3333333333333
+        ],
+        [
+          1303.6666666666667,
+          88.16666666666669,
+          1858.3333333333333,
+          642.8333333333333
+        ],
+        [
+          1712.1666666666667,
+          86.16666666666669,
+          2266.8333333333335,
+          640.8333333333333
+        ]
+      ],
+      "distinct_frames": 5,
+      "nonempty_frames": 5,
+      "symmetry_pass": true,
+      "hard_alpha_pass": true,
+      "binding": "view_effects `tft_smeech_p_hit`（跟随目标，z 3；左右对称）",
+      "validation_pass": true,
+      "sha256": "1ad8a1d178aeb624f7b180e554eb6f9e9d97fec829d490c234132d063656cf70"
+    },
+    {
+      "file": "smeech_fx_q_land.png",
+      "frames": 5,
+      "cell_1x": [
+        44,
+        16
+      ],
+      "sheet_1x": [
+        220,
+        16
+      ],
+      "preview_scale": 8,
+      "loop": false,
+      "symmetry": "left-right exact, per frame",
+      "alpha": "binary 0/255",
+      "source_size": [
+        2079,
+        756
+      ],
+      "source_x_boundaries": [
+        0,
+        416,
+        832,
+        1250,
+        1664,
+        2079
+      ],
+      "sample_rects": [
+        [
+          -32.75,
+          217.57142857142858,
+          423.75,
+          496.42857142857144
+        ],
+        [
+          382.75,
+          217.57142857142858,
+          839.25,
+          496.42857142857144
+        ],
+        [
+          814.25,
+          217.57142857142858,
+          1270.75,
+          496.42857142857144
+        ],
+        [
+          1244.25,
+          217.57142857142858,
+          1700.75,
+          496.42857142857144
+        ],
+        [
+          1640.25,
+          217.57142857142858,
+          2096.75,
+          496.42857142857144
+        ]
+      ],
+      "distinct_frames": 5,
+      "nonempty_frames": 5,
+      "symmetry_pass": true,
+      "hard_alpha_pass": true,
+      "binding": "view_effects `tft_smeech_q_land`（留在他落地的地上，z -1；左右对称）",
+      "validation_pass": true,
+      "sha256": "9405fc717c244516e57c7ebf4ec4d9f25a5665951636afa9116a39ec614ec4d1"
+    },
+    {
+      "file": "smeech_fx_q_hit.png",
+      "frames": 4,
+      "cell_1x": [
+        22,
+        24
+      ],
+      "sheet_1x": [
+        88,
+        24
+      ],
+      "preview_scale": 8,
+      "loop": false,
+      "symmetry": "left-right exact, per frame",
+      "alpha": "binary 0/255",
+      "source_size": [
+        2079,
+        756
+      ],
+      "source_x_boundaries": [
+        0,
+        520,
+        1039,
+        1559,
+        2079
+      ],
+      "sample_rects": [
+        [
+          -50.5,
+          40.81818181818181,
+          580.5,
+          729.1818181818182
+        ],
+        [
+          465.0,
+          39.31818181818181,
+          1096.0,
+          727.6818181818182
+        ],
+        [
+          983.5,
+          43.81818181818181,
+          1614.5,
+          732.1818181818182
+        ],
+        [
+          1503.0,
+          45.31818181818181,
+          2134.0,
+          733.6818181818182
+        ]
+      ],
+      "distinct_frames": 4,
+      "nonempty_frames": 4,
+      "symmetry_pass": true,
+      "hard_alpha_pass": true,
+      "binding": "view_effects `tft_smeech_q_hit`（跟随目标，z 2；左右对称）",
+      "validation_pass": true,
+      "sha256": "e4e15cb2060561622a6e35d294967b878e5b742e64023204fbcdfcbe2b1423d8"
+    },
+    {
+      "file": "smeech_fx_e_hit.png",
+      "frames": 5,
+      "cell_1x": [
+        30,
+        26
+      ],
+      "sheet_1x": [
+        150,
+        26
+      ],
+      "preview_scale": 8,
+      "loop": false,
+      "symmetry": "left-right exact, per frame",
+      "alpha": "binary 0/255",
+      "source_size": [
+        1920,
+        819
+      ],
+      "source_x_boundaries": [
+        0,
+        310,
+        768,
+        1152,
+        1560,
+        1920
+      ],
+      "sample_rects": [
+        [
+          -87.67857142857142,
+          238.17857142857144,
+          397.67857142857144,
+          658.8214285714286
+        ],
+        [
+          294.82142857142856,
+          235.17857142857144,
+          780.1785714285714,
+          655.8214285714286
+        ],
+        [
+          717.8214285714286,
+          231.67857142857144,
+          1203.1785714285713,
+          652.3214285714286
+        ],
+        [
+          1116.3214285714287,
+          232.17857142857144,
+          1601.6785714285713,
+          652.8214285714286
+        ],
+        [
+          1494.8214285714287,
+          239.17857142857144,
+          1980.1785714285713,
+          659.8214285714286
+        ]
+      ],
+      "distinct_frames": 5,
+      "nonempty_frames": 5,
+      "symmetry_pass": true,
+      "hard_alpha_pass": true,
+      "binding": "view_effects `tft_smeech_e_hit`（跟随目标，z 2；左右对称）",
+      "validation_pass": true,
+      "sha256": "dc48abcb81d11e25b5db594dad274ad3c8b75056e45cb8885f551803ea5bbc4a"
+    },
+    {
+      "file": "smeech_fx_e_shred.png",
+      "frames": 6,
+      "cell_1x": [
+        16,
+        14
+      ],
+      "sheet_1x": [
+        96,
+        14
+      ],
+      "preview_scale": 8,
+      "loop": true,
+      "symmetry": "left-right exact, per frame",
+      "alpha": "binary 0/255",
+      "source_size": [
+        2172,
+        724
+      ],
+      "source_x_boundaries": [
+        0,
+        362,
+        724,
+        1086,
+        1448,
+        1810,
+        2172
+      ],
+      "sample_rects": [
+        [
+          -97.16666666666669,
+          110.66666666666666,
+          460.1666666666667,
+          598.3333333333334
+        ],
+        [
+          261.8333333333333,
+          116.16666666666666,
+          819.1666666666667,
+          603.8333333333334
+        ],
+        [
+          627.8333333333333,
+          112.16666666666666,
+          1185.1666666666667,
+          599.8333333333334
+        ],
+        [
+          991.8333333333333,
+          113.16666666666666,
+          1549.1666666666667,
+          600.8333333333334
+        ],
+        [
+          1352.8333333333333,
+          111.16666666666666,
+          1910.1666666666667,
+          598.8333333333334
+        ],
+        [
+          1711.8333333333333,
+          114.66666666666666,
+          2269.1666666666665,
+          602.3333333333334
+        ]
+      ],
+      "distinct_frames": 6,
+      "nonempty_frames": 6,
+      "symmetry_pass": true,
+      "hard_alpha_pass": true,
+      "binding": "view_buffs `tft_smeech_e_shred`（跟随被撕的人，头顶，z 3；左右对称）",
+      "validation_pass": true,
+      "sha256": "072ec4ba706ec9f6d6329b19fc2d1be41659dce5394a47cabf322ea73ebb11db"
+    },
+    {
+      "file": "smeech_fx_r_hit.png",
+      "frames": 5,
+      "cell_1x": [
+        30,
+        30
+      ],
+      "sheet_1x": [
+        150,
+        30
+      ],
+      "preview_scale": 8,
+      "loop": false,
+      "symmetry": "left-right exact, per frame",
+      "alpha": "binary 0/255",
+      "source_size": [
+        1920,
+        819
+      ],
+      "source_x_boundaries": [
+        0,
+        381,
+        735,
+        1184,
+        1536,
+        1920
+      ],
+      "sample_rects": [
+        [
+          -111.03571428571428,
+          111.96428571428572,
+          475.0357142857143,
+          698.0357142857142
+        ],
+        [
+          262.4642857142857,
+          113.46428571428572,
+          848.5357142857142,
+          699.5357142857142
+        ],
+        [
+          666.9642857142858,
+          115.46428571428572,
+          1253.0357142857142,
+          701.5357142857142
+        ],
+        [
+          1074.9642857142858,
+          114.96428571428572,
+          1661.0357142857142,
+          701.0357142857142
+        ],
+        [
+          1465.4642857142858,
+          118.96428571428572,
+          2051.535714285714,
+          705.0357142857142
+        ]
+      ],
+      "distinct_frames": 5,
+      "nonempty_frames": 5,
+      "symmetry_pass": true,
+      "hard_alpha_pass": true,
+      "binding": "view_effects `tft_smeech_r_hit`（跟随目标，z 2；左右对称）",
+      "validation_pass": true,
+      "sha256": "08e7e15aae382eb863fb5ef6615baaaf267ff6d8aa75af49ef7567cbb85a8de8"
+    },
+    {
+      "file": "smeech_fx_r_frenzy.png",
+      "frames": 6,
+      "cell_1x": [
+        60,
+        44
+      ],
+      "sheet_1x": [
+        360,
+        44
+      ],
+      "preview_scale": 8,
+      "loop": true,
+      "symmetry": "left-right exact, per frame",
+      "alpha": "binary 0/255",
+      "source_size": [
+        2187,
+        719
+      ],
+      "source_x_boundaries": [
+        0,
+        369,
+        729,
+        1093,
+        1458,
+        1822,
+        2187
+      ],
+      "sample_rects": [
+        [
+          12.900000000000006,
+          153.90476190476193,
+          404.1,
+          554.0952380952381
+        ],
+        [
+          370.9,
+          153.90476190476193,
+          762.1,
+          554.0952380952381
+        ],
+        [
+          727.4,
+          153.90476190476193,
+          1118.6,
+          554.0952380952381
+        ],
+        [
+          1083.4,
+          153.90476190476193,
+          1474.6,
+          554.0952380952381
+        ],
+        [
+          1440.9,
+          153.90476190476193,
+          1832.1,
+          554.0952380952381
+        ],
+        [
+          1798.4,
+          153.90476190476193,
+          2189.6,
+          554.0952380952381
+        ]
+      ],
+      "distinct_frames": 6,
+      "nonempty_frames": 6,
+      "symmetry_pass": true,
+      "hard_alpha_pass": true,
+      "binding": "view_buffs `tft_smeech_r_frenzy`（跟随他，z 3；左右对称）",
+      "validation_pass": true,
+      "sha256": "31a795bc42419fd21f0f0fb91a545db500c3c7bf5559b7bb03af870cce200933"
+    },
+    {
+      "file": "smeech_icon_skill.png",
+      "frames": 1,
+      "cell_1x": [
+        64,
+        64
+      ],
+      "logical_pixels": [
+        32,
+        32
+      ],
+      "alpha": "opaque",
+      "symmetry": "not required for skill icons",
+      "binding": "skill_icons[0] `asset/tft/icons/tft_smeech_skill`",
+      "validation_pass": true,
+      "sha256": "afc25abd811fc3be78fc0a897245e6d3a5f02bfac7cd3bad4b524b98de447f98"
+    },
+    {
+      "file": "smeech_icon_skill2.png",
+      "frames": 1,
+      "cell_1x": [
+        64,
+        64
+      ],
+      "logical_pixels": [
+        32,
+        32
+      ],
+      "alpha": "opaque",
+      "symmetry": "not required for skill icons",
+      "binding": "skill_icons[1] `asset/tft/icons/tft_smeech_skill2`",
+      "validation_pass": true,
+      "sha256": "9df31f5354f1c66eeac0ec13d5a6a063b41ef0efa94e989ed3f6986d3770eacb"
+    },
+    {
+      "file": "smeech_icon_ult.png",
+      "frames": 1,
+      "cell_1x": [
+        64,
+        64
+      ],
+      "logical_pixels": [
+        32,
+        32
+      ],
+      "alpha": "opaque",
+      "symmetry": "not required for skill icons",
+      "binding": "skill_icons[2] `asset/tft/icons/tft_smeech_ult`",
+      "validation_pass": true,
+      "sha256": "dd45db690c1703d76ec5e634a62930077e8052ef8c6012f3dfb15afa6f1a0307"
+    }
+  ],
+  "in_game_validation": false
+}
