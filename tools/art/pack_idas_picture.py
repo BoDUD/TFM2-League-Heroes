@@ -44,6 +44,8 @@ CLIPS = {   # animations/tft7_dragongold_<name>.anm
     "attack2": 8003095587599825519,      # 1.00 s: a spinning wing slash
     "death": 2538740090046230419,        # 3.00 s: rears up, collapses on her side
     "celebration": 17368986247314000247, # 3.73 s: wings spread wide, a roar
+    "crouch": 9022013867775355442,       # 9.00 s, no name in her bins: from the idle down into a crouch, wings in front
+    "crouch_loop": 11273100081070397211, # 1.00 s, no name: crouched, the wings folded in front of her face
 }
 SQ = 11
 SOLE = 1390
