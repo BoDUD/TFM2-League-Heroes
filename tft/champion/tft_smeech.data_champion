@@ -10,7 +10,7 @@
     "params": {
       "p_cdmg": 20,
       "q_range": 45000,
-      "q_gap": 14000,
+      "q_gap": 20000,
       "q_s1": 8,
       "q_s2": 16,
       "q_s3": 24,
@@ -465,7 +465,7 @@
       "anim": "asset/tft/effects/tft_smeech_fx",
       "tag": "r_frenzy",
       "repeat": true,
-      "z": 3
+      "z": -1
     }
   ]
 }

@@ -63,7 +63,7 @@ P = {
     # passive Ambusher (TFT: abilities can crit; 2 Ambushers +25% crit chance, +10% crit damage)
     "p_crit": 25, "p_cdmg": 20,
     # Scrap Hacker (TFT: 4 hexes, 3 slashes for 500% AD in all, a re-leap on a kill at -30%)
-    "q_cd": 420, "q_range": 45000, "q_dur": 54, "q_jump": 14, "q_gap": 14000, "q_s1": 8, "q_s2": 16, "q_s3": 24,
+    "q_cd": 420, "q_range": 45000, "q_dur": 54, "q_jump": 14, "q_gap": 20000, "q_s1": 8, "q_s2": 16, "q_s3": 24,
     "q_dmg": 25, "q_ad": 70, "q_again": 70,
     # Scrap Rip
     "e_cd": 480, "e_range": 26000, "e_dur": 24, "e_st": 10, "e_dmg": 45, "e_ad": 110, "e_shred": 30, "e_t": 240,
@@ -204,7 +204,7 @@ def build(p, is_native=False):
     views_e = [E("a_hit"), E("q_land", -1, False), E("q_hit"), E("e_hit"), E("r_hit")]
     if is_native:
         views_e.append(E("p_hit", 3))
-    views_b = [B_("e_shred", 3), B_("r_frenzy", 3)]
+    views_b = [B_("e_shred", 3), B_("r_frenzy", -1)]   # the frenzy's streaks behind him (z -1): over him they hid his claws
     kit = {
         "id": ID, "category": "Assassin", "tags": ["AD", "Melee"],
         "sprite": f"asset/{MOD_ID}/champions/{ID}", "anim_prefix": "",

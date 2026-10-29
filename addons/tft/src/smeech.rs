@@ -132,7 +132,7 @@ impl Default for Params {
         Self {
             p_cdmg: 20,
             q_range: 45000,
-            q_gap: 14000,
+            q_gap: 20000,
             q_s1: 8,
             q_s2: 16,
             q_s3: 24,
@@ -491,7 +491,7 @@ mod tests {
 
     #[test]
     fn params_from_the_kit() {
-        let json = r#"{"e_ad":110,"e_dmg":45,"p_cdmg":20,"q_ad":70,"q_again":70,"q_dmg":25,"q_gap":14000,"q_range":45000,"q_s1":8,"q_s2":16,"q_s3":24,"r_ad":100,"r_crit":10,"r_dmg":55,"r_dur":72,"r_reach":45000,"r_t":300}"#;
+        let json = r#"{"e_ad":110,"e_dmg":45,"p_cdmg":20,"q_ad":70,"q_again":70,"q_dmg":25,"q_gap":20000,"q_range":45000,"q_s1":8,"q_s2":16,"q_s3":24,"r_ad":100,"r_crit":10,"r_dmg":55,"r_dur":72,"r_reach":45000,"r_t":300}"#;
         assert_eq!(parse_params(json), Params::default());
     }
 
@@ -517,7 +517,7 @@ mod tests {
 
     #[test]
     fn lands_short_of_the_target_on_his_side() {
-        assert_eq!(beside((100_000, 100_000), (150_000, 100_000), 14_000), (114_000, 100_000));
+        assert_eq!(beside((100_000, 100_000), (150_000, 100_000), 20_000), (120_000, 100_000));
         assert_eq!(beside((100_000, 100_000), (105_000, 100_000), 14_000), (105_000, 100_000));
         assert_eq!(beside((100_000, 100_000), (100_000, 100_000), 14_000), (100_000, 100_000));
     }
