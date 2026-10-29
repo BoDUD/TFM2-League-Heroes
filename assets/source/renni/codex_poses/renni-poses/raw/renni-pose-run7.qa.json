@@ -1,0 +1,25 @@
+{
+  "name": "run7",
+  "kind": "pose",
+  "processing_version": 5,
+  "raw_size": [
+    1254,
+    1254
+  ],
+  "raw_sha256": "396acb574a58ca91a1df38227459ca814533116a5d86cce7ec14e9eb2a2cb360",
+  "size": [
+    1254,
+    1254
+  ],
+  "grid_px": 12,
+  "hard_alpha": true,
+  "bbox": [
+    204,
+    72,
+    1164,
+    1176
+  ],
+  "baseline": 1176,
+  "baseline_shift_y": -24,
+  "fit_scale": 1.0
+}

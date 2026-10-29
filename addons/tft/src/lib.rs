@@ -9,6 +9,7 @@ pub mod krug;
 pub mod loris;
 pub mod maddie;
 pub mod norra;
+pub mod renni;
 pub mod scar;
 pub mod silco;
 pub mod vander;
@@ -25,6 +26,7 @@ fn init(host: &StableHost) -> StableMod {
     loris::register(host, &mut module);
     maddie::register(host, &mut module);
     norra::register(host, &mut module);
+    renni::register(host, &mut module);
     scar::register(host, &mut module);
     silco::register(host, &mut module);
     vander::register(host, &mut module);

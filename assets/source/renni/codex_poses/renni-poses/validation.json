@@ -1,0 +1,28 @@
+{
+  "expected": 19,
+  "present": 19,
+  "errors": [],
+  "passed": true,
+  "checks": [
+    "renni-pose-a_push",
+    "renni-pose-a_grind",
+    "renni-pose-q_charge",
+    "renni-pose-e_guard",
+    "renni-pose-r_ram",
+    "renni-pose-r_heave",
+    "renni-pose-r_hold",
+    "renni-pose-r_slam",
+    "renni-pose-r_after",
+    "renni-pose-run1",
+    "renni-pose-run2",
+    "renni-pose-run3",
+    "renni-pose-run4",
+    "renni-pose-run5",
+    "renni-pose-run6",
+    "renni-pose-run7",
+    "renni-pose-run8",
+    "renni-pose-d_fall",
+    "renni-pose-d_down"
+  ],
+  "scope": "renni-poses"
+}

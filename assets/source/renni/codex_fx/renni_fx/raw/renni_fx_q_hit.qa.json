@@ -1,0 +1,62 @@
+{
+  "name": "q_hit",
+  "kind": "fx",
+  "processing_version": 5,
+  "raw_size": [
+    1536,
+    1024
+  ],
+  "raw_sha256": "c949856217d9f8523eca8cce468ac5c4b99fa759f160d69e390a9658152c6107",
+  "frames": 5,
+  "cell_1x": [
+    24,
+    24
+  ],
+  "size": [
+    120,
+    24
+  ],
+  "preview_scale": 8,
+  "symmetry": "left-right per frame",
+  "symmetry_pass": true,
+  "hard_alpha": true,
+  "alpha_coverage_threshold": 0.18,
+  "color_vote": "majority among visible source pixels after palette mapping",
+  "loop": false,
+  "mirror_source_side": [
+    "right",
+    "right",
+    "right",
+    "right",
+    "right"
+  ],
+  "nonempty_frames": [
+    true,
+    true,
+    true,
+    true,
+    true
+  ],
+  "distinct_frames": 5,
+  "source_layout": [
+    3,
+    2
+  ],
+  "palette": [
+    "#FFFFFF",
+    "#FFF4B0",
+    "#FFC840",
+    "#F07A18",
+    "#A0380C",
+    "#F0FFE0",
+    "#B8FF7A",
+    "#6EE830",
+    "#2FA818",
+    "#145A10",
+    "#F0F4FA",
+    "#B8C2D2",
+    "#7E8AA0",
+    "#4A5468",
+    "#242A36"
+  ]
+}

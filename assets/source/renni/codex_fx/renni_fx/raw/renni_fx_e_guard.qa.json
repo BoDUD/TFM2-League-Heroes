@@ -1,0 +1,59 @@
+{
+  "name": "e_guard",
+  "kind": "fx",
+  "processing_version": 5,
+  "raw_size": [
+    1464,
+    1075
+  ],
+  "raw_sha256": "ef8c6135fc37024d647b3411d906373a07a328cf86870621a5e0e34d9fcca9d8",
+  "frames": 6,
+  "cell_1x": [
+    40,
+    44
+  ],
+  "size": [
+    240,
+    44
+  ],
+  "preview_scale": 8,
+  "symmetry": "left-right per frame",
+  "symmetry_pass": true,
+  "hard_alpha": true,
+  "alpha_coverage_threshold": 0.18,
+  "color_vote": "majority among visible source pixels after palette mapping",
+  "loop": true,
+  "mirror_source_side": [
+    "left",
+    "left",
+    "left",
+    "right",
+    "right",
+    "right"
+  ],
+  "nonempty_frames": [
+    true,
+    true,
+    true,
+    true,
+    true,
+    true
+  ],
+  "distinct_frames": 6,
+  "source_layout": [
+    3,
+    2
+  ],
+  "palette": [
+    "#F0F4FA",
+    "#B8C2D2",
+    "#7E8AA0",
+    "#4A5468",
+    "#242A36",
+    "#FFF2C0",
+    "#F2C860",
+    "#C88A28",
+    "#7E5014",
+    "#3E240A"
+  ]
+}

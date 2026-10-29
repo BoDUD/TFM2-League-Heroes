@@ -1,0 +1,25 @@
+{
+  "name": "r_after",
+  "kind": "pose",
+  "processing_version": 5,
+  "raw_size": [
+    1254,
+    1254
+  ],
+  "raw_sha256": "1aa04257b0913ef28c9c259f253260a955c769ea688c59fdb2e8ab7a4ba8f7f3",
+  "size": [
+    1254,
+    1254
+  ],
+  "grid_px": 12,
+  "hard_alpha": true,
+  "bbox": [
+    72,
+    228,
+    1224,
+    1176
+  ],
+  "baseline": 1176,
+  "baseline_shift_y": -60,
+  "fit_scale": 1.0
+}

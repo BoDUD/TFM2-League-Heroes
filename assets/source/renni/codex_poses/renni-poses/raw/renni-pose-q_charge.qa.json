@@ -1,0 +1,25 @@
+{
+  "name": "q_charge",
+  "kind": "pose",
+  "processing_version": 5,
+  "raw_size": [
+    1254,
+    1254
+  ],
+  "raw_sha256": "3bb399ae1e3cc44d6400a3e368c2f00fce5222d649e7e51a2f827c9b8b6f7c49",
+  "size": [
+    1254,
+    1254
+  ],
+  "grid_px": 12,
+  "hard_alpha": true,
+  "bbox": [
+    84,
+    432,
+    1200,
+    1176
+  ],
+  "baseline": 1176,
+  "baseline_shift_y": -12,
+  "fit_scale": 1.0
+}

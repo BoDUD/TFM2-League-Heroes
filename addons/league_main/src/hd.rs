@@ -315,6 +315,10 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // soles, PPU 2.0 (「B-1、38 游戏像素、PPU 2.0」), and Codex's key poses after his own TFT clips with the design's head,
     // posed by tools/art/rig_scar.py, so no SIZES row
     ("tft_scar", 2.0, include_str!("../../../tft/champions/tft_scar#anim.fanim")),
+    // Renni (tft_renni, the tft pack): the stance, the chainsaw level forward, step 0's B-1 at the user's 38 game px hair
+    // to soles, PPU 2.0 (「B-1、38 像素、PPU 2.0」), and Codex's key poses after her own TFT clips with the design's head,
+    // posed by tools/art/rig_renni.py, so no SIZES row
+    ("tft_renni", 2.0, include_str!("../../../tft/champions/tft_renni#anim.fanim")),
     // 2026-10-16 redo from Codex's pictures, the actions posed from the designs (tools/art/rig_<hero>_hd.py; Nami's after
     // League's own clips, tools/lol/league_joints.py), PPU 1.5 at their old heights, so no SIZES rows
     ("league_morgana", 1.5, include_str!("../../../league/champions/league_morgana#anim.fanim")),

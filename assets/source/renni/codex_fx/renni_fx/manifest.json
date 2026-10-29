@@ -1,0 +1,703 @@
+[
+  {
+    "name": "a_hit",
+    "kind": "fx",
+    "processing_version": 5,
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "raw_sha256": "fce5bf366ad8aa8d2c136cac6d40b2c1cb38cd50ee9fffa1fd268ca4e0c438ec",
+    "frames": 4,
+    "cell_1x": [
+      16,
+      16
+    ],
+    "size": [
+      64,
+      16
+    ],
+    "preview_scale": 8,
+    "symmetry": "left-right per frame",
+    "symmetry_pass": true,
+    "hard_alpha": true,
+    "alpha_coverage_threshold": 0.18,
+    "color_vote": "majority among visible source pixels after palette mapping",
+    "loop": false,
+    "mirror_source_side": [
+      "left",
+      "left",
+      "right",
+      "left"
+    ],
+    "nonempty_frames": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "distinct_frames": 4,
+    "source_layout": [
+      2,
+      2
+    ],
+    "palette": [
+      "#FFFFFF",
+      "#FFF4B0",
+      "#FFC840",
+      "#F07A18",
+      "#A0380C",
+      "#F0F4FA",
+      "#B8C2D2",
+      "#7E8AA0",
+      "#4A5468",
+      "#242A36"
+    ],
+    "file": "renni_fx_a_hit.png",
+    "raw": "raw/renni_fx_a_hit.png",
+    "binding": "view_effects `tft_renni_a_hit`（跟随目标，z 2；左右对称）",
+    "pixel_1x": "pixel_1x/renni_fx_a_hit.png"
+  },
+  {
+    "name": "q_hit",
+    "kind": "fx",
+    "processing_version": 5,
+    "raw_size": [
+      1536,
+      1024
+    ],
+    "raw_sha256": "c949856217d9f8523eca8cce468ac5c4b99fa759f160d69e390a9658152c6107",
+    "frames": 5,
+    "cell_1x": [
+      24,
+      24
+    ],
+    "size": [
+      120,
+      24
+    ],
+    "preview_scale": 8,
+    "symmetry": "left-right per frame",
+    "symmetry_pass": true,
+    "hard_alpha": true,
+    "alpha_coverage_threshold": 0.18,
+    "color_vote": "majority among visible source pixels after palette mapping",
+    "loop": false,
+    "mirror_source_side": [
+      "right",
+      "right",
+      "right",
+      "right",
+      "right"
+    ],
+    "nonempty_frames": [
+      true,
+      true,
+      true,
+      true,
+      true
+    ],
+    "distinct_frames": 5,
+    "source_layout": [
+      3,
+      2
+    ],
+    "palette": [
+      "#FFFFFF",
+      "#FFF4B0",
+      "#FFC840",
+      "#F07A18",
+      "#A0380C",
+      "#F0FFE0",
+      "#B8FF7A",
+      "#6EE830",
+      "#2FA818",
+      "#145A10",
+      "#F0F4FA",
+      "#B8C2D2",
+      "#7E8AA0",
+      "#4A5468",
+      "#242A36"
+    ],
+    "file": "renni_fx_q_hit.png",
+    "raw": "raw/renni_fx_q_hit.png",
+    "binding": "view_effects `tft_renni_q_hit`（跟随目标，z 2；左右对称）",
+    "pixel_1x": "pixel_1x/renni_fx_q_hit.png"
+  },
+  {
+    "name": "q_slow",
+    "kind": "fx",
+    "processing_version": 5,
+    "raw_size": [
+      1536,
+      1024
+    ],
+    "raw_sha256": "0ec89af464f64ac0a1fadc42746e17792472983d02ed2e7c88872217448eaac3",
+    "frames": 6,
+    "cell_1x": [
+      24,
+      10
+    ],
+    "size": [
+      144,
+      10
+    ],
+    "preview_scale": 8,
+    "symmetry": "left-right per frame",
+    "symmetry_pass": true,
+    "hard_alpha": true,
+    "alpha_coverage_threshold": 0.18,
+    "color_vote": "majority among visible source pixels after palette mapping",
+    "loop": true,
+    "mirror_source_side": [
+      "right",
+      "left",
+      "left",
+      "right",
+      "right",
+      "right"
+    ],
+    "nonempty_frames": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
+    ],
+    "distinct_frames": 6,
+    "source_layout": [
+      2,
+      3
+    ],
+    "palette": [
+      "#D8D0A8",
+      "#A89868",
+      "#74684A",
+      "#4A422E",
+      "#262014",
+      "#F0FFE0",
+      "#B8FF7A",
+      "#6EE830",
+      "#2FA818",
+      "#145A10"
+    ],
+    "file": "renni_fx_q_slow.png",
+    "raw": "raw/renni_fx_q_slow.png",
+    "binding": "view_buffs `tft_renni_q_slow`（跟随被减速的人，脚下，z 3；左右对称）",
+    "pixel_1x": "pixel_1x/renni_fx_q_slow.png"
+  },
+  {
+    "name": "p",
+    "kind": "fx",
+    "processing_version": 5,
+    "raw_size": [
+      1437,
+      1095
+    ],
+    "raw_sha256": "68853be68137b89079edd9f94b1dccb5087f545f1a7ea1b1a576eea7cc7beb70",
+    "frames": 6,
+    "cell_1x": [
+      36,
+      44
+    ],
+    "size": [
+      216,
+      44
+    ],
+    "preview_scale": 8,
+    "symmetry": "left-right per frame",
+    "symmetry_pass": true,
+    "hard_alpha": true,
+    "alpha_coverage_threshold": 0.18,
+    "color_vote": "majority among visible source pixels after palette mapping",
+    "loop": false,
+    "mirror_source_side": [
+      "left",
+      "left",
+      "left",
+      "right",
+      "right",
+      "right"
+    ],
+    "nonempty_frames": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
+    ],
+    "distinct_frames": 6,
+    "source_layout": [
+      3,
+      2
+    ],
+    "palette": [
+      "#FFE6FF",
+      "#F4A8FF",
+      "#C858F0",
+      "#7C24B8",
+      "#3C0E66",
+      "#F0FFE0",
+      "#B8FF7A",
+      "#6EE830",
+      "#2FA818",
+      "#145A10"
+    ],
+    "file": "renni_fx_p.png",
+    "raw": "raw/renni_fx_p.png",
+    "binding": "view_effects `tft_renni_p`（跟随她，z 3；左右对称）",
+    "pixel_1x": "pixel_1x/renni_fx_p.png"
+  },
+  {
+    "name": "p_rush",
+    "kind": "fx",
+    "processing_version": 5,
+    "raw_size": [
+      1439,
+      1093
+    ],
+    "raw_sha256": "9d33abf991128ce7a07c0b9602d91c3da25e9c02cc11f0bc8360c5c31b0b2a5c",
+    "frames": 6,
+    "cell_1x": [
+      36,
+      44
+    ],
+    "size": [
+      216,
+      44
+    ],
+    "preview_scale": 8,
+    "symmetry": "left-right per frame",
+    "symmetry_pass": true,
+    "hard_alpha": true,
+    "alpha_coverage_threshold": 0.18,
+    "color_vote": "majority among visible source pixels after palette mapping",
+    "loop": true,
+    "mirror_source_side": [
+      "right",
+      "left",
+      "right",
+      "right",
+      "left",
+      "right"
+    ],
+    "nonempty_frames": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
+    ],
+    "distinct_frames": 6,
+    "source_layout": [
+      3,
+      2
+    ],
+    "palette": [
+      "#FFE6FF",
+      "#F4A8FF",
+      "#C858F0",
+      "#7C24B8",
+      "#3C0E66"
+    ],
+    "file": "renni_fx_p_rush.png",
+    "raw": "raw/renni_fx_p_rush.png",
+    "binding": "view_buffs `tft_renni_p_rush`（跟随她，z 3；左右对称）",
+    "pixel_1x": "pixel_1x/renni_fx_p_rush.png"
+  },
+  {
+    "name": "e",
+    "kind": "fx",
+    "processing_version": 5,
+    "raw_size": [
+      1465,
+      1073
+    ],
+    "raw_sha256": "f774b16efac48cd0f20dd15c209795eb6e28a1d2c38604a8618bc567266cb0f9",
+    "frames": 5,
+    "cell_1x": [
+      40,
+      44
+    ],
+    "size": [
+      200,
+      44
+    ],
+    "preview_scale": 8,
+    "symmetry": "left-right per frame",
+    "symmetry_pass": true,
+    "hard_alpha": true,
+    "alpha_coverage_threshold": 0.18,
+    "color_vote": "majority among visible source pixels after palette mapping",
+    "loop": false,
+    "mirror_source_side": [
+      "left",
+      "left",
+      "right",
+      "left",
+      "left"
+    ],
+    "nonempty_frames": [
+      true,
+      true,
+      true,
+      true,
+      true
+    ],
+    "distinct_frames": 5,
+    "source_layout": [
+      3,
+      2
+    ],
+    "palette": [
+      "#F0F4FA",
+      "#B8C2D2",
+      "#7E8AA0",
+      "#4A5468",
+      "#242A36",
+      "#FFF2C0",
+      "#F2C860",
+      "#C88A28",
+      "#7E5014",
+      "#3E240A",
+      "#FFFFFF",
+      "#FFF4B0",
+      "#FFC840",
+      "#F07A18",
+      "#A0380C"
+    ],
+    "file": "renni_fx_e.png",
+    "raw": "raw/renni_fx_e.png",
+    "binding": "view_effects `tft_renni_e`（跟随她，z 3；左右对称）",
+    "pixel_1x": "pixel_1x/renni_fx_e.png"
+  },
+  {
+    "name": "e_guard",
+    "kind": "fx",
+    "processing_version": 5,
+    "raw_size": [
+      1464,
+      1075
+    ],
+    "raw_sha256": "ef8c6135fc37024d647b3411d906373a07a328cf86870621a5e0e34d9fcca9d8",
+    "frames": 6,
+    "cell_1x": [
+      40,
+      44
+    ],
+    "size": [
+      240,
+      44
+    ],
+    "preview_scale": 8,
+    "symmetry": "left-right per frame",
+    "symmetry_pass": true,
+    "hard_alpha": true,
+    "alpha_coverage_threshold": 0.18,
+    "color_vote": "majority among visible source pixels after palette mapping",
+    "loop": true,
+    "mirror_source_side": [
+      "left",
+      "left",
+      "left",
+      "right",
+      "right",
+      "right"
+    ],
+    "nonempty_frames": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
+    ],
+    "distinct_frames": 6,
+    "source_layout": [
+      3,
+      2
+    ],
+    "palette": [
+      "#F0F4FA",
+      "#B8C2D2",
+      "#7E8AA0",
+      "#4A5468",
+      "#242A36",
+      "#FFF2C0",
+      "#F2C860",
+      "#C88A28",
+      "#7E5014",
+      "#3E240A"
+    ],
+    "file": "renni_fx_e_guard.png",
+    "raw": "raw/renni_fx_e_guard.png",
+    "binding": "view_buffs `tft_renni_e_guard`（跟随她，z 3；左右对称）",
+    "pixel_1x": "pixel_1x/renni_fx_e_guard.png"
+  },
+  {
+    "name": "r_up",
+    "kind": "fx",
+    "processing_version": 5,
+    "raw_size": [
+      1774,
+      887
+    ],
+    "raw_sha256": "b40e94c3173c62edacf7cf1580923f002f40221c90d1723849c613b2329351db",
+    "frames": 6,
+    "cell_1x": [
+      20,
+      10
+    ],
+    "size": [
+      120,
+      10
+    ],
+    "preview_scale": 8,
+    "symmetry": "left-right per frame",
+    "symmetry_pass": true,
+    "hard_alpha": true,
+    "alpha_coverage_threshold": 0.18,
+    "color_vote": "majority among visible source pixels after palette mapping",
+    "loop": true,
+    "mirror_source_side": [
+      "right",
+      "right",
+      "right",
+      "left",
+      "left",
+      "right"
+    ],
+    "nonempty_frames": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
+    ],
+    "distinct_frames": 6,
+    "source_layout": [
+      2,
+      3
+    ],
+    "palette": [
+      "#FFF2C0",
+      "#F2C860",
+      "#C88A28",
+      "#7E5014",
+      "#3E240A",
+      "#F0FFE0",
+      "#B8FF7A",
+      "#6EE830",
+      "#2FA818",
+      "#145A10",
+      "#FFFFFF",
+      "#FFF4B0",
+      "#FFC840",
+      "#F07A18",
+      "#A0380C"
+    ],
+    "file": "renni_fx_r_up.png",
+    "raw": "raw/renni_fx_r_up.png",
+    "binding": "view_buffs `tft_renni_r_up`（跟随被举起的人，头顶，z 3；左右对称）",
+    "pixel_1x": "pixel_1x/renni_fx_r_up.png"
+  },
+  {
+    "name": "r_hit",
+    "kind": "fx",
+    "processing_version": 5,
+    "raw_size": [
+      1536,
+      1024
+    ],
+    "raw_sha256": "48538cb6add94a2ea60afaa8da32c122a06e4fbf6aceb331252d016db9466f1a",
+    "frames": 5,
+    "cell_1x": [
+      22,
+      24
+    ],
+    "size": [
+      110,
+      24
+    ],
+    "preview_scale": 8,
+    "symmetry": "left-right per frame",
+    "symmetry_pass": true,
+    "hard_alpha": true,
+    "alpha_coverage_threshold": 0.18,
+    "color_vote": "majority among visible source pixels after palette mapping",
+    "loop": false,
+    "mirror_source_side": [
+      "right",
+      "right",
+      "left",
+      "left",
+      "left"
+    ],
+    "nonempty_frames": [
+      true,
+      true,
+      true,
+      true,
+      true
+    ],
+    "distinct_frames": 5,
+    "source_layout": [
+      3,
+      2
+    ],
+    "palette": [
+      "#FFFFFF",
+      "#FFF4B0",
+      "#FFC840",
+      "#F07A18",
+      "#A0380C",
+      "#D8D0A8",
+      "#A89868",
+      "#74684A",
+      "#4A422E",
+      "#262014",
+      "#F0F4FA",
+      "#B8C2D2",
+      "#7E8AA0",
+      "#4A5468",
+      "#242A36"
+    ],
+    "file": "renni_fx_r_hit.png",
+    "raw": "raw/renni_fx_r_hit.png",
+    "binding": "view_effects `tft_renni_r_hit`（跟随目标，z 2；左右对称）",
+    "pixel_1x": "pixel_1x/renni_fx_r_hit.png"
+  },
+  {
+    "name": "r_slam",
+    "kind": "fx",
+    "processing_version": 5,
+    "raw_size": [
+      1974,
+      797
+    ],
+    "raw_sha256": "19378bdc8a9035af9299cbe4a5571ac5b7fc7b7ae2a31c549bb865dae0707325",
+    "frames": 8,
+    "cell_1x": [
+      84,
+      34
+    ],
+    "size": [
+      672,
+      34
+    ],
+    "preview_scale": 8,
+    "symmetry": "left-right per frame",
+    "symmetry_pass": true,
+    "hard_alpha": true,
+    "alpha_coverage_threshold": 0.18,
+    "color_vote": "majority among visible source pixels after palette mapping",
+    "loop": false,
+    "mirror_source_side": [
+      "right",
+      "left",
+      "right",
+      "right",
+      "right",
+      "right",
+      "right",
+      "left"
+    ],
+    "nonempty_frames": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
+    ],
+    "distinct_frames": 8,
+    "source_layout": [
+      2,
+      4
+    ],
+    "palette": [
+      "#D8D0A8",
+      "#A89868",
+      "#74684A",
+      "#4A422E",
+      "#262014",
+      "#FFFFFF",
+      "#FFF4B0",
+      "#FFC840",
+      "#F07A18",
+      "#A0380C",
+      "#F0FFE0",
+      "#B8FF7A",
+      "#6EE830",
+      "#2FA818",
+      "#145A10"
+    ],
+    "file": "renni_fx_r_slam.png",
+    "raw": "raw/renni_fx_r_slam.png",
+    "binding": "view_effects `tft_renni_r_slam`（大表，留在她面前的地上，z -1；左右对称）",
+    "pixel_1x": "pixel_1x/renni_fx_r_slam.png"
+  },
+  {
+    "name": "skill",
+    "kind": "icon",
+    "processing_version": 5,
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "raw_sha256": "aa416c67a9006fd78d3514e7386b3dfde111e34909c249ccfec791a5128f1ce1",
+    "size": [
+      64,
+      64
+    ],
+    "grid_px": 2,
+    "hard_alpha": true,
+    "file": "renni_icon_skill.png",
+    "raw": "raw/renni_icon_skill.png",
+    "binding": "skill_icons[0] `asset/tft/icons/tft_renni_skill`"
+  },
+  {
+    "name": "skill2",
+    "kind": "icon",
+    "processing_version": 5,
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "raw_sha256": "57bd4fdbb5865b295759487f69407a6f4a0d1e3237c9c262929bbe5abf704fbd",
+    "size": [
+      64,
+      64
+    ],
+    "grid_px": 2,
+    "hard_alpha": true,
+    "file": "renni_icon_skill2.png",
+    "raw": "raw/renni_icon_skill2.png",
+    "binding": "skill_icons[1] `asset/tft/icons/tft_renni_skill2`"
+  },
+  {
+    "name": "ult",
+    "kind": "icon",
+    "processing_version": 5,
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "raw_sha256": "c6cf1f1044a15e8c4926024f24d0a3391c37bb02ff71c9bad4472feea0aa51bb",
+    "size": [
+      64,
+      64
+    ],
+    "grid_px": 2,
+    "hard_alpha": true,
+    "file": "renni_icon_ult.png",
+    "raw": "raw/renni_icon_ult.png",
+    "binding": "skill_icons[2] `asset/tft/icons/tft_renni_ult`"
+  }
+]

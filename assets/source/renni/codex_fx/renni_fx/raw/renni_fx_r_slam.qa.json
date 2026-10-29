@@ -1,0 +1,68 @@
+{
+  "name": "r_slam",
+  "kind": "fx",
+  "processing_version": 5,
+  "raw_size": [
+    1974,
+    797
+  ],
+  "raw_sha256": "19378bdc8a9035af9299cbe4a5571ac5b7fc7b7ae2a31c549bb865dae0707325",
+  "frames": 8,
+  "cell_1x": [
+    84,
+    34
+  ],
+  "size": [
+    672,
+    34
+  ],
+  "preview_scale": 8,
+  "symmetry": "left-right per frame",
+  "symmetry_pass": true,
+  "hard_alpha": true,
+  "alpha_coverage_threshold": 0.18,
+  "color_vote": "majority among visible source pixels after palette mapping",
+  "loop": false,
+  "mirror_source_side": [
+    "right",
+    "left",
+    "right",
+    "right",
+    "right",
+    "right",
+    "right",
+    "left"
+  ],
+  "nonempty_frames": [
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true
+  ],
+  "distinct_frames": 8,
+  "source_layout": [
+    2,
+    4
+  ],
+  "palette": [
+    "#D8D0A8",
+    "#A89868",
+    "#74684A",
+    "#4A422E",
+    "#262014",
+    "#FFFFFF",
+    "#FFF4B0",
+    "#FFC840",
+    "#F07A18",
+    "#A0380C",
+    "#F0FFE0",
+    "#B8FF7A",
+    "#6EE830",
+    "#2FA818",
+    "#145A10"
+  ]
+}

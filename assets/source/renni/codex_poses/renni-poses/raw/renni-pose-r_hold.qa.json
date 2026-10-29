@@ -1,0 +1,25 @@
+{
+  "name": "r_hold",
+  "kind": "pose",
+  "processing_version": 5,
+  "raw_size": [
+    1254,
+    1254
+  ],
+  "raw_sha256": "c0c38ae666c9b629cf98c80b4809d0481829b8bfe5a63596a48de81a77c6553c",
+  "size": [
+    1254,
+    1254
+  ],
+  "grid_px": 12,
+  "hard_alpha": true,
+  "bbox": [
+    396,
+    24,
+    864,
+    1176
+  ],
+  "baseline": 1176,
+  "baseline_shift_y": 0,
+  "fit_scale": 0.9411764705882353
+}
