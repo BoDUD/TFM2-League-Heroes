@@ -117,11 +117,11 @@ impl Default for Params {
             p_low: 40,
             p_every: 60,
             p_pct: 3,
-            q_dmg: 70,
-            q_ratio: 55,
-            q_r: 18000,
+            q_dmg: 90,
+            q_ratio: 65,
+            q_r: 22000,
             q_n: 2,
-            q_k: 50,
+            q_k: 55,
             q_br: 45000,
             q_speed: 3000,
         }
@@ -371,7 +371,7 @@ mod tests {
 
     #[test]
     fn params_from_the_kit() {
-        let json = r#"{"p_every":60,"p_low":40,"p_pct":3,"q_br":45000,"q_dmg":70,"q_k":50,"q_n":2,"q_r":18000,"q_ratio":55,"q_speed":3000}"#;
+        let json = r#"{"p_every":60,"p_low":40,"p_pct":3,"q_br":45000,"q_dmg":90,"q_k":55,"q_n":2,"q_r":22000,"q_ratio":65,"q_speed":3000}"#;
         assert_eq!(parse_params(json), Params::default());
     }
 
@@ -386,10 +386,10 @@ mod tests {
     }
 
     #[test]
-    fn a_small_fireball_is_half_the_big_one() {
+    fn a_small_fireball_is_part_of_the_big_one() {
         let p = Params::default();
-        assert_eq!(ember_damage(0, &p), 35);
-        assert_eq!(ember_damage(200, &p), (70 + 110) / 2);
+        assert_eq!(ember_damage(0, &p), 49);
+        assert_eq!(ember_damage(200, &p), (90 + 130) * 55 / 100);
     }
 
     #[test]

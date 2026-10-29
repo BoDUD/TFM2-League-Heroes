@@ -13,11 +13,11 @@
       "p_low": 40,
       "p_every": 60,
       "p_pct": 3,
-      "q_dmg": 70,
-      "q_ratio": 55,
-      "q_r": 18000,
+      "q_dmg": 90,
+      "q_ratio": 65,
+      "q_r": 22000,
       "q_n": 2,
-      "q_k": 50,
+      "q_k": 55,
       "q_br": 45000,
       "q_speed": 3000
     }
@@ -30,9 +30,9 @@
     "asset/tft/icons/tft_nomsy_ult"
   ],
   "stat": {
-    "attack": 76,
+    "attack": 80,
     "magic_power": 40,
-    "hp": 980,
+    "hp": 1020,
     "defence": 18,
     "magic_resistance": 20,
     "move_speed": 880,
@@ -111,7 +111,7 @@
     "action_name": "skill",
     "description": "#asset/base/text/champion?description.tft_nomsy.skill",
     "duration": 36,
-    "cooltime": 300,
+    "cooltime": 240,
     "start_timing": 1,
     "cancelable": false,
     "range": 60000,
@@ -156,7 +156,7 @@
                   "name": "tft_nomsy_q_blast",
                   "shape": {
                     "Circle": {
-                      "radius": 18000
+                      "radius": 22000
                     }
                   },
                   "delay": 1,
@@ -167,8 +167,8 @@
                       "casting_type": "Targeting",
                       "effect": {
                         "type": "ApAttack",
-                        "damage": 70,
-                        "attack_ratio": 55,
+                        "damage": 90,
+                        "attack_ratio": 65,
                         "hp_ratio": 0,
                         "can_crit": false
                       }
@@ -200,7 +200,7 @@
     "cooltime": 420,
     "start_timing": 1,
     "cancelable": false,
-    "range": 40000,
+    "range": 45000,
     "casting_type": "Targeting",
     "casting_target": "EnemyWithoutTower",
     "attack_type": "Skill",
@@ -246,8 +246,8 @@
               "effects": [
                 {
                   "type": "ApAttack",
-                  "damage": 50,
-                  "attack_ratio": 35,
+                  "damage": 70,
+                  "attack_ratio": 45,
                   "hp_ratio": 0,
                   "can_crit": false
                 },
@@ -292,7 +292,7 @@
   "ult": {
     "action_name": "ult",
     "description": "#asset/base/text/champion?description.tft_nomsy.ult",
-    "duration": 150,
+    "duration": 174,
     "cooltime": 3000,
     "start_timing": 1,
     "cancelable": false,
@@ -317,7 +317,7 @@
             "name": "tft_nomsy_r_fly",
             "duration": {
               "Time": {
-                "tick": 138
+                "tick": 162
               }
             },
             "damaged_reduce": 50,
@@ -357,8 +357,8 @@
                       "effects": [
                         {
                           "type": "ApAttack",
-                          "damage": 50,
-                          "attack_ratio": 30,
+                          "damage": 60,
+                          "attack_ratio": 35,
                           "hp_ratio": 0,
                           "can_crit": false
                         },
@@ -400,8 +400,8 @@
                       "effects": [
                         {
                           "type": "ApAttack",
-                          "damage": 50,
-                          "attack_ratio": 30,
+                          "damage": 60,
+                          "attack_ratio": 35,
                           "hp_ratio": 0,
                           "can_crit": false
                         },
@@ -443,8 +443,8 @@
                       "effects": [
                         {
                           "type": "ApAttack",
-                          "damage": 50,
-                          "attack_ratio": 30,
+                          "damage": 60,
+                          "attack_ratio": 35,
                           "hp_ratio": 0,
                           "can_crit": false
                         },
@@ -486,8 +486,8 @@
                       "effects": [
                         {
                           "type": "ApAttack",
-                          "damage": 50,
-                          "attack_ratio": 30,
+                          "damage": 60,
+                          "attack_ratio": 35,
                           "hp_ratio": 0,
                           "can_crit": false
                         },
@@ -529,8 +529,8 @@
                       "effects": [
                         {
                           "type": "ApAttack",
-                          "damage": 50,
-                          "attack_ratio": 30,
+                          "damage": 60,
+                          "attack_ratio": 35,
                           "hp_ratio": 0,
                           "can_crit": false
                         },
@@ -572,8 +572,8 @@
                       "effects": [
                         {
                           "type": "ApAttack",
-                          "damage": 50,
-                          "attack_ratio": 30,
+                          "damage": 60,
+                          "attack_ratio": 35,
                           "hp_ratio": 0,
                           "can_crit": false
                         },
@@ -615,8 +615,8 @@
                       "effects": [
                         {
                           "type": "ApAttack",
-                          "damage": 50,
-                          "attack_ratio": 30,
+                          "damage": 60,
+                          "attack_ratio": 35,
                           "hp_ratio": 0,
                           "can_crit": false
                         },
@@ -658,8 +658,94 @@
                       "effects": [
                         {
                           "type": "ApAttack",
-                          "damage": 50,
-                          "attack_ratio": 30,
+                          "damage": 60,
+                          "attack_ratio": 35,
+                          "hp_ratio": 0,
+                          "can_crit": false
+                        },
+                        {
+                          "type": "ViewEffect",
+                          "name": "tft_nomsy_r_hit"
+                        },
+                        {
+                          "type": "TargetSfx",
+                          "name": "tft_nomsy_r_hit"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "Delayed",
+              "tick": 96,
+              "effects": [
+                {
+                  "type": "Sfx",
+                  "name": "tft_nomsy_r_rain"
+                },
+                {
+                  "type": "RandomTarget",
+                  "range": 70000,
+                  "casting_target": "EnemyWithoutTower",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "ViewEffect",
+                      "name": "tft_nomsy_r_fall"
+                    },
+                    {
+                      "type": "Delayed",
+                      "tick": 18,
+                      "effects": [
+                        {
+                          "type": "ApAttack",
+                          "damage": 60,
+                          "attack_ratio": 35,
+                          "hp_ratio": 0,
+                          "can_crit": false
+                        },
+                        {
+                          "type": "ViewEffect",
+                          "name": "tft_nomsy_r_hit"
+                        },
+                        {
+                          "type": "TargetSfx",
+                          "name": "tft_nomsy_r_hit"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "Delayed",
+              "tick": 108,
+              "effects": [
+                {
+                  "type": "Sfx",
+                  "name": "tft_nomsy_r_rain"
+                },
+                {
+                  "type": "RandomTarget",
+                  "range": 70000,
+                  "casting_target": "EnemyWithoutTower",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "ViewEffect",
+                      "name": "tft_nomsy_r_fall"
+                    },
+                    {
+                      "type": "Delayed",
+                      "tick": 18,
+                      "effects": [
+                        {
+                          "type": "ApAttack",
+                          "damage": 60,
+                          "attack_ratio": 35,
                           "hp_ratio": 0,
                           "can_crit": false
                         },
@@ -681,7 +767,7 @@
         },
         {
           "type": "Delayed",
-          "tick": 138,
+          "tick": 162,
           "effects": [
             {
               "type": "Sfx",
