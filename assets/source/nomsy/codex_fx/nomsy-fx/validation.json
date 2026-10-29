@@ -1,0 +1,387 @@
+{
+  "expected_fx": 13,
+  "expected_icons": 3,
+  "total_animation_frames": 72,
+  "actual": 16,
+  "all_checks_passed": true,
+  "files": [
+    {
+      "file": "nomsy_fx_a_bolt.png",
+      "frames": 4,
+      "unique_frames": 4,
+      "cell_1x": [
+        12,
+        8
+      ],
+      "symmetry": "top-bottom (pointing right)",
+      "all_frames_symmetric": true,
+      "all_frames_nonempty": true,
+      "foreground_pixels": [
+        34,
+        34,
+        30,
+        28
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "scale8_exact": true,
+      "sha256": "e1526ccf0645e5df772b5cbe3cc2a2cee61076a43038dd14490a7bca52af15f6",
+      "pass_check": true
+    },
+    {
+      "file": "nomsy_fx_a_hit.png",
+      "frames": 4,
+      "unique_frames": 4,
+      "cell_1x": [
+        14,
+        14
+      ],
+      "symmetry": "left-right",
+      "all_frames_symmetric": true,
+      "all_frames_nonempty": true,
+      "foreground_pixels": [
+        20,
+        72,
+        20,
+        30
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "scale8_exact": true,
+      "sha256": "29b4c68510490c11e04742174762c0e2dd7b773f9d8ee2589223010f732943ec",
+      "pass_check": true
+    },
+    {
+      "file": "nomsy_fx_q_ball.png",
+      "frames": 6,
+      "unique_frames": 6,
+      "cell_1x": [
+        22,
+        16
+      ],
+      "symmetry": "top-bottom (pointing right)",
+      "all_frames_symmetric": true,
+      "all_frames_nonempty": true,
+      "foreground_pixels": [
+        96,
+        120,
+        140,
+        106,
+        90,
+        146
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "scale8_exact": true,
+      "sha256": "7df78eb4076d5e8891ec1428622d1f2d8b62c16a97b32a77b4bdf4c644917ac8",
+      "pass_check": true
+    },
+    {
+      "file": "nomsy_fx_q_hit.png",
+      "frames": 7,
+      "unique_frames": 7,
+      "cell_1x": [
+        44,
+        34
+      ],
+      "symmetry": "left-right",
+      "all_frames_symmetric": true,
+      "all_frames_nonempty": true,
+      "foreground_pixels": [
+        218,
+        514,
+        752,
+        938,
+        746,
+        694,
+        490
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "scale8_exact": true,
+      "sha256": "4fb3769df8cdceeffef131807de5614a9167dc9dede6cca690097d710dd0be77",
+      "pass_check": true
+    },
+    {
+      "file": "nomsy_fx_q_bounce.png",
+      "frames": 4,
+      "unique_frames": 4,
+      "cell_1x": [
+        12,
+        8
+      ],
+      "symmetry": "top-bottom (pointing right)",
+      "all_frames_symmetric": true,
+      "all_frames_nonempty": true,
+      "foreground_pixels": [
+        32,
+        44,
+        34,
+        30
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "scale8_exact": true,
+      "sha256": "51e695a88c612a67c4a052c35410afeac64e2e83dc51646bd9f46131025b5244",
+      "pass_check": true
+    },
+    {
+      "file": "nomsy_fx_q_bounce_hit.png",
+      "frames": 4,
+      "unique_frames": 4,
+      "cell_1x": [
+        16,
+        16
+      ],
+      "symmetry": "left-right",
+      "all_frames_symmetric": true,
+      "all_frames_nonempty": true,
+      "foreground_pixels": [
+        28,
+        102,
+        84,
+        54
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "scale8_exact": true,
+      "sha256": "535b82be51a1e5a16f99104b4b81d60f19642443ffa84cc79f8b722ff51c6a55",
+      "pass_check": true
+    },
+    {
+      "file": "nomsy_fx_e_flame.png",
+      "frames": 6,
+      "unique_frames": 6,
+      "cell_1x": [
+        48,
+        20
+      ],
+      "symmetry": "top-bottom (pointing right)",
+      "all_frames_symmetric": true,
+      "all_frames_nonempty": true,
+      "foreground_pixels": [
+        284,
+        500,
+        506,
+        454,
+        370,
+        320
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "scale8_exact": true,
+      "sha256": "2e034c620b1140c7754a4ddc18b02f570ca7b6a761ac16eed7907ed028c8d150",
+      "pass_check": true
+    },
+    {
+      "file": "nomsy_fx_e_burn.png",
+      "frames": 6,
+      "unique_frames": 6,
+      "cell_1x": [
+        16,
+        24
+      ],
+      "symmetry": "left-right",
+      "all_frames_symmetric": true,
+      "all_frames_nonempty": true,
+      "foreground_pixels": [
+        104,
+        92,
+        96,
+        98,
+        74,
+        66
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "scale8_exact": true,
+      "sha256": "4b3e9b51c502db1b932e6fb30390c605549c387466b54c659bab62226528c5e1",
+      "pass_check": true
+    },
+    {
+      "file": "nomsy_fx_r_fall.png",
+      "frames": 7,
+      "unique_frames": 7,
+      "cell_1x": [
+        18,
+        56
+      ],
+      "symmetry": "left-right",
+      "all_frames_symmetric": true,
+      "all_frames_nonempty": true,
+      "foreground_pixels": [
+        2,
+        170,
+        206,
+        188,
+        176,
+        78,
+        82
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "scale8_exact": true,
+      "sha256": "3f6d3fa306e9068e429d89a9b6121dfc968e54fbb14514775e469ae164231e1d",
+      "pass_check": true
+    },
+    {
+      "file": "nomsy_fx_r_hit.png",
+      "frames": 6,
+      "unique_frames": 6,
+      "cell_1x": [
+        34,
+        26
+      ],
+      "symmetry": "left-right",
+      "all_frames_symmetric": true,
+      "all_frames_nonempty": true,
+      "foreground_pixels": [
+        82,
+        394,
+        278,
+        240,
+        368,
+        184
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "scale8_exact": true,
+      "sha256": "4c92e6940a0539f1ed988c9aec8c31935edd0f8dd4019a36dad44008fdb690b2",
+      "pass_check": true
+    },
+    {
+      "file": "nomsy_fx_r_fly.png",
+      "frames": 6,
+      "unique_frames": 6,
+      "cell_1x": [
+        52,
+        16
+      ],
+      "symmetry": "left-right",
+      "all_frames_symmetric": true,
+      "all_frames_nonempty": true,
+      "foreground_pixels": [
+        188,
+        254,
+        330,
+        260,
+        176,
+        164
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "scale8_exact": true,
+      "sha256": "fea02ebb74cd89854369e5a223c78f4c875653ca2cd4c5ebc08b85a991b60dfb",
+      "pass_check": true
+    },
+    {
+      "file": "nomsy_fx_r_up.png",
+      "frames": 6,
+      "unique_frames": 6,
+      "cell_1x": [
+        56,
+        44
+      ],
+      "symmetry": "left-right",
+      "all_frames_symmetric": true,
+      "all_frames_nonempty": true,
+      "foreground_pixels": [
+        912,
+        916,
+        730,
+        672,
+        532,
+        330
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "scale8_exact": true,
+      "sha256": "445d3cd66e7dc48353cd75125973242a2ecac2544b38347922b3a840cf478c2a",
+      "pass_check": true
+    },
+    {
+      "file": "nomsy_fx_p_heal.png",
+      "frames": 6,
+      "unique_frames": 6,
+      "cell_1x": [
+        52,
+        44
+      ],
+      "symmetry": "left-right",
+      "all_frames_symmetric": true,
+      "all_frames_nonempty": true,
+      "foreground_pixels": [
+        136,
+        280,
+        388,
+        492,
+        300,
+        122
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "scale8_exact": true,
+      "sha256": "5ed1892c8cfe42f47885c309e3b428cfe2140e2084b272aa023c03e1238c1cbc",
+      "pass_check": true
+    },
+    {
+      "file": "nomsy_icon_skill.png",
+      "kind": "icon",
+      "size": [
+        64,
+        64
+      ],
+      "opaque": true,
+      "sha256": "cd2728d1806089abffae895dbdfb5d03d7ea9051d36238a15d617af7853bd49a",
+      "pass_check": true
+    },
+    {
+      "file": "nomsy_icon_skill2.png",
+      "kind": "icon",
+      "size": [
+        64,
+        64
+      ],
+      "opaque": true,
+      "sha256": "ee9d85f0e1d9ea19148bc8f75175298dbd00d2886b0a6c4061d2caaecb387d01",
+      "pass_check": true
+    },
+    {
+      "file": "nomsy_icon_ult.png",
+      "kind": "icon",
+      "size": [
+        64,
+        64
+      ],
+      "opaque": true,
+      "sha256": "c1caa7ddb003982a7dcebe02fa8ecbae5fa4ff19dde34bca03580781769cad91",
+      "pass_check": true
+    }
+  ]
+}
