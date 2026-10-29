@@ -1,0 +1,846 @@
+{
+  "frames": [
+    {
+      "action": "run",
+      "frame": 1,
+      "head_source": "rig-parts/head.png",
+      "weapon_source": "rig-parts/weapon.png",
+      "alpha_binary": true,
+      "palette_exact": true,
+      "component_sizes": [
+        1936
+      ],
+      "bbox": [
+        18,
+        56,
+        71,
+        115
+      ]
+    },
+    {
+      "action": "run",
+      "frame": 2,
+      "head_source": "rig-parts/head.png",
+      "weapon_source": "rig-parts/weapon.png",
+      "alpha_binary": true,
+      "palette_exact": true,
+      "component_sizes": [
+        2031
+      ],
+      "bbox": [
+        18,
+        53,
+        78,
+        115
+      ]
+    },
+    {
+      "action": "run",
+      "frame": 3,
+      "head_source": "rig-parts/head.png",
+      "weapon_source": "rig-parts/weapon.png",
+      "alpha_binary": true,
+      "palette_exact": true,
+      "component_sizes": [
+        2034
+      ],
+      "bbox": [
+        18,
+        56,
+        74,
+        115
+      ]
+    },
+    {
+      "action": "run",
+      "frame": 4,
+      "head_source": "rig-parts/head.png",
+      "weapon_source": "rig-parts/weapon.png",
+      "alpha_binary": true,
+      "palette_exact": true,
+      "component_sizes": [
+        1988
+      ],
+      "bbox": [
+        18,
+        56,
+        73,
+        115
+      ]
+    },
+    {
+      "action": "run",
+      "frame": 5,
+      "head_source": "rig-parts/head.png",
+      "weapon_source": "rig-parts/weapon.png",
+      "alpha_binary": true,
+      "palette_exact": true,
+      "component_sizes": [
+        1956
+      ],
+      "bbox": [
+        18,
+        53,
+        71,
+        115
+      ]
+    },
+    {
+      "action": "run",
+      "frame": 6,
+      "head_source": "rig-parts/head.png",
+      "weapon_source": "rig-parts/weapon.png",
+      "alpha_binary": true,
+      "palette_exact": true,
+      "component_sizes": [
+        1929
+      ],
+      "bbox": [
+        18,
+        53,
+        70,
+        115
+      ]
+    },
+    {
+      "action": "run",
+      "frame": 7,
+      "head_source": "rig-parts/head.png",
+      "weapon_source": "rig-parts/weapon.png",
+      "alpha_binary": true,
+      "palette_exact": true,
+      "component_sizes": [
+        1942
+      ],
+      "bbox": [
+        18,
+        55,
+        69,
+        115
+      ]
+    },
+    {
+      "action": "run",
+      "frame": 8,
+      "head_source": "rig-parts/head.png",
+      "weapon_source": "rig-parts/weapon.png",
+      "alpha_binary": true,
+      "palette_exact": true,
+      "component_sizes": [
+        1936
+      ],
+      "bbox": [
+        18,
+        56,
+        70,
+        115
+      ]
+    },
+    {
+      "action": "attack",
+      "frame": 1,
+      "head_source": "rig-parts/head.png",
+      "weapon_source": "rig-parts/weapon.png",
+      "alpha_binary": true,
+      "palette_exact": true,
+      "component_sizes": [
+        1994
+      ],
+      "bbox": [
+        2,
+        54,
+        75,
+        115
+      ]
+    },
+    {
+      "action": "attack",
+      "frame": 2,
+      "head_source": "rig-parts/head.png",
+      "weapon_source": "rig-parts/weapon.png",
+      "alpha_binary": true,
+      "palette_exact": true,
+      "component_sizes": [
+        1995
+      ],
+      "bbox": [
+        2,
+        54,
+        78,
+        115
+      ]
+    },
+    {
+      "action": "attack",
+      "frame": 3,
+      "head_source": "rig-parts/head.png",
+      "weapon_source": "rig-parts/weapon.png",
+      "alpha_binary": true,
+      "palette_exact": true,
+      "component_sizes": [
+        1747
+      ],
+      "bbox": [
+        32,
+        54,
+        77,
+        115
+      ]
+    },
+    {
+      "action": "attack",
+      "frame": 4,
+      "head_source": "rig-parts/head.png",
+      "weapon_source": "rig-parts/weapon.png",
+      "alpha_binary": true,
+      "palette_exact": true,
+      "component_sizes": [
+        1723
+      ],
+      "bbox": [
+        31,
+        54,
+        80,
+        115
+      ]
+    },
+    {
+      "action": "attack",
+      "frame": 5,
+      "head_source": "rig-parts/head.png",
+      "weapon_source": "rig-parts/weapon.png",
+      "alpha_binary": true,
+      "palette_exact": true,
+      "component_sizes": [
+        1996
+      ],
+      "bbox": [
+        18,
+        54,
+        70,
+        115
+      ]
+    },
+    {
+      "action": "attack",
+      "frame": 6,
+      "head_source": "rig-parts/head.png",
+      "weapon_source": "rig-parts/weapon.png",
+      "alpha_binary": true,
+      "palette_exact": true,
+      "component_sizes": [
+        1987
+      ],
+      "bbox": [
+        21,
+        54,
+        69,
+        115
+      ]
+    },
+    {
+      "action": "attack_p",
+      "frame": 1,
+      "head_source": "rig-parts/head.png",
+      "weapon_source": "rig-parts/weapon.png",
+      "alpha_binary": true,
+      "palette_exact": true,
+      "component_sizes": [
+        2006
+      ],
+      "bbox": [
+        2,
+        55,
+        78,
+        115
+      ]
+    },
+    {
+      "action": "attack_p",
+      "frame": 2,
+      "head_source": "rig-parts/head.png",
+      "weapon_source": "rig-parts/weapon.png",
+      "alpha_binary": true,
+      "palette_exact": true,
+      "component_sizes": [
+        1947
+      ],
+      "bbox": [
+        24,
+        44,
+        70,
+        115
+      ]
+    },
+    {
+      "action": "attack_p",
+      "frame": 3,
+      "head_source": "rig-parts/head.png",
+      "weapon_source": "rig-parts/weapon.png",
+      "alpha_binary": true,
+      "palette_exact": true,
+      "component_sizes": [
+        1579
+      ],
+      "bbox": [
+        28,
+        63,
+        79,
+        115
+      ]
+    },
+    {
+      "action": "attack_p",
+      "frame": 4,
+      "head_source": "rig-parts/head.png",
+      "weapon_source": "rig-parts/weapon.png",
+      "alpha_binary": true,
+      "palette_exact": true,
+      "component_sizes": [
+        1592
+      ],
+      "bbox": [
+        28,
+        63,
+        80,
+        115
+      ]
+    },
+    {
+      "action": "attack_p",
+      "frame": 5,
+      "head_source": "rig-parts/head.png",
+      "weapon_source": "rig-parts/weapon.png",
+      "alpha_binary": true,
+      "palette_exact": true,
+      "component_sizes": [
+        2018
+      ],
+      "bbox": [
+        2,
+        54,
+        77,
+        115
+      ]
+    },
+    {
+      "action": "attack_p",
+      "frame": 6,
+      "head_source": "rig-parts/head.png",
+      "weapon_source": "rig-parts/weapon.png",
+      "alpha_binary": true,
+      "palette_exact": true,
+      "component_sizes": [
+        1978
+      ],
+      "bbox": [
+        21,
+        55,
+        69,
+        115
+      ]
+    },
+    {
+      "action": "skill",
+      "frame": 1,
+      "head_source": "rig-parts/head.png",
+      "weapon_source": "rig-parts/weapon.png",
+      "alpha_binary": true,
+      "palette_exact": true,
+      "component_sizes": [
+        1992
+      ],
+      "bbox": [
+        6,
+        53,
+        74,
+        115
+      ]
+    },
+    {
+      "action": "skill",
+      "frame": 2,
+      "head_source": "rig-parts/head.png",
+      "weapon_source": "rig-parts/weapon.png",
+      "alpha_binary": true,
+      "palette_exact": true,
+      "component_sizes": [
+        1768
+      ],
+      "bbox": [
+        31,
+        51,
+        75,
+        115
+      ]
+    },
+    {
+      "action": "skill",
+      "frame": 3,
+      "head_source": "rig-parts/head.png",
+      "weapon_source": "rig-parts/weapon.png",
+      "alpha_binary": true,
+      "palette_exact": true,
+      "component_sizes": [
+        1760
+      ],
+      "bbox": [
+        32,
+        51,
+        77,
+        115
+      ]
+    },
+    {
+      "action": "skill",
+      "frame": 4,
+      "head_source": "rig-parts/head.png",
+      "weapon_source": "rig-parts/weapon.png",
+      "alpha_binary": true,
+      "palette_exact": true,
+      "component_sizes": [
+        1748
+      ],
+      "bbox": [
+        32,
+        52,
+        77,
+        115
+      ]
+    },
+    {
+      "action": "skill",
+      "frame": 5,
+      "head_source": "rig-parts/head.png",
+      "weapon_source": "rig-parts/weapon.png",
+      "alpha_binary": true,
+      "palette_exact": true,
+      "component_sizes": [
+        1733
+      ],
+      "bbox": [
+        31,
+        54,
+        70,
+        115
+      ]
+    },
+    {
+      "action": "skill",
+      "frame": 6,
+      "head_source": "rig-parts/head.png",
+      "weapon_source": "rig-parts/weapon.png",
+      "alpha_binary": true,
+      "palette_exact": true,
+      "component_sizes": [
+        1995
+      ],
+      "bbox": [
+        21,
+        54,
+        69,
+        115
+      ]
+    },
+    {
+      "action": "skill2",
+      "frame": 1,
+      "head_source": "rig-parts/head.png",
+      "weapon_source": "rig-parts/weapon.png",
+      "alpha_binary": true,
+      "palette_exact": true,
+      "component_sizes": [
+        1926
+      ],
+      "bbox": [
+        21,
+        53,
+        69,
+        115
+      ]
+    },
+    {
+      "action": "skill2",
+      "frame": 2,
+      "head_source": "rig-parts/head.png",
+      "weapon_source": "rig-parts/weapon.png",
+      "alpha_binary": true,
+      "palette_exact": true,
+      "component_sizes": [
+        1998
+      ],
+      "bbox": [
+        21,
+        53,
+        75,
+        115
+      ]
+    },
+    {
+      "action": "skill2",
+      "frame": 3,
+      "head_source": "rig-parts/head.png",
+      "weapon_source": "rig-parts/weapon.png",
+      "alpha_binary": true,
+      "palette_exact": true,
+      "component_sizes": [
+        1987
+      ],
+      "bbox": [
+        21,
+        50,
+        69,
+        115
+      ]
+    },
+    {
+      "action": "skill2",
+      "frame": 4,
+      "head_source": "rig-parts/head.png",
+      "weapon_source": "rig-parts/weapon.png",
+      "alpha_binary": true,
+      "palette_exact": true,
+      "component_sizes": [
+        1985
+      ],
+      "bbox": [
+        21,
+        50,
+        69,
+        115
+      ]
+    },
+    {
+      "action": "skill2",
+      "frame": 5,
+      "head_source": "rig-parts/head.png",
+      "weapon_source": "rig-parts/weapon.png",
+      "alpha_binary": true,
+      "palette_exact": true,
+      "component_sizes": [
+        2011
+      ],
+      "bbox": [
+        21,
+        53,
+        77,
+        115
+      ]
+    },
+    {
+      "action": "skill2",
+      "frame": 6,
+      "head_source": "rig-parts/head.png",
+      "weapon_source": "rig-parts/weapon.png",
+      "alpha_binary": true,
+      "palette_exact": true,
+      "component_sizes": [
+        1926
+      ],
+      "bbox": [
+        21,
+        53,
+        69,
+        115
+      ]
+    },
+    {
+      "action": "ult",
+      "frame": 1,
+      "head_source": "rig-parts/head.png",
+      "weapon_source": "rig-parts/weapon.png",
+      "alpha_binary": true,
+      "palette_exact": true,
+      "component_sizes": [
+        1995
+      ],
+      "bbox": [
+        21,
+        54,
+        69,
+        115
+      ]
+    },
+    {
+      "action": "ult",
+      "frame": 2,
+      "head_source": "rig-parts/head.png",
+      "weapon_source": "rig-parts/weapon.png",
+      "alpha_binary": true,
+      "palette_exact": true,
+      "component_sizes": [
+        1775
+      ],
+      "bbox": [
+        24,
+        46,
+        77,
+        115
+      ]
+    },
+    {
+      "action": "ult",
+      "frame": 3,
+      "head_source": "rig-parts/head.png",
+      "weapon_source": "rig-parts/weapon.png",
+      "alpha_binary": true,
+      "palette_exact": true,
+      "component_sizes": [
+        1937
+      ],
+      "bbox": [
+        24,
+        42,
+        77,
+        115
+      ]
+    },
+    {
+      "action": "ult",
+      "frame": 4,
+      "head_source": "rig-parts/head.png",
+      "weapon_source": "rig-parts/weapon.png",
+      "alpha_binary": true,
+      "palette_exact": true,
+      "component_sizes": [
+        1942
+      ],
+      "bbox": [
+        24,
+        42,
+        77,
+        115
+      ]
+    },
+    {
+      "action": "ult",
+      "frame": 5,
+      "head_source": "rig-parts/head.png",
+      "weapon_source": "rig-parts/weapon.png",
+      "alpha_binary": true,
+      "palette_exact": true,
+      "component_sizes": [
+        1937
+      ],
+      "bbox": [
+        24,
+        42,
+        77,
+        115
+      ]
+    },
+    {
+      "action": "ult",
+      "frame": 6,
+      "head_source": "rig-parts/head.png",
+      "weapon_source": "rig-parts/weapon.png",
+      "alpha_binary": true,
+      "palette_exact": true,
+      "component_sizes": [
+        1942
+      ],
+      "bbox": [
+        24,
+        42,
+        77,
+        115
+      ]
+    },
+    {
+      "action": "ult",
+      "frame": 7,
+      "head_source": "rig-parts/head.png",
+      "weapon_source": "rig-parts/weapon.png",
+      "alpha_binary": true,
+      "palette_exact": true,
+      "component_sizes": [
+        1995
+      ],
+      "bbox": [
+        21,
+        54,
+        69,
+        115
+      ]
+    },
+    {
+      "action": "hit",
+      "frame": 1,
+      "head_source": "rig-parts/head.png",
+      "weapon_source": "rig-parts/weapon.png",
+      "alpha_binary": true,
+      "palette_exact": true,
+      "component_sizes": [
+        2044
+      ],
+      "bbox": [
+        17,
+        53,
+        77,
+        115
+      ]
+    },
+    {
+      "action": "hit",
+      "frame": 2,
+      "head_source": "rig-parts/head.png",
+      "weapon_source": "rig-parts/weapon.png",
+      "alpha_binary": true,
+      "palette_exact": true,
+      "component_sizes": [
+        1997
+      ],
+      "bbox": [
+        21,
+        54,
+        69,
+        115
+      ]
+    },
+    {
+      "action": "dead",
+      "frame": 1,
+      "head_source": "rig-parts/head.png",
+      "weapon_source": "rig-parts/weapon.png",
+      "alpha_binary": true,
+      "palette_exact": true,
+      "component_sizes": [
+        2042
+      ],
+      "bbox": [
+        16,
+        53,
+        77,
+        114
+      ]
+    },
+    {
+      "action": "dead",
+      "frame": 2,
+      "head_source": "rig-parts/head.png",
+      "weapon_source": "rig-parts/weapon.png",
+      "alpha_binary": true,
+      "palette_exact": true,
+      "component_sizes": [
+        1835,
+        212
+      ],
+      "bbox": [
+        15,
+        40,
+        92,
+        114
+      ]
+    },
+    {
+      "action": "dead",
+      "frame": 3,
+      "head_source": "rig-parts/head.png",
+      "weapon_source": "rig-parts/weapon.png",
+      "alpha_binary": true,
+      "palette_exact": true,
+      "component_sizes": [
+        1755,
+        212
+      ],
+      "bbox": [
+        13,
+        56,
+        94,
+        115
+      ]
+    },
+    {
+      "action": "dead",
+      "frame": 4,
+      "head_source": "rig-parts/head.png",
+      "weapon_source": "rig-parts/weapon.png",
+      "alpha_binary": true,
+      "palette_exact": true,
+      "component_sizes": [
+        1459,
+        212
+      ],
+      "bbox": [
+        20,
+        66,
+        93,
+        115
+      ]
+    },
+    {
+      "action": "dead",
+      "frame": 5,
+      "head_source": "rig-parts/head.png",
+      "weapon_source": "rig-parts/weapon.png",
+      "alpha_binary": true,
+      "palette_exact": true,
+      "component_sizes": [
+        1356,
+        212
+      ],
+      "bbox": [
+        18,
+        71,
+        94,
+        115
+      ]
+    },
+    {
+      "action": "dead",
+      "frame": 6,
+      "head_source": "rig-parts/head.png",
+      "weapon_source": "rig-parts/weapon.png",
+      "alpha_binary": true,
+      "palette_exact": true,
+      "component_sizes": [
+        1339,
+        212
+      ],
+      "bbox": [
+        16,
+        73,
+        94,
+        115
+      ]
+    },
+    {
+      "action": "dead",
+      "frame": 7,
+      "head_source": "rig-parts/head.png",
+      "weapon_source": "rig-parts/weapon.png",
+      "alpha_binary": true,
+      "palette_exact": true,
+      "component_sizes": [
+        1352,
+        212
+      ],
+      "bbox": [
+        14,
+        76,
+        94,
+        115
+      ]
+    },
+    {
+      "action": "dead",
+      "frame": 8,
+      "head_source": "rig-parts/head.png",
+      "weapon_source": "rig-parts/weapon.png",
+      "alpha_binary": true,
+      "palette_exact": true,
+      "component_sizes": [
+        1371,
+        212
+      ],
+      "bbox": [
+        13,
+        76,
+        94,
+        115
+      ]
+    }
+  ],
+  "sheets": 25,
+  "frame_count": 49
+}

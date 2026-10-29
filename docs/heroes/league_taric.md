@@ -10,7 +10,7 @@
 | 所属的包 | 主包（mod_id `league`） |
 | 分路 | 辅助 |
 | 分类 / 标签 | 功能型（Util） · AP / Magic / Melee / Tank / CC / Heal / Shield |
-| 高清帧 | 1 倍像素（无高清帧） |
+| 高清帧 | PPU 1.55 |
 | 附加包 | 无 |
 
 ![塔里克演示](../preview/league_taric_showcase.gif)
@@ -75,6 +75,7 @@
 | 特效 | 普攻的银紫斩光，正气凌人命中的四角星和紫晶碎片、强化期间腰间和手边的星点，E 地上的星光（蓄力 0.75 秒后爆开）、灵链队友身边的爆开光圈、被晕敌人身上的星环，Q 脚下的星光圈和升起的回血星光，W 飞向队友的宝石、队友身上的晶体护盾和脚下的灵链印记，R 头顶的日冕光环和降下的金色光柱、无敌生效的金光和无敌期间的金色光罩 |
 | 图标 | 官方技能图标（E / Q / R），64×64 |
 | 音频 | 从本地客户端提取的 12 条技能音效和 4 条中文语音（Q、W、E、R）。不提交到仓库，按下面的命令在本地生成 |
+| 高清帧（PPU 1.55） | 2026-10-29 用 PPU 重做（用户：「下一个英雄重做塔里克」「通过，用 1.55」）。设计图：Codex 照他的旧精灵描密的原图（交了两版，用户选 A 版：锤子收在小腿边），按原图约 14 像素一格读回（48 × 62 格；62 行 / 1.55 = 原来的 40 像素，`design_taric_hd.py`）。动作：给 Codex 的动作包照旧版同一帧重画（`pack_taric_actions.py`，49 帧，没有和别的帧重复的）；Codex 交回的不是整帧画稿，而是把设计图拆成部件、按关节整块转动摆出来的（它的部件、骨架和每帧的角度在 `hd/casts`）。它的膝盖往前弯、靴子不跟着小腿转、躯干里留着近侧大腿的原位像素、披风盖住了腿（用户：「怎么腿有点变形了 你好好改」）：`casts_taric_hd.py` 重新切部件（腿分大腿、带护膝的小腿、靴子，腰带布单独一块，每块只有自己的像素），先放大 8 倍再转（RotSprite 的办法，边缘不碎），膝盖只往后弯、抬起的靴子跟着小腿转、弯腰时两胯保持水平；49 帧逐帧对着旧版重摆，身体按旧版那一帧的位置左右移；站着不动时和设计图逐像素一样。短柄锤够不到旧版长柄的位置：强化普攻砸地时人压得比旧版低，Q 举手比旧版低一点。待机不上下起伏（待机是从动作里剪的随机片段）；没有烤进动作的特效（`rig_taric_hd.py`）。高 40 像素和原来一样，没有 SIZES 行；头像点 (−3, −38)、选人卡片（−10）不变 |
 
 ```bash
 python tools/lol/extract_taric.py --lol "D:\WeGameApps\lol" --vgmstream "<vgmstream-cli.exe 路径>"
@@ -84,6 +85,16 @@ python tools/art/tidy_taric.py --write   # 清黑边和跑步只闪一帧的像�
 python tools/art/import_native.py --hero taric
 python tools/art/import_taric.py      # 特效；--raw <Codex 的特效交付文件夹> 先把 8 倍图切成原尺寸条
 python tools/art/preview_taric.py
+# PPU 1.55 重做（2026-10-29）：
+python tools/art/pack_taric_ppu.py --out <文件夹>          # 给 Codex 的设计图包（照他的旧精灵描密）
+python tools/art/design_taric_hd.py                      # Codex 的原图（hd/raw/taric-A.png）按自己的格子读回 -> hd/design.png
+python tools/art/pack_taric_actions.py --out <文件夹>      # 给 Codex 的动作包（照旧版同一帧重画）
+python tools/art/casts_taric_hd.py --check               # 部件拼回的站姿和设计图逐像素比；--tune <文件夹> 逐帧对照旧版
+python tools/art/rig_taric_hd.py                         # 摆好的 49 帧 -> 原始条和 1 倍图
+python tools/art/ppu_restyle.py --hero taric && python tools/art/ppu_hd.py --hero taric
+python tools/art/ppu_one.py --hero taric && python tools/art/rig_taric_hd.py --one-ground && python tools/art/hero_reels.py --hero taric
+python tools/art/preview_taric.py
+python tools/art/review_taric_actions.py --out <文件夹>    # 旧版 / 新版对照动图
 ```
 
 美术（原画的提示词见 [`assets/source/taric/PICTURE_PROMPT.md`](../../assets/source/taric/PICTURE_PROMPT.md)，造型的见 [`MODEL_PROMPTS.md`](../../assets/source/taric/MODEL_PROMPTS.md)，重画头的见 [`HEAD_REDO.md`](../../assets/source/taric/HEAD_REDO.md)，9 条动作的见 [`MODEL_STRIPS.md`](../../assets/source/taric/MODEL_STRIPS.md)，跑步两次只改腿的见 [`MODEL_RUN_LEGS.md`](../../assets/source/taric/MODEL_RUN_LEGS.md)、[`MODEL_RUN_LEGS2.md`](../../assets/source/taric/MODEL_RUN_LEGS2.md)，特效的见 [`PROMPTS.md`](../../assets/source/taric/PROMPTS.md)；Codex 的交接说明在 [`codex_model/`](../../assets/source/taric/codex_model)、[`codex_strips/`](../../assets/source/taric/codex_strips)、[`codex_run_legs/`](../../assets/source/taric/codex_run_legs)、[`codex_run_legs2/`](../../assets/source/taric/codex_run_legs2)、[`codex_fx/`](../../assets/source/taric/codex_fx)）：
@@ -98,4 +109,4 @@ python tools/art/preview_taric.py
 - 出手时刻和动画对齐：普攻第 3 帧（第 10 tick），强化普攻第 3 帧（第 9 tick），E 第 3 帧（第 12 tick）射出光束，Q/W 第 3 帧（第 12 tick），R 的 7 帧正好 40 tick（召唤光在第 0 tick 开始）。
 - 结果：29 色，和右边像素同色的比例 36%（原版英雄 18%–46%）。待机每帧 907 个不透明像素，和维迦（798）、娜美（949）之间。
 
-逐帧预览：[`docs/preview/league_taric_frames.png`](../preview/league_taric_frames.png?v=1014g)，特效：[`docs/preview/league_taric_effects.png`](../preview/league_taric_effects.png?v=1014g)。
+逐帧预览：[`docs/preview/league_taric_frames.png`](../preview/league_taric_frames.png?v=1029hd)，特效：[`docs/preview/league_taric_effects.png`](../preview/league_taric_effects.png?v=1014g)。

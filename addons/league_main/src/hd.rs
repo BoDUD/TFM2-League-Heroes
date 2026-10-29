@@ -480,6 +480,11 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // onto it at the zoom his figure and head give (tools/art/casts_zed_hd.py, rig_zed_hd.py; nothing baked - his
     // shadows, shurikens and slashes are effect strips); 40 game px as his 1x sprite, so no SIZES row
     ("league_zed", 1.625, include_str!("../../../league/champions/league_zed#anim.fanim")),
+    // Taric (2026-10-29, 「下一个英雄重做塔里克」, 「通过，用 1.55」): Codex's taric-A read as drawn (48 x 62,
+    // tools/art/design_taric_hd.py: 62 rows / 40 = 1.55); every action Codex's pixel rig of it - the design cut into
+    // parts, turned whole - rigged again and posed on his old frames (tools/art/casts_taric_hd.py, rig_taric_hd.py;
+    // nothing baked - his starlight, beams and shields are effect strips); 40 game px as his 1x sprite, so no SIZES row
+    ("league_taric", 1.55, include_str!("../../../league/champions/league_taric#anim.fanim")),
 ];
 
 /// Champion id, its size everywhere the dense frames are drawn (1.0 = the 1x frames' size): the anim tables' rects and
