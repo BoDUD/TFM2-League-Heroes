@@ -232,11 +232,12 @@ def build(p, is_native=False):
     # a_bolt / q_ball / q_bounce are round fireballs (the same turned with their flight); e_flame a level plume along
     # the cast line, top-bottom symmetric; q_blast has no view (its explosion q_hit is a ViewEffect on the zone's units);
     # r_fall falls upright on the struck one (a ViewEffect, never turned, over the units: z 3); p_heal / r_up / e_burn
-    # are buff pictures (tft.dll's heal puts p_heal on her)
+    # are buff pictures (tft.dll's heal puts p_heal on her); r_up's flames go behind her (z -1: over her they read as
+    # her body on fire), r_fly's glow on the ground under her
     views_p = [B_("a_bolt"), B_("q_ball", BIG), B_("q_bounce"), B_("e_flame", BIG)]
     views_e = [E("a_hit"), E("q_hit", BIG, 3, False), E("q_bounce_hit"), E("r_fall", BIG, 3, False),
                E("r_hit", BIG, 3, False)]
-    views_b = [B_("p_heal", FX, 3), B_("e_burn", FX, 3), B_("r_fly", FX, -1), B_("r_up", FX, 3)]
+    views_b = [B_("p_heal", FX, 3), B_("e_burn", FX, 3), B_("r_fly", FX, -1), B_("r_up", FX, -1)]
     kit = {
         "id": ID, "category": "Magician", "tags": ["AP", "Magic", "Range", "Dot"],
         "sprite": f"asset/{MOD_ID}/champions/{ID}", "anim_prefix": "",
