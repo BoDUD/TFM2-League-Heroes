@@ -20,7 +20,8 @@
       "r_rush": 8000,
       "r_behind": 15000,
       "r_hold": 180,
-      "r_half": 30000
+      "r_half": 30000,
+      "r_w": 20000
     }
   },
   "tags": [
@@ -16043,10 +16044,6 @@
                         "type": "Combine",
                         "effects": [
                           {
-                            "type": "Native",
-                            "effect_ref": "league_azir:r_wall"
-                          },
-                          {
                             "type": "Sfx",
                             "name": "league_azir_r_wall"
                           },
@@ -16144,6 +16141,10 @@
                               }
                             ],
                             "end_effects": []
+                          },
+                          {
+                            "type": "Native",
+                            "effect_ref": "league_azir:r_wall"
                           }
                         ]
                       }
