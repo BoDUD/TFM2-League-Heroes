@@ -50,6 +50,9 @@ CLIPS = {
     "chomp": 5861350237958317307,        # 1.50 s: the arm raised high, the claws slammed down twice
     "punch": 10288371679822295472,       # 1.67 s: kneel, then the extendo punch thrown forward
     "intro": 17844170213200431742,       # 1.70 s: intro / celebration, the arm swung up
+    "uppercut": 222581376943558779,      # 0.67 s: a crouch, the arm swung up overhead, then crushed down forward
+    "dash": 5875153785822289334,         # 0.67 s: a low dive forward, the arm reaching (the slam's dash)
+    "death": 4813534614717285987,        # 1.17 s: thrown up and back, flipping over
 }
 SQ = 11
 SOLE = 1390
