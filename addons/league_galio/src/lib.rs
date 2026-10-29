@@ -13,9 +13,14 @@
 //! - **英雄登场选人**：在离加里奥至少 `r_far`、身边 `r_sur` 以内有敌方英雄的友方英雄里，选「被控着，或者血量比例最低」的那个，
 //!   身边 `r_r` 以内敌方英雄多的优先（每多一个当作血量少 10%）；只有一个敌人、没被控、血量 80% 以上的不算苦战，不飞。
 //!   选中的友方英雄让加里奥身上出现 1 tick 的 `league_galio_r_this`，数据接着走护盾、引导、飞过去。
+//! - **引导打断**：引导（身上有 `league_galio_r_ch`）时被硬控（击飞、眩晕、定身、嘲讽、恐惧、魅惑、强制位移）就摘掉 `r_ch`，
+//!   数据到时不飞。以前是数据每 15 tick 用 `AllyChampionInCC` 查他自己；游戏 0.7.0 起玩家说加里奥不开大，游戏的控制列表里
+//!   也有他自己正在播的施法动作，那个查法可能把引导动作当成被控、每次都打断，所以副本去掉数据的查法，改由本包只看硬控。
+//!   自己被硬控时也不选人（以前是数据查）。
 //!
 //! 数字：`PS_IDLE`、`TAUNT_*` 写在这里，`tests::the_numbers_match_the_kit` 读主包的参数表核对；其余从英雄数据来。
-//! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_galio.log`，每次启动游戏重写。
+//! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_galio.log`，每次启动游戏重写；R 的引导：`CHANNEL`（开始引导）、`BROKEN`（被硬控打断）、
+//! `LANDED`（飞过去落地）、`NO FLIGHT`（引导结束却没飞）。
 
 use std::collections::HashMap;
 use std::fs::OpenOptions;
@@ -28,7 +33,7 @@ use mod_api_stable::*;
 
 const ID: &str = "league_galio";
 /// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是 league_addons 的。
-const VERSION: &str = "0.1.1";
+const VERSION: &str = "0.1.2";
 
 // ===================== 数值（主包 build_galio.P） =====================
 
@@ -306,7 +311,11 @@ fn pick_for(sim: &StableSim<'_>, me: usize) -> Option<usize> {
     }
     let p = params_of(me);
     let at = alive_at(sim, me)?;
-    let team = sim.get_entity(me)?.team();
+    let galio = sim.get_entity(me)?;
+    if hard_cc(&galio) {
+        return None; // held himself: no R this poll (the data's own check, which reads every crowd control, is gone)
+    }
+    let team = galio.team();
     let foes = champions(sim, team, false);
     let mut allies = Vec::new();
     for (id, pos) in champions(sim, team, true) {
@@ -369,6 +378,52 @@ struct Colossus {
     given: usize,
     /// This sim's number (`SIM_TAG`), drawn at his first spawn.
     sim_no: u64,
+    /// R 的引导（他身上有 `r_ch`）：开始的 tick 和位置。
+    chan: Option<(usize, (f64, f64))>,
+}
+
+/// 他身上的控制种类（日志用）。
+fn cc_kinds(e: &StableEntity<'_, '_>) -> String {
+    let v: Vec<String> = (0..e.cc_count()).filter_map(|i| e.cc_at(i)).map(|c| c.kind.to_string()).collect();
+    format!("[{}]", v.join(" "))
+}
+
+impl Colossus {
+    /// R 的引导：被硬控（击飞、眩晕……）就打断（摘掉 `r_ch`，数据到时不飞）；只有自己的施法动作不算。日志记下引导、打断、落地。
+    fn channel(&mut self, sim: &mut StableSim<'_>, me: usize, now: usize, at: (f64, f64)) {
+        let Some(e) = sim.get_entity(me) else { return };
+        let r_ch = gl("r_ch");
+        let on = (0..e.buff_count()).filter_map(|i| e.buff_at(i)).any(|b| b.name() == r_ch);
+        let held = hard_cc(&e);
+        let kinds = cc_kinds(&e);
+        drop(e);
+        match (self.chan, on) {
+            (None, true) => {
+                self.chan = Some((now, at));
+                if let Some(k) = counted("channel") {
+                    wlog(format!("{} CHANNEL #{k}: R channels (crowd control on him {kinds})", head(sim, me)));
+                }
+            }
+            (Some((t0, _)), true) if held => {
+                sim.entity_remove_buff(me, &r_ch);
+                self.chan = None;
+                if let Some(k) = counted("broken") {
+                    wlog(format!("{} BROKEN #{k}: hard crowd control {kinds} {} ticks into the channel", head(sim, me),
+                                 now - t0));
+                }
+            }
+            (Some((t0, from)), false) => {
+                self.chan = None;
+                let moved = dist(from, at);
+                let what = if moved >= 10_000.0 { "LANDED" } else { "NO FLIGHT" };
+                if let Some(k) = counted(if moved >= 10_000.0 { "landed" } else { "no_flight" }) {
+                    wlog(format!("{} {what} #{k}: the channel ended after {} ticks, moved {moved:.0}", head(sim, me),
+                                 now - t0));
+                }
+            }
+            _ => {}
+        }
+    }
 }
 
 impl StablePassive for Colossus {
@@ -396,10 +451,9 @@ impl StablePassive for Colossus {
     }
 
     fn on_update(&mut self, sim: &mut StableSim<'_>, _: u64, _: usize, me: usize) {
-        if alive_at(sim, me).is_none() {
-            return;
-        }
+        let Some(at) = alive_at(sim, me) else { return };
         let now = sim.tick();
+        self.channel(sim, me, now, at);
         if now < self.until || now < self.hurt + PS_IDLE {
             return;
         }
@@ -424,6 +478,7 @@ impl StablePassive for Colossus {
     fn on_dead(&mut self, sim: &mut StableSim<'_>, _: usize) {
         self.hurt = sim.tick();
         self.until = 0;
+        self.chan = None;
     }
 }
 

@@ -1,0 +1,64 @@
+{
+  "name": "r_up",
+  "kind": "fx",
+  "processing_version": 5,
+  "raw_size": [
+    1774,
+    887
+  ],
+  "raw_sha256": "b40e94c3173c62edacf7cf1580923f002f40221c90d1723849c613b2329351db",
+  "frames": 6,
+  "cell_1x": [
+    20,
+    10
+  ],
+  "size": [
+    120,
+    10
+  ],
+  "preview_scale": 8,
+  "symmetry": "left-right per frame",
+  "symmetry_pass": true,
+  "hard_alpha": true,
+  "alpha_coverage_threshold": 0.18,
+  "color_vote": "majority among visible source pixels after palette mapping",
+  "loop": true,
+  "mirror_source_side": [
+    "right",
+    "right",
+    "right",
+    "left",
+    "left",
+    "right"
+  ],
+  "nonempty_frames": [
+    true,
+    true,
+    true,
+    true,
+    true,
+    true
+  ],
+  "distinct_frames": 6,
+  "source_layout": [
+    2,
+    3
+  ],
+  "palette": [
+    "#FFF2C0",
+    "#F2C860",
+    "#C88A28",
+    "#7E5014",
+    "#3E240A",
+    "#F0FFE0",
+    "#B8FF7A",
+    "#6EE830",
+    "#2FA818",
+    "#145A10",
+    "#FFFFFF",
+    "#FFF4B0",
+    "#FFC840",
+    "#F07A18",
+    "#A0380C"
+  ]
+}

@@ -109,30 +109,42 @@
             "effects": []
           },
           "effect_none": {
-            "type": "Combine",
+            "type": "RangeEffect",
+            "shape": {
+              "Circle": {
+                "radius": 1000
+              }
+            },
+            "target": "AllyOnlySelf",
+            "apply_type": "AroundCaster",
             "effects": [
               {
-                "type": "AddCasterBuff",
-                "buff_state": {
-                  "name": "league_kled_on",
-                  "duration": "Permanent"
-                },
-                "only_to_enemy": false
-              },
-              {
-                "type": "Shield",
-                "amount": 500,
-                "attack_ratio": 140,
-                "ap_ratio": 0,
-                "tick": 36000
-              },
-              {
-                "type": "AddCasterBuff",
-                "buff_state": {
-                  "name": "league_kled_sk",
-                  "duration": "Permanent"
-                },
-                "only_to_enemy": false
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_kled_on",
+                      "duration": "Permanent"
+                    },
+                    "only_to_enemy": false
+                  },
+                  {
+                    "type": "Shield",
+                    "amount": 500,
+                    "attack_ratio": 140,
+                    "ap_ratio": 0,
+                    "tick": 36000
+                  },
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_kled_sk",
+                      "duration": "Permanent"
+                    },
+                    "only_to_enemy": false
+                  }
+                ]
               }
             ]
           }
@@ -2540,30 +2552,42 @@
             "effects": []
           },
           "effect_none": {
-            "type": "Combine",
+            "type": "RangeEffect",
+            "shape": {
+              "Circle": {
+                "radius": 1000
+              }
+            },
+            "target": "AllyOnlySelf",
+            "apply_type": "AroundCaster",
             "effects": [
               {
-                "type": "AddCasterBuff",
-                "buff_state": {
-                  "name": "league_kled_on",
-                  "duration": "Permanent"
-                },
-                "only_to_enemy": false
-              },
-              {
-                "type": "Shield",
-                "amount": 500,
-                "attack_ratio": 140,
-                "ap_ratio": 0,
-                "tick": 36000
-              },
-              {
-                "type": "AddCasterBuff",
-                "buff_state": {
-                  "name": "league_kled_sk",
-                  "duration": "Permanent"
-                },
-                "only_to_enemy": false
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_kled_on",
+                      "duration": "Permanent"
+                    },
+                    "only_to_enemy": false
+                  },
+                  {
+                    "type": "Shield",
+                    "amount": 500,
+                    "attack_ratio": 140,
+                    "ap_ratio": 0,
+                    "tick": 36000
+                  },
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_kled_sk",
+                      "duration": "Permanent"
+                    },
+                    "only_to_enemy": false
+                  }
+                ]
               }
             ]
           }
@@ -3158,30 +3182,42 @@
             "effects": []
           },
           "effect_none": {
-            "type": "Combine",
+            "type": "RangeEffect",
+            "shape": {
+              "Circle": {
+                "radius": 1000
+              }
+            },
+            "target": "AllyOnlySelf",
+            "apply_type": "AroundCaster",
             "effects": [
               {
-                "type": "AddCasterBuff",
-                "buff_state": {
-                  "name": "league_kled_on",
-                  "duration": "Permanent"
-                },
-                "only_to_enemy": false
-              },
-              {
-                "type": "Shield",
-                "amount": 500,
-                "attack_ratio": 140,
-                "ap_ratio": 0,
-                "tick": 36000
-              },
-              {
-                "type": "AddCasterBuff",
-                "buff_state": {
-                  "name": "league_kled_sk",
-                  "duration": "Permanent"
-                },
-                "only_to_enemy": false
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_kled_on",
+                      "duration": "Permanent"
+                    },
+                    "only_to_enemy": false
+                  },
+                  {
+                    "type": "Shield",
+                    "amount": 500,
+                    "attack_ratio": 140,
+                    "ap_ratio": 0,
+                    "tick": 36000
+                  },
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_kled_sk",
+                      "duration": "Permanent"
+                    },
+                    "only_to_enemy": false
+                  }
+                ]
               }
             ]
           }
@@ -3510,30 +3546,42 @@
             "effects": []
           },
           "effect_none": {
-            "type": "Combine",
+            "type": "RangeEffect",
+            "shape": {
+              "Circle": {
+                "radius": 1000
+              }
+            },
+            "target": "AllyOnlySelf",
+            "apply_type": "AroundCaster",
             "effects": [
               {
-                "type": "AddCasterBuff",
-                "buff_state": {
-                  "name": "league_kled_on",
-                  "duration": "Permanent"
-                },
-                "only_to_enemy": false
-              },
-              {
-                "type": "Shield",
-                "amount": 500,
-                "attack_ratio": 140,
-                "ap_ratio": 0,
-                "tick": 36000
-              },
-              {
-                "type": "AddCasterBuff",
-                "buff_state": {
-                  "name": "league_kled_sk",
-                  "duration": "Permanent"
-                },
-                "only_to_enemy": false
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_kled_on",
+                      "duration": "Permanent"
+                    },
+                    "only_to_enemy": false
+                  },
+                  {
+                    "type": "Shield",
+                    "amount": 500,
+                    "attack_ratio": 140,
+                    "ap_ratio": 0,
+                    "tick": 36000
+                  },
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_kled_sk",
+                      "duration": "Permanent"
+                    },
+                    "only_to_enemy": false
+                  }
+                ]
               }
             ]
           }

@@ -1,0 +1,59 @@
+{
+  "name": "q_slow",
+  "kind": "fx",
+  "processing_version": 5,
+  "raw_size": [
+    1536,
+    1024
+  ],
+  "raw_sha256": "0ec89af464f64ac0a1fadc42746e17792472983d02ed2e7c88872217448eaac3",
+  "frames": 6,
+  "cell_1x": [
+    24,
+    10
+  ],
+  "size": [
+    144,
+    10
+  ],
+  "preview_scale": 8,
+  "symmetry": "left-right per frame",
+  "symmetry_pass": true,
+  "hard_alpha": true,
+  "alpha_coverage_threshold": 0.18,
+  "color_vote": "majority among visible source pixels after palette mapping",
+  "loop": true,
+  "mirror_source_side": [
+    "right",
+    "left",
+    "left",
+    "right",
+    "right",
+    "right"
+  ],
+  "nonempty_frames": [
+    true,
+    true,
+    true,
+    true,
+    true,
+    true
+  ],
+  "distinct_frames": 6,
+  "source_layout": [
+    2,
+    3
+  ],
+  "palette": [
+    "#D8D0A8",
+    "#A89868",
+    "#74684A",
+    "#4A422E",
+    "#262014",
+    "#F0FFE0",
+    "#B8FF7A",
+    "#6EE830",
+    "#2FA818",
+    "#145A10"
+  ]
+}

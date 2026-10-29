@@ -1,0 +1,77 @@
+[
+ {
+  "file": "renni_fx_a_hit.png",
+  "binding": "view_effects `tft_renni_a_hit`（跟随目标，z 2；左右对称）",
+  "size": "16 × 16",
+  "symmetry": "left-right"
+ },
+ {
+  "file": "renni_fx_q_hit.png",
+  "binding": "view_effects `tft_renni_q_hit`（跟随目标，z 2；左右对称）",
+  "size": "24 × 24",
+  "symmetry": "left-right"
+ },
+ {
+  "file": "renni_fx_q_slow.png",
+  "binding": "view_buffs `tft_renni_q_slow`（跟随被减速的人，脚下，z 3；左右对称）",
+  "size": "24 × 10",
+  "symmetry": "left-right"
+ },
+ {
+  "file": "renni_fx_p.png",
+  "binding": "view_effects `tft_renni_p`（跟随她，z 3；左右对称）",
+  "size": "36 × 44",
+  "symmetry": "left-right"
+ },
+ {
+  "file": "renni_fx_p_rush.png",
+  "binding": "view_buffs `tft_renni_p_rush`（跟随她，z 3；左右对称）",
+  "size": "36 × 44",
+  "symmetry": "left-right"
+ },
+ {
+  "file": "renni_fx_e.png",
+  "binding": "view_effects `tft_renni_e`（跟随她，z 3；左右对称）",
+  "size": "40 × 44",
+  "symmetry": "left-right"
+ },
+ {
+  "file": "renni_fx_e_guard.png",
+  "binding": "view_buffs `tft_renni_e_guard`（跟随她，z 3；左右对称）",
+  "size": "40 × 44",
+  "symmetry": "left-right"
+ },
+ {
+  "file": "renni_fx_r_up.png",
+  "binding": "view_buffs `tft_renni_r_up`（跟随被举起的人，头顶，z 3；左右对称）",
+  "size": "20 × 10",
+  "symmetry": "left-right"
+ },
+ {
+  "file": "renni_fx_r_hit.png",
+  "binding": "view_effects `tft_renni_r_hit`（跟随目标，z 2；左右对称）",
+  "size": "22 × 24",
+  "symmetry": "left-right"
+ },
+ {
+  "file": "renni_fx_r_slam.png",
+  "binding": "view_effects `tft_renni_r_slam`（大表，留在她面前的地上，z -1；左右对称）",
+  "size": "84 × 34",
+  "symmetry": "left-right"
+ },
+ {
+  "file": "renni_icon_skill.png",
+  "binding": "skill_icons[0] `asset/tft/icons/tft_renni_skill`",
+  "size": "64 x 64"
+ },
+ {
+  "file": "renni_icon_skill2.png",
+  "binding": "skill_icons[1] `asset/tft/icons/tft_renni_skill2`",
+  "size": "64 x 64"
+ },
+ {
+  "file": "renni_icon_ult.png",
+  "binding": "skill_icons[2] `asset/tft/icons/tft_renni_ult`",
+  "size": "64 x 64"
+ }
+]

@@ -1,0 +1,25 @@
+{
+  "name": "e_guard",
+  "kind": "pose",
+  "processing_version": 5,
+  "raw_size": [
+    1254,
+    1254
+  ],
+  "raw_sha256": "f0cedbb0bcfbc5ff33df30501aedca4f69c2b13617efa13cb1b0b64970c536cf",
+  "size": [
+    1254,
+    1254
+  ],
+  "grid_px": 12,
+  "hard_alpha": true,
+  "bbox": [
+    192,
+    24,
+    1056,
+    1176
+  ],
+  "baseline": 1176,
+  "baseline_shift_y": 0,
+  "fit_scale": 0.9696969696969697
+}

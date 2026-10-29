@@ -315,6 +315,10 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // soles, PPU 2.0 (「B-1、38 游戏像素、PPU 2.0」), and Codex's key poses after his own TFT clips with the design's head,
     // posed by tools/art/rig_scar.py, so no SIZES row
     ("tft_scar", 2.0, include_str!("../../../tft/champions/tft_scar#anim.fanim")),
+    // Renni (tft_renni, the tft pack): the stance, the chainsaw level forward, step 0's B-1 at the user's 38 game px hair
+    // to soles, PPU 2.0 (「B-1、38 像素、PPU 2.0」), and Codex's key poses after her own TFT clips with the design's head,
+    // posed by tools/art/rig_renni.py, so no SIZES row
+    ("tft_renni", 2.0, include_str!("../../../tft/champions/tft_renni#anim.fanim")),
     // Smeech (tft_smeech, the tft pack): the ambush crouch, claws spread, step 0's B-1 at the user's 36 game px hat to
     // claw tips, PPU 2.4 (「B-1 36像素 PPU2.4」, the picture one square a pixel), and Codex's key poses after his own TFT
     // clips with the design's head, posed by tools/art/rig_smeech.py, so no SIZES row

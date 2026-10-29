@@ -1,0 +1,22 @@
+{
+  "expected": 13,
+  "present": 13,
+  "errors": [],
+  "passed": true,
+  "checks": [
+    "renni_fx_a_hit",
+    "renni_fx_q_hit",
+    "renni_fx_q_slow",
+    "renni_fx_p",
+    "renni_fx_p_rush",
+    "renni_fx_e",
+    "renni_fx_e_guard",
+    "renni_fx_r_up",
+    "renni_fx_r_hit",
+    "renni_fx_r_slam",
+    "renni_icon_skill",
+    "renni_icon_skill2",
+    "renni_icon_ult"
+  ],
+  "scope": "renni_fx"
+}
