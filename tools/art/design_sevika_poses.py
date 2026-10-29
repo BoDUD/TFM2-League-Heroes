@@ -34,7 +34,8 @@ import regrid as RG  # noqa: E402
 
 SRC = os.path.join(ROOT, "assets", "source", "sevika", "codex_poses", "sevika-poses")
 OUT = os.path.join(ROOT, "assets", "source", "sevika", "hd")
-NAMES = list(PK.POSES)
+# the run is design_sevika_run.py's (Codex's whole-cycle redraw on one upper body): not written here
+NAMES = [n for n in PK.POSES if not n.startswith("run")]
 SQ = 12                                   # Codex's squares on the delivered canvases
 RAW = {}                                  # read from raw/ on squares of this many raw px
 # Codex drew these a size up: its own head 1.15-1.2x the design's (the design's head matched at scales 0.9-1.35, best

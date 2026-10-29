@@ -28,11 +28,12 @@ import ppu_rig as R  # noqa: E402
 import pose_ref  # noqa: E402
 import rig_sevika as A  # noqa: E402
 import pack_sevika_poses as PK  # noqa: E402
+import pack_sevika_run as RP  # noqa: E402
 from pack_sevika_picture import Model  # noqa: E402
 
 P = {k: (v[0].rstrip("~"), v[1]) for k, v in PK.POSES.items()}
 IDLE = (PK.DESIGN, PK.YAW)
-CLIPS = {"idle": [IDLE], "run": [P[f"run{k}"] for k in range(1, 9)], "attack": [P["a_wind"], P["a_punch"]],
+CLIPS = {"idle": [IDLE], "run": [(f"run@{t}", PK.YAW) for _n, t in RP.RUN], "attack": [P["a_wind"], P["a_punch"]],
          "attack2": [P["a2_raise"], P["a2_clamp"]], "skill": [P["q_flame"]], "flame": [P["q_flame"], P["q_flame2"]] * 6,
          "skill2": [P["e_wind"], P["e_punch"], P["e_back"]], "ult": [P["r_dash"]], "dash": [P["r_dash"]],
          "chomp": [P["r_raise"], P["r_bite"], P["r_lift"], P["r_bite"]],

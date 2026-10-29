@@ -48,7 +48,9 @@ DX = {"a_wind": -2, "a_punch": 12, "a2_clamp": -15, "q_flame": 7, "q_flame2": 5,
       "e_back": -3, "r_dash": -3, "r_raise": -3, "r_bite": 11, "r_lift": -2}
 RUN = [f"run{k}" for k in range(1, 9)]
 RUN_DX = {}
-RUN_MS = 117                  # her TFT run: 934 ms the cycle, 8 frames
+# her TFT run: one cycle is 1.87 s (two steps); the eight frames (design_sevika_run.py: Codex's whole-cycle redraw on
+# one upper body) at the clip times pack_sevika_run.RUN picked, each its share of a 936 ms loop
+RUN_MS = [117, 117, 117, 117, 78, 78, 156, 155]
 
 
 def lp(path):
@@ -125,7 +127,7 @@ class Canvas:
 # leaves on e_st 14 (233 ms: e_punch from 200); Chomp: `ult` then the kit's `dash` (r_dur 70) while she dashes, and on
 # arrival `chomp` (r_chomp_t 40, 667 ms): the bites on r_first 8 and 8 + r_gap 18 (133 and 433 ms: r_bite from 120 and
 # from 430)
-MS = {"idle": [1000], "run": [RUN_MS] * len(RUN), "attack": [170, 330], "attack2": [170, 330], "skill": [100],
+MS = {"idle": [1000], "run": RUN_MS, "attack": [170, 330], "attack2": [170, 330], "skill": [100],
       "flame": [100] * 12, "skill2": [200, 250, 217], "ult": [100], "dash": [1167], "chomp": [120, 180, 130, 237],
       "hit": [100, 100], "dead": [140, 260, 600]}
 
