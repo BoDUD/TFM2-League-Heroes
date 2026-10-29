@@ -888,7 +888,7 @@
         "attack": "金箍棒横扫。<#ff9028ff>金刚不坏<>：打中英雄叠1层（最多5层）：每层护甲+4、每秒<#66bb6aff>回复2<>生命。<#ff9028ff>粉碎打击<>：每<#ffb900ff>4秒<>下一次普攻伸长棒子，多造成<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>物理伤害，目标<#ef5350ff>护甲-20%<>，持续<#ffb900ff>3秒<>。",
         "skill": "腾云冲向目标，分身打中目标和附近最多<#ffb900ff>2个<>敌人，各造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<>物理伤害；之后攻击速度+40%，持续<#ffb900ff>5秒<>。",
         "skill2": "隐身<#ffb900ff>1秒<>冲到敌方英雄身后，原地留下分身<#ffb900ff>4秒<>：每秒打身边一个敌人（英雄优先），造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>物理伤害；他放大招时分身也跟着转。",
-        "ult": "伸长金箍棒旋转<#ffb900ff>2秒<>，每<#ffb900ff>0.25秒<>造成<#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>35%<>外加英雄2%最大生命的物理伤害，第一下<#ef5350ff>击飞0.6秒<>；<#ffb900ff>8秒<>内可再转一次。身边有敌方英雄时才放。"
+        "ult": "伸长金箍棒旋转<#ffb900ff>2秒<>，每<#ffb900ff>0.25秒<>造成<#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>35%<>外加英雄2%最大生命的物理伤害，第一下<#ef5350ff>击飞0.6秒<>；<#ffb900ff>8秒<>内可再转一次。没有分身时召出一个一起转。身边有敌方英雄时才放。"
       },
       "league_cassiopeia": {
         "name": "卡西奥佩娅",
@@ -2970,7 +2970,7 @@
         "attack": "金箍棒橫掃。<#ff9028ff>仙山石猴<>：打中英雄疊1層（最多5層）：每層護甲+4、每秒<#66bb6aff>回復2<>生命。<#ff9028ff>定海神兵<>：每<#ffb900ff>4秒<>下一次普攻伸長棒子，多造成<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>物理傷害，目標<#ef5350ff>護甲-20%<>，持續<#ffb900ff>3秒<>。",
         "skill": "騰雲衝向目標，分身打中目標和附近最多<#ffb900ff>2個<>敵人，各造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<>物理傷害；之後攻擊速度+40%，持續<#ffb900ff>5秒<>。",
         "skill2": "隱身<#ffb900ff>1秒<>衝到敵方英雄身後，原地留下分身<#ffb900ff>4秒<>：每秒打身邊一個敵人（英雄優先），造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>物理傷害；他放大招時分身也跟著轉。",
-        "ult": "伸長金箍棒旋轉<#ffb900ff>2秒<>，每<#ffb900ff>0.25秒<>造成<#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>35%<>外加英雄2%最大生命的物理傷害，第一下<#ef5350ff>擊飛0.6秒<>；<#ffb900ff>8秒<>內可再轉一次。身邊有敵方英雄時才放。"
+        "ult": "伸長金箍棒旋轉<#ffb900ff>2秒<>，每<#ffb900ff>0.25秒<>造成<#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>35%<>外加英雄2%最大生命的物理傷害，第一下<#ef5350ff>擊飛0.6秒<>；<#ffb900ff>8秒<>內可再轉一次。沒有分身時召出一個一起轉。身邊有敵方英雄時才放。"
       },
       "league_cassiopeia": {
         "name": "卡莎碧雅",
@@ -5052,7 +5052,7 @@
         "attack": "Staff strikes. <#ff9028ff>Stone Skin<>: each hit on a champion adds a stack (5 at most): +4 armour and <#66bb6aff>2 health<> a second each. <#ff9028ff>Crushing Blow<>: every <#ffb900ff>4s<> his next attack reaches farther and deals <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<> physical damage more, <#ef5350ff>-20% armour<> on the target for <#ffb900ff>3s<>.",
         "skill": "Dashes to the target on his cloud; images strike it and up to <#ffb900ff>2<> enemies near it for <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> physical damage each, then he gains 40% attack speed for <#ffb900ff>5s<>.",
         "skill2": "Turns invisible for <#ffb900ff>1s<> and dashes behind an enemy champion, leaving a clone for <#ffb900ff>4s<>: each second it hits one enemy near it (champions first) for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<> physical damage, and spins when he does.",
-        "ult": "Spins his lengthened staff for <#ffb900ff>2s<>: every <#ffb900ff>0.25s<> <#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>35%<> physical damage plus 2% of a champion's max health; the first hit <#ef5350ff>knocks up for 0.6s<>. A second spin within <#ffb900ff>8s<>. Cast with an enemy champion near."
+        "ult": "Spins his lengthened staff for <#ffb900ff>2s<>: every <#ffb900ff>0.25s<> <#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>35%<> physical damage plus 2% of a champion's max health; the first hit <#ef5350ff>knocks up for 0.6s<>. A second spin within <#ffb900ff>8s<>. With no clone out, one appears and spins with him. Cast with an enemy champion near."
       },
       "league_cassiopeia": {
         "name": "Cassiopeia",
@@ -7134,7 +7134,7 @@
         "attack": "여의봉 공격. <#ff9028ff>바위 피부<>: 챔피언 적중 시 중첩(최대 5): 중첩당 방어력 +4, 초당 <#66bb6aff>체력 2 회복<>. <#ff9028ff>파쇄격<>: <#ffb900ff>4초<>마다 다음 공격의 사거리가 늘고 <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<> 물리 피해 추가, 대상 <#ef5350ff>방어력 -20%<> <#ffb900ff>3초<>.",
         "skill": "근두운을 타고 대상에게 돌진, 분신이 대상과 주변 최대 <#ffb900ff>2명<>에게 각각 <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> 물리 피해, 이후 <#ffb900ff>5초<>간 공격 속도 +40%.",
         "skill2": "<#ffb900ff>1초<>간 투명해져 적 챔피언 뒤로 돌진하고 <#ffb900ff>4초<>간 분신을 남김: 매초 주변 적 하나(챔피언 우선)에게 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<> 물리 피해, 궁극기 때 함께 회전.",
-        "ult": "<#ffb900ff>2초<>간 늘어난 여의봉을 회전: <#ffb900ff>0.25초<>마다 <#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>35%<> + 챔피언 최대 체력 2% 물리 피해, 첫 타격 <#ef5350ff>0.6초 공중에 띄움<>. <#ffb900ff>8초<> 안에 한 번 더. 근처에 적 챔피언이 있을 때 사용."
+        "ult": "<#ffb900ff>2초<>간 늘어난 여의봉을 회전: <#ffb900ff>0.25초<>마다 <#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>35%<> + 챔피언 최대 체력 2% 물리 피해, 첫 타격 <#ef5350ff>0.6초 공중에 띄움<>. <#ffb900ff>8초<> 안에 한 번 더. 분신이 없으면 불러내 함께 회전. 근처에 적 챔피언이 있을 때 사용."
       },
       "league_cassiopeia": {
         "name": "카시오페아",
@@ -9216,7 +9216,7 @@
         "attack": "如意棒で攻撃。<#ff9028ff>岩の皮膚<>：チャンピオンに命中で1スタック（最大5）：スタック毎に物理防御+4、毎秒<#66bb6aff>体力2回復<>。<#ff9028ff>強棒打<>：<#ffb900ff>4秒<>毎に次の通常攻撃が伸び<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>の物理ダメージを追加、対象の<#ef5350ff>物理防御-20%<>（<#ffb900ff>3秒<>）。",
         "skill": "觔斗雲で対象へ突進、分身が対象と周囲の敵最大<#ffb900ff>2体<>に各<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<>の物理ダメージ、その後<#ffb900ff>5秒<>攻撃速度+40%。",
         "skill2": "<#ffb900ff>1秒<>透明になり敵チャンピオンの背後へ、<#ffb900ff>4秒<>分身を残す：毎秒近くの敵1体（チャンピオン優先）に<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>の物理ダメージ、アルティメット中は一緒に回転。",
-        "ult": "伸びた如意棒を<#ffb900ff>2秒<>回転：<#ffb900ff>0.25秒<>毎に<#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>35%<>+最大体力2%の物理ダメージ、初撃は<#ef5350ff>0.6秒打ち上げ<>。<#ffb900ff>8秒<>以内にもう一度。近くに敵チャンピオンがいる時に使う。"
+        "ult": "伸びた如意棒を<#ffb900ff>2秒<>回転：<#ffb900ff>0.25秒<>毎に<#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>35%<>+最大体力2%の物理ダメージ、初撃は<#ef5350ff>0.6秒打ち上げ<>。<#ffb900ff>8秒<>以内にもう一度。分身がいなければ呼び出し一緒に回る。近くに敵チャンピオンがいる時に使う。"
       },
       "league_cassiopeia": {
         "name": "カシオペア",

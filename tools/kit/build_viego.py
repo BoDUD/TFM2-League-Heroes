@@ -50,10 +50,13 @@ BIG = "asset/league/effects/league_viego_big"
 # hunter, inquisitor and ninja, three lineups, both sides, 2026-10-11): +1.51 on seeds 1-12 (league_kayn +1.76,
 # league_khazix +1.20), +1.16 on 25-36 (league_kayn +1.23). The draft c0 (double strike heal 40 + 40%, a soul +25% attack
 # and Q / W ready at once) was +2.02 / +1.92; c2 (c1 + attack 88) +0.96 / +1.23.
+# 2026-10-29 (the user: 「佛耶戈的平衡也调一调」): R's non-piercing rush (the stuck fix, #594) lifted him +2.15 -> +2.88
+# (seeds 1-8). Less R damage did nothing (r_hp 9 +2.97, r_ratio 100 + r_hp 10 +3.26, r_dmg 90 + 100% + r_hp 8 +3.51); attack
+# 86 +2.63, the soul's +10% attack / +15% speed +2.69; health 980 +105 -> 900 +95 +2.18 (seeds 9-16 +2.32 -> +1.97): taken.
 P = {
     # stats (Melee base: attack 95 +19, hp 1000 +100, defence 30 +8, mr 25 +4, move 1000 +11); League's Viego: 630 +109
     # hp, 57 AD +3.5, 34 armour, 32 mr, 345 move, 200 range - a skirmisher who lives on resets
-    "hp": 980, "hp_g": 105, "atk": 92, "atk_g": 18, "def": 30, "def_g": 8, "mr": 26, "mr_g": 4, "ms": 1010, "ms_g": 11,
+    "hp": 900, "hp_g": 95, "atk": 92, "atk_g": 18, "def": 30, "def_g": 8, "mr": 26, "mr_g": 4, "ms": 1010, "ms_g": 11,
     # attack: the sword (League's Q passive: 2-7% current health on hit, at least 10-35; here % max health on champions)
     "atk_range": 26000, "atk_dur": 24, "atk_cd": 64, "atk_st": 14, "a_pct": 2,
     # the double strike after Q's mark (League: the second hit 20% AD + 15% AP, heals 145% of it on champions)
