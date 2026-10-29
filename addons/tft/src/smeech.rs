@@ -136,15 +136,15 @@ impl Default for Params {
             q_s1: 8,
             q_s2: 16,
             q_s3: 24,
-            q_dmg: 20,
-            q_ad: 55,
+            q_dmg: 25,
+            q_ad: 70,
             q_again: 70,
-            e_dmg: 40,
-            e_ad: 90,
+            e_dmg: 45,
+            e_ad: 110,
             r_dur: 72,
             r_reach: 45000,
-            r_dmg: 50,
-            r_ad: 80,
+            r_dmg: 55,
+            r_ad: 100,
             r_crit: 10,
             r_t: 300,
         }
@@ -491,7 +491,7 @@ mod tests {
 
     #[test]
     fn params_from_the_kit() {
-        let json = r#"{"e_ad":90,"e_dmg":40,"p_cdmg":20,"q_ad":55,"q_again":70,"q_dmg":20,"q_gap":14000,"q_range":45000,"q_s1":8,"q_s2":16,"q_s3":24,"r_ad":80,"r_crit":10,"r_dmg":50,"r_dur":72,"r_reach":45000,"r_t":300}"#;
+        let json = r#"{"e_ad":110,"e_dmg":45,"p_cdmg":20,"q_ad":70,"q_again":70,"q_dmg":25,"q_gap":14000,"q_range":45000,"q_s1":8,"q_s2":16,"q_s3":24,"r_ad":100,"r_crit":10,"r_dmg":55,"r_dur":72,"r_reach":45000,"r_t":300}"#;
         assert_eq!(parse_params(json), Params::default());
     }
 
@@ -524,7 +524,7 @@ mod tests {
 
     #[test]
     fn hits_and_crits() {
-        assert_eq!(hit(20, 55, 100, 100, false, 20), 75);
+        assert_eq!(hit(20, 55, 100, 100, false, 20), 75);   // 20 + 55% of 100
         assert_eq!(hit(20, 55, 100, 70, false, 20), 52);
         assert_eq!(hit(20, 55, 100, 100, true, 20), 165);
         assert!(rolls_crit(7, 1, 100));

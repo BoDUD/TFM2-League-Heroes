@@ -48,21 +48,28 @@ FX = f"asset/{MOD_ID}/effects/{ID}_fx"
 # 10), the leap takes 233 ms (q_jump 14) and the three slashes follow 8 / 16 / 24 ticks later, the rip at 167 ms
 # (e_st 10), the hops 12 ticks apart. Stats start from the pack's jungle assassins (league_khazix hp 880 +84, atk 88
 # +16; league_rengar; tft_violet hp 940 +100, atk 82 +17).
+# Numbers = the 10-min classic-SDK simulations (C:/t/sm_sim with C:/t/al_sim/kd.py: jungle against the base ninja,
+# demon, hunter, werewolf and vampire, three lineups, both sides; 2026-10-29), all --plain (skill hits at their
+# expected crit size, Q on the AI's target, R's hops random): the draft (hp 900, atk 84, Q 20 + 55% x3, E 40 + 90%,
+# R 50 + 80% x5) -0.16 on seeds 1-8 against tft_violet --plain +2.29 and league_khazix +0.47; atk 90, Q +70%, E +110%,
+# R +100% +1.75; + flat 30/50/60, Q 80%, E 120%, R 110%, hp 980 +3.82 (too strong); between (atk 92, Q 25 + 75%, E 45 +
+# 115%, R 55 + 105%, hp 940) +2.37 / +2.72 on seeds 9-16 (tft_violet +0.84 there); P a step under that: +1.24 / +1.25
+# (tft_violet +2.29 / +0.84) - in game tft.dll picks the weakest prey, which the plain sims cannot.
 P = {
     # stats (Assassin, jungle)
-    "hp": 900, "hp_g": 90, "atk": 84, "atk_g": 16, "apw": 0, "apw_g": 0, "def": 28, "def_g": 8, "mr": 22, "mr_g": 4,
+    "hp": 940, "hp_g": 90, "atk": 90, "atk_g": 16, "apw": 0, "apw_g": 0, "def": 28, "def_g": 8, "mr": 22, "mr_g": 4,
     "ms": 1100, "ms_g": 12,
     "atk_range": 23000, "atk_dur": 22, "atk_cd": 54, "atk_st": 10,
     # passive Ambusher (TFT: abilities can crit; 2 Ambushers +25% crit chance, +10% crit damage)
     "p_crit": 25, "p_cdmg": 20,
     # Scrap Hacker (TFT: 4 hexes, 3 slashes for 500% AD in all, a re-leap on a kill at -30%)
     "q_cd": 420, "q_range": 45000, "q_dur": 54, "q_jump": 14, "q_gap": 14000, "q_s1": 8, "q_s2": 16, "q_s3": 24,
-    "q_dmg": 20, "q_ad": 55, "q_again": 70,
+    "q_dmg": 25, "q_ad": 70, "q_again": 70,
     # Scrap Rip
-    "e_cd": 480, "e_range": 26000, "e_dur": 24, "e_st": 10, "e_dmg": 40, "e_ad": 90, "e_shred": 30, "e_t": 240,
+    "e_cd": 480, "e_range": 26000, "e_dur": 24, "e_st": 10, "e_dmg": 45, "e_ad": 110, "e_shred": 30, "e_t": 240,
     # Scrap Frenzy
     "r_cd": 3000, "r_range": 50000, "r_dur": 72, "r_st": 6, "r_gap": 12, "r_n": 5, "r_reach": 45000,
-    "r_dmg": 50, "r_ad": 80, "r_crit": 10, "r_t": 300, "r_dr": 30,
+    "r_dmg": 55, "r_ad": 100, "r_crit": 10, "r_t": 300, "r_dr": 30,
 }
 # what tft.dll reads from passive.params (addons/tft/src/smeech.rs), and the names only it puts on (flags: no view)
 NATIVE_ONLY = ("q_again", "q_weak", "r_mark", "r_crit")

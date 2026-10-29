@@ -14,15 +14,15 @@
       "q_s1": 8,
       "q_s2": 16,
       "q_s3": 24,
-      "q_dmg": 20,
-      "q_ad": 55,
+      "q_dmg": 25,
+      "q_ad": 70,
       "q_again": 70,
-      "e_dmg": 40,
-      "e_ad": 90,
+      "e_dmg": 45,
+      "e_ad": 110,
       "r_dur": 72,
       "r_reach": 45000,
-      "r_dmg": 50,
-      "r_ad": 80,
+      "r_dmg": 55,
+      "r_ad": 100,
       "r_crit": 10,
       "r_t": 300
     }
@@ -35,9 +35,9 @@
     "asset/tft/icons/tft_smeech_ult"
   ],
   "stat": {
-    "attack": 84,
+    "attack": 90,
     "magic_power": 0,
-    "hp": 900,
+    "hp": 940,
     "defence": 28,
     "magic_resistance": 22,
     "move_speed": 1100,
