@@ -32,7 +32,7 @@ use mod_api_stable::*;
 
 const ID: &str = "league_tahmkench";
 /// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是 league_addons 的。
-const VERSION: &str = "0.1.2";
+const VERSION: &str = "0.1.3";
 const HERO: &str = "league_tahmkench";
 
 // ===================== 数值（主包 build_tahmkench.P） =====================
@@ -213,6 +213,15 @@ const HARD_CC: [CcKindV1; 7] = [CcKindV1::Airborne, CcKindV1::Stun, CcKindV1::Bi
 
 fn hard_cc(e: &StableEntity<'_, '_>) -> bool {
     (0..e.cc_count()).any(|i| e.cc_at(i).is_some_and(|c| HARD_CC.iter().any(|k| k.code() == c.kind)))
+}
+
+/// 他身上免疫控制的 buff 的名字（希维尔的法术护盾 `league_sivir_e_shroud` 这类），没有就 None：有的话大快朵颐吞不了他
+/// （英雄联盟里法术护盾挡下 R）。
+fn immune_by(sim: &StableSim<'_>, id: usize) -> Option<String> {
+    let e = sim.get_entity(id)?;
+    let names: Vec<String> = (0..e.buff_count()).filter_map(|i| e.buff_at(i)).filter(|b| b.cc_immune)
+        .map(|b| b.name().to_string()).collect();
+    (!names.is_empty()).then(|| names.join(" "))
 }
 
 fn alive_at(sim: &StableSim<'_>, id: usize) -> Option<(f64, f64)> {
@@ -407,6 +416,27 @@ impl StableEffectType for Devour {
         if let Some(n) = counted("devour") {
             wlog(format!("{} DEVOUR #{n} {} {} for {hold} ticks", head(sim, caster), if ally { "ALLY" } else { "ENEMY" },
                          who(sim, target)));
+        }
+    }
+}
+
+// ===================== 大快朵颐：免疫控制的敌人吞不了 =====================
+
+/// 吞敌人的探针落下时先调（副本：`league_tahmkench:guard`）：他免疫控制（希维尔开着法术护盾，用户 2026-10-29：「希维尔开盾时
+/// 塔姆可以吞」）就在塔姆身上挂 1 tick 的 `r_blocked`，数据接着跳过放逐、伤害和 `devour`。大招照样用掉（英雄联盟里法术护盾
+/// 挡下技能也一样）。
+struct Guard;
+
+impl StableEffectType for Guard {
+    fn apply(&self, sim: &mut StableSim<'_>, _: u64, caster: usize, input: InputTargetV1) {
+        if InputTargetKindV1::from_code(input.kind) != Some(InputTargetKindV1::Target) {
+            return;
+        }
+        let target = input.target_id;
+        let Some(by) = immune_by(sim, target) else { return };
+        sim.add_buff(caster, &BuffV1::timed(&tk("r_blocked"), 1));
+        if let Some(n) = counted("blocked") {
+            wlog(format!("{} R BLOCKED #{n}: {} immune to crowd control ({by}), not eaten", head(sim, caster), who(sim, target)));
         }
     }
 }
@@ -655,8 +685,9 @@ impl Ai {
                 if let Some((m, why)) = best {
                     return Some(Plan::Ult(m.id, format!("ALLY {} ({why}, {}% hp)", who(sim, m.id), pct(m.hp, m.max))));
                 }
-                // 2. an enemy champion with three stacks close by
+                // 2. an enemy champion with three stacks close by, not immune to crowd control (a spell shield up)
                 let full = foes.iter().filter(|f| dist(at, f.1) <= R_REACH + 8_000.0 && stacks(sim, f.0) >= 3)
+                    .filter(|f| immune_by(sim, f.0).is_none())
                     .min_by(|a, b| dist(at, a.1).partial_cmp(&dist(at, b.1)).unwrap_or(std::cmp::Ordering::Equal));
                 if let Some(&(id, _)) = full {
                     return Some(Plan::Ult(id, format!("ENEMY {} (3 stacks)", who(sim, id))));
@@ -781,6 +812,8 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     module.add_native_effect(format!("{ID}:taste"), Taste);
     module.add_native_effect(format!("{ID}:lash"), Lash);
     module.add_native_effect(format!("{ID}:devour"), Devour);
+    // 0.1.3: an enemy immune to crowd control (a spell shield up) is not eaten
+    module.add_native_effect(format!("{ID}:guard"), Guard);
     module.add_player_input_ai(Ai);
     host.log(LogLevel::Info, "league_tahmkench loaded (stacks per champion, grey health, Devour and Abyssal Dive timing).");
 }
@@ -869,8 +902,21 @@ mod tests {
 
     #[test]
     fn the_names_fit() {
-        for x in ["t_mark", "t_pip1", "t_pip2", "t_pip3", "q_stun", "e_shield", "p_stack"] {
+        for x in ["t_mark", "t_pip1", "t_pip2", "t_pip3", "q_stun", "e_shield", "p_stack", "r_blocked"] {
             assert!(tk(x).len() <= BUFF_NAME_CAP);
         }
+    }
+
+    /// The copy's enemy probe asks league_tahmkench:guard before anything of the swallow (2026-10-29: a spell shield
+    /// up, Devour ate Sivir anyway): the guard first, then the switch on r_blocked holding the banish and the devour.
+    #[test]
+    fn the_guard_comes_before_the_banish() {
+        let copy = include_str!("../override/league_tahmkench.data_champion").replace('\r', "");
+        let probe = &copy[copy.find("\"name\": \"league_tahmkench_r_enemy_go\"").expect("no enemy probe in the copy")..];
+        let guard = probe.find("\"effect_ref\": \"league_tahmkench:guard\"").expect("the enemy probe has no guard");
+        let switch = probe.find("\"buff_name\": \"league_tahmkench_r_blocked\"").expect("no switch on r_blocked");
+        let banish = probe.find("\"type\": \"Banish\"").expect("no banish");
+        let devour = probe.find("\"effect_ref\": \"league_tahmkench:devour\"").expect("no devour");
+        assert!(guard < switch && switch < banish && banish < devour);
     }
 }

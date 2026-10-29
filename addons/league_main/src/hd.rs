@@ -82,8 +82,10 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // Codex's step-1 take read back uncut - 「PPU 用 1.5」), Q / R from Codex's gun-hand poses, so no SIZES row
     ("league_gangplank", 1.5, include_str!("../../../league/champions/league_gangplank#anim.fanim")),
     // Wukong: posed by tools/art/rig_wukong.py at the user's 1.5 squares a game pixel (38 game rows hair to soles, the
-    // tail and the staff above; 「起码PPU1.5」), so no SIZES row
-    ("league_wukong", 1.2, include_str!("../../../league/champions/league_wukong#anim.fanim")),
+    // tail and the staff above; 「起码PPU1.5」), so no SIZES row; Codex's actions (rig_frames_1018.py, 1.53) brought to 1.2
+    // on 2026-10-18 (「船长猴子阿克尚波比蛇女像素太高需要降低」), back to 1.53 as drawn on 2026-10-29 (「局内模型眼睛细节太差
+    // 了」「你不如调高一点PPU像素」「用 1.53」: at 1.2 the eye's single green square was lost, a black band over the face)
+    ("league_wukong", 1.53, include_str!("../../../league/champions/league_wukong#anim.fanim")),
     // Cassiopeia: posed by tools/art/rig_cassiopeia.py at the user's 1.3 squares a game pixel (44 game rows crest to the
     // ground: 「44 ppu1.3 A」), so no SIZES row
     ("league_cassiopeia", 1.2, include_str!("../../../league/champions/league_cassiopeia#anim.fanim")),

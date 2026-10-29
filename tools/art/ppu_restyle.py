@@ -404,7 +404,11 @@ RESTYLE = {
     # the face point between his green eyes
     # 2026-10-20 「猴子现在太小了」: 115 % (hd.rs SIZES; 36 -> 41 game px, Lee Sin / Pantheon / Garen 41) round the frame's
     # centre, so every frame lifted 11.5 x 1.2 x (1 - 1 / 1.15) = 1.8 -> 2 rows of the new grid; face (3, -27) x 1.15 and the lift -> (3, -33)
-    "wukong": dict(ppu=1.2, edge=1, lift_sq=2, face_to=(3, -33), shared_palette=True, shared_palette_skip=[("hit", 0)]),   # one palette over every frame (「猴子gif图里面怎么一直变色？」)   # 10-18 redo: Codex's new design and actions (rig_frames_1018.py), drawn at 85 % already
+    # 2026-10-29 「局内模型眼睛细节太差了」「你不如调高一点PPU像素」 -> 「用 1.53」: Codex's frames as drawn (ORIG_PPU, no
+    # coarser grid: at 1.2 each eye's single green square was outvoted and the lid ran into the far eye - a black band
+    # over the face); still lifted 11.5 x 1.53 x (1 - 1 / 1.15) = 2.3 -> 2 rows. Their 50 colours are one palette already
+    # (palette_act_1018.py), so the shared palette (it came with the coarser grid) has nothing left to do
+    "wukong": dict(ppu=1.53, edge=1, lift_sq=2, face_to=(3, -33)),
     # league_cassiopeia (#128): posed from the design's own squares at the user's 1.3 squares a game pixel (「44 ppu1.3 A」:
     # Codex's step-1 take A-2 cut to 57 rows crest to ground) by tools/art/rig_cassiopeia.py, so no proportion or density
     # change here; the outer outline grown a square like the others; the face point between her eyes

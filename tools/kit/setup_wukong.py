@@ -58,7 +58,7 @@ TEXT = {
         "skill2": "隐身" + A + "{w_inv}秒" + E + "冲到敌方英雄身后，原地留下分身" + A + "{w_t}秒" + E + "：每秒打身边一个敌人（英雄优先），造成" + ad("w_ratio") +
                   "物理伤害；他放大招时分身也跟着转。",
         "ult": "伸长金箍棒旋转" + A + "{r_t}秒" + E + "，每" + A + "{r_every}秒" + E + "造成" + phys("r_dmg", "r_ratio") + "外加英雄{r_hp}%最大生命的物理伤害，"
-               "第一下" + R + "击飞{r_up}秒" + E + "；" + A + "8秒" + E + "内可再转一次。没有分身时召出一个一起转。身边有敌方英雄时才放。",
+               "第一下" + R + "击飞{r_up}秒" + E + "；" + A + "8秒" + E + "内可再转一次。身边有敌方英雄时才放。",
         "names": ("腾云突击", "真假猴王", "大闹天宫"),
     },
     "zh-hant": {
@@ -71,7 +71,7 @@ TEXT = {
         "skill2": "隱身" + A + "{w_inv}秒" + E + "衝到敵方英雄身後，原地留下分身" + A + "{w_t}秒" + E + "：每秒打身邊一個敵人（英雄優先），造成" + ad("w_ratio") +
                   "物理傷害；他放大招時分身也跟著轉。",
         "ult": "伸長金箍棒旋轉" + A + "{r_t}秒" + E + "，每" + A + "{r_every}秒" + E + "造成" + phys("r_dmg", "r_ratio") + "外加英雄{r_hp}%最大生命的物理傷害，"
-               "第一下" + R + "擊飛{r_up}秒" + E + "；" + A + "8秒" + E + "內可再轉一次。沒有分身時召出一個一起轉。身邊有敵方英雄時才放。",
+               "第一下" + R + "擊飛{r_up}秒" + E + "；" + A + "8秒" + E + "內可再轉一次。身邊有敵方英雄時才放。",
         "names": ("筋斗突擊", "分身術", "無極風暴"),
     },
     "en": {
@@ -86,7 +86,7 @@ TEXT = {
                   ": each second it hits one enemy near it (champions first) for " + ad("w_ratio") + " physical damage, and spins when he does.",
         "ult": "Spins his lengthened staff for " + A + "{r_t}s" + E + ": every " + A + "{r_every}s" + E + " " + phys("r_dmg", "r_ratio") +
                " physical damage plus {r_hp}% of a champion's max health; the first hit " + R + "knocks up for {r_up}s" + E + ". A second spin within " +
-               A + "8s" + E + ". With no clone out, one appears and spins with him. Cast with an enemy champion near.",
+               A + "8s" + E + ". Cast with an enemy champion near.",
         "names": ("Nimbus Strike", "Warrior Trickster", "Cyclone"),
     },
     "ko": {
@@ -99,7 +99,7 @@ TEXT = {
         "skill2": A + "{w_inv}초" + E + "간 투명해져 적 챔피언 뒤로 돌진하고 " + A + "{w_t}초" + E + "간 분신을 남김: 매초 주변 적 하나(챔피언 우선)에게 " +
                   ad("w_ratio") + " 물리 피해, 궁극기 때 함께 회전.",
         "ult": A + "{r_t}초" + E + "간 늘어난 여의봉을 회전: " + A + "{r_every}초" + E + "마다 " + phys("r_dmg", "r_ratio") + " + 챔피언 최대 체력 {r_hp}% 물리 피해, "
-               "첫 타격 " + R + "{r_up}초 공중에 띄움" + E + ". " + A + "8초" + E + " 안에 한 번 더. 분신이 없으면 불러내 함께 회전. 근처에 적 챔피언이 있을 때 사용.",
+               "첫 타격 " + R + "{r_up}초 공중에 띄움" + E + ". " + A + "8초" + E + " 안에 한 번 더. 근처에 적 챔피언이 있을 때 사용.",
         "names": ("근두운 급습", "분신 전사", "회전격"),
     },
     "ja": {
@@ -112,7 +112,7 @@ TEXT = {
         "skill2": A + "{w_inv}秒" + E + "透明になり敵チャンピオンの背後へ、" + A + "{w_t}秒" + E + "分身を残す：毎秒近くの敵1体（チャンピオン優先）に" +
                   ad("w_ratio") + "の物理ダメージ、アルティメット中は一緒に回転。",
         "ult": "伸びた如意棒を" + A + "{r_t}秒" + E + "回転：" + A + "{r_every}秒" + E + "毎に" + phys("r_dmg", "r_ratio") + "+最大体力{r_hp}%の物理ダメージ、"
-               "初撃は" + R + "{r_up}秒打ち上げ" + E + "。" + A + "8秒" + E + "以内にもう一度。分身がいなければ呼び出し一緒に回る。近くに敵チャンピオンがいる時に使う。",
+               "初撃は" + R + "{r_up}秒打ち上げ" + E + "。" + A + "8秒" + E + "以内にもう一度。近くに敵チャンピオンがいる時に使う。",
         "names": ("乱像猿技", "戦士の幻惑", "旋風猿舞"),
     },
 }
