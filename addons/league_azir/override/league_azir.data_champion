@@ -16043,6 +16043,10 @@
                         "type": "Combine",
                         "effects": [
                           {
+                            "type": "Native",
+                            "effect_ref": "league_azir:r_wall"
+                          },
+                          {
                             "type": "Sfx",
                             "name": "league_azir_r_wall"
                           },
@@ -16077,9 +16081,8 @@
                               {
                                 "casting_type": "Targeting",
                                 "effect": {
-                                  "type": "Knockback",
-                                  "speed": 3000,
-                                  "tick": 18
+                                  "type": "Native",
+                                  "effect_ref": "league_azir:r_carry"
                                 }
                               },
                               {
@@ -16141,10 +16144,6 @@
                               }
                             ],
                             "end_effects": []
-                          },
-                          {
-                            "type": "Native",
-                            "effect_ref": "league_azir:r_wall"
                           }
                         ]
                       }
