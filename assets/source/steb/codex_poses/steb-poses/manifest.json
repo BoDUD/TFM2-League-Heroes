@@ -1,0 +1,350 @@
+[
+  {
+    "file": "steb-pose-a_wind.png",
+    "raw": "raw\\steb-pose-a_wind.png",
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "raw_sha256": "082cd47187368c1daafb07236d7e8673a2e7924c3f1fd70ce2db96944ab3f6ff",
+    "art_source": "built-in image_gen",
+    "technical_processing_only": true,
+    "size": [
+      1254,
+      1254
+    ],
+    "grid_px": 9,
+    "bbox": [
+      378,
+      27,
+      1224,
+      1179
+    ],
+    "anchor_translation_px": [
+      0,
+      -54
+    ],
+    "requested_ground_y": 1176,
+    "actual_lowest_y": 1179,
+    "strict_pose_alignment": "requires visual review; grid checks do not prove bone or head identity"
+  },
+  {
+    "file": "steb-pose-a_hit.png",
+    "raw": "raw\\steb-pose-a_hit.png",
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "raw_sha256": "373cb7de6e5527086e053db39e57213b94a3fc76af84f60a2b13624ef54ae9c3",
+    "art_source": "built-in image_gen",
+    "technical_processing_only": true,
+    "size": [
+      1254,
+      1254
+    ],
+    "grid_px": 9,
+    "bbox": [
+      36,
+      270,
+      1233,
+      1179
+    ],
+    "anchor_translation_px": [
+      0,
+      18
+    ],
+    "requested_ground_y": 1176,
+    "actual_lowest_y": 1179,
+    "strict_pose_alignment": "requires visual review; grid checks do not prove bone or head identity"
+  },
+  {
+    "file": "steb-pose-a2_wind.png",
+    "raw": "raw\\steb-pose-a2_wind.png",
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "raw_sha256": "d0cf231e255d3870bb989bcc3e88a1c802230829b2033abb4cc3915878d65326",
+    "art_source": "built-in image_gen",
+    "technical_processing_only": true,
+    "size": [
+      1254,
+      1254
+    ],
+    "grid_px": 9,
+    "bbox": [
+      108,
+      153,
+      1170,
+      1179
+    ],
+    "anchor_translation_px": [
+      0,
+      -18
+    ],
+    "requested_ground_y": 1176,
+    "actual_lowest_y": 1179,
+    "strict_pose_alignment": "requires visual review; grid checks do not prove bone or head identity"
+  },
+  {
+    "file": "steb-pose-a2_hit.png",
+    "raw": "raw\\steb-pose-a2_hit.png",
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "raw_sha256": "80d8026884429f94978eada0df8e9f8a9f17378e4aa5570bee6e6feadf5d5bd2",
+    "art_source": "built-in image_gen",
+    "technical_processing_only": true,
+    "size": [
+      1254,
+      1254
+    ],
+    "grid_px": 9,
+    "bbox": [
+      63,
+      243,
+      1233,
+      1179
+    ],
+    "anchor_translation_px": [
+      0,
+      0
+    ],
+    "requested_ground_y": 1176,
+    "actual_lowest_y": 1179,
+    "strict_pose_alignment": "requires visual review; grid checks do not prove bone or head identity"
+  },
+  {
+    "file": "steb-pose-q_dose.png",
+    "raw": "raw\\steb-pose-q_dose.png",
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "raw_sha256": "fc3de0e6eb7e081c1e3228f201840c91b8459f20907b7d6353b1c51d7efad7ea",
+    "art_source": "built-in image_gen",
+    "technical_processing_only": true,
+    "size": [
+      1254,
+      1254
+    ],
+    "grid_px": 9,
+    "bbox": [
+      306,
+      162,
+      1143,
+      1179
+    ],
+    "anchor_translation_px": [
+      0,
+      9
+    ],
+    "requested_ground_y": 1176,
+    "actual_lowest_y": 1179,
+    "strict_pose_alignment": "requires visual review; grid checks do not prove bone or head identity"
+  },
+  {
+    "file": "steb-pose-q_raise.png",
+    "raw": "raw\\steb-pose-q_raise.png",
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "raw_sha256": "58804e6229af7e8923e855d158906210d93dac068d1ee18a1bcf6695ad2b0d33",
+    "art_source": "built-in image_gen",
+    "technical_processing_only": true,
+    "size": [
+      1254,
+      1254
+    ],
+    "grid_px": 9,
+    "bbox": [
+      342,
+      27,
+      1188,
+      1179
+    ],
+    "anchor_translation_px": [
+      0,
+      -36
+    ],
+    "requested_ground_y": 1176,
+    "actual_lowest_y": 1179,
+    "strict_pose_alignment": "requires visual review; grid checks do not prove bone or head identity"
+  },
+  {
+    "file": "steb-pose-e_raise.png",
+    "raw": "raw\\steb-pose-e_raise.png",
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "raw_sha256": "3578d88c37dd599ed96778353af81b9254158fbe6e49d700376310047a0567f0",
+    "art_source": "built-in image_gen",
+    "technical_processing_only": true,
+    "size": [
+      1254,
+      1254
+    ],
+    "grid_px": 9,
+    "bbox": [
+      342,
+      90,
+      1089,
+      1179
+    ],
+    "anchor_translation_px": [
+      0,
+      -18
+    ],
+    "requested_ground_y": 1176,
+    "actual_lowest_y": 1179,
+    "strict_pose_alignment": "requires visual review; grid checks do not prove bone or head identity"
+  },
+  {
+    "file": "steb-pose-e_point.png",
+    "raw": "raw\\steb-pose-e_point.png",
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "raw_sha256": "371f1728e732d06258fdb8e25c6b9351a872e54cfe91cbd585a587ef04c19991",
+    "art_source": "built-in image_gen",
+    "technical_processing_only": true,
+    "size": [
+      1254,
+      1254
+    ],
+    "grid_px": 9,
+    "bbox": [
+      162,
+      234,
+      1242,
+      1179
+    ],
+    "anchor_translation_px": [
+      0,
+      -9
+    ],
+    "requested_ground_y": 1176,
+    "actual_lowest_y": 1179,
+    "strict_pose_alignment": "requires visual review; grid checks do not prove bone or head identity"
+  },
+  {
+    "file": "steb-pose-r_cross.png",
+    "raw": "raw\\steb-pose-r_cross.png",
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "raw_sha256": "1d9c82b165225bf4e72167147a5699ed9c2b457bea7d817a13ccd64709f8a675",
+    "art_source": "built-in image_gen",
+    "technical_processing_only": true,
+    "size": [
+      1254,
+      1254
+    ],
+    "grid_px": 9,
+    "bbox": [
+      369,
+      18,
+      990,
+      1224
+    ],
+    "anchor_translation_px": [
+      0,
+      0
+    ],
+    "requested_ground_y": 1176,
+    "actual_lowest_y": 1224,
+    "strict_pose_alignment": "requires visual review; grid checks do not prove bone or head identity"
+  },
+  {
+    "file": "steb-pose-r_squat.png",
+    "raw": "raw\\steb-pose-r_squat.png",
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "raw_sha256": "901e657dec2f28c3ddf3679123d9af6f5cb089b00b0a47dad161ee7a2e47a909",
+    "art_source": "built-in image_gen",
+    "technical_processing_only": true,
+    "size": [
+      1254,
+      1254
+    ],
+    "grid_px": 9,
+    "bbox": [
+      324,
+      234,
+      1080,
+      1179
+    ],
+    "anchor_translation_px": [
+      0,
+      -9
+    ],
+    "requested_ground_y": 1176,
+    "actual_lowest_y": 1179,
+    "strict_pose_alignment": "requires visual review; grid checks do not prove bone or head identity"
+  },
+  {
+    "file": "steb-pose-d_fall.png",
+    "raw": "raw\\steb-pose-d_fall.png",
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "raw_sha256": "035134c1a4b5b3e5a026ffe54c875b1910b39f8cd2aefce1ba0b356036142af2",
+    "art_source": "built-in image_gen",
+    "technical_processing_only": true,
+    "size": [
+      1254,
+      1254
+    ],
+    "grid_px": 9,
+    "bbox": [
+      63,
+      333,
+      1224,
+      1179
+    ],
+    "anchor_translation_px": [
+      0,
+      -9
+    ],
+    "requested_ground_y": 1176,
+    "actual_lowest_y": 1179,
+    "strict_pose_alignment": "requires visual review; grid checks do not prove bone or head identity"
+  },
+  {
+    "file": "steb-pose-d_down.png",
+    "raw": "raw\\steb-pose-d_down.png",
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "raw_sha256": "312230306b1d93373a6448d76b8e65cde06e863722c4d2476a9d9244bdb9113a",
+    "art_source": "built-in image_gen",
+    "technical_processing_only": true,
+    "size": [
+      1254,
+      1254
+    ],
+    "grid_px": 9,
+    "bbox": [
+      54,
+      756,
+      1215,
+      1179
+    ],
+    "anchor_translation_px": [
+      0,
+      90
+    ],
+    "requested_ground_y": 1176,
+    "actual_lowest_y": 1179,
+    "strict_pose_alignment": "requires visual review; grid checks do not prove bone or head identity"
+  }
+]

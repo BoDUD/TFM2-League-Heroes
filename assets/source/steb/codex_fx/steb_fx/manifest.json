@@ -1,0 +1,1117 @@
+[
+  {
+    "file": "steb_fx_a_hit.png",
+    "raw": "raw\\steb_fx_a_hit.png",
+    "raw_size": [
+      2172,
+      724
+    ],
+    "raw_sha256": "62240d85d38c52b63c3b3d804273e8b2b686f4e3ce4513a875984d2a1046fe7b",
+    "art_source": "built-in image_gen",
+    "technical_processing_only": true,
+    "frames": 4,
+    "cell_1x": [
+      16,
+      16
+    ],
+    "symmetry": "left-right",
+    "source_layout": [
+      4,
+      1
+    ],
+    "loop": false,
+    "size": [
+      512,
+      128
+    ],
+    "palette": [
+      [
+        240,
+        255,
+        255
+      ],
+      [
+        168,
+        244,
+        255
+      ],
+      [
+        76,
+        216,
+        240
+      ],
+      [
+        28,
+        150,
+        200
+      ],
+      [
+        12,
+        76,
+        122
+      ],
+      [
+        255,
+        255,
+        255
+      ],
+      [
+        255,
+        240,
+        160
+      ],
+      [
+        255,
+        208,
+        64
+      ],
+      [
+        216,
+        148,
+        24
+      ],
+      [
+        122,
+        78,
+        8
+      ]
+    ],
+    "distinct_frames": 4
+  },
+  {
+    "file": "steb_fx_q_heal.png",
+    "raw": "raw\\steb_fx_q_heal.png",
+    "raw_size": [
+      1390,
+      1132
+    ],
+    "raw_sha256": "91bbd05467ec54e4e79dbd085b6fdb4fb9e443ecceeed5c765a1adcdcfc29607",
+    "art_source": "built-in image_gen",
+    "technical_processing_only": true,
+    "frames": 6,
+    "cell_1x": [
+      36,
+      44
+    ],
+    "symmetry": "left-right",
+    "source_layout": [
+      3,
+      2
+    ],
+    "loop": false,
+    "size": [
+      1728,
+      352
+    ],
+    "palette": [
+      [
+        244,
+        255,
+        240
+      ],
+      [
+        180,
+        255,
+        176
+      ],
+      [
+        92,
+        232,
+        120
+      ],
+      [
+        32,
+        168,
+        80
+      ],
+      [
+        12,
+        90,
+        44
+      ],
+      [
+        240,
+        255,
+        255
+      ],
+      [
+        168,
+        244,
+        255
+      ],
+      [
+        76,
+        216,
+        240
+      ],
+      [
+        28,
+        150,
+        200
+      ],
+      [
+        12,
+        76,
+        122
+      ]
+    ],
+    "distinct_frames": 6
+  },
+  {
+    "file": "steb_fx_q_hit.png",
+    "raw": "raw\\steb_fx_q_hit.png",
+    "raw_size": [
+      1536,
+      1024
+    ],
+    "raw_sha256": "a33c2d6f2f555fb3ac90ed2404caecd60bf636b040e169f5657bed3f65b1a304",
+    "art_source": "built-in image_gen",
+    "technical_processing_only": true,
+    "frames": 6,
+    "cell_1x": [
+      24,
+      24
+    ],
+    "symmetry": "left-right",
+    "source_layout": [
+      3,
+      2
+    ],
+    "loop": false,
+    "size": [
+      1152,
+      192
+    ],
+    "palette": [
+      [
+        240,
+        255,
+        255
+      ],
+      [
+        168,
+        244,
+        255
+      ],
+      [
+        76,
+        216,
+        240
+      ],
+      [
+        28,
+        150,
+        200
+      ],
+      [
+        12,
+        76,
+        122
+      ],
+      [
+        255,
+        255,
+        255
+      ],
+      [
+        255,
+        240,
+        160
+      ],
+      [
+        255,
+        208,
+        64
+      ],
+      [
+        216,
+        148,
+        24
+      ],
+      [
+        122,
+        78,
+        8
+      ],
+      [
+        224,
+        236,
+        255
+      ],
+      [
+        138,
+        176,
+        255
+      ],
+      [
+        62,
+        108,
+        232
+      ],
+      [
+        34,
+        56,
+        160
+      ],
+      [
+        16,
+        28,
+        80
+      ]
+    ],
+    "distinct_frames": 6
+  },
+  {
+    "file": "steb_fx_q_stun.png",
+    "raw": "raw\\steb_fx_q_stun.png",
+    "raw_size": [
+      1774,
+      887
+    ],
+    "raw_sha256": "7b1d5b8034eda5995344b8f33af9c0b56794bc8874502f8b456e1f79dc7bcdd6",
+    "art_source": "built-in image_gen",
+    "technical_processing_only": true,
+    "frames": 6,
+    "cell_1x": [
+      20,
+      10
+    ],
+    "symmetry": "left-right",
+    "source_layout": [
+      3,
+      2
+    ],
+    "loop": true,
+    "size": [
+      960,
+      80
+    ],
+    "palette": [
+      [
+        240,
+        255,
+        255
+      ],
+      [
+        168,
+        244,
+        255
+      ],
+      [
+        76,
+        216,
+        240
+      ],
+      [
+        28,
+        150,
+        200
+      ],
+      [
+        12,
+        76,
+        122
+      ],
+      [
+        255,
+        255,
+        255
+      ],
+      [
+        255,
+        240,
+        160
+      ],
+      [
+        255,
+        208,
+        64
+      ],
+      [
+        216,
+        148,
+        24
+      ],
+      [
+        122,
+        78,
+        8
+      ]
+    ],
+    "distinct_frames": 6
+  },
+  {
+    "file": "steb_fx_e_mark.png",
+    "raw": "raw\\steb_fx_e_mark.png",
+    "raw_size": [
+      1536,
+      1024
+    ],
+    "raw_sha256": "c380b465e7236889f0076b8448a939aaf23f405f07d95a9964252df6a5c31ef8",
+    "art_source": "built-in image_gen",
+    "technical_processing_only": true,
+    "frames": 6,
+    "cell_1x": [
+      22,
+      22
+    ],
+    "symmetry": "left-right",
+    "source_layout": [
+      3,
+      2
+    ],
+    "loop": false,
+    "size": [
+      1056,
+      176
+    ],
+    "palette": [
+      [
+        255,
+        224,
+        216
+      ],
+      [
+        255,
+        138,
+        112
+      ],
+      [
+        232,
+        64,
+        42
+      ],
+      [
+        160,
+        24,
+        24
+      ],
+      [
+        80,
+        10,
+        10
+      ],
+      [
+        255,
+        255,
+        255
+      ],
+      [
+        255,
+        240,
+        160
+      ],
+      [
+        255,
+        208,
+        64
+      ],
+      [
+        216,
+        148,
+        24
+      ],
+      [
+        122,
+        78,
+        8
+      ]
+    ],
+    "distinct_frames": 6
+  },
+  {
+    "file": "steb_fx_e_wanted.png",
+    "raw": "raw\\steb_fx_e_wanted.png",
+    "raw_size": [
+      1536,
+      1024
+    ],
+    "raw_sha256": "b53cb41b3d327ec0369efb32b17806e832317762c1c36098ba8b95ec1a7b7835",
+    "art_source": "built-in image_gen",
+    "technical_processing_only": true,
+    "frames": 6,
+    "cell_1x": [
+      14,
+      14
+    ],
+    "symmetry": "left-right",
+    "source_layout": [
+      3,
+      2
+    ],
+    "loop": true,
+    "size": [
+      672,
+      112
+    ],
+    "palette": [
+      [
+        255,
+        224,
+        216
+      ],
+      [
+        255,
+        138,
+        112
+      ],
+      [
+        232,
+        64,
+        42
+      ],
+      [
+        160,
+        24,
+        24
+      ],
+      [
+        80,
+        10,
+        10
+      ],
+      [
+        255,
+        255,
+        255
+      ],
+      [
+        255,
+        240,
+        160
+      ],
+      [
+        255,
+        208,
+        64
+      ],
+      [
+        216,
+        148,
+        24
+      ],
+      [
+        122,
+        78,
+        8
+      ]
+    ],
+    "distinct_frames": 6
+  },
+  {
+    "file": "steb_fx_e_kill.png",
+    "raw": "raw\\steb_fx_e_kill.png",
+    "raw_size": [
+      1512,
+      1040
+    ],
+    "raw_sha256": "e134bed085a95b8538e0c70b00365a27e08ce98f94bc348b7e16c1e5910563f3",
+    "art_source": "built-in image_gen",
+    "technical_processing_only": true,
+    "frames": 8,
+    "cell_1x": [
+      40,
+      44
+    ],
+    "symmetry": "left-right",
+    "source_layout": [
+      4,
+      2
+    ],
+    "loop": false,
+    "size": [
+      2560,
+      352
+    ],
+    "palette": [
+      [
+        255,
+        255,
+        255
+      ],
+      [
+        255,
+        240,
+        160
+      ],
+      [
+        255,
+        208,
+        64
+      ],
+      [
+        216,
+        148,
+        24
+      ],
+      [
+        122,
+        78,
+        8
+      ],
+      [
+        255,
+        244,
+        208
+      ],
+      [
+        255,
+        200,
+        96
+      ],
+      [
+        240,
+        138,
+        32
+      ],
+      [
+        176,
+        78,
+        12
+      ],
+      [
+        90,
+        36,
+        6
+      ],
+      [
+        255,
+        224,
+        216
+      ],
+      [
+        255,
+        138,
+        112
+      ],
+      [
+        232,
+        64,
+        42
+      ],
+      [
+        160,
+        24,
+        24
+      ],
+      [
+        80,
+        10,
+        10
+      ]
+    ],
+    "distinct_frames": 8
+  },
+  {
+    "file": "steb_fx_e_rush.png",
+    "raw": "raw\\steb_fx_e_rush.png",
+    "raw_size": [
+      1536,
+      1024
+    ],
+    "raw_sha256": "7cb49681965a44c2d6bc409c04cfd715ff4f33318e777e46ee8c4d69e95f8bc0",
+    "art_source": "built-in image_gen",
+    "technical_processing_only": true,
+    "frames": 6,
+    "cell_1x": [
+      30,
+      40
+    ],
+    "symmetry": "left-right",
+    "source_layout": [
+      3,
+      2
+    ],
+    "loop": true,
+    "size": [
+      1440,
+      320
+    ],
+    "palette": [
+      [
+        255,
+        244,
+        208
+      ],
+      [
+        255,
+        200,
+        96
+      ],
+      [
+        240,
+        138,
+        32
+      ],
+      [
+        176,
+        78,
+        12
+      ],
+      [
+        90,
+        36,
+        6
+      ],
+      [
+        255,
+        255,
+        255
+      ],
+      [
+        255,
+        240,
+        160
+      ],
+      [
+        255,
+        208,
+        64
+      ],
+      [
+        216,
+        148,
+        24
+      ],
+      [
+        122,
+        78,
+        8
+      ]
+    ],
+    "distinct_frames": 6
+  },
+  {
+    "file": "steb_fx_p_heal.png",
+    "raw": "raw\\steb_fx_p_heal.png",
+    "raw_size": [
+      1086,
+      1448
+    ],
+    "raw_sha256": "94555450bf3cbf6e2b9d378f83045071ce6c2f3519a3c058a95c191baadaa035",
+    "art_source": "built-in image_gen",
+    "technical_processing_only": true,
+    "frames": 6,
+    "cell_1x": [
+      24,
+      32
+    ],
+    "symmetry": "left-right",
+    "source_layout": [
+      3,
+      2
+    ],
+    "loop": false,
+    "size": [
+      1152,
+      256
+    ],
+    "palette": [
+      [
+        244,
+        255,
+        240
+      ],
+      [
+        180,
+        255,
+        176
+      ],
+      [
+        92,
+        232,
+        120
+      ],
+      [
+        32,
+        168,
+        80
+      ],
+      [
+        12,
+        90,
+        44
+      ]
+    ],
+    "distinct_frames": 6
+  },
+  {
+    "file": "steb_fx_r_pack.png",
+    "raw": "raw\\steb_fx_r_pack.png",
+    "raw_size": [
+      2098,
+      749
+    ],
+    "raw_sha256": "2d1f65c4c62a3bb3e36eba3e2561472363dd0eaae8b029252f617549a8ac0791",
+    "art_source": "built-in image_gen",
+    "technical_processing_only": true,
+    "frames": 8,
+    "cell_1x": [
+      84,
+      30
+    ],
+    "symmetry": "left-right",
+    "source_layout": [
+      4,
+      2
+    ],
+    "loop": false,
+    "size": [
+      5376,
+      240
+    ],
+    "palette": [
+      [
+        244,
+        255,
+        240
+      ],
+      [
+        180,
+        255,
+        176
+      ],
+      [
+        92,
+        232,
+        120
+      ],
+      [
+        32,
+        168,
+        80
+      ],
+      [
+        12,
+        90,
+        44
+      ],
+      [
+        240,
+        255,
+        255
+      ],
+      [
+        168,
+        244,
+        255
+      ],
+      [
+        76,
+        216,
+        240
+      ],
+      [
+        28,
+        150,
+        200
+      ],
+      [
+        12,
+        76,
+        122
+      ]
+    ],
+    "distinct_frames": 8
+  },
+  {
+    "file": "steb_fx_r_heal.png",
+    "raw": "raw\\steb_fx_r_heal.png",
+    "raw_size": [
+      1536,
+      1024
+    ],
+    "raw_sha256": "f124236e51b711e7862f791bc7ab3d215470d2cfaa50562e09aad7898ba8aef0",
+    "art_source": "built-in image_gen",
+    "technical_processing_only": true,
+    "frames": 5,
+    "cell_1x": [
+      30,
+      40
+    ],
+    "symmetry": "left-right",
+    "source_layout": [
+      3,
+      2
+    ],
+    "loop": false,
+    "size": [
+      1200,
+      320
+    ],
+    "palette": [
+      [
+        244,
+        255,
+        240
+      ],
+      [
+        180,
+        255,
+        176
+      ],
+      [
+        92,
+        232,
+        120
+      ],
+      [
+        32,
+        168,
+        80
+      ],
+      [
+        12,
+        90,
+        44
+      ]
+    ],
+    "distinct_frames": 5
+  },
+  {
+    "file": "steb_fx_r_guard.png",
+    "raw": "raw\\steb_fx_r_guard.png",
+    "raw_size": [
+      1465,
+      1074
+    ],
+    "raw_sha256": "b4e4f5c075c4b388c2e073ea7d5fec2d81359788e096ac4ea1dfb6c0a2a73d01",
+    "art_source": "built-in image_gen",
+    "technical_processing_only": true,
+    "frames": 6,
+    "cell_1x": [
+      40,
+      44
+    ],
+    "symmetry": "left-right",
+    "source_layout": [
+      3,
+      2
+    ],
+    "loop": true,
+    "size": [
+      1920,
+      352
+    ],
+    "palette": [
+      [
+        224,
+        236,
+        255
+      ],
+      [
+        138,
+        176,
+        255
+      ],
+      [
+        62,
+        108,
+        232
+      ],
+      [
+        34,
+        56,
+        160
+      ],
+      [
+        16,
+        28,
+        80
+      ],
+      [
+        255,
+        255,
+        255
+      ],
+      [
+        255,
+        240,
+        160
+      ],
+      [
+        255,
+        208,
+        64
+      ],
+      [
+        216,
+        148,
+        24
+      ],
+      [
+        122,
+        78,
+        8
+      ],
+      [
+        240,
+        255,
+        255
+      ],
+      [
+        168,
+        244,
+        255
+      ],
+      [
+        76,
+        216,
+        240
+      ],
+      [
+        28,
+        150,
+        200
+      ],
+      [
+        12,
+        76,
+        122
+      ]
+    ],
+    "distinct_frames": 6
+  },
+  {
+    "file": "steb_fx_r_shield.png",
+    "raw": "raw\\steb_fx_r_shield.png",
+    "raw_size": [
+      1536,
+      1024
+    ],
+    "raw_sha256": "9be97c055b910430fd8a6ae4b926e3c62d369a2cf54d380c1a3d51ff758be414",
+    "art_source": "built-in image_gen",
+    "technical_processing_only": true,
+    "frames": 6,
+    "cell_1x": [
+      30,
+      40
+    ],
+    "symmetry": "left-right",
+    "source_layout": [
+      3,
+      2
+    ],
+    "loop": true,
+    "size": [
+      1440,
+      320
+    ],
+    "palette": [
+      [
+        240,
+        255,
+        255
+      ],
+      [
+        168,
+        244,
+        255
+      ],
+      [
+        76,
+        216,
+        240
+      ],
+      [
+        28,
+        150,
+        200
+      ],
+      [
+        12,
+        76,
+        122
+      ],
+      [
+        244,
+        255,
+        240
+      ],
+      [
+        180,
+        255,
+        176
+      ],
+      [
+        92,
+        232,
+        120
+      ],
+      [
+        32,
+        168,
+        80
+      ],
+      [
+        12,
+        90,
+        44
+      ]
+    ],
+    "distinct_frames": 6
+  },
+  {
+    "file": "steb_icon_skill.png",
+    "raw": "raw\\steb_icon_skill.png",
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "raw_sha256": "aa19ff2c0f5ecab967b60c00bf66a69d90bfd0ceda882f5c300b6732ff051df9",
+    "art_source": "built-in image_gen",
+    "technical_processing_only": true,
+    "size": [
+      64,
+      64
+    ],
+    "frames": 1,
+    "cell_1x": [
+      64,
+      64
+    ],
+    "symmetry": "none"
+  },
+  {
+    "file": "steb_icon_skill2.png",
+    "raw": "raw\\steb_icon_skill2.png",
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "raw_sha256": "3d84f3e5ef795819941df170e4b20138d459ffab21059134080aeab4dc3f1efb",
+    "art_source": "built-in image_gen",
+    "technical_processing_only": true,
+    "size": [
+      64,
+      64
+    ],
+    "frames": 1,
+    "cell_1x": [
+      64,
+      64
+    ],
+    "symmetry": "none"
+  },
+  {
+    "file": "steb_icon_ult.png",
+    "raw": "raw\\steb_icon_ult.png",
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "raw_sha256": "812bfa423061d6b98a91a349983faf668747a8122f1da365156aa4ab79a8663d",
+    "art_source": "built-in image_gen",
+    "technical_processing_only": true,
+    "size": [
+      64,
+      64
+    ],
+    "frames": 1,
+    "cell_1x": [
+      64,
+      64
+    ],
+    "symmetry": "none"
+  }
+]

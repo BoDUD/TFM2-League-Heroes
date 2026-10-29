@@ -249,6 +249,15 @@ def build(p, is_native=False):
     return kit
 
 
+def sylas_ult(p=None):
+    """Medic's Pack as plain data for league_sylas's copy (addons/league_sylas/make_override.py STOLEN): Sylas's add-on
+    bundle is on the Workshop and the tft mod is not, so nothing of it can be tft.dll's: the kit's --plain ult (its heals
+    on him also give the allies near him their share, the passive's way without the passive). The views are the kit's
+    own (tft_steb_*); make_override copies them and their sheets."""
+    p = dict(P) if p is None else p
+    return build(p, False)["ult"]["effect"]
+
+
 def nodes(o):
     """Effect nodes in a tree (dicts with a `type`), the measure the game's per-tick clone cost follows."""
     if isinstance(o, dict):

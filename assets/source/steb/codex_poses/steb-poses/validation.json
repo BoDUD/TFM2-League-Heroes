@@ -1,0 +1,198 @@
+{
+  "asset_count": 12,
+  "technical_checks_pass": true,
+  "assets": [
+    {
+      "file": "steb-pose-a_wind.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "sha256": "1ef51057ef2311cdea32f5ae1baa2c2238031085549d18af2d2602ee55ff283e",
+      "uniform_9px_grid": true,
+      "visible_leg_chains_reviewed": 2,
+      "anatomy_review": "visual review of final stills: two legs and two boots; not inferred from file count",
+      "head_exact_copy_proven": false
+    },
+    {
+      "file": "steb-pose-a_hit.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "sha256": "d0969b20803b8d7eed31b70dcbba9fd2daee4cc95954c32e44c2c67053ed9c23",
+      "uniform_9px_grid": true,
+      "visible_leg_chains_reviewed": 2,
+      "anatomy_review": "visual review of final stills: two legs and two boots; not inferred from file count",
+      "head_exact_copy_proven": false
+    },
+    {
+      "file": "steb-pose-a2_wind.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "sha256": "a0f370d4e44005af331d12a538b85d9e01d6ff8c191d8a73f9edbb8541e4bd6b",
+      "uniform_9px_grid": true,
+      "visible_leg_chains_reviewed": 2,
+      "anatomy_review": "visual review of final stills: two legs and two boots; not inferred from file count",
+      "head_exact_copy_proven": false
+    },
+    {
+      "file": "steb-pose-a2_hit.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "sha256": "6d46b7933d6a3ed3e920f8c0df9fcb2f7a59c94eaa3835e7ed48c2994e8fc6a2",
+      "uniform_9px_grid": true,
+      "visible_leg_chains_reviewed": 2,
+      "anatomy_review": "visual review of final stills: two legs and two boots; not inferred from file count",
+      "head_exact_copy_proven": false
+    },
+    {
+      "file": "steb-pose-q_dose.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "sha256": "c33eb81e6e9b962e1803dd38c098dd2bfff9e10a05483a6cbd70d88b88eb2e46",
+      "uniform_9px_grid": true,
+      "visible_leg_chains_reviewed": 2,
+      "anatomy_review": "visual review of final stills: two legs and two boots; not inferred from file count",
+      "head_exact_copy_proven": false
+    },
+    {
+      "file": "steb-pose-q_raise.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "sha256": "6055dc421686834a2381454dc378720f8a3679d229a824dcba9a0324a5e4b5fb",
+      "uniform_9px_grid": true,
+      "visible_leg_chains_reviewed": 2,
+      "anatomy_review": "visual review of final stills: two legs and two boots; not inferred from file count",
+      "head_exact_copy_proven": false
+    },
+    {
+      "file": "steb-pose-e_raise.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "sha256": "2549ae2c9a7ed1f1e76a97dc1bb7221de1c61209b7d4311953c1a1f909959c7a",
+      "uniform_9px_grid": true,
+      "visible_leg_chains_reviewed": 2,
+      "anatomy_review": "visual review of final stills: two legs and two boots; not inferred from file count",
+      "head_exact_copy_proven": false
+    },
+    {
+      "file": "steb-pose-e_point.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "sha256": "5470ad5e59db8528bbca46c9d567eb68e7e78171cca2d0df6eaad1f8c7e1fd1f",
+      "uniform_9px_grid": true,
+      "visible_leg_chains_reviewed": 2,
+      "anatomy_review": "visual review of final stills: two legs and two boots; not inferred from file count",
+      "head_exact_copy_proven": false
+    },
+    {
+      "file": "steb-pose-r_cross.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "sha256": "d76f462bca37e0bb519c7696dc70eaaf0e44969aabbd94a955a431714038477f",
+      "uniform_9px_grid": true,
+      "visible_leg_chains_reviewed": 2,
+      "anatomy_review": "visual review of final stills: two legs and two boots; not inferred from file count",
+      "head_exact_copy_proven": false
+    },
+    {
+      "file": "steb-pose-r_squat.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "sha256": "6e69a073024bb1498cacdc92ae4e2746281624d0bfcc64e1962ee063bbec7989",
+      "uniform_9px_grid": true,
+      "visible_leg_chains_reviewed": 2,
+      "anatomy_review": "visual review of final stills: two legs and two boots; not inferred from file count",
+      "head_exact_copy_proven": false
+    },
+    {
+      "file": "steb-pose-d_fall.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "sha256": "50c9c39cd5e08b040bd270c74216782582273def06a7592c668c06d23cdd987b",
+      "uniform_9px_grid": true,
+      "visible_leg_chains_reviewed": 2,
+      "anatomy_review": "visual review of final stills: two legs and two boots; not inferred from file count",
+      "head_exact_copy_proven": false
+    },
+    {
+      "file": "steb-pose-d_down.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "sha256": "436e023e3111839f9e45f63d99d72838bd9dcd522220529e9d92d3c1d02d2a11",
+      "uniform_9px_grid": true,
+      "visible_leg_chains_reviewed": 2,
+      "anatomy_review": "visual review of final stills: two legs and two boots; not inferred from file count",
+      "head_exact_copy_proven": false
+    }
+  ]
+}

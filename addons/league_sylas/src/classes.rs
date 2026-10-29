@@ -254,6 +254,7 @@ pub const CLASSES_OF: &[(&str, &str)] = &[
     ("tft_sevika", "melee"),
     ("tft_silco", "mage"),
     ("tft_smeech", "assassin"),
+    ("tft_steb", "util"),
     ("tft_vander", "melee"),
     ("tft_violet", "melee"),
     ("vampire", "mage"),

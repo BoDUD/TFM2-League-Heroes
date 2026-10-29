@@ -1,0 +1,304 @@
+{
+  "asset_count": 16,
+  "technical_checks_pass": true,
+  "assets": [
+    {
+      "file": "steb_fx_a_hit.png",
+      "size": [
+        512,
+        128
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "sha256": "d047a9708532b254401990327e479d5209529ebf62beec2350322dc13478cf1b",
+      "frames": 4,
+      "cell_1x": [
+        16,
+        16
+      ],
+      "left_right_symmetric": true,
+      "distinct_frames": 4,
+      "all_frames_nonempty": true
+    },
+    {
+      "file": "steb_fx_q_heal.png",
+      "size": [
+        1728,
+        352
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "sha256": "8206ad6fe16599e9bbc08409b218bdfbd7fd4191e8823a833cda9d06787e38fe",
+      "frames": 6,
+      "cell_1x": [
+        36,
+        44
+      ],
+      "left_right_symmetric": true,
+      "distinct_frames": 6,
+      "all_frames_nonempty": true
+    },
+    {
+      "file": "steb_fx_q_hit.png",
+      "size": [
+        1152,
+        192
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "sha256": "224e65a05ef1ed1844192558ace954984f47f4c8a06b5a470e2f31460d0947c8",
+      "frames": 6,
+      "cell_1x": [
+        24,
+        24
+      ],
+      "left_right_symmetric": true,
+      "distinct_frames": 6,
+      "all_frames_nonempty": true
+    },
+    {
+      "file": "steb_fx_q_stun.png",
+      "size": [
+        960,
+        80
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "sha256": "5b1620e0677bcf3423ad1c3a8de1305c21eb5eabef2a3d13833d7c212f02159d",
+      "frames": 6,
+      "cell_1x": [
+        20,
+        10
+      ],
+      "left_right_symmetric": true,
+      "distinct_frames": 6,
+      "all_frames_nonempty": true
+    },
+    {
+      "file": "steb_fx_e_mark.png",
+      "size": [
+        1056,
+        176
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "sha256": "2d0e2e318e51212b398879b0d0eb772278d596078c2499fac744e50dcde6a8d8",
+      "frames": 6,
+      "cell_1x": [
+        22,
+        22
+      ],
+      "left_right_symmetric": true,
+      "distinct_frames": 6,
+      "all_frames_nonempty": true
+    },
+    {
+      "file": "steb_fx_e_wanted.png",
+      "size": [
+        672,
+        112
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "sha256": "2ab8a7aa7674878e266ba480cc170e266b12b989da75f29c1686b465e479bada",
+      "frames": 6,
+      "cell_1x": [
+        14,
+        14
+      ],
+      "left_right_symmetric": true,
+      "distinct_frames": 6,
+      "all_frames_nonempty": true
+    },
+    {
+      "file": "steb_fx_e_kill.png",
+      "size": [
+        2560,
+        352
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "sha256": "e710b89225349096c742db89c5b3e1b49a3a2a83fd12412886ec82c8554c575a",
+      "frames": 8,
+      "cell_1x": [
+        40,
+        44
+      ],
+      "left_right_symmetric": true,
+      "distinct_frames": 8,
+      "all_frames_nonempty": true
+    },
+    {
+      "file": "steb_fx_e_rush.png",
+      "size": [
+        1440,
+        320
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "sha256": "5a795bb81d62f366846237e99053e82331b12e79f51338ea8f95c165fe9a25b6",
+      "frames": 6,
+      "cell_1x": [
+        30,
+        40
+      ],
+      "left_right_symmetric": true,
+      "distinct_frames": 6,
+      "all_frames_nonempty": true
+    },
+    {
+      "file": "steb_fx_p_heal.png",
+      "size": [
+        1152,
+        256
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "sha256": "15d839fccee9349a8a53b05e32c60a11c34f570cf900747f4d3bd0e0af929b59",
+      "frames": 6,
+      "cell_1x": [
+        24,
+        32
+      ],
+      "left_right_symmetric": true,
+      "distinct_frames": 6,
+      "all_frames_nonempty": true
+    },
+    {
+      "file": "steb_fx_r_pack.png",
+      "size": [
+        5376,
+        240
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "sha256": "dd7ae7b392afbacbd12544adc924470f4cab19427383909b022ac1518e50b257",
+      "frames": 8,
+      "cell_1x": [
+        84,
+        30
+      ],
+      "left_right_symmetric": true,
+      "distinct_frames": 8,
+      "all_frames_nonempty": true
+    },
+    {
+      "file": "steb_fx_r_heal.png",
+      "size": [
+        1200,
+        320
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "sha256": "abc3965f9217cece2b8dc7b6a7b3c6dd3e948ece77e42718bb47318427d4990a",
+      "frames": 5,
+      "cell_1x": [
+        30,
+        40
+      ],
+      "left_right_symmetric": true,
+      "distinct_frames": 5,
+      "all_frames_nonempty": true
+    },
+    {
+      "file": "steb_fx_r_guard.png",
+      "size": [
+        1920,
+        352
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "sha256": "d85c77a0e29f27cb7db096cb2296a86cbda394930e221634b1b94da6b70e7f60",
+      "frames": 6,
+      "cell_1x": [
+        40,
+        44
+      ],
+      "left_right_symmetric": true,
+      "distinct_frames": 6,
+      "all_frames_nonempty": true
+    },
+    {
+      "file": "steb_fx_r_shield.png",
+      "size": [
+        1440,
+        320
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "sha256": "6d9a59b717253a35fede5d40cfe05d05d2a2cb5b1459b2ea0ceff8210de9d1c6",
+      "frames": 6,
+      "cell_1x": [
+        30,
+        40
+      ],
+      "left_right_symmetric": true,
+      "distinct_frames": 6,
+      "all_frames_nonempty": true
+    },
+    {
+      "file": "steb_icon_skill.png",
+      "size": [
+        64,
+        64
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "sha256": "a4c0732681de64959d1ea5fde87cc880073c9b2879a749c233d20abb2aa45449",
+      "icon_64px": true
+    },
+    {
+      "file": "steb_icon_skill2.png",
+      "size": [
+        64,
+        64
+      ],
+      "alpha_values": [
+        255
+      ],
+      "sha256": "cb385e28213abbfa4efeedfa04c73f79872310a1cc48a905916196a04c118bf5",
+      "icon_64px": true
+    },
+    {
+      "file": "steb_icon_ult.png",
+      "size": [
+        64,
+        64
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "sha256": "d157412517914198234d9835b997a1ad6e30b690f0c362b05b10832216694ee3",
+      "icon_64px": true
+    }
+  ]
+}
