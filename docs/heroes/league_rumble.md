@@ -55,11 +55,16 @@
 
 ### 兰博附加包
 
-[兰博附加包](../../addons/league_rumble/README.md)：`league_rumble` v0.1.0
+[兰博附加包](../../addons/league_rumble/README.md)：`league_rumble` v0.2.0
 
 |  | 主包（纯数据） | 附加包 |
 |---|---|---|
 | 过热的样子 | 只有过热时的普攻是红温（`CasterAnimation` 播 `oh_attack`），站着、跑着、挨打、阵亡还是平常的样子 | **整身红温**：过热期间（`league_rumble_oh`）站、跑、挨打、阵亡都换成 `oh_idle` / `oh_run` / `oh_hit` / `oh_dead`，普攻第一 tick 换成 `oh_attack` |
+| 纵火盛宴 | 站着喷 1.5 秒（火画在他的出手帧里，跑步帧上没有火） | **边走边喷**：只站着端平炮口（8 tick），之后照常每 0.25 秒喷一下、能走；喷火时站着、跑着都是炮口喷着火的样子（`q_stand` / `q_run`）。锥形还是从他当时的位置朝 Q 的目标展开。伤害是主包的 60%（每下 18 + 16% 法强，主包 30 + 27%）：能边追边喷，6 下几乎都打满 |
+
+装上附加包后游戏里显示的说明（和主包不同的部分）：
+
+- **技能1 · 纵火盛宴**：【扩展包】端起喷火炮往前喷火1.5秒：锥形范围内的敌人每0.25秒受到18 + 16% 法强魔法伤害。喷火时可以走动。
 
 ## 相关脚本和素材
 
@@ -85,6 +90,7 @@
 | 数值 | 攻击 80（+9）、法强 30（+18）、生命 1200（+115）、护甲 34（+9）、魔抗 25（+4）、移速 1050（+11）、射程 25000 |
 | 平衡 | 经典引擎模拟（上路，对斗士、处刑人、骑士、狂战士、枪骑兵、长柄战士，两边三套阵容）：草稿（生命 1080、攻击 70 +5、法强 +14、Q 18 + 18%、E 50 + 40%、R 25 + 15%）−3.19；生命 1150、攻击 78、护甲 34、Q 26 + 24%、E 70 + 50%、R 35 + 20% −1.84；射程 25000 −1.96（不是射程的问题）；攻击 +9、法强 +18 每级 −0.77；生命 +115、护甲 +9 每级、Q 30 + 27% +0.43 / −0.22；定稿（上面的数值）+0.31（16 组种子） |
 | 附加包 | `league_rumble`（在 `league_addons` 合集里，[`addons/league_rumble/README.md`](../../addons/league_rumble/README.md)）：用户「红温整套切换」——**整身红温**：过热期间站着、跑着、挨打、阵亡都换成红温的那一套（主包数据只能换普攻）。主包的数据不动 |
+| 边走边喷（2026-10-29，附加包 0.2.0） | 用户：「兰博不会边走边放火吗」→「就这么做」。主包里纵火盛宴用 `CasterAnimation skill` 把他定住 1.5 秒（火画在出手帧里，跑步帧上没有火，所以主包照旧站着喷）。附加包换成副本：只站 8 tick 端平炮口，之后挂 `league_rumble_q_on` 照常喷、能走；显示钩子在它挂着时把站立 / 跑步换成新帧 `q_stand` / `q_run`——[`tools/art/rig_rumble.py`](../../tools/art/rig_rumble.py) 用喷火姿势的上半身（身子、平端的炮、铁球）接每一步跑步帧的腿，按跑步时机身的起伏整体抬高，火焰跟着炮口走，没有重画（用户看过草稿认可）。锥形照旧从他当时的位置朝 Q 的目标展开。同时过热时先显示喷火，喷完再红温。能边追边喷，6 下几乎都打满，伤害打六折（上路模拟：主包 +0.51 / +0.10，不打折 +2.23 / +1.98，六折 +0.36 / +0.24） |
 | 精灵图（高清帧 PPU 1.75） | 动作照本地英雄联盟客户端的动作帧摆骨架（[`tools/art/pack_rumble_poses.py`](../../tools/art/pack_rumble_poses.py)），Codex 画姿势，[`tools/art/design_rumble_poses.py`](../../tools/art/design_rumble_poses.py) 读回、贴回定稿的头，[`tools/art/rig_rumble.py`](../../tools/art/rig_rumble.py) 照英雄联盟的片段拼成待机、跑、普攻、Q（火烤进帧里）、E、R、受击、死亡；红温那一套（`oh_idle` / `oh_run` / `oh_attack` / `oh_hit` / `oh_dead`）是同样的帧把机甲换成通红的色阶，头和驾驶员的蓝色不变 |
 | 特效 | 18 张特效（[`tools/art/pack_rumble_fx.py`](../../tools/art/pack_rumble_fx.py) 的提示词，参考是英雄联盟里兰博的贴图，[`tools/lol/fx_ref_rumble.py`](../../tools/lol/fx_ref_rumble.py)），Gemini 画回来，[`tools/art/process_rumble_fx.py`](../../tools/art/process_rumble_fx.py) 抠图缩到像素格，[`tools/art/fix_rumble_fx.py`](../../tools/art/fix_rumble_fx.py) 重画火箭落地、护盾、鱼叉、电流、打中和过热爆发，[`tools/art/import_rumble_fx.py`](../../tools/art/import_rumble_fx.py) 切成 `league_rumble_fx` / `league_rumble_big`：喷火、火烧中、鱼叉和第二发、电流减速、护盾和加速喷气、危险温度的蒸汽、过热的火和黑烟、火箭发射，火线横竖两张（六枚火箭依次落下，横着的从中间往两边、竖着的从远到近） |
 | 音效 | 英雄联盟的音效和配音（[`tools/lol/extract_rumble.py`](../../tools/lol/extract_rumble.py)，19 段）：普攻的出手和打中、过热的打中，喷火和烧中，鱼叉、第二发和打中，护盾，危险温度的排气，过热，大招的发射、火线燃烧和烧中；配音：Q、R、过热，E 和 W 用他的两句攻击台词 |

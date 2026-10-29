@@ -1,0 +1,37 @@
+{
+  "zh-hans": {
+    "description": {
+      "league_rumble": {
+        "skill": "【扩展包】端起喷火炮往前喷火<#ffb900ff>1.5秒<>：锥形范围内的敌人每<#ffb900ff>0.25秒<>受到<#a974ffff>18<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>16%<>魔法伤害。喷火时可以走动。"
+      }
+    }
+  },
+  "zh-hant": {
+    "description": {
+      "league_rumble": {
+        "skill": "【擴充包】端起噴火炮往前噴火<#ffb900ff>1.5秒<>：錐形範圍內的敵人每<#ffb900ff>0.25秒<>受到<#a974ffff>18<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>16%<>魔法傷害。噴火時可以走動。"
+      }
+    }
+  },
+  "en": {
+    "description": {
+      "league_rumble": {
+        "skill": "[Add-on] Sprays fire ahead for <#ffb900ff>1.5s<>: enemies in the cone take <#a974ffff>18<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>16%<> magic damage every <#ffb900ff>0.25s<>. He can walk while it burns."
+      }
+    }
+  },
+  "ko": {
+    "description": {
+      "league_rumble": {
+        "skill": "[확장] 화염방사기로 <#ffb900ff>1.5초<> 동안 전방에 불을 뿜음: 부채꼴 안의 적에게 <#ffb900ff>0.25초<>마다 <#a974ffff>18<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>16%<> 마법 피해. 화염 방사 중 이동 가능."
+      }
+    }
+  },
+  "ja": {
+    "description": {
+      "league_rumble": {
+        "skill": "【拡張】火炎放射器で<#ffb900ff>1.5秒<>前方に火を噴く：扇形内の敵に<#ffb900ff>0.25秒<>毎<#a974ffff>18<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>16%<>の魔法ダメージ。噴射中も移動できる。"
+      }
+    }
+  }
+}
