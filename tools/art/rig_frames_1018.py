@@ -22,6 +22,7 @@ ROOT = os.path.dirname(os.path.dirname(HERE))
 sys.path.insert(0, HERE)
 import ppu_rig as R  # noqa: E402
 import wukong_run_staff as WS  # noqa: E402
+import wukong_idle_staff as WI  # noqa: E402
 
 SRC = os.path.join(ROOT, "assets", "source")
 
@@ -46,7 +47,9 @@ def tabard_x(a):
 
 # tag -> [(source frame, ms[, op])]; op (2026-10-19 frame audit, every one lossless): rot - quarter turns
 # counter-clockwise of the whole frame, centred on the standing column; up - rows above the ground; dx - columns moved;
-# flash - the pack's hit flash (ppu_rig.flash); staff - league_wukong's run staff made one straight piece (wukong_run_staff,
+# flash - the pack's hit flash (ppu_rig.flash); idle_staff - league_wukong's idle staff one straight rod through his fist
+# (wukong_idle_staff, 2026-10-29: 「怎么感觉猴子后面的金箍棒又做歪了？」 -> 36 degrees); staff - league_wukong's run staff
+# made one straight piece (wukong_run_staff,
 # 2026-10-22: 「猴子跑步的时候感觉武器看起来是歪的」)
 # the hit: flashed and knocked back two columns, then one (the pack's hit, ppu_rig.flash - the hit had no flash)
 # the death: 8 frames as the pack's - the last fall lands from 3 rows up, lies, bounces a row, lies
@@ -71,7 +74,7 @@ AKSHAN = {
     "dead": DEAD,
 }
 WUKONG = {
-    "idle": [(f"idle_{i}", 171) for i in range(7)],
+    "idle": [(f"idle_{i}", 171, dict(idle_staff=True)) for i in range(7)],
     "run": [(f"run_{i}", 89, dict(staff=True)) for i in range(9)],
     "attack": [(f"attack_{i}", ms) for i, ms in enumerate([70, 70, 80, 80, 80, 80])],
     "q_attack": [(f"skill_{i}", ms) for i, ms in enumerate([60, 70, 80, 80, 80, 70])],
@@ -109,6 +112,9 @@ def frames(hero):
     staffed = [name for seq in cfg["map"].values() for name, _, *op in seq if op and op[0].get("staff")]
     straight = dict(zip(staffed, WS.straighten_all(
         [np.asarray(Image.open(lp(os.path.join(act, n + ".png"))).convert("RGBA")) for n in staffed]))) if staffed else {}
+    idled = [name for seq in cfg["map"].values() for name, _, *op in seq if op and op[0].get("idle_staff")]
+    idle_straight = dict(zip(idled, WI.straighten_all(
+        [np.asarray(Image.open(lp(os.path.join(act, n + ".png"))).convert("RGBA")) for n in idled])[0])) if idled else {}
     out = {}
     for tag, seq in cfg["map"].items():
         fr = []
@@ -121,6 +127,8 @@ def frames(hero):
             hip = cfg["hip"](f)                 # (on Codex's frame as drawn: the staff moved changes no hip)
             if op.get("staff"):
                 f, hip = straight[name], hip + WS.PAD
+            if op.get("idle_staff"):
+                f = idle_straight[name]                 # (rows added on top, columns on the right: the hip stays)
             h, w = f.shape[:2]
             if op.get("rot"):
                 f = np.rot90(f, op["rot"]).copy()
