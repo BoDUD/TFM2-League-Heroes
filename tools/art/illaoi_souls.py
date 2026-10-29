@@ -39,7 +39,7 @@ SOULS_RS = os.path.join(ROOT, "addons", "league_illaoi", "src", "souls.rs")
 GHOST = [tuple(int(h[i:i + 2], 16) for i in (1, 3, 5)) for h in ("#FFFFFF", "#E0FFF8", "#A8F0E4", "#5CC8C0", "#2A7A80")]
 FRAMES, MS = 3, 200
 # League champions in the repo's other packs (their sprite in <pack>/champions/, the pack = the id's prefix)
-OTHER = ("tft_powder", "tft_alune", "tft_norra", "tft_silco", "tft_maddie", "tft_loris", "tft_kobuko", "tft_vander", "tft_violet", "tft_krug", "tft_aoshin", "tft_scar", "tft_renni")
+OTHER = ("tft_powder", "tft_alune", "tft_norra", "tft_silco", "tft_maddie", "tft_loris", "tft_kobuko", "tft_vander", "tft_violet", "tft_krug", "tft_aoshin", "tft_scar", "tft_renni", "tft_sevika")
 
 
 def lp(path):

@@ -4220,6 +4220,22 @@
     },
     {
       "type": "Animation",
+      "name": "league_illaoi_soul_tft_sevika",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "tft_sevika",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_tft_sevika_l",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "tft_sevika_l",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
       "name": "league_illaoi_soul_tft_silco",
       "anim": "asset/league/effects/league_illaoi_souls",
       "tag": "tft_silco",
