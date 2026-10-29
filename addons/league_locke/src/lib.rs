@@ -226,6 +226,9 @@ struct Exorcist {
     burnt: usize,
     /// Enemy champions: (id, the last tick he touched it).
     touched: Vec<(usize, usize)>,
+    /// Purgatory's executes waiting for their damage: (id, where, the tick, hp, max). The game lands damage on the next
+    /// tick, so whether one died is read then (0.1.1: read at once, every execute "survived" - no artifact, no seal).
+    pending: Vec<(usize, (u64, u64), usize, usize, usize)>,
     n_stake: usize,
     n_burn: usize,
     n_exec: usize,
@@ -269,7 +272,8 @@ impl Exorcist {
             let cost = share(hp, self.p.w_cost).min(hp.saturating_sub(1));   // the soul fire never kills him
             if cost > 0 {
                 sim.deal_damage_typed(me, me, cost, DamageTypeV1::Fixed, AttackTypeV1::Skill);
-                self.burnt += hp.saturating_sub(sim.get_entity(me).map_or(hp, |e| e.hp().0));
+                // the damage lands next tick: count what was dealt (0.1.1 read his health at once - burnt 0, healed 0)
+                self.burnt += cost;
             }
             self.w_next = tick + 60;
         }
@@ -293,6 +297,24 @@ impl Exorcist {
         let (team, mine) = (e.team(), e.pos());
         let mut fallen = Vec::new();
         let mut execute = Vec::new();
+        // last tick's executes: dead now (or gone) - sealed, the artifact left where he fell
+        for (id, at, t0, hp, max) in std::mem::take(&mut self.pending) {
+            if t0 >= tick {
+                self.pending.push((id, at, t0, hp, max));
+                continue;
+            }
+            let dead = !sim.get_entity(id).is_some_and(|c| c.is_alive());
+            if dead {
+                self.artifacts.push(Artifact { at, until: tick + self.p.r_drop, shown: tick });
+                fallen.push(id);
+                self.touched.retain(|&(t, _)| t != id);
+            }
+            if often(self.n_exec) {
+                wlog(format!("{} EXECUTE {} at {hp}/{max} (line {}%, {} seals): {} ({} in all)", head(sim, me),
+                             name_of(sim, id), self.p.r_exec + self.seals * self.p.r_exec_step, self.seals,
+                             if dead { "SEALED, the artifact left there" } else { "survived" }, self.n_exec));
+            }
+        }
         for i in 0..sim.champion_count() {
             let id = sim.champion_id_at(i);
             let Some(c) = sim.get_entity(id) else { continue };
@@ -324,18 +346,8 @@ impl Exorcist {
         for (id, hp, max, at) in execute {
             sim.entity_remove_buff(id, R_MARK);
             sim.deal_damage_typed(me, id, hp, DamageTypeV1::Fixed, AttackTypeV1::Skill);
-            let dead = !sim.get_entity(id).is_some_and(|c| c.is_alive());
-            if dead {
-                self.artifacts.push(Artifact { at, until: tick + self.p.r_drop, shown: tick });
-                fallen.push(id);
-                self.touched.retain(|&(t, _)| t != id);
-            }
             self.n_exec += 1;
-            if often(self.n_exec) {
-                wlog(format!("{} EXECUTE {} at {hp}/{max} (line {}%, {} seals): {} ({} in all)", head(sim, me),
-                             name_of(sim, id), self.p.r_exec + self.seals * self.p.r_exec_step, self.seals,
-                             if dead { "SEALED, the artifact left there" } else { "survived" }, self.n_exec));
-            }
+            self.pending.push((id, at, tick, hp, max));
         }
         if !fallen.is_empty() && sim.get_entity(me).is_some_and(|e| e.is_alive()) {
             sim.entity_remove_buff(me, E_CD);

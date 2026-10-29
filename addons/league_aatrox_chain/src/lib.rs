@@ -429,6 +429,7 @@ fn pull(sim: &mut StableSim<'_>, me: usize, c: (f64, f64), a: usize, d: f64) {
         return;
     }
     let champion = e.is_champion();
+    let rooted = immovable(&e.name().unwrap_or_default());
     let marked = alive(sim, a);
     if names(sim, me).iter().any(|n| n == NATIVE_VIEWS) {
         // the data missed the ring: the snap and the wrap played here too
@@ -444,7 +445,7 @@ fn pull(sim: &mut StableSim<'_>, me: usize, c: (f64, f64), a: usize, d: f64) {
         }
     }
     let mut ticks = 0;
-    if d > ARRIVE {
+    if d > ARRIVE && !rooted {
         if let Some(here) = pos_of(sim, me) {
             ticks = push(sim, me, here, c, d);
         }
@@ -454,6 +455,12 @@ fn pull(sim: &mut StableSim<'_>, me: usize, c: (f64, f64), a: usize, d: f64) {
         head(sim, me),
         if marked { "the second hit flagged on Aatrox" } else { "Aatrox is dead: no second hit" }
     ));
+}
+
+/// 拉不动的大怪（大龙、峡谷先锋：英雄联盟里史诗野怪不能被位移，TFM2 里它们也站着不动）：第二下照打，不拉
+/// （0.x：每次都拉 3000 拉不动，日志一晚上 200 多行 DRAG stuck）。
+pub fn immovable(name: &str) -> bool {
+    matches!(name, "epic_monster" | "serpen_monster")
 }
 
 /// 强制位移到 `to`，正好走到（速度取整到每 tick 一样长）；返回 tick 数。
@@ -615,6 +622,7 @@ mod tests {
         // 野怪就算宿主把它当小兵、或队伍码不是中立：按名字也算野怪
         assert_eq!(kind_of(false, true, false, 2, "serpen_monster"), Kind::Monster);
         assert_eq!(kind_of(false, false, false, 0, "epic_monster"), Kind::Monster);
+        assert!(immovable("epic_monster") && immovable("serpen_monster") && !immovable("rhino_monster"));
         assert_eq!(kind_of(false, false, true, 1, "tower"), Kind::Other);
         // 召唤物（安妮的熊之类）不拴
         assert_eq!(kind_of(false, false, false, 1, "league_annie_tibbers"), Kind::Other);

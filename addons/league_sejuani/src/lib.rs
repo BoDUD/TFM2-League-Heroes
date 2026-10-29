@@ -161,9 +161,10 @@ pub fn shatter_damage(p: &Params, magic_power: usize, target_max_hp: usize) -> u
     p.sh_dmg + p.sh_ap * magic_power / 100 + p.sh_pct * target_max_hp / 100
 }
 
-/// A buff that slows (the Frost Armour clears those).
+/// A buff that slows (the Frost Armour clears those). Not the game's own `sed_*` bookkeeping (`sed_reward` sits on
+/// every champion with a speed value below 0 and comes back each second: 0.1.x stripped it ~once a second).
 pub fn is_slow(b: &BuffV1) -> bool {
-    b.move_speed_mult < 0
+    b.move_speed_mult < 0 && !b.name().starts_with("sed_")
 }
 
 fn count(e: &StableEntity<'_, '_>, name: &str) -> usize {
@@ -394,6 +395,9 @@ mod tests {
         b.move_speed_mult = 15;
         assert!(!is_slow(&b));
         assert!(!is_slow(&BuffV1::timed(ARMOUR, 3)));
+        let mut g = BuffV1::named("sed_reward");
+        g.move_speed_mult = -1;
+        assert!(!is_slow(&g), "the game's own sed_ buffs are not slows");
     }
 
     #[test]
