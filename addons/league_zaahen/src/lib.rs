@@ -240,7 +240,7 @@ pub fn spin_damage(p: &Params, attack: usize, dist: f64, radius: f64, max_hp: us
 
 /// 名字是不是本包的「不死」（别的「不死」在身上时不触发）。
 pub fn ours(name: &str) -> bool {
-    name == sn("rv_guard")
+    name == sn("rv_guard") || name == sn("rv_hold")
 }
 
 pub fn other_undying(names_undying: &[(String, bool)]) -> bool {
@@ -399,6 +399,11 @@ impl Darkin {
             }
             return;
         }
+        // undying for the whole rise (0.1.x: the guard went before the banish, and damage still landing on him - burns,
+        // hits in flight - killed 8 of 25 risings in the 10-29 games); taken off when he stands up
+        let mut hold = BuffV1::timed(&sn("rv_hold"), self.p.rv_rise + 2);
+        hold.undying = true;
+        sim.add_buff(me, &hold);
         self.rising = Some(now);
         self.revive_at = now + self.p.rv_cd;
         sim.play_sfx(&sn("rv"), me, &InputTargetV1::target(me));       // League's revive and his line
@@ -416,6 +421,7 @@ impl Darkin {
             sim.entity_set_hp(me, (hp + rise_step(&self.p, max)).min(max));
         }
         if now >= t0 + self.p.rv_rise {
+            sim.entity_remove_buff(me, &sn("rv_hold"));
             self.rising = None;
             self.stacks = self.p.det_n;
             self.last_hit = now;
@@ -718,6 +724,7 @@ mod tests {
     #[test]
     fn only_someone_elses_undying_holds_the_revive_back() {
         assert!(!other_undying(&[("league_zaahen_rv_guard".to_string(), true)]));
+        assert!(!other_undying(&[("league_zaahen_rv_hold".to_string(), true)]));
         assert!(other_undying(&[("league_zilean_r_rune".to_string(), true)]));
     }
 

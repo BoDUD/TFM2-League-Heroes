@@ -348,7 +348,8 @@ impl Revenant {
     fn watch_out(&mut self, sim: &StableSim<'_>, me: usize) {
         let Some((id, since)) = self.out else { return };
         let t = sim.tick();
-        let free = sim.get_entity(id).is_some_and(|e| !e.is_alive() || e.is_targetable());
+        // gone counts as free (0.1.x: a target gone by his respawn read "STILL BANISHED")
+        let free = sim.get_entity(id).is_none_or(|e| !e.is_alive() || e.is_targetable());
         if free || t >= since + 30 {
             self.out = None;
             wlog(format!("{} R OUT: {} {} {} ticks after the realm ended early", head(sim, me), who(sim, id),
@@ -486,6 +487,8 @@ impl StablePassive for Revenant {
         sim.entity_remove_buff(me, &tag);
         sim.add_buff(me, &BuffV1::named(&tag));
         with_state(sim, me, |s| *s = State { pot: 0.0, fight: 0, realm: None, guard: None });
+        // the early-exit watch only means something right after the realm; dead, he never ran it (it read his respawn)
+        self.out = None;
         PARAMS.lock().unwrap_or_else(|e| e.into_inner()).insert(key(sim, me), p);
         let team = sim.get_entity(me).map_or(0, |e| e.team());
         wlog(format!("{} SPAWN: the add-on's Mordekaiser (player {player}, team {team}), {p:?}", head(sim, me)));
