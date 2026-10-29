@@ -1,0 +1,38 @@
+[
+  {
+    "file": "steb-A.png",
+    "size": [
+      1536,
+      1536
+    ],
+    "alpha_values": [
+      0,
+      255
+    ],
+    "bbox": [
+      539,
+      792,
+      979,
+      1386
+    ],
+    "uniform_11px_cells": true
+  },
+  {
+    "file": "steb-B.png",
+    "size": [
+      1536,
+      1536
+    ],
+    "alpha_values": [
+      0,
+      255
+    ],
+    "bbox": [
+      484,
+      946,
+      1034,
+      1386
+    ],
+    "uniform_11px_cells": true
+  }
+]
