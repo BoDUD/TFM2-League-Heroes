@@ -1,0 +1,540 @@
+{
+  "status": "PASS",
+  "scope": "pixel source sheets; not game runtime acceptance",
+  "sheet_count": 25,
+  "frame_count": 49,
+  "source_design_sha256": "a74f76ac050870ae7ecb20099b0467ec8b73d726eb37c7ad3ddc9e11db08d920",
+  "palette_color_count": 44,
+  "fixed_weapon_source_sha256": "1dc44fba4117d0dd315e7b9c0dc1700b4f97d3ec4d4b4df536715ea176f2e0ed",
+  "weapon_transform": "rigid rotation + translation, no scale or separate handle edits",
+  "two_arm_chains": [
+    "near_upper -> near_lower -> near_hand",
+    "bare_upper -> bare_lower -> bare_hand"
+  ],
+  "connectivity": "all held-weapon frames 1 connected component; death 2-8 body + separate weapon",
+  "reports": [
+    {
+      "name": "run_1",
+      "frames": [
+        1,
+        2
+      ],
+      "durations_ms": [
+        150,
+        150
+      ],
+      "checks": {
+        "size_1536x1024": true,
+        "alpha_binary": true,
+        "exact_design_palette": true,
+        "flat_8px_grid_origin_y4": true,
+        "top_4px_clear": true,
+        "nothing_below_ground_y924": true,
+        "canvas_edges_clear": true
+      },
+      "sha256": "5959c5b2daa0ed93c5dcfd5c990ce73951d5fec24bd5a16fff2d3ecd3598c686"
+    },
+    {
+      "name": "run_2",
+      "frames": [
+        3,
+        4
+      ],
+      "durations_ms": [
+        150,
+        150
+      ],
+      "checks": {
+        "size_1536x1024": true,
+        "alpha_binary": true,
+        "exact_design_palette": true,
+        "flat_8px_grid_origin_y4": true,
+        "top_4px_clear": true,
+        "nothing_below_ground_y924": true,
+        "canvas_edges_clear": true
+      },
+      "sha256": "26a1dd3e8a38b3e4eb8d30274939fc6d50859dd937da7a4e4329ccb04c7b4992"
+    },
+    {
+      "name": "run_3",
+      "frames": [
+        5,
+        6
+      ],
+      "durations_ms": [
+        150,
+        150
+      ],
+      "checks": {
+        "size_1536x1024": true,
+        "alpha_binary": true,
+        "exact_design_palette": true,
+        "flat_8px_grid_origin_y4": true,
+        "top_4px_clear": true,
+        "nothing_below_ground_y924": true,
+        "canvas_edges_clear": true
+      },
+      "sha256": "65bd64e9a8840487effc3f62b1c4e528ab71c20102be7876a633505b19f6f53a"
+    },
+    {
+      "name": "run_4",
+      "frames": [
+        7,
+        8
+      ],
+      "durations_ms": [
+        150,
+        150
+      ],
+      "checks": {
+        "size_1536x1024": true,
+        "alpha_binary": true,
+        "exact_design_palette": true,
+        "flat_8px_grid_origin_y4": true,
+        "top_4px_clear": true,
+        "nothing_below_ground_y924": true,
+        "canvas_edges_clear": true
+      },
+      "sha256": "42e9b9d2696da7daf66cf7a7a44866353e048f8bf0b0ea101d99397de37dd018"
+    },
+    {
+      "name": "attack_1",
+      "frames": [
+        1,
+        2
+      ],
+      "durations_ms": [
+        60,
+        60
+      ],
+      "checks": {
+        "size_1536x1024": true,
+        "alpha_binary": true,
+        "exact_design_palette": true,
+        "flat_8px_grid_origin_y4": true,
+        "top_4px_clear": true,
+        "nothing_below_ground_y924": true,
+        "canvas_edges_clear": true
+      },
+      "sha256": "47ac02a91fe4a8e6dc82e39b544f2a3346ff47e9fbe9799c2472ec819dda664c"
+    },
+    {
+      "name": "attack_2",
+      "frames": [
+        3,
+        4
+      ],
+      "durations_ms": [
+        70,
+        70
+      ],
+      "checks": {
+        "size_1536x1024": true,
+        "alpha_binary": true,
+        "exact_design_palette": true,
+        "flat_8px_grid_origin_y4": true,
+        "top_4px_clear": true,
+        "nothing_below_ground_y924": true,
+        "canvas_edges_clear": true
+      },
+      "sha256": "74d9a3ed12d57e9370d2cf3aa1d3d4f82001de8a0fb5260fc0fdf440ad2f9c4a"
+    },
+    {
+      "name": "attack_3",
+      "frames": [
+        5,
+        6
+      ],
+      "durations_ms": [
+        80,
+        90
+      ],
+      "checks": {
+        "size_1536x1024": true,
+        "alpha_binary": true,
+        "exact_design_palette": true,
+        "flat_8px_grid_origin_y4": true,
+        "top_4px_clear": true,
+        "nothing_below_ground_y924": true,
+        "canvas_edges_clear": true
+      },
+      "sha256": "27a448767d7b0796ddaa6bdad969195fad39e4b40d2f8d7e0f4d27f4bdc78bae"
+    },
+    {
+      "name": "attack_p_1",
+      "frames": [
+        1,
+        2
+      ],
+      "durations_ms": [
+        50,
+        50
+      ],
+      "checks": {
+        "size_1536x1024": true,
+        "alpha_binary": true,
+        "exact_design_palette": true,
+        "flat_8px_grid_origin_y4": true,
+        "top_4px_clear": true,
+        "nothing_below_ground_y924": true,
+        "canvas_edges_clear": true
+      },
+      "sha256": "772fabfedebeb26b977756bc7883084ad8b0fade8845260928dfbcb701a41dfb"
+    },
+    {
+      "name": "attack_p_2",
+      "frames": [
+        3,
+        4
+      ],
+      "durations_ms": [
+        60,
+        70
+      ],
+      "checks": {
+        "size_1536x1024": true,
+        "alpha_binary": true,
+        "exact_design_palette": true,
+        "flat_8px_grid_origin_y4": true,
+        "top_4px_clear": true,
+        "nothing_below_ground_y924": true,
+        "canvas_edges_clear": true
+      },
+      "sha256": "6f3913384306713fac7ecbf4442ce66e336161c3ce143153ec9c224dff82d91a"
+    },
+    {
+      "name": "attack_p_3",
+      "frames": [
+        5,
+        6
+      ],
+      "durations_ms": [
+        80,
+        90
+      ],
+      "checks": {
+        "size_1536x1024": true,
+        "alpha_binary": true,
+        "exact_design_palette": true,
+        "flat_8px_grid_origin_y4": true,
+        "top_4px_clear": true,
+        "nothing_below_ground_y924": true,
+        "canvas_edges_clear": true
+      },
+      "sha256": "1d4deea4c644fc1a2e2178b41e847441e9af587013c026ce6403289acd9d5b5b"
+    },
+    {
+      "name": "skill_1",
+      "frames": [
+        1,
+        2
+      ],
+      "durations_ms": [
+        60,
+        70
+      ],
+      "checks": {
+        "size_1536x1024": true,
+        "alpha_binary": true,
+        "exact_design_palette": true,
+        "flat_8px_grid_origin_y4": true,
+        "top_4px_clear": true,
+        "nothing_below_ground_y924": true,
+        "canvas_edges_clear": true
+      },
+      "sha256": "0b8a7ad4bd9c3f9aa8efedeafe061fae0aca21aba47c357ade01e4dda6fa819d"
+    },
+    {
+      "name": "skill_2",
+      "frames": [
+        3,
+        4
+      ],
+      "durations_ms": [
+        80,
+        90
+      ],
+      "checks": {
+        "size_1536x1024": true,
+        "alpha_binary": true,
+        "exact_design_palette": true,
+        "flat_8px_grid_origin_y4": true,
+        "top_4px_clear": true,
+        "nothing_below_ground_y924": true,
+        "canvas_edges_clear": true
+      },
+      "sha256": "31f84e58ea26b5fa4a1ff87a9325043565a0316e35d7694eeb7cf62cf4afae6c"
+    },
+    {
+      "name": "skill_3",
+      "frames": [
+        5,
+        6
+      ],
+      "durations_ms": [
+        100,
+        100
+      ],
+      "checks": {
+        "size_1536x1024": true,
+        "alpha_binary": true,
+        "exact_design_palette": true,
+        "flat_8px_grid_origin_y4": true,
+        "top_4px_clear": true,
+        "nothing_below_ground_y924": true,
+        "canvas_edges_clear": true
+      },
+      "sha256": "da77cbccd14af92a74d8914afd562cbc2ccc38783b59634de6970b60a9e8b484"
+    },
+    {
+      "name": "skill2_1",
+      "frames": [
+        1,
+        2
+      ],
+      "durations_ms": [
+        60,
+        70
+      ],
+      "checks": {
+        "size_1536x1024": true,
+        "alpha_binary": true,
+        "exact_design_palette": true,
+        "flat_8px_grid_origin_y4": true,
+        "top_4px_clear": true,
+        "nothing_below_ground_y924": true,
+        "canvas_edges_clear": true
+      },
+      "sha256": "5a3628172c3ba2973a82c5692905277bf8a5aefb831bcdbf4ca4703d2e83c2fd"
+    },
+    {
+      "name": "skill2_2",
+      "frames": [
+        3,
+        4
+      ],
+      "durations_ms": [
+        80,
+        90
+      ],
+      "checks": {
+        "size_1536x1024": true,
+        "alpha_binary": true,
+        "exact_design_palette": true,
+        "flat_8px_grid_origin_y4": true,
+        "top_4px_clear": true,
+        "nothing_below_ground_y924": true,
+        "canvas_edges_clear": true
+      },
+      "sha256": "cf2c1e47ec21e884d253785cc1ac82a643026a44711d4b90bd5a45b0aceb11db"
+    },
+    {
+      "name": "skill2_3",
+      "frames": [
+        5,
+        6
+      ],
+      "durations_ms": [
+        100,
+        100
+      ],
+      "checks": {
+        "size_1536x1024": true,
+        "alpha_binary": true,
+        "exact_design_palette": true,
+        "flat_8px_grid_origin_y4": true,
+        "top_4px_clear": true,
+        "nothing_below_ground_y924": true,
+        "canvas_edges_clear": true
+      },
+      "sha256": "d7c5d6de898301bfc41e29a17a36e769ebcd6b6050cd982dd00b2d2fa935a480"
+    },
+    {
+      "name": "ult_1",
+      "frames": [
+        1,
+        2
+      ],
+      "durations_ms": [
+        80,
+        90
+      ],
+      "checks": {
+        "size_1536x1024": true,
+        "alpha_binary": true,
+        "exact_design_palette": true,
+        "flat_8px_grid_origin_y4": true,
+        "top_4px_clear": true,
+        "nothing_below_ground_y924": true,
+        "canvas_edges_clear": true
+      },
+      "sha256": "8cf6646c31530ca8124a2e271ff7642c9d5bd58babc38be355e6a53e818736ff"
+    },
+    {
+      "name": "ult_2",
+      "frames": [
+        3,
+        4
+      ],
+      "durations_ms": [
+        100,
+        100
+      ],
+      "checks": {
+        "size_1536x1024": true,
+        "alpha_binary": true,
+        "exact_design_palette": true,
+        "flat_8px_grid_origin_y4": true,
+        "top_4px_clear": true,
+        "nothing_below_ground_y924": true,
+        "canvas_edges_clear": true
+      },
+      "sha256": "3ed9fc7e3c7161cb2c30d8fa2461fdd91b8710c06eeef312c851fe21c443621e"
+    },
+    {
+      "name": "ult_3",
+      "frames": [
+        5,
+        6
+      ],
+      "durations_ms": [
+        100,
+        100
+      ],
+      "checks": {
+        "size_1536x1024": true,
+        "alpha_binary": true,
+        "exact_design_palette": true,
+        "flat_8px_grid_origin_y4": true,
+        "top_4px_clear": true,
+        "nothing_below_ground_y924": true,
+        "canvas_edges_clear": true
+      },
+      "sha256": "3ed9fc7e3c7161cb2c30d8fa2461fdd91b8710c06eeef312c851fe21c443621e"
+    },
+    {
+      "name": "ult_4",
+      "frames": [
+        7
+      ],
+      "durations_ms": [
+        97
+      ],
+      "checks": {
+        "size_1536x1024": true,
+        "alpha_binary": true,
+        "exact_design_palette": true,
+        "flat_8px_grid_origin_y4": true,
+        "top_4px_clear": true,
+        "nothing_below_ground_y924": true,
+        "canvas_edges_clear": true
+      },
+      "sha256": "69468825ccf6ed2357aea4d350168a8758bf620e88cf7ef2b115755b297feb19"
+    },
+    {
+      "name": "hit_1",
+      "frames": [
+        1,
+        2
+      ],
+      "durations_ms": [
+        100,
+        100
+      ],
+      "checks": {
+        "size_1536x1024": true,
+        "alpha_binary": true,
+        "exact_design_palette": true,
+        "flat_8px_grid_origin_y4": true,
+        "top_4px_clear": true,
+        "nothing_below_ground_y924": true,
+        "canvas_edges_clear": true
+      },
+      "sha256": "3d8652d8939cb2fb956cea7192c72f6b9338a621f80c4415cd5b3025f295f7b7"
+    },
+    {
+      "name": "dead_1",
+      "frames": [
+        1,
+        2
+      ],
+      "durations_ms": [
+        100,
+        100
+      ],
+      "checks": {
+        "size_1536x1024": true,
+        "alpha_binary": true,
+        "exact_design_palette": true,
+        "flat_8px_grid_origin_y4": true,
+        "top_4px_clear": true,
+        "nothing_below_ground_y924": true,
+        "canvas_edges_clear": true
+      },
+      "sha256": "f6550756b3c9e3fd08dc5723eaf6acd959d9763c7224b2eeb36075b9cf50afaa"
+    },
+    {
+      "name": "dead_2",
+      "frames": [
+        3,
+        4
+      ],
+      "durations_ms": [
+        100,
+        120
+      ],
+      "checks": {
+        "size_1536x1024": true,
+        "alpha_binary": true,
+        "exact_design_palette": true,
+        "flat_8px_grid_origin_y4": true,
+        "top_4px_clear": true,
+        "nothing_below_ground_y924": true,
+        "canvas_edges_clear": true
+      },
+      "sha256": "c3a55302f6456f41470fe0f7919ba6309529c36d8bd22213084cfd566cdfd3f7"
+    },
+    {
+      "name": "dead_3",
+      "frames": [
+        5,
+        6
+      ],
+      "durations_ms": [
+        120,
+        120
+      ],
+      "checks": {
+        "size_1536x1024": true,
+        "alpha_binary": true,
+        "exact_design_palette": true,
+        "flat_8px_grid_origin_y4": true,
+        "top_4px_clear": true,
+        "nothing_below_ground_y924": true,
+        "canvas_edges_clear": true
+      },
+      "sha256": "8a62fe45dea24935cccd73e7ba127eef3e58b89db3452084dcc35592337b011e"
+    },
+    {
+      "name": "dead_4",
+      "frames": [
+        7,
+        8
+      ],
+      "durations_ms": [
+        150,
+        400
+      ],
+      "checks": {
+        "size_1536x1024": true,
+        "alpha_binary": true,
+        "exact_design_palette": true,
+        "flat_8px_grid_origin_y4": true,
+        "top_4px_clear": true,
+        "nothing_below_ground_y924": true,
+        "canvas_edges_clear": true
+      },
+      "sha256": "851562e519b609a8902d7387d57d7fb3bb2a2ed0b3772f7752ecb1f37a25f8a3"
+    }
+  ]
+}
