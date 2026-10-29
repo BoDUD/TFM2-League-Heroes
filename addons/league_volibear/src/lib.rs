@@ -10,11 +10,13 @@
 //!   攻击力 + 已损失生命的 `W_HEAL_MISS`%，标记去掉。主包：标记记在沃利贝尔自己身上（咬谁都算），回复固定值 + 攻击力加成。
 //! - **天声震落让防御塔失效**（原生效果 `league_volibear:stormbringer`，落地砸地时）：落点 `R_TOWER_R` 以内的敌方防御塔
 //!   `R_TOWER_T` tick 不能攻击（眩晕 + 禁止攻击，塔身上缠着电光 `league_volibear_r_tower`）。主包：没有这一条。
+//! - **风暴形态变成雷电蓝**（0.2.0，用户 2026-10-30：「沃利贝尔开大是不是得搞个变色啊」→「2 雷电蓝+描边」，view.rs）：落地后的
+//!   12 秒（主包的 buff `R_FORM`）他的每个动作都换成图里雷电蓝、电蓝外描边的 `r_*` 一套。主包：颜色不变，只有身后的雷云。
 //!
 //! 数字是主包参数表 P 的同名项（小写）；`make_override.py` 生成副本时核对，不一致就停。本包不按任何技能键。
 //!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_volibear.log`，每次启动游戏重写，上一次的留在 .prev.log：
-//! `STORM`（闪电打到谁）、`MAUL`（标记 / 第二口回了多少）、`TOWER`（哪座塔失效），限了条数。
+//! `STORM`（闪电打到谁）、`MAUL`（标记 / 第二口回了多少）、`TOWER`（哪座塔失效）、`FORM`（画面上换成风暴形态的颜色），限了条数。
 
 use std::collections::HashMap;
 use std::fs::OpenOptions;
@@ -24,8 +26,12 @@ use std::sync::{LazyLock, Mutex};
 
 use mod_api_stable::*;
 
+pub mod view;
+
 const ID: &str = "league_volibear";
 const VERSION: &str = env!("CARGO_PKG_VERSION");
+/// 天声震落落地后的风暴形态（主包数据的 buff，12 秒）：这期间画面上是雷电蓝的他（view.rs）。
+pub const R_FORM: &str = "league_volibear_r_form";
 
 /// 狂雷渐起：闪电伤害（固定、法强 %）、离目标多远以内、除目标外最多几个。
 pub const P_DMG: usize = 30;
@@ -246,7 +252,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v{VERSION} (Volibear: chain lightning to the 4 nearest, the second maul by the mark on its target, Stormbringer silences towers) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v{VERSION} (Volibear: chain lightning to the 4 nearest, the second maul by the mark on its target, Stormbringer silences towers, the storm form in electric blue) loaded: game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
         v.patch,
@@ -256,7 +262,8 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     module.add_native_effect(format!("{ID}:storm"), Step(storm));
     module.add_native_effect(format!("{ID}:maul"), Step(maul));
     module.add_native_effect(format!("{ID}:stormbringer"), Step(stormbringer));
-    host.log(LogLevel::Info, "league_volibear loaded (chain lightning, marked maul, tower silence).");
+    view::install_once();
+    host.log(LogLevel::Info, "league_volibear loaded (chain lightning, marked maul, tower silence, storm colours).");
 }
 
 #[cfg_attr(league_bundle, allow(dead_code))]
@@ -296,6 +303,7 @@ mod tests {
         for s in ["w_mark", "p_zap", "r_tower", "w_healed"] {
             assert!(n(s).len() <= BUFF_NAME_CAP);
         }
+        assert_eq!(R_FORM, n("r_form"));
     }
 
     #[test]
@@ -305,5 +313,6 @@ mod tests {
             assert!(copy.contains(r), "the copy never uses {r}");
         }
         assert!(!copy.contains("\"type\": \"TargetSplashProjectile\""), "the copy still splashes in data");
+        assert!(copy.contains(&format!("\"{R_FORM}\"")), "the copy no longer gives him {R_FORM}");
     }
 }

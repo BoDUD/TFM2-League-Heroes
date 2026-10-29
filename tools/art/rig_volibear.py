@@ -33,6 +33,7 @@ from scipy import ndimage
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 import ppu_rig as R  # noqa: E402
+import volibear_storm as VS  # noqa: E402
 from rig_wukong import CutDesign as _Cut, Form as _Form, P, pad, sheet, vflip  # noqa: E402
 
 HERO = "volibear"
@@ -258,21 +259,31 @@ def frames_all(F):
     air = c("up2", whole=(1, -8), legs=((0, -2), (0, -2)))
     out["ult"] = [p(crouch=2), c("up2", whole=(0, -4), legs=((0, -1), (0, -1))), air, air.copy()]
     out["ult_land"] = [c("maul", crouch=2, whole=(1, 0)), c("rake", crouch=1, whole=(1, 0)), p(crouch=1)]
-    out["hit"] = [R.flash(p(whole=(-2, 0))), p(whole=(-1, 0))]
+    hit = [p(whole=(-2, 0)), p(whole=(-1, 0))]
+    out["hit"] = [R.flash(hit[0]), hit[1]]
     # the death (volibear_death): staggers back, sinks, falls on his back, bounces once on the ground
     body = p(crouch=2, whole=(-3, 0))
     lie = lambda sink: R.lie(rig, body, k=1, dx=-4, sink=sink)
     out["dead"] = [p(whole=(-1, 0)), p(crouch=1, whole=(-2, 0)), p(crouch=2, whole=(-3, 0)), lie(-3), lie(0),
                    lie(-1), lie(0), lie(0)]
+    # R's storm form (tools/art/volibear_storm.py, 2026-10-30: 「沃利贝尔开大是不是得搞个变色啊」 -> 「2 雷电蓝+描边」): every
+    # action he plays in it again in the storm's colours, r_<tag> (the add-on plays them while the form lasts). Recoloured
+    # once finished: the finish closes the outline next to light squares only (strips.complete_outline), and his three
+    # mid purples turn dark navy, so a twin finished in its own colours lost outline squares his frame has; finished
+    # again on export, it stays square for square his. The hit's first frame recoloured before its flash, so it flashes
+    # as white as his own (all light then: it finishes as his does)
+    for tag in VS.TAGS:
+        out[VS.PREFIX + tag] = [VS.recolour(rig.finish(c)) for c in out[tag]]
+    out[VS.PREFIX + "hit"] = [R.flash(VS.recolour(hit[0])), VS.recolour(rig.finish(hit[1]))]
     return out
 
 
 def frames(F):
-    """{tag: [(canvas, ms)]} in the sheet's order."""
+    """{tag: [(canvas, ms)]} in the sheet's order (the storm form's twins last, each at its action's times)."""
     a = frames_all(F)
     out = {}
-    for tag in ORDER:
-        cans, ms = a[tag], MS[tag]
+    for tag in ORDER + [VS.PREFIX + t for t in VS.TAGS]:
+        cans, ms = a[tag], MS[tag.removeprefix(VS.PREFIX)]
         if len(cans) != len(ms):
             sys.exit(f"{tag}: {len(cans)} frames for {len(ms)}")
         out[tag] = list(zip(cans, ms))
@@ -288,6 +299,7 @@ def main():
     if not (a.audit or a.review or a.parts):
         F = Form()
         F.rig.export(frames(F))
+        VS.twin_ones()
         return
     if a.audit or a.review:
         F = Form()

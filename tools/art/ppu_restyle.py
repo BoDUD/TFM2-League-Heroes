@@ -427,8 +427,9 @@ RESTYLE = {
     "poppy": dict(ppu=1.2, edge=1, lift_sq=-2, face_to=(4, -17)),
     # league_volibear (#131): posed by tools/art/rig_volibear.py at the user's 1.2 squares a game pixel (「44 像素，PPU 1.2」:
     # Codex's step-1 take B-2, 54 rows ear top to soles; Codex's arm poses, walk and Q on the same grid), so no proportion or
-    # density change here; the outer outline grown a square like the others; the face point between his eyes
-    "volibear": dict(ppu=1.2, edge=1, face_to=(6, -27)),
+    # density change here; the outer outline grown a square like the others; the face point between his eyes. rim: R's storm
+    # form (tools/art/volibear_storm.py, his r_* twins, 「2 雷电蓝+描边」) with the outermost outline squares electric blue
+    "volibear": dict(ppu=1.2, edge=1, face_to=(6, -27), rim={"r_": (24, 110, 255)}),
     # league_rammus (#132): posed from the designs' own squares at the user's 1.2 squares a game pixel (「36 像素」「PPU 1.2」:
     # Codex's step-1 takes A-2 / S-1 / B / W read back on their own grids and cut to 43 rows spike tips to soles) by
     # tools/art/rig_rammus.py, so no proportion or density change here; the outer outline grown a square like the others;
@@ -1215,6 +1216,16 @@ def grow_edge(a, n, colour):
     return a
 
 
+def rim_edge(a, outline, colour):
+    """The outline squares on the outer edge (those touching air across a side) -> colour (a form's glowing outline:
+    RESTYLE `rim`, league_volibear's storm twins)."""
+    op = a[..., 3] > 0
+    edge = op & np.all(a[..., :3] == outline, -1) & ndimage.binary_dilation(~op, structure=CROSS)
+    a = a.copy()
+    a[edge, :3] = colour
+    return a
+
+
 def open_slits(grown, before, n, w):
     """The squares grow_edge(.., n, ..) laid in a narrow slit between two parts (clear in `before`, with a part of the
     figure at most `w` squares away on both sides, left and right or above and below - tft_silco's cane passing a leg
@@ -1547,6 +1558,9 @@ def restyle(hero, spec, write=True, only=None):
                     # on the frame's own new grid (the same size, pivot and k as its pixelate), without its outline
                     over, under = (None if f_ is None else scale_fx(f_, new_ppu / ppu, pivot0, mote=4)[0] for f_ in (over, under))
                 content = put_fx(content, e, over, under)
+            for pre, colour in spec.get("rim", {}).items():   # a form's outer outline in its own colour
+                if tag.startswith(pre):
+                    content = rim_edge(content, outline, colour)
             pivot = (pivot[0] + e, pivot[1] + e + spec.get("lift_sq", 0))   # lift_sq: whole rows of the new grid
             res.append((content, pivot, ms))
             notes.append(f"{tag}[{i}] {note}")
