@@ -1,6 +1,8 @@
 {
   "fx": "league_rumble_fx",
   "items": [
-    {"tag": "q_flame", "into": "skill", "at_ms": 133, "dx": 35, "dy": 3}
+    {"tag": "q_flame", "into": "skill", "at_ms": 133, "dx": 35, "dy": 3},
+    {"tag": "q_flame", "into": "q_stand", "at_ms": 0, "dx": 35, "dy": 3},
+    {"tag": "q_flame", "into": "q_run", "at_ms": 0, "dx": 35, "dy": 3}
   ]
 }

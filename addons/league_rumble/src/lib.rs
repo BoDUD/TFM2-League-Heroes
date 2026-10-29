@@ -1,10 +1,14 @@
-//! 兰博附加包（用户 2026-10-25：「红温整套切换」）。主包的数据不动、不换英雄副本，本包只补数据做不到的一件事：
+//! 兰博附加包（用户 2026-10-25：「红温整套切换」）。主包的数据不动；本包补数据做不到的两件事：
 //!
 //! - **整身红温**（`view.rs`）：过热时站着、跑着、挨打、阵亡也是红温的样子（希瓦娜附加包整身变龙的做法）。主包只有过热
 //!   时的普攻是红温（`CasterAnimation` 播 `oh_attack`），游戏按名字自动播的 idle / run / hit / dead 仍是平常的样子。
+//! - **边走边喷火**（0.2.0，用户 2026-10-29：「兰博不会边走边放火吗」→「就这么做」）：`mod.override_info` 把主包的兰博换成
+//!   `override/` 里的副本（`make_override.py` 用 tools/kit/build_rumble.py 的 `native=1` 生成）：纵火盛宴只站着端平炮口
+//!   （q_first tick），之后挂 `league_rumble_q_on`（q_t tick）照常喷、能走；`view.rs` 在它挂着时把 idle / run 换成他图里
+//!   的 `q_stand` / `q_run`（火焰画在炮口上，tools/art/rig_rumble.py）。主包里他照旧站着喷（不装本包时跑步帧上没有火）。
 //!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_rumble.log`，每次启动游戏重写，上一次的留在 .prev.log：
-//! 显示处理表的槽换上没有、每个兰博红温和凉下来的那一帧、每 10 秒换了几次动画名。
+//! 显示处理表的槽换上没有、每个兰博红温 / 喷火 / 平常的那一帧、每 10 秒换了几次动画名。
 
 use std::fs::OpenOptions;
 use std::io::Write;
@@ -19,6 +23,8 @@ const ID: &str = "league_rumble";
 const VERSION: &str = env!("CARGO_PKG_VERSION");
 /// 过热的 buff（主包数据：热量满 100 时 oh_t tick）。
 pub const OVERHEAT: [&str; 1] = ["league_rumble_oh"];
+/// 边走边喷火的那 1.5 秒（副本数据：纵火盛宴挂 q_t tick）。
+pub const FLAMING: [&str; 1] = ["league_rumble_q_on"];
 
 // ===================== 日志 =====================
 
@@ -64,7 +70,7 @@ pub fn register(host: &StableHost, _module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v{VERSION} (Rumble: the whole-body red-hot Overheat) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v{VERSION} (Rumble: the whole-body red-hot Overheat, Flamespitter on the move) loaded: game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
         v.patch,
@@ -72,7 +78,7 @@ pub fn register(host: &StableHost, _module: &mut StableMod) {
         LOG_PATH.display()
     ));
     view::install_once();
-    host.log(LogLevel::Info, "league_rumble loaded (whole-body red-hot Overheat).");
+    host.log(LogLevel::Info, "league_rumble loaded (whole-body red-hot Overheat, Flamespitter on the move).");
 }
 
 #[cfg_attr(league_bundle, allow(dead_code))]
@@ -98,5 +104,25 @@ mod tests {
         for b in OVERHEAT {
             assert!(data.contains(&format!("\"{b}\"")), "{b}");
         }
+    }
+
+    /// The copy's Flamespitter marks the burst (FLAMING) and holds him for the aim only: the main pack plays `skill` for
+    /// the whole burst (q_t 90 ticks), the copy for q_first (8).
+    #[test]
+    fn the_copy_lets_him_walk_while_it_burns() {
+        let copy = include_str!("../override/league_rumble.data_champion").replace('\r', "");
+        let main = include_str!("../../../league/champion/league_rumble.data_champion").replace('\r', "");
+        for b in FLAMING {
+            assert!(copy.contains(&format!("\"{b}\"")), "the copy never puts {b} on him");
+            assert!(!main.contains(&format!("\"{b}\"")), "the main pack puts {b} on him");
+        }
+        let skill = |s: &str| {
+            let q = &s[s.find("\"skill\": {").unwrap()..s.find("\"skill2\": {").unwrap()];
+            q.chars().filter(|c| !c.is_whitespace()).collect::<String>()
+        };
+        let hold = |t: usize| format!("{{\"type\":\"CasterAnimation\",\"name\":\"skill\",\"tick\":{t}}}");
+        assert!(skill(&main).contains(&hold(90)), "the main pack no longer holds him 90 ticks (update this test)");
+        assert!(!skill(&copy).contains(&hold(90)), "the copy still holds him 90 ticks");
+        assert!(skill(&copy).contains(&hold(8)), "the copy has no aim");
     }
 }
