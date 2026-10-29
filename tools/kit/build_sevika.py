@@ -70,7 +70,7 @@ P = {
     "p_as": 35, "p_as_t": 180,
     # Flamethrower
     "q_cd": 480, "q_range": 32000, "q_dur": 72, "q_st": 10, "q_n": 5, "q_gap": 12, "q_r": 40000, "q_cone": 700,
-    "q_dmg": 12, "q_ad": 32, "q_tri_k": 160, "q_dr": 30, "q_burn_t": 60, "q_len": 45000, "q_w": 22000,
+    "q_dmg": 12, "q_ad": 32, "q_tri_k": 160, "q_dr": 30, "q_burn_t": 60, "q_len": 108000, "q_w": 22000,
     # Extendo-Punch
     "e_cd": 600, "e_range": 55000, "e_dur": 40, "e_st": 14, "e_w": 8000, "e_speed": 4000,
     "e_dmg": 40, "e_ad": 120, "e_kb_speed": 2500, "e_kb_t": 10, "e_behind": 30000, "e_stun": 72, "e_dmg2": 50,
@@ -216,7 +216,9 @@ def build(p, is_native=False):
     # ------------------------------------------------------------------ skill: Flamethrower
     cone = {"DirDot": {"radius": p["q_r"], "range": p["q_cone"]}}
     lick = lambda k: [attack(p["q_dmg"] * k // 100, p["q_ad"] * k // 100), buff("q_burn", p["q_burn_t"])]
-    # the jackpot read once per wave (one shared subtree: the damage alone differs)
+    # the flame's picture rides a picture-only line (q_len: its middle is the flame's middle, the flame's left end at her
+    # levelled claws, tools/art/import_sevika_fx.py); the jackpot read once per wave (one shared subtree: the damage
+    # alone differs)
     burn = when("p_triple", around(0, "EnemyWithoutTower", lick(p["q_tri_k"]), {"Forward": {"offset": 1000}}, cone),
                 around(0, "EnemyWithoutTower", lick(100), {"Forward": {"offset": 1000}}, cone))
     waves = [delayed(p["q_st"] - 1 + k * p["q_gap"], sfx("q_fire") if k == 0 else None,
