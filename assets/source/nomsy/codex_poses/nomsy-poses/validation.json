@@ -1,0 +1,307 @@
+{
+  "expected": 20,
+  "actual": 20,
+  "all_checks_passed": true,
+  "files": [
+    {
+      "file": "nomsy-pose-a_rear.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "grid7_uniform": true,
+      "last_visible_y": 1175,
+      "sha256": "9f0120423239549098b3ec08775f7d1fb22c34862e4ba884bc90d072a3dc8f59",
+      "pass_check": true
+    },
+    {
+      "file": "nomsy-pose-a_spit.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "grid7_uniform": true,
+      "last_visible_y": 1175,
+      "sha256": "24124ea5f0ad519e83b3d60943f00ded7ed4283db3adf071bf51f1108486cca9",
+      "pass_check": true
+    },
+    {
+      "file": "nomsy-pose-q_rise.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "grid7_uniform": true,
+      "last_visible_y": 1175,
+      "sha256": "60cbb1959c9e4c74c8a92f30e4d44af2c61b5d41c789dfab7c8c3ed215678970",
+      "pass_check": true
+    },
+    {
+      "file": "nomsy-pose-q_roar.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "grid7_uniform": true,
+      "last_visible_y": 1175,
+      "sha256": "2b9e1ca3eac19a1686a66788e98861f03c3d8aa8a69a884966008dde5b73dffa",
+      "pass_check": true
+    },
+    {
+      "file": "nomsy-pose-e_back.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "grid7_uniform": true,
+      "last_visible_y": 1175,
+      "sha256": "e3801965cbbc4659da713f6df3b3232d92710a5344c977fa27d6e86340e8e78c",
+      "pass_check": true
+    },
+    {
+      "file": "nomsy-pose-e_breath.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "grid7_uniform": true,
+      "last_visible_y": 1175,
+      "sha256": "b8de425b9151ff75d613b208111f57edfe0ea64c6ad5c53214684683445be90f",
+      "pass_check": true
+    },
+    {
+      "file": "nomsy-pose-r_up.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "grid7_uniform": true,
+      "last_visible_y": 1175,
+      "sha256": "566563214dc755f445f6bc2b792613b0c67305f9461ce609d45df44cc5a40447",
+      "pass_check": true
+    },
+    {
+      "file": "nomsy-pose-r_fly1.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "grid7_uniform": true,
+      "last_visible_y": 1175,
+      "sha256": "a33f2444c4768854e8b132f43a0ac43b0a188299902049aecf48f351bc79a3ee",
+      "pass_check": true
+    },
+    {
+      "file": "nomsy-pose-r_fly2.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "grid7_uniform": true,
+      "last_visible_y": 1175,
+      "sha256": "ba836f09b45811dab3146b543bd2f52247acf1cbd3c584a42782f912c4aaed2f",
+      "pass_check": true
+    },
+    {
+      "file": "nomsy-pose-r_land.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "grid7_uniform": true,
+      "last_visible_y": 1175,
+      "sha256": "14346b6c079e1fc5050e1f6083400879201589f13d771d32b61ef3aaa9621efb",
+      "pass_check": true
+    },
+    {
+      "file": "nomsy-pose-run1.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "grid7_uniform": true,
+      "last_visible_y": 1175,
+      "sha256": "205489f762b2b823cd5ad8d49fa4087b39274bff948a645d695214682db1b34e",
+      "pass_check": true
+    },
+    {
+      "file": "nomsy-pose-run2.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "grid7_uniform": true,
+      "last_visible_y": 1175,
+      "sha256": "2a627fb33a279f5492c465f1785b3fa1d297367f9a676c317f755b103484e983",
+      "pass_check": true
+    },
+    {
+      "file": "nomsy-pose-run3.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "grid7_uniform": true,
+      "last_visible_y": 1175,
+      "sha256": "c3c761aa694117b700814533c8f778f456087188a2de525da691d002e336f0c4",
+      "pass_check": true
+    },
+    {
+      "file": "nomsy-pose-run4.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "grid7_uniform": true,
+      "last_visible_y": 1175,
+      "sha256": "e5eb588a71ec715a89d5a7bf72bd689bcea078216479956203d1d7a2f9e738b0",
+      "pass_check": true
+    },
+    {
+      "file": "nomsy-pose-run5.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "grid7_uniform": true,
+      "last_visible_y": 1175,
+      "sha256": "b444b91dd35357f06ad8ce0e6ef154150382673eb4ed719e026071b761b754d8",
+      "pass_check": true
+    },
+    {
+      "file": "nomsy-pose-run6.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "grid7_uniform": true,
+      "last_visible_y": 1175,
+      "sha256": "9f72813ee4bc1c1d6e6220bf242ae565ff1fbe895036dee3e131911876cccd0f",
+      "pass_check": true
+    },
+    {
+      "file": "nomsy-pose-run7.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "grid7_uniform": true,
+      "last_visible_y": 1175,
+      "sha256": "e7e943eaa5fc0c8282db12df6253e59a70b96cbc466b43c72e0dcfdf6dce0705",
+      "pass_check": true
+    },
+    {
+      "file": "nomsy-pose-run8.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "grid7_uniform": true,
+      "last_visible_y": 1175,
+      "sha256": "c1d1f602c87fe43610d5625a5937182a1d7775e3455cae237d6f90dbaa95411b",
+      "pass_check": true
+    },
+    {
+      "file": "nomsy-pose-d_fall.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "grid7_uniform": true,
+      "last_visible_y": 1175,
+      "sha256": "4c207ce4c419aa159022428cfd588fea709d4c5c24b9f77797662691b50cc976",
+      "pass_check": true
+    },
+    {
+      "file": "nomsy-pose-d_down.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "grid7_uniform": true,
+      "last_visible_y": 1175,
+      "sha256": "68af5fdc10fc95fc0a5ea5b3c8fc3e991399fef198026510b1f51543501082a0",
+      "pass_check": true
+    }
+  ]
+}

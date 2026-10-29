@@ -1,0 +1,2 @@
+﻿A: source=1535x1025, source_bbox=[270,241,1283,956], output=1536x1536, logical_grid=62x42, block=11, offset=[427,928], feet_exclusive=1390, alpha=0/255
+B: source=1254x1254, source_bbox=[41,330,1231,1038], output=1536x1536, logical_grid=74x44, block=11, offset=[361,906], feet_exclusive=1390, alpha=0/255
