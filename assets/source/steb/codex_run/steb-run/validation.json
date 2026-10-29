@@ -1,0 +1,407 @@
+{
+  "asset_count": 8,
+  "technical_checks_pass": true,
+  "assets": [
+    {
+      "file": "steb-run-run1.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "sha256": "8068c660cefd95f0223818e03dc96b9b6075519eb25bba9eeb45fea4aabd8997",
+      "uniform_9px_grid": true,
+      "visible_leg_chains_reviewed": 2,
+      "anatomy_review": "visual review of final stills: two legs and two boots; not inferred from file count",
+      "head_exact_copy_proven": false,
+      "actual_toes_approx_grid": {
+        "blue": [
+          35,
+          112
+        ],
+        "red": [
+          104,
+          126
+        ]
+      },
+      "measurement_method": "manual digitization from boot-grid-review.png; approximately +/-2 grid cells, not exact subpixel metrology",
+      "reference_toes": {
+        "red": [
+          102,
+          125
+        ],
+        "blue": [
+          66,
+          122
+        ]
+      },
+      "delta_to_reference_grid": {
+        "red": [
+          2,
+          1
+        ],
+        "blue": [
+          -31,
+          -10
+        ]
+      },
+      "reference_toe_tolerance_2_cells_pass": false,
+      "front_leg_observed": "dark far leg",
+      "ms": 135
+    },
+    {
+      "file": "steb-run-run2.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "sha256": "0428c3c60e90ad58481b5a0573607c0c1aeea3c6097c1a7d8876c2773b7489ce",
+      "uniform_9px_grid": true,
+      "visible_leg_chains_reviewed": 2,
+      "anatomy_review": "visual review of final stills: two legs and two boots; not inferred from file count",
+      "head_exact_copy_proven": false,
+      "actual_toes_approx_grid": {
+        "blue": [
+          36,
+          123
+        ],
+        "red": [
+          108,
+          122
+        ]
+      },
+      "measurement_method": "manual digitization from boot-grid-review.png; approximately +/-2 grid cells, not exact subpixel metrology",
+      "reference_toes": {
+        "red": [
+          94,
+          127
+        ],
+        "blue": [
+          62,
+          116
+        ]
+      },
+      "delta_to_reference_grid": {
+        "red": [
+          14,
+          -5
+        ],
+        "blue": [
+          -26,
+          7
+        ]
+      },
+      "reference_toe_tolerance_2_cells_pass": false,
+      "front_leg_observed": "dark far leg",
+      "ms": 102
+    },
+    {
+      "file": "steb-run-run3.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "sha256": "c5f1c02958c206d7d29c2b872daf515867d2b466785e4921a0cd298487440ebd",
+      "uniform_9px_grid": true,
+      "visible_leg_chains_reviewed": 2,
+      "anatomy_review": "visual review of final stills: two legs and two boots; not inferred from file count",
+      "head_exact_copy_proven": false,
+      "actual_toes_approx_grid": {
+        "blue": [
+          39,
+          111
+        ],
+        "red": [
+          100,
+          128
+        ]
+      },
+      "measurement_method": "manual digitization from boot-grid-review.png; approximately +/-2 grid cells, not exact subpixel metrology",
+      "reference_toes": {
+        "red": [
+          86,
+          127
+        ],
+        "blue": [
+          67,
+          121
+        ]
+      },
+      "delta_to_reference_grid": {
+        "red": [
+          14,
+          1
+        ],
+        "blue": [
+          -28,
+          -10
+        ]
+      },
+      "reference_toe_tolerance_2_cells_pass": false,
+      "front_leg_observed": "dark far leg",
+      "ms": 102
+    },
+    {
+      "file": "steb-run-run4.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "sha256": "bc98be4646083ccfc7ccd2f5a9257f05a8241a64cce23a5be238cea8a37d75fb",
+      "uniform_9px_grid": true,
+      "visible_leg_chains_reviewed": 2,
+      "anatomy_review": "visual review of final stills: two legs and two boots; not inferred from file count",
+      "head_exact_copy_proven": false,
+      "actual_toes_approx_grid": {
+        "blue": [
+          86,
+          129
+        ],
+        "red": [
+          74,
+          122
+        ]
+      },
+      "measurement_method": "manual digitization from boot-grid-review.png; approximately +/-2 grid cells, not exact subpixel metrology",
+      "reference_toes": {
+        "red": [
+          79,
+          120
+        ],
+        "blue": [
+          78,
+          125
+        ]
+      },
+      "delta_to_reference_grid": {
+        "red": [
+          -5,
+          2
+        ],
+        "blue": [
+          8,
+          4
+        ]
+      },
+      "reference_toe_tolerance_2_cells_pass": false,
+      "front_leg_observed": "crossing; near bright leg overlays far dark leg",
+      "ms": 102
+    },
+    {
+      "file": "steb-run-run5.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "sha256": "a6338518c86406157de779ba9fbff784b4ba27bdc66b10ad25b3933934632c41",
+      "uniform_9px_grid": true,
+      "visible_leg_chains_reviewed": 2,
+      "anatomy_review": "visual review of final stills: two legs and two boots; not inferred from file count",
+      "head_exact_copy_proven": false,
+      "actual_toes_approx_grid": {
+        "blue": [
+          94,
+          129
+        ],
+        "red": [
+          57,
+          122
+        ]
+      },
+      "measurement_method": "manual digitization from boot-grid-review.png; approximately +/-2 grid cells, not exact subpixel metrology",
+      "reference_toes": {
+        "red": [
+          74,
+          119
+        ],
+        "blue": [
+          85,
+          126
+        ]
+      },
+      "delta_to_reference_grid": {
+        "red": [
+          -17,
+          3
+        ],
+        "blue": [
+          9,
+          3
+        ]
+      },
+      "reference_toe_tolerance_2_cells_pass": false,
+      "front_leg_observed": "bright near leg",
+      "ms": 102
+    },
+    {
+      "file": "steb-run-run6.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "sha256": "93e5d6df99f7d6616fd9e4b1ae839f475271e7c7bcffd3e396cdc2f798c67913",
+      "uniform_9px_grid": true,
+      "visible_leg_chains_reviewed": 2,
+      "anatomy_review": "visual review of final stills: two legs and two boots; not inferred from file count",
+      "head_exact_copy_proven": false,
+      "actual_toes_approx_grid": {
+        "blue": [
+          96,
+          129
+        ],
+        "red": [
+          40,
+          106
+        ]
+      },
+      "measurement_method": "manual digitization from boot-grid-review.png; approximately +/-2 grid cells, not exact subpixel metrology",
+      "reference_toes": {
+        "red": [
+          73,
+          111
+        ],
+        "blue": [
+          84,
+          127
+        ]
+      },
+      "delta_to_reference_grid": {
+        "red": [
+          -33,
+          -5
+        ],
+        "blue": [
+          12,
+          2
+        ]
+      },
+      "reference_toe_tolerance_2_cells_pass": false,
+      "front_leg_observed": "bright near leg",
+      "ms": 102
+    },
+    {
+      "file": "steb-run-run7.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "sha256": "6c84b90bc907320cbc7534c11792fa81c5779d3ff0a9e6c9c9c9511330174080",
+      "uniform_9px_grid": true,
+      "visible_leg_chains_reviewed": 2,
+      "anatomy_review": "visual review of final stills: two legs and two boots; not inferred from file count",
+      "head_exact_copy_proven": false,
+      "actual_toes_approx_grid": {
+        "blue": [
+          82,
+          129
+        ],
+        "red": [
+          72,
+          118
+        ]
+      },
+      "measurement_method": "manual digitization from boot-grid-review.png; approximately +/-2 grid cells, not exact subpixel metrology",
+      "reference_toes": {
+        "red": [
+          78,
+          115
+        ],
+        "blue": [
+          79,
+          127
+        ]
+      },
+      "delta_to_reference_grid": {
+        "red": [
+          -6,
+          3
+        ],
+        "blue": [
+          3,
+          2
+        ]
+      },
+      "reference_toe_tolerance_2_cells_pass": false,
+      "front_leg_observed": "crossing; near bright leg overlays far dark leg",
+      "ms": 102
+    },
+    {
+      "file": "steb-run-run8.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "sha256": "110a9864ad300a6ce6dcb0587966e59ebde56c77e9062a95735c7a787eb31b95",
+      "uniform_9px_grid": true,
+      "visible_leg_chains_reviewed": 2,
+      "anatomy_review": "visual review of final stills: two legs and two boots; not inferred from file count",
+      "head_exact_copy_proven": false,
+      "actual_toes_approx_grid": {
+        "blue": [
+          38,
+          128
+        ],
+        "red": [
+          86,
+          128
+        ]
+      },
+      "measurement_method": "manual digitization from boot-grid-review.png; approximately +/-2 grid cells, not exact subpixel metrology",
+      "reference_toes": {
+        "red": [
+          88,
+          124
+        ],
+        "blue": [
+          72,
+          124
+        ]
+      },
+      "delta_to_reference_grid": {
+        "red": [
+          -2,
+          4
+        ],
+        "blue": [
+          -34,
+          4
+        ]
+      },
+      "reference_toe_tolerance_2_cells_pass": false,
+      "front_leg_observed": "dark far leg",
+      "ms": 135
+    }
+  ],
+  "strict_reference_alignment_pass": false
+}

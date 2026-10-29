@@ -4284,6 +4284,22 @@
     },
     {
       "type": "Animation",
+      "name": "league_illaoi_soul_tft_steb",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "tft_steb",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_tft_steb_l",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "tft_steb_l",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
       "name": "league_illaoi_soul_tft_vander",
       "anim": "asset/league/effects/league_illaoi_souls",
       "tag": "tft_vander",

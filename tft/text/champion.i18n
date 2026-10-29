@@ -106,6 +106,13 @@
         "skill2": "射出铁拳，造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<><#ff9028ff>物理伤害<>并击退；撞到身后的敌人则两人<#ef5350ff>眩晕1.2秒<>。",
         "ult": "冲向目标连咬<#ffb900ff>2<>口，每口<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>135%<><#ff9028ff>物理伤害<>，<#ef5350ff>眩晕1.1秒<>并流血；目标生命低于<#ffb900ff>15%<>时直接咬死，再冲向下一个英雄。"
       },
+      "tft_steb": {
+        "name": "斯特卜",
+        "attack": "双警棍轮流打击，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>。<#ff9028ff>战地医疗<>：自己受到治疗时，最近的<#ffb900ff>2<>名友方英雄也回复该治疗量的<#ffb900ff>25%<>。",
+        "skill": "给自己打一针，回复<#ffb900ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#ffb900ff>60%<>生命，再重击目标造成<#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>120%<>魔法伤害并<#ef5350ff>眩晕0.75秒<>。",
+        "skill2": "通缉附近生命最高的敌方英雄<#ffb900ff>5秒<>：它受到的伤害提高<#ffb900ff>25%<>；它在通缉中阵亡时，自己和附近友方攻速提高<#ffb900ff>30%<>（<#ffb900ff>5秒<>）。",
+        "ult": "打开医疗背包：自己和周围友方英雄获得<#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>的护盾（<#ffb900ff>4秒<>），自己减伤<#ffb900ff>30%<>；之后每<#ffb900ff>0.5秒<>为周围友方回复<#ffb900ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#ffb900ff>12%<>生命，共<#ffb900ff>6<>次。"
+      },
       "tft_nomsy": {
         "name": "诺姆希",
         "attack": "吐出小火团，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>。<#ff9028ff>龙神之躯<>：生命值低于<#ffb900ff>40%<>时每秒回复<#ffb900ff>3%<>最大生命值。",
@@ -189,6 +196,11 @@
         "skill1": "喷火器",
         "skill2": "伸缩拳",
         "ult": "嚼一嚼"
+      },
+      "tft_steb": {
+        "skill1": "战地医疗",
+        "skill2": "通缉令",
+        "ult": "医疗背包"
       },
       "tft_nomsy": {
         "skill1": "火球！",
@@ -304,6 +316,13 @@
         "skill2": "射出鐵拳，造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<><#ff9028ff>物理傷害<>並擊退；撞到身後的敵人則兩人<#ef5350ff>暈眩1.2秒<>。",
         "ult": "衝向目標連咬<#ffb900ff>2<>口，每口<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>135%<><#ff9028ff>物理傷害<>，<#ef5350ff>暈眩1.1秒<>並流血；目標生命低於<#ffb900ff>15%<>時直接咬死，再衝向下一個英雄。"
       },
+      "tft_steb": {
+        "name": "史提布",
+        "attack": "雙警棍輪流打擊，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>。<#ff9028ff>戰地醫療<>：自己受到治療時，最近的<#ffb900ff>2<>名友方英雄也回復該治療量的<#ffb900ff>25%<>。",
+        "skill": "給自己打一針，回復<#ffb900ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#ffb900ff>60%<>生命，再重擊目標造成<#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>120%<>魔法傷害並<#ef5350ff>暈眩0.75秒<>。",
+        "skill2": "通緝附近生命最高的敵方英雄<#ffb900ff>5秒<>：它受到的傷害提高<#ffb900ff>25%<>；它在通緝中陣亡時，自己和附近友方攻速提高<#ffb900ff>30%<>（<#ffb900ff>5秒<>）。",
+        "ult": "打開醫療背包：自己和周圍友方英雄獲得<#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>的護盾（<#ffb900ff>4秒<>），自己減傷<#ffb900ff>30%<>；之後每<#ffb900ff>0.5秒<>為周圍友方回復<#ffb900ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#ffb900ff>12%<>生命，共<#ffb900ff>6<>次。"
+      },
       "tft_nomsy": {
         "name": "嚼嚼",
         "attack": "吐出小火團，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>。<#ff9028ff>龍神之軀<>：生命值低於<#ffb900ff>40%<>時每秒回復<#ffb900ff>3%<>最大生命值。",
@@ -387,6 +406,11 @@
         "skill1": "火焰噴射器",
         "skill2": "延伸重拳",
         "ult": "撕咬"
+      },
+      "tft_steb": {
+        "skill1": "戰地醫療",
+        "skill2": "通緝令",
+        "ult": "醫療背包"
       },
       "tft_nomsy": {
         "skill1": "噴火球！",
@@ -502,6 +526,13 @@
         "skill2": "Fires her fist for <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<> <#ff9028ff>physical damage<>, knocking the target back; knocked into an enemy, both are <#ef5350ff>stunned for 1.2s<>.",
         "ult": "Dashes in and bites <#ffb900ff>2<> times, each <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>135%<> <#ff9028ff>physical damage<>, <#ef5350ff>stunning for 1.1s<> and bleeding; under <#ffb900ff>15%<> health the target is executed and she dashes to the next champion."
       },
+      "tft_steb": {
+        "name": "Steb",
+        "attack": "Strikes with his batons in turn for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<>. <#ff9028ff>Field Medicine<>: whenever he is healed, the <#ffb900ff>2<> nearest allied champions heal <#ffb900ff>25%<> of it too.",
+        "skill": "Doses himself for <#ffb900ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#ffb900ff>60%<> health, then strikes the target for <#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>120%<> <#a974ffff>magic damage<>, <#ef5350ff>stunning for 0.75s<>.",
+        "skill2": "Marks the enemy champion with the most health nearby as Wanted for <#ffb900ff>5s<>: it takes <#ffb900ff>25%<> more damage; if it dies while Wanted, he and nearby allies gain <#ffb900ff>30%<> attack speed for <#ffb900ff>5s<>.",
+        "ult": "Opens his medic's pack: he and nearby allied champions gain a <#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> shield for <#ffb900ff>4s<> and he takes <#ffb900ff>30%<> less damage; then every <#ffb900ff>0.5s<>, <#ffb900ff>6<> times, nearby allies heal <#ffb900ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#ffb900ff>12%<>."
+      },
       "tft_nomsy": {
         "name": "Nomsy",
         "attack": "Spits a fire bolt for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<>. <#ff9028ff>Dragon Body<>: under <#ffb900ff>40%<> health she heals <#ffb900ff>3%<> of her max health each second.",
@@ -585,6 +616,11 @@
         "skill1": "Flamethrower",
         "skill2": "Extendo-Punch",
         "ult": "Chomp"
+      },
+      "tft_steb": {
+        "skill1": "Field Medicine",
+        "skill2": "Wanted!",
+        "ult": "Medic's Pack"
       },
       "tft_nomsy": {
         "skill1": "Fireballs!",
@@ -700,6 +736,13 @@
         "skill2": "주먹을 날려 <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<> <#ff9028ff>물리 피해<>와 넉백; 뒤의 적과 부딪히면 둘 다 <#ef5350ff>1.2초 기절<>.",
         "ult": "돌진해 <#ffb900ff>2<>번 물어 각각 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>135%<> <#ff9028ff>물리 피해<>, <#ef5350ff>1.1초 기절<>과 출혈; 체력 <#ffb900ff>15%<> 미만이면 처형하고 다음 챔피언에게 돌진."
       },
+      "tft_steb": {
+        "name": "스텝",
+        "attack": "두 진압봉으로 번갈아 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>물리 피해<>. <#ff9028ff>야전 의료<>: 회복을 받으면 가장 가까운 아군 챔피언 <#ffb900ff>2<>명도 그 <#ffb900ff>25%<>만큼 회복.",
+        "skill": "스스로 주사해 체력 <#ffb900ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#ffb900ff>60%<> 회복, 대상을 내려쳐 <#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>120%<> <#a974ffff>마법 피해<>와 <#ef5350ff>0.75초 기절<>.",
+        "skill2": "근처에서 체력이 가장 많은 적 챔피언을 <#ffb900ff>5초<> 동안 현상수배: 받는 피해 <#ffb900ff>25%<> 증가; 수배 중 사망하면 자신과 근처 아군 공격 속도 <#ffb900ff>30%<> 증가(<#ffb900ff>5초<>).",
+        "ult": "의료 배낭을 열어 자신과 주변 아군 챔피언에게 <#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> 보호막(<#ffb900ff>4초<>), 자신은 받는 피해 <#ffb900ff>30%<> 감소; 이후 <#ffb900ff>0.5초<>마다 <#ffb900ff>6<>번 주변 아군 체력 <#ffb900ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#ffb900ff>12%<> 회복."
+      },
       "tft_nomsy": {
         "name": "뇸뇸이",
         "attack": "작은 불덩이를 뱉어 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>물리 피해<>. <#ff9028ff>용신의 몸<>: 체력 <#ffb900ff>40%<> 미만이면 매초 최대 체력의 <#ffb900ff>3%<> 회복.",
@@ -783,6 +826,11 @@
         "skill1": "화염 방사기",
         "skill2": "늘어나는 펀치",
         "ult": "깨물기"
+      },
+      "tft_steb": {
+        "skill1": "야전 의료",
+        "skill2": "현상수배",
+        "ult": "의료 배낭"
       },
       "tft_nomsy": {
         "skill1": "불덩이!",
@@ -898,6 +946,13 @@
         "skill2": "拳を飛ばし<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<>の<#ff9028ff>物理ダメージ<>とノックバック；後ろの敵にぶつかると2人とも<#ef5350ff>1.2秒スタン<>。",
         "ult": "突進して<#ffb900ff>2<>回噛みつき、それぞれ<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>135%<>の<#ff9028ff>物理ダメージ<>、<#ef5350ff>1.1秒スタン<>と出血；体力<#ffb900ff>15%<>未満なら処刑し、次のチャンピオンへ突進。"
       },
+      "tft_steb": {
+        "name": "ステブ",
+        "attack": "2本の警棒で交互に<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>。<#ff9028ff>野戦医療<>：回復を受けると、最も近い味方チャンピオン<#ffb900ff>2<>体もその<#ffb900ff>25%<>回復。",
+        "skill": "自分に注射して体力を<#ffb900ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#ffb900ff>60%<>回復し、対象を殴って<#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>120%<>の<#a974ffff>魔法ダメージ<>と<#ef5350ff>0.75秒スタン<>。",
+        "skill2": "近くで最も体力の多い敵チャンピオンを<#ffb900ff>5秒<>指名手配：被ダメージ<#ffb900ff>25%<>増加；手配中に倒れると自分と近くの味方の攻撃速度<#ffb900ff>30%<>増加（<#ffb900ff>5秒<>）。",
+        "ult": "救急バッグを開き、自分と周囲の味方チャンピオンに<#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>のシールド（<#ffb900ff>4秒<>）、自分の被ダメージ<#ffb900ff>30%<>軽減；その後<#ffb900ff>0.5秒<>ごとに<#ffb900ff>6<>回、周囲の味方の体力を<#ffb900ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#ffb900ff>12%<>回復。"
+      },
       "tft_nomsy": {
         "name": "ノムジー",
         "attack": "小さな火の玉を吐き<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>。<#ff9028ff>龍神の体<>：体力<#ffb900ff>40%<>未満の間、毎秒最大体力の<#ffb900ff>3%<>回復。",
@@ -981,6 +1036,11 @@
         "skill1": "火炎放射器",
         "skill2": "エクステンドパンチ",
         "ult": "咬み砕き"
+      },
+      "tft_steb": {
+        "skill1": "野戦医療",
+        "skill2": "指名手配",
+        "ult": "救急バッグ"
       },
       "tft_nomsy": {
         "skill1": "ファイヤーボール！",

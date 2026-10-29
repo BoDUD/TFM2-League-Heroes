@@ -98,7 +98,7 @@ GitHub Actions（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)，Window
 <!-- HEROES:BEGIN -->
 <!-- 这一段由 tools/docs/gen_hero_docs.py 生成，请不要手改。 -->
 
-共 188 位：主包 173 位、tft 包 15 位。点名字看这位英雄现在的技能、附加包和开发记录；表格版见 [docs/heroes.xlsx](docs/heroes.xlsx)。
+共 190 位：主包 173 位、tft 包 17 位。点名字看这位英雄现在的技能、附加包和开发记录；表格版见 [docs/heroes.xlsx](docs/heroes.xlsx)。
 
 ### 上单（43）
 
@@ -197,7 +197,7 @@ GitHub Actions（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)，Window
 | <img src="docs/heroes/img/tft_vander.png" width="32"> | [范德尔](docs/heroes/tft_vander.md)<br>Vander（tft 包） | 打野 | 地下猎犬 · 铁拳突进 · 大招 桥头死守 | — | PPU 2 |
 | <img src="docs/heroes/img/tft_violet.png" width="32"> | [蔚奥莱](docs/heroes/tft_violet.md)<br>Violet（tft 包） | 打野 | 1-2-3连招 · 冲拳 · 大招 底城怒拳 | — | PPU 2 |
 
-### 中单（47）
+### 中单（48）
 
 | 头像 | 英雄 | 分路 | 技能 | 附加包 | 高清帧 |
 |---|---|---|---|---|---|
@@ -245,6 +245,7 @@ GitHub Actions（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)，Window
 | <img src="docs/heroes/img/league_zyra.png" width="32"> | [婕拉](docs/heroes/league_zyra.md)<br>Zyra | 中单 | 致命棘刺 · 缠绕之根 · 大招 绞杀之藤 | [婕拉附加包](addons/league_zyra/README.md) | PPU 1.7 |
 | <img src="docs/heroes/img/tft_alune.png" width="32"> | [拉露恩](docs/heroes/tft_alune.md)<br>Alune（tft 包） | 中单 | 月之降临 · 月华 · 大招 月曜降临 | — | PPU 2 |
 | <img src="docs/heroes/img/tft_aoshin.png" width="32"> | [敖兴](docs/heroes/tft_aoshin.md)<br>Ao Shin（tft 包） | 中单 | 雷息 · 腾云 · 大招 闪电暴雨 | — | PPU 2 |
+| <img src="docs/heroes/img/tft_nomsy.png" width="32"> | [诺姆希](docs/heroes/tft_nomsy.md)<br>Nomsy（tft 包） | 中单 | 火球！ · 龙息 · 大招 龙神飞升 | — | PPU 2.6 |
 | <img src="docs/heroes/img/tft_norra.png" width="32"> | [诺拉](docs/heroes/tft_norra.md)<br>Norra（tft 包） | 中单 | 回忆涌现 · 思乡线缕 · 大招 传送门欢腾！ | — | PPU 2 |
 | <img src="docs/heroes/img/tft_powder.png" width="32"> | [爆爆](docs/heroes/tft_powder.md)<br>Powder（tft 包） | 中单 | 猴子炸弹 · 快跑，爆爆！ · 大招 海克斯水晶炸弹 | — | PPU 1.75 |
 | <img src="docs/heroes/img/tft_silco.png" width="32"> | [希尔科](docs/heroes/tft_silco.md)<br>Silco（tft 包） | 中单 | 罐装畸变体 · 微光注射 · 大招 炼金狂潮 | — | PPU 2 |
@@ -280,7 +281,7 @@ GitHub Actions（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)，Window
 | <img src="docs/heroes/img/league_zeri.png" width="32"> | [泽丽](docs/heroes/league_zeri.md)<br>Zeri | ADC | 被动 内能迁转 · 强穿激光 · 灿丽花火 · 大招 超限爆闪 | [泽丽附加包：W 撞墙激光 + 被动偷盾](addons/league_zeri/README.md) | PPU 3 |
 | <img src="docs/heroes/img/tft_maddie.png" width="32"> | [麦迪](docs/heroes/tft_maddie.md)<br>Maddie（tft 包） | ADC | 连拨击锤 · 通缉令 · 大招 执法狙杀 | — | PPU 1.5 |
 
-### 辅助（28）
+### 辅助（29）
 
 | 头像 | 英雄 | 分路 | 技能 | 附加包 | 高清帧 |
 |---|---|---|---|---|---|
@@ -312,6 +313,7 @@ GitHub Actions（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)，Window
 | <img src="docs/heroes/img/league_yuumi.png" width="32"> | [悠米](docs/heroes/league_yuumi.md)<br>Yuumi | 辅助 | 摸鱼飞弹 · 悠米出动！ · 大招 魔典终章 | [悠米附加包](addons/league_yuumi/README.md) | PPU 1.5 |
 | <img src="docs/heroes/img/league_zilean.png" width="32"> | [基兰](docs/heroes/league_zilean.md)<br>Zilean | 辅助 | 被动 瓶中时光 · 定时炸弹 · 时光发条 · 大招 时光倒流 | [基兰复活附加包](addons/league_zilean_rewind/README.md) | — |
 | <img src="docs/heroes/img/tft_loris.png" width="32"> | [洛里斯](docs/heroes/tft_loris.md)<br>Loris（tft 包） | 辅助 | 皮城争斗 · 盾卫 · 大招 钢铁防线 | — | PPU 2 |
+| <img src="docs/heroes/img/tft_steb.png" width="32"> | [斯特卜](docs/heroes/tft_steb.md)<br>Steb（tft 包） | 辅助 | 战地医疗 · 通缉令 · 大招 医疗背包 | — | PPU 2.6 |
 
 <!-- HEROES:END -->
 

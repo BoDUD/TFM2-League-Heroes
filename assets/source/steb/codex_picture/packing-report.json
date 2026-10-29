@@ -1,0 +1,50 @@
+[
+  {
+    "pose": "A",
+    "source_width": 1254,
+    "source_height": 1254,
+    "source_bbox": [
+      266,
+      404,
+      891,
+      1239
+    ],
+    "grid_columns": 40,
+    "grid_rows": 54,
+    "grid_px": 11,
+    "canvas": [
+      1536,
+      1536
+    ],
+    "origin": [
+      539,
+      792
+    ],
+    "feet_y": 1386,
+    "processing": "nearest cell sampling of generated art; binary alpha; no new drawn body parts"
+  },
+  {
+    "pose": "B",
+    "source_width": 1254,
+    "source_height": 1254,
+    "source_bbox": [
+      115,
+      499,
+      1147,
+      1225
+    ],
+    "grid_columns": 50,
+    "grid_rows": 40,
+    "grid_px": 11,
+    "canvas": [
+      1536,
+      1536
+    ],
+    "origin": [
+      484,
+      946
+    ],
+    "feet_y": 1386,
+    "processing": "nearest cell sampling of generated art; binary alpha; no new drawn body parts"
+  }
+]

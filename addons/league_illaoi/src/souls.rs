@@ -189,6 +189,7 @@ pub const SOULS: &[&str] = &[
     "tft_sevika",
     "tft_silco",
     "tft_smeech",
+    "tft_steb",
     "tft_vander",
     "tft_violet",
 ];

@@ -36,8 +36,8 @@ REPO = os.path.normpath(os.path.join(HERE, "..", ".."))
 MOD = os.path.join(REPO, MOD_ID)
 CLIP = f"{ID}_sfx_"
 # Powder 0.1, Norra 0.2, tft.dll 0.3, Alune 0.4, Silco 0.5, Maddie 0.6, Loris 0.7, Kobuko 0.8, Vander 0.9, Violet 0.10,
-# Krug 0.11, Ao Shin 0.13, Scar 0.14, Renni 0.15, Smeech 0.16, Sevika 0.17, Nomsy 0.18
-VERSION = "0.18.0"
+# Krug 0.11, Ao Shin 0.13, Scar 0.14, Renni 0.15, Smeech 0.16, Sevika 0.17, Steb 0.18, Nomsy 0.19
+VERSION = "0.19.0"
 ADi, APi, TOOLTIP_MAX = pack.ADi, pack.APi, pack.TOOLTIP_MAX
 M, O, A, R, E = pack.M, pack.O, pack.A, pack.R, pack.E
 AD = ADi + O + "100%" + E

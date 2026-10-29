@@ -1,0 +1,562 @@
+[
+  {
+    "file": "steb-run-run1.png",
+    "raw": "raw\\steb-run-run1.png",
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "raw_sha256": "f44459a30b7f5979d5c93c46d70697a7832453aad6be69c029dd2fe70876e519",
+    "art_source": "built-in image_gen",
+    "technical_processing_only": true,
+    "size": [
+      1254,
+      1254
+    ],
+    "grid_px": 9,
+    "bbox": [
+      144,
+      198,
+      1215,
+      1179
+    ],
+    "anchor_translation_px": [
+      0,
+      18
+    ],
+    "requested_ground_y": 1176,
+    "actual_lowest_y": 1179,
+    "strict_pose_alignment": "requires visual review; grid checks do not prove bone or head identity",
+    "expected_reference": {
+      "rows": 95,
+      "ms": 135,
+      "red": {
+        "heel": [
+          97,
+          122
+        ],
+        "toe": [
+          102,
+          125
+        ],
+        "lift": 5.4
+      },
+      "blue": {
+        "heel": [
+          65,
+          115
+        ],
+        "toe": [
+          66,
+          122
+        ],
+        "lift": 7.9
+      },
+      "lead": "red",
+      "near_leg": "blue",
+      "clip": "run@0"
+    },
+    "actual_toes": null,
+    "toe_validation": "See validation.json: approximate measured toes; strict reference alignment failed",
+    "actual_toes_approx_grid": {
+      "blue": [
+        35,
+        112
+      ],
+      "red": [
+        104,
+        126
+      ]
+    }
+  },
+  {
+    "file": "steb-run-run2.png",
+    "raw": "raw\\steb-run-run2.png",
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "raw_sha256": "cd32f437f58ed5953bfb4730390daf98c8836341acf1d97bdd323a6a09aa0f4e",
+    "art_source": "built-in image_gen",
+    "technical_processing_only": true,
+    "size": [
+      1254,
+      1254
+    ],
+    "grid_px": 9,
+    "bbox": [
+      144,
+      279,
+      1224,
+      1179
+    ],
+    "anchor_translation_px": [
+      0,
+      54
+    ],
+    "requested_ground_y": 1176,
+    "actual_lowest_y": 1179,
+    "strict_pose_alignment": "requires visual review; grid checks do not prove bone or head identity",
+    "expected_reference": {
+      "rows": 90,
+      "ms": 102,
+      "red": {
+        "heel": [
+          90,
+          121
+        ],
+        "toe": [
+          94,
+          127
+        ],
+        "lift": 3.6
+      },
+      "blue": {
+        "heel": [
+          65,
+          109
+        ],
+        "toe": [
+          62,
+          116
+        ],
+        "lift": 14.6
+      },
+      "lead": "red",
+      "near_leg": "blue",
+      "clip": "run@200"
+    },
+    "actual_toes": null,
+    "toe_validation": "See validation.json: approximate measured toes; strict reference alignment failed",
+    "actual_toes_approx_grid": {
+      "blue": [
+        36,
+        123
+      ],
+      "red": [
+        108,
+        122
+      ]
+    }
+  },
+  {
+    "file": "steb-run-run3.png",
+    "raw": "raw\\steb-run-run3.png",
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "raw_sha256": "0f8f5a7da83e93021bf5aa23c9e284dc70546677d10a5fd7239f5c2ee18ea712",
+    "art_source": "built-in image_gen",
+    "technical_processing_only": true,
+    "size": [
+      1254,
+      1254
+    ],
+    "grid_px": 9,
+    "bbox": [
+      135,
+      234,
+      1116,
+      1179
+    ],
+    "anchor_translation_px": [
+      0,
+      18
+    ],
+    "requested_ground_y": 1176,
+    "actual_lowest_y": 1179,
+    "strict_pose_alignment": "requires visual review; grid checks do not prove bone or head identity",
+    "expected_reference": {
+      "rows": 98,
+      "ms": 102,
+      "red": {
+        "heel": [
+          82,
+          121
+        ],
+        "toe": [
+          86,
+          127
+        ],
+        "lift": 3.6
+      },
+      "blue": {
+        "heel": [
+          70,
+          115
+        ],
+        "toe": [
+          67,
+          121
+        ],
+        "lift": 9.5
+      },
+      "lead": "red",
+      "near_leg": "blue",
+      "clip": "run@350"
+    },
+    "actual_toes": null,
+    "toe_validation": "See validation.json: approximate measured toes; strict reference alignment failed",
+    "actual_toes_approx_grid": {
+      "blue": [
+        39,
+        111
+      ],
+      "red": [
+        100,
+        128
+      ]
+    }
+  },
+  {
+    "file": "steb-run-run4.png",
+    "raw": "raw\\steb-run-run4.png",
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "raw_sha256": "3349a7921c640dbbd4ead0eb1018c005947b46ff947b0ee0cc3113507327f448",
+    "art_source": "built-in image_gen",
+    "technical_processing_only": true,
+    "size": [
+      1254,
+      1254
+    ],
+    "grid_px": 9,
+    "bbox": [
+      324,
+      270,
+      999,
+      1179
+    ],
+    "anchor_translation_px": [
+      0,
+      0
+    ],
+    "requested_ground_y": 1176,
+    "actual_lowest_y": 1179,
+    "strict_pose_alignment": "requires visual review; grid checks do not prove bone or head identity",
+    "expected_reference": {
+      "rows": 105,
+      "ms": 102,
+      "red": {
+        "heel": [
+          76,
+          113
+        ],
+        "toe": [
+          79,
+          120
+        ],
+        "lift": 10.3
+      },
+      "blue": {
+        "heel": [
+          77,
+          117
+        ],
+        "toe": [
+          78,
+          125
+        ],
+        "lift": 5.6
+      },
+      "lead": "red",
+      "near_leg": "blue",
+      "clip": "run@500"
+    },
+    "actual_toes": null,
+    "toe_validation": "See validation.json: approximate measured toes; strict reference alignment failed",
+    "actual_toes_approx_grid": {
+      "blue": [
+        86,
+        129
+      ],
+      "red": [
+        74,
+        122
+      ]
+    }
+  },
+  {
+    "file": "steb-run-run5.png",
+    "raw": "raw\\steb-run-run5.png",
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "raw_sha256": "0086fab101fd836473b08898b5ab3d54363578b5f3757b0ec7806e1ab880869c",
+    "art_source": "built-in image_gen",
+    "technical_processing_only": true,
+    "size": [
+      1254,
+      1254
+    ],
+    "grid_px": 9,
+    "bbox": [
+      342,
+      225,
+      1080,
+      1179
+    ],
+    "anchor_translation_px": [
+      0,
+      27
+    ],
+    "requested_ground_y": 1176,
+    "actual_lowest_y": 1179,
+    "strict_pose_alignment": "requires visual review; grid checks do not prove bone or head identity",
+    "expected_reference": {
+      "rows": 98,
+      "ms": 102,
+      "red": {
+        "heel": [
+          72,
+          112
+        ],
+        "toe": [
+          74,
+          119
+        ],
+        "lift": 10.9
+      },
+      "blue": {
+        "heel": [
+          81,
+          122
+        ],
+        "toe": [
+          85,
+          126
+        ],
+        "lift": 4.6
+      },
+      "lead": "blue",
+      "near_leg": "blue",
+      "clip": "run@650"
+    },
+    "actual_toes": null,
+    "toe_validation": "See validation.json: approximate measured toes; strict reference alignment failed",
+    "actual_toes_approx_grid": {
+      "blue": [
+        94,
+        129
+      ],
+      "red": [
+        57,
+        122
+      ]
+    }
+  },
+  {
+    "file": "steb-run-run6.png",
+    "raw": "raw\\steb-run-run6.png",
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "raw_sha256": "fb446d964c97315885d7c540b855d4215c4c530d92448ff449aee53e5de516ec",
+    "art_source": "built-in image_gen",
+    "technical_processing_only": true,
+    "size": [
+      1254,
+      1254
+    ],
+    "grid_px": 9,
+    "bbox": [
+      306,
+      234,
+      1125,
+      1179
+    ],
+    "anchor_translation_px": [
+      0,
+      0
+    ],
+    "requested_ground_y": 1176,
+    "actual_lowest_y": 1179,
+    "strict_pose_alignment": "requires visual review; grid checks do not prove bone or head identity",
+    "expected_reference": {
+      "rows": 89,
+      "ms": 102,
+      "red": {
+        "heel": [
+          74,
+          104
+        ],
+        "toe": [
+          73,
+          111
+        ],
+        "lift": 19.3
+      },
+      "blue": {
+        "heel": [
+          81,
+          121
+        ],
+        "toe": [
+          84,
+          127
+        ],
+        "lift": 3.5
+      },
+      "lead": "blue",
+      "near_leg": "blue",
+      "clip": "run@800"
+    },
+    "actual_toes": null,
+    "toe_validation": "See validation.json: approximate measured toes; strict reference alignment failed",
+    "actual_toes_approx_grid": {
+      "blue": [
+        96,
+        129
+      ],
+      "red": [
+        40,
+        106
+      ]
+    }
+  },
+  {
+    "file": "steb-run-run7.png",
+    "raw": "raw\\steb-run-run7.png",
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "raw_sha256": "79e3733badcb45865e8831c62ed7ee21ce78c570fe51a8df502d5a7c5df1d6a6",
+    "art_source": "built-in image_gen",
+    "technical_processing_only": true,
+    "size": [
+      1254,
+      1254
+    ],
+    "grid_px": 9,
+    "bbox": [
+      315,
+      162,
+      1089,
+      1179
+    ],
+    "anchor_translation_px": [
+      0,
+      0
+    ],
+    "requested_ground_y": 1176,
+    "actual_lowest_y": 1179,
+    "strict_pose_alignment": "requires visual review; grid checks do not prove bone or head identity",
+    "expected_reference": {
+      "rows": 97,
+      "ms": 102,
+      "red": {
+        "heel": [
+          80,
+          110
+        ],
+        "toe": [
+          78,
+          115
+        ],
+        "lift": 15.3
+      },
+      "blue": {
+        "heel": [
+          76,
+          121
+        ],
+        "toe": [
+          79,
+          127
+        ],
+        "lift": 3.6
+      },
+      "lead": "blue",
+      "near_leg": "blue",
+      "clip": "run@950"
+    },
+    "actual_toes": null,
+    "toe_validation": "See validation.json: approximate measured toes; strict reference alignment failed",
+    "actual_toes_approx_grid": {
+      "blue": [
+        82,
+        129
+      ],
+      "red": [
+        72,
+        118
+      ]
+    }
+  },
+  {
+    "file": "steb-run-run8.png",
+    "raw": "raw\\steb-run-run8.png",
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "raw_sha256": "4e0a1c333fd4b8b7d50db773552e7ea6d08aacce8ac5b2410d0d4d6ae3534d83",
+    "art_source": "built-in image_gen",
+    "technical_processing_only": true,
+    "size": [
+      1254,
+      1254
+    ],
+    "grid_px": 9,
+    "bbox": [
+      234,
+      180,
+      1098,
+      1179
+    ],
+    "anchor_translation_px": [
+      0,
+      36
+    ],
+    "requested_ground_y": 1176,
+    "actual_lowest_y": 1179,
+    "strict_pose_alignment": "requires visual review; grid checks do not prove bone or head identity",
+    "expected_reference": {
+      "rows": 101,
+      "ms": 135,
+      "red": {
+        "heel": [
+          87,
+          116
+        ],
+        "toe": [
+          88,
+          124
+        ],
+        "lift": 6.3
+      },
+      "blue": {
+        "heel": [
+          69,
+          118
+        ],
+        "toe": [
+          72,
+          124
+        ],
+        "lift": 5.7
+      },
+      "lead": "red",
+      "near_leg": "blue",
+      "clip": "run@1100"
+    },
+    "actual_toes": null,
+    "toe_validation": "See validation.json: approximate measured toes; strict reference alignment failed",
+    "actual_toes_approx_grid": {
+      "blue": [
+        38,
+        128
+      ],
+      "red": [
+        86,
+        128
+      ]
+    }
+  }
+]

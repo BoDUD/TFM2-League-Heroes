@@ -327,6 +327,10 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // game px hair to soles, PPU 1.8 (「A-1、38、PPU 1.8」: 70 rows kept 1:1), and Codex's key poses after her own TFT
     // clips with the design's head, posed by tools/art/rig_sevika.py, so no SIZES row
     ("tft_sevika", 1.8, include_str!("../../../tft/champions/tft_sevika#anim.fanim")),
+    // Steb (tft_steb, the tft pack): the idle, a baton on his shoulder, step 0's A-1 at the user's 40 game px quiff to
+    // soles, PPU 2.6 (「A-1 40 PPU 2.6」: 106 rows kept 1:1), and Codex's key poses after his own TFT clips with the
+    // design's head, posed by tools/art/rig_steb.py, so no SIZES row
+    ("tft_steb", 2.6, include_str!("../../../tft/champions/tft_steb#anim.fanim")),
     // Nomsy (tft_nomsy, the tft pack): the chubby dragon sitting on all fours, step 0's A-1 at the user's 36 game px from
     // the far wing to her feet, PPU 2.6 (「A-1 36 PPU 2.6」: 94 rows kept 1:1), and Codex's key poses after her own TFT
     // clips on the design's palette, posed by tools/art/rig_nomsy.py, so no SIZES row
