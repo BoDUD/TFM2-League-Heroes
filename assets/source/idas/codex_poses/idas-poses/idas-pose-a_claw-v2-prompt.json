@@ -1,0 +1,9 @@
+{
+  "name": "idas-pose-a_claw-v2",
+  "group": "idas-poses",
+  "prompt": "Edit only the anatomical error in this sprite: REMOVE the extra grey dangling claw/hand at the LEFT HIP, around image coordinates (610,970), below the turquoise hip gem. That is a third hand and must disappear. Replace it with the natural gold thigh armor / dark brown hip area. Keep ONLY the two hands at the very far left and very far right ends of the outstretched arms. There must be exactly TWO HANDS total and two feet total. Preserve everything else: exact pose, character, colors, dimensions, all pixels elsewhere, transparent background, no added effects.",
+  "refs": [
+    "C:/Users/OWNER/Documents/Codex/2026-10-30/wanc/outputs/idas-complete/idas-poses/idas-pose-a_claw.png"
+  ],
+  "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a18843-1cd5-7b72-ae02-bee47e6c097b\\exec-5d7b15db-58c1-42e8-abf4-feca718a42f0.png"
+}
