@@ -26,6 +26,7 @@ import sys
 
 import numpy as np
 from PIL import Image
+from scipy import ndimage
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(os.path.dirname(HERE))
@@ -141,6 +142,84 @@ class Canvas:
 MS = {"idle": [1000], "run": [150] * 4, "attack": [183, 184, 100], "skill": [133, 1367], "skill2": [133, 267],
       "ult": [233, 367], "hit": [100, 100], "dead": [140, 260, 300, 600]}
 MS.update({f"oh_{t}": MS[t] for t in ("idle", "run", "attack", "hit", "dead")})
+# Flamespitter on the move: the run's four steps twice, standing the same length (the fire loops within them)
+MS.update({"q_run": [150] * 8, "q_stand": [1200]})
+
+# ------------------------------------------------------------------ Flamespitter on the move (q_run, q_stand)
+# League's Rumble walks while he flames (the user, 2026-10-29: 「兰博不会边走边放火吗」 -> 「就这么做」, the frames approved as
+# drafted): league_rumble's add-on lets him walk through Q and its view hook plays q_run / q_stand while it lasts (the main
+# pack keeps him standing: without the add-on no run frame carries the fire). Each q_run step is q_spray's body - the hull,
+# the levelled cannon, the ball hanging - moved whole so its brass bowl sits where the run step's bowl sits (the run bobs
+# up to 10 rows), over that step's legs (the parts under its bowl, not the ball, specks dropped); the fire is the bake's
+# q_flame moved with the body, so it always pours from the muzzle. Nothing is drawn anew.
+SQ = np.ones((3, 3), bool)
+LEG_MIN = 40                    # a piece of the legs layer smaller than this is a speck of an arm or the ball: dropped
+
+
+def bowl(can):
+    """The brass bowl (the biggest brass part): (its bottom row, its centre column, its right column)."""
+    r, g, b = (can[..., i].astype(int) for i in range(3))
+    brass = (can[..., 3] > 0) & (r > 150) & (g > 100) & (b < 100) & (r - b > 90)
+    lab, k = ndimage.label(brass)
+    big = lab == (np.argmax(ndimage.sum(brass, lab, range(1, k + 1))) + 1)
+    ys, xs = np.nonzero(big)
+    return int(ys.max()), int(round(xs.mean())), int(xs.max())
+
+
+def legs_of(can, outline):
+    """(the leg parts, the leg parts with their outline): the outline-separated parts whose middle lies under the bowl's
+    bottom (2 rows up) and left of its right edge (6 on, the cannon beyond), not the spiked ball (a big part, mostly grey)."""
+    low, _, right = bowl(can)
+    op = can[..., 3] > 0
+    ink = op & (can[..., :3] == np.array(outline[:3])).all(-1)
+    lab, n = ndimage.label(op & ~ink)
+    sel = np.zeros_like(op)
+    for k in range(1, n + 1):
+        m = lab == k
+        ys, xs = np.nonzero(m)
+        rgb = can[m][:, :3].astype(int)
+        grey = ((abs(rgb[:, 0] - rgb[:, 1]) < 25) & (abs(rgb[:, 1] - rgb[:, 2]) < 30)).mean()
+        if len(ys) > 60 and grey > 0.7:
+            continue
+        if ys.mean() > low - 2 and xs.mean() <= right + 6:
+            sel |= m
+    full = sel | (ink & ndimage.binary_dilation(sel, structure=SQ))
+    lab, n = ndimage.label(full, structure=SQ)
+    for k in range(1, n + 1):
+        if (lab == k).sum() < LEG_MIN:
+            full[lab == k] = False
+    return sel & full, full
+
+
+def shifted(a, dy, dx):
+    out = np.zeros_like(a)
+    H, W = a.shape[:2]
+    out[max(dy, 0):H + min(dy, 0), max(dx, 0):W + min(dx, 0)] = a[max(-dy, 0):H + min(-dy, 0), max(-dx, 0):W + min(-dx, 0)]
+    return out
+
+
+def q_run(C):
+    """[(canvas, (dy, dx) the spray body moved)] for run1-4."""
+    spray = C.frame("q_spray")
+    sb, sc, _ = bowl(spray)
+    own, _ = legs_of(spray, C.outline)
+    body = spray.copy()
+    body[own] = 0
+    op = body[..., 3] > 0
+    ink = op & (body[..., :3] == np.array(C.outline[:3])).all(-1)
+    body[ink & ~ndimage.binary_dilation(op & ~ink, structure=SQ)] = 0      # the spray legs' outline left on its own
+    out = []
+    for name in ("run1", "run2", "run3", "run4"):
+        run = C.frame(name)
+        rb, rc, _ = bowl(run)
+        _, legs = legs_of(run, C.outline)
+        dy, dx = rb - sb, rc - sc
+        top = shifted(body, dy, dx)
+        can = np.zeros_like(run)
+        can[legs] = run[legs]
+        can[top[..., 3] > 0] = top[top[..., 3] > 0]
+        out.append((C.rig.finish(can), (dy, dx)))
+    return out
 
 
 def actions(C):
@@ -167,6 +246,12 @@ def actions(C):
     out["oh_hit"] = [f("idle", dx=-2, flash=True, hot=True), f("idle", dx=-1, hot=True)]
     out["oh_dead"] = [f("d_drop", flash=True, hot=True), f("d_drop", hot=True), f("d_down", hot=True),
                       f("d_down", hot=True)]
+    # Flamespitter on the move (the add-on): the spray held still, and the spray body on the run's legs; each step's
+    # body offset kept for the fire (baked)
+    out["q_stand"] = [f("q_spray")]
+    steps = q_run(C)
+    C.q_moved = {id(can): moved for can, moved in steps}
+    out["q_run"] = [can for can, _ in steps] * 2
     return out
 
 
@@ -191,7 +276,17 @@ def baked(C, acts):
     with open(lp(path), encoding="utf-8") as f:
         cfg = json.load(f)
     cfg["items"] = [e for e in cfg["items"] if e["into"] in acts]        # (--tags: only the tags asked for)
-    return C.rig.bake(acts, cfg=cfg) if cfg["items"] else acts
+    if not cfg["items"]:
+        return acts
+    out = C.rig.bake(acts, cfg=cfg)
+    # q_run: the fire laid for q_spray's muzzle, moved with the step's body (bake keeps each frame's body array)
+    moved = getattr(C, "q_moved", {})
+    for lay, _ in out.get("q_run", []):
+        dy, dx = moved[id(lay["body"])]
+        for key in ("over", "under"):
+            if lay[key] is not None:
+                lay[key] = shifted(lay[key], dy, dx)
+    return out
 
 
 def main():

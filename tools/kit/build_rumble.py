@@ -27,6 +27,10 @@ Flags die with him: every life starts cold with Q, E and W ready.
           `DirDot` range q_cone; league_ornn W's), x dz_k% when cast in the Danger Zone (`q_dz` for the whole burst).
           League lets him walk while it burns for 3 s; the flame has a front and a back and rides on him, so it is
           drawn into his own skill frames (the client never mirrors an effect picture) and he stands for the burst.
+          The add-on's copy (native, addons/league_rumble; the user 2026-10-29: 「兰博不会边走边放火吗」): he stands only
+          for the aim (q_first ticks of `skill`), then walks with `q_on` up for the burst; the add-on's view hook plays
+          his q_run / q_stand frames (the fire drawn in, tools/art/rig_rumble.py) while it lasts. The cone still points
+          from where he is to the cast's target.
           The cone reaches as far as the fire is drawn (2026-10-25: his cannon's muzzle is 35 px ahead of him in the
           frame and the fire pours 42 px on from it, so q_len 72 px), and he casts it from q_range 45 px.
   skill2  E Electro-Harpoon (电子鱼叉), `Targeting` on `EnemyWithoutTower` (e_range, `e_cd`): a harpoon (a line
@@ -290,7 +294,8 @@ def action(name, dur, cd, st, rng, ctype, ctarget, effect, atype="Skill", cancel
             "casting_type": ctype, "casting_target": ctarget, "attack_type": atype, "effect": effect}
 
 
-def build(p):
+def build(p, native=False):
+    """native: the add-on's copy (addons/league_rumble) - Flamespitter cast on the move."""
     ctl_p = p["ctl_p"]
     dz = p["dz_k"]
     haste = lambda name, pct_, t: buff(name, t, move_speed_mult=pct_)
@@ -340,9 +345,11 @@ def build(p):
                    tsfx("q_hit")]
             return delayed(p["q_first"] + k * p["q_gap"] - 1,
                            alive_aimed(ahead(p["q_len"], p["q_cone"], "EnemyWithoutTower", *hit)))
-        # (the flame itself is drawn into his skill frames: tools/art/rig_rumble.py)
+        # (the flame itself is drawn into his skill frames: tools/art/rig_rumble.py); the add-on's copy: the aim only,
+        # then he walks with q_on up and the add-on's view hook plays q_run / q_stand (the fire drawn in)
+        hold = (anim("skill", p["q_first"]), refresh("q_on", p["q_t"])) if native else (anim("skill", p["q_t"]),)
         return combine(refresh("q_cd", p["q_cd"]), sw("dz", refresh("q_dz", p["q_t"])), heat(2),
-                       anim("skill", p["q_t"]), sfx("q"), voice("vo_q", p), *[pulse(k) for k in range(p["q_n"])])
+                       *hold, sfx("q"), voice("vo_q", p), *[pulse(k) for k in range(p["q_n"])])
 
     # ------------------------------------------------------------------ E Electro-Harpoon (+ the second)
     def harpoon(second):

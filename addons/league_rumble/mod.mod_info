@@ -11,10 +11,10 @@
       "version": ">=0.219.0"
     }
   ],
-  "description": "Test build of Rumble's whole-body red-hot Overheat (needs League of Legends Heroes): while overheated Rumble stands, runs, gets hit and dies red-hot (the main pack: only his overheated attacks). The main pack's data is untouched. Writes a log for testing.",
-  "last_updated": "2026-10-25",
+  "description": "Test build of Rumble as in League (needs League of Legends Heroes): while overheated Rumble stands, runs, gets hit and dies red-hot (the main pack: only his overheated attacks), and he walks while Flamespitter burns, the fire pouring from his cannon (the main pack: he stands for it) - the add-on replaces the main pack's Rumble with a copy whose Flamespitter does not hold him. Other champions are untouched. Writes a log for testing.",
+  "last_updated": "2026-10-29",
   "mod_id": "league_rumble",
   "mod_type": "native",
   "name": "League Heroes: Rumble's whole-body red-hot Overheat (test)",
-  "version": "0.1.0"
+  "version": "0.2.0"
 }

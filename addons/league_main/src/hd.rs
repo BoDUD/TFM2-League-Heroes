@@ -241,7 +241,8 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     ("league_ambessa", 2.0, include_str!("../../../league/champions/league_ambessa#anim.fanim")),
     // Rumble: posed by tools/art/rig_rumble.py on Codex's step-1 take B-1 as drawn (62 rows mohawk to the red feet = 36
     // game px) and its key poses after League's clips (the design's head put back) at the user's 1.75 squares a game
-    // pixel (3/4 only; Overheat's red-hot oh_* tags league_rumble's view hook swaps in), so no SIZES row
+    // pixel (3/4 only; Overheat's red-hot oh_* tags and Flamespitter-on-the-move's q_run / q_stand league_rumble's view
+    // hook swaps in), so no SIZES row
     ("league_rumble", 1.75, include_str!("../../../league/champions/league_rumble#anim.fanim")),
     // Trundle: posed by tools/art/rig_trundle.py on Codex's step-0 take A-1 as drawn (85 rows mane to feet = 42.5 game
     // px, hunched, the ice club out to 52 px) and its key poses after League's clips (the design's head put back) at the
