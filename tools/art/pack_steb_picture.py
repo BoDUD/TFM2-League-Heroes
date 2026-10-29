@@ -13,8 +13,8 @@ pointed fin ears, teal scale freckles on his cheeks and a teal slicked-back quif
 green gloves and boots, a big brown leather backpack (the field medic's kit), and two hextech side-handle batons
 (tonfas: a blue steel tube, brass caps, glowing cyan runes, a wooden grip). His model is in the Riot client's
 TFTSet13.wad.client: tft13_fish.skn + .skl (96 joints), three submeshes with their own colour maps (Body, Backpack,
-Weapon = both batons). His animation bin links eight clips by path hash only: CLIPS below names them by what they show
-(rendered and read by eye, 2026-10-29). Two pictures at one square size: A = his idle (one baton on his shoulder, the
+Weapon = both batons). His animation bin links eight clips by path hash only; six have their paths found by name (idle, run,
+attack1, attack2, spell, death), CLIPS below names them so. Two pictures at one square size: A = his idle (one baton on his shoulder, the
 other pointing down at his side); B = his fighting crouch (both batons held forward). The user picks one.
 """
 import argparse
@@ -42,13 +42,13 @@ SKN, SKL = CHAR + "tft13_fish.skn", CHAR + "tft13_fish.skl"
 TEX = CHAR + "tft13_fish_base_tx_cm.tex"
 PART_TEX = {"Backpack": CHAR + "tft13_fish_base_backpack_tx_cm.tex",   # each submesh with its own map
             "Weapon": CHAR + "tft13_fish_base_weapon_tx_cm.tex"}
-CLIPS = {
+CLIPS = {   # their paths: assets/characters/tft13_fish/skins/base/animations/<name>.anm (the dances unnamed)
     "idle": 13018538065718426540,        # 1.97 s: standing, a baton on his shoulder, the other pointing down
-    "stance": 5356066349845203418,       # 1.63 s: a swing into a wide fighting crouch, the batons held forward
-    "combat": 9118729368212794473,       # 1.80 s: baton swings, then a hunched guard
+    "attack2": 5356066349845203418,      # 1.63 s: a swing into a wide fighting crouch, the batons held forward
+    "attack1": 9118729368212794473,      # 1.80 s: baton swings, then a hunched guard
     "run": 5057476057500924436,          # 1.30 s: a run, a baton on his shoulder
     "death": 14798793227916524658,       # 1.33 s: knocked down, the baton flies, lies flat
-    "intro": 9781569442673553887,        # 2.17 s: intro, batons spun and planted
+    "spell": 9781569442673553887,        # 2.17 s: his spell (Field Medicine)
     "dance": 5829912437719379372,        # 0.97 s: batons crossed overhead, a squat
     "dance2": 3096066159677753460,       # 0.97 s: a baton twirled up
 }
@@ -63,9 +63,9 @@ RENDERS = {
     "4_steb_batons": (35, "weapon", "idle@0"),       # the two batons alone
     "5_steb_back": (180, "box", "idle@0"),           # the backpack
     "6_steb_head_front": (0, "head", "idle@0"),
-    "7_steb_stance": (35, "box", "stance@1200"),     # B
+    "7_steb_stance": (35, "box", "attack2@1200"),     # B
     "8_steb_pack": (150, "pack", "idle@0"),          # the backpack alone, from behind and the side
-    "9_steb_swing": (35, "box", "combat@500"),       # a baton swing: only the size of the batons next to him
+    "9_steb_swing": (35, "box", "attack1@500"),       # a baton swing: only the size of the batons next to him
 }
 CUT = {  # style pictures cut from a sheet: name -> (folder, sheet, tag)
     "11_style_caitlyn.png": (CHAMPS, "league_caitlyn", "idle"),
@@ -181,7 +181,7 @@ def main():
     guide(m, "idle@0", k, os.path.join(refs, "10a_layout_A.png"),
           f"A: the idle, a baton on his shoulder, the other pointing down; quiff top to soles ~{A_SQUARES * SQ} px "
           f"({A_SQUARES} squares of {SQ}); layout only")
-    guide(m, "stance@1200", k, os.path.join(refs, "10b_layout_B.png"),
+    guide(m, "attack2@1200", k, os.path.join(refs, "10b_layout_B.png"),
           "B: the fighting crouch, the batons held forward; the same scale as A; size only")
     for name, (folder, sheet_name, tag) in CUT.items():
         cut(folder, sheet_name, tag, os.path.join(style, name))
